@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DWS Engineering Standard v1.0 (DDM-v1)</title>
+<style>body{font-family:Georgia,serif;max-width:860px;margin:2rem auto;padding:0 1.5rem;line-height:1.65;color:#1a1a1a}h1,h2,h3{font-family:-apple-system,Helvetica,sans-serif;line-height:1.25}h2{border-bottom:1px solid #ddd;padding-bottom:.3rem;margin-top:2.5rem}code,pre{font-family:SFMono-Regular,Menlo,monospace;font-size:.9em;background:#f5f5f5;border-radius:4px}pre{padding:.8rem;overflow-x:auto}code{padding:.1em .35em}table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92em}th,td{border:1px solid #ccc;padding:.45rem .6rem;text-align:left;vertical-align:top}th{background:#f0f0f0}.provenance{background:#fafafa;border:1px solid #e0e0e0;border-radius:6px;padding:1rem 1.25rem;font-size:.85em;margin:1.5rem 0}</style>
+</head>
+<body>
+<div class="provenance"><strong>DWS Engineering Standard — DDM-v1</strong><br>Evidence: Tool=OpenCode 1.18.22 · Model=opencode/x-preview-f-free (ox-alpha) · Session=interactive HIC ping-pong · Date=2026-08-24<br>Source of truth: <code>DWS_ENGINEERING_STANDARD.md</code> (repo master per Repository-First Rule). This HTML is the Learn/ rendering.</div>
+<h1>DWS Engineering Standard</h1>
+<hr>
+<h1>VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.0</p>
+<p>Sessions &amp; Modifications:</p>
+<ul>
+<li>Version: 1.0 [Latest] | Tool: OpenCode 1.18.22 | Model: opencode/x-preview-f-free (ox-alpha) | Session: interactive HIC ping-pong (no batch SessionID — authored live with the founder, 24.08.2026) | Date: 24.08.2026 | Changes: Initial creation. Codifies the DWS Development Model (DDM-v1): the policy layer governing autonomous agent development on the opencode-all Living Engine runtime. Origin: HIC directive of 24.08.2026 after a real defect chain (PR #1886) proved that plausible-looking agent output required a mandatory audit pipeline, a second-pass critic, and a bounded retry threshold.</li>
+</ul>
+<p>Session Links &amp; References:</p>
+<ul>
+<li>Field note (runtime): <code>docs/field-notes/2026-08-24-opencode-all-living-engine.md</code></li>
+<li>Trigger PR: https://github.com/blogtheristo/dws6/pull/1886</li>
+<li>View on GitHub: https://github.com/blogtheristo/dws6/blob/main/DWS_ENGINEERING_STANDARD.md</li>
+</ul>
+<p>Document Status:</p>
+<ul>
+<li>Created: 24.08.2026</li>
+<li>Last Modified: 24.08.2026</li>
+<li>Language: English</li>
+</ul>
+<hr>
+<h2>Table of Contents</h2>
+<ol>
+<li><a href="#1-purpose--scope">Purpose &amp; Scope</a></li>
+<li><a href="#2-engine-vs-policy--the-two-layers">Engine vs Policy — The Two Layers</a></li>
+<li><a href="#3-cycle-model--bounded-48-hour-runs">Cycle Model — Bounded 48-Hour Runs</a></li>
+<li><a href="#4-instruction-packs--model-routing">Instruction Packs &amp; Model Routing</a></li>
+<li><a href="#5-isolation--restart-safe-state">Isolation &amp; Restart-Safe State</a></li>
+<li><a href="#6-mandatory-audit-gates">Mandatory Audit Gates</a></li>
+<li><a href="#7-second-pass-critic">Second-Pass Critic</a></li>
+<li><a href="#8-structured-outputs-per-branch">Structured Outputs per Branch</a></li>
+<li><a href="#9-continuation-rules">Continuation Rules</a></li>
+<li><a href="#10-retry--stop-conditions">Retry &amp; Stop Conditions</a></li>
+<li><a href="#11-needs-human-boundaries">NEEDS-HUMAN Boundaries</a></li>
+<li><a href="#12-cycle-review-loop--ddm-vn1">Cycle Review Loop → DDM-v(N+1)</a></li>
+<li><a href="#13-governance">Governance</a></li>
+</ol>
+<hr>
+<h2>1. Purpose &amp; Scope</h2>
+<p>This standard defines how DWS ships software with autonomous agents. It is an <strong>engineering standard, not an agent prompt</strong>: any given system prompt is one implementation of this standard, and the standard must survive model changes (ox-alpha → qwen3-coder → anything stronger).</p>
+<p>Scope: every autonomous or semi-autonomous code-producing run executed by the opencode-all Living Engine (<code>scripts/opencode-batch-worker.mjs</code>, <code>.workflows/opencode-all/</code>), including manual ping-pong sessions that borrow its gates.</p>
+<p>Out of scope: human-authored commits, which follow the normal review flow (though they benefit from the same gates).</p>
+<h2>2. Engine vs Policy — The Two Layers</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Artifact</th>
+<th>Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Runtime</strong> — opencode-all &quot;Living Engine&quot;</td>
+<td><code>scripts/opencode-batch-worker.mjs</code>, queue/lifecycle state files</td>
+<td>Code changes via PR</td>
+</tr>
+<tr>
+<td><strong>Policy</strong> — DWS Development Model (DDM), versioned</td>
+<td>This standard + per-cycle instruction packs</td>
+<td>Versioned per cycle (§12)</td>
+</tr>
+</tbody>
+</table>
+<p>The engine executes; the standard decides what is worth executing, what evidence a run must produce, and when a human must decide. Neither layer may silently absorb the other's responsibilities: the engine must not encode policy in code comments, and the policy must not depend on one model's habits.</p>
+<h2>3. Cycle Model — Bounded 48-Hour Runs</h2>
+<ol>
+<li>Run opencode-all autonomously for <strong>48 hours</strong> across eligible branches.</li>
+<li>Collect structured outputs per session (§8).</li>
+<li>The HIC reviews the batch and converts patterns into the next instruction pack: common defects, better prompts, stricter tests, retry rules, routing rules.</li>
+<li>Start a fresh 48-hour cycle with those instructions, preserving the prior cycle as evaluation history (§12).</li>
+</ol>
+<p>A cycle is bounded in time, not in task count. When the window closes, in-flight sessions finish their current state-machine transition and stop; nothing carries over half-applied.</p>
+<p>This loop is reinforcement-style learning of <strong>policy</strong>, not true RL: no weight training, no automated reward signal. It improves instructions and evaluation between runs.</p>
+<h2>4. Instruction Packs &amp; Model Routing</h2>
+<p>Each cycle's instruction pack is a versioned artifact containing:</p>
+<ul>
+<li>Task templates for recurring work types;</li>
+<li>Model-routing rules (which model handles which task class, and why);</li>
+<li>Mandatory test and audit gates for the cycle's risk profile;</li>
+<li>Known architectural constraints (what agents must not touch or restructure);</li>
+<li>Repair patterns that worked before;</li>
+<li>Escalation rules for security-sensitive changes.</li>
+</ul>
+<p>Routing is deterministic where possible: classification by path, file type, and risk tier — never by model judgment alone (Engineering Discipline Rule 5).</p>
+<h2>5. Isolation &amp; Restart-Safe State</h2>
+<ul>
+<li>Every session runs in its own git worktree at a deterministic path with its own branch; ACP never runs in the primary checkout.</li>
+<li>Queue state lives in <code>.workflows/opencode-all/queue.jsonl</code>; state transitions are restart-safe — a killed worker resumes from persisted state, never from memory.</li>
+<li>Removal policy: a failed session's worktree is removed only when setup failed or nothing is reviewable; branches with commits are preserved; resumed sessions are never auto-removed.</li>
+<li>Self-reproducibility rule (learned in PR #1886): a commit must build and pass its tests in a clean checkout with zero uncommitted working-tree state. A green run that depended on dirty-tree residue is recorded as a false GREEN.</li>
+</ul>
+<h2>6. Mandatory Audit Gates</h2>
+<p>Every run passes through all seven gates, in order. A gate failure stops the pipeline at that gate.</p>
+<ol>
+<li><strong>Scope gate</strong> — list changed files, classify risk, reject unrelated changes.</li>
+<li><strong>Compile gate</strong> — syntax, typecheck, lint, focused tests, then relevant full tests.</li>
+<li><strong>Behavioral gate</strong> — happy path, failure path, malformed input, auth bypass, retries, timeouts, duplicate execution.</li>
+<li><strong>Diff gate</strong> — inspect the actual diff for duplicate declarations, dead branches, widened response shapes, leaked data, weak error handling, unrelated refactors.</li>
+<li><strong>Contract gate</strong> — verify the handoff against the original task, not merely whether tests pass.</li>
+<li><strong>Provenance gate</strong> — require commit SHA, changed-file list, commands and outputs, limitations, and an explicit GREEN or NEEDS-HUMAN verdict.</li>
+<li><strong>Human gate</strong> — the classes in §11 never auto-merge.</li>
+</ol>
+<p>Gates 1–4 are mechanizable and belong in the worker's validation stage; gates 5–7 require judgment and produce structured findings either way.</p>
+<h2>7. Second-Pass Critic</h2>
+<p>For ox-alpha output specifically, a second-pass critic receives <strong>only</strong> the task, the diff, and the test output — not the implementer's reasoning — and must attempt to disprove the implementation before approval is granted.</p>
+<p>The critic's approval is another review signal, not proof. Rationale: PR #1886's health patch produced plausible code with duplicate fields, overlapping branches, and a broken test helper — exactly what a task/diff/test-only critic catches.</p>
+<h2>8. Structured Outputs per Branch</h2>
+<p>Each branch produces, at minimum:</p>
+<ul>
+<li>Commit SHAs with messages;</li>
+<li>Changed-file list with per-file risk classification;</li>
+<li>Commands executed and their outputs (or audit-record references);</li>
+<li>Test results (focused + relevant full suites);</li>
+<li>Review findings (gates 4–5, critic);</li>
+<li>Runtime/model data (tool, model, session, duration);</li>
+<li>Unresolved risks and limitations;</li>
+<li>Final verdict: GREEN or NEEDS-HUMAN.</li>
+</ul>
+<h2>9. Continuation Rules</h2>
+<p>The batch continues automatically across sessions: a finished session's completion signal unblocks dependent entries without human action. A session that ends HALTED may be resumed by cleanup logic, provided resumption reads its state from the queue record, never from assumptions.</p>
+<h2>10. Retry &amp; Stop Conditions</h2>
+<ul>
+<li>A failed session may retry up to the worker's attempt cap, but only if the failure cause changed between attempts (new error class, new failing gate). Identical repeated failures do not consume retries.</li>
+<li><strong>Quality threshold:</strong> two independent repair or review passes failing the same focused test means NEEDS-HUMAN — not endless retries.</li>
+<li>Retry infrastructure must be self-healing: a removed no-diff worktree leaves no orphan branch behind to block the next attempt (see §5 removal policy).</li>
+</ul>
+<h2>11. NEEDS-HUMAN Boundaries</h2>
+<p>The following never auto-merge, regardless of gate outcomes:</p>
+<ul>
+<li>Security changes (auth, secrets, sandboxing);</li>
+<li>Auth/RLS and database migrations;</li>
+<li>Payments and billing paths;</li>
+<li>Webhooks;</li>
+<li>Public endpoints;</li>
+<li>Deployment configuration (Cloud Run, Cloud Build, infra specs);</li>
+<li>Ambiguous scope or contract-gate mismatch;</li>
+<li>Repeated failure (§10 quality threshold).</li>
+</ul>
+<p>NEEDS-HUMAN is a first-class outcome, not a failure of autonomy. The system is working correctly when it escalates precisely.</p>
+<h2>12. Cycle Review Loop → DDM-v(N+1)</h2>
+<p>Between cycles, the HIC (assisted by Boardy for synthesis) produces the next version of the policy:</p>
+<ol>
+<li>Defect patterns from the scorecard become prompt and template changes;</li>
+<li>Successful repairs become codified repair patterns (§4);</li>
+<li>New gate gaps become stricter tests or new gate checks;</li>
+<li>Misrouted tasks become routing-rule updates;</li>
+<li>Every accepted and rejected patch is recorded with rationale.</li>
+</ol>
+<p>Each cycle yields: an instruction pack, evaluation results, accepted/rejected patch ledger, and a changelog — bumping this standard's version when rules change. Prior cycles are preserved as evaluation history and are never deleted.</p>
+<p>Scorecard dimensions: defects introduced, defects caught (and by which gate), fixes applied, regressions, useful output ratio, NEEDS-HUMAN precision.</p>
+<h2>13. Governance</h2>
+<ul>
+<li>This standard is versioned under the DWS Document Standard (header block, <code>***</code> delimiters, lockstep filename-version rule).</li>
+<li>Registered in <code>DWS_STANDARDS_LIBRARY.md</code> §3.2 (Process / Quality).</li>
+<li>Rule source hierarchy: CLAUDE.md Non-Negotiable Rules &gt; this standard &gt; instruction packs &gt; agent prompts.</li>
+<li>Model changes do not change this standard. If a new model requires different handling, that is a routing-rule update (§4) plus a version entry here — never a silent fork.</li>
+</ul>
+
+<hr><p style="font-size:.85em;color:#555">Version 1.0 · 24.08.2026 · © Lifetime Oy — all rights reserved. Business Confidential. Classification: INTERNAL.</p>
+</body>
+</html>

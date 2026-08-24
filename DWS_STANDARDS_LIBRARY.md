@@ -4,9 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.11
+Version: 1.12
 
 Sessions & Modifications:
+
+- Version: 1.12 | Tool: OpenCode 1.18.22 | Model: opencode/x-preview-f-free (ox-alpha) | Session: interactive HIC ping-pong (authored live with the founder) | Date: 24.08.2026 | Changes: Registered `DWS_ENGINEERING_STANDARD.md` v1.0 (DDM-v1) — the policy layer for autonomous 48-hour development cycles on the opencode-all Living Engine runtime. Added rows in §3.2 (Process / Quality), §3.3 (human approval boundaries / NEEDS-HUMAN), and §3.5 (cycle reporting artifacts); extended §5 Lookup Procedure (agents must load applicable standards pre-task and return them in results) and §6 Maintenance (Boardy proposes DDM updates between cycles; changes are accepted as versions, never mid-flight edits).
 
 - Version: 1.11 | Tool: Claude Code (Sonnet 5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 06.08.2026 | Changes: Corrected the §3.3 KYA-S1 row — reclassified from "standard" to "specification" (HIC correction, propagated from `DWS_TRUTH_STANDARD.md` row 35 v4.6); version bumped to v1.3 (06.08.2026). No change to control content or tiers.
 - Version: 1.10 | Tool: Claude Code (claude-opus-5) | Session: claude/study-palantir-mas2-MwtEw | Date: 04.08.2026 | Changes: Registered **KYA-S1 v1.2** (`Legal/KYA_S1.md`) in §3.3 Security & Governance — the DWS-authored, vendor-facing standard for the autonomous-agent identity-and-behavior layer (IDV / BHM / REG / TC4 + FLT / TRS / PRV; no self-attestation; Bronze/Silver/Gold SLA tiers). This file catalogs external standards, so the row is deliberately thin and points at `DWS_TRUTH_STANDARD.md` row 35, which owns the internal-canonical detail. Status recorded as **Draft — public comment to 04.11.2026**, and **DWS claims no tier** pending an external assessor signature. Re-land of the work originally on PR #1317, closed as superseded after `main` was re-rooted (no common ancestor) — redo prompt `docs/pr-cleanup/next-prompts-v2-bundle.md`. No change to the §3.1 EU AI Act cell: KYA-S1 §4 cites Articles 12/14/50 as three distinct duties and defers to §3.1 + Truth Standard rows 30/31 as canonical.
@@ -32,7 +34,7 @@ Session Links & References:
 Document Status:
 
 - Created: 19.04.2026
-- Last Modified: 04.08.2026
+- Last Modified: 24.08.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -94,7 +96,8 @@ Standards fall into five categories:
 | **Automotive SPICE (ASPICE)**    | v4.0 (2023)        | VDA QMC   | Lifetime Fleet roadmap: Level 2 readiness Phase 5, Level 3 Phase 6                       | Standards Advisor | 🎯 Target (2027)                  |
 | **ISO/IEC 33000 series (SPICE)** | ISO/IEC 33002:2015 | ISO       | General process-capability assessment framework (parent to ASPICE)                       | Standards Advisor | 📋 Adopted in principle           |
 | **ISO/IEC 25010 (SQuaRE)**       | 25010:2023         | ISO       | Quality model for agent trust scores, KYA metrics, Sovereign Database assessment reports | Standards Advisor | 🎯 Target (Phase 3, Aug-Oct 2026) |
-| **ISO 9001**                     | 9001:2015          | ISO       | Quality management — light-touch; considered for DWS IQ 7 operational maturity           | Ops               | 📋 Considered                     |
+| **ISO 9001**      | 9001:2015          | ISO       | Quality management — light-touch; considered for DWS IQ 7 operational maturity           | Ops               | 📋 Considered                     |
+| **DDM-v1**        | v1.0 (24.08.2026)  | `DWS_ENGINEERING_STANDARD.md` (Lifetime Oy — DWS-authored) | **DWS Development Model** — policy layer for autonomous development on the opencode-all Living Engine runtime. Versioned instruction packs + model-routing rules, bounded 48-hour engineering cycles, worktree isolation with restart-safe state, seven mandatory audit gates (scope / compile / behavioral / diff / contract / provenance / human), structured per-branch outputs, automatic continuation, bounded retry with a two-strike quality threshold, and a cycle review loop that turns defects into the next standard version. Engineering standard, not an agent prompt — survives model changes. | HIC | ✅ Active |
 
 ### 3.3 Security & Governance
 
@@ -105,6 +108,7 @@ Standards fall into five categories:
 | **SOC 2 Type II** | AICPA TSC 2017    | AICPA                                          | Phase 6 engagement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Security team | 🎯 Target (2027 Q4)                     |
 | **NIST CSF**      | CSF 2.0 (2024)    | NIST                                           | Reference framework for security control mapping                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Security team | 📋 Reference                            |
 | **KYA-S1**        | v1.5 (09.08.2026) | `Legal/KYA_S1.md` (Lifetime Oy — DWS-authored) | **DWS-published vendor-facing specification** for the autonomous-agent identity-and-behavior layer. Four core control domains (IDV identity binding / BHM adversarial simulation / REG capability registry / TC4 chain termination) + three extension domains (FLT fault attribution / TRS continuous trust score / PRV decision provenance). **No self-attestation** — an independent assessor must sign; assurance levels KYA-AL1 (Standard) / KYA-AL2 (Enhanced) / KYA-AL3 (Critical) differ on revocation + chain-termination SLAs (15 min / 5 min / 60 s) — renamed from Bronze / Silver / Gold in v1.4. §4 anchors the controls to EU AI Act Art. 12, 14 and 50 as **three distinct duties** (see §3.1). **DWS claims no assurance level** until an external assessor signs — the reference implementation is an architecture description, not an attestation. Registered in `DWS_TRUTH_STANDARD.md` row 35. | Security team | 📝 Draft — public comment to 04.11.2026 |
+| **DDM Human Gate** | v1.0 (24.08.2026) | `DWS_ENGINEERING_STANDARD.md` §11 | **Human approval boundaries for autonomous development**: security, auth/RLS, migrations, payments, webhooks, public endpoints, deployment configuration, ambiguous scope, and repeated failure are NEEDS-HUMAN classes — they never auto-merge regardless of gate outcomes. Escalation is a first-class correct outcome, not an autonomy failure. | HIC | ✅ Active |
 
 ### 3.4 Protocol / Interoperability
 
@@ -127,6 +131,7 @@ Standards fall into five categories:
 | **ISSB IFRS S1**         | 2023                               | IFRS Foundation | Sustainability financial disclosure alignment      | Compliance | 📋 Reference |
 | **ISSB IFRS S2**         | 2023                               | IFRS Foundation | Climate-related disclosure alignment               | Compliance | 📋 Reference |
 | **IPCC 2006 Guidelines** | 2006 + 2019 Refinement             | IPCC            | Emission-factor sourcing fallback                  | Compliance | ✅ Active    |
+| **DDM Cycle Reporting** | v1.0 (24.08.2026) | `DWS_ENGINEERING_STANDARD.md` §8, §12 | Structured outputs per autonomous branch: instruction pack, scorecard (defects introduced / caught / fixed, regressions, useful-output ratio), changelog, provenance record (commit SHA, commands + outputs, model/runtime data, limitations, GREEN or NEEDS-HUMAN verdict), and per-branch handoff. Prior cycles preserved as evaluation history — never deleted. | HIC | ✅ Active |
 
 ---
 
@@ -186,6 +191,8 @@ When an agent (or human) needs to determine which standards apply to a given pro
 4. For audit preparation: consult the **Owner** column for responsible team.
 5. For new standards not in this registry: propose addition via PR and update version history.
 
+**Agent pre-task rule (DDM-v1):** before starting any autonomous task, the agent runs this lookup and loads every standard whose trigger matches the task; the agent's structured result MUST list the standards it applied (and flag any it could not load) so the reviewer can verify the contract gate against them.
+
 **SKILL:** `/standards-lookup <name>` — planned skill that wraps this procedure (see `docs/field-notes/2026-04-19-vesala-teemu-standards-enthusiast.md`).
 
 ---
@@ -196,12 +203,14 @@ When an agent (or human) needs to determine which standards apply to a given pro
 - **New standards:** Add only when (a) a customer RFP requires it, (b) a regulator enforces it, or (c) Engineering adopts it in code. No speculative additions.
 - **Version bumps:** On each standard-registry edit, bump version and add VERSION AND AGENT HISTORY entry (per DWS Document Standard).
 - **Deprecation:** Mark standards `⚠️ Deprecated` with sunset date; do not delete rows (preserves audit trail).
+- **DDM versioning (Boardy):** between 48-hour cycles, Boardy synthesizes the defect/review patterns into a proposed DDM version update; the HIC accepts it **as a new version** of `DWS_ENGINEERING_STANDARD.md` — changes are never made mid-flight to a running cycle.
 
 ---
 
 ## 7. Related Documents
 
 - `DWS_TRUTH_STANDARD.md` — **Sibling meta-standard.** Where `DWS_STANDARDS_LIBRARY.md` registers _external_ standards (EU regulations, ISO, IETF), `DWS_TRUTH_STANDARD.md` registers _internal_ canonical files (which file owns the industries count, which owns product prices, which owns KYA scoring, etc.). Founded 2026-05-25 after the industry-count propagation incident, in which a superseded figure of 16 lived in 58 files because no index of canonical files existed. Consult both when investigating a question.
+- `DWS_ENGINEERING_STANDARD.md` — **DDM-v1.** Policy layer for autonomous agent development on the opencode-all Living Engine runtime: versioned instruction packs, bounded 48-hour cycles, seven audit gates, NEEDS-HUMAN boundaries, and the cycle review loop that produces each next policy version.
 - `DWS_ROLES_REGISTRY.md` — Canonical 25-role enterprise taxonomy + 5 buying-journey stages (Sponsors / Owners / Approvers / Drivers / Sign-off). Extracted from the Outokumpu case (2026-05-18). Source for every standard's optional Roles & Responsibilities chapter (template piloted in `DWS_TRUTH_STANDARD.md` §9) and every per-customer outreach wedge matrix. Roles referenced by R-ID (R01–R25).
 - `docs/DWS_STANDARDS_ROADMAP.md` — Gap analysis + Q1-Q4 2026 roadmap
 - `DWS_DOCUMENT_STANDARD.md` — How to write/version this document
