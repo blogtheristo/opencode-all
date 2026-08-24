@@ -238,8 +238,14 @@ const getContainerId = (): string => {
   if (meta) {
     return meta.getAttribute('content') || 'GTM-XXXXXXX';
   }
-  // Fallback to environment variable
-  return process.env.VITE_GTM_CONTAINER_ID || 'GTM-XXXXXXX';
+  // Fallback to environment variable — Vite exposes VITE_* vars via import.meta.env
+  // in browser builds; process.env is typically undefined there.
+  const viteEnv =
+    typeof import.meta !== 'undefined'
+      ? (import.meta as unknown as { env?: Record<string, string> }).env
+      : undefined;
+  const nodeEnv = typeof process !== 'undefined' ? process.env : undefined;
+  return viteEnv?.VITE_GTM_CONTAINER_ID || nodeEnv?.VITE_GTM_CONTAINER_ID || 'GTM-XXXXXXX';
 };
 
 export const gtmClient = new GTMClient(getContainerId());
