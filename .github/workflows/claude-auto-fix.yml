@@ -3,7 +3,7 @@ name: Claude Auto-Fix
 # Token control (HIC 2026-08-24): demoted from automatic PR trigger to
 # manual dispatch only. ai-pr-review.yml is the single primary reviewer;
 # every auto-fix run burns Anthropic tokens on a self-hosted runner.
-# Run manually: gh workflow run claude-auto-fix.yml -f task="..." pr-number=<n>
+# Run manually: gh workflow run claude-auto-fix.yml -f task="..." --ref <pr-branch>
 on:
   workflow_dispatch:
     inputs:
