@@ -500,25 +500,47 @@ function cmdReconcile() {
 
   // Orphan-branch hygiene (DDM-v1 §10 self-healing retry): terminal FAILED
   // entries whose worktree is gone but whose generated branch lingers block
-  // every retry ("branch already exists without worktree"). Empty branches
-  // (zero commits beyond the entry's baseline) are deleted here; branches
-  // with commits are preserved and reported for HIC review.
+  // every retry ("branch already exists without worktree").
+  //
+  // HIC decision 2026-08-24: reconcile NEVER deletes by default. Default is a
+  // report-only dry run; deletion requires --clean AND provable emptiness
+  // (zero commits beyond baseline). Branches with commits are always
+  // preserved and reported NEEDS-HUMAN.
+  const cleanMode = args.includes('--clean');
   let orphansCleaned = 0;
+  let orphansCleanable = 0;
   const orphanKept = [];
   for (const e of out) {
     if (e.state !== 'FAILED' || !e.branch) continue;
     if (!e.baselineCommit) continue; // no baseline = cannot prove emptiness, skip
     const wtPath = join(REPO, '.worktrees', 'opencode-all', e.id);
     if (existsSync(wtPath)) continue; // worktree alive — not an orphan
-    const outcome = removeOrphanBranch(REPO, e.branch, e.baselineCommit);
-    if (outcome === 'deleted') {
+
+    // Non-destructive classification first — no git mutation while reporting.
+    let listing = '';
+    try {
+      listing = execFileSync('git', ['branch', '--list', e.branch], { cwd: REPO, encoding: 'utf8' }).trim();
+    } catch { continue; }
+    if (!listing) continue; // branch already gone — nothing to do
+    const count = branchCommitCount(REPO, e.branch, e.baselineCommit);
+    if (count !== 0) {
+      orphanKept.push(`${e.branch} (${e.id}) has ${count < 0 ? 'UNKNOWN' : count} commit(s) beyond baseline — NEEDS-HUMAN`);
+      continue;
+    }
+    // Provably empty orphan.
+    if (cleanMode) {
+      execFileSync('git', ['branch', '-D', e.branch], { cwd: REPO });
       orphansCleaned++;
-      console.log(`reconcile: cleaned empty orphan branch ${e.branch} (${e.id})`);
-    } else if (outcome === 'kept-has-commits') {
-      orphanKept.push(`${e.branch} (${e.id}) has commits beyond baseline — NEEDS-HUMAN`);
+      console.log(`reconcile: --clean removed empty orphan branch ${e.branch} (${e.id})`);
+    } else {
+      orphansCleanable++;
     }
   }
-  console.log(`reconcile: ${orphansCleaned} empty orphan branch(es) cleaned, ${orphanKept.length} preserved with commits`);
+  if (cleanMode) {
+    console.log(`reconcile: --clean removed ${orphansCleaned} empty orphan branch(es), ${orphanKept.length} preserved with commits`);
+  } else {
+    console.log(`reconcile: REPORT-ONLY — ${orphansCleanable} empty orphan branch(es) cleanable, ${orphanKept.length} preserved with commits (deletion needs --clean after human review)`);
+  }
   for (const k of orphanKept) console.error(`reconcile: PRESERVED ${k}`);
 
   if (violations.length) {
