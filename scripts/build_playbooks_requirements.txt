@@ -1,3 +1,0 @@
-weasyprint>=63.0
-markdown>=3.6
-PyYAML>=6.0

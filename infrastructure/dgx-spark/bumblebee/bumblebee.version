@@ -1,4 +1,0 @@
-# Pinned Bumblebee revision built into the bumblebee-collector image.
-# Update this file (commit message: "bump bumblebee to <sha>") and rebuild.
-# Verify the SHA exists on https://github.com/perplexityai/bumblebee before pinning.
-git_ref=main

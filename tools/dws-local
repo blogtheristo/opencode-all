@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-PROMPT="${*:-}"; [[ -z "$PROMPT" ]] && { echo "Usage: dws-local <prompt>"; exit 1; }
-
-echo "[ROUTE] dws-local (ollama)"
-curl -sS http://127.0.0.1:11434/api/chat \
-  -d "{\"model\":\"qwen2.5-coder:14b\",\"messages\":[{\"role\":\"user\",\"content\":$(printf '%s' "$PROMPT" | jq -Rs .)}],\"stream\":false}" \
-  | jq -r '.message.content'

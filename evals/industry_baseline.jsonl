@@ -1,8 +1,0 @@
-{"prompt": "Which EU standard governs the calculation of embodied carbon for construction works? Answer with the standard number.", "keywords": ["15978"]}
-{"prompt": "A concrete slab was poured on Monday. Under normal conditions, roughly how many days until it reaches sufficient cure strength for formwork removal? Give a number of days.", "keywords": ["day"]}
-{"prompt": "The EU 'Fit for 55' package targets what percentage reduction in net greenhouse gas emissions by 2030? Answer with the percentage.", "keywords": ["55"]}
-{"prompt": "Name the EU directive that requires energy performance certificates and carbon tracking for buildings.", "keywords": ["EPBD"]}
-{"prompt": "In a bill of materials for a steel structure, which property determines structural load capacity? One phrase.", "keywords": ["load"]}
-{"prompt": "For an on-premise sovereign deployment, where must the customer's proprietary structural IP remain?", "keywords": ["on-prem"]}
-{"prompt": "What quantization format is used to fine-tune models efficiently on limited GPU memory (4-bit)? Name it.", "keywords": ["nf4"]}
-{"prompt": "Which regulation requires large EU companies to report sustainability and emissions data (acronym)?", "keywords": ["CSRD"]}
