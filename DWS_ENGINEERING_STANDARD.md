@@ -19,9 +19,11 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+
+- Version: 1.1 [Latest] | Tool: OpenCode 1.18.22 | Model=opencode/x-preview-f-free (ox-alpha) | Session: interactive HIC ping-pong after #1888 recovery | Date: 24.08.2026 | Changes: Added §4a Working Contract, §8.1 Restart-Safe Handoff, §8.2 Evidence Hierarchy, §13.1 Invariant Design as the Human Role.
 
 - Version: 1.0 [Latest] | Tool: OpenCode 1.18.22 | Model: opencode/x-preview-f-free (ox-alpha) | Session: interactive HIC ping-pong (no batch SessionID — authored live with the founder, 24.08.2026) | Date: 24.08.2026 | Changes: Initial creation. Codifies the DWS Development Model (DDM-v1): the policy layer governing autonomous agent development on the opencode-all Living Engine runtime. Origin: HIC directive of 24.08.2026 after a real defect chain (PR #1886) proved that plausible-looking agent output required a mandatory audit pipeline, a second-pass critic, and a bounded retry threshold.
 
@@ -97,6 +99,20 @@ Each cycle's instruction pack is a versioned artifact containing:
 - Escalation rules for security-sensitive changes.
 
 Routing is deterministic where possible: classification by path, file type, and risk tier — never by model judgment alone (Engineering Discipline Rule 5).
+
+### 4a. Working Contract (plan.md formalized)
+
+Every autonomous task begins by writing a machine-readable working contract
+(the plan.md is not agent memory — it is a binding agreement):
+
+- Objective and the exact success criteria;
+- Scope: base commit, files/directories allowed to change, forbidden paths;
+- Planned verification (which gates and tests will prove completion);
+- Stop conditions and escalation triggers.
+
+Deviations from the contract require an explicit re-agreement recorded in the
+handoff (§8.1). A run that silently exceeds its contract fails the contract
+gate regardless of test results.
 
 ## 5. Isolation & Restart-Safe State
 
@@ -182,4 +198,14 @@ Scorecard dimensions: defects introduced, defects caught (and by which gate), fi
 - This standard is versioned under the DWS Document Standard (header block, `***` delimiters, lockstep filename-version rule).
 - Registered in `DWS_STANDARDS_LIBRARY.md` §3.2 (Process / Quality).
 - Rule source hierarchy: CLAUDE.md Non-Negotiable Rules > this standard > instruction packs > agent prompts.
+### 13.1 Invariant Design as the Human Role
+
+"No one reads code" must never mean "no one checks the system". When code
+becomes derivative, the real product is the decision-and-evidence chain. The
+human role rises from reading code to designing the invariants it must hold:
+boundaries (what may never change), tripwires (how violations are detected),
+and recoverability (how everything is restored). Every mechanism in this
+standard — gates, canaries, bundles, restore exercises — is that design work
+made executable.
+
 - Model changes do not change this standard. If a new model requires different handling, that is a routing-rule update (§4) plus a version entry here — never a silent fork.
