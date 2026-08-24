@@ -34,7 +34,7 @@
   - Groq API key (Llama 3.1 70B)
   - Apollo.io API key
   - Clearbit API key
-  - Resend API key (email)
+  - Amazon SES SMTP credentials (SMTP_USER, SMTP_PASS, SMTP_HOST)
   - LinkedIn Sales Navigator account
 - [ ] GitHub repository access (blogtheristo/dws6)
 - [ ] Notification channel: WhatsApp Business Cloud API, Microsoft Teams webhook, or self-hosted ntfy/Gotify
