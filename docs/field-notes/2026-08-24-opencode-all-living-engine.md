@@ -57,7 +57,25 @@ Ox Alpha Free (`x-preview-f-free`) launched 2026-08-20 as a ~one-week free steal
 5. HIC question: resolved — HIC set the fallback deadline condition (above).
 6. Calendar: N/A — Google Calendar tooling not available in this OpenCode session; deadline enforced via engine kill criteria (`engine.json`) instead.
 
-## Test evidence
+## Signal — per-agent full-computer isolation ("orbs" pattern), 2026-08-24
+
+HIC forwarded an external practice (seejayhess / AmpCode): every agent gets its own cloud computer — clone repo, start dev server, run ONE agent with zero contention; a "portal" URL gives live click-through preview of the running app from any device before trusting the output.
+
+Gap analysis vs current DWS substrate:
+
+| Concern | Current (DGX + worktrees) | Orbs pattern |
+|---|---|---|
+| Code isolation | git worktrees (`WORKTREE_POLICY.md`) | full VM/container per agent |
+| Runtime contention | shared DGX VRAM budget (max 2 models) | none — one agent per machine |
+| Preview | manual deploy / local port | live portal URL per agent |
+| Cost | near-zero marginal (owned HW) | per-hour cloud compute |
+| Sovereignty | Finland premises, Art. 12 chain | depends on cloud provider |
+
+Assessment: adoptable incrementally — ephemeral per-agent containers already exist (`docs/Deputy-Agents-Architecture.md` §5); the missing piece is the **portal** (live preview URL per running agent workspace). Not adopted wholesale: sovereignty + cost argue for keeping scheduled work on DGX; portals could be added for interactive dev worktrees via Cloudflare Tunnel/per-worktree dev server.
+
+**Decision (HIC, 2026-08-24): DGX containers adopted for agent isolation.** Cloud "orbs" are rejected — sovereignty (Finland premises, CLOUD-Act-free) and near-zero marginal cost keep agent compute on DGX Spark; per-tenant/agent Docker isolation already exists (`docs/Deputy-Agents-Architecture.md` §5). The one gap worth revisiting later is a live preview portal per running worktree container (e.g. Cloudflare Tunnel); not scheduled.
+
+
 
 - Converter: syntax-checked, 10/11+1 sessions imported (2 empty transcripts skipped)
 - Worker: `enqueue` (28 detected), `status`, `lifecycle` (28 transitions logged), `run --dry-run`, live ACP run end-to-end on `ses_004c81d90ffe0457NK6HHNCaYu` (done + guaranteed handoff)
