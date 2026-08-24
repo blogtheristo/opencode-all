@@ -497,6 +497,30 @@ function cmdReconcile() {
   });
   writeQueue(out);
   console.log(`reconcile: ${migrated} legacy entries migrated to explicit terminal states`);
+
+  // Orphan-branch hygiene (DDM-v1 §10 self-healing retry): terminal FAILED
+  // entries whose worktree is gone but whose generated branch lingers block
+  // every retry ("branch already exists without worktree"). Empty branches
+  // (zero commits beyond the entry's baseline) are deleted here; branches
+  // with commits are preserved and reported for HIC review.
+  let orphansCleaned = 0;
+  const orphanKept = [];
+  for (const e of out) {
+    if (e.state !== 'FAILED' || !e.branch) continue;
+    if (!e.baselineCommit) continue; // no baseline = cannot prove emptiness, skip
+    const wtPath = join(REPO, '.worktrees', 'opencode-all', e.id);
+    if (existsSync(wtPath)) continue; // worktree alive — not an orphan
+    const outcome = removeOrphanBranch(REPO, e.branch, e.baselineCommit);
+    if (outcome === 'deleted') {
+      orphansCleaned++;
+      console.log(`reconcile: cleaned empty orphan branch ${e.branch} (${e.id})`);
+    } else if (outcome === 'kept-has-commits') {
+      orphanKept.push(`${e.branch} (${e.id}) has commits beyond baseline — NEEDS-HUMAN`);
+    }
+  }
+  console.log(`reconcile: ${orphansCleaned} empty orphan branch(es) cleaned, ${orphanKept.length} preserved with commits`);
+  for (const k of orphanKept) console.error(`reconcile: PRESERVED ${k}`);
+
   if (violations.length) {
     console.error(`reconcile: ${violations.length} QUEUE HYGIENE VIOLATION(S):`);
     for (const v of violations) console.error(`  - ${v}`);
@@ -793,20 +817,26 @@ async function runBatches() {
 // Per-session isolation: detached worktree at a deterministic path, then a
 // named branch inside it. Refuses to clobber an existing worktree/branch unless
 // the queue entry explicitly resumes it (idempotency). ACP never runs in REPO.
-const WORKTREE_ROOT = join(REPO, '.worktrees', 'opencode-all');
 
-async function createWorktree(entry) {
-  const baseline = entry.baselineCommit || execFileSync('git', ['rev-parse', 'HEAD'], { cwd: REPO, encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 }).trim();
-  const worktreePath = join(WORKTREE_ROOT, entry.id);
+// ctx injection point for regression tests: tests run the real logic against
+// a temporary git repository instead of the live checkout.
+function worktreeRootFor(ctx) {
+  return join(ctx?.repo ?? REPO, '.worktrees', 'opencode-all');
+}
+
+async function createWorktree(entry, ctx = {}) {
+  const repo = ctx.repo ?? REPO;
+  const baseline = entry.baselineCommit || execFileSync('git', ['rev-parse', 'HEAD'], { cwd: repo, encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 }).trim();
+  const worktreePath = join(worktreeRootFor(ctx), entry.id);
   const branch = `opencode/${entry.id}`;
   let created = false;
 
   try {
-    mkdirSync(WORKTREE_ROOT, { recursive: true });
+    mkdirSync(worktreeRootFor(ctx), { recursive: true });
 
     if (existsSync(worktreePath)) {
       // Resume only if the queue entry explicitly points at this exact worktree
-      const currentBranch = execFileSync('git', ['-C', worktreePath, 'branch', '--show-current'], { cwd: REPO, encoding: 'utf8' }).trim();
+      const currentBranch = execFileSync('git', ['-C', worktreePath, 'branch', '--show-current'], { cwd: repo, encoding: 'utf8' }).trim();
       if (entry.worktreePath === worktreePath && currentBranch === branch) {
         console.log(`  [worktree] resuming existing: ${worktreePath} (${branch})`);
         return { path: worktreePath, branch, baseline: entry.baselineCommit ?? baseline, resumed: true };
@@ -814,18 +844,18 @@ async function createWorktree(entry) {
       throw new Error(`worktree exists and cannot be resumed: ${worktreePath}`);
     }
 
-    if (execFileSync('git', ['branch', '--list', branch], { cwd: REPO, encoding: 'utf8' }).trim()) {
+    if (execFileSync('git', ['branch', '--list', branch], { cwd: repo, encoding: 'utf8' }).trim()) {
       throw new Error(`branch already exists without worktree: ${branch} — delete it or reuse`);
     }
 
-    execFileSync('git', ['worktree', 'add', '--detach', worktreePath, baseline], { cwd: REPO, encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 });
+    execFileSync('git', ['worktree', 'add', '--detach', worktreePath, baseline], { cwd: repo, encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 });
     created = true;
     // Named branch is part of the isolation contract — no detached fallback.
-    execFileSync('git', ['-C', worktreePath, 'switch', '-c', branch], { cwd: REPO, encoding: 'utf8' });
+    execFileSync('git', ['-C', worktreePath, 'switch', '-c', branch], { cwd: repo, encoding: 'utf8' });
 
     // Minimal env for tooling: secrets/config copied per WORKTREE_POLICY conventions
     for (const f of ['.env', '.mcp.json']) {
-      const src = join(REPO, f);
+      const src = join(repo, f);
       if (existsSync(src)) {
         const { copyFileSync } = await import('node:fs');
         copyFileSync(src, join(worktreePath, f));
@@ -837,23 +867,23 @@ async function createWorktree(entry) {
   } catch (error) {
     console.error(`  [worktree] FAILED for ${entry.id}: ${error.message}`);
     // Only remove partial worktrees created during THIS attempt — never a resumed one.
-    if (created) removeWorktreePath(worktreePath);
+    if (created) removeWorktreePath(worktreePath, ctx);
     throw error;
   }
 }
 
-function removeWorktreePath(worktreePath) {
+function removeWorktreePath(worktreePath, ctx = {}) {
   if (!worktreePath || !existsSync(worktreePath)) return;
   try {
-    execFileSync('git', ['worktree', 'remove', '--force', worktreePath], { cwd: REPO });
+    execFileSync('git', ['worktree', 'remove', '--force', worktreePath], { cwd: ctx.repo ?? REPO });
     console.log(`  [worktree] removed: ${worktreePath}`);
   } catch (e) {
     console.error(`  [worktree] remove FAILED (left in place): ${e.message}`);
   }
 }
 
-function removeWorktree(entry) {
-  removeWorktreePath(entry.worktreePath);
+function removeWorktree(entry, ctx = {}) {
+  removeWorktreePath(entry.worktreePath, ctx);
 }
 
 // A failed session still deserves review if it produced any change.
@@ -868,19 +898,61 @@ function worktreeHasDiff(worktreePath, baseline) {
 }
 
 // Removal policy: remove ONLY when setup failed or nothing is reviewable.
-function cleanupWorktreeAfterFailure(cur, resumed = false) {
-  if (!cur.worktreePath || !existsSync(cur.worktreePath)) return;
+// Self-healing retry path (DDM-v1 §10): a removed no-diff worktree must not
+// leave its generated branch behind — an orphan `opencode/<id>` branch makes
+// every retry fail at createWorktree before ACP starts. The branch is deleted
+// only when it carries ZERO commits beyond baseline; any commits preserve it
+// and escalate to NEEDS-HUMAN (fail loud, never delete work silently).
+function cleanupWorktreeAfterFailure(cur, resumed = false, ctx = {}) {
+  if (!cur.worktreePath || !existsSync(cur.worktreePath)) return 'no-worktree';
   if (resumed || cur.worktreeResumed) {
     cur.worktreeState = 'kept-resumed';
-    return;
+    return 'kept-resumed';
   }
   if (worktreeHasDiff(cur.worktreePath, cur.baselineCommit)) {
     cur.worktreeState = 'kept-for-review';
     console.log(`  [worktree] preserved for review (has diff): ${cur.worktreePath}`);
-    return;
+    return 'kept-for-review';
   }
-  removeWorktreePath(cur.worktreePath);
+  removeWorktreePath(cur.worktreePath, ctx);
+  const branch = cur.branch ?? `opencode/${cur.id}`;
+  const outcome = removeOrphanBranch(ctx.repo ?? REPO, branch, cur.baselineCommit);
+  if (outcome === 'kept-has-commits') {
+    // Paradox guard: working tree showed no diff but the branch has commits.
+    // Preserve the branch and escalate — do not retry over live work.
+    cur.worktreeState = 'kept-has-commits';
+    cur.stopReason = 'needs-human';
+    console.log(`  [worktree] branch preserved (has commits), NEEDS-HUMAN: ${branch}`);
+    return 'kept-has-commits';
+  }
   cur.worktreeState = 'removed-no-diff';
+  console.log(`  [worktree] orphan branch cleaned (${outcome}): ${branch}`);
+  return 'removed-no-diff';
+}
+
+// Count commits on branch beyond baseline; -1 if the rev-list fails (branch
+// unreadable — treated as "has unknown work", never auto-deleted).
+function branchCommitCount(repo, branch, baseline) {
+  try {
+    const out = execFileSync('git', ['rev-list', '--count', `${baseline}..${branch}`], { cwd: repo, encoding: 'utf8' });
+    return parseInt(out.trim(), 10);
+  } catch {
+    return -1;
+  }
+}
+
+function removeOrphanBranch(repo, branch, baseline) {
+  let listing;
+  try {
+    listing = execFileSync('git', ['branch', '--list', branch], { cwd: repo, encoding: 'utf8' }).trim();
+  } catch {
+    return 'absent';
+  }
+  if (!listing) return 'absent';
+  const count = branchCommitCount(repo, branch, baseline);
+  if (count !== 0) return 'kept-has-commits'; // includes -1 unknown: never delete on doubt
+  execFileSync('git', ['branch', '-D', branch], { cwd: repo });
+  return 'deleted';
 }
 
 async function processOneInWorktree(worktreeInfo, entry, signal = null) {
@@ -916,4 +988,4 @@ if (invokedDirectly) {
   })();
 }
 
-export { AcpClient };
+export { AcpClient, createWorktree, cleanupWorktreeAfterFailure, removeOrphanBranch };
