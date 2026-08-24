@@ -845,6 +845,6 @@ All real `// TODO` markers in `src/` are triaged in [`docs/backlog/CODE_TODO_LED
 ---
 
 **Document Version:** 1.3  
-**Last Updated:** August 22, 2026  
+**Last Updated:** August 24, 2026  
 **Status:** Active  
 **Next Review:** October 10, 2026
