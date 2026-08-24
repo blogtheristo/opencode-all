@@ -1,3 +1,5 @@
+// Evidence: Tool=OpenCode 1.18.22 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-24
+// Audit trail: git log -- src/routes/webhook.routes.ts
 /**
  * Webhook Routes — Inbound Email
  *
@@ -20,6 +22,8 @@
  */
 
 import express, { type Request, type Response, type Router } from 'express';
+import crypto from 'crypto';
+import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';
 import {
   isAuthorizedSender,
@@ -351,7 +355,48 @@ const handleInboundWebhook = async (req: Request, res: Response): Promise<void> 
 };
 
 // Primary inbound endpoint (Amazon SES inbound → SNS/HTTPS)
-router.post('/inbound', handleInboundWebhook);
+// ============================================================================
+// INBOUND AUTH: provider token gate
+//
+// The From-address allowlist below is not an authentication boundary — email
+// From headers are trivially spoofed. Callers (inbound-parse provider or the
+// reverse proxy in front of it) must present INBOUND_WEBHOOK_TOKEN in the
+// X-Inbound-Token header. Fail-closed 503 when unset, constant-time compare.
+// ============================================================================
+
+const inboundLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+function requireInboundToken(req: Request, res: Response): boolean {
+  const expected = process.env.INBOUND_WEBHOOK_TOKEN;
+  if (!expected) {
+    logger.error('INBOUND_WEBHOOK_TOKEN not configured — rejecting inbound webhook');
+    res.status(503).json({ error: 'Inbound webhook auth not configured' });
+    return false;
+  }
+  const provided = req.headers['x-inbound-token'];
+  if (
+    typeof provided !== 'string' ||
+    provided.length !== expected.length ||
+    !crypto.timingSafeEqual(Buffer.from(provided), Buffer.from(expected))
+  ) {
+    logger.warn('Inbound webhook: bad token', {
+      correlationId: req.headers['x-correlation-id'],
+    });
+    res.status(401).json({ error: 'Unauthorized' });
+    return false;
+  }
+  return true;
+}
+
+router.post('/inbound', inboundLimiter, (req: Request, res: Response) => {
+  if (!requireInboundToken(req, res)) return;
+  void handleInboundWebhook(req, res);
+});
 
 // ============================================================================
 // HELPERS
