@@ -14,6 +14,7 @@ import './config/env.js';
 // Initialize OTel before any module that may emit spans (agent registry,
 // llm-client, workflows). Safe no-op when OTEL_EXPORTER_OTLP_ENDPOINT is unset.
 import { initOtel, shutdownOtel } from './observability/otel.js';
+import { recordHttpRequest } from './observability/metrics.js';
 initOtel();
 
 import express, { type Express, type NextFunction, type Request, type Response } from 'express';
@@ -33,7 +34,6 @@ import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes
 import adminSupportRoutes from './routes/admin-support.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
-import smartFactoryRoutes from './routes/smart-factory.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import bookingRoutes from './routes/booking.routes.js';
 import supportRoutes from './routes/support.routes.js';
@@ -212,6 +212,16 @@ app.use(correlationId);
 // API versioning header on all responses
 app.use(apiVersionMiddleware);
 
+// OTel HTTP metrics — counter + duration histogram per request (Aspire Metrics tab)
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const startAt = process.hrtime.bigint();
+  res.on('finish', () => {
+    const durationMs = Number(process.hrtime.bigint() - startAt) / 1_000_000;
+    recordHttpRequest(req.path || 'unknown', req.method, res.statusCode, durationMs);
+  });
+  next();
+});
+
 // Body parsers with size limits
 //
 // IMPORTANT: stripe-webhook routes are mounted BEFORE express.json() (further
@@ -305,10 +315,6 @@ app.use('/api/v1/outreach', outreachRoutes);
 
 // Outreach quick-send (send emails to prospects, admin key auth)
 app.use('/api/v1/outreach', outreachSendRoutes);
-
-// Smart Factory for Sales — catalog → prospect matching → multi-channel outreach → call booking
-// (shared secret auth via X-Smart-Factory-Key)
-app.use('/api/v1/smart-factory', smartFactoryRoutes);
 
 // Firehorse Omnichannel Pilot (sales automation, signals, lead management)
 app.use('/api/v1/firehorse', firehorseRoutes);
