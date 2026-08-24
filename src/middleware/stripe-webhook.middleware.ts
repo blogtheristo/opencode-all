@@ -1,3 +1,5 @@
+// Evidence: Tool=OpenCode 1.18.22 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-24
+// Audit trail: git log -- src/middleware/stripe-webhook.middleware.ts
 import { type NextFunction, type Request, type Response } from 'express';
 import crypto from 'crypto';
 import type Stripe from 'stripe';
@@ -78,14 +80,22 @@ export function verifyStripeWebhook(req: VerifiedRequest, res: Response, next: N
     // Timing-safe comparison to prevent timing attacks
     let isValid = false;
     for (const sig of signatures) {
-      if (sig && crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) {
+      if (!sig) continue;
+      // Length-guard first: timingSafeEqual THROWS on length mismatch.
+      if (sig.length !== expected.length) continue;
+      if (crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) {
         isValid = true;
         break;
       }
     }
 
     if (!isValid) {
-      logger.warn('Invalid stripe-signature', { expected, received: signatures[0] });
+      // Never log the expected HMAC — logs must not become a signing oracle.
+      logger.warn('Invalid stripe-signature', {
+        receivedLength: signatures[0]?.length ?? 0,
+        expectedLength: expected.length,
+        correlationId: req.headers['x-correlation-id'],
+      });
       return res.status(403).json({ error: 'Invalid signature' });
     }
 
@@ -186,14 +196,29 @@ export function stripeRateLimit(req: VerifiedRequest, res: Response, next: NextF
  * Must be used BEFORE express.json() to preserve raw request body for signature verification
  */
 
-export function preserveRawBody(req: VerifiedRequest, _res: Response, next: NextFunction) {
+export function preserveRawBody(req: VerifiedRequest, res: Response, next: NextFunction) {
+  // Size cap: stripe paths bypass express.json's 10kb limit, so without this
+  // the stream concat is an unauthenticated memory-DoS vector.
+  const MAX_RAW_BODY = 256 * 1024; // 256 KiB — generous for Stripe events
   let data = '';
+  let overflow = false;
 
-  req.on('data', (chunk) => {
+  req.on('data', (chunk: string) => {
+    if (overflow) return;
     data += chunk;
+    if (data.length > MAX_RAW_BODY) {
+      overflow = true;
+      logger.warn('Stripe webhook body exceeds size cap', {
+        receivedLength: data.length,
+        correlationId: req.headers['x-correlation-id'],
+      });
+      res.status(413).json({ error: 'Payload too large' });
+      req.destroy();
+    }
   });
 
   req.on('end', () => {
+    if (overflow) return;
     req.rawBody = Buffer.from(data);
     next();
   });
