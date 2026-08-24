@@ -58,6 +58,7 @@ services:
       - "8080:8080"
     env_file:
       - .env
+      - .otlp-common.env
     environment:
       NODE_ENV: production
       PORT: 8080
@@ -392,11 +393,16 @@ services:
     image: mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2
     container_name: aspire-dashboard
     restart: unless-stopped
+    env_file:
+      - .otlp-common.env
     ports:
       - "18888:18888" # Dashboard UI
     environment:
       DASHBOARD__FRONTEND__AUTHMODE: Unsecured
-      DASHBOARD__OTLP__AUTHMODE: Unsecured
+      # OTLP endpoint requires an API key (x-otlp-api-key header) so untrusted
+      # apps on the LAN cannot inject telemetry. Key lives in .otlp-common.env,
+      # gitignored, chmod 600 — never committed.
+      DASHBOARD__OTLP__AUTHMODE: ApiKey
     logging:
       driver: "json-file"
       options:
@@ -521,6 +527,8 @@ services:
       - "host.docker.internal:host-gateway"
     environment:
       OPENCODE_ALL_LIFETIME_DAYS: "30"
+    env_file:
+      - .otlp-common.env
     volumes:
       - /home/admin100/dws6:/repo
       - /home/admin100/.local/share/opencode:/root/.local/share/opencode
