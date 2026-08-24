@@ -1,4 +1,4 @@
-<!-- Evidence: Tool=OpenCode 1.18.21 Model=opencode/x-preview-f-free (ox-alpha) Agent=ox-alpha Date=2026-08-24 -->
+<!-- Evidence: Tool=GitHub Copilot CLI 1.0.80 Model=openai/gpt-5.6-sol Agent=Copilot CLI Date=2026-08-24 -->
 
 # Field Note — opencode-all Living Engine + Risk-Tiered HIC PR Review
 
@@ -29,6 +29,9 @@
 
 5. **Standard: Code Evidence Layer** — added to `CLAUDE.md` (see below).
 
+6. **GitHub Copilot CLI → OpenCode recovery** — `scripts/copilot-sessions-to-opencode.mjs`
+   Reads the local Copilot session index (`~/.copilot/session-store.db`), applies the reviewed PR/issue state map in `.workflows/opencode-all/copilot-resolution.json`, converts selected transcripts and checkpoints into OpenCode import format, and imports them idempotently. Merged-PR sessions end as completed historical context and cannot enter the queue. Open-issue sessions and sessions with concrete undelivered evidence remain queueable. Greetings, navigation, help, and command-only answers are excluded.
+
 ## Decisions taken this session
 
 | # | Decision | Where recorded |
@@ -56,6 +59,18 @@ Ox Alpha Free (`x-preview-f-free`) launched 2026-08-20 as a ~one-week free steal
 4. Drive export: N/A — internal ops note.
 5. HIC question: resolved — HIC set the fallback deadline condition (above).
 6. Calendar: N/A — Google Calendar tooling not available in this OpenCode session; deadline enforced via engine kill criteria (`engine.json`) instead.
+
+## Copilot recovery extension — 2026-08-24
+
+- Seven local `blogtheristo/dws6` Copilot sessions qualified for recovery; two merged-PR sessions were imported only as completed historical context.
+- `opencode-batch-worker.mjs enqueue` added the seven recovery sessions with `source: copilot-import`; existing queue states were preserved.
+- Each imported transcript includes the original Copilot session ID, cwd, branch, qualification reason, and any persisted checkpoint next steps.
+- Cloud-only Copilot sessions are not imported because no local transcript database exists for them on this host. This is surfaced as partial coverage rather than silently treated as complete.
+- KB update: N/A — operational adapter extends the existing opencode-all field note; no new domain concept.
+- Learn HTML: N/A — internal runtime operation; no publication/readability artifact requested.
+- Drive export: N/A — repository remains the operational source; no external deliverable.
+- HIC question: resolved by instruction to add qualifying Copilot sessions to the queue.
+- Calendar: N/A — no new dated commitment was created.
 
 ## Signal — per-agent full-computer isolation ("orbs" pattern), 2026-08-24
 

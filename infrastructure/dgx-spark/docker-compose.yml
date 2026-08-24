@@ -416,7 +416,6 @@ services:
     # :18888/health (checked by dws-heartbeat / systemd unit).
     healthcheck:
       disable: true
-      start_period: 15s
     deploy:
       resources:
         limits:
