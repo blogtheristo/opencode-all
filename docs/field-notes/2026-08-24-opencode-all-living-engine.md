@@ -46,12 +46,7 @@
 
 Ox Alpha Free (`x-preview-f-free`) launched 2026-08-20 as a ~one-week free stealth preview; multiple secondary sources converge on **~2026-08-27** as the likely end. Unverified directly against Anthropic/OpenCode pricing pages (Rule 12 fail-loud). The batch worker's per-session runs will surface auth/model errors after expiry; requeue with a fallback model (e.g. DGX-local qwen3-coder) if that happens.
 
-## Test evidence
-
-- Converter: syntax-checked, 10/11+1 sessions imported (2 empty transcripts skipped)
-- Worker: `enqueue` (28 detected), `status`, `lifecycle` (28 transitions logged), `run --dry-run`, live ACP run end-to-end on `ses_004c81d90ffe0457NK6HHNCaYu` (done + guaranteed handoff)
-- Audit/stamp: round-trip stamp→audit passes; bash `#` prefix accepted; thesis refusal works
-- Known limitation: ACP `session/prompt` result returns no parseable `stopReason` in 1.18.21 (logged as `undefined`) — cosmetic; completion is verified by handoff-file presence instead.
+**Merge record (HIC, 2026-08-24, on PR #1878):** GREEN for current internal ops scope; OPEN — fallback-model validation must run before 2026-08-27, else engine is marked NEEDS-HUMAN; no approval to modify public materials under this work without the separate tier-1 HIC gate.
 
 ## Learning Outcome steps
 
@@ -59,5 +54,12 @@ Ox Alpha Free (`x-preview-f-free`) launched 2026-08-20 as a ~one-week free steal
 2. Field note: this file.
 3. Learn/ HTML: N/A — internal ops note, no publication intent.
 4. Drive export: N/A — internal ops note.
-5. HIC question: confirm fallback model choice before 2026-08-27 (below).
-6. Calendar: expiry follow-up 2026-08-27.
+5. HIC question: resolved — HIC set the fallback deadline condition (above).
+6. Calendar: N/A — Google Calendar tooling not available in this OpenCode session; deadline enforced via engine kill criteria (`engine.json`) instead.
+
+## Test evidence
+
+- Converter: syntax-checked, 10/11+1 sessions imported (2 empty transcripts skipped)
+- Worker: `enqueue` (28 detected), `status`, `lifecycle` (28 transitions logged), `run --dry-run`, live ACP run end-to-end on `ses_004c81d90ffe0457NK6HHNCaYu` (done + guaranteed handoff)
+- Audit/stamp: round-trip stamp→audit passes; bash `#` prefix accepted; thesis refusal works
+- Known limitation: ACP `session/prompt` result returns no parseable `stopReason` in 1.18.21 — completion is labeled PROVISIONAL when undefined (per boardy review); handoff existence is not proof of correct completion.
