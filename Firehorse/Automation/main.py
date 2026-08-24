@@ -371,7 +371,7 @@ async def _execute_action(action_type: str, config: dict) -> dict:
             return response.json()
 
     elif action_type == ActionType.SEND_NOTIFICATION.value:
-        channel = config.get("channel", "webhook")
+        channel = str(config.get("channel", "webhook")).lower()
         message = config.get("message", "Automation notification")
         subject = config.get("subject")
         recipient = config.get("recipient")
