@@ -1,0 +1,43 @@
+{
+  "asOf": "2025-12-23T08:00:00Z",
+  "portfolio": {
+    "spi": 0.94,
+    "cpi": 0.96,
+    "budgetVsForecastPct": -2.4,
+    "safetyTrifr": 3.2,
+    "qualityNcrOpen": 28,
+    "qualityNcrOverdue": 5
+  },
+  "trends": {
+    "cashBurn8w": [2.1, 2.3, 2.2, 2.5, 2.6, 2.7, 2.9, 3.1],
+    "changeOrdersNet": [0, 0.1, 0.15, 0.2, 0.18, 0.22, 0.25, 0.28],
+    "workforceTrend": [162, 168, 171, 175, 180, 184, 184, 182]
+  },
+  "topAlerts": [
+    {
+      "id": "AL-101",
+      "projectId": "PRJ-001",
+      "type": "schedule",
+      "severity": "red",
+      "message": "Critical path slip 5d",
+      "ageHours": 48
+    },
+    {
+      "id": "AL-102",
+      "projectId": "PRJ-002",
+      "type": "quality",
+      "severity": "red",
+      "message": "NCR overdue 3",
+      "ageHours": 24
+    },
+    {
+      "id": "AL-103",
+      "projectId": "PRJ-003",
+      "type": "cost",
+      "severity": "red",
+      "message": "CPI 0.91",
+      "ageHours": 6
+    }
+  ]
+}
+

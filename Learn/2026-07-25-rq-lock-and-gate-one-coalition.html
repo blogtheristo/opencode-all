@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-07-25-rq-lock-and-gate-one-coalition</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-07-25-rq-lock-and-gate-one-coalition</h1>
+</header>
+<h1 id="field-note-locking-six-research-questions-and-finding-the-wrong-list-behind-gate-1">Field
+Note — Locking Six Research Questions, and Finding the Wrong List Behind
+Gate 1</h1>
+<ul>
+<li><strong>Date:</strong> 2026-07-25</li>
+<li><strong>Author:</strong> Risto Anton Päärni (Founder, CEO · Lifetime
+Oy) — via Claude Code session
+<code>claude/greg-isenberg-field-notes-a2r544</code></li>
+<li><strong>Location:</strong> Europe &gt; Finland &gt; Espoo</li>
+<li><strong>Context:</strong> DWS6 — LUT doctoral work
+(<code>PHD_FIREHORSE</code>) and the KYA open specification
+(<code>standards/kya-open/</code>)</li>
+<li><strong>Confidence:</strong> High for the repo findings (three RQ
+sets located, partner map read, repo privacy verified).
+<strong>Medium</strong> for the external candidate assessment (RISE, DNV
+— desk research, no contact made). <strong>Explicitly
+unverified:</strong> the €260bn figure, and the RQ2/RQ3 anchor
+replies.</li>
+</ul>
+<h2 id="ontology-tags">Ontology Tags</h2>
+<ul>
+<li><strong>Geography:</strong> Europe &gt; EU &gt; Finland, Sweden,
+Norway</li>
+<li><strong>Sector:</strong> Research &gt; Doctoral; Governance &gt;
+Standardisation; Conformity assessment</li>
+<li><strong>Entities:</strong> LUT (Smolander), KTH/TECoSA (Törngren),
+RISE, DNV, CEN-CENELEC JTC 21, SFS, Linux Foundation / A2A,
+<code>standards/kya-open/SPEC.md</code>, <code>PHD_FIREHORSE</code>
+Appendix H</li>
+<li><strong>Temporal Context:</strong> 2026-Q3 → 2027</li>
+</ul>
+<hr />
+<h2 id="why-this-session-was-substantive">Why this session was
+substantive</h2>
+<p>Two problems that looked unrelated turned out to be the same problem.
+The doctoral research questions had drifted from four to ten and back,
+and the KYA specification had been described as further along the road
+to standardisation than it is. <strong>Both are failures of the same
+kind: a claim outrunning what has actually been earned.</strong> The
+instruments that fixed them are also the same shape — a lock with a
+mechanism, and a gate with a criterion.</p>
+<hr />
+<h2 id="part-1-the-research-questions-were-not-badly-written-there-were-three-sets-of-them">Part
+1 — The research questions were not badly written; there were three sets
+of them</h2>
+<p>The HIC asked whether six questions could be locked so they stop
+moving. Searching the corpus found the actual cause: <strong>three
+competing sets existed, and none of them knew about the
+others.</strong></p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 27%" />
+<col style="width: 27%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Set</th>
+<th>Where</th>
+<th>Count</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td><code>PHD_FIREHORSE_FI.md</code> §1.2, v3.86</td>
+<td>7</td>
+<td>Lives in the file. §1.2.2’s cross-references are all off by one</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td><code>PHD_RESEARCH_QUESTIONS_RESCOPE_PROPOSAL.md</code>,
+27.06.2026</td>
+<td>7</td>
+<td>Never applied</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td><code>docs/lut/2026-07-14-letter-smolander-six-questions.md</code></td>
+<td>6</td>
+<td><strong>Sent.</strong> In Smolander’s inbox, anchors named</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Set C won on a structural argument, not an aesthetic
+one:</strong> it is the only set that exists in the outside world.
+Locking A or B would put the next message to the supervisor in
+contradiction with the last one, and that costs more credibility than
+any internal defect in the questions. Set C also happened to be the best
+— every question has a named anchor, an existing testbed, and an
+explicit role in the whole (RQ5 the technical spine, RQ6 the
+organisational counterpart).</p>
+<p>Locked 25.07.2026 in
+<code>docs/phd/PHD_RESEARCH_QUESTIONS_LOCK_v1.md</code> v1.1 on HIC
+confirmation (<em>“Kyllä.”</em>).</p>
+<h3 id="the-mechanism-matters-more-than-the-lock">The mechanism matters
+more than the lock</h3>
+<p>A lock without a mechanism drifts again within three months. Four
+rules:</p>
+<ol type="1">
+<li><strong>A signal never becomes a question.</strong> New market,
+regulatory or technology signals attach to an existing RQ or go to the
+signal appendix. They never get their own number.</li>
+<li><strong>Changing the set requires a version bump and a recorded
+reason.</strong> No silent edits.</li>
+<li><strong>The set is externally communicated, so a change is an
+external act</strong> — not an internal decision. That alone puts the
+threshold at the right height.</li>
+<li><strong>The thesis file follows this file, not the other way
+round.</strong></li>
+</ol>
+<h3 id="the-signal-test-the-criterion-that-would-have-prevented-the-drift">The
+signal test — the criterion that would have prevented the drift</h3>
+<blockquote>
+<p><strong>Would this question be worth asking even if the news that
+triggered it had never happened?</strong></p>
+</blockquote>
+<p>Applied to set A, three of seven fail. The clearest case is “DWS OS,”
+which entered the research programme as a spine within 48 hours of two
+news items (Dell+Palantir 18.5., Google 19.5.). It is a true and
+important observation — but it is an <em>answer to a market signal</em>,
+and it belongs in the architecture description and the signal appendix,
+not on the question list.</p>
+<p><strong>Nothing was discarded.</strong> Every rejected question was
+given a new home — sovereignty became a binding condition running
+through all six rather than its own question; the standardisation path
+merged into RQ5; Agentic Commerce, eWallet and transactions were
+retained as a one-paragraph IPR option outside the core scope.</p>
+<hr />
+<h2 id="part-2-the-hics-methodological-correction-and-the-test-it-produced">Part
+2 — The HIC’s methodological correction, and the test it produced</h2>
+<blockquote>
+<p><em>“Minusta nykyinen 3.86 on kuvausta testbed tuotantoympäristöstä
+johon liittyvät tutkimuskysymykset. Tekstin ei ole tarkoitus vastata
+tutkimuskysymyksiin. Jos teksti jo vastaa RQ:hon tai vastaus syntyy
+nykyisen aineiston pohjalta helposti on RQ väärin muotoiltu.”</em></p>
+</blockquote>
+<p>This settles a question that had been open across the whole corpus:
+<strong>what the 3 500-line <code>PHD_FIREHORSE</code> document actually
+is.</strong> It is not a thesis draft. It is a testbed description. The
+research questions <em>relate</em> to it; they are not its table of
+contents.</p>
+<p>From that follows a criterion that did not previously exist:
+<strong>a research question lives in the gap between what the testbed
+demonstrates and what it cannot demonstrate.</strong> And it explains
+the drift mechanically — a rich testbed tempts you to write the
+questions from inside it, and then they answer themselves. That is
+exactly how sets A and B were produced.</p>
+<h3 id="t1-t2-t3">T1 / T2 / T3</h3>
+<ul>
+<li><strong>T1</strong> — would a competent reader answer this from
+v3.86 alone? If yes → it is documentation.</li>
+<li><strong>T2</strong> — would the answer emerge from existing material
+in a week? If yes → it is an analysis task.</li>
+<li><strong>T3</strong> — if the answer turns out negative (“does not
+work”, “not sufficient”, “not adopted”), is that a publishable finding?
+If no → the question is not falsifiable.</li>
+</ul>
+<p><strong>T3 is the new one and the important one.</strong> T1 and T2
+screen out trivial questions. T3 screens out something more dangerous:
+questions that <em>wait for a process rather than investigate a
+phenomenon</em>. Their negative answer is not a finding, it is a delay —
+and you cannot write a dissertation out of a delay.</p>
+<p>The same falsification principle now appears in three places in the
+corpus (§10.26 as a test-quality gate, §14.42 for governance claims,
+T1–T3 for research questions). Stating it once and applying it three
+times is itself a methodological contribution.</p>
+<h3 id="one-of-six-failed-and-it-was-the-one-named-as-the-spine">One of
+six failed — and it was the one named as the spine</h3>
+<p>RQ5 (KYA as an open conformance standard) failed both T1 and T2: the
+corpus contains the artifact, the specification, the reference
+implementation and the four gates. <strong>The counter-intuitive part is
+worth keeping:</strong> RQ5 is the best-anchored question in the set,
+the only one whose artifact is entirely in our own hands. That is
+precisely why it is the most already-answered. <strong>The better a
+question is anchored to your own work, the greater the risk your own
+work has already answered it.</strong></p>
+<p>RQ5 then narrowed twice more, and the second narrowing came from the
+HIC’s own confirmation. When the specification/standard definition was
+confirmed as <em>known</em>, the sharpened v2 (“what distinguishes a
+specification from a standard”) fell to T1 in turn — the criterion works
+against its own author, which is the sign that it is a test and not a
+rhetorical device.</p>
+<p><strong>RQ5 v3, recorded but not adopted:</strong></p>
+<blockquote>
+<p><em>Does the classical specification/standard distinction hold for
+agent governance, where the certified subject changes after
+certification — and is the four-gate criterion necessary and sufficient
+for that difference?</em></p>
+</blockquote>
+<p>A bolt standard certifies an artifact that does not change after
+certification. An agent-governance standard certifies behaviour that
+changes continuously — the model updates, the agent population learns,
+mandates rotate, and §14.33’s Red Queen effect makes the assessor itself
+a moving target. <strong>The classical distinction assumes a static
+subject.</strong> Nobody has answered this, because the question only
+came into existence once the previous two were closed.</p>
+<p>Each narrowing made the question smaller and more answerable. That is
+the right direction.</p>
+<hr />
+<h2 id="part-3-the-specificationstandard-distinction-and-two-things-i-had-wrong">Part
+3 — The specification/standard distinction, and two things I had
+wrong</h2>
+<p>Three states, not two:</p>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 61%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>State</th>
+<th>What it means</th>
+<th>KYA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1 · Specification</td>
+<td>Versioned, implementable, internal</td>
+<td>✅ <strong>here</strong></td>
+</tr>
+<tr class="even">
+<td>2 · Published specification</td>
+<td>Public, licensed, implementable by anyone</td>
+<td>❌ not yet</td>
+</tr>
+<tr class="odd">
+<td>3 · Standard</td>
+<td>Four gates met</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The trap sits between 2 and 3</strong>, because publication
+feels like arrival. The four gates (SPEC §0.6): two or more independent
+implementations by parties with <strong>no commercial relationship to
+the author</strong>; a conformance suite an implementation can fail;
+body acceptance or genuine adoption; change control outliving the
+author.</p>
+<h3 id="correction-1-kya-is-at-state-1-not-state-2">Correction 1 — KYA
+is at state 1, not state 2</h3>
+<p>Earlier versions of the kb file said KYA was a <em>published</em>
+specification. <code>blogtheristo/dws6</code> is
+<strong>private</strong> (verified 25.07.2026), so
+<code>standards/kya-open/SPEC.md</code> is not public. KYA is at state
+1.</p>
+<h3 id="correction-2-the-apache-2.0-patent-licence-has-not-been-granted-to-anyone">Correction
+2 — the Apache-2.0 patent licence has not been granted to anyone</h3>
+<p>It follows from correction 1 and it is not cosmetic.
+<strong>Apache-2.0 §3 grants the patent licence to a recipient.</strong>
+If the work has been conveyed to no one, there are no recipients and the
+licence has not taken effect against anybody.</p>
+<p><strong>Correct formulation: the licence choice is a pre-commitment
+to a patent licence that activates on publication.</strong> Nothing has
+been given away yet — and that makes the NOTICE file’s own warning more
+urgent, not less, because publication is the moment the patent terms
+lock. It also strengthens the decision to keep the specification
+internal for a reason better than “the governance model is
+unsettled.”</p>
+<h3 id="the-a2a-lesson-on-gate-4">The A2A lesson on gate 4</h3>
+<p>Google Cloud <strong>donated A2A to the Linux Foundation in June
+2025</strong>; the project is now governed by a TSC including AWS,
+Cisco, Google, IBM Research, Microsoft, Salesforce, SAP and ServiceNow.
+Gate 4 — change control outliving the author — is not a future
+formality. <strong>It is the expensive step, and it is a
+donation.</strong> The gate you build is a gate you do not own.</p>
+<p>That is not an argument against building it. It is an argument for
+identifying the motive correctly: if the goal is exclusionary control,
+standardisation is the wrong instrument — it is specifically the
+mechanism for giving control up. If the goal is shaping the market, it
+is the right instrument, and the price is control.</p>
+<h3 id="and-on-the-hard-gate-question">And on the hard-gate
+question</h3>
+<p>The premise needed one correction that decided the whole answer.
+<strong>A standard does not create the gate; legislation creates the
+gate, and the standard defines the cheapest route through it.</strong>
+Under the EU New Legislative Framework, harmonised standards confer a
+presumption of conformity and are <em>voluntary</em>; and for most
+product categories there is no third-party pre-approval at all — the
+manufacturer self-declares and affixes CE. The EU’s gate is mostly a
+declaration gate with liability consequences, not a permission gate.</p>
+<p>That does not weaken the gate. <strong>It shifts the weight onto the
+quality of the evidence</strong> — which is exactly where an evidence
+framework sits.</p>
+<p>The commercially interesting consequence: the AI Act becomes fully
+applicable in <strong>August 2026</strong> and the harmonised standards
+are not ready. In that window every high-risk supplier must demonstrate
+conformity <em>without a presumption route</em>. KYA’s realistic
+near-term position is not the gate — it is <strong>what people use as
+evidence while the gate has no official route</strong>. That is a
+genuine position, reachable without a body, and it is time-limited: when
+JTC 21’s standards are cited, the presumption route opens and a
+market-driven framework loses value sharply. <strong>A timing question,
+not a standardisation question.</strong></p>
+<hr />
+<h2 id="part-4-gate-1-and-the-finding-that-the-existing-partner-map-is-the-wrong-list">Part
+4 — Gate 1, and the finding that the existing partner map is the wrong
+list</h2>
+<p>The HIC asked for candidates for two independent implementers. The
+first finding came before any candidate search.</p>
+<p><code>PHD_FIREHORSE</code> Appendix H maps the KYA partner ecosystem:
+Shufti Pro (PoC), Palantir (connector model, revenue models proposed),
+NVIDIA, Siemens, ABB, xAI, Mistral. <strong>Every one of them is
+disqualified by gate 1 — not because they are bad partners, but because
+they are partners.</strong></p>
+<p>Appendix H states the reason itself: <em>“the partnership model is a
+distribution strategy.”</em> A distribution partner implements the
+specification <strong>because it has a commercial interest with the
+author</strong>, which is precisely what gate 1 excludes.</p>
+<blockquote>
+<p><strong>The better the partnership strategy works, the less it helps
+gate 1.</strong></p>
+</blockquote>
+<p>This does not invalidate the partner strategy. It separates two
+things that had been bundled: <strong>distribution and legitimation
+require different parties, and success in one does not accrue to the
+other.</strong></p>
+<h3 id="the-cold-start-and-why-an-academic-implementer-is-structural-rather-than-merely-easiest">The
+cold start, and why an academic implementer is structural rather than
+merely easiest</h3>
+<p>An implementer says yes only if (a) implementing is cheaper than
+building their own <strong>and</strong> (b) there is option value in the
+framework becoming widespread. <strong>Condition (b) requires another
+visible adopter — which is the cold start.</strong> A research institute
+does not need option value; research and evaluation are its output. That
+is what breaks the deadlock, and it is why the academic implementer is
+first by structure, not by convenience.</p>
+<p><em>(Recorded against a claim that political pressure could
+substitute for implementer motivation: it inverts what A2A demonstrates,
+and Gaia-X is the experimental result of that same hypothesis.)</em></p>
+<h3 id="the-decided-sequence-hic-25.07.2026">The decided sequence (HIC,
+25.07.2026)</h3>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 21%" />
+<col style="width: 52%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Step</th>
+<th>Instrument</th>
+<th>Gate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Törngren role: TECoSA implements, Törngren evaluates</td>
+<td>written confirmation</td>
+<td>unblocks RQ1/RQ4</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>RISE</strong> — research side implements</td>
+<td>mutual NDA + research frame</td>
+<td>breaks the cold start · gate 1 (1/2)</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>DNV</strong> — second implementation; RISE’s certification
+side may assess it</td>
+<td>mutual NDA</td>
+<td>gate 1 (2/2) · gate 3 begins</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Operational third (Scaleway / public sector)</td>
+<td>value proposition, condition (b) now satisfiable</td>
+<td>strengthens gate 1</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Governance model and body</td>
+<td>—</td>
+<td>gate 4, structurally</td>
+</tr>
+</tbody>
+</table>
+<p><em>“Spec pysyy sisäisenä. Kaikki lähestymiset
+luottamuksellisesti.”</em></p>
+<p><strong>Three execution notes, none of which changes the
+order:</strong></p>
+<ol type="1">
+<li><strong>RISE’s dual nature repeats the Törngren conflict.</strong>
+Its strength — research and certification behind one door — is also its
+risk. Apply the same split: RISE research implements; RISE certification
+does not certify that implementation. It can assess DNV’s, which is
+ideal, because DNV’s implementation needs an assessor.</li>
+<li><strong>Both candidates are assurance-sector.</strong> Two assurance
+organisations implementing an assurance framework is somewhat
+self-referential, and the first critical reader will notice. Gate 1’s
+strongest form includes at least one implementation by a party that
+needs it for its own operations. Roadmap addition, not a blocker — and
+the third is easier than the first was, once the cold start is
+broken.</li>
+<li>⚠️ <strong><code>Legal/KYA_PARTNER_AGREEMENT.md</code> must not be
+used.</strong> A partnership agreement creates exactly the commercial
+relationship gate 1 excludes; the name alone would be enough to question
+independence later, whatever the contents. The correct instrument is
+<code>Legal/NDA_MUTUAL_LIFETIME_OY_2026.md</code> — mutual NDA, no
+licence, no money moving in either direction. <strong>Zero consideration
+is a feature, not a gap:</strong> if RISE or DNV invoices for the
+implementation, it is an engagement, and a contractor is not
+independent.</li>
+</ol>
+<hr />
+<hr />
+<h2 id="part-5-the-strategic-reassessment-and-the-gate-inversion-it-produces">Part
+5 — the strategic reassessment, and the gate inversion it produces</h2>
+<p>Late in the arc the HIC put a number on the standardisation route:
+<strong>1:1000</strong> for KYA becoming a central European standard.
+Lifetime Oy is too small, the money in agentic commerce compliance is
+too large, and the interests are too big.</p>
+<p><strong>This is not new pessimism — it is the strategy arriving where
+the analysis already was.</strong> The hard-gate analysis had recorded
+the same conclusion the same day, from the process side: <em>a
+single-vendor specification from a Finnish micro-company does not enter
+the JTC 21 pipeline as a candidate.</em> Two assessments, two routes,
+one direction.</p>
+<p><strong>But the fact that closes one door opens another.</strong>
+Huge horizontal money is an argument against a horizontal standard, not
+against a niche. Large players systematically underserve narrow,
+regulation-heavy verticals, because those are won with domain knowledge
+rather than capital.</p>
+<p><strong>The niche route inverts three of the four gates:</strong> the
+independent implementers become vertical operators rather than assurance
+bodies (so the operational implementation is the <em>first</em>, not the
+third); the conformance suite stops being a precondition and becomes the
+product; gate 3 runs through <strong>adoption</strong> rather than a
+body — a route <code>SPEC.md</code> §0.6 already allows; and
+<strong>gate 4 drops away, so the IPR stays.</strong> The A2A trade-off
+reverses: the gate you build on this route is one you <em>do</em>
+own.</p>
+<p><strong>The survival condition</strong> is to position KYA
+<em>under</em> the horizontal standard rather than beside it. When JTC
+21’s harmonised standards are eventually cited, a narrow market-driven
+framework dies — unless it is the thing that makes the horizontal
+standard operable in that vertical. That positioning has to be taken
+from the start; it cannot be adopted after the horizontal wins.</p>
+<p><strong>And the sharpest part — which half of KYA survives.</strong>
+Trust scoring <em>as a protocol</em> commoditises: agent identity,
+provenance and audit primitives are moving into the platform layer,
+built by parties with resources Lifetime Oy does not have.
+<strong>Domain evidence mapping does not commoditise</strong> — the CBAM
+evidence chain in steel, the CSRD datapoint’s derivability from
+measurement to report, the safety case in an edge deployment. No
+platform vendor will build steel’s CBAM evidence chain. <strong>Invest
+in what is domain-specific; take the protocol layer for free from
+whoever gives it away.</strong></p>
+<p>The honest risk stays named: a single-vendor niche framework is a
+product feature, not a framework. The four-gate discipline does not
+disappear on this route — it changes target, and <strong>at least one
+party in the vertical must use KYA without us.</strong></p>
+<p><strong>Operationally this changes less than it seems.</strong> Steps
+1–4 pay off under either strategy; step 5 — the governance body —
+probably falls away, and it was the expensive one.</p>
+<p><strong>And RQ5 v3 turns out to have immunised the dissertation
+against this exact scenario, before the scenario was raised.</strong>
+Had RQ5 stayed in its original form, the whole thesis would now rest on
+an outcome its author privately rates at 1:1000 — precisely the T3
+defect, a question waiting for a process. v3 asks instead whether the
+distinction holds and whether the criterion is right, and that answer is
+publishable regardless of what happens to KYA commercially. The
+falsifiability work repaid itself the same day, from a direction nobody
+was looking.</p>
+<p>Recorded in full as
+<code>docs/phd/KYA_STRATEGIC_REASSESSMENT_2026-07-25.md</code> —
+<strong>an assessment, not a decision.</strong></p>
+<hr />
+<h2 id="what-did-not-survive-verification">What did not survive
+verification</h2>
+<ul>
+<li><strong>€260bn flowing annually from Europe to US cloud
+providers</strong> — could not be verified; the entire European cloud
+market is €74.4bn. Replaced with the sourced 70% / 15% share split.
+Flagged a second time when it propagated forward through an external
+review.</li>
+<li><strong>“KTH’s and LUT’s partners” as the candidate pool</strong> —
+this is the sharpest form of the same independence trap. LUT is the
+dissertation’s home, KTH runs through Törngren, and shared
+Horizon/Vinnova funding is a commercial relationship.</li>
+<li><strong>Gaia-X</strong> is retained as the cautionary precedent for
+a coalition assembled from political motive without implementer
+motive.</li>
+</ul>
+<h2 id="learning-standard-five-steps">Learning Standard — five
+steps</h2>
+<ol type="1">
+<li><strong>kb</strong> — ✅
+<code>kb/wiki/concepts/specification-vs-standard-four-gates.md</code>
+v1.4 (three states, A2A gate-4 comparison, IPR inversion, both
+self-corrections) and
+<code>kb/wiki/concepts/institutional-record-errors.md</code>.</li>
+<li><strong>Field note</strong> — ✅ this file.</li>
+<li><strong><code>Learn/</code> HTML</strong> — ✅
+<code>Learn/2026-07-25-rq-lock-and-gate-one-coalition.{html,docx}</code>
+via <code>scripts/render-doc.sh</code>.</li>
+<li><strong>Drive export</strong> — ✅ <a href="https://docs.google.com/document/d/1rVD1BfGAMTyraPuPsYIXAM2FMNRsAHn-LriGwSQ1NWY/edit">2026-07-25
+Field Note — Locking Six Research Questions, and the Wrong List Behind
+Gate 1</a> (verified: 9 562 bytes, content present). <strong>This is the
+first time step 4 has succeeded in this arc</strong> — the nine prior
+failures were all attempts to export the 552 KB
+<code>PHD_FIREHORSE</code> source, which exceeds the tool’s content
+argument. A digest fits. The repo file remains source of truth; the
+Drive copy is a copy.</li>
+<li><strong>HIC question</strong> — ⬇️</li>
+</ol>
+<h2 id="hic-question-eu-ai-act-art.-14-intervention-point">HIC question
+(EU AI Act Art. 14 intervention point)</h2>
+<blockquote>
+<p><strong>Is RQ5 v3 adopted into the lock, or does the locked set stay
+as sent?</strong></p>
+</blockquote>
+<p>This is the only genuinely open decision in this arc, and it cannot
+be made inside a session:</p>
+<ul>
+<li><strong>Lock rule 2</strong> requires an HIC decision, a version
+bump and a recorded reason. The falsifiability audit is <em>input</em>
+to a possible v2 of the lock, not a unilateral change.</li>
+<li><strong>Lock rule 3</strong> makes it an <strong>external
+act</strong> — the six questions are in Smolander’s inbox, so adopting
+v3 means telling him.</li>
+<li>The recommendation on record is <strong>(a) + (c)</strong>: change
+RQ5 only, and put the T1–T3 criterion into the methodology chapter,
+where it is a contribution rather than an internal note. RQ5 v3 reads to
+a supervisor as a <strong>deepening</strong>, not a retraction —
+<em>“the question is not how KYA is designed, but whether the
+distinction holds when the certified subject moves”</em> is a stronger
+message than the original.</li>
+</ul>
+<p><strong>The cost of not deciding is not zero.</strong> Every week the
+sent set stands unamended, RQ5 remains a question the corpus has already
+answered — and the next supervisor meeting is where that becomes
+visible.</p>
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li><strong>Decide the TECoSA consideration question — this now precedes
+the Törngren role letter.</strong> Paid TECoSA partnership is the
+<em>default route</em> recorded on 14.07.2026, and it would break gate 1
+without anyone deciding to. See
+<code>docs/phd/KYA_GATE1_IMPLEMENTER_CANDIDATES.md</code> v1.4.</li>
+<li>Resolve the Törngren role (cheapest, and it must be settled before
+it settles itself). The letter is free; <strong>what the letter sets in
+motion is not</strong>.</li>
+<li>Check whether the RQ2/RQ3 anchors (Galaz; Universeum/Chalmers) have
+replied. <strong>An anchor’s absence does not kill a question — the
+anchor is replaced and the question stays.</strong> Confusing those two
+caused the earlier drift.</li>
+<li>Mark RQ3 explicitly forward-looking (one sentence; replacing it
+costs credibility).</li>
+<li>Update <code>PHD_FIREHORSE_FI/EN</code> §1.2 to match the lock —
+this simultaneously fixes structure-audit defect 1, since the whole set
+is replaced and the off-by-one references go with it.</li>
+</ul>
+<h2 id="related">Related</h2>
+<ul>
+<li><code>docs/phd/PHD_RESEARCH_QUESTIONS_LOCK_v1.md</code> v1.1 — the
+lock and its four rules</li>
+<li><code>docs/phd/RQ_FALSIFIABILITY_AUDIT_2026-07-25.md</code> — T1–T3
+applied to all six</li>
+<li><code>docs/phd/RQ_SHARPENING_SIDE_BY_SIDE.md</code> v1.1 — old vs
+sharpened, RQ5 v3</li>
+<li><code>docs/phd/KYA_HARD_GATE_ANALYSIS_2026-07-25.md</code> — the
+premise correction and the August 2026 window</li>
+<li><code>docs/phd/KYA_GATE1_IMPLEMENTER_CANDIDATES.md</code> v1.3 —
+candidates, cold start, decided sequence</li>
+<li><code>docs/phd/PHD_STRUCTURE_AUDIT_2026-07-25.md</code> — seven
+structural defects</li>
+<li><code>kb/wiki/concepts/specification-vs-standard-four-gates.md</code>
+v1.4</li>
+<li><code>standards/kya-open/SPEC.md</code> §0.6 — the gates</li>
+<li><code>Legal/NDA_MUTUAL_LIFETIME_OY_2026.md</code> — the correct
+instrument for gate-1 approaches</li>
+</ul>
+</body>
+</html>

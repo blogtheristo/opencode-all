@@ -1,0 +1,39 @@
+{
+  "$schema_comment": "Exa MCP registration for NemoClaw / Firehorse. Canonical docs: https://docs.exa.ai/reference/exa-mcp",
+  "name": "exa",
+  "transport": "http",
+  "url": "https://mcp.exa.ai/mcp",
+  "tools_query": "web_search_exa,web_fetch_exa,web_search_advanced_exa",
+  "auth": {
+    "primary": "oauth",
+    "oauth_note": "Browser-based sign-in to dashboard.exa.ai on first connection. No token in this file.",
+    "fallback": "api_key",
+    "api_key_env": "EXA_API_KEY",
+    "api_key_note": "Native NemoClaw web-search provider path: set EXA_API_KEY in env (preferred: Aiven vault) and run `openclaw configure --section web`."
+  },
+  "consumer_models": {
+    "policy": "dgx_only",
+    "endpoint": "ssh dgx-spark /api/generate",
+    "note": "Reasoning that consumes Exa tool output MUST run on DGX Spark Ollama (EU sovereignty). See skills/ollama-spark and CLAUDE.md."
+  },
+  "use_cases": [
+    "investor-outreach: People + Company search (Websets) for SAFE-round pipeline",
+    "regulatory-radar: news monitoring on EED / CSRD / CBAM / EU AI Act",
+    "competitor-surveillance: standardization bodies, partner signals",
+    "kb research: deep retrieval for Firehorse knowledge base"
+  ],
+  "latency_profile": {
+    "interactive": "auto",
+    "batch": "deep",
+    "batch_runner": "scripts/daily"
+  },
+  "data_handling": {
+    "pii": "public-only; respect GDPR + robots",
+    "storage": "Supabase with RLS",
+    "structured_output_fields": [
+      "name", "role", "firm", "firm_domain",
+      "hq_country", "eu_flag", "linkedin_url",
+      "latest_signal", "recency_ts"
+    ]
+  }
+}

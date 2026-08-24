@@ -1,0 +1,68 @@
+# Social Scheduler — LinkedIn Post Queue
+#
+# PRIMARY: DGX Spark (24/7, cron-runner.ts)
+# FAILOVER: This GitHub Actions workflow (checks DGX heartbeat first)
+
+name: Social Scheduler
+
+on:
+  schedule:
+    - cron: '0 5 * * 1-5'
+    - cron: '0 6 * * 1-5'
+
+  workflow_dispatch:
+    inputs:
+      digest_only:
+        description: 'Only send digest (skip draft generation)'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  generate-and-send:
+    name: Generate Draft & Send Approval Digest
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ secrets.DGX_SPARK_HEARTBEAT_URL }}
+
+      - name: Skip if DGX Spark is handling this
+        if: steps.failover.outputs.dgx_alive == 'true' && github.event_name == 'schedule'
+        run: |
+          echo "DGX Spark is alive — skipping (failover mode)"
+          exit 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate draft and send digest
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT || '587' }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          EMAIL_FROM: risto@onelifetime.world
+          SOCIAL_DIGEST_EMAIL: ${{ secrets.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi' }}
+        run: |
+          if [ "${{ inputs.digest_only }}" = "true" ]; then
+            npx tsx scripts/send-social-digest.ts --digest-only
+          else
+            npx tsx scripts/send-social-digest.ts
+          fi

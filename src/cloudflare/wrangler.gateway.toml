@@ -1,0 +1,179 @@
+# DWS IQ MCP Edge Gateway - Cloudflare Configuration
+# 
+# This configures the MCP Gateway worker for edge routing, authentication,
+# and caching of MCP protocol requests.
+#
+# Deployment: npx wrangler deploy -c wrangler.gateway.toml
+# Local dev:  npx wrangler dev -c wrangler.gateway.toml
+#
+# @version 1.0.0
+# @license Proprietary - Lifetime Oy
+
+name = "dws-iq-mcp-gateway"
+main = "mcp-gateway.ts"
+compatibility_date = "2024-12-01"
+
+# ============================================================================
+# Worker Settings
+# ============================================================================
+
+[build]
+command = "npm run build:gateway"
+
+[build.upload]
+format = "modules"
+main = "./dist/mcp-gateway.js"
+
+# ============================================================================
+# Environment Variables (non-secrets)
+# ============================================================================
+
+[vars]
+MCP_HUB_ORIGIN = "https://mcp-hub.dws10.com"
+OAUTH_TOKEN_URL = "https://auth.dws10.com/oauth/token"
+ENVIRONMENT = "production"
+
+# ============================================================================
+# Secrets (set via wrangler secret put)
+# ============================================================================
+# Required secrets:
+# - MCP_HUB_API_KEY: Backend API key
+# - OAUTH_CLIENT_ID: OAuth client ID
+# - OAUTH_CLIENT_SECRET: OAuth client secret
+#
+# Set with: npx wrangler secret put MCP_HUB_API_KEY -c wrangler.gateway.toml
+
+# ============================================================================
+# KV Namespaces
+# ============================================================================
+
+[[kv_namespaces]]
+binding = "MCP_CACHE"
+id = "mcp-cache-kv-id"  # Replace with actual KV namespace ID
+preview_id = "mcp-cache-kv-preview-id"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "gateway-rate-limit-kv-id"
+preview_id = "gateway-rate-limit-kv-preview-id"
+
+[[kv_namespaces]]
+binding = "TENANT_ROUTES"
+id = "tenant-routes-kv-id"
+preview_id = "tenant-routes-kv-preview-id"
+
+# ============================================================================
+# Analytics Engine (Usage Metering)
+# ============================================================================
+
+[[analytics_engine_datasets]]
+binding = "USAGE_METRICS"
+dataset = "dws_iq_mcp_gateway_usage"
+
+# ============================================================================
+# Routes & Custom Domains
+# ============================================================================
+
+[[routes]]
+pattern = "mcp.dws10.com/*"
+zone_name = "dws10.com"
+
+[[routes]]
+pattern = "mcp.onelifetime.world/*"
+zone_name = "onelifetime.world"
+
+[[routes]]
+pattern = "api.dws10.com/mcp/*"
+zone_name = "dws10.com"
+
+# ============================================================================
+# EU Data Residency
+# ============================================================================
+
+[placement]
+mode = "smart"
+
+# ============================================================================
+# Scheduled Tasks (Cache Maintenance)
+# ============================================================================
+
+[triggers]
+crons = ["0 */6 * * *"]  # Run every 6 hours for cleanup
+
+# ============================================================================
+# Observability
+# ============================================================================
+
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true
+invocation_logs = true
+
+# ============================================================================
+# Development Environment
+# ============================================================================
+
+[env.development]
+name = "dws-iq-mcp-gateway-dev"
+vars = { MCP_HUB_ORIGIN = "http://localhost:8765", OAUTH_TOKEN_URL = "http://localhost:8080/oauth/token", ENVIRONMENT = "development" }
+
+[[env.development.kv_namespaces]]
+binding = "MCP_CACHE"
+id = "mcp-cache-kv-dev-id"
+
+[[env.development.kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "gateway-rate-limit-kv-dev-id"
+
+[[env.development.kv_namespaces]]
+binding = "TENANT_ROUTES"
+id = "tenant-routes-kv-dev-id"
+
+# ============================================================================
+# Staging Environment
+# ============================================================================
+
+[env.staging]
+name = "dws-iq-mcp-gateway-staging"
+vars = { MCP_HUB_ORIGIN = "https://mcp-hub-staging.dws10.com", OAUTH_TOKEN_URL = "https://auth-staging.dws10.com/oauth/token", ENVIRONMENT = "staging" }
+
+[[env.staging.kv_namespaces]]
+binding = "MCP_CACHE"
+id = "mcp-cache-kv-staging-id"
+
+[[env.staging.kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "gateway-rate-limit-kv-staging-id"
+
+[[env.staging.kv_namespaces]]
+binding = "TENANT_ROUTES"
+id = "tenant-routes-kv-staging-id"
+
+# ============================================================================
+# Production Environment
+# ============================================================================
+
+[env.production]
+name = "dws-iq-mcp-gateway"
+vars = { MCP_HUB_ORIGIN = "https://mcp-hub.dws10.com", OAUTH_TOKEN_URL = "https://auth.dws10.com/oauth/token", ENVIRONMENT = "production" }
+
+[[env.production.kv_namespaces]]
+binding = "MCP_CACHE"
+id = "mcp-cache-kv-prod-id"
+
+[[env.production.kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "gateway-rate-limit-kv-prod-id"
+
+[[env.production.kv_namespaces]]
+binding = "TENANT_ROUTES"
+id = "tenant-routes-kv-prod-id"
+
+# ============================================================================
+# Limits
+# ============================================================================
+
+[limits]
+cpu_ms = 50  # Standard tier - sufficient for gateway routing

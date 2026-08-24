@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fit for 55 Compliance Solutions | DWS IQ Platform</title>
+    <meta
+      name="description"
+      content="Fit for 55 Compliance Solutions — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
+    />
+    <meta
+      name="keywords"
+      content="Fit for 55, EU climate law, ETS, CBAM, carbon reduction, 2030 targets"
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Fit for 55 Compliance Solutions | DWS IQ Platform" />
+    <meta
+      property="og:description"
+      content="Fit for 55 Compliance Solutions — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dws10.com/fit-for-55/index.html" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Fit for 55 Compliance Solutions | DWS IQ Platform" />
+    <meta
+      name="twitter:description"
+      content="Fit for 55 Compliance Solutions — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
+    />
+    <link rel="canonical" href="https://dws10.com/fit-for-55/index.html" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+
+    <!-- Brand §2.1/§8 typography: IBM Plex Sans (body) + IBM Plex Sans Condensed (headings).
+         SRI is intentionally omitted on the Google Fonts stylesheet — that CSS is served
+         dynamically per user-agent and has no stable integrity hash; crossorigin is set. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+
+    <!-- Shared Gamma Styles -->
+    <link rel="stylesheet" href="../gamma/ultra-styles.css" />
+
+    <style>
+      /* Fit for 55 Landing Page Styles */
+      :root {
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+      }
+      body {
+        font-family:
+          "IBM Plex Sans",
+          "Inter",
+          -apple-system,
+          sans-serif;
+      }
+      .fit55-hero h1,
+      .overview-section h2,
+      .industries-section h2,
+      .cta-section h2 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      }
+      .fit55-hero {
+        background: linear-gradient(135deg, #0a1628 0%, #152238 50%, #1e3a5f 100%);
+        color: #ffffff;
+        padding: 100px 20px 80px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        border-top: 3px solid var(--color-gold-light);
+      }
+
+      .fit55-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(circle at 20% 80%, rgba(0, 102, 204, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+        pointer-events: none;
+      }
+
+      .hero-badge {
+        display: inline-block;
+        background: rgba(0, 102, 204, 0.2);
+        border: 1px solid rgba(0, 102, 204, 0.4);
+        color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 25px;
+      }
+
+      .fit55-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 800;
+        margin-bottom: 25px;
+        background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .fit55-hero .subtitle {
+        font-size: 1.4rem;
+        color: #e2e8f0;
+        max-width: 800px;
+        margin: 0 auto 40px;
+        line-height: 1.6;
+      }
+
+      .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        flex-wrap: wrap;
+        margin-top: 50px;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #0066cc;
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 8px;
+      }
+
+      /* Overview Section */
+      .overview-section {
+        padding: 80px 20px;
+        background: #f8fafc;
+      }
+
+      .overview-section h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        color: #0a1628;
+        margin-bottom: 25px;
+      }
+
+      .overview-section .intro {
+        text-align: center;
+        max-width: 900px;
+        margin: 0 auto 60px;
+        font-size: 1.2rem;
+        color: #475569;
+        line-height: 1.8;
+      }
+
+      /* Regulations Grid */
+      .regulations-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .regulation-card {
+        background: #ffffff;
+        border: 1px solid rgba(0, 102, 204, 0.2);
+        border-radius: 12px;
+        padding: 30px;
+        transition: all 0.3s;
+      }
+
+      .regulation-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 102, 204, 0.15);
+        border-color: #0066cc;
+      }
+
+      .regulation-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+      }
+
+      .regulation-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #0a1628;
+        margin-bottom: 10px;
+      }
+
+      .regulation-description {
+        color: #475569;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+
+      .regulation-badge {
+        display: inline-block;
+        background: rgba(0, 102, 204, 0.1);
+        color: #0066cc;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      /* Industries Section */
+      .industries-section {
+        padding: 80px 20px;
+        background: linear-gradient(135deg, #0a1628 0%, #152238 100%);
+        color: #ffffff;
+      }
+
+      .industries-section h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 25px;
+      }
+
+      .industries-section .intro {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 60px;
+        color: #cbd5e1;
+        font-size: 1.2rem;
+      }
+
+      .industries-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+      }
+
+      .industry-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 35px;
+        text-align: center;
+        text-decoration: none;
+        color: #ffffff;
+        transition: all 0.3s;
+      }
+
+      .industry-card:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: #0066cc;
+        transform: translateY(-5px);
+      }
+
+      .industry-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        display: block;
+      }
+
+      .industry-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .industry-description {
+        color: #cbd5e1;
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        padding: 80px 20px;
+        background: #ffffff;
+        text-align: center;
+      }
+
+      .cta-section h2 {
+        font-size: 2.5rem;
+        color: #0a1628;
+        margin-bottom: 20px;
+      }
+
+      .cta-section p {
+        max-width: 700px;
+        margin: 0 auto 40px;
+        color: #475569;
+        font-size: 1.2rem;
+      }
+
+      .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        padding: 16px 36px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+        color: #ffffff;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 102, 204, 0.4);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: #0066cc;
+        border: 2px solid #0066cc;
+      }
+
+      .btn-secondary:hover {
+        background: rgba(0, 102, 204, 0.1);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .fit55-hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero-stats {
+          gap: 30px;
+        }
+
+        .stat-value {
+          font-size: 2.5rem;
+        }
+
+        .cta-buttons {
+          flex-direction: column;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Shared Navigation -->
+    <script src="../shared-assets/nav/ironclad-nav.js"></script>
+
+    <!-- Hero Section -->
+    <section class="fit55-hero">
+      <div class="hero-badge">🇪🇺 EU CLIMATE POLICY</div>
+      <h1>Fit for 55</h1>
+      <p class="subtitle">
+        Comprehensive compliance solutions for the EU's ambitious climate package. Reduce emissions
+        by 55% by 2030 across 13 legislative proposals — grounded in CSRD, ETS/ETS2, CBAM, EPBD and
+        RED III and delivered through the <strong>DWS IQ Industrial Intelligence suite</strong>
+        (core engine DWS IQ 6; dual-use tier Aegis) across the industries these regulations touch.
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-value">55%</span>
+          <span class="stat-label">Emissions Reduction Target</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">2030</span>
+          <span class="stat-label">Compliance Deadline</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">13</span>
+          <span class="stat-label">Legislative Proposals</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">8</span>
+          <span class="stat-label">Industry Solutions</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="overview-section">
+      <h2>Key Fit for 55 Regulations</h2>
+      <p class="intro">
+        The Fit for 55 package includes 13 interconnected legislative proposals to transform the EU
+        economy. Our platform provides industry-specific compliance solutions for all major
+        regulations.
+      </p>
+
+      <div class="regulations-grid">
+        <div class="regulation-card">
+          <div class="regulation-icon">📊</div>
+          <h3 class="regulation-title">CSRD</h3>
+          <p class="regulation-description">
+            Corporate Sustainability Reporting Directive requiring detailed climate disclosures
+            aligned with ESRS standards.
+          </p>
+          <span class="regulation-badge">Mandatory 2024-2028</span>
+        </div>
+
+        <div class="regulation-card">
+          <div class="regulation-icon">🏗️</div>
+          <h3 class="regulation-title">EPBD</h3>
+          <p class="regulation-description">
+            Energy Performance of Buildings Directive with EN 15978 carbon calculations and
+            renovation requirements.
+          </p>
+          <span class="regulation-badge">Phased 2025-2033</span>
+        </div>
+
+        <div class="regulation-card">
+          <div class="regulation-icon">💶</div>
+          <h3 class="regulation-title">EU ETS</h3>
+          <p class="regulation-description">
+            Emissions Trading System expansion to maritime, buildings, and road transport with
+            tighter caps.
+          </p>
+          <span class="regulation-badge">Effective 2024</span>
+        </div>
+
+        <div class="regulation-card">
+          <div class="regulation-icon">🌍</div>
+          <h3 class="regulation-title">CBAM</h3>
+          <p class="regulation-description">
+            Carbon Border Adjustment Mechanism for imports of cement, steel, aluminum, fertilizers,
+            and electricity.
+          </p>
+          <span class="regulation-badge">Active 2023-2026</span>
+        </div>
+
+        <div class="regulation-card">
+          <div class="regulation-icon">⚡</div>
+          <h3 class="regulation-title">RED III</h3>
+          <p class="regulation-description">
+            Renewable Energy Directive with 42.5% renewable energy target and sustainability
+            criteria.
+          </p>
+          <span class="regulation-badge">Target 2030</span>
+        </div>
+
+        <div class="regulation-card">
+          <div class="regulation-icon">🚗</div>
+          <h3 class="regulation-title">Transport</h3>
+          <p class="regulation-description">
+            CO2 standards for cars/vans, AFIR infrastructure, FuelEU Maritime, and ReFuelEU
+            Aviation.
+          </p>
+          <span class="regulation-badge">Multi-phase</span>
+        </div>
+
+        <div class="regulation-card">
+          <div class="regulation-icon">🌳</div>
+          <h3 class="regulation-title">LULUCF</h3>
+          <p class="regulation-description">
+            Land Use, Land-Use Change and Forestry regulation for carbon removals and nature-based
+            solutions.
+          </p>
+          <span class="regulation-badge">Binding 2030</span>
+        </div>
+
+        <div class="regulation-card">
+          <div class="regulation-icon">🏭</div>
+          <h3 class="regulation-title">ESR</h3>
+          <p class="regulation-description">
+            Effort Sharing Regulation with national emissions reduction targets across sectors.
+          </p>
+          <span class="regulation-badge">Annual Targets</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section class="industries-section">
+      <h2>Industry-Specific Solutions</h2>
+      <p class="intro">
+        Our DWS IQ platform provides tailored Fit for 55 compliance solutions for 8 major
+        industries. Select your industry to explore specialized tools, templates, and expert
+        guidance.
+      </p>
+
+      <div class="industries-grid">
+        <a href="../construction/?solution=fit55" class="industry-card">
+          <span class="industry-icon">🏗️</span>
+          <h3 class="industry-title">Construction</h3>
+          <p class="industry-description">
+            EPBD compliance, EN 15978 carbon calculations, building certifications
+          </p>
+        </a>
+
+        <a href="../logistics/?solution=fit55" class="industry-card">
+          <span class="industry-icon">🚛</span>
+          <h3 class="industry-title">Logistics & Transport</h3>
+          <p class="industry-description">
+            Fleet emissions, AFIR infrastructure, FuelEU Maritime compliance
+          </p>
+        </a>
+
+        <a href="../manufacturing/?solution=fit55" class="industry-card">
+          <span class="industry-icon">🏭</span>
+          <h3 class="industry-title">Manufacturing</h3>
+          <p class="industry-description">
+            ETS allowances, CBAM reporting, industrial carbon reduction
+          </p>
+        </a>
+
+        <a href="../energy/?solution=fit55" class="industry-card">
+          <span class="industry-icon">⚡</span>
+          <h3 class="industry-title">Energy & Utilities</h3>
+          <p class="industry-description">
+            RED III compliance, renewable energy targets, grid integration
+          </p>
+        </a>
+
+        <a href="../healthcare/?solution=fit55" class="industry-card">
+          <span class="industry-icon">🏥</span>
+          <h3 class="industry-title">Healthcare</h3>
+          <p class="industry-description">
+            CSRD reporting, building energy performance, scope 3 emissions
+          </p>
+        </a>
+
+        <a href="../real-estate/?solution=fit55" class="industry-card">
+          <span class="industry-icon">🏢</span>
+          <h3 class="industry-title">Real Estate</h3>
+          <p class="industry-description">
+            EPBD renovation roadmaps, energy certificates, tenant engagement
+          </p>
+        </a>
+
+        <a href="../lifetime-fleet/?solution=fit55" class="industry-card">
+          <span class="industry-icon">🚗</span>
+          <h3 class="industry-title">Fleet Management</h3>
+          <p class="industry-description">
+            Vehicle emissions tracking, electrification planning, TCO optimization
+          </p>
+        </a>
+
+        <a href="../public-sector/?solution=fit55" class="industry-card">
+          <span class="industry-icon">🏛️</span>
+          <h3 class="industry-title">Public Sector</h3>
+          <p class="industry-description">
+            Municipal climate plans, public building renovations, procurement
+          </p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Illustrative Operational Trace Log -->
+    <section class="overview-section">
+      <h2>Operational Trace Log (illustrative)</h2>
+      <p class="intro" style="margin-bottom: 30px">
+        Anonymized walkthrough of how the Fit for 55 ontology behaves across the suite — trigger →
+        agents → regulatory outcome.
+      </p>
+      <div
+        class="regulation-card"
+        style="
+          max-width: 820px;
+          margin: 0 auto;
+          border-left: 4px solid var(--color-gold);
+          text-align: left;
+        "
+      >
+        <p
+          style="
+            font-size: 0.85rem;
+            color: #92400e;
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 16px;
+          "
+        >
+          ⚠ <strong>Illustrative / representative · pre-GA.</strong> Not a real company, project, or
+          consented deployment.
+        </p>
+        <ul style="padding-left: 20px; color: #475569; line-height: 1.7">
+          <li>
+            <strong>Trigger:</strong> a representative EU industrial group (anonymized) crossing the
+            55% reduction pathway must align ETS exposure and CBAM importer obligations — the CBAM
+            definitive regime begins in 2026, after the 2023–2025 transitional phase.
+          </li>
+          <li>
+            <strong>DWS IQ 6 + industry agents:</strong> map ETS/ETS2 allowance demand, CBAM
+            certificate cost, and EPBD building-energy gaps to one Fit for 55 pathway score.
+          </li>
+          <li>
+            <strong>Regulatory outcome:</strong> a CSRD-ready ESRS E1 statement — the first wave of
+            CSRD reports for FY2024 was filed in <strong>2025</strong> — plus a CBAM and ETS cost
+            ledger, <em>architected to satisfy</em> the Fit for 55 regulatory stack, pending the
+            enterprise's own assurance review. (The EU AI Act phased entry 2024–2026 governs the AI
+            layer.)
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <h2>Ready to Achieve Fit for 55 Compliance?</h2>
+      <p>
+        Our experts and AI-powered platform help you navigate all 13 legislative proposals with
+        industry-specific guidance, automated reporting, and continuous regulatory updates.
+      </p>
+
+      <div class="cta-buttons">
+        <a href="../products/consulting-fit55.html" class="btn-primary">
+          <span>🎯</span> Book Fit for 55 Specialist
+        </a>
+        <a href="../products/dwsiq.html" class="btn-secondary">
+          <span>🚀</span> Explore DWS IQ Platform
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <p
+      style="
+        text-align: right;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 12px 20px 24px;
+        font-size: 0.78rem;
+        color: #94a3b8;
+      "
+    >
+      Fit for 55 — page v1.1 · 2026-06-23
+    </p>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
+</html>

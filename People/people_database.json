@@ -1,0 +1,867 @@
+[
+  {
+    "id": "risto-001",
+    "type": "internal",
+    "status": "active",
+    "personal": {
+      "first_name": "Risto",
+      "last_name": "",
+      "full_name": "Risto",
+      "title": "Founder & CEO",
+      "email": "risto@lifetime.group",
+      "phone": "",
+      "linkedin": "https://linkedin.com/in/risto",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "Lifetime Group",
+      "department": "Executive",
+      "role": "Founder & CEO",
+      "location": {
+        "city": "",
+        "country": "Finland",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "M.Sc. (Tech), Industrial Management",
+      "expertise": [
+        "Industrial Management",
+        "AI & Machine Learning",
+        "Software Architecture",
+        "Construction Technology",
+        "Carbon Reporting",
+        "Product Strategy",
+        "Enterprise Sales"
+      ],
+      "languages": [
+        "Finnish",
+        "English",
+        "Swedish"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "internal",
+        "founder",
+        "ceo",
+        "leadership",
+        "ai-director",
+        "firehorse",
+        "dws-iq",
+        "construction",
+        "infrastructure",
+        "carbon-reporting",
+        "fit-for-55",
+        "nordic",
+        "active",
+        "vip"
+      ],
+      "products": [
+        "firehorse",
+        "dws-iq"
+      ],
+      "interests": [
+        "Carbon reporting and sustainability",
+        "Construction digitalization",
+        "European market expansion",
+        "AI-powered analytics",
+        "Mobile-first solutions"
+      ],
+      "engagement_level": "high",
+      "last_contact": "2025-12-31",
+      "next_action": "Continue product development and investor outreach",
+      "notes": "Founder & CEO of Lifetime Group. AI Director for Firehorse Products. Deep expertise in construction tech, carbon reporting (EN 15978), and European standards. Leading DWS IQ 6 platform development with focus on SPI/CPI, safety, and Fit for 55 compliance."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": "2020-01-01",
+      "contract_end": null,
+      "payment_terms": "N/A",
+      "projects": [
+        "DWS IQ 6 Platform",
+        "Firehorse Mobile (Android)",
+        "Firehorse Mobile (iOS)",
+        "European Template Standards",
+        "EN 15978 Carbon Reporting"
+      ]
+    },
+    "metadata": {
+      "created_at": "2025-12-31T05:00:00Z",
+      "updated_at": "2025-12-31T05:00:00Z",
+      "created_by": "system",
+      "updated_by": "system"
+    }
+  },
+  {
+    "id": "boardy-001",
+    "type": "partner",
+    "status": "active",
+    "personal": {
+      "first_name": "Boardy",
+      "last_name": "",
+      "full_name": "Boardy",
+      "title": "Tactical AI Asset",
+      "email": "boardy@lifetime.group",
+      "phone": "",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "Lifetime Group",
+      "department": "AI & Analytics",
+      "role": "AI Partner - Decision Support",
+      "location": {
+        "city": "",
+        "country": "Global",
+        "region": "Global"
+      }
+    },
+    "professional": {
+      "education": "Large Language Model (Claude Sonnet 4.5) + Domain-Specific Training",
+      "expertise": [
+        "Portfolio Analysis",
+        "Risk Assessment",
+        "Predictive Analytics",
+        "Compliance Monitoring",
+        "Report Generation",
+        "Decision Support",
+        "Construction Domain Knowledge",
+        "European Standards (EN, RT, AMA, NS, VOB)",
+        "Fit for 55 Compliance",
+        "Natural Language Processing"
+      ],
+      "languages": [
+        "English",
+        "Finnish",
+        "Swedish",
+        "Norwegian",
+        "Danish",
+        "German"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "partner",
+        "ai",
+        "tactical-asset",
+        "dws-iq",
+        "firehorse",
+        "construction",
+        "infrastructure",
+        "analytics",
+        "decision-support",
+        "portfolio-management",
+        "fit-for-55",
+        "compliance",
+        "active",
+        "no-dpa"
+      ],
+      "products": [
+        "firehorse",
+        "dws-iq"
+      ],
+      "interests": [
+        "Portfolio risk assessment",
+        "Fit for 55 compliance monitoring",
+        "Predictive project analytics",
+        "Board-level insights",
+        "Executive decision support",
+        "Report automation"
+      ],
+      "engagement_level": "high",
+      "last_contact": "2025-12-31",
+      "next_action": "Continue AI model improvements and feature development",
+      "notes": "Tactical AI asset for construction portfolio management. Provides real-time insights, risk assessment, and decision support for DWS IQ 6 platform. IMPORTANT: Does NOT offer Digital Processing Agreement (DPA) - advisory role only, requires human oversight for critical decisions."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": "2025-01-01",
+      "contract_end": null,
+      "payment_terms": "Included in DWS IQ 6 Platform / €500/month per project for premium features",
+      "projects": [
+        "Board of Directors View",
+        "CEO Dashboard",
+        "Portfolio Risk Assessment",
+        "Fit for 55 Monitoring",
+        "Report Automation",
+        "Predictive Analytics"
+      ]
+    },
+    "metadata": {
+      "created_at": "2025-12-31T07:00:00Z",
+      "updated_at": "2025-12-31T07:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "risto-001"
+    }
+  },
+  {
+    "id": "soo-min-001",
+    "type": "investor",
+    "status": "active",
+    "personal": {
+      "first_name": "Soo",
+      "last_name": "Min",
+      "full_name": "Soo Min",
+      "title": "Associate",
+      "email": "",
+      "phone": "",
+      "linkedin": "https://www.linkedin.com/in/ACoAAB1lD1MBQR5_mF0gYxy9r62p6Rnt5fQCpME",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "node.vc",
+      "department": "Investment",
+      "role": "Associate",
+      "location": {
+        "city": "",
+        "country": "Finland",
+        "region": "Nordic/Baltic"
+      }
+    },
+    "professional": {
+      "education": "",
+      "expertise": [
+        "AI",
+        "Climate & Sustainability",
+        "Deep Tech",
+        "Early-Stage Investing",
+        "ESG",
+        "Nordic/Baltic Markets"
+      ],
+      "languages": [],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "investor",
+        "vc",
+        "node-vc",
+        "climate",
+        "ai",
+        "deep-tech",
+        "nordic",
+        "baltic",
+        "pre-seed",
+        "series-a",
+        "warm-intro",
+        "boardy-connection",
+        "active"
+      ],
+      "products": [],
+      "interests": [
+        "AI and climate/sustainability startups",
+        "Nordic/Baltic early-stage companies",
+        "Deep tech investments"
+      ],
+      "engagement_level": "medium",
+      "last_contact": "2026-03-14",
+      "next_action": "Warm intro via Boardy — share INVESTOR_MEMO v3.0 and Arctic 15 timeline",
+      "notes": "Associate at node.vc (€71M Nordic/Baltic early-stage fund). Invests Pre-Seed to Series A, check sizes €500K–€2.5M (sweet spot €1.5M). Generalist mandate: AI, climate, deep tech. Former analyst at Pale Blue Dot (climate VC) — understands ESG angle. node.vc requires Nordic/Baltic registration — Lifetime Oy (Finland) qualifies. Warm intro available via Boardy. Spoke with founder recently."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "SAFE",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-03-14T12:00:00Z",
+      "updated_at": "2026-03-14T12:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "risto-001"
+    }
+  },
+  {
+    "id": "jenny-engerfelt-001",
+    "type": "investor",
+    "status": "active",
+    "personal": {
+      "first_name": "Jenny",
+      "last_name": "Engerfelt",
+      "full_name": "Jenny Engerfelt",
+      "title": "Partner",
+      "email": "",
+      "phone": "",
+      "linkedin": "https://www.linkedin.com/in/ACoAAANvSMkBdN4d5l0dT1UdDlCH72nnSKjgnVA",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "Voima Ventures",
+      "department": "Investment",
+      "role": "Partner",
+      "location": {
+        "city": "",
+        "country": "Finland",
+        "region": "Nordic/Baltic"
+      }
+    },
+    "professional": {
+      "education": "",
+      "expertise": [
+        "AI",
+        "Green Transformation",
+        "Deep Tech",
+        "Early-Stage Investing",
+        "Industrial Networks",
+        "Nordic Enterprise Sales"
+      ],
+      "languages": [],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "investor",
+        "vc",
+        "voima-ventures",
+        "ai",
+        "green-transformation",
+        "deep-tech",
+        "nordic",
+        "baltic",
+        "pre-seed",
+        "series-a",
+        "warm-intro",
+        "boardy-connection",
+        "hands-on",
+        "board-level",
+        "active"
+      ],
+      "products": [],
+      "interests": [
+        "AI and green transformation startups",
+        "Nordic/Baltic deep tech",
+        "Industrial enterprise sales"
+      ],
+      "engagement_level": "medium",
+      "last_contact": "2026-03-14",
+      "next_action": "Warm intro via Boardy — share INVESTOR_MEMO v3.0, emphasize the two Q1/2026 enterprise pilots at EUR 29,950 each and cash break-even at EUR 0 founder salary",
+      "notes": "Partner at Voima Ventures. Leads €500K–€3M deep tech investments in Nordics/Baltics. Invests Pre-seed to early Series A. AI and green transformation focus — directly relevant. Provides hands-on weekly support + board-level guidance, not just capital. Strong industrial network for Nordic enterprise sales. €650K SAFE at €3.8M cap fits her entry valuation range (up to €10M). Prefers teams with proof of market interest — two contracted enterprise pilots plus cash break-even at a EUR 0 founder salary is the right signal. Do not claim a customer count or retention rate (see docs/TRACTION_CANONICAL.md). Warm intro available via Boardy. Spoke with founder recently."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "SAFE",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-03-14T12:00:00Z",
+      "updated_at": "2026-03-14T12:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "risto-001"
+    }
+  },
+  {
+    "id": "alexander-danielsson-001",
+    "type": "investor",
+    "status": "active",
+    "personal": {
+      "first_name": "Alexander",
+      "last_name": "Danielsson",
+      "full_name": "Alexander Danielsson",
+      "title": "Partner",
+      "email": "",
+      "phone": "",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "Norrsken VC",
+      "department": "Investment",
+      "role": "Partner",
+      "location": {
+        "city": "Stockholm",
+        "country": "Sweden",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "Former TA Associates (Private Equity)",
+      "expertise": [
+        "Climate Tech",
+        "AI",
+        "Nordic Markets",
+        "UK/Ireland Markets",
+        "Private Equity",
+        "Early-Stage Investing"
+      ],
+      "languages": [],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "investor",
+        "vc",
+        "norrsken",
+        "climate",
+        "ai",
+        "ai-for-good",
+        "nordic",
+        "sfdr-article-9",
+        "cold-outreach",
+        "fleet-admiral-candidate",
+        "active"
+      ],
+      "products": [],
+      "interests": [
+        "Climate tech in UK/Ireland/Nordics",
+        "AI for Good strategy",
+        "Impact investing"
+      ],
+      "engagement_level": "low",
+      "last_contact": null,
+      "next_action": "Cold outreach — Norrsken deploying €300M AI for Good strategy. Pitch KYA + Alpha-Share audit data. Pre-Arctic 15 timing.",
+      "notes": "Partner at Norrsken VC (SFDR Article 9 Dark Green fund). Covers climate tech across UK, Ireland, Nordics. Former TA Associates (PE). Norrsken portfolio includes Northvolt, Einride, 1KOMMA5°. Fund raising €350-400M Fund III. €300M committed to AI for Good strategy (climate, health, food). Best first contact at Norrsken for DWS IQ 6."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "SAFE",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-03-14T12:00:00Z",
+      "updated_at": "2026-03-14T12:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "risto-001"
+    }
+  },
+  {
+    "id": "daria-saharova-001",
+    "type": "investor",
+    "status": "active",
+    "personal": {
+      "first_name": "Daria",
+      "last_name": "Saharova",
+      "full_name": "Daria Saharova",
+      "title": "Co-founder & General Partner",
+      "email": "",
+      "phone": "",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "World Fund",
+      "department": "Investment",
+      "role": "Co-founder & General Partner",
+      "location": {
+        "city": "Berlin",
+        "country": "Germany",
+        "region": "Europe"
+      }
+    },
+    "professional": {
+      "education": "",
+      "expertise": [
+        "Climate Tech",
+        "Manufacturing",
+        "Buildings",
+        "Transport",
+        "Science-Based Methodology",
+        "CO2 Avoidance Measurement"
+      ],
+      "languages": [],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "investor",
+        "vc",
+        "world-fund",
+        "climate",
+        "manufacturing",
+        "buildings",
+        "transport",
+        "seed",
+        "series-b",
+        "science-based",
+        "cold-outreach",
+        "fleet-admiral-candidate",
+        "active"
+      ],
+      "products": [],
+      "interests": [
+        "Science-based CO2 avoidance methodology",
+        "Manufacturing and buildings decarbonization",
+        "Climate tech Seed to Series B"
+      ],
+      "engagement_level": "low",
+      "last_contact": null,
+      "next_action": "Cold outreach — pitch Alpha-Share audit data + KYA as verifiable CO2 measurement framework. Aligns with World Fund's TU Berlin methodology.",
+      "notes": "Co-founder & GP at World Fund (€350M Fund I). Science-based climate methodology developed with TU Berlin, Project Drawdown, Project Frame. Invests Seed to Series B in key emitting sectors: Energy, Food/Agriculture, Manufacturing, Buildings, Transport. Alpha-Share + Firehorse telemetry provides auditable efficiency data that aligns with their measurement approach. Pre-Arctic 15 timing."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "SAFE",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-03-14T12:00:00Z",
+      "updated_at": "2026-03-14T12:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "risto-001"
+    }
+  },
+  {
+    "id": "christian-jolck-001",
+    "type": "investor",
+    "status": "active",
+    "personal": {
+      "first_name": "Christian",
+      "last_name": "Jolck",
+      "full_name": "Christian Jolck",
+      "title": "Co-founder",
+      "email": "",
+      "phone": "",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "2150",
+      "department": "Investment",
+      "role": "Co-founder",
+      "location": {
+        "city": "Copenhagen",
+        "country": "Denmark",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "",
+      "expertise": [
+        "Urban Climate Tech",
+        "Built Environment",
+        "Industrial Decarbonization",
+        "Construction Materials",
+        "Series A Investing"
+      ],
+      "languages": [],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "investor",
+        "vc",
+        "2150",
+        "climate",
+        "urban-tech",
+        "built-environment",
+        "industrial",
+        "construction",
+        "series-a",
+        "cold-outreach",
+        "series-a-target",
+        "active"
+      ],
+      "products": [],
+      "interests": [
+        "Urban and industrial climate tech",
+        "Built environment decarbonization",
+        "Construction and materials innovation"
+      ],
+      "engagement_level": "low",
+      "last_contact": null,
+      "next_action": "Relationship building — 2150 is Series A fit (€5-6M checks), not seed. Start conversation now, pitch after August 15 sales data. Note: LP Security Trading Oy is Finnish — possible warm path.",
+      "notes": "Co-founder at 2150 (Fund II closed Jan 2026 at €210M, €500M AUM). Copenhagen office. Invests in urban/industrial climate tech: materials, construction, energy systems, industrial processes. Check size €5-6M at Series A — too large for seed round but perfect Series A candidate for Q3-Q4 2026. Portfolio: 27 companies, >$1B aggregate revenue, >1 megatonne CO2e mitigated/year. SFDR Article 9. LP Security Trading Oy (Finnish) could be warm intro path."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "Series A",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-03-14T12:00:00Z",
+      "updated_at": "2026-03-14T12:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "risto-001"
+    }
+  },
+  {
+    "id": "pia-kruse-001",
+    "type": "customer",
+    "status": "prospect",
+    "personal": {
+      "first_name": "Pia",
+      "last_name": "Kruse",
+      "full_name": "Pia Kruse",
+      "title": "Head of Sustainability",
+      "email": "",
+      "phone": "",
+      "linkedin": "https://www.linkedin.com/in/pia-kruse-b42b682",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "NCC Building Nordics",
+      "department": "Sustainability",
+      "role": "Head of Sustainability",
+      "location": {
+        "city": "Oslo",
+        "country": "Norway",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "MS Biology (Ecology, Indoor Air, Microbiology) Copenhagen; Executive MBA BI Norwegian Business School; Strategic Leadership Stockholm School of Economics",
+      "expertise": [
+        "CSRD/ESRS Reporting",
+        "EU Taxonomy Alignment",
+        "GRI Standards",
+        "GHG Protocol",
+        "CDP Disclosure",
+        "ISO 14001",
+        "ISO 9001",
+        "ISO 45001",
+        "BREEAM Certification",
+        "Construction Sustainability",
+        "Multi-Jurisdiction Compliance",
+        "EU Regulatory Frameworks"
+      ],
+      "languages": [
+        "Norwegian",
+        "Danish",
+        "English",
+        "Swedish"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "customer",
+        "prospect",
+        "construction",
+        "sustainability",
+        "CSRD",
+        "ESRS",
+        "EPBD",
+        "EU-taxonomy",
+        "NCC",
+        "compliance",
+        "fit-for-55",
+        "GRI",
+        "GHG",
+        "CDP",
+        "BREEAM",
+        "multi-jurisdiction",
+        "NO-DK-FI",
+        "linkedin-first-view",
+        "sales-pipeline"
+      ],
+      "products": [
+        "dws-iq",
+        "firehorse"
+      ],
+      "interests": [
+        "CSRD-ESRS multi-jurisdiction reporting",
+        "EU Taxonomy CapEx/OpEx alignment",
+        "EPBD embodied carbon compliance",
+        "ERP integration for carbon data",
+        "Multi-country data consolidation (NO/DK/FI)"
+      ],
+      "engagement_level": "medium",
+      "last_contact": "2026-04-02",
+      "thread_token": "YPGW53RPFQ",
+      "outreach_status": "contacted",
+      "outreach_channel": "LinkedIn Sales Navigator",
+      "next_action": "Wait for LinkedIn response. If no reply by 2026-04-09, send follow-up InMail with construction compliance brief.",
+      "notes": "20+ year Nordic construction sustainability veteran. Career: Skanska (3y) → AF Gruppen (4y) → Veidekke (3y) → NCC Building Nordics (Oct 2021–present). Board member EU Commission FP7 ChemXchange consortium. Skills are near-perfect match for DWS IQ platform. KEY INSIGHT: She knows every standard we cover — don't explain CSRD. Lead with the data layer, ERP integration, and the multi-jurisdiction pain point (managing NO/DK/FI compliance simultaneously). NCC Building Nordics covers Norway, Denmark, and Finland. OUTREACH LOG: 2026-04-02 — Contacted via LinkedIn Sales Navigator. Identified as real person behind placeholder 'Sustainability Director (NCC AB)' T:YPGW53RPFQ."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-04-02T07:00:00Z",
+      "updated_at": "2026-04-06T12:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "claude-code"
+    }
+  },
+  {
+    "id": "susanna-hypponen-001",
+    "type": "partner",
+    "status": "prospect",
+    "personal": {
+      "first_name": "Susanna",
+      "last_name": "Hyppönen",
+      "full_name": "Susanna Hyppönen",
+      "title": "AI Governance & Data Protection Professional · Author",
+      "email": "",
+      "phone": "",
+      "linkedin": "https://www.linkedin.com/in/susannaph",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "Independent / Alma Insights (author)",
+      "department": "Data Protection & AI Governance",
+      "role": "AI Governance & Data Protection Professional, DPO, Author",
+      "location": {
+        "city": "",
+        "country": "Finland",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "",
+      "expertise": [
+        "AI Governance",
+        "Data Protection & GDPR",
+        "EU AI Act",
+        "CSRD",
+        "DPIAs",
+        "Risk & Compliance",
+        "Policy & Process Development",
+        "Change & Project Management",
+        "Service Design & Lean",
+        "ISO/IEC 42001 (AI Management System)",
+        "ISO/IEC 27001:2022",
+        "ISO 9001:2015",
+        "QEHS"
+      ],
+      "languages": [
+        "Finnish",
+        "English"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "partner",
+        "advisor",
+        "consultant",
+        "prospect",
+        "data-protection",
+        "tietosuojajohtaminen",
+        "ai-governance",
+        "gdpr",
+        "eu-ai-act",
+        "iso-42001",
+        "iso-27001",
+        "dpia",
+        "dpo",
+        "csrd",
+        "author",
+        "nordic",
+        "compliance-hub",
+        "legal-hub"
+      ],
+      "products": [
+        "dws-iq"
+      ],
+      "interests": [
+        "Data protection management (tietosuojajohtaminen)",
+        "AI Management Systems (ISO 42001)",
+        "AI risk management & governance",
+        "GDPR / DPIA practice",
+        "EU AI Act readiness"
+      ],
+      "engagement_level": "low",
+      "last_contact": "2026-06-10",
+      "outreach_status": "first-contact",
+      "outreach_channel": "Business card",
+      "next_action": "Connect on LinkedIn (in/susannaph). Reference Tietosuojajohtaminen (Alma Insights, 2026) and the ISO 42001 / EU AI Act overlap with DWS AI governance + KYA. Do not explain GDPR/AI Act — she authored the field.",
+      "notes": "AI Governance & Data Protection professional with a business background; experience as consultant, privacy manager, and DPO across controllers and processors. Currently focused on AI Management Systems, AI governance capabilities, and AI risk management. Co-author of 'Tietosuojajohtaminen' (Data Protection Management), Alma Insights 2026, ISBN 978-952-14-5353-3, hardcover 432pp, with Miia Kataja and Titta Penttilä — https://kirjakauppa.almainsights.fi/sivu/tuote/tietosuojajohtaminen/5537565 . DWS FIT: maps directly onto the DWS IQ compliance/sovereignty stack — ISO 42001 AIMS underpins DWS AI governance + KYA; GDPR aligns with EU-sovereign data posture; CSRD/DPIA overlap regulatory-radar & compliance agent. Engagement angle: advisory / thought-leadership on data protection management + potential channel referral. Possible Digia Hub channel overlap (Lifetime Oy is a Digia Hub partner company). INTERNAL ONLY — do not name on public Legal/Compliance Hub pages until a relationship is established. Captured from business card 2026-06-10."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-06-10T00:00:00Z",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "claude-code"
+    }
+  },
+  {
+    "id": "martin-torngren-001",
+    "type": "partner",
+    "status": "prospect",
+    "personal": {
+      "first_name": "Martin",
+      "last_name": "Törngren",
+      "full_name": "Martin Törngren",
+      "title": "Professor in Embedded Control Systems, KTH · Director, TECoSA",
+      "email": "martint@kth.se",
+      "phone": "+46 8 790 63 07",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "KTH Royal Institute of Technology",
+      "department": "Mechatronics division, Dept. of Engineering Design; Director of TECoSA",
+      "role": "Professor / Center Director",
+      "location": {
+        "city": "Stockholm",
+        "country": "Sweden",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "Professor since 2002; post-doc EU-JRC; sabbaticals UC Berkeley (2011/12, 2018) and Stevens Institute (2018)",
+      "expertise": [
+        "Trustworthy edge computing",
+        "Cyber-physical systems",
+        "System and functional safety",
+        "Safety argumentation / assurance cases",
+        "Model-based engineering",
+        "Autonomous and connected CPS architectures"
+      ],
+      "languages": [
+        "Swedish",
+        "English"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "partner",
+        "director",
+        "academic",
+        "trustworthy-edge",
+        "prospect",
+        "nordic"
+      ],
+      "products": [
+        "dws-iq"
+      ],
+      "interests": [
+        "Trustworthy edge computing",
+        "Safety evidence",
+        "TECoSA phase-2 trustworthiness themes",
+        "AD-EYE verification"
+      ],
+      "engagement_level": "low",
+      "last_contact": "2026-07-14",
+      "next_action": "Reply to Broman with Törngren CC'd; lead with trustworthy edge computing / safety evidence; map Article-12 logging + KYA to his safety-argumentation framework; propose 30-min call.",
+      "notes": "Warm referral from David Broman (KTH EECS), 14.07.2026. Director of TECoSA (Trustworthy Edge Computing Systems and Applications), now in phase 2 with trustworthiness emphasis. Runs industrial-PhD program (Scania/Alstom/Ericsson) — strong industry-academia bridge. See People/partners/academic/martin-torngren.md and docs/field-notes/2026-07-14-kth-broman-torngren-tecosa-trustworthy-systems.md."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": "",
+      "contract_end": "",
+      "payment_terms": "",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-07-14T00:00:00Z",
+      "updated_at": "2026-07-14T00:00:00Z",
+      "created_by": "claude-code",
+      "updated_by": "claude-code"
+    }
+  }
+]

@@ -1,0 +1,61 @@
+# Ignore everything not needed for Cloud Run
+
+# Dependencies (will be installed during build)
+node_modules/
+
+# Development files
+.env
+.env.*
+!.env.example
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Documentation
+*.md
+!README.md
+docs/
+
+# Tests
+**/__tests__/
+**/*.test.ts
+**/*.spec.ts
+coverage/
+.nyc_output/
+
+# Frontend (separate deployment)
+dws6.com/
+landing-pages/
+Firehorse/
+
+# MCP servers (separate deployment)
+mcp-servers/
+mcp-hub/
+
+# Other directories not needed
+scripts/
+supabase/
+AgentFoundry/
+.github/
+
+# Python virtual environments
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Build output
+dist/
+
+# Miscellaneous
+*.log
+*.tmp
+.DS_Store
+Thumbs.db

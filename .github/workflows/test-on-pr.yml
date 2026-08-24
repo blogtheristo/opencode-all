@@ -1,0 +1,110 @@
+# Test Automation Workflow
+# Runs tests on every pull request and push to main
+# Part of the self-improving agent loop: ensures agents and services don't regress
+
+name: Test on PR
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "dws10.com/shared-assets/footer/**"
+      - "dws10.com/free-audit/**"
+      - "package.json"
+      - "tsconfig.json"
+      - "vitest.config.ts"
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "dws10.com/shared-assets/footer/**"
+      - "dws10.com/free-audit/**"
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # DGX Spark primary; fall back to GitHub-hosted when the box/runner is
+  # offline so CI never silently stops gating PRs.
+  detect-runner:
+    runs-on: ubuntu-latest
+    outputs:
+      runs-on: ${{ steps.failover.outputs.dgx_alive == 'true' && '["self-hosted", "dgx-spark"]' || '["ubuntu-latest"]' }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
+  test:
+    needs: detect-runner
+    runs-on: ${{ fromJSON(needs.detect-runner.outputs.runs-on) }}
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run TypeScript type check
+        run: npx tsc --noEmit --pretty
+
+      - name: Run tests
+        run: npm test -- --run --reporter=verbose
+        env:
+          NODE_ENV: test
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            coverage/
+            test-results/
+          retention-days: 7
+
+  lint-check:
+    needs: detect-runner
+    runs-on: ${{ fromJSON(needs.detect-runner.outputs.runs-on) }}
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Check for security patterns
+        run: |
+          echo "Checking for hardcoded secrets..."
+          ! grep -rn "sk-ant-api\|gsk_\|AIza\|AKIA[0-9A-Z]\{16\}" src/ \
+            --exclude-dir="__tests__" \
+            --include="*.ts" --include="*.js" || {
+            echo "WARNING: Potential secrets found in source code"
+            exit 1
+          }
+          echo "No hardcoded secrets detected"

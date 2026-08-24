@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.aitmpl.com)",
+      "WebFetch(domain:www.npmjs.com)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .claude/hooks/validate-branch-name.py"
+          }
+        ]
+      }
+    ]
+  }
+}

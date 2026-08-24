@@ -1,0 +1,303 @@
+name: Weekly Security Scan - ZenFree
+
+on:
+  # Schedule REMOVED 2026-05-25 (#1384) — comment originally claimed migration to
+  # "scripts/weekly/security-scan.sh", which never existed (fixed 2026-07-03: this
+  # workflow's scanner, scan_critical_bugs.py --full, is now actually invoked from
+  # scripts/weekly/security-audit.sh instead, which day-runner.sh discovers and runs).
+  # Was: cron '0 21 * * 0' (Sunday 21:00 UTC)
+  workflow_dispatch: # Allow manual trigger — kept as failover
+
+jobs:
+  weekly-security-scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: |
+          pip install -e .
+
+      - name: Run Full Security Scan
+        id: scan
+        continue-on-error: true
+        run: |
+          echo "🔒 Starting Weekly Security Scan..."
+          python scripts/scan_critical_bugs.py --full \
+            --output security-reports/WEEKLY_SECURITY_REPORT.md \
+            --json weekly-security-results.json
+          echo "scan_exit_code=$?" >> $GITHUB_OUTPUT
+
+      - name: Parse Security Results
+        continue-on-error: true
+        run: |
+          python3 << 'EOF'
+          import json
+          import os
+          from datetime import datetime
+
+          results = {
+              "timestamp": datetime.now().isoformat(),
+              "scan_id": "${{ github.run_id }}",
+              "scan_type": "weekly",
+              "repository": "${{ github.repository }}",
+              "branch": "${{ github.ref }}",
+              "commit": "${{ github.sha }}",
+              "sources": {}
+          }
+
+          # Parse ZenFree scan results
+          try:
+              with open("weekly-security-results.json") as f:
+                  scan_data = json.load(f)
+                  results["sources"]["zenfree"] = scan_data
+          except Exception as e:
+              print(f"Could not read scan results: {e}")
+              results["sources"]["zenfree"] = {"status": "failed"}
+
+          with open("weekly-merged-results.json", "w") as f:
+              json.dump(results, f, indent=2)
+
+          print(json.dumps(results, indent=2))
+          EOF
+
+      - name: Create Weekly Summary Issue
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let results = {};
+            try {
+              results = JSON.parse(fs.readFileSync('weekly-merged-results.json', 'utf8'));
+            } catch (e) {
+              console.log('Could not read results:', e);
+              return;
+            }
+
+            const stats = results.sources?.zenfree?.stats || {};
+            const findings = results.sources?.zenfree?.findings || [];
+            const critical = stats.critical || 0;
+            const high = stats.high || 0;
+            const medium = stats.medium || 0;
+            const low = stats.low || 0;
+            const filesScanned = stats.files_scanned || 0;
+
+            // Get timestamp
+            const scanDate = new Date(results.timestamp).toLocaleString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            });
+
+            // Build issue body
+            let issueBody = `# 🔒 Weekly Security Scan Report\n\n`;
+            issueBody += `**Scan Date:** ${scanDate}\n`;
+            issueBody += `**Scan ID:** ${results.scan_id}\n`;
+            issueBody += `**Branch:** ${results.branch}\n\n`;
+            issueBody += `---\n\n`;
+            issueBody += `## 📊 Summary\n\n`;
+            issueBody += `- **Files Scanned:** ${filesScanned}\n`;
+            issueBody += `- **Critical Issues:** ${critical} 🚨\n`;
+            issueBody += `- **High Issues:** ${high} ⚠️\n`;
+            issueBody += `- **Medium Issues:** ${medium}\n`;
+            issueBody += `- **Low Issues:** ${low}\n\n`;
+            issueBody += `**Total Issues:** ${findings.length}\n\n`;
+
+            // Status badge
+            if (critical > 0) {
+              issueBody += `## 🚨 Status: CRITICAL\n\n`;
+              issueBody += `**Action Required:** Fix critical issues immediately!\n\n`;
+            } else if (high > 0) {
+              issueBody += `## ⚠️ Status: HIGH PRIORITY\n\n`;
+              issueBody += `**Action Required:** Review and fix high severity issues this week.\n\n`;
+            } else if (medium > 0) {
+              issueBody += `## ⚡ Status: MEDIUM\n\n`;
+              issueBody += `**Action Required:** Schedule fixes for medium severity issues.\n\n`;
+            } else {
+              issueBody += `## ✅ Status: CLEAN\n\n`;
+              issueBody += `No critical, high, or medium severity issues found!\n\n`;
+            }
+
+            // Top issues
+            if (findings.length > 0) {
+              issueBody += `---\n\n## 🔍 Top Issues\n\n`;
+              
+              const criticalFindings = findings.filter(f => f.severity === 'critical').slice(0, 5);
+              const highFindings = findings.filter(f => f.severity === 'high').slice(0, 5);
+              
+              if (criticalFindings.length > 0) {
+                issueBody += `### 🚨 Critical (${criticalFindings.length})\n\n`;
+                criticalFindings.forEach((f, i) => {
+                  issueBody += `${i + 1}. **${f.full_description}**\n`;
+                  issueBody += `   - File: \`${f.file}:${f.line}\`\n`;
+                  issueBody += `   - CWE: ${f.cwe}\n`;
+                  issueBody += `   - Issue: ${f.description}\n\n`;
+                });
+              }
+              
+              if (highFindings.length > 0) {
+                issueBody += `### ⚠️ High (${highFindings.length})\n\n`;
+                highFindings.forEach((f, i) => {
+                  issueBody += `${i + 1}. **${f.full_description}**\n`;
+                  issueBody += `   - File: \`${f.file}:${f.line}\`\n`;
+                  issueBody += `   - CWE: ${f.cwe}\n\n`;
+                });
+              }
+            }
+
+            issueBody += `---\n\n`;
+            issueBody += `## 📄 Full Report\n\n`;
+            issueBody += `Download the full report from the workflow artifacts:\n`;
+            issueBody += `- [Weekly Security Report](../../actions/runs/${results.scan_id})\n`;
+            issueBody += `- [security-reports/WEEKLY_SECURITY_REPORT.md](../../security-reports/WEEKLY_SECURITY_REPORT.md)\n\n`;
+            issueBody += `---\n\n`;
+            issueBody += `## 🔗 Resources\n\n`;
+            issueBody += `- [Security Scanning Guide](../../security-reports/ZENFREE_SECURITY_SCANNING_GUIDE.md)\n`;
+            issueBody += `- [Quick Security Scan](../../security-reports/QUICK_SECURITY_SCAN.md)\n`;
+            issueBody += `- [Security Backlog](../../security-reports/SECURITY_BACKLOG_BUG_FIXES.md)\n\n`;
+            issueBody += `---\n\n`;
+            issueBody += `*Generated by Weekly Security Scan workflow*`;
+
+            // Determine labels
+            const labels = ['security', 'weekly-scan', 'zenfree'];
+            if (critical > 0) labels.push('priority-critical');
+            else if (high > 0) labels.push('priority-high');
+            else if (medium > 0) labels.push('priority-medium');
+
+            // Create issue
+            try {
+              const issue = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `🔒 Weekly Security Scan - ${scanDate}`,
+                body: issueBody,
+                labels: labels
+              });
+              console.log(`Created weekly summary issue: #${issue.data.number}`);
+            } catch (e) {
+              console.log(`Could not create issue: ${e}`);
+            }
+
+      - name: Create Individual Issues for Critical/High
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let results = {};
+            try {
+              results = JSON.parse(fs.readFileSync('weekly-merged-results.json', 'utf8'));
+            } catch (e) {
+              console.log('Could not read results:', e);
+              return;
+            }
+
+            const findings = results.sources?.zenfree?.findings || [];
+
+            // Fetch existing open issues with zenfree label to avoid duplicates
+            const existingIssues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'zenfree',
+              state: 'open',
+              per_page: 100
+            });
+            const existingTitles = new Set(existingIssues.data.map(i => i.title));
+
+            // Create individual issues for critical/high severity (skip duplicates)
+            for (const finding of findings) {
+              if (['critical', 'high'].includes(finding.severity?.toLowerCase())) {
+                const title = `🔐 [${finding.severity.toUpperCase()}] ${finding.full_description}`;
+                if (existingTitles.has(title)) {
+                  console.log(`Skipping duplicate: ${finding.file}:${finding.line}`);
+                  continue;
+                }
+                try {
+                  await github.rest.issues.create({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    title: title,
+                    body: `## Security Finding\n\n**Source:** ZenFree Weekly Scan\n**Severity:** ${finding.severity}\n**CWE:** ${finding.cwe}\n**Type:** ${finding.type}\n\n### Location\n- **File:** \`${finding.file}\`\n- **Line:** ${finding.line}\n\n### Code\n\`\`\`\n${finding.code}\n\`\`\`\n\n### Issue\n${finding.description}\n\n### Related\n- [Weekly Security Report](../../security-reports/WEEKLY_SECURITY_REPORT.md)\n- [Security Backlog](../../security-reports/SECURITY_BACKLOG_BUG_FIXES.md)\n- [Security Scanning Guide](../../security-reports/ZENFREE_SECURITY_SCANNING_GUIDE.md)`,
+                    labels: ['security', 'zenfree', `severity-${finding.severity}`, 'weekly-scan']
+                  });
+                  console.log(`Created issue for: ${finding.file}:${finding.line}`);
+                } catch (e) {
+                  console.log(`Could not create issue: ${e}`);
+                }
+              }
+            }
+
+      - name: Upload Security Reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: weekly-security-scan-results
+          path: |
+            weekly-security-results.json
+            weekly-merged-results.json
+            security-reports/WEEKLY_SECURITY_REPORT.md
+          retention-days: 90
+
+      - name: Post Scan Summary
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let results = {};
+            try {
+              results = JSON.parse(fs.readFileSync('weekly-merged-results.json', 'utf8'));
+            } catch (e) {
+              console.log('No results available');
+              return;
+            }
+
+            const stats = results.sources?.zenfree?.stats || {};
+            const critical = stats.critical || 0;
+            const high = stats.high || 0;
+            const medium = stats.medium || 0;
+            const filesScanned = stats.files_scanned || 0;
+
+            let message = `✅ Weekly Security Scan Complete\n`;
+            message += `- Files Scanned: ${filesScanned}\n`;
+            message += `- Critical: ${critical}\n`;
+            message += `- High: ${high}\n`;
+            message += `- Medium: ${medium}`;
+
+            if (critical > 0) {
+              core.error(`🚨 ${critical} CRITICAL issues found!`);
+            } else if (high > 0) {
+              core.warning(`⚠️ ${high} HIGH severity issues found`);
+            } else {
+              core.notice(message);
+            }
+
+      - name: Fail if Critical Issues Found
+        if: always()
+        run: |
+          if [ -f "weekly-security-results.json" ]; then
+            CRITICAL=$(python3 -c "import json; data=json.load(open('weekly-security-results.json')); print(data.get('stats', {}).get('critical', 0))")
+            if [ "$CRITICAL" -gt 0 ]; then
+              echo "🚨 CRITICAL: $CRITICAL critical security issues found!"
+              echo "Review the weekly security report and fix immediately."
+              exit 1
+            fi
+          fi

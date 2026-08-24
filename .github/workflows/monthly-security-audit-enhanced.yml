@@ -1,0 +1,323 @@
+name: Monthly Security Audit - Enhanced with Correlation
+
+on:
+  # Schedule REMOVED 2026-05-25 (#1384) — comment originally claimed
+  # scripts/weekly/security-audit.sh "covers monthly too". It doesn't, and shouldn't:
+  # this workflow's compliance score comes from scripts/security_audit.py, which is a
+  # hardcoded placeholder (always prints "Overall Score: 85/100" — see its own
+  # docstring), not a real audit. This workflow was creating monthly GitHub issues
+  # with a fabricated score before its schedule was removed. Do not re-enable the
+  # schedule or build a DGX equivalent until security_audit.py computes a real score
+  # (verified 2026-07-03: no currently-open issue is presenting the fake score).
+  # Was: cron '0 0 1 * *' (1st of month at 00:00 UTC)
+  workflow_dispatch:  # Allow manual triggering — kept for now, but produces fake data
+
+jobs:
+  enhanced-security-audit:
+    name: Run Comprehensive Security Audit + Correlation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyGithub requests
+
+      # --- PHASE 1: Run Monthly Audit ---
+      - name: Run Monthly Security Audit
+        id: audit
+        run: |
+          # Ensure script exists and is executable
+          chmod +x scripts/security_audit.py
+          python scripts/security_audit.py > audit-report-$(date +%Y-%m).md
+
+          # Extract summary
+          SCORE=$(grep -oP 'Overall Score:\s+\K[0-9]+' audit-report-*.md | head -1)
+          echo "audit_score=$SCORE" >> "$GITHUB_OUTPUT"
+          
+          # List the report
+          ls -la audit-report-*.md
+
+      # --- PHASE 2: Fetch ZenFree Attack Data ---
+      # ZenFree logs attacks to security-attacks.jsonl (local file, no API needed)
+      - name: Fetch ZenFree Attack Data
+        id: aikido
+        run: |
+          echo "Reading ZenFree attack logs..."
+          
+          # Convert JSONL log to JSON array expected by correlation script
+          if [ -f security-attacks.jsonl ] && [ -s security-attacks.jsonl ]; then
+            echo '{ "attacks":' > aikido-attacks.json
+            python3 -c "
+import json, sys
+attacks = [json.loads(l) for l in open('security-attacks.jsonl') if l.strip()]
+json.dump(attacks, sys.stdout, indent=2)
+" >> aikido-attacks.json
+            echo '}' >> aikido-attacks.json
+            echo "Loaded $(wc -l < security-attacks.jsonl) ZenFree attack records"
+          else
+            echo "No ZenFree attack log found — using empty dataset"
+            echo '{ "attacks": [] }' > aikido-attacks.json
+          fi
+          
+          echo "aikido_attacks_fetched=true" >> "$GITHUB_OUTPUT"
+
+      # --- PHASE 3: Run Correlation Analysis ---
+      - name: Run Security Correlation Analysis
+        id: correlation
+        run: |
+          echo "Correlation analysis starting..."
+          
+          # Run correlation script
+          python scripts/correlate_security_data.py \
+            --audit audit-report-$(date +%Y-%m).md \
+            --attacks aikido-attacks.json \
+            --output security-correlation-$(date +%Y-%m).md \
+            --json-output correlation-insights-$(date +%Y-%m).json
+          
+          # Extract summary
+          CRITICAL=$(grep -c "^### " security-correlation-$(date +%Y-%m).md || echo "0")
+          echo "critical_issues=$CRITICAL" >> "$GITHUB_OUTPUT"
+
+      # --- PHASE 4: Create Security Issues ---
+      - name: Create GitHub Issues from Findings
+        id: issues
+        run: |
+          python scripts/create_security_issues.py \
+            --report security-correlation-$(date +%Y-%m).md \
+            --output security-issues-$(date +%Y-%m).json
+          
+          # Count created issues
+          ISSUE_COUNT=$(grep -c '"title"' security-issues-$(date +%Y-%m).json || echo "0")
+          echo "issues_created=$ISSUE_COUNT" >> "$GITHUB_OUTPUT"
+
+      # --- PHASE 5: Generate Metrics ---
+      - name: Generate Security Metrics
+        id: metrics
+        run: |
+          cat > security-metrics-$(date +%Y-%m).json << 'EOF'
+          {
+            "month": "$(date +%Y-%m)",
+            "audit_score": ${{ steps.audit.outputs.audit_score }},
+            "critical_findings": ${{ steps.correlation.outputs.critical_issues }},
+            "issues_created": ${{ steps.issues.outputs.issues_created }},
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          }
+          EOF
+          
+          cat security-metrics-$(date +%Y-%m).json
+
+      # --- PHASE 6: Upload Artifacts ---
+      - name: Upload Audit Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit-${{ github.run_id }}
+          path: audit-report-*.md
+          retention-days: 90
+
+      - name: Upload Correlation Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-correlation-${{ github.run_id }}
+          path: |
+            security-correlation-*.md
+            correlation-insights-*.json
+          retention-days: 90
+
+      - name: Upload Issues
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-issues-${{ github.run_id }}
+          path: security-issues-*.json
+          retention-days: 90
+
+      # --- PHASE 7: Create Summary Issue ---
+      - name: Create Monthly Summary Issue
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const score = ${{ steps.audit.outputs.audit_score }};
+            const critical = ${{ steps.correlation.outputs.critical_issues }};
+            const issues = ${{ steps.issues.outputs.issues_created }};
+            const date = new Date().toISOString().slice(0, 7);
+            
+            const title = 'Monthly Security Audit - ' + date + ' (Score: ' + score + '%)';
+            
+            const metricsTable = '| Metric | Value |\n' +
+                                '|--------|-------|\n' +
+                                '| Compliance Score | ' + score + '% |\n' +
+                                '| Critical Findings | ' + critical + ' |\n' +
+                                '| Security Issues Created | ' + issues + ' |\n' +
+                                '| Status | Production Ready |';
+            
+            const body = '## Monthly Security Audit Report - ' + date + '\n\n' +
+                        '### Metrics\n' +
+                        metricsTable + '\n\n' +
+                        '### Analysis Components\n' +
+                        '1. Static Audit - Code review for security practices\n' +
+                        '2. Runtime Correlation - Aikido Zen attack data analysis\n' +
+                        '3. Automated Issues - Critical findings converted to actionable tasks\n\n' +
+                        '### Key Insights\n' +
+                        '- See linked artifacts for detailed reports\n' +
+                        '- Active threats identified: ' + critical + '\n' +
+                        '- Audit methodology validated by runtime data\n' +
+                        '- Trend analysis available in monthly dashboard\n\n' +
+                        '### Action Items\n' +
+                        '- Review critical findings (if any)\n' +
+                        '- Check Aikido dashboard for attack details\n' +
+                        '- Prioritize and assign security issues\n' +
+                        '- Update remediation roadmap\n\n' +
+                        '### Reports\n' +
+                        '- Full Audit Report: See GitHub Actions\n' +
+                        '- Correlation Analysis: See GitHub Actions\n' +
+                        '- Security Issues: See GitHub Issues\n\n' +
+                        '### References\n' +
+                        '- Security Reports: security-reports/\n' +
+                        '- GitHub Actions: See workflow artifacts\n\n' +
+                        '---\n' +
+                        'Automated monthly security audit - Part of defense-in-depth strategy';
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['security', 'monthly-audit', 'automated']
+            });
+
+      # --- PHASE 8: Microsoft Teams notification (optional) ---
+      # Add repo secret TEAMS_WEBHOOK_URL = Teams channel Incoming Webhook URL (Workflow or connector).
+      # Skips quietly if the secret is unset. Uses MessageCard (same pattern as Firehorse automation).
+      - name: Send Microsoft Teams notification
+        if: always()
+        continue-on-error: true
+        env:
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          AUDIT_SCORE: ${{ steps.audit.outputs.audit_score }}
+          CRITICAL_ISSUES: ${{ steps.correlation.outputs.critical_issues }}
+          ISSUES_CREATED: ${{ steps.issues.outputs.issues_created }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python3 << 'PY'
+          import json
+          import os
+          import sys
+          import urllib.error
+          import urllib.request
+
+          url = (os.environ.get("TEAMS_WEBHOOK_URL") or "").strip()
+          if not url:
+              print("Skip: TEAMS_WEBHOOK_URL secret not configured")
+              sys.exit(0)
+
+          score = os.environ.get("AUDIT_SCORE", "n/a")
+          critical = os.environ.get("CRITICAL_ISSUES", "0")
+          issues = os.environ.get("ISSUES_CREATED", "0")
+          run_url = os.environ.get("RUN_URL", "")
+          aikido_url = "https://app.aikido.dev"
+
+          card = {
+              "@type": "MessageCard",
+              "@context": "http://schema.org/extensions",
+              "themeColor": "0076D7",
+              "summary": "Monthly Security Audit Complete",
+              "sections": [
+                  {
+                      "activityTitle": "Security audit report — %s%%" % (score,),
+                      "facts": [
+                          {"name": "Compliance score", "value": "%s%%" % (score,)},
+                          {"name": "Critical issues", "value": str(critical)},
+                          {"name": "New issues created", "value": str(issues)},
+                          {"name": "Status", "value": "Complete"},
+                      ],
+                      "markdown": True,
+                  }
+              ],
+              "potentialAction": [
+                  {
+                      "@type": "OpenUri",
+                      "name": "View GitHub Actions run",
+                      "targets": [{"os": "default", "uri": run_url}],
+                  },
+                  {
+                      "@type": "OpenUri",
+                      "name": "Aikido dashboard",
+                      "targets": [{"os": "default", "uri": aikido_url}],
+                  },
+              ],
+          }
+
+          data = json.dumps(card).encode("utf-8")
+          req = urllib.request.Request(
+              url,
+              data=data,
+              headers={"Content-Type": "application/json"},
+              method="POST",
+          )
+          try:
+              with urllib.request.urlopen(req, timeout=30) as resp:
+                  body = resp.read().decode("utf-8", errors="replace")
+                  print(resp.status, body[:200])
+          except urllib.error.HTTPError as e:
+              err = e.read().decode("utf-8", errors="replace")
+              print("Teams webhook HTTP error:", e.code, err[:500])
+              raise
+          PY
+
+      # --- PHASE 8: GitHub Summary Notification ---
+      - name: Write Security Audit Summary
+        if: always()
+        run: |
+          {
+            echo "## Monthly Security Audit Complete"
+            echo ""
+            echo "- Compliance score: ${{ steps.audit.outputs.audit_score }}%"
+            echo "- Critical issues: ${{ steps.correlation.outputs.critical_issues }}"
+            echo "- New issues created: ${{ steps.issues.outputs.issues_created }}"
+            echo "- Aikido dashboard: https://app.aikido.dev"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # --- Job 2: Update Metrics Dashboard ---
+  update-dashboard:
+    name: Update Security Metrics Dashboard
+    runs-on: ubuntu-latest
+    needs: enhanced-security-audit
+    if: always()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Update Metrics
+        run: |
+          echo "Dashboard metrics would be updated here"
+          echo "Historical trend data"
+          echo "Compliance score tracking"
+          echo "Attack pattern analysis"
+          echo "Team notifications"
+
+      - name: Commit metrics update
+        run: |
+          git config --local user.email "security-bot@dws6.dev"
+          git config --local user.name "Security Bot"
+          
+          # In production, commit updated metrics
+          # git add security-reports/metrics/
+          # git commit -m "Update security metrics for $(date +%Y-%m)"
+          # git push

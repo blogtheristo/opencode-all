@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneLifetime.World</title>
+    <meta name="description" content="OneLifetime.World - Orchestrating the transition to Agentic AI and Intelligent Industries. DWS IQ, Lifetime Fleet, and Firehorse Solutions.">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../ultra/ultra-styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Ensure group-hover dropdowns work */
+        .group:hover .group-hover\:block {
+            display: block !important;
+        }
+    </style>
+    <style>
+        .group:hover .group-hover\:block {
+            display: block;
+        }
+        /* Force desktop nav hidden (desktop uses hamburger) */
+        #desktopNav {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col min-h-screen" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); color: #f1f5f9;">
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+
+    <nav style="background: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.3);" class="sticky top-0 z-50 border-b border-gray-700">
+        <!-- Unified Top Bar -->
+        <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+            <!-- Hamburger Menu -->
+            <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5">
+                <span class="w-6 h-0.5 bg-gray-400 block"></span>
+                <span class="w-6 h-0.5 bg-gray-400 block"></span>
+                <span class="w-6 h-0.5 bg-gray-400 block"></span>
+            </button>
+            
+            <!-- Logo -->
+            <a href="/" class="flex items-center">
+                <img src="../OneLifetime+Logo.png" alt="OneLifetime.World" class="h-8 w-auto" style="filter: brightness(1.1);">
+            </a>
+            
+            <a href="https://dws10.com/buy" class="text-xs font-bold px-3 py-1 rounded" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a;">
+                Store
+            </a>
+        </div>
+
+        <!-- Hamburger Menu (all breakpoints) -->
+        <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Solutions</a>
+            <div class="pl-4 space-y-1 text-xs text-gray-400">
+                <a href="https://lifetime.fi/" target="_blank" class="block py-1 hover:text-blue-400">→ Auditointi</a>
+                
+                <a href="https://dws10.com" target="_blank" class="block py-1 hover:text-blue-400">→ DWS IQ 6</a>
+                <a href="#" class="block py-1 hover:text-blue-400">→ Lifetime Fleet</a>
+            </div>
+            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">About Us</a>
+            <div class="pl-4 space-y-1 text-xs text-gray-400">
+                <a href="/blog/" class="block py-1 hover:text-blue-400">→ Lifetime Scope Journal</a>
+                <a href="/Partners/" class="block py-1 hover:text-blue-400">→ Partner Consortium</a>
+                <a href="/pledge/" class="block py-1 hover:text-blue-400">→ 🌍 Sustainability Pledge</a>
+                <a href="https://dws10.com/careers/" class="block py-1 hover:text-blue-400">→ Careers</a>
+            </div>
+            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Store</a>
+            <div class="pl-4 space-y-1 text-xs text-gray-400">
+                <a href="https://dws10.com/buy" target="_blank" class="block py-1 hover:text-blue-400">→ 🛒 DWS IQ Store</a>
+                <a href="https://dws10.com/buy" target="_blank" class="block py-1 hover:text-blue-400">→ 🎬 Lifetime Studios</a>
+                <a href="https://lifetime.fi/osta" target="_blank" class="block py-1 hover:text-blue-400">→ 💼 Lifetime Consulting</a>
+            </div>
+            <a href="#" class="block px-3 py-2 text-sm text-cyan-400 hover:bg-gray-700 rounded">🔐 Sign In</a>
+        </div>
+
+        <!-- Tagline & Divider -->
+        <div class="px-4 py-2 text-center border-t border-gray-700">
+            <p class="text-xs text-gray-400 italic" style="color: #94a3b8;">Turning 2050 goals<br/>into 2026 insights</p>
+            <div class="h-px w-8 bg-gradient-to-r from-cyan-500/0 via-cyan-500 to-cyan-500/0 mx-auto mt-2"></div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <div id="desktopNav" class="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between py-4">
+                <div class="flex items-center gap-4">
+                    <div class="flex flex-col items-center">
+                        <a href="/" class="flex items-center group">
+                            <img src="./OneLifetime+Logo.png" alt="OneLifetime.World" class="h-16 w-auto transition-opacity hover:opacity-90" style="filter: brightness(1.1); aspect-ratio: auto;">
+                        </a>
+                        <p class="text-xs text-gray-400 italic leading-tight text-center mt-1" style="color: #94a3b8;">Turning 2050 goals<br/>into 2026 insights</p>
+                        <div class="h-px w-8 bg-gradient-to-r from-cyan-500/0 via-cyan-500 to-cyan-500/0 mt-2"></div>
+                    </div>
+                    <div class="ml-10 flex space-x-8 items-center">
+                        <!-- Solution Dropdown (The Brands) -->
+                        <div class="relative group h-full flex items-center">
+                            <button style="color: #cbd5e1;" class="hover:text-blue-400 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-blue-400 text-sm font-medium">
+                                Solutions
+                                <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <div class="absolute left-0 top-16 hidden group-hover:block w-80 shadow-xl ring-1 ring-opacity-20 py-2 rounded-b-lg" style="background: #1e293b; border: 1px solid #334155;">
+                                <div class="px-4 py-2 text-xs font-semibold text-gray-400 tracking-wider" style="text-transform: none;">Our Brands</div>
+                                <a href="https://lifetime.fi/" target="_blank" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">Auditointi</span>
+                                    <span class="text-xs text-gray-400">Mitä voimme säästää?</span>
+                                </a>
+                                <a href="https://lifetime.fi/factory" target="_blank" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">Agenttitehdas</span>
+                                    <span class="text-xs text-gray-400">Automatisoi prosessit</span>
+                                </a>
+                                <a href="https://dws10.com" target="_blank" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">Lifetime DWS IQ 6</span>
+                                    <span class="text-xs text-gray-400">Industrial AI Platform</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 text-sm hover:bg-gray-700 border-l-4 border-blue-500" style="color: #e2e8f0; background: #334155;">
+                                    <span class="block font-bold text-blue-300">Lifetime Fleet</span>
+                                    <span class="text-xs text-gray-300">Henkilövuokraus & Logistiikka</span>
+                                </a>
+                                <a href="/Partners/" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">Partner Consortium</span>
+                                    <span class="text-xs text-gray-400">Ecosystem</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">Lifetime Agent Foundry</span>
+                                    <span class="text-xs text-gray-400">Service</span>
+                                </a>
+                                <hr style="border-color: #475569; margin: 4px 0;">
+                                <a href="#" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #cbd5e1;">
+                                    <span class="block font-bold text-cyan-400">🔐 Lifetime World Sign In</span>
+                                    <span class="text-xs text-gray-400">Exclusive dashboard</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- About Us Dropdown -->
+                        <div class="relative group h-full flex items-center">
+                            <button style="color: #cbd5e1;" class="hover:text-blue-400 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-blue-400 text-sm font-medium">
+                                About Us
+                                <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <div class="absolute left-0 top-16 hidden group-hover:block w-72 shadow-xl ring-1 ring-opacity-20 py-2 rounded-b-lg" style="background: #1e293b; border: 1px solid #334155;">
+                                <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-700" style="color: #e2e8f0;">Service</a>
+                                <a href="/blog/" class="block px-4 py-2 text-sm hover:bg-gray-700 font-semibold" style="color: #93c5fd;">Lifetime Scope Journal (LSJ)</a>
+                                <a href="/pledge/" class="block px-4 py-2 text-sm hover:bg-gray-700 font-semibold" style="color: #0ea5e9;"><strong>🌍 Sustainability Pledge</strong></a>
+                                <a href="https://dws10.com/careers/" target="_blank" class="block px-4 py-2 text-sm hover:bg-gray-700 font-semibold" style="color: #93c5fd;"><strong>Careers</strong></a>
+                            </div>
+                        </div>
+
+                        <!-- Store Dropdown -->
+                        <div class="relative group h-full flex items-center">
+                            <button style="color: #cbd5e1;" class="hover:text-blue-400 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-blue-400 text-sm font-medium">
+                                Store
+                                <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <div class="absolute left-0 top-16 hidden group-hover:block w-72 shadow-xl ring-1 ring-opacity-20 py-2 rounded-b-lg" style="background: #1e293b; border: 1px solid #334155;">
+                                <a href="https://dws10.com/buy" target="_blank" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">🛒 DWS IQ Store</span>
+                                    <span class="text-xs text-gray-400">Enterprise AI Platform</span>
+                                </a>
+                                <a href="https://dws10.com/buy" target="_blank" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">🎬 Lifetime Studios</span>
+                                    <span class="text-xs text-gray-400">Creative Services</span>
+                                </a>
+                                <a href="https://lifetime.fi/osta" target="_blank" class="block px-4 py-3 text-sm hover:bg-gray-700" style="color: #e2e8f0;">
+                                    <span class="block font-bold text-blue-400">💼 Lifetime Consulting</span>
+                                    <span class="text-xs text-gray-400">Professional Services</span>
+                                </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="https://dws10.com/buy" class="text-sm font-bold px-4 py-2 rounded-md transition" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a;">
+                        Store
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+        
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="bg-white rounded-lg shadow-xl overflow-hidden p-10">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-8">Privacy Policy & Community Rules</h1>
+        
+        <div class="prose prose-indigo max-w-none text-gray-600">
+            <h2>1. Privacy Policy & GDPR Statement (Lifetime Group)</h2>
+            <p><strong>Effective Date:</strong> December 2025<br>
+            <strong>Controller:</strong> Lifetime Oy (Helsinki, Finland)<br>
+            <strong>Legal Basis:</strong> EU GDPR, Digital Services Act (DSA), NIS2 Directive, and EU AI Act.</p>
+
+            <h3>1.1 Our Core Promise: Private Cloud & Data Sovereignty</h3>
+            <p>Unlike traditional SaaS providers, <strong>Lifetime DWS IQ</strong> is designed as a <strong>Private Cloud</strong> solution.</p>
+            <ul>
+                <li><strong>Your Data Stays With You:</strong> We deploy the "Industrial Brain" (DWS IQ) into <em>your</em> Google Cloud / Azure environment.</li>
+                <li><strong>No Training on Customer Data:</strong> We do not use your proprietary industrial data to train public AI models.</li>
+                <li><strong>Sovereignty:</strong> You retain 100% ownership and control of your data assets.</li>
+            </ul>
+
+            <h3>1.2 Security & NIS2 Compliance</h3>
+            <p>As a provider of digital services to essential sectors (Energy, Transport, Manufacturing), we align with the <strong>NIS2 Directive</strong> requirements:</p>
+            <ul>
+                <li><strong>Encryption:</strong> All data is encrypted in transit (TLS 1.3) and at rest (AES-256).</li>
+                <li><strong>Access Control:</strong> Strict Role-Based Access Control (RBAC) and Multi-Factor Authentication (MFA).</li>
+                <li><strong>Incident Reporting:</strong> We are committed to the 24-hour early warning notification requirement for significant cyber threats.</li>
+            </ul>
+
+            <h3>1.3 AI Transparency (EU AI Act)</h3>
+            <p>In compliance with the <strong>EU AI Act</strong>:</p>
+            <ul>
+                <li><strong>Chatbots & Agents:</strong> When interacting with our AI agents (e.g., Firehorse Coach), you will always be informed that you are interacting with an AI system.</li>
+                <li><strong>Content Generation:</strong> Any content generated by our AI tools (reports, text, images) is machine-generated and should be verified by a human expert before legal use.</li>
+                <li><strong>Risk Categorization:</strong> DWS IQ is designed as a support tool, not a "High-Risk AI System" under the Act (it does not perform biometric identification or critical safety components without human oversight).</li>
+            </ul>
+
+            <h3>1.4 International Data Transfers</h3>
+            <p>Our primary deployment model keeps data within the <strong>EU/EEA</strong>. Where US infrastructure (Google/Azure) is used, transfers are protected under the <strong>EU-US Data Privacy Framework (DPF)</strong>.</p>
+
+            <h2>2. Community Rules (EU Digital Services Act)</h2>
+            <p>For users participating in our community forums, comments, or shared workspaces ("Lifetime World"), we apply the following rules in compliance with the EU Digital Services Act (DSA):</p>
+
+            <ul>
+                <li><strong>Illegal Content:</strong> Strictly prohibited. This includes hate speech, terrorist content, child sexual abuse material, and non-consensual sharing of private images. We will remove such content immediately.</li>
+                <li><strong>Respectful Conduct:</strong> Harassment, bullying, and discrimination are not tolerated.</li>
+                <li><strong>AI Transparency:</strong> If you use our AI tools to generate content posted to the community, you must clearly label it as "AI-Generated".</li>
+                <li><strong>Moderation & Appeals:</strong> We reserve the right to remove content that violates these terms. If your content is removed, you will receive a statement of reasons and have the right to appeal by contacting <code>moderation@lifetime.fi</code>.</li>
+            </ul>
+
+            <h2>3. Your Rights (GDPR)</h2>
+            <p>You have the right to Access, Rectify, Erase, and Object to processing.</p>
+
+            <h2>4. Google Customer Reviews & Third-Party Cookies</h2>
+            <p>In connection with the Google Customer Reviews program, we use third-party technologies to collect information:</p>
+            <ul>
+                <li><strong>Third parties (including Google) may place and read cookies</strong> on your browser, or use web beacons to collect information.</li>
+                <li><strong>Google may receive information about transactions</strong> conducted on this site.</li>
+                <li><strong>Cookie Management:</strong> You can manage your cookie preferences through your browser settings. You may block or delete cookies, though this may affect site functionality.</li>
+            </ul>
+
+            <h2>5. Contact Us</h2>
+            <p><strong>Data Protection Officer</strong><br>
+            Lifetime Oy<br>
+            Helsinki, Finland<br>
+            Email: <a href="https://dws10.com/contact/" class="text-indigo-600">risto@lifetime.fi</a></p>
+        </div>
+    </div>
+</div>
+
+    </main>
+
+    <footer class="bg-gray-900 text-white border-t border-gray-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="text-lg font-bold text-white tracking-wider uppercase mb-4">OneLifetime.World</h3>
+                    <p class="text-base text-gray-400 max-w-md">
+                        <strong>Responsible Consultancy and Solutions.</strong><br>
+                        Business Ethics prioritized. Building the future of intelligent industries with Agentic AI.
+                    </p>
+                    <div class="mt-6 flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white">LinkedIn</a>
+                        <a href="#" class="text-gray-400 hover:text-white">GitHub</a>
+                        <a href="#" class="text-gray-400 hover:text-white">Twitter</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase mb-4">Brands</h3>
+                    <ul class="space-y-3">
+                        <li><a href="https://dws10.com" class="text-base text-gray-300 hover:text-white">DWS IQ Platform</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Lifetime Fleet</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Lifetime Studios</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Lifetime Consulting</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase mb-4">Contact</h3>
+                    <p class="text-base text-gray-300">
+                        <a href="https://dws10.com/contact/" class="hover:text-indigo-400">risto.paarni@lifetime.fi</a><br>
+                        <span class="block mt-2 text-sm text-gray-500">BUSINESS ID: FI07724079</span>
+                    </p>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-800 pt-8 md:flex md:items-center md:justify-between">
+                <div class="flex space-x-6 md:order-2">
+                    <a href="https://dws10.com/privacy-policy" target="_blank" class="text-gray-400 hover:text-white text-sm">Privacy & Community Policy</a>
+                </div>
+                <p class="text-base text-gray-400 md:order-1">&copy; 2025 OneLifetime.World. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+<!-- Last Build: 12/07/2025 14:30:33 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

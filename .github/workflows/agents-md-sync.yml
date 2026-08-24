@@ -1,0 +1,44 @@
+name: AGENTS.md Auto-Sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/agents/**'
+      - 'package.json'
+      - '.github/workflows/**'
+      - 'mcp-hub/**'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ github.token }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Run AGENTS.md auto-sync
+        run: node scripts/sync-agents-md.mjs
+
+      - name: Check for changes
+        id: diff
+        run: |
+          git diff --quiet AGENTS.md && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if changed
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add AGENTS.md
+          git commit -m "chore: auto-sync AGENTS.md from codebase [skip ci]"
+          git push

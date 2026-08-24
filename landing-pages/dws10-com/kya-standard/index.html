@@ -1,0 +1,1151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KYA Specification v1.5 — Know Your Agent | DWS IQ Platform | Lifetime Oy</title>
+    <meta
+      name="description"
+      content="The KYA (Know Your Agent) Specification v1.5 — a hardware-level framework for anchoring autonomous intent to verified identities through MicroVM isolation, forensic observability, and memory-bound audit trails."
+    />
+    <meta
+      name="keywords"
+      content="KYA, Know Your Agent, agent identity, MicroVM, Firecracker, sandbox isolation, BYO agent, DWS IQ, EU AI Act, zero trust, autonomous agents"
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="KYA Specification v1.5 — Know Your Agent | DWS IQ Platform" />
+    <meta
+      property="og:description"
+      content="Verify the Human. Sandbox the Agent. Secure the Intent. A hardware-level framework for autonomous agent governance."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://dws10.com/kya-standard/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="KYA Specification v1.5 — Know Your Agent" />
+    <meta
+      name="twitter:description"
+      content="Verify the Human. Sandbox the Agent. Secure the Intent."
+    />
+    <link rel="canonical" href="https://dws10.com/kya-standard/" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Shared Navigation -->
+    <script src="../shared-assets/nav/ironclad-nav.js" defer></script>
+
+    <style>
+      :root {
+        --color-primary: #0a1628;
+        --color-primary-light: #152238;
+        --color-accent: #0066cc;
+        --color-accent-dark: #0052a3;
+        --color-success: #0d7a3e;
+        --color-warning: #b45309;
+        --color-legal: #0d7a3e;
+        --color-eu-blue: #003399;
+        --color-eu-gold: #ffcc00;
+        --color-white: #ffffff;
+        --color-gray-50: #f8fafc;
+        --color-gray-100: #f1f5f9;
+        --color-gray-200: #e2e8f0;
+        --color-gray-300: #cbd5e1;
+        --color-gray-400: #94a3b8;
+        --color-gray-500: #64748b;
+        --color-gray-600: #475569;
+        --color-gray-700: #334155;
+        --color-gray-800: #1e293b;
+        --color-gray-900: #0f172a;
+        --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-sans);
+        line-height: 1.6;
+        color: var(--color-gray-900);
+        background: var(--color-white);
+      }
+
+      /* === HERO === */
+      .kya-hero {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        color: white;
+        padding: 80px 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .kya-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at center, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
+      }
+
+      .kya-hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .kya-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(6, 182, 212, 0.15);
+        border: 1px solid rgba(6, 182, 212, 0.3);
+        padding: 8px 20px;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #67e8f9;
+        margin-bottom: 24px;
+      }
+
+      .kya-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 800;
+        margin-bottom: 24px;
+        line-height: 1.2;
+      }
+
+      .kya-tagline {
+        font-size: clamp(1.25rem, 3vw, 1.75rem);
+        font-weight: 800;
+        color: #f1f5f9;
+        margin-bottom: 16px;
+        text-shadow: 0 0 40px rgba(6, 182, 212, 0.3);
+      }
+
+      .kya-subtitle {
+        font-size: 1.125rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 8px;
+      }
+
+      .kya-meta {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* === CONTENT === */
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--color-gray-900);
+        border-bottom: 2px solid var(--color-gray-200);
+        padding-bottom: 16px;
+        margin-bottom: 24px;
+      }
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--color-accent);
+        margin-top: 48px;
+        margin-bottom: 16px;
+      }
+      h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--color-gray-700);
+        margin-top: 24px;
+        margin-bottom: 12px;
+      }
+      p {
+        color: var(--color-gray-600);
+        margin-bottom: 16px;
+      }
+      a {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      ul {
+        padding-left: 24px;
+        margin-bottom: 16px;
+      }
+      li {
+        margin-bottom: 8px;
+        color: var(--color-gray-600);
+      }
+      strong {
+        color: var(--color-gray-900);
+      }
+      hr {
+        border: none;
+        border-top: 1px solid var(--color-gray-200);
+        margin: 32px 0;
+      }
+      code {
+        background: var(--color-gray-100);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.875rem;
+        color: var(--color-accent-dark);
+      }
+      pre {
+        background: var(--color-gray-900);
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin: 16px 0;
+      }
+
+      .summary-table {
+        margin: 24px 0;
+        overflow-x: auto;
+      }
+      .summary-table table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9375rem;
+      }
+      .summary-table th,
+      .summary-table td {
+        border: 1px solid var(--color-gray-200);
+        padding: 12px 16px;
+        text-align: left;
+      }
+      .summary-table th {
+        background: var(--color-gray-100);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        color: var(--color-gray-600);
+      }
+      .summary-table td {
+        background: var(--color-white);
+      }
+      .summary-table tr:hover td {
+        background: var(--color-gray-50);
+      }
+
+      .callout {
+        border-left: 4px solid var(--color-accent);
+        padding: 16px 20px;
+        margin: 24px 0;
+        background: var(--color-gray-50);
+        border-radius: 0 8px 8px 0;
+      }
+      .section-note {
+        background: var(--color-gray-50);
+        padding: 16px 20px;
+        border-radius: 8px;
+        border: 1px solid var(--color-gray-200);
+        margin: 16px 0;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 4px 10px;
+        border-radius: 9999px;
+        background: rgba(0, 102, 204, 0.1);
+        border: 1px solid rgba(0, 102, 204, 0.3);
+        color: var(--color-accent);
+        margin-left: 8px;
+      }
+      .tag-kya {
+        background: rgba(6, 182, 212, 0.1);
+        border-color: #06b6d4;
+        color: #0891b2;
+      }
+
+      /* Industry Grid */
+      .industry-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 8px;
+        margin: 16px 0;
+      }
+      .industry-chip {
+        background: var(--color-gray-50);
+        border: 1px solid var(--color-gray-200);
+        border-radius: 8px;
+        padding: 10px;
+        text-align: center;
+        font-size: 0.8125rem;
+        color: var(--color-gray-600);
+      }
+
+      /* Pillar Cards */
+      .pillar-card {
+        background: var(--color-gray-50);
+        border: 1px solid var(--color-gray-200);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 16px;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+      }
+      .pillar-icon {
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        background: rgba(0, 102, 204, 0.1);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--color-accent);
+      }
+      .pillar-card h3 {
+        margin-top: 0;
+        color: var(--color-accent);
+      }
+
+      @media (max-width: 768px) {
+        .kya-hero {
+          padding: 50px 20px;
+        }
+        .industry-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation injected by ironclad-nav.js -->
+
+    <!-- Hero -->
+    <section class="kya-hero">
+      <div class="kya-hero-content">
+        <div class="kya-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+          </svg>
+          KYA Specification v1.5 &middot; Technical Proposal
+        </div>
+        <p class="kya-tagline">Verify the Human. Sandbox the Agent. Secure the Intent.</p>
+        <h1 class="kya-title" style="border: none; padding: 0; color: white">The KYA Specification</h1>
+        <p class="kya-subtitle">
+          A hardware-level framework for anchoring autonomous intent to verified identities through
+          MicroVM isolation and forensic observability.
+        </p>
+        <p class="kya-meta">March 2026 &middot; Risto Anton P&auml;&auml;rni, Lead Architect &middot; Lifetime Oy</p>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <div class="container">
+      <h1>Know Your Agent (KYA) <span class="tag tag-kya">v1.5</span></h1>
+
+      <p>
+        <strong>Technical Proposal by Lifetime Oy</strong><br />Lead Architect: Risto Anton
+        P&auml;&auml;rni<br />Document status: specification draft, openly licensed (Apache-2.0)
+      </p>
+
+      <div
+        style="
+          background: rgba(212, 168, 67, 0.08);
+          border-left: 3px solid #d4a843;
+          border-radius: 4px;
+          padding: 18px 20px;
+          margin: 24px 0 32px;
+        "
+      >
+        <p style="font-weight: 700; color: #b8860b; margin: 0 0 8px">
+          This is a specification, not a ratified standard
+        </p>
+        <p style="margin: 0 0 8px; font-size: 0.95rem">
+          No standards body has chartered, reviewed or ratified this document, and no implementation
+          of it exists outside Lifetime Oy. We publish it as an openly licensed specification anyone
+          may implement &mdash; not as an industry standard, and not as an EU AI Act
+          <em>harmonised standard</em> under Article 40.
+        </p>
+        <p style="margin: 0; font-size: 0.95rem">
+          Four gates would earn the word later: two or more independent implementations; a
+          conformance suite an implementation can fail; acceptance by a recognised body or genuine
+          multi-party adoption; and change control that outlives Lifetime Oy. We have none of the
+          four yet, and we would rather say so than let the word do work it has not earned.
+        </p>
+      </div>
+
+      <hr />
+
+      <h2>1. Executive Summary</h2>
+      <p>
+        In the 2026 industrial landscape, identity verification is no longer a one-dimensional
+        problem. Traditional KYC (Know Your Customer) identifies the human at the door, but fails to
+        govern the autonomous entities they bring with them.
+      </p>
+      <p>
+        As enterprises integrate "Bring Your Own" (BYO) agents &mdash; ranging from Microsoft CoWork
+        and Tencent Workbuddy to proprietary industrial tools like Clawbot &mdash; a new governance
+        layer is required.
+      </p>
+      <p>
+        Lifetime Oy introduces the <strong>KYA (Know Your Agent) Specification</strong>: a hardware-level
+        framework for anchoring autonomous intent to verified identities through MicroVM isolation
+        and forensic observability.
+      </p>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Era</th>
+              <th>Identity Problem</th>
+              <th>Solution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2010s</td>
+              <td>Who is the human?</td>
+              <td><strong>KYC</strong> &mdash; document verification, AML screening</td>
+            </tr>
+            <tr>
+              <td>2020s</td>
+              <td>Who is the business?</td>
+              <td><strong>KYB</strong> &mdash; corporate registry, UBO checks</td>
+            </tr>
+            <tr>
+              <td>2026+</td>
+              <td>Who controls the agent?</td>
+              <td>
+                <strong>KYA</strong> &mdash; identity attribution + capability gating + forensic
+                audit
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr />
+
+      <h2>2. The Three Pillars of KYA</h2>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">1</div>
+        <div>
+          <h3>Identity Attribution &mdash; The Anchor</h3>
+          <p>
+            Every agent session is cryptographically anchored to a KYC-verified human or entity, so
+            that an autonomous action in the DWS10 Control Room is attributable to a named,
+            verified person. Attribution is what the design provides; whether it establishes legal
+            liability in a given case is a matter for the applicable law and forum.
+          </p>
+          <p>
+            <code
+              >Agent Action &rarr; Session Token &rarr; Verified Identity &rarr; Legal Entity</code
+            >
+          </p>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">2</div>
+        <div>
+          <h3>Capability Gating &mdash; The Leash</h3>
+          <p>
+            Using real-time risk telemetry (via API partners), DWS IQ dynamically adjusts an agent's
+            permissions. If a user's risk profile fluctuates, the agent's compute, memory, and API
+            access are throttled in milliseconds.
+          </p>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">3</div>
+        <div>
+          <h3>Forensic Observability &mdash; The Firehorse Audit Trail</h3>
+          <p>
+            The Lifetime Firehorse product line serves as the ecosystem's tamper-proof "flight
+            recorder." It captures a sub-second telemetry stream of every syscall and network
+            request, providing an immutable audit trail bridging agent behavior to human identity.
+          </p>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2>3. Memory Binding &mdash; Your Agent Writes to Your Memory</h2>
+      <p>
+        KYA solves the memory-binding problem. Agent memory is a security surface: every fact an
+        agent stores, supersedes, or forgets mutates customer state. Without binding, memory becomes
+        an unauditable black box that fails compliance review.
+      </p>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Memory Layer</th>
+              <th>Scope</th>
+              <th>Isolation</th>
+              <th>Shared?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Client Memory (relationship)</td>
+              <td>Customer-specific facts: preferences, deadlines, stated budgets</td>
+              <td>Postgres RLS by <code>org_id</code>; every mutation attested via KYA</td>
+              <td>No &mdash; tenant-isolated</td>
+            </tr>
+            <tr>
+              <td>LWM (domain)</td>
+              <td>EU regulations, emission factors, industry benchmarks</td>
+              <td>Shared domain knowledge &mdash; not customer data</td>
+              <td>Yes &mdash; shared to all tenants</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        <strong>The promise:</strong> Your agent writes to your memory &mdash; tenant-isolated,
+        provenance-logged, not ours. Nothing from your client memory reaches the shared LWM unless
+        you explicitly opt in, and only as anonymized, aggregated patterns.
+      </p>
+
+      <p>
+        Every store, supersede, forget, and fact-extract is logged in the
+        <code>memory_audit_log</code> with agent identity, timestamp, source hash, and confidence
+        &mdash; provenance designed against the EU AI Act Article 12 record-keeping requirements
+        and CSRD reporting needs.
+      </p>
+
+      <hr />
+
+      <h2>4. Technical Architecture: Hardware-Level Isolation</h2>
+      <p>
+        To meet the "Zero-Trust" requirements of industrial-grade environments, DWS IQ enforces
+        physical separation for every agent deployment.
+      </p>
+
+      <h3>Firecracker MicroVMs</h3>
+      <p>
+        Every BYO process is encapsulated in a dedicated MicroVM. No shared kernel access. Each
+        sandbox runs its own isolated guest kernel, eliminating "breakout" exploits and ensuring
+        that a compromise in one agent cannot migrate to the host or adjacent sandboxes.
+      </p>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Boot time</td>
+              <td>&lt; 125 ms</td>
+            </tr>
+            <tr>
+              <td>Memory overhead</td>
+              <td>&lt; 5 MB per MicroVM</td>
+            </tr>
+            <tr>
+              <td>Guest kernel</td>
+              <td>Isolated per sandbox</td>
+            </tr>
+            <tr>
+              <td>Host kernel access</td>
+              <td>None (paravirtualized)</td>
+            </tr>
+            <tr>
+              <td>Storage</td>
+              <td>Ephemeral by default, persistent opt-in</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Hypervisor-Level Egress Control</h3>
+      <p>
+        Network traffic is gated at the VMM (Virtual Machine Monitor) layer. Agents have zero
+        outbound access unless the KYA profile explicitly whitelists an endpoint for the specific
+        session.
+      </p>
+
+      <pre>
+Operator (KYA Score: 87)
+    |
+    +-- MicroVM-1: CoWork      [egress: microsoft.com]
+    +-- MicroVM-2: Workbuddy   [egress: api.tencent.com]
+    +-- MicroVM-3: Clawbot     [egress: none (air-gapped)]
+    +-- MicroVM-4: Cowork      [egress: api.anthropic.com]
+
+Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre
+      >
+
+      <hr />
+
+      <h2>5. Agent Trust Score (ATS)</h2>
+      <div class="callout">
+        <p>
+          <strong>Formula:</strong>
+          <code>ATS = max(0, 1.0 &minus; V&times;0.25 &minus; L &minus; D&times;0.05)</code><br />
+          Where V = KYA violations, L = latency penalty (0.10 if avg &gt; 500ms), D = denied path
+          attempts.<br />
+          <strong>Hard kill:</strong> ATS = 0.0 if manifest is unsigned or TTL expired.
+        </p>
+      </div>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>ATS</th>
+              <th>KYA Score</th>
+              <th>Permission Level</th>
+              <th>Decision</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>&ge; 0.80</strong></td>
+              <td>&ge; 80</td>
+              <td>Full sandbox &mdash; egress, filesystem, all MCP tools</td>
+              <td><strong style="color: #0d7a3e">GO</strong></td>
+            </tr>
+            <tr>
+              <td><strong>0.50&ndash;0.79</strong></td>
+              <td>50&ndash;79</td>
+              <td>Restricted sandbox &mdash; no egress, read-only FS</td>
+              <td><strong style="color: #b45309">GO (limited)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>&lt; 0.50</strong></td>
+              <td>&lt; 50</td>
+              <td>Suspended &mdash; human review required</td>
+              <td><strong style="color: #dc2626">NO_GO</strong></td>
+            </tr>
+            <tr>
+              <td><strong>= 0.00</strong></td>
+              <td>= 0</td>
+              <td>Frozen &mdash; agent terminated, investigation</td>
+              <td><strong style="color: #dc2626">NO_GO</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-note">
+        <strong>Implementation:</strong> <code>src/identity/ats-engine.ts</code> &mdash; evaluated
+        before external IDV calls (Shufti Pro) to save API cost on low-trust sessions. 4 violations
+        = zero trust.
+      </div>
+
+      <hr />
+
+      <h2>6. Use Case: The Multi-Agent Control Room</h2>
+      <p>
+        A Tier-1 client initiates a complex task in the Control Room (managing 16 proprietary
+        industrial models). The client simultaneously deploys four heterogeneous agents:
+      </p>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Agent</th>
+              <th>Role</th>
+              <th>Provider</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Microsoft CoWork</td>
+              <td>Documentation / PM</td>
+              <td>Microsoft</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Tencent Workbuddy</td>
+              <td>Supply-Chain APIs</td>
+              <td>Tencent</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Clawbot</td>
+              <td>Mechanical Optimization</td>
+              <td>OpenClaw</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Anthropic Cowork</td>
+              <td>Strategy / Logic</td>
+              <td>Anthropic</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <p>
+          <strong>Interdependency Enforcement:</strong> If the Tencent agent attempts to access a
+          resource reserved for the Clawbot, the DWS IQ hypervisor traps the command and freezes the
+          session instantly. KYA score impact: &minus;30 points, operator notified via webhook and
+          dashboard alert.
+        </p>
+      </div>
+
+      <h3>16 Industrial Models</h3>
+      <p>
+        Each model runs in its own sandbox within the Control Room, serving one of the 16
+        EU-regulated industries under Fit for 55:
+      </p>
+
+      <div class="industry-grid">
+        <div class="industry-chip">Power &amp; Heat</div>
+        <div class="industry-chip">Iron &amp; Steel</div>
+        <div class="industry-chip">Cement &amp; Lime</div>
+        <div class="industry-chip">Chemicals</div>
+        <div class="industry-chip">Aviation</div>
+        <div class="industry-chip">Maritime</div>
+        <div class="industry-chip">Road Transport</div>
+        <div class="industry-chip">Construction</div>
+        <div class="industry-chip">Agriculture</div>
+        <div class="industry-chip">Waste Mgmt</div>
+        <div class="industry-chip">Aluminium</div>
+        <div class="industry-chip">Pulp &amp; Paper</div>
+        <div class="industry-chip">Petroleum</div>
+        <div class="industry-chip">Food &amp; Bev</div>
+        <div class="industry-chip">Glass &amp; Ceramics</div>
+        <div class="industry-chip">Mining</div>
+      </div>
+
+      <hr />
+
+      <h2>7. BYO Agent Registration Flow</h2>
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Stage</th>
+              <th>Gate</th>
+              <th>Blocking?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Registration</td>
+              <td>Agent manifest submitted</td>
+              <td>&mdash;</td>
+            </tr>
+            <tr>
+              <td>2. Identity Binding</td>
+              <td>IDV &mdash; verify human</td>
+              <td><strong>Yes</strong></td>
+            </tr>
+            <tr>
+              <td>3. Org Verification</td>
+              <td>KYB &mdash; verify organization</td>
+              <td><strong>Yes</strong> (BYO agents)</td>
+            </tr>
+            <tr>
+              <td>4. Capability Review</td>
+              <td>MCP tool approval</td>
+              <td><strong>Yes</strong></td>
+            </tr>
+            <tr>
+              <td>5. Sandbox Entry</td>
+              <td>KYA score &ge; 50</td>
+              <td><strong>Yes</strong></td>
+            </tr>
+            <tr>
+              <td>6. Runtime</td>
+              <td>Continuous telemetry + webhooks</td>
+              <td>Dynamic</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr />
+
+      <h2>8. Compliance Alignment</h2>
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Regulation</th>
+              <th>KYA Coverage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>EU AI Act</strong> (Article 12)</td>
+              <td>Forensic logging, human oversight, traceability</td>
+            </tr>
+            <tr>
+              <td><strong>EU AI Act</strong> (Article 14)</td>
+              <td>Human-in-the-loop via KYA score thresholds</td>
+            </tr>
+            <tr>
+              <td><strong>NIS2 Directive</strong></td>
+              <td>Supply chain security for BYO agents, incident reporting</td>
+            </tr>
+            <tr>
+              <td><strong>GDPR</strong></td>
+              <td>Data residency (EU-only), right to erasure (agent data)</td>
+            </tr>
+            <tr>
+              <td><strong>Fit for 55</strong></td>
+              <td>16 industrial models comply with ETS/CBAM/CSRD</td>
+            </tr>
+            <tr>
+              <td><strong>DORA</strong></td>
+              <td>ICT risk management for financial sector agents</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr />
+
+      <h2>9. Subagent Registry <span class="tag tag-kya">Registry v1.1</span></h2>
+      <p>
+        Every subagent initialized within the DWS IQ platform must register with the
+        <strong>Subagent Registry</strong> and sign a local
+        <strong>Capability Manifest</strong> before execution begins. This ensures that testing and
+        sandbox environments enforce the same identity-gated access controls as production.
+      </p>
+
+      <h3>Capability Manifest</h3>
+      <p>
+        Upon initialization, each subagent signs a Capability Manifest declaring its permitted
+        resource paths. The manifest is immutable for the duration of the session.
+      </p>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Path</th>
+              <th>Access</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>/mock-api/</code></td>
+              <td>Read/Write</td>
+              <td>Mock API endpoints for testing</td>
+            </tr>
+            <tr>
+              <td><code>/temp-db/</code></td>
+              <td>Read/Write</td>
+              <td>Temporary database for sandbox operations</td>
+            </tr>
+            <tr>
+              <td><code>/prod-secrets/</code></td>
+              <td><strong style="color: #dc2626">DENIED</strong></td>
+              <td>Production secrets &mdash; access triggers KYA Violation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>KYA Violation: Unauthorized Path Access</h3>
+      <div class="callout">
+        <p>
+          <strong>Enforcement:</strong> If a subagent attempts to access a denied path (e.g.,
+          <code>/prod-secrets/</code>), the sandbox monitor intercepts within &lt; 1 ms, logs a KYA
+          Violation to the Firehorse audit trail, terminates the session within &lt; 50 ms, and
+          reduces the KYA Trust Score by 40 points. The operator is notified via webhook and
+          dashboard alert.
+        </p>
+      </div>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Step</th>
+              <th>Action</th>
+              <th>Latency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Path access intercepted by sandbox monitor</td>
+              <td>&lt; 1 ms</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>KYA Violation logged to Firehorse audit trail</td>
+              <td>&lt; 5 ms</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Subagent session terminated</td>
+              <td>&lt; 50 ms</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Operator notified (webhook + dashboard alert)</td>
+              <td>&lt; 1 s</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>KYA Trust Score reduced by 40 points</td>
+              <td>Immediate</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Manifest Schema</h3>
+      <pre>
+{
+  "manifest_version": "1.1",
+  "subagent_id": "&lt;uuid&gt;",
+  "session_id": "&lt;kya-session-token&gt;",
+  "signed_at": "&lt;ISO-8601&gt;",
+  "permitted_paths": ["/mock-api/", "/temp-db/"],
+  "denied_paths": ["/prod-secrets/"],
+  "ttl_seconds": 3600,
+  "kya_score_at_sign": 85
+}</pre
+      >
+
+      <h3>Fault Attribution (Liability Mapping)</h3>
+      <p>
+        When a subagent produces an incorrect result or triggers a violation, the system determines
+        <strong>which component is at fault</strong>. Fault attribution records are stored
+        separately in <strong>Supabase</strong> (<code>kya_fault_attribution</code>) &mdash; not in
+        the Firehose audit trail &mdash; because faults need mutable state (resolved/unresolved) and
+        real-time dashboard queries.
+      </p>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Fault Class</th>
+              <th>Responsible Component</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>LOGIC_FAULT</code></td>
+              <td>Logic Subagent</td>
+              <td>Incorrect calculation, hallucinated data, business rule violation</td>
+            </tr>
+            <tr>
+              <td><code>INTEGRATION_FAULT</code></td>
+              <td>Integration Mock/Adapter</td>
+              <td>Stale mock data, API timeout, schema mismatch</td>
+            </tr>
+            <tr>
+              <td><code>MANIFEST_FAULT</code></td>
+              <td>Capability Manifest</td>
+              <td>Manifest too permissive or missing deny rules</td>
+            </tr>
+            <tr>
+              <td><code>OPERATOR_FAULT</code></td>
+              <td>Human Operator</td>
+              <td>Misconfigured agent parameters, wrong model selected</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <p>
+          <strong>Why Supabase?</strong> Firehorse is an immutable, append-only forensic log
+          (&ldquo;what happened?&rdquo;). Fault attribution is an operational concern (&ldquo;who
+          fixes it?&rdquo;) that needs mutable state, RLS, real-time subscriptions, and queryable
+          JSONB evidence payloads.
+        </p>
+      </div>
+
+      <hr />
+
+      <h2>10. Identity Provider Integration</h2>
+      <p>
+        The KYA architecture is designed for pluggable identity providers. Any IDV/KYC partner that
+        can deliver real-time verification scores and continuous risk webhooks can serve as the
+        Identity Anchor.
+      </p>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>KYA Layer</th>
+              <th>Required Capability</th>
+              <th>Protocol</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>L1 &mdash; Identity Attribution</td>
+              <td>Real-time IDV (document + face match + AML)</td>
+              <td>REST API, &lt; 30s response</td>
+            </tr>
+            <tr>
+              <td>L2 &mdash; Agent Provenance</td>
+              <td>KYB (business/organization verification)</td>
+              <td>REST API</td>
+            </tr>
+            <tr>
+              <td>L5 &mdash; Continuous Risk</td>
+              <td>Risk change notifications</td>
+              <td>Webhook (push), &lt; 5s delivery</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Every BYO agent deployed in the DWS10 ecosystem generates a verification event. With 20
+        industries and multi-agent sessions, this creates volume at scale &mdash; not one-off KYC
+        checks.
+      </p>
+
+      <hr />
+
+      <h2>11. Agentforce Integration &mdash; Salesforce Headless 360</h2>
+      <p>
+        Salesforce Headless 360 exposes the entire Salesforce, Agentforce, and Slack platform as
+        APIs, MCP, and CLI. DWS IQ is built the same way. The integration is one MCP handshake.
+      </p>
+
+      <p>
+        KYA is designed to supply the governance and evidence layer for every Agentforce agent
+        handoff &mdash; addressing a gap that base Agentforce does not close natively. It does not,
+        by itself, make a deployment compliant: compliance depends on the deployer&rsquo;s own
+        obligations, risk classification, and controls.
+      </p>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Agentforce Moment</th>
+              <th>KYA Enforcement</th>
+              <th>EU AI Act articles addressed by design</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Agent spawned</td>
+              <td>KYC-verified human identity bound to session</td>
+              <td>Art. 13 &mdash; transparency</td>
+            </tr>
+            <tr>
+              <td>Tool call issued</td>
+              <td>Capability Manifest checked at VMM layer</td>
+              <td>Art. 9 &mdash; risk management</td>
+            </tr>
+            <tr>
+              <td>Regulated record written</td>
+              <td>TPM 2.0 sealed audit entry created</td>
+              <td>Art. 12 &mdash; event logging</td>
+            </tr>
+            <tr>
+              <td>Trust score drops &lt; 0.50</td>
+              <td>
+                Firehorse Snap triggered.<br />
+                <strong>Software kill chain: 0.006ms</strong> (measured, Helsinki Veriton GN100)<br />
+                <span style="color: var(--color-gray-500); font-size: 0.875rem"
+                  >VMM hardware kill: &lt;125ms (Firecracker production target)</span
+                >
+              </td>
+              <td>Art. 14 &mdash; human oversight</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>MCP Integration Path</h3>
+      <p>
+        DWS IQ CLI registers as a native MCP server inside Salesforce Headless 360. All 20
+        compliance agents are published as Salesforce-callable MCP tools. Agentforce orchestrates
+        them. KYA governs them. The result surfaces in the CRM record &mdash; never leaving the
+        Salesforce data perimeter.
+      </p>
+
+      <div class="callout">
+        <p>
+          <strong>Use Case &mdash; CBAM/CSRD in Salesforce CRM:</strong> A Nordic industrial sales
+          rep opens an Account record. Agentforce calls <code>dws/compliance/run</code> via MCP. The
+          DWS CBAM agent calculates carbon border adjustment liability (EU CBAM Reg. 2023/956) and
+          the CSRD agent maps scope-3 emissions against ESRS E1. KYA governs each handoff. A
+          Firehorse Signed Report appears in Salesforce Files within 60 seconds. The sales rep
+          shares it with procurement &mdash; the deal moves forward.
+        </p>
+      </div>
+
+      <div class="section-note">
+        <strong>Partner Brief:</strong>
+        <a href="/docs/gtm/KYA_CONNECTOR_BRIEF_SALESFORCE.md"
+          >KYA Connector Brief &mdash; Salesforce Headless 360 &amp; Agentforce ISV</a
+        >
+        (CONFIDENTIAL &mdash; available on request)<br />
+        <strong>Arctic 15:</strong> DWS IQ presenting in Helsinki, June 11&ndash;12, 2026. Contact
+        <a href="https://dws10.com/contact/">risto@onelifetime.world</a> to arrange a meeting.
+      </div>
+
+      <hr />
+
+      <h2>12. Contact</h2>
+      <p>
+        <strong>Lifetime Oy</strong> &middot; Helsinki, Finland<br />
+        <a href="https://dws10.com/contact/">risto@onelifetime.world</a><br />
+        <a href="https://dws10.com">dws10.com</a> &middot;
+        <a href="https://onelifetime.world">onelifetime.world</a>
+      </p>
+
+      <div class="section-note">
+        <strong>Partner Whitepaper:</strong>
+        <a href="whitepaper/">Securing the &ldquo;Shanghai Model&rdquo; of Agentic Delegation</a
+        ><br />
+        <strong>Back to Legal Hub:</strong>
+        <a href="../legal/">View all legal documents &amp; compliance policies</a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
+</html>

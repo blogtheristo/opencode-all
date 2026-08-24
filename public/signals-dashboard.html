@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Signals Dashboard - DWS IQ 6</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* iPhone 16 Pro Max optimized colors - Dark theme */
+            --bg-primary: #000000;
+            --bg-secondary: #1c1c1e;
+            --bg-card: #2c2c2e;
+            --text-primary: #ffffff;
+            --text-secondary: #8e8e93;
+            --accent-ultra: #ff453a;
+            --accent-high: #ff9f0a;
+            --accent-success: #32d74b;
+            --border-color: #38383a;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+            /* Safe area insets for iPhone 16 Pro Max */
+            --safe-area-top: env(safe-area-inset-top, 48px);
+            --safe-area-bottom: env(safe-area-inset-bottom, 34px);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            padding-top: var(--safe-area-top);
+            padding-bottom: var(--safe-area-bottom);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 20px calc(var(--safe-area-top) / 2);
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header .subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* Stats Bar */
+        .stats {
+            display: flex;
+            gap: 12px;
+            padding: 16px 20px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 100px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Signal List */
+        .signal-list {
+            padding: 16px 20px 40px;
+        }
+
+        .signal-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .signal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .signal-company {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .signal-contact {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-ultra {
+            background: var(--accent-ultra);
+            color: white;
+        }
+
+        .badge-high {
+            background: var(--accent-high);
+            color: white;
+        }
+
+        .signal-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .signal-content {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            font-size: 15px;
+            line-height: 1.6;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .message-draft {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-approve {
+            background: var(--accent-success);
+            color: white;
+            grid-column: 1 / -1;
+        }
+
+        .btn-reject {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-edit {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--text-primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-icon {
+            font-size: 60px;
+            margin-bottom: 16px;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: calc(var(--safe-area-bottom) + 20px);
+            left: 20px;
+            right: 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            transform: translateY(200%);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        .toast-success {
+            border-left: 4px solid var(--accent-success);
+        }
+
+        .toast-error {
+            border-left: 4px solid var(--accent-ultra);
+        }
+
+        /* Refresh Button */
+        .refresh-btn {
+            position: fixed;
+            bottom: calc(var(--safe-area-bottom) + 80px);
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--accent-success);
+            color: white;
+            border: none;
+            box-shadow: var(--shadow);
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 99;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>📊 Signals</h1>
+        <div class="subtitle">Signal-Based Sales Automation</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-value" id="stat-pending">0</div>
+            <div class="stat-label">Pending</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-ultra">0</div>
+            <div class="stat-label">ULTRA</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-high">0</div>
+            <div class="stat-label">HIGH</div>
+        </div>
+    </div>
+
+    <!-- Signal List -->
+    <div class="signal-list" id="signal-list">
+        <!-- Signals will be loaded here -->
+        <div class="loading">
+            <div class="spinner"></div>
+            <div>Loading signals...</div>
+        </div>
+    </div>
+
+    <!-- Refresh Button -->
+    <button class="refresh-btn" onclick="loadSignals()">↻</button>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Configuration
+        const API_BASE = window.location.origin + '/api/v1/firehorse';
+
+        // Load signals on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSignals();
+        });
+
+        // Load pending signals
+        async function loadSignals() {
+            try {
+                const response = await fetch(`${API_BASE}/signals/pending`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to load signals');
+                }
+
+                renderSignals(data.signals);
+                updateStats(data.signals);
+
+            } catch (error) {
+                showToast('Error loading signals: ' + error.message, 'error');
+                document.getElementById('signal-list').innerHTML = `
+                    <div class="empty">
+                        <div class="empty-icon">⚠️</div>
+                        <div>Failed to load signals</div>
+                        <div style="margin-top: 8px; font-size: 14px;">${error.message}</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Render signals
+        function renderSignals(signals) {
+            const listEl = document.getElementById('signal-list');
+
+            if (!signals || signals.length === 0) {
+                listEl.innerHTML = `
+                    <div class="empty">
+                        <div class="empty-icon">✅</div>
+                        <div>All signals reviewed!</div>
+                        <div style="margin-top: 8px; font-size: 14px;">Check back later for new signals</div>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = signals.map(signal => `
+                <div class="signal-card" id="signal-${signal.id}">
+                    <div class="signal-header">
+                        <div>
+                            <div class="signal-company">${signal.company_name}</div>
+                            <div class="signal-contact">${signal.contact_name || 'Unknown Contact'} ${signal.contact_title ? '· ' + signal.contact_title : ''}</div>
+                        </div>
+                        <span class="badge badge-${signal.correlation_score === 5 ? 'ultra' : 'high'}">
+                            ${signal.correlation_score === 5 ? 'ULTRA' : 'HIGH'}
+                        </span>
+                    </div>
+
+                    <div class="signal-meta">
+                        <div>📅 ${formatDate(signal.signal_date)}</div>
+                        <div>🔗 <a href="${signal.signal_url}" target="_blank" style="color: var(--text-secondary)">Source</a></div>
+                    </div>
+
+                    <div class="signal-content">
+                        ${signal.signal_content}
+                    </div>
+
+                    ${signal.message_draft ? `
+                        <div class="message-draft">
+                            ${signal.message_draft}
+                        </div>
+                    ` : ''}
+
+                    <div class="actions">
+                        <button class="btn btn-approve" onclick="approveSignal('${signal.id}')">
+                            ✅ Approve & Send
+                        </button>
+                        <button class="btn btn-edit" onclick="editSignal('${signal.id}')">
+                            ✏️ Edit
+                        </button>
+                        <button class="btn btn-reject" onclick="rejectSignal('${signal.id}')">
+                            ❌ Reject
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update stats
+        function updateStats(signals) {
+            const ultraCount = signals.filter(s => s.correlation_score === 5).length;
+            const highCount = signals.filter(s => s.correlation_score === 4).length;
+
+            document.getElementById('stat-pending').textContent = signals.length;
+            document.getElementById('stat-ultra').textContent = ultraCount;
+            document.getElementById('stat-high').textContent = highCount;
+        }
+
+        // Approve signal
+        async function approveSignal(id) {
+            if (!confirm('Approve this signal and mark it for sending?')) return;
+
+            try {
+                const response = await fetch(`${API_BASE}/signals/${id}/approve`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to approve signal');
+                }
+
+                showToast('✅ Signal approved! Now send it manually on LinkedIn.', 'success');
+                removeSignalCard(id);
+
+            } catch (error) {
+                showToast('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Reject signal
+        async function rejectSignal(id) {
+            if (!confirm('Reject this signal as not relevant?')) return;
+
+            try {
+                const response = await fetch(`${API_BASE}/signals/${id}/reject`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to reject signal');
+                }
+
+                showToast('Signal rejected', 'success');
+                removeSignalCard(id);
+
+            } catch (error) {
+                showToast('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Edit signal (placeholder - future feature)
+        function editSignal(id) {
+            alert('Edit feature coming soon! For now, approve the signal and edit the message manually in LinkedIn.');
+        }
+
+        // Remove signal card from DOM
+        function removeSignalCard(id) {
+            const card = document.getElementById(`signal-${id}`);
+            if (card) {
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.9)';
+                card.style.transition = 'all 0.3s';
+                setTimeout(() => card.remove(), 300);
+
+                // Reload if list is empty
+                setTimeout(() => {
+                    const remaining = document.querySelectorAll('.signal-card').length;
+                    if (remaining === 0) {
+                        loadSignals();
+                    }
+                }, 400);
+            }
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast toast-${type} show`;
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 0) return 'Today';
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+
+            return date.toLocaleDateString();
+        }
+    </script>
+</body>
+</html>

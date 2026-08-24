@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-08-07-kya-s1-specification-and-two-silent-defects</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-08-07-kya-s1-specification-and-two-silent-defects</h1>
+</header>
+<h1 id="field-note-kya-s1-is-a-specification-and-two-silent-defects-a-merge-surfaced">Field Note: KYA-S1 Is a Specification — and Two Silent Defects a Merge Surfaced</h1>
+<hr />
+<h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.0</p>
+<p>Sessions &amp; Modifications:</p>
+<ul>
+<li>Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 07.08.2026 | Changes: Initial field note. Records the KYA-S1 standard→specification reclassification, the new Approval Request Rule, and two defects the branch/main merge surfaced: a deleted VERSION AND AGENT HISTORY entry present on neither side, and a formatter hook that silently reverts the <code>***</code> delimiter rule on every edit.</li>
+</ul>
+<p>Session Links &amp; References:</p>
+<ul>
+<li>Claude Code (claude/arvonluonnin-ajurit-research-hpiipo): https://claude.ai/code</li>
+</ul>
+<p>Document Status:</p>
+<ul>
+<li>Created: 07.08.2026</li>
+<li>Last Modified: 07.08.2026</li>
+<li>Language: English</li>
+<li>Publication Status: ACTIVE</li>
+<li>Classification: INTERNAL</li>
+<li>Document Type: Field Note / HIC Learning Outcome</li>
+</ul>
+<p>Related Documents:</p>
+<ul>
+<li><code>Legal/KYA_S1.md</code> v1.3 (the reclassified specification)</li>
+<li><code>DWS_TRUTH_STANDARD.md</code> v4.7 (row 35 corrected, row 36 added)</li>
+<li><code>CLAUDE.md</code> — Approval Request Rule</li>
+<li><code>docs/KONSULTOINNIN_KASIKIRJA_2026.md</code> v1.12 (§2.1 driver 1)</li>
+<li><code>docs/blog-drafts/kya-s1-one-signed-page.fi.md</code> (DRAFT)</li>
+</ul>
+<hr />
+<h2 id="what-happened">What happened</h2>
+<p>Four threads, one session.</p>
+<p><strong>1. KYA-S1 is a specification, not a standard.</strong> The HIC corrected a claim that had propagated into the canonical spec’s own title, both registries, the compliance hub, and a published post. A standard comes out of a standards body with a consensus process; KYA-S1 came out of one company and was published for comment. Reclassified throughout (<code>Legal/KYA_S1.md</code> v1.2 → v1.3), with a third drift guard added to Truth Standard row 35. The HIC’s follow-up — <em>“we cannot publish standards”</em> — is the sharper form: the word was not a label error, it was an implicit claim to be a standards body.</p>
+<p><strong>2. The approval gate had a device bug.</strong> A fenced markdown block does not render on a phone. The HIC could not read the draft I asked them to approve. Added the <strong>Approval Request Rule</strong> to <code>CLAUDE.md</code>, then amended it within the same session: default to a published Artifact for anything meant to be read and judged; fenced blocks remain only for an explicit “give me a copy-paste”.</p>
+<p><strong>3. Positioning sharpened.</strong> §2.1 driver 1 now leads with quantified capacity, then value creation, then who decides. “Zero rekrytointiviive” moved from headline claim to explained footnote, per Boardy’s direction. New capacity figures registered as Truth Standard row 36.</p>
+<p><strong>4. The blog was rewritten for a reader who knows nothing.</strong> The KYA-S1 post was accurate and unreadable. Rewritten in Finnish with the KYC→KYA analogy carrying the concept and every term explained. FI is now the translation base.</p>
+<h2 id="the-insight-a-merge-is-a-detection-mechanism-not-just-an-integration-step">The insight: a merge is a detection mechanism, not just an integration step</h2>
+<p>Merging <code>origin/main</code> produced one conflict. Resolving it surfaced two defects neither side was reporting.</p>
+<p><strong>Defect 1 — a changelog entry deleted on both sides.</strong> The v1.81 entry existed at merge-base <code>7eea44e</code> and was missing from the branch <em>and</em> from main. The v1.9 session dropped it; this session propagated the loss to main by copying the branch’s file across. Neither <code>git status</code> nor any lint flagged it, because both sides agreed. Only the three-way comparison against merge-base made it visible. Deleting <code>VERSION AND AGENT HISTORY</code> entries violates CLAUDE.md Rule 12; restored verbatim.</p>
+<blockquote>
+<p><strong>The general form:</strong> a defect that exists identically on both branches is invisible to a two-way diff. It becomes visible the moment you diff both against their common ancestor. <code>git diff &lt;merge-base&gt; &lt;side&gt;</code> is a history-loss detector, and it costs one command.</p>
+</blockquote>
+<p><strong>Defect 2 — the formatter fights the document standard.</strong> The prettier <code>PostToolUse</code> hook rewrites <code>***</code> to <code>---</code> on every <code>Edit</code>/<code>Write</code>. CLAUDE.md’s Markdown Delimiter Rule requires <code>***</code> around the <code>VERSION AND AGENT HISTORY</code> block for Pandoc compatibility. A parallel session had <em>just</em> landed a commit fixing those delimiters (<code>ff9df71</code>); my first edit to the same file silently undid it.</p>
+<p>This is not a one-off. Every future edit to any handbook-class document re-breaks the rule, and the fix commit looks like it worked because the reverting write happens afterwards. The workaround used here — apply delimiter fixes via <code>sed</code> in Bash, which the Edit-hook formatter does not intercept — is a workaround, not a fix.</p>
+<p><strong>Reproduced live while writing this note.</strong> The <code>Write</code> that created this file had <code>***</code> delimiters; the hook rewrote both to <code>---</code> before the file was read back. The defect demonstrated itself inside the document reporting it, which is about as clean a reproduction as one gets.</p>
+<p><strong>Third observation, smaller:</strong> a parallel session had already landed an equivalent merge resolution while this one was working. Discarding the duplicate local merge and re-applying only the unique contribution (the v1.81 restoration) on top of their work was cheaper and cleaner than merging two merges. Tagged <code>backup/local-merge-74ca6f4</code> before resetting.</p>
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li><strong>The formatter defect needs a real fix.</strong> Either exclude the <code>VERSION AND AGENT HISTORY</code> block from prettier, or add a <code>PostToolUse</code> step that re-asserts <code>***</code> after formatting. Until then every handbook-class edit silently breaks the rule.</li>
+<li><strong>KYA-S1’s named models are unpinned.</strong> Truth Standard row 36 carries a WARN: the <em>counts</em> (3 open / 3 frontier) are registered on HIC authority, but the model names are not in any canonical file. The counts must not be quoted as an implied roster in customer-facing material until listed.</li>
+<li><strong>Two blog drafts await the HIC</strong>, both <code>Status: DRAFT</code>, neither published: <code>kya-s1-one-signed-page.md</code> (EN, reopened by the specification correction) and <code>kya-s1-one-signed-page.fi.md</code> (FI rewrite). The FI text goes to Gemini for translation once approved.</li>
+<li><strong>DWS IQ 10 has no roadmap.</strong> It was requested for the release timeline infographic; <code>DWS10_ROADMAP.md</code> does not exist and <code>dws10.com</code> is the store domain, not a version. Marked “horizon — no published date” in the infographic prompt pending a decision.</li>
+</ul>
+<h2 id="hic-learning-outcome-six-step-record">HIC Learning Outcome — six-step record</h2>
+<ol type="1">
+<li><strong>Knowledge base:</strong> N/A — no <code>kb/</code> directory in this clone; content carried by this note and Truth Standard rows 35–36.</li>
+<li><strong>Field note:</strong> this document.</li>
+<li><strong><code>Learn/</code> HTML:</strong> <code>Learn/2026-08-07-kya-s1-specification-and-two-silent-defects.html</code>.</li>
+<li><strong>Drive export:</strong> pending — this note follows the diff-export convention agreed 06.08.2026 (increments, not whole documents).</li>
+<li><strong>HIC decision-shaped question:</strong> see §Decision below.</li>
+<li><strong>Calendar:</strong> no new dated commitment. The KYA-S1 comment window closes 04.11.2026 and is already calendared.</li>
+</ol>
+<h2 id="decision">Decision</h2>
+<p><strong>Should the prettier hook be changed, or should the delimiter rule be?</strong></p>
+<p>Two defensible answers, and they lead to different work.</p>
+<p><strong>(A) Fix the hook.</strong> Keep <code>***</code>. Exclude the <code>VERSION AND AGENT HISTORY</code> block from prettier, or re-assert the delimiters after formatting. Preserves Pandoc compatibility and every existing document. Cost: hook work, and the exclusion has to hold across every document class that uses the block.</p>
+<p><strong>(B) Drop the rule.</strong> Let prettier win and standardise on <code>---</code>. Cheaper — no hook work — but it requires confirming that Pandoc rendering actually still holds for the thesis and handbook pipelines, and it rewrites a rule that exists because someone hit that Pandoc problem before.</p>
+<p><strong>(RECOMMEND: A.)</strong> The rule was written from a real failure; the formatter is the newer arrival and the easier thing to bend. But A is only correct if Pandoc genuinely still needs <code>***</code> — if that constraint has lapsed, B is the honest simplification and I would rather find out than keep patching around a rule nobody needs.</p>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# AI/DS Workflow Accelerator Dependencies
+# Install: pip install -r workflow/requirements.txt
+
+# Data manipulation
+pandas>=2.0.0,<3.0.0
+numpy>=1.24.0,<2.0.0
+
+# Machine learning
+scikit-learn>=1.3.0,<2.0.0
+
+# Visualization
+matplotlib>=3.7.0,<4.0.0
+seaborn>=0.12.0,<1.0.0
+
+# AI interpretation (Stage 4)
+anthropic>=0.39.0,<1.0.0
+
+# Environment
+python-dotenv>=1.2.2,<2.0.0  # >=1.2.2: set_key symlink-overwrite fix

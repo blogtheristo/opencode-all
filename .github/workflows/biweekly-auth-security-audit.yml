@@ -1,0 +1,301 @@
+name: Bi-Weekly Authentication Security Audit
+
+# ============================================================================
+# DWS6 Authentication Security Audit
+# Runs every 14 days to review src/auth/ for security vulnerabilities
+#
+# Based on OWASP Top 10 and EU AI Act compliance requirements
+# Uses security-auditor agent patterns from claude-code-templates
+# ============================================================================
+
+on:
+  # Schedule REMOVED 2026-05-25 (#1384) — moved to DGX Spark (scripts/weekly/auth-security-audit.sh)
+  # Was: cron '0 2 1,15 * *' (1st and 15th of month at 02:00 UTC)
+  workflow_dispatch:  # Allow manual trigger
+    inputs:
+      scope:
+        description: 'Audit scope (auth, api, all)'
+        required: false
+        default: 'auth'
+        type: choice
+        options:
+          - auth
+          - api
+          - all
+
+permissions:
+  contents: read
+  security-events: write
+  issues: write
+
+env:
+  AUDIT_SCOPE: ${{ inputs.scope || 'auth' }}
+  REPORT_DIR: security-reports/auth-audits
+
+jobs:
+  auth-security-audit:
+    name: Authentication Security Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      # ============================================
+      # SETUP
+      # ============================================
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Create audit directory
+        run: mkdir -p ${{ env.REPORT_DIR }}
+
+      - name: Get audit date
+        id: date
+        run: echo "date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+
+      # ============================================
+      # CRITICAL CHECK 1: JWT Secret Configuration
+      # ============================================
+
+      - name: "Critical #1: Check JWT Secret Hardcoding"
+        id: jwt_secret
+        run: |
+          echo "## JWT Secret Analysis" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+
+          # Check for hardcoded fallback secrets
+          HARDCODED=$(grep -rn "JWT_SECRET.*||.*['\"]" src/ --include="*.ts" --include="*.js" 2>/dev/null || true)
+
+          if [ -n "$HARDCODED" ]; then
+            echo "### CRITICAL: Hardcoded JWT Secret Fallback Found" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo '```' >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "$HARDCODED" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo '```' >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "jwt_status=FAIL" >> $GITHUB_OUTPUT
+          else
+            echo "### PASS: No hardcoded JWT secrets" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "jwt_status=PASS" >> $GITHUB_OUTPUT
+          fi
+
+          # Check for proper JWT_SECRET validation
+          VALIDATION=$(grep -rn "JWT_SECRET.*throw.*Error\|if.*!JWT_SECRET" src/ --include="*.ts" 2>/dev/null || true)
+
+          if [ -n "$VALIDATION" ]; then
+            echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "### PASS: JWT_SECRET validation present" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          else
+            echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "### WARNING: No JWT_SECRET startup validation found" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          fi
+
+      # ============================================
+      # CRITICAL CHECK 2: Password Verification
+      # ============================================
+
+      - name: "Critical #2: Check Password Verification"
+        id: password_verify
+        run: |
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "## Password Verification Analysis" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+
+          # Check for bcrypt usage
+          BCRYPT=$(grep -rn "bcrypt\|comparePassword" src/ --include="*.ts" 2>/dev/null | wc -l)
+
+          if [ "$BCRYPT" -gt 0 ]; then
+            echo "### PASS: bcrypt password comparison found ($BCRYPT occurrences)" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "password_status=PASS" >> $GITHUB_OUTPUT
+          else
+            echo "### CRITICAL: No bcrypt password verification found" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "password_status=FAIL" >> $GITHUB_OUTPUT
+          fi
+
+          # Check for timing attack prevention
+          TIMING=$(grep -rn "DUMMY_HASH\|timingSafeEqual" src/ --include="*.ts" 2>/dev/null || true)
+
+          if [ -n "$TIMING" ]; then
+            echo "### PASS: Timing attack prevention implemented" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          else
+            echo "### WARNING: No timing attack prevention found" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          fi
+
+      # ============================================
+      # CRITICAL CHECK 3: Admin Authentication
+      # ============================================
+
+      - name: "Critical #3: Check Admin Authentication"
+        id: admin_auth
+        run: |
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "## Admin Authentication Analysis" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+
+          # Check for weak admin key comparison
+          WEAK_ADMIN=$(grep -rn "adminKey.*!==\|x-admin-key.*===" src/ --include="*.ts" 2>/dev/null | grep -v "timingSafeEqual" || true)
+
+          if [ -n "$WEAK_ADMIN" ]; then
+            echo "### CRITICAL: Weak admin key comparison found (vulnerable to timing attacks)" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo '```' >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "$WEAK_ADMIN" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo '```' >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "admin_status=FAIL" >> $GITHUB_OUTPUT
+          else
+            echo "### PASS: No weak admin key comparison found" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "admin_status=PASS" >> $GITHUB_OUTPUT
+          fi
+
+          # Check for timingSafeEqual usage
+          SAFE_COMPARE=$(grep -rn "timingSafeEqual" src/ --include="*.ts" 2>/dev/null | wc -l)
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "timingSafeEqual occurrences: $SAFE_COMPARE" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+
+      # ============================================
+      # HIGH CHECK 4: Role Extraction from JWT
+      # ============================================
+
+      - name: "High #4: Check Role Extraction"
+        id: role_check
+        run: |
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "## Role-Based Access Control Analysis" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+
+          # Check if role is extracted in middleware
+          ROLE_EXTRACT=$(grep -rn "req\.userRole.*=.*decoded\.role\|userRole.*decoded" src/middleware/ --include="*.ts" 2>/dev/null || true)
+
+          if [ -n "$ROLE_EXTRACT" ]; then
+            echo "### PASS: Role extraction from JWT implemented" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "role_status=PASS" >> $GITHUB_OUTPUT
+          else
+            echo "### HIGH: Role NOT extracted from JWT in middleware" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "This breaks requireRole middleware - all role checks will fail!" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "role_status=FAIL" >> $GITHUB_OUTPUT
+          fi
+
+      # ============================================
+      # OWASP TOP 10 CHECKS
+      # ============================================
+
+      - name: "OWASP: Injection Vulnerabilities"
+        run: |
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "## OWASP A03:2021 - Injection" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+
+          # Check for SQL injection patterns
+          SQL_INJECT=$(grep -rn "query.*\+" src/ --include="*.ts" 2>/dev/null | grep -v "node_modules" || true)
+
+          if [ -n "$SQL_INJECT" ]; then
+            echo "### WARNING: Potential SQL injection patterns" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo '```' >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo "$SQL_INJECT" | head -10 >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+            echo '```' >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          else
+            echo "### PASS: No obvious SQL injection patterns" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          fi
+
+      - name: "OWASP: Authentication Failures"
+        run: |
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "## OWASP A07:2021 - Identification and Authentication Failures" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+
+          # Check rate limiting
+          RATE_LIMIT=$(grep -rn "rateLimit\|rateLimiter" src/ --include="*.ts" 2>/dev/null | wc -l)
+          echo "Rate limiting implementations: $RATE_LIMIT" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+
+          # Check password requirements
+          PASSWORD_REQ=$(grep -rn "isLength.*min.*12\|minLength.*12" src/ --include="*.ts" 2>/dev/null | wc -l)
+          echo "Password length validation: $PASSWORD_REQ occurrences" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+
+          # Check for token expiry
+          TOKEN_EXPIRY=$(grep -rn "expiresIn\|JWT_EXPIRES" src/ --include="*.ts" 2>/dev/null | wc -l)
+          echo "Token expiry configurations: $TOKEN_EXPIRY" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+
+      # ============================================
+      # COMPILE FINAL REPORT
+      # ============================================
+
+      - name: "Compile Audit Summary"
+        id: summary
+        run: |
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "---" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "## Audit Summary" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "| Check | Status |" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "|-------|--------|" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "| JWT Secret Configuration | ${{ steps.jwt_secret.outputs.jwt_status }} |" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "| Password Verification | ${{ steps.password_verify.outputs.password_status }} |" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "| Admin Authentication | ${{ steps.admin_auth.outputs.admin_status }} |" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "| Role Extraction | ${{ steps.role_check.outputs.role_status }} |" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "**Audit Date:** ${{ steps.date.outputs.date }}" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "**Next Audit:** $(date -d '+14 days' +%Y-%m-%d)" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "---" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+          echo "*Generated by DWS6 Bi-Weekly Authentication Security Audit*" >> ${{ env.REPORT_DIR }}/audit-${{ steps.date.outputs.date }}.md
+
+          # Determine overall status
+          if [ "${{ steps.jwt_secret.outputs.jwt_status }}" = "FAIL" ] || \
+             [ "${{ steps.password_verify.outputs.password_status }}" = "FAIL" ] || \
+             [ "${{ steps.admin_auth.outputs.admin_status }}" = "FAIL" ]; then
+            echo "overall_status=CRITICAL" >> $GITHUB_OUTPUT
+          elif [ "${{ steps.role_check.outputs.role_status }}" = "FAIL" ]; then
+            echo "overall_status=HIGH" >> $GITHUB_OUTPUT
+          else
+            echo "overall_status=PASS" >> $GITHUB_OUTPUT
+          fi
+
+      # ============================================
+      # CREATE ISSUE IF CRITICAL/HIGH ISSUES FOUND
+      # ============================================
+
+      - name: "Create GitHub Issue for Critical Findings"
+        if: steps.summary.outputs.overall_status != 'PASS'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const date = '${{ steps.date.outputs.date }}';
+            const status = '${{ steps.summary.outputs.overall_status }}';
+
+            let body = `## Authentication Security Audit - ${date}\n\n`;
+            body += `**Status:** ${status}\n\n`;
+            body += `### Findings\n\n`;
+            body += `| Check | Status |\n`;
+            body += `|-------|--------|\n`;
+            body += `| JWT Secret Configuration | ${{ steps.jwt_secret.outputs.jwt_status }} |\n`;
+            body += `| Password Verification | ${{ steps.password_verify.outputs.password_status }} |\n`;
+            body += `| Admin Authentication | ${{ steps.admin_auth.outputs.admin_status }} |\n`;
+            body += `| Role Extraction | ${{ steps.role_check.outputs.role_status }} |\n`;
+            body += `\n### Action Required\n\n`;
+            body += `Please review and fix the identified security issues before the next production deployment.\n\n`;
+            body += `**Reference:** OWASP A07:2021 - Identification and Authentication Failures\n\n`;
+            body += `---\n*Automated bi-weekly security audit*`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[Security] Authentication Audit ${status} - ${date}`,
+              body: body,
+              labels: ['security', 'authentication', 'audit', status.toLowerCase()]
+            });
+
+      # ============================================
+      # UPLOAD REPORT
+      # ============================================
+
+      - name: "Upload Audit Report"
+        uses: actions/upload-artifact@v4
+        with:
+          name: auth-security-audit-${{ steps.date.outputs.date }}
+          path: ${{ env.REPORT_DIR }}/
+          retention-days: 90

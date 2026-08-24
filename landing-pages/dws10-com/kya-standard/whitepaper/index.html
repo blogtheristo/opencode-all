@@ -1,0 +1,755 @@
+<!doctype html>
+<!--
+  VERSION AND AGENT HISTORY
+  Document revision: v1.1
+  Last updated: 25.06.2026
+  - v1.1 | Claude Code | claude/nvidia-vera-rubin-card-be8g7t | 25.06.2026 | Replaced BYO-agent example "OpenClaw" with the enterprise, OpenShell-sandboxed "NVIDIA NemoClaw" (security/credibility). First document-revision entry per DWS Document Standard §20.
+  - v1.0 | Claude Code | (initial) | 03.2026 | Initial publication — KYA Specification v1.5 technical whitepaper.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KYA v1.5 Whitepaper: Securing Agentic Delegation | DWS IQ Platform | Lifetime Oy</title>
+    <meta
+      name="description"
+      content="Technical whitepaper: The KYA Specification v1.5 — Securing the Shanghai Model of Agentic Delegation. Recursive identity attribution, cascade termination, and forensic observability for autonomous agent chains."
+    />
+    <meta
+      name="keywords"
+      content="KYA, Know Your Agent, Shanghai Model, agentic delegation, Shufti Pro, identity verification, MicroVM, Firecracker, EU AI Act, agent identity"
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="KYA v1.5 Whitepaper: Securing Agentic Delegation" />
+    <meta
+      property="og:description"
+      content="Technical requirements for Agent Identity Attribution in the Shanghai Model of autonomous delegation."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://dws10.com/kya-standard/whitepaper/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="KYA v1.5 Whitepaper: Securing Agentic Delegation" />
+    <link rel="canonical" href="https://dws10.com/kya-standard/whitepaper/" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Shared Navigation -->
+    <script src="../../shared-assets/nav/ironclad-nav.js" defer></script>
+
+    <style>
+      :root {
+        --color-primary: #0a1628;
+        --color-primary-light: #152238;
+        --color-accent: #0066cc;
+        --color-accent-dark: #0052a3;
+        --color-success: #0d7a3e;
+        --color-warning: #b45309;
+        --color-danger: #dc2626;
+        --color-eu-blue: #003399;
+        --color-eu-gold: #ffcc00;
+        --color-white: #ffffff;
+        --color-gray-50: #f8fafc;
+        --color-gray-100: #f1f5f9;
+        --color-gray-200: #e2e8f0;
+        --color-gray-300: #cbd5e1;
+        --color-gray-400: #94a3b8;
+        --color-gray-500: #64748b;
+        --color-gray-600: #475569;
+        --color-gray-700: #334155;
+        --color-gray-800: #1e293b;
+        --color-gray-900: #0f172a;
+        --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-sans);
+        line-height: 1.6;
+        color: var(--color-gray-900);
+        background: var(--color-white);
+      }
+
+      /* === HERO === */
+      .kya-hero {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        color: white;
+        padding: 80px 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .kya-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at center, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
+      }
+      .kya-hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .kya-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(6, 182, 212, 0.15);
+        border: 1px solid rgba(6, 182, 212, 0.3);
+        padding: 8px 20px;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #67e8f9;
+        margin-bottom: 24px;
+      }
+      .kya-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 800;
+        margin-bottom: 24px;
+        line-height: 1.2;
+      }
+      .kya-tagline {
+        font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+        font-weight: 600;
+        color: #f1f5f9;
+        margin-bottom: 16px;
+        text-shadow: 0 0 40px rgba(6, 182, 212, 0.3);
+      }
+      .kya-subtitle {
+        font-size: 1.125rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 8px;
+      }
+      .kya-meta {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* === CONTENT === */
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--color-gray-900);
+        border-bottom: 2px solid var(--color-gray-200);
+        padding-bottom: 16px;
+        margin-bottom: 24px;
+      }
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--color-accent);
+        margin-top: 48px;
+        margin-bottom: 16px;
+      }
+      h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--color-gray-700);
+        margin-top: 24px;
+        margin-bottom: 12px;
+      }
+      p {
+        color: var(--color-gray-600);
+        margin-bottom: 16px;
+      }
+      a {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      ul,
+      ol {
+        padding-left: 24px;
+        margin-bottom: 16px;
+      }
+      li {
+        margin-bottom: 8px;
+        color: var(--color-gray-600);
+      }
+      strong {
+        color: var(--color-gray-900);
+      }
+      hr {
+        border: none;
+        border-top: 1px solid var(--color-gray-200);
+        margin: 32px 0;
+      }
+      code {
+        background: var(--color-gray-100);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.875rem;
+        color: var(--color-accent-dark);
+      }
+      pre {
+        background: var(--color-gray-900);
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin: 16px 0;
+      }
+      blockquote {
+        border-left: 4px solid #06b6d4;
+        padding: 16px 20px;
+        margin: 24px 0;
+        background: var(--color-gray-50);
+        border-radius: 0 8px 8px 0;
+        font-style: italic;
+      }
+      blockquote p {
+        color: var(--color-gray-700);
+        margin-bottom: 0;
+      }
+
+      .summary-table {
+        margin: 24px 0;
+        overflow-x: auto;
+      }
+      .summary-table table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9375rem;
+      }
+      .summary-table th,
+      .summary-table td {
+        border: 1px solid var(--color-gray-200);
+        padding: 12px 16px;
+        text-align: left;
+      }
+      .summary-table th {
+        background: var(--color-gray-100);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        color: var(--color-gray-600);
+      }
+      .summary-table td {
+        background: var(--color-white);
+      }
+      .summary-table tr:hover td {
+        background: var(--color-gray-50);
+      }
+
+      .callout {
+        border-left: 4px solid var(--color-accent);
+        padding: 16px 20px;
+        margin: 24px 0;
+        background: var(--color-gray-50);
+        border-radius: 0 8px 8px 0;
+      }
+      .callout-danger {
+        border-left-color: var(--color-danger);
+      }
+      .callout-success {
+        border-left-color: var(--color-success);
+      }
+      .section-note {
+        background: var(--color-gray-50);
+        padding: 16px 20px;
+        border-radius: 8px;
+        border: 1px solid var(--color-gray-200);
+        margin: 16px 0;
+      }
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 4px 10px;
+        border-radius: 9999px;
+        background: rgba(0, 102, 204, 0.1);
+        border: 1px solid rgba(0, 102, 204, 0.3);
+        color: var(--color-accent);
+        margin-left: 8px;
+      }
+      .tag-kya {
+        background: rgba(6, 182, 212, 0.1);
+        border-color: #06b6d4;
+        color: #0891b2;
+      }
+      .tag-partner {
+        background: rgba(13, 122, 62, 0.1);
+        border-color: #0d7a3e;
+        color: #0d7a3e;
+      }
+
+      .pillar-card {
+        background: var(--color-gray-50);
+        border: 1px solid var(--color-gray-200);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 16px;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+      }
+      .pillar-icon {
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        background: rgba(0, 102, 204, 0.1);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--color-accent);
+      }
+      .pillar-card h3 {
+        margin-top: 0;
+        color: var(--color-accent);
+      }
+
+      @media (max-width: 768px) {
+        .kya-hero {
+          padding: 50px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation injected by ironclad-nav.js -->
+
+    <!-- Hero -->
+    <section class="kya-hero">
+      <div class="kya-hero-content">
+        <div class="kya-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+          </svg>
+          KYA Specification v1.5 &middot; Technical Whitepaper
+        </div>
+        <h1 class="kya-title" style="border: none; padding: 0; color: white">
+          Securing the &ldquo;Shanghai Model&rdquo;<br />of Agentic Delegation
+        </h1>
+        <p class="kya-tagline">Technical Requirements for Agent Identity Attribution</p>
+        <p class="kya-subtitle">To: Technical Sales &amp; Product Engineering Teams</p>
+        <p class="kya-meta">
+          March 2026 &middot; Lifetime Oy / DWS IQ 6 Engineering &middot; Risto Anton
+        </p>
+        <p class="kya-meta" style="opacity: 0.75; font-size: 0.85em">
+          Document revision v1.1 &middot; Last updated 25 Jun 2026
+        </p>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <div class="container">
+      <h1>
+        The KYA Specification v1.5 <span class="tag tag-kya">Whitepaper</span>
+        <span class="tag tag-partner">Partner</span>
+      </h1>
+
+      <hr />
+
+      <h2>1. Executive Summary</h2>
+      <p>
+        As AI transitions from &ldquo;Chat&rdquo; to &ldquo;Action,&rdquo; the industry faces a
+        critical visibility gap. In 2026, the <strong>Shanghai Model</strong> &mdash; where Parent
+        Agents delegate tasks to autonomous Sub-Agents &mdash; has become the standard for
+        industrial climate intelligence.
+      </p>
+      <p>
+        DWS IQ 6 has pioneered the <strong>KYA (Know Your Agent)</strong> framework to bridge this
+        gap. We seek to integrate L1/L2 identity signals directly into our Firecracker MicroVM
+        hypervisor to provide cryptographically verified accountability for autonomous agent chains.
+      </p>
+
+      <hr />
+
+      <h2>2. The Problem: The Delegation Liability</h2>
+      <p>
+        Traditional KYC verifies humans at login. However, in industrial workflows, a verified human
+        may authorize an <strong>Architect Agent</strong>, which then spawns a
+        <strong>Compliance Agent</strong>, which in turn triggers a <strong>Sensor Bot</strong>.
+      </p>
+
+      <div class="callout callout-danger">
+        <p>
+          <strong>The Risk:</strong> If a sub-agent executes an unauthorized transaction or data
+          breach, who is liable?
+        </p>
+      </div>
+
+      <div class="callout callout-success">
+        <p>
+          <strong>The Solution:</strong> A recursive identity chain where every sub-agent inherits a
+          &ldquo;Leash&rdquo; from a KYC-verified human. The chain is cryptographically bound and
+          immutable.
+        </p>
+      </div>
+
+      <hr />
+
+      <h2>3. The &ldquo;Shanghai&rdquo; Technical Framework</h2>
+      <p>Our KYA Specification v1.5 implements four critical layers of agentic control:</p>
+
+      <h3>3.1 Recursive Identity Attribution (TC-1)</h3>
+      <p>
+        Every agent execution generates a <code>trust_chain_hash</code>. This Merkle-style hash
+        binds the Sub-Agent to the Parent Agent and, ultimately, to the IDV-verified Human Operator.
+      </p>
+
+      <pre>
+Human Operator (IDV Verified, KYA Score: 87)
+    |
+    +-- trust_chain_hash: 0xA3F...
+    |
+    +-- Architect Agent (L2 Provenance Verified)
+        |
+        +-- trust_chain_hash: 0xB7C...
+        |
+        +-- Compliance Agent (L3 Capability Gated)
+            |
+            +-- trust_chain_hash: 0xD1E...
+            |
+            +-- Sensor Bot (L4 Runtime Monitored)</pre
+      >
+
+      <h3>3.2 The Digital Leash (Intersection Logic)</h3>
+
+      <blockquote>
+        <p>
+          <strong>Sub-Agent Sandbox = Parent Permissions &cap; Sub-Agent Manifest</strong><br />
+          An agent can never &ldquo;outgrow&rdquo; the permissions of its handler.
+        </p>
+      </blockquote>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">TC-2</div>
+        <div>
+          <h3>Permission Inheritance Rule</h3>
+          <p>
+            If the parent agent has egress to <code>api.tencent.com</code> and
+            <code>microsoft.com</code>, but the child&rsquo;s manifest only requests
+            <code>api.tencent.com</code>, the child gets <strong>only</strong>
+            <code>api.tencent.com</code>. The intersection is enforced at the Firecracker VMM layer
+            &mdash; not in application code.
+          </p>
+        </div>
+      </div>
+
+      <h3>3.3 Cascade Termination (The 500ms SLA)</h3>
+      <p>
+        If the identity provider signals a risk change for a Human Operator (e.g., AML hit or
+        credential theft), DWS IQ 6 triggers a <strong>Cascade Termination</strong>.
+      </p>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Control</th>
+              <th>Requirement</th>
+              <th>SLA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>TC-3</strong></td>
+              <td>Single agent session termination</td>
+              <td><strong>&lt; 50 ms</strong></td>
+            </tr>
+            <tr>
+              <td><strong>TC-4</strong></td>
+              <td>Cascade termination (all child agents, max 3 levels)</td>
+              <td><strong>&lt; 500 ms</strong></td>
+            </tr>
+            <tr>
+              <td><strong>TC-5</strong></td>
+              <td>Maximum delegation depth enforced</td>
+              <td><strong>3 levels</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <pre>
+IDV Risk Webhook --&gt; DWS Policy Engine --&gt; Firecracker SIGKILL
+                                |
+                                +-- Level 1: Parent Agent    [FROZEN: 12ms]
+                                +-- Level 2: Child Agent     [FROZEN: 89ms]
+                                +-- Level 3: Grandchild Bot  [FROZEN: 340ms]
+                                                              Total: &lt; 500ms</pre
+      >
+
+      <hr />
+
+      <h2>4. Forensic Observability &amp; NIS2 Compliance</h2>
+      <p>
+        Under NIS2 Art. 23, industrial platforms must provide sub-second telemetry for automated
+        decisions. Our Firehorse Telemetry Schema captures full delegation chains:
+      </p>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Data Captured</th>
+              <th>Retention</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Parent/Child Linkage</strong></td>
+              <td>Full delegation depth visibility (max 3 levels), trust_chain_hash</td>
+              <td>5 years</td>
+            </tr>
+            <tr>
+              <td><strong>Syscall Capture</strong></td>
+              <td>Every file I/O and network request mapped to a Trust Hash</td>
+              <td>90 days (configurable)</td>
+            </tr>
+            <tr>
+              <td><strong>Identity Events</strong></td>
+              <td>KYA score changes, permission adjustments, cascade terminations</td>
+              <td><strong>5 years</strong> (EU AI Act Art. 12)</td>
+            </tr>
+            <tr>
+              <td><strong>MCP Tool Invocations</strong></td>
+              <td>Tool calls, parameters, responses per agent per session</td>
+              <td>1 year</td>
+            </tr>
+            <tr>
+              <td><strong>Fault Attribution</strong></td>
+              <td>LOGIC_FAULT, INTEGRATION_FAULT, MANIFEST_FAULT, OPERATOR_FAULT</td>
+              <td>5 years (Supabase)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-note">
+        <strong>Retention consistency:</strong> All identity-related events are retained for
+        <strong>5 years</strong> per EU AI Act Article 12 requirements. Syscall-level telemetry
+        follows a 90-day default with configurable extension. This tiered approach balances
+        compliance with storage efficiency.
+      </div>
+
+      <hr />
+
+      <h2>5. Agent Trust Score (ATS) &mdash; The Go/No-Go Gate</h2>
+      <p>
+        The ATS is calculated <strong>before</strong> any external IDV API call, saving cost by
+        killing low-trust sessions early.
+      </p>
+
+      <div class="callout">
+        <p>
+          <strong>Formula:</strong>
+          <code>ATS = max(0, 1.0 &minus; V&times;0.25 &minus; L &minus; D&times;0.05)</code><br />
+          Where V = KYA violations, L = latency penalty (0.10 if avg &gt; 500ms), D = denied path
+          attempts.<br />
+          <strong>Hard kill:</strong> ATS = 0.0 if manifest unsigned or TTL expired. 4 violations =
+          zero trust.
+        </p>
+      </div>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>ATS</th>
+              <th>KYA Score</th>
+              <th>Permission Level</th>
+              <th>Decision</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>&ge; 0.80</strong></td>
+              <td>&ge; 80</td>
+              <td>Full sandbox &mdash; egress, all MCP tools</td>
+              <td><strong style="color: #0d7a3e">GO</strong></td>
+            </tr>
+            <tr>
+              <td><strong>0.50&ndash;0.79</strong></td>
+              <td>50&ndash;79</td>
+              <td>Restricted sandbox &mdash; no egress, read-only</td>
+              <td><strong style="color: #b45309">GO (limited)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>&lt; 0.50</strong></td>
+              <td>&lt; 50</td>
+              <td>Suspended &mdash; human review required</td>
+              <td><strong style="color: #dc2626">NO_GO</strong></td>
+            </tr>
+            <tr>
+              <td><strong>= 0.00</strong></td>
+              <td>= 0</td>
+              <td>Frozen &mdash; agent terminated</td>
+              <td><strong style="color: #dc2626">NO_GO</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr />
+
+      <h2>6. Partnership Opportunity: &ldquo;Agent ID&rdquo;</h2>
+      <p>
+        We propose a deep integration where the identity provider acts as the
+        <strong>Identity Anchor</strong> for our Control Room:
+      </p>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">L1</div>
+        <div>
+          <h3>Real-Time Facial Liveness</h3>
+          <p>
+            Agent &ldquo;Power-On&rdquo; events require L1 verification: document + face match + AML
+            screening. This gates the trust chain &mdash; no verification, no agent spawn.
+          </p>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">L2</div>
+        <div>
+          <h3>Business Verification (KYB)</h3>
+          <p>
+            Third-party BYO agents require organization verification. The agent&rsquo;s provider
+            (Microsoft, Tencent, NVIDIA NemoClaw) must pass KYB before their agents can register.
+          </p>
+        </div>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">L5</div>
+        <div>
+          <h3>Low-Latency Signal Bridge</h3>
+          <p>
+            Continuous risk monitoring via webhook. When risk signals change, sandbox permissions
+            adjust in &lt; 5 seconds. Cascade termination within 500ms.
+          </p>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2>7. Technical Metadata</h2>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Requirement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Max Delegation Depth</strong></td>
+              <td>3 Levels (TC-5)</td>
+            </tr>
+            <tr>
+              <td><strong>Single Termination Latency</strong></td>
+              <td>&lt; 50ms (TC-3)</td>
+            </tr>
+            <tr>
+              <td><strong>Cascade Termination Latency</strong></td>
+              <td>&lt; 500ms (TC-4)</td>
+            </tr>
+            <tr>
+              <td><strong>Identity Event Retention</strong></td>
+              <td>5 Years (EU AI Act Art. 12)</td>
+            </tr>
+            <tr>
+              <td><strong>Syscall Retention</strong></td>
+              <td>90 days (configurable)</td>
+            </tr>
+            <tr>
+              <td><strong>Isolation Layer</strong></td>
+              <td>Firecracker MicroVM (hardware-level)</td>
+            </tr>
+            <tr>
+              <td><strong>ATS Formula</strong></td>
+              <td><code>max(0, 1.0 - V&times;0.25 - L - D&times;0.05)</code></td>
+            </tr>
+            <tr>
+              <td><strong>Fault Attribution Storage</strong></td>
+              <td>Supabase (kya_fault_attribution)</td>
+            </tr>
+            <tr>
+              <td><strong>Industrial Models</strong></td>
+              <td>16 EU-regulated industries (Fit for 55)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr />
+
+      <h2>8. Next Steps</h2>
+      <p>
+        We have prepared a Mock Telemetry Test environment on our Helsinki-based Acer Veriton nodes.
+        We invite the partner technical team to witness a
+        <strong>&ldquo;Leash Snap&rdquo;</strong> demonstration where a sub-agent is terminated
+        mid-execution following a simulated identity revocation.
+      </p>
+
+      <ol>
+        <li>
+          <strong>Schedule architecture call</strong> to review integration points (L1, L2, L5
+          signal bridge)
+        </li>
+        <li>
+          <strong>Helsinki benchmark:</strong> Live cascade termination demo on Acer Veriton GN100
+        </li>
+        <li><strong>PoC scope agreement:</strong> Adapter, score engine, webhook listener</li>
+      </ol>
+
+      <hr />
+
+      <h2>9. Contact</h2>
+      <p>
+        <strong>Lifetime Oy</strong> &middot; Helsinki, Finland<br />
+        <a href="https://dws10.com/contact/">risto@onelifetime.world</a><br />
+        <a href="https://dws10.com/kya-standard/">dws10.com/kya-standard/</a> &middot;
+        <a href="https://onelifetime.world">onelifetime.world</a>
+      </p>
+
+      <div class="section-note">
+        <strong>Related:</strong> <a href="../">KYA Specification v1.5</a> &middot;
+        <a href="../../legal/">Legal Hub</a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
+</html>

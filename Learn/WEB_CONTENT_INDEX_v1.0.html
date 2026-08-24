@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DWS Web Content Index v1.0</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.6; }
+    h1 { font-size: 2rem; border-bottom: 3px solid #00d4aa; padding-bottom: 0.5rem; }
+    h2 { font-size: 1.3rem; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; margin-top: 2rem; color: #222; }
+    h3 { font-size: 1.05rem; color: #333; margin-top: 1.2rem; }
+    pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; overflow-x: auto; border-left: 3px solid #00d4aa; font-size: 0.88rem; }
+    code { background: #f0f0f0; padding: 0.15em 0.35em; border-radius: 3px; font-size: 0.9em; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.88rem; }
+    th { background: #00d4aa; color: #fff; padding: 8px 12px; text-align: left; font-size: 0.85rem; }
+    td { padding: 7px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+    tr:hover td { background: #fafffe; }
+    td a { color: #0070f3; text-decoration: none; }
+    td a:hover { text-decoration: underline; }
+    td code { font-size: 0.82rem; }
+    blockquote { border-left: 4px solid #00d4aa; margin: 1rem 0; padding: 0.5rem 1rem; background: #f9fffe; }
+    .version-badge { display: inline-block; background: #00d4aa; color: #fff; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem; }
+    .meta { background: #f8f8f8; border: 1px solid #ddd; border-radius: 6px; padding: 0.8rem 1rem; margin: 1rem 0; font-size: 0.88rem; }
+    footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: 0.85rem; color: #888; text-align: center; }
+    .em { color: #888; font-style: italic; }
+    td:empty::after { content: ""; }
+    .na { color: #bbb; }
+  </style>
+</head>
+<body>
+
+<div class="version-badge">v1.0 — 2026-02-28</div>
+<h1>DWS Web Content Index</h1>
+
+<div class="meta">
+  <strong>Version:</strong> 1.0 &nbsp;|&nbsp;
+  <strong>Status:</strong> ACTIVE &nbsp;|&nbsp;
+  <strong>Last Modified:</strong> 2026-02-28 &nbsp;|&nbsp;
+  <strong>Source:</strong> <a href="https://github.com/blogtheristo/dws6/blob/main/docs/WEB_CONTENT_INDEX.md">docs/WEB_CONTENT_INDEX.md</a>
+</div>
+
+<h2>Purpose</h2>
+<p>This index maps <strong>repository documents and standards</strong> to their corresponding <strong>web domain pages</strong>.</p>
+<p>When a document is updated, check this index to identify which web pages need to be reviewed or updated. This prevents documentation drift between the repo and live web properties.</p>
+<blockquote><strong>Rule (DWS_DOCUMENT_STANDARD.md §17):</strong> After every document update, the author MUST consult this index and note which web pages are affected in the PR description.</blockquote>
+
+<h2>How to Use</h2>
+<ol>
+  <li>Find your document in the left column</li>
+  <li>Check the web pages in the right columns (dws10.com, dws6.com, onelifetime.world)</li>
+  <li>Review the listed pages — do they reflect your document change?</li>
+  <li>Update web pages if content is stale (root folder first, then landing-pages/)</li>
+  <li>Record in PR: <code>"Web check: /page reviewed [no change | updated]"</code></li>
+</ol>
+
+<h2>Standards &amp; Guidelines</h2>
+<table>
+  <tr><th>Document</th><th>dws10.com</th><th>dws6.com</th><th>onelifetime.world</th><th>Notes</th></tr>
+  <tr><td><code>DWS_BRAND_STANDARD.md</code></td><td><code>/gamma/</code></td><td><code>/shared/</code></td><td class="na">—</td><td>Brand tokens affect all sites</td></tr>
+  <tr><td><code>DWS_DOCUMENT_STANDARD.md</code></td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td>Internal standard only</td></tr>
+  <tr><td><code>DWS_SECURITY_STANDARD.md</code></td><td><code>/data-security-policy/</code></td><td><code>/sovereignty/</code></td><td><code>/regulatory-notice/</code></td><td>Security posture pages</td></tr>
+  <tr><td><code>DWS_SOVEREIGNTY_STANDARD.md</code></td><td><code>/dual-use/</code></td><td><code>/sovereignty/</code></td><td class="na">—</td><td>Sovereignty positioning</td></tr>
+  <tr><td><code>DWS_MARKET_RESEARCH_STANDARD.md</code></td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td>Internal only</td></tr>
+  <tr><td><code>SITE_QUALITY_STANDARDS.md</code></td><td>ALL pages</td><td>ALL pages</td><td>ALL pages</td><td>Applies globally</td></tr>
+  <tr><td><code>UI_SKILLS_GAMMA.md</code></td><td><code>/gamma/</code></td><td><code>/dashboard/</code></td><td class="na">—</td><td>Gamma UI components</td></tr>
+  <tr><td><code>ONTOLOGY.md</code></td><td class="na">—</td><td><code>/dashboard/</code> (LWM)</td><td class="na">—</td><td>LWM architecture</td></tr>
+  <tr><td><code>Admin/SECURITY_COMPLIANCE.md</code></td><td><code>/data-security-policy/</code> <code>/data-handling-policy/</code></td><td><code>/sovereignty/</code></td><td><code>/privacy-policy/</code> <code>/regulatory-notice/</code></td><td>Compliance pages</td></tr>
+</table>
+
+<h2>Product &amp; Store</h2>
+<table>
+  <tr><th>Document</th><th>dws10.com</th><th>dws6.com</th><th>onelifetime.world</th><th>Notes</th></tr>
+  <tr><td><code>dws10.com/config/products.json</code></td><td><code>/buy/</code> <code>/feeds/</code> ALL product pages</td><td class="na">—</td><td><code>/buy/</code></td><td>Primary product source</td></tr>
+  <tr><td><code>Store/*.md</code></td><td><code>/buy/</code> product listing</td><td class="na">—</td><td class="na">—</td><td>Built by build_store.py</td></tr>
+  <tr><td><code>product-catalog/Firehorse/V*/</code></td><td><code>/buy/</code> Firehorse page</td><td><code>/firehorse.html</code></td><td class="na">—</td><td>Firehorse product pages</td></tr>
+  <tr><td><code>product-catalog/LWM/V*/</code></td><td><code>/buy/</code> LWM page</td><td class="na">—</td><td><code>/app/</code></td><td>LWM product</td></tr>
+  <tr><td><code>V2_Firehorse.md</code></td><td><code>/buy/</code> (Firehorse)</td><td><code>/firehorse.html</code></td><td class="na">—</td><td>Product spec</td></tr>
+  <tr><td><code>V1_LWM.md</code></td><td><code>/buy/</code> (LWM)</td><td class="na">—</td><td><code>/app/</code></td><td>LWM spec</td></tr>
+</table>
+
+<h2>Compliance &amp; Regulatory</h2>
+<table>
+  <tr><th>Document</th><th>dws10.com</th><th>dws6.com</th><th>onelifetime.world</th><th>Notes</th></tr>
+  <tr><td><code>16-INDUSTRIES.md</code></td><td><code>/compliance/</code> <code>/fit-for-55/</code> <code>/csrd/</code> <code>/construction/</code> <code>/energy/</code> <code>/financial-services/</code> <code>/healthcare/</code></td><td class="na">—</td><td class="na">—</td><td>Industry landing pages</td></tr>
+  <tr><td><code>EXECUTIVE_SUMMARY.md</code></td><td><code>/</code> (homepage hero)</td><td class="na">—</td><td class="na">—</td><td>Value proposition</td></tr>
+  <tr><td><code>DWS_IQ_6_SALES_MANIFESTO_Q1_2026.md</code></td><td><code>/investment-safety/</code> <code>/investor-relations/</code></td><td class="na">—</td><td class="na">—</td><td>Investor content</td></tr>
+</table>
+
+<h2>Architecture &amp; Technical</h2>
+<table>
+  <tr><th>Document</th><th>dws10.com</th><th>dws6.com</th><th>onelifetime.world</th><th>Notes</th></tr>
+  <tr><td><code>docs/architecture/00-MASTER-BLUEPRINT.md</code></td><td><code>/architecture/</code></td><td><code>/dashboard/</code></td><td class="na">—</td><td>Architecture page</td></tr>
+  <tr><td><code>docs/architecture/01-AGENT-DISCOVERY.md</code></td><td><code>/assistant/</code></td><td><code>/dashboard/firehorse/</code></td><td class="na">—</td><td>Agent/assistant pages</td></tr>
+  <tr><td><code>docs/CLOUD_ENVIRONMENTS.md</code></td><td><code>/data-security-policy/</code></td><td><code>/sovereignty/</code></td><td class="na">—</td><td>Cloud/data residency</td></tr>
+  <tr><td><code>AGENTS.md</code></td><td><code>/assistant/</code></td><td><code>/dashboard/</code></td><td class="na">—</td><td>Agent inventory</td></tr>
+</table>
+
+<h2>Post-Update Web Check Procedure</h2>
+<pre><code>POST-UPDATE WEB CHECK
+
+Step 1 — Look up document in docs/WEB_CONTENT_INDEX.md
+Step 2 — For each mapped web page:
+          a. Check: does page content reflect the doc change?
+          b. If YES → no action, record "reviewed, no change"
+          c. If NO  → update the HTML page (root first, then landing-pages/)
+Step 3 — Record in PR description:
+          "Web check: /page-name reviewed [no change | updated]"
+Step 4 — Run: diff &lt;root-page&gt; &lt;landing-pages-copy&gt;  → must be empty</code></pre>
+
+<h2>Learn Artifacts — Recently Updated</h2>
+<table>
+  <tr><th>Artifact</th><th>Learn/ File</th><th>Source Document</th><th>Link</th></tr>
+  <tr><td>DWS Document Standard v1.7</td><td><code>Learn/DWS_DOCUMENT_STANDARD_v1.7.html</code></td><td><code>DWS_DOCUMENT_STANDARD.md</code></td><td><a href="https://github.com/blogtheristo/dws6/blob/main/Learn/DWS_DOCUMENT_STANDARD_v1.7.html">View</a></td></tr>
+  <tr><td>Web Content Index v1.0</td><td><code>Learn/WEB_CONTENT_INDEX_v1.0.html</code></td><td><code>docs/WEB_CONTENT_INDEX.md</code></td><td><a href="https://github.com/blogtheristo/dws6/blob/main/Learn/WEB_CONTENT_INDEX_v1.0.html">View</a></td></tr>
+  <tr><td>Document Index</td><td><code>Learn/Document-index.html</code></td><td><code>docs/Document-index.md</code></td><td><a href="https://github.com/blogtheristo/dws6/blob/main/Learn/Document-index.html">View</a></td></tr>
+</table>
+
+<footer>
+  <p>DWS Web Content Index v1.0 — DWS IQ 6 | Generated 2026-02-28 |
+  <a href="https://github.com/blogtheristo/dws6/blob/main/docs/WEB_CONTENT_INDEX.md">Source .md</a> |
+  <a href="https://github.com/blogtheristo/dws6/blob/main/Learn/">All Learn artifacts</a></p>
+</footer>
+
+</body>
+</html>

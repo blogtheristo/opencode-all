@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DWS Product Family Vision | NVIDIA Partnership | Lifetime Oy</title>
+    <meta
+      name="description"
+      content="DWS Product Family Vision — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
+    />
+    <meta
+      name="keywords"
+      content="lifetime consulting, enterprise consulting, AI consulting, product vision"
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      property="og:title"
+      content="DWS Product Family Vision | NVIDIA Partnership | Lifetime Oy"
+    />
+    <meta
+      property="og:description"
+      content="DWS Product Family Vision — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dws10.com/lifetime-consulting/index.html" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="DWS Product Family Vision | NVIDIA Partnership | Lifetime Oy"
+    />
+    <meta
+      name="twitter:description"
+      content="DWS Product Family Vision — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
+    />
+    <link rel="canonical" href="https://dws10.com/lifetime-consulting/index.html" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Gamma Enterprise Styles -->
+    <link rel="stylesheet" href="../gamma/ultra-styles.css?v=11" />
+
+    <style>
+      /* NVIDIA Green Theme */
+      :root {
+        --nvidia-green: #76b900;
+        --nvidia-dark: #1a1a1a;
+        --nvidia-light: #f0f7e6;
+      }
+
+      /* Hero Section - NVIDIA Inspired */
+      .vision-hero {
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        color: white;
+        padding: 100px 20px 80px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .vision-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(circle at 20% 80%, rgba(118, 185, 0, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(0, 102, 204, 0.1) 0%, transparent 50%);
+        pointer-events: none;
+      }
+
+      .vision-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 800;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #76b900 0%, #9be033 50%, #76b900 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .vision-hero .subtitle {
+        font-size: 1.4rem;
+        color: #e2e8f0;
+        max-width: 800px;
+        margin: 0 auto 30px;
+        line-height: 1.6;
+      }
+
+      .nvidia-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(118, 185, 0, 0.15);
+        border: 1px solid rgba(118, 185, 0, 0.4);
+        padding: 12px 25px;
+        border-radius: 50px;
+        color: #76b900;
+        font-weight: 600;
+        margin-bottom: 40px;
+      }
+
+      /* Five Layer Section */
+      .five-layers {
+        padding: 80px 20px;
+        background: #f8fafc;
+      }
+
+      .five-layers h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        color: #0a1628;
+        margin-bottom: 20px;
+      }
+
+      .five-layers .intro {
+        text-align: center;
+        max-width: 900px;
+        margin: 0 auto 60px;
+        font-size: 1.2rem;
+        color: #475569;
+        line-height: 1.8;
+      }
+
+      .layers-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        gap: 0;
+      }
+
+      .layer-card {
+        display: grid;
+        grid-template-columns: 80px 1fr 1fr;
+        gap: 30px;
+        padding: 40px;
+        border-bottom: 1px solid #e2e8f0;
+        align-items: start;
+      }
+
+      .layer-card:last-child {
+        border-bottom: none;
+      }
+
+      .layer-number {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #76b900 0%, #5a8f00 100%);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 800;
+      }
+
+      .layer-nvidia {
+        padding-right: 30px;
+        border-right: 2px solid #76b900;
+      }
+
+      .layer-nvidia h3 {
+        color: #76b900;
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .layer-nvidia p {
+        color: #475569;
+        line-height: 1.7;
+        margin: 0;
+      }
+
+      .layer-dws h3 {
+        color: #0066cc;
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .layer-dws p {
+        color: #475569;
+        line-height: 1.7;
+        margin: 0;
+      }
+
+      .layer-dws .implementation {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 102, 204, 0.08) 0%,
+          rgba(0, 102, 204, 0.02) 100%
+        );
+        border-left: 3px solid #0066cc;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .layer-dws .implementation code {
+        background: rgba(0, 102, 204, 0.1);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "Monaco", "Consolas", monospace;
+        font-size: 0.9rem;
+        color: #0066cc;
+      }
+
+      /* Model Comparison Section */
+      .model-comparison {
+        padding: 80px 20px;
+        background: linear-gradient(180deg, #0a1628 0%, #1a365d 100%);
+        color: white;
+      }
+
+      .model-comparison h2 {
+        text-align: center;
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+      }
+
+      .model-comparison .intro {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 60px;
+        color: #94a3b8;
+        font-size: 1.1rem;
+      }
+
+      .models-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 100px 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+
+      .model-box {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 40px;
+      }
+
+      .model-box h3 {
+        font-size: 1.5rem;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .model-box.nvidia h3 {
+        color: #76b900;
+      }
+
+      .model-box.dws h3 {
+        color: #ffd700;
+      }
+
+      .model-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .model-item:last-child {
+        border-bottom: none;
+      }
+
+      .model-icon {
+        width: 45px;
+        height: 45px;
+        background: rgba(118, 185, 0, 0.2);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+      }
+
+      .model-box.dws .model-icon {
+        background: rgba(255, 215, 0, 0.2);
+      }
+
+      .model-text strong {
+        display: block;
+        font-size: 1.1rem;
+        margin-bottom: 3px;
+      }
+
+      .model-text span {
+        color: #94a3b8;
+        font-size: 0.9rem;
+      }
+
+      .vs-circle {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #76b900, #ffd700);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 1.2rem;
+        color: #0a1628;
+        margin: 0 auto;
+      }
+
+      /* Gap Analysis */
+      .gap-analysis {
+        background: rgba(255, 107, 107, 0.1);
+        border: 1px solid rgba(255, 107, 107, 0.3);
+        border-radius: 12px;
+        padding: 25px;
+        margin-top: 40px;
+      }
+
+      .gap-analysis h4 {
+        color: #ff6b6b;
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+      }
+
+      .gap-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 10px;
+        color: #e2e8f0;
+      }
+
+      .gap-item:last-child {
+        margin-bottom: 0;
+      }
+
+      /* NVIDIA Praise Section */
+      .nvidia-praise {
+        padding: 80px 20px;
+        background: linear-gradient(135deg, #76b900 0%, #5a8f00 100%);
+        color: white;
+      }
+
+      .nvidia-praise h2 {
+        text-align: center;
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+      }
+
+      .nvidia-praise .intro {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 50px;
+        font-size: 1.15rem;
+        opacity: 0.95;
+      }
+
+      .praise-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+      }
+
+      .praise-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 35px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .praise-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .praise-card p {
+        opacity: 0.95;
+        line-height: 1.7;
+        margin-bottom: 20px;
+      }
+
+      .praise-card .dws-impl {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        padding: 15px;
+        font-size: 0.95rem;
+      }
+
+      .praise-card .dws-impl strong {
+        color: #ffd700;
+      }
+
+      /* Inception CTA */
+      .inception-cta {
+        padding: 80px 20px;
+        background: #0a1628;
+        text-align: center;
+        color: white;
+      }
+
+      .inception-cta h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #76b900, #9be033);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .inception-cta p {
+        max-width: 700px;
+        margin: 0 auto 40px;
+        color: #94a3b8;
+        font-size: 1.2rem;
+      }
+
+      .inception-benefits {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+      }
+
+      .benefit-item {
+        text-align: center;
+      }
+
+      .benefit-value {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #76b900;
+      }
+
+      .benefit-label {
+        color: #94a3b8;
+        font-size: 0.95rem;
+      }
+
+      .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .btn-nvidia {
+        background: linear-gradient(135deg, #76b900, #5a8f00);
+        color: white;
+        padding: 15px 35px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(118, 185, 0, 0.4);
+      }
+
+      .btn-nvidia:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 25px rgba(118, 185, 0, 0.5);
+      }
+
+      .btn-roadmap {
+        background: transparent;
+        color: #76b900;
+        padding: 15px 35px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.1rem;
+        border: 2px solid #76b900;
+        transition: all 0.3s ease;
+      }
+
+      .btn-roadmap:hover {
+        background: rgba(118, 185, 0, 0.1);
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .layer-card {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .layer-nvidia {
+          border-right: none;
+          border-bottom: 2px solid #76b900;
+          padding-right: 0;
+          padding-bottom: 20px;
+        }
+
+        .models-container {
+          grid-template-columns: 1fr;
+        }
+
+        .vs-circle {
+          margin: 20px auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Enterprise Navigation - Gamma Light Header -->
+    <style>
+      /* Dropdown functionality */
+      nav li:hover > .dropdown {
+        display: block !important;
+      }
+      nav .dropdown a:hover {
+        color: #0066cc !important;
+      }
+      nav .has-submenu:hover > .submenu {
+        display: block !important;
+      }
+      nav .submenu li:hover {
+        background: #f8fafc;
+      }
+    </style>
+
+    <!-- Hero Section -->
+    <section class="vision-hero">
+      <div class="nvidia-badge">
+        <span style="font-size: 1.5rem">🚀</span>
+        NVIDIA programme Program 2026 Candidate
+      </div>
+      <h1>DWS Product Family Vision</h1>
+      <p class="subtitle">
+        Aligning Lifetime's edge-first AI architecture with Jensen Huang's 5-layer reinvention of
+        computing. "You no longer program software—you train it."
+      </p>
+      <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap">
+        <a href="#five-layers" class="btn-nvidia">Explore the 5 Layers</a>
+        <a href="../roadmap/" class="btn-roadmap">View Roadmap →</a>
+      </div>
+    </section>
+
+    <!-- Five Layers Section -->
+    <section class="five-layers" id="five-layers">
+      <h2>Jensen's 5-Layer Cake × DWS Implementation</h2>
+      <p class="intro">
+        At CES 2026, Jensen Huang announced that
+        <strong>"every single layer of that five-layer cake is being reinvented"</strong>
+        due to simultaneous shifts in accelerated computing and AI-native software development.
+        Here's how DWS IQ 6 implements each layer.
+      </p>
+
+      <div class="layers-grid">
+        <!-- Layer 1: Silicon -->
+        <div class="layer-card">
+          <div class="layer-number">1</div>
+          <div class="layer-nvidia">
+            <h3>🔲 Silicon</h3>
+            <p>
+              GPU-first computing replaces CPU dominance. <strong>Vera Rubin</strong> (50
+              PFLOPS/GPU), <strong>Jetson Thor</strong> (2,070 FP4 TFLOPS, 128GB, $3,499), and
+              <strong>IGX Thor</strong> for industrial edge (5,581 FP4 TFLOPS).
+            </p>
+          </div>
+          <div class="layer-dws">
+            <h3>DWS Implementation</h3>
+            <p>
+              Edge-first architecture on <strong>NVIDIA Jetson</strong> (7-15W envelope).
+              Production-ready with Orin, upgrade path to Thor for 55B parameter models.
+            </p>
+            <div class="implementation">
+              <strong>SiteSense Edge:</strong> <code>Jetson AGX Orin 64GB</code> →
+              <code>Jetson Thor 128GB</code> (Q3 2026)
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer 2: Systems -->
+        <div class="layer-card">
+          <div class="layer-number">2</div>
+          <div class="layer-nvidia">
+            <h3>🖥️ Systems</h3>
+            <p>
+              Jensen's "trio of computers": training on GB300, inference at edge with Thor,
+              simulation via RTX Pro servers. Digital twins through
+              <strong>Omniverse</strong> become the canonical representation of physical assets.
+            </p>
+          </div>
+          <div class="layer-dws">
+            <h3>DWS Implementation</h3>
+            <p>
+              <strong>Lifetime World Model</strong>: 55B parameter foundation model with
+              bi-directional sync between cloud training and edge inference. Digital twin for
+              construction sites.
+            </p>
+            <div class="implementation">
+              <strong>Architecture:</strong> <code>Groq LPU (cloud)</code> +
+              <code>Jetson (edge)</code> + <code>Supabase (state)</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer 3: Algorithms -->
+        <div class="layer-card">
+          <div class="layer-number">3</div>
+          <div class="layer-nvidia">
+            <h3>🧠 Algorithms</h3>
+            <p>
+              Foundation models like <strong>Cosmos</strong> (world model for robotics) and
+              <strong>Alpamayo</strong> (autonomous driving) replace hand-coded logic. "Compute
+              turns into data" by generating physically accurate training scenarios.
+            </p>
+          </div>
+          <div class="layer-dws">
+            <h3>DWS Implementation</h3>
+            <p>
+              AI agents trained on industrial data: <strong>ScheduleGenius</strong>,
+              <strong>MaterialOracle</strong>, <strong>CustomerSat</strong>. Continuous learning
+              from operational data without cloud round-trips.
+            </p>
+            <div class="implementation">
+              <strong>Agents:</strong> <code>Claude Sonnet 4.5</code> +
+              <code>Llama 3.1 70B (Groq)</code> + <code>LoRA fine-tuning</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer 4: Applications -->
+        <div class="layer-card">
+          <div class="layer-number">4</div>
+          <div class="layer-nvidia">
+            <h3>📱 Applications</h3>
+            <p>
+              Agentic systems become the interface. Jensen cited Palantir, ServiceNow, Snowflake
+              where <strong>"the agentic system IS the interface"</strong>—applications no longer
+              have fixed UIs but generate responses contextually.
+            </p>
+          </div>
+          <div class="layer-dws">
+            <h3>DWS Implementation</h3>
+            <p>
+              <strong>MCP-native</strong> (Model Context Protocol) orchestration. 97M+ monthly SDK
+              downloads. Dynamic dashboards generated by AI agents, not hardcoded views.
+            </p>
+            <div class="implementation">
+              <strong>Stack:</strong> <code>MCP Hub</code> + <code>Firehorse Amplify</code> +
+              <code>Next.js Dashboard</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer 5: Business Models -->
+        <div class="layer-card">
+          <div class="layer-number">5</div>
+          <div class="layer-nvidia">
+            <h3>💰 Business Models</h3>
+            <p>
+              The shift from licensing software to continuous training creates recurring compute
+              dependencies. Every industrial deployment becomes an
+              <strong>ongoing AI relationship</strong>
+              rather than a one-time installation.
+            </p>
+          </div>
+          <div class="layer-dws">
+            <h3>DWS Implementation</h3>
+            <p>
+              Subscription SaaS with embedded AI compute. Growth path through vertical expansion
+              (Fleet → Construction → Manufacturing).
+            </p>
+            <div class="implementation">
+              <strong>Model:</strong> <code>Platform fee</code> + <code>per-agent compute</code> +
+              <code>professional services</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Model Comparison Section -->
+    <section class="model-comparison">
+      <h2>Architecture Model Comparison</h2>
+      <p class="intro">
+        Analyzing the gaps between NVIDIA's reference architecture and DWS's brain-memory-body-hands
+        model to identify opportunities for deeper alignment.
+      </p>
+
+      <div class="models-container">
+        <div class="model-box nvidia">
+          <h3>🟢 NVIDIA 5-Layer Model</h3>
+          <div class="model-item">
+            <div class="model-icon">🔲</div>
+            <div class="model-text">
+              <strong>Silicon</strong>
+              <span>GPU/TPU hardware acceleration</span>
+            </div>
+          </div>
+          <div class="model-item">
+            <div class="model-icon">🖥️</div>
+            <div class="model-text">
+              <strong>Systems</strong>
+              <span>Training + Inference + Simulation</span>
+            </div>
+          </div>
+          <div class="model-item">
+            <div class="model-icon">🧠</div>
+            <div class="model-text">
+              <strong>Algorithms</strong>
+              <span>Foundation models, world models</span>
+            </div>
+          </div>
+          <div class="model-item">
+            <div class="model-icon">📱</div>
+            <div class="model-text">
+              <strong>Applications</strong>
+              <span>Agentic interfaces</span>
+            </div>
+          </div>
+          <div class="model-item">
+            <div class="model-icon">💰</div>
+            <div class="model-text">
+              <strong>Business Models</strong>
+              <span>AI-as-relationship</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vs-circle">↔</div>
+
+        <div class="model-box dws">
+          <h3>🟡 DWS Brain-Memory-Body-Hands</h3>
+          <div class="model-item">
+            <div class="model-icon">🧠</div>
+            <div class="model-text">
+              <strong>Brain</strong>
+              <span>AI reasoning (Claude, Groq)</span>
+            </div>
+          </div>
+          <div class="model-item">
+            <div class="model-icon">💾</div>
+            <div class="model-text">
+              <strong>Memory</strong>
+              <span>Supabase + pgvector embeddings</span>
+            </div>
+          </div>
+          <div class="model-item">
+            <div class="model-icon">🏢</div>
+            <div class="model-text">
+              <strong>Body</strong>
+              <span>Edge hardware (Jetson)</span>
+            </div>
+          </div>
+          <div class="model-item">
+            <div class="model-icon">🤲</div>
+            <div class="model-text">
+              <strong>Hands</strong>
+              <span>MCP tools, integrations</span>
+            </div>
+          </div>
+
+          <div
+            class="gap-analysis"
+            style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3)"
+          >
+            <h4 style="color: #10b981">✅ Gap Analysis: What's Missing? → Roadmap Status</h4>
+            <div class="gap-item">
+              <span>✅</span>
+              <span
+                ><strong>Simulation Layer:</strong> No Omniverse-style digital twin physics
+                simulation → <span style="color: #10b981; font-weight: 600">DWS IQ 7 Roadmap</span>
+                <span
+                  style="
+                    background: #fbbf24;
+                    color: #0f172a;
+                    padding: 2px 8px;
+                    border-radius: 4px;
+                    font-size: 0.8rem;
+                    margin-left: 8px;
+                  "
+                  >Partnership Opportunity</span
+                ></span
+              >
+            </div>
+            <div class="gap-item">
+              <span>✅</span>
+              <span
+                ><strong>Training Pipeline:</strong> No continuous on-device fine-tuning
+                infrastructure →
+                <span style="color: #10b981; font-weight: 600">DWS IQ 6 V2 Roadmap</span>
+                <span
+                  style="
+                    background: #fbbf24;
+                    color: #0f172a;
+                    padding: 2px 8px;
+                    border-radius: 4px;
+                    font-size: 0.8rem;
+                    margin-left: 8px;
+                  "
+                  >Partnership Opportunity</span
+                ></span
+              >
+            </div>
+            <div class="gap-item">
+              <span>✅</span>
+              <span
+                ><strong>Compute Economics:</strong> Business model doesn't yet monetize compute
+                directly → <span style="color: #10b981; font-weight: 600">DWS IQ 6 V2 Roadmap</span>
+                <span
+                  style="
+                    background: #fbbf24;
+                    color: #0f172a;
+                    padding: 2px 8px;
+                    border-radius: 4px;
+                    font-size: 0.8rem;
+                    margin-left: 8px;
+                  "
+                  >Partnership Opportunity</span
+                ></span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NVIDIA Praise Section -->
+    <section class="nvidia-praise">
+      <h2>Why NVIDIA Powers Our Vision</h2>
+      <p class="intro">
+        NVIDIA's ecosystem provides the complete stack for industrial AI—from silicon to software.
+        Here's how each NVIDIA technology enables DWS IQ 6.
+      </p>
+
+      <div class="praise-grid">
+        <div class="praise-card">
+          <h3>🚀 Jetson Platform</h3>
+          <p>
+            The Jetson Thor's 2,070 FP4 TFLOPS and 128GB memory enables our 55B Lifetime World Model
+            to run at the edge with sub-100ms latency. No other platform offers this compute density
+            in a 130W envelope.
+          </p>
+          <div class="dws-impl">
+            <strong>DWS Use:</strong> SiteSense edge nodes for construction sites, fleet vehicles,
+            and building automation with data sovereignty.
+          </div>
+        </div>
+
+        <div class="praise-card">
+          <h3>⚡ CUDA-X Libraries</h3>
+          <p>
+            CUDA-X accelerates our AI inference pipeline with TensorRT optimization, cuDNN for
+            neural networks, and NCCL for multi-GPU training. Years ahead of any alternative.
+          </p>
+          <div class="dws-impl">
+            <strong>DWS Use:</strong> Firehorse Amplify report generation, real-time carbon
+            calculations, and multi-modal document processing.
+          </div>
+        </div>
+
+        <div class="praise-card">
+          <h3>🌐 Omniverse Platform</h3>
+          <p>
+            Omniverse's physics-accurate simulation enables digital twins of construction sites and
+            buildings. The Universal Scene Description (USD) format creates interoperability with
+            BIM/IFC standards.
+          </p>
+          <div class="dws-impl">
+            <strong>DWS Use:</strong> MaterialOracle carbon simulation, ScheduleGenius timeline
+            optimization, and predictive site safety modeling.
+          </div>
+        </div>
+
+        <div class="praise-card">
+          <h3>🔧 NIM Microservices</h3>
+          <p>
+            NVIDIA NIM provides pre-packaged, optimized AI microservices that deploy in minutes.
+            Enterprise-grade security and performance without the MLOps complexity.
+          </p>
+          <div class="dws-impl">
+            <strong>DWS Use:</strong> MCP Hub agent orchestration, CustomerSat sentiment analysis,
+            and automated document extraction.
+          </div>
+        </div>
+
+        <div class="praise-card">
+          <h3>🤝 Siemens Partnership</h3>
+          <p>
+            The Siemens-NVIDIA Industrial Copilot brings NVIDIA AI to shopfloor operations. 30%
+            reduction in reactive maintenance time through predictive AI—exactly aligned with DWS's
+            industrial focus.
+          </p>
+          <div class="dws-impl">
+            <strong>DWS Use:</strong> Enterprise integration with Siemens PLM, MindSphere
+            connectivity, and industrial protocol bridges (OPC UA, Modbus).
+          </div>
+        </div>
+
+        <div class="praise-card">
+          <h3>☁️ DGX Cloud</h3>
+          <p>
+            DGX Cloud provides instant access to H100 training infrastructure without capital
+            expenditure. 30% Inception discount makes enterprise AI training accessible to
+            growth-stage companies.
+          </p>
+          <div class="dws-impl">
+            <strong>DWS Use:</strong> Lifetime World Model training, customer-specific fine-tuning,
+            and synthetic data generation for rare scenarios.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inception CTA -->
+    <section class="inception-cta">
+      <h2>NVIDIA programme Program 2026</h2>
+      <p>
+        Lifetime Oy is NVIDIA programme history across three tracks:
+        <strong>LWM V1</strong> (Physical AI), <strong>Firehorse V2</strong> (forensic compliance),
+        and the new <strong>Sovereign EU Edge AI</strong> track — anchored on the productised
+        Control Room (€4,994) and Situation Room (€8,993) hardware bundles. Each is built on NVIDIA
+        end-to-end with full service: operator training, 24/7 technical support, warranty servicing,
+        and remote configuration.
+      </p>
+
+      <div class="inception-benefits">
+        <div class="benefit-item">
+          <div class="benefit-value">$150K+</div>
+          <div class="benefit-label">Cloud Credits (Nebius)</div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-value">30%</div>
+          <div class="benefit-label">DGX Cloud Discount</div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-value">$10K</div>
+          <div class="benefit-label">DLI Training Credits</div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-value">22K+</div>
+          <div class="benefit-label">Member Community</div>
+        </div>
+      </div>
+
+      <div class="cta-buttons">
+        <a href="../partners/" class="btn-nvidia">🟢 Sovereign EU Edge AI Track</a>
+        <a href="../roadmap/" class="btn-roadmap">🗺️ View DWS Roadmap</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
+</html>

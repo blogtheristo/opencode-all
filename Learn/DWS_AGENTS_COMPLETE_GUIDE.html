@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DWS IQ 6 - Complete Agent Guide for Human-in-the-Loop (HIL) Understanding v1.0</title>
+<style>
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:1000px;margin:0 auto;padding:0 20px 40px;line-height:1.7;color:#1a1a2e;background:#fafafa}
+h1{color:#0f172a;border-bottom:3px solid #fbbf24;padding-bottom:10px}
+h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-top:40px}
+h3{color:#334155}h4{color:#475569}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.9em}
+pre{background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}
+table{border-collapse:collapse;width:100%;margin:20px 0}
+th,td{border:1px solid #cbd5e1;padding:10px 14px;text-align:left}
+th{background:#1e3a5f;color:white}tr:nth-child(even){background:#f8fafc}
+blockquote{border-left:4px solid #fbbf24;margin:20px 0;padding:10px 20px;background:#fffbeb}
+a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
+.dws-version-banner{background:#1e293b;color:#e2e8f0;padding:12px 20px;margin:0 -20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.85rem}
+.dws-version-badge{background:#fbbf24;color:#0f172a;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.9rem;letter-spacing:.04em}
+.dws-version-meta{color:#94a3b8;font-size:.8rem}
+.dws-version-title{color:#e2e8f0;font-weight:600}
+.col2{column-count:2;column-gap:32px}
+.col2 li{break-inside:avoid}
+.status-DRAFT{color:#b45309;font-weight:600}.status-ACTIVE{color:#15803d;font-weight:600}
+</style>
+</head>
+<body>
+<div class="dws-version-banner">
+  <span class="dws-version-title">DWS IQ 6 - Complete Agent Guide for Human-in-the-Loop (HIL) Understanding</span>
+  <span class="dws-version-badge">v1.0</span>
+  <span class="dws-version-meta">Lifetime Oy · Learn/ (private)</span>
+</div>
+<h1>DWS IQ 6 - Complete Agent Guide for Human-in-the-Loop (HIL) Understanding</h1>
+<p>**<em> <h1>VERSION AND AGENT HISTORY</h1></p>
+<p>Version: 1.0</p>
+<p>Sessions & Modifications:   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/deepwiki-agent-extraction-aS6Ub | Date: 11.02.2026 | Changes: Initial creation - comprehensive agent guide for HIL understanding and planning</p>
+<p>Session Links & References:   - Claude Code (claude/deepwiki-agent-extraction-aS6Ub): https://github.com/blogtheristo/dws6/commits/claude/deepwiki-agent-extraction-aS6Ub</p>
+<p>Document Status:   - Created: 11.02.2026   - Last Modified: 11.02.2026   - Language: English   - Publication Status: ACTIVE</p>
+</em>*<em>
+<h2>Table of Contents</h2>
+<li><a href="#1-why-this-document">Why This Document</a></li>
+<li><a href="#2-the-dws-agent-standard">The DWS Agent Standard</a></li>
+<li><a href="#3-agent-categories-overview">Agent Categories Overview</a></li>
+<li><a href="#4-production-agents-implemented">Production Agents (Implemented)</a></li>
+<li><a href="#5-v10-development-agents-sprint-fleet">V1.0 Development Agents (Sprint Fleet)</a></li>
+<li><a href="#6-internal-dws-team-agents">Internal DWS Team Agents</a></li>
+<li><a href="#7-customer-facing-agents">Customer-Facing Agents</a></li>
+<li><a href="#8-mcp-infrastructure">MCP Infrastructure</a></li>
+<li><a href="#9-coordination-lifetime-scope-signals">Coordination: Lifetime Scope Signals</a></li>
+<li><a href="#10-deepwiki-extraction-pattern-new">DeepWiki Extraction Pattern (New)</a></li>
+<li><a href="#11-how-to-add-a-new-agent">How to Add a New Agent</a></li>
+<li><a href="#12-decision-framework-when-to-use-an-agent">Decision Framework: When to Use an Agent</a></li>
+<li><a href="#13-planning-next-steps">Planning Next Steps</a></li>
+<hr />
+<h2>1. Why This Document</h2>
+<p>This document gives the human operator (HIL) a single place to understand every agent in the DWS IQ 6 ecosystem: what it does, where it lives, how it connects to other agents, and what decisions remain.</p>
+<strong>Key files to pair with this:</strong>
+<li>`AGENTS.md` - Master index with signal maps</li>
+<li>`src/agents/` - Code implementations</li>
+<li>`docs/architecture/01-AGENT-DISCOVERY.md` - When to use an agent vs. a prompted model</li>
+<li>`.workflows/agents/ULTRA_AGENT_COORDINATOR.md` - Visual coordination guide</li>
+<hr />
+<h2>2. The DWS Agent Standard</h2>
+<p>There is no single "DWS Agent Standard" document. The standard is distributed across six layers:</p>
+<h3>Layer 1: Code Pattern (`src/agents/base.agent.ts`)</h3>
+<p>Every agent extends `BaseAgent` and implements `execute()`:</p>
+<pre><code>abstract class BaseAgent {
+  protected config: AgentConfig;
+  abstract execute(context: AgentContext, input: Record&lt;string, unknown&gt;): Promise&lt;AgentResponse&gt;;
+  protected async logExecution(log: AgentExecutionLog): Promise&lt;void&gt;;
+  protected async callLLM(prompt: string): Promise&lt;{ content, model, inputTokens, outputTokens }&gt;;
+}
+</code></pre>
+<strong>Four core types (`src/agents/types.ts`):</strong>
+<table><thead><tr><th>Type</th><th>Purpose</th></tr></thead><tbody><tr><td>`AgentContext`</td><td>Who's calling: `projectId`, `userId`, `orgId`, `sessionId`</td></tr><tr><td>`AgentResponse`</td><td>What's returned: `result`, `confidence` (0-1), `reasoning`, `recommendations`, `metadata`</td></tr><tr><td>`AgentConfig`</td><td>Agent identity: `name` (kebab-case), `description`, `capabilities[]`, `model`</td></tr><tr><td>`AgentExecutionLog`</td><td>Audit trail: persisted to Supabase `agent_executions` table</td></tr></tbody></table>
+<h3>Layer 2: Behavior Standard (`CLAUDE.md`)</h3>
+<p>Based on Karpathy's principles for agentic coding: <li>Surface assumptions before implementing</li> <li>Stop and name confusion when encountering inconsistencies</li> <li>Push back on bad ideas (no sycophancy)</li> <li>Enforce simplicity (100 lines > 1000 lines)</li> <li>Touch only what you're asked to touch (scope discipline)</li> <li>Clean up dead code after refactors</li></p>
+<h3>Layer 3: Architecture Standard (`docs/architecture/`)</h3>
+<p>10-phase blueprint from agent discovery through production deployment. Key phase: <strong>Agent Necessity Matrix</strong> that determines if a problem needs an agent, a prompted model, or cached responses.</p>
+<h3>Layer 4: Coordination Standard (`.workflows/agents/`)</h3>
+<p>Lifetime Scope Signals protocol for multi-agent coordination. File-based, using `AGENT_SIGNAL_REGISTRY.json` and `coordinator.cjs`.</p>
+<h3>Layer 5: Document Standard (`DWS_DOCUMENT_STANDARD.md`)</h3>
+<p>All agent-produced documents must include VERSION AND AGENT HISTORY blocks with tool, session ID, date, and change description.</p>
+<h3>Layer 6: Security Standard (`DWS_SECURITY_STANDARD.md`)</h3>
+<p>Never include API keys, PII, or credentials. All agents log to Supabase for EU AI Act Article 12 compliance. Three autonomy tiers control what agents can do without human approval.</p>
+<h3>AI Agent Guidelines Cross-Reference</h3>
+<p>`AI_AGENT_GUIDELINES.md` now defines the canonical rules for agent naming, metadata, versioning, and security. Earlier versions of this guide noted that such a file did not exist and that the guidance was scattered across the six layers above; that guidance has since been consolidated into `AI_AGENT_GUIDELINES.md`, which this document summarizes and cross-references.</p>
+<hr />
+<h2>3. Agent Categories Overview</h2>
+<pre><code>DWS IQ 6 AGENT ECOSYSTEM
+=========================
+<p>CATEGORY 1: Production Agents (9 implemented, in src/agents/)   Code runs in Express backend, registered in AgentRegistry singleton.   Used by customers via API endpoints.</p>
+<p>CATEGORY 2: V1.0 Development Agents (10 planned, in .workflows/agents/)   Claude/Cursor AI sessions building DWS IQ 6 for Feb 23 launch.   Coordinated via Lifetime Scope Signals.</p>
+<p>CATEGORY 3: Internal DWS Team Agents (7 planned)   Architect, Builder, DevOps, Security, Product, Market Signal, Page Generator.   Weekly cycle automation.</p>
+<p>CATEGORY 4: Customer-Facing Agents (5+ planned, in AgentFoundry/)   Per-vertical deployment with 3-phase rollout (silent -&gt; advisor -&gt; autonomous). </code></pre></p>
+<hr />
+<h2>4. Production Agents (Implemented)</h2>
+<p>These five agents exist as TypeScript code in `src/agents/` and are registered in the `AgentRegistry` singleton (`src/agents/index.ts`).</p>
+<h3>4.1 SiteSense Agent (`sitesense.agent.ts`)</h3>
+<strong>Purpose:</strong> Site monitoring and safety analysis for construction/industrial sites.
+<strong>What it does:</strong>
+<li>Takes site metrics: temperature, humidity, wind speed, worker count, incident count</li>
+<li>Calculates safety score against EU construction safety standards (EN 13001 for wind/crane ops)</li>
+<li>Returns weather risk level, safety recommendations, work restriction alerts</li>
+<strong>Input:</strong> `{ siteId, metrics: { temperature, humidity, windSpeed, workers, incidents } }`
+<strong>Key thresholds:</strong>
+<li>Wind > 17 m/s = stop outdoor elevated work</li>
+<li>Wind > 25 m/s = full site shutdown</li>
+<li>Temperature extremes: < -15C or > 40C = extreme risk</li>
+<strong>Capabilities:</strong> `site-monitoring`, `safety-analysis`, `weather-risk`, `worker-safety`
+<strong>LLM model:</strong> Groq (Llama 3.1 70B) for fast inference
+<strong>Edge deployment:</strong> Can run on NVIDIA Jetson Orin Nano for on-premise real-time monitoring.
+<hr />
+<h3>4.2 ScheduleGenius Agent (`schedule-genius.agent.ts`)</h3>
+<strong>Purpose:</strong> Timeline optimization using Critical Path Method (CPM).
+<strong>What it does:</strong>
+<li>Takes a list of project tasks with durations, dependencies, and progress percentages</li>
+<li>Computes earliest/latest start/finish times, total slack, critical path</li>
+<li>Identifies delayed and at-risk tasks</li>
+<li>Recommends schedule adjustments</li>
+<strong>Input:</strong> `{ projectId, tasks: [{ name, duration, dependencies[], progress }] }`
+<strong>Key logic:</strong>
+<li>Forward pass: earliest start/finish</li>
+<li>Backward pass: latest start/finish</li>
+<li>Slack = latest start - earliest start</li>
+<li>Critical path = all tasks with zero slack</li>
+<strong>Capabilities:</strong> `critical-path-analysis`, `schedule-optimization`, `delay-detection`, `resource-planning`
+<hr />
+<h3>4.3 MaterialOracle Agent (`material-oracle.agent.ts`)</h3>
+<strong>Purpose:</strong> Carbon footprint analysis and low-carbon material alternatives.
+<strong>What it does:</strong>
+<li>Analyzes materials against EN 15978 lifecycle stages (A1-A5, B, C, D)</li>
+<li>Uses ICE Database v3 emission factors (kgCO2e per unit)</li>
+<li>Computes embodied carbon per material and total project carbon</li>
+<li>Suggests lower-carbon alternatives</li>
+<strong>Input:</strong> `{ materials: [{ name, quantity, unit, supplier }] }`
+<strong>Key data:</strong>
+<li>Concrete: 0.132 kgCO2e/kg (A1-A3)</li>
+<li>Steel: 1.46 kgCO2e/kg (A1-A3), but -0.35 kgCO2e/kg in stage D (recycling credit)</li>
+<li>Timber: 0.31 kgCO2e/kg (A1-A3), but -0.55 kgCO2e/kg in stage D (carbon storage)</li>
+<li>Aluminum: 6.67 kgCO2e/kg (A1-A3)</li>
+<strong>Capabilities:</strong> `carbon-footprint`, `material-analysis`, `en15978-lifecycle`, `procurement-optimization`
+<hr />
+<h3>4.4 CustomerSat Agent (`customer-sat.agent.ts`)</h3>
+<strong>Purpose:</strong> Customer health scoring and churn prediction.
+<strong>What it does:</strong>
+<li>Calculates composite health score from NPS, ticket load, interaction recency, contract value</li>
+<li>Predicts churn probability</li>
+<li>Recommends retention actions</li>
+<strong>Input:</strong> `{ customerId, interactions, npsScore, openTickets, contractValue }`
+<strong>Scoring weights:</strong>
+<li>NPS: 30%</li>
+<li>Ticket load: 25%</li>
+<li>Interaction recency: 25%</li>
+<li>Contract value: 20%</li>
+<strong>Key thresholds:</strong>
+<li>NPS 9-10 = promoter, 7-8 = passive, 0-6 = detractor</li>
+<li>Ticket risk normalized per EUR 100k contract value</li>
+<strong>Capabilities:</strong> `satisfaction-analysis`, `churn-prediction`, `retention-recommendations`
+<hr />
+<h3>4.5 Viability Agent (`viability.agent.ts`)</h3>
+<strong>Purpose:</strong> Unit economics, ROI, and carbon credit valuation for investment decisions.
+<strong>What it does:</strong>
+<li>Calculates ROI, payback period, NPV with 8% WACC discount rate</li>
+<li>Values carbon savings using EU ETS prices (EUR 55-120 per tonne CO2)</li>
+<li>Produces composite viability score</li>
+<strong>Input:</strong> `{ projectCost, revenue, carbonSaved, timeline, market }`
+<strong>Key parameters:</strong>
+<li>Current EU ETS price: EUR 68/tonne (Q1 2026)</li>
+<li>Default discount rate: 8% WACC</li>
+<li>Inflation: 2.5% EU average</li>
+<strong>Capabilities:</strong> `roi-calculation`, `npv-analysis`, `carbon-credit-valuation`, `payback-analysis`
+<hr />
+<h2>5. V1.0 Development Agents (Sprint Fleet)</h2>
+<p>These are NOT code agents. They are Claude/Cursor AI sessions building the platform, coordinated via signals.</p>
+<table><thead><tr><th>ID</th><th>Name</th><th>Phase</th><th>What It Builds</th><th>Status</th></tr></thead><tbody><tr><td>Agent-01</td><td>Login System</td><td>1 (Foundation)</td><td>JWT, OAuth, Supabase Auth</td><td>Running</td></tr><tr><td>Agent-02</td><td>Firehorse Apps</td><td>2 (Backend)</td><td>Reports, Automation, DMS APIs</td><td>Waiting</td></tr><tr><td>Agent-03</td><td>Customer Dashboard</td><td>3 (Frontend)</td><td>Vite + React web dashboard (dws6.com/dashboard/firehorse/v10-react/)</td><td>Waiting</td></tr><tr><td>Agent-04</td><td>AI Agents</td><td>2 (Backend)</td><td>MCP Hub, Groq integration, agent APIs</td><td>Waiting</td></tr><tr><td>Agent-05</td><td>Mobile Dashboard</td><td>3 (Frontend)</td><td>React Native/Expo mobile app</td><td>Waiting</td></tr><tr><td>Agent-06</td><td>Enterprise Integrations</td><td>V1.1</td><td>SAP, BIM/IFC connectors</td><td><strong>Deferred</strong></td></tr><tr><td>Agent-07</td><td>Supabase Database</td><td>1 (Foundation)</td><td>Schema, RLS policies, migrations</td><td>Running</td></tr><tr><td>Agent-08</td><td>Payment Integration</td><td>4 (Optional)</td><td>Stripe, subscriptions</td><td>Waiting</td></tr><tr><td>Agent-09</td><td>Email System</td><td>2 (Backend)</td><td>Transactional email via Resend</td><td>Waiting</td></tr><tr><td>Agent-10</td><td>Documentation</td><td>1 (Foundation)</td><td>API docs, guides</td><td>Running</td></tr></tbody></table>
+<strong>Dependency chain:</strong> Phase 1 must emit READY signals before Phase 2 can start.
+<hr />
+<h2>6. Internal DWS Team Agents</h2>
+<p>Weekly automation cycle running Fridays:</p>
+<table><thead><tr><th>Agent</th><th>What It Does</th><th>Weekly Output</th></tr></thead><tbody><tr><td>Architect</td><td>System design decisions, tech debt tracking</td><td>ADRs, architecture diagrams</td></tr><tr><td>Builder</td><td>Code generation, implementation</td><td>Agent code, test coverage</td></tr><tr><td>DevOps</td><td>Infrastructure monitoring</td><td>Cost report, uptime metrics</td></tr><tr><td>Security</td><td>Vulnerability scanning, compliance checks</td><td>Scan results, compliance checklist</td></tr><tr><td>Product</td><td>Progress tracking, stakeholder reporting</td><td>Weekly report (EN/FI)</td></tr><tr><td>Market Signal</td><td>Market intelligence from EU regulatory sources</td><td>Market signal report</td></tr><tr><td>Page Generator</td><td>Dynamic sales page creation</td><td>Updated product/landing pages</td></tr></tbody></table>
+<hr />
+<h2>7. Customer-Facing Agents</h2>
+<p>Deployed per industry vertical with 3-phase rollout:</p>
+<table><thead><tr><th>Phase</th><th>Mode</th><th>Duration</th><th>Actions</th><th>Human Approval</th></tr></thead><tbody><tr><td>1</td><td>Silent Pilot</td><td>30 days</td><td>Observe, report, calibrate</td><td>None needed</td></tr><tr><td>2</td><td>Advisor</td><td>60 days</td><td>Recommend, flag risks</td><td>Required</td></tr><tr><td>3</td><td>Autonomous</td><td>Ongoing</td><td>Execute, send emails, create tasks</td><td>Exception only</td></tr></tbody></table>
+<strong>Planned verticals:</strong> Construction, Manufacturing, Energy (25+ EU industries total).
+<hr />
+<h2>8. MCP Infrastructure</h2>
+<h3>MCP Hub (`mcp-hub/server.py`, port 8765)</h3>
+<p>Central orchestration with three workflow patterns:</p>
+<li><strong>Fan-Out</strong> - Execute tasks in parallel, aggregate results</li>
+<li><strong>Reflection</strong> - Implement -> evaluate -> improve loop (max 3 iterations, 0.85 threshold)</li>
+<li><strong>Sequential</strong> - Step-by-step with result passing between steps</li>
+<strong>Specialized pipeline:</strong> BIM -> Carbon calculation -> Compliance validation
+<h3>Supabase MCP Server (`mcp-servers/supabase/server.py`, port 8766)</h3>
+<p>Tools: `query_carbon_calculations`, `upsert_bim_metadata`, `get_compliance_rules`, `log_agent_activity`, `semantic_search`</p>
+<h3>Cloudflare Worker Agent (`src/cloudflare/worker-agent.ts`)</h3>
+<p>Serverless edge execution with multi-tenancy, rate limiting, Durable Object sessions.</p>
+<hr />
+<h2>9. Coordination: Lifetime Scope Signals</h2>
+<h3>How it works</h3>
+<li>Agent reaches a milestone -> emits signal: `[AGENT-07]:READY:schema-users`</li>
+<li>Downstream agents listen for required signals before starting</li>
+<li>All signals tracked in `AGENT_SIGNAL_REGISTRY.json`</li>
+<h3>Signal types</h3>
+<table><thead><tr><th>Signal</th><th>Meaning</th></tr></thead><tbody><tr><td>`READY`</td><td>Milestone done, dependents can proceed</td></tr><tr><td>`COMPLETE`</td><td>All work finished</td></tr><tr><td>`ERROR`</td><td>Failure, may block dependents</td></tr><tr><td>`BLOCKED`</td><td>Waiting for external input</td></tr></tbody></table>
+<h3>Commands</h3>
+<pre><code>cd .workflows/agents
+node coordinator.cjs status          # All agent statuses
+node coordinator.cjs ready           # Who can launch now
+node coordinator.cjs emit agent-07 READY:schema-users
+</code></pre>
+<hr />
+<h2>10. DeepWiki Extraction Pattern (New)</h2>
+<h3>The Concept</h3>
+<p>Based on Andrej Karpathy's workflow (February 2026): instead of importing entire libraries as dependencies, use an AI agent to:</p>
+<li><strong>Understand</strong> a GitHub repo via DeepWiki (swap "github" to "deepwiki" in any repo URL)</li>
+<li><strong>Extract</strong> the specific functionality you need</li>
+<li><strong>Produce</strong> self-contained, dependency-free code targeted for your exact use case</li>
+<h3>Why This Matters for DWS</h3>
+<li>EU compliance libraries are large and monolithic. We often need one specific calculation.</li>
+<li>ERP integration SDKs (SAP, IFS) carry massive dependency trees for narrow functionality.</li>
+<li>AI/ML libraries (torch, transformers) have features buried in complex abstractions.</li>
+<h3>The Pattern</h3>
+<pre><code>INPUT:  GitHub repo URL + description of what to extract
+TOOLS:  DeepWiki MCP (understand repo) + GitHub CLI (access code)
+OUTPUT: Self-contained module that does exactly what you need
+</code></pre>
+<h3>Bacterial Code Philosophy</h3>
+<p>Write code that is: <li><strong>Self-contained</strong> - no unnecessary imports or dependencies</li> <li><strong>Stateless</strong> - easy to test, move, replace</li> <li><strong>Small</strong> - 100 lines that work > 1000 lines of abstraction</li> <li><strong>Rippable</strong> - can be extracted from the repo and used elsewhere</li></p>
+<p>This aligns with the Karpathy principle already in CLAUDE.md: "Prefer the boring, obvious solution. Cleverness is expensive."</p>
+<h3>Implementation</h3>
+<p>See `src/agents/deepwiki-extractor.agent.ts` - a new agent that implements this pattern within the DWS agent standard (extends `BaseAgent`, uses `AgentContext`/`AgentResponse`).</p>
+<hr />
+<h2>11. How to Add a New Agent</h2>
+<li>Create `src/agents/your-agent.agent.ts`</li>
+<li>Extend `BaseAgent`</li>
+<li>Define config: `{ name: 'kebab-case', description, capabilities[], model }`</li>
+<li>Implement `execute(context, input)` returning `AgentResponse`</li>
+<li>Register in `src/agents/index.ts`</li>
+<li>Add API route in `src/agents/routes.ts` if needed</li>
+<li>Update `AGENTS.md`</li>
+<strong>Checklist:</strong>
+<li>[ ] Returns `confidence` score (0-1)</li>
+<li>[ ] Returns `reasoning` string explaining its logic</li>
+<li>[ ] Returns `recommendations[]` for actionable next steps</li>
+<li>[ ] Logs execution to Supabase via `this.logExecution()`</li>
+<li>[ ] Handles missing LLM API key gracefully (deterministic fallback)</li>
+<li>[ ] Input validated before processing</li>
+<hr />
+<h2>12. Decision Framework: When to Use an Agent</h2>
+<p>From `docs/architecture/01-AGENT-DISCOVERY.md`:</p>
+<table><thead><tr><th>Problem Shape</th><th>Solution</th></tr></thead><tbody><tr><td>Static response, no real-time data</td><td>Cached response</td></tr><tr><td>Static + needs retrieval</td><td>Prompted model + RAG</td></tr><tr><td>Single-step text generation</td><td>Prompted model</td></tr><tr><td>Single-step with tool use</td><td>Simple agent</td></tr><tr><td>Multi-system, single path</td><td>ReAct agent</td></tr><tr><td>Multi-system, multiple paths</td><td>Multi-agent system</td></tr></tbody></table>
+<h3>Autonomy Tiers</h3>
+<table><thead><tr><th>Tier</th><th>Actions</th><th>Approval</th></tr></thead><tbody><tr><td>1: Full Autonomy</td><td>Read-only queries, status checks</td><td>None</td></tr><tr><td>2: Supervised</td><td>Data modifications, customer comms</td><td>Audit log + async review</td></tr><tr><td>3: Human-in-Loop</td><td>Financial transactions, permit submissions</td><td>Explicit approval before execution</td></tr></tbody></table>
+<hr />
+<h2>13. Planning Next Steps</h2>
+<h3>Immediate (for HIL review)</h3>
+<li><strong>Gap:</strong> `AI_AGENT_GUIDELINES.md` is missing. Consider creating it to consolidate the distributed standard into one reference.</li>
+<li><strong>Gap:</strong> No DeepWiki integration exists yet. The new `deepwiki-extractor` agent fills this.</li>
+<li><strong>Decision needed:</strong> Which V1.0 development agents should be prioritized given the Feb 23 timeline is compressed?</li>
+<h3>Architectural Questions</h3>
+<li>Should the DeepWiki extraction pattern be an MCP server (shared across all agents) or a standalone agent?</li>
+<li>Should extracted "bacterial code" modules go to a dedicated `src/extracted/` folder or inline where needed?</li>
+<li>How should extracted code be audited for security before production use?</li>
+<h3>Agent Fleet Expansion</h3>
+<p>Current production agents cover construction/industrial verticals. Planned expansions: <li>Energy sector agents (carbon trading, grid optimization)</li> <li>Manufacturing agents (supply chain, quality control)</li> <li>Financial compliance agents (CSRD reporting, ESG scoring)</li></p>
+<hr />
+<h2>Key File Locations</h2>
+<table><thead><tr><th>Resource</th><th>Path</th></tr></thead><tbody><tr><td>Agent implementations</td><td>`src/agents/</em>.agent.ts`</td></tr><tr><td>Agent types</td><td>`src/agents/types.ts`</td></tr><tr><td>Agent registry</td><td>`src/agents/index.ts`</td></tr><tr><td>Agent API routes</td><td>`src/agents/routes.ts`</td></tr><tr><td>Master agent index</td><td>`AGENTS.md`</td></tr><tr><td>Signal coordinator</td><td>`.workflows/agents/coordinator.cjs`</td></tr><tr><td>Signal registry</td><td>`.workflows/agents/AGENT_SIGNAL_REGISTRY.json`</td></tr><tr><td>MCP Hub</td><td>`mcp-hub/server.py`</td></tr><tr><td>Architecture docs</td><td>`docs/architecture/`</td></tr><tr><td>Agent foundry configs</td><td>`AgentFoundry/configs/templates/`</td></tr><tr><td>Cloudflare worker agent</td><td>`src/cloudflare/worker-agent.ts`</td></tr></tbody></table>
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Argus Panoptes — The Eye That Never Blinks | DWS Pantheon</title>
+    <meta
+      name="description"
+      content="AI Orbital Target Labeling via ICEYE SAR. 100 eyes watching 25 industries from orbit. All-weather, all-darkness, all-seeing."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background: linear-gradient(180deg, #021a1a 0%, #0a1628 30%, #0f172a 100%);
+      }
+      .sar-pulse {
+        animation: pulse-ring 3s ease-out infinite;
+      }
+      @keyframes pulse-ring {
+        0% {
+          box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 30px rgba(20, 184, 166, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(20, 184, 166, 0);
+        }
+      }
+      @keyframes scan-line {
+        0% {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        50% {
+          opacity: 0.3;
+        }
+        100% {
+          transform: translateY(100vh);
+          opacity: 0;
+        }
+      }
+      .scan-line {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #14b8a6, transparent);
+        animation: scan-line 4s linear infinite;
+        pointer-events: none;
+        z-index: 50;
+      }
+      @keyframes blink-eye {
+        0%,
+        90%,
+        100% {
+          opacity: 1;
+        }
+        95% {
+          opacity: 0.3;
+        }
+      }
+      .eye-blink {
+        animation: blink-eye 8s ease infinite;
+      }
+      .target-box {
+        border: 1.5px solid #14b8a6;
+        animation: target-lock 2s ease infinite;
+      }
+      @keyframes target-lock {
+        0%,
+        100% {
+          border-color: rgba(20, 184, 166, 0.6);
+        }
+        50% {
+          border-color: rgba(20, 184, 166, 1);
+          box-shadow: 0 0 12px rgba(20, 184, 166, 0.3);
+        }
+      }
+      .feed-item {
+        border-left: 2px solid #14b8a6;
+        animation: feed-in 0.5s ease;
+      }
+      @keyframes feed-in {
+        from {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .glow-teal {
+        text-shadow: 0 0 40px rgba(20, 184, 166, 0.4);
+      }
+      .glass {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(20, 184, 166, 0.15);
+      }
+      .status-bar {
+        font-family: "Courier New", monospace;
+      }
+    </style>
+  </head>
+  <body class="font-sans antialiased min-h-dvh text-slate-100">
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <div class="scan-line"></div>
+
+    <!-- HERO: The Panoptes Dashboard -->
+    <header class="relative overflow-hidden py-20 md:py-32 px-4 text-center">
+      <div
+        class="absolute inset-0 opacity-5"
+        style="
+          background-image:
+            radial-gradient(circle at 30% 40%, #14b8a6 1px, transparent 1px),
+            radial-gradient(circle at 70% 60%, #14b8a6 1px, transparent 1px);
+          background-size:
+            60px 60px,
+            80px 80px;
+        "
+      ></div>
+      <div class="relative z-10 max-w-4xl mx-auto">
+        <div class="status-bar text-teal-400 text-xs mb-6 tracking-widest uppercase">
+          Sensing through Obscuration...
+        </div>
+        <div class="text-8xl md:text-9xl mb-6 eye-blink">&#x1F6F0;&#xFE0F;</div>
+        <h1 class="text-5xl md:text-7xl font-black glow-teal mb-4">ARGUS</h1>
+        <p class="text-xl md:text-2xl text-teal-300 font-light mb-2">
+          Panoptes &mdash; The Hundred-Eyed Giant
+        </p>
+        <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-8">
+          AI Orbital Target Labeling. 60+ SAR satellites. 16cm resolution. Sees through clouds,
+          darkness, rain, and excuses.
+        </p>
+
+        <!-- KPI Badge -->
+        <div class="inline-flex items-center gap-3 glass rounded-full px-6 py-3 sar-pulse">
+          <span class="w-3 h-3 bg-teal-400 rounded-full"></span>
+          <span class="text-teal-300 font-bold text-lg">Zero Dark Assets</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pb-20">
+      <!-- SAR Hero Image Mockup -->
+      <section class="mb-16">
+        <div class="glass rounded-2xl p-1 max-w-4xl mx-auto">
+          <div
+            class="bg-gray-950 rounded-xl p-6 md:p-10 relative overflow-hidden"
+            style="min-height: 300px"
+          >
+            <div class="absolute top-4 left-4 status-bar text-xs text-teal-500">
+              ICEYE SAR &middot; 03:00 UTC &middot; Heavy Storm &middot; Visibility: 0%
+            </div>
+            <div class="absolute top-4 right-4 status-bar text-xs text-teal-400">RES: 25cm/px</div>
+
+            <!-- Simulated port scan with target boxes -->
+            <div class="grid grid-cols-3 gap-4 mt-12">
+              <div class="target-box rounded p-3 text-center">
+                <div class="text-3xl mb-2">&#x1F6A2;</div>
+                <div class="status-bar text-xs text-teal-300">CARRIER</div>
+                <div class="status-bar text-xs text-slate-500">Conf: 0.97</div>
+              </div>
+              <div class="target-box rounded p-3 text-center" style="animation-delay: 0.5s">
+                <div class="text-3xl mb-2">&#x26F5;</div>
+                <div class="status-bar text-xs text-yellow-300">DARK VESSEL</div>
+                <div class="status-bar text-xs text-slate-500">Conf: 0.84</div>
+              </div>
+              <div class="target-box rounded p-3 text-center" style="animation-delay: 1s">
+                <div class="text-3xl mb-2">&#x1F3ED;</div>
+                <div class="status-bar text-xs text-teal-300">REFINERY</div>
+                <div class="status-bar text-xs text-slate-500">Conf: 0.92</div>
+              </div>
+              <div class="target-box rounded p-3 text-center" style="animation-delay: 0.3s">
+                <div class="text-3xl mb-2">&#x2708;&#xFE0F;</div>
+                <div class="status-bar text-xs text-teal-300">FIXED-WING</div>
+                <div class="status-bar text-xs text-slate-500">Conf: 0.91</div>
+              </div>
+              <div class="target-box rounded p-3 text-center" style="animation-delay: 0.7s">
+                <div class="text-3xl mb-2">&#x1F69A;</div>
+                <div class="status-bar text-xs text-teal-300">CONVOY</div>
+                <div class="status-bar text-xs text-slate-500">Conf: 0.88</div>
+              </div>
+              <div class="target-box rounded p-3 text-center" style="animation-delay: 1.2s">
+                <div class="text-3xl mb-2">&#x1F30A;</div>
+                <div class="status-bar text-xs text-orange-300">FLOOD EXTENT</div>
+                <div class="status-bar text-xs text-slate-500">Conf: 0.95</div>
+              </div>
+            </div>
+
+            <div class="absolute bottom-4 left-4 status-bar text-xs text-slate-600">
+              KYA GOVERNED &middot; FIREHORSE AUDIT TRAIL ACTIVE
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mythology & Voice -->
+      <section class="mb-16 max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-teal-400 mb-6">The Myth</h2>
+        <div class="glass rounded-2xl p-8">
+          <p class="text-lg text-slate-300 mb-4">
+            In Greek mythology, <strong class="text-teal-300">Argus Panoptes</strong> was the
+            hundred-eyed giant set by Hera to guard Io. His eyes never all closed at once &mdash;
+            while some slept, others watched. He was the perfect guardian, the ultimate sentinel.
+          </p>
+          <p class="text-lg text-slate-300 mb-6">
+            In DWS IQ 6, Argus is reborn as the orbital perception layer. Powered by ICEYE's Finnish
+            SAR constellation, he watches every steel mill, every port, every construction site on
+            Earth &mdash; through monsoon, midnight, and smoke.
+          </p>
+          <blockquote class="border-l-4 border-teal-500 pl-6 py-4 my-6 bg-teal-950/30 rounded-r-lg">
+            <p class="text-xl text-teal-200 italic">
+              "A hundred eyes, and none of them blink. I see through clouds, darkness, and rain.
+              Every steel mill, every port, every construction site &mdash; labeled, classified,
+              governed. SAR doesn't need sunlight. Neither do I."
+            </p>
+            <cite class="text-sm text-teal-500 mt-2 block"
+              >&mdash; Argus, to a client who thought fog was an excuse</cite
+            >
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- Capabilities -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-teal-400 mb-8 text-center">Capabilities</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="glass rounded-xl p-6">
+            <div class="text-2xl mb-3">&#x1F4E1;</div>
+            <h3 class="text-lg font-bold text-teal-300 mb-2">Orbital Target Labeling</h3>
+            <p class="text-sm text-slate-400">
+              Detects and classifies assets across all 20 DWS industries from SAR imagery. Dark
+              vessels, MBTs, aircraft, refineries, flood zones &mdash; labeled in minutes.
+            </p>
+          </div>
+          <div class="glass rounded-xl p-6">
+            <div class="text-2xl mb-3">&#x1F300;</div>
+            <h3 class="text-lg font-bold text-teal-300 mb-2">All-Weather Sensing</h3>
+            <p class="text-sm text-slate-400">
+              Synthetic Aperture Radar penetrates cloud, smoke, night, and rain. Microwave pulses
+              don't care about your weather.
+            </p>
+          </div>
+          <div class="glass rounded-xl p-6">
+            <div class="text-2xl mb-3">&#x1F50D;</div>
+            <h3 class="text-lg font-bold text-teal-300 mb-2">Change Detection</h3>
+            <p class="text-sm text-slate-400">
+              Coherent change detection compares SAR passes to spot new construction, vehicle
+              movement, or environmental damage &mdash; even centimetre-scale ground shift.
+            </p>
+          </div>
+          <div class="glass rounded-xl p-6">
+            <div class="text-2xl mb-3">&#x1F9E0;</div>
+            <h3 class="text-lg font-bold text-teal-300 mb-2">LLM Vision Refinement</h3>
+            <p class="text-sm text-slate-400">
+              Deterministic SAR signature matching + Claude Sonnet vision for edge cases. Dual-path
+              classification with confidence scoring.
+            </p>
+          </div>
+          <div class="glass rounded-xl p-6">
+            <div class="text-2xl mb-3">&#x1F512;</div>
+            <h3 class="text-lg font-bold text-teal-300 mb-2">KYA Governed</h3>
+            <p class="text-sm text-slate-400">
+              Every labeling decision carries a Firehorse audit trail. Low-confidence targets
+              (&lt;0.5) and wedge industries flagged for human review.
+            </p>
+          </div>
+          <div class="glass rounded-xl p-6">
+            <div class="text-2xl mb-3">&#x1F1EB;&#x1F1EE;</div>
+            <h3 class="text-lg font-bold text-teal-300 mb-2">ICEYE Partnership</h3>
+            <p class="text-sm text-slate-400">
+              Built on ICEYE (Espoo, Finland). 60+ SAR satellites. 16cm resolution. 1-hour revisit.
+              The world's largest commercial SAR constellation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Fans -->
+      <section class="mb-16 max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-teal-400 mb-8 text-center">The Fans</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="glass rounded-xl p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-3xl">&#x1F6E1;&#xFE0F;</span>
+              <div>
+                <h3 class="text-lg font-bold text-teal-300">The Sentinel</h3>
+                <p class="text-xs text-slate-500">Defense Intelligence Officers</p>
+              </div>
+            </div>
+            <p class="text-sm text-slate-400">
+              They need to see "Dark Vessels" &mdash; ships that turned off their transponders.
+              Argus doesn't need AIS. Argus needs radar, and radar doesn't lie.
+            </p>
+          </div>
+          <div class="glass rounded-xl p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-3xl">&#x1F6A8;</span>
+              <div>
+                <h3 class="text-lg font-bold text-teal-300">The Crisis Manager</h3>
+                <p class="text-xs text-slate-500">First Responders & FEMA</p>
+              </div>
+            </div>
+            <p class="text-sm text-slate-400">
+              They need to see flood levels through hurricane clouds in real-time. Optical
+              satellites are blind. Argus maps the disaster while the storm still rages.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Feed Mockup -->
+      <section class="mb-16 max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-teal-400 mb-8 text-center">The Feed</h2>
+        <div class="glass rounded-2xl p-6 space-y-4">
+          <div class="feed-item pl-4 py-2">
+            <div class="status-bar text-xs text-teal-500 mb-1">
+              03:14:22 UTC &middot; Sector 7 &middot; Baltic Sea
+            </div>
+            <p class="text-sm text-slate-300">
+              Vessel Class: <strong class="text-teal-300">Carrier</strong> detected &mdash; Weather:
+              Heavy Storm &mdash; Visibility: 0%
+            </p>
+          </div>
+          <div class="feed-item pl-4 py-2" style="animation-delay: 0.2s">
+            <div class="status-bar text-xs text-yellow-500 mb-1">
+              03:14:18 UTC &middot; Sector 12 &middot; North Sea
+            </div>
+            <p class="text-sm text-slate-300">
+              AIS Mismatch: <strong class="text-yellow-300">Dark Vessel</strong> &mdash; Transponder
+              OFF since 22:41 &mdash; Confidence: 0.84 &mdash;
+              <span class="text-red-400">ALERT</span>
+            </p>
+          </div>
+          <div class="feed-item pl-4 py-2" style="animation-delay: 0.4s">
+            <div class="status-bar text-xs text-teal-500 mb-1">
+              03:13:55 UTC &middot; Sector 3 &middot; Gulf of Finland
+            </div>
+            <p class="text-sm text-slate-300">
+              Industrial Site: <strong class="text-teal-300">Steel Mill</strong> &mdash; Change
+              detected: +2 storage tanks since last pass &mdash; Confidence: 0.93
+            </p>
+          </div>
+          <div class="feed-item pl-4 py-2" style="animation-delay: 0.6s">
+            <div class="status-bar text-xs text-orange-500 mb-1">
+              03:13:40 UTC &middot; Sector 9 &middot; Rhine Valley
+            </div>
+            <p class="text-sm text-slate-300">
+              Natural Disaster:
+              <strong class="text-orange-300">Flood extent 84 km&sup2;</strong> &mdash; Levee breach
+              confirmed &mdash; Gaia + Neptune notified
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Technical Specs -->
+      <section class="mb-16 max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-teal-400 mb-8 text-center">Technical Specifications</h2>
+        <div class="glass rounded-2xl p-6">
+          <table class="w-full text-sm">
+            <tbody>
+              <tr class="border-b border-slate-700/50">
+                <td class="py-3 text-slate-500">Resolution</td>
+                <td class="py-3 text-teal-300 text-right">16&ndash;25 cm per pixel</td>
+              </tr>
+              <tr class="border-b border-slate-700/50">
+                <td class="py-3 text-slate-500">Constellation</td>
+                <td class="py-3 text-teal-300 text-right">60+ ICEYE SAR satellites</td>
+              </tr>
+              <tr class="border-b border-slate-700/50">
+                <td class="py-3 text-slate-500">Revisit Time</td>
+                <td class="py-3 text-teal-300 text-right">&lt; 1 hour (priority tasking)</td>
+              </tr>
+              <tr class="border-b border-slate-700/50">
+                <td class="py-3 text-slate-500">Weather Capability</td>
+                <td class="py-3 text-teal-300 text-right">All-weather, day/night</td>
+              </tr>
+              <tr class="border-b border-slate-700/50">
+                <td class="py-3 text-slate-500">Scene Coverage</td>
+                <td class="py-3 text-teal-300 text-right">Up to 840 km&sup2; per scene</td>
+              </tr>
+              <tr class="border-b border-slate-700/50">
+                <td class="py-3 text-slate-500">ATR Accuracy</td>
+                <td class="py-3 text-teal-300 text-right">&gt; 90% (20 industry targets)</td>
+              </tr>
+              <tr class="border-b border-slate-700/50">
+                <td class="py-3 text-slate-500">AI Model</td>
+                <td class="py-3 text-teal-300 text-right">Claude Sonnet (vision-capable)</td>
+              </tr>
+              <tr class="border-b border-slate-700/50">
+                <td class="py-3 text-slate-500">Governance</td>
+                <td class="py-3 text-teal-300 text-right">KYA + Firehorse audit trail</td>
+              </tr>
+              <tr>
+                <td class="py-3 text-slate-500">Partner</td>
+                <td class="py-3 text-teal-300 text-right">ICEYE (Espoo, Finland)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="text-center mb-16">
+        <a
+          href="/assistant/"
+          class="inline-flex items-center gap-3 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold text-lg px-10 py-4 rounded-xl hover:shadow-lg hover:shadow-teal-500/20 transition-all hover:-translate-y-1"
+        >
+          &#x1F6F0;&#xFE0F; Summon Argus
+        </a>
+        <p class="text-slate-500 text-sm mt-4">
+          Opens the DWS IQ Assistant with Argus orbital capabilities
+        </p>
+      </section>
+    </main>
+
+    <footer class="text-center py-12 text-slate-500 text-sm border-t border-slate-800">
+      <p class="mb-2">
+        <a href="/pantheon/" class="text-teal-400 hover:underline"
+          >&larr; Back to The DWS Pantheon</a
+        >
+      </p>
+      <p>
+        DWS IQ 6 &middot; KYA Vision Pillar 5 &middot; Lifetime Oy &middot; Helsinki, Finland
+        &middot; 2026
+      </p>
+    </footer>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Portal | DWS6.com</title>
+    <link rel="stylesheet" href="../shared/css/auth-styles.css">
+    <link rel="icon" href="https://dws10.com/DWS_IQ2026.png" type="image/png">
+    <style>
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        
+        .portal-card {
+            background: rgba(15, 50, 90, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .portal-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(96, 165, 250, 0.5);
+            box-shadow: 0 8px 20px rgba(96, 165, 250, 0.2);
+        }
+        
+        .portal-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        
+        .portal-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+        }
+        
+        .portal-card-desc {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 900px;">
+        <div class="login-card">
+            <div class="logo-section">
+                <img src="https://dws10.com/DWS_IQ2026.png" alt="DWS IQ">
+                <h1>DWS6 Platform</h1>
+            </div>
+
+            <h2 class="page-title">🔐 Select Your Portal</h2>
+            <p class="page-subtitle">Choose the login portal for your role</p>
+
+            <div class="portal-grid">
+                <!-- 1. DWS IQ Mobile V7 -->
+                <a href="/login/dws-iq-mobile/" class="portal-card">
+                    <div class="portal-card-icon">📱</div>
+                    <div class="portal-card-title">DWS IQ Mobile V7</div>
+                    <div class="portal-card-desc">Field management and on-site tracking</div>
+                </a>
+
+                <!-- 2. Store Management -->
+                <a href="/login/store/" class="portal-card">
+                    <div class="portal-card-icon">🏪</div>
+                    <div class="portal-card-title">Store Management</div>
+                    <div class="portal-card-desc">Firehorse products and inventory</div>
+                </a>
+
+                <!-- 3. DWS IQ 6 Platform -->
+                <a href="/login/dws-iq/" class="portal-card">
+                    <div class="portal-card-icon">🏗️</div>
+                    <div class="portal-card-title">DWS IQ 6 Platform</div>
+                    <div class="portal-card-desc">Full construction intelligence platform</div>
+                </a>
+
+                <!-- 4. OneLifetime Community -->
+                <a href="/login/onelifetime/" class="portal-card">
+                    <div class="portal-card-icon">🌍</div>
+                    <div class="portal-card-title">OneLifetime Community</div>
+                    <div class="portal-card-desc">Community portal and resources</div>
+                </a>
+
+                <!-- 5. LifetimeWorld Model -->
+                <a href="/login/lifetime-model/" class="portal-card">
+                    <div class="portal-card-icon">🤖</div>
+                    <div class="portal-card-title">LifetimeWorld Model</div>
+                    <div class="portal-card-desc">AI model preparation (Vertex AI)</div>
+                </a>
+
+                <!-- 6. Enterprise Client -->
+                <a href="/login/enterprise/" class="portal-card">
+                    <div class="portal-card-icon">🏢</div>
+                    <div class="portal-card-title">Enterprise Client</div>
+                    <div class="portal-card-desc">Enterprise public cloud portal</div>
+                </a>
+
+                <!-- 7. Enterprise Model -->
+                <a href="/login/enterprise-model/" class="portal-card">
+                    <div class="portal-card-icon">🤖</div>
+                    <div class="portal-card-title">Enterprise AI Studio</div>
+                    <div class="portal-card-desc">Custom model training (Vertex AI)</div>
+                </a>
+
+                <!-- 8. Back-Office Admin -->
+                <a href="/login/backoffice/" class="portal-card">
+                    <div class="portal-card-icon">⚙️</div>
+                    <div class="portal-card-title">Back-Office Admin</div>
+                    <div class="portal-card-desc">System and user administration</div>
+                </a>
+
+                <!-- 9. API Developer Portal -->
+                <a href="/login/api/" class="portal-card">
+                    <div class="portal-card-icon">🔌</div>
+                    <div class="portal-card-title">API Developer Portal</div>
+                    <div class="portal-card-desc">API docs, keys, and integration</div>
+                </a>
+
+                <!-- 10. MCP Hub -->
+                <a href="/login/mcp-hub/" class="portal-card">
+                    <div class="portal-card-icon">🤖</div>
+                    <div class="portal-card-title">MCP Hub</div>
+                    <div class="portal-card-desc">Agent orchestration and workflows</div>
+                </a>
+
+                <!-- 11. IBM watsonx.ai -->
+                <a href="/login/watsonx/" class="portal-card">
+                    <div class="portal-card-icon">🤖</div>
+                    <div class="portal-card-title">IBM watsonx.ai</div>
+                    <div class="portal-card-desc">Enterprise AI & foundation models</div>
+                </a>
+            </div>
+
+            <div class="footer-info" style="margin-top: 32px;">
+                <p>🔐 All portals secured by Supabase Auth</p>
+                <p style="margin-top: 8px;">
+                    <a href="https://dws10.com">DWS IQ Platform</a> | 
+                    <a href="/privacy-policy/">Privacy Policy</a> | 
+                    <a href="https://dws10.com/contact/">Support</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helios — The Sun Chariot | DWS Pantheon</title>
+    <meta name="description" content="Energy & Renewables specialist. Titan of the Sun. Fit for 55, RED III, ETS exposure, EU Taxonomy alignment. 42.5% renewable by 2030. No hiding.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: linear-gradient(180deg, #1a1200 0%, #0f172a 40%, #0a1628 100%); }
+        .marble-glow { text-shadow: 0 0 60px rgba(245, 158, 11, 0.3); }
+        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(245, 158, 11, 0.15); }
+        @keyframes sunbeam {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+        }
+        .sun-beam { animation: sunbeam 4s ease-in-out infinite; display: inline-block; }
+        .energy-card { border: 1px solid rgba(245, 158, 11, 0.12); background: rgba(15, 23, 42, 0.8); }
+        .target-bar { height: 8px; border-radius: 4px; background: rgba(245, 158, 11, 0.1); }
+        .target-fill { height: 8px; border-radius: 4px; }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-dvh text-slate-100">
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+
+    <!-- HERO -->
+    <header class="py-20 md:py-32 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <p class="text-xs uppercase tracking-[0.4em] text-amber-400 mb-6">The Energy Grid</p>
+            <div class="text-8xl md:text-9xl mb-6 sun-beam">&#x1F506;</div>
+            <h1 class="text-5xl md:text-7xl font-black marble-glow mb-4">HELIOS</h1>
+            <p class="text-xl md:text-2xl text-amber-300 font-light mb-2">Greek Titan of the Sun</p>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-8">Literally drives the sun across the sky and is STILL not impressed by your solar panel installation because you haven't filed RED III compliance.</p>
+
+            <div class="inline-flex items-center gap-3 glass rounded-full px-6 py-3">
+                <span class="w-3 h-3 bg-amber-400 rounded-full animate-pulse"></span>
+                <span class="text-amber-300 font-bold text-lg">42.5% Renewable by 2030</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pb-20">
+
+        <!-- EU Energy Targets Dashboard -->
+        <section class="mb-16">
+            <div class="glass rounded-2xl p-1 max-w-4xl mx-auto">
+                <div class="bg-gray-950 rounded-xl p-6 md:p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">EU Energy Targets &mdash; Fit for 55</h3>
+                        <span class="text-xs text-slate-500 font-mono">2026 STATUS</span>
+                    </div>
+
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-slate-300">RED III &mdash; Renewable Share</span>
+                                <span class="text-amber-300 font-bold">Target: 42.5% by 2030</span>
+                            </div>
+                            <div class="target-bar"><div class="target-fill bg-gradient-to-r from-amber-600 to-amber-400" style="width: 54%"></div></div>
+                            <p class="text-xs text-slate-500 mt-1">EU average 2025: ~23% &middot; Gap: 19.5 pp in 4 years</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-slate-300">ETS Carbon Price</span>
+                                <span class="text-amber-300 font-bold">&euro;65&ndash;90 / tCO&sub2;</span>
+                            </div>
+                            <div class="target-bar"><div class="target-fill bg-gradient-to-r from-red-600 to-amber-400" style="width: 78%"></div></div>
+                            <p class="text-xs text-slate-500 mt-1">Energy producers: zero free allowances &middot; Full exposure</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-slate-300">Energy Efficiency (EED)</span>
+                                <span class="text-amber-300 font-bold">11.7% reduction by 2030</span>
+                            </div>
+                            <div class="target-bar"><div class="target-fill bg-gradient-to-r from-green-600 to-amber-400" style="width: 42%"></div></div>
+                            <p class="text-xs text-slate-500 mt-1">Final energy consumption cap: 763 Mtoe</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mythology & Voice -->
+        <section class="mb-16 max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-amber-400 mb-6">The Myth</h2>
+            <div class="glass rounded-2xl p-8">
+                <p class="text-lg text-slate-300 mb-4"><strong class="text-amber-300">Helios</strong> was the Greek Titan of the Sun who drove his blazing chariot across the sky every single day. He saw everything &mdash; every corner of the earth illuminated by his light. He was older than the Olympians, more fundamental, and absolutely essential.</p>
+                <p class="text-lg text-slate-300 mb-6">In DWS IQ 6, Helios governs the energy sector. Energy is the backbone of all other decarbonization &mdash; without clean energy, steel, cement, and hydrogen can't decarbonize. Helios knows this. He's seen every greenwash attempt, every misclassified PPA, every "renewable" that runs on grid power. None survive.</p>
+                <blockquote class="border-l-4 border-amber-500 pl-6 py-4 my-6 bg-amber-950/30 rounded-r-lg">
+                    <p class="text-xl text-amber-200 italic">"Hydrogen is an energy CARRIER, not a SOURCE. I AM the source."</p>
+                    <cite class="text-sm text-amber-500 mt-2 block">&mdash; Helios, in his daily argument with Prometheus (continues until 18:00 UTC)</cite>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-amber-400 mb-8 text-center">The Solar Grid</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="energy-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-amber-300 mb-2">Fit for 55 Analysis</h3>
+                    <p class="text-sm text-slate-400">55% GHG reduction by 2030. Helios maps every sub-regulation to your energy portfolio exposure.</p>
+                </div>
+                <div class="energy-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-amber-300 mb-2">RED III Compliance</h3>
+                    <p class="text-sm text-slate-400">42.5% renewable target. Temporal and geographical correlation. PPA matching. Guarantee of Origin verification.</p>
+                </div>
+                <div class="energy-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-amber-300 mb-2">ETS Energy Sector</h3>
+                    <p class="text-sm text-slate-400">Zero free allowances for power generators. Full carbon price exposure. Installation-level compliance tracking.</p>
+                </div>
+                <div class="energy-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-amber-300 mb-2">EU Taxonomy Alignment</h3>
+                    <p class="text-sm text-slate-400">Substantial contribution criteria. Do No Significant Harm. Technical screening for energy activities.</p>
+                </div>
+                <div class="energy-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-amber-300 mb-2">Grid Emission Factors</h3>
+                    <p class="text-sm text-slate-400">Real-time grid carbon intensity by bidding zone. Marginal vs. average. Residual mix calculations.</p>
+                </div>
+                <div class="energy-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-amber-300 mb-2">Renewable Certification</h3>
+                    <p class="text-sm text-slate-400">PPA structures, REGO/GO verification, additionality for Scope 2 claims. Prevents RE100 greenwash.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="text-center mb-16">
+            <a href="/assistant/" class="inline-flex items-center gap-3 bg-gradient-to-r from-amber-600 to-yellow-600 text-white font-bold text-lg px-10 py-4 rounded-xl hover:shadow-lg hover:shadow-amber-500/20 transition-all hover:-translate-y-1">
+                &#x1F506; Summon Helios
+            </a>
+            <p class="text-slate-500 text-sm mt-4">Opens the DWS IQ Assistant with energy &amp; renewables capabilities</p>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-12 text-slate-500 text-sm border-t border-slate-800">
+        <p class="mb-2"><a href="/pantheon/" class="text-amber-400 hover:underline">&larr; Back to The DWS Pantheon</a></p>
+        <p>DWS IQ 6 &middot; Energy &amp; Renewables &middot; Lifetime Oy &middot; Helsinki, Finland &middot; 2026</p>
+    </footer>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firehorse Video Meeting — DWS IQ</title>
+  <meta name="description" content="Free, secure video meetings powered by Jitsi Meet. No account needed.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-jitsi: #0ea5e9;
+      --color-bg: #0f172a;
+      --color-card: #1e293b;
+      --color-text: #f1f5f9;
+      --color-muted: #94a3b8;
+      --color-border: #334155;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+    }
+
+    /* ---- LOBBY VIEW ---- */
+    .lobby {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 460px;
+      width: 100%;
+      text-align: center;
+    }
+    .logo {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: var(--color-jitsi);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 24px; color: #fff;
+      margin-bottom: 16px;
+    }
+    h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+    .subtitle { font-size: 14px; color: var(--color-muted); margin-bottom: 28px; }
+    .divider { border-top: 1px solid var(--color-border); margin: 20px 0; }
+
+    /* Scheduled meeting card */
+    .scheduled {
+      background: rgba(14,165,233,0.06);
+      border: 1px solid rgba(14,165,233,0.2);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .scheduled h3 { font-size: 14px; color: var(--color-jitsi); margin-bottom: 8px; }
+    .scheduled p { font-size: 13px; color: var(--color-muted); line-height: 1.6; }
+    .scheduled .date { color: var(--color-text); font-weight: 600; }
+    .scheduled code {
+      background: var(--color-bg); padding: 2px 6px; border-radius: 4px;
+      font-size: 12px; color: var(--color-jitsi);
+    }
+    .quick-join {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+    }
+    .quick-join a, .quick-join button {
+      display: inline-block;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-join { background: var(--color-jitsi); color: #fff; }
+    .btn-direct {
+      background: transparent;
+      border: 1px solid var(--color-border) !important;
+      color: var(--color-muted);
+    }
+    .btn-join:hover, .btn-direct:hover { opacity: 0.85; }
+
+    /* Form */
+    label { display: block; text-align: left; font-size: 13px; color: var(--color-muted); margin-bottom: 6px; }
+    input[type="text"] {
+      width: 100%; padding: 10px 14px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      color: var(--color-text);
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+    input:focus { outline: none; border-color: var(--color-jitsi); }
+    .btn {
+      width: 100%; padding: 12px;
+      border: none; border-radius: 8px;
+      font-size: 15px; font-weight: 600;
+      cursor: pointer;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn-primary { background: var(--color-jitsi); color: #fff; }
+    .footer-text { margin-top: 24px; font-size: 12px; color: var(--color-muted); }
+
+    /* ---- MEETING VIEW ---- */
+    .meeting-view { display: none; flex-direction: column; min-height: 100vh; }
+    .meeting-view.active { display: flex; }
+    .lobby.hidden { display: none; }
+
+    .header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px;
+      background: var(--color-card);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .header .logo { width: 28px; height: 28px; border-radius: 6px; font-size: 12px; margin: 0; }
+    .header h2 { font-size: 14px; font-weight: 600; }
+    .room-badge {
+      background: rgba(14,165,233,0.12);
+      color: var(--color-jitsi);
+      padding: 4px 10px; border-radius: 6px;
+      font-size: 12px; font-family: monospace;
+    }
+    .share-bar {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 16px;
+      background: #1a2332;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 13px; color: var(--color-muted);
+    }
+    .share-url {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 5px 10px;
+      color: var(--color-text);
+      font-family: monospace;
+      font-size: 12px;
+      flex: 1;
+      max-width: 360px;
+    }
+    .btn-sm {
+      background: var(--color-jitsi); color: #fff;
+      border: none; border-radius: 6px;
+      padding: 5px 12px; cursor: pointer;
+      font-size: 12px; font-weight: 500;
+    }
+    .btn-email {
+      background: #16a34a; color: #fff;
+      border: none; border-radius: 6px;
+      padding: 5px 12px; cursor: pointer;
+      font-size: 12px; font-weight: 500;
+    }
+    .btn-email:hover { opacity: 0.85; }
+    .share-links {
+      display: flex; flex-direction: column; gap: 6px;
+      padding: 10px 16px;
+      background: #1a2332;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .share-row {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: var(--color-muted);
+    }
+    .share-row label { margin: 0; min-width: 50px; font-size: 12px; }
+    .share-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    /* Invite form in lobby */
+    .invite-section {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .invite-section h3 {
+      font-size: 14px; color: var(--color-jitsi); margin-bottom: 10px;
+    }
+    input[type="email"], input[type="datetime-local"] {
+      width: 100%; padding: 10px 14px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      color: var(--color-text);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    input[type="email"]:focus, input[type="datetime-local"]:focus {
+      outline: none; border-color: var(--color-jitsi);
+    }
+    .btn-invite {
+      width: 100%; padding: 10px;
+      background: #16a34a; color: #fff;
+      border: none; border-radius: 8px;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .btn-invite:hover { opacity: 0.9; }
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #16a34a; color: #fff;
+      padding: 10px 24px; border-radius: 8px;
+      font-size: 14px; font-weight: 500;
+      opacity: 0; transition: opacity 0.3s;
+      pointer-events: none; z-index: 100;
+    }
+    .toast.show { opacity: 1; }
+    #jitsi-container { flex: 1; min-height: 0; }
+    #jitsi-container iframe { width: 100% !important; height: 100% !important; border: none; }
+    .meeting-footer {
+      padding: 6px 16px; text-align: center;
+      font-size: 11px; color: var(--color-muted);
+      background: var(--color-card);
+      border-top: 1px solid var(--color-border);
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 24px 20px; }
+      .share-bar { flex-wrap: wrap; }
+      .share-url { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOBBY -->
+  <div class="lobby" id="lobby">
+    <div class="card">
+      <div class="logo">F</div>
+      <h1>Firehorse Video Meeting</h1>
+      <p class="subtitle">Secure video meetings &middot; No account needed</p>
+
+      <div class="scheduled">
+        <h3>Example Meeting</h3>
+        <p>Use this example to quickly test a meeting room.</p>
+        <p>Participants: Participant 1 &amp; Participant 2</p>
+        <p>Room: <code>example-meeting-room</code></p>
+        <div class="quick-join">
+          <a href="#" class="btn-join" onclick="joinRoom('example-meeting-room'); return false;">Join Meeting</a>
+          <a href="https://meet.jit.si/example-meeting-room" target="_blank" rel="noopener" class="btn-direct">Open in Jitsi</a>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <form onsubmit="startMeeting(event)">
+        <label for="room">Create or join a custom room</label>
+        <input type="text" id="room" placeholder="Room name (leave empty for random)" />
+        <button type="submit" class="btn btn-primary">Start Meeting</button>
+      </form>
+
+      <div class="divider"></div>
+
+      <div class="invite-section">
+        <h3>&#9993; Request Meeting Invite</h3>
+        <label for="invite-email">Your email</label>
+        <input type="email" id="invite-email" placeholder="you@company.com" required />
+        <label for="invite-room">Room name (optional)</label>
+        <input type="text" id="invite-room" placeholder="Leave empty for auto-generated" />
+        <label for="invite-date">Meeting date &amp; time</label>
+        <input type="datetime-local" id="invite-date" />
+        <button type="button" class="btn-invite" onclick="sendInvite()">Send Request to Risto</button>
+      </div>
+
+      <p class="footer-text">
+        Free &middot; End-to-end encrypted &middot; Powered by Jitsi Meet<br>
+        Lifetime Oy &middot; DWS IQ
+      </p>
+    </div>
+  </div>
+
+  <!-- MEETING VIEW -->
+  <div class="meeting-view" id="meeting-view">
+    <div class="header">
+      <div class="header-left">
+        <div class="logo">F</div>
+        <h2>Firehorse Video Meeting</h2>
+      </div>
+      <span class="room-badge" id="room-badge"></span>
+    </div>
+    <div class="share-links">
+      <div class="share-row">
+        <label>Share:</label>
+        <input class="share-url" id="share-url" readonly />
+      </div>
+      <div class="share-row">
+        <label>Direct:</label>
+        <input class="share-url" id="jitsi-direct-url" readonly />
+      </div>
+      <div class="share-row">
+        <label></label>
+        <div class="share-actions">
+          <button class="btn-sm" onclick="copyLink(this)">Copy Link</button>
+          <button class="btn-sm" onclick="copyDirectLink(this)">Copy Jitsi Link</button>
+          <button class="btn-email" onclick="emailInviteFromMeeting()">&#9993; Email Invite</button>
+          <button class="btn-sm" style="background:#475569;" onclick="leaveMeeting()">Leave</button>
+        </div>
+      </div>
+    </div>
+    <div id="jitsi-container"></div>
+    <div class="meeting-footer">
+      Powered by Jitsi Meet &middot; DWS IQ &middot; Lifetime Oy
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://meet.jit.si/external_api.js"></script>
+  <script>
+    const JITSI_DOMAIN = 'meet.jit.si';
+    const INVITE_API_BASE = window.location.origin === 'file://' ? 'http://localhost:8080' : 'https://api.dws6.com';
+    let jitsiApi = null;
+
+    // Check URL hash for room name: #room=dws6-hannamari-20260313
+    (function checkHash() {
+      const params = new URLSearchParams(window.location.hash.slice(1));
+      const room = params.get('room');
+      if (room) joinRoom(room);
+    })();
+
+    function sanitizeRoomName(name) {
+      return name.replace(/[^a-zA-Z0-9_-]+/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '');
+    }
+
+    function startMeeting(e) {
+      e.preventDefault();
+      const raw = document.getElementById('room').value.trim();
+      const roomName = raw ? sanitizeRoomName(raw) : 'dws6-' + Math.random().toString(36).substring(2, 10);
+      joinRoom(roomName);
+    }
+
+    function joinRoom(roomName) {
+      // Switch views
+      document.getElementById('lobby').classList.add('hidden');
+      document.getElementById('meeting-view').classList.add('active');
+      document.getElementById('room-badge').textContent = roomName;
+
+      // Share URLs
+      const shareUrl = window.location.origin + window.location.pathname + '#room=' + encodeURIComponent(roomName);
+      const directUrl = 'https://' + JITSI_DOMAIN + '/' + encodeURIComponent(roomName);
+      document.getElementById('share-url').value = shareUrl;
+      document.getElementById('jitsi-direct-url').value = directUrl;
+      window.location.hash = 'room=' + encodeURIComponent(roomName);
+
+      // Dispose previous if any
+      if (jitsiApi) { jitsiApi.dispose(); jitsiApi = null; }
+
+      jitsiApi = new JitsiMeetExternalAPI(JITSI_DOMAIN, {
+        roomName: roomName,
+        parentNode: document.getElementById('jitsi-container'),
+        width: '100%',
+        height: '100%',
+        configOverwrite: {
+          startWithAudioMuted: true,
+          startWithVideoMuted: false,
+          prejoinConfig: { enabled: true },
+          disableDeepLinking: true,
+          defaultLanguage: 'en',
+        },
+        interfaceConfigOverwrite: {
+          SHOW_JITSI_WATERMARK: false,
+          SHOW_BRAND_WATERMARK: false,
+          TOOLBAR_BUTTONS: [
+            'microphone', 'camera', 'desktop', 'chat',
+            'raisehand', 'participants-pane', 'tileview',
+            'select-background', 'fullscreen', 'hangup',
+            'recording', 'settings',
+          ],
+        },
+      });
+
+      jitsiApi.addEventListener('readyToClose', leaveMeeting);
+    }
+
+    function leaveMeeting() {
+      if (jitsiApi) { jitsiApi.dispose(); jitsiApi = null; }
+      window.location.hash = '';
+      document.getElementById('meeting-view').classList.remove('active');
+      document.getElementById('lobby').classList.remove('hidden');
+    }
+
+    function clipCopy(text, inputId) {
+      if (navigator.clipboard) {
+        return navigator.clipboard.writeText(text).catch(() => {
+          const el = document.getElementById(inputId);
+          el.select();
+          document.execCommand('copy');
+        });
+      }
+      const el = document.getElementById(inputId);
+      el.select();
+      document.execCommand('copy');
+      return Promise.resolve();
+    }
+
+    function copyLink(btn) {
+      clipCopy(document.getElementById('share-url').value, 'share-url').then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy Link', 2000);
+      });
+    }
+
+    function copyDirectLink(btn) {
+      clipCopy(document.getElementById('jitsi-direct-url').value, 'jitsi-direct-url').then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy Jitsi Link', 2000);
+      });
+    }
+
+    async function emailInviteFromMeeting() {
+      const roomName = document.getElementById('room-badge').textContent;
+      const directUrl = 'https://' + JITSI_DOMAIN + '/' + encodeURIComponent(roomName);
+      const shareUrl = document.getElementById('share-url').value;
+      const requesterEmail = document.getElementById('invite-email').value.trim();
+      await submitInviteRequest({ requesterEmail, roomName, directUrl, shareUrl, dateStr: '' });
+    }
+
+    async function sendInvite() {
+      const requesterEmail = document.getElementById('invite-email').value.trim();
+      if (!requesterEmail) { showToast('Please enter your email address'); return; }
+      const roomInput = document.getElementById('invite-room').value.trim();
+      const roomName = roomInput ? sanitizeRoomName(roomInput) : 'dws6-' + Math.random().toString(36).substring(2, 10);
+      const dateInput = document.getElementById('invite-date').value;
+      const directUrl = 'https://' + JITSI_DOMAIN + '/' + encodeURIComponent(roomName);
+      const shareUrl = window.location.origin + window.location.pathname + '#room=' + encodeURIComponent(roomName);
+      const dateStr = dateInput ? new Date(dateInput).toLocaleString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'To be confirmed';
+      await submitInviteRequest({ requesterEmail, roomName, directUrl, shareUrl, dateStr });
+    }
+
+    async function submitInviteRequest(payload) {
+      try {
+        const res = await fetch(INVITE_API_BASE + '/api/v1/booking/meet-invite', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data?.error || 'Failed to send invite request');
+        showToast('Invite request sent to Risto');
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'Failed to send invite request';
+        showToast(message);
+      }
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-07-24-kya-open-standard-dual-track-ip-strategy</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-07-24-kya-open-standard-dual-track-ip-strategy</h1>
+</header>
+<h1 id="field-note-kya-specification-v1.5-the-dual-track-ip-strategy">Field
+Note — KYA Specification v1.5: the Dual-Track IP Strategy</h1>
+<blockquote>
+<p><strong>Title corrected 24.07.2026.</strong> This note was written as
+“KYA Open Standard v1.5”; the artifact was retitled
+<strong>Specification</strong> on HIC challenge — see the Correction
+section. The filename is left unchanged as a dated record.</p>
+</blockquote>
+<ul>
+<li><strong>Date:</strong> 2026-07-24</li>
+<li><strong>Author:</strong> Risto Anton Päärni (Founder, CEO · Lifetime
+Oy) — via Claude Code session
+<code>claude/greg-isenberg-field-notes-a2r544</code></li>
+<li><strong>Location:</strong> Europe &gt; Finland &gt; Espoo</li>
+<li><strong>Context:</strong> DWS6 — capturing the KYA Open Standard IP
+strategy as an HIC outcome <strong>before GitHub
+publication</strong></li>
+<li><strong>Confidence:</strong> <strong>LOW–MIXED, and deliberately
+so.</strong> See the honesty note below.</li>
+</ul>
+<blockquote>
+<h2 id="honesty-note-read-before-citing-this-file">⚠️ Honesty note —
+read before citing this file</h2>
+<p><strong>RESOLVED 24.07.2026 — see the decision 3A section
+below.</strong> When this note was written, <strong>no artifact for the
+KYA Open Standard v1.5 spec existed in this repository</strong>: a
+search of <code>origin/main</code> found no open-standard document, no
+Apache 2.0 licence file for KYA, and no spec draft. The work had
+happened in <strong>internal spec discussions</strong> — session memory,
+which is precisely the asset <code>DWS_LEARNING_STANDARD.md</code>
+exists to stop losing. The HIC then decided (3A) to land it in-repo, and
+<code>standards/kya-open/</code> now exists. The analysis below was
+written <em>before</em> that and is preserved as-is.</p>
+<p>This note therefore separates two things, and never blends them (Rule
+7 — surface conflicts, don’t average):</p>
+<ul>
+<li><strong>Reported</strong> — stated by the HIC, recorded verbatim,
+unverified.</li>
+<li><strong><code>[HIC INPUT NEEDED]</code></strong> — a fact only the
+HIC holds. <strong>Not inferred, not guessed, left open on
+purpose.</strong> A plausible-sounding invention here would poison the
+institutional record more than a blank would.</li>
+<li><strong>Proposed analysis</strong> — reasoning contributed by this
+session, offered for confirmation or rejection. Carries no authority
+until the HIC rules on it.</li>
+</ul>
+</blockquote>
+<h2 id="ontology-tags">Ontology Tags</h2>
+<ul>
+<li><strong>Geography:</strong> Europe &gt; EU; standards bodies
+global</li>
+<li><strong>Sector:</strong> Enterprise AI &gt; Agent governance &gt;
+Standards &amp; IP strategy</li>
+<li><strong>Entities:</strong> KYA Open Standard v1.5, Apache License
+2.0, standards-body adoption, DWS IQ platform, AP2 / FIDO Alliance, W3C
+VC</li>
+<li><strong>Temporal Context:</strong> 2026-Q3; adoption target
+2026-Q4</li>
+</ul>
+<hr />
+<h2 id="reported-hic-stated-unverified">Reported (HIC-stated,
+unverified)</h2>
+<ol type="1">
+<li><strong>Internal spec discussions</strong> produced a KYA Open
+Standard <strong>v1.5</strong> draft.</li>
+<li><strong>Licensing decision: Apache License 2.0.</strong></li>
+<li><strong>Strategy: “protocol open, infrastructure
+proprietary.”</strong></li>
+<li><strong>Standards-body adoption targets Q4 2026.</strong></li>
+<li><strong>GitHub publication is planned</strong> and has not yet
+happened.</li>
+</ol>
+<h2 id="the-strategic-shape-proposed-analysis">The strategic shape —
+proposed analysis</h2>
+<p>The pattern is a well-worn one: publish the <em>interface</em> so
+others build against it, keep the <em>implementation</em> that makes the
+interface worth using. It works when three conditions hold, and this
+session can only test one of them from the repo.</p>
+<p><strong>Condition 1 — the spec must be implementable by a
+stranger.</strong> If a third party cannot build a conforming KYA
+verifier from the published document alone, it is not a standard; it is
+marketing with a licence attached. This is the condition that decides
+whether “open” earns credibility.</p>
+<p><strong>Condition 2 — the retained side must be the durable
+side.</strong> For KYA, the natural split is:</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Track</th>
+<th>Contents (proposed)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Open (published)</strong></td>
+<td>Credential shapes and vocabularies; the ATS <em>formula</em> and
+score semantics; gate decision semantics; evidence-chain event types;
+verification procedure</td>
+</tr>
+<tr class="even">
+<td><strong>Proprietary (retained)</strong></td>
+<td>Sovereign key custody and tiering; the Lifetime World Model and
+per-industry ontologies; the agent fleet; Control Room / Situation Room;
+the ATS <em>telemetry pipeline</em> that produces real inputs</td>
+</tr>
+</tbody>
+</table>
+<p>The asymmetry that makes this safe: <strong>a published scoring
+formula is not a threat, because the score’s value comes from the
+telemetry feeding it.</strong> Anyone can compute
+<code>1.0 − V×0.25 − L − D×0.05 + A×0.15</code>; almost nobody can
+observe the violations, latencies, and denied attempts of a real
+governed fleet across regulated industries. Publishing the formula makes
+the score <em>checkable</em>, which is the property that makes it worth
+money (per the same session’s Greg Isenberg notes) — and checkability is
+exactly what a proprietary formula cannot have.</p>
+<p><strong>Condition 3 — the timing must serve adoption, not
+announcement.</strong> <code>[HIC INPUT NEEDED]</code> — see below.</p>
+<h2 id="apache-2.0-proposed-analysis-of-what-it-buys-and-what-it-does-not">Apache
+2.0 — proposed analysis of what it buys and what it does not</h2>
+<p>Apache 2.0 was chosen. Two properties are worth stating explicitly,
+because they are the reason to pick it over the obvious
+alternatives:</p>
+<ul>
+<li><strong>It carries an express patent grant</strong> (§3). MIT and
+BSD do not. For a governance standard that touches payment authority and
+identity binding, an implementer’s counsel will look for exactly this
+before recommending adoption. It also carries a defensive
+patent-termination clause, which is a feature for an ecosystem
+play.</li>
+<li><strong>It is a <em>software</em> licence being used on a
+<em>specification</em>.</strong> This is the common friction point.
+Apache 2.0 governs the copyright in the document text and any reference
+code, but standards bodies frequently expect a specification-grade
+licensing regime (W3C Document Licence, OWFa, or a body’s own IPR
+policy) covering <em>implementation rights in the spec itself</em>.
+Shipping Apache 2.0 on GitHub is a fine first move; it may need to be
+<em>re-licensed or dual-licensed</em> to enter a standards body. Worth
+checking before publication rather than after, since re-licensing after
+third-party contributions arrive is materially harder.</li>
+</ul>
+<p><code>[HIC INPUT NEEDED]</code> — was Apache 2.0 chosen for the
+patent grant specifically, or as a default? The answer changes whether a
+spec-grade licence needs to sit alongside it.</p>
+<h2 id="open-questions-only-the-hic-can-answer">Open questions only the
+HIC can answer</h2>
+<ol type="1">
+<li><code>[HIC INPUT NEEDED]</code> <strong>Why Q4 2026
+specifically?</strong> Candidate drivers this session can see but cannot
+confirm: an EU AI Act implementation milestone; FIDO’s AP2 progression
+toward 1.0 (v0.2 was donated 28.04.2026); a standards body’s submission
+window; an EIC/funding milestone; or a customer or partner commitment.
+The <em>reason</em> determines whether the date is a hard constraint or
+a preference — and therefore whether slipping it costs anything.</li>
+<li><code>[HIC INPUT NEEDED]</code> <strong>Which standards
+body?</strong> FIDO Alliance (where AP2 now lives), W3C (where the VC
+data model lives), CEN/CENELEC (the EU AI Act harmonised-standards
+route), or ETSI. These have different IPR policies, membership costs,
+and timelines, and the choice constrains the licence question
+above.</li>
+<li><code>[HIC INPUT NEEDED]</code> <strong>Where exactly does the
+open/proprietary line fall?</strong> The table above is this session’s
+proposal, not a record of a decision. In particular: is the <strong>ATS
+formula</strong> published (recommended) or retained?</li>
+<li><code>[HIC INPUT NEEDED]</code> <strong>What is the conformance
+story?</strong> A standard without a conformance test suite gets
+implemented loosely and diverges. Is there a plan for one, and does DWS
+operate it (influence, but a neutrality question) or the body?</li>
+</ol>
+<h2 id="the-risk-worth-naming">The risk worth naming</h2>
+<p>Publishing the protocol invites implementations DWS does not control.
+That is the intent — but it has a specific failure mode: <strong>a
+competitor implements the open spec, markets “KYA-compliant,” and the
+term stops meaning governed.</strong> The defences are a conformance
+suite plus a trademark on the mark itself, and neither is visible in the
+repo today. Open the protocol; do not open the <em>name</em> without a
+conformance gate behind it.</p>
+<h2 id="hic-decision-3a-24.07.2026-go">HIC decision 3A (24.07.2026) —
+GO</h2>
+<p><strong>Decided:</strong> land the spec in-repo first,
+<strong>publish the ATS formula openly</strong>, retain the telemetry
+pipeline. <em>Loop closed per Learning Standard §10.7.</em></p>
+<p><strong>Executed:</strong> <code>standards/kya-open/</code> created —
+<code>SPEC.md</code> (now v0.2, <strong>KYA Specification
+v1.5</strong>), <code>LICENSE</code> (canonical Apache-2.0 text),
+<code>NOTICE</code> (copyright + the spec-licence caveat). The strategy
+no longer exists only in session memory.</p>
+<p><strong>This resolves <code>[HIC INPUT NEEDED]</code> #3</strong>
+(where the open/proprietary line falls) — the boundary in the
+proposed-analysis table above is now the decided boundary, and §0.5 of
+the spec states it. <strong>Three remain open:</strong> why Q4 2026,
+which standards body, and the conformance story.</p>
+<p><strong>Note on what the spec asserts.</strong> §7.2 (signature must
+cover proof options), §5 (tenancy + pseudonymous subject id) and §8
+(revocation cascade) state requirements the <strong>reference
+implementation does not yet meet</strong> — they correspond to the PR
+#1716 crypto review finding F1 and backlog B7/B8/D4. That is deliberate
+and recorded in Appendix A: a standard describes what conformance means,
+not what one vendor currently ships.</p>
+<h2 id="correction-standard-was-the-wrong-word-hic-challenge-24.07.2026">Correction
+— “Standard” was the wrong word (HIC challenge, 24.07.2026)</h2>
+<p><strong>HIC challenge:</strong> <em>“KYA standard is not a standard.
+Because no body has put it standardization process. The time spent to
+KYA and steps are not comparable to cloud standards at all. If we
+publish v1.5 as open standard is this really a standard?”</em></p>
+<p><strong>Answer: no, and the challenge is correct.</strong> The
+artifact was retitled <strong>“KYA Open Standard v1.5” → “KYA
+Specification v1.5”</strong> (SPEC.md v0.1 → v0.2), and §0.6 now states
+the case plainly.</p>
+<p><strong>Why the original title was a defect — not a style
+preference:</strong></p>
+<ul>
+<li><strong>Not de jure.</strong> No body has chartered, reviewed,
+balloted or ratified it; §0.2 admits the body has not even been chosen.
+The title claimed the category the document’s own contents
+disclaimed.</li>
+<li><strong>Not de facto.</strong> Zero implementations exist outside
+Lifetime Oy.</li>
+<li><strong>The EU hazard is specific.</strong> “Harmonised standard” is
+a <strong>legal term</strong> under EU AI Act <strong>Article
+40</strong> (presumption of conformity, produced via CEN/CENELEC). A
+document titled “standard,” aimed at regulated industries, written
+adjacent to AI Act obligations, invites an inference it has not
+earned.</li>
+<li><strong>The house voice forbids it.</strong>
+<code>docs/BLOG_STANDARD.md</code> §12.1 rule 6 — <em>“never sell a
+promise the layer cannot deliver; the fastest way to lose European
+enterprise trust is to over-claim.”</em> Industry uses “open standard”
+loosely; DWS specifically cannot, because the discipline of not
+over-claiming <strong>is</strong> the product.</li>
+</ul>
+<p><strong>What the standards process actually buys</strong> — and what
+a solo-authored spec structurally lacks: adversarial review by parties
+with <strong>competing commercial interests</strong>, interop testing
+between <strong>independent</strong> implementations, formal IPR
+disclosure, and change control that <strong>outlives the original
+author</strong>. This session is a live demonstration of the first gap:
+a reviewer endorsed a non-existent Entra integration, described
+<code>jose</code> as the plan after it had been rejected, and attached a
+schema fix to a legal signature. Each was caught by checking, not by the
+review. One organization reviewing itself has no structural
+corrective.</p>
+<p><strong>The four gates (SPEC §0.6)</strong> that would honestly earn
+the word later: two independent implementations · a conformance suite
+that can be failed · a body accepts it <em>or</em> real adoption occurs
+· change control that survives Lifetime Oy.</p>
+<p><strong>Timing note:</strong> renaming before external citation costs
+nothing; demoting “Standard” to “Specification” after adoption would
+read as a retreat. This was a one-way door taken in the cheap
+direction.</p>
+<p><strong>Naming that survives scrutiny:</strong> “the first careful
+specification for governing delegated agent authority, written while the
+category was being invented” is both truer than “standard” and harder
+for anyone to take away on a technicality.</p>
+<h2 id="standards-body-route-proposed-pick-still-open-25.07.2026">Standards-body
+route — PROPOSED, pick still open (25.07.2026)</h2>
+<p>Answers <code>[HIC INPUT NEEDED]</code> #2 with a <strong>proposal,
+not a decision.</strong> Three bodies named by the HIC/Boardy, assessed
+against the four gates in <code>standards/kya-open/SPEC.md</code> §0.6.
+The pick remains the HIC’s.</p>
+<h3 id="the-three-and-what-each-is-actually-for">The three, and what
+each is actually for</h3>
+<p><strong>1. CEN/CENELEC JTC 21 (AI) — the strategic prize.</strong>
+They are writing the EU AI Act harmonised standards now, and the KYA
+Article 12 (evidence chain) / Article 14 (human oversight) framework
+maps to their mandate rather than sitting adjacent to it. This is the
+only route on which “standard” acquires the meaning a regulated-industry
+buyer needs — Art. 40 presumption of conformity. It is also the route
+that makes KYA <strong>compliance infrastructure instead of a vendor
+document</strong>.</p>
+<blockquote>
+<p><strong>The access route is the real asset here.</strong>
+National-body participation runs through <strong>SFS</strong> (Finland),
+approachable via <strong>LUT</strong> or <strong>Business
+Finland</strong>. National-body access is the usual wall for a company
+this size, and DWS has two credible doors. LUT especially: an academic
+affiliation is a well-worn route into a JTC working group, and the PhD
+work is already the theoretical framing for this exact material.</p>
+</blockquote>
+<p><strong>2. W3C — with a correction that changes the plan.</strong>
+Two separate things must not be conflated:</p>
+<ul>
+<li>The <strong>Verifiable Credentials Working Group is <em>not</em>
+low-barrier.</strong> WG participation requires W3C membership (tiered
+by revenue, a real annual cost) or <strong>Invited Expert</strong>
+status — individual, discretionary, not guaranteed. <em>Confirm current
+terms before budgeting.</em></li>
+<li>A <strong>Community Group</strong> is nearly free: five people may
+charter one, no fee, public citable output.</li>
+</ul>
+<p><strong>More important, the scope point:</strong> the VC WG governs
+the <strong>data model</strong>, not agent-governance semantics. The ATS
+formula, mandate-gating bands and capability manifests are <strong>out
+of scope there</strong>. Joining buys attestation + <code>did:web</code>
+interop, credibility, and a relationship — it does <strong>not</strong>
+standardize KYA. The trade is genuinely good in the other direction: the
+WG needs implementer evidence to advance VC 2.0, and DWS has deployment
+evidence. Price it as <strong>interop plus relationship, never as
+ratification.</strong></p>
+<p><strong>3. Gaia-X / IDSA — reframed: this is a gate-1 play, not a
+standardization route.</strong> Filed by the HIC as a standardization
+option; it is better understood as <strong>where the independent
+implementers are</strong>. Gate 1 (two implementations by parties with
+no commercial relationship to Lifetime Oy) is the gate nothing else on
+this list solves — CEN produces no implementers, and neither does W3C. A
+European sovereign-data-infrastructure consortium whose members already
+care about trust, sovereignty and audit trails is exactly the population
+that might build a second KYA verifier, because they need one.</p>
+<blockquote>
+<p><strong>Honest caveat:</strong> a “Gaia-X compliant profile” carries
+real ecosystem weight and very little <strong>regulatory</strong>
+weight. It must not substitute for the CEN track. Use it to manufacture
+the adoption evidence CEN will eventually ask for.</p>
+</blockquote>
+<h3 id="gate-mapping-and-the-three-clocks">Gate mapping and the three
+clocks</h3>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 66%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Body</th>
+<th>Gate served (§0.6)</th>
+<th>Clock</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CEN/CENELEC JTC 21</td>
+<td>Gate 3 (de jure) + regulatory weight</td>
+<td><strong>Years</strong></td>
+</tr>
+<tr class="even">
+<td>W3C (CG now; VC WG if membership)</td>
+<td>Interop; partial gate 4</td>
+<td><strong>Months</strong></td>
+</tr>
+<tr class="odd">
+<td>Gaia-X / IDSA</td>
+<td><strong>Gate 1 — independent implementers</strong></td>
+<td><strong>Fastest</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>This collapses two open questions into one.</strong>
+<code>[HIC INPUT NEEDED]</code> #1 asked why Q4 2026. If that date means
+<em>published and adopted somewhere</em>, <strong>only Gaia-X/IDSA can
+deliver it — CEN structurally cannot.</strong> So the body choice and
+the timing are not two decisions; picking the body answers the date.</p>
+<h3 id="sg-route-verified-against-primary-sources-25.07.2026">SG route —
+VERIFIED against primary sources (25.07.2026)</h3>
+<p>Recorded earlier as <em>my analysis, not established DWS
+position</em>. Now checked, and it was <strong>wrong in one place and
+understated in another.</strong></p>
+<p><strong>Correction — the standards body is Enterprise Singapore, not
+IMDA.</strong> Roles separate cleanly:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Body</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Enterprise Singapore (EnterpriseSG)</strong></td>
+<td>The national standards body — Singapore’s ISO member. <strong>This
+is the formal route.</strong></td>
+</tr>
+<tr class="even">
+<td><strong>IMDA</strong></td>
+<td>Regulator and promoter (Model AI Governance Framework); co-organises
+standardisation work with EnterpriseSG</td>
+</tr>
+<tr class="odd">
+<td><strong>AI Verify Foundation</strong></td>
+<td>A <strong>wholly owned IMDA subsidiary</strong>, running AI Verify
+as an open-source testing project with a global contributor
+ecosystem</td>
+</tr>
+<tr class="even">
+<td><strong>MAS</strong></td>
+<td>Financial-services supervision of AI</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Understatement — the venue is ISO/IEC, not merely
+national.</strong> Singapore tabled <strong>ISO/IEC AWI TS
+42119-8</strong> (<em>Artificial intelligence — Testing of AI — Part 8:
+quality assessment of prompt-based text-to-text systems that utilize
+generative AI</em>) into <strong>ISO/IEC JTC 1/SC 42</strong>, and
+hosted the <strong>17th SC 42 plenary in Singapore, 20–24 April
+2026</strong> — 35+ national bodies, 250+ experts, the first time in
+ASEAN. Reported as the first international standard of its kind for
+GenAI testing.</p>
+<p><strong>Two calibrations, so this is not over-read:</strong></p>
+<ol type="1">
+<li><strong>Stage 20.00 — “new project registered in TC/SC work
+programme.”</strong> That is <em>very</em> early, and it is an
+<strong>AWI TS</strong> (Approved Work Item, Technical Specification
+track) rather than a full International Standard. A TS is faster and
+carries less authority than an IS.</li>
+<li><strong>Scope is GenAI output testing, not agent
+governance.</strong> 42119-8 assesses prompt-based text-to-text system
+quality. <strong>KYA cannot ride it.</strong> What transfers is the
+<em>pattern</em> and the demonstrated capability — Singapore has shown
+it can table an international AI-testing standard and convene the
+committee around it.</li>
+</ol>
+<p><strong>Why this matters more than the national framing
+suggested.</strong> ISO/IEC is the one venue recognised across
+<strong>all three</strong> jurisdictions: its outputs can be adopted
+regionally (CEN/CENELEC can adopt an ISO standard as EN ISO), and US
+frameworks reference international standards. So SC 42 is potentially
+higher-leverage than any single-jurisdiction route — and Singapore is
+the pragmatic, demonstrated door into it.</p>
+<p><strong>Unverified and needing a check before any
+commitment:</strong> whether agent-<em>authority</em> governance fits an
+existing SC 42 work item or would require a New Work Item Proposal, and
+what EnterpriseSG participation costs a non-Singaporean entity. Neither
+was established here.</p>
+<h3 id="sequencing-recommendation-do-not-run-three-in-parallel">Sequencing
+recommendation — do not run three in parallel</h3>
+<p>Three simultaneous tracks is a sustained commitment (meetings,
+drafts, calls, travel) over quarters, against a board list that already
+carries an unsigned IP assignment. <strong>Joining a body you cannot
+show up to is worse than not joining.</strong> Proposed order:</p>
+<ol type="1">
+<li><strong>SFS conversation now</strong> — slowest clock, so it must
+start earliest. Via LUT or Business Finland.</li>
+<li><strong>W3C Community Group now</strong> — cheap, and it gives the
+spec a neutral home plus a public venue where an independent implementer
+can appear (gates 1 and 4).</li>
+<li><strong>Gaia-X / IDSA when there is someone concrete to hand the
+spec to</strong> — not before.</li>
+</ol>
+<p><strong>And regardless of body: build the conformance suite
+yourself.</strong> It is gate 2, no body will author it for a
+specification with one implementation, and it is the only defence
+against a competitor shipping the “KYA-compliant” label without the
+substance. A body may eventually operate it; none will write it.</p>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li>HIC fills the remaining three <code>[HIC INPUT NEEDED]</code> items;
+this note is revised to v1.1 with the real rationale.</li>
+<li>Confirm whether a spec-grade licence must accompany Apache 2.0 for
+the target body <strong>before</strong> GitHub publication.</li>
+<li>Locate or create the actual spec draft in-repo — it currently exists
+nowhere in <code>origin/main</code>, which means it is one lost
+container away from gone.</li>
+<li>Decide the conformance-suite and trademark posture before the mark
+is public.</li>
+</ul>
+<h3 id="learning-loop-steps-dws_learning_standard-five-step">Learning-loop
+steps (DWS_LEARNING_STANDARD five-step)</h3>
+<ul>
+<li><strong>(1) KB entry</strong> — deferred until the
+<code>[HIC INPUT NEEDED]</code> items are filled; a KB entry asserting
+unconfirmed strategy would propagate guesses as canon.</li>
+<li><strong>(2) Field note</strong> — this file. ✅</li>
+<li><strong>(3) <code>Learn/</code> HTML render</strong> — see companion
+HTML
+(<code>Learn/2026-07-24-kya-open-standard-dual-track-ip-strategy.html</code>).
+✅</li>
+<li><strong>(4) Drive export</strong> — N/A this session (repo is source
+of truth, Truth Standard §2E; flagged).</li>
+<li><strong>(5) HIC question</strong> — below. ✅</li>
+</ul>
+<h3 id="hic-question-eu-ai-act-art.-14-intervention-point">HIC question
+(EU AI Act Art. 14 intervention point)</h3>
+<blockquote>
+<p><strong>Does the KYA Open Standard v1.5 spec get written into this
+repository before it goes to GitHub — and is the ATS formula on the open
+side of the line?</strong> Two halves, both yours. On the first: the
+spec presently has no artifact anywhere in <code>origin/main</code>, so
+a strategy the company is about to publish exists only in session
+memory; publishing to GitHub from a draft that was never in the
+source-of-truth repo inverts the Truth Standard §2E rule (repo is
+source, exports are copies). On the second: publishing the ATS formula
+is the move that makes the score <em>checkable</em> by a counterparty,
+which is the property that gives it commercial weight — but it is also
+the most copyable artifact in the standard.</p>
+<p><strong>My recommendation:</strong> land the spec in-repo first (even
+as a rough draft), publish the ATS formula openly, and retain the
+telemetry pipeline that feeds it — the formula without the fleet’s
+observations is arithmetic, while the formula <em>with</em> published
+semantics is what lets an insurer or escrow provider price our score
+instead of ignoring it. Pair publication with a conformance suite and a
+trademark position on “KYA” before, not after, the first outside
+implementation appears.</p>
+</blockquote>
+</body>
+</html>

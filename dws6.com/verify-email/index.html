@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email | DWS IQ 6</title>
+    <link rel="stylesheet" href="../shared/css/auth-styles.css">
+    <link rel="icon" href="https://dws10.com/DWS_IQ2026.png" type="image/png">
+    <style>
+        .verification-status {
+            text-align: center;
+            padding: var(--spacing-xl);
+        }
+        .status-icon {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-lg);
+        }
+        .status-icon.success { color: var(--success-text); }
+        .status-icon.error { color: var(--error-text); }
+        .status-icon.loading { 
+            animation: pulse 1.5s ease-in-out infinite;
+            color: var(--primary-blue);
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .status-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+        .status-message {
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-xl);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <div class="logo-section">
+                <img src="https://dws10.com/DWS_IQ2026.png" alt="DWS IQ">
+                <h1>DWS IQ 6</h1>
+            </div>
+
+            <div class="verification-status" id="statusContainer">
+                <div class="status-icon loading" id="statusIcon">&#9679;</div>
+                <h2 class="status-title" id="statusTitle">Verifying your email...</h2>
+                <p class="status-message" id="statusMessage">Please wait while we verify your email address.</p>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+
+            <div id="actionButtons" class="hidden">
+                <div class="button-group">
+                    <a href="/login/portal.html" class="btn btn-primary btn-full" id="loginBtn">
+                        Continue to Login
+                    </a>
+                </div>
+            </div>
+
+            <div id="resendSection" class="hidden" style="margin-top: var(--spacing-lg);">
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                    Didn't receive the email?
+                </p>
+                <div class="form-group" style="margin-top: var(--spacing-md);">
+                    <input type="email" id="resendEmail" placeholder="Enter your email" autocomplete="email">
+                </div>
+                <button onclick="resendVerification()" class="btn btn-secondary btn-full" id="resendBtn">
+                    Resend Verification Email
+                </button>
+            </div>
+
+            <div class="footer-info">
+                <p>Need help? <a href="https://dws10.com/contact/">Contact Support</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import { getSupabaseClient } from '../shared/js/supabase-client.js';
+        import { verifyEmailToken, resendVerificationEmail, showError, showSuccess, setButtonLoading } from '../shared/js/auth-handler.js';
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            console.log('Email Verification - Initializing...');
+            getSupabaseClient();
+            
+            // Verify email token
+            await verifyEmail();
+        });
+
+        async function verifyEmail() {
+            const statusIcon = document.getElementById('statusIcon');
+            const statusTitle = document.getElementById('statusTitle');
+            const statusMessage = document.getElementById('statusMessage');
+            const actionButtons = document.getElementById('actionButtons');
+            const resendSection = document.getElementById('resendSection');
+            
+            try {
+                const result = await verifyEmailToken();
+                
+                if (result.success) {
+                    // Success state
+                    statusIcon.innerHTML = '&#10003;';
+                    statusIcon.classList.remove('loading');
+                    statusIcon.classList.add('success');
+                    statusTitle.textContent = 'Email Verified!';
+                    statusMessage.textContent = 'Your email has been successfully verified. You can now log in to your account.';
+                    actionButtons.classList.remove('hidden');
+                    
+                    showSuccess('Email verified successfully!');
+                } else {
+                    // Error state
+                    showErrorState(result.error || 'Verification failed');
+                }
+            } catch (error) {
+                showErrorState('An unexpected error occurred');
+            }
+        }
+
+        function showErrorState(message) {
+            const statusIcon = document.getElementById('statusIcon');
+            const statusTitle = document.getElementById('statusTitle');
+            const statusMessage = document.getElementById('statusMessage');
+            const resendSection = document.getElementById('resendSection');
+            
+            statusIcon.innerHTML = '&#10007;';
+            statusIcon.classList.remove('loading');
+            statusIcon.classList.add('error');
+            statusTitle.textContent = 'Verification Failed';
+            statusMessage.textContent = message;
+            resendSection.classList.remove('hidden');
+            
+            showError(message);
+        }
+
+        window.resendVerification = async function() {
+            const email = document.getElementById('resendEmail').value.trim();
+            
+            if (!email) {
+                showError('Please enter your email address');
+                return;
+            }
+            
+            const btn = document.getElementById('resendBtn');
+            setButtonLoading(btn, true, 'Sending...');
+            
+            const result = await resendVerificationEmail(email);
+            
+            if (result.success) {
+                showSuccess('Verification email sent! Check your inbox.');
+                setButtonLoading(btn, false, 'Email Sent!');
+                btn.disabled = true;
+                
+                // Re-enable after 60 seconds
+                setTimeout(() => {
+                    btn.disabled = false;
+                    setButtonLoading(btn, false, 'Resend Verification Email');
+                }, 60000);
+            } else {
+                showError(result.error || 'Failed to send email');
+                setButtonLoading(btn, false, 'Resend Verification Email');
+            }
+        };
+    </script>
+</body>
+</html>

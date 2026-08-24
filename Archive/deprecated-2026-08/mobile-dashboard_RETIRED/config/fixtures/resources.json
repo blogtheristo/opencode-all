@@ -1,0 +1,56 @@
+{
+  "projectId": "PRJ-001",
+  "workforce": {
+    "today": 184,
+    "plan": 170,
+    "variance": 14,
+    "variancePct": 8.2,
+    "trend7d": [162, 168, 171, 175, 180, 184, 184]
+  },
+  "equipment": {
+    "utilPct": 76,
+    "onSite": 12,
+    "idle": 4,
+    "maintenance": 2
+  },
+  "overtime": {
+    "hoursThisWeek": 112,
+    "budgetedHours": 80,
+    "variance": 32,
+    "variancePct": 40
+  },
+  "subcontractors": [
+    {
+      "id": "SUB-A",
+      "name": "Sub A (Structural)",
+      "onTimePct": 94,
+      "reworkPct": 2.1,
+      "safetyIncidents": 1,
+      "performanceScore": 8.7,
+      "workersOnSite": 52,
+      "status": "on-track"
+    },
+    {
+      "id": "SUB-B",
+      "name": "Sub B (Concrete)",
+      "onTimePct": 88,
+      "reworkPct": 3.5,
+      "safetyIncidents": 0,
+      "performanceScore": 8.1,
+      "workersOnSite": 68,
+      "status": "at-risk"
+    },
+    {
+      "id": "SUB-C",
+      "name": "Sub C (MEP)",
+      "onTimePct": 91,
+      "reworkPct": 2.8,
+      "safetyIncidents": 2,
+      "performanceScore": 7.9,
+      "workersOnSite": 64,
+      "status": "at-risk"
+    }
+  ],
+  "asOf": "2025-12-23T08:00:00Z"
+}
+

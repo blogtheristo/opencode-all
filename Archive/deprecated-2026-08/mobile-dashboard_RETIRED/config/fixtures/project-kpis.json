@@ -1,0 +1,66 @@
+{
+  "projectId": "PRJ-001",
+  "name": "HQ Expansion",
+  "region": "Nordics",
+  "phase": "execution",
+  "status": "in-progress",
+  "overview": {
+    "spi": 0.94,
+    "cpi": 0.96,
+    "percentComplete": 58,
+    "facVsBudgetPct": -2.4,
+    "daysAheadBehind": -5,
+    "rag": {
+      "schedule": "red",
+      "cost": "amber",
+      "safety": "amber",
+      "quality": "red"
+    }
+  },
+  "financial": {
+    "budgetTotal": 45.2,
+    "committed": 38.6,
+    "actual": 43.5,
+    "forecast": 46.3,
+    "variance": 1.1,
+    "changeOrders": {
+      "pending": 2,
+      "approved": 3,
+      "netValue": 0.28
+    }
+  },
+  "schedule": {
+    "baselineFinish": "2025-03-12",
+    "forecastFinish": "2025-03-17",
+    "criticalPathAtRiskCount": 3,
+    "topCriticalTasks": [
+      {
+        "id": "T123",
+        "name": "Steel erection",
+        "floatDays": 0,
+        "due": "2025-01-05",
+        "responsible": "Sub A"
+      }
+    ]
+  },
+  "safety": {
+    "trifr12m": 3.2,
+    "ltifr12m": 0.6,
+    "nearMissesMtd": 12,
+    "openActions": 7,
+    "incidents": 2
+  },
+  "quality": {
+    "ncrOpen": 28,
+    "ncrOverdue": 5,
+    "reworkPct": 3.1
+  },
+  "resources": {
+    "workforceToday": 184,
+    "planToday": 170,
+    "equipUtilPct": 76,
+    "overtimeHours": 112
+  },
+  "asOf": "2025-12-23T08:00:00Z"
+}
+

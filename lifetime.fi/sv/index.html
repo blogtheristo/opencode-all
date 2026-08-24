@@ -1,0 +1,1379 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lifetime Oy — AI-agenter som levererar utfall</title>
+    <meta
+      name="description"
+      content="Lifetime Oy bygger autonoma AI-agenter som levererar mätbara efterlevnadsutfall för EU-reglerade branscher. 25 branscher. Tre plattformar. Finsk-suverän."
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Lifetime Oy — AI-agenter som levererar utfall" />
+    <meta
+      property="og:description"
+      content="Autonoma AI-agenter som levererar mätbara efterlevnadsutfall för 25 EU-reglerade branscher."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lifetime.fi/sv/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="Lifetime Oy" />
+    <link rel="canonical" href="https://lifetime.fi/sv/" />
+    <link rel="alternate" hreflang="en" href="https://lifetime.fi/" />
+    <link rel="alternate" hreflang="fi" href="https://lifetime.fi/fi/" />
+    <link rel="alternate" hreflang="sv" href="https://lifetime.fi/sv/" />
+    <link rel="alternate" hreflang="de" href="https://lifetime.fi/de/" />
+    <link rel="alternate" hreflang="fr" href="https://lifetime.fi/fr/" />
+    <link rel="icon" type="image/png" href="https://dws10.com/DWS_IQ2026.png" />
+    <style>
+      :root {
+        --bg-primary: #0f172a;
+        --bg-surface: rgba(30, 41, 59, 0.7);
+        --border-subtle: rgba(255, 255, 255, 0.1);
+        --text-primary: #e2e8f0;
+        --text-secondary: #94a3b8;
+        --text-accent: #60a5fa;
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 16px;
+        --radius-full: 9999px;
+        --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+        color: var(--text-primary);
+        background: var(--bg-primary);
+        min-height: 100vh;
+        line-height: 1.7;
+      }
+
+      /* Corporate nav */
+      .corp-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .corp-nav-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .corp-logo {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        text-decoration: none;
+        letter-spacing: -0.01em;
+      }
+
+      .corp-logo span {
+        color: var(--color-gold);
+      }
+
+      .corp-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+      }
+
+      .corp-links a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: color var(--transition-base);
+      }
+
+      .corp-links a:hover {
+        color: var(--text-primary);
+      }
+      .corp-links a.active {
+        color: var(--color-gold-light);
+      }
+
+      @media (max-width: 768px) {
+        .corp-links {
+          gap: 16px;
+        }
+        .corp-links a {
+          font-size: 0.8rem;
+        }
+      }
+
+      /* Hero */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(165deg, #0f172a 0%, #1a1a2e 40%, #0f172a 100%);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse at 30% 60%, rgba(184, 134, 11, 0.08) 0%, transparent 60%),
+          radial-gradient(ellipse at 70% 40%, rgba(96, 165, 250, 0.04) 0%, transparent 50%);
+        pointer-events: none;
+      }
+
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(184, 134, 11, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(184, 134, 11, 0.02) 1px, transparent 1px);
+        background-size: 80px 80px;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        padding: 120px 24px 80px;
+        text-align: center;
+      }
+
+      .hero-overline {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--color-gold);
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.8rem, 6vw, 4.5rem);
+        font-weight: 800;
+        line-height: 1.05;
+        margin-bottom: 12px;
+        letter-spacing: -0.03em;
+      }
+
+      .hero-accent {
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-tagline {
+        font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 24px auto 40px;
+        line-height: 1.7;
+        font-weight: 400;
+      }
+
+      .hero-stats {
+        display: flex;
+        gap: 40px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 48px;
+      }
+
+      .hero-stat {
+        text-align: center;
+      }
+
+      .hero-stat-value {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--color-gold-light);
+        display: block;
+      }
+
+      .hero-stat-label {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 500;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn-gold {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 36px;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        color: #0f172a;
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: var(--radius-full);
+        box-shadow: 0 10px 30px rgba(184, 134, 11, 0.25);
+        transition: all var(--transition-base);
+      }
+
+      .btn-gold:hover {
+        box-shadow: 0 15px 40px rgba(184, 134, 11, 0.35);
+        transform: translateY(-2px);
+      }
+
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        padding: 16px 36px;
+        background: transparent;
+        color: var(--text-primary);
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        border: 1.5px solid rgba(255, 255, 255, 0.15);
+        border-radius: var(--radius-full);
+        transition: all var(--transition-base);
+      }
+
+      .btn-outline:hover {
+        border-color: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      /* Sections */
+      .section {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 100px 24px;
+      }
+
+      .section-divider {
+        border: none;
+        border-top: 1px solid var(--border-subtle);
+        margin: 0;
+      }
+
+      .section-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        color: var(--color-gold);
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .section-title {
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 20px;
+        letter-spacing: -0.01em;
+      }
+
+      .section-body {
+        font-size: 1.05rem;
+        color: var(--text-secondary);
+        line-height: 1.8;
+        max-width: 700px;
+      }
+
+      .section-body strong {
+        color: var(--text-primary);
+      }
+
+      /* What we build */
+      .platform-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 48px;
+      }
+
+      @media (max-width: 768px) {
+        .platform-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .platform-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 36px 28px;
+        transition: all var(--transition-base);
+      }
+
+      .platform-card:hover {
+        border-color: rgba(184, 134, 11, 0.25);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .platform-card .card-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .label-defence {
+        color: var(--color-gold-light);
+      }
+      .label-climate {
+        color: #4ade80;
+      }
+      .label-distribution {
+        color: var(--text-accent);
+      }
+
+      .platform-card h3 {
+        font-size: 1.15rem;
+        color: var(--text-primary);
+        margin-bottom: 12px;
+        font-weight: 700;
+      }
+
+      .platform-card p {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      .platform-card .card-link {
+        display: inline-block;
+        margin-top: 16px;
+        font-size: 0.85rem;
+        color: var(--color-gold);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color var(--transition-base);
+      }
+
+      .platform-card .card-link:hover {
+        color: var(--color-gold-light);
+      }
+
+      /* Industry Agents */
+      .industry-agent-section {
+        background: linear-gradient(180deg, rgba(184, 134, 11, 0.04) 0%, transparent 100%);
+      }
+
+      .industry-agent-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+        margin-top: 32px;
+      }
+
+      .industry-agent-chip {
+        padding: 10px 16px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        text-align: center;
+        transition: all var(--transition-base);
+      }
+
+      .industry-agent-chip:hover {
+        border-color: rgba(184, 134, 11, 0.3);
+        color: var(--color-gold-light);
+      }
+
+      /* Architecture */
+      .arch-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-top: 40px;
+      }
+
+      @media (max-width: 768px) {
+        .arch-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .arch-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-top: 3px solid var(--color-gold);
+        border-radius: var(--radius-lg);
+        padding: 28px 20px;
+        text-align: center;
+      }
+
+      .arch-card h4 {
+        font-size: 1rem;
+        color: var(--color-gold-light);
+        margin-bottom: 6px;
+      }
+
+      .arch-card .arch-name {
+        font-size: 0.8rem;
+        color: var(--text-accent);
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .arch-card p {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      /* Sovereignty */
+      .sov-badges {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+
+      .sov-badge {
+        padding: 8px 16px;
+        background: rgba(184, 134, 11, 0.08);
+        border: 1px solid rgba(184, 134, 11, 0.2);
+        border-radius: var(--radius-md);
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--color-gold-light);
+      }
+
+      /* Maturity ladder */
+      .maturity-ladder {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .maturity-rung {
+        flex: 1 1 120px;
+        padding: 16px 12px;
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .maturity-rung .rung-level {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--text-secondary);
+      }
+
+      .maturity-rung .rung-name {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .maturity-rung.rung-active {
+        background: rgba(184, 134, 11, 0.12);
+        border-color: rgba(184, 134, 11, 0.4);
+      }
+
+      .maturity-rung.rung-active .rung-level {
+        color: var(--color-gold);
+      }
+
+      .maturity-rung.rung-active .rung-name {
+        color: var(--color-gold-light);
+      }
+
+      /* Invest section */
+      .invest-box {
+        background: var(--bg-surface);
+        border: 1px solid rgba(184, 134, 11, 0.2);
+        border-radius: var(--radius-xl);
+        padding: 48px 40px;
+        margin-top: 40px;
+      }
+
+      .invest-box h3 {
+        font-size: 1.3rem;
+        color: var(--color-gold-light);
+        margin-bottom: 16px;
+      }
+
+      .invest-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-top: 24px;
+      }
+
+      @media (max-width: 768px) {
+        .invest-grid {
+          grid-template-columns: 1fr;
+        }
+        .invest-box {
+          padding: 32px 24px;
+        }
+      }
+
+      .invest-tier {
+        text-align: center;
+        padding: 24px 16px;
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+      }
+
+      .invest-tier h4 {
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        margin-bottom: 4px;
+      }
+
+      .invest-tier .tier-price {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--color-gold-light);
+        margin-bottom: 8px;
+      }
+
+      .invest-tier p {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      /* Footer */
+      .corp-footer {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 24px 80px;
+      }
+
+      .footer-inner {
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 40px;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 40px;
+      }
+
+      @media (max-width: 768px) {
+        .footer-inner {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+      }
+
+      .footer-col h4 {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--text-secondary);
+        margin-bottom: 16px;
+      }
+
+      .footer-col p {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        margin-bottom: 8px;
+      }
+
+      .footer-col a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.85rem;
+        display: block;
+        padding: 4px 0;
+        transition: color var(--transition-base);
+      }
+
+      .footer-col a:hover {
+        color: var(--text-primary);
+      }
+
+      .footer-legal {
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border-subtle);
+        font-size: 0.75rem;
+        color: #475569;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/vertical-lang-bar.js"></script>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-grid"></div>
+      <div class="hero-inner">
+        <div class="hero-overline">Lifetime Oy &mdash; Esbo, Finland</div>
+        <h1>AI-agenter som<br /><span class="hero-accent">levererar utfall</span></h1>
+        <p class="hero-tagline">
+          <strong>&Ouml;ppna modeller, arbetsfl&ouml;den, Agenter, transaktioner.</strong> 
+          Vi bygger autonoma AI-agenter &mdash; Skilled Agents &mdash; som levererar mätbara
+          efterlevnadsutfall för EU-reglerade branscher. Inga dashboards. Inga rapporter. Inga
+          konsulttimmar. Utfall.
+        </p>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-value">25</span>
+            <span class="hero-stat-label">EU-branscher</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">50</span>
+            <span class="hero-stat-label">Produktionsagenter</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">3</span>
+            <span class="hero-stat-label">Plattformar</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">0</span>
+            <span class="hero-stat-label">CLOUD Act-exponering</span>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="https://dws10.com/buy/" class="btn-gold">Utforska produkter</a>
+          <a href="https://dws10.com/fleet-admiral/" class="btn-outline">Investera</a>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Utvald produkt: Claude Code Coaching -->
+    <section class="section">
+      <div class="section-label">Nytt &middot; I fokus</div>
+      <h2 class="section-title">Claude Code Coaching</h2>
+      <div class="section-body">
+        <p>
+          Disciplinerad agentbaserad utveckling för EU-team &mdash; en endagsföreläsning, en
+          tvådagarsworkshop och valfritt projektarbete hos kund. EU-suverän: er kod och er IP lämnar
+          aldrig jurisdiktionen. Kohorter körs
+          <strong>juli&ndash;december 2026, fredagar</strong>, live via Microsoft Teams. Alla priser
+          moms&nbsp;0&nbsp;%.
+        </p>
+      </div>
+      <div style="display: flex; gap: 32px; align-items: center; flex-wrap: wrap; margin-top: 24px">
+        <img
+          src="/static/images/claude-code-coaching-hero.png"
+          alt="Claude Code Coaching &mdash; suverän agentbaserad utvecklingscoaching, i korthet"
+          style="
+            flex: 0 0 280px;
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 209, 102, 0.3);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+          "
+        />
+        <div style="flex: 1 1 280px">
+          <div class="hero-actions">
+            <a href="https://dws10.com/products/claude-code-coaching.html" class="btn-gold"
+              >Coaching (EN)</a
+            >
+            <a href="https://dws10.com/products/claude-code-coaching-fi.html" class="btn-outline"
+              >Valmennus (FI)</a
+            >
+          </div>
+          <p style="margin-top: 16px; opacity: 0.75; font-size: 0.95rem">
+            Även på svenska, tyska &amp; franska.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Vad vi bygger -->
+    <section class="section">
+      <div class="section-label">Vad vi bygger</div>
+      <h2 class="section-title">Tre plattformar. Ett uppdrag.</h2>
+      <div class="section-body">
+        <p>
+          Varje EU-företag med över 250 anställda måste följa CSRD, CBAM, ETS, EU AI Act och NIS2.
+          Det är <strong>över 50&nbsp;000 företag till 2028</strong>. Vi byggde fabriken som
+          producerar deras efterlevnadsutfall &mdash; autonoma AI-agenter som observerar, tänker och
+          agerar.
+        </p>
+      </div>
+
+      <div class="platform-grid">
+        <div class="platform-card">
+          <div class="card-label label-defence">Försvar &amp; dubbla användningsområden</div>
+          <h3>DWS IQ Aegis</h3>
+          <p>
+            AI-plattform med dubbla användningsområden för myndigheter, försvarsindustri och
+            försvarstillverkning. 21 EU-branscher. Suveränitetsövervakning, orbital underrättelse
+            (ICEYE SAR), KYA-agentstyrning. Endast EU. Endast mjukvara.
+          </p>
+          <a href="https://dws10.com/dual-use/" class="card-link">Läs mer &rarr;</a>
+        </div>
+
+        <div class="platform-card">
+          <div class="card-label label-climate">Klimatefterlevnad</div>
+          <h3>DWS IQ Climate Intelligence</h3>
+          <p>
+            En flotta av skickliga agenter automatiserar EU:s klimatefterlevnad &mdash; ETS, CBAM,
+            CSRD, ESRS, koldioxidredovisning. Deterministisk poängsättning. Revisionsfärdiga utfall.
+            Ersätter konsultuppdrag på 200&nbsp;000&nbsp;&euro;.
+          </p>
+          <a href="https://dws10.com/buy/" class="card-link">Läs mer &rarr;</a>
+        </div>
+
+        <div class="platform-card">
+          <div class="card-label label-distribution">ERP-distribution</div>
+          <h3>Firehorse V2</h3>
+          <p>
+            Omnikanalförsäljning, rapportmotor, innehålls-DMS. Distributionsfordonet som placerar
+            Skilled Agents i varje anslutet ERP &mdash; IFS, Visma, SAP, Monitor, Jeeves.
+          </p>
+          <a href="https://dws10.com/buy/" class="card-link">Läs mer &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Agenter · Loopar · Arbetsflöden -->
+    <section class="section" id="agenter-loopar-arbetsfloden">
+      <div class="section-label">Den AI-nativa stacken</div>
+      <h2 class="section-title">Agenter. Loopar. Arbetsflöden.</h2>
+      <div class="section-body">
+        <p>
+          Tre lager. Alla i drift. Grunden är 50 Skilled Agents i produktion — var och en bygger på
+          BaseAgent och levererar ett ledger-nativt utdatakontrakt (revisionsspår, regulatorisk
+          artefakt, härkomst). Ovanpå: självkorrigerande loopar och fleragentarbetsflöden som kedjar
+          dem till utfall.
+        </p>
+      </div>
+
+      <div class="platform-grid">
+        <div class="platform-card">
+          <div class="card-label label-defence">Grunden</div>
+          <h3>Agenter</h3>
+          <p>
+            50 Skilled Agents i produktion, i drift. Orkestrerare (Atlas, Athena, Apollo)
+            koordinerar Industrial Specialist Agents per vertikal. BaseAgent-arkitektur.
+            Ledger-nativt utdata vid varje körning.
+          </p>
+        </div>
+
+        <div class="platform-card">
+          <div class="card-label label-climate">Levererat juni 2026</div>
+          <h3>Loopar</h3>
+          <p>
+            Maker&ndash;Checker-cykler. Diskbeständigt tillstånd, budgetgrind, säkerhetsgrind,
+            återupptagbar. En Skilled Agent föreslår; en annan validerar; loopen fortsätter tills
+            utfallet är korrekt eller budgeten stoppar den.
+          </p>
+        </div>
+
+        <div class="platform-card">
+          <div class="card-label label-distribution">Orkestrering</div>
+          <h3>Arbetsflöden</h3>
+          <p>
+            Fleragentorkestrering via färdigheten <code>/workflow</code>. Fan-out-, sekventiella och
+            reflektionsmönster. MCP Hub-integration. Efterlevnadsbedömningar, Smart
+            Factory-pipelines och KYA-styrningskedjor &mdash; alla i drift.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 32px; text-align: center">
+        <a href="/agents-loops-workflows/" class="btn-gold">Läs milstolpeuppdateringen &rarr;</a>
+        &nbsp;&nbsp;
+        <a href="/agentit-silmukat-tyonkulut/" class="btn-outline">Lue suomeksi &rarr;</a>
+        &nbsp;&nbsp;
+        <a href="/laskuri/" class="btn-outline">Avbrottskalkylator &rarr;</a>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Branschagenter -->
+    <section class="section industry-agent-section">
+      <div class="section-label">Branschagenter</div>
+      <h2 class="section-title">En Industrial Specialist Agent per bransch.</h2>
+      <div class="section-body">
+        <p>
+          Industrial Specialist Agents är branschspecifika Skilled Agents &mdash; varje vertikals
+          specialister. Var och en kan regelverken, emissionsfaktorerna, sektorns riktmärken och
+          rapporteringskraven för sin bransch. De assisterar inte. De
+          <strong>levererar utfall</strong>. Plattformen betjänar 25 EU-reglerade branscher: 20 med
+          en dedikerad Industrial Specialist Agent och 5 som betjänas på plattformsnivå.
+        </p>
+      </div>
+
+      <div class="industry-agent-grid">
+        <div class="industry-agent-chip">Dubbla användningsomr. &amp; försvar</div>
+        <div class="industry-agent-chip">Bygg &amp; anläggning</div>
+        <div class="industry-agent-chip">Energi</div>
+        <div class="industry-agent-chip">Järn &amp; stål</div>
+        <div class="industry-agent-chip">Cement &amp; kalk</div>
+        <div class="industry-agent-chip">Kemikalier</div>
+        <div class="industry-agent-chip">Flyg</div>
+        <div class="industry-agent-chip">Sjöfart</div>
+        <div class="industry-agent-chip">Vägtransport</div>
+        <div class="industry-agent-chip">Fordonsindustri</div>
+        <div class="industry-agent-chip">Jordbruk</div>
+        <div class="industry-agent-chip">Textil</div>
+        <div class="industry-agent-chip">Gruvdrift</div>
+        <div class="industry-agent-chip">Livsmedel &amp; dryck</div>
+        <div class="industry-agent-chip">Massa &amp; papper</div>
+        <div class="industry-agent-chip">Fastigheter</div>
+        <div class="industry-agent-chip">Avfall &amp; återvinning</div>
+        <div class="industry-agent-chip">Aluminium</div>
+        <div class="industry-agent-chip">Oljeraffinering</div>
+        <div class="industry-agent-chip">Glas &amp; keramik</div>
+      </div>
+
+      <div style="margin-top: 20px">
+        <p
+          style="
+            font-size: 0.8rem;
+            color: var(--text-muted, rgba(226, 232, 240, 0.5));
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 600;
+          "
+        >
+          Plattformsbetjänade (5) — ingen dedikerad specialistagent
+        </p>
+        <div class="industry-agent-grid" style="opacity: 0.55">
+          <div class="industry-agent-chip">Tillverkning (tvärsektoriell)</div>
+          <div class="industry-agent-chip">Hälso- och sjukvård</div>
+          <div class="industry-agent-chip">Finansiella tjänster</div>
+          <div class="industry-agent-chip">Offentlig sektor</div>
+          <div class="industry-agent-chip">Datacenter</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Arkitektur -->
+    <section class="section">
+      <div class="section-label">Arkitektur</div>
+      <h2 class="section-title">Hjärna &middot; Minne &middot; Kropp &middot; Händer</h2>
+      <div class="section-body">
+        <p>
+          Fyra lager. Hjärnan orkestrerar 50 Skilled Agents i produktion. Minnet håller EU:s
+          regulatoriska modell. Kroppen levererar genom Firehorse. Händerna agerar i den fysiska
+          världen.
+        </p>
+      </div>
+
+      <div class="arch-grid">
+        <div class="arch-card">
+          <h4>Hjärna</h4>
+          <div class="arch-name">DWS IQ 6</div>
+          <p>Fleragentorkestrering via MCP. 50 Skilled Agents i produktion körs samtidigt.</p>
+        </div>
+        <div class="arch-card">
+          <h4>Minne</h4>
+          <div class="arch-name">Världsmodell</div>
+          <p>EU-regelverk, branschmodeller, emissionsfaktorer. Kunskapslagret.</p>
+        </div>
+        <div class="arch-card">
+          <h4>Kropp</h4>
+          <div class="arch-name">Firehorse</div>
+          <p>Omnikanalförsäljning, signerade rapporter, automation, innehålls-DMS.</p>
+        </div>
+        <div class="arch-card">
+          <h4>Händer</h4>
+          <div class="arch-name">Lifetime Fleet</div>
+          <p>IoT, edge-AI, fysiskt utförande. NVIDIA Jetson. Specifikationsfas.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Suveränitet -->
+    <section class="section">
+      <div class="section-label">Suveränitet först</div>
+      <h2 class="section-title">EU-suverän. Finsk-hostad. Noll CLOUD Act.</h2>
+      <div class="section-body">
+        <p>
+          Vi driftsätter på <strong>europeisk molninfrastruktur</strong> &mdash; OVHcloud, Hetzner,
+          Scaleway. Amerikanska leverantörer endast när de uppfyller EU AI Act. Aegis är enbart EU
+          by design. Era data lämnar aldrig europeisk jurisdiktion.
+        </p>
+      </div>
+
+      <div class="sov-badges">
+        <span class="sov-badge">EU-dataresidens (Finland)</span>
+        <span class="sov-badge">CLOUD Act-fri</span>
+        <span class="sov-badge">EU AI Act artikel 12</span>
+        <span class="sov-badge">NIS2-anpassad</span>
+        <span class="sov-badge">GDPR-nativ</span>
+        <span class="sov-badge">KYA-agentstyrning</span>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Lifetime Consulting — tre pelare -->
+    <section class="section" id="consulting">
+      <div class="section-label">Lifetime Consulting</div>
+      <h2 class="section-title">Förmåga, inte personalstyrka. Utfall, inte timmar.</h2>
+      <div class="section-body">
+        <p>
+          Vi säljer inte personal. Vi tillför <strong>förmåga och förändringsberedskap</strong>
+          &mdash; och stöd när disruptionen slår till. En flotta av skickliga agentförmågor över 10
+          ontologiklasser, tillgänglig omedelbart. Ingen rekrytering. Ingen onboarding. Inga
+          uppsägningar. Era medarbetare stannar &mdash; de får digitala kollegor som eliminerar
+          rutinarbetet och frigör tänkandet för strategiskt arbete.
+        </p>
+      </div>
+
+      <div class="platform-grid" style="margin-top: 48px">
+        <!-- Pelare 1 -->
+        <div class="platform-card" style="border-top: 3px solid var(--color-gold)">
+          <div class="card-label label-defence">Pelare 1</div>
+          <h3>Vi utbildar ert team i att använda agentförmågor</h3>
+          <p>
+            Ert team lär sig vilka agenter som ska användas för vilka uppgifter. Skräddarsydda
+            lärvägar per roll &mdash; efterlevnadsteam får annan utbildning än IT-team. Praktiska
+            övningar med riktiga data från dag ett. EU AI Act artikel&nbsp;4-litteracitet ingår.
+          </p>
+          <ul
+            style="
+              margin-top: 12px;
+              padding-left: 16px;
+              font-size: 0.85rem;
+              color: var(--text-secondary);
+              line-height: 1.7;
+            "
+          >
+            <li>Rollbaserade utbildningsvägar (efterlevnad, IT, drift, ledning)</li>
+            <li>
+              <strong style="color: var(--text-primary)">Claude Code Coaching</strong> &mdash;
+              endagsföreläsning, tvådagarsworkshop, inbäddat projektarbete
+              (&euro;1&nbsp;900&ndash;&euro;7&nbsp;500)
+            </li>
+            <li>
+              <strong style="color: var(--text-primary)">NVIDIA suverän databehandling</strong>
+              &mdash; DGX Spark, Jetson, NVIDIA AI Workbench, lokalt världsmodellbygge
+            </li>
+            <li>
+              <strong style="color: var(--text-primary)">Suverän AI-infrastruktur</strong> &mdash;
+              driftsättning enbart i EU, CLOUD Act-fri, artikel 12-reviderad
+            </li>
+            <li>Certifiering i EU AI Act artikel 4-litteracitet</li>
+            <li>Resultat från första dagen &mdash; inte teori, utfall</li>
+          </ul>
+        </div>
+
+        <!-- Pelare 2 -->
+        <div class="platform-card" style="border-top: 3px solid #4ade80">
+          <div class="card-label label-climate">Pelare 2</div>
+          <h3>
+            Vi utvecklar branschspecifika intelligenta efterlevnadsarbetsflöden &mdash; och
+            levererar dem till produktion
+          </h3>
+          <p>
+            Vi kartlägger er branschs regulatoriska landskap och identifierar de kritiska
+            efterlevnadsarbetsflödena. Sedan bygger vi dem: rätt agenter, i rätt ordning, på rätt
+            autonominivå. Scoping &rarr; pilot &rarr; validering &rarr; produktion. Det stannar inte
+            som prototyp.
+          </p>
+          <ul
+            style="
+              margin-top: 12px;
+              padding-left: 16px;
+              font-size: 0.85rem;
+              color: var(--text-secondary);
+              line-height: 1.7;
+            "
+          >
+            <li>Branschspecifik arbetsflödesdesign (CBAM, CSRD, ETS, NIS2&hellip;)</li>
+            <li>ERP-integration (SAP, IFS, Visma, Monitor, Jeeves)</li>
+            <li>Lifetime World Model-ontologi från era egna data</li>
+            <li>Kontinuerlig optimering: mät, identifiera flaskhalsar, skala</li>
+          </ul>
+        </div>
+
+        <!-- Pelare 3 -->
+        <div class="platform-card" style="border-top: 3px solid var(--text-accent)">
+          <div class="card-label label-distribution">Pelare 3</div>
+          <h3>Vi säkerställer att projektet fortskrider utan avbrott</h3>
+          <p>
+            <a href="/laskuri/" style="color: var(--color-gold)">Avbrottskalkylatorn</a>
+            kvantifierar vad förmågegap kostar: återuppbyggnad av kontext, förlorat momentum,
+            nyckelpersonsrisk. Våra agenter fortsätter arbeta när regelverk ändras, leveranskedjor
+            brister eller nyckelpersoner byter jobb. Disruptionsstöd är inbyggt &mdash; inte
+            påklistrat.
+          </p>
+          <ul
+            style="
+              margin-top: 12px;
+              padding-left: 16px;
+              font-size: 0.85rem;
+              color: var(--text-secondary);
+              line-height: 1.7;
+            "
+          >
+            <li>Proaktiv disruptionshantering &mdash; agenter arbetar genom förändringen</li>
+            <li>Bedömning av förändringsberedskap (Disruption Response Agent)</li>
+            <li>Human-in-the-loop: människor beslutar, agenter sköter rutinen</li>
+            <li>Project Manager Agent: tidplaner, JIRA, dokumentation &mdash; alltid aktuell</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Ontologiklasser -->
+      <div
+        style="
+          margin-top: 48px;
+          padding: 36px 28px;
+          background: var(--bg-surface);
+          border: 1px solid var(--border-subtle);
+          border-radius: var(--radius-xl);
+        "
+      >
+        <h3 style="font-size: 1.1rem; color: var(--color-gold-light); margin-bottom: 8px">
+          Förmågeontologi &mdash; 10 kunskapsklasser
+        </h3>
+        <p
+          style="
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+          "
+        >
+          Förmågor struktureras som en ontologi &mdash; en Lifetime World Model-kunskapsgraf där
+          varje klass kopplas till andra genom inter-agentkommunikation. Nya förmågor fästs alltid
+          vid den befintliga strukturen. Katalogen växer kontinuerligt.
+        </p>
+        <div class="industry-agent-grid">
+          <div class="industry-agent-chip">1. Konsulting</div>
+          <div class="industry-agent-chip">2. Regelverk &amp; efterlevnad</div>
+          <div class="industry-agent-chip">3. Bransch</div>
+          <div class="industry-agent-chip">4. Orkestrering</div>
+          <div class="industry-agent-chip">5. Fält &amp; projekt</div>
+          <div class="industry-agent-chip">6. Försäljning &amp; kommunikation</div>
+          <div class="industry-agent-chip">7. Kunskap &amp; minne</div>
+          <div class="industry-agent-chip">8. System</div>
+          <div class="industry-agent-chip">9. Försvar &amp; säkerhet</div>
+          <div class="industry-agent-chip">10. Förändring &amp; kontinuitet</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap">
+        <a href="https://dws10.com/contact/" class="btn-gold">Boka en konsultation</a>
+        <a href="/laskuri/" class="btn-outline">Avbrottskalkylator &rarr;</a>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- DWS IQ Adoption Framework -->
+    <section class="section" id="adoption-framework">
+      <div class="section-label">DWS IQ Adoption Framework</div>
+      <h2 class="section-title">Microsofts AI Adoption Framework &mdash; accelererat.</h2>
+      <div class="section-body">
+        <p>
+          Microsofts <strong>AI Adoption Framework</strong> &mdash; en del av Cloud Adoption
+          Framework för Azure &mdash; är ritningen EU-företag använder för att gå från ad
+          hoc-experiment till säker, skalad och värdedriven produktion. Ingenjörer litar på det och
+          Microsoft är en huvudleverantör, så vi möter er där ni redan är: Lifetime Consulting
+          driver er DWS IQ-driftsättning längs <strong>samma fyra livscykelfaser</strong>.
+          Skillnaden är var ni landar &mdash; med DWS IQ hoppar ni över det riskfyllda
+          experimenterandet och landar direkt i en styrd, suverän produktionsmiljö.
+        </p>
+      </div>
+
+      <div class="arch-grid" style="grid-template-columns: repeat(4, 1fr)">
+        <div class="arch-card">
+          <div class="arch-name">Fas 1</div>
+          <h4>AI-strategi</h4>
+          <p>
+            Börja med affärsproblemet, inte tekniken. Vi översätter regulatoriska och operativa gap
+            &mdash; CBAM, CSRD, ETS, NIS2 &mdash; till konkreta användningsfall och väljer generativ
+            eller deterministisk AI per uppgift. Deterministisk poängsättning där revisionen kräver
+            det.
+          </p>
+        </div>
+        <div class="arch-card">
+          <div class="arch-name">Fas 2</div>
+          <h4>Planera &amp; förbered</h4>
+          <p>
+            Microsoft kallar det AI Landing Zone. Vi sätter upp er suveräna variant &mdash;
+            EU-hostad i Finland eller on-prem edge (NVIDIA Jetson, L40S) &mdash; organiserar
+            datadomäner och kopplar in styrning och EU AI Act artikel&nbsp;12-loggning innan en enda
+            agent körs.
+          </p>
+        </div>
+        <div class="arch-card">
+          <div class="arch-name">Fas 3</div>
+          <h4>Införa &middot; Bygga</h4>
+          <p>
+            Integrera AI i arbetsflödet. Från färdiga Skilled Agents till skräddarsydda
+            agentbaserade arbetsflöden i ert ERP (SAP, Visma, IFS, Monitor, Jeeves) &mdash; den
+            suveräna motsvarigheten till adoptionsvägarna för M365&nbsp;Copilot och Azure AI
+            Foundry.
+          </p>
+        </div>
+        <div class="arch-card">
+          <div class="arch-name">Fas 4</div>
+          <h4>Styr, säkra &amp; förvalta</h4>
+          <p>
+            Zero Trust: lita aldrig, verifiera alltid. KYA-agentstyrning, strikta gränser mellan
+            interna och externa arbetslaster, skydd mot promptinjektion och dataläckage, samt
+            Responsible AI- och EU AI Act-efterlevnad &mdash; förankrat i plattformen, inte påbyggt.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-secondary)">
+        Referens:
+        <a
+          href="https://learn.microsoft.com/azure/cloud-adoption-framework/scenarios/ai/"
+          style="color: var(--color-gold)"
+          target="_blank"
+          rel="noopener"
+          >Microsoft Cloud Adoption Framework for AI &rarr;</a
+        >
+        &nbsp; DWS IQ är ett EU-suveränt acceleratorlager ovanpå samma livscykel &mdash; inte en
+        ersättning för den.
+      </p>
+
+      <!-- Mognadsstege -->
+      <div
+        style="
+          margin-top: 48px;
+          padding: 36px 28px;
+          background: var(--bg-surface);
+          border: 1px solid var(--border-subtle);
+          border-radius: var(--radius-xl);
+        "
+      >
+        <h3 style="font-size: 1.1rem; color: var(--color-gold-light); margin-bottom: 8px">
+          Var DWS IQ placerar er på mognadskurvan
+        </h3>
+        <p
+          style="
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.7;
+          "
+        >
+          Utvärderat mot den standardiserade AI-mognadsmodellen &mdash; från utforskande till
+          transformativ &mdash; fastnar de flesta företag i Microsofts
+          <em>Styr &amp; säkra</em>-fas, blockerade av dataläckage, skugg-AI och
+          US&nbsp;CLOUD&nbsp;Act-exponering. DWS IQ löser detta direkt ur lådan, så ni hoppar över
+          trial-and-error-stegen och börjar nära toppen.
+        </p>
+
+        <div class="maturity-ladder">
+          <div class="maturity-rung">
+            <span class="rung-level">L1</span><span class="rung-name">Utforskande</span>
+          </div>
+          <div class="maturity-rung">
+            <span class="rung-level">L2</span><span class="rung-name">Experimenterande</span>
+          </div>
+          <div class="maturity-rung">
+            <span class="rung-level">L3</span><span class="rung-name">Processoptimering</span>
+          </div>
+          <div class="maturity-rung rung-active">
+            <span class="rung-level">L4</span><span class="rung-name">Avancerad &amp; skalad</span>
+          </div>
+          <div class="maturity-rung rung-active">
+            <span class="rung-level">L5</span><span class="rung-name">Transformativ</span>
+          </div>
+        </div>
+        <p
+          style="
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 12px;
+            text-align: right;
+            opacity: 0.85;
+          "
+        >
+          &#9632;&nbsp; DWS IQ-driftsättningar landar här
+        </p>
+
+        <div class="platform-grid" style="margin-top: 32px">
+          <div class="platform-card">
+            <div class="card-label label-defence">Nivå 5 &middot; Branschledande</div>
+            <h3>Säkerhet &amp; styrning</h3>
+            <p>
+              Finsk-hostat suveränt moln plus on-prem edge = noll CLOUD&nbsp;Act-exponering. EU AI
+              Act (inkl. artikel&nbsp;12-loggning), CSRD och CBAM nativt. Fasen de flesta företag
+              fruktar är där DWS IQ är som starkast.
+            </p>
+          </div>
+          <div class="platform-card">
+            <div class="card-label label-climate">Nivå 4 &middot; Avancerad / skalad</div>
+            <h3>Infrastruktur &amp; drift</h3>
+            <p>
+              Ingen flaskhals av per-token-API-prissättning. Ni äger beräkningskraften och kör
+              inferens under 100&nbsp;ms offline vid kanten &mdash; säkra nätverksgränser och
+              kontinuerlig tillgänglighet, med förutsägbar driftsekonomi.
+            </p>
+          </div>
+          <div class="platform-card">
+            <div class="card-label label-distribution">Nivå 3&rarr;4 &middot; Optimerande</div>
+            <h3>Affärsadoption &amp; automation</h3>
+            <p>
+              Förbi pilotfasen &mdash; aktiva, betalande industrikunder. Inte chattbottar, utan
+              agentbaserade efterlevnadsarbetsflöden som integreras direkt i ERP-system (SAP, Visma)
+              och levererar revisionsfärdiga utfall.
+            </p>
+          </div>
+        </div>
+
+        <p
+          style="
+            margin-top: 24px;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            line-height: 1.7;
+            border-left: 3px solid var(--color-gold);
+            padding-left: 16px;
+          "
+        >
+          <strong>Slutsats:</strong> för ett europeiskt industriföretag som följer Microsofts AI
+          Adoption Framework är DWS IQ en mognadsaccelerator &mdash; hoppa över det riskfyllda
+          experimenterandet och landa omedelbart i en fullt styrd, säker och kostnadsförutsägbar
+          produktionsmiljö.
+        </p>
+      </div>
+
+      <div style="margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap">
+        <a
+          href="https://dws10.com/contact/"
+          class="btn-gold"
+          >Boka en adoptionsbedömning</a
+        >
+        <a href="#consulting" class="btn-outline">Se de tre konsultpelarna &rarr;</a>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Investera -->
+    <section class="section">
+      <div class="section-label">Investera</div>
+      <h2 class="section-title">Regelvågen är lagstiftad, inte spekulerad.</h2>
+      <div class="section-body">
+        <p>
+          CBAM, CSRD, ETS, EU AI Act, NIS2 &mdash; varje industriellt EU-företag måste följa dem. Vi
+          byggde fabriken. Tre produktlinjer bevisar bredden. En fästning med 21 vallgravar i 4
+          nivåer bevisar försvarbarheten.
+        </p>
+      </div>
+
+      <div class="invest-box">
+        <h3>Investerarstegen</h3>
+        <div class="invest-grid">
+          <div class="invest-tier">
+            <h4>Deputy</h4>
+            <div class="tier-price">&euro;5&nbsp;000</div>
+            <p>SAFE. Lärlingsplats. Kvartalsvisa briefingar. Uppgraderingsrätt till Captain.</p>
+          </div>
+          <div class="invest-tier" style="border-color: var(--color-gold)">
+            <h4>Captain</h4>
+            <div class="tier-price">&euro;50&nbsp;000</div>
+            <p>SAFE. Äg en branschvertikal. 9 platser, 1:a tranchen vid 3,8&nbsp;M&euro; cap.</p>
+          </div>
+          <div class="invest-tier">
+            <h4>Admiral</h4>
+            <div class="tier-price">&euro;250&nbsp;000+</div>
+            <p>Premium. Full plattformsåtkomst. Strategisk styrelserådgivning. Formar serie A.</p>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 28px">
+          <a href="https://dws10.com/fleet-admiral/" class="btn-gold"
+            >Fleet Admiral-investerarsida</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="corp-footer">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h4>Lifetime Oy</h4>
+          <p>
+            Skaparen av Firehorse-produktlinjen och DWS IQ-produktplattformen &mdash; suverän
+            efterlevnadsintelligens för EU-reglerad industri. Konsulting och utbildning i Claude
+            Code, NVIDIA suverän databehandling och EU-suverän AI-infrastruktur. Baserat i Esbo.
+          </p>
+          <p style="margin-top: 12px">
+            <strong style="color: var(--text-primary)">Risto Anton P&auml;&auml;rni</strong><br />
+            Grundare &amp; VD<br />
+            DI, industriell ekonomi<br />
+            risto@onelifetime.world
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Plattformar</h4>
+          <a href="https://dws10.com">DWS IQ-plattformen</a>
+          <a href="https://dws10.com/dual-use/">DWS IQ Aegis</a>
+          <a href="https://dws10.com/buy/">Produktbutik</a>
+          <a href="https://dws10.com/fleet-admiral/">Fleet Admiral</a>
+          <a href="https://dws10.com/captain/">Industry Captains</a>
+          <a href="https://onelifetime.world">Lifetime World</a>
+          <a href="/laskuri/">Avbrottskalkylator</a>
+        </div>
+        <div class="footer-col">
+          <h4>Juridik</h4>
+          <a href="https://dws10.com/terms/">Användarvillkor</a>
+          <a href="https://dws10.com/privacy-policy/">Integritetspolicy</a>
+          <a href="https://dws10.com/legal/">Juridiskt nav</a>
+          <a href="https://dws10.com/compliance/">Efterlevnad</a>
+        </div>
+      </div>
+
+      <div class="footer-legal">
+        <p>&copy; 2026 Lifetime Oy &middot; FO-nummer 0772407-9 &middot; Moms FI07724079</p>
+        <p>Laidunmaanraitti 2 A 25, 02330 Esbo, Finland</p>
+      </div>
+    </footer>
+      <script src="/shared-assets/motion/reveal.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+# CBAM 1K Generator — Scaleway H100 Python dependencies
+# Pin to minor versions; tested on Python 3.11 (Scaleway H100 image default)
+openai>=1.30,<2.0
+tqdm>=4.66,<5.0

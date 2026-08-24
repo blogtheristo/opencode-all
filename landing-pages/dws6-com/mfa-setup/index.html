@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enable Two-Factor Authentication | DWS IQ 6</title>
+    <link rel="stylesheet" href="../shared/css/auth-styles.css">
+    <link rel="icon" href="https://dws10.com/DWS_IQ2026.png" type="image/png">
+    <style>
+        .qr-container {
+            text-align: center;
+            padding: var(--spacing-lg);
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-lg);
+        }
+        .qr-container img {
+            max-width: 200px;
+            border-radius: var(--radius-sm);
+            background: white;
+            padding: 10px;
+        }
+        .secret-key {
+            font-family: monospace;
+            background: rgba(15, 23, 42, 0.8);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-sm);
+            word-break: break-all;
+            margin-top: var(--spacing-md);
+            font-size: 0.9rem;
+            color: var(--primary-blue);
+        }
+        .backup-codes {
+            background: rgba(15, 23, 42, 0.8);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin: var(--spacing-lg) 0;
+        }
+        .backup-codes h3 {
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+        }
+        .backup-codes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-sm);
+            font-family: monospace;
+            font-size: 1rem;
+        }
+        .backup-code {
+            background: rgba(96, 165, 250, 0.1);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            color: var(--primary-blue);
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+        .step {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .step.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+        .step.completed {
+            background: var(--success-text);
+            color: white;
+        }
+        .step.pending {
+            background: rgba(148, 163, 184, 0.3);
+            color: var(--text-muted);
+        }
+        .code-input {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            margin: var(--spacing-lg) 0;
+        }
+        .code-input input {
+            width: 45px;
+            height: 55px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 0;
+        }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <div class="logo-section">
+                <img src="https://dws10.com/DWS_IQ2026.png" alt="DWS IQ">
+                <h1>DWS IQ 6</h1>
+            </div>
+
+            <h2 class="page-title">Enable Two-Factor Authentication</h2>
+            <p class="page-subtitle">Add an extra layer of security to your account</p>
+
+            <div class="step-indicator">
+                <div class="step active" id="step1">1</div>
+                <div class="step pending" id="step2">2</div>
+                <div class="step pending" id="step3">3</div>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+
+            <!-- Step 1: Scan QR Code -->
+            <div id="scanStep">
+                <div class="security-badge">
+                    <strong>Step 1: Scan QR Code</strong>
+                    Use an authenticator app like Google Authenticator or Authy
+                </div>
+
+                <div class="qr-container" id="qrContainer">
+                    <div class="loading-spinner" style="margin: 40px auto;"></div>
+                    <p style="color: var(--text-muted);">Loading QR code...</p>
+                </div>
+
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                    Can't scan? Enter this code manually:
+                </p>
+                <div class="secret-key" id="secretKey">Loading...</div>
+
+                <div class="button-group" style="margin-top: var(--spacing-lg);">
+                    <button class="btn btn-secondary" onclick="cancelSetup()">Cancel</button>
+                    <button class="btn btn-primary" onclick="proceedToVerify()">I've Scanned the Code</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Verify Code -->
+            <div id="verifyStep" class="hidden">
+                <div class="security-badge">
+                    <strong>Step 2: Verify Setup</strong>
+                    Enter the 6-digit code from your authenticator app
+                </div>
+
+                <div class="code-input" id="codeInput">
+                    <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+                    <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+                    <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+                    <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+                    <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+                    <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="backToScan()">Back</button>
+                    <button class="btn btn-primary" id="verifyBtn" onclick="verifyCode()">Verify & Enable</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Backup Codes -->
+            <div id="backupStep" class="hidden">
+                <div class="security-badge" style="background: var(--success-bg); border-color: var(--success-border);">
+                    <strong>Step 3: Save Backup Codes</strong>
+                    Store these codes safely - they can be used if you lose your device
+                </div>
+
+                <div class="backup-codes">
+                    <h3>Your Backup Codes</h3>
+                    <div class="backup-codes-grid" id="backupCodesGrid">
+                        <!-- Codes will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="downloadCodes()">
+                        Download Codes
+                    </button>
+                    <button class="btn btn-primary" onclick="completeSetup()">
+                        Done - Go to Dashboard
+                    </button>
+                </div>
+
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: var(--spacing-md);">
+                    Each code can only be used once. Generate new codes from your security settings.
+                </p>
+            </div>
+
+            <div class="footer-info">
+                <p><a href="/dashboard/security/index.html">Security Settings</a> | <a href="https://dws10.com/privacy-policy/">Privacy Policy</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import { getSupabaseClient, getCurrentUser } from '../shared/js/supabase-client.js';
+        import { requireAuth, showError, showSuccess } from '../shared/js/auth-handler.js';
+        import { enrollMfa, verifyMfaEnrollment, formatBackupCodes, downloadBackupCodes } from '../shared/js/mfa-handler.js';
+
+        let factorId = null;
+        let backupCodes = [];
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            console.log('MFA Setup - Initializing...');
+            getSupabaseClient();
+            
+            // Require authentication
+            const user = await requireAuth();
+            if (!user) return;
+            
+            // Start enrollment
+            await startEnrollment();
+            setupCodeInputs();
+        });
+
+        async function startEnrollment() {
+            const result = await enrollMfa();
+            
+            if (!result.success) {
+                showError(result.error || 'Failed to start MFA enrollment');
+                return;
+            }
+            
+            factorId = result.factorId;
+            
+            // Display QR code
+            const qrContainer = document.getElementById('qrContainer');
+            qrContainer.innerHTML = `<img src="${result.qrCode}" alt="QR Code">`;
+            
+            // Display secret key
+            document.getElementById('secretKey').textContent = result.secret;
+        }
+
+        function setupCodeInputs() {
+            const inputs = document.querySelectorAll('#codeInput input');
+            
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    const value = e.target.value.replace(/[^0-9]/g, '');
+                    e.target.value = value;
+                    
+                    if (value && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                    
+                    // Auto-submit when all filled
+                    if (index === inputs.length - 1 && value) {
+                        const code = Array.from(inputs).map(i => i.value).join('');
+                        if (code.length === 6) {
+                            verifyCode();
+                        }
+                    }
+                });
+                
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+                
+                input.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const paste = (e.clipboardData || window.clipboardData).getData('text');
+                    const digits = paste.replace(/[^0-9]/g, '').slice(0, 6);
+                    
+                    digits.split('').forEach((digit, i) => {
+                        if (inputs[i]) inputs[i].value = digit;
+                    });
+                    
+                    if (digits.length === 6) {
+                        verifyCode();
+                    }
+                });
+            });
+        }
+
+        window.proceedToVerify = function() {
+            document.getElementById('scanStep').classList.add('hidden');
+            document.getElementById('verifyStep').classList.remove('hidden');
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step1').classList.add('completed');
+            document.getElementById('step2').classList.remove('pending');
+            document.getElementById('step2').classList.add('active');
+            
+            // Focus first input
+            document.querySelector('#codeInput input').focus();
+        };
+
+        window.backToScan = function() {
+            document.getElementById('verifyStep').classList.add('hidden');
+            document.getElementById('scanStep').classList.remove('hidden');
+            document.getElementById('step1').classList.add('active');
+            document.getElementById('step1').classList.remove('completed');
+            document.getElementById('step2').classList.add('pending');
+            document.getElementById('step2').classList.remove('active');
+        };
+
+        window.verifyCode = async function() {
+            const inputs = document.querySelectorAll('#codeInput input');
+            const code = Array.from(inputs).map(i => i.value).join('');
+            
+            if (code.length !== 6) {
+                showError('Please enter all 6 digits');
+                return;
+            }
+            
+            const btn = document.getElementById('verifyBtn');
+            btn.disabled = true;
+            btn.textContent = 'Verifying...';
+            
+            const result = await verifyMfaEnrollment(factorId, code);
+            
+            if (!result.success) {
+                showError(result.error || 'Invalid code. Please try again.');
+                btn.disabled = false;
+                btn.textContent = 'Verify & Enable';
+                inputs.forEach(i => i.value = '');
+                inputs[0].focus();
+                return;
+            }
+            
+            // Store backup codes
+            backupCodes = result.backupCodes;
+            
+            // Show backup codes step
+            document.getElementById('verifyStep').classList.add('hidden');
+            document.getElementById('backupStep').classList.remove('hidden');
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step2').classList.add('completed');
+            document.getElementById('step3').classList.remove('pending');
+            document.getElementById('step3').classList.add('active');
+            
+            // Display backup codes
+            const grid = document.getElementById('backupCodesGrid');
+            grid.innerHTML = backupCodes.map(code => 
+                `<div class="backup-code">${code.slice(0,4)}-${code.slice(4)}</div>`
+            ).join('');
+            
+            showSuccess('Two-factor authentication enabled!');
+        };
+
+        window.downloadCodes = function() {
+            downloadBackupCodes(backupCodes);
+        };
+
+        window.completeSetup = function() {
+            window.location.href = '/dashboard/security/index.html';
+        };
+
+        window.cancelSetup = function() {
+            if (confirm('Are you sure you want to cancel MFA setup?')) {
+                window.location.href = '/dashboard/security/index.html';
+            }
+        };
+    </script>
+</body>
+</html>

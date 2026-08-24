@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Claude Code Coaching — 3-Day Training | Lifetime DWS IQ</title>
+    <meta
+      name="description"
+      content="A three-day, hands-on coaching program that takes a team from first launch of Claude Code to governed, agentic engineering on the DWS IQ stack."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <style>
+      :root {
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+        --bg: #0f172a;
+        --bg-card: rgba(30, 41, 59, 0.5);
+        --border: rgba(212, 168, 67, 0.18);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --green: #4ade80;
+        --code-bg: #111827;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        margin: 0;
+        padding: 0;
+      }
+      a {
+        color: var(--color-gold-light);
+      }
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      header.hero {
+        background: radial-gradient(circle at 20% 0%, rgba(184, 134, 11, 0.18), transparent 60%);
+        border-bottom: 1px solid var(--border);
+        padding: 64px 0 48px;
+      }
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 0.78rem;
+        color: var(--color-gold-light);
+        font-weight: 600;
+        margin: 0 0 12px;
+      }
+      h1 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        font-size: clamp(2rem, 5vw, 3.1rem);
+        line-height: 1.08;
+        margin: 0 0 16px;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      .lede {
+        font-size: 1.15rem;
+        color: var(--muted);
+        max-width: 720px;
+        margin: 0 0 28px;
+      }
+      .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 16px;
+        margin-top: 8px;
+      }
+      .meta-grid .cell {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px 16px;
+      }
+      .meta-grid .cell .k {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+      .meta-grid .cell .v {
+        font-weight: 600;
+        font-size: 1.02rem;
+      }
+      nav.toc {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(15, 23, 42, 0.92);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 0;
+      }
+      nav.toc ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-size: 0.92rem;
+      }
+      nav.toc a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 500;
+      }
+      nav.toc a:hover {
+        color: var(--color-gold-light);
+      }
+      section {
+        padding: 44px 0;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      }
+      h2 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        color: var(--color-gold-light);
+        font-size: 1.7rem;
+        margin: 0 0 6px;
+      }
+      h2 .day-tag {
+        display: inline-block;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        background: rgba(184, 134, 11, 0.18);
+        border: 1px solid var(--border);
+        color: var(--color-gold-light);
+        padding: 3px 8px;
+        border-radius: 6px;
+        vertical-align: middle;
+        margin-right: 10px;
+      }
+      h3 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        color: var(--text);
+        font-size: 1.18rem;
+        margin: 28px 0 6px;
+      }
+      .subtitle {
+        color: var(--muted);
+        margin: 0 0 18px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0 8px;
+        font-size: 0.95rem;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+        vertical-align: top;
+      }
+      th {
+        color: var(--color-gold-light);
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      td.time {
+        white-space: nowrap;
+        font-family: "IBM Plex Mono", monospace;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+      .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--color-gold-light);
+        border-radius: 10px;
+        padding: 18px 22px;
+        margin: 18px 0;
+      }
+      .card.lab {
+        border-left-color: var(--green);
+      }
+      .card .label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--green);
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      .card.objectives .label {
+        color: var(--color-gold-light);
+      }
+      ul.tight {
+        margin: 8px 0;
+        padding-left: 22px;
+      }
+      ul.tight li {
+        margin: 5px 0;
+      }
+      code,
+      kbd {
+        font-family: "IBM Plex Mono", monospace;
+        background: var(--code-bg);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        border-radius: 5px;
+        padding: 1px 6px;
+        font-size: 0.88em;
+        color: #fcd34d;
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        border-radius: 8px;
+        padding: 14px 16px;
+        overflow-x: auto;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.86rem;
+        line-height: 1.5;
+      }
+      pre code {
+        background: none;
+        border: none;
+        padding: 0;
+        color: var(--text);
+      }
+      .callout {
+        background: rgba(74, 222, 128, 0.08);
+        border: 1px solid rgba(74, 222, 128, 0.3);
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin: 20px 0;
+      }
+      .callout strong {
+        color: var(--green);
+      }
+      footer {
+        padding: 40px 0 60px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      footer .rule {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.82rem;
+      }
+      @media (max-width: 600px) {
+        section {
+          padding: 32px 0;
+        }
+        nav.toc ul {
+          font-size: 0.82rem;
+          gap: 6px 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="wrap">
+        <p class="eyebrow">Lifetime · DWS IQ Enablement</p>
+        <h1>Claude Code Coaching</h1>
+        <p class="lede">
+          A three-day, hands-on coaching program that takes an engineering team from their first
+          launch of Claude Code to governed, agentic delivery on the DWS IQ stack — skills,
+          subagents, MCP, hooks, and the 12 engineering-discipline rules.
+        </p>
+        <div class="meta-grid">
+          <div class="cell">
+            <div class="k">Format</div>
+            <div class="v">3 days · in-person or remote</div>
+          </div>
+          <div class="cell">
+            <div class="k">Audience</div>
+            <div class="v">Engineers, leads, ops</div>
+          </div>
+          <div class="cell">
+            <div class="k">Group size</div>
+            <div class="v">4–12 participants</div>
+          </div>
+          <div class="cell">
+            <div class="k">Mode</div>
+            <div class="v">~40% talk · 60% labs</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <div class="wrap">
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#day1">Day 1 · Foundations</a></li>
+          <li><a href="#day2">Day 2 · Skills, Agents &amp; MCP</a></li>
+          <li><a href="#day3">Day 3 · Workflows &amp; Governance</a></li>
+          <li><a href="#assessment">Assessment</a></li>
+          <li><a href="#materials">Materials</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <section id="overview">
+      <div class="wrap">
+        <h2>Program overview</h2>
+        <p class="subtitle">Why this exists and what a graduate can do on Monday morning.</p>
+        <p>
+          Most teams adopt Claude Code as a faster autocomplete and stop there. This program treats
+          Claude Code as an <strong>agentic operating layer</strong>: a tool that reads the
+          codebase, runs the tests, ships to feature branches, and follows the same engineering
+          discipline a senior reviewer would. The goal is not "use the chat box" — it is to leave
+          with a repeatable, governed way of working that a whole team trusts.
+        </p>
+
+        <div class="card objectives">
+          <div class="label">Learning outcomes</div>
+          <p style="margin-top: 6px">By the end of the three days, each participant can:</p>
+          <ul class="tight">
+            <li>
+              Drive Claude Code confidently from the terminal — context, planning, edits,
+              verification.
+            </li>
+            <li>
+              Write and maintain a <code>CLAUDE.md</code> that encodes a team's real conventions.
+            </li>
+            <li>
+              Author reusable <strong>skills</strong> and dispatch <strong>subagents</strong> for
+              fan-out work.
+            </li>
+            <li>Wire up and safely consume <strong>MCP</strong> tools and external services.</li>
+            <li>Configure permission modes, hooks, and managed settings for a governed rollout.</li>
+            <li>Run a multi-step feature end-to-end behind the 12 engineering-discipline rules.</li>
+          </ul>
+        </div>
+
+        <h3>Prerequisites</h3>
+        <ul class="tight">
+          <li>
+            Comfortable in a terminal and with <code>git</code> (branch, commit, push, rebase
+            basics).
+          </li>
+          <li>A laptop with Claude Code installed and authenticated before Day 1.</li>
+          <li>Read access to a real (non-production) repository to practice against.</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Coaching stance.</strong> The trainer demonstrates a pattern once, then
+          participants reproduce it on their own repo. No slide runs longer than ten minutes without
+          a hands-on turn. Every lab ends with a checkpoint commit on a feature branch — never on
+          <code>main</code>.
+        </div>
+      </div>
+    </section>
+
+    <section id="day1">
+      <div class="wrap">
+        <h2><span class="day-tag">DAY 1</span>Foundations &amp; the agentic loop</h2>
+        <p class="subtitle">
+          From first launch to a confident, repeatable working loop. Build trust through small,
+          verified steps.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Session</th>
+              <th>Mode</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="time">09:00</td>
+              <td>Welcome, goals, and how Claude Code "thinks"</td>
+              <td>Talk</td>
+            </tr>
+            <tr>
+              <td class="time">09:45</td>
+              <td>Setup check, auth, first session, the prompt loop</td>
+              <td>Lab</td>
+            </tr>
+            <tr>
+              <td class="time">10:45</td>
+              <td>Context: what the model sees and how to steer it</td>
+              <td>Talk + Lab</td>
+            </tr>
+            <tr>
+              <td class="time">12:00</td>
+              <td>Lunch</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td class="time">13:00</td>
+              <td>Reading vs. editing: plan, edit, diff, verify</td>
+              <td>Lab</td>
+            </tr>
+            <tr>
+              <td class="time">14:30</td>
+              <td>Authoring your first <code>CLAUDE.md</code></td>
+              <td>Lab</td>
+            </tr>
+            <tr>
+              <td class="time">15:45</td>
+              <td>Git workflow: feature branches, checkpoints, recovery</td>
+              <td>Lab</td>
+            </tr>
+            <tr>
+              <td class="time">16:30</td>
+              <td>Day-1 retro: what surprised you?</td>
+              <td>Discussion</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>1.1 — How Claude Code thinks</h3>
+        <p>
+          The agent reads a request, gathers context with search and file tools, proposes changes,
+          and verifies them. Participants learn to treat it as a teammate who needs the same brief a
+          junior engineer would: explicit goals, the relevant files, and a definition of done.
+        </p>
+
+        <h3>1.2 — Steering context</h3>
+        <p>
+          When to point at exact files, when to let the agent search, and how to keep a long session
+          on-track. Covers being specific about the <em>done-condition</em> up front (Rule 4).
+        </p>
+
+        <div class="card lab">
+          <div class="label">Lab 1 · The verified small step</div>
+          <p style="margin-top: 6px">
+            On a scratch feature branch, ask Claude Code to make one small, well-scoped change, then
+            read the diff, run the test, and commit. Repeat three times.
+          </p>
+          <pre><code>git checkout -b coach/day1-&lt;yourname&gt;
+# In Claude Code:
+#  1. "Add input validation to parseConfig() and a test that fails without it."
+#  2. Read the diff. Ask: does the test assert intent, or just behavior?
+#  3. Run the suite, then checkpoint.
+git add -p &amp;&amp; git commit -m "day1: validate parseConfig input"</code></pre>
+        </div>
+
+        <h3>1.3 — Your first CLAUDE.md</h3>
+        <p>
+          The single most leveraged file in the repo: it is institutional memory the agent reloads
+          every session. Participants draft a minimal one capturing their build/test commands,
+          branch naming, and two or three real conventions.
+        </p>
+
+        <div class="card objectives">
+          <div class="label">Day 1 mastery check</div>
+          <ul class="tight">
+            <li>Completed three verified checkpoint commits on a feature branch.</li>
+            <li>Has a working <code>CLAUDE.md</code> the agent visibly respects.</li>
+            <li>
+              Can explain the difference between a test that verifies intent and one that cannot
+              fail.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="day2">
+      <div class="wrap">
+        <h2><span class="day-tag">DAY 2</span>Skills, subagents &amp; MCP</h2>
+        <p class="subtitle">
+          Scale a single session into reusable capabilities and parallel work. Stop repeating
+          yourself.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Session</th>
+              <th>Mode</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="time">09:00</td>
+              <td>Recap + "asked twice = failure": the case for skills</td>
+              <td>Talk</td>
+            </tr>
+            <tr>
+              <td class="time">09:30</td>
+              <td>Anatomy of a skill: <code>SKILL.md</code>, inputs, outputs</td>
+              <td>Talk + Lab</td>
+            </tr>
+            <tr>
+              <td class="time">11:00</td>
+              <td>Authoring a parameterized skill from a repeated task</td>
+              <td>Lab</td>
+            </tr>
+            <tr>
+              <td class="time">12:00</td>
+              <td>Lunch</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td class="time">13:00</td>
+              <td>Subagents: fan-out search, review, and parallel work</td>
+              <td>Talk + Lab</td>
+            </tr>
+            <tr>
+              <td class="time">14:30</td>
+              <td>MCP: connecting external tools safely</td>
+              <td>Talk + Lab</td>
+            </tr>
+            <tr>
+              <td class="time">16:00</td>
+              <td>Treating tool output as untrusted input</td>
+              <td>Lab</td>
+            </tr>
+            <tr>
+              <td class="time">16:30</td>
+              <td>Day-2 retro</td>
+              <td>Discussion</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>2.1 — When a task earns a skill</h3>
+        <p>
+          The rule of thumb: do it manually once on a few items, show the output, and if it will
+          recur, codify it as a parameterized procedure rather than re-prompting from scratch. A
+          skill describes the <em>process</em>; the invocation supplies the world (target, dataset,
+          role).
+        </p>
+
+        <div class="card lab">
+          <div class="label">Lab 2 · From one-off to skill</div>
+          <p style="margin-top: 6px">
+            Pick a chore the team does repeatedly (e.g. "summarize what changed in a PR for the
+            changelog"). Do it by hand once, then capture it as a skill with arguments.
+          </p>
+          <pre><code>skills/changelog-entry/SKILL.md
+  ---
+  name: changelog-entry
+  inputs:  { PR_REF, AUDIENCE }
+  outputs: a one-paragraph entry in the house voice
+  ---
+  Steps: read the diff, group by user-visible impact, write for AUDIENCE.</code></pre>
+        </div>
+
+        <h3>2.2 — Subagents and fan-out</h3>
+        <p>
+          One agent reads sequentially; a fleet of subagents covers a large codebase in parallel and
+          returns only conclusions. Participants dispatch a read-only explorer and a code-reviewer
+          subagent, learning to delegate breadth while keeping the synthesis themselves.
+        </p>
+
+        <h3>2.3 — MCP, the safe way</h3>
+        <p>
+          Model Context Protocol connects Claude Code to external systems — issue trackers,
+          calendars, databases. Coverage: OAuth-based connections over pasted tokens, scoping
+          access, and the core security posture: <strong>tool output is untrusted input</strong> and
+          must be validated before it drives an action.
+        </p>
+
+        <div class="card objectives">
+          <div class="label">Day 2 mastery check</div>
+          <ul class="tight">
+            <li>Shipped one working, parameterized skill that reproduces an approved output.</li>
+            <li>Ran a fan-out with at least one subagent and explained when not to.</li>
+            <li>Can name three checks to apply before trusting an MCP tool's output.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="day3">
+      <div class="wrap">
+        <h2><span class="day-tag">DAY 3</span>Workflows, governance &amp; shipping</h2>
+        <p class="subtitle">
+          Make it safe for a whole team. Permissions, hooks, managed settings, and the discipline
+          that keeps autonomy trustworthy.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Session</th>
+              <th>Mode</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="time">09:00</td>
+              <td>Permission modes &amp; the trust boundary (green/yellow/red)</td>
+              <td>Talk</td>
+            </tr>
+            <tr>
+              <td class="time">09:45</td>
+              <td>Hooks: enforce conventions mechanically</td>
+              <td>Lab</td>
+            </tr>
+            <tr>
+              <td class="time">11:00</td>
+              <td>Managed settings for a governed org rollout</td>
+              <td>Talk + Lab</td>
+            </tr>
+            <tr>
+              <td class="time">12:00</td>
+              <td>Lunch</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td class="time">13:00</td>
+              <td>Multi-step workflows &amp; orchestration</td>
+              <td>Lab</td>
+            </tr>
+            <tr>
+              <td class="time">14:30</td>
+              <td>Capstone: ship a real feature, end-to-end</td>
+              <td>Lab</td>
+            </tr>
+            <tr>
+              <td class="time">16:00</td>
+              <td>Capstone reviews + rollout planning for your team</td>
+              <td>Discussion</td>
+            </tr>
+            <tr>
+              <td class="time">16:45</td>
+              <td>Close, certification, next steps</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>3.1 — The trust boundary</h3>
+        <p>
+          Autonomy is graded, not all-or-nothing. Participants learn a three-zone model: a
+          <strong>green</strong> zone of safe, reversible actions (read, edit, test, feature-branch
+          git); a <strong>yellow</strong> zone that is allowed but logged (external tools, pushes);
+          and a <strong>red</strong> zone that always requires a human (applying migrations, sending
+          email, touching secrets). The point is to widen green safely, not to remove the gate.
+        </p>
+
+        <h3>3.2 — Hooks &amp; managed settings</h3>
+        <p>
+          Conventions that rely on memory get skipped. Hooks let a team enforce them mechanically —
+          block a forbidden pattern, surface the rules at session start. Managed settings push
+          org-wide policy that user or project config cannot override. Participants inspect a real
+          <code>managed-settings.json</code> and reason about what to deny, ask, and allow.
+        </p>
+
+        <div class="card lab">
+          <div class="label">Lab 3 · Capstone — ship a real feature</div>
+          <p style="margin-top: 6px">
+            In pairs, take a genuine backlog item and drive it to a pushed feature branch using
+            everything from the three days.
+          </p>
+          <ul class="tight">
+            <li>Plan and state assumptions before any code (Rule 1).</li>
+            <li>Keep the change surgical — touch only what the task needs (Rule 3).</li>
+            <li>Checkpoint at every significant step (Rule 10).</li>
+            <li>Run a review subagent, then ship the branch — no PR unless asked.</li>
+            <li>
+              Surface anything skipped or uncertain; never report a silent partial as done (Rule
+              12).
+            </li>
+          </ul>
+        </div>
+
+        <div class="card objectives">
+          <div class="label">Day 3 mastery check</div>
+          <ul class="tight">
+            <li>Configured at least one hook or permission rule and saw it fire.</li>
+            <li>Drove a real feature to a clean, pushed feature branch.</li>
+            <li>Produced a one-page rollout plan for adopting Claude Code on their own team.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="assessment">
+      <div class="wrap">
+        <h2>Assessment &amp; certification</h2>
+        <p class="subtitle">Competency-based, not exam-based.</p>
+        <p>
+          There is no written test. Each participant is signed off against the three daily mastery
+          checks and the Day-3 capstone. A graduate has, in front of witnesses, taken a real change
+          from request to a verified, pushed feature branch under the engineering-discipline rules.
+        </p>
+        <ul class="tight">
+          <li>
+            <strong>Pass:</strong> all three mastery checks met + capstone shipped on a feature
+            branch.
+          </li>
+          <li>
+            <strong>Pass with distinction:</strong> additionally authored a reusable skill the team
+            adopts.
+          </li>
+          <li>
+            <strong>Follow-up:</strong> a 30-day check-in to review what the team actually shipped.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="materials">
+      <div class="wrap">
+        <h2>Trainer materials &amp; logistics</h2>
+        <p class="subtitle">What the coach brings and what the venue needs.</p>
+        <h3>Provided</h3>
+        <ul class="tight">
+          <li>This curriculum, lab worksheets, and a starter scratch repository.</li>
+          <li>
+            A reference <code>CLAUDE.md</code>, an example skill, and a sample
+            <code>managed-settings.json</code>.
+          </li>
+          <li>A one-page "first week" rollout checklist for each participant's team.</li>
+        </ul>
+        <h3>Venue requirements</h3>
+        <ul class="tight">
+          <li>One screen/projector; reliable network; power at every seat.</li>
+          <li>
+            Each participant: laptop with Claude Code installed and authenticated
+            <em>before</em> Day 1.
+          </li>
+          <li>A non-production repository the team is allowed to experiment against.</li>
+        </ul>
+        <div class="callout">
+          <strong>The 12 rules thread through everything.</strong> Day 1 lands "think before
+          coding," "read before you write," and "checkpoint." Day 2 lands "simplicity first" and
+          "asked twice = failure." Day 3 lands "surface conflicts," "fail loud," and "match the
+          conventions." By close, the rules are muscle memory, not a poster.
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <p>
+          Claude Code Coaching · a DWS IQ enablement program by Lifetime Oy. Built for governed,
+          agentic engineering on the DWS stack.
+        </p>
+        <p class="rule">Lifetime Oy · Business ID 0772407-9 · Espoo, Finland</p>
+      </div>
+    </footer>
+  </body>
+</html>

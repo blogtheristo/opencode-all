@@ -1,0 +1,837 @@
+{
+  "_comment": "Canonical DWS skill registry. Source of truth for surface support, transport, status, visibility, and Antigravity scope.",
+  "version": "1.1",
+  "updated": "2026-08-20",
+  "antigravityScope": "Antigravity is limited to admin@dws6.com Google environment tweaks, not a general cross-surface skill runtime.",
+  "surfaces": [
+    {
+      "id": "win11-claude-cli",
+      "label": "Win11 Claude CLI"
+    },
+    {
+      "id": "claude-desktop",
+      "label": "Claude Desktop"
+    },
+    {
+      "id": "claude-ai-web",
+      "label": "claude.ai web"
+    },
+    {
+      "id": "claude-mobile-ios",
+      "label": "Claude Mobile iOS"
+    },
+    {
+      "id": "claude-mobile-android",
+      "label": "Claude Mobile Android"
+    },
+    {
+      "id": "chromebook-antigravity",
+      "label": "Chromebook/Antigravity"
+    },
+    {
+      "id": "opencode-cli",
+      "label": "OpenCode CLI"
+    }
+  ],
+  "profiles": {
+    "slash-cli": {
+      "status": "active",
+      "visibility": "internal",
+      "transport": ["slash-command", "local-tools"],
+      "surfaceSupport": {
+        "win11-claude-cli": true,
+        "claude-desktop": false,
+        "claude-ai-web": false,
+        "claude-mobile-ios": false,
+        "claude-mobile-android": false,
+        "chromebook-antigravity": false,
+        "opencode-cli": true
+      },
+      "note": "Repo-local slash command. Available in Claude Code CLI and OpenCode CLI (.opencode/command/, generated)."
+    },
+    "slash-experimental": {
+      "status": "experimental",
+      "visibility": "internal",
+      "transport": ["slash-command", "local-tools"],
+      "surfaceSupport": {
+        "win11-claude-cli": true,
+        "claude-desktop": false,
+        "claude-ai-web": false,
+        "claude-mobile-ios": false,
+        "claude-mobile-android": false,
+        "chromebook-antigravity": false,
+        "opencode-cli": true
+      },
+      "note": "Internal automation. Pending HIL cross-surface verification."
+    },
+    "slash-dgx": {
+      "status": "active",
+      "visibility": "internal",
+      "transport": ["slash-command", "dgx-ssh"],
+      "surfaceSupport": {
+        "win11-claude-cli": true,
+        "claude-desktop": false,
+        "claude-ai-web": false,
+        "claude-mobile-ios": false,
+        "claude-mobile-android": false,
+        "chromebook-antigravity": false,
+        "opencode-cli": false
+      },
+      "note": "Requires DGX Spark connectivity from Claude Code CLI. Claude-only: OpenCode already runs against the DGX tunnel directly, this command stays Claude-side to avoid a double-hop."
+    },
+    "slash-admin-antigravity": {
+      "status": "active",
+      "visibility": "admin-only",
+      "transport": ["slash-command", "gcloud", "antigravity"],
+      "surfaceSupport": {
+        "win11-claude-cli": true,
+        "claude-desktop": false,
+        "claude-ai-web": false,
+        "claude-mobile-ios": false,
+        "claude-mobile-android": false,
+        "chromebook-antigravity": true,
+        "opencode-cli": true
+      },
+      "note": "Google admin@dws6.com environment tweaks only. Admin-only visibility, not runtime-restricted — gcloud/IAM script has no Claude-specific dependency."
+    },
+    "slash-deferred": {
+      "status": "deferred",
+      "visibility": "internal",
+      "transport": ["slash-command"],
+      "surfaceSupport": {
+        "win11-claude-cli": false,
+        "claude-desktop": false,
+        "claude-ai-web": false,
+        "claude-mobile-ios": false,
+        "claude-mobile-android": false,
+        "chromebook-antigravity": false,
+        "opencode-cli": false
+      },
+      "note": "Skill spec exists, but the implementation/exposure path is not shipped."
+    },
+    "skill-pack-cli": {
+      "status": "active",
+      "visibility": "internal",
+      "transport": ["skill-pack", "local-files"],
+      "surfaceSupport": {
+        "win11-claude-cli": true,
+        "claude-desktop": false,
+        "claude-ai-web": false,
+        "claude-mobile-ios": false,
+        "claude-mobile-android": false,
+        "chromebook-antigravity": false,
+        "opencode-cli": true
+      },
+      "note": "Repo-local skill pack (plain markdown), readable directly by Claude Code or OpenCode in this repository."
+    },
+    "skill-pack-experimental": {
+      "status": "experimental",
+      "visibility": "internal",
+      "transport": ["skill-pack", "local-files"],
+      "surfaceSupport": {
+        "win11-claude-cli": true,
+        "claude-desktop": false,
+        "claude-ai-web": false,
+        "claude-mobile-ios": false,
+        "claude-mobile-android": false,
+        "chromebook-antigravity": false,
+        "opencode-cli": true
+      },
+      "note": "Internal automation. Pending HIL cross-surface verification."
+    },
+    "discipline-gate": {
+      "status": "active",
+      "visibility": "internal",
+      "transport": ["discipline-gate"],
+      "surfaceSupport": {
+        "win11-claude-cli": true,
+        "claude-desktop": false,
+        "claude-ai-web": false,
+        "claude-mobile-ios": false,
+        "claude-mobile-android": false,
+        "chromebook-antigravity": false,
+        "opencode-cli": true
+      },
+      "note": "Repo-local hard gate; the rule text (skills/<gate>/SKILL.md) is readable and enforceable in Claude Code or OpenCode contexts."
+    }
+  },
+  "entries": [
+    {
+      "id": "agent-run",
+      "name": "agent-run",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/agent-run.md"
+    },
+    {
+      "id": "train-model",
+      "name": "train-model",
+      "kind": "slash-command",
+      "profile": "slash-dgx",
+      "commandFile": ".claude/commands/train-model.md"
+    },
+    {
+      "id": "train-model-pack",
+      "name": "train-model",
+      "displayName": "train-model (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/train-model/SKILL.md"
+    },
+    {
+      "id": "browse",
+      "name": "browse",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/browse.md"
+    },
+    {
+      "id": "carbon-analysis",
+      "name": "carbon-analysis",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/carbon-analysis.md"
+    },
+    {
+      "id": "case-run",
+      "name": "case-run",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/case-run.md"
+    },
+    {
+      "id": "clawdbot-command",
+      "name": "clawdbot",
+      "displayName": "clawdbot (command)",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/clawdbot.md"
+    },
+    {
+      "id": "coaching",
+      "name": "coaching",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/coaching.md"
+    },
+    {
+      "id": "compliance-check",
+      "name": "compliance-check",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/compliance-check.md"
+    },
+    {
+      "id": "cron-command",
+      "name": "cron",
+      "displayName": "cron (command)",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/cron.md"
+    },
+    {
+      "id": "designer",
+      "name": "designer",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/designer.md"
+    },
+    {
+      "id": "dialog",
+      "name": "dialog",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/dialog.md"
+    },
+    {
+      "id": "discover-agents",
+      "name": "discover-agents",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/discover-agents.md"
+    },
+    {
+      "id": "dream-on-command",
+      "name": "dream-on",
+      "displayName": "dream-on (command)",
+      "kind": "slash-command",
+      "profile": "slash-experimental",
+      "commandFile": ".claude/commands/dream-on.md",
+      "note": "Internal automation only. No Desktop/mobile/web runtime today."
+    },
+    {
+      "id": "email",
+      "name": "email",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/email.md"
+    },
+    {
+      "id": "eu-data",
+      "name": "eu-data",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/eu-data/SKILL.md"
+    },
+    {
+      "id": "fix-dual-folder-api-connectivity",
+      "name": "fix-dual-folder-api-connectivity",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/fix-dual-folder-api-connectivity.md"
+    },
+    {
+      "id": "flow-status",
+      "name": "flow-status",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/flow-status.md"
+    },
+    {
+      "id": "gcr-skill",
+      "name": "gcr-skill",
+      "kind": "slash-command",
+      "profile": "slash-admin-antigravity",
+      "commandFile": ".claude/commands/gcr-skill.md",
+      "antigravityAgent": {
+        "id": "gcr-skill-antigravity-001",
+        "scope": "google-cloud-run-ci-identity"
+      }
+    },
+    {
+      "id": "gh-to-mcp",
+      "name": "gh-to-mcp",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/gh-to-mcp.md"
+    },
+    {
+      "id": "hilma-watch",
+      "name": "hilma-watch",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/hilma-watch.md"
+    },
+    {
+      "id": "investor-outreach",
+      "name": "investor-outreach",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/investor-outreach.md"
+    },
+    {
+      "id": "kb",
+      "name": "kb",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/kb.md"
+    },
+    {
+      "id": "kya",
+      "name": "kya",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/kya.md"
+    },
+    {
+      "id": "learn",
+      "name": "learn",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/learn.md"
+    },
+    {
+      "id": "blog-draft",
+      "name": "blog-draft",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/blog-draft.md"
+    },
+    {
+      "id": "lsj-publish",
+      "name": "lsj-publish",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/lsj-publish.md"
+    },
+    {
+      "id": "multilingual",
+      "name": "multilingual",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/multilingual.md"
+    },
+    {
+      "id": "ollama-spark",
+      "name": "ollama-spark",
+      "kind": "slash-command",
+      "profile": "slash-dgx",
+      "commandFile": ".claude/commands/ollama-spark.md"
+    },
+    {
+      "id": "plan-review",
+      "name": "plan-review",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/plan-review.md"
+    },
+    {
+      "id": "promote-proposal-command",
+      "name": "promote-proposal",
+      "displayName": "promote-proposal (command)",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/promote-proposal.md"
+    },
+    {
+      "id": "qa",
+      "name": "qa",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/qa.md"
+    },
+    {
+      "id": "regulatory-radar",
+      "name": "regulatory-radar",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/regulatory-radar.md",
+      "note": "Live as a thin wrapper over compliance.agent.ts (5 tracked deadlines: fit-for-55, ets, cbam, csrd, eu-ai-act). Live EUR-Lex/DG ENER/EFRAG/CINEA pipeline scanning still unbuilt. The datacentre-compliance-specific EED radar feature remains gated behind PRD Gate 1 (1 Oct 2026)."
+    },
+    {
+      "id": "remote-control",
+      "name": "remote-control",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/remote-control.md"
+    },
+    {
+      "id": "retro",
+      "name": "retro",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/retro.md"
+    },
+    {
+      "id": "review",
+      "name": "review",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/review.md"
+    },
+    {
+      "id": "ship",
+      "name": "ship",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/ship.md"
+    },
+    {
+      "id": "simplify",
+      "name": "simplify",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/simplify.md"
+    },
+    {
+      "id": "site-safety",
+      "name": "site-safety",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/site-safety.md"
+    },
+    {
+      "id": "sovereignty-assess",
+      "name": "sovereignty-assess",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/sovereignty-assess.md"
+    },
+    {
+      "id": "sovereignty-pillars-assess",
+      "name": "sovereignty-pillars-assess",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/sovereignty-pillars-assess.md"
+    },
+    {
+      "id": "truth-check",
+      "name": "truth-check",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/truth-check.md"
+    },
+    {
+      "id": "workflow",
+      "name": "workflow",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/workflow.md"
+    },
+    {
+      "id": "clawdbot-pack",
+      "name": "clawdbot",
+      "displayName": "clawdbot (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/clawdbot/SKILL.md"
+    },
+    {
+      "id": "compliance-pack",
+      "name": "compliance",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/compliance/SKILL.md"
+    },
+    {
+      "id": "cron-pack",
+      "name": "cron",
+      "displayName": "cron (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/cron/SKILL.md"
+    },
+    {
+      "id": "design-first",
+      "name": "design-first",
+      "kind": "discipline-gate",
+      "profile": "discipline-gate",
+      "skillPackFile": "skills/design-first/SKILL.md"
+    },
+    {
+      "id": "dream-on-pack",
+      "name": "dream-on",
+      "displayName": "dream-on (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-experimental",
+      "skillPackFile": "skills/dream-on/SKILL.md"
+    },
+    {
+      "id": "dual-folder-sync",
+      "name": "dual-folder-sync",
+      "kind": "discipline-gate",
+      "profile": "discipline-gate",
+      "skillPackFile": "skills/dual-folder-sync/SKILL.md"
+    },
+    {
+      "id": "firehorse-report",
+      "name": "firehorse-report",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/firehorse-report/SKILL.md"
+    },
+    {
+      "id": "hilma-watch-pack",
+      "name": "hilma-watch",
+      "displayName": "hilma-watch (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/hilma-watch/SKILL.md"
+    },
+    {
+      "id": "loop",
+      "name": "loop",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/loop/SKILL.md"
+    },
+    {
+      "id": "material-oracle",
+      "name": "material-oracle",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/material-oracle/SKILL.md"
+    },
+    {
+      "id": "product-page-polish",
+      "name": "product-page-polish",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/product-page-polish/SKILL.md"
+    },
+    {
+      "id": "promote-proposal-pack",
+      "name": "promote-proposal",
+      "displayName": "promote-proposal (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/promote-proposal/SKILL.md"
+    },
+    {
+      "id": "risto",
+      "name": "risto",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/risto/SKILL.md"
+    },
+    {
+      "id": "sitesense",
+      "name": "sitesense",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/sitesense/SKILL.md"
+    },
+    {
+      "id": "skill-cleaner",
+      "name": "skill-cleaner",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/skill-cleaner/SKILL.md"
+    },
+    {
+      "id": "mgd-report-command",
+      "name": "mgd-report",
+      "displayName": "mgd-report (command)",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/mgd-report.md"
+    },
+    {
+      "id": "mgd-report-pack",
+      "name": "mgd-report",
+      "displayName": "mgd-report (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/mgd-report/SKILL.md"
+    },
+    {
+      "id": "supermetrics-seo-sync",
+      "name": "supermetrics-seo-sync",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/supermetrics-seo-sync/SKILL.md"
+    },
+    {
+      "id": "verification-gate",
+      "name": "verification-gate",
+      "kind": "discipline-gate",
+      "profile": "discipline-gate",
+      "skillPackFile": "skills/verification-gate/SKILL.md"
+    },
+    {
+      "id": "factory-route-pack",
+      "name": "factory-route",
+      "displayName": "factory-route (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/factory-route/SKILL.md",
+      "note": "DWS Factory Router: deterministic cheap->strong escalation ladder, fully offline. Adapted from sageroute (MIT)."
+    },
+    {
+      "id": "autoresearch",
+      "name": "autoresearch",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/autoresearch.md"
+    },
+    {
+      "id": "contentms",
+      "name": "contentms",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/contentms.md"
+    },
+    {
+      "id": "edge-control-room-capital",
+      "name": "edge-control-room-capital",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/edge-control-room-capital.md"
+    },
+    {
+      "id": "helpdesk-triage",
+      "name": "helpdesk-triage",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/helpdesk-triage.md"
+    },
+    {
+      "id": "human-capital",
+      "name": "human-capital",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/human-capital.md"
+    },
+    {
+      "id": "sign-document",
+      "name": "sign-document",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/sign-document.md"
+    },
+    {
+      "id": "swarm",
+      "name": "swarm",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/swarm.md"
+    },
+    {
+      "id": "token-capital",
+      "name": "token-capital",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/token-capital.md"
+    },
+    {
+      "id": "autoresearch-pack",
+      "name": "autoresearch",
+      "displayName": "autoresearch (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/autoresearch/SKILL.md"
+    },
+    {
+      "id": "brain-ops-pack",
+      "name": "brain-ops",
+      "displayName": "brain-ops (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/brain-ops/SKILL.md"
+    },
+    {
+      "id": "briefing-pack",
+      "name": "briefing",
+      "displayName": "briefing (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/briefing/SKILL.md"
+    },
+    {
+      "id": "citation-fixer-pack",
+      "name": "citation-fixer",
+      "displayName": "citation-fixer (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/citation-fixer/SKILL.md"
+    },
+    {
+      "id": "cron-scheduler-pack",
+      "name": "cron-scheduler",
+      "displayName": "cron-scheduler (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/cron-scheduler/SKILL.md"
+    },
+    {
+      "id": "daily-task-manager-pack",
+      "name": "daily-task-manager",
+      "displayName": "daily-task-manager (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/daily-task-manager/SKILL.md"
+    },
+    {
+      "id": "edge-control-room-capital-pack",
+      "name": "edge-control-room-capital",
+      "displayName": "edge-control-room-capital (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/edge-control-room-capital/SKILL.md"
+    },
+    {
+      "id": "enrich-pack",
+      "name": "enrich",
+      "displayName": "enrich (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/enrich/SKILL.md"
+    },
+    {
+      "id": "human-capital-pack",
+      "name": "human-capital",
+      "displayName": "human-capital (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/human-capital/SKILL.md"
+    },
+    {
+      "id": "ingest-pack",
+      "name": "ingest",
+      "displayName": "ingest (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/ingest/SKILL.md"
+    },
+    {
+      "id": "maintain-pack",
+      "name": "maintain",
+      "displayName": "maintain (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/maintain/SKILL.md"
+    },
+    {
+      "id": "outreach-agents-pack",
+      "name": "outreach-agents",
+      "displayName": "outreach-agents (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/outreach-agents/SKILL.md"
+    },
+    {
+      "id": "query-pack",
+      "name": "query",
+      "displayName": "query (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/query/SKILL.md"
+    },
+    {
+      "id": "reports-pack",
+      "name": "reports",
+      "displayName": "reports (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/reports/SKILL.md"
+    },
+    {
+      "id": "signal-detector-pack",
+      "name": "signal-detector",
+      "displayName": "signal-detector (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/signal-detector/SKILL.md"
+    },
+    {
+      "id": "signature-pack",
+      "name": "signature",
+      "displayName": "signature (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/signature/SKILL.md"
+    },
+    {
+      "id": "skill-creator-pack",
+      "name": "skill-creator",
+      "displayName": "skill-creator (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/skill-creator/SKILL.md"
+    },
+    {
+      "id": "skillpack-check-pack",
+      "name": "skillpack-check",
+      "displayName": "skillpack-check (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/skillpack-check/SKILL.md"
+    },
+    {
+      "id": "soul-audit-pack",
+      "name": "soul-audit",
+      "displayName": "soul-audit (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/soul-audit/SKILL.md"
+    },
+    {
+      "id": "token-capital-pack",
+      "name": "token-capital",
+      "displayName": "token-capital (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/token-capital/SKILL.md"
+    }
+  ]
+}

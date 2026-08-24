@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cost of Inaction Calculator | DWS IQ 6</title>
+    <meta name="description" content="Cost of Inaction Calculator — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta name="keywords" content="carbon calculator, carbon footprint, Scope 1 2 3, emissions calculator">
+    <meta name="author" content="Lifetime Oy">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Cost of Inaction Calculator | DWS IQ 6">
+    <meta property="og:description" content="Cost of Inaction Calculator — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dws10.com/calculator/index.html">
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
+    <meta property="og:site_name" content="DWS IQ Platform">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cost of Inaction Calculator | DWS IQ 6">
+    <meta name="twitter:description" content="Cost of Inaction Calculator — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <link rel="canonical" href="https://dws10.com/calculator/index.html">
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dws-blue: #0056b3;
+            --dws-danger: #d9534f;
+            --dws-dark: #0f172a;
+            --dws-light: #f8f9fa;
+        }
+
+        body {
+            font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background: #0b1220;
+            color: #0f172a;
+        }
+
+        .page-hero {
+            padding: 90px 20px 40px;
+            text-align: center;
+            color: #e2e8f0;
+            background: radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.2), transparent 45%),
+                        radial-gradient(circle at 80% 30%, rgba(16, 185, 129, 0.2), transparent 50%),
+                        linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        .page-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 12px;
+        }
+
+        .page-hero p {
+            max-width: 720px;
+            margin: 0 auto;
+            color: rgba(226, 232, 240, 0.85);
+        }
+
+        .coi-calculator {
+            max-width: 980px;
+            margin: -40px auto 80px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.2);
+        }
+
+        .calc-inputs {
+            flex: 1;
+            min-width: 300px;
+            padding: 2.5rem;
+            background: var(--dws-light);
+        }
+
+        .calc-results {
+            flex: 1;
+            min-width: 300px;
+            padding: 2.5rem;
+            background: var(--dws-dark);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .input-group {
+            margin-bottom: 1.8rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1f2937;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .value-display {
+            font-size: 1.1rem;
+            color: var(--dws-blue);
+            font-weight: 700;
+        }
+
+        .result-item {
+            margin-bottom: 1.6rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding-bottom: 0.8rem;
+        }
+
+        .result-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+            color: #94a3b8;
+        }
+
+        .result-value {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
+        .total-risk {
+            background: rgba(217, 83, 79, 0.18);
+            padding: 1rem;
+            border-left: 4px solid var(--dws-danger);
+            margin-top: 1rem;
+            border-radius: 6px;
+        }
+
+        .total-risk .result-value {
+            color: var(--dws-danger);
+            font-size: 2.6rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--dws-blue);
+            color: white;
+            text-align: center;
+            padding: 0.95rem 1.2rem;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 2rem;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #004494;
+        }
+
+        .helper-note {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+    </style>
+    <script src="/shared-assets/nav/ironclad-nav.js" defer></script>
+</head>
+<body>
+    <!-- Ironclad navigation injected via /shared-assets/nav/ironclad-nav.js -->
+    <section class="page-hero">
+        <h1>Cost of Inaction Calculator</h1>
+        <p>Estimate the annual compliance exposure from manual reporting and missed tenders. Use the sliders to match your portfolio reality.</p>
+    </section>
+
+    <div id="risk-calculator" class="coi-calculator">
+        <div class="calc-inputs">
+            <h3>Project Risk Profile</h3>
+            <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 2rem;">Adjust the sliders to reflect your current portfolio scale.</p>
+
+            <div class="input-group">
+                <label>Annual Portfolio Value (€ Millions)</label>
+                <input type="range" id="portfolioValue" min="1" max="500" value="50">
+                <div class="value-display">€<span id="portVal">50</span>M</div>
+            </div>
+
+            <div class="input-group">
+                <label>Number of Major Tenders / Year</label>
+                <input type="range" id="tenderCount" min="1" max="20" value="3">
+                <div class="value-display"><span id="tendVal">3</span> Tenders</div>
+            </div>
+
+            <div class="input-group">
+                <label>Estimated Manual Compliance Errors (%)</label>
+                <input type="range" id="errorRate" min="1" max="10" value="2">
+                <div class="value-display"><span id="errVal">2</span>% Risk Rate</div>
+            </div>
+        </div>
+
+        <div class="calc-results">
+            <div class="result-item">
+                <div class="result-label">Potential Regulatory Fines (Est.)</div>
+                <div class="result-value" id="fineRisk">€0</div>
+            </div>
+
+            <div class="result-item">
+                <div class="result-label">Tender Revenue at Risk</div>
+                <div class="result-value" id="tenderRisk">€0</div>
+            </div>
+
+            <div class="total-risk">
+                <div class="result-label">Total Annual Liability</div>
+                <div class="result-value" id="totalLiability">€0</div>
+            </div>
+
+            <a href="https://calendar.app.google/5Kh3k9uhJtt6F3Mu9" class="cta-button">Eliminate My Liability Now</a>
+            <p class="helper-note">Estimates are directional and should be validated with your compliance team.</p>
+        </div>
+    </div>
+
+    <script>
+        const port = document.getElementById("portfolioValue");
+        const tenders = document.getElementById("tenderCount");
+        const error = document.getElementById("errorRate");
+
+        const portVal = document.getElementById("portVal");
+        const tendVal = document.getElementById("tendVal");
+        const errVal = document.getElementById("errVal");
+
+        const fineRisk = document.getElementById("fineRisk");
+        const tenderRisk = document.getElementById("tenderRisk");
+        const totalLiability = document.getElementById("totalLiability");
+
+        const formatCurrency = (value) => {
+            return new Intl.NumberFormat("en-IE", {
+                style: "currency",
+                currency: "EUR",
+                maximumFractionDigits: 0,
+            }).format(value);
+        };
+
+        const calculate = () => {
+            const portfolioValue = Number(port.value) * 1_000_000;
+            const tenderCount = Number(tenders.value);
+            const errorRate = Number(error.value) / 100;
+
+            const averageTenderValue = portfolioValue * 0.08;
+            const tenderRiskValue = averageTenderValue * tenderCount * errorRate * 0.4;
+            const fineRiskValue = portfolioValue * errorRate * 0.015;
+            const totalRiskValue = tenderRiskValue + fineRiskValue;
+
+            portVal.textContent = port.value;
+            tendVal.textContent = tenders.value;
+            errVal.textContent = error.value;
+
+            fineRisk.textContent = formatCurrency(fineRiskValue);
+            tenderRisk.textContent = formatCurrency(tenderRiskValue);
+            totalLiability.textContent = formatCurrency(totalRiskValue);
+        };
+
+        [port, tenders, error].forEach((input) => {
+            input.addEventListener("input", calculate);
+        });
+
+        calculate();
+    </script>
+<script src="/shared-assets/footer/ironclad-footer.js"></script>
+</body>
+</html>
