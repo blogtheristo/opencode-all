@@ -219,3 +219,4 @@ result.txt
 *.save
 .ci-audit/
 __pycache__/
+infrastructure/dgx-spark/.otlp-common.env
