@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-PROMPT="${*:-}"; [[ -z "$PROMPT" ]] && { echo "Usage: dws-cloud <prompt>"; exit 1; }
-
-echo "[ROUTE] dws-cloud (copilot)"
-copilot -p "suggest $PROMPT"

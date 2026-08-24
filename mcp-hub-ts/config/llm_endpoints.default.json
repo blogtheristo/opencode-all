@@ -1,5 +1,0 @@
-{
-  "$schema_comment": "Optional override — set MCP_HUB_LLM_REGISTRY_JSON to a path; empty endpoints falls back to built-in mesh.",
-  "endpoints": [],
-  "tier_fallback": {}
-}

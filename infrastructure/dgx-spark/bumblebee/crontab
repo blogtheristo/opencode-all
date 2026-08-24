@@ -1,8 +1,0 @@
-# supercronic crontab — Bumblebee scans on DGX Spark
-# Format: minute hour dom month dow command
-# Timezone: container default (UTC). DGX local time is Europe/Helsinki.
-#
-# Daily 04:00 UTC (07:00 Helsinki summer / 06:00 winter) — project profile
-0 4 * * *   /app/run-scan.sh project
-# Weekly Sun 05:00 UTC — deep profile (whole host)
-0 5 * * 0   /app/run-scan.sh deep

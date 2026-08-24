@@ -1,2 +1,0 @@
-# dws-llm-mesh MCP server dependencies — Python 3.10+
-mcp[cli]>=1.9.0
