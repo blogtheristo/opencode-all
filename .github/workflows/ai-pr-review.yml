@@ -13,7 +13,9 @@ name: AI Code Review (HIL Automation)
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    # Token control (HIC 2026-08-24): no review on open/reopen/sync of drafts or
+    # work-in-progress — burn happens once, when the PR is actually ready.
+    types: [ready_for_review, synchronize]
     paths-ignore:
       - '**.md'
       - 'docs/**'
