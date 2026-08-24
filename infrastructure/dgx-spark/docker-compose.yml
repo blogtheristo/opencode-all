@@ -402,17 +402,20 @@ services:
       # OTLP endpoint requires an API key (x-otlp-api-key header) so untrusted
       # apps on the LAN cannot inject telemetry. Key lives in .otlp-common.env,
       # gitignored, chmod 600 — never committed.
+      # Allow aspire-cli (LAN-only) to read telemetry from the unsecured frontend;
+      # OTLP ingestion stays API-key gated.
+      ASPIRE_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS: "true"
       DASHBOARD__OTLP__AUTHMODE: ApiKey
     logging:
       driver: "json-file"
       options:
         max-size: "10m"
         max-file: "3"
+    # 13.x dashboard image is DISTROLESS (no shell, wget or curl inside) — an
+    # in-container healthcheck is impossible. Health is monitored host-side at
+    # :18888/health (checked by dws-heartbeat / systemd unit).
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:18888/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      disable: true
       start_period: 15s
     deploy:
       resources:
@@ -500,7 +503,7 @@ services:
       - /:/host:ro
     depends_on:
       aspire-dashboard:
-        condition: service_healthy
+        condition: service_started
     logging:
       driver: "json-file"
       options:
