@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Evidence: Tool=OpenCode 1.18.21 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-24
+// Evidence: Tool=GitHub Copilot CLI 1.0.80 Model=openai/gpt-5.6-sol Agent=Copilot CLI Date=2026-08-24
 // Audit trail: git log -- scripts/opencode-batch-worker.mjs + .workflows/opencode-all/queue.jsonl
 import { spawn, execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync, appendFileSync, mkdirSync } from 'node:fs';
@@ -122,7 +122,9 @@ function detectNeedsContinue() {
       if (msgs.length < 2) continue;
       const lastRole = msgs[msgs.length - 1]?.info?.role;
       if (lastRole !== 'assistant') continue;
-      found.push({ id: s.id, title: s.title, source: 'detect' });
+      const providerID = data.info?.model?.providerID;
+      const source = providerID === 'github-copilot-cli' ? 'copilot-import' : 'detect';
+      found.push({ id: s.id, title: s.title, source });
     } catch {}
   }
   return found;
