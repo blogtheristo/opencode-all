@@ -10,7 +10,7 @@
  */
 
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -198,7 +198,7 @@ describe('poisoned-tree gate — boundary units', () => {
   }
 
   function mkdirSyncFix(p) {
-    execFileSync('mkdir', ['-p', p]);
+    mkdirSync(p, { recursive: true }); // guard: no unscoped process spawns in specs
   }
 });
 
