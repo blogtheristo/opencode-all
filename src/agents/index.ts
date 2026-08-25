@@ -69,6 +69,7 @@ import { OutreachMessageCrafterAgent } from './outreach-message-crafter.agent.js
 import { OutreachExecutorAgent } from './outreach-executor.agent.js';
 import { OutreachOrchestratorAgent } from './outreach-orchestrator.agent.js';
 import { OutreachImproverAgent } from './outreach-improver.agent.js';
+import { SmartFactoryAgent } from './smart-factory.agent.js';
 import { SalesManagerNewsletterAgent } from './sales-manager-newsletter.agent.js';
 import { WorldModelLoopAgent } from './world-model/world-model-loop.agent.js';
 // Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
@@ -321,6 +322,8 @@ export class AgentRegistry {
     this.register(new OutreachExecutorAgent()); // Step 3: deliver via SES / queue LinkedIn
     this.register(new OutreachOrchestratorAgent()); // Coordinator: chains Steps 1–3
     this.register(new OutreachImproverAgent()); // Outer loop: analyze outcomes → propose SKILL.md diffs
+    // Smart Factory for Sales — Firehorse Omnichannel (catalog → match → multi-channel → booking)
+    this.register(new SmartFactoryAgent());
     this.register(new SalesManagerNewsletterAgent()); // Stage 2: synthesize market_signals + news-to-signal into sales-manager.md format
     // Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
     this.register(new AegisAgent()); // Vulnerability & patch SLA triage

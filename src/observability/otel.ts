@@ -21,10 +21,15 @@
  * var is set.
  */
 
-import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
+import { diag, DiagConsoleLogger, DiagLogLevel, metrics } from '@opentelemetry/api';
 import { AsyncHooksContextManager } from '@opentelemetry/context-async-hooks';
+import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-http';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 import { resourceFromAttributes } from '@opentelemetry/resources';
+import {
+  MeterProvider,
+  PeriodicExportingMetricReader,
+} from '@opentelemetry/sdk-metrics';
 import { BatchSpanProcessor, NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
 import {
   ATTR_SERVICE_NAME,
@@ -32,12 +37,14 @@ import {
   ATTR_SERVICE_VERSION,
 } from '@opentelemetry/semantic-conventions';
 import logger from '../utils/logger.js';
+import { initDefaultMetrics } from './metrics.js';
 
 const SERVICE_NAMESPACE = 'lifetime-oy';
 const DEFAULT_SERVICE_NAME = 'dws-iq-backend';
 const DEFAULT_SERVICE_VERSION = '1.0.0';
 
 let provider: NodeTracerProvider | null = null;
+let meterProvider: MeterProvider | null = null;
 
 function parseHeaders(raw: string | undefined): Record<string, string> {
   if (!raw) return {};
@@ -100,8 +107,35 @@ export function initOtel(): boolean {
   contextManager.enable();
   provider.register({ contextManager });
 
-  logger.info('OTel tracing initialized', {
+  // Metrics: periodic reader pushes cumulative gauges/counters/histograms to
+  // <endpoint>/v1/metrics every METRICS_EXPORT_INTERVAL_MS (default 60s) so
+  // the Aspire dashboard Metrics tab has a dws-iq-backend series.
+  const metricsUrl = endpoint.endsWith('/v1/metrics')
+    ? endpoint
+    : `${endpoint.replace(/\/$/, '')}/v1/metrics`;
+  const exportIntervalMs = Number(process.env.OTEL_METRIC_EXPORT_INTERVAL_MS || 60000);
+
+  meterProvider = new MeterProvider({
+    resource,
+    readers: [
+      new PeriodicExportingMetricReader({
+        exporter: new OTLPMetricExporter({
+          url: metricsUrl,
+          headers: parseHeaders(process.env.OTEL_EXPORTER_OTLP_HEADERS),
+        }),
+        exportIntervalMillis: exportIntervalMs,
+      }),
+    ],
+  });
+  metrics.setGlobalMeterProvider(meterProvider);
+
+  // Register the default instruments (uptime gauge, HTTP counters) after the
+  // global provider exists so getMeter() binds to it.
+  initDefaultMetrics();
+
+  logger.info('OTel tracing + metrics initialized', {
     endpoint: tracesUrl,
+    metricsUrl,
     serviceName,
     deploymentEnv,
   });
@@ -114,6 +148,17 @@ export function initOtel(): boolean {
  * Call from SIGTERM / SIGINT handlers to ensure spans are exported.
  */
 export async function shutdownOtel(): Promise<void> {
+  if (meterProvider) {
+    try {
+      await meterProvider.shutdown();
+      logger.info('OTel metrics shut down');
+    } catch (err) {
+      logger.warn('OTel metrics shutdown failed', { error: String(err) });
+    } finally {
+      meterProvider = null;
+      metrics.disable();
+    }
+  }
   if (!provider) return;
   try {
     await provider.shutdown();

@@ -80,11 +80,14 @@ OpenCode works with. Worktree isolation must not break failover:
 
 ## 6. Enforcement
 
-- **Soft (now):** this document + AGENTS.md pointer; session-start guidance tells
-  agents to create a worktree before making changes.
-- **Hard (proposed follow-up):** an OpenCode permission rule denying `git commit` /
-  `git push` when `pwd` resolves to the primary checkout (path allowlist), plus a
-  `pre-commit` hook warning when `git rev-parse --git-common-dir` != `$(pwd)/.git`.
+- **Hard (active since 2026-08-22):** `.opencode/plugin/worktree-guard.ts` — an
+  auto-discovered OpenCode plugin that blocks `git add|commit|merge|rebase|push|pull|
+  cherry-pick` executed from the primary checkout (`git-dir == git-common-dir`).
+  Violations receive instructions to create a worktree instead. Human override:
+  prefix the command with `DWS_ALLOW_PRIMARY_GIT=1`. New sessions load it
+  automatically; running sessions must be restarted.
+- **Soft:** this document + AGENTS.md pointer; session-start guidance tells agents
+  to create a worktree before making changes.
 
 ## 7. References
 

@@ -63,6 +63,7 @@ This file is the **immutable audit index** of all locked decisions in DWS IQ 6. 
 | LD-2026-013 | 2026-04-16 | —        | CBAM all 6 Annex I sectors covered: Vulcan/Talos/Gaia/Ceres/Prometheus/Helios; 66 CN codes; 1 agent per sector                                                                    | FEATURE      | LOCKED                    | Risto | `docs/field-notes/2026-04-16-cbam-sector-coverage-complete.md`                   |
 | LD-2026-014 | 2026-07-31 | —        | Investor seat tiers reconciled to the Boardy pack: Fleet Admiral €200K / Captain €50K×9 (or €150K triple bundle) / Deputy €5K. Supersedes LD-2026-007.                            | PRODUCT      | LOCKED                    | Risto | `docs/field-notes/2026-07-31-investor-captain-tier-pricing-reconciliation.md`    |
 | LD-2026-015 | 2026-07-31 | —        | USA (Arizona, Texas) added as a third Sales Jurisdiction (Non-EU/Connect tier) — regulatory anchor, US entity, USD pricing, US contracting, and ITAR/EAR screening all still open | PRODUCT      | LOCKED                    | Risto | `docs/field-notes/2026-07-31-dayna-us-industrial-captain-jurisdiction-plan.md`   |
+| LD-2026-016 | 2026-08-24 | —        | Risk-tiered HIC PR review: HIC approval required for PRs touching ledger/RLS/KYA/autonomy/public-content/evidence-standard; weekly digest for other agent PRs; Code Evidence Layer headers mandatory on agent code | EU-AI-ACT    | LOCKED                    | Risto | `docs/field-notes/2026-08-24-opencode-all-living-engine.md`                      |
 
 ---
 
@@ -406,6 +407,32 @@ Each locked decision has a detail record below for audit purposes.
 **What this does NOT resolve — deliberately, per the linked plan:** the USA regulatory anchor (no direct federal analogue to CSRD/CBAM/ETS for AZ/TX industrial buyers — a real product-market-fit question, not just a documentation gap), US legal entity, USD price list, US contract/ToS/DPA, and ITAR/EAR screening. All five are open, tracked in `docs/field-notes/2026-07-31-dayna-us-industrial-captain-jurisdiction-plan.md` §2 and §4, and in `DWS_DEPLOYMENT_STANDARD.md` §11.2. This entry locks the jurisdiction _declaration_ only — it is not a claim that DWS IQ is ready to sell or deliver in the US market.
 
 **Change process:** Any further Sales Jurisdiction change (adding a state-level distinction, moving USA to a different tier, or reversing this addition) requires Risto approval + a new LD entry, same as LD-2026-007/014.
+
+---
+
+### LD-2026-016 — Risk-Tiered HIC PR Review + Code Evidence Layer (EU AI Act Art. 12–14)
+
+| Field           | Value                                                                          |
+| --------------- | ------------------------------------------------------------------------------ |
+| **Date Locked** | 2026-08-24                                                                     |
+| **Category**    | EU-AI-ACT                                                                       |
+| **Status**      | LOCKED                                                                          |
+| **Owner**       | Risto Päärni                                                                    |
+| **File**        | `docs/field-notes/2026-08-24-opencode-all-living-engine.md`                     |
+
+**Decision:** HIC approved (2026-08-24) a risk-tiered pull-request review model for agent-authored code, implementing EU AI Act Article 14 human oversight at the merge gate:
+
+1. **HIC approval required before merge** — PRs touching the carbon ledger, RLS/auth, KYA/autonomy gates, public-facing content, or the evidence standard itself.
+2. **Weekly digest + veto window** — all other agent-authored PRs are reported to the HIC with per-file evidence provenance.
+3. **Agent-only, sampled in audit** — mechanical fixes and generated state.
+
+Companion control: the **Code Evidence Layer** (`CLAUDE.md` → Code Evidence Layer) mandates a provenance header (`Tool`, `Model`, `Agent`, ISO 8601 `Date`, audit-trail pointer) on every code file an agent creates or substantively modifies — accuracy/completeness/timeliness/traceability per ISO/IEC 25012, enforced by `scripts/evidence-audit.mjs`. This is the code-side counterpart of the Document Standard tool+model block and feeds the Article 12 hash-chain log via git history.
+
+**Why locked:** Unreviewed auto-merge of all agent output would hollow out Article 14 oversight; the tiering keeps oversight effective where regulatory exposure exists without bottlenecking mechanical work. The evidence header makes the oversight scalable (Art. 13 transparency).
+
+**Investor/sales material impact:** None to pricing, seat tiers (LD-2026-014), industry counts, or jurisdiction scope. Governance only: PRs modifying public pages, blog, or outreach collateral now explicitly require HIC sign-off in tier 1 (previously implied by Non-Negotiable Rule 13 for blogs; now generalized). No rewrite of existing sales/investor collateral is required.
+
+**Change process:** Tier boundaries or the evidence-header schema may only change with Risto approval + a new LD entry.
 
 ---
 

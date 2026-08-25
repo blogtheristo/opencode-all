@@ -261,6 +261,29 @@ Never ask "should I proceed?" or "approve as-is?" without a working link attache
 
 Every deliverable PNG (chart, roadmap, screenshot handed to the user) is rendered at 4K resolution — at least 3840 px on the long side. Use `scripts/screenshot.mjs`, whose defaults (width 1280 × scale 3) enforce this; lower resolutions are for debug-only shots.
 
+## Code Evidence Layer (EU AI Act Art. 12–14)
+
+Every code file an agent creates or substantively modifies carries a **provenance header comment** (1–3 lines, placed directly under the shebang). This is the code-side counterpart of the Document Standard's tool+model block and the repo's Article 12 hash-chain audit: it makes "who/what produced this code, when, under which model" auditable per file, so any later session can trace code history back to the sessions that wrote it.
+
+**Boundary:** these headers **support traceability and quality evidence** — they do not by themselves establish EU AI Act compliance, ISO conformance, audit readiness, or production safety. Legal applicability of Arts. 12–14 depends on the system and its deployment context, not on the presence of a comment.
+
+Required fields — accuracy, completeness, timeliness, traceability per ISO/IEC 25012 data-quality model:
+
+```
+// Evidence: Tool=OpenCode 1.18.21 Model=<provider/model-id> Agent=<agent-name> Date=YYYY-MM-DD
+// Audit trail: git log -- <this-file> [+ queue/handoff pointer if batch-produced]
+```
+
+Rules:
+
+- **Tool + exact version** and **model + provider ID** are mandatory (Art. 13 transparency to deployers). Never write just "AI".
+- **Date is ISO 8601** of the last substantive change; update it when you change the file's logic.
+- **Integrity anchor**: the git history of the file IS the tamper-evident log; the `Audit trail` line points at it. Never fabricate a commit hash — commit first, or omit the hash entirely.
+- **No secrets in evidence lines** (Non-Negotiable Rules 1–2): no tokens, DSNs, keys, PII.
+- **Do not falsify or carry forward stale evidence**: if you did not make the change, do not claim it. A wrong provenance record violates Art. 12 more than a missing one — mark `Evidence: unknown` rather than guessing (Rule 12 fail-loud).
+- **Thesis/research files**: stamping or structural edits are refused by default and require explicit human override (`--force-thesis`). When content changes remarkably, the change is made as a **new thesis version** per the Thesis Rule — lockstep four-file version bump plus a new `VERSION AND AGENT HISTORY` entry carrying `[Latest]` — never by silently rewriting the existing version in place.
+- Enforcement/checker: `scripts/evidence-audit.mjs <paths…>` reports files missing the `// Evidence:` line. Run on changed files before commit.
+
 ## Security Coding Rules
 
 - No `exec()` with interpolated strings for shelling out; use safe argument-based execution.

@@ -14,6 +14,7 @@ import './config/env.js';
 // Initialize OTel before any module that may emit spans (agent registry,
 // llm-client, workflows). Safe no-op when OTEL_EXPORTER_OTLP_ENDPOINT is unset.
 import { initOtel, shutdownOtel } from './observability/otel.js';
+import { recordHttpRequest } from './observability/metrics.js';
 initOtel();
 
 import express, { type Express, type NextFunction, type Request, type Response } from 'express';
@@ -210,6 +211,16 @@ app.use(correlationId);
 
 // API versioning header on all responses
 app.use(apiVersionMiddleware);
+
+// OTel HTTP metrics — counter + duration histogram per request (Aspire Metrics tab)
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const startAt = process.hrtime.bigint();
+  res.on('finish', () => {
+    const durationMs = Number(process.hrtime.bigint() - startAt) / 1_000_000;
+    recordHttpRequest(req.path || 'unknown', req.method, res.statusCode, durationMs);
+  });
+  next();
+});
 
 // Body parsers with size limits
 //

@@ -48,7 +48,7 @@
   },
   "permission": {
     "bash": {
-      "*": "ask",
+      "*": "allow",
       "git status*": "allow",
       "git diff*": "allow",
       "git log*": "allow",
@@ -84,7 +84,7 @@
       "**/id_rsa*": "deny"
     },
     "edit": {
-      "*": "ask",
+      "*": "allow",
       ".env": "deny",
       ".env.*": "deny",
       "**/.env": "deny",
