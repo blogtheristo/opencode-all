@@ -1,0 +1,12 @@
+
+ RUN  v4.1.11 /tmp/opencode/matrix-fix
+
+error: inflate: data stream error (incorrect header check)
+error: unable to unpack c519edcebdc91139c5748e7f561011e0dacb1b99 header
+fatal: loose object c519edcebdc91139c5748e7f561011e0dacb1b99 (stored in .git/objects/c5/19edcebdc91139c5748e7f561011e0dacb1b99) is corrupt
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  06:53:29
+   Duration  5.55s (transform 36ms, setup 16ms, import 41ms, tests 5.39s, environment 0ms)
+
