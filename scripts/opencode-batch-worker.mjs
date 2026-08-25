@@ -298,7 +298,9 @@ async function runValidationGate(entry, worktreePath = REPO) {
 
   console.log(`  [validation] running tests...`);
   try {
-    execFileSync('npm', ['test'], { ...wt, maxBuffer: 64 * 1024 * 1024, timeout: 180_000 });
+    // Serialized (2026-08-25 incident control): never run two validation
+    // suites against the shared object database at the same time.
+    execFileSync('flock', ['-w', '900', '/tmp/opencode/dws6-validation.lock', 'npm', 'test'], { ...wt, maxBuffer: 64 * 1024 * 1024, timeout: 180_000 });
     results.test = true;
   } catch (e) {
     results.errors.push(`test: ${e.message}`);

@@ -20,6 +20,20 @@ import { chmodSync, mkdtempSync, readFileSync, rmSync, writeFileSync, mkdirSync 
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+// INCIDENT GUARD (2026-08-25 bare-flip investigation): all git access goes
+// through the sandbox guard — leaked env refusal, absolute-path assertion,
+// GIT_* scrubbing. See scripts/poisoned-tree-fixture-guard.mjs.
+import {
+  CLEAN_GIT_ENV,
+  assertCleanGitEnv,
+  findLeakedGitEnv,
+  guardCwd,
+  gx,
+  registerSandboxRoot,
+  registerReadOnlyRoot,
+} from '../poisoned-tree-fixture-guard.mjs';
+
+assertCleanGitEnv(); // refuse BEFORE any git call if the env leaks git state
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const GATE = join(__dirname, '..', 'poisoned-tree-gate.mjs');
@@ -36,16 +50,12 @@ const {
 let root;
 const hostRepo = '/tmp/opencode/recovery'; // canary target: must never be touched
 const hostSnapshot = {
-  head: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: hostRepo, encoding: 'utf8' }).trim(),
-  branch: execFileSync('git', ['branch', '--show-current'], { cwd: hostRepo, encoding: 'utf8' }).trim(),
+  head: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: hostRepo, env: CLEAN_GIT_ENV, encoding: 'utf8' }).trim(),
+  branch: execFileSync('git', ['branch', '--show-current'], { cwd: hostRepo, env: CLEAN_GIT_ENV, encoding: 'utf8' }).trim(),
 };
+registerReadOnlyRoot(hostRepo); // read-only canary is an allowed gx target
 const evidence = { origins: {} }; // origin main shas recorded at creation
 const cleanupDirs = [];
-
-function gx(cwd, ...args) {
-  if (!cwd || typeof cwd !== 'string') throw new Error('cwd required for every git call');
-  return execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
-}
 
 function cleanupLater(dir) {
   rmSync(dir, { recursive: true, force: true });
@@ -66,7 +76,10 @@ afterAll(() => {
 
 /** Independent fixture: bare origin + clone with worker/src/docs/roster. */
 function makeFixture({ docs = 40 } = {}) {
-  if (!root) root = mkdtempSync(join(tmpdir(), 'ptg-fixture-'));
+  if (!root) {
+    root = mkdtempSync(join(tmpdir(), 'ptg-fixture-'));
+    registerSandboxRoot(root); // guard: only this subtree may see git calls
+  }
   const id = Math.random().toString(36).slice(2, 9);
   const origin = join(root, `origin-${id}.git`);
   const dev = join(root, `dev-${id}`);
@@ -96,7 +109,8 @@ function makeFixture({ docs = 40 } = {}) {
   gx(seed, 'remote', 'add', 'origin', origin);
   gx(seed, 'push', '-q', 'origin', 'main');
 
-  execFileSync('git', ['clone', '-q', origin, dev]);
+  guardCwd(root);
+  execFileSync('git', ['clone', '-q', origin, dev], { cwd: root, env: CLEAN_GIT_ENV, encoding: 'utf8' });
   gx(dev, 'config', 'user.email', 'dev@lifetime.fi');
   gx(dev, 'config', 'user.name', 'Dev Fixture');
 
@@ -147,6 +161,7 @@ describe('poisoned-tree gate fixture matrix', () => {
       // n = TOTAL tracked blobs: README + (n-1) docs, so the tripwire
       // boundary arithmetic is exact ("10 of 100" really is 10.0%).
       const repo = mkdtempSync(join(tmpdir(), `ptg-n${n}-`));
+      registerSandboxRoot(repo); // own temp root — guard-registered like `root`
       gx(repo, 'init', '-q', '-b', 'main');
       gx(repo, 'config', 'user.email', 'dev@lifetime.fi');
       gx(repo, 'config', 'user.name', 'Dev Fixture');
@@ -408,7 +423,8 @@ describe('poisoned-tree gate fixture matrix', () => {
   it('shallow clone cannot relate to older base -> explicit BLOCK (documented safe result)', () => {
     const fx = makeFixture();
     const shallow = join(root, `shallow-${fx.id}`);
-    execFileSync('git', ['clone', '-q', '--depth', '1', `file://${fx.origin}`, shallow]);
+    guardCwd(root);
+    execFileSync('git', ['clone', '-q', '--depth', '1', `file://${fx.origin}`, shallow], { cwd: root, env: CLEAN_GIT_ENV, encoding: 'utf8' });
     const head = gx(shallow, 'rev-parse', 'HEAD');
     const res = evaluate({
       repo: shallow, localSha: head, remoteRef: 'refs/heads/main', remoteSha: fx.baseSha,
@@ -447,5 +463,38 @@ describe('poisoned-tree gate fixture matrix', () => {
     for (const [origin, sha] of Object.entries(evidence.origins)) {
       expect(gx(origin, 'rev-parse', 'main')).toBe(sha);
     }
+  });
+});
+
+// ─── INCIDENT GUARD negative matrix (2026-08-25) ─────────────────────────────
+// Every case MUST refuse BEFORE any real git invocation and leave the shared
+// repository config untouched. These prove the containment boundary itself.
+describe('poisoned-tree guard refuses dangerous git contexts before any git call', () => {
+  it('leaked GIT_DIR / GIT_WORK_TREE / GIT_INDEX_FILE is detected', () => {
+    for (const key of ['GIT_DIR', 'GIT_WORK_TREE', 'GIT_INDEX_FILE']) {
+      const fake = { ...process.env, [key]: '/home/admin100/dws6/.git' };
+      expect(findLeakedGitEnv(fake)).toContain(key);
+      expect(() => assertCleanGitEnv(fake)).toThrow(/leaked git environment/);
+    }
+  });
+
+  it('relative, empty, undefined and unresolvable cwd are refused', () => {
+    expect(() => guardCwd('')).toThrow(/non-absolute\/empty/);
+    expect(() => guardCwd(undefined)).toThrow(/non-absolute\/empty/);
+    expect(() => guardCwd('relative/path')).toThrow(/non-absolute\/empty/);
+    expect(() => guardCwd('/tmp/opencode/does-not-exist-xyz')).toThrow(/unresolvable cwd/);
+  });
+
+  it('primary checkout, linked worktrees and paths under them are refused', () => {
+    // The live repo and its linked worktrees are never registered sandbox roots.
+    expect(() => guardCwd('/home/admin100/dws6')).toThrow(/outside fixture sandbox/);
+    expect(() => guardCwd('/home/admin100/dws6/.git')).toThrow(/outside fixture sandbox/);
+    expect(() => guardCwd('/home/admin100/dws6/.git/config')).toThrow(/outside fixture sandbox/);
+    expect(() => guardCwd('/home/admin100/dws6/.worktrees/opencode-all/ses_probe')).toThrow(/outside fixture sandbox|unresolvable cwd/);
+  });
+
+  it('gx refuses out-of-sandbox targets without spawning git', () => {
+    expect(() => gx('/home/admin100/dws6', 'status')).toThrow(/outside fixture sandbox|non-absolute\/empty/);
+    expect(() => gx('', 'init', '-q', '--bare')).toThrow(/non-absolute\/empty/);
   });
 });
