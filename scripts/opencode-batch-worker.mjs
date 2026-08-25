@@ -549,8 +549,10 @@ function cmdReconcile() {
     }
     // Migrate lowercase living-engine states (Rule 12: restart-safe — a
     // crashed mid-flight entry resumes as QUEUED, never lost).
-    if (typeof e.state === 'string' && LIFECYCLE_TO_MACHINE[e.state]) {
-      let state = LIFECYCLE_TO_MACHINE[e.state];
+    const isLowercase = typeof e.state === 'string'
+      && (Boolean(LIFECYCLE_TO_MACHINE[e.state]) || e.state === 'rest');
+    if (isLowercase) {
+      let state = LIFECYCLE_TO_MACHINE[e.state] ?? 'QUEUED';
       let stopReason = e.stopReason ?? null;
       if (state === 'GONE') stopReason = 'gone';
       if (e.state === 'rest') {
