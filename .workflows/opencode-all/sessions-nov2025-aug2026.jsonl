@@ -1,0 +1,984 @@
+{"kind":"branch","id":"origin","lastActivity":"2026-08-24","title":"chore: auto-sync AGENTS.md from codebase [skip ci]"}
+{"kind":"branch","id":"origin/angry-mayer","lastActivity":"2026-02-05","title":"docs: Fix terminology inconsistency in DPA Article 9.3"}
+{"kind":"branch","id":"origin/archive/opencode-audit-typecheck","lastActivity":"2026-08-22","title":"docs(worktree): Claude Code hot-standby procedure per opencode branch"}
+{"kind":"branch","id":"origin/archive/opencode-worktree-guard","lastActivity":"2026-08-22","title":"docs(worktree): Claude Code hot-standby procedure per opencode branch"}
+{"kind":"branch","id":"origin/archive/opencode-worktree-policy","lastActivity":"2026-08-22","title":"docs(worktree): Claude Code hot-standby procedure per opencode branch"}
+{"kind":"branch","id":"origin/blog-drafts-branch","lastActivity":"2026-08-19","title":"feat: Add comprehensive Aegis customer orientation and demo-to-pilot pathway documentation"}
+{"kind":"branch","id":"origin/claude/2026-trends-strategy-ot9vn","lastActivity":"2026-01-25","title":"Add comprehensive 2026 AI trends strategic analysis"}
+{"kind":"branch","id":"origin/claude/25-industries-company-list-tea0bb","lastActivity":"2026-07-31","title":"fix(migration): add GRANT statements for LWM ontology tables"}
+{"kind":"branch","id":"origin/claude/3dfx-nvidia-market-shift-ru5sse","lastActivity":"2026-08-03","title":"signal: 3dfx layer discipline — field note, PHD §14.46, Learn HTML, reply draft, dws10 correction"}
+{"kind":"branch","id":"origin/claude/acer-node-claim-verification-u7jai1","lastActivity":"2026-07-31","title":"fix(skills): regenerate skills guide + antigravity stub for train-model skill"}
+{"kind":"branch","id":"origin/claude/activate-dev-expenses-Cbb1q","lastActivity":"2026-04-11","title":"docs(activation): FINAL decision €100k, dated 10.04.2026, Boardy approved"}
+{"kind":"branch","id":"origin/claude/add-aegis-demo-page-QhDCV","lastActivity":"2026-07-31","title":"Merge origin/main into claude/add-aegis-demo-page-QhDCV"}
+{"kind":"branch","id":"origin/claude/add-aegis-market-data-XLx7j","lastActivity":"2026-04-06","title":"Add European defence procurement US dependency analysis for Aegis"}
+{"kind":"branch","id":"origin/claude/add-agent-staff-ek7Wo","lastActivity":"2026-03-02","title":"feat: add AI agent staff — Risto, Matti, Pekka, Kalle, Jussi"}
+{"kind":"branch","id":"origin/claude/add-ai-consulting-guidance-pDsPu","lastActivity":"2026-02-07","title":"docs: Add Week 6 progress report — CI/CD cleanup, store reorganization"}
+{"kind":"branch","id":"origin/claude/add-baseten-compliance-5fQYW","lastActivity":"2026-05-09","title":"feat: add Baseten compliance routing — fine-tuned models for LWM/DPA agents"}
+{"kind":"branch","id":"origin/claude/add-case-schema-context-lM3qe","lastActivity":"2026-05-08","title":"feat(case-schema): add caseId to AgentContext + CaseEvent types + migration SQL"}
+{"kind":"branch","id":"origin/claude/add-dws-iq-v1-features-NKpsn","lastActivity":"2026-04-24","title":"Fix Cloud Build: drop .js extensions on imports into excluded modules"}
+{"kind":"branch","id":"origin/claude/add-email-sending-ImfKC","lastActivity":"2026-03-26","title":"Add auth gate, webhook hardening, and route tests"}
+{"kind":"branch","id":"origin/claude/add-erik-kurist-contact-wEQPn","lastActivity":"2026-03-27","title":"Update Erik Kurist status: warm intro sent via Boardy"}
+{"kind":"branch","id":"origin/claude/add-eu-commission-field-note-ory1p","lastActivity":"2026-05-16","title":"docs(field-notes): add Commission media contacts (Itkonen, Crespo Parrondo) to ETS field note"}
+{"kind":"branch","id":"origin/claude/add-eu-funding-info-GNDb4","lastActivity":"2026-04-22","title":"Add Phase 4.5 eIDAS 2.0 & Trust Services to roadmap"}
+{"kind":"branch","id":"origin/claude/add-eu-info-note-8XYey","lastActivity":"2026-02-11","title":"feat: EU Single Market positioning across sovereignty, sales, trust center, dashboard"}
+{"kind":"branch","id":"origin/claude/add-field-note-UhaUx","lastActivity":"2026-04-07","title":"Expand field note: 5-language glossary, vn.fi timeline, regulatory context"}
+{"kind":"branch","id":"origin/claude/add-firehorse-features-zW1m0","lastActivity":"2026-03-21","title":"fix: correct hardware inventory — 1x Acer GN100 + 1x Jetson, full software stack"}
+{"kind":"branch","id":"origin/claude/add-firehorse-investor-docs-e9ozF","lastActivity":"2026-03-28","title":"Expand Captain Deck to full 12 breakthroughs with detailed descriptions"}
+{"kind":"branch","id":"origin/claude/add-founder-evidence-html-learn","lastActivity":"2026-04-22","title":"Add HTML version of founder evidence document to Learn folder"}
+{"kind":"branch","id":"origin/claude/add-godagents-menubar-WiXOs","lastActivity":"2026-03-10","title":"feat: add KYA Standard post to blog index + switch to ironclad-nav"}
+{"kind":"branch","id":"origin/claude/add-insights-dashboard-Hk3HP","lastActivity":"2026-03-15","title":"Add Insights Dashboard to product page, user storyboard, and manual"}
+{"kind":"branch","id":"origin/claude/add-investor-timeline-01LiEEtWsrRpjMyKADA3jpHe","lastActivity":"2026-02-21","title":"Merge pull request #592 from blogtheristo/copilot/sub-pr-433"}
+{"kind":"branch","id":"origin/claude/add-karpathy-system-prompt-mDVny","lastActivity":"2026-02-05","title":"docs: Add GitHub Actions CI/CD integration for Claude self-review"}
+{"kind":"branch","id":"origin/claude/add-lab-notes-training-EzA66","lastActivity":"2026-02-11","title":"docs: update LWM lab note to DWS Document Standard v1.4"}
+{"kind":"branch","id":"origin/claude/add-lab-notes-training-y57rH","lastActivity":"2026-04-22","title":"Merge pull request #1163 from blogtheristo/claude/add-digital-europe-funding-rZaXx"}
+{"kind":"branch","id":"origin/claude/add-lab-notes-visibility-RQRA9","lastActivity":"2026-02-22","title":"docs: update all 4 thesis files — Metropolia v3.10, PHD Firehorse v1.2"}
+{"kind":"branch","id":"origin/claude/add-matt-dancho-bio-Lxkq6","lastActivity":"2026-02-18","title":"Add Risto Anton Paarni founder bio in Matt Dancho format"}
+{"kind":"branch","id":"origin/claude/add-model-field-note-0jLQk","lastActivity":"2026-03-20","title":"Add field note: MiMo-V2 family (Pro, Omni, TTS) — Agent era models"}
+{"kind":"branch","id":"origin/claude/add-nemotron-docs-MPKhc","lastActivity":"2026-07-31","title":"Merge remote-tracking branch 'origin/main' into claude/add-nemotron-docs-MPKhc"}
+{"kind":"branch","id":"origin/claude/add-ollama-provider-vzqYb","lastActivity":"2026-03-16","title":"plan: add Ollama as official OpenClaw provider implementation plan"}
+{"kind":"branch","id":"origin/claude/add-partner-outreach-Ca758","lastActivity":"2026-03-28","title":"Add partner outreach record for Allianz für Europäische Sicherheit e.V."}
+{"kind":"branch","id":"origin/claude/add-pe-insights-outreach-dXIng","lastActivity":"2026-04-04","title":"Add geopolitics + carbon balance sheet framework to PE Insights outreach"}
+{"kind":"branch","id":"origin/claude/add-pentesting-security-scan-Ul6uW","lastActivity":"2026-03-22","title":"Add pentesting security scanner and /pentest Claude Code skill"}
+{"kind":"branch","id":"origin/claude/add-qivalis-research-ePIAY","lastActivity":"2026-04-19","title":"fix: Captain = Industry Captain = €50K — remove phantom €150K Captain tier"}
+{"kind":"branch","id":"origin/claude/add-red-hat-partners-d8Hey","lastActivity":"2026-03-21","title":"docs: integrate Red Hat Key Findings into all 4 thesis files"}
+{"kind":"branch","id":"origin/claude/add-resend-api-key-1ERw5","lastActivity":"2026-03-15","title":"feat: add AWS SES as primary email provider with Resend/SendGrid fallback"}
+{"kind":"branch","id":"origin/claude/add-sdk-sandbox-isolation-Q0lzp","lastActivity":"2026-02-21","title":"feat: LWM as enterprise learning layer + 16-industry competitive advantage analysis"}
+{"kind":"branch","id":"origin/claude/add-security-compliance-note-qi3SD","lastActivity":"2026-02-20","title":"docs: add OpenClaw security field note, update security standards with agent identity isolation"}
+{"kind":"branch","id":"origin/claude/add-vault-runtime-auth-NKwSC","lastActivity":"2026-05-17","title":"feat(security): add runtime tool-call authorization with blast-radius envelopes"}
+{"kind":"branch","id":"origin/claude/add-world-model-yDZ5G","lastActivity":"2026-05-13","title":"blog(world-model): \"The World Your Agent Doesn't Have\" — LeCun-led thesis post"}
+{"kind":"branch","id":"origin/claude/admiring-aryabhata","lastActivity":"2026-02-25","title":"Updated scripts/db-drift-check.py"}
+{"kind":"branch","id":"origin/claude/adoring-sutherland","lastActivity":"2026-04-05","title":"chore: auto-sync AGENTS.md from codebase [skip ci]"}
+{"kind":"branch","id":"origin/claude/aegis-release-readiness-audit","lastActivity":"2026-08-19","title":"docs: add full Orin Nano module + carrier board spec to item-3 plan"}
+{"kind":"branch","id":"origin/claude/affectionate-elion","lastActivity":"2026-03-13","title":"130326"}
+{"kind":"branch","id":"origin/claude/affectionate-volhard","lastActivity":"2026-02-19","title":"a2a logo.svg"}
+{"kind":"branch","id":"origin/claude/agent-adaptation-framework-NmpCQ","lastActivity":"2026-04-03","title":"feat: ASTA Phase 2+3 — adaptation diagnosis, tool self-improvement, memory injection"}
+{"kind":"branch","id":"origin/claude/agent-factory-research-audit-l6hks2","lastActivity":"2026-08-03","title":"feat(factory): wire the Factory Router into /ollama-spark (ladder mode)"}
+{"kind":"branch","id":"origin/claude/agent-input-schemas-1RWJg","lastActivity":"2026-03-07","title":"Add typed inputSchema to all 32 MCP agents for self-documenting tools"}
+{"kind":"branch","id":"origin/claude/agent-model-routing-RpnU3","lastActivity":"2026-03-16","title":"docs: add Alibaba SWE-CI benchmark field note — AI code maintenance reality"}
+{"kind":"branch","id":"origin/claude/agent-native-cloud-RReQu","lastActivity":"2026-03-24","title":"Add Section 14: Agent-Native Cloud Architecture to CLOUD_ENVIRONMENTS.md"}
+{"kind":"branch","id":"origin/claude/agent-queryable-docs-6xdAg","lastActivity":"2026-04-21","title":"fix(cli): call table() with correct (headers, rows) signature"}
+{"kind":"branch","id":"origin/claude/agent-swarm-verification-loop-3zn9o7","lastActivity":"2026-06-21","title":"feat(dashboard): denser, brighter swarm-loop weave"}
+{"kind":"branch","id":"origin/claude/agentic-systems-foundation-5Q0LQ","lastActivity":"2026-05-18","title":"docs(claude): point Session/Workflow Expectations at dws6-tmux-session.sh"}
+{"kind":"branch","id":"origin/claude/ai-agent-competition-oV6JM","lastActivity":"2026-04-24","title":"feat(arena): ship Skilled Agents Premier v1 at lifetime.fi"}
+{"kind":"branch","id":"origin/claude/ai-engineering-loop-audit-6twuqy","lastActivity":"2026-07-05","title":"fix: close top AI Engineering Loop gaps from the Langfuse audit"}
+{"kind":"branch","id":"origin/claude/ai-gdpr-compliance-docs-nA9sm","lastActivity":"2026-02-22","title":"docs: add session summary for AI Act & GDPR compliance work"}
+{"kind":"branch","id":"origin/claude/ai-infrastructure-layers-hCqQ3","lastActivity":"2026-03-15","title":"docs: add AI infrastructure stack model (NVIDIA 5-layer) to all thesis files"}
+{"kind":"branch","id":"origin/claude/ai-native-org-system-BySKh","lastActivity":"2026-04-06","title":"docs: add critical review section — M365/Gemini/Mistral peer feedback"}
+{"kind":"branch","id":"origin/claude/ai-native-support-workflow-1c4kO","lastActivity":"2026-05-12","title":"Add AI-native support ticket workflow (Helpdesk agent)"}
+{"kind":"branch","id":"origin/claude/ai-receptionist-agent-QFRCf","lastActivity":"2026-03-29","title":"Update Firehorse Omnichannel with Voice AI channel and €990/mo pricing"}
+{"kind":"branch","id":"origin/claude/ai-report-phd-summary-2057ef","lastActivity":"2026-06-11","title":"thesis(v3.63): integrate VTV 10/2026 audit as PhD section 14.25 (lockstep)"}
+{"kind":"branch","id":"origin/claude/ai-saas-labor-replacement-lkLIe","lastActivity":"2026-07-19","title":"thesis: verify CRM-replacement counter-evidence, add PhD §14.42 [v3.84]"}
+{"kind":"branch","id":"origin/claude/ai-service-brochure-yXqoS","lastActivity":"2026-04-23","title":"docs(learn): add Firehorse brochure v1.0 as versioned HTML in Learn/"}
+{"kind":"branch","id":"origin/claude/aiven-dpa-contract-12iukg","lastActivity":"2026-07-15","title":"legal: signature-ready HTML of Aiven DPA (DocuSign/print-ready)"}
+{"kind":"branch","id":"origin/claude/aiven-postgres-upcloud-ddjnsu","lastActivity":"2026-07-12","title":"Merge origin/main: resolve 6 conflicts, keep pg rewiring + main's new features"}
+{"kind":"branch","id":"origin/claude/aiven-security-overview-u262en","lastActivity":"2026-07-05","title":"docs: individual vendor sovereignty field notes (ICEYE, NCC, Nokia Defence, NATO DIANA)"}
+{"kind":"branch","id":"origin/claude/alpha-share-agreement-setup-Uou1C","lastActivity":"2026-03-19","title":"docs: add Alpha-Share model evaluation as field note (dropped for V1)"}
+{"kind":"branch","id":"origin/claude/aly-metwaly-nokia-kptuym","lastActivity":"2026-08-04","title":"Log Aly Metwaly (Nokia) advisory outreach thread, draft holding reply"}
+{"kind":"branch","id":"origin/claude/amazing-wescoff","lastActivity":"2026-03-09","title":"docs: update Captain Program with latest pricing and structure"}
+{"kind":"branch","id":"origin/claude/amplify-labor-pricing-sales-aa9qZ","lastActivity":"2026-05-14","title":"feat: add Captain (Agent Director) above Themis in labor-priced stack"}
+{"kind":"branch","id":"origin/claude/analyze-test-coverage-VGfIp","lastActivity":"2026-03-22","title":"Analyze test coverage: 22/214 files tested, identify 8 priority gaps"}
+{"kind":"branch","id":"origin/claude/anti-silicon-valley-strategy-YhpOy","lastActivity":"2026-04-06","title":"docs: add Anti-Silicon Valley campaign manifesto for DWS IQ 6"}
+{"kind":"branch","id":"origin/claude/api-gateway-federation-research-cSEFN","lastActivity":"2026-03-18","title":"Update 5 DWS standards for Control Room Infrastructure & Gateway Federation"}
+{"kind":"branch","id":"origin/claude/arctic-15-funnel-strategy-3akU2","lastActivity":"2026-04-19","title":"CAPTAINS_LEADS v1.2 — Renata Dosdá + Falk Trietsch promoted to Fleet Admiral candidates"}
+{"kind":"branch","id":"origin/claude/aspire-development-evolution-16fxg0","lastActivity":"2026-07-07","title":"chore: restart branch from main after PR #1642 merge, refresh handoff"}
+{"kind":"branch","id":"origin/claude/aspire-docs-e857b3","lastActivity":"2026-07-31","title":"fix(truth-lint): stop naming the deprecated term directly in a meta-reference"}
+{"kind":"branch","id":"origin/claude/aspire-dws-dashboard-dCvyG","lastActivity":"2026-04-02","title":"feat: add Aspire Dashboard + OpenTelemetry observability for DWS6 services"}
+{"kind":"branch","id":"origin/claude/aspire-isolated-mode-research-IXTT0","lastActivity":"2026-04-19","title":"Update infrastructure/dgx-spark/docker-compose.yml"}
+{"kind":"branch","id":"origin/claude/aspire-isolated-mode-research-v4wT0","lastActivity":"2026-05-14","title":"feat(otel): wire OTel SDK to Aspire Dashboard + field note v1.3"}
+{"kind":"branch","id":"origin/claude/aspire-polyglot-jurisdiction-MMbGZ","lastActivity":"2026-07-31","title":"Merge branch 'main' into claude/aspire-polyglot-jurisdiction-MMbGZ"}
+{"kind":"branch","id":"origin/claude/aspire-postgres-environments-de7vxi","lastActivity":"2026-07-08","title":"Add Aspire AppHost for local dev/stage/prod environment orchestration"}
+{"kind":"branch","id":"origin/claude/aspire-version-update-w21fyd","lastActivity":"2026-07-05","title":"docs: log Aspire 13.4.6 ground truth in field note"}
+{"kind":"branch","id":"origin/claude/audit-dws-agi-tjX9U","lastActivity":"2026-03-15","title":"[audit] Hyperspace AGI v3.0.10 competitive analysis vs DWS 6"}
+{"kind":"branch","id":"origin/claude/audit-dws-firehorse-fDKB5","lastActivity":"2026-05-12","title":"Rename skills/risto/Risto_Skills.md -> SKILL.md so it auto-discovers"}
+{"kind":"branch","id":"origin/claude/audit-investor-docs-g6t62","lastActivity":"2026-05-17","title":"docs(investor): audit corpus vs OpenAI Deployment Co thesis + AI red-team crisis"}
+{"kind":"branch","id":"origin/claude/auto-enable-mode-feature-e1tyZ","lastActivity":"2026-03-07","title":"docs: add admin manual for Claude Code auto-enable mode setup"}
+{"kind":"branch","id":"origin/claude/automate-bid-api-z19l1","lastActivity":"2026-03-15","title":"Add Hilma AVP API integration for Finnish public procurement"}
+{"kind":"branch","id":"origin/claude/aws-claude-code-consulting-Bhp7E","lastActivity":"2026-04-27","title":"Add Risto's phone number to CLAUDE.md and CV"}
+{"kind":"branch","id":"origin/claude/aws-consulting-phase2-Bhp7E","lastActivity":"2026-04-27","title":"Add Downloadable HTML Documents Rule — Base64 image embedding"}
+{"kind":"branch","id":"origin/claude/aws-india-mpo-phase-2-ilvj00","lastActivity":"2026-08-03","title":"docs(aws): AWS India MPO Phase 2 withholding-tax compliance plan"}
+{"kind":"branch","id":"origin/claude/b3b-outreach-analysis-7AtlA","lastActivity":"2026-05-12","title":"outreach: shortlist Alfa Laval & Fiskars as first KAM × end-customer targets"}
+{"kind":"branch","id":"origin/claude/baseten-kimi-k3-3w2e5f","lastActivity":"2026-07-28","title":"feat(models): add Baseten Kimi K3 to heavy tier + Model APIs endpoint routing"}
+{"kind":"branch","id":"origin/claude/bilingual-marketing-campaign-SCC4g","lastActivity":"2026-03-16","title":"feat: create DWS_BLOG_STANDARD.md and update all DWS standards"}
+{"kind":"branch","id":"origin/claude/block71-deep-sage-2026-xNiom","lastActivity":"2026-05-31","title":"phd: next-session prompt for advancing LUT Tutkimussuunnitelma"}
+{"kind":"branch","id":"origin/claude/blog-subscription-payment-button-vijnsf","lastActivity":"2026-06-28","title":"feat(blog): add subscriber form for whitepapers and materials"}
+{"kind":"branch","id":"origin/claude/blogi-linkit-kohteet-f1j1cm","lastActivity":"2026-08-21","title":"Potential fix for pull request finding"}
+{"kind":"branch","id":"origin/claude/blogi-linkit-merge-errors-wedpz8","lastActivity":"2026-08-22","title":"chore(ci-audit): record local CI runs for a93cc06bb and 11270d96d"}
+{"kind":"branch","id":"origin/claude/build-dws7-feature-Ki02f","lastActivity":"2026-03-15","title":"feat(dws7): Wire GuidedTour into dashboard with data-tour attributes"}
+{"kind":"branch","id":"origin/claude/build-feature-v1-implementations-iOymw","lastActivity":"2026-03-15","title":"Add skills and CLI commands for backup, usage billing, and email analytics"}
+{"kind":"branch","id":"origin/claude/build-insights-dashboard-cNoEr","lastActivity":"2026-03-15","title":"fix: Resolve merge conflicts and TypeScript errors in v10-react dashboard"}
+{"kind":"branch","id":"origin/claude/build-mvp-features-7NbcX","lastActivity":"2026-03-15","title":"Update package-lock.json after dependency changes"}
+{"kind":"branch","id":"origin/claude/build-mvp-features-Eq6py","lastActivity":"2026-03-27","title":"Add missing MVP features: user profile, notifications, activity feed, dashboard summary"}
+{"kind":"branch","id":"origin/claude/build-mvp-features-i5ASR","lastActivity":"2026-03-17","title":"Add local email audit trail, primary services list, GN100 SES bridge design"}
+{"kind":"branch","id":"origin/claude/build-observability-dashboard-Nt8GG","lastActivity":"2026-05-14","title":"fix(cbam): tighten EORI regex to enforce 8-char minimum suffix"}
+{"kind":"branch","id":"origin/claude/build-payment-ui-3ZU5s","lastActivity":"2026-07-31","title":"Merge remote-tracking branch 'origin/main' into claude/build-payment-ui-3ZU5s"}
+{"kind":"branch","id":"origin/claude/build-v1-feature-nIOHM-9vKuR","lastActivity":"2026-05-13","title":"merge: resolve conflicts with main (round 2)"}
+{"kind":"branch","id":"origin/claude/busy-cannon-zhohf7","lastActivity":"2026-07-31","title":"fix(migration): renumber to 081 -- 080 was taken by #1528 in the meantime"}
+{"kind":"branch","id":"origin/claude/cabonline-business-model-t64som","lastActivity":"2026-07-12","title":"Add field note: Outokumpu Tornio Aegis use case via Lifetime Fleet mobile Control Room"}
+{"kind":"branch","id":"origin/claude/captain-admiral-pages-sync","lastActivity":"2026-07-31","title":"fix(store): generate into source, skip hand-authored pages, enforce catalog price"}
+{"kind":"branch","id":"origin/claude/captain-product-messaging-BZgRS","lastActivity":"2026-03-22","title":"feat: add Enterprise World Tier 4 product, update People database Alpha-Share references"}
+{"kind":"branch","id":"origin/claude/cari-fi-new-site-x410ox","lastActivity":"2026-07-29","title":"docs: freeze the cari.fi field note in dws6 and point to the cari repo"}
+{"kind":"branch","id":"origin/claude/centralized-price-list-rl82P","lastActivity":"2026-04-24","title":"Ironclad nav v3.3: Products menu from products.json (shared w/ price list)"}
+{"kind":"branch","id":"origin/claude/ceo-review-dws-firehorse-1kWuP","lastActivity":"2026-05-31","title":"Merge pull request #1420 from blogtheristo/claude/ceo-review-dws-firehorse-1kWuP"}
+{"kind":"branch","id":"origin/claude/channels-product-update-4wwsd2","lastActivity":"2026-08-04","title":"feat(omnichannel): add Channels target (Slack/Teams/Discord via CopilotKit Channels SDK)"}
+{"kind":"branch","id":"origin/claude/chatbot-alternatives-6HJcZ","lastActivity":"2026-03-29","title":"Add multi-channel chatbot scaffold — LangBot + Chatwoot architecture"}
+{"kind":"branch","id":"origin/claude/check-brief-posting-022bt","lastActivity":"2026-04-07","title":"docs: add DGX Spark repo path ~/dws6 and update failover docs"}
+{"kind":"branch","id":"origin/claude/clarify-dissertation-focus-WAGCb","lastActivity":"2026-05-14","title":"Add §1.0 dissertation focus/goal anchor responding to Kari feedback (v3.56)"}
+{"kind":"branch","id":"origin/claude/claude-code-migration-plan-g24eht","lastActivity":"2026-08-13","title":"kb: add platform optionality concept (OpenCode primary, Claude standby)"}
+{"kind":"branch","id":"origin/claude/clever-hofstadter","lastActivity":"2026-04-03","title":"feat: publish investor memos to Learn/ as versioned HTML"}
+{"kind":"branch","id":"origin/claude/clone-last30days-repo-bZRU0","lastActivity":"2026-03-12","title":"feat: Add Industry Pulse newsletter signup to dws10.com source pages"}
+{"kind":"branch","id":"origin/claude/cloud-sovereignty-analysis-0M2om","lastActivity":"2026-05-13","title":"Allow Gamma generate MCP tool in local settings"}
+{"kind":"branch","id":"origin/claude/cloudflare-turnstile-forms","lastActivity":"2026-08-02","title":"feat(forms): Cloudflare Turnstile on public lead forms; close the anon write path"}
+{"kind":"branch","id":"origin/claude/code-loop-architecture-qeszu4","lastActivity":"2026-06-23","title":"learn: add PDF edition of the Article 12 whitepaper + reusable renderer"}
+{"kind":"branch","id":"origin/claude/code-usage-audit-jwgcmx","lastActivity":"2026-07-05","title":"chore(ci): add Claude token-usage reporting script (not yet wired)"}
+{"kind":"branch","id":"origin/claude/colin-brown-podcast-storyboard-t8Cyz","lastActivity":"2026-03-27","title":"Add intro notes: Dr. Isabella Fandrych (Nucleus Capital) and Stenver Jerkku (Soldera)"}
+{"kind":"branch","id":"origin/claude/commit-push-merge-2026-04-24","lastActivity":"2026-04-24","title":"240426"}
+{"kind":"branch","id":"origin/claude/compare-agent-365-themis-29fCC","lastActivity":"2026-05-13","title":"feat(auth): accept Entra OIDC tokens alongside DWS-issued JWTs"}
+{"kind":"branch","id":"origin/claude/compare-agent-systems-qDbS7","lastActivity":"2026-03-15","title":"docs: add CI/CD known issues to admin manual and storyboards"}
+{"kind":"branch","id":"origin/claude/competitor-monitoring-cron-ilQd9","lastActivity":"2026-07-31","title":"Merge remote-tracking branch 'origin/main' into claude/competitor-monitoring-cron-ilQd9"}
+{"kind":"branch","id":"origin/claude/competitor-pricing-analysis-e89r3","lastActivity":"2026-03-22","title":"Recalculate unit economics and revenue projections for new 4-tier pricing"}
+{"kind":"branch","id":"origin/claude/consolidate-resend-email-dgsHp","lastActivity":"2026-02-22","title":"test: add Resend email template test script"}
+{"kind":"branch","id":"origin/claude/construction-captain-sales-2x3ou","lastActivity":"2026-03-15","title":"Add construction-specific Captain sales landing page"}
+{"kind":"branch","id":"origin/claude/construction-captain-seat-laYRr","lastActivity":"2026-03-16","title":"feat: construction Captain seat — cost dashboard, analytics, ERP persistence"}
+{"kind":"branch","id":"origin/claude/construction-leads-scraper-Lph1k","lastActivity":"2026-02-19","title":"feat: add construction leads scraper with TED EU tenders + daily email digest"}
+{"kind":"branch","id":"origin/claude/consultancy-handbook-2026-o2vwka","lastActivity":"2026-08-08","title":"docs(field-note): HIC Learning Outcome 2026-08-08 — handbook v1.11 ja torjuttu KYA-faktadrift"}
+{"kind":"branch","id":"origin/claude/consultant-handbook-v1-6-622fep","lastActivity":"2026-07-08","title":"bid(ORK160826): add CV v165 with /dialog correction pass (14 confirmed items)"}
+{"kind":"branch","id":"origin/claude/consulting-to-agentic-products-xo6s9","lastActivity":"2026-03-13","title":"Consulting-to-agentic product transition: close 11 consulting products, add 4 agentic SaaS"}
+{"kind":"branch","id":"origin/claude/cool-margulis-1724ce","lastActivity":"2026-04-23","title":"Purge hallucinated 'Aiwen' brand name across ~85 files"}
+{"kind":"branch","id":"origin/claude/copy-merja-letter-QPwaV","lastActivity":"2026-04-13","title":"docs: bump merja letter to v1.2"}
+{"kind":"branch","id":"origin/claude/core-mental-models-9NOL8","lastActivity":"2026-03-08","title":"feat: add core mental models document for all 16 EU industries"}
+{"kind":"branch","id":"origin/claude/creandum-california-research-KjTwr","lastActivity":"2026-03-23","title":"Add Creandum California & US investment research note"}
+{"kind":"branch","id":"origin/claude/create-founder-evidence-doc-8pv1K","lastActivity":"2026-04-22","title":"Add HTML version of founder evidence document to Learn/ folder"}
+{"kind":"branch","id":"origin/claude/create-press-release-b3seW","lastActivity":"2026-03-09","title":"Add DWS Press Release Standard and MVP milestone press release (PR #750)"}
+{"kind":"branch","id":"origin/claude/create-risto-persona-PHjHV","lastActivity":"2026-03-28","title":"Add @onelifetime.world emails to all 5 personas + team page"}
+{"kind":"branch","id":"origin/claude/cross-vertical-intelligence-sim-LdnCF","lastActivity":"2026-03-24","title":"Add SAFE template and KYA validation evidence for investor due diligence"}
+{"kind":"branch","id":"origin/claude/csrd-audit-workflow-GTgt6","lastActivity":"2026-05-17","title":"feat(csrd): cron entries — DGX Spark primary, GHA dry-run-only failover"}
+{"kind":"branch","id":"origin/claude/cubet-confirmation-team-photo-vlwoea","lastActivity":"2026-08-05","title":"docs: record Cubet written partnership confirmation (received 2026-08-05)"}
+{"kind":"branch","id":"origin/claude/cubettech-partnership-gs1bck","lastActivity":"2026-07-01","title":"docs(partners): record 400 htp full-time commitment requirement (v1.5)"}
+{"kind":"branch","id":"origin/claude/cultivation-investor-deck-iASjf","lastActivity":"2026-05-12","title":"Apply cultivation framing to MISSION + DWS Vision investor one-pager"}
+{"kind":"branch","id":"origin/claude/cv-senior-ai-engineer-msjheo","lastActivity":"2026-07-17","title":"docs: add S1/S2/S3 sovereignty tier section to handbook (v1.81->1.82)"}
+{"kind":"branch","id":"origin/claude/dashboard-v10-forms-1RWJg","lastActivity":"2026-03-07","title":"feat: add compliance and site safety wizard flows to Dashboard V10"}
+{"kind":"branch","id":"origin/claude/datacentre-energy-ai-demand-bnWxc","lastActivity":"2026-05-20","title":"kb: ingest AlphaSense datacentre energy + hyperscaler capacity expert calls (2026)"}
+{"kind":"branch","id":"origin/claude/debug-ses-auth-RqLbO","lastActivity":"2026-03-22","title":"fix: add dotenv import + SMTP diagnostic logging for SES auth debugging"}
+{"kind":"branch","id":"origin/claude/defence-supply-chain-3bFSF","lastActivity":"2026-05-02","title":"feat: add European defence supply chain opportunity to dual-use-industries page"}
+{"kind":"branch","id":"origin/claude/delivery-diagnostic-audit-XXkg2","lastActivity":"2026-04-04","title":"docs: v1.1 — add architecture pressure test to watermelon audit"}
+{"kind":"branch","id":"origin/claude/dependabot-vulnerabilities-x9obp3","lastActivity":"2026-06-19","title":"fix(dgx/bumblebee): container never started — resilient build + tmpfs + startup scan"}
+{"kind":"branch","id":"origin/claude/deploy-cloud-run-sentry-NbWPm","lastActivity":"2026-03-22","title":"feat: add GN100 edge deploy script for backend testing (MVP 100)"}
+{"kind":"branch","id":"origin/claude/deploy-nemotron-openclaw-l1zX7","lastActivity":"2026-05-16","title":"chore: auto-sync AGENTS.md from codebase [skip ci]"}
+{"kind":"branch","id":"origin/claude/deploy-team-chat-worker-tDtfo","lastActivity":"2026-03-28","title":"Add team-chat worker deployment script + fix wrangler config"}
+{"kind":"branch","id":"origin/claude/design-audit-agent-hiQHt","lastActivity":"2026-02-05","title":"feat: Add Design Audit Agent with Steve Jobs/Jony Ive design philosophy"}
+{"kind":"branch","id":"origin/claude/design-audit-agent-hiQHt-Wx7qF","lastActivity":"2026-04-21","title":"feat(skill): add /design-audit — Jobs/Ive premium UI/UX audit with 3-phase plan"}
+{"kind":"branch","id":"origin/claude/dgx-boss-worker-escalation","lastActivity":"2026-07-31","title":"docs(field-note): record the DGX box provisioning gap + escalateToClaude add"}
+{"kind":"branch","id":"origin/claude/dgx-mobile-access-hvb3n4","lastActivity":"2026-07-28","title":"feat(dgx): reach the Ollama boss from mobile Claude Code over HTTPS (no SSH)"}
+{"kind":"branch","id":"origin/claude/dgx-sovereign-workspace-bootstrap","lastActivity":"2026-07-31","title":"feat(dgx): sovereign-workspace bootstrap + local/cloud routing CLI"}
+{"kind":"branch","id":"origin/claude/dgx-spark-ai-learning-jq9vbx","lastActivity":"2026-07-05","title":"feat(internal-db): migrate empty agent working set to DGX Spark local Postgres"}
+{"kind":"branch","id":"origin/claude/dgx-spark-improvements-CalJi","lastActivity":"2026-07-31","title":"fix: resync with main (resync)"}
+{"kind":"branch","id":"origin/claude/dgx-spark-scaling-x4bHU","lastActivity":"2026-05-23","title":"thesis(lockstep): all 4 files to v3.59 — Four-Component Control Room + AI-as-Brain economics"}
+{"kind":"branch","id":"origin/claude/dgx-spark-setup-UN9WR","lastActivity":"2026-03-29","title":"Dockerfile.heartbeat: install tsx globally instead of from package.json"}
+{"kind":"branch","id":"origin/claude/display-linkedin-kya-post-XQkYx","lastActivity":"2026-03-09","title":"Publish KYA LinkedIn post to Lifetime Scope Journal"}
+{"kind":"branch","id":"origin/claude/dissertation-research-question-jkpdhq","lastActivity":"2026-08-06","title":"Potential fix for pull request finding"}
+{"kind":"branch","id":"origin/claude/docker-best-practices-guide-w97aE","lastActivity":"2026-03-15","title":"chore: Add Firehorse/.dockerignore to reduce build context"}
+{"kind":"branch","id":"origin/claude/docs-dws-versions","lastActivity":"2026-04-21","title":"docs: add activation CSV templates and HTML export"}
+{"kind":"branch","id":"origin/claude/document-cloud-environments-EK7iZ","lastActivity":"2026-02-16","title":"docs: update LWM lab notes for real hardware constraints"}
+{"kind":"branch","id":"origin/claude/document-exit-process-HmEtl","lastActivity":"2026-02-25","title":"docs: add multi-agent exit process architecture"}
+{"kind":"branch","id":"origin/claude/document-genai-conventions-bLd5y","lastActivity":"2026-05-12","title":"fix: unblock CI — TS errors and 3 pre-existing test failures"}
+{"kind":"branch","id":"origin/claude/document-google-login-setup-VEj4Y","lastActivity":"2026-03-15","title":"docs: Add Google Cloud OAuth setup guide to auth admin manual (Section 6.4)"}
+{"kind":"branch","id":"origin/claude/document-layering-strategy-ddhtQ","lastActivity":"2026-03-02","title":"docs(claude): add SQL migration workflow — create, run, catch-up scripts"}
+{"kind":"branch","id":"origin/claude/document-npm-malware-kqu3D","lastActivity":"2026-07-31","title":"Merge remote-tracking branch 'origin/main' into claude/document-npm-malware-kqu3D"}
+{"kind":"branch","id":"origin/claude/dominant-game-strategy-cjstn5","lastActivity":"2026-07-12","title":"Merge pull request #1654 from blogtheristo/claude/claude-vs-dgx-agents-vi5aum"}
+{"kind":"branch","id":"origin/claude/draft-consulting-offer-ySSeq","lastActivity":"2026-04-23","title":"Add one-page Aspire talk script for Observability Forum Finland"}
+{"kind":"branch","id":"origin/claude/dream-on-discoverability-9rXfW","lastActivity":"2026-05-13","title":"dream-on: bin/dream-on.cmd shim so `dream-on` resolves on Windows"}
+{"kind":"branch","id":"origin/claude/dream-on-reminders-cleanup","lastActivity":"2026-07-05","title":"docs: sync skills guide surface matrix with ont-* manifest entries"}
+{"kind":"branch","id":"origin/claude/dream-prune-transcript-gate","lastActivity":"2026-05-14","title":"feat: Firehorse CMS LinkedIn channels + blog social sync + LinkedIn admin doc"}
+{"kind":"branch","id":"origin/claude/drone-detection-analysis-ygwVm","lastActivity":"2026-04-01","title":"Use DWS IQ Aegis brand standard name in drone detection field note"}
+{"kind":"branch","id":"origin/claude/dual-use-thread-narrative-bagx7v","lastActivity":"2026-07-13","title":"chore: point branch handoff at PR #1664"}
+{"kind":"branch","id":"origin/claude/dws-compliance-sales-rz5He","lastActivity":"2026-05-19","title":"defence(wedge): add /defence/ page - 1+1+1+1 sovereign tender-disclosure wedge for MoD buyers"}
+{"kind":"branch","id":"origin/claude/dws-eic-accelerator-step1-82ml4d","lastActivity":"2026-07-29","title":"people: correct engagement priority for Kadri Tammai / Kaari Kink"}
+{"kind":"branch","id":"origin/claude/dws-firehorse-sales-strategy-xsHqI","lastActivity":"2026-03-03","title":"Add Firehorse sales outreach strategy — AI power redistribution angle"}
+{"kind":"branch","id":"origin/claude/dws-iq-doctorate-strategy-5wn5q5","lastActivity":"2026-08-05","title":"docs: resolve strategy review findings"}
+{"kind":"branch","id":"origin/claude/dws-iq-e-estonia-integration-C82EQ","lastActivity":"2026-04-02","title":"Update banking to Revolut Business (existing provider) for DWS IQ OÜ"}
+{"kind":"branch","id":"origin/claude/dws-iq-money-machine-2f1day","lastActivity":"2026-07-06","title":"chore: ignore generated workday-plan reports"}
+{"kind":"branch","id":"origin/claude/dws-iq-partnership-proposal-v8LJT","lastActivity":"2026-02-27","title":"feat: partnership proposal V3 (definitive) + Optimus page 4-partner stack"}
+{"kind":"branch","id":"origin/claude/dws-iq-product-audit-MTes2","lastActivity":"2026-04-19","title":"fix(store): remove 9 legal liabilities from products.json — product audit quick wins"}
+{"kind":"branch","id":"origin/claude/dws-iq6-compliance-platform-nzLtB","lastActivity":"2026-04-27","title":"Add HANDOVER.md — session continuity scaffold"}
+{"kind":"branch","id":"origin/claude/dws-iq6-feature-list-oviSK","lastActivity":"2026-03-22","title":"Correct feature list: email pipeline is SHIPPED, not stubbed"}
+{"kind":"branch","id":"origin/claude/dws-mcp-update-ttz8ov","lastActivity":"2026-07-29","title":"feat(mcp): upgrade agent server to MCP spec 2026-07-28 (stateless core)"}
+{"kind":"branch","id":"origin/claude/dws-nvidia-os-NDuOs","lastActivity":"2026-05-20","title":"thesis(v3.58): unify doctoral scope around DWS OS spine; lockstep 4 files"}
+{"kind":"branch","id":"origin/claude/dws-standards-codex-proposal-0Mg1S","lastActivity":"2026-03-01","title":"docs(roadmap): update footer timestamp to 2026-03-01"}
+{"kind":"branch","id":"origin/claude/dws-task-tracking-setup-n7y2kf","lastActivity":"2026-07-24","title":"Mark T001 DONE — tracker is live"}
+{"kind":"branch","id":"origin/claude/dws-valuation-index-WCQWm","lastActivity":"2026-03-01","title":"Merge pull request #678 from blogtheristo/copilot/sub-pr-668"}
+{"kind":"branch","id":"origin/claude/dws6-contact-form-sync-0x8d2d","lastActivity":"2026-08-12","title":"fix: revert mailto rewrites in the morning-briefing email template"}
+{"kind":"branch","id":"origin/claude/dws6-dws7-update-doc-I2Cgk","lastActivity":"2026-03-12","title":"docs: add core differentiators and agent-first narrative (v1.2)"}
+{"kind":"branch","id":"origin/claude/dws6-missing-features-y21tw","lastActivity":"2026-03-21","title":"Fix Express route ordering: DWS7 endpoints now reachable"}
+{"kind":"branch","id":"origin/claude/dws6-pilot-setup-01MsouoNp4hdrFQxeYU6EJFY","lastActivity":"2026-02-20","title":"feat: add weekly reports W02-W08 (EN+FI) and switch email to Resend API"}
+{"kind":"branch","id":"origin/claude/dws7-roadmap-planning-gnvsm","lastActivity":"2026-06-21","title":"roadmap: EU regulatory package audit (June 2026) — modules realigned"}
+{"kind":"branch","id":"origin/claude/dws7-roadmap-prs-AlXrD","lastActivity":"2026-04-21","title":"feat: Q2 2026 tech pivot + DWS8 roadmap (180 PRs, 2027)"}
+{"kind":"branch","id":"origin/claude/dynamic-news-content-engine-3qMiz","lastActivity":"2026-05-21","title":"feat: Firehorse CMS dynamic content engine with 3-engine hero"}
+{"kind":"branch","id":"origin/claude/e2e-test-cli-mcp-1RWJg","lastActivity":"2026-03-07","title":"Add integration tests for CLI commands and MCP agent server"}
+{"kind":"branch","id":"origin/claude/eda-dws-iq-business-case-jm7p3g","lastActivity":"2026-07-17","title":"kya: v2-readiness audit + delimiter compliance fix (v1.9.2, not v2)"}
+{"kind":"branch","id":"origin/claude/eic-accelerator-application-Y2rOp","lastActivity":"2026-07-19","title":"EIC Accelerator Step 1 submission package (proposal + deck + video script)"}
+{"kind":"branch","id":"origin/claude/email-mcp-hub-upgrade","lastActivity":"2026-03-21","title":"210326"}
+{"kind":"branch","id":"origin/claude/email-workflow-consolidation-t1vvfw","lastActivity":"2026-08-09","title":"docs(learning): v1.7 — a skipped step must be verified, and questions get a ledger"}
+{"kind":"branch","id":"origin/claude/enclaive-sovereign-2-assessment-8lfb7f","lastActivity":"2026-07-29","title":"docs: add enclaive contact details, flag Berlin/Hofheim address conflict"}
+{"kind":"branch","id":"origin/claude/enterprise-deployment-arch-p0","lastActivity":"2026-07-31","title":"fix(ontology-cta): restore author byline, wire whitepaper CTA, add GDPR consent, fix sender identity"}
+{"kind":"branch","id":"origin/claude/enterprise-deployment-improvements-XzTzq","lastActivity":"2026-05-27","title":"feat(apollo): Phase 3 — SLO watcher + auto-rollback"}
+{"kind":"branch","id":"origin/claude/enterprise-mcp-strategy-RqxG0","lastActivity":"2026-04-21","title":"docs(mcp): DWS MCP Hub V2 — enterprise strategy, runbook, partner onboarding"}
+{"kind":"branch","id":"origin/claude/erp-stripe-integration-YWsJa","lastActivity":"2026-05-12","title":"test: cover ERP service persistence + event-bus edge cases"}
+{"kind":"branch","id":"origin/claude/esg-workshop-notes-Asjc8","lastActivity":"2026-03-19","title":"Add field note: ESG workshop Turku — Rakennustieto vastuullisuusluokitus 14.4.2026"}
+{"kind":"branch","id":"origin/claude/eu-data-live-verify-tfy7aw","lastActivity":"2026-07-31","title":"Merge remote-tracking branch 'origin/main' into claude/eu-data-live-verify-tfy7aw"}
+{"kind":"branch","id":"origin/claude/eu-digital-sovereignty-QZcog","lastActivity":"2026-07-19","title":"field-note: Digitaalinen Euro 2029 + EUDI Lompakko 2027 — EU sovereignty + KYA impact analysis"}
+{"kind":"branch","id":"origin/claude/eu-proposal-kth-od1ztc","lastActivity":"2026-07-22","title":"gtm: EIC Step 1 reply drafts (Smolander FI + Törngren EN)"}
+{"kind":"branch","id":"origin/claude/eu-sovereignty-aegis-fit-ONrhX","lastActivity":"2026-06-22","title":"EUCS pages: restore one-time-license pricing (matches products.json)"}
+{"kind":"branch","id":"origin/claude/eudi-integration-roadmap-vAiVA","lastActivity":"2026-07-19","title":"feat(eudi): EUDI integration architecture field note + DWS7 roadmap (EUDI-001–EUDI-008)"}
+{"kind":"branch","id":"origin/claude/europe-roadmap-agents-g9zs8a","lastActivity":"2026-07-22","title":"docs(lut): update roadmap with latest Torngren + Smolander supervisory-anchor status"}
+{"kind":"branch","id":"origin/claude/european-inference-sovereignty-RmVlq","lastActivity":"2026-08-12","title":"docs: add required field note elements to KYA+I inference sovereignty note"}
+{"kind":"branch","id":"origin/claude/eurostars-c11-proposal-draft-522e1d","lastActivity":"2026-07-17","title":"docs(eurostars-c11): D4 — consortium outreach note to LUT & Simula (draft only)"}
+{"kind":"branch","id":"origin/claude/eval-agent-harness-integration-9y6MJ","lastActivity":"2026-04-04","title":"feat: add program.md steering docs for 4 agents fit for autoagent optimization"}
+{"kind":"branch","id":"origin/claude/evaluate-github-workflows-5o2ET","lastActivity":"2026-02-10","title":"Add 5 new GitHub Actions workflows for repo health automation"}
+{"kind":"branch","id":"origin/claude/expand-standards-knowledge-oAULz","lastActivity":"2026-04-21","title":"Merge branch 'claude/fix-phd-versioning-3-10' into claude/expand-standards-knowledge-oAULz"}
+{"kind":"branch","id":"origin/claude/extract-report-clauses-Nwor7","lastActivity":"2026-03-18","title":"Add 10 Deloitte AI Report blog posts (investor intelligence series)"}
+{"kind":"branch","id":"origin/claude/family-offices-outreach-mufFJ","lastActivity":"2026-03-19","title":"Add due diligence: Inclimo (Fernando Casado) + Pale Blue Dot (Joel Larsson)"}
+{"kind":"branch","id":"origin/claude/find-climate-investors-batch-3-b1GRN","lastActivity":"2026-04-01","title":"Add batch 3 investor outreach: 13 climate tech VCs from 4ward.earth ecosystem"}
+{"kind":"branch","id":"origin/claude/finish-campaign-posts-QYlR6","lastActivity":"2026-03-15","title":"feat: complete 22/22 bilingual campaign posts + SEO infrastructure"}
+{"kind":"branch","id":"origin/claude/firehorse-accounting-01LYtpzNaYx6WYstaweMFUm9","lastActivity":"2026-02-23","title":"feat: add Firehorse Accounting product — AI-automated Finnish SME bookkeeping"}
+{"kind":"branch","id":"origin/claude/firehorse-evaluation-fjOqr","lastActivity":"2026-03-25","title":"Add Firehorse Automation truth check evaluation"}
+{"kind":"branch","id":"origin/claude/firehorse-play-store-release-hzgb1u","lastActivity":"2026-07-04","title":"docs(firehorse-mobile): fix store listing and product page to match shipped code"}
+{"kind":"branch","id":"origin/claude/firehorse-report-features-Nc9xS","lastActivity":"2026-03-21","title":"feat(firehorse-report): add Scope 3, Taxonomy Alignment, Regulatory Monitor"}
+{"kind":"branch","id":"origin/claude/fix-agentcontext-toolsafety-0522","lastActivity":"2026-05-23","title":"fix: unblock PR CI workflows and pin cryptography"}
+{"kind":"branch","id":"origin/claude/fix-book-meeting-database-ftKfd","lastActivity":"2026-04-28","title":"fix(book): point API_BASE to Scaleway backend so DB calls succeed"}
+{"kind":"branch","id":"origin/claude/fix-carousel-traction-slide-ZZops","lastActivity":"2026-04-06","title":"docs: detailed Lemonsoft booking instructions for Merja Turunen"}
+{"kind":"branch","id":"origin/claude/fix-compliance-engine-EmXOv","lastActivity":"2026-03-22","title":"Merge pull request #864 from blogtheristo/claude/identify-missing-mvp-features-sSrOC"}
+{"kind":"branch","id":"origin/claude/fix-config-dependencies-7npjf","lastActivity":"2026-05-23","title":"fix: use gcloud.cmd on Windows in secret-loader and provisioning script"}
+{"kind":"branch","id":"origin/claude/fix-dpa-addendum-SzFLQ","lastActivity":"2026-04-24","title":"Shufti DPA v1.1: route Tier 3 Connect to Shufti standard DPA"}
+{"kind":"branch","id":"origin/claude/fix-emission-factors-tests-Wkrv1","lastActivity":"2026-05-21","title":"chore(app): remove dead grok-consent route stubs"}
+{"kind":"branch","id":"origin/claude/fix-investor-routing-60y5s","lastActivity":"2026-03-29","title":"Add deck routing guards to prevent Aegis/IQ6 positioning mismatch"}
+{"kind":"branch","id":"origin/claude/fix-linkedin-channel-QK460","lastActivity":"2026-03-25","title":"update: investor memo v5.1 — specific defense programs + honest PoR status"}
+{"kind":"branch","id":"origin/claude/fix-morning-brief-email-XKFfc","lastActivity":"2026-03-04","title":"fix: repair syntax error in morning briefing script that prevented email delivery"}
+{"kind":"branch","id":"origin/claude/fix-mvp-features-NW3Sy","lastActivity":"2026-03-28","title":"Update package-lock.json files from dependency install"}
+{"kind":"branch","id":"origin/claude/fix-phd-versioning-3-10","lastActivity":"2026-04-21","title":"docs: align phd versioning to 3.10"}
+{"kind":"branch","id":"origin/claude/fix-product-actions-sxrml","lastActivity":"2026-05-12","title":"fix(price-list): correct Card anchor (#product-<id>) and Book Meeting URL (?service=demo)"}
+{"kind":"branch","id":"origin/claude/fix-product-prices-btcOs","lastActivity":"2026-02-07","title":"fix: Rename AI Consulting to Agentic Engineering Consulting"}
+{"kind":"branch","id":"origin/claude/fix-proton-html-script-QuzSI","lastActivity":"2026-02-08","title":"feat: restore git commit timestamps on Proton Drive copies"}
+{"kind":"branch","id":"origin/claude/fix-react-native-cli-issue-OCQrs","lastActivity":"2026-03-08","title":"feat: upgrade both mobile apps to React Native 0.76 / Expo SDK 52"}
+{"kind":"branch","id":"origin/claude/fix-resend-integration-ZUv2r","lastActivity":"2026-03-10","title":"fix: upgrade Resend SDK v4→v6.9.3 and add SMTP fallback"}
+{"kind":"branch","id":"origin/claude/fix-substance-audit-issues-LuCyM","lastActivity":"2026-03-22","title":"Update product content: 6 substance-backed claims + 8 weak product fixes"}
+{"kind":"branch","id":"origin/claude/fix-v1-features-wODI5-1QXGi","lastActivity":"2026-04-18","title":"merge: resolve settings.local.json — keep doctor allow, full hooks, MCP locals only"}
+{"kind":"branch","id":"origin/claude/fix-worktree-conflicts-ht4ML","lastActivity":"2026-04-11","title":"fix(worktrees): add daily drift + PR freshness audits to prevent deep conflicts"}
+{"kind":"branch","id":"origin/claude/flamboyant-galileo","lastActivity":"2026-04-02","title":"Fix Gitleaks CI: add pull-requests read permission"}
+{"kind":"branch","id":"origin/claude/frosty-hellman","lastActivity":"2026-02-27","title":"Update docs/sales/xAI-Optimus-Partnership-Proposal-v1.3.md"}
+{"kind":"branch","id":"origin/claude/fuengirola-uber-cashflow-5dr1n3","lastActivity":"2026-08-04","title":"docs: Cubet design-partner proposal approved and drafted into Gmail"}
+{"kind":"branch","id":"origin/claude/gemma-agents-planning-deqgW","lastActivity":"2026-05-21","title":"fix(tests): unblock pre-existing red unit-test gate"}
+{"kind":"branch","id":"origin/claude/goofy-chaplygin","lastActivity":"2026-03-13","title":"Fix 042: guard sanity SELECTs with to_regclass, move trigger into DO block"}
+{"kind":"branch","id":"origin/claude/green-tech-tariffs-climate-01rk32","lastActivity":"2026-07-06","title":"sales: CBAM turnaround v1.2 — send-path failure is the root cause"}
+{"kind":"branch","id":"origin/claude/greg-isenberg-field-notes-a2r544","lastActivity":"2026-07-26","title":"docs(phd): v1.5 — the EIC application already bought KTH, and three layers not two"}
+{"kind":"branch","id":"origin/claude/grok-consent-data-sovereignty-3s4jq","lastActivity":"2026-03-04","title":"chore: Update Google Merchant Feed and Product Pages"}
+{"kind":"branch","id":"origin/claude/gskills-gbrain-integration-iuADY","lastActivity":"2026-05-12","title":"Add gbrain meeting-ingestion skill — transcript → structured brain entry"}
+{"kind":"branch","id":"origin/claude/gust-sputnik-ewallet-audit-yMtKz","lastActivity":"2026-06-07","title":"sales(outokumpu): add Stage-1 baseline measurement method to pilot sheet"}
+{"kind":"branch","id":"origin/claude/hallitustyo-lifetime-johtaminen-jhyekf","lastActivity":"2026-07-12","title":"investor: add Gorilla Capital (Petri Lehmuskoski) to SAFE target list"}
+{"kind":"branch","id":"origin/claude/happy-dhawan","lastActivity":"2026-03-08","title":"Add project delivery status snapshot 2026-03-08 (investor view)"}
+{"kind":"branch","id":"origin/claude/hardcore-allen","lastActivity":"2026-04-17","title":"feat(blog): add Five EU Deadlines post with Bundle Campaign CTA"}
+{"kind":"branch","id":"origin/claude/helm-upload-presentation-TCBo4","lastActivity":"2026-04-04","title":"feat: add Aegis Kubernetes Helm deployment implementation guide"}
+{"kind":"branch","id":"origin/claude/hermes-agent-review-bEcmb","lastActivity":"2026-05-18","title":"ci: fix red gates inherited from main (ZAP + Cloud Run staging)"}
+{"kind":"branch","id":"origin/claude/hubspot-ai-sales-agent-gEWKK","lastActivity":"2026-03-15","title":"Add HubSpot AI Sales Agent strategy and update outreach agent"}
+{"kind":"branch","id":"origin/claude/implement-aegis-e1Qtf","lastActivity":"2026-04-01","title":"Add Aegis Helm chart for UpCloud UKS sovereign K8s deployment"}
+{"kind":"branch","id":"origin/claude/implement-dws-mvp-features-7PVas","lastActivity":"2026-03-21","title":"feat: implement 3 more DWS MVP dashboard features (#4-6)"}
+{"kind":"branch","id":"origin/claude/implement-dws-std-007-cRAfz","lastActivity":"2026-03-12","title":"docs(std-007): add Section 12 — NIST CSF 2.0 & NIS 2 dual-framework alignment"}
+{"kind":"branch","id":"origin/claude/implement-dws6-features-L8fm6","lastActivity":"2026-03-21","title":"feat: add 3 V1 features to DWS IQ 6 product page and catalog"}
+{"kind":"branch","id":"origin/claude/implement-oauth-sso-kC7uv","lastActivity":"2026-05-21","title":"feat(help): in-app /help page + support ticketing form"}
+{"kind":"branch","id":"origin/claude/implement-v1-features-Ffi5W","lastActivity":"2026-03-21","title":"feat(LWM-V1): define complete 23-feature V1 scope with validated sources"}
+{"kind":"branch","id":"origin/claude/improve-agent-memory-1IeJJ","lastActivity":"2026-03-22","title":"docs: add supermemory.md research and memory PRs 254-259 to DWS7 roadmap"}
+{"kind":"branch","id":"origin/claude/improve-campaign-cta-W6618","lastActivity":"2026-03-15","title":"Sharpen campaign CTAs: booking > homepage, add schema.org citations"}
+{"kind":"branch","id":"origin/claude/improve-code-quality-Pl84H","lastActivity":"2026-03-14","title":"Merge pull request #754 from blogtheristo/copilot/sub-pr-744"}
+{"kind":"branch","id":"origin/claude/improve-customer-communication-Dkj0U","lastActivity":"2026-04-22","title":"feat(skill): add /market-voice draft for peer-voice customer copy"}
+{"kind":"branch","id":"origin/claude/improve-resend-dws-agents-5r0yR","lastActivity":"2026-02-28","title":"chore: ignore supabase/.temp/ (Supabase CLI generated)"}
+{"kind":"branch","id":"origin/claude/improve-sales-strategy-6qvat","lastActivity":"2026-05-20","title":"docs(sales): Q2/2026 sales strategy + merchant catalog drill-down"}
+{"kind":"branch","id":"origin/claude/integrate-sana-wm-H3OVE","lastActivity":"2026-05-17","title":"docs(sana-wm): reframe as Firehorse Omnichannel asset, not LWM backbone"}
+{"kind":"branch","id":"origin/claude/interesting-mcnulty-85e59d","lastActivity":"2026-05-05","title":"feat: add DWS Whitepaper Standard and first ontology whitepaper (v1.0)"}
+{"kind":"branch","id":"origin/claude/investigate-actions-overages-5bavI","lastActivity":"2026-05-14","title":"ci: route scheduled workflows to DGX Spark + tighten AI/PR workflows"}
+{"kind":"branch","id":"origin/claude/investigate-dws-firehorse-4ARWp","lastActivity":"2026-03-22","title":"Merge pull request #872 from blogtheristo/claude/investigate-dws-firehorse-4ARWp"}
+{"kind":"branch","id":"origin/claude/investigate-missing-thesis-r1WOP","lastActivity":"2026-03-18","title":"Add HTML copies of all 27 recovered files to learn/html/"}
+{"kind":"branch","id":"origin/claude/investigate-pro-workflow-RXClP","lastActivity":"2026-05-03","title":"docs: investigate rohitg00/pro-workflow — integration analysis for DWS IQ 6"}
+{"kind":"branch","id":"origin/claude/investor-captain-tier-reconciliation","lastActivity":"2026-07-31","title":"fix(truth-lint): avoid quoting the deprecated industry-count phrase directly"}
+{"kind":"branch","id":"origin/claude/investor-docs-liquidity-engine-2026-04-25","lastActivity":"2026-04-25","title":"docs(investor): v4.3 memo + liquidity engine + hero texts v2 + sales funnel + products update"}
+{"kind":"branch","id":"origin/claude/investor-letter-richard-wurl-5bwfa5","lastActivity":"2026-07-24","title":"Record Richard Wurl letter as SENT by HIC 2026-07-24 (v1.4)"}
+{"kind":"branch","id":"origin/claude/investor-materials-carousel-K3dzZ","lastActivity":"2026-04-20","title":"feat(investor-relations): re-render carousel from v4.3 memo + one-pager"}
+{"kind":"branch","id":"origin/claude/investor-outreach-NBEYw","lastActivity":"2026-03-28","title":"Add feature gap detection rule to investor outreach — auto-audit on every intro"}
+{"kind":"branch","id":"origin/claude/investor-outreach-contacts-5oVbz","lastActivity":"2026-07-19","title":"Add session handoff for investor-outreach-contacts branch"}
+{"kind":"branch","id":"origin/claude/investor-outreach-continued-IM1GB2","lastActivity":"2026-04-22","title":"investor-outreach: Ambienta + DACH/Berlin one-pagers & INTRO files (#1160)"}
+{"kind":"branch","id":"origin/claude/investor-pitch-deck-01K5yLjkXepjFLTCZLLMCuRb","lastActivity":"2026-02-20","title":"Apply DWS Brand Standard to investor pitch deck"}
+{"kind":"branch","id":"origin/claude/investor-research-nv29V","lastActivity":"2026-03-28","title":"Add investor research: PE Insights Italy & European PE events 2026"}
+{"kind":"branch","id":"origin/claude/jasenko-letter-metrics-sjnpb7","lastActivity":"2026-07-19","title":"docs: add session handoff for jasenko-letter-metrics branch"}
+{"kind":"branch","id":"origin/claude/jensen-huang-tweet-reply-vj9y0k","lastActivity":"2026-07-26","title":"handoff: preserve dws6ts testbed decision + seed README (repo left open for human create)"}
+{"kind":"branch","id":"origin/claude/jsonl-review-feature-FbpmM","lastActivity":"2026-02-20","title":"feat: add JSONL Session Review admin tool and ironclad admin nav"}
+{"kind":"branch","id":"origin/claude/jsonld-dws10-pages-20260426","lastActivity":"2026-04-26","title":"security: replace Resend with AWS SES in outreach agent (Clawdbot ban)"}
+{"kind":"branch","id":"origin/claude/kb-solution-audit-uu9qhl","lastActivity":"2026-06-21","title":"kb: merge main + OKF audit + 2 new wiki articles (33 total)"}
+{"kind":"branch","id":"origin/claude/keenon-robotics-partnership-2vzvc6","lastActivity":"2026-07-22","title":"Keenon reply: drop NVIDIA Inception reference, neutral co-development framing"}
+{"kind":"branch","id":"origin/claude/keep-the-why-research-0ny2ym","lastActivity":"2026-08-02","title":"context(model-policy): audit the DeepSeek claim, Ollama fit, and registry drift"}
+{"kind":"branch","id":"origin/claude/keskeytyslaskuri-lifetime-missing-6uaxvu","lastActivity":"2026-07-31","title":"Merge remote-tracking branch 'origin/main' into claude/keskeytyslaskuri-lifetime-missing-6uaxvu"}
+{"kind":"branch","id":"origin/claude/kg-entity-resolution-dedup-Y5dEn","lastActivity":"2026-05-24","title":"docs(kg): admin ops + V1 foundation entry for entity normalization"}
+{"kind":"branch","id":"origin/claude/kth-doctoral-networked-systems-1jjo80","lastActivity":"2026-08-24","title":"kth-doctoral-networked-systems: session start handoff"}
+{"kind":"branch","id":"origin/claude/kya-memory-binding-RuJ0G","lastActivity":"2026-04-23","title":"Build Themis marketing hero — /themis/ landing page"}
+{"kind":"branch","id":"origin/claude/kya-s1-blog-parts-8-10-flfmrn","lastActivity":"2026-08-09","title":"docs(kya): KYA-S1 -blogisarjan osat 8–10 luonnoksiksi + sarjan numerointi 1–11 lukittu"}
+{"kind":"branch","id":"origin/claude/kya-v2-attestation-signing-6e5703","lastActivity":"2026-07-25","title":"kya: F1/F3 — bind proof options into the signature; assert Ed25519 at load"}
+{"kind":"branch","id":"origin/claude/lifetime-agents-loops-workflows-t3448v","lastActivity":"2026-06-20","title":"feat(thesis): v3.64 lockstep — Agents · Loops · Workflows milestone"}
+{"kind":"branch","id":"origin/claude/lifetime-fi-proton-outbound-dmarc","lastActivity":"2026-08-04","title":"docs: outbound is Proton — reverse the 07-26 sender rule, with the DNS evidence"}
+{"kind":"branch","id":"origin/claude/lifetime-world-model-o9grxj","lastActivity":"2026-07-14","title":"lab-note: NVIDIA hardware-friendly LLM co-design → Lifetime World Model V2"}
+{"kind":"branch","id":"origin/claude/linkedin-audit-4w5txq","lastActivity":"2026-07-12","title":"Add LinkedIn engagement funnel: Apify capture -> role match -> drafted outreach"}
+{"kind":"branch","id":"origin/claude/liquidity-engine-guide-P6sVY","lastActivity":"2026-03-28","title":"Migrate blog to /blog/{lang}/lsj-* URL scheme with language selector"}
+{"kind":"branch","id":"origin/claude/litellm-supply-chain-research-nb4JA","lastActivity":"2026-03-24","title":"security: LiteLLM supply chain attack response — ban package, update gateway recs, add backup toolin"}
+{"kind":"branch","id":"origin/claude/llm-knowledge-base-frfcq","lastActivity":"2026-04-04","title":"fix: remove Obsidian assumptions from KB schema and diagrams"}
+{"kind":"branch","id":"origin/claude/llm-registry-truth","lastActivity":"2026-08-02","title":"context(model-policy): record real-world DeepSeek cost, correct the latency assumption"}
+{"kind":"branch","id":"origin/claude/llm-thesis-foundations-nGyyb","lastActivity":"2026-02-22","title":"feat(thesis): add LLM Thesis Foundations section with 26 Oxford-notation references"}
+{"kind":"branch","id":"origin/claude/loop-engineering-agents-xxtqar","lastActivity":"2026-06-21","title":"feat(loop): v2 steps 8-9 — ContainerExecutor + CLI + MCP loop_run"}
+{"kind":"branch","id":"origin/claude/loop-library-research-rf6jes","lastActivity":"2026-07-05","title":"ci(a11y): fix playwright/playwright-core version skew causing 100% audit failure"}
+{"kind":"branch","id":"origin/claude/loop-memory-setup-ls29an","lastActivity":"2026-07-31","title":"Merge remote-tracking branch 'origin/main' into claude/loop-memory-setup-ls29an"}
+{"kind":"branch","id":"origin/claude/lut-apuraha-applications-o9kphj","lastActivity":"2026-07-13","title":"chore: allowlist handoff-dir mkdir in local settings"}
+{"kind":"branch","id":"origin/claude/lut-kth-outreach-tracking-qn3l9s","lastActivity":"2026-07-15","title":"chore: record session-local Bash permission grant"}
+{"kind":"branch","id":"origin/claude/maritime-partner-letter-BSSN9","lastActivity":"2026-03-29","title":"Add Fincantieri maritime partner outreach letter"}
+{"kind":"branch","id":"origin/claude/math-academia-verification-96jpbf","lastActivity":"2026-08-19","title":"Merge branch 'main' into claude/math-academia-verification-96jpbf"}
+{"kind":"branch","id":"origin/claude/mcp-google-cloud-run-BuSpY","lastActivity":"2026-02-24","title":"docs: MCP & multi-agent strategy, thesis v3.12/v1.2 updates"}
+{"kind":"branch","id":"origin/claude/mcp-infra-docs-expansion","lastActivity":"2026-03-04","title":"Merge pull request #656 from blogtheristo/copilot/sub-pr-643-please-work"}
+{"kind":"branch","id":"origin/claude/memory-decay-audit-HclRL","lastActivity":"2026-04-21","title":"Update src/app.ts"}
+{"kind":"branch","id":"origin/claude/merchant-feed-fixes-20260427","lastActivity":"2026-04-28","title":"wip: auto-commit dirty worktree 2026-04-28 06.16.10"}
+{"kind":"branch","id":"origin/claude/merchant-quality-score-ph-4v32xr","lastActivity":"2026-07-29","title":"fix(merchant): curate the Merchant catalogue, drop zero-price offers, cover all served countries"}
+{"kind":"branch","id":"origin/claude/meta-earnings-documentation-kzOsn","lastActivity":"2026-05-02","title":"fix(investor): v4.5 consistency pass — customer count, moats, Navigator→Pilot"}
+{"kind":"branch","id":"origin/claude/metsa-botnia-sales-kig9tc","lastActivity":"2026-07-07","title":"chore: allowlist Bash(cat > *) in local settings (harness-approved during handoff write)"}
+{"kind":"branch","id":"origin/claude/metsahallitus-ict-tarjous-kdkxlx","lastActivity":"2026-08-06","title":"Add Lovegin complete package (HTML + Excel + instructions)"}
+{"kind":"branch","id":"origin/claude/microsoft-isv-finalize-bwZmM","lastActivity":"2026-06-07","title":"docs(brand): finalize Microsoft ISV — confirmed partner badge §11.3 + field note approval"}
+{"kind":"branch","id":"origin/claude/microsoft-oauth2-integration-vXjsQ","lastActivity":"2026-03-15","title":"Add Microsoft 365 OAuth2 login button to all dws6.com login pages"}
+{"kind":"branch","id":"origin/claude/mindsdb-mcp-integration-aLn6O","lastActivity":"2026-04-21","title":"docs: update field note with April 2026 MindsDB/MCP research and adoption audit"}
+{"kind":"branch","id":"origin/claude/mirage-virtual-filesystem-1c9iN","lastActivity":"2026-07-19","title":"chore: add session handoff for mirage-virtual-filesystem branch"}
+{"kind":"branch","id":"origin/claude/mirror-sync-test-gate-x7kq","lastActivity":"2026-08-22","title":"Merge pull request #1868 from blogtheristo/claude/mirror-sync-test-gate-x7kq"}
+{"kind":"branch","id":"origin/claude/mission-control-docs-MjkQE","lastActivity":"2026-02-20","title":"docs: add Mission Control architecture — Control Room and Situation Room"}
+{"kind":"branch","id":"origin/claude/model-performance-notes-4x3or","lastActivity":"2026-05-18","title":"press: announce DWS Model Standard v1.0 in 5 languages"}
+{"kind":"branch","id":"origin/claude/modernize-dws7-77v2B","lastActivity":"2026-02-24","title":"feat: add captain distribution outreach templates"}
+{"kind":"branch","id":"origin/claude/molt-field-note-FFMhi","lastActivity":"2026-03-15","title":"feat: expand from 16 to 20 EU industries"}
+{"kind":"branch","id":"origin/claude/monumental-dws10-integration-7l447w","lastActivity":"2026-07-16","title":"skill: codify /partner-outreach for EU robotics manufacturer outreach"}
+{"kind":"branch","id":"origin/claude/ms365-connector-implementation-ZD9mT","lastActivity":"2026-05-13","title":"Potential fix for pull request finding"}
+{"kind":"branch","id":"origin/claude/multi-agent-interoperability-HX3n9","lastActivity":"2026-02-19","title":"feat: add industry_events Supabase table with relevance % and contacts ticker"}
+{"kind":"branch","id":"origin/claude/multi-agent-model-selection-8JUDc","lastActivity":"2026-03-12","title":"feat: multi-agent model selection — leanest model per task tier"}
+{"kind":"branch","id":"origin/claude/multimodal-agents-setup-CgNIy","lastActivity":"2026-05-14","title":"feat: Risto Twin — anchor Imagen/Veo prompts on the real reference photo"}
+{"kind":"branch","id":"origin/claude/mutatis-fairness-pilot-3jmbb5","lastActivity":"2026-07-31","title":"Merge remote-tracking branch 'origin/main' into claude/mutatis-fairness-pilot-3jmbb5"}
+{"kind":"branch","id":"origin/claude/mvp-missing-features-kPeuQ","lastActivity":"2026-04-20","title":"fix(morning-brief): resolve residual content-quality bugs A–I"}
+{"kind":"branch","id":"origin/claude/mvp-missing-features-pS9La","lastActivity":"2026-05-20","title":"docs: update security standard and admin manual to reflect TypeScript porting"}
+{"kind":"branch","id":"origin/claude/nato-defense-industry-growth-i3bxha","lastActivity":"2026-07-12","title":"outreach: HALO refresh for ICEYE; fix sender-identity gap on Patria"}
+{"kind":"branch","id":"origin/claude/nato-diana-test-centers-ilezh9","lastActivity":"2026-08-07","title":"docs: field note on Spain's ~EUR2B IRIS2 military satellite commitment"}
+{"kind":"branch","id":"origin/claude/naughty-visvesvaraya","lastActivity":"2026-03-31","title":"chore: sync stash onto main (admin, Dockerfile, Learn HTML, cloudflare lockfile)"}
+{"kind":"branch","id":"origin/claude/next-phase-consulting-Bhp7E","lastActivity":"2026-04-27","title":"Add AWS + Claude Platform hero image to consultancy product page"}
+{"kind":"branch","id":"origin/claude/ngi-sargasso-gber-i2l47d","lastActivity":"2026-07-30","title":"docs(funding): Jul-30 sweep — re-ground AI Accelerate to Jul-29 ground truth"}
+{"kind":"branch","id":"origin/claude/nifty-bose","lastActivity":"2026-03-29","title":"add system heartbeat + consolidated migrations 035-053"}
+{"kind":"branch","id":"origin/claude/nordic-industrial-ai-sales-Jni0E","lastActivity":"2026-05-10","title":"Add five full client pitches for Nordic industrial AI outreach (May 2026)"}
+{"kind":"branch","id":"origin/claude/nordic-industrial-rebrand-glOfb","lastActivity":"2026-04-07","title":"Merge pull request #1005 from blogtheristo/claude/upgrade-agent-framework-4vPdj"}
+{"kind":"branch","id":"origin/claude/nordic-sales-strategy-1p5VB","lastActivity":"2026-02-22","title":"chore: Update Google Merchant Feed and Product Pages"}
+{"kind":"branch","id":"origin/claude/noux-sales-rooms-setup-wu73bq","lastActivity":"2026-08-21","title":"Merge remote-tracking branch 'origin/claude/noux-sales-rooms-setup-wu73bq' into claude/noux-sales-ro"}
+{"kind":"branch","id":"origin/claude/nvidia-claim-truth-correction-dgx","lastActivity":"2026-08-13","title":"fix(truth): retire the \"NVIDIA Connect ISV Partner\" claim across all public surfaces"}
+{"kind":"branch","id":"origin/claude/nvidia-connect-product-update-xkrqts","lastActivity":"2026-07-17","title":"isv page: wire official NVIDIA vertical logo, drop recreated wordmark"}
+{"kind":"branch","id":"origin/claude/nvidia-gtc-2026-notes-cYO48","lastActivity":"2026-03-21","title":"feat: add cuDF $120B structured data ecosystem to DWS strategy"}
+{"kind":"branch","id":"origin/claude/nvidia-nemotron-air-gapped-iai7s6","lastActivity":"2026-07-01","title":"Lock MPO (Minimal Productive Outcome) as canonical vocabulary"}
+{"kind":"branch","id":"origin/claude/nvidia-sap-partnership-review-nXnBW","lastActivity":"2026-05-15","title":"docs(field-note): NVIDIA x SAP specialized agents partnership join plan"}
+{"kind":"branch","id":"origin/claude/obsidian-cli-integration-Agfxl","lastActivity":"2026-02-14","title":"docs: add field note on Obsidian CLI integration with Claude Code"}
+{"kind":"branch","id":"origin/claude/ollama-orchestration-merge-047pj7","lastActivity":"2026-07-29","title":"security: demote STACKIT to Candidate (unvetted) in §17.5"}
+{"kind":"branch","id":"origin/claude/ollama-provider-gn100","lastActivity":"2026-03-21","title":"Add Partners/NDA_Qantic.md for partner NDA reference"}
+{"kind":"branch","id":"origin/claude/one-click-lca-partnership-MIYvn","lastActivity":"2026-05-18","title":"cleanup: park stalled OCL + NCC sustainability manager threads"}
+{"kind":"branch","id":"origin/claude/oneclicklca-partnership-pitch-k7R62","lastActivity":"2026-02-24","title":"feat: Complete all overdue partnership pitches and escalation templates"}
+{"kind":"branch","id":"origin/claude/ontology-2-followup-S3Vgq","lastActivity":"2026-05-15","title":"nav: add DWS Ontology Standard to Compliance Hub flyout (v4.1)"}
+{"kind":"branch","id":"origin/claude/ontology-deploy-verification-Dfj8h","lastActivity":"2026-05-15","title":"docs(standard): add DWS Ontology Standard v0.1 (RFC) — governed action primitive"}
+{"kind":"branch","id":"origin/claude/ontology-post-v04-draft","lastActivity":"2026-06-26","title":"chore: update docs, plans, and generated learn artifacts"}
+{"kind":"branch","id":"origin/claude/open-prs-dgx-ollama-qap42h","lastActivity":"2026-07-21","title":"chore(ci): wire Claude token-usage reporting into ai-pr-review + copilot-preflight"}
+{"kind":"branch","id":"origin/claude/open-swe-setup-8BzzB","lastActivity":"2026-03-21","title":"docs: add Getting Started developer guide — unified onramp for DWS developers"}
+{"kind":"branch","id":"origin/claude/openclaw-dws6-gaps-5mP1a","lastActivity":"2026-02-18","title":"Thesis V3.4: update version history with duplicate cleanup"}
+{"kind":"branch","id":"origin/claude/openclaw-lab-notes-j9GQk","lastActivity":"2026-03-21","title":"Add OpenClaw lab notes: NemoClaw, MiMo-V2-Pro, DGX Spark feasibility"}
+{"kind":"branch","id":"origin/claude/oppimispaivakirja-update","lastActivity":"2026-02-23","title":"230226"}
+{"kind":"branch","id":"origin/claude/optimistic-burnell","lastActivity":"2026-03-04","title":"040326"}
+{"kind":"branch","id":"origin/claude/oracle-memory-alternatives-sCfQm","lastActivity":"2026-07-20","title":"docs(lwm): sovereign memory core + Oracle-pluggable adapter proposal"}
+{"kind":"branch","id":"origin/claude/org-design-ai-intelligence-exksG","lastActivity":"2026-04-02","title":"feat: add org design intelligence lessons from Block essay to LWM architecture"}
+{"kind":"branch","id":"origin/claude/outokumpu-cbam-demo-pi7UF","lastActivity":"2026-05-11","title":"feat(demo): interactive CBAM calculator for 10-min Outokumpu demo"}
+{"kind":"branch","id":"origin/claude/outokumpu-forta-pilot-send-YtjqD","lastActivity":"2026-05-26","title":"sales(outokumpu): letter v2.1 (audit + Stockholm date) + cover-letter HTML attachment v1.0"}
+{"kind":"branch","id":"origin/claude/outokumpu-onboarding-demo-hUbZj","lastActivity":"2026-05-21","title":"demo: add Outokumpu CBAM onboarding portal + runbook"}
+{"kind":"branch","id":"origin/claude/parallel-agent-foundry-impl-dg4Bb","lastActivity":"2026-04-23","title":"feat(scripts): add parallel-merge-dryrun.sh for pre-merge conflict detection"}
+{"kind":"branch","id":"origin/claude/parallel-agent-orchestration-S6sgZ","lastActivity":"2026-02-10","title":"docs: add 8-skill parallel agent orchestration framework (arch phase 09)"}
+{"kind":"branch","id":"origin/claude/partner-network-application-Vx4KZ","lastActivity":"2026-03-16","title":"Add Anthropic Claude Partner Network application brief"}
+{"kind":"branch","id":"origin/claude/partner-outreach-dayna-tda0d1","lastActivity":"2026-08-03","title":"Draft v1.7 of the Dayna Blackwell DM: US reframe + let-down passage"}
+{"kind":"branch","id":"origin/claude/partner-university-stockholm-90uo5b","lastActivity":"2026-07-13","title":"Roadmap v1.1: add Gate 1 sales-to-cure section (verified pipeline)"}
+{"kind":"branch","id":"origin/claude/partners-consortium-docs-YdskV","lastActivity":"2026-04-06","title":"feat: centralize all picture assets in kb/raw/images as single source of truth"}
+{"kind":"branch","id":"origin/claude/patria-sales-outreach-iyvb7o","lastActivity":"2026-08-03","title":"docs: field note — Patria/Kimmo Kakko outreach + evidence register session"}
+{"kind":"branch","id":"origin/claude/payment-stack-integration-rfte6","lastActivity":"2026-04-24","title":"feat(b2b-payment): Phase 3 - React frontend + Stripe webhook security"}
+{"kind":"branch","id":"origin/claude/peaceful-hertz","lastActivity":"2026-03-04","title":"040326"}
+{"kind":"branch","id":"origin/claude/pedantic-easley","lastActivity":"2026-03-07","title":"Fix NVIDIA Inception → NVIDIA Partner/CONNECT on public web pages"}
+{"kind":"branch","id":"origin/claude/phd-14-46-article-50","lastActivity":"2026-08-01","title":"learn: Learning Standard record for the persona retirement and reveal session"}
+{"kind":"branch","id":"origin/claude/phd-firehorse-fi-v32-updates","lastActivity":"2026-04-21","title":"docs: refine phd research framing and regenerate thesis html"}
+{"kind":"branch","id":"origin/claude/phd-research-sovereign-edge-ok1wk3","lastActivity":"2026-08-11","title":"docs(lut): v2.2 — production-anchored empirical framing + widened jurisdiction horizon"}
+{"kind":"branch","id":"origin/claude/philippine-import-products-aHg7e","lastActivity":"2026-02-19","title":"chore: update package-lock.json from npm install"}
+{"kind":"branch","id":"origin/claude/pitukri-security-audit-S5cx5","lastActivity":"2026-03-30","title":"Add PiTuKri v1.1 audit to admin docs and all 4 thesis files"}
+{"kind":"branch","id":"origin/claude/pki-modernization-ownership-dj05oz","lastActivity":"2026-07-05","title":"Merge remote-tracking branch 'origin/main' into claude/pki-modernization-ownership-dj05oz"}
+{"kind":"branch","id":"origin/claude/pki-ownership-blog-redo","lastActivity":"2026-07-31","title":"blog(draft): PKI ownership field note redo — DigiCert pitch + HIC-review draft"}
+{"kind":"branch","id":"origin/claude/plan-2026-campaign-v7yTe","lastActivity":"2026-03-24","title":"Stockholm Marathon start time 12:00"}
+{"kind":"branch","id":"origin/claude/playwright-webwright-agents-ECD0R","lastActivity":"2026-05-26","title":"feat(positioning): three-layer CIO wedge — Webwright/industry tooling as procurement-friction remove"}
+{"kind":"branch","id":"origin/claude/post-backfill-validation-gnowe9","lastActivity":"2026-07-08","title":"docs(handoff): record full session summary and next steps"}
+{"kind":"branch","id":"origin/claude/pr-1640-merge-issues-a20by6","lastActivity":"2026-07-14","title":"chore: log PR #1640 merge-conflict resolution in handoff history"}
+{"kind":"branch","id":"origin/claude/pr1155-copilot-fixes-v2","lastActivity":"2026-04-28","title":"Potential fix for pull request finding"}
+{"kind":"branch","id":"origin/claude/press-release-digital-models-aYNKq","lastActivity":"2026-03-01","title":"Merge branch 'main' into claude/press-release-digital-models-aYNKq"}
+{"kind":"branch","id":"origin/claude/pricing-strategy-analysis-0Q6FP","lastActivity":"2026-03-15","title":"Update Starter Bundle price €6,500 → €8,800 + rename Firehorse Report → DWS IQ Report"}
+{"kind":"branch","id":"origin/claude/pricing-us-cloud-starter-cIxHZ","lastActivity":"2026-03-22","title":"Rewrite cloud pricing: Navigator/Premium/Nordic/World tiers, enterprise-level pricing"}
+{"kind":"branch","id":"origin/claude/protect-git-stashes","lastActivity":"2026-08-13","title":"fix: avoid false Copilot instruction import"}
+{"kind":"branch","id":"origin/claude/pvs-instalacje-subcontractor-j105xs","lastActivity":"2026-06-11","title":"Rätte Oy: lock 37,5 h/vko (kuljetusala TES) — final pay 1 937,25 + 9% = 2 111,60"}
+{"kind":"branch","id":"origin/claude/quick-charts-estimation-RBsoG","lastActivity":"2026-03-20","title":"Add Quick Charts Standard (§22) to Brand Standard v2.5 + field note"}
+{"kind":"branch","id":"origin/claude/qwen3-8-max-release-5j3cew","lastActivity":"2026-08-03","title":"Add default Qwen model to DGX Ollama Fallback Rule"}
+{"kind":"branch","id":"origin/claude/ratte-oy-outreach-rWxKE","lastActivity":"2026-07-05","title":"lifetime.fi: own Kauppa with 4 FI products for suomalaiset yritykset"}
+{"kind":"branch","id":"origin/claude/redact-aegis-customer-names","lastActivity":"2026-07-31","title":"fix(privacy): redact named customers from public Aegis hackathon page"}
+{"kind":"branch","id":"origin/claude/refine-thesis-critique-RP6Dv","lastActivity":"2026-03-18","title":"docs: L4 requires OpenSandbox from MVP — Docker alone not court-defensible"}
+{"kind":"branch","id":"origin/claude/remove-roadmap-blog-standard-piuTi","lastActivity":"2026-05-03","title":"Visual brief + FI wireframes + surgical hero promote (homepage)"}
+{"kind":"branch","id":"origin/claude/reorganize-docs-mcp-0H5J4","lastActivity":"2026-02-11","title":"feat: add DWS7 use case study with 8 concrete use cases"}
+{"kind":"branch","id":"origin/claude/repository-deadlines-review-7dj1sz","lastActivity":"2026-07-19","title":"feat(sales): Monday send package — Outokumpu + Kemira, execute-only"}
+{"kind":"branch","id":"origin/claude/research-cli-ai-agents-9m5Vh","lastActivity":"2026-03-09","title":"roadmap: introduce DWS CLI evolution section into DWS7_ROADMAP.md"}
+{"kind":"branch","id":"origin/claude/research-dws-use-cases-IPisl","lastActivity":"2026-05-21","title":"update: Owen Reynolds InMail — 25 EU-regulated industries"}
+{"kind":"branch","id":"origin/claude/research-eid-integration-zyuaY","lastActivity":"2026-03-17","title":"feat: add self-service trial flow (POST /api/v1/trial/start)"}
+{"kind":"branch","id":"origin/claude/research-technological-republic-J5hIf","lastActivity":"2026-07-19","title":"docs(handoff): record soften + sector re-attribution follow-up"}
+{"kind":"branch","id":"origin/claude/resolve-mcp-conflicts-ebyb8","lastActivity":"2026-03-15","title":"Merge remote-tracking branch 'origin/claude/resolve-mcp-conflicts-ebyb8' into claude/resolve-mcp-con"}
+{"kind":"branch","id":"origin/claude/resolve-open-issues-dq9kD","lastActivity":"2026-03-15","title":"feat: migrate Express 4 to Express 5"}
+{"kind":"branch","id":"origin/claude/revenue-investor-strategy-53q9b9","lastActivity":"2026-07-25","title":"eic: draft one-pager + LoI notes for Törngren (his 24.07 'yes, send it')"}
+{"kind":"branch","id":"origin/claude/review-cloudflare-vinext-L84Jb","lastActivity":"2026-02-25","title":"docs: field note on Cloudflare vinext (2026-02-25)"}
+{"kind":"branch","id":"origin/claude/review-copyright-requirements-AVOHI","lastActivity":"2026-04-02","title":"IPR v2.0: copyright analysis, 5 new patent candidates, trademark strategy"}
+{"kind":"branch","id":"origin/claude/review-development-expenses-JY6DM","lastActivity":"2026-04-24","title":"Add SVOP owner consent draft (G-series, 1/5)"}
+{"kind":"branch","id":"origin/claude/review-drone-analysis-MUrmi","lastActivity":"2026-04-01","title":"Add blog post: Interceptor Intelligence — two DEFINE scenarios, NIS2 compliance window"}
+{"kind":"branch","id":"origin/claude/review-dws-roadmap-NyhnZ","lastActivity":"2026-05-03","title":"Complete EIC Accelerator funding package: Hook Deck, Investor Memo, Financial Model"}
+{"kind":"branch","id":"origin/claude/review-field-notes-features-VHiER","lastActivity":"2026-04-16","title":"roadmap: add 18 features from field notes audit (Apr 2026)"}
+{"kind":"branch","id":"origin/claude/review-investment-decision-0zTSR","lastActivity":"2026-04-01","title":"Add condensed Aegis investor memo (6.9K chars, under 8K limit)"}
+{"kind":"branch","id":"origin/claude/review-open-branches-VYytu","lastActivity":"2026-03-17","title":"docs: add field note for Dependabot security audit — 34 vulns fixed"}
+{"kind":"branch","id":"origin/claude/review-shufti-dpa-dugAv","lastActivity":"2026-04-02","title":"Update Shufti DPA audit with Companies House verification and sub-processor risk intel"}
+{"kind":"branch","id":"origin/claude/review-thesis-plan-QVvDX","lastActivity":"2026-02-25","title":"Add Theoretical Framework sections 2.2-2.5: .NET Aspire, Cloudflare, AI Studio, Firehorse"}
+{"kind":"branch","id":"origin/claude/revolut-api-review-nule1z","lastActivity":"2026-07-12","title":"docs(field-note): Revolut Business API review — keep Merchant, downgrade Business"}
+{"kind":"branch","id":"origin/claude/rovo-agents-setup-01Tw8Mj3rg96N2Hiy5VdhRCF","lastActivity":"2026-02-12","title":"docs: add comprehensive Agent Catalog 2026"}
+{"kind":"branch","id":"origin/claude/rss-grants-funding-list-xkh795","lastActivity":"2026-07-18","title":"fix(eu-funding): send SEDIA query/sort as file parts (;filename=)"}
+{"kind":"branch","id":"origin/claude/rule4-resend-eradication","lastActivity":"2026-08-02","title":"fix(email): enforce Rule 4 — SES only, everywhere"}
+{"kind":"branch","id":"origin/claude/sales-outreach-note-Le9Rc","lastActivity":"2026-04-22","title":"docs(sales): add V2 outreach note for regulated-industry wedge"}
+{"kind":"branch","id":"origin/claude/sales-outreach-supermetrics-zr3kmb","lastActivity":"2026-07-31","title":"Merge remote-tracking branch 'origin/main' into claude/sales-outreach-supermetrics-zr3kmb"}
+{"kind":"branch","id":"origin/claude/sales-pitch-a4-translations-p5ifec","lastActivity":"2026-07-05","title":"Merge origin/main into claude/sales-pitch-a4-translations-p5ifec"}
+{"kind":"branch","id":"origin/claude/salesforce-v2-headless-api-yKPhY","lastActivity":"2026-04-22","title":"feat(salesforce): /salesforce skill + dws10.com hero Agentforce line"}
+{"kind":"branch","id":"origin/claude/sandbox-industrial-models-GXxbN","lastActivity":"2026-03-09","title":"feat(kya): add delegation telemetry schema + TypeScript types"}
+{"kind":"branch","id":"origin/claude/santander-ai-governance-mhd8rj","lastActivity":"2026-06-23","title":"Add board/investor one-pager — AI governance as a buyable layer"}
+{"kind":"branch","id":"origin/claude/security-privacy-audit-vyKOE","lastActivity":"2026-05-15","title":"feat(llm): DGX Spark default, cloud LLMs admin-gated; per-product liability audit"}
+{"kind":"branch","id":"origin/claude/security-vuln-remediation-main-20260422","lastActivity":"2026-04-22","title":"fix: remediate npm audit vulnerabilities across JS workspaces"}
+{"kind":"branch","id":"origin/claude/self-improving-parallel-agents-p4X6m","lastActivity":"2026-02-11","title":"chore: update package-lock.json from npm install"}
+{"kind":"branch","id":"origin/claude/sensor-management-research-TgY2t","lastActivity":"2026-03-21","title":"Update sensor plan v1.1 with davidfowl/aspire-docker-ssh-template findings"}
+{"kind":"branch","id":"origin/claude/seo-sales-agent-pipeline-7et5F","lastActivity":"2026-02-20","title":"feat: wire Google Merchant data into SEO sales agent pipeline"}
+{"kind":"branch","id":"origin/claude/ses-smtp-runtime-hardening-20260429","lastActivity":"2026-04-29","title":"fix: harden webhook messaging and alias behavior"}
+{"kind":"branch","id":"origin/claude/session-merge-20260424-135410","lastActivity":"2026-04-24","title":"chore: trigger branch merge flow"}
+{"kind":"branch","id":"origin/claude/setup-claude-code-ollama-WHYgc","lastActivity":"2026-03-19","title":"Add Claude Code + Ollama 3-tier setup guide (iPhone + Win11 + DGX Spark)"}
+{"kind":"branch","id":"origin/claude/shufti-meeting-prep-IHXUi","lastActivity":"2026-03-18","title":"Add KYA outreach letters for Veriff and Signicat"}
+{"kind":"branch","id":"origin/claude/shufti-sumsub-pricing-93JeN","lastActivity":"2026-04-08","title":"Add Alibaba Cloud (APAC) and G42 (Gulf/MENA) as Connect tier partners"}
+{"kind":"branch","id":"origin/claude/silly-zhukovsky","lastActivity":"2026-03-07","title":"Add local Docker DR containers for Supabase and Aiven failover"}
+{"kind":"branch","id":"origin/claude/sisu-case-sales-route-bon1fh","lastActivity":"2026-08-19","title":"docs: save OpenCode Aegis release-readiness audit prompt for handoff"}
+{"kind":"branch","id":"origin/claude/sisu-defence-sales-outreach-dksO3","lastActivity":"2026-08-19","title":"Potential fix for pull request finding"}
+{"kind":"branch","id":"origin/claude/skills-baseagent-classes-ked5bc","lastActivity":"2026-07-13","title":"feat(agents): promote 3 skills to code-backed BaseAgent classes"}
+{"kind":"branch","id":"origin/claude/skills-guide-latest-6c0b226c","lastActivity":"2026-06-19","title":"claude settings"}
+{"kind":"branch","id":"origin/claude/sovereign-intelligence-sales-lt5lxl","lastActivity":"2026-07-12","title":"Add prediction-error calibration to the World Model reward loop"}
+{"kind":"branch","id":"origin/claude/sovereign-stack-polish-v2","lastActivity":"2026-05-17","title":"Merge pull request #1347 from blogtheristo/claude/add-hardware-products-MY7X7"}
+{"kind":"branch","id":"origin/claude/spec-kit-field-note-iXT2k","lastActivity":"2026-05-10","title":"docs: field note — spec-kit spec-driven development"}
+{"kind":"branch","id":"origin/claude/ssh-tunnel-dws-cli-r1RvA","lastActivity":"2026-03-12","title":"feat: DWS CLI on Acer Veriton — SSH tunnel admin recovery"}
+{"kind":"branch","id":"origin/claude/status-report-mvp-vbug1","lastActivity":"2026-03-15","title":"docs: add DWS IQ 6 / DWS 7 MVP progress report (Learn + field-notes)"}
+{"kind":"branch","id":"origin/claude/stoic-wilbur","lastActivity":"2026-02-26","title":"fix: apply code quality fixes to PR #418 scripts"}
+{"kind":"branch","id":"origin/claude/store-catalog-refresh-1RWJg","lastActivity":"2026-03-07","title":"chore: Update Google Merchant Feed and Product Pages"}
+{"kind":"branch","id":"origin/claude/strategy-free-tokens-2kztjp","lastActivity":"2026-08-23","title":"docs: vastine thesis on 'Finland 1 PB free tokens' claim + KYA scenario"}
+{"kind":"branch","id":"origin/claude/study-palantir-mas2-MwtEw","lastActivity":"2026-05-16","title":"fix(ci): onelifetime CF fallback — pre-check project exists, skip cleanly"}
+{"kind":"branch","id":"origin/claude/supabase-audit-aiven-td3x8r","lastActivity":"2026-07-05","title":"Merge pull request #1565 from blogtheristo/claude/frankenburg-riga-case-study-fhvngk"}
+{"kind":"branch","id":"origin/claude/supabase-security-definer-sweep-t5ysbg","lastActivity":"2026-07-21","title":"Stage migration 079: SECURITY DEFINER sweep (view + 19-function PUBLIC EXECUTE)"}
+{"kind":"branch","id":"origin/claude/supabase-wiring-3c3oza","lastActivity":"2026-07-05","title":"fix(ci): let local-ci.sh trigger Supabase upload on SUPABASE_SERVICE_KEY too"}
+{"kind":"branch","id":"origin/claude/sync-activation-csv-html-20260421","lastActivity":"2026-04-21","title":"docs: add activation CSV templates and HTML export"}
+{"kind":"branch","id":"origin/claude/taiwan-chip-field-note-jvfzN","lastActivity":"2026-05-17","title":"docs(field-notes): add Europe-Taiwan license-the-factories chip sovereignty note"}
+{"kind":"branch","id":"origin/claude/taxi-app-prompt-example-014TSjxeLu7j7igLRWxbxbDH","lastActivity":"2026-02-11","title":"docs: add InvestEU project documentation and strategic alignment"}
+{"kind":"branch","id":"origin/claude/taxi-helsinki-contract-P9Yx7","lastActivity":"2026-05-14","title":"Add Vantaan Taksi Oy as Polku D non-Kela local channel"}
+{"kind":"branch","id":"origin/claude/tero-lehikoinen-investor-2ddqfi","lastActivity":"2026-08-04","title":"Log Tero Lehikoinen meeting invite: 11.8.2026, agenda, KTH TECoSA angle"}
+{"kind":"branch","id":"origin/claude/tesi-investor-outreach-psIj5","lastActivity":"2026-04-16","title":"feat(investor-outreach): v1.1 Juha Lehtola InMail — add 2 VCs, Nokia Defence, DEFINE Finland"}
+{"kind":"branch","id":"origin/claude/test-onboarding-api-rbyQ0","lastActivity":"2026-03-09","title":"test: add end-to-end onboarding API tests and fix userId bug"}
+{"kind":"branch","id":"origin/claude/themis-nav-entry-Nv8pK","lastActivity":"2026-04-24","title":"Add Themis to global nav — Products dropdown"}
+{"kind":"branch","id":"origin/claude/thesis-updates-20260426","lastActivity":"2026-04-26","title":"feat(sales-funnel): add Step 14 — tenant admin naming and permission model"}
+{"kind":"branch","id":"origin/claude/thesis-updates-20260426-v2","lastActivity":"2026-04-26","title":"docs: update thesis TK1-TK4 and agentic commerce"}
+{"kind":"branch","id":"origin/claude/token-usage-v1-20260426","lastActivity":"2026-04-26","title":"chore: restore investor docs after mixed staging"}
+{"kind":"branch","id":"origin/claude/tokenization-digital-currency-gxSRN","lastActivity":"2026-04-21","title":"feat(tokenisation): DWS 6 compliance axis + DWS 7 roadmap update"}
+{"kind":"branch","id":"origin/claude/traction-truth-reconciliation","lastActivity":"2026-07-29","title":"docs: reconcile sales-outreach; resolve Aegis GA date; final sweep"}
+{"kind":"branch","id":"origin/claude/trusting-shamir","lastActivity":"2026-03-11","title":"fix: update SMTP comment to reflect Amazon SES as production provider"}
+{"kind":"branch","id":"origin/claude/truth-standard-confidence-tiers-8fq2k1","lastActivity":"2026-07-30","title":"docs: Truth Standard confidence tiers, and a DDMMYY convention for customer reports"}
+{"kind":"branch","id":"origin/claude/truth-sweep-all-posts-q4v2","lastActivity":"2026-08-22","title":"chore(housekeeping): wire ESLint gate, archive deprecated dirs + dated reports, remove artifacts, AG"}
+{"kind":"branch","id":"origin/claude/turboquant-kv-compression-2YcZI","lastActivity":"2026-04-05","title":"Scrub MacBook reference from TurboQuant field note"}
+{"kind":"branch","id":"origin/claude/umar-llm-architecture-outreach-e5fvl4","lastActivity":"2026-08-04","title":"Add Lifetime Certified Developer Program for freelancers & SMEs"}
+{"kind":"branch","id":"origin/claude/update-ai-ethics-playbook-ck26A","lastActivity":"2026-04-21","title":"outreach(taru-lehtinen): trim InMail body from 2500→1051 chars (under LinkedIn's 1900 limit)"}
+{"kind":"branch","id":"origin/claude/update-blog-announcements-IQ6Fe","lastActivity":"2026-03-27","title":"Add DWS IQ MVP/Arctic15/Aegis announcement + pilot programme blog posts"}
+{"kind":"branch","id":"origin/claude/update-claude-skills-EhaTz","lastActivity":"2026-03-15","title":"Merge pull request #717 from blogtheristo/copilot/sub-pr-716"}
+{"kind":"branch","id":"origin/claude/update-docs-qwen3-coder-FFGgN","lastActivity":"2026-02-05","title":"docs: Add text-based deployment options and cost analysis to LWM product spec"}
+{"kind":"branch","id":"origin/claude/update-dws-messaging-WaIHd","lastActivity":"2026-04-22","title":"strategy docs: add positioning oneliners for DWS IQ 6, 7, 8"}
+{"kind":"branch","id":"origin/claude/update-industry-registry-count-sBbcq","lastActivity":"2026-05-16","title":"fix(world-model): reconcile dws10.com/world-model to 25 industries"}
+{"kind":"branch","id":"origin/claude/update-kya-standard-1.1-3sL7X","lastActivity":"2026-03-09","title":"Add TC-5 delegation depth enforcement, migration 044, and Leash Snap benchmark"}
+{"kind":"branch","id":"origin/claude/update-lab-notes-unsloth-xVRjL","lastActivity":"2026-02-13","title":"docs: add field note on Unsloth Split LoRA for MoE fine-tuning"}
+{"kind":"branch","id":"origin/claude/update-peachscore-notifications-CRiLN","lastActivity":"2026-03-23","title":"Add Peachscore 448 pts (Progressing) to all investor materials"}
+{"kind":"branch","id":"origin/claude/update-pillar-1-messaging-2L8kD","lastActivity":"2026-04-20","title":"docs(investors): add Wave 3 send queue with EU/EEA + green filters applied"}
+{"kind":"branch","id":"origin/claude/update-pitch-line-j38MF","lastActivity":"2026-04-05","title":"Update Aegis press release: 20→21 industries to match memo"}
+{"kind":"branch","id":"origin/claude/update-product-specs-YsCV0","lastActivity":"2026-04-21","title":"feat: add DWS IQ MCP Gateway product spec + Store SKU"}
+{"kind":"branch","id":"origin/claude/update-sales-docs-YKFZt","lastActivity":"2026-03-27","title":"Expand logistics signal with sales playbook for €210M EU dual-use funding"}
+{"kind":"branch","id":"origin/claude/update-ses-limits-zxd5A","lastActivity":"2026-03-20","title":"Add field note: SES production limits approved (50k/day, 14/sec)"}
+{"kind":"branch","id":"origin/claude/user-storyboard-login-R7ORm","lastActivity":"2026-03-17","title":"Add user login storyboard: dws10.com → dws6.com dashboard"}
+{"kind":"branch","id":"origin/claude/v1-firehorse-recovery-NKpsn","lastActivity":"2026-07-31","title":"Merge origin/main into claude/v1-firehorse-recovery-NKpsn (resync)"}
+{"kind":"branch","id":"origin/claude/vaelix-investor-brief-tgFEi","lastActivity":"2026-03-29","title":"Add outreach pipeline CLI with SES integration and DGX Spark cron"}
+{"kind":"branch","id":"origin/claude/verify-antigravity-update-01Y1vBaD86jJrBuzb7tESh4T","lastActivity":"2026-02-12","title":"docs: Add Google Antigravity + Cloud Run serverless proposal"}
+{"kind":"branch","id":"origin/claude/verify-nda-signatures-rdgOj","lastActivity":"2026-03-23","title":"230326"}
+{"kind":"branch","id":"origin/claude/vibrant-galileo-2aIQa","lastActivity":"2026-06-02","title":"Kypsyysnäyte: rewrite Kalvo 3 speaker text (sovereignty, control room, vibe coding, MS for Startups "}
+{"kind":"branch","id":"origin/claude/vinnova-sales-research-uVLRy","lastActivity":"2026-04-04","title":"Rewrite Jukka Vitikka outreach: Finnish market angle, not Swedish GUTE II"}
+{"kind":"branch","id":"origin/claude/visma-erp-integration-Mz8cL","lastActivity":"2026-03-15","title":"chore(learn): rename old investor memo HTML to v1.4_old"}
+{"kind":"branch","id":"origin/claude/vulcan-cn-codes-pr-f00gK","lastActivity":"2026-04-07","title":"feat: add NeMo DataDesigner CBAM batch runner for Scaleway H100 (Phase 2)"}
+{"kind":"branch","id":"origin/claude/wartsila-sales-outreach-510xx4","lastActivity":"2026-07-07","title":"sales: Wärtsilä outreach INTRO v1.0 — legal-compliance door, ETS/FuelEU wedge"}
+{"kind":"branch","id":"origin/claude/weekly-prioritization-list-Pe19Q","lastActivity":"2026-05-12","title":"feat(phase2/046): ETS installation registry — types and service"}
+{"kind":"branch","id":"origin/claude/wire-subscriptions-notifications-sg9j3","lastActivity":"2026-03-29","title":"Wire subscription tiers, ERP notifications, and CAC calculation to Supabase"}
+{"kind":"branch","id":"origin/claude/wonderful-gould","lastActivity":"2026-03-15","title":"Potential fix for pull request finding"}
+{"kind":"branch","id":"origin/claude/wonderful-mestorf-46fe80","lastActivity":"2026-04-27","title":"Change 9 monthly/subscription products to one-time (content TBD)"}
+{"kind":"branch","id":"origin/claude/xai-grok-partnership-proposal-kpaKr","lastActivity":"2026-03-04","title":"Merge pull request #692 from blogtheristo/copilot/sub-pr-671-yet-again"}
+{"kind":"branch","id":"origin/claude/youthful-liskov-3d0855","lastActivity":"2026-05-06","title":"feat: sales playbook, /sales skill, and Firehorse enabled"}
+{"kind":"branch","id":"origin/claude/zealous-hofstadter","lastActivity":"2026-04-13","title":"chore: merge origin/main into claude/zealous-hofstadter"}
+{"kind":"branch","id":"origin/claude/zealous-mcclintock","lastActivity":"2026-02-12","title":"fix: Restore complete Claude configuration (hooks + permissions)"}
+{"kind":"branch","id":"origin/claude/zealous-rubin-RHL5g","lastActivity":"2026-06-08","title":"Truth sweep: agents->50, industries->25 across current-facing copy; refresh Aegis investor memo; inv"}
+{"kind":"branch","id":"origin/clean-kya-baseline","lastActivity":"2026-08-14","title":"feat: Implement KYA Standard conformance tests with WP3.2 input snapshots"}
+{"kind":"branch","id":"origin/construction-teaser","lastActivity":"2026-02-22","title":"220226"}
+{"kind":"branch","id":"origin/copilot/1263-and-merge","lastActivity":"2026-08-14","title":"Merge remote-tracking branch 'origin/main' into copilot/1263-and-merge Co-authored-by: blogtheristo "}
+{"kind":"branch","id":"origin/copilot/1801-fix-merge-conflicts","lastActivity":"2026-08-06","title":"chore: resolve handbook merge conflict"}
+{"kind":"branch","id":"origin/copilot/acer-veriton-gn100-device-updates","lastActivity":"2026-08-12","title":"Merge pull request #1827 from blogtheristo/copilot/update-konsultoinnin-kasikirja-2026"}
+{"kind":"branch","id":"origin/copilot/analyze-container-halt-issues","lastActivity":"2026-07-15","title":"chore: tighten staging runtime variable validation reference"}
+{"kind":"branch","id":"origin/copilot/anna-kya-s1-specs-copy-paste","lastActivity":"2026-08-11","title":"Merge pull request #1820 from blogtheristo/claude/tutkimussuunnitelma-tiivistelmä-fczxea"}
+{"kind":"branch","id":"origin/copilot/audit-1717-research-into-kht-dissertation","lastActivity":"2026-08-12","title":"Merge pull request #1827 from blogtheristo/copilot/update-konsultoinnin-kasikirja-2026"}
+{"kind":"branch","id":"origin/copilot/audit-solution","lastActivity":"2026-08-12","title":"fix: escape webhook complaint alert fields"}
+{"kind":"branch","id":"origin/copilot/ci-cd-pipelines-cloudflare-workflows","lastActivity":"2026-08-12","title":"feat: implement AaaS (Agents as a Service) subscription model"}
+{"kind":"branch","id":"origin/copilot/cleanup-stash-history","lastActivity":"2026-08-12","title":"fix: add CSP headers to dws6 static sites"}
+{"kind":"branch","id":"origin/copilot/create-research-note-recommendation","lastActivity":"2026-08-11","title":"Merge pull request #1818 — KYA-S1 series: spec v1.5, 12-part Ground Truth, 17 pages, language-aware "}
+{"kind":"branch","id":"origin/copilot/demo-pilotti-myynticase","lastActivity":"2026-08-13","title":"docs: add consolidated KYA-S1 spec package"}
+{"kind":"branch","id":"origin/copilot/find-popular-github-template-repo","lastActivity":"2026-05-18","title":"chore: sync all landing-pages from source [skip ci]"}
+{"kind":"branch","id":"origin/copilot/fix-admin-authentication-issue","lastActivity":"2026-02-21","title":"fix: replace weak admin key comparison with timingSafeEqual to fix auth audit"}
+{"kind":"branch","id":"origin/copilot/fix-code-review-comment","lastActivity":"2026-08-12","title":"docs: mark kya inference as planned only"}
+{"kind":"branch","id":"origin/copilot/fix-dependabot-vulnerabilities","lastActivity":"2026-04-13","title":"fix: resolve Dependabot security vulnerabilities across all packages"}
+{"kind":"branch","id":"origin/copilot/fix-docs-align-kya-s1-v1-5-terminology","lastActivity":"2026-08-14","title":"docs: align KYA-S1 WP3.2 terminology with specification/conformance wording"}
+{"kind":"branch","id":"origin/copilot/fix-exposed-secrets-in-code","lastActivity":"2026-02-21","title":"fix: replace hardcoded JWT fragment with programmatic construction (CWE-798)"}
+{"kind":"branch","id":"origin/copilot/fix-exposed-secrets-issue","lastActivity":"2026-02-21","title":"fix: replace hardcoded JWT base64 string with dynamic construction to resolve CWE-798 secret exposur"}
+{"kind":"branch","id":"origin/copilot/fix-path-traversal-vulnerability","lastActivity":"2026-02-21","title":"fix: resolve path traversal false positive in security scanner test (CWE-22)"}
+{"kind":"branch","id":"origin/copilot/fix-sql-injection-vulnerability","lastActivity":"2026-02-21","title":"fix: split SQL/command injection test strings to avoid scanner false positives (CWE-89)"}
+{"kind":"branch","id":"origin/copilot/fix-staging-deploy-error","lastActivity":"2026-05-25","title":"Initial plan"}
+{"kind":"branch","id":"origin/copilot/fix-unsafe-deserialization","lastActivity":"2026-02-21","title":"chore: remove accidental =1.0.3 artifact file"}
+{"kind":"branch","id":"origin/copilot/github-copilot-vs-cli","lastActivity":"2026-04-29","title":"chore: auto-sync AGENTS.md from codebase [skip ci]"}
+{"kind":"branch","id":"origin/copilot/improve-git-history-documentation","lastActivity":"2026-04-21","title":"Merge pull request #1150 from blogtheristo/claude/update-ai-ethics-playbook-ck26A"}
+{"kind":"branch","id":"origin/copilot/linkki-dokumentteihin-arvonluonnista","lastActivity":"2026-08-12","title":"fix: remove dead language prompt"}
+{"kind":"branch","id":"origin/copilot/open-ristoconsultancy-cv-on-mobile","lastActivity":"2026-04-27","title":"Merge pull request #1210 from blogtheristo/claude/aws-claude-code-consulting-Bhp7E"}
+{"kind":"branch","id":"origin/copilot/remove-orphaned-pypi","lastActivity":"2026-05-28","title":"Sovereignty Field Note #2: three pillars × three jurisdictions + KYA + quantum overlay (#1409)"}
+{"kind":"branch","id":"origin/copilot/request-access-button-fix","lastActivity":"2026-08-12","title":"Merge branch 'main' into copilot/request-access-button-fix"}
+{"kind":"branch","id":"origin/copilot/sub-pr-418","lastActivity":"2026-02-25","title":"fix: require SUPABASE_PROJECT_REF explicitly, exit with clear error if missing"}
+{"kind":"branch","id":"origin/copilot/sub-pr-553-24756193-c8b0-4365-a98b-1cd4342460b3","lastActivity":"2026-03-06","title":"Merge branch 'main' into copilot/sub-pr-553-24756193-c8b0-4365-a98b-1cd4342460b3"}
+{"kind":"branch","id":"origin/copilot/sub-pr-553-2edaea78-f88c-43a9-bf75-3bdcbc2447ab","lastActivity":"2026-03-05","title":"Merge branch 'main' into copilot/sub-pr-553-2edaea78-f88c-43a9-bf75-3bdcbc2447ab"}
+{"kind":"branch","id":"origin/copilot/sub-pr-553-3ccf90a6-518f-4bc7-8b0a-c8e07cf2b6a2","lastActivity":"2026-02-20","title":"fix: address PR #553 review feedback on agent robustness and correctness"}
+{"kind":"branch","id":"origin/copilot/sub-pr-553-62294e83-66d4-4a89-949a-24138a751cea","lastActivity":"2026-02-20","title":"docs: update MISSING_AGENTS_ANALYSIS to 10 implemented with PR #553 additions table"}
+{"kind":"branch","id":"origin/copilot/sub-pr-553-94520093-4ee4-42c1-bd0c-bf93f360d550","lastActivity":"2026-02-21","title":"Merge branch 'main' into copilot/sub-pr-553-94520093-4ee4-42c1-bd0c-bf93f360d550"}
+{"kind":"branch","id":"origin/copilot/sub-pr-553-98e19821-8744-4764-8120-ac9a789d9599","lastActivity":"2026-02-20","title":"fix: return full structured report object from synthesizeReport"}
+{"kind":"branch","id":"origin/copilot/sub-pr-553-e1afa83f-1be9-46de-b36b-6ec56bb9203a","lastActivity":"2026-02-20","title":"fix: apply all unresolved PR #553 review comments to agents and docs"}
+{"kind":"branch","id":"origin/copilot/sub-pr-553-e43543ee-2a10-463e-98aa-930895609a81","lastActivity":"2026-02-20","title":"fix(sales-outreach): handle placeholder LLM response in findCompanies()"}
+{"kind":"branch","id":"origin/copilot/sub-pr-553-please-work","lastActivity":"2026-02-20","title":"fix: use deterministic fallback in draftEmails() when LLM returns placeholder/missing emails"}
+{"kind":"branch","id":"origin/copilot/sub-pr-553-yet-again","lastActivity":"2026-02-20","title":"fix: validate parsed.companies in findCompanies() to handle placeholder LLM response"}
+{"kind":"branch","id":"origin/copilot/sub-pr-634","lastActivity":"2026-03-04","title":"fix: replace CORS wildcard methods/headers with explicit lists in mcp-hub"}
+{"kind":"branch","id":"origin/copilot/sub-pr-643","lastActivity":"2026-02-25","title":"Initial plan"}
+{"kind":"branch","id":"origin/copilot/sub-pr-643-9ca3500b-e727-4984-b202-25cf39c0ad6a","lastActivity":"2026-02-25","title":"Initial plan"}
+{"kind":"branch","id":"origin/copilot/sub-pr-643-again","lastActivity":"2026-02-25","title":"Initial plan"}
+{"kind":"branch","id":"origin/copilot/sub-pr-643-another-one","lastActivity":"2026-02-25","title":"Initial plan"}
+{"kind":"branch","id":"origin/copilot/sub-pr-643-one-more-time","lastActivity":"2026-02-25","title":"Initial plan"}
+{"kind":"branch","id":"origin/copilot/sub-pr-643-please-work","lastActivity":"2026-02-25","title":"Initial plan"}
+{"kind":"branch","id":"origin/copilot/sub-pr-643-yet-again","lastActivity":"2026-02-25","title":"Initial plan"}
+{"kind":"branch","id":"origin/copilot/sub-pr-660","lastActivity":"2026-02-27","title":"docs: add VERSION AND AGENT HISTORY block to xAI-Optimus-Partnership-Proposal-v1.3.md"}
+{"kind":"branch","id":"origin/copilot/sub-pr-660-again","lastActivity":"2026-02-27","title":"docs: add VERSION AND AGENT HISTORY block to xAI partnership proposal v1.3"}
+{"kind":"branch","id":"origin/copilot/sub-pr-663","lastActivity":"2026-02-28","title":"docs: fix TypeScript version and CI/CD workflow count in DWS6_TO_DWS7_UPDATE.md"}
+{"kind":"branch","id":"origin/copilot/sub-pr-670","lastActivity":"2026-03-04","title":"Fix all unresolved grok-consent review comments from PR #670"}
+{"kind":"branch","id":"origin/copilot/sub-pr-670-again","lastActivity":"2026-03-04","title":"Merge branch 'claude/grok-consent-data-sovereignty-3s4jq' into copilot/sub-pr-670-again"}
+{"kind":"branch","id":"origin/copilot/sub-pr-670-another-one","lastActivity":"2026-03-01","title":"test: add Vitest tests for grok-consent routes and Grok LLM consent enforcement"}
+{"kind":"branch","id":"origin/copilot/sub-pr-670-one-more-time","lastActivity":"2026-03-01","title":"fix: enforce immutability on grok_consent_audit and grok_inference_log"}
+{"kind":"branch","id":"origin/copilot/sub-pr-670-please-work","lastActivity":"2026-03-01","title":"fix: validate orgId (UUID), limit (1-200), offset (>=0) in grok-consent routes"}
+{"kind":"branch","id":"origin/copilot/sub-pr-670-yet-again","lastActivity":"2026-03-01","title":"fix: return safe generic messages from grant/revoke error responses"}
+{"kind":"branch","id":"origin/copilot/sub-pr-671","lastActivity":"2026-03-01","title":"fix: normalize benefits table separator rows to standard markdown format"}
+{"kind":"branch","id":"origin/copilot/sub-pr-671-another-one","lastActivity":"2026-03-01","title":"fix: align column widths in For xAI and For DWS IQ Customers benefit tables"}
+{"kind":"branch","id":"origin/copilot/sub-pr-671-yet-again","lastActivity":"2026-03-01","title":"Initial plan"}
+{"kind":"branch","id":"origin/copilot/sub-pr-677","lastActivity":"2026-03-01","title":"Fix Gemini step to prefer GOOGLE_AI_API_KEY with GOOGLE_API_KEY fallback"}
+{"kind":"branch","id":"origin/copilot/sub-pr-677-again","lastActivity":"2026-03-01","title":"fix(ai-pr-review): allow Copilot actors to trigger re-review loop"}
+{"kind":"branch","id":"origin/copilot/sub-pr-714","lastActivity":"2026-03-05","title":"Merge branch 'main' into copilot/sub-pr-714"}
+{"kind":"branch","id":"origin/copilot/test-solution","lastActivity":"2026-03-07","title":"feat: apply agent system fixes + add tests (55 tests, 0 TS errors)"}
+{"kind":"branch","id":"origin/copilot/update-cap-table-and-financials","lastActivity":"2026-02-21","title":"feat: Peachscore Accelerator - Cap Table and Financials"}
+{"kind":"branch","id":"origin/copilot/update-skills","lastActivity":"2026-08-06","title":"docs: Konsultoinnin käsikirja v1.10 — arvonluonnin ajurit & akateeminen arvonluonti"}
+{"kind":"branch","id":"origin/cursor/actions-column-button-wrap-3355","lastActivity":"2026-05-12","title":"Fix CSS nowrap preventing button flex-wrap in price-list Actions column"}
+{"kind":"branch","id":"origin/cursor/agent-documentation-validation-b361","lastActivity":"2026-05-12","title":"Fix merge conflict markers in AGENTS.md and validator false positive bug"}
+{"kind":"branch","id":"origin/cursor/cloud-env-setup-0d84","lastActivity":"2026-05-10","title":"Add Cursor Cloud specific instructions to AGENTS.md"}
+{"kind":"branch","id":"origin/cursor/development-environment-setup-2cbb","lastActivity":"2026-02-25","title":"docs: add Cursor Cloud specific instructions to AGENTS.md"}
+{"kind":"branch","id":"origin/cursor/fix-dgx-runner-workflows-0d84","lastActivity":"2026-05-23","title":"fix: add ubuntu-latest fallback for CI runners + harden runner setup script"}
+{"kind":"branch","id":"origin/cursor/fix-mcp-doc-versions-0d84","lastActivity":"2026-05-23","title":"fix: correct GITHUB_TOKEN from optional to required in MCP docs"}
+{"kind":"branch","id":"origin/cursor/interactive-calculator-issues-cad4","lastActivity":"2026-05-11","title":"Fix sign inversion in total cost diff and make supplier mode toggle functional"}
+{"kind":"branch","id":"origin/cursor/notify-endpoint-error-handling-866c","lastActivity":"2026-05-10","title":"Fix unhandled HTTP errors in /v1/notify endpoint"}
+{"kind":"branch","id":"origin/cursor/polling-intervals-error-state-5104","lastActivity":"2026-05-11","title":"Fix: Clear error state on successful polling interval updates"}
+{"kind":"branch","id":"origin/cursor/webhook-url-redaction-2b1b","lastActivity":"2026-05-10","title":"fix: redact webhook URL paths to prevent secret exposure"}
+{"kind":"branch","id":"origin/cursor/whatsapp-notifications-8ed5","lastActivity":"2026-08-24","title":"Potential fix for pull request finding"}
+{"kind":"branch","id":"origin/deployment/b2b-payment-cloud-run","lastActivity":"2026-04-24","title":"Add @ts-ignore flags to firehorse imports to unblock Cloud Build"}
+{"kind":"branch","id":"origin/docs/learn-thesis-v402-html","lastActivity":"2026-08-22","title":"docs(learn): regenerate thesis HTML outputs for v4.02 (SES supersession note)"}
+{"kind":"branch","id":"origin/docs/q1-intelligence-gate-approval","lastActivity":"2026-08-05","title":"docs: record intelligence product gate approval"}
+{"kind":"branch","id":"origin/dws6/new-pr-sovereign-session","lastActivity":"2026-07-31","title":"dws6: add preserved session artifacts and routing skills"}
+{"kind":"branch","id":"origin/dws6/pr1774-clean-session","lastActivity":"2026-07-31","title":"Merge branch 'main' of https://github.com/blogtheristo/dws6"}
+{"kind":"branch","id":"origin/elated-zhukovsky","lastActivity":"2026-02-22","title":"Merge branch 'elated-zhukovsky' of https://github.com/blogtheristo/dws6 into elated-zhukovsky"}
+{"kind":"branch","id":"origin/feat/backend-otel-metrics","lastActivity":"2026-08-24","title":"feat(observability): OTel metrics for dws-backend (Aspire Metrics tab)"}
+{"kind":"branch","id":"origin/feat/dgx-edge-agent-intelligence","lastActivity":"2026-08-14","title":"fix(opencode): forward GITHUB_TOKEN to gateway MCP and enable gh cli (#1843)"}
+{"kind":"branch","id":"origin/feat/growth-funnel-web-leads","lastActivity":"2026-08-14","title":"fix(opencode): forward GITHUB_TOKEN to gateway MCP and enable gh cli (#1843)"}
+{"kind":"branch","id":"origin/feat/intelligence-growth-strategy","lastActivity":"2026-08-14","title":"fix(opencode): forward GITHUB_TOKEN to gateway MCP and enable gh cli (#1843)"}
+{"kind":"branch","id":"origin/feat/kya-s1-conformance-tests","lastActivity":"2026-08-14","title":"fix(opencode): forward GITHUB_TOKEN to gateway MCP and enable gh cli (#1843)"}
+{"kind":"branch","id":"origin/feat/ontology-resolver-tests-otel","lastActivity":"2026-04-17","title":"Merge pull request #1058 from blogtheristo/claude/fix-cursor-hook-execution"}
+{"kind":"branch","id":"origin/feat/opencode-all-status-notify","lastActivity":"2026-08-24","title":"feat(config): default bash/edit permissions ask->allow (keep all denies)"}
+{"kind":"branch","id":"origin/feat/opencode-nvidia-nemotron","lastActivity":"2026-08-13","title":"feat(opencode): use NVIDIA Nemotron as primary DGX model"}
+{"kind":"branch","id":"origin/feature/aegis-clean-sales-package","lastActivity":"2026-08-19","title":"feat: Add Admiral and Captain investor pages for new investor structure"}
+{"kind":"branch","id":"origin/feature/aegis-comprehensive-sales-package","lastActivity":"2026-08-19","title":"feat: Add fade-out effect to language bar and session-based language persistence"}
+{"kind":"branch","id":"origin/feature/b2b-payment-final","lastActivity":"2026-04-24","title":"Simplify: Define OptimizationDecisionEvent as placeholder type"}
+{"kind":"branch","id":"origin/feature/fpe-planning","lastActivity":"2026-04-27","title":"docs(ontology): add SIRA / Sira to enterprise AI ontology"}
+{"kind":"branch","id":"origin/feature/mcp-hub-gateway-ts","lastActivity":"2026-05-23","title":"checkpoint before checking out main"}
+{"kind":"branch","id":"origin/feature/merge-local-changes-clean","lastActivity":"2026-02-20","title":"feat: investor outreach contacts migration, db_push script, admin manual tools section"}
+{"kind":"branch","id":"origin/feature/progress-report","lastActivity":"2026-02-12","title":"🤖 Auto-sync: Update deployment folders from root source"}
+{"kind":"branch","id":"origin/fix/aegis-language-versions","lastActivity":"2026-08-19","title":"feat: Add comprehensive Aegis customer orientation and demo-to-pilot pathway documentation"}
+{"kind":"branch","id":"origin/fix/bim-no-internal-error-leaks","lastActivity":"2026-03-07","title":"feat: apply agent system fixes + add tests (55 tests, 0 TS errors)"}
+{"kind":"branch","id":"origin/fix/bim-no-internal-error-leaks-v2","lastActivity":"2026-03-07","title":"feat: apply agent system fixes + add tests (55 tests, 0 TS errors)"}
+{"kind":"branch","id":"origin/fix/dgx-opencode-mcp","lastActivity":"2026-08-13","title":"fix: use Ollama default port for OpenCode"}
+{"kind":"branch","id":"origin/fix/dws10-v1-24","lastActivity":"2026-08-18","title":"fix: publish governed v1.25 price-list model"}
+{"kind":"branch","id":"origin/fix/remove-flaky-error-middleware-tests","lastActivity":"2026-08-22","title":"test: rewrite flaky errorHandler tests with isolated per-test mocks"}
+{"kind":"branch","id":"origin/fix/security-vulnerabilities-feb2026","lastActivity":"2026-03-02","title":"020326"}
+{"kind":"branch","id":"origin/fix/windows-db-backup-and-email-alert","lastActivity":"2026-07-14","title":"aiven_NDA"}
+{"kind":"branch","id":"origin/housekeeping/eslint-gate-archive-status","lastActivity":"2026-08-22","title":"chore(housekeeping): wire ESLint gate, archive deprecated dirs + dated reports, remove artifacts, AG"}
+{"kind":"branch","id":"origin/intelligent-lamport","lastActivity":"2026-02-12","title":"Merge branch 'intelligent-lamport' of https://github.com/blogtheristo/dws6 into intelligent-lamport"}
+{"kind":"branch","id":"origin/kya-baseline-clean","lastActivity":"2026-08-18","title":"fix: align KYA baseline with specification"}
+{"kind":"branch","id":"origin/lsj-blog-langbar","lastActivity":"2026-08-22","title":"docs(learn): regenerate thesis HTML outputs for v4.02 (SES supersession note)"}
+{"kind":"branch","id":"origin/meta-whatsapp-catalog","lastActivity":"2026-08-20","title":"chore: auto-sync AGENTS.md from codebase [skip ci]"}
+{"kind":"branch","id":"origin/opencode/opencode-all-living-engine","lastActivity":"2026-08-24","title":"security: Aspire OTLP endpoint behind API key (401 without x-otlp-api-key); shared gitignored .otlp-"}
+{"kind":"branch","id":"origin/opencode/smart-factory-target","lastActivity":"2026-08-22","title":"feat(sales): implement Smart Factory for Sales — catalog matching, multi-channel outreach, call book"}
+{"kind":"branch","id":"origin/opencode/worktree-guard","lastActivity":"2026-08-22","title":"feat(workflow): hard-enforce worktree policy via opencode plugin"}
+{"kind":"branch","id":"origin/opencode/worktree-policy","lastActivity":"2026-08-22","title":"docs(worktree): Claude Code hot-standby procedure per opencode branch"}
+{"kind":"branch","id":"origin/ops/token-cut-and-ted-dgx","lastActivity":"2026-08-24","title":"fix: drop orphaned start_period from disabled aspire healthcheck (review)"}
+{"kind":"branch","id":"origin/pr-kya-conformance-baseline","lastActivity":"2026-08-14","title":"Resume DWS IQ intelligence growth strategy session with latest changes"}
+{"kind":"branch","id":"origin/research/dws-iq-intelligence-loop-20260805","lastActivity":"2026-08-05","title":"docs: align strategy note with truth metrics"}
+{"kind":"branch","id":"origin/resume-research-dws-iq","lastActivity":"2026-08-14","title":"fix(opencode): forward GITHUB_TOKEN to gateway MCP and enable gh cli (#1843)"}
+{"kind":"branch","id":"origin/sales-package-v1.0-and-price-lists","lastActivity":"2026-08-20","title":"docs: Add HIC learning outcome for DGX tunnel automation"}
+{"kind":"branch","id":"origin/sessions-backup","lastActivity":"2026-06-27","title":"Merge branch 'main' of https://github.com/blogtheristo/dws6 into sessions-backup"}
+{"kind":"branch","id":"origin/testing/hardening","lastActivity":"2026-08-22","title":"refactor(quality): code-quality hardening — logging, lint gate, env config, TODO triage"}
+{"kind":"branch","id":"origin/testing/rls-contract","lastActivity":"2026-08-22","title":"test(rls): real contract tests for agent_nudges RLS (migration 069)"}
+{"kind":"branch","id":"origin/wip-snapshot/claude/europe-roadmap-agents-g9zs8a","lastActivity":"2026-07-14","title":"wip-snapshot: durability net for claude/europe-roadmap-agents-g9zs8a @ 20260714T041522Z (not for mer"}
+{"kind":"branch","id":"origin/worktree-boss-session-pr-cleanup","lastActivity":"2026-07-31","title":"fix(investor): reconcile Captain-tier pricing to the Jul-29 Boardy structure"}
+{"kind":"handoff","id":"NEXT_SESSION_PROMPT","title":"handoff: NEXT_SESSION_PROMPT.md","path":".claude/handoffs/NEXT_SESSION_PROMPT.md"}
+{"kind":"handoff","id":"claude-agent-factory-research-audit-l6hks2","title":"handoff: claude-agent-factory-research-audit-l6hks2.md","path":".claude/handoffs/claude-agent-factory-research-audit-l6hks2.md"}
+{"kind":"handoff","id":"claude-npm-supply-chain-attack-vjpnqg","title":"handoff: claude-npm-supply-chain-attack-vjpnqg.md","path":".claude/handoffs/claude-npm-supply-chain-attack-vjpnqg.md"}
+{"kind":"handoff","id":"docs-q1-intelligence-gate-approval","title":"handoff: docs-q1-intelligence-gate-approval.md","path":".claude/handoffs/docs-q1-intelligence-gate-approval.md"}
+{"kind":"handoff","id":"research-dws-iq-intelligence-loop-20260805","title":"handoff: research-dws-iq-intelligence-loop-20260805.md","path":".claude/handoffs/research-dws-iq-intelligence-loop-20260805.md"}
+{"kind":"field-note","id":"2026-01-21-karp-enterprise-ai-ontology","title":"2026-01-21-karp-enterprise-ai-ontology.md","path":"docs/field-notes/2026-01-21-karp-enterprise-ai-ontology.md"}
+{"kind":"field-note","id":"2026-01-22-dashboard-v9-technical-stack","title":"2026-01-22-dashboard-v9-technical-stack.md","path":"docs/field-notes/2026-01-22-dashboard-v9-technical-stack.md"}
+{"kind":"field-note","id":"2026-01-23-design-system-audit-navigation-gaps","title":"2026-01-23-design-system-audit-navigation-gaps.md","path":"docs/field-notes/2026-01-23-design-system-audit-navigation-gaps.md"}
+{"kind":"field-note","id":"2026-01-27-apply-ai-robotics-manufacturing-webinar","title":"2026-01-27-apply-ai-robotics-manufacturing-webinar.md","path":"docs/field-notes/2026-01-27-apply-ai-robotics-manufacturing-webinar.md"}
+{"kind":"field-note","id":"2026-01-28-eu-tech-stack-sovereignty-positioning","title":"2026-01-28-eu-tech-stack-sovereignty-positioning.md","path":"docs/field-notes/2026-01-28-eu-tech-stack-sovereignty-positioning.md"}
+{"kind":"field-note","id":"2026-01-30-figbc-working-group-recruitment","title":"2026-01-30-figbc-working-group-recruitment.md","path":"docs/field-notes/2026-01-30-figbc-working-group-recruitment.md"}
+{"kind":"field-note","id":"2026-02-04-qwen3-coder-next-agentic-llm","title":"2026-02-04-qwen3-coder-next-agentic-llm.md","path":"docs/field-notes/2026-02-04-qwen3-coder-next-agentic-llm.md"}
+{"kind":"field-note","id":"2026-02-05-claude-code-agent-teams-vs-subagents","title":"2026-02-05-claude-code-agent-teams-vs-subagents.md","path":"docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md"}
+{"kind":"field-note","id":"2026-02-06-ai-safety-report-2026-field-note","title":"2026-02-06-ai-safety-report-2026-field-note.md","path":"docs/field-notes/2026-02-06-ai-safety-report-2026-field-note.md"}
+{"kind":"field-note","id":"2026-02-06-brockman-agentic-software-development","title":"2026-02-06-brockman-agentic-software-development.md","path":"docs/field-notes/2026-02-06-brockman-agentic-software-development.md"}
+{"kind":"field-note","id":"2026-02-11-eu-alden-biesen-single-market-info-note","title":"2026-02-11-eu-alden-biesen-single-market-info-note.md","path":"docs/field-notes/2026-02-11-eu-alden-biesen-single-market-info-note.md"}
+{"kind":"field-note","id":"2026-02-11-lwm-industry-training-unsloth-moe-triton","title":"2026-02-11-lwm-industry-training-unsloth-moe-triton.md","path":"docs/field-notes/2026-02-11-lwm-industry-training-unsloth-moe-triton.md"}
+{"kind":"field-note","id":"2026-02-13-unsloth-moe-fine-tuning-split-lora","title":"2026-02-13-unsloth-moe-fine-tuning-split-lora.md","path":"docs/field-notes/2026-02-13-unsloth-moe-fine-tuning-split-lora.md"}
+{"kind":"field-note","id":"2026-02-15-moltworker-openclaw-dws-assistant","title":"2026-02-15-moltworker-openclaw-dws-assistant.md","path":"docs/field-notes/2026-02-15-moltworker-openclaw-dws-assistant.md"}
+{"kind":"field-note","id":"2026-02-15-tech-backlog-pyjwt-redis-conflict","title":"2026-02-15-tech-backlog-pyjwt-redis-conflict.md","path":"docs/field-notes/2026-02-15-tech-backlog-pyjwt-redis-conflict.md"}
+{"kind":"field-note","id":"2026-02-16-nvidia-blackwell-ultra-agentic-ai-inference","title":"2026-02-16-nvidia-blackwell-ultra-agentic-ai-inference.md","path":"docs/field-notes/2026-02-16-nvidia-blackwell-ultra-agentic-ai-inference.md"}
+{"kind":"field-note","id":"2026-02-16-zvec-embedded-vector-db-european-alternatives","title":"2026-02-16-zvec-embedded-vector-db-european-alternatives.md","path":"docs/field-notes/2026-02-16-zvec-embedded-vector-db-european-alternatives.md"}
+{"kind":"field-note","id":"2026-02-17-morning-email-0600-eest-incident","title":"2026-02-17-morning-email-0600-eest-incident.md","path":"docs/field-notes/2026-02-17-morning-email-0600-eest-incident.md"}
+{"kind":"field-note","id":"2026-02-21-claude-code-hetzner-branch-incident","title":"2026-02-21-claude-code-hetzner-branch-incident.md","path":"docs/field-notes/2026-02-21-claude-code-hetzner-branch-incident.md"}
+{"kind":"field-note","id":"2026-02-21-security-vulnerability-assessment-openclaw-dws6","title":"2026-02-21-security-vulnerability-assessment-openclaw-dws6.md","path":"docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md"}
+{"kind":"field-note","id":"2026-02-23-mcp-server-expansion-cloudrun-lwm-claude","title":"2026-02-23-mcp-server-expansion-cloudrun-lwm-claude.md","path":"docs/field-notes/2026-02-23-mcp-server-expansion-cloudrun-lwm-claude.md"}
+{"kind":"field-note","id":"2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix","title":"2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md","path":"docs/field-notes/2026-02-27-acer-veriton-gn100-nvidia-gpg-key-fix.md"}
+{"kind":"field-note","id":"2026-03-01-veriton-gn100-ollama-dev-environment","title":"2026-03-01-veriton-gn100-ollama-dev-environment.md","path":"docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md"}
+{"kind":"field-note","id":"2026-03-04-grok-advice-lwm-planning-multi-tool","title":"2026-03-04-grok-advice-lwm-planning-multi-tool.md","path":"docs/field-notes/2026-03-04-grok-advice-lwm-planning-multi-tool.md"}
+{"kind":"field-note","id":"2026-03-06-dgx-spark-hardened-firewall-ollama-ssh","title":"2026-03-06-dgx-spark-hardened-firewall-ollama-ssh.md","path":"docs/field-notes/2026-03-06-dgx-spark-hardened-firewall-ollama-ssh.md"}
+{"kind":"field-note","id":"2026-03-08-eu-ai-act-omnibus-optimus-v3-article-12","title":"2026-03-08-eu-ai-act-omnibus-optimus-v3-article-12.md","path":"docs/field-notes/2026-03-08-eu-ai-act-omnibus-optimus-v3-article-12.md"}
+{"kind":"field-note","id":"2026-03-08-nvidia-connect-isv-approved","title":"2026-03-08-nvidia-connect-isv-approved.md","path":"docs/field-notes/2026-03-08-nvidia-connect-isv-approved.md"}
+{"kind":"field-note","id":"2026-03-09-opendev-cli-agent-research","title":"2026-03-09-opendev-cli-agent-research.md","path":"docs/field-notes/2026-03-09-opendev-cli-agent-research.md"}
+{"kind":"field-note","id":"2026-03-09-shufti-kya-byo-partner-access","title":"2026-03-09-shufti-kya-byo-partner-access.md","path":"docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md"}
+{"kind":"field-note","id":"2026-03-09-shufti-kya-technical-requirements","title":"2026-03-09-shufti-kya-technical-requirements.md","path":"docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md"}
+{"kind":"field-note","id":"2026-03-09-tangled-introduction","title":"2026-03-09-tangled-introduction.md","path":"docs/field-notes/2026-03-09-tangled-introduction.md"}
+{"kind":"field-note","id":"2026-03-10-acer-dgx-sandbox-strategy","title":"2026-03-10-acer-dgx-sandbox-strategy.md","path":"docs/field-notes/2026-03-10-acer-dgx-sandbox-strategy.md"}
+{"kind":"field-note","id":"2026-03-10-grok-gemini-35pct-uplift-validation","title":"2026-03-10-grok-gemini-35pct-uplift-validation.md","path":"docs/field-notes/2026-03-10-grok-gemini-35pct-uplift-validation.md"}
+{"kind":"field-note","id":"2026-03-10-grok-gemini-kya-review-input","title":"2026-03-10-grok-gemini-kya-review-input.md","path":"docs/field-notes/2026-03-10-grok-gemini-kya-review-input.md"}
+{"kind":"field-note","id":"2026-03-10-karpathy-autoresearch-nanochat-agent-swarm","title":"2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md","path":"docs/field-notes/2026-03-10-karpathy-autoresearch-nanochat-agent-swarm.md"}
+{"kind":"field-note","id":"2026-03-10-kya-financial-projections","title":"2026-03-10-kya-financial-projections.md","path":"docs/field-notes/2026-03-10-kya-financial-projections.md"}
+{"kind":"field-note","id":"2026-03-10-nist-kya-grok-gemini-review-input","title":"2026-03-10-nist-kya-grok-gemini-review-input.md","path":"docs/field-notes/2026-03-10-nist-kya-grok-gemini-review-input.md"}
+{"kind":"field-note","id":"2026-03-10-palantir-aip-partner-outreach","title":"2026-03-10-palantir-aip-partner-outreach.md","path":"docs/field-notes/2026-03-10-palantir-aip-partner-outreach.md"}
+{"kind":"field-note","id":"2026-03-10-ses-dkim-setup-success","title":"2026-03-10-ses-dkim-setup-success.md","path":"docs/field-notes/2026-03-10-ses-dkim-setup-success.md"}
+{"kind":"field-note","id":"2026-03-10-v1-aiven-plan-decision","title":"2026-03-10-v1-aiven-plan-decision.md","path":"docs/field-notes/2026-03-10-v1-aiven-plan-decision.md"}
+{"kind":"field-note","id":"2026-03-11-veriton-gn100-docker-cuda-validation","title":"2026-03-11-veriton-gn100-docker-cuda-validation.md","path":"docs/field-notes/2026-03-11-veriton-gn100-docker-cuda-validation.md"}
+{"kind":"field-note","id":"2026-03-12-postgres-columnar-htap-evaluation","title":"2026-03-12-postgres-columnar-htap-evaluation.md","path":"docs/field-notes/2026-03-12-postgres-columnar-htap-evaluation.md"}
+{"kind":"field-note","id":"2026-03-13-acer-gn100-edge-postgres-setup","title":"2026-03-13-acer-gn100-edge-postgres-setup.md","path":"docs/field-notes/2026-03-13-acer-gn100-edge-postgres-setup.md"}
+{"kind":"field-note","id":"2026-03-13-dws-autoresearch-methodology","title":"2026-03-13-dws-autoresearch-methodology.md","path":"docs/field-notes/2026-03-13-dws-autoresearch-methodology.md"}
+{"kind":"field-note","id":"2026-03-14-agent-browser-native-rust-integration","title":"2026-03-14-agent-browser-native-rust-integration.md","path":"docs/field-notes/2026-03-14-agent-browser-native-rust-integration.md"}
+{"kind":"field-note","id":"2026-03-14-openclaw-autoresearch-dws-feature-plan","title":"2026-03-14-openclaw-autoresearch-dws-feature-plan.md","path":"docs/field-notes/2026-03-14-openclaw-autoresearch-dws-feature-plan.md"}
+{"kind":"field-note","id":"2026-03-15-investor-materials-audit","title":"2026-03-15-investor-materials-audit.md","path":"docs/field-notes/2026-03-15-investor-materials-audit.md"}
+{"kind":"field-note","id":"2026-03-16-nvidia-gtc-2026-keynote-dws-impact","title":"2026-03-16-nvidia-gtc-2026-keynote-dws-impact.md","path":"docs/field-notes/2026-03-16-nvidia-gtc-2026-keynote-dws-impact.md"}
+{"kind":"field-note","id":"2026-03-16-pentesting-plan-dws6","title":"2026-03-16-pentesting-plan-dws6.md","path":"docs/field-notes/2026-03-16-pentesting-plan-dws6.md"}
+{"kind":"field-note","id":"2026-03-17-kya-sales-outreach-drafts","title":"2026-03-17-kya-sales-outreach-drafts.md","path":"docs/field-notes/2026-03-17-kya-sales-outreach-drafts.md"}
+{"kind":"field-note","id":"2026-03-17-shufti-eu-compliance-dpa-inquiry","title":"2026-03-17-shufti-eu-compliance-dpa-inquiry.md","path":"docs/field-notes/2026-03-17-shufti-eu-compliance-dpa-inquiry.md"}
+{"kind":"field-note","id":"2026-03-17-shufti-kya-whitepaper","title":"2026-03-17-shufti-kya-whitepaper.md","path":"docs/field-notes/2026-03-17-shufti-kya-whitepaper.md"}
+{"kind":"field-note","id":"2026-03-17-shufti-meeting-agenda","title":"2026-03-17-shufti-meeting-agenda.md","path":"docs/field-notes/2026-03-17-shufti-meeting-agenda.md"}
+{"kind":"field-note","id":"2026-03-18-kya-outreach-veriff-signicat","title":"2026-03-18-kya-outreach-veriff-signicat.md","path":"docs/field-notes/2026-03-18-kya-outreach-veriff-signicat.md"}
+{"kind":"field-note","id":"2026-03-21-docusign-esignature-integration","title":"2026-03-21-docusign-esignature-integration.md","path":"docs/field-notes/2026-03-21-docusign-esignature-integration.md"}
+{"kind":"field-note","id":"2026-03-21-ted-eprocurement-ontology-lead-sourcing","title":"2026-03-21-ted-eprocurement-ontology-lead-sourcing.md","path":"docs/field-notes/2026-03-21-ted-eprocurement-ontology-lead-sourcing.md"}
+{"kind":"field-note","id":"2026-03-25-lwm-phase2-technical-gap-analysis","title":"2026-03-25-lwm-phase2-technical-gap-analysis.md","path":"docs/field-notes/2026-03-25-lwm-phase2-technical-gap-analysis.md"}
+{"kind":"field-note","id":"2026-03-25-rule-zero-product-platform-reset","title":"2026-03-25-rule-zero-product-platform-reset.md","path":"docs/field-notes/2026-03-25-rule-zero-product-platform-reset.md"}
+{"kind":"field-note","id":"2026-03-26-aegis-pricing-study","title":"2026-03-26-aegis-pricing-study.md","path":"docs/field-notes/2026-03-26-aegis-pricing-study.md"}
+{"kind":"field-note","id":"2026-03-26-best-local-models-by-ram-tier","title":"2026-03-26-best-local-models-by-ram-tier.md","path":"docs/field-notes/2026-03-26-best-local-models-by-ram-tier.md"}
+{"kind":"field-note","id":"2026-03-26-cli-for-agents-design-patterns","title":"2026-03-26-cli-for-agents-design-patterns.md","path":"docs/field-notes/2026-03-26-cli-for-agents-design-patterns.md"}
+{"kind":"field-note","id":"2026-03-26-post-incident-cli-first-migration","title":"2026-03-26-post-incident-cli-first-migration.md","path":"docs/field-notes/2026-03-26-post-incident-cli-first-migration.md"}
+{"kind":"field-note","id":"2026-03-26-sharpsync-cad-erp-bom-integration","title":"2026-03-26-sharpsync-cad-erp-bom-integration.md","path":"docs/field-notes/2026-03-26-sharpsync-cad-erp-bom-integration.md"}
+{"kind":"field-note","id":"2026-03-29-db-drift-check-regex-view-fix","title":"2026-03-29-db-drift-check-regex-view-fix.md","path":"docs/field-notes/2026-03-29-db-drift-check-regex-view-fix.md"}
+{"kind":"field-note","id":"2026-03-29-dgx-spark-primary-runtime-setup","title":"2026-03-29-dgx-spark-primary-runtime-setup.md","path":"docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md"}
+{"kind":"field-note","id":"2026-03-29-turboquant-kv-cache-compression-dgx-spark","title":"2026-03-29-turboquant-kv-cache-compression-dgx-spark.md","path":"docs/field-notes/2026-03-29-turboquant-kv-cache-compression-dgx-spark.md"}
+{"kind":"field-note","id":"2026-03-30-define-network-dual-use-pattern","title":"2026-03-30-define-network-dual-use-pattern.md","path":"docs/field-notes/2026-03-30-define-network-dual-use-pattern.md"}
+{"kind":"field-note","id":"2026-03-30-kubecon-eu-2026-k8s-ai-inference","title":"2026-03-30-kubecon-eu-2026-k8s-ai-inference.md","path":"docs/field-notes/2026-03-30-kubecon-eu-2026-k8s-ai-inference.md"}
+{"kind":"field-note","id":"2026-03-30-lime-industry-dual-use-analysis","title":"2026-03-30-lime-industry-dual-use-analysis.md","path":"docs/field-notes/2026-03-30-lime-industry-dual-use-analysis.md"}
+{"kind":"field-note","id":"2026-04-01-sentris-rejection-post-mortem","title":"2026-04-01-sentris-rejection-post-mortem.md","path":"docs/field-notes/2026-04-01-sentris-rejection-post-mortem.md"}
+{"kind":"field-note","id":"2026-04-01-shufti-dpa-haris-escalation","title":"2026-04-01-shufti-dpa-haris-escalation.md","path":"docs/field-notes/2026-04-01-shufti-dpa-haris-escalation.md"}
+{"kind":"field-note","id":"2026-04-01-shufti-dpa-review-aegis-sovereignty","title":"2026-04-01-shufti-dpa-review-aegis-sovereignty.md","path":"docs/field-notes/2026-04-01-shufti-dpa-review-aegis-sovereignty.md"}
+{"kind":"field-note","id":"2026-04-01-yakovenko-drone-industrial-darwinism-interceptor-signal","title":"2026-04-01-yakovenko-drone-industrial-darwinism-interceptor-signal.md","path":"docs/field-notes/2026-04-01-yakovenko-drone-industrial-darwinism-interceptor-signal.md"}
+{"kind":"field-note","id":"2026-04-02-edip-1-5b-aegis-directions","title":"2026-04-02-edip-1-5b-aegis-directions.md","path":"docs/field-notes/2026-04-02-edip-1-5b-aegis-directions.md"}
+{"kind":"field-note","id":"2026-04-02-shufti-dpa-clause-audit-go-nogo","title":"2026-04-02-shufti-dpa-clause-audit-go-nogo.md","path":"docs/field-notes/2026-04-02-shufti-dpa-clause-audit-go-nogo.md"}
+{"kind":"field-note","id":"2026-04-03-agent-tool-adaptation-stanford-harvard","title":"2026-04-03-agent-tool-adaptation-stanford-harvard.md","path":"docs/field-notes/2026-04-03-agent-tool-adaptation-stanford-harvard.md"}
+{"kind":"field-note","id":"2026-04-03-asta-risk-audit-failover","title":"2026-04-03-asta-risk-audit-failover.md","path":"docs/field-notes/2026-04-03-asta-risk-audit-failover.md"}
+{"kind":"field-note","id":"2026-04-03-asta-scientific-analysis","title":"2026-04-03-asta-scientific-analysis.md","path":"docs/field-notes/2026-04-03-asta-scientific-analysis.md"}
+{"kind":"field-note","id":"2026-04-03-radiusaas-research-aegis-network-auth","title":"2026-04-03-radiusaas-research-aegis-network-auth.md","path":"docs/field-notes/2026-04-03-radiusaas-research-aegis-network-auth.md"}
+{"kind":"field-note","id":"2026-04-05-gemma-4-architecture-variants","title":"2026-04-05-gemma-4-architecture-variants.md","path":"docs/field-notes/2026-04-05-gemma-4-architecture-variants.md"}
+{"kind":"field-note","id":"2026-04-05-kya-version-number-conventions","title":"2026-04-05-kya-version-number-conventions.md","path":"docs/field-notes/2026-04-05-kya-version-number-conventions.md"}
+{"kind":"field-note","id":"2026-04-05-nvidia-groq-deal-inference-stack","title":"2026-04-05-nvidia-groq-deal-inference-stack.md","path":"docs/field-notes/2026-04-05-nvidia-groq-deal-inference-stack.md"}
+{"kind":"field-note","id":"2026-04-05-scaleway-eu-inference-setup","title":"2026-04-05-scaleway-eu-inference-setup.md","path":"docs/field-notes/2026-04-05-scaleway-eu-inference-setup.md"}
+{"kind":"field-note","id":"2026-04-05-shufti-dpa-compliance-resolution","title":"2026-04-05-shufti-dpa-compliance-resolution.md","path":"docs/field-notes/2026-04-05-shufti-dpa-compliance-resolution.md"}
+{"kind":"field-note","id":"2026-04-06-lifetime-certified-partners-consortium3-offering","title":"2026-04-06-lifetime-certified-partners-consortium3-offering.md","path":"docs/field-notes/2026-04-06-lifetime-certified-partners-consortium3-offering.md"}
+{"kind":"field-note","id":"2026-04-06-nemo-datadesigner-eu-compliance-implementation","title":"2026-04-06-nemo-datadesigner-eu-compliance-implementation.md","path":"docs/field-notes/2026-04-06-nemo-datadesigner-eu-compliance-implementation.md"}
+{"kind":"field-note","id":"2026-04-06-nordic-industrial-rebrand-mistral","title":"2026-04-06-nordic-industrial-rebrand-mistral.md","path":"docs/field-notes/2026-04-06-nordic-industrial-rebrand-mistral.md"}
+{"kind":"field-note","id":"2026-04-06-series-a-technical-narrative-synthetic-nervous-system","title":"2026-04-06-series-a-technical-narrative-synthetic-nervous-system.md","path":"docs/field-notes/2026-04-06-series-a-technical-narrative-synthetic-nervous-system.md"}
+{"kind":"field-note","id":"2026-04-06-synthetic-data-pipeline-cbam","title":"2026-04-06-synthetic-data-pipeline-cbam.md","path":"docs/field-notes/2026-04-06-synthetic-data-pipeline-cbam.md"}
+{"kind":"field-note","id":"2026-04-07-dual-use-export-control-national-general-authorisation-finland","title":"2026-04-07-dual-use-export-control-national-general-authorisation-finland.md","path":"docs/field-notes/2026-04-07-dual-use-export-control-national-general-authorisation-finland.md"}
+{"kind":"field-note","id":"2026-04-07-github-check-failures-pr933-984","title":"2026-04-07-github-check-failures-pr933-984.md","path":"docs/field-notes/2026-04-07-github-check-failures-pr933-984.md"}
+{"kind":"field-note","id":"2026-04-08-ally-piechowski-git-audit-before-reading-code","title":"2026-04-08-ally-piechowski-git-audit-before-reading-code.md","path":"docs/field-notes/2026-04-08-ally-piechowski-git-audit-before-reading-code.md"}
+{"kind":"field-note","id":"2026-04-10-aspire-13-2-isolated-mode","title":"2026-04-10-aspire-13-2-isolated-mode.md","path":"docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md"}
+{"kind":"field-note","id":"2026-04-10-dws-docs-cli-gap-aspire-pattern","title":"2026-04-10-dws-docs-cli-gap-aspire-pattern.md","path":"docs/field-notes/2026-04-10-dws-docs-cli-gap-aspire-pattern.md"}
+{"kind":"field-note","id":"2026-04-11-arxiv-2604-08407-relevance","title":"2026-04-11-arxiv-2604-08407-relevance.md","path":"docs/field-notes/2026-04-11-arxiv-2604-08407-relevance.md"}
+{"kind":"field-note","id":"2026-04-13-eudi-digital-euro-market-signals","title":"2026-04-13-eudi-digital-euro-market-signals.md","path":"docs/field-notes/2026-04-13-eudi-digital-euro-market-signals.md"}
+{"kind":"field-note","id":"2026-04-13-qivalis-investor-outreach-strategy","title":"2026-04-13-qivalis-investor-outreach-strategy.md","path":"docs/field-notes/2026-04-13-qivalis-investor-outreach-strategy.md"}
+{"kind":"field-note","id":"2026-04-13-qivalis-stablecoin-european-banks-digital-euro","title":"2026-04-13-qivalis-stablecoin-european-banks-digital-euro.md","path":"docs/field-notes/2026-04-13-qivalis-stablecoin-european-banks-digital-euro.md"}
+{"kind":"field-note","id":"2026-04-13-security-incident-partners-stub-overwrite","title":"2026-04-13-security-incident-partners-stub-overwrite.md","path":"docs/field-notes/2026-04-13-security-incident-partners-stub-overwrite.md"}
+{"kind":"field-note","id":"2026-04-14-sncf-france-infrastructure-surveillance-aegis","title":"2026-04-14-sncf-france-infrastructure-surveillance-aegis.md","path":"docs/field-notes/2026-04-14-sncf-france-infrastructure-surveillance-aegis.md"}
+{"kind":"field-note","id":"2026-04-14-wendy-agent-lifetime-fleet-cli-patterns","title":"2026-04-14-wendy-agent-lifetime-fleet-cli-patterns.md","path":"docs/field-notes/2026-04-14-wendy-agent-lifetime-fleet-cli-patterns.md"}
+{"kind":"field-note","id":"2026-04-15-dws-iq-aegis-lwm-strategy","title":"2026-04-15-dws-iq-aegis-lwm-strategy.md","path":"docs/field-notes/2026-04-15-dws-iq-aegis-lwm-strategy.md"}
+{"kind":"field-note","id":"2026-04-15-finland-drone-strategy-lifetime-fleet","title":"2026-04-15-finland-drone-strategy-lifetime-fleet.md","path":"docs/field-notes/2026-04-15-finland-drone-strategy-lifetime-fleet.md"}
+{"kind":"field-note","id":"2026-04-16-ai-paradigm-layoffs-evidence","title":"2026-04-16-ai-paradigm-layoffs-evidence.md","path":"docs/field-notes/2026-04-16-ai-paradigm-layoffs-evidence.md"}
+{"kind":"field-note","id":"2026-04-16-anthropic-skills-paradigm-stop-building-agents","title":"2026-04-16-anthropic-skills-paradigm-stop-building-agents.md","path":"docs/field-notes/2026-04-16-anthropic-skills-paradigm-stop-building-agents.md"}
+{"kind":"field-note","id":"2026-04-16-cbam-sector-coverage-complete","title":"2026-04-16-cbam-sector-coverage-complete.md","path":"docs/field-notes/2026-04-16-cbam-sector-coverage-complete.md"}
+{"kind":"field-note","id":"2026-04-16-hybridiosaamiskeskus-hallitus-turvallisuusvastuu","title":"2026-04-16-hybridiosaamiskeskus-hallitus-turvallisuusvastuu.md","path":"docs/field-notes/2026-04-16-hybridiosaamiskeskus-hallitus-turvallisuusvastuu.md"}
+{"kind":"field-note","id":"2026-04-16-jurisdiction-expansion-dws7","title":"2026-04-16-jurisdiction-expansion-dws7.md","path":"docs/field-notes/2026-04-16-jurisdiction-expansion-dws7.md"}
+{"kind":"field-note","id":"2026-04-16-nico-consulting-it-skills-shortage","title":"2026-04-16-nico-consulting-it-skills-shortage.md","path":"docs/field-notes/2026-04-16-nico-consulting-it-skills-shortage.md"}
+{"kind":"field-note","id":"2026-04-16-ses-smtp-production-setup","title":"2026-04-16-ses-smtp-production-setup.md","path":"docs/field-notes/2026-04-16-ses-smtp-production-setup.md"}
+{"kind":"field-note","id":"2026-04-16-staging-environment-setup","title":"2026-04-16-staging-environment-setup.md","path":"docs/field-notes/2026-04-16-staging-environment-setup.md"}
+{"kind":"field-note","id":"2026-04-17-kosti-salmi-salesforce-partner-outreach","title":"2026-04-17-kosti-salmi-salesforce-partner-outreach.md","path":"docs/field-notes/2026-04-17-kosti-salmi-salesforce-partner-outreach.md"}
+{"kind":"field-note","id":"2026-04-18-eu-green-hydrogen-additionality-finland-datacentres","title":"2026-04-18-eu-green-hydrogen-additionality-finland-datacentres.md","path":"docs/field-notes/2026-04-18-eu-green-hydrogen-additionality-finland-datacentres.md"}
+{"kind":"field-note","id":"2026-04-19-cerebral-valley-built-with-4-7-hackathon-application","title":"2026-04-19-cerebral-valley-built-with-4-7-hackathon-application.md","path":"docs/field-notes/2026-04-19-cerebral-valley-built-with-4-7-hackathon-application.md"}
+{"kind":"field-note","id":"2026-04-19-cto-linkedin-search-launched","title":"2026-04-19-cto-linkedin-search-launched.md","path":"docs/field-notes/2026-04-19-cto-linkedin-search-launched.md"}
+{"kind":"field-note","id":"2026-04-19-drone-app-baltic-timeline-research","title":"2026-04-19-drone-app-baltic-timeline-research.md","path":"docs/field-notes/2026-04-19-drone-app-baltic-timeline-research.md"}
+{"kind":"field-note","id":"2026-04-19-lifetime-scope-journal-media-layer-strategy","title":"2026-04-19-lifetime-scope-journal-media-layer-strategy.md","path":"docs/field-notes/2026-04-19-lifetime-scope-journal-media-layer-strategy.md"}
+{"kind":"field-note","id":"2026-04-19-ses-inbound-setup","title":"2026-04-19-ses-inbound-setup.md","path":"docs/field-notes/2026-04-19-ses-inbound-setup.md"}
+{"kind":"field-note","id":"2026-04-19-technological-republic-karp-zamiska-research-note","title":"2026-04-19-technological-republic-karp-zamiska-research-note.md","path":"docs/field-notes/2026-04-19-technological-republic-karp-zamiska-research-note.md"}
+{"kind":"field-note","id":"2026-04-19-vesala-teemu-standards-enthusiast","title":"2026-04-19-vesala-teemu-standards-enthusiast.md","path":"docs/field-notes/2026-04-19-vesala-teemu-standards-enthusiast.md"}
+{"kind":"field-note","id":"2026-04-20-siemens-synthetic-data-partnership-wedge","title":"2026-04-20-siemens-synthetic-data-partnership-wedge.md","path":"docs/field-notes/2026-04-20-siemens-synthetic-data-partnership-wedge.md"}
+{"kind":"field-note","id":"2026-04-22-agent-ecosystem-landscape-q2-2026","title":"2026-04-22-agent-ecosystem-landscape-q2-2026.md","path":"docs/field-notes/2026-04-22-agent-ecosystem-landscape-q2-2026.md"}
+{"kind":"field-note","id":"2026-04-22-ci-hygiene-audit","title":"2026-04-22-ci-hygiene-audit.md","path":"docs/field-notes/2026-04-22-ci-hygiene-audit.md"}
+{"kind":"field-note","id":"2026-04-22-digital-europe-programme-ai-health-online-safety-call","title":"2026-04-22-digital-europe-programme-ai-health-online-safety-call.md","path":"docs/field-notes/2026-04-22-digital-europe-programme-ai-health-online-safety-call.md"}
+{"kind":"field-note","id":"2026-04-22-obsidian-cli-claude-code-integration","title":"2026-04-22-obsidian-cli-claude-code-integration.md","path":"docs/field-notes/2026-04-22-obsidian-cli-claude-code-integration.md"}
+{"kind":"field-note","id":"2026-04-22-research-agent-architecture-lifetime-scope","title":"2026-04-22-research-agent-architecture-lifetime-scope.md","path":"docs/field-notes/2026-04-22-research-agent-architecture-lifetime-scope.md"}
+{"kind":"field-note","id":"2026-04-23-eu-ai-act-compliance-layer-research","title":"2026-04-23-eu-ai-act-compliance-layer-research.md","path":"docs/field-notes/2026-04-23-eu-ai-act-compliance-layer-research.md"}
+{"kind":"field-note","id":"2026-04-23-iceye-partner","title":"2026-04-23-iceye-partner.md","path":"docs/field-notes/2026-04-23-iceye-partner.md"}
+{"kind":"field-note","id":"2026-04-23-migration-062-press-subscribers","title":"2026-04-23-migration-062-press-subscribers.md","path":"docs/field-notes/2026-04-23-migration-062-press-subscribers.md"}
+{"kind":"field-note","id":"2026-04-23-sovereign-cloud-providers-aegis-partner-research","title":"2026-04-23-sovereign-cloud-providers-aegis-partner-research.md","path":"docs/field-notes/2026-04-23-sovereign-cloud-providers-aegis-partner-research.md"}
+{"kind":"field-note","id":"2026-04-24-mcp-debugger-step-through-debugging","title":"2026-04-24-mcp-debugger-step-through-debugging.md","path":"docs/field-notes/2026-04-24-mcp-debugger-step-through-debugging.md"}
+{"kind":"field-note","id":"2026-04-25-cohere-aleph-alpha-sovereign-ai-merger","title":"2026-04-25-cohere-aleph-alpha-sovereign-ai-merger.md","path":"docs/field-notes/2026-04-25-cohere-aleph-alpha-sovereign-ai-merger.md"}
+{"kind":"field-note","id":"2026-04-27-fpe-dark-mode-executive-page","title":"2026-04-27-fpe-dark-mode-executive-page.md","path":"docs/field-notes/2026-04-27-fpe-dark-mode-executive-page.md"}
+{"kind":"field-note","id":"2026-04-28-ironclad-nav-orphan-audit","title":"2026-04-28-ironclad-nav-orphan-audit.md","path":"docs/field-notes/2026-04-28-ironclad-nav-orphan-audit.md"}
+{"kind":"field-note","id":"2026-04-30-goose-replace-ollama-swot","title":"2026-04-30-goose-replace-ollama-swot.md","path":"docs/field-notes/2026-04-30-goose-replace-ollama-swot.md"}
+{"kind":"field-note","id":"2026-05-02-gcp-otel-ingestion-api-launch","title":"2026-05-02-gcp-otel-ingestion-api-launch.md","path":"docs/field-notes/2026-05-02-gcp-otel-ingestion-api-launch.md"}
+{"kind":"field-note","id":"2026-05-03-ai-engineering-50-backend-agents-foundry","title":"2026-05-03-ai-engineering-50-backend-agents-foundry.md","path":"docs/field-notes/2026-05-03-ai-engineering-50-backend-agents-foundry.md"}
+{"kind":"field-note","id":"2026-05-04-cultivation-polishing-provision-dws-product-philosophy","title":"2026-05-04-cultivation-polishing-provision-dws-product-philosophy.md","path":"docs/field-notes/2026-05-04-cultivation-polishing-provision-dws-product-philosophy.md"}
+{"kind":"field-note","id":"2026-05-04-google-cloud-knowledge-catalog-analysis","title":"2026-05-04-google-cloud-knowledge-catalog-analysis.md","path":"docs/field-notes/2026-05-04-google-cloud-knowledge-catalog-analysis.md"}
+{"kind":"field-note","id":"2026-05-07-eu-ai-act-omnibus-impact-dws6","title":"2026-05-07-eu-ai-act-omnibus-impact-dws6.md","path":"docs/field-notes/2026-05-07-eu-ai-act-omnibus-impact-dws6.md"}
+{"kind":"field-note","id":"2026-05-07-groq-vs-baseten-inference-study","title":"2026-05-07-groq-vs-baseten-inference-study.md","path":"docs/field-notes/2026-05-07-groq-vs-baseten-inference-study.md"}
+{"kind":"field-note","id":"2026-05-07-kyai-european-inference-sovereignty","title":"2026-05-07-kyai-european-inference-sovereignty.md","path":"docs/field-notes/2026-05-07-kyai-european-inference-sovereignty.md"}
+{"kind":"field-note","id":"2026-05-07-legora-aos-dws-case-handling-improvements","title":"2026-05-07-legora-aos-dws-case-handling-improvements.md","path":"docs/field-notes/2026-05-07-legora-aos-dws-case-handling-improvements.md"}
+{"kind":"field-note","id":"2026-05-07-tokenspeed-inference-engine","title":"2026-05-07-tokenspeed-inference-engine.md","path":"docs/field-notes/2026-05-07-tokenspeed-inference-engine.md"}
+{"kind":"field-note","id":"2026-05-08-varsavsky-agent-accountability-intelligence-cheap","title":"2026-05-08-varsavsky-agent-accountability-intelligence-cheap.md","path":"docs/field-notes/2026-05-08-varsavsky-agent-accountability-intelligence-cheap.md"}
+{"kind":"field-note","id":"2026-05-08-varsavsky-observability-when-did-it-start","title":"2026-05-08-varsavsky-observability-when-did-it-start.md","path":"docs/field-notes/2026-05-08-varsavsky-observability-when-did-it-start.md"}
+{"kind":"field-note","id":"2026-05-08-waza-usability-study","title":"2026-05-08-waza-usability-study.md","path":"docs/field-notes/2026-05-08-waza-usability-study.md"}
+{"kind":"field-note","id":"2026-05-10-cbam-carbon-border-adjustment-mechanism","title":"2026-05-10-cbam-carbon-border-adjustment-mechanism.md","path":"docs/field-notes/2026-05-10-cbam-carbon-border-adjustment-mechanism.md"}
+{"kind":"field-note","id":"2026-05-10-microsoft-isv-program-application","title":"2026-05-10-microsoft-isv-program-application.md","path":"docs/field-notes/2026-05-10-microsoft-isv-program-application.md"}
+{"kind":"field-note","id":"2026-05-10-nordic-industrial-intelligence-digest-w20","title":"2026-05-10-nordic-industrial-intelligence-digest-w20.md","path":"docs/field-notes/2026-05-10-nordic-industrial-intelligence-digest-w20.md"}
+{"kind":"field-note","id":"2026-05-10-tietotehdas-datakeskus-suomen-kansallisvarallisuus","title":"2026-05-10-tietotehdas-datakeskus-suomen-kansallisvarallisuus.md","path":"docs/field-notes/2026-05-10-tietotehdas-datakeskus-suomen-kansallisvarallisuus.md"}
+{"kind":"field-note","id":"2026-05-12-google-managed-mcp-servers-ga","title":"2026-05-12-google-managed-mcp-servers-ga.md","path":"docs/field-notes/2026-05-12-google-managed-mcp-servers-ga.md"}
+{"kind":"field-note","id":"2026-05-12-shai-hulud-npm-malware-ai-tooling-targeting","title":"2026-05-12-shai-hulud-npm-malware-ai-tooling-targeting.md","path":"docs/field-notes/2026-05-12-shai-hulud-npm-malware-ai-tooling-targeting.md"}
+{"kind":"field-note","id":"2026-05-15-caruna-espoo-jakeluverkon-kehittamissuunnitelma-2026","title":"2026-05-15-caruna-espoo-jakeluverkon-kehittamissuunnitelma-2026.md","path":"docs/field-notes/2026-05-15-caruna-espoo-jakeluverkon-kehittamissuunnitelma-2026.md"}
+{"kind":"field-note","id":"2026-05-15-nvfp4-pretraining-for-control-room-lwm","title":"2026-05-15-nvfp4-pretraining-for-control-room-lwm.md","path":"docs/field-notes/2026-05-15-nvfp4-pretraining-for-control-room-lwm.md"}
+{"kind":"field-note","id":"2026-05-15-nvidia-sap-specialized-agents-partnership-join","title":"2026-05-15-nvidia-sap-specialized-agents-partnership-join.md","path":"docs/field-notes/2026-05-15-nvidia-sap-specialized-agents-partnership-join.md"}
+{"kind":"field-note","id":"2026-05-15-opentelemetry-genai-observability-control-room","title":"2026-05-15-opentelemetry-genai-observability-control-room.md","path":"docs/field-notes/2026-05-15-opentelemetry-genai-observability-control-room.md"}
+{"kind":"field-note","id":"2026-05-18-models-worth-building-on-3090-5090-dgx-spark","title":"2026-05-18-models-worth-building-on-3090-5090-dgx-spark.md","path":"docs/field-notes/2026-05-18-models-worth-building-on-3090-5090-dgx-spark.md"}
+{"kind":"field-note","id":"2026-05-20-external-kv-cache-for-lwm-v2-pegaflow-audit","title":"2026-05-20-external-kv-cache-for-lwm-v2-pegaflow-audit.md","path":"docs/field-notes/2026-05-20-external-kv-cache-for-lwm-v2-pegaflow-audit.md"}
+{"kind":"field-note","id":"2026-05-22-nvidia-gtc-taipei-2026-jetson-thor-edge-bca","title":"2026-05-22-nvidia-gtc-taipei-2026-jetson-thor-edge-bca.md","path":"docs/field-notes/2026-05-22-nvidia-gtc-taipei-2026-jetson-thor-edge-bca.md"}
+{"kind":"field-note","id":"2026-05-22-outokumpu-sustainability-customers-engagements","title":"2026-05-22-outokumpu-sustainability-customers-engagements.md","path":"docs/field-notes/2026-05-22-outokumpu-sustainability-customers-engagements.md"}
+{"kind":"field-note","id":"2026-05-23-dgx-spark-observatory-self-hosted-runner","title":"2026-05-23-dgx-spark-observatory-self-hosted-runner.md","path":"docs/field-notes/2026-05-23-dgx-spark-observatory-self-hosted-runner.md"}
+{"kind":"field-note","id":"2026-05-23-github-app-token-stateless-format-scan","title":"2026-05-23-github-app-token-stateless-format-scan.md","path":"docs/field-notes/2026-05-23-github-app-token-stateless-format-scan.md"}
+{"kind":"field-note","id":"2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud","title":"2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md","path":"docs/field-notes/2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md"}
+{"kind":"field-note","id":"2026-05-23-onelifetime-world-cloudflare-pages-gap","title":"2026-05-23-onelifetime-world-cloudflare-pages-gap.md","path":"docs/field-notes/2026-05-23-onelifetime-world-cloudflare-pages-gap.md"}
+{"kind":"field-note","id":"2026-05-23-train-model-product-three-tier-enterprise-pricing","title":"2026-05-23-train-model-product-three-tier-enterprise-pricing.md","path":"docs/field-notes/2026-05-23-train-model-product-three-tier-enterprise-pricing.md"}
+{"kind":"field-note","id":"2026-05-24-exa-openclaw-gcp-vault","title":"2026-05-24-exa-openclaw-gcp-vault.md","path":"docs/field-notes/2026-05-24-exa-openclaw-gcp-vault.md"}
+{"kind":"field-note","id":"2026-05-25-exa-enterprise-case-studies","title":"2026-05-25-exa-enterprise-case-studies.md","path":"docs/field-notes/2026-05-25-exa-enterprise-case-studies.md"}
+{"kind":"field-note","id":"2026-05-25-exa-stackai-anara-action-plan","title":"2026-05-25-exa-stackai-anara-action-plan.md","path":"docs/field-notes/2026-05-25-exa-stackai-anara-action-plan.md"}
+{"kind":"field-note","id":"2026-05-25-tier1-sovereignty-pilot-outokumpu-dgx-t5000","title":"2026-05-25-tier1-sovereignty-pilot-outokumpu-dgx-t5000.md","path":"docs/field-notes/2026-05-25-tier1-sovereignty-pilot-outokumpu-dgx-t5000.md"}
+{"kind":"field-note","id":"2026-05-27-anthropic-blackstone-hf-services-firm-fractional-ai","title":"2026-05-27-anthropic-blackstone-hf-services-firm-fractional-ai.md","path":"docs/field-notes/2026-05-27-anthropic-blackstone-hf-services-firm-fractional-ai.md"}
+{"kind":"field-note","id":"2026-05-27-nvidia-vera-cpu-olympus-arm-host","title":"2026-05-27-nvidia-vera-cpu-olympus-arm-host.md","path":"docs/field-notes/2026-05-27-nvidia-vera-cpu-olympus-arm-host.md"}
+{"kind":"field-note","id":"2026-05-28-agent-deployment-execution-harness","title":"2026-05-28-agent-deployment-execution-harness.md","path":"docs/field-notes/2026-05-28-agent-deployment-execution-harness.md"}
+{"kind":"field-note","id":"2026-05-28-three-pillars-sovereignty-global","title":"2026-05-28-three-pillars-sovereignty-global.md","path":"docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md"}
+{"kind":"field-note","id":"2026-05-31-agent-driven-sdlc-playbook-engineer-review","title":"2026-05-31-agent-driven-sdlc-playbook-engineer-review.md","path":"docs/field-notes/2026-05-31-agent-driven-sdlc-playbook-engineer-review.md"}
+{"kind":"field-note","id":"2026-05-31-gemini-deep-sage-pitch-alternative","title":"2026-05-31-gemini-deep-sage-pitch-alternative.md","path":"docs/field-notes/2026-05-31-gemini-deep-sage-pitch-alternative.md"}
+{"kind":"field-note","id":"2026-06-01-simon-willison-pmf-api-cost-edge-moat","title":"2026-06-01-simon-willison-pmf-api-cost-edge-moat.md","path":"docs/field-notes/2026-06-01-simon-willison-pmf-api-cost-edge-moat.md"}
+{"kind":"field-note","id":"2026-06-02-quantum-qday-reply-to-drake-social","title":"2026-06-02-quantum-qday-reply-to-drake-social.md","path":"docs/field-notes/2026-06-02-quantum-qday-reply-to-drake-social.md"}
+{"kind":"field-note","id":"2026-06-02-quantum-qday-shor-ecc-field-note","title":"2026-06-02-quantum-qday-shor-ecc-field-note.md","path":"docs/field-notes/2026-06-02-quantum-qday-shor-ecc-field-note.md"}
+{"kind":"field-note","id":"2026-06-05-aipcon10-usda-agricultural-ontology","title":"2026-06-05-aipcon10-usda-agricultural-ontology.md","path":"docs/field-notes/2026-06-05-aipcon10-usda-agricultural-ontology.md"}
+{"kind":"field-note","id":"2026-06-07-ceo-review-tech-partner-wedge-eu-sovereign-moat","title":"2026-06-07-ceo-review-tech-partner-wedge-eu-sovereign-moat.md","path":"docs/field-notes/2026-06-07-ceo-review-tech-partner-wedge-eu-sovereign-moat.md"}
+{"kind":"field-note","id":"2026-06-10-offensive-positioning-dws10","title":"2026-06-10-offensive-positioning-dws10.md","path":"docs/field-notes/2026-06-10-offensive-positioning-dws10.md"}
+{"kind":"field-note","id":"2026-06-13-dws-iq-sovereign-edge-three-rooms-industry-hardware-stack","title":"2026-06-13-dws-iq-sovereign-edge-three-rooms-industry-hardware-stack.md","path":"docs/field-notes/2026-06-13-dws-iq-sovereign-edge-three-rooms-industry-hardware-stack.md"}
+{"kind":"field-note","id":"2026-06-15-human-token-capital","title":"2026-06-15-human-token-capital.md","path":"docs/field-notes/2026-06-15-human-token-capital.md"}
+{"kind":"field-note","id":"2026-06-15-noise-floor-ontology-old-labels","title":"2026-06-15-noise-floor-ontology-old-labels.md","path":"docs/field-notes/2026-06-15-noise-floor-ontology-old-labels.md"}
+{"kind":"field-note","id":"2026-06-18-eu-china-industrial-sovereignty-aegis","title":"2026-06-18-eu-china-industrial-sovereignty-aegis.md","path":"docs/field-notes/2026-06-18-eu-china-industrial-sovereignty-aegis.md"}
+{"kind":"field-note","id":"2026-06-19-karpathy-12-rules-harness-hardening","title":"2026-06-19-karpathy-12-rules-harness-hardening.md","path":"docs/field-notes/2026-06-19-karpathy-12-rules-harness-hardening.md"}
+{"kind":"field-note","id":"2026-06-19-token-capital-human-capital-control-room-capital","title":"2026-06-19-token-capital-human-capital-control-room-capital.md","path":"docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md"}
+{"kind":"field-note","id":"2026-06-20-raskas-liikenne-control-room-fit-for-55","title":"2026-06-20-raskas-liikenne-control-room-fit-for-55.md","path":"docs/field-notes/2026-06-20-raskas-liikenne-control-room-fit-for-55.md"}
+{"kind":"field-note","id":"2026-06-23-dws-iq6-world-model-control-rooms-social_ARCHIVE","title":"2026-06-23-dws-iq6-world-model-control-rooms-social_ARCHIVE.md","path":"docs/field-notes/2026-06-23-dws-iq6-world-model-control-rooms-social_ARCHIVE.md"}
+{"kind":"field-note","id":"2026-06-25-eu-ai-factories-nvidia-agent-runtime","title":"2026-06-25-eu-ai-factories-nvidia-agent-runtime.md","path":"docs/field-notes/2026-06-25-eu-ai-factories-nvidia-agent-runtime.md"}
+{"kind":"field-note","id":"2026-06-25-nemoclaw-regulated-autonomous-engineer","title":"2026-06-25-nemoclaw-regulated-autonomous-engineer.md","path":"docs/field-notes/2026-06-25-nemoclaw-regulated-autonomous-engineer.md"}
+{"kind":"field-note","id":"2026-06-26-cuda-13-jetson-thor-jetpack7-field-note","title":"2026-06-26-cuda-13-jetson-thor-jetpack7-field-note.md","path":"docs/field-notes/2026-06-26-cuda-13-jetson-thor-jetpack7-field-note.md"}
+{"kind":"field-note","id":"2026-06-26-nvidia-drive-agx-thor-developer-kit-ga","title":"2026-06-26-nvidia-drive-agx-thor-developer-kit-ga.md","path":"docs/field-notes/2026-06-26-nvidia-drive-agx-thor-developer-kit-ga.md"}
+{"kind":"field-note","id":"2026-06-27-deepseek-v4-flash-hybrid-gpu-cpu-inference","title":"2026-06-27-deepseek-v4-flash-hybrid-gpu-cpu-inference.md","path":"docs/field-notes/2026-06-27-deepseek-v4-flash-hybrid-gpu-cpu-inference.md"}
+{"kind":"field-note","id":"2026-06-27-ngc-team-scoped-api-retirement","title":"2026-06-27-ngc-team-scoped-api-retirement.md","path":"docs/field-notes/2026-06-27-ngc-team-scoped-api-retirement.md"}
+{"kind":"field-note","id":"2026-06-27-reachy-mini-nvidia-jetson-robotics-hackathon","title":"2026-06-27-reachy-mini-nvidia-jetson-robotics-hackathon.md","path":"docs/field-notes/2026-06-27-reachy-mini-nvidia-jetson-robotics-hackathon.md"}
+{"kind":"field-note","id":"2026-06-27-red-queen-godel-machine-rqgm","title":"2026-06-27-red-queen-godel-machine-rqgm.md","path":"docs/field-notes/2026-06-27-red-queen-godel-machine-rqgm.md"}
+{"kind":"field-note","id":"2026-06-29-42cap-investment-principles","title":"2026-06-29-42cap-investment-principles.md","path":"docs/field-notes/2026-06-29-42cap-investment-principles.md"}
+{"kind":"field-note","id":"2026-06-29-anduril-drift-learnings","title":"2026-06-29-anduril-drift-learnings.md","path":"docs/field-notes/2026-06-29-anduril-drift-learnings.md"}
+{"kind":"field-note","id":"2026-06-29-anduril-software-native-defense-case-study","title":"2026-06-29-anduril-software-native-defense-case-study.md","path":"docs/field-notes/2026-06-29-anduril-software-native-defense-case-study.md"}
+{"kind":"field-note","id":"2026-07-01-ai-sovereignty-nine-theses","title":"2026-07-01-ai-sovereignty-nine-theses.md","path":"docs/field-notes/2026-07-01-ai-sovereignty-nine-theses.md"}
+{"kind":"field-note","id":"2026-07-01-outokumpu-henri-simpanen-kemi-mine-second-door","title":"2026-07-01-outokumpu-henri-simpanen-kemi-mine-second-door.md","path":"docs/field-notes/2026-07-01-outokumpu-henri-simpanen-kemi-mine-second-door.md"}
+{"kind":"field-note","id":"2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room","title":"2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md","path":"docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md"}
+{"kind":"field-note","id":"2026-07-02-karp-tokenization-economy-ai-moat","title":"2026-07-02-karp-tokenization-economy-ai-moat.md","path":"docs/field-notes/2026-07-02-karp-tokenization-economy-ai-moat.md"}
+{"kind":"field-note","id":"2026-07-02-nemotron-twotower-ontology-stage1-throughput","title":"2026-07-02-nemotron-twotower-ontology-stage1-throughput.md","path":"docs/field-notes/2026-07-02-nemotron-twotower-ontology-stage1-throughput.md"}
+{"kind":"field-note","id":"2026-07-02-sergey-brin-frontier-ai-qa","title":"2026-07-02-sergey-brin-frontier-ai-qa.md","path":"docs/field-notes/2026-07-02-sergey-brin-frontier-ai-qa.md"}
+{"kind":"field-note","id":"2026-07-02-supabase-audit-aiven-deployment-plan","title":"2026-07-02-supabase-audit-aiven-deployment-plan.md","path":"docs/field-notes/2026-07-02-supabase-audit-aiven-deployment-plan.md"}
+{"kind":"field-note","id":"2026-07-03-mobile-apps-ui-library-audit","title":"2026-07-03-mobile-apps-ui-library-audit.md","path":"docs/field-notes/2026-07-03-mobile-apps-ui-library-audit.md"}
+{"kind":"field-note","id":"2026-07-04-palantir-wahlquist-us-open-weight-models-lwm-implications","title":"2026-07-04-palantir-wahlquist-us-open-weight-models-lwm-implications.md","path":"docs/field-notes/2026-07-04-palantir-wahlquist-us-open-weight-models-lwm-implications.md"}
+{"kind":"field-note","id":"2026-07-04-training-secret-egress","title":"2026-07-04-training-secret-egress.md","path":"docs/field-notes/2026-07-04-training-secret-egress.md"}
+{"kind":"field-note","id":"2026-07-05-groq-ross-dominant-game-recipe","title":"2026-07-05-groq-ross-dominant-game-recipe.md","path":"docs/field-notes/2026-07-05-groq-ross-dominant-game-recipe.md"}
+{"kind":"field-note","id":"2026-07-05-nemotron-twotower-stage1-production-switch","title":"2026-07-05-nemotron-twotower-stage1-production-switch.md","path":"docs/field-notes/2026-07-05-nemotron-twotower-stage1-production-switch.md"}
+{"kind":"field-note","id":"2026-07-05-san-francisco-sovereign-intelligence-industries","title":"2026-07-05-san-francisco-sovereign-intelligence-industries.md","path":"docs/field-notes/2026-07-05-san-francisco-sovereign-intelligence-industries.md"}
+{"kind":"field-note","id":"2026-07-06-dgx-edb-vs-aiven-upcloud-comparison","title":"2026-07-06-dgx-edb-vs-aiven-upcloud-comparison.md","path":"docs/field-notes/2026-07-06-dgx-edb-vs-aiven-upcloud-comparison.md"}
+{"kind":"field-note","id":"2026-07-06-edb-postgres-ai-nvidia-dgx-evaluation","title":"2026-07-06-edb-postgres-ai-nvidia-dgx-evaluation.md","path":"docs/field-notes/2026-07-06-edb-postgres-ai-nvidia-dgx-evaluation.md"}
+{"kind":"field-note","id":"2026-07-06-greg-isenberg-startups-for-agents-21-answers","title":"2026-07-06-greg-isenberg-startups-for-agents-21-answers.md","path":"docs/field-notes/2026-07-06-greg-isenberg-startups-for-agents-21-answers.md"}
+{"kind":"field-note","id":"2026-07-06-wartsila-stack-aiven-dws-compatibility","title":"2026-07-06-wartsila-stack-aiven-dws-compatibility.md","path":"docs/field-notes/2026-07-06-wartsila-stack-aiven-dws-compatibility.md"}
+{"kind":"field-note","id":"2026-07-07-aspire-development-evolution-pr1500-to-main","title":"2026-07-07-aspire-development-evolution-pr1500-to-main.md","path":"docs/field-notes/2026-07-07-aspire-development-evolution-pr1500-to-main.md"}
+{"kind":"field-note","id":"2026-07-07-hakimi-observability-vs-authorization","title":"2026-07-07-hakimi-observability-vs-authorization.md","path":"docs/field-notes/2026-07-07-hakimi-observability-vs-authorization.md"}
+{"kind":"field-note","id":"2026-07-09-electe-programming-labour-taxonomy","title":"2026-07-09-electe-programming-labour-taxonomy.md","path":"docs/field-notes/2026-07-09-electe-programming-labour-taxonomy.md"}
+{"kind":"field-note","id":"2026-07-09-sovereign-intelligence-coinability-gtm-audit","title":"2026-07-09-sovereign-intelligence-coinability-gtm-audit.md","path":"docs/field-notes/2026-07-09-sovereign-intelligence-coinability-gtm-audit.md"}
+{"kind":"field-note","id":"2026-07-09-typescript-7-repo-impact-sovereignty","title":"2026-07-09-typescript-7-repo-impact-sovereignty.md","path":"docs/field-notes/2026-07-09-typescript-7-repo-impact-sovereignty.md"}
+{"kind":"field-note","id":"2026-07-12-colibri-usability-study","title":"2026-07-12-colibri-usability-study.md","path":"docs/field-notes/2026-07-12-colibri-usability-study.md"}
+{"kind":"field-note","id":"2026-07-12-sales-manager-newsletter-automation-plan","title":"2026-07-12-sales-manager-newsletter-automation-plan.md","path":"docs/field-notes/2026-07-12-sales-manager-newsletter-automation-plan.md"}
+{"kind":"field-note","id":"2026-07-13-aiven-dpa-developer-contract-assessment","title":"2026-07-13-aiven-dpa-developer-contract-assessment.md","path":"docs/field-notes/2026-07-13-aiven-dpa-developer-contract-assessment.md"}
+{"kind":"field-note","id":"2026-07-14-boardy-lifetime-ab-financial-architecture","title":"2026-07-14-boardy-lifetime-ab-financial-architecture.md","path":"docs/field-notes/2026-07-14-boardy-lifetime-ab-financial-architecture.md"}
+{"kind":"field-note","id":"2026-07-14-eidas-login-smart-card-reader-zbook","title":"2026-07-14-eidas-login-smart-card-reader-zbook.md","path":"docs/field-notes/2026-07-14-eidas-login-smart-card-reader-zbook.md"}
+{"kind":"field-note","id":"2026-07-14-european-defence-fragmentation-signal","title":"2026-07-14-european-defence-fragmentation-signal.md","path":"docs/field-notes/2026-07-14-european-defence-fragmentation-signal.md"}
+{"kind":"field-note","id":"2026-07-14-kth-broman-torngren-tecosa-trustworthy-systems","title":"2026-07-14-kth-broman-torngren-tecosa-trustworthy-systems.md","path":"docs/field-notes/2026-07-14-kth-broman-torngren-tecosa-trustworthy-systems.md"}
+{"kind":"field-note","id":"2026-07-14-lifetime-ab-critical-path-sweden","title":"2026-07-14-lifetime-ab-critical-path-sweden.md","path":"docs/field-notes/2026-07-14-lifetime-ab-critical-path-sweden.md"}
+{"kind":"field-note","id":"2026-07-14-lut-smolander-phd-three-research-options","title":"2026-07-14-lut-smolander-phd-three-research-options.md","path":"docs/field-notes/2026-07-14-lut-smolander-phd-three-research-options.md"}
+{"kind":"field-note","id":"2026-07-14-lut-smolander-six-questions-letter-sent","title":"2026-07-14-lut-smolander-six-questions-letter-sent.md","path":"docs/field-notes/2026-07-14-lut-smolander-six-questions-letter-sent.md"}
+{"kind":"field-note","id":"2026-07-14-truth-standard-and-aura","title":"2026-07-14-truth-standard-and-aura.md","path":"docs/field-notes/2026-07-14-truth-standard-and-aura.md"}
+{"kind":"field-note","id":"2026-07-15-block71-ai-accelerate-eligibility-sg-entity","title":"2026-07-15-block71-ai-accelerate-eligibility-sg-entity.md","path":"docs/field-notes/2026-07-15-block71-ai-accelerate-eligibility-sg-entity.md"}
+{"kind":"field-note","id":"2026-07-15-broken-containers-impact-audit","title":"2026-07-15-broken-containers-impact-audit.md","path":"docs/field-notes/2026-07-15-broken-containers-impact-audit.md"}
+{"kind":"field-note","id":"2026-07-16-google-cloud-run-pricing-hefty-charges","title":"2026-07-16-google-cloud-run-pricing-hefty-charges.md","path":"docs/field-notes/2026-07-16-google-cloud-run-pricing-hefty-charges.md"}
+{"kind":"field-note","id":"2026-07-16-nvidia-hardware-pricing","title":"2026-07-16-nvidia-hardware-pricing.md","path":"docs/field-notes/2026-07-16-nvidia-hardware-pricing.md"}
+{"kind":"field-note","id":"2026-07-16-scaleway-pricing-increase-june-2026-impact","title":"2026-07-16-scaleway-pricing-increase-june-2026-impact.md","path":"docs/field-notes/2026-07-16-scaleway-pricing-increase-june-2026-impact.md"}
+{"kind":"field-note","id":"2026-07-16-upcloud-pricing-finnish-sovereign-alternative","title":"2026-07-16-upcloud-pricing-finnish-sovereign-alternative.md","path":"docs/field-notes/2026-07-16-upcloud-pricing-finnish-sovereign-alternative.md"}
+{"kind":"field-note","id":"2026-07-17-dac-2026-early-career-workshop-connections","title":"2026-07-17-dac-2026-early-career-workshop-connections.md","path":"docs/field-notes/2026-07-17-dac-2026-early-career-workshop-connections.md"}
+{"kind":"field-note","id":"2026-07-19-aspire-13-2-withpostgresmcp-vs-dws-edge-pg","title":"2026-07-19-aspire-13-2-withpostgresmcp-vs-dws-edge-pg.md","path":"docs/field-notes/2026-07-19-aspire-13-2-withpostgresmcp-vs-dws-edge-pg.md"}
+{"kind":"field-note","id":"2026-07-23-warsaw-iris2-signing-aegis-connection","title":"2026-07-23-warsaw-iris2-signing-aegis-connection.md","path":"docs/field-notes/2026-07-23-warsaw-iris2-signing-aegis-connection.md"}
+{"kind":"field-note","id":"2026-07-24-dws-learning-standard-hic-process","title":"2026-07-24-dws-learning-standard-hic-process.md","path":"docs/field-notes/2026-07-24-dws-learning-standard-hic-process.md"}
+{"kind":"field-note","id":"2026-07-24-greg-isenberg-16-things-normal-in-3-years","title":"2026-07-24-greg-isenberg-16-things-normal-in-3-years.md","path":"docs/field-notes/2026-07-24-greg-isenberg-16-things-normal-in-3-years.md"}
+{"kind":"field-note","id":"2026-07-24-greg-isenberg-what-is-true-and-useful-for-kya","title":"2026-07-24-greg-isenberg-what-is-true-and-useful-for-kya.md","path":"docs/field-notes/2026-07-24-greg-isenberg-what-is-true-and-useful-for-kya.md"}
+{"kind":"field-note","id":"2026-07-24-kya-open-standard-dual-track-ip-strategy","title":"2026-07-24-kya-open-standard-dual-track-ip-strategy.md","path":"docs/field-notes/2026-07-24-kya-open-standard-dual-track-ip-strategy.md"}
+{"kind":"field-note","id":"2026-07-24-kya-v2-eddsa-signing-crypto-decision","title":"2026-07-24-kya-v2-eddsa-signing-crypto-decision.md","path":"docs/field-notes/2026-07-24-kya-v2-eddsa-signing-crypto-decision.md"}
+{"kind":"field-note","id":"2026-07-25-rq-lock-and-gate-one-coalition","title":"2026-07-25-rq-lock-and-gate-one-coalition.md","path":"docs/field-notes/2026-07-25-rq-lock-and-gate-one-coalition.md"}
+{"kind":"field-note","id":"2026-07-25-session-close-merge-and-the-first-cooling-gap-test","title":"2026-07-25-session-close-merge-and-the-first-cooling-gap-test.md","path":"docs/field-notes/2026-07-25-session-close-merge-and-the-first-cooling-gap-test.md"}
+{"kind":"field-note","id":"2026-07-25-session-close-thesis-lockstep-and-public-surface","title":"2026-07-25-session-close-thesis-lockstep-and-public-surface.md","path":"docs/field-notes/2026-07-25-session-close-thesis-lockstep-and-public-surface.md"}
+{"kind":"field-note","id":"2026-07-25-thesis-title-error-cause-and-record","title":"2026-07-25-thesis-title-error-cause-and-record.md","path":"docs/field-notes/2026-07-25-thesis-title-error-cause-and-record.md"}
+{"kind":"field-note","id":"2026-07-26-cari-fi-new-site-cloudflare-onboarding","title":"2026-07-26-cari-fi-new-site-cloudflare-onboarding.md","path":"docs/field-notes/2026-07-26-cari-fi-new-site-cloudflare-onboarding.md"}
+{"kind":"field-note","id":"2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection","title":"2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md","path":"docs/field-notes/2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md"}
+{"kind":"field-note","id":"2026-07-26-ollama-boss-cost-architecture","title":"2026-07-26-ollama-boss-cost-architecture.md","path":"docs/field-notes/2026-07-26-ollama-boss-cost-architecture.md"}
+{"kind":"field-note","id":"2026-07-26-pr-backlog-orchestration-cleanup","title":"2026-07-26-pr-backlog-orchestration-cleanup.md","path":"docs/field-notes/2026-07-26-pr-backlog-orchestration-cleanup.md"}
+{"kind":"field-note","id":"2026-07-26-session-learning-outcome","title":"2026-07-26-session-learning-outcome.md","path":"docs/field-notes/2026-07-26-session-learning-outcome.md"}
+{"kind":"field-note","id":"2026-07-27-i18n-as-data-five-language-publishing","title":"2026-07-27-i18n-as-data-five-language-publishing.md","path":"docs/field-notes/2026-07-27-i18n-as-data-five-language-publishing.md"}
+{"kind":"field-note","id":"2026-07-29-eic-accelerator-ground-truth-rebuild","title":"2026-07-29-eic-accelerator-ground-truth-rebuild.md","path":"docs/field-notes/2026-07-29-eic-accelerator-ground-truth-rebuild.md"}
+{"kind":"field-note","id":"2026-07-29-session-learning-outcome","title":"2026-07-29-session-learning-outcome.md","path":"docs/field-notes/2026-07-29-session-learning-outcome.md"}
+{"kind":"field-note","id":"2026-07-30-calendar-step-outokumpu-reissue","title":"2026-07-30-calendar-step-outokumpu-reissue.md","path":"docs/field-notes/2026-07-30-calendar-step-outokumpu-reissue.md"}
+{"kind":"field-note","id":"2026-07-30-composio-harness-token-efficiency-benchmark","title":"2026-07-30-composio-harness-token-efficiency-benchmark.md","path":"docs/field-notes/2026-07-30-composio-harness-token-efficiency-benchmark.md"}
+{"kind":"field-note","id":"2026-07-30-hic-decisions-executed","title":"2026-07-30-hic-decisions-executed.md","path":"docs/field-notes/2026-07-30-hic-decisions-executed.md"}
+{"kind":"field-note","id":"2026-07-30-hybrid-attention-long-context-local-inference","title":"2026-07-30-hybrid-attention-long-context-local-inference.md","path":"docs/field-notes/2026-07-30-hybrid-attention-long-context-local-inference.md"}
+{"kind":"field-note","id":"2026-07-30-nadella-harness-model-swappability-signal","title":"2026-07-30-nadella-harness-model-swappability-signal.md","path":"docs/field-notes/2026-07-30-nadella-harness-model-swappability-signal.md"}
+{"kind":"field-note","id":"2026-07-30-network-independent-critical-operation","title":"2026-07-30-network-independent-critical-operation.md","path":"docs/field-notes/2026-07-30-network-independent-critical-operation.md"}
+{"kind":"field-note","id":"2026-07-31-article-50-transparency-marking-audit","title":"2026-07-31-article-50-transparency-marking-audit.md","path":"docs/field-notes/2026-07-31-article-50-transparency-marking-audit.md"}
+{"kind":"field-note","id":"2026-07-31-dayna-us-industrial-captain-jurisdiction-plan","title":"2026-07-31-dayna-us-industrial-captain-jurisdiction-plan.md","path":"docs/field-notes/2026-07-31-dayna-us-industrial-captain-jurisdiction-plan.md"}
+{"kind":"field-note","id":"2026-07-31-investor-captain-tier-pricing-reconciliation","title":"2026-07-31-investor-captain-tier-pricing-reconciliation.md","path":"docs/field-notes/2026-07-31-investor-captain-tier-pricing-reconciliation.md"}
+{"kind":"field-note","id":"2026-07-31-local-model-drift-and-depth-routing","title":"2026-07-31-local-model-drift-and-depth-routing.md","path":"docs/field-notes/2026-07-31-local-model-drift-and-depth-routing.md"}
+{"kind":"field-note","id":"2026-08-01-careers-industrial-authority-rebuild","title":"2026-08-01-careers-industrial-authority-rebuild.md","path":"docs/field-notes/2026-08-01-careers-industrial-authority-rebuild.md"}
+{"kind":"field-note","id":"2026-08-01-persona-retirement-and-reveal","title":"2026-08-01-persona-retirement-and-reveal.md","path":"docs/field-notes/2026-08-01-persona-retirement-and-reveal.md"}
+{"kind":"field-note","id":"2026-08-02-session-failure-modes","title":"2026-08-02-session-failure-modes.md","path":"docs/field-notes/2026-08-02-session-failure-modes.md"}
+{"kind":"field-note","id":"2026-08-03-agent-factory-sageroute-audit","title":"2026-08-03-agent-factory-sageroute-audit.md","path":"docs/field-notes/2026-08-03-agent-factory-sageroute-audit.md"}
+{"kind":"field-note","id":"2026-08-03-stockholm-position-and-the-runway-question","title":"2026-08-03-stockholm-position-and-the-runway-question.md","path":"docs/field-notes/2026-08-03-stockholm-position-and-the-runway-question.md"}
+{"kind":"field-note","id":"2026-08-03-thesis-unlock-and-use-mention-lint","title":"2026-08-03-thesis-unlock-and-use-mention-lint.md","path":"docs/field-notes/2026-08-03-thesis-unlock-and-use-mention-lint.md"}
+{"kind":"field-note","id":"2026-08-04-branch-death-by-reroot-kya-s1-reland","title":"2026-08-04-branch-death-by-reroot-kya-s1-reland.md","path":"docs/field-notes/2026-08-04-branch-death-by-reroot-kya-s1-reland.md"}
+{"kind":"field-note","id":"2026-08-04-shai-hulud-keyv-supply-chain-audit","title":"2026-08-04-shai-hulud-keyv-supply-chain-audit.md","path":"docs/field-notes/2026-08-04-shai-hulud-keyv-supply-chain-audit.md"}
+{"kind":"field-note","id":"2026-08-05-doctorate-postdoctorate-intelligence-catalog-gate","title":"2026-08-05-doctorate-postdoctorate-intelligence-catalog-gate.md","path":"docs/field-notes/2026-08-05-doctorate-postdoctorate-intelligence-catalog-gate.md"}
+{"kind":"field-note","id":"2026-08-05-doctorate-strategy-research-in-progress","title":"2026-08-05-doctorate-strategy-research-in-progress.md","path":"docs/field-notes/2026-08-05-doctorate-strategy-research-in-progress.md"}
+{"kind":"field-note","id":"2026-08-05-dws-iq-intelligence-growth-strategy","title":"2026-08-05-dws-iq-intelligence-growth-strategy.md","path":"docs/field-notes/2026-08-05-dws-iq-intelligence-growth-strategy.md"}
+{"kind":"field-note","id":"2026-08-06-arvonluonnin-ajurit-blog-launch-and-text-provenance","title":"2026-08-06-arvonluonnin-ajurit-blog-launch-and-text-provenance.md","path":"docs/field-notes/2026-08-06-arvonluonnin-ajurit-blog-launch-and-text-provenance.md"}
+{"kind":"field-note","id":"2026-08-06-arvonluonnin-ajurit-blog-publish","title":"2026-08-06-arvonluonnin-ajurit-blog-publish.md","path":"docs/field-notes/2026-08-06-arvonluonnin-ajurit-blog-publish.md"}
+{"kind":"field-note","id":"2026-08-06-boardy-dr-gandhi-industrial-ai-admiral","title":"2026-08-06-boardy-dr-gandhi-industrial-ai-admiral.md","path":"docs/field-notes/2026-08-06-boardy-dr-gandhi-industrial-ai-admiral.md"}
+{"kind":"field-note","id":"2026-08-07-kya-s1-specification-and-two-silent-defects","title":"2026-08-07-kya-s1-specification-and-two-silent-defects.md","path":"docs/field-notes/2026-08-07-kya-s1-specification-and-two-silent-defects.md"}
+{"kind":"field-note","id":"2026-08-08-kya-s1-v13-idv-gate-ja-blogisarja","title":"2026-08-08-kya-s1-v13-idv-gate-ja-blogisarja.md","path":"docs/field-notes/2026-08-08-kya-s1-v13-idv-gate-ja-blogisarja.md"}
+{"kind":"field-note","id":"2026-08-09-kya-assurance-levels-and-kya-s1-series-part-1","title":"2026-08-09-kya-assurance-levels-and-kya-s1-series-part-1.md","path":"docs/field-notes/2026-08-09-kya-assurance-levels-and-kya-s1-series-part-1.md"}
+{"kind":"field-note","id":"2026-08-09-kya-s1-series-ground-truth-and-spec-merge","title":"2026-08-09-kya-s1-series-ground-truth-and-spec-merge.md","path":"docs/field-notes/2026-08-09-kya-s1-series-ground-truth-and-spec-merge.md"}
+{"kind":"field-note","id":"2026-08-09-organisaation-hankintakansio-kerrosmalli","title":"2026-08-09-organisaation-hankintakansio-kerrosmalli.md","path":"docs/field-notes/2026-08-09-organisaation-hankintakansio-kerrosmalli.md"}
+{"kind":"field-note","id":"2026-08-10-data-structures-audit","title":"2026-08-10-data-structures-audit.md","path":"docs/field-notes/2026-08-10-data-structures-audit.md"}
+{"kind":"field-note","id":"2026-08-10-lut-tutkimussuunnitelman-tiivistelma-v12","title":"2026-08-10-lut-tutkimussuunnitelman-tiivistelma-v12.md","path":"docs/field-notes/2026-08-10-lut-tutkimussuunnitelman-tiivistelma-v12.md"}
+{"kind":"field-note","id":"2026-08-10-series-navigation-and-hero-regeneration","title":"2026-08-10-series-navigation-and-hero-regeneration.md","path":"docs/field-notes/2026-08-10-series-navigation-and-hero-regeneration.md"}
+{"kind":"field-note","id":"2026-08-11-tutkimussuunnitelman-tiivistelma-kritiikki","title":"2026-08-11-tutkimussuunnitelman-tiivistelma-kritiikki.md","path":"docs/field-notes/2026-08-11-tutkimussuunnitelman-tiivistelma-kritiikki.md"}
+{"kind":"field-note","id":"2026-08-12-backup-ted-pipeline-noop","title":"2026-08-12-backup-ted-pipeline-noop.md","path":"docs/field-notes/2026-08-12-backup-ted-pipeline-noop.md"}
+{"kind":"field-note","id":"2026-08-12-git-stash-durability","title":"2026-08-12-git-stash-durability.md","path":"docs/field-notes/2026-08-12-git-stash-durability.md"}
+{"kind":"field-note","id":"2026-08-13-connector-inventory","title":"2026-08-13-connector-inventory.md","path":"docs/field-notes/2026-08-13-connector-inventory.md"}
+{"kind":"field-note","id":"2026-08-13-opencode-dgx-runtime-alignment","title":"2026-08-13-opencode-dgx-runtime-alignment.md","path":"docs/field-notes/2026-08-13-opencode-dgx-runtime-alignment.md"}
+{"kind":"field-note","id":"2026-08-13-opencode-primary-phase-1","title":"2026-08-13-opencode-primary-phase-1.md","path":"docs/field-notes/2026-08-13-opencode-primary-phase-1.md"}
+{"kind":"field-note","id":"2026-08-14-dws-multi-model-workflow-architecture","title":"2026-08-14-dws-multi-model-workflow-architecture.md","path":"docs/field-notes/2026-08-14-dws-multi-model-workflow-architecture.md"}
+{"kind":"field-note","id":"2026-08-17-graph-engineering-first-slice","title":"2026-08-17-graph-engineering-first-slice.md","path":"docs/field-notes/2026-08-17-graph-engineering-first-slice.md"}
+{"kind":"field-note","id":"2026-08-19-clean-kya-baseline-merge-conflict","title":"2026-08-19-clean-kya-baseline-merge-conflict.md","path":"docs/field-notes/2026-08-19-clean-kya-baseline-merge-conflict.md"}
+{"kind":"field-note","id":"2026-08-19-pr-1845-merge-conflict-fix","title":"2026-08-19-pr-1845-merge-conflict-fix.md","path":"docs/field-notes/2026-08-19-pr-1845-merge-conflict-fix.md"}
+{"kind":"field-note","id":"2026-08-20-dgx-tunnel-automation","title":"2026-08-20-dgx-tunnel-automation.md","path":"docs/field-notes/2026-08-20-dgx-tunnel-automation.md"}
+{"kind":"field-note","id":"2026-08-20-external-repo-strategy-recommendations","title":"2026-08-20-external-repo-strategy-recommendations.md","path":"docs/field-notes/2026-08-20-external-repo-strategy-recommendations.md"}
+{"kind":"field-note","id":"2026-08-20-external-skill-provenance-audit","title":"2026-08-20-external-skill-provenance-audit.md","path":"docs/field-notes/2026-08-20-external-skill-provenance-audit.md"}
+{"kind":"field-note","id":"2026-08-20-opencode-skills-plugin","title":"2026-08-20-opencode-skills-plugin.md","path":"docs/field-notes/2026-08-20-opencode-skills-plugin.md"}
+{"kind":"field-note","id":"2026-08-20-skill-usage-audit","title":"2026-08-20-skill-usage-audit.md","path":"docs/field-notes/2026-08-20-skill-usage-audit.md"}
+{"kind":"field-note","id":"2026-08-21-blogi-linkit-merge","title":"2026-08-21-blogi-linkit-merge.md","path":"docs/field-notes/2026-08-21-blogi-linkit-merge.md"}
+{"kind":"field-note","id":"2026-08-22-blogi-linkit-pr1867-ci-drive","title":"2026-08-22-blogi-linkit-pr1867-ci-drive.md","path":"docs/field-notes/2026-08-22-blogi-linkit-pr1867-ci-drive.md"}
+{"kind":"field-note","id":"2026-08-22-dgx-postgres-vs-supabase-parity","title":"2026-08-22-dgx-postgres-vs-supabase-parity.md","path":"docs/field-notes/2026-08-22-dgx-postgres-vs-supabase-parity.md"}
+{"kind":"field-note","id":"2026-08-24-opencode-all-living-engine","title":"2026-08-24-opencode-all-living-engine.md","path":"docs/field-notes/2026-08-24-opencode-all-living-engine.md"}
+{"kind":"field-note","id":"README","title":"README.md","path":"docs/field-notes/README.md"}
+{"kind":"field-note","id":"kypsyysnäyte","title":"kypsyysnäyte.md","path":"docs/field-notes/kypsyysnäyte.md"}
+{"kind":"field-note","id":"mcp-cli-index","title":"mcp-cli-index.md","path":"docs/field-notes/mcp-cli-index.md"}
+{"kind":"field-note","id":"picture-prompts","title":"picture-prompts.md","path":"docs/field-notes/picture-prompts.md"}
+{"kind":"field-note","id":"scaleway-infrastructure-setup","title":"scaleway-infrastructure-setup.md","path":"docs/field-notes/scaleway-infrastructure-setup.md"}
+{"kind":"field-note","id":"upsell-map","title":"upsell-map.md","path":"docs/field-notes/upsell-map.md"}
