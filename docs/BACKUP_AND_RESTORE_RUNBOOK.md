@@ -49,6 +49,7 @@ Document Status:
 6. [Off-Host Retention](#6-off-host-retention)
 7. [Weekly Restore Exercise](#7-weekly-restore-exercise)
 8. [Incident Reference: 2026-08-24](#8-incident-reference-2026-08-24)
+9. [Defense-in-Depth Roadmap: Tree Gate](#9-defense-in-depth-roadmap-tree-gate)
 
 ***
 
@@ -173,3 +174,57 @@ passes, the snapshot set does not count as satisfying §2.
   fixture quarantined pending `GIT_TRACE=1` forensics.
 - Lessons codified here: §4 canaries, §5 poisoned-tree gate, §3 pre-cycle
   snapshot would each have independently caught or contained the incident.
+
+## 9. Defense-in-Depth Roadmap: Tree Gate
+
+The poisoned-tree gate (`scripts/poisoned-tree-gate.mjs`, fixture matrix
+13/13 green as of 2026-08-25) is currently a **client-side pre-push hook**.
+A client-side gate is necessary but not sufficient: any machine with a
+disabled hook, stale clone, or bypass flag pushes straight through. The
+defense must therefore be layered so that no single tier's failure lets a
+poisoned tree reach `main`.
+
+Evidence basis: matrix run 2026-08-25
+(`fix/poisoned-tree-matrix-green` worktree,
+`docs/evidence-matrix-run-2026-08-25.txt`) — 1 real gate defect fixed
+(`approvedBy` missing from allow-path return), 6 fixture-authoring defects
+(missing remote, boundary off-by-one-blob, boundary-exact "sub-threshold",
+deleted-file reuse, git-rm directory pruning, missing manifestPath).
+
+### Tier model (Boardy layering)
+
+| Tier | Where | Mechanism | Status |
+| --- | --- | --- | --- |
+| T1 — client hook | dev machines / agent worktrees | local-ci + pre-push gate (`scripts/poisoned-tree-gate.mjs`) via stdin contract; fail-closed on malformed input | **live** (this repo) |
+| T2 — server-side ref protection | GitHub | branch protection on `main`: PR required, force-push & deletion banned, status checks required (gate job) | partial — PR/force/deletion live; **gate check not yet wired** |
+| T3 — CI tree gate | GitHub Actions on every PR | workflow runs the same gate binary against the PR merge commit: manifest presence, blob-count delta vs base, critical-file diff, roster diff; block merge on P0–P6 | **planned** (see below) |
+| T4 — scheduled tree audit | DGX cron (daily) | independent audit: `ls-tree -r | wc -l` trend per protected path set vs previous day; alert on >10% drop without a matching approval artifact in repo history | **planned** |
+| T5 — restore-time verification | backup cycle (§7) | Sunday exercise already compares manifest tree-hash; extend to assert gate version that produced each accepted push is recorded in CI audit log | partial |
+
+Design invariant: **T3 and T4 must not trust T1.** They re-run the same
+pure `evaluate()` logic server-side/scheduled-side against raw git data;
+they never read a "passed locally" claim. The gate's independence contract
+(every evaluation builds its own view from shas, zero working-tree
+assumptions) is what makes this re-run possible.
+
+### T3 implementation sketch (Actions-based tree gate)
+
+1. New workflow `.github/workflows/tree-gate.yml`: `on: pull_request` to
+   `main`, plus `workflow_dispatch`.
+2. Job steps: checkout PR merge ref → `node scripts/poisoned-tree-gate.mjs
+   --config <generated>` where config pins `localSha = merge commit`,
+   `remoteSha = base sha`, `manifestPath = committed cycle-manifest`.
+3. Fail the job (merge block via required status check) on `decision:
+   block`; post reasons as PR comment for the reviewer.
+4. Secrets: none needed — signature keys stay local (T1); Actions verifies
+   structural rules only (blob-count, critical files, roster). Signed
+   approvals are verified by T1 and recorded in the PR thread by humans.
+
+### Acceptance criteria for calling T3/T4 done
+
+- A synthetic #1888-shaped PR (tree collapse to 1 file) is blocked by
+  Actions with a P2 reason visible in the PR.
+- Disabling the local hook does NOT let such a PR merge (T2+T3 catch it).
+- Daily audit log shows tree-count series with an explicit alert line when
+  a drop lacks an approval artifact.
+

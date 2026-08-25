@@ -358,6 +358,7 @@ export function evaluate(ctx) {
     decision: 'allow',
     reasons: needsApproval ? [`approved by ${approval.approvedBy} (key ${approval.keyId})`] : [],
     stats,
+    approvedBy: approval?.ok ? approval.approvedBy : null,
   };
 }
 
