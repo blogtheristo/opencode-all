@@ -10,11 +10,23 @@
  */
 
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { execFileSync } from 'node:child_process';
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+// INCIDENT GUARD (2026-08-25 bare-flip): this spec's unguarded git calls once
+// committed to the host worktree as "Unit Fixture" (commits A/B/C in the
+// push-gate worktree reflog). All git access now goes through the sandbox
+// guard — leaked-env refusal, canonical /tmp/ptg-* roots, env scrubbing.
+import {
+  CLEAN_GIT_ENV,
+  assertCleanGitEnv,
+  guardCwd,
+  gx,
+  registerSandboxRoot,
+} from '../poisoned-tree-fixture-guard.mjs';
+
+assertCleanGitEnv(); // refuse before any git call if the env leaks git state
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const GATE = join(__dirname, '..', 'poisoned-tree-gate.mjs');
@@ -32,17 +44,14 @@ const ZERO = '0'.repeat(40);
 let root;
 beforeAll(() => {
   root = mkdtempSync(join(tmpdir(), 'ptg-unit-'));
+  registerSandboxRoot(root);
 });
 afterAll(() => rmSync(root, { recursive: true, force: true }));
-
-function gx(cwd, ...args) {
-  if (!cwd || typeof cwd !== 'string') throw new Error('cwd required');
-  return execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
-}
 
 /** One repo: main@A; branch dev adds C; main advances to B (divergence). */
 function makeDivergent() {
   const repo = mkdtempSync(join(tmpdir(), 'ptg-div-'));
+  registerSandboxRoot(repo);
   gx(repo, 'init', '-q', '-b', 'main');
   gx(repo, 'config', 'user.email', 'dev@lifetime.fi');
   gx(repo, 'config', 'user.name', 'Unit Fixture');
