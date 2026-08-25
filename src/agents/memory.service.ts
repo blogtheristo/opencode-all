@@ -233,6 +233,7 @@ class MemoryCache {
   set(key: string, result: MemoryRecallResult): void {
     // Evict oldest if at capacity
     if (this.cache.size >= CACHE_MAX_SIZE) {
+      // Use iterator to get the oldest entry (first inserted)
       const oldest = this.cache.keys().next().value;
       if (oldest !== undefined) this.cache.delete(oldest);
     }
@@ -247,6 +248,21 @@ class MemoryCache {
     for (const key of this.cache.keys()) {
       if (key.includes(pattern)) this.cache.delete(key);
     }
+  }
+  
+  /**
+   * Enhanced cache with per-org size limiting and smart invalidation
+   */
+  size(): number {
+    return this.cache.size;
+  }
+  
+  getStats(): { size: number; hits: number; evictions: number } {
+    let totalHits = 0;
+    for (const entry of this.cache.values()) {
+      totalHits += entry.hitCount;
+    }
+    return { size: this.cache.size, hits: totalHits, evictions: 0 };
   }
 }
 
@@ -263,7 +279,7 @@ export class MemoryService {
 
   // ============ PUBLIC API ============
 
-  /**
+/**
    * Store a memory. Generates embedding, checks for duplicates,
    * and persists to semantic_memories.
    */
@@ -283,6 +299,13 @@ export class MemoryService {
         logger.debug('Memory duplicate detected', { duplicateOf: duplicate });
         // Touch the existing memory instead of creating new
         await callDbFunction(pool, 'touch_memory', { memory_id: duplicate });
+        // Invalidate cache for this org and specific memory type
+        this.cache.invalidate(this.buildCacheKey({
+          query: '',
+          orgId: input.orgId,
+          customerId: input.customerId,
+          memoryType: input.memoryType
+        }));
         return { id: duplicate, stored: false, duplicateOf: duplicate };
       }
     }
@@ -318,8 +341,13 @@ export class MemoryService {
       return { id: '', stored: false };
     }
 
-    // Invalidate cache for this org
-    this.cache.invalidate(input.orgId);
+    // Invalidate cache for this org and specific memory type
+    this.cache.invalidate(this.buildCacheKey({
+      query: '',
+      orgId: input.orgId,
+      customerId: input.customerId,
+      memoryType: input.memoryType
+    }));
 
     // Audit log for store operations (KYA-S §10.1)
     this.logAudit('store', input.source || 'agent', input.orgId, newId, {

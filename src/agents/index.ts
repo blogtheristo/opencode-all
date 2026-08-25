@@ -99,6 +99,9 @@ export class AgentRegistry {
   /** Track active delegations to prevent infinite loops */
   private activeDelegations: Map<string, number> = new Map();
   private static MAX_DELEGATION_DEPTH = 5;
+  
+  /** Track delegation history to provide better diagnostics */
+  private delegationHistory: Map<string, { agent: string; depth: number; timestamp: number }[]> = new Map();
 
   constructor() {
     this.registerDefaults();
@@ -130,7 +133,7 @@ export class AgentRegistry {
     return this.listAgents().filter((a) => a.capabilities.some((c) => c.includes(capability)));
   }
 
-  /**
+   /**
    * Execute an agent by name with delegation depth tracking.
    * DWS7: Prevents infinite delegation loops (A calls B calls A calls B...).
    */
@@ -139,93 +142,169 @@ export class AgentRegistry {
     context: AgentContext,
     input: Record<string, unknown>,
   ): Promise<AgentResponse> {
-    const agent = this.agents.get(name);
-    if (!agent) {
-      const available = Array.from(this.agents.keys()).join(', ');
-      throw new Error(`Agent "${name}" not found. Available agents: ${available}`);
-    }
-
-    // Track delegation depth to prevent infinite loops
-    const delegationKey = `${context.sessionId}:${name}`;
-    const currentDepth = this.activeDelegations.get(delegationKey) || 0;
-
-    if (currentDepth >= AgentRegistry.MAX_DELEGATION_DEPTH) {
-      logger.warn('Agent delegation depth limit reached', {
-        agent: name,
-        depth: currentDepth,
-        sessionId: context.sessionId,
-      });
-      return {
-        agentName: name,
-        result: {
-          error: 'Delegation depth limit reached',
-          maxDepth: AgentRegistry.MAX_DELEGATION_DEPTH,
-        },
-        confidence: 0,
-        reasoning: `Agent "${name}" was not executed because the delegation depth limit (${AgentRegistry.MAX_DELEGATION_DEPTH}) was reached. This prevents infinite agent delegation loops.`,
-        recommendations: ['Reduce delegation chain length or restructure agent workflow'],
-        metadata: { delegationDepth: currentDepth },
-      };
-    }
-
-    // Increment depth
-    this.activeDelegations.set(delegationKey, currentDepth + 1);
-
-    logger.info('Executing agent via registry', {
-      agent: name,
-      projectId: context.projectId,
-      userId: context.userId,
-      delegationDepth: currentDepth,
-    });
-
     try {
-      const result = await withAgentSpan(
-        name,
-        {
+      const agent = this.agents.get(name);
+      if (!agent) {
+        const available = Array.from(this.agents.keys()).join(', ');
+        const error = new Error(`Agent "${name}" not found. Available agents: ${available}`);
+        logger.error('Agent execution failed - agent not found', {
+          agent: name,
+          sessionId: context.sessionId,
+          error: error.message,
+        });
+        throw error;
+      }
+
+      // Validate context before execution
+      if (!context || typeof context !== 'object') {
+        const error = new Error('Invalid context: context must be a valid object');
+        logger.error('Agent execution failed - invalid context', {
+          agent: name,
+          error: error.message,
+        });
+        throw error;
+      }
+
+      // Validate input shape before execution. Per-agent semantic validation
+      // happens inside each agent's execute() via its private validateInput.
+      if (!input || typeof input !== 'object') {
+        const error = new Error('Invalid input: input must be a valid object');
+        logger.error('Agent execution failed - invalid input', {
+          agent: name,
+          sessionId: context.sessionId,
+          error: error.message,
+        });
+        throw error;
+      }
+
+      // Track delegation depth to prevent infinite loops
+      const delegationKey = `${context.sessionId}:${name}`;
+      const currentDepth = this.activeDelegations.get(delegationKey) || 0;
+
+      if (currentDepth >= AgentRegistry.MAX_DELEGATION_DEPTH) {
+        logger.warn('Agent delegation depth limit reached', {
+          agent: name,
+          depth: currentDepth,
+          sessionId: context.sessionId,
+        });
+        
+        // Log delegation history for debugging
+        const history = this.delegationHistory.get(context.sessionId) || [];
+        logger.debug('Delegation history for session', {
+          sessionId: context.sessionId,
+          history: history.map((h, i) => `Step ${i}: ${h.agent} (depth: ${h.depth})`),
+        });
+
+        return {
+          agentName: name,
+          result: {
+            error: 'Delegation depth limit reached',
+            maxDepth: AgentRegistry.MAX_DELEGATION_DEPTH,
+          },
+          confidence: 0,
+          reasoning: `Agent "${name}" was not executed because the delegation depth limit (${AgentRegistry.MAX_DELEGATION_DEPTH}) was reached. This prevents infinite agent delegation loops.`,
+          recommendations: ['Reduce delegation chain length or restructure agent workflow'],
+          metadata: { delegationDepth: currentDepth },
+        };
+      }
+
+      // Add to delegation history
+      const history = this.delegationHistory.get(context.sessionId) || [];
+      history.push({ agent: name, depth: currentDepth, timestamp: Date.now() });
+      this.delegationHistory.set(context.sessionId, history);
+
+      // Increment depth
+      this.activeDelegations.set(delegationKey, currentDepth + 1);
+
+      logger.info('Executing agent via registry', {
+        agent: name,
+        projectId: context.projectId,
+        userId: context.userId,
+        delegationDepth: currentDepth,
+      });
+
+      try {
+        const result = await withAgentSpan(
+          name,
+          {
+            orgId: context.orgId,
+            sessionId: context.sessionId,
+            delegationDepth: currentDepth,
+            // Forward a real verdict when the runtime already issued one (e.g. a
+            // KYA gate check before this call) instead of leaving the span to
+            // default to "ungated".
+            kya: context.agentRuntime?.kya,
+          },
+          async (span) => {
+            try {
+              const r = await agent.execute(context, input);
+              if (typeof r.confidence === 'number') {
+                span.setAttribute('dws.agent.confidence', r.confidence);
+              }
+              if (typeof r.metadata?.durationMs === 'number') {
+                span.setAttribute('dws.agent.duration_ms', r.metadata.durationMs);
+              }
+              return r;
+            } catch (executionError) {
+              logger.error('Agent execution failed', {
+                agent: name,
+                sessionId: context.sessionId,
+                error: executionError instanceof Error ? executionError.message : String(executionError),
+              });
+              throw executionError;
+            }
+          },
+        );
+
+        // Emit completion event
+        await eventBus.emit({
+          type: 'agent.execution_complete',
+          source: `agent:${name}`,
+          payload: {
+            agentName: name,
+            confidence: result.confidence,
+            durationMs: result.metadata?.durationMs,
+          },
+          priority: 'normal',
+          timestamp: new Date().toISOString(),
           orgId: context.orgId,
           sessionId: context.sessionId,
-          delegationDepth: currentDepth,
-          // Forward a real verdict when the runtime already issued one (e.g. a
-          // KYA gate check before this call) instead of leaving the span to
-          // default to "ungated".
-          kya: context.agentRuntime?.kya,
-        },
-        async (span) => {
-          const r = await agent.execute(context, input);
-          if (typeof r.confidence === 'number') {
-            span.setAttribute('dws.agent.confidence', r.confidence);
-          }
-          if (typeof r.metadata?.durationMs === 'number') {
-            span.setAttribute('dws.agent.duration_ms', r.metadata.durationMs);
-          }
-          return r;
-        },
-      );
+        });
 
-      // Emit completion event
-      await eventBus.emit({
-        type: 'agent.execution_complete',
-        source: `agent:${name}`,
-        payload: {
-          agentName: name,
-          confidence: result.confidence,
-          durationMs: result.metadata?.durationMs,
-        },
-        priority: 'normal',
-        timestamp: new Date().toISOString(),
-        orgId: context.orgId,
-        sessionId: context.sessionId,
-      });
-
-      return result;
-    } finally {
-      // Decrement depth (or remove if back to 0)
-      const newDepth = (this.activeDelegations.get(delegationKey) || 1) - 1;
-      if (newDepth <= 0) {
-        this.activeDelegations.delete(delegationKey);
-      } else {
-        this.activeDelegations.set(delegationKey, newDepth);
+        return result;
+      } catch (executionError) {
+        logger.error('Agent execution failed at registry level', {
+          agent: name,
+          sessionId: context.sessionId,
+          error: executionError instanceof Error ? executionError.message : String(executionError),
+        });
+        throw executionError;
+      } finally {
+        // Decrement depth (or remove if back to 0)
+        const newDepth = (this.activeDelegations.get(delegationKey) || 1) - 1;
+        if (newDepth <= 0) {
+          this.activeDelegations.delete(delegationKey);
+          // Remove from history when complete
+          const history = this.delegationHistory.get(context.sessionId) || [];
+          if (history.length > 0) {
+            history.pop();
+            if (history.length === 0) {
+              this.delegationHistory.delete(context.sessionId);
+            } else {
+              this.delegationHistory.set(context.sessionId, history);
+            }
+          }
+        } else {
+          this.activeDelegations.set(delegationKey, newDepth);
+        }
       }
+    } catch (error) {
+      logger.error('Registry execution failed', {
+        agent: name,
+        sessionId: context.sessionId,
+        error: error instanceof Error ? error.message : String(error),
+      });
+      throw error;
     }
   }
 

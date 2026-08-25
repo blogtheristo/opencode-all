@@ -1,6 +1,6 @@
 // Evidence: Tool=OpenCode 1.18.22 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-24
 // Audit trail: git log -- src/__tests__/stripe-webhook.middleware.test.ts
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import crypto from 'crypto';
 import logger from '../utils/logger.js';
 

@@ -10,11 +10,12 @@
  */
 
 import { metrics } from '@opentelemetry/api';
+import type { Meter } from '@opentelemetry/api';
 
 const METER_NAME = 'dws-iq-backend';
 
-let httpRequests: ReturnType<import('@opentelemetry/api').Meter['createCounter']> | null = null;
-let httpRequestDuration: ReturnType<import('@opentelemetry/api').Meter['createHistogram']> | null = null;
+let httpRequests: ReturnType<Meter['createCounter']> | null = null;
+let httpRequestDuration: ReturnType<Meter['createHistogram']> | null = null;
 
 /** Create the default instruments. No-op if called twice. */
 export function initDefaultMetrics(): void {
