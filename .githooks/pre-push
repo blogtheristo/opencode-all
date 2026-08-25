@@ -55,18 +55,38 @@ done
 # and the npm-audit portion of dependency_review.yml. Each run produces an
 # immutable audit record in .ci-audit/runs/ (hash-chained) and is POSTed to
 # Supabase ci_audit_log when env vars are set. See docs/CI_AUDIT.md.
-LOCAL_CI="$(git rev-parse --show-toplevel)/scripts/local-ci.sh"
-if [ -x "$LOCAL_CI" ] && [ "${SKIP_LOCAL_CI:-}" != "1" ]; then
+#
+# INCIDENT HARDENING (2026-08-25 bare-flip): this block is FAIL-CLOSED.
+# If the worktree root cannot be resolved or local-ci.sh is missing, the push
+# is BLOCKED — a silent CI skip here once let an unguarded push through.
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+if [ $? -ne 0 ] || [ -z "$REPO_ROOT" ]; then
+  echo "" >&2
+  echo "ERROR: cannot resolve worktree root (git rev-parse --show-toplevel failed)." >&2
+  echo "       Refusing to push without local CI — fail-closed (2026-08-25 incident control)." >&2
+  echo "       Fix: verify core.bare=false and per-worktree config.worktree overrides." >&2
+  exit 1
+fi
+LOCAL_CI="$REPO_ROOT/scripts/local-ci.sh"
+if [ ! -x "$LOCAL_CI" ]; then
+  echo "" >&2
+  echo "ERROR: local-ci.sh not found or not executable at: $LOCAL_CI" >&2
+  echo "       Refusing to push without local CI — fail-closed (2026-08-25 incident control)." >&2
+  exit 1
+fi
+if [ "${SKIP_LOCAL_CI:-}" = "1" ]; then
+  echo "WARNING: SKIP_LOCAL_CI=1 — explicit loud bypass of local CI for this push." >&2
+  exit 0
+fi
+echo ""
+echo "🧪 Running local CI (vitest + gitleaks + npm audit + ruff)..."
+if ! CI_TRIGGER_KIND=pre-push bash "$LOCAL_CI"; then
   echo ""
-  echo "🧪 Running local CI (vitest + gitleaks + npm audit + ruff)..."
-  if ! CI_TRIGGER_KIND=pre-push bash "$LOCAL_CI"; then
-    echo ""
-    echo "ERROR: local CI failed — see .ci-audit/runs/ for the failure record." 1>&2
-    echo "  • Fix the failures and retry (a new audit record will be appended and become the latest record for this branch/commit)." 1>&2
-    echo "  • Bypass (still audited via git reflog): git push --no-verify" 1>&2
-    echo "  • Skip only the CI: SKIP_LOCAL_CI=1 git push" 1>&2
-    exit 1
-  fi
+  echo "ERROR: local CI failed — see .ci-audit/runs/ for the failure record." >&2
+  echo "  • Fix the failures and retry (a new audit record will be appended and become the latest record for this branch/commit)." >&2
+  echo "  • Bypass (still audited via git reflog): git push --no-verify" >&2
+  echo "  • Skip only the CI: SKIP_LOCAL_CI=1 git push" >&2
+  exit 1
 fi
 
 exit 0
