@@ -2,7 +2,17 @@
 // Evidence: Tool=OpenCode 1.18.21 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-25
 // Audit trail: git log -- scripts/opencode-batch-worker.mjs + .workflows/opencode-all/queue.jsonl
 import { spawn, execFileSync } from 'node:child_process';
-import { existsSync, readFileSync, writeFileSync, appendFileSync, mkdirSync, openSync, closeSync, unlinkSync, statSync } from 'node:fs';
+import {
+  existsSync,
+  readFileSync,
+  writeFileSync,
+  appendFileSync,
+  mkdirSync,
+  openSync,
+  closeSync,
+  unlinkSync,
+  statSync,
+} from 'node:fs';
 import { join } from 'node:path';
 import { hostname } from 'node:os';
 import { pathToFileURL } from 'node:url';
@@ -32,7 +42,16 @@ for (let i = 0; i < args.length; i++) {
 }
 
 // State machine: QUEUED -> RUNNING -> HANDOFF_READY -> VALIDATION -> MERGE_READY -> DONE / FAILED / GONE
-const STATES = ['QUEUED', 'RUNNING', 'HANDOFF_READY', 'VALIDATION', 'MERGE_READY', 'DONE', 'FAILED', 'GONE'];
+const STATES = [
+  'QUEUED',
+  'RUNNING',
+  'HANDOFF_READY',
+  'VALIDATION',
+  'MERGE_READY',
+  'DONE',
+  'FAILED',
+  'GONE',
+];
 const STOP_REASONS = ['completed', 'gone', 'failed', 'blocked', 'needs-human'];
 const TERMINAL_STATES = ['DONE', 'FAILED', 'GONE'];
 
@@ -125,16 +144,31 @@ function releaseLock(sessionId) {
 function lockHolder(sessionId) {
   try {
     const st = statSync(join(LOCKS_DIR, `${sessionId}.lock`));
-    return { owner: JSON.parse(readFileSync(join(LOCKS_DIR, `${sessionId}.lock`), 'utf8')).owner, ageMs: Date.now() - st.mtimeMs };
+    return {
+      owner: JSON.parse(readFileSync(join(LOCKS_DIR, `${sessionId}.lock`), 'utf8')).owner,
+      ageMs: Date.now() - st.mtimeMs,
+    };
   } catch {
     return null;
   }
 }
 
 // OTLP/HTTP log emitter (no SDK deps) -> Aspire dashboard, API-key gated.
-const varint = (v) => { const o = []; do { let b = v & 127; v >>>= 7; if (v) b |= 128; o.push(b); } while (v); return Buffer.from(o); };
+const varint = (v) => {
+  const o = [];
+  do {
+    let b = v & 127;
+    v >>>= 7;
+    if (v) b |= 128;
+    o.push(b);
+  } while (v);
+  return Buffer.from(o);
+};
 const tag = (f, w) => Buffer.from([(f << 3) | w]);
-const strB = (v) => { const b = Buffer.from(v); return Buffer.concat([varint(b.length), b]); };
+const strB = (v) => {
+  const b = Buffer.from(v);
+  return Buffer.concat([varint(b.length), b]);
+};
 const lenD = (f, p) => Buffer.concat([tag(f, 2), varint(p.length), p]);
 const i32 = (f, v) => Buffer.concat([tag(f, 0), varint(v)]);
 const otlpKey = () => {
@@ -148,12 +182,22 @@ async function emitOtlpLog(message, severity = 9) {
   const key = otlpKey();
   if (!endpoint || !key) return;
   try {
-    const t = Buffer.alloc(8); t.writeBigUInt64LE(BigInt(Date.now()) * 1_000_000n);
+    const t = Buffer.alloc(8);
+    t.writeBigUInt64LE(BigInt(Date.now()) * 1_000_000n);
     const anyValue = lenD(1, strB(message));
-    const lr = Buffer.concat([tag(1, 1), t, i32(2, severity), lenD(3, strB('INFO')), lenD(5, anyValue)]);
+    const lr = Buffer.concat([
+      tag(1, 1),
+      t,
+      i32(2, severity),
+      lenD(3, strB('INFO')),
+      lenD(5, anyValue),
+    ]);
     const scope = Buffer.concat([lenD(1, strB('opencode-all-worker')), lenD(2, strB('1.0.0'))]);
     const scopeLogs = Buffer.concat([lenD(1, scope), lenD(2, lr)]);
-    const serviceAttr = Buffer.concat([lenD(1, strB('service.name')), lenD(2, lenD(1, strB('opencode-all')))]);
+    const serviceAttr = Buffer.concat([
+      lenD(1, strB('service.name')),
+      lenD(2, lenD(1, strB('opencode-all'))),
+    ]);
     const request = lenD(1, Buffer.concat([lenD(1, lenD(1, serviceAttr)), lenD(2, scopeLogs)]));
     await fetch(`${endpoint}/v1/logs`, {
       method: 'POST',
@@ -175,7 +219,12 @@ class AcpClient {
     this.cancelled = false;
     this.exited = false;
     this.signal = signal;
-    this.exitDone = new Promise((resolve) => this.proc.once('exit', () => { this.exited = true; resolve(); }));
+    this.exitDone = new Promise((resolve) =>
+      this.proc.once('exit', () => {
+        this.exited = true;
+        resolve();
+      }),
+    );
     this.proc.stdout.on('data', (d) => this.#onData(d));
     this.proc.stderr.on('data', () => {});
     // If the subprocess dies on its own, nothing pending may hang on a reply.
@@ -254,7 +303,10 @@ class AcpClient {
 
 const readQueue = () =>
   existsSync(QUEUE_FILE)
-    ? readFileSync(QUEUE_FILE, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l))
+    ? readFileSync(QUEUE_FILE, 'utf8')
+        .split('\n')
+        .filter(Boolean)
+        .map((l) => JSON.parse(l))
     : [];
 
 const writeQueue = (entries) => {
@@ -263,7 +315,9 @@ const writeQueue = (entries) => {
 };
 
 function detectNeedsContinue() {
-  const out = execFileSync('opencode', ['session', 'list', '--format', 'json'], { maxBuffer: 64 * 1024 * 1024 });
+  const out = execFileSync('opencode', ['session', 'list', '--format', 'json'], {
+    maxBuffer: 64 * 1024 * 1024,
+  });
   const sessions = JSON.parse(out);
   const found = [];
   for (const s of sessions) {
@@ -299,13 +353,15 @@ async function cmdEnqueue() {
         stopReason: null,
         handoffPath: null,
         validation: null,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
       });
       added++;
     }
   }
   writeQueue([...existing.values()]);
-  console.log(`queue: ${added} added, ${[...existing.values()].filter((e) => e.state === 'QUEUED').length} queued total`);
+  console.log(
+    `queue: ${added} added, ${[...existing.values()].filter((e) => e.state === 'QUEUED').length} queued total`,
+  );
 }
 
 const detectNeedsContinueSync = detectNeedsContinue;
@@ -317,7 +373,7 @@ async function runValidationGate(entry, worktreePath = REPO) {
     typecheck: false,
     cleanTree: false,
     unexpectedChanges: [],
-    errors: []
+    errors: [],
   };
   const wt = { cwd: worktreePath };
 
@@ -342,7 +398,11 @@ async function runValidationGate(entry, worktreePath = REPO) {
 
   console.log(`  [validation] running typecheck...`);
   try {
-    execFileSync('npm', ['run', 'typecheck'], { ...wt, maxBuffer: 64 * 1024 * 1024, timeout: 60_000 });
+    execFileSync('npm', ['run', 'typecheck'], {
+      ...wt,
+      maxBuffer: 64 * 1024 * 1024,
+      timeout: 60_000,
+    });
     results.typecheck = true;
   } catch (e) {
     results.errors.push(`typecheck: ${e.message}`);
@@ -356,15 +416,23 @@ async function runValidationGate(entry, worktreePath = REPO) {
     results.errors.push(`test: ${e.message}`);
   }
 
-  console.log(`  [validation] checking git changes vs baseline (${baseline?.slice(0,8) ?? 'unknown'})...`);
+  console.log(
+    `  [validation] checking git changes vs baseline (${baseline?.slice(0, 8) ?? 'unknown'})...`,
+  );
   try {
     let changed = [];
     if (baseline) {
       // Tracked changes (worktree-relative)
-      const diff = execFileSync('git', ['diff', '--name-only', baseline], { ...wt, encoding: 'utf8' }).trim();
+      const diff = execFileSync('git', ['diff', '--name-only', baseline], {
+        ...wt,
+        encoding: 'utf8',
+      }).trim();
       if (diff) changed.push(...diff.split('\n').filter(Boolean));
       // Untracked files (new files)
-      const status = execFileSync('git', ['status', '--porcelain'], { ...wt, encoding: 'utf8' }).trim();
+      const status = execFileSync('git', ['status', '--porcelain'], {
+        ...wt,
+        encoding: 'utf8',
+      }).trim();
       if (status) {
         for (const line of status.split('\n')) {
           const file = line.slice(3).trim(); // Remove "?? " or " M " prefix
@@ -374,7 +442,10 @@ async function runValidationGate(entry, worktreePath = REPO) {
         }
       }
     } else {
-      const status = execFileSync('git', ['status', '--porcelain'], { cwd: REPO, encoding: 'utf8' }).trim();
+      const status = execFileSync('git', ['status', '--porcelain'], {
+        cwd: REPO,
+        encoding: 'utf8',
+      }).trim();
       if (status) {
         for (const line of status.split('\n')) {
           const file = line.slice(3).trim();
@@ -384,17 +455,23 @@ async function runValidationGate(entry, worktreePath = REPO) {
     }
     // Expected changes from handoff
     const expected = Array.isArray(entry.expectedChanges) ? entry.expectedChanges : [];
-    const unexpected = changed.filter(f => !expected.includes(f) && !f.startsWith('.claude/handoffs/'));
+    const unexpected = changed.filter(
+      (f) => !expected.includes(f) && !f.startsWith('.claude/handoffs/'),
+    );
     results.unexpectedChanges = unexpected;
     results.cleanTree = unexpected.length === 0;
-    if (unexpected.length) results.errors.push(`unexpected changes: ${unexpected.slice(0, 5).join('; ')}`);
+    if (unexpected.length)
+      results.errors.push(`unexpected changes: ${unexpected.slice(0, 5).join('; ')}`);
     results.changedFiles = changed;
   } catch (e) {
     results.errors.push(`git diff: ${e.message}`);
   }
 
-  const passed = results.build && results.lint && results.typecheck && results.test && results.cleanTree;
-  console.log(`  [validation] ${passed ? 'PASSED' : 'FAILED'} — build:${results.build} lint:${results.lint} typecheck:${results.typecheck} test:${results.test} clean:${results.cleanTree}`);
+  const passed =
+    results.build && results.lint && results.typecheck && results.test && results.cleanTree;
+  console.log(
+    `  [validation] ${passed ? 'PASSED' : 'FAILED'} — build:${results.build} lint:${results.lint} typecheck:${results.typecheck} test:${results.test} clean:${results.cleanTree}`,
+  );
   return { passed, results };
 }
 
@@ -412,7 +489,10 @@ async function processOne(client, entry, worktreePath = REPO) {
   // Pin baseline once so change comparison is stable across retries.
   if (!cur.baselineCommit) {
     try {
-      cur.baselineCommit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: worktreePath, encoding: 'utf8' }).trim();
+      cur.baselineCommit = execFileSync('git', ['rev-parse', 'HEAD'], {
+        cwd: worktreePath,
+        encoding: 'utf8',
+      }).trim();
     } catch {}
   }
 
@@ -438,7 +518,8 @@ async function processOne(client, entry, worktreePath = REPO) {
     if (existsSync(hf)) {
       const content = readFileSync(hf, 'utf8');
       if (/Status:\s*GREEN|Status:\s*COMPLETED/.test(content)) finalStopReason = 'completed';
-      else if (/Status:\s*NEEDS-HUMAN|Status:\s*BLOCKED/.test(content)) finalStopReason = 'needs-human';
+      else if (/Status:\s*NEEDS-HUMAN|Status:\s*BLOCKED/.test(content))
+        finalStopReason = 'needs-human';
       else if (/Status:\s*FAILED/.test(content)) finalStopReason = 'failed';
       else finalStopReason = 'needs-human';
     } else {
@@ -468,8 +549,25 @@ async function processOne(client, entry, worktreePath = REPO) {
 
   if (validation.passed) {
     // MERGE_READY keeps stopReason as-is and KEEPS the worktree for HIC review.
-    cur.state = 'MERGE_READY';
-    cur.worktreeState = 'kept-for-review';
+    // Guard: verify worktree still exists (may be deleted externally; fail loud if missing).
+    const wtExists = existsSync(worktreePath);
+    const wtHasDiff = wtExists && worktreeHasDiff(worktreePath, cur.baselineCommit);
+    if (!wtExists) {
+      cur.state = 'FAILED';
+      cur.attempts += 1;
+      cur.stopReason = 'failed';
+      cur.failureCode = 'validation-passed-worktree-missing';
+      cur.failureDetail = `validation passed but worktree deleted: ${worktreePath}`;
+      console.error(`  [invariant] worktree missing after validation passed — marking FAILED`);
+    } else if (!wtHasDiff) {
+      // Validation passed with no changes — unusual but valid (cleanup PR, no-op session).
+      cur.state = 'MERGE_READY';
+      cur.worktreeState = 'kept-no-diff-but-valid';
+      console.log(`  [validation] MERGE_READY but no diff (cleanup-only session?)`);
+    } else {
+      cur.state = 'MERGE_READY';
+      cur.worktreeState = 'kept-for-review';
+    }
   } else {
     cur.state = 'FAILED';
     cur.attempts += 1;
@@ -479,17 +577,24 @@ async function processOne(client, entry, worktreePath = REPO) {
   }
 
   // Guard every write: terminal states must carry an allowed stopReason.
-  const violation = assertTerminalMetadata(cur) ?? (STOP_REASONS.includes(cur.stopReason) ? null : `non-terminal ${cur.id} carries invalid stopReason`);
+  const violation =
+    assertTerminalMetadata(cur) ??
+    (STOP_REASONS.includes(cur.stopReason)
+      ? null
+      : `non-terminal ${cur.id} carries invalid stopReason`);
   if (violation) {
     console.error(`  [invariant] ${violation} — coercing to needs-human/failed`);
     if (!TERMINAL_STATES.includes(cur.state)) cur.state = 'FAILED';
-    if (!STOP_REASONS.includes(cur.stopReason)) cur.stopReason = cur.state === 'DONE' ? 'needs-human' : 'failed';
+    if (!STOP_REASONS.includes(cur.stopReason))
+      cur.stopReason = cur.state === 'DONE' ? 'needs-human' : 'failed';
   }
 
   cur.lastRun = new Date().toISOString();
   writeQueue(all);
 
-  console.log(`  ${cur.state}, stopReason=${cur.stopReason}, validation=${validation.passed ? 'PASS' : 'FAIL'}, handoff=${how}, worktree=${cur.worktreeState}`);
+  console.log(
+    `  ${cur.state}, stopReason=${cur.stopReason}, validation=${validation.passed ? 'PASS' : 'FAIL'}, handoff=${how}, worktree=${cur.worktreeState}`,
+  );
   return cur.stopReason;
 }
 
@@ -515,7 +620,9 @@ function cmdStatus() {
     else if (e.state === 'FAILED') next = 'investigate handoff → retry or cleanup';
     else if (e.state === 'RUNNING') next = 'worker processing';
     else if (e.state === 'updating') next = 'legacy state → run reconcile';
-    console.log(`  [${e.state}] ${e.id} ${e.title?.slice(0, 40) ?? ''} attempts=${e.attempts} next=${next}`);
+    console.log(
+      `  [${e.state}] ${e.id} ${e.title?.slice(0, 40) ?? ''} attempts=${e.attempts} next=${next}`,
+    );
   }
 }
 
@@ -545,19 +652,30 @@ function cmdReconcile() {
       if (existsSync(hf)) {
         const content = readFileSync(hf, 'utf8');
         if (/Status:\s*NEEDS-HUMAN|Status:\s*BLOCKED/.test(content)) stopReason = 'needs-human';
-        else if (/Status:\s*FAILED/.test(content)) { stopReason = 'failed'; state = 'FAILED'; }
-        else if (/Status:\s*GREEN|Status:\s*COMPLETED/.test(content)) stopReason = 'completed';
-        else { stopReason = 'needs-human'; }
+        else if (/Status:\s*FAILED/.test(content)) {
+          stopReason = 'failed';
+          state = 'FAILED';
+        } else if (/Status:\s*GREEN|Status:\s*COMPLETED/.test(content)) stopReason = 'completed';
+        else {
+          stopReason = 'needs-human';
+        }
       } else {
         stopReason = 'needs-human'; // no handoff = needs human
       }
       migrated++;
-      return { ...e, state, stopReason, status: undefined, legacy: true, reconciledAt: new Date().toISOString() };
+      return {
+        ...e,
+        state,
+        stopReason,
+        status: undefined,
+        legacy: true,
+        reconciledAt: new Date().toISOString(),
+      };
     }
     // Migrate lowercase living-engine states (Rule 12: restart-safe — a
     // crashed mid-flight entry resumes as QUEUED, never lost).
-    const isLowercase = typeof e.state === 'string'
-      && (Boolean(LIFECYCLE_TO_MACHINE[e.state]) || e.state === 'rest');
+    const isLowercase =
+      typeof e.state === 'string' && (Boolean(LIFECYCLE_TO_MACHINE[e.state]) || e.state === 'rest');
     if (isLowercase) {
       let state = LIFECYCLE_TO_MACHINE[e.state] ?? 'QUEUED';
       let stopReason = e.stopReason ?? null;
@@ -567,21 +685,33 @@ function cmdReconcile() {
         // before believing it; unproven rest goes back to the queue.
         const hf = join(HANDOFF_DIR, `${e.id}.md`);
         const proven =
-          existsSync(hf) &&
-          /Status:\s*(GREEN|COMPLETED)/.test(readFileSync(hf, 'utf8'));
-        if (proven) { state = 'DONE'; stopReason = 'completed'; }
-        else { state = 'QUEUED'; stopReason = null; }
+          existsSync(hf) && /Status:\s*(GREEN|COMPLETED)/.test(readFileSync(hf, 'utf8'));
+        if (proven) {
+          state = 'DONE';
+          stopReason = 'completed';
+        } else {
+          state = 'QUEUED';
+          stopReason = null;
+        }
       }
       migrated++;
-      return { ...e, state, stopReason, reconciledFrom: e.state, reconciledAt: new Date().toISOString() };
+      return {
+        ...e,
+        state,
+        stopReason,
+        reconciledFrom: e.state,
+        reconciledAt: new Date().toISOString(),
+      };
     }
     // Fail loudly on any non-terminal entry with missing/undefined metadata (Rule 12)
     if (!TERMINAL_STATES.includes(e.state)) {
       const problems = [];
       if (!STATES.includes(e.state)) problems.push(`unknown state=${JSON.stringify(e.state)}`);
       if (e.stopReason === undefined) problems.push('stopReason=undefined');
-      else if (e.stopReason !== null && !STOP_REASONS.includes(e.stopReason)) problems.push(`stopReason=${JSON.stringify(e.stopReason)} not allowed pre-terminal`);
-      if (problems.length) violations.push(`${e.id} [${e.title?.slice(0, 40) ?? ''}]: ${problems.join('; ')}`);
+      else if (e.stopReason !== null && !STOP_REASONS.includes(e.stopReason))
+        problems.push(`stopReason=${JSON.stringify(e.stopReason)} not allowed pre-terminal`);
+      if (problems.length)
+        violations.push(`${e.id} [${e.title?.slice(0, 40) ?? ''}]: ${problems.join('; ')}`);
     } else {
       const v = assertTerminalMetadata(e);
       if (v) violations.push(v);
@@ -618,7 +748,9 @@ function cmdReconcile() {
       orphanReported.push(`${e.branch} (${e.id}) is empty, cleanup not approved`);
     }
   }
-  console.log(`reconcile: ${orphansCleaned} empty orphan branch(es) cleaned, ${orphanReported.length} reported, ${orphanKept.length} preserved with commits`);
+  console.log(
+    `reconcile: ${orphansCleaned} empty orphan branch(es) cleaned, ${orphanReported.length} reported, ${orphanKept.length} preserved with commits`,
+  );
   for (const r of orphanReported) console.log(`reconcile: REPORT ${r}`);
   for (const k of orphanKept) console.error(`reconcile: PRESERVED ${k}`);
 
@@ -672,7 +804,10 @@ function cmdLifecycle() {
   for (const e of out) counts[e.state] = (counts[e.state] ?? 0) + 1;
   console.log('living-engine lifecycle:');
   for (const [k, v] of Object.entries(counts)) console.log(`  ${k}: ${v}`);
-  if (transitions.length) console.log(`${transitions.length} transition(s) logged -> .workflows/opencode-all/lifecycle.jsonl`);
+  if (transitions.length)
+    console.log(
+      `${transitions.length} transition(s) logged -> .workflows/opencode-all/lifecycle.jsonl`,
+    );
 }
 
 async function ensureHandoff(entry, stopReason, worktreePath = REPO) {
@@ -687,7 +822,9 @@ async function ensureHandoff(entry, stopReason, worktreePath = REPO) {
 
   try {
     const { execFileSync } = await import('node:child_process');
-    const data = JSON.parse(execFileSync('opencode', ['export', entry.id], { maxBuffer: 256 * 1024 * 1024 }));
+    const data = JSON.parse(
+      execFileSync('opencode', ['export', entry.id], { maxBuffer: 256 * 1024 * 1024 }),
+    );
     const msgs = data.messages ?? [];
     for (let i = msgs.length - 1; i >= 0; i--) {
       const t = (msgs[i].parts ?? [])
@@ -705,10 +842,19 @@ async function ensureHandoff(entry, stopReason, worktreePath = REPO) {
   // Extract structured fields from last message
   const statusMatch = /Status:\s*(GREEN|COMPLETED|NEEDS-HUMAN|FAILED|BLOCKED)/m.exec(lastText);
   const status = statusMatch?.[1];
-  const normalized = status === 'COMPLETED' ? 'GREEN' : status === 'BLOCKED' ? 'NEEDS-HUMAN' : status ?? 'NEEDS-HUMAN';
+  const normalized =
+    status === 'COMPLETED'
+      ? 'GREEN'
+      : status === 'BLOCKED'
+        ? 'NEEDS-HUMAN'
+        : (status ?? 'NEEDS-HUMAN');
 
   const filesMatch = /Changed files:\s*([^\n]+)/i.exec(lastText);
-  if (filesMatch) changedFiles = filesMatch[1].split(',').map(f => f.trim()).filter(Boolean);
+  if (filesMatch)
+    changedFiles = filesMatch[1]
+      .split(',')
+      .map((f) => f.trim())
+      .filter(Boolean);
 
   const testsMatch = /Tests run:\s*([^\n]+)/i.exec(lastText);
   if (testsMatch) testsRun = testsMatch[1].trim();
@@ -722,7 +868,10 @@ async function ensureHandoff(entry, stopReason, worktreePath = REPO) {
   // Get git diff for changed files if not in handoff
   if (changedFiles.length === 0) {
     try {
-      const diff = execFileSync('git', ['diff', '--name-only'], { cwd: REPO, encoding: 'utf8' }).trim();
+      const diff = execFileSync('git', ['diff', '--name-only'], {
+        cwd: REPO,
+        encoding: 'utf8',
+      }).trim();
       if (diff) changedFiles = diff.split('\n');
     } catch {}
   }
@@ -744,7 +893,7 @@ async function ensureHandoff(entry, stopReason, worktreePath = REPO) {
     confidence,
     createdAt: new Date().toISOString(),
     workerVersion: '1.0.0',
-    validation: entry.validation ?? null
+    validation: entry.validation ?? null,
   };
 
   const yaml = [
@@ -764,7 +913,7 @@ async function ensureHandoff(entry, stopReason, worktreePath = REPO) {
     '',
     '## Changes',
     '',
-    changedFiles.length ? changedFiles.map(f => `- ${f}`).join('\n') : 'No files changed',
+    changedFiles.length ? changedFiles.map((f) => `- ${f}`).join('\n') : 'No files changed',
     '',
     '## Tests',
     '',
@@ -782,14 +931,18 @@ async function ensureHandoff(entry, stopReason, worktreePath = REPO) {
     '',
     '## Validation',
     '',
-    entry.validation ? (
-      `- Build: ${entry.validation.results?.build ? '✓' : '✗'}` + '\n' +
-      `- Lint: ${entry.validation.results?.lint ? '✓' : '✗'}` + '\n' +
-      `- Typecheck: ${entry.validation.results?.typecheck ? '✓' : '✗'}` + '\n' +
-      `- Test: ${entry.validation.results?.test ? '✓' : '✗'}` + '\n' +
-      `- Clean Tree: ${entry.validation.results?.cleanTree ? '✓' : '✗'}`
-    ) : 'Not yet validated',
-    ''
+    entry.validation
+      ? `- Build: ${entry.validation.results?.build ? '✓' : '✗'}` +
+        '\n' +
+        `- Lint: ${entry.validation.results?.lint ? '✓' : '✗'}` +
+        '\n' +
+        `- Typecheck: ${entry.validation.results?.typecheck ? '✓' : '✗'}` +
+        '\n' +
+        `- Test: ${entry.validation.results?.test ? '✓' : '✗'}` +
+        '\n' +
+        `- Clean Tree: ${entry.validation.results?.cleanTree ? '✓' : '✗'}`
+      : 'Not yet validated',
+    '',
   ].join('\n');
 
   writeFileSync(hf, yaml);
@@ -812,19 +965,24 @@ async function runBatches() {
           started,
           lifetimeDays: opt.lifetimeDays,
           owner: 'Risto Anton Päärni (HIC)',
-          reason: 'Containment control: bounded autonomous cleanup window per HIC instruction 2026-08-24',
+          reason:
+            'Containment control: bounded autonomous cleanup window per HIC instruction 2026-08-24',
           renewalCriteria: 'HIC explicit approval + new LD entry before deadline',
-          killCriteria: 'model auth failure unresolvable by fallback, queue empty for 7 consecutive days, or HIC kill command',
+          killCriteria:
+            'model auth failure unresolvable by fallback, queue empty for 7 consecutive days, or HIC kill command',
         },
         null,
-        2
-      )
+        2,
+      ),
     );
   }
   const deadline = Date.parse(started) + opt.lifetimeDays * 86_400_000;
   do {
     if (Date.now() >= deadline) {
-      console.log(new Date().toISOString(), `engine lifetime (${opt.lifetimeDays}d from ${started}) reached — stopping`);
+      console.log(
+        new Date().toISOString(),
+        `engine lifetime (${opt.lifetimeDays}d from ${started}) reached — stopping`,
+      );
       break;
     }
 
@@ -839,14 +997,18 @@ async function runBatches() {
           // actively processing this session — never fail it from here.
           const holder = lockHolder(e.id);
           if (holder && holder.owner !== WORKER_ID) {
-            console.log(`  [watchdog] STALE RUNNING: ${e.id} — but locked by ${holder.owner} (${Math.round(holder.ageMs / 60000)}min), leaving alone`);
+            console.log(
+              `  [watchdog] STALE RUNNING: ${e.id} — but locked by ${holder.owner} (${Math.round(holder.ageMs / 60000)}min), leaving alone`,
+            );
             continue;
           }
-          console.log(`  [watchdog] STALE RUNNING: ${e.id} (${Math.round(age/60000)}min) — marking FAILED`);
+          console.log(
+            `  [watchdog] STALE RUNNING: ${e.id} (${Math.round(age / 60000)}min) — marking FAILED`,
+          );
           e.state = 'FAILED';
           e.stopReason = 'failed';
           e.failureCode = 'stale-timeout';
-          e.failureDetail = `stale running ${Math.round(age/60000)}min since lastRun`;
+          e.failureDetail = `stale running ${Math.round(age / 60000)}min since lastRun`;
           e.attempts += 1;
         }
       }
@@ -854,7 +1016,9 @@ async function runBatches() {
     writeQueue(all);
 
     const q = readQueue();
-    const pending = q.filter((e) => e.state === 'QUEUED' || (e.state === 'FAILED' && e.attempts < 3));
+    const pending = q.filter(
+      (e) => e.state === 'QUEUED' || (e.state === 'FAILED' && e.attempts < 3),
+    );
     if (pending.length === 0) {
       console.log(new Date().toISOString(), 'no pending work');
     } else {
@@ -867,7 +1031,10 @@ async function runBatches() {
       for (const entry of batch) {
         const all = readQueue();
         const cur = all.find((e) => e.id === entry.id);
-        console.log(new Date().toISOString(), `processing ${entry.id} (${entry.title?.slice(0, 50)})`);
+        console.log(
+          new Date().toISOString(),
+          `processing ${entry.id} (${entry.title?.slice(0, 50)})`,
+        );
 
         // Create per-session worktree. Metadata is written to the queue BEFORE
         // ACP starts so a crash leaves resumable isolation state behind.
@@ -893,7 +1060,9 @@ async function runBatches() {
         // cleared/removed in finally on success, failure, and timeout alike.
         const controller = new AbortController();
         let raceReject;
-        const abortPromise = new Promise((_, reject) => { raceReject = reject; });
+        const abortPromise = new Promise((_, reject) => {
+          raceReject = reject;
+        });
         const abortListener = () => raceReject(new Error(`timeout after ${opt.timeoutMin}min`));
         controller.signal.addEventListener('abort', abortListener, { once: true });
         const timer = setTimeout(() => controller.abort(), opt.timeoutMin * 60_000);
@@ -903,9 +1072,18 @@ async function runBatches() {
           cur.state = 'FAILED';
           cur.attempts += 1;
           cur.stopReason = 'failed';
-          cur.failureCode = String(err.message).startsWith('timeout after') ? 'timeout' : 'run-error';
+          cur.failureCode = String(err.message).startsWith('timeout after')
+            ? 'timeout'
+            : 'run-error';
           cur.failureDetail = String(err.message).slice(0, 200);
-          cleanupWorktreeAfterFailure(cur, wt.resumed);
+          const cleanupResult = cleanupWorktreeAfterFailure(cur, wt.resumed);
+          // Guard: ensure cleanup sets worktreeState explicitly (never undefined).
+          if (!cur.worktreeState) {
+            cur.worktreeState = 'unknown-cleanup-state';
+            console.error(
+              `  [invariant] cleanupWorktreeAfterFailure did not set worktreeState (result=${cleanupResult})`,
+            );
+          }
           console.error(`  ERROR (${cur.failureCode}): ${cur.failureDetail}`);
         } finally {
           clearTimeout(timer);
@@ -934,7 +1112,13 @@ function worktreeRootFor(ctx) {
 
 async function createWorktree(entry, ctx = {}) {
   const repo = ctx.repo ?? REPO;
-  const baseline = entry.baselineCommit || execFileSync('git', ['rev-parse', 'HEAD'], { cwd: repo, encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 }).trim();
+  const baseline =
+    entry.baselineCommit ||
+    execFileSync('git', ['rev-parse', 'HEAD'], {
+      cwd: repo,
+      encoding: 'utf8',
+      maxBuffer: 10 * 1024 * 1024,
+    }).trim();
   const worktreePath = join(worktreeRootFor(ctx), entry.id);
   const branch = `opencode/${entry.id}`;
   let created = false;
@@ -944,10 +1128,18 @@ async function createWorktree(entry, ctx = {}) {
 
     if (existsSync(worktreePath)) {
       // Resume only if the queue entry explicitly points at this exact worktree
-      const currentBranch = execFileSync('git', ['-C', worktreePath, 'branch', '--show-current'], { cwd: repo, encoding: 'utf8' }).trim();
+      const currentBranch = execFileSync('git', ['-C', worktreePath, 'branch', '--show-current'], {
+        cwd: repo,
+        encoding: 'utf8',
+      }).trim();
       if (entry.worktreePath === worktreePath && currentBranch === branch) {
         console.log(`  [worktree] resuming existing: ${worktreePath} (${branch})`);
-        return { path: worktreePath, branch, baseline: entry.baselineCommit ?? baseline, resumed: true };
+        return {
+          path: worktreePath,
+          branch,
+          baseline: entry.baselineCommit ?? baseline,
+          resumed: true,
+        };
       }
       throw new Error(`worktree exists and cannot be resumed: ${worktreePath}`);
     }
@@ -956,10 +1148,17 @@ async function createWorktree(entry, ctx = {}) {
       throw new Error(`branch already exists without worktree: ${branch} — delete it or reuse`);
     }
 
-    execFileSync('git', ['worktree', 'add', '--detach', worktreePath, baseline], { cwd: repo, encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 });
+    execFileSync('git', ['worktree', 'add', '--detach', worktreePath, baseline], {
+      cwd: repo,
+      encoding: 'utf8',
+      maxBuffer: 10 * 1024 * 1024,
+    });
     created = true;
     // Named branch is part of the isolation contract — no detached fallback.
-    execFileSync('git', ['-C', worktreePath, 'switch', '-c', branch], { cwd: repo, encoding: 'utf8' });
+    execFileSync('git', ['-C', worktreePath, 'switch', '-c', branch], {
+      cwd: repo,
+      encoding: 'utf8',
+    });
 
     // Minimal env for tooling: secrets/config copied per WORKTREE_POLICY conventions
     for (const f of ['.env', '.mcp.json']) {
@@ -1001,8 +1200,14 @@ function removeWorktree(entry, ctx = {}) {
 // A failed session still deserves review if it produced any change.
 function worktreeHasDiff(worktreePath, baseline) {
   try {
-    const tracked = execFileSync('git', ['diff', '--name-only', baseline ?? 'HEAD'], { cwd: worktreePath, encoding: 'utf8' }).trim();
-    const untracked = execFileSync('git', ['status', '--porcelain'], { cwd: worktreePath, encoding: 'utf8' }).trim();
+    const tracked = execFileSync('git', ['diff', '--name-only', baseline ?? 'HEAD'], {
+      cwd: worktreePath,
+      encoding: 'utf8',
+    }).trim();
+    const untracked = execFileSync('git', ['status', '--porcelain'], {
+      cwd: worktreePath,
+      encoding: 'utf8',
+    }).trim();
     return Boolean(tracked || untracked);
   } catch {
     return false;
@@ -1057,7 +1262,10 @@ function cleanupWorktreeAfterFailure(cur, resumed = false, ctx = {}) {
 // unreadable — treated as "has unknown work", never auto-deleted).
 function branchCommitCount(repo, branch, baseline) {
   try {
-    const out = execFileSync('git', ['rev-list', '--count', `${baseline}..${branch}`], { cwd: repo, encoding: 'utf8' });
+    const out = execFileSync('git', ['rev-list', '--count', `${baseline}..${branch}`], {
+      cwd: repo,
+      encoding: 'utf8',
+    });
     return parseInt(out.trim(), 10);
   } catch {
     return -1;
@@ -1067,7 +1275,10 @@ function branchCommitCount(repo, branch, baseline) {
 function removeOrphanBranch(repo, branch, baseline, allowDelete = false) {
   let listing;
   try {
-    listing = execFileSync('git', ['branch', '--list', branch], { cwd: repo, encoding: 'utf8' }).trim();
+    listing = execFileSync('git', ['branch', '--list', branch], {
+      cwd: repo,
+      encoding: 'utf8',
+    }).trim();
   } catch {
     return 'absent';
   }
@@ -1096,7 +1307,8 @@ async function processOneInWorktree(worktreeInfo, entry, signal = null) {
 
 // CLI entry only when invoked directly — importing the module (tests) must
 // not trigger batch runs.
-const invokedDirectly = Boolean(process.argv[1]) && import.meta.url === pathToFileURL(process.argv[1]).href;
+const invokedDirectly =
+  Boolean(process.argv[1]) && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (invokedDirectly) {
   (async () => {
     const cmd = args.find((a) => !a.startsWith('--')) ?? 'run';
@@ -1106,7 +1318,9 @@ if (invokedDirectly) {
     else if (cmd === 'reconcile') cmdReconcile();
     else if (cmd === 'run') await runBatches();
     else {
-      console.log('usage: opencode-batch-worker.mjs <enqueue|run|status|lifecycle|reconcile> [--batch N] [--loop] [--dry-run] [--timeout MIN] [--interval MIN] [--clean: reconcile only — remove provably-empty orphan branches after human review]');
+      console.log(
+        'usage: opencode-batch-worker.mjs <enqueue|run|status|lifecycle|reconcile> [--batch N] [--loop] [--dry-run] [--timeout MIN] [--interval MIN] [--clean: reconcile only — remove provably-empty orphan branches after human review]',
+      );
       process.exit(1);
     }
   })();
