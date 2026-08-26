@@ -211,6 +211,7 @@ Admin/Acer-Veriton-GN100/training/cache/
 .opencode/failover.log
 opencode.json.save
 .copilot-worktrees/
+.worktrees/
 .claude/archive/
 config/blog-facebook-pool.json
 
