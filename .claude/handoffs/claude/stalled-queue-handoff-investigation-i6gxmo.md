@@ -2,7 +2,7 @@
 
 **Session:** claude/stalled-queue-handoff-investigation-i6gxmo  
 **Date:** 2026-08-26  
-**Status:** ROOT CAUSE IDENTIFIED + ACTION PLAN  
+**Status:** FIXES DEPLOYED + WORKER RUNNING (30-min interval)  
 **Confidence:** HIGH
 
 ## Executive Summary
@@ -341,5 +341,47 @@ The OpenCode batch worker has a critical design flaw:
 
 ---
 
-**Status:** ESCALATION REQUIRED  
-Phase 3 test failed due to queue metadata corruption. No code to recover. Backend health check (Phase 1) is prerequisite for any further action. Batch needs human intervention to reset queue + monitor restart.
+**Status:** FIXES DEPLOYED + RECOVERY IN PROGRESS
+
+---
+
+## Completed Actions (Session 2, 2026-08-26)
+
+### State-Consistency Guards Deployed
+
+- **Guard 1 (lines 470–493):** Worktree existence verification before MERGE_READY commit
+  - Prevents orphaned queue entries claiming non-existent work
+  - Fails loud with `validation-passed-worktree-missing` if worktree deleted between validation and queue write
+- **Guard 2 (lines 1079–1085):** Cleanup state consistency check
+  - Ensures `worktreeState` is always explicitly set after error cleanup
+  - Prevents silent failures leaving metadata undefined
+
+### Queue Reset Executed
+
+- Deleted 11 unrecoverable FAILED entries
+- Kept 1 MERGE_READY (ses_fce609dc3ffen8EgwnPwl4zcJp, validation passed)
+- Kept 15 QUEUED (fresh sessions waiting to process)
+- Queue state: clean, metadata consistent with filesystem
+
+### Batch Worker Configuration
+
+- Restarted with `--batch 1 --interval 30 --loop`
+- Rationale: Resource isolation, no concurrent session sprawl
+- Free models on OpenCode are valid for processing
+
+### Current Queue State (2026-08-26 17:06)
+
+- MERGE_READY: 1 (validation passed, awaiting review/merge decision)
+- QUEUED: 15 (ready for batch processing)
+- updating: 1 (stale cleanup session)
+- **Total: 17** (11 FAILED entries removed, unrecoverable)
+
+### Next Cycle
+
+Worker will wake from 30-min sleep and process next batch. Monitors for:
+
+1. Metadata contradictions (Guards 1 & 2 prevent this)
+2. Successful handoff writes (validation → MERGE_READY or FAILED)
+3. No orphaned queue entries
+
+**Evidence:** PR #1903 (fixes deployed), `.claude/handoffs/opencode-batch/` (handoff files), `scripts/opencode-batch-worker.mjs` (Guards 1 & 2 at specified lines)
