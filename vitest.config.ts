@@ -21,6 +21,10 @@ export default defineConfig({
       // Same class of stale PR-snapshot worktrees, gitignored (local-only) —
       // present on dev machines, absent on CI.
       '**/.copilot-worktrees/**',
+      // Batch-worker session worktrees (opencode-all) live inside the repo and
+      // contain FULL repo checkouts; without this exclude vitest re-runs every
+      // suite from those copies and fails on their stale state (2026-08-26).
+      '**/.worktrees/**',
       // Standalone package with its own package.json + jest runner, not an
       // npm workspace member — root `npm ci` never installs its deps
       // (react, @reduxjs/toolkit, etc.), so Vitest picking these up fails
