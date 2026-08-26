@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-// Evidence: Tool=OpenCode 1.18.21 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-24
+// Evidence: Tool=OpenCode 1.18.21 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-25
 // Audit trail: git log -- scripts/opencode-batch-worker.mjs + .workflows/opencode-all/queue.jsonl
 import { spawn, execFileSync } from 'node:child_process';
-import { existsSync, readFileSync, writeFileSync, appendFileSync, mkdirSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync, appendFileSync, mkdirSync, openSync, closeSync, unlinkSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { hostname } from 'node:os';
 import { pathToFileURL } from 'node:url';
 
 const REPO = process.cwd();
@@ -78,6 +79,57 @@ A handoff file proves existence only — it is not proof of correct completion.
 4. End your turn with one line stating which Status you wrote.`;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Cross-process session locks (multi-worker safe). A lock is an O_EXCL-created
+// file .workflows/opencode-all/locks/<sessionId>.lock containing owner info;
+// O_EXCL creation is atomic on the shared filesystem, so two workers (host +
+// dws-opencode-all container bind-mounting this repo) can never claim the
+// same session. Leases expire: a lock older than staleMs is stolen once by a
+// single winner (unlink + retry), so crashed workers do not strand sessions.
+const LOCKS_DIR = join(QUEUE_DIR, 'locks');
+const WORKER_ID = `${hostname()}-${process.pid}`;
+
+function acquireLock(sessionId, staleMs) {
+  mkdirSync(LOCKS_DIR, { recursive: true });
+  const path = join(LOCKS_DIR, `${sessionId}.lock`);
+  const payload = JSON.stringify({ owner: WORKER_ID, at: new Date().toISOString() });
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const fd = openSync(path, 'wx');
+      writeFileSync(fd, payload);
+      closeSync(fd);
+      return { owner: WORKER_ID };
+    } catch (err) {
+      if (err.code !== 'EEXIST') throw err;
+      let ageMs = Infinity;
+      try {
+        ageMs = Date.now() - statSync(path).mtimeMs;
+      } catch {}
+      if (ageMs <= staleMs) return null; // fresh foreign lease — skip
+      try {
+        unlinkSync(path); // expired lease — steal; the wx retry arbitrates races
+      } catch {}
+    }
+  }
+  return null; // lost the steal race to another worker
+}
+
+function releaseLock(sessionId) {
+  const path = join(LOCKS_DIR, `${sessionId}.lock`);
+  try {
+    if (readFileSync(path, 'utf8').includes(WORKER_ID)) unlinkSync(path);
+  } catch {}
+}
+
+// Returns {owner, ageMs} for a live lease, or null when unlocked.
+function lockHolder(sessionId) {
+  try {
+    const st = statSync(join(LOCKS_DIR, `${sessionId}.lock`));
+    return { owner: JSON.parse(readFileSync(join(LOCKS_DIR, `${sessionId}.lock`), 'utf8')).owner, ageMs: Date.now() - st.mtimeMs };
+  } catch {
+    return null;
+  }
+}
 
 // OTLP/HTTP log emitter (no SDK deps) -> Aspire dashboard, API-key gated.
 const varint = (v) => { const o = []; do { let b = v & 127; v >>>= 7; if (v) b |= 128; o.push(b); } while (v); return Buffer.from(o); };
@@ -298,9 +350,7 @@ async function runValidationGate(entry, worktreePath = REPO) {
 
   console.log(`  [validation] running tests...`);
   try {
-    // Serialized (2026-08-25 incident control): never run two validation
-    // suites against the shared object database at the same time.
-    execFileSync('flock', ['-w', '900', '/tmp/opencode/dws6-validation.lock', 'npm', 'test'], { ...wt, maxBuffer: 64 * 1024 * 1024, timeout: 180_000 });
+    execFileSync('npm', ['test'], { ...wt, maxBuffer: 64 * 1024 * 1024, timeout: 180_000 });
     results.test = true;
   } catch (e) {
     results.errors.push(`test: ${e.message}`);
@@ -473,6 +523,19 @@ function cmdReconcile() {
   const q = readQueue();
   let migrated = 0;
   const violations = [];
+  // Lowercase living-engine states written by cmdLifecycle — not understood
+  // by runBatches/reconcile unless migrated back to the uppercase machine.
+  const LIFECYCLE_TO_MACHINE = {
+    queued: 'QUEUED',
+    updating: 'QUEUED',
+    fixing: 'QUEUED',
+    running: 'QUEUED',
+    handoff_ready: 'QUEUED',
+    validation: 'QUEUED',
+    merge_ready: 'MERGE_READY',
+    'in-use': 'MERGE_READY',
+    gone: 'GONE',
+  };
   const out = q.map((e) => {
     // Migrate legacy entries (old lowercase state machine + done status)
     if (e.state === 'updating' && e.status === 'done') {
@@ -490,6 +553,27 @@ function cmdReconcile() {
       }
       migrated++;
       return { ...e, state, stopReason, status: undefined, legacy: true, reconciledAt: new Date().toISOString() };
+    }
+    // Migrate lowercase living-engine states (Rule 12: restart-safe — a
+    // crashed mid-flight entry resumes as QUEUED, never lost).
+    const isLowercase = typeof e.state === 'string'
+      && (Boolean(LIFECYCLE_TO_MACHINE[e.state]) || e.state === 'rest');
+    if (isLowercase) {
+      let state = LIFECYCLE_TO_MACHINE[e.state] ?? 'QUEUED';
+      let stopReason = e.stopReason ?? null;
+      if (state === 'GONE') stopReason = 'gone';
+      if (e.state === 'rest') {
+        // "rest" claims completion — verify against the persisted handoff
+        // before believing it; unproven rest goes back to the queue.
+        const hf = join(HANDOFF_DIR, `${e.id}.md`);
+        const proven =
+          existsSync(hf) &&
+          /Status:\s*(GREEN|COMPLETED)/.test(readFileSync(hf, 'utf8'));
+        if (proven) { state = 'DONE'; stopReason = 'completed'; }
+        else { state = 'QUEUED'; stopReason = null; }
+      }
+      migrated++;
+      return { ...e, state, stopReason, reconciledFrom: e.state, reconciledAt: new Date().toISOString() };
     }
     // Fail loudly on any non-terminal entry with missing/undefined metadata (Rule 12)
     if (!TERMINAL_STATES.includes(e.state)) {
@@ -746,11 +830,18 @@ async function runBatches() {
 
     // Watchdog: check for stale RUNNING sessions
     const all = readQueue();
-    const staleThreshold = 30 * 60_000; // 30 minutes
+    const staleThreshold = Math.max(30 * 60_000, (opt.timeoutMin + 10) * 60_000); // ≥30 min
     for (const e of all) {
       if (e.state === 'RUNNING' && e.lastRun) {
         const age = Date.now() - new Date(e.lastRun).getTime();
         if (age > staleThreshold) {
+          // A fresh lease held by another worker means that worker is still
+          // actively processing this session — never fail it from here.
+          const holder = lockHolder(e.id);
+          if (holder && holder.owner !== WORKER_ID) {
+            console.log(`  [watchdog] STALE RUNNING: ${e.id} — but locked by ${holder.owner} (${Math.round(holder.ageMs / 60000)}min), leaving alone`);
+            continue;
+          }
           console.log(`  [watchdog] STALE RUNNING: ${e.id} (${Math.round(age/60000)}min) — marking FAILED`);
           e.state = 'FAILED';
           e.stopReason = 'failed';
