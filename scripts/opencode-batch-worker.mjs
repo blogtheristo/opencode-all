@@ -458,8 +458,15 @@ function cmdStatus() {
   for (const [k, v] of Object.entries(byState)) console.log(`    ${k}: ${v}`);
   console.log('  by status (derived):');
   for (const [k, v] of Object.entries(byStatus)) console.log(`    ${k}: ${v}`);
-  for (const e of q.filter((x) => x.state !== 'DONE' && x.state !== 'GONE').slice(0, 15))
-    console.log(`  [${e.state}] ${e.id} ${e.title?.slice(0, 50) ?? ''} attempts=${e.attempts} stopReason=${e.stopReason ?? '—'}`);
+  for (const e of q.filter((x) => x.state !== 'DONE' && x.state !== 'GONE').slice(0, 15)) {
+    let next = '—';
+    if (e.state === 'QUEUED') next = 'awaiting worker';
+    else if (e.state === 'MERGE_READY') next = 'human review → git merge';
+    else if (e.state === 'FAILED') next = 'investigate handoff → retry or cleanup';
+    else if (e.state === 'RUNNING') next = 'worker processing';
+    else if (e.state === 'updating') next = 'legacy state → run reconcile';
+    console.log(`  [${e.state}] ${e.id} ${e.title?.slice(0, 40) ?? ''} attempts=${e.attempts} next=${next}`);
+  }
 }
 
 function cmdReconcile() {
