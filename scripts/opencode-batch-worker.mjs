@@ -974,7 +974,7 @@ async function healthCheckACP() {
   }
 }
 
-async function runBatches() {
+async function runBatches(shouldShutdown = null) {
   mkdirSync(HANDOFF_DIR, { recursive: true });
   const ENGINE_FILE = join(QUEUE_DIR, 'engine.json');
   let started;
@@ -1003,6 +1003,15 @@ async function runBatches() {
   }
   const deadline = Date.parse(started) + opt.lifetimeDays * 86_400_000;
   do {
+    // Allow graceful shutdown via external signal (Ctrl+C sets shouldShutdown=true)
+    if (typeof shouldShutdown === 'function' && shouldShutdown()) {
+      console.log(
+        new Date().toISOString(),
+        '[shutdown] requested — finishing this batch and exiting',
+      );
+      break;
+    }
+
     if (Date.now() >= deadline) {
       console.log(
         new Date().toISOString(),
@@ -1362,18 +1371,38 @@ async function processOneInWorktree(worktreeInfo, entry, signal = null) {
 const invokedDirectly =
   Boolean(process.argv[1]) && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (invokedDirectly) {
+  let shutdownRequested = false;
+
+  // Graceful shutdown on SIGINT (Ctrl+C)
+  process.on('SIGINT', () => {
+    if (shutdownRequested) {
+      console.error('\n[shutdown] Force exit requested — terminating immediately');
+      process.exit(1);
+    }
+    shutdownRequested = true;
+    console.log('\n[shutdown] Ctrl+C received — completing current batch and exiting gracefully');
+    console.log('[shutdown] Press Ctrl+C again to force exit immediately');
+  });
+
   (async () => {
     const cmd = args.find((a) => !a.startsWith('--')) ?? 'run';
     if (cmd === 'enqueue') cmdEnqueue();
     else if (cmd === 'status') cmdStatus();
     else if (cmd === 'lifecycle') cmdLifecycle();
     else if (cmd === 'reconcile') cmdReconcile();
-    else if (cmd === 'run') await runBatches();
-    else {
+    else if (cmd === 'run') {
+      // Pass shutdown flag getter to runBatches
+      await runBatches(() => shutdownRequested);
+    } else {
       console.log(
         'usage: opencode-batch-worker.mjs <enqueue|run|status|lifecycle|reconcile> [--batch N] [--loop] [--dry-run] [--timeout MIN] [--interval MIN] [--clean: reconcile only — remove provably-empty orphan branches after human review]',
       );
       process.exit(1);
+    }
+
+    if (shutdownRequested) {
+      console.log('[shutdown] Batch loop exited cleanly. Goodbye.');
+      process.exit(0);
     }
   })();
 }
