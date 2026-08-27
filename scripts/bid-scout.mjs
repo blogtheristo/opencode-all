@@ -3,15 +3,16 @@
 // Audit trail: git log -- scripts/bid-scout.mjs
 
 /**
- * Bid Scout Agent
+ * Bid Scout Agent - Live Cloudia Integration
  *
- * Daily monitoring of Cloudia bids.
+ * Daily monitoring of Cloudia bids via API.
  * Identifies opportunities we can offer on.
  * Flags high-value and strategic deals.
  */
 
 import { readFileSync, writeFileSync, appendFileSync } from 'node:fs';
 import { join } from 'node:path';
+import 'dotenv/config.js';
 
 const BIDS_LOG = '.workflows/bids-log.jsonl';
 const OPPORTUNITIES_FILE = '.workflows/opportunities.json';
@@ -25,10 +26,45 @@ const CRITERIA = {
   minWinProbability: 0.6, // 60%
 };
 
-// Mock Cloudia API - replace with actual API calls
+// Cloudia API - Live bid fetching
 async function fetchCloudiaBids() {
-  // TODO: Replace with actual Cloudia API integration
-  // For now, return sample bids for testing
+  const apiKey = process.env.CLOUDIA_API_KEY;
+  const apiUrl = process.env.CLOUDIA_API_URL || 'https://api.cloudia.net';
+
+  if (!apiKey) {
+    console.warn('⚠️  CLOUDIA_API_KEY not set in .env - using mock data');
+    return getMockBids();
+  }
+
+  try {
+    console.log('🔐 Authenticating with Cloudia API...');
+
+    // Fetch open bids from Cloudia
+    const response = await fetch(`${apiUrl}/api/v1/bids`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'User-Agent': 'DWS-Bid-Scout/1.0',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Cloudia API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log(`✅ Connected to Cloudia. Found ${data.bids?.length || 0} open bids`);
+    return data.bids || [];
+  } catch (error) {
+    console.warn(`⚠️  Cloudia API error: ${error.message}`);
+    console.log('Falling back to mock data for testing...\n');
+    return getMockBids();
+  }
+}
+
+// Mock data for testing/demo
+function getMockBids() {
   return [
     {
       id: 'cloudia_bid_001',
