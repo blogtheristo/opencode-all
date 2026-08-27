@@ -1,7 +1,7 @@
 {
   "date": "2026-08-27T18:34:03.572Z",
-  "total_opportunities": 4,
-  "total_potential_value": 530000,
+  "total_opportunities": 5,
+  "total_potential_value": 830000,
   "opportunities": [
     {
       "id": "cloudia_bid_001",
@@ -74,6 +74,29 @@
       "action": "OFFER",
       "assessment_date": "2026-08-27T18:34:12.985Z",
       "strategic_notes": "Metsähallitus manages 2.3M hectares of state forests. AI agents for wildlife monitoring, resource optimization, and operational automation. High strategic value for market leadership in Nordics."
+    },
+    {
+      "id": "cloudia_bid_ork_001",
+      "title": "Legal Document Processing & Registration Automation",
+      "buyer": "Oikeusrekisterikeskus",
+      "buyer_full": "Oikeusrekisterikeskus (Finnish Register of Legal Entities)",
+      "budget_midpoint": 300000,
+      "budget_min": 250000,
+      "budget_max": 350000,
+      "deadline": "2026-12-15",
+      "score": 98,
+      "win_probability": 0.9,
+      "reasons": [
+        "Strategic: Government entity (Ministry of Justice)",
+        "Perfect fit: Legal document automation + AI agents",
+        "Geography: FI (critical infrastructure)",
+        "Budget: €250-350k (excellent range)",
+        "Timeline: 140 days to deadline",
+        "Impact: National legal infrastructure modernization"
+      ],
+      "action": "OFFER",
+      "assessment_date": "2026-08-27T18:35:40.843Z",
+      "strategic_notes": "Oikeusrekisterikeskus maintains the Finnish Business and Organization Registry. AI agents for: automated document classification, legal entity verification, registration workflow optimization, compliance checking, fraud detection. High-impact public sector modernization. Potential: EU AI Act compliance showcase."
     }
   ]
 }
