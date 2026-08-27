@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "timestamp": "2026-08-27T03:44:28.502Z",
+  "timestamp": "2026-08-27T17:55:48.584Z",
   "total_agents": 45,
   "agents": [
     {
@@ -25,9 +25,12 @@
       "version": "CLI-1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 500,
+        "load": 0.7326436038537623,
+        "capacity": 1
       }
     },
     {
@@ -51,9 +54,12 @@
       "version": "1.0.0",
       "owner": "infrastructure",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "DEAD",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 0,
+        "latency_ms": 59,
+        "load": 8.64243154076997,
+        "capacity": 16
       }
     },
     {
@@ -76,9 +82,12 @@
       "version": "Copilot-latest",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 800,
+        "load": 0.31915404747978826,
+        "capacity": 2
       }
     },
     {
@@ -102,9 +111,12 @@
       "version": "Cursor-latest",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 600,
+        "load": 0.07818159024197024,
+        "capacity": 1
       }
     },
     {
@@ -127,9 +139,12 @@
       "version": "Ollama-0.1.0",
       "owner": "infrastructure",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "DEAD",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 0,
+        "latency_ms": 2,
+        "load": 5.026047334260513,
+        "capacity": 8
       }
     },
     {
@@ -151,9 +166,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 1.153865808725695,
+        "capacity": 4
       }
     },
     {
@@ -175,9 +193,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 0.4598283551179554,
+        "capacity": 4
       }
     },
     {
@@ -199,9 +220,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 2.0803965657260592,
+        "capacity": 4
       }
     },
     {
@@ -223,9 +247,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 0.806279502479728,
+        "capacity": 4
       }
     },
     {
@@ -246,9 +273,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 2.77325774684481,
+        "capacity": 4
       }
     },
     {
@@ -269,9 +299,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 3.0477105414823455,
+        "capacity": 4
       }
     },
     {
@@ -292,9 +325,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 2.8159974930588882,
+        "capacity": 4
       }
     },
     {
@@ -315,9 +351,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 2.7599872492093933,
+        "capacity": 4
       }
     },
     {
@@ -339,9 +378,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 3.7330894068582463,
+        "capacity": 4
       }
     },
     {
@@ -363,9 +405,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 3.3981959954065326,
+        "capacity": 4
       }
     },
     {
@@ -387,9 +432,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 0.4958411011403836,
+        "capacity": 4
       }
     },
     {
@@ -411,9 +459,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 3.0136737938136147,
+        "capacity": 4
       }
     },
     {
@@ -435,9 +486,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 0.5254569034636409,
+        "capacity": 4
       }
     },
     {
@@ -458,9 +512,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 0.9308194421748484,
+        "capacity": 4
       }
     },
     {
@@ -481,9 +538,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 2.1449501876872565,
+        "capacity": 4
       }
     },
     {
@@ -505,9 +565,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 2.577959578784599,
+        "capacity": 4
       }
     },
     {
@@ -529,9 +592,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 1.9963599788015172,
+        "capacity": 4
       }
     },
     {
@@ -552,9 +618,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 2.9733225804780474,
+        "capacity": 4
       }
     },
     {
@@ -576,9 +645,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 2.994348284189541,
+        "capacity": 4
       }
     },
     {
@@ -600,9 +672,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 1.8656451526273372,
+        "capacity": 4
       }
     },
     {
@@ -624,9 +699,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 2.566281044799629,
+        "capacity": 4
       }
     },
     {
@@ -648,9 +726,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 1.801349461212764,
+        "capacity": 4
       }
     },
     {
@@ -672,9 +753,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 3.7901812305681926,
+        "capacity": 4
       }
     },
     {
@@ -695,9 +779,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 0.8511379801371017,
+        "capacity": 4
       }
     },
     {
@@ -719,9 +806,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 0.7178253701123518,
+        "capacity": 4
       }
     },
     {
@@ -742,9 +832,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 1.9733535754690967,
+        "capacity": 4
       }
     },
     {
@@ -765,9 +858,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 0.3258248705082085,
+        "capacity": 4
       }
     },
     {
@@ -790,9 +886,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 8000,
+        "load": 0.46078433165847343,
+        "capacity": 8
       }
     },
     {
@@ -815,9 +914,12 @@
       "version": "1.0.0",
       "owner": "security",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 10000,
+        "load": 1.7479903506751269,
+        "capacity": 4
       }
     },
     {
@@ -839,9 +941,12 @@
       "version": "1.0.0",
       "owner": "compliance",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 6000,
+        "load": 0.6201540358671878,
+        "capacity": 4
       }
     },
     {
@@ -864,9 +969,12 @@
       "version": "1.0.0",
       "owner": "qa",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 20000,
+        "load": 0.9372399656924095,
+        "capacity": 8
       }
     },
     {
@@ -888,9 +996,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 5000,
+        "load": 3.043584809691735,
+        "capacity": 4
       }
     },
     {
@@ -912,9 +1023,12 @@
       "version": "1.0.0",
       "owner": "design",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 8000,
+        "load": 3.8004389629769166,
+        "capacity": 4
       }
     },
     {
@@ -936,9 +1050,12 @@
       "version": "1.0.0",
       "owner": "security",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 12000,
+        "load": 0.6310406636534318,
+        "capacity": 2
       }
     },
     {
@@ -960,9 +1077,12 @@
       "version": "1.0.0",
       "owner": "engineering",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 25000,
+        "load": 2.5007777287645307,
+        "capacity": 4
       }
     },
     {
@@ -984,9 +1104,12 @@
       "version": "1.0.0",
       "owner": "infrastructure",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 1000,
+        "load": 1.6505468683778126,
+        "capacity": 16
       }
     },
     {
@@ -1008,9 +1131,12 @@
       "version": "1.0.0",
       "owner": "infrastructure",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 500,
+        "load": 1.0867629968927197,
+        "capacity": 8
       }
     },
     {
@@ -1032,9 +1158,12 @@
       "version": "1.0.0",
       "owner": "infrastructure",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 2000,
+        "load": 3.086042741060739,
+        "capacity": 8
       }
     },
     {
@@ -1057,9 +1186,12 @@
       "version": "1.0.0",
       "owner": "infrastructure",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "HEALTHY",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 100,
+        "latency_ms": 3000,
+        "load": 0.864284558828782,
+        "capacity": 2
       }
     },
     {
@@ -1081,9 +1213,12 @@
       "version": "1.0.0",
       "owner": "infrastructure",
       "health": {
-        "status": "UNKNOWN",
-        "last_check": null,
-        "uptime_percent": null
+        "status": "DEAD",
+        "last_check": "2026-08-27T17:59:46.489Z",
+        "uptime_percent": 0,
+        "latency_ms": -1,
+        "load": 12.626382398581345,
+        "capacity": 16
       }
     }
   ]
