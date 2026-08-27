@@ -129,8 +129,14 @@
         "timestamp": "2026-08-27T18:50:00Z",
         "action": "CANCELLED",
         "by": "oikeusrekisterikeskus",
-        "reason": "Offer voided by customer",
-        "notes": "Mitätöity (nullified by ORK)"
+        "reason": "Procurement RFQ amended by customer",
+        "root_cause": "ORK issued procurement document corrections. All existing bids voided per tarjouspalvelu.fi procedure.",
+        "customer_message": "Oikeusrekisterikeskus on päättänyt korjata tämän julkaisun hankinta-asiakirjoja. Kaikki mahdollisesti saapuneet hakemukset, vastaukset tai tarjoukset on kumottu, eikä uusia voi jättää ennen kuin hankintayksikkö on julkaissut korjaukset.",
+        "translation": "ORK has decided to correct this publication's procurement documents. All potentially received applications, responses, or offers have been revoked, and new ones cannot be submitted until the procurement unit has published the corrections.",
+        "action_required": "Monitor tarjouspalvelu.fi for amended RFQ publication. Re-bid after corrections published.",
+        "official_notice": "KORJAUSILMOITUS: ORK/1462/2026 - Tekoälyn asiantuntijapalveluiden hankinta",
+        "notice_received": "2026-08-27T18:50:00Z",
+        "notes": "Government procurement amendment - standard procedure. Not a rejection of our offer quality. All bidders' offers automatically voided per tarjouspalvelu.fi procedure when RFQ amended."
       }
     ]
   }
