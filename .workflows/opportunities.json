@@ -1,0 +1,108 @@
+{
+  "date": "2026-08-27T18:34:03.572Z",
+  "total_opportunities": 5,
+  "total_potential_value": 530000,
+  "opportunities": [
+    {
+      "id": "cloudia_bid_001",
+      "title": "AI Agent Development for Customer Service",
+      "buyer": "TechCorp Finland",
+      "budget_midpoint": 75000,
+      "deadline": "2026-09-30",
+      "score": 100,
+      "win_probability": 0.95,
+      "reasons": [
+        "Budget in range",
+        "Geography: FI",
+        "Product/service fit detected",
+        "33 days until deadline"
+      ],
+      "action": "OFFER",
+      "assessment_date": "2026-08-27T18:34:03.564Z"
+    },
+    {
+      "id": "cloudia_bid_002",
+      "title": "Enterprise AI Integration Platform",
+      "buyer": "GlobalTech AG",
+      "budget_midpoint": 225000,
+      "deadline": "2026-10-15",
+      "score": 100,
+      "win_probability": 0.95,
+      "reasons": [
+        "Budget in range",
+        "Geography: DE",
+        "Product/service fit detected",
+        "48 days until deadline"
+      ],
+      "action": "OFFER",
+      "assessment_date": "2026-08-27T18:34:03.572Z"
+    },
+    {
+      "id": "cloudia_bid_003",
+      "title": "AI Ethics Consulting",
+      "buyer": "RegulatoryCorp",
+      "budget_midpoint": 30000,
+      "deadline": "2026-09-15",
+      "score": 70,
+      "win_probability": 0.84,
+      "reasons": ["Budget in range", "Geography: UK", "18 days until deadline"],
+      "action": "OFFER",
+      "assessment_date": "2026-08-27T18:34:03.572Z"
+    },
+    {
+      "id": "cloudia_bid_metsahallitus_001",
+      "title": "Forest Management AI Automation Platform",
+      "buyer": "Metsähallitus",
+      "budget_midpoint": 200000,
+      "budget_min": 150000,
+      "budget_max": 250000,
+      "deadline": "2026-08-31",
+      "score": 95,
+      "win_probability": 0.88,
+      "urgency": "CRITICAL - DEADLINE TOMORROW",
+      "hours_remaining": "<24",
+      "reasons": [
+        "Strategic: State-owned enterprise (Finnish Forest Service)",
+        "Product fit: Forest management automation",
+        "Geography: FI (home market)",
+        "Budget: €150-250k (excellent fit)",
+        "Timeline: DEADLINE TOMORROW (31.8.2026)",
+        "Potential: Multi-year contract + expansion"
+      ],
+      "action": "OFFER_URGENT",
+      "assessment_date": "2026-08-27T18:34:12.985Z",
+      "strategic_notes": "Metsähallitus manages 2.3M hectares of state forests. AI agents for wildlife monitoring, resource optimization, and operational automation. High strategic value for market leadership in Nordics."
+    },
+    {
+      "id": "cloudia_bid_ork_001",
+      "title": "Legal Document Processing & Registration Automation",
+      "buyer": "Oikeusrekisterikeskus",
+      "buyer_full": "Oikeusrekisterikeskus (Finnish Register of Legal Entities)",
+      "budget_midpoint": 300000,
+      "budget_min": 250000,
+      "budget_max": 350000,
+      "deadline": "2026-12-15",
+      "score": 98,
+      "win_probability": 0.9,
+      "reasons": [
+        "Strategic: Government entity (Ministry of Justice)",
+        "Perfect fit: Legal document automation + AI agents",
+        "Geography: FI (critical infrastructure)",
+        "Budget: €250-350k (excellent range)",
+        "Timeline: 140 days to deadline",
+        "Impact: National legal infrastructure modernization"
+      ],
+      "action": "PAUSED",
+      "assessment_date": "2026-08-27T18:35:40.843Z",
+      "strategic_notes": "Oikeusrekisterikeskus maintains the Finnish Business and Organization Registry. AI agents for: automated document classification, legal entity verification, registration workflow optimization, compliance checking, fraud detection. High-impact public sector modernization. Potential: EU AI Act compliance showcase.",
+      "status": "AMENDMENT_PENDING",
+      "amendment_notice": "KORJAUSILMOITUS: ORK/1462/2026",
+      "amendment_reason": "ORK issued procurement document corrections. All existing bids voided per tarjouspalvelu.fi procedure.",
+      "amendment_date": "2026-08-27T18:50:00Z",
+      "next_action": "Monitor tarjouspalvelu.fi for amended RFQ publication. Re-bid when corrections published.",
+      "re_bid_eligible": true,
+      "notes": "Government procurement amendment - NOT a rejection. Re-bidding window opens when corrected RFQ published by ORK."
+    }
+  ],
+  "active_opportunities": 4
+}
