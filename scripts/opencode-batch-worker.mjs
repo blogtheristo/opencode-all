@@ -562,10 +562,12 @@ async function processOne(client, entry, worktreePath = REPO) {
     } else if (!wtHasDiff) {
       // Validation passed with no changes — unusual but valid (cleanup PR, no-op session).
       cur.state = 'MERGE_READY';
+      cur.stopReason = 'needs-human'; // Explicit: awaiting HIC review
       cur.worktreeState = 'kept-no-diff-but-valid';
       console.log(`  [validation] MERGE_READY but no diff (cleanup-only session?)`);
     } else {
       cur.state = 'MERGE_READY';
+      cur.stopReason = 'needs-human'; // Explicit: awaiting HIC review
       cur.worktreeState = 'kept-for-review';
     }
   } else {
@@ -1061,10 +1063,15 @@ async function runBatches(shouldShutdown = null) {
     const q = readQueue();
     // Exponential backoff: FAILED sessions retry with 2^(attempts-1) minute delay
     // Max 5 attempts total, capped at 60 min between retries
+    // EXCEPTION: sessions marked 'blocked' (persistent service errors) skip retry queue
     const maxAttempts = 5;
     const pending = q.filter((e) => {
       if (e.state === 'QUEUED') return true;
       if (e.state === 'FAILED') {
+        if (e.stopReason === 'blocked') {
+          // Persistent errors: skip retry, needs manual investigation
+          return false;
+        }
         if (e.attempts >= maxAttempts) return false; // Skip exhausted
         if (e.attempts === 0) return true; // First attempt: ready now
         const minWaitMin = Math.min(Math.pow(2, e.attempts - 1), 60);
@@ -1136,6 +1143,20 @@ async function runBatches(shouldShutdown = null) {
             ? 'timeout'
             : 'run-error';
           cur.failureDetail = String(err.message).slice(0, 500); // Increased from 200 for better debugging
+
+          // Detect persistent errors that should be escalated
+          if (
+            cur.failureCode === 'run-error' &&
+            cur.attempts >= 2 &&
+            cur.failureDetail.includes('-32603')
+          ) {
+            cur.stopReason = 'blocked'; // Escalate: service-level issue, not transient
+            cur.escalatedAt = new Date().toISOString();
+            console.error(
+              `  [escalate] persistent service error (-32603) after ${cur.attempts} attempts — marking BLOCKED`,
+            );
+          }
+
           // DISABLED (2026-08-27): preserve worktrees for debugging
           // const cleanupResult = cleanupWorktreeAfterFailure(cur, wt.resumed);
           // Guard: ensure worktreeState is set explicitly (never undefined).
