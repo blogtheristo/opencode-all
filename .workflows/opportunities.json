@@ -1,7 +1,7 @@
 {
   "date": "2026-08-27T18:34:03.572Z",
   "total_opportunities": 5,
-  "total_potential_value": 830000,
+  "total_potential_value": 530000,
   "opportunities": [
     {
       "id": "cloudia_bid_001",
@@ -94,9 +94,13 @@
         "Timeline: 140 days to deadline",
         "Impact: National legal infrastructure modernization"
       ],
-      "action": "OFFER",
+      "action": "CANCELLED",
       "assessment_date": "2026-08-27T18:35:40.843Z",
-      "strategic_notes": "Oikeusrekisterikeskus maintains the Finnish Business and Organization Registry. AI agents for: automated document classification, legal entity verification, registration workflow optimization, compliance checking, fraud detection. High-impact public sector modernization. Potential: EU AI Act compliance showcase."
+      "strategic_notes": "Oikeusrekisterikeskus maintains the Finnish Business and Organization Registry. AI agents for: automated document classification, legal entity verification, registration workflow optimization, compliance checking, fraud detection. High-impact public sector modernization. Potential: EU AI Act compliance showcase.",
+      "status": "CANCELLED",
+      "cancellation_date": "2026-08-27T18:50:00Z",
+      "cancellation_reason": "Offer voided by customer (mitätöity)"
     }
-  ]
+  ],
+  "active_opportunities": 4
 }

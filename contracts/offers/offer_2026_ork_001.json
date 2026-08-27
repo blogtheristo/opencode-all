@@ -1,7 +1,7 @@
 {
   "id": "offer_2026_ork_001",
   "type": "offer",
-  "status": "DRAFT",
+  "status": "CANCELLED",
   "customer_id": "org_oikeausrekisterikeskus",
   "customer_name": "Oikeusrekisterikeskus (Finnish Register of Legal Entities)",
   "created_at": "2026-08-27T18:40:00Z",
@@ -118,6 +118,19 @@
         "timestamp": "2026-08-27T18:40:00Z",
         "action": "CREATED",
         "by": "bid-scout-agent"
+      },
+      {
+        "timestamp": "2026-08-27T18:45:00Z",
+        "action": "SUBMITTED",
+        "by": "risto.paarni@lifetime.fi",
+        "platform": "tarjouspalvelu.fi"
+      },
+      {
+        "timestamp": "2026-08-27T18:50:00Z",
+        "action": "CANCELLED",
+        "by": "oikeusrekisterikeskus",
+        "reason": "Offer voided by customer",
+        "notes": "Mitätöity (nullified by ORK)"
       }
     ]
   }
