@@ -1,0 +1,57 @@
+{
+  "date": "2026-08-27T18:28:15.482Z",
+  "total_opportunities": 3,
+  "total_potential_value": 330000,
+  "opportunities": [
+    {
+      "id": "cloudia_bid_001",
+      "title": "AI Agent Development for Customer Service",
+      "buyer": "TechCorp Finland",
+      "budget_midpoint": 75000,
+      "deadline": "2026-09-30",
+      "score": 100,
+      "win_probability": 0.95,
+      "reasons": [
+        "Budget in range",
+        "Geography: FI",
+        "Product/service fit detected",
+        "33 days until deadline"
+      ],
+      "action": "OFFER",
+      "assessment_date": "2026-08-27T18:28:15.474Z"
+    },
+    {
+      "id": "cloudia_bid_002",
+      "title": "Enterprise AI Integration Platform",
+      "buyer": "GlobalTech AG",
+      "budget_midpoint": 225000,
+      "deadline": "2026-10-15",
+      "score": 100,
+      "win_probability": 0.95,
+      "reasons": [
+        "Budget in range",
+        "Geography: DE",
+        "Product/service fit detected",
+        "48 days until deadline"
+      ],
+      "action": "OFFER",
+      "assessment_date": "2026-08-27T18:28:15.482Z"
+    },
+    {
+      "id": "cloudia_bid_003",
+      "title": "AI Ethics Consulting",
+      "buyer": "RegulatoryCorp",
+      "budget_midpoint": 30000,
+      "deadline": "2026-09-15",
+      "score": 70,
+      "win_probability": 0.84,
+      "reasons": [
+        "Budget in range",
+        "Geography: UK",
+        "18 days until deadline"
+      ],
+      "action": "OFFER",
+      "assessment_date": "2026-08-27T18:28:15.482Z"
+    }
+  ]
+}
