@@ -573,7 +573,9 @@ async function processOne(client, entry, worktreePath = REPO) {
     cur.attempts += 1;
     cur.stopReason = 'failed';
     cur.failureCode = 'validation-gate';
-    cleanupWorktreeAfterFailure(cur);
+    // DISABLED (2026-08-27): preserve worktrees for debugging until reliability fixes are proven
+    // cleanupWorktreeAfterFailure(cur);
+    cur.worktreeState = 'kept-for-review'; // Mark as preserved for manual review
   }
 
   // Guard every write: terminal states must carry an allowed stopReason.
@@ -729,7 +731,10 @@ function cmdReconcile() {
   // flag (--clean) flows from this call site INTO removeOrphanBranch —
   // deletion is impossible without it, even inside the helper. Default run
   // is a report-only dry pass with zero git mutation.
-  const cleanupOrphans = args.includes('--clean');
+  //
+  // DISABLED (2026-08-27): orphan cleanup is disabled while reliability fixes
+  // are being validated. Worktrees and branches are now preserved for debugging.
+  const cleanupOrphans = false; // Force report-only mode
   let orphansCleaned = 0;
   const orphanReported = [];
   const orphanKept = [];
@@ -737,7 +742,10 @@ function cmdReconcile() {
     if (e.state !== 'FAILED' || !e.branch) continue;
     if (!e.baselineCommit) continue; // no baseline = cannot prove emptiness, skip
     const wtPath = join(REPO, '.worktrees', 'opencode-all', e.id);
-    if (existsSync(wtPath)) continue; // worktree alive — not an orphan
+    if (existsSync(wtPath)) {
+      orphanKept.push(`${e.branch} (${e.id}) worktree preserved for debugging`);
+      continue; // worktree alive — not an orphan
+    }
     const outcome = removeOrphanBranch(REPO, e.branch, e.baselineCommit, cleanupOrphans);
     if (outcome === 'deleted') {
       orphansCleaned++;
@@ -745,14 +753,16 @@ function cmdReconcile() {
     } else if (outcome === 'kept-has-commits') {
       orphanKept.push(`${e.branch} (${e.id}) has commits beyond baseline — NEEDS-HUMAN`);
     } else if (outcome === 'empty-reported') {
-      orphanReported.push(`${e.branch} (${e.id}) is empty, cleanup not approved`);
+      orphanReported.push(
+        `${e.branch} (${e.id}) is empty, cleanup disabled (reliability fixes pending)`,
+      );
     }
   }
   console.log(
     `reconcile: ${orphansCleaned} empty orphan branch(es) cleaned, ${orphanReported.length} reported, ${orphanKept.length} preserved with commits`,
   );
   for (const r of orphanReported) console.log(`reconcile: REPORT ${r}`);
-  for (const k of orphanKept) console.error(`reconcile: PRESERVED ${k}`);
+  for (const k of orphanKept) console.log(`reconcile: KEPT ${k}`);
 
   if (violations.length) {
     console.error(`reconcile: ${violations.length} QUEUE HYGIENE VIOLATION(S):`);
@@ -949,6 +959,21 @@ async function ensureHandoff(entry, stopReason, worktreePath = REPO) {
   return `worker-structured (${normalized})`;
 }
 
+// Health check: verify OpenCode ACP service is responsive
+async function healthCheckACP() {
+  try {
+    execFileSync('opencode', ['session', 'list', '--format', 'json'], {
+      maxBuffer: 10 * 1024 * 1024,
+      timeout: 5000,
+    });
+    console.log(`[health-check] ACP service is responsive`);
+    return true;
+  } catch (e) {
+    console.error(`[health-check] ACP unreachable: ${e.message}`);
+    return false;
+  }
+}
+
 async function runBatches() {
   mkdirSync(HANDOFF_DIR, { recursive: true });
   const ENGINE_FILE = join(QUEUE_DIR, 'engine.json');
@@ -986,9 +1011,18 @@ async function runBatches() {
       break;
     }
 
+    // Pre-flight health check: stop gracefully if ACP is down
+    if (!(await healthCheckACP())) {
+      console.error(
+        new Date().toISOString(),
+        'ACP service unreachable — stopping batch run to prevent cascade failures',
+      );
+      break;
+    }
+
     // Watchdog: check for stale RUNNING sessions
     const all = readQueue();
-    const staleThreshold = Math.max(30 * 60_000, (opt.timeoutMin + 10) * 60_000); // ≥30 min
+    const staleThreshold = Math.max(30 * 60_000, (opt.timeoutMin + 5) * 60_000); // ≥30 min
     for (const e of all) {
       if (e.state === 'RUNNING' && e.lastRun) {
         const age = Date.now() - new Date(e.lastRun).getTime();
@@ -1016,9 +1050,26 @@ async function runBatches() {
     writeQueue(all);
 
     const q = readQueue();
-    const pending = q.filter(
-      (e) => e.state === 'QUEUED' || (e.state === 'FAILED' && e.attempts < 3),
-    );
+    // Exponential backoff: FAILED sessions retry with 2^(attempts-1) minute delay
+    // Max 5 attempts total, capped at 60 min between retries
+    const maxAttempts = 5;
+    const pending = q.filter((e) => {
+      if (e.state === 'QUEUED') return true;
+      if (e.state === 'FAILED') {
+        if (e.attempts >= maxAttempts) return false; // Skip exhausted
+        if (e.attempts === 0) return true; // First attempt: ready now
+        const minWaitMin = Math.min(Math.pow(2, e.attempts - 1), 60);
+        const ageMin = e.lastRun ? (Date.now() - new Date(e.lastRun).getTime()) / 60000 : 0;
+        if (ageMin >= minWaitMin) {
+          console.log(
+            `[backoff] ${e.id} ready to retry (waited ${ageMin.toFixed(1)}/${minWaitMin}min)`,
+          );
+          return true;
+        }
+        return false; // Still in backoff window
+      }
+      return false;
+    });
     if (pending.length === 0) {
       console.log(new Date().toISOString(), 'no pending work');
     } else {
@@ -1075,13 +1126,14 @@ async function runBatches() {
           cur.failureCode = String(err.message).startsWith('timeout after')
             ? 'timeout'
             : 'run-error';
-          cur.failureDetail = String(err.message).slice(0, 200);
-          const cleanupResult = cleanupWorktreeAfterFailure(cur, wt.resumed);
-          // Guard: ensure cleanup sets worktreeState explicitly (never undefined).
+          cur.failureDetail = String(err.message).slice(0, 500); // Increased from 200 for better debugging
+          // DISABLED (2026-08-27): preserve worktrees for debugging
+          // const cleanupResult = cleanupWorktreeAfterFailure(cur, wt.resumed);
+          // Guard: ensure worktreeState is set explicitly (never undefined).
           if (!cur.worktreeState) {
-            cur.worktreeState = 'unknown-cleanup-state';
-            console.error(
-              `  [invariant] cleanupWorktreeAfterFailure did not set worktreeState (result=${cleanupResult})`,
+            cur.worktreeState = 'kept-for-debugging'; // Preserve for investigation
+            console.log(
+              `  [worktree] preserved for debugging after ${cur.failureCode}: ${wt.path}`,
             );
           }
           console.error(`  ERROR (${cur.failureCode}): ${cur.failureDetail}`);
