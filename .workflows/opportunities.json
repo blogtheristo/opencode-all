@@ -1,7 +1,7 @@
 {
-  "date": "2026-08-27T18:28:15.482Z",
-  "total_opportunities": 3,
-  "total_potential_value": 330000,
+  "date": "2026-08-27T18:34:03.572Z",
+  "total_opportunities": 4,
+  "total_potential_value": 530000,
   "opportunities": [
     {
       "id": "cloudia_bid_001",
@@ -18,7 +18,7 @@
         "33 days until deadline"
       ],
       "action": "OFFER",
-      "assessment_date": "2026-08-27T18:28:15.474Z"
+      "assessment_date": "2026-08-27T18:34:03.564Z"
     },
     {
       "id": "cloudia_bid_002",
@@ -35,7 +35,7 @@
         "48 days until deadline"
       ],
       "action": "OFFER",
-      "assessment_date": "2026-08-27T18:28:15.482Z"
+      "assessment_date": "2026-08-27T18:34:03.572Z"
     },
     {
       "id": "cloudia_bid_003",
@@ -51,7 +51,29 @@
         "18 days until deadline"
       ],
       "action": "OFFER",
-      "assessment_date": "2026-08-27T18:28:15.482Z"
+      "assessment_date": "2026-08-27T18:34:03.572Z"
+    },
+    {
+      "id": "cloudia_bid_metsahallitus_001",
+      "title": "Forest Management AI Automation Platform",
+      "buyer": "Metsähallitus",
+      "budget_midpoint": 200000,
+      "budget_min": 150000,
+      "budget_max": 250000,
+      "deadline": "2026-11-30",
+      "score": 95,
+      "win_probability": 0.88,
+      "reasons": [
+        "Strategic: State-owned enterprise (Finnish Forest Service)",
+        "Product fit: Forest management automation",
+        "Geography: FI (home market)",
+        "Budget: €150-250k (excellent fit)",
+        "Timeline: 95 days to deadline",
+        "Potential: Multi-year contract + expansion"
+      ],
+      "action": "OFFER",
+      "assessment_date": "2026-08-27T18:34:12.985Z",
+      "strategic_notes": "Metsähallitus manages 2.3M hectares of state forests. AI agents for wildlife monitoring, resource optimization, and operational automation. High strategic value for market leadership in Nordics."
     }
   ]
 }
