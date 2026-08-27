@@ -45,11 +45,7 @@
       "deadline": "2026-09-15",
       "score": 70,
       "win_probability": 0.84,
-      "reasons": [
-        "Budget in range",
-        "Geography: UK",
-        "18 days until deadline"
-      ],
+      "reasons": ["Budget in range", "Geography: UK", "18 days until deadline"],
       "action": "OFFER",
       "assessment_date": "2026-08-27T18:34:03.572Z"
     },
@@ -94,12 +90,16 @@
         "Timeline: 140 days to deadline",
         "Impact: National legal infrastructure modernization"
       ],
-      "action": "CANCELLED",
+      "action": "PAUSED",
       "assessment_date": "2026-08-27T18:35:40.843Z",
       "strategic_notes": "Oikeusrekisterikeskus maintains the Finnish Business and Organization Registry. AI agents for: automated document classification, legal entity verification, registration workflow optimization, compliance checking, fraud detection. High-impact public sector modernization. Potential: EU AI Act compliance showcase.",
-      "status": "CANCELLED",
-      "cancellation_date": "2026-08-27T18:50:00Z",
-      "cancellation_reason": "Offer voided by customer (mitätöity)"
+      "status": "AMENDMENT_PENDING",
+      "amendment_notice": "KORJAUSILMOITUS: ORK/1462/2026",
+      "amendment_reason": "ORK issued procurement document corrections. All existing bids voided per tarjouspalvelu.fi procedure.",
+      "amendment_date": "2026-08-27T18:50:00Z",
+      "next_action": "Monitor tarjouspalvelu.fi for amended RFQ publication. Re-bid when corrections published.",
+      "re_bid_eligible": true,
+      "notes": "Government procurement amendment - NOT a rejection. Re-bidding window opens when corrected RFQ published by ORK."
     }
   ],
   "active_opportunities": 4
