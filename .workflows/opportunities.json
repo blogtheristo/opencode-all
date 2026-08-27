@@ -56,18 +56,20 @@
       "budget_midpoint": 200000,
       "budget_min": 150000,
       "budget_max": 250000,
-      "deadline": "2026-11-30",
+      "deadline": "2026-08-31",
       "score": 95,
       "win_probability": 0.88,
+      "urgency": "CRITICAL - DEADLINE TOMORROW",
+      "hours_remaining": "<24",
       "reasons": [
         "Strategic: State-owned enterprise (Finnish Forest Service)",
         "Product fit: Forest management automation",
         "Geography: FI (home market)",
         "Budget: €150-250k (excellent fit)",
-        "Timeline: 95 days to deadline",
+        "Timeline: DEADLINE TOMORROW (31.8.2026)",
         "Potential: Multi-year contract + expansion"
       ],
-      "action": "OFFER",
+      "action": "OFFER_URGENT",
       "assessment_date": "2026-08-27T18:34:12.985Z",
       "strategic_notes": "Metsähallitus manages 2.3M hectares of state forests. AI agents for wildlife monitoring, resource optimization, and operational automation. High strategic value for market leadership in Nordics."
     },
