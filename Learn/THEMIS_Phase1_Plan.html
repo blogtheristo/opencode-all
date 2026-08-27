@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Themis Agent Control Plane — Phase 1 Plan</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.65;
+        color: #1a1a1a;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        padding: 40px 20px;
+      }
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: white;
+        padding: 60px;
+        border-radius: 10px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        font-size: 2.8em;
+        margin: 30px 0 10px 0;
+        color: #0052cc;
+        border-bottom: 4px solid #0052cc;
+        padding-bottom: 20px;
+      }
+      h2 {
+        font-size: 1.9em;
+        margin: 50px 0 20px 0;
+        color: #0052cc;
+        padding-top: 30px;
+        border-top: 1px solid #e8ecf1;
+      }
+      h3 {
+        font-size: 1.4em;
+        margin: 30px 0 15px 0;
+        color: #1a1a1a;
+        font-weight: 600;
+      }
+      p {
+        margin-bottom: 16px;
+        line-height: 1.75;
+      }
+      strong {
+        color: #0052cc;
+        font-weight: 600;
+      }
+      code {
+        background: #f5f5f5;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-family: "Monaco", "Courier New", monospace;
+        font-size: 0.9em;
+      }
+      pre {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 20px;
+        border-radius: 6px;
+        overflow-x: auto;
+        margin: 20px 0;
+        font-family: "Monaco", "Courier New", monospace;
+        font-size: 0.85em;
+        line-height: 1.6;
+        border-left: 4px solid #0052cc;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+        color: inherit;
+        font-size: inherit;
+      }
+      ul,
+      ol {
+        margin-left: 30px;
+        margin-bottom: 16px;
+      }
+      li {
+        margin-bottom: 10px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.95em;
+      }
+      th,
+      td {
+        padding: 14px 16px;
+        text-align: left;
+        border-bottom: 1px solid #e0e6ed;
+      }
+      th {
+        background: #f5f8fc;
+        font-weight: 600;
+        color: #0052cc;
+        border-bottom: 2px solid #0052cc;
+      }
+      tr:hover {
+        background: #f9fafb;
+      }
+      hr {
+        border: none;
+        border-top: 2px solid #e8ecf1;
+        margin: 40px 0;
+      }
+      .meta {
+        background: #f0f4f8;
+        padding: 20px;
+        border-radius: 6px;
+        border-left: 4px solid #0052cc;
+        margin-bottom: 30px;
+        font-size: 0.95em;
+      }
+      .meta strong {
+        display: inline-block;
+        margin-right: 8px;
+      }
+      .badge {
+        display: inline-block;
+        background: #4caf50;
+        color: white;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-size: 0.85em;
+        font-weight: 600;
+        margin-right: 8px;
+        margin-bottom: 8px;
+      }
+      .badge.timeline {
+        background: #2196f3;
+      }
+      .section-header {
+        background: #f9fafb;
+        padding: 25px;
+        border-radius: 6px;
+        border-left: 4px solid #0052cc;
+        margin: 30px 0;
+      }
+      .checklist {
+        list-style: none;
+        margin-left: 0;
+      }
+      .checklist li:before {
+        content: "✓ ";
+        color: #4caf50;
+        font-weight: bold;
+        margin-right: 8px;
+      }
+      .checklist li.todo:before {
+        content: "☐ ";
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Themis Agent Control Plane — Phase 1 Plan</h1>
+
+      <div class="meta">
+        <strong>Status:</strong> <span class="badge">APPROVED FOR IMPLEMENTATION</span>
+        <strong>Timeline:</strong> <span class="badge timeline">2-3 weeks</span>
+        <strong>Scale:</strong> 50+ agents | <strong>Objective:</strong> Registry, Selector, Health
+        Monitoring
+      </div>
+
+      <h2>Executive Summary</h2>
+      <p>
+        <strong>Goal:</strong> Central orchestration for 50+ agents across Claude Code, OpenCode,
+        Copilot, Cursor, and DGX
+      </p>
+
+      <div class="section-header">
+        <strong>Phase 1 Scope:</strong>
+        <ol style="margin-top: 10px">
+          <li>Agent Registry — inventory all agents with metadata</li>
+          <li>Agent Selector — intelligent workload routing</li>
+          <li>Health Monitoring — detect and handle failures</li>
+          <li>Integration — wire into existing batch worker</li>
+        </ol>
+        <p style="margin-top: 15px">
+          <strong>Deliverable:</strong> Production-ready agent controller for DWS6
+        </p>
+        <p>
+          <strong>Success Metric:</strong> Can route 10+ concurrent sessions across 50+ agents
+          without manual intervention
+        </p>
+      </div>
+
+      <hr />
+
+      <h2>Part 1: DWS6 Agent Inventory</h2>
+      <h3>Identified Agents (50+)</h3>
+
+      <h4>Core Processing Agents (5)</h4>
+      <ol>
+        <li>Claude Code CLI — Interactive, human-driven, full context</li>
+        <li>OpenCode batch worker — Automated queue processing, 30-min intervals</li>
+        <li>Copilot GitHub CLI — Source of recovered sessions, legacy</li>
+        <li>Cursor / VS Code — User-driven, real-time edits</li>
+        <li>DGX Ollama local — Reasoning/inference without external calls</li>
+      </ol>
+
+      <h4>Specialist Agents (30+)</h4>
+      <p>
+        autoresearch, brain-ops, clawdbot, compliance-check, cron-scheduler, daily-task-manager,
+        design-first, dream-on, edge-control-room-capital, enrich, firehorse-report, gcr-skill,
+        hilma-watch, human-capital, ingest, KB, KYA, learn, lsj-publish, maintain, material-oracle,
+        mgd-report, multilingual, ollama-spark, outreach-agents, product-page-polish,
+        promote-proposal, query, reports, risto, signal-detector, sitesense, soul-audit,
+        supermetrics-seo-sync, swarm, token-capital, train-model, truth-check
+      </p>
+
+      <h4>Review & Validation (8+)</h4>
+      <p>
+        code-reviewer, security-reviewer, compliance-review, qa-skill, verify-gate,
+        design-validation, security-validation, performance-reviewer
+      </p>
+
+      <h4>Infrastructure/Orchestration (5+)</h4>
+      <p>loop, schedule, workflow, clawdbot (session management), remote-control</p>
+
+      <hr />
+
+      <h2>Part 2: Phase 1 Architecture</h2>
+
+      <h3>Component 1: Agent Registry</h3>
+      <p>
+        <strong>Purpose:</strong> Inventory of all agents with capabilities, endpoints, health
+        status
+      </p>
+
+      <pre><code>interface Agent {
+  id: string;                    // "agent_001"
+  name: string;                  // "Claude Code CLI"
+  type: "interactive" | "batch" | "skill" | "review" | "orchestrator";
+  platform: "claude-code" | "opencode" | "copilot" | "cursor" | "dsx" | "themis";
+
+  // Capabilities
+  capabilities: string[];        // ["code-review", "debug", "test"]
+  max_concurrent: number;        // 1 (Claude CLI) vs 16 (batch)
+
+  // Connection
+  endpoint: string;              // "http://localhost:8080"
+  protocol: "stdio" | "http" | "grpc" | "events";
+
+  // Performance
+  timeout_ms: number;            // 300000 (5 min) for interactive
+  cost_per_token: number;        // 0 (local) or $X
+  avg_latency_ms: number;        // Historical avg
+  success_rate: number;          // 0.95 = 95%
+
+  // Metadata
+  version: string;               // "1.2.3"
+  owner: string;                 // "engineering@dws6.com"
+}</code></pre>
+
+      <h3>Component 2: Agent Selector</h3>
+      <p><strong>Purpose:</strong> Intelligent routing of sessions/workloads to best agent</p>
+
+      <div class="section-header">
+        <strong>Decision Flow:</strong>
+        <pre><code>Incoming Session
+    ↓
+[Classify Workload Type]
+    ├─ Code review → code-reviewer
+    ├─ Security audit → security-reviewer
+    ├─ Interactive coding → Claude Code CLI
+    └─ Batch processing → OpenCode batch
+    ↓
+[Check Agent Availability]
+    ├─ Is agent healthy?
+    ├─ Is agent under capacity?
+    └─ Does agent support this workload?
+    ↓
+[Score Candidates]
+    ├─ Cost (free local > expensive API)
+    ├─ Speed (latency SLA)
+    ├─ Quality (success rate)
+    └─ Fit (capability match)
+    ↓
+[Select Best] → Primary + Fallbacks</code></pre>
+      </div>
+
+      <h3>Component 3: Health Monitoring</h3>
+      <p><strong>Purpose:</strong> Detect agent failures, circuit-break, auto-escalate</p>
+
+      <div class="section-header">
+        <strong>Health Check Types:</strong>
+        <ol style="margin-top: 10px">
+          <li><strong>Liveness:</strong> Ping every 30s, timeout 5s, 3 failures = DEAD</li>
+          <li><strong>Readiness:</strong> Load < max_concurrent, success rate > 50%</li>
+          <li>
+            <strong>Deep Health:</strong> Synthetic test every 5m, measure latency/correctness
+          </li>
+        </ol>
+        <p style="margin-top: 15px">
+          <strong>States:</strong> HEALTHY → DEGRADED → DEAD (with escalation)
+        </p>
+      </div>
+
+      <hr />
+
+      <h2>Part 3: Integration Points</h2>
+
+      <h3>Integration 1: Batch Worker</h3>
+      <pre><code>Queue (QUEUED session)
+    ↓
+[Session Coordinator] → Validates session, calls Agent Selector
+    ↓
+[Agent Selector] → Classifies, scores, returns best_agent
+    ↓
+[Batch Worker] → Acquires lock, routes to agent, monitors, releases</code></pre>
+
+      <h3>Integration 2: Session Handoff</h3>
+      <p>
+        <strong>New command:</strong>
+        <code>claude handoff-to-best [--constraint claude-code|opencode|any]</code>
+      </p>
+
+      <h3>Integration 3: Monitoring</h3>
+      <p>
+        Real-time dashboard showing: Agent status, current load, success rate, recent actions,
+        active sessions
+      </p>
+
+      <hr />
+
+      <h2>Part 4: Implementation Timeline</h2>
+
+      <h3>Week 1: Discovery & Registry</h3>
+      <ul>
+        <li><strong>Day 1:</strong> Audit all 50+ agents, collect metadata</li>
+        <li><strong>Day 2:</strong> Create registry files, build loader</li>
+        <li><strong>Day 3:</strong> Auto-discovery script, baseline health checks</li>
+      </ul>
+
+      <h3>Week 2: Selector & Routing</h3>
+      <ul>
+        <li><strong>Day 4:</strong> Workload classifier (6-8 types)</li>
+        <li><strong>Day 5:</strong> Agent scorer + routing algorithm</li>
+        <li><strong>Day 6:</strong> Wire into batch worker, test routing</li>
+      </ul>
+
+      <h3>Week 3: Health & Deployment</h3>
+      <ul>
+        <li><strong>Day 7:</strong> Health checks implementation</li>
+        <li><strong>Day 8:</strong> Real-time dashboard</li>
+        <li><strong>Day 9:</strong> Chaos testing, failover scenarios</li>
+        <li><strong>Day 10:</strong> Deploy to production, monitor</li>
+      </ul>
+
+      <hr />
+
+      <h2>Part 5: Success Criteria</h2>
+
+      <h3>Functional</h3>
+      <ul class="checklist">
+        <li>All 50+ agents registered and discovered</li>
+        <li>Workload classifier works on 10+ test sessions</li>
+        <li>Agent selector picks best agent 90%+ of time</li>
+        <li>Health checks detect failures within 2 minutes</li>
+        <li>Fallback routing works on agent failures</li>
+      </ul>
+
+      <h3>Performance</h3>
+      <ul class="checklist">
+        <li>Routing decision &lt; 500ms</li>
+        <li>Health check overhead &lt; 5% CPU</li>
+        <li>Handle 10+ concurrent sessions</li>
+        <li>Dashboard updates real-time (&lt;1s latency)</li>
+      </ul>
+
+      <h3>Reliability</h3>
+      <ul class="checklist">
+        <li>No lost sessions due to routing errors</li>
+        <li>99%+ session completion rate</li>
+        <li>All failures properly escalated</li>
+        <li>Full audit trail of decisions</li>
+      </ul>
+
+      <hr />
+
+      <h2>Part 6: Risk Mitigation</h2>
+      <table>
+        <tr>
+          <th>Risk</th>
+          <th>Impact</th>
+          <th>Mitigation</th>
+        </tr>
+        <tr>
+          <td>Agent not in registry</td>
+          <td>Sessions lost</td>
+          <td>Auto-discovery + manual fallback</td>
+        </tr>
+        <tr>
+          <td>Classifier confidence low</td>
+          <td>Wrong agent selected</td>
+          <td>Human override + explicit platform hint</td>
+        </tr>
+        <tr>
+          <td>All agents degraded</td>
+          <td>Complete shutdown</td>
+          <td>Manual operation fallback (no selector)</td>
+        </tr>
+        <tr>
+          <td>Metrics stale</td>
+          <td>Wrong scoring</td>
+          <td>Real-time health checks + alerts</td>
+        </tr>
+        <tr>
+          <td>Registry conflicts</td>
+          <td>Multiple source versions</td>
+          <td>Version control + lock-based updates</td>
+        </tr>
+      </table>
+
+      <hr />
+
+      <h2>Part 7: Key Files to Create</h2>
+      <table>
+        <tr>
+          <th>File</th>
+          <th>Purpose</th>
+          <th>Timeline</th>
+        </tr>
+        <tr>
+          <td><code>.themis/registry/agents.json</code></td>
+          <td>Master agent registry</td>
+          <td>Day 2</td>
+        </tr>
+        <tr>
+          <td><code>scripts/themis-discover.mjs</code></td>
+          <td>Auto-discover agents</td>
+          <td>Day 3</td>
+        </tr>
+        <tr>
+          <td><code>scripts/themis-selector.mjs</code></td>
+          <td>Workload routing</td>
+          <td>Day 5</td>
+        </tr>
+        <tr>
+          <td><code>scripts/themis-health.mjs</code></td>
+          <td>Health monitoring</td>
+          <td>Day 8</td>
+        </tr>
+        <tr>
+          <td><code>scripts/themis-dashboard.mjs</code></td>
+          <td>Real-time UI</td>
+          <td>Day 8</td>
+        </tr>
+        <tr>
+          <td><code>docs/THEMIS_ARCHITECTURE.md</code></td>
+          <td>Design documentation</td>
+          <td>Day 1</td>
+        </tr>
+      </table>
+
+      <hr />
+
+      <h2>Approval & Next Steps</h2>
+      <div class="section-header">
+        <strong>Status: ✅ READY FOR PHASE 1 IMPLEMENTATION</strong>
+        <ul class="checklist" style="margin-top: 15px">
+          <li>50+ agents identified</li>
+          <li>Phase 1 scope defined</li>
+          <li>Timeline approved (2-3 weeks)</li>
+          <li>Success criteria set</li>
+          <li>Risk mitigation planned</li>
+          <li>Key files identified</li>
+        </ul>
+        <p style="margin-top: 20px"><strong>First Action (Day 1):</strong></p>
+        <pre><code>git checkout -b feature/themis-phase1-registry
+node scripts/themis-discover.mjs --audit
+# Outputs: all 50+ agents with capabilities, endpoints, metrics</code></pre>
+      </div>
+
+      <hr />
+
+      <footer
+        style="
+          text-align: center;
+          margin-top: 50px;
+          padding-top: 30px;
+          border-top: 1px solid #e0e6ed;
+          color: #666;
+          font-size: 0.9em;
+        "
+      >
+        <p>Themis Phase 1 Plan — Agent Control Plane Architecture</p>
+        <p>Generated: 2026-08-27 | Status: APPROVED FOR IMPLEMENTATION</p>
+      </footer>
+    </div>
+  </body>
+</html>
