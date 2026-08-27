@@ -26,24 +26,28 @@ const CRITERIA = {
   minWinProbability: 0.6, // 60%
 };
 
-// Cloudia API - Live bid fetching
+// Cloudia API - Live bid fetching (username/pwd auth)
 async function fetchCloudiaBids() {
-  const apiKey = process.env.CLOUDIA_API_KEY;
+  const user = process.env.CLOUDIA_USER_NAME;
+  const secret = process.env.CLOUDIA_PASSWORD;
   const apiUrl = process.env.CLOUDIA_API_URL || 'https://api.cloudia.net';
 
-  if (!apiKey) {
-    console.warn('⚠️  CLOUDIA_API_KEY not set in .env - using mock data');
+  if (!user || !secret) {
+    console.warn('⚠️  CLOUDIA_USER_NAME or CLOUDIA_PASSWORD not set in .env - using mock data');
     return getMockBids();
   }
 
   try {
-    console.log('🔐 Authenticating with Cloudia API...');
+    console.log('🔐 Authenticating with Cloudia API (basic auth)...');
+
+    // Basic auth: base64 encode user:secret
+    const credentials = Buffer.from(`${user}:${secret}`).toString('base64');
 
     // Fetch open bids from Cloudia
     const response = await fetch(`${apiUrl}/api/v1/bids`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Basic ${credentials}`,
         'Content-Type': 'application/json',
         'User-Agent': 'DWS-Bid-Scout/1.0',
       },
