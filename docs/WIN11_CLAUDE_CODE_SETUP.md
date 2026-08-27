@@ -5,10 +5,12 @@ This guide walks you through setting up Claude Code on Windows 11 with DWS6 tool
 ## Prerequisites
 
 - **Windows 11** (Build 22000 or later)
-- **Node.js 18+** (download from https://nodejs.org/)
+- **Node.js 24.17.0+** (download from https://nodejs.org/ — v24.20.0 recommended)
 - **PowerShell 7+** (built into Windows 11)
 - **Git for Windows** (https://git-scm.com/download/win)
 - **Claude Code CLI** (https://github.com/anthropics/claude-code)
+
+**Note:** The project requires Node.js ≥24.17.0. If you have an older version (e.g., 22.x or 23.x), follow the upgrade instructions below.
 
 ## 1️⃣ Setup .env
 
@@ -291,6 +293,45 @@ Total value: €250,000
 ```
 
 ## 🔧 Troubleshooting
+
+### Node.js version too old
+
+**Warning:** `npm warn EBADENGINE Unsupported engine { required: { node: '>=24.17.0' }, current: { node: 'vX.X.X' } }`
+
+This means your Node.js version is below 24.17.0 (e.g., Node 22.x, 23.x). While scripts may run, update to Node 24.20.0+ for full compatibility.
+
+**Solution (choose one):**
+
+**Option A: Direct Download**
+
+1. Visit https://nodejs.org/
+2. Download Node.js 24.20.0 LTS (or latest)
+3. Run installer, accept defaults
+4. Restart PowerShell
+5. Verify: `node --version` (should show v24.20.0+)
+
+**Option B: Using nvm-windows (Version Manager)**
+
+1. Install nvm-windows: https://github.com/coreybutler/nvm-windows/releases
+2. Open PowerShell as Administrator
+3. Run:
+   ```powershell
+   nvm install 24.20.0
+   nvm use 24.20.0
+   node --version  # Verify
+   ```
+
+**Option C: Using Chocolatey**
+
+```powershell
+choco upgrade nodejs --version=24.20.0
+```
+
+After upgrade, re-run `npm install` to confirm:
+
+```powershell
+npm install  # Should show no EBADENGINE warning
+```
 
 ### npm install fails
 
