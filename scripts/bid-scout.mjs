@@ -26,8 +26,11 @@ const CRITERIA = {
   minWinProbability: 0.6, // 60%
 };
 
-// Cloudia API - Live bid fetching (username/pwd auth)
+// Cloudia API - Live bid fetching (username/pwd auth from Supabase secrets)
 async function fetchCloudiaBids() {
+  // Credentials sourced from:
+  // - Local: process.env (from .env in development)
+  // - Deployed: Supabase secrets (configured via dashboard → Settings → Secrets)
   const user = process.env.CLOUDIA_USER_NAME;
   const secret = process.env.CLOUDIA_PASSWORD;
   const apiUrl = process.env.CLOUDIA_API_URL || 'https://api.cloudia.net';
