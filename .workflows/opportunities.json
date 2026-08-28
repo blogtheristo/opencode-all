@@ -59,8 +59,8 @@
       "deadline": "2026-08-31",
       "score": 95,
       "win_probability": 0.88,
-      "urgency": "CRITICAL - DEADLINE TOMORROW",
-      "hours_remaining": "<24",
+      "urgency": "HIGH - 3 DAYS TO DEADLINE",
+      "days_remaining": 3,
       "reasons": [
         "Strategic: State-owned enterprise (Finnish Forest Service)",
         "Product fit: Forest management automation",
