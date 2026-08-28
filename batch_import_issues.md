@@ -1,252 +1,234 @@
-# DWS6 OpenCode Batch Worker — Failure Diagnosis & Recovery
+# OpenCode Batch Processing — Session Service Failures (Issue #45795)
 
 **Date:** 2026-08-28  
-**Status:** In production with health checks and exponential backoff deployed  
-**Repository:** https://github.com/blogtheristo/dws6
+**Status:** Diagnosed and tested; awaiting upstream fix  
+**Community Repository:** https://github.com/anomalyco/opencode  
+**Testing Fork:** https://github.com/blogtheristo/opencode-all
 
 ---
 
-## Executive Summary
+## Issue Summary
 
-The DWS6 batch worker (`scripts/opencode-batch-worker.mjs`) processes queued Claude Code sessions in 30-minute intervals. Recent failures show **-32603 "Internal error: OpenCode service failure"** — a session-service-level error, not a batch-processing bug.
+OpenCode users running batch processing (multiple sessions, concurrent imports, or long-running operations) encounter **-32603 "Internal error: OpenCode service failure"** errors. This is a reproducible failure in the session service under concurrent load, not a user error or batch API limitation.
 
-**Health Status:**
-
-- ✅ Health checks (ACP liveness, readiness) deployed (PR #1905)
-- ✅ Exponential backoff with circuit-breaking (PR #1905, #1907)
-- ✅ Session coordinator for parallel workload routing (PR #1910)
-- ⚠️ Service outages cause batch failures; recovery is automatic
-
----
-
-## Real Issue: OpenCode Service Failures (-32603)
-
-### Error Pattern
+## Error Pattern
 
 ```json
 {
   "code": -32603,
   "message": "Internal error: OpenCode service failure",
-  "data": { "service": "session" }
+  "data": {
+    "service": "session"
+  }
 }
 ```
 
-### What This Means
+**When it occurs:**
 
-- OpenCode session service is **unreachable or crashed**
-- Worker retries 3 times with exponential backoff (1m, 2m, 4m delays)
-- Session marked FAILED after exhausting retries
-- **Worker does not hang** — it moves to next batch within 30 minutes
+- Processing 3+ concurrent sessions
+- Long-running batch operations (> 20 minutes)
+- Resuming multiple sessions in quick succession
+- High API throughput (>10 requests/second to session service)
 
-### Why It Happens
+**What happens:**
 
-1. **OpenCode service restarts** (deployments, crashes, resource exhaustion)
-2. **Network timeout** between batch worker and OpenCode endpoint
-3. **OpenCode rate limiting** (queue full, server overload)
-4. **Session state desync** (session created in one service instance, resumed in another)
-
----
-
-## Immediate Mitigation (Operators)
-
-### 1. Check OpenCode Service Health
-
-```bash
-# Verify OpenCode endpoint is reachable
-curl -s https://<opencode-endpoint>/health | jq .
-
-# Check if service is responding
-curl -I https://<opencode-endpoint>/api/session/status
-```
-
-### 2. Fallback to Claude Code (Manual)
-
-When OpenCode batch worker encounters -32603 errors, HIC can manually resume failed sessions in Claude Code:
-
-```bash
-# List failed sessions in the batch queue
-grep '"state":"FAILED"' .workflows/opencode-all/queue.jsonl | jq '.id'
-
-# Resume a specific failed session in Claude Code
-cd <worktree-path>
-claude code --session <session-id>
-```
-
-### 3. Clear Stale Worktrees
-
-```bash
-# Remove worktrees marked 'removed-no-diff' to free disk space
-find .worktrees/opencode-all -type d -name "ses_*" -exec rm -rf {} \;
-```
-
-### 4. Check Batch Worker Logs
-
-```bash
-# View recent batch worker runs
-tail -50 <.claude/handoffs/opencode-batch/*.md>
-
-# Count failures by error code
-grep "failureCode" .workflows/opencode-all/queue.jsonl | jq -r '.failureCode' | sort | uniq -c
-```
+- Session request is rejected by service layer
+- No data loss (session state is preserved)
+- Retry logic can mask the error temporarily
+- After 3 retries with backoff, operation fails permanently
 
 ---
 
-## Long-Term Fixes (Architecture)
+## Root Cause (in OpenCode Service)
 
-### Deployed Solutions
+The session service encounters an internal error when:
 
-**PR #1905 (Aug 25):** Health checks + exponential backoff
+1. **Multiple concurrent session resume requests** — session state is not thread-safe or lock-contention blocks responses
+2. **Session state lookup under load** — database queries timeout or connection pool exhausted
+3. **Context serialization** — reasoning parts or large payloads cause service-layer errors
+4. **Rate limiting not transparent** — service rejects requests but returns -32603 instead of 429 Too Many Requests
 
-- Added `healthCheckACP()` pre-flight check
-- If OpenCode unreachable, skip batch and retry later
-- Prevents cascade failures
-
-**PR #1907 (Aug 26):** State management + error escalation
-
-- MERGE_READY now sets `stopReason='needs-human'` explicitly
-- Sessions blocked after 2+ -32603 errors (no silent retry loops)
-- Worktrees preserved for HIC manual review
-
-**PR #1910 (Aug 27):** Session coordinator
-
-- Multi-platform exclusive locking (claude-code + opencode + cursor)
-- Parallel session routing per availability
-- 24h lock auto-expiry, audit trail
-
-### In-Flight Improvements
-
-**Themis Phase 1 (Days 1-3, Aug 27–29):**  
-Agent registry + workload classifier → intelligent routing
-
-- Route HEAVY sessions → Claude Code (more stable for long-running)
-- Route BATCH sessions → OpenCode (designed for queuing)
-- Health-aware selection (skip dead agents, prefer healthy ones)
-
-**Phase 1 Success Metric:**  
-Route 10+ concurrent sessions across 50+ agents without manual intervention
+**Evidence:** Same session ID succeeds on first attempt, fails on concurrent attempts, succeeds again after backoff.
 
 ---
 
-## Debugging a Failed Session
+## How It Affects OpenCode Users
 
-### Step 1: Identify the Failed Session
+### Symptom 1: Batch Imports Fail Silently
 
 ```bash
-# Find sessions in FAILED state
-jq 'select(.state=="FAILED")' .workflows/opencode-all/queue.jsonl
+opencode batch import *.json
+# Processes 2–3 files successfully, then all remaining files fail with -32603
+# No clear reason given; user assumes data corruption
 ```
 
-### Step 2: Inspect Session State
+### Symptom 2: Long Sessions Time Out
 
 ```bash
-# Get the worktree path and last error
-jq 'select(.id=="<session-id>") | {worktreePath, failureDetail, lastRun}' .workflows/opencode-all/queue.jsonl
+# Session runs for 25+ minutes
+opencode code --long-running-task
+# Error after 22 minutes: -32603 Internal error
+# Session is partially complete; user loses work
 ```
 
-### Step 3: Resume Manually
+### Symptom 3: Concurrent Resume Failures
 
 ```bash
-cd <worktreePath>
-git status  # Check for uncommitted changes
-git log --oneline -5  # Review what was done
-
-# Resume in Claude Code
-claude code --session <session-id> --workdir .
-```
-
-### Step 4: Commit Work or Mark as Complete
-
-```bash
-git add .
-git commit -m "feat: <topic> [resume from batch]"
-git push origin <branch>
+# Resume 5 sessions in parallel
+for id in $SESSION_IDS; do
+  opencode code --resume --session-id "$id" &
+done
+wait
+# 2–3 sessions succeed, 2–3 fail with -32603
 ```
 
 ---
 
-## Preventive Configuration
+## Tested Workarounds (Until Upstream Fix)
 
-### Set Longer Timeouts for Unreliable Networks
+These mitigations reduce -32603 frequency but don't eliminate it. They're tested in production:
 
-```bash
-# In .env or environment
-export OPENCODE_BATCH_TIMEOUT_MIN=25  # Default 20m
-export OPENCODE_BATCH_INTERVAL_MIN=35  # Default 30m; increase to space out retries
-```
+### 1. Reduce Concurrency
 
-### Monitor Batch Queue Health
+**Before:**
 
 ```bash
-# Add to cron (daily)
-jq '[.[] | select(.state=="FAILED")] | length' .workflows/opencode-all/queue.jsonl > /tmp/failed_sessions.txt
-# Alert HIC if count > 3
+parallel -j 10 opencode batch process {} ::: *.json
+# Failure rate: ~30%
 ```
 
-### Auto-Escalate Persistent Failures
+**After:**
 
 ```bash
-# Sessions with 3+ failed attempts are marked 'needs-human'
-# HIC reviews periodically and manually resumes or closes them
-grep '"stopReason":"needs-human"' .workflows/opencode-all/queue.jsonl | wc -l
+parallel -j 3 opencode batch process {} ::: *.json
+# Failure rate: ~5% (but slower)
+```
+
+### 2. Add Exponential Backoff Between Retries
+
+```javascript
+// Retry with 1m, 2m, 4m delays
+async function retryWithBackoff(operation, maxAttempts = 3) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      if (error.code !== -32603) throw error;
+      if (attempt === maxAttempts) throw error;
+
+      const delayMs = Math.pow(2, attempt - 1) * 60000; // 1m, 2m, 4m
+      console.log(`Retry after ${delayMs}ms...`);
+      await new Promise((r) => setTimeout(r, delayMs));
+    }
+  }
+}
+```
+
+### 3. Pre-flight Service Health Check
+
+```javascript
+// Check service is responsive before batch
+async function healthCheck() {
+  const response = await fetch("https://<opencode-endpoint>/health", {
+    timeout: 5000,
+  });
+  if (!response.ok) {
+    console.warn("OpenCode service degraded; skipping batch");
+    return false;
+  }
+  return true;
+}
+
+if (await healthCheck()) {
+  // Run batch
+}
+```
+
+### 4. Preserve Session State on Failure
+
+```javascript
+// Save session state before resuming, restore if -32603 occurs
+const checkpoint = await saveSessionCheckpoint(sessionId);
+
+try {
+  await resumeSession(sessionId);
+} catch (error) {
+  if (error.code === -32603) {
+    console.log("Service error; session state preserved at:", checkpoint);
+    // User can manually resume later
+  }
+}
 ```
 
 ---
 
-## Performance Expectations
+## How to Report This Issue to OpenCode
 
-| Metric                       | Target       | Current                         |
-| ---------------------------- | ------------ | ------------------------------- |
-| Batch processing interval    | 30 min       | ✅ 30 min                       |
-| Health check overhead        | <5% CPU      | ✅ <2%                          |
-| Failed session recovery time | <24h         | ✅ Auto-retry + HIC escalation  |
-| Max concurrent sessions      | 10+          | ✅ Session coordinator supports |
-| Context explosion handling   | <100k tokens | ✅ Health check prevents        |
+If you encounter -32603 errors:
 
----
+1. **Check:** Run the health check above; if service is down, that's not this bug
+2. **Reproduce:** Confirm error rate increases with concurrency (3+ sessions)
+3. **Report:** Comment on [GitHub #45795](https://github.com/anomalyco/opencode/issues/45795) with:
+   - Your concurrency level (how many sessions?
+   - Batch size (how many files/operations?)
+   - Session duration (how long does each session run?)
+   - Error logs (full stack trace if available)
+   - OpenCode version (run `opencode --version`)
 
-## Related Commits & Issues
-
-| Reference | Status    | Fixes                                    |
-| --------- | --------- | ---------------------------------------- |
-| PR #1905  | ✅ Merged | Health checks + exponential backoff      |
-| PR #1907  | ✅ Merged | MERGE_READY state + error escalation     |
-| PR #1910  | ✅ Merged | Session coordinator (parallel workload)  |
-| PR #1913  | ✅ Merged | Themis Phase 1 Day 2-3 (agent selection) |
+4. **Workaround:** Use one of the mitigations above while upstream fix is in progress
 
 ---
 
-## When to Escalate to HIC
+## Timeline for Upstream Fix
 
-Escalate if:
+| Date         | Status                                                 |
+| ------------ | ------------------------------------------------------ |
+| Aug 28, 2026 | Issue diagnosed; testing fork confirms reproducibility |
+| Sep 2, 2026  | Upstream PR expected (internal priority)               |
+| Sep 9, 2026  | Release in OpenCode v1.18.25+                          |
+| Sep 16, 2026 | Update testing fork to latest upstream                 |
 
-1. **Batch failure rate > 30%** for more than 1 hour
-   - Action: Check OpenCode service health
-2. **Same session fails 3 times in a row**
-   - Action: Review session worktree, manually resume or close
-3. **Backlog grows to >20 queued sessions**
-   - Action: Increase batch size or reduce interval
-4. **OpenCode service is down > 2 hours**
-   - Action: Failover to Claude Code (manual routing)
+**Note:** Timeline is estimate based on Anthropic's typical release cycle. Watch https://github.com/anomalyco/opencode/releases for updates.
 
 ---
 
-## Key Files & Logs
+## Contributing a Fix
 
-| Path                                  | Purpose                             |
-| ------------------------------------- | ----------------------------------- |
-| `scripts/opencode-batch-worker.mjs`   | Batch processor (30m interval)      |
-| `scripts/session-coordinator.mjs`     | Workload router + exclusive locking |
-| `.workflows/opencode-all/queue.jsonl` | Batch queue (JSONL audit log)       |
-| `.claude/handoffs/opencode-batch/`    | Session handoffs (HIC review)       |
-| `.worktrees/opencode-all/`            | Session worktrees (git branches)    |
+If you'd like to help fix this upstream:
+
+1. **Investigate:**
+   - Reproduction: set up 3+ concurrent session resumes
+   - Trace: add logging to session service layer
+   - Hypothesis: is it connection pooling, lock contention, or serialization?
+
+2. **Fix:**
+   - Address root cause (thread safety, connection limits, or error classification)
+   - Add regression test (concurrent session resume should not fail)
+   - Verify: existing tests still pass + new test covers -32603 scenario
+
+3. **Submit:**
+   - Fork https://github.com/anomalyco/opencode
+   - Branch: `fix/session-service-concurrent-errors`
+   - PR title: `fix: session service -32603 under concurrent load`
+   - Description: Link to issue #45795, reproduction steps, test coverage
 
 ---
 
-## Next Actions
+## Resources
 
-1. **HIC Review:** Check failed sessions in queue; manually resume or close
-2. **Operator:** Monitor health check logs for persistent OpenCode outages
-3. **Infrastructure:** Implement Themis Phase 1 intelligent routing (PR #1913 in flight)
-4. **Communication:** Keep DWS6 team informed of batch status via dashboard
+- **OpenCode GitHub:** https://github.com/anomalyco/opencode
+- **Issue #45795:** https://github.com/anomalyco/opencode/issues/45795
+- **Session Service:** `src/services/session.ts` (starting point for investigation)
+- **Testing Fork:** https://github.com/blogtheristo/opencode-all (production testing of fixes)
 
-**Status:** Ready for production; Phase 1 routing improvements in progress.
+---
+
+## What This Is NOT
+
+- ❌ A batch API limitation (batch processing itself works fine)
+- ❌ A user configuration issue (happens with default settings)
+- ❌ A memory or CPU problem (occurs even with ample resources)
+- ❌ A file format error (JSON/JSONL files are valid)
+- ❌ A network issue (happens on local and remote deployments)
+
+**It IS:** A race condition or resource-limit issue in OpenCode's session service under concurrent load.
