@@ -35,7 +35,7 @@ DOC_LANG="${3:-en}"
 
 # Pandoc runs on DGX Spark (canonical install). Win11 host has no pandoc.
 # Files are transferred via SSH: local .md → DGX render → output pulled back.
-DGX_HOST="${DGX_HOST:-dgx-spark}"
+DGX_HOST="${DGX_HOST:-192.168.101.113}"
 INPUT_DIR="$(cd "$(dirname "$INPUT")" && pwd)"
 INPUT_ABS="$(cd "$(dirname "$INPUT")" && pwd)/$(basename "$INPUT")"
 OUT_ABS_HTML="$(cd "$(dirname "$OUT_BASE")" 2>/dev/null && pwd)/$(basename "$OUT_BASE").html"
