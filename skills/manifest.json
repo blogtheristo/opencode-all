@@ -288,6 +288,20 @@
       "commandFile": ".claude/commands/flow-status.md"
     },
     {
+      "id": "handoff",
+      "name": "handoff",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/handoff.md"
+    },
+    {
+      "id": "session",
+      "name": "session",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/session.md"
+    },
+    {
       "id": "gcr-skill",
       "name": "gcr-skill",
       "kind": "slash-command",

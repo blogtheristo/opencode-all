@@ -29,7 +29,7 @@ const opt = {
   loop: false,
   dryRun: false,
   intervalMin: 15,
-  timeoutMin: 20,
+  timeoutMin: Number(process.env.OPENCODE_SESSION_TIMEOUT_MIN ?? 2880),
   lifetimeDays: Number(process.env.OPENCODE_ALL_LIFETIME_DAYS ?? 30),
 };
 for (let i = 0; i < args.length; i++) {
