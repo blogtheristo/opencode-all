@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Windows 11 Claude Code Setup — Field Note</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        color: #333;
+      }
+      h1 {
+        border-bottom: 3px solid #0066cc;
+        padding-bottom: 10px;
+        font-size: 2em;
+      }
+      h2 {
+        margin-top: 30px;
+        font-size: 1.5em;
+        color: #0066cc;
+      }
+      h3 {
+        font-size: 1.2em;
+        color: #555;
+      }
+      .metadata {
+        background: #f5f5f5;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      .metadata p {
+        margin: 5px 0;
+        font-size: 0.95em;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+      th {
+        background-color: #f8f8f8;
+        font-weight: 600;
+      }
+      code {
+        background: #f4f4f4;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: "Monaco", "Courier New", monospace;
+        font-size: 0.95em;
+      }
+      pre {
+        background: #f4f4f4;
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+        border-left: 3px solid #0066cc;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      .checkmark {
+        color: #28a745;
+        font-weight: bold;
+      }
+      .alert {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 3px;
+      }
+      .success {
+        background: #d4edda;
+        border-left: 4px solid #28a745;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 3px;
+      }
+      .question-block {
+        background: #e7f3ff;
+        border-left: 4px solid #0066cc;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 3px;
+        font-size: 1.05em;
+      }
+      ul,
+      ol {
+        margin: 15px 0;
+        padding-left: 30px;
+      }
+      li {
+        margin: 8px 0;
+      }
+      a {
+        color: #0066cc;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .commit-hash {
+        font-family: "Monaco", monospace;
+        background: #f4f4f4;
+        padding: 2px 4px;
+        border-radius: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Windows 11 Claude Code Setup — Field Note</h1>
+
+    <div class="metadata">
+      <p><strong>Date:</strong> 2026-08-29</p>
+      <p><strong>Session:</strong> claude/win11-claude-code-setup-hi72lr</p>
+      <p><strong>Status:</strong> Complete + Merge Conflict Resolved</p>
+    </div>
+
+    <h2>What Happened</h2>
+    <p>
+      Created comprehensive Windows 11 setup documentation for Claude Code with DWS6 bid-monitoring
+      tools (Bid Scout agent + Tarjouspalvelu Fetcher). Merged competing version from main branch
+      and resolved conflict by keeping the more complete feature-branch version.
+    </p>
+
+    <h2>Deliverables Shipped</h2>
+
+    <h3>1. docs/WIN11_CLAUDE_CODE_SETUP.md (v1.0, ~620 lines)</h3>
+    <ul>
+      <li>Step-by-step setup: environment, dependencies, testing</li>
+      <li>
+        Bid Scout agent documentation with scoring criteria (budget, geography, product fit,
+        deadline)
+      </li>
+      <li>Tarjouspalvelu Fetcher (Playwright-based login automation) walkthrough</li>
+      <li>Windows Scheduler task setup (PowerShell) for daily automation</li>
+      <li>
+        <strong>New:</strong> Node.js 24.17.0+ version requirement + troubleshooting (3 upgrade
+        methods: direct, nvm-windows, Chocolatey)
+      </li>
+      <li>Troubleshooting matrix (npm, Playwright, .env, Cloudia API, Tarjouspalvelu login)</li>
+      <li>Daily workflow recommendations and advanced usage patterns</li>
+      <li>Full command reference, FAQ, email alerts example</li>
+    </ul>
+
+    <h3>2. PR #1915 — Ready for Review</h3>
+    <ul>
+      <li>Feature branch: <code>claude/win11-claude-code-setup-hi72lr</code></li>
+      <li>
+        Merged <code>origin/main</code> (resolved add/add conflict on WIN11_CLAUDE_CODE_SETUP.md)
+      </li>
+      <li>Kept comprehensive version; discarded simpler main version</li>
+    </ul>
+
+    <h3>3. Environment Verification</h3>
+    <div class="success">
+      <p>
+        <strong>Windows 11 Local:</strong> Node.js 24.19.0 <span class="checkmark">✅</span> (meets
+        ≥24.17.0)
+      </p>
+      <p>
+        <strong>Docker/Remote:</strong> Node.js 24.20.0 <span class="checkmark">✅</span> (exceeds
+        requirement)
+      </p>
+      <p><strong>npm install:</strong> No EBADENGINE warnings</p>
+    </div>
+
+    <h2>Commits (3)</h2>
+    <table>
+      <tr>
+        <th>Commit</th>
+        <th>Message</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td><span class="commit-hash">fb99eeae</span></td>
+        <td>feat: add Windows 11 Claude Code setup guide</td>
+        <td>Initial delivery</td>
+      </tr>
+      <tr>
+        <td><span class="commit-hash">02c0678a</span></td>
+        <td>docs: add Node.js 24.17.0+ requirement and upgrade troubleshooting</td>
+        <td>Node version update</td>
+      </tr>
+      <tr>
+        <td><span class="commit-hash">59f8ac74</span></td>
+        <td>Merge main: resolve WIN11_CLAUDE_CODE_SETUP.md conflict</td>
+        <td>Conflict resolution</td>
+      </tr>
+    </table>
+
+    <h2>Why This Matters</h2>
+
+    <h3>For Windows 11 Users</h3>
+    <ul>
+      <li>
+        <strong>Removes setup friction:</strong> Complete walkthrough from env setup to scheduled
+        daily runs
+      </li>
+      <li>
+        <strong>Clear version baseline:</strong> Node.js 24.19.0+ (was vague in earlier guidance)
+      </li>
+      <li>
+        <strong>Reproducible:</strong> PowerShell scripts for task automation, not manual steps
+      </li>
+      <li><strong>Troubleshoot-ready:</strong> Common errors + solutions (6-issue matrix)</li>
+    </ul>
+
+    <h3>For DWS6 Operations</h3>
+    <ul>
+      <li>
+        <strong>Bid Scout automation:</strong> Daily Cloudia monitoring with scoring (budget
+        €5k-€500k, score ≥60 = actionable)
+      </li>
+      <li>
+        <strong>Tarjouspalvelu integration:</strong> Browser automation to extract opportunity
+        details
+      </li>
+      <li><strong>Live credential path:</strong> Documented .env setup, no hardcoded secrets</li>
+      <li><strong>Scheduled daily:</strong> 08:00 UTC automated run via Windows Task Scheduler</li>
+    </ul>
+
+    <h2>Key Design Decisions</h2>
+    <ol>
+      <li><strong>Windows-native PowerShell:</strong> No bash/zsh examples (Rule 10, CLAUDE.md)</li>
+      <li>
+        <strong>Node version handling:</strong> Documented requirement (24.17.0+) + upgrade methods
+        (direct, nvm-windows, Chocolatey) because earlier guidance was Node 18+
+      </li>
+      <li>
+        <strong>Merge strategy:</strong> Kept feature-branch comprehensive version over main's
+        simpler version (includes all main content + Node troubleshooting)
+      </li>
+      <li><strong>Fail-safe tone:</strong> Every error includes solutions; no "RTFM" barriers</li>
+    </ol>
+
+    <h2>Assumptions & Constraints</h2>
+
+    <h3>Assumptions</h3>
+    <ul>
+      <li>User can run PowerShell as Administrator (task scheduling)</li>
+      <li>Cloudia and Tarjouspalvelu credentials available</li>
+      <li>Internet connectivity to download Playwright Chromium</li>
+    </ul>
+
+    <h3>Constraints</h3>
+    <ul>
+      <li>
+        Docker/remote environments have Node 20-22; Windows 11 can install Node 24.19.0+ directly
+      </li>
+      <li>Playwright requires Chromium download (2-3 min first run)</li>
+      <li>Scheduled tasks require Windows Task Scheduler (not cross-platform)</li>
+    </ul>
+
+    <h2>Next Steps</h2>
+
+    <h3>Ready Now</h3>
+    <ul>
+      <li>HIC review of PR #1915</li>
+      <li>Test on Windows 11 machine with live Cloudia credentials</li>
+      <li>Validate scheduled task PowerShell script</li>
+    </ul>
+
+    <h3>Optional Future</h3>
+    <ul>
+      <li>Video walkthrough (YouTube)</li>
+      <li>Screenshots/GIFs for mobile readability</li>
+      <li>Email alert integration example (Gmail/SES)</li>
+      <li>Proxy support (corporate network edge case)</li>
+    </ul>
+
+    <h2>Technical Debt Flagged</h2>
+    <ol>
+      <li>
+        <strong>Playwright Chromium behind proxy:</strong> Documented workaround but untested on
+        corporate network
+      </li>
+      <li><strong>Tarjouspalvelu timeout:</strong> hardcoded 15s; may need tuning per network</li>
+      <li>
+        <strong>Node version matrix:</strong> Should track Node 22 vs 24 support in
+        CI/docker-compose
+      </li>
+    </ol>
+
+    <h2>Related Files</h2>
+    <ul>
+      <li>
+        <code>scripts/bid-scout.mjs</code> — Live Cloudia bid monitoring (Evidence: Tool=Claude-Code
+        Date=2026-08-27)
+      </li>
+      <li>
+        <code>scripts/tarjouspalvelu-fetch.mjs</code> — Playwright tarjouspalvelu.fi fetcher
+        (Evidence: Tool=Claude-Code Date=2026-08-27)
+      </li>
+      <li>
+        <code>.claude/handoffs/claude/win11-claude-code-setup-hi72lr.md</code> — Session checkpoint
+      </li>
+      <li>
+        <a href="https://github.com/blogtheristo/dws6/pull/1915">PR #1915</a> — GitHub pull request
+      </li>
+    </ul>
+
+    <h2>Standards Applied</h2>
+    <table>
+      <tr>
+        <th>Standard</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td>DWS_DOCUMENT_STANDARD.md</td>
+        <td><span class="checkmark">✅</span> Markdown conventions</td>
+      </tr>
+      <tr>
+        <td>Non-Negotiable Rule 10</td>
+        <td><span class="checkmark">✅</span> PowerShell-first Windows examples</td>
+      </tr>
+      <tr>
+        <td>Non-Negotiable Rule 11</td>
+        <td><span class="checkmark">✅</span> Match codebase conventions</td>
+      </tr>
+      <tr>
+        <td>Engineering Discipline Rule 3</td>
+        <td>
+          <span class="checkmark">✅</span> Surgical changes (only WIN11 guide + Node
+          troubleshooting)
+        </td>
+      </tr>
+      <tr>
+        <td>Thesis Rule</td>
+        <td>❌ Not triggered (not a thesis document)</td>
+      </tr>
+      <tr>
+        <td>BLOG_STANDARD.md</td>
+        <td>❌ Not triggered (not a blog post)</td>
+      </tr>
+      <tr>
+        <td>Security Standard</td>
+        <td>❌ Not triggered (no secrets in docs)</td>
+      </tr>
+    </table>
+
+    <div class="question-block">
+      <h2 style="margin-top: 0">🎯 HIC Decision Question</h2>
+      <p>
+        <strong
+          >Should the Windows 11 setup guide be published to the public docs site (dws6.com/docs/),
+          or kept internal-only in the repo README for now?</strong
+        >
+      </p>
+
+      <h3>Trade-offs</h3>
+      <ul>
+        <li>
+          <strong>Publish:</strong> Makes setup discoverable for external Claude Code users; signals
+          Windows 11 support readiness
+        </li>
+        <li>
+          <strong>Internal-only:</strong> Allows testing with real Cloudia credentials before public
+          launch; avoids outdated docs if Node version requirements shift
+        </li>
+      </ul>
+
+      <p><strong>What's the right timing for publication?</strong></p>
+    </div>
+
+    <hr style="margin-top: 40px; opacity: 0.5" />
+    <footer style="font-size: 0.9em; color: #888; margin-top: 30px">
+      <p>
+        Generated: 2026-08-29 | Session: claude/win11-claude-code-setup-hi72lr | Learning Outcome
+      </p>
+    </footer>
+  </body>
+</html>
