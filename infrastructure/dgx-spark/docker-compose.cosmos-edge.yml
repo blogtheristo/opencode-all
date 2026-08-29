@@ -1,0 +1,120 @@
+version: "3.8"
+
+# Cosmos 3 Edge (4B MoT) – Foundational Physical World Model on DGX Spark
+# Runs inference + RL loops + private evals locally
+# Integration: KYA governance boundary + continuous learning
+
+services:
+  cosmos_edge_engine:
+    image: nvcr.io/nvidia/pytorch:24.03-py3
+    container_name: cosmos_edge_spark
+    hostname: cosmos-edge
+    ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1 # Single GPU on GN-100
+              capabilities: [gpu]
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+      - OMP_NUM_THREADS=16
+      - COSMOS_MODEL_PATH=/workspace/models/cosmos-3-edge-4b
+      - VLLM_TENSOR_PARALLEL_SIZE=1
+      - VLLM_ENABLE_PREFIX_CACHING=true
+    volumes:
+      - ./cosmos/src:/workspace/src
+      - ./cosmos/evals:/workspace/evals
+      - ./cosmos/governance:/workspace/governance
+      - ./cosmos/checkpoints:/workspace/checkpoints
+      - ./cosmos/models:/workspace/models
+      - /mnt/data:/workspace/fleet_data # Proprietary operational data
+    working_dir: /workspace
+    command: python3 src/serve_cosmos_edge.py --port 8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - eval_store
+    networks:
+      - cosmos_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Private evaluation store (vector DB + rollout logging)
+  eval_store:
+    image: qdrant/qdrant:latest
+    container_name: cosmos_eval_store
+    ports:
+      - "6333:6333"
+    volumes:
+      - ./cosmos/qdrant_data:/qdrant/storage
+    environment:
+      - QDRANT_READ_ONLY_API=false
+    networks:
+      - cosmos_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 2
+
+  # RL training coordinator
+  rl_trainer:
+    image: nvcr.io/nvidia/pytorch:24.03-py3
+    container_name: cosmos_rl_trainer
+    ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+      - OMP_NUM_THREADS=8
+      - COSMOS_ENGINE_URL=http://cosmos_edge_engine:8000
+      - EVAL_STORE_URL=http://eval_store:6333
+    volumes:
+      - ./cosmos/src:/workspace/src
+      - ./cosmos/evals:/workspace/evals
+      - ./cosmos/governance:/workspace/governance
+      - ./cosmos/checkpoints:/workspace/checkpoints
+      - /mnt/data:/workspace/fleet_data
+    working_dir: /workspace
+    command: python3 src/rl_loop.py --episodes-per-step 32 --learning-rate 1e-5
+    depends_on:
+      cosmos_edge_engine:
+        condition: service_healthy
+      eval_store:
+        condition: service_healthy
+    networks:
+      - cosmos_network
+
+  # Monitoring & observability
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: cosmos_prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./cosmos/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./cosmos/prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+    networks:
+      - cosmos_network
+
+networks:
+  cosmos_network:
+    driver: bridge
+
+volumes:
+  cosmos_qdrant_data:
+  cosmos_prometheus_data:
