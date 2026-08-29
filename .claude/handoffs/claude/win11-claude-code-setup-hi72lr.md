@@ -106,12 +106,20 @@
 
 ## Session End Actions
 
-- [ ] Commit: `feat: add Windows 11 Claude Code setup guide`
-- [ ] Push to `claude/win11-claude-code-setup-hi72lr`
-- [ ] Create PR for review
-- [ ] Tag HIC for approval (if needed for broader publication)
+- [x] Commit: `feat: add Windows 11 Claude Code setup guide`
+- [x] Push to `claude/win11-claude-code-setup-hi72lr`
+- [x] Create PR for review
+- [x] Tag HIC for approval (if needed for broader publication)
+- [x] Create HIC Learning Outcome (field note + HTML + KB + Drive export)
+
+## HIC Decision (2026-08-29)
+
+**Publication:** No — keep Windows 11 setup guide internal-only (repo-only). Do not publish to dws6.com/docs/ at this time.
+
+**Rationale:** Allows testing with real Cloudia credentials before public launch; avoids outdated docs if Node version requirements shift.
 
 ---
 
 **Handoff prepared for:** Next session continuation or HIC review  
-**Preserved:** All session context in this file; scripts referenced are stable (already in repo)
+**Preserved:** All session context in this file; scripts referenced are stable (already in repo)  
+**Status:** COMPLETE — Ready for PR merge or further testing
