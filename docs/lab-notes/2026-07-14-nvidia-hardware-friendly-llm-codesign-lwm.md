@@ -1,6 +1,6 @@
 # Lab Note: NVIDIA Hardware-Friendly LLM Co-Design — Implications for the Lifetime World Model (July 2026)
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
