@@ -99,12 +99,47 @@ A comprehensive technical evaluation of **iPCMax/Serdex** as a hardware partner 
 
 ## What's Left to Do
 
+### Infrastructure Planning Documents (COMPLETED)
+
+Five comprehensive technical plans have been created:
+
+1. **KUBERNETES_IMPLEMENTATION_PLAN.md** (v1.0)
+   - 4-phase rollout: Phase 1 single-node (weeks 1-3), Phase 2 HA 3-node (weeks 4-6), Phase 3 hardening (weeks 7-9), Phase 4 delivery (weeks 10-12)
+   - k3s for ARM64 (DGX Spark), RKE2 for Gov Ready (x86)
+   - T0-T4 customer tiers with optional add-ons (NIM profiles, DOCA services, support, Gov Ready)
+   - Success criteria: T1 <2 hours, T2 <1 day deployment; NIM latency <2s cold, <500ms warm
+
+2. **VGPU_IMPLEMENTATION_PLAN.md** (v1.0)
+   - **Critical finding:** vGPU is x86-only, NOT supported on GB10 ARM64
+   - Workaround: Time-slicing (4x mode standard) for multi-tenant inference on ARM64
+   - vGPU option (T3.vGPU) for x86 customers (H100/B200) with NVIDIA GRID licensing €14,400+/year
+   - Position time-slicing + multi-node scale-out for sovereignty
+
+3. **DOCA_MICROSERVICES_PLAN.md** (v1.0)
+   - DOCA 3.4.0 services: Telemetry, Firefly (PTP), Argus (security), HBN (BGP), SNAP (storage accel), OVS-DOCA
+   - BlueField-3 recommended (€3,000 base, dual for redundancy)
+   - T4 (Full Stack + DPU) tier: Situation Room Standard (ConnectX-7 included), Enhanced (BF-3 +€6K HW, +€1K/mo), Maximum (BF-3 400G +€9.6K HW, +€2K/mo)
+   - Integration: Telemetry → Aspire, Firefly → k3s time sync, Argus → Loki audit, SNAP → Longhorn accel
+
+4. **GOVERNMENT_READY_IMAGES_RESEARCH.md** (v1.0)
+   - **ARM64 limitation:** Gov Ready GPU Operator NOT in Infra 7.8 (x86-only, planned Infra 8.x)
+   - Workaround: x86 management node for GPU Operator GR, ARM64 workers for NIM/Network ops
+   - T3 (Gov Ready) tier: €7,500 setup + €43,827 Year 1 (€9K NVAIE + €2.2K support + €7.5K setup + €2K audit + €1.5K air-gap + €3K re-cert + €6K hardware delta vs standard)
+   - Compliance: STIG scan, FIPS cert, SBOM, vuln scan, deployment attestation, audit trail; annual recertification €3,000
+
+5. **DWS_VERSION_COMPATIBILITY_TABLE.md** (v1.0)
+   - DWS6 versions: v6.0 (EOL), v6.1 (active), v6.2 (current), v6.3 (dev), v7.0 (planned)
+   - Component matrix: k3s, GPU/NIM/Network/DPU Operators, GPU Driver, DOCA, data layer (PostgreSQL, Kong, Redis, PostgREST), observability
+   - Hardware support: DGX Spark ✅, DGX Station ✅, DGX B200 ⚠️, Jetson Orin ✅, BlueField-3 ✅
+   - Known incompats: vGPU on ARM64 ❌, MIG on GB10 ❌, Gov Ready ARM64 GPU Op in 7.8 ❌
+
 ### If HIC Approves Phase 1:
 
 1. **Assign DWS Engineer** (target: week of Sept 6)
    - Own the whitepaper writing
    - Coordinate with iPCMax technical team
    - Validate Kubernetes/NGC Helm Chart compatibility
+   - Reference: KUBERNETES_IMPLEMENTATION_PLAN.md Phase 1-2 sections
 
 2. **Schedule Kickoff Call** with iPCMax (by Sept 13)
    - Introduce Phase 1 scope
@@ -128,6 +163,13 @@ A comprehensive technical evaluation of **iPCMax/Serdex** as a hardware partner 
 - Kubernetes compatibility test results confirmed
 - Decision on Phase 2 pilot budget commitment
 - Identification of 1–2 final Phase 2 customer pilots
+
+### Follow-Up Work (Not Completed This Session)
+
+- **products.json update:** Add new product SKUs for K8s operators (LF-GPU-OPERATOR, LF-NIM-OPERATOR, etc.), Gov Ready service products, DOCA services, bundled infrastructure stacks. _Status: Planned but not executed (504 error interrupted previous session)_
+- **Thesis updates:** KUBERNETES, DOCA, GOV_READY content per Thesis Autonomy Boundary (additive sections GREEN, structural edits RED)
+- **Product detail pages:** Update dws10.com/products/ with tier options and optional features
+- **Admin documentation:** Create/update Admin/KUBERNETES_OPERATIONS_MANUAL.md, Admin/DOCA_OPERATIONS_MANUAL.md
 
 ---
 
