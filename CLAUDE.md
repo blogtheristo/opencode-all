@@ -11,18 +11,22 @@ Every email, letter, intro note, signature block, "From:" line, author field, or
 - **Company:** Lifetime Oy
 - **Phone (always include in signatures):** +358 400 319 010
 
-**Email — four addresses by context (do not mix):**
+**Email — outbound is Proton. Three addresses by context (do not mix):**
 
-| Context                                                                    | Email                          |
-| -------------------------------------------------------------------------- | ------------------------------ |
-| Live partner / investor / sales threads (the Workspace account that sends) | `risto.paarni2024@lifetime.fi` |
-| Cold / first-touch outreach & the canonical public contact address         | `risto.paarni@lifetime.fi`     |
-| DWS IQ product email (From + Reply-To on platform-sent mail)               | `risto@onelifetime.world`      |
-| Legal / contract / invoice / statutory                                     | `risto.paarni@lifetime.fi`     |
+| Context                                                                                     | Email                          |
+| ------------------------------------------------------------------------------------------- | ------------------------------ |
+| **All Lifetime Oy outbound** — partner, investor, sales, cold outreach, canonical public contact | `risto.paarni@lifetime.fi`     |
+| DWS IQ product email (From + Reply-To on platform-sent mail)                                 | `risto@onelifetime.world`      |
+| Legal / contract / invoice / statutory                                                       | `risto.paarni@lifetime.fi`     |
+| **Google Workspace login only — never a `From:`, `Reply-To:`, or signature**                 | `risto.paarni2024@lifetime.fi` |
 
-**`risto.paarni2024@lifetime.fi` is a legitimate outbound address** _(HIC decision, 2026-07-26)_. It is the Google Workspace account that live partner, investor, and sales threads actually run on and send from, so it is a valid `From:` / `Reply-To:` and signature contact **when continuing a thread already on that address**. It is also the Google Workspace login for internal systems (Google Cloud / Drive / Supabase / GCP billing IAM, internal alert & report inboxes). `risto.paarni@lifetime.fi` remains the canonical public contact and the legal/statutory address; it receives all `@lifetime.fi` mail via the Proton catch-all, but to **originate** mail it must be a verified Gmail "Send mail as" alias — if it is not verified, send from `risto.paarni2024@lifetime.fi` instead. DWS IQ product mail uses `risto@onelifetime.world`. Never use a `noreply@` sender (Non-Negotiable Rule 3).
+**All Lifetime Oy mail is sent from Proton Business, and has been for years** _(HIC decision, 2026-08-04)_. `risto.paarni@lifetime.fi` is an address on that Proton account and is the primary sender. `risto.paarni2024@lifetime.fi` is **the Google Workspace login** (Google Cloud / Drive / Supabase / GCP billing IAM, Calendar, Meet, internal Google notifications) and must not appear as a sender or contact in any outward-facing material. Never use a `noreply@` sender (Non-Negotiable Rule 3).
 
-_(Superseded rule, kept for the record per Rule 12: `risto.paarni2024@` was previously banned from all outbound / `From:` / signature use. That prohibition was **reversed on 2026-07-26** after a Google Workspace check confirmed it is the address current outbound actually originates from — `risto.paarni@` had no send in the prior year. Held PRs #1698 and #1664, flagged under the old rule, are compliant under this one.)_
+**This is settled by DNS, not by preference.** `lifetime.fi` publishes `MX → mail.protonmail.ch / mailsec.protonmail.ch`, `SPF: v=spf1 include:_spf.protonmail.ch ~all` (Proton only — Google is **not** authorized), three `protonmail*._domainkey` DKIM records (Proton only — there is **no** `google._domainkey`), and `DMARC: p=quarantine`. Mail sent from Google with a `@lifetime.fi` From therefore fails both SPF and DKIM alignment, and the domain's own policy instructs receivers to quarantine it. Sending from Proton passes today with no DNS change. Verified against the zone export, 04.08.2026.
+
+**Scope — this rule governs Lifetime Oy's own domains only.** It does **not** apply to customer domains. `cari.fi` (Carin Huoltopalvelu) runs on Google Workspace with a Cloudflare Email Sending binding for its contact form, and stays that way — do not "consolidate" a customer's mail onto Proton. Each customer domain's sender configuration is a property of that customer's setup, recorded in that customer's own repo.
+
+_(Superseded rules, kept for the record per Rule 12. **(a)** `risto.paarni2024@` was originally banned from all outbound use. **(b)** That ban was reversed on 2026-07-26 after a Google Workspace mailbox check found sends originating from `risto.paarni2024@` while `risto.paarni@` showed no send in the prior year. **(c)** Reversed again 2026-08-04: the 07-26 conclusion was drawn from inside one mailbox without checking DNS or the Proton account — the zone authorizes only Proton, and `risto.paarni@lifetime.fi` is a live Proton address, so the address the 07-26 rule promoted was the one that fails DMARC. The lesson is registered in `DWS_TRUTH_STANDARD.md` §0: a HIC decision is Tier A for the decision, but only as sound as the premise it was given. Full evidence: `docs/field-notes/2026-08-04-lifetime-fi-outbound-dmarc-proton.md`.)_
 
 The substring `paarni` (no umlauts) is allowed **only** inside an email address or other login/account data. Everywhere else the name carries umlauts: **Päärni**.
 
@@ -250,10 +254,10 @@ Never ask "should I proceed?" or "approve as-is?" without a working link attache
 
 ## Productivity Stack Rule (HIC, 03.08.2026)
 
-**The stack is Google Workspace, not Microsoft Office.** Docs, Sheets, Slides, Drive, Calendar and Gmail on the `risto.paarni2024@lifetime.fi` Workspace account.
+**The productivity stack is Google Workspace, not Microsoft Office.** Docs, Sheets, Slides, Drive, Calendar and Meet on the `risto.paarni2024@lifetime.fi` Workspace account. **Mail is the exception — mail is Proton** (see the Sender Identity Rule above).
 
 - Deliverables that leave the repo go out as **Google Docs / Sheets / Slides** (via the Google Drive tools), a **PDF**, or a **fenced code block** — never a `.docx`/`.xlsx`/`.pptx` as the default handoff format. Produce an Office file only when a counterparty explicitly requires one (e.g. a customer's tender template).
-- Calendar means **Google Calendar**; mail means **Gmail** on that Workspace account. This is the same account named in the Sender Identity table above.
+- Calendar means **Google Calendar** and video means **Google Meet**, both on the Workspace account. **Mail does not** — `lifetime.fi`'s MX points at Proton, so Gmail on that account receives only Google's own internal notifications and must never be used to send. Corrected 04.08.2026; the 03.08 version of this rule said "mail means Gmail," which the zone's SPF/DKIM/DMARC records contradict.
 - Repository-first still applies (`DWS_TRUTH_STANDARD.md` §2E): the repo `.md` is the master and the Workspace document is the generated copy, never the reverse.
 - "Office day" in the HIC's calendar means a day working at the office — it is not a Microsoft Office reference.
 
