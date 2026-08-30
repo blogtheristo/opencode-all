@@ -4798,12 +4798,12 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-08-18T00:00:00Z",
-  "priceVersion": "1.25",
+  "lastUpdated": "2026-08-30T00:00:00Z",
+  "priceVersion": "1.27",
   "priceList": {
-    "version": "1.25",
-    "effectiveDate": "2026-08-18",
-    "nextReviewDate": "2026-11-18",
+    "version": "1.27",
+    "effectiveDate": "2026-08-30",
+    "nextReviewDate": "2026-11-30",
     "policy": {
       "currency": "EUR",
       "vatTreatment": "B2B_VAT_0",
@@ -4821,9 +4821,9 @@
     }
   },
   "commercialPortfolio": {
-    "version": "1.25",
-    "effectiveDate": "2026-08-18",
-    "nextReviewDate": "2026-11-18",
+    "version": "1.27",
+    "effectiveDate": "2026-08-30",
+    "nextReviewDate": "2026-11-30",
     "definitions": {
       "serious": {
         "description": "The fixed 13-product commercial portfolio. These products are the only products rendered on the primary DWS /buy/ surface.",
@@ -4888,6 +4888,21 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.27",
+      "date": "2026-08-30",
+      "author": "OpenCode",
+      "changes": [
+        "Updated to v1.27 with orchestration tiers (T0–T4), DOCA microservices packages, Government Ready add-ons, NIM profiles, and iPCMax hardware partner SKUs.",
+        "Added Kubernetes orchestration tiers: LF-K8S-T1 (€1,500), LF-K8S-T2 (€4,500), LF-K8S-T3 (€7,500), LF-K8S-T4 (€12,000).",
+        "Added DOCA packages: Essential (included T2+), Security (€1,000/mo), Network+Storage (€2,000/mo).",
+        "Added Gov Ready: Setup (€7,500), Annual (€3,000/yr), Air-gap Bundle (€1,500/release), FIPS Validation (€2,000).",
+        "Added NIM profiles: Starter (included), Retrieval (€500/mo), Code (€500/mo), Biology (€2,000/mo).",
+        "Added iPCMax hardware: IPC-409 (€345), IPC-P68 (€680), Cincoze DA-1200 (€1,850).",
+        "Updated buy page to v2.0 with iPCMax-style catalog redesign and orchestration tier add-on matrix.",
+        "Set priceList.version to 1.27 with effective date 2026-08-30 and next review 2026-11-30."
+      ]
+    },
     {
       "version": "1.25",
       "date": "2026-08-18",
