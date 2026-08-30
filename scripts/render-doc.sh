@@ -33,22 +33,39 @@ TITLE="$(basename "$OUT_BASE")"
 # pandoc otherwise emits an empty lang=""). Third positional arg, defaults to en.
 DOC_LANG="${3:-en}"
 
-if ! command -v pandoc >/dev/null 2>&1; then
-  echo "pandoc not installed. Run: apt-get install -y pandoc" >&2
+# Pandoc runs on DGX Spark (canonical install). Win11 host has no pandoc.
+# Files are transferred via SSH: local .md → DGX render → output pulled back.
+DGX_HOST="${DGX_HOST:-192.168.101.113}"
+INPUT_DIR="$(cd "$(dirname "$INPUT")" && pwd)"
+INPUT_ABS="$(cd "$(dirname "$INPUT")" && pwd)/$(basename "$INPUT")"
+OUT_ABS_HTML="$(cd "$(dirname "$OUT_BASE")" 2>/dev/null && pwd)/$(basename "$OUT_BASE").html"
+OUT_ABS_DOCX="$(cd "$(dirname "$OUT_BASE")" 2>/dev/null && pwd)/$(basename "$OUT_BASE").docx"
+
+if command -v pandoc >/dev/null 2>&1; then
+  # Local pandoc available (DGX native or future install)
+  PANDOC_CMD="pandoc"
+elif ssh -q -o BatchMode=yes -o ConnectTimeout=5 "$DGX_HOST" "command -v pandoc" >/dev/null 2>&1; then
+  # Route through DGX Spark
+  DGX_TMP="/tmp/render-doc-$$"
+  ssh "$DGX_HOST" "mkdir -p $DGX_TMP"
+  scp -q "$INPUT_ABS" "$DGX_HOST:$DGX_TMP/input.md"
+  # Copy image resources if any exist alongside the .md
+  if ls "$INPUT_DIR"/*.png "$INPUT_DIR"/*.jpg "$INPUT_DIR"/*.svg 2>/dev/null | head -1 | grep -q .; then
+    scp -q "$INPUT_DIR"/*.png "$INPUT_DIR"/*.jpg "$INPUT_DIR"/*.svg "$DGX_HOST:$DGX_TMP/" 2>/dev/null || true
+  fi
+  ssh "$DGX_HOST" "pandoc $DGX_TMP/input.md --standalone --embed-resources --wrap=none --resource-path=$DGX_TMP --metadata title='$TITLE' --metadata lang='$DOC_LANG' -o $DGX_TMP/out.html && pandoc $DGX_TMP/input.md --resource-path=$DGX_TMP -o $DGX_TMP/out.docx"
+  scp -q "$DGX_HOST:$DGX_TMP/out.html" "$OUT_ABS_HTML"
+  scp -q "$DGX_HOST:$DGX_TMP/out.docx" "$OUT_ABS_DOCX"
+  ssh "$DGX_HOST" "rm -rf $DGX_TMP"
+  echo "Wrote ${OUT_BASE}.html and ${OUT_BASE}.docx (via DGX Spark pandoc, images embedded)"
+  exit 0
+else
+  echo "pandoc not available locally or on $DGX_HOST. On DGX: sudo apt-get install -y pandoc" >&2
   exit 1
 fi
 
-# Relative image paths in the .md are relative to the .md file's own
-# directory (so they also render correctly on GitHub) — pandoc otherwise
-# resolves them relative to the current working directory, so tell it
-# explicitly where to look.
-INPUT_DIR="$(cd "$(dirname "$INPUT")" && pwd)"
-
-# --wrap=none keeps each source line intact in the HTML output. Truth-lint
-# excuses deprecated phrases only when the historical marker ("superseded",
-# "formerly", …) sits on the SAME line; pandoc's default re-wrapping splits
-# phrase and marker onto different lines and turns allowed WARNs into FAILs.
-pandoc "$INPUT" \
+# --wrap=none keeps each source line intact so truth-lint phrase+marker stay on the same line.
+"$PANDOC_CMD" "$INPUT" \
   --standalone \
   --embed-resources \
   --wrap=none \
@@ -57,7 +74,7 @@ pandoc "$INPUT" \
   --metadata lang="$DOC_LANG" \
   -o "${OUT_BASE}.html"
 
-pandoc "$INPUT" \
+"$PANDOC_CMD" "$INPUT" \
   --resource-path="$INPUT_DIR" \
   -o "${OUT_BASE}.docx"
 

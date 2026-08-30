@@ -287,8 +287,13 @@ run_check "npm-install-check" bash -c '
 # control): concurrent vitest runs sharing one object database corrupted
 # shared git state; only one suite may hold the validation lock at a time.
 run_check "vitest" bash -c '
-  exec 9>>/tmp/opencode/dws6-validation.lock
-  flock -w 900 9 || { echo "validation lock timeout"; exit 1; }
+  LOCK_DIR="/tmp/dws6-validation.lock"
+  WAITED=0
+  while ! mkdir "$LOCK_DIR" 2>/dev/null; do
+    sleep 1; WAITED=$((WAITED+1))
+    [ $WAITED -ge 900 ] && { echo "validation lock timeout"; exit 1; }
+  done
+  trap "rmdir \"$LOCK_DIR\" 2>/dev/null" EXIT
   npx vitest run --reporter=default
 ' || true
 

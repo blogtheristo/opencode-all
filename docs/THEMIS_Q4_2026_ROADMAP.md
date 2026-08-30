@@ -36,35 +36,35 @@
 
 ### Phase 2: Sales Lifecycle (URGENT - Sep 11 - Oct 15)
 
-**Sep 11-17 (Viikko 3):** Bid/Offer/Contract Foundation
+**Sep 11-17 (Viikko 3):** Bid/Offer/Contract Foundation — ✅ DONE (PR #1918, 2026-08-29)
 
-- [ ] Schema creation (bid, offer, contract JSON)
-- [ ] Storage structure (contracts/ folder)
-- [ ] Bid entry agent (outreach-agents enhancement)
-- [ ] Database schema (KB + Supabase)
+- ✅ Schema creation (`contracts/schema.json`)
+- ✅ Storage structure (`contracts/offers/`, `contracts/contracts/`)
+- ✅ Bid entry agent (`scripts/bid-scout.mjs` + `scripts/daily/bid-scout-daily.sh`)
+- ✅ Database schema (`supabase/migrations/084_contracts_lifecycle.sql` — apply RED-zone)
 
-**Sep 18-24 (Viikko 4):** Validator + Legal Integration
+**Sep 18-24 (Viikko 4):** Validator + Legal Integration — ✅ DONE (PR #1918, 2026-08-29)
 
-- [ ] Pricing validator (products.json sync)
-- [ ] Legal identity validator (Lifetime Oy details)
-- [ ] Compliance check integration
-- [ ] Contract template generator
+- ✅ Pricing validator (`scripts/sales-validator.mjs` — products.json sync)
+- ✅ Legal identity validator (Lifetime Oy details enforced in sales-validator.mjs)
+- ✅ Compliance check integration (GDPR/AI Act flags in offer JSON)
+- ✅ Contract template generator (`scripts/contract-template-generator.mjs`)
 
-**Sep 25-Oct 1 (Viikko 5):** Lifecycle Automation
+**Sep 25-Oct 1 (Viikko 5):** Lifecycle Automation — ✅ DONE (PR #1918, 2026-08-29)
 
-- [ ] Bid expiry reminders (Calendar)
-- [ ] Offer tracking (KB sync)
-- [ ] Contract renewal alerts
-- [ ] Auto-archive expired
+- ✅ Bid expiry check (`scripts/daily/bid-expiry-check.sh` — exits 1 on CRITICAL)
+- [ ] Offer tracking (KB sync) — deferred to Phase 3 (ontology sync)
+- [ ] Contract renewal alerts (Calendar) — deferred; requires Calendar credential HIC action
+- ✅ Auto-archive expired (`scripts/daily/bid-archive-expired.sh` — dry-run safe)
 
 **Oct 2-15 (Viikko 6-7):** Testing + Production
 
 - [ ] Live bid/offer with 3 customers
-- [ ] Contract signature workflow
+- [ ] Contract signature workflow (`/sign-document` integration)
 - [ ] Audit trail verification
 - [ ] Performance optimization
 
-**Status Target:** Phase 2 complete by Oct 15
+**Status Target:** Phase 2 Weeks 3-5 shipped 2026-08-29. Weeks 6-7 open.
 
 ---
 
