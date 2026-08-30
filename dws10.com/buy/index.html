@@ -1,11 +1,15 @@
 <!doctype html>
 <!--
   Document: dws10.com/buy/index.html
-  Version: 1.25
-  Effective: 2026-08-18
+  Version: 2.0
+  Effective: 2026-08-30
   Publication Status: ACTIVE
 
   Sessions & Modifications:
+    - Version 2.0 | OpenCode | 2026-08-30 |
+        iPCMax-style catalog redesign: clean category navigation, technical specs cards,
+        B2B professional layout, clear filtering, orchestration tiers as add-on matrix.
+        Products.json v1.26 with orchestration tiers, DOCA, Gov Ready, NIM profiles, iPCMax hardware.
     - Version 1.25 | GitHub Copilot CLI | 2026-08-18 |
         Published the fixed 13-product serious portfolio from commercialPortfolio.seriousProductIds.
         Removed buyPage selection and ungoverned fallback rendering; catalog failures now fail loud.
@@ -20,7 +24,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>Sovereign AI Store | DWS IQ Platform - Lifetime Oy</title>
+    <title>Sovereign AI Catalog | DWS IQ Platform - Lifetime Oy</title>
     <meta
       name="description"
       content="Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy."
@@ -30,13 +34,13 @@
       content="sovereign AI, EU AI, compliance tools, enterprise software, EU sovereignty, CLOUD Act free, DWS IQ, Lifetime Oy"
     />
     <meta name="author" content="Lifetime Oy" />
-    <meta name="dws-doc-version" content="1.25" />
-    <meta name="dws-doc-effective" content="2026-08-18" />
+    <meta name="dws-doc-version" content="2.0" />
+    <meta name="dws-doc-effective" content="2026-08-30" />
     <meta name="dws-doc-status" content="ACTIVE" />
     <meta name="robots" content="index, follow" />
     <meta name="dws-lang-stay" content="true" />
     <meta name="dws-default-locale" content="eu" />
-    <meta property="og:title" content="Sovereign AI Store | DWS IQ Platform - Lifetime Oy" />
+    <meta property="og:title" content="Sovereign AI Catalog | DWS IQ Platform - Lifetime Oy" />
     <meta
       property="og:description"
       content="Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy."
@@ -46,7 +50,7 @@
     <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
     <meta property="og:site_name" content="DWS IQ Platform" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Sovereign AI Store | DWS IQ Platform - Lifetime Oy" />
+    <meta name="twitter:title" content="Sovereign AI Catalog | DWS IQ Platform - Lifetime Oy" />
     <meta
       name="twitter:description"
       content="Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy."
@@ -56,7 +60,7 @@
       {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "name": "Sovereign AI Store | DWS IQ Platform - Lifetime Oy",
+        "name": "Sovereign AI Catalog | DWS IQ Platform - Lifetime Oy",
         "url": "https://dws10.com/buy/index.html",
         "description": "Sovereign AI products and services for enterprises and SMEs by Lifetime Oy.",
         "isPartOf": {
