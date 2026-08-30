@@ -6,16 +6,23 @@
  *
  * Architecture:
  *   - LITE tier: High-volume classification, simple extraction, safety scoring
- *     → Gemini 2.5 Flash-Lite, Llama 3.3 8B, Qwen 2.5 7B (Ollama local)
+ *     → qwen3-coder:30b (Ollama local), Gemini 2.5 Flash-Lite, Llama 3.3 8B
  *   - STANDARD tier: Industry compliance, report synthesis, multi-step reasoning
- *     → Claude Haiku 4.5, Gemini 2.5 Flash, Llama 3.3 70B (Groq)
- *   - HEAVY tier: Complex regulatory analysis, novel problem-solving, multi-agent orchestration
- *     → Claude Sonnet 4, Gemini 3 Pro, Qwen 32B (Ollama local)
+ *     → DiffusionGemma / Qwen3.6-35B-A3B (vLLM), qwen3-coder:30b (Ollama local),
+ *       Llama 3.3 70B (Groq), Claude Haiku 4.5, Gemini 2.5 Flash
+ *   - HEAVY tier: Complex regulatory analysis, novel problem-solving, orchestration
+ *     → Qwen3.6-35B-A3B (vLLM), nemotron-3-super (Ollama local), Claude Sonnet 5,
+ *       Gemini 3 Pro
+ *
+ * Selection is depth-aware: a model is only eligible if its contextWindow can hold
+ * the estimated input PLUS the tier's reserved output. See `modelFitsDepth`.
  *
  * Acer Veriton GN100 constraints:
  *   - 3TB NVMe → ~1.5TB available for models after OS + Firehorse DMS (1TB reserved)
  *   - 128GB unified RAM → models share memory with Docker containers + Ollama
- *   - Local models via Ollama reduce latency and cloud costs to €0/hour
+ *   - Local models remove the metered per-token API bill. They do NOT make tokens
+ *     free: electricity, hardware amortisation, serving and maintenance remain.
+ *     Canonical wording: kb/wiki/concepts/bounded-not-zero-sovereign-compute-economics.md
  *
  * Control Room / Situation Room use:
  *   - Control Room (field ops): LITE models for real-time alerts, STANDARD for dispatch routing
@@ -92,6 +99,37 @@ export const ACER_GN100_BUDGET: EdgeResourceBudget = {
   availableModelRamGb: 98, // ~98GB headroom for model inference
 };
 
+// ============ DEPLOYED OLLAMA MODELS (single source of truth) ============
+
+/**
+ * The Ollama models actually pulled on the DGX Spark / GN-100.
+ *
+ * DRIFT INCIDENT (31.07.2026). Four places named local models and no two agreed:
+ * this catalog listed `qwen2.5:7b` and `qwen2.5:32b`, which are NOT on the box;
+ * `infrastructure/dgx-spark/{deploy.sh,docker-compose.yml,first-boot.sh}` pull
+ * `nemotron-3-super` + `qwen3-coder:30b`; `scripts/daily/check-ollama-models.sh`
+ * enforces that same pair; and `.env.example` documented no OLLAMA_MODEL at all.
+ * This was not cosmetic — `selectModel()` would return `qwen2.5:7b` for every
+ * lite-tier agent on a host that has never had it, so the call fails or silently
+ * falls through to a metered cloud provider. The sovereign path was selectable in
+ * name only.
+ *
+ * Anything added here must be pulled by `deploy.sh --models` AND listed in
+ * `check-ollama-models.sh` REQUIRED_MODELS. `model-selector.test.ts` asserts the
+ * catalog's `ollama-local` ids are exactly this set, so the drift cannot silently
+ * return.
+ *
+ * NOT the same model, do not conflate: `nemotron-cascade-2-30b-a3b` appears in
+ * `docs/field-notes/2026-07-30-hybrid-attention-*` as an EXTERNAL market signal
+ * (hybrid attention / long-context). It is not deployed by DWS and is not here.
+ */
+export const OLLAMA_DEPLOYED_MODELS = {
+  /** Deep/orchestrator path — docker-compose `OLLAMA_MODEL` */
+  deep: 'nemotron-3-super',
+  /** Fast path — docker-compose `OLLAMA_MODEL_FAST` */
+  fast: 'qwen3-coder:30b',
+} as const;
+
 // ============ MODEL CATALOG ============
 
 /**
@@ -105,13 +143,16 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
     temperature: 0.2,
     models: [
       {
-        id: 'qwen2.5:7b',
+        // The fast model actually resident on the Spark/GN-100
+        // (docker-compose OLLAMA_MODEL_FAST). Replaces the phantom `qwen2.5:7b`
+        // that was never pulled — see OLLAMA_DEPLOYED_MODELS.
+        id: OLLAMA_DEPLOYED_MODELS.fast,
         provider: 'ollama-local',
-        diskGb: 4.7,
-        ramGb: 5,
+        diskGb: 19,
+        ramGb: 21,
         costPer1MInput: 0,
         costPer1MOutput: 0,
-        contextWindow: 32768,
+        contextWindow: 262144,
         supportsTools: true,
       },
       {
@@ -187,6 +228,20 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
         supportsTools: true,
       },
       {
+        // Ollama fallback for hosts with no vLLM endpoint. Standard tier
+        // previously had NO ollama-local option, so an Ollama-only Spark fell
+        // straight through both vLLM entries to metered Groq/Anthropic — the
+        // opposite of the local-first intent. See OLLAMA_DEPLOYED_MODELS.
+        id: OLLAMA_DEPLOYED_MODELS.fast,
+        provider: 'ollama-local',
+        diskGb: 19,
+        ramGb: 21,
+        costPer1MInput: 0,
+        costPer1MOutput: 0,
+        contextWindow: 262144,
+        supportsTools: true,
+      },
+      {
         id: 'llama-3.3-70b-versatile',
         provider: 'groq',
         diskGb: 0,
@@ -250,13 +305,20 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
         supportsTools: true,
       },
       {
-        id: 'qwen2.5:32b',
+        // Deep/orchestrator path on the Spark/GN-100 (docker-compose
+        // OLLAMA_MODEL). Replaces the phantom `qwen2.5:32b` which was never
+        // pulled and whose nearest relative (qwen2.5-coder:32b) deploy.sh
+        // --models-cleanup actively removes. See OLLAMA_DEPLOYED_MODELS.
+        id: OLLAMA_DEPLOYED_MODELS.deep,
         provider: 'ollama-local',
-        diskGb: 19,
-        ramGb: 20,
+        // ~87GB pull per Deploy-DgxSpark.ps1; MoE 120B total / 12.7B active per
+        // heartbeat.ts. Tight against the 98GB RAM budget by design — if it stops
+        // fitting, isLocalModelFeasible() should reject it rather than OOM the box.
+        diskGb: 87,
+        ramGb: 90,
         costPer1MInput: 0,
         costPer1MOutput: 0,
-        contextWindow: 32768,
+        contextWindow: 131072,
         supportsTools: true,
       },
       {
@@ -323,6 +385,7 @@ export const AGENT_TIER_MAP: Record<string, ModelTier> = {
   'competitor-surveillance': 'standard', // Market intelligence
   'content-brief': 'standard', // Content generation briefs
   'deepwiki-extractor': 'standard', // Document extraction
+  'graph-extract': 'standard', // Causal/relational triple extraction (graph engineering)
   'emissions-data-analyst': 'standard', // Emissions data processing
   'compliance-researcher': 'standard', // Regulatory research
   'sales-outreach': 'standard', // Sales email generation
@@ -367,6 +430,23 @@ export interface ModelSelection {
   estimatedCostEur: number;
   /** Whether this is a local (Acer) or cloud model */
   isLocal: boolean;
+  /** Context window of the selected model, in tokens */
+  contextWindow: number;
+  /** Context the caller declared it needs (input + maxTokens), in tokens */
+  requiredContextTokens: number;
+}
+
+/**
+ * Can this model hold the work?
+ *
+ * Depth is input PLUS the tier's reserved output — a model whose window exactly
+ * equals the prompt cannot answer. Until 31.07.2026 `contextWindow` was declared
+ * on every model and read by nothing: selection had no depth dimension at all, so
+ * a 200k-token task would be routed to a 32k model and fail at call time rather
+ * than at selection time.
+ */
+export function modelFitsDepth(model: ModelOption, requiredContextTokens: number): boolean {
+  return model.contextWindow >= requiredContextTokens;
 }
 
 /**
@@ -394,11 +474,16 @@ export function selectModel(
   const tierConfig = MODEL_CATALOG[tier];
   const requiresTools = options?.requiresTools ?? false;
   const estimatedInput = options?.estimatedInputTokens ?? 1000;
+  // Depth requirement = what goes in plus what the tier reserves for the answer.
+  const requiredContextTokens = estimatedInput + tierConfig.maxTokens;
 
   // Try each model in preference order
   for (const model of tierConfig.models) {
     // Skip models that don't support tools if tools are required
     if (requiresTools && !model.supportsTools) continue;
+
+    // Skip models that cannot hold the task at this depth
+    if (!modelFitsDepth(model, requiredContextTokens)) continue;
 
     // Check provider availability
     if (!isProviderAvailable(model.provider)) continue;
@@ -415,12 +500,14 @@ export function selectModel(
     return {
       modelId: model.id,
       provider: model.provider,
-      reason: `${tier} tier, ${model.provider === 'ollama-local' || model.provider === 'vllm-local' ? 'local (€0/hr)' : `cloud (€${costPerCall.toFixed(4)}/call)`}`,
+      reason: `${tier} tier, ${model.provider === 'ollama-local' || model.provider === 'vllm-local' ? 'local (no metered API cost)' : `cloud (€${costPerCall.toFixed(4)}/call)`}, ${model.contextWindow} ctx >= ${requiredContextTokens} required`,
       tier,
       maxTokens: tierConfig.maxTokens,
       temperature: tierConfig.temperature,
       estimatedCostEur: costPerCall,
       isLocal: model.provider === 'ollama-local' || model.provider === 'vllm-local',
+      contextWindow: model.contextWindow,
+      requiredContextTokens,
     };
   }
 
@@ -434,6 +521,9 @@ export function selectModel(
 
     for (const model of fallbackConfig.models) {
       if (requiresTools && !model.supportsTools) continue;
+      // Re-derive depth against the fallback tier's own output reservation.
+      const fallbackRequired = estimatedInput + fallbackConfig.maxTokens;
+      if (!modelFitsDepth(model, fallbackRequired)) continue;
       if (!isProviderAvailable(model.provider)) continue;
       if (
         (model.provider === 'ollama-local' || model.provider === 'vllm-local') &&
@@ -455,27 +545,94 @@ export function selectModel(
       return {
         modelId: model.id,
         provider: model.provider,
-        reason: `fallback from ${tier} → ${fallbackTier} (no ${tier} provider available)`,
+        reason: `fallback from ${tier} → ${fallbackTier} (no ${tier} model both available and deep enough for ${requiredContextTokens} tokens)`,
         tier: fallbackTier,
         maxTokens: fallbackConfig.maxTokens,
         temperature: fallbackConfig.temperature,
         estimatedCostEur: costPerCall,
         isLocal: model.provider === 'ollama-local' || model.provider === 'vllm-local',
+        contextWindow: model.contextWindow,
+        requiredContextTokens: estimatedInput + fallbackConfig.maxTokens,
       };
     }
   }
 
   // Ultimate fallback: placeholder
-  logger.error('No LLM provider available for any tier', { agent: agentName });
+  const deepEnoughAnywhere = Object.values(MODEL_CATALOG).some((cfg) =>
+    cfg.models.some((m) => modelFitsDepth(m, requiredContextTokens)),
+  );
+  logger.error('No LLM selected for any tier', {
+    agent: agentName,
+    requiredContextTokens,
+    cause: deepEnoughAnywhere
+      ? 'no provider available'
+      : `no model in the catalog has a context window >= ${requiredContextTokens} tokens`,
+  });
   return {
     modelId: 'placeholder',
     provider: 'openai-compatible',
-    reason: 'no provider available — deterministic-only mode',
+    reason: deepEnoughAnywhere
+      ? 'no provider available — deterministic-only mode'
+      : `no model deep enough for ${requiredContextTokens} tokens — deterministic-only mode`,
     tier,
     maxTokens: 0,
     temperature: 0,
     estimatedCostEur: 0,
     isLocal: false,
+    contextWindow: 0,
+    requiredContextTokens,
+  };
+}
+
+/** The forced-escalation model for `escalateToClaude()` — not part of the normal tier fallback chain. */
+const ESCALATION_MODEL: ModelOption = {
+  id: 'claude-opus-5',
+  provider: 'anthropic',
+  diskGb: 0,
+  ramGb: 0,
+  costPer1MInput: 5.0,
+  costPer1MOutput: 25.0,
+  contextWindow: 200000,
+  supportsTools: true,
+};
+
+/**
+ * Force escalation to Claude Opus 5 via the metered Anthropic API key.
+ *
+ * For the hardest ~5% of calls that a local HEAVY model (or the default
+ * `claude-sonnet-5` cloud fallback in `MODEL_CATALOG.heavy`) is not trusted to
+ * carry — an explicit, opt-in path, not part of the normal tier fallback chain.
+ * Gated on `ANTHROPIC_API_KEY`; never routes to the Claude Pro subscription.
+ *
+ * Throws if `ANTHROPIC_API_KEY` is not set — callers should check
+ * `isProviderAvailable('anthropic')` first if they want to fall back instead
+ * of failing loud.
+ */
+export function escalateToClaude(agentName: string): ModelSelection {
+  if (!isProviderAvailable('anthropic')) {
+    throw new Error(
+      `escalateToClaude(${agentName}): ANTHROPIC_API_KEY not set — cannot escalate to the metered API. Never falls back to the Claude Pro subscription.`,
+    );
+  }
+
+  const tierConfig = MODEL_CATALOG.heavy;
+  const estimatedInput = 2000;
+  const requiredContextTokens = estimatedInput + tierConfig.maxTokens;
+  const costPerCall =
+    (estimatedInput / 1_000_000) * ESCALATION_MODEL.costPer1MInput +
+    (tierConfig.maxTokens / 1_000_000) * ESCALATION_MODEL.costPer1MOutput;
+
+  return {
+    modelId: ESCALATION_MODEL.id,
+    provider: 'anthropic',
+    reason: `explicit escalation for ${agentName} — forced to ${ESCALATION_MODEL.id} via metered API key, bypassing the normal tier fallback chain`,
+    tier: 'heavy',
+    maxTokens: tierConfig.maxTokens,
+    temperature: tierConfig.temperature,
+    estimatedCostEur: costPerCall,
+    isLocal: false,
+    contextWindow: ESCALATION_MODEL.contextWindow,
+    requiredContextTokens,
   };
 }
 

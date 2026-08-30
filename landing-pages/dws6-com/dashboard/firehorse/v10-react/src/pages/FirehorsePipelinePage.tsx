@@ -45,7 +45,7 @@ const CORRELATION_COLORS: Record<string, string> = {
   ULTRA: 'bg-red-100 text-red-800 font-bold',
   HIGH: 'bg-orange-100 text-orange-800',
   MEDIUM: 'bg-yellow-100 text-yellow-800',
-  LOW: 'bg-gray-100 text-gray-600',
+  LOW: 'bg-border text-fg-muted',
 };
 
 export function FirehorsePipelinePage() {
@@ -91,26 +91,26 @@ export function FirehorsePipelinePage() {
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Firehorse Pipeline</h2>
-        <p className="text-sm text-gray-500 mt-1">Omnichannel sales automation &middot; Lead pipeline &amp; signal feed</p>
+        <h2 className="text-2xl font-bold text-foreground">Firehorse Pipeline</h2>
+        <p className="text-sm text-fg-muted mt-1">Omnichannel sales automation &middot; Lead pipeline &amp; signal feed</p>
       </div>
 
       {/* Pipeline summary cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <div className="card">
-          <p className="text-xs text-gray-500 uppercase tracking-wider">Total Leads</p>
-          <p className="text-2xl font-bold text-gray-900">{leads.length}</p>
+          <p className="text-xs text-fg-muted uppercase tracking-wider">Total Leads</p>
+          <p className="text-2xl font-bold text-foreground">{leads.length}</p>
         </div>
         <div className="card">
-          <p className="text-xs text-gray-500 uppercase tracking-wider">Engaged</p>
+          <p className="text-xs text-fg-muted uppercase tracking-wider">Engaged</p>
           <p className="text-2xl font-bold text-green-600">{leadsByState['Engaged'] || 0}</p>
         </div>
         <div className="card">
-          <p className="text-xs text-gray-500 uppercase tracking-wider">Meetings Booked</p>
+          <p className="text-xs text-fg-muted uppercase tracking-wider">Meetings Booked</p>
           <p className="text-2xl font-bold text-emerald-600">{leadsByState['Meeting_Booked'] || 0}</p>
         </div>
         <div className="card">
-          <p className="text-xs text-gray-500 uppercase tracking-wider">Pending Signals</p>
+          <p className="text-xs text-fg-muted uppercase tracking-wider">Pending Signals</p>
           <p className="text-2xl font-bold text-orange-600">{signals.filter(s => s.status === 'pending').length}</p>
         </div>
       </div>
@@ -118,7 +118,7 @@ export function FirehorsePipelinePage() {
       {/* Conversion funnel */}
       {leads.length > 0 && (
         <div className="card mb-6">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">Pipeline Funnel</h3>
+          <h3 className="text-sm font-semibold text-foreground mb-3">Pipeline Funnel</h3>
           <div className="space-y-2">
             {[
               { label: 'New', key: 'New', color: 'bg-blue-500' },
@@ -131,8 +131,8 @@ export function FirehorsePipelinePage() {
               const pct = leads.length > 0 ? Math.round((count / leads.length) * 100) : 0;
               return (
                 <div key={stage.key} className="flex items-center gap-3">
-                  <span className="text-xs text-gray-500 w-28 text-right">{stage.label}</span>
-                  <div className="flex-1 bg-gray-100 rounded-full h-5 overflow-hidden">
+                  <span className="text-xs text-fg-muted w-28 text-right">{stage.label}</span>
+                  <div className="flex-1 bg-border rounded-full h-5 overflow-hidden">
                     <div
                       className={`h-full ${stage.color} rounded-full transition-all duration-500 flex items-center justify-end pr-2`}
                       style={{ width: `${Math.max(pct, 2)}%` }}
@@ -142,7 +142,7 @@ export function FirehorsePipelinePage() {
                       )}
                     </div>
                   </div>
-                  <span className="text-xs text-gray-400 w-10">{pct}%</span>
+                  <span className="text-xs text-fg-muted w-10">{pct}%</span>
                 </div>
               );
             })}
@@ -151,11 +151,11 @@ export function FirehorsePipelinePage() {
       )}
 
       {/* Tab selector */}
-      <div className="flex bg-gray-100 rounded-lg p-1 mb-4 w-fit">
+      <div className="flex bg-border rounded-lg p-1 mb-4 w-fit">
         <button
           onClick={() => setTab('leads')}
           className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
-            tab === 'leads' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600 hover:text-gray-900'
+            tab === 'leads' ? 'bg-surface text-foreground shadow-sm' : 'text-fg-muted hover:text-foreground'
           }`}
         >
           Leads ({leads.length})
@@ -163,7 +163,7 @@ export function FirehorsePipelinePage() {
         <button
           onClick={() => setTab('signals')}
           className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
-            tab === 'signals' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600 hover:text-gray-900'
+            tab === 'signals' ? 'bg-surface text-foreground shadow-sm' : 'text-fg-muted hover:text-foreground'
           }`}
         >
           Signals ({signals.length})
@@ -172,42 +172,42 @@ export function FirehorsePipelinePage() {
 
       {loading ? (
         <div className="card animate-pulse">
-          <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
-          <div className="h-32 bg-gray-200 rounded"></div>
+          <div className="h-4 bg-fg-muted/20 rounded w-3/4 mb-4"></div>
+          <div className="h-32 bg-fg-muted/20 rounded"></div>
         </div>
       ) : tab === 'leads' ? (
         /* Leads table */
         <div className="card overflow-x-auto">
           {leads.length === 0 ? (
-            <p className="text-gray-500 text-center py-8">No leads yet. Use POST /api/v1/firehorse/leads to add leads.</p>
+            <p className="text-fg-muted text-center py-8">No leads yet. Use POST /api/v1/firehorse/leads to add leads.</p>
           ) : (
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">Contact</th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">Company</th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">Country</th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">State</th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">Created</th>
+                <tr className="border-b border-border">
+                  <th className="text-left py-2 px-3 text-fg-muted font-medium">Contact</th>
+                  <th className="text-left py-2 px-3 text-fg-muted font-medium">Company</th>
+                  <th className="text-left py-2 px-3 text-fg-muted font-medium">Country</th>
+                  <th className="text-left py-2 px-3 text-fg-muted font-medium">State</th>
+                  <th className="text-left py-2 px-3 text-fg-muted font-medium">Created</th>
                 </tr>
               </thead>
               <tbody>
                 {leads.map(lead => (
-                  <tr key={lead.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <tr key={lead.id} className="border-b border-border hover:bg-background">
                     <td className="py-2 px-3">
-                      <div className="font-medium text-gray-900">
+                      <div className="font-medium text-foreground">
                         {lead.first_name || ''} {lead.last_name || ''}
                       </div>
-                      <div className="text-gray-500 text-xs">{lead.email}</div>
+                      <div className="text-fg-muted text-xs">{lead.email}</div>
                     </td>
-                    <td className="py-2 px-3 text-gray-700">{lead.company || '—'}</td>
-                    <td className="py-2 px-3 text-gray-700">{lead.country}</td>
+                    <td className="py-2 px-3 text-foreground">{lead.company || '—'}</td>
+                    <td className="py-2 px-3 text-foreground">{lead.country}</td>
                     <td className="py-2 px-3">
-                      <span className={`px-2 py-0.5 rounded-full text-xs ${STATE_COLORS[lead.state] || 'bg-gray-100 text-gray-600'}`}>
+                      <span className={`px-2 py-0.5 rounded-full text-xs ${STATE_COLORS[lead.state] || 'bg-border text-fg-muted'}`}>
                         {lead.state.replace(/_/g, ' ')}
                       </span>
                     </td>
-                    <td className="py-2 px-3 text-gray-500 text-xs">
+                    <td className="py-2 px-3 text-fg-muted text-xs">
                       {new Date(lead.created_at).toLocaleDateString()}
                     </td>
                   </tr>
@@ -220,25 +220,25 @@ export function FirehorsePipelinePage() {
         /* Signals table */
         <div className="card overflow-x-auto">
           {signals.length === 0 ? (
-            <p className="text-gray-500 text-center py-8">No signals collected yet.</p>
+            <p className="text-fg-muted text-center py-8">No signals collected yet.</p>
           ) : (
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">Company</th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">Signal</th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">Correlation</th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">Status</th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">Date</th>
+                <tr className="border-b border-border">
+                  <th className="text-left py-2 px-3 text-fg-muted font-medium">Company</th>
+                  <th className="text-left py-2 px-3 text-fg-muted font-medium">Signal</th>
+                  <th className="text-left py-2 px-3 text-fg-muted font-medium">Correlation</th>
+                  <th className="text-left py-2 px-3 text-fg-muted font-medium">Status</th>
+                  <th className="text-left py-2 px-3 text-fg-muted font-medium">Date</th>
                 </tr>
               </thead>
               <tbody>
                 {signals.map(signal => (
-                  <tr key={signal.id} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-2 px-3 font-medium text-gray-900">{signal.company_name}</td>
-                    <td className="py-2 px-3 text-gray-700">{signal.signal_type}</td>
+                  <tr key={signal.id} className="border-b border-border hover:bg-background">
+                    <td className="py-2 px-3 font-medium text-foreground">{signal.company_name}</td>
+                    <td className="py-2 px-3 text-foreground">{signal.signal_type}</td>
                     <td className="py-2 px-3">
-                      <span className={`px-2 py-0.5 rounded-full text-xs ${CORRELATION_COLORS[signal.correlation] || 'bg-gray-100 text-gray-600'}`}>
+                      <span className={`px-2 py-0.5 rounded-full text-xs ${CORRELATION_COLORS[signal.correlation] || 'bg-border text-fg-muted'}`}>
                         {signal.correlation}
                       </span>
                     </td>
@@ -251,7 +251,7 @@ export function FirehorsePipelinePage() {
                         {signal.status}
                       </span>
                     </td>
-                    <td className="py-2 px-3 text-gray-500 text-xs">
+                    <td className="py-2 px-3 text-fg-muted text-xs">
                       {new Date(signal.created_at).toLocaleDateString()}
                     </td>
                   </tr>

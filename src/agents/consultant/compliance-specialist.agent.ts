@@ -38,8 +38,7 @@ export class ComplianceSpecialistAgent extends BaseAgent {
       ],
       model: 'llama-3.3-70b-versatile',
       modelTier: 'standard',
-      autonomyPhase: 'advisor',
-      notify: { channels: ['email', 'in_app'], maxPerHour: 5, maxPerDay: 15 },
+      autonomyPhase: 'silent_pilot',
     });
     this.soulPrompt = SOUL;
   }
@@ -82,7 +81,7 @@ Assess regulatory exposure, identify gaps, and recommend DWS IQ automation oppor
     const llmResponse = await this.callLLM(prompt);
     const durationMs = Date.now() - startTime;
 
-    let parsed: Record<string, unknown> = {};
+    let parsed: Record<string, unknown>;
     try {
       parsed = JSON.parse(llmResponse.content);
     } catch {

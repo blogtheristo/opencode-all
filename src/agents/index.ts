@@ -63,11 +63,14 @@ import { AuditorAgent } from './auditor.agent.js';
 import { VisionOracleAgent } from './vision-oracle.agent.js';
 import { ChronosAgent } from './chronos.agent.js';
 import { IndustryAnalystAgent } from './industry-analyst.agent.js';
+import { HicContentAuditAgent } from './hic-content-audit.agent.js';
 import { OutreachLeadFinderAgent } from './outreach-lead-finder.agent.js';
 import { OutreachMessageCrafterAgent } from './outreach-message-crafter.agent.js';
 import { OutreachExecutorAgent } from './outreach-executor.agent.js';
 import { OutreachOrchestratorAgent } from './outreach-orchestrator.agent.js';
 import { OutreachImproverAgent } from './outreach-improver.agent.js';
+import { SmartFactoryAgent } from './smart-factory.agent.js';
+import { SalesManagerNewsletterAgent } from './sales-manager-newsletter.agent.js';
 import { WorldModelLoopAgent } from './world-model/world-model-loop.agent.js';
 // Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
 import { AegisAgent } from './aegis.agent.js';
@@ -75,15 +78,16 @@ import { VestaAgent } from './vesta.agent.js';
 // Consultant Role Agents — 8 roles from Konsultin käsikirja 2026
 import {
   AIScopingConsultantAgent,
-  DWSDeploymentEngineerAgent,
   ComplianceSpecialistAgent,
+  DevOpsEngineerAgent,
+  DWSDeploymentEngineerAgent,
   EdgeAIEngineerAgent,
   EnterpriseModelEngineerAgent,
   GenAISolutionArchitectAgent,
-  DevOpsEngineerAgent,
   ProjectManagerAgent,
 } from './consultant/index.js';
 import { HelpdeskAgent } from './helpdesk.agent.js';
+import { VersionAuditAgent } from './version-audit.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import { withAgentSpan } from '../observability/tracing.js';
@@ -95,6 +99,9 @@ export class AgentRegistry {
   /** Track active delegations to prevent infinite loops */
   private activeDelegations: Map<string, number> = new Map();
   private static MAX_DELEGATION_DEPTH = 5;
+  
+  /** Track delegation history to provide better diagnostics */
+  private delegationHistory: Map<string, { agent: string; depth: number; timestamp: number }[]> = new Map();
 
   constructor() {
     this.registerDefaults();
@@ -126,7 +133,7 @@ export class AgentRegistry {
     return this.listAgents().filter((a) => a.capabilities.some((c) => c.includes(capability)));
   }
 
-  /**
+   /**
    * Execute an agent by name with delegation depth tracking.
    * DWS7: Prevents infinite delegation loops (A calls B calls A calls B...).
    */
@@ -135,89 +142,169 @@ export class AgentRegistry {
     context: AgentContext,
     input: Record<string, unknown>,
   ): Promise<AgentResponse> {
-    const agent = this.agents.get(name);
-    if (!agent) {
-      const available = Array.from(this.agents.keys()).join(', ');
-      throw new Error(`Agent "${name}" not found. Available agents: ${available}`);
-    }
-
-    // Track delegation depth to prevent infinite loops
-    const delegationKey = `${context.sessionId}:${name}`;
-    const currentDepth = this.activeDelegations.get(delegationKey) || 0;
-
-    if (currentDepth >= AgentRegistry.MAX_DELEGATION_DEPTH) {
-      logger.warn('Agent delegation depth limit reached', {
-        agent: name,
-        depth: currentDepth,
-        sessionId: context.sessionId,
-      });
-      return {
-        agentName: name,
-        result: {
-          error: 'Delegation depth limit reached',
-          maxDepth: AgentRegistry.MAX_DELEGATION_DEPTH,
-        },
-        confidence: 0,
-        reasoning: `Agent "${name}" was not executed because the delegation depth limit (${AgentRegistry.MAX_DELEGATION_DEPTH}) was reached. This prevents infinite agent delegation loops.`,
-        recommendations: ['Reduce delegation chain length or restructure agent workflow'],
-        metadata: { delegationDepth: currentDepth },
-      };
-    }
-
-    // Increment depth
-    this.activeDelegations.set(delegationKey, currentDepth + 1);
-
-    logger.info('Executing agent via registry', {
-      agent: name,
-      projectId: context.projectId,
-      userId: context.userId,
-      delegationDepth: currentDepth,
-    });
-
     try {
-      const result = await withAgentSpan(
-        name,
-        {
+      const agent = this.agents.get(name);
+      if (!agent) {
+        const available = Array.from(this.agents.keys()).join(', ');
+        const error = new Error(`Agent "${name}" not found. Available agents: ${available}`);
+        logger.error('Agent execution failed - agent not found', {
+          agent: name,
+          sessionId: context.sessionId,
+          error: error.message,
+        });
+        throw error;
+      }
+
+      // Validate context before execution
+      if (!context || typeof context !== 'object') {
+        const error = new Error('Invalid context: context must be a valid object');
+        logger.error('Agent execution failed - invalid context', {
+          agent: name,
+          error: error.message,
+        });
+        throw error;
+      }
+
+      // Validate input shape before execution. Per-agent semantic validation
+      // happens inside each agent's execute() via its private validateInput.
+      if (!input || typeof input !== 'object') {
+        const error = new Error('Invalid input: input must be a valid object');
+        logger.error('Agent execution failed - invalid input', {
+          agent: name,
+          sessionId: context.sessionId,
+          error: error.message,
+        });
+        throw error;
+      }
+
+      // Track delegation depth to prevent infinite loops
+      const delegationKey = `${context.sessionId}:${name}`;
+      const currentDepth = this.activeDelegations.get(delegationKey) || 0;
+
+      if (currentDepth >= AgentRegistry.MAX_DELEGATION_DEPTH) {
+        logger.warn('Agent delegation depth limit reached', {
+          agent: name,
+          depth: currentDepth,
+          sessionId: context.sessionId,
+        });
+        
+        // Log delegation history for debugging
+        const history = this.delegationHistory.get(context.sessionId) || [];
+        logger.debug('Delegation history for session', {
+          sessionId: context.sessionId,
+          history: history.map((h, i) => `Step ${i}: ${h.agent} (depth: ${h.depth})`),
+        });
+
+        return {
+          agentName: name,
+          result: {
+            error: 'Delegation depth limit reached',
+            maxDepth: AgentRegistry.MAX_DELEGATION_DEPTH,
+          },
+          confidence: 0,
+          reasoning: `Agent "${name}" was not executed because the delegation depth limit (${AgentRegistry.MAX_DELEGATION_DEPTH}) was reached. This prevents infinite agent delegation loops.`,
+          recommendations: ['Reduce delegation chain length or restructure agent workflow'],
+          metadata: { delegationDepth: currentDepth },
+        };
+      }
+
+      // Add to delegation history
+      const history = this.delegationHistory.get(context.sessionId) || [];
+      history.push({ agent: name, depth: currentDepth, timestamp: Date.now() });
+      this.delegationHistory.set(context.sessionId, history);
+
+      // Increment depth
+      this.activeDelegations.set(delegationKey, currentDepth + 1);
+
+      logger.info('Executing agent via registry', {
+        agent: name,
+        projectId: context.projectId,
+        userId: context.userId,
+        delegationDepth: currentDepth,
+      });
+
+      try {
+        const result = await withAgentSpan(
+          name,
+          {
+            orgId: context.orgId,
+            sessionId: context.sessionId,
+            delegationDepth: currentDepth,
+            // Forward a real verdict when the runtime already issued one (e.g. a
+            // KYA gate check before this call) instead of leaving the span to
+            // default to "ungated".
+            kya: context.agentRuntime?.kya,
+          },
+          async (span) => {
+            try {
+              const r = await agent.execute(context, input);
+              if (typeof r.confidence === 'number') {
+                span.setAttribute('dws.agent.confidence', r.confidence);
+              }
+              if (typeof r.metadata?.durationMs === 'number') {
+                span.setAttribute('dws.agent.duration_ms', r.metadata.durationMs);
+              }
+              return r;
+            } catch (executionError) {
+              logger.error('Agent execution failed', {
+                agent: name,
+                sessionId: context.sessionId,
+                error: executionError instanceof Error ? executionError.message : String(executionError),
+              });
+              throw executionError;
+            }
+          },
+        );
+
+        // Emit completion event
+        await eventBus.emit({
+          type: 'agent.execution_complete',
+          source: `agent:${name}`,
+          payload: {
+            agentName: name,
+            confidence: result.confidence,
+            durationMs: result.metadata?.durationMs,
+          },
+          priority: 'normal',
+          timestamp: new Date().toISOString(),
           orgId: context.orgId,
           sessionId: context.sessionId,
-          delegationDepth: currentDepth,
-        },
-        async (span) => {
-          const r = await agent.execute(context, input);
-          if (typeof r.confidence === 'number') {
-            span.setAttribute('dws.agent.confidence', r.confidence);
-          }
-          if (typeof r.metadata?.durationMs === 'number') {
-            span.setAttribute('dws.agent.duration_ms', r.metadata.durationMs);
-          }
-          return r;
-        },
-      );
+        });
 
-      // Emit completion event
-      await eventBus.emit({
-        type: 'agent.execution_complete',
-        source: `agent:${name}`,
-        payload: {
-          agentName: name,
-          confidence: result.confidence,
-          durationMs: result.metadata?.durationMs,
-        },
-        priority: 'normal',
-        timestamp: new Date().toISOString(),
-        orgId: context.orgId,
-        sessionId: context.sessionId,
-      });
-
-      return result;
-    } finally {
-      // Decrement depth (or remove if back to 0)
-      const newDepth = (this.activeDelegations.get(delegationKey) || 1) - 1;
-      if (newDepth <= 0) {
-        this.activeDelegations.delete(delegationKey);
-      } else {
-        this.activeDelegations.set(delegationKey, newDepth);
+        return result;
+      } catch (executionError) {
+        logger.error('Agent execution failed at registry level', {
+          agent: name,
+          sessionId: context.sessionId,
+          error: executionError instanceof Error ? executionError.message : String(executionError),
+        });
+        throw executionError;
+      } finally {
+        // Decrement depth (or remove if back to 0)
+        const newDepth = (this.activeDelegations.get(delegationKey) || 1) - 1;
+        if (newDepth <= 0) {
+          this.activeDelegations.delete(delegationKey);
+          // Remove from history when complete
+          const history = this.delegationHistory.get(context.sessionId) || [];
+          if (history.length > 0) {
+            history.pop();
+            if (history.length === 0) {
+              this.delegationHistory.delete(context.sessionId);
+            } else {
+              this.delegationHistory.set(context.sessionId, history);
+            }
+          }
+        } else {
+          this.activeDelegations.set(delegationKey, newDepth);
+        }
       }
+    } catch (error) {
+      logger.error('Registry execution failed', {
+        agent: name,
+        sessionId: context.sessionId,
+        error: error instanceof Error ? error.message : String(error),
+      });
+      throw error;
     }
   }
 
@@ -305,12 +392,18 @@ export class AgentRegistry {
     // Universal industry coverage — one parameterized agent for all 25 industries,
     // closing the gap for the 12 without a dedicated pantheon specialist.
     this.register(new IndustryAnalystAgent());
+    // DWS Content Production Standard — binary HIC pre-publication gate (13 points,
+    // APPROVED / CORRECTABLE, no exceptions; HIC remains the final approver).
+    this.register(new HicContentAuditAgent());
     // Outreach Pipeline — 4-step DGX Spark-powered B2B outreach (2026-06-15)
     this.register(new OutreachLeadFinderAgent()); // Step 1: find + score EU leads
     this.register(new OutreachMessageCrafterAgent()); // Step 2: craft personalized email + LinkedIn drafts
     this.register(new OutreachExecutorAgent()); // Step 3: deliver via SES / queue LinkedIn
     this.register(new OutreachOrchestratorAgent()); // Coordinator: chains Steps 1–3
     this.register(new OutreachImproverAgent()); // Outer loop: analyze outcomes → propose SKILL.md diffs
+    // Smart Factory for Sales — Firehorse Omnichannel (catalog → match → multi-channel → booking)
+    this.register(new SmartFactoryAgent());
+    this.register(new SalesManagerNewsletterAgent()); // Stage 2: synthesize market_signals + news-to-signal into sales-manager.md format
     // Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
     this.register(new AegisAgent()); // Vulnerability & patch SLA triage
     this.register(new VestaAgent()); // Business-critical systems registry
@@ -330,6 +423,9 @@ export class AgentRegistry {
     if (process.env.HELPDESK_AGENT_ENABLED === 'true' || process.env.NODE_ENV !== 'production') {
       this.register(new HelpdeskAgent()); // Support triage — drafts reply + recommendation; never sends
     }
+
+    // Version audit agent
+    this.register(new VersionAuditAgent());
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,

@@ -79,7 +79,7 @@ Create a deployment plan with integration points, prerequisites, and timeline.`;
     const llmResponse = await this.callLLM(prompt);
     const durationMs = Date.now() - startTime;
 
-    let parsed: Record<string, unknown> = {};
+    let parsed: Record<string, unknown>;
     try {
       parsed = JSON.parse(llmResponse.content);
     } catch {

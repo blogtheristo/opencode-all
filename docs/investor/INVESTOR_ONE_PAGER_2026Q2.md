@@ -2,15 +2,15 @@
 
 _Buyer-facing offer: **DWS 365 Skilled Agents** & **Firehorse 365 Skilled Agents**. Platform underneath: **DWS IQ**._
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
-- Version: 1.3 | Tool: Claude Code (Opus 4.8, merge-integrated) | Session: claude/ceo-review-tech-partner-2jSy9 | Date: 07.06.2026 | Changes: Added the positioning line to the headline (EN .md + .html in lockstep) — "software-led, priced like labor, with software margins; the product does the work and delivers the signed artifact, a thin service layer just gets the customer live." Canonical: POSITIONING.md (Truth Standard §2 row 17).
+- Version: 1.4 | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Synced the headline gross-margin claim from the stale conservative ">80% at list" to the model-accurate "~85% at list (82–89% across SKUs, bundle-weighted ≈85%)" per data-room-2026Q2/PRICING_MODEL.md §2 (baseline ~85%). Inference-cost sensitivity bullet (88/73/55) unchanged. EN .md + .html in lockstep. NOTE: a separately-asserted "80% stress floor" (Budget V3 / Boardy export) was NOT applied — it conflicts with PRICING_MODEL.md's modeled stress floor of 73% (2×) / 55% (5×) and could not be verified against the exported Budget V3 sheet (Drive read gated in the automation session). Reconcile before quoting an 80% floor externally.
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/investor-labor-pricing-thesis-rWS2b | Date: 14.05.2026 | Changes: Initial creation — investor-facing one-pager for 2026 Q2 SAFE round, reframing DWS 365 Skilled Agents (on DWS IQ) from SaaS-lens "AI platform" to labor-lens "Skilled Agents". Anchors pricing, unit economics, distribution, and traction to the labor-replacement narrative. Companion to docs/marketing/AI-AS-LABOR-PRICING-STRATEGY.md and SKILLED-AGENTS-PRICE-LIST-2026.md.
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/4p-capital-classes-propagate-h0hien | Date: 21.06.2026 | Changes: Added "The 4P Capital Classes — the valuation lever" section mapping each class (Prompt / People / Plant / Perception) to its valuation effect — Prompt = labor-AI 6× vs SaaS 4× multiple; People = lower key-person/execution discount; Plant = regulatory moat + ACV durability; Perception = data-network-effect + physical-AI comp = the re-rate lever defending the €5.5M mid-case and naming the €6.1M upper bound. Added the "4P as M&A / diligence ontology" angle. Sourced from DWS_BRAND_STANDARD.md §23 and the 4P field note (v2.0). HTML kept in lockstep.
 - Version: 1.2 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Added §5 to Why We Win — 4P Capital Classes as accumulated moat (Prompt / People / Plant / Perception), with Perception Capital as the data-network-effect + physical-AI re-rate lever. Updated Anchor Footer. Canonical source: DWS_BRAND_STANDARD.md §23.
@@ -33,7 +33,7 @@ Document Status:
 - Languages Available: English (DE/FI versions live in `TALK_TRACK_PE_MESSE_2026.md`)
 - Publication Status: ACTIVE — investor-facing, distributed under NDA
 
----
+***
 
 ## Headline
 
@@ -50,7 +50,7 @@ Document Status:
 
 > **Positioning:** software-led, priced like labor, with software margins. The
 > product does the work and delivers the signed artifact; a thin service layer
-> just gets the customer live. *(Category detail: `POSITIONING.md`.)*
+> just gets the customer live. _(Category detail: `POSITIONING.md`.)_
 
 **Lifetime Oy** · Business ID 0772407-9 · VAT FI07724079
 Risto Anton Päärni, CEO · risto.paarni@lifetime.fi
@@ -102,7 +102,7 @@ costs. SaaS multiples ceiling out where labor multiples start.
 
 ### Gross margin
 
-- **>80% gross margin** at list price; marginal cost = inference + a thin human-on-loop review by the Themis case coordinator.
+- **~85% gross margin** at list price (82–89% across SKUs, bundle-weighted ≈85%); marginal cost = inference + a thin human-on-loop review by the Themis case coordinator.
 - **Margin expands as model cost falls.** Inference-cost sensitivity (modeled in `data-room-2026Q2/PRICING_MODEL.md`): at 0.5× current inference cost gross margin moves to ~88%; at 2× it holds at ~73%; at 5× it stays positive at ~55%. The price holds against labor — it never has to follow inference cost down.
 - **No per-seat cannibalization.** We sell the role, not access — no seat-saturation ceiling on a landed account.
 - **Year-2 expansion**: +40–80% per landed account from the attach-rate motion (70% of T1 / T2 customers attach a second Skilled Agent within 6 months — see `data-room-2026Q2/PRICING_MODEL.md`).
@@ -176,7 +176,8 @@ _Canonical terminology: DWS_BRAND_STANDARD.md §23. Theory and the Kaukopää ca
 | Metric                                   | Value (May 2026)                                                             |
 | ---------------------------------------- | ---------------------------------------------------------------------------- |
 | Q1/26 pilots signed                      | 2 enterprise pilots at €29,950 = **€59,900 booked**                          |
-| MRR (running)                            | ~€7k (6 paying customers, 100% retention)                                    |
+| Software contract value booked Q1/2026   | €59,900 — two enterprise pilots at €29,950 each, plus four smaller landed accounts (LAND-001…006, redacted) |
+| Services & transport revenue (running)   | ~€7k/month — licensed transport operation + consulting. **Not software revenue.** Company at cash break-even, founder salary €0. Source: Lemonsoft bookkeeping. |
 | Skilled Agents in production             | **16** producing signed artifacts                                            |
 | Tier-1 named-account pipeline (Q2–Q4/26) | **€550k – €1.07M ACV** booked target                                         |
 | Q2/26 V1 launch                          | Arctic 15, Helsinki — June 15                                                |

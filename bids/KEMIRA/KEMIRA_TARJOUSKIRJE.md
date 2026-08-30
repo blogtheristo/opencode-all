@@ -12,7 +12,7 @@ Purpose: Suomenkielinen tarjouskirje Kemira Oyj:lle — DWS IQ Aegis Defence
          Toissijainen: Mikko Pohjala, VP Strategy.
 -->
 
----
+***
 
 # Tarjouskirje — DWS IQ Aegis Defence
 
@@ -107,7 +107,7 @@ Lukitaan yhdessä:
 
 **Kustannus: maksuton.**
 
-### Vaihe 2 — Pilotti (GA elokuu 2026)
+### Vaihe 2 — Pilotti (GA syyskuu 2026)
 
 Alusta on yleisesti saatavilla elokuusta 2026. Pilotti kohdistetaan GA-julkaisuun. Kaupallistaminen sovittujen KPI-mittareiden täytyttyä.
 
@@ -131,7 +131,7 @@ Lyhyesti: **Aegis Defence** (suositeltu) — €89 990 käyttöönotto + €1 99
 
 - CSRD-varmennus on alkanut (FY2024-raportti under assurance) — audit-trail-vaatimus on tässä ja nyt
 - CBAM-transitiokausi päättyy; laskelmat on tehtävä tuotantolaatuisesti 2026 alkaen
-- Alusta GA elokuu 2026 — scoping nyt tarkoittaa, että Kemira on ensimmäisten joukossa
+- Alusta GA syyskuu 2026 — scoping nyt tarkoittaa, että Kemira on ensimmäisten joukossa
 - Sama jurisdiktio (Espoo–Helsinki): tapaamiset nopeasti järjestettävissä
 
 Sopisiko 20 minuutin scoping-palaveri viikolla 27 tai 28? Voin tulla Helsinkiin tai järjestää etäyhteyden.

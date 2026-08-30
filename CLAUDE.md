@@ -11,13 +11,22 @@ Every email, letter, intro note, signature block, "From:" line, author field, or
 - **Company:** Lifetime Oy
 - **Phone (always include in signatures):** +358 400 319 010
 
-**Email — three addresses, three contexts (do not mix):**
+**Email — outbound is Proton. Three addresses by context (do not mix):**
 
-| Context                                                       | Email                          |
-| ------------------------------------------------------------- | ------------------------------ |
-| Sales outreach as Lifetime Oy (cold/warm prospects, partners) | `risto.paarni2024@lifetime.fi` |
-| DWS IQ product email (From + Reply-To on platform-sent mail)  | `risto@onelifetime.world`      |
-| Legal / contract / invoice / statutory                        | `risto.paarni@lifetime.fi`     |
+| Context                                                                                     | Email                          |
+| ------------------------------------------------------------------------------------------- | ------------------------------ |
+| **All Lifetime Oy outbound** — partner, investor, sales, cold outreach, canonical public contact | `risto.paarni@lifetime.fi`     |
+| DWS IQ product email (From + Reply-To on platform-sent mail)                                 | `risto@onelifetime.world`      |
+| Legal / contract / invoice / statutory                                                       | `risto.paarni@lifetime.fi`     |
+| **Google Workspace login only — never a `From:`, `Reply-To:`, or signature**                 | `risto.paarni2024@lifetime.fi` |
+
+**All Lifetime Oy mail is sent from Proton Business, and has been for years** _(HIC decision, 2026-08-04)_. `risto.paarni@lifetime.fi` is an address on that Proton account and is the primary sender. `risto.paarni2024@lifetime.fi` is **the Google Workspace login** (Google Cloud / Drive / Supabase / GCP billing IAM, Calendar, Meet, internal Google notifications) and must not appear as a sender or contact in any outward-facing material. Never use a `noreply@` sender (Non-Negotiable Rule 3).
+
+**This is settled by DNS, not by preference.** `lifetime.fi` publishes `MX → mail.protonmail.ch / mailsec.protonmail.ch`, `SPF: v=spf1 include:_spf.protonmail.ch ~all` (Proton only — Google is **not** authorized), three `protonmail*._domainkey` DKIM records (Proton only — there is **no** `google._domainkey`), and `DMARC: p=quarantine`. Mail sent from Google with a `@lifetime.fi` From therefore fails both SPF and DKIM alignment, and the domain's own policy instructs receivers to quarantine it. Sending from Proton passes today with no DNS change. Verified against the zone export, 04.08.2026.
+
+**Scope — this rule governs Lifetime Oy's own domains only.** It does **not** apply to customer domains. `cari.fi` (Carin Huoltopalvelu) runs on Google Workspace with a Cloudflare Email Sending binding for its contact form, and stays that way — do not "consolidate" a customer's mail onto Proton. Each customer domain's sender configuration is a property of that customer's setup, recorded in that customer's own repo.
+
+_(Superseded rules, kept for the record per Rule 12. **(a)** `risto.paarni2024@` was originally banned from all outbound use. **(b)** That ban was reversed on 2026-07-26 after a Google Workspace mailbox check found sends originating from `risto.paarni2024@` while `risto.paarni@` showed no send in the prior year. **(c)** Reversed again 2026-08-04: the 07-26 conclusion was drawn from inside one mailbox without checking DNS or the Proton account — the zone authorizes only Proton, and `risto.paarni@lifetime.fi` is a live Proton address, so the address the 07-26 rule promoted was the one that fails DMARC. The lesson is registered in `DWS_TRUTH_STANDARD.md` §0: a HIC decision is Tier A for the decision, but only as sound as the premise it was given. Full evidence: `docs/field-notes/2026-08-04-lifetime-fi-outbound-dmarc-proton.md`.)_
 
 The substring `paarni` (no umlauts) is allowed **only** inside an email address or other login/account data. Everywhere else the name carries umlauts: **Päärni**.
 
@@ -25,15 +34,15 @@ The substring `paarni` (no umlauts) is allowed **only** inside an email address 
 
 ```
 Risto Anton Päärni
-Founder, CEO · Lifetime Oy
-risto.paarni2024@lifetime.fi · +358 400 319 010
+Founder, CEO · Lifetime Oy · the Agent Outcome Company
+risto.paarni@lifetime.fi · +358 400 319 010
 ```
 
 **DWS IQ product sig (emails sent by the platform):**
 
 ```
 Risto Anton Päärni
-Founder, CEO · Lifetime Oy
+Founder, CEO · Lifetime Oy · the Agent Outcome Company
 risto@onelifetime.world · +358 400 319 010
 ```
 
@@ -44,6 +53,39 @@ If any draft is produced without this exact spelling and title, treat it as a bu
 ## Core Principle
 
 Ship reliable outcomes fast, but never past security, compliance, or source-of-truth rules.
+
+## Runtime Policy (OpenCode Primary, Claude Code Standby)
+
+- **Primary interactive runtime:** OpenCode with the DGX Spark Ollama tunnel.
+- **Hot standby runtime:** Claude Code stays fully configured and tested; do not remove `.claude/` hooks, settings, or handoff flows while OpenCode is primary.
+- **Shared rule source:** the root `opencode.json` must load `CLAUDE.md` via `instructions` so OpenCode and Claude Code execute against the same canonical policy file.
+- **Shared MCP contract:** keep the Win11 developer MCP surface aligned across `.mcp.json`, `opencode.json`, and `.claude/settings.json` for `dws-agents-local` and `dws-gateway-local`.
+- **Failover rule:** platform switching is manual. Capture branch state in `.claude/handoffs/<branch>.md` before handing work from OpenCode to Claude Code or back.
+- **Classification rule:** when adding automation, mark it explicitly as OpenCode-primary, Claude-only, or runtime-neutral in the governing doc or field note.
+
+## Agent Response Format (HIC-Facing Output)
+
+Chat output is for the HIC to **decide and act**, not to watch the agent think.
+
+**Every response carries only these, in this order. Omit any that is empty.**
+
+1. **Decisions** — what was decided or changed, one line each. State the choice, not the deliberation.
+2. **Facts used** — the evidence a decision rests on, with its source (`file:line`, commit, URL, or "HIC, <date>"). A fact with no source is marked `unverified`.
+3. **HIC actions** — a numbered list of what the human must **get** (credential, access, key, approval) or **do** (deploy, revoke, confirm). Each line: the action, and what breaks without it. If nothing is needed, say "No HIC action."
+
+**Never in chat output:**
+
+- Narration of reasoning, plans, or what is about to be done next.
+- Restating what a file, test, or command already says.
+- Recapping work already reported earlier in the session.
+- Process description ("I checked X, then Y, then found Z") — report Z.
+- Apologies, self-assessment, or hedging about the agent's own performance.
+
+**Length.** Default ceiling: 10 lines. A table or code block does not count toward it. Exceed it only when the HIC asked for a document, a draft, or a copy-paste deliverable.
+
+**Act, don't delegate.** Before listing something as an HIC action, verify the agent genuinely cannot do it — check the available tools first. A task handed over that the agent could have completed is a failure, not caution. Reserve HIC actions for things needing credentials the agent lacks, or that are irreversible or outward-facing.
+
+**Detail belongs in files, not chat.** Rationale → `context/`. What happened → `docs/field-notes/`. What changed → `CHANGELOG.md`. Chat points at them; it does not reproduce them.
 
 ## Engineering Discipline — The 12 Rules
 
@@ -73,20 +115,21 @@ Ship reliable outcomes fast, but never past security, compliance, or source-of-t
 
 **Task-specific routing.** Before editing, match the task against this table and load the matching standard. The table is the active routing layer — not a passive bibliography. Load every standard whose trigger fires; if multiple fire, load all matched.
 
-| If the task touches…                                                                                                                                                                                   | Load                                                                   |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
-| auth, RLS, secrets, JWT, API endpoints, user input validation, OWASP, KYA / sandbox / MicroVM, NIS2, GDPR, EU AI Act, prompt injection                                                                 | `DWS_SECURITY_STANDARD.md`                                             |
-| document header, `VERSION AND AGENT HISTORY` block, document version bump, language pair lockstep, `***` vs `---` delimiter, naming convention, document rewrite/restructure, formulation preservation | `DWS_DOCUMENT_STANDARD.md`                                             |
-| brand identity, logo, color palette, copy tone, hero text, landing page voice, marketing surface, deprecated terminology                                                                               | `DWS_BRAND_STANDARD.md`                                                |
-| market sizing, TAM / SAM / SOM, competitor analysis, investor narrative, customer segmentation                                                                                                         | `DWS_MARKET_RESEARCH_STANDARD.md`                                      |
-| site QA, image quality / format / weight, copy quality, dual-folder mirror checks, deploy-readiness checklist                                                                                          | `SITE_QUALITY_STANDARDS.md`                                            |
-| adding / removing / renaming a slash command or `skills/<name>/SKILL.md`; updating discipline gates; skill manifest                                                                                    | `docs/DWS_SKILLS_GUIDE.md`                                             |
-| blog post on `onelifetime.world/blog/`, `dws10.com/blog/`, editorial cadence, LSJ                                                                                                                      | `docs/BLOG_STANDARD.md`                                                |
-| BaseAgent class, new agent in `src/agents/`, autonomy tier, cost budget, agent execution logging, bacterial-code extraction                                                                            | `AI_AGENT_GUIDELINES.md`                                               |
-| agent topology, signal dependencies (READY / COMPLETE / ERROR / BLOCKED), agent-XX numbering, what unlocks what                                                                                        | `AGENTS.md`                                                            |
-| asserting an industry count, product price, captain hat, KYA tier, role name, or any other "canonical fact"                                                                                            | `DWS_TRUTH_STANDARD.md` → routes to the canonical file for that domain |
-| sales outreach `INTRO_*.md` / `LETTER_*.md` per-customer files, role-by-stage wedge matrix, enterprise funnel stage                                                                                    | `DWS_ROLES_REGISTRY.md`                                                |
-| "which standard governs X?" / index lookup / standards catalogue                                                                                                                                       | `DWS_STANDARDS_LIBRARY.md`                                             |
+| If the task touches…                                                                                                                                                                                    | Load                                                                   |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| auth, RLS, secrets, JWT, API endpoints, user input validation, OWASP, KYA / sandbox / MicroVM, NIS2, GDPR, EU AI Act, prompt injection                                                                  | `DWS_SECURITY_STANDARD.md`                                             |
+| document header, `VERSION AND AGENT HISTORY` block, document version bump, language pair lockstep, `***` vs `---` delimiter, naming convention, document rewrite/restructure, formulation preservation  | `DWS_DOCUMENT_STANDARD.md`                                             |
+| brand identity, logo, color palette, copy tone, hero text, landing page voice, marketing surface, deprecated terminology                                                                                | `DWS_BRAND_STANDARD.md`                                                |
+| market sizing, TAM / SAM / SOM, competitor analysis, investor narrative, customer segmentation                                                                                                          | `DWS_MARKET_RESEARCH_STANDARD.md`                                      |
+| site QA, image quality / format / weight, copy quality, dual-folder mirror checks, deploy-readiness checklist                                                                                           | `SITE_QUALITY_STANDARDS.md`                                            |
+| adding / removing / renaming a slash command or `skills/<name>/SKILL.md`; updating discipline gates; skill manifest                                                                                     | `docs/DWS_SKILLS_GUIDE.md`                                             |
+| blog post on `onelifetime.world/blog/`, `dws10.com/blog/`, editorial cadence, LSJ — **always run `/blog-draft`; HIC approval before publishing is Non-Negotiable Rule 13**                              | `docs/BLOG_STANDARD.md` (§3.3 draft gate)                              |
+| BaseAgent class, new agent in `src/agents/`, autonomy tier, cost budget, agent execution logging, bacterial-code extraction                                                                             | `AI_AGENT_GUIDELINES.md`                                               |
+| agent topology, signal dependencies (READY / COMPLETE / ERROR / BLOCKED), agent-XX numbering, what unlocks what                                                                                         | `AGENTS.md`                                                            |
+| asserting an industry count, product price, captain hat, KYA tier, role name, or any other "canonical fact"                                                                                             | `DWS_TRUTH_STANDARD.md` → routes to the canonical file for that domain |
+| sales outreach `INTRO_*.md` / `LETTER_*.md` per-customer files, role-by-stage wedge matrix, enterprise funnel stage                                                                                     | `DWS_ROLES_REGISTRY.md`                                                |
+| "which standard governs X?" / index lookup / standards catalogue                                                                                                                                        | `DWS_STANDARDS_LIBRARY.md`                                             |
+| ending a substantive session; new idea / concept / theory / code / whitepaper / artifact / signal to capture; field note; `Learn/` HTML; keeping the HIC informed; EU AI Act Article 14 human oversight | `DWS_LEARNING_STANDARD.md`                                             |
 
 **Multi-match is normal.** A task that adds a new agent that touches user input + ships a blog post fires four triggers and must load four standards. Do not pick the "most relevant" one — load all matched.
 
@@ -108,6 +151,7 @@ If the user says **"Use DWS standard"**, apply all relevant standards and update
 10. Use PowerShell-first command examples on Windows (`.ps1`, `.\script.ps1`).
 11. **`gcloud` is a CMD-based tool, not PowerShell.** All `gcloud` examples MUST use CMD syntax — single-line OR caret (`^`) continuation, never backtick (`` ` ``). PowerShell-first (Rule 10) still applies for `.ps1` scripts and other Windows commands; the CMD rule is specific to `gcloud`. When a flow mixes `.ps1` and `gcloud`, invoke the `.ps1` via `powershell -ExecutionPolicy Bypass -File .\script.ps1` from CMD rather than switching shells mid-flow. See `/gcr-skill`.
 12. **Never lose document formulation data.** When rewriting or updating documents, preserve all eloquent formulations, philosophical passages, quotes, mottos, and cultural wisdom from earlier versions. A rewrite that strips these is destructive data loss. See `DWS_DOCUMENT_STANDARD.md` §21.
+13. **Never publish a blog post the HIC has not read and approved.** ABSOLUTE. Every blog entry — any language, any site, any length, including translations, LSJ issues, and cron-drafted posts — requires a draft at `docs/blog-drafts/<slug>.md` whose full text was shown to the HIC **in one fenced code block**, and which reads `Status: APPROVED` before anything is published. Use `/blog-draft`. Show the text, then **stop and ask in that turn** — never draft and publish in one move. `Status: APPROVED` is flipped only on an explicit approval **about that post**; a general "go ahead", silence, or approval of something else is not approval. Enforced by `.claude/hooks/blog-draft-gate.sh`, but the rule binds whether or not the hook is armed — a bypass (generator, cron, fresh clone, unloaded hook) is not permission. Rules: `docs/BLOG_STANDARD.md` §3.3. This also produces the Article 50(4) editorial-responsibility record (`DWS_TRUTH_STANDARD.md` §2G).
 
 ## Source-of-Truth Rules
 
@@ -135,6 +179,13 @@ For these sites, root folder is source; landing-pages mirror must be synced in t
 
 - In markdown docs, the `VERSION AND AGENT HISTORY` block uses `***` delimiters (never `---`) for Pandoc compatibility.
 
+### Supabase Table Grants
+
+- Every `CREATE TABLE` in the `public` schema must be followed by an explicit `GRANT` to `service_role` and `authenticated`, plus `ENABLE ROW LEVEL SECURITY`.
+- RLS alone stopped being sufficient on 2026-05-30 (new Supabase projects) and is enforced on all existing projects on 2026-10-30. Without a table-level `GRANT`, PostgREST / supabase-js / GraphQL return `42501` even when RLS would allow the row.
+- Copy the standard block from `Firehorse/supabase-schema-templates.sql` (top of file). Anon is opt-in per table — only grant `anon` where an RLS policy explicitly targets it.
+- Backfill of record: `supabase/migrations/075_public_schema_grants.sql` (also sets `alter default privileges` so a forgotten inline block does not silently break the Data API).
+
 ## Thesis Rule (All 4 Files Together)
 
 If task mentions thesis/master thesis/pro gradu/opinnaytetyo, update all four together and keep versions in lockstep:
@@ -145,6 +196,23 @@ If task mentions thesis/master thesis/pro gradu/opinnaytetyo, update all four to
 - `docs/PHD_FIREHORSE_FI.md`
 
 Also regenerate `Learn/` versioned HTML outputs. Never delete old thesis HTML versions.
+
+**Canonical source of truth:** the four `docs/` files above are the ONLY editable thesis sources. `Learn/V3Thesis_EN.md` and `Learn/V3Thesis_FI.md` are stale copies (drifted to v3.83 while docs/ is newer) — never edit them; they serve no tooling purpose (the generator reads `docs/` paths directly). When in doubt, always edit the `docs/` paths listed above.
+
+**Latest marker convention:** every `VERSION AND AGENT HISTORY` entry carries an explicit marker. The newest entry is labelled `[Latest]`; when a new version is created, the previously-newest entry is relabelled `[not latest]` and the new entry gets `[Latest]`. The top `Version:` field plus the `[Latest]` marker together identify the current version — a file whose newest entry does NOT carry `[Latest]` is stale and must not be edited.
+
+### Thesis Autonomy Boundary (HIC decision, 01.08.2026)
+
+**Additive** thesis content is GREEN on **all four** files — a new `§x.y` section plus its Key Contribution and the lockstep version bump. This replaces the earlier rule that treated all master's-thesis content as RED; the risk being guarded against was never additive content, and the old boundary stopped the thesis tracking the work actually being done.
+
+**Structural** thesis edits remain RED (human required) on all four files:
+
+- TOC or chapter restructure
+- renumbering existing sections
+- rewriting or deleting existing `VERSION AND AGENT HISTORY` entries
+- removing existing content
+
+Superseding a claim is additive, not structural: keep the original formulation and add a pointer to what replaced it (Rule 12). Never silently rewrite an existing passage to match new canon.
 
 ### Thesis Content Scope Rule
 
@@ -172,9 +240,53 @@ Never tell the user to copy-paste content from rendered chat/canvas — rendered
 
 **"Give copy" / "copy paste" / "give a copy-paste" means: output the full content inside a single fenced code block** — no preamble before the user has to scroll, the whole deliverable in one copyable block. This applies regardless of length (even long whitepapers). A file or export (PDF, Google Docs, Gamma) is an addition on request, never a substitute for the code block when copy is asked.
 
+## Approval Request Rule (HIC, 06.08.2026)
+
+Whenever a decision is gated on the HIC's explicit approval — Rule 13 blog drafts, a document rewrite, a customer-facing artifact, anything where the next action depends on "does the HIC agree with this" — the request must hand over something the HIC can actually inspect, not a description of it.
+
+**Default to a published Artifact (`Artifact` tool).** A raw fenced code block of markdown/HTML source does not render on mobile — it dumps unstyled text the HIC has to scroll and mentally parse, which fails the review on the device it's most often read on (HIC confirmed, 06.08.2026: "I cannot read md file on iphone"). For anything longer than a couple of sentences, build a clean, readable Artifact — proper typography, one document per review batch when there are multiple items — and hand over the link.
+
+- **Single short item, or the HIC explicitly asked for a copy-paste block** → the fenced code block per the Deliverable Handoff Rule still applies (that rule governs "give me a copy," which is a different request from "review and approve this").
+- **Anything meant to be read and judged** (a blog draft, a document rewrite, a multi-item batch) → an Artifact. Multiple pending items go in **one** Artifact, not one link per item — the HIC should not have to open five tabs to review five things.
+- **Already-built HTML / a live page / a site preview** → a working link to the actual rendered output — a live preview URL or the Artifact link. Raw HTML source pasted into chat is not reviewable either way.
+
+Never ask "should I proceed?" or "approve as-is?" without a working link attached in the same message. A description of the content ("it says X, Y, Z") is not a substitute — the HIC reviews the artifact itself, not an agent's account of it. This generalizes Rule 13's blog-draft-gate requirement to every approval gate, not only blog posts, and the Artifact default exists specifically because plain fenced text failed the review on a phone.
+
+## Productivity Stack Rule (HIC, 03.08.2026)
+
+**The productivity stack is Google Workspace, not Microsoft Office.** Docs, Sheets, Slides, Drive, Calendar and Meet on the `risto.paarni2024@lifetime.fi` Workspace account. **Mail is the exception — mail is Proton** (see the Sender Identity Rule above).
+
+- Deliverables that leave the repo go out as **Google Docs / Sheets / Slides** (via the Google Drive tools), a **PDF**, or a **fenced code block** — never a `.docx`/`.xlsx`/`.pptx` as the default handoff format. Produce an Office file only when a counterparty explicitly requires one (e.g. a customer's tender template).
+- Calendar means **Google Calendar** and video means **Google Meet**, both on the Workspace account. **Mail does not** — `lifetime.fi`'s MX points at Proton, so Gmail on that account receives only Google's own internal notifications and must never be used to send. Corrected 04.08.2026; the 03.08 version of this rule said "mail means Gmail," which the zone's SPF/DKIM/DMARC records contradict.
+- Repository-first still applies (`DWS_TRUTH_STANDARD.md` §2E): the repo `.md` is the master and the Workspace document is the generated copy, never the reverse.
+- "Office day" in the HIC's calendar means a day working at the office — it is not a Microsoft Office reference.
+
 ## PNG Export Rule
 
 Every deliverable PNG (chart, roadmap, screenshot handed to the user) is rendered at 4K resolution — at least 3840 px on the long side. Use `scripts/screenshot.mjs`, whose defaults (width 1280 × scale 3) enforce this; lower resolutions are for debug-only shots.
+
+## Code Evidence Layer (EU AI Act Art. 12–14)
+
+Every code file an agent creates or substantively modifies carries a **provenance header comment** (1–3 lines, placed directly under the shebang). This is the code-side counterpart of the Document Standard's tool+model block and the repo's Article 12 hash-chain audit: it makes "who/what produced this code, when, under which model" auditable per file, so any later session can trace code history back to the sessions that wrote it.
+
+**Boundary:** these headers **support traceability and quality evidence** — they do not by themselves establish EU AI Act compliance, ISO conformance, audit readiness, or production safety. Legal applicability of Arts. 12–14 depends on the system and its deployment context, not on the presence of a comment.
+
+Required fields — accuracy, completeness, timeliness, traceability per ISO/IEC 25012 data-quality model:
+
+```
+// Evidence: Tool=OpenCode 1.18.21 Model=<provider/model-id> Agent=<agent-name> Date=YYYY-MM-DD
+// Audit trail: git log -- <this-file> [+ queue/handoff pointer if batch-produced]
+```
+
+Rules:
+
+- **Tool + exact version** and **model + provider ID** are mandatory (Art. 13 transparency to deployers). Never write just "AI".
+- **Date is ISO 8601** of the last substantive change; update it when you change the file's logic.
+- **Integrity anchor**: the git history of the file IS the tamper-evident log; the `Audit trail` line points at it. Never fabricate a commit hash — commit first, or omit the hash entirely.
+- **No secrets in evidence lines** (Non-Negotiable Rules 1–2): no tokens, DSNs, keys, PII.
+- **Do not falsify or carry forward stale evidence**: if you did not make the change, do not claim it. A wrong provenance record violates Art. 12 more than a missing one — mark `Evidence: unknown` rather than guessing (Rule 12 fail-loud).
+- **Thesis/research files**: stamping or structural edits are refused by default and require explicit human override (`--force-thesis`). When content changes remarkably, the change is made as a **new thesis version** per the Thesis Rule — lockstep four-file version bump plus a new `VERSION AND AGENT HISTORY` entry carrying `[Latest]` — never by silently rewriting the existing version in place.
+- Enforcement/checker: `scripts/evidence-audit.mjs <paths…>` reports files missing the `// Evidence:` line. Run on changed files before commit.
 
 ## Security Coding Rules
 
@@ -244,6 +356,23 @@ No one-off judgment work. If the user asks for something that will need to happe
 **Skill shape:** Skill files are parameterized procedures, not domain scripts. A skill describes the process; the invocation supplies the world (TARGET, KIND, DATASET, ROLE). Four near-identical skills with different filenames is a smell — collapse them into one skill with arguments.
 
 **Learning loop:** Run `/learn SCOPE=last-week` after `/retro` (or at the end of a feature). It reads retros, commit churn, and hook audit logs, diarizes the mediocre outcomes ("OK but not great"), and emits a read-only edit plan in `docs/learning-loops/`. A human applies approved edits in a follow-up commit titled `learn: <scope> rule updates`. Skills get better; the harness stays thin.
+
+## Session Learning Outcome Rule (HIC — EU AI Act Art. 14)
+
+**Keeping the HIC informed is a primary deliverable of every substantive session, not an afterthought.** New ideas, concepts, theories, code, whitepapers, and artifacts are welcome to build DWS further — but an artifact only a machine session ever saw dies in ephemeral container memory and no Human-In-Command (HIC) ever understood or authorized it. Canonical: `DWS_LEARNING_STANDARD.md`; stated as a canonical fact in `DWS_TRUTH_STANDARD.md` §2F + row 30. **Legal basis: EU AI Act Article 14 (human oversight)** — HIC = Human-In-Command is the DWS implementation.
+
+Before ending a **substantive** session (new idea/code/artifact/signal/incident — see the standard's gate; trivial typo/dep/lookup sessions are exempt), produce the **HIC Learning Outcome — six-step minimum:**
+
+1. **Update the knowledge base** (`kb/`, via `/kb`).
+2. **Write a field note** (`docs/field-notes/YYYY-MM-DD-topic.md`).
+3. **Add an HTML version into `Learn/`** (`scripts/render-doc.sh`; Document Standard §18).
+4. **Export a copy to Drive** (repo stays source-of-truth — export without a repo source is a drift incident, §2E).
+5. **Ask the HIC one real, decision-shaped question** — the Article 14 intervention point.
+6. **Calendar every dated commitment** — every deadline, expiry, meeting, follow-up or renewal the session produced or discovered, put into Google Calendar in the session that found it (`Google_Calendar.create_event`). See `DWS_LEARNING_STANDARD.md` §4.1.
+
+**Step 5 hands the HIC what to decide now; step 6 hands them what to act on later.** A date written only into a `.md` file will be missed — a document never reminds anyone. Calendar the **derived** dates too (a 3-month validity implies a follow-up date; a 3-month certificate implies a re-order date), give each event a title naming the consequence, the source file in the description, and a lead time matched to how long the action actually takes.
+
+A skipped step must be recorded as `N/A — <reason>` in the field note (silent omission violates Rule 12, Fail Loud).
 
 ## Development Baseline
 

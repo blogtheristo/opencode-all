@@ -15,13 +15,8 @@ import { telemetryService } from './telemetry.service.js';
 import type { ToolTelemetryEvent } from './telemetry.types.js';
 import { MCPToolRegistry, ToolColor } from '../mcp/security/tool-colors.js';
 import { authorizeToolCall } from '../security/runtime-auth.js';
-import { currentTraceIds } from '../observability/tracing.js';
-import type {
-  AgentContext,
-  ToolCall,
-  ToolDefinition,
-  ToolResult,
-} from './types.js';
+import { currentTraceIds, type KYAVerdict, withToolSpan } from '../observability/tracing.js';
+import type { AgentContext, ToolCall, ToolDefinition, ToolResult } from './types.js';
 
 // ============ TOOL EXECUTOR ============
 
@@ -33,8 +28,15 @@ export type ToolHandler = (
 
 const toolHandlers: Map<string, ToolHandler> = new Map();
 
-/** Register a tool handler */
+/** Register a tool handler. Throws if a handler for the same name is already registered. */
 export function registerToolHandler(name: string, handler: ToolHandler): void {
+  if (toolHandlers.has(name)) {
+    // Idempotent: skip silently if the same logical registration is repeated (e.g. tests
+    // creating multiple AgentRegistry instances that share module-level state). Warn so
+    // accidental name collisions in production surface without requiring debug logging.
+    logger.warn('Tool handler already registered — skipping duplicate', { tool: name });
+    return;
+  }
   toolHandlers.set(name, handler);
   logger.debug('Tool handler registered', { tool: name });
 }
@@ -88,113 +90,144 @@ export async function executeTool(
     orgId: context.orgId,
     sessionId: context.sessionId,
   });
-  if (authDecision.decision !== 'allow') {
-    if (meta) {
-      const ids = currentTraceIds();
-      telemetryService.recordInvocation({
-        agentName: meta.agentName,
-        toolName: call.name,
-        orgId: context.orgId,
-        sessionId: context.sessionId,
-        outcome: 'error',
-        durationMs: 0,
-        errorMessage: `runtime_auth:${authDecision.decision}:${authDecision.reason}`,
-        isRetry: false,
-        retryCount: 0,
-        chainPosition: meta.chainPosition,
-        chainLength: meta.chainLength,
-        iterationIndex: meta.iterationIndex,
-        timestamp: new Date().toISOString(),
-        traceId: ids.traceId,
-        spanId: ids.spanId,
-      });
-    }
-    return {
-      toolCallId: call.id,
-      name: call.name,
-      result: {
-        error: `runtime_auth:${authDecision.decision}`,
-        reason: authDecision.reason,
-        actionClass: authDecision.actionClass,
-        blastRadius: authDecision.blastRadius,
-        approvalId: authDecision.approvalId,
-      },
-      isError: true,
-    };
-  }
 
-  const startTime = Date.now();
-  let outcome: ToolTelemetryEvent['outcome'] = 'success';
-  let errorMessage: string | undefined;
+  // Every tool dispatch is gated by authorizeToolCall (src/security/runtime-auth.ts)
+  // before it fires — stamp that real verdict on the span instead of letting it
+  // default to "ungated". A blocked call is itself a trace-worthy finding.
+  const kyaVerdict: KYAVerdict = {
+    decision: authDecision.decision === 'allow' ? 'allowed' : 'denied',
+    gate: 'runtime-auth',
+  };
 
-  try {
-    // Timeout wrapper: prevents hung tools from blocking the chain
-    const result = await Promise.race([
-      handler(call.arguments, context),
-      new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error(`Tool ${call.name} timed out after ${TOOL_TIMEOUT_MS}ms`)), TOOL_TIMEOUT_MS),
-      ),
-    ]);
-    const durationMs = Date.now() - startTime;
-    logger.debug('Tool executed', { tool: call.name, durationMs });
+  return withToolSpan(
+    call.name,
+    {
+      agentName: meta?.agentName,
+      chainPosition: meta?.chainPosition,
+      chainLength: meta?.chainLength,
+      kya: kyaVerdict,
+    },
+    async (span) => {
+      span.setAttribute('dws.tool.action_class', authDecision.actionClass);
+      span.setAttribute('dws.tool.blast_radius', authDecision.blastRadius);
 
-    // Record success telemetry
-    if (meta) {
-      telemetryService.recordInvocation({
-        agentName: meta.agentName,
-        toolName: call.name,
-        orgId: context.orgId,
-        sessionId: context.sessionId,
-        outcome: 'success',
-        durationMs,
-        isRetry: false,
-        retryCount: 0,
-        chainPosition: meta.chainPosition,
-        chainLength: meta.chainLength,
-        iterationIndex: meta.iterationIndex,
-        timestamp: new Date().toISOString(),
-      });
-    }
+      if (authDecision.decision !== 'allow') {
+        span.setAttribute('dws.tool.outcome', 'blocked');
+        span.setAttribute('dws.tool.blocked_reason', authDecision.reason);
+        if (meta) {
+          const ids = currentTraceIds();
+          telemetryService.recordInvocation({
+            agentName: meta.agentName,
+            toolName: call.name,
+            orgId: context.orgId,
+            sessionId: context.sessionId,
+            outcome: 'error',
+            durationMs: 0,
+            errorMessage: `runtime_auth:${authDecision.decision}:${authDecision.reason}`,
+            isRetry: false,
+            retryCount: 0,
+            chainPosition: meta.chainPosition,
+            chainLength: meta.chainLength,
+            iterationIndex: meta.iterationIndex,
+            timestamp: new Date().toISOString(),
+            traceId: ids.traceId,
+            spanId: ids.spanId,
+          });
+        }
+        return {
+          toolCallId: call.id,
+          name: call.name,
+          result: {
+            error: `runtime_auth:${authDecision.decision}`,
+            reason: authDecision.reason,
+            actionClass: authDecision.actionClass,
+            blastRadius: authDecision.blastRadius,
+            approvalId: authDecision.approvalId,
+          },
+          isError: true,
+        };
+      }
 
-    return {
-      toolCallId: call.id,
-      name: call.name,
-      result: result as Record<string, unknown>,
-      isError: false,
-    };
-  } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : 'Unknown error';
-    const durationMs = Date.now() - startTime;
-    outcome = msg.includes('timed out') ? 'timeout' : 'error';
-    errorMessage = msg;
-    logger.error('Tool execution failed', { tool: call.name, error: msg, outcome });
+      const startTime = Date.now();
+      let outcome: ToolTelemetryEvent['outcome'] = 'success';
+      let errorMessage: string | undefined;
 
-    // Record failure telemetry
-    if (meta) {
-      telemetryService.recordInvocation({
-        agentName: meta.agentName,
-        toolName: call.name,
-        orgId: context.orgId,
-        sessionId: context.sessionId,
-        outcome,
-        durationMs,
-        errorMessage,
-        isRetry: false,
-        retryCount: 0,
-        chainPosition: meta.chainPosition,
-        chainLength: meta.chainLength,
-        iterationIndex: meta.iterationIndex,
-        timestamp: new Date().toISOString(),
-      });
-    }
+      try {
+        // Timeout wrapper: prevents hung tools from blocking the chain
+        const result = await Promise.race([
+          handler(call.arguments, context),
+          new Promise<never>((_, reject) =>
+            setTimeout(
+              () => reject(new Error(`Tool ${call.name} timed out after ${TOOL_TIMEOUT_MS}ms`)),
+              TOOL_TIMEOUT_MS,
+            ),
+          ),
+        ]);
+        const durationMs = Date.now() - startTime;
+        logger.debug('Tool executed', { tool: call.name, durationMs });
+        span.setAttribute('dws.tool.outcome', outcome);
 
-    return {
-      toolCallId: call.id,
-      name: call.name,
-      result: { error: msg },
-      isError: true,
-    };
-  }
+        // Record success telemetry
+        if (meta) {
+          telemetryService.recordInvocation({
+            agentName: meta.agentName,
+            toolName: call.name,
+            orgId: context.orgId,
+            sessionId: context.sessionId,
+            outcome: 'success',
+            durationMs,
+            isRetry: false,
+            retryCount: 0,
+            chainPosition: meta.chainPosition,
+            chainLength: meta.chainLength,
+            iterationIndex: meta.iterationIndex,
+            timestamp: new Date().toISOString(),
+          });
+        }
+
+        return {
+          toolCallId: call.id,
+          name: call.name,
+          result: result as Record<string, unknown>,
+          isError: false,
+        };
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : 'Unknown error';
+        const durationMs = Date.now() - startTime;
+        outcome = msg.includes('timed out') ? 'timeout' : 'error';
+        errorMessage = msg;
+        logger.error('Tool execution failed', { tool: call.name, error: msg, outcome });
+        span.setAttribute('dws.tool.outcome', outcome);
+        span.recordException(err instanceof Error ? err : new Error(msg));
+
+        // Record failure telemetry
+        if (meta) {
+          telemetryService.recordInvocation({
+            agentName: meta.agentName,
+            toolName: call.name,
+            orgId: context.orgId,
+            sessionId: context.sessionId,
+            outcome,
+            durationMs,
+            errorMessage,
+            isRetry: false,
+            retryCount: 0,
+            chainPosition: meta.chainPosition,
+            chainLength: meta.chainLength,
+            iterationIndex: meta.iterationIndex,
+            timestamp: new Date().toISOString(),
+          });
+        }
+
+        return {
+          toolCallId: call.id,
+          name: call.name,
+          result: { error: msg },
+          isError: true,
+        };
+      }
+    },
+  );
 }
 
 /**
@@ -282,12 +315,18 @@ export async function executeTools(
   const chainLength = calls.length;
   const results = await Promise.allSettled(
     calls.map((call, idx) =>
-      executeTool(call, context, meta ? {
-        chainPosition: idx,
-        chainLength,
-        iterationIndex: meta.iterationIndex,
-        agentName: meta.agentName,
-      } : undefined),
+      executeTool(
+        call,
+        context,
+        meta
+          ? {
+              chainPosition: idx,
+              chainLength,
+              iterationIndex: meta.iterationIndex,
+              agentName: meta.agentName,
+            }
+          : undefined,
+      ),
     ),
   );
 
@@ -536,7 +575,6 @@ export function summarizeFetchedText(text: string, limit = FETCH_TEXT_LIMIT): Fe
   };
 }
 
-
 export const BUILTIN_TOOLS: Record<string, ToolDefinition> = {
   /** Delegate work to another agent in the registry */
   delegate_to_agent: {
@@ -548,7 +586,8 @@ export const BUILTIN_TOOLS: Record<string, ToolDefinition> = {
       properties: {
         agent_name: {
           type: 'string',
-          description: 'Name of the agent to delegate to (e.g., "emissions-data-analyst", "compliance", "material-oracle")',
+          description:
+            'Name of the agent to delegate to (e.g., "emissions-data-analyst", "compliance", "material-oracle")',
         },
         task_input: {
           type: 'object',
@@ -573,7 +612,8 @@ export const BUILTIN_TOOLS: Record<string, ToolDefinition> = {
       properties: {
         table: {
           type: 'string',
-          description: 'Table name (e.g., "agent_executions", "emissions_data", "compliance_records")',
+          description:
+            'Table name (e.g., "agent_executions", "emissions_data", "compliance_records")',
         },
         select: {
           type: 'string',
@@ -767,7 +807,8 @@ export const BUILTIN_TOOLS: Record<string, ToolDefinition> = {
         },
         reason: {
           type: 'string',
-          description: 'Reason for superseding (e.g., "temporal_supersede: newer source with higher confidence")',
+          description:
+            'Reason for superseding (e.g., "temporal_supersede: newer source with higher confidence")',
         },
       },
       required: ['old_memory_id', 'new_content'],
@@ -784,15 +825,18 @@ export const BUILTIN_TOOLS: Record<string, ToolDefinition> = {
       properties: {
         signal_key: {
           type: 'string',
-          description: 'Stable signal key from the catalogue (e.g. "site_safety_low", "emissions_budget_breach"). Used for deduplication.',
+          description:
+            'Stable signal key from the catalogue (e.g. "site_safety_low", "emissions_budget_breach"). Used for deduplication.',
         },
         entity_id: {
           type: 'string',
-          description: 'The thing the signal is about (siteId, customerId, projectId). Used for deduplication so the same breach is not nudged twice.',
+          description:
+            'The thing the signal is about (siteId, customerId, projectId). Used for deduplication so the same breach is not nudged twice.',
         },
         recipient_role: {
           type: 'string',
-          description: 'Role to notify (R-ID or role name from DWS_ROLES_REGISTRY, e.g. "Site Manager", "CFO / ESG Lead")',
+          description:
+            'Role to notify (R-ID or role name from DWS_ROLES_REGISTRY, e.g. "Site Manager", "CFO / ESG Lead")',
         },
         subject: {
           type: 'string',
@@ -810,7 +854,8 @@ export const BUILTIN_TOOLS: Record<string, ToolDefinition> = {
         action_options: {
           type: 'array',
           items: { type: 'string' },
-          description: 'Response buttons. Threshold breaches use ["Confirm","Override","More detail"]; anomalies use ["View Analysis","Dismiss"].',
+          description:
+            'Response buttons. Threshold breaches use ["Confirm","Override","More detail"]; anomalies use ["View Analysis","Dismiss"].',
         },
         urgency: {
           type: 'string',
@@ -837,7 +882,8 @@ export const BUILTIN_TOOLS: Record<string, ToolDefinition> = {
       properties: {
         event_type: {
           type: 'string',
-          description: 'Event type (e.g., "compliance.gap_detected", "emissions.threshold_exceeded", "agent.task_complete")',
+          description:
+            'Event type (e.g., "compliance.gap_detected", "emissions.threshold_exceeded", "agent.task_complete")',
         },
         payload: {
           type: 'object',
@@ -1013,7 +1059,8 @@ export function registerBuiltinTools(): void {
   registerToolHandler('send_notification', async (args, context) => {
     const { nudgeService } = await import('./nudge.service.js');
     const { isPhaseAtLeast } = await import('./autonomy.js');
-    const { getSignal, evaluateGate, CONFIRM_OVERRIDE_ACTIONS } = await import('./signal-catalogue.js');
+    const { getSignal, evaluateGate, CONFIRM_OVERRIDE_ACTIONS } =
+      await import('./signal-catalogue.js');
 
     const runtime = context.agentRuntime;
     // KYA gate: enforced here regardless of which tools were offered to the model.
@@ -1028,10 +1075,9 @@ export function registerBuiltinTools(): void {
     const catalogue = getSignal(signalKey);
     const confidence = (args.confidence as 'high' | 'low') || catalogue?.confidence || 'high';
     const urgency = (args.urgency as 'high' | 'low') || catalogue?.urgency || 'high';
-    const channels = (args.channel as Array<'email' | 'teams' | 'slack' | 'in_app'>)
-      || runtime.notify?.channels
-      || catalogue?.channels
-      || ['in_app'];
+    const channels = (args.channel as Array<'email' | 'teams' | 'slack' | 'in_app'>) ||
+      runtime.notify?.channels ||
+      catalogue?.channels || ['in_app'];
 
     const result = await nudgeService.createNudge({
       orgId: context.orgId,
@@ -1044,7 +1090,8 @@ export function registerBuiltinTools(): void {
       channels,
       subject: args.subject as string,
       body: args.body as string,
-      actionOptions: (args.action_options as string[]) || catalogue?.actionOptions || CONFIRM_OVERRIDE_ACTIONS,
+      actionOptions:
+        (args.action_options as string[]) || catalogue?.actionOptions || CONFIRM_OVERRIDE_ACTIONS,
       notify: runtime.notify,
     });
 
@@ -1061,7 +1108,8 @@ export function registerBuiltinTools(): void {
 
     const result = await memoryService.store({
       content,
-      memoryType: memoryType as 'preference' | 'knowledge' | 'procedure' | 'episode' | 'fact' | 'profile',
+      memoryType: memoryType as
+        'preference' | 'knowledge' | 'procedure' | 'episode' | 'fact' | 'profile',
       orgId: context.orgId,
       source,
       metadata,
@@ -1080,7 +1128,8 @@ export function registerBuiltinTools(): void {
 
     const result = await memoryService.recall({
       query,
-      memoryType: memoryType as 'preference' | 'knowledge' | 'procedure' | 'episode' | 'fact' | 'profile' | undefined,
+      memoryType: memoryType as
+        'preference' | 'knowledge' | 'procedure' | 'episode' | 'fact' | 'profile' | undefined,
       orgId: context.orgId,
       limit,
       similarityThreshold: threshold,
@@ -1132,6 +1181,8 @@ export function registerBuiltinTools(): void {
       newSource,
       reason,
       agentId: context.userId || 'agent',
+      // Runtime-issued KYA trust score, not an LLM/user-supplied value.
+      agentAts: context.agentRuntime?.kya?.trustScore,
     });
 
     return {
@@ -1190,11 +1241,13 @@ export function registerBuiltinTools(): void {
   });
 
   // Knowledge Base tool handlers
-  import('./kb.agent.js').then(({ registerKBToolHandlers }) => {
-    registerKBToolHandlers();
-  }).catch((err) => {
-    logger.debug('KB tool handlers not available (optional)', { error: err.message });
-  });
+  import('./kb.agent.js')
+    .then(({ registerKBToolHandlers }) => {
+      registerKBToolHandlers();
+    })
+    .catch((err) => {
+      logger.debug('KB tool handlers not available (optional)', { error: err.message });
+    });
 
   // Industry tool handlers (Tool Plan Phases 2 & 3)
   import('./industry-tools.js')
@@ -1205,8 +1258,19 @@ export function registerBuiltinTools(): void {
       logger.debug('Industry tool handlers not available (optional)', { error: err.message });
     });
 
-
   logger.info('Built-in tool handlers registered', {
-    tools: ['query_database', 'fetch_external', 'emit_event', 'send_notification', 'memory_store', 'memory_recall', 'memory_forget', 'memory_supersede', 'extract_facts', 'delegate_to_agent', 'kb_*'],
+    tools: [
+      'query_database',
+      'fetch_external',
+      'emit_event',
+      'send_notification',
+      'memory_store',
+      'memory_recall',
+      'memory_forget',
+      'memory_supersede',
+      'extract_facts',
+      'delegate_to_agent',
+      'kb_*',
+    ],
   });
 }

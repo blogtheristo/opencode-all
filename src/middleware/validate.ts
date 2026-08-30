@@ -29,10 +29,10 @@ export function validate(schemas: ValidationSchemas) {
         req.body = schemas.body.parse(req.body);
       }
       if (schemas.query) {
-        (req as any).query = schemas.query.parse(req.query);
+        req.query = schemas.query.parse(req.query) as typeof req.query;
       }
       if (schemas.params) {
-        req.params = schemas.params.parse(req.params) as any;
+        req.params = schemas.params.parse(req.params) as typeof req.params;
       }
       next();
     } catch (err) {
@@ -50,7 +50,7 @@ export function validate(schemas: ValidationSchemas) {
         );
 
         // Attach field-level errors for structured consumption
-        (appError as any).fieldErrors = fieldErrors;
+        Object.assign(appError, { fieldErrors });
         next(appError);
       } else {
         next(err);

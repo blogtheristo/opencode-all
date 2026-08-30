@@ -112,7 +112,7 @@ export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe
   } = params;
 
   // Create or retrieve Stripe customer
-  let customer_id = user_id; // Use DWS user ID as Stripe customer ID in production
+  const customer_id = user_id; // Use DWS user ID as Stripe customer ID in production
 
   try {
     // For production: fetch Stripe customer ID from user metadata
@@ -415,15 +415,18 @@ export async function refundPayment(
 ): Promise<Stripe.Refund | null> {
   try {
     const stripe = getStripeClient();
-    const invoice = await stripe.invoices.retrieve(invoice_id);
+    const invoiceResponse = await stripe.invoices.retrieve(invoice_id);
+    // Note: Stripe v22 removed Invoice.charge; read it defensively to preserve
+    // the legacy refund path for API versions that still return it.
+    const chargeId = (invoiceResponse as unknown as Record<string, unknown>).charge;
 
-    if (!(invoice as any).charge) {
+    if (!chargeId) {
       logger.warn('No charge found for invoice', { invoice_id });
       return null;
     }
 
     const refund = await stripe.refunds.create({
-      charge: (invoice as any).charge as string,
+      charge: typeof chargeId === 'string' ? chargeId : String(chargeId),
       metadata: {
         invoice_id,
         reason,

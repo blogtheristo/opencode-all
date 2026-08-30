@@ -40,6 +40,7 @@
  */
 
 import logger from '../utils/logger.js';
+import type * as vitestModuleType from 'vitest';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
 import { createHash } from 'crypto';
@@ -486,7 +487,7 @@ export class DesignerAgent extends BaseAgent {
     ].join('\n');
 
     const llm = await this.callLLM(prompt);
-    let llmResult: Record<string, unknown> = {};
+    let llmResult: Record<string, unknown>;
     try {
       llmResult = JSON.parse(llm.content);
     } catch {
@@ -672,7 +673,7 @@ export class DesignerAgent extends BaseAgent {
     ].join('\n');
 
     const llm = await this.callLLM(prompt);
-    let fixProposal: Record<string, unknown> = {};
+    let fixProposal: Record<string, unknown>;
     try {
       fixProposal = JSON.parse(llm.content);
     } catch {
@@ -776,7 +777,7 @@ export class DesignerAgent extends BaseAgent {
     ].join('\n');
 
     const llm = await this.callLLM(prompt);
-    let review: Record<string, unknown> = {};
+    let review: Record<string, unknown>;
     try {
       review = JSON.parse(llm.content);
     } catch {
@@ -1064,9 +1065,9 @@ export class DesignerAgent extends BaseAgent {
 
 // ============ LOCAL TESTS (VITEST) ============
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-if ((import.meta as any).vitest) {
-  const { describe, it, expect } = (import.meta as any).vitest;
+const vitestModule = (import.meta as unknown as { vitest?: typeof vitestModuleType }).vitest;
+if (vitestModule) {
+  const { describe, it, expect } = vitestModule;
 
   describe('classifyComplexity', () => {
     it('classifies purely visual style changes as safe without engineer review', () => {

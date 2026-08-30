@@ -1,25 +1,26 @@
 # Enterprise Winning Sales Strategy — DWS IQ 6
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Initial creation — enterprise winning sales strategy for DWS IQ 6. SWOT, 4P, market trends, product roadmaps, market intelligence Finland & Sweden. 6-12 month horizon (July 2026 - June 2027). Separated from personal fleet strategy per Risto's directive.
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Restored 2024 formulations — Foreword, mission/values philosophy, listening philosophy (5 stakeholder types), scenario wisdom (Risto 2019 quotes), "Litet bättre", "Me emme seuraa trendejä", customer interaction wisdom. Matches Konsultin käsikirja 2026 v1.2 formulation standard.
+- Version: 1.3 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Reconciled to `docs/TRACTION_CANONICAL.md`. Removed the "100% customer retention / 6 paying customers — Kela, Uber Finland, Bolt, NCC + 2 undisclosed" strength row (dispatch operators are not software customers; NCC is an unlanded prospect). "Current MRR: €7-14K" corrected to services-and-transport revenue. ORK status corrected from "BID FILED" to bid in preparation (submission deadline 14.8.2026 per the bid pack). Outokumpu/Kemira corrected from "filed" to in discussion. "Diana NATO" corrected to the Defence Startup Fund (Riihimäen Tilat ja Kehitys Oy). Nokia removed as a named defence counterparty (NDA).
 - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added "Solopreneur + 58 AI agents" as SWOT strength. Reframed solo founder weakness as mitigated by autonomous agent fleet. Added branded HTML version with §0 "Why Industrial Intelligence Over 25 Industries Benefits Customers" — LWM base + enterprise training, sovereignty on everything, defence readiness, cross-industry early warning.
 
 Document Status:
 
 - Created: 28.06.2026
-- Last Modified: 28.06.2026
+- Last Modified: 29.07.2026
 - Language: English
 - Publication Status: ACTIVE (internal strategy)
 
----
+***
 
 ## Foreword
 
@@ -35,7 +36,9 @@ Lifetime Oy:n missiona on olla mukana estämässä ilmastonmuutosta, eroosiota, 
 
 DWS IQ 6 sells sovereign compliance automation to EU-regulated industries. The next 12 months (July 2026 - June 2027) are a regulatory forcing window: CBAM declarations are due now, EU AI Act Article 12 enforcement starts August 2026, ETS2 hits January 2027. This strategy defines how Lifetime Oy converts that regulatory pressure into revenue across Finland and Sweden.
 
-**12-month target: €900K ARR by end of 2027.** Current MRR: €7-14K.
+**12-month target: €900K ARR by end of 2027.**
+
+Starting position (canonical — `docs/TRACTION_CANONICAL.md`): **€59,900 of software contract value booked in Q1/2026** (two enterprise pilots at €29,950 each) plus four smaller landed accounts. Separately, ~**€7,000/month of services and transport revenue** covers the burn at a founder salary of €0. Those are two different lines and this strategy never adds them together or calls the second one MRR.
 
 ---
 
@@ -46,8 +49,9 @@ DWS IQ 6 sells sovereign compliance automation to EU-regulated industries. The n
 | Strength                                       | Evidence                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **EU AI Act Article 12 shipped**               | Production since March 2026 — 5 months before August enforcement. No competitor has this.                                                                                                                                                                                                                                                                                                                                                                                                              |
-| **25 EU-regulated industries covered**         | A production skilled-agent fleet, 15,000+ EU regulation documents indexed, 20 industry ontologies                                                                                                                                                                                                                                                                                                                                                                                                      |
-| **100% customer retention**                    | 6 paying customers, zero churn. Kela, Uber Finland, Bolt, NCC + 2 undisclosed                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| **25 EU-regulated industries covered**         | A production skilled-agent fleet, 15,000+ EU regulation documents indexed, 25 industry ontologies. (The Aegis dual-use tier covers 21 — never attribute 25 to Aegis.)                                                                                                                                                                                                                                                                                                                                                                                                      |
+| **Contracted enterprise pilots**               | Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts — redacted as LAND-001…006 pending public-name authorization. Do not assert a retention rate: there is no cohort data behind the previously published "100% retention".                                                                                                                                                                                                                    |
+| **Cash break-even**                            | ~€7,000/month of services and transport revenue (licensed transport operation + consulting) covers the burn at a founder salary of €0. This is not software revenue and is never presented as MRR.                                                                                                                                                                                                                                                                                                     |
 | **EU sovereign (zero CLOUD Act)**              | Finnish infrastructure (UpCloud Helsinki). No US data exposure.                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **KYA agent governance**                       | Cryptographic agent identity, Firecracker MicroVM isolation, <125ms kill authority — unique IP                                                                                                                                                                                                                                                                                                                                                                                                         |
 | **Price advantage**                            | Climate IQ at €29,990/yr vs competitors at €50K-200K. Enterprise Navigator at €4,950 one-time.                                                                                                                                                                                                                                                                                                                                                                                                         |
@@ -62,7 +66,7 @@ DWS IQ 6 sells sovereign compliance automation to EU-regulated industries. The n
 | Weakness                          | Mitigation                                                                                                                                                                                                                   |
 | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Small core team**               | Residual risk: key-person dependency. Mitigated: established 50+ specialist-company network (2020–2022), the skilled-agent fleet runs autonomously, documented processes; senior technical hire funded and in active search. |
-| **No defence reference customer** | Nokia Defence said no. Need one pilot win to unlock sector. Aegis GA (Aug 2026) removes "pre-production" objection.                                                                                                          |
+| **No defence reference customer** | Nokia Defence said no. Need one pilot win to unlock sector. Aegis GA (Sep 2026) removes "pre-production" objection.                                                                                                          |
 | **Material quality gap**          | Three losses (Nokia Defence, Diana, Arctic15) share root cause: materials don't match evaluation framework. Modules 1-4 now built.                                                                                           |
 | **No video demo**                 | Script ready (MODULE_1), not yet recorded. Blocks Diana resubmission.                                                                                                                                                        |
 | **Aegis pre-GA**                  | Defence tier launches August 2026. Until then, defence deals carry "not yet shipping" risk.                                                                                                                                  |
@@ -76,7 +80,7 @@ DWS IQ 6 sells sovereign compliance automation to EU-regulated industries. The n
 | **CBAM filing season (Q3 2026)**    | Now          | €30K-60K from 2-4 CBAM-exposed importers (steel, chemicals, cement)                            |
 | **EU AI Act Article 12 (Aug 2026)** | August 2026  | Every AI compliance tool must ship audit trails. DWS already has it. First-mover sales window. |
 | **ETS2 road transport (Jan 2027)**  | January 2027 | Construction, logistics, fleet operators must report. New vertical opens.                      |
-| **Aegis Defence GA (Aug 2026)**     | August 2026  | Unlocks €60K-90K deals for CER/NIS2/defence-adjacent customers                                 |
+| **Aegis Defence GA (Sep 2026)**     | August 2026  | Unlocks €60K-90K deals for CER/NIS2/defence-adjacent customers                                 |
 | **Outokumpu pilot (€24K)**          | Q3 2026      | Win = flagship reference for entire Nordic steel sector                                        |
 | **Kemira conversion (€30K/yr)**     | Q3-Q4 2026   | Win = chemicals sector validation + SBTi alignment proof                                       |
 | **Sweden market entry**             | Q3-Q4 2026   | SSAB, NCC AB, Skanska AB, Stora Enso — large enterprises, no local sovereign AI competitor     |
@@ -152,11 +156,11 @@ DWS IQ 6 sells sovereign compliance automation to EU-regulated industries. The n
 
 | Market                      | Status      | Key Accounts                             | Entry Point                      |
 | --------------------------- | ----------- | ---------------------------------------- | -------------------------------- |
-| **Finland — Metals/Mining** | Active      | Outokumpu (pilot filed), Boliden         | CBAM + IP sovereignty wedge      |
-| **Finland — Chemicals**     | Active      | Kemira (offer filed)                     | CBAM + PCF automation + CER      |
-| **Finland — Government**    | Active      | ORK (bid filed), Kela (live)             | EU AI Act + sovereign AI         |
-| **Finland — Construction**  | Reference   | NCC Finland (live customer)              | CSRD + EN 15978 (EPBD 2028)      |
-| **Finland — Defence**       | Pipeline    | Nokia Defence (lost, retry), Diana NATO  | Aegis Defence GA (Aug 2026)      |
+| **Finland — Metals/Mining** | Active      | Outokumpu (in discussion), Boliden       | CBAM + IP sovereignty wedge      |
+| **Finland — Chemicals**     | Active      | Kemira (in discussion)                   | CBAM + PCF automation + CER      |
+| **Finland — Government**    | Active      | ORK (bid in preparation, deadline 14.8.2026) | EU AI Act + sovereign AI     |
+| **Finland — Construction**  | Prospect    | NCC Finland (prospect, not landed)       | CSRD + EN 15978 (EPBD 2028)      |
+| **Finland — Defence**       | Pipeline    | A defence-industry prime (lost, retry); Defence Startup Fund / RTOY (rejected 23.4.2026, resubmit) | Aegis GA (Sep 2026) |
 | **Sweden — Steel**          | Planned Q3  | SSAB, H2 Green Steel                     | CBAM + green steel IP protection |
 | **Sweden — Construction**   | Planned Q3  | NCC AB (group HQ), Skanska AB            | CSRD Wave 2 + EPBD               |
 | **Sweden — Building Tech**  | Warm        | Siemens Building Nordics (Frida Ahlberg) | CSRD + EPBD partnership channel  |
@@ -247,7 +251,7 @@ DWS IQ 6 sells sovereign compliance automation to EU-regulated industries. The n
 
 | Milestone                            | Status                                        | Revenue Impact                               |
 | ------------------------------------ | --------------------------------------------- | -------------------------------------------- |
-| **Aegis Defence GA**                 | August 2026                                   | Unlocks €60K-90K defence/CER/NIS2 deals      |
+| **Aegis Defence GA**                 | September 2026                                   | Unlocks €60K-90K defence/CER/NIS2 deals      |
 | **EU AI Act Article 12 enforcement** | August 2, 2026                                | First-mover advantage: already shipping      |
 | **ISO 27001 certification**          | In progress                                   | Removes enterprise procurement blocker       |
 | **Train Model SaaS launch**          | Compact €1,490 / Standard €2,990 / Pro €7,490 | New revenue stream                           |
@@ -346,11 +350,11 @@ Each role's win lights up someone else's win:
 
 | Case              | Status          | Type                | Value                 | Next Action                                                          |
 | ----------------- | --------------- | ------------------- | --------------------- | -------------------------------------------------------------------- |
-| **ORK**           | BID FILED       | Public procurement  | Framework (€1.7M ref) | Wait. Silence after submission.                                      |
-| **Outokumpu**     | WAITING         | Enterprise pilot    | €24K pilot            | Silence + 1 value-add if 2 weeks pass                                |
-| **Kemira**        | ONGOING         | Enterprise platform | €30K/yr (Climate IQ)  | Let Maria socialise internally                                       |
-| **Nokia Defence** | LOST            | Defence platform    | €90K+                 | Wait for Aegis GA + reference customer                               |
-| **Diana NATO**    | IMPROVE & RETRY | Defence funding     | Grant                 | Build video + deck, resubmit Q4 2026                                 |
+| **ORK**           | BID IN PREPARATION | Public procurement | Framework (€1.7M ref) | Submission deadline 14.8.2026 (`bids/ORK160826/ORK160826_ALIHANKKIJA_EN.md`). Not filed. |
+| **Outokumpu**     | IN DISCUSSION   | Enterprise pilot    | €24K pilot            | Documented inbound reply. Offer letter dated 27.6.2026, no send confirmation. Silence + 1 value-add if 2 weeks pass |
+| **Kemira**        | IN DISCUSSION   | Enterprise platform | €30K/yr (Climate IQ)  | Documented inbound reply. Offer letter dated 27.6.2026, no send confirmation. Let Maria socialise internally |
+| **A defence-industry prime** | LOST | Defence platform | €90K+ | Wait for Aegis GA + reference customer. (Counterparty not named — NDA.) |
+| **Defence Startup Fund (RTOY)** | IMPROVE & RETRY | Municipal defence grant | €20K + €20K matching | Rejected 23.4.2026. Build video + deck, resubmit next round. Not a NATO DIANA application. |
 | **Arctic15**      | IMPROVE & RETRY | Startup competition | Visibility + Top 4    | Fix 3 facts (closed numbers, future-shaping frame, trajectory slope) |
 
 **Pattern across losses:** The substance is there. The packaging is not. Fix = modular material kit (Modules 1-4 now built).
@@ -359,10 +363,10 @@ Each role's win lights up someone else's win:
 
 | Module                            | Status                          | Unblocks                     |
 | --------------------------------- | ------------------------------- | ---------------------------- |
-| Video demo 2:30 (MODULE_1)        | Script BUILT, not yet recorded  | Diana, Arctic15, all pitches |
-| Pitch deck 10 slides (MODULE_2)   | Content BUILT, not yet in Gamma | Diana, Arctic15, investors   |
+| Video demo 2:30 (MODULE_1)        | Script BUILT, not yet recorded  | Defence Startup Fund, Arctic15, all pitches |
+| Pitch deck 10 slides (MODULE_2)   | Content BUILT, not yet in Gamma | Defence Startup Fund, Arctic15, investors |
 | Hard traction page (MODULE_3)     | BUILT                           | Arctic15, investor decks     |
-| Defence insert 3 pages (MODULE_4) | BUILT                           | Diana, Nokia Defence round 2 |
+| Defence insert 3 pages (MODULE_4) | BUILT                           | Defence Startup Fund, defence-prime round 2 |
 
 ---
 

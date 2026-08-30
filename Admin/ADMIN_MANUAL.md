@@ -1,13 +1,18 @@
 # DWS IQ Platform - Admin Manual
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.11
+Version: 3.14
 
 Sessions & Modifications:
 
+- Version: 3.14 | Tool: OpenCode (x-preview-f-free) | Session: meta-whatsapp-catalog / pr-1867 | Date: 22.08.2026 | Changes: Recorded the 2026-08-22 service-account-key hygiene incident and closed the GCR chapter. Findings: a key-shaped file `gcp-sa-key-new.json` was found untracked-but-unignored at repo root; it had been previously tracked and tree-deleted by remediation commit `6a99c3d4a`, but its blob remains reachable in remote branch history — HIC decision (22.08.2026): GCR is no longer used by DWS, so no key-dependent integration exists; rotate/delete the underlying key if it was ever real. Hardened `.gitignore` with `gcp-sa-*.json` and `*sa-key*.json` patterns so no future session can `git add -A` a key file. Re-affirmed v3.0 policy: service-account JSON keys are prohibited (`constraints/iam.disableServiceAccountKeyCreation`); Workload Identity Federation remains the only sanctioned CI auth path for Cloud Run failover/staging deploys. Public information-gap audit recorded at `Admin/PUBLIC_INFO_GAP_AUDIT_2026-08-22.md`.
+
+- Version: 3.13 | Tool: GitHub Copilot CLI | Session: fix/dgx-opencode-mcp | Date: 13.08.2026 | Changes: Added the DGX Spark OpenCode-primary runtime runbook: OpenCode 1.18.18 with Ollama/open-model routing for normal development and agents, Claude Code as hot standby, Linux PATH handling, MCP gateway virtualenv requirements, the MCP SDK `<2.0.0` compatibility pin, and the intentionally disabled `dws-agents-local` SSE service while port 3001 has no listener. Cross-refs: `opencode.json`, `mcp-servers/cloud-run-gateway/requirements.txt`, V3Thesis §10.30, PHD_FIREHORSE §14.50.
+
+- Version: 3.12 | Tool: Claude Code (Fable) | Session: claude/agent-factory-research-audit-l6hks2 | Date: 03.08.2026 | Changes: Added "DWS Factory Router (model escalation runbook)" section — offline evidence-based cheap->strong escalation ladder (src/factory/), CLI usage with verdict exit codes, detector and guardrail reference, tuning defaults, and the two upstream features deliberately not ported (external decision API, subscription-OAuth client impersonation). Cross-refs: field note 2026-08-03-agent-factory-sageroute-audit.md, V3Thesis §10.28, PHD_FIREHORSE §14.47.
 - Version: 3.11 | Tool: Claude Code | Session: claude/capital-classes-audit-jgworp | Date: 21.06.2026 | Changes: Documented the 4P Capital Classes model (Prompt / People / Plant / Perception) as the company's canonical capital model; added Related Documentation row; registered the future "4p-diligence" assessment lens (Agent Productization Rule). Canonical source: DWS_BRAND_STANDARD.md §23; DWS_TRUTH_STANDARD.md §2 row 25.
 - Version: 3.10 | Tool: Claude Code | Session: claude/aspire-development-evolution-16fxg0 | Date: 07.07.2026 | Changes: Added "Aspire Dashboard Observability (DGX Spark)" section — three-port reference (18888 UI / 18889 OTLP-gRPC / 18890 OTLP-HTTP), the 18890 rule for all http/protobuf producers after the silent-telemetry incident (compose v1.2.0 pointed producers at the gRPC port then the UI port; both dropped telemetry silently; fixed compose v1.3.1), post-deploy verification procedure (traces visible + GenAI sparkle on LLM spans), GenAI message-content capture flagged as human data-protection decision (default OFF), Unsecured-auth hardening trigger, and version-pinning discipline. Cross-refs: field note 2026-07-07-aspire-development-evolution-pr1500-to-main.md §6.2, V3Thesis §10.25.
 - Version: 3.9 | Tool: Claude Code (Sonnet 5) | Session: claude/database-sovereignty-cloud-plan-j8wuy7 | Date: 05.07.2026 | Changes: Added `ADMIN_MANUAL_DATABASE_SOVEREIGNTY.md` to the Admin Manuals Index — CLOUD Act sovereignty tiering, cloud-vs-self-host decision framework, connector inventory, and agentic commerce / KYA data-handling plan.
@@ -56,7 +61,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
 
----
+***
 
 **Repository:** [blogtheristo/dws6](https://github.com/blogtheristo/dws6)
 
@@ -310,9 +315,43 @@ Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no 
 
 ---
 
+---
+
+## OpenCode Primary Runtime (DGX Spark)
+
+The verified DGX development posture is **OpenCode-primary** with Ollama and local/open models for normal development and agent work. Claude Code remains the hot standby for Claude-specific tooling, stronger fallback reasoning, or recovery when the local runtime is unavailable. This is a harness/model separation: changing the model does not change operator controls, repository policy, or the audit boundary.
+
+### Runtime and model roles
+
+| Role | Runtime | Operational rule |
+| --- | --- | --- |
+| Normal development and agents | OpenCode 1.18.18 -> Ollama (`11434`) | Prefer current NVIDIA/open models; do not hard-code retired `llama3.3:70b` as the default. |
+| Coding and smaller tasks | OpenCode model routing | Use the configured coding/smaller-work route (currently Qwen Coder where selected). |
+| Hot standby | Claude Code | Use when OpenCode/Ollama is unavailable or Claude tooling is required. |
+
+### DGX startup and verification
+
+```bash
+cd ~/dws6
+export PATH="$HOME/.opencode/bin:$PATH"
+opencode --version
+opencode debug config --pure
+opencode mcp list
+```
+
+OpenCode is installed at `/home/admin100/.opencode/bin/opencode`; non-login SSH shells may require the explicit PATH export. OpenCode 1.18.18 is the verified version on the Acer Veriton GN100.
+
+### MCP status and troubleshooting
+
+- `dws-gateway-local` uses `.venv/bin/python` and should report **connected**.
+- The gateway requires `mcp[cli]>=1.9.0,<2.0.0`; MCP SDK 2.x is incompatible with its `mcp.server.fastmcp` import path.
+- `dws-agents-local` is intentionally disabled while no service listens on `http://localhost:3001/mcp`; do not redirect it to an unverified port.
+- Install gateway dependencies into the project virtualenv with `python -m pip install -r mcp-servers/cloud-run-gateway/requirements.txt`.
+
+The DGX heartbeat on `9999` and Ollama on `11434` do not substitute for the disabled port-3001 MCP service. `LSPs are disabled` is informational.
 ## Aspire Dashboard Observability (DGX Spark)
 
-The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — currently `13.3.5`, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
+The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — currently `13.4.6`, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
 
 ### The three ports (do not mix them up)
 
@@ -331,6 +370,32 @@ The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **
 - **GenAI message-content capture is OFF** by design — `withLLMSpan` records metadata only (model, tokens, finish reason), never prompt/completion bodies. Turning content capture on is a **data-protection decision (human, RED-zone equivalent)** — customer text would enter dashboard memory. Do not enable without explicit CEO sign-off.
 - **Auth posture:** frontend and OTLP run `Unsecured` — acceptable only while port 18888 is LAN-only on the DGX host. If the host ever gets a routable interface or a tunnel exposes 18888, switch to `BrowserToken` (frontend) and `ApiKey` (OTLP) per the aspire.dev dashboard configuration reference.
 - **Version bumps:** treat the dashboard like any pinned image — bump deliberately, check the aspire.dev release notes (OTLP defaults, auth env var names have changed across majors), never float on `:latest`.
+
+---
+
+## DWS Factory Router (model escalation runbook)
+
+Evidence-based cheap→strong model escalation for agent runs. Fully offline — verdicts are computed locally from deterministic detectors; nothing leaves the machine. Adapted from codejunkie99/sageroute (MIT) after a source-level audit; adopt/adapt record: `docs/field-notes/2026-08-03-agent-factory-sageroute-audit.md`. Implementation: `src/factory/`; thesis treatment: V3Thesis §10.28 / PHD_FIREHORSE §14.47.
+
+**What it decides.** Given an agent request body (Anthropic Messages or OpenAI Responses wire), it returns one of four actions on a one-way ladder: `continue` → `switch_model` → `restart_clean` → `escalate_human`. `escalate_human` is a hard stop (EU AI Act Art. 14 intervention point) — surface it to the HIC, never route around it.
+
+**Run it:**
+
+```powershell
+npm run factory:route -- --file trajectory.json --model claude-haiku-4-5 --tier cheap --cost 0.40 --budget 5 --switches 0 --restarts 0 --bad 0
+```
+
+Hysteresis is stateful across checkpoints: feed the previous run's `ladder.consecutiveBad` / `switchesUsed` / `restartsUsed` (from the JSON output) back in via `--bad` / `--switches` / `--restarts`, or the disruptive rungs (`restart_clean`, `escalate_human`) can never accumulate their two agreeing checkpoints.
+
+Structured JSON on stdout; exit codes `0` continue / `2` switch_model / `3` restart_clean / `4` escalate_human / `1` input error, so pipelines branch without parsing. Add `--evidence` to print the rendered evidence block on stderr. Skill form: `/factory-route`.
+
+**Operator notes:**
+
+- Detectors fire before any heuristic: identical action+observation 3×, same error class 3×, ping-pong 4×, write→failing-test thrash, steps-since-progress, budget burn. Every verdict is explainable from the `signals` block in the output.
+- Guardrails are code, not prompt: budget stop precedes all other logic; a cheap-tier restart becomes a switch while a switch remains (capability before retry); first cheap→strong hop fires on one bad checkpoint, disruptive actions need two (asymmetric hysteresis); the ladder never demotes.
+- Defaults (tunable in `src/factory/types.ts`): gate 0.6, hysteresis 2, maxSwitches 1, maxRestarts 1, budget stop at 85 % burn. Thresholds are sageroute's untuned defaults — tune on real DWS trajectories before relying on them for cost claims.
+- Library use for BaseAgent/swarm integration: hold one `LadderState` per session and call `decide()` at each checkpoint (`src/factory/index.ts` exports).
+- Do NOT reintroduce the upstream extras: no external decision API (sovereignty), no subscription-OAuth client impersonation (provider-ToS/account-ban vector).
 
 ---
 
@@ -3013,7 +3078,7 @@ The `.gitignore` file contains patterns to prevent sensitive data from being com
 | ------------------------------ | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | **Confidential Business Data** | `/confidential/`, `/secrets/`, `/investor-materials/`, `*.confidential.*`, `*-confidential.*` | Internal business documents, investor materials, strategic plans |
 | **Customer Data**              | `/customer-data/`, `/pilot-data/`, `/ncc-data/`, `/t2h-data/`                                 | GDPR-protected customer information and pilot project data       |
-| **API Keys & Credentials**     | `.env.local`, `.env.*.local`, `credentials.json`, `service-account-*.json`                    | API keys, service accounts, local environment secrets            |
+| **API Keys & Credentials**     | `.env.local`, `.env.*.local`, `credentials.json`, `service-account-*.json`, `gcp-sa-*.json`, `*sa-key*.json` | API keys, service accounts, local environment secrets            |
 | **Financial Models**           | `*financial-model*.xlsx`, `*roi-calculator*.xlsx`, `*cap-table*.xlsx`                         | Sensitive financial projections and capitalization data          |
 | **Proprietary Algorithms**     | `/dws-core/proprietary/`, `/algorithms/confidential/`                                         | DWS IQ trade secrets and confidential algorithms                 |
 | **Admin Documentation**        | Admin/, admin/                                                                                | Admin manual, installation guides (ProtonDrive only)             |
@@ -3027,7 +3092,7 @@ dws6/
 ├── investor-materials/     # ⛔ NEVER COMMIT - Investor decks, financials
 ├── customer-data/          # ⛔ NEVER COMMIT - GDPR protected data
 ├── pilot-data/             # ⛔ NEVER COMMIT - Pilot customer data
-├── ncc-data/               # ⛔ NEVER COMMIT - NCC customer data
+├── ncc-data/               # ⛔ NEVER COMMIT - NCC prospect/evaluation data (NCC is an unlanded prospect, not a customer)
 ├── t2h-data/               # ⛔ NEVER COMMIT - T2H customer data
 ├── admin/                  # ⛔ NEVER COMMIT - Admin manual (ProtonDrive only)
 ├── dws-core/
@@ -3188,7 +3253,7 @@ Dokumentoinnissa on hyvä huomioida, että riskienhallintatoimenpiteiden kuvaami
 - **What changed:** `ONTOLOGY.md` §6, between Spatial and Causal Ontology — see the "Data Lifecycle & Retention Ontology" YAML block.
 - **Why:** closes the aggregation-effect gap named in VM 2026:27 §4.4.2 — without a per-node retention declaration, new ontology nodes default to "keep forever," recreating the unstructured-data problem this whole retention effort exists to prevent.
 - **Operator action:** when defining a new ontology node (new industry vertical, new sensor class, new customer-specific extension), the retention YAML block is a required design-time field, not an optional add-on. Reject node definitions that omit it.
-- **Cross-reference chain (keep in lockstep):** `ONTOLOGY.md` §6 → `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md` → this Admin Manual section → `docs/KONSULTIN_KASIKIRJA_2026.md` §3 → public product pages.
+- **Cross-reference chain (keep in lockstep):** `ONTOLOGY.md` §6 → `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md` → this Admin Manual section → `docs/KONSULTOINNIN_KASIKIRJA_2026.md` §3 → public product pages.
 
 ---
 
@@ -3667,6 +3732,6 @@ is a navigational snapshot, not a replacement for `git log`. Regenerate with
 
 ---
 
-**License:** Proprietary - Lifetime Oy  
-**Maintained by:** Lifetime Oy Development Team  
+**License:** Proprietary - Lifetime Oy
+**Maintained by:** Lifetime Oy Development Team
 **Storage:** GitHub (private repo) + ProtonDrive sync - /2026/Repos2026/dws6/Admin

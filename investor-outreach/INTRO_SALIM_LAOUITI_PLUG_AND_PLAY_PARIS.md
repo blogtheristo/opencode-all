@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Salim Laouiti, Plug and Play (Paris)
-Version: 1.0
+Version: 1.1
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
@@ -9,6 +9,7 @@ Story Lock: Horizontal AI + Compliance SaaS + Enterprise ROI (NOT sovereign/dual
 Intro Type: Warm (Risto network)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-19): Initial draft. Ventures Associate at Plug and Play Paris. $50K-$3M pre-seed to Series A B2B software. Focus: horizontal AI with clear enterprise ROI, compliance-aware platforms. Access to Plug and Play's 500+ corporate network for enterprise pilots. Drawbacks: Fintech/Insurtech primary mandate, prefers Tier 1 school pedigree, prefers balanced co-founder teams. POSITIONING RULE: DO NOT lead with sovereign / dual-use / Aegis — position as compliance SaaS with enterprise ROI. Different profile from Arthur Perissich (also Plug and Play) who is on HOLD for solo-founder; Salim is an Associate, warm, and his broader $50K-$3M B2B software mandate is more flexible. Primary value: corporate pilot intros, not the check itself.
 -->
 
@@ -70,7 +71,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 ## Drawbacks / Mitigations
 
 - **Fintech / Insurtech primary mandate** — This is the biggest filter. We are industrial compliance, not fintech. **Mitigation:** bridge the gap on the compliance angle. CSRD, EU AI Act, ETS, CBAM are regulatory frameworks that apply to ALL large EU enterprises, including banks and insurers. Frame: "we're a horizontal EU compliance platform — industrial is our launch vertical, financial services is a natural adjacent." Make the fintech mandate our Year 2 story.
-- **Tier 1 school pedigree preference** — Risto is Metropolia + operator track record, not INSEAD / HEC. **Mitigation:** lead with operator experience (13 years regulated industry, SAP/IFS/Dynamics domain expertise), paying customers (5, 100% retention), technical moat (a fleet of skilled agents, EU AI Act compliance stack). Don't try to win on pedigree — win on outcomes already delivered.
+- **Tier 1 school pedigree preference** — Risto is Metropolia + operator track record, not INSEAD / HEC. **Mitigation:** lead with operator experience (13 years regulated industry, SAP/IFS/Dynamics domain expertise), two contracted enterprise pilots (Q1/2026, €59,900 booked), technical moat (a fleet of skilled agents, EU AI Act compliance stack). Don't try to win on pedigree — win on outcomes already delivered.
 - **Balanced co-founder teams preference** — Addressed: two-person complementary team (Risto + Lucille Santiago, Office Chief / partner-track, Lifetime AB). **Mitigation:** same playbook as Maciej and Thomas — lead with the two-person team + operator model + customers + advisors + technical via governed agent workflows + Cubet partner + funded senior search.
 - **Sovereign / dual-use / Aegis angle will NOT land here** — He's Fintech-oriented and Paris-based. Sovereignty is not his filter. **Mitigation: DO NOT mention Aegis, defense, dual-use, military, sovereign AI in this conversation.** Position exclusively as horizontal compliance SaaS with enterprise ROI.
 
@@ -108,7 +109,7 @@ Replace with:
 
 Hi Salim — hope things are good. Quick update on what we're building:
 
-Lifetime Oy (Finland) — horizontal AI for EU compliance. A fleet of skilled agents across 20 regulated industries, SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. Replaces EUR 50K-100K/year consultant cost with EUR 8,950/year software. EUR 7K MRR, 6 customers, 100% retention.
+Lifetime Oy (Finland) — horizontal AI for EU compliance. A fleet of skilled agents across 20 regulated industries, SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. Replaces EUR 50K-100K/year consultant cost with EUR 8,950/year software. ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 
 Raising EUR 650K SAFE at EUR 3.8M cap. V1 launches at Arctic 15 June 15, Messe Germany commercial push right after. Real prize for Plug and Play: pilot intros from the 500+ corporate network — a DACH industrial pilot would accelerate us materially. Memo + 20 min call?
 
@@ -134,11 +135,11 @@ fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) face mandat
 
 **Traction:**
 
-- EUR 7K MRR, 6 paying customers, 100% retention
+- ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked)
 - LTV: EUR 70K-120K/year per customer
 - Target: EUR 900K ARR end 2026
 
-**On the team upfront:** Balanced two-person team — me (operator-founder) + Lucille Santiago (Office Chief / partner-track, Lifetime AB), complementary skill sets. Technical depth via governed AI agent workflows + a Cubet Techno Labs engineering partner, senior technical hire funded and searching. 13 years regulated-industry operator, 6 paying customers at 100% retention, advisors in place.
+**On the team upfront:** Balanced two-person team — me (operator-founder) + Lucille Santiago (Office Chief / partner-track, Lifetime AB), complementary skill sets. Technical depth via governed AI agent workflows + a Cubet Techno Labs engineering partner, senior technical hire funded and searching. 13 years regulated-industry operator, two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked), advisors in place.
 
 **The ask — two channels:**
 

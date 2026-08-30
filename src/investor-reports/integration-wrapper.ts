@@ -3,14 +3,15 @@
  * Bridges TypeScript report generation with existing Python PDF/email/Drive infrastructure
  */
 
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 import { promisify } from 'util';
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { InvestorReportData } from './types';
+import { type InvestorReportData } from './types';
+import logger from '../utils/logger.js';
 import { templateGenerator } from './template-generator';
 
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 
 // ============================================================================
 // INTEGRATION WRAPPER
@@ -24,6 +25,17 @@ export class IntegrationWrapper {
     // Paths relative to project root
     this.reportsDir = path.join(process.cwd(), 'Reports');
     this.pythonScriptsDir = path.join(process.cwd(), 'Reports');
+  }
+
+  private resolveSafePath(baseDir: string, targetPath: string): string {
+    const resolvedBase = path.resolve(baseDir);
+    const resolvedTarget = path.resolve(targetPath);
+
+    if (resolvedTarget !== resolvedBase && !resolvedTarget.startsWith(`${resolvedBase}${path.sep}`)) {
+      throw new Error(`Unsafe path detected: ${targetPath}`);
+    }
+
+    return resolvedTarget;
   }
 
   // ==========================================================================
@@ -41,7 +53,7 @@ export class IntegrationWrapper {
 
       // Create temporary HTML file
       const month = reportData.report_period.toISOString().split('T')[0];
-      const tempHtmlPath = path.join('/tmp', `investor-report-${month}.html`);
+      const tempHtmlPath = path.join(this.reportsDir, `investor-report-${month}.html`);
       const outputPdfPath = path.join(this.reportsDir, `investor-report-${month}.pdf`);
 
       await fs.writeFile(tempHtmlPath, htmlContent, 'utf-8');
@@ -50,34 +62,48 @@ export class IntegrationWrapper {
       // For now, we'll use a simple approach (requires wkhtmltopdf installed)
       // Alternative: use Puppeteer, weasyprint, or existing PDF generation scripts
 
-      console.log(`[PDF] Generating PDF from HTML: ${tempHtmlPath} -> ${outputPdfPath}`);
+      logger.info(`[PDF] Generating PDF from HTML: ${tempHtmlPath} -> ${outputPdfPath}`);
 
       // Check if wkhtmltopdf is available
       try {
-        await execAsync('which wkhtmltopdf');
-
         // Generate PDF using wkhtmltopdf
-        await execAsync(
-          `wkhtmltopdf --enable-local-file-access --page-size A4 --margin-top 20mm --margin-bottom 20mm --margin-left 15mm --margin-right 15mm "${tempHtmlPath}" "${outputPdfPath}"`
-        );
+        await execFileAsync('wkhtmltopdf', [
+          '--enable-local-file-access',
+          '--page-size',
+          'A4',
+          '--margin-top',
+          '20mm',
+          '--margin-bottom',
+          '20mm',
+          '--margin-left',
+          '15mm',
+          '--margin-right',
+          '15mm',
+          this.resolveSafePath(this.reportsDir, tempHtmlPath),
+          this.resolveSafePath(this.reportsDir, outputPdfPath),
+        ]);
 
-        console.log(`[PDF] ✓ PDF generated: ${outputPdfPath}`);
-      } catch (error) {
-        console.log('[PDF] wkhtmltopdf not found, using fallback method');
+        logger.info(`[PDF] ✓ PDF generated: ${outputPdfPath}`);
+      } catch {
+        logger.info('[PDF] wkhtmltopdf not found, using fallback method');
 
         // Fallback: Save as Markdown and use pandoc if available
         const markdownContent = templateGenerator.generateMarkdown(reportData);
-        const tempMdPath = path.join('/tmp', `investor-report-${month}.md`);
+        const tempMdPath = path.join(this.reportsDir, `investor-report-${month}.md`);
         await fs.writeFile(tempMdPath, markdownContent, 'utf-8');
 
         try {
-          await execAsync('which pandoc');
-          await execAsync(
-            `pandoc "${tempMdPath}" -o "${outputPdfPath}" --pdf-engine=xelatex -V geometry:margin=1in`
-          );
-          console.log(`[PDF] ✓ PDF generated using pandoc: ${outputPdfPath}`);
-        } catch (pandocError) {
-          console.log('[PDF] Neither wkhtmltopdf nor pandoc available');
+          await execFileAsync('pandoc', [
+            this.resolveSafePath(this.reportsDir, tempMdPath),
+            '-o',
+            this.resolveSafePath(this.reportsDir, outputPdfPath),
+            '--pdf-engine=xelatex',
+            '-V',
+            'geometry:margin=1in',
+          ]);
+          logger.info(`[PDF] ✓ PDF generated using pandoc: ${outputPdfPath}`);
+        } catch {
+          logger.info('[PDF] Neither wkhtmltopdf nor pandoc available');
 
           // Final fallback: Just save HTML and Markdown
           const htmlPath = path.join(this.reportsDir, `investor-report-${month}.html`);
@@ -86,7 +112,7 @@ export class IntegrationWrapper {
           await fs.writeFile(htmlPath, htmlContent, 'utf-8');
           await fs.writeFile(mdPath, markdownContent, 'utf-8');
 
-          console.log(`[PDF] ✓ Saved HTML and Markdown: ${htmlPath}, ${mdPath}`);
+          logger.info(`[PDF] ✓ Saved HTML and Markdown: ${htmlPath}, ${mdPath}`);
           return htmlPath; // Return HTML path as fallback
         }
       }
@@ -94,14 +120,14 @@ export class IntegrationWrapper {
       // Clean up temp files
       try {
         await fs.unlink(tempHtmlPath);
-      } catch (e) {
+      } catch {
         // Ignore cleanup errors
       }
 
       return outputPdfPath;
     } catch (error) {
-      console.error('[PDF] Error generating PDF:', error);
-      throw new Error(`Failed to generate PDF: ${error}`);
+      logger.error('[PDF] Error generating PDF:', error);
+      throw new Error(`Failed to generate PDF: ${error}`, { cause: error });
     }
   }
 
@@ -130,7 +156,7 @@ export class IntegrationWrapper {
       const emailBody = this.generateEmailBody(reportData);
 
       // Save email body to temp file
-      const bodyPath = path.join('/tmp', 'investor-report-email-body.txt');
+      const bodyPath = path.join(this.reportsDir, 'investor-report-email-body.txt');
       await fs.writeFile(bodyPath, emailBody, 'utf-8');
 
       // Use existing send_weekly_report.py script (adapted for investor reports)
@@ -139,37 +165,39 @@ export class IntegrationWrapper {
       const pythonScript = this.generateEmailSenderScript(
         subject,
         emailBody,
-        pdfPath,
+        this.resolveSafePath(this.reportsDir, pdfPath),
         recipients
       );
 
-      const scriptPath = path.join('/tmp', 'send-investor-report.py');
+      const scriptPath = path.join(this.reportsDir, 'send-investor-report.py');
       await fs.writeFile(scriptPath, pythonScript, 'utf-8');
 
-      console.log(`[Email] Sending report to: ${recipients.join(', ')}`);
-      console.log(`[Email] Subject: ${subject}`);
-      console.log(`[Email] Attachment: ${pdfPath}`);
+      logger.info(`[Email] Sending report to: ${recipients.join(', ')}`);
+      logger.info(`[Email] Subject: ${subject}`);
+      logger.info(`[Email] Attachment: ${pdfPath}`);
 
       // Execute Python script
-      const { stdout, stderr } = await execAsync(`python3 "${scriptPath}"`);
+      const { stdout, stderr } = await execFileAsync('python3', [
+        this.resolveSafePath(this.reportsDir, scriptPath),
+      ]);
 
       if (stderr && !stderr.includes('InsecureRequestWarning')) {
-        console.error('[Email] stderr:', stderr);
+        logger.error('[Email] stderr:', stderr);
       }
 
-      console.log('[Email] ✓ Report sent successfully');
-      console.log(stdout);
+      logger.info('[Email] ✓ Report sent successfully');
+      logger.info(stdout);
 
       // Clean up
       try {
         await fs.unlink(scriptPath);
         await fs.unlink(bodyPath);
-      } catch (e) {
+      } catch {
         // Ignore cleanup errors
       }
     } catch (error) {
-      console.error('[Email] Error sending email:', error);
-      throw new Error(`Failed to send email: ${error}`);
+      logger.error('[Email] Error sending email:', error);
+      throw new Error(`Failed to send email: ${error}`, { cause: error });
     }
   }
 
@@ -284,27 +312,32 @@ except Exception as e:
     try {
       const uploadScript = path.join(this.pythonScriptsDir, 'upload_to_drive.py');
 
-      console.log(`[Drive] Uploading to Google Drive: ${pdfPath}`);
+      logger.info(`[Drive] Uploading to Google Drive: ${pdfPath}`);
 
       // Check if upload script exists
       try {
         await fs.access(uploadScript);
-      } catch (error) {
-        console.log('[Drive] upload_to_drive.py not found, skipping upload');
+      } catch {
+        logger.info('[Drive] upload_to_drive.py not found, skipping upload');
         return '';
       }
 
       // Execute upload script
-      const { stdout, stderr } = await execAsync(
-        `python3 "${uploadScript}" --file "${pdfPath}"`
-      );
+      const safeUploadScript = this.resolveSafePath(this.pythonScriptsDir, uploadScript);
+      const safePdfPath = this.resolveSafePath(this.reportsDir, pdfPath);
+
+      const { stdout, stderr } = await execFileAsync('python3', [
+        safeUploadScript,
+        '--file',
+        safePdfPath,
+      ]);
 
       if (stderr && !stderr.includes('InsecureRequestWarning')) {
-        console.error('[Drive] stderr:', stderr);
+        logger.error('[Drive] stderr:', stderr);
       }
 
-      console.log('[Drive] ✓ Uploaded to Google Drive');
-      console.log(stdout);
+      logger.info('[Drive] ✓ Uploaded to Google Drive');
+      logger.info(stdout);
 
       // Extract Drive URL from stdout (assuming script outputs URL)
       const urlMatch = stdout.match(/https:\/\/drive\.google\.com\/[^\s]+/);
@@ -312,7 +345,7 @@ except Exception as e:
 
       return driveUrl;
     } catch (error) {
-      console.error('[Drive] Error uploading to Google Drive:', error);
+      logger.error('[Drive] Error uploading to Google Drive:', error);
       // Don't throw - Drive upload is optional
       return '';
     }
@@ -328,7 +361,7 @@ except Exception as e:
   async ensureReportsDir(): Promise<void> {
     try {
       await fs.mkdir(this.reportsDir, { recursive: true });
-    } catch (error) {
+    } catch {
       // Ignore if already exists
     }
   }

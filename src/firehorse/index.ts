@@ -20,12 +20,13 @@ export { default as firehorseRoutes } from './routes';
 
 import { scheduler } from './scheduler';
 import { reportScheduler } from './report-scheduler';
+import logger from '../utils/logger.js';
 
 /**
  * Initialize Firehorse Pilot
  */
 export function initFirehorsePilot(): void {
-  console.log('🔥 Initializing Firehorse Omnichannel Next Pilot...');
+  logger.info('🔥 Initializing Firehorse Omnichannel Next Pilot...');
 
   // Start omnichannel outreach scheduler
   scheduler.start();
@@ -33,18 +34,18 @@ export function initFirehorsePilot(): void {
   // Start report delivery scheduler (hourly — runs due report_schedules)
   reportScheduler.start();
 
-  console.log('✅ Firehorse Pilot initialized');
+  logger.info('✅ Firehorse Pilot initialized');
 }
 
 /**
  * Shutdown Firehorse Pilot
  */
 export function shutdownFirehorsePilot(): void {
-  console.log('🔥 Shutting down Firehorse Omnichannel Next Pilot...');
+  logger.info('🔥 Shutting down Firehorse Omnichannel Next Pilot...');
 
   // Stop schedulers
   scheduler.stop();
   reportScheduler.stop();
 
-  console.log('✅ Firehorse Pilot shutdown complete');
+  logger.info('✅ Firehorse Pilot shutdown complete');
 }

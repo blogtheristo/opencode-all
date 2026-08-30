@@ -31,7 +31,8 @@ const router = Router();
 
 // Supabase client for server-side operations
 const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const supabaseServiceKey =
+  process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 const supabase =
   supabaseUrl && supabaseServiceKey ? createClient(supabaseUrl, supabaseServiceKey) : null;
 
@@ -67,7 +68,7 @@ router.post(
   validate({ body: OnboardingSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userId = (req as any).user?.id || 'anonymous';
+      const userId = req.user?.id || 'anonymous';
       const body = req.body as OnboardingData;
 
       logger.info('Onboarding started', {
@@ -155,7 +156,7 @@ router.post(
       });
 
       // Fire-and-forget: send Day 0 welcome email
-      const userEmail = (req as any).user?.email;
+      const userEmail = req.user?.email;
       if (userEmail) {
         onboardingEmailService
           .sendWelcomeSequenceEmail({
@@ -218,7 +219,7 @@ router.get(
   authenticateToken,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userId = (req as any).user?.id || 'anonymous';
+      const userId = req.user?.id || 'anonymous';
 
       if (supabase) {
         const { data, error } = await supabase
@@ -256,7 +257,7 @@ router.post(
   validate({ body: OnboardingAssessSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userId = (req as any).user?.id || 'anonymous';
+      const userId = req.user?.id || 'anonymous';
 
       // Check onboarding status
       let onboarding: { company_name: string; industry: string; country: string } | null = null;

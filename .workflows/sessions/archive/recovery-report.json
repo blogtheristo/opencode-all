@@ -1,0 +1,448 @@
+{
+  "timestamp": "2026-08-27T03:05:43.540Z",
+  "total_recovered": 73,
+  "by_platform": {
+    "copilot": 18,
+    "claude-code": 55
+  },
+  "sessions": [
+    {
+      "id": "copilot_1267839d-d58",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 8
+    },
+    {
+      "id": "copilot_1732e0e9-228",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 13
+    },
+    {
+      "id": "copilot_34f7df50-53a",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 82
+    },
+    {
+      "id": "copilot_35dfcb0a-1af",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 10
+    },
+    {
+      "id": "copilot_49eda1a4-dfe",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 92
+    },
+    {
+      "id": "copilot_65874ee5-a92",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 145
+    },
+    {
+      "id": "copilot_66d99741-503",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 144
+    },
+    {
+      "id": "copilot_8248219f-a9a",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 204
+    },
+    {
+      "id": "copilot_84f580bd-fde",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 159
+    },
+    {
+      "id": "copilot_901eedb1-9a2",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 21
+    },
+    {
+      "id": "copilot_9c6f969d-b54",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 31
+    },
+    {
+      "id": "copilot_ad617f11-2fe",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 78
+    },
+    {
+      "id": "copilot_b1c5577a-ae6",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 472
+    },
+    {
+      "id": "copilot_c459ea34-450",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 892
+    },
+    {
+      "id": "copilot_dbab1ef1-b88",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 2196
+    },
+    {
+      "id": "copilot_deddef51-437",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 2463
+    },
+    {
+      "id": "copilot_f3279bc5-8ab",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 90
+    },
+    {
+      "id": "copilot_f3bedeae-4c5",
+      "platform": "copilot",
+      "title": "github/cli",
+      "event_count": 22
+    },
+    {
+      "id": "claude_a1267624-7ba",
+      "platform": "claude-code",
+      "title": "Claude Code Session: a1267624-7bab-4fd0-afd9-b8fc9f89958f",
+      "event_count": 23
+    },
+    {
+      "id": "claude_3f3f1d31-fcc",
+      "platform": "claude-code",
+      "title": "Claude Code Session: 3f3f1d31-fcce-4580-892e-4023d824ff28",
+      "event_count": 8
+    },
+    {
+      "id": "claude_f1b9e63c-d41",
+      "platform": "claude-code",
+      "title": "Claude Code Session: f1b9e63c-d41d-4058-a130-f43c6054b3fe",
+      "event_count": 135
+    },
+    {
+      "id": "claude_0aa6c1f3-b54",
+      "platform": "claude-code",
+      "title": "Claude Code Session: 0aa6c1f3-b544-4183-ac04-0ba00660dc61",
+      "event_count": 151
+    },
+    {
+      "id": "claude_163c39bd-349",
+      "platform": "claude-code",
+      "title": "Claude Code Session: 163c39bd-3499-4007-aa6e-1f91836bcba3",
+      "event_count": 29
+    },
+    {
+      "id": "claude_2e21569c-631",
+      "platform": "claude-code",
+      "title": "Claude Code Session: 2e21569c-631a-445d-966f-ed323d0cca9b",
+      "event_count": 628
+    },
+    {
+      "id": "claude_1386e632-5bf",
+      "platform": "claude-code",
+      "title": "Claude Code Session: 1386e632-5bf6-44ea-be89-b03388276094",
+      "event_count": 273
+    },
+    {
+      "id": "claude_8c05c57e-bed",
+      "platform": "claude-code",
+      "title": "Claude Code Session: 8c05c57e-bed2-45f4-9bac-3e7373294a07",
+      "event_count": 21
+    },
+    {
+      "id": "claude_a8103a45-933",
+      "platform": "claude-code",
+      "title": "Claude Code Session: a8103a45-9335-4bc2-8d3e-d649d3988e31",
+      "event_count": 13
+    },
+    {
+      "id": "claude_635f4b49-92a",
+      "platform": "claude-code",
+      "title": "Claude Code Session: 635f4b49-92ac-4094-988f-22095a211058",
+      "event_count": 194
+    },
+    {
+      "id": "claude_agent-ad23fc",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-ad23fce603e8c4f19",
+      "event_count": 7
+    },
+    {
+      "id": "claude_33960879-a3b",
+      "platform": "claude-code",
+      "title": "Claude Code Session: 33960879-a3b8-4af4-bc7b-868ac7d41ab3",
+      "event_count": 68
+    },
+    {
+      "id": "claude_agent-a43485",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a434859253d12f26c",
+      "event_count": 16
+    },
+    {
+      "id": "claude_agent-a5eff8",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a5eff8b673d3311e2",
+      "event_count": 197
+    },
+    {
+      "id": "claude_agent-a800d2",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a800d27b97d7c1670",
+      "event_count": 68
+    },
+    {
+      "id": "claude_agent-ae542e",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-ae542efb28874fc2a",
+      "event_count": 47
+    },
+    {
+      "id": "claude_agent-a55510",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a55510b36ddb9434a",
+      "event_count": 54
+    },
+    {
+      "id": "claude_agent-a5bef6",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a5bef67c0d8c160b5",
+      "event_count": 41
+    },
+    {
+      "id": "claude_agent-a6bb5b",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a6bb5b8f2fa802a84",
+      "event_count": 20
+    },
+    {
+      "id": "claude_agent-a16191",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a16191fce82ece316",
+      "event_count": 36
+    },
+    {
+      "id": "claude_agent-abdfb4",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-abdfb4df994c09b23",
+      "event_count": 188
+    },
+    {
+      "id": "claude_agent-ad9a85",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-ad9a85367a7113113",
+      "event_count": 147
+    },
+    {
+      "id": "claude_agent-ae3739",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-ae37398dad03ed2d2",
+      "event_count": 30
+    },
+    {
+      "id": "claude_agent-acb581",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-acb58117952701ecc",
+      "event_count": 32
+    },
+    {
+      "id": "claude_agent-afa369",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-afa369ac4f2d08098",
+      "event_count": 20
+    },
+    {
+      "id": "claude_agent-aea2de",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-aea2dea553d2c7141",
+      "event_count": 297
+    },
+    {
+      "id": "claude_agent-a31613",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a31613f234f35bf16",
+      "event_count": 106
+    },
+    {
+      "id": "claude_agent-a82268",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a82268d9e913627d3",
+      "event_count": 37
+    },
+    {
+      "id": "claude_agent-a12763",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a1276347702000791",
+      "event_count": 46
+    },
+    {
+      "id": "claude_agent-a363db",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a363dbeff1313a1d6",
+      "event_count": 57
+    },
+    {
+      "id": "claude_agent-a4e3dd",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a4e3ddf27ebb7238a",
+      "event_count": 153
+    },
+    {
+      "id": "claude_agent-a22347",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a223476d0d4d38a76",
+      "event_count": 17
+    },
+    {
+      "id": "claude_agent-aee823",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-aee823d50227c9d9e",
+      "event_count": 23
+    },
+    {
+      "id": "claude_agent-a2e50e",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a2e50e23fbb2c4bec",
+      "event_count": 34
+    },
+    {
+      "id": "claude_agent-a5a73e",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a5a73ed3853d5dcc6",
+      "event_count": 41
+    },
+    {
+      "id": "claude_agent-a47fd3",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a47fd3676831f762b",
+      "event_count": 40
+    },
+    {
+      "id": "claude_agent-a7c723",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a7c723d68f712ea69",
+      "event_count": 45
+    },
+    {
+      "id": "claude_agent-a0920a",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a0920a48c8ad84811",
+      "event_count": 356
+    },
+    {
+      "id": "claude_agent-a8f353",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a8f353ced2a037519",
+      "event_count": 113
+    },
+    {
+      "id": "claude_agent-ac8600",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-ac8600b207e10710f",
+      "event_count": 360
+    },
+    {
+      "id": "claude_agent-ac64cf",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-ac64cf551d707f525",
+      "event_count": 232
+    },
+    {
+      "id": "claude_agent-ae9322",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-ae932298e2be9f3e1",
+      "event_count": 64
+    },
+    {
+      "id": "claude_agent-a01883",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a018837a2ef6862a9",
+      "event_count": 66
+    },
+    {
+      "id": "claude_agent-a8f78d",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a8f78dfbdc576b900",
+      "event_count": 25
+    },
+    {
+      "id": "claude_agent-ad8918",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-ad8918c79b25222e4",
+      "event_count": 118
+    },
+    {
+      "id": "claude_agent-adee85",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-adee85cff74c92837",
+      "event_count": 39
+    },
+    {
+      "id": "claude_agent-a627a5",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a627a5bfab34d4129",
+      "event_count": 203
+    },
+    {
+      "id": "claude_agent-a2cf43",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a2cf43a6838a62995",
+      "event_count": 57
+    },
+    {
+      "id": "claude_agent-ac0e43",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-ac0e43be5f5f736e8",
+      "event_count": 130
+    },
+    {
+      "id": "claude_agent-acffd8",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-acffd87f3ba2b8d5d",
+      "event_count": 45
+    },
+    {
+      "id": "claude_agent-a54e30",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a54e307d0c2b01087",
+      "event_count": 111
+    },
+    {
+      "id": "claude_agent-af2b78",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-af2b7875ca829c899",
+      "event_count": 52
+    },
+    {
+      "id": "claude_agent-afd500",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-afd50058df4bf1577",
+      "event_count": 111
+    },
+    {
+      "id": "claude_agent-a1970a",
+      "platform": "claude-code",
+      "title": "Claude Code Session: agent-a1970a374666da3ac",
+      "event_count": 208
+    },
+    {
+      "id": "claude_e74becbe-33e",
+      "platform": "claude-code",
+      "title": "Claude Code Session: e74becbe-33e7-4389-9c76-2f5fc7b96ec6",
+      "event_count": 2962
+    }
+  ]
+}

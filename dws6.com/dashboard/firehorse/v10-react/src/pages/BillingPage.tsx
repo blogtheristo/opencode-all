@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../hooks/useAuth';
+import { useToast } from '../components/Toast';
 
 interface Plan {
   id: string;
@@ -45,6 +46,7 @@ const API_BASE = import.meta.env.VITE_API_URL || '';
 export function BillingPage() {
   const navigate = useNavigate();
   const { session } = useAuth();
+  const { toast } = useToast();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPlan, setCurrentPlan] = useState<string>('free');
@@ -226,6 +228,9 @@ export function BillingPage() {
       return;
     }
     setCheckoutLoading(plan.id);
+    const origin = window.location.origin;
+    const return_url = `${origin}/payment/success?plan=${plan.tier}`;
+    const cancel_url = `${origin}/payment/cancel?plan=${plan.tier}`;
     try {
       const res = await fetch(`${API_BASE}/api/v1/payments/subscribe`, {
         method: 'POST',
@@ -236,21 +241,31 @@ export function BillingPage() {
         body: JSON.stringify({
           plan: plan.tier as 'pro' | 'enterprise',
           payment_provider: provider,
+          return_url,
+          cancel_url,
         }),
       });
       const data = await res.json();
       if (!res.ok) {
         const msg = data?.message || data?.error || 'Payment service unavailable';
-        alert(msg);
+        toast({ type: 'error', title: 'Checkout failed', message: msg });
         return;
       }
       if (data?.payment_url) {
         window.location.href = data.payment_url;
       } else {
-        alert('No payment URL received. Please contact support.');
+        toast({
+          type: 'error',
+          title: 'Checkout failed',
+          message: 'No payment URL received. Please contact support.',
+        });
       }
     } catch {
-      alert('Unable to start checkout. Please try again or contact support.');
+      toast({
+        type: 'error',
+        title: 'Checkout unavailable',
+        message: 'Unable to start checkout. Please try again or contact support.',
+      });
     } finally {
       setCheckoutLoading(null);
     }
@@ -259,8 +274,8 @@ export function BillingPage() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Billing & Subscription</h1>
-        <p className="text-gray-500 mt-1">
+        <h1 className="text-2xl font-bold text-foreground">Billing & Subscription</h1>
+        <p className="text-fg-muted mt-1">
           Manage your subscription and payment methods. Payments via PayPal or Revolut.
         </p>
       </div>
@@ -296,7 +311,7 @@ export function BillingPage() {
               }`}
             >
               <div className="flex justify-between items-start mb-4">
-                <h2 className="text-lg font-semibold text-gray-900">{plan.name}</h2>
+                <h2 className="text-lg font-semibold text-foreground">{plan.name}</h2>
                 {plan.tier === 'pro' && (
                   <span className="text-xs bg-primary-100 text-primary-700 px-2 py-0.5 rounded-full">
                     Popular
@@ -305,22 +320,22 @@ export function BillingPage() {
               </div>
 
               <div className="mb-4">
-                <span className="text-3xl font-bold text-gray-900">€{plan.price_monthly_eur}</span>
-                <span className="text-gray-500">/month</span>
+                <span className="text-3xl font-bold text-foreground">€{plan.price_monthly_eur}</span>
+                <span className="text-fg-muted">/month</span>
                 {plan.price_annual_eur != null && plan.price_annual_eur > 0 && (
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-fg-muted mt-1">
                     €{plan.price_annual_eur}/year (2 months free)
                   </p>
                 )}
               </div>
 
               <ul className="space-y-2 flex-1 mb-6">
-                <li className="text-sm text-gray-600">
+                <li className="text-sm text-fg-muted">
                   {formatCalls(plan.agent_calls_per_month)} agent calls/month
                 </li>
-                <li className="text-sm text-gray-600">{plan.edge_devices} edge devices</li>
+                <li className="text-sm text-fg-muted">{plan.edge_devices} edge devices</li>
                 {plan.features.slice(0, 4).map((f, i) => (
-                  <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
+                  <li key={i} className="text-sm text-fg-muted flex items-start gap-2">
                     <span className="text-primary-500">✓</span>
                     {f}
                   </li>
@@ -350,8 +365,8 @@ export function BillingPage() {
                     {checkoutLoading === plan.id ? '...' : 'Upgrade with Revolut'}
                   </button>
                   <a
-                    href={`mailto:risto@lifetime.fi?subject=DWS%20IQ%20Upgrade%20to%20${plan.name}`}
-                    className="block text-center text-sm text-gray-500 hover:text-gray-700"
+                    href={`https://dws10.com/contact/?subject=DWS%20IQ%20Upgrade%20to%20${plan.name}`}
+                    className="block text-center text-sm text-fg-muted hover:text-foreground"
                   >
                     Or contact us to upgrade
                   </a>
@@ -365,8 +380,8 @@ export function BillingPage() {
       {/* Usage Stats */}
       {usage && (
         <div className="mt-8 card p-6">
-          <h3 className="text-sm font-semibold text-gray-700 mb-4">Current Period Usage</h3>
-          <p className="text-xs text-gray-500 mb-4">
+          <h3 className="text-sm font-semibold text-foreground mb-4">Current Period Usage</h3>
+          <p className="text-xs text-fg-muted mb-4">
             {new Date(usage.period_start).toLocaleDateString('en-GB', {
               month: 'short',
               day: 'numeric',
@@ -396,13 +411,13 @@ export function BillingPage() {
       {/* Invoice History */}
       {invoices.length > 0 && (
         <div className="mt-6 card p-6">
-          <h3 className="text-sm font-semibold text-gray-700 mb-4">Invoice History</h3>
-          <div className="divide-y divide-gray-100">
+          <h3 className="text-sm font-semibold text-foreground mb-4">Invoice History</h3>
+          <div className="divide-y divide-border">
             {invoices.map((inv) => (
               <div key={inv.id} className="flex items-center justify-between py-3">
                 <div>
-                  <p className="text-sm font-medium text-gray-900">{inv.period}</p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm font-medium text-foreground">{inv.period}</p>
+                  <p className="text-xs text-fg-muted">
                     {new Date(inv.created_at).toLocaleDateString('en-GB', {
                       day: 'numeric',
                       month: 'short',
@@ -411,7 +426,7 @@ export function BillingPage() {
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-gray-900">
+                  <span className="text-sm font-medium text-foreground">
                     &euro;{inv.amount_eur.toLocaleString()}
                   </span>
                   <span
@@ -433,8 +448,8 @@ export function BillingPage() {
       )}
 
       <div className="mt-6 card p-4">
-        <h3 className="text-sm font-semibold text-gray-700 mb-2">Payment Methods</h3>
-        <p className="text-sm text-gray-500">
+        <h3 className="text-sm font-semibold text-foreground mb-2">Payment Methods</h3>
+        <p className="text-sm text-fg-muted">
           We accept PayPal and Revolut Business. Invoices are sent monthly. For Enterprise, contact
           us for custom payment terms.
         </p>
@@ -458,12 +473,12 @@ function UsageBar({ label, used, limit }: { label: string; used: number; limit: 
   return (
     <div>
       <div className="flex justify-between text-sm mb-1">
-        <span className="text-gray-700 font-medium">{label}</span>
-        <span className="text-gray-500">
+        <span className="text-foreground font-medium">{label}</span>
+        <span className="text-fg-muted">
           {used.toLocaleString()} / {isUnlimited ? 'Unlimited' : limit.toLocaleString()}
         </span>
       </div>
-      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+      <div className="h-2 bg-fg-muted/20 rounded-full overflow-hidden">
         <div
           className={`h-full rounded-full transition-all ${barColor}`}
           style={{ width: isUnlimited ? '5%' : `${pct}%` }}

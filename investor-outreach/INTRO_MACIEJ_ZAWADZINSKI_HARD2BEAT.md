@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Maciej Zawadzinski, Hard2beat VC
-Version: 1.0
+Version: 1.1
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
@@ -9,7 +9,8 @@ Story Lock: B2B DeepTech + Defensible IP + Technical Moat (operator-to-operator)
 Intro Type: Cold (to be initiated)
 
 AGENT HISTORY:
-- v1.0 (2026-04-19): Initial draft. Partner at Hard2beat VC, €250K-€750K pre-seed/seed DeepTech across Europe. 3x exited founder (Piwik PRO to €12M ARR) — evaluates technical moats himself, operator-to-operator conversation. B2B enterprise software with defensible IP is his exact mandate, DWS IQ 6 fits. Drawback 1: Poland-focused fund (invests across Europe). Drawback 2: solo founder is a flag for him. Mitigation: lead with defensible IP (21-agent architecture, EU AI Act moat, sovereignty audit lineage, ERP connectors), acknowledge solo-founder directly with operator track record + named advisors + paying customers.
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
+- v1.0 (2026-04-19): Initial draft. Partner at Hard2beat VC, €250K-€750K pre-seed/seed DeepTech across Europe. 3x exited founder (Piwik PRO to €12M ARR) — evaluates technical moats himself, operator-to-operator conversation. B2B enterprise software with defensible IP is his exact mandate, DWS IQ 6 fits. Drawback 1: Poland-focused fund (invests across Europe). Drawback 2: solo founder is a flag for him. Mitigation: lead with defensible IP (21-agent architecture, EU AI Act moat, sovereignty audit lineage, ERP connectors), acknowledge solo-founder directly with operator track record + named advisors + two contracted enterprise pilots.
 -->
 
 # Investor Intro Note — Maciej Zawadzinski, Hard2beat VC
@@ -69,7 +70,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Drawbacks / Mitigations
 
-- **Team note** — He prefers complementary co-founder teams; we now have one (Risto + Lucille Santiago, Office Chief / partner-track, complementary skill sets). **Mitigation:** lead email states the two-person team directly: operator track record (13 years regulated industry, SAP/IFS/Dynamics domain expertise), named advisors, 6 paying customers at 100% retention. Frame: "the moat is the domain knowledge and the agent architecture; technical depth runs on governed agent workflows + a Cubet engineering partner, with a senior technical hire funded and searching."
+- **Team note** — He prefers complementary co-founder teams; we now have one (Risto + Lucille Santiago, Office Chief / partner-track, complementary skill sets). **Mitigation:** lead email states the two-person team directly: operator track record (13 years regulated industry, SAP/IFS/Dynamics domain expertise), named advisors, two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked). Frame: "the moat is the domain knowledge and the agent architecture; technical depth runs on governed agent workflows + a Cubet engineering partner, with a senior technical hire funded and searching."
 - **Poland focus** — Mitigation: he invests across Europe, Poland is home base not mandate boundary. No special framing needed. If asked, acknowledge directly.
 
 ## Strategy
@@ -88,19 +89,19 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Maciej — respect what you built at Piwik PRO. Reaching out because Hard2beat's B2B DeepTech + defensible IP mandate is an exact match for what we're building.
 
-Lifetime Oy (Finland) — B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act compliant. EUR 7K MRR, 6 customers, 100% retention.
+Lifetime Oy (Finland) — B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act compliant. ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 
-Raising EUR 650K SAFE at EUR 3.8M cap — fits your €250K-€750K range cleanly, open to you anchoring. V1 launches June 15. Two-person team (me + Lucille Santiago, Office Chief / partner-track) — 13 years regulated-industry operator, paying customers, advisors in place; technical depth via governed agent workflows + a Cubet Techno Labs engineering partner, senior technical hire funded and searching. Send the memo?
+Raising EUR 650K SAFE at EUR 3.8M cap — fits your €250K-€750K range cleanly, open to you anchoring. V1 launches June 15. Two-person team (me + Lucille Santiago, Office Chief / partner-track) — 13 years regulated-industry operator, two enterprise pilots contracted Q1/2026 (€59,900 booked), advisors in place; technical depth via governed agent workflows + a Cubet Techno Labs engineering partner, senior technical hire funded and searching. Send the memo?
 
 ## Draft Email (cold outreach)
 
-**Subject:** Hard2beat mandate fit — B2B DeepTech, €7K MRR, EU AI Act moat
+**Subject:** Hard2beat mandate fit — B2B DeepTech, two contracted enterprise pilots, EU AI Act moat
 
 Hi Maciej,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because Hard2beat's B2B enterprise software + defensible IP mandate is the tightest fit I've seen for what we're building — and because someone who scaled Piwik PRO to €12M ARR is the right operator to evaluate it.
 
-**Upfront on the team:** We're a two-person team — me + Lucille Santiago (Office Chief / partner-track, Lifetime AB), complementary skill sets. On technical depth: governed AI agent workflows + a Cubet Techno Labs engineering partner cover it today, with a senior technical hire funded and in active search. 13 years operating in regulated industries, deep SAP/IFS/Dynamics domain expertise, 6 paying customers at 100% retention, named advisors. The moat is the agent architecture and the regulatory-ontology work, both of which are in. Happy to be told the flag is still too big.
+**Upfront on the team:** We're a two-person team — me + Lucille Santiago (Office Chief / partner-track, Lifetime AB), complementary skill sets. On technical depth: governed AI agent workflows + a Cubet Techno Labs engineering partner cover it today, with a senior technical hire funded and in active search. 13 years operating in regulated industries, deep SAP/IFS/Dynamics domain expertise, two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), named advisors. The moat is the agent architecture and the regulatory-ontology work, both of which are in. Happy to be told the flag is still too big.
 
 **The moat:**
 
@@ -113,7 +114,7 @@ Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because Hard2beat's B
 
 **The numbers:**
 
-- EUR 7K MRR, 6 paying customers, 100% retention
+- ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked)
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR end 2026

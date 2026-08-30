@@ -1,4 +1,4 @@
-import express, { type Request, type Response, type Router } from 'express';
+import express, { type NextFunction, type Request, type Response, type Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import logger from '../utils/logger.js';
 import AuthService from '../services/auth.service.js';
@@ -47,14 +47,14 @@ const loginValidation = [body('email').isEmail().normalizeEmail(), body('passwor
 
 // ============ MIDDLEWARE ============
 
-const validateRequest = (req: Request, res: Response, next: any) => {
+const validateRequest = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     // SECURITY FIX #7: Sanitize errors - don't expose submitted values
     const sanitizedErrors = errors.array().map((err) => ({
-      field: err.type === 'field' ? (err as any).path : 'unknown',
+      field: err.type === 'field' ? err.path : 'unknown',
       message: err.msg,
-      location: (err as any).location,
+      location: (err as { location?: string }).location,
       // NOTE: Do NOT include 'value' field - may contain sensitive data
     }));
     logger.warn('Validation error', { errors: sanitizedErrors });
@@ -119,10 +119,11 @@ router.post(
           accessLevel: user.accessLevel,
         },
       });
-    } catch (error: any) {
-      logger.error('Registration error', { error: error.message });
+    } catch (error) {
+      logger.error('Registration error', { error: error instanceof Error ? error.message : String(error) });
 
-      if (error.message.includes('already exists') || error.message.includes('duplicate')) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes('already exists') || errorMessage.includes('duplicate')) {
         return res.status(409).json({
           error: 'Registration failed',
           message: 'An account with this email already exists.',
@@ -180,8 +181,8 @@ router.post(
         expiresIn: authResponse.expiresIn,
         user: authResponse.user,
       });
-    } catch (error: any) {
-      logger.error('Login error', { error: error.message });
+    } catch (error) {
+      logger.error('Login error', { error: error instanceof Error ? error.message : String(error) });
       res.status(401).json({
         error: 'Login failed',
         message: 'Invalid email or password',
@@ -216,8 +217,8 @@ router.post('/logout', authenticateToken, async (req: Request, res: Response) =>
       message: 'Logout successful',
       note: 'Token has been revoked. Client should clear stored tokens.',
     });
-  } catch (error: any) {
-    logger.error('Logout error', { error: error.message });
+  } catch (error) {
+    logger.error('Logout error', { error: error instanceof Error ? error.message : String(error) });
     res.status(500).json({
       error: 'Logout failed',
       message: 'An error occurred during logout. Please try again later.',
@@ -267,8 +268,8 @@ router.post(
         message: 'Email verified successfully. You can now log in.',
         email,
       });
-    } catch (error: any) {
-      logger.error('Email verification error', { error: error.message });
+    } catch (error) {
+      logger.error('Email verification error', { error: error instanceof Error ? error.message : String(error) });
       res.status(500).json({
         error: 'Email verification failed',
         message: 'An error occurred during email verification.',
@@ -313,8 +314,8 @@ router.post('/refresh', async (req: Request, res: Response) => {
       token: newAccessToken,
       expiresIn: 86400, // 24 hours
     });
-  } catch (error: any) {
-    logger.error('Token refresh error', { error: error.message });
+  } catch (error) {
+    logger.error('Token refresh error', { error: error instanceof Error ? error.message : String(error) });
     return res.status(500).json({
       error: 'Token refresh failed',
       message: 'An error occurred while refreshing the token. Please try again later.',
@@ -355,8 +356,8 @@ router.post(
       res.status(200).json({
         message: 'If an account with that email exists, a password reset link has been sent.',
       });
-    } catch (error: any) {
-      logger.error('Password reset error', { error: error.message });
+    } catch (error) {
+      logger.error('Password reset error', { error: error instanceof Error ? error.message : String(error) });
       res.status(500).json({
         error: 'Password reset failed',
         message: 'An error occurred while processing your request. Please try again later.',
@@ -394,8 +395,8 @@ router.post(
       res.status(200).json({
         message: 'Password reset successful. You can now log in with your new password.',
       });
-    } catch (error: any) {
-      logger.error('Password reset error', { error: error.message });
+    } catch (error) {
+      logger.error('Password reset error', { error: error instanceof Error ? error.message : String(error) });
       res.status(500).json({
         error: 'Password reset failed',
         message: 'An error occurred while resetting your password.',

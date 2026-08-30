@@ -12,7 +12,7 @@
     />
     <meta
       name="keywords"
-      content="DWS IQ Aegis, sovereign AI, defence supply chain, dual-use, EU AI Act, CLOUD Act, Palantir alternative, Finnish cloud, KYA Standard"
+      content="DWS IQ Aegis, sovereign AI, defence supply chain, dual-use, EU AI Act, CLOUD Act, Palantir alternative, Finnish cloud, KYA Specification"
     />
     <meta name="author" content="Lifetime Oy" />
     <meta name="robots" content="index, follow" />
@@ -40,6 +40,36 @@
       content="Sovereign AI for dual-use factories. Zero CLOUD Act. 21 EU industries. KYA + Article 12 governance."
     />
     <link rel="canonical" href="https://dws10.com/aegis/" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://dws10.com/aegis/"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://dws10.com/aegis/index.fi.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://dws10.com/aegis/index.sv.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fr"
+      href="https://dws10.com/aegis/index.fr.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://dws10.com/aegis/index.de.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://dws10.com/aegis/"
+    />
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -584,7 +614,7 @@
 
         <div class="hero-actions">
           <a
-            href="mailto:risto@onelifetime.world?subject=Aegis — Deployment Scoping Session"
+            href="https://dws10.com/contact/"
             class="btn-primary"
             >Request a Deployment Scoping Session</a
           >
@@ -750,7 +780,8 @@
           <div class="agent-name">KYA Engine</div>
           <div class="agent-desc">
             Know Your Agent — hardware-attested identity, Firecracker MicroVM isolation, kill-switch
-            authority.
+            authority. Your agents can transact on AP2/UCP/ACP rails; every mandate is gated by a
+            checkable trust score and logged to EU AI Act Article 12 evidence.
           </div>
           <span class="agent-tag">Agent Governance</span>
         </div>
@@ -806,7 +837,7 @@
             <td>Proprietary</td>
             <td>Hardware sensors</td>
             <td>Dashboards</td>
-            <td class="aegis-col pass">KYA Standard (court-defensible)</td>
+            <td class="aegis-col pass">KYA Specification (court-defensible)</td>
           </tr>
           <tr>
             <td>Cross-Vertical Intel</td>
@@ -940,8 +971,8 @@
           <tr>
             <td>GPU / LLM inference</td>
             <td class="fail">Cloud API only</td>
-            <td class="pass">NVIDIA L40S local inference</td>
-            <td class="pass">Dedicated GPU cluster</td>
+            <td class="pass">NVIDIA L40S in-cluster inference (EU cloud)</td>
+            <td class="pass">Dedicated GPU cluster (customer-sited on request)</td>
           </tr>
           <tr>
             <td>Support</td>
@@ -973,6 +1004,20 @@
       <p class="section-text" style="text-align: center">
         Zero egress costs on all tiers. All prices exclude VAT. Annual billing available.
       </p>
+      <p class="section-text" style="text-align: center">
+        <strong>No hardware is bundled or resold at any tier.</strong> DWS supplies the software
+        platform and the governance layer only. Defence-tier GPU inference runs on L40S nodes inside
+        the EU-hosted single-tenant cluster &mdash; nothing is shipped to site. Sovereign
+        on-premises and air-gapped deployments run on customer- or partner-procured hardware,
+        scoped per engagement.
+      </p>
+      <p class="section-text" style="text-align: center">
+        <strong>Supply continuity.</strong> The models we adopt ship as open weights, so the
+        inference layer is portable by design rather than tied to one vendor's stack. A non-NVIDIA
+        fallback path (AMD, Intel accelerators) is carried in our supply-risk plan, and hardware
+        compatibility is validated per engagement rather than assumed. The full supply-risk register
+        is available under NDA.
+      </p>
     </section>
 
     <!-- CTA -->
@@ -984,7 +1029,7 @@
       </p>
       <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap">
         <a
-          href="mailto:risto@onelifetime.world?subject=Aegis — Deployment Scoping Call"
+          href="https://dws10.com/contact/"
           class="btn-primary"
           >Schedule a Deployment Scoping Call</a
         >
@@ -1056,14 +1101,33 @@
           setText("aegisHeroSub", d.sub);
           document.documentElement.lang = code;
         }
-        var stored = localStorage.getItem("dws-lang");
-        applyLang(stored && I18N[stored] ? stored : "en");
+        // Full-page translations live in sibling files, so the hero stays pinned to
+        // this page's language and the language bar navigates instead of swapping text.
+        var PAGE_LANG = "en";
+        var LANG_FILES = {
+          en: "/aegis/",
+          fi: "/aegis/index.fi.html",
+          sv: "/aegis/index.sv.html",
+          de: "/aegis/index.de.html",
+          fr: "/aegis/index.fr.html",
+        };
+        applyLang(PAGE_LANG);
         window.addEventListener("dws-lang-change", function (e) {
-          applyLang(e.detail && e.detail.lang);
+          var code = e.detail && e.detail.lang;
+          if (code && LANG_FILES[code] && code !== PAGE_LANG) {
+            window.location.href = LANG_FILES[code];
+          }
         });
       })();
     </script>
 
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
+    <nav class="lang-links" aria-label="Language" style="text-align:center;padding:18px 12px;font-size:0.85rem;opacity:0.75">
+      <a href="/aegis/index.fi.html" hreflang="fi" lang="fi" style="margin:0 8px;color:inherit">🇫🇮 Suomeksi</a>
+      <a href="/aegis/index.sv.html" hreflang="sv" lang="sv" style="margin:0 8px;color:inherit">🇸🇪 Svenska</a>
+      <a href="/aegis/index.de.html" hreflang="de" lang="de" style="margin:0 8px;color:inherit">🇩🇪 Deutsch</a>
+      <a href="/aegis/index.fr.html" hreflang="fr" lang="fr" style="margin:0 8px;color:inherit">🇫🇷 Français</a>
+    </nav>
+
   </body>
 </html>

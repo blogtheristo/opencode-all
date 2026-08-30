@@ -6,7 +6,7 @@
  * OTLP exporter — those are wiring concerns proven by `npm run build`.
  */
 
-import { describe, it, expect, beforeAll, afterEach, vi } from 'vitest';
+import { afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { context, trace } from '@opentelemetry/api';
 import { AsyncHooksContextManager } from '@opentelemetry/context-async-hooks';
 import {
@@ -17,12 +17,12 @@ import {
 
 import {
   currentTraceIds,
+  recordLLMResponse,
   withAgentSpan,
   withLLMSpan,
   withToolSpan,
   withWorkflowSpan,
   withWorkflowStepSpan,
-  recordLLMResponse,
 } from '../observability/tracing.js';
 import { initOtel, isOtelEnabled, shutdownOtel } from '../observability/otel.js';
 
@@ -159,6 +159,22 @@ describe('tracing helpers', () => {
     expect(s.attributes['gen_ai.usage.input_tokens']).toBe(2341);
     expect(s.attributes['gen_ai.usage.output_tokens']).toBe(892);
     expect(s.attributes['gen_ai.response.finish_reasons']).toEqual(['end_turn']);
+  });
+
+  it('withToolSpan stamps the real gate verdict instead of defaulting to "ungated"', async () => {
+    await withToolSpan(
+      'database_write',
+      {
+        agentName: 'compliance',
+        kya: { decision: 'denied', gate: 'runtime-auth' },
+      },
+      async () => 'blocked',
+    );
+
+    const spans = memoryExporter.getFinishedSpans();
+    expect(spans).toHaveLength(1);
+    expect(spans[0].attributes['dws.kya.verdict']).toBe('denied');
+    expect(spans[0].attributes['dws.kya.gate']).toBe('runtime-auth');
   });
 
   it('withToolSpan records error status when handler throws', async () => {

@@ -84,7 +84,7 @@ function Sparkline({
   // Show newest-right (timeline is newest-first, so reverse)
   const days = [...timeline].reverse().slice(-21);
   if (days.length === 0) {
-    return <span className="text-[10px] text-gray-600 italic">no data</span>;
+    return <span className="text-[10px] text-fg-muted italic">no data</span>;
   }
 
   return (
@@ -112,9 +112,9 @@ function Sparkline({
             />
             {/* Tooltip */}
             <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block z-10 pointer-events-none">
-              <div className="bg-gray-800 border border-gray-700 rounded px-1.5 py-1 text-[10px] text-gray-200 whitespace-nowrap">
+              <div className="bg-fg-muted/10 border border-border rounded px-1.5 py-1 text-[10px] text-foreground whitespace-nowrap">
                 {shortDate(d.date)}: {(d.meanConfidence * 100).toFixed(0)}%
-                {d.runCount > 0 && <span className="text-gray-500"> ({d.runCount} runs)</span>}
+                {d.runCount > 0 && <span className="text-fg-muted"> ({d.runCount} runs)</span>}
                 {isInflection && <span className="text-red-400 ml-1">← drift start</span>}
               </div>
             </div>
@@ -145,12 +145,12 @@ function AgentRow({
       type="button"
       onClick={onSelect}
       className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors ${
-        selected ? 'bg-gray-800' : 'hover:bg-gray-800/50'
+        selected ? 'bg-fg-muted/10' : 'hover:bg-fg-muted/10/50'
       }`}
     >
       {/* Agent name + severity */}
       <div className="w-36 shrink-0">
-        <p className="text-xs font-medium text-gray-200 truncate">{agent.agentName}</p>
+        <p className="text-xs font-medium text-foreground truncate">{agent.agentName}</p>
         <span
           className={`text-[10px] px-1.5 py-0.5 rounded font-semibold uppercase ${SEVERITY_STYLE[agent.severity]}`}
         >
@@ -169,11 +169,11 @@ function AgentRow({
 
       {/* Stats */}
       <div className="w-28 shrink-0 text-right space-y-0.5">
-        <p className="text-xs font-mono text-gray-200">
+        <p className="text-xs font-mono text-foreground">
           {currentPct}%
           {agent.severity !== 'ok' && <span className="text-red-400 ml-1">↓{dropPct}%</span>}
         </p>
-        <p className="text-[10px] text-gray-600">baseline {basePct}%</p>
+        <p className="text-[10px] text-fg-muted">baseline {basePct}%</p>
       </div>
     </button>
   );
@@ -185,7 +185,7 @@ function DetailDrawer({ agent }: { agent: AgentDriftResult }) {
   const recentDays = [...agent.timeline].reverse().slice(-14);
 
   return (
-    <div className="border-t border-gray-800 pt-3 space-y-3">
+    <div className="border-t border-border pt-3 space-y-3">
       {/* Inflection */}
       {agent.inflectionDate && (
         <div className="flex items-center gap-2 px-3 py-2 bg-red-500/10 border border-red-500/20 rounded-lg">
@@ -197,11 +197,11 @@ function DetailDrawer({ agent }: { agent: AgentDriftResult }) {
       {/* Input samples at inflection */}
       {agent.inflectionSamples.length > 0 && (
         <div>
-          <p className="text-[10px] text-gray-500 uppercase tracking-wider px-3 mb-1">
+          <p className="text-[10px] text-fg-muted uppercase tracking-wider px-3 mb-1">
             Inputs at inflection
           </p>
           {agent.inflectionSamples.map((s, i) => (
-            <p key={i} className="text-[11px] text-gray-400 px-3 py-0.5 font-mono truncate">
+            <p key={i} className="text-[11px] text-fg-muted px-3 py-0.5 font-mono truncate">
               "{s}"
             </p>
           ))}
@@ -210,16 +210,16 @@ function DetailDrawer({ agent }: { agent: AgentDriftResult }) {
 
       {/* 14-day table */}
       <div className="px-3">
-        <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1.5">
+        <p className="text-[10px] text-fg-muted uppercase tracking-wider mb-1.5">
           14-day confidence log
         </p>
         <div className="space-y-1">
           {recentDays.map((d) => (
             <div key={d.date} className="flex items-center gap-2">
-              <span className="text-[10px] font-mono text-gray-500 w-12 shrink-0">
+              <span className="text-[10px] font-mono text-fg-muted w-12 shrink-0">
                 {shortDate(d.date)}
               </span>
-              <div className="flex-1 bg-gray-800 rounded h-1.5">
+              <div className="flex-1 bg-fg-muted/10 rounded h-1.5">
                 <div
                   className={`h-1.5 rounded transition-all ${
                     d.date === agent.inflectionDate
@@ -233,10 +233,10 @@ function DetailDrawer({ agent }: { agent: AgentDriftResult }) {
                   style={{ width: `${d.meanConfidence * 100}%` }}
                 />
               </div>
-              <span className="text-[10px] font-mono text-gray-400 w-8 text-right shrink-0">
+              <span className="text-[10px] font-mono text-fg-muted w-8 text-right shrink-0">
                 {(d.meanConfidence * 100).toFixed(0)}%
               </span>
-              <span className="text-[10px] text-gray-600 w-12 text-right shrink-0">
+              <span className="text-[10px] text-fg-muted w-12 text-right shrink-0">
                 {d.runCount}r {d.errorCount > 0 ? `${d.errorCount}e` : ''}
               </span>
             </div>
@@ -275,7 +275,7 @@ function SummaryStrip({
           </span>
         )}
       </div>
-      <span className="text-[10px] text-gray-600 ml-auto">
+      <span className="text-[10px] text-fg-muted ml-auto">
         {summary.total} agents · updated {timeAgo(generatedAt)}
       </span>
     </div>
@@ -306,7 +306,7 @@ export function ConfidenceDriftView() {
     return (
       <div className="space-y-2 animate-pulse p-2">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="h-12 bg-gray-800 rounded-lg" />
+          <div key={i} className="h-12 bg-fg-muted/10 rounded-lg" />
         ))}
       </div>
     );
@@ -315,14 +315,14 @@ export function ConfidenceDriftView() {
   if (!report) {
     return (
       <div className="text-center py-10">
-        <p className="text-sm text-gray-500">No drift data yet</p>
-        <p className="text-xs text-gray-600 mt-1">
+        <p className="text-sm text-fg-muted">No drift data yet</p>
+        <p className="text-xs text-fg-muted mt-1">
           Drift reports are generated daily once agent logs accumulate (≥21 days).
         </p>
         <button
           type="button"
           onClick={load}
-          className="mt-3 text-xs text-gray-500 hover:text-gray-300 transition-colors"
+          className="mt-3 text-xs text-fg-muted hover:text-fg-muted transition-colors"
         >
           Retry
         </button>
@@ -338,14 +338,14 @@ export function ConfidenceDriftView() {
       <SummaryStrip summary={report.summary} generatedAt={report.generatedAt} />
 
       {/* Filter */}
-      <div className="flex gap-1 mb-3 p-0.5 bg-gray-800/50 rounded-lg">
+      <div className="flex gap-1 mb-3 p-0.5 bg-fg-muted/10/50 rounded-lg">
         {(['issues', 'all'] as const).map((f) => (
           <button
             key={f}
             type="button"
             onClick={() => setFilterSeverity(f)}
             className={`flex-1 py-1.5 text-xs font-medium rounded-md transition-colors ${
-              filterSeverity === f ? 'bg-gray-700 text-white' : 'text-gray-400 hover:text-gray-200'
+              filterSeverity === f ? 'bg-fg-muted/20 text-white' : 'text-fg-muted hover:text-foreground'
             }`}
           >
             {f === 'issues'
@@ -358,7 +358,7 @@ export function ConfidenceDriftView() {
       {/* Agent list */}
       <div className="space-y-0.5 max-h-[380px] overflow-y-auto">
         {displayed.length === 0 ? (
-          <p className="text-center text-sm text-gray-500 py-6">No issues detected</p>
+          <p className="text-center text-sm text-fg-muted py-6">No issues detected</p>
         ) : (
           displayed.map((agent) => (
             <div key={agent.agentName}>
@@ -378,7 +378,7 @@ export function ConfidenceDriftView() {
       <button
         type="button"
         onClick={load}
-        className="w-full mt-3 py-1.5 text-xs text-gray-500 hover:text-gray-300 transition-colors"
+        className="w-full mt-3 py-1.5 text-xs text-fg-muted hover:text-fg-muted transition-colors"
       >
         Refresh
       </button>

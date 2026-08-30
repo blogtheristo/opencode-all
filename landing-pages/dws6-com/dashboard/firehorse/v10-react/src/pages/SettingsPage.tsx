@@ -91,11 +91,11 @@ function UsageBar({ label, metric }: { label: string; metric: UsageMetric }) {
 
   return (
     <div>
-      <div className="flex justify-between text-xs text-gray-400 mb-1">
+      <div className="flex justify-between text-xs text-fg-muted mb-1">
         <span>{label}</span>
         <span>{metric.used} / {metric.limit}</span>
       </div>
-      <div className="w-full bg-gray-800 rounded-full h-2">
+      <div className="w-full bg-fg-muted/10 rounded-full h-2">
         <div
           className={`${barColor} h-2 rounded-full transition-all`}
           style={{ width: `${Math.min(metric.percentage, 100)}%` }}
@@ -382,19 +382,19 @@ export function SettingsPage() {
   }, [profile.organization]);
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 p-6">
+    <div className="min-h-dvh bg-background text-foreground p-6">
       <div className="max-w-3xl mx-auto space-y-8">
         {/* Page Header */}
         <div>
           <h1 className="text-2xl font-bold text-white">Settings</h1>
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="text-sm text-fg-muted mt-1">
             Manage your account, preferences, and integrations
             {settingsSynced && <span className="ml-2 text-xs text-green-500">Synced</span>}
           </p>
         </div>
 
         {/* Usage Metering Dashboard */}
-        <section className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <section className="bg-surface border border-border rounded-xl p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white">Usage & Plan</h2>
             {usageStats && (
@@ -409,59 +409,59 @@ export function SettingsPage() {
               <UsageBar label="API Calls" metric={usageStats.usage.apiCalls} />
               <UsageBar label="AI Assistant Messages" metric={usageStats.usage.assistantMessages} />
               <UsageBar label="Report Exports" metric={usageStats.usage.reportExports} />
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-fg-muted mt-2">
                 Billing period started {new Date(usageStats.period).toLocaleDateString('en-GB')}
               </p>
             </div>
           ) : (
-            <p className="text-sm text-gray-500">Usage data will appear once you start using the platform.</p>
+            <p className="text-sm text-fg-muted">Usage data will appear once you start using the platform.</p>
           )}
         </section>
 
         {/* User Profile Section */}
-        <section className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <section className="bg-surface border border-border rounded-xl p-6">
           <h2 className="text-lg font-semibold text-white mb-4">User Profile</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="fullName" className="block text-sm text-gray-400 mb-1">Full Name</label>
+              <label htmlFor="fullName" className="block text-sm text-fg-muted mb-1">Full Name</label>
               <input
                 id="fullName"
                 type="text"
                 value={profile.fullName}
                 onChange={(e) => handleProfileChange('fullName', e.target.value)}
                 placeholder="Enter your name"
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-3 py-2 bg-fg-muted/10 border border-border rounded-lg text-white placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm text-gray-400 mb-1">Email</label>
+              <label htmlFor="email" className="block text-sm text-fg-muted mb-1">Email</label>
               <input
                 id="email"
                 type="email"
                 value={profile.email}
                 onChange={(e) => handleProfileChange('email', e.target.value)}
                 placeholder="you@company.com"
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-3 py-2 bg-fg-muted/10 border border-border rounded-lg text-white placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
             <div>
-              <label htmlFor="organization" className="block text-sm text-gray-400 mb-1">Organization</label>
+              <label htmlFor="organization" className="block text-sm text-fg-muted mb-1">Organization</label>
               <input
                 id="organization"
                 type="text"
                 value={profile.organization}
                 onChange={(e) => handleProfileChange('organization', e.target.value)}
                 placeholder="Company name"
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-3 py-2 bg-fg-muted/10 border border-border rounded-lg text-white placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
             <div>
-              <label htmlFor="role" className="block text-sm text-gray-400 mb-1">Role</label>
+              <label htmlFor="role" className="block text-sm text-fg-muted mb-1">Role</label>
               <select
                 id="role"
                 value={profile.role}
                 onChange={(e) => handleProfileChange('role', e.target.value)}
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-3 py-2 bg-fg-muted/10 border border-border rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="Admin">Admin</option>
                 <option value="Manager">Manager</option>
@@ -488,7 +488,7 @@ export function SettingsPage() {
         </section>
 
         {/* Notification Preferences */}
-        <section className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <section className="bg-surface border border-border rounded-xl p-6">
           <h2 className="text-lg font-semibold text-white mb-4">Notifications</h2>
           <div className="space-y-3">
             {([
@@ -501,19 +501,19 @@ export function SettingsPage() {
               <div key={key} className="flex items-center justify-between py-2">
                 <div>
                   <p className="text-sm font-medium text-white">{label}</p>
-                  <p className="text-xs text-gray-500">{desc}</p>
+                  <p className="text-xs text-fg-muted">{desc}</p>
                 </div>
                 <button
                   onClick={() => handleNotificationToggle(key)}
                   className={`relative w-11 h-6 rounded-full transition-colors ${
-                    settings.notifications[key] ? 'bg-primary-600' : 'bg-gray-700'
+                    settings.notifications[key] ? 'bg-primary-600' : 'bg-fg-muted/20'
                   }`}
                   role="switch"
                   aria-checked={settings.notifications[key]}
                   aria-label={label}
                 >
                   <span
-                    className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
+                    className={`absolute top-0.5 left-0.5 w-5 h-5 bg-surface rounded-full transition-transform ${
                       settings.notifications[key] ? 'translate-x-5' : 'translate-x-0'
                     }`}
                   />
@@ -524,9 +524,9 @@ export function SettingsPage() {
         </section>
 
         {/* API Key Management */}
-        <section className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <section className="bg-surface border border-border rounded-xl p-6">
           <h2 className="text-lg font-semibold text-white mb-4">API Keys</h2>
-          <p className="text-xs text-gray-400 mb-4">Manage API keys for programmatic access to the DWS IQ platform.</p>
+          <p className="text-xs text-fg-muted mb-4">Manage API keys for programmatic access to the DWS IQ platform.</p>
 
           {/* Newly created key — shown only once */}
           {newKeyRevealed && (
@@ -540,16 +540,16 @@ export function SettingsPage() {
           {apiKeys.length > 0 && (
             <div className="space-y-2 mb-4">
               {apiKeys.filter(k => !k.revoked).map((key) => (
-                <div key={key.id} className="flex items-center justify-between bg-gray-800/50 rounded-lg px-4 py-3">
+                <div key={key.id} className="flex items-center justify-between bg-fg-muted/10/50 rounded-lg px-4 py-3">
                   <div>
                     <p className="text-sm font-medium text-white">{key.name}</p>
-                    <p className="text-xs text-gray-500 font-mono">{key.prefix}</p>
+                    <p className="text-xs text-fg-muted font-mono">{key.prefix}</p>
                     {key.scopes && (
-                      <p className="text-xs text-gray-600 mt-0.5">{key.scopes.join(', ')}</p>
+                      <p className="text-xs text-fg-muted mt-0.5">{key.scopes.join(', ')}</p>
                     )}
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-fg-muted">
                       {key.lastUsedAt
                         ? `Last used ${new Date(key.lastUsedAt).toLocaleDateString('en-GB')}`
                         : 'Never used'}
@@ -573,7 +573,7 @@ export function SettingsPage() {
               value={newKeyName}
               onChange={(e) => setNewKeyName(e.target.value)}
               placeholder="Key name (e.g. CI/CD Pipeline)"
-              className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="flex-1 px-3 py-2 bg-fg-muted/10 border border-border rounded-lg text-white placeholder-fg-muted text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
             <button
               onClick={handleGenerateApiKey}
@@ -586,13 +586,13 @@ export function SettingsPage() {
         </section>
 
         {/* Theme & Language */}
-        <section className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <section className="bg-surface border border-border rounded-xl p-6">
           <h2 className="text-lg font-semibold text-white mb-4">Appearance & Language</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {/* Theme Toggle */}
             <div>
-              <label className="block text-sm text-gray-400 mb-2">Theme</label>
+              <label className="block text-sm text-fg-muted mb-2">Theme</label>
               <div className="flex items-center gap-2">
                 {(['dark', 'light'] as const).map((t) => (
                   <button
@@ -601,7 +601,7 @@ export function SettingsPage() {
                     className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                       settings.theme === t
                         ? 'bg-primary-600 text-white'
-                        : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                        : 'bg-fg-muted/10 text-fg-muted hover:bg-fg-muted/20'
                     }`}
                   >
                     {t === 'dark' ? 'Dark' : 'Light'}
@@ -612,12 +612,12 @@ export function SettingsPage() {
 
             {/* Locale Selector */}
             <div>
-              <label htmlFor="locale" className="block text-sm text-gray-400 mb-2">Language / Locale</label>
+              <label htmlFor="locale" className="block text-sm text-fg-muted mb-2">Language / Locale</label>
               <select
                 id="locale"
                 value={settings.locale}
                 onChange={(e) => updateLocale(e.target.value as Locale)}
-                className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-3 py-2.5 bg-fg-muted/10 border border-border rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 {LOCALE_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -630,21 +630,21 @@ export function SettingsPage() {
         </section>
 
         {/* Team Members */}
-        <section className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <section className="bg-surface border border-border rounded-xl p-6">
           <h2 className="text-lg font-semibold text-white mb-4">Team Members</h2>
-          <p className="text-xs text-gray-400 mb-4">Manage who has access to your organization's compliance data.</p>
+          <p className="text-xs text-fg-muted mb-4">Manage who has access to your organization's compliance data.</p>
 
           {/* Member list */}
           <div className="space-y-2 mb-4">
             {members.map((member) => (
-              <div key={member.id} className="flex items-center justify-between bg-gray-800/50 rounded-lg px-4 py-3">
+              <div key={member.id} className="flex items-center justify-between bg-fg-muted/10/50 rounded-lg px-4 py-3">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-primary-600/30 flex items-center justify-center text-primary-400 text-sm font-medium">
                     {member.name.charAt(0).toUpperCase()}
                   </div>
                   <div>
                     <p className="text-sm font-medium text-white">{member.name}</p>
-                    <p className="text-xs text-gray-500">{member.email}</p>
+                    <p className="text-xs text-fg-muted">{member.email}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -652,7 +652,7 @@ export function SettingsPage() {
                     value={member.role}
                     onChange={(e) => handleMemberRoleChange(member.id, e.target.value as TeamMember['role'])}
                     disabled={member.email === profile.email}
-                    className="px-2 py-1 text-xs bg-gray-800 border border-gray-700 rounded text-gray-300 focus:outline-none focus:ring-1 focus:ring-primary-500 disabled:opacity-50"
+                    className="px-2 py-1 text-xs bg-fg-muted/10 border border-border rounded text-fg-muted focus:outline-none focus:ring-1 focus:ring-primary-500 disabled:opacity-50"
                     aria-label={`Role for ${member.name}`}
                   >
                     <option value="admin">Admin</option>
@@ -680,7 +680,7 @@ export function SettingsPage() {
               value={inviteEmail}
               onChange={(e) => setInviteEmail(e.target.value)}
               placeholder="colleague@company.com"
-              className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="flex-1 px-3 py-2 bg-fg-muted/10 border border-border rounded-lg text-white placeholder-fg-muted text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
             <button
               onClick={handleInviteMember}
@@ -698,7 +698,7 @@ export function SettingsPage() {
         </section>
 
         {/* Admin Support */}
-        <section className="rounded-xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-gray-900 to-gray-900 p-6 shadow-[0_0_30px_rgba(245,158,11,0.08)]">
+        <section className="rounded-xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-surface to-surface p-6 shadow-[0_0_30px_rgba(245,158,11,0.08)]">
           <div className="mb-4">
             <h2 className="text-lg font-semibold text-amber-200">Admin Panel Support</h2>
             <p className="mt-1 text-xs text-amber-100/80">
@@ -709,9 +709,9 @@ export function SettingsPage() {
         </section>
 
         {/* Data Export */}
-        <section className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <section className="bg-surface border border-border rounded-xl p-6">
           <h2 className="text-lg font-semibold text-white mb-2">Compliance Report Export</h2>
-          <p className="text-xs text-gray-400 mb-4">
+          <p className="text-xs text-fg-muted mb-4">
             Download compliance reports for regulatory submissions (CSRD, ETS, CBAM).
           </p>
 
@@ -719,14 +719,14 @@ export function SettingsPage() {
             <button
               onClick={() => handleExportData('csv')}
               disabled={exporting}
-              className="px-4 py-2 text-sm font-medium text-white bg-gray-800 border border-gray-700 rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50"
+              className="px-4 py-2 text-sm font-medium text-white bg-fg-muted/10 border border-border rounded-lg hover:bg-fg-muted/20 transition-colors disabled:opacity-50"
             >
               {exporting ? 'Preparing...' : 'Export CSV'}
             </button>
             <button
               onClick={() => handleExportData('json')}
               disabled={exporting}
-              className="px-4 py-2 text-sm font-medium text-white bg-gray-800 border border-gray-700 rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50"
+              className="px-4 py-2 text-sm font-medium text-white bg-fg-muted/10 border border-border rounded-lg hover:bg-fg-muted/20 transition-colors disabled:opacity-50"
             >
               {exporting ? 'Preparing...' : 'Export JSON'}
             </button>

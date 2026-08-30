@@ -1,8 +1,8 @@
 {
-  "_comment": "NVIDIA Connect ISV page data — synced by scripts/sync-nvidia-isv.cjs",
-  "lastUpdated": "2026-07-04",
+  "_comment": "Former NVIDIA Connect programme member; programme closed — synced by scripts/sync-nvidia-isv.cjs",
+  "lastUpdated": "2026-08-24",
   "partner": {
-    "status": "NVIDIA Connect ISV Partner",
+    "status": "Former NVIDIA Connect programme member; programme closed",
     "verifyUrl": "https://www.nvidia.com/en-us/about-nvidia/partners/partner-locator/",
     "company": "Lifetime Oy"
   },

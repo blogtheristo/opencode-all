@@ -1,12 +1,13 @@
 <!-- VERSION AND AGENT HISTORY
 Document: MISSION + DWS Vision One-Pager
-Version: 1.1
+Version: 1.2
 Date: 2026-04-23
 Author: Claude Sonnet 4.6 + Human Review
 Branch: claude/cool-margulis-1724ce
 Status: Draft — Investor Use
 
 AGENT HISTORY:
+- v1.2 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-23): Created. MISSION reply + three visions + round table.
 - v1.1 (2026-04-23): Separated Lifetime Oy company mission (climate, droughts, way of living) from DWS IQ mission (regulation → euros, operational layer). Added KYA as conscience layer, not a feature. Expanded to EU / ASEAN / US jurisdictions.
 -->
@@ -162,7 +163,7 @@ AAA sovereign credit. GDPR-native infrastructure. No CLOUD Act exposure.
 The New Nordics are not a geography — they are a regulatory moat.
 
 **Us:** 35 years of industrial domain expertise, 7 years of platform IP,
-6 paying customers with zero churn, hardware-attested agent governance already deployed,
+two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), hardware-attested agent governance already deployed,
 and a founder who has operated in construction, logistics, and infrastructure
 long enough to know exactly where the Excel sheets break.
 

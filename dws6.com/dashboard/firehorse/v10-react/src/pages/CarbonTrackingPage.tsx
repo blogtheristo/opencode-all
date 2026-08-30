@@ -184,33 +184,33 @@ export function CarbonTrackingPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-950 text-gray-100 p-6">
+      <div className="min-h-dvh bg-background text-foreground p-6">
         <div className="max-w-7xl mx-auto space-y-6">
-          <div className="h-8 bg-gray-800 rounded w-64 animate-pulse" />
+          <div className="h-8 bg-fg-muted/10 rounded w-64 animate-pulse" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-32 bg-gray-800 rounded-xl animate-pulse" />
+              <div key={i} className="h-32 bg-fg-muted/10 rounded-xl animate-pulse" />
             ))}
           </div>
-          <div className="h-96 bg-gray-800 rounded-xl animate-pulse" />
+          <div className="h-96 bg-fg-muted/10 rounded-xl animate-pulse" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 p-6">
+    <div className="min-h-dvh bg-background text-foreground p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Page Header */}
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-white">Carbon Tracking</h1>
-            <p className="text-sm text-gray-400 mt-1">EN 15978 Lifecycle Assessment &middot; EU Fit for 55</p>
+            <p className="text-sm text-fg-muted mt-1">EN 15978 Lifecycle Assessment &middot; EU Fit for 55</p>
           </div>
           <div className="text-right">
-            <p className="text-sm text-gray-400">Portfolio Total</p>
+            <p className="text-sm text-fg-muted">Portfolio Total</p>
             <p className="text-2xl font-bold text-white">
-              {(totalPortfolioCarbon / 1000).toFixed(1)}<span className="text-sm font-normal text-gray-400 ml-1">tCO2e</span>
+              {(totalPortfolioCarbon / 1000).toFixed(1)}<span className="text-sm font-normal text-fg-muted ml-1">tCO2e</span>
             </p>
           </div>
         </div>
@@ -229,48 +229,48 @@ export function CarbonTrackingPage() {
             const rate = total > 0 ? Math.round((compliantCount / total) * 100) : 0;
 
             return (
-              <div key={regulation} className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+              <div key={regulation} className="bg-surface border border-border rounded-xl p-5">
                 <div className="flex items-center justify-between mb-3">
                   <div>
                     <h3 className="text-lg font-semibold text-white">{label}</h3>
-                    <p className="text-xs text-gray-400">{descriptions[regulation]}</p>
+                    <p className="text-xs text-fg-muted">{descriptions[regulation]}</p>
                   </div>
                   <span className={`text-xs font-medium px-2.5 py-1 rounded-full border ${rate >= 80 ? COMPLIANCE_BADGE.compliant : rate >= 50 ? COMPLIANCE_BADGE.pending : COMPLIANCE_BADGE['non-compliant']}`}>
                     {rate}% compliant
                   </span>
                 </div>
-                <div className="w-full bg-gray-800 rounded-full h-2">
+                <div className="w-full bg-fg-muted/10 rounded-full h-2">
                   <div
                     className={`h-2 rounded-full transition-all ${rate >= 80 ? 'bg-green-500' : rate >= 50 ? 'bg-yellow-500' : 'bg-red-500'}`}
                     style={{ width: `${rate}%` }}
                   />
                 </div>
-                <p className="text-xs text-gray-500 mt-2">{compliantCount} of {total} projects</p>
+                <p className="text-xs text-fg-muted mt-2">{compliantCount} of {total} projects</p>
               </div>
             );
           })}
         </div>
 
         {/* Fit for 55 Progress */}
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+        <div className="bg-surface border border-border rounded-xl p-5">
           <h2 className="text-lg font-semibold text-white mb-4">EU Fit for 55 Progress</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {FIT_FOR_55_TARGETS.map((target) => {
               const progress = Math.round((target.current / target.target) * 100);
               return (
-                <div key={target.label} className="bg-gray-800/50 rounded-lg p-4">
-                  <p className="text-sm text-gray-400 mb-1">{target.label}</p>
+                <div key={target.label} className="bg-fg-muted/10/50 rounded-lg p-4">
+                  <p className="text-sm text-fg-muted mb-1">{target.label}</p>
                   <div className="flex items-baseline gap-1.5">
                     <span className="text-xl font-bold text-white">{target.current}</span>
-                    <span className="text-sm text-gray-500">/ {target.target}{target.unit}</span>
+                    <span className="text-sm text-fg-muted">/ {target.target}{target.unit}</span>
                   </div>
-                  <div className="w-full bg-gray-700 rounded-full h-1.5 mt-2">
+                  <div className="w-full bg-fg-muted/20 rounded-full h-1.5 mt-2">
                     <div
                       className="h-1.5 rounded-full bg-primary-500 transition-all"
                       style={{ width: `${Math.min(progress, 100)}%` }}
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">{progress}% of target</p>
+                  <p className="text-xs text-fg-muted mt-1">{progress}% of target</p>
                 </div>
               );
             })}
@@ -279,36 +279,36 @@ export function CarbonTrackingPage() {
 
         {/* ETS/CBAM Cost Estimate (from real compliance engine) */}
         {costEstimate && (
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+          <div className="bg-surface border border-border rounded-xl p-5">
             <h2 className="text-lg font-semibold text-white mb-4">Estimated Compliance Costs</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-gray-800/50 rounded-lg p-4">
-                <p className="text-sm text-gray-400 mb-1">EU ETS Allowances</p>
+              <div className="bg-fg-muted/10/50 rounded-lg p-4">
+                <p className="text-sm text-fg-muted mb-1">EU ETS Allowances</p>
                 <p className="text-xl font-bold text-white">
                   {costEstimate.ets.estimatedCost.toLocaleString('fi-FI', { maximumFractionDigits: 0 })}
-                  <span className="text-sm font-normal text-gray-400 ml-1">EUR</span>
+                  <span className="text-sm font-normal text-fg-muted ml-1">EUR</span>
                 </p>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-fg-muted mt-1">
                   {costEstimate.ets.surrenderObligation.toLocaleString()} tCO2e @ {costEstimate.ets.carbonPrice} EUR/t
                 </p>
               </div>
-              <div className="bg-gray-800/50 rounded-lg p-4">
-                <p className="text-sm text-gray-400 mb-1">CBAM Certificates</p>
+              <div className="bg-fg-muted/10/50 rounded-lg p-4">
+                <p className="text-sm text-fg-muted mb-1">CBAM Certificates</p>
                 <p className="text-xl font-bold text-white">
                   {costEstimate.cbam.estimatedCost.toLocaleString('fi-FI', { maximumFractionDigits: 0 })}
-                  <span className="text-sm font-normal text-gray-400 ml-1">EUR</span>
+                  <span className="text-sm font-normal text-fg-muted ml-1">EUR</span>
                 </p>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-fg-muted mt-1">
                   {costEstimate.cbam.covered ? `${costEstimate.cbam.embeddedEmissions.toLocaleString()} tCO2e embedded` : 'Not CBAM-covered'}
                 </p>
               </div>
-              <div className="bg-gray-800/50 rounded-lg p-4">
-                <p className="text-sm text-gray-400 mb-1">Total Annual Cost</p>
+              <div className="bg-fg-muted/10/50 rounded-lg p-4">
+                <p className="text-sm text-fg-muted mb-1">Total Annual Cost</p>
                 <p className="text-xl font-bold text-amber-400">
                   {costEstimate.totalEstimatedCost.toLocaleString('fi-FI', { maximumFractionDigits: 0 })}
-                  <span className="text-sm font-normal text-gray-400 ml-1">EUR</span>
+                  <span className="text-sm font-normal text-fg-muted ml-1">EUR</span>
                 </p>
-                <p className="text-xs text-gray-500 mt-1">ETS + CBAM + CSRD reporting</p>
+                <p className="text-xs text-fg-muted mt-1">ETS + CBAM + CSRD reporting</p>
               </div>
             </div>
           </div>
@@ -323,7 +323,7 @@ export function CarbonTrackingPage() {
               className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
                 selectedStageGroup === group
                   ? 'bg-primary-600 text-white'
-                  : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                  : 'bg-fg-muted/10 text-fg-muted hover:bg-fg-muted/20'
               }`}
             >
               {group === 'all' ? 'All Stages' : group}
@@ -333,58 +333,58 @@ export function CarbonTrackingPage() {
 
         {/* Chart Placeholder */}
         <div
-          className="bg-gray-900 border border-gray-800 rounded-xl p-6 flex items-center justify-center"
+          className="bg-surface border border-border rounded-xl p-6 flex items-center justify-center"
           data-chart="carbon-lifecycle-breakdown"
           data-chart-type="stacked-bar"
           style={{ minHeight: '280px' }}
         >
-          <div className="text-center text-gray-500">
+          <div className="text-center text-fg-muted">
             <p className="text-sm font-medium">Lifecycle Carbon Breakdown Chart</p>
             <p className="text-xs mt-1">Connect a chart library (e.g., Recharts, Chart.js) to render</p>
           </div>
         </div>
 
         {/* Project Carbon Breakdown Table */}
-        <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
-          <div className="p-5 border-b border-gray-800">
+        <div className="bg-surface border border-border rounded-xl overflow-hidden">
+          <div className="p-5 border-b border-border">
             <h2 className="text-lg font-semibold text-white">Project Carbon Breakdown</h2>
-            <p className="text-xs text-gray-400 mt-1">EN 15978 lifecycle stages (kgCO2e)</p>
+            <p className="text-xs text-fg-muted mt-1">EN 15978 lifecycle stages (kgCO2e)</p>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-800">
-                  <th className="text-left px-4 py-3 text-gray-400 font-medium sticky left-0 bg-gray-900">Project</th>
+                <tr className="border-b border-border">
+                  <th className="text-left px-4 py-3 text-fg-muted font-medium sticky left-0 bg-surface">Project</th>
                   {filteredStages.map((stage) => (
-                    <th key={stage.code} className="text-right px-3 py-3 text-gray-400 font-medium whitespace-nowrap">
+                    <th key={stage.code} className="text-right px-3 py-3 text-fg-muted font-medium whitespace-nowrap">
                       <span className={`inline-block px-1.5 py-0.5 rounded text-xs ${STAGE_GROUP_COLORS[stage.description] || ''}`}>
                         {stage.code}
                       </span>
                     </th>
                   ))}
-                  <th className="text-right px-4 py-3 text-gray-400 font-medium">Total</th>
-                  <th className="text-center px-4 py-3 text-gray-400 font-medium">Compliance</th>
+                  <th className="text-right px-4 py-3 text-fg-muted font-medium">Total</th>
+                  <th className="text-center px-4 py-3 text-fg-muted font-medium">Compliance</th>
                 </tr>
               </thead>
               <tbody>
                 {projects.length === 0 ? (
                   <tr>
-                    <td colSpan={filteredStages.length + 3} className="px-4 py-8 text-center text-gray-500">
+                    <td colSpan={filteredStages.length + 3} className="px-4 py-8 text-center text-fg-muted">
                       No projects found. Connect to Supabase to view carbon data.
                     </td>
                   </tr>
                 ) : (
                   projects.map((project) => (
-                    <tr key={project.id} className="border-b border-gray-800/50 hover:bg-gray-800/30 transition-colors">
-                      <td className="px-4 py-3 sticky left-0 bg-gray-900">
+                    <tr key={project.id} className="border-b border-border/50 hover:bg-fg-muted/10/30 transition-colors">
+                      <td className="px-4 py-3 sticky left-0 bg-surface">
                         <div className="font-medium text-white">{project.name}</div>
-                        <div className="text-xs text-gray-500">{project.location}</div>
+                        <div className="text-xs text-fg-muted">{project.location}</div>
                       </td>
                       {filteredStages.map((stage) => {
                         const value = project.stages[stage.code] ?? 0;
                         return (
-                          <td key={stage.code} className={`text-right px-3 py-3 tabular-nums ${value < 0 ? 'text-green-400' : 'text-gray-300'}`}>
+                          <td key={stage.code} className={`text-right px-3 py-3 tabular-nums ${value < 0 ? 'text-green-400' : 'text-fg-muted'}`}>
                             {value !== 0 ? value.toLocaleString() : '-'}
                           </td>
                         );
@@ -415,12 +415,12 @@ export function CarbonTrackingPage() {
 
         {/* Trend Chart Placeholder */}
         <div
-          className="bg-gray-900 border border-gray-800 rounded-xl p-6 flex items-center justify-center"
+          className="bg-surface border border-border rounded-xl p-6 flex items-center justify-center"
           data-chart="carbon-emissions-trend"
           data-chart-type="line"
           style={{ minHeight: '240px' }}
         >
-          <div className="text-center text-gray-500">
+          <div className="text-center text-fg-muted">
             <p className="text-sm font-medium">Emissions Trend Over Time</p>
             <p className="text-xs mt-1">Monthly portfolio emissions vs. EU reduction targets</p>
           </div>

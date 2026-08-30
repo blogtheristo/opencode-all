@@ -9,8 +9,11 @@ FROM node:24-slim
 
 WORKDIR /app
 
-# Create non-root user
-RUN groupadd -r dws && useradd -r -g dws -s /bin/false dws
+# Create non-root user (with home dir — npx/npm need a writable HOME)
+RUN groupadd -r dws && useradd -r -g dws -s /bin/bash -m dws \
+ && mkdir -p /home/dws/.npm && chown -R dws:dws /home/dws
+
+ENV HOME=/home/dws
 
 # Copy package files and install
 COPY package.json package-lock.json ./

@@ -1,13 +1,13 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import {
-  INDUSTRY_REGISTRY,
-  INDUSTRIES_SERVED_TOTAL,
   getIndustryById,
   getIndustryByName,
+  INDUSTRIES_SERVED_TOTAL,
   industriesWithoutDedicatedAgent,
+  INDUSTRY_REGISTRY,
 } from '../../agents/data/industry-registry.js';
 import { IndustryAnalystAgent } from '../../agents/industry-analyst.agent.js';
 
@@ -78,12 +78,37 @@ describe('industry-registry — resolution', () => {
     expect(getIndustryByName('banking')?.id).toBe(20);
     expect(getIndustryByName('  ')).toBeUndefined();
   });
+
+  it('returns undefined for single-character queries (short-query guard)', () => {
+    // Single chars are too ambiguous for fuzzy matching and must not return a
+    // random first-array-position match.
+    expect(getIndustryByName('a')).toBeUndefined();
+    expect(getIndustryByName('e')).toBeUndefined();
+    expect(getIndustryByName('i')).toBeUndefined();
+  });
+
+  it('resolves via fuzzy substring fallback for unrecognised multi-char input', () => {
+    // "onstruct" is not a canonical name or alias but is a substring of "Construction & Buildings".
+    expect(getIndustryByName('onstruct')?.id).toBe(8);
+    // "E-Fuels" is a substring of "RFNBO / Green H2 & E-Fuels" (id 25).
+    expect(getIndustryByName('E-Fuels')?.id).toBe(25);
+  });
+
+  it('industriesWithoutDedicatedAgent returns a readonly array with 12 entries', () => {
+    const list = industriesWithoutDedicatedAgent();
+    expect(list.length).toBe(12);
+    // Confirm the reference is stable across repeated calls (precomputed).
+    expect(industriesWithoutDedicatedAgent()).toBe(list);
+  });
 });
 
 describe('IndustryAnalystAgent', () => {
   const agent = new IndustryAnalystAgent();
 
-  it('returns a valid AgentResponse for a gap industry (Aviation) without LLM/Supabase', async () => {
+  // 20s timeout: agent.execute does registry + KB work; the default 5s flakes
+  // when the full suite runs in parallel on a loaded box (e.g. DGX with the
+  // opencode-all engine active).
+  it('returns a valid AgentResponse for a gap industry (Aviation) without LLM/Supabase', { timeout: 20_000 }, async () => {
     const res = await agent.execute(context, { industryId: 5 });
     expect(res.agentName).toBe('industry-analyst');
     expect(res.result.industry).toBe('Aviation');

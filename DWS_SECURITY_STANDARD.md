@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 3.3
+version: 3.5
 created: 2026-02-07
-last_modified: 2026-07-08
+last_modified: 2026-07-31
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,14 +19,17 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 3.5
 
 Sessions & Modifications:
 
+- Version: 3.5 | Tool: Claude Code (Sonnet 5) | Session: claude/ai-pact-enforcement-transparency-gnnipk | Date: 31.07.2026 | Changes: Added §20 (Public Vulnerability Disclosure) — pointer to the new standalone `dws10.com/compliance/vulnerability-disclosure-policy/` page (adapted from the European Commission's public VDP, EC-institution-specific legal references dropped as inapplicable to a private company). Locked the SLA (48h ack, Critical 48h/High 7d/Medium 30d/Low next release) as the single source of truth, now cross-linked from `.well-known/security.txt`, `legal/index.html` §10, and `compliance/trust-center/index.html` rather than restated independently in each.
+- Version: 3.4 | Tool: Claude Code | Session: claude/add-supabase-table-grants-y0Ps6 | Date: 19.07.2026 | Changes: Added §16.0.1 (Data API Grants — Supabase May/Oct 2026 change). Every `CREATE TABLE public.*` must be paired with an explicit `GRANT` to `service_role` + `authenticated` (anon opt-in) — Supabase dropped the implicit Data API grants on 2026-05-30 for new projects and enforces the same on all existing projects on 2026-10-30. Backfill migration `supabase/migrations/075_public_schema_grants.sql` reopens the table-level door for the 88 existing public tables and sets `alter default privileges` so future migrations do not silently break the Data API. Standard block codified in `Firehorse/supabase-schema-templates.sql` (top of file).
 - Version: 3.3 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Continued live-vs-dead-code Dependabot triage. Raised live `cryptography` floor to `>=48.0.1` (2 files). Removed unused `python-jose` from `AgentFoundry`/`Firehorse/api` requirements (eliminated the unpatched `python-ecdsa` Minerva transitive). Relaxed `mcp-hub` `fastapi==0.115.12` → `>=0.115.12` to unstick Starlette from the vulnerable 0.46.2 (the hard pin capped `starlette<0.47.0`). Raised `lxml` floor `>=5.0.0` → `>=6.1.0` in `AgentFoundry`/`scripts/requirements-signals.txt` (XXE fix). Confirmed live copies of axios, vite, react-router, form-data, babel, undici, fast-uri, ws were already patched — vulnerable versions only in deleted `artifacts/` or `*_DEPRECATED/` trees.
 - Version: 3.2 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Disabled `markdown-it` `linkify:true` in `src/contentms/blog-publisher.ts` and capped `body_markdown` to 100KB (`src/contentms/types.ts`) — closed a real, live request-path CPU-DoS via `linkify-it`'s O(N^2) fuzzy-match scan (unpatched upstream, no GHSA/OSV entry). Deleted `artifacts/pr925-worktree/` and `artifacts/pr1295-mergecheck/` (997MB of accidentally-committed duplicate repo checkouts from PR #1573) — confirmed source of at least 5 live Dependabot alerts against dead code (APScheduler RCE, shell-quote injection, Vitest UI file-read, axios prototype-pollution MITM, plus more). Documented `*_DEPRECATED/` directories as expected, accepted alert noise — left in place per repo convention, not a live-code risk. Flagged a tracked-in-git `100326.env` file at repo root (added PR #1573) for human review/rotation — not read, per secret-egress policy.
 - Version: 3.1 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Ran `pip-audit` across the repo's Python requirement files (no lockfile/hash-pinning exists for pip deps, flagged as a standing gap). Found and fixed `python-dotenv` CVE-2026-28684 in `mcp-hub/requirements.txt` (1.1.0 → 1.2.2, non-breaking patch bump). Logged `pyjwt`/`starlette` transitive-dependency advisories in the same file as open tracked findings — both need an explicit version constraint plus a FastAPI-compatibility check before bumping, so deferred rather than force-applied.
 - Version: 3.0 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Added §13.6 (Dependency Lockfile & Vulnerability SLA Policy) — closed two missing-lockfile gaps (`lambda/ses-inbound-parser`, `infrastructure/dgx-spark/bumblebee`), fixed `scripts/daily/dependabot-audit.sh` `PACKAGE_DIRS` (was missing `mcp-hub-ts`, `mcp-servers/cloud-run-gateway-ts`, and both directories above; referenced non-existent `mobile-dashboard` instead of `mobile-dashboard_RETIRED`), documented the Aegis agent's remediation SLA (critical=2d/high=7d/moderate=30d/low=90d) as the canonical policy, and logged an open moderate `@opentelemetry/*` finding (`GHSA-8988-4f7v-96qf`) in the bumblebee scanner pending a breaking-change upgrade.
+- Version: 3.0 | Tool: Claude Code | Session: claude/aiven-postgres-upcloud-ddjnsu | Date: 07.07.2026 | Changes: Updated §3.6.1 DR table and §17 for a topology change — DWS-internal operational tables (agent memory, cron/command audit logs, tool telemetry, agent nudges) are moving from the shared Supabase project to a self-hosted `dws-postgres` container on DGX Spark (Tier 1), which also already served as a backup _destination_ for Supabase (DR-2). Marked DR-5 "Superseded" — a same-session audit found the originally-described Supabase→Aiven daily mirror was never actually wired to any automation (no CI/cron, no confirmed secrets, no evidence of a real run) despite being documented "Active." Added DR-8: the new, real Aiven role is offsite backup target for `dws-postgres` (`scripts/dgx-spark-postgres-backup-to-aiven.sh`), status "Pending" until the Aiven service's EU region is confirmed and wired in. No RLS on the new internal Postgres (connection-level access control only — no real end-users on these tables). Added §3.6.3 Infrastructure Subscription Costs (Aiven pg-32ace152, $75/month Developer tier, DigitalOcean Frankfurt — dev/DR tier; production per-client deployments upgrade to UpCloud professional).
 - Version: 2.9 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 07.07.2026 | Changes: Added §18.4 G7 — Spend Authority to the BYO agent registration gate table, gating AP2/UCP/ACP payment mandates on ATS band and G2 identity binding (`evaluateMandateGate()`, `src/identity/ats-engine.ts`); cross-references `Legal/KYA_STANDARD_v1.md` §14 and the new `Legal/KYA_SECURITY_v1.2.md` §12 enforcement section.
 - Version: 2.8 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Resolved the §17.5 Aiven Open Question per founder decision — approved Aiven-managed PostgreSQL on `google-europe-north1` as the DWS IQ 6 (dws6.com) DB layer, recorded as an explicit sovereignty exception (not a "None" CLOUD Act rating) with residual risk noted: Aiven's US-VC ownership is still unclear, and the underlying GCP infra is elsewhere classified "Transitional"/migrate-away for compute. `scripts/aiven-vault-bootstrap.sh` / `mcp-hub/config/aiven-mcp.json` required no changes — already defaulted to this region.
 - Version: 2.7 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Supabase/Aiven audit — fixed broken §17.5 cross-reference ("AGENTS.md Section 20" does not exist, now points to docs/DEPLOYMENT_ARCHITECTURE_ENTERPRISE.md); flagged that Aiven does not offer Hetzner as a deployable region, so the existing "DB layer on Hetzner infra only" approval condition for Aiven is currently unsatisfiable by any script in the repo — added an Open Question pending a human sovereignty decision.
@@ -1470,6 +1473,28 @@ All MVP features persist to Supabase PostgreSQL with graceful in-memory fallback
 
 **Fallback pattern:** Every service method checks `getSupabaseClient()`. If null (credentials missing), operations use in-memory Maps. This ensures development/testing works without a database.
 
+### 16.0.1 Data API Grants (Supabase 2026-05-30 / 2026-10-30)
+
+**Context.** Supabase dropped the implicit grants on `public.*` for the Data API roles (`anon`, `authenticated`, `service_role`) on 2026-05-30 for new projects. All existing projects — including `dws6-production` — are enforced on 2026-10-30. Without an explicit table-level `GRANT`, PostgREST / supabase-js / GraphQL return `42501` **even when RLS would allow the row.** RLS is the row gate; `GRANT` is the table gate. Both are now required.
+
+**Standard block.** Every `CREATE TABLE public.<name>` in a migration must be followed by:
+
+```sql
+grant select, insert, update, delete on public.<name>
+  to authenticated, service_role;
+alter table public.<name> enable row level security;
+
+-- Opt-in only if a policy explicitly targets that role:
+-- grant select on public.<name> to anon;
+-- grant insert on public.<name> to anon;
+```
+
+Reference copy at the top of `Firehorse/supabase-schema-templates.sql`.
+
+**Backfill.** `supabase/migrations/075_public_schema_grants.sql` grants CRUD on every existing public table to `service_role` + `authenticated`, plus per-table anon SELECT/INSERT for the surfaces whose RLS policies explicitly target `anon` (booking\_\* public reads, subscription_plans, file_index, captain_inquiries submissions, web_leads, playbook_leads). It also sets `alter default privileges in schema public` so a future migration that forgets the inline block still lands with the correct grants — a belt-and-suspenders safeguard against silent 42501s in production.
+
+**Anon posture.** Anon is deny-by-default at the GRANT layer: the standard block does not include `anon`. Add it only when an RLS policy already permits the action for `anon` or the `public` pseudo-role — never grant `anon` privileges the RLS layer does not corroborate.
+
 ### 16.1 API Key Management Security
 
 **Implementation:** `src/services/api-key.service.ts`, `src/routes/api-keys.routes.ts`
@@ -1712,6 +1737,24 @@ DWS IQ integrates NVIDIA NeMo DataDesigner to generate synthetic regulatory data
 ### 19.3 NIS2 Compliance Statement
 
 > "DWS IQ's Synthetic Nervous System generates regulatory training data using NVIDIA NeMo DataDesigner under strict data provenance, schema validation, and adversarial integrity controls. All synthetic data is cryptographically tagged, isolated from production systems, and validated against EU regulatory logic before agent training. Fine-tuned models maintain full lineage tracking and rollback capability, ensuring compliance with NIS2 Article 21(2)(e) security in network and information systems acquisition, development and maintenance."
+
+## 20. Public Vulnerability Disclosure
+
+The canonical public-facing Vulnerability Disclosure Policy lives at
+`dws10.com/compliance/vulnerability-disclosure-policy/index.html` (+ `landing-pages/dws10-com/` mirror,
+Dual Folder Sync). It is adapted from the European Commission's public VDP, rewritten for a private
+company scope — Commission Decision EC 2017/46 and EU-institution legal-action provisions do not apply
+to Lifetime Oy and were dropped rather than misapplied.
+
+- **Scope:** dws10.com, dws6.com, onelifetime.world, their public API endpoints, and MCP servers —
+  matching `.well-known/security.txt`. Third-party vendor systems are explicitly out of scope.
+- **Contact:** `security@lifetime.fi` (no PGP key published yet — stated plainly on the page rather
+  than implied).
+- **SLA (single source, do not fork a second one):** acknowledge within 48 hours; fix timeline
+  Critical 48h / High 7d / Medium 30d / Low next release. The same values are committed in
+  `.well-known/security.txt` and `legal/index.html` §10 (Responsible Disclosure) — all three now
+  cross-link to the standalone policy page rather than restating it.
+- Registered 31.07.2026, branch `claude/ai-pact-enforcement-transparency-gnnipk`.
 
 ---
 

@@ -14,7 +14,7 @@
 import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
-import { scoreCompliance, type DataPointStatus } from '../compliance/scoring-engine.js';
+import { type DataPointStatus, scoreCompliance } from '../compliance/scoring-engine.js';
 import { generateReport } from '../compliance/report-generator.js';
 
 // ============ REGULATORY THRESHOLDS ============
@@ -139,7 +139,26 @@ export class ComplianceAgent extends BaseAgent {
 
   /** Normalize loose input into the strict ComplianceInput shape */
   private normalizeInput(input: Record<string, unknown>): ComplianceInput {
-    const raw = input as Record<string, any>;
+    const raw = input as {
+      projectId?: string;
+      project_id?: string;
+      project?: string;
+      industry?: string;
+      regulations?: unknown;
+      regulation?: string;
+      dataPoints?: unknown;
+      currentMeasures?: Partial<ComplianceInput['currentMeasures']>;
+      carbonReporting?: boolean;
+      emissionsMonitoring?: boolean;
+      supplyChainDueDiligence?: boolean;
+      aiSystemLogging?: boolean;
+      annualEmissions?: number;
+      annual_emissions?: number;
+      emissions?: number;
+      importValue?: number;
+      import_value?: number;
+      imports?: number;
+    };
     return {
       projectId: raw.projectId ?? raw.project_id ?? raw.project ?? 'unknown',
       industry: raw.industry ?? 'default',
@@ -354,7 +373,7 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
       await this.logExecution({
         agent_name: this.config.name,
@@ -365,7 +384,7 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
         input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });

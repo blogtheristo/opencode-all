@@ -13,7 +13,7 @@
 import logger from '../utils/logger.js';
 import { getSupabaseClient } from '../config/supabase.js';
 import { type ComplianceScoringInput, scoreCompliance } from '../compliance/scoring-engine.js';
-import { generateReport } from '../compliance/report-generator.js';
+import { type ComplianceReport, generateReport } from '../compliance/report-generator.js';
 
 export interface ExportRequest {
   companyName: string;
@@ -49,7 +49,31 @@ export interface ExportResult {
 // In-memory fallback store
 const memSchedules = new Map<string, ScheduleConfig>();
 
-function reportToCSV(report: any): string {
+interface ReportCsvView {
+  company?: { name?: string; industry?: string; country?: string };
+  generatedAt?: string;
+  scores?: {
+    overall?: number;
+    regulations?: Record<string, { score?: number; status?: string; riskLevel?: string }>;
+  };
+  gaps?: Array<{
+    id?: string;
+    regulation?: string;
+    description?: string;
+    gap?: string;
+    priority?: string;
+    severity?: string;
+    effort?: string;
+  }>;
+  recommendations?: Array<{
+    text?: string;
+    description?: string;
+    category?: string;
+    impact?: string;
+  }>;
+}
+
+function reportToCSV(report: ReportCsvView): string {
   const lines: string[] = [];
 
   lines.push('DWS IQ Compliance Report');
@@ -63,7 +87,7 @@ function reportToCSV(report: any): string {
   lines.push('Regulation,Score,Status,Risk Level');
   if (report.scores?.regulations) {
     for (const [reg, data] of Object.entries(report.scores.regulations)) {
-      const d = data as any;
+      const d = data;
       lines.push(
         `${csvEscape(reg)},${d.score ?? ''},${csvEscape(d.status || '')},${csvEscape(d.riskLevel || '')}`,
       );
@@ -122,19 +146,19 @@ function computeNextRun(frequency: string): Date {
 }
 
 // Map Supabase row to ScheduleConfig
-function rowToSchedule(row: any): ScheduleConfig {
+function rowToSchedule(row: Record<string, unknown>): ScheduleConfig {
   return {
-    id: row.id,
-    userId: row.user_id,
-    companyName: row.company_name,
-    industry: row.industry,
-    country: row.country,
-    frequency: row.frequency,
-    format: row.format,
-    recipientEmail: row.recipient_email,
-    nextRunAt: row.next_run_at,
-    enabled: row.enabled,
-    createdAt: row.created_at,
+    id: row.id as string,
+    userId: row.user_id as string,
+    companyName: row.company_name as string,
+    industry: row.industry as string,
+    country: row.country as string,
+    frequency: row.frequency as ScheduleConfig['frequency'],
+    format: row.format as ScheduleConfig['format'],
+    recipientEmail: row.recipient_email as string,
+    nextRunAt: row.next_run_at as string,
+    enabled: row.enabled as boolean,
+    createdAt: row.created_at as string,
   };
 }
 
@@ -157,7 +181,9 @@ export const ReportExportService = {
     const result = scoreCompliance(scoringInput);
     const report = generateReport(result, { name: companyName, industry, country });
 
-    const exportData: any = { ...report };
+    type ExportData = Partial<Pick<ComplianceReport, 'gaps' | 'recommendations'>> &
+      Omit<ComplianceReport, 'gaps' | 'recommendations'>;
+    const exportData: ExportData = { ...report };
     if (!includeGaps) delete exportData.gaps;
     if (!includeRecommendations) delete exportData.recommendations;
 
@@ -166,7 +192,7 @@ export const ReportExportService = {
     const slug = companyName.toLowerCase().replace(/\s+/g, '-');
 
     if (format === 'csv') {
-      const csv = reportToCSV(exportData);
+      const csv = reportToCSV(exportData as unknown as ReportCsvView);
       return {
         filename: `dws-compliance-${slug}-${dateStr}.csv`,
         contentType: 'text/csv; charset=utf-8',

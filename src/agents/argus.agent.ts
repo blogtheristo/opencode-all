@@ -308,7 +308,14 @@ export class ArgusAgent extends BaseAgent {
 
   /** Normalize loose input into OrbitalScanRequest */
   private normalizeInput(input: Record<string, unknown>): OrbitalScanRequest {
-    const raw = input as Record<string, any>;
+    const raw = input as Partial<OrbitalScanRequest> & {
+      lat?: number;
+      lon?: number;
+      bbox?: BoundingBox;
+      industry?: DwsIndustry;
+      mode?: 'catalog' | 'tasking' | 'both';
+      resolution?: number;
+    };
 
     // Accept bbox or GeoJSON polygon
     let aoi: GeoJsonPolygon | BoundingBox;
@@ -332,7 +339,7 @@ export class ArgusAgent extends BaseAgent {
 
     return {
       aoi,
-      industries: raw.industries || raw.industry ? [raw.industry] : undefined,
+      industries: (raw.industries || raw.industry ? [raw.industry] : undefined) as DwsIndustry[] | undefined,
       dateRange: raw.dateRange || {
         start: new Date(Date.now() - 30 * 86400_000).toISOString(),
         end: new Date().toISOString(),
@@ -440,7 +447,7 @@ export class ArgusAgent extends BaseAgent {
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
       await this.logExecution({
         agent_name: this.config.name,
@@ -451,7 +458,7 @@ export class ArgusAgent extends BaseAgent {
         input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });
@@ -671,8 +678,9 @@ Only include targets where you'd adjust confidence. Max 10 adjustments.`,
   private buildIndustrySummary(targets: OrbitalTarget[]) {
     const groups = new Map<DwsIndustry, OrbitalTarget[]>();
     for (const t of targets) {
-      if (!groups.has(t.industry)) groups.set(t.industry, []);
-      groups.get(t.industry)!.push(t);
+      const group = groups.get(t.industry) ?? [];
+      group.push(t);
+      groups.set(t.industry, group);
     }
 
     return Array.from(groups.entries()).map(([industry, industryTargets]) => ({

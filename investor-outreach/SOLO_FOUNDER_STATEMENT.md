@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Founding Team & Technical-Depth Statement — DWS IQ 6 / Lifetime Oy
-Version: 1.3
+Version: 1.4
 Date: 2026-06-29
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
@@ -8,6 +8,7 @@ Status: ACTIVE — two-person team confirmed; senior technical (CTO) hire still 
 Purpose: Single source of truth on the founding-team & technical-depth question. Referenced verbatim from all INTRO_*.md files so every investor conversation at firm level tells the same story.
 
 AGENT HISTORY:
+- v1.4 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.3 (2026-06-29): Retitled from "Solo-Founder Statement" — the company is NOT solo. Added Lucille Santiago as second human / co-lead (Office Chief, Human-In-Command, offered partnership in Lifetime AB). Reframed the acknowledgment from "solo-founder round" to "two-person founding team; technical depth (CTO) is the honest open hire." Per DWS_TRUTH_STANDARD v2.3 §2 row 23 (human team vs AI-agent personas). Branch claude/anduril-case-study-iridtj.
 - v1.0 (2026-04-19): Initial draft. Honest positioning — acknowledges solo-founder, names real advisors (Robertsson commercial/ESG, Varteva + Räsänen academic), identifies named CTO candidate (Mikko Honganmäki, background TBD), states offer structure and timeline, explicitly acknowledges Messe scale-up production risk until CTO in seat. No invented redundancy. No fractional pretense (unpaid-only constraint). Designed to survive operator-grade due diligence from Wilke (42CAP), Zawadzinski (Hard2beat), Perissich (Plug and Play).
 - v1.1 (2026-04-19): Added public LinkedIn CTO search launched same day. Dual-track search (Mikko direct + public LinkedIn inbound). See docs/field-notes/2026-04-19-cto-linkedin-search-launched.md for post text and rationale.
@@ -32,7 +33,7 @@ DWS IQ 6 is built by a **two-person founding team** — Risto Anton Päärni (Fo
 
 **Product:** DWS IQ 6 live in production. A fleet of skilled agents, ERP connectors, MCP tool exposure, EU AI Act compliant, sovereignty audit layer.
 
-**Traction:** 6 paying customers, 100% retention, EUR 7K MRR, EUR 4,950 pilot converting to EUR 8,950/year.
+**Traction:** two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked); ~EUR 7,000/month services and transport revenue (not software revenue), company at cash break-even with founder salary EUR 0; EUR 4,950 pilot converting to EUR 8,950/year.
 
 **Advisors (commercial + academic):**
 
@@ -90,7 +91,7 @@ If complementary-technical-co-founder depth at this stage is a non-negotiable cr
 
 Every INTRO\_\*.md file with a founder-count / team drawback should reference this statement verbatim in the **Drawbacks / Mitigations** section:
 
-> **Team / founder-count flag** — Acknowledged. See `Founding Team & Technical-Depth Statement` (`SOLO_FOUNDER_STATEMENT.md`) for the single-source position: **two-person team** (Risto Päärni + Lucille Santiago, Office Chief / HIC, offered partnership in Lifetime AB) + 13-yr operator + paying customers + named advisors (Robertsson, Metropolia). Open hire: senior technical (CTO) seat, funded by the raise. Messe-scale reliability risk named explicitly until that seat is filled.
+> **Team / founder-count flag** — Acknowledged. See `Founding Team & Technical-Depth Statement` (`SOLO_FOUNDER_STATEMENT.md`) for the single-source position: **two-person core** (Risto Päärni, Founder/CEO + Lucille Santiago, Office Chief) plus a contracted engineering bench under NDA + 13-yr operator + two contracted enterprise pilots + named advisors (Robertsson, Metropolia). Open hire: senior technical (CTO) seat, funded by the raise. Messe-scale reliability risk named explicitly until that seat is filled.
 
 Do not restate the position in each file — link it. Consistency at firm level is the goal (e.g. Laouiti and Perissich at Plug and Play must see the same story).
 

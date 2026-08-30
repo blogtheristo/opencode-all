@@ -37,6 +37,7 @@ know about _right now_.
 
 Based on `signal-detector` in gbrain by Garry Tan
 (https://github.com/garrytan/gbrain/tree/master/skills/signal-detector).
+**Source pin:** garrytan/gbrain @ VERSION 0.46.23.0, observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
 
 ## What it checks (in order)
 

@@ -26,8 +26,9 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { agentRegistry } from '../agents/index.js';
-import { scoreResponse, type EvalExpected } from './scorer.js';
+import { type EvalExpected, scoreResponse } from './scorer.js';
 import type { AgentContext } from '../agents/types.js';
+import logger from '../utils/logger.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -161,7 +162,7 @@ async function runDataset(name: string): Promise<EvalReport> {
   const cases = loadDataset(name);
   const results: EvalResult[] = [];
 
-  console.log(`\n[eval] Dataset: ${name} (${cases.length} cases)`);
+  logger.info(`\n[eval] Dataset: ${name} (${cases.length} cases)`);
 
   for (const c of cases) {
     const result = await runCase(c);
@@ -169,11 +170,11 @@ async function runDataset(name: string): Promise<EvalReport> {
 
     const icon = result.status === 'passed' ? '✓' : result.status === 'skipped' ? '-' : '✗';
     const line = `  ${icon} ${result.id.padEnd(8)} score=${result.score.toFixed(2)} (${result.latencyMs}ms)`;
-    console.log(line);
+    logger.info(line);
 
     if (result.reasons.length > 0 && result.status !== 'skipped') {
       for (const r of result.reasons) {
-        console.log(`      → ${r}`);
+        logger.info(`      → ${r}`);
       }
     }
   }
@@ -231,12 +232,12 @@ function printSummary(report: EvalReport): void {
   const deltaStr =
     delta !== null ? ` (${delta >= 0 ? '+' : ''}${(delta * 100).toFixed(1)}% vs prev)` : '';
 
-  console.log(
+  logger.info(
     `\n[eval] ${report.dataset}: ${report.passed}/${report.total - report.skipped} passed — ${(report.passRate * 100).toFixed(1)}%${deltaStr}`,
   );
 
   if (report.skipped === report.total) {
-    console.log('[eval] All cases skipped — no LLM key. Set ANTHROPIC_API_KEY for live evals.');
+    logger.info('[eval] All cases skipped — no LLM key. Set ANTHROPIC_API_KEY for live evals.');
   }
 }
 
@@ -251,17 +252,17 @@ async function main(): Promise<void> {
       report = await runDataset(dataset);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
-      console.error(`[eval] FATAL: ${msg}`);
+      logger.error(`[eval] FATAL: ${msg}`);
       process.exit(2);
     }
 
     const savedPath = saveReport(report);
     printSummary(report);
-    console.log(`[eval] Report saved: ${savedPath}`);
+    logger.info(`[eval] Report saved: ${savedPath}`);
 
     const failRate = (report.failed + report.errors) / Math.max(report.total - report.skipped, 1);
     if (failRate > FAIL_THRESHOLD) {
-      console.error(
+      logger.error(
         `[eval] REGRESSION: ${(failRate * 100).toFixed(1)}% fail rate exceeds threshold ${(FAIL_THRESHOLD * 100).toFixed(0)}%`,
       );
       anyRegression = true;
@@ -272,6 +273,6 @@ async function main(): Promise<void> {
 }
 
 main().catch((err) => {
-  console.error('[eval] Unhandled error:', err);
+  logger.error('[eval] Unhandled error:', err);
   process.exit(2);
 });

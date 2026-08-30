@@ -8,7 +8,7 @@
  */
 
 import { describe, expect, it } from 'vitest';
-import { readFileSync, existsSync, readdirSync } from 'fs';
+import { existsSync, readdirSync, readFileSync } from 'fs';
 import { dirname, join, resolve } from 'path';
 
 const REPO_ROOT = resolve(__dirname, '..', '..');

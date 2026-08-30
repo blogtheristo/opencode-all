@@ -7,15 +7,17 @@
  * - Event-driven agent runtime initialized on startup (Fix #6)
  */
 
-import dotenv from 'dotenv';
-dotenv.config();
+// Centralized env config — MUST be the first import: loads .env before any
+// statically imported module reads process.env at module-load time.
+import './config/env.js';
 
 // Initialize OTel before any module that may emit spans (agent registry,
 // llm-client, workflows). Safe no-op when OTEL_EXPORTER_OTLP_ENDPOINT is unset.
 import { initOtel, shutdownOtel } from './observability/otel.js';
+import { recordHttpRequest } from './observability/metrics.js';
 initOtel();
 
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express, { type Express, type NextFunction, type Request, type Response } from 'express';
 import cors from 'cors';
 import crypto from 'crypto';
 import helmet from 'helmet';
@@ -52,9 +54,11 @@ import usageRoutes from './routes/usage.routes.js';
 import onboardRoutes from './routes/onboard.routes.js';
 import memoryRoutes from './routes/memory.routes.js';
 import complianceRoutes from './routes/compliance.routes.js';
+import cbamPilotRoutes from './routes/cbam-pilot.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
+import { contentRoutes } from './contentms/index.js';
 import gtmEventsRoutes from './routes/gtm-events.routes.js';
 import emailWebhookRoutes from './routes/email-webhook.routes.js';
 import analyticsRoutes from './routes/analytics.routes.js';
@@ -80,15 +84,19 @@ import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
+import { createMCPRouter } from './mcp/agent-server.js';
+import capTableRouter from './investor-reports/cap-table-routes.js';
 import { loadSecrets } from './config/secret-loader.js';
 
 // ============ STUBS FOR MODULES EXCLUDED FROM BUILD ============
-// tsconfig.json excludes src/firehorse/**, src/mcp/**, and src/investor-reports/**
-// from compilation, so they are not present in dist/ at runtime. Static imports
-// from these paths would crash the container with ERR_MODULE_NOT_FOUND before
-// app.listen() — breaking Cloud Run health checks. Instead we expose no-op
-// stubs; affected routes will 404 and scheduled hooks are no-ops. Unstub by
-// restoring the modules in tsconfig `include` and reverting this block.
+// tsconfig.json excludes src/firehorse/** and src/integrations/** from
+// compilation (they have unresolved type errors that surfaced when the
+// modules were brought back into the strict-build graph; see PR-1208 follow-up).
+// Static imports from these paths would crash the container with
+// ERR_MODULE_NOT_FOUND before app.listen() — breaking Cloud Run health
+// checks. Instead we expose no-op stubs; affected routes will 404 and
+// scheduled hooks are no-ops. Unstub by restoring the modules in tsconfig
+// `include` and reverting this block (see follow-up PR for the type fixes).
 const firehorseRoutes = express.Router();
 const initFirehorsePilot = (): void => {
   logger.warn('firehorse stubbed — module excluded from build');
@@ -96,16 +104,16 @@ const initFirehorsePilot = (): void => {
 const shutdownFirehorsePilot = (): void => {
   /* no-op */
 };
-const createMCPRouter = () => express.Router();
-const capTableRouter = express.Router();
 // ================================================================
-
-dotenv.config();
 
 // ============ VAULT BOOTSTRAP ============
 // Pull secrets from configured vault (Aiven / GCP Secret Manager) into
 // process.env before validation. No-op if VAULT_PROVIDER is not set.
 await loadSecrets();
+
+// Re-validate env snapshot after vault injection
+const { refreshEnv } = await import('./config/env.js');
+refreshEnv();
 
 // ============ STARTUP VALIDATION ============
 
@@ -204,6 +212,16 @@ app.use(correlationId);
 // API versioning header on all responses
 app.use(apiVersionMiddleware);
 
+// OTel HTTP metrics — counter + duration histogram per request (Aspire Metrics tab)
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const startAt = process.hrtime.bigint();
+  res.on('finish', () => {
+    const durationMs = Number(process.hrtime.bigint() - startAt) / 1_000_000;
+    recordHttpRequest(req.path || 'unknown', req.method, res.statusCode, durationMs);
+  });
+  next();
+});
+
 // Body parsers with size limits
 //
 // IMPORTANT: stripe-webhook routes are mounted BEFORE express.json() (further
@@ -301,6 +319,9 @@ app.use('/api/v1/outreach', outreachSendRoutes);
 // Firehorse Omnichannel Pilot (sales automation, signals, lead management)
 app.use('/api/v1/firehorse', firehorseRoutes);
 
+// Firehorse Content DMS (Evidence Vault: 5 agents, HIL review, artifact publishing)
+app.use('/api/v1/content', contentRoutes);
+
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
 
@@ -315,6 +336,11 @@ app.use('/api/v1/memory', memoryRoutes);
 
 // Compliance assessment API (scoring, registry, cost estimate)
 app.use('/api/v1/compliance', complianceRoutes);
+
+// CBAM Paid Pilot — KYA-S1 calculation endpoint (€0.10/call, pilot API key required)
+// GET  /api/v1/cbam/calculation/schema — free, returns JSON schema for agent self-description
+// POST /api/v1/cbam/calculation        — paid, returns LedgerNativeOutput with citations + signature
+app.use('/api/v1/cbam/calculation', cbamPilotRoutes);
 
 // Report export & scheduling (MVP Feature 3)
 app.use('/api/v1/reports', reportExportRoutes);

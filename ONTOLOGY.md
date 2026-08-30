@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
 
+- Version: 1.6 | Tool: Claude Code (Opus 5) | Session: claude/kya-s1-blog-post-1-swb4k4 | Date: 09.08.2026 | Changes: Added §16 **KYA Ontology — Agent Governance Vocabulary**: the canonical vocabulary for the mandate layer the spatial/temporal/causal/entity ontologies do not cover — UNDER WHAT MANDATE an autonomous agent acted. Core concepts, the seven KYA-S1 control domains, the KYA-AL1/AL2/AL3 assurance levels (renamed from Bronze/Silver/Gold in KYA-S1 v1.4), runtime mechanisms (Lease Token, fail-closed, leash snap, capture-precedes-release, bounded attribution clock, TRS/TRS_req), process concepts (HIC, Single Pane of Glass, PRV-4, BPMN 2.0 engine, EUDI Wallet), and a five-language term table with Finnish as Ground Truth. Normative source is `Legal/KYA_S1.md` v1.5; §16 is descriptive and yields to it. Three translation errors in the supplied table were corrected and recorded in §16.7 rather than applied silently.
 - Version: 1.5 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Data Lifecycle & Retention Ontology (HOW LONG)" subsection in §6 — every ontology node ingesting live data now carries an explicit per-node retention schema (node_owner, raw/summary/audit/rollup tiers, quarterly aggregation_review), closing the gap named by the Valtiovarainministeriö security-oriented information management guide (VM 2026:27 §4.4.2, aggregation effect / kasautumisvaikutus). Reference implementation: Control Room / Situation Room four-tier model (`docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`, `Admin/ADMIN_MANUAL.md`). Retention is a property of the node, not a platform-wide default.
 - Version: 1.4 | Tool: Claude Code (claude-sonnet-4-6) | Session: claude/knowledge-catalog-research-J207A | Date: 04.05.2026 | Changes: Added §15 "GC-KC Reference Architecture — What Industrial Ontology Runtime Looks Like". Maps Google Cloud Knowledge Catalog three pillars (Aggregation, Enrichment, Search) to DWS ontology tiers. Adds DWSDataProduct as a named concept. Connector decision documented (export adapter only). Updates §14 lags table: Knowledge Catalog Runtime gap now tracked.
 - Version: 1.3 | Tool: Claude Code (claude-sonnet-4-6) | Session: claude/add-ontology-background-s0H0S | Date: 29.04.2026 | Changes: Added §1.3 "Sanan ontologia tausta / Etymology and Philosophical Background" — kreikkalainen etymologia (ón + lógos), Aristoteles, skolastiikka 1600–1700-luvuilla, merkityksen laajeneminen filosofiasta tietojenkäsittelytieteeseen ja tekoälyyn
@@ -23,7 +24,7 @@ Session Links & References:
 Document Status:
 
 - Created: 21.01.2026
-- Last Modified: 11.02.2026
+- Last Modified: 09.08.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -610,10 +611,16 @@ dws_iq6:
     - Steel & Metals
 
   20_moat_fortress:
+    # NOTE (2026-08-22, truth-standard reconciliation): rows 2 and 3 below describe
+    # *aspirational validation paths*, not landed references. Per DWS_TRUTH_STANDARD.md
+    # row 33 / docs/TRACTION_CANONICAL.md: Kela is a Traficom-defined dispatch operator of
+    # the licensed transport operation — never a customer or endorser of any software
+    # product; NCC is a prospect, not a reference. Do not cite either as validation in
+    # public copy generated from this ontology.
     tier_1_impossible:
       - "1. EU/Nordic Operations + Single Market Access (450M consumers)"
-      - "2. Government Validation (Kela)"
-      - "3. NCC Reference"
+      - "2. Government Validation (Kela) — ASPIRATIONAL; Kela is a dispatch operator, not a validator/customer"
+      - "3. NCC Reference — ASPIRATIONAL; NCC is a prospect, not a reference"
       - "4. InvestEU Portal Acknowledgment + EU Competitiveness Alignment"
       - "5. Tech Stack Partnerships (NVIDIA, Google, AWS, Groq)"
     tier_2_very_hard:
@@ -1518,28 +1525,28 @@ Flow: `ONTOLOGY.md` -> `scripts/parse-ontology.ts` -> `supabase/seeds/059_seed.s
     },
     {
       "concept_id": "carbon_balance",
-      "scope_type": "customer",
+      "scope_type": "dispatch_operator",
       "scope_ref": "kela",
       "locale": "fi",
       "policy_level": "preferred",
       "preferred_term": "kuljetuksen päästötase",
-      "definition_override": "KELA-kuljetusten CO2-seuranta per matka"
+      "definition_override": "KELA-reimuttujen kuljetusten CO2-seuranta per matka (Kela on Traficom-määrittelemä läpiajomääräävä taksiliikenteessä — ei DWS:n ohjelmistotuotteen asiakas)"
     },
     {
       "concept_id": "sovereignty",
-      "scope_type": "customer",
-      "scope_ref": "kela",
+      "scope_type": "platform",
+      "scope_ref": "dws_iq",
       "locale": "fi",
       "policy_level": "required",
       "preferred_term": "EU-suvereniteetti",
-      "definition_override": "KELA vaatii EU-sovereign hosting, ei US-infra"
+      "definition_override": "EU-suvereeni hosting vaaditaan; US-infrastruktuuri suljetaan pois (CLOUD Act)"
     }
   ],
   "forbidden_rules": [
     {
       "concept_id": "physical_ai",
       "scope_type": "customer",
-      "forbidden_in": ["kela", "defense_context"],
+      "forbidden_in": ["defense_context"],
       "locales": ["en"],
       "preferred_term": "Physical AI",
       "definition_override": "Forbidden in this context; use regulatory intelligence engine"
@@ -1824,6 +1831,128 @@ GC-KC validates that the ontology-first orchestration approach is correct — Go
 | Open standard      | No                           | Spec published under permissive licence      |
 
 DWS Knowledge Catalog is the **Gaia-X native, EU AI Act compliant, regulation-first** answer to GC-KC. The primary market: EU industrial enterprises that cannot or will not route sovereign data through US hyperscalers.
+
+---
+
+## 16. KYA Ontology — Agent Governance Vocabulary (v1.6)
+
+The ontology answers WHERE, WHEN, WHY and WHO/WHAT. Once an autonomous agent is the actor,
+a fifth question appears that none of those cover: **UNDER WHAT MANDATE.** This section is the
+canonical vocabulary for that layer. Normative source: `Legal/KYA_S1.md` v1.5. Where this section
+and the specification disagree, the specification wins.
+
+Finnish is the Ground Truth for the public-facing terms (HIC decision, 09.08.2026); the other four
+languages are translations of it.
+
+### 16.1 Core concepts
+
+- **KYA (Know Your Agent)** — the governance framework that verifies an autonomous agent's runtime
+  behaviour, identity, mandate and security. The KYC principle carried into AI: you may not let an
+  actor into your systems that you cannot name, bound, and stop.
+- **KYA-S1 Specification** — the published specification defining 7 control domains, 3 assurance
+  levels and the auditability requirements. A specification, not a standard: no standards-body
+  consensus process has been run.
+- **Evidence Meta-Rule (§3)** — self-attestation is never acceptable evidence of conformance. Only a
+  third-party audit report or cryptographically signed platform telemetry counts. Binds the author
+  of the specification first.
+- **Agentic Commerce** — autonomous agent-to-agent trade, procurement and payment, where each
+  transaction is protected by a KYA-S1 authorization.
+
+### 16.2 The seven control domains
+
+| Control | Name | What it governs |
+| --- | --- | --- |
+| **IDV** | Identity Verification | Binds every agent session, tool request and decision to a cryptographically verified human (IDV-1..4). |
+| **REG** | Capability Registration | The capability manifest and live registry: permitted tools, API endpoints and execution limits, declared before activation (REG-1..2). |
+| **BHM** | Behavioral Modeling | Runtime behavioural monitoring against a baseline; detects prompt injection, tool poisoning and deviant execution paths. |
+| **TC4** | Chain Termination | The emergency brake: atomic elimination of an agent chain (leash snap) and invalidation of every active authorization token. |
+| **FLT** | Fault Attribution | A signed classification of the fault's cause within 72 hours of incident close (FLT-4). |
+| **TRS** | Trust Score & Authorization | Computes the runtime trust level and issues atomic execution grants. |
+| **PRV** | Provenance & Audit Trail | Decision replay: the decision chain, model state and the human's sign-off (PRV-4) in immutable history (PRV-2). |
+
+### 16.3 Assurance levels (KYA-AL)
+
+Renamed from Bronze / Silver / Gold in KYA-S1 v1.4 (HIC decision, 09.08.2026). Thresholds unchanged.
+
+| Level | Audit cadence | Required evidence depth | SLA (IDV & TC4) | PRV replay availability |
+| --- | --- | --- | --- | --- |
+| **KYA-AL1** (Standard) | Annual | Third-party audit in ≥1 domain + signed telemetry | ≤ 15 minutes | 30 days |
+| **KYA-AL2** (Enhanced) | Quarterly | Audit across IDV and BHM + 12 months signed telemetry | ≤ 5 minutes | 7 days |
+| **KYA-AL3** (Critical) | Continuous, real time | External assessor across all 7 domains + signed SLA | ≤ 60 seconds | 24 hours |
+
+### 16.4 Runtime mechanisms
+
+- **Lease Token (TRS-4)** — a single-use, time-bound, cryptographically signed authorization key.
+  The agent's delegate consumes it atomically via `consumeAndExecute` at the start of execution,
+  which is what closes the race-condition and double-charge windows.
+- **Fail-Closed (TRS-5)** — if the trust engine does not answer within its bounded timeout (e.g.
+  > 500 ms) or returns an error, the action never proceeds autonomously; it routes to a human
+  (User Task / HIC Dashboard) or halts.
+- **Leash Snap (TC4)** — atomic severing of an execution chain: stops a multi-agent run and
+  invalidates every active Lease Token at once.
+- **Capture Precedes Release (TC4-5)** — forensic state is committed *before* terminated resources
+  are freed. Without it, a terminated chain leaves FLT with no substrate to attribute against.
+- **Bounded Attribution Clock (FLT-4)** — a binding classification of the fault within 72 hours of
+  incident close, into five categories: model fault, application-logic fault, integration fault,
+  human input fault, configuration fault.
+- **TRS (Trust Score)** — the agent's runtime trust level (0–100, i.e. 0.00–1.00), driven by the
+  principal's verification state, BHM behavioural history and platform integrity.
+- **TRS_req (risk threshold)** — the per-task minimum trust level an agent must reach to earn
+  automatic execution authority.
+
+### 16.5 Process and integration concepts
+
+- **HIC (Human-in-Command)** — the human's real command, oversight and override authority over an
+  AI process. The DWS implementation of EU AI Act Article 14.
+- **HIC Dashboard / Single Pane of Glass** — the human commander's unified control-room view:
+  deviations, TRS scores and the User Tasks awaiting sign-off.
+- **Human Decision Provenance (PRV-4)** — the auditable record of a human sign-off: the stated
+  rationale, the human's eIDAS identity, and the situational state at the moment of the decision.
+- **BPMN 2.0 Engine** — the executable process engine (e.g. Camunda) that routes each step at
+  runtime to the automatic lane (Service Task) or to a human (User Task) based on the agent's TRS.
+- **EUDI Wallet / eIDAS 2.0** — the EU's official digital identity wallet, where the human
+  commander's base identity (IDV-1) and signing authority (QEAA / QES) are anchored at
+  public-authority level.
+
+### 16.6 Five-language term table
+
+FI is Ground Truth; EN, SV, DE and FR are translations of it.
+
+| Term / code | Suomi (FI) — Ground Truth | English (EN) | Svenska (SV) | Deutsch (DE) | Français (FR) |
+| --- | --- | --- | --- | --- | --- |
+| **KYA** | Agentin tunnistaminen | Know Your Agent | Känn din agent | Kenne deinen Agenten | Connaissez votre agent |
+| **KYA-S1 Specification** | KYA-S1-turvallisuusspesifikaatio | KYA-S1 Security Specification | KYA-S1 Säkerhetsspecifikation | KYA-S1 Sicherheitsspezifikation | Spécification de sécurité KYA-S1 |
+| **Evidence Meta-Rule (§3)** | Näyttömetasääntö (§3) | Evidence Meta-Rule (§3) | Bevis-metaregel (§3) | Evidenz-Metaregel (§3) | Méta-règle de preuve (§3) |
+| **Agentic Commerce** | Autonominen agenttikaupankäynti | Agentic Commerce | Agentisk handel | Agenten-Handel | Commerce agentique |
+| **IDV** | Todennettu ihmisjohtajan sidos | Verified Human Principal Binding | Verifierad mänsklig huvudmannakoppling | Verifizierte menschliche Hauptverbindung | Liaison d'agent à un responsable humain vérifié |
+| **REG** | Kyvykkyysmanifesti ja rekisteri | Capability Manifest & Registry | Kapacitetsmanifest och register | Fähigkeitsmanifest & Register | Manifeste et registre des capacités |
+| **BHM** | Ajonaikainen käyttäytymisen valvonta | Runtime Behavioral Modeling | Beteendemodellering vid körning | Laufzeit-Verhaltensmodellierung | Modélisation comportementale en temps réel |
+| **TC4** | Ketjun keskeytys / hätäjarru | Chain Termination / Leash Snap | Kedjeavslutning / nödbroms | Kettenabbruch / Notbremse | Terminaison de chaîne / frein d'urgence |
+| **FLT** | Aikarajoitettu virheattribuutio | Bounded Fault Attribution | Tidsbegränsad felattribuering | Zeitbegrenzte Fehlerattribuierung | Attribution limitée des fautes |
+| **TRS** | Luottamuspiste ja valtuutus | Trust Score & Authorization | Förtroendepoäng och auktorisering | Vertrauenswert & Autorisierung | Score de confiance et autorisation |
+| **PRV** | Päätösten toistettavuus ja auditointijälki | Decision Provenance & Audit Trail | Beslutsursprung och granskningskedja | Entscheidungsherkunft & Prüfpfad | Provenance de la décision et piste d'audit |
+| **KYA-AL1** | Vakiotaso | Standard Assurance | Standardgaranti | Standard-Garantie | Assurance standard |
+| **KYA-AL2** | Laajennettu taso | Enhanced Assurance | Förhöjd garanti | Erweiterte Garantie | Assurance renforcée |
+| **KYA-AL3** | Kriittinen taso | Critical Assurance | Kritisk garanti | Kritische Garantie | Assurance critique |
+| **Lease Token (TRS-4)** | Kertakäyttöinen valtuutusavain | Atomic Single-Use Lease Token | Atomisk tidsbegränsad nyttjanderätts-token | Atomares Einmal-Autorisierungs-Token | Jeton de bail atomique à usage unique |
+| **Fail-Closed (TRS-5)** | Pakkosuojaus vikatilanteessa | Fail-Closed Protection | Säker vid fel (fail-closed) | Fehlersichere Sperre (fail-closed) | Verrouillage en cas de défaillance |
+| **Leash Snap (TC4)** | Hätäjarru | Leash Snap Emergency Stop | Nödbroms | Notbremse | Frein d'urgence |
+| **Capture Precedes Release (TC4-5)** | Tallennus ennen resursseista luopumista | Capture Precedes Release | Lagring före frigörande | Erfassung vor Freigabe | Capture avant libération des ressources |
+| **Bounded Attribution Clock (FLT-4)** | Aikarajoitettu virheattribuutio (72 h) | Bounded Attribution Clock (72 h) | Tidsbegränsad felattribuering (72 h) | Zeitbegrenzte Fehlerattribuierung (72 h) | Horloge d'attribution limitée (72 h) |
+| **HIC** | Ihmisen johtamisvalta | Human-in-Command | Mänsklig ledningsrätt | Menschliche Führung | Commandement humain |
+| **Single Pane of Glass** | Yhtenäinen valvomonäkymä | Single Pane of Glass HIC Dashboard | Enhetlig kontrollvy | Zentrales Kontrollpanel | Panneau de contrôle unique |
+| **Human Decision Provenance (PRV-4)** | Ihmispäätöksen alkuperä ja kuittaus | Human Decision Provenance | Mänskligt beslutsursprung | Menschliche Entscheidungsherkunft | Provenance de la décision humaine |
+| **EUDI Wallet / eIDAS 2.0** | EU:n digitaalinen lompakko / eIDAS 2.0 | European Digital Identity Wallet / eIDAS 2.0 | EU:s digitala plånbok / eIDAS 2.0 | Digitale EU-Brieftasche / eIDAS 2.0 | Portefeuille d'identité numérique de l'UE / eIDAS 2.0 |
+
+### 16.7 Two corrections made while importing this vocabulary
+
+Recorded rather than silently applied, per Rule 12:
+
+1. **"Beteendemodellering i speltid" (SV, BHM)** was a mistranslation — *speltid* is playing time in
+   a game or a film's running time, not software runtime. Corrected to *vid körning*.
+2. **"Termination de chaîne" (FR, TC4)** is not a French word in this sense. Corrected to
+   *terminaison de chaîne*. Also **"Vertrauenspunkt" (DE, TRS)** reads as a physical point of trust;
+   corrected to *Vertrauenswert* (trust value/score).
 
 ---
 

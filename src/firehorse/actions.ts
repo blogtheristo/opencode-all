@@ -15,6 +15,7 @@ import {
 } from './types';
 import { db } from './database';
 import { emailService } from './email-service';
+import { enqueue as enqueueLinkedInPending } from './linkedin-pending.js';
 import logger from '../utils/logger.js';
 
 // ============================================================================
@@ -97,7 +98,7 @@ export async function sendEmail(action: SendEmailAction): Promise<void> {
     lead_id,
   });
 
-  console.log(`Email sent to ${lead.email} using template ${template_id}`);
+  logger.info(`Email sent to ${lead.email} using template ${template_id}`);
 }
 
 /**
@@ -134,20 +135,29 @@ export async function sendLinkedInDM(action: SendLinkedInDMAction): Promise<void
     message = message.replace(new RegExp(placeholder, 'g'), value);
   });
 
-  // LinkedIn DM integration not yet implemented.
-  // When ready: replace with PhantomBuster or LinkedIn Marketing API call.
-  // For now: log the intent and skip sending.
-  logger.warn({
-    action: 'linkedin_dm_skipped',
+  // LinkedIn DM: V1 runs as stub + human queue (no auto-send).
+  // Rationale: LinkedIn official API requires 2-3 month approval via the
+  // Marketing Developer Platform; third-party unified APIs (Unipile,
+  // PhantomBuster) carry TOS risk. For V1 we prepare the message, enqueue
+  // it to logs/linkedin-pending.jsonl, and rely on a human reviewer to
+  // send and ack via `dws linkedin-pending` or the /api/v1/firehorse/linkedin/pending routes.
+  const queued = await enqueueLinkedInPending({
     lead_id,
     linkedin_url,
     template_id,
-    reason: 'LinkedIn API client not implemented — message prepared but not sent',
+    message,
+  });
+  logger.info({
+    action: 'linkedin_dm_queued_for_human',
+    queue_id: queued.id,
+    lead_id,
+    linkedin_url,
+    template_id,
   });
   await logEvent({
-    event_type: EventType.linkedin_dm_skipped,
+    event_type: EventType.linkedin_dm_queued,
     lead_id,
-    metadata: { template_id, linkedin_url, message_length: message.length },
+    metadata: { template_id, linkedin_url, message_length: message.length, queue_id: queued.id },
   });
 }
 
@@ -166,7 +176,7 @@ export async function changeState(action: ChangeStateAction): Promise<void> {
     metadata: { new_state },
   });
 
-  console.log(`Lead ${lead_id} state changed to ${new_state}`);
+  logger.info(`Lead ${lead_id} state changed to ${new_state}`);
 }
 
 /**
@@ -181,7 +191,7 @@ export async function logEvent(action: LogEventAction): Promise<void> {
     metadata,
   });
 
-  console.log(`Event ${event_type} logged for lead ${lead_id}`);
+  logger.info(`Event ${event_type} logged for lead ${lead_id}`);
 }
 
 /**
@@ -204,7 +214,7 @@ export async function createTask(action: CreateTaskAction): Promise<void> {
     metadata: { task_type, owner },
   });
 
-  console.log(`Task created for lead ${lead_id}, owner: ${owner}`);
+  logger.info(`Task created for lead ${lead_id}, owner: ${owner}`);
 }
 
 // ============================================================================

@@ -144,31 +144,41 @@ function parseCallback(req: RawBodyRequest): ParsedCallback | null {
     const params = new URLSearchParams(raw);
     const payloadStr = params.get('payload');
     if (!payloadStr) return null;
-    let payload: any;
+    type SlackLikePayload = {
+      actions?: Array<{ value?: unknown; action_id?: unknown }>;
+      user?: { id?: unknown; username?: unknown };
+    };
+    let payload: SlackLikePayload;
     try {
-      payload = JSON.parse(payloadStr);
+      payload = JSON.parse(payloadStr) as SlackLikePayload;
     } catch {
       return null;
     }
     const action = payload?.actions?.[0];
-    const value: string | undefined = action?.value ?? action?.action_id;
+    const value: string | undefined = (action?.value ?? action?.action_id) as string | undefined;
     if (!value || typeof value !== 'string') return null;
     const [nudgeId, rawAction] = value.split(':');
     if (!nudgeId || !rawAction) return null;
-    return { nudgeId, rawAction, userId: payload?.user?.id ?? payload?.user?.username };
+    return {
+      nudgeId,
+      rawAction,
+      userId: (payload?.user?.id ?? payload?.user?.username) as string | undefined,
+    };
   }
 
   // Generic / Teams JSON: { nudgeId, action, userId? }
-  let body: any;
+  let body:
+    | { nudgeId?: unknown; nudge_id?: unknown; action?: unknown; userId?: unknown; user_id?: unknown }
+    | Record<string, unknown>;
   try {
-    body = raw ? JSON.parse(raw) : {};
+    body = (raw ? JSON.parse(raw) : {}) as typeof body;
   } catch {
     return null;
   }
   const nudgeId = body?.nudgeId ?? body?.nudge_id;
   const rawAction = body?.action;
   if (typeof nudgeId !== 'string' || typeof rawAction !== 'string') return null;
-  return { nudgeId, rawAction, userId: body?.userId ?? body?.user_id };
+  return { nudgeId, rawAction, userId: (body?.userId ?? body?.user_id) as string | undefined };
 }
 
 router.post(

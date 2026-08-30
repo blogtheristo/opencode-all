@@ -1,0 +1,431 @@
+<!doctype html>
+<!--
+  The Harness Paywall
+  Code-Version: 1.0
+  Introduced-In: claude/enterprise-ai-harness-0anl7s
+  Date: 2026-07-30
+  Owner: Lifetime Oy
+  Draft-Record: docs/blog-drafts/harness-paywall-depth-arbitrage.md (Status: APPROVED, HIC 30.07.2026)
+  Related:
+    - docs/field-notes/2026-07-30-nadella-harness-model-swappability-signal.md
+    - docs/field-notes/2026-07-30-composio-harness-token-efficiency-benchmark.md
+    - docs/field-notes/2026-07-30-hybrid-attention-long-context-local-inference.md
+    - docs/PHD_FIREHORSE_EN.md §14.45 / Key Contribution #50
+    - kb/wiki/concepts/harness-cost-is-a-pl-line-item.md
+-->
+<html lang="en">
+  <head>
+    <meta property="article:class" content="2">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Harness Paywall — Lifetime Scope Journal</title>
+    <meta
+      name="description"
+      content="Nadella says the harness is the durable layer. A benchmark says it costs up to 30x more tokens depending on which harness you use. Put those together and metered pricing is the wrong place to run it."
+    />
+    <meta name="author" content="Risto Anton Päärni" />
+    <meta name="date" content="2026-07-30" />
+    <meta property="og:title" content="The Harness Paywall" />
+    <meta
+      property="og:description"
+      content="The harness is where agentic value lives — and where the tokens go. On fixed sovereign compute the external per-token bill disappears and the cost becomes bounded, not zero."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_GB" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/dont-train-a-base-model-own-the-evidence-layer.html"
+    />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://onelifetime.world/static/images/blog/heroes/harness-paywall-depth-arbitrage.png" />
+    <meta property="article:published_time" content="2026-07-30" />
+    <meta property="article:author" content="Risto Anton Päärni" />
+    <meta property="article:section" content="Architecture" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://onelifetime.world/static/images/blog/heroes/harness-paywall-depth-arbitrage.png">
+
+    <meta name="twitter:title" content="The Harness Paywall" />
+    <meta
+      name="twitter:description"
+      content="The harness is where agentic value lives — and where the tokens go. On fixed sovereign compute the external per-token bill disappears and the cost becomes bounded, not zero."
+    />
+    <link rel="canonical" href="https://onelifetime.world/posts/harness-paywall-depth-arbitrage.html" />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://onelifetime.world/posts/harness-paywall-depth-arbitrage.html"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/shared-assets/olw-vertical-lang-bar.js" defer></script>
+    <style>
+      .version-chip {
+        display: inline-block;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        border-radius: 9999px;
+        background: rgba(212, 168, 67, 0.15);
+        color: #d4a843;
+        border: 1px solid rgba(212, 168, 67, 0.25);
+      }
+      .prose-light p {
+        margin: 1.15rem 0;
+        line-height: 1.75;
+        color: #cbd5e1;
+        font-size: 1.05rem;
+      }
+      .prose-light h2 {
+        margin: 2.25rem 0 0.75rem;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #f8fafc;
+      }
+      .prose-light strong {
+        color: #f1f5f9;
+      }
+      .prose-light a {
+        color: #22d3ee;
+        text-decoration: underline;
+      }
+      .prose-light ul {
+        margin: 1.15rem 0;
+        padding-left: 1.25rem;
+        color: #cbd5e1;
+        line-height: 1.75;
+      }
+      .prose-light li {
+        margin: 0.4rem 0;
+        list-style: disc;
+      }
+      .pullquote {
+        margin: 2rem 0;
+        padding: 1.25rem 1.5rem;
+        border-left: 3px solid #d4a843;
+        background: rgba(30, 41, 59, 0.6);
+        color: #f1f5f9;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menu">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Store</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Press</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ platform</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Store</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12 prose-light">
+        <header class="mb-8">
+          <span class="version-chip">Perspective &middot; Architecture</span>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            The Harness Paywall
+          </h1>
+          <p class="mt-4 text-base text-gray-400">
+            30 July 2026 &middot; Risto Anton Päärni &middot; Espoo, Finland
+          </p>
+        </header>
+
+        <p>
+          Three things were said in the last three weeks. Separately, none of them is news.
+          Chained together, they describe where enterprise AI money is about to move.
+        </p>
+
+        <h2>Act I — The harness is the durable layer</h2>
+        <p>
+          On Microsoft's Q4 earnings call on 29 July, an analyst asked Satya Nadella how Microsoft
+          benefits when enterprises adopt open models. He did not defend the lab relationship. He
+          described an architecture:
+        </p>
+        <div class="pullquote">
+          "You've got to keep your harness separate from the model. The harness will ensure that
+          your memory, your context, all of that is external. That means any given model at any
+          given time is swappable."
+        </div>
+        <p>
+          Models are ephemeral. The scaffolding around them — context routing, tool calling, memory,
+          state loops — is what persists. Jensen Huang had said something adjacent on 8 July: most
+          companies will be built on harnesses. The implication is directive. Build for the harness.
+        </p>
+
+        <h2>Act II — The harness is a token monster</h2>
+        <p>
+          Then Composio published a benchmark that puts a price on that advice. Same model, same 28
+          tasks, only the harness changed. Success rates came out close. Token consumption did not:
+          a spread of up to <strong>30&times;</strong>, medians of 61k, 67k and 340k tokens per
+          task. At $3 per million input tokens, that is roughly $0.22, $0.28 and $2.00 for the same
+          work.
+        </p>
+        <p>
+          Read it honestly before you use it: Composio makes one of the three harnesses tested, and
+          it placed near the top of its own leaderboard. The task set is not published. One model,
+          one run. Treat the <em>direction</em> as real and the exact multiple as unsettled.
+        </p>
+        <p>
+          Even so, the conflict with Act I is hard to escape. If the harness is where the value
+          lives, and the harness burns 340k tokens per task, then under metered API pricing the
+          durable layer is unaffordable at scale. The architecture runs into a paywall.
+        </p>
+
+        <h2>Act III — The same tokens, the opposite sign</h2>
+        <p>The resolution is not a leaner harness. It is a different cost substrate.</p>
+        <p>
+          On a metered API, 340k tokens are a variable cost that scales with exactly the behaviour
+          Act I tells you to maximise. On hardware you already own, running an architecture that
+          holds throughput as context accumulates, the external per-token bill disappears.
+        </p>
+        <p>
+          Be careful with that sentence, because the tempting version of it is false. Tokens on your
+          own hardware are not free. You still pay for electricity, for amortising the box, for
+          maintenance, for serving the model, and for whichever bottleneck you reach first. What
+          changes is the <em>shape</em> of the cost: an unpredictable charge that scales with how
+          hard your agents think becomes a bounded one you sized in advance. The 340k tokens stop
+          being an elastic exposure and become an allocation of capacity you have already
+          provisioned.
+        </p>
+        <p>
+          Two things had to become true for that to work, and both now have. Sub-quadratic attention
+          — hybrid designs that mix state-space layers with attention — makes a large context window
+          economically usable rather than merely advertised. And inference engines have appeared
+          that hold throughput as the context fills, instead of collapsing to single digits once
+          real work accumulates.
+        </p>
+
+        <h2>Two workloads, two correct answers</h2>
+        <p>
+          This is not an argument that everyone should buy GPUs. The substrate is selected by the
+          shape of the work, and there are two shapes.
+        </p>
+        <p>
+          <strong>Consumer applications.</strong> Millions of external users, arriving
+          unpredictably, each sending a short prompt — one or two thousand tokens of context. You
+          need elastic capacity to absorb bursts you cannot forecast. Paying fractions of a cent per
+          token is far cheaper than owning clusters that sit idle off-peak. Metered APIs are not a
+          compromise here; they are the right answer.
+        </p>
+        <p>
+          <strong>Industrial fleets.</strong> A known, bounded number of internal agents — ten,
+          twenty specialised software operators — running deep, multi-turn workflows: a compliance
+          audit, a refactor across a codebase, an evidence chain reasoning over a long record. This
+          is where Composio's 340k median lives. Per-token billing on that depth is where margin
+          goes to die.
+        </p>
+        <p>
+          The difference that matters is not size. It is <strong>who decides the concurrency</strong>.
+          In the first case, the public does. In the second, you do.
+        </p>
+
+        <h2>The part most people will skip</h2>
+        <p>
+          "Local compute is free" is false, and a claim that big deserves its limit stated plainly.
+        </p>
+        <p>
+          Every GPU has a throughput knee. To the left of it, memory bandwidth and KV-cache
+          comfortably carry the active context and generation stays responsive. Past it, VRAM fills,
+          requests queue, and throughput collapses non-linearly into latency. So the shift does not
+          remove cost — it <strong>changes the kind of cost you pay</strong>:
+        </p>
+        <ul>
+          <li>
+            <strong>Metered cloud:</strong> cost scales with tokens; concurrency is effectively
+            unlimited. You trade capital for capacity.
+          </li>
+          <li>
+            <strong>Own hardware:</strong> no external per-token bill; the residual cost is bounded
+            and mostly fixed — power, amortisation, maintenance, serving — and concurrency is
+            capped. You trade peak scale for predictable, dimensioned execution at depth.
+          </li>
+        </ul>
+        <p>
+          Run a consumer app on local GPUs and an unplanned surge pushes you past the knee and takes
+          your performance with it. Run a bounded fleet and you can dimension the engine so that
+          even at 250k&ndash;340k context depth, the total workload sits to the left of it. That is
+          the whole trick, and it is a discipline rather than a property:
+          <strong>you can only dimension to the left of a knee you have measured.</strong>
+          Under-dimension a sovereign deployment and you hit the same wall as everyone else.
+        </p>
+        <p>
+          We have not yet measured our own. The sweep that would settle it is specific — at what
+          context length does KV-cache bandwidth drag generation below interactive speed, and where
+          does memory-bound generation give way to queueing — and it has to report six things per
+          operating point, not one throughput number: tokens per task, latency, concurrent jobs, GPU
+          memory, queue time, and cost per audit-ready output. That last one is what turns a systems
+          benchmark into a commercial claim, because it is the unit an industrial buyer actually
+          purchases.
+        </p>
+        <p>
+          Until those exist for our own hardware, everything above is an architectural hypothesis
+          rather than a proven result, and we would rather say so than let it be read as one.
+        </p>
+
+        <h2>What it means if you are buying</h2>
+        <p>
+          <strong>Check the harness before you switch the model.</strong> If your agent bill is
+          uncomfortable, harness overhead is now a more likely culprit than model price, and it is
+          the cheaper thing to change.
+        </p>
+        <p>
+          <strong>Harness ownership is now a decision you have to make.</strong> As of 29 July, "we
+          keep the harness separate from the model" is an earnings-call talking point from the
+          largest enterprise software vendor on earth — so as a vendor claim it is table stakes, and
+          anyone selling you that sentence alone is describing the floor. The consequential version
+          of it is not a vendor's to answer. If the harness is the durable layer — if it holds your
+          memory, your context, your traces, your accumulated operating knowledge — then whether you
+          own that layer or rent it is a decision every enterprise now has to take deliberately, the
+          way it once decided whether to own its data centre or its ERP. Deferring it is also a
+          decision. It just gets made by whoever is holding your context when you want to change
+          something.
+        </p>
+        <p>
+          <strong>What is defensible is the coupling.</strong> Deep scaffolding is only affordable
+          on compute whose cost is bounded rather than metered, and a vendor whose revenue scales
+          with tokens has little reason to make token-intensive work cheap. But be precise about the
+          limit of that argument, because a good procurement team will be: metered vendors
+          <em>can</em> reprice — reserved capacity and provisioned throughput already do. A capacity
+          contract answers the bill. It does not answer where your evidence lives, under whose law,
+          or who can compel its disclosure. Compute makes deep harness work affordable; jurisdiction
+          makes it defensible. The moat is both, and neither one alone.
+        </p>
+        <p>
+          The harness is the future of software. Its token intensity makes metered pricing the wrong
+          place to run it for a whole class of work. That is the argument, and the interesting job
+          now is finding out precisely where it stops being true.
+        </p>
+
+        <p style="margin-top:2.5rem;font-size:0.85rem;color:#94a3b8;border-top:1px solid rgba(148,163,184,0.2);padding-top:1.25rem">
+          <em>
+            The thesis&ndash;antithesis&ndash;synthesis framing in this piece was drafted with
+            Google Gemini 3.6 Thinking and adopted after review. The benchmark figures are
+            Composio's, published on 29&ndash;30 July 2026 and cited with the caveats above.
+          </em>
+        </p>
+      </article>
+
+
+    </main>
+
+    <!-- Post Navigation + Products (auto-injected by inject-blog-nav.cjs) -->
+    <section class="max-w-3xl mx-auto px-4 pb-16">
+                <!-- Prev / Next -->
+                <nav class="flex justify-between items-center pt-8 border-t border-gray-700" aria-label="Post navigation">
+                    <a href="/posts/ala-treenaa-base-mallia-omista-evidenssikerros.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%]">
+                        <span class="text-lg">&larr;</span>
+                        <span class="truncate">Älä treenaa base-mallia, omista evidenssikerros (FI)</span>
+                    </a>
+                    <a href="/posts/arvonluonnin-ajurit-2026.html" class="flex items-center gap-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors max-w-[45%] text-right ml-auto">
+                        <span class="truncate">Six Drivers of Value — and the Research Behind Them</span>
+                        <span class="text-lg">&rarr;</span>
+                    </a>
+                </nav>
+
+                <!-- Share This Post -->
+                <div class="flex items-center gap-3 mt-8">
+                    <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Share</span>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fharness-paywall-depth-arbitrage.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#0077b5';this.style.background='rgba(0,119,181,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on LinkedIn">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text=The%20Harness%20Paywall%20%E2%80%94%20by%20%40LifetimeOy&url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fharness-paywall-depth-arbitrage.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#1da1f2';this.style.background='rgba(29,161,242,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on X">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://dws10.com/contact/" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
+                        <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                    <button onclick="navigator.clipboard.writeText('https://onelifetime.world/posts/harness-paywall-depth-arbitrage.html');this.querySelector('span').textContent='Copied!';setTimeout(()=>this.querySelector('span').textContent='Copy link',2000)" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-full text-xs text-gray-400 transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)'">
+                        <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                        <span>Copy link</span>
+                    </button>
+                </div>
+
+                <!-- Featured Products -->
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">From the Store</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                        <a href="https://dws10.com/products/dwsiq.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Flagship</span>
+                            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+                            <p class="text-xs text-gray-500">69+ AI agents for EU compliance automation</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/bundle.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Best Value</span>
+                            <p class="text-sm font-semibold text-gray-200">Climate Reporting Bundle</p>
+                            <p class="text-xs text-gray-500">DWS IQ + Firehorse Report + Workshop</p>
+                        </a>
+
+                        <a href="https://dws10.com/products/firehorse-omnichannel.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
+                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Start Here</span>
+                            <p class="text-sm font-semibold text-gray-200">Firehorse Omnichannel</p>
+                            <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
+                        </a>
+                    </div>
+                </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Iron Clad Footer — self-injects before </body>, replacing any existing footer -->
+    <script src="/shared-assets/footer/ironclad-footer.js" defer></script>
+
+  </body>
+</html>

@@ -9,6 +9,9 @@ Sessions & Modifications:
 - Version: 1.0 | Tool: Cursor.ai | Session: Ultra-Agents | Commit: pending | Date: 03.01.2026 | Changes: Initial product documentation for Enterprise Model Training
 - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Commit: pending | Date: 23.05.2026 | Changes: Added "Product Ladder" bridge section positioning EMT-001 (€50K–€200K project tier) as the top of a two-tier ladder, with new Train Model (TM-001) self-serve SKU (€1,490–€7,490) as the entry tier underneath. Added "when to pick which" matrix. Updated Related Products to link TM-001 and Aegis. EMT-001 scope, deliverables, and pricing unchanged — the ladder addresses customers who would otherwise leak to OpenAI fine-tuning, not customers already qualified for project-tier engagement.
 - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Commit: pending | Date: 23.05.2026 | Changes: Added "Bridge Track" package (€19,990, invite-only) between TM-001 Pro (€7,490) and EMT-001 Starter (€50K). Scope: 70B fine-tune, customer-supplied dataset (no construction), no custom architecture, 30-day support (not 12-month). Serves the real 70B buyer without a public flagship Store tile that would dilute TM-001's self-serve identity. Routes are inbound→sales→bridge or EMT-001 downsell. Updated pricing range, Product Ladder diagram, and "when to pick which" matrix.
+- Version: 1.3 | Tool: Claude Code (Opus 4.8) | Session: claude/acer-node-claim-verification-u7jai1 | Commit: pending | Date: 24.07.2026 | Changes: Tagged on-premise Acer Node training as "Pending Hardware — not yet verified live" so the page stops overstating capability. Verification found no training-pipeline code, no test coverage, and no go-live record for on-premise training; the passed "Expected January 8, 2026" setup date had no confirmation behind it. The only Acer device documented in the repo (Veriton GN100, ARM64/GB10 edge inference & development node) is a different machine from the x86 dual-RTX-4090 training box specified here. Updated availability line, §3 Hardware Options, Starter/Professional package hardware rows, Training Hardware Matrix, and the Hardware Availability Note. Cloud (GCP A3 Mega) remains the available training route. Pricing, scope, and deliverables unchanged.
+
+- Version: 1.4 | Tool: Claude Code (Opus 4.8) | Session: claude/acer-node-claim-verification-u7jai1 | Commit: pending | Date: 24.07.2026 | Changes: Built the on-premise training pipeline that substantiates the claim, and moved the on-prem status from "Pending Hardware" to "pipeline delivered & CI-tested; go-live pending one hardware run." Delivered in `infrastructure/llm-training/` (QLoRA trainer with eval step + `--dry-run` + off-GPU degradation, reference configs incl. `gn100-8b-qlora.yaml`, eval harness `evaluate.py` + `evals/`, pytest suite with an end-to-end CPU smoke fine-tune), an ARM64 training container + `scripts/deploy-acer-training.sh`, the `TRAINING_RUNBOOK.md`, the `AgentFoundry/Calculus_for_Training.md` methodology doc (previously a broken citation), and a `train-model` skill/command. Retargeted the on-prem node from the never-provisioned x86 2×RTX-4090 box to the real Acer Veriton GN100 (ARM64/GB10) — the machine Lifetime owns and validated. Updated availability line, §3, package hardware rows, the training matrix, and the Hardware Availability Note. Cloud (GCP A3 Mega) remains the fully-available route. Pricing, scope, deliverables unchanged.
 
 Document Status:
 
@@ -38,8 +41,8 @@ Legal:
 _Part of the DWS IQ Industrial Intelligence suite — the project tier for custom, sovereign industry models underpinning Industrial Intelligence deployments._
 
 **Product Code:** EMT-001  
-**Version:** 1.2  
-**Availability:** January 8, 2026 (Acer Node Setup) · Bridge Track Q4 2026  
+**Version:** 1.4  
+**Availability:** Cloud training (GCP A3 Mega) available now · On-premise Acer GN100 training — **pipeline delivered & CI-tested, go-live pending one hardware run** · Bridge Track Q4 2026  
 **Pricing:** Bridge Track €19,990 (invite-only) · Starter–Enterprise €50K–€200K (project-based)
 
 ---
@@ -136,15 +139,35 @@ Custom knowledge injection for:
 
 ### 3. Hardware Options
 
-**On-Premise Option (Acer Node - Available Jan 8, 2026):**
+**On-Premise Option (Acer Veriton GN100) — pipeline delivered & CI-tested; go-live pending one hardware run:**
 
-| Specification | Details                              |
-| ------------- | ------------------------------------ |
-| **GPU**       | 2x NVIDIA RTX 4090 (48GB VRAM total) |
-| **CPU**       | AMD Ryzen 9 / Intel Core i9          |
-| **RAM**       | 128GB DDR5                           |
-| **Storage**   | 4TB NVMe SSD                         |
-| **Network**   | 10Gbps                               |
+> ✅ **The training pipeline is built and CI-tested**, targeting the Acer Veriton
+> GN100 — the on-premise node Lifetime Oy actually owns and has validated
+> (`Admin/Acer-Veriton-GN100/README.md`). Delivered and tested in the repo:
+> QLoRA trainer + reference configs (`infrastructure/llm-training/`), eval harness
+> (`evals/`, `scripts/evaluate.py`), a test suite including an end-to-end CPU smoke
+> fine-tune that writes a checkpoint (`infrastructure/llm-training/tests/`), an
+> ARM64 training container and the on-prem deploy script
+> (`scripts/deploy-acer-training.sh`), and the runbook
+> (`Admin/Acer-Veriton-GN100/TRAINING_RUNBOOK.md`).
+>
+> ⏳ **Not yet claimed as live:** the first real QLoRA run on the GN100 is the
+> remaining hardware step (its eval report + MLflow run are the go-live evidence).
+> Until that run is recorded, quote on-premise as "pipeline ready" — **Cloud
+> (GCP A3 Mega) is the fully-available route today.**
+>
+> _Note:_ an earlier version of this page specified an x86 dual-RTX-4090 "Acer
+> Node" that was never provisioned. The delivered pipeline targets the real
+> GN100 (ARM64 / NVIDIA GB10 / ~120 GiB unified memory); the specs below reflect
+> that machine.
+
+| Specification | Details (Acer Veriton GN100 — validated) |
+| ------------- | ---------------------------------------- |
+| **GPU**       | NVIDIA GB10 (Grace Blackwell superchip)  |
+| **CPU**       | ARM Cortex-X925, 10 cores @ 3.9 GHz (ARM64) |
+| **Memory**    | ~120 GiB unified (CPU+GPU)               |
+| **OS**        | Ubuntu 24.04 LTS                          |
+| **Best for**  | QLoRA fine-tune of 3B–13B (full or QLoRA), 30B–70B QLoRA-only |
 
 **Cloud Burst Option (GCP A3 Mega):**
 
@@ -249,7 +272,7 @@ If all four are green → Bridge Track quoted at €19,990 on the call. If any a
 | **Base Model**      | Llama 3.1 7B                       |
 | **Training Method** | LoRA (Parameter-Efficient)         |
 | **Training Data**   | Up to 10GB                         |
-| **Hardware**        | Acer Node (on-premise)             |
+| **Hardware**        | Cloud (GCP A3 Mega) today; Acer GN100 on-premise (pipeline ready, go-live pending) |
 | **Duration**        | 2 weeks                            |
 | **Deliverables**    | Fine-tuned model, deployment guide |
 
@@ -260,7 +283,7 @@ If all four are green → Bridge Track quoted at €19,990 on the call. If any a
 | **Base Model**      | Llama 3.1 30B or 70B           |
 | **Training Method** | QLoRA + Full fine-tune         |
 | **Training Data**   | Up to 50GB                     |
-| **Hardware**        | Acer Node + GCP burst          |
+| **Hardware**        | GCP burst today; Acer GN100 on-premise (pipeline ready, go-live pending) |
 | **Duration**        | 4 weeks                        |
 | **Deliverables**    | Model, API wrapper, monitoring |
 
@@ -337,13 +360,19 @@ If all four are green → Bridge Track quoted at €19,990 on the call. If any a
 
 ### Training Hardware Matrix
 
-| Model Size | Acer Node (2x4090) | GCP A3 Mega (8xH100) |
-| ---------- | ------------------ | -------------------- |
-| 7B         | ✅ Full fine-tune  | ✅ Full fine-tune    |
-| 13B        | ✅ Full fine-tune  | ✅ Full fine-tune    |
-| 30B        | ⚠️ QLoRA only      | ✅ Full fine-tune    |
-| 70B        | ⚠️ QLoRA only      | ✅ Full fine-tune    |
-| 405B+      | ❌ Not feasible    | ⚠️ Multi-node        |
+| Model Size | Acer GN100 (GB10, ~120 GiB unified) | GCP A3 Mega (8xH100) |
+| ---------- | ----------------------------------- | -------------------- |
+| 7B         | ✅ Full or QLoRA                    | ✅ Full fine-tune    |
+| 13B        | ✅ Full or QLoRA                    | ✅ Full fine-tune    |
+| 30B        | ⚠️ QLoRA only                       | ✅ Full fine-tune    |
+| 70B        | ⚠️ QLoRA only                       | ✅ Full fine-tune    |
+| 405B+      | ❌ Not feasible                     | ⚠️ Multi-node        |
+
+> The Acer GN100 column is what the delivered pipeline
+> (`infrastructure/llm-training/`, `configs/gn100-8b-qlora.yaml`) targets. The
+> pipeline is committed and CI-tested; the first real GN100 run is the go-live
+> step (see §3 and `Admin/Acer-Veriton-GN100/TRAINING_RUNBOOK.md`). GCP A3 Mega
+> is fully available today.
 
 ### Data Requirements
 
@@ -498,13 +527,34 @@ Begin project with:
 
 ## Hardware Availability Note
 
-> ⚠️ **Acer Node Setup: Expected January 8, 2026**
+> ✅ **On-premise training pipeline: delivered & CI-tested.** ⏳ **Go-live: pending
+> one hardware run on the Acer GN100.**
 >
-> On-premise training capability will be available after hardware setup. Cloud training (GCP A3 Mega) is available immediately.
+> The QLoRA training pipeline is built and tested in this repo — trainer +
+> reference configs (`infrastructure/llm-training/`), eval harness (`evals/`,
+> `scripts/evaluate.py`), a test suite including an end-to-end CPU smoke fine-tune
+> that writes a checkpoint, an ARM64 training container, and the on-prem deploy
+> script (`scripts/deploy-acer-training.sh`). It targets the real Acer Veriton
+> GN100 (ARM64 / NVIDIA GB10 / ~120 GiB unified memory) — the node Lifetime Oy
+> owns and has validated (`Admin/Acer-Veriton-GN100/README.md`).
+>
+> **The one remaining step is a real QLoRA run on the GN100** (its eval report +
+> MLflow run are the go-live evidence). Follow
+> `Admin/Acer-Veriton-GN100/TRAINING_RUNBOOK.md`. Until that run is recorded, quote
+> on-premise as "pipeline ready, go-live pending" — not "live."
+>
+> **Cloud training (GCP A3 Mega, `europe-north1` Finland) is available immediately**
+> and is the supported route for all packages today.
+>
+> _History:_ an earlier version listed an "Expected January 8, 2026" Acer Node
+> setup with no backing code, and specified an x86 dual-RTX-4090 box that was
+> never provisioned. The delivered pipeline instead targets the GN100 that
+> actually exists; the GB10 "may not yet be supported" container caveat applies to
+> exotic kernels only — nf4 QLoRA + LoRA are fine.
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** January 3, 2026  
+**Document Version:** 1.4  
+**Last Updated:** July 24, 2026  
 **Product Owner:** Lifetime Oy  
 **© 2026 Lifetime Oy. All rights reserved.**

@@ -13,11 +13,11 @@ vi.mock('../utils/logger.js', () => ({ default: logger }));
 
 import {
   _resetPoliciesForTests,
+  type AuthorizationContext,
   authorizeToolCall,
   consumeApproval,
   registerToolPolicy,
   setEnvelope,
-  type AuthorizationContext,
 } from '../security/runtime-auth.js';
 import type { ToolCall } from '../agents/types.js';
 

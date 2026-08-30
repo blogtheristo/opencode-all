@@ -362,7 +362,7 @@ export interface ReportSection {
   content_type: 'text' | 'table' | 'chart' | 'metrics';
 
   // Content configuration
-  config: Record<string, any>;
+  config: Record<string, unknown>;
 }
 
 export interface GeneratedReport {

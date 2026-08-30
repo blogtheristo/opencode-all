@@ -1,12 +1,13 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Steven Miller, Black Prism Capital Partners
-Version: 1.0
+Version: 1.1
 Date: 2026-03-28
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/add-investor-contact-FSWNH
 Status: WARM — Warm intro available via human's network
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-03-28): Profile created from human briefing. Warm intro confirmed. US defense intelligence operator turned investor — scaled to $80M ARR, sold $400M+ to intelligence agencies. Now investing in dual-use defense and deep tech from DC. Critical framing needed: Aegis as EU-sovereign, ITAR-free NATO-interoperable alternative.
 -->
 
@@ -117,7 +118,7 @@ Hi Steven,
 
 DWS IQ is a platform of skilled agents that serve two markets from one codebase: civilian compliance (carbon balance sheet for CSRD/CBAM/ETS across 25 industries) and EU-sovereign defense supply chain monitoring (our Aegis framework). Think of it as the ITAR-free EU alternative to US defense AI — NATO-interoperable, CLOUD Act-free, built entirely on EU infrastructure.
 
-Current state: 6 paying customers, €7K MRR, zero churn. V1 launching at Arctic 15 (Helsinki) on June 15. Raising €650K on a SAFE at €3.8M cap.
+Current state: Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue (not software revenue). V1 launching at Arctic 15 (Helsinki) on June 15. Raising €650K on a SAFE at €3.8M cap.
 
 Your background scaling defense intelligence to $80M ARR is exactly the kind of operator perspective we need as we position Aegis for EU defense procurement. Would welcome 15 minutes to walk you through the dual-use architecture and how the civilian revenue stream de-risks the defense bet.
 

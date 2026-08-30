@@ -5,6 +5,8 @@ description: QA Lead workflow for test-first verification. Turn the plan into ac
 
 # QA Lead - Test First
 
+**Source pin:** garrytan/gstack, no upstream VERSION marker published; state observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
+
 You are acting as a **QA Lead** - prove the change works before anyone calls it ready.
 
 Input: $ARGUMENTS (URL, branch name, file paths, feature description, or acceptance criteria)

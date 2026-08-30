@@ -55,6 +55,43 @@ export type TelemetryEvent =
   | 'SESSION_START'
   | 'SESSION_END';
 
+// ============ IDENTITY VERIFICATION STATE (KYA-S1 IDV) ============
+
+/**
+ * Verification status of the human principal the agent session is bound to.
+ *
+ * Only 'verified' authorizes autonomous action. Everything else — including
+ * 'unknown' — is a hard kill, per KYA-S1 v1.5 TRS-5 (fail-closed): the absence
+ * of a usable IDV signal must never be read as permission.
+ *
+ * @see Legal/KYA_S1.md §5.1 (IDV-1…IDV-4), §6.2 (TRS-1 documented inputs)
+ */
+export type IdvStatus = 'verified' | 'revoked' | 'expired' | 'unknown';
+
+/**
+ * IDV state for the session, as reported by the identity authority.
+ *
+ * This is a TRS-1 required input: without it the trust score cannot claim to
+ * express continuous authorization, because a revocation of the human
+ * principal would leave the score untouched.
+ */
+export interface IdvState {
+  status: IdvStatus;
+  /** Verified human principal bound to this session (IDV-2 binding subject) */
+  humanPrincipalId: string;
+  /** When the principal was last successfully verified (ISO-8601) */
+  verifiedAt: string;
+  /**
+   * Re-attestation window in seconds. Past `verifiedAt + ttlSeconds` the
+   * verification is stale and no longer authorizes action (IDV-3).
+   */
+  ttlSeconds: number;
+  /** IDV provider that produced the attestation (Shufti / Veriff / Signicat / EUDI …) */
+  provider?: string;
+  /** Level of assurance asserted by the provider, e.g. 'high' for eIDAS LoA High */
+  levelOfAssurance?: string;
+}
+
 // ============ AGENT TRUST SCORE ============
 
 /** Result of an ATS calculation */
@@ -70,12 +107,20 @@ export interface ATSResult {
 export interface ATSBreakdown {
   baseScore: number;
   violationPenalty: number;
+  /** Legacy compatibility field. Latency penalty was removed from ATS scoring. */
   latencyPenalty: number;
   overreachPenalty: number;
   manifestValid: boolean;
   violationCount: number;
   deniedAttemptCount: number;
+  /** Observability only. Latency no longer affects ATS scoring. */
   avgLatencyMs: number;
+  /** True only when the human principal is verified and the attestation is fresh */
+  idvValid: boolean;
+  /** Reported IDV status at calculation time — 'unknown' when no signal was usable */
+  idvStatus: IdvStatus;
+  /** Verified human principal the score is bound to, when one is known */
+  humanPrincipalId?: string;
 }
 
 export type PermissionLevel = 'full' | 'restricted' | 'suspended' | 'frozen';
@@ -139,6 +184,99 @@ export interface MandateGateDecision {
   kyaViolation: boolean;
   reason: string;
   evaluatedAt: string; // ISO-8601
+}
+
+// ============ VERIFIED-DONE ATTESTATION (KYA §14.7, v1.10) ============
+
+/**
+ * Proof block of a Verified-Done credential.
+ *
+ * The stub issuer (`issueVerifiedDoneAttestation`) does NOT populate this —
+ * cryptographic signing (Ed25519 / Data Integrity) is deferred to the KYA
+ * v2.0 key-management decision (which DID method, where the issuer key lives).
+ * Until then the credential travels unsigned and carries proofStatus:'unsigned'.
+ */
+export interface AttestationProof {
+  type: string; // e.g. 'DataIntegrityProof'
+  created: string; // ISO-8601
+  verificationMethod: string; // issuer key / DID URL
+  proofPurpose: string; // 'assertionMethod'
+  proofValue: string; // multibase signature
+}
+
+export type ProofStatus = 'unsigned' | 'signed' | 'revoked';
+
+/**
+ * credentialSubject of a Verified-Done credential — the checkable claim that a
+ * specific mandate was executed under KYA governance and logged to the Article
+ * 12 evidence chain (KYA §14.5). Field names are illustrative until KYA v2.0
+ * and may track AP2's VC vocabulary as FIDO moves it toward 1.0.
+ */
+export interface VerifiedDoneSubject {
+  id: string; // urn:kya:mandate:<mandate_vc_id>
+  sessionId: string;
+  subagentId: string;
+  /** Verified human accountable for the spend authority (§14.3) — never anonymous */
+  hic: string;
+  protocol: ProtocolRail;
+  mandateType: MandateType;
+  amount: number;
+  currency: string;
+  /** ATS at the moment the mandate executed (§9.1 kya_score_at_sign lineage) */
+  atsAtExecution: number;
+  /** True only when the gate allowed the mandate — a denied mandate cannot be attested done */
+  kyaVerified: boolean;
+  gateReason: string;
+  /** Ties this attestation into the one evidence chain (§14.5 / Article 12) */
+  article12TraceId?: string;
+}
+
+/**
+ * Verified-Done Attestation — a W3C Verifiable Credential (data model 2.0)
+ * attesting that a mandate completed under KYA governance (KYA §14.7). It is
+ * the terminal link of the §14.4 trust chain: verified human → signed manifest
+ * → signed mandate → verified-done attestation. Turns the internal evidence
+ * chain into a portable, counterparty-checkable "the agent did what it was
+ * authorized to do" credential.
+ */
+export interface VerifiedDoneAttestation {
+  '@context': string[];
+  type: string[]; // ['VerifiableCredential', 'KYAVerifiedDoneCredential']
+  issuer: string; // issuer DID / ref (caller-supplied; key infra deferred to v2.0)
+  validFrom: string; // ISO-8601 (VC data model 2.0)
+  credentialSubject: VerifiedDoneSubject;
+  /** Absent while proofStatus is 'unsigned' — signing deferred to KYA v2.0 */
+  proof?: AttestationProof;
+}
+
+/** Input to `issueVerifiedDoneAttestation` — the executed mandate's facts. */
+export interface AttestationInput {
+  sessionId: string;
+  mandateVcId: string;
+  subagentId: string;
+  hic: string;
+  protocol: ProtocolRail;
+  mandateType: MandateType;
+  amount: number;
+  currency: string;
+  atsAtExecution: number;
+  /** The gate decision for this mandate — must be allowed to attest completion */
+  gateDecision: MandateGateDecision;
+  /** Caller-supplied issuance time — the issuer holds no clock authority for a portable VC */
+  issuedAt: string; // ISO-8601
+  /** Issuer DID / reference — caller-supplied; signing-key infrastructure deferred to v2.0 */
+  issuer: string;
+  article12TraceId?: string;
+}
+
+/**
+ * Result of issuing a Verified-Done credential. `proofStatus` is 'unsigned'
+ * until KYA v2.0 wires real signing; the credential is otherwise complete and
+ * loggable to `kya_verified_done_attestations` (migration 079).
+ */
+export interface IssuedAttestation {
+  credential: VerifiedDoneAttestation;
+  proofStatus: ProofStatus;
 }
 
 // ============ FAULT ATTRIBUTION ============

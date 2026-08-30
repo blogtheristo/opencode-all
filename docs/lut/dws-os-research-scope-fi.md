@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (claude-opus-5) | Session: claude/greg-isenberg-field-notes-a2r544 | Date: 25.07.2026 | Muutokset: Lisätty **ehdotettu tarkennus — EI hyväksytty**, edellyttää ohjaajan kanssa käytävää keskustelua. TK1–TK3 ennallaan. Nostaa esiin: (a) kaksi erillistä falsifioitavuutta, jotka nyt sekoittuvat; (b) että odotettu tulos (1) ei ole nykymuodossaan falsifioitavissa, sekä ehdotetun neliporttisen vaiheistuksen, joka tekee siitä tarkistettavan; (c) 40 artiklan rajoitteen, jonka mukaan yhdenmukaistettua asemaa ei voi käynnistää omasta aloitteesta; (d) laajuuskysymyksen siitä, pysyykö TK1 EU-rajattuna EU/US/SG-profiiliarkkitehtuurin ja ISO/IEC JTC 1/SC 42 -reitin valossa. EN/FI-lukkoaskel.
 - Version: 1.0 | Tool: Claude Code | Session: claude/dws-nvidia-os-NDuOs | Date: 19.05.2026 | Changes: Tiivis yhden sivun suomenkielinen tutkimuslaajuus. Huolellinen tieteellinen suomennos englanninkielisestä yhden sivun versiosta (docs/lut/dws-os-research-scope.md). Tarkoitettu toimitettavaksi prof. Kari Smolanderille (LUT) englanninkielisen version rinnalla.
 
 Document Status:
@@ -48,3 +49,26 @@ Document Status:
 - 2027 — Artikkeli 2: *Suvereeni rakenteen tasolla* — DWS OS -arkkitehtuuri ja Dell + Palantir -vertailu.
 - 2028 — Artikkelit 3–4: 20 toimialan empiiriset havainnot.
 - 2028–2029 — Väitöskirjan synteesi ja puolustus.
+
+***
+
+## Ehdotettu tarkennus (25.07.2026) — EI hyväksytty; edellyttää ohjaajan kanssa käytävää keskustelua
+
+Kirjattu istunnosta `claude/greg-isenberg-field-notes-a2r544`. **Nämä ovat ehdotuksia, eivät muutoksia.** Tutkimuskysymys on ohjaajan päätösvallassa; mitään alla olevaa ei ole sovellettu yllä oleviin TK1–TK3:een.
+
+**1. Kaksi erillistä falsifioitavuutta, jotka nyt sekoittuvat.** TK1 kysyy *agenttitoimien oikeudellisesta falsifioitavuudesta*. Esiin nousi toinen, erillinen kysymys: onko **standardiväite itsessään** falsifioitavissa. Nämä ovat eri kohteita — artefaktin harjoittama agenttikäyttäytymisen hallinta vastaan artefaktin oma väite standardiasemasta. Suositellaan, että työ nimeää molemmat erikseen, sillä vain ensimmäinen on nykyisessä laajuudessa.
+
+**2. Odotettu tulos (1) ei nykymuodossaan ole falsifioitavissa — ja se voidaan tehdä sellaiseksi.** "Avoimesti lisensoitu KYA-hallintastandardi konformanssitestisarjalla" esittää lopputuloksen ilman kriteeriä, joka ratkaisisi saavutettiinko se. Ehdotettu uudelleenmuotoilu vaiheittaisena polkuna neljällä mitattavalla portilla:
+
+| Vaihe | Sisäänpääsykriteeri |
+| ----- | ------------------- |
+| Spesifikaatio | Avoimesti lisensoitu, riippumattoman osapuolen toteutettavissa — **saavutettu 24.07.2026** |
+| Ehdokas | ≥2 riippumatonta toteutusta **ja** konformanssitestistö, jonka toteutus voi reputtaa |
+| Jätetty käsittelyyn | Tunnustettu elin ottaa dokumentin prosessiinsa |
+| Standardi | Ratifioitu tai aito monen osapuolen käyttöönotto — **sekä muutoksenhallinta, joka jää eloon Lifetime Oy:n jälkeen** |
+
+Tämä muuntaa falsifioimattoman tavoitteen tarkistettavaksi väitteeksi, mikä on juuri se, mitä konstruktiivisen tutkimuksen (DSR) artefaktikontribuution tulisi olla. Viimeinen portti on ratkaiseva ja vähiten käsitelty: niin kauan kuin muuttaminen edellyttää laatijan suostumusta, artefakti pysyy laatijan strategian välineenä riippumatta siitä, kuinka avoimesti se on lisensoitu.
+
+**3. Rajoite, joka rajaa EU-reitin.** EU:n tekoälyasetuksen **40 artiklan** mukaiset yhdenmukaistetut standardit tuotetaan CEN/CENELECissä **komission standardointipyynnön perusteella**; yhdenmukaistettua asemaa **ei voi käynnistää omasta aloitteesta**. Odotetun tuloksen (1) kytkentää artikloihin 12/14/72 ei siksi tule lukea niin, että se merkitsisi yhdenmukaistetun standardin polkua, jota tutkimus voisi yksipuolisesti kulkea. Tutkimus voi *syöttää* JTC 21:n työhön; se ei voi aikatauluttaa ratifiointia.
+
+**4. Laajuuskysymys ohjaajalle.** TK1 on rajattu "EU:n sääntelypopulaation laajuudessa". Myöhempi työ tuotti kolmen lainkäyttöalueen (EU / US / SG) konformanssiprofiiliarkkitehtuurin ja tunnisti **ISO/IEC JTC 1/SC 42:n** — saavutettavissa Enterprise Singaporen kautta — ainoaksi foorumiksi, joka tunnustetaan kaikilla kolmella. Tämä nostaa aidon kysymyksen: pysyykö TK1 EU-rajattuna, vai kuuluuko laajuuteen rinnakkainen kysymys lainkäyttöalueiden välisestä yleistettävyydestä? **Kirjattu kysymyksenä. Ei vastattu tässä.**

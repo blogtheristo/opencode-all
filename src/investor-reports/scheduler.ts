@@ -11,8 +11,9 @@
 import * as cron from 'node-cron';
 import { reportService } from './report-service';
 import { metricsService } from './metrics-calculation';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import emailService from '../services/email.service.js';
+import logger from '../utils/logger.js';
 
 // ============================================================================
 // SCHEDULER
@@ -21,7 +22,7 @@ import emailService from '../services/email.service.js';
 export class InvestorReportsScheduler {
   private monthlyReportJob: cron.ScheduledTask | null = null;
   private revenueCalculationJob: cron.ScheduledTask | null = null;
-  private supabase: any;
+  private supabase: SupabaseClient | null = null;
 
   constructor() {
     const supabaseUrl = process.env.SUPABASE_URL;
@@ -36,15 +37,15 @@ export class InvestorReportsScheduler {
    * Start the scheduler
    */
   start(): void {
-    console.log('🚀 Starting Investor Reports Scheduler...');
+    logger.info('🚀 Starting Investor Reports Scheduler...');
 
     // Revenue recognition calculation - 1st of month at 02:00
     this.revenueCalculationJob = cron.schedule('0 2 1 * *', async () => {
-      console.log('⏰ Running monthly revenue recognition calculation...');
+      logger.info('⏰ Running monthly revenue recognition calculation...');
       try {
         await this.calculateMonthlyMetrics();
       } catch (error) {
-        console.error('Error in revenue calculation job:', error);
+        logger.error('Error in revenue calculation job:', error);
       }
     });
 
@@ -52,28 +53,28 @@ export class InvestorReportsScheduler {
     // Cron: 0 18 28-31 * * (runs on days 28-31, checks if it's the last day)
     this.monthlyReportJob = cron.schedule('0 18 28-31 * *', async () => {
       if (!this.isLastDayOfMonth()) {
-        console.log('⏭️  Not last day of month, skipping monthly report');
+        logger.info('⏭️  Not last day of month, skipping monthly report');
         return;
       }
 
-      console.log('⏰ Running monthly investor report job...');
+      logger.info('⏰ Running monthly investor report job...');
       try {
         await this.generateAndSendMonthlyReport();
       } catch (error) {
-        console.error('Error in monthly report job:', error);
+        logger.error('Error in monthly report job:', error);
       }
     });
 
-    console.log('✅ Investor Reports Scheduler started');
-    console.log('  - Revenue calculation: 1st of month at 02:00');
-    console.log('  - Monthly reports: Last day of month at 18:00');
+    logger.info('✅ Investor Reports Scheduler started');
+    logger.info('  - Revenue calculation: 1st of month at 02:00');
+    logger.info('  - Monthly reports: Last day of month at 18:00');
   }
 
   /**
    * Stop the scheduler
    */
   stop(): void {
-    console.log('🛑 Stopping Investor Reports Scheduler...');
+    logger.info('🛑 Stopping Investor Reports Scheduler...');
 
     if (this.revenueCalculationJob) {
       this.revenueCalculationJob.stop();
@@ -83,14 +84,14 @@ export class InvestorReportsScheduler {
       this.monthlyReportJob.stop();
     }
 
-    console.log('✅ Investor Reports Scheduler stopped');
+    logger.info('✅ Investor Reports Scheduler stopped');
   }
 
   /**
    * Run jobs manually (for testing)
    */
   async runManually(job: 'monthly-report' | 'revenue-calculation' | 'all'): Promise<void> {
-    console.log(`🔧 Running manual job: ${job}`);
+    logger.info(`🔧 Running manual job: ${job}`);
 
     try {
       switch (job) {
@@ -105,9 +106,9 @@ export class InvestorReportsScheduler {
           await this.generateAndSendMonthlyReport();
           break;
       }
-      console.log('✅ Manual job completed');
+      logger.info('✅ Manual job completed');
     } catch (error) {
-      console.error('❌ Manual job failed:', error);
+      logger.error('❌ Manual job failed:', error);
       throw error;
     }
   }
@@ -124,27 +125,28 @@ export class InvestorReportsScheduler {
     const now = new Date();
     const previousMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
 
-    console.log(`📊 Calculating revenue metrics for ${previousMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}...`);
+    logger.info(
+      `📊 Calculating revenue metrics for ${previousMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}...`,
+    );
 
     if (!this.supabase) {
-      console.warn('⚠️  Supabase not configured, skipping revenue calculation');
+      logger.warn('⚠️  Supabase not configured, skipping revenue calculation');
       return;
     }
 
     try {
       // Call database function to calculate metrics
-      const { data, error } = await this.supabase.rpc(
-        'calculate_monthly_metrics',
-        { target_month: previousMonth.toISOString().split('T')[0] }
-      );
+      const { error } = await this.supabase.rpc('calculate_monthly_metrics', {
+        target_month: previousMonth.toISOString().split('T')[0],
+      });
 
       if (error) {
         throw error;
       }
 
-      console.log('✅ Revenue metrics calculated successfully');
+      logger.info('✅ Revenue metrics calculated successfully');
     } catch (error) {
-      console.error('❌ Error calculating revenue metrics:', error);
+      logger.error('❌ Error calculating revenue metrics:', error);
       throw error;
     }
   }
@@ -157,7 +159,9 @@ export class InvestorReportsScheduler {
     const now = new Date();
     const currentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    console.log(`📧 Generating monthly investor report for ${currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}...`);
+    logger.info(
+      `📧 Generating monthly investor report for ${currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}...`,
+    );
 
     try {
       // Generate report data
@@ -170,8 +174,8 @@ export class InvestorReportsScheduler {
       const recipients = this.getReportRecipients();
 
       if (recipients.length === 0) {
-        console.warn('⚠️  No recipients configured (INVESTOR_REPORT_RECIPIENTS env var)');
-        console.log(`📄 Report generated: ${pdfPath}`);
+        logger.warn('⚠️  No recipients configured (INVESTOR_REPORT_RECIPIENTS env var)');
+        logger.info(`📄 Report generated: ${pdfPath}`);
         return;
       }
 
@@ -182,17 +186,17 @@ export class InvestorReportsScheduler {
       try {
         const driveUrl = await reportService.uploadToDrive(pdfPath);
         if (driveUrl) {
-          console.log(`☁️  Uploaded to Google Drive: ${driveUrl}`);
+          logger.info(`☁️  Uploaded to Google Drive: ${driveUrl}`);
         }
       } catch (driveError) {
-        console.warn('⚠️  Failed to upload to Google Drive:', driveError);
+        logger.warn('⚠️  Failed to upload to Google Drive:', driveError);
       }
 
-      console.log('✅ Monthly investor report sent successfully');
-      console.log(`   Recipients: ${recipients.join(', ')}`);
-      console.log(`   PDF: ${pdfPath}`);
+      logger.info('✅ Monthly investor report sent successfully');
+      logger.info(`   Recipients: ${recipients.join(', ')}`);
+      logger.info(`   PDF: ${pdfPath}`);
     } catch (error) {
-      console.error('❌ Error generating/sending monthly report:', error);
+      logger.error('❌ Error generating/sending monthly report:', error);
       throw error;
     }
   }
@@ -201,7 +205,7 @@ export class InvestorReportsScheduler {
    * Generate quarterly report (manual trigger only)
    */
   async generateQuarterlyReport(quarterStart: Date): Promise<void> {
-    console.log(`📧 Generating quarterly investor report...`);
+    logger.info(`📧 Generating quarterly investor report...`);
 
     try {
       const reportData = await reportService.generateQuarterlyReport(quarterStart);
@@ -213,10 +217,10 @@ export class InvestorReportsScheduler {
         await reportService.sendReportEmail(reportData, pdfPath, recipients);
       }
 
-      console.log('✅ Quarterly investor report generated');
-      console.log(`   PDF: ${pdfPath}`);
+      logger.info('✅ Quarterly investor report generated');
+      logger.info(`   PDF: ${pdfPath}`);
     } catch (error) {
-      console.error('❌ Error generating quarterly report:', error);
+      logger.error('❌ Error generating quarterly report:', error);
       throw error;
     }
   }
@@ -248,8 +252,8 @@ export class InvestorReportsScheduler {
 
     return recipientsEnv
       .split(',')
-      .map(email => email.trim())
-      .filter(email => email.length > 0);
+      .map((email) => email.trim())
+      .filter((email) => email.length > 0);
   }
 
   /**
@@ -261,13 +265,15 @@ export class InvestorReportsScheduler {
     const thresholdMonths = parseFloat(process.env.RUNWAY_ALERT_THRESHOLD || '9');
 
     if (cashMetrics.runway_months < thresholdMonths) {
-      console.warn(`⚠️  RUNWAY ALERT: ${cashMetrics.runway_months.toFixed(1)} months remaining (threshold: ${thresholdMonths})`);
+      logger.warn(
+        `⚠️  RUNWAY ALERT: ${cashMetrics.runway_months.toFixed(1)} months remaining (threshold: ${thresholdMonths})`,
+      );
 
       const alertRecipient = process.env.ALERT_EMAIL_RECIPIENT || 'risto@lifetime.fi';
       await emailService.sendNotificationEmail(
         alertRecipient,
         `RUNWAY ALERT: ${cashMetrics.runway_months.toFixed(1)} months remaining`,
-        `Cash runway is below the ${thresholdMonths}-month threshold. Current runway: ${cashMetrics.runway_months.toFixed(1)} months. Immediate attention required.`
+        `Cash runway is below the ${thresholdMonths}-month threshold. Current runway: ${cashMetrics.runway_months.toFixed(1)} months. Immediate attention required.`,
       );
     }
   }
@@ -281,13 +287,15 @@ export class InvestorReportsScheduler {
     const thresholdPct = parseFloat(process.env.CHURN_ALERT_THRESHOLD || '10');
 
     if (customerMetrics.monthly_churn_rate > thresholdPct) {
-      console.warn(`⚠️  CHURN ALERT: ${customerMetrics.monthly_churn_rate.toFixed(1)}% churn rate (threshold: ${thresholdPct}%)`);
+      logger.warn(
+        `⚠️  CHURN ALERT: ${customerMetrics.monthly_churn_rate.toFixed(1)}% churn rate (threshold: ${thresholdPct}%)`,
+      );
 
       const alertRecipient = process.env.ALERT_EMAIL_RECIPIENT || 'risto@lifetime.fi';
       await emailService.sendNotificationEmail(
         alertRecipient,
         `CHURN ALERT: ${customerMetrics.monthly_churn_rate.toFixed(1)}% monthly churn`,
-        `Monthly churn rate has exceeded the ${thresholdPct}% threshold. Current rate: ${customerMetrics.monthly_churn_rate.toFixed(1)}%. Review customer retention strategy.`
+        `Monthly churn rate has exceeded the ${thresholdPct}% threshold. Current rate: ${customerMetrics.monthly_churn_rate.toFixed(1)}%. Review customer retention strategy.`,
       );
     }
   }

@@ -27,20 +27,20 @@ data-backed reference market, not a box-shifting reseller.
 ## Who we are
 
 **Lifetime Oy** (Espoo, Finland) — operator of **Lifetime Fleet**, a Physical-AI
-robotics division. We run service-robot fleets for paying Nordic operators on an
+robotics division. We run service-robot fleets in the Nordics on an
 NVIDIA ISV stack, governed under our own KYA autonomy standard for EU AI Act and
 NIS2 compliance.
 
 > Verify any specific figure against `DWS_TRUTH_STANDARD.md` before external use.
 > Operating metrics below are sourced from `Lifetime Fleet/Fleet Admiral/README.md`.
 
-|                     |                                                                |
-| ------------------- | -------------------------------------------------------------- |
-| **Model**           | Deploy + operate (pay-as-you-go), not resale                   |
-| **Footprint**       | Nordics, anchored in the Helsinki capital region               |
-| **Operators today** | Live fleet, paying operators, strong retention                 |
-| **Stack**           | NVIDIA Connect ISV; on-prem inference; Control Room monitoring |
-| **Compliance**      | EU AI Act Art. 12 logging, NIS2, GDPR — handled our side       |
+|                     |                                                                                                                                                                         |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Model**           | Deploy + operate (pay-as-you-go), not resale                                                                                                                            |
+| **Footprint**       | Nordics, anchored in the Helsinki capital region                                                                                                                        |
+| **Operators today** | Live fleet funded by the licensed transport and services operation (~€7,000/month services and transport revenue, not software revenue). No retention rate is asserted. |
+| **Stack**           | NVIDIA Connect ISV; on-prem inference; Control Room monitoring                                                                                                          |
+| **Compliance**      | EU AI Act Art. 12 logging, NIS2, GDPR — handled our side                                                                                                                |
 
 ## What we want from Keenon
 

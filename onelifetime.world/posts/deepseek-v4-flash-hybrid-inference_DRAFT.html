@@ -18,6 +18,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DeepSeek V4 Flash on Two GPUs — Hybrid Inference and the Owned-Box Reality</title>
+    <!-- Unpublished draft: no HIC approval on record (Non-Negotiable Rule 13). Not indexed. -->
+    <meta name="robots" content="noindex, nofollow" />
     <meta
       name="description"
       content="A community field note: DeepSeek V4 Flash running at native FP4+FP8 precision on 2x RTX Pro 6000 GPUs with 256 GB RAM, using KTransformers hybrid GPU/CPU inference. Real benchmarks, real hardware, real implications for the sovereign edge."
@@ -128,7 +130,7 @@
         },
         "editor": {
           "@type": "Person",
-          "name": "Risto Anton Paarni",
+          "name": "Risto Anton Päärni",
           "url": "https://onelifetime.world"
         },
         "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
@@ -225,7 +227,7 @@
           <p class="mt-3 text-sm" style="color: #94a3b8">
             <time datetime="2026-06-27">27 Jun 2026</time> &middot; Written by
             <strong style="color: #e2e8f0">Yannick Nick</strong> (@keennay) &middot; edited by Risto
-            Anton Paarni
+            Anton Päärni
           </p>
         </header>
 
@@ -487,7 +489,7 @@
             Systems engineer, hybrid inference practitioner
           </p>
           <p class="text-sm italic mt-3" style="color: #94a3b8">
-            Edited by Risto Anton Paarni &mdash; CEO, Lifetime Oy &middot; Editor in Chief, Lifetime
+            Edited by Risto Anton Päärni &mdash; Founder, CEO, Lifetime Oy &middot; Editor in Chief, Lifetime
             Scope Journal
           </p>
         </div>
@@ -535,7 +537,7 @@
                     <a href="https://twitter.com/intent/tweet?text=DeepSeek%20V4%20Flash%20on%20Two%20GPUs%20%E2%80%94%20Hybrid%20Inference%20and%20the%20Owned-Box%20Reality%20%E2%80%94%20by%20%40LifetimeOy&url=https%3A%2F%2Fonelifetime.world%2Fposts%2Fdeepseek-v4-flash-hybrid-inference.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#1da1f2';this.style.background='rgba(29,161,242,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share on X">
                         <svg width="14" height="14" fill="#94a3b8" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                     </a>
-                    <a href="mailto:?subject=DeepSeek%20V4%20Flash%20on%20Two%20GPUs%20%E2%80%94%20Hybrid%20Inference%20and%20the%20Owned-Box%20Reality&body=DeepSeek%20V4%20Flash%20on%20Two%20GPUs%20%E2%80%94%20Hybrid%20Inference%20and%20the%20Owned-Box%20Reality%20%E2%80%94%20by%20%40LifetimeOy%0A%0Ahttps%3A%2F%2Fonelifetime.world%2Fposts%2Fdeepseek-v4-flash-hybrid-inference.html" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
+                    <a href="https://dws10.com/contact/" class="inline-flex items-center justify-center w-9 h-9 rounded-full transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='#06b6d4';this.style.background='rgba(6,182,212,0.15)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(30,41,59,0.8)'" aria-label="Share via Email">
                         <svg width="16" height="16" fill="#94a3b8" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                     </a>
                     <button onclick="navigator.clipboard.writeText('https://onelifetime.world/posts/deepseek-v4-flash-hybrid-inference.html');this.querySelector('span').textContent='Copied!';setTimeout(()=>this.querySelector('span').textContent='Copy link',2000)" class="inline-flex items-center gap-1.5 px-3 h-9 rounded-full text-xs text-gray-400 transition-colors" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(100,116,139,0.3);" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.3)'">
@@ -547,26 +549,20 @@
                 <!-- Featured Products -->
                 <div class="mt-10">
                     <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">From the Store</h3>
+                    <p class="text-xs mb-4"><a href="https://dws10.com/price-list/" style="color:#22d3ee;text-decoration:underline">See the price list &rarr;</a></p>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
                         <a href="https://dws10.com/products/dwsiq.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
                             <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Flagship</span>
                             <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
-                            <p class="text-lg font-bold text-cyan-400 my-1">€4,999</p>
-                            <p class="text-xs text-gray-500">AI agents for EU compliance automation</p>
-                        </a>
-
-                        <a href="https://dws10.com/products/bundle.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
-                            <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Best Value</span>
-                            <p class="text-sm font-semibold text-gray-200">Climate Reporting Bundle</p>
-                            <p class="text-lg font-bold text-cyan-400 my-1">€6,500</p>
+                            <p class="text-sm font-bold text-cyan-400 my-1">Prices on the price list</p>
                             <p class="text-xs text-gray-500">DWS IQ + Firehorse Report + Workshop</p>
                         </a>
 
                         <a href="https://dws10.com/products/firehorse-omnichannel.html" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
                             <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">Start Here</span>
                             <p class="text-sm font-semibold text-gray-200">Firehorse Omnichannel</p>
-                            <p class="text-lg font-bold text-cyan-400 my-1">€499</p>
+                            <p class="text-sm font-bold text-cyan-400 my-1">Prices on the price list</p>
                             <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
                         </a>
                     </div>

@@ -7,7 +7,7 @@ argument-hint: "TARGET=<file> [KIND=offer|handbook|attachment] [ROLE=<customer>]
 Update a document through a question-driven, HIC-confirmed dialogue. The agent never rewrites
 in bulk; it surfaces one change at a time, the human decides, the agent applies and checkpoints.
 
-This is the working method used to fact-check `docs/KONSULTIN_KASIKIRJA_2026.md` §1–§16. Codified
+This is the working method used to fact-check `docs/KONSULTOINNIN_KASIKIRJA_2026.md` §1–§16. Codified
 per the Skill Codification Rule ("asked twice = failure").
 
 Usage:

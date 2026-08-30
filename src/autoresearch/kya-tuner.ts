@@ -13,14 +13,13 @@
  * Audit: Firehorse JSONL (EU AI Act Article 12)
  */
 
-// @ts-ignore — firehorse module exists at runtime
-import { createOptimizationEvent, evaluateOptimization } from '../firehorse/audit-schema';
-// @ts-ignore
+import {
+  createOptimizationEvent,
+  evaluateOptimization,
+  type OptimizationDecisionEvent,
+} from '../firehorse/audit-schema';
 import { generateSyntheticSessions, type SyntheticKyaSession } from './synthetic-kya';
 import logger from '../utils/logger.js';
-
-// Type placeholder while firehorse module is excluded from build
-type OptimizationDecisionEvent = any;
 
 // ============================================================================
 // TUNABLE PARAMETERS (autoresearch target — agent modifies these)
@@ -84,13 +83,12 @@ const SECURITY_CONSTANTS = {
 
 /**
  * Calculate Agent Trust Score using the KYA v1.4 formula:
- *   ATS = max(0, 1.0 - V×violationWeight - L - D×deniedAccessWeight + A×autoresearchBonusCap)
+ *   ATS = max(0, 1.0 - V×violationWeight - D×deniedAccessWeight + A×autoresearchBonusCap)
  */
 export function calculateATS(params: KyaTunableParams, session: SyntheticKyaSession): number {
   const raw =
     1.0 -
     session.violations * params.violationWeight -
-    session.latencyPenalty -
     session.deniedAccessAttempts * params.deniedAccessWeight +
     Math.min(session.autoresearchImprovement, 1.0) * params.autoresearchBonusCap;
 

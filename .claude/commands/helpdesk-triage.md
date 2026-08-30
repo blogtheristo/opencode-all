@@ -3,11 +3,10 @@ name: helpdesk-triage
 version: 1.0
 date: 2026-05-12
 description: >
-  Triages an open support ticket with the Helpdesk agent. Loads the customer, plan, prior tickets,
-  and support policy KB, drafts a reply, and recommends an action (resolve / reply / escalate /
-  refund / plan-upgrade-suggest). Use when user says "triage ticket", "help with this support
-  case", "draft a reply", "what should we tell this customer", "review ticket", or provides a
-  ticket UUID. Never sends email — a human reviewer approves the draft.
+  Triages an open support ticket with the Helpdesk agent: loads customer, plan, prior tickets,
+  and policy KB, drafts a reply, and recommends an action (resolve / reply / escalate / refund /
+  upgrade-suggest). Use when user says "triage ticket", "draft a reply", "review ticket", or
+  provides a ticket UUID. Never sends email — a human approves the draft.
 ---
 
 Invoke the Helpdesk agent to triage a support ticket — reads customer + plan + history + policy,

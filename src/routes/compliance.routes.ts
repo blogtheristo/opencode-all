@@ -155,7 +155,7 @@ router.get(
   authenticateToken,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const orgId = (req as any).user?.organization_id;
+      const orgId = req.user?.organization_id;
 
       // Attempt to load real company profile from database
       let scoringInput: ComplianceScoringInput | null = null;
@@ -169,7 +169,7 @@ router.get(
           const { createClient } = await import('@supabase/supabase-js');
           const supabase = createClient(
             process.env.SUPABASE_URL || '',
-            process.env.SUPABASE_SERVICE_ROLE_KEY || '',
+            process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '',
           );
 
           // Load compliance profile
@@ -186,10 +186,12 @@ router.get(
               .select('disclosure_id, data_provided')
               .eq('profile_id', profile.id);
 
-            const dataPoints = (esrsData || []).map((d: any) => ({
-              disclosureId: d.disclosure_id,
-              provided: d.data_provided === true,
-            }));
+            const dataPoints = (esrsData || []).map(
+              (d: { disclosure_id: string; data_provided: boolean | null }) => ({
+                disclosureId: d.disclosure_id,
+                provided: d.data_provided === true,
+              }),
+            );
 
             scoringInput = {
               industry: profile.industry || 'manufacturing',

@@ -69,7 +69,7 @@ export function HamburgerMenu({
     `flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
       active
         ? 'bg-primary-50 text-primary-700'
-        : 'text-gray-700 hover:bg-gray-50'
+        : 'text-foreground hover:bg-background'
     }`;
 
   return (
@@ -79,11 +79,11 @@ export function HamburgerMenu({
         onClick={() => setOpen(true)}
         aria-label="Open menu"
         aria-expanded={open}
-        className="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500"
+        className="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-border transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500"
       >
-        <span className="block w-5 h-0.5 bg-gray-600 rounded-full" />
-        <span className="block w-5 h-0.5 bg-gray-600 rounded-full" />
-        <span className="block w-5 h-0.5 bg-gray-600 rounded-full" />
+        <span className="block w-5 h-0.5 bg-fg-muted rounded-full" />
+        <span className="block w-5 h-0.5 bg-fg-muted rounded-full" />
+        <span className="block w-5 h-0.5 bg-fg-muted rounded-full" />
       </button>
 
       {/* Backdrop */}
@@ -100,32 +100,32 @@ export function HamburgerMenu({
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
-        className={`fixed top-0 right-0 h-full w-72 bg-white shadow-2xl z-50 flex flex-col transition-transform duration-300 ease-in-out md:hidden ${
+        className={`fixed top-0 right-0 h-full w-72 bg-surface shadow-2xl z-50 flex flex-col transition-transform duration-300 ease-in-out md:hidden ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         {/* Panel header with close button */}
-        <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100">
-          <span className="font-semibold text-gray-900 text-sm">DWS IQ Dashboard</span>
+        <div className="flex items-center justify-between px-4 py-4 border-b border-border">
+          <span className="font-semibold text-foreground text-sm">DWS IQ Dashboard</span>
           <button
             onClick={close}
             aria-label="Close menu"
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="p-2 rounded-lg hover:bg-border transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
-            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-fg-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
 
         {/* User identity strip */}
-        <div className="flex items-center gap-3 px-4 py-4 bg-gray-50 border-b border-gray-100">
+        <div className="flex items-center gap-3 px-4 py-4 bg-background border-b border-border">
           <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center text-white text-sm font-semibold shrink-0 ring-2 ring-white shadow-sm">
             {initials}
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-gray-900 truncate">{displayName}</p>
-            <p className="text-xs text-gray-500 truncate">{email}</p>
+            <p className="text-sm font-semibold text-foreground truncate">{displayName}</p>
+            <p className="text-xs text-fg-muted truncate">{email}</p>
           </div>
         </div>
 
@@ -209,7 +209,7 @@ export function HamburgerMenu({
             System Health
           </button>
 
-          <div className="border-t border-gray-100 pt-2 mt-2">
+          <div className="border-t border-border pt-2 mt-2">
             <button
               className={navItem(false)}
               onClick={() => { onNavigate?.('billing'); close(); }}
@@ -233,7 +233,7 @@ export function HamburgerMenu({
         </nav>
 
         {/* Sign out — pinned to bottom */}
-        <div className="px-3 py-4 border-t border-gray-100">
+        <div className="px-3 py-4 border-t border-border">
           <button
             className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
             onClick={async () => { close(); await onSignOut(); }}

@@ -12,7 +12,7 @@
 - One-liner variations
 
 **[TARGETING_QUICK_REFERENCE.md](TARGETING_QUICK_REFERENCE.md)** - Print-friendly one-page reference
-- Company snapshot (€7k MRR, 100% retention)
+- Company snapshot (€59,900 of contracted Q1/2026 pilots; ~€7,000/month services and transport revenue, not software revenue)
 - Target investor profiles (funds & angels)
 - Must-have criteria & red flags
 - Priority scoring system
@@ -91,7 +91,7 @@
 
 ### Institutional Investors (€100k–€500k)
 - **Stage**: Seed / Seed-extension → Series A 2026
-- **Current**: €7k MRR → **Target**: €900k ARR by 2026
+- **Current software base**: €59,900 of contracted Q1/2026 pilot value (two enterprise pilots at €29,950 each) plus four smaller landed accounts → **Target**: €900k ARR by 2026
 - **Sectors**: Climate tech, industrial decarbonization, construction/infra SaaS, ESG/CSRD automation, industrial AI
 - **Geography**: Nordics + DACH + Benelux + UK (+ EU-focused global funds)
 - **Portfolio**: Construction tech, infra/asset mgmt SaaS, climate/ESG reporting, regulatory SaaS, industrial automation

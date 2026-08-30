@@ -2,8 +2,8 @@
  * Memory Service — DWS IQ 6/7
  *
  * Unified memory service for all AI agents. Provides store, recall, forget,
- * and profile operations using Supabase/pgVector with hybrid search
- * (vector similarity + full-text via pg_trgm).
+ * and profile operations using the internal Postgres pool (DGX Spark) with
+ * pgvector hybrid search (vector similarity + full-text via pg_trgm).
  *
  * Inspired by Supermemory patterns: contradiction resolution via temporal
  * superseding, user/org profiles, configurable similarity thresholds,
@@ -15,24 +15,201 @@
  * Owner: Lifetime Oy
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import type { Pool } from 'pg';
+import { getInternalDbPool } from '../config/internal-db.js';
 import logger from '../utils/logger.js';
 import type {
-  MemoryItem,
-  MemoryStoreInput,
-  MemoryStoreResult,
-  MemoryRecallInput,
-  MemoryRecallResult,
+  ConsolidationResult,
+  DuplicatePair,
+  MemoryCacheEntry,
   MemoryForgetInput,
   MemoryForgetResult,
+  MemoryItem,
+  MemoryProfile,
+  MemoryRecallInput,
+  MemoryRecallResult,
+  MemoryStoreInput,
+  MemoryStoreResult,
   MemorySupersedeInput,
   MemorySupersedeResult,
-  MemoryProfile,
-  MemoryCacheEntry,
   ProfileFact,
-  DuplicatePair,
-  ConsolidationResult,
 } from './memory.types.js';
+
+// ============ SQL HELPERS ============
+
+type DbFunctionName =
+  | 'touch_memory'
+  | 'hybrid_memory_search'
+  | 'supersede_memory'
+  | 'decay_stale_memories'
+  | 'find_duplicate_memories'
+  | 'find_duplicate_org_memories'
+  | 'match_semantic_memories'
+  | 'forget_memory'
+  | 'log_memory_audit';
+
+/**
+ * Call allowlisted Postgres functions using static SQL branches.
+ */
+async function callDbFunction<T = Record<string, unknown>>(
+  pool: Pool,
+  fnName: DbFunctionName,
+  params: Record<string, unknown>,
+): Promise<T[]> {
+  let query: string;
+  let values: unknown[];
+
+  switch (fnName) {
+    case 'touch_memory':
+      query = 'SELECT * FROM touch_memory(memory_id => $1)';
+      values = [params.memory_id];
+      break;
+    case 'hybrid_memory_search':
+      query = `SELECT * FROM hybrid_memory_search(
+        query_text => $1,
+        query_embedding => $2::vector,
+        org_filter => $3,
+        customer_filter => $4,
+        memory_type_filter => $5,
+        match_count => $6,
+        similarity_threshold => $7,
+        vector_weight => $8,
+        text_weight => $9
+      )`;
+      values = [
+        params.query_text,
+        params.query_embedding,
+        params.org_filter,
+        params.customer_filter,
+        params.memory_type_filter,
+        params.match_count,
+        params.similarity_threshold,
+        params.vector_weight,
+        params.text_weight,
+      ];
+      break;
+    case 'supersede_memory':
+      query = `SELECT * FROM supersede_memory(
+        p_old_memory_id => $1,
+        p_new_content => $2,
+        p_new_confidence => $3,
+        p_new_source => $4,
+        p_reason => $5,
+        p_agent_id => $6,
+        p_agent_ats => $7,
+        p_org_id => $8,
+        p_customer_id => $9,
+        p_new_metadata => $10
+      )`;
+      values = [
+        params.p_old_memory_id,
+        params.p_new_content,
+        params.p_new_confidence,
+        params.p_new_source,
+        params.p_reason,
+        params.p_agent_id,
+        params.p_agent_ats,
+        params.p_org_id,
+        params.p_customer_id,
+        params.p_new_metadata,
+      ];
+      break;
+    case 'decay_stale_memories':
+      query = `SELECT * FROM decay_stale_memories(
+        p_half_life_days => $1,
+        p_decay_threshold => $2,
+        p_dry_run => $3,
+        p_org_id => $4
+      )`;
+      values = [
+        params.p_half_life_days,
+        params.p_decay_threshold,
+        params.p_dry_run,
+        params.p_org_id,
+      ];
+      break;
+    case 'find_duplicate_memories':
+      query = `SELECT * FROM find_duplicate_memories(
+        p_org_id => $1,
+        p_customer_id => $2,
+        p_auto_threshold => $3,
+        p_review_threshold => $4,
+        p_limit => $5
+      )`;
+      values = [
+        params.p_org_id,
+        params.p_customer_id,
+        params.p_auto_threshold,
+        params.p_review_threshold,
+        params.p_limit,
+      ];
+      break;
+    case 'find_duplicate_org_memories':
+      query = `SELECT * FROM find_duplicate_org_memories(
+        p_org_id => $1,
+        p_auto_threshold => $2,
+        p_review_threshold => $3,
+        p_limit => $4
+      )`;
+      values = [
+        params.p_org_id,
+        params.p_auto_threshold,
+        params.p_review_threshold,
+        params.p_limit,
+      ];
+      break;
+    case 'match_semantic_memories':
+      query = `SELECT * FROM match_semantic_memories(
+        query_embedding => $1::vector,
+        customer_filter => $2,
+        match_count => $3,
+        similarity_threshold => $4
+      )`;
+      values = [
+        params.query_embedding,
+        params.customer_filter,
+        params.match_count,
+        params.similarity_threshold,
+      ];
+      break;
+    case 'forget_memory':
+      query = `SELECT * FROM forget_memory(
+        p_memory_id => $1,
+        forget_reason => $2,
+        p_agent_id => $3,
+        p_org_id => $4
+      )`;
+      values = [params.p_memory_id, params.forget_reason, params.p_agent_id, params.p_org_id];
+      break;
+    case 'log_memory_audit':
+      query = `SELECT * FROM log_memory_audit(
+        p_operation => $1,
+        p_agent_id => $2,
+        p_memory_id => $3,
+        p_org_id => $4,
+        p_metadata => $5
+      )`;
+      values = [params.p_operation, params.p_agent_id, params.p_memory_id, params.p_org_id, params.p_metadata];
+      break;
+    default: {
+      const exhaustiveCheck: never = fnName;
+      throw new Error(`Unsupported function: ${String(exhaustiveCheck)}`);
+    }
+  }
+
+  const result = await pool.query(query, values);
+  return result.rows as T[];
+}
+
+/**
+ * pgvector's `vector` type expects bracket literal syntax `[v1,v2,...]`.
+ * node-pg's default array serialization emits Postgres array-literal `{...}`
+ * syntax instead, which the vector input function rejects — so embeddings must
+ * be pre-formatted here and bound with an explicit `::vector` cast in the SQL.
+ */
+function toVectorLiteral(embedding: number[] | null | undefined): string | null {
+  return embedding && embedding.length > 0 ? `[${embedding.join(',')}]` : null;
+}
 
 // ============ LRU CACHE ============
 
@@ -56,6 +233,7 @@ class MemoryCache {
   set(key: string, result: MemoryRecallResult): void {
     // Evict oldest if at capacity
     if (this.cache.size >= CACHE_MAX_SIZE) {
+      // Use iterator to get the oldest entry (first inserted)
       const oldest = this.cache.keys().next().value;
       if (oldest !== undefined) this.cache.delete(oldest);
     }
@@ -71,12 +249,27 @@ class MemoryCache {
       if (key.includes(pattern)) this.cache.delete(key);
     }
   }
+  
+  /**
+   * Enhanced cache with per-org size limiting and smart invalidation
+   */
+  size(): number {
+    return this.cache.size;
+  }
+  
+  getStats(): { size: number; hits: number; evictions: number } {
+    let totalHits = 0;
+    for (const entry of this.cache.values()) {
+      totalHits += entry.hitCount;
+    }
+    return { size: this.cache.size, hits: totalHits, evictions: 0 };
+  }
 }
 
 // ============ MEMORY SERVICE ============
 
 export class MemoryService {
-  private supabase: SupabaseClient | null = null;
+  private pool: Pool | null = null;
   private cache = new MemoryCache();
   private embeddingApiKey: string | undefined;
 
@@ -86,13 +279,13 @@ export class MemoryService {
 
   // ============ PUBLIC API ============
 
-  /**
+/**
    * Store a memory. Generates embedding, checks for duplicates,
-   * and persists to Supabase semantic_memories.
+   * and persists to semantic_memories.
    */
   async store(input: MemoryStoreInput): Promise<MemoryStoreResult> {
-    const client = this.getClient();
-    if (!client) {
+    const pool = this.getPool();
+    if (!pool) {
       return { id: '', stored: false };
     }
 
@@ -101,58 +294,75 @@ export class MemoryService {
 
     // Check for near-duplicates (similarity > 0.95)
     if (embedding) {
-      const duplicate = await this.findDuplicate(client, embedding, input.orgId, input.customerId);
+      const duplicate = await this.findDuplicate(pool, embedding, input.orgId, input.customerId);
       if (duplicate) {
         logger.debug('Memory duplicate detected', { duplicateOf: duplicate });
         // Touch the existing memory instead of creating new
-        await client.rpc('touch_memory', { memory_id: duplicate });
+        await callDbFunction(pool, 'touch_memory', { memory_id: duplicate });
+        // Invalidate cache for this org and specific memory type
+        this.cache.invalidate(this.buildCacheKey({
+          query: '',
+          orgId: input.orgId,
+          customerId: input.customerId,
+          memoryType: input.memoryType
+        }));
         return { id: duplicate, stored: false, duplicateOf: duplicate };
       }
     }
 
     // Insert new memory
-    const record = {
-      content: input.content,
-      memory_type: input.memoryType,
-      customer_id: input.customerId || null,
-      org_id: input.orgId,
-      embedding,
-      metadata: input.metadata || {},
-      source: input.source || 'agent',
-      confidence: input.confidence ?? 1.0,
-      access_count: 0,
-      created_at: new Date().toISOString(),
-      accessed_at: new Date().toISOString(),
-    };
-
-    const { data, error } = await client
-      .from('semantic_memories')
-      .insert(record)
-      .select('id')
-      .single();
-
-    if (error) {
-      logger.error('Failed to store memory', { error: error.message });
+    let newId: string;
+    try {
+      const result = await pool.query(
+        `INSERT INTO semantic_memories (
+           content, memory_type, customer_id, org_id, embedding, metadata,
+           source, confidence, access_count, created_at, accessed_at
+         ) VALUES ($1, $2, $3, $4, $5::vector, $6, $7, $8, $9, $10, $11)
+         RETURNING id`,
+        [
+          input.content,
+          input.memoryType,
+          input.customerId || null,
+          input.orgId,
+          toVectorLiteral(embedding),
+          input.metadata || {},
+          input.source || 'agent',
+          input.confidence ?? 1.0,
+          0,
+          new Date().toISOString(),
+          new Date().toISOString(),
+        ],
+      );
+      newId = result.rows[0].id;
+    } catch (err) {
+      logger.error('Failed to store memory', {
+        error: err instanceof Error ? err.message : String(err),
+      });
       return { id: '', stored: false };
     }
 
-    // Invalidate cache for this org
-    this.cache.invalidate(input.orgId);
+    // Invalidate cache for this org and specific memory type
+    this.cache.invalidate(this.buildCacheKey({
+      query: '',
+      orgId: input.orgId,
+      customerId: input.customerId,
+      memoryType: input.memoryType
+    }));
 
     // Audit log for store operations (KYA-S §10.1)
-    this.logAudit('store', input.source || 'agent', input.orgId, data.id, {
+    this.logAudit('store', input.source || 'agent', input.orgId, newId, {
       memory_type: input.memoryType,
       confidence: input.confidence ?? 1.0,
       source: input.source,
     }).catch(() => {}); // fire-and-forget, don't block store
 
     logger.debug('Memory stored', {
-      id: data.id,
+      id: newId,
       type: input.memoryType,
       orgId: input.orgId,
     });
 
-    return { id: data.id, stored: true };
+    return { id: newId, stored: true };
   }
 
   /**
@@ -169,8 +379,8 @@ export class MemoryService {
       return { ...cached, durationMs: Date.now() - startTime };
     }
 
-    const client = this.getClient();
-    if (!client) {
+    const pool = this.getPool();
+    if (!pool) {
       return { memories: [], totalMatches: 0, searchMethod: 'hybrid', durationMs: 0 };
     }
 
@@ -180,38 +390,43 @@ export class MemoryService {
     const vectorWeight = input.vectorWeight ?? 0.7;
     const textWeight = input.textWeight ?? 0.3;
 
-    let memories: MemoryItem[] = [];
+    let memories: MemoryItem[];
     let searchMethod: 'vector' | 'text' | 'hybrid' = 'hybrid';
 
     if (embedding) {
       // Hybrid search: vector + text
-      const { data, error } = await client.rpc('hybrid_memory_search', {
-        query_text: input.query,
-        query_embedding: embedding,
-        org_filter: input.orgId,
-        customer_filter: input.customerId || null,
-        memory_type_filter: input.memoryType || null,
-        match_count: limit,
-        similarity_threshold: threshold,
-        vector_weight: vectorWeight,
-        text_weight: textWeight,
-      });
-
-      if (error) {
-        logger.warn('Hybrid search failed, falling back to text', { error: error.message });
-        memories = await this.textOnlySearch(client, input);
-        searchMethod = 'text';
-      } else {
-        memories = (data || []).map(this.mapToMemoryItem);
+      try {
+        const rows = await callDbFunction(
+          pool,
+          'hybrid_memory_search',
+          {
+            query_text: input.query,
+            query_embedding: toVectorLiteral(embedding),
+            org_filter: input.orgId,
+            customer_filter: input.customerId || null,
+            memory_type_filter: input.memoryType || null,
+            match_count: limit,
+            similarity_threshold: threshold,
+            vector_weight: vectorWeight,
+            text_weight: textWeight,
+          },
+        );
+        memories = rows.map(this.mapToMemoryItem);
 
         // Touch recalled memories (update access tracking)
         for (const mem of memories) {
-          void client.rpc('touch_memory', { memory_id: mem.id });
+          void callDbFunction(pool, 'touch_memory', { memory_id: mem.id });
         }
+      } catch (err) {
+        logger.warn('Hybrid search failed, falling back to text', {
+          error: err instanceof Error ? err.message : String(err),
+        });
+        memories = await this.textOnlySearch(pool, input);
+        searchMethod = 'text';
       }
     } else {
       // No embedding API — text-only search
-      memories = await this.textOnlySearch(client, input);
+      memories = await this.textOnlySearch(pool, input);
       searchMethod = 'text';
     }
 
@@ -233,27 +448,29 @@ export class MemoryService {
    * Does not hard-delete — maintains audit trail for compliance.
    */
   async forget(input: MemoryForgetInput): Promise<MemoryForgetResult> {
-    const client = this.getClient();
-    if (!client) {
+    const pool = this.getPool();
+    if (!pool) {
       return { forgotten: false };
     }
 
-    const { data, error } = await client.rpc('forget_memory', {
-      p_memory_id: input.memoryId,
-      forget_reason: input.reason,
-      p_agent_id: input.agentId || 'system',
-      p_org_id: input.orgId,
-    });
+    try {
+      const rows = await callDbFunction<{ forget_memory: boolean }>(pool, 'forget_memory', {
+        p_memory_id: input.memoryId,
+        forget_reason: input.reason,
+        p_agent_id: input.agentId || 'system',
+        p_org_id: input.orgId,
+      });
 
-    if (error) {
-      logger.error('Failed to forget memory', { error: error.message });
+      // Invalidate cache
+      this.cache.invalidate(input.orgId);
+
+      return { forgotten: !!rows[0]?.forget_memory };
+    } catch (err) {
+      logger.error('Failed to forget memory', {
+        error: err instanceof Error ? err.message : String(err),
+      });
       return { forgotten: false };
     }
-
-    // Invalidate cache
-    this.cache.invalidate(input.orgId);
-
-    return { forgotten: !!data };
   }
 
   /**
@@ -265,7 +482,7 @@ export class MemoryService {
     entityType: 'customer' | 'organization',
     _orgId: string,
   ): Promise<MemoryProfile> {
-    const client = this.getClient();
+    const pool = this.getPool();
     const emptyProfile: MemoryProfile = {
       entityId,
       entityType,
@@ -276,20 +493,38 @@ export class MemoryService {
       memoryCount: 0,
     };
 
-    if (!client) return emptyProfile;
+    if (!pool) return emptyProfile;
 
-    // Fetch all active memories for this entity
-    const column = entityType === 'customer' ? 'customer_id' : 'org_id';
-    const { data, error } = await client
-      .from('semantic_memories')
-      .select('id, content, memory_type, metadata, confidence, source, created_at')
-      .eq(column, entityId)
-      .is('expired_at', null)
-      .is('superseded_by', null)
-      .order('created_at', { ascending: false })
-      .limit(100);
+    // Fetch all active memories for this entity.
+    let data: Array<Record<string, unknown>>;
+    try {
+      const result =
+        entityType === 'customer'
+          ? await pool.query(
+              `SELECT id, content, memory_type, metadata, confidence, source, created_at
+               FROM semantic_memories
+               WHERE customer_id = $1 AND expired_at IS NULL AND superseded_by IS NULL
+               ORDER BY created_at DESC
+               LIMIT 100`,
+              [entityId],
+            )
+          : await pool.query(
+              `SELECT id, content, memory_type, metadata, confidence, source, created_at
+               FROM semantic_memories
+               WHERE org_id = $1 AND expired_at IS NULL AND superseded_by IS NULL
+               ORDER BY created_at DESC
+               LIMIT 100`,
+              [entityId],
+            );
+      data = result.rows;
+    } catch (err) {
+      logger.warn('getProfile query failed', {
+        error: err instanceof Error ? err.message : String(err),
+      });
+      return emptyProfile;
+    }
 
-    if (error || !data || data.length === 0) {
+    if (data.length === 0) {
       return emptyProfile;
     }
 
@@ -337,40 +572,47 @@ export class MemoryService {
    * Implements KYA-S §10.2: confidence_delta > 0.3 triggers human review hard gate.
    */
   async supersede(input: MemorySupersedeInput): Promise<MemorySupersedeResult> {
-    const client = this.getClient();
-    if (!client) {
+    const pool = this.getPool();
+    if (!pool) {
       return {
         newMemoryId: null,
         requiresReview: false,
         confidenceDelta: 0,
-        kyaDecision: 'error: supabase not configured',
+        kyaDecision: 'error: internal Postgres not configured',
       };
     }
 
-    const { data, error } = await client.rpc('supersede_memory', {
-      p_old_memory_id: input.oldMemoryId,
-      p_new_content: input.newContent,
-      p_new_confidence: input.newConfidence ?? 1.0,
-      p_new_source: input.newSource || 'agent',
-      p_reason: input.reason || 'temporal_supersede',
-      p_agent_id: input.agentId || 'system',
-      p_agent_ats: input.agentAts ?? null,
-      p_org_id: input.orgId,
-      p_customer_id: input.customerId || null,
-      p_new_metadata: input.metadata || {},
-    });
-
-    if (error) {
-      logger.error('Failed to supersede memory', { error: error.message });
+    let rows: Array<{
+      new_memory_id: string | null;
+      requires_review: boolean;
+      confidence_delta: number;
+      kya_decision: string;
+    }>;
+    try {
+      rows = await callDbFunction(pool, 'supersede_memory', {
+        p_old_memory_id: input.oldMemoryId,
+        p_new_content: input.newContent,
+        p_new_confidence: input.newConfidence ?? 1.0,
+        p_new_source: input.newSource || 'agent',
+        p_reason: input.reason || 'temporal_supersede',
+        p_agent_id: input.agentId || 'system',
+        p_agent_ats: input.agentAts ?? null,
+        p_org_id: input.orgId,
+        p_customer_id: input.customerId || null,
+        p_new_metadata: input.metadata || {},
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      logger.error('Failed to supersede memory', { error: msg });
       return {
         newMemoryId: null,
         requiresReview: false,
         confidenceDelta: 0,
-        kyaDecision: `error: ${error.message}`,
+        kyaDecision: `error: ${msg}`,
       };
     }
 
-    const row = Array.isArray(data) ? data[0] : data;
+    const row = rows[0];
     const result: MemorySupersedeResult = {
       newMemoryId: row?.new_memory_id || null,
       requiresReview: row?.requires_review || false,
@@ -409,23 +651,24 @@ export class MemoryService {
     memoryId?: string,
     metadata?: Record<string, unknown>,
   ): Promise<string | null> {
-    const client = this.getClient();
-    if (!client) return null;
+    const pool = this.getPool();
+    if (!pool) return null;
 
-    const { data, error } = await client.rpc('log_memory_audit', {
-      p_operation: operation,
-      p_agent_id: agentId,
-      p_memory_id: memoryId || null,
-      p_org_id: orgId,
-      p_metadata: metadata || {},
-    });
-
-    if (error) {
-      logger.warn('Failed to log memory audit', { error: error.message });
+    try {
+      const rows = await callDbFunction<{ log_memory_audit: string }>(pool, 'log_memory_audit', {
+        p_operation: operation,
+        p_agent_id: agentId,
+        p_memory_id: memoryId || null,
+        p_org_id: orgId,
+        p_metadata: metadata || {},
+      });
+      return rows[0]?.log_memory_audit ?? null;
+    } catch (err) {
+      logger.warn('Failed to log memory audit', {
+        error: err instanceof Error ? err.message : String(err),
+      });
       return null;
     }
-
-    return data as string;
   }
 
   /**
@@ -444,8 +687,8 @@ export class MemoryService {
     forgottenIds: string[];
     dryRun: boolean;
   }> {
-    const client = this.getClient();
-    if (!client) {
+    const pool = this.getPool();
+    if (!pool) {
       return { decayedCount: 0, forgottenCount: 0, forgottenIds: [], dryRun: true };
     }
 
@@ -454,25 +697,26 @@ export class MemoryService {
     const dryRun = options?.dryRun ?? false;
     const orgId = options?.orgId ?? null;
 
-    const { data, error } = await client.rpc('decay_stale_memories', {
-      p_half_life_days: halfLifeDays,
-      p_decay_threshold: decayThreshold,
-      p_dry_run: dryRun,
-      p_org_id: orgId,
-    });
-
-    if (error) {
-      logger.error('Failed to run decay', { error: error.message });
-      return { decayedCount: 0, forgottenCount: 0, forgottenIds: [], dryRun };
-    }
-
-    const rows = (Array.isArray(data) ? data : []) as Array<{
+    let rows: Array<{
       memory_id: string;
       org_id: string;
       old_confidence: number;
       new_confidence: number;
       below_threshold: boolean;
     }>;
+    try {
+      rows = await callDbFunction(pool, 'decay_stale_memories', {
+        p_half_life_days: halfLifeDays,
+        p_decay_threshold: decayThreshold,
+        p_dry_run: dryRun,
+        p_org_id: orgId,
+      });
+    } catch (err) {
+      logger.error('Failed to run decay', {
+        error: err instanceof Error ? err.message : String(err),
+      });
+      return { decayedCount: 0, forgottenCount: 0, forgottenIds: [], dryRun };
+    }
 
     const belowThreshold = rows.filter((r) => r.below_threshold);
     const forgottenIds: string[] = [];
@@ -569,13 +813,13 @@ export class MemoryService {
 
   /** Shared consolidation logic for customer-scoped and org-scoped dedup */
   private async runConsolidation(
-    rpcName: string,
+    rpcName: 'find_duplicate_memories' | 'find_duplicate_org_memories',
     rpcParams: Record<string, unknown>,
     orgId: string,
     dryRun: boolean,
   ): Promise<ConsolidationResult> {
-    const client = this.getClient();
-    if (!client) {
+    const pool = this.getPool();
+    if (!pool) {
       return {
         pairsFound: 0,
         autoConsolidated: 0,
@@ -586,21 +830,7 @@ export class MemoryService {
       };
     }
 
-    const { data, error } = await client.rpc(rpcName, rpcParams);
-
-    if (error) {
-      logger.error('Consolidation scan failed', { error: error.message, rpcName });
-      return {
-        pairsFound: 0,
-        autoConsolidated: 0,
-        flaggedForReview: 0,
-        blockedByKya: 0,
-        pairs: [],
-        dryRun,
-      };
-    }
-
-    const rows = (data || []) as Array<{
+    let rows: Array<{
       memory_a_id: string;
       memory_b_id: string;
       content_a: string;
@@ -612,6 +842,26 @@ export class MemoryService {
       keep_id: string;
       supersede_id: string;
     }>;
+    try {
+      if (rpcName === 'find_duplicate_memories') {
+        rows = await callDbFunction(pool, 'find_duplicate_memories', rpcParams);
+      } else {
+        rows = await callDbFunction(pool, 'find_duplicate_org_memories', rpcParams);
+      }
+    } catch (err) {
+      logger.error('Consolidation scan failed', {
+        error: err instanceof Error ? err.message : String(err),
+        rpcName,
+      });
+      return {
+        pairsFound: 0,
+        autoConsolidated: 0,
+        flaggedForReview: 0,
+        blockedByKya: 0,
+        pairs: [],
+        dryRun,
+      };
+    }
 
     const pairs: DuplicatePair[] = rows.map((r) => ({
       memoryAId: r.memory_a_id,
@@ -658,18 +908,18 @@ export class MemoryService {
       } else if (result.newMemoryId) {
         // Keep exactly one active canonical row: mark the previously kept source row
         // as superseded by the new canonical memory returned by supersede_memory.
-        const { error: keepSupersedeError } = await client
-          .from('semantic_memories')
-          .update({ superseded_by: result.newMemoryId })
-          .eq('id', pair.keepId)
-          .eq('org_id', orgId)
-          .is('superseded_by', null);
-
-        if (keepSupersedeError) {
+        try {
+          await pool.query(
+            `UPDATE semantic_memories
+             SET superseded_by = $1
+             WHERE id = $2 AND org_id = $3 AND superseded_by IS NULL`,
+            [result.newMemoryId, pair.keepId, orgId],
+          );
+        } catch (err) {
           logger.warn('Consolidation keep-row supersede update failed', {
             pairKeepId: pair.keepId,
             newMemoryId: result.newMemoryId,
-            error: keepSupersedeError.message,
+            error: err instanceof Error ? err.message : String(err),
           });
         }
         autoConsolidated++;
@@ -742,56 +992,98 @@ export class MemoryService {
 
   /** Find a near-duplicate memory (cosine similarity > 0.95) */
   private async findDuplicate(
-    client: SupabaseClient,
+    pool: Pool,
     embedding: number[],
     orgId: string,
     customerId?: string,
   ): Promise<string | null> {
-    const { data } = await client.rpc('match_semantic_memories', {
-      query_embedding: embedding,
-      customer_filter: customerId || null,
-      match_count: 1,
-      similarity_threshold: 0.95,
-    });
+    try {
+      const rows = await callDbFunction<{ id: string; metadata: Record<string, unknown> }>(
+        pool,
+        'match_semantic_memories',
+        {
+          query_embedding: toVectorLiteral(embedding),
+          customer_filter: customerId || null,
+          match_count: 1,
+          similarity_threshold: 0.95,
+        },
+      );
 
-    if (data && data.length > 0) {
-      // Verify org isolation
-      const match = data[0];
-      if (match.metadata?.org_id === orgId || !match.metadata?.org_id) {
-        return match.id;
+      if (rows.length > 0) {
+        // Verify org isolation
+        const match = rows[0];
+        if (match.metadata?.org_id === orgId || !match.metadata?.org_id) {
+          return match.id;
+        }
       }
+    } catch (err) {
+      logger.debug('match_semantic_memories query failed (treating as no duplicate)', {
+        error: err instanceof Error ? err.message : String(err),
+      });
     }
     return null;
   }
 
-  /** Fallback: text-only search using pg_trgm similarity */
-  private async textOnlySearch(
-    client: SupabaseClient,
-    input: MemoryRecallInput,
-  ): Promise<MemoryItem[]> {
-    let query = client
-      .from('semantic_memories')
-      .select('*')
-      .is('expired_at', null)
-      .is('superseded_by', null)
-      .eq('org_id', input.orgId)
-      .textSearch('content', input.query, { type: 'websearch' })
-      .limit(input.limit ?? 5);
-
-    if (input.customerId) {
-      query = query.eq('customer_id', input.customerId);
-    }
-    if (input.memoryType) {
-      query = query.eq('memory_type', input.memoryType);
-    }
-
-    const { data, error } = await query;
-    if (error) {
-      logger.warn('Text search failed', { error: error.message });
+  /** Fallback: text-only search using PostgreSQL full-text search (websearch_to_tsquery) */
+  private async textOnlySearch(pool: Pool, input: MemoryRecallInput): Promise<MemoryItem[]> {
+    const hasCustomerId = Boolean(input.customerId);
+    const hasMemoryType = Boolean(input.memoryType);
+    const limit = input.limit ?? 5;
+    let data: Array<Record<string, unknown>>;
+    try {
+      const result =
+        hasCustomerId && hasMemoryType
+          ? await pool.query(
+              `SELECT * FROM semantic_memories
+               WHERE expired_at IS NULL
+                 AND superseded_by IS NULL
+                 AND org_id = $1
+                 AND to_tsvector('english', content) @@ websearch_to_tsquery('english', $2)
+                 AND customer_id = $3
+                 AND memory_type = $4
+               LIMIT $5`,
+              [input.orgId, input.query, input.customerId, input.memoryType, limit],
+            )
+          : hasCustomerId
+            ? await pool.query(
+                `SELECT * FROM semantic_memories
+                 WHERE expired_at IS NULL
+                   AND superseded_by IS NULL
+                   AND org_id = $1
+                   AND to_tsvector('english', content) @@ websearch_to_tsquery('english', $2)
+                   AND customer_id = $3
+                 LIMIT $4`,
+                [input.orgId, input.query, input.customerId, limit],
+              )
+            : hasMemoryType
+              ? await pool.query(
+                  `SELECT * FROM semantic_memories
+                   WHERE expired_at IS NULL
+                     AND superseded_by IS NULL
+                     AND org_id = $1
+                     AND to_tsvector('english', content) @@ websearch_to_tsquery('english', $2)
+                     AND memory_type = $3
+                   LIMIT $4`,
+                  [input.orgId, input.query, input.memoryType, limit],
+                )
+              : await pool.query(
+                  `SELECT * FROM semantic_memories
+                   WHERE expired_at IS NULL
+                     AND superseded_by IS NULL
+                     AND org_id = $1
+                     AND to_tsvector('english', content) @@ websearch_to_tsquery('english', $2)
+                   LIMIT $3`,
+                  [input.orgId, input.query, limit],
+                );
+      data = result.rows;
+    } catch (err) {
+      logger.warn('Text search failed', {
+        error: err instanceof Error ? err.message : String(err),
+      });
       return [];
     }
 
-    return (data || []).map((row: Record<string, unknown>) => ({
+    return data.map((row: Record<string, unknown>) => ({
       id: row.id as string,
       customerId: row.customer_id as string | undefined,
       orgId: row.org_id as string,
@@ -828,16 +1120,11 @@ export class MemoryService {
     return `${input.orgId}:${input.customerId || ''}:${input.memoryType || ''}:${input.query.slice(0, 100)}`;
   }
 
-  /** Lazy-initialize Supabase client */
-  private getClient(): SupabaseClient | null {
-    if (this.supabase) return this.supabase;
-
-    const url = process.env.SUPABASE_URL;
-    const key = process.env.SUPABASE_SERVICE_KEY;
-    if (!url || !key) return null;
-
-    this.supabase = createClient(url, key);
-    return this.supabase;
+  /** Lazy-initialize the internal Postgres pool */
+  private getPool(): Pool | null {
+    if (this.pool) return this.pool;
+    this.pool = getInternalDbPool();
+    return this.pool;
   }
 }
 

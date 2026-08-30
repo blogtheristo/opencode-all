@@ -44,6 +44,20 @@ const CATEGORY_LABELS = {
 };
 const CATEGORY_ORDER = ['platform', 'ai-cloud', 'advisory', 'digital', 'hardware', 'add-on'];
 
+// Per-category buyer notes rendered under the category table. Trusted constants —
+// intentionally NOT escaped, so they may contain inline markup.
+// The hardware note answers the question a buyer asks straight after seeing the DGX
+// price: "what if NVIDIA cannot deliver?" It states the position without exposing the
+// internal risk register (DD instrument, offered under NDA).
+const CATEGORY_NOTES = {
+  hardware:
+    "<strong>Supply continuity.</strong> The models we adopt ship as open weights, so the " +
+    "inference layer is portable by design rather than tied to one vendor's stack. A " +
+    'non-NVIDIA fallback path (AMD, Intel accelerators) is carried in our supply-risk plan, ' +
+    'and hardware compatibility is validated per engagement rather than assumed. The full ' +
+    'supply-risk register is available under NDA.',
+};
+
 function esc(s) {
   if (s === null || s === undefined) return '';
   return String(s)
@@ -64,13 +78,34 @@ function eur(n) {
     return '€' + n;
   }
 }
-function unitLabel(t) {
+// Accepts a product object (preferred) or a bare type string (legacy callers).
+// Order of authority: explicit priceUnit -> billingPeriod -> type.
+// NOTE: 'subscription' previously mapped to 'per year', which mislabelled every
+// monthly SKU (e.g. the €499/mo required subscriptions) as an annual price — a
+// material pricing misstatement on a customer-facing list. Subscriptions bill
+// monthly unless the data says otherwise.
+function unitLabel(p) {
+  const prod = p && typeof p === 'object' ? p : null;
+  const t = prod ? prod.type : p;
+  const unitMap = {
+    'per-month': 'per month',
+    'per-year': 'per year',
+    'per-hour': 'per hour',
+    'per-day': 'per day',
+    'per-seat': 'per seat',
+    'one-time': 'one-time',
+  };
+  const priceUnit = prod && prod.priceUnit;
+  if (priceUnit && unitMap[priceUnit]) return unitMap[priceUnit];
+  if (t === 'subscription') {
+    const b = String((prod && prod.billingPeriod) || 'monthly').toLowerCase();
+    return b === 'yearly' || b === 'annual' || b === 'annually' ? 'per year' : 'per month';
+  }
   return (
     {
       hourly: 'per hour',
       daily: 'per day',
       monthly: 'per month',
-      subscription: 'per year',
       'one-time': 'one-time',
     }[t] ||
     t ||
@@ -98,7 +133,7 @@ function renderProductsTable(list) {
           `<td class="id">${esc(p.id)}</td>` +
           `<td class="name">${esc(p.name)}${caption}${note}</td>` +
           `<td class="price">${priceCell}</td>` +
-          `<td class="unit">${esc(unitLabel(p.type))}</td>` +
+          `<td class="unit">${esc(unitLabel(p))}</td>` +
           `<td class="sku">${esc(p.mpn || p.sku || '—')}</td>` +
           '</tr>'
         );
@@ -155,9 +190,22 @@ function build(data) {
   const catsHtml = orderedCats
     .map(
       (c) =>
-        `<section class="cat"><h2>${esc(CATEGORY_LABELS[c] || c)} <small>(${buckets[c].length})</small></h2>${renderProductsTable(buckets[c])}</section>`,
+        `<section class="cat"><h2>${esc(CATEGORY_LABELS[c] || c)} <small>(${buckets[c].length})</small></h2>${renderProductsTable(buckets[c])}${CATEGORY_NOTES[c] ? `<div class="notice">${CATEGORY_NOTES[c]}</div>` : ''}</section>`,
     )
     .join('\n');
+
+  // Required subscriptions live under their own top-level key, not in `products`,
+  // so they were previously omitted from this list entirely — a gap, since they are
+  // mandatory on every contract. unitLabel() resolves their billingPeriod ('monthly').
+  const subsList = Object.values(data.subscriptions || {}).filter((s) => s && s.id);
+  const subsHtml = subsList.length
+    ? `<section class="cat"><h2>Required Subscriptions <small>(${subsList.length})</small></h2>` +
+      '<div class="notice">Required on every contract and quoted separately from the one-time product fee. Billed monthly.</div>' +
+      renderProductsTable(
+        subsList.map((s) => ({ ...s, priceNote: s.priceNote || s.description })),
+      ) +
+      '</section>'
+    : '';
 
   const genStamp = new Date().toISOString();
 
@@ -235,6 +283,8 @@ h2 small{color:#64748b;font-weight:400;font-size:.85rem}
 
 ${catsHtml}
 
+${subsHtml}
+
 ${renderVat(pl.vatReference)}
 
 <footer class="legal">
@@ -253,7 +303,7 @@ ${renderVat(pl.vatReference)}
   </div>
   <div>
     <h3>Contact</h3>
-    <p>Sales: <a href="mailto:${esc(gov.salesEmail || 'sales@lifetime.fi')}">${esc(gov.salesEmail || 'sales@lifetime.fi')}</a></p>
+    <p>Sales: <a href="https://dws10.com/contact/">Contact sales</a></p>
     <p>Quote this snapshot by its version number: <strong>v${esc(version)}</strong>.</p>
   </div>
 </footer>

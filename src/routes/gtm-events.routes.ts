@@ -13,7 +13,7 @@
  * Owner: Lifetime Oy
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import logger from '../utils/logger.js';
 import { gtmEventLogger } from '../services/gtm-event-logger.js';
 import { eventBus } from '../agents/event-bus.js';
@@ -41,7 +41,7 @@ router.post('/', async (req: Request, res: Response) => {
   try {
     const payload = req.body;
     const sessionId = (req.headers['x-session-id'] as string) || 'anonymous';
-    const userId = (req as any).user?.id; // If authenticated
+    const userId = req.user?.id; // If authenticated
 
     // Handle both single event and batch array
     const events = Array.isArray(payload) ? payload : [payload];

@@ -1,6 +1,6 @@
 # Nordic Industrial AI — Targeted Pitch List: May 10, 2026
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -26,7 +26,7 @@ Related Documents:
 - docs/sales/enterprise-pricing-construction.md
 - docs/sales/contact-details.md
 
----
+***
 
 ## Overview
 
@@ -105,7 +105,7 @@ Sources: Company sites, EU reports, industry analyses, May 2026 (via Grok web lo
 **Sales Action:**
 
 - Target: Procurement, Fleet, or Sustainability executive
-- Angle: Immediate MRR value in a high-volatility environment; link to current €7k–14k MRR from KELA/Uber/Bolt Finland pilots
+- Angle: Immediate value in a high-volatility environment; link to the two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked). Do **not** cite "€7k–14k MRR" or KELA/Uber/Bolt — those are dispatch operators of the licensed transport business, not software pilots, and the ~€7,000/month is services and transport revenue, not software revenue.
 - Entry offer: Fleet optimisation assessment + Firehorse Report scope
 
 ---

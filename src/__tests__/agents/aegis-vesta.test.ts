@@ -6,7 +6,7 @@
  * here — these tests call execute() directly, not through logExecution().
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { AegisAgent } from '../../agents/aegis.agent.js';
 import { VestaAgent } from '../../agents/vesta.agent.js';
 import type { AgentContext } from '../../agents/types.js';

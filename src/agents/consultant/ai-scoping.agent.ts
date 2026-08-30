@@ -35,8 +35,7 @@ export class AIScopingConsultantAgent extends BaseAgent {
       ],
       model: 'llama-3.3-70b-versatile',
       modelTier: 'standard',
-      autonomyPhase: 'advisor',
-      notify: { channels: ['email', 'in_app'], maxPerHour: 3, maxPerDay: 10 },
+      autonomyPhase: 'silent_pilot',
     });
     this.soulPrompt = SOUL;
   }
@@ -80,7 +79,7 @@ Assess which DWS IQ product axis fits best, estimate scope, and identify risks.`
     const llmResponse = await this.callLLM(prompt);
     const durationMs = Date.now() - startTime;
 
-    let parsed: Record<string, unknown> = {};
+    let parsed: Record<string, unknown>;
     try {
       parsed = JSON.parse(llmResponse.content);
     } catch {

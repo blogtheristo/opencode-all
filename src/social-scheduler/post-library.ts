@@ -35,7 +35,9 @@ function scheduledAt(daysFromNow: number): string {
     millisecond: 0,
   });
 
-  return helsinkiTime.toUTC().toISO()!;
+  const iso = helsinkiTime.toUTC().toISO();
+  if (!iso) throw new Error(`Invalid scheduled date computed for +${daysFromNow} days`);
+  return iso;
 }
 
 // ============================================================================

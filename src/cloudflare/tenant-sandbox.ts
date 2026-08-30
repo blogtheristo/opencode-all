@@ -15,9 +15,7 @@
  * @module cloudflare/tenant-sandbox
  * @version 1.0.0
  * @license Proprietary - Lifetime Oy
- */
-
-import { Anthropic } from '@anthropic-ai/sdk';
+  */
 
 // ============================================================================
 // Types and Interfaces
@@ -108,23 +106,6 @@ interface MCPServerConfig {
   url: string;
   apiKey?: string;
   tools?: string[];
-}
-
-interface SandboxRequest {
-  action: 'execute' | 'configure' | 'status' | 'usage';
-  tenantId: string;
-  payload?: unknown;
-}
-
-interface SandboxResponse {
-  success: boolean;
-  data?: unknown;
-  error?: string;
-  usage?: {
-    inputTokens: number;
-    outputTokens: number;
-    executionTimeMs: number;
-  };
 }
 
 // ============================================================================
@@ -318,50 +299,6 @@ interface UsageRecord {
   totalTokens: number;
   requests: number;
   cost: number;
-}
-
-async function recordUsage(
-  env: Env,
-  tenantId: string,
-  inputTokens: number,
-  outputTokens: number,
-  pricePerToken: number
-): Promise<void> {
-  const date = new Date().toISOString().split('T')[0];
-  const usageKey = `usage:${tenantId}:${date}`;
-  
-  const existing = await env.TENANT_CONFIG.get(usageKey, 'json') as UsageRecord | null;
-  
-  const totalTokens = inputTokens + outputTokens;
-  const cost = totalTokens * pricePerToken;
-  
-  const updated: UsageRecord = existing ? {
-    ...existing,
-    inputTokens: existing.inputTokens + inputTokens,
-    outputTokens: existing.outputTokens + outputTokens,
-    totalTokens: existing.totalTokens + totalTokens,
-    requests: existing.requests + 1,
-    cost: existing.cost + cost
-  } : {
-    tenantId,
-    date,
-    inputTokens,
-    outputTokens,
-    totalTokens,
-    requests: 1,
-    cost
-  };
-  
-  await env.TENANT_CONFIG.put(usageKey, JSON.stringify(updated), {
-    expirationTtl: 90 * 24 * 60 * 60 // 90 days retention
-  });
-  
-  // Also write to analytics engine for real-time queries
-  env.USAGE_METRICS.writeDataPoint({
-    blobs: [tenantId, date],
-    doubles: [inputTokens, outputTokens, totalTokens, cost],
-    indexes: [tenantId]
-  });
 }
 
 async function getUsageReport(
@@ -624,7 +561,7 @@ export default {
   async fetch(
     request: Request,
     env: Env,
-    ctx: ExecutionContext
+    _ctx: ExecutionContext
   ): Promise<Response> {
     const url = new URL(request.url);
     

@@ -1,0 +1,110 @@
+# Evidence: Tool=OpenCode 1.18.21 Model=opencode/x-preview-f-free Agent=ox-alpha Date=2026-08-25
+# Audit trail: git log -- .github/workflows/tree-gate.yml
+name: Tree Gate (PR)
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to test against (optional, for manual dispatch)"
+        required: false
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  tree-gate:
+    name: Tree Gate
+    runs-on: dgx-spark
+    timeout-minutes: 30
+    steps:
+      - name: Checkout PR merge ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate gate config
+        id: config
+        run: |
+          # Determine base and head shas
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          echo "base_sha=$BASE_SHA" >> $GITHUB_OUTPUT
+          echo "head_sha=$HEAD_SHA" >> $GITHUB_OUTPUT
+          # Locate manifest (cycle-manifest committed in PR)
+          MANIFEST_PATH=$(find . -name 'cycle-manifest*.json' -o -name 'manifest*.json' | head -1)
+          if [ -z "$MANIFEST_PATH" ]; then
+            echo "MANIFEST_PATH=" >> $GITHUB_OUTPUT
+            echo "::warning::No cycle-manifest found — gate will run without manifest (P4 will block)"
+          else
+            echo "MANIFEST_PATH=$MANIFEST_PATH" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run Tree Gate
+        id: gate
+        env:
+          LOCAL_SHA: ${{ steps.config.outputs.head_sha }}
+          REMOTE_SHA: ${{ steps.config.outputs.base_sha }}
+          MANIFEST_PATH: ${{ steps.config.outputs.manifest_path }}
+        run: |
+          node scripts/poisoned-tree-gate.mjs \
+            --repo . \
+            --local-sha "$LOCAL_SHA" \
+            --remote-sha "$REMOTE_SHA" \
+            --manifest-path "${MANIFEST_PATH:-}" \
+            --approvals-dir .github/approvals \
+            --trusted-keys-dir .github/keys \
+            --pusher-identity "${{ github.actor }}" \
+            --format json > /tmp/gate-result.json
+          cat /tmp/gate-result.json
+          DECISION=$(jq -r '.decision' /tmp/gate-result.json)
+          REASONS=$(jq -r '.reasons | join("\\n")' /tmp/gate-result.json)
+          echo "decision=$DECISION" >> $GITHUB_OUTPUT
+          echo "reasons=$REASONS" >> $GITHUB_OUTPUT
+
+      - name: Post gate result as PR comment
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const decision = '${{ steps.gate.outputs.decision }}';
+            const reasons = '${{ steps.gate.outputs.reasons }}';
+            const body = `### Tree Gate Result: ${decision.toUpperCase()}\n\n${reasons ? '```\n' + reasons + '\n```' : '_No violations detected._'}`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
+      - name: Fail job on block
+        if: steps.gate.outputs.decision == 'block'
+        run: |
+          echo "::error::Tree Gate blocked: ${{ steps.gate.outputs.reasons }}"
+          exit 1
+
+      - name: Upload gate result artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tree-gate-result
+          path: /tmp/gate-result.json
+          retention-days: 7
+
+# Required status check for branch protection on main
+# Add this job name ("Tree Gate") to main's protection rules: Settings > Branches > main > Status checks

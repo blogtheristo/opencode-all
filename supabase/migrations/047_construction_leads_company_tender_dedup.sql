@@ -73,10 +73,21 @@ CREATE TRIGGER trg_construction_leads_dedup_keys
 -- ---------------------------------------------------------------------------
 -- Refresh view so new columns appear in ted_leads
 -- ---------------------------------------------------------------------------
-DROP VIEW IF EXISTS ted_leads;
-CREATE VIEW ted_leads AS
-SELECT * FROM construction_leads;
-
-COMMENT ON VIEW ted_leads IS 'Alias for construction_leads (TED pipeline). Dedup: (company_name, tender_id).';
+-- 046 (canonical, matches production) creates ted_leads as a real TABLE; this
+-- view-alias block predates that. DROP VIEW IF EXISTS is fatal against a table
+-- (42809), so only alias when ted_leads is absent or already a view.
+-- (CI soak catch, blank-slate replay.)
+DO $tl$
+BEGIN
+  IF to_regclass('public.ted_leads') IS NULL
+     OR EXISTS (SELECT 1 FROM information_schema.views
+                WHERE table_schema = 'public' AND table_name = 'ted_leads') THEN
+    EXECUTE 'DROP VIEW IF EXISTS ted_leads';
+    EXECUTE 'CREATE VIEW ted_leads AS SELECT * FROM construction_leads';
+    EXECUTE $c$COMMENT ON VIEW ted_leads IS 'Alias for construction_leads (TED pipeline). Dedup: (company_name, tender_id).'$c$;
+  ELSE
+    RAISE NOTICE '047: ted_leads exists as a table (046) — skipping view alias';
+  END IF;
+END $tl$;
 
 COMMIT;

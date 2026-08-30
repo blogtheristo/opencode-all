@@ -9,6 +9,7 @@ import axios, {
   type AxiosError,
   type AxiosInstance,
   type AxiosRequestConfig,
+  type AxiosResponse,
   type InternalAxiosRequestConfig,
 } from 'axios';
 import pino from 'pino';
@@ -16,10 +17,12 @@ import {
   type EntityType,
   type ERPConnectionConfig,
   type ERPProvider,
+  type MachineData,
+  type OEEMetrics,
+  type SyncDirection,
   type SyncError,
   type SyncOperation,
   type SyncResult,
-  SyncDirection,
   SyncStatus,
 } from './types.js';
 
@@ -87,12 +90,12 @@ export abstract class BaseERPConnector {
   /**
    * Sync machine data from DWS to ERP
    */
-  abstract syncMachineData(data: any[]): Promise<SyncResult>;
+  abstract syncMachineData(data: MachineData[]): Promise<SyncResult>;
 
   /**
    * Sync OEE metrics from DWS to ERP
    */
-  abstract syncOEEMetrics(metrics: any[]): Promise<SyncResult>;
+  abstract syncOEEMetrics(metrics: OEEMetrics[]): Promise<SyncResult>;
 
   /**
    * Sync maintenance events bidirectionally
@@ -119,7 +122,7 @@ export abstract class BaseERPConnector {
   /**
    * Update rate limit information from response headers
    */
-  protected updateRateLimitInfo(response: any): void {
+  protected updateRateLimitInfo(response: AxiosResponse): void {
     const remaining = response.headers['x-ratelimit-remaining'];
     const reset = response.headers['x-ratelimit-reset'];
 
@@ -151,9 +154,9 @@ export abstract class BaseERPConnector {
   /**
    * Handle API errors with retry logic
    */
-  protected async handleApiError(error: AxiosError): Promise<any> {
+  protected async handleApiError(error: AxiosError): Promise<AxiosResponse> {
     const status = error.response?.status;
-    const data = error.response?.data as any;
+    const data = error.response?.data as unknown;
 
     this.logger.error(
       {
@@ -206,7 +209,7 @@ export abstract class BaseERPConnector {
   /**
    * Make a POST request with retry logic
    */
-  protected async post<T>(endpoint: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+  protected async post<T>(endpoint: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
     await this.checkRateLimit();
     const response = await this.httpClient.post<T>(endpoint, data, config);
     return response.data;
@@ -215,7 +218,7 @@ export abstract class BaseERPConnector {
   /**
    * Make a PUT request with retry logic
    */
-  protected async put<T>(endpoint: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+  protected async put<T>(endpoint: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
     await this.checkRateLimit();
     const response = await this.httpClient.put<T>(endpoint, data, config);
     return response.data;
@@ -367,7 +370,9 @@ export abstract class BaseERPConnector {
    * Validate required configuration
    */
   protected validateConfig(requiredFields: string[]): void {
-    const missingFields = requiredFields.filter((field) => !(this.config as any)[field]);
+    const missingFields = requiredFields.filter(
+      (field) => !(this.config as unknown as Record<string, unknown>)[field],
+    );
 
     if (missingFields.length > 0) {
       throw new Error(

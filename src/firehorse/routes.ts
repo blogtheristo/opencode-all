@@ -17,6 +17,7 @@ import { LeadCountry } from './types';
 import { FirehorseReportModule } from './report-module';
 import { reportScheduler } from './report-scheduler';
 import { FirehorseWorkflowEngine } from './workflow-engine';
+import * as linkedinPending from './linkedin-pending.js';
 import logger from '../utils/logger.js';
 
 const router = Router();
@@ -70,7 +71,7 @@ router.post('/webhooks/email-opened', async (req: Request, res: Response) => {
 
     return res.json({ success: true });
   } catch (error) {
-    console.error('Error handling email opened:', error);
+    logger.error('Error handling email opened:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -96,7 +97,7 @@ router.post('/webhooks/link-clicked', async (req: Request, res: Response) => {
 
     return res.json({ success: true });
   } catch (error) {
-    console.error('Error handling link clicked:', error);
+    logger.error('Error handling link clicked:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -122,7 +123,7 @@ router.post('/webhooks/email-reply', async (req: Request, res: Response) => {
 
     return res.json({ success: true });
   } catch (error) {
-    console.error('Error handling email reply:', error);
+    logger.error('Error handling email reply:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -148,7 +149,7 @@ router.post('/webhooks/meeting-booked', async (req: Request, res: Response) => {
 
     return res.json({ success: true });
   } catch (error) {
-    console.error('Error handling meeting booked:', error);
+    logger.error('Error handling meeting booked:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -166,7 +167,7 @@ router.post('/jobs/daily', async (_req: Request, res: Response) => {
     await scheduler.runManually('daily');
     return res.json({ success: true, message: 'Daily job completed' });
   } catch (error) {
-    console.error('Error running daily job:', error);
+    logger.error('Error running daily job:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -180,7 +181,7 @@ router.post('/jobs/cold2', async (_req: Request, res: Response) => {
     await scheduler.runManually('cold2');
     return res.json({ success: true, message: 'Cold 2 job completed' });
   } catch (error) {
-    console.error('Error running Cold 2 job:', error);
+    logger.error('Error running Cold 2 job:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -194,7 +195,7 @@ router.post('/jobs/cold3', async (_req: Request, res: Response) => {
     await scheduler.runManually('cold3');
     return res.json({ success: true, message: 'Cold 3 job completed' });
   } catch (error) {
-    console.error('Error running Cold 3 job:', error);
+    logger.error('Error running Cold 3 job:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -229,7 +230,7 @@ router.post('/leads', async (req: Request, res: Response) => {
     }
 
     // Create lead in database
-    const { data, error } = await (db as any).supabase
+    const { data, error } = await db.supabase
       .from('firehorse_leads')
       .insert({
         email,
@@ -244,13 +245,13 @@ router.post('/leads', async (req: Request, res: Response) => {
       .single();
 
     if (error) {
-      console.error('Error creating lead:', error);
+      logger.error('Error creating lead:', error);
       return res.status(500).json({ error: 'Failed to create lead' });
     }
 
     return res.json({ success: true, lead: data });
   } catch (error) {
-    console.error('Error creating lead:', error);
+    logger.error('Error creating lead:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -270,7 +271,7 @@ router.get('/leads/:id', async (req: Request, res: Response) => {
 
     return res.json({ success: true, lead });
   } catch (error) {
-    console.error('Error fetching lead:', error);
+    logger.error('Error fetching lead:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -283,20 +284,20 @@ router.get('/leads/:id/events', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const { data, error } = await (db as any).supabase
+    const { data, error } = await db.supabase
       .from('firehorse_events')
       .select('*')
       .eq('lead_id', id)
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.error('Error fetching events:', error);
+      logger.error('Error fetching events:', error);
       return res.status(500).json({ error: 'Failed to fetch events' });
     }
 
     return res.json({ success: true, events: data });
   } catch (error) {
-    console.error('Error fetching events:', error);
+    logger.error('Error fetching events:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -309,20 +310,20 @@ router.get('/leads/:id/tasks', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const { data, error } = await (db as any).supabase
+    const { data, error } = await db.supabase
       .from('firehorse_tasks')
       .select('*')
       .eq('lead_id', id)
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.error('Error fetching tasks:', error);
+      logger.error('Error fetching tasks:', error);
       return res.status(500).json({ error: 'Failed to fetch tasks' });
     }
 
     return res.json({ success: true, tasks: data });
   } catch (error) {
-    console.error('Error fetching tasks:', error);
+    logger.error('Error fetching tasks:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -337,13 +338,13 @@ router.get('/leads/:id/tasks', async (req: Request, res: Response) => {
  */
 router.get('/signals/pending', async (_req: Request, res: Response) => {
   try {
-    const { data, error } = await (db as any).supabase
+    const { data, error } = await db.supabase
       .from('firehorse_signals_pending_approval')
       .select('*')
       .limit(50);
 
     if (error) {
-      console.error('Error fetching pending signals:', error);
+      logger.error('Error fetching pending signals:', error);
       return res.status(500).json({
         error: 'Failed to fetch signals',
         message: error.message,
@@ -355,11 +356,11 @@ router.get('/signals/pending', async (_req: Request, res: Response) => {
       count: data?.length || 0,
       timestamp: new Date().toISOString(),
     });
-  } catch (error: any) {
-    console.error('Unexpected error in /signals/pending:', error);
+  } catch (error) {
+    logger.error('Unexpected error in /signals/pending:', error);
     return res.status(500).json({
       error: 'Internal server error',
-      message: error.message,
+      message: error instanceof Error ? error.message : String(error),
     });
   }
 });
@@ -373,7 +374,7 @@ router.post('/signals/:id/approve', async (req: Request, res: Response) => {
   const { message_final } = req.body; // Optional: human-edited message
 
   try {
-    const { data, error } = await (db as any).supabase
+    const { data, error } = await db.supabase
       .from('firehorse_signals')
       .update({
         status: 'approved',
@@ -385,25 +386,25 @@ router.post('/signals/:id/approve', async (req: Request, res: Response) => {
       .single();
 
     if (error) {
-      console.error(`Error approving signal ${id}:`, error);
+      logger.error(`Error approving signal ${id}:`, error);
       return res.status(500).json({
         error: 'Failed to approve signal',
         message: error.message,
       });
     }
 
-    console.log(`✅ Signal approved: ${id} - ${data.company_name}`);
+    logger.info(`✅ Signal approved: ${id} - ${data.company_name}`);
 
     return res.json({
       success: true,
       signal: data,
       message: 'Signal approved',
     });
-  } catch (error: any) {
-    console.error('Unexpected error in /signals/:id/approve:', error);
+  } catch (error) {
+    logger.error('Unexpected error in /signals/:id/approve:', error);
     return res.status(500).json({
       error: 'Internal server error',
-      message: error.message,
+      message: error instanceof Error ? error.message : String(error),
     });
   }
 });
@@ -416,7 +417,7 @@ router.post('/signals/:id/reject', async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const { data, error } = await (db as any).supabase
+    const { data, error } = await db.supabase
       .from('firehorse_signals')
       .update({
         status: 'rejected',
@@ -427,25 +428,25 @@ router.post('/signals/:id/reject', async (req: Request, res: Response) => {
       .single();
 
     if (error) {
-      console.error(`Error rejecting signal ${id}:`, error);
+      logger.error(`Error rejecting signal ${id}:`, error);
       return res.status(500).json({
         error: 'Failed to reject signal',
         message: error.message,
       });
     }
 
-    console.log(`❌ Signal rejected: ${id} - ${data.company_name}`);
+    logger.info(`❌ Signal rejected: ${id} - ${data.company_name}`);
 
     return res.json({
       success: true,
       signal: data,
       message: 'Signal rejected',
     });
-  } catch (error: any) {
-    console.error('Unexpected error in /signals/:id/reject:', error);
+  } catch (error) {
+    logger.error('Unexpected error in /signals/:id/reject:', error);
     return res.status(500).json({
       error: 'Internal server error',
-      message: error.message,
+      message: error instanceof Error ? error.message : String(error),
     });
   }
 });
@@ -456,13 +457,13 @@ router.post('/signals/:id/reject', async (req: Request, res: Response) => {
  */
 router.get('/signals/stats', async (_req: Request, res: Response) => {
   try {
-    const { data, error } = await (db as any).supabase
+    const { data, error } = await db.supabase
       .from('firehorse_signals_metrics')
       .select('*')
       .limit(4); // Last 4 weeks
 
     if (error) {
-      console.error('Error fetching signal stats:', error);
+      logger.error('Error fetching signal stats:', error);
       return res.status(500).json({
         error: 'Failed to fetch stats',
         message: error.message,
@@ -473,11 +474,11 @@ router.get('/signals/stats', async (_req: Request, res: Response) => {
       stats: data || [],
       timestamp: new Date().toISOString(),
     });
-  } catch (error: any) {
-    console.error('Unexpected error in /signals/stats:', error);
+  } catch (error) {
+    logger.error('Unexpected error in /signals/stats:', error);
     return res.status(500).json({
       error: 'Internal server error',
-      message: error.message,
+      message: error instanceof Error ? error.message : String(error),
     });
   }
 });
@@ -517,9 +518,9 @@ router.post('/reports/generate', async (req: Request, res: Response) => {
     });
 
     return res.json({ success: true, report });
-  } catch (error: any) {
-    console.error('Error generating report:', error);
-    return res.status(500).json({ error: 'Report generation failed', message: error.message });
+  } catch (error) {
+    logger.error('Error generating report:', error);
+    return res.status(500).json({ error: 'Report generation failed', message: error instanceof Error ? error.message : String(error) });
   }
 });
 
@@ -549,9 +550,9 @@ router.post('/reports/markdown', async (req: Request, res: Response) => {
     const markdown = FirehorseReportModule.toMarkdown(report);
 
     return res.type('text/markdown').send(markdown);
-  } catch (error: any) {
-    console.error('Error generating markdown report:', error);
-    return res.status(500).json({ error: 'Report generation failed', message: error.message });
+  } catch (error) {
+    logger.error('Error generating markdown report:', error);
+    return res.status(500).json({ error: 'Report generation failed', message: error instanceof Error ? error.message : String(error) });
   }
 });
 
@@ -585,9 +586,9 @@ router.get('/reports', async (req: Request, res: Response) => {
 
     const reports = await FirehorseReportModule.listReports(organizationId);
     return res.json({ success: true, reports, count: reports.length });
-  } catch (error: any) {
-    console.error('Error listing reports:', error);
-    return res.status(500).json({ error: 'Failed to list reports', message: error.message });
+  } catch (error) {
+    logger.error('Error listing reports:', error);
+    return res.status(500).json({ error: 'Failed to list reports', message: error instanceof Error ? error.message : String(error) });
   }
 });
 
@@ -623,9 +624,9 @@ router.post('/workflows', async (req: Request, res: Response) => {
     );
 
     return res.json({ success: true, workflow });
-  } catch (error: any) {
-    console.error('Error creating workflow:', error);
-    return res.status(500).json({ error: 'Failed to create workflow', message: error.message });
+  } catch (error) {
+    logger.error('Error creating workflow:', error);
+    return res.status(500).json({ error: 'Failed to create workflow', message: error instanceof Error ? error.message : String(error) });
   }
 });
 
@@ -640,9 +641,9 @@ router.post('/workflows/:id/execute', async (req: Request, res: Response) => {
 
     const execution = await FirehorseWorkflowEngine.execute(id, input || {});
     return res.json({ success: true, execution });
-  } catch (error: any) {
-    console.error('Error executing workflow:', error);
-    return res.status(500).json({ error: 'Workflow execution failed', message: error.message });
+  } catch (error) {
+    logger.error('Error executing workflow:', error);
+    return res.status(500).json({ error: 'Workflow execution failed', message: error instanceof Error ? error.message : String(error) });
   }
 });
 
@@ -655,15 +656,148 @@ router.get('/workflows/executions', async (req: Request, res: Response) => {
     const workflowId = req.query.workflowId as string | undefined;
     const executions = await FirehorseWorkflowEngine.listExecutions(workflowId);
     return res.json({ success: true, executions, count: executions.length });
-  } catch (error: any) {
-    console.error('Error listing executions:', error);
-    return res.status(500).json({ error: 'Failed to list executions', message: error.message });
+  } catch (error) {
+    logger.error('Error listing executions:', error);
+    return res.status(500).json({ error: 'Failed to list executions', message: error instanceof Error ? error.message : String(error) });
   }
 });
 
 // ============================================================================
 // HEALTH CHECK
 // ============================================================================
+
+// ============================================================================
+// LINKEDIN PENDING QUEUE (V1: stubbed LinkedIn + human queue per CLAUDE.md)
+// ============================================================================
+
+/**
+ * GET /firehorse/linkedin/pending  — list queued drafts awaiting manual send
+ * Query: ?status=pending|sent|dismissed|all (default: pending)
+ *
+ * Returns 400 for any other status value or for an array (e.g., ?status=a&status=b).
+ */
+const LINKEDIN_PENDING_LIST_STATUSES = ['pending', 'sent', 'dismissed', 'all'] as const;
+type LinkedInPendingListStatus = (typeof LINKEDIN_PENDING_LIST_STATUSES)[number];
+
+router.get('/linkedin/pending', async (req: Request, res: Response) => {
+  const raw = req.query.status;
+  if (Array.isArray(raw)) {
+    return res.status(400).json({
+      error: 'status must be a single value',
+      allowed: LINKEDIN_PENDING_LIST_STATUSES,
+    });
+  }
+  const status: string = typeof raw === 'string' && raw.length > 0 ? raw : 'pending';
+  if (!LINKEDIN_PENDING_LIST_STATUSES.includes(status as LinkedInPendingListStatus)) {
+    return res.status(400).json({
+      error: `Invalid status '${status}'`,
+      allowed: LINKEDIN_PENDING_LIST_STATUSES,
+    });
+  }
+  try {
+    const all = await linkedinPending.listAll();
+    const entries = status === 'all' ? all : all.filter((e) => e.status === status);
+    const queueStats = await linkedinPending.stats();
+    return res.json({ success: true, entries, count: entries.length, stats: queueStats });
+  } catch (err) {
+    if (err instanceof linkedinPending.LinkedInPendingIOError) {
+      logger.error('linkedin-pending list failed', { error: err.message });
+      return res.status(503).json({ error: 'Queue temporarily unavailable' });
+    }
+    throw err;
+  }
+});
+
+/**
+ * GET /firehorse/linkedin/pending/:id  — fetch one
+ */
+router.get('/linkedin/pending/:id', async (req: Request, res: Response) => {
+  try {
+    const entry = await linkedinPending.getEntry(req.params.id);
+    if (!entry) return res.status(404).json({ error: 'Not found' });
+    return res.json({ success: true, entry });
+  } catch (err) {
+    if (err instanceof linkedinPending.LinkedInPendingIOError) {
+      logger.error('linkedin-pending get failed', { error: err.message });
+      return res.status(503).json({ error: 'Queue temporarily unavailable' });
+    }
+    throw err;
+  }
+});
+
+// Validate an optional `acted_by` field on a request body.
+// Returns the trimmed string when valid, undefined when absent, or null when invalid.
+function validateActedBy(body: unknown): string | undefined | null {
+  if (body === undefined || body === null) return undefined;
+  if (typeof body !== 'object') return null;
+  const raw = (body as Record<string, unknown>).acted_by;
+  if (raw === undefined || raw === null) return undefined;
+  if (typeof raw !== 'string') return null;
+  const trimmed = raw.trim();
+  if (trimmed.length === 0 || trimmed.length > 200) return null;
+  return trimmed;
+}
+
+/**
+ * POST /firehorse/linkedin/pending/:id/sent  — ack that a human sent it manually
+ * Body: { acted_by?: string }
+ */
+router.post('/linkedin/pending/:id/sent', async (req: Request, res: Response) => {
+  const actedBy = validateActedBy(req.body);
+  if (actedBy === null) {
+    return res.status(400).json({ error: 'acted_by must be a string (1-200 chars)' });
+  }
+  try {
+    const updated = await linkedinPending.markSent(req.params.id, actedBy);
+    if (!updated) return res.status(404).json({ error: 'Not found' });
+    if (updated.status !== 'sent') {
+      return res.status(409).json({ error: `Cannot mark ${updated.status} entry as sent` });
+    }
+    return res.json({ success: true, entry: updated });
+  } catch (err) {
+    if (err instanceof linkedinPending.LinkedInPendingIOError) {
+      logger.error('linkedin-pending mark-sent failed', { error: err.message });
+      return res.status(503).json({ error: 'Queue temporarily unavailable' });
+    }
+    throw err;
+  }
+});
+
+/**
+ * POST /firehorse/linkedin/pending/:id/dismiss  — remove without sending
+ * Body: { reason: string, acted_by?: string }
+ */
+router.post('/linkedin/pending/:id/dismiss', async (req: Request, res: Response) => {
+  if (!req.body || typeof req.body !== 'object') {
+    return res.status(400).json({ error: 'Request body must be a JSON object' });
+  }
+  const rawReason = (req.body as Record<string, unknown>).reason;
+  if (typeof rawReason !== 'string') {
+    return res.status(400).json({ error: 'reason is required and must be a string' });
+  }
+  const reason = rawReason.trim();
+  if (reason.length === 0 || reason.length > 500) {
+    return res.status(400).json({ error: 'reason must be 1-500 characters' });
+  }
+  const actedBy = validateActedBy(req.body);
+  if (actedBy === null) {
+    return res.status(400).json({ error: 'acted_by must be a string (1-200 chars)' });
+  }
+  try {
+    const updated = await linkedinPending.dismiss(req.params.id, reason, actedBy);
+    if (!updated) return res.status(404).json({ error: 'Not found' });
+    if (updated.status !== 'dismissed') {
+      return res.status(409).json({ error: `Cannot dismiss ${updated.status} entry` });
+    }
+    return res.json({ success: true, entry: updated });
+  } catch (err) {
+    if (err instanceof linkedinPending.LinkedInPendingIOError) {
+      logger.error('linkedin-pending dismiss failed', { error: err.message });
+      return res.status(503).json({ error: 'Queue temporarily unavailable' });
+    }
+    throw err;
+  }
+});
 
 router.get('/health', (_req: Request, res: Response) => {
   res.json({ status: 'ok', service: 'firehorse-pilot' });

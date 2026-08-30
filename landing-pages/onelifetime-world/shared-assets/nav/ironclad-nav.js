@@ -7,6 +7,8 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v4.2 — Solutions ▾: Industry Stack flyout (Industries Hub, DGX Spark, Situation Room, Control Room)
+ * v4.1 — About ▾: removed dead "Team" link (no /team/ page exists on any site → 404)
  * v4.0 — Solutions ▾: Firehorse Production Engine added above Lifetime World Model V1
  * v3.9 — About ▾: "Certified Partners" replaced with "Partner Tiers ▸" flyout (Partner Program, Aegis Tier 1, Sovereign Infra Tier 2, Connect Tier 3) — same 4 partner links as in Solutions ▾ ▸ Integrations ▸
  * v3.8 — Compliance renamed to "Compliance Hub"; moved from Home ▾ to Solutions ▾ (after CSRD, above Integrations)
@@ -91,6 +93,446 @@
     : 'https://dws10.com/legal/';
   const priceListHref = onDws10 ? `${basePath}price-list/` : 'https://dws10.com/price-list/';
 
+  // 5-language i18n translations for nav items (v5.0)
+  var NAV_I18N = {
+    'home-menu': { fi: 'Etusivu ▾', sv: 'Hem ▾', de: 'Start ▾', fr: 'Accueil ▾', en: 'Home ▾' },
+    'main-page': {
+      fi: 'Pääsivu',
+      sv: 'Huvudsida',
+      de: 'Hauptseite',
+      fr: 'Page principale',
+      en: 'Main Page',
+    },
+    'industries-hub': {
+      fi: 'Toimialat',
+      sv: 'Branscher',
+      de: 'Branchen',
+      fr: 'Secteurs',
+      en: 'Industries Hub',
+    },
+    company: {
+      fi: 'Yritys ▸',
+      sv: 'Företag ▸',
+      de: 'Unternehmen ▸',
+      fr: 'Entreprise ▸',
+      en: 'Company ▸',
+    },
+    careers: { fi: 'Rekrytointi', sv: 'Karriär', de: 'Karriere', fr: 'Carrières', en: 'Careers' },
+    partners: { fi: 'Kumppanit', sv: 'Partners', de: 'Partner', fr: 'Partenaires', en: 'Partners' },
+    'industry-captains': {
+      fi: 'Toimialakapteenit',
+      sv: 'Branschkaptener',
+      de: 'Branchenkapitäne',
+      fr: 'Capitaines sectoriels',
+      en: 'Industry Captains',
+    },
+    'fleet-admiral': {
+      fi: 'Laivastoamiraali',
+      sv: 'Flottamiral',
+      de: 'Flottenadmiral',
+      fr: 'Amiral de flotte',
+      en: 'Fleet Admiral',
+    },
+    'fleet-admiral-icon': {
+      fi: '⚓ Laivastoamiraali',
+      sv: '⚓ Flottamiral',
+      de: '⚓ Flottenadmiral',
+      fr: '⚓ Amiral de flotte',
+      en: '⚓ Fleet Admiral',
+    },
+    'investor-relations': {
+      fi: 'Sijoittajasuhteet',
+      sv: 'Investerarrelationer',
+      de: 'Investor Relations',
+      fr: 'Relations investisseurs',
+      en: 'Investor Relations',
+    },
+    'press-releases': {
+      fi: 'Lehdistötiedotteet',
+      sv: 'Pressmeddelanden',
+      de: 'Pressemitteilungen',
+      fr: 'Communiqués de presse',
+      en: 'Press Releases',
+    },
+    'legal-hub': {
+      fi: 'Lakiasiat',
+      sv: 'Juridik',
+      de: 'Recht',
+      fr: 'Centre juridique',
+      en: 'Legal Hub',
+    },
+    'solutions-menu': {
+      fi: 'Ratkaisut ▾',
+      sv: 'Lösningar ▾',
+      de: 'Lösungen ▾',
+      fr: 'Solutions ▾',
+      en: 'Solutions ▾',
+    },
+    'fit55-menu': {
+      fi: 'Fit for 55 ▸',
+      sv: 'Fit for 55 ▸',
+      de: 'Fit for 55 ▸',
+      fr: 'Fit for 55 ▸',
+      en: 'Fit for 55 ▸',
+    },
+    fit55: {
+      fi: 'Fit for 55',
+      sv: 'Fit for 55',
+      de: 'Fit for 55',
+      fr: 'Fit for 55',
+      en: 'Fit for 55',
+    },
+    'csrd-menu': {
+      fi: 'CSRD & ESG ▸',
+      sv: 'CSRD & ESG ▸',
+      de: 'CSRD & ESG ▸',
+      fr: 'CSRD & ESG ▸',
+      en: 'CSRD & ESG ▸',
+    },
+    csrd: {
+      fi: 'CSRD & ESG',
+      sv: 'CSRD & ESG',
+      de: 'CSRD & ESG',
+      fr: 'CSRD & ESG',
+      en: 'CSRD & ESG',
+    },
+    'compliance-menu': {
+      fi: 'Vaatimustenmukaisuus ▸',
+      sv: 'Regelefterlevnad ▸',
+      de: 'Compliance ▸',
+      fr: 'Conformité ▸',
+      en: 'Compliance Hub ▸',
+    },
+    compliance: {
+      fi: 'Vaatimustenmukaisuus',
+      sv: 'Regelefterlevnad',
+      de: 'Compliance',
+      fr: 'Conformité',
+      en: 'Compliance Hub',
+    },
+    'trust-center': {
+      fi: 'Luottamuskeskus',
+      sv: 'Förtroendecenter',
+      de: 'Vertrauenszentrum',
+      fr: 'Centre de confiance',
+      en: 'Trust Center',
+    },
+    'dual-use': {
+      fi: 'Kaksikäyttö & Puolustus (Aegis)',
+      sv: 'Dual-Use & Försvar (Aegis)',
+      de: 'Dual-Use & Verteidigung (Aegis)',
+      fr: 'Double usage & Défense (Aegis)',
+      en: 'Dual-Use & Defence (Aegis)',
+    },
+    'interruption-calc': {
+      fi: 'Keskeytyslaskuri',
+      sv: 'Avbrottsberäknare',
+      de: 'Unterbrechungsrechner',
+      fr: "Calculateur d'interruption",
+      en: 'Interruption Calculator',
+    },
+    'integrations-menu': {
+      fi: 'Integraatiot ▸',
+      sv: 'Integrationer ▸',
+      de: 'Integrationen ▸',
+      fr: 'Intégrations ▸',
+      en: 'Integrations ▸',
+    },
+    'all-integrations': {
+      fi: 'Kaikki yritysintegraatiot',
+      sv: 'Alla företagsintegrationer',
+      de: 'Alle Unternehmensintegrationen',
+      fr: 'Toutes les intégrations',
+      en: 'All Enterprise Integrations',
+    },
+    construction: {
+      fi: 'Rakentaminen',
+      sv: 'Bygg',
+      de: 'Bauwesen',
+      fr: 'Construction',
+      en: 'Construction',
+    },
+    logistics: {
+      fi: 'Logistiikka',
+      sv: 'Logistik',
+      de: 'Logistik',
+      fr: 'Logistique',
+      en: 'Logistics',
+    },
+    manufacturing: {
+      fi: 'Valmistus',
+      sv: 'Tillverkning',
+      de: 'Fertigung',
+      fr: 'Fabrication',
+      en: 'Manufacturing',
+    },
+    energy: { fi: 'Energia', sv: 'Energi', de: 'Energie', fr: 'Énergie', en: 'Energy' },
+    healthcare: {
+      fi: 'Terveydenhuolto',
+      sv: 'Hälsovård',
+      de: 'Gesundheitswesen',
+      fr: 'Santé',
+      en: 'Healthcare',
+    },
+    'real-estate': {
+      fi: 'Kiinteistöt',
+      sv: 'Fastigheter',
+      de: 'Immobilien',
+      fr: 'Immobilier',
+      en: 'Real Estate',
+    },
+    'fleet-mgmt': {
+      fi: 'Ajoneuvokalusto',
+      sv: 'Fordonsflotta',
+      de: 'Flottenmanagement',
+      fr: 'Gestion de flotte',
+      en: 'Fleet Management',
+    },
+    'public-sector': {
+      fi: 'Julkinen sektori',
+      sv: 'Offentlig sektor',
+      de: 'Öffentlicher Sektor',
+      fr: 'Secteur public',
+      en: 'Public Sector',
+    },
+    'synthetic-data': {
+      fi: 'Synteettiset dataratkaisut',
+      sv: 'Syntetiska datalösningar',
+      de: 'Synthetische Datenlösungen',
+      fr: 'Solutions de données synthétiques',
+      en: 'Synthetic Data Solutions',
+    },
+    'products-menu': {
+      fi: 'Tuotteet ▾',
+      sv: 'Produkter ▾',
+      de: 'Produkte ▾',
+      fr: 'Produits ▾',
+      en: 'Products ▾',
+    },
+    loading: {
+      fi: 'Ladataan tuotteita…',
+      sv: 'Laddar produkter…',
+      de: 'Produkte werden geladen…',
+      fr: 'Chargement des produits…',
+      en: 'Loading products…',
+    },
+    'price-list': {
+      fi: 'Näytä koko hinnasto →',
+      sv: 'Visa fullständig prislista →',
+      de: 'Komplette Preisliste →',
+      fr: 'Liste complète des prix →',
+      en: 'View full Price List →',
+    },
+    'buy-store': { fi: 'Kauppa', sv: 'Butik', de: 'Shop', fr: 'Boutique', en: 'Buy / Store' },
+    'about-menu': {
+      fi: 'Tietoa ▾',
+      sv: 'Om oss ▾',
+      de: 'Über uns ▾',
+      fr: 'À propos ▾',
+      en: 'About ▾',
+    },
+    team: { fi: 'Tiimi', sv: 'Team', de: 'Team', fr: 'Équipe', en: 'Team' },
+    'partner-tiers': {
+      fi: 'Kumppanustasot ▸',
+      sv: 'Partnernivåer ▸',
+      de: 'Partnerstufen ▸',
+      fr: 'Niveaux partenaires ▸',
+      en: 'Partner Tiers ▸',
+    },
+    'partner-program': {
+      fi: 'Kumppaniohjelma',
+      sv: 'Partnerprogram',
+      de: 'Partnerprogramm',
+      fr: 'Programme partenaire',
+      en: 'Partner Program',
+    },
+    'book-meeting': {
+      fi: '📅 Varaa tapaaminen',
+      sv: '📅 Boka möte',
+      de: '📅 Termin buchen',
+      fr: '📅 Réserver',
+      en: '📅 Book Meeting',
+    },
+    investor: {
+      fi: 'Sijoittaja ▸',
+      sv: 'Investerare ▸',
+      de: 'Investor ▸',
+      fr: 'Investisseur ▸',
+      en: 'Investor ▸',
+    },
+    'captain-seats': {
+      fi: 'Kapteenipaikat',
+      sv: 'Kaptenplatser',
+      de: 'Kapitänsplätze',
+      fr: 'Sièges de capitaine',
+      en: 'Industry Captain Seats',
+    },
+    'regulatory-notice': {
+      fi: 'Sääntelyilmoitus',
+      sv: 'Regulatoriskt meddelande',
+      de: 'Regulatorischer Hinweis',
+      fr: 'Avis réglementaire',
+      en: 'Regulatory Notice',
+    },
+    'lifetime-group': {
+      fi: 'Lifetime-konserni ▸',
+      sv: 'Lifetime-koncernen ▸',
+      de: 'Lifetime-Gruppe ▸',
+      fr: 'Groupe Lifetime ▸',
+      en: 'Lifetime Group ▸',
+    },
+    roadmap: {
+      fi: 'Tiekartta',
+      sv: 'Färdplan',
+      de: 'Roadmap',
+      fr: 'Feuille de route',
+      en: 'DWS Roadmap',
+    },
+    'menu-title': { fi: 'Valikko', sv: 'Meny', de: 'Menü', fr: 'Menu', en: 'Menu' },
+    'enterprise-offers': {
+      fi: 'Yritystarjoukset',
+      sv: 'Företagserbjudanden',
+      de: 'Unternehmensangebote',
+      fr: 'Offres entreprise',
+      en: 'Enterprise Offers',
+    },
+    'fleet-overview': {
+      fi: 'Kaluston yleiskuva',
+      sv: 'Flottöversikt',
+      de: 'Flottenübersicht',
+      fr: 'Aperçu de la flotte',
+      en: 'Fleet Overview',
+    },
+    'lifetime-fleet': {
+      fi: 'Lifetime Fleet ▸',
+      sv: 'Lifetime Fleet ▸',
+      de: 'Lifetime Fleet ▸',
+      fr: 'Lifetime Fleet ▸',
+      en: 'Lifetime Fleet ▸',
+    },
+    // Product-dropdown category headers (rendered dynamically, translated via tagged span)
+    'cat-platform': {
+      fi: 'Alusta & Tuotteet',
+      sv: 'Plattform & Produkter',
+      de: 'Plattform & Produkte',
+      fr: 'Plateforme & Produits',
+      en: 'Platform & Products',
+    },
+    'cat-ai-cloud': {
+      fi: 'Tekoäly & Pilvi',
+      sv: 'AI & Moln',
+      de: 'KI & Cloud',
+      fr: 'IA & Cloud',
+      en: 'AI & Cloud',
+    },
+    'cat-advisory': {
+      fi: 'Asiantuntijaneuvonta & Koulutus',
+      sv: 'Expertråd & Utbildning',
+      de: 'Expertenberatung & Schulung',
+      fr: 'Conseil & Formation',
+      en: 'Expert Advisory & Training',
+    },
+    'cat-digital': {
+      fi: 'Digitaaliset palvelut',
+      sv: 'Digitala tjänster',
+      de: 'Digitale Dienste',
+      fr: 'Services numériques',
+      en: 'Digital Services',
+    },
+    'cat-hardware': {
+      fi: 'Suvereeni laitteisto',
+      sv: 'Suverän hårdvara',
+      de: 'Souveräne Hardware',
+      fr: 'Matériel souverain',
+      en: 'Sovereign Hardware',
+    },
+    'cat-add-on': { fi: 'Lisäosat', sv: 'Tillägg', de: 'Add-ons', fr: 'Modules', en: 'Add-ons' },
+  };
+
+  var NAV_TEXT_MAP = {
+    'Home ▾': 'home-menu',
+    'Main Page': 'main-page',
+    'Industries Hub': 'industries-hub',
+    'Company ▸': 'company',
+    Careers: 'careers',
+    Partners: 'partners',
+    'Industry Captains': 'industry-captains',
+    'Fleet Admiral': 'fleet-admiral',
+    '⚓ Fleet Admiral': 'fleet-admiral-icon',
+    'Investor Relations': 'investor-relations',
+    'Press Releases': 'press-releases',
+    'Legal Hub': 'legal-hub',
+    'Solutions ▾': 'solutions-menu',
+    'Fit for 55 ▸': 'fit55-menu',
+    'Fit for 55': 'fit55',
+    'CSRD & ESG ▸': 'csrd-menu',
+    'CSRD & ESG': 'csrd',
+    'Compliance Hub ▸': 'compliance-menu',
+    'Compliance Hub': 'compliance',
+    'Trust Center': 'trust-center',
+    'Dual-Use & Defence (Aegis)': 'dual-use',
+    Keskeytyslaskuri: 'interruption-calc',
+    'Integrations ▸': 'integrations-menu',
+    'All Enterprise Integrations': 'all-integrations',
+    Construction: 'construction',
+    Logistics: 'logistics',
+    Manufacturing: 'manufacturing',
+    Energy: 'energy',
+    Healthcare: 'healthcare',
+    'Real Estate': 'real-estate',
+    'Fleet Management': 'fleet-mgmt',
+    'Public Sector': 'public-sector',
+    'Synthetic Data Solutions': 'synthetic-data',
+    'Products ▾': 'products-menu',
+    'Loading products…': 'loading',
+    'View full Price List →': 'price-list',
+    'Buy / Store': 'buy-store',
+    'About ▾': 'about-menu',
+    Team: 'team',
+    'Partner Tiers ▸': 'partner-tiers',
+    'Partner Program': 'partner-program',
+    '📅 Book Meeting': 'book-meeting',
+    'Investor ▸': 'investor',
+    'Industry Captain Seats': 'captain-seats',
+    'Regulatory Notice': 'regulatory-notice',
+    'Lifetime Group ▸': 'lifetime-group',
+    'DWS Roadmap': 'roadmap',
+    Menu: 'menu-title',
+    'Enterprise Offers': 'enterprise-offers',
+    'Fleet Overview': 'fleet-overview',
+    'Lifetime Fleet ▸': 'lifetime-fleet',
+  };
+
+  function navT(key, lang) {
+    var tr = NAV_I18N[key];
+    return (tr && (tr[lang] || tr.en)) || key;
+  }
+
+  function applyNavLang(lang) {
+    document.querySelectorAll('[data-i18n-nav]').forEach(function (el) {
+      // Only translate text-only elements; never clobber nested <img>/<svg>/<small> children
+      if (el.children.length) return;
+      var key = el.getAttribute('data-i18n-nav');
+      var tr = NAV_I18N[key];
+      if (tr && tr[lang]) el.textContent = tr[lang];
+    });
+  }
+
+  function tagNavElements() {
+    var header = document.querySelector('.ironclad-header');
+    if (!header) return;
+    header
+      .querySelectorAll('a, .ironclad-mobile-title, .ironclad-products-loading')
+      .forEach(function (el) {
+        if (el.children.length) return;
+        var text = el.textContent.trim();
+        var key = NAV_TEXT_MAP[text];
+        if (key && !el.getAttribute('data-i18n-nav')) {
+          el.setAttribute('data-i18n-nav', key);
+        }
+      });
+  }
+
   // Navigation HTML (Gamma-aligned with hamburger support)
   const navHTML = `
 <!-- DWS10.com Iron Clad / Gamma Navigation v3.9 (Mobile Hamburger) -->
@@ -137,7 +579,7 @@
                                     <ul class="ironclad-submenu">
                                         <li><a href="${contentBase}lifetime-fleet/">Fleet Overview</a></li>
                                         <li><a href="${contentBase}lifetime-fleet/optimus-v3/">Optimus V3</a></li>
-                                        <li><a href="${contentBase}lifetime-fleet/nvidia-isv/" class="ironclad-highlight">NVIDIA ISV Partner</a></li>
+                                        <li><a href="${contentBase}lifetime-fleet/nvidia-isv/" class="ironclad-highlight">NVIDIA infrastructure</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -191,6 +633,17 @@
                         <li><a href="${contentBase}world-model/" style="color:#8b5cf6;font-weight:700;">🧠 Lifetime World Model V1</a></li>
                         <li class="ironclad-separator"></li>
                         <li class="ironclad-has-submenu">
+                            <a href="${contentBase}industries/" class="ironclad-primary">Industry Stack ▸</a>
+                            <ul class="ironclad-submenu">
+                                <li><a href="${contentBase}industries/" class="ironclad-primary">Industries Hub (25)</a></li>
+                                <li class="ironclad-separator"></li>
+                                <li style="padding:6px 20px;color:#64748b;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Toolkit + LLM → World Model + Infrastructure</li>
+                                <li><a href="${contentBase}products/dgx-spark.html">DGX Spark (On-Prem)</a></li>
+                                <li><a href="${contentBase}products/situation-room.html">Situation Room</a></li>
+                                <li><a href="${contentBase}products/edge-node-gn100.html">Control Room (GN100)</a></li>
+                            </ul>
+                        </li>
+                        <li class="ironclad-has-submenu">
                             <a href="${contentBase}enterprise-integrations/" class="ironclad-primary">Integrations ▸</a>
                             <ul class="ironclad-submenu">
                                 <li><a href="${contentBase}enterprise-integrations/" class="ironclad-primary">All Enterprise Integrations</a></li>
@@ -224,6 +677,7 @@
                     <a href="#" class="ironclad-link">About ▾</a>
                     <ul class="ironclad-dropdown">
                         <li><a href="https://onelifetime.world" target="_blank">Lifetime World</a></li>
+                        <li><a href="https://onelifetime.world/blog/" class="ironclad-primary">📰 LSJ Business Blog</a></li>
                         <li><a href="${contentBase}team/">Team</a></li>
                         <li><a href="${contentBase}careers/">Careers</a></li>
                         <li class="ironclad-has-submenu">
@@ -1151,9 +1605,11 @@
             }),
           );
 
+          const curLang = localStorage.getItem('dws-lang') || 'en';
           const html = orderedCats
             .map(function (cat) {
-              const label = CATEGORY_LABELS[cat] || cat;
+              const catKey = 'cat-' + cat;
+              const label = NAV_I18N[catKey] ? navT(catKey, curLang) : CATEGORY_LABELS[cat] || cat;
               const items = buckets[cat]
                 .slice()
                 .sort(function (a, b) {
@@ -1173,7 +1629,9 @@
               return (
                 '<li class="ironclad-has-submenu">' +
                 '<a href="#" class="ironclad-primary">' +
-                escHtml(label) +
+                (NAV_I18N['cat-' + cat]
+                  ? '<span data-i18n-nav="cat-' + cat + '">' + escHtml(label) + '</span>'
+                  : escHtml(label)) +
                 ' <small style="color:#64748b;font-weight:400;">(' +
                 buckets[cat].length +
                 ')</small> ▸</a>' +
@@ -1196,6 +1654,8 @@
             'buy/">Buy / Store</a></li>';
           menu.dataset.productsMenu = 'loaded';
           attachMobileToggles(menu);
+          tagNavElements();
+          applyNavLang(localStorage.getItem('dws-lang') || 'en');
         })
         .catch(function (e) {
           console.warn('[ironclad-nav] products.json load failed:', e && e.message);
@@ -1265,7 +1725,11 @@
             currentPath === '/fi/index.html' ||
             currentPath === '/sv/' ||
             currentPath === '/sv/index.html';
-          if (isHomepage && LANGS_WITH_SUBDIRS.includes(lang)) {
+          if (
+            isHomepage &&
+            LANGS_WITH_SUBDIRS.includes(lang) &&
+            !document.querySelector('[data-i18n]')
+          ) {
             var targetPath = lang === 'en' ? '/' : '/' + lang + '/';
             if (currentPath !== targetPath && currentPath !== targetPath + 'index.html') {
               window.location.href = targetPath;
@@ -1287,6 +1751,25 @@
     // Language bar is a PAGE ELEMENT, not a nav/menu element.
     // Include /shared-assets/vertical-lang-bar.js directly on each page that needs it.
 
-    console.log('Iron Clad / Gamma Navigation v3.9 loaded (About ▾ → Partner Tiers ▸ flyout)');
+    // ---- 5-language i18n: tag and translate nav elements ----
+    tagNavElements();
+    applyNavLang(localStorage.getItem('dws-lang') || 'en');
+
+    window.addEventListener('dws-lang-change', function (e) {
+      var lang = e.detail && e.detail.lang;
+      if (!lang) return;
+      applyNavLang(lang);
+      var codeEl = document.querySelector('.ironclad-lang-code');
+      if (codeEl) codeEl.textContent = lang.toUpperCase();
+      document.querySelectorAll('.ironclad-lang-option').forEach(function (b) {
+        if (b.getAttribute('data-lang') === lang) {
+          b.classList.add('ironclad-lang-active');
+        } else {
+          b.classList.remove('ironclad-lang-active');
+        }
+      });
+    });
+
+    console.log('Iron Clad / Gamma Navigation v5.0 loaded (5-language i18n)');
   });
 })();

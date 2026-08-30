@@ -14,7 +14,7 @@
  */
 
 import crypto from 'crypto';
-import { Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response } from 'express';
 
 function extractBearer(authorization: string | undefined): string | undefined {
   if (!authorization) return undefined;

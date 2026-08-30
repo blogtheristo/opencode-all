@@ -60,7 +60,7 @@ class AgentVersionRegistryClass {
   private getSupabase(): SupabaseClient | null {
     if (this.supabase) return this.supabase;
     const url = process.env.SUPABASE_URL;
-    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const key = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (url && key) this.supabase = createClient(url, key);
     return this.supabase;
   }

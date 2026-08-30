@@ -72,13 +72,6 @@ interface TenantConfig {
   enabled: boolean;
 }
 
-interface AuthToken {
-  accessToken: string;
-  tokenType: string;
-  expiresAt: number;
-  scope: string;
-}
-
 // ============================================================================
 // CORS Headers
 // ============================================================================
@@ -315,14 +308,6 @@ function parseMCPRequest(body: unknown): MCPRequest {
     id: (request.id as string | number) ?? 0,
     method: request.method,
     params: request.params as Record<string, unknown> | undefined
-  };
-}
-
-function createMCPResponse(id: string | number, result: unknown): MCPResponse {
-  return {
-    jsonrpc: '2.0',
-    id,
-    result
   };
 }
 
@@ -793,7 +778,7 @@ export default {
 // Scheduled Handler for Cache Cleanup
 // ============================================================================
 
-export const scheduled: ExportedHandlerScheduledHandler<Env> = async (event, env, ctx) => {
+export const scheduled: ExportedHandlerScheduledHandler<Env> = async (event, _env, _ctx) => {
   // This runs on a cron schedule to clean up expired cache entries
   // Cloudflare KV handles TTL automatically, but we can log stats here
   console.log(`Scheduled cleanup triggered at ${event.scheduledTime}`);

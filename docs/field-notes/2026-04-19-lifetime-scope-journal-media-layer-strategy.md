@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: OpenCode | Session: opencode/lifetime-studios | Date: 2026-08-20 | Changes: Cross-reference to the new Lifetime Studios production engine. The production system (25 × 5 content matrix = 125 core topics, 800 flagship stories localized to 5 languages ≈ 4,000 versions, Business Case card format, cross-industry learning, ontology/graph/LWM self-reinforcing product model, journalistic ground rules) is now governed by `docs/LIFETIME_STUDIOS_ADMIN.md`. This note keeps its role as the distribution-mechanics strategy (LSJ positioning, LinkedIn newsletter cadence, wiring, KPIs).
   - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/salesforce-headless-slack-api-7YDPZ | Date: 2026-04-19 | Changes: Initial strategy. Defines Lifetime Scope Journal (LSJ) as the DWS media layer, establishes Lifetime Scope Monthly LinkedIn newsletter cadence, ties distribution moat to Salesforce Headless 360 / Isenberg agent-native thesis, wires the LinkedIn subscribe button onto onelifetime.world homepage + blog hero.
 
 Document Status:
@@ -106,6 +107,7 @@ Attribution uses existing onelifetime.world analytics + LinkedIn newsletter anal
 - Isenberg, G. (2026-04-19). Agent-native startup thesis reply (X/Twitter). Full text archived in this session transcript.
 - `DWS_MARKET_RESEARCH_STANDARD.md` — competitive intelligence doctrine.
 - `docs/BLOG_STANDARD.md` — blog post format + registry.
+- `docs/LIFETIME_STUDIOS_ADMIN.md` — the Lifetime Studios production engine (25 × 5 matrix, 800 flagship stories, Business Case cards, LWM product model, journalistic ground rules).
 - `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` — six-layer harness (LSJ is Layer 6: public-facing narrative).
 
 ***

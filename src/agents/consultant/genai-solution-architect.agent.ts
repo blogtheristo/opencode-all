@@ -39,8 +39,7 @@ export class GenAISolutionArchitectAgent extends BaseAgent {
       ],
       model: 'llama-3.3-70b-versatile',
       modelTier: 'heavy',
-      autonomyPhase: 'advisor',
-      notify: { channels: ['in_app'], maxPerHour: 3, maxPerDay: 10 },
+      autonomyPhase: 'silent_pilot',
     });
     this.soulPrompt = SOUL;
   }
@@ -84,7 +83,7 @@ Design the architecture including model selection, KYA configuration, agent topo
     const llmResponse = await this.callLLM(prompt);
     const durationMs = Date.now() - startTime;
 
-    let parsed: Record<string, unknown> = {};
+    let parsed: Record<string, unknown>;
     try {
       parsed = JSON.parse(llmResponse.content);
     } catch {

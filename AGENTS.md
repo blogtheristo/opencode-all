@@ -80,6 +80,65 @@ The MCP Hub (`mcp-hub/server.py`) supports three workflow patterns:
 2. **Reflection Pattern**: Self-review and iterative improvement
 3. **Sequential Pattern**: Step-by-step task execution with dependencies
 
+### Runtime Selection: OpenCode + DGX Primary, Claude Code Standby
+
+> **Platform Strategy (2026-08-13):** OpenCode + DGX Spark is the default runtime for all new development and scheduled agent work. Claude Code serves as a **hot standby** (<10% usage) for rapid recovery if OpenCode is unavailable.
+
+#### Primary Platform
+
+**OpenCode + VS Code** (default runtime)
+
+- **Inference backend:** DGX Spark (NVIDIA Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x)
+- **IDE:** VS Code with OpenCode Connector + remote DGX development
+- **MCP servers:** Identical config to Claude Code (`.opencode/settings.json`)
+- **Usage pattern:** All new interactive development, skill iteration, ad-hoc debugging
+
+**When to use:**
+
+- New feature branches or refactoring work
+- One-off analysis, reporting, or data extraction
+- Scheduled background jobs (cron, CI/CD pipelines)
+- Long-running agent loops (>1 hour execution)
+- Any work that can be serialized into `.claude/handoffs/` for later resumption
+
+#### Standby Platform
+
+**Claude Code** (<10% usage, hot standby)
+
+- **Inference backend:** Claude API (Anthropic)
+- **IDE:** Claude Code CLI / Web / IDE extensions
+- **MCP servers:** Identical config to OpenCode (`.claude/settings.json`)
+- **Usage pattern:** Failover only; not the default for new work
+
+**When to use:**
+
+- OpenCode/DGX unavailable or degraded
+- Rapid session recovery (continue interrupted work via `.claude/handoffs/`)
+- Complex reasoning tasks requiring Claude's extended thinking
+- Any work already in-flight on Claude Code (do not force migration mid-task)
+
+#### Switching Criteria
+
+| Scenario                   | Action                         | Rationale                                                   |
+| -------------------------- | ------------------------------ | ----------------------------------------------------------- |
+| Starting new work          | Use OpenCode + DGX             | Standard default runtime                                    |
+| OpenCode MCP fails         | Resume in Claude Code          | Pre-tested failover path, same MCP config                   |
+| DGX node offline           | Failover to Claude             | Continuity; use `.claude/handoffs/` to hand off             |
+| Extended thinking needed   | Optionally use Claude          | Claude's reasoning > OpenCode for complex analysis          |
+| Session interrupted        | Resume via `.claude/handoffs/` | State already serialized; platform-agnostic switch          |
+| Scheduled job fails on DGX | Retry on Claude                | Scheduled-task failover (documented in `DGX_DEPLOYMENT.md`) |
+
+#### MCP Interface Compatibility
+
+Both platforms share identical MCP server configurations:
+
+- `dws-gateway-local`
+- `dws-agents-local`
+- GitHub, Google Drive, Figma, Supabase (if applicable)
+- Custom enterprise tools (MCP server listings in `.mcp.json`)
+
+**Guarantee:** A skill or routine written for OpenCode requires zero changes to run on Claude Code, provided it does not rely on platform-specific features (e.g., DGX GPU access).
+
 ---
 
 ## 2. Lifetime Scope Signals Protocol
@@ -473,8 +532,8 @@ Code-backed agents (one `*.agent.ts` per row). This table is verified against
 the filesystem by `scripts/verify-agents-md.mjs` — keep it in sync when adding
 or removing an agent.
 
-| Agent                      | Role                                              | Implementation                                                                                                                                                                                          | Default model |
-| -------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| Agent                      | Role                                              | Implementation                                                                                                                                                                                                                                                                                                      | Default model |
+| -------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `agora`                    | Collective intelligence / multi-agent consensus   |
 | `argus`                    | Geospatial SAR signal intelligence (orbital)      |
 | `auditor`                  | Audit trail + explainability (XAI)                |
@@ -495,15 +554,19 @@ or removing an agent.
 | `mnemosyne`                | Long-term memory oracle                           |
 | `panacea`                  | Self-improving / adaptive optimization            |
 | `quality-gate`             | Quality-gate / QA verification                    |
-| `industry-analyst`         | IndustryAnalystAgent                              | Universal 25-industry analyst — regulatory exposure, emission profile, and decarbonization levers for any EU-regulated industry; fills the coverage gap for the 12 industries without a dedicated agent | Llama 3.3 70B |
-| `outreach-executor`        | OutreachExecutorAgent                             | Delivers approved outreach threads via email (Amazon SES) or queues LinkedIn drafts for human delivery. Requires explicit human approval (approvedBy) before sending.                                   | Llama 3.3 70B |
-| `outreach-improver`        | OutreachImproverAgent                             | Outer loop of the DWS outreach self-improvement system. Analyzes outreach_threads outcomes from Supabase and proposes specific SKILL.md diffs to improve response rates over time.                      | Llama 3.3 70B |
-| `outreach-lead-finder`     | OutreachLeadFinderAgent                           | Finds and scores high-intent EU enterprise leads matching an ICP. Upserts results to Supabase outreach_orgs. Powered by DGX Spark Ollama.                                                               | Llama 3.3 70B |
-| `outreach-message-crafter` | OutreachMessageCrafterAgent                       | Crafts personalized email + LinkedIn message drafts for B2B leads using DWS brand voice and DGX Spark Ollama. Stores drafts to Supabase outreach_threads.                                               | Llama 3.3 70B |
-| `outreach-orchestrator`    | OutreachOrchestratorAgent                         | Full outreach pipeline: find high-intent leads → craft personalized messages → queue for review. Step 3 (send) requires explicit human approval.                                                        | Llama 3.3 70B |
-| `aegis`                    | AegisAgent                                        | Vulnerability & patch governance — triages dependency and code-scan findings                                                                                                                            | Llama 3.3 70B |
-| `helpdesk`                 | HelpdeskAgent                                     | Support ticket triage agent. Reads ticket + customer plan + prior tickets + policy KB,                                                                                                                  | Llama 3.3 70B |
-| `vesta`                    | VestaAgent                                        | Business-critical systems registry — queryable form of docs/BUSINESS_CRITICAL_SYSTEMS.md.                                                                                                               | Llama 3.3 70B |
+| `hic-content-audit` | HicContentAuditAgent | Binary pre-publication audit against the DWS Content Production Standard — 13 checklist points, Approved/To be corrected, requires a named HIC approver | Llama 3.3 70B |
+| `version-audit` | VersionAuditAgent | Audits DWS IQ 6 component versions, agent configurations, and ensures compliance  | Llama 3.3 70B |
+| `industry-analyst`         | IndustryAnalystAgent                              | Universal 25-industry analyst — regulatory exposure, emission profile, and decarbonization levers for any EU-regulated industry; fills the coverage gap for the 12 industries without a dedicated agent                                                                                                             | Llama 3.3 70B |
+| `outreach-executor`        | OutreachExecutorAgent                             | Delivers approved outreach threads via email (Amazon SES) or queues LinkedIn drafts for human delivery. Requires explicit human approval (approvedBy) before sending.                                                                                                                                               | Llama 3.3 70B |
+| `outreach-improver`        | OutreachImproverAgent                             | Outer loop of the DWS outreach self-improvement system. Analyzes outreach_threads outcomes from Supabase and proposes specific SKILL.md diffs to improve response rates over time.                                                                                                                                  | Llama 3.3 70B |
+| `outreach-lead-finder`     | OutreachLeadFinderAgent                           | Finds and scores high-intent EU enterprise leads matching an ICP. Upserts results to Supabase outreach_orgs. Powered by DGX Spark Ollama.                                                                                                                                                                           | Llama 3.3 70B |
+| `outreach-message-crafter` | OutreachMessageCrafterAgent                       | Crafts personalized email + LinkedIn message drafts for B2B leads using DWS brand voice and DGX Spark Ollama. Stores drafts to Supabase outreach_threads.                                                                                                                                                           | Llama 3.3 70B |
+| `outreach-orchestrator`    | OutreachOrchestratorAgent                         | Full outreach pipeline: find high-intent leads → craft personalized messages → queue for review. Step 3 (send) requires explicit human approval.                                                                                                                                                                    | Llama 3.3 70B |
+| `sales-manager-newsletter` | SalesManagerNewsletterAgent                       | Synthesizes market_signals (regulation) + news-to-signal.sh incident data into the sales-manager.md Story → Key Takeaway → Sales Opportunity format. Refuses to generate below minStories; sales targets constrained to EU_TARGET_UNIVERSE (no invented company names). Read-only — Stage 3 script writes the file. | Llama 3.3 70B |
+| `smart-factory`   | SmartFactoryAgent                                 | Smart Factory for Sales: matches any-size product catalog against sourced prospects, runs rate-capped multi-channel outreach (email / WhatsApp Cloud API; LinkedIn + Facebook human-in-the-loop), and books calls into booking_reservations. Backed by `src/smart-factory/` (migration 083).                                                                                          | Llama 3.3 70B |
+| `aegis`                    | AegisAgent                                        | Vulnerability & patch governance — triages dependency and code-scan findings                                                                                                                                                                                                                                        | Llama 3.3 70B |
+| `helpdesk`                 | HelpdeskAgent                                     | Support ticket triage agent. Reads ticket + customer plan + prior tickets + policy KB,                                                                                                                                                                                                                              | Llama 3.3 70B |
+| `vesta`                    | VestaAgent                                        | Business-critical systems registry — queryable form of docs/BUSINESS_CRITICAL_SYSTEMS.md.                                                                                                                                                                                                                           | Llama 3.3 70B |
 | `sales-outreach`           | B2B lead research & personalized outreach         |
 | `schedule-genius`          | Timeline & critical-path optimization             |
 | `sitesense`                | Site monitoring & safety analysis                 |
@@ -559,7 +622,7 @@ cost_tracking:
 **Terminology.** Two execution substrates exist (or are being evaluated) for running DWS agent workloads:
 
 - **Claude Managed Agents** — Anthropic's hosted agent-execution service (public beta as of this writing, `managed-agents-2026-04-01`). Anthropic runs the session/sandbox/tool loop on its own infrastructure; DWS sends events and receives results. Distinct from the raw Messages API, the Tool Runner (`client.beta.messages.tool_runner`, self-hosted loop), and the Claude Agent SDK (self-hosted library) — see Anthropic documentation for the full surface comparison.
-- **DGX Managed Agents** (this repo's term for the existing self-hosted substrate) — the Godagent architecture (`docs/Deputy-Agents-Architecture.md`) running on DGX Spark hardware (Acer Veriton GN100, NVIDIA GB10 Superchip, `docs/CLOUD_ENVIRONMENTS.md` §3.2.2), Docker + Dockerode container isolation per tenant/agent, Qwen 2.5 72B primary LLM with Claude Haiku fallback via LiteLLM, orchestrated through `infrastructure/dgx-spark/docker-compose.yml` and the `cron` / `ollama-spark` skills. This is already the platform's primary 24/7 runtime (`Cron-works.md`: 31 daily + 16 weekly jobs).
+- **DGX Managed Agents** (this repo's term for the existing self-hosted substrate) — the self-hosted agent architecture documented in `docs/Deputy-Agents-Architecture.md`, running on DGX Spark hardware (Acer Veriton GN100, NVIDIA GB10 Superchip, `docs/CLOUD_ENVIRONMENTS.md` §3.2.2), Docker + Dockerode container isolation per tenant/agent, Qwen 2.5 72B primary LLM with Claude Haiku fallback via LiteLLM, orchestrated through `infrastructure/dgx-spark/docker-compose.yml` and the `cron` / `ollama-spark` skills. This is already the platform's primary 24/7 runtime (`Cron-works.md`: 31 daily + 16 weekly jobs).
 
 ### 8.1 Comparison
 
@@ -610,7 +673,7 @@ This mirrors the standing decision already recorded for Firehorse Dreaming (`.cl
 
 Only after Phase 1 produces real cost/latency numbers: decide whether Claude Managed Agents becomes a standing overflow tier for exempt agents (burst capacity when DGX Spark's queue/VRAM is saturated) or gets shelved. Do not pre-build multi-agent Managed Agents routing before that data exists (Rule 2 — simplicity first).
 
-**Explicitly out of scope for Managed Agents (stays on DGX by design):** all Godagent/industry-specialist agents (`src/agents/workflow/industry/`), every agent on the non-exempt Ledger-Native list, and all DGX Spark cron-scheduled jobs — sovereignty, cost, and the existing Article 12 audit chain all argue against moving these.
+**Explicitly out of scope for Managed Agents (stays on DGX by design):** all self-hosted industry-specialist agents (`src/agents/workflow/industry/`), every agent on the non-exempt Ledger-Native list, and all DGX Spark cron-scheduled jobs — sovereignty, cost, and the existing Article 12 audit chain all argue against moving these.
 
 ---
 
@@ -675,6 +738,10 @@ These are the pre-existing skills in `skills/`. See `docs/DWS_SKILLS_GUIDE.md` f
 ### Common Commands
 
 ```bash
+# Agent Worktree Isolation (WORKTREE_POLICY.md — MANDATORY for agent commits)
+# Agents never commit from the primary checkout; each task gets its own worktree:
+scripts/new-opencode-worktree.sh <task-name> [base-branch] [--launch]
+
 # V1.0 Agent Coordination
 cd .workflows/agents
 node coordinator.cjs status           # All agent statuses
@@ -706,8 +773,13 @@ cd mcp-hub && python server.py
 
 ### Timeline
 
+> **Stale as of 2026-08-22:** the Feb 23, 2026 launch countdown below predates the
+> launch window and is no longer maintained here. Current roadmap lives in
+> `DWS7_ROADMAP.md` / `DWS8_ROADMAP.md` / `DWS9_ROADMAP.md`. Retained per Rule 12
+> until the V1.0 completion table above is formally retired.
+
 - **Launch Date:** February 23, 2026
-- **Days Remaining:** 51
+- **Days Remaining:** 51 (frozen — countdown expired)
 - **Estimated Work:** 41-56 days
 - **Buffer:** -5 to 10 days
 
@@ -721,7 +793,7 @@ cd mcp-hub && python server.py
 - [CloudAgents/dws-team/README.md](CloudAgents/dws-team/README.md) - Internal agents
 - [AgentFoundry/README.md](AgentFoundry/README.md) - Customer-facing agents
 - [ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md](ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md) - Design Audit Agent usage guide
-- [docs/Deputy-Agents-Architecture.md](docs/Deputy-Agents-Architecture.md) - DGX Managed Agents (Godagent) architecture, referenced in §8
+- [docs/Deputy-Agents-Architecture.md](docs/Deputy-Agents-Architecture.md) - DGX Managed Agents self-hosted architecture, referenced in §8
 - [docs/CLOUD_ENVIRONMENTS.md](docs/CLOUD_ENVIRONMENTS.md) - DGX Spark as primary compute (§3.2.2), referenced in §8
 
 ---
@@ -751,22 +823,28 @@ Or source the `.env` file properly in your shell. The `.env.example` has these p
 
 ### Known pre-existing issues
 
-- **TypeScript build (`npm run build`)**: Has pre-existing type errors in `booking.routes.ts`, `erp-tracking.routes.ts`, `browser.ts`, `gtm-client.ts`. The project uses `tsx watch` for dev, not `tsc`.
+- **TypeScript build (`npm run build`)**: Clean as of 2026-08-22 (`tsc --noEmit` passes; `npm run typecheck`). Earlier type errors in `booking.routes.ts`, `erp-tracking.routes.ts`, `browser.ts`, `gtm-client.ts` have been resolved.
 - **Dashboard ESLint (`npm run lint` in v10-react)**: Missing `parent-module` transitive dependency from `import-fresh` → ESLint 9.39 issue. Does not affect Vite dev server or build.
+- **Backend ESLint**: Configured 2026-08-22 (`eslint.config.mjs`, `npm run lint` / `lint:fix`). The ~766-warning legacy debt was paid down to **8 documented exceptions** on 2026-08-22 and the paid-off rules promoted to `error` — new violations of those rules now fail the gate. Remaining warns: static-only classes with test-coupled public APIs (×5), Express `namespace` type augmentation (×2), one Cloudflare edge-runtime console (×1). Do not add new errors.
 - **Redis warnings**: Backend logs Redis connection errors at startup (expected without Redis running). The app degrades gracefully.
 - **Supabase "degraded"**: Without real Supabase credentials, `/health` reports degraded status. The server still starts and responds to requests.
+- ~~**dotenv import-ordering bug**:~~ RESOLVED 2026-08-22. `src/config/env.ts` now loads dotenv at first import and validates via zod; `app.ts` imports it before anything else, so `npm run dev` no longer requires pre-exported env vars. Services that read env at module load should use `getEnv()` from `../config/env.js`.
 
 ### Tests
 
-Run tests from workspace root: `npx vitest run`. Tests are self-contained and do not require external services. 53/56 test files pass; 4 failures are pre-existing in the compliance-agent-integration suite.
+Run tests from workspace root: `npx vitest run`. Tests are self-contained and do not require external services. As of 2026-08-22: 102 test files pass (1 skipped), 1164 tests pass (3 skipped) — the previously failing compliance-agent-integration suite has been fixed. Coverage: `npm run test:coverage` (v8 provider; thresholds 60% statements / 50% branches / 55% functions / 60% lines).
 
 ### Lint
 
-Root backend has `"lint": "echo \"No linter configured\""` — no real linter. Dashboard linting has the upstream dependency issue noted above.
+Root backend has a real ESLint flat config (`eslint.config.mjs`) — run `npm run lint` / `npm run lint:fix`. As of 2026-08-22 the gate is strict: 0 errors / 8 documented warnings. Dashboard linting has the upstream dependency issue noted above.
+
+### Code TODOs
+
+All real `// TODO` markers in `src/` are triaged in [`docs/backlog/CODE_TODO_LEDGER.md`](docs/backlog/CODE_TODO_LEDGER.md) — largest cluster is billing lifecycle notifications (13 items). Audit with `rg -n "// TODO" src`.
 
 ---
 
-**Document Version:** 1.1  
-**Last Updated:** July 12, 2026  
+**Document Version:** 1.3  
+**Last Updated:** August 25, 2026  
 **Status:** Active  
-**Next Review:** January 10, 2026
+**Next Review:** October 10, 2026

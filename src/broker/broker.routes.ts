@@ -27,7 +27,7 @@
  *   - Other agents' tokens or scopes.
  */
 
-import { Router, type Request, type Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 
 import logger from '../utils/logger.js';
 import { authenticateBrokerToken, hasScope } from './capability-tokens.js';

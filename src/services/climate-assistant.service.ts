@@ -20,13 +20,13 @@
  *
  * Budget:  DAILY_BUDGET_USD = $1.00/day combined
  * Max:     MAX_TOKENS per response = 1024
- * Tracking: persisted in Supabase (survives cold starts + multi-instance)
+ * Tracking: persisted in internal Postgres (DGX Spark) — survives cold starts + multi-instance
  *
  * Code-Version: 3.0.0
  * Introduced-In: claude/friendly-lichterman-bfa19d (Cloud Run migration)
  */
 
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { getInternalDbPool } from '../config/internal-db.js';
 import logger from '../utils/logger.js';
 
 // ============ CONFIGURATION ============
@@ -54,28 +54,6 @@ const DAILY_BUDGET_USD = 1.0;
 // Max tokens per response (keep responses concise)
 const MAX_TOKENS = 1024;
 
-// ============ SUPABASE CLIENT ============
-
-let supabase: SupabaseClient | null = null;
-
-/**
- * Initialize Supabase client (lazy)
- */
-function getSupabaseClient(): SupabaseClient | null {
-  if (supabase) return supabase;
-
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
-
-  if (!supabaseUrl || !supabaseKey) {
-    logger.warn('Supabase not configured. Usage tracking disabled.');
-    return null;
-  }
-
-  supabase = createClient(supabaseUrl, supabaseKey);
-  return supabase;
-}
-
 // ============ USAGE TRACKING ============
 
 interface DailyUsage {
@@ -87,42 +65,35 @@ interface DailyUsage {
 }
 
 /**
- * Get today's usage from Supabase
+ * Get today's usage from the internal Postgres pool.
  * Returns zero-usage object if no record exists yet today
  * Returns null only on database errors (fail-open scenario)
  */
 async function getTodaysUsage(): Promise<DailyUsage | null> {
-  const client = getSupabaseClient();
-  if (!client) return null; // Supabase not configured
+  const pool = getInternalDbPool();
+  if (!pool) return null; // Internal Postgres not configured
 
   const today = new Date().toISOString().split('T')[0];
 
   try {
-    const { data, error } = await client
-      .from('climate_assistant_usage')
-      .select('*')
-      .eq('date', today)
-      .single();
+    const result = await pool.query(`SELECT * FROM climate_assistant_usage WHERE date = $1`, [
+      today,
+    ]);
 
-    if (error) {
-      if (error.code === 'PGRST116') {
-        // No record found for today - return zero usage (expected scenario)
-        return {
-          date: today,
-          input_tokens: 0,
-          output_tokens: 0,
-          requests: 0,
-          cost_usd: 0,
-        };
-      }
-      // Database error - log and return null (fail-open)
-      logger.error('Error fetching usage from Supabase', { error });
-      return null;
+    if (result.rows.length === 0) {
+      // No record found for today - return zero usage (expected scenario)
+      return {
+        date: today,
+        input_tokens: 0,
+        output_tokens: 0,
+        requests: 0,
+        cost_usd: 0,
+      };
     }
 
-    return data as DailyUsage;
-  } catch (error: any) {
-    logger.error('Exception fetching usage', { error: error.message });
+    return result.rows[0] as DailyUsage;
+  } catch (error) {
+    logger.error('Exception fetching usage', { error: error instanceof Error ? error.message : String(error) });
     return null; // Fail-open on exception
   }
 }
@@ -142,8 +113,8 @@ function getCost(usage: DailyUsage | null): number {
 async function isBudgetExceeded(): Promise<boolean> {
   const usage = await getTodaysUsage();
   if (!usage) {
-    // If Supabase is not available, allow requests (fail open)
-    logger.warn('Usage tracking unavailable (Supabase error), allowing request');
+    // If the internal Postgres pool is not available, allow requests (fail open)
+    logger.warn('Usage tracking unavailable (internal Postgres error), allowing request');
     return false;
   }
 
@@ -152,13 +123,13 @@ async function isBudgetExceeded(): Promise<boolean> {
 }
 
 /**
- * Track token usage in Supabase
+ * Track token usage in the internal Postgres pool.
  * Returns updated usage record or null on error
  */
 async function trackUsage(inputTokens: number, outputTokens: number): Promise<DailyUsage | null> {
-  const client = getSupabaseClient();
-  if (!client) {
-    logger.warn('Supabase not available, skipping usage tracking');
+  const pool = getInternalDbPool();
+  if (!pool) {
+    logger.warn('Internal Postgres not available, skipping usage tracking');
     return null;
   }
 
@@ -167,22 +138,17 @@ async function trackUsage(inputTokens: number, outputTokens: number): Promise<Da
 
   try {
     // Use atomic increment function to handle concurrent requests
-    const { data, error } = await client.rpc('increment_climate_usage', {
-      usage_date: today,
-      input_tokens_delta: inputTokens,
-      output_tokens_delta: outputTokens,
-      cost_delta: cost,
-    });
+    const result = await pool.query(
+      `SELECT * FROM increment_climate_usage(
+         usage_date => $1, input_tokens_delta => $2, output_tokens_delta => $3, cost_delta => $4
+       )`,
+      [today, inputTokens, outputTokens, cost],
+    );
 
-    if (error) {
-      logger.error('Error tracking usage in Supabase', { error });
-      return null;
-    }
-
-    const usage = data as DailyUsage;
+    const usage = result.rows[0] as DailyUsage;
     const dailyCost = getCost(usage);
 
-    logger.info('Usage tracked in Supabase', {
+    logger.info('Usage tracked in internal Postgres', {
       inputTokens,
       outputTokens,
       dailyCost: `$${dailyCost.toFixed(4)}`,
@@ -192,8 +158,8 @@ async function trackUsage(inputTokens: number, outputTokens: number): Promise<Da
     });
 
     return usage;
-  } catch (error: any) {
-    logger.error('Exception tracking usage', { error: error.message });
+  } catch (error) {
+    logger.error('Exception tracking usage', { error: error instanceof Error ? error.message : String(error) });
     return null;
   }
 }
@@ -318,18 +284,22 @@ export async function processMessage(request: ChatRequest): Promise<ChatResponse
         dailyBudget: DAILY_BUDGET_USD,
       },
     };
-  } catch (error: any) {
+  } catch (error) {
     // Rate limit — return friendly message rather than throwing
-    if (error.code === 'RATE_LIMITED') {
-      logger.warn('All providers rate-limited', { message: error.message });
+    const isRateLimited =
+      typeof error === 'object' && error !== null && 'code' in error && (error as { code: unknown }).code === 'RATE_LIMITED';
+    if (isRateLimited) {
+      logger.warn('All providers rate-limited', { message: error instanceof Error ? error.message : String(error) });
       return {
         content:
           "I'm currently rate-limited by my inference providers. Please try again in a minute.",
         model: 'rate-limited',
       };
     }
-    logger.error('Inference error (all providers failed)', { error: error.message });
-    throw new Error(error.message || 'Failed to process message. Please try again.');
+    logger.error('Inference error (all providers failed)', { error: error instanceof Error ? error.message : String(error) });
+    throw new Error(error instanceof Error ? error.message : String(error) || 'Failed to process message. Please try again.', {
+      cause: error,
+    });
   }
 }
 
@@ -402,9 +372,9 @@ async function callInference(
 
   if (rateLimited) {
     const finalError = lastError as Error | null;
-    const err: any = new Error(finalError?.message || 'All providers rate-limited');
-    err.code = 'RATE_LIMITED';
-    throw err;
+    throw Object.assign(new Error(finalError?.message || 'All providers rate-limited'), {
+      code: 'RATE_LIMITED',
+    });
   }
   throw (lastError as Error | null) || new Error('No inference provider available');
 }
@@ -429,7 +399,7 @@ async function callNIM(
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    const err: any = new Error(
+    const err: Error & { code?: string } = new Error(
       `NVIDIA NIM API error (${response.status}): ${JSON.stringify(errorData)}`,
     );
     if (response.status === 429) err.code = 'RATE_LIMITED';
@@ -471,7 +441,9 @@ async function callGroq(
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    const err: any = new Error(`Groq API error (${response.status}): ${JSON.stringify(errorData)}`);
+    const err: Error & { code?: string } = new Error(
+      `Groq API error (${response.status}): ${JSON.stringify(errorData)}`,
+    );
     if (response.status === 429) err.code = 'RATE_LIMITED';
     else if (response.status >= 500) err.code = 'RETRYABLE';
     throw err;

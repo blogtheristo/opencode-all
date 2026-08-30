@@ -1,17 +1,18 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import {
+  createDiffusionGemmaClient,
   DEFAULT_DIFFUSIONGEMMA_MODEL,
   DIFFUSIONGEMMA_MODEL_ID,
   DIFFUSIONGEMMA_SPEC,
   DIFFUSIONGEMMA_THROUGHPUT,
   MAX_BLOCK_TOKENS,
-  createDiffusionGemmaClient,
   resolveDiffusionGemmaBaseUrl,
   resolveDiffusionGemmaConfig,
   resolveDiffusionGemmaModel,
   resolveDiffusionParams,
 } from '../agents/diffusiongemma.js';
-import { MODEL_CATALOG, selectModel } from '../agents/model-selector.js';
+import {
+  MODEL_CATALOG, OLLAMA_DEPLOYED_MODELS, selectModel } from '../agents/model-selector.js';
 
 const ENV_KEYS = [
   'DIFFUSIONGEMMA_BASE_URL',
@@ -35,14 +36,14 @@ const originalEnv = Object.fromEntries(ENV_KEYS.map((key) => [key, process.env[k
 >;
 
 function clearEnv(): void {
-  for (const key of ENV_KEYS) delete process.env[key];
+  for (const key of ENV_KEYS) Reflect.deleteProperty(process.env, key);
 }
 
 function resetEnv(): void {
   for (const key of ENV_KEYS) {
     const original = originalEnv[key];
     if (original === undefined) {
-      delete process.env[key];
+      Reflect.deleteProperty(process.env, key);
     } else {
       process.env[key] = original;
     }
@@ -161,14 +162,14 @@ describe('qwen3.6-35b-a3b local tool-calling model', () => {
     expect(selection.isLocal).toBe(true);
   });
 
-  it('falls through to qwen2.5:32b on an Ollama-only heavy host', () => {
+  it('falls through to the deployed Ollama deep model on an Ollama-only heavy host', () => {
     clearEnv();
     process.env.OLLAMA_BASE_URL = 'http://localhost:11434/v1';
 
     // No vLLM endpoint → the NVFP4 vllm-local entry is unavailable, so the
     // older Ollama (GGUF) local takes over rather than jumping to cloud.
     const selection = selectModel('atlas');
-    expect(selection.modelId).toBe('qwen2.5:32b');
+    expect(selection.modelId).toBe(OLLAMA_DEPLOYED_MODELS.deep);
     expect(selection.provider).toBe('ollama-local');
   });
 });

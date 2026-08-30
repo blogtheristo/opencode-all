@@ -127,10 +127,10 @@ export function CommandPalette() {
 
       {/* Palette */}
       <div className="relative max-w-lg mx-auto mt-[15vh]">
-        <div className="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
+        <div className="bg-surface rounded-xl shadow-2xl border border-border overflow-hidden">
           {/* Search input */}
-          <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-100">
-            <span className="text-gray-400 text-sm">🔎</span>
+          <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
+            <span className="text-fg-muted text-sm">🔎</span>
             <input
               ref={inputRef}
               type="text"
@@ -138,9 +138,9 @@ export function CommandPalette() {
               onChange={(e) => { setQuery(e.target.value); setSelectedIndex(0); }}
               onKeyDown={handleKeyDown}
               placeholder="Search pages, agents, actions..."
-              className="flex-1 text-sm text-gray-900 placeholder-gray-400 outline-none bg-transparent"
+              className="flex-1 text-sm text-foreground placeholder-fg-muted outline-none bg-transparent"
             />
-            <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-gray-100 text-gray-500 rounded border border-gray-200">
+            <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-border text-fg-muted rounded border border-border">
               ESC
             </kbd>
           </div>
@@ -148,12 +148,12 @@ export function CommandPalette() {
           {/* Results */}
           <div className="max-h-80 overflow-y-auto py-2">
             {flatFiltered.length === 0 && (
-              <p className="text-center text-sm text-gray-400 py-6">No results found</p>
+              <p className="text-center text-sm text-fg-muted py-6">No results found</p>
             )}
 
             {Object.entries(grouped).map(([category, items]) => (
               <div key={category}>
-                <p className="px-4 py-1 text-[10px] font-semibold text-gray-400 uppercase tracking-wider">
+                <p className="px-4 py-1 text-[10px] font-semibold text-fg-muted uppercase tracking-wider">
                   {CATEGORY_LABELS[category] || category}
                 </p>
                 {items.map((item) => {
@@ -166,12 +166,12 @@ export function CommandPalette() {
                       className={`w-full text-left px-4 py-2 flex items-center gap-3 transition-colors ${
                         globalIdx === selectedIndex
                           ? 'bg-primary-50 text-primary-700'
-                          : 'text-gray-700 hover:bg-gray-50'
+                          : 'text-foreground hover:bg-background'
                       }`}
                     >
                       <span className="text-sm font-medium">{item.label}</span>
                       {item.description && (
-                        <span className="text-xs text-gray-400 truncate">{item.description}</span>
+                        <span className="text-xs text-fg-muted truncate">{item.description}</span>
                       )}
                     </button>
                   );
@@ -181,10 +181,10 @@ export function CommandPalette() {
           </div>
 
           {/* Footer */}
-          <div className="px-4 py-2 border-t border-gray-100 flex items-center gap-4 text-[10px] text-gray-400">
-            <span><kbd className="font-mono bg-gray-100 px-1 rounded">&uarr;&darr;</kbd> navigate</span>
-            <span><kbd className="font-mono bg-gray-100 px-1 rounded">&crarr;</kbd> select</span>
-            <span><kbd className="font-mono bg-gray-100 px-1 rounded">esc</kbd> close</span>
+          <div className="px-4 py-2 border-t border-border flex items-center gap-4 text-[10px] text-fg-muted">
+            <span><kbd className="font-mono bg-border px-1 rounded">&uarr;&darr;</kbd> navigate</span>
+            <span><kbd className="font-mono bg-border px-1 rounded">&crarr;</kbd> select</span>
+            <span><kbd className="font-mono bg-border px-1 rounded">esc</kbd> close</span>
           </div>
         </div>
       </div>

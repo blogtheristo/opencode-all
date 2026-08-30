@@ -18,6 +18,7 @@ import type {
   ConstructionLeadsData,
   HilTodosData,
   LearnArtifactsData,
+  MarketSignalsData,
   OutreachSummaryData,
   SendListItem,
   WebLeadsData,
@@ -169,8 +170,29 @@ function renderOutreachSummaryPlainText(summary: OutreachSummaryData): string {
 // SECTION RENDERERS
 // ============================================================================
 
+const NO_DATA_STRINGS = new Set([
+  'No pipeline movement',
+  'No product signals captured',
+  'No delivery changes',
+]);
+
 function renderChanges(data: CockpitData): string {
   const { changes } = data;
+
+  // If all three sub-fields are the generic "nothing happened" fallback, don't
+  // pad the email with three repeated empty-looking rows — say it once.
+  if (
+    NO_DATA_STRINGS.has(changes.pipeline) &&
+    NO_DATA_STRINGS.has(changes.product) &&
+    NO_DATA_STRINGS.has(changes.delivery)
+  ) {
+    return `
+    <tr><td style="padding: 12px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 6px; font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 1.5px;">3 Changes</h3>
+      <p style="margin: 0; font-size: 12px; color: #555;">No live pipeline/product/delivery activity to report.</p>
+    </td></tr>`;
+  }
+
   return `
     <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
       <h3 style="margin: 0 0 10px; font-size: 12px; color: #00d4aa; text-transform: uppercase; letter-spacing: 1.5px;">3 Changes</h3>
@@ -297,11 +319,10 @@ function renderReplyMailto(
   color: string,
   token: string,
   command: string,
-  replyTo: string,
 ): string {
   const subject = `Re: [T:${token}] ${command}`;
   const body = `T:${token} ${command}\n\n--\nSent via Morning Briefing reply link.`;
-  const url = `mailto:${encodeURIComponent(replyTo)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const url = `https://dws10.com/contact/?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   return `<a href="${url}" style="display:inline-block;padding:4px 10px;margin:2px 3px 2px 0;background:${color};color:#fff;text-decoration:none;font-weight:600;border-radius:4px;font-size:10px;letter-spacing:0.3px;">${esc(label)}</a>`;
 }
 
@@ -377,8 +398,8 @@ function renderSendList(
         if (replyTo) {
           buttons +=
             ' &nbsp; ' +
-            renderReplyMailto('Park', '#6b7280', item.thread_token, 'park', replyTo) +
-            renderReplyMailto('Pass', '#7c2d12', item.thread_token, 'pass', replyTo);
+            renderReplyMailto('Park', '#6b7280', item.thread_token, 'park') +
+            renderReplyMailto('Pass', '#7c2d12', item.thread_token, 'pass');
         }
       }
 
@@ -613,6 +634,53 @@ function renderConstructionLeadsPlainText(data: ConstructionLeadsData): string {
 }
 
 // ============================================================================
+// MARKET SIGNALS SECTION
+// ============================================================================
+
+function renderMarketSignalsHtml(data: MarketSignalsData): string {
+  if (data.signals.length === 0) return '';
+
+  const rows = data.signals
+    .map((s) => {
+      const scoreColor =
+        s.cascade_score >= 60 ? '#ff4444' : s.cascade_score >= 40 ? '#ffaa00' : '#888';
+      const title = s.title.length > 90 ? s.title.slice(0, 87) + '...' : s.title;
+      const industries = s.industries
+        ? s.industries
+            .split(',')
+            .map((i) => i.trim())
+            .join(', ')
+        : '';
+      return `<div style="padding: 6px 0; border-bottom: 1px solid #1a1a1a;">
+          <div style="font-size: 13px; color: #e0e0e0;">
+            <span style="color: ${scoreColor}; font-size: 10px; font-weight: 600;">${s.cascade_score}</span>
+            ${s.dual_use ? '<span style="color: #ff4444; font-size: 10px;"> [DUAL-USE]</span>' : ''}
+            ${esc(title)}
+          </div>
+          <div style="font-size: 11px; color: #666; margin-top: 2px;">${esc(industries)}</div>
+        </div>`;
+    })
+    .join('');
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #ff4444; text-transform: uppercase; letter-spacing: 1.5px;">Market Signals</h3>
+      ${rows}
+    </td></tr>`;
+}
+
+function renderMarketSignalsPlainText(data: MarketSignalsData): string {
+  if (data.signals.length === 0) return '';
+  const lines: string[] = ['MARKET SIGNALS'];
+  for (const s of data.signals) {
+    const title = s.title.length > 80 ? s.title.slice(0, 77) + '...' : s.title;
+    lines.push(`  [${s.cascade_score}]${s.dual_use ? ' [DUAL-USE]' : ''} ${title}`);
+    if (s.industries) lines.push(`    ${s.industries}`);
+  }
+  return lines.join('\n') + '\n';
+}
+
+// ============================================================================
 // CAPTAIN INQUIRIES SECTION
 // ============================================================================
 
@@ -646,7 +714,7 @@ function renderCaptainInquiriesHtml(data: CaptainInquiriesData): string {
           <span style="color: #555;"> — ${esc(inq.industry)}</span>
         </div>
         <div style="font-size: 11px; color: #888; margin-top: 2px;">
-          <a href="mailto:${esc(inq.email)}" style="color: #60a5fa; text-decoration: none;">${esc(inq.email)}</a>
+          <a href="https://dws10.com/contact/" style="color: #60a5fa; text-decoration: none;">${esc(inq.email)}</a>
           &nbsp;|&nbsp; ${time}
         </div>
         ${msgLine}
@@ -702,7 +770,7 @@ function renderWebLeadsHtml(data: WebLeadsData): string {
           <strong>${esc(who)}</strong>${ctxLine}
         </div>
         <div style="font-size: 11px; color: #888; margin-top: 2px;">
-          <a href="mailto:${esc(lead.email)}" style="color: #60a5fa; text-decoration: none;">${esc(lead.email)}</a>
+          <a href="https://dws10.com/contact/" style="color: #60a5fa; text-decoration: none;">${esc(lead.email)}</a>
           &nbsp;|&nbsp; ${time}
         </div>
         ${msgLine}
@@ -999,6 +1067,7 @@ export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
     </tr>
 
     ${renderOutreachSummaryHtml(data.outreachSummary)}
+    ${renderMarketSignalsHtml(data.marketSignals)}
     ${renderCaptainInquiriesHtml(data.captainInquiries)}
     ${renderWebLeadsHtml(data.webLeads)}
     ${renderChanges(data)}
@@ -1041,6 +1110,12 @@ export function buildCockpitPlainText(data: CockpitData): string {
   const outreachText = renderOutreachSummaryPlainText(data.outreachSummary);
   if (outreachText) {
     lines.push(outreachText);
+  }
+
+  // Market Signals
+  const marketSignalsText = renderMarketSignalsPlainText(data.marketSignals);
+  if (marketSignalsText) {
+    lines.push(marketSignalsText);
   }
 
   // Captain Inquiries

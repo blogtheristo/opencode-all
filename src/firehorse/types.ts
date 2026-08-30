@@ -37,6 +37,7 @@ export enum EventType {
   StateChanged = 'StateChanged',
   TaskCreated = 'TaskCreated',
   linkedin_dm_skipped = 'linkedin_dm_skipped',
+  linkedin_dm_queued = 'linkedin_dm_queued',
 }
 
 export enum TaskType {
@@ -89,7 +90,7 @@ export interface Event {
   id: string;
   lead_id: string;
   event_type: EventType;
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
   created_at: Date;
 }
 
@@ -183,7 +184,7 @@ export interface ChangeStateAction {
 export interface LogEventAction {
   event_type: EventType;
   lead_id: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface CreateTaskAction {

@@ -15,7 +15,7 @@
  * Agent code does not need to check whether tracing is enabled.
  */
 
-import { SpanKind, SpanStatusCode, trace, type Span } from '@opentelemetry/api';
+import { type Span, SpanKind, SpanStatusCode, trace } from '@opentelemetry/api';
 
 const TRACER_NAME = 'dws-iq-7';
 
@@ -225,11 +225,12 @@ export function recordLLMResponse(
 /** Wrap a tool invocation. Outcome is set by caller on success/error. */
 export async function withToolSpan<T>(
   toolName: string,
-  attrs: { agentName?: string; chainPosition?: number; chainLength?: number },
+  attrs: { agentName?: string; chainPosition?: number; chainLength?: number; kya?: KYAVerdict },
   fn: (span: Span) => Promise<T>,
 ): Promise<T> {
   return tracer().startActiveSpan(`tool.${toolName}`, { kind: SpanKind.INTERNAL }, async (span) => {
     span.setAttribute('dws.tool.name', toolName);
+    stampKYAVerdict(span, attrs.kya);
     if (attrs.agentName) span.setAttribute('dws.agent.name', attrs.agentName);
     if (attrs.chainPosition !== undefined) {
       span.setAttribute('dws.tool.chain_position', attrs.chainPosition);

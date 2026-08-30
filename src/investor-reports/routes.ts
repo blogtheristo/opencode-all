@@ -3,10 +3,11 @@
  * Monthly/Quarterly Reports, MRR/ARR Metrics, Runway Analysis
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { metricsService } from './metrics-calculation';
 import { reportService } from './report-service';
-import { InvestorReportData, ReportPeriod } from './types';
+import { type InvestorReportData } from './types';
+import logger from '../utils/logger.js';
 
 const router = Router();
 
@@ -67,7 +68,7 @@ router.get('/metrics', async (req: Request, res: Response) => {
       timestamp: new Date(),
     });
   } catch (error) {
-    console.error('Error fetching investor metrics:', error);
+    logger.error('Error fetching investor metrics:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -90,7 +91,7 @@ router.get('/metrics/mrr', async (req: Request, res: Response) => {
       timestamp: new Date(),
     });
   } catch (error) {
-    console.error('Error fetching MRR metrics:', error);
+    logger.error('Error fetching MRR metrics:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -113,7 +114,7 @@ router.get('/metrics/arr', async (req: Request, res: Response) => {
       timestamp: new Date(),
     });
   } catch (error) {
-    console.error('Error fetching ARR metrics:', error);
+    logger.error('Error fetching ARR metrics:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -136,7 +137,7 @@ router.get('/metrics/customers', async (req: Request, res: Response) => {
       timestamp: new Date(),
     });
   } catch (error) {
-    console.error('Error fetching customer metrics:', error);
+    logger.error('Error fetching customer metrics:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -145,7 +146,7 @@ router.get('/metrics/customers', async (req: Request, res: Response) => {
  * Get sales pipeline metrics (from Firehorse)
  * GET /investor-reports/metrics/pipeline
  */
-router.get('/metrics/pipeline', async (req: Request, res: Response) => {
+router.get('/metrics/pipeline', async (_req: Request, res: Response) => {
   try {
     const pipelineMetrics = await metricsService.getPipelineMetrics();
 
@@ -155,7 +156,7 @@ router.get('/metrics/pipeline', async (req: Request, res: Response) => {
       timestamp: new Date(),
     });
   } catch (error) {
-    console.error('Error fetching pipeline metrics:', error);
+    logger.error('Error fetching pipeline metrics:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -178,7 +179,7 @@ router.get('/metrics/runway', async (req: Request, res: Response) => {
       timestamp: new Date(),
     });
   } catch (error) {
-    console.error('Error fetching runway metrics:', error);
+    logger.error('Error fetching runway metrics:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -187,7 +188,7 @@ router.get('/metrics/runway', async (req: Request, res: Response) => {
  * Get unit economics (CAC, LTV, ARPU)
  * GET /investor-reports/metrics/unit-economics
  */
-router.get('/metrics/unit-economics', async (req: Request, res: Response) => {
+router.get('/metrics/unit-economics', async (_req: Request, res: Response) => {
   try {
     const unitEconomics = await metricsService.getUnitEconomics();
 
@@ -197,7 +198,7 @@ router.get('/metrics/unit-economics', async (req: Request, res: Response) => {
       timestamp: new Date(),
     });
   } catch (error) {
-    console.error('Error fetching unit economics:', error);
+    logger.error('Error fetching unit economics:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -222,7 +223,7 @@ router.get('/historical/mrr', async (req: Request, res: Response) => {
       timestamp: new Date(),
     });
   } catch (error) {
-    console.error('Error fetching historical MRR:', error);
+    logger.error('Error fetching historical MRR:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -243,7 +244,7 @@ router.get('/historical/arr', async (req: Request, res: Response) => {
       timestamp: new Date(),
     });
   } catch (error) {
-    console.error('Error fetching historical ARR:', error);
+    logger.error('Error fetching historical ARR:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -252,7 +253,7 @@ router.get('/historical/arr', async (req: Request, res: Response) => {
  * Get monthly metrics summary (last 12 months)
  * GET /investor-reports/summary
  */
-router.get('/summary', async (req: Request, res: Response) => {
+router.get('/summary', async (_req: Request, res: Response) => {
   try {
     const summary = await metricsService.getMonthlyMetricsSummary(12);
 
@@ -262,7 +263,7 @@ router.get('/summary', async (req: Request, res: Response) => {
       timestamp: new Date(),
     });
   } catch (error) {
-    console.error('Error fetching monthly summary:', error);
+    logger.error('Error fetching monthly summary:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -271,7 +272,7 @@ router.get('/summary', async (req: Request, res: Response) => {
  * Get current MRR breakdown by customer
  * GET /investor-reports/mrr-by-customer
  */
-router.get('/mrr-by-customer', async (req: Request, res: Response) => {
+router.get('/mrr-by-customer', async (_req: Request, res: Response) => {
   try {
     const mrrByCustomer = await metricsService.getCurrentMRRByCustomer();
 
@@ -281,7 +282,7 @@ router.get('/mrr-by-customer', async (req: Request, res: Response) => {
       timestamp: new Date(),
     });
   } catch (error) {
-    console.error('Error fetching MRR by customer:', error);
+    logger.error('Error fetching MRR by customer:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -314,15 +315,15 @@ router.post('/generate', async (req: Request, res: Response) => {
       await reportService.sendReportEmail(reportData, pdfPath, recipients);
     }
 
-    res.json({
+    return res.json({
       success: true,
       report_id: reportData.report_period.toISOString(),
       pdf_path: pdfPath,
       message: auto_send ? 'Report generated and sent' : 'Report generated',
     });
   } catch (error) {
-    console.error('Error generating report:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    logger.error('Error generating report:', error);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -330,7 +331,7 @@ router.post('/generate', async (req: Request, res: Response) => {
  * Manually trigger monthly report generation (for current month)
  * POST /investor-reports/jobs/monthly
  */
-router.post('/jobs/monthly', async (req: Request, res: Response) => {
+router.post('/jobs/monthly', async (_req: Request, res: Response) => {
   try {
     const now = new Date();
     const currentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -352,7 +353,7 @@ router.post('/jobs/monthly', async (req: Request, res: Response) => {
       recipients: defaultRecipients,
     });
   } catch (error) {
-    console.error('Error running monthly report job:', error);
+    logger.error('Error running monthly report job:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -361,7 +362,7 @@ router.post('/jobs/monthly', async (req: Request, res: Response) => {
  * Health check endpoint
  * GET /investor-reports/health
  */
-router.get('/health', async (req: Request, res: Response) => {
+router.get('/health', async (_req: Request, res: Response) => {
   res.json({
     success: true,
     status: 'healthy',

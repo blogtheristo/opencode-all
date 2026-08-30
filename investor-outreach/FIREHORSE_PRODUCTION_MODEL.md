@@ -1,13 +1,13 @@
 # Firehorse Production Model — Investor Briefing
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
-
+Version: 1.3
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Added Section 7 Top 10 Breakthroughs (KYA, Carbon Debit-Credit, Harness Engineering, Aegis, Pantheon, Cross-Vertical Intelligence, Article 12, OpenSandbox, Brain-Memory-Body-Hands, Firehorse Omnichannel) — all verified against shipped production code
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Added Section 6 "You Could Build This With ChatGPT" objection handler — the factory vs tool argument, forward-looking model generation thesis (Opus 4.7+), competitive moat framing for investor conversations
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Initial creation — Firehorse Production Model investor briefing documenting the systematic product iteration engine, AI tooling strategy, product evolution from CSRD to Aegis, and academic validation (Metropolia 2026, LUT PhD 2027 planned)
@@ -24,7 +24,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
----
+***
 
 **Company:** Lifetime Oy (Y-tunnus: 0772407-9)
 **Author:** Risto Anton Päärni, CEO & Founder
@@ -130,7 +130,7 @@ The Firehorse Production Model produced a clear evolution arc, each stage buildi
 
 - Simple compliance report generation for Finnish construction companies
 - Manual data collection, template-based output
-- First paying customers: Uber Finland, Bolt, Kela
+- First dispatch-operator counterparties of the licensed transport business: Uber Finland, Bolt, Kela — not software customers
 
 ### Stage 2: Platform Emergence (Q1 2026)
 
@@ -264,7 +264,7 @@ Every model generation brings a step-change in capability. When Opus 4.5 arrived
 - The regulatory data (validated EU ETS/CBAM/CSRD sources, not hallucinated numbers)
 - The cross-vertical intelligence (25 industries feeding one world model)
 - The academic validation (thesis + planned PhD)
-- The customer feedback loops (6 customers, 100% retention, real compliance data)
+- The customer feedback loops (two contracted enterprise pilots, real compliance data)
 
 They have a blank prompt and a subscription. We have a factory.
 
@@ -280,7 +280,7 @@ By the time Series A conversations begin (Q3–Q4 2026):
 
 - The production model will have academic validation (published thesis)
 - 25+ customers across multiple industries will prove cross-vertical viability
-- DWS IQ Aegis launch (August 2026) will demonstrate dual-use market expansion
+- DWS IQ Aegis (preorder; GA September 2026; pre-revenue) will demonstrate dual-use market expansion
 - PhD research plan (LUT 2027) signals long-term IP development trajectory
 - At least one more model generation (Opus 4.7 or equivalent) will have been absorbed by the production model, demonstrating the compounding thesis in practice
 
@@ -313,7 +313,7 @@ Everything below is live in production code with TypeScript implementations, dat
 
 ## 8. Summary
 
-The Firehorse Production Model is not a methodology slide in a pitch deck. It is a **working production system** that has shipped 32 products, 10 verified breakthroughs, serves 6 paying customers with 100% retention, and is academically validated through a master's thesis at Metropolia University.
+The Firehorse Production Model is not a methodology slide in a pitch deck. It is a **working production system** that has shipped 32 products, 10 verified breakthroughs, serves two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked), and is academically validated through a master's thesis at Metropolia University.
 
 Most AI startups talk about what their AI can do. We codified **how** we use AI to build products — and that system is the real asset.
 

@@ -39,21 +39,33 @@ Infrastructure as Code (IaC) for training the Lifetime World Model, supporting b
 
 ```
 infrastructure/llm-training/
+├── configs/                         # Reference training configs (YAML)
+│   ├── gn100-8b-qlora.yaml         # On-prem GN100 reference (Llama 3.1 8B QLoRA)
+│   ├── 70b-lora.yaml               # 70B QLoRA (hybrid GN100 / GCP)
+│   ├── 70b-full.yaml               # 70B full fine-tune (GCP A3 Mega only)
+│   └── smoke-cpu.yaml              # Tiny CPU smoke config (tests)
+│
 ├── local/                           # Local training infrastructure
-│   ├── docker-compose.training.yml  # Container orchestration
-│   └── .env.training.example        # Environment configuration
+│   └── docker-compose.training.yml  # Container orchestration
 │
 ├── gcp-burst/                       # Google Cloud infrastructure
 │   ├── main.tf                      # Terraform configuration
 │   └── training.tfvars.example      # Variables
 │
 ├── scripts/                         # Training & utility scripts
-│   ├── train-70b-lora.py           # LoRA fine-tuning script
+│   ├── train-70b-lora.py           # LoRA/QLoRA fine-tuning (CLI + YAML, --dry-run)
+│   ├── evaluate.py                  # Eval harness -> JSON score report
 │   ├── quantize.py                  # Model quantization
 │   └── sync-to-gcp.ps1             # Checkpoint sync
 │
+├── tests/                           # pytest — config intent + CPU smoke fine-tune
+├── requirements.txt                 # Runtime deps (torch from NGC container)
+├── requirements-dev.txt             # + pytest
 └── README.md                        # This file
 ```
+
+On-prem deploy to the Acer GN100 is driven by `scripts/deploy-acer-training.sh`
+(repo root); see `Admin/Acer-Veriton-GN100/TRAINING_RUNBOOK.md`.
 
 ## Quick Start
 
@@ -192,10 +204,25 @@ Training (GN-100/GCP)  →  Fine-tuned Model  →  Groq Cloud (Inference)
 - Model weights are **your IP** - full ownership retained
 - Audit logging enabled for all training runs (MLflow)
 
+## Status
+
+**Delivered + CI-tested (this repo):**
+- ✅ QLoRA/LoRA trainer with reference configs, eval step, `--dry-run`, and
+  off-GPU degradation (`scripts/train-70b-lora.py`, `configs/`)
+- ✅ Eval harness + seed eval set (`scripts/evaluate.py`, `evals/`)
+- ✅ Test suite — config-intent + an end-to-end CPU smoke fine-tune that writes a
+  checkpoint (`tests/`, run with `pytest infrastructure/llm-training/tests`)
+- ✅ ARM64 training container + on-prem deploy script
+  (`Admin/Acer-Veriton-GN100/training/`, `scripts/deploy-acer-training.sh`)
+
+**Pending a hardware run (documented in `Admin/Acer-Veriton-GN100/TRAINING_RUNBOOK.md`):**
+- ⏳ First real QLoRA run on the GN100 (go-live evidence: eval report + MLflow run)
+- ⏳ GCP A3 Mega burst validation for full 70B fine-tune
+
 ## Next Steps
 
-1. **Week 1:** Set up local GN-100 cluster with Docker Compose
-2. **Week 2:** Run initial 7B/13B fine-tuning experiments
-3. **Week 3:** Validate LoRA approach on 70B (local)
-4. **Week 4:** Burst to GCP for full 70B training run
-5. **Week 5:** Quantize and deploy to Groq for inference
+1. Run `pytest infrastructure/llm-training/tests` to verify the pipeline.
+2. `scripts/deploy-acer-training.sh deploy` — build the ARM64 image on the GN100.
+3. Run an 8B QLoRA fine-tune on a real dataset; capture the eval report.
+4. Burst to GCP for a full 70B run when a customer needs it.
+5. Quantize and deploy to Groq / vLLM for inference.

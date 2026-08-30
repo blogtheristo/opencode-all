@@ -28,7 +28,7 @@ Finnish industrial AI founder with 35+ years of enterprise software and ICT infr
 ## Signature Elements
 
 - "Double-entry bookkeeping for CO2" — key metaphor
-- Numbers anchor every claim: €7K MRR, 100% retention, €333K edge savings
+- Numbers anchor every claim: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked) plus four smaller landed accounts; ~€7,000/month services and transport revenue (licensed transport operation + consulting — **not** software revenue), cash break-even at a founder salary of €0. No retention rate is asserted. Canonical source: `docs/TRACTION_CANONICAL.md`
 - Compliance as infrastructure, not software
 - Finnish patriot building for Europe's sovereignty
 - Kela medical transport driver — 14h/day, 6 days/week — human credibility anchor

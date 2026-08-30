@@ -23,8 +23,35 @@
 
 set -uo pipefail
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# ─── INCIDENT HARDENING (2026-08-25 bare-flip): controlled GIT_* hygiene ─────
+# Git sets GIT_DIR/GIT_INDEX_FILE/GIT_QUARANTINE_* for hook subprocesses;
+# anything inherited here redirects every git call away from the caller's
+# worktree (observed: nocommit/detached identity, ENOLOCK, missing configs).
+# Scrub deterministically BEFORE resolving the repo root.
+for _v in GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_OBJECT_DIRECTORY \
+          GIT_ALTERNATE_OBJECT_DIRECTORIES GIT_CONFIG_COUNT \
+          GIT_CONFIG_KEY_0 GIT_CONFIG_VALUE_0 GIT_QUARANTINE_PATH; do
+  unset "$_v"
+done
+
+# Resolve to the CALLER's repository top (linked worktree when pushing from
+# one), never the main checkout — otherwise the gate tests the wrong tree
+# (incident 2026-08-24: PR #1888 push verified a dirty unrelated checkout).
+REPO_ROOT="$(git rev-parse --path-format=absolute --show-toplevel 2>/dev/null || true)"
+if [ -z "$REPO_ROOT" ]; then
+  REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+fi
 cd "$REPO_ROOT"
+
+# ─── Run-environment diagnostics (incident forensics aid) ────────────────────
+echo "local-ci env · pwd=$(pwd)"
+echo "  show-toplevel=$(git rev-parse --path-format=absolute --show-toplevel 2>&1)"
+echo "  git-dir=$(git rev-parse --git-dir 2>&1)"
+echo "  branch=$(git rev-parse --abbrev-ref HEAD 2>&1)"
+echo "  status: $(git status --short 2>/dev/null | wc -l) dirty entries"
+for _v in $(compgen -e | grep '^GIT_' || true); do
+  echo "  GIT leak: ${_v}=${!_v}"
+done
 
 AUDIT_DIR="$REPO_ROOT/.ci-audit/runs"
 mkdir -p "$AUDIT_DIR"
@@ -219,7 +246,7 @@ JSON
   echo "  hash: ${this_hash:0:16}..."
 
   # Attempt Supabase upload (best-effort, never blocks the hook)
-  if [ -n "${SUPABASE_URL:-}" ] && [ -n "${SUPABASE_SERVICE_ROLE_KEY:-}" ]; then
+  if [ -n "${SUPABASE_URL:-}" ] && { [ -n "${SUPABASE_SERVICE_KEY:-}" ] || [ -n "${SUPABASE_SERVICE_ROLE_KEY:-}" ]; }; then
     if [ -f "$REPO_ROOT/scripts/ci-audit-upload.ts" ] && command -v npx >/dev/null 2>&1; then
       echo "  → uploading to Supabase ci_audit_log ..."
       if npx --yes tsx "$REPO_ROOT/scripts/ci-audit-upload.ts" "$OUT_FILE" 2>&1 | sed 's/^/    /'; then
@@ -256,8 +283,19 @@ run_check "npm-install-check" bash -c '
   [ -d node_modules ]
 ' || true
 
-# Check 2: Vitest (primary test suite)
-run_check "vitest" npx vitest run --reporter=default || true
+# Check 2: Vitest (primary test suite) — SERIALIZED (2026-08-25 incident
+# control): concurrent vitest runs sharing one object database corrupted
+# shared git state; only one suite may hold the validation lock at a time.
+run_check "vitest" bash -c '
+  LOCK_DIR="/tmp/dws6-validation.lock"
+  WAITED=0
+  while ! mkdir "$LOCK_DIR" 2>/dev/null; do
+    sleep 1; WAITED=$((WAITED+1))
+    [ $WAITED -ge 900 ] && { echo "validation lock timeout"; exit 1; }
+  done
+  trap "rmdir \"$LOCK_DIR\" 2>/dev/null" EXIT
+  npx vitest run --reporter=default
+' || true
 
 # Check 3: Gitleaks (secret scan)
 if [ $QUICK_MODE -eq 1 ]; then

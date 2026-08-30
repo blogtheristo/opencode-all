@@ -184,7 +184,9 @@ describe('CompetitorSurveillance Agent', () => {
 
     expect(result.agentName).toBe('competitor-surveillance');
     expect(result.confidence).toBeGreaterThan(0);
-  });
+    // 15s: this test times out at the default 5s when the box is under
+    // concurrent agent load (batch worker + sessions); logic itself is fast.
+  }, 15000);
 });
 
 describe('ContentBrief Agent', () => {

@@ -1,4 +1,4 @@
-import { type Request, type Response, type NextFunction } from 'express';
+import { type NextFunction, type Request, type Response } from 'express';
 import logger from '../utils/logger.js';
 
 /**
@@ -96,7 +96,7 @@ export class ModernCSRFProtection {
           return null;
         }
         return `Origin not allowed for CSRF-protected request: ${originUrl.origin}`;
-      } catch (e) {
+      } catch {
         return 'Invalid Origin header format';
       }
     }
@@ -115,7 +115,7 @@ export class ModernCSRFProtection {
           return null;
         }
         return `Referer not allowed for CSRF-protected request: ${refererUrl.origin}`;
-      } catch (e) {
+      } catch {
         return 'Invalid Referer header format';
       }
     }

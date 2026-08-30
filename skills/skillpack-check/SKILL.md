@@ -24,11 +24,12 @@ writes-pages:
 
 # Skillpack Check — Registry Health
 
-**Three invariants.** Holds them all, exits 0; breaks any, exits non-zero and
+**Four invariants.** Holds them all, exits 0; breaks any, exits non-zero and
 prints the offenders.
 
 Based on `skillpack-check` in gbrain by Garry Tan
 (https://github.com/garrytan/gbrain/tree/master/skills/skillpack-check).
+**Source pin:** garrytan/gbrain @ VERSION 0.46.23.0, observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
 
 ## Invariants
 
@@ -38,6 +39,10 @@ Based on `skillpack-check` in gbrain by Garry Tan
    (anywhere — Section 4 for gbrain, Section 3 for gstack, Section 9 for
    discipline, etc.).
 3. Every skill folder name appears in `AGENTS.md` at least once.
+4. Every skill carrying a "Based on"/"Adapted from" external attribution also
+   carries a `**Source pin:**` line (upstream repo + version/state + observed
+   date). Closes the provenance gap found in
+   `docs/field-notes/2026-08-20-external-skill-provenance-audit.md` Finding 1.
 
 ## Usage
 

@@ -1,6 +1,10 @@
 ---
 name: agent-run
-description: Runs any named DWS IQ AI agent with structured input and returns scored results. Use when user says "run agent", "call agent", "execute [agent-name]", or mentions agents by name — sitesense, material-oracle, compliance, schedule-genius, customer-sat, viability, deepwiki-extractor, emissions-data-analyst, construction, logistics, quality-gate, competitor-surveillance, seo-audit, lead-feedback, aegis.
+description: >
+  Runs any named DWS IQ AI agent with structured input and returns scored results. Use when user
+  says "run agent", "call agent", "execute [agent-name]", or mentions an agent by name
+  (sitesense, material-oracle, compliance, schedule-genius, viability, aegis, and other
+  registered agents).
 ---
 
 Run any DWS IQ agent by name with the given input.

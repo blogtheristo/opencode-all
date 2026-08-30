@@ -21,13 +21,13 @@
 import logger from '../utils/logger.js';
 import { sendEmail as sesSendEmail } from '../utils/send-email.js';
 import {
-  welcomeTemplate,
+  bookingAdminNotificationTemplate,
+  bookingConfirmationTemplate,
+  invoiceTemplate,
+  notificationTemplate,
   passwordResetTemplate,
   reportDeliveryTemplate,
-  notificationTemplate,
-  invoiceTemplate,
-  bookingConfirmationTemplate,
-  bookingAdminNotificationTemplate,
+  welcomeTemplate,
 } from './email-templates.js';
 
 // ============================================================
@@ -165,8 +165,8 @@ class EmailService {
   }): Promise<void> {
     const { to, template, variables } = options;
 
-    let subject = '';
-    let html = '';
+    let subject: string;
+    let html: string;
 
     if (template === 'booking_confirmation') {
       subject = 'Varaus vahvistettu — Risto Anton Päärni';
@@ -314,7 +314,7 @@ class EmailService {
   /**
    * Send raw email with custom options (stub)
    */
-  async sendRawEmail(options: any): Promise<void> {
+  async sendRawEmail(options: Record<string, unknown>): Promise<void> {
     logger.debug('Stub: sendRawEmail', options);
   }
 }

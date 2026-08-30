@@ -9,6 +9,7 @@
  */
 
 import * as cron from 'node-cron';
+import logger from '../utils/logger.js';
 import {
   processCold2Candidates,
   processCold3Candidates,
@@ -27,39 +28,39 @@ export class FirehorseScheduler {
    * Start the scheduler
    */
   start(): void {
-    console.log('🚀 Starting Firehorse Scheduler...');
+    logger.info('🚀 Starting Firehorse Scheduler...');
 
     // Daily job at 08:00 - Process new leads
     this.dailyJob = cron.schedule('0 8 * * *', async () => {
-      console.log('⏰ Running daily new leads job...');
+      logger.info('⏰ Running daily new leads job...');
       try {
         await processNewLeadsDaily();
       } catch (error) {
-        console.error('Error in daily new leads job:', error);
+        logger.error('Error in daily new leads job:', error);
       }
     });
 
     // Follow-up job every 6 hours - Check for Cold 2 and Cold 3 candidates
     this.followUpJob = cron.schedule('0 */6 * * *', async () => {
-      console.log('⏰ Running follow-up job...');
+      logger.info('⏰ Running follow-up job...');
       try {
         await processCold2Candidates();
         await processCold3Candidates();
       } catch (error) {
-        console.error('Error in follow-up job:', error);
+        logger.error('Error in follow-up job:', error);
       }
     });
 
-    console.log('✅ Firehorse Scheduler started');
-    console.log('  - Daily new leads: 08:00');
-    console.log('  - Follow-ups: Every 6 hours');
+    logger.info('✅ Firehorse Scheduler started');
+    logger.info('  - Daily new leads: 08:00');
+    logger.info('  - Follow-ups: Every 6 hours');
   }
 
   /**
    * Stop the scheduler
    */
   stop(): void {
-    console.log('🛑 Stopping Firehorse Scheduler...');
+    logger.info('🛑 Stopping Firehorse Scheduler...');
 
     if (this.dailyJob) {
       this.dailyJob.stop();
@@ -69,14 +70,14 @@ export class FirehorseScheduler {
       this.followUpJob.stop();
     }
 
-    console.log('✅ Firehorse Scheduler stopped');
+    logger.info('✅ Firehorse Scheduler stopped');
   }
 
   /**
    * Run jobs manually (for testing)
    */
   async runManually(job: 'daily' | 'cold2' | 'cold3' | 'all'): Promise<void> {
-    console.log(`🔧 Running manual job: ${job}`);
+    logger.info(`🔧 Running manual job: ${job}`);
 
     try {
       switch (job) {
@@ -95,9 +96,9 @@ export class FirehorseScheduler {
           await processCold3Candidates();
           break;
       }
-      console.log('✅ Manual job completed');
+      logger.info('✅ Manual job completed');
     } catch (error) {
-      console.error('❌ Manual job failed:', error);
+      logger.error('❌ Manual job failed:', error);
       throw error;
     }
   }

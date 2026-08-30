@@ -1,3 +1,5 @@
+// Evidence: Tool=OpenCode 1.18.22 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-24
+// Audit trail: git log -- src/routes/email-webhook.routes.ts
 /**
  * Email Webhook Routes — DWS IQ 6/7 (GTM Machine Phase 2a)
  *
@@ -15,50 +17,116 @@
  * Owner: Lifetime Oy
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
+import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';
+import { confirmSubscribeUrl, verifySnsEnvelope } from '../utils/sns-verify.js';
 import { emailTrackingService } from '../services/email-tracking.service.js';
 import { getSupabaseClient } from '../config/supabase.js';
 
 const router = Router();
 
+// Unauthenticated-by-default endpoint: rate limit + strict SNS signature gate.
+const sesLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+interface RawBodyRequest extends Request {
+  rawBody?: Buffer;
+}
+
+interface SesRecipient {
+  emailAddress?: string;
+  status?: string;
+}
+
+interface SesEventBody {
+  eventType: string;
+  messageId: string;
+  bounce?: { bounceType?: string; bouncedRecipients?: SesRecipient[] };
+  delivery?: { recipients?: string[] };
+  open?: { recipient?: string; timestamp?: string };
+  click?: { recipient?: string; link?: string; timestamp?: string };
+  complaint?: { complainedRecipients?: SesRecipient[] };
+  // Flattened accessors: legacy code reads branch fields directly off `ses`.
+  bounceType?: string;
+  bouncedRecipients?: SesRecipient[];
+  recipients?: string[];
+  recipient?: string;
+  link?: string;
+  complainedRecipients?: SesRecipient[];
+  timestamp?: string;
+}
+
 /**
  * POST /webhooks/email/ses
- * SNS subscription confirmation + event notifications from Amazon SES
+ * SNS subscription confirmation + event notifications from Amazon SES.
+ *
+ * Fail-closed: every request must carry a cryptographically verified SNS
+ * envelope (SignatureVersion 1, cert pinned to *.sns.<region>.amazonaws.com).
+ * Subscription confirmations additionally GET the constrained SubscribeURL
+ * before being acknowledged. Anything else is rejected without touching
+ * tracking state.
  */
-router.post('/ses', async (req: Request, res: Response) => {
+router.post('/ses', sesLimiter, async (req: RawBodyRequest, res: Response) => {
   try {
-    const message = req.body;
-    const messageType = message.EventSource === 'aws:ses' ? message.messageType : message.Type;
+    const raw = req.rawBody;
+    if (!raw) {
+      logger.error('SES webhook: raw body unavailable for signature verification');
+      return res.status(500).json({ error: 'Raw body not captured' });
+    }
+
+    const v = await verifySnsEnvelope(raw);
+    if (!v.ok) {
+      logger.warn('SES webhook: rejected', { reason: v.error });
+      return res.status(v.status).json({ error: v.error });
+    }
+    const snsMsg = v.message;
+
+    if (snsMsg.Type === 'SubscriptionConfirmation') {
+      const confirmed = await confirmSubscribeUrl(snsMsg.SubscribeURL);
+      logger.info('SNS subscription confirmation', {
+        messageId: snsMsg.MessageId,
+        subscribeUrlConfirmed: confirmed,
+      });
+      // Only claim success when the constrained SubscribeURL was actually hit.
+      return res.status(confirmed ? 200 : 400).json({ success: confirmed });
+    }
+
+    if (snsMsg.Type === 'UnsubscribeConfirmation') {
+      logger.warn('SNS unsubscribe confirmation received — re-subscribe required', {
+        messageId: snsMsg.MessageId,
+      });
+      return res.status(200).json({ received: true });
+    }
+
+    // Notification: the SES event lives inside Message as nested JSON.
+    let message: Record<string, unknown>;
+    try {
+      message = JSON.parse(snsMsg.Message ?? '');
+    } catch {
+      return res.status(400).json({ error: 'SNS Message is not valid JSON' });
+    }
+    const messageType = (message.Type as string) ?? (message.messageType as string);
 
     logger.debug('Email webhook received', {
       messageType,
-      messageId: message.messageId,
+      messageId: snsMsg.MessageId,
     });
 
-    // Handle SNS subscription confirmation
-    if (messageType === 'SubscriptionConfirmation') {
-      logger.info('SNS subscription confirmation', { messageId: message.messageId });
-      // In production, verify and call SubscribeUrl
-      // For now, we just log it
-      return res.status(200).json({ success: true, message: 'Subscription confirmed' });
-    }
-
-    // Parse SNS message
-    let sesMessage;
-    if (message.Message) {
-      sesMessage = JSON.parse(message.Message);
-    } else {
-      sesMessage = message;
-    }
+    // The SNS envelope is verified above; `message` (parsed from the signed
+    // Message field) IS the SES event.
+    const sesMessage = message as unknown as SesEventBody;
 
     const eventType = sesMessage.eventType;
-    const ses =
-      sesMessage.bounce ||
+    const ses = (sesMessage.bounce ||
       sesMessage.delivery ||
       sesMessage.open ||
       sesMessage.click ||
-      sesMessage.complaint;
+      sesMessage.complaint) as SesEventBody;
 
     if (!eventType || !ses) {
       logger.warn('Invalid email webhook payload', { messageType, eventType });
@@ -82,7 +150,7 @@ router.post('/ses', async (req: Request, res: Response) => {
           Undetermined: 'soft',
         };
 
-        const hardOrSoft = bounceTypeMap[bounceType] || 'soft';
+        const hardOrSoft = bounceTypeMap[bounceType ?? 'Undetermined'] || 'soft';
 
         logger.warn('Email bounce', {
           email,
@@ -94,7 +162,7 @@ router.post('/ses', async (req: Request, res: Response) => {
         // Get email_id from SES message headers (X-SES-MESSAGE-ID)
         const emailId = ses.messageId || 'unknown';
 
-        await emailTrackingService.logEmailBounced(emailId, email, hardOrSoft);
+        await emailTrackingService.logEmailBounced(emailId, email ?? 'unknown', hardOrSoft);
 
         // TODO: Mark contact as invalid in Firehorse
         // TODO: Remove from future campaigns if hard bounce
@@ -153,7 +221,7 @@ router.post('/ses', async (req: Request, res: Response) => {
         template = data?.template_type ?? undefined;
       }
 
-      await emailTrackingService.logEmailOpened(emailId, email, undefined, template);
+      await emailTrackingService.logEmailOpened(emailId, email ?? 'unknown', undefined, template);
 
       return res.status(200).json({ success: true, message: 'Open event logged' });
     }
@@ -174,7 +242,7 @@ router.post('/ses', async (req: Request, res: Response) => {
       });
 
       const emailId = ses.messageId || 'unknown';
-      await emailTrackingService.logEmailClicked(emailId, email, link);
+      await emailTrackingService.logEmailClicked(emailId, email ?? 'unknown', link ?? '');
 
       return res.status(200).json({ success: true, message: 'Click event logged' });
     }
@@ -194,7 +262,7 @@ router.post('/ses', async (req: Request, res: Response) => {
         });
 
         const emailId = ses.messageId || 'unknown';
-        await emailTrackingService.logEmailComplained(emailId, email);
+        await emailTrackingService.logEmailComplained(emailId, email ?? 'unknown');
 
         // TODO: Suppress email address permanently
         // TODO: Alert Risto for manual review

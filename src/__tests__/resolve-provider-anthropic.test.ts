@@ -16,11 +16,11 @@ describe('resolveProvider — Anthropic agentModel override', () => {
 
   beforeEach(() => {
     for (const k of ENV_KEYS) saved[k] = process.env[k];
-    for (const k of ENV_KEYS) delete process.env[k];
+    for (const k of ENV_KEYS) Reflect.deleteProperty(process.env, k);
   });
 
   afterEach(() => {
-    for (const k of ENV_KEYS) delete process.env[k];
+    for (const k of ENV_KEYS) Reflect.deleteProperty(process.env, k);
     for (const [k, v] of Object.entries(saved)) {
       if (v !== undefined) process.env[k] = v;
     }

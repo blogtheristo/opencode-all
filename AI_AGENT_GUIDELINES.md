@@ -48,6 +48,7 @@ Related Documents:
 
 0. [The 12 Engineering Discipline Rules](#0-the-12-engineering-discipline-rules)
 1. [Purpose](#1-purpose)
+   1a. [Runtime Selection & Platform Strategy](#1a-runtime-selection--platform-strategy)
 2. [Agent Code Standard](#2-agent-code-standard)
 3. [Naming Conventions](#3-naming-conventions)
 4. [Documentation Requirements](#4-documentation-requirements)
@@ -93,6 +94,131 @@ This document is the single reference for building, documenting, and operating A
 - All customer-facing agents in `AgentFoundry/`
 - All internal team automation agents
 - All development agents (V1.0 sprint fleet)
+
+---
+
+## 1a. Runtime Selection & Platform Strategy
+
+**Platform Strategy (2026-08-13):** OpenCode + DGX Spark is the default runtime for all agents. Claude Code serves as a **hot standby** (<10% usage) for failover and extended-thinking tasks.
+
+### Decision Tree: Which Runtime?
+
+```
+Agent launching new work?
+├─ YES (typical case)
+│  └─ Use OpenCode + DGX Spark (default)
+│
+└─ NO, resuming interrupted work?
+   ├─ Via .claude/handoffs/?
+   │  └─ Use same platform that interrupted (or OpenCode if platform unavailable)
+   │
+   ├─ Extended thinking / complex analysis required?
+   │  └─ Use Claude Code (Anthropic inference)
+   │
+   └─ OpenCode/DGX unavailable?
+      └─ Use Claude Code (hot standby failover)
+```
+
+### Runtime-Specific Capabilities
+
+#### OpenCode + DGX Spark (Primary)
+
+**Platform:** OpenCode CLI/IDE + VS Code with OpenCode Connector + remote NVIDIA Grace Blackwell (DGX Spark)  
+**Inference:** Local on NVIDIA hardware (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm)  
+**MCP config:** `.opencode/settings.json`  
+**Typical tasks:**
+
+- Interactive development, skill iteration
+- Scheduled background jobs (cron, CI/CD pipelines)
+- Long-running agent loops
+- Data extraction, reporting, analysis
+
+**Constraints:**
+
+- GPU inference only (no fallback to CPU-based reasoning)
+- Latency: ~500ms–2s per inference (local network)
+- NVIDIA-compatible models only (NVIDIA NIM microservices)
+
+**Escalation criteria to Claude Code:**
+
+- DGX node offline or degraded
+- Task requires extended thinking beyond local capability
+- Need rapid session resumption (pre-tested Claude Code handoff)
+
+#### Claude Code (Standby)
+
+**Platform:** Claude Code CLI / Web / IDE extensions  
+**Inference:** Anthropic Claude API (Opus 5 / Sonnet 5)  
+**MCP config:** `.claude/settings.json` (identical to OpenCode)  
+**Typical tasks:**
+
+- Failover from OpenCode/DGX
+- Complex reasoning / extended thinking
+- Rapid session recovery via `.claude/handoffs/`
+- Fallback for agent loops requiring non-local inference
+
+**Constraints:**
+
+- ~3–5s latency per inference (API round-trip)
+- Subject to rate limits (Anthropic API tiers)
+- May cost 5–10× more per inference than local DGX
+
+**Escalation criteria back to OpenCode:**
+
+- DGX node recovered and healthy
+- Task completes; new work starts on OpenCode default
+- Extended thinking not required (switch back to cost-efficient local)
+
+### Failover Procedure
+
+#### Health Check & Detection (Automatic)
+
+- DGX health check retries automatically (detects if DGX is down)
+- Scheduled jobs fail loud if health check exhausted (do not auto-switch platforms)
+- Humans investigate failure and decide next action
+
+#### Platform Switch (Manual)
+
+All actual platform switches from OpenCode → Claude Code are **manual and documented**:
+
+1. **Detect the issue:** `opencode --status` or `dgx-health-check` (script TBD); scheduled job failure alert
+2. **Decide:** Human determines cause (DGX down, network split, resource exhausted)
+3. **Switch:** Update `.claude/handoffs/<branch>.md` with reason and timestamp
+4. **Resume:** Copy working branch to Claude Code session, re-run same commands
+5. **Investigate:** Root-cause the failure (document in field note)
+6. **Recover:** Once DGX is fixed, resume on OpenCode; new branches default to OpenCode
+
+**Why manual:** Automatic platform switching creates silent data loss risk (job state, logs, partial results). Manual switching forces explicit capture of the failure and decision.
+
+### MCP Interface Contract
+
+Both platforms expose identical MCP server configurations:
+
+| MCP Server                | OpenCode | Claude Code | Notes                        |
+| ------------------------- | -------- | ----------- | ---------------------------- |
+| `dws-gateway-local`       | ✅       | ✅          | Identical config             |
+| `dws-agents-local`        | ✅       | ✅          | Identical config             |
+| GitHub (`mcp__github__*`) | ✅       | ✅          | OAuth shared                 |
+| Google Drive              | ✅       | ✅          | Service account shared       |
+| Figma                     | ✅       | ✅          | OAuth shared                 |
+| Supabase                  | ✅       | ✅          | API key shared (environment) |
+
+**Guarantee:** A skill written for OpenCode requires zero code changes to run on Claude Code, provided it does not require:
+
+- GPU access (e.g., NVIDIA NIM microservices local inference)
+- DGX-specific hardware features (e.g., 200 Gbps ConnectX-7 link to pair nodes)
+- NVIDIA-specific libraries that are not available in Claude Code environment
+
+### Skill Classification for Dual-Platform
+
+When documenting or auditing skills, classify them:
+
+| Class               | Example                             | Platform Constraint                                   |
+| ------------------- | ----------------------------------- | ----------------------------------------------------- |
+| **Runtime-neutral** | `/simplify`, `/kb`, `/truth-check`  | No platform dependency; runs identical on both        |
+| **Claude-portable** | `/blog-draft`, `/review`            | Named for Claude but logic is portable; works on both |
+| **Claude-specific** | Extended thinking, complex analysis | Use Claude Code for this; not available on local DGX  |
+| **DGX-scheduled**   | `/loop` with cron backend           | Requires local inference; stays on DGX                |
 
 ---
 

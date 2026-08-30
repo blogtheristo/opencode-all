@@ -138,13 +138,13 @@ export function AgentChat() {
   const statusIndicator: Record<AgentStatus, { color: string; label: string }> = {
     online: { color: 'bg-green-400', label: 'Online' },
     processing: { color: 'bg-yellow-400 animate-pulse', label: 'Processing' },
-    offline: { color: 'bg-gray-500', label: 'Offline' },
+    offline: { color: 'bg-background0', label: 'Offline' },
   };
 
   return (
-    <div className="flex flex-col h-full bg-gray-900 rounded-xl border border-gray-800">
+    <div className="flex flex-col h-full bg-surface rounded-xl border border-border">
       {/* Header */}
-      <div className="p-4 border-b border-gray-800">
+      <div className="p-4 border-b border-border">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2.5">
             <div className={`w-9 h-9 ${selectedAgent.color} rounded-full flex items-center justify-center`}>
@@ -154,7 +154,7 @@ export function AgentChat() {
               <h3 className="text-sm font-semibold text-white">{selectedAgent.name}</h3>
               <div className="flex items-center gap-1.5">
                 <span className={`w-1.5 h-1.5 rounded-full ${statusIndicator[agentStatus].color}`} />
-                <span className="text-[10px] text-gray-500">{statusIndicator[agentStatus].label}</span>
+                <span className="text-[10px] text-fg-muted">{statusIndicator[agentStatus].label}</span>
               </div>
             </div>
           </div>
@@ -164,7 +164,7 @@ export function AgentChat() {
         <select
           value={selectedAgent.id}
           onChange={(e) => handleAgentChange(e.target.value)}
-          className="w-full px-3 py-1.5 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          className="w-full px-3 py-1.5 bg-fg-muted/10 border border-border rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           aria-label="Select AI agent"
         >
           {AGENTS.map((agent) => (
@@ -186,17 +186,17 @@ export function AgentChat() {
               className={`max-w-[85%] rounded-xl px-4 py-2.5 text-sm ${
                 msg.role === 'user'
                   ? 'bg-primary-600 text-white'
-                  : 'bg-gray-800 text-gray-200'
+                  : 'bg-fg-muted/10 text-foreground'
               }`}
             >
               {msg.role === 'agent' && (
                 <div className="flex items-center gap-1.5 mb-1">
                   <span className={`w-1.5 h-1.5 rounded-full ${selectedAgent.color}`} />
-                  <span className="text-[10px] font-medium text-gray-400">{selectedAgent.name}</span>
+                  <span className="text-[10px] font-medium text-fg-muted">{selectedAgent.name}</span>
                 </div>
               )}
               <div className="whitespace-pre-wrap leading-relaxed">{msg.content}</div>
-              <p className="text-[10px] text-gray-500 mt-1.5">
+              <p className="text-[10px] text-fg-muted mt-1.5">
                 {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </p>
             </div>
@@ -206,11 +206,11 @@ export function AgentChat() {
         {/* Typing indicator */}
         {isLoading && (
           <div className="flex justify-start">
-            <div className="bg-gray-800 rounded-xl px-4 py-3">
+            <div className="bg-fg-muted/10 rounded-xl px-4 py-3">
               <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                <div className="w-2 h-2 bg-background0 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                <div className="w-2 h-2 bg-background0 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                <div className="w-2 h-2 bg-background0 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
               </div>
             </div>
           </div>
@@ -220,14 +220,14 @@ export function AgentChat() {
       </div>
 
       {/* Input */}
-      <div className="p-3 border-t border-gray-800">
+      <div className="p-3 border-t border-border">
         <form onSubmit={handleSubmit} className="flex items-center gap-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder={`Ask ${selectedAgent.name}...`}
-            className="flex-1 px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="flex-1 px-3 py-2.5 bg-fg-muted/10 border border-border rounded-lg text-sm text-white placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             disabled={isLoading}
           />
           <button

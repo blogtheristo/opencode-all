@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Thomas Wilke, 42CAP
-Version: 1.0
+Version: 1.1
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
@@ -9,6 +9,7 @@ Story Lock: Vertically Integrated AI + Defensible Data Moat + B2B Enterprise Sof
 Intro Type: Warm (Risto direct conversation)
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-19): Initial draft. General Partner at 42CAP, €100M fund, €1-3M lead checks into early-stage B2B software across Europe. Co-founded eCircle (scaled to €50M revenue, €250M exit to Teradata) — evaluates technical moats himself, 90%+ follow-on rate. Thesis: vertically integrated AI with defensible data moats. Fast process: 2-3 weeks intro to term sheet. Drawback 1: DACH-focused, no specific Nordic mandate. Drawback 2: solo founder is a flag. Mitigation: ticket size means he leads the round entirely (€1-3M vs our €650K), lead with vertical AI + ERP data moat + regulated-industry ontology, address solo-founder with operator track record + Piwik-tier comp. Messe Germany = DACH-native commercial engine, direct alignment with his geography.
 -->
 
@@ -73,7 +74,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 ## Drawbacks / Mitigations
 
 - **DACH-focused, no specific Nordic mandate** — Finland is not his home turf. **Mitigation:** our commercial home turf IS DACH. V1 launches Arctic 15 for brand, Messe Germany is the sales engine. Frame: "Nordic-based company with DACH-first commercial strategy — we need a DACH lead investor, that's you." Turn the geography mismatch into a thesis-alignment story.
-- **Team note** — Two-person complementary team (Risto + Lucille Santiago, Office Chief / partner-track, Lifetime AB). **Mitigation:** lead with the same pattern that worked for eCircle — operator-founder with domain expertise, scales the team on proven revenue. Paying customers (6, 100% retention) + operator track record (13 years regulated industry) + technical depth via governed agent workflows + Cubet engineering partner + funded senior technical search + named advisors. Thomas specifically bootstrapped eCircle; he knows lean-team dynamics firsthand.
+- **Team note** — Two-person complementary team (Risto + Lucille Santiago, Office Chief / partner-track, Lifetime AB). **Mitigation:** lead with the same pattern that worked for eCircle — operator-founder with domain expertise, scales the team on proven revenue. Two enterprise pilots contracted Q1/2026 (€59,900 booked) + operator track record (13 years regulated industry) + technical depth via governed agent workflows + Cubet engineering partner + funded senior technical search + named advisors. Thomas specifically bootstrapped eCircle; he knows lean-team dynamics firsthand.
 - **Upsize conversation** — His €1M minimum check vs our €650K SAFE creates a gap. **Mitigation:** be prepared to upsize. Either (a) expand SAFE cap to accommodate his anchor + other anchors already in pipe, or (b) convert to a priced seed with him leading. Decide the stance BEFORE the call.
 
 ## Strategy
@@ -93,7 +94,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Thomas — good talking recently. Quick follow-up on 42CAP timing.
 
-Lifetime Oy (Finland) — vertically integrated AI for EU industrial compliance. a fleet of skilled agents, SAP/IFS/Dynamics data moat, 20 regulated-industry ontology, EU AI Act compliant, sovereignty audit lineage. EUR 7K MRR, 6 customers, 100% retention. V1 launches at Arctic 15 June 15; DACH Messe commercial push right after.
+Lifetime Oy (Finland) — vertically integrated AI for EU industrial compliance. a fleet of skilled agents, SAP/IFS/Dynamics data moat, 20 regulated-industry ontology, EU AI Act compliant, sovereignty audit lineage. ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked). V1 launches at Arctic 15 June 15; DACH Messe commercial push right after.
 
 Raising EUR 650K SAFE at EUR 3.8M cap — open to upsizing to a priced seed if 42CAP leads. Your €1M-€3M ticket + DACH focus + 2-3 week process all align. Memo + architecture deck?
 
@@ -105,7 +106,7 @@ Hi Thomas,
 
 Thanks for the recent conversation. Sending the follow-up we discussed.
 
-**On the team upfront:** We're a two-person team — me (operator-founder, 13 years in regulated industries) + Lucille Santiago (Office Chief / partner-track, Lifetime AB), complementary skill sets. Technical depth runs today on governed AI agent workflows + a Cubet Techno Labs engineering partner, with a senior technical leadership hire funded and in active search. 6 paying customers at 100% retention, advisors in place. Same pattern eCircle started with — domain operator, revenue-first, scale team on signal. Happy to discuss whether that clears the bar.
+**On the team upfront:** We're a two-person team — me (operator-founder, 13 years in regulated industries) + Lucille Santiago (Office Chief / partner-track, Lifetime AB), complementary skill sets. Technical depth runs today on governed AI agent workflows + a Cubet Techno Labs engineering partner, with a senior technical leadership hire funded and in active search. Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), advisors in place. Same pattern eCircle started with — domain operator, revenue-first, scale team on signal. Happy to discuss whether that clears the bar.
 
 **The moat — vertically integrated AI:**
 
@@ -118,7 +119,7 @@ Thanks for the recent conversation. Sending the follow-up we discussed.
 
 **The traction:**
 
-- EUR 7K MRR, 6 paying customers, 100% retention
+- ~EUR 7,000/month services and transport revenue (not software revenue); two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked)
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR end 2026
