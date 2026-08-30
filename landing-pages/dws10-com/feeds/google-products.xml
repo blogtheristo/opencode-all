@@ -3,7 +3,7 @@
 <channel>
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
-    <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
+    <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, designed to reduce CLOUD Act exposure. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
     <lastBuildDate>2026-08-24T20:12:26.938Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
@@ -729,7 +729,7 @@
     <item>
         <g:id>DWS-EU-STARTER</g:id>
         <g:title>DWS IQ — EU Sovereign Starter</g:title>
-        <g:description>DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). Compliance, Report &amp; Discovery agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.</g:description>
+        <g:description>DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). Compliance, Report &amp; Discovery agents, CSRD dashboard, designed to reduce CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/static/images/products/DWS-EU-STARTER.png</g:image_link>
         <g:additional_image_link>https://dws10.com/DWS_IQ2026.png</g:additional_image_link>
@@ -748,7 +748,7 @@
     <item>
         <g:id>DWS-EU-PILOT</g:id>
         <g:title>DWS IQ — EU Sovereign Pilot</g:title>
-        <g:description>Full EU sovereign evaluation. Full Firehorse agent suite, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.</g:description>
+        <g:description>Full EU sovereign evaluation. Full Firehorse agent suite, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. designed to reduce CLOUD Act exposure. Prove compliance ROI on sovereign infrastructure.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/static/images/products/DWS-EU-PILOT.png</g:image_link>
         <g:additional_image_link>https://dws10.com/DWS_IQ2026.png</g:additional_image_link>
@@ -786,7 +786,7 @@
     <item>
         <g:id>DWS-AEGIS-001</g:id>
         <g:title>DWS IQ Aegis</g:title>
-        <g:description>Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). Agent coverage across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Zero CLOUD Act exposure. Available September 2026.</g:description>
+        <g:description>Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). Agent coverage across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. designed to reduce CLOUD Act exposure. Available September 2026.</g:description>
         <g:link>https://dws10.com/products/aegis.html</g:link>
         <g:image_link>https://dws10.com/static/images/products/DWS-AEGIS-001.png</g:image_link>
         <g:additional_image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:additional_image_link>

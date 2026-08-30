@@ -763,7 +763,7 @@
             <div class="deploy-price">DWS IQ 6 · from €4,999 · live in 30 days</div>
             <ul>
               <li>Scaleway serverless (Paris / Amsterdam), French-owned (Iliad Group)</li>
-              <li>Zero US CLOUD Act exposure · EU-only Managed PostgreSQL + pgvector</li>
+              <li>Designed to reduce CLOUD Act exposure · EU-only Managed PostgreSQL + pgvector</li>
               <li>Scale-to-zero, pay-per-request; nothing to operate</li>
               <li>EU AI Act Article 12 logging built in</li>
             </ul>
@@ -780,7 +780,7 @@
             <h3>Dedicated Sovereign Cloud — Aegis</h3>
             <div class="deploy-price">DWS IQ Aegis · €59,990 + €999/mo</div>
             <ul>
-              <li>UpCloud (Helsinki) / Hetzner — Finnish jurisdiction, zero CLOUD Act</li>
+              <li>UpCloud (Helsinki) / Hetzner — Finnish jurisdiction, designed to reduce CLOUD Act exposure</li>
               <li>Aiven managed PostgreSQL (no US-incorporated vendor in the data path)</li>
               <li>Themis control plane · Article 12 pipeline · EUDI Wallet auth</li>
               <li>Dedicated instance, not shared tenancy</li>
@@ -873,7 +873,7 @@
         </table>
         <p class="deploy-note">
           <strong>Rule of thumb.</strong> Start on <strong>EU-Sovereign Cloud</strong> — it is the
-          fastest, lowest-risk path and closes the CLOUD Act on day one. Move to
+          fastest, lowest-risk path and reduces CLOUD Act exposure on day one. Move to
           <strong>Aegis</strong> when you need single-tenant isolation and a full Article 12 control
           plane. Choose the <strong>sovereign NVIDIA DGX</strong> solution when a physical air-gap
           or 100% model-weight ownership is non-negotiable, or when a steady, high-utilisation
@@ -928,12 +928,17 @@
       </footer>
     </div>
 
+    <!-- Gamma Ironclad Navigation -->
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <!-- Vertical 5-language bar — page element, not menu element -->
+    <script src="/shared-assets/vertical-lang-bar.js"></script>
+
     <script>
       (function () {
         "use strict";
 
         var CATEGORY_LABELS = {
-          platform: "Platform & Products",
+          platform: "Platform &amp; Products",
           "ai-cloud": "AI &amp; Cloud",
           advisory: "Expert Advisory &amp; Training",
           digital: "Digital Services",
