@@ -77,7 +77,16 @@
       "storeCategory": "platform",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 8
+      "buyPageOrder": 8,
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Workflow automation",
+        "Template library"
+      ],
+      "capacityLimits": "Per-template scope"
     },
     "LIFETIME-BUNDLE-2026": {
       "id": "LIFETIME-BUNDLE-2026",
@@ -109,7 +118,16 @@
       },
       "storeCategory": "platform",
       "buyPage": 1,
-      "buyPageOrder": 4
+      "buyPageOrder": 4,
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Full DWS IQ suite",
+        "Multi-agent"
+      ],
+      "capacityLimits": "Per-bundle scope"
     },
     "FH-OMNI-001": {
       "id": "FH-OMNI-001",
@@ -143,7 +161,16 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 3,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Omnichannel intake",
+        "Multi-format processing"
+      ],
+      "capacityLimits": "Per-contract scope"
     },
     "FH-RPT-001": {
       "id": "FH-RPT-001",
@@ -177,7 +204,16 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 5,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Report generation",
+        "Template-based"
+      ],
+      "capacityLimits": "Per-template scope"
     },
     "FH-SIGN-001": {
       "id": "FH-SIGN-001",
@@ -210,7 +246,16 @@
       "storeCategory": "add-on",
       "buyPage": 1,
       "buyPageOrder": 6,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Digital signature",
+        "Workflow integration"
+      ],
+      "capacityLimits": "Per-signature scope"
     },
     "FH-CMS-001": {
       "id": "FH-CMS-001",
@@ -244,7 +289,16 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 7,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Content management",
+        "Document processing"
+      ],
+      "capacityLimits": "Per-contract scope"
     },
     "consulting-hourly": {
       "id": "consulting-hourly",
@@ -341,7 +395,16 @@
       },
       "storeCategory": "ai-cloud",
       "buyPage": 1,
-      "buyPageOrder": 23
+      "buyPageOrder": 23,
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "AWS engagement"
+      ],
+      "capacityCapabilities": [
+        "AWS integration",
+        "Cloud deployment"
+      ],
+      "capacityLimits": "Per-engagement scope"
     },
     "conversational-agent": {
       "id": "conversational-agent",
@@ -374,7 +437,16 @@
       "storeCategory": "ai-cloud",
       "buyPage": 1,
       "buyPageOrder": 27,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Conversational AI",
+        "Multi-language"
+      ],
+      "capacityLimits": "Per-deployment scope"
     },
     "ai-agent-engineering": {
       "id": "ai-agent-engineering",
@@ -407,7 +479,16 @@
       "storeCategory": "ai-cloud",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 25
+      "buyPageOrder": 25,
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Service engagement"
+      ],
+      "capacityCapabilities": [
+        "Agent design",
+        "Implementation"
+      ],
+      "capacityLimits": "Per-project scope"
     },
     "lean-project": {
       "id": "lean-project",
@@ -473,7 +554,16 @@
       "storeCategory": "ai-cloud",
       "version": "1.0",
       "buyPage": 3,
-      "buyPageOrder": 3
+      "buyPageOrder": 3,
+      "capacityClass": "Core",
+      "capacityOptions": [
+        "Consulting day"
+      ],
+      "capacityCapabilities": [
+        "AI assessment",
+        "Roadmap planning"
+      ],
+      "capacityLimits": "1-day engagement"
     },
     "business-mentor-30": {
       "id": "business-mentor-30",
@@ -571,7 +661,16 @@
       "storeCategory": "digital",
       "buyPage": 2,
       "buyPageOrder": 11,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Workflow orchestration",
+        "Multi-step processes"
+      ],
+      "capacityLimits": "Per-workflow scope"
     },
     "omnichannel-multimodal": {
       "id": "omnichannel-multimodal",
@@ -670,7 +769,16 @@
       "storeCategory": "digital",
       "buyPage": 2,
       "buyPageOrder": 8,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Data pipeline",
+        "ETL processing"
+      ],
+      "capacityLimits": "Per-pipeline scope"
     },
     "devops-lead": {
       "id": "devops-lead",
@@ -703,7 +811,16 @@
       "storeCategory": "ai-cloud",
       "buyPage": 3,
       "buyPageOrder": 5,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Service engagement"
+      ],
+      "capacityCapabilities": [
+        "DevOps automation",
+        "CI/CD"
+      ],
+      "capacityLimits": "Per-engagement scope"
     },
     "ai-koulutus-3d": {
       "id": "ai-koulutus-3d",
@@ -900,7 +1017,16 @@
       },
       "storeCategory": "ai-cloud",
       "buyPage": 2,
-      "buyPageOrder": 2
+      "buyPageOrder": 2,
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Consulting engagement"
+      ],
+      "capacityCapabilities": [
+        "Agentic AI strategy",
+        "Implementation planning"
+      ],
+      "capacityLimits": "Per-engagement scope"
     },
     "edge-node-gn100": {
       "id": "edge-node-gn100",
@@ -1028,7 +1154,16 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 13,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Compliance triage",
+        "Rapid response"
+      ],
+      "capacityLimits": "Per-incident scope"
     },
     "LF-NVIDIA-INSTALL": {
       "id": "LF-NVIDIA-INSTALL",
@@ -1503,7 +1638,16 @@
       "buyPageOrder": 23,
       "additionalImage": "/DWS_IQ2026.png",
       "requiresBlueFieldDPU": true,
-      "docaPackage": "essential"
+      "docaPackage": "essential",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "K8s T1+ with DPU"
+      ],
+      "capacityCapabilities": [
+        "Basic DOCA services",
+        "Network acceleration"
+      ],
+      "capacityLimits": "Requires DPU hardware"
     },
     "LF-DOCA-SECURITY": {
       "id": "LF-DOCA-SECURITY",
@@ -1541,7 +1685,16 @@
       "buyPageOrder": 24,
       "additionalImage": "/DWS_IQ2026.png",
       "requiresBlueFieldDPU": true,
-      "docaPackage": "security"
+      "docaPackage": "security",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "T4 + BlueField-3 DPU"
+      ],
+      "capacityCapabilities": [
+        "Argus firewall",
+        "Intrusion detection"
+      ],
+      "capacityLimits": "Requires T4 tier"
     },
     "LF-DOCA-NETWORK-STORAGE": {
       "id": "LF-DOCA-NETWORK-STORAGE",
@@ -1579,7 +1732,16 @@
       "buyPageOrder": 25,
       "additionalImage": "/DWS_IQ2026.png",
       "requiresBlueFieldDPU": true,
-      "docaPackage": "network-storage"
+      "docaPackage": "network-storage",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "K8s T4 + BlueField-3 DPU"
+      ],
+      "capacityCapabilities": [
+        "OVS-DOCA CNI",
+        "SNAP storage"
+      ],
+      "capacityLimits": "Requires T4 tier"
     },
     "LF-GOV-READY-SETUP": {
       "id": "LF-GOV-READY-SETUP",
@@ -1618,7 +1780,16 @@
       "buyPage": 1,
       "buyPageOrder": 26,
       "additionalImage": "/DWS_IQ2026.png",
-      "govReady": true
+      "govReady": true,
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "x86 mgmt + ARM64 workers"
+      ],
+      "capacityCapabilities": [
+        "STIG/FIPS hardening",
+        "RKE2"
+      ],
+      "capacityLimits": "Annual recertification"
     },
     "LF-GOV-READY-ANNUAL": {
       "id": "LF-GOV-READY-ANNUAL",
@@ -1656,7 +1827,16 @@
       "buyPage": 1,
       "buyPageOrder": 27,
       "additionalImage": "/DWS_IQ2026.png",
-      "govReady": true
+      "govReady": true,
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Gov Ready cluster"
+      ],
+      "capacityCapabilities": [
+        "Re-audit",
+        "Patch validation"
+      ],
+      "capacityLimits": "Requires Gov Ready setup"
     },
     "LF-GOV-AIRGAP-BUNDLE": {
       "id": "LF-GOV-AIRGAP-BUNDLE",
@@ -1693,7 +1873,16 @@
       "buyPage": 1,
       "buyPageOrder": 28,
       "additionalImage": "/DWS_IQ2026.png",
-      "govReady": true
+      "govReady": true,
+      "capacityClass": "Sovereign",
+      "capacityOptions": [
+        "Gov Ready cluster"
+      ],
+      "capacityCapabilities": [
+        "Signed offline images",
+        "Air-gap updates"
+      ],
+      "capacityLimits": "Requires Gov Ready setup"
     },
     "LF-FIPS-VALIDATION": {
       "id": "LF-FIPS-VALIDATION",
@@ -1729,7 +1918,16 @@
       "buyPage": 1,
       "buyPageOrder": 29,
       "additionalImage": "/DWS_IQ2026.png",
-      "govReady": true
+      "govReady": true,
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Gov Ready cluster"
+      ],
+      "capacityCapabilities": [
+        "FIPS 140-3 validation",
+        "Compliance certification"
+      ],
+      "capacityLimits": "Annual recertification"
     },
     "LF-NIM-STARTER": {
       "id": "LF-NIM-STARTER",
@@ -1766,7 +1964,16 @@
       "buyPage": 1,
       "buyPageOrder": 30,
       "additionalImage": "/DWS_IQ2026.png",
-      "nimProfile": "starter"
+      "nimProfile": "starter",
+      "capacityClass": "Core",
+      "capacityOptions": [
+        "DGX Spark"
+      ],
+      "capacityCapabilities": [
+        "Basic NIM deployment",
+        "Single model"
+      ],
+      "capacityLimits": "Single-node"
     },
     "LF-NIM-RETRIEVAL": {
       "id": "LF-NIM-RETRIEVAL",
@@ -1803,7 +2010,16 @@
       "buyPage": 1,
       "buyPageOrder": 31,
       "additionalImage": "/DWS_IQ2026.png",
-      "nimProfile": "retrieval"
+      "nimProfile": "retrieval",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "K8s T1+ and DGX Spark"
+      ],
+      "capacityCapabilities": [
+        "Nemotron RAG + embeddings",
+        "Vector search"
+      ],
+      "capacityLimits": "Requires K8s T1+ and DGX Spark"
     },
     "LF-NIM-CODE": {
       "id": "LF-NIM-CODE",
@@ -1839,7 +2055,16 @@
       "buyPage": 1,
       "buyPageOrder": 32,
       "additionalImage": "/DWS_IQ2026.png",
-      "nimProfile": "code"
+      "nimProfile": "code",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "K8s T1+ and DGX Spark"
+      ],
+      "capacityCapabilities": [
+        "Qwen3-Coder",
+        "Sovereign code generation"
+      ],
+      "capacityLimits": "Requires K8s T1+ and DGX Spark"
     },
     "LF-NIM-BIOLOGY": {
       "id": "LF-NIM-BIOLOGY",
@@ -1875,7 +2100,16 @@
       "buyPage": 1,
       "buyPageOrder": 33,
       "additionalImage": "/DWS_IQ2026.png",
-      "nimProfile": "biology"
+      "nimProfile": "biology",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "K8s T1+ and DGX Spark"
+      ],
+      "capacityCapabilities": [
+        "BioNeMo + AlphaFold",
+        "Protein structure prediction"
+      ],
+      "capacityLimits": "Requires K8s T1+ and DGX Spark"
     },
     "LF-IPCMAX-IPC409": {
       "id": "LF-IPCMAX-IPC409",
@@ -1918,7 +2152,16 @@
         "edge-node-gn100",
         "LF-DGX-SPARK",
         "LF-SITROOM-001"
-      ]
+      ],
+      "capacityClass": "Core",
+      "capacityOptions": [
+        "DIN-rail"
+      ],
+      "capacityCapabilities": [
+        "MQTT/OPC-UA aggregation",
+        "-40C to +85C"
+      ],
+      "capacityLimits": "Intel Atom, 8GB RAM"
     },
     "LF-IPCMAX-IPCP68": {
       "id": "LF-IPCMAX-IPCP68",
@@ -1962,7 +2205,17 @@
         "LF-DGX-SPARK",
         "LF-SITROOM-001",
         "LF-JETSON-AGX"
-      ]
+      ],
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "DIN-rail or wall mount"
+      ],
+      "capacityCapabilities": [
+        "Edge AI preprocessing",
+        "TSN",
+        "4x GbE"
+      ],
+      "capacityLimits": "Intel Core i5, 16GB RAM"
     },
     "LF-IPCMAX-CINCOZE-DA1200": {
       "id": "LF-IPCMAX-CINCOZE-DA1200",
@@ -2005,7 +2258,17 @@
         "LF-SITROOM-001",
         "LF-IGX-ORIN",
         "LF-COMPLIANCE-AMBULANCE-001"
-      ]
+      ],
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Rugged edge"
+      ],
+      "capacityCapabilities": [
+        "GPU-accelerated",
+        "Vision/acoustic fusion",
+        "IP65"
+      ],
+      "capacityLimits": "NVIDIA MXM GPU slot"
     },
     "DWS-SOVEREIGN-DB-001": {
       "id": "DWS-SOVEREIGN-DB-001",
@@ -2651,7 +2914,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Standard bundle"
+      ],
+      "capacityCapabilities": [
+        "Core compliance suite",
+        "Single framework"
+      ],
+      "capacityLimits": "Standard support"
     },
     "CMP-OC-ENT": {
       "id": "CMP-OC-ENT",
@@ -2695,7 +2967,17 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Enterprise bundle"
+      ],
+      "capacityCapabilities": [
+        "Full compliance suite",
+        "Multi-framework",
+        "Custom integrations"
+      ],
+      "capacityLimits": "Per-contract scope"
     },
     "SS-T0": {
       "id": "SS-T0",
@@ -2871,7 +3153,15 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Standard bundle"
+      ],
+      "capacityCapabilities": [
+        "Core supply chain suite"
+      ],
+      "capacityLimits": "Standard support"
     },
     "SS-OC-ENT": {
       "id": "SS-OC-ENT",
@@ -2915,7 +3205,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Enterprise bundle"
+      ],
+      "capacityCapabilities": [
+        "Full supply chain suite",
+        "Custom integrations"
+      ],
+      "capacityLimits": "Per-contract scope"
     },
     "MO-T0": {
       "id": "MO-T0",
@@ -3091,7 +3390,15 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Standard bundle"
+      ],
+      "capacityCapabilities": [
+        "Core manufacturing suite"
+      ],
+      "capacityLimits": "Standard support"
     },
     "MO-OC-ENT": {
       "id": "MO-OC-ENT",
@@ -3135,7 +3442,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Enterprise bundle"
+      ],
+      "capacityCapabilities": [
+        "Full manufacturing suite",
+        "Custom integrations"
+      ],
+      "capacityLimits": "Per-contract scope"
     },
     "ED-T1": {
       "id": "ED-T1",
@@ -4527,7 +4843,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Mars manufacturing",
+        "Production compliance"
+      ],
+      "capacityLimits": "Per-factory scope"
     },
     "IND-HELIOS": {
       "id": "IND-HELIOS",
@@ -4577,7 +4902,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Helios energy",
+        "Solar/wind monitoring"
+      ],
+      "capacityLimits": "Per-site scope"
     },
     "IND-VULCAN": {
       "id": "IND-VULCAN",
@@ -4627,7 +4961,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Vulcan heavy industry",
+        "Emission monitoring"
+      ],
+      "capacityLimits": "Per-site scope"
     },
     "IND-TALOS": {
       "id": "IND-TALOS",
@@ -4677,7 +5020,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Talos construction",
+        "Site compliance"
+      ],
+      "capacityLimits": "Per-site scope"
     },
     "IND-GAIA": {
       "id": "IND-GAIA",
@@ -4727,7 +5079,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Gaia environmental",
+        "Sustainability reporting"
+      ],
+      "capacityLimits": "Per-contract scope"
     },
     "IND-CERES": {
       "id": "IND-CERES",
@@ -4777,7 +5138,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Ceres compliance",
+        "Industry-specific"
+      ],
+      "capacityLimits": "Per-contract scope"
     },
     "IND-NEPTUN": {
       "id": "IND-NEPTUN",
@@ -4827,7 +5197,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Neptun water",
+        "Water treatment compliance"
+      ],
+      "capacityLimits": "Per-site scope"
     },
     "IND-PROM": {
       "id": "IND-PROM",
@@ -4877,7 +5256,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Prometheus industrial",
+        "Process monitoring"
+      ],
+      "capacityLimits": "Per-process scope"
     },
     "IND-BESS": {
       "id": "IND-BESS",
@@ -4927,7 +5315,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "BESS compliance monitoring",
+        "Battery analytics"
+      ],
+      "capacityLimits": "Per-site scope"
     },
     "LAND-AIL": {
       "id": "LAND-AIL",
@@ -5586,7 +5983,17 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 1,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Core",
+      "capacityOptions": [
+        "Cloud free tier"
+      ],
+      "capacityCapabilities": [
+        "1 agent",
+        "Basic dashboard",
+        "Community support"
+      ],
+      "capacityLimits": "Usage capped"
     },
     "AIS-EU-SOV-OC": {
       "id": "AIS-EU-SOV-OC",
