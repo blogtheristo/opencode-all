@@ -1,6 +1,17 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Missing Supabase credentials: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY');
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+interface FailureDetail {
+  [key: string]: string | number | boolean | null | undefined;
+}
 
 export interface OpenCodeSession {
   id: string;
@@ -17,7 +28,7 @@ export interface OpenCodeSession {
   max_attempts: number;
   stop_reason?: string;
   failure_code?: string;
-  failure_detail?: Record<string, any>;
+  failure_detail?: FailureDetail;
   worktree_state?: string;
   worktree_resumed?: boolean;
   last_run?: string;
@@ -74,16 +85,16 @@ export class SessionManager {
   async failSession(
     id: string,
     failureCode: string,
-    failureDetail: Record<string, any>,
+    failureDetail: FailureDetail,
   ): Promise<OpenCodeSession> {
     const session = await this.getSession(id);
     if (!session) throw new Error(`Session ${id} not found`);
 
     const attempts = session.attempts + 1;
-    const state = attempts >= session.max_attempts ? 'FAILED' : 'PENDING';
+    const newState: 'FAILED' | 'PENDING' = attempts >= session.max_attempts ? 'FAILED' : 'PENDING';
 
     return this.updateSession(id, {
-      state: state as any,
+      state: newState,
       status: 'pending',
       attempts,
       failure_code: failureCode,
@@ -94,7 +105,7 @@ export class SessionManager {
 
   async completeSession(id: string): Promise<OpenCodeSession> {
     return this.updateSession(id, {
-      state: 'DONE' as any,
+      state: 'DONE',
       status: 'completed',
       stop_reason: 'success',
     });
