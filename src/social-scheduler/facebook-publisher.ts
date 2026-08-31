@@ -27,10 +27,16 @@ const FB_PUBLISH_TIMEOUT_MS = 45_000;
 // TYPES
 // ============================================================================
 
+export interface FacebookPublishOptions {
+  /** Create as draft (unpublished) — only page admins see it until published via Publishing Tools. */
+  draft?: boolean;
+}
+
 export interface FacebookPublishResult {
   success: boolean;
   postId?: string;
   postUrl?: string;
+  draft?: boolean;
   error?: string;
 }
 
@@ -41,8 +47,12 @@ export interface FacebookPublishResult {
 /**
  * Publish a post to a Facebook Page.
  * Uses the Page /feed endpoint with a Page Access Token.
+ * Set `draft: true` to create an unpublished post (HIC reviews in Publishing Tools).
  */
-export async function publishToFacebook(post: SocialPost): Promise<FacebookPublishResult> {
+export async function publishToFacebook(
+  post: SocialPost,
+  options?: FacebookPublishOptions,
+): Promise<FacebookPublishResult> {
   const pageId = process.env.FACEBOOK_PAGE_ID;
   const pageToken = process.env.FACEBOOK_PAGE_TOKEN;
 
@@ -60,6 +70,7 @@ export async function publishToFacebook(post: SocialPost): Promise<FacebookPubli
     const body = new URLSearchParams();
     body.set('message', post.content);
     body.set('access_token', pageToken);
+    if (options?.draft) body.set('published', 'false');
 
     const response = await fetch(`${FB_API_BASE}/v20.0/${pageId}/feed`, {
       method: 'POST',
@@ -74,7 +85,7 @@ export async function publishToFacebook(post: SocialPost): Promise<FacebookPubli
       const data = (await response.json()) as { id: string };
       const postId = data.id;
       const postUrl = `https://www.facebook.com/${pageId}/posts/${postId.split('_').pop() ?? postId}`;
-      return { success: true, postId, postUrl };
+      return { success: true, postId, postUrl, draft: options?.draft ?? false };
     }
 
     const errorText = await response.text();
