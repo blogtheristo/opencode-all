@@ -6,12 +6,41 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { createClient } from '@supabase/supabase-js';
 
-const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY;
+// Try env vars first, then read from .env
+let url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+let key =
+  process.env.SUPABASE_SERVICE_ROLE_KEY ||
+  process.env.SUPABASE_SECRET_KEY ||
+  process.env.SUPABASE_SERVICE_KEY;
+
+// If not in env, try reading from .env file
+if (!url || !key) {
+  try {
+    const envPath = path.join(process.cwd(), '.env');
+    if (fs.existsSync(envPath)) {
+      const envContent = fs.readFileSync(envPath, 'utf-8');
+      const lines = envContent.split('\n');
+      for (const line of lines) {
+        const match = line.match(/^([^=]+)=(.*)$/);
+        if (match) {
+          const [, envKey, envValue] = match;
+          const cleanValue = envValue.replace(/['"]/g, '').trim();
+          if (envKey === 'SUPABASE_URL') url = cleanValue;
+          if (envKey === 'SUPABASE_SERVICE_KEY') key = cleanValue;
+          if (envKey === 'SUPABASE_SERVICE_ROLE_KEY') key = cleanValue;
+        }
+      }
+    }
+  } catch (e) {
+    // Ignore .env read errors
+  }
+}
 
 if (!url || !key) {
   console.error('Missing Supabase credentials.');
-  console.error('Set: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY');
+  console.error(
+    'Set in .env or env vars: SUPABASE_URL and SUPABASE_SERVICE_KEY/SUPABASE_SERVICE_ROLE_KEY',
+  );
   process.exit(1);
 }
 
