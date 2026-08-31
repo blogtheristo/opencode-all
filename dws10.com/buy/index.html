@@ -794,6 +794,101 @@
         box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
       }
 
+      /* Partner Products Section */
+      .partner-section {
+        margin-top: 60px;
+        padding-top: 40px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .partner-section h2 {
+        color: #e2e8f0;
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+      }
+      .partner-section .subtitle {
+        color: #94a3b8;
+        font-size: 0.9rem;
+        margin-bottom: 32px;
+      }
+      .partner-category {
+        margin-bottom: 36px;
+      }
+      .partner-category h3 {
+        color: #60a5fa;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+      }
+      .partner-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 12px;
+      }
+      .partner-card {
+        padding: 16px;
+        background: rgba(30, 41, 59, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        transition: border-color 0.2s;
+      }
+      .partner-card:hover {
+        border-color: rgba(96, 165, 250, 0.3);
+      }
+      .partner-card .partner-name {
+        color: #e2e8f0;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+      }
+      .partner-card .partner-desc {
+        color: #94a3b8;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin-bottom: 8px;
+      }
+      .partner-card .partner-meta {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .capacity-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .capacity-badge.core { background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); }
+      .capacity-badge.production { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
+      .capacity-badge.enterprise { background: rgba(168, 85, 247, 0.15); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.3); }
+      .capacity-badge.sovereign { background: rgba(249, 115, 22, 0.15); color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3); }
+      .partner-card .partner-contact {
+        color: #60a5fa;
+        font-size: 0.78rem;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .partner-card .partner-contact:hover {
+        text-decoration: underline;
+      }
+      .partner-label {
+        display: inline-block;
+        padding: 1px 6px;
+        border-radius: 3px;
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        background: rgba(251, 191, 36, 0.15);
+        color: #fbbf24;
+        border: 1px solid rgba(251, 191, 36, 0.3);
+      }
+
       /* Firehorse Journey Chain */
       .journey-chain {
         display: flex;
@@ -1471,6 +1566,13 @@
         <a href="./page3/">3 / 3 &mdash; Cloud &amp; AI Skills Specialists Consulting &rarr;</a>
       </nav>
 
+      <!-- Partner Products Section -->
+      <section class="partner-section" id="partnerSection" style="display:none">
+        <h2>Partner Products</h2>
+        <p class="subtitle">Additional capabilities available through the DWS IQ ecosystem. Contact sales for pricing and bundling.</p>
+        <div id="partnerGrid"></div>
+      </section>
+
       <!-- CTA Section -->
       <section
         class="cta-section"
@@ -1673,6 +1775,7 @@
             "Catalog version " + version + " · Effective " + effective;
 
           renderProducts();
+          renderPartnerProducts();
         } catch (error) {
           console.error("Error loading products:", error);
           document.getElementById("catalogVersion").textContent =
@@ -1815,6 +1918,11 @@
             "</span>"
           : "";
 
+        const capClass = product.capacityClass || "";
+        const capBadge = capClass
+          ? '<span class="capacity-badge ' + capClass.toLowerCase() + '" style="margin-left:8px;vertical-align:middle">' + esc(capClass) + '</span>'
+          : "";
+
         const buyButtons = hasPaidLinks
           ? '<div class="btn-group">' +
             '<a href="' +
@@ -1844,6 +1952,7 @@
           '<div class="product-content">' +
           '<h2 class="product-title" itemprop="name">' +
           esc(product.name) +
+          capBadge +
           "</h2>" +
           proofHTML +
           painHTML +
@@ -1879,6 +1988,83 @@
           "</div>";
 
         return card;
+      }
+
+      // Render Partner Products grouped by storeCategory
+      function renderPartnerProducts() {
+        const container = document.getElementById("partnerGrid");
+        const section = document.getElementById("partnerSection");
+        if (!container || !section) return;
+
+        // Collect partner products
+        const partners = Object.values(PRODUCTS).filter((p) => p.partnerProduct);
+        if (partners.length === 0) { section.style.display = "none"; return; }
+
+        // Group by storeCategory
+        const groups = {};
+        const catOrder = ["platform", "advisory", "ai-cloud", "hardware", "digital"];
+        partners.forEach((p) => {
+          const cat = p.storeCategory || "other";
+          if (!groups[cat]) groups[cat] = [];
+          groups[cat].push(p);
+        });
+
+        // Category display names
+        const catNames = {
+          platform: "DWS IQ Platform Agents",
+          advisory: "Advisory &amp; Delivery",
+          "ai-cloud": "AI Cloud Services",
+          hardware: "Hardware &amp; Edge",
+          digital: "Digital Services",
+          other: "Other"
+        };
+
+        container.innerHTML = "";
+        catOrder.forEach((cat) => {
+          const items = groups[cat];
+          if (!items || items.length === 0) return;
+
+          const sectionDiv = document.createElement("div");
+          sectionDiv.className = "partner-category";
+
+          const h3 = document.createElement("h3");
+          h3.innerHTML = (catNames[cat] || cat) + " <span style='color:#64748b;font-weight:400;font-size:0.85rem'>(" + items.length + ")</span>";
+          sectionDiv.appendChild(h3);
+
+          const grid = document.createElement("div");
+          grid.className = "partner-grid";
+
+          items.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+          items.forEach((p) => {
+            const card = document.createElement("div");
+            card.className = "partner-card";
+
+            const capClass = p.capacityClass || "";
+            const capBadge = capClass
+              ? '<span class="capacity-badge ' + capClass.toLowerCase() + '">' + esc(capClass) + '</span>'
+              : '';
+
+            const contactUrl = p.detailsUrl && !p.detailsUrl.startsWith("http")
+              ? p.detailsUrl
+              : "https://dws10.com/contact/?subject=" + encodeURIComponent("Interest: " + p.name);
+
+            card.innerHTML =
+              '<div class="partner-name">' + esc(p.name) +
+              ' <span class="partner-label">Partner Product</span></div>' +
+              '<div class="partner-desc">' + esc(p.description || "") + '</div>' +
+              '<div class="partner-meta">' +
+                capBadge +
+                '<a class="partner-contact" href="' + esc(contactUrl) + '" target="_blank" rel="noopener">Contact &rarr;</a>' +
+              '</div>';
+
+            grid.appendChild(card);
+          });
+
+          sectionDiv.appendChild(grid);
+          container.appendChild(sectionDiv);
+        });
+
+        section.style.display = "block";
       }
 
       // Initialize
