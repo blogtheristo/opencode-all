@@ -13,12 +13,12 @@ Every email, letter, intro note, signature block, "From:" line, author field, or
 
 **Email — outbound is Proton. Three addresses by context (do not mix):**
 
-| Context                                                                                     | Email                          |
-| ------------------------------------------------------------------------------------------- | ------------------------------ |
+| Context                                                                                          | Email                          |
+| ------------------------------------------------------------------------------------------------ | ------------------------------ |
 | **All Lifetime Oy outbound** — partner, investor, sales, cold outreach, canonical public contact | `risto.paarni@lifetime.fi`     |
-| DWS IQ product email (From + Reply-To on platform-sent mail)                                 | `risto@onelifetime.world`      |
-| Legal / contract / invoice / statutory                                                       | `risto.paarni@lifetime.fi`     |
-| **Google Workspace login only — never a `From:`, `Reply-To:`, or signature**                 | `risto.paarni2024@lifetime.fi` |
+| DWS IQ product email (From + Reply-To on platform-sent mail)                                     | `risto@onelifetime.world`      |
+| Legal / contract / invoice / statutory                                                           | `risto.paarni@lifetime.fi`     |
+| **Google Workspace login only — never a `From:`, `Reply-To:`, or signature**                     | `risto.paarni2024@lifetime.fi` |
 
 **All Lifetime Oy mail is sent from Proton Business, and has been for years** _(HIC decision, 2026-08-04)_. `risto.paarni@lifetime.fi` is an address on that Proton account and is the primary sender. `risto.paarni2024@lifetime.fi` is **the Google Workspace login** (Google Cloud / Drive / Supabase / GCP billing IAM, Calendar, Meet, internal Google notifications) and must not appear as a sender or contact in any outward-facing material. Never use a `noreply@` sender (Non-Negotiable Rule 3).
 
@@ -62,6 +62,7 @@ Ship reliable outcomes fast, but never past security, compliance, or source-of-t
 - **Shared MCP contract:** keep the Win11 developer MCP surface aligned across `.mcp.json`, `opencode.json`, and `.claude/settings.json` for `dws-agents-local` and `dws-gateway-local`.
 - **Failover rule:** platform switching is manual. Capture branch state in `.claude/handoffs/<branch>.md` before handing work from OpenCode to Claude Code or back.
 - **Classification rule:** when adding automation, mark it explicitly as OpenCode-primary, Claude-only, or runtime-neutral in the governing doc or field note.
+- **OpenCode upstream management:** Synced from [anomalyco/opencode](https://github.com/anomalyco/opencode) via git submodule. Check for updates at session start (`.claude/hooks/opencode-check.js` runs automatically); pulls latest upstream commit info. User decides when to update via `npm run opencode:update`. Non-blocking, non-intrusive notifications only.
 
 ## Agent Response Format (HIC-Facing Output)
 
