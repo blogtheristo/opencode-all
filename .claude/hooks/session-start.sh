@@ -143,4 +143,9 @@ if [ -d "$SKILLS_DIR" ]; then
   echo "Load any skill: read skills/<name>/SKILL.md for full expertise + input/output contract."
 fi
 
+# Check for OpenCode upstream updates (non-blocking)
+if command -v node >/dev/null 2>&1; then
+  node .claude/hooks/opencode-check.js 2>/dev/null || true
+fi
+
 exit 0
