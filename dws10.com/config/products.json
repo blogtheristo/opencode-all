@@ -404,7 +404,8 @@
         "AWS integration",
         "Cloud deployment"
       ],
-      "capacityLimits": "Per-engagement scope"
+      "capacityLimits": "Per-engagement scope",
+      "partnerProduct": true
     },
     "conversational-agent": {
       "id": "conversational-agent",
@@ -446,7 +447,8 @@
         "Conversational AI",
         "Multi-language"
       ],
-      "capacityLimits": "Per-deployment scope"
+      "capacityLimits": "Per-deployment scope",
+      "partnerProduct": true
     },
     "ai-agent-engineering": {
       "id": "ai-agent-engineering",
@@ -488,7 +490,8 @@
         "Agent design",
         "Implementation"
       ],
-      "capacityLimits": "Per-project scope"
+      "capacityLimits": "Per-project scope",
+      "partnerProduct": true
     },
     "lean-project": {
       "id": "lean-project",
@@ -521,7 +524,8 @@
       "storeCategory": "advisory",
       "buyPage": 2,
       "buyPageOrder": 10,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "partnerProduct": true
     },
     "ai-consultant-day": {
       "id": "ai-consultant-day",
@@ -563,7 +567,8 @@
         "AI assessment",
         "Roadmap planning"
       ],
-      "capacityLimits": "1-day engagement"
+      "capacityLimits": "1-day engagement",
+      "partnerProduct": true
     },
     "business-mentor-30": {
       "id": "business-mentor-30",
@@ -595,7 +600,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 3
+      "buyPageOrder": 3,
+      "partnerProduct": true
     },
     "firehorse-coach": {
       "id": "firehorse-coach",
@@ -628,7 +634,8 @@
       "storeCategory": "advisory",
       "buyPage": 1,
       "buyPageOrder": 5,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "partnerProduct": true
     },
     "firehorse-flow": {
       "id": "firehorse-flow",
@@ -670,7 +677,8 @@
         "Workflow orchestration",
         "Multi-step processes"
       ],
-      "capacityLimits": "Per-workflow scope"
+      "capacityLimits": "Per-workflow scope",
+      "partnerProduct": true
     },
     "omnichannel-multimodal": {
       "id": "omnichannel-multimodal",
@@ -703,7 +711,8 @@
       "storeCategory": "advisory",
       "buyPage": 2,
       "buyPageOrder": 5,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "partnerProduct": true
     },
     "professional-web-pages": {
       "id": "professional-web-pages",
@@ -778,7 +787,8 @@
         "Data pipeline",
         "ETL processing"
       ],
-      "capacityLimits": "Per-pipeline scope"
+      "capacityLimits": "Per-pipeline scope",
+      "partnerProduct": true
     },
     "devops-lead": {
       "id": "devops-lead",
@@ -820,7 +830,8 @@
         "DevOps automation",
         "CI/CD"
       ],
-      "capacityLimits": "Per-engagement scope"
+      "capacityLimits": "Per-engagement scope",
+      "partnerProduct": true
     },
     "ai-koulutus-3d": {
       "id": "ai-koulutus-3d",
@@ -853,7 +864,8 @@
       "storeCategory": "advisory",
       "buyPage": 2,
       "buyPageOrder": 12,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "partnerProduct": true
     },
     "claude-code-coaching-3day": {
       "id": "claude-code-coaching-3day",
@@ -1466,7 +1478,8 @@
         "LF-DGX-SPARK",
         "LF-IGX-ORIN"
       ],
-      "orchestrationTier": "T1"
+      "orchestrationTier": "T1",
+      "partnerProduct": true
     },
     "LF-K8S-T2": {
       "id": "LF-K8S-T2",
@@ -1511,7 +1524,8 @@
         "LF-DGX-SPARK"
       ],
       "orchestrationTier": "T2",
-      "requiresHardwareCount": 3
+      "requiresHardwareCount": 3,
+      "partnerProduct": true
     },
     "LF-K8S-T3": {
       "id": "LF-K8S-T3",
@@ -1557,7 +1571,8 @@
         "LF-DGX-SPARK"
       ],
       "orchestrationTier": "T3",
-      "requiresX86Management": true
+      "requiresX86Management": true,
+      "partnerProduct": true
     },
     "LF-K8S-T4": {
       "id": "LF-K8S-T4",
@@ -1601,7 +1616,8 @@
         "LF-DGX-SPARK"
       ],
       "orchestrationTier": "T4",
-      "requiresBlueFieldDPU": true
+      "requiresBlueFieldDPU": true,
+      "partnerProduct": true
     },
     "LF-DOCA-ESSENTIAL": {
       "id": "LF-DOCA-ESSENTIAL",
@@ -1647,7 +1663,8 @@
         "Basic DOCA services",
         "Network acceleration"
       ],
-      "capacityLimits": "Requires DPU hardware"
+      "capacityLimits": "Requires DPU hardware",
+      "partnerProduct": true
     },
     "LF-DOCA-SECURITY": {
       "id": "LF-DOCA-SECURITY",
@@ -1694,7 +1711,8 @@
         "Argus firewall",
         "Intrusion detection"
       ],
-      "capacityLimits": "Requires T4 tier"
+      "capacityLimits": "Requires T4 tier",
+      "partnerProduct": true
     },
     "LF-DOCA-NETWORK-STORAGE": {
       "id": "LF-DOCA-NETWORK-STORAGE",
@@ -1741,7 +1759,8 @@
         "OVS-DOCA CNI",
         "SNAP storage"
       ],
-      "capacityLimits": "Requires T4 tier"
+      "capacityLimits": "Requires T4 tier",
+      "partnerProduct": true
     },
     "LF-GOV-READY-SETUP": {
       "id": "LF-GOV-READY-SETUP",
@@ -1789,7 +1808,8 @@
         "STIG/FIPS hardening",
         "RKE2"
       ],
-      "capacityLimits": "Annual recertification"
+      "capacityLimits": "Annual recertification",
+      "partnerProduct": true
     },
     "LF-GOV-READY-ANNUAL": {
       "id": "LF-GOV-READY-ANNUAL",
@@ -1836,7 +1856,8 @@
         "Re-audit",
         "Patch validation"
       ],
-      "capacityLimits": "Requires Gov Ready setup"
+      "capacityLimits": "Requires Gov Ready setup",
+      "partnerProduct": true
     },
     "LF-GOV-AIRGAP-BUNDLE": {
       "id": "LF-GOV-AIRGAP-BUNDLE",
@@ -1882,7 +1903,8 @@
         "Signed offline images",
         "Air-gap updates"
       ],
-      "capacityLimits": "Requires Gov Ready setup"
+      "capacityLimits": "Requires Gov Ready setup",
+      "partnerProduct": true
     },
     "LF-FIPS-VALIDATION": {
       "id": "LF-FIPS-VALIDATION",
@@ -1927,7 +1949,8 @@
         "FIPS 140-3 validation",
         "Compliance certification"
       ],
-      "capacityLimits": "Annual recertification"
+      "capacityLimits": "Annual recertification",
+      "partnerProduct": true
     },
     "LF-NIM-STARTER": {
       "id": "LF-NIM-STARTER",
@@ -1973,7 +1996,8 @@
         "Basic NIM deployment",
         "Single model"
       ],
-      "capacityLimits": "Single-node"
+      "capacityLimits": "Single-node",
+      "partnerProduct": true
     },
     "LF-NIM-RETRIEVAL": {
       "id": "LF-NIM-RETRIEVAL",
@@ -2019,7 +2043,8 @@
         "Nemotron RAG + embeddings",
         "Vector search"
       ],
-      "capacityLimits": "Requires K8s T1+ and DGX Spark"
+      "capacityLimits": "Requires K8s T1+ and DGX Spark",
+      "partnerProduct": true
     },
     "LF-NIM-CODE": {
       "id": "LF-NIM-CODE",
@@ -2064,7 +2089,8 @@
         "Qwen3-Coder",
         "Sovereign code generation"
       ],
-      "capacityLimits": "Requires K8s T1+ and DGX Spark"
+      "capacityLimits": "Requires K8s T1+ and DGX Spark",
+      "partnerProduct": true
     },
     "LF-NIM-BIOLOGY": {
       "id": "LF-NIM-BIOLOGY",
@@ -2109,7 +2135,8 @@
         "BioNeMo + AlphaFold",
         "Protein structure prediction"
       ],
-      "capacityLimits": "Requires K8s T1+ and DGX Spark"
+      "capacityLimits": "Requires K8s T1+ and DGX Spark",
+      "partnerProduct": true
     },
     "LF-IPCMAX-IPC409": {
       "id": "LF-IPCMAX-IPC409",
@@ -2161,7 +2188,8 @@
         "MQTT/OPC-UA aggregation",
         "-40C to +85C"
       ],
-      "capacityLimits": "Intel Atom, 8GB RAM"
+      "capacityLimits": "Intel Atom, 8GB RAM",
+      "partnerProduct": true
     },
     "LF-IPCMAX-IPCP68": {
       "id": "LF-IPCMAX-IPCP68",
@@ -2215,7 +2243,8 @@
         "TSN",
         "4x GbE"
       ],
-      "capacityLimits": "Intel Core i5, 16GB RAM"
+      "capacityLimits": "Intel Core i5, 16GB RAM",
+      "partnerProduct": true
     },
     "LF-IPCMAX-CINCOZE-DA1200": {
       "id": "LF-IPCMAX-CINCOZE-DA1200",
@@ -2268,7 +2297,8 @@
         "Vision/acoustic fusion",
         "IP65"
       ],
-      "capacityLimits": "NVIDIA MXM GPU slot"
+      "capacityLimits": "NVIDIA MXM GPU slot",
+      "partnerProduct": true
     },
     "DWS-SOVEREIGN-DB-001": {
       "id": "DWS-SOVEREIGN-DB-001",
@@ -2687,7 +2717,8 @@
         "Local execution",
         "Production hardware sizing"
       ],
-      "capacityLimits": "3-month bounded engagement"
+      "capacityLimits": "3-month bounded engagement",
+      "partnerProduct": true
     },
     "DWS-AEGIS-IMPL-001": {
       "id": "DWS-AEGIS-IMPL-001",
@@ -2738,7 +2769,8 @@
         "Phase 2 Agent-in-production",
         "Phase 3 LWM integration"
       ],
-      "capacityLimits": "ADDITIVE to Aegis onboarding"
+      "capacityLimits": "ADDITIVE to Aegis onboarding",
+      "partnerProduct": true
     },
     "CMP-T0": {
       "id": "CMP-T0",
@@ -2782,7 +2814,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CMP-T1": {
       "id": "CMP-T1",
@@ -2826,7 +2859,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CMP-T2": {
       "id": "CMP-T2",
@@ -2870,7 +2904,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CMP-OC-STD": {
       "id": "CMP-OC-STD",
@@ -2923,7 +2958,8 @@
         "Core compliance suite",
         "Single framework"
       ],
-      "capacityLimits": "Standard support"
+      "capacityLimits": "Standard support",
+      "partnerProduct": true
     },
     "CMP-OC-ENT": {
       "id": "CMP-OC-ENT",
@@ -2977,7 +3013,8 @@
         "Multi-framework",
         "Custom integrations"
       ],
-      "capacityLimits": "Per-contract scope"
+      "capacityLimits": "Per-contract scope",
+      "partnerProduct": true
     },
     "SS-T0": {
       "id": "SS-T0",
@@ -3021,7 +3058,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SS-T1": {
       "id": "SS-T1",
@@ -3065,7 +3103,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SS-T2": {
       "id": "SS-T2",
@@ -3109,7 +3148,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SS-OC-STD": {
       "id": "SS-OC-STD",
@@ -3161,7 +3201,8 @@
       "capacityCapabilities": [
         "Core supply chain suite"
       ],
-      "capacityLimits": "Standard support"
+      "capacityLimits": "Standard support",
+      "partnerProduct": true
     },
     "SS-OC-ENT": {
       "id": "SS-OC-ENT",
@@ -3214,7 +3255,8 @@
         "Full supply chain suite",
         "Custom integrations"
       ],
-      "capacityLimits": "Per-contract scope"
+      "capacityLimits": "Per-contract scope",
+      "partnerProduct": true
     },
     "MO-T0": {
       "id": "MO-T0",
@@ -3258,7 +3300,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "MO-T1": {
       "id": "MO-T1",
@@ -3302,7 +3345,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "MO-T2": {
       "id": "MO-T2",
@@ -3346,7 +3390,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "MO-OC-STD": {
       "id": "MO-OC-STD",
@@ -3398,7 +3443,8 @@
       "capacityCapabilities": [
         "Core manufacturing suite"
       ],
-      "capacityLimits": "Standard support"
+      "capacityLimits": "Standard support",
+      "partnerProduct": true
     },
     "MO-OC-ENT": {
       "id": "MO-OC-ENT",
@@ -3451,7 +3497,8 @@
         "Full manufacturing suite",
         "Custom integrations"
       ],
-      "capacityLimits": "Per-contract scope"
+      "capacityLimits": "Per-contract scope",
+      "partnerProduct": true
     },
     "ED-T1": {
       "id": "ED-T1",
@@ -3495,7 +3542,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "ED-T2": {
       "id": "ED-T2",
@@ -3539,7 +3587,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SG-T1": {
       "id": "SG-T1",
@@ -3583,7 +3632,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SG-T2": {
       "id": "SG-T2",
@@ -3627,7 +3677,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CONSTR-T2": {
       "id": "CONSTR-T2",
@@ -3673,7 +3724,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "LOG-T1": {
       "id": "LOG-T1",
@@ -3717,7 +3769,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "LOG-T2": {
       "id": "LOG-T2",
@@ -3761,7 +3814,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SOV-T1": {
       "id": "SOV-T1",
@@ -3805,7 +3859,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SOV-T2": {
       "id": "SOV-T2",
@@ -3849,7 +3904,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "QG-T1": {
       "id": "QG-T1",
@@ -3893,7 +3949,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "QG-T2": {
       "id": "QG-T2",
@@ -3937,7 +3994,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CSAT-T1": {
       "id": "CSAT-T1",
@@ -3981,7 +4039,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CSAT-T2": {
       "id": "CSAT-T2",
@@ -4025,7 +4084,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "LF-T1": {
       "id": "LF-T1",
@@ -4069,7 +4129,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "LF-T2": {
       "id": "LF-T2",
@@ -4113,7 +4174,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CS-T1": {
       "id": "CS-T1",
@@ -4157,7 +4219,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CS-T2": {
       "id": "CS-T2",
@@ -4201,7 +4264,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SEO-T1": {
       "id": "SEO-T1",
@@ -4245,7 +4309,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SEO-T2": {
       "id": "SEO-T2",
@@ -4289,7 +4354,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "DW-T1": {
       "id": "DW-T1",
@@ -4333,7 +4399,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "DW-T2": {
       "id": "DW-T2",
@@ -4377,7 +4444,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "VIA-T1": {
       "id": "VIA-T1",
@@ -4421,7 +4489,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "VIA-T2": {
       "id": "VIA-T2",
@@ -4465,7 +4534,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "TH-T2": {
       "id": "TH-T2",
@@ -4509,7 +4579,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "ESG-T3": {
       "id": "ESG-T3",
@@ -4557,7 +4628,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "HSE-T3": {
       "id": "HSE-T3",
@@ -4604,7 +4676,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CONSTR-T3": {
       "id": "CONSTR-T3",
@@ -4653,7 +4726,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SOV-T3": {
       "id": "SOV-T3",
@@ -4700,7 +4774,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "GTM-T3": {
       "id": "GTM-T3",
@@ -4748,7 +4823,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "WF-T4": {
       "id": "WF-T4",
@@ -4793,7 +4869,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "IND-MARS": {
       "id": "IND-MARS",
@@ -4852,7 +4929,8 @@
         "Mars manufacturing",
         "Production compliance"
       ],
-      "capacityLimits": "Per-factory scope"
+      "capacityLimits": "Per-factory scope",
+      "partnerProduct": true
     },
     "IND-HELIOS": {
       "id": "IND-HELIOS",
@@ -4911,7 +4989,8 @@
         "Helios energy",
         "Solar/wind monitoring"
       ],
-      "capacityLimits": "Per-site scope"
+      "capacityLimits": "Per-site scope",
+      "partnerProduct": true
     },
     "IND-VULCAN": {
       "id": "IND-VULCAN",
@@ -4970,7 +5049,8 @@
         "Vulcan heavy industry",
         "Emission monitoring"
       ],
-      "capacityLimits": "Per-site scope"
+      "capacityLimits": "Per-site scope",
+      "partnerProduct": true
     },
     "IND-TALOS": {
       "id": "IND-TALOS",
@@ -5029,7 +5109,8 @@
         "Talos construction",
         "Site compliance"
       ],
-      "capacityLimits": "Per-site scope"
+      "capacityLimits": "Per-site scope",
+      "partnerProduct": true
     },
     "IND-GAIA": {
       "id": "IND-GAIA",
@@ -5088,7 +5169,8 @@
         "Gaia environmental",
         "Sustainability reporting"
       ],
-      "capacityLimits": "Per-contract scope"
+      "capacityLimits": "Per-contract scope",
+      "partnerProduct": true
     },
     "IND-CERES": {
       "id": "IND-CERES",
@@ -5147,7 +5229,8 @@
         "Ceres compliance",
         "Industry-specific"
       ],
-      "capacityLimits": "Per-contract scope"
+      "capacityLimits": "Per-contract scope",
+      "partnerProduct": true
     },
     "IND-NEPTUN": {
       "id": "IND-NEPTUN",
@@ -5206,7 +5289,8 @@
         "Neptun water",
         "Water treatment compliance"
       ],
-      "capacityLimits": "Per-site scope"
+      "capacityLimits": "Per-site scope",
+      "partnerProduct": true
     },
     "IND-PROM": {
       "id": "IND-PROM",
@@ -5265,7 +5349,8 @@
         "Prometheus industrial",
         "Process monitoring"
       ],
-      "capacityLimits": "Per-process scope"
+      "capacityLimits": "Per-process scope",
+      "partnerProduct": true
     },
     "IND-BESS": {
       "id": "IND-BESS",
@@ -5324,7 +5409,8 @@
         "BESS compliance monitoring",
         "Battery analytics"
       ],
-      "capacityLimits": "Per-site scope"
+      "capacityLimits": "Per-site scope",
+      "partnerProduct": true
     },
     "LAND-AIL": {
       "id": "LAND-AIL",
@@ -5370,7 +5456,8 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "partnerProduct": true
     },
     "LAND-EUAI": {
       "id": "LAND-EUAI",
@@ -5418,7 +5505,8 @@
         "contentLanguage": "en"
       },
       "buyPage": 1,
-      "buyPageOrder": 6
+      "buyPageOrder": 6,
+      "partnerProduct": true
     },
     "LAND-HSE": {
       "id": "LAND-HSE",
@@ -5464,7 +5552,8 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "partnerProduct": true
     },
     "LAND-CSRD": {
       "id": "LAND-CSRD",
@@ -5515,7 +5604,8 @@
         "contentLanguage": "en"
       },
       "buyPage": 1,
-      "buyPageOrder": 7
+      "buyPageOrder": 7,
+      "partnerProduct": true
     },
     "LAND-LCA": {
       "id": "LAND-LCA",
@@ -5562,7 +5652,8 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "partnerProduct": true
     },
     "LAND-SOV": {
       "id": "LAND-SOV",
@@ -5612,7 +5703,8 @@
         "contentLanguage": "en"
       },
       "buyPage": 1,
-      "buyPageOrder": 9
+      "buyPageOrder": 9,
+      "partnerProduct": true
     },
     "LAND-OPS": {
       "id": "LAND-OPS",
@@ -5662,7 +5754,8 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "partnerProduct": true
     },
     "LAND-GTM": {
       "id": "LAND-GTM",
@@ -5711,7 +5804,8 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "partnerProduct": true
     },
     "LAND-THEMIS": {
       "id": "LAND-THEMIS",
@@ -5757,7 +5851,8 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "partnerProduct": true
     },
     "LAND-WF": {
       "id": "LAND-WF",
@@ -5803,7 +5898,8 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "partnerProduct": true
     },
     "DWS365-CMP-T3": {
       "id": "DWS365-CMP-T3",
@@ -5851,7 +5947,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "FH-SKILL-T3": {
       "id": "FH-SKILL-T3",
@@ -5900,7 +5997,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "AC365-T3": {
       "id": "AC365-T3",
@@ -5949,7 +6047,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "DWS-IQ-FREE-2026": {
       "id": "DWS-IQ-FREE-2026",
@@ -6025,7 +6124,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 1
+      "buyPageOrder": 1,
+      "partnerProduct": true
     },
     "AIS-OUTCOME-PILOT": {
       "id": "AIS-OUTCOME-PILOT",
@@ -6057,7 +6157,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 2
+      "buyPageOrder": 2,
+      "partnerProduct": true
     }
   },
   "settings": {
