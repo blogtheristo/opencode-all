@@ -59,7 +59,7 @@
     "db:test:rls": "tsx scripts/test-rls-agent-nudges.ts",
     "opencode:check": "node .claude/hooks/opencode-check.js",
     "opencode:status": "git -C opencode-all status --short 2>/dev/null || echo 'OpenCode not found'",
-    "opencode:update": "cd opencode-all && git pull origin main && cd - && echo '✅ OpenCode updated'"
+    "opencode:update": "cd opencode-all && git pull origin dev && cd - && echo '✅ OpenCode updated'"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
