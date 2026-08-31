@@ -2,8 +2,12 @@
 // Check for OpenCode upstream updates at session start
 // Non-blocking; runs silently if no updates available
 
-const { execSync } = require('child_process');
-const path = require('path');
+import { execSync } from 'child_process';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function silentExec(cmd) {
   try {
@@ -17,7 +21,7 @@ try {
   const opencodeDir = path.join(process.cwd(), 'opencode-all');
 
   // Check if directory exists
-  if (!require('fs').existsSync(opencodeDir)) {
+  if (!fs.existsSync(opencodeDir)) {
     process.exit(0);
   }
 
