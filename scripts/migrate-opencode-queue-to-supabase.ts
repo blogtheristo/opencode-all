@@ -53,7 +53,13 @@ async function migrateQueue() {
         max_attempts: session.maxAttempts || 5,
         stop_reason: session.stopReason,
         failure_code: session.failureCode,
-        failure_detail: session.failureDetail ? JSON.parse(session.failureDetail) : null,
+        failure_detail: (() => {
+          try {
+            return session.failureDetail ? JSON.parse(session.failureDetail) : null;
+          } catch {
+            return { raw: session.failureDetail };
+          }
+        })(),
         worktree_state: session.worktreeState,
         worktree_resumed: session.worktreeResumed || false,
         last_run: session.lastRun,
