@@ -76,17 +76,15 @@ capital model — the way it names the durable value it accumulates — is the *
 Capital Classes**. This is canonical in `DWS_BRAND_STANDARD.md` §23 and registered
 in `DWS_TRUTH_STANDARD.md` §2 row 25 (structured mirror `dws10.com/config/capitals.json`).
 
-| #   | Capital Class (4P)     | Finnish        | Was                  | What it is                                                                                                                                                                                  |
-| --- | ---------------------- | -------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | **Prompt Capital**     | Prompt-pääoma  | Token Capital        | Codified intelligence — validated prompts, skills, agent configs, eval datasets, automation.                                                                                                |
-| 2   | **People Capital**     | Ihmispääoma    | Human Capital        | Calibrated operator judgment from the HIL phase (human-in-the-loop → human-in-control).                                                                                                     |
-| 3   | **Plant Capital**      | Laitospääoma   | Control Room Capital | The sovereign, mobile two-room stack (Control Room + Situation Room) — at a site or in a fleet vehicle.                                                                                     |
-| 4   | **Perception Capital** | Havaintopääoma | _new_                | The governed world model + closed sense→decide→act loop (sensors, mobility, satellite, robotics). The only class with data-network effects and a physical-AI character — the re-rate lever. |
+| #   | Capital Class (4P)     | Finnish        | Formerly (deprecated alias)   | What it is                                                                                                                                                                                  |
+| --- | ---------------------- | -------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Prompt Capital**     | Prompt-pääoma  | formerly Token Capital        | Codified intelligence — validated prompts, skills, agent configs, eval datasets, automation.                                                                                                |
+| 2   | **People Capital**     | Ihmispääoma    | Human Capital (historical)    | Calibrated operator judgment from the HIL phase (human-in-the-loop → human-in-control).                                                                                                     |
+| 3   | **Plant Capital**      | Laitospääoma   | formerly Control Room Capital | The sovereign, mobile two-room stack (Control Room + Situation Room) — at a site or in a fleet vehicle.                                                                                     |
+| 4   | **Perception Capital** | Havaintopääoma | _new_                         | The governed world model + closed sense→decide→act loop (sensors, mobility, satellite, robotics). The only class with data-network effects and a physical-AI character — the re-rate lever. |
 
 **Order is fixed** (Prompt, People, Plant, Perception — the mnemonic depends on it).
-**Deprecated in new copy:** "three-capital model", "Token Capital", "Control Room
-Capital" as primary terms; "Human Capital" only as a parenthetical. `/truth-check`
-enforces this on public copy.
+**Use only in historical references:** The prior "three-capital model" terminology (formerly "Token Capital", "Control Room Capital", and "Human Capital") appears only in citations or field notes. In all new primary copy, use the canonical 4P Capital Classes names. `/truth-check` enforces this on public copy.
 
 ### Content Registry
 

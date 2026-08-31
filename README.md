@@ -4,7 +4,7 @@
 
 ![Lifetime Oy - 8 Industries](8_Industries.png)
 
-![Lifetime Oy - 16 Industries Fit for 55](FitFor55_16_Industries.png)
+![Lifetime — 16 captain hats covering 25+ EU industries (Fit for 55)](FitFor55_16_Industries.png)
 
 ---
 
@@ -132,7 +132,7 @@ Physical execution via Robots, Vehicles, Drones, and IoT. The licensed transport
 
 ![Lifetime 8 Industries](8_Industries.png)
 
-![Lifetime 16 Industries - Fit for 55](FitFor55_16_Industries.png)
+![Lifetime — 16 captain hats covering 25+ EU industries for Fit for 55](FitFor55_16_Industries.png)
 
 **DWS IQ for intelligent industries**
 
