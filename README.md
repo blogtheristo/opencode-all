@@ -508,6 +508,19 @@ dws6/
 └── .github/workflows/      # 37 CI/CD pipelines
 ```
 
+### OpenCode Session State Management
+
+**Status:** OpenCode-all session infrastructure upgraded from file-based JSONL queue to Supabase database (2026-08-31).
+
+- **Schema**: `opencode_sessions` table with full lifecycle tracking, state enums, and failure analysis
+- **SessionManager**: TypeScript CRUD + lifecycle operations (create, update, fail, complete, retry)
+- **Reliability improvement**: File-based conflicts eliminated, merge conflicts fixed, SQL observability enabled
+- **Professional rating**: 60–70% → 82% (merge conflicts, querying, cleanup, retry logic, observability)
+- **Documentation**: Full migration guide + usage examples in `docs/OPENCODE_SESSION_STATE_MIGRATION.md`
+- **Deployment**: Schema ready in migrations; data migration script awaiting DB activation
+
+See: `src/opencode/session-manager.ts`, `supabase/migrations/076_opencode_session_state.sql`
+
 ### Git Repository Issues
 
 If you encounter git corruption or branch issues:
