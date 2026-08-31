@@ -34,10 +34,7 @@
       "buyPageOrder": 2,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU",
-        "DGX Spark"
-      ],
+      "capacityOptions": ["Cloud EU", "DGX Spark"],
       "capacityCapabilities": [
         "Full agent fleet",
         "KYA governance",
@@ -79,13 +76,8 @@
       "buyPage": 1,
       "buyPageOrder": 8,
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud or edge"
-      ],
-      "capacityCapabilities": [
-        "Workflow automation",
-        "Template library"
-      ],
+      "capacityOptions": ["Cloud or edge"],
+      "capacityCapabilities": ["Workflow automation", "Template library"],
       "capacityLimits": "Per-template scope"
     },
     "LIFETIME-BUNDLE-2026": {
@@ -120,13 +112,8 @@
       "buyPage": 1,
       "buyPageOrder": 4,
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU or edge"
-      ],
-      "capacityCapabilities": [
-        "Full DWS IQ suite",
-        "Multi-agent"
-      ],
+      "capacityOptions": ["Cloud EU or edge"],
+      "capacityCapabilities": ["Full DWS IQ suite", "Multi-agent"],
       "capacityLimits": "Per-bundle scope"
     },
     "FH-OMNI-001": {
@@ -163,13 +150,8 @@
       "buyPageOrder": 3,
       "additionalImage": "/static/images/Firehorse_Store.jpg",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud or edge"
-      ],
-      "capacityCapabilities": [
-        "Omnichannel intake",
-        "Multi-format processing"
-      ],
+      "capacityOptions": ["Cloud or edge"],
+      "capacityCapabilities": ["Omnichannel intake", "Multi-format processing"],
       "capacityLimits": "Per-contract scope"
     },
     "FH-RPT-001": {
@@ -206,13 +188,8 @@
       "buyPageOrder": 5,
       "additionalImage": "/static/images/Firehorse_Store.jpg",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud or edge"
-      ],
-      "capacityCapabilities": [
-        "Report generation",
-        "Template-based"
-      ],
+      "capacityOptions": ["Cloud or edge"],
+      "capacityCapabilities": ["Report generation", "Template-based"],
       "capacityLimits": "Per-template scope"
     },
     "FH-SIGN-001": {
@@ -248,13 +225,8 @@
       "buyPageOrder": 6,
       "additionalImage": "/static/images/Firehorse_Store.jpg",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud or edge"
-      ],
-      "capacityCapabilities": [
-        "Digital signature",
-        "Workflow integration"
-      ],
+      "capacityOptions": ["Cloud or edge"],
+      "capacityCapabilities": ["Digital signature", "Workflow integration"],
       "capacityLimits": "Per-signature scope"
     },
     "FH-CMS-001": {
@@ -291,13 +263,8 @@
       "buyPageOrder": 7,
       "additionalImage": "/static/images/Firehorse_Store.jpg",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud or edge"
-      ],
-      "capacityCapabilities": [
-        "Content management",
-        "Document processing"
-      ],
+      "capacityOptions": ["Cloud or edge"],
+      "capacityCapabilities": ["Content management", "Document processing"],
       "capacityLimits": "Per-contract scope"
     },
     "consulting-hourly": {
@@ -397,13 +364,8 @@
       "buyPage": 1,
       "buyPageOrder": 23,
       "capacityClass": "Production",
-      "capacityOptions": [
-        "AWS engagement"
-      ],
-      "capacityCapabilities": [
-        "AWS integration",
-        "Cloud deployment"
-      ],
+      "capacityOptions": ["AWS engagement"],
+      "capacityCapabilities": ["AWS integration", "Cloud deployment"],
       "capacityLimits": "Per-engagement scope",
       "partnerProduct": true
     },
@@ -440,13 +402,8 @@
       "buyPageOrder": 27,
       "additionalImage": "/static/images/Firehorse_Store.jpg",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud or edge"
-      ],
-      "capacityCapabilities": [
-        "Conversational AI",
-        "Multi-language"
-      ],
+      "capacityOptions": ["Cloud or edge"],
+      "capacityCapabilities": ["Conversational AI", "Multi-language"],
       "capacityLimits": "Per-deployment scope",
       "partnerProduct": true
     },
@@ -483,13 +440,8 @@
       "buyPage": 1,
       "buyPageOrder": 25,
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Service engagement"
-      ],
-      "capacityCapabilities": [
-        "Agent design",
-        "Implementation"
-      ],
+      "capacityOptions": ["Service engagement"],
+      "capacityCapabilities": ["Agent design", "Implementation"],
       "capacityLimits": "Per-project scope",
       "partnerProduct": true
     },
@@ -560,13 +512,8 @@
       "buyPage": 3,
       "buyPageOrder": 3,
       "capacityClass": "Core",
-      "capacityOptions": [
-        "Consulting day"
-      ],
-      "capacityCapabilities": [
-        "AI assessment",
-        "Roadmap planning"
-      ],
+      "capacityOptions": ["Consulting day"],
+      "capacityCapabilities": ["AI assessment", "Roadmap planning"],
       "capacityLimits": "1-day engagement",
       "partnerProduct": true
     },
@@ -670,13 +617,8 @@
       "buyPageOrder": 11,
       "additionalImage": "/static/images/Firehorse_Store.jpg",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud or edge"
-      ],
-      "capacityCapabilities": [
-        "Workflow orchestration",
-        "Multi-step processes"
-      ],
+      "capacityOptions": ["Cloud or edge"],
+      "capacityCapabilities": ["Workflow orchestration", "Multi-step processes"],
       "capacityLimits": "Per-workflow scope",
       "partnerProduct": true
     },
@@ -780,13 +722,8 @@
       "buyPageOrder": 8,
       "additionalImage": "/static/images/Firehorse_Store.jpg",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud or edge"
-      ],
-      "capacityCapabilities": [
-        "Data pipeline",
-        "ETL processing"
-      ],
+      "capacityOptions": ["Cloud or edge"],
+      "capacityCapabilities": ["Data pipeline", "ETL processing"],
       "capacityLimits": "Per-pipeline scope",
       "partnerProduct": true
     },
@@ -823,13 +760,8 @@
       "buyPageOrder": 5,
       "additionalImage": "/static/images/Firehorse_Store.jpg",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Service engagement"
-      ],
-      "capacityCapabilities": [
-        "DevOps automation",
-        "CI/CD"
-      ],
+      "capacityOptions": ["Service engagement"],
+      "capacityCapabilities": ["DevOps automation", "CI/CD"],
       "capacityLimits": "Per-engagement scope",
       "partnerProduct": true
     },
@@ -1031,13 +963,8 @@
       "buyPage": 2,
       "buyPageOrder": 2,
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Consulting engagement"
-      ],
-      "capacityCapabilities": [
-        "Agentic AI strategy",
-        "Implementation planning"
-      ],
+      "capacityOptions": ["Consulting engagement"],
+      "capacityCapabilities": ["Agentic AI strategy", "Implementation planning"],
       "capacityLimits": "Per-engagement scope"
     },
     "edge-node-gn100": {
@@ -1075,14 +1002,8 @@
       "buyPageOrder": 11,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Acer Veriton GN100"
-      ],
-      "capacityCapabilities": [
-        "DGX Spark runtime",
-        "Nemotron 3 Super",
-        "Qwen3-Coder"
-      ],
+      "capacityOptions": ["Acer Veriton GN100"],
+      "capacityCapabilities": ["DGX Spark runtime", "Nemotron 3 Super", "Qwen3-Coder"],
       "capacityLimits": "Single-node"
     },
     "LF-SITROOM-001": {
@@ -1121,13 +1042,8 @@
       "buyPageOrder": 12,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "2x DGX Spark HA"
-      ],
-      "capacityCapabilities": [
-        "HA cluster",
-        "Dual-node inference"
-      ],
+      "capacityOptions": ["2x DGX Spark HA"],
+      "capacityCapabilities": ["HA cluster", "Dual-node inference"],
       "capacityLimits": "2x hardware required"
     },
     "LF-COMPLIANCE-AMBULANCE-001": {
@@ -1168,13 +1084,8 @@
       "buyPageOrder": 13,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud or edge"
-      ],
-      "capacityCapabilities": [
-        "Compliance triage",
-        "Rapid response"
-      ],
+      "capacityOptions": ["Cloud or edge"],
+      "capacityCapabilities": ["Compliance triage", "Rapid response"],
       "capacityLimits": "Per-incident scope"
     },
     "LF-NVIDIA-INSTALL": {
@@ -1211,13 +1122,8 @@
       "buyPageOrder": 13,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Hardware installation"
-      ],
-      "capacityCapabilities": [
-        "Professional setup",
-        "Configuration"
-      ],
+      "capacityOptions": ["Hardware installation"],
+      "capacityCapabilities": ["Professional setup", "Configuration"],
       "capacityLimits": "Per-device"
     },
     "LF-JETSON-NANO": {
@@ -1254,13 +1160,8 @@
       "buyPageOrder": 14,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Core",
-      "capacityOptions": [
-        "Edge"
-      ],
-      "capacityCapabilities": [
-        "Basic edge inference",
-        "Sensor aggregation"
-      ],
+      "capacityOptions": ["Edge"],
+      "capacityCapabilities": ["Basic edge inference", "Sensor aggregation"],
       "capacityLimits": "Limited compute"
     },
     "LF-JETSON-AGX": {
@@ -1297,13 +1198,8 @@
       "buyPageOrder": 15,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Edge"
-      ],
-      "capacityCapabilities": [
-        "High-performance edge",
-        "275 TOPS"
-      ],
+      "capacityOptions": ["Edge"],
+      "capacityCapabilities": ["High-performance edge", "275 TOPS"],
       "capacityLimits": "64GB RAM"
     },
     "LF-DGX-SPARK": {
@@ -1340,14 +1236,8 @@
       "buyPageOrder": 16,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Single-node"
-      ],
-      "capacityCapabilities": [
-        "1 PFLOPS FP4",
-        "128GB unified memory",
-        "Full inference runtime"
-      ],
+      "capacityOptions": ["Single-node"],
+      "capacityCapabilities": ["1 PFLOPS FP4", "128GB unified memory", "Full inference runtime"],
       "capacityLimits": "Single-node"
     },
     "LF-JETSON-NX": {
@@ -1384,13 +1274,8 @@
       "buyPageOrder": 17,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Core",
-      "capacityOptions": [
-        "Edge"
-      ],
-      "capacityCapabilities": [
-        "Mid-range edge inference",
-        "Multi-sensor"
-      ],
+      "capacityOptions": ["Edge"],
+      "capacityCapabilities": ["Mid-range edge inference", "Multi-sensor"],
       "capacityLimits": "8GB RAM"
     },
     "LF-IGX-ORIN": {
@@ -1427,14 +1312,8 @@
       "buyPageOrder": 18,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "Industrial edge"
-      ],
-      "capacityCapabilities": [
-        "275 TOPS",
-        "64GB",
-        "IEC 61508 SIL 3"
-      ],
+      "capacityOptions": ["Industrial edge"],
+      "capacityCapabilities": ["275 TOPS", "64GB", "IEC 61508 SIL 3"],
       "capacityLimits": "Industrial grade"
     },
     "LF-K8S-T1": {
@@ -1472,12 +1351,7 @@
       "buyPage": 1,
       "buyPageOrder": 19,
       "additionalImage": "/DWS_IQ2026.png",
-      "addOnTo": [
-        "edge-node-gn100",
-        "LF-SITROOM-001",
-        "LF-DGX-SPARK",
-        "LF-IGX-ORIN"
-      ],
+      "addOnTo": ["edge-node-gn100", "LF-SITROOM-001", "LF-DGX-SPARK", "LF-IGX-ORIN"],
       "orchestrationTier": "T1",
       "partnerProduct": true
     },
@@ -1518,11 +1392,7 @@
       "buyPage": 1,
       "buyPageOrder": 20,
       "additionalImage": "/DWS_IQ2026.png",
-      "addOnTo": [
-        "edge-node-gn100",
-        "LF-SITROOM-001",
-        "LF-DGX-SPARK"
-      ],
+      "addOnTo": ["edge-node-gn100", "LF-SITROOM-001", "LF-DGX-SPARK"],
       "orchestrationTier": "T2",
       "requiresHardwareCount": 3,
       "partnerProduct": true
@@ -1565,11 +1435,7 @@
       "buyPage": 1,
       "buyPageOrder": 21,
       "additionalImage": "/DWS_IQ2026.png",
-      "addOnTo": [
-        "edge-node-gn100",
-        "LF-SITROOM-001",
-        "LF-DGX-SPARK"
-      ],
+      "addOnTo": ["edge-node-gn100", "LF-SITROOM-001", "LF-DGX-SPARK"],
       "orchestrationTier": "T3",
       "requiresX86Management": true,
       "partnerProduct": true
@@ -1611,10 +1477,7 @@
       "buyPage": 1,
       "buyPageOrder": 22,
       "additionalImage": "/DWS_IQ2026.png",
-      "addOnTo": [
-        "LF-SITROOM-001",
-        "LF-DGX-SPARK"
-      ],
+      "addOnTo": ["LF-SITROOM-001", "LF-DGX-SPARK"],
       "orchestrationTier": "T4",
       "requiresBlueFieldDPU": true,
       "partnerProduct": true
@@ -1656,13 +1519,8 @@
       "requiresBlueFieldDPU": true,
       "docaPackage": "essential",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "K8s T1+ with DPU"
-      ],
-      "capacityCapabilities": [
-        "Basic DOCA services",
-        "Network acceleration"
-      ],
+      "capacityOptions": ["K8s T1+ with DPU"],
+      "capacityCapabilities": ["Basic DOCA services", "Network acceleration"],
       "capacityLimits": "Requires DPU hardware",
       "partnerProduct": true
     },
@@ -1704,13 +1562,8 @@
       "requiresBlueFieldDPU": true,
       "docaPackage": "security",
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "T4 + BlueField-3 DPU"
-      ],
-      "capacityCapabilities": [
-        "Argus firewall",
-        "Intrusion detection"
-      ],
+      "capacityOptions": ["T4 + BlueField-3 DPU"],
+      "capacityCapabilities": ["Argus firewall", "Intrusion detection"],
       "capacityLimits": "Requires T4 tier",
       "partnerProduct": true
     },
@@ -1752,13 +1605,8 @@
       "requiresBlueFieldDPU": true,
       "docaPackage": "network-storage",
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "K8s T4 + BlueField-3 DPU"
-      ],
-      "capacityCapabilities": [
-        "OVS-DOCA CNI",
-        "SNAP storage"
-      ],
+      "capacityOptions": ["K8s T4 + BlueField-3 DPU"],
+      "capacityCapabilities": ["OVS-DOCA CNI", "SNAP storage"],
       "capacityLimits": "Requires T4 tier",
       "partnerProduct": true
     },
@@ -1801,13 +1649,8 @@
       "additionalImage": "/DWS_IQ2026.png",
       "govReady": true,
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "x86 mgmt + ARM64 workers"
-      ],
-      "capacityCapabilities": [
-        "STIG/FIPS hardening",
-        "RKE2"
-      ],
+      "capacityOptions": ["x86 mgmt + ARM64 workers"],
+      "capacityCapabilities": ["STIG/FIPS hardening", "RKE2"],
       "capacityLimits": "Annual recertification",
       "partnerProduct": true
     },
@@ -1849,13 +1692,8 @@
       "additionalImage": "/DWS_IQ2026.png",
       "govReady": true,
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "Gov Ready cluster"
-      ],
-      "capacityCapabilities": [
-        "Re-audit",
-        "Patch validation"
-      ],
+      "capacityOptions": ["Gov Ready cluster"],
+      "capacityCapabilities": ["Re-audit", "Patch validation"],
       "capacityLimits": "Requires Gov Ready setup",
       "partnerProduct": true
     },
@@ -1896,13 +1734,8 @@
       "additionalImage": "/DWS_IQ2026.png",
       "govReady": true,
       "capacityClass": "Sovereign",
-      "capacityOptions": [
-        "Gov Ready cluster"
-      ],
-      "capacityCapabilities": [
-        "Signed offline images",
-        "Air-gap updates"
-      ],
+      "capacityOptions": ["Gov Ready cluster"],
+      "capacityCapabilities": ["Signed offline images", "Air-gap updates"],
       "capacityLimits": "Requires Gov Ready setup",
       "partnerProduct": true
     },
@@ -1942,13 +1775,8 @@
       "additionalImage": "/DWS_IQ2026.png",
       "govReady": true,
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "Gov Ready cluster"
-      ],
-      "capacityCapabilities": [
-        "FIPS 140-3 validation",
-        "Compliance certification"
-      ],
+      "capacityOptions": ["Gov Ready cluster"],
+      "capacityCapabilities": ["FIPS 140-3 validation", "Compliance certification"],
       "capacityLimits": "Annual recertification",
       "partnerProduct": true
     },
@@ -1989,13 +1817,8 @@
       "additionalImage": "/DWS_IQ2026.png",
       "nimProfile": "starter",
       "capacityClass": "Core",
-      "capacityOptions": [
-        "DGX Spark"
-      ],
-      "capacityCapabilities": [
-        "Basic NIM deployment",
-        "Single model"
-      ],
+      "capacityOptions": ["DGX Spark"],
+      "capacityCapabilities": ["Basic NIM deployment", "Single model"],
       "capacityLimits": "Single-node",
       "partnerProduct": true
     },
@@ -2036,13 +1859,8 @@
       "additionalImage": "/DWS_IQ2026.png",
       "nimProfile": "retrieval",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "K8s T1+ and DGX Spark"
-      ],
-      "capacityCapabilities": [
-        "Nemotron RAG + embeddings",
-        "Vector search"
-      ],
+      "capacityOptions": ["K8s T1+ and DGX Spark"],
+      "capacityCapabilities": ["Nemotron RAG + embeddings", "Vector search"],
       "capacityLimits": "Requires K8s T1+ and DGX Spark",
       "partnerProduct": true
     },
@@ -2082,13 +1900,8 @@
       "additionalImage": "/DWS_IQ2026.png",
       "nimProfile": "code",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "K8s T1+ and DGX Spark"
-      ],
-      "capacityCapabilities": [
-        "Qwen3-Coder",
-        "Sovereign code generation"
-      ],
+      "capacityOptions": ["K8s T1+ and DGX Spark"],
+      "capacityCapabilities": ["Qwen3-Coder", "Sovereign code generation"],
       "capacityLimits": "Requires K8s T1+ and DGX Spark",
       "partnerProduct": true
     },
@@ -2128,13 +1941,8 @@
       "additionalImage": "/DWS_IQ2026.png",
       "nimProfile": "biology",
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "K8s T1+ and DGX Spark"
-      ],
-      "capacityCapabilities": [
-        "BioNeMo + AlphaFold",
-        "Protein structure prediction"
-      ],
+      "capacityOptions": ["K8s T1+ and DGX Spark"],
+      "capacityCapabilities": ["BioNeMo + AlphaFold", "Protein structure prediction"],
       "capacityLimits": "Requires K8s T1+ and DGX Spark",
       "partnerProduct": true
     },
@@ -2175,19 +1983,10 @@
       "additionalImage": "/DWS_IQ2026.png",
       "partner": "iPCMax",
       "ipcmaxModel": "IPC-409",
-      "pairsWith": [
-        "edge-node-gn100",
-        "LF-DGX-SPARK",
-        "LF-SITROOM-001"
-      ],
+      "pairsWith": ["edge-node-gn100", "LF-DGX-SPARK", "LF-SITROOM-001"],
       "capacityClass": "Core",
-      "capacityOptions": [
-        "DIN-rail"
-      ],
-      "capacityCapabilities": [
-        "MQTT/OPC-UA aggregation",
-        "-40C to +85C"
-      ],
+      "capacityOptions": ["DIN-rail"],
+      "capacityCapabilities": ["MQTT/OPC-UA aggregation", "-40C to +85C"],
       "capacityLimits": "Intel Atom, 8GB RAM",
       "partnerProduct": true
     },
@@ -2228,21 +2027,10 @@
       "additionalImage": "/DWS_IQ2026.png",
       "partner": "iPCMax",
       "ipcmaxModel": "IPC-P68",
-      "pairsWith": [
-        "edge-node-gn100",
-        "LF-DGX-SPARK",
-        "LF-SITROOM-001",
-        "LF-JETSON-AGX"
-      ],
+      "pairsWith": ["edge-node-gn100", "LF-DGX-SPARK", "LF-SITROOM-001", "LF-JETSON-AGX"],
       "capacityClass": "Production",
-      "capacityOptions": [
-        "DIN-rail or wall mount"
-      ],
-      "capacityCapabilities": [
-        "Edge AI preprocessing",
-        "TSN",
-        "4x GbE"
-      ],
+      "capacityOptions": ["DIN-rail or wall mount"],
+      "capacityCapabilities": ["Edge AI preprocessing", "TSN", "4x GbE"],
       "capacityLimits": "Intel Core i5, 16GB RAM",
       "partnerProduct": true
     },
@@ -2283,20 +2071,10 @@
       "additionalImage": "/DWS_IQ2026.png",
       "partner": "iPCMax",
       "ipcmaxModel": "Cincoze DA-1200",
-      "pairsWith": [
-        "LF-SITROOM-001",
-        "LF-IGX-ORIN",
-        "LF-COMPLIANCE-AMBULANCE-001"
-      ],
+      "pairsWith": ["LF-SITROOM-001", "LF-IGX-ORIN", "LF-COMPLIANCE-AMBULANCE-001"],
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "Rugged edge"
-      ],
-      "capacityCapabilities": [
-        "GPU-accelerated",
-        "Vision/acoustic fusion",
-        "IP65"
-      ],
+      "capacityOptions": ["Rugged edge"],
+      "capacityCapabilities": ["GPU-accelerated", "Vision/acoustic fusion", "IP65"],
       "capacityLimits": "NVIDIA MXM GPU slot",
       "partnerProduct": true
     },
@@ -2333,14 +2111,8 @@
       "buyPageOrder": 19,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU"
-      ],
-      "capacityCapabilities": [
-        "Managed PostgreSQL + pgvector",
-        "RLS",
-        "GDPR readiness"
-      ],
+      "capacityOptions": ["Cloud EU"],
+      "capacityCapabilities": ["Managed PostgreSQL + pgvector", "RLS", "GDPR readiness"],
       "capacityLimits": "Per-tier storage"
     },
     "sovereignty-cloud-consulting": {
@@ -2409,14 +2181,8 @@
       "buyPageOrder": 6,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Core",
-      "capacityOptions": [
-        "Cloud US"
-      ],
-      "capacityCapabilities": [
-        "3 agents",
-        "1 user",
-        "Basic CSRD dashboard"
-      ],
+      "capacityOptions": ["Cloud US"],
+      "capacityCapabilities": ["3 agents", "1 user", "Basic CSRD dashboard"],
       "capacityLimits": "Single concurrent workflow"
     },
     "DWS-US-PILOT": {
@@ -2453,14 +2219,8 @@
       "buyPageOrder": 7,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud US"
-      ],
-      "capacityCapabilities": [
-        "8 agents",
-        "5 users",
-        "Full agent suite"
-      ],
+      "capacityOptions": ["Cloud US"],
+      "capacityCapabilities": ["8 agents", "5 users", "Full agent suite"],
       "capacityLimits": "Standard support"
     },
     "DWS-EU-STARTER": {
@@ -2497,14 +2257,8 @@
       "buyPageOrder": 20,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Core",
-      "capacityOptions": [
-        "Cloud EU"
-      ],
-      "capacityCapabilities": [
-        "3 agents",
-        "1 user",
-        "EU data residency"
-      ],
+      "capacityOptions": ["Cloud EU"],
+      "capacityCapabilities": ["3 agents", "1 user", "EU data residency"],
       "capacityLimits": "Single concurrent workflow"
     },
     "DWS-EU-PILOT": {
@@ -2541,15 +2295,8 @@
       "buyPageOrder": 21,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU"
-      ],
-      "capacityCapabilities": [
-        "8 agents",
-        "5 users",
-        "Full agent suite",
-        "EU sovereignty"
-      ],
+      "capacityOptions": ["Cloud EU"],
+      "capacityCapabilities": ["8 agents", "5 users", "Full agent suite", "EU sovereignty"],
       "capacityLimits": "Standard support"
     },
     "DWS-CLIMATE-001": {
@@ -2586,14 +2333,8 @@
       "buyPageOrder": 10,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU",
-        "DGX Spark"
-      ],
-      "capacityCapabilities": [
-        "Climate compliance agents",
-        "CBAM/CSRD/ESRS"
-      ],
+      "capacityOptions": ["Cloud EU", "DGX Spark"],
+      "capacityCapabilities": ["Climate compliance agents", "CBAM/CSRD/ESRS"],
       "capacityLimits": "Per-contract scope"
     },
     "DWS-AEGIS-001": {
@@ -2629,11 +2370,7 @@
       "buyPageOrder": 1,
       "additionalImage": "/static/images/firehorse-aegis-head.png",
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "Aegis Standard",
-        "Aegis Defence",
-        "Aegis Sovereign"
-      ],
+      "capacityOptions": ["Aegis Standard", "Aegis Defence", "Aegis Sovereign"],
       "capacityCapabilities": [
         "21+ agents",
         "Single-tenant K8s",
@@ -2709,9 +2446,7 @@
       ],
       "additionalImage": "/static/images/firehorse-aegis-head.png",
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "Existing hardware or edge appliance"
-      ],
+      "capacityOptions": ["Existing hardware or edge appliance"],
       "capacityCapabilities": [
         "One site, one workflow",
         "Local execution",
@@ -2761,9 +2496,7 @@
       ],
       "additionalImage": "/static/images/firehorse-aegis-head.png",
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "Aegis deployment"
-      ],
+      "capacityOptions": ["Aegis deployment"],
       "capacityCapabilities": [
         "Phase 1 Audit",
         "Phase 2 Agent-in-production",
@@ -2782,9 +2515,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T0",
-      "agents": [
-        "compliance"
-      ],
+      "agents": ["compliance"],
       "replaces": {
         "role": "Junior compliance analyst",
         "fteCount": 0.25,
@@ -2827,9 +2558,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "compliance"
-      ],
+      "agents": ["compliance"],
       "replaces": {
         "role": "Junior compliance analyst",
         "fteCount": 0.5,
@@ -2872,9 +2601,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "compliance"
-      ],
+      "agents": ["compliance"],
       "replaces": {
         "role": "Senior compliance analyst",
         "fteCount": 0.8,
@@ -2917,9 +2644,7 @@
       "type": "metered",
       "priceUnit": "per-outcome",
       "tier": "meter",
-      "agents": [
-        "compliance"
-      ],
+      "agents": ["compliance"],
       "replaces": {
         "role": "Compliance analyst",
         "fteCount": 0.05,
@@ -2951,13 +2676,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Standard bundle"
-      ],
-      "capacityCapabilities": [
-        "Core compliance suite",
-        "Single framework"
-      ],
+      "capacityOptions": ["Standard bundle"],
+      "capacityCapabilities": ["Core compliance suite", "Single framework"],
       "capacityLimits": "Standard support",
       "partnerProduct": true
     },
@@ -2971,9 +2691,7 @@
       "type": "metered",
       "priceUnit": "per-outcome",
       "tier": "meter",
-      "agents": [
-        "compliance"
-      ],
+      "agents": ["compliance"],
       "replaces": {
         "role": "Senior compliance analyst",
         "fteCount": 0.08,
@@ -3005,14 +2723,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "Enterprise bundle"
-      ],
-      "capacityCapabilities": [
-        "Full compliance suite",
-        "Multi-framework",
-        "Custom integrations"
-      ],
+      "capacityOptions": ["Enterprise bundle"],
+      "capacityCapabilities": ["Full compliance suite", "Multi-framework", "Custom integrations"],
       "capacityLimits": "Per-contract scope",
       "partnerProduct": true
     },
@@ -3026,9 +2738,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T0",
-      "agents": [
-        "sitesense"
-      ],
+      "agents": ["sitesense"],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.2,
@@ -3071,9 +2781,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "sitesense"
-      ],
+      "agents": ["sitesense"],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.4,
@@ -3116,9 +2824,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "sitesense"
-      ],
+      "agents": ["sitesense"],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.8,
@@ -3161,9 +2867,7 @@
       "type": "metered",
       "priceUnit": "per-site-per-day",
       "tier": "meter",
-      "agents": [
-        "sitesense"
-      ],
+      "agents": ["sitesense"],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.01,
@@ -3195,12 +2899,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Standard bundle"
-      ],
-      "capacityCapabilities": [
-        "Core supply chain suite"
-      ],
+      "capacityOptions": ["Standard bundle"],
+      "capacityCapabilities": ["Core supply chain suite"],
       "capacityLimits": "Standard support",
       "partnerProduct": true
     },
@@ -3214,9 +2914,7 @@
       "type": "metered",
       "priceUnit": "per-site-per-day",
       "tier": "meter",
-      "agents": [
-        "sitesense"
-      ],
+      "agents": ["sitesense"],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.02,
@@ -3248,13 +2946,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "Enterprise bundle"
-      ],
-      "capacityCapabilities": [
-        "Full supply chain suite",
-        "Custom integrations"
-      ],
+      "capacityOptions": ["Enterprise bundle"],
+      "capacityCapabilities": ["Full supply chain suite", "Custom integrations"],
       "capacityLimits": "Per-contract scope",
       "partnerProduct": true
     },
@@ -3268,9 +2961,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T0",
-      "agents": [
-        "material-oracle"
-      ],
+      "agents": ["material-oracle"],
       "replaces": {
         "role": "LCA analyst",
         "fteCount": 0.2,
@@ -3313,9 +3004,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "material-oracle"
-      ],
+      "agents": ["material-oracle"],
       "replaces": {
         "role": "LCA analyst",
         "fteCount": 0.3,
@@ -3358,9 +3047,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "material-oracle"
-      ],
+      "agents": ["material-oracle"],
       "replaces": {
         "role": "Senior LCA analyst",
         "fteCount": 0.6,
@@ -3403,9 +3090,7 @@
       "type": "metered",
       "priceUnit": "per-outcome",
       "tier": "meter",
-      "agents": [
-        "material-oracle"
-      ],
+      "agents": ["material-oracle"],
       "replaces": {
         "role": "LCA analyst",
         "fteCount": 0.03,
@@ -3437,12 +3122,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Standard bundle"
-      ],
-      "capacityCapabilities": [
-        "Core manufacturing suite"
-      ],
+      "capacityOptions": ["Standard bundle"],
+      "capacityCapabilities": ["Core manufacturing suite"],
       "capacityLimits": "Standard support",
       "partnerProduct": true
     },
@@ -3456,9 +3137,7 @@
       "type": "metered",
       "priceUnit": "per-outcome",
       "tier": "meter",
-      "agents": [
-        "material-oracle"
-      ],
+      "agents": ["material-oracle"],
       "replaces": {
         "role": "Senior LCA analyst",
         "fteCount": 0.05,
@@ -3490,13 +3169,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Enterprise",
-      "capacityOptions": [
-        "Enterprise bundle"
-      ],
-      "capacityCapabilities": [
-        "Full manufacturing suite",
-        "Custom integrations"
-      ],
+      "capacityOptions": ["Enterprise bundle"],
+      "capacityCapabilities": ["Full manufacturing suite", "Custom integrations"],
       "capacityLimits": "Per-contract scope",
       "partnerProduct": true
     },
@@ -3510,9 +3184,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "emissions-data"
-      ],
+      "agents": ["emissions-data"],
       "replaces": {
         "role": "ESG data analyst",
         "fteCount": 0.25,
@@ -3555,9 +3227,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "emissions-data"
-      ],
+      "agents": ["emissions-data"],
       "replaces": {
         "role": "ESG data analyst",
         "fteCount": 0.5,
@@ -3600,9 +3270,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "schedule-genius"
-      ],
+      "agents": ["schedule-genius"],
       "replaces": {
         "role": "Project planner",
         "fteCount": 0.3,
@@ -3645,9 +3313,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "schedule-genius"
-      ],
+      "agents": ["schedule-genius"],
       "replaces": {
         "role": "Project planner",
         "fteCount": 0.6,
@@ -3690,11 +3356,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "sitesense",
-        "material-oracle",
-        "schedule-genius"
-      ],
+      "agents": ["sitesense", "material-oracle", "schedule-genius"],
       "replaces": {
         "role": "Construction PM",
         "fteCount": 0.7,
@@ -3737,9 +3399,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "logistics"
-      ],
+      "agents": ["logistics"],
       "replaces": {
         "role": "Logistics planner",
         "fteCount": 0.3,
@@ -3782,9 +3442,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "logistics"
-      ],
+      "agents": ["logistics"],
       "replaces": {
         "role": "Logistics planner",
         "fteCount": 0.5,
@@ -3827,9 +3485,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "sovereignty"
-      ],
+      "agents": ["sovereignty"],
       "replaces": {
         "role": "DPO assistant",
         "fteCount": 0.2,
@@ -3872,9 +3528,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "sovereignty"
-      ],
+      "agents": ["sovereignty"],
       "replaces": {
         "role": "DPO assistant",
         "fteCount": 0.5,
@@ -3917,9 +3571,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "quality-gate"
-      ],
+      "agents": ["quality-gate"],
       "replaces": {
         "role": "QA reviewer",
         "fteCount": 0.2,
@@ -3962,9 +3614,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "quality-gate"
-      ],
+      "agents": ["quality-gate"],
       "replaces": {
         "role": "QA reviewer",
         "fteCount": 0.4,
@@ -4007,9 +3657,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "customer-sat"
-      ],
+      "agents": ["customer-sat"],
       "replaces": {
         "role": "Customer success analyst",
         "fteCount": 0.15,
@@ -4052,9 +3700,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "customer-sat"
-      ],
+      "agents": ["customer-sat"],
       "replaces": {
         "role": "Customer success analyst",
         "fteCount": 0.3,
@@ -4097,9 +3743,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "lead-feedback"
-      ],
+      "agents": ["lead-feedback"],
       "replaces": {
         "role": "Sales analyst",
         "fteCount": 0.15,
@@ -4142,9 +3786,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "lead-feedback"
-      ],
+      "agents": ["lead-feedback"],
       "replaces": {
         "role": "Sales analyst",
         "fteCount": 0.3,
@@ -4187,9 +3829,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "competitor-surveillance"
-      ],
+      "agents": ["competitor-surveillance"],
       "replaces": {
         "role": "Market analyst",
         "fteCount": 0.2,
@@ -4232,9 +3872,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "competitor-surveillance"
-      ],
+      "agents": ["competitor-surveillance"],
       "replaces": {
         "role": "Market analyst",
         "fteCount": 0.4,
@@ -4277,9 +3915,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "seo-audit"
-      ],
+      "agents": ["seo-audit"],
       "replaces": {
         "role": "SEO specialist",
         "fteCount": 0.1,
@@ -4322,9 +3958,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "seo-audit"
-      ],
+      "agents": ["seo-audit"],
       "replaces": {
         "role": "SEO specialist",
         "fteCount": 0.25,
@@ -4367,9 +4001,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "deepwiki-extractor"
-      ],
+      "agents": ["deepwiki-extractor"],
       "replaces": {
         "role": "Research analyst",
         "fteCount": 0.1,
@@ -4412,9 +4044,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "deepwiki-extractor"
-      ],
+      "agents": ["deepwiki-extractor"],
       "replaces": {
         "role": "Research analyst",
         "fteCount": 0.2,
@@ -4457,9 +4087,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T1",
-      "agents": [
-        "viability"
-      ],
+      "agents": ["viability"],
       "replaces": {
         "role": "Strategy analyst",
         "fteCount": 0.2,
@@ -4502,9 +4130,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "viability"
-      ],
+      "agents": ["viability"],
       "replaces": {
         "role": "Strategy analyst",
         "fteCount": 0.4,
@@ -4547,9 +4173,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T2",
-      "agents": [
-        "themis"
-      ],
+      "agents": ["themis"],
       "replaces": {
         "role": "Ops coordinator",
         "fteCount": 0.5,
@@ -4593,12 +4217,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "material-oracle",
-        "emissions-data",
-        "compliance",
-        "themis"
-      ],
+      "agents": ["material-oracle", "emissions-data", "compliance", "themis"],
       "replaces": {
         "role": "ESG/Compliance lead",
         "fteCount": 1.75,
@@ -4642,11 +4261,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "sitesense",
-        "compliance",
-        "themis"
-      ],
+      "agents": ["sitesense", "compliance", "themis"],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 1.25,
@@ -4690,13 +4305,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "sitesense",
-        "material-oracle",
-        "schedule-genius",
-        "logistics",
-        "themis"
-      ],
+      "agents": ["sitesense", "material-oracle", "schedule-genius", "logistics", "themis"],
       "replaces": {
         "role": "Construction PM and planner",
         "fteCount": 2,
@@ -4740,11 +4349,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "sovereignty",
-        "compliance",
-        "quality-gate"
-      ],
+      "agents": ["sovereignty", "compliance", "quality-gate"],
       "replaces": {
         "role": "Compliance + 0.3 DPO",
         "fteCount": 1.3,
@@ -4788,12 +4393,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "seo-audit",
-        "competitor-surveillance",
-        "lead-feedback",
-        "customer-sat"
-      ],
+      "agents": ["seo-audit", "competitor-surveillance", "lead-feedback", "customer-sat"],
       "replaces": {
         "role": "Marketing and CS analysts",
         "fteCount": 1.5,
@@ -4837,9 +4437,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T4",
-      "agents": [
-        "all"
-      ],
+      "agents": ["all"],
       "replaces": {
         "role": "Multi-disciplinary FTE team",
         "fteCount": 7,
@@ -4883,9 +4481,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "industry-model"
-      ],
+      "agents": ["industry-model"],
       "replaces": {
         "role": "construction vertical SME",
         "fteCount": 0.3,
@@ -4908,10 +4504,7 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": [
-        "CONSTR-T3",
-        "ESG-T3"
-      ],
+      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -4922,13 +4515,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU or edge"
-      ],
-      "capacityCapabilities": [
-        "Mars manufacturing",
-        "Production compliance"
-      ],
+      "capacityOptions": ["Cloud EU or edge"],
+      "capacityCapabilities": ["Mars manufacturing", "Production compliance"],
       "capacityLimits": "Per-factory scope",
       "partnerProduct": true
     },
@@ -4943,9 +4531,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "industry-model"
-      ],
+      "agents": ["industry-model"],
       "replaces": {
         "role": "energy vertical SME",
         "fteCount": 0.3,
@@ -4968,10 +4554,7 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": [
-        "CONSTR-T3",
-        "ESG-T3"
-      ],
+      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -4982,13 +4565,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU or edge"
-      ],
-      "capacityCapabilities": [
-        "Helios energy",
-        "Solar/wind monitoring"
-      ],
+      "capacityOptions": ["Cloud EU or edge"],
+      "capacityCapabilities": ["Helios energy", "Solar/wind monitoring"],
       "capacityLimits": "Per-site scope",
       "partnerProduct": true
     },
@@ -5003,9 +4581,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "industry-model"
-      ],
+      "agents": ["industry-model"],
       "replaces": {
         "role": "steel ETS/CBAM vertical SME",
         "fteCount": 0.3,
@@ -5028,10 +4604,7 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": [
-        "CONSTR-T3",
-        "ESG-T3"
-      ],
+      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -5042,13 +4615,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU or edge"
-      ],
-      "capacityCapabilities": [
-        "Vulcan heavy industry",
-        "Emission monitoring"
-      ],
+      "capacityOptions": ["Cloud EU or edge"],
+      "capacityCapabilities": ["Vulcan heavy industry", "Emission monitoring"],
       "capacityLimits": "Per-site scope",
       "partnerProduct": true
     },
@@ -5063,9 +4631,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "industry-model"
-      ],
+      "agents": ["industry-model"],
       "replaces": {
         "role": "aluminium ETS/CBAM vertical SME",
         "fteCount": 0.3,
@@ -5088,10 +4654,7 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": [
-        "CONSTR-T3",
-        "ESG-T3"
-      ],
+      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -5102,13 +4665,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU or edge"
-      ],
-      "capacityCapabilities": [
-        "Talos construction",
-        "Site compliance"
-      ],
+      "capacityOptions": ["Cloud EU or edge"],
+      "capacityCapabilities": ["Talos construction", "Site compliance"],
       "capacityLimits": "Per-site scope",
       "partnerProduct": true
     },
@@ -5123,9 +4681,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "industry-model"
-      ],
+      "agents": ["industry-model"],
       "replaces": {
         "role": "cement ETS/CBAM vertical SME",
         "fteCount": 0.3,
@@ -5148,10 +4704,7 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": [
-        "CONSTR-T3",
-        "ESG-T3"
-      ],
+      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -5162,13 +4715,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU or edge"
-      ],
-      "capacityCapabilities": [
-        "Gaia environmental",
-        "Sustainability reporting"
-      ],
+      "capacityOptions": ["Cloud EU or edge"],
+      "capacityCapabilities": ["Gaia environmental", "Sustainability reporting"],
       "capacityLimits": "Per-contract scope",
       "partnerProduct": true
     },
@@ -5183,9 +4731,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "industry-model"
-      ],
+      "agents": ["industry-model"],
       "replaces": {
         "role": "agri/circular vertical SME",
         "fteCount": 0.3,
@@ -5208,10 +4754,7 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": [
-        "CONSTR-T3",
-        "ESG-T3"
-      ],
+      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -5222,13 +4765,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU or edge"
-      ],
-      "capacityCapabilities": [
-        "Ceres compliance",
-        "Industry-specific"
-      ],
+      "capacityOptions": ["Cloud EU or edge"],
+      "capacityCapabilities": ["Ceres compliance", "Industry-specific"],
       "capacityLimits": "Per-contract scope",
       "partnerProduct": true
     },
@@ -5243,9 +4781,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "industry-model"
-      ],
+      "agents": ["industry-model"],
       "replaces": {
         "role": "maritime ops vertical SME",
         "fteCount": 0.3,
@@ -5268,10 +4804,7 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": [
-        "CONSTR-T3",
-        "ESG-T3"
-      ],
+      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -5282,13 +4815,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU or edge"
-      ],
-      "capacityCapabilities": [
-        "Neptun water",
-        "Water treatment compliance"
-      ],
+      "capacityOptions": ["Cloud EU or edge"],
+      "capacityCapabilities": ["Neptun water", "Water treatment compliance"],
       "capacityLimits": "Per-site scope",
       "partnerProduct": true
     },
@@ -5303,9 +4831,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "industry-model"
-      ],
+      "agents": ["industry-model"],
       "replaces": {
         "role": "hydrogen vertical SME",
         "fteCount": 0.3,
@@ -5328,10 +4854,7 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": [
-        "CONSTR-T3",
-        "ESG-T3"
-      ],
+      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -5342,13 +4865,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU or edge"
-      ],
-      "capacityCapabilities": [
-        "Prometheus industrial",
-        "Process monitoring"
-      ],
+      "capacityOptions": ["Cloud EU or edge"],
+      "capacityCapabilities": ["Prometheus industrial", "Process monitoring"],
       "capacityLimits": "Per-process scope",
       "partnerProduct": true
     },
@@ -5363,9 +4881,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "industry-model"
-      ],
+      "agents": ["industry-model"],
       "replaces": {
         "role": "battery storage vertical SME",
         "fteCount": 0.3,
@@ -5388,10 +4904,7 @@
       "brand": "DWS IQ",
       "version": "1.0",
       "industryPodAddOn": true,
-      "addsOnTo": [
-        "CONSTR-T3",
-        "ESG-T3"
-      ],
+      "addsOnTo": ["CONSTR-T3", "ESG-T3"],
       "google": {
         "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
@@ -5402,13 +4915,8 @@
       },
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Production",
-      "capacityOptions": [
-        "Cloud EU or edge"
-      ],
-      "capacityCapabilities": [
-        "BESS compliance monitoring",
-        "Battery analytics"
-      ],
+      "capacityOptions": ["Cloud EU or edge"],
+      "capacityCapabilities": ["BESS compliance monitoring", "Battery analytics"],
       "capacityLimits": "Per-site scope",
       "partnerProduct": true
     },
@@ -5422,9 +4930,7 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": [
-        "compliance"
-      ],
+      "agents": ["compliance"],
       "replaces": {
         "role": "AI literacy programme manager",
         "fteCount": 0.4,
@@ -5469,9 +4975,7 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": [
-        "compliance"
-      ],
+      "agents": ["compliance"],
       "replaces": {
         "role": "Senior compliance lead",
         "fteCount": 0.6,
@@ -5518,9 +5022,7 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": [
-        "sitesense"
-      ],
+      "agents": ["sitesense"],
       "replaces": {
         "role": "HSE supervisor",
         "fteCount": 0.7,
@@ -5565,12 +5067,7 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": [
-        "material-oracle",
-        "emissions-data",
-        "compliance",
-        "themis"
-      ],
+      "agents": ["material-oracle", "emissions-data", "compliance", "themis"],
       "replaces": {
         "role": "ESG reporting lead",
         "fteCount": 1.5,
@@ -5617,10 +5114,7 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": [
-        "material-oracle",
-        "emissions-data"
-      ],
+      "agents": ["material-oracle", "emissions-data"],
       "replaces": {
         "role": "LCA specialist",
         "fteCount": 0.8,
@@ -5665,11 +5159,7 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": [
-        "sovereignty",
-        "compliance",
-        "quality-gate"
-      ],
+      "agents": ["sovereignty", "compliance", "quality-gate"],
       "replaces": {
         "role": "Compliance + DPO",
         "fteCount": 1,
@@ -5716,13 +5206,7 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": [
-        "sitesense",
-        "material-oracle",
-        "schedule-genius",
-        "logistics",
-        "themis"
-      ],
+      "agents": ["sitesense", "material-oracle", "schedule-genius", "logistics", "themis"],
       "replaces": {
         "role": "Construction PM and planner",
         "fteCount": 1.8,
@@ -5767,12 +5251,7 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": [
-        "seo-audit",
-        "competitor-surveillance",
-        "lead-feedback",
-        "customer-sat"
-      ],
+      "agents": ["seo-audit", "competitor-surveillance", "lead-feedback", "customer-sat"],
       "replaces": {
         "role": "GTM analyst team",
         "fteCount": 1.3,
@@ -5817,9 +5296,7 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": [
-        "themis"
-      ],
+      "agents": ["themis"],
       "replaces": {
         "role": "Ops coordinator",
         "fteCount": 0.5,
@@ -5864,9 +5341,7 @@
       "type": "bundle",
       "priceUnit": "per-year",
       "tier": "land",
-      "agents": [
-        "all"
-      ],
+      "agents": ["all"],
       "replaces": {
         "role": "Multi-disciplinary FTE team",
         "fteCount": 6.5,
@@ -5912,12 +5387,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "compliance",
-        "sovereignty",
-        "quality-gate",
-        "themis"
-      ],
+      "agents": ["compliance", "sovereignty", "quality-gate", "themis"],
       "replaces": {
         "role": "Compliance officer + 0.3 DPO",
         "fteCount": 1.5,
@@ -5961,13 +5431,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "lead-feedback",
-        "customer-sat",
-        "competitor-surveillance",
-        "seo-audit",
-        "themis"
-      ],
+      "agents": ["lead-feedback", "customer-sat", "competitor-surveillance", "seo-audit", "themis"],
       "replaces": {
         "role": "Marketing/CS team lead",
         "fteCount": 1.4,
@@ -6011,13 +5475,7 @@
       "type": "subscription",
       "priceUnit": "per-month",
       "tier": "T3",
-      "agents": [
-        "customer-sat",
-        "viability",
-        "schedule-genius",
-        "logistics",
-        "themis"
-      ],
+      "agents": ["customer-sat", "viability", "schedule-genius", "logistics", "themis"],
       "replaces": {
         "role": "Commerce ops lead",
         "fteCount": 1.5,
@@ -6084,14 +5542,8 @@
       "buyPageOrder": 1,
       "additionalImage": "/DWS_IQ2026.png",
       "capacityClass": "Core",
-      "capacityOptions": [
-        "Cloud free tier"
-      ],
-      "capacityCapabilities": [
-        "1 agent",
-        "Basic dashboard",
-        "Community support"
-      ],
+      "capacityOptions": ["Cloud free tier"],
+      "capacityCapabilities": ["1 agent", "Basic dashboard", "Community support"],
       "capacityLimits": "Usage capped"
     },
     "AIS-EU-SOV-OC": {
@@ -6193,13 +5645,7 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": [
-        "FI",
-        "SE",
-        "NO",
-        "DK",
-        "DE"
-      ],
+      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
       "contentLanguage": "en",
       "channel": "online"
     }
@@ -6280,7 +5726,7 @@
         "path": "/price-list/",
         "classification": "serious and supporting",
         "productRule": "non-BLUE, non-archived products plus subscriptions",
-        "expectedProductCount": 49,
+        "expectedProductCount": 67,
         "includesSubscriptions": true
       },
       "lifetimeConsulting": {
@@ -6476,9 +5922,7 @@
       "version": "1.11",
       "date": "2026-05-10",
       "author": "claude/dynamic-deployment-pricing-LExxQ",
-      "changes": [
-        "Add version field to all products (Green versions)"
-      ]
+      "changes": ["Add version field to all products (Green versions)"]
     },
     {
       "version": "1.12",

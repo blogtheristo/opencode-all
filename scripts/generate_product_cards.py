@@ -2,7 +2,8 @@
 """Generate 116 unique branded product card images for dws10.com.
 
 Reads dws10.com/config/products.json and writes one 1024x1024 PNG per product to
-dws10.com/static/images/products/<id>.png. Accent color is chosen by storeCategory.
+dws10.com/static/images/products/<id>.png. Uses DWS Gamma Brand Standard v3.9
+gold palette with category-specific accent colors.
 """
 
 import json
@@ -17,29 +18,38 @@ CONFIG = os.path.join(ROOT, "dws10.com", "config", "products.json")
 OUT = os.path.join(ROOT, "dws10.com", "static", "images", "products")
 SIZE = 1024
 
+# DWS Gamma Brand Standard v3.9 — Nordic Industrial Palette + Gold
 CATEGORY_STYLE = {
-    "platform": ((20, 22, 40), (52, 152, 219), "PLATFORM"),
-    "advisory": ((24, 20, 40), (155, 89, 182), "ADVISORY"),
-    "ai-cloud": ((20, 34, 40), (46, 204, 113), "AI & CLOUD"),
-    "hardware": ((34, 24, 20), (230, 126, 34), "HARDWARE"),
-    "digital": ((26, 30, 38), (241, 196, 15), "DIGITAL"),
-    "add-on": ((30, 30, 30), (127, 140, 141), "ADD-ON"),
+    "platform": ((10, 15, 30), (37, 99, 235), "PLATFORM"),      # --nordic-navy + blue
+    "advisory": ((15, 12, 30), (168, 85, 247), "ADVISORY"),      # purple
+    "ai-cloud": ((10, 20, 30), (74, 222, 128), "AI & CLOUD"),    # green
+    "hardware": ((20, 15, 10), (245, 158, 11), "HARDWARE"),      # gold (#f59e0b)
+    "digital": ((15, 18, 28), (96, 165, 250), "DIGITAL"),        # blue accent
+    "add-on": ((18, 18, 22), (148, 163, 184), "ADD-ON"),         # slate
 }
+
+# Gold standard: #f59e0b → #d97706
+GOLD_TOP = (245, 158, 11)
+GOLD_BOTTOM = (217, 119, 6)
 
 try:
     FONT_BOLD = ImageFont.truetype(
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 64
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 56
     )
     FONT_SMALL = ImageFont.truetype(
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 32
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 28
     )
     FONT_TINY = ImageFont.truetype(
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 26
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 22
+    )
+    FONT_TITLE = ImageFont.truetype(
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 44
     )
 except Exception:
     FONT_BOLD = ImageFont.load_default()
     FONT_SMALL = ImageFont.load_default()
     FONT_TINY = ImageFont.load_default()
+    FONT_TITLE = ImageFont.load_default()
 
 
 def gradient(size, top, bottom):
@@ -87,64 +97,99 @@ def make_card(product):
     bg, accent, cat_label = CATEGORY_STYLE.get(cat, CATEGORY_STYLE["platform"])
     price = product.get("price", 0)
     currency = product.get("currency", "EUR")
+    cap_class = product.get("capacityClass", "")
 
     rng = random.Random(hash(pid) & 0xFFFFFFFF)
-    bg2 = tuple(max(0, min(255, c + rng.randint(-14, 14))) for c in bg)
+    bg2 = tuple(max(0, min(255, c + rng.randint(-8, 8))) for c in bg)
 
+    # Gradient background
     img = gradient((SIZE, SIZE), bg, bg2)
-    img = grid_pattern(img, accent, alpha=18)
-    img = img.filter(ImageFilter.GaussianBlur(0.4))
+    img = grid_pattern(img, accent, alpha=12)
+    img = img.filter(ImageFilter.GaussianBlur(0.3))
 
     d = ImageDraw.Draw(img)
 
-    # accent side bar
-    d.rectangle([0, 0, 14, SIZE], fill=accent)
+    # Gold accent sidebar (brand standard)
+    d.rectangle([0, 0, 12, SIZE], fill=GOLD_TOP)
 
-    # brand mark top-left
-    d.rounded_rectangle([64, 56, 64 + 84, 56 + 84], radius=18, fill=accent)
-    d.text((64 + 42, 56 + 42), "DWS", fill=(255, 255, 255), font=FONT_SMALL, anchor="mm")
+    # Brand mark top-left — gold rounded rect
+    d.rounded_rectangle([56, 48, 56 + 76, 48 + 76], radius=16, fill=GOLD_TOP)
+    d.text((56 + 38, 48 + 38), "DWS", fill=(255, 255, 255), font=FONT_TINY, anchor="mm")
 
-    d.text((170, 98), "DWS IQ", fill=(255, 255, 255), font=FONT_SMALL, anchor="lm")
+    d.text((150, 86), "DWS IQ", fill=(255, 255, 255), font=FONT_SMALL, anchor="lm")
 
-    # category badge
-    label_w = d.textlength(cat_label, font=FONT_TINY) + 48
+    # Category badge — gold outline style
+    label_w = d.textlength(cat_label, font=FONT_TINY) + 40
+    cat_x = SIZE - 56 - label_w
     d.rounded_rectangle(
-        [SIZE - 64 - label_w, 56, SIZE - 64, 56 + 44], radius=22, fill=accent + (220,)
+        [cat_x, 48, SIZE - 56, 48 + 38], radius=19,
+        fill=None, outline=GOLD_TOP, width=2
     )
     d.text(
-        (SIZE - 64 - label_w / 2, 78),
+        (cat_x + label_w / 2, 67),
         cat_label,
-        fill=(255, 255, 255),
+        fill=GOLD_TOP,
         font=FONT_TINY,
         anchor="mm",
     )
 
-    # centered product name
-    lines = wrap_text(d, name, FONT_BOLD, 820)
-    y = 460
-    d.rectangle([64, y - 34, SIZE - 64, y + len(lines) * 78 + 34], fill=(0, 0, 0))
-    yy = y
-    for line in lines:
-        d.text((SIZE / 2, yy), line, fill=(255, 255, 255), font=FONT_BOLD, anchor="mm")
-        yy += 78
+    # Capacity class badge (if present)
+    if cap_class:
+        cap_label = cap_class.upper()
+        cap_w = d.textlength(cap_label, font=FONT_TINY) + 32
+        cap_colors = {
+            "Core": (34, 197, 94),
+            "Production": (59, 130, 246),
+            "Enterprise": (168, 85, 247),
+            "Sovereign": (249, 115, 22),
+        }
+        cap_color = cap_colors.get(cap_class, GOLD_TOP)
+        cap_x = SIZE - 56 - cap_w
+        d.rounded_rectangle(
+            [cap_x, 94, SIZE - 56, 94 + 30], radius=15,
+            fill=cap_color + (40,), outline=cap_color, width=1
+        )
+        d.text(
+            (cap_x + cap_w / 2, 109),
+            cap_label,
+            fill=cap_color,
+            font=FONT_TINY,
+            anchor="mm",
+        )
 
-    # price
+    # Product name — centered, no black box, gold underline
+    lines = wrap_text(d, name, FONT_TITLE, 780)
+    total_h = len(lines) * 58
+    y_start = (SIZE - total_h) // 2 - 20
+
+    for i, line in enumerate(lines):
+        d.text((SIZE / 2, y_start + i * 58), line, fill=(255, 255, 255), font=FONT_TITLE, anchor="mm")
+
+    # Gold underline beneath title
+    underline_w = min(400, max(200, total_h * 2))
+    ux = (SIZE - underline_w) / 2
+    uy = y_start + total_h + 16
+    d.rounded_rectangle(
+        [ux, uy, ux + underline_w, uy + 4], radius=2, fill=GOLD_TOP
+    )
+
+    # Price — gold text
     if price and price > 0:
         price_str = f"{price:,.2f} {currency}"
         d.text(
-            (SIZE / 2, yy + 56),
+            (SIZE / 2, uy + 48),
             price_str,
-            fill=accent,
+            fill=GOLD_TOP,
             font=FONT_SMALL,
             anchor="mm",
         )
 
-    # footer
-    d.text((64, SIZE - 56), "Lifetime Group", fill=(200, 200, 200), font=FONT_TINY)
+    # Footer
+    d.text((56, SIZE - 48), "Lifetime Group", fill=(148, 163, 184), font=FONT_TINY)
     d.text(
-        (SIZE - 64, SIZE - 56),
+        (SIZE - 56, SIZE - 48),
         "dws10.com",
-        fill=(200, 200, 200),
+        fill=(148, 163, 184),
         font=FONT_TINY,
         anchor="rm",
     )
