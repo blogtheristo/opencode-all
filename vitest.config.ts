@@ -30,6 +30,9 @@ export default defineConfig({
       // (react, @reduxjs/toolkit, etc.), so Vitest picking these up fails
       // with ERR_MODULE_NOT_FOUND rather than actually running them.
       'Firehorse/mobile-app/**',
+      // OpenCode-all git submodule: uses bun:test which is not available in node
+      // environment. These are external tests we don't control; exclude entirely.
+      'opencode-all/**',
     ],
     coverage: {
       provider: 'v8',
