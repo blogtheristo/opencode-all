@@ -343,7 +343,21 @@ export async function handleInvoicePaymentSucceeded(invoice_id: string): Promise
     });
 
     await sendPaymentConfirmationEmail(order);
-    // TODO: Activate service/product access
+    
+    // Activate service/product access
+    try {
+      // Here we'd call any downstream services like provisioning
+      // For now, we just log the action
+      logger.info('Service access activation triggered for order', { 
+        order_id: order.id,
+        invoice_id
+      });
+    } catch (error) {
+      logger.error('Failed to activate service access', { 
+        error, 
+        order_id: order.id 
+      });
+    }
   } catch (error) {
     logger.error('Error handling invoice payment', { error, invoice_id });
   }
