@@ -139,7 +139,9 @@ router.post('/orders', requireAuth, async (req: Request, res: Response, next: Ne
       return res.status(500).json({ error: 'Failed to fetch product pricing' });
     }
 
-    const products = JSON.parse(await productsData.text()) as { data?: Array<{ id?: string; price?: number; [key: string]: unknown }> };
+    const products = JSON.parse(await productsData.text()) as {
+      data?: Array<{ id?: string; price?: number; [key: string]: unknown }>;
+    };
     const product = products.data?.find((p) => p.id === product_id);
 
     if (!product) {
@@ -382,17 +384,17 @@ router.post('/webhook', async (req: Request, res: Response, next: NextFunction) 
           orderId: order.id,
           invoiceId: invoice_id,
         });
-        // Notify admin, send customer reminder email
+        // TODO: Notify admin, send customer reminder email
         try {
-          // This would use sendEmail and notification services  
-          logger.info('Admin notified and customer reminded of payment', {
+          // This would use sendEmail and notification services
+          logger.info('Admin notification + customer reminder placeholder (not implemented)', {
             order_id: order.id,
-            invoice_id: invoice_id
+            invoice_id: invoice_id,
           });
         } catch (error) {
-          logger.error('Failed to notify admin and remind customer', { 
-            error, 
-            order_id: order.id 
+          logger.error('Failed to notify admin and remind customer', {
+            error,
+            order_id: order.id,
           });
         }
       }

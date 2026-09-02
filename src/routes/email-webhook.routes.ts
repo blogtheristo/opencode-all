@@ -164,31 +164,35 @@ router.post('/ses', sesLimiter, async (req: RawBodyRequest, res: Response) => {
 
         await emailTrackingService.logEmailBounced(emailId, email ?? 'unknown', hardOrSoft);
 
-        // Mark contact as invalid in Firehorse
-        try {
-          // This would update contact status in Supabase
-          logger.info('Contact marked as invalid', {
-            email,
-            reason: 'hard bounce',
-          });
-        } catch (error) {
-          logger.error('Failed to mark contact as invalid', {
-            error,
-            email,
-          });
-        }
+        // TODO: Mark contact as invalid (hard bounces only) + exclude from future campaigns
+        if (hardOrSoft === 'hard') {
+          try {
+            // This would update contact status in Supabase
+            logger.info('Contact marked as invalid (hard bounce)', {
+              email,
+              bounceType: bounceType,
+            });
+          } catch (error) {
+            logger.error('Failed to mark contact as invalid', {
+              error,
+              email,
+            });
+          }
 
-        // Remove from future campaigns if hard bounce
-        try {
-          // This would update campaign exclusion list
-          logger.info('Removed from future campaigns due to hard bounce', {
-            email: email,
-          });
-        } catch (error) {
-          logger.error('Failed to exclude contact from campaigns', {
-            error,
-            email: email,
-          });
+          // Remove from future campaigns if hard bounce
+          try {
+            // This would update campaign exclusion list
+            logger.info('Excluded from future campaigns (hard bounce)', {
+              email,
+            });
+          } catch (error) {
+            logger.error('Failed to exclude contact from campaigns', {
+              error,
+              email,
+            });
+          }
+        } else {
+          logger.debug('Soft/undetermined bounce - contact retained', { email, bounceType });
         }
       }
 

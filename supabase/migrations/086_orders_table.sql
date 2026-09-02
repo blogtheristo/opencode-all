@@ -11,7 +11,7 @@ BEGIN;
 CREATE TABLE IF NOT EXISTS orders (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   stripe_invoice_id TEXT UNIQUE NOT NULL, -- Unique Stripe invoice ID
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   org_id UUID REFERENCES organizations(id) ON DELETE CASCADE,
   session_id TEXT,
   amount_eur NUMERIC(12,2) NOT NULL, -- Total amount paid in EUR
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS orders (
 -- INDEXES
 -- ===========================================================================
 
-CREATE INDEX IF NOT EXISTS idx_orders_stripe_invoice_id ON orders(stripe_invoice_id);
+-- stripe_invoice_id is UNIQUE, so Postgres already creates an index (no additional index needed)
 CREATE INDEX IF NOT EXISTS idx_orders_user_id ON orders(user_id);
 CREATE INDEX IF NOT EXISTS idx_orders_org_id ON orders(org_id);
 CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
