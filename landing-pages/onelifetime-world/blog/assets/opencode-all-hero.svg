@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0c0a09"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d4a843"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <circle cx="960" cy="540" r="500" fill="url(#glow)"/>
+
+  <!-- Connection lines between nodes -->
+  <line x1="400" y1="300" x2="960" y2="450" stroke="#334155" stroke-width="2" opacity="0.5"/>
+  <line x1="700" y1="200" x2="960" y2="450" stroke="#334155" stroke-width="2" opacity="0.5"/>
+  <line x1="1520" y1="300" x2="960" y2="450" stroke="#334155" stroke-width="2" opacity="0.5"/>
+  <line x1="1220" y1="200" x2="960" y2="450" stroke="#334155" stroke-width="2" opacity="0.5"/>
+  <line x1="400" y1="780" x2="960" y2="630" stroke="#334155" stroke-width="2" opacity="0.5"/>
+  <line x1="1520" y1="780" x2="960" y2="630" stroke="#334155" stroke-width="2" opacity="0.5"/>
+  <line x1="960" y1="450" x2="960" y2="630" stroke="url(#gold)" stroke-width="3" opacity="0.8"/>
+
+  <!-- Tool nodes -->
+  <rect x="320" y="260" width="160" height="80" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="400" y="298" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="14">GitHub</text>
+  <text x="400" y="318" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="14">Copilot</text>
+
+  <rect x="620" y="160" width="160" height="80" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="700" y="198" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="14">Claude</text>
+  <text x="700" y="218" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="14">Code</text>
+
+  <rect x="1440" y="260" width="160" height="80" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="1520" y="298" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="14">Google</text>
+  <text x="1520" y="318" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="14">Gemini</text>
+
+  <rect x="1140" y="160" width="160" height="80" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="1220" y="198" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="14">OpenAI</text>
+
+  <rect x="320" y="740" width="160" height="80" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="400" y="778" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="14">Cursor AI</text>
+
+  <rect x="1440" y="740" width="160" height="80" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="1520" y="778" text-anchor="middle" fill="#94a3b8" font-family="system-ui" font-size="14">Humans</text>
+
+  <!-- Central engine node -->
+  <rect x="790" y="420" width="340" height="240" rx="20" fill="#0f172a" stroke="url(#gold)" stroke-width="2"/>
+  <rect x="790" y="420" width="340" height="240" rx="20" fill="#60a5fa" fill-opacity="0.03"/>
+
+  <!-- Engine title -->
+  <text x="960" y="480" text-anchor="middle" fill="url(#gold)" font-family="system-ui" font-weight="700" font-size="28">opencode-all</text>
+  <text x="960" y="512" text-anchor="middle" fill="#60a5fa" font-family="system-ui" font-size="16" letter-spacing="4">THE LIVING ENGINE</text>
+
+  <!-- Engine features -->
+  <text x="960" y="555" text-anchor="middle" fill="#cbd5e1" font-family="system-ui" font-size="14">Sessions unified · State preserved</text>
+  <text x="960" y="578" text-anchor="middle" fill="#cbd5e1" font-family="system-ui" font-size="14">Audit gates enforced · Work bounded</text>
+  <text x="960" y="601" text-anchor="middle" fill="#cbd5e1" font-family="system-ui" font-size="14">Human approval required</text>
+
+  <!-- HIC node -->
+  <rect x="810" y="600" width="300" height="40" rx="8" fill="#1e293b" stroke="url(#blue)" stroke-width="1"/>
+  <text x="960" y="626" text-anchor="middle" fill="#60a5fa" font-family="system-ui" font-weight="600" font-size="15">HIC — Human-In-Command ✓</text>
+
+  <!-- Bottom tagline -->
+  <text x="960" y="900" text-anchor="middle" fill="#64748b" font-family="system-ui" font-style="italic" font-size="16">"Näiden työkalujen luomien sessioiden, kielimallien ja ihmisten vuorovaikutuksessa syntyy työn tulos."</text>
+
+  <!-- Branding -->
+  <text x="100" y="1030" fill="#d4a843" font-family="system-ui" font-weight="700" font-size="18">Lifetime Oy</text>
+  <text x="100" y="1052" fill="#64748b" font-family="system-ui" font-size="13">the Agent Outcome Company</text>
+  <text x="1820" y="1040" text-anchor="end" fill="#334155" font-family="system-ui" font-size="12">onelifetime.world/blog</text>
+
+  <!-- Decorative dots -->
+  <circle cx="960" cy="450" r="6" fill="#d4a843"/>
+  <circle cx="960" cy="630" r="6" fill="#60a5fa"/>
+</svg>
