@@ -78,12 +78,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Price List · DWS IQ Platform · Lifetime Oy</title>
-    <link rel="alternate" hreflang="en" href="https://dws10.com/price-list/">
-    <link rel="alternate" hreflang="fi" href="https://dws10.com/price-list/fi/">
-    <link rel="alternate" hreflang="sv" href="https://dws10.com/price-list/sv/">
-    <link rel="alternate" hreflang="de" href="https://dws10.com/price-list/de/">
-    <link rel="alternate" hreflang="fr" href="https://dws10.com/price-list/fr/">
-    <link rel="alternate" hreflang="x-default" href="https://dws10.com/price-list/">
+    <link rel="alternate" hreflang="en" href="https://dws10.com/price-list/" />
+    <link rel="alternate" hreflang="fi" href="https://dws10.com/price-list/fi/" />
+    <link rel="alternate" hreflang="sv" href="https://dws10.com/price-list/sv/" />
+    <link rel="alternate" hreflang="de" href="https://dws10.com/price-list/de/" />
+    <link rel="alternate" hreflang="fr" href="https://dws10.com/price-list/fr/" />
+    <link rel="alternate" hreflang="x-default" href="https://dws10.com/price-list/" />
     <meta
       name="description"
       content="Official DWS IQ + Firehorse B2B price list. EUR, VAT 0% (reverse charge). Sovereign intelligence and compliance. Reviewed quarterly."
@@ -554,7 +554,11 @@
           customers. EU intra-community supplies are reverse-charged against a valid EU VAT number.
           Quote valid <span id="mQuote">30 days</span>.
         </div>
-        <p class="portfolio-note">This broad public price list contains 49 non-BLUE, non-archived DWS products plus subscriptions. Every listed offer is marked <strong>Serious</strong> or <strong>Supporting</strong>; BLUE and archived records are not public sales offers.</p>
+        <p class="portfolio-note">
+          This broad public price list contains 49 non-BLUE, non-archived DWS products plus
+          subscriptions. Every listed offer is marked <strong>Serious</strong> or
+          <strong>Supporting</strong>; BLUE and archived records are not public sales offers.
+        </p>
       </header>
 
       <!-- ============================================================
@@ -750,9 +754,9 @@
         <h2 class="deploy-h">Choose your deployment — one platform, three ways</h2>
         <p class="deploy-lead">
           DWS IQ 6 is a single agent platform delivered in three ways. You pick by
-          <strong>sovereignty posture</strong>, not by feature set — the same 50-production-agent brain runs
-          in every model; only the jurisdiction, infrastructure, and ownership change. Two of the
-          three are <strong>cloud versions we host for you</strong>; the third is a
+          <strong>sovereignty posture</strong>, not by feature set — the same 50-production-agent
+          brain runs in every model; only the jurisdiction, infrastructure, and ownership change.
+          Two of the three are <strong>cloud versions we host for you</strong>; the third is a
           <strong>sovereign NVIDIA DGX solution you own and run on your own premises</strong>.
         </p>
 
@@ -780,7 +784,10 @@
             <h3>Dedicated Sovereign Cloud — Aegis</h3>
             <div class="deploy-price">DWS IQ Aegis · €59,990 + €999/mo</div>
             <ul>
-              <li>UpCloud (Helsinki) / Hetzner — Finnish jurisdiction, designed to reduce CLOUD Act exposure</li>
+              <li>
+                UpCloud (Helsinki) / Hetzner — Finnish jurisdiction, designed to reduce CLOUD Act
+                exposure
+              </li>
               <li>Aiven managed PostgreSQL (no US-incorporated vendor in the data path)</li>
               <li>Themis control plane · Article 12 pipeline · EUDI Wallet auth</li>
               <li>Dedicated instance, not shared tenancy</li>
@@ -797,9 +804,18 @@
             <h3>Sovereign On-Premise — NVIDIA DGX</h3>
             <div class="deploy-price">Your hardware · you own the weights</div>
             <ul>
-              <li>Control Room (Acer Veriton GN100) <span id="priceControlRoom">catalog</span> · DGX Spark <span id="priceDgxSpark">catalog</span></li>
-              <li>Situation Room (two nodes) <span id="priceSituationRoom">catalog</span> · IGX Orin <span id="priceIgxOrin">catalog</span></li>
-              <li>+ NVIDIA Model Install <span id="priceNvidiaInstall">catalog</span> · Sovereign Model Updates <span id="priceModelUpdates">catalog</span></li>
+              <li>
+                Control Room (Acer Veriton GN100) <span id="priceControlRoom">catalog</span> · DGX
+                Spark <span id="priceDgxSpark">catalog</span>
+              </li>
+              <li>
+                Situation Room (two nodes) <span id="priceSituationRoom">catalog</span> · IGX Orin
+                <span id="priceIgxOrin">catalog</span>
+              </li>
+              <li>
+                + NVIDIA Model Install <span id="priceNvidiaInstall">catalog</span> · Sovereign
+                Model Updates <span id="priceModelUpdates">catalog</span>
+              </li>
               <li>Data never leaves your network · you own 100% of model weights</li>
             </ul>
             <div class="deploy-best">
@@ -827,7 +843,12 @@
             <tr>
               <td>Capital outlay</td>
               <td class="c-cloud">None — you rent capacity</td>
-              <td class="c-onprem">Hardware catalog range: <span id="priceHardwareLow">catalog</span>–<span id="priceHardwareHigh">catalog</span></td>
+              <td class="c-onprem">
+                Hardware catalog range: <span id="priceHardwareLow">catalog</span>–<span
+                  id="priceHardwareHigh"
+                  >catalog</span
+                >
+              </td>
             </tr>
             <tr>
               <td>Running cost</td>
@@ -1077,21 +1098,33 @@
             throw new Error("commercialPortfolio.seriousProductIds must contain exactly 13 IDs");
           }
           var seriousLookup = {};
-          seriousIds.forEach(function (id) { seriousLookup[id] = true; });
-          var catalogProducts = data.products || {};
-          var publicProducts = Object.keys(catalogProducts).map(function (key) {
-            return catalogProducts[key];
-          }).filter(function (product) {
-            return product && product.deploymentColor !== "blue" &&
-              product.archived !== true && product.productType !== "archived";
+          seriousIds.forEach(function (id) {
+            seriousLookup[id] = true;
           });
+          var catalogProducts = data.products || {};
+          var publicProducts = Object.keys(catalogProducts)
+            .map(function (key) {
+              return catalogProducts[key];
+            })
+            .filter(function (product) {
+              return (
+                product &&
+                product.deploymentColor !== "blue" &&
+                product.archived !== true &&
+                product.productType !== "archived"
+              );
+            });
           if (publicProducts.length !== 49) {
             throw new Error("Expected 49 public products; found " + publicProducts.length);
           }
           seriousIds.forEach(function (id) {
             var product = catalogProducts[id];
             if (!product) throw new Error("Serious product missing: " + id);
-            if (product.deploymentColor === "blue" || product.archived === true || product.productType === "archived") {
+            if (
+              product.deploymentColor === "blue" ||
+              product.archived === true ||
+              product.productType === "archived"
+            ) {
               throw new Error("Serious product is not public: " + id);
             }
           });
@@ -1211,8 +1244,8 @@
                   var pname = encodeURIComponent(p.name || p.id || "Product");
                   var cardBtn = seriousLookup[p.id]
                     ? '<a class="act-card" href="/buy/#product-' +
-                    pid +
-                    '" title="Product card">Card</a>'
+                      pid +
+                      '" title="Product card">Card</a>'
                     : "";
                   var detailBtn = detailsHref
                     ? '<a class="act-detail" href="' +
@@ -1238,7 +1271,10 @@
                     escapeHtml(p.id || "") +
                     "</td>" +
                     '<td data-label="Class"><span class="portfolio-badge ' +
-                    portfolioClass.toLowerCase() + '">' + portfolioClass + "</span></td>" +
+                    portfolioClass.toLowerCase() +
+                    '">' +
+                    portfolioClass +
+                    "</span></td>" +
                     '<td class="col-name" data-label="Product">' +
                     tierHtml +
                     escapeHtml(p.name || "") +
@@ -1266,7 +1302,6 @@
               "</tbody></table>";
             main.appendChild(block);
           });
-
         }
 
         function fail(msg) {
@@ -1277,7 +1312,7 @@
             '<p style="margin-top:10px">Please refresh, or email <a href="https://dws10.com/contact/">sales@lifetime.fi</a>.</p></div>';
         }
 
-        fetch("../config/products.json", { cache: "no-store" })
+        fetch("/config/products.json", { cache: "no-store" })
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();
