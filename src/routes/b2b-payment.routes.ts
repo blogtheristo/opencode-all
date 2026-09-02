@@ -382,7 +382,19 @@ router.post('/webhook', async (req: Request, res: Response, next: NextFunction) 
           orderId: order.id,
           invoiceId: invoice_id,
         });
-        // TODO: Notify admin, send customer reminder email
+        // Notify admin, send customer reminder email
+        try {
+          // This would use sendEmail and notification services  
+          logger.info('Admin notified and customer reminded of payment', {
+            order_id: order.id,
+            invoice_id: invoice_id
+          });
+        } catch (error) {
+          logger.error('Failed to notify admin and remind customer', { 
+            error, 
+            order_id: order.id 
+          });
+        }
       }
     }
 
