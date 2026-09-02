@@ -41,10 +41,21 @@ CREATE INDEX IF NOT EXISTS idx_orders_created_at ON orders(created_at);
 
 ALTER TABLE orders ENABLE ROW LEVEL SECURITY;
 
--- Policies for orders table (to be customized)
--- service_role: full access
--- authenticated: only own orders (custom policy can be added later if needed)
-CREATE POLICY "service_role_all" ON orders FOR ALL USING (true) WITH CHECK (true);
+-- service_role: full access (unrestricted for backend operations)
+CREATE POLICY "service_role_all" ON orders FOR ALL TO service_role USING (true) WITH CHECK (true);
+
+-- authenticated: read own orders only (SELECT via auth.uid match)
+CREATE POLICY "authenticated_select_own" ON orders FOR SELECT TO authenticated
+  USING (user_id = auth.uid());
+
+-- authenticated: insert own orders only (POST, webhook-gated in application)
+CREATE POLICY "authenticated_insert_own" ON orders FOR INSERT TO authenticated
+  WITH CHECK (user_id = auth.uid());
+
+-- authenticated: update own pending/cancelled orders (status transitions via RPC)
+CREATE POLICY "authenticated_update_own" ON orders FOR UPDATE TO authenticated
+  USING (user_id = auth.uid() AND status IN ('pending', 'cancelled'))
+  WITH CHECK (user_id = auth.uid() AND status IN ('pending', 'cancelled'));
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON orders TO service_role;
 GRANT SELECT, INSERT, UPDATE ON orders TO authenticated;
