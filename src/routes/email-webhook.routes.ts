@@ -168,13 +168,13 @@ router.post('/ses', sesLimiter, async (req: RawBodyRequest, res: Response) => {
         try {
           // This would update contact status in Supabase
           logger.info('Contact marked as invalid', {
-            email: contact_email,
-            reason: 'hard bounce'
+            email,
+            reason: 'hard bounce',
           });
         } catch (error) {
-          logger.error('Failed to mark contact as invalid', { 
-            error, 
-            email: contact_email 
+          logger.error('Failed to mark contact as invalid', {
+            error,
+            email,
           });
         }
 
@@ -182,12 +182,12 @@ router.post('/ses', sesLimiter, async (req: RawBodyRequest, res: Response) => {
         try {
           // This would update campaign exclusion list
           logger.info('Removed from future campaigns due to hard bounce', {
-            email: contact_email
+            email: email,
           });
         } catch (error) {
-          logger.error('Failed to exclude contact from campaigns', { 
-            error, 
-            email: contact_email 
+          logger.error('Failed to exclude contact from campaigns', {
+            error,
+            email: email,
           });
         }
       }
@@ -292,12 +292,12 @@ router.post('/ses', sesLimiter, async (req: RawBodyRequest, res: Response) => {
         try {
           // This would update Supabase to suppress email address
           logger.info('Email address suppressed permanently', {
-            email: contact_email
+            email: email,
           });
         } catch (error) {
-          logger.error('Failed to suppress email address', { 
-            error, 
-            email: contact_email 
+          logger.error('Failed to suppress email address', {
+            error,
+            email: email,
           });
         }
 
@@ -305,13 +305,13 @@ router.post('/ses', sesLimiter, async (req: RawBodyRequest, res: Response) => {
         try {
           // This would trigger notification to Risto for manual verification
           logger.info('Risto alerted for manual email review', {
-            email: contact_email,
-            reason: 'hard bounce'
+            email: email,
+            reason: 'hard bounce',
           });
         } catch (error) {
-          logger.error('Failed to alert Risto for manual review', { 
-            error, 
-            email: contact_email 
+          logger.error('Failed to alert Risto for manual review', {
+            error,
+            email: email,
           });
         }
       }
