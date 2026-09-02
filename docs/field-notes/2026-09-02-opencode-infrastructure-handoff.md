@@ -8,6 +8,19 @@ session_id: 01RzDxCXFWUAFwXM3Ayry99Q
 
 # Session Summary: feat/opencode-infrastructure-upgrade Resume
 
+## Metadata
+
+- **Location:** feat/opencode-infrastructure-upgrade branch
+- **Context:** OpenCode infrastructure work continuation (prior session 2026-08-31)
+- **Status:** Handoff/administrative (no new feature/research)
+
+## Ontology Tags
+
+- **Entities:** OpenCode, Supabase, Stripe, SES, Email webhooks, RLS policies
+- **Keywords:** infrastructure, database, migrations, security, error handling
+- **Confidence:** High (documented in per-branch handoff file)
+- **Related:** KYA mandate tracking, Stripe payment integration
+
 ## What Happened
 
 User invoked `resume` on branch `feat/opencode-infrastructure-upgrade`, which had uncommitted changes from a prior session (2026-08-31).

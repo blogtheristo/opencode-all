@@ -62,7 +62,6 @@
     "opencode:update": "cd opencode-all && git pull origin dev && cd - && echo '✅ OpenCode updated'"
   },
   "dependencies": {
-    "@anthropic-ai/claude-code": "^2.1.258",
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/context-async-hooks": "^1.30.0",
     "@opentelemetry/exporter-metrics-otlp-http": "^0.220.0",
@@ -101,6 +100,7 @@
     "undici": "7.29.0"
   },
   "devDependencies": {
+    "@anthropic-ai/claude-code": "^2.1.258",
     "@eslint/js": "^10.0.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.7",

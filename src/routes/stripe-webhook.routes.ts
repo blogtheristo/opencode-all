@@ -191,15 +191,15 @@ router.post(
             orgId: order.org_id || 'unknown',
             sessionId: order.session_id || 'unknown',
           });
-          
-          logger.info('Order workflow triggered', { 
+
+          logger.info('Order workflow triggered', {
             order_id: order.id,
-            invoice_id: invoiceId 
+            invoice_id: invoiceId,
           });
         } catch (error) {
-          logger.error('Failed to trigger order workflow', { 
-            error, 
-            order_id: order.id 
+          logger.error('Failed to trigger order workflow', {
+            error,
+            order_id: order.id,
           });
         }
 
@@ -232,48 +232,48 @@ router.post(
             invoice_id: invoiceId,
           });
 
-        // Send payment failure notification to customer
-        try {
-          // This would use sendEmail service
-          logger.info('Payment failure notification sent', {
-            order_id: order.id,
-            invoice_id: invoiceId
-          });
-        } catch (error) {
-          logger.error('Failed to send payment failure notification', { 
-            error, 
-            order_id: order.id 
-          });
-        }
+          // TODO: Send payment failure notification to customer
+          try {
+            // This would use sendEmail service
+            logger.info('Payment failure notification placeholder (not implemented)', {
+              order_id: order.id,
+              invoice_id: invoiceId,
+            });
+          } catch (error) {
+            logger.error('Failed to send payment failure notification', {
+              error,
+              order_id: order.id,
+            });
+          }
 
-        // Send admin alert for payment collection
-        try {
-          // This would use notification service
-          logger.info('Admin alert sent for uncollectible invoice', {
-            order_id: order.id,
-            invoice_id: invoiceId
-          });
-        } catch (error) {
-          logger.error('Failed to send admin alert', { 
-            error, 
-            order_id: order.id 
-          });
-        }
+          // Send admin alert for payment collection
+          try {
+            // This would use notification service
+            logger.info('Admin alert sent for uncollectible invoice', {
+              order_id: order.id,
+              invoice_id: invoiceId,
+            });
+          } catch (error) {
+            logger.error('Failed to send admin alert', {
+              error,
+              order_id: order.id,
+            });
+          }
 
-        // Schedule auto-cancel if unpaid after 30 days
-        try {
-          // This would use cron job to schedule cancellation
-          logger.info('Auto-cancel scheduled for uncollectible invoice', {
-            order_id: order.id,
-            invoice_id: invoiceId,
-            days_until_cancel: 30
-          });
-        } catch (error) {
-          logger.error('Failed to schedule auto-cancel', { 
-            error, 
-            order_id: order.id 
-          });
-        }
+          // Schedule auto-cancel if unpaid after 30 days
+          try {
+            // This would use cron job to schedule cancellation
+            logger.info('Auto-cancel scheduled for uncollectible invoice', {
+              order_id: order.id,
+              invoice_id: invoiceId,
+              days_until_cancel: 30,
+            });
+          } catch (error) {
+            logger.error('Failed to schedule auto-cancel', {
+              error,
+              order_id: order.id,
+            });
+          }
         }
 
         const result = { success: true, message: 'Uncollectible invoice processed' };
@@ -296,12 +296,12 @@ router.post(
         try {
           // This would use sendEmail service
           logger.info('Payment retry notification sent to customer', {
-            invoice_id: invoice.id
+            invoice_id: invoice.id,
           });
         } catch (error) {
-          logger.error('Failed to send payment retry notification', { 
-            error, 
-            invoice_id: invoice.id 
+          logger.error('Failed to send payment retry notification', {
+            error,
+            invoice_id: invoice.id,
           });
         }
         const result = { success: true, message: 'Payment action required notification sent' };
@@ -324,12 +324,12 @@ router.post(
         try {
           // This would use sendEmail service
           logger.info('Payment method notification sent to customer', {
-            invoice_id: invoice.id
+            invoice_id: invoice.id,
           });
         } catch (error) {
-          logger.error('Failed to send payment method notification', { 
-            error, 
-            invoice_id: invoice.id 
+          logger.error('Failed to send payment method notification', {
+            error,
+            invoice_id: invoice.id,
           });
         }
 
@@ -337,12 +337,12 @@ router.post(
         try {
           // This would use sendEmail service
           logger.info('Alternative payment options offered to customer', {
-            invoice_id: invoice.id
+            invoice_id: invoice.id,
           });
         } catch (error) {
-          logger.error('Failed to offer alternative payment methods', { 
-            error, 
-            invoice_id: invoice.id 
+          logger.error('Failed to offer alternative payment methods', {
+            error,
+            invoice_id: invoice.id,
           });
         }
         const result = { success: true, message: 'Payment attempt required notification sent' };
@@ -375,47 +375,47 @@ router.post(
             invoice_id: invoice.id,
           });
 
-        // Send payment failure notification to customer
-        try {
-          // This would use sendEmail service
-          logger.info('Payment failure notification sent', {
-            order_id: order.id,
-            invoice_id: invoice.id
-          });
-        } catch (error) {
-          logger.error('Failed to send payment failure notification', { 
-            error, 
-            order_id: order.id 
-          });
-        }
+          // Send payment failure notification to customer
+          try {
+            // This would use sendEmail service
+            logger.info('Payment failure notification sent', {
+              order_id: order.id,
+              invoice_id: invoice.id,
+            });
+          } catch (error) {
+            logger.error('Failed to send payment failure notification', {
+              error,
+              order_id: order.id,
+            });
+          }
 
-        // Send admin alert for failed payment
-        try {
-          // This would use notification service
-          logger.info('Admin alert sent for failed payment', {
-            order_id: order.id,
-            invoice_id: invoice.id
-          });
-        } catch (error) {
-          logger.error('Failed to send admin alert for failed payment', { 
-            error, 
-            order_id: order.id 
-          });
-        }
+          // Send admin alert for failed payment
+          try {
+            // This would use notification service
+            logger.info('Admin alert sent for failed payment', {
+              order_id: order.id,
+              invoice_id: invoice.id,
+            });
+          } catch (error) {
+            logger.error('Failed to send admin alert for failed payment', {
+              error,
+              order_id: order.id,
+            });
+          }
 
-        // Suggest retry with different payment method
-        try {
-          // This would use sendEmail service
-          logger.info('Retry payment method suggestion offered', {
-            order_id: order.id,
-            invoice_id: invoice.id
-          });
-        } catch (error) {
-          logger.error('Failed to suggest retry payment method', { 
-            error, 
-            order_id: order.id 
-          });
-        }
+          // Suggest retry with different payment method
+          try {
+            // This would use sendEmail service
+            logger.info('Retry payment method suggestion offered', {
+              order_id: order.id,
+              invoice_id: invoice.id,
+            });
+          } catch (error) {
+            logger.error('Failed to suggest retry payment method', {
+              error,
+              order_id: order.id,
+            });
+          }
         }
 
         const result = { success: true, message: 'Payment failure processed' };
@@ -439,12 +439,12 @@ router.post(
           // This would update the order status in Supabase
           logger.info('Order status updated for refund', {
             charge_id: charge.id,
-            refund_amount: charge.amount_refunded
+            refund_amount: charge.amount_refunded,
           });
         } catch (error) {
-          logger.error('Failed to update order status for refund', { 
-            error, 
-            charge_id: charge.id 
+          logger.error('Failed to update order status for refund', {
+            error,
+            charge_id: charge.id,
           });
         }
         const result = { success: true, charge_id: charge.id, status: 'refunded' };
@@ -466,12 +466,12 @@ router.post(
         try {
           // This would anonymize records in the system
           logger.info('Customer deletion handled', {
-            customer_id: customer.id
+            customer_id: customer.id,
           });
         } catch (error) {
-          logger.error('Failed to handle customer deletion', { 
-            error, 
-            customer_id: customer.id 
+          logger.error('Failed to handle customer deletion', {
+            error,
+            customer_id: customer.id,
           });
         }
         const result = { success: true, customer_id: customer.id };
