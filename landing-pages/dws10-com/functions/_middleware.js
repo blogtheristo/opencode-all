@@ -1,4 +1,4 @@
-const META_PIXEL_ID = "1061355716618688";
+const META_PIXEL_ID = '1061355716618688';
 
 const snippet = (id) => `<!-- Meta Pixel Code -->
 <script>
@@ -22,12 +22,12 @@ src="https://www.facebook.com/tr?id=${id}&ev=PageView&noscript=1"
 const MAX_HTML_BYTES = 2_000_000;
 
 async function readHtml(response) {
-  const contentType = response.headers.get("content-type") || "";
-  if (!contentType.includes("text/html")) return null;
+  const contentType = response.headers.get('content-type') || '';
+  if (!contentType.includes('text/html')) return null;
 
   const buf = await response.arrayBuffer();
   if (!buf || buf.byteLength > MAX_HTML_BYTES) return null;
-  const decoder = new TextDecoder("utf-8");
+  const decoder = new TextDecoder('utf-8');
   return decoder.decode(buf);
 }
 
@@ -36,23 +36,25 @@ export async function onRequest(context) {
   if (!response || response.status >= 400) return response;
 
   const pixelId = context.env?.META_PIXEL_ID || META_PIXEL_ID;
-  if (!pixelId || pixelId === "YOUR_PIXEL_ID") return response;
+  if (!pixelId || pixelId === 'YOUR_PIXEL_ID') return response;
 
   const html = await readHtml(response);
-  if (!html || html.includes("connect.facebook.net/en_US/fbevents.js")) {
+  if (!html || html.includes('connect.facebook.net/en_US/fbevents.js')) {
     return response;
   }
 
-  const injected = html.replace(
-    /<head[^>]*>/i,
-    (head) => head + "\n" + snippet(pixelId)
-  );
+  const injected = html.replace(/<head[^>]*>/i, (head) => head + '\n' + snippet(pixelId));
 
   if (injected === html) return response;
+
+  const headers = new Headers(response.headers);
+  // Cache Meta Pixel injection for 7 days to reduce Workers invocation count
+  // Pixel updates deploy weekly, so this balances freshness vs. cost
+  headers.set('Cache-Control', 'public, max-age=604800'); // 7 days = 604800 seconds
 
   return new Response(injected, {
     status: response.status,
     statusText: response.statusText,
-    headers: response.headers,
+    headers: headers,
   });
 }
