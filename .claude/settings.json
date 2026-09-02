@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "_comment": "Shared project settings for Claude Code across all repo-backed sessions.",
+  "_comment": "Shared project settings for Claude Code across all repo-backed sessions. MCP servers configured: dws-agents-local, dws-gateway-local, github (PR context), supabase (schema validation). See .mcp.json for full MCP configuration.",
   "env": {
     "DISABLE_BUG_COMMAND": 0,
     "DISABLE_AUTO_UPDATE": 0
