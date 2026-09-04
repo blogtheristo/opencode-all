@@ -32,6 +32,14 @@ async function readHtml(response) {
 }
 
 export async function onRequest(context) {
+  const url = new URL(context.request.url);
+  const path = url.pathname;
+
+  // Meta Pixel is only needed for blog entry sharing to Facebook pages.
+  // Skip all other paths to avoid burning Workers invocations on every page load.
+  const isBlogPath = path.startsWith("/blog/") || path.startsWith("/posts/");
+  if (!isBlogPath) return context.next();
+
   const response = await context.next();
   if (!response || response.status >= 400) return response;
 
