@@ -171,6 +171,8 @@ For these sites, root folder is source; landing-pages mirror must be synced in t
 - `onelifetime.world/` -> `landing-pages/onelifetime-world/`
 - `lifetime.fi/` -> `landing-pages/lifetime-fi/`
 
+**Commit + push are both required.** A local-only commit does not update the live site. The deploy workflow (`sync-dws6-landing-pages.yml`) runs on push to main — it rsyncs source to landing-pages, commits the mirror, and purges Cloudflare cache. Until pushed, the live site serves the previous deployment. If the source and mirror diverge locally (committed but not pushed), the deploy picks up whatever is on main at push time, not the working tree.
+
 ### Store Content Format
 
 - `Store/*.md` must use YAML frontmatter.

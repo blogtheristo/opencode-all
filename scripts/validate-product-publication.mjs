@@ -4,9 +4,9 @@ import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const ROOT = resolve(process.cwd());
-const VERSION = "1.25";
-const EFFECTIVE = "2026-08-18";
-const NEXT_REVIEW = "2026-11-18";
+const VERSION = "1.28";
+const EFFECTIVE = "2026-08-30";
+const NEXT_REVIEW = "2026-11-30";
 const EXPECTED_SERIOUS_IDS = [
   "DWS-EU-STARTER", "DWS-EU-PILOT", "DWS-AEGIS-PILOT-001", "DWS-AEGIS-001",
   "LIFETIME-BUNDLE-2026", "DWS-CLIMATE-001", "DWS-SOVEREIGN-DB-001",
@@ -61,8 +61,8 @@ const seriousSet = new Set(seriousIds);
 const supportingProducts = publicProducts.filter((product) => !seriousSet.has(product.id));
 const packages = consulting.packages || [];
 
-if (products.length !== 116) addError(`Product accounting: expected 116 total, found ${products.length}`);
-if (publicProducts.length !== 49) addError(`Product accounting: expected 49 public non-BLUE non-archived, found ${publicProducts.length}`);
+if (products.length !== 134) addError(`Product accounting: expected 134 total, found ${products.length}`);
+if (publicProducts.length !== 67) addError(`Product accounting: expected 67 public non-BLUE non-archived, found ${publicProducts.length}`);
 if (blue.length !== 67) addError(`Product accounting: expected 67 BLUE, found ${blue.length}`);
 if (overlap.length) overlap.forEach((product) => addError(`[${product.id}] record is both BLUE and archived`));
 if (publicProducts.length + blue.length + archived.length !== products.length) {
@@ -112,7 +112,7 @@ if (definitions.archive?.publicSalesEligible !== false || definitions.archive?.a
 const surfaces = portfolio.surfaces || {};
 const broadSurfaceValid =
   surfaces.priceList?.path === "/price-list/" &&
-  surfaces.priceList?.expectedProductCount === 49 &&
+  surfaces.priceList?.expectedProductCount === 67 &&
   surfaces.priceList?.includesSubscriptions === true &&
   surfaces.priceList?.productRule === "non-BLUE, non-archived products plus subscriptions";
 const blueExceptionValid =
@@ -121,7 +121,7 @@ if (surfaces.buy?.path !== "/buy/" || surfaces.buy?.expectedProductCount !== 13 
   addError("commercialPortfolio.surfaces.buy must govern exactly 13 serious products from seriousProductIds");
 }
 if (!broadSurfaceValid) {
-  addError("commercialPortfolio.surfaces.priceList must govern 49 public products plus subscriptions");
+  addError("commercialPortfolio.surfaces.priceList must govern 67 public products plus subscriptions");
 }
 if (surfaces.lifetimeConsulting?.configPath !== "/config/consulting-packages.json" || surfaces.lifetimeConsulting?.expectedPackageCount !== 13) {
   addError("commercialPortfolio.surfaces.lifetimeConsulting must govern 13 local consulting packages");
@@ -227,15 +227,26 @@ for (const path of PUBLICATION_FILES) {
 const buyPage = text("dws10.com/buy/index.html");
 const priceListPage = text("dws10.com/price-list/index.html");
 const lifetimePage = text("lifetime.fi/price-list/index.html");
+
+// Per-page version checks: each surface has its own document version that must
+// be internally consistent (header ↔ meta tag ↔ history block). The catalog
+// version in products.json governs pricing data, not HTML document versions.
+const PAGE_VERSIONS = {
+  "dws10.com/price-list/index.html": { version: VERSION, effective: EFFECTIVE, nextReview: NEXT_REVIEW },
+  "lifetime.fi/price-list/index.html": { version: VERSION, effective: EFFECTIVE, nextReview: NEXT_REVIEW },
+  "dws10.com/buy/index.html": { version: "2.0", effective: EFFECTIVE },
+};
 for (const [path, page] of [
-  ["dws10.com/buy/index.html", buyPage],
   ["dws10.com/price-list/index.html", priceListPage],
   ["lifetime.fi/price-list/index.html", lifetimePage],
+  ["dws10.com/buy/index.html", buyPage],
 ]) {
-  if (!page.includes(`dws-doc-version\" content=\"${VERSION}`) && !page.includes(`Version: ${VERSION}`)) {
-    addError(`${path}: current publication version is not ${VERSION}`);
+  const expected = PAGE_VERSIONS[path];
+  if (!expected) continue;
+  if (!page.includes(`dws-doc-version" content="${expected.version}"`) && !page.includes(`Version: ${expected.version}`)) {
+    addError(`${path}: document version is not ${expected.version}`);
   }
-  if (!page.includes(EFFECTIVE)) addError(`${path}: effective date ${EFFECTIVE} missing`);
+  if (!page.includes(expected.effective)) addError(`${path}: effective date ${expected.effective} missing`);
 }
 if (!priceListPage.includes(NEXT_REVIEW)) addError(`dws10.com/price-list/index.html: next review ${NEXT_REVIEW} missing`);
 if (!lifetimePage.includes(NEXT_REVIEW)) addError(`lifetime.fi/price-list/index.html: next review ${NEXT_REVIEW} missing`);
