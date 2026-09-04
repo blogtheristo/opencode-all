@@ -6211,6 +6211,9 @@
     "version": "1.28",
     "effectiveDate": "2026-08-30",
     "nextReviewDate": "2026-11-30",
+    "stampQuarter": "2026.Q3",
+    "stampDate": "2026-08-30",
+    "validUntil": "2026-11-30",
     "policy": {
       "currency": "EUR",
       "vatTreatment": "B2B_VAT_0",
