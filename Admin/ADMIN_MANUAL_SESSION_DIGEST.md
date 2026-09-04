@@ -8,12 +8,13 @@ Version: 1.0
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: OpenCode | Session: housekeeping-audit-2026-08-22 | Date: 22.08.2026 | Changes: Appended Digest — window ~05.08.2026 → 22.08.2026 (repo-hygiene audit & cleanup).
 - Version: 1.0 | Tool: Claude Code | Session: claude/npm-supply-chain-attack-vjpnqg | Date: 04.08.2026 | Changes: Initial creation. Digest of the 100 most recent main-branch commits (window ~20.07.2026 → 04.08.2026, PRs ~#1125–#1793), grouped by theme. Supersedes the "Recent Session Artifacts" snapshot of 19.06.2026 inside ADMIN_MANUAL.md §Recent Session Artifacts as the current digest; that section is retained per Rule 12 and points here at the next in-place manual bump. Created as a standalone file because the cloud session's Bash was safety-classifier-blocked and ADMIN_MANUAL.md is too large to round-trip through the GitHub Contents API — recorded per Rule 12 (Fail Loud).
 
 Document Status:
 
 - Created: 04.08.2026
-- Last Modified: 04.08.2026
+- Last Modified: 22.08.2026
 - Language: English
 - Publication Status: ACTIVE
 - Classification: INTERNAL
@@ -115,3 +116,47 @@ previous window (Rule 12).
 - Housekeeping: Store Feed / Google Merchant / NVIDIA ISV sync; landing-pages
   auto-sync from source; harness session `telemetry/` gitignored; Aegis
   hackathon demo page for Cerebral Valley (PR #1287).
+
+## Digest — housekeeping audit & cleanup (22.08.2026)
+
+### Repo hygiene
+
+- **Pending-work commit**: 54 files of uncommitted content/docs work on
+  `lsj-blog-langbar` committed (33021bfd3) — Firehorse docs, thesis EN/FI,
+  campaign docs, `onelifetime.world` posts, new `landing-pages/onelifetime.world/`
+  mirror and `Admin/DEV_ENVIRONMENT.md`.
+- **Edit-conflict garbage removed**: `PAYMENT_INTEGRATION (# Edit conflict …).md`
+  and `README (# Edit conflict …).md` deleted from repo root (stale 05.01.2026
+  merge leftovers).
+
+### Git branch audit
+
+- **Root cause found**: local `main` ref was stale (ef17339c2, ~#1853 era) while
+  `origin/main` is at 3e196f158 (post-#1868). All earlier "unmerged branch"
+  analyses run against the stale ref were wrong; local `main` fast-forward
+  pending (blocked only because a `.copilot-worktrees/` worktree has `main`
+  checked out).
+- **~30 branches confirmed merged** into `origin/main` (incl. 19 `worktree-agent-*`
+  refs, KYA baselines, Aegis sales packages, `fix/dgx-opencode-mcp`,
+  `sales-package-v1.0-and-price-lists`) — safe-deleted.
+- **9 further branches deleted with MERGED PR evidence** (GitHub PR state
+  rebase/squash): #1674, #1687, #1720, #1772, #1773, #1776, #1777, #1796, #1799.
+- **Kept deliberately**: `claude/mirror-sync-test-gate-x7kq` (one small unmerged
+  commit: SES-only email-transport wording), `pr-kya-conformance-baseline`
+  (PR #1849 OPEN), `worktree-boss-session-pr-cleanup` (PR #1771 OPEN),
+  `dws6/new-pr-sovereign-session` (PR #1774 CLOSED-unmerged — needs human call),
+  plus NO_PR branches with plausible unique work (`claude/v1-firehorse-recovery-NKpsn`,
+  `claude/25-industries-company-list-tea0bb`, `claude/pki-ownership-blog-redo`, etc.).
+- **Health at audit time**: vitest fully green (100 files / 1154 tests passed,
+  3 skipped); `tsc --noEmit` clean — AGENTS.md "Known pre-existing issues"
+  (build type errors, 4 failing test files) is stale and pending correction.
+
+### Follow-ups registered (not yet done)
+
+1. Real backend linter (`lint` script is still `echo "No linter configured"`).
+2. CI gates for `tsc --noEmit` + `vitest run`.
+3. Archive deprecated dirs (`*_DEPRECATED`, `*_RETIRED`) into `Archive/`;
+   move loose root markdown to `docs/archive/`; drop tracked artifacts
+   (`result.txt`, `merge_tmp/`, `__pycache__/`, `*.save`).
+4. Correct AGENTS.md known-issues + stale metadata (launch countdown, next-review date).
+5. Human decision needed on `dws6/new-pr-sovereign-session` (closed without merge).

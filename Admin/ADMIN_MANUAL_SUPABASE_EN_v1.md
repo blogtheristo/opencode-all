@@ -1,14 +1,12 @@
 # Admin Manual: Supabase Database Management for DWS6
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.9
+Version: 1.8
 
 Sessions & Modifications:
-
-- Version: 1.9 | Tool: Claude Code (Haiku 4.5) | Session: feat/opencode-infrastructure-upgrade / pr-1948 | Date: 31.08.2026 | Changes: Added §7.6 "OpenCode Session State (Migration 076)" documenting the Supabase transactional session storage for OpenCode infrastructure. Records the 20-column `opencode_sessions` table schema (6 indexes, RLS enabled), TypeScript SessionManager API, SQL observability queries for dashboards, and deployment checklist. Flags migration numbering collision: `076_revoke_anon_legacy_grants.sql` (existing, 19.07.2026) and `076_opencode_session_state.sql` (new, 31.08.2026) share the same prefix — renumbering one is flagged for follow-up per §7.4 duplicate-prefix policy. Links to comprehensive documentation in `Admin/ADMIN_MANUAL.md` and `docs/OPENCODE_SESSION_STATE_MIGRATION.md`.
 
 - Version: 1.8 | Tool: Claude Code | Session: claude/anon-grant-lockdown-076 | Date: 19.07.2026 | Changes: §7.5 anon-lockdown follow-up CLOSED — migration 076 (`supabase/migrations/076_revoke_anon_legacy_grants.sql`) applied to production via Supabase MCP after a 21-run CI blank-slate soak (`.github/workflows/supabase-anon-soak.yml`, PR #1710) that surfaced and fixed 16 dormant migration-chain defects (002–061) plus 2 harness bugs, and archived 18 duplicate-prefix migration files to `supabase/migrations_archived_duplicates/` per §7.4. Anon reduced from full legacy grants on all 184 tables to a strict opt-in list (16 objects: 12 SELECT, 5 INSERT); revoked `PUBLIC` EXECUTE on `upsert_file_index` (SECURITY DEFINER write path, no internal role check). Post-apply verification: grants match the opt-in list exactly, zero anon privileges on the four append-only audit tables, Security Advisor unchanged at 111 findings.
 - Version: 1.7 | Tool: Claude Code | Session: claude/add-supabase-table-grants-y0Ps6 | Date: 19.07.2026 | Changes: §7.5 updated with production status — migration 075 APPLIED to `dws6` (`kpucuwwfhuwurdxyjjtz`) via Supabase MCP, recorded as `20260719202340_public_schema_grants`. Verified: `authenticated` + `service_role` CRUD on all 184 public tables; default privileges in place for `postgres` + `supabase_admin` owners; Security Advisor shows no missing-grant findings. Documented local/remote migration drift (`file_index` local-only; remote 015 is `email_templates`) and the existence-safe `DO`/`to_regclass()` anon-grant pattern. Logged OPEN follow-up: anon still holds full legacy grants on all 184 tables (grandfathered pre-2026 default) — revocation to the opt-in list is a founder decision pending staged rollout.
@@ -33,7 +31,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
----
+***
 
 **Version:** 1.8
 **Purpose:** Supabase database administration guide for DWS6 project
@@ -56,7 +54,6 @@ Document Status:
    - [7.3 Migration Management and Audit](#73-migration-management-and-audit)
    - [7.4 Migration Parity Repair (April 2026)](#74-migration-parity-repair-april-2026)
    - [7.5 New Table GRANT Checklist (Supabase 2026-05-30 / 2026-10-30)](#75-new-table-grant-checklist-supabase-2026-05-30--2026-10-30)
-   - [7.6 OpenCode Session State (Migration 076)](#76-opencode-session-state-migration-076)
 8. [Monitoring and Logs](#8-monitoring-and-logs)
 9. [Backup and Recovery](#9-backup-and-recovery)
 10. [Performance Tuning](#10-performance-tuning)
@@ -983,103 +980,6 @@ curl -s "${SUPABASE_URL}/rest/v1/firehorse_memory?select=id&limit=1" \
 ```
 
 A `42501` on any table indicates a missing table-level `GRANT` — patch it in a follow-up migration.
-
----
-
-### 7.6 OpenCode Session State (Migration 076)
-
-**Status**: ✅ **PRODUCTION READY** — Schema deployed, data migration complete
-**Migration**: `076_opencode_session_state.sql` (Supabase migration)
-**Reliability Improvement**: 60-70% → 82% professional rating (+12-22% increase)
-**Application layer**: TypeScript SessionManager (`src/opencode/session-manager.ts`)
-**Documentation**: `docs/OPENCODE_SESSION_STATE_MIGRATION.md`, `Admin/ADMIN_MANUAL.md` → "OpenCode Session State Management"
-
-**Table**: `opencode_sessions` (20 columns, 6 performance indexes, RLS enabled)
-
-Stores complete OpenCode session lifecycle (pending → running → completed/failed). Replaces file-based JSONL queue (`queue.jsonl`) for **reliability, observability, and conflict-free concurrent updates**. Eliminates merge conflicts during multi-session operations; enables SQL-based monitoring and analytics.
-
-**Schema overview:**
-
-| Column              | Type      | Constraint    | Purpose                                      |
-| ------------------- | --------- | ------------- | -------------------------------------------- |
-| `id`                | UUID      | PRIMARY KEY   | Session unique identifier                    |
-| `state`             | ENUM      | NOT NULL      | pending \| running \| completed \| failed    |
-| `status`            | TEXT      | NOT NULL      | Detailed status description                  |
-| `branch`            | TEXT      | INDEX         | Git branch for this session                  |
-| `model`             | TEXT      |               | LLM model used (e.g., claude-opus-5)         |
-| `cost_tokens`       | INT       | DEFAULT 0     | Total token usage                            |
-| `messages_in`       | INT       | DEFAULT 0     | Input tokens                                 |
-| `messages_out`      | INT       | DEFAULT 0     | Output tokens                                |
-| `idempotency_key`   | TEXT      | UNIQUE, INDEX | Prevents duplicate session creation          |
-| `parent_session_id` | UUID      | REFERENCES    | Links nested/forked sessions                 |
-| `worktree_path`     | TEXT      | INDEX         | Local git worktree filesystem path           |
-| `metadata`          | JSONB     |               | Flexible session config (feature flags, etc) |
-| `failure_detail`    | JSONB     |               | Error context (stack trace, hints)           |
-| `created_at`        | TIMESTAMP | INDEX DESC    | Session start time                           |
-| `started_at`        | TIMESTAMP |               | Execution start (may be queued before)       |
-| `completed_at`      | TIMESTAMP |               | Session end time                             |
-| `last_heartbeat_at` | TIMESTAMP | INDEX         | Last proof-of-life from active session       |
-| `stale_after`       | TIMESTAMP | INDEX         | Cleanup cutoff for orphaned sessions         |
-| `created_by`        | TEXT      |               | Session initiator (user / CI / scheduled)    |
-| `log_url`           | TEXT      |               | Link to full session transcript              |
-
-**Compound index** (`state`, `status`) for common join queries; RLS enabled with `service_role` grants.
-
-**TypeScript API** (`src/opencode/session-manager.ts`):
-
-```typescript
-// CRUD
-const session = await SessionManager.createSession(config);
-await SessionManager.updateSession(sessionId, updates);
-await SessionManager.failSession(sessionId, error); // Auto-retry
-await SessionManager.completeSession(sessionId, result);
-
-// Queries
-const pending = await SessionManager.getPendingSessions();
-const failed = await SessionManager.getFailedSessions();
-const stats = await SessionManager.getSessionStats();
-
-// Auto-cleanup
-await SessionManager.deleteStaleWorktrees(); // Orphaned cleanup
-```
-
-**Observability queries** (dashboarding, alerting):
-
-```sql
--- Queue depth by state
-SELECT state, COUNT(*) FROM opencode_sessions
-  WHERE state != 'completed' AND state != 'failed'
-  GROUP BY state;
-
--- Success rate (last 7 days)
-SELECT
-  COUNT(*) as total,
-  COUNT(CASE WHEN state = 'completed' THEN 1 END) / COUNT(*) * 100 as pct_success
-FROM opencode_sessions
-WHERE created_at > NOW() - INTERVAL '7 days';
-
--- Cost by branch (last 30 days)
-SELECT branch, SUM(cost_tokens) as total_tokens
-FROM opencode_sessions
-WHERE created_at > NOW() - INTERVAL '30 days'
-GROUP BY branch
-ORDER BY total_tokens DESC;
-
--- Stale session cleanup (orphaned)
-DELETE FROM opencode_sessions
-  WHERE stale_after < NOW()
-  AND state NOT IN ('pending', 'running');
-```
-
-**Deployment checklist**:
-
-- [x] Migration `076_opencode_session_state.sql` applied to production
-- [x] Data migration script ran (moved existing queue.jsonl sessions to Supabase)
-- [x] TypeScript SessionManager deployed (`src/opencode/session-manager.ts`)
-- [ ] Orchestrator updated to use SessionManager instead of file I/O (pending next sprint)
-- [ ] Monitoring dashboard built (SQL queries provided above)
-
-**Migration conflict note**: This project has two migration files with the prefix `076_*`. The `076_revoke_anon_legacy_grants.sql` migration (existing, applied 19.07.2026) should be reviewed for potential renumbering to avoid collision when the OpenCode session state migration is applied to a fresh database (see §7.4 for duplicate-prefix policy).
 
 ---
 

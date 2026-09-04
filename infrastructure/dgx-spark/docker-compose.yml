@@ -2,17 +2,33 @@
 # Hardware: Acer Veriton GN100 (NVIDIA Grace Blackwell GB10, 128GB, ARM64)
 # Failover: GitHub Actions mirrors all cron schedules
 #
-# Code-Version: 1.4.0
-# Introduced-In: claude/aiven-postgres-upcloud-ddjnsu
-# Branch: claude/aiven-postgres-upcloud-ddjnsu
-# Date: 2026-07-07
+# Code-Version: 1.5.0
+# Introduced-In: claude/aegis-release-readiness-audit
+# Branch: claude/aegis-release-readiness-audit
+# Date: 2026-08-19
 # Owner: Lifetime Oy
-# Change: v1.4.0 — Added dws-postgres (Tier 1 internal-ops Postgres: agent
-#         memory, cron/command audit logs, tool telemetry, agent nudges).
-#         No host port exposed; only dws-backend/dws-cron reach it over
-#         dws-network. dws-backend and dws-cron now depend_on it (healthy).
-#         Schema applied via ./migrations mounted at
-#         /docker-entrypoint-initdb.d on first boot. See
+# Change: v1.5.0 — Actually added the dws-postgres SERVICE BLOCK (postgres:16-
+#         alpine, ./migrations mounted read-only at
+#         /docker-entrypoint-initdb.d, dws-postgres-data volume, no host port).
+#         v1.4.0's changelog entry below claimed this was already done and
+#         that dws-backend/dws-cron already depend_on it — that was
+#         inaccurate: the service block was never actually present in this
+#         file (found during the Aegis release-readiness audit, item 1/2).
+#         dws-backend and dws-cron now genuinely depend_on dws-postgres
+#         (condition: service_healthy). Added migration 023
+#         (aegis_audit_chain — Aegis's durable replay/audit-chain store,
+#         RELEASE-READINESS.md item 1) alongside the pre-existing 021
+#         (article12_audit_log). See infrastructure/dgx-spark/.env.example
+#         for the new INTERNAL_DB_URL / POSTGRES_PASSWORD vars this service
+#         requires, and RELEASE-READINESS.md for the exact human-run
+#         deployment steps.
+# Prior (1.4.0) — Changelog claimed "Added dws-postgres (Tier 1 internal-ops
+#         Postgres: agent memory, cron/command audit logs, tool telemetry,
+#         agent nudges). No host port exposed; only dws-backend/dws-cron
+#         reach it over dws-network. dws-backend and dws-cron now depend_on
+#         it (healthy). Schema applied via ./migrations mounted at
+#         /docker-entrypoint-initdb.d on first boot." — see v1.5.0 above for
+#         what was actually true as of this session. See
 #         infrastructure/dgx-spark/migrations/ and DWS_SECURITY_STANDARD.md
 #         DR table for the offsite-backup plan (repurposes the Aiven service
 #         created this session as the backup target, not a Supabase mirror).
@@ -88,6 +104,9 @@ services:
     volumes:
       - backend-logs:/app/logs
       - backup-data:/app/backups
+    depends_on:
+      dws-postgres:
+        condition: service_healthy
     healthcheck:
       test:
         [
@@ -113,6 +132,57 @@ services:
           memory: 8G
         reservations:
           memory: 2G
+
+  # ==========================================================================
+  # Internal Postgres (dws-postgres) — Tier 1 internal-ops Postgres
+  # Agent memory, cron/command audit logs, tool telemetry, agent nudges,
+  # the Aegis durable audit chain (aegis_audit_chain), and EU AI Act
+  # Article 12 evidence (article12_audit_log). No RLS — connection-level
+  # access control only (network isolation + single dws_backend service
+  # role), since there are no real end-users on these tables. See
+  # src/config/internal-db.ts, DWS_SECURITY_STANDARD.md §17/§3.6.
+  #
+  # No host port exposed — reachable only from dws-backend/dws-cron over the
+  # internal dws-network. Schema is applied automatically on first boot from
+  # ./migrations, mounted read-only at /docker-entrypoint-initdb.d (official
+  # postgres image convention: every *.sql file there runs once, in
+  # lexicographic order, only when the data directory is empty).
+  #
+  # v1.4.0's changelog entry above claimed this service already existed and
+  # that dws-backend/dws-cron already depend_on it — that was inaccurate; the
+  # service block itself was never actually added to this file. Added for
+  # real in v1.5.0 (claude/aegis-release-readiness-audit) alongside the
+  # aegis_audit_chain migration (023) that needs it. See RELEASE-READINESS.md
+  # for the exact human-run deployment steps.
+  # ==========================================================================
+  dws-postgres:
+    image: postgres:16-alpine
+    container_name: dws-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: dws_internal
+      POSTGRES_USER: dws_backend
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env — see .env.example}
+    volumes:
+      - dws-postgres-data:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dws_backend -d dws_internal"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 256M
 
   # ==========================================================================
   # Cron Runner — All scheduled jobs (mirrors GitHub Actions schedules)
@@ -147,6 +217,8 @@ services:
       - cron-state:/app/state
     depends_on:
       dws-backend:
+        condition: service_healthy
+      dws-postgres:
         condition: service_healthy
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -553,6 +625,7 @@ volumes:
   nemoclaw-state:
   nemoclaw-logs:
   state-snapshots:
+  dws-postgres-data:
 
 networks:
   default:

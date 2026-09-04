@@ -1,13 +1,13 @@
 /**
- * Aegis + Vesta Agent Tests
+ * Vulnerability/Patch SLA Triage + Vesta Agent Tests
  *
  * Both agents are fully deterministic (no LLM call in execute()), so no
  * mocking of the LLM client is required. Supabase logging is not exercised
  * here — these tests call execute() directly, not through logExecution().
  */
 
-import { describe, expect, it } from 'vitest';
-import { AegisAgent } from '../../agents/aegis.agent.js';
+import { describe, it, expect } from 'vitest';
+import { VulnPatchSlaTriageAgent } from '../../agents/vuln-patch-sla-triage.agent.js';
 import { VestaAgent } from '../../agents/vesta.agent.js';
 import type { AgentContext } from '../../agents/types.js';
 
@@ -18,16 +18,16 @@ const testContext: AgentContext = {
   sessionId: 'test-session',
 };
 
-describe('AegisAgent', () => {
+describe('VulnPatchSlaTriageAgent', () => {
   it('has valid config', () => {
-    const agent = new AegisAgent();
+    const agent = new VulnPatchSlaTriageAgent();
     const config = agent.getConfig();
-    expect(config.name).toBe('aegis');
+    expect(config.name).toBe('vuln-patch-sla-triage');
     expect(config.capabilities.length).toBeGreaterThan(0);
   });
 
   it('flags a critical finding older than its SLA as breach', async () => {
-    const agent = new AegisAgent();
+    const agent = new VulnPatchSlaTriageAgent();
     const oldDate = new Date();
     oldDate.setDate(oldDate.getDate() - 5); // 5 days old, critical SLA is 2 days
 
@@ -49,7 +49,7 @@ describe('AegisAgent', () => {
   });
 
   it('does not flag a fresh low-severity finding as breach', async () => {
-    const agent = new AegisAgent();
+    const agent = new VulnPatchSlaTriageAgent();
     const today = new Date().toISOString().split('T')[0];
 
     const response = await agent.execute(testContext, {
@@ -63,7 +63,7 @@ describe('AegisAgent', () => {
   });
 
   it('handles empty findings gracefully', async () => {
-    const agent = new AegisAgent();
+    const agent = new VulnPatchSlaTriageAgent();
     const response = await agent.execute(testContext, { action: 'triage', findings: [] });
     const result = response.result as { totalFindings: number };
     expect(result.totalFindings).toBe(0);
