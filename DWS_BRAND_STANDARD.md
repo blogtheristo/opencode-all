@@ -83,6 +83,7 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 | 23  | 4P Capital Classes                        | Canonical terminology (positioning)          |
 | 24  | Outreach Voice & Email Standard           | B2B outreach email + LinkedIn                |
 | 25  | Personnel Photography & Multimodal Assets | CVs, customer docs, whitepapers, video/audio |
+| 26  | Investor Deck Standard (v1.0)             | Professional presentation (HTML/PDF/Gamma)   |
 
 ---
 
@@ -214,12 +215,13 @@ Category tabs for multi-page store navigation.
 **Mobile (max-width: 768px):** horizontal scroll, `padding: 12px 18px`, `font-size: 0.875rem`
 
 **Store Categories (4 fixed):**
-| Category | Key | Page |
-|----------|-----|------|
-| Platform & Products | `platform` | buy/ |
-| AI & Cloud Consulting | `ai-cloud` | buy/page2/ |
+
+| Category                   | Key        | Page       |
+| -------------------------- | ---------- | ---------- |
+| Platform & Products        | `platform` | buy/       |
+| AI & Cloud Consulting      | `ai-cloud` | buy/page2/ |
 | Expert Advisory & Training | `advisory` | buy/page3/ |
-| Digital Services | `digital` | buy/page4/ |
+| Digital Services           | `digital`  | buy/page4/ |
 
 ---
 
@@ -811,15 +813,16 @@ Every page should include a subset of these core keywords:
 For products and pages related to EU data sovereignty compliance.
 
 **Badge types:**
-| Badge | Color | CSS Class | Usage |
-|-------|-------|-----------|-------|
-| EU Data Residency | `#10b981` (green) | `.sovereignty-badge.eu-data` | Data stays in EU |
-| GAIA-X Aligned | `#2563eb` (blue) | `.sovereignty-badge.gaia-x` | GAIA-X Level 3 compliant |
-| NIS2 Ready | `#8b5cf6` (purple) | `.sovereignty-badge.nis2` | NIS2 Directive compliant |
-| EU AI Act | `#f59e0b` (amber) | `.sovereignty-badge.eu-ai-act` | EU AI Act Article 12 compliant |
-| CLOUD Act Free | `#ef4444` (red accent) | `.sovereignty-badge.cloud-act-free` | No US CLOUD Act exposure |
-| NVIDIA Connect ISV Partner | `#76b900` (NVIDIA green) | `.sovereignty-badge.nvidia-isv` | NVIDIA Connect ISV certified |
-| Red Hat Technology Partner | `#ee0000` (Red Hat red) | `.sovereignty-badge.redhat` | Red Hat AgentOps ecosystem |
+
+| Badge                      | Color                    | CSS Class                           | Usage                          |
+| -------------------------- | ------------------------ | ----------------------------------- | ------------------------------ |
+| EU Data Residency          | `#10b981` (green)        | `.sovereignty-badge.eu-data`        | Data stays in EU               |
+| GAIA-X Aligned             | `#2563eb` (blue)         | `.sovereignty-badge.gaia-x`         | GAIA-X Level 3 compliant       |
+| NIS2 Ready                 | `#8b5cf6` (purple)       | `.sovereignty-badge.nis2`           | NIS2 Directive compliant       |
+| EU AI Act                  | `#f59e0b` (amber)        | `.sovereignty-badge.eu-ai-act`      | EU AI Act Article 12 compliant |
+| CLOUD Act Free             | `#ef4444` (red accent)   | `.sovereignty-badge.cloud-act-free` | No US CLOUD Act exposure       |
+| NVIDIA Connect ISV Partner | `#76b900` (NVIDIA green) | `.sovereignty-badge.nvidia-isv`     | NVIDIA Connect ISV certified   |
+| Red Hat Technology Partner | `#ee0000` (Red Hat red)  | `.sovereignty-badge.redhat`         | Red Hat AgentOps ecosystem     |
 
 **Badge CSS:**
 
@@ -1595,15 +1598,16 @@ Triggered by clicking the avatar. Auto-closes on click-outside or Escape key.
 ```
 
 **Design specs:**
-| Property | Value |
-|----------|-------|
-| Width | `w-56` (224 px) |
-| Border radius | `rounded-xl` |
-| Shadow | `shadow-lg` |
-| Border | `border border-gray-100` |
-| Item height | `py-2` (comfortable tap target) |
-| Sign Out color | `text-red-600 hover:bg-red-50` |
-| Z-index | `z-50` |
+
+| Property       | Value                           |
+| -------------- | ------------------------------- |
+| Width          | `w-56` (224 px)                 |
+| Border radius  | `rounded-xl`                    |
+| Shadow         | `shadow-lg`                     |
+| Border         | `border border-gray-100`        |
+| Item height    | `py-2` (comfortable tap target) |
+| Sign Out color | `text-red-600 hover:bg-red-50`  |
+| Z-index        | `z-50`                          |
 
 **Accessibility:**
 
@@ -2219,6 +2223,229 @@ Every personnel photo used in more than one place must be registered here with a
 ### 25.4 When an Asset Can't Meet the Bar
 
 If the only available photo/video for a person or product doesn't meet §25.2's bar (as with `CV/risto70.png` today) and no replacement is available yet, flag it explicitly in the registry (⚠️ NEEDS REVIEW, as above) rather than using it silently in a customer-facing document. Do not block on it if the HIC decides the existing asset is acceptable for a given use — but the flag stays until a replacement is registered.
+
+---
+
+## 26. Investor Deck Standard (v1.0) — Nokia-Grade Elegance & Trust
+
+**Scope:** Institutional investor presentations (VCs, angels, PE firms). Three formats: Draft HTML (internal review), Approved PDF (circulation), Gamma slides (investor meetings).
+
+**Design Principles:**
+
+- **Minimalist elegance:** Clean typography, generous whitespace, strategic color (DWS blue + neutrals)
+- **Trust through restraint:** Enterprise-grade polish without flash; data-forward, not decoration-heavy
+- **Professional narrative flow:** Thesis → Problem → Solution → Traction → Team → Funding Ask → Appendix
+- **Single-source HTML:** Markdown converted to semantic HTML; PDF generated from HTML (not separate design); Gamma auto-converted from HTML structure
+
+### 26.1 Typography & Color
+
+- **Font stack:** `IBM Plex Sans` (primary), system fallback (`-apple-system, BlinkMacSystemFont, "Segoe UI"`)
+- **Heading hierarchy:** H1 (section title, 28pt bold), H2 (subsection, 20pt bold), body (14pt, 150% line-height)
+- **DWS Color Palette for Decks:**
+  - **Primary Blue:** `#1E3A8A` (trust, professionalism — darker than web brand blue)
+  - **Accent Blue:** `#3B82F6` (highlights, links, call-to-action)
+  - **Neutral Gray:** `#64748B` (body text)
+  - **Off-white Background:** `#F8FAFC` (slide background, high contrast)
+  - **Dark Text on Light:** `#0F172A` (headings, strong text)
+
+### 26.2 HTML Deck Structure
+
+```html
+<div class="investor-deck">
+  <!-- Cover slide -->
+  <section class="slide slide-cover">
+    <div class="slide-content">
+      <img class="logo" src="..." alt="Lifetime Oy" />
+      <h1>Investor Deck v6 · 2026 Q3</h1>
+      <p class="tagline">Sovereign Intelligence for Regulated European Industry</p>
+      <p class="date">September 4, 2026</p>
+    </div>
+  </section>
+
+  <!-- Content slides (repeat per section) -->
+  <section class="slide">
+    <div class="slide-header">
+      <h1>Thesis</h1>
+    </div>
+    <div class="slide-content">
+      <p>One to two key sentences. No bullet points on first slide of a section.</p>
+    </div>
+  </section>
+
+  <!-- Data slide with chart/table -->
+  <section class="slide slide-data">
+    <div class="slide-header">
+      <h1>Section Title</h1>
+      <p class="subtitle">Contextual subtitle</p>
+    </div>
+    <div class="slide-content">
+      <table class="data-table">
+        <!-- or chart SVG -->
+      </table>
+    </div>
+  </section>
+
+  <!-- Back-cover / Contact -->
+  <section class="slide slide-close">
+    <div class="slide-content">
+      <h1>Questions?</h1>
+      <p>Risto Anton Päärni</p>
+      <p>Founder, CEO · Lifetime Oy</p>
+      <p>risto.paarni@lifetime.fi · +358 400 319 010</p>
+    </div>
+  </section>
+</div>
+```
+
+### 26.3 Slide Component CSS
+
+```css
+.investor-deck {
+  font-family:
+    "IBM Plex Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background: #1e3a8a;
+  color: #0f172a;
+}
+
+.slide {
+  page-break-after: always;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #f8fafc;
+  padding: 60px 80px;
+  border-top: 4px solid #3b82f6;
+}
+
+.slide-cover {
+  background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+  color: #f8fafc;
+  text-align: center;
+  border: none;
+}
+
+.slide-cover h1 {
+  font-size: 2.5rem;
+  margin: 20px 0;
+  font-weight: 700;
+}
+
+.slide-header {
+  margin-bottom: 40px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 20px;
+}
+
+.slide-header h1 {
+  font-size: 1.75rem;
+  color: #1e3a8a;
+  margin: 0;
+}
+
+.slide-content {
+  line-height: 1.5;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.slide-content p {
+  margin: 12px 0;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+}
+
+.data-table th {
+  background: #e2e8f0;
+  color: #0f172a;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.data-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.slide-close {
+  text-align: center;
+  background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+  color: #f8fafc;
+}
+```
+
+### 26.4 Workflow: Draft → Approved → Gamma
+
+**Step 1: Draft HTML** (internal review, HIC approval)
+
+- File: `investor-outreach/V<N>-DWS-IQ6-InvestorPD_<YYYY>.html`
+- Generated from markdown via pandoc + HTML template
+- No encryption; reviewable in browser
+
+**Step 2: PDF Export** (investor circulation)
+
+- Use browser print-to-PDF or wkhtmltopdf: `scripts/pdf-from-deck.sh V6 > V6-DWS-IQ6-InvestorPD_2026.pdf`
+- Page size: A4 landscape (297mm × 210mm); margins auto-calculated from CSS
+- Approved only after HIC sign-off on HTML
+
+**Step 3: Gamma Slides** (investor meetings)
+
+- Convert HTML structure to Gamma via: `scripts/html-to-gamma-deck.mjs V6`
+- Gamma preserves HTML text content, applies Gamma's native theme styling
+- Interactive for live presentations, shareable for async review
+
+### 26.5 Metadata & Governance
+
+All investor decks carry a metadata block (HTML comment):
+
+```html
+<!--
+INVESTOR DECK METADATA
+Document: investor-outreach/V6-DWS-IQ6-InvestorPD_2026.{html|pdf}
+Version: 6.0
+Effective: 2026-09-04
+Status: DRAFT (HTML) / APPROVED (PDF circulation authorized) / GAMMA READY
+Classification: CONFIDENTIAL — institutional investors only
+Source of truth: investor-outreach/V6-DWS-IQ6-InvestorPD_2026.md (markdown source)
+HIC approval: Risto Anton Päärni (risto.paarni@lifetime.fi)
+Counsel sign-off: [pending — before PDF circulation]
+Conflict audit (vs INVESTOR_MEMO.md): [link to audit result, e.g., 20% discount conflict resolved 2026-09-04]
+-->
+```
+
+### 26.6 Quality Gate Checklist
+
+Before publishing to PDF circulation:
+
+- [ ] HIC has read and approved the HTML deck
+- [ ] All traction claims cross-checked against `docs/field-notes/` source
+- [ ] All pricing/discount figures match canonical `investor-outreach/INVESTOR_MEMO.md`
+- [ ] No margin/moat figures unless sourced in appendix
+- [ ] Logo, imagery, and sponsorship badges checked against §9 Logo Usage
+- [ ] WCAG 2.2 AA contrast ratios verified (use WebAIM Contrast Checker)
+- [ ] Counsel has reviewed instrument language (SAFE terms, discount, valuation cap)
+- [ ] PDF filename follows naming convention: `V<N>-DWS-IQ6-InvestorPD_<YYYY>.pdf`
+- [ ] PDF metadata (title, author, creation date) populated before first circulation
+
+### 26.7 Canonical Pitch Lines for Decks
+
+Reference §22 (Product Pitch Lines) for approved EN/FI one-liners:
+
+- System of Action Operator (vs SaaS vendor)
+- Sovereign Industrial Intelligence Outcomes
+- 4P Capital Classes (Prompt, People, Plant, Perception)
+- EU Sovereign Infrastructure (EUDI Wallet + Digital Euro thesis)
+
+Never introduce new positioning lines in a deck without documenting them in §22 first.
 
 ---
 

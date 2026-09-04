@@ -1,0 +1,687 @@
+<title>DWS IQ 6 Investor Deck v6 · 2026 Q3</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family:
+      "IBM Plex Sans",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+    background: #0f172a;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+
+  .investor-deck {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .slide {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #f8fafc;
+    padding: 60px 80px;
+    border-top: 6px solid #3b82f6;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    position: relative;
+  }
+
+  @media print {
+    .slide {
+      page-break-after: always;
+      height: auto;
+      min-height: 100vh;
+    }
+  }
+
+  .slide-cover {
+    background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+    color: #f8fafc;
+    text-align: center;
+    border: none;
+    justify-content: center;
+  }
+
+  .cover-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    margin-bottom: 52px;
+  }
+
+  .logo-aegis {
+    height: 72px;
+    width: 72px;
+    filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.3));
+  }
+
+  .logo-divider {
+    font-size: 2.2rem;
+    color: rgba(248, 250, 252, 0.35);
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  .logo-dws-iq {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .slide-cover h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin: 20px 0;
+    letter-spacing: -0.02em;
+  }
+
+  .slide-cover .tagline {
+    font-size: 1.3rem;
+    color: rgba(248, 250, 252, 0.85);
+    margin: 16px 0 32px;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+
+  .slide-cover .date {
+    font-size: 0.95rem;
+    color: rgba(248, 250, 252, 0.6);
+    margin-top: 40px;
+  }
+
+  .slide-header {
+    width: 100%;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .slide-header h1 {
+    font-size: 2rem;
+    color: #1e3a8a;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.02em;
+  }
+
+  .slide-header .subtitle {
+    font-size: 1rem;
+    color: #64748b;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .slide-content {
+    width: 100%;
+    line-height: 1.6;
+    color: #475569;
+    font-size: 1rem;
+  }
+
+  .slide-content p {
+    margin: 14px 0;
+    font-size: 1.05rem;
+  }
+
+  .slide-content p:first-of-type {
+    margin-top: 0;
+  }
+
+  .slide-content ul,
+  .slide-content ol {
+    margin: 20px 0 20px 24px;
+  }
+
+  .slide-content li {
+    margin: 12px 0;
+    font-size: 1rem;
+  }
+
+  .slide-content strong {
+    color: #0f172a;
+    font-weight: 600;
+  }
+
+  .slide-content em {
+    color: #1e3a8a;
+    font-style: italic;
+  }
+
+  .metric {
+    display: inline-block;
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-weight: 600;
+    color: #1e3a8a;
+  }
+
+  .metric-label {
+    display: block;
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 400;
+    margin-top: 4px;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-size: 0.95rem;
+  }
+
+  .data-table th {
+    background: #1e3a8a;
+    color: #f8fafc;
+    padding: 14px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .data-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #475569;
+  }
+
+  .data-table tr:hover {
+    background: #f0f9ff;
+  }
+
+  .slide-close {
+    text-align: center;
+    background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+    color: #f8fafc;
+    justify-content: center;
+  }
+
+  .slide-close h1 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    font-weight: 700;
+  }
+
+  .slide-close p {
+    font-size: 1rem;
+    margin: 12px 0;
+    line-height: 1.8;
+  }
+
+  .slide-close .name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 20px;
+  }
+
+  .slide-close .title {
+    font-size: 0.95rem;
+    color: rgba(248, 250, 252, 0.85);
+  }
+
+  .slide-close .contact {
+    font-size: 0.9rem;
+    color: rgba(248, 250, 252, 0.7);
+    margin-top: 12px;
+  }
+
+  @media (max-width: 1024px) {
+    .slide {
+      padding: 40px 50px;
+    }
+    .slide-cover h1 {
+      font-size: 2rem;
+    }
+    .slide-header h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .nav-footer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+    background: rgba(30, 58, 138, 0.9);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: #f8fafc;
+  }
+
+  .nav-footer span {
+    color: rgba(248, 250, 252, 0.7);
+  }
+</style>
+
+<div class="investor-deck">
+  <!-- COVER -->
+  <section class="slide slide-cover">
+    <div class="cover-logos">
+      <svg
+        class="logo-aegis"
+        viewBox="0 0 64 64"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id="aegisGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color: #f8fafc; stop-opacity: 1" />
+            <stop offset="100%" style="stop-color: #cbd5e1; stop-opacity: 1" />
+          </linearGradient>
+        </defs>
+        <circle
+          cx="32"
+          cy="32"
+          r="30"
+          fill="none"
+          stroke="url(#aegisGrad)"
+          stroke-width="2"
+        />
+        <path
+          d="M32 8 L50 50 L14 50 Z"
+          fill="none"
+          stroke="url(#aegisGrad)"
+          stroke-width="2.5"
+          stroke-linejoin="round"
+        />
+        <circle cx="32" cy="32" r="5" fill="#3b82f6" />
+      </svg>
+      <span class="logo-divider">×</span>
+      <div class="logo-dws-iq">DWS IQ</div>
+    </div>
+    <h1>Investor Deck v6 · 2026 Q3</h1>
+    <p class="tagline">
+      Sovereign Intelligence for Regulated European Industry
+    </p>
+    <p class="date">September 2026</p>
+  </section>
+
+  <!-- THESIS -->
+  <section class="slide">
+    <div class="slide-header">
+      <h1>Thesis</h1>
+    </div>
+    <div class="slide-content">
+      <p>
+        Lifetime is building <strong>DWS IQ</strong>, a governed system of
+        action for regulated European industry. It turns industrial workflows
+        into controlled execution, signed evidence and reviewable outputs.
+      </p>
+      <p>
+        The company is testing two routes to revenue.
+        <strong>Enterprise engagements</strong> are the current commercial
+        focus. Nordic industrial SMEs are a second, unvalidated entry scenario.
+      </p>
+    </div>
+  </section>
+
+  <!-- THE COMMERCIAL QUESTION -->
+  <section class="slide">
+    <div class="slide-header">
+      <h1>The Commercial Question</h1>
+      <p class="subtitle">
+        Which route produces the first repeatable paid customer motion?
+      </p>
+    </div>
+    <div class="slide-content">
+      <p><strong>Scenario A: Enterprise-led deployment</strong></p>
+      <p style="margin-left: 20px; color: #64748b">
+        Through a narrow, production-relevant workflow with regulated industrial
+        companies.
+      </p>
+
+      <p><strong>Scenario B: SME entry</strong></p>
+      <p style="margin-left: 20px; color: #64748b">
+        Through DWS IQ Essentials, followed by expansion to Pro and Enterprise
+        tiers.
+      </p>
+
+      <p style="margin-top: 24px; color: #64748b; font-style: italic">
+        Both scenarios use the same evidence architecture, control plane and
+        contract model. Neither is claimed as validated until a paid customer
+        produces measurable evidence.
+      </p>
+    </div>
+  </section>
+
+  <!-- ENTERPRISE WEDGE -->
+  <section class="slide">
+    <div class="slide-header">
+      <h1>Scenario A: Enterprise Wedge</h1>
+      <p class="subtitle">
+        Regulated industrial companies with defined operational or compliance
+        problems
+      </p>
+    </div>
+    <div class="slide-content">
+      <p>
+        Current commercial conversations include <strong>Outokumpu</strong> and
+        <strong>Kemira</strong> — enterprise prospects, not booked revenue.
+      </p>
+
+      <p><strong>Entry motion:</strong></p>
+      <ul>
+        <li>One business owner</li>
+        <li>One site, process or workflow</li>
+        <li>One defined data boundary</li>
+        <li>One measurable output</li>
+        <li>One paid pilot decision</li>
+      </ul>
+
+      <p>
+        The product is adapted to the customer's problem. Partners and
+        infrastructure appear only when they solve a stated customer
+        requirement.
+      </p>
+    </div>
+  </section>
+
+  <!-- OUTOKUMPU -->
+  <section class="slide">
+    <div class="slide-header">
+      <h1>Outokumpu Example</h1>
+      <p class="subtitle">
+        Signed, machine-readable emissions evidence for downstream customers and
+        CBAM workflows
+      </p>
+    </div>
+    <div class="slide-content">
+      <p>
+        The hypothesis is that Outokumpu-sourced data could be delivered as an
+        evidence packet that procurement, filing and audit systems can consume
+        directly.
+      </p>
+
+      <p><strong>Validation required:</strong></p>
+      <ul>
+        <li>Customer-owned workflow confirmed</li>
+        <li>Data source and verification authority confirmed</li>
+        <li>Measurable time, cost or acceptance benefit</li>
+        <li>Paid pilot scope and buyer identified</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- KEMIRA -->
+  <section class="slide">
+    <div class="slide-header">
+      <h1>Kemira Example</h1>
+      <p class="subtitle">
+        Chemical process compliance recording using customer-specific demo and
+        controlled data upload
+      </p>
+    </div>
+    <div class="slide-content">
+      <p>
+        The demonstration uses a defined scenario with a bounded dataset. The
+        output must show the evidence produced, who reviews it and what a paid
+        pilot would prove.
+      </p>
+
+      <p><strong>Validation required:</strong></p>
+      <ul>
+        <li>Real process and pain point confirmed</li>
+        <li>Data boundary approved</li>
+        <li>Output reviewed by the responsible operator or compliance owner</li>
+        <li>Pilot benefit and acceptance criteria agreed</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SME ENTRY -->
+  <section class="slide">
+    <div class="slide-header">
+      <h1>Scenario B: SME Entry GTM</h1>
+      <p class="subtitle">
+        Nordic industrial SME with multiple services, small IT team, concrete
+        evidence needs
+      </p>
+    </div>
+    <div class="slide-content">
+      <p>
+        DWS IQ Essentials is planned as the low-friction entry tier. Target
+        customer profile, budget, decision cycle and Q4 timing are
+        <strong>hypotheses, not traction</strong>.
+      </p>
+
+      <p><strong>Essentials would include:</strong></p>
+      <ul>
+        <li>Inventory and service visibility</li>
+        <li>Evidence and audit export</li>
+        <li>Safe updates, health checks and rollback</li>
+        <li>CLI and managed deployment</li>
+        <li>GitHub and one operational runtime connector</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SME LADDER -->
+  <section class="slide">
+    <div class="slide-header">
+      <h1>SME Ladder GTM</h1>
+      <p class="subtitle">Essentials → Pro → Enterprise</p>
+    </div>
+    <div class="slide-content">
+      <p>
+        The test is whether a customer first buys operational risk reduction,
+        then asks for governance, analytics or broader deployment capability.
+      </p>
+
+      <p><strong>Validation metrics:</strong></p>
+      <ul>
+        <li>&gt;50% of beta customers deploy within two weeks</li>
+        <li>&gt;80% connect both launch connectors</li>
+        <li>&gt;30% buy Pro within 90 days</li>
+        <li>
+          Upgrade reason: governance or analytics, not missing core
+          functionality
+        </li>
+      </ul>
+
+      <p style="margin-top: 20px; color: #64748b; font-size: 0.95rem">
+        <em>These are planned tests, not current performance.</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- WHAT IS PROVEN -->
+  <section class="slide">
+    <div class="slide-header">
+      <h1>What Is Proven Today</h1>
+    </div>
+    <div class="slide-content">
+      <ul>
+        <li>Lifetime has industrial software and compliance experience</li>
+        <li>DWS IQ is structured around governed execution and evidence</li>
+        <li>
+          Outokumpu and Kemira provide concrete enterprise discovery contexts
+        </li>
+        <li>
+          Current commercial work is narrowing toward customer-specific
+          workflows and paid pilots
+        </li>
+      </ul>
+
+      <p style="margin-top: 24px; color: #1e3a8a; font-weight: 600">
+        Not claimed:
+      </p>
+      <p style="color: #64748b">
+        Validated SME demand, Essentials revenue, repeatable enterprise
+        conversion, retention, churn or software revenue beyond the canonical
+        register.
+      </p>
+    </div>
+  </section>
+
+  <!-- BUSINESS MODEL -->
+  <section class="slide">
+    <div class="slide-header">
+      <h1>Business Model</h1>
+    </div>
+    <div class="slide-content">
+      <p>
+        <strong>Enterprise:</strong> Paid discovery or pilot, followed by
+        production deployment and expansion.
+      </p>
+
+      <p>
+        <strong>SME scenario:</strong> Essentials entry, modular Pro expansion
+        and eventual Enterprise path.
+      </p>
+
+      <p><strong>Revenue sources remain separate:</strong></p>
+      <ul>
+        <li>Software and governance</li>
+        <li>Deployment and integration</li>
+        <li>Recurring support</li>
+      </ul>
+
+      <p>
+        The product architecture is shared. Commercial validation is separate by
+        scenario.
+      </p>
+    </div>
+  </section>
+
+  <!-- EXECUTION PLAN -->
+  <section class="slide">
+    <div class="slide-header">
+      <h1>Execution Plan</h1>
+    </div>
+    <div class="slide-content">
+      <ol style="margin-left: 20px">
+        <li>Convert one enterprise conversation into a paid, bounded pilot</li>
+        <li>
+          Produce a measurable customer-owned outcome for Outokumpu or Kemira
+        </li>
+        <li>Complete the Essentials launch gate before selling it</li>
+        <li>
+          Run the first SME beta only after deployment, rollback, evidence
+          export, isolation and support controls pass
+        </li>
+        <li>
+          Compare both motions by time to paid commitment, delivery effort,
+          referenceability and expansion signal
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- FUNDING ASK -->
+  <section class="slide">
+    <div class="slide-header">
+      <h1>Funding Ask</h1>
+    </div>
+    <div class="slide-content">
+      <table class="data-table">
+        <tr>
+          <th>Instrument</th>
+          <td><strong>€650k SAFE</strong></td>
+        </tr>
+        <tr>
+          <th>Valuation Cap</th>
+          <td>€3.8M</td>
+        </tr>
+        <tr>
+          <th>Discount</th>
+          <td>18%</td>
+        </tr>
+        <tr>
+          <th>Maturity</th>
+          <td>24 months</td>
+        </tr>
+      </table>
+
+      <p style="margin-top: 28px">
+        <strong>Use of funds:</strong> Enterprise pilot execution and
+        conversion, Essentials launch-gate completion, EU sovereignty and
+        evidence controls, and customer delivery capacity.
+      </p>
+
+      <p style="color: #64748b; font-size: 0.95rem">
+        The purpose of the round is to test and convert the two GTM scenarios,
+        not to imply that either is already proven.
+      </p>
+    </div>
+  </section>
+
+  <!-- INVESTOR DECISION -->
+  <section class="slide">
+    <div class="slide-header">
+      <h1>Investor Decision</h1>
+    </div>
+    <div class="slide-content">
+      <p style="font-size: 1.15rem; line-height: 1.8">
+        Back Lifetime's ability to turn narrow regulated-industrial workflows
+        into repeatable paid deployments, while treating the SME ladder as a
+        measured scenario rather than established traction.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="slide slide-close">
+    <h1>Questions?</h1>
+    <p class="name">Risto Anton Päärni</p>
+    <p class="title">Founder, CEO · Lifetime Oy</p>
+    <p class="contact">risto.paarni@lifetime.fi</p>
+    <p class="contact">+358 400 319 010</p>
+  </section>
+</div>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll(".slide");
+  const totalSlides = slides.length;
+
+  function updateSlideCount() {
+    if (!document.querySelector(".nav-footer")) {
+      const footer = document.createElement("div");
+      footer.className = "nav-footer";
+      footer.innerHTML = `Slide <strong>${currentSlide + 1}</strong> <span>of ${totalSlides}</span>`;
+      document.body.appendChild(footer);
+    } else {
+      document.querySelector(".nav-footer").innerHTML =
+        `Slide <strong>${currentSlide + 1}</strong> <span>of ${totalSlides}</span>`;
+    }
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        slides[currentSlide].scrollIntoView({ behavior: "smooth" });
+        updateSlideCount();
+      }
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      if (currentSlide > 0) {
+        currentSlide--;
+        slides[currentSlide].scrollIntoView({ behavior: "smooth" });
+        updateSlideCount();
+      }
+    }
+  });
+
+  updateSlideCount();
+</script>
