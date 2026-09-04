@@ -4538,51 +4538,6 @@
       "additionalImage": "/DWS_IQ2026.png",
       "partnerProduct": true
     },
-    "TH-T2": {
-      "id": "TH-T2",
-      "sku": "TH-T2",
-      "mpn": "TH-T2",
-      "name": "Themis Coordinator — Pro",
-      "price": 2499,
-      "currency": "EUR",
-      "type": "subscription",
-      "priceUnit": "per-month",
-      "tier": "T2",
-      "agents": [
-        "themis"
-      ],
-      "replaces": {
-        "role": "Ops coordinator",
-        "fteCount": 0.5,
-        "fullyLoadedAnnualCostEUR": 40000
-      },
-      "nextUpsellSku": "WF-T4",
-      "deploymentColor": "blue",
-      "priceVersion": "1.15",
-      "description": "Case routing, sub-agent assignment, KYA chain.",
-      "features": [
-        "Replaces Ops coordinator ≈ 0.5 FTE",
-        "Tier T2",
-        "Blue/pilot — internal sign-off required before quoting"
-      ],
-      "priceNote": "€2,499 per-month — Blue/pilot",
-      "image": "/static/images/products/TH-T2.png",
-      "detailsUrl": "../products/skilled-agents.html",
-      "featured": false,
-      "storeCategory": "platform",
-      "brand": "DWS IQ",
-      "version": "1.0",
-      "google": {
-        "productCategory": "Software > Business & Productivity Software",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "DWS IQ",
-        "targetCountry": "FI",
-        "contentLanguage": "en"
-      },
-      "additionalImage": "/DWS_IQ2026.png",
-      "partnerProduct": true
-    },
     "ESG-T3": {
       "id": "ESG-T3",
       "sku": "ESG-T3",
@@ -5808,53 +5763,6 @@
       },
       "partnerProduct": true
     },
-    "LAND-THEMIS": {
-      "id": "LAND-THEMIS",
-      "sku": "LAND-THEMIS",
-      "mpn": "LAND-THEMIS",
-      "name": "Themis Coordinator Workshop",
-      "price": 29990,
-      "currency": "EUR",
-      "type": "bundle",
-      "priceUnit": "per-year",
-      "tier": "land",
-      "agents": [
-        "themis"
-      ],
-      "replaces": {
-        "role": "Ops coordinator",
-        "fteCount": 0.5,
-        "fullyLoadedAnnualCostEUR": 40000
-      },
-      "nextUpsellSku": "TH-T2",
-      "attachedAgentSku": "TH-T2",
-      "yearOneEUR": 29990,
-      "yearTwoPlusEUR": 24990,
-      "deploymentColor": "blue",
-      "priceVersion": "1.15",
-      "description": "3-day Themis workshop + 12-month T2 Themis Coordinator.",
-      "features": [
-        "Replaces Ops coordinator ≈ 0.5 FTE during engagement",
-        "Y1 €29,990 · Y2+ €24,990/yr",
-        "Land overlay — engagement + 12-month agent attach"
-      ],
-      "priceNote": "Y1 €29,990 · Y2+ €24,990/yr — engagement + 12-month TH-T2",
-      "image": "/static/images/products/LAND-THEMIS.png",
-      "detailsUrl": "../products/skilled-agents.html",
-      "featured": false,
-      "storeCategory": "advisory",
-      "brand": "Lifetime",
-      "version": "1.0",
-      "google": {
-        "productCategory": "Business & Industrial > Business Services",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "Lifetime",
-        "targetCountry": "FI",
-        "contentLanguage": "en"
-      },
-      "partnerProduct": true
-    },
     "LAND-WF": {
       "id": "LAND-WF",
       "sku": "LAND-WF",
@@ -6160,6 +6068,23 @@
       "buyPage": 2,
       "buyPageOrder": 2,
       "partnerProduct": true
+    },
+    "DWS-IQ-ESS-SETUP": {
+      "id": "DWS-IQ-ESS-SETUP",
+      "mpn": "DWSIQ-ESS-SETUP-2026",
+      "name": "DWS IQ Essentials — Setup",
+      "price": 799,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "One-time onboarding for DWS IQ Essentials: install, connect GitHub and one operational-runtime connector, first inventory snapshot, and the first evidenced safe update with rollback tested.",
+      "features": [
+        "Install on your infrastructure or on Lifetime-managed hosting",
+        "GitHub + operational-runtime connectors configured",
+        "First safe update executed and rolled back under test, with evidence recorded"
+      ],
+      "priceNote": "€799 one-time — required once, with either Essentials subscription",
+      "storeCategory": "platform",
+      "version": "1.0"
     }
   },
   "settings": {
@@ -6206,9 +6131,9 @@
     }
   },
   "lastUpdated": "2026-08-30T00:00:00Z",
-  "priceVersion": "1.28",
+  "priceVersion": "1.29",
   "priceList": {
-    "version": "1.28",
+    "version": "1.29",
     "effectiveDate": "2026-08-30",
     "nextReviewDate": "2026-11-30",
     "stampQuarter": "2026.Q3",
@@ -7247,6 +7172,144 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 44
+    },
+    "DWS-IQ-ESS-SUB-SELF": {
+      "id": "DWS-IQ-ESS-SUB-SELF",
+      "mpn": "DWSIQ-ESS-SELF-2026",
+      "name": "DWS IQ Essentials — Self-Hosted",
+      "price": 49,
+      "currency": "EUR",
+      "type": "subscription",
+      "billingPeriod": "monthly",
+      "description": "Entry tier for SME operators on their own infrastructure. Agent orchestration, inventory, evidence chain and safe updates with rollback — one governed view of deployed services, without replacing existing systems.",
+      "features": [
+        "Orchestration engine, agent registry and inventory",
+        "Evidence chain — who changed what, when, and with what result",
+        "Safe updates with signature verification and automatic rollback",
+        "GitHub + operational-runtime connectors, CLI",
+        "Customer provides the infrastructure (cloud VM, Kubernetes or on-prem)"
+      ],
+      "priceNote": "€49/mo + €799 one-time setup — self-hosted",
+      "storeCategory": "subscription",
+      "version": "1.0"
+    },
+    "DWS-IQ-ESS-SUB-MANAGED": {
+      "id": "DWS-IQ-ESS-SUB-MANAGED",
+      "mpn": "DWSIQ-ESS-MGD-2026",
+      "name": "DWS IQ Essentials — Managed",
+      "price": 249,
+      "currency": "EUR",
+      "type": "subscription",
+      "billingPeriod": "monthly",
+      "description": "Essentials on Lifetime-managed, EU-hosted infrastructure. Same product as self-hosted; Lifetime runs the database, backups, security patches and uptime.",
+      "features": [
+        "Everything in Essentials Self-Hosted",
+        "EU-hosted managed deployment (1–3 tenants)",
+        "Backups, security patches and uptime managed by Lifetime"
+      ],
+      "priceNote": "€249/mo (€49 platform + €200 managed hosting) + €799 one-time setup",
+      "storeCategory": "subscription",
+      "version": "1.0"
+    }
+  },
+  "discontinuedProducts": {
+    "TH-T2": {
+      "id": "TH-T2",
+      "sku": "TH-T2",
+      "mpn": "TH-T2",
+      "name": "Themis Coordinator — Pro",
+      "price": 2499,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "themis"
+      ],
+      "replaces": {
+        "role": "Ops coordinator",
+        "fteCount": 0.5,
+        "fullyLoadedAnnualCostEUR": 40000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Case routing, sub-agent assignment, KYA chain.",
+      "features": [
+        "Replaces Ops coordinator ≈ 0.5 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€2,499 per-month — Blue/pilot",
+      "image": "/static/images/products/TH-T2.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true,
+      "status": "discontinued",
+      "discontinuedOn": "2026-08-30",
+      "discontinuedReason": "Themis is the internal control-plane engine, not a customer-facing brand. Customers buy DWS IQ Essentials / Pro / Enterprise. HIC decision 30.08.2026; source: docs/field-notes/2026-08-30-dws-iq-essentials-positioning.md"
+    },
+    "LAND-THEMIS": {
+      "id": "LAND-THEMIS",
+      "sku": "LAND-THEMIS",
+      "mpn": "LAND-THEMIS",
+      "name": "Themis Coordinator Workshop",
+      "price": 29990,
+      "currency": "EUR",
+      "type": "bundle",
+      "priceUnit": "per-year",
+      "tier": "land",
+      "agents": [
+        "themis"
+      ],
+      "replaces": {
+        "role": "Ops coordinator",
+        "fteCount": 0.5,
+        "fullyLoadedAnnualCostEUR": 40000
+      },
+      "nextUpsellSku": "TH-T2",
+      "attachedAgentSku": "TH-T2",
+      "yearOneEUR": 29990,
+      "yearTwoPlusEUR": 24990,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "3-day Themis workshop + 12-month T2 Themis Coordinator.",
+      "features": [
+        "Replaces Ops coordinator ≈ 0.5 FTE during engagement",
+        "Y1 €29,990 · Y2+ €24,990/yr",
+        "Land overlay — engagement + 12-month agent attach"
+      ],
+      "priceNote": "Y1 €29,990 · Y2+ €24,990/yr — engagement + 12-month TH-T2",
+      "image": "/static/images/products/LAND-THEMIS.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "advisory",
+      "brand": "Lifetime",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "partnerProduct": true,
+      "status": "discontinued",
+      "discontinuedOn": "2026-08-30",
+      "discontinuedReason": "Themis is the internal control-plane engine, not a customer-facing brand. Customers buy DWS IQ Essentials / Pro / Enterprise. HIC decision 30.08.2026; source: docs/field-notes/2026-08-30-dws-iq-essentials-positioning.md"
     }
   }
 }

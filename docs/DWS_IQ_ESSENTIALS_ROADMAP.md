@@ -1,6 +1,6 @@
 # DWS IQ Essentials Roadmap
 
-**Version:** 1.0 (Draft)  
+**Version:** 1.1 (Draft)  
 **Date:** 2026-08-30  
 **Owner:** Lifetime Oy — Product Strategy  
 **Status:** Decision Gate — Ship Essentials Q4 2026
@@ -439,7 +439,7 @@ _"DWS IQ Essentials gives your small IT team one governed view of deployed servi
 **Readiness for Beta Customer**
 
 - [ ] ✅ Named support owner + escalation route (who pages at 02:00?)
-- [ ] ✅ Beta customer agreement signed (€750/month, €200/month hosting, data residency stated)
+- [ ] ✅ Beta customer agreement signed (€799 one-time setup + €249/month managed — includes €200/month hosting; or €49/month self-hosted — data residency stated)
 - [ ] ✅ First customer selected: Nordic industrial SME, 50–250 employees, has small IT team
 - [ ] ✅ One measurable result defined: "Reduce failed-update recovery time from 4 hours to <30 minutes" OR "Complete 5 safe updates in production without human intervention"
 
@@ -461,7 +461,7 @@ _If all accept tests pass → green light: deploy to beta customer._
 
 ### Beta Deployment (Weeks 7–12)
 
-- [ ] €750/month subscription active; managed deployment running
+- [ ] €799 setup paid and €249/month managed subscription active; managed deployment running
 - [ ] Operational inventory visible (N services, versions, last deploy)
 - [ ] First safe update executed by customer IT team
 - [ ] Measurable outcome achieved (e.g., failed-update recovery time reduced to <30 min)
@@ -521,4 +521,5 @@ _If all accept tests pass → green light: deploy to beta customer._
 
 **Document Status:** Draft for HIC decision gate  
 **Last Updated:** 2026-08-30  
+**v1.1 correction (HIC, 30.08.2026):** §7 and §8 quoted a beta agreement at "€750/month + €200/month hosting", contradicting the §3/§5 price of €799 one-time setup + €49/month self-hosted or €249/month managed. **§3/§5 is correct**; §7/§8 corrected to match. The Essentials SKUs are now registered in the single pricing source, `dws10.com/config/products.json` (priceVersion 1.26), mirrored to `landing-pages/dws10-com/`.  
 **Next Review:** After HIC feedback + blocker resolution
