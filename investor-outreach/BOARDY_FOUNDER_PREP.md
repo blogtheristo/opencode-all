@@ -52,7 +52,7 @@ But once the building is operating? Once the factory is running? Once the fleet 
 
 **Why now:** CSRD reporting deadlines are live. Post-Omnibus, fewer than 5,000 of the largest EU companies (>1,000 employees, >€450M turnover) face mandatory filing — and pull their value chains into Scope-3 reporting. This isn't a "nice-to-have" market — it's a "buy or get fined" market. V1 launches at Arctic 15 on June 15, 2026. Investors who commit before Arctic 15 enter at seed valuation (€3.8M cap) ahead of the first public sales data (available August 15, 2026).
 
-**Ask:** €650K SAFE — €500K Fleet Admiral + 8 × €50K Captain Seats. Path to €900k ARR by end of 2026.
+**Ask:** €650K SAFE — €250K Admiral + 8 × €50K Captain Seats. Path to €900k ARR by end of 2026.
 
 ### Customers
 
@@ -146,7 +146,7 @@ Ambition: operations compliance across 25 EU-regulated industries.
 - **Pipeline:** 2 construction pilots converting
 - **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments
 - **Industries:** 25 EU-regulated verticals
-- **Round:** €650K SAFE at €3.8M cap (€500K Fleet Admiral + 8 × €50K Captain)
+- **Round:** €650K SAFE at €3.8M cap (€250K Admiral + 8 × €50K Captain)
 - **Team:** Two humans — Risto Päärni (Founder/CEO) + Lucille Santiago (Office Chief / HIC, partner-track Lifetime AB) — plus AI-assisted development; senior technical (CTO) hire funded by the raise
 
 ### Key dates:
@@ -185,16 +185,16 @@ Ambition: operations compliance across 25 EU-regulated industries.
 | --------------------------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **One Click LCA BD/partnerships**       | Their outputs become our inputs. Mutual customer value.                          | "We're building the operations compliance layer that extends your design-phase LCA data into ongoing CSRD reporting. Your output is our input. We grow each other's value." |
 | **IFS Cloud ISV/marketplace team**      | Our most production-ready connector. Their customers need compliance automation. | "We have a working IFS Cloud connector that pulls asset and project data for automated climate compliance reporting. We want to be on the IFS marketplace."                 |
-| **Nordic logistics CFO** (50+ vehicles) | Proven product, proven ROI (40h/mo saved), €3k/mo, fast close.                   | "Connect your fleet data, get Scope 1-2-3 reports automatically. 4 weeks to audit-ready."                                  |
+| **Nordic logistics CFO** (50+ vehicles) | Proven product, proven ROI (40h/mo saved), €3k/mo, fast close.                   | "Connect your fleet data, get Scope 1-2-3 reports automatically. 4 weeks to audit-ready."                                                                                   |
 
 ### Tier 2 — Strategic, longer cycle:
 
-| Introduction                                           | Why it converts                                                             | What I'd say                                                                                                                                                                                                                                                 |
-| ------------------------------------------------------ | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Introduction                                           | Why it converts                                                             | What I'd say                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------------------------------------------------ | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Climate VC partner** (Pale Blue Dot, World Fund)     | Mandatory market, proven traction, seed round open.                         | "Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), funded by ~€7,000/month of services and transport revenue (not software revenue); post-Omnibus, fewer than 5,000 of the largest EU companies must file CSRD and pull their value chains into Scope 3. We automate what everyone else does manually. Raising €650K SAFE, V1 launches Arctic 15 June 15." |
-| **SAP sustainability PM**                              | Enterprise market requires SAP. We have verifiably correct OData endpoints. | "We pull production orders and material data from S/4HANA and map it to CSRD evidence. Looking for SAP PartnerEdge or co-innovation."                                                                                                                        |
-| **Big 4 sustainability lead (Nordics)**                | Channel to 100s of CSRD-obligated companies.                                | "Your clients need CSRD tooling. We automate ERP-to-report. You advise, we execute. Referral or reseller model."                                                                                                                                             |
-| **Construction portfolio manager** (NCC, Skanska, YIT) | Construction operations compliance gap. They use IFS.                       | "You've done the design-phase LCA. Now you need ongoing operations compliance. We pull from IFS, import One Click LCA baselines, and auto-generate quarterly CSRD reports."                                                                                  |
+| **SAP sustainability PM**                              | Enterprise market requires SAP. We have verifiably correct OData endpoints. | "We pull production orders and material data from S/4HANA and map it to CSRD evidence. Looking for SAP PartnerEdge or co-innovation."                                                                                                                                                                                                                                               |
+| **Big 4 sustainability lead (Nordics)**                | Channel to 100s of CSRD-obligated companies.                                | "Your clients need CSRD tooling. We automate ERP-to-report. You advise, we execute. Referral or reseller model."                                                                                                                                                                                                                                                                    |
+| **Construction portfolio manager** (NCC, Skanska, YIT) | Construction operations compliance gap. They use IFS.                       | "You've done the design-phase LCA. Now you need ongoing operations compliance. We pull from IFS, import One Click LCA baselines, and auto-generate quarterly CSRD reports."                                                                                                                                                                                                         |
 
 ### Tier 3 — Ecosystem, long-term:
 
@@ -211,22 +211,22 @@ Ambition: operations compliance across 25 EU-regulated industries.
 
 These numbers are the single source of truth. Boardy MUST use these — do not deviate.
 
-| Metric               | Value                   | Source                                             |
-| -------------------- | ----------------------- | -------------------------------------------------- |
-| Services + transport revenue | ~€7,000/month   | not software revenue; cash break-even, founder salary €0 |
-| Round total          | €650K                   | €500K Fleet Admiral + 8 × €50K Captain             |
-| Valuation cap        | €3.8M                   | SAFE terms                                         |
-| Contracted enterprise pilots | 2 (Q1/2026)     | €29,950 each, €59,900 booked                       |
-| Industries           | 20                      | EU-regulated verticals                             |
-| Hours saved/customer | 40+ per month           | vs. manual reporting                               |
-| Products             | 32                      | dws10.com catalog                                  |
-| Cloud environments   | 4 + roadmap             | US, EU, Hetzner, Edge + Full Sovereignty (Q2 2026) |
-| V1 launch            | June 15, 2026           | Arctic 15, Helsinki                                |
-| Sales data available | August 15, 2026         | First cycle complete                               |
-| ARR target           | €900K                   | End of 2026                                        |
-| Series A target      | €15M+ pre-money         | Q3–Q4 2026                                         |
-| Contact email        | risto@onelifetime.world | Canonical                                          |
-| Deputy Captain seats | Unlimited               | Price TBD                                          |
+| Metric                       | Value                   | Source                                                   |
+| ---------------------------- | ----------------------- | -------------------------------------------------------- |
+| Services + transport revenue | ~€7,000/month           | not software revenue; cash break-even, founder salary €0 |
+| Round total                  | €650K                   | €250K Admiral + 8 × €50K Captain                         |
+| Valuation cap                | €3.8M                   | SAFE terms                                               |
+| Contracted enterprise pilots | 2 (Q1/2026)             | €29,950 each, €59,900 booked                             |
+| Industries                   | 20                      | EU-regulated verticals                                   |
+| Hours saved/customer         | 40+ per month           | vs. manual reporting                                     |
+| Products                     | 32                      | dws10.com catalog                                        |
+| Cloud environments           | 4 + roadmap             | US, EU, Hetzner, Edge + Full Sovereignty (Q2 2026)       |
+| V1 launch                    | June 15, 2026           | Arctic 15, Helsinki                                      |
+| Sales data available         | August 15, 2026         | First cycle complete                                     |
+| ARR target                   | €900K                   | End of 2026                                              |
+| Series A target              | €15M+ pre-money         | Q3–Q4 2026                                               |
+| Contact email                | risto@onelifetime.world | Canonical                                                |
+| Deputy Captain seats         | Unlimited               | Price TBD                                                |
 
 ---
 
@@ -242,7 +242,7 @@ These numbers are the single source of truth. Boardy MUST use these — do not d
 
 **Moats:** KYA Standard (D&O safe harbor, 8–12% premium reduction), dual revenue model (SaaS + Enterprise World Alpha-Share), ERP connectors (no competitor has Nordic ERPs), compliance data flywheel (retention compounds with coverage).
 
-**Raise:** €650K SAFE, €3.8M cap. Fleet Admiral (€500K) + 8 Captain Seats (€50K each). Deputy Captain unlimited, price TBD.
+**Raise:** €650K SAFE, €3.8M cap. Admiral (€250K) + 8 Captain Seats (€50K each).
 
 **Timeline:** V1 at Arctic 15 (June 15) → sales sprint → first data August 15 → Series A Q3–Q4.
 

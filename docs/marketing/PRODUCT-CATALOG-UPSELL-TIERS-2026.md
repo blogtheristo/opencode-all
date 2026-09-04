@@ -115,7 +115,7 @@ Each row is a real, sellable SKU. Pilot prices today, Green ratification per `DW
 | DW-T2        | Deepwiki Extractor — Pro               | T2   | 799/mo            | Unlimited, structured outputs                                         | (attached only)    |
 | VIA-T1       | Viability — Starter                    | T1   | 999/mo            | 1 go/no-go scoring per quarter                                        | VIA-T2             |
 | VIA-T2       | Viability — Pro                        | T2   | 1,499/mo          | Continuous scoring + sensitivity                                      | (attached only)    |
-| TH-T2        | Themis Coordinator — Pro               | T2   | 2,499/mo          | Case routing, sub-agent assignment, KYA chain                         | T3 / T4            |
+| ~~TH-T2~~    | ~~Themis Coordinator — Pro~~ **DISCONTINUED 30.08.2026** | —    | —                 | Themis is the internal control-plane engine, not a customer-facing product. Customers buy DWS IQ Essentials / Pro / Enterprise (HIC decision, `docs/field-notes/2026-08-30-dws-iq-essentials-positioning.md`) | —                  |
 
 ---
 
@@ -162,7 +162,7 @@ These bundles **collapse the T0 → T2/T3 ladder into a single sale** by attachi
 | LAND-SOV   | Sovereignty & NIS2 Sprint           | T3 Sovereignty  | 5-day audit                      |  69,990 |     54,990 |
 | LAND-OPS   | Construction Ops Pilot              | T3 Construction | 4–8 wk site pilot                | 109,990 |     84,990 |
 | LAND-GTM   | Go-to-Market Sprint                 | T3 GTM          | 5-day sprint                     |  49,990 |     39,990 |
-| LAND-THEMIS| Themis Coordinator Workshop        | T2 Themis       | 3-day workshop                   |  29,990 |     24,990 |
+| ~~LAND-THEMIS~~| ~~Themis Coordinator Workshop~~ **DISCONTINUED 30.08.2026** | —       | —                   |  —      |     —      |
 | LAND-WF    | Full Workforce Onboarding           | T4 Workforce    | 20-day onboarding                | 249,990 |    199,990 |
 
 **Land-overlay rule (per `CONSULTING-PLUS-AGENTS-BUNDLES-2026.md` §5.1):** Pure consulting is offered only as an exception, priced **+25% over the bundle** so the bundle is always the rational pick.

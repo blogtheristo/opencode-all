@@ -127,7 +127,341 @@
       </ul>
 
       <h2>How this fits the rest of the fleet</h2>
-      <p>This SKU pairs with the other sovereign hardware on the ladder. See <a href="edge-node-gn100.html">Control Room</a>, <a href="situation-room.html">Situation Room</a>, <a href="jetson-sensor.html">Jetson Sensor Nodes</a>, and <a href="nvidia-model-install.html">NVIDIA Model Install</a>. The full moat sits below.</p>
+      <p>This SKU pairs with the other sovereign hardware on the ladder. See <a href="edge-node-gn100.html">Control Room</a>, <a href="situation-room.html">Situation Room</a>, <a href="jetson-sensor.html">Jetson Sensor Nodes</a>, and <a href="nvidia-model-install.html">NVIDIA Model Install</a>.</p>
+
+      <!-- ============================================================
+           OPTIONAL CHOICES — Orchestration, DOCA, Gov Ready, NIM, Field Gateways
+           These are add-on tiers that pair with DGX Spark hardware.
+           Source: docs/plans/KUBERNETES_IMPLEMENTATION_PLAN.md,
+                   docs/plans/DOCA_MICROSERVICES_PLAN.md,
+                   docs/plans/GOVERNMENT_READY_IMAGES_RESEARCH.md,
+                   docs/plans/VGPU_IMPLEMENTATION_PLAN.md
+           ============================================================ -->
+      <section class="optional-choices" aria-label="Optional choices for DGX Spark">
+        <style>
+          .optional-choices {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 32px 24px;
+            margin: 32px 0;
+          }
+          .optional-choices h2 {
+            color: #003399;
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 1.5rem;
+          }
+          .option-group {
+            margin-bottom: 32px;
+          }
+          .option-group:last-child {
+            margin-bottom: 0;
+          }
+          .option-group h3 {
+            color: #0f172a;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #76b900;
+            display: inline-block;
+          }
+          .option-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+          }
+          .option-table th,
+          .option-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px 14px;
+            text-align: left;
+            vertical-align: top;
+          }
+          .option-table th {
+            background: #0a1628;
+            color: #ffcc00;
+            font-weight: 700;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+          }
+          .option-table tr:hover td {
+            background: #f8fafc;
+          }
+          .option-table .tier-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+          }
+          .tier-T0 { background: #e2e8f0; color: #475569; }
+          .tier-T1 { background: rgba(14, 165, 233, 0.15); color: #0ea5e9; }
+          .tier-T2 { background: rgba(22, 163, 74, 0.15); color: #16a34a; }
+          .tier-T3 { background: rgba(124, 58, 237, 0.15); color: #7c3aed; }
+          .tier-T4 { background: rgba(220, 38, 38, 0.15); color: #dc2626; }
+          .tier-land { background: rgba(234, 88, 12, 0.15); color: #ea580c; }
+          .price-cell { font-weight: 700; color: #0d7a3e; white-space: nowrap; }
+          .notes-cell { color: #64748b; font-size: 0.8125rem; }
+        </style>
+
+        <h2>Optional Choices for DGX Spark</h2>
+        <p style="color: #64748b; margin-bottom: 24px; max-width: 800px;">
+          The €6,694 turnkey price includes NVIDIA DGX Spark hardware + NVIDIA model installation.
+          The options below extend the platform for Kubernetes orchestration, DPU acceleration,
+          regulatory hardening, and field-level sensor ingestion. All prices are <strong>add-on</strong>
+          to the base DGX Spark configuration.
+        </p>
+
+        <!-- Orchestration Tiers (T0–T4) -->
+        <div class="option-group">
+          <h3>Orchestration Tier (one per cluster)</h3>
+          <p style="color: #64748b; margin-bottom: 12px;">
+            DGX Spark ships with Docker Compose (T0) by default. Upgrade for Kubernetes,
+            high availability, or government-grade hardening.
+          </p>
+          <table class="option-table">
+            <thead>
+              <tr>
+                <th>Tier</th>
+                <th>Name</th>
+                <th>Includes</th>
+                <th>Add-on Price</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tier-badge tier-T0">T0</span></td>
+                <td>Docker Compose (Default)</td>
+                <td>docker-compose.yml, systemd, day-runner cron</td>
+                <td class="price-cell">Included</td>
+                <td class="notes-cell">Single-node, simple ops, air-gap ready</td>
+              </tr>
+              <tr>
+                <td><span class="tier-badge tier-T1">T1</span></td>
+                <td>k3s Single-Node</td>
+                <td>k3s + GPU Operator + NIM Operator, GPU time-slicing (4x)</td>
+                <td class="price-cell">+€1,500</td>
+                <td class="notes-cell">Single DGX, wants K8s API, future scale</td>
+              </tr>
+              <tr>
+                <td><span class="tier-badge tier-T2">T2</span></td>
+                <td>k3s HA Cluster (3-node)</td>
+                <td>HA control plane, Longhorn, MetalLB, Ingress, Network Operator</td>
+                <td class="price-cell">+€4,500</td>
+                <td class="notes-cell">Requires 3× DGX Spark/Control Room nodes</td>
+              </tr>
+              <tr>
+                <td><span class="tier-badge tier-T3">T3</span></td>
+                <td>RKE2 Gov Ready</td>
+                <td>FIPS 140-3, STIG Ubuntu 24.04, GPU Operator Gov Ready (x86 mgmt node)</td>
+                <td class="price-cell">+€7,500</td>
+                <td class="notes-cell">Defence/regulated; requires x86 management node</td>
+              </tr>
+              <tr>
+                <td><span class="tier-badge tier-T4">T4</span></td>
+                <td>Full Infra Stack</td>
+                <td>T3 + DPU Operator, DOCA services, BCM, Run:ai, BlueField-3 DPU</td>
+                <td class="price-cell">+€12,000</td>
+                <td class="notes-cell">Large-scale, multi-DPU, north-south acceleration</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- DOCA Microservices Packages -->
+        <div class="option-group">
+          <h3>DOCA Microservices (requires BlueField-3 DPU)</h3>
+          <p style="color: #64748b; margin-bottom: 12px;">
+            Hardware-accelerated networking, security, and storage offload on NVIDIA BlueField-3 DPU.
+            Requires T2+ orchestration tier.
+          </p>
+          <table class="option-table">
+            <thead>
+              <tr>
+                <th>Package</th>
+                <th>Services</th>
+                <th>Tier Required</th>
+                <th>Monthly (per DPU)</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Essential</td>
+                <td>Telemetry (Prometheus), Firefly (PTP), BlueMan (firmware)</td>
+                <td>T2+</td>
+                <td class="price-cell">Included</td>
+                <td class="notes-cell">With LF-K8S-T2/T3/T4 + BlueField-3</td>
+              </tr>
+              <tr>
+                <td>Security & Compliance</td>
+                <td>Argus (DPI/anomaly), Flow Inspector, extended Telemetry</td>
+                <td>T3 (Gov Ready)</td>
+                <td class="price-cell">+€1,000/mo</td>
+                <td class="notes-cell">BlueField-3/4 required; Gov Ready environments</td>
+              </tr>
+              <tr>
+                <td>Networking & Storage</td>
+                <td>HBN (BGP), SNAP (NVMe-oF), OVS-DOCA (offload)</td>
+                <td>T4</td>
+                <td class="price-cell">+€2,000/mo</td>
+                <td class="notes-cell">Multi-site, high-throughput, line-rate pod networking</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Government Ready -->
+        <div class="option-group">
+          <h3>Government Ready (STIG / FIPS 140-3)</h3>
+          <p style="color: #64748b; margin-bottom: 12px;">
+            STIG-hardened Ubuntu 24.04, FIPS 140-3 crypto, compliance evidence packages.
+            Requires NVIDIA AI Enterprise subscription (€4,500/GPU/yr).
+          </p>
+          <table class="option-table">
+            <thead>
+              <tr>
+                <th>Add-on</th>
+                <th>Includes</th>
+                <th>Price</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Gov Ready Setup</td>
+                <td>RKE2 FIPS/STIG, GPU Op Gov Ready, STIG scan, FIPS cert, SBOM, Art.12 trail</td>
+                <td class="price-cell">€7,500 one-time</td>
+                <td class="notes-cell">Requires x86 mgmt node + NVAIE sub</td>
+              </tr>
+              <tr>
+                <td>Annual Maintenance</td>
+                <td>Quarterly STIG rescans, FIPS re-validation, image updates, evidence refresh</td>
+                <td class="price-cell">€3,000/yr</td>
+                <td class="notes-cell">Per cluster</td>
+              </tr>
+              <tr>
+                <td>Air-Gap Bundle</td>
+                <td>All Gov Ready images as .tar + Helm charts + import scripts</td>
+                <td class="price-cell">€1,500/release</td>
+                <td class="notes-cell">Per NVIDIA Infra release (7.8, 8.x)</td>
+              </tr>
+              <tr>
+                <td>FIPS Validation</td>
+                <td>Crypto module inventory, fips=1 enforcement, signed attestation</td>
+                <td class="price-cell">€2,000 one-time</td>
+                <td class="notes-cell">Included in Gov Ready Setup</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- NIM Microservices Profiles -->
+        <div class="option-group">
+          <h3>NIM Microservices Profiles (via NIM Operator)</h3>
+          <p style="color: #64748b; margin-bottom: 12px;">
+            Pre-configured NIM model sets for specific workloads. Starter profile included with T1+.
+          </p>
+          <table class="option-table">
+            <thead>
+              <tr>
+                <th>Profile</th>
+                <th>Models</th>
+                <th>GPU Memory</th>
+                <th>Monthly Add-on</th>
+                <th>Use Case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Starter</td>
+                <td>Nemotron-3-Super, Llama-3.1-8B-Instruct</td>
+                <td>~24 GB</td>
+                <td class="price-cell">Included</td>
+                <td class="notes-cell">General chat, coding, reasoning</td>
+              </tr>
+              <tr>
+                <td>Retrieval</td>
+                <td>bge-m3, bge-large-zh, NeMo Retriever PaddleOCR</td>
+                <td>~16 GB</td>
+                <td class="price-cell">+€500/mo</td>
+                <td class="notes-cell">RAG, embeddings, OCR</td>
+              </tr>
+              <tr>
+                <td>Code</td>
+                <td>StarCoder2-7B, CodeLlama-7B</td>
+                <td>~16 GB</td>
+                <td class="price-cell">+€500/mo</td>
+                <td class="notes-cell">Code generation, completion</td>
+              </tr>
+              <tr>
+                <td>Biology</td>
+                <td>Evo2-40B, DiffDock</td>
+                <td>~48 GB</td>
+                <td class="price-cell">+€2,000/mo</td>
+                <td class="notes-cell">Genomics, drug discovery; needs multi-node</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- iPCMax Field Gateways -->
+        <div class="option-group">
+          <h3>Field Sensor Gateways (iPCMax Finland — Local Stock)</h3>
+          <p style="color: #64748b; margin-bottom: 12px;">
+            Industrial-grade DIN-rail gateways for Modbus/MQTT/PoE sensor ingestion. Pairs with DGX Spark
+            for field-level telemetry. Sourced from iPCMax Finland — 1–2 week delivery.
+          </p>
+          <table class="option-table">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Specs</th>
+                <th>Role</th>
+                <th>Price</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>IPC-409</td>
+                <td>Intel N100 (4C/6W), 2× 2.5GbE, fanless, DIN-rail</td>
+                <td>Compact sensor gateway</td>
+                <td class="price-cell">€345</td>
+                <td class="notes-cell">Modbus/MQTT/OPC UA; local stock</td>
+              </tr>
+              <tr>
+                <td>IPC-P68</td>
+                <td>Intel i5-1235U, 4× GbE PoE+, 9-36V DC, fanless</td>
+                <td>Vision gateway (4× GigE cameras)</td>
+                <td class="price-cell">€680</td>
+                <td class="notes-cell">PoE+ 30W/port; local stock</td>
+              </tr>
+              <tr>
+                <td>Cincoze DA-1200</td>
+                <td>Intel Core i5-1335UE, -40°C~70°C, CMI/CFM modular I/O</td>
+                <td>Rugged edge (harsh/mobile)</td>
+                <td class="price-cell">€1,850</td>
+                <td class="notes-cell">Modular isolated DIO/CAN/COM; 3-4 wk lead</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top: 24px; font-size: 0.875rem; color: #64748b;">
+          <strong>Note:</strong> GPU sharing on ARM64 GB10 uses <strong>time-slicing (up to 4x)</strong> via GPU Operator.
+          <strong>vGPU is not supported on ARM64</strong> (requires x86 hypervisor). For true multi-tenant isolation,
+          deploy multiple DGX Spark nodes (T2/T3/T4). All prices EUR, VAT 0% (B2B reverse charge).
+        </p>
+      </section>
 
       <div class="nv-footer-note">
         <strong>Built on NVIDIA — NVIDIA programme history.</strong> Lifetime Oy is uses NVIDIA hardware and infrastructure on the Sovereign EU Edge AI track. All sovereign. All wrapped in 24/7 service. See <a href="/partners/">/partners/</a> for partner details.

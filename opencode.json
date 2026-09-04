@@ -1,8 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "instructions": [
-    "CLAUDE.md"
-  ],
+  "instructions": ["CLAUDE.md"],
   "shell": "bash",
   "model": "ollama-local/qwen3-coder:30b",
   "small_model": "ollama-local/qwen3-coder:30b",
@@ -16,8 +14,7 @@
       "models": {
         "qwen3-coder:30b": {
           "name": "qwen3-coder:30b",
-          "tool_call": true,
-          "temperature": true
+          "tool_call": true
         }
       }
     }

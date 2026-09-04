@@ -200,7 +200,7 @@ function build(data) {
   const subsList = Object.values(data.subscriptions || {}).filter((s) => s && s.id);
   const subsHtml = subsList.length
     ? `<section class="cat"><h2>Required Subscriptions <small>(${subsList.length})</small></h2>` +
-      '<div class="notice">Required on every contract and quoted separately from the one-time product fee. Billed monthly.</div>' +
+      '<div class="notice">Required on every contract and quoted separately from the one-time product fee. Billed per the unit shown on each line item.</div>' +
       renderProductsTable(
         subsList.map((s) => ({ ...s, priceNote: s.priceNote || s.description })),
       ) +
@@ -277,7 +277,7 @@ h2 small{color:#64748b;font-weight:400;font-size:.85rem}
 <div class="notice">
   <strong>B2B list prices, EUR, VAT 0% (reverse charge).</strong>
   Country-specific VAT added at checkout if applicable — see 5-language VAT reference below.
-  Prices on this snapshot are valid for 90 days from the stamp date.
+  Prices on this snapshot are valid until ${esc(validUntil)}.
   The live, always-current list is at <a href="https://dws10.com/price-list/">https://dws10.com/price-list/</a>.
 </div>
 

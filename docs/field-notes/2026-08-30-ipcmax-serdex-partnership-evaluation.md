@@ -46,7 +46,7 @@ Completed a comprehensive technical evaluation of **iPCMax/Serdex** as a hardwar
 ## Supporting Documents
 
 - **Primary:** `docs/lut/ipcmax-serdex-hardware-partner-evaluation-2026-08.md` (v1.0, full 8-section evaluation)
-- **Reference Architecture:** `docs/assets/images/ipcmax-dgx-spark-reference-architecture-2026-08.png` (embedded in evaluation doc)
+- **Reference Architecture:** `docs/assets/images/ipcmax-dgx-spark-reference-architecture-2026-08.png` (SVG source); `docs/Ref_Architecture_iPCMax.jpg` (high-res render, cross-referenced 30.08.2026)
 - **Bill of Materials:** Section 5.1 in evaluation doc (Tier 1/2/3 pricing)
 - **Kubernetes Architecture:** Section 5.2 (deployment topology + data flow)
 

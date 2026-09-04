@@ -58,6 +58,7 @@ jobs:
       - name: Run Tree Gate
         id: gate
         env:
+
           LOCAL_SHA: ${{ steps.config.outputs.head_sha }}
           REMOTE_SHA: ${{ steps.config.outputs.base_sha }}
           MANIFEST_PATH: ${{ steps.config.outputs.manifest_path }}

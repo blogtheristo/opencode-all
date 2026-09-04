@@ -8,7 +8,7 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes — coordinating a governed skilled-agent fleet with KYA/Article-12 traceability across EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted.",
+      "description": "Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes — coordinating a governed skilled-agent fleet with KYA/Article-12 traceability across EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted. Supports up to 50 production agents concurrently across 25 industry verticals.",
       "features": [
         "Orchestrates a governed skilled-agent fleet with KYA/Article-12 traceability, MCP-native with CLI access",
         "Amplify Fit for 55, CSRD & EPBD reporting",
@@ -32,7 +32,19 @@
       "version": "6",
       "buyPage": 1,
       "buyPageOrder": 2,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU",
+        "DGX Spark"
+      ],
+      "capacityCapabilities": [
+        "Full agent fleet",
+        "KYA governance",
+        "Article 12 audit",
+        "MCP-native CLI"
+      ],
+      "capacityLimits": "Agent count depends on deployment option and workload"
     },
     "FH-AUTO-001": {
       "id": "FH-AUTO-001",
@@ -65,7 +77,16 @@
       "storeCategory": "platform",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 8
+      "buyPageOrder": 8,
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Workflow automation",
+        "Template library"
+      ],
+      "capacityLimits": "Per-template scope"
     },
     "LIFETIME-BUNDLE-2026": {
       "id": "LIFETIME-BUNDLE-2026",
@@ -97,7 +118,16 @@
       },
       "storeCategory": "platform",
       "buyPage": 1,
-      "buyPageOrder": 4
+      "buyPageOrder": 4,
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Full DWS IQ suite",
+        "Multi-agent"
+      ],
+      "capacityLimits": "Per-bundle scope"
     },
     "FH-OMNI-001": {
       "id": "FH-OMNI-001",
@@ -131,7 +161,16 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 3,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Omnichannel intake",
+        "Multi-format processing"
+      ],
+      "capacityLimits": "Per-contract scope"
     },
     "FH-RPT-001": {
       "id": "FH-RPT-001",
@@ -165,16 +204,26 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 5,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Report generation",
+        "Template-based"
+      ],
+      "capacityLimits": "Per-template scope"
     },
-    "FH-SIGN-001": {
-      "id": "FH-SIGN-001",
-      "gtin": null,
-      "mpn": "FH-SIGNED-REPORTS-2026",
-      "name": "Firehorse Signed Reports",
-      "price": 199,
-      "currency": "EUR",
-      "type": "subscription",
+  "FH-SIGN-001": {
+    "id": "FH-SIGN-001",
+    "gtin": null,
+    "mpn": "FH-SIGNED-REPORTS-2026",
+    "name": "Firehorse Signed Reports",
+    "price": 199,
+    "currency": "EUR",
+    "type": "subscription",
+    "priceUnit": "per-year",
       "description": "Add legally binding eSignatures to any Firehorse report. Compliance reports, carbon assessments, and investor reports get DocuSign eSignature — court-defensible, audit-ready, with full tracking. Author, reviewer, and auditor sign in sequence. Signed PDFs auto-archived.",
       "features": [
         "DocuSign eSignature on all Firehorse reports",
@@ -198,7 +247,16 @@
       "storeCategory": "add-on",
       "buyPage": 1,
       "buyPageOrder": 6,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Digital signature",
+        "Workflow integration"
+      ],
+      "capacityLimits": "Per-signature scope"
     },
     "FH-CMS-001": {
       "id": "FH-CMS-001",
@@ -232,7 +290,16 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 7,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Content management",
+        "Document processing"
+      ],
+      "capacityLimits": "Per-contract scope"
     },
     "consulting-hourly": {
       "id": "consulting-hourly",
@@ -329,7 +396,17 @@
       },
       "storeCategory": "ai-cloud",
       "buyPage": 1,
-      "buyPageOrder": 23
+      "buyPageOrder": 23,
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "AWS engagement"
+      ],
+      "capacityCapabilities": [
+        "AWS integration",
+        "Cloud deployment"
+      ],
+      "capacityLimits": "Per-engagement scope",
+      "partnerProduct": true
     },
     "conversational-agent": {
       "id": "conversational-agent",
@@ -362,7 +439,17 @@
       "storeCategory": "ai-cloud",
       "buyPage": 1,
       "buyPageOrder": 27,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Conversational AI",
+        "Multi-language"
+      ],
+      "capacityLimits": "Per-deployment scope",
+      "partnerProduct": true
     },
     "ai-agent-engineering": {
       "id": "ai-agent-engineering",
@@ -395,7 +482,17 @@
       "storeCategory": "ai-cloud",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 25
+      "buyPageOrder": 25,
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Service engagement"
+      ],
+      "capacityCapabilities": [
+        "Agent design",
+        "Implementation"
+      ],
+      "capacityLimits": "Per-project scope",
+      "partnerProduct": true
     },
     "lean-project": {
       "id": "lean-project",
@@ -428,7 +525,8 @@
       "storeCategory": "advisory",
       "buyPage": 2,
       "buyPageOrder": 10,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "partnerProduct": true
     },
     "ai-consultant-day": {
       "id": "ai-consultant-day",
@@ -461,7 +559,17 @@
       "storeCategory": "ai-cloud",
       "version": "1.0",
       "buyPage": 3,
-      "buyPageOrder": 3
+      "buyPageOrder": 3,
+      "capacityClass": "Core",
+      "capacityOptions": [
+        "Consulting day"
+      ],
+      "capacityCapabilities": [
+        "AI assessment",
+        "Roadmap planning"
+      ],
+      "capacityLimits": "1-day engagement",
+      "partnerProduct": true
     },
     "business-mentor-30": {
       "id": "business-mentor-30",
@@ -493,7 +601,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 3
+      "buyPageOrder": 3,
+      "partnerProduct": true
     },
     "firehorse-coach": {
       "id": "firehorse-coach",
@@ -526,7 +635,8 @@
       "storeCategory": "advisory",
       "buyPage": 1,
       "buyPageOrder": 5,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "partnerProduct": true
     },
     "firehorse-flow": {
       "id": "firehorse-flow",
@@ -559,7 +669,17 @@
       "storeCategory": "digital",
       "buyPage": 2,
       "buyPageOrder": 11,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Workflow orchestration",
+        "Multi-step processes"
+      ],
+      "capacityLimits": "Per-workflow scope",
+      "partnerProduct": true
     },
     "omnichannel-multimodal": {
       "id": "omnichannel-multimodal",
@@ -592,7 +712,8 @@
       "storeCategory": "advisory",
       "buyPage": 2,
       "buyPageOrder": 5,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "partnerProduct": true
     },
     "professional-web-pages": {
       "id": "professional-web-pages",
@@ -658,7 +779,17 @@
       "storeCategory": "digital",
       "buyPage": 2,
       "buyPageOrder": 8,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Data pipeline",
+        "ETL processing"
+      ],
+      "capacityLimits": "Per-pipeline scope",
+      "partnerProduct": true
     },
     "devops-lead": {
       "id": "devops-lead",
@@ -691,7 +822,17 @@
       "storeCategory": "ai-cloud",
       "buyPage": 3,
       "buyPageOrder": 5,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Service engagement"
+      ],
+      "capacityCapabilities": [
+        "DevOps automation",
+        "CI/CD"
+      ],
+      "capacityLimits": "Per-engagement scope",
+      "partnerProduct": true
     },
     "ai-koulutus-3d": {
       "id": "ai-koulutus-3d",
@@ -724,7 +865,8 @@
       "storeCategory": "advisory",
       "buyPage": 2,
       "buyPageOrder": 12,
-      "additionalImage": "/static/images/Firehorse_Store.jpg"
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "partnerProduct": true
     },
     "claude-code-coaching-3day": {
       "id": "claude-code-coaching-3day",
@@ -888,7 +1030,16 @@
       },
       "storeCategory": "ai-cloud",
       "buyPage": 2,
-      "buyPageOrder": 2
+      "buyPageOrder": 2,
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Consulting engagement"
+      ],
+      "capacityCapabilities": [
+        "Agentic AI strategy",
+        "Implementation planning"
+      ],
+      "capacityLimits": "Per-engagement scope"
     },
     "edge-node-gn100": {
       "id": "edge-node-gn100",
@@ -923,7 +1074,17 @@
       "version": "2.0",
       "buyPage": 1,
       "buyPageOrder": 11,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Acer Veriton GN100"
+      ],
+      "capacityCapabilities": [
+        "DGX Spark runtime",
+        "Nemotron 3 Super",
+        "Qwen3-Coder"
+      ],
+      "capacityLimits": "Single-node"
     },
     "LF-SITROOM-001": {
       "id": "LF-SITROOM-001",
@@ -959,7 +1120,16 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 12,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "2x DGX Spark HA"
+      ],
+      "capacityCapabilities": [
+        "HA cluster",
+        "Dual-node inference"
+      ],
+      "capacityLimits": "2x hardware required"
     },
     "LF-COMPLIANCE-AMBULANCE-001": {
       "id": "LF-COMPLIANCE-AMBULANCE-001",
@@ -997,7 +1167,16 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 13,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud or edge"
+      ],
+      "capacityCapabilities": [
+        "Compliance triage",
+        "Rapid response"
+      ],
+      "capacityLimits": "Per-incident scope"
     },
     "LF-NVIDIA-INSTALL": {
       "id": "LF-NVIDIA-INSTALL",
@@ -1031,7 +1210,16 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 13,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Hardware installation"
+      ],
+      "capacityCapabilities": [
+        "Professional setup",
+        "Configuration"
+      ],
+      "capacityLimits": "Per-device"
     },
     "LF-JETSON-NANO": {
       "id": "LF-JETSON-NANO",
@@ -1065,7 +1253,16 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 14,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Core",
+      "capacityOptions": [
+        "Edge"
+      ],
+      "capacityCapabilities": [
+        "Basic edge inference",
+        "Sensor aggregation"
+      ],
+      "capacityLimits": "Limited compute"
     },
     "LF-JETSON-AGX": {
       "id": "LF-JETSON-AGX",
@@ -1099,7 +1296,16 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 15,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Edge"
+      ],
+      "capacityCapabilities": [
+        "High-performance edge",
+        "275 TOPS"
+      ],
+      "capacityLimits": "64GB RAM"
     },
     "LF-DGX-SPARK": {
       "id": "LF-DGX-SPARK",
@@ -1133,7 +1339,17 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 16,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Single-node"
+      ],
+      "capacityCapabilities": [
+        "1 PFLOPS FP4",
+        "128GB unified memory",
+        "Full inference runtime"
+      ],
+      "capacityLimits": "Single-node"
     },
     "LF-JETSON-NX": {
       "id": "LF-JETSON-NX",
@@ -1167,7 +1383,16 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 17,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Core",
+      "capacityOptions": [
+        "Edge"
+      ],
+      "capacityCapabilities": [
+        "Mid-range edge inference",
+        "Multi-sensor"
+      ],
+      "capacityLimits": "8GB RAM"
     },
     "LF-IGX-ORIN": {
       "id": "LF-IGX-ORIN",
@@ -1201,7 +1426,880 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 18,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Industrial edge"
+      ],
+      "capacityCapabilities": [
+        "275 TOPS",
+        "64GB",
+        "IEC 61508 SIL 3"
+      ],
+      "capacityLimits": "Industrial grade"
+    },
+    "LF-K8S-T1": {
+      "id": "LF-K8S-T1",
+      "gtin": null,
+      "mpn": "LF-K8S-T1-2026",
+      "name": "Kubernetes Orchestration — Single-Node k3s (Tier 1)",
+      "price": 1500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Deploy k3s + GPU Operator + NIM Operator on a single DGX Spark / Control Room node. Includes GPU time-slicing (up to 4x), NIM model caching, and automated GPU provisioning. NVIDIA AI Enterprise subscription required separately (€4,500/GPU/yr).",
+      "features": [
+        "k3s single-node cluster (ARM64 native)",
+        "NVIDIA GPU Operator 26.3.3 (time-slicing, DCGM, GFD)",
+        "NVIDIA NIM Operator 3.1.2 (model caching, autoscaling)",
+        "GPU time-slicing up to 4 replicas on GB10",
+        "Helm values tuned for Grace Blackwell GB10"
+      ],
+      "priceNote": "+€1,500 one-time setup · requires NVAIE subscription (€4,500/GPU/yr) · compatible with Control Room, Situation Room, DGX Spark, IGX Orin",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-K8S-T1.png",
+      "detailsUrl": "../products/k8s-orchestration.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 19,
+      "additionalImage": "/DWS_IQ2026.png",
+      "addOnTo": [
+        "edge-node-gn100",
+        "LF-SITROOM-001",
+        "LF-DGX-SPARK",
+        "LF-IGX-ORIN"
+      ],
+      "orchestrationTier": "T1",
+      "partnerProduct": true
+    },
+    "LF-K8S-T2": {
+      "id": "LF-K8S-T2",
+      "gtin": null,
+      "mpn": "LF-K8S-T2-2026",
+      "name": "Kubernetes Orchestration — HA Cluster k3s (Tier 2)",
+      "price": 4500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "3-node HA k3s cluster with embedded etcd, Longhorn persistent storage, MetalLB LoadBalancer, and NGINX Ingress. Includes GPU Operator + NIM Operator + Network Operator across all nodes. Enables multi-node NIM scaling and workload distribution. NVIDIA AI Enterprise subscription required (€4,500/GPU/yr × nodes).",
+      "features": [
+        "3-node k3s HA cluster (1 control plane + 2 workers)",
+        "Embedded etcd with Longhorn persistent volumes",
+        "MetalLB Layer 2 LoadBalancer for service exposure",
+        "NGINX Ingress Controller with TLS termination",
+        "GPU Operator + NIM Operator + Network Operator on all nodes",
+        "Prometheus/Grafana monitoring stack (DCGM GPU metrics)",
+        "Loki log aggregation"
+      ],
+      "priceNote": "+€4,500 one-time cluster setup · requires 3× NVAIE subscriptions · hardware (3× DGX/Control Room) sold separately",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-K8S-T2.png",
+      "detailsUrl": "../products/k8s-orchestration.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 20,
+      "additionalImage": "/DWS_IQ2026.png",
+      "addOnTo": [
+        "edge-node-gn100",
+        "LF-SITROOM-001",
+        "LF-DGX-SPARK"
+      ],
+      "orchestrationTier": "T2",
+      "requiresHardwareCount": 3,
+      "partnerProduct": true
+    },
+    "LF-K8S-T3": {
+      "id": "LF-K8S-T3",
+      "gtin": null,
+      "mpn": "LF-K8S-T3-2026",
+      "name": "Kubernetes Orchestration — Gov Ready RKE2 (Tier 3)",
+      "price": 7500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Government-ready RKE2 cluster with FIPS 140-3 crypto, STIG-hardened Ubuntu 24.04, CIS benchmark compliance. Includes GPU Operator Gov Ready (x86 management node), Network Operator Gov Ready, NIM Operator Gov Ready. Required for defence, regulated, and FedRAMP-aligned deployments. NVIDIA AI Enterprise subscription required.",
+      "features": [
+        "RKE2 with FIPS 140-3 mode and CIS-1.23 profile",
+        "STIG-hardened Ubuntu 24.04 (Canonical) on all nodes",
+        "GPU Operator Gov Ready (26.3.3) on x86 management node",
+        "Network Operator Gov Ready (26.4.1) + NIM Operator Gov Ready (3.1.2)",
+        "Pod Security Standards (restricted) + Network Policies",
+        "SealedSecrets for GitOps secret management",
+        "Quarterly STIG scan validation + FIPS attestation",
+        "Air-gap deployment bundle included"
+      ],
+      "priceNote": "+€7,500 one-time setup · requires x86 management node + NVAIE subscriptions · annual Gov Ready maintenance €3,000/yr",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-K8S-T3.png",
+      "detailsUrl": "../products/k8s-orchestration.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 21,
+      "additionalImage": "/DWS_IQ2026.png",
+      "addOnTo": [
+        "edge-node-gn100",
+        "LF-SITROOM-001",
+        "LF-DGX-SPARK"
+      ],
+      "orchestrationTier": "T3",
+      "requiresX86Management": true,
+      "partnerProduct": true
+    },
+    "LF-K8S-T4": {
+      "id": "LF-K8S-T4",
+      "gtin": null,
+      "mpn": "LF-K8S-T4-2026",
+      "name": "Kubernetes Orchestration — Full Infra Stack (Tier 4)",
+      "price": 12000,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Complete NVIDIA AI Enterprise Infra 7.8 stack: GPU Operator + NIM Operator + Network Operator + DPU Operator + Base Command Manager + DOCA Microservices. Includes BlueField-3 DPU integration for north-south acceleration, DOCA Telemetry/Argus/HBN/SNAP services, and Run:ai workload scheduling. For large-scale multi-tenant sovereign AI factories.",
+      "features": [
+        "All T3 Gov Ready features",
+        "NVIDIA DPU Operator 26.4.0 (BlueField-3 lifecycle management)",
+        "DOCA Microservices: Telemetry, Argus, Firefly, HBN, SNAP, OVS-DOCA",
+        "Base Command Manager 11.33.1 (cluster provisioning & monitoring)",
+        "Run:ai 2.26 (workload scheduling, fair-share GPU allocation)",
+        "BlueField-3 DPU per node (hardware sold separately)",
+        "Spectrum-X ready for 400/800GbE scaling"
+      ],
+      "priceNote": "+€12,000 one-time setup · requires BlueField-3 DPUs + NVAIE subscriptions · DOCA services +€2,000/mo",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-K8S-T4.png",
+      "detailsUrl": "../products/k8s-orchestration.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 22,
+      "additionalImage": "/DWS_IQ2026.png",
+      "addOnTo": [
+        "LF-SITROOM-001",
+        "LF-DGX-SPARK"
+      ],
+      "orchestrationTier": "T4",
+      "requiresBlueFieldDPU": true,
+      "partnerProduct": true
+    },
+    "LF-DOCA-ESSENTIAL": {
+      "id": "LF-DOCA-ESSENTIAL",
+      "gtin": null,
+      "mpn": "LF-DOCA-ESS-2026",
+      "name": "DOCA Microservices — Essential Package",
+      "price": 500,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "description": "Essential DOCA services for BlueField DPU: Telemetry (Prometheus export), Firefly (PTP time sync), BlueMan (firmware management). Included with Kubernetes T2+ when BlueField-3 DPU hardware is present.",
+      "features": [
+        "DOCA Telemetry: GPU/DPU metrics → Prometheus → Grafana",
+        "DOCA Firefly: Precision Time Protocol (sub-microsecond cluster sync)",
+        "DOCA BlueMan: Automated DPU firmware updates & health monitoring"
+      ],
+      "priceNote": "Included with LF-K8S-T2/T3/T4 + BlueField-3 DPU · standalone: €500/mo per DPU",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-DOCA-ESSENTIAL.png",
+      "detailsUrl": "../products/doca-microservices.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "NVIDIA",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 23,
+      "additionalImage": "/DWS_IQ2026.png",
+      "requiresBlueFieldDPU": true,
+      "docaPackage": "essential",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "K8s T1+ with DPU"
+      ],
+      "capacityCapabilities": [
+        "Basic DOCA services",
+        "Network acceleration"
+      ],
+      "capacityLimits": "Requires DPU hardware",
+      "partnerProduct": true
+    },
+    "LF-DOCA-SECURITY": {
+      "id": "LF-DOCA-SECURITY",
+      "gtin": null,
+      "mpn": "LF-DOCA-SEC-2026",
+      "name": "DOCA Microservices — Security & Compliance Package",
+      "price": 1000,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "description": "Security-focused DOCA services: Argus (DPI, anomaly detection, threat monitoring), Flow Inspector (on-demand packet capture for audits), extended Telemetry with TLS inspection. Required for Gov Ready (T3) and regulated environments.",
+      "features": [
+        "DOCA Argus: Deep packet inspection, behavioral anomaly detection",
+        "DOCA Flow Inspector: PCAP capture for compliance forensics",
+        "Extended Telemetry: TLS inspection, flow logs, east-west visibility",
+        "Loki/AlertManager integration for security alerting"
+      ],
+      "priceNote": "+€1,000/mo per DPU · requires LF-K8S-T3 (Gov Ready) · BlueField-3/4 DPU required",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-DOCA-SECURITY.png",
+      "detailsUrl": "../products/doca-microservices.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "NVIDIA",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 24,
+      "additionalImage": "/DWS_IQ2026.png",
+      "requiresBlueFieldDPU": true,
+      "docaPackage": "security",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "T4 + BlueField-3 DPU"
+      ],
+      "capacityCapabilities": [
+        "Argus firewall",
+        "Intrusion detection"
+      ],
+      "capacityLimits": "Requires T4 tier",
+      "partnerProduct": true
+    },
+    "LF-DOCA-NETWORK-STORAGE": {
+      "id": "LF-DOCA-NETWORK-STORAGE",
+      "gtin": null,
+      "mpn": "LF-DOCA-NETSTOR-2026",
+      "name": "DOCA Microservices — Networking & Storage Acceleration Package",
+      "price": 2000,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "description": "High-performance networking and storage: HBN (BGP routing for north-south), SNAP (NVMe-oF, virtio-fs storage acceleration), OVS-DOCA (Open vSwitch hardware offload). For T4 full-stack deployments with multi-site and high-throughput requirements.",
+      "features": [
+        "DOCA HBN: FRR BGP routing for MetalLB/LoadBalancer integration",
+        "DOCA SNAP: NVMe-oF targets, virtio-fs for 10x storage throughput",
+        "OVS-DOCA: Open vSwitch hardware offload for line-rate pod networking",
+        "Longhorn/NFS backend acceleration via SNAP"
+      ],
+      "priceNote": "+€2,000/mo per DPU · requires LF-K8S-T4 · BlueField-3/4 DPU required",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-DOCA-NETWORK-STORAGE.png",
+      "detailsUrl": "../products/doca-microservices.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "NVIDIA",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 25,
+      "additionalImage": "/DWS_IQ2026.png",
+      "requiresBlueFieldDPU": true,
+      "docaPackage": "network-storage",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "K8s T4 + BlueField-3 DPU"
+      ],
+      "capacityCapabilities": [
+        "OVS-DOCA CNI",
+        "SNAP storage"
+      ],
+      "capacityLimits": "Requires T4 tier",
+      "partnerProduct": true
+    },
+    "LF-GOV-READY-SETUP": {
+      "id": "LF-GOV-READY-SETUP",
+      "gtin": null,
+      "mpn": "LF-GOV-SETUP-2026",
+      "name": "Government Ready Cluster Setup",
+      "price": 7500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Deploy and validate Government Ready cluster: RKE2 FIPS/STIG, GPU Operator Gov Ready (x86 mgmt), Network Operator Gov Ready, NIM Operator Gov Ready. Generates STIG compliance report, FIPS 140-3 certificate references, SBOM (SPDX 2.3), vulnerability scan (SARIF), deployment attestation, and Article 12 audit trail.",
+      "features": [
+        "RKE2 CIS-1.23 + FIPS 140-3 + STIG Ubuntu 24.04 deployment",
+        "GPU Operator Gov Ready (x86 management node) + Network/NIM Operator Gov Ready",
+        "OpenSCAP STIG scan report (HTML + XML)",
+        "FIPS 140-3 module certificate references (NIST)",
+        "SPDX 2.3 SBOM for all Gov Ready containers",
+        "Trivy/Grype vulnerability scan (SARIF)",
+        "Signed deployment attestation + Article 12 hash-chain log"
+      ],
+      "priceNote": "€7,500 one-time · annual Gov Ready maintenance €3,000/yr (LF-GOV-READY-ANNUAL) · requires NVAIE subscription",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-GOV-READY-SETUP.png",
+      "detailsUrl": "../products/gov-ready.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 26,
+      "additionalImage": "/DWS_IQ2026.png",
+      "govReady": true,
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "x86 mgmt + ARM64 workers"
+      ],
+      "capacityCapabilities": [
+        "STIG/FIPS hardening",
+        "RKE2"
+      ],
+      "capacityLimits": "Annual recertification",
+      "partnerProduct": true
+    },
+    "LF-GOV-READY-ANNUAL": {
+      "id": "LF-GOV-READY-ANNUAL",
+      "gtin": null,
+      "mpn": "LF-GOV-ANNUAL-2026",
+      "name": "Government Ready Annual Maintenance",
+      "price": 3000,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-year",
+      "description": "Quarterly STIG rescans, FIPS validation, Gov Ready image updates, audit evidence refresh, and compliance reporting for Government Ready clusters.",
+      "features": [
+        "Quarterly OpenSCAP STIG scans + remediation",
+        "FIPS 140-3 crypto module re-validation",
+        "Gov Ready container image updates (quarterly NVIDIA release cycle)",
+        "Audit evidence package refresh (SBOM, scans, attestations)",
+        "Compliance reporting for NIS2/EU AI Act Article 12"
+      ],
+      "priceNote": "€3,000/year per cluster · requires LF-GOV-READY-SETUP",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-GOV-READY-ANNUAL.png",
+      "detailsUrl": "../products/gov-ready.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 27,
+      "additionalImage": "/DWS_IQ2026.png",
+      "govReady": true,
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Gov Ready cluster"
+      ],
+      "capacityCapabilities": [
+        "Re-audit",
+        "Patch validation"
+      ],
+      "capacityLimits": "Requires Gov Ready setup",
+      "partnerProduct": true
+    },
+    "LF-GOV-AIRGAP-BUNDLE": {
+      "id": "LF-GOV-AIRGAP-BUNDLE",
+      "gtin": null,
+      "mpn": "LF-GOV-AIRGAP-2026",
+      "name": "Air-Gapped Gov Ready Image Bundle",
+      "price": 1500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Pre-packaged Gov Ready container images + Helm charts + YAML manifests + install scripts for offline/air-gapped deployment. Includes all Gov Ready images (GPU Operator, Network Operator, NIM Operator, DOCA Driver) bundled as .tar archives with ctr import scripts.",
+      "features": [
+        "All Gov Ready images as .tar archives (ctr import ready)",
+        "Helm charts with values.yaml for air-gap values",
+        "Kubelet YAML manifests for DOCA services",
+        "Automated import script (scripts/doca-airgap-prepare.sh)",
+        "Validated on reference hardware before delivery"
+      ],
+      "priceNote": "€1,500 per NVIDIA Infra release (7.8, 8.x, etc.) · requires LF-GOV-READY-SETUP",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-GOV-AIRGAP-BUNDLE.png",
+      "detailsUrl": "../products/gov-ready.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 28,
+      "additionalImage": "/DWS_IQ2026.png",
+      "govReady": true,
+      "capacityClass": "Sovereign",
+      "capacityOptions": [
+        "Gov Ready cluster"
+      ],
+      "capacityCapabilities": [
+        "Signed offline images",
+        "Air-gap updates"
+      ],
+      "capacityLimits": "Requires Gov Ready setup",
+      "partnerProduct": true
+    },
+    "LF-FIPS-VALIDATION": {
+      "id": "LF-FIPS-VALIDATION",
+      "gtin": null,
+      "mpn": "LF-FIPS-VAL-2026",
+      "name": "FIPS 140-3 Validation Service",
+      "price": 2000,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "FIPS 140-3 cryptographic module verification, crypto policy configuration, and attestation for Gov Ready deployments. Includes module inventory, policy enforcement (fips=1 kernel mode), and signed attestation for auditors.",
+      "features": [
+        "Crypto module inventory (OpenSSL, NSS, kernel crypto API)",
+        "Kernel fips=1 mode enforcement + verification",
+        "Signed FIPS attestation for audit submission",
+        "Crypto policy configuration (FIPS-only algorithms)"
+      ],
+      "priceNote": "€2,000 one-time per cluster · included in LF-GOV-READY-SETUP",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-FIPS-VALIDATION.png",
+      "detailsUrl": "../products/gov-ready.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 29,
+      "additionalImage": "/DWS_IQ2026.png",
+      "govReady": true,
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Gov Ready cluster"
+      ],
+      "capacityCapabilities": [
+        "FIPS 140-3 validation",
+        "Compliance certification"
+      ],
+      "capacityLimits": "Annual recertification",
+      "partnerProduct": true
+    },
+    "LF-NIM-STARTER": {
+      "id": "LF-NIM-STARTER",
+      "gtin": null,
+      "mpn": "LF-NIM-STARTER-2026",
+      "name": "NIM Microservices — Starter Profile",
+      "price": 500,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "description": "Core NIM microservices for general inference: Nemotron-3-Super (primary), Llama-3.1-8B-Instruct (fast). Includes model caching via NIM Operator. Included with Kubernetes T1+.",
+      "features": [
+        "Nemotron-3-Super (NVIDIA, 70B-class reasoning)",
+        "Llama-3.1-8B-Instruct (fast chat/coding)",
+        "NIM Operator model caching (100Gi default)",
+        "Autoscaling via NIM Operator HPA"
+      ],
+      "priceNote": "Included with LF-K8S-T1/T2/T3/T4 · standalone: €500/mo",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-NIM-STARTER.png",
+      "detailsUrl": "../products/nim-profiles.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "NVIDIA",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 30,
+      "additionalImage": "/DWS_IQ2026.png",
+      "nimProfile": "starter",
+      "capacityClass": "Core",
+      "capacityOptions": [
+        "DGX Spark"
+      ],
+      "capacityCapabilities": [
+        "Basic NIM deployment",
+        "Single model"
+      ],
+      "capacityLimits": "Single-node",
+      "partnerProduct": true
+    },
+    "LF-NIM-RETRIEVAL": {
+      "id": "LF-NIM-RETRIEVAL",
+      "gtin": null,
+      "mpn": "LF-NIM-RET-2026",
+      "name": "NIM Microservices — Retrieval & Embedding Profile",
+      "price": 500,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "description": "RAG-optimized NIMs: bge-m3 (multilingual embeddings), bge-large-zh-v1.5 (Chinese), NeMo Retriever PaddleOCR (document OCR). ~16GB GPU memory. Add-on to Starter profile.",
+      "features": [
+        "bge-m3 (BAAI, multilingual dense embeddings)",
+        "bge-large-zh-v1.5 (Chinese-optimized embeddings)",
+        "NeMo Retriever PaddleOCR (OCR + layout analysis)",
+        "Model cache sharing with Starter profile"
+      ],
+      "priceNote": "+€500/mo · requires LF-NIM-STARTER · ~16GB GPU memory",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-NIM-RETRIEVAL.png",
+      "detailsUrl": "../products/nim-profiles.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "NVIDIA",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 31,
+      "additionalImage": "/DWS_IQ2026.png",
+      "nimProfile": "retrieval",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "K8s T1+ and DGX Spark"
+      ],
+      "capacityCapabilities": [
+        "Nemotron RAG + embeddings",
+        "Vector search"
+      ],
+      "capacityLimits": "Requires K8s T1+ and DGX Spark",
+      "partnerProduct": true
+    },
+    "LF-NIM-CODE": {
+      "id": "LF-NIM-CODE",
+      "gtin": null,
+      "mpn": "LF-NIM-CODE-2026",
+      "name": "NIM Microservices — Code Generation Profile",
+      "price": 500,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "description": "Code-specialized NIMs: StarCoder2-7B (600+ languages), CodeLlama-7B. ~16GB GPU memory. Add-on to Starter profile.",
+      "features": [
+        "StarCoder2-7B (BigCode, 600+ programming languages)",
+        "CodeLlama-7B (Meta, code completion/infilling)",
+        "Model cache sharing with Starter profile"
+      ],
+      "priceNote": "+€500/mo · requires LF-NIM-STARTER · ~16GB GPU memory",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-NIM-CODE.png",
+      "detailsUrl": "../products/nim-profiles.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "NVIDIA",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 32,
+      "additionalImage": "/DWS_IQ2026.png",
+      "nimProfile": "code",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "K8s T1+ and DGX Spark"
+      ],
+      "capacityCapabilities": [
+        "Qwen3-Coder",
+        "Sovereign code generation"
+      ],
+      "capacityLimits": "Requires K8s T1+ and DGX Spark",
+      "partnerProduct": true
+    },
+    "LF-NIM-BIOLOGY": {
+      "id": "LF-NIM-BIOLOGY",
+      "gtin": null,
+      "mpn": "LF-NIM-BIO-2026",
+      "name": "NIM Microservices — Biology & Genomics Profile",
+      "price": 2000,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "description": "Life sciences NIMs: Evo2-40B (genomic foundation model), DiffDock (molecular docking). ~48GB GPU memory. Requires multi-node or high-memory configuration.",
+      "features": [
+        "Evo2-40B (Arc Institute, long-context genomic sequences)",
+        "DiffDock (molecular docking, structure prediction)",
+        "Requires 48GB+ GPU memory (multi-node or H100/B200)"
+      ],
+      "priceNote": "+€2,000/mo · requires LF-NIM-STARTER · ~48GB GPU memory · not suitable for single GB10",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-NIM-BIOLOGY.png",
+      "detailsUrl": "../products/nim-profiles.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "NVIDIA",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 33,
+      "additionalImage": "/DWS_IQ2026.png",
+      "nimProfile": "biology",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "K8s T1+ and DGX Spark"
+      ],
+      "capacityCapabilities": [
+        "BioNeMo + AlphaFold",
+        "Protein structure prediction"
+      ],
+      "capacityLimits": "Requires K8s T1+ and DGX Spark",
+      "partnerProduct": true
+    },
+    "LF-IPCMAX-IPC409": {
+      "id": "LF-IPCMAX-IPC409",
+      "gtin": null,
+      "mpn": "LF-IPCMAX-IPC409-2026",
+      "name": "iPCMax IPC-409 — Compact Fanless Sensor Gateway",
+      "price": 345,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Intel Alder Lake-N N100 (4-core, 6W), 2× 2.5GbE LAN, dual HDMI, fanless. Industrial-grade DIN-rail sensor gateway for Modbus/MQTT protocol conversion. Pairs with DGX Spark for field-level telemetry ingestion. Sourced from iPCMax Finland — local stock, EU B2B.",
+      "features": [
+        "Intel N100 (4-core, 6W TDP) — fanless, extended temp",
+        "2× 2.5GbE LAN (independent controllers)",
+        "Modbus RTU/TCP, MQTT, OPC UA protocol support",
+        "DIN-rail mount, 9-36V DC input",
+        "Local iPCMax Finland stock — 1-2 week delivery"
+      ],
+      "priceNote": "€345 hardware only · installation + configuration quoted separately",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-IPCMAX-IPC409.png",
+      "detailsUrl": "../products/ipcmax-gateways.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Electronics > Computers > Desktop Computers",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "iPCMax",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "hardware",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 34,
+      "additionalImage": "/DWS_IQ2026.png",
+      "partner": "iPCMax",
+      "ipcmaxModel": "IPC-409",
+      "pairsWith": [
+        "edge-node-gn100",
+        "LF-DGX-SPARK",
+        "LF-SITROOM-001"
+      ],
+      "capacityClass": "Core",
+      "capacityOptions": [
+        "DIN-rail"
+      ],
+      "capacityCapabilities": [
+        "MQTT/OPC-UA aggregation",
+        "-40C to +85C"
+      ],
+      "capacityLimits": "Intel Atom, 8GB RAM",
+      "partnerProduct": true
+    },
+    "LF-IPCMAX-IPCP68": {
+      "id": "LF-IPCMAX-IPCP68",
+      "gtin": null,
+      "mpn": "LF-IPCMAX-IPCP68-2026",
+      "name": "iPCMax IPC-P68 — Vision Gateway with PoE",
+      "price": 680,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Intel 12th Gen i5-1235U, 4× GbE PoE+ ports, 9-36V DC, fanless. Powers and connects GigE/PoE machine vision cameras directly. Forwards RTSP/video streams to DGX Spark for real-time inference (SiteSense, YOLOv8, Cosmos Reason). iPCMax Finland sourcing.",
+      "features": [
+        "Intel i5-1235U (10-core, up to 4.4 GHz)",
+        "4× GbE PoE+ (IEEE 802.3at, 30W/port)",
+        "9-36V wide-range DC input, fanless",
+        "Supports 4× simultaneous GigE vision cameras",
+        "Local iPCMax Finland stock"
+      ],
+      "priceNote": "€680 hardware only · camera + cabling quoted separately",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-IPCMAX-IPCP68.png",
+      "detailsUrl": "../products/ipcmax-gateways.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Electronics > Computers > Desktop Computers",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "iPCMax",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "hardware",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 35,
+      "additionalImage": "/DWS_IQ2026.png",
+      "partner": "iPCMax",
+      "ipcmaxModel": "IPC-P68",
+      "pairsWith": [
+        "edge-node-gn100",
+        "LF-DGX-SPARK",
+        "LF-SITROOM-001",
+        "LF-JETSON-AGX"
+      ],
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "DIN-rail or wall mount"
+      ],
+      "capacityCapabilities": [
+        "Edge AI preprocessing",
+        "TSN",
+        "4x GbE"
+      ],
+      "capacityLimits": "Intel Core i5, 16GB RAM",
+      "partnerProduct": true
+    },
+    "LF-IPCMAX-CINCOZE-DA1200": {
+      "id": "LF-IPCMAX-CINCOZE-DA1200",
+      "gtin": null,
+      "mpn": "LF-IPCMAX-CINCOZE-DA1200-2026",
+      "name": "Cincoze DA-1200 — Rugged Expandable Edge Computer",
+      "price": 1850,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Intel Alder Lake-N / 13th-12th Gen Core, -40°C to 70°C operating range, CMI/CFM modular I/O expansion (isolated DIO, CAN, COM, LAN). For harsh industrial environments requiring local control loops with DGX Spark uplink. Cincoze via iPCMax Finland.",
+      "features": [
+        "Intel Core i5-1335UE / N-series options",
+        "-40°C to 70°C wide-temp, fanless",
+        "CMI/CFM modular expansion (isolated DIO, CANbus, RS-232/485, 2.5GbE)",
+        "IGNITION power management (vehicle/mobile deployments)",
+        "Cincoze via iPCMax — 3-4 week lead time"
+      ],
+      "priceNote": "€1,850 base config · modular I/O + configuration quoted separately",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/LF-IPCMAX-CINCOZE-DA1200.png",
+      "detailsUrl": "../products/ipcmax-gateways.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Electronics > Computers > Desktop Computers",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Cincoze",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "hardware",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 36,
+      "additionalImage": "/DWS_IQ2026.png",
+      "partner": "iPCMax",
+      "ipcmaxModel": "Cincoze DA-1200",
+      "pairsWith": [
+        "LF-SITROOM-001",
+        "LF-IGX-ORIN",
+        "LF-COMPLIANCE-AMBULANCE-001"
+      ],
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Rugged edge"
+      ],
+      "capacityCapabilities": [
+        "GPU-accelerated",
+        "Vision/acoustic fusion",
+        "IP65"
+      ],
+      "capacityLimits": "NVIDIA MXM GPU slot",
+      "partnerProduct": true
     },
     "DWS-SOVEREIGN-DB-001": {
       "id": "DWS-SOVEREIGN-DB-001",
@@ -1213,7 +2311,7 @@
       "type": "one-time",
       "description": "Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.",
       "features": [
-        "Zero CLOUD Act exposure",
+        "Designed to reduce CLOUD Act exposure",
         "Continuous sovereignty monitoring agent",
         "8-dimension compliance scoring"
       ],
@@ -1234,7 +2332,17 @@
       "storeCategory": "platform",
       "buyPage": 1,
       "buyPageOrder": 19,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU"
+      ],
+      "capacityCapabilities": [
+        "Managed PostgreSQL + pgvector",
+        "RLS",
+        "GDPR readiness"
+      ],
+      "capacityLimits": "Per-tier storage"
     },
     "sovereignty-cloud-consulting": {
       "id": "sovereignty-cloud-consulting",
@@ -1247,7 +2355,7 @@
       "description": "Your US-hosted data is exposed to the CLOUD Act — and your EU clients know it. We migrate you to sovereign European infrastructure (OVHcloud, Hetzner, Supabase EU) with DPA creation, NIS2 compliance, and EU AI Act alignment. 78% of EU companies plan to reduce US cloud dependency.",
       "features": [
         "European sovereign cloud migration",
-        "CLOUD Act free infrastructure",
+        "Designed to reduce CLOUD Act exposure",
         "NIS2, GDPR & EU AI Act aligned"
       ],
       "priceNote": "Standard €1,500/mo | Growth €3,000/mo | Partner from €5,000/mo",
@@ -1300,7 +2408,17 @@
       "version": "1.0",
       "buyPage": 3,
       "buyPageOrder": 6,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Core",
+      "capacityOptions": [
+        "Cloud US"
+      ],
+      "capacityCapabilities": [
+        "3 agents",
+        "1 user",
+        "Basic CSRD dashboard"
+      ],
+      "capacityLimits": "Single concurrent workflow"
     },
     "DWS-US-PILOT": {
       "id": "DWS-US-PILOT",
@@ -1334,7 +2452,17 @@
       "version": "1.0",
       "buyPage": 3,
       "buyPageOrder": 7,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud US"
+      ],
+      "capacityCapabilities": [
+        "8 agents",
+        "5 users",
+        "Full agent suite"
+      ],
+      "capacityLimits": "Standard support"
     },
     "DWS-EU-STARTER": {
       "id": "DWS-EU-STARTER",
@@ -1344,9 +2472,9 @@
       "price": 499,
       "currency": "EUR",
       "type": "monthly",
-      "description": "DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). Compliance, Report & Discovery agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.",
+      "description": "DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). Compliance, Report & Discovery agents, CSRD dashboard, designed to reduce CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.",
       "features": [
-        "Zero CLOUD Act exposure (EU-owned providers)",
+        "Designed to reduce CLOUD Act exposure (EU-owned providers)",
         "Aiven PostgreSQL + Hetzner/Scaleway",
         "Sovereignty score monitoring"
       ],
@@ -1368,7 +2496,17 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 20,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Core",
+      "capacityOptions": [
+        "Cloud EU"
+      ],
+      "capacityCapabilities": [
+        "3 agents",
+        "1 user",
+        "EU data residency"
+      ],
+      "capacityLimits": "Single concurrent workflow"
     },
     "DWS-EU-PILOT": {
       "id": "DWS-EU-PILOT",
@@ -1378,11 +2516,11 @@
       "price": 1499,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Full EU sovereign evaluation. Full Firehorse agent suite, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.",
+      "description": "Full EU sovereign evaluation. Full Firehorse agent suite, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Designed to reduce CLOUD Act exposure. Prove compliance ROI on sovereign infrastructure.",
       "features": [
         "Full Firehorse agent suite + Aiwen Article 12 logging",
         "NIS2 compliance dashboard",
-        "Zero CLOUD Act + EU data residency"
+        "Designed to reduce CLOUD Act exposure + EU data residency"
       ],
       "priceNote": "€1,499/mo + €3,990 one-time setup | Annual: 2 months free",
       "revolutLink": null,
@@ -1402,7 +2540,18 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 21,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU"
+      ],
+      "capacityCapabilities": [
+        "8 agents",
+        "5 users",
+        "Full agent suite",
+        "EU sovereignty"
+      ],
+      "capacityLimits": "Standard support"
     },
     "DWS-CLIMATE-001": {
       "id": "DWS-CLIMATE-001",
@@ -1436,7 +2585,17 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 10,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU",
+        "DGX Spark"
+      ],
+      "capacityCapabilities": [
+        "Climate compliance agents",
+        "CBAM/CSRD/ESRS"
+      ],
+      "capacityLimits": "Per-contract scope"
     },
     "DWS-AEGIS-001": {
       "id": "DWS-AEGIS-001",
@@ -1446,13 +2605,13 @@
       "price": 59990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). Agent coverage across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Zero CLOUD Act exposure. Available September 2026.",
+      "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). Agent coverage across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Designed to reduce CLOUD Act exposure. Available September 2026.",
       "features": [
         "Cross-vertical intelligence — detect supply chain cascades across 21 industries",
-        "EU-sovereign — Finnish-owned infrastructure, zero CLOUD Act exposure",
+        "EU-sovereign — Finnish-owned infrastructure, designed to reduce CLOUD Act exposure",
         "Dual-use compliance — CER, CRM Act, KRITIS, NIS2, EU AI Act, CBAM, ETS"
       ],
-      "priceNote": "From €59,990 onboarding + one-time integration. Standard €999 | Defence €1,999 | Sovereign €4,999",
+      "priceNote": "From €59,990 onboarding + one-time integration. Monthly subscription: Standard €999/mo | Defence €1,999/mo | Sovereign €4,999/mo",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/products/DWS-AEGIS-001.png",
@@ -1469,7 +2628,20 @@
       "storeCategory": "platform",
       "buyPage": 1,
       "buyPageOrder": 1,
-      "additionalImage": "/static/images/firehorse-aegis-head.png"
+      "additionalImage": "/static/images/firehorse-aegis-head.png",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Aegis Standard",
+        "Aegis Defence",
+        "Aegis Sovereign"
+      ],
+      "capacityCapabilities": [
+        "21+ agents",
+        "Single-tenant K8s",
+        "KYA governance",
+        "Article 12 audit"
+      ],
+      "capacityLimits": "UpCloud SLA 99.9%/99.999%"
     },
     "DWS-AEGIS-PILOT-001": {
       "id": "DWS-AEGIS-PILOT-001",
@@ -1536,7 +2708,18 @@
         "Phase 3 — Severed-uplink acceptance test (weeks 10-11): rehearsal run first with findings fixed, then the witnessed acceptance run under the agreed window. Binary gate — workflow completes, Article 12 record written locally with no gap, operator stops a running agent. All three, or the pilot reports a negative result",
         "Phase 4 — Sizing, report and decision (weeks 12-13): production hardware sizing derived from measured load rather than a spec sheet; deployment mode confirmed or revised against what the test showed; before/after report and written recommendation, including the recommendation not to proceed where the evidence supports it"
       ],
-      "additionalImage": "/static/images/firehorse-aegis-head.png"
+      "additionalImage": "/static/images/firehorse-aegis-head.png",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Existing hardware or edge appliance"
+      ],
+      "capacityCapabilities": [
+        "One site, one workflow",
+        "Local execution",
+        "Production hardware sizing"
+      ],
+      "capacityLimits": "3-month bounded engagement",
+      "partnerProduct": true
     },
     "DWS-AEGIS-IMPL-001": {
       "id": "DWS-AEGIS-IMPL-001",
@@ -1577,7 +2760,18 @@
         "Phase 2 — Agent-in-Production (6 weeks, EUR 15,000): staged production deployment of the domain agents, local identity and Article 12 audit trail configuration, operator kill-switch training",
         "Phase 3 — LWM Integration (8 weeks, EUR 25,000): world-model telemetry synchronisation, CAD/BIM/SCADA data pipeline hookups, multi-site reporting"
       ],
-      "additionalImage": "/static/images/firehorse-aegis-head.png"
+      "additionalImage": "/static/images/firehorse-aegis-head.png",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Aegis deployment"
+      ],
+      "capacityCapabilities": [
+        "Phase 1 Audit",
+        "Phase 2 Agent-in-production",
+        "Phase 3 LWM integration"
+      ],
+      "capacityLimits": "ADDITIVE to Aegis onboarding",
+      "partnerProduct": true
     },
     "CMP-T0": {
       "id": "CMP-T0",
@@ -1621,7 +2815,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CMP-T1": {
       "id": "CMP-T1",
@@ -1665,7 +2860,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CMP-T2": {
       "id": "CMP-T2",
@@ -1709,7 +2905,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CMP-OC-STD": {
       "id": "CMP-OC-STD",
@@ -1753,7 +2950,17 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Standard bundle"
+      ],
+      "capacityCapabilities": [
+        "Core compliance suite",
+        "Single framework"
+      ],
+      "capacityLimits": "Standard support",
+      "partnerProduct": true
     },
     "CMP-OC-ENT": {
       "id": "CMP-OC-ENT",
@@ -1797,7 +3004,18 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Enterprise bundle"
+      ],
+      "capacityCapabilities": [
+        "Full compliance suite",
+        "Multi-framework",
+        "Custom integrations"
+      ],
+      "capacityLimits": "Per-contract scope",
+      "partnerProduct": true
     },
     "SS-T0": {
       "id": "SS-T0",
@@ -1841,7 +3059,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SS-T1": {
       "id": "SS-T1",
@@ -1885,7 +3104,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SS-T2": {
       "id": "SS-T2",
@@ -1929,7 +3149,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SS-OC-STD": {
       "id": "SS-OC-STD",
@@ -1973,7 +3194,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Standard bundle"
+      ],
+      "capacityCapabilities": [
+        "Core supply chain suite"
+      ],
+      "capacityLimits": "Standard support",
+      "partnerProduct": true
     },
     "SS-OC-ENT": {
       "id": "SS-OC-ENT",
@@ -2017,7 +3247,17 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Enterprise bundle"
+      ],
+      "capacityCapabilities": [
+        "Full supply chain suite",
+        "Custom integrations"
+      ],
+      "capacityLimits": "Per-contract scope",
+      "partnerProduct": true
     },
     "MO-T0": {
       "id": "MO-T0",
@@ -2061,7 +3301,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "MO-T1": {
       "id": "MO-T1",
@@ -2105,7 +3346,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "MO-T2": {
       "id": "MO-T2",
@@ -2149,7 +3391,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "MO-OC-STD": {
       "id": "MO-OC-STD",
@@ -2193,7 +3436,16 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Standard bundle"
+      ],
+      "capacityCapabilities": [
+        "Core manufacturing suite"
+      ],
+      "capacityLimits": "Standard support",
+      "partnerProduct": true
     },
     "MO-OC-ENT": {
       "id": "MO-OC-ENT",
@@ -2237,7 +3489,17 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Enterprise bundle"
+      ],
+      "capacityCapabilities": [
+        "Full manufacturing suite",
+        "Custom integrations"
+      ],
+      "capacityLimits": "Per-contract scope",
+      "partnerProduct": true
     },
     "ED-T1": {
       "id": "ED-T1",
@@ -2281,7 +3543,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "ED-T2": {
       "id": "ED-T2",
@@ -2325,7 +3588,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SG-T1": {
       "id": "SG-T1",
@@ -2369,7 +3633,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SG-T2": {
       "id": "SG-T2",
@@ -2413,7 +3678,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CONSTR-T2": {
       "id": "CONSTR-T2",
@@ -2459,7 +3725,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "LOG-T1": {
       "id": "LOG-T1",
@@ -2503,7 +3770,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "LOG-T2": {
       "id": "LOG-T2",
@@ -2547,7 +3815,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SOV-T1": {
       "id": "SOV-T1",
@@ -2591,7 +3860,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SOV-T2": {
       "id": "SOV-T2",
@@ -2635,7 +3905,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "QG-T1": {
       "id": "QG-T1",
@@ -2679,7 +3950,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "QG-T2": {
       "id": "QG-T2",
@@ -2723,7 +3995,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CSAT-T1": {
       "id": "CSAT-T1",
@@ -2767,7 +4040,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CSAT-T2": {
       "id": "CSAT-T2",
@@ -2811,7 +4085,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "LF-T1": {
       "id": "LF-T1",
@@ -2855,7 +4130,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "LF-T2": {
       "id": "LF-T2",
@@ -2899,7 +4175,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CS-T1": {
       "id": "CS-T1",
@@ -2943,7 +4220,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CS-T2": {
       "id": "CS-T2",
@@ -2987,7 +4265,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SEO-T1": {
       "id": "SEO-T1",
@@ -3031,7 +4310,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SEO-T2": {
       "id": "SEO-T2",
@@ -3075,7 +4355,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "DW-T1": {
       "id": "DW-T1",
@@ -3119,7 +4400,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "DW-T2": {
       "id": "DW-T2",
@@ -3163,7 +4445,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "VIA-T1": {
       "id": "VIA-T1",
@@ -3207,7 +4490,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "VIA-T2": {
       "id": "VIA-T2",
@@ -3251,51 +4535,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
-    },
-    "TH-T2": {
-      "id": "TH-T2",
-      "sku": "TH-T2",
-      "mpn": "TH-T2",
-      "name": "Themis Coordinator — Pro",
-      "price": 2499,
-      "currency": "EUR",
-      "type": "subscription",
-      "priceUnit": "per-month",
-      "tier": "T2",
-      "agents": [
-        "themis"
-      ],
-      "replaces": {
-        "role": "Ops coordinator",
-        "fteCount": 0.5,
-        "fullyLoadedAnnualCostEUR": 40000
-      },
-      "nextUpsellSku": "WF-T4",
-      "deploymentColor": "blue",
-      "priceVersion": "1.15",
-      "description": "Case routing, sub-agent assignment, KYA chain.",
-      "features": [
-        "Replaces Ops coordinator ≈ 0.5 FTE",
-        "Tier T2",
-        "Blue/pilot — internal sign-off required before quoting"
-      ],
-      "priceNote": "€2,499 per-month — Blue/pilot",
-      "image": "/static/images/products/TH-T2.png",
-      "detailsUrl": "../products/skilled-agents.html",
-      "featured": false,
-      "storeCategory": "platform",
-      "brand": "DWS IQ",
-      "version": "1.0",
-      "google": {
-        "productCategory": "Software > Business & Productivity Software",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "DWS IQ",
-        "targetCountry": "FI",
-        "contentLanguage": "en"
-      },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "ESG-T3": {
       "id": "ESG-T3",
@@ -3343,7 +4584,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "HSE-T3": {
       "id": "HSE-T3",
@@ -3390,7 +4632,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "CONSTR-T3": {
       "id": "CONSTR-T3",
@@ -3439,7 +4682,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "SOV-T3": {
       "id": "SOV-T3",
@@ -3486,7 +4730,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "GTM-T3": {
       "id": "GTM-T3",
@@ -3534,7 +4779,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "WF-T4": {
       "id": "WF-T4",
@@ -3579,7 +4825,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "IND-MARS": {
       "id": "IND-MARS",
@@ -3629,7 +4876,17 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Mars manufacturing",
+        "Production compliance"
+      ],
+      "capacityLimits": "Per-factory scope",
+      "partnerProduct": true
     },
     "IND-HELIOS": {
       "id": "IND-HELIOS",
@@ -3679,7 +4936,17 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Helios energy",
+        "Solar/wind monitoring"
+      ],
+      "capacityLimits": "Per-site scope",
+      "partnerProduct": true
     },
     "IND-VULCAN": {
       "id": "IND-VULCAN",
@@ -3729,7 +4996,17 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Vulcan heavy industry",
+        "Emission monitoring"
+      ],
+      "capacityLimits": "Per-site scope",
+      "partnerProduct": true
     },
     "IND-TALOS": {
       "id": "IND-TALOS",
@@ -3779,7 +5056,17 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Talos construction",
+        "Site compliance"
+      ],
+      "capacityLimits": "Per-site scope",
+      "partnerProduct": true
     },
     "IND-GAIA": {
       "id": "IND-GAIA",
@@ -3829,7 +5116,17 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Gaia environmental",
+        "Sustainability reporting"
+      ],
+      "capacityLimits": "Per-contract scope",
+      "partnerProduct": true
     },
     "IND-CERES": {
       "id": "IND-CERES",
@@ -3879,7 +5176,17 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Ceres compliance",
+        "Industry-specific"
+      ],
+      "capacityLimits": "Per-contract scope",
+      "partnerProduct": true
     },
     "IND-NEPTUN": {
       "id": "IND-NEPTUN",
@@ -3929,7 +5236,17 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Neptun water",
+        "Water treatment compliance"
+      ],
+      "capacityLimits": "Per-site scope",
+      "partnerProduct": true
     },
     "IND-PROM": {
       "id": "IND-PROM",
@@ -3979,7 +5296,17 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "Prometheus industrial",
+        "Process monitoring"
+      ],
+      "capacityLimits": "Per-process scope",
+      "partnerProduct": true
     },
     "IND-BESS": {
       "id": "IND-BESS",
@@ -4029,7 +5356,17 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Production",
+      "capacityOptions": [
+        "Cloud EU or edge"
+      ],
+      "capacityCapabilities": [
+        "BESS compliance monitoring",
+        "Battery analytics"
+      ],
+      "capacityLimits": "Per-site scope",
+      "partnerProduct": true
     },
     "LAND-AIL": {
       "id": "LAND-AIL",
@@ -4075,7 +5412,8 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "partnerProduct": true
     },
     "LAND-EUAI": {
       "id": "LAND-EUAI",
@@ -4123,7 +5461,8 @@
         "contentLanguage": "en"
       },
       "buyPage": 1,
-      "buyPageOrder": 6
+      "buyPageOrder": 6,
+      "partnerProduct": true
     },
     "LAND-HSE": {
       "id": "LAND-HSE",
@@ -4169,7 +5508,8 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "partnerProduct": true
     },
     "LAND-CSRD": {
       "id": "LAND-CSRD",
@@ -4220,7 +5560,8 @@
         "contentLanguage": "en"
       },
       "buyPage": 1,
-      "buyPageOrder": 7
+      "buyPageOrder": 7,
+      "partnerProduct": true
     },
     "LAND-LCA": {
       "id": "LAND-LCA",
@@ -4267,7 +5608,8 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "partnerProduct": true
     },
     "LAND-SOV": {
       "id": "LAND-SOV",
@@ -4317,7 +5659,8 @@
         "contentLanguage": "en"
       },
       "buyPage": 1,
-      "buyPageOrder": 9
+      "buyPageOrder": 9,
+      "partnerProduct": true
     },
     "LAND-OPS": {
       "id": "LAND-OPS",
@@ -4367,7 +5710,8 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "partnerProduct": true
     },
     "LAND-GTM": {
       "id": "LAND-GTM",
@@ -4416,53 +5760,8 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
-    },
-    "LAND-THEMIS": {
-      "id": "LAND-THEMIS",
-      "sku": "LAND-THEMIS",
-      "mpn": "LAND-THEMIS",
-      "name": "Themis Coordinator Workshop",
-      "price": 29990,
-      "currency": "EUR",
-      "type": "bundle",
-      "priceUnit": "per-year",
-      "tier": "land",
-      "agents": [
-        "themis"
-      ],
-      "replaces": {
-        "role": "Ops coordinator",
-        "fteCount": 0.5,
-        "fullyLoadedAnnualCostEUR": 40000
       },
-      "nextUpsellSku": "TH-T2",
-      "attachedAgentSku": "TH-T2",
-      "yearOneEUR": 29990,
-      "yearTwoPlusEUR": 24990,
-      "deploymentColor": "blue",
-      "priceVersion": "1.15",
-      "description": "3-day Themis workshop + 12-month T2 Themis Coordinator.",
-      "features": [
-        "Replaces Ops coordinator ≈ 0.5 FTE during engagement",
-        "Y1 €29,990 · Y2+ €24,990/yr",
-        "Land overlay — engagement + 12-month agent attach"
-      ],
-      "priceNote": "Y1 €29,990 · Y2+ €24,990/yr — engagement + 12-month TH-T2",
-      "image": "/static/images/products/LAND-THEMIS.png",
-      "detailsUrl": "../products/skilled-agents.html",
-      "featured": false,
-      "storeCategory": "advisory",
-      "brand": "Lifetime",
-      "version": "1.0",
-      "google": {
-        "productCategory": "Business & Industrial > Business Services",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "Lifetime",
-        "targetCountry": "FI",
-        "contentLanguage": "en"
-      }
+      "partnerProduct": true
     },
     "LAND-WF": {
       "id": "LAND-WF",
@@ -4508,7 +5807,8 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "partnerProduct": true
     },
     "DWS365-CMP-T3": {
       "id": "DWS365-CMP-T3",
@@ -4556,7 +5856,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "FH-SKILL-T3": {
       "id": "FH-SKILL-T3",
@@ -4605,7 +5906,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "AC365-T3": {
       "id": "AC365-T3",
@@ -4654,7 +5956,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true
     },
     "DWS-IQ-FREE-2026": {
       "id": "DWS-IQ-FREE-2026",
@@ -4688,7 +5991,17 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 1,
-      "additionalImage": "/DWS_IQ2026.png"
+      "additionalImage": "/DWS_IQ2026.png",
+      "capacityClass": "Core",
+      "capacityOptions": [
+        "Cloud free tier"
+      ],
+      "capacityCapabilities": [
+        "1 agent",
+        "Basic dashboard",
+        "Community support"
+      ],
+      "capacityLimits": "Usage capped"
     },
     "AIS-EU-SOV-OC": {
       "id": "AIS-EU-SOV-OC",
@@ -4720,7 +6033,8 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 1
+      "buyPageOrder": 1,
+      "partnerProduct": true
     },
     "AIS-OUTCOME-PILOT": {
       "id": "AIS-OUTCOME-PILOT",
@@ -4752,7 +6066,25 @@
       },
       "storeCategory": "advisory",
       "buyPage": 2,
-      "buyPageOrder": 2
+      "buyPageOrder": 2,
+      "partnerProduct": true
+    },
+    "DWS-IQ-ESS-SETUP": {
+      "id": "DWS-IQ-ESS-SETUP",
+      "mpn": "DWSIQ-ESS-SETUP-2026",
+      "name": "DWS IQ Essentials — Setup",
+      "price": 799,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "One-time onboarding for DWS IQ Essentials: install, connect GitHub and one operational-runtime connector, first inventory snapshot, and the first evidenced safe update with rollback tested.",
+      "features": [
+        "Install on your infrastructure or on Lifetime-managed hosting",
+        "GitHub + operational-runtime connectors configured",
+        "First safe update executed and rolled back under test, with evidence recorded"
+      ],
+      "priceNote": "€799 one-time — required once, with either Essentials subscription",
+      "storeCategory": "platform",
+      "version": "1.0"
     }
   },
   "settings": {
@@ -4798,12 +6130,15 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-08-18T00:00:00Z",
-  "priceVersion": "1.25",
+  "lastUpdated": "2026-08-30T00:00:00Z",
+  "priceVersion": "1.29",
   "priceList": {
-    "version": "1.25",
-    "effectiveDate": "2026-08-18",
-    "nextReviewDate": "2026-11-18",
+    "version": "1.29",
+    "effectiveDate": "2026-08-30",
+    "nextReviewDate": "2026-11-30",
+    "stampQuarter": "2026.Q3",
+    "stampDate": "2026-08-30",
+    "validUntil": "2026-11-30",
     "policy": {
       "currency": "EUR",
       "vatTreatment": "B2B_VAT_0",
@@ -4821,9 +6156,9 @@
     }
   },
   "commercialPortfolio": {
-    "version": "1.25",
-    "effectiveDate": "2026-08-18",
-    "nextReviewDate": "2026-11-18",
+    "version": "1.28",
+    "effectiveDate": "2026-08-30",
+    "nextReviewDate": "2026-11-30",
     "definitions": {
       "serious": {
         "description": "The fixed 13-product commercial portfolio. These products are the only products rendered on the primary DWS /buy/ surface.",
@@ -4874,7 +6209,7 @@
         "path": "/price-list/",
         "classification": "serious and supporting",
         "productRule": "non-BLUE, non-archived products plus subscriptions",
-        "expectedProductCount": 49,
+        "expectedProductCount": 67,
         "includesSubscriptions": true
       },
       "lifetimeConsulting": {
@@ -4888,6 +6223,38 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.28",
+      "date": "2026-08-30",
+      "author": "OpenCode",
+      "changes": [
+        "v1.28 audit response: created all missing product SKUs referenced in v1.27 changelog but never added to products.json.",
+        "Added Kubernetes orchestration tiers: LF-K8S-T1 (€1,500), LF-K8S-T2 (€4,500), LF-K8S-T3 (€7,500), LF-K8S-T4 (€12,000).",
+        "Added DOCA service add-ons: LF-DOCA-SECURITY (€1,000/mo), LF-DOCA-NETWORK (€2,000/mo).",
+        "Added NIM profiles: LF-NIM-RETRIEVAL (€500/mo), LF-NIM-CODE (€500/mo), LF-NIM-BIOLOGY (€2,000/mo).",
+        "Added Government Ready: LF-GOV-READY-SETUP (€7,500), LF-GOV-READY-ANNUAL (€3,000/yr), LF-GOV-AIRGAP (€1,500/release).",
+        "Added iPCMax hardware: LF-IPC-409 (€345), LF-IPC-P68 (€680), LF-CINCOZE-DA1200 (€1,850).",
+        "Unified CLOUD Act wording to 'designed to reduce CLOUD Act exposure' across all products (boardy audit).",
+        "Clarified Aegis tier pricing as monthly subscriptions: Standard €999/mo, Defence €1,999/mo, Sovereign €4,999/mo.",
+        "Added agent capacity info: DWS IQ 6 supports up to 50 production agents concurrently across 25 industry verticals.",
+        "All changes mirrored to landing-pages/dws10-com/config/products.json."
+      ]
+    },
+    {
+      "version": "1.27",
+      "date": "2026-08-30",
+      "author": "OpenCode",
+      "changes": [
+        "Updated to v1.27 with orchestration tiers (T0–T4), DOCA microservices packages, Government Ready add-ons, NIM profiles, and iPCMax hardware partner SKUs.",
+        "Added Kubernetes orchestration tiers: LF-K8S-T1 (€1,500), LF-K8S-T2 (€4,500), LF-K8S-T3 (€7,500), LF-K8S-T4 (€12,000).",
+        "Added DOCA packages: Essential (included T2+), Security (€1,000/mo), Network+Storage (€2,000/mo).",
+        "Added Gov Ready: Setup (€7,500), Annual (€3,000/yr), Air-gap Bundle (€1,500/release), FIPS Validation (€2,000).",
+        "Added NIM profiles: Starter (included), Retrieval (€500/mo), Code (€500/mo), Biology (€2,000/mo).",
+        "Added iPCMax hardware: IPC-409 (€345), IPC-P68 (€680), Cincoze DA-1200 (€1,850).",
+        "Updated buy page to v2.0 with iPCMax-style catalog redesign and orchestration tier add-on matrix.",
+        "Set priceList.version to 1.27 with effective date 2026-08-30 and next review 2026-11-30."
+      ]
+    },
     {
       "version": "1.25",
       "date": "2026-08-18",
@@ -5252,7 +6619,7 @@
       "currency": "EUR",
       "type": "subscription",
       "priceUnit": "per-year",
-      "description": "Complete sovereign ontology covering all 25 European industrial verticals — 5,000 enterprises, 175 semantic layers, cross-industry supply chain mapping, and regulatory cascade detection. The knowledge graph that D&B and Orbis can't sell you: not just entity data, but operational semantics, compliance vocabulary, and agent-ready structure. EU-hosted, zero CLOUD Act exposure.",
+      "description": "Complete sovereign ontology covering all 25 European industrial verticals — 5,000 enterprises, 175 semantic layers, cross-industry supply chain mapping, and regulatory cascade detection. The knowledge graph that D&B and Orbis can't sell you: not just entity data, but operational semantics, compliance vocabulary, and agent-ready structure. EU-hosted, designed to reduce CLOUD Act exposure.",
       "features": [
         "All 25 industries × 200 enterprises = 5,000 European industrial enterprises",
         "Cross-industry supply chain ontology + regulatory cascade detection",
@@ -5309,6 +6676,640 @@
       "version": "1.0",
       "buyPage": 1,
       "buyPageOrder": 24
+    },
+    "LF-K8S-T1": {
+      "id": "LF-K8S-T1",
+      "gtin": null,
+      "mpn": "LF-K8S-T1-2026",
+      "name": "Kubernetes Orchestration — T1 Single-Node k3s",
+      "price": 1500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Single-node k3s cluster on DGX Spark with GPU Operator, NIM Operator, and basic Prometheus monitoring. Same-day deployment (2 hours). Baseline for sovereign AI workloads — no managed cloud dependency.",
+      "features": [
+        "k3s single-node + GPU Operator + NIM Operator",
+        "Basic Prometheus + Grafana monitoring",
+        "Same-day deployment (~2 hours on DGX Spark ARM64)"
+      ],
+      "priceNote": "€1,500 one-time setup · requires DGX Spark hardware",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 30
+    },
+    "LF-K8S-T2": {
+      "id": "LF-K8S-T2",
+      "gtin": null,
+      "mpn": "LF-K8S-T2-2026",
+      "name": "Kubernetes Orchestration — T2 HA 3-Node Cluster",
+      "price": 4500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "High-availability 3-node k3s cluster with MetalLB load balancing, Longhorn persistent storage, Prometheus + Loki logging. Production-grade sovereign AI inference on 3× DGX Spark nodes.",
+      "features": [
+        "3× DGX Spark nodes, k3s HA with MetalLB + Longhorn",
+        "Prometheus + Loki + Grafana full monitoring stack",
+        "Production-grade: rolling updates, self-healing, persistent storage"
+      ],
+      "priceNote": "€4,500 one-time setup · requires 3× DGX Spark hardware",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 31
+    },
+    "LF-K8S-T3": {
+      "id": "LF-K8S-T3",
+      "gtin": null,
+      "mpn": "LF-K8S-T3-2026",
+      "name": "Kubernetes Orchestration — T3 Government Ready (RKE2)",
+      "price": 7500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "RKE2 cluster on x86 management + ARM64 workers with STIG/FIPS hardening, audit logging, and compliance validation. For government agencies and regulated enterprises requiring audited deployments.",
+      "features": [
+        "RKE2 on x86 mgmt + ARM64 workers, STIG/FIPS hardened",
+        "Audit logging, compliance validation, 2-day hardening",
+        "Annual recertification: €3,000/yr (STIG/FIPS)"
+      ],
+      "priceNote": "€7,500 one-time setup · annual recertification €3,000/yr",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 32
+    },
+    "LF-K8S-T4": {
+      "id": "LF-K8S-T4",
+      "gtin": null,
+      "mpn": "LF-K8S-T4-2026",
+      "name": "Kubernetes Orchestration — T4 Full Stack + DPU",
+      "price": 12000,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "T2 HA cluster plus BlueField-3 DPU integration, DOCA microservices (Telemetry, Firefly PTP, Argus security), and SNAP storage acceleration. For maximum-performance sovereign edge AI with hardware-accelerated networking.",
+      "features": [
+        "T2 base + BlueField-3 DPU + DOCA Essential services",
+        "SNAP storage acceleration, hardware-accelerated networking",
+        "3-day deployment including DPU firmware + integration"
+      ],
+      "priceNote": "€12,000 one-time setup · DOCA Security +€1,000/mo · DOCA Networking +€2,000/mo",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 33
+    },
+    "LF-DOCA-SECURITY": {
+      "id": "LF-DOCA-SECURITY",
+      "gtin": null,
+      "mpn": "LF-DOCA-SEC-2026",
+      "name": "DOCA Security Services — Argus + Firewall",
+      "price": 1000,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "NVIDIA DOCA Security microservices on BlueField-3 DPU: Argus hardware-accelerated firewall, intrusion detection, and policy enforcement. Requires T4 tier with BlueField DPU.",
+      "features": [
+        "Argus hardware firewall + intrusion detection on DPU",
+        "Policy-based network segmentation offloaded from CPU",
+        "Requires BlueField-3 DPU (T4 tier)"
+      ],
+      "priceNote": "€1,000/mo · requires T4 + BlueField-3 DPU",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 34
+    },
+    "LF-DOCA-NETWORK": {
+      "id": "LF-DOCA-NETWORK",
+      "gtin": null,
+      "mpn": "LF-DOCA-NET-2026",
+      "name": "DOCA Network + Storage Services — OVS-DOCA + HBN + SNAP",
+      "price": 2000,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "NVIDIA DOCA networking and storage microservices: OVS-DOCA CNI acceleration (Cilium/Calico), HBN BGP routing, and SNAP storage acceleration. Offloads network and storage I/O from CPU to DPU.",
+      "features": [
+        "OVS-DOCA CNI acceleration + HBN BGP on DPU",
+        "SNAP NVMe storage acceleration",
+        "Requires BlueField-3 DPU (T4 tier)"
+      ],
+      "priceNote": "€2,000/mo · requires T4 + BlueField-3 DPU",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 35
+    },
+    "LF-NIM-RETRIEVAL": {
+      "id": "LF-NIM-RETRIEVAL",
+      "gtin": null,
+      "mpn": "LF-NIM-RET-2026",
+      "name": "NIM Profile — Retrieval (RAG + Embeddings)",
+      "price": 500,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "NVIDIA NIM retrieval profile: Nemotron RAG + embedding models for vector search, document grounding, and knowledge-base queries on sovereign infrastructure. Pairs with LWM ontology for compliance retrieval.",
+      "features": [
+        "Nemotron RAG + embedding NIMs on DGX Spark",
+        "Vector search + document grounding for compliance queries",
+        "Pairs with LWM ontology for sovereign knowledge retrieval"
+      ],
+      "priceNote": "€500/mo per profile · requires K8s T1+ and DGX Spark",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 36
+    },
+    "LF-NIM-CODE": {
+      "id": "LF-NIM-CODE",
+      "gtin": null,
+      "mpn": "LF-NIM-CODE-2026",
+      "name": "NIM Profile — Code (Qwen3-Coder)",
+      "price": 500,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "NVIDIA NIM code-generation profile: Qwen3-Coder for sovereign code generation, review, and refactoring on owned infrastructure. EU AI Act Article 12 audit trail for every code artefact.",
+      "features": [
+        "Qwen3-Coder NIM for sovereign code generation",
+        "Code review + refactoring on owned DGX Spark",
+        "Article 12 audit trail for every code artefact"
+      ],
+      "priceNote": "€500/mo per profile · requires K8s T1+ and DGX Spark",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 37
+    },
+    "LF-NIM-BIOLOGY": {
+      "id": "LF-NIM-BIOLOGY",
+      "gtin": null,
+      "mpn": "LF-NIM-BIO-2026",
+      "name": "NIM Profile — Biology (BioNeMo + AlphaFold)",
+      "price": 2000,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "NVIDIA NIM biology profile: BioNeMo + AlphaFold models for drug discovery, protein structure prediction, and molecular simulation on sovereign infrastructure. For healthcare and life-sciences workloads.",
+      "features": [
+        "BioNeMo + AlphaFold NIMs on DGX Spark",
+        "Protein structure prediction + molecular simulation",
+        "Sovereign: data never leaves customer infrastructure"
+      ],
+      "priceNote": "€2,000/mo per profile · requires K8s T1+ and DGX Spark",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 38
+    },
+    "LF-GOV-READY-SETUP": {
+      "id": "LF-GOV-READY-SETUP",
+      "gtin": null,
+      "mpn": "LF-GOV-SETUP-2026",
+      "name": "Government Ready — STIG/FIPS Setup",
+      "price": 7500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "STIG/FIPS hardening of Kubernetes cluster: x86 management node with RKE2, ARM64 worker nodes, compliance validation, audit logging, and hardened image build. For government agencies and defence primes.",
+      "features": [
+        "RKE2 + STIG/FIPS hardening + compliance validation",
+        "x86 mgmt + ARM64 workers, hardened image build",
+        "Audit logging + compliance report delivery"
+      ],
+      "priceNote": "€7,500 one-time · annual recertification €3,000/yr",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 39
+    },
+    "LF-GOV-READY-ANNUAL": {
+      "id": "LF-GOV-READY-ANNUAL",
+      "gtin": null,
+      "mpn": "LF-GOV-ANN-2026",
+      "name": "Government Ready — Annual Recertification",
+      "price": 3000,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-year",
+      "description": "Annual STIG/FIPS recertification for Government Ready clusters: re-audit, patch validation, compliance report, and hardened image refresh. Maintains government-grade compliance posture year-over-year.",
+      "features": [
+        "Annual STIG/FIPS re-audit + patch validation",
+        "Compliance report + hardened image refresh",
+        "Maintains government-grade compliance posture"
+      ],
+      "priceNote": "€3,000/yr · requires Government Ready setup",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 40
+    },
+    "LF-GOV-AIRGAP": {
+      "id": "LF-GOV-AIRGAP",
+      "gtin": null,
+      "mpn": "LF-GOV-AIRGAP-2026",
+      "name": "Government Ready — Air-Gap Bundle (per release)",
+      "price": 1500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Offline image repository + signed update bundle for air-gapped Government Ready deployments. Each release includes hardened OS images, NIM model updates, security patches, and DOCA firmware — delivered as a signed, verifiable artifact.",
+      "features": [
+        "Signed offline image repo + NIM model updates",
+        "Security patches + DOCA firmware per release",
+        "Verifiable artifact chain for air-gapped environments"
+      ],
+      "priceNote": "€1,500 per release · requires Gov Ready setup",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 41
+    },
+    "LF-IPC-409": {
+      "id": "LF-IPC-409",
+      "gtin": null,
+      "mpn": "LF-IPC-409-2026",
+      "name": "iPCMax IPC-409 — Fanless DIN-Rail Gateway",
+      "price": 345,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "iPCMax fanless DIN-rail industrial PC for MQTT/OPC-UA sensor aggregation at the edge. Intel Atom, 8GB RAM, 64GB eMMC, 2× GbE, industrial temperature range (−40°C to +85°C). Bridges factory floor sensors to DGX Spark inference.",
+      "features": [
+        "Intel Atom, fanless DIN-rail, −40°C to +85°C",
+        "2× GbE, MQTT/OPC-UA protocol bridge",
+        "Pairs with DGX Spark for edge inference"
+      ],
+      "priceNote": "€345 one-time · iPCMax hardware partner SKU",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Hardware > Industrial Computers",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "iPCMax",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "hardware",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 42
+    },
+    "LF-IPC-P68": {
+      "id": "LF-IPC-P68",
+      "gtin": null,
+      "mpn": "LF-IPC-P68-2026",
+      "name": "iPCMax IPC-P68 — Rugged Edge Controller",
+      "price": 680,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "iPCMax rugged industrial PC for edge AI preprocessing and TSN time-critical data. Intel Core i5, 16GB RAM, 256GB NVMe, 4× GbE with TSN support, industrial temperature range. Preprocesses sensor data before DGX Spark inference.",
+      "features": [
+        "Intel Core i5, 16GB RAM, 256GB NVMe, 4× GbE TSN",
+        "Edge AI preprocessing + TSN time-critical data",
+        "Industrial temperature range, DIN-rail or wall mount"
+      ],
+      "priceNote": "€680 one-time · iPCMax hardware partner SKU",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Hardware > Industrial Computers",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "iPCMax",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "hardware",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 43
+    },
+    "LF-CINCOZE-DA1200": {
+      "id": "LF-CINCOZE-DA1200",
+      "gtin": null,
+      "mpn": "LF-CINCOZE-DA1200-2026",
+      "name": "Cincoze DA-1200 — GPU-Accelerated Edge Controller",
+      "price": 1850,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Cincoze DA-1200 rugged GPU-accelerated edge controller with NVIDIA MXM GPU support. For vision, acoustic, and multi-modal sensor fusion at the edge before DGX Spark central inference. IP65-rated, fanless.",
+      "features": [
+        "NVIDIA MXM GPU slot + Intel Core, IP65 fanless",
+        "Vision, acoustic, multi-modal sensor fusion at edge",
+        "Rugged: −40°C to +70°C, MIL-STD-810G"
+      ],
+      "priceNote": "€1,850 one-time · iPCMax hardware partner SKU",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dwsiq.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Hardware > Industrial Computers",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Cincoze",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "hardware",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 44
+    },
+    "DWS-IQ-ESS-SUB-SELF": {
+      "id": "DWS-IQ-ESS-SUB-SELF",
+      "mpn": "DWSIQ-ESS-SELF-2026",
+      "name": "DWS IQ Essentials — Self-Hosted",
+      "price": 49,
+      "currency": "EUR",
+      "type": "subscription",
+      "billingPeriod": "monthly",
+      "description": "Entry tier for SME operators on their own infrastructure. Agent orchestration, inventory, evidence chain and safe updates with rollback — one governed view of deployed services, without replacing existing systems.",
+      "features": [
+        "Orchestration engine, agent registry and inventory",
+        "Evidence chain — who changed what, when, and with what result",
+        "Safe updates with signature verification and automatic rollback",
+        "GitHub + operational-runtime connectors, CLI",
+        "Customer provides the infrastructure (cloud VM, Kubernetes or on-prem)"
+      ],
+      "priceNote": "€49/mo + €799 one-time setup — self-hosted",
+      "storeCategory": "subscription",
+      "version": "1.0"
+    },
+    "DWS-IQ-ESS-SUB-MANAGED": {
+      "id": "DWS-IQ-ESS-SUB-MANAGED",
+      "mpn": "DWSIQ-ESS-MGD-2026",
+      "name": "DWS IQ Essentials — Managed",
+      "price": 249,
+      "currency": "EUR",
+      "type": "subscription",
+      "billingPeriod": "monthly",
+      "description": "Essentials on Lifetime-managed, EU-hosted infrastructure. Same product as self-hosted; Lifetime runs the database, backups, security patches and uptime.",
+      "features": [
+        "Everything in Essentials Self-Hosted",
+        "EU-hosted managed deployment (1–3 tenants)",
+        "Backups, security patches and uptime managed by Lifetime"
+      ],
+      "priceNote": "€249/mo (€49 platform + €200 managed hosting) + €799 one-time setup",
+      "storeCategory": "subscription",
+      "version": "1.0"
+    }
+  },
+  "discontinuedProducts": {
+    "TH-T2": {
+      "id": "TH-T2",
+      "sku": "TH-T2",
+      "mpn": "TH-T2",
+      "name": "Themis Coordinator — Pro",
+      "price": 2499,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "themis"
+      ],
+      "replaces": {
+        "role": "Ops coordinator",
+        "fteCount": 0.5,
+        "fullyLoadedAnnualCostEUR": 40000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Case routing, sub-agent assignment, KYA chain.",
+      "features": [
+        "Replaces Ops coordinator ≈ 0.5 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€2,499 per-month — Blue/pilot",
+      "image": "/static/images/products/TH-T2.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "additionalImage": "/DWS_IQ2026.png",
+      "partnerProduct": true,
+      "status": "discontinued",
+      "discontinuedOn": "2026-08-30",
+      "discontinuedReason": "Themis is the internal control-plane engine, not a customer-facing brand. Customers buy DWS IQ Essentials / Pro / Enterprise. HIC decision 30.08.2026; source: docs/field-notes/2026-08-30-dws-iq-essentials-positioning.md"
+    },
+    "LAND-THEMIS": {
+      "id": "LAND-THEMIS",
+      "sku": "LAND-THEMIS",
+      "mpn": "LAND-THEMIS",
+      "name": "Themis Coordinator Workshop",
+      "price": 29990,
+      "currency": "EUR",
+      "type": "bundle",
+      "priceUnit": "per-year",
+      "tier": "land",
+      "agents": [
+        "themis"
+      ],
+      "replaces": {
+        "role": "Ops coordinator",
+        "fteCount": 0.5,
+        "fullyLoadedAnnualCostEUR": 40000
+      },
+      "nextUpsellSku": "TH-T2",
+      "attachedAgentSku": "TH-T2",
+      "yearOneEUR": 29990,
+      "yearTwoPlusEUR": 24990,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "3-day Themis workshop + 12-month T2 Themis Coordinator.",
+      "features": [
+        "Replaces Ops coordinator ≈ 0.5 FTE during engagement",
+        "Y1 €29,990 · Y2+ €24,990/yr",
+        "Land overlay — engagement + 12-month agent attach"
+      ],
+      "priceNote": "Y1 €29,990 · Y2+ €24,990/yr — engagement + 12-month TH-T2",
+      "image": "/static/images/products/LAND-THEMIS.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "advisory",
+      "brand": "Lifetime",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "partnerProduct": true,
+      "status": "discontinued",
+      "discontinuedOn": "2026-08-30",
+      "discontinuedReason": "Themis is the internal control-plane engine, not a customer-facing brand. Customers buy DWS IQ Essentials / Pro / Enterprise. HIC decision 30.08.2026; source: docs/field-notes/2026-08-30-dws-iq-essentials-positioning.md"
     }
   }
 }

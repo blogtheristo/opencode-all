@@ -4,9 +4,9 @@
   DWS DOCUMENT STANDARD — VERSION AND AGENT HISTORY (HTML mirror)
   ============================================================================
   Document: dws10.com/price-list/index.html
-  Version: 1.25
-  Effective: 2026-08-18
-  Next review: 2026-11-18
+  Version: 1.28
+  Effective: 2026-08-30
+  Next review: 2026-11-30
   Owner: Lifetime Oy (sales@lifetime.fi)
   Publication Status: ACTIVE
   Language: English (primary) · Suomi · Svenska · Deutsch · Français
@@ -16,6 +16,14 @@
   Market: Finnish / EU B2B (VAT 0%, reverse charge against valid EU VAT ID)
 
   Sessions & Modifications:
+    - Version 1.28 | OpenCode | 2026-08-30 |
+        Added NVIDIA AI Enterprise Infra 7.8 orchestration tiers (T0–T4): k3s single-node,
+        HA cluster, Gov Ready RKE2, Full Infra Stack. Added DOCA microservices packages
+        (Essential, Security, Network+Storage). Added Government Ready setup, annual
+        maintenance, air-gap bundle, FIPS validation. Added NIM profiles (Starter,
+        Retrieval, Code, Biology). Added iPCMax hardware partner SKUs (IPC-409,
+        IPC-P68, Cincoze DA-1200). Updated commercialPortfolio.seriousProductIds count
+        to include orchestration add-ons. Price list now renders 67 public products.
     - Version 1.25 | GitHub Copilot CLI | 2026-08-18 |
         Published 49 non-BLUE, non-archived products plus subscriptions on the broad public price list.
         Added visible Serious and Supporting labels; BLUE and archived records remain excluded from public sales.
@@ -70,20 +78,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Price List · DWS IQ Platform · Lifetime Oy</title>
-    <link rel="alternate" hreflang="en" href="https://dws10.com/price-list/">
-    <link rel="alternate" hreflang="fi" href="https://dws10.com/price-list/fi/">
-    <link rel="alternate" hreflang="sv" href="https://dws10.com/price-list/sv/">
-    <link rel="alternate" hreflang="de" href="https://dws10.com/price-list/de/">
-    <link rel="alternate" hreflang="fr" href="https://dws10.com/price-list/fr/">
-    <link rel="alternate" hreflang="x-default" href="https://dws10.com/price-list/">
+    <link rel="alternate" hreflang="en" href="https://dws10.com/price-list/" />
+    <link rel="alternate" hreflang="fi" href="https://dws10.com/price-list/fi/" />
+    <link rel="alternate" hreflang="sv" href="https://dws10.com/price-list/sv/" />
+    <link rel="alternate" hreflang="de" href="https://dws10.com/price-list/de/" />
+    <link rel="alternate" hreflang="fr" href="https://dws10.com/price-list/fr/" />
+    <link rel="alternate" hreflang="x-default" href="https://dws10.com/price-list/" />
     <meta
       name="description"
       content="Official DWS IQ + Firehorse B2B price list. EUR, VAT 0% (reverse charge). Sovereign intelligence and compliance. Reviewed quarterly."
     />
     <meta name="author" content="Lifetime Oy" />
-    <meta name="dws-doc-version" content="1.25" />
+    <meta name="dws-doc-version" content="1.28" />
     <meta name="dws-doc-market" content="Finnish / EU B2B · VAT 0% reverse charge" />
-    <meta name="dws-doc-effective" content="2026-08-18" />
+    <meta name="dws-doc-effective" content="2026-08-30" />
     <meta name="dws-doc-status" content="ACTIVE" />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="DWS IQ Price List · Lifetime Oy" />
@@ -546,7 +554,11 @@
           customers. EU intra-community supplies are reverse-charged against a valid EU VAT number.
           Quote valid <span id="mQuote">30 days</span>.
         </div>
-        <p class="portfolio-note">This broad public price list contains 49 non-BLUE, non-archived DWS products plus subscriptions. Every listed offer is marked <strong>Serious</strong> or <strong>Supporting</strong>; BLUE and archived records are not public sales offers.</p>
+        <p class="portfolio-note">
+          This broad public price list contains 67 non-BLUE, non-archived DWS products plus
+          subscriptions. Every listed offer is marked <strong>Serious</strong> or
+          <strong>Supporting</strong>; BLUE and archived records are not public sales offers.
+        </p>
       </header>
 
       <!-- ============================================================
@@ -742,9 +754,9 @@
         <h2 class="deploy-h">Choose your deployment — one platform, three ways</h2>
         <p class="deploy-lead">
           DWS IQ 6 is a single agent platform delivered in three ways. You pick by
-          <strong>sovereignty posture</strong>, not by feature set — the same 50-production-agent brain runs
-          in every model; only the jurisdiction, infrastructure, and ownership change. Two of the
-          three are <strong>cloud versions we host for you</strong>; the third is a
+          <strong>sovereignty posture</strong>, not by feature set — the same 50-production-agent
+          brain runs in every model; only the jurisdiction, infrastructure, and ownership change.
+          Two of the three are <strong>cloud versions we host for you</strong>; the third is a
           <strong>sovereign NVIDIA DGX solution you own and run on your own premises</strong>.
         </p>
 
@@ -755,7 +767,7 @@
             <div class="deploy-price">DWS IQ 6 · from €4,999 · live in 30 days</div>
             <ul>
               <li>Scaleway serverless (Paris / Amsterdam), French-owned (Iliad Group)</li>
-              <li>Zero US CLOUD Act exposure · EU-only Managed PostgreSQL + pgvector</li>
+              <li>Designed to reduce CLOUD Act exposure · EU-only Managed PostgreSQL + pgvector</li>
               <li>Scale-to-zero, pay-per-request; nothing to operate</li>
               <li>EU AI Act Article 12 logging built in</li>
             </ul>
@@ -772,7 +784,10 @@
             <h3>Dedicated Sovereign Cloud — Aegis</h3>
             <div class="deploy-price">DWS IQ Aegis · €59,990 + €999/mo</div>
             <ul>
-              <li>UpCloud (Helsinki) / Hetzner — Finnish jurisdiction, zero CLOUD Act</li>
+              <li>
+                UpCloud (Helsinki) / Hetzner — Finnish jurisdiction, designed to reduce CLOUD Act
+                exposure
+              </li>
               <li>Aiven managed PostgreSQL (no US-incorporated vendor in the data path)</li>
               <li>Themis control plane · Article 12 pipeline · EUDI Wallet auth</li>
               <li>Dedicated instance, not shared tenancy</li>
@@ -789,9 +804,18 @@
             <h3>Sovereign On-Premise — NVIDIA DGX</h3>
             <div class="deploy-price">Your hardware · you own the weights</div>
             <ul>
-              <li>Control Room (Acer Veriton GN100) <span id="priceControlRoom">catalog</span> · DGX Spark <span id="priceDgxSpark">catalog</span></li>
-              <li>Situation Room (two nodes) <span id="priceSituationRoom">catalog</span> · IGX Orin <span id="priceIgxOrin">catalog</span></li>
-              <li>+ NVIDIA Model Install <span id="priceNvidiaInstall">catalog</span> · Sovereign Model Updates <span id="priceModelUpdates">catalog</span></li>
+              <li>
+                Control Room (Acer Veriton GN100) <span id="priceControlRoom">catalog</span> · DGX
+                Spark <span id="priceDgxSpark">catalog</span>
+              </li>
+              <li>
+                Situation Room (two nodes) <span id="priceSituationRoom">catalog</span> · IGX Orin
+                <span id="priceIgxOrin">catalog</span>
+              </li>
+              <li>
+                + NVIDIA Model Install <span id="priceNvidiaInstall">catalog</span> · Sovereign
+                Model Updates <span id="priceModelUpdates">catalog</span>
+              </li>
               <li>Data never leaves your network · you own 100% of model weights</li>
             </ul>
             <div class="deploy-best">
@@ -819,7 +843,12 @@
             <tr>
               <td>Capital outlay</td>
               <td class="c-cloud">None — you rent capacity</td>
-              <td class="c-onprem">Hardware catalog range: <span id="priceHardwareLow">catalog</span>–<span id="priceHardwareHigh">catalog</span></td>
+              <td class="c-onprem">
+                Hardware catalog range: <span id="priceHardwareLow">catalog</span>–<span
+                  id="priceHardwareHigh"
+                  >catalog</span
+                >
+              </td>
             </tr>
             <tr>
               <td>Running cost</td>
@@ -865,7 +894,7 @@
         </table>
         <p class="deploy-note">
           <strong>Rule of thumb.</strong> Start on <strong>EU-Sovereign Cloud</strong> — it is the
-          fastest, lowest-risk path and closes the CLOUD Act on day one. Move to
+          fastest, lowest-risk path and reduces CLOUD Act exposure on day one. Move to
           <strong>Aegis</strong> when you need single-tenant isolation and a full Article 12 control
           plane. Choose the <strong>sovereign NVIDIA DGX</strong> solution when a physical air-gap
           or 100% model-weight ownership is non-negotiable, or when a steady, high-utilisation
@@ -894,8 +923,8 @@
           <p>Owner: <span id="lOwner">Risto Anton Päärni</span></p>
           <p>Cadence: Reviewed every calendar quarter</p>
           <p>
-            DWS Document Standard version: <strong>1.25</strong> · Effective
-            <strong>2026-08-18</strong>
+            DWS Document Standard version: <strong>1.28</strong> · Effective
+            <strong>2026-08-30</strong>
           </p>
           <p style="margin-top: 6px">
             Market: <strong>Finnish / EU B2B · VAT 0 % (reverse charge)</strong>. Hardware costs
@@ -903,7 +932,7 @@
             NVIDIA / Acer EU sources documented in <code>priceHistory[]</code>.
           </p>
           <p style="margin-top: 6px">
-            Catalog version <strong>1.25</strong>. Current product and hardware prices load directly
+            Catalog version <strong>1.28</strong>. Current product and hardware prices load directly
             from <code>dws10.com/config/products.json</code>.
           </p>
           <p>Source of truth: <code>dws10.com/config/products.json</code></p>
@@ -920,12 +949,17 @@
       </footer>
     </div>
 
+    <!-- Gamma Ironclad Navigation -->
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <!-- Vertical 5-language bar — page element, not menu element -->
+    <script src="/shared-assets/vertical-lang-bar.js"></script>
+
     <script>
       (function () {
         "use strict";
 
         var CATEGORY_LABELS = {
-          platform: "Platform & Products",
+          platform: "Platform &amp; Products",
           "ai-cloud": "AI &amp; Cloud",
           advisory: "Expert Advisory &amp; Training",
           digital: "Digital Services",
@@ -1064,21 +1098,33 @@
             throw new Error("commercialPortfolio.seriousProductIds must contain exactly 13 IDs");
           }
           var seriousLookup = {};
-          seriousIds.forEach(function (id) { seriousLookup[id] = true; });
-          var catalogProducts = data.products || {};
-          var publicProducts = Object.keys(catalogProducts).map(function (key) {
-            return catalogProducts[key];
-          }).filter(function (product) {
-            return product && product.deploymentColor !== "blue" &&
-              product.archived !== true && product.productType !== "archived";
+          seriousIds.forEach(function (id) {
+            seriousLookup[id] = true;
           });
-          if (publicProducts.length !== 49) {
-            throw new Error("Expected 49 public products; found " + publicProducts.length);
+          var catalogProducts = data.products || {};
+          var publicProducts = Object.keys(catalogProducts)
+            .map(function (key) {
+              return catalogProducts[key];
+            })
+            .filter(function (product) {
+              return (
+                product &&
+                product.deploymentColor !== "blue" &&
+                product.archived !== true &&
+                product.productType !== "archived"
+              );
+            });
+          if (publicProducts.length !== 67) {
+            throw new Error("Expected 67 public products; found " + publicProducts.length);
           }
           seriousIds.forEach(function (id) {
             var product = catalogProducts[id];
             if (!product) throw new Error("Serious product missing: " + id);
-            if (product.deploymentColor === "blue" || product.archived === true || product.productType === "archived") {
+            if (
+              product.deploymentColor === "blue" ||
+              product.archived === true ||
+              product.productType === "archived"
+            ) {
               throw new Error("Serious product is not public: " + id);
             }
           });
@@ -1198,8 +1244,8 @@
                   var pname = encodeURIComponent(p.name || p.id || "Product");
                   var cardBtn = seriousLookup[p.id]
                     ? '<a class="act-card" href="/buy/#product-' +
-                    pid +
-                    '" title="Product card">Card</a>'
+                      pid +
+                      '" title="Product card">Card</a>'
                     : "";
                   var detailBtn = detailsHref
                     ? '<a class="act-detail" href="' +
@@ -1225,7 +1271,10 @@
                     escapeHtml(p.id || "") +
                     "</td>" +
                     '<td data-label="Class"><span class="portfolio-badge ' +
-                    portfolioClass.toLowerCase() + '">' + portfolioClass + "</span></td>" +
+                    portfolioClass.toLowerCase() +
+                    '">' +
+                    portfolioClass +
+                    "</span></td>" +
                     '<td class="col-name" data-label="Product">' +
                     tierHtml +
                     escapeHtml(p.name || "") +
@@ -1253,7 +1302,6 @@
               "</tbody></table>";
             main.appendChild(block);
           });
-
         }
 
         function fail(msg) {
@@ -1264,7 +1312,7 @@
             '<p style="margin-top:10px">Please refresh, or email <a href="https://dws10.com/contact/">sales@lifetime.fi</a>.</p></div>';
         }
 
-        fetch("../config/products.json", { cache: "no-store" })
+        fetch("/config/products.json", { cache: "no-store" })
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();

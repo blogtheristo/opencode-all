@@ -20,6 +20,7 @@
  *   npx tsx scripts/backfill-blogs-to-facebook.ts --limit 5  # cap posts this run
  *   npx tsx scripts/backfill-blogs-to-facebook.ts --reset    # ignore prior state
  *   npx tsx scripts/backfill-blogs-to-facebook.ts --plan     # print schedule only
+ *   npx tsx scripts/backfill-blogs-to-facebook.ts --draft    # unpublished drafts (HIC approves in Publishing Tools)
  *
  * Env (from .env):
  *   FACEBOOK_PAGE_ID, FACEBOOK_PAGE_TOKEN
@@ -126,6 +127,7 @@ async function main(): Promise<void> {
   const dryRun = args.includes('--dry-run');
   const planOnly = args.includes('--plan');
   const reset = args.includes('--reset');
+  const draft = args.includes('--draft');
 
   let channel: 'facebook' | 'linkedin' = 'facebook';
   for (let i = 0; i < args.length; i++) {
@@ -181,7 +183,7 @@ async function main(): Promise<void> {
 
   console.log(`Pool: ${pending.length} pending / ${daysLeft} days left → ${perRun} per run`);
   console.log(`Window expires: ${state.windowExpiresAt}`);
-  console.log(`Mode: ${dryRun ? 'DRY RUN' : planOnly ? 'PLAN' : 'LIVE'}\n`);
+  console.log(`Mode: ${dryRun ? 'DRY RUN' : planOnly ? 'PLAN' : draft ? 'DRAFT (unpublished)' : 'LIVE'}\n`);
 
   const batch = pending.slice(0, perRun);
 
@@ -215,7 +217,7 @@ async function main(): Promise<void> {
 
     const result =
       channel === 'facebook'
-        ? await publishToFacebook(base)
+        ? await publishToFacebook(base, { draft })
         : await publishToLinkedIn(base);
 
     if (result.success) {

@@ -1,6 +1,6 @@
 # Ecosummit Pitch Deck — DWS IQ 6
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -24,7 +24,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE — submit as PDF to Ecosummit
 
-***
+---
 
 > **Format:** 10 slides · 5-minute stage pitch · recorded + published on YouTube
 > **Audience:** Climate tech investors, corporate decarbonization leads, industrial VCs
@@ -202,7 +202,7 @@ NVIDIA Jetson inference at factory floors, construction sites, mid-ocean vessels
 
 Seat structure:
 
-- Fleet Admiral — EUR 500K · 1 seat · Board observer, first right of refusal
+- Admiral — EUR 250K · 1 seat · Board observer, first right of refusal
 - Captain — EUR 150K · Limited · Industry leadership, Situation Room access
 - Industry Captain — EUR 50K · 8 seats · Named captain per EU industry vertical
 - Deputy Captain — EUR 5K · 50 seats (hard cap) · Quarterly briefings, upgrade path

@@ -1,9 +1,9 @@
 <!doctype html>
 <!--
   Document: lifetime.fi/price-list/index.html
-  Version: 1.25
-  Effective: 2026-08-18
-  Next review: 2026-11-18
+  Version: 1.28
+  Effective: 2026-08-30
+  Next review: 2026-11-30
   Publication Status: ACTIVE
   Source: /config/consulting-packages.json
 -->
@@ -15,8 +15,8 @@
     <meta name="description" content="Thirteen outcome-based Lifetime Oy consulting packages supporting the 13 serious DWS IQ products." />
     <meta name="author" content="Lifetime Oy" />
     <meta name="robots" content="index, follow" />
-    <meta name="dws-doc-version" content="1.25" />
-    <meta name="dws-doc-effective" content="2026-08-18" />
+    <meta name="dws-doc-version" content="1.28" />
+    <meta name="dws-doc-effective" content="2026-08-30" />
     <meta property="og:title" content="Supporting Consulting Packages · Lifetime Oy" />
     <meta property="og:description" content="Outcome-based consulting support for the 13 serious DWS IQ products." />
     <meta property="og:type" content="website" />
@@ -62,9 +62,9 @@
       <h1>Supporting Consulting Packages</h1>
       <p class="intro">These 13 Lifetime Oy consulting packages support the 13 serious DWS IQ products. Each package defines a bounded outcome, workflow, deliverable, customer inputs, delivery window, acceptance boundary, price and exclusions.</p>
       <section class="meta" aria-label="Consulting price list metadata">
-        <div><small>Version</small><strong id="version">1.25</strong></div>
-        <div><small>Effective</small><strong id="effective">2026-08-18</strong></div>
-        <div><small>Next review</small><strong id="nextReview">2026-11-18</strong></div>
+        <div><small>Version</small><strong id="version">1.28</strong></div>
+        <div><small>Effective</small><strong id="effective">2026-08-30</strong></div>
+        <div><small>Next review</small><strong id="nextReview">2026-11-30</strong></div>
         <div><small>Owner</small><strong id="owner">Lifetime Oy</strong></div>
       </section>
       <p class="notice">Prices exclude VAT and are standard-scope starting prices. These services do not themselves certify compliance or guarantee customer outcomes.</p>
@@ -94,7 +94,7 @@
         }
         function render(data) {
           var packages = data.packages;
-          if (data.version !== "1.25") throw new Error("Consulting publication version must be 1.25");
+          if (data.version !== "1.28") throw new Error("Consulting publication version must be 1.28");
           if (!Array.isArray(packages) || packages.length !== 13) throw new Error("Expected exactly 13 consulting packages");
           packages.forEach(function (item, index) {
             if (item.id !== expectedIds[index]) throw new Error("Unexpected package ID or order at position " + (index + 1));

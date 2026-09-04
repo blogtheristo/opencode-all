@@ -6,7 +6,9 @@ version: "3.8"
 
 services:
   cosmos_edge_engine:
-    image: nvcr.io/nvidia/pytorch:24.03-py3
+    build:
+      context: .
+      dockerfile: Dockerfile.cosmos-edge
     container_name: cosmos_edge_spark
     hostname: cosmos-edge
     ipc: host
@@ -65,7 +67,9 @@ services:
 
   # RL training coordinator
   rl_trainer:
-    image: nvcr.io/nvidia/pytorch:24.03-py3
+    build:
+      context: .
+      dockerfile: Dockerfile.cosmos-edge
     container_name: cosmos_rl_trainer
     ipc: host
     deploy:
@@ -93,21 +97,6 @@ services:
         condition: service_healthy
       eval_store:
         condition: service_healthy
-    networks:
-      - cosmos_network
-
-  # Monitoring & observability
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: cosmos_prometheus
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./cosmos/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./cosmos/prometheus_data:/prometheus
-    command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-      - "--storage.tsdb.path=/prometheus"
     networks:
       - cosmos_network
 

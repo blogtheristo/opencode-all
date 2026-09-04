@@ -11,6 +11,7 @@ Version: 1.0
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code | Session: claude/ipcmax-serdex-evaluation-orp38x | Date: 30.08.2026 | Changes: Initial evaluation created — comprehensive assessment of iPCMax/Serdex as hardware partner for dws10.com, covering architectural fit, NGC Helm Charts integration, industrial hardware sourcing strategy, and strategic recommendations. Reference architecture diagram embedded. Evaluation addresses field-level sensor bridging, industrial networking, and Kubernetes orchestration on DGX Spark edge clusters. Four-section framework: Architectural Fit & Value Proposition, NGC Helm Charts Alignment, Evaluation Matrix, and Strategic Recommendations. Flagged for HIC review and partnership decision.
+- Version: 1.1 | Tool: OpenCode (mimo-v2.5-free) | Session: opencode/ipcmax-arch-audit | Date: 30.08.2026 | Changes: Cross-referenced reference architecture diagram (JPG) against evaluation doc. Added: 5G wireless option (§1.2 network, §2.2 cluster layout), NVIDIA JetPack software stack (§1.2 DGX Spark role), Secure Boot at gateway layer (§1.1 edge bridging), GigE Vision cameras and pressure transducers in field layer (§1.1). No contradictions found — diagram is consistent visual representation of documented architecture.
 
 ---
 
@@ -44,8 +45,8 @@ iPCMax/Serdex represents a strategic hardware-sourcing partner to **bridge indus
 
 | Layer                       | Component                  | Capability Gap                                                                                              | iPCMax/Serdex Solution                                                                                                                                    |
 | --------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Field Layer**             | Sensors, cameras, I/O      | Raw analog/digital signals; multiple protocols (Modbus, CAN, IO-Link, RTSP)                                 | DIN-rail IPC gateways with native Modbus/OPC UA conversion, multi-port I/O, CAN interface, IP-rated fanless enclosures                                    |
-| **Edge Bridging**           | Data aggregation           | No native field-level real-time data fusion                                                                 | iPCMax provides local MQTT/OPC UA translation, TSN scheduling for time-sensitive sensor loops                                                             |
+| **Field Layer**             | Sensors, cameras, I/O      | Raw analog/digital signals; multiple protocols (Modbus, CAN, IO-Link, RTSP)                                 | DIN-rail IPC gateways with native Modbus/OPC UA conversion, multi-port I/O, CAN interface, IP-rated fanless enclosures; supports vibration sensors, temperature sensors, pressure transducers, energy meters, and GigE Vision cameras |
+| **Edge Bridging**           | Data aggregation           | No native field-level real-time data fusion                                                                 | iPCMax provides local MQTT/OPC UA translation, TSN scheduling for time-sensitive sensor loops; **Secure Boot** ensures tamper-free gateway firmware            |
 | **Environmental Hardening** | Industrial conditions      | DGX Spark is a desktop system; not rated for factory floor (0°–35°C operating, no sealing, AC-powered only) | iPCMax platforms come in wide-temperature variants (−10°–60°C), IP67 enclosures, 24VDC input, surge protection, DIN-rail mount                            |
 | **Security & Isolation**    | Local sovereign processing | Cloud model distribution requires connectivity                                                              | iPCMax enables air-gapped local model serving: download NIM containers once, run inference on isolated iPCMax + DGX Spark LAN with no internet dependence |
 
@@ -56,6 +57,7 @@ iPCMax/Serdex represents a strategic hardware-sourcing partner to **bridge indus
 - High-performance inference engine for large language models, vision models, anomaly detection
 - 128GB unified memory, 8× NVIDIA GPUs, containerized NIM microservices
 - Kubernetes-native orchestration (via NGC Helm Charts)
+- **NVIDIA JetPack** for edge-optimized OS, GPU drivers, and CUDA toolkit
 - Cloud-ready (can export models, telemetry, logs)
 
 **iPCMax/Serdex Role:**
@@ -64,6 +66,7 @@ iPCMax/Serdex represents a strategic hardware-sourcing partner to **bridge indus
 - Real-time sensor aggregation and protocol bridging
 - Local sovereign data handling (no cloud uplink required for inference)
 - Kubernetes worker node option (lightweight K3s/MicroK8s on fanless PC)
+- **Secure Boot** for tamper-free firmware integrity at the gateway layer
 
 **Synergy:**
 
@@ -118,7 +121,7 @@ Sensor Network (managed by iPCMax):
   CAN devices ────> [DIN-rail CAN controller in iPCMax IPC] ──> OPC UA
   GigE Vision camera ──> [Ethernet PoE switch in iPCMax enclosure] ──> RTSP stream
 
-All data flows over TSN-managed industrial Ethernet to DGX Spark inference pods.
+All data flows over TSN-managed industrial Ethernet to DGX Spark inference pods. **5G option** available for wireless sensor deployments where wired Ethernet is impractical (retrofit, temporary sites, mobile equipment).
 ```
 
 ### 2.3 Data Sovereignty & Air-Gap Scenarios
@@ -416,7 +419,7 @@ Result Loop (iPCMax Worker2):
 
 1. **Field Note Created:** `docs/field-notes/2026-08-30-ipcmax-serdex-partnership-evaluation.md`
 2. **Handoff File Created:** `.claude/handoffs/claude/ipcmax-serdex-evaluation-orp38x.md`
-3. **Reference Architecture Diagram Saved:** `docs/assets/images/ipcmax-dgx-spark-reference-architecture-2026-08.png`
+3. **Reference Architecture Diagram Saved:** `docs/assets/images/ipcmax-dgx-spark-reference-architecture-2026-08.png` (SVG source); `docs/Ref_Architecture_iPCMax.jpg` (high-res render)
 4. **Evaluation Document:** This file (v1.0)
 
 ### HIC Actions Required
