@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Evidence: Tool=OpenCode 1.18.21 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-25
+// Evidence: Tool=OpenCode 1.18.29 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-09-05
 // Audit trail: git log -- scripts/opencode-batch-worker.mjs + .workflows/opencode-all/queue.jsonl
 import { spawn, execFileSync } from 'node:child_process';
 import {
@@ -1192,6 +1192,30 @@ function worktreeRootFor(ctx) {
   return join(ctx?.repo ?? REPO, '.worktrees', 'opencode-all');
 }
 
+/**
+ * Fix worktree .git file to use the correct base path for the current environment.
+ * When running inside a Docker container, REPO is /repo but the .git file may point
+ * to the host path (e.g. /home/admin100/dws6). This function rewrites the .git file
+ * to use the correct path.
+ */
+function fixWorktreeGitFile(worktreePath, repo) {
+  const gitFile = join(worktreePath, '.git');
+  if (!existsSync(gitFile)) return;
+  const content = readFileSync(gitFile, 'utf8').trim();
+  const match = content.match(/^gitdir:\s*(.+)$/);
+  if (!match) return;
+  const oldPath = match[1];
+  // Extract the relative part after .git/worktrees/
+  const wtMatch = oldPath.match(/\.git\/worktrees\/(.+)$/);
+  if (!wtMatch) return;
+  const relPart = wtMatch[1];
+  const newPath = `gitdir: ${join(repo, '.git', 'worktrees', relPart)}`;
+  if (oldPath !== newPath) {
+    writeFileSync(gitFile, newPath + '\n');
+    console.log(`  [worktree] fixed .git file: ${oldPath} → ${newPath}`);
+  }
+}
+
 async function createWorktree(entry, ctx = {}) {
   const repo = ctx.repo ?? REPO;
   const baseline =
@@ -1209,6 +1233,8 @@ async function createWorktree(entry, ctx = {}) {
     mkdirSync(worktreeRootFor(ctx), { recursive: true });
 
     if (existsSync(worktreePath)) {
+      // Fix .git file to use correct path for current environment (container vs host)
+      fixWorktreeGitFile(worktreePath, repo);
       // Resume only if the queue entry explicitly points at this exact worktree
       const currentBranch = execFileSync('git', ['-C', worktreePath, 'branch', '--show-current'], {
         cwd: repo,
@@ -1224,6 +1250,28 @@ async function createWorktree(entry, ctx = {}) {
         };
       }
       throw new Error(`worktree exists and cannot be resumed: ${worktreePath}`);
+    }
+
+    // Fallback: entry.worktreePath may use a different base (e.g. host path vs container path).
+    // If that path exists and is a valid git worktree, use it directly.
+    if (entry.worktreePath && existsSync(entry.worktreePath)) {
+      try {
+        const currentBranch = execFileSync('git', ['-C', entry.worktreePath, 'branch', '--show-current'], {
+          cwd: repo,
+          encoding: 'utf8',
+        }).trim();
+        if (currentBranch === branch) {
+          console.log(`  [worktree] resuming via entry.worktreePath: ${entry.worktreePath} (${branch})`);
+          return {
+            path: entry.worktreePath,
+            branch,
+            baseline: entry.baselineCommit ?? baseline,
+            resumed: true,
+          };
+        }
+      } catch {
+        // not a valid git worktree, fall through to create
+      }
     }
 
     if (execFileSync('git', ['branch', '--list', branch], { cwd: repo, encoding: 'utf8' }).trim()) {
