@@ -56,10 +56,11 @@ Ship reliable outcomes fast, but never past security, compliance, or source-of-t
 
 ## Runtime Policy (OpenCode Primary, Claude Code Standby)
 
-- **Primary interactive runtime:** OpenCode with the DGX Spark Ollama tunnel.
-- **Hot standby runtime:** Claude Code stays fully configured and tested; do not remove `.claude/` hooks, settings, or handoff flows while OpenCode is primary.
+- **Primary interactive runtime:** OpenCode with the DGX Spark Ollama tunnel. OpenCode has full authority to create PRs, commit, push, merge, and fix issues via GH CLI and git operations.
+- **Hot standby runtime:** Claude Code stays fully configured and tested; do not remove `.claude/` hooks, settings, or handoff flows while OpenCode is primary. Claude Code operates under more restrictive YELLOW/RED zone gates (see trust boundary).
 - **Shared rule source:** the root `opencode.json` must load `CLAUDE.md` via `instructions` so OpenCode and Claude Code execute against the same canonical policy file.
 - **Shared MCP contract:** keep the Win11 developer MCP surface aligned across `.mcp.json`, `opencode.json`, and `.claude/settings.json` for `dws-agents-local` and `dws-gateway-local`.
+- **Shared working directory:** Both OpenCode and Claude Code operate on the same local directory. Changes made in one session may be picked up by the other. Commits and PRs from OpenCode are the authoritative upstream state.
 - **Failover rule:** platform switching is manual. Capture branch state in `.claude/handoffs/<branch>.md` before handing work from OpenCode to Claude Code or back.
 - **Classification rule:** when adding automation, mark it explicitly as OpenCode-primary, Claude-only, or runtime-neutral in the governing doc or field note.
 - **OpenCode upstream management:** Synced from [anomalyco/opencode](https://github.com/anomalyco/opencode) via git submodule. Check for updates at session start (`.claude/hooks/opencode-check.js` runs automatically); pulls latest upstream commit info. User decides when to update via `npm run opencode:update`. Non-blocking, non-intrusive notifications only.
