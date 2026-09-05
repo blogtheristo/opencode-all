@@ -1,4 +1,4 @@
-> **Note:** This repository (`blogtheristo/opencode-all`) is an independent project and is **not** built by the OpenCode team and is **not** affiliated with [opencode.ai](https://opencode.ai) or [anomalyco/opencode](https://github.com/anomalyco/opencode) in any way.
+> **Note:** This repository (`blogtheristo/opencode-all`) is a fork of [anomalyco/opencode](https://github.com/anomalyco/opencode), maintained by [Lifetime Oy](https://lifetime.fi) for DWS IQ 6 development. It is **not** affiliated with [opencode.ai](https://opencode.ai) or the original OpenCode team.
 
 <p align="center">
   <a href="https://opencode.ai">
@@ -9,11 +9,10 @@
     </picture>
   </a>
 </p>
-<p align="center">The open source AI coding agent.</p>
+<p align="center">The open source AI coding agent — DWS fork.</p>
 <p align="center">
-  <a href="https://opencode.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
+  <a href="https://github.com/blogtheristo/opencode-all"><img alt="GitHub" src="https://img.shields.io/github/forks/blogtheristo/opencode-all?style=flat-square&label=fork" /></a>
   <a href="https://www.npmjs.com/package/opencode-ai"><img alt="npm" src="https://img.shields.io/npm/v/opencode-ai?style=flat-square" /></a>
-  <a href="https://github.com/anomalyco/opencode/actions/workflows/publish.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/anomalyco/opencode/publish.yml?style=flat-square&branch=dev" /></a>
 </p>
 
 <p align="center">
