@@ -231,6 +231,7 @@ if _invokes_cmd git; then
   printf '%s' "$COMMAND" | grep -qiE 'git[[:space:]]+reset[[:space:]]+--hard' && block "git reset --hard"
   printf '%s' "$COMMAND" | grep -qiE 'git[[:space:]]+clean[[:space:]]+-[a-z]*f' && block "git clean -f"
   printf '%s' "$COMMAND" | grep -qiE '(^|[;&|]+[[:space:]]*)git[[:space:]]+rm[[:space:]]' && block "git rm — use git mv with _OLD suffix"
+  printf '%s' "$COMMAND" | grep -qiE 'git[[:space:]]+stash[[:space:]]+(drop|clear)' && block "git stash drop/clear is destructive — stashes are unrecoverable once dropped. Apply/pop or leave them."
 fi
 
 # SQL destructive operations

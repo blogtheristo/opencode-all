@@ -1,4 +1,7 @@
 /**
+ * Evidence: Tool=Copilot CLI 1.0.83 Model=gpt-5.6-luna Agent=Copilot CLI Date=2026-09-05
+ * Audit trail: git log -- src/__tests__/agents/article12-logger.test.ts
+ *
  * Article12Logger — live Postgres write-path proof
  *
  * Closes RELEASE-READINESS.md item 2's sandbox half: prior to this session,
@@ -19,13 +22,14 @@
  * migration applied to run this suite for real. Skipped otherwise.
  */
 
-import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { Pool } from 'pg';
+import type { Article12Logger as Article12LoggerClass } from '../../agents/article12-logger.js';
 
 const TEST_DB_URL = process.env.AEGIS_DURABILITY_TEST_DB_URL;
 
 describe.skipIf(!TEST_DB_URL)('Article12Logger — real Postgres write path', () => {
-  let Article12Logger: typeof import('../../agents/article12-logger.js').Article12Logger;
+  let Article12Logger: typeof Article12LoggerClass;
   let pool: Pool;
 
   beforeAll(async () => {

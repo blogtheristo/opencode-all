@@ -1,4 +1,7 @@
 /**
+ * Evidence: Tool=Copilot CLI 1.0.83 Model=gpt-5.6-luna Agent=Copilot CLI Date=2026-09-05
+ * Audit trail: git log -- src/__tests__/seo-workflow-agents.test.ts
+ *
  * SEO & Workflow Agent Tests — Coverage for SEO pipeline and workflow orchestrators
  *
  * Tests: keyword-intent, seo-audit, competitor-surveillance, content-brief,
@@ -146,6 +149,34 @@ describe('SeoAudit Agent', () => {
 
     expect(result.agentName).toBe('seo-audit');
     expect(result.confidence).toBeGreaterThan(0);
+  });
+
+  it('should classify CTAs by their containing section', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      text: async () => `
+        <header><nav>Navigation</nav></header>
+        <main>
+          <section class="hero"><button>Request demo</button></section>
+          <section><p>Useful content</p></section>
+        </main>
+        <footer><p>Footer</p></footer>
+      `,
+      json: async () => ({}),
+      headers: new Headers({ 'content-type': 'text/html' }),
+    } as Response));
+
+    const result = await agent.execute(ctx, {
+      site: { baseUrl: 'https://dws10.com', pages: ['/'] },
+      scope: 'single-page',
+    });
+    const output = result.result as {
+      ctaAnalysis: Array<{ ctaCount: number; primaryCta: { position: string } }>;
+    };
+
+    expect(output.ctaAnalysis[0].primaryCta.position).toBe('hero');
+    expect(output.ctaAnalysis[0].ctaCount).toBe(1);
   });
 });
 
