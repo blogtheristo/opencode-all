@@ -20,17 +20,17 @@ on:
   push:
     branches: [main]
     paths-ignore:
-      - 'docs/**'
-      - 'Learn/**'
-      - '*.md'
-      - 'landing-pages/**'
-      - 'onelifetime.world/**'
-      - 'investor-outreach/**'
-      - 'sales-outreach/**'
+      - "docs/**"
+      - "Learn/**"
+      - "landing-pages/**"
+      - "onelifetime.world/**"
+      - "investor-outreach/**"
+      - "sales-outreach/**"
+    # Note: CLAUDE.md and other governance files are NOT ignored — they affect agent behavior and must trigger DGX deployment
   workflow_dispatch:
     inputs:
       force_rebuild:
-        description: 'Force full rebuild (docker compose build --no-cache)'
+        description: "Force full rebuild (docker compose build --no-cache)"
         type: boolean
         default: false
 
