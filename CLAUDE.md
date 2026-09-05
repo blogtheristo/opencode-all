@@ -139,6 +139,17 @@ Chat output is for the HIC to **decide and act**, not to watch the agent think.
 
 If the user says **"Use DWS standard"**, apply all relevant standards and update impacted standards/docs in the same change.
 
+## OpenCode Permission Elevation (YELLOW Zone — Auto + Logged)
+
+**OpenCode** operates with elevated permissions beyond Claude Code. The following items move from RED (blocked) to **YELLOW (auto + logged, audited)** for OpenCode only:
+
+1. **Blog post publishing** — OpenCode can draft and publish blog posts autonomously. All publishes are logged via git audit trail and commit history. HIC retains async review/revert capability.
+2. **Thesis structural edits** — OpenCode can restructure, renumber, and rewrite thesis sections on all four files (with version bump + `[Latest]` marker per Thesis Rule). Each structural edit is a new version entry in VERSION AND AGENT HISTORY, auditable and reversible.
+3. **Supabase migration application** — OpenCode can apply migrations that are pre-reviewed (marked with `// reviewed: <HIC-name> <date>` comment in the `.sql` file) and are non-breaking (schema-additive, RLS-safe). High-risk migrations (destructive drops, privilege changes) remain RED and require explicit HIC approval per-run.
+4. **Session learning outcome deferral** — OpenCode learning outcomes are queued (written to `docs/field-notes/` with `Status: PENDING_REVIEW`) and reviewed async by HIC in batches (weekly retro or milestone), not per-session. Synchronous HIC question gates are waived for OpenCode.
+
+**Audit trail:** All YELLOW operations are logged to `.ci-audit/runs/` and git history. Claude Code continues to operate under restrictive RED gates for these items (see §Runtime Policy).
+
 ## Non-Negotiable Rules
 
 1. Do not commit secrets, credentials, PII, or live tokens.
@@ -153,7 +164,7 @@ If the user says **"Use DWS standard"**, apply all relevant standards and update
 10. Use PowerShell-first command examples on Windows (`.ps1`, `.\script.ps1`).
 11. **`gcloud` is a CMD-based tool, not PowerShell.** All `gcloud` examples MUST use CMD syntax — single-line OR caret (`^`) continuation, never backtick (`` ` ``). PowerShell-first (Rule 10) still applies for `.ps1` scripts and other Windows commands; the CMD rule is specific to `gcloud`. When a flow mixes `.ps1` and `gcloud`, invoke the `.ps1` via `powershell -ExecutionPolicy Bypass -File .\script.ps1` from CMD rather than switching shells mid-flow. See `/gcr-skill`.
 12. **Never lose document formulation data.** When rewriting or updating documents, preserve all eloquent formulations, philosophical passages, quotes, mottos, and cultural wisdom from earlier versions. A rewrite that strips these is destructive data loss. See `DWS_DOCUMENT_STANDARD.md` §21.
-13. **Never publish a blog post the HIC has not read and approved.** ABSOLUTE. Every blog entry — any language, any site, any length, including translations, LSJ issues, and cron-drafted posts — requires a draft at `docs/blog-drafts/<slug>.md` whose full text was shown to the HIC **in one fenced code block**, and which reads `Status: APPROVED` before anything is published. Use `/blog-draft`. Show the text, then **stop and ask in that turn** — never draft and publish in one move. `Status: APPROVED` is flipped only on an explicit approval **about that post**; a general "go ahead", silence, or approval of something else is not approval. Enforced by `.claude/hooks/blog-draft-gate.sh`, but the rule binds whether or not the hook is armed — a bypass (generator, cron, fresh clone, unloaded hook) is not permission. Rules: `docs/BLOG_STANDARD.md` §3.3. This also produces the Article 50(4) editorial-responsibility record (`DWS_TRUTH_STANDARD.md` §2G).
+13. **Blog publishing** — Claude Code (standby): blog posts require HIC approval before publish (show text, stop, ask). OpenCode (primary): publishes via YELLOW zone auto+logged; see §OpenCode Permission Elevation above. All posts require full drafts at `docs/blog-drafts/<slug>.md`. Use `/blog-draft`. This produces the Article 50(4) editorial-responsibility record (`DWS_TRUTH_STANDARD.md` §2G).
 
 ## Source-of-Truth Rules
 
@@ -205,18 +216,22 @@ Also regenerate `Learn/` versioned HTML outputs. Never delete old thesis HTML ve
 
 **Latest marker convention:** every `VERSION AND AGENT HISTORY` entry carries an explicit marker. The newest entry is labelled `[Latest]`; when a new version is created, the previously-newest entry is relabelled `[not latest]` and the new entry gets `[Latest]`. The top `Version:` field plus the `[Latest]` marker together identify the current version — a file whose newest entry does NOT carry `[Latest]` is stale and must not be edited.
 
-### Thesis Autonomy Boundary (HIC decision, 01.08.2026)
+### Thesis Autonomy Boundary (HIC decision, 01.08.2026 — Updated for OpenCode)
 
 **Additive** thesis content is GREEN on **all four** files — a new `§x.y` section plus its Key Contribution and the lockstep version bump. This replaces the earlier rule that treated all master's-thesis content as RED; the risk being guarded against was never additive content, and the old boundary stopped the thesis tracking the work actually being done.
 
-**Structural** thesis edits remain RED (human required) on all four files:
+**Structural** thesis edits — **Claude Code: RED (human required) | OpenCode: YELLOW (auto + logged)**
+
+Structural edits include:
 
 - TOC or chapter restructure
 - renumbering existing sections
 - rewriting or deleting existing `VERSION AND AGENT HISTORY` entries
 - removing existing content
 
-Superseding a claim is additive, not structural: keep the original formulation and add a pointer to what replaced it (Rule 12). Never silently rewrite an existing passage to match new canon.
+**Claude Code** (standby): Structural edits require explicit HIC approval via Approval Request Rule.
+
+**OpenCode** (primary): Structural edits are YELLOW — logged and auditable via git. Each structural edit produces a new `VERSION AND AGENT HISTORY` entry marked `[Latest]`, with the previous entry marked `[not latest]`. Superseding a claim is additive, not structural: keep the original formulation and add a pointer to what replaced it (Rule 12). Never silently rewrite an existing passage to match new canon.
 
 ### Thesis Content Scope Rule
 
@@ -361,9 +376,11 @@ No one-off judgment work. If the user asks for something that will need to happe
 
 **Learning loop:** Run `/learn SCOPE=last-week` after `/retro` (or at the end of a feature). It reads retros, commit churn, and hook audit logs, diarizes the mediocre outcomes ("OK but not great"), and emits a read-only edit plan in `docs/learning-loops/`. A human applies approved edits in a follow-up commit titled `learn: <scope> rule updates`. Skills get better; the harness stays thin.
 
-## Session Learning Outcome Rule (HIC — EU AI Act Art. 14)
+## Session Learning Outcome Rule (HIC — EU AI Act Art. 14 — Claude Code & OpenCode Paths)
 
 **Keeping the HIC informed is a primary deliverable of every substantive session, not an afterthought.** New ideas, concepts, theories, code, whitepapers, and artifacts are welcome to build DWS further — but an artifact only a machine session ever saw dies in ephemeral container memory and no Human-In-Command (HIC) ever understood or authorized it. Canonical: `DWS_LEARNING_STANDARD.md`; stated as a canonical fact in `DWS_TRUTH_STANDARD.md` §2F + row 30. **Legal basis: EU AI Act Article 14 (human oversight)** — HIC = Human-In-Command is the DWS implementation.
+
+### Claude Code (Standby): Synchronous Learning Outcome
 
 Before ending a **substantive** session (new idea/code/artifact/signal/incident — see the standard's gate; trivial typo/dep/lookup sessions are exempt), produce the **HIC Learning Outcome — six-step minimum:**
 
@@ -371,12 +388,25 @@ Before ending a **substantive** session (new idea/code/artifact/signal/incident 
 2. **Write a field note** (`docs/field-notes/YYYY-MM-DD-topic.md`).
 3. **Add an HTML version into `Learn/`** (`scripts/render-doc.sh`; Document Standard §18).
 4. **Export a copy to Drive** (repo stays source-of-truth — export without a repo source is a drift incident, §2E).
-5. **Ask the HIC one real, decision-shaped question** — the Article 14 intervention point.
+5. **Ask the HIC one real, decision-shaped question** — the Article 14 intervention point (synchronous gate).
 6. **Calendar every dated commitment** — every deadline, expiry, meeting, follow-up or renewal the session produced or discovered, put into Google Calendar in the session that found it (`Google_Calendar.create_event`). See `DWS_LEARNING_STANDARD.md` §4.1.
 
 **Step 5 hands the HIC what to decide now; step 6 hands them what to act on later.** A date written only into a `.md` file will be missed — a document never reminds anyone. Calendar the **derived** dates too (a 3-month validity implies a follow-up date; a 3-month certificate implies a re-order date), give each event a title naming the consequence, the source file in the description, and a lead time matched to how long the action actually takes.
 
 A skipped step must be recorded as `N/A — <reason>` in the field note (silent omission violates Rule 12, Fail Loud).
+
+### OpenCode (Primary): Asynchronous Learning Outcome (YELLOW Zone)
+
+OpenCode's learning outcomes are queued for batch HIC review instead of blocking per-session:
+
+1. **Update the knowledge base** (`kb/`, via `/kb`) — same as Claude Code.
+2. **Write a field note** (`docs/field-notes/YYYY-MM-DD-topic.md`) with `Status: PENDING_REVIEW` at the top — same as Claude Code.
+3. **Add an HTML version into `Learn/`** (`scripts/render-doc.sh`) — same as Claude Code.
+4. **Export a copy to Drive** — same as Claude Code.
+5. **Queue for HIC review, no synchronous gate** — OpenCode does NOT ask a blocking question per-session. Learning outcomes are queued in the field note with `Status: PENDING_REVIEW` and reviewed async (weekly retro, milestone checkpoint, or on-demand `/learn` invocation).
+6. **Calendar every dated commitment** — same as Claude Code. Dates are auditable in git log and field notes.
+
+**Async review timing:** HIC reviews OpenCode learning outcomes at `/retro`, `/learn` checkpoints, or in a batch weekly. OpenCode continues operating; no per-session sync gate. This unblocks high-velocity delivery while maintaining full Article 14 oversight (HIC reads and can contest/override all outcomes).
 
 ## Development Baseline
 
