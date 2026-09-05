@@ -1,6 +1,6 @@
 # DWS IQ Platform - Admin Manual
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -61,7 +61,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
 
-***
+---
 
 **Repository:** [blogtheristo/dws6](https://github.com/blogtheristo/dws6)
 
@@ -323,11 +323,11 @@ The verified DGX development posture is **OpenCode-primary** with Ollama and loc
 
 ### Runtime and model roles
 
-| Role | Runtime | Operational rule |
-| --- | --- | --- |
+| Role                          | Runtime                              | Operational rule                                                                           |
+| ----------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------ |
 | Normal development and agents | OpenCode 1.18.18 -> Ollama (`11434`) | Prefer current NVIDIA/open models; do not hard-code retired `llama3.3:70b` as the default. |
-| Coding and smaller tasks | OpenCode model routing | Use the configured coding/smaller-work route (currently Qwen Coder where selected). |
-| Hot standby | Claude Code | Use when OpenCode/Ollama is unavailable or Claude tooling is required. |
+| Coding and smaller tasks      | OpenCode model routing               | Use the configured coding/smaller-work route (currently Qwen Coder where selected).        |
+| Hot standby                   | Claude Code                          | Use when OpenCode/Ollama is unavailable or Claude tooling is required.                     |
 
 ### DGX startup and verification
 
@@ -349,6 +349,7 @@ OpenCode is installed at `/home/admin100/.opencode/bin/opencode`; non-login SSH 
 - Install gateway dependencies into the project virtualenv with `python -m pip install -r mcp-servers/cloud-run-gateway/requirements.txt`.
 
 The DGX heartbeat on `9999` and Ollama on `11434` do not substitute for the disabled port-3001 MCP service. `LSPs are disabled` is informational.
+
 ## Aspire Dashboard Observability (DGX Spark)
 
 The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — currently `13.4.6`, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
@@ -1817,10 +1818,11 @@ winget install wkhtmltopdf                          # Optional (PDF engine)
 ```
 
 **Engine choice:**
-| Engine | Output | Dependencies | Reliability |
-|--------|--------|-------------|-------------|
-| `html` (default) | `.html` styled documents | pandoc only | Always works |
-| `wkhtmltopdf` | `.pdf` files | pandoc + wkhtmltopdf | May have path issues |
+
+| Engine           | Output                   | Dependencies         | Reliability          |
+| ---------------- | ------------------------ | -------------------- | -------------------- |
+| `html` (default) | `.html` styled documents | pandoc only          | Always works         |
+| `wkhtmltopdf`    | `.pdf` files             | pandoc + wkhtmltopdf | May have path issues |
 
 **Run manually:**
 
@@ -1840,17 +1842,18 @@ EU cloud backup of all code, scripts, and business documents to Supabase Storage
 **Bucket:** `admin-vault` (private)
 
 **Folders synced:**
-| Folder | Content |
-|--------|---------|
-| `Admin/` | Admin manuals, security docs |
-| `scripts/` | PowerShell/Bash automation scripts |
-| `src/` | Backend source code, integrations |
-| `Firehorse/` | Product suite files |
-| `AgentFoundry/` | AI agent configurations |
-| `Team/` | Team documentation |
-| `sales-outreach/` | Sales materials |
-| `investor-outreach/` | Investor documents |
-| `docs/metropolia/` | Thesis documentation |
+
+| Folder               | Content                            |
+| -------------------- | ---------------------------------- |
+| `Admin/`             | Admin manuals, security docs       |
+| `scripts/`           | PowerShell/Bash automation scripts |
+| `src/`               | Backend source code, integrations  |
+| `Firehorse/`         | Product suite files                |
+| `AgentFoundry/`      | AI agent configurations            |
+| `Team/`              | Team documentation                 |
+| `sales-outreach/`    | Sales materials                    |
+| `investor-outreach/` | Investor documents                 |
+| `docs/metropolia/`   | Thesis documentation               |
 
 **Run manually:** `.\scripts\Sync-ToSupabase.ps1` or `-DryRun` or `-CreateBucket`
 
@@ -3074,14 +3077,14 @@ The `.gitignore` file contains patterns to prevent sensitive data from being com
 
 ### Protected Categories
 
-| Category                       | Patterns                                                                                      | Description                                                      |
-| ------------------------------ | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| **Confidential Business Data** | `/confidential/`, `/secrets/`, `/investor-materials/`, `*.confidential.*`, `*-confidential.*` | Internal business documents, investor materials, strategic plans |
-| **Customer Data**              | `/customer-data/`, `/pilot-data/`, `/ncc-data/`, `/t2h-data/`                                 | GDPR-protected customer information and pilot project data       |
+| Category                       | Patterns                                                                                                     | Description                                                      |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| **Confidential Business Data** | `/confidential/`, `/secrets/`, `/investor-materials/`, `*.confidential.*`, `*-confidential.*`                | Internal business documents, investor materials, strategic plans |
+| **Customer Data**              | `/customer-data/`, `/pilot-data/`, `/ncc-data/`, `/t2h-data/`                                                | GDPR-protected customer information and pilot project data       |
 | **API Keys & Credentials**     | `.env.local`, `.env.*.local`, `credentials.json`, `service-account-*.json`, `gcp-sa-*.json`, `*sa-key*.json` | API keys, service accounts, local environment secrets            |
-| **Financial Models**           | `*financial-model*.xlsx`, `*roi-calculator*.xlsx`, `*cap-table*.xlsx`                         | Sensitive financial projections and capitalization data          |
-| **Proprietary Algorithms**     | `/dws-core/proprietary/`, `/algorithms/confidential/`                                         | DWS IQ trade secrets and confidential algorithms                 |
-| **Admin Documentation**        | Admin/, admin/                                                                                | Admin manual, installation guides (ProtonDrive only)             |
+| **Financial Models**           | `*financial-model*.xlsx`, `*roi-calculator*.xlsx`, `*cap-table*.xlsx`                                        | Sensitive financial projections and capitalization data          |
+| **Proprietary Algorithms**     | `/dws-core/proprietary/`, `/algorithms/confidential/`                                                        | DWS IQ trade secrets and confidential algorithms                 |
+| **Admin Documentation**        | Admin/, admin/                                                                                               | Admin manual, installation guides (ProtonDrive only)             |
 
 ### Directory Structure for Sensitive Data
 
@@ -3708,6 +3711,38 @@ is a navigational snapshot, not a replacement for `git log`. Regenerate with
 
 - DGX Spark primary runtime: `infrastructure/dgx-spark/` docker-compose,
   heartbeat, cron-runner, deploy scripts.
+
+---
+
+## Developer Environment Setup & Troubleshooting
+
+### Claude Code CLI: Binary Installation Issue
+
+**Symptom:** `claude` command fails daily or after `npm install`. Running `npm install` fixes it temporarily.
+
+**Root cause:** Claude Code's postinstall script downloads platform-native binaries. If npm's install scripts are disabled (default security), the binary doesn't download, leaving a broken symlink.
+
+**Fix (one-time):**
+
+```bash
+# Configure npm to allow Claude Code install scripts globally
+npm config set allow-scripts=@anthropic-ai/claude-code --location=user
+
+# Reinstall Claude Code
+npm uninstall -g @anthropic-ai/claude-code
+npm install -g @anthropic-ai/claude-code
+```
+
+**Verify:**
+
+```bash
+claude --version
+# Should output: 2.1.261 (Claude Code) ✓
+```
+
+**Why this works:** The `allow-scripts` config in `~/.npmrc` ensures that future installations (after cache clears, deps updates, or worktree refreshes) always run Claude Code's postinstall script, fetching the correct platform-native binary (Linux ELF on Linux, macOS Mach-O on macOS, Windows .exe on Windows).
+
+**Prevention:** Keep `~/.npmrc` with this setting across all developer machines.
 
 ---
 

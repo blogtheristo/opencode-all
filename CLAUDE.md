@@ -410,6 +410,16 @@ OpenCode's learning outcomes are queued for batch HIC review instead of blocking
 
 ## Development Baseline
 
+### Prerequisites: npm Configuration
+
+Before working in the repository, configure npm to allow Claude Code's postinstall scripts:
+
+```bash
+npm config set allow-scripts=@anthropic-ai/claude-code --location=user
+```
+
+This prevents daily `claude` command failures caused by blocked platform-binary downloads. See `Admin/ADMIN_MANUAL.md` § Developer Environment Setup & Troubleshooting for details.
+
 ### Build/Test Sequence (root)
 
 ```powershell

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "_comment": "Shared project settings for Claude Code across all repo-backed sessions. MCP servers configured: dws-agents-local, dws-gateway-local, github (PR context), supabase (schema validation). See .mcp.json for full MCP configuration.",
+  "_comment": "Shared project settings for Claude Code across all repo-backed sessions. MCP servers configured: dws-agents-local, dws-gateway-local, github (PR context), supabase (schema validation). See .mcp.json for full MCP configuration. DEVELOPER SETUP: Run 'npm config set allow-scripts=@anthropic-ai/claude-code --location=user' to prevent daily 'claude' command failures (see Admin/ADMIN_MANUAL.md § Developer Environment Setup).",
   "env": {
     "DISABLE_BUG_COMMAND": 0,
     "DISABLE_AUTO_UPDATE": 0
