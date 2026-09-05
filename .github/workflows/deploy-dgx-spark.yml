@@ -22,7 +22,6 @@ on:
     paths-ignore:
       - 'docs/**'
       - 'Learn/**'
-      - '*.md'
       - 'landing-pages/**'
       - 'onelifetime.world/**'
       - 'investor-outreach/**'
