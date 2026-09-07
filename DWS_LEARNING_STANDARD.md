@@ -2,7 +2,7 @@
 
 _Canonical registry — single source of truth. Registered in `DWS_TRUTH_STANDARD.md` §2 row 30._
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -18,7 +18,7 @@ Sessions & Modifications:
 - Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Session: claude/dws-learning-hic-process-e70k0a | Date: 24.07.2026 | Changes: Sharpened §1 with the load-bearing **HIL ("in the loop") vs HIC ("in command")** distinction and the framing that **ending a substantive session with no learning outcome is knowledge destruction** — an Article 14 compliance gap, not a process miss. Added a §2 **"double duty"** note: the stream of learning outcomes is itself audit-grade **Article 12** record-keeping applied inward to DWS's own development process. Conceptual articulation only — the requirement and the five-step minimum are unchanged. Rich framing kept here (not in `DWS_TRUTH_STANDARD.md`, which stays a thin registry; §2F already points here). HIC-validated 24.07.2026.
 - Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Session: claude/dws-learning-hic-process-e70k0a | Date: 24.07.2026 | Changes: Created the DWS Learning Standard. Codifies the **HIC Learning Outcome** — the requirement that every substantive session ends by capturing what it learned so a Human-In-Command (HIC) understands and can act on the new knowledge. Establishes the five-step minimum (update KB → field note → Learn/ HTML → Drive export → ask HIC a question), the **EU AI Act Article 14 (human oversight)** legal basis, the substantive-vs-trivial session gate, the Roles chapter, and cross-references to the Truth Standard (§2F, row 30), Document Standard (§17/§18 Learn HTML), and the field-notes README. Triggered by founder directive: "we need to keep HIC informed and make sure new artifact is understood by HIC … this HIC process of learn is a major outcome of each session."
 
-***
+---
 
 ## Table of Contents
 
@@ -71,14 +71,14 @@ This requirement is registered as a canonical fact in `DWS_TRUTH_STANDARD.md` §
 
 The minimum HIC Learning Outcome is six steps. Fewer is a bug; more is welcome.
 
-| # | Step | What it means | Where it lands | Canonical rule |
-| - | ---- | ------------- | -------------- | -------------- |
-| 1 | **Update the knowledge base** | Add/refresh the KB entry for the new concept, entity, signal, or artifact so future sessions retrieve it. | `kb/` (`raw/`, `wiki/`, or `kb.json`) via the `/kb` skill | `/kb` skill; field-notes README "CAPTURE → PROCESS → ELEVATE" |
-| 2 | **Write a field note** | One dated markdown note: what happened, the insight, next steps, ontology tags. This is the human-readable capture. | `docs/field-notes/YYYY-MM-DD-topic.md` | `docs/field-notes/README.md` |
-| 3 | **Add an HTML version into the Learn folder** | Render the field note / artifact to self-contained HTML so a HIC can read it in a browser without the repo. | `Learn/YYYY-MM-DD-topic.html` (via `scripts/render-doc.sh`) | `DWS_DOCUMENT_STANDARD.md` §18 (Learn HTML), Downloadable HTML Rule |
-| 4 | **Export a copy to Drive** | Push a copy to Google Drive so the HIC reaches it from phone/desktop outside the repo. Repo stays the source of truth (Truth Standard §2E). | Google Drive (MCP `Google_Drive.create_file`) | Truth Standard §2B/§2E (Repository-First, Then Export) |
-| 5 | **Ask the HIC a question** | End the session with **one real, decision-shaped question** for the HIC — the intervention point Article 14 requires. Not "any feedback?"; a specific fork the human should own. **Shape it per §10.** | Session reply to HIC + logged in the field note "Next Steps" | This standard §2 + **§10**, EU AI Act Art. 14 |
-| 6 | **Calendar every dated commitment** | Every date the session produced or discovered that carries a consequence — deadline, expiry, meeting, follow-up, renewal, validity window — is put in the calendar **in the session that found it**. **Shape it per §4.1.** | Google Calendar (MCP `Google_Calendar.create_event`), on the calendar that owns the work | This standard **§4.1**, EU AI Act Art. 14 |
+| #   | Step                                          | What it means                                                                                                                                                                                                               | Where it lands                                                                           | Canonical rule                                                      |
+| --- | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| 1   | **Update the knowledge base**                 | Add/refresh the KB entry for the new concept, entity, signal, or artifact so future sessions retrieve it.                                                                                                                   | `kb/` (`raw/`, `wiki/`, or `kb.json`) via the `/kb` skill                                | `/kb` skill; field-notes README "CAPTURE → PROCESS → ELEVATE"       |
+| 2   | **Write a field note**                        | One dated markdown note: what happened, the insight, next steps, ontology tags. This is the human-readable capture.                                                                                                         | `docs/field-notes/YYYY-MM-DD-topic.md`                                                   | `docs/field-notes/README.md`                                        |
+| 3   | **Add an HTML version into the Learn folder** | Render the field note / artifact to self-contained HTML so a HIC can read it in a browser without the repo.                                                                                                                 | `Learn/YYYY-MM-DD-topic.html` (via `scripts/render-doc.sh`)                              | `DWS_DOCUMENT_STANDARD.md` §18 (Learn HTML), Downloadable HTML Rule |
+| 4   | **Export a copy to Drive**                    | Push a copy to Google Drive so the HIC reaches it from phone/desktop outside the repo. Repo stays the source of truth (Truth Standard §2E).                                                                                 | Google Drive (MCP `Google_Drive.create_file`)                                            | Truth Standard §2B/§2E (Repository-First, Then Export)              |
+| 5   | **Ask the HIC a question**                    | End the session with **one real, decision-shaped question** for the HIC — the intervention point Article 14 requires. Not "any feedback?"; a specific fork the human should own. **Shape it per §10.**                      | Session reply to HIC + logged in the field note "Next Steps"                             | This standard §2 + **§10**, EU AI Act Art. 14                       |
+| 6   | **Calendar every dated commitment**           | Every date the session produced or discovered that carries a consequence — deadline, expiry, meeting, follow-up, renewal, validity window — is put in the calendar **in the session that found it**. **Shape it per §4.1.** | Google Calendar (MCP `Google_Calendar.create_event`), on the calendar that owns the work | This standard **§4.1**, EU AI Act Art. 14                           |
 
 **Ordering.** 1→2→3→4 are produce-then-publish; 5 and 6 are the two hand-offs. Repo first, export second (Truth Standard §2E): an export with no repo source-of-truth file is a drift incident, not a deliverable. **Step 5 hands the HIC what to decide now; step 6 hands the HIC what to act on later.** A session that does 1–5 and skips 6 has informed the HIC of a deadline they will still miss.
 
@@ -90,15 +90,15 @@ The minimum HIC Learning Outcome is six steps. Fewer is a bug; more is welcome.
 
 **What must be calendared.** Any date with a consequence attached:
 
-| Kind | Examples |
-| --- | --- |
-| **Expiry** | Offer validity, certificate/extract validity, licence renewal, credit windows, NDA terms |
-| **Deadline** | Tender submission, regulatory filing, statutory reporting, customer-committed delivery |
-| **Meeting** | Anything agreed with a third party, including "let's talk in September" |
-| **Follow-up** | Silence thresholds ("no reply in 5 business days → chase"), decision-review points |
-| **Derived** | Dates the document implies but never states — see below |
+| Kind          | Examples                                                                                 |
+| ------------- | ---------------------------------------------------------------------------------------- |
+| **Expiry**    | Offer validity, certificate/extract validity, licence renewal, credit windows, NDA terms |
+| **Deadline**  | Tender submission, regulatory filing, statutory reporting, customer-committed delivery   |
+| **Meeting**   | Anything agreed with a third party, including "let's talk in September"                  |
+| **Follow-up** | Silence thresholds ("no reply in 5 business days → chase"), decision-review points       |
+| **Derived**   | Dates the document implies but never states — see below                                  |
 
-**Derived dates count, and are the ones most often missed.** A three-month engagement implies a *last date to sign for delivery this year*. A three-month certificate implies a *re-order date*. A validity end implies a *follow-up before it*, not only the end itself. The document states the date; the calendar must state **when someone has to act**, which is usually earlier.
+**Derived dates count, and are the ones most often missed.** A three-month engagement implies a _last date to sign for delivery this year_. A three-month certificate implies a _re-order date_. A validity end implies a _follow-up before it_, not only the end itself. The document states the date; the calendar must state **when someone has to act**, which is usually earlier.
 
 **Every event carries three things:**
 
@@ -121,6 +121,7 @@ The distinction that makes this safe: **the calendar holds the action date; the 
 Not every keystroke is a session. Apply judgment, and when unsure, produce the outcome.
 
 **Substantive (learning outcome REQUIRED):**
+
 - New idea, concept, theory, framework, or positioning.
 - New or materially-changed code, agent, skill, or migration.
 - New whitepaper, standard, deck, or customer-facing artifact.
@@ -129,6 +130,7 @@ Not every keystroke is a session. Apply judgment, and when unsure, produce the o
 - Any session a HIC would want to know happened.
 
 **Trivial (learning outcome NOT required):**
+
 - Typo/formatting fixes, dependency bumps with no behavior change.
 - Pure lookups/questions answered with no artifact produced.
 - Re-running an existing skill that already logs its own output.
@@ -147,6 +149,26 @@ The harness stays thin; the skills carry the process.
 
 **Enforcement (built 24.07.2026):** `.claude/hooks/session-stop.sh` **Check 6** blocks session exit (`exit 2`, block-don't-ask) when a clearly-substantive session produced no field note or `Learn/` HTML dated today. It is loop-safe (a `stop_hook_active` circuit breaker never blocks twice) and escape-hatched so a misclassified trivial session is never trapped: an `N/A — <reason>` note, `DWS_SKIP_LEARNING_OUTCOME=1`, or `[skip-learning]` in the commit message all release it, and the classifier only counts code / a `*STANDARD*.md` / a new agent / a whitepaper as substantive (dep/lock/config-only diffs stay trivial). It enforces only the two mechanizable artifacts (field note + Learn/ HTML); steps 1/4/5 (KB, Drive, HIC question) remain agent-driven and are named in the block message.
 
+### 6.1 The Learning Hub — Learn/start.html
+
+**Central discovery point for all learning outcomes.** The `Learn/start.html` page is a weekly-generated index of 170+ research documents, thesis materials, field notes, and learning outcomes. It serves as the **"Learning Hub"** — the single place where a HIC (or any stakeholder) can find:
+
+- **Thesis materials** — PhD research (PHD_FIREHORSE_EN/FI) and Master's thesis (V3Thesis_EN/FI)
+- **Field notes** — Dated, tagged learning outcomes from every substantive session
+- **Research guides** — Whitepapers, architecture docs, agent guides
+- **Coach/training materials** — Learning packages for customers and partners
+- **Bid and proposal materials** — Captured organizational knowledge for customer engagement
+
+**How to access:**
+
+- **Direct:** `Learn/start.html` (in repo, via rendered HTML, or via Google Drive export)
+- **Structure:** Organized by content type (Coach materials, Bids, HTML Documents, Markdown Sources)
+- **Refresh:** Auto-generated weekly via `scripts/weekly/coach-learn-curate.sh`
+
+**Why it matters for learning:** The Learning Hub is where all six-step outcomes converge (steps 2+3+4 live here), making the stream of learning visible and reachable. A HIC checking the Learning Hub sees the full record of what each session learned and can spot patterns, signal opportunities, or flag missing investigations across multiple sessions.
+
+**Archival:** Superseded versions move to `Learn/Archive/` to keep the hub focused on current knowledge while maintaining full audit trail.
+
 ## 7. Relationship to Other Standards
 
 - **`DWS_TRUTH_STANDARD.md`** — §2F states the HIC Learning Outcome requirement as a canonical fact; §2 row 30 registers this file. Truth Standard §2E (Repository-First, Then Export) governs step 4.
@@ -159,13 +181,13 @@ The harness stays thin; the skills carry the process.
 
 Roles pulled from `DWS_ROLES_REGISTRY.md`; referenced by R-ID so name changes propagate.
 
-| Stage | Role(s) | What they own for this standard | What they get from it |
-| ----- | ------- | ------------------------------- | --------------------- |
-| 1 — Sponsor | R22 CEO | Requires the HIC Learning Outcome as a session deliverable; is a HIC | Article 14 oversight discharged; no session's knowledge lost to container reclamation |
-| 2 — Owner | Risto Päärni (interim) + Lucille Santiago (Office Chief / HIC) | Receive learning outcomes; answer the HIC question; maintain this standard | A readable, reachable stream of what every session learned |
-| 3 — Approver | R05 General Counsel + R13 CIO | Confirm the loop satisfies the Article 14 evidence expectation | Audit-ready human-oversight posture for RFPs/DD |
-| 4 — Driver | Every engineer + every AI agent in an editing session | Run the six-step minimum before ending a substantive session | No re-discovery next session; credit for the artifact persists; no dated commitment left in a document only |
-| 5 — Sign-off | R22 CEO | Sign off on changes to the minimum itself | Governance baseline defensible to board and regulators |
+| Stage        | Role(s)                                                        | What they own for this standard                                            | What they get from it                                                                                       |
+| ------------ | -------------------------------------------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| 1 — Sponsor  | R22 CEO                                                        | Requires the HIC Learning Outcome as a session deliverable; is a HIC       | Article 14 oversight discharged; no session's knowledge lost to container reclamation                       |
+| 2 — Owner    | Risto Päärni (interim) + Lucille Santiago (Office Chief / HIC) | Receive learning outcomes; answer the HIC question; maintain this standard | A readable, reachable stream of what every session learned                                                  |
+| 3 — Approver | R05 General Counsel + R13 CIO                                  | Confirm the loop satisfies the Article 14 evidence expectation             | Audit-ready human-oversight posture for RFPs/DD                                                             |
+| 4 — Driver   | Every engineer + every AI agent in an editing session          | Run the six-step minimum before ending a substantive session               | No re-discovery next session; credit for the artifact persists; no dated commitment left in a document only |
+| 5 — Sign-off | R22 CEO                                                        | Sign off on changes to the minimum itself                                  | Governance baseline defensible to board and regulators                                                      |
 
 **RACI shorthand:** Owner is _Accountable_; Sponsor is _Responsible_; Approver is _Consulted_; Driver is _Informed and acts_.
 
@@ -176,7 +198,7 @@ Roles pulled from `DWS_ROLES_REGISTRY.md`; referenced by R-ID so name changes pr
 - **The fake question.** "Let me know if you want changes." Step 5 requires a real decision fork a human should own, not a politeness.
 - **Silent N/A.** Skipping a step without writing `N/A — <reason>`. Fail loud (Rule 12).
 - **Learning in chat scrollback.** Insight explained in the session reply but never written to a field note. Scrollback is not a git-committed, HIC-reachable artifact.
-- **The recommendation-free decision.** Presenting the HIC a fork with no preferred action. This offloads *analysis*, not authority — see §10.
+- **The recommendation-free decision.** Presenting the HIC a fork with no preferred action. This offloads _analysis_, not authority — see §10.
 - **Correction decay.** A superseded recommendation quietly returning as a plan, because the correction lived somewhere the next reader did not look. Corrections decay faster than the claims they corrected; anchor them where the decision is read (§10.5).
 - **Blended provenance.** A decision presented on a mix of verified and second-hand facts with no marker separating them. The HIC cannot weigh what they cannot see the basis of (§10.4).
 - **The date that only lives in a document.** A deadline, expiry or meeting written correctly into a `.md` file and nowhere else. The record is accurate and the commitment is still missed, because no document has ever reminded anyone. Step 6 (§4.1).
@@ -187,7 +209,7 @@ Roles pulled from `DWS_ROLES_REGISTRY.md`; referenced by R-ID so name changes pr
 
 ## 10. The HIC Decisioning Process Model (how Step 5 questions are shaped)
 
-Step 5 says *ask the HIC one real, decision-shaped question*. This section defines the shape. A question the HIC cannot act on in one reading is not an Article 14 intervention point — it is a status update wearing a question mark.
+Step 5 says _ask the HIC one real, decision-shaped question_. This section defines the shape. A question the HIC cannot act on in one reading is not an Article 14 intervention point — it is a status update wearing a question mark.
 
 ### 10.1 The required form
 
@@ -205,18 +227,18 @@ N. <The decision as a question — a fork, not a status check>
 
 #### 10.1.1 The number is branch-scoped and never restarts
 
-`N` is a **running counter across the branch**, not a per-document one. A note that opens its question block at `1` because it is the first question *in that file* breaks the only thing the number is for.
+`N` is a **running counter across the branch**, not a per-document one. A note that opens its question block at `1` because it is the first question _in that file_ breaks the only thing the number is for.
 
 - The first decision point raised on a branch is **Q1**. The next is **Q2** — even if it appears in a different field note, a different standard, or three days later.
 - Every field note states the branch-scoped number, not a local one. Three notes may each carry exactly one question; they are Q1, Q2 and Q3, never three Q1s.
 - `.claude/handoffs/<branch>.md` carries the **highest number used so far**, so the next session resumes the sequence instead of guessing. A session that cannot find the counter starts from the highest number visible in the branch's notes and says so.
 - Answers reference the number alone. "Q2: option 1" must be unambiguous without naming a file.
 
-**Why this is a rule and not a preference.** On 30.07.2026 a single branch produced three field notes that each opened at "Q1". The HIC could not answer by reference — three distinct decisions shared one label — and had to reply in two positional blocks of `1. / 2. / 3.` that then required a clarifying round to disambiguate. §10.1 fixed the *form* of the question and left the *counter* undefined, so three notes independently and reasonably restarted at 1. The cost was a full round-trip on the Article 14 intervention point itself, which is the one exchange that must not need a second attempt.
+**Why this is a rule and not a preference.** On 30.07.2026 a single branch produced three field notes that each opened at "Q1". The HIC could not answer by reference — three distinct decisions shared one label — and had to reply in two positional blocks of `1. / 2. / 3.` that then required a clarifying round to disambiguate. §10.1 fixed the _form_ of the question and left the _counter_ undefined, so three notes independently and reasonably restarted at 1. The cost was a full round-trip on the Article 14 intervention point itself, which is the one exchange that must not need a second attempt.
 
 ### 10.2 Always recommend — this is not deference, it is the requirement
 
-An agent that lists options without a recommendation has offloaded the *analysis* while pretending to defer on the *authority*. Article 14 oversight means a human can **override the machine's judgment** — which presupposes the machine stated one. A recommendation the HIC rejects is oversight working correctly; no recommendation at all is oversight with nothing to act on.
+An agent that lists options without a recommendation has offloaded the _analysis_ while pretending to defer on the _authority_. Article 14 oversight means a human can **override the machine's judgment** — which presupposes the machine stated one. A recommendation the HIC rejects is oversight working correctly; no recommendation at all is oversight with nothing to act on.
 
 Recommend even when uncertain. Mark the confidence, then recommend anyway.
 
