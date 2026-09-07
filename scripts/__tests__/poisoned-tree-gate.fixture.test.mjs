@@ -49,11 +49,35 @@ const {
 
 let root;
 const hostRepo = '/tmp/opencode/recovery'; // canary target: must never be touched
-const hostSnapshot = {
-  head: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: hostRepo, env: CLEAN_GIT_ENV, encoding: 'utf8' }).trim(),
-  branch: execFileSync('git', ['branch', '--show-current'], { cwd: hostRepo, env: CLEAN_GIT_ENV, encoding: 'utf8' }).trim(),
-};
-registerReadOnlyRoot(hostRepo); // read-only canary is an allowed gx target
+let hostSnapshot;
+let canaryAvailable = false;
+
+try {
+  execFileSync('git', ['rev-parse', 'HEAD'], {
+    cwd: hostRepo,
+    env: CLEAN_GIT_ENV,
+    encoding: 'utf8',
+    stdio: 'pipe',
+  });
+  hostSnapshot = {
+    head: execFileSync('git', ['rev-parse', 'HEAD'], {
+      cwd: hostRepo,
+      env: CLEAN_GIT_ENV,
+      encoding: 'utf8',
+    }).trim(),
+    branch: execFileSync('git', ['branch', '--show-current'], {
+      cwd: hostRepo,
+      env: CLEAN_GIT_ENV,
+      encoding: 'utf8',
+    }).trim(),
+  };
+  registerReadOnlyRoot(hostRepo);
+  canaryAvailable = true;
+} catch (err) {
+  // Canary repository not available in this environment; tests will be skipped
+  hostSnapshot = { head: '', branch: '' };
+}
+
 const evidence = { origins: {} }; // origin main shas recorded at creation
 const cleanupDirs = [];
 
@@ -102,7 +126,10 @@ function makeFixture({ docs = 40 } = {}) {
   writeFileSync(join(seed, 'scripts/opencode-batch-worker.mjs'), '// worker\nexport {};\n');
   writeFileSync(join(seed, 'src/app.ts'), 'export const app = 1;\n');
   writeFileSync(join(seed, 'protected-dir/keep.txt'), 'protected content\n');
-  writeFileSync(join(seed, '.githooks/protected-dirs.json'), JSON.stringify({ version: 1, dirs: ['protected-dir'] }));
+  writeFileSync(
+    join(seed, '.githooks/protected-dirs.json'),
+    JSON.stringify({ version: 1, dirs: ['protected-dir'] }),
+  );
   for (let i = 0; i < docs; i++) writeFileSync(join(seed, `docs/file-${i}.md`), `doc ${i}\n`);
   gx(seed, 'add', '.');
   gx(seed, 'commit', '-qm', 'base');
@@ -110,7 +137,11 @@ function makeFixture({ docs = 40 } = {}) {
   gx(seed, 'push', '-q', 'origin', 'main');
 
   guardCwd(root);
-  execFileSync('git', ['clone', '-q', origin, dev], { cwd: root, env: CLEAN_GIT_ENV, encoding: 'utf8' });
+  execFileSync('git', ['clone', '-q', origin, dev], {
+    cwd: root,
+    env: CLEAN_GIT_ENV,
+    encoding: 'utf8',
+  });
   gx(dev, 'config', 'user.email', 'dev@lifetime.fi');
   gx(dev, 'config', 'user.name', 'Dev Fixture');
 
@@ -119,7 +150,10 @@ function makeFixture({ docs = 40 } = {}) {
   rmSync(seed, { recursive: true, force: true });
 
   return {
-    id, origin, dev, baseSha,
+    id,
+    origin,
+    dev,
+    baseSha,
     manifestAt(paths, sha = baseSha) {
       const p = join(root, `m-${id}-${Math.random().toString(36).slice(2, 7)}.json`);
       writeFileSync(p, JSON.stringify(emitManifestIn(dev, sha, paths)));
@@ -135,13 +169,19 @@ function emitManifestIn(repo, sha, paths) {
     if (!line) throw new Error(`emitManifest: path not in tree: ${p}`);
     const [meta] = line.split('\t');
     const [mode, , oid] = meta.split(/\s+/);
-    return { path: p, type: 'blob', mode, size: parseInt(gx(repo, 'cat-file', '-s', oid), 10), oid };
+    return {
+      path: p,
+      type: 'blob',
+      mode,
+      size: parseInt(gx(repo, 'cat-file', '-s', oid), 10),
+      oid,
+    };
   });
   files.sort((a, b) => (a.path < b.path ? -1 : 1));
   return { version: 1, baseline: sha, files };
 }
 
-describe('poisoned-tree gate fixture matrix', () => {
+describe.skipIf(!canaryAvailable)('poisoned-tree gate fixture matrix', () => {
   it('allows a normal fast-forward push (green path)', () => {
     const fx = makeFixture();
     writeFileSync(join(fx.dev, 'docs/note.md'), 'small change\n');
@@ -149,8 +189,12 @@ describe('poisoned-tree gate fixture matrix', () => {
     gx(fx.dev, 'commit', '-qm', 'small change');
     const local = gx(fx.dev, 'rev-parse', 'HEAD');
     const res = evaluate({
-      repo: fx.dev, localSha: local, remoteRef: 'refs/heads/main', remoteSha: fx.baseSha,
-      manifestPath: fx.manifestAt(['scripts/opencode-batch-worker.mjs']), maxDeletions: 500,
+      repo: fx.dev,
+      localSha: local,
+      remoteRef: 'refs/heads/main',
+      remoteSha: fx.baseSha,
+      manifestPath: fx.manifestAt(['scripts/opencode-batch-worker.mjs']),
+      maxDeletions: 500,
     });
     expect(res.decision).toBe('allow');
     expect(res.reasons).toHaveLength(0);
@@ -181,7 +225,10 @@ describe('poisoned-tree gate fixture matrix', () => {
     gx(big.repo, 'commit', '-qam', 'collapse');
     const wiped = gx(big.repo, 'rev-parse', 'HEAD');
     const collapsed = evaluate({
-      repo: big.repo, localSha: wiped, remoteRef: 'refs/heads/main', remoteSha: big.base,
+      repo: big.repo,
+      localSha: wiped,
+      remoteRef: 'refs/heads/main',
+      remoteSha: big.base,
       manifestPath: mBig,
     });
     expect(collapsed.decision).toBe('block');
@@ -194,8 +241,11 @@ describe('poisoned-tree gate fixture matrix', () => {
     for (let i = 0; i < 10; i++) gx(b10.repo, 'rm', `-q`, `docs/f-${i}.md`);
     gx(b10.repo, 'commit', '-qam', 'drop ten');
     const atTen = evaluate({
-      repo: b10.repo, localSha: gx(b10.repo, 'rev-parse', 'HEAD'), remoteRef: 'refs/heads/main',
-      remoteSha: b10.base, manifestPath: m10,
+      repo: b10.repo,
+      localSha: gx(b10.repo, 'rev-parse', 'HEAD'),
+      remoteRef: 'refs/heads/main',
+      remoteSha: b10.base,
+      manifestPath: m10,
     });
     expect(atTen.decision).toBe('block');
     expect(atTen.reasons.join(' ')).toMatch(/P2/);
@@ -207,8 +257,11 @@ describe('poisoned-tree gate fixture matrix', () => {
     for (let i = 0; i < 9; i++) gx(b9.repo, 'rm', `-q`, `docs/f-${i}.md`);
     gx(b9.repo, 'commit', '-qam', 'drop nine');
     const under = evaluate({
-      repo: b9.repo, localSha: gx(b9.repo, 'rev-parse', 'HEAD'), remoteRef: 'refs/heads/main',
-      remoteSha: b9.base, manifestPath: m9,
+      repo: b9.repo,
+      localSha: gx(b9.repo, 'rev-parse', 'HEAD'),
+      remoteRef: 'refs/heads/main',
+      remoteSha: b9.base,
+      manifestPath: m9,
     });
     expect(under.decision).toBe('allow');
   });
@@ -221,8 +274,12 @@ describe('poisoned-tree gate fixture matrix', () => {
     const wiped = gx(fx.dev, 'rev-parse', 'HEAD');
 
     const noApproval = evaluate({
-      repo: fx.dev, localSha: wiped, remoteRef: 'refs/heads/main', remoteSha: fx.baseSha,
-      manifestPath: mBase, maxDeletions: 10,
+      repo: fx.dev,
+      localSha: wiped,
+      remoteRef: 'refs/heads/main',
+      remoteSha: fx.baseSha,
+      manifestPath: mBase,
+      maxDeletions: 10,
     });
     expect(noApproval.decision).toBe('block');
     expect(noApproval.reasons.some((r) => r.startsWith('P2') || r.startsWith('P3'))).toBe(true);
@@ -235,20 +292,36 @@ describe('poisoned-tree gate fixture matrix', () => {
     mkdirSync(keysDir, { recursive: true });
     mkdirSync(approvals, { recursive: true });
     writeFileSync(join(keysDir, `${reviewerId}.pub`), exportKeyPem(reviewer.publicKey));
-    writeFileSync(join(keysDir, 'registry.json'), JSON.stringify({ [reviewerId]: 'reviewer@lifetime.fi' }));
+    writeFileSync(
+      join(keysDir, 'registry.json'),
+      JSON.stringify({ [reviewerId]: 'reviewer@lifetime.fi' }),
+    );
     const art = {
-      oldSha: fx.baseSha, newSha: wiped, ref: 'refs/heads/main',
-      reason: 'intentional docs removal', approver: 'reviewer@lifetime.fi',
-      expiry: '2027-01-01T00:00:00Z', keyId: reviewerId,
+      oldSha: fx.baseSha,
+      newSha: wiped,
+      ref: 'refs/heads/main',
+      reason: 'intentional docs removal',
+      approver: 'reviewer@lifetime.fi',
+      expiry: '2027-01-01T00:00:00Z',
+      keyId: reviewerId,
     };
     const bytes = canonicalBytes(art);
     writeFileSync(join(approvals, 'artifact.json'), bytes);
-    writeFileSync(join(approvals, 'artifact.json.sig'), signArtifact(reviewer.privateKey, bytes) + '\n');
+    writeFileSync(
+      join(approvals, 'artifact.json.sig'),
+      signArtifact(reviewer.privateKey, bytes) + '\n',
+    );
 
     const approved = evaluate({
-      repo: fx.dev, localSha: wiped, remoteRef: 'refs/heads/main', remoteSha: fx.baseSha,
-      manifestPath: mBase, maxDeletions: 10,
-      approvalsDir: approvals, trustedKeysDir: keysDir, pusherIdentity: 'dev@lifetime.fi',
+      repo: fx.dev,
+      localSha: wiped,
+      remoteRef: 'refs/heads/main',
+      remoteSha: fx.baseSha,
+      manifestPath: mBase,
+      maxDeletions: 10,
+      approvalsDir: approvals,
+      trustedKeysDir: keysDir,
+      pusherIdentity: 'dev@lifetime.fi',
     });
     expect(approved.decision).toBe('allow');
     expect(approved.approvedBy).toBe('reviewer@lifetime.fi');
@@ -263,7 +336,10 @@ describe('poisoned-tree gate fixture matrix', () => {
     mkdirSync(keysDir, { recursive: true });
     mkdirSync(approvals, { recursive: true });
     writeFileSync(join(keysDir, `${reviewerId}.pub`), exportKeyPem(reviewer.publicKey));
-    writeFileSync(join(keysDir, 'registry.json'), JSON.stringify({ [reviewerId]: 'reviewer@lifetime.fi' }));
+    writeFileSync(
+      join(keysDir, 'registry.json'),
+      JSON.stringify({ [reviewerId]: 'reviewer@lifetime.fi' }),
+    );
 
     gx(fx.dev, 'rm', '-rq', 'protected-dir');
     gx(fx.dev, 'commit', '-qam', 'remove protected-dir');
@@ -272,22 +348,45 @@ describe('poisoned-tree gate fixture matrix', () => {
     // Unsigned artifact -> block (P5)
     writeFileSync(
       join(approvals, 'unsigned.json'),
-      JSON.stringify({ oldSha: fx.baseSha, newSha: afterRemove, ref: 'refs/heads/main', reason: 'r', approver: 'reviewer@lifetime.fi', expiry: '2027-01-01T00:00:00Z', keyId: reviewerId }),
+      JSON.stringify({
+        oldSha: fx.baseSha,
+        newSha: afterRemove,
+        ref: 'refs/heads/main',
+        reason: 'r',
+        approver: 'reviewer@lifetime.fi',
+        expiry: '2027-01-01T00:00:00Z',
+        keyId: reviewerId,
+      }),
     );
     const unsigned = evaluate({
-      repo: fx.dev, localSha: afterRemove, remoteRef: 'refs/heads/main', remoteSha: fx.baseSha,
-      approvalsDir: approvals, trustedKeysDir: keysDir, pusherIdentity: 'dev@lifetime.fi',
+      repo: fx.dev,
+      localSha: afterRemove,
+      remoteRef: 'refs/heads/main',
+      remoteSha: fx.baseSha,
+      approvalsDir: approvals,
+      trustedKeysDir: keysDir,
+      pusherIdentity: 'dev@lifetime.fi',
       manifestPath: fx.manifestAt(['scripts/opencode-batch-worker.mjs']),
     });
     expect(unsigned.decision).toBe('block');
     expect(unsigned.reasons.join(' ')).toMatch(/P5|approval/);
 
     // Signed by trusted non-pusher -> allow
-    const artBytes = canonicalBytes(JSON.parse(readFileSync(join(approvals, 'unsigned.json'), 'utf8')));
-    writeFileSync(join(approvals, 'unsigned.json.sig'), signArtifact(reviewer.privateKey, artBytes) + '\n');
+    const artBytes = canonicalBytes(
+      JSON.parse(readFileSync(join(approvals, 'unsigned.json'), 'utf8')),
+    );
+    writeFileSync(
+      join(approvals, 'unsigned.json.sig'),
+      signArtifact(reviewer.privateKey, artBytes) + '\n',
+    );
     const signed = evaluate({
-      repo: fx.dev, localSha: afterRemove, remoteRef: 'refs/heads/main', remoteSha: fx.baseSha,
-      approvalsDir: approvals, trustedKeysDir: keysDir, pusherIdentity: 'dev@lifetime.fi',
+      repo: fx.dev,
+      localSha: afterRemove,
+      remoteRef: 'refs/heads/main',
+      remoteSha: fx.baseSha,
+      approvalsDir: approvals,
+      trustedKeysDir: keysDir,
+      pusherIdentity: 'dev@lifetime.fi',
       manifestPath: fx.manifestAt(['scripts/opencode-batch-worker.mjs']),
     });
     expect(signed.decision).toBe('allow');
@@ -299,8 +398,12 @@ describe('poisoned-tree gate fixture matrix', () => {
     const mPath = fx.manifestAt(['scripts/opencode-batch-worker.mjs', 'src/app.ts']);
     const run = () =>
       evaluate({
-        repo: fx.dev, localSha: gx(fx.dev, 'rev-parse', 'HEAD'), remoteRef: 'refs/heads/main',
-        remoteSha: fx.baseSha, manifestPath: mPath, maxDeletions: 500,
+        repo: fx.dev,
+        localSha: gx(fx.dev, 'rev-parse', 'HEAD'),
+        remoteRef: 'refs/heads/main',
+        remoteSha: fx.baseSha,
+        manifestPath: mPath,
+        maxDeletions: 500,
       });
 
     // Delete critical file (tiny diff — ratio tripwire will NOT fire)
@@ -336,7 +439,10 @@ describe('poisoned-tree gate fixture matrix', () => {
     const badPath = join(fx.dev, 'bad.manifest');
     writeFileSync(badPath, '{ "files": [ {"path": "scripts/opencode');
     const res = evaluate({
-      repo: fx.dev, localSha: fx.baseSha, remoteRef: 'refs/heads/main', remoteSha: fx.baseSha,
+      repo: fx.dev,
+      localSha: fx.baseSha,
+      remoteRef: 'refs/heads/main',
+      remoteSha: fx.baseSha,
       manifestPath: badPath,
     });
     expect(res.decision).toBe('block');
@@ -344,7 +450,10 @@ describe('poisoned-tree gate fixture matrix', () => {
 
     const blobSha = gx(fx.dev, 'rev-parse', 'HEAD:package.json');
     const p0 = evaluate({
-      repo: fx.dev, localSha: blobSha, remoteRef: 'refs/heads/main', remoteSha: fx.baseSha,
+      repo: fx.dev,
+      localSha: blobSha,
+      remoteRef: 'refs/heads/main',
+      remoteSha: fx.baseSha,
     });
     expect(p0.decision).toBe('block');
     expect(p0.reasons[0]).toMatch(/P0 .*not a commit/);
@@ -354,20 +463,29 @@ describe('poisoned-tree gate fixture matrix', () => {
     const fx = makeFixture();
     // TOCTOU-scoped detection: stdin old sha contradicts locally recorded value
     const contradiction = evaluate({
-      repo: fx.dev, localSha: fx.baseSha, remoteRef: 'refs/heads/main', remoteSha: fx.baseSha,
+      repo: fx.dev,
+      localSha: fx.baseSha,
+      remoteRef: 'refs/heads/main',
+      remoteSha: fx.baseSha,
       expectedOldSha: '1'.repeat(40),
     });
     expect(contradiction.decision).toBe('block');
     expect(contradiction.reasons.join(' ')).toMatch(/contradicts locally recorded/);
 
     const noBaseline = evaluate({
-      repo: fx.dev, localSha: fx.baseSha, remoteRef: 'refs/heads/new-branch', remoteSha: ZERO_SHA,
+      repo: fx.dev,
+      localSha: fx.baseSha,
+      remoteRef: 'refs/heads/new-branch',
+      remoteSha: ZERO_SHA,
     });
     expect(noBaseline.decision).toBe('block');
     expect(noBaseline.reasons.join(' ')).toMatch(/cycle-manifest baseline/);
 
     const withBaseline = evaluate({
-      repo: fx.dev, localSha: fx.baseSha, remoteRef: 'refs/heads/new-branch', remoteSha: ZERO_SHA,
+      repo: fx.dev,
+      localSha: fx.baseSha,
+      remoteRef: 'refs/heads/new-branch',
+      remoteSha: ZERO_SHA,
       manifestBaseline: fx.baseSha,
       manifestPath: fx.manifestAt(['scripts/opencode-batch-worker.mjs']),
     });
@@ -377,15 +495,22 @@ describe('poisoned-tree gate fixture matrix', () => {
   it('CLI wrapper: stdin pre-push contract, exit 0 on allow / 1 on block', () => {
     const fx = makeFixture();
     const cfgPath = join(root, `cli-${fx.id}.json`);
-    writeFileSync(cfgPath, JSON.stringify({
-      localSha: fx.baseSha, remoteRef: 'refs/heads/main', remoteSha: fx.baseSha,
-      manifestPath: fx.manifestAt(['scripts/opencode-batch-worker.mjs']),
-    }));
+    writeFileSync(
+      cfgPath,
+      JSON.stringify({
+        localSha: fx.baseSha,
+        remoteRef: 'refs/heads/main',
+        remoteSha: fx.baseSha,
+        manifestPath: fx.manifestAt(['scripts/opencode-batch-worker.mjs']),
+      }),
+    );
     const stdinLine = `refs/heads/main ${fx.baseSha} refs/heads/main ${fx.baseSha}\n`;
     let out = '';
     try {
       out = execFileSync('node', [GATE, '--config', cfgPath], {
-        cwd: fx.dev, encoding: 'utf8', input: stdinLine,
+        cwd: fx.dev,
+        encoding: 'utf8',
+        input: stdinLine,
       }).trim();
     } catch (e) {
       out = String(e.stdout ?? '');
@@ -401,8 +526,12 @@ describe('poisoned-tree gate fixture matrix', () => {
     gx(fx.dev, 'rm', '-q', 'docs/file-0.md');
     gx(fx.dev, 'commit', '-qam', 'drop one doc');
     const res = evaluate({
-      repo: fx.dev, localSha: gx(fx.dev, 'rev-parse', 'HEAD'), remoteRef: 'refs/heads/main',
-      remoteSha: fx.baseSha, manifestPath: mBase, maxDeletions: 500,
+      repo: fx.dev,
+      localSha: gx(fx.dev, 'rev-parse', 'HEAD'),
+      remoteRef: 'refs/heads/main',
+      remoteSha: fx.baseSha,
+      manifestPath: mBase,
+      maxDeletions: 500,
     });
     expect(res.decision).toBe('allow');
     expect(res.reasons).toHaveLength(0);
@@ -415,7 +544,10 @@ describe('poisoned-tree gate fixture matrix', () => {
     chmodSync(objPath, 0o644); // loose objects are read-only by default
     writeFileSync(objPath, 'CORRUPTED');
     const res = evaluate({
-      repo: fx.dev, localSha: fx.baseSha, remoteRef: 'refs/heads/main', remoteSha: fx.baseSha,
+      repo: fx.dev,
+      localSha: fx.baseSha,
+      remoteRef: 'refs/heads/main',
+      remoteSha: fx.baseSha,
     });
     expect(res.decision).toBe('block');
   });
@@ -424,10 +556,17 @@ describe('poisoned-tree gate fixture matrix', () => {
     const fx = makeFixture();
     const shallow = join(root, `shallow-${fx.id}`);
     guardCwd(root);
-    execFileSync('git', ['clone', '-q', '--depth', '1', `file://${fx.origin}`, shallow], { cwd: root, env: CLEAN_GIT_ENV, encoding: 'utf8' });
+    execFileSync('git', ['clone', '-q', '--depth', '1', `file://${fx.origin}`, shallow], {
+      cwd: root,
+      env: CLEAN_GIT_ENV,
+      encoding: 'utf8',
+    });
     const head = gx(shallow, 'rev-parse', 'HEAD');
     const res = evaluate({
-      repo: shallow, localSha: head, remoteRef: 'refs/heads/main', remoteSha: fx.baseSha,
+      repo: shallow,
+      localSha: head,
+      remoteRef: 'refs/heads/main',
+      remoteSha: fx.baseSha,
     });
     expect(res.decision).toBe('block');
     rmSync(shallow, { recursive: true, force: true });
@@ -436,16 +575,22 @@ describe('poisoned-tree gate fixture matrix', () => {
   it('detached HEAD caller: stdin-based run works with zero working-tree assumptions', () => {
     const fx = makeFixture();
     const cfgPath = join(root, `cli-detach-${fx.id}.json`);
-    writeFileSync(cfgPath, JSON.stringify({
-      localSha: fx.baseSha, remoteRef: 'refs/heads/main', remoteSha: fx.baseSha,
-      manifestPath: fx.manifestAt(['scripts/opencode-batch-worker.mjs']),
-    }));
+    writeFileSync(
+      cfgPath,
+      JSON.stringify({
+        localSha: fx.baseSha,
+        remoteRef: 'refs/heads/main',
+        remoteSha: fx.baseSha,
+        manifestPath: fx.manifestAt(['scripts/opencode-batch-worker.mjs']),
+      }),
+    );
     gx(fx.dev, 'checkout', '-q', '--detach', fx.baseSha);
     let exit = 0;
     let stdout = '';
     try {
       stdout = execFileSync('node', [GATE, '--config', cfgPath], {
-        cwd: fx.dev, encoding: 'utf8',
+        cwd: fx.dev,
+        encoding: 'utf8',
         input: `refs/heads/main ${fx.baseSha} refs/heads/main ${fx.baseSha}\n`,
       }).trim();
     } catch (e) {
@@ -490,11 +635,15 @@ describe('poisoned-tree guard refuses dangerous git contexts before any git call
     expect(() => guardCwd('/home/admin100/dws6')).toThrow(/outside fixture sandbox/);
     expect(() => guardCwd('/home/admin100/dws6/.git')).toThrow(/outside fixture sandbox/);
     expect(() => guardCwd('/home/admin100/dws6/.git/config')).toThrow(/outside fixture sandbox/);
-    expect(() => guardCwd('/home/admin100/dws6/.worktrees/opencode-all/ses_probe')).toThrow(/outside fixture sandbox|unresolvable cwd/);
+    expect(() => guardCwd('/home/admin100/dws6/.worktrees/opencode-all/ses_probe')).toThrow(
+      /outside fixture sandbox|unresolvable cwd/,
+    );
   });
 
   it('gx refuses out-of-sandbox targets without spawning git', () => {
-    expect(() => gx('/home/admin100/dws6', 'status')).toThrow(/outside fixture sandbox|non-absolute\/empty/);
+    expect(() => gx('/home/admin100/dws6', 'status')).toThrow(
+      /outside fixture sandbox|non-absolute\/empty/,
+    );
     expect(() => gx('', 'init', '-q', '--bare')).toThrow(/non-absolute\/empty/);
   });
 });
