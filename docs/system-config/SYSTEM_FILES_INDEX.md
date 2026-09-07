@@ -336,6 +336,40 @@ opencode.json
 
 ---
 
+## Known Sync Gaps (Requires Remediation)
+
+**⚠️ CRITICAL:** Initial verification found OpenCode ↔ Claude Code are NOT fully synced as refactor claimed. Issues:
+
+### Gap 1: MCP Server Mismatch
+
+- **opencode.json:** Defines `dws-agents-local` AND `dws-gateway-local`
+- **.claude/settings.json:** Enables only `dws-gateway-local`
+- **Impact:** dws-agents-local unavailable in Claude Code standby
+- **Status:** Is this intentional or a drift?
+
+### Gap 2: Permission Syntax Mismatch
+
+- **opencode.json:** Dict format `"pattern": "allow|deny"` with catch-all `"*": "allow"`
+- **.claude/settings.json:** Array format `"allow": [...], "deny": [...]` with tool prefixes `"Read(.env)"`
+- **Impact:** Different permission models; harder to sync
+- **Status:** Requires design decision: standardize syntax or document differences
+
+### Gap 3: Missing Bash Protection
+
+- **opencode.json:** Has `"*.env*": "deny"` to block any .env file access
+- **.claude/settings.json:** Missing this pattern (only has specific `"Bash(cat .env)"`, `"Bash(cat .env.*)"`)
+- **Impact:** Claude Code missing wildcard .env protection
+- **Status:** High priority — should match OpenCode
+
+**Next steps:**
+
+1. Clarify whether gaps are intentional (documented in code comments) or drift
+2. Add `.claude/settings.json` missing bash deny rules
+3. Update CLAUDE.md or SYSTEM_FILES_INDEX.md to document known intentional differences
+4. Consider standardizing permission syntax
+
+---
+
 ## Maintenance
 
 **Regular audits:**
