@@ -1,0 +1,31 @@
+name: Skill Verification Gate
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "skills/manifest.json"
+      - ".github/workflows/verify-skills.yml"
+  push:
+    branches: [main]
+    paths:
+      - "skills/manifest.json"
+
+jobs:
+  verify-skills:
+    runs-on: ubuntu-latest
+    name: Skill Surface Verification
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.17.0"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify experimental skills have tested surfaces
+        run: npm run skills:verify-surfaces

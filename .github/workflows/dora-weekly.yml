@@ -1,0 +1,67 @@
+# DORA Dashboard — Weekly Metrics Report
+#
+# Calculates DORA metrics (lead time, deployment frequency, change failure rate, MTTR)
+# and updates docs/dora-dashboard.md every Monday at 09:00 UTC.
+#
+# Metrics are non-blocking: failures do not stop deployments.
+
+name: DORA Weekly Metrics
+
+on:
+  schedule:
+    - cron: "0 9 * * 1" # Mondays 09:00 UTC
+
+  workflow_dispatch:
+    inputs:
+      force_report:
+        description: "Force report generation even if recent"
+        required: false
+        type: boolean
+
+jobs:
+  calculate-metrics:
+    name: Calculate DORA Metrics
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for git log analysis
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Calculate DORA Metrics
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: npm run dora:metrics
+
+      - name: Commit updated dashboard
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Actions"
+          git add docs/dora-dashboard.md
+          git diff-index --quiet HEAD || git commit -m "metrics: update DORA dashboard for week $(date +%Y-%m-%d)"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Report metrics summary
+        if: always()
+        run: |
+          echo "## 📊 DORA Metrics Updated" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Metrics calculation complete" >> $GITHUB_STEP_SUMMARY
+          echo "📄 See: [DORA Dashboard](docs/dora-dashboard.md)" >> $GITHUB_STEP_SUMMARY

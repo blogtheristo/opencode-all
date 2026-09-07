@@ -1,0 +1,1499 @@
+{
+  "timestamp": "2026-09-03T03:54:39.423Z",
+  "totalSites": 122,
+  "byCategory": {
+    "JUDGMENT": 0,
+    "ROUTING": 0,
+    "TRANSFORM": 8,
+    "UNKNOWN": 114
+  },
+  "byRiskLevel": {
+    "LOW": 2,
+    "MEDIUM": 119,
+    "HIGH": 1
+  },
+  "sites": [
+    {
+      "filePath": "src/mcp/command-audit-logger.ts",
+      "lineNumber": 6,
+      "pattern": "invoke-model",
+      "context": "* OpenClaw and NemoClaw bridges. Implements the `command.invoke` / `command.result`",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "src/mcp/command-audit-logger.ts",
+      "lineNumber": 150,
+      "pattern": "invoke-model",
+      "context": "'command.invoke',",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "scripts/audit-rule-5.ts",
+      "lineNumber": 66,
+      "pattern": "invoke-model",
+      "context": "regex: /\\.invoke\\s*\\(\\s*{[^}]*model/,",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "scripts/audit-rule-5.ts",
+      "lineNumber": 67,
+      "pattern": "invoke-model",
+      "context": "searchPattern: '\\\\.invoke',",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/magicast/dist/builders-pgs2P7Vh.js",
+      "lineNumber": 1327,
+      "pattern": "invoke-model",
+      "context": "return context.invokeVisitorMethod(methodName);",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/magicast/dist/builders-pgs2P7Vh.js",
+      "lineNumber": 1396,
+      "pattern": "invoke-model",
+      "context": "sharedContextProtoMethods.invokeVisitorMethod = function invokeVisitorMethod(methodName) {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/ioredis/built/cluster/index.js",
+      "lineNumber": 151,
+      "pattern": "invoke-model",
+      "context": "this.invokeReadyDelayedCallbacks(undefined);",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/ioredis/built/cluster/index.js",
+      "lineNumber": 175,
+      "pattern": "invoke-model",
+      "context": "this.invokeReadyDelayedCallbacks(error);",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "ERROR_CONTEXT: Model call inside error handling",
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/ioredis/built/cluster/index.js",
+      "lineNumber": 198,
+      "pattern": "invoke-model",
+      "context": "this.invokeReadyDelayedCallbacks(err);",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/playwright-core/types/protocol.d.ts",
+      "lineNumber": 24087,
+      "pattern": "invoke-model",
+      "context": "\"WebMCP.invokeTool\": WebMCP.invokeToolParameters;",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/playwright-core/types/protocol.d.ts",
+      "lineNumber": 24758,
+      "pattern": "invoke-model",
+      "context": "\"WebMCP.invokeTool\": WebMCP.invokeToolReturnValue;",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/vite/dist/node/module-runner.js",
+      "lineNumber": 560,
+      "pattern": "invoke-model",
+      "context": "if (transport.invoke) return {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/vite/dist/node/module-runner.js",
+      "lineNumber": 563,
+      "pattern": "invoke-model",
+      "context": "let result = await transport.invoke({",
+      "category": "UNKNOWN",
+      "riskLevel": "LOW",
+      "reasoning": "Could not determine intent from context",
+      "flags": []
+    },
+    {
+      "filePath": "node_modules/vite/dist/node/module-runner.js",
+      "lineNumber": 638,
+      "pattern": "invoke-model",
+      "context": "...invokeableTransport.connect ? { async connect(onMessage) {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/vite/dist/node/module-runner.js",
+      "lineNumber": 652,
+      "pattern": "invoke-model",
+      "context": "...invokeableTransport.disconnect ? { async disconnect() {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/vite/dist/node/module-runner.js",
+      "lineNumber": 669,
+      "pattern": "invoke-model",
+      "context": "return invokeableTransport.invoke(name, data);",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/vite/dist/node/module-runner.js",
+      "lineNumber": 1200,
+      "pattern": "invoke-model",
+      "context": "let builtins = (await this.transport.invoke(\"getBuiltins\", [])).map((builtin) => typeof builtin == \"object\" && builtin && \"type\" in builtin ? builtin.",
+      "category": "TRANSFORM",
+      "riskLevel": "HIGH",
+      "reasoning": "Matched transform patterns: parsing, data conversion, validation",
+      "flags": [
+        "TRANSFORM_CALL: Deterministic operation delegated to LLM"
+      ]
+    },
+    {
+      "filePath": "node_modules/vite/dist/node/module-runner.js",
+      "lineNumber": 1213,
+      "pattern": "invoke-model",
+      "context": "} : await this.transport.invoke(\"fetchModule\", [",
+      "category": "UNKNOWN",
+      "riskLevel": "LOW",
+      "reasoning": "Could not determine intent from context",
+      "flags": []
+    },
+    {
+      "filePath": "node_modules/@supabase/functions-js/src/FunctionsClient.ts",
+      "lineNumber": 70,
+      "pattern": "invoke-model",
+      "context": "* const { data, error } = await functions.invoke('hello-world', {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "ERROR_CONTEXT: Model call inside error handling"
+      ]
+    },
+    {
+      "filePath": "node_modules/@supabase/functions-js/dist/module/FunctionsClient.js",
+      "lineNumber": 44,
+      "pattern": "invoke-model",
+      "context": "* const { data, error } = await functions.invoke('hello-world', {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "ERROR_CONTEXT: Model call inside error handling"
+      ]
+    },
+    {
+      "filePath": "node_modules/@supabase/functions-js/dist/module/FunctionsClient.d.ts",
+      "lineNumber": 43,
+      "pattern": "invoke-model",
+      "context": "* const { data, error } = await functions.invoke('hello-world', {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "ERROR_CONTEXT: Model call inside error handling"
+      ]
+    },
+    {
+      "filePath": "node_modules/@supabase/functions-js/dist/main/FunctionsClient.js",
+      "lineNumber": 47,
+      "pattern": "invoke-model",
+      "context": "* const { data, error } = await functions.invoke('hello-world', {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "ERROR_CONTEXT: Model call inside error handling"
+      ]
+    },
+    {
+      "filePath": "node_modules/@supabase/functions-js/dist/main/FunctionsClient.d.ts",
+      "lineNumber": 43,
+      "pattern": "invoke-model",
+      "context": "* const { data, error } = await functions.invoke('hello-world', {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "ERROR_CONTEXT: Model call inside error handling"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/lodash.js",
+      "lineNumber": 3251,
+      "pattern": "invoke-model",
+      "context": "* The base implementation of `_.invoke` without support for individual",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/lodash.js",
+      "lineNumber": 9560,
+      "pattern": "invoke-model",
+      "context": "* _.invokeMap([[5, 1, 7], [3, 2, 1]], 'sort');",
+      "category": "TRANSFORM",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Matched transform patterns: parsing, data conversion, validation",
+      "flags": [
+        "TRANSFORM_CALL: Deterministic operation delegated to LLM",
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/lodash.js",
+      "lineNumber": 9563,
+      "pattern": "invoke-model",
+      "context": "* _.invokeMap([123, 456], String.prototype.split, '');",
+      "category": "TRANSFORM",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Matched transform patterns: parsing, data conversion, validation",
+      "flags": [
+        "TRANSFORM_CALL: Deterministic operation delegated to LLM",
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/lodash.js",
+      "lineNumber": 13372,
+      "pattern": "invoke-model",
+      "context": "* _.invoke(object, 'a[0].b.c.slice', 1, 3);",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/lodash.js",
+      "lineNumber": 16728,
+      "pattern": "invoke-model",
+      "context": "lodash.invokeMap = invokeMap;",
+      "category": "TRANSFORM",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Matched transform patterns: parsing, data conversion, validation",
+      "flags": [
+        "TRANSFORM_CALL: Deterministic operation delegated to LLM",
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/lodash.js",
+      "lineNumber": 16876,
+      "pattern": "invoke-model",
+      "context": "lodash.invoke = invoke;",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/lodash.js",
+      "lineNumber": 17086,
+      "pattern": "invoke-model",
+      "context": "LazyWrapper.prototype.invokeMap = baseRest(function(path, args) {",
+      "category": "TRANSFORM",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Matched transform patterns: parsing, data conversion, validation",
+      "flags": [
+        "TRANSFORM_CALL: Deterministic operation delegated to LLM",
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/invokeMap.js",
+      "lineNumber": 24,
+      "pattern": "invoke-model",
+      "context": "* _.invokeMap([[5, 1, 7], [3, 2, 1]], 'sort');",
+      "category": "TRANSFORM",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Matched transform patterns: parsing, data conversion, validation",
+      "flags": [
+        "TRANSFORM_CALL: Deterministic operation delegated to LLM",
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/invokeMap.js",
+      "lineNumber": 27,
+      "pattern": "invoke-model",
+      "context": "* _.invokeMap([123, 456], String.prototype.split, '');",
+      "category": "TRANSFORM",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Matched transform patterns: parsing, data conversion, validation",
+      "flags": [
+        "TRANSFORM_CALL: Deterministic operation delegated to LLM",
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/lodash.min.js",
+      "lineNumber": 123,
+      "pattern": "invoke-model",
+      "context": "Z.defer=lh,Z.delay=sh,Z.difference=Us,Z.differenceBy=Bs,Z.differenceWith=Ts,Z.drop=fo,Z.dropRight=co,Z.dropRightWhile=ao,Z.dropWhile=lo,Z.fill=so,Z.fi",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/lodash.min.js",
+      "lineNumber": 127,
+      "pattern": "invoke-model",
+      "context": "Z.findLastKey=Lc,Z.floor=pp,Z.forEach=_f,Z.forEachRight=vf,Z.forIn=Cc,Z.forInRight=Uc,Z.forOwn=Bc,Z.forOwnRight=Tc,Z.get=Mc,Z.gt=gh,Z.gte=yh,Z.has=Fc,",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/lodash.min.js",
+      "lineNumber": 132,
+      "pattern": "invoke-model",
+      "context": "var r=\"take\"+(t?\"Right\":\"\");Ut.prototype[n]=function(){return this[r](1).value()[0]}}),r([\"initial\",\"tail\"],function(n,t){var r=\"drop\"+(t?\"\":\"Right\");",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/invoke.js",
+      "lineNumber": 19,
+      "pattern": "invoke-model",
+      "context": "* _.invoke(object, 'a[0].b.c.slice', 1, 3);",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/lodash/_baseInvoke.js",
+      "lineNumber": 8,
+      "pattern": "invoke-model",
+      "context": "* The base implementation of `_.invoke` without support for individual",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.iife.js",
+      "lineNumber": 644,
+      "pattern": "invoke-model",
+      "context": "Env.prototype.invokeFinalizerFromGC = function (finalizer) {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.iife.js",
+      "lineNumber": 1004,
+      "pattern": "invoke-model",
+      "context": "ref.invokeFinalizerFromGC();",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.iife.js",
+      "lineNumber": 1048,
+      "pattern": "invoke-model",
+      "context": "Reference.prototype.invokeFinalizerFromGC = function () {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.iife.js",
+      "lineNumber": 1120,
+      "pattern": "invoke-model",
+      "context": "ReferenceWithFinalizer.prototype.invokeFinalizerFromGC = function () {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.iife.js",
+      "lineNumber": 1121,
+      "pattern": "invoke-model",
+      "context": "this._finalizer.envObject.invokeFinalizerFromGC(this);",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.cjs.min.js",
+      "lineNumber": 1,
+      "pattern": "invoke-model",
+      "context": "const e=new WeakMap;function t(t){return e.has(t)}const i=(()=>{function t(t){Object.setPrototypeOf(this,null),e.set(this,t)}return t.prototype=null,t",
+      "category": "TRANSFORM",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Matched transform patterns: parsing, data conversion, validation",
+      "flags": [
+        "TRANSFORM_CALL: Deterministic operation delegated to LLM",
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.cjs.js",
+      "lineNumber": 903,
+      "pattern": "invoke-model",
+      "context": "ref.invokeFinalizerFromGC();",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.cjs.js",
+      "lineNumber": 1022,
+      "pattern": "invoke-model",
+      "context": "this._finalizer.envObject.invokeFinalizerFromGC(this);",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.js",
+      "lineNumber": 647,
+      "pattern": "invoke-model",
+      "context": "Env.prototype.invokeFinalizerFromGC = function (finalizer) {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.js",
+      "lineNumber": 1007,
+      "pattern": "invoke-model",
+      "context": "ref.invokeFinalizerFromGC();",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.js",
+      "lineNumber": 1051,
+      "pattern": "invoke-model",
+      "context": "Reference.prototype.invokeFinalizerFromGC = function () {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.js",
+      "lineNumber": 1123,
+      "pattern": "invoke-model",
+      "context": "ReferenceWithFinalizer.prototype.invokeFinalizerFromGC = function () {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.js",
+      "lineNumber": 1124,
+      "pattern": "invoke-model",
+      "context": "this._finalizer.envObject.invokeFinalizerFromGC(this);",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.esm-bundler.js",
+      "lineNumber": 608,
+      "pattern": "invoke-model",
+      "context": "Env.prototype.invokeFinalizerFromGC = function (finalizer) {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.esm-bundler.js",
+      "lineNumber": 968,
+      "pattern": "invoke-model",
+      "context": "ref.invokeFinalizerFromGC();",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.esm-bundler.js",
+      "lineNumber": 1012,
+      "pattern": "invoke-model",
+      "context": "Reference.prototype.invokeFinalizerFromGC = function () {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.esm-bundler.js",
+      "lineNumber": 1084,
+      "pattern": "invoke-model",
+      "context": "ReferenceWithFinalizer.prototype.invokeFinalizerFromGC = function () {",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.esm-bundler.js",
+      "lineNumber": 1085,
+      "pattern": "invoke-model",
+      "context": "this._finalizer.envObject.invokeFinalizerFromGC(this);",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@emnapi/runtime/dist/emnapi.min.js",
+      "lineNumber": 1,
+      "pattern": "invoke-model",
+      "context": "!function(t,e){\"object\"==typeof exports&&\"undefined\"!=typeof module?e(exports):\"function\"==typeof define&&define.amd?define([\"exports\"],e):e((t=\"undef",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.js",
+      "lineNumber": 22,
+      "pattern": "invoke-model",
+      "context": "const TMP_AWS_LAMBDA_INVOKED_ARN = 'aws.lambda.invoked_arn';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.js",
+      "lineNumber": 56,
+      "pattern": "invoke-model",
+      "context": "const TMP_FAAS_INVOKED_NAME = 'faas.invoked_name';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.js",
+      "lineNumber": 57,
+      "pattern": "invoke-model",
+      "context": "const TMP_FAAS_INVOKED_PROVIDER = 'faas.invoked_provider';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.js",
+      "lineNumber": 58,
+      "pattern": "invoke-model",
+      "context": "const TMP_FAAS_INVOKED_REGION = 'faas.invoked_region';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.d.ts",
+      "lineNumber": 8,
+      "pattern": "invoke-model",
+      "context": "export declare const SEMATTRS_AWS_LAMBDA_INVOKED_ARN = \"aws.lambda.invoked_arn\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.d.ts",
+      "lineNumber": 243,
+      "pattern": "invoke-model",
+      "context": "export declare const SEMATTRS_FAAS_INVOKED_NAME = \"faas.invoked_name\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.d.ts",
+      "lineNumber": 251,
+      "pattern": "invoke-model",
+      "context": "export declare const SEMATTRS_FAAS_INVOKED_PROVIDER = \"faas.invoked_provider\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.d.ts",
+      "lineNumber": 259,
+      "pattern": "invoke-model",
+      "context": "export declare const SEMATTRS_FAAS_INVOKED_REGION = \"faas.invoked_region\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.d.ts",
+      "lineNumber": 847,
+      "pattern": "invoke-model",
+      "context": "AWS_LAMBDA_INVOKED_ARN: 'aws.lambda.invoked_arn';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.d.ts",
+      "lineNumber": 1014,
+      "pattern": "invoke-model",
+      "context": "FAAS_INVOKED_NAME: 'faas.invoked_name';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.d.ts",
+      "lineNumber": 1020,
+      "pattern": "invoke-model",
+      "context": "FAAS_INVOKED_PROVIDER: 'faas.invoked_provider';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.d.ts",
+      "lineNumber": 1026,
+      "pattern": "invoke-model",
+      "context": "FAAS_INVOKED_REGION: 'faas.invoked_region';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/experimental_metrics.js",
+      "lineNumber": 600,
+      "pattern": "invoke-model",
+      "context": "exports.METRIC_FAAS_INVOKE_DURATION = 'faas.invoke_duration';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/experimental_metrics.d.ts",
+      "lineNumber": 581,
+      "pattern": "invoke-model",
+      "context": "export declare const METRIC_FAAS_INVOKE_DURATION: \"faas.invoke_duration\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/experimental_attributes.js",
+      "lineNumber": 1277,
+      "pattern": "invoke-model",
+      "context": "exports.ATTR_AWS_LAMBDA_INVOKED_ARN = 'aws.lambda.invoked_arn';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/experimental_attributes.js",
+      "lineNumber": 4855,
+      "pattern": "invoke-model",
+      "context": "exports.ATTR_FAAS_INVOKED_NAME = 'faas.invoked_name';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/experimental_attributes.js",
+      "lineNumber": 4863,
+      "pattern": "invoke-model",
+      "context": "exports.ATTR_FAAS_INVOKED_PROVIDER = 'faas.invoked_provider';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/experimental_attributes.js",
+      "lineNumber": 4913,
+      "pattern": "invoke-model",
+      "context": "exports.ATTR_FAAS_INVOKED_REGION = 'faas.invoked_region';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/experimental_attributes.d.ts",
+      "lineNumber": 1233,
+      "pattern": "invoke-model",
+      "context": "export declare const ATTR_AWS_LAMBDA_INVOKED_ARN: \"aws.lambda.invoked_arn\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/experimental_attributes.d.ts",
+      "lineNumber": 4806,
+      "pattern": "invoke-model",
+      "context": "export declare const ATTR_FAAS_INVOKED_NAME: \"faas.invoked_name\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/experimental_attributes.d.ts",
+      "lineNumber": 4814,
+      "pattern": "invoke-model",
+      "context": "export declare const ATTR_FAAS_INVOKED_PROVIDER: \"faas.invoked_provider\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/src/experimental_attributes.d.ts",
+      "lineNumber": 4864,
+      "pattern": "invoke-model",
+      "context": "export declare const ATTR_FAAS_INVOKED_REGION: \"faas.invoked_region\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/trace/SemanticAttributes.js",
+      "lineNumber": 14,
+      "pattern": "invoke-model",
+      "context": "const TMP_AWS_LAMBDA_INVOKED_ARN = 'aws.lambda.invoked_arn';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/trace/SemanticAttributes.js",
+      "lineNumber": 48,
+      "pattern": "invoke-model",
+      "context": "const TMP_FAAS_INVOKED_NAME = 'faas.invoked_name';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/trace/SemanticAttributes.js",
+      "lineNumber": 49,
+      "pattern": "invoke-model",
+      "context": "const TMP_FAAS_INVOKED_PROVIDER = 'faas.invoked_provider';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/trace/SemanticAttributes.js",
+      "lineNumber": 50,
+      "pattern": "invoke-model",
+      "context": "const TMP_FAAS_INVOKED_REGION = 'faas.invoked_region';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/trace/SemanticAttributes.d.ts",
+      "lineNumber": 8,
+      "pattern": "invoke-model",
+      "context": "export declare const SEMATTRS_AWS_LAMBDA_INVOKED_ARN = \"aws.lambda.invoked_arn\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/trace/SemanticAttributes.d.ts",
+      "lineNumber": 243,
+      "pattern": "invoke-model",
+      "context": "export declare const SEMATTRS_FAAS_INVOKED_NAME = \"faas.invoked_name\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/trace/SemanticAttributes.d.ts",
+      "lineNumber": 251,
+      "pattern": "invoke-model",
+      "context": "export declare const SEMATTRS_FAAS_INVOKED_PROVIDER = \"faas.invoked_provider\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/trace/SemanticAttributes.d.ts",
+      "lineNumber": 259,
+      "pattern": "invoke-model",
+      "context": "export declare const SEMATTRS_FAAS_INVOKED_REGION = \"faas.invoked_region\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/trace/SemanticAttributes.d.ts",
+      "lineNumber": 847,
+      "pattern": "invoke-model",
+      "context": "AWS_LAMBDA_INVOKED_ARN: 'aws.lambda.invoked_arn';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/trace/SemanticAttributes.d.ts",
+      "lineNumber": 1014,
+      "pattern": "invoke-model",
+      "context": "FAAS_INVOKED_NAME: 'faas.invoked_name';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/trace/SemanticAttributes.d.ts",
+      "lineNumber": 1020,
+      "pattern": "invoke-model",
+      "context": "FAAS_INVOKED_PROVIDER: 'faas.invoked_provider';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/trace/SemanticAttributes.d.ts",
+      "lineNumber": 1026,
+      "pattern": "invoke-model",
+      "context": "FAAS_INVOKED_REGION: 'faas.invoked_region';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_metrics.js",
+      "lineNumber": 588,
+      "pattern": "invoke-model",
+      "context": "export const METRIC_FAAS_INVOKE_DURATION = 'faas.invoke_duration';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_metrics.d.ts",
+      "lineNumber": 581,
+      "pattern": "invoke-model",
+      "context": "export declare const METRIC_FAAS_INVOKE_DURATION: \"faas.invoke_duration\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_attributes.js",
+      "lineNumber": 1240,
+      "pattern": "invoke-model",
+      "context": "export const ATTR_AWS_LAMBDA_INVOKED_ARN = 'aws.lambda.invoked_arn';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_attributes.js",
+      "lineNumber": 4813,
+      "pattern": "invoke-model",
+      "context": "export const ATTR_FAAS_INVOKED_NAME = 'faas.invoked_name';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_attributes.js",
+      "lineNumber": 4821,
+      "pattern": "invoke-model",
+      "context": "export const ATTR_FAAS_INVOKED_PROVIDER = 'faas.invoked_provider';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_attributes.js",
+      "lineNumber": 4871,
+      "pattern": "invoke-model",
+      "context": "export const ATTR_FAAS_INVOKED_REGION = 'faas.invoked_region';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_attributes.d.ts",
+      "lineNumber": 1233,
+      "pattern": "invoke-model",
+      "context": "export declare const ATTR_AWS_LAMBDA_INVOKED_ARN: \"aws.lambda.invoked_arn\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_attributes.d.ts",
+      "lineNumber": 4806,
+      "pattern": "invoke-model",
+      "context": "export declare const ATTR_FAAS_INVOKED_NAME: \"faas.invoked_name\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_attributes.d.ts",
+      "lineNumber": 4814,
+      "pattern": "invoke-model",
+      "context": "export declare const ATTR_FAAS_INVOKED_PROVIDER: \"faas.invoked_provider\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esm/experimental_attributes.d.ts",
+      "lineNumber": 4864,
+      "pattern": "invoke-model",
+      "context": "export declare const ATTR_FAAS_INVOKED_REGION: \"faas.invoked_region\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/trace/SemanticAttributes.js",
+      "lineNumber": 14,
+      "pattern": "invoke-model",
+      "context": "const TMP_AWS_LAMBDA_INVOKED_ARN = 'aws.lambda.invoked_arn';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/trace/SemanticAttributes.js",
+      "lineNumber": 48,
+      "pattern": "invoke-model",
+      "context": "const TMP_FAAS_INVOKED_NAME = 'faas.invoked_name';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/trace/SemanticAttributes.js",
+      "lineNumber": 49,
+      "pattern": "invoke-model",
+      "context": "const TMP_FAAS_INVOKED_PROVIDER = 'faas.invoked_provider';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/trace/SemanticAttributes.js",
+      "lineNumber": 50,
+      "pattern": "invoke-model",
+      "context": "const TMP_FAAS_INVOKED_REGION = 'faas.invoked_region';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/trace/SemanticAttributes.d.ts",
+      "lineNumber": 8,
+      "pattern": "invoke-model",
+      "context": "export declare const SEMATTRS_AWS_LAMBDA_INVOKED_ARN = \"aws.lambda.invoked_arn\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/trace/SemanticAttributes.d.ts",
+      "lineNumber": 243,
+      "pattern": "invoke-model",
+      "context": "export declare const SEMATTRS_FAAS_INVOKED_NAME = \"faas.invoked_name\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/trace/SemanticAttributes.d.ts",
+      "lineNumber": 251,
+      "pattern": "invoke-model",
+      "context": "export declare const SEMATTRS_FAAS_INVOKED_PROVIDER = \"faas.invoked_provider\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/trace/SemanticAttributes.d.ts",
+      "lineNumber": 259,
+      "pattern": "invoke-model",
+      "context": "export declare const SEMATTRS_FAAS_INVOKED_REGION = \"faas.invoked_region\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/trace/SemanticAttributes.d.ts",
+      "lineNumber": 847,
+      "pattern": "invoke-model",
+      "context": "AWS_LAMBDA_INVOKED_ARN: 'aws.lambda.invoked_arn';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/trace/SemanticAttributes.d.ts",
+      "lineNumber": 1014,
+      "pattern": "invoke-model",
+      "context": "FAAS_INVOKED_NAME: 'faas.invoked_name';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/trace/SemanticAttributes.d.ts",
+      "lineNumber": 1020,
+      "pattern": "invoke-model",
+      "context": "FAAS_INVOKED_PROVIDER: 'faas.invoked_provider';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/trace/SemanticAttributes.d.ts",
+      "lineNumber": 1026,
+      "pattern": "invoke-model",
+      "context": "FAAS_INVOKED_REGION: 'faas.invoked_region';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_metrics.js",
+      "lineNumber": 588,
+      "pattern": "invoke-model",
+      "context": "export const METRIC_FAAS_INVOKE_DURATION = 'faas.invoke_duration';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_metrics.d.ts",
+      "lineNumber": 581,
+      "pattern": "invoke-model",
+      "context": "export declare const METRIC_FAAS_INVOKE_DURATION: \"faas.invoke_duration\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_attributes.js",
+      "lineNumber": 1240,
+      "pattern": "invoke-model",
+      "context": "export const ATTR_AWS_LAMBDA_INVOKED_ARN = 'aws.lambda.invoked_arn';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_attributes.js",
+      "lineNumber": 4813,
+      "pattern": "invoke-model",
+      "context": "export const ATTR_FAAS_INVOKED_NAME = 'faas.invoked_name';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_attributes.js",
+      "lineNumber": 4821,
+      "pattern": "invoke-model",
+      "context": "export const ATTR_FAAS_INVOKED_PROVIDER = 'faas.invoked_provider';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_attributes.js",
+      "lineNumber": 4871,
+      "pattern": "invoke-model",
+      "context": "export const ATTR_FAAS_INVOKED_REGION = 'faas.invoked_region';",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_attributes.d.ts",
+      "lineNumber": 1233,
+      "pattern": "invoke-model",
+      "context": "export declare const ATTR_AWS_LAMBDA_INVOKED_ARN: \"aws.lambda.invoked_arn\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_attributes.d.ts",
+      "lineNumber": 4806,
+      "pattern": "invoke-model",
+      "context": "export declare const ATTR_FAAS_INVOKED_NAME: \"faas.invoked_name\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_attributes.d.ts",
+      "lineNumber": 4814,
+      "pattern": "invoke-model",
+      "context": "export declare const ATTR_FAAS_INVOKED_PROVIDER: \"faas.invoked_provider\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    },
+    {
+      "filePath": "node_modules/@opentelemetry/semantic-conventions/build/esnext/experimental_attributes.d.ts",
+      "lineNumber": 4864,
+      "pattern": "invoke-model",
+      "context": "export declare const ATTR_FAAS_INVOKED_REGION: \"faas.invoked_region\";",
+      "category": "UNKNOWN",
+      "riskLevel": "MEDIUM",
+      "reasoning": "Could not determine intent from context",
+      "flags": [
+        "NO_AWAIT: Async call not awaited (potential race condition)"
+      ]
+    }
+  ],
+  "highRiskFindings": [
+    {
+      "filePath": "node_modules/vite/dist/node/module-runner.js",
+      "lineNumber": 1200,
+      "pattern": "invoke-model",
+      "context": "let builtins = (await this.transport.invoke(\"getBuiltins\", [])).map((builtin) => typeof builtin == \"object\" && builtin && \"type\" in builtin ? builtin.",
+      "category": "TRANSFORM",
+      "riskLevel": "HIGH",
+      "reasoning": "Matched transform patterns: parsing, data conversion, validation",
+      "flags": [
+        "TRANSFORM_CALL: Deterministic operation delegated to LLM"
+      ]
+    }
+  ]
+}

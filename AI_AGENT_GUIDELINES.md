@@ -4,11 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
 
-- Version: 1.4 | Tool: Claude Code | Session: claude/colibri-usability-study-z5q1ew | Date: 12.07.2026 | Changes: Added §2 "Pre-Flight Readiness & Honest Reporting" — codifies two reusable agent/tool-design patterns extracted from the Colibrì usability study (`docs/field-notes/2026-07-12-colibri-usability-study.md`): a read-only pre-flight readiness/dry-run path before expensive-or-irreversible actions (the `doctor`/`plan` pattern), and honest measured-with-conditions performance reporting (the "Honest Performance Numbers" pattern).
+- Version: 1.5 [Latest] | Tool: Claude Code | Model: claude-haiku-4-5-20251001 | Session: claude/ai-software-engineering-krt01q | Date: 03.09.2026 | Changes: Added §12 Decision Logging & Rule 5 Compliance Audit — agents now subject to decision pattern observability (judgment/transform/routing categorization) and Rule 5 audit for model-call-site compliance. Links to DWS_ENGINEERING_STANDARD.md §14.
+
+- Version: 1.4 [not latest] | Tool: Claude Code | Session: claude/colibri-usability-study-z5q1ew | Date: 12.07.2026 | Changes: Added §2 "Pre-Flight Readiness & Honest Reporting" — codifies two reusable agent/tool-design patterns extracted from the Colibrì usability study (`docs/field-notes/2026-07-12-colibri-usability-study.md`): a read-only pre-flight readiness/dry-run path before expensive-or-irreversible actions (the `doctor`/`plan` pattern), and honest measured-with-conditions performance reporting (the "Honest Performance Numbers" pattern).
 - Version: 1.2 | Tool: Claude Code | Session: claude/karpathy-12-rules-u47rx1 | Date: 19.06.2026 | Changes: Added §0 "The 12 Engineering Discipline Rules" — restates the canonical 12 rules (home: CLAUDE.md) for every `src/agents/` BaseAgent, MCP tool, AgentFoundry, and dev-fleet agent, with agent-specific bindings. Ensures every agent has access to the rules per session directive.
 - Version: 1.3 | Tool: Claude Code (Opus 4.8) | Session: claude/vertical-agent-architecture-f8fqc5 | Date: 12.06.2026 | Changes: Added §11 Context Engineering & Agent Shape (L1/L2/L3 cache tiers, loop-vs-single-shot decision rule, discrete-tools-over-execute_code trade-off) from the "Building a Good Vertical Agent" audit; extended the new-agent checklist with tier + shape declarations
 - Version: 1.1 | Tool: Claude Code (Opus 4.8) | Session: claude/ceo-review-dws-firehorse-1kWuP | Date: 31.05.2026 | Changes: Added Ledger-Native Output Contract (Firehorse 7) to §2 — operational agents must emit signed journalEntries + lineage (EU AI Act Art. 12) and optional regulatoryArtifact; defined sales-side exemption allowlist and CI contract gate. Implements DWS7 CEO reshape (layer-5 / AI Actions positioning)
@@ -764,6 +766,86 @@ Keep per-agent tool counts low (single digits) to preserve model accuracy, but
 **do not** introduce a general code-execution tool into a production agent —
 that regresses the EU-AI-Act-logged security posture. If composition power is
 needed, prefer `delegate_to_agent` and the Daedalus tool-composition path.
+
+---
+
+## 12. Decision Logging & Rule 5 Compliance Audit (2026-09-03)
+
+**Program Reference:** `DWS_ENGINEERING_STANDARD.md` §14 (AI+SWE Gap Closure Program)
+
+Every agent running in a monitored session is subject to two observability requirements:
+
+### 12.1 Decision Logging (Gaps 3 / Audit Trail)
+
+**Mechanism:** `.claude/hooks/decision-log.sh` (PostToolUse hook) categorizes every Bash tool invocation:
+
+| Category      | Means                                                         | Example                             |
+| ------------- | ------------------------------------------------------------- | ----------------------------------- |
+| **JUDGMENT**  | Classification, synthesis, extraction, drafting, quality eval | Analyze test results, draft a PR    |
+| **TRANSFORM** | Deterministic data processing, JSON parsing, conversion       | Normalize URLs, format JSON, filter |
+| **ROUTING**   | Control flow delegation, choosing which agent runs            | "If CFR > 30%, run alert-agent"     |
+| **ROUTINE**   | Infrastructure, deployment, CI/CD, housekeeping               | Deploy to production, clear cache   |
+| **UNKNOWN**   | Could not categorize from context                             | Single-char command, obscure tool   |
+
+**Effect on the Agent:**
+
+- Decisions are logged to `.claude/hooks/audit/decision-log.json` (JSONL, gitignored)
+- Weekly report `scripts/analyze-decision-log.ts` summarizes pattern (docs/decision-log-reports/weekly-\*.md)
+- Anomalies flagged: high-volume JUDGMENT → suggests delegation opportunity; high-volume ROUTING → suggests lost determinism
+- No CI gate (advisory only), but anomalies surface to HIC for decision-making
+- Fulfills EU AI Act Article 14 (human oversight): decision patterns are auditable
+
+**For Agents Writing Agents:**
+Do not treat decision categories as performance metrics. High JUDGMENT volume means the agent made good use of human oversight. High ROUTING volume is a signal to re-examine whether those decisions should be code-based. UNKNOWN is a gap (too short, too obscure context) and is worth one re-audit pass.
+
+### 12.2 Rule 5 Audit (Gap 5 / Model-Call Site Categorization)
+
+**Rule 5 (Engineering Discipline Rule 5):** _"Use the model only for judgment calls — classification, drafting, summarization, extraction. NOT routing, retries, status-code handling, or deterministic transforms."_
+
+**Enforcement:**
+
+- `scripts/audit-rule-5.ts` greps all `.ts` and `.js` files for model call sites
+- Categorizes each call: JUDGMENT (safe), ROUTING (concern), TRANSFORM (fix required), UNKNOWN (insufficient context)
+- Output: `docs/audit-rule-5-findings.json` (structured), `docs/audit-rule-5-report.md` (human-readable)
+- Risk assessment: flags calls in loops, retry blocks, error handlers, or missing await contexts
+
+**What This Means for Agents:**
+
+- An agent is NOT responsible for calling the model for routing or transforms. If you find yourself writing code like:
+
+  ```javascript
+  // ❌ WRONG: Using model for routing
+  const response = await model.run("Should we use agent A or agent B? " + context);
+  if (response.includes("agent A")) {
+    /* run A */
+  }
+
+  // ❌ WRONG: Using model for parsing
+  const json = await model.run("Convert this XML to JSON: " + xmlString);
+  const data = JSON.parse(json); // Fragile!
+  ```
+
+  **Refactor to code logic instead:**
+
+  ```javascript
+  // ✓ CORRECT: Code-based routing
+  if (context.priority > HIGH) {
+    runAgentA();
+  } else {
+    runAgentB();
+  }
+
+  // ✓ CORRECT: Deterministic parsing
+  const data = xml2js.parse(xmlString); // or native DOMParser
+  ```
+
+- An agent MAY use the model for:
+  - Classification (is this urgent? is this malware? is this spam?)
+  - Synthesis (summarize this report; draft a response; create a title)
+  - Extraction (pull the email address from this blob; identify risks; highlight anomalies)
+  - Quality judgment (assess readability; rate code; identify edge cases)
+
+- **Advisory (not blocking):** The audit report is human-reviewed. If your agent violates Rule 5, you will see it flagged in the report, and the HIC will ask for a refactor. This is not a CI gate — it is a signal that the refactor should happen before the next major release.
 
 ---
 
