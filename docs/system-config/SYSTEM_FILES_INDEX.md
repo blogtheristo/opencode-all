@@ -336,9 +336,29 @@ opencode.json
 
 ---
 
+## Operational Asymmetries (Intentional Design)
+
+### .env File Permissions (By Environment)
+
+OpenCode and Claude Code have **different permission models for .env files**. This is intentional, not a gap:
+
+| File               | OpenCode (DGX Primary) | Claude Code (Standby) | Reason                                                                              |
+| ------------------ | ---------------------- | --------------------- | ----------------------------------------------------------------------------------- |
+| `.env` (root)      | ✅ ALLOW               | ❌ DENY               | OpenCode needs root config to initialize MCP servers on DGX; Claude Code is standby |
+| `.env.example`     | ✅ ALLOW               | ❌ DENY               | Reference only; safe to read; OpenCode uses for defaults                            |
+| `.env.local`       | ❌ DENY                | ❌ DENY               | Local/environment-specific secrets; both deny                                       |
+| `.env.mcp`         | ❌ DENY                | ❌ DENY               | MCP configuration secrets; both deny                                                |
+| `**/.env` (nested) | ❌ DENY                | ❌ DENY               | Deep repo secrets; both deny                                                        |
+
+**Rationale:** OpenCode runs on DGX and needs environment config; Claude Code runs in standby with minimal local config needs. Asymmetry is safe and by design.
+
+**Governance:** See `opencode.json` commit `ff408fa13` (2026-09-07) for security audit trail.
+
+---
+
 ## Known Sync Gaps (Requires Remediation)
 
-**⚠️ CRITICAL:** Initial verification found OpenCode ↔ Claude Code are NOT fully synced as refactor claimed. Issues:
+**⚠️ CRITICAL:** Initial verification found OpenCode ↔ Claude Code permission rules have gaps. Issues:
 
 ### Gap 1: MCP Server Mismatch
 
