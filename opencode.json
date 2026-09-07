@@ -70,7 +70,8 @@
     },
     "read": {
       "*": "allow",
-      ".env": "deny",
+      ".env": "allow",
+      ".env.example": "allow",
       ".env.*": "deny",
       "**/.env": "deny",
       "**/.env.*": "deny",
