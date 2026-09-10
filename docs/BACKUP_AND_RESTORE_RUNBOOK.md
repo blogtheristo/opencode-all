@@ -195,9 +195,9 @@ deleted-file reuse, git-rm directory pruning, missing manifestPath).
 
 | Tier | Where | Mechanism | Status |
 | --- | --- | --- | --- |
-| T1 — client hook | dev machines / agent worktrees | local-ci + pre-push gate (`scripts/poisoned-tree-gate.mjs`) via stdin contract; fail-closed on malformed input | **live** (this repo) |
+| T1 — client hook | dev machines / agent worktrees | local-ci + pre-push gate (`scripts/poisoned-tree-gate.mjs`) via stdin contract; fail-closed on malformed input | **not wired** — verified 2026-09-10: no hook invokes the gate. `.githooks/pre-push` enforces NO-DELETE and runs local-ci, but never calls `poisoned-tree-gate.mjs`. This row read "live" from the day it was written. T3 below is now the only tier that runs the gate. |
 | T2 — server-side ref protection | GitHub | branch protection on `main`: PR required, force-push & deletion banned, status checks required (gate job) | partial — PR/force/deletion live; **gate check not yet wired** |
-| T3 — CI tree gate | GitHub Actions on every PR | workflow runs the same gate binary against the PR merge commit: manifest presence, blob-count delta vs base, critical-file diff, roster diff; block merge on P0–P6 | **planned** (see below) |
+| T3 — CI tree gate | GitHub Actions on every PR | workflow runs the same gate binary against the PR head vs the merge-base: manifest presence, blob-count delta vs base, critical-file diff, roster diff; block merge on P0–P6 | **live** (2026-09-10) — `.github/workflows/tree-gate.yml`. Between its addition and that date it passed no `--config` and exited 2 before any check ran, while commenting "_No violations detected._" on every PR. |
 | T4 — scheduled tree audit | DGX cron (daily) | independent audit: `ls-tree -r | wc -l` trend per protected path set vs previous day; alert on >10% drop without a matching approval artifact in repo history | **planned** |
 | T5 — restore-time verification | backup cycle (§7) | Sunday exercise already compares manifest tree-hash; extend to assert gate version that produced each accepted push is recorded in CI audit log | partial |
 
@@ -211,12 +211,25 @@ assumptions) is what makes this re-run possible.
 
 1. New workflow `.github/workflows/tree-gate.yml`: `on: pull_request` to
    `main`, plus `workflow_dispatch`.
-2. Job steps: checkout PR merge ref → `node scripts/poisoned-tree-gate.mjs
-   --config <generated>` where config pins `localSha = merge commit`,
-   `remoteSha = base sha`, `manifestPath = committed cycle-manifest`.
-3. Fail the job (merge block via required status check) on `decision:
-   block`; post reasons as PR comment for the reviewer.
-4. Secrets: none needed — signature keys stay local (T1); Actions verifies
+2. Job steps: checkout PR head → resolve `base = git merge-base <base tip> <head>`
+   (P1 treats a base that is not an ancestor of the head as a non-fast-forward
+   update and blocks it; `pull_request.base.sha` moves independently of the
+   branch, so only the merge-base is a correct comparison for a PR) → generate
+   the P4 manifest for that base with `scripts/gen-tree-gate-manifest.mjs` →
+   feed the pre-push stdin contract
+   (`<local_ref> <local_sha> <remote_ref> <remote_sha>`) to
+   `node scripts/poisoned-tree-gate.mjs --config .githooks/poisoned-tree-gate.config.json`.
+   The manifest is generated rather than committed because `loadManifest` binds
+   it to the resolved base sha; what stays under review is the roster
+   `.githooks/critical-files.roster.json`, read from the BASE tree so a PR
+   cannot widen or empty its own allowlist.
+3. Read the result with `scripts/tree-gate-report.mjs`, which distinguishes
+   allow / block / **error (the gate did not execute)** and fails the job on
+   either of the last two. Failure to run must never render as a clean result:
+   the original workflow read `.decision` off the gate's JSON *array* with `jq`,
+   got null, and printed "_No violations detected._"
+4. Post reasons as a PR comment for the reviewer.
+5. Secrets: none needed — signature keys stay local (T1); Actions verifies
    structural rules only (blob-count, critical files, roster). Signed
    approvals are verified by T1 and recorded in the PR thread by humans.
 

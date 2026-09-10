@@ -50,21 +50,41 @@ const MAX_DELETIONS_DEFAULT = 500;
 const ROSTER_PATH = '.githooks/protected-dirs.json';
 const MANIFEST_DEFAULT = '.githooks/critical-files.manifest';
 
-function gx(repo, args) {
-  return execFileSync('git', args, { cwd: repo, encoding: 'utf8' }).trim();
+// execFileSync defaults maxBuffer to 1 MiB and throws ENOBUFS past it. That is
+// far too small for whole-history and whole-tree listings on this repo: at
+// ~7,150 tracked files, `ls-tree -r` alone is ~0.7 MB, and `rev-list --objects`
+// over full history is unbounded in principle. gx also silently dropped a third
+// argument, so P0's own `{maxBuffer: 64 MiB}` never took effect — see
+// validateCommit.
+const GIT_MAX_BUFFER = 256 * 1024 * 1024;
+
+function gx(repo, args, opts = {}) {
+  return execFileSync('git', args, {
+    cwd: repo,
+    encoding: 'utf8',
+    maxBuffer: GIT_MAX_BUFFER,
+    ...opts,
+  }).trim();
+}
+
+/** Run git purely for its exit status; never buffers stdout. */
+function gxCheck(repo, args) {
+  execFileSync('git', args, { cwd: repo, stdio: 'ignore' });
 }
 
 /** Recursive tracked-entry listing: [{path,type,mode,oid,size}] */
 export function listTree(repo, sha) {
-  const out = gx(repo, ['ls-tree', '-r', sha]);
+  // `-l` reports blob size in the same listing. The previous form spawned
+  // `cat-file -s` once per blob — ~7,150 extra git processes per tree on this
+  // repo, and two trees are listed per evaluation. That took 24s for 7,000
+  // files in a temp dir and scales linearly with the repo.
+  const out = gx(repo, ['ls-tree', '-r', '-l', sha]);
   if (!out) return [];
   return out.split('\n').map((line) => {
     const [meta, path] = line.split('\t');
-    const [mode, type, oid] = meta.split(/\s+/);
-    let size = null;
-    if (type === 'blob') {
-      size = parseInt(gx(repo, ['cat-file', '-s', oid]), 10);
-    }
+    const [mode, type, oid, rawSize] = meta.split(/\s+/);
+    // Non-blob entries report size as "-"; keep those null as before.
+    const size = type === 'blob' ? parseInt(rawSize, 10) : null;
     return { path, type, mode, oid, size };
   });
 }
@@ -80,7 +100,11 @@ export function validateCommit(repo, sha) {
   }
   if (type !== 'commit') return `${sha} is not a commit (${type})`;
   try {
-    gx(repo, ['rev-list', '--objects', sha], { maxBuffer: 1024 * 1024 * 64 });
+    // Only the exit status matters here, so discard the listing rather than
+    // buffering it: on full history it is arbitrarily large, and buffering it
+    // made P0 report "object graph unreadable" for a perfectly readable commit
+    // whenever the walk outgrew execFileSync's 1 MiB default.
+    gxCheck(repo, ['rev-list', '--objects', sha]);
   } catch {
     return `object graph unreadable at ${sha}`;
   }
@@ -90,14 +114,18 @@ export function validateCommit(repo, sha) {
 /** P1: resolve comparison base. Non-FF blocks by default (v3 correction 3/7). */
 export function resolveBase(repo, { localSha, remoteSha, expectedOldSha, manifestBaseline }) {
   if (expectedOldSha && remoteSha !== ZERO_SHA && remoteSha !== expectedOldSha) {
-    return { error: `old remote sha ${remoteSha.slice(0, 8)} contradicts locally recorded ${expectedOldSha.slice(0, 8)}` };
+    return {
+      error: `old remote sha ${remoteSha.slice(0, 8)} contradicts locally recorded ${expectedOldSha.slice(0, 8)}`,
+    };
   }
   if (remoteSha === ZERO_SHA) {
     if (!manifestBaseline) return { error: 'new branch without cycle-manifest baseline' };
     try {
       gx(repo, ['merge-base', '--is-ancestor', manifestBaseline, localSha]);
     } catch {
-      return { error: `manifest baseline ${manifestBaseline.slice(0, 8)} not reachable from pushed head` };
+      return {
+        error: `manifest baseline ${manifestBaseline.slice(0, 8)} not reachable from pushed head`,
+      };
     }
     return { base: manifestBaseline };
   }
@@ -110,8 +138,11 @@ export function resolveBase(repo, { localSha, remoteSha, expectedOldSha, manifes
   if (mb === remoteSha) return { base: remoteSha, ff: true };
   // NON-FF: default block. Only escape hatch is an explicitly supplied,
   // separately-approved baseline that equals the merge-base.
-  if (manifestBaseline && mb === manifestBaseline) return { base: mb, ff: false, approvedPath: true };
-  return { error: `non-fast-forward update (merge-base ${mb.slice(0, 8)}) requires an approved baseline` };
+  if (manifestBaseline && mb === manifestBaseline)
+    return { base: mb, ff: false, approvedPath: true };
+  return {
+    error: `non-fast-forward update (merge-base ${mb.slice(0, 8)}) requires an approved baseline`,
+  };
 }
 
 /** Canonical JSON: recursively sorted object keys. Arrays keep order. */
@@ -145,7 +176,9 @@ export function loadManifest(repo, manifestPath, baseSha) {
   }
   if (raw?.version !== 1 || !Array.isArray(raw.files)) return { error: 'manifest schema invalid' };
   if (raw.baseline !== baseSha) {
-    return { error: `manifest baseline ${String(raw.baseline).slice(0, 8)} does not match resolved base ${baseSha.slice(0, 8)}` };
+    return {
+      error: `manifest baseline ${String(raw.baseline).slice(0, 8)} does not match resolved base ${baseSha.slice(0, 8)}`,
+    };
   }
   const entries = raw.files;
   const paths = entries.map((e) => e.path);
@@ -195,7 +228,12 @@ export function signArtifact(privateKey, canonicalBuffer) {
 }
 export function verifySignature(publicKeyPem, canonicalBuffer, sigB64) {
   try {
-    return cryptoVerify(null, canonicalBuffer, createPublicKey(publicKeyPem), Buffer.from(sigB64, 'base64'));
+    return cryptoVerify(
+      null,
+      canonicalBuffer,
+      createPublicKey(publicKeyPem),
+      Buffer.from(sigB64, 'base64'),
+    );
   } catch {
     return false;
   }
@@ -216,12 +254,25 @@ export function keyIdFromPem(pem) {
  * In-tree artifacts are never consulted: approvalsDir must be outside the
  * pushed content (off-host store / audit dir supplied by the hook config).
  */
-export function findApproval({ approvalsDir, trustedKeysDir, oldSha, newSha, ref, pusherIdentity, now = new Date() }) {
-  if (!approvalsDir || !existsSync(approvalsDir)) return { ok: false, reason: 'no approvals directory' };
+export function findApproval({
+  approvalsDir,
+  trustedKeysDir,
+  oldSha,
+  newSha,
+  ref,
+  pusherIdentity,
+  now = new Date(),
+}) {
+  if (!approvalsDir || !existsSync(approvalsDir))
+    return { ok: false, reason: 'no approvals directory' };
   // Content binding is authoritative: scan every .json artifact and require
   // exact oldSha/newSha/ref equality below. Filenames carry no trust.
   const candidates = readdirSync(approvalsDir).filter((f) => f.endsWith('.json'));
-  if (candidates.length === 0) return { ok: false, reason: `no approval artifacts present for review of ${oldSha.slice(0, 8)}..${newSha.slice(0, 8)}` };
+  if (candidates.length === 0)
+    return {
+      ok: false,
+      reason: `no approval artifacts present for review of ${oldSha.slice(0, 8)}..${newSha.slice(0, 8)}`,
+    };
 
   const registryPath = join(trustedKeysDir ?? '', 'registry.json');
   let registry = {};
@@ -251,18 +302,25 @@ export function findApproval({ approvalsDir, trustedKeysDir, oldSha, newSha, ref
     if (!approverOfKey) continue; // key not bound to any approver
     if (approverOfKey !== art.approver) continue; // signature key does not belong to claimed approver
 
-    const canonical = canonicalBytes({ ...art, keyId: undefined }).canonical ?? canonicalBytes({ ...art });
+    const canonical =
+      canonicalBytes({ ...art, keyId: undefined }).canonical ?? canonicalBytes({ ...art });
     void canonical;
     const bytesForSig = canonicalBytes({ ...art });
     const sig = readFileSync(join(approvalsDir, sigFile), 'utf8').trim();
     if (!verifySignature(readFileSync(pemPath, 'utf8'), bytesForSig, sig)) continue;
 
     if (pusherIdentity && approverOfKey === pusherIdentity) {
-      return { ok: false, reason: 'self-approval rejected: signing key is registered to the pusher' };
+      return {
+        ok: false,
+        reason: 'self-approval rejected: signing key is registered to the pusher',
+      };
     }
     return { ok: true, approvedBy: approverOfKey, keyId: art.keyId };
   }
-  return { ok: false, reason: 'no valid signed artifact (untrusted/unbound signer, expired, sha/ref mismatch)' };
+  return {
+    ok: false,
+    reason: 'no valid signed artifact (untrusted/unbound signer, expired, sha/ref mismatch)',
+  };
 }
 
 /** P5 roster: versioned file read from the BASE tree (review-protected). */
@@ -272,7 +330,8 @@ export function loadProtectedRoster(repo, baseSha) {
     if (!entry) return { dirs: [] }; // no roster committed: none protected
     const oid = entry.split(/\s+/)[2];
     const raw = JSON.parse(gx(repo, ['cat-file', '-p', oid]));
-    if (!Array.isArray(raw?.dirs)) return { error: 'protected-roster schema invalid — fail closed' };
+    if (!Array.isArray(raw?.dirs))
+      return { error: 'protected-roster schema invalid — fail closed' };
     if (JSON.stringify(raw.dirs) !== JSON.stringify([...raw.dirs].sort())) {
       return { error: 'protected-roster not deterministically ordered — fail closed' };
     }
@@ -335,8 +394,12 @@ export function evaluate(ctx) {
       pusherIdentity: ctx.pusherIdentity,
     });
     if (!approval.ok) {
-      if (rosterHit.length > 0) reasons.push(`P5 protected directory removed without approved change record: ${rosterHit.join(', ')}`);
-      if (ratio >= RATIO_TRIPWIRE) reasons.push(`P2 deletion ratio ${(ratio * 100).toFixed(1)}% exceeds tripwire`);
+      if (rosterHit.length > 0)
+        reasons.push(
+          `P5 protected directory removed without approved change record: ${rosterHit.join(', ')}`,
+        );
+      if (ratio >= RATIO_TRIPWIRE)
+        reasons.push(`P2 deletion ratio ${(ratio * 100).toFixed(1)}% exceeds tripwire`);
       if (deleted.length > cap) reasons.push(`P3 deletions ${deleted.length} exceed cap ${cap}`);
       reasons.push(`approval: ${approval.reason}`);
     }
@@ -352,7 +415,12 @@ export function evaluate(ctx) {
   }
 
   if (reasons.length > 0) {
-    return { decision: 'block', reasons, stats, approvedBy: approval?.ok ? approval.approvedBy : null };
+    return {
+      decision: 'block',
+      reasons,
+      stats,
+      approvedBy: approval?.ok ? approval.approvedBy : null,
+    };
   }
   return {
     decision: 'allow',
@@ -367,13 +435,26 @@ export function runPrePushLines(lines, cfg) {
   const results = [];
   for (const line of lines.filter((l) => l.trim())) {
     const parts = line.trim().split(/\s+/);
-    if (parts.length !== 4 || parts.some((p) => !/^[0-9a-f]{40}$/.test(p) && p !== ZERO_SHA && !p.startsWith('refs/'))) {
-      results.push({ ref: '?', decision: 'block', reasons: [`malformed stdin line: ${line.trim()}`], stats: {} });
+    if (
+      parts.length !== 4 ||
+      parts.some((p) => !/^[0-9a-f]{40}$/.test(p) && p !== ZERO_SHA && !p.startsWith('refs/'))
+    ) {
+      results.push({
+        ref: '?',
+        decision: 'block',
+        reasons: [`malformed stdin line: ${line.trim()}`],
+        stats: {},
+      });
       continue;
     }
     const [localRef, localSha, remoteRef, remoteSha] = parts;
     if (!localRef.startsWith('refs/') || !remoteRef.startsWith('refs/')) {
-      results.push({ ref: remoteRef ?? '?', decision: 'block', reasons: [`malformed stdin line: ${line.trim()}`], stats: {} });
+      results.push({
+        ref: remoteRef ?? '?',
+        decision: 'block',
+        reasons: [`malformed stdin line: ${line.trim()}`],
+        stats: {},
+      });
       continue;
     }
     if (localSha === ZERO_SHA) continue; // ref deletion: owned by NO-DELETE policy elsewhere
@@ -381,9 +462,19 @@ export function runPrePushLines(lines, cfg) {
     try {
       res = evaluate({ ...cfg, localRef, localSha, remoteRef, remoteSha });
     } catch (err) {
-      res = { decision: 'block', reasons: [`gate internal error (fail closed): ${err?.message ?? err}`], stats: {} };
+      res = {
+        decision: 'block',
+        reasons: [`gate internal error (fail closed): ${err?.message ?? err}`],
+        stats: {},
+      };
     }
-    results.push({ ref: remoteRef, localSha, decision: res.decision, reasons: res.reasons, stats: res.stats });
+    results.push({
+      ref: remoteRef,
+      localSha,
+      decision: res.decision,
+      reasons: res.reasons,
+      stats: res.stats,
+    });
   }
   return results;
 }
