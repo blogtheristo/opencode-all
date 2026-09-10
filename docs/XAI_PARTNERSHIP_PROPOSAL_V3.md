@@ -221,7 +221,7 @@ Zero code rewrite. Zero downtime. Full audit log created automatically. All 27 E
 - 4-partner hardware stack live (Acer + NVIDIA + Siemens + ABB)
 - Finnish sovereign trust anchor (NATO member, EU founding digital trust zone)
 - Iceye SAR integration (Finnish all-weather satellite data — EU unique situational awareness)
-- Direct access to Platinum Captains — decision-makers with €50 000 SAFE investment capacity per seat
+- Direct access to Industry Captains — decision-makers with €50 000 SAFE investment capacity per seat
 - **The compliance bridge that makes Optimus legally operable in EU regulated industry**
 
 ---
@@ -428,4 +428,4 @@ I will show:
 **POTENTIAL CONCERNS:**
 - Grok Enterprise on-prem licensing terms need verification with xAI before sending
 - Machinery Regulation 2023/1230 CE timeline (12–18 months) assumes standard notified body process
-- Fleet Admiral role price (€50k/seat × 10 = €500k) matches V1.3 — verify this is intentional vs. Platinum Captain (also €50k/seat)
+- Fleet Admiral role price (€50k/seat × 10 = €500k) matches V1.3 — verify this is intentional vs. Industry Captain (also €50k/seat)

@@ -62,7 +62,7 @@
 
 **Financing Ask:**
 - **€650K SAFE @ €3.8M cap** (fortress-justified valuation premium)
-- **Seat Tiers:** Fleet Admiral €200K (1 seat) | Captain €50K (9 seats) | Deputy Captain €5K (unlimited)
+- **Seat Tiers:** Fleet Admiral €250K (1 seat) | Industry Captain €50K (8 seats) — €650K total at a €3.8M cap
 - **Bridge to €15M+ Series A in Q4 2026** (€900k ARR milestone)
 - **Arctic 15 Launch: June 15, 2026** -- V1 public launch and sales kickoff
 - **Fortress = defensibility = pricing power**
@@ -1183,7 +1183,7 @@ Even in "everything goes wrong" scenario:
 **SAFE Terms Recap**:
 - Total Round: **€650,000**
 - Valuation Cap: **€3,800,000**
-- Seat Tiers: Fleet Admiral €200K (1 seat) | Captain €50K (9 seats) | Deputy Captain €5K (unlimited)
+- Seat Tiers: Fleet Admiral €250K (1 seat) | Industry Captain €50K (8 seats) — €650K total at a €3.8M cap
 - Discount: **18%**
 - Pro-Rata Rights: Available for €50k+ investors (Captain tier and above)
 

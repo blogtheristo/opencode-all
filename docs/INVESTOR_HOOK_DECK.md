@@ -98,7 +98,7 @@ AI inference on NVIDIA Jetson at industrial sites where cloud can't reach. EUR 1
 | **Captain**        | EUR 50,000 (EUR 150,000 for a triple) | 9         | Named captain of one of 25 EU-regulated industries. Quarterly strategy briefings. Priority pilot routing. Founding Situation Room access. A triple bundles 3 seats — own 3 industries under one SAFE. |
 | **Deputy Captain** | EUR 5,000                             | Unlimited | Quarterly briefings. Upgrade path to Captain.                                                                                                                                               |
 
-**9 Captain seats across 20 industries — 3 as single seats, or bundle a triple for EUR 150,000. First tranche gets the best terms.**
+**8 Industry Captain seats across 25 EU-regulated industries, EUR 50,000 each, beneath one EUR 250,000 Fleet Admiral seat — EUR 650,000 total at a EUR 3.8M cap. When a seat is taken, it is gone.**
 
 The 20 industries: Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviation, Maritime, Road Transport, Construction, Agriculture, Waste Management, Aluminium, Pulp & Paper, Petroleum Refining, Food & Beverage, Glass & Ceramics, Mining, Telecommunications, Pharmaceuticals, Textiles, Water & Wastewater.
 
@@ -121,7 +121,7 @@ The 20 industries: Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviatio
 - NVIDIA Connect Partner (Groq), Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
 - 100% EU data residency (Finland, Germany, Netherlands)
 
-**When a seat is taken, it's gone. Only 9 Captain seats.**
+**When a seat is taken, it's gone. Only 8 Industry Captain seats.**
 
 Become Captain: https://dws10.com/captain/index.html
 

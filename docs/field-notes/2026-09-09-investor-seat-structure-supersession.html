@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-09-investor-seat-structure-supersession</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-09-investor-seat-structure-supersession</h1>
+</header>
+<h1 id="field-note-investor-seat-structure-superseded-ld-2026-017-a-six-week-stale-pr-caught-before-merge">Field Note — Investor Seat Structure Superseded (LD-2026-017); a Six-Week-Stale PR Caught Before Merge</h1>
+<p><strong>Date:</strong> 2026-09-09 <strong>Branch:</strong> <code>claude/truth-register-investor-seats</code> <strong>HIC decisions this session:</strong> “we stick now with 250 plus 8 captains” · “approve investor centre” · “D1 do recommended”</p>
+<hr />
+<h2 id="what-happened">1. What happened</h2>
+<p>The session resumed on a six-week-old PR (#1778, <code>claude/captain-admiral-pages-sync</code>) with an instruction to fix its conflicts and merge it. <strong>It was not merged.</strong> Investigating the conflicts surfaced three findings that each independently disqualified the merge, and the outcome instead was a new locked decision.</p>
+<h2 id="why-the-merge-was-refused">2. Why the merge was refused</h2>
+<p><strong>Main’s history was rewritten.</strong> <code>329eec3e</code> — main’s HEAD on 2026-07-31 and the commit PR #1778 was built on — is no longer an ancestor of <code>origin/main</code>. The merge-base fell back to <code>46ec6805</code> (2026-07-13, the <code>remove-committed-env-file</code> merge), three weeks earlier than the branch point. The result was <strong>579 conflicted files</strong>, 263 of them in files the branch never touched, and 222 of the delete/modify class that silently resurrect or destroy files when resolved carelessly. Neither tree carries a <code>.env</code>, so the secrets purge itself is intact.</p>
+<p>Conflict-count alone is a weak signal; the decisive checks were what main actually contains now:</p>
+<p><strong>The target pages were deliberately retired.</strong> <code>dws10.com/captain/index.html</code> is now a 37-line redirect to <code>/investor-centre/captain/</code>, and <code>fleet-admiral/index.html</code> redirects to <code>/investor-centre/admiral/</code>. PR #1778 would have restored 3,159- and 1,431-line page bodies over them, breaking both redirects and resurrecting a retired commerce surface.</p>
+<p><strong>The structure the PR applied had itself been superseded.</strong> PR #1778 propagated LD-2026-014 (Fleet Admiral €200K + Captain €50K × 9). The live investor-centre pages sell <strong>€250K + 8 × €50K</strong>. Merging would have pushed a stale seat structure onto a live investor surface — the precise failure class this repo’s traction and pricing drift logs already record twice.</p>
+<p><strong>Lesson.</strong> A PR’s age is not the risk; a rewritten base is. <code>mergeable_state: dirty</code> on a branch whose base commit has left main’s history is not a merge to repair — it is a signal to re-derive the work against current main. Checking <em>what main now says about the same facts</em> is faster and safer than resolving conflicts, and it is what caught all three problems here.</p>
+<h2 id="what-was-decided-ld-2026-017">3. What was decided (LD-2026-017)</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Tier</th>
+<th>Price</th>
+<th>Seats</th>
+<th>Subtotal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Fleet Admiral</strong></td>
+<td>€250,000</td>
+<td>1</td>
+<td>€250,000</td>
+</tr>
+<tr class="even">
+<td><strong>Industry Captain</strong></td>
+<td>€50,000</td>
+<td>8</td>
+<td>€400,000</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td><strong>€650,000</strong></td>
+</tr>
+</tbody>
+</table>
+<p>€650,000 SAFE at a €3.8M cap; <code>dws10.com/investor-centre/</code> is the canonical investor surface; the two retired pages stay redirects. LD-2026-014 is marked SUPERSEDED but <strong>kept intact, not rewritten</strong> — PR #1778 applied it across investor collateral in good faith while it was LOCKED, and readers of those documents need to trace where the figures came from.</p>
+<h2 id="the-real-defect-this-number-has-drifted-four-times">4. The real defect: this number has drifted four times</h2>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 47%" />
+<col style="width: 4%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Structure</th>
+<th>Total</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>LD-2026-007: Admiral €500K / Captain €150K / IC €50K×8</td>
+<td>—</td>
+<td>superseded 2026-07-31</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>LD-2026-014: Admiral €200K / Captain €50K×9 / Deputy €5K</td>
+<td>€650K</td>
+<td>superseded 2026-09-09</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Boardy pack: Admiral €500K + 8 × €50K</td>
+<td>€900K</td>
+<td>never locked; math never closed to its own stated €650K</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>LD-2026-017: Admiral €250K + 8 × €50K</strong></td>
+<td>€650K</td>
+<td><strong>LOCKED</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Each variant reached live investor-facing pages before it was caught. The cause is structural, not clerical: the seat structure is repeated across 100+ investor-facing files but lives only in <code>LOCKED_DECISIONS.md</code> — a <em>decision log</em>, not the <em>truth registry</em>. <code>DWS_TRUTH_STANDARD.md</code> §3A (“Register-or-it-drifts”) says a claim repeated across 3+ customer/investor-facing docs <strong>is</strong> a canonical fact and must be registered with a canonical source, structured mirror, and deprecated phrasings, “not merely fixed”. This one never was — so <code>scripts/lint-truth-claims.mjs</code> cannot catch a regression to €200K, and nothing did.</p>
+<p>Registering it was item D7 of the decision dialog. <strong>The HIC approved it (“Truth standard wins”), and it is now done</strong> — <code>DWS_TRUTH_STANDARD.md</code> row 34 plus the structured mirror <code>config/truth/investor-seat-tiers.json</code>, carrying all three superseded structures as deprecated phrasings. Verified: <code>&quot;Fleet Admiral €200,000&quot;</code> and <code>&quot;9 Captain seats&quot;</code> now FAIL the linter; <code>&quot;8 Captain seats&quot;</code> passes.</p>
+<h2 id="what-the-hic-ruled-and-what-shipped">5. What the HIC ruled, and what shipped</h2>
+<p>A nine-item decision dialog was put to the HIC; all nine were answered.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Ruling</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D1</td>
+<td>Supersede LD-2026-014</td>
+<td><strong>Done</strong> — LD-2026-017 (PR #1986)</td>
+</tr>
+<tr class="even">
+<td>D2</td>
+<td>Correct the €200K cohort</td>
+<td><strong>Done</strong> — part of the 32-hit sweep</td>
+</tr>
+<tr class="odd">
+<td>D3</td>
+<td>Deputy Captain</td>
+<td><strong>Shelved</strong> — registered, not deleted</td>
+</tr>
+<tr class="even">
+<td>D4</td>
+<td>€150K triple bundle</td>
+<td><strong>Retired</strong> — registered</td>
+</tr>
+<tr class="odd">
+<td>D5</td>
+<td>Captain = investment tier</td>
+<td><strong>Done</strong> — client-role framing deprecated</td>
+</tr>
+<tr class="even">
+<td>D6</td>
+<td>industries.json</td>
+<td><strong>No change needed</strong> — see below</td>
+</tr>
+<tr class="odd">
+<td>D7</td>
+<td>Consolidate into the truth standard</td>
+<td><strong>Done</strong> — row 34 + mirror</td>
+</tr>
+<tr class="even">
+<td>D8</td>
+<td>Update the stale one-offs</td>
+<td><strong>Done</strong> — 32 → 0 FAILs, 14 files</td>
+</tr>
+<tr class="odd">
+<td>D9</td>
+<td>PR #1778</td>
+<td><strong>Closed as superseded</strong>; store fix salvaged into #1987</td>
+</tr>
+</tbody>
+</table>
+<p><strong>D6 was answered from the registry rather than by editing anything.</strong> <code>industries.json</code> already registers <em>“16 captain hats covering 25 EU-regulated industries”</em> as an <strong>approved</strong> phrase. It is product taxonomy, not an investor seat count — so the truth standard’s version stands and nothing needed changing. A WARN guard now prevents the two counts being reconciled against each other, which is what the previous three passes kept attempting.</p>
+<p><strong>The sweep’s real lesson:</strong> registering the fact first turned a guess into a measurement. The pre-registration estimate was “23 files”; the linter found <strong>32 hits across 14 files</strong>, and 19 further hits were false positives in dated field notes and <code>LOCKED_DECISIONS.md</code> — historical records correctly quoting what was once true. Linting the audit trail forces it to lie, so <code>docs/field-notes/</code>, <code>LOCKED_DECISIONS.md</code> and (after a CI failure proved the gap) <code>Learn/</code> are excluded. Excluding a source but not its rendered mirror defeats the exclusion at the render step.</p>
+<h2 id="b.-corrections-made-to-this-notes-own-earlier-claims">5b. Corrections made to this note’s own earlier claims</h2>
+<p>Three assertions in §2 above were stated more confidently than the evidence supported, and are corrected here rather than quietly edited:</p>
+<ul>
+<li><strong>“Main’s history was rewritten”</strong> — it was not. <code>docs/field-notes/2026-08-24-repo-wipe-recovery-defense-stack.md</code> records incident <strong>#1888</strong>: a regression-test fixture escaped its sandbox, deleted 5,755 files under the identity <code>Retry Test &lt;test@lifetime.fi&gt;</code>, and was merged. The recovery (PR #1890) made a single restore commit with <em>parent = poisoned main, tree = verified tree</em> — restoring contents while abandoning ancestry. That is what orphaned 4,695 commits. No filter-repo, no force-push. The merge-base landing on the <code>remove-committed-env-file</code> merge was coincidence, not evidence of a purge.</li>
+<li><strong>“the secrets purge is intact”</strong> — there was no purge. <code>gcp-sa-key-new.json</code> has <strong>no deletion commit anywhere</strong>; its absence from main is a side effect of the tree-restore. It remains in the tree of two branches.</li>
+<li><strong>Nothing is lost.</strong> All 4,762 commits back to <code>f5343a44</code> (2025-12-22) are intact and were unreferenced, not destroyed.</li>
+</ul>
+<h2 id="hic-learning-outcome">6. HIC Learning Outcome</h2>
+<ol type="1">
+<li><strong>KB</strong> — N/A: no new domain knowledge; this is a governance record captured in LD-2026-017 and this note.</li>
+<li><strong>Field note</strong> — this file.</li>
+<li><strong><code>Learn/</code> HTML</strong> — rendered alongside this note.</li>
+<li><strong>Drive export</strong> — N/A: repo is source-of-truth (<code>DWS_TRUTH_STANDARD</code> §2E) and this note carries no external-audience content.</li>
+<li><strong>Decision question</strong> — put to the HIC as a 9-item dialog; D1 approved and executed. D2–D9 remain open, above.</li>
+<li><strong>Calendar</strong> — N/A: no dated commitment created. (The EIC Accelerator Step 1 deadline, 17.12.2026 17:00 Brussels, was confirmed unchanged this session but predates it and is already tracked.)</li>
+</ol>
+</body>
+</html>

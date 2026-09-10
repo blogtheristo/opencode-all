@@ -54,9 +54,23 @@ function takeVal(flag) {
 }
 
 // Canonical mirrors and registry docs hold the phrases as DATA — never scan them.
-const EXCLUDE_RE = /(^|\/)(node_modules|\.git|backups|dist|\.next|coverage)\//;
+// Dated historical records are excluded for the same reason the registry docs
+// are: they hold superseded phrasings as evidence, not as live claims. A field
+// note describing the €200K structure that LD-2026-014 locked is *correct* —
+// linting it would force the audit trail to lie about what was once true, and
+// a linter that flags the audit trail gets ignored, which costs the real
+// drifts. docs/field-notes/ and LOCKED_DECISIONS.md added 2026-09-09 when
+// registering investor seat tiers (row 34) put 18 such false positives in the
+// report on day one.
+// Learn/ is the RENDERED mirror of docs/field-notes/ (scripts/render-doc.sh).
+// Excluding the source but not its rendering defeats the exclusion at the
+// render step: the same sentence passes as .md and fails as .html. Added
+// 2026-09-09 after exactly that -- 3 CI failures on the HTML of a field note
+// whose .md was already exempt.
+const EXCLUDE_RE =
+  /(^|\/)(node_modules|\.git|backups|dist|\.next|coverage|docs\/field-notes|Learn)\//;
 const EXCLUDE_FILE_RE =
-  /(\/config\/[^/]+\.json$|DWS_TRUTH_STANDARD\.md$|CLAUDE\.md$|INDUSTRIES\.md$|16-INDUSTRIES\.md$|STORE_PROFILE_DESCRIPTION\.md$|2026-07-05-groq-ross-dominant-game-recipe\.md$|_OLD\.|\.min\.)/;
+  /(\/config\/[^/]+\.json$|DWS_TRUTH_STANDARD\.md$|LOCKED_DECISIONS\.md$|CLAUDE\.md$|INDUSTRIES\.md$|16-INDUSTRIES\.md$|STORE_PROFILE_DESCRIPTION\.md$|2026-07-05-groq-ross-dominant-game-recipe\.md$|_OLD\.|\.min\.)/;
 const SCAN_EXT = new Set(['.md', '.html', '.htm', '.txt']);
 
 // ---- 1. Load ruleset from structured mirrors -----------------------------

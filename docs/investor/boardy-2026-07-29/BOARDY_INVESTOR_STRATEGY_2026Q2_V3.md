@@ -1,5 +1,8 @@
 # DWS IQ — Investor Strategy (2026 Q2 SAFE round) — V3
 
+> **Correction 2026-09-09 (LD-2026-017):** the seat figures below were current when this document was written and are no longer. Canonical structure is **Fleet Admiral €250,000 × 1 + Industry Captain €50,000 × 8 = €650,000** at a €3.8M cap; Deputy Captain is shelved and the €150,000 triple bundle retired. Figures corrected in place; this note records that they changed.
+
+
 _Prepared for Boardy meeting 29 Jul 2026 · Lifetime Oy · CONFIDENTIAL — Internal · V3 (22.07.2026, actuals-anchored)_
 
 Legend: **[A]** actual · **[M]** modeled.
@@ -26,7 +29,7 @@ Sessions & Modifications:
 | Target       | €650k (oversubscription up to €1.0M)                                                                               |
 | Cap          | €3.8M base / €5.5M mid / €6.1M upper (post-money)                                                                  |
 | Terms        | 20% discount · 24-mo maturity · clean SAFE required                                                                |
-| Seats        | Fleet Admiral €200k · Captain €50k (9 seats; up to €150k triple) · Deputy €5k                                      |
+| Seats        | Fleet Admiral €250k · Industry Captain €50k (8 seats) — €650k total                                      |
 | Use of funds | 60% Tier-1 EU sales via Messe Q3/26 · 25% EU AI Act conformity + Sovereignty Monitor · 15% MACC-burn + AppExchange |
 
 ## #1 pre-term-sheet blocker [A]

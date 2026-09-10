@@ -207,7 +207,7 @@ The CEO who still writes code is not a quirk of this company. It is the go-to-ma
 
 ---
 
-## Page 5 — 16 Industries, One Stack
+## Page 5 — 25 EU-Regulated Industries, One Stack
 
 DWS IQ 6 covers every EU-regulated industry under Fit for 55, organized by emissions criticality:
 
@@ -365,7 +365,7 @@ A Deputy who doesn't engage isn't crew — they're cargo. The structure self-sel
 
 **Why this works:**
 
-A Platinum Captain of Construction understands building sites. A Platinum Captain of Maritime knows what happens mid-ocean. A Platinum Captain of Chemicals has the Rolodex that opens procurement doors. By matching investors to industries, every Captain brings domain knowledge — not just capital.
+A Industry Captain of Construction understands building sites. A Industry Captain of Maritime knows what happens mid-ocean. A Industry Captain of Chemicals has the Rolodex that opens procurement doors. By matching investors to industries, every Captain brings domain knowledge — not just capital.
 
 8 Platinum seats in the first tranche. Best terms. Early Captains lock in EUR 3.8M cap before the second tranche opens at a higher valuation. When a seat is taken, it's gone.
 

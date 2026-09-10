@@ -200,7 +200,7 @@ These roles are designed exclusively for premium wallet-openers from any of the 
 | Item | Cost |
 |------|------|
 | Prototype start | €0 out-of-pocket — runs on free GN-100 |
-| Platinum Captain seat | €50 000 SAFE (€3.8 M cap, 20 % discount, first tranche of 8 seats) |
+| Industry Captain seat | €50 000 SAFE (€3.8 M cap, 20 % discount, first tranche of 8 seats) |
 | Full 8–16 unit Captain's Bridge | Funded by incoming role purchases + VCs after first seats fill |
 | 16 open-source LLMs | €0 licensing — sovereign stack |
 
@@ -222,7 +222,7 @@ These roles are designed exclusively for premium wallet-openers from any of the 
 - 25+-industry vertical coverage already operational
 - Finnish sovereign trust anchor (NATO member, EU founding digital trust zone)
 - Iceye SAR integration (unique EU situational awareness data stream)
-- Direct access to Platinum Captains — decision-makers with €50 000 investment capacity per seat
+- Direct access to Industry Captains — decision-makers with €50 000 investment capacity per seat
 
 **Trigger condition:** When human Captains, Fleet Administrators, and Navigators open their wallets and claim roles, the full DWS IQ × xAI partnership (Grok + Optimus) activates across all 27 EU countries.
 

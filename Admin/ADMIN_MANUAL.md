@@ -265,6 +265,83 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ---
 
+## Token & Credential Lifecycle Management
+
+**Set by the HIC, 2026-09-09.** Written after `CLOUDFLARE_API_TOKEN` expired on 2026-08-01 and
+nothing noticed for five weeks — see
+`docs/field-notes/2026-09-09-controls-that-reported-success-while-doing-nothing.md`.
+
+### Why this exists
+
+The failure was not that a token expired. Expiry is correct practice. The failure was that
+**nothing could tell anyone it had expired**: the consuming step ran `curl` without `--fail`,
+never read the response, and printed a success message unconditionally. A second fault in the same
+step read a secret name that had never existed, so a missing credential and a working one produced
+identical logs.
+
+Two rules follow, and they matter more than the checklist below:
+
+1. **A configured name is not a configured value.** `CLOUDFLARE_ACCOUNT_ID` existed in the GitHub
+   secret list while holding an empty string — it read as done and did nothing. Test for a
+   *usable* credential, never for a *present* variable name.
+2. **Prove the failing case before trusting the passing one.** When wiring a credential into a
+   pipeline, first make it fail on purpose and confirm the job goes red. Every fault found on
+   2026-09-09 would have been caught on day one by that single test.
+
+### Storage tiers
+
+| Tier | Store | Used by |
+| --- | --- | --- |
+| Local development | `.env` (never committed; `.gitignore`-enforced) | developer machine, DGX Spark |
+| CI/CD | GitHub repository secrets | GitHub Actions workflows |
+| Production | Google Cloud Secret Manager (`europe-north1`, user-managed replication) | Cloud Run services — see `docs/CLOUD_ENVIRONMENTS.md` §4.5 |
+
+**Backup: Proton Pass**, with full metadata (provider, owner, expiry, purpose, scope). This is a
+**new policy as of 2026-09-09** — prior to this the repo documented Proton Pass only as a product
+in the thesis material, never as the credential-of-record store. Existing tokens are not
+retroactively covered until someone does the pass.
+
+### Rotation protocol
+
+1. **Generate** in the provider console with the **narrowest scope that works**. For Cloudflare
+   prefer *Account* API Tokens over *User* tokens — a user token dies with the user account, which
+   for a one-founder company is a single point of failure for the whole deploy pipeline.
+2. **Record** provider, owner, purpose, scope, and expiry as `YYYY-MM-DD`.
+3. **Store** in the tier(s) above that actually consume it. Do not widen an existing token to cover
+   a new use: mint a separate one, so a leak of either does not hand over the other.
+4. **Back up** to Proton Pass with the metadata from step 2.
+5. **Validate against the live API before deployment** — not by checking the variable is set.
+6. **Deploy**, then confirm the consuming job goes green *and* that it would go red without the
+   credential.
+7. **Calendar the renewal** ~2 weeks before expiry. An expired token is now loud, but loud is still
+   an outage.
+
+### Expiry register
+
+| Credential | Scope | Expires | Notes |
+| --- | --- | --- | --- |
+| `CLOUDFLARE_API_TOKEN` | Zone → Cache Purge on dws10.com, dws6.com, lifetime.fi, onelifetime.world, cari.fi | **2027-07-01** | Renewed 2026-09-09, replacing a token expired 2026-08-01. Account API Token. |
+
+Add a row here whenever a credential with an expiry is minted. A credential whose expiry is not in
+this table is not being tracked, whatever the provider console says.
+
+### Known gaps at time of writing
+
+- `CLOUDFLARE_ACCOUNT_ID` — present in GitHub secrets, **empty**. Blocks the Workers deploy.
+- `CLOUDFLARE_ZONE_ID_DWS6`, `CLOUDFLARE_ZONE_ID_LIFETIMEFI` — do not exist; those two sites are
+  not cache-purged.
+- `CLOUDFLARE_APII_TOKEN` — typo duplicate, dead, safe to delete.
+- No token carries **Account → Workers Scripts → Edit**, so `deploy-cloudflare-workflows.yml`
+  cannot run until one is minted.
+
+### Compliance
+
+Expiry tracking and rotation evidence support EU AI Act **Article 12** traceability: an auditor
+asking "who could act on this system, with what scope, between which dates" needs the register
+above, not a provider console screenshot.
+
+---
+
 ## Maintenance Plan (Complete)
 
 This section links the **full maintenance plan** in one place:

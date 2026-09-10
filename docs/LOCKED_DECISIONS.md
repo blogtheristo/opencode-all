@@ -45,25 +45,26 @@ This file is the **immutable audit index** of all locked decisions in DWS IQ 6. 
 
 ## Decision Index
 
-| ID          | Date       | Time UTC | Topic                                                                                                                                                                             | Category     | Status                    | Owner | File                                                                             |
-| ----------- | ---------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------- | ----- | -------------------------------------------------------------------------------- |
-| LD-2024-001 | 2024-03-16 | —        | Product tiers locked (3-tier pricing structure, V3 era)                                                                                                                           | PRODUCT      | LOCKED                    | Risto | _(predates field-notes archive)_                                                 |
-| LD-2026-001 | 2026-01-08 | —        | ADR-2026-001: dws6.com as Admin Portal, /login for end users                                                                                                                      | ARCHITECTURE | LOCKED                    | Risto | `Admin/ADMIN_MANUAL_DWS6_COM.md`                                                 |
-| LD-2026-002 | 2026-01-28 | —        | 100% EU data residency, zero US sub-processors, GDPR by design                                                                                                                    | ARCHITECTURE | LOCKED                    | Risto | `docs/field-notes/2026-01-28-eu-tech-stack-sovereignty-positioning.md`           |
-| LD-2026-003 | 2026-02-21 | —        | CORS: no `allow_origins=["*"]`; Shell: no `exec()` with string interpolation; SRI hashes on all CDN deps                                                                          | SECURITY     | LOCKED                    | Risto | `docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md` |
-| LD-2026-004 | 2026-03-08 | —        | EU AI Act Article 12 — sovereignty audit logging layer as audit-proof backbone for high-risk AI logging                                                                           | EU-AI-ACT    | LOCKED                    | Risto | `docs/field-notes/2026-03-08-eu-ai-act-omnibus-optimus-v3-article-12.md`         |
-| LD-2026-005 | 2026-03-10 | —        | Aiven Developer ($5/mo) + Startup ($75/mo) for V1 EU-sovereign PostgreSQL migration                                                                                               | DATA         | LOCKED                    | Risto | `docs/field-notes/2026-03-10-v1-aiven-plan-decision.md`                          |
-| LD-2026-006 | 2026-03-13 | —        | Aiven-first mandate locked; TimescaleDB 2.25.x Hypercore approved standard; pg_duckdb BLOCKED                                                                                     | DATA         | LOCKED                    | Risto | `DWS_DATA_STANDARD.md`                                                           |
-| LD-2026-007 | 2026-03-15 | —        | Investor seat tiers: Fleet Admiral €500K / Captain €150K / Industry Captain €50K×8 / Deputy unlimited                                                                             | PRODUCT      | SUPERSEDED by LD-2026-014 | Risto | `docs/field-notes/2026-03-15-investor-materials-audit.md`                        |
-| LD-2026-008 | 2026-03-26 | —        | Resend SDK permanently banned (Clawdbot C2 incident); Amazon SES SMTP only; no RESEND_API_KEY ever                                                                                | SECURITY     | LOCKED                    | Risto | `CLAUDE.md`, `Admin/ADMIN_MANUAL.md`                                             |
-| LD-2026-009 | 2026-03-26 | —        | CLI-first architecture post-Clawdbot; Cursor removed; Docker MCP retired                                                                                                          | SECURITY     | LOCKED                    | Risto | `docs/field-notes/2026-03-26-post-incident-cli-first-migration.md`               |
-| LD-2026-010 | 2026-03-26 | —        | Default sender: risto@onelifetime.world; NEVER noreply@; verified domain: onelifetime.world only                                                                                  | SECURITY     | LOCKED                    | Risto | `CLAUDE.md`                                                                      |
-| LD-2026-011 | 2026-04-02 | —        | Shufti DPA: EU-only processing/storage; GCP locked to EEA; 30-day sub-processor notice                                                                                            | NIS2         | LOCKED                    | Risto | `docs/field-notes/2026-04-05-shufti-dpa-compliance-resolution.md`                |
-| LD-2026-012 | 2026-04-13 | —        | Partners stub overwrite incident response: stub-protection hook, pre-commit guard on partner files                                                                                | SECURITY     | LOCKED                    | Risto | `docs/field-notes/2026-04-13-security-incident-partners-stub-overwrite.md`       |
-| LD-2026-013 | 2026-04-16 | —        | CBAM all 6 Annex I sectors covered: Vulcan/Talos/Gaia/Ceres/Prometheus/Helios; 66 CN codes; 1 agent per sector                                                                    | FEATURE      | LOCKED                    | Risto | `docs/field-notes/2026-04-16-cbam-sector-coverage-complete.md`                   |
-| LD-2026-014 | 2026-07-31 | —        | Investor seat tiers reconciled to the Boardy pack: Fleet Admiral €200K / Captain €50K×9 (or €150K triple bundle) / Deputy €5K. Supersedes LD-2026-007.                            | PRODUCT      | LOCKED                    | Risto | `docs/field-notes/2026-07-31-investor-captain-tier-pricing-reconciliation.md`    |
-| LD-2026-015 | 2026-07-31 | —        | USA (Arizona, Texas) added as a third Sales Jurisdiction (Non-EU/Connect tier) — regulatory anchor, US entity, USD pricing, US contracting, and ITAR/EAR screening all still open | PRODUCT      | LOCKED                    | Risto | `docs/field-notes/2026-07-31-dayna-us-industrial-captain-jurisdiction-plan.md`   |
+| ID          | Date       | Time UTC | Topic                                                                                                                                                                                                              | Category     | Status                    | Owner | File                                                                             |
+| ----------- | ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ | ------------------------- | ----- | -------------------------------------------------------------------------------- |
+| LD-2024-001 | 2024-03-16 | —        | Product tiers locked (3-tier pricing structure, V3 era)                                                                                                                                                            | PRODUCT      | LOCKED                    | Risto | _(predates field-notes archive)_                                                 |
+| LD-2026-001 | 2026-01-08 | —        | ADR-2026-001: dws6.com as Admin Portal, /login for end users                                                                                                                                                       | ARCHITECTURE | LOCKED                    | Risto | `Admin/ADMIN_MANUAL_DWS6_COM.md`                                                 |
+| LD-2026-002 | 2026-01-28 | —        | 100% EU data residency, zero US sub-processors, GDPR by design                                                                                                                                                     | ARCHITECTURE | LOCKED                    | Risto | `docs/field-notes/2026-01-28-eu-tech-stack-sovereignty-positioning.md`           |
+| LD-2026-003 | 2026-02-21 | —        | CORS: no `allow_origins=["*"]`; Shell: no `exec()` with string interpolation; SRI hashes on all CDN deps                                                                                                           | SECURITY     | LOCKED                    | Risto | `docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md` |
+| LD-2026-004 | 2026-03-08 | —        | EU AI Act Article 12 — sovereignty audit logging layer as audit-proof backbone for high-risk AI logging                                                                                                            | EU-AI-ACT    | LOCKED                    | Risto | `docs/field-notes/2026-03-08-eu-ai-act-omnibus-optimus-v3-article-12.md`         |
+| LD-2026-005 | 2026-03-10 | —        | Aiven Developer ($5/mo) + Startup ($75/mo) for V1 EU-sovereign PostgreSQL migration                                                                                                                                | DATA         | LOCKED                    | Risto | `docs/field-notes/2026-03-10-v1-aiven-plan-decision.md`                          |
+| LD-2026-006 | 2026-03-13 | —        | Aiven-first mandate locked; TimescaleDB 2.25.x Hypercore approved standard; pg_duckdb BLOCKED                                                                                                                      | DATA         | LOCKED                    | Risto | `DWS_DATA_STANDARD.md`                                                           |
+| LD-2026-007 | 2026-03-15 | —        | Investor seat tiers: Fleet Admiral €500K / Captain €150K / Industry Captain €50K×8 / Deputy unlimited                                                                                                              | PRODUCT      | SUPERSEDED by LD-2026-014 | Risto | `docs/field-notes/2026-03-15-investor-materials-audit.md`                        |
+| LD-2026-008 | 2026-03-26 | —        | Resend SDK permanently banned (Clawdbot C2 incident); Amazon SES SMTP only; no RESEND_API_KEY ever                                                                                                                 | SECURITY     | LOCKED                    | Risto | `CLAUDE.md`, `Admin/ADMIN_MANUAL.md`                                             |
+| LD-2026-009 | 2026-03-26 | —        | CLI-first architecture post-Clawdbot; Cursor removed; Docker MCP retired                                                                                                                                           | SECURITY     | LOCKED                    | Risto | `docs/field-notes/2026-03-26-post-incident-cli-first-migration.md`               |
+| LD-2026-010 | 2026-03-26 | —        | Default sender: risto@onelifetime.world; NEVER noreply@; verified domain: onelifetime.world only                                                                                                                   | SECURITY     | LOCKED                    | Risto | `CLAUDE.md`                                                                      |
+| LD-2026-011 | 2026-04-02 | —        | Shufti DPA: EU-only processing/storage; GCP locked to EEA; 30-day sub-processor notice                                                                                                                             | NIS2         | LOCKED                    | Risto | `docs/field-notes/2026-04-05-shufti-dpa-compliance-resolution.md`                |
+| LD-2026-012 | 2026-04-13 | —        | Partners stub overwrite incident response: stub-protection hook, pre-commit guard on partner files                                                                                                                 | SECURITY     | LOCKED                    | Risto | `docs/field-notes/2026-04-13-security-incident-partners-stub-overwrite.md`       |
+| LD-2026-013 | 2026-04-16 | —        | CBAM all 6 Annex I sectors covered: Vulcan/Talos/Gaia/Ceres/Prometheus/Helios; 66 CN codes; 1 agent per sector                                                                                                     | FEATURE      | LOCKED                    | Risto | `docs/field-notes/2026-04-16-cbam-sector-coverage-complete.md`                   |
+| LD-2026-014 | 2026-07-31 | —        | Investor seat tiers reconciled to the Boardy pack: Fleet Admiral €200K / Captain €50K×9 (or €150K triple bundle) / Deputy €5K. Supersedes LD-2026-007.                                                             | PRODUCT      | SUPERSEDED by LD-2026-017 | Risto | `docs/field-notes/2026-07-31-investor-captain-tier-pricing-reconciliation.md`    |
+| LD-2026-015 | 2026-07-31 | —        | USA (Arizona, Texas) added as a third Sales Jurisdiction (Non-EU/Connect tier) — regulatory anchor, US entity, USD pricing, US contracting, and ITAR/EAR screening all still open                                  | PRODUCT      | LOCKED                    | Risto | `docs/field-notes/2026-07-31-dayna-us-industrial-captain-jurisdiction-plan.md`   |
 | LD-2026-016 | 2026-08-24 | —        | Risk-tiered HIC PR review: HIC approval required for PRs touching ledger/RLS/KYA/autonomy/public-content/evidence-standard; weekly digest for other agent PRs; Code Evidence Layer headers mandatory on agent code | EU-AI-ACT    | LOCKED                    | Risto | `docs/field-notes/2026-08-24-opencode-all-living-engine.md`                      |
+| LD-2026-017 | 2026-09-09 | —        | Investor seat tiers: Fleet Admiral €250K × 1 + Industry Captain €50K × 8 = €650K SAFE at €3.8M cap. `dws10.com/investor-centre/` is the canonical investor surface. Supersedes LD-2026-014.                        | PRODUCT      | LOCKED                    | Risto | `docs/field-notes/2026-09-09-investor-seat-structure-supersession.md`            |
 
 ---
 
@@ -376,7 +377,7 @@ Each locked decision has a detail record below for audit purposes.
 | --------------- | ----------------------------------------------------------------------------- |
 | **Date Locked** | 2026-07-31                                                                    |
 | **Category**    | PRODUCT                                                                       |
-| **Status**      | LOCKED — supersedes LD-2026-007                                               |
+| **Status**      | SUPERSEDED by LD-2026-017 (2026-09-09) — superseded LD-2026-007               |
 | **Owner**       | Risto Päärni                                                                  |
 | **File**        | `docs/field-notes/2026-07-31-investor-captain-tier-pricing-reconciliation.md` |
 
@@ -387,6 +388,8 @@ Each locked decision has a detail record below for audit purposes.
 **Change process:** Any tier change requires Risto approval + legal review of existing SAFEs + new LD entry, same as LD-2026-007.
 
 **Known remaining drift (not fixed by this entry):** `docs/Investor/DWS_LIQUIDITY_ENGINE_v1.md` uses yet another variant (Fleet Admiral €250K, Deputy €25K) — flagged, not reconciled here; scope was limited to the files PR #1122 and the investor-relations site touched.
+
+> **SUPERSEDED 2026-09-09 by LD-2026-017.** This entry's €200K / €50K×9 / €5K structure is no longer current and must not be propagated. The record is kept intact — not rewritten — because PR #1778 applied it across investor collateral in good faith while it was LOCKED, and readers of those documents need to be able to trace where the figures came from. Current structure: **Fleet Admiral €250,000 × 1 + Industry Captain €50,000 × 8 = €650,000** at a €3.8M cap. Note the drift this entry flagged in `DWS_LIQUIDITY_ENGINE_v1.md` (€250K Admiral) turned out to anticipate the structure that was finally adopted.
 
 ---
 
@@ -412,13 +415,13 @@ Each locked decision has a detail record below for audit purposes.
 
 ### LD-2026-016 — Risk-Tiered HIC PR Review + Code Evidence Layer (EU AI Act Art. 12–14)
 
-| Field           | Value                                                                          |
-| --------------- | ------------------------------------------------------------------------------ |
-| **Date Locked** | 2026-08-24                                                                     |
-| **Category**    | EU-AI-ACT                                                                       |
-| **Status**      | LOCKED                                                                          |
-| **Owner**       | Risto Päärni                                                                    |
-| **File**        | `docs/field-notes/2026-08-24-opencode-all-living-engine.md`                     |
+| Field           | Value                                                       |
+| --------------- | ----------------------------------------------------------- |
+| **Date Locked** | 2026-08-24                                                  |
+| **Category**    | EU-AI-ACT                                                   |
+| **Status**      | LOCKED                                                      |
+| **Owner**       | Risto Päärni                                                |
+| **File**        | `docs/field-notes/2026-08-24-opencode-all-living-engine.md` |
 
 **Decision:** HIC approved (2026-08-24) a risk-tiered pull-request review model for agent-authored code, implementing EU AI Act Article 14 human oversight at the merge gate:
 
@@ -433,6 +436,43 @@ Companion control: the **Code Evidence Layer** (`CLAUDE.md` → Code Evidence La
 **Investor/sales material impact:** None to pricing, seat tiers (LD-2026-014), industry counts, or jurisdiction scope. Governance only: PRs modifying public pages, blog, or outreach collateral now explicitly require HIC sign-off in tier 1 (previously implied by Non-Negotiable Rule 13 for blogs; now generalized). No rewrite of existing sales/investor collateral is required.
 
 **Change process:** Tier boundaries or the evidence-header schema may only change with Risto approval + a new LD entry.
+
+---
+
+### LD-2026-017 — Investor Seat Tiers: €250K Admiral + 8 Captains (Supersedes LD-2026-014)
+
+| Field           | Value                                                                 |
+| --------------- | --------------------------------------------------------------------- |
+| **Date Locked** | 2026-09-09                                                            |
+| **Category**    | PRODUCT                                                               |
+| **Status**      | LOCKED — supersedes LD-2026-014                                       |
+| **Owner**       | Risto Päärni                                                          |
+| **File**        | `docs/field-notes/2026-09-09-investor-seat-structure-supersession.md` |
+
+**Decision (HIC, 2026-09-09 — "we stick now with 250 plus 8 captains", "approve investor centre"):**
+
+| Tier                 | Price    | Seats | Subtotal     |
+| -------------------- | -------- | ----- | ------------ |
+| **Fleet Admiral**    | €250,000 | 1     | €250,000     |
+| **Industry Captain** | €50,000  | 8     | €400,000     |
+|                      |          |       | **€650,000** |
+
+Round total **€650,000 SAFE at a €3.8M valuation cap**. The arithmetic closes exactly, and `dws10.com/investor-centre/admiral/` states so on the page ("This fills the €650,000 target exactly").
+
+**Canonical surface:** `dws10.com/investor-centre/` (+ its `landing-pages/dws10-com/` mirror) is the single investor-facing surface. `dws10.com/captain/` and `dws10.com/fleet-admiral/` are retired to redirects (`/investor-centre/captain/`, `/investor-centre/admiral/`) and must stay redirects — do not restore page bodies there.
+
+**Why locked:** This is the fourth structure in six months (LD-2026-007 €500K/€150K/€50K×8 → LD-2026-014 €200K/€50K×9 → the Boardy pack's €500K+8×€50K → this). Each drift reached live investor-facing pages before it was caught. Two tiers from LD-2026-014 are **retired by omission and remain open questions**, deliberately not resolved here because the €650,000 closes exactly and leaves them no room:
+
+- **Deputy Captain €5,000** — absent from investor-centre; still present on `dws10.com/index.html`.
+- **€150,000 Captain "triple" bundle** — absent from investor-centre; still present on `dws10.com/index.html`.
+
+Either they are retired (and the homepage needs correcting) or they sit outside the €650K (and the round total or cap needs restating). Until the HIC rules, neither may be quoted to an investor.
+
+**Known remaining drift (not fixed by this entry):** 23 files still assert the superseded €200K Admiral, including `docs/INVESTOR_HOOK_DECK.md`, `investor-outreach/INVESTOR_MEMO_ONE_PAGER.md`, `investor-outreach/MISSION_DWS_VISION_2026.md` and `V4`→`V4.3-DWS-IQ6-InvestorPD_2026.md`. `investor-outreach/INVESTOR_MEMO.md` additionally frames Captain as a non-equity **client** role, which is mutually exclusive with selling 8 investor seats. Scope here is the decision record only; the sweep is a separate approved change.
+
+**Register-or-it-drifts (DWS_TRUTH_STANDARD §3A):** this number is repeated across 100+ investor-facing files and has drifted four times precisely because it lives only in this decision log and was never registered in the truth registry. Registering it in `DWS_TRUTH_STANDARD.md` §2 with the superseded variants as deprecated phrasings — so `scripts/lint-truth-claims.mjs` catches a regression — is pending HIC approval as a separate item.
+
+**Change process:** Any tier change requires Risto approval + legal review of existing SAFEs + a new LD entry, same as LD-2026-007 and LD-2026-014.
 
 ---
 
