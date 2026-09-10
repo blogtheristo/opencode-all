@@ -51,12 +51,23 @@ echo ""
 
 # ━━━ Check 2: No skipped tests ━━━
 echo "✓ Check 2: Skipped tests"
-# Find .skip() calls (but exclude skipIf() which is conditional skipping)
-SKIP_COUNT=$(grep -r "\.skip\|@skip\|it\.skip\|describe\.skip" src/__tests__/ 2>/dev/null | grep -v "skipIf\|node_modules" | wc -l || echo "0")
+# Match skip CALL SITES only. The previous pattern was a bare `\.skip`, which
+# also matched any identifier beginning "skip" — `expect(result.skipped).toBe(1)`
+# is an assertion ABOUT a skipped-item count, not a skipped test, and it failed
+# this gate on every PR. A gate that cries wolf trains people to merge past it.
+#
+# Covered: it/test/describe/suite/bench `.skip(` and `.skip.each(`, the x-prefixed
+# aliases xit/xdescribe/xtest, and an `@skip` annotation. Deliberately NOT
+# covered: `.skipIf(` (conditional by design) and any `skip`-prefixed identifier.
+# scripts/__tests__/validate-dod-skip-detection.test.mjs reads this pattern out
+# of this file and pins both halves — real skips caught, look-alikes ignored.
+SKIP_PATTERN='(^|[^A-Za-z0-9_$])(it|test|describe|suite|bench)\.skip[[:space:]]*(\(|\.each)|(^|[^A-Za-z0-9_$])(xit|xdescribe|xtest)[[:space:]]*\(|@skip([^A-Za-z0-9_]|$)'
+SKIP_HITS=$(grep -rEn "$SKIP_PATTERN" src/__tests__/ 2>/dev/null | grep -v "skipIf\|node_modules" || true)
+SKIP_COUNT=$(printf '%s' "$SKIP_HITS" | grep -c . || true)
 
-if [ "$SKIP_COUNT" -gt 0 ]; then
+if [ "${SKIP_COUNT:-0}" -gt 0 ]; then
   echo "  ❌ FAIL: Found $SKIP_COUNT permanently skipped tests:"
-  grep -r "\.skip\|@skip" src/__tests__/ 2>/dev/null | grep -v "skipIf" | head -5
+  printf '%s\n' "$SKIP_HITS" | head -5
   echo "  ⓘ Unskip tests before merge"
   ((VIOLATIONS++))
 else
