@@ -4,12 +4,12 @@ on:
   push:
     branches: [main]
     paths:
-      - 'Store/**'
-      - 'dws10.com/config/products.json'
-      - 'scripts/build_store.py'
-      - 'scripts/generate-google-feed.cjs'
-      - 'scripts/sync-nvidia-isv.cjs'
-      - 'dws10.com/config/nvidia-isv.json'
+      - "Store/**"
+      - "dws10.com/config/products.json"
+      - "scripts/build_store.py"
+      - "scripts/generate-google-feed.cjs"
+      - "scripts/sync-nvidia-isv.cjs"
+      - "dws10.com/config/nvidia-isv.json"
   workflow_dispatch:
 
 permissions:
@@ -25,7 +25,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
@@ -38,12 +38,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: "24"
 
       - name: Generate Google Merchant XML Feed
         run: |
           node scripts/generate-google-feed.cjs
-          cp landing-pages/dws10-com/feeds/google-products.xml dws10.com/feeds/google-products.xml
 
       - name: Sync NVIDIA ISV page data
         run: |
@@ -53,6 +52,11 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add landing-pages/dws10-com/products.xml landing-pages/dws10-com/products.csv landing-pages/dws10-com/products/ landing-pages/dws10-com/feeds/google-products.xml dws10.com/feeds/google-products.xml dws10.com/config/nvidia-isv.json landing-pages/dws10-com/config/nvidia-isv.json landing-pages/dws10-com/lifetime-fleet/nvidia-isv/
+          # Source folder only. build_store.py now writes into dws10.com/ and
+          # sync-dws6-landing-pages.yml mirrors it to landing-pages/. Staging the
+          # mirror here is what let generated pages exist ONLY under
+          # landing-pages/, where the mirror sync's rsync --delete would remove
+          # them: 94 product pages were one push away from deletion on
+          # 2026-07-31. Do not re-add landing-pages paths to this list.
+          git add dws10.com/products.xml dws10.com/products.csv dws10.com/products/ dws10.com/feeds/google-products.xml dws10.com/config/nvidia-isv.json
           git diff --quiet && git diff --staged --quiet || (git commit -m "chore: Update Store Feed, Google Merchant, and NVIDIA ISV sync" && git push)
-

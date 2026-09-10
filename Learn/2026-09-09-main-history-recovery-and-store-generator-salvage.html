@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-09-main-history-recovery-and-store-generator-salvage</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-09-main-history-recovery-and-store-generator-salvage</h1>
+</header>
+<h1 id="field-note-what-actually-orphaned-mains-history-18881890-and-the-store-generator-salvage">Field Note — What Actually Orphaned Main’s History (#1888/#1890), and the Store-Generator Salvage</h1>
+<p><strong>Date:</strong> 2026-09-09 <strong>Branch:</strong> <code>claude/store-generator-source-fix</code> (PR #1987) <strong>Related:</strong> PR #1986 (LD-2026-017) · PR #1778 (open, superseded)</p>
+<hr />
+<h2 id="the-misdiagnosis-and-the-correction">1. The misdiagnosis, and the correction</h2>
+<p>Earlier in this session I reported that main’s history had been <strong>rewritten</strong>, and tied it to a deliberate secrets purge at the <code>remove-committed-env-file</code> merge-base (#1668). <strong>Both halves were wrong</strong>, and the correction matters more than the original claim.</p>
+<p>What I observed was real: <code>329eec3e</code> — main’s HEAD on 2026-07-31 and the base of PR #1778 — is no longer an ancestor of <code>origin/main</code>; the merge-base falls back to <code>46ec6805</code> (2026-07-13); merging produces 579 conflicts. From that I inferred <code>filter-repo</code> plus a force-push. I inferred intent from a coincidence.</p>
+<p><code>docs/field-notes/2026-08-24-repo-wipe-recovery-defense-stack.md</code> records what happened:</p>
+<ul>
+<li><strong>Incident #1888 (2026-08-24).</strong> A regression-test fixture escaped its sandbox during a pre-push vitest run. A <code>git commit -m baseline</code> under the fixture identity <code>Retry Test &lt;test@lifetime.fi&gt;</code> deleted <strong>5,755 files</strong> in the host worktree, was pushed with audited <code>SKIP_LOCAL_CI</code>, and merged via PR #1888. <code>origin/main</code> collapsed to a single-file tree — 6,797 files gone, −2,378,360 lines.</li>
+<li><strong>Recovery, PR #1890.</strong> GitHub could not cleanly merge the recovery into the poisoned tip, so the fix was <em>“a single explicit restore commit with parent = poisoned main, tree = verified tree.”</em></li>
+</ul>
+<p><strong>That restore commit is what orphaned the history.</strong> It restores <em>contents</em> while abandoning <em>ancestry</em> — so 4,695 commits went unreferenced. No force-push occurred; force-push and branch deletion on main are now server-side banned under the defense stack built after that same incident.</p>
+<p><strong>Authority:</strong> the wipe had none — the acting identity was a test fixture, which still authors 118 commits on current main as <code>Unit Fixture &lt;dev@lifetime.fi&gt;</code>. The recovery was deliberate, documented, and defensible as emergency response. Orphaning the pre-incident ancestry appears to be an unintended side effect of it, not a decision anyone took.</p>
+<p><strong>Lesson.</strong> A large conflict count plus a moved merge-base is evidence of <em>divergence</em>, not of <em>intent</em>. The cheapest way to tell them apart is to look for the incident record before theorising about the mechanism — <code>grep -rl &quot;force.push\|filter-repo\|history rewrite&quot; docs/field-notes/</code> would have answered it in one command, before I put a wrong causal story in front of the HIC.</p>
+<h2 id="nothing-was-lost-but-preserving-it-re-exposed-a-credential">2. Nothing was lost — but preserving it re-exposed a credential</h2>
+<p>All 4,762 commits back to <code>f5343a44</code> (2025-12-22) are intact in the object store; they were merely unreferenced and therefore GC-eligible. I pushed <code>archive/main-pre-rewrite-2026-07-31</code> at <code>329eec3e</code> to make them reachable.</p>
+<p><strong>That was a mistake in its specifics.</strong> Comparing the old and current trees showed 342 files present in old main and absent from current main, one of which is <strong><code>gcp-sa-key-new.json</code></strong> — a GCP service-account key. There is <strong>no deletion commit for it anywhere in the repo</strong>: its absence from current main is a side effect of the #1890 tree-restore, not a deliberate purge. Pushing the archive branch therefore republished it. The HIC has since confirmed the key is already rotated and dead, which removes the urgency but not the lesson:</p>
+<p><strong>Before pushing any ref that resurrects an old tree, diff its file list against current main for credential-shaped names.</strong> A restore-based recovery silently drops files, and “absent from main” does not mean “deliberately removed” — so the usual assumption (old history was already vetted) is exactly backwards here.</p>
+<p>Two live refs still carry the file: this archive branch, and <code>claude/captain-admiral-pages-sync</code> (PR #1778, open since July — pre-existing, not created today). Both are pending HIC-approved deletion; remote deletion is blocked to this agent.</p>
+<h2 id="the-342-file-delta-is-the-real-drift-surface">3. The 342-file delta is the real drift surface</h2>
+<p><code>old main (5,791 files)</code> vs <code>current main (7,151 files)</code>: 342 dropped, 1,702 added. By area, the dropped set is dominated by <code>landing-pages</code> (97), <code>dws6.com.backup_now</code> (81), <code>Learn</code> (62) and retired/deprecated trees — largely legitimate. But the delta has <strong>never been audited</strong>, and it is the only place an unnoticed loss from the #1888 restore could still be hiding. <code>gcp-sa-key-new.json</code> is proof that at least one file left main with no deletion commit behind it.</p>
+<p>This audit is <strong>not complete</strong>. It needs a pass that classifies all 342 into deliberate-deletion / retired-by-design / silently-lost, and it should be done while the archive ref still exists.</p>
+<h2 id="store-generator-salvage-pr-1987">4. Store-generator salvage (PR #1987)</h2>
+<p>PR #1778’s investor content is dead — superseded by LD-2026-017 (€250K Admiral + 8 × €50K) and by main retiring <code>dws10.com/captain/</code> and <code>/fleet-admiral/</code> to redirects. Its generator fix was not, and the root cause was still live on main:</p>
+<p>Both store generators read the canonical catalog from <strong>source</strong> but wrote output into the <strong>landing-pages mirror</strong>, which <code>sync-dws6-landing-pages.yml</code> then <code>rsync --delete</code>’d against source. Generated pages could only ever exist in the mirror, where they were deletion bait — 94 product pages sat one push from removal on 2026-07-31.</p>
+<p>Rebuilt on today’s main rather than merged: outputs repointed to <code>dws10.com/</code>; <code>HAND_AUTHORED</code> skips 25 bespoke pages so generation cannot flatten them; <code>check_handauthored_prices()</code> still holds those pages to <code>products.json</code>, failing the build on a <em>new</em> divergence; <code>generate-google-feed.cjs</code> (same inversion, second script) repointed and its manual <code>cp</code> workaround deleted; <code>update-store.yml</code> stages source paths only.</p>
+<p><strong>Re-deriving July’s lists against today’s catalog paid for itself:</strong> the guard’s first run caught <strong><code>edge-node-gn100</code> at €5,294 on the page vs €8,008 in <code>products.json</code></strong> — a €2,714 gap on a hardware SKU, i.e. a quotable number rather than a rate-vs-package mismatch. <code>digital-design-gold</code> and <code>cloud-ready-teams</code> had left the catalog entirely, so their entries were dead weight.</p>
+<p>Verified: 110 generated, 25 skipped, <strong>0 hand-authored pages modified</strong>, build exits 0, all four site pairs at 0 diffs.</p>
+<h2 id="an-instruction-conflict-i-did-not-resolve-silently">5. An instruction conflict I did not resolve silently</h2>
+<p>The HIC approved <strong>D9 — close #1778 as superseded, re-open the store fix off main</strong> — and then said <em>“merge #1778”</em>. Those are opposite: merging verbatim restores the retired captain/admiral page bodies over main’s redirects and re-asserts €200K/9 seats over the €250K/8 locked in LD-2026-017 an hour earlier. I executed D9’s outcome (PR #1987) and put the contradiction back to the HIC rather than picking one. Rule 7 — surface conflicts, don’t average them.</p>
+<h2 id="hic-learning-outcome">6. HIC Learning Outcome</h2>
+<ol type="1">
+<li><strong>KB</strong> — N/A: no new domain knowledge; the durable rules are the two lessons in §1 and §2, recorded here.</li>
+<li><strong>Field note</strong> — this file.</li>
+<li><strong><code>Learn/</code> HTML</strong> — rendered alongside.</li>
+<li><strong>Drive export</strong> — N/A: repo is source-of-truth (<code>DWS_TRUTH_STANDARD</code> §2E); no external-audience content.</li>
+<li><strong>Decision question</strong> — <code>edge-node-gn100</code>: is the true price <strong>€8,008</strong> (catalog) or <strong>€5,294</strong> (page)? One of the two is being quoted to buyers today.</li>
+<li><strong>Calendar</strong> — N/A: no dated commitment created or discovered.</li>
+</ol>
+<h2 id="open">7. Open</h2>
+<ul>
+<li><strong>#1778</strong> — close as superseded, or merge verbatim knowing it reverts LD-2026-017 and the investor-centre redirects.</li>
+<li><strong><code>edge-node-gn100</code></strong> price ruling; four other drifts reported on every build run.</li>
+<li><strong>Delete the two refs</strong> carrying <code>gcp-sa-key-new.json</code> (agent is blocked from remote deletion).</li>
+<li><strong>Audit the 342-file delta</strong> while the archive ref exists.</li>
+<li><strong>Preservation route</strong> for the 4,762 orphaned commits — metadata-only to Supabase carries no blobs, so no credential can ride along. The 2026-08-24 note also mentions an existing DGX cron <code>mirror.git</code> bundle with 30-day retention; check whether it already holds the pre-incident ancestry before building anything.</li>
+<li><strong>D2–D8</strong> of the decision dialog remain queued.</li>
+</ul>
+</body>
+</html>
