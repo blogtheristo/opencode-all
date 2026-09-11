@@ -554,49 +554,50 @@ Code-backed agents (one `*.agent.ts` per row). This table is verified against
 the filesystem by `scripts/verify-agents-md.mjs` — keep it in sync when adding
 or removing an agent.
 
-| Agent                      | Role                                              | Implementation                                                                                                                                                                                                                                                                                                      | Default model |
-| -------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `agora`                    | Collective intelligence / multi-agent consensus   |
-| `argus`                    | Geospatial SAR signal intelligence (orbital)      |
-| `auditor`                  | Audit trail + explainability (XAI)                |
-| `cassandra`                | Predictive analytics + recommendations            |
-| `chronos`                  | Regulatory deadline & scheduling intelligence     |
-| `compliance`               | EU regulatory compliance (Fit for 55, CBAM, CSRD) |
-| `compliance-researcher`    | Regulatory research & deadline tracking           |
-| `construction`             | Construction project compliance orchestrator      |
-| `customer-sat`             | Customer satisfaction & churn analysis            |
-| `daedalus`                 | Tool composition + MCP bridge                     |
-| `deepwiki-extractor`       | Code extraction from GitHub repositories          |
-| `designer`                 | Design-to-code bridge                             |
-| `emissions-data-analyst`   | Natural-language queries on emissions data        |
-| `kb`                       | Knowledge base compile / query                    |
-| `logistics`                | Fleet & supply-chain compliance orchestrator      |
-| `material-oracle`          | Carbon footprint & procurement (LCA)              |
-| `minerva`                  | Knowledge transfer + explainability               |
-| `mnemosyne`                | Long-term memory oracle                           |
-| `panacea`                  | Self-improving / adaptive optimization            |
-| `quality-gate`             | Quality-gate / QA verification                    |
-| `hic-content-audit`        | HicContentAuditAgent                              | Binary pre-publication audit against the DWS Content Production Standard — 13 checklist points, Approved/To be corrected, requires a named HIC approver                                                                                                                                                             | Llama 3.3 70B |
-| `version-audit`            | VersionAuditAgent                                 | Audits DWS IQ 6 component versions, agent configurations, and ensures compliance                                                                                                                                                                                                                                    | Llama 3.3 70B |
-| `industry-analyst`         | IndustryAnalystAgent                              | Universal 25-industry analyst — regulatory exposure, emission profile, and decarbonization levers for any EU-regulated industry; fills the coverage gap for the 12 industries without a dedicated agent                                                                                                             | Llama 3.3 70B |
-| `outreach-executor`        | OutreachExecutorAgent                             | Delivers approved outreach threads via email (Amazon SES) or queues LinkedIn drafts for human delivery. Requires explicit human approval (approvedBy) before sending.                                                                                                                                               | Llama 3.3 70B |
-| `outreach-improver`        | OutreachImproverAgent                             | Outer loop of the DWS outreach self-improvement system. Analyzes outreach_threads outcomes from Supabase and proposes specific SKILL.md diffs to improve response rates over time.                                                                                                                                  | Llama 3.3 70B |
-| `outreach-lead-finder`     | OutreachLeadFinderAgent                           | Finds and scores high-intent EU enterprise leads matching an ICP. Upserts results to Supabase outreach_orgs. Powered by DGX Spark Ollama.                                                                                                                                                                           | Llama 3.3 70B |
-| `outreach-message-crafter` | OutreachMessageCrafterAgent                       | Crafts personalized email + LinkedIn message drafts for B2B leads using DWS brand voice and DGX Spark Ollama. Stores drafts to Supabase outreach_threads.                                                                                                                                                           | Llama 3.3 70B |
-| `outreach-orchestrator`    | OutreachOrchestratorAgent                         | Full outreach pipeline: find high-intent leads → craft personalized messages → queue for review. Step 3 (send) requires explicit human approval.                                                                                                                                                                    | Llama 3.3 70B |
-| `sales-manager-newsletter` | SalesManagerNewsletterAgent                       | Synthesizes market_signals (regulation) + news-to-signal.sh incident data into the sales-manager.md Story → Key Takeaway → Sales Opportunity format. Refuses to generate below minStories; sales targets constrained to EU_TARGET_UNIVERSE (no invented company names). Read-only — Stage 3 script writes the file. | Llama 3.3 70B |
-| `smart-factory`            | SmartFactoryAgent                                 | Smart Factory for Sales: matches any-size product catalog against sourced prospects, runs rate-capped multi-channel outreach (email / WhatsApp Cloud API; LinkedIn + Facebook human-in-the-loop), and books calls into booking_reservations. Backed by `src/smart-factory/` (migration 083).                        | Llama 3.3 70B |
-| `aegis`                    | AegisAgent                                        | Vulnerability & patch governance — triages dependency and code-scan findings                                                                                                                                                                                                                                        | Llama 3.3 70B |
-| `helpdesk`                 | HelpdeskAgent                                     | Support ticket triage agent. Reads ticket + customer plan + prior tickets + policy KB,                                                                                                                                                                                                                              | Llama 3.3 70B |
-| `vesta`                    | VestaAgent                                        | Business-critical systems registry — queryable form of docs/BUSINESS_CRITICAL_SYSTEMS.md.                                                                                                                                                                                                                           | Llama 3.3 70B |
-| `sales-outreach`           | B2B lead research & personalized outreach         |
-| `schedule-genius`          | Timeline & critical-path optimization             |
-| `sitesense`                | Site monitoring & safety analysis                 |
-| `sovereignty-monitor`      | Database sovereignty assessment                   |
-| `synthetic-data`           | CBAM synthetic-data pipeline                      |
-| `themis`                   | Legal intelligence + case coordinator             |
-| `viability`                | Unit economics & carbon-credit valuation          |
-| `vision-oracle`            | Vision language model / image analysis            |
+| Agent                      | Role | Implementation                | Default model               |
+| -------------------------- | ---- | ----------------------------- | --------------------------- |
+| `aegis`                    | Vulnerability & patch governance — triages dependency and code-scan findings | `AegisAgent`                  | `llama-3.3-70b-versatile`   |
+| `agora`                    | Collective intelligence / multi-agent consensus | `AgoraAgent`                  | `claude-sonnet-5`           |
+| `argus`                    | Geospatial SAR signal intelligence (orbital) | `ArgusAgent`                  | `claude-sonnet-5`           |
+| `auditor`                  | Audit trail + explainability (XAI) | `AuditorAgent`                | `llama-3.3-70b-versatile`   |
+| `cassandra`                | Predictive analytics + recommendations | `CassandraAgent`              | `llama-3.3-70b-versatile`   |
+| `chronos`                  | Regulatory deadline & scheduling intelligence | `ChronosAgent`                | `llama-3.3-70b-versatile`   |
+| `compliance`               | EU regulatory compliance (Fit for 55, CBAM, CSRD) | `ComplianceAgent`             | `llama-3.3-70b-versatile`   |
+| `compliance-researcher`    | Regulatory research & deadline tracking | `ComplianceResearcherAgent`   | `llama-3.1-70b-versatile`   |
+| `construction`             | Construction project compliance orchestrator | `ConstructionAgent`           | `llama-3.1-70b-versatile`   |
+| `customer-sat`             | Customer satisfaction & churn analysis | `CustomerSatAgent`            | `llama-3.3-70b-versatile`   |
+| `daedalus`                 | Tool composition + MCP bridge | `DaedalusAgent`               | `llama-3.3-70b-versatile`   |
+| `deepwiki-extractor`       | Code extraction from GitHub repositories | `DeepWikiExtractorAgent`      | `llama-3.1-70b-versatile`   |
+| `designer`                 | Design-to-code bridge | `DesignerAgent`               | `claude-sonnet-5`           |
+| `emissions-data-analyst`   | Natural-language queries on emissions data | `EmissionsDataAnalystAgent`   | `llama-3.1-70b-versatile`   |
+| `helpdesk`                 | Support ticket triage agent. Reads ticket + customer plan + prior tickets + policy KB, | `HelpdeskAgent`               | `claude-sonnet-4-6`         |
+| `hic-content-audit`        | Binary pre-publication audit against the DWS Content Production Standard — 13 checklist points, Approved/To be corrected, requires a named HIC approver | `HicContentAuditAgent`        | `claude-haiku-4-5-20251001` |
+| `industry-analyst`         | Universal 25-industry analyst — regulatory exposure, emission profile, and decarbonization levers for any EU-regulated industry; fills the coverage gap for the 12 industries without a dedicated agent | `IndustryAnalystAgent`        | `claude-haiku-4-5-20251001` |
+| `kb`                       | Knowledge base compile / query | `KBAgent`                     | `claude-sonnet-5`           |
+| `logistics`                | Fleet & supply-chain compliance orchestrator | `LogisticsAgent`              | `llama-3.1-70b-versatile`   |
+| `material-oracle`          | Carbon footprint & procurement (LCA) | `MaterialOracleAgent`         | `llama-3.3-70b-versatile`   |
+| `minerva`                  | Knowledge transfer + explainability | `MinervaAgent`                | `llama-3.3-70b-versatile`   |
+| `mnemosyne`                | Long-term memory oracle | `MnemosyneAgent`              | `llama-3.3-70b-versatile`   |
+| `outreach-executor`        | Delivers approved outreach threads via email (Amazon SES) or queues LinkedIn drafts for human delivery. Requires explicit human approval (approvedBy) before sending. | `OutreachExecutorAgent`       | `placeholder`               |
+| `outreach-improver`        | Outer loop of the DWS outreach self-improvement system. Analyzes outreach_threads outcomes from Supabase and proposes specific SKILL.md diffs to improve response rates over time. | `OutreachImproverAgent`       | `llama3.3:70b`              |
+| `outreach-lead-finder`     | Finds and scores high-intent EU enterprise leads matching an ICP. Upserts results to Supabase outreach_orgs. Powered by DGX Spark Ollama. | `OutreachLeadFinderAgent`     | `llama3.3:70b`              |
+| `outreach-message-crafter` | Crafts personalized email + LinkedIn message drafts for B2B leads using DWS brand voice and DGX Spark Ollama. Stores drafts to Supabase outreach_threads. | `OutreachMessageCrafterAgent` | `llama3.3:70b`              |
+| `outreach-orchestrator`    | Full outreach pipeline: find high-intent leads → craft personalized messages → queue for review. Step 3 (send) requires explicit human approval. | `OutreachOrchestratorAgent`   | `placeholder`               |
+| `panacea`                  | Self-improving / adaptive optimization | `PanaceaAgent`                | `llama-3.3-70b-versatile`   |
+| `quality-gate`             | Quality-gate / QA verification | `QualityGateAgent`            | `llama-3.3-70b-versatile`   |
+| `sales-manager-newsletter` | Synthesizes market_signals (regulation) + news-to-signal.sh incident data into the sales-manager.md Story → Key Takeaway → Sales Opportunity format. Refuses to generate below minStories; sales targets constrained to EU_TARGET_UNIVERSE (no invented company names). Read-only — Stage 3 script writes the file. | `SalesManagerNewsletterAgent` | `llama3.3:70b`              |
+| `sales-outreach`           | B2B lead research & personalized outreach | `SalesOutreachAgent`          | `llama-3.3-70b-versatile`   |
+| `schedule-genius`          | Timeline & critical-path optimization | `ScheduleGeniusAgent`         | `llama-3.3-70b-versatile`   |
+| `sitesense`                | Site monitoring & safety analysis | `SiteSenseAgent`              | `llama-3.3-70b-versatile`   |
+| `smart-factory`            | Smart Factory for Sales: matches any-size product catalog against sourced prospects, runs rate-capped multi-channel outreach (email / WhatsApp Cloud API; LinkedIn + Facebook human-in-the-loop), and books calls into booking_reservations. Backed by `src/smart-factory/` (migration 083). | `SmartFactoryAgent`           | `llama3.3:70b`              |
+| `sovereignty-monitor`      | Database sovereignty assessment | `SovereigntyMonitorAgent`     | `llama-3.3-70b-versatile`   |
+| `synthetic-data`           | CBAM synthetic-data pipeline | `SyntheticDataAgent`          | `deterministic`             |
+| `themis`                   | Legal intelligence + case coordinator | `ThemisAgent`                 | `claude-sonnet-5`           |
+| `version-audit`            | Audits DWS IQ 6 component versions, agent configurations, and ensures compliance | `VersionAuditAgent`           | `llama-3.3-70b-versatile`   |
+| `vesta`                    | Business-critical systems registry — queryable form of docs/BUSINESS_CRITICAL_SYSTEMS.md. | `VestaAgent`                  | `llama-3.3-70b-versatile`   |
+| `viability`                | Unit economics & carbon-credit valuation | `ViabilityAgent`              | `llama-3.3-70b-versatile`   |
+| `vision-oracle`            | Vision language model / image analysis | `VisionOracleAgent`           | `claude-opus-4-7`           |
+| `vuln-patch-sla-triage`    | Vulnerability & patch governance — triages dependency and code-scan findings  | `VulnPatchSlaTriageAgent`     | `llama-3.3-70b-versatile`   |
 
 ### Documentation Standards
 
@@ -867,6 +868,6 @@ All real `// TODO` markers in `src/` are triaged in [`docs/backlog/CODE_TODO_LED
 ---
 
 **Document Version:** 1.3  
-**Last Updated:** August 25, 2026  
+**Last Updated:** September 11, 2026  
 **Status:** Active  
 **Next Review:** October 10, 2026
