@@ -131,10 +131,10 @@ jobs:
             echo "No new posts to commit"
           else
             DAY="${{ steps.calc-day.outputs.day }}"
-            git commit -m "campaign: auto-generate Day ${DAY} posts (EN + FI)
-
-Pillar: $(( (DAY - 1) % 10 + 1 )) of 10
-Phase: $([ $DAY -le 100 ] && echo 'Foundation' || ([ $DAY -le 300 ] && echo 'Depth' || ([ $DAY -le 500 ] && echo 'Engagement' || echo 'Authority')))"
+            git commit \
+              -m "campaign: auto-generate Day ${DAY} posts (EN + FI)" \
+              -m "Pillar: $(( (DAY - 1) % 10 + 1 )) of 10" \
+              -m "Phase: $([ $DAY -le 100 ] && echo 'Foundation' || ([ $DAY -le 300 ] && echo 'Depth' || ([ $DAY -le 500 ] && echo 'Engagement' || echo 'Authority')))"
 
             git push origin main
           fi
@@ -152,9 +152,9 @@ Phase: $([ $DAY -le 100 ] && echo 'Foundation' || ([ $DAY -le 300 ] && echo 'Dep
             git push -u origin "$BRANCH"
             gh pr create \
               --title "Campaign Day ${DAY}: auto-generated posts" \
-              --body "Auto-generated EN + FI posts for Day ${DAY} of the 800-day campaign.
-
-Review within 24 hours or posts auto-publish." \
+              --body "$(printf '%s\n\n%s' \
+                "Auto-generated EN + FI posts for Day ${DAY} of the 800-day campaign." \
+                'Review within 24 hours or posts auto-publish.')" \
               --label "campaign,content" || true
           fi
 

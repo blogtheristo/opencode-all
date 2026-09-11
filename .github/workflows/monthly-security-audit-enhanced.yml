@@ -63,11 +63,7 @@ jobs:
           # Convert JSONL log to JSON array expected by correlation script
           if [ -f security-attacks.jsonl ] && [ -s security-attacks.jsonl ]; then
             echo '{ "attacks":' > aikido-attacks.json
-            python3 -c "
-import json, sys
-attacks = [json.loads(l) for l in open('security-attacks.jsonl') if l.strip()]
-json.dump(attacks, sys.stdout, indent=2)
-" >> aikido-attacks.json
+            python3 -c "import json, sys; json.dump([json.loads(l) for l in open('security-attacks.jsonl') if l.strip()], sys.stdout, indent=2)" >> aikido-attacks.json
             echo '}' >> aikido-attacks.json
             echo "Loaded $(wc -l < security-attacks.jsonl) ZenFree attack records"
           else
