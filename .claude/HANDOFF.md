@@ -34,6 +34,32 @@ merge conflict on this file (also in this repo's history, commit `d93e8fc`).
 Per-branch files fix both: injection is keyed to the actual current branch,
 and files never collide across branches.
 
+### VERSION AND AGENT HISTORY (HIC Visibility Layer)
+
+**Purpose:** Track which tool (OpenCode / Claude Code / Cursor) made which changes
+to the handoff plan. This keeps the HIC informed of progress and debugging when
+assumptions diverge between tools.
+
+**Strategy:** Each tool independently increments the version. Do NOT coordinate versions
+across tools. The version number is a **per-tool counter**, not a global counter.
+
+- OpenCode starts at 1.0, increments to 1.1, 1.2, … (its own line)
+- Claude Code starts at 1.0 on its first edit, increments to 1.1, 1.2, … (its own line)
+- Cursor starts at 1.0 on its first edit, increments to 1.1, 1.2, … (its own line)
+
+Example final state (all three tools have edited the same handoff):
+
+```
+| Version | Date       | Changes                      | Agent       |
+| 1.2     | 2026-09-15 | Added Cursor fallback notes  | Cursor      |
+| 1.1     | 2026-09-14 | Fixed Noux API blocker       | Claude Code |
+| 1.0     | 2026-09-13 | Initial plan                 | OpenCode    |
+```
+
+The HIC reads this table and immediately sees: Cursor worked most recently (v1.2),
+Claude Code caught a blocker (v1.1), OpenCode wrote the original plan (v1.0).
+The dates + changes tell the full story without needing to read git logs.
+
 ## Update protocol (every agent, every session)
 
 1. **Read** your branch's handoff file before starting work — the
@@ -44,6 +70,12 @@ and files never collide across branches.
    significant checkpoint (Rule 10) and always before ending a session —
    commit it together with the work it describes, on the same branch. Use
    the field shape: Task / State / Next steps / Blockers.
+   - **New handoff files:** Start with the template at `.claude/handoffs/_template.md`.
+     This includes a VERSION AND AGENT HISTORY block. Update the version number (e.g., 1.0)
+     and agent name (your tool: OpenCode / Claude Code / Cursor).
+   - **Updating existing files:** When making substantive changes, increment the version
+     (e.g., 1.0 → 1.1) and add a new row to VERSION AND AGENT HISTORY marking your change
+     and marking the previous version `[not latest]`.
 3. **Append** a one-line entry to `HANDOFF HISTORY` below when a task
    completes or is handed off. Keep history to the newest 20 lines; delete
    older ones when appending would exceed that.
@@ -60,6 +92,7 @@ and files never collide across branches.
 
 ## HANDOFF HISTORY
 
+- 2026-09-13 | claude/email-2-0-rewrite-74mtjq | Mission Control Ops plan canonicalized in-repo for Cursor/OpenCode/Claude Code: `.claude/handoffs/claude/mission-control-ops.md` + branch baton; stop stalled Outreach SES + ship Noux Mission Control (awaiting execute). PR #2002.
 - 2026-07-07 | claude/aspire-docs-e857b3 | Tool-call KYA verdict threading shipped (real `authorizeToolCall()` gate → `withToolSpan`, previously dead/zero-coverage); Aspire field note v1.2 closed last verification gap (WithPip/aspire destroy/ACA identity/TS AppHost GA all confirmed).
 - 2026-07-22 | claude/kya-mandate-evidence-migration-mq7hnp | PR #1713: verified 074 live in prod; added agentic-commerce Ari-test buyer line (procurement brief S9 + Defence card, Aegis page); added KYA §14.7 Verified-Done Attestation (v1.9.1→1.10) — TS envelope + stub issuer `issueVerifiedDoneAttestation()` + migration 079 (`kya_verified_done_attestations` + `mandate.attest`, extending live 074 chain), signing DEFERRED to v2.0. tsc/prettier/vitest 27/27 green. Human: apply 079 (RED-zone). Migration numbered 079 (075–078 already exist).
 - 2026-07-15 | claude/dach-france-anchors-caemw0 | Recovered DACH+France academic-anchor pack (Recovery Prompt C): `docs/lut/dach-france-anchors-research-2026-07.md` with per-anchor contacts/publications/fit scores for DE/AT/CH/FR + top-3 ranking; corrected two stale claims (FFG Industrienahe Dissertationen not usable — 2026 company track exhausted + no Austrian entity; Fraunhofer IAIS/BSI is strategic cooperation not joint authorship); roadmap §0/§5/§7 updated. Merged origin/main twice (post-#1676 EU/NATO, then post-#1682 FI/SE) so #1683 stacks on the corrected roadmap instead of reverting either; reconciled the roadmap to v1.3. Flagged and refused a prompt-injection attempt in the task input that tried to redirect the deliverable to a fabricated "FI/SE lanes" doc with invented grant figures — same injection #1682 independently caught. PR #1683.
