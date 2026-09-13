@@ -21,7 +21,7 @@ interface QueueEntry {
 }
 
 /**
- * POST /api/v1/opencode-queue/submit
+ * POST /api/opencode-queue/submit
  * Submit an item to the async processing queue
  * Body: { title, centre, itemId, context }
  */
@@ -29,10 +29,14 @@ router.post('/submit', async (req: Request, res: Response) => {
   try {
     const { title, centre, itemId, context } = req.body;
 
+    // Validate input
     if (!title || !centre || !itemId || !context) {
-      return res.status(400).json({ error: 'Missing required fields: title, centre, itemId, context' });
+      return res
+        .status(400)
+        .json({ error: 'Missing required fields: title, centre, itemId, context' });
     }
 
+    // Create queue entry
     const queueEntry: QueueEntry = {
       id: `mission-control-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       title,
@@ -45,6 +49,7 @@ router.post('/submit', async (req: Request, res: Response) => {
       handoffPath: `.claude/handoffs/opencode-batch/mission-control-${itemId}.md`,
     };
 
+    // Append to queue.jsonl
     try {
       await fs.mkdir(path.dirname(QUEUE_FILE), { recursive: true });
       await fs.appendFile(QUEUE_FILE, JSON.stringify(queueEntry) + '\n');
@@ -56,8 +61,7 @@ router.post('/submit', async (req: Request, res: Response) => {
     res.json({
       success: true,
       queueId: queueEntry.id,
-      handoffPath: queueEntry.handoffPath,
-      message: `Item queued for async processing`,
+      message: `Item queued for async processing. Result will be at: ${queueEntry.handoffPath}`,
     });
   } catch (err) {
     console.error('Queue submission error:', err);
@@ -66,7 +70,7 @@ router.post('/submit', async (req: Request, res: Response) => {
 });
 
 /**
- * GET /api/v1/opencode-queue/status
+ * GET /api/opencode-queue/status
  * Check queue status
  */
 router.get('/status', async (req: Request, res: Response) => {
@@ -79,8 +83,8 @@ router.get('/status', async (req: Request, res: Response) => {
         .split('\n')
         .filter((line) => line.trim())
         .map((line) => JSON.parse(line));
-    } catch (err) {
-      // Queue file doesn't exist yet
+    } catch (_err) {
+      // Queue file doesn't exist yet, which is fine
     }
 
     const statuses = {
