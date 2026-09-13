@@ -58,6 +58,7 @@ import cbamPilotRoutes from './routes/cbam-pilot.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
+import opencodeQueueRoutes from './routes/opencode-queue.routes.js';
 import { contentRoutes } from './contentms/index.js';
 import gtmEventsRoutes from './routes/gtm-events.routes.js';
 import emailWebhookRoutes from './routes/email-webhook.routes.js';
@@ -369,6 +370,7 @@ app.use('/api/v1/email', emailRoutes);
 app.use('/api/v1/booking', bookingRoutes);
 app.use('/api/v1/support', supportRoutes);
 app.use('/api/v1/support', supportReviewRoutes);
+app.use('/api/v1/opencode-queue', opencodeQueueRoutes);
 app.use('/api/v1/captain', captainRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
