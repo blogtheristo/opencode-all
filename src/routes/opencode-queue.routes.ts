@@ -58,14 +58,14 @@ router.post('/submit', async (req: Request, res: Response) => {
       return res.status(500).json({ error: 'Failed to queue item', details: String(err) });
     }
 
-    res.json({
+    return res.json({
       success: true,
       queueId: queueEntry.id,
       message: `Item queued for async processing. Result will be at: ${queueEntry.handoffPath}`,
     });
   } catch (err) {
     console.error('Queue submission error:', err);
-    res.status(500).json({ error: 'Internal server error', details: String(err) });
+    return res.status(500).json({ error: 'Internal server error', details: String(err) });
   }
 });
 
@@ -73,7 +73,7 @@ router.post('/submit', async (req: Request, res: Response) => {
  * GET /api/opencode-queue/status
  * Check queue status
  */
-router.get('/status', async (req: Request, res: Response) => {
+router.get('/status', async (_req: Request, res: Response) => {
   try {
     let queueEntries: QueueEntry[] = [];
 

@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn • Daily Dashboard</title>
+    <style>
+      :root {
+        --primary: #0066ff;
+        --primary-dark: #0052cc;
+        --success: #00b341;
+        --warning: #ff9500;
+        --danger: #ff3333;
+        --urgency-p1: #ff2d55;
+        --urgency-p2: #ff9500;
+        --bg: #fafbfc;
+        --surface: #ffffff;
+        --surface-alt: #f5f6f7;
+        --border: #dde3eb;
+        --text-primary: #1a1a1a;
+        --text-secondary: #666666;
+        --text-tertiary: #999999;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", sans-serif;
+        background-color: var(--bg);
+        color: var(--text-primary);
+        line-height: 1.6;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 32px;
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 20px;
+      }
+
+      .header h1 {
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
+
+      .header-meta {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        font-size: 14px;
+        color: var(--text-secondary);
+      }
+
+      .refresh-indicator {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 12px;
+        background: var(--surface-alt);
+        border-radius: 6px;
+        font-size: 12px;
+        color: var(--text-tertiary);
+      }
+
+      .refresh-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--success);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      /* Grid Layout */
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+
+      /* Calendar Section */
+      .calendar-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      .calendar-card h2 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .calendar-card h2::before {
+        content: "📅";
+        font-size: 20px;
+      }
+
+      .events-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .event-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px;
+        background: var(--surface-alt);
+        border-left: 4px solid var(--primary);
+        border-radius: 6px;
+        transition: all 0.2s ease;
+      }
+
+      .event-item:hover {
+        background: #eff3ff;
+        box-shadow: 0 2px 6px rgba(0, 102, 255, 0.1);
+      }
+
+      .event-item.priority-1 {
+        border-left-color: var(--urgency-p1);
+        background: #fff5f7;
+      }
+
+      .event-item.priority-1:hover {
+        background: #ffecf1;
+        box-shadow: 0 2px 6px rgba(255, 45, 85, 0.1);
+      }
+
+      .event-item.priority-2 {
+        border-left-color: var(--warning);
+        background: #fffaf0;
+      }
+
+      .event-item.priority-2:hover {
+        background: #fff3e0;
+        box-shadow: 0 2px 6px rgba(255, 149, 0, 0.1);
+      }
+
+      .event-content {
+        flex: 1;
+      }
+
+      .event-title {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-primary);
+        margin-bottom: 4px;
+      }
+
+      .event-time {
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+
+      .event-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .event-badge.p1 {
+        background: var(--urgency-p1);
+        color: white;
+      }
+
+      .event-badge.p2 {
+        background: var(--warning);
+        color: white;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 32px;
+        color: var(--text-tertiary);
+      }
+
+      .empty-state-icon {
+        font-size: 48px;
+        margin-bottom: 12px;
+        opacity: 0.5;
+      }
+
+      .empty-state p {
+        font-size: 14px;
+      }
+
+      /* Stats Sidebar */
+      .stats-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .stat-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        text-align: center;
+      }
+
+      .stat-card h3 {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+      }
+
+      .stat-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .stat-card.queue-done {
+        border-color: var(--success);
+      }
+
+      .stat-card.queue-done .stat-value {
+        color: var(--success);
+      }
+
+      .stat-card.queue-pending {
+        border-color: var(--warning);
+      }
+
+      .stat-card.queue-pending .stat-value {
+        color: var(--warning);
+      }
+
+      .stat-card.priority-1 {
+        border-color: var(--urgency-p1);
+        background: linear-gradient(135deg, #fff5f7 0%, #ffffff 100%);
+      }
+
+      .stat-card.priority-1 .stat-value {
+        color: var(--urgency-p1);
+      }
+
+      /* Action Links */
+      .action-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 24px;
+      }
+
+      .action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 16px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .action-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+      }
+
+      .action-btn.secondary {
+        background: var(--surface-alt);
+        color: var(--primary);
+        border: 1px solid var(--border);
+      }
+
+      .action-btn.secondary:hover {
+        background: var(--bg);
+        border-color: var(--primary);
+      }
+
+      /* Loading State */
+      .loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 32px;
+        color: var(--text-secondary);
+      }
+
+      .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid var(--border);
+        border-top-color: var(--primary);
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 16px;
+        }
+
+        .header h1 {
+          font-size: 24px;
+        }
+
+        body {
+          padding: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div>
+          <h1>Learn • Daily Dashboard</h1>
+        </div>
+        <div class="header-meta">
+          <span id="current-date">Today</span>
+          <div class="refresh-indicator">
+            <div class="refresh-dot"></div>
+            <span>Live</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Dashboard Grid -->
+      <div class="dashboard-grid">
+        <!-- Calendar Events -->
+        <div class="calendar-card">
+          <h2>Today's Deadlines & Meetings</h2>
+          <div id="events-container" class="events-list">
+            <div class="loading">
+              <div class="spinner"></div>
+              <span>Loading calendar...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Sidebar -->
+        <div class="stats-sidebar">
+          <!-- Priority 1 Events -->
+          <div class="stat-card priority-1">
+            <h3>Priority 1</h3>
+            <div class="stat-value" id="p1-count">0</div>
+            <p style="font-size: 11px; color: var(--text-tertiary); margin-top: 4px">
+              Urgent deadlines
+            </p>
+          </div>
+
+          <!-- Queue Stats -->
+          <div class="stat-card queue-done">
+            <h3>✓ Completed</h3>
+            <div class="stat-value" id="queue-done">0</div>
+            <p style="font-size: 11px; color: var(--text-tertiary); margin-top: 4px">
+              Overnight items
+            </p>
+          </div>
+
+          <div class="stat-card queue-pending">
+            <h3>⏳ Queued</h3>
+            <div class="stat-value" id="queue-pending">0</div>
+            <p style="font-size: 11px; color: var(--text-tertiary); margin-top: 4px">
+              Awaiting action
+            </p>
+          </div>
+
+          <!-- Action Links -->
+          <div class="action-links">
+            <a href="/dashboard/mission-control/" class="action-btn">
+              <span>→</span> Go to Mission Control
+            </a>
+            <button class="action-btn secondary" id="refresh-btn">
+              <span>🔄</span> Refresh Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const API_BASE = "/api/v1";
+      const REFRESH_INTERVAL = 3 * 60 * 1000; // 3 minutes
+
+      async function loadCalendarAndQueue() {
+        try {
+          // Fetch calendar + queue data
+          const [calendarRes, queueRes] = await Promise.all([
+            fetch(`${API_BASE}/learn/calendar-today`),
+            fetch(`${API_BASE}/learn/queue-status`),
+          ]);
+
+          if (!calendarRes.ok || !queueRes.ok) throw new Error("API error");
+
+          const calendarData = await calendarRes.json();
+          const queueData = await queueRes.json();
+
+          // Update UI
+          updateCalendarDisplay(calendarData);
+          updateQueueStats(queueData);
+          updateCurrentDate();
+        } catch (error) {
+          console.error("Failed to load data:", error);
+          showError("Unable to load dashboard data. Retrying...");
+        }
+      }
+
+      function updateCurrentDate() {
+        const today = new Date();
+        const formatter = new Intl.DateTimeFormat("en-US", {
+          weekday: "long",
+          month: "short",
+          day: "numeric",
+        });
+        document.getElementById("current-date").textContent = formatter.format(today);
+      }
+
+      function updateCalendarDisplay(data) {
+        const container = document.getElementById("events-container");
+        const calendar = data.calendar;
+
+        if (!calendar.events || calendar.events.length === 0) {
+          container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <p>No scheduled deadlines or meetings today</p>
+          </div>
+        `;
+          document.getElementById("p1-count").textContent = "0";
+          return;
+        }
+
+        // Sort events: P1 first, then by time
+        const sortedEvents = calendar.events.sort((a, b) => {
+          if (a.priority !== b.priority) return a.priority - b.priority;
+          return (a.time || "").localeCompare(b.time || "");
+        });
+
+        const p1Count = sortedEvents.filter((e) => e.priority === 1).length;
+        document.getElementById("p1-count").textContent = p1Count;
+
+        container.innerHTML = sortedEvents
+          .map(
+            (event) => `
+        <div class="event-item priority-${event.priority}">
+          <div class="event-content">
+            <div class="event-title">${escapeHtml(event.title)}</div>
+            ${event.time ? `<div class="event-time">⏰ ${event.time}</div>` : ""}
+          </div>
+          <span class="event-badge p${event.priority}">
+            ${event.priority === 1 ? "🔴 URGENT" : "🟠 PRIORITY"}
+          </span>
+        </div>
+      `,
+          )
+          .join("");
+      }
+
+      function updateQueueStats(data) {
+        document.getElementById("queue-done").textContent = data.done || 0;
+        document.getElementById("queue-pending").textContent = data.pending || 0;
+      }
+
+      function showError(message) {
+        const container = document.getElementById("events-container");
+        container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">⚠️</div>
+          <p>${escapeHtml(message)}</p>
+        </div>
+      `;
+      }
+
+      function escapeHtml(text) {
+        const map = {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;",
+        };
+        return text.replace(/[&<>"']/g, (m) => map[m]);
+      }
+
+      // Refresh button
+      document.getElementById("refresh-btn").addEventListener("click", loadCalendarAndQueue);
+
+      // Initial load
+      loadCalendarAndQueue();
+
+      // Auto-refresh every 3 minutes
+      setInterval(loadCalendarAndQueue, REFRESH_INTERVAL);
+    </script>
+  </body>
+</html>

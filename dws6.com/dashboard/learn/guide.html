@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Workflow Guide • How to Use</title>
+    <style>
+      :root {
+        --primary: #0066ff;
+        --primary-dark: #0052cc;
+        --success: #00b341;
+        --warning: #ff9500;
+        --danger: #ff3333;
+        --urgency-p1: #ff2d55;
+        --bg: #fafbfc;
+        --surface: #ffffff;
+        --surface-alt: #f5f6f7;
+        --border: #dde3eb;
+        --text-primary: #1a1a1a;
+        --text-secondary: #666666;
+        --code-bg: #f3f4f6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", sans-serif;
+        background-color: var(--bg);
+        color: var(--text-primary);
+        line-height: 1.7;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 24px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 48px;
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 32px;
+      }
+
+      .header h1 {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
+      }
+
+      .header p {
+        font-size: 18px;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .nav-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 24px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+      }
+
+      .btn.secondary {
+        background: var(--surface-alt);
+        color: var(--primary);
+        border: 1px solid var(--border);
+      }
+
+      .btn.secondary:hover {
+        background: var(--border);
+      }
+
+      /* Table of Contents */
+      .toc {
+        background: var(--surface-alt);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 24px;
+        margin-bottom: 32px;
+      }
+
+      .toc h2 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .toc ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .toc a {
+        color: var(--primary);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .toc a:hover {
+        color: var(--primary-dark);
+      }
+
+      /* Sections */
+      section {
+        margin-bottom: 48px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 32px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      section h2 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--border);
+      }
+
+      section h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-top: 24px;
+        margin-bottom: 12px;
+      }
+
+      section p {
+        margin-bottom: 12px;
+        color: var(--text-secondary);
+      }
+
+      section ol,
+      section ul {
+        margin-left: 20px;
+        margin-bottom: 12px;
+        color: var(--text-secondary);
+      }
+
+      section li {
+        margin-bottom: 8px;
+      }
+
+      /* Callouts */
+      .callout {
+        background: #f0f7ff;
+        border-left: 4px solid var(--primary);
+        padding: 16px;
+        border-radius: 6px;
+        margin: 16px 0;
+      }
+
+      .callout.warning {
+        background: #fffaf0;
+        border-left-color: var(--warning);
+      }
+
+      .callout.danger {
+        background: #fff5f5;
+        border-left-color: var(--danger);
+      }
+
+      .callout.success {
+        background: #f0fdf4;
+        border-left-color: var(--success);
+      }
+
+      .callout strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .callout p {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      /* Code blocks */
+      code,
+      pre {
+        font-family: "Courier New", monospace;
+        background: var(--code-bg);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 13px;
+      }
+
+      pre {
+        display: block;
+        padding: 16px;
+        overflow-x: auto;
+        margin: 12px 0;
+      }
+
+      .step-by-step {
+        background: var(--surface-alt);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 20px;
+        margin: 16px 0;
+      }
+
+      .step-by-step h4 {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+      }
+
+      .step-by-step ol {
+        margin-left: 20px;
+      }
+
+      .step-by-step li {
+        margin-bottom: 10px;
+      }
+
+      /* Priority badges */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .badge.p1 {
+        background: var(--urgency-p1);
+        color: white;
+      }
+
+      .badge.p2 {
+        background: var(--warning);
+        color: white;
+      }
+
+      /* Timeline */
+      .timeline {
+        position: relative;
+        padding: 20px 0;
+      }
+
+      .timeline-item {
+        padding: 12px 0 12px 32px;
+        position: relative;
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 16px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--primary);
+        border: 3px solid var(--surface);
+        box-shadow: inset 0 0 0 1px var(--primary);
+      }
+
+      .timeline-item:first-child::after {
+        content: "";
+        position: absolute;
+        left: 10px;
+        top: 28px;
+        width: 2px;
+        height: calc(100% + 12px);
+        background: var(--border);
+      }
+
+      .timeline-label {
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .timeline-desc {
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 48px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        color: var(--text-secondary);
+        font-size: 14px;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 24px 16px;
+        }
+
+        section {
+          padding: 20px;
+        }
+
+        .nav-buttons {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>📅 Learn Workflow Guide</h1>
+        <p>
+          Master the daily dashboard, calendar integration, and Mission Control workflow for maximum
+          productivity
+        </p>
+        <div class="nav-buttons">
+          <a href="/dashboard/learn/" class="btn">← Back to Dashboard</a>
+          <a href="/dashboard/mission-control/" class="btn secondary">Mission Control</a>
+        </div>
+      </div>
+
+      <!-- Table of Contents -->
+      <div class="toc">
+        <h2>Quick Navigation</h2>
+        <ul>
+          <li><a href="#overview">Overview: The New Workflow</a></li>
+          <li><a href="#dashboard">Learn Dashboard Explained</a></li>
+          <li><a href="#priority">Understanding PRIORITY 1</a></li>
+          <li><a href="#google-calendar">Google Calendar Integration</a></li>
+          <li><a href="#daily-routine">Your Daily 3-Hour Routine (04:30–07:30 UTC)</a></li>
+          <li><a href="#integration">Linking Learn + Mission Control</a></li>
+          <li><a href="#queue">Understanding the Async Queue</a></li>
+          <li><a href="#faq">FAQ & Troubleshooting</a></li>
+        </ul>
+      </div>
+
+      <!-- Overview Section -->
+      <section id="overview">
+        <h2>Overview: The New Workflow</h2>
+        <p>You now have three integrated systems working together to keep you on track:</p>
+        <ul>
+          <li>
+            <strong>Learn Dashboard</strong> — Shows today's calendar deadlines & meetings with
+            PRIORITY 1 urgency marking
+          </li>
+          <li>
+            <strong>Mission Control</strong> — Triage queue for customer/investor/partner work items
+          </li>
+          <li>
+            <strong>Google Calendar</strong> — Your source of truth for all deadlines, meetings, and
+            follow-ups
+          </li>
+        </ul>
+
+        <div class="callout success">
+          <strong>✓ The Problem We Solved</strong>
+          <p>
+            Before: Deadlines and meetings lived only in .md files or your head. Result: missed
+            calls, expired offers, late replies.<br />
+            Now: Every deadline automatically shows up with PRIORITY 1 marking. You see it every
+            morning.
+          </p>
+        </div>
+      </section>
+
+      <!-- Dashboard Section -->
+      <section id="dashboard">
+        <h2>Learn Dashboard Explained</h2>
+
+        <h3>What You'll See</h3>
+        <p>
+          When you open the <strong>Learn Dashboard</strong> (<code>/dashboard/learn/</code>), you
+          get:
+        </p>
+        <ul>
+          <li>
+            <strong>Today's Deadlines & Meetings</strong> — Calendar events sorted by priority
+          </li>
+          <li><strong>PRIORITY 1 Count</strong> — How many urgent items need action today</li>
+          <li>
+            <strong>Async Queue Status</strong> — How many overnight items completed, how many still
+            queued
+          </li>
+          <li>
+            <strong>Auto-Refresh</strong> — Updates every 3 minutes. No manual refresh needed.
+          </li>
+        </ul>
+
+        <h3>The Color Scheme</h3>
+        <div class="step-by-step">
+          <h4>Event Indicators</h4>
+          <ul>
+            <li>
+              <span class="badge p1">PRIORITY 1</span> <strong>Red border</strong> — Urgent deadline
+              or meeting TODAY. You must act.
+            </li>
+            <li>
+              <span class="badge p2">PRIORITY 2</span> <strong>Orange border</strong> — Important
+              deadline or meeting. Schedule time.
+            </li>
+            <li><strong>No badge</strong> — Informational event. Note it but not blocking.</li>
+          </ul>
+        </div>
+
+        <h3>The Stats Sidebar</h3>
+        <p>Right side of the dashboard shows live counts:</p>
+        <ul>
+          <li><strong>Priority 1 Count</strong> — Red card showing how many urgent items</li>
+          <li>
+            <strong>✓ Completed</strong> — Green card: items OpenCode agents finished overnight
+          </li>
+          <li>
+            <strong>⏳ Queued</strong> — Orange card: items still waiting for agent processing
+          </li>
+        </ul>
+
+        <h3>Action Buttons</h3>
+        <ul>
+          <li><strong>Go to Mission Control</strong> — Switch to the triage queue</li>
+          <li><strong>Refresh Now</strong> — Force an immediate refresh (normally automatic)</li>
+        </ul>
+      </section>
+
+      <!-- Priority 1 Section -->
+      <section id="priority">
+        <h2>Understanding PRIORITY 1 Marking</h2>
+
+        <div class="callout danger">
+          <strong>⚠️ CRITICAL RULE</strong>
+          <p>
+            If a task has a gate deadline (DL), it MUST be marked PRIORITY 1. Otherwise you will
+            skip important deadlines and miss meetings.
+          </p>
+        </div>
+
+        <h3>What Gets PRIORITY 1?</h3>
+        <ul>
+          <li>⏰ <strong>Meetings</strong> — Any scheduled call/meeting today</li>
+          <li>
+            📋 <strong>Deadline expiries</strong> — Offers expire, proposals due, contracts sign by
+            date
+          </li>
+          <li>🎯 <strong>Gate-gated tasks</strong> — Any task with a "must-do-by" date</li>
+          <li>
+            🚨 <strong>Compliance dates</strong> — Regulatory deadlines, license renewals,
+            regulatory reports
+          </li>
+        </ul>
+
+        <h3>What Does NOT Get PRIORITY 1?</h3>
+        <ul>
+          <li>📧 Regular email (triage later via Mission Control)</li>
+          <li>📝 Drafts or work-in-progress items</li>
+          <li>🔔 Information-only notes</li>
+        </ul>
+
+        <h3>How It Works</h3>
+        <p>
+          When an agent or tool creates a task with a deadline, it automatically tags it in Google
+          Calendar. The Learn Dashboard reads your calendar and shows every event with a time as
+          <span class="badge p1">PRIORITY 1</span>.
+        </p>
+      </section>
+
+      <!-- Google Calendar Section -->
+      <section id="google-calendar">
+        <h2>Google Calendar Integration</h2>
+
+        <h3>Setup: Already Done ✓</h3>
+        <p>
+          Your Google Calendar (connected to <code>risto.paarni2024@lifetime.fi</code>) is already
+          live. The Learn Dashboard reads it automatically. No setup needed.
+        </p>
+
+        <h3>Adding Deadlines to Calendar</h3>
+        <p>Two ways to add events:</p>
+
+        <h4>1. Manual (You)</h4>
+        <p>
+          Open Google Calendar → New Event → set date/time → save. The Learn Dashboard will show it
+          at 04:30 UTC the next morning.
+        </p>
+
+        <h4>2. Automatic (Agents)</h4>
+        <p>
+          When an agent finds a deadline (offer validity, contract sign-by, compliance report), it
+          runs:
+        </p>
+        <pre>
+Google_Calendar.create_event({
+  title: "Outokumpu pilot offer expires",
+  start: "2026-07-27T23:59:00Z",
+  description: "€2.8M pilot, originally 30 days from 2026-06-27"
+})</pre>
+        <p>✓ Done. It shows in Learn the next morning.</p>
+
+        <h3>The "Shared with Boardy" Calendar</h3>
+        <p>
+          Your calendar is shared with Boardy (the board-level review system). This allows Boardy to
+          see your schedule and respect it during board prep. It also means some events may be added
+          by integrations or other systems.
+        </p>
+
+        <div class="callout">
+          <strong>💡 Pro Tip</strong>
+          <p>
+            Color-code your calendar events: red = urgent/P1, yellow = important/P2, blue =
+            informational. The Learn Dashboard respects these colors when displaying priority.
+          </p>
+        </div>
+      </section>
+
+      <!-- Daily Routine Section -->
+      <section id="daily-routine">
+        <h2>Your Daily 3-Hour Routine (04:30–07:30 UTC)</h2>
+
+        <p>
+          You have exactly <strong>3 hours each morning</strong> to review overnight results, action
+          urgent items, and queue work for the day.
+        </p>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-label">04:30–04:45 (Breakfast + Learn)</div>
+            <div class="timeline-desc">
+              Open Learn Dashboard. Scan PRIORITY 1 items. Do any urgent/quick replies.
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-label">04:45–05:10 (Quick Wins)</div>
+            <div class="timeline-desc">
+              Handle 3–5 PRIORITY 1 items: reply to investors, confirm meetings, sign quick
+              approvals.
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-label">05:10–05:30 (Async Results)</div>
+            <div class="timeline-desc">
+              Check Mission Control. Review OpenCode overnight queue results (✓ Completed count).
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-label">05:30–06:00 (Triage Queue)</div>
+            <div class="timeline-desc">
+              Go to Mission Control. Hand items to Grok (anonymized) or OpenCode (raw PII).
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-label">06:00–06:30 (Final Batch)</div>
+            <div class="timeline-desc">
+              Queue remaining work for the day. Use "Queue for Async" for complex items.
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-label">06:30–07:30 (Flexible Buffer)</div>
+            <div class="timeline-desc">
+              Catch any PRIORITY 1 that arrived during the morning, or start the work day.
+            </div>
+          </div>
+        </div>
+
+        <div class="callout warning">
+          <strong>⏰ Time Box Strictly</strong>
+          <p>
+            After 07:30 UTC, you switch to normal work mode. Learn Dashboard remains live but
+            doesn't interrupt. The daily triage window is 3 hours only. Protect it.
+          </p>
+        </div>
+      </section>
+
+      <!-- Integration Section -->
+      <section id="integration">
+        <h2>Linking Learn + Mission Control</h2>
+
+        <h3>Typical Flow</h3>
+        <div class="step-by-step">
+          <h4>Step-by-Step</h4>
+          <ol>
+            <li>Open Learn Dashboard at 04:30 UTC</li>
+            <li>
+              See <strong>3 PRIORITY 1</strong> items: investor call @ 08:00, bid expires today,
+              contract review
+            </li>
+            <li>Handle quick reply to investor (confirm call time)</li>
+            <li>Switch to Mission Control (click "Go to Mission Control" button)</li>
+            <li>
+              Triage the bid and contract:
+              <ul>
+                <li><strong>Bid</strong> = anonymized → Hand to Grok</li>
+                <li><strong>Contract review</strong> = has raw investor data → Open in OpenCode</li>
+              </ul>
+            </li>
+            <li>Queue remaining work for Grok/OpenCode to process today</li>
+            <li>Back to Learn Dashboard: both items now show in queue (⏳ Queued: 2)</li>
+          </ol>
+        </div>
+
+        <h3>Learn → Mission Control Button</h3>
+        <p>
+          Every Learn Dashboard page has a <strong>"Go to Mission Control"</strong> button (right
+          sidebar). Click it to jump to the triage queue without losing your place.
+        </p>
+
+        <h3>Mission Control → Learn Button</h3>
+        <p>
+          Mission Control header has a <strong>"📅 Today's Deadlines"</strong> button (top right).
+          Click it to jump back to the Learn Dashboard.
+        </p>
+      </section>
+
+      <!-- Queue Section -->
+      <section id="queue">
+        <h2>Understanding the Async Queue</h2>
+
+        <h3>What Is It?</h3>
+        <p>
+          The <strong>Async Queue</strong> lets you queue work for OpenCode agents to process
+          overnight or throughout the day, without requiring your immediate attention.
+        </p>
+
+        <h3>Queue Status on Learn Dashboard</h3>
+        <ul>
+          <li>
+            <span class="badge p2">⏳ Queued</span> — Items waiting to be picked up by an agent
+          </li>
+          <li>
+            <span class="badge p1">✓ Completed</span> — Items agents finished processing. Results
+            ready.
+          </li>
+        </ul>
+
+        <h3>How to Queue Work</h3>
+        <ol>
+          <li>
+            In Mission Control, find an item that needs raw data handling (e.g., complex proposal
+            analysis)
+          </li>
+          <li>Click <strong>"Queue for Async"</strong> button</li>
+          <li>A modal pops up: enter title, centre, context</li>
+          <li>Submit. Item goes into .workflows/opencode-all/queue.jsonl</li>
+          <li>OpenCode agents start processing (immediately or on next interval)</li>
+          <li>Next morning, check Learn Dashboard: see <strong>✓ Completed count</strong></li>
+        </ol>
+
+        <h3>Example Workflow</h3>
+        <p>
+          <strong>Monday 04:30 UTC:</strong> You queue 5 investor due-diligence packs for OpenCode.
+          Status: ⏳ 5 Queued.
+        </p>
+        <p>
+          <strong>Monday–Tuesday overnight:</strong> OpenCode agents work through them, write
+          findings to handoff files at <code>.claude/handoffs/opencode-batch/</code>.
+        </p>
+        <p>
+          <strong>Tuesday 04:30 UTC:</strong> Learn Dashboard shows ✓ 5 Completed. Results ready in
+          Mission Control for you to review and send to investors.
+        </p>
+
+        <div class="callout success">
+          <strong>✓ The Benefit</strong>
+          <p>
+            Complex work (research, data analysis, proposal drafting) happens while you sleep. You
+            wake up with the results ready to review and send. Zero time wasted.
+          </p>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section id="faq">
+        <h2>FAQ & Troubleshooting</h2>
+
+        <h3>Q: A deadline isn't showing in Learn Dashboard. Why?</h3>
+        <p><strong>A:</strong> Three possibilities:</p>
+        <ul>
+          <li>
+            The calendar event has no <strong>time</strong> set (all-day events don't trigger
+            PRIORITY 1)
+          </li>
+          <li>
+            The event was added <strong>after 07:30 UTC today</strong> (it'll show tomorrow at
+            04:30)
+          </li>
+          <li>The event is on <strong>tomorrow's date</strong>, not today</li>
+        </ul>
+        <p><strong>Fix:</strong> Click "Refresh Now" button to force an immediate update.</p>
+
+        <h3>Q: How do I add a deadline manually if I don't have a calendar event yet?</h3>
+        <p>
+          <strong>A:</strong> Use Google Calendar to create the event. Search: "Google Calendar" →
+          sign in → "Create" → enter date/time → save. It'll appear in Learn Dashboard at the next
+          auto-refresh (every 3 min).
+        </p>
+
+        <h3>Q: The queue is stuck. No items are processing. What do I do?</h3>
+        <p>
+          <strong>A:</strong> Check <code>.workflows/opencode-all/queue.jsonl</code> in the repo. If
+          the file is locked or corrupted, contact your OpenCode admin. If items show
+          <code>"state": "IN_PROGRESS"</code> but have been there >2 hours, manually reset to
+          PENDING.
+        </p>
+
+        <h3>Q: Can I see which agent processed each queue item?</h3>
+        <p>
+          <strong>A:</strong> Yes. Each queue entry has a <code>handoffPath</code> (e.g.,
+          <code>.claude/handoffs/opencode-batch/mission-control-abc123.md</code>). Open that file to
+          see the agent's work and reasoning.
+        </p>
+
+        <h3>Q: I have a meeting at 14:00 UTC today. It's not a PRIORITY 1 item. Why not?</h3>
+        <p>
+          <strong>A:</strong> Only deadlines/meetings <strong>before 07:30 UTC</strong> (your buffer
+          end) are PRIORITY 1. Meetings later in the day show in the calendar but are not marked
+          urgent—you'll handle them when the time approaches.
+        </p>
+
+        <h3>Q: Can Grok see calendar events?</h3>
+        <p>
+          <strong>A:</strong> No. Grok runs in Cursor and does <strong>not</strong> have access to
+          your Google Calendar. Only OpenCode (local) and the Learn Dashboard see your calendar.
+          This is by design: Grok works on anonymized input only.
+        </p>
+
+        <h3>Q: The Learn Dashboard looks blank. What happened?</h3>
+        <p><strong>A:</strong> Likely causes:</p>
+        <ul>
+          <li>No calendar events created for today</li>
+          <li>API backend is down (check with IT)</li>
+          <li>Your browser cached an old version (press Ctrl+Shift+R to hard refresh)</li>
+        </ul>
+        <p>Click "Refresh Now" and check the browser console (F12) for errors.</p>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+        <p>
+          Learn Workflow Guide v1.0 • Last updated: 2026-09-13<br />
+          For support, check
+          <a href="#" style="color: var(--primary)">docs/handovers/HIC_MORNING_ROUTINE.md</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
