@@ -2,7 +2,7 @@
 Document: Grok Bot Handover — Daily Operations
 Type: Operational Guidance (System Prompt)
 Status: [Latest] Active
-Version: 1.2
+Version: 1.3
 Date: 2026-09-13
 Languages Available: English
 schema: DWS_DOCUMENT_STANDARD
@@ -18,6 +18,8 @@ triage, digest generation, deadline/expiry checks — **on anonymized or
 HIC-redacted inputs only**. Does NOT change source of truth: this repo
 (`dws6`) remains canonical for pricing, standards, and code. **Raw
 customer/helpdesk/investor threads are NOT in Grok's scope** (see EU/PII gate).
+**Soft failover (Option A):** Mission Control **Open in OpenCode** — HIC click
+required; no automatic tool launch.
 
 ---
 
@@ -25,7 +27,8 @@ VERSION AND AGENT HISTORY
 
 | Version          | Date       | Changes                                                               | Author      |
 | ---------------- | ---------- | --------------------------------------------------------------------- | ----------- |
-| 1.2 [Latest]     | 2026-09-13 | EU/PII hard gate — raw threads → OpenCode local only; Grok anonymized | Cursor      |
+| 1.3 [Latest]     | 2026-09-13 | Option A soft failover — Open in OpenCode (HIC click)                 | Cursor      |
+| 1.2 [not latest] | 2026-09-13 | EU/PII hard gate — raw threads → OpenCode local only; Grok anonymized | Cursor      |
 | 1.1 [not latest] | 2026-09-13 | UNTRUSTED INPUT (prompt-injection); Document Standard header          | Cursor      |
 | 1.0 [not latest] | 2026-09-13 | Initial Grok daily-ops handover prompt                                | Claude Code |
 
