@@ -136,15 +136,17 @@ Tell the human to run this work LOCALLY with OpenCode
 Do not "just peek" at the raw mail.
 ```
 
-**What you do next:**
+**What you do next (simplified with "Open in OpenCode" button):**
 
-1. **Copy the full thread** (or the link to the email).
-2. **Open OpenCode** on your local machine (or DGX if you have access).
-3. **Paste the raw thread there** → OpenCode can see it (EU-resident).
-4. **OpenCode drafts the sensitive reply** → send back the result.
-5. **You copy the result back** into Mission Control or send it directly.
+1. **In Mission Control**, open the item → click **"Open in OpenCode"** button.
+2. **Copy the prepared prompt** (or download the markdown file).
+3. **Start OpenCode** on your local machine (or DGX if you have access).
+4. **Paste the prompt** as your first message → read `.claude/handoffs/claude/mission-control-grok-overflow.md` if present.
+5. **Work raw threads inside OpenCode only** → OpenCode drafts the sensitive reply.
+6. **Copy the result back** into Mission Control or send it directly.
+7. **Update the baton:** Mark overflow as `status: closed` when done (or HIC marks it in Mission Control UI).
 
-**Why this dance?** Grok never sees raw customer data. OpenCode (your machine) does the PII manipulation. Grok only sees the final, redacted result.
+**Why the button?** It eliminates copy-paste friction and tracks the handoff in `.claude/handoffs/claude/mission-control-grok-overflow.md`. Grok never sees raw customer data. OpenCode (your EU-resident machine) owns the PII manipulation. Grok only sees the final, redacted result.
 
 ---
 
@@ -165,9 +167,9 @@ Do not "just peek" at the raw mail.
 
 ---
 
-### Example 2: Customer Email Reply (Needs OpenCode)
+### Example 2: Customer Email Reply (Needs OpenCode — Using "Open in OpenCode" Button)
 
-**You receive raw email:**
+**You receive raw email in an item:**
 
 ```
 From: contact@ncc-ab.se
@@ -181,14 +183,15 @@ Next steps: can you send pricing by Friday?
 
 **What you do:**
 
-1. **Don't** paste the raw email into Mission Control → Grok will refuse.
-2. **Open OpenCode** locally.
-3. **Paste the raw email** into OpenCode.
-4. **Ask OpenCode:** "Draft a reply confirming pricing, due Friday."
-5. OpenCode drafts the reply (has access to raw context).
-6. **Copy the final reply** → send it yourself, or paste it back to Grok as a redacted summary for logging.
+1. In Mission Control, find the item with this email context.
+2. Click the **"Open in OpenCode"** button on the item.
+3. Mission Control prepares a prompt + overflow markdown. **Copy it** (or download the `.md` file).
+4. Start **OpenCode** locally → paste the prepared prompt as your first message.
+5. OpenCode drafts the reply (has access to raw context via the overflow file).
+6. **Copy the final reply** → send it yourself from your email client.
+7. Mark the overflow as complete (HIC marks in UI or Mission Control auto-clears it).
 
-✓ **OpenCode handled the raw data.** You sent the reply. Grok never saw the customer email.
+✓ **OpenCode handled the raw data.** Button eliminated manual copy-paste. Grok never saw the customer email. Handoff tracked in `.claude/handoffs/claude/mission-control-grok-overflow.md`.
 
 ---
 
@@ -240,6 +243,40 @@ No blockers. All items logged. HIC: review drafts in Mission Control.
 ```
 
 **You read this log in the morning.** It tells you what happened while you were away.
+
+---
+
+## The Overflow Baton (`.claude/handoffs/claude/mission-control-grok-overflow.md`)
+
+**What is it?** A tracked handoff file that lives in git and records active PII overflow sessions (when HIC switches to OpenCode).
+
+**Why it exists:** Mission Control needs to know:
+
+- Which item was overflowed
+- What centre it belongs to
+- What status it's in (in-progress, closed)
+- Whether it's HIC-approved (safety gate)
+
+**What HIC does:**
+
+- **When you click "Open in OpenCode":** The overflow baton is created/updated with `item_id`, `centre`, and `status: active`.
+- **When OpenCode finishes:** Mark it as `status: closed` (either manually in the file, or Mission Control UI does it automatically).
+- **Never commit raw PII:** The baton stores only non-PII metadata (ids, centre name, timestamps). Real message bodies stay in OpenCode local context, never in git.
+
+**Example:** After you hand the NCC email to OpenCode and draft a reply:
+
+```yaml
+status: closed # ← Done with this item
+updated: 2026-09-13T14:32Z
+item_id: "T:YPGW53RPFQ" # ← Which overdue item
+centre: "Sales" # ← Which centre
+title: "NCC AB — pricing request" # ← Topic only, no raw content
+repo_path: null # ← Don't track repo state
+reason: "raw email reply drafted in OpenCode local"
+hic_approved: true # ← You okayed it
+```
+
+**Ignore the baton unless:** You see an old `status: active` item still there (means an overflow session got stuck). In that case, manually mark it `closed` or `hic_approved: false` to clear it.
 
 ---
 
