@@ -238,15 +238,35 @@
     <script src="/shared-assets/nav/ironclad-nav.js"></script>
     <div class="wrap">
       <header>
-        <h1>Mission Control</h1>
-        <p class="lede" id="authLine">Checking access…</p>
-        <div class="stats" id="stats" hidden>
-          <span><strong id="overdueCount">0</strong> overdue / open items</span>
-          <span>Nothing closes until you pick Hand to Grok or Take as HIC</span>
-          <span class="muted"
-            >Hand to Grok = anonymized/redacted only; raw threads → OpenCode local (EU)</span
+        <div style="display: flex; justify-content: space-between; align-items: flex-start">
+          <div>
+            <h1>Mission Control</h1>
+            <p class="lede" id="authLine">Checking access…</p>
+            <div class="stats" id="stats" hidden>
+              <span><strong id="overdueCount">0</strong> overdue / open items</span>
+              <span>Nothing closes until you pick Hand to Grok or Take as HIC</span>
+              <span class="muted"
+                >Hand to Grok = anonymized/redacted only; raw threads → OpenCode local (EU)</span
+              >
+              <span id="dataSource" class="muted"></span>
+            </div>
+          </div>
+          <a
+            href="/dashboard/learn/"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 6px;
+              color: var(--accent);
+              text-decoration: none;
+              padding: 10px 14px;
+              border: 1px solid var(--line);
+              white-space: nowrap;
+              margin-top: 8px;
+            "
           >
-          <span id="dataSource" class="muted"></span>
+            <span>📅</span> Today's Deadlines
+          </a>
         </div>
       </header>
 

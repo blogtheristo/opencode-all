@@ -1,9 +1,9 @@
 /**
  * Authentication Handler for DWS6.com Multi-Login Platform
- * 
+ *
  * Handles login, logout, registration, OAuth, MFA, and session management
  * using Supabase Auth with role-based access control.
- * 
+ *
  * @version 2.0.0
  * @updated 2026-01-04
  */
@@ -27,52 +27,56 @@ export async function login(email, password, role = null) {
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
-  
+
   try {
     const { data, error } = await client.auth.signInWithPassword({
       email,
-      password
+      password,
     });
-    
+
     if (error) {
       console.error('Login error:', error.message);
       await logAuthEvent('login_failed', { email, reason: error.message });
       return { success: false, error: error.message };
     }
-    
+
     // Check if MFA is required
     if (data.user?.factors && data.user.factors.length > 0) {
-      const totpFactor = data.user.factors.find(f => f.factor_type === 'totp' && f.status === 'verified');
+      const totpFactor = data.user.factors.find(
+        (f) => f.factor_type === 'totp' && f.status === 'verified',
+      );
       if (totpFactor) {
         // Store partial session for MFA verification
-        sessionStorage.setItem('mfa_challenge', JSON.stringify({
+        sessionStorage.setItem(
+          'mfa_challenge',
+          JSON.stringify({
+            factorId: totpFactor.id,
+            userId: data.user.id,
+            email: data.user.email,
+          }),
+        );
+        return {
+          success: true,
+          requiresMfa: true,
           factorId: totpFactor.id,
-          userId: data.user.id,
-          email: data.user.email
-        }));
-        return { 
-          success: true, 
-          requiresMfa: true, 
-          factorId: totpFactor.id,
-          user: data.user 
+          user: data.user,
         };
       }
     }
-    
+
     // Update role if provided and user doesn't have one
     if (role && data.user && (!data.user.user_metadata || !data.user.user_metadata.role)) {
       await updateUserRole(data.user.id, role);
     }
-    
+
     // Update last login timestamp
     await updateLastLogin(data.user.id);
-    
+
     // Log successful login
     await logAuthEvent('login_success', { email, role: role || data.user?.user_metadata?.role });
-    
+
     console.log('Login successful:', data.user.email);
     return { success: true, user: data.user, session: data.session };
-    
   } catch (error) {
     console.error('Login exception:', error);
     return { success: false, error: error.message };
@@ -92,16 +96,16 @@ export async function register(email, password, role, metadata = {}) {
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
-  
+
   // Validate password strength
   const passwordValidation = validatePassword(password);
   if (!passwordValidation.valid) {
     return { success: false, error: passwordValidation.message };
   }
-  
+
   try {
     const redirectUrl = `${window.location.origin}${supabaseConfig.email?.verification?.redirectTo || '/verify-email/index.html'}`;
-    
+
     const { data, error } = await client.auth.signUp({
       email,
       password,
@@ -114,27 +118,26 @@ export async function register(email, password, role, metadata = {}) {
           permissions: metadata.permissions || ['read'],
           organization: metadata.organization || '',
           access_level: metadata.access_level || 'free',
-          created_at: new Date().toISOString()
-        }
-      }
+          created_at: new Date().toISOString(),
+        },
+      },
     });
-    
+
     if (error) {
       console.error('Registration error:', error.message);
       await logAuthEvent('register_failed', { email, reason: error.message });
       return { success: false, error: error.message };
     }
-    
+
     // Log successful registration
     await logAuthEvent('register_success', { email, role });
-    
+
     console.log('Registration successful:', data.user.email);
-    return { 
-      success: true, 
+    return {
+      success: true,
       user: data.user,
-      message: 'Please check your email to verify your account.'
+      message: 'Please check your email to verify your account.',
     };
-    
   } catch (error) {
     console.error('Registration exception:', error);
     return { success: false, error: error.message };
@@ -172,21 +175,21 @@ export function validatePassword(password) {
  */
 export function getPasswordStrength(password) {
   let score = 0;
-  
+
   if (password.length >= 12) score++;
   if (password.length >= 16) score++;
   if (/[A-Z]/.test(password) && /[a-z]/.test(password)) score++;
   if (/[0-9]/.test(password)) score++;
   if (/[^A-Za-z0-9]/.test(password)) score++;
-  
+
   const levels = [
     { score: 0, label: 'Very Weak', color: '#ef4444' },
     { score: 1, label: 'Weak', color: '#f97316' },
     { score: 2, label: 'Fair', color: '#eab308' },
     { score: 3, label: 'Strong', color: '#22c55e' },
-    { score: 4, label: 'Very Strong', color: '#10b981' }
+    { score: 4, label: 'Very Strong', color: '#10b981' },
   ];
-  
+
   return levels[Math.min(score, 4)];
 }
 
@@ -204,11 +207,11 @@ export async function loginWithGoogle(role = null) {
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
-  
+
   try {
     const redirectUrl = role ? supabaseConfig.redirectUrls[role] : '/dashboard/index.html';
     const fullRedirectUrl = `${window.location.origin}${redirectUrl}`;
-    
+
     const { data, error } = await client.auth.signInWithOAuth({
       provider: 'google',
       options: {
@@ -217,23 +220,49 @@ export async function loginWithGoogle(role = null) {
           access_type: 'offline',
           prompt: 'consent',
         },
-        scopes: supabaseConfig.oauth?.google?.scopes?.join(' ') || 'email profile'
-      }
+        scopes: supabaseConfig.oauth?.google?.scopes?.join(' ') || 'email profile',
+      },
     });
-    
+
     if (error) {
       console.error('Google login error:', error.message);
       return { success: false, error: error.message };
     }
-    
+
     // Store the role in session storage for after redirect
     if (role) {
       sessionStorage.setItem('pending_oauth_role', role);
     }
-    
+
+    // Auto-assign role to allowed external users
+    const user = client.auth.getUser();
+    if (user && user.data?.user?.email) {
+      const email = user.data.user.email;
+      const ALLOWED_EXTERNAL_EMAILS = [
+        'risto.paarni2024@lifetime.fi',
+        'admin2026@dws10.com',
+        'ristopaarni@gmail.com',
+      ];
+
+      if (ALLOWED_EXTERNAL_EMAILS.includes(email)) {
+        const assignedRole = role || 'dws_iq_standard';
+        try {
+          await client.auth.updateUser({
+            data: {
+              role: assignedRole,
+              organization: emailDomain,
+              external_user: true,
+            },
+          });
+          console.log(`✅ Auto-assigned role '${assignedRole}' to external user ${email}`);
+        } catch (roleErr) {
+          console.warn(`⚠️ Could not auto-assign role: ${roleErr.message}`);
+        }
+      }
+    }
+
     console.log('Redirecting to Google login...');
     return { success: true, data };
-    
   } catch (error) {
     console.error('Google login exception:', error);
     return { success: false, error: error.message };
@@ -250,32 +279,31 @@ export async function loginWithMicrosoft(role = null) {
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
-  
+
   try {
     const redirectUrl = role ? supabaseConfig.redirectUrls[role] : '/dashboard/index.html';
     const fullRedirectUrl = `${window.location.origin}${redirectUrl}`;
-    
+
     const { data, error } = await client.auth.signInWithOAuth({
       provider: 'azure',
       options: {
         redirectTo: fullRedirectUrl,
-        scopes: supabaseConfig.oauth?.microsoft?.scopes?.join(' ') || 'email profile openid'
-      }
+        scopes: supabaseConfig.oauth?.microsoft?.scopes?.join(' ') || 'email profile openid',
+      },
     });
-    
+
     if (error) {
       console.error('Microsoft login error:', error.message);
       return { success: false, error: error.message };
     }
-    
+
     // Store the role in session storage for after redirect
     if (role) {
       sessionStorage.setItem('pending_oauth_role', role);
     }
-    
+
     console.log('Redirecting to Microsoft login...');
     return { success: true, data };
-    
   } catch (error) {
     console.error('Microsoft login exception:', error);
     return { success: false, error: error.message };
@@ -292,37 +320,39 @@ export async function handleOAuthCallback() {
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
-  
+
   try {
     // Get the session from URL hash (Supabase puts tokens there)
-    const { data: { session }, error } = await client.auth.getSession();
-    
+    const {
+      data: { session },
+      error,
+    } = await client.auth.getSession();
+
     if (error || !session) {
       return { success: false, error: error?.message || 'No session found' };
     }
-    
+
     // Check for pending role assignment
     const pendingRole = sessionStorage.getItem('pending_oauth_role');
     if (pendingRole) {
       await updateUserRole(session.user.id, pendingRole);
       sessionStorage.removeItem('pending_oauth_role');
     }
-    
+
     // Update last login
     await updateLastLogin(session.user.id);
-    
+
     // Log OAuth login
-    await logAuthEvent('oauth_login_success', { 
+    await logAuthEvent('oauth_login_success', {
       provider: session.user.app_metadata?.provider,
-      role: pendingRole || session.user.user_metadata?.role 
+      role: pendingRole || session.user.user_metadata?.role,
     });
-    
-    return { 
-      success: true, 
-      user: session.user, 
-      role: pendingRole || session.user.user_metadata?.role 
+
+    return {
+      success: true,
+      user: session.user,
+      role: pendingRole || session.user.user_metadata?.role,
     };
-    
   } catch (error) {
     console.error('OAuth callback error:', error);
     return { success: false, error: error.message };
@@ -342,29 +372,28 @@ export async function logout() {
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
-  
+
   try {
     const user = await getCurrentUser();
-    
+
     const { error } = await client.auth.signOut();
-    
+
     if (error) {
       console.error('Logout error:', error.message);
       return { success: false, error: error.message };
     }
-    
+
     // Log logout event
     if (user) {
       await logAuthEvent('logout', { email: user.email });
     }
-    
+
     // Clear any stored session data
     sessionStorage.removeItem('mfa_challenge');
     sessionStorage.removeItem('pending_oauth_role');
-    
+
     console.log('Logout successful');
     return { success: true };
-    
   } catch (error) {
     console.error('Logout exception:', error);
     return { success: false, error: error.message };
@@ -385,24 +414,23 @@ export async function resetPassword(email) {
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
-  
+
   try {
     const redirectUrl = `${window.location.origin}${supabaseConfig.email?.passwordReset?.redirectTo || '/reset-password/index.html'}`;
-    
+
     const { error } = await client.auth.resetPasswordForEmail(email, {
-      redirectTo: redirectUrl
+      redirectTo: redirectUrl,
     });
-    
+
     if (error) {
       console.error('Password reset error:', error.message);
       return { success: false, error: error.message };
     }
-    
+
     await logAuthEvent('password_reset_requested', { email });
-    
+
     console.log('Password reset email sent');
     return { success: true, message: 'Password reset email sent. Check your inbox.' };
-    
   } catch (error) {
     console.error('Password reset exception:', error);
     return { success: false, error: error.message };
@@ -419,28 +447,27 @@ export async function updatePassword(newPassword) {
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
-  
+
   // Validate new password
   const validation = validatePassword(newPassword);
   if (!validation.valid) {
     return { success: false, error: validation.message };
   }
-  
+
   try {
     const { error } = await client.auth.updateUser({
-      password: newPassword
+      password: newPassword,
     });
-    
+
     if (error) {
       console.error('Password update error:', error.message);
       return { success: false, error: error.message };
     }
-    
+
     await logAuthEvent('password_changed');
-    
+
     console.log('Password updated successfully');
     return { success: true, message: 'Password updated successfully' };
-    
   } catch (error) {
     console.error('Password update exception:', error);
     return { success: false, error: error.message };
@@ -461,26 +488,25 @@ export async function resendVerificationEmail(email) {
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
-  
+
   try {
     const redirectUrl = `${window.location.origin}${supabaseConfig.email?.verification?.redirectTo || '/verify-email/index.html'}`;
-    
+
     const { error } = await client.auth.resend({
       type: 'signup',
       email: email,
       options: {
-        emailRedirectTo: redirectUrl
-      }
+        emailRedirectTo: redirectUrl,
+      },
     });
-    
+
     if (error) {
       console.error('Resend verification error:', error.message);
       return { success: false, error: error.message };
     }
-    
+
     console.log('Verification email resent');
     return { success: true, message: 'Verification email sent. Check your inbox.' };
-    
   } catch (error) {
     console.error('Resend verification exception:', error);
     return { success: false, error: error.message };
@@ -497,22 +523,24 @@ export async function verifyEmailToken() {
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
-  
+
   try {
     // Supabase automatically handles the token from URL hash
-    const { data: { session }, error } = await client.auth.getSession();
-    
+    const {
+      data: { session },
+      error,
+    } = await client.auth.getSession();
+
     if (error) {
       return { success: false, error: error.message };
     }
-    
+
     if (session && session.user.email_confirmed_at) {
       await logAuthEvent('email_verified', { email: session.user.email });
       return { success: true, user: session.user, message: 'Email verified successfully!' };
     }
-    
+
     return { success: false, error: 'Email verification failed or link expired' };
-    
   } catch (error) {
     console.error('Email verification exception:', error);
     return { success: false, error: error.message };
@@ -534,20 +562,19 @@ export async function updateUserRole(userId, role) {
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
-  
+
   try {
     const { error } = await client.auth.updateUser({
-      data: { role: role }
+      data: { role: role },
     });
-    
+
     if (error) {
       console.error('Role update error:', error.message);
       return { success: false, error: error.message };
     }
-    
+
     console.log('User role updated to:', role);
     return { success: true };
-    
   } catch (error) {
     console.error('Role update exception:', error);
     return { success: false, error: error.message };
@@ -564,7 +591,7 @@ export async function updateProfile(profile) {
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
-  
+
   try {
     const { data, error } = await client.auth.updateUser({
       data: {
@@ -572,15 +599,15 @@ export async function updateProfile(profile) {
         last_name: profile.lastName,
         avatar_url: profile.avatarUrl,
         phone: profile.phone,
-        timezone: profile.timezone
-      }
+        timezone: profile.timezone,
+      },
     });
-    
+
     if (error) {
       console.error('Profile update error:', error.message);
       return { success: false, error: error.message };
     }
-    
+
     // Also update user_profiles table
     const { error: dbError } = await client
       .from('user_profiles')
@@ -590,19 +617,18 @@ export async function updateProfile(profile) {
         avatar_url: profile.avatarUrl,
         phone: profile.phone,
         timezone: profile.timezone,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .eq('id', data.user.id);
-    
+
     if (dbError) {
       console.warn('Profile DB update warning:', dbError.message);
     }
-    
+
     await logAuthEvent('profile_updated');
-    
+
     console.log('Profile updated successfully');
     return { success: true, user: data.user };
-    
   } catch (error) {
     console.error('Profile update exception:', error);
     return { success: false, error: error.message };
@@ -616,7 +642,7 @@ export async function updateProfile(profile) {
 async function updateLastLogin(userId) {
   const client = getSupabaseClient();
   if (!client) return;
-  
+
   try {
     await client
       .from('user_profiles')
@@ -658,13 +684,13 @@ export async function hasAnyRole(requiredRoles) {
  */
 export async function requireAuth(loginUrl = '/login/portal.html') {
   const user = await getCurrentUser();
-  
+
   if (!user) {
     console.warn('Not authenticated, redirecting to login');
     window.location.href = loginUrl;
     return null;
   }
-  
+
   return user;
 }
 
@@ -677,16 +703,16 @@ export async function requireAuth(loginUrl = '/login/portal.html') {
 export async function requireRole(requiredRole, unauthorizedUrl = '/unauthorized.html') {
   const user = await requireAuth();
   if (!user) return false;
-  
+
   const userRole = await getUserRole();
   const roles = Array.isArray(requiredRole) ? requiredRole : [requiredRole];
-  
+
   if (!roles.includes(userRole)) {
     console.warn(`Unauthorized: required role ${roles.join(' or ')}, user has ${userRole}`);
     window.location.href = unauthorizedUrl;
     return false;
   }
-  
+
   return true;
 }
 
@@ -702,15 +728,15 @@ export async function requireRole(requiredRole, unauthorizedUrl = '/unauthorized
 async function logAuthEvent(action, details = {}) {
   const client = getSupabaseClient();
   if (!client) return;
-  
+
   try {
     const user = await getCurrentUser();
-    
+
     await client.from('auth_audit_log').insert({
       user_id: user?.id || null,
       action: action,
       details: details,
-      success: true
+      success: true,
     });
   } catch (error) {
     console.warn('Failed to log auth event:', error);
@@ -769,7 +795,7 @@ export function showSuccess(message, elementId = 'successMessage') {
  */
 export function setButtonLoading(button, loading, loadingText = 'Loading...') {
   if (!button) return;
-  
+
   if (loading) {
     button.dataset.originalText = button.textContent;
     button.textContent = loadingText;
@@ -792,35 +818,35 @@ export default {
   register,
   validatePassword,
   getPasswordStrength,
-  
+
   // OAuth
   loginWithGoogle,
   loginWithMicrosoft,
   handleOAuthCallback,
-  
+
   // Logout
   logout,
-  
+
   // Password
   resetPassword,
   updatePassword,
-  
+
   // Email verification
   resendVerificationEmail,
   verifyEmailToken,
-  
+
   // Profile
   updateUserRole,
   updateProfile,
-  
+
   // Authorization
   isAuthorized,
   hasAnyRole,
   requireAuth,
   requireRole,
-  
+
   // UI helpers
   showError,
   showSuccess,
-  setButtonLoading
+  setButtonLoading,
 };
