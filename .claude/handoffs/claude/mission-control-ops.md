@@ -4,7 +4,7 @@
 **Branch baton:** `.claude/handoffs/claude/email-2-0-rewrite-74mtjq.md`  
 **PR:** https://github.com/blogtheristo/dws6/pull/2002 (`claude/email-2-0-rewrite-74mtjq`)  
 **Date:** 2026-09-13  
-**Status:** PLAN LOCKED — awaiting execute (stop SES + build Mission Control)  
+**Status:** EXECUTING — Task 1 done in code; Mission Control + Daily PWA shipped on this branch. Await HIC: backend redeploy + live URL check.  
 **Cursor mirror (non-canonical):** `~/.cursor/plans/Mission Control Ops-6cf5ce0a.plan.md` — do not edit only there.
 
 ---
@@ -204,3 +204,19 @@ I understand this is a strategic shift from automated email to a more interactiv
 - If I execute here, does HIC want this on phase-1-preparation (alongside Themis rollout prep) or isolated on the email-2-0 branch?
 
 **Recommendation:** Clarify branch + Noux API status before coding. Once locked, Tasks 1 & 2 are ~4 hours (stop scripts, build page, dual-sync, test). Task 3 (PWA) is optional v1.
+
+### 2026-09-13 — Cursor (EU/PII gate)
+
+Security finding: Grok handover must not ingest raw customer/helpdesk/investor threads (DWS_SECURITY_STANDARD §4.1 geo block; AI_AGENT_GUIDELINES §5 no PII without anonymization). Cursor/Grok is not an approved EU-resident processor.
+
+**Fix on #2002:** handover v1.2 EU/PII HARD GATE + HARD STOP; checklist only accepts anonymized/HIC-redacted packs; raw manipulation → OpenCode local/DGX EU. Mission Control Hand-to-Grok prompt + UI banner aligned (dual-folder).
+
+
+### 2026-09-13 — Cursor (Option A soft failover)
+
+HIC decision: Option A (not B/C). Mission Control adds **Open in OpenCode**:
+builds ready prompt + overflow markdown (copy/download). Canonical baton:
+`.claude/handoffs/claude/mission-control-grok-overflow.md`. Browser cannot
+launch OpenCode or write git — HIC click/paste preserves EU/PII approval.
+Grok handover v1.3 points at this path. Option B (opencode-all overnight) deferred.
+

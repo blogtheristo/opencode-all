@@ -49,6 +49,16 @@ const {
 
 let root;
 const hostRepo = '/tmp/opencode/recovery'; // canary target: must never be touched
+// Real, unregistered checkout root — computed, not hardcoded to a username,
+// so the "primary checkout is refused" negative case is real on every dev
+// machine and CI container alike (a hardcoded path may not exist there,
+// which would surface as "unresolvable cwd" instead of the intended
+// "outside fixture sandbox" refusal).
+const realHostRepoRoot = execFileSync('git', ['rev-parse', '--show-toplevel'], {
+  cwd: __dirname,
+  env: CLEAN_GIT_ENV,
+  encoding: 'utf8',
+}).trim();
 let hostSnapshot;
 let canaryAvailable = false;
 
@@ -617,7 +627,7 @@ describe.skipIf(!canaryAvailable)('poisoned-tree gate fixture matrix', () => {
 describe('poisoned-tree guard refuses dangerous git contexts before any git call', () => {
   it('leaked GIT_DIR / GIT_WORK_TREE / GIT_INDEX_FILE is detected', () => {
     for (const key of ['GIT_DIR', 'GIT_WORK_TREE', 'GIT_INDEX_FILE']) {
-      const fake = { ...process.env, [key]: '/home/admin100/dws6/.git' };
+      const fake = { ...process.env, [key]: `${realHostRepoRoot}/.git` };
       expect(findLeakedGitEnv(fake)).toContain(key);
       expect(() => assertCleanGitEnv(fake)).toThrow(/leaked git environment/);
     }
@@ -632,16 +642,18 @@ describe('poisoned-tree guard refuses dangerous git contexts before any git call
 
   it('primary checkout, linked worktrees and paths under them are refused', () => {
     // The live repo and its linked worktrees are never registered sandbox roots.
-    expect(() => guardCwd('/home/admin100/dws6')).toThrow(/outside fixture sandbox/);
-    expect(() => guardCwd('/home/admin100/dws6/.git')).toThrow(/outside fixture sandbox/);
-    expect(() => guardCwd('/home/admin100/dws6/.git/config')).toThrow(/outside fixture sandbox/);
-    expect(() => guardCwd('/home/admin100/dws6/.worktrees/opencode-all/ses_probe')).toThrow(
+    // Use the actual host repo root (not a hardcoded username/path) so this
+    // negative case is real on every dev machine and CI container alike.
+    expect(() => guardCwd(realHostRepoRoot)).toThrow(/outside fixture sandbox/);
+    expect(() => guardCwd(`${realHostRepoRoot}/.git`)).toThrow(/outside fixture sandbox/);
+    expect(() => guardCwd(`${realHostRepoRoot}/.git/config`)).toThrow(/outside fixture sandbox/);
+    expect(() => guardCwd(`${realHostRepoRoot}/.worktrees/opencode-all/ses_probe`)).toThrow(
       /outside fixture sandbox|unresolvable cwd/,
     );
   });
 
   it('gx refuses out-of-sandbox targets without spawning git', () => {
-    expect(() => gx('/home/admin100/dws6', 'status')).toThrow(
+    expect(() => gx(realHostRepoRoot, 'status')).toThrow(
       /outside fixture sandbox|non-absolute\/empty/,
     );
     expect(() => gx('', 'init', '-q', '--bare')).toThrow(/non-absolute\/empty/);

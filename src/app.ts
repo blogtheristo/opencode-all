@@ -720,10 +720,10 @@ const server = app.listen(PORT, () => {
   initFirehorsePilot();
   logger.info('Firehorse Omnichannel Pilot started');
 
-  // Start outreach digest scheduler (backup — primary is GitHub Actions).
-  // On Cloud Run this may not fire reliably due to scale-to-zero,
-  // but covers local dev and always-on deployments.
-  outreachScheduler.start();
+  // Outreach digest SES disabled 2026-09-13 (HIC): stale daily "Outreach {date}"
+  // mail replaced by Mission Control (.claude/handoffs/claude/mission-control-ops.md).
+  // Keep stop() on shutdown; manual run via outreachScheduler.runManually() / API only.
+  // outreachScheduler.start();
 
   // Memory maintenance: decay at 03:00 Helsinki, consolidation at 03:30 Helsinki
   // Manual trigger available via POST /api/v1/admin/memory/maintenance

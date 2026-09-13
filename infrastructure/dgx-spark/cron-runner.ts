@@ -113,6 +113,9 @@ const jobs: CronJob[] = [
     enabled: true,
   },
   {
+    // Disabled 2026-09-13 (HIC): sibling path to in-process outreachScheduler;
+    // stale Outreach digest SES replaced by Mission Control. Do not re-enable
+    // without confirming digest content is fresh and HIC wants email again.
     name: 'outreach-digest',
     schedule: '5 4 * * 1-6',
     workflow: 'outreach-digest.yml',
@@ -124,7 +127,7 @@ const jobs: CronJob[] = [
       ],
       dwsBackendUrl: BACKEND_URL,
     },
-    enabled: true,
+    enabled: false,
   },
   {
     name: 'social-scheduler',
