@@ -16,10 +16,11 @@
 
 ## Next steps
 
-1. Push branch; update PR #2002 body with Task 1–3.
-2. HIC: redeploy backend so `outreachScheduler.start()` stays off.
-3. HIC: open `https://dws6.com/dashboard/mission-control/` after Pages deploy (or branch preview).
-4. HIC: disable Desktop backup-morning-briefing + Claude Routine if still on.
+1. Push branch; update PR #2002 body with Task 1–3. ✓ Done
+2. HIC: Read `docs/handovers/OPTION_A_OPERATING_GUIDE.md` — daily runbook for soft failover pattern.
+3. HIC: redeploy backend so `outreachScheduler.start()` stays off.
+4. HIC: open `https://dws6.com/dashboard/mission-control/` after Pages deploy (or branch preview).
+5. HIC: disable Desktop backup-morning-briefing + Claude Routine if still on.
 
 ## Blockers
 
