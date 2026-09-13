@@ -14,8 +14,12 @@ BEGIN
   -- Set default role
   assigned_role := 'dws_iq_standard';
 
-  -- Allow external domains and assign role
-  IF email_domain IN ('lifetime.fi', 'dws10.com', 'gmail.com') THEN
+  -- Allow only specific external users (security: no wildcards)
+  IF NEW.email IN (
+    'risto.paarni2024@lifetime.fi',
+    'admin2026@dws10.com',
+    'ristopaarni@gmail.com'
+  ) THEN
     -- Set role in user metadata
     NEW.raw_user_meta_data := jsonb_set(
       COALESCE(NEW.raw_user_meta_data, '{}'::jsonb),
