@@ -211,3 +211,12 @@ Security finding: Grok handover must not ingest raw customer/helpdesk/investor t
 
 **Fix on #2002:** handover v1.2 EU/PII HARD GATE + HARD STOP; checklist only accepts anonymized/HIC-redacted packs; raw manipulation → OpenCode local/DGX EU. Mission Control Hand-to-Grok prompt + UI banner aligned (dual-folder).
 
+
+### 2026-09-13 — Cursor (Option A soft failover)
+
+HIC decision: Option A (not B/C). Mission Control adds **Open in OpenCode**:
+builds ready prompt + overflow markdown (copy/download). Canonical baton:
+`.claude/handoffs/claude/mission-control-grok-overflow.md`. Browser cannot
+launch OpenCode or write git — HIC click/paste preserves EU/PII approval.
+Grok handover v1.3 points at this path. Option B (opencode-all overnight) deferred.
+

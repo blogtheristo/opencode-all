@@ -310,6 +310,7 @@
         <pre id="modalBody"></pre>
         <div class="row">
           <button type="button" class="btn btn-primary" id="btnCopy">Copy</button>
+          <button type="button" class="btn" id="btnDownload" hidden>Download .md</button>
           <button type="button" class="btn" id="btnClose">Close</button>
         </div>
       </div>
@@ -326,11 +327,15 @@
         buildQueue,
         itemsForCentre,
         buildGrokPrompt,
+        buildOpenCodeHandoff,
         addLiveInput,
         addManualItem,
         setOverlay,
         getLiveInputs,
       } from "./mission-control.js";
+
+      let lastDownloadName = "mission-control-grok-overflow.md";
+      let lastDownloadBody = "";
 
       const user = await requireHicAuth(getCurrentUser, handleOAuthCallback);
       if (!user) throw new Error("auth");
@@ -377,6 +382,7 @@
               <div class="meta">${escapeHtml(item.nextAction || "")}</div>
               <div class="row">
                 <button type="button" class="btn btn-primary" data-grok="${escapeAttr(item.id)}">Hand to Grok</button>
+                <button type="button" class="btn" data-opencode="${escapeAttr(item.id)}">Open in OpenCode</button>
                 <button type="button" class="btn" data-hic="${escapeAttr(item.id)}">Take as HIC</button>
               </div>`;
               el.appendChild(div);
@@ -404,23 +410,37 @@
         return queue.find((i) => i.id === id);
       }
 
-      function openModal(title, body) {
+      function openModal(title, body, { downloadable = false, filename = "" } = {}) {
         document.getElementById("modalTitle").textContent = title;
         document.getElementById("modalBody").textContent = body;
+        lastDownloadBody = body;
+        lastDownloadName = filename || "mission-control-opencode-ready.md";
+        document.getElementById("btnDownload").hidden = !downloadable;
         document.getElementById("modal").classList.add("open");
       }
 
       document.getElementById("centres").addEventListener("click", (e) => {
         const grok = e.target.closest("[data-grok]");
+        const opencode = e.target.closest("[data-opencode]");
         const hic = e.target.closest("[data-hic]");
         if (grok) {
           const item = findItem(grok.getAttribute("data-grok"));
           if (!item) return;
           const note = getLiveInputs()[0]?.text || "";
           openModal(
-            "Hand to Grok (anonymized only — raw threads → OpenCode local/EU)",
+            "Hand to Grok (anonymized only — raw threads → Open in OpenCode)",
             buildGrokPrompt(item, note),
           );
+        }
+        if (opencode) {
+          const item = findItem(opencode.getAttribute("data-opencode"));
+          if (!item) return;
+          const note = getLiveInputs()[0]?.text || "";
+          const pack = buildOpenCodeHandoff(item, note);
+          openModal("OpenCode Ready (HIC approval) — paste into OpenCode local/EU", pack.markdown, {
+            downloadable: true,
+            filename: "mission-control-grok-overflow-ready.md",
+          });
         }
         if (hic) {
           const id = hic.getAttribute("data-hic");
@@ -451,6 +471,15 @@
         setTimeout(() => {
           document.getElementById("btnCopy").textContent = "Copy";
         }, 1500);
+      };
+      document.getElementById("btnDownload").onclick = () => {
+        const blob = new Blob([lastDownloadBody], { type: "text/markdown;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = lastDownloadName;
+        a.click();
+        URL.revokeObjectURL(url);
       };
       document.getElementById("btnClose").onclick = () =>
         document.getElementById("modal").classList.remove("open");
