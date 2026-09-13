@@ -2,7 +2,9 @@
 
 **Feeding pipelines:** [`../../sales-outreach/`](../../sales-outreach/) (per-target `INTRO_*` / `LETTER_*`),
 [`../../outreach/`](../../outreach/) (playbooks), Supabase `outreach_contacts` pipeline `sales`, and the
-daily flow `scripts/daily/flow-sales-outreach.ts`.
+daily flow (DEPRECATED 2026-09-13 — was `scripts/daily/flow-sales-outreach.ts`; now
+`scripts/flow-sales-outreach_DEPRECATED.ts`, not day-runner scheduled). Live triage:
+Mission Control + Grok (anonymized) / OpenCode local (raw PII).
 
 Boardy.ai-sourced intros carry the `Boardy.ai` tag in the room — keep the tag on, it is how we measure
 whether that channel produces buyers or only conversations.

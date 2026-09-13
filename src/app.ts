@@ -370,6 +370,7 @@ app.use('/api/v1/booking', bookingRoutes);
 app.use('/api/v1/support', supportRoutes);
 app.use('/api/v1/support', supportReviewRoutes);
 app.use('/api/v1/captain', captainRoutes);
+app.use('/api/v1/opencode-queue', opencodeQueueRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
