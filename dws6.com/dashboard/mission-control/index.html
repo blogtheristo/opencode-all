@@ -338,7 +338,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module">
-      import { getCurrentUser, getSupabaseClient } from "../../shared/js/supabase-client.js";
+      import {
+        getCurrentUser,
+        getUserRole,
+        getSupabaseClient,
+      } from "../../shared/js/supabase-client.js";
       import { handleOAuthCallback } from "../../shared/js/auth-handler.js";
       import {
         CENTRES,
@@ -357,7 +361,7 @@
       let lastDownloadName = "mission-control-grok-overflow.md";
       let lastDownloadBody = "";
 
-      const user = await requireHicAuth(getCurrentUser, handleOAuthCallback);
+      const user = await requireHicAuth(getCurrentUser, handleOAuthCallback, getUserRole);
       if (!user) throw new Error("auth");
 
       document.getElementById("authLine").textContent =

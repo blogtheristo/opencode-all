@@ -196,6 +196,14 @@
           </p>
         </div>
 
+        <div class="card hidden" id="adminToolsCard">
+          <h2>Admin Tools</h2>
+          <p class="muted">Platform administration and configuration.</p>
+          <div class="row">
+            <a class="btn" href="/dashboard/admin/user-management/">👥 User Management</a>
+          </div>
+        </div>
+
         <div class="card hidden" id="containerCard">
           <h2>Admin: Container Status</h2>
           <p class="muted">Operational view for admin users.</p>
@@ -445,7 +453,8 @@
         const role = await getUserRole();
         document.getElementById("authLine").textContent =
           `Logged in as ${user.email} | role: ${role || "unassigned"}`;
-        if (role === "backoffice_admin") {
+        if (role === "backoffice_admin" || role === "hub_admin") {
+          document.getElementById("adminToolsCard").classList.remove("hidden");
           document.getElementById("containerCard").classList.remove("hidden");
           document.getElementById("briefAdminActions").classList.remove("hidden");
           await loadContainerStatus();

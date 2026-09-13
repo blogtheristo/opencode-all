@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Management Console</title>
+    <link rel="stylesheet" href="../../shared/css/auth-styles.css" />
+    <style>
+      :root {
+        --primary: #0a1628;
+        --secondary: #334155;
+        --success: #22c55e;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --bg: #f8fafc;
+        --card: #ffffff;
+        --border: #e2e8f0;
+        --text: #0f172a;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+      }
+      .admin-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+      .admin-header h1 {
+        margin: 0;
+        font-size: 2rem;
+        color: var(--primary);
+      }
+      .admin-header .breadcrumb {
+        color: var(--secondary);
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .search-bar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      .search-bar input,
+      .search-bar select {
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        font-size: 0.95rem;
+      }
+      .search-bar button {
+        padding: 8px 16px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .search-bar button:hover {
+        background: #152238;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th {
+        text-align: left;
+        padding: 12px;
+        background: #f1f5f9;
+        border-bottom: 2px solid var(--border);
+        font-weight: 600;
+        color: var(--primary);
+      }
+      td {
+        padding: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      tr:hover {
+        background: #f8fafc;
+      }
+      .role-badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+      .role-admin {
+        background: #fecaca;
+        color: #7f1d1d;
+      }
+      .role-high {
+        background: #fed7aa;
+        color: #92400e;
+      }
+      .role-medium {
+        background: #bfdbfe;
+        color: #1e3a8a;
+      }
+      .role-low {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .status-active {
+        color: var(--success);
+      }
+      .status-inactive {
+        color: var(--danger);
+      }
+      .user-row-actions {
+        display: flex;
+        gap: 8px;
+      }
+      .btn-small {
+        padding: 4px 8px;
+        font-size: 0.85rem;
+        border: 1px solid var(--border);
+        background: white;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .btn-small:hover {
+        background: #f1f5f9;
+      }
+      .btn-danger {
+        border-color: var(--danger);
+        color: var(--danger);
+      }
+      .btn-danger:hover {
+        background: #fee2e2;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal.active {
+        display: flex;
+      }
+      .modal-content {
+        background: white;
+        border-radius: 8px;
+        padding: 30px;
+        max-width: 500px;
+        width: 90%;
+      }
+      .modal-close {
+        float: right;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+      }
+      .form-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+      .btn-primary {
+        padding: 10px 20px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .btn-secondary {
+        padding: 10px 20px;
+        background: var(--bg);
+        color: var(--primary);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+      .stat-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+      }
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+      .stat-label {
+        color: var(--secondary);
+        margin-top: 5px;
+      }
+      .not-authorized {
+        padding: 40px;
+        text-align: center;
+        color: var(--danger);
+      }
+      .not-authorized h2 {
+        margin-bottom: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+
+    <div class="admin-container" id="adminContainer" style="display: none">
+      <div class="admin-header">
+        <div>
+          <h1>👥 User Management</h1>
+          <p class="breadcrumb">Dashboard / Admin / Users</p>
+        </div>
+        <button class="btn-primary" onclick="openAddUserModal()">+ Add User</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number" id="totalUsers">0</div>
+          <div class="stat-label">Total Users</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="activeUsers">0</div>
+          <div class="stat-label">Active Users</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="admins">0</div>
+          <div class="stat-label">Administrators</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="newToday">0</div>
+          <div class="stat-label">Joined Today</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Users</h2>
+        <div class="search-bar">
+          <input
+            type="text"
+            id="searchEmail"
+            placeholder="Search by email..."
+            onkeyup="filterUsers()"
+          />
+          <select id="roleFilter" onchange="filterUsers()">
+            <option value="">All Roles</option>
+            <option value="hub_admin">Platform Admin</option>
+            <option value="backoffice_admin">Back-Office Admin</option>
+            <option value="dws_iq_standard">DWS IQ Standard</option>
+            <option value="api_developer">API Developer</option>
+            <option value="store_viewer">Store Manager</option>
+          </select>
+          <button onclick="loadUsers()">🔄 Refresh</button>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Last Login</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody">
+            <tr>
+              <td colspan="6" style="text-align: center; color: #94a3b8">Loading users...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="not-authorized" id="notAuthorizedContainer" style="display: none">
+      <h2>🔒 Access Denied</h2>
+      <p>You do not have permission to access the User Management Console.</p>
+      <p>Only hub_admin and backoffice_admin roles can manage users.</p>
+      <button class="btn-secondary" onclick="goToDashboard()">← Back to Dashboard</button>
+    </div>
+
+    <!-- Add/Edit User Modal -->
+    <div class="modal" id="userModal">
+      <div class="modal-content">
+        <span class="modal-close" onclick="closeUserModal()">&times;</span>
+        <h2 id="modalTitle">Add User</h2>
+        <form id="userForm" onsubmit="saveUser(event)">
+          <div class="form-group">
+            <label for="userEmail">Email Address</label>
+            <input type="email" id="userEmail" required />
+          </div>
+          <div class="form-group">
+            <label for="userRole">Role</label>
+            <select id="userRole" required>
+              <option value="dws_iq_standard">DWS IQ Standard</option>
+              <option value="hub_admin">Platform Admin</option>
+              <option value="backoffice_admin">Back-Office Admin</option>
+              <option value="api_developer">API Developer</option>
+              <option value="store_viewer">Store Manager</option>
+              <option value="mcp_admin">MCP Admin</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="userStatus">
+              <input type="checkbox" id="userStatus" checked /> Active
+            </label>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" onclick="closeUserModal()">Cancel</button>
+            <button type="submit" class="btn-primary">Save User</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+      import {
+        getSupabaseClient,
+        getCurrentUser,
+        getUserRole,
+      } from "../../shared/js/supabase-client.js";
+
+      const ROLES = {
+        hub_admin: { level: "Full", badge: "role-admin" },
+        backoffice_admin: { level: "High", badge: "role-high" },
+        dws_iq_standard: { level: "Medium", badge: "role-medium" },
+        api_developer: { level: "Medium", badge: "role-medium" },
+        store_viewer: { level: "Medium", badge: "role-medium" },
+        mcp_admin: { level: "High", badge: "role-high" },
+      };
+
+      window.loadUsers = async function () {
+        const user = await getCurrentUser();
+        const role = await getUserRole();
+
+        // Check authorization
+        if (!user || (role !== "hub_admin" && role !== "backoffice_admin")) {
+          document.getElementById("adminContainer").style.display = "none";
+          document.getElementById("notAuthorizedContainer").style.display = "block";
+          return;
+        }
+
+        document.getElementById("adminContainer").style.display = "block";
+        document.getElementById("notAuthorizedContainer").style.display = "none";
+
+        // TODO: Fetch users from API and populate table
+        // For MVP, show sample data structure
+        const sampleUsers = [
+          {
+            email: "admin@dws6.com",
+            role: "hub_admin",
+            status: "active",
+            lastLogin: "2026-09-13T14:40:00Z",
+            created: "2026-01-15T10:00:00Z",
+          },
+          {
+            email: "ops@dws6.com",
+            role: "backoffice_admin",
+            status: "active",
+            lastLogin: "2026-09-13T12:30:00Z",
+            created: "2026-02-20T09:00:00Z",
+          },
+        ];
+
+        renderUsers(sampleUsers);
+        updateStats(sampleUsers);
+      };
+
+      window.renderUsers = function (users) {
+        const tbody = document.getElementById("usersTableBody");
+        tbody.innerHTML = users
+          .map(
+            (u) => `
+                <tr>
+                    <td>${u.email}</td>
+                    <td><span class="role-badge ${ROLES[u.role]?.badge || "role-medium"}">${u.role}</span></td>
+                    <td><span class="${u.status === "active" ? "status-active" : "status-inactive"}">${u.status === "active" ? "● Active" : "● Inactive"}</span></td>
+                    <td>${new Date(u.lastLogin).toLocaleDateString()}</td>
+                    <td>${new Date(u.created).toLocaleDateString()}</td>
+                    <td>
+                        <div class="user-row-actions">
+                            <button class="btn-small" onclick="editUser('${u.email}')">Edit</button>
+                            <button class="btn-small btn-danger" onclick="deleteUser('${u.email}')">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `,
+          )
+          .join("");
+      };
+
+      window.updateStats = function (users) {
+        document.getElementById("totalUsers").textContent = users.length;
+        document.getElementById("activeUsers").textContent = users.filter(
+          (u) => u.status === "active",
+        ).length;
+        document.getElementById("admins").textContent = users.filter((u) =>
+          u.role.includes("admin"),
+        ).length;
+        const today = new Date().toDateString();
+        document.getElementById("newToday").textContent = users.filter(
+          (u) => new Date(u.created).toDateString() === today,
+        ).length;
+      };
+
+      window.filterUsers = function () {
+        // TODO: Implement filtering
+        console.log("Filter implementation pending");
+      };
+
+      window.openAddUserModal = function () {
+        document.getElementById("modalTitle").textContent = "Add New User";
+        document.getElementById("userForm").reset();
+        document.getElementById("userEmail").disabled = false;
+        document.getElementById("userModal").classList.add("active");
+      };
+
+      window.editUser = function (email) {
+        document.getElementById("modalTitle").textContent = `Edit User: ${email}`;
+        document.getElementById("userEmail").value = email;
+        document.getElementById("userEmail").disabled = true;
+        // TODO: Load user data
+        document.getElementById("userModal").classList.add("active");
+      };
+
+      window.closeUserModal = function () {
+        document.getElementById("userModal").classList.remove("active");
+      };
+
+      window.saveUser = async function (event) {
+        event.preventDefault();
+        const email = document.getElementById("userEmail").value;
+        const role = document.getElementById("userRole").value;
+        const isActive = document.getElementById("userStatus").checked;
+
+        // TODO: Call API to save user
+        console.log("Save user:", { email, role, isActive });
+        closeUserModal();
+        // loadUsers();
+      };
+
+      window.deleteUser = function (email) {
+        if (confirm(`Delete user ${email}?`)) {
+          // TODO: Call API to delete user
+          console.log("Delete user:", email);
+        }
+      };
+
+      window.goToDashboard = function () {
+        window.location.href = "/dashboard/";
+      };
+
+      // Initialize on load
+      window.addEventListener("DOMContentLoaded", loadUsers);
+    </script>
+  </body>
+</html>

@@ -314,7 +314,7 @@ ${prompt.trim()}
   return { prompt, yaml, markdown, path: OVERFLOW_HANDOFF_PATH };
 }
 
-export async function requireHicAuth(getCurrentUser, handleOAuthCallback) {
+export async function requireHicAuth(getCurrentUser, handleOAuthCallback, getUserRole) {
   await handleOAuthCallback();
   const user = await getCurrentUser();
   if (!user) {
@@ -322,11 +322,16 @@ export async function requireHicAuth(getCurrentUser, handleOAuthCallback) {
     return null;
   }
   const email = (user.email || '').toLowerCase();
-  if (email !== ALLOWED_EMAIL) {
+  const role = getUserRole ? await getUserRole() : null;
+
+  // Allow HIC (primary) or hub_admin role
+  const isAuthorized = email === ALLOWED_EMAIL || role === 'hub_admin';
+
+  if (!isAuthorized) {
     document.body.innerHTML = `<main style="padding:2rem;font-family:Georgia,serif;background:#0c1222;color:#e8eef7;min-height:100vh">
       <h1>Mission Control</h1>
-      <p>Access restricted to ${ALLOWED_EMAIL} (Workspace login only — never an outbound From:).</p>
-      <p>Signed in as: ${email || 'unknown'}</p>
+      <p>Access restricted to HIC or Platform Administrators.</p>
+      <p>Signed in as: ${email || 'unknown'} (role: ${role || 'unassigned'})</p>
       <a href="/dashboard/" style="color:#7dd3c0">Back to hub</a>
     </main>`;
     return null;
