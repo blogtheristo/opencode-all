@@ -4,7 +4,7 @@
 **Branch baton:** `.claude/handoffs/claude/email-2-0-rewrite-74mtjq.md`  
 **PR:** https://github.com/blogtheristo/dws6/pull/2002 (`claude/email-2-0-rewrite-74mtjq`)  
 **Date:** 2026-09-13  
-**Status:** PLAN LOCKED — awaiting execute (stop SES + build Mission Control)  
+**Status:** EXECUTING — Task 1 done in code; Mission Control + Daily PWA shipped on this branch. Await HIC: backend redeploy + live URL check.  
 **Cursor mirror (non-canonical):** `~/.cursor/plans/Mission Control Ops-6cf5ce0a.plan.md` — do not edit only there.
 
 ---

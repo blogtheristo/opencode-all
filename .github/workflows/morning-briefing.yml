@@ -1,16 +1,14 @@
 # Morning Briefing — CEO Cockpit
 #
-# PRIMARY: GitHub Actions (re-enabled 2026-06-15; DGX Spark optional failover)
-# FAILOVER: DGX Spark cron-runner.ts (when heartbeat URL is configured)
-# MANUAL: workflow_dispatch always runs regardless of DGX status
+# SCHEDULE DISABLED 2026-09-13 (HIC): Brief V2 last useful delivery ~2026-08-24
+# (placeholders / HTTP 404 / stalled content). Replaced by Mission Control —
+# see .claude/handoffs/claude/mission-control-ops.md. Do NOT re-enable schedule
+# without HIC approval. Keep workflow_dispatch for rare manual sends.
+# DGX morning-brief-v2 remains enabled: false in cron-runner.ts.
 
 name: Morning Briefing
 
 on:
-  schedule:
-    - cron: "0 3 * * 1-6" # 06:00 Helsinki in summer (EEST, UTC+3)
-    - cron: "0 4 * * 1-6" # 06:00 Helsinki in winter (EET, UTC+2)
-
   workflow_dispatch:
     inputs:
       recipient:

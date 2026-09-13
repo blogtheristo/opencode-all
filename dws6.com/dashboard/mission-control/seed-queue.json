@@ -1,0 +1,66 @@
+{
+  "seededFrom": "brief-v2-2026-08-24",
+  "note": "Real overdue pipeline from last Morning Brief V2. Prefer live Supabase when available.",
+  "items": [
+    {
+      "id": "T:YPGW53RPFQ",
+      "centre": "sales",
+      "title": "Sustainability Director (NCC AB)",
+      "status": "new",
+      "nextAction": "Research NCC sustainability team on LinkedIn; construction ops compliance pitch",
+      "nouxRoom": "Trial Centre",
+      "repoPath": "sales-rooms/03-trial-centre/",
+      "noDemoEnv": true,
+      "priority": 1,
+      "source": "brief-v2-2026-08-24"
+    },
+    {
+      "id": "T:2764XEMEWX",
+      "centre": "partnership",
+      "title": "Partnerships Team (One Click LCA)",
+      "status": "new",
+      "nextAction": "Find BD contact; pitch “Your output is our input.”",
+      "nouxRoom": "Lifetime Certified Partners Centre",
+      "repoPath": "sales-rooms/01-certified-partners-centre/",
+      "noDemoEnv": true,
+      "priority": 1,
+      "source": "brief-v2-2026-08-24"
+    },
+    {
+      "id": "T:YBMDRDF4PS",
+      "centre": "partnership",
+      "title": "ISV Marketplace Team (IFS Cloud)",
+      "status": "new",
+      "nextAction": "IFS Cloud ISV partner program; Nordic contact; integration demo",
+      "nouxRoom": "Lifetime Certified Partners Centre",
+      "repoPath": "sales-rooms/01-certified-partners-centre/",
+      "noDemoEnv": true,
+      "priority": 2,
+      "source": "brief-v2-2026-08-24"
+    },
+    {
+      "id": "T:2C2HTYTUN5",
+      "centre": "partnership",
+      "title": "Panu Pasanen (One Click LCA)",
+      "status": "new",
+      "nextAction": "Send Version 1 pitch via Simon Sim",
+      "nouxRoom": "Lifetime Certified Partners Centre",
+      "repoPath": "sales-rooms/01-certified-partners-centre/",
+      "noDemoEnv": true,
+      "priority": 2,
+      "source": "brief-v2-2026-08-24"
+    },
+    {
+      "id": "T:NUSNSJV2TR",
+      "centre": "partnership",
+      "title": "Anna Gueorguieva (GreeniumDC)",
+      "status": "intro made",
+      "nextAction": "Intro email; schedule 30-min call; FCD one-pager + integration sketch",
+      "nouxRoom": "Lifetime Certified Partners Centre",
+      "repoPath": "sales-rooms/01-certified-partners-centre/",
+      "noDemoEnv": true,
+      "priority": 1,
+      "source": "brief-v2-2026-08-24"
+    }
+  ]
+}
