@@ -69,6 +69,7 @@ telemetry/
 **/out/
 **/.vercel/
 **/.turbo/
+**/*.tsbuildinfo
 dist/
 build/
 .gradle/
