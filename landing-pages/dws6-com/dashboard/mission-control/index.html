@@ -417,7 +417,10 @@
           const item = findItem(grok.getAttribute("data-grok"));
           if (!item) return;
           const note = getLiveInputs()[0]?.text || "";
-          openModal("Hand to Grok", buildGrokPrompt(item, note));
+          openModal(
+            "Hand to Grok (anonymized only — raw threads → OpenCode local/EU)",
+            buildGrokPrompt(item, note),
+          );
         }
         if (hic) {
           const id = hic.getAttribute("data-hic");
