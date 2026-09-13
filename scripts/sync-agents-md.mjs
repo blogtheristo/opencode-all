@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// Evidence: Tool=Claude Code Model=undisclosed-in-source (see commit trailer) Agent=claude Date=2026-09-13
+// Audit trail: git log -- scripts/sync-agents-md.mjs
 /**
  * sync-agents-md.mjs — AGENTS.md Auto-Syncer
  *
@@ -11,6 +13,8 @@
 
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'fs';
 import { join } from 'path';
+
+import { agentPathsByName } from './lib/agent-files.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname.replace(/\/$/, '');
 const AGENTS_MD = join(ROOT, 'AGENTS.md');
@@ -45,16 +49,47 @@ function syncWorkflowCount() {
   }
 }
 
+/**
+ * A `description:` value, including the concatenated multi-line form:
+ *
+ *     description:
+ *       'Chemical & pharmaceutical industry specialist — CBAM fertilisers/hydrogen, ' +
+ *       'REACH substance compliance, ...',
+ *
+ * A single-literal regex captured only the first segment, so `juno`,
+ * `mercury-trade` and `world-model-loop` landed in the table as sentences cut off
+ * mid-clause, ending in a dangling comma — and read as finished claims.
+ */
+const DESCRIPTION_EXPRESSION =
+  /description:\s*((?:\s*(?:'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*`)\s*\+?)+)/;
+
+/** Concatenate the string literals of a `'a' + 'b'` expression. */
+function joinLiterals(expr) {
+  const parts = expr.match(/'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*`/g) ?? [];
+  return parts
+    .map((p) => p.slice(1, -1))
+    .join('')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/** Make a value safe for one markdown table cell. */
+function cell(text) {
+  return text.replace(/\|/g, '\\|');
+}
+
 // --- 2. Sync agent list in §7 table ---
 function syncAgentList() {
   const agentsDir = join(ROOT, 'src', 'agents');
   if (!existsSync(agentsDir)) return;
 
-  const agentFiles = readdirSync(agentsDir)
-    .filter((f) => f.endsWith('.agent.ts'))
-    .map((f) => f.replace('.agent.ts', ''))
-    .filter((f) => !['base', 'types', 'index'].includes(f))
-    .sort();
+  // Whole tree, not just the top level. This used to be a flat
+  // `readdirSync(agentsDir)`, so the 32 agents under
+  // `src/agents/{workflow,consultant,seo,world-model,loop-engineering}/` were
+  // invisible to the syncer. A drift detector that cannot see a file reports no
+  // drift for it, forever. Traversal is shared with verify-agents-md.mjs.
+  const agentPaths = agentPathsByName(agentsDir);
+  const agentFiles = [...agentPaths.keys()].sort();
 
   // Check which agents are NOT in the table
   const missing = agentFiles.filter((a) => {
@@ -81,7 +116,7 @@ function syncAgentList() {
     const insertRows = missing
       .map((name) => {
         // Read the agent file for class name, description and declared model.
-        const filePath = join(agentsDir, `${name}.agent.ts`);
+        const filePath = agentPaths.get(name);
         let displayName = name
           .split('-')
           .map((w) => w[0].toUpperCase() + w.slice(1))
@@ -96,8 +131,8 @@ function syncAgentList() {
 
         try {
           const src = readFileSync(filePath, 'utf-8');
-          const descMatch = src.match(/description:\s*['"`]([^'"`]+)/);
-          if (descMatch) description = descMatch[1];
+          const descMatch = src.match(DESCRIPTION_EXPRESSION);
+          if (descMatch) description = joinLiterals(descMatch[1]);
           const nameMatch = src.match(/class\s+(\w+)\s+extends/);
           if (nameMatch) displayName = nameMatch[1];
           const modelMatch = src.match(/model:\s*['"`]([^'"`]+)/);
@@ -110,7 +145,7 @@ function syncAgentList() {
         // Default model. The previous form emitted the class name under "Role"
         // and the prose under "Implementation", inverting both for 15 rows.
         const modelCell = model ? `\`${model}\`` : '_unknown_';
-        return `| \`${name}\` | ${description} | \`${displayName}\` | ${modelCell} |`;
+        return `| \`${name}\` | ${cell(description)} | \`${displayName}\` | ${modelCell} |`;
       })
       .join('\n');
 

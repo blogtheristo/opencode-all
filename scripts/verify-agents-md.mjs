@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// Evidence: Tool=Claude Code Model=undisclosed-in-source (see commit trailer) Agent=claude Date=2026-09-13
+// Audit trail: git log -- scripts/verify-agents-md.mjs
 /**
  * verify-agents-md.mjs — AGENTS.md Freshness Checker
  *
@@ -10,6 +12,8 @@
 
 import { readFileSync, readdirSync, existsSync } from 'fs';
 import { join, basename } from 'path';
+
+import { agentPathsByName } from './lib/agent-files.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname.replace(/\/$/, '');
 const AGENTS_MD = join(ROOT, 'AGENTS.md');
@@ -91,9 +95,13 @@ function checkAgentList() {
     return;
   }
 
-  const agentFiles = readdirSync(agentsDir)
-    .filter((f) => f.endsWith('.agent.ts'))
-    .map((f) => f.replace('.agent.ts', ''));
+  // Whole tree, at any depth. A flat `readdirSync` here saw 43 of the 75
+  // `*.agent.ts` files, so the 32 agents in `src/agents/*/` could never be
+  // reported missing — while AGENTS.md §7 told readers the table was "verified
+  // against the filesystem". Traversal is shared with sync-agents-md.mjs so the
+  // generator and the verifier cannot disagree about what exists.
+  const agentPaths = agentPathsByName(agentsDir);
+  const agentFiles = [...agentPaths.keys()];
 
   // Extract agent names from the "Platform Agents (`src/agents/`)" table in §7 only.
   // Scoped to that one table (not the whole file) so unrelated skills-registry
@@ -109,7 +117,11 @@ function checkAgentList() {
       'Could not find "### Platform Agents (`src/agents/`)" section in AGENTS.md §7',
     );
   } else {
-    const agentTableRegex = /\|\s*`([a-z-]+)`\s*\|/g;
+    // Anchored to the start of a row, so only the FIRST column is read as an
+    // agent name. Unanchored, this also matched the Default model cell whenever
+    // the model was a bare lowercase word, and reported `placeholder` and
+    // `deterministic` as agents listed without code.
+    const agentTableRegex = /^\|\s*`([a-z0-9-]+)`\s*\|/gm;
     let match;
     while ((match = agentTableRegex.exec(platformAgentsSection[0])) !== null) {
       mdAgentNames.push(match[1]);
@@ -118,7 +130,6 @@ function checkAgentList() {
 
   // Check for agents in code but not in docs
   for (const agent of agentFiles) {
-    if (agent === 'base' || agent === 'types' || agent === 'index') continue;
     if (mdAgentNames.includes(agent)) {
       pass(`agent-list:${agent}`, `Agent "${agent}" documented in AGENTS.md`);
     } else {
@@ -132,7 +143,7 @@ function checkAgentList() {
 
   // Check for agents in docs but not in code
   for (const agent of mdAgentNames) {
-    const exists = agentFiles.includes(agent) || existsSync(join(agentsDir, `${agent}.agent.ts`));
+    const exists = agentPaths.has(agent);
     if (!exists) {
       warn(
         `agent-list:${agent}`,
