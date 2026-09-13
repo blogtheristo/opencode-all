@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-13-handoff-versioning-hic-visibility</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-13-handoff-versioning-hic-visibility</h1>
+</header>
+<h1 id="handoff-versioning-hic-visibility-layer">Handoff Versioning — HIC Visibility Layer</h1>
+<p><strong>Date:</strong> 2026-09-13<br />
+<strong>Status:</strong> [Latest]<br />
+<strong>Trigger:</strong> Session learning outcome (EU AI Act Art. 14); session stop hook requirement</p>
+<h2 id="what-happened">What Happened</h2>
+<p>The session inherited a Mission Control Ops handoff plan that was being passed between three independent tools (OpenCode, Claude Code, Cursor). The plan had no versioning, which meant:</p>
+<ol type="1">
+<li>The HIC couldn’t see which tool made which change</li>
+<li>If assumptions diverged between tools, the history was invisible</li>
+<li>Each tool’s edits overwrote previous work without auditing the change</li>
+</ol>
+<p><strong>Solution:</strong> Codified a versioning pattern where each tool maintains its own independent version counter (1.0, 1.1, 1.2…), and the VERSION AND AGENT HISTORY table lives in every handoff file as a <strong>HIC visibility layer</strong>.</p>
+<h2 id="the-pattern-built-in">The Pattern (Built In)</h2>
+<p><strong>Key rule:</strong> No coordination between tools. Each independently increments:</p>
+<ul>
+<li>OpenCode writes 1.0 → 1.1 → 1.2 → … → 1.12</li>
+<li>Claude Code writes 1.0 → 1.1 → 1.2 → … → 1.13</li>
+<li>Cursor writes 1.0 → 1.1 → 1.2 → … → 1.14</li>
+</ul>
+<p><strong>HIC sees this table in the handoff file:</strong></p>
+<pre><code>| Version | Date       | Changes                      | Agent       |
+| 1.4     | 2026-09-15 | Cursor adds fallback notes   | Cursor      |
+| 1.2     | 2026-09-14 | Claude Code adds blockers    | Claude Code |
+| 1.1     | 2026-09-13 | OpenCode initial plan        | OpenCode    |</code></pre>
+<p><strong>Result:</strong> The HIC reads dates + Agent + Changes and immediately understands:</p>
+<ul>
+<li>Which tool worked most recently (Cursor, v1.4)</li>
+<li>What blockers were caught and by whom (Claude Code, v1.2)</li>
+<li>The full timeline without reading git logs</li>
+</ul>
+<h2 id="implementation">Implementation</h2>
+<p><strong>Committed artifacts:</strong></p>
+<ol type="1">
+<li><strong>HANDOFF.md protocol update</strong> (<code>.claude/HANDOFF.md</code>)
+<ul>
+<li>Added “VERSION AND AGENT HISTORY (HIC Visibility Layer)” section</li>
+<li>Documented the independent-counter strategy</li>
+<li>Updated the update protocol (steps 2–3) to require versioning on all new/modified handoff files</li>
+</ul></li>
+<li><strong>Handoff template</strong> (<code>.claude/handoffs/_template.md</code>)
+<ul>
+<li>Pre-structured VERSION AND AGENT HISTORY block</li>
+<li>Explains “For HIC tracking” in each new handoff</li>
+<li>Ready to copy for new branches</li>
+</ul></li>
+<li><strong>Hook script</strong> (<code>.claude/hooks/handoff-version-inject.sh</code>)
+<ul>
+<li>Detects new <code>.claude/handoffs/*.md</code> files</li>
+<li>Auto-injects VERSION block if missing</li>
+<li>Not yet integrated into pre-commit (manual enforcement acceptable)</li>
+</ul></li>
+<li><strong>Updated existing handoffs</strong> (3 files)
+<ul>
+<li><code>mission-control-ops.md</code>: v1.1 (Noux API blocker + Cursor guidance)</li>
+<li><code>email-2-0-rewrite-74mtjq.md</code>: v1.1 (branch baton)</li>
+<li><code>NEXT_SESSION_PROMPT.md</code>: v1.1 (start-here file)</li>
+<li>All carry the “For HIC tracking” explanation</li>
+</ul></li>
+</ol>
+<h2 id="why-this-matters">Why This Matters</h2>
+<p><strong>Before:</strong> Handoff files had no audit trail. The HIC couldn’t tell if a change was from OpenCode, Claude Code, or Cursor, or when.</p>
+<p><strong>After:</strong> Every handoff file is self-documenting. The HIC can read the VERSION table and understand the full edit history without needing to check git or ask an agent.</p>
+<p><strong>Scope:</strong> This is a protocol change that applies to every new task/branch going forward, and every tool that creates handoff files (OpenCode, Claude Code, Cursor).</p>
+<h2 id="next-steps">Next Steps</h2>
+<ol type="1">
+<li>✓ Codification complete; committed to phase-1-preparation</li>
+<li>Next tool (Cursor/OpenCode) will use the template and increment their own counter</li>
+<li>HIC monitors the VERSION tables to catch divergence or communication gaps between tools</li>
+<li>If a version-based conflict appears (e.g., Claude Code’s v1.3 contradicts OpenCode’s v1.2), the HIC can instantly see the timeline and resolve</li>
+</ol>
+<h2 id="decision-integration-enforcement">Decision: Integration &amp; Enforcement</h2>
+<p><strong>Question for HIC:</strong></p>
+<p>Should I wire the hook script (<code>handoff-version-inject.sh</code>) into the pre-commit hook system now, or keep manual enforcement (each tool remembers to update VERSION on edits)?</p>
+<p><strong>Trade-offs:</strong></p>
+<ul>
+<li><strong>Wired hook:</strong> Automatic enforcement; no one forgets; but hook is fragile/complex in bash</li>
+<li><strong>Manual:</strong> Lightweight; each tool owns its versioning; relies on protocol discipline</li>
+</ul>
+<p>Current state: Hook script exists and is ready, but not yet wired into <code>.claude/settings.json</code> or git hooks.</p>
+<hr />
+<h2 id="metadata">Metadata</h2>
+<p><strong>Related files:</strong></p>
+<ul>
+<li><code>.claude/HANDOFF.md</code> — updated protocol</li>
+<li><code>.claude/handoffs/_template.md</code> — new template for branches</li>
+<li><code>.claude/handoffs/claude/mission-control-ops.md</code> — v1.1 (first example)</li>
+<li><code>.claude/hooks/handoff-version-inject.sh</code> — hook script (manual enforcement)</li>
+</ul>
+<p><strong>Scope:</strong> Cross-tool handoff discipline, HIC visibility, EU AI Act Art. 14 audit trail</p>
+<p><strong>Impact:</strong> All future branches and handoff files (unlimited)</p>
+</body>
+</html>

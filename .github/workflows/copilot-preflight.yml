@@ -110,13 +110,13 @@ jobs:
           fi
 
           PROMPT_STATIC='You are doing a quick pre-flight review of a branch before a PR is opened.
-Be brief and actionable. Flag ONLY real blockers — security issues, logic errors, missing error handling.
-Do NOT comment on style or non-critical suggestions.
+          Be brief and actionable. Flag ONLY real blockers — security issues, logic errors, missing error handling.
+          Do NOT comment on style or non-critical suggestions.
 
-Format:
-## Claude Pre-flight
-**Issues:** [list with file:line, or None]
-**Verdict:** PASS / FAIL'
+          Format:
+          ## Claude Pre-flight
+          **Issues:** [list with file:line, or None]
+          **Verdict:** PASS / FAIL'
 
           PAYLOAD=$(jq -n \
             --arg static "$PROMPT_STATIC" \
@@ -238,9 +238,9 @@ Format:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add PREFLIGHT_ISSUES.md
-          git commit -m "chore: pre-flight issues found — fix before opening PR
-
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+          git commit \
+            -m "chore: pre-flight issues found — fix before opening PR" \
+            -m "Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
           git push
 
       # ── FAIL: set red commit status ──

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-label="Daily Mission Control">
+  <rect width="192" height="192" fill="#0c1222"/>
+  <rect x="24" y="24" width="144" height="144" fill="none" stroke="#7dd3c0" stroke-width="6"/>
+  <text x="96" y="108" text-anchor="middle" fill="#e8eef7" font-family="Georgia,serif" font-size="48" font-weight="700">MC</text>
+</svg>

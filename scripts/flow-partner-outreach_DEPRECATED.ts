@@ -1,15 +1,16 @@
 /**
- * Flow: Partner Outreach
- * Auto-discovered by day-runner.sh in scripts/daily/
+ * DEPRECATED 2026-09-13 — removed from scripts/daily/ so day-runner.sh no longer
+ * auto-discovers this job. sendFlowDigest emails are OFF.
  *
- * Routes partner pipeline threads to team agents:
- *   Due follow-ups → Risto (strategic) or Antti (construction)
- *   In negotiation → Sofia (deal structuring)
- *   Architecture review → Adrian | Stale > 21d → escalation
+ * Sole daily triage owners:
+ *   - Mission Control + Grok (anonymized / HIC-redacted only)
+ *   - OpenCode local / DGX EU (raw threads, via Option A soft failover)
+ * Docs: docs/handovers/grok-bot-daily-ops-handover.md
+ *       .claude/handoffs/claude/mission-control-ops.md
  *
- * Code-Version: 1.0
- * Date: 2026-04-07
- * Owner: Claude Opus 4.6
+ * Manual re-run (HIC only — will email digests): npx tsx scripts/<this-file>
+ *
+ * --- original script below (no longer scheduled) ---
  */
 
 import 'dotenv/config';
@@ -25,12 +26,19 @@ import {
   daysSince,
   type FlowTask,
   type FlowRunStats,
-} from '../lib/flow-utils.js';
+} from './lib/flow-utils.js';
 
 const FLOW = 'flow-partner-outreach';
 const CONSTRUCTION_TYPES = ['Reseller', 'reseller'];
 
+
 async function main() {
+  console.error('[DEPRECATED] This flow was removed from scripts/daily/ on 2026-09-13.');
+  console.error('Daily triage owns Mission Control / Grok / OpenCode — not sendFlowDigest.');
+  console.error('Set ALLOW_DEPRECATED_FLOW_DIGEST=1 to force a one-shot manual run.');
+  if (process.env.ALLOW_DEPRECATED_FLOW_DIGEST !== '1') {
+    process.exit(0);
+  }
   console.log(`[${FLOW}] Starting...`);
   const stats: FlowRunStats = {
     flow: FLOW,
