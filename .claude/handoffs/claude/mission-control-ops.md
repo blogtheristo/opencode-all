@@ -220,3 +220,13 @@ builds ready prompt + overflow markdown (copy/download). Canonical baton:
 launch OpenCode or write git — HIC click/paste preserves EU/PII approval.
 Grok handover v1.3 points at this path. Option B (opencode-all overnight) deferred.
 
+
+### 2026-09-13 — Cursor (disable flow-* outreach digests)
+
+Finding: handover claimed to replace daily path while `scripts/daily/flow-*-outreach.ts`
+still auto-discovered by day-runner.sh → `sendFlowDigest` (dual owners).
+
+**Fix:** moved investor/sales/partner/media to `scripts/flow-*-outreach_DEPRECATED.ts`
+(outside daily/). Guard exit unless `ALLOW_DEPRECATED_FLOW_DIGEST=1`. Cron-works +
+handover v1.4 + trial OUTREACH.md updated. `flow-customer-onboarding.ts` stays daily.
+

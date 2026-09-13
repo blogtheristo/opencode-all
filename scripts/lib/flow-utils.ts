@@ -1,6 +1,8 @@
 /**
  * Flow Utilities — Shared functions for all 5 business process flows
- * Used by scripts/daily/flow-*.ts scripts on DGX Spark
+ * Used by scripts/flow-*-outreach_DEPRECATED.ts (manual only) and
+ * scripts/daily/flow-customer-onboarding.ts on DGX Spark.
+ * Outreach flows were removed from day-runner auto-discovery on 2026-09-13.
  *
  * Code-Version: 1.0
  * Date: 2026-04-07

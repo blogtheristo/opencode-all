@@ -2,7 +2,7 @@
 Document: Grok Bot Handover — Daily Operations
 Type: Operational Guidance (System Prompt)
 Status: [Latest] Active
-Version: 1.3
+Version: 1.4
 Date: 2026-09-13
 Languages Available: English
 schema: DWS_DOCUMENT_STANDARD
@@ -20,6 +20,8 @@ HIC-redacted inputs only**. Does NOT change source of truth: this repo
 customer/helpdesk/investor threads are NOT in Grok's scope** (see EU/PII gate).
 **Soft failover (Option A):** Mission Control **Open in OpenCode** — HIC click
 required; no automatic tool launch.
+**Sole owner of daily outreach triage:** Mission Control / Grok / OpenCode —
+`flow-*-outreach` day-runner jobs are disabled (see § What this replaces).
 
 ---
 
@@ -27,7 +29,8 @@ VERSION AND AGENT HISTORY
 
 | Version          | Date       | Changes                                                               | Author      |
 | ---------------- | ---------- | --------------------------------------------------------------------- | ----------- |
-| 1.3 [Latest]     | 2026-09-13 | Option A soft failover — Open in OpenCode (HIC click)                 | Cursor      |
+| 1.4 [Latest]     | 2026-09-13 | flow-*-outreach removed from day-runner; sole triage owner clarified  | Cursor      |
+| 1.3 [not latest] | 2026-09-13 | Option A soft failover — Open in OpenCode (HIC click)                 | Cursor      |
 | 1.2 [not latest] | 2026-09-13 | EU/PII hard gate — raw threads → OpenCode local only; Grok anonymized | Cursor      |
 | 1.1 [not latest] | 2026-09-13 | UNTRUSTED INPUT (prompt-injection); Document Standard header          | Cursor      |
 | 1.0 [not latest] | 2026-09-13 | Initial Grok daily-ops handover prompt                                | Claude Code |
@@ -154,13 +157,20 @@ REPORTING BACK
   anonymized / HIC-redacted daily triage only**.
 - Grok may draft and prioritize from redacted digests; it does **not**
   replace OpenCode for raw-thread handling.
+- **Disabled (2026-09-13):** `scripts/daily/flow-{investor,sales,partner,media}-outreach.ts`
+  were auto-discovered by `infrastructure/dgx-spark/day-runner.sh` and called
+  `sendFlowDigest`. They are now `scripts/flow-*-outreach_DEPRECATED.ts`
+  (outside `scripts/daily/`, so day-runner does not run them). Manual one-shot
+  only with `ALLOW_DEPRECATED_FLOW_DIGEST=1`. **Do not** treat those jobs as
+  a parallel queue — that duplicated digests and dual-owned triage.
 - **OpenCode (local / DGX EU)** owns any work that needs raw customer,
   helpdesk, or investor message bodies, PII, or attachment content
-  (`skills/email`, `skills/helpdesk-triage`, `skills/investor-outreach`,
-  `scripts/daily/flow-*-outreach.ts` when those touch real mailboxes).
+  (`skills/email`, `skills/helpdesk-triage`, `skills/investor-outreach`).
 - Claude Code remains standby for the same residency-safe path, plus
   code changes, repo SoT (pricing, standards), migrations, and anything
   RED/YELLOW-gated in `CLAUDE.md`.
+- **`flow-customer-onboarding.ts`** remains in `scripts/daily/` (not an
+  outreach digest path).
 
 ## Handback condition
 

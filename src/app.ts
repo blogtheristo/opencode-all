@@ -374,6 +374,7 @@ app.use('/api/v1/support', supportReviewRoutes);
 app.use('/api/v1/opencode-queue', opencodeQueueRoutes);
 app.use('/api/v1/learn', learnCalendarRoutes);
 app.use('/api/v1/captain', captainRoutes);
+app.use('/api/v1/opencode-queue', opencodeQueueRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);

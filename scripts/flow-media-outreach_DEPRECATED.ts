@@ -1,17 +1,16 @@
 /**
- * Flow: Media Outreach (Lifetime Scope Journal)
- * Auto-discovered by day-runner.sh in scripts/daily/
+ * DEPRECATED 2026-09-13 — removed from scripts/daily/ so day-runner.sh no longer
+ * auto-discovers this job. sendFlowDigest emails are OFF.
  *
- * Reads content_calendar table (migration 057) to track publishing cadence:
- *   Missing today's post → flag for Risto review
- *   Friday → newsletter task | < 7 posts/week → content gap alert
- *   Tue/Wed/Thu → LinkedIn post reminder
+ * Sole daily triage owners:
+ *   - Mission Control + Grok (anonymized / HIC-redacted only)
+ *   - OpenCode local / DGX EU (raw threads, via Option A soft failover)
+ * Docs: docs/handovers/grok-bot-daily-ops-handover.md
+ *       .claude/handoffs/claude/mission-control-ops.md
  *
- * GAP: No journalist/PR agent yet — content calendar automation only
+ * Manual re-run (HIC only — will email digests): npx tsx scripts/<this-file>
  *
- * Code-Version: 1.0
- * Date: 2026-04-07
- * Owner: Claude Opus 4.6
+ * --- original script below (no longer scheduled) ---
  */
 
 import 'dotenv/config';
@@ -22,11 +21,18 @@ import {
   logFlowRun,
   type FlowTask,
   type FlowRunStats,
-} from '../lib/flow-utils.js';
+} from './lib/flow-utils.js';
 
 const FLOW = 'flow-media-outreach';
 
+
 async function main() {
+  console.error('[DEPRECATED] This flow was removed from scripts/daily/ on 2026-09-13.');
+  console.error('Daily triage owns Mission Control / Grok / OpenCode — not sendFlowDigest.');
+  console.error('Set ALLOW_DEPRECATED_FLOW_DIGEST=1 to force a one-shot manual run.');
+  if (process.env.ALLOW_DEPRECATED_FLOW_DIGEST !== '1') {
+    process.exit(0);
+  }
   console.log(`[${FLOW}] Starting...`);
   const stats: FlowRunStats = {
     flow: FLOW,
