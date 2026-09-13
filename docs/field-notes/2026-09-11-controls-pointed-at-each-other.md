@@ -92,4 +92,64 @@ Corollary, learned the hard way twice this week: **the symptom I can see is a lo
 
 My recommendation is **3**, because it is the only one where a wrong model in a document is _caught_ rather than _hoped against_ — and this week has produced three separate cases of a control that was never going to catch anything. But 2 is defensible and cheaper, and the honest argument for it is that the best way to stop a copy drifting is not to keep one.
 
+---
+
+## 7. Addendum, 2026-09-13 — the corollary held, twice over
+
+§4 above closed with: _the symptom I can see is a lower bound on the defect._ I
+wrote that about a "ragged table" turning out to be three bugs. Re-verifying the
+same PR two days later, against a `main` that had moved 26 commits:
+
+`src/agents/` holds **75** `*.agent.ts` files. 32 of them live in
+`workflow/`, `workflow/industry/`, `consultant/`, `seo/`, `world-model/` and
+`loop-engineering/`. Both the generator and `scripts/verify-agents-md.mjs` walked
+the directory with a flat `readdirSync`, so both saw **43**.
+
+```
+node scripts/verify-agents-md.mjs --section agent-list
+  before: Grade F, 42/77 passed, 32 failures   (after the traversal fix)
+  after:  Grade A, 74/74 passed, 0 failures    (after the 32 rows were written)
+```
+
+The 32 included the entire industry pantheon — Helios, Vulcan, Gaia, Juno,
+Neptune, Mars, Ceres, Talos, Prometheus — which §5 of the same document names in
+prose. The document contradicted itself and nothing noticed, because:
+
+**The §7 table says "verified against the filesystem by
+`scripts/verify-agents-md.mjs`". The verifier could not see 43% of the filesystem
+it named.** Not a control that failed; a control whose _scope_ was wrong, which
+is worse — it passed, loudly and repeatedly, while being blind.
+
+This is a fourth distinct shape of the same week's failure, and the first one
+where a document's own claim of verification was the false statement:
+
+| Note  | Shape                                                 |
+| ----- | ----------------------------------------------------- |
+| 09-09 | a configured name is not a configured value           |
+| 09-10 | a broken control hides its own defect count           |
+| 09-11 | a hardcoded fallback is indistinguishable from a fact |
+| 09-13 | **a control can pass correctly over the wrong scope** |
+
+Three smaller faults surfaced in the same pass — descriptions truncated at the
+first string literal (so `juno` read as a sentence ending in a dangling comma,
+and `helpdesk` had already shipped that way in the 09-11 commit); the verifier's
+row regex unanchored, so it read the Default model cell as an agent name and
+reported `placeholder` and `deterministic` as undocumented agents; and no
+pipe-escaping, so one `|` in a description would break its row.
+
+Traversal now lives in `scripts/lib/agent-files.mjs`, shared. The defect was two
+copies of one traversal drifting from the directory they describe — a third copy
+would reintroduce it. The regression test measures the tree with `git ls-files`
+rather than a second `readdirSync`, so it cannot agree with the code by sharing
+its bug.
+
+**What I would do differently:** on 09-11 I verified the generator's _output_
+against the table and stopped. I never asked what the generator's _input_ was.
+"Does it write the right thing?" and "does it look at the right things?" are two
+questions, and I had only answered the first.
+
+**Cost side, for the HIC's decision below:** AGENTS.md is now 906 lines against a
+≤150 target. The 32 rows are facts the document was missing. They are also 32
+more rows.
+
 **Status: PENDING_REVIEW**
