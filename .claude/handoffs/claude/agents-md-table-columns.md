@@ -1,7 +1,11 @@
 # Handoff — `claude/agents-md-table-columns` (PR #2001)
 
-**Updated:** 2026-09-13 · **Head:** `26fd48e8` · **Base:** `origin/main` (`a069af0a`)
-**Status:** open, CI green as of `6c30d979`; awaiting re-run on `26fd48e8`.
+**Updated:** 2026-09-13 · **Base:** `origin/main` (`a069af0a`)
+**Status:** open. All five gates green on the 2026-09-13 09:07 UTC run — Tree
+Gate, DoD Gate, truth-lint, AI Code Review (HIL), Verify audit chain + HEAD
+coverage. `Cloudflare Pages: dws6-dashboard` has been `in_progress` since
+09:03 UTC with no result; this branch touches no dashboard file, so it is a
+Cloudflare-side stall, not this PR's.
 **Blocked on:** one HIC decision (below). Not blocked on code.
 
 ## What this branch does
