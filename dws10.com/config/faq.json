@@ -61,11 +61,11 @@
       "faqs": [
         {
           "q": "What is the DWS IQ Compliance Hub?",
-          "a": "The Compliance Hub is powered by the CI Power V2 engine and covers EN 15978 lifecycle assessment, CSRD, EPBD, ETS2, CBAM and Fit for 55, with multi-jurisdiction Nordic support."
+          "a": "The Compliance Hub is powered by the CI Power V2 engine. It provides deterministic CSRD, ETS and CBAM scoring, EN 15978 lifecycle assessment, and governed evidence workflows for broader EU obligations, with multi-jurisdiction Nordic support."
         },
         {
           "q": "Which EU regulations does the Compliance Hub cover?",
-          "a": "CSRD, EPBD, ETS2, CBAM and Fit for 55, plus EN 15978 lifecycle assessment for the built environment."
+          "a": "Deterministic scoring covers CSRD, ETS and CBAM. Governed evidence workflows support EPBD, ETS2, Fit for 55, the EU AI Act, GDPR and NIS2, alongside EN 15978 lifecycle assessment for the built environment."
         },
         {
           "q": "Does it support multiple jurisdictions?",
