@@ -1,0 +1,23 @@
+{
+  "id": "aegis-products",
+  "master": "landing-pages/dws10-com/products/aegis.html",
+  "masterLang": "en",
+  "stringsDir": "scripts/i18n/aegis-products",
+  "outDirs": [
+    "dws10.com/landing-pages/dws10-com",
+    "onelifetime.world/landing-pages/dws10-com",
+    "lifetime.fi/landing-pages/dws10-com"
+  ],
+  "urlBase": "https://dws10.com/landing-pages/dws10-com/",
+  "files": {
+    "en": "aegis-product.html",
+    "fi": "aegis-product-fi.html",
+    "sv": "aegis-product-sv.html",
+    "de": "aegis-product-de.html",
+    "fr": "aegis-product-fr.html"
+  },
+  "aiNotice": {
+    "langs": ["fi", "sv", "de", "fr"],
+    "after": "</header>"
+  }
+}
