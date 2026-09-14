@@ -24,6 +24,8 @@ A fixed-price, fixed-duration engagement that proves the complete **local-first 
 
 The pilot exists because the control-room requirement is testable. In manufacturing control rooms, dual-use facilities and air-gapped plants, compliance execution cannot depend on external connectivity. That is either true of a deployment or it is not, and the way to find out is to run it and pull the cable — not to model it in a proposal.
 
+**Indicative nearest SEAL-3** (Digital Resilience) — same depth as Aegis. Not a Commission certificate. Lifetime Oy was not in Cloud III. SEAL-4 is closed by NVIDIA GN100/DGX chip dependence.
+
 ## What it proves
 
 The five requirements that define a control-room deployment, demonstrated rather than asserted:

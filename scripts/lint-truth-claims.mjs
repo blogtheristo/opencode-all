@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// Evidence: Tool=Cursor Grok 4.6 Model=Cursor Grok 4.6 Agent=cursor Date=2026-09-14
+// Audit trail: git log -- scripts/lint-truth-claims.mjs
 /**
  * lint-truth-claims.mjs — DWS Truth Standard §5 lint.
  *

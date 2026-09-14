@@ -24,6 +24,8 @@ A structured implementation engagement for organisations that have decided on Ae
 
 It is **not** an evaluation. If you are still deciding whether local-first operation suits your site, the bounded evaluation engagement is the right starting point instead — see Related below.
 
+**Indicative nearest SEAL-3** (Digital Resilience) — same depth as Aegis. Not a Commission certificate. Lifetime Oy was not in Cloud III.
+
 ## The three phases
 
 | Phase | Duration | Outcome | Price |

@@ -118,7 +118,10 @@ Versions older than v4.0 for thesis documents and versions beyond the latest 3 f
 
 ```
 Learn/
+├── index.html                        ← Redirect to start.html (never overwrite)
+├── folder-index.html                 ← Rendered HTML of this file
 ├── INDEX.md                          ← This file
+├── start.html                        ← Auto-generated Learn hakemisto
 ├── V3Thesis_EN_v4.04.html           ← Latest versions (top 3)
 ├── V3Thesis_EN_v4.02.html
 ├── V3Thesis_EN_v4.01.html
@@ -141,12 +144,13 @@ Learn/
 
 - **Latest vs. Archived:** The Learn folder contains only the newest 3 versions of each document. Earlier versions are in `Arkisto/`.
 - **Thesis Lockstep:** The four thesis files (V3Thesis_EN/FI, PHD_FIREHORSE_EN/FI) are version-locked per CLAUDE.md Thesis Rule. A version bump on one triggers a bump on all four.
-- **HTML Generation:** All `.md` files in this folder have corresponding `.html` versions generated via `scripts/render-doc.sh`.
+- **HTML Generation:** All `.md` files in this folder have corresponding `.html` versions generated via `scripts/render-doc.sh`. **Exception:** `INDEX.md` renders to `folder-index.html`, never `INDEX.html`. Windows (`core.ignorecase=true`) treats `Learn/INDEX.html` and `Learn/index.html` as one file; the lowercase path is the `start.html` redirect written by `scripts/weekly/coach-learn-curate.cjs`.
+- **Render command:** `scripts/render-doc.sh Learn/INDEX.md Learn/folder-index`
 - **Dual Folder Sync:** Thesis and key strategic documents are also synced to `landing-pages/` mirrors per the Dual Folder Sync rule in CLAUDE.md.
 - **Source of Truth:** The canonical versions are in `docs/` (e.g., `docs/metropolia/master-thesis/en/V3Thesis_EN.md`). HTML copies in Learn are generated outputs.
 
 ---
 
 **Maintained by:** Claude Code agent
-**Last Updated:** 2026-09-02
-**Learn Index Version:** 1.0
+**Last Updated:** 2026-09-14
+**Learn Index Version:** 1.1

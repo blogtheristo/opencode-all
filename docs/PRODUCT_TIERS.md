@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Tier matrix now names an **indicative nearest SEAL** (Commission Cloud Sovereignty Framework v1.2.1). Fence: not a DWS certificate; SEAL-4 closed by NVIDIA chip dependence. Connect (C) = SEAL-0/1; Sovereign Infra = SEAL-2 on EU-owned stack only; Aegis aims at SEAL-3.
 - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/sovereign-ai-jurisdiction-PmlIN | Date: 25.04.2026 | Changes: Added "Cross-Tier Partners — Per-Tier Graduation" section to the Partner Map. Two cross-tier rows: Shufti Pro (KYA identity verification) — Connect: DPA approved · Sovereign Infra & Aegis: exploration; Cohere + Aleph Alpha (sovereign AI platform, post-merger 24-Apr-2026) — Connect: fast-track to approved · Sovereign Infra & Aegis: exploration Q3 2026. Documents the graduation rule: cross-tier partners clear Connect first, escalate per tier as sovereignty review clears.
 - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/product-tiers-partners-Jbh0U | Date: 20.04.2026 | Changes: Fixed Aiven → Aiven spelling; reframed Aiven as (a) Finnish managed PostgreSQL provider and (b) EU AI Act Article 12 compliance overlay (per CLOUD_ENVIRONMENTS.md §7). Named Hetzner Helsinki as actual Tier 1 sovereign compute provider; removed Supabase from Aegis data path because it is US-incorporated.
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/product-tiers-partners-Jbh0U | Date: 19.04.2026 | Changes: Initial product tier matrix (Aegis / Sovereign Infra / Connect), partner map, market segmentation, positioning statement
@@ -21,13 +22,13 @@ Session Links & References:
 Document Status:
 
 - Created: 19.04.2026
-- Last Modified: 25.04.2026
+- Last Modified: 14.09.2026
 - Language: English
 - Publication Status: ACTIVE (Internal — sales, partner, investor reference)
 
-Code-Version: 1.2
-Branch: claude/sovereign-ai-jurisdiction-PmlIN
-Date: 2026-04-25
+Code-Version: 1.4
+Branch: claude/sovereignty-segmentation-axis-truth
+Date: 2026-09-14
 Owner: Risto Anton Päärni, Lifetime Oy
 
 ---
@@ -63,11 +64,13 @@ KYA-track mapping per pillar: Data → SIB-track, Technology → CSB-track, Oper
 
 ## Tier Matrix
 
-| Tier                         | Sovereignty Posture | Target Customer                              | Hosting                                                                                          | CLOUD Act Exposure | Pricing                                                             |
-| ---------------------------- | ------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------- |
-| **DWS IQ Aegis**             | Full Sovereign      | Government, defence, critical infrastructure | Hetzner Helsinki + Aiven managed PostgreSQL (FI, EU-incorporated); Article 12 compliance overlay | Zero               | EUR 59,990 one-time + EUR 999/mo                                    |
-| **DWS IQ 6 Sovereign Infra** | EU-Sovereign        | Regulated EU/UK enterprise SaaS              | Scaleway EU cloud + EU IDV (iDenfy candidate)                                                    | None               | Enterprise Navigator / Premium / Nordic / World tiers (see pricing) |
-| **DWS IQ Connect**           | Global              | Global enterprise, no sovereignty constraint | US/global cloud (AWS, Azure, NVIDIA), APAC, MENA                                                 | Standard           | Tier-priced via partner channels                                    |
+| Tier                         | Sovereignty Posture | Indicative SEAL (not a certificate) | Target Customer                              | Hosting                                                                                          | CLOUD Act Exposure | Pricing                                                             |
+| ---------------------------- | ------------------- | ----------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------- |
+| **DWS IQ Aegis**             | Full Sovereign      | **SEAL-3** (aims). SEAL-4 closed (NVIDIA GN100/DGX) | Government, defence, critical infrastructure | Hetzner Helsinki + Aiven managed PostgreSQL (FI, EU-incorporated); Article 12 compliance overlay | Zero               | EUR 59,990 one-time + EUR 999/mo                                    |
+| **DWS IQ 6 Sovereign Infra** | EU-Sovereign        | **SEAL-2** only on an EU-owned stack (US-parent EU region = SEAL-1) | Regulated EU/UK enterprise SaaS              | Scaleway EU cloud + EU IDV (iDenfy candidate)                                                    | None               | Enterprise Navigator / Premium / Nordic / World tiers (see pricing) |
+| **DWS IQ Connect (C)**       | Global / non-EU sales (J2+J3) | **SEAL-0 / 1**                      | Global enterprise, no sovereignty constraint | US/global cloud (AWS, Azure, NVIDIA), APAC, MENA                                                 | Standard           | Tier-priced via partner channels                                    |
+
+SEAL names and gates: Commission Cloud Sovereignty Framework v1.2.1. DWS was not in Cloud III. Do not print a SEAL badge as if Lifetime Oy holds a certificate. Public literacy table: `dws10.com/compliance/#seal-0-4`.
 
 ---
 
@@ -85,6 +88,7 @@ KYA-track mapping per pillar: Data → SIB-track, Technology → CSB-track, Oper
 - Database: **Aiven managed PostgreSQL** (Finnish-owned, EU region) — replaces Supabase for Aegis because Supabase is US-incorporated
 - Control plane: **Themis** — hash-chained append-only ledger on Aiven Postgres, KYA-attested events, 6-month minimum retention, auditor JSON export under 10 business days
 - Article 26 deployer evidence on file
+- Indicative nearest **SEAL-3** (Digital Resilience). SEAL-4 closed by NVIDIA GN100/DGX. Not a Commission certificate.
 
 **Use cases:**
 
@@ -114,6 +118,7 @@ KYA-track mapping per pillar: Data → SIB-track, Technology → CSB-track, Oper
 - Scaleway EU cloud (Paris/Amsterdam) for inference and storage
 - EU-resident IDV provider (iDenfy candidate; alternatives under review)
 - GDPR-native, CSRD/ETS/CBAM-ready
+- Indicative nearest **SEAL-2** only on an EU-owned stack (US-parent EU region = SEAL-1). Not a Commission certificate.
 
 **Use cases:**
 
@@ -150,6 +155,7 @@ Themis is DWS's proprietary implementation of the open KYA standard — Article 
 - US infrastructure permitted (AWS, Azure, NVIDIA inference)
 - Broadest market reach
 - No CLOUD Act sovereignty claim — explicit in contracts
+- Indicative nearest **SEAL-0 / 1** (US parent / CLOUD Act open). Connect is C = non-EU sales (J2+J3). Not a Commission certificate.
 - Regional partner clouds for APAC (Alibaba) and Gulf/MENA (G42)
 
 **Use cases:**

@@ -350,6 +350,17 @@ for (const key of Object.keys(learnFamilies)) {
   }
 }
 
+// INDEX.md must not render to INDEX.html — Windows case-collides with the
+// lowercase index.html redirect to start.html (see Learn/INDEX.md Notes).
+const LEARN_MD_HTML_ALIASES = {
+  'INDEX.md': 'folder-index.html',
+};
+
+function htmlNameForLearnMd(mdName) {
+  if (LEARN_MD_HTML_ALIASES[mdName]) return LEARN_MD_HTML_ALIASES[mdName];
+  return mdName.replace(/\.md$/, '') + '.html';
+}
+
 // ── 3b. Render newest Learn *.md that have no HTML rendering yet ──────────────
 const current = fs.readdirSync(LEARN).filter((n) => fs.statSync(path.join(LEARN, n)).isFile());
 const htmlSet = current.filter((n) => n.endsWith('.html'));
@@ -357,10 +368,17 @@ for (const n of current) {
   if (!n.endsWith('.md')) continue;
   if (parseVersioned(n)) continue; // versioned .md are snapshots; never render them
   const baseNoExt = n.replace(/\.md$/, '');
-  const hasHtml = htmlSet.some((h) => h === baseNoExt + '.html' || h.startsWith(baseNoExt + '_v'));
+  const out = htmlNameForLearnMd(n);
+  if (out.toLowerCase() === 'index.html') {
+    throw new Error(
+      'Refuse to render ' + n + ' over Learn/index.html (redirect to start.html). Use folder-index.html.',
+    );
+  }
+  const hasHtml = htmlSet.some(
+    (h) => h === out || h === baseNoExt + '.html' || h.startsWith(baseNoExt + '_v'),
+  );
   if (hasHtml) continue;
   const md = fs.readFileSync(path.join(LEARN, n), 'utf8');
-  const out = baseNoExt + '.html';
   fs.writeFileSync(
     path.join(LEARN, out),
     mdToHtml(

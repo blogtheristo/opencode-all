@@ -1,13 +1,17 @@
-# DWS Gamma Brand Standard v3.9
+# DWS Gamma Brand Standard v3.13
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.9
+Version: 3.13
 
 Sessions & Modifications:
 
+- Version: 3.13 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Locked IT/business offer line (FI): Aegis/Infra split by contract, risk and jurisdiction; Connect produces KYA-compliant signed auditable outcomes. SEAL value line remains CIO-layer.
+- Version: 3.12 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Boardy audit — lifetime.fi commercial core is the compliance outcome (Aegis/infra for sensitive; hyperscaler per contract/jurisdiction; DWS IQ Connect signed outcomes from both). Public CLOUD Act-zero fenced to Aegis/EU-only path. Coaching: hybrid finding is not the second sentence unless it explains the participant’s problem; keep the EU-sovereign perimeter promise.
+- Version: 3.11 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §22 Use-in — lifetime.fi consulting (five-language homepages + Starter package) carries the locked pair plus the operational consulting lede (sensitive on sovereign, rest on hyperscaler). Not a headline replacement.
+- Version: 3.10 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Added §22 “Sovereignty is the primary segmentation axis — not the only one.” pitch block in the Language Standard five languages (EN/FI/SV/DE/FR). HIC-locked EN+FI 14.09.2026; SV/DE/FR are locked translations of that pair. Fence: do not say the market splits on one axis; do not claim an EU SEAL certificate; EU region on a US parent is not the cut. Canonical: `DWS_TRUTH_STANDARD.md` §2 row 39 and `docs/field-notes/2026-09-14-sovereignty-is-the-primary-segmentation-axis.md` §1.
 - Version: 3.9 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: Added §25 (Personnel Photography & Multimodal Brand Assets) — canonical photo registry (first two entries: `Risto_Malta.png` APPROVED, `CV/risto70.png` flagged NEEDS REVIEW for an unprofessional bar-signage background found in active use on a government-tender CV), personnel photo quality bar, video/audio brand-asset handling (poster-frame + external link, WCAG captions), and the "flag, don't silently use" rule when no compliant asset exists yet. Companion to `DWS_DOCUMENT_STANDARD.md` §22, which covers the technical storage/embedding side. Added §25 to ToC.
 - Version: 3.8 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Founder clarification (Risto: "compliance intelligence is a part of that including climate compliance (eu)") applied to §22's "Sovereign Industrial Intelligence Outcomes" entry — named **Compliance Intelligence** as the outcome category, with Climate Compliance (EU: Fit for 55/ETS/CBAM/CSRD) as one confirmed part alongside EU AI Act Article 12, GDPR, NIS2 (`Store/PRODUCT_CLIMATE_INTELLIGENCE.md`) and CER Directive/EU CRM Act/dual-use export control at the Aegis tier. Added explicit guardrail: do not narrow this pitch line to climate-only in copy.
 - Version: 3.7 | Tool: Claude Code (claude-sonnet-5) | Session: claude/dws-sovereign-intelligence-wwho6h | Date: 10.07.2026 | Changes: Added §22 "Sovereign Industrial Intelligence Outcomes" pitch line (EN + draft FI) — founder-confirmed flagship phrase ("this is important! We do Sovereign Industrial Intelligence outcomes"), synthesizing the existing Three-Layer National Strategy (Layer 3 = DWS operates the intelligence) with the CLOUD Act jurisdiction thesis. Cross-referenced to `DWS_MARKET_RESEARCH_STANDARD.md` §8.3 and `DWS_TRUTH_STANDARD.md` row 27; carries forward the coinability audit's caution (no "SI" abbreviation, no bare "Sovereign Intelligence" exclusivity claim, FI line marked draft pending native review).
@@ -37,7 +41,7 @@ Session Links & References:
 Document Status:
 
 - Created: 01.01.2026
-- Last Modified: 12.07.2026
+- Last Modified: 14.09.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -79,7 +83,7 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 | 19  | Onboarding Wizard Standard                | First-run experience (v10-react)             |
 | 20  | Compliance Score Widget Standard          | Dashboard compliance ring (v10-react)        |
 | 21  | CLI Rich Output Standard                  | CLI human-readable formatting                |
-| 22  | Product Pitch Lines                       | Canonical one-liners (EN/FI)                 |
+| 22  | Product Pitch Lines                       | Canonical one-liners (EN/FI; axis line 5-lang) |
 | 23  | 4P Capital Classes                        | Canonical terminology (positioning)          |
 | 24  | Outreach Voice & Email Standard           | B2B outreach email + LinkedIn                |
 | 25  | Personnel Photography & Multimodal Assets | CVs, customer docs, whitepapers, video/audio |
@@ -2016,6 +2020,62 @@ Founder-confirmed 10.07.2026 ("this is important! We do Sovereign Industrial Int
 
 ---
 
+### Sovereignty as the Primary Segmentation Axis (Cross-Product / GTM Cut)
+
+HIC-locked 14.09.2026. This is how DWS cuts the market and the SKU ladder — not a new product. *Primary* = the first cut (jurisdiction / CLOUD Act / legal parent). *Not the only one* = industry, price, capability, language, and workload sensitivity remain later cuts. The em dash is load-bearing.
+
+**Headline (use verbatim):**
+
+| Lang | Locked line |
+| ---- | ----------- |
+| EN | Sovereignty is the primary segmentation axis — not the only one. |
+| FI | Suvereeniteetti on ensisijainen segmentointiakseli — ei ainoa. |
+| SV | Suveränitet är den primära segmenteringsaxeln — inte den enda. |
+| DE | Souveränität ist die primäre Segmentierungsachse — nicht die einzige. |
+| FR | La souveraineté est l'axe de segmentation principal — pas le seul. |
+
+**Lede (after the headline):**
+
+| Lang | Lede |
+| ---- | ---- |
+| EN | Jurisdiction is the first cut. Industry, price and capability still matter after it. |
+| FI | Lainkäyttö on ensimmäinen leikkaus. Toimiala, hinta ja kyvykkyys jäävät sen jälkeen. |
+| SV | Jurisdiktionen är det första snittet. Bransch, pris och förmåga räknas därefter. |
+| DE | Die Gerichtsbarkeit ist der erste Schnitt. Branche, Preis und Leistungsfähigkeit zählen danach. |
+| FR | La juridiction est la première coupure. Le secteur, le prix et la capacité comptent ensuite. |
+
+**Supporting (not headline):** “Sovereignty is segmentation.” / “Sovereignty is segmentation — locally.” (PhD moat 2) / “Suvereeniteetti on segmentointia.”
+
+**Do not:**
+
+- Say “The market splits on one axis” / “Markkina jakautuu yhdellä akselilla” / “Marknaden delas på en axel.”
+- Claim sovereignty is the only segmentation.
+- Present a DWS score or Aegis / Sovereign Infra / Connect depth as an EU SEAL certificate.
+- Treat an EU region on a US parent as the sovereign cut.
+
+**Use in:** coaching and store sovereignty compare blocks, `dws10.com` moat openers (all five language homepages), `/sovereignty-assessment/`, `lifetime.fi` consulting (five-language homepages + `consulting-packages.json` Starter package), investor/GTM slides that name the market cut. Pair with Sovereign Industrial Intelligence Outcomes (above) for the *what we deliver* line; this block is the *how the market is cut* line.
+
+**lifetime.fi consulting value line (locked 14.09.2026 — LTF-CONSULT-001, five-language homepages):**
+
+| Lang | Line |
+| ---- | ---- |
+| EN | Lifetime Oy maps each function to an indicative nearest SEAL and ships the split. We do not issue Commission SEAL evaluations. |
+| FI | Lifetime Oy kartoittaa kunkin toiminnon suuntaa-antavalle lähimmälle SEAL-portaalle ja toteuttaa jaon. Emme myönnä komission SEAL-arvioita. |
+
+**Clarification (same block):** The customer sets the minimum level; Lifetime implements a risk-based split onto Aegis/Infra and onto Connect or a suitable hyperscaler.
+
+**Offer line (IT / business — locked FI 14.09.2026):** Autamme viemään herkät kuormanne suvereenille Aegis/Infra-polulle ja pitämään muut kuormat sopimuksen, riskin ja jurisdiktion vaatimusten mukaisesti hyperscalerilla. DWS IQ Connect tuottaa molemmista KYA:n mukaiset, allekirjoitetut ja tarkastettavat lopputulokset.
+
+**EN:** We help you move sensitive workloads onto the sovereign Aegis/Infra path and keep other workloads on the hyperscaler required by contract, risk and jurisdiction. DWS IQ Connect produces KYA-compliant, signed, auditable outcomes from both.
+
+Market data (Deloitte 42%, Gartner ~20%) stays thesis / field note — it explains the buyer’s problem; it must not look like a Lifetime SEAL mandate.
+
+**Coaching:** After the locked pair, keep the course promise (delivered inside the EU-sovereign perimeter). Put the hybrid finding as a second sentence only if it explains the participant’s problem; otherwise it dilutes the promise.
+
+**Canonical sources:** `DWS_TRUTH_STANDARD.md` §2 row 39; `docs/field-notes/2026-09-14-sovereignty-is-the-primary-segmentation-axis.md` §1; `config/truth/sovereignty-segmentation-axis.json`.
+
+---
+
 ### DWS10 Offensive / Commercial-Edge Pitch Block
 
 Reframes the defensive _"buy us so you don't get fined"_ line into a commercial-edge frame: compliance readiness sold as **tender-velocity and revenue, not insurance**. Moves the same product out of the risk/cost-center budget and into a growth budget — faster to unlock and larger. Derived from the offensive-positioning field note (`docs/field-notes/2026-06-10-offensive-positioning-dws10.md`) and aligned to the canonical _"compliance can freeze or release money"_ frame (System of Action Operator, above). Use the **defensive** line to get through the risk/legal/compliance door; switch to the **offensive** line once a commercial or CEO sponsor is in the room.
@@ -2453,6 +2513,9 @@ Never introduce new positioning lines in a deck without documenting them in §22
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v3.13   | 2026-09-14 | Locked lifetime.fi consulting value line EN/FI (indicative nearest SEAL; not a Commission evaluation); customer sets minimum; KYA Connect outcomes; market stats stay thesis/field note. |
+| v3.12   | 2026-09-14 | Boardy: lifetime.fi commercial core = compliance outcome + Connect signed results from both paths; CLOUD Act-zero fenced to Aegis/EU-only; coaching second-sentence rule for the hybrid finding. |
+| v3.10   | 2026-09-14 | Added: §22 Sovereignty as the Primary Segmentation Axis — HIC-locked EN/FI pair plus SV/DE/FR Language Standard translations; fence on monopoly-axis / fake-SEAL / US-parent-EU-region claims. Canonical: Truth Standard row 39.                                                                                                                                                                                                                                                     |
 | v3.9    | 2026-07-12 | Added: §25 Personnel Photography & Multimodal Brand Assets — canonical photo registry (Risto_Malta.png APPROVED, CV/risto70.png flagged NEEDS REVIEW), personnel photo quality bar, video/audio handling, "flag don't silently use" rule. Companion to `DWS_DOCUMENT_STANDARD.md` §22.                                                                                                                                                                                                                                                               |
 | v3.6    | 2026-06-15 | Added: §24 Outreach Voice & Email Standard — consultative tone rules, email structure (hook → insight → value prop → CTA), subject line rules, approved CTAs, banned phrases, LinkedIn voice, sender spec. Governs outreach-agents skill and OutreachMessageCrafterAgent.                                                                                                                                                                                                                                                                            |
 | v3.5    | 2026-06-10 | Added: §22 DWS10 Offensive / Commercial-Edge pitch block — defensive→offensive reframe (compliance as tender-velocity / revenue, not insurance): hero opener, declarative hero H1, investor line; EN+FI lockstep, translation notes, and guardrails (no "replace people" per Ethics Principle band §6, no uncapped-liability claim, competitors implicit §0). Source: `docs/field-notes/2026-06-10-offensive-positioning-dws10.md`.                                                                                                                  |

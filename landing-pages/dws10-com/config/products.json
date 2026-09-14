@@ -215,14 +215,14 @@
       ],
       "capacityLimits": "Per-template scope"
     },
-  "FH-SIGN-001": {
-    "id": "FH-SIGN-001",
-    "gtin": null,
-    "mpn": "FH-SIGNED-REPORTS-2026",
-    "name": "Firehorse Signed Reports",
-    "price": 199,
-    "currency": "EUR",
-    "type": "subscription",
+    "FH-SIGN-001": {
+      "id": "FH-SIGN-001",
+      "gtin": null,
+      "mpn": "FH-SIGNED-REPORTS-2026",
+      "name": "Firehorse Signed Reports",
+      "price": 199,
+      "currency": "EUR",
+      "type": "subscription",
     "priceUnit": "per-year",
       "description": "Add legally binding eSignatures to any Firehorse report. Compliance reports, carbon assessments, and investor reports get DocuSign eSignature — court-defensible, audit-ready, with full tracking. Author, reviewer, and auditor sign in sequence. Signed PDFs auto-archived.",
       "features": [
@@ -2313,7 +2313,8 @@
       "features": [
         "Designed to reduce CLOUD Act exposure",
         "Continuous sovereignty monitoring agent",
-        "8-dimension compliance scoring"
+        "8-dimension compliance scoring",
+        "Indicative nearest SEAL-2 (EU-owned PostgreSQL) — not a Commission certificate"
       ],
       "priceNote": "Assess: Free | Standard: €499/mo | Growth: €1,499/mo | Enterprise: €4,999/mo",
       "revolutLink": null,
@@ -2388,7 +2389,8 @@
       "features": [
         "Compliance, Report & Discovery agents",
         "Basic CSRD compliance dashboard",
-        "Supabase + Cloudflare infrastructure"
+        "Supabase + Cloudflare infrastructure",
+        "Indicative nearest SEAL-0/1 (US parent / CLOUD Act open) — not a Commission certificate"
       ],
       "priceNote": "€299/mo + €990 one-time setup | Annual: 2 months free",
       "revolutLink": null,
@@ -2432,7 +2434,8 @@
       "features": [
         "Full Firehorse agent suite",
         "Firehorse Report module included",
-        "5 user seats + kickoff workshop"
+        "5 user seats + kickoff workshop",
+        "Indicative nearest SEAL-0/1 (US parent / CLOUD Act open) — not a Commission certificate"
       ],
       "priceNote": "€799/mo + €2,490 one-time setup | Annual: 2 months free",
       "revolutLink": null,
@@ -2476,7 +2479,8 @@
       "features": [
         "Designed to reduce CLOUD Act exposure (EU-owned providers)",
         "Aiven PostgreSQL + Hetzner/Scaleway",
-        "Sovereignty score monitoring"
+        "Sovereignty score monitoring",
+        "Indicative nearest SEAL-2 if EU-owned stack — not a Commission certificate"
       ],
       "priceNote": "€499/mo + €1,490 one-time setup | Annual: 2 months free",
       "revolutLink": null,
@@ -2520,7 +2524,8 @@
       "features": [
         "Full Firehorse agent suite + Aiwen Article 12 logging",
         "NIS2 compliance dashboard",
-        "Designed to reduce CLOUD Act exposure + EU data residency"
+        "Designed to reduce CLOUD Act exposure + EU data residency",
+        "Indicative nearest SEAL-2 if EU-owned stack — not a Commission certificate"
       ],
       "priceNote": "€1,499/mo + €3,990 one-time setup | Annual: 2 months free",
       "revolutLink": null,
@@ -2609,7 +2614,8 @@
       "features": [
         "Cross-vertical intelligence — detect supply chain cascades across 21 industries",
         "EU-sovereign — Finnish-owned infrastructure, designed to reduce CLOUD Act exposure",
-        "Dual-use compliance — CER, CRM Act, KRITIS, NIS2, EU AI Act, CBAM, ETS"
+        "Dual-use compliance — CER, CRM Act, KRITIS, NIS2, EU AI Act, CBAM, ETS",
+        "Indicative nearest SEAL-3 (Digital Resilience) — not a Commission certificate"
       ],
       "priceNote": "From €59,990 onboarding + one-time integration. Monthly subscription: Standard €999/mo | Defence €1,999/mo | Sovereign €4,999/mo",
       "revolutLink": null,
@@ -2658,7 +2664,8 @@
         "Proves the five control-room requirements: local execution and evidence, local identity/logs/kill authority, no network dependency for the core outcome, cloud optional, specified graceful degradation",
         "Binary acceptance KPI — uplink severed: workflow completes, Article 12 record still written locally, operator can still stop an agent. All three, or the pilot reports a negative result",
         "Deployment-mode recommendation (Local/Edge, Hybrid or EU-Sovereign Cloud) with production hardware sizing",
-        "Credited in full against Aegis onboarding within 6 months; credit capped at €19,990 and excludes LWM integration, hardware, multi-site rollout and custom integrations"
+        "Credited in full against Aegis onboarding within 6 months; credit capped at €19,990 and excludes LWM integration, hardware, multi-site rollout and custom integrations",
+        "Indicative nearest SEAL-3 (Digital Resilience) — not a Commission certificate"
       ],
       "priceNote": "€19,990 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months (net cost to production unchanged at €59,990). INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
       "revolutLink": null,
@@ -2735,7 +2742,8 @@
         "Phase 2 — Agent-in-production, 6 weeks, €15,000: one skilled agent live and EU-compliant",
         "Phase 3 — LWM integration, 8 weeks, €25,000: world-model integration, operational knowledge accumulates",
         "Additive to Aegis onboarding and licence — not credited",
-        "Scoped per engagement; phases can be taken in sequence or individually"
+        "Scoped per engagement; phases can be taken in sequence or individually",
+        "Indicative nearest SEAL-3 (Digital Resilience) — not a Commission certificate"
       ],
       "priceNote": "€45,000 for all three phases (Audit €5,000 + Agent-in-production €15,000 + LWM integration €25,000). ADDITIVE to Aegis onboarding (€59,990) and licence — NOT credited against them. Phase 3 is integration work outside onboarding scope.",
       "revolutLink": null,

@@ -76,7 +76,8 @@ Aegis is a **two-layer** product. The layers solve different problems and are de
 ### Sovereignty Assessment
 
 - CLOUD Act exposure scoring (US vs. EU-sovereign providers)
-- Four sovereignty tiers: Sovereign / Compliant / Partial / Exposed
+- Four DWS sovereignty-score tiers: Sovereign / Compliant / Partial / Exposed (this is not EU SEAL)
+- Indicative nearest **SEAL-3** (Digital Resilience) on Commission Cloud Sovereignty Framework v1.2.1. Lifetime Oy was not in Cloud III and does not hold a SEAL certificate. SEAL-4 is closed by NVIDIA GN100/DGX chip dependence.
 - NIS2 alignment verification
 - EU AI Act compliance checks
 - Data residency audit trail

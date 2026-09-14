@@ -41,6 +41,19 @@ INPUT_ABS="$(cd "$(dirname "$INPUT")" && pwd)/$(basename "$INPUT")"
 OUT_ABS_HTML="$(cd "$(dirname "$OUT_BASE")" 2>/dev/null && pwd)/$(basename "$OUT_BASE").html"
 OUT_ABS_DOCX="$(cd "$(dirname "$OUT_BASE")" 2>/dev/null && pwd)/$(basename "$OUT_BASE").docx"
 
+# Windows treats Learn/INDEX.html and Learn/index.html as one file. The
+# lowercase path is the start.html redirect; render INDEX.md to folder-index.
+case "$(basename "$OUT_ABS_HTML")" in
+  INDEX.html|INDEX.HTML)
+    case "$(basename "$(dirname "$OUT_ABS_HTML")")" in
+      Learn|learn)
+        echo "error: refuse $OUT_ABS_HTML — case-collides with Learn/index.html redirect. Use Learn/folder-index" >&2
+        exit 1
+        ;;
+    esac
+    ;;
+esac
+
 if command -v pandoc >/dev/null 2>&1; then
   # Local pandoc available (DGX native or future install)
   PANDOC_CMD="pandoc"

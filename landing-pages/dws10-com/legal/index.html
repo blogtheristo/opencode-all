@@ -40,13 +40,14 @@
 
     <!--
     VERSION AND AGENT HISTORY
-    Version: 1.0
+    Version: 1.1
 
     Sessions & Modifications:
+      - Version: 1.1 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Section 2 now carries the locked sovereignty-axis pair, the Commission SEAL-0…4 vocabulary (not a DWS certificate), and a fence on Google Cloud europe-north1 (SEAL-1, not the sovereign cut). Glance table gains a SEAL row.
       - Version: 1.0 | Tool: Claude Code | Session: susanna-hypponen-card-tnq9cl | Date: 20.06.2026 | Changes: Formalized page version record; added vertical language bar (FI/SV/DE/FR/EN) + hreflang alternates and FI/SV/DE/FR language landing pages under /legal/<lang>/; data protection management framing, external-DPO advisory bench, ISO/IEC 42001 roadmap row, Digia Hub partner card (governed by DWS_LEGAL_STANDARD.md v1.2)
 
     Document Status:
-      - Last Modified: 20.06.2026
+      - Last Modified: 14.09.2026
       - Publication Status: Production
 
     Compliance:
@@ -577,6 +578,14 @@
               <td>01 Apr 2026</td>
             </tr>
             <tr>
+              <td>
+                <a href="#seal-0-4"><strong>EU SEAL-0 … SEAL-4</strong></a>
+              </td>
+              <td>Vocabulary — Commission Cloud Sovereignty Framework. Not a DWS certificate.</td>
+              <td>Oct 2025</td>
+              <td>14 Sep 2026</td>
+            </tr>
+            <tr>
               <td>⭐ <a href="../privacy-policy/">Privacy Policy & GDPR Statement</a></td>
               <td>All visitors & data subjects</td>
               <td>01 Jan 2023</td>
@@ -843,14 +852,66 @@
 
       <hr />
 
-      <h2>2. Digital Sovereignty (New)</h2>
+      <h2 id="seal-0-4">2. Digital Sovereignty</h2>
       <p>
+        <strong>Sovereignty is the primary segmentation axis — not the only one.</strong>
+        Jurisdiction is the first cut. Industry, price and capability still matter after it.
         🛡️ <strong><a href="../sovereignty/sovereignty.html">EU-Sovereign by Design</a></strong>
+      </p>
+      <p>
+        The Commission’s Cloud Sovereignty Framework (v1.2.1) scores offers SEAL-0 … SEAL-4.
+        SEAL is a gate (weakest of eight SOV objectives). Cloud III’s floor was SEAL-2. DWS was
+        not in that tender and does not hold a SEAL certificate. The table is literacy, not a
+        badge.
+      </p>
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>SEAL</th>
+              <th>Official name (v1.2.1)</th>
+              <th>In practice</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0</td>
+              <td>No Sovereignty</td>
+              <td>Exclusive non-EU control. US/CN public cloud.</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Jurisdictional Sovereignty</td>
+              <td>EU law on paper. An EU region on a US parent.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Data Sovereignty</td>
+              <td>EU law enforceable. Cloud III minimum. Material non-EU deps remain.</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Digital Resilience</td>
+              <td>Cannot be cut by a non-EU supplier. OVH / STACKIT / Scaleway class.</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Full Digital Sovereignty</td>
+              <td>Chips-to-software. Commission: not realistic today (hardware dependence).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Indicative DWS depths: Aegis / Sovereign Infra (J1, EU sales) aim at SEAL-2…3 on an
+        EU-owned stack. Connect (C) is non-EU sales (J2/J3) ≈ SEAL-0/1. NVIDIA GN100/DGX keeps
+        SEAL-4 closed.
       </p>
       <ul>
         <li>
           <strong>For All Customers:</strong> Understand your deployment options — EU-sovereign
-          infrastructure is the default; US hyperscalers are an available secondary option.
+          infrastructure is the default; US hyperscalers are an available secondary option (Connect
+          / C).
         </li>
         <li>
           <strong>Deployment Options (EU-first):</strong>
@@ -862,20 +923,21 @@
             </li>
             <li>
               <strong>European Cloud</strong> ⭐: Hetzner (Helsinki), Scaleway
-              (Paris/Amsterdam/Warsaw), OVHcloud (EU regions) — no CLOUD Act exposure, GAIA-X
-              aligned, 100% EU jurisdictions
+              (Paris/Amsterdam/Warsaw), OVHcloud (EU regions) — EU-owned operators, no US-parent
+              CLOUD Act path, GAIA-X aligned
             </li>
             <li>
-              <strong>US Hyperscalers (secondary option)</strong>: AWS, Google Cloud, Azure — EU
-              region data residency available, but CLOUD Act jurisdiction may apply. Suitable where
-              EU-sovereign clouds do not meet performance or tooling requirements.
+              <strong>US Hyperscalers (secondary option / C):</strong> AWS, Google Cloud, Azure —
+              an EU region on a US parent is SEAL-1, not sovereignty. Suitable where EU-owned
+              clouds do not meet performance or tooling requirements.
             </li>
           </ul>
         </li>
         <li>
           <strong>Product Defaults:</strong> Firehorse local installations preferred for maximum
           sovereignty. Edge AI on NVIDIA Jetson keeps sensitive data on-premise. Google Cloud Run
-          europe-north1 (Finland) used for managed EU Cloud deployments.
+          europe-north1 (Finland) is an EU region on a US parent — residency, not the sovereign
+          cut.
         </li>
       </ul>
 

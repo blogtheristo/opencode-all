@@ -2,11 +2,12 @@
 
 VERSION AND AGENT HISTORY
 Document: AWS Partnership Acceleration Strategy — Lifetime Oy
-Version: 1.0
+Version: 1.1
 Created: 2026-06-29
-Author: Claude (DWS IQ 6 Agent)
+Last Modified: 2026-09-14
+Author: Claude (DWS IQ 6 Agent); hybrid posture addendum Cursor Grok 4.6
 Reviewed by: Risto Päärni (Founder & CEO, Lifetime Oy)
-Status: DRAFT
+Status: DRAFT — §4 sovereignty posture closed as channel-only for Connect (14.09.2026)
 
 ---
 
@@ -43,11 +44,11 @@ DWS IQ 6 sells EU regulatory-compliance intelligence (CSRD, ETS, CBAM, EU AI Act
 
 **Surface it, don't average it (Rule 7).** Lifetime Oy / DWS IQ markets EU **data sovereignty** and flags **US CLOUD Act exposure** (see `DWS_SECURITY_STANDARD.md` and the `sovereignty-assess` / `sovereignty-pillars-assess` skills). Deepening a US-hyperscaler commercial dependency (reselling AWS, listing on Marketplace, taking AWS funding) sits in visible tension with that positioning.
 
-This is **resolvable, not disqualifying**:
+This is **resolvable, not disqualifying** — closed 14.09.2026 as **(a) procurement/GTM channel only for Connect**, not (b) Aegis infrastructure:
 
-- AWS operates **EU-region** infrastructure and an **AWS European Sovereign Cloud** offering — verify whether these satisfy our customers' residency and operational-autonomy requirements.
-- A **Marketplace listing** describes a _procurement channel_, not necessarily where data resides; our product can remain EU-resident while being transactable via Marketplace. Confirm this distinction explicitly.
-- Decide deliberately whether to position AWS as: (a) a procurement/GTM channel only, or (b) an underlying infrastructure dependency. These carry very different sovereignty messaging.
+- AWS Marketplace / Private Offer / distributor = how a **Connect** (and optionally Sovereign Infra *procurement*) buyer draws down committed AWS spend. It does not set Cloud Jurisdiction.
+- Sensitive workloads (compliance evidence, dual-use, Article 12 ledger) stay on **Aegis / EU-native substrate** (Hetzner, Scaleway, OVH-class). Do not place that ledger on AWS European Sovereign Cloud and treat it as SEAL-3.
+- Deloitte/DIHK hybrid: hyperscaler keeps the non-sensitive remainder; DWS classifies the split. Canon: `docs/field-notes/2026-09-14-sovereignty-is-the-primary-segmentation-axis.md` §9.
 
 **Action:** Treat the webinar as fact-gathering. Make the sovereignty-posture decision separately, with `DWS_SECURITY_STANDARD.md` as the governing standard, before committing to any reselling or infrastructure-level motion.
 
@@ -58,7 +59,7 @@ This is **resolvable, not disqualifying**:
 3. **Prioritise Marketplace listing** as the lowest-sovereignty-risk, highest-procurement-value step — it is a channel decision, largely decoupled from where data lives.
 4. **Scope a tier→funding plan** only after the funding mechanics are confirmed live; do not assume entitlements.
 5. **Evaluate distributor vs. direct** as a net-effort question for a small team, not a default.
-6. **Resolve the sovereignty posture** (channel-only vs. infra dependency) before any reselling/infra commitment.
+6. **Sovereignty posture (closed 14.09.2026):** channel-only for Connect. Aegis does not run as AWS-infra. See field note §9.
 
 ## 6. Owners & next checkpoint
 

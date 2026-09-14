@@ -55,11 +55,11 @@ A drop-in control plane that turns any DWS IQ deployment — or any open-standar
 
 ## Tier Positioning
 
-| Tier                         | Themis Delivery                                                                  | Price                              |
-| ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------- |
-| **Aegis (Tier 1)**           | Included in platform — runs on UpCloud, single-tenant, zero CLOUD Act            | Bundled in €59,990 + €999/mo       |
-| **Sovereign Infra (Tier 2)** | Standalone SKU — customer brings own EU cloud (Scaleway, OVH, Red Hat OpenShift) | **€14,990 one-time + €499/mo**     |
-| **Connect (Tier 3)**         | SaaS — customer chooses underlying cloud                                         | Enterprise pricing — contact sales |
+| Tier                         | Themis Delivery                                                                  | Price                              | Nearest SEAL (indicative) |
+| ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------- | ------------------------- |
+| **Aegis (Tier 1)**           | Included in platform — runs on UpCloud, single-tenant, zero CLOUD Act            | Bundled in €59,990 + €999/mo       | SEAL-3 (aims; SEAL-4 closed by NVIDIA chips) |
+| **Sovereign Infra (Tier 2)** | Standalone SKU — customer brings own EU cloud (Scaleway, OVH, Red Hat OpenShift) | **€14,990 one-time + €499/mo**     | SEAL-2 if EU-owned stack; SEAL-1 if US-parent EU region |
+| **Connect (Tier 3)**         | SaaS — customer chooses underlying cloud                                         | Enterprise pricing — contact sales | SEAL-0 / 1 |
 
 ## Who It's For
 
