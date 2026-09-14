@@ -1,0 +1,199 @@
+{
+  "meta": {
+    "version": "1.0",
+    "date": "2026-09-13",
+    "lang": "fi",
+    "page": "aegis-product"
+  },
+  "seo": {
+    "title": "DWS IQ Aegis — suvereeni teollinen älykkyys kaksikäyttötuotantoon | Lifetime Oy",
+    "description": "DWS IQ Aegis — EDIP-valmis suvereeni tekoälyalusta suomalaisella infrastruktuurilla. Hallittujen tekoälyagenttien joukko, UpCloud Kubernetes, EU:n tekoälyasetus natiivisti. Saatavilla syyskuussa 2026.",
+    "keywords": "DWS IQ, Aegis, suvereeni tekoäly, EU tekoälyasetus, UpCloud, Kubernetes, Helm, puolustus, kaksikäyttö, suomalainen pilvi",
+    "og_title": "DWS IQ Aegis — suvereeni teollinen älykkyys kaksikäyttötuotantoon",
+    "og_description": "EDIP-valmis suvereeni tekoäly suomalaisella infrastruktuurilla. 21+ teollisen alan tekoälyagentit. EU tekoälyasetus natiivisti. Suunniteltu vähentämään CLOUD Act -altistumaa. Saatavilla syyskuussa 2026.",
+    "twitter_title": "DWS IQ Aegis — suvereeni teollinen älykkyys kaksikäyttötuotantoon",
+    "twitter_description": "Yhden asiakkaan suvereeni tekoäly suomalaisella infrastruktuurilla. Saatavilla syyskuussa 2026."
+  },
+  "nav": {
+    "back_to_store": "← Takaisin kauppaan",
+    "deployment_banner_title": "Yksi alusta, kolme käyttöönottotapaa:",
+    "eu_sovereign_cloud": "EU-suvereeni pilvi",
+    "dedicated_cloud_aegis": "Varaus (Aegis)",
+    "own_nvidia_dgx": "Oma NVIDIA DGX",
+    "deployment_banner_tagline": "vuokraa suvereenia kapasiteettia tai omista kone.",
+    "compare_deployments": "Vertaa käyttöönottotapoja →"
+  },
+  "hero": {
+    "h1": "DWS IQ Aegis",
+    "tagline": "suvereeni teollisen älykkyyden alusta kaksikäyttötuotantoon",
+    "badge_1": "Osa DWS IQ Industrial Intelligence -tuoteperhettä",
+    "badge_2": "Yleinen saatavuus: syyskuu 2026",
+    "badge_3": "EDIP-linjaukselle suunniteltu",
+    "intro": "Aegis on yhden asiakkaan suvereeni tekoälyalusta, joka on suunniteltu nimenomaan kaksikäyttötehtaille, raskaalle teollisuudelle ja kriittisten raaka-aineiden infrastruktuurille. Käyttöönotto varatussa suomalaisessa infrastruktuurissa, Aegis jatkuvasti optimoi ja suojaa tuotantolaitoksia, joilla on eurooppalaisen puolustussektorin toimittajat — varmistaen absoluuttisen datan eristämisen ilman Yhdysvaltojen pilvipalveluriskejä ja vähentää CLOUD Act -altistumaa.",
+    "subtitle": "Nimetty Athenaa suojakseen — Aegis tarjoaa suojaa älykkyyden kautta. Varaus-Kubernetes-klusteri asiakasta kohti. Ei jaettua infrastruktuuria. Ei Yhdysvaltain pilviä. Kattaa kaikki 21 EU-säänteltyä toimialaa, myös kaksikäyttö- ja kriittiset raaka-aineet.",
+    "cta_scoping_session": "Pyydä käyttöönotto-arviointipalaveri"
+  },
+  "edip": {
+    "h2": "EDIP-valmis: Rakennettu EU:n puolustustehdasohjelmalle",
+    "intro": "Euroopan komissio hyväksyi 30. maaliskuussa 2026 1,5 miljardin euron EDIP-työohjelman, joka jakaa yli 700 M€:n teollisuuden tuotannon skaalausrahoitukselle, 240 M€:n yhteishankinnoille ja 100 M€:n puolustus-pk-yritysten osakerahoitukselle. Aegis on erityisesti suunniteltu täyttämään EDIP Article 9 -kelpoisuusvaatimukset, tarjoten valmiit vaatimustenmukaisuusinfrastruktuuri EDIP-rahoitusta saavalle laitoksille (EU:n muodollisen arvioinnin alainen).",
+    "table_caption": "EDIP Article 9 -kelpoisuuskriteerit ja Aegis-status / tekninen linjaus.",
+    "table_rows": {
+      "eu_establishment": "EU:ssa perustettu | Suomi (Lifetime Oy, Y-tunnus 0772407-9) | LINJASSA",
+      "third_country_control": "Kolmannen maan valvonta | 100% suomalaisessa omistuksessa, ei Yhdysvaltain emoyhtiötä tai riippuvuuksia | LINJASSA",
+      "buy_european": "Osta eurooppalaista (65%) | UpCloud Helsinki -isäntä, kokonaan EU:ssa omistettu ja toimiva pino | LINJASSA",
+      "defence_supply_chain": "Puolustuksen toimitusketju | Ennakkomapitus 21 säännetylle toimialalle, myös kaksikäyttö- ja kriittiset raaka-aineet | LINJASSA",
+      "edip_compliance_stack": "EDIP-vaatimustenmukaisuuspino | ETS + hiilirajamekanismi (CBAM) + kestävyysraportointi (CSRD) + NIS2 + EU tekoälyasetus + kaksikäyttö vientivalvonta (Asetus 2021/821)"
+    }
+  },
+  "why_aegis": {
+    "h2": "Miksi Aegis",
+    "items": {
+      "sovereignty": "Todellinen teollinen suvereniteetti — Käyttöönotto yksinomaan suomalaisomisteisessa UpCloud-infrastruktuurissa (Helsinki DC). Tehtaasi operatiivinen telemetria, tuotantomäärät ja omistajien tuotantooppaat eivät koskaan koske Yhdysvaltain omistamaa pilviä tai CLOUD Act -altistumaa.",
+      "single_tenant": "Yhden asiakkaan ympäristö — Sinun oma Kubernetes-klusteri, oma tietokanta, omat agentit. Ei jaettua infrastruktuuria muiden asiakkaiden kanssa.",
+      "dual_use_compliance": "Kaksikäyttövaatimustenmukaisuus natiivisti — Rakennettu erityisesti raskaaseen teollisuuteen ja puolustukseen. Automatisoi natiivisti NIS2:n, EU:n tekoälyasetuksen (Article 12 päättelypiste), ja monimutkaisen kaksikäyttötuotteiden vientivalvonnan (Asetus 2021/821).",
+      "deterministic_factory": "Determininen tehtaan suoritus — Eristetyt Firecracker MicroVM-agentit valvovat toimitusketjuja, seuraavat hiilipäästöjä (CBAM/CSRD), ja flaggaavat teollisuuden häiriöt tarkistettavilla, ei-hallusinaation tietopoluilla — johtaa KYA:n (Know Your Agent) avulla kill-switchin valtuudella.",
+      "edip_aligned": "EDIP-linjassa — Suunniteltu erityisesti täyttämään Article 9 -perustamis- ja valvontavaatimukset, tarjoten vaatimustenmukaisuuskehikon EDIP-rahoitetuille laitoksille."
+    }
+  },
+  "financial_engine": {
+    "h2": "Vaatimustenmukaisuuden taloudelliset moottorit",
+    "p1": "Siirtyminen kokeellisesta tekoälystä säänneltyihin yritystoimintoihin ei ole pelkästään tekninen haaste — se on strateginen muutos hyödyntää teollisen sertifioidun omaisuuden arvoa. Erottamalla tekoälyn innovaation turvallisuusä kristallinisista sydämistä, teollisuusyritykset siirtyvät jatkuvista re-sertifiointikustannuksista toistettavaan, skaalattavaan omaisuusmalliin.",
+    "p2": "DWS IQ:n integroiminen muuttaa vaatimustenmukaisuuden kustannuspaikasta siihen, mitä kutsumme \"Financial Alphaksi\" — pisteeksi, jossa tehokkuushyödyt ylittävät laskentakustannukset. Hallittu, KYA-tasoistettu parviintegraatio on suunniteltu saavuttamaan tämä kynnys nopeammin kuin hallitsematon, yhden agentin käyttöönotto. Sama arkkitehtuuri antaa teollisuusyrityksille mahdollisuuden automatisoida vaatimustenmukaisuus, vähentää re-sertifiointikustannuksia ja vastuuvelvollisuutta verrattuna manuaalisten prosesseihin ja tuottaa puolustettavissa olevan, tarkastettavan todistuspolun, jonka vakuutusyhtiöt ja tuomioistuimet painavat uusitun vastuusääntelyn alla."
+  },
+  "sovereignty": {
+    "h2": "Suvereniteettipositio — meidän kolmen pilarin hallintokehikko",
+    "intro": "Aegis pakottaa suvereenia eristämistä omistuksessaan kolmen pilarin hallintokehikon kautta, kartoittaen datan, tekniikan ja operatiivisen valvonnan tiukasti EU:n rajoissa.",
+    "sovereignty_field_note": "Katso Suvereniteetti-muistiinpano #2",
+    "for_the_full_taxonomy": "täydellisen taksonomian.",
+    "table_caption": "Pilarin kattavuus. Aegis palvelee J1 (EU) lainkäyttöalueita kolmella pilaarilla täydellä EU-suvereniteetilla (Tier 1 myyjäluokka). Kvantti-valmiuden polku Rightful Oy R-Sac²:n kautta.",
+    "table_rows": {
+      "data_sovereignty": "Datan suvereniteetti (KYA SIB-raide) | Täysimääräinen — EU:ssa asuminen, vain EU-käyttöpolku, suomalaisomisteinen infrastruktuuri, suunniteltu vähentämään CLOUD Act -altistuma | HYVÄKSI",
+      "technology_sovereignty": "Tekniikan suvereniteetti (KYA CSB-raide) | Täysimääräinen — UpCloud + avoin Kubernetes + avoin Postgres-pino; algoritmin rotaatio tuettu; ei omistajuuden lukkouttamista | HYVÄKSI",
+      "operational_sovereignty": "Operatiivinen suvereniteetti (KYA EAB-raide) | Täysimääräinen — Suomalainen eskalaatio, vain EU-päivystys, Firecracker MicroVM -eristys, laitteiston kill-switch-valtuus | HYVÄKSI",
+      "jurisdiction_emphasis": "Lainkäyttöalueen painotus | J1 (EU) ensisijainen. J2 (Yhdysvallat) ja J3 (Singapure) markkinoiden pääsy Connect-tason kautta.",
+      "quantum_resistant": "Kvantti-vastustuskykyinen kerros (R-Sac² arkkitehtuuri) | Integroitu salaussuojapinta kehitetty yhteistyössä Rightful Oy:n kanssa, mahdollistaa NIST PQC -siirtymisen (FIPS 203 / 204 / 205) puolustamaan puolustusta dataa \"Kerää nyt, salaa myöhemmin\" (HNDL) vektoreita vastaan ennen 2030–2035 määräystä"
+    }
+  },
+  "technical_specs": {
+    "h2": "Tekniset määritykset",
+    "items": {
+      "deployment_model": "Käyttöönotto-malli | Yhden asiakkaan Kubernetes (Helm-kaavio) | EU-suvereeni",
+      "infrastructure": "Infrastruktuuri | UpCloud hallinnoitu Kubernetes (UKS), Helsinki DC (fi-hel1 / fi-hel2)",
+      "sovereignty": "Suvereniteetti | Suomalaisomisteinen (Tesi-rahoitteinen), ISO 27001 (UpCloud infrastruktuuri), CISPE-jäsen, vain EU-henkilöstö pääsy",
+      "cloud_act_exposure": "CLOUD Act -altistuma | Ei yhtään — ei Yhdysvaltojen emoyhtiötä, ei Yhdysvaltain infrastruktuuria",
+      "kubernetes": "Kubernetes | CNCF-vaatimuksellinen, täysi Helm-tuki, HPA + VPA + Cluster Autoscaler",
+      "sla": "SLA | 99.9% sovellusten saatavuus / 99.999% infrastruktuuri (UpCloud)",
+      "database": "Tietokanta | UpCloud hallinnoitu PostgreSQL + pgvector (HA, automatisoitu varmuuskopiot, Helsinki DC)",
+      "cache_queue": "Välimuisti / Jono | UpCloud hallinnoitu Valkey/Redis",
+      "gpu": "GPU | NVIDIA L40S-solmut LLM-päättelyyn klusterissa (EU-pilvi — laitteiston toimitus ei sivukohdalla)",
+      "egress": "Lähtöliikenteen maksu | Nolla kustannus (UpCloud Essentials)",
+      "load_balancer": "Kuormantasaaja | Sisältyy (UpCloud hallinnoitu)",
+      "agent_isolation": "Agentin eristäminen | Firecracker MicroVM per agentti (KYA Security v1.2)",
+      "ai_agents": "Tekoälyagentit | 21+ teollisen alan tekoälyagentit kaikkialla 21 vertikaalia (sama koodipohja kuin DWS IQ 6)",
+      "cli_access": "CLI-pääsy | dws CLI — kaikki agentit hallittavissa komentoriviltä",
+      "eu_ai_act": "EU tekoälyasetus | Article 12 loggaus, päättelypiste, Aiwen vaatimustenmukaisuuskerros",
+      "compliance": "Vaatimustenmukaisuus | GDPR, NIS2, EU tekoälyasetus, CER-direktiivi, EU CRM -säädös, KRITIS, kaksikäyttö vientivalvonta (Asetus 2021/821)",
+      "certifications_roadmap": "Sertifikointien tiekartta | ISO 27001 (Lifetime Oy — kohde Q3 2026), SOC 2 Type II (kohde Q4 2026); UpCloud infrastruktuuri jo ISO 27001 -sertifioitu",
+      "security_audit": "Turvallisuuden auditointi | PiTuKri-auditoitu | Traficom NCSC-FI pilvitietoturvan kriteerit v1.1 — 11 alaosiota, 52 kriteeriä arvioitu"
+    }
+  },
+  "agents": {
+    "h2": "Agentit sisältyvät",
+    "table_header": "Agentti | Kyky",
+    "items": {
+      "compliance_agent": "ComplianceAgent | EU:n sääntelyvaatimustenmukaisuus (CSRD, ETS, CBAM, Fit for 55, EU tekoälyasetus)",
+      "sovereignty_monitor": "SovereigntyMonitor | CLOUD Act -altistuman tunnistus, EU-datan sijainti -vahvistus",
+      "argus_agent": "ArgusAgent | Kiertorata-teollisen älykkyyden — SAR-seuranta logistiikan keskuksissa, raaka-aineiden varastoinnissa ja laitoksen kehillä toimitusketjun häiriöiden ennustamiseksi",
+      "sitesense_agent": "SiteSenseAgent | Kaksikäyttö-tuotanto-laitoksen turvallisuus-pisteys, säähistoria-operatiivinen riski ja työntekijän kapasiteettirajat",
+      "material_oracle": "MaterialOracle | Aineenvaihdunnan hiiliseuranta, kestävä hankinnat",
+      "operational_chronos": "OperationalChronos | Tehtäväradan optimointi, teollisuuden resurssien kohdistaminen, kriittinen-polun synkronointi toimitusketjun häiriön alla",
+      "quality_gate": "QualityGate | Käyttöönoton valmiusarvio, laatupisteytys",
+      "emissions_data_analyst": "EmissionsDataAnalyst | Päästöanalyysi EU:n sääntelykontekstilla",
+      "logistics_agent": "LogisticsAgent | Laivaston vaatimustenmukaisuus, reitin optimointi, toimitusketjun hiili",
+      "construction_agent": "ConstructionAgent | Rakennusprojektin vaatimustenmukaisuus-orkestrointi",
+      "kya_engine": "KYA Engine | Know Your Agent — identiteetti, eristäminen, tapa-valtuus",
+      "article12_logger": "Article12Logger | EU tekoälyasetus-tilintarkastus kaikille tekoäly-päätöksille",
+      "cross_vertical_intel": "CrossVerticalIntel | Toimitusketjun signaalin eteneminen — havaitsee vaatimustenmukaisuus-kaskadit 21 teollisuudessa",
+      "gaia_agent": "GaiaAgent | Kriittiset raaka-aineet — riippuvuus, louhinta-korko ja käsittelyn pullonkaula-seuranta kaksikäyttö-syötteille (sementti, kalkki, harvinaiset maa-ainekset) puolustusinfrastruktuuria ruokkivat",
+      "vulcan_agent": "VulcanAgent | Teräs & raskaat metallit — tuotantotason vaatimustenmukaisuus korkea-paine-tuotantoon, kartoitus ETS Phase 4 -jakoon ja CBAM-hiili-ilmoituksiin puolustustoimitusketjun vaatimuksiin",
+      "more_agents": "+ enemmän | Vaatimustenmukaisuus-tutkimus, syvä-wiki-poimiminen, Hermes-logistiikka — ja laajempi DWS IQ teollisen agentin joukko"
+    }
+  },
+  "target_market": {
+    "h2": "Kohdemarkkinat",
+    "items": {
+      "government": "Valtion virastot — EU:n jäsenvaltiot, puolustusministeriöt, julkinen sektori",
+      "defence_industry": "Puolustus-teollisuus — Sopimustoimittajat, telakka, ilmailu-avaruus, kaksikäyttö-valmistus",
+      "critical_infra": "Kriittinen infrastruktuuri — Energia, liikenne, vesi, pankkitoiminta (NIS2-laajuus)",
+      "regulated_enterprise": "Säännelty yritys — Mikä tahansa organisaatio, joka vaatii suvereniteettia omasta infrastruktuuri-valvonnasta",
+      "geography": "Maantieto: — Vain EU"
+    }
+  },
+  "competitive": {
+    "h2": "Kilpailu-positiointi",
+    "intro": "Markkinasignaali (kesäkuu 2026): Yhdysvaltojen armeija valitsi Palantir Foundryn NGC2:n (seuraavan sukupolven käsky- ja valvonta) pilvi-datikerrokseksi ja Anduril Lattice-taktisen datikerroksen — todiste, että operatiivinen etu voitetaan suvereani-datikerroksessa. Aegis ei kilpaile taktiikan rintaman; se voittaa tehtaan lattialla ja toimitusketjun poikki — kaksikäyttö teollisuusperusta, joka voimaa puolustus — täydellä EU:n suvereniteetti ja syvällä vaatimustenmukaisuudella.",
+    "table_header": "Kilpailija | Ydinkyky | Aegis:in suvereani-teollisuus-etu",
+    "competitors": {
+      "palantir": "Palantir AIP / Foundry | Yritys-data-integraatio ja operatiivinen analytiikka, vakiintuneilla eurooppalaisilla sivukonttooreilla. | Yhdysvaltain CLOUD Act -haavoittuvuus — Yhdysvaltain emoyhtiö tekee omistajien eurooppalaiset valmistus-blueprintit ja puolustustoimitusketjun-metriikka alttiita extraterritoriaalisen löytöpyyntöjen. Aegis on 100% EU-omistettu ja immuuni Yhdysvaltojen lainkäyttöalueeseen.",
+      "anduril": "Anduril Lattice | Loistava taktisen laitteiston integraatio, perimeteri-turvallisuus ja drone-orkestrointi. | Kineettinen fokus — pääasiassa optimoitu rintama-taistelun laitteistoon, puuttuu syvä teollisen vaatimustenmukaisuuden kerros (CBAM, NIS2, EU tekoälyasetus) vaadittu turvallisesti käyttää EU:n säänneltyä kaksikäyttö-valmistus-laitosta.",
+      "c3ai": "C3.ai | Ennustava huolto-mallit ja yleistetyt yritys-koontinäytöt. | Hyperscale-riippuvuus — toimii kokonaan kaupallis Yhdysvaltain julkisen pilven peittona. Aegis suorittaa deterministi, eristetty moniagentti-päättely yhden asiakkaan EU-entaklaavin sisällä.",
+      "big_four": "Big Four konsultointi | Korkea-taso sääntelyviivoitus ja vaatimustenmukaisuuden toteutus-suunnittelu. | Neuvonanto-ainoastaan — toimittaa kehykset, ei ohjelmistoa. Aegis toimittaa käyttöönotto-automatisoitu agentit ja integroitu kiertorata-äly suoraan tuotanto-ympäristöön."
+    }
+  },
+  "signal_trace": {
+    "h2": "Signaali-jäljitys: Cross-pystysuoran kaksikäyttö-havainti",
+    "subtitle": "Osoittava cross-pystysuora jäljitys — pre-GA-mallin esittely",
+    "note": "Deterministi rekonstruktio julkisista EU-tietolähteitä, edustava Aegis-signaali-jäljitys-malli ennen elokuun 2026 yleistä saatavuutta.",
+    "scenario": "Edustava skenario: kiilun rakentaminen-epäonnistuminen häiritsee suurta alueellista kalkki-käsittely-laitosta, ja paikallis-media hylkää sen rutiini-, eristetty huolto-tapahtumana. Aegis-malli sieppaa laitoksen anomalia-allekirjoitus ja jäljittää alavirtaa kaksikäyttö-teollisuustoimitusketjun-kaskadi:",
+    "table_header": "Signaali-vaihe | Toimiala | Jäljitys",
+    "trace_stages": {
+      "trigger": "1. Liipaisin | Kriittiset raaka-aineet | Paikallinen laitoksen sammutus liput; alueellinen toimittaa-keskittämis-riski korkea-puhtaus kalsium-oksidi uudelleen-laskettu",
+      "upstream": "2. Ylävirtaa | Teräs & seokset | Sulatus-puute havaittu → uhkaava CBAM-tullin piikki ennustettu ei-EU-teräs-tuonnille vaadittu lähellä telakkoja",
+      "midstream": "3. Keskivirtaa | Sementti & infrastruktuuri | Kalsinaation rehun rajoitus → kaskadit klinkeri-pullonkaula vaikutus alueellisen puolustus-asennukset",
+      "downstream": "4. Alavirtaa | Puolustus-infrastruktuuri | Raaka-aineen korvaaminen linkki netottaa aineenvaihdunnan-hiili lisäys → pääurakoitsijat varoitettu uhkaava CSRD E1-paljastus rikkomuksesta",
+      "regulatory": "5. Säädöskehys | Cross-pystysuora | Rakentaminen-epäonnistuminen cross-viite CER Act vastaan — valvomaton mineraali-käsittely-haavoittuvuus altistettu"
+    }
+  },
+  "pricing": {
+    "h2": "Hinnoittelu",
+    "table_header": "Taso | Käyttöönotto + integraatio | Kuukausittain | Sisältää",
+    "tiers": {
+      "standard": "Aegis Standard | €59,990 | €999/kk | Taidolliset agentit, varaus K8s-klusteri, Article 12 loggaus, KYA-hallinta, vakiotuki",
+      "defence": "Aegis Defence | €89,990 | €1,999/kk | Kaikki Standard + NVIDIA L40S GPU, ArgusAgent SAR, prioriteettituki (4h SLA), EDIP vaatimustenmukaisuus-raportointi",
+      "sovereign": "Aegis Sovereign | Räätälöity | €4,999/kk | Kaikki Defence + turvallisuus-selvitys-tuki, varaus-insinöörityö, räätälöity SLA, korotettu suvereniteetti-takuu"
+    }
+  },
+  "deployment_architecture": {
+    "h3": "Käyttöönotto-arkkitehtuuri",
+    "intro": "Aegis on suunniteltu paikallinen-ensimmäinen syviin ja luotettaviin teollisiin toimintoihin. Valmistuksen ohjaushuoneissa, kaksikäyttö-laitoksissa ja ilman-rakoissa laitoksissa, vaatimustenmukaisuus-suoritus ei voi luottaa ulkoisen yhteyden. Paikallinen toiminta on arkkitehtuurin vaatimus kriittisissä ympäristöissä, kun taas pilvi-isäntä jää kelvolliseksi valintaksi laajemmalle yritys-kuormituksille.",
+    "h4_modes": "Käyttöönotto-tavat",
+    "mode_local": "Paikallinen / Reunus: Valmistuksen ohjaushuoneissa ja muissa kriittisissä tai kaksikäyttö-sivustoissa. Ydin-agentti-suoritus, todistus-sieppaus, identiteetti-vahvistus, tilintarkastus-lokit ja ihmisen kill-valtuus jää tiukasti kohteella, niin ydin operatiivinen tulokset ei riipu verkon saatavuutta.",
+    "mode_cloud": "EU-suvereeni pilvi: Ei-kriittiset yritys-kuormitukset, kehitys-ympäristöt, cross-site-raportointi ja asiakkaat, joista hyväksyneet verkon riippuvuus.",
+    "mode_hybrid": "Sekoitus: Paikallinen suoritus (säilyttää rajoitetun, mitatun laskenta-taloudesta syviin kuormituksiin) valinnainen ulkoinen synkronointi, varmuuskopio tai vaatimustenmukaisuus-raportointi EU-suvereeniin pilvi.",
+    "h4_commercial": "Kaupallinen & väliintulo-polku",
+    "commercial_p1": "Hinnoittelu-tasot rakenteessa kaupallinen kattavuus, laitteisto-jalanjälki, SLA, ja varaus-insinöörityö tuki — ne eivät portti käyttöönotto-tapoja. Paikallinen-ensimmäinen suoritus on vaadittu ohjaushuone-käyttöönotoissa, mutta Aegis ei väitä, että jokainen yritys-käyttöönotto on offline oletuksella.",
+    "commercial_p2": "Kelpuuttaa paikallinen suoritus ennen sitoumusta suuriin laitteisto-investointeihin, 3-kuukauden Aegis Pilot todistaa täydellisen paikallisen operatiivisen polun suoraan olemassa-asiakas-infrastruktuurissa tai kompakti reunus-laitteella ennen DGX-hankinnan.",
+    "commercial_p3": "Pilotti on vaiheistettu ensimmäinen maksu, ei lisämaksu — se on hyvitetty täysimäärin vastaan Aegis käyttöönotto jos jatkat kuuden kuukauden sisällä, niin kokonais-kustannus tuotanto on muuttumaton.",
+    "supply_continuity": "Toimitus-jatkuvuus. Mallit omaksumme toimitus avoimen painon siten päättelykerros on siirrettävä suunnalla eikä sidottu yhden toimittajan pinoon. Ei-NVIDIA varapolku (AMD, Intel kiihdyttimet) kantaa meidän toimitus-riski-suunnitelma ja laitteisto-yhteensopivuus tarkistettu per toimeksianto eikä oletettu. Täyden toimitus-riski-rekisteri on käytettävissä NDA alla.",
+    "year1_cost": "Vuosi 1 kustannus konteksti: Aegis Standard kokonaismäärä noin €72K vuodessa (€59,990 + €999×12) — suunnilleen 13× alempi kuin vertailukelpoinen Palantir Vuosi-1-sitoumus (~€920K). Puolustus ja Suvereeni-tasot koko GPU, tuki, ja selvitys-vaatimuksiin (Puolustus vuosi-1 noin €114K). Vertailu koskee Standard-tasoa."
+  },
+  "distribution": {
+    "h2": "Jakelu",
+    "items": {
+      "ifs_cloud": "IFS Cloud -markkinapaikka — Pohjoismaiset puolustus/teollisuus (Saab, BAE Systems Pohjoismainen)",
+      "sap_store": "SAP Store — Puolustus toimitusketju S/4HANA integraatio",
+      "microsoft_appsource": "Microsoft AppSource — Dynamics 365 puolustus-urakoitsijoille",
+      "define": "DEFINE / Puolustus Tech Hub — Suomalainen puolustus-ekosysteemi",
+      "direct_sales": "Suora yritys myynti — Puolustus-urakoitsijat, hallinto hankinnat"
+    }
+  },
+  "cta_final": {
+    "button": "Aikatauluta käyttöönotto-arviointipalvelu — Yleinen saatavuus syyskuu 2026"
+  },
+  "page_version": "DWS IQ Aegis — tuote-sivu v1.1 · 2026-06-23",
+  "ecosystem": {
+    "tag": "Täysi kuva",
+    "h2": "DWS suvereeni-pino — jokainen kerros, yksi ekosysteemi.",
+    "lead": "Tämä tuote on yksi pala. Täysi pino yhdessä: suvereeni laitteisto reunuksella, kohteella-päätelmä, EU:n palvelu-tiimi, ja toistuva NVIDIA-mallin suhde, joka yhdistyy. Valitse seuraava rivi tarvitset."
+  }
+}

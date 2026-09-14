@@ -58,7 +58,7 @@
   "financial_engine": {
     "h2": "The financial engine of compliance",
     "p1": "The shift from experimental AI to regulated enterprise operations is not merely a technical challenge — it is a strategic pivot to monetize industrial certified assets. By decoupling AI innovation from safety-critical kernels, industrial enterprises move from a cycle of continuous re-certification costs to a repeatable, scalable asset model.",
-    "p2": "Integrating DWS IQ turns compliance from a cost center into a driver of what we call "Financial Alpha" — the point where efficiency gains outpace compute costs. Governed, KYA-tiered swarm deployments are architected to reach that threshold faster than unmanaged, single-agent deployments. The same architecture lets industrial enterprises automate compliance, reduce re-certification cost and liability exposure compared with manual processes, and produce the defensible, auditable evidence trail that insurers and courts weigh under the Revised Product Liability Directive."
+    "p2": "Integrating DWS IQ turns compliance from a cost center into a driver of what we call \"Financial Alpha\" — the point where efficiency gains outpace compute costs. Governed, KYA-tiered swarm deployments are architected to reach that threshold faster than unmanaged, single-agent deployments. The same architecture lets industrial enterprises automate compliance, reduce re-certification cost and liability exposure compared with manual processes, and produce the defensible, auditable evidence trail that insurers and courts weigh under the Revised Product Liability Directive."
   },
   "sovereignty": {
     "h2": "Sovereignty posture — our Three-Pillar Governance Framework",
@@ -71,7 +71,7 @@
       "technology_sovereignty": "Technology Sovereignty (KYA CSB-track) | Full — UpCloud + open Kubernetes + open Postgres stack; algorithm-rotation supported; no proprietary lock-in | PASS",
       "operational_sovereignty": "Operational Sovereignty (KYA EAB-track) | Full — Finnish escalation, EU-only on-call, Firecracker MicroVM isolation, hardware kill-switch authority | PASS",
       "jurisdiction_emphasis": "Jurisdiction emphasis | J1 (EU) primary. J2 (US) and J3 (Singapore) market access via Connect tier.",
-      "quantum_resistant": "Quantum-Resistant Layer (R-Sac² Architecture) | Integrated cryptographic surface developed in partnership with Rightful Oy, enabling NIST PQC migration (FIPS 203 / 204 / 205) to protect defence data against "Harvest Now, Decrypt Later" (HNDL) vectors ahead of the 2030–2035 mandate"
+      "quantum_resistant": "Quantum-Resistant Layer (R-Sac² Architecture) | Integrated cryptographic surface developed in partnership with Rightful Oy, enabling NIST PQC migration (FIPS 203 / 204 / 205) to protect defence data against \"Harvest Now, Decrypt Later\" (HNDL) vectors ahead of the 2030–2035 mandate"
     }
   },
   "technical_specs": {
