@@ -4,7 +4,7 @@
   DWS DOCUMENT STANDARD — VERSION AND AGENT HISTORY (HTML mirror)
   ============================================================================
   Document: dws10.com/price-list/index.html
-  Version: 1.28
+  Version: 1.29
   Effective: 2026-08-30
   Next review: 2026-11-30
   Owner: Lifetime Oy (sales@lifetime.fi)
@@ -16,6 +16,11 @@
   Market: Finnish / EU B2B (VAT 0%, reverse charge against valid EU VAT ID)
 
   Sessions & Modifications:
+    - Version 1.29 | Cursor | 2026-09-15 |
+        Unblocked the live page after catalog 1.29 (DWS-IQ-ESS-SETUP; Themis SKUs
+        discontinued). Render count now follows commercialPortfolio.surfaces.priceList.expectedProductCount
+        (68 public products). Footer and meta stamp 1.29. Regenerated fi/sv/de/fr
+        pages which were still on the 1.25 / 49-product guard.
     - Version 1.28 | OpenCode | 2026-08-30 |
         Added NVIDIA AI Enterprise Infra 7.8 orchestration tiers (T0–T4): k3s single-node,
         HA cluster, Gov Ready RKE2, Full Infra Stack. Added DOCA microservices packages
@@ -89,7 +94,7 @@
       content="Official DWS IQ + Firehorse B2B price list. EUR, VAT 0% (reverse charge). Sovereign intelligence and compliance. Reviewed quarterly."
     />
     <meta name="author" content="Lifetime Oy" />
-    <meta name="dws-doc-version" content="1.28" />
+    <meta name="dws-doc-version" content="1.29" />
     <meta name="dws-doc-market" content="Finnish / EU B2B · VAT 0% reverse charge" />
     <meta name="dws-doc-effective" content="2026-08-30" />
     <meta name="dws-doc-status" content="ACTIVE" />
@@ -923,8 +928,8 @@
           <p>Owner: <span id="lOwner">Risto Anton Päärni</span></p>
           <p>Cadence: Reviewed every calendar quarter</p>
           <p>
-            DWS Document Standard version: <strong>1.28</strong> · Effective
-            <strong>2026-08-30</strong>
+            DWS Document Standard version: <strong id="lDocVersion">1.29</strong> · Effective
+            <strong id="lDocEffective">2026-08-30</strong>
           </p>
           <p style="margin-top: 6px">
             Market: <strong>Finnish / EU B2B · VAT 0 % (reverse charge)</strong>. Hardware costs
@@ -932,8 +937,8 @@
             NVIDIA / Acer EU sources documented in <code>priceHistory[]</code>.
           </p>
           <p style="margin-top: 6px">
-            Catalog version <strong>1.28</strong>. Current product and hardware prices load directly
-            from <code>dws10.com/config/products.json</code>.
+            Catalog version <strong id="lCatalogVersion">1.29</strong>. Current product and hardware
+            prices load directly from <code>dws10.com/config/products.json</code>.
           </p>
           <p>Source of truth: <code>dws10.com/config/products.json</code></p>
         </div>
@@ -1114,8 +1119,19 @@
                 product.productType !== "archived"
               );
             });
-          if (publicProducts.length !== 67) {
-            throw new Error("Expected 67 public products; found " + publicProducts.length);
+          var expectedPublic =
+            portfolio.surfaces &&
+            portfolio.surfaces.priceList &&
+            Number(portfolio.surfaces.priceList.expectedProductCount);
+          if (!Number.isFinite(expectedPublic) || expectedPublic < 1) {
+            throw new Error(
+              "commercialPortfolio.surfaces.priceList.expectedProductCount is missing",
+            );
+          }
+          if (publicProducts.length !== expectedPublic) {
+            throw new Error(
+              "Expected " + expectedPublic + " public products; found " + publicProducts.length,
+            );
           }
           seriousIds.forEach(function (id) {
             var product = catalogProducts[id];
@@ -1147,6 +1163,14 @@
           document.getElementById("mVersion").textContent = pl.version || "—";
           document.getElementById("mEffective").textContent = fmtDate(pl.effectiveDate);
           document.getElementById("mNext").textContent = fmtDate(pl.nextReviewDate);
+          var docVersionEl = document.getElementById("lDocVersion");
+          if (docVersionEl) docVersionEl.textContent = pl.version || "1.29";
+          var docEffectiveEl = document.getElementById("lDocEffective");
+          if (docEffectiveEl && pl.effectiveDate)
+            docEffectiveEl.textContent = fmtDate(pl.effectiveDate);
+          var catalogVersionEl = document.getElementById("lCatalogVersion");
+          if (catalogVersionEl)
+            catalogVersionEl.textContent = data.priceVersion || pl.version || "1.29";
           document.getElementById("mCurrency").textContent = policy.currency || "EUR";
           document.getElementById("mVat").textContent =
             policy.vatTreatment === "B2B_VAT_0" ? "B2B · 0%" : policy.vatTreatment || "—";
@@ -1312,7 +1336,7 @@
             '<p style="margin-top:10px">Please refresh, or email <a href="https://dws10.com/contact/">sales@lifetime.fi</a>.</p></div>';
         }
 
-        fetch("/config/products.json", { cache: "no-store" })
+        fetch("/config/products.json?v=1.29", { cache: "no-store" })
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();

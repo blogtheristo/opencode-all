@@ -4,9 +4,9 @@
   DWS DOCUMENT STANDARD — VERSION AND AGENT HISTORY (HTML mirror)
   ============================================================================
   Document: dws10.com/price-list/index.html
-  Version: 1.25
-  Effective: 2026-08-18
-  Next review: 2026-11-18
+  Version: 1.29
+  Effective: 2026-08-30
+  Next review: 2026-11-30
   Owner: Lifetime Oy (sales@lifetime.fi)
   Publication Status: ACTIVE
   Language: English (primary) · Suomi · Svenska · Deutsch · Français
@@ -16,6 +16,19 @@
   Market: Finnish / EU B2B (VAT 0%, reverse charge against valid EU VAT ID)
 
   Sessions & Modifications:
+    - Version 1.29 | Cursor | 2026-09-15 |
+        Unblocked the live page after catalog 1.29 (DWS-IQ-ESS-SETUP; Themis SKUs
+        discontinued). Render count now follows commercialPortfolio.surfaces.priceList.expectedProductCount
+        (68 public products). Footer and meta stamp 1.29. Regenerated fi/sv/de/fr
+        pages which were still on the 1.25 / 49-product guard.
+    - Version 1.28 | OpenCode | 2026-08-30 |
+        Added NVIDIA AI Enterprise Infra 7.8 orchestration tiers (T0–T4): k3s single-node,
+        HA cluster, Gov Ready RKE2, Full Infra Stack. Added DOCA microservices packages
+        (Essential, Security, Network+Storage). Added Government Ready setup, annual
+        maintenance, air-gap bundle, FIPS validation. Added NIM profiles (Starter,
+        Retrieval, Code, Biology). Added iPCMax hardware partner SKUs (IPC-409,
+        IPC-P68, Cincoze DA-1200). Updated commercialPortfolio.seriousProductIds count
+        to include orchestration add-ons. Price list now renders 67 public products.
     - Version 1.25 | GitHub Copilot CLI | 2026-08-18 |
         Published 49 non-BLUE, non-archived products plus subscriptions on the broad public price list.
         Added visible Serious and Supporting labels; BLUE and archived records remain excluded from public sales.
@@ -70,20 +83,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Preisliste · DWS IQ-Plattform · Lifetime Oy</title>
-    <link rel="alternate" hreflang="en" href="https://dws10.com/price-list/">
-    <link rel="alternate" hreflang="fi" href="https://dws10.com/price-list/fi/">
-    <link rel="alternate" hreflang="sv" href="https://dws10.com/price-list/sv/">
-    <link rel="alternate" hreflang="de" href="https://dws10.com/price-list/de/">
-    <link rel="alternate" hreflang="fr" href="https://dws10.com/price-list/fr/">
-    <link rel="alternate" hreflang="x-default" href="https://dws10.com/price-list/">
+    <link rel="alternate" hreflang="en" href="https://dws10.com/price-list/" />
+    <link rel="alternate" hreflang="fi" href="https://dws10.com/price-list/fi/" />
+    <link rel="alternate" hreflang="sv" href="https://dws10.com/price-list/sv/" />
+    <link rel="alternate" hreflang="de" href="https://dws10.com/price-list/de/" />
+    <link rel="alternate" hreflang="fr" href="https://dws10.com/price-list/fr/" />
+    <link rel="alternate" hreflang="x-default" href="https://dws10.com/price-list/" />
     <meta
       name="description"
       content="Official DWS IQ + Firehorse B2B price list. EUR, VAT 0% (reverse charge). Sovereign intelligence and compliance. Reviewed quarterly."
     />
     <meta name="author" content="Lifetime Oy" />
-    <meta name="dws-doc-version" content="1.25" />
+    <meta name="dws-doc-version" content="1.29" />
     <meta name="dws-doc-market" content="Finnish / EU B2B · VAT 0% reverse charge" />
-    <meta name="dws-doc-effective" content="2026-08-18" />
+    <meta name="dws-doc-effective" content="2026-08-30" />
     <meta name="dws-doc-status" content="ACTIVE" />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="DWS IQ Price List · Lifetime Oy" />
@@ -542,7 +555,11 @@
           <strong>B2B-Preise · USt. 0 % (Reverse Charge).</strong>
           Alle Preise in EUR, zzgl. USt. Für in Finnland fakturierte Kunden wird die finnische USt. (25,5 %) beim Checkout ergänzt. Innergemeinschaftliche Lieferungen werden gegen eine gültige EU-USt-IdNr. im Reverse-Charge-Verfahren abgerechnet. Angebot gültig <span id="mQuote">30 Tage</span>.
         </div>
-        <p class="portfolio-note">This broad public price list contains 49 non-BLUE, non-archived DWS products plus subscriptions. Every listed offer is marked <strong>Serious</strong> or <strong>Supporting</strong>; BLUE and archived records are not public sales offers.</p>
+        <p class="portfolio-note">
+          This broad public price list contains 67 non-BLUE, non-archived DWS products plus
+          subscriptions. Every listed offer is marked <strong>Serious</strong> or
+          <strong>Supporting</strong>; BLUE and archived records are not public sales offers.
+        </p>
       </header>
 
       <!-- ============================================================
@@ -749,7 +766,7 @@
             <div class="deploy-price">DWS IQ 6 · ab 4.999 € · in 30 Tagen live</div>
             <ul>
               <li>Scaleway serverless (Paris / Amsterdam), in französischem Besitz (Iliad Group)</li>
-              <li>Keine Exposition gegenüber dem US CLOUD Act · Managed PostgreSQL + pgvector ausschließlich in der EU</li>
+              <li>Designed to reduce CLOUD Act exposure · EU-only Managed PostgreSQL + pgvector</li>
               <li>Scale-to-Zero, Abrechnung pro Anfrage; kein Betriebsaufwand</li>
               <li>Protokollierung nach Artikel 12 EU-KI-Verordnung integriert</li>
             </ul>
@@ -764,7 +781,10 @@
             <h3>Dedizierte souveräne Cloud — Aegis</h3>
             <div class="deploy-price">DWS IQ Aegis · €59,990 + €999/mo</div>
             <ul>
-              <li>UpCloud (Helsinki) / Hetzner — finnischer Rechtsraum, kein CLOUD Act</li>
+              <li>
+                UpCloud (Helsinki) / Hetzner — Finnish jurisdiction, designed to reduce CLOUD Act
+                exposure
+              </li>
               <li>Von Aiven verwaltetes PostgreSQL (kein US-registrierter Anbieter im Datenpfad)</li>
               <li>Themis-Steuerungsebene · Artikel-12-Pipeline · EUDI-Wallet-Authentifizierung</li>
               <li>Dedizierte Instanz, keine geteilte Umgebung</li>
@@ -780,9 +800,18 @@
             <h3>Souveränes On-Premise — NVIDIA DGX</h3>
             <div class="deploy-price">Ihre Hardware · Ihnen gehören die Gewichte</div>
             <ul>
-              <li>Control Room (Acer Veriton GN100) <span id="priceControlRoom">catalog</span> · DGX Spark <span id="priceDgxSpark">catalog</span></li>
-              <li>Situation Room (two nodes) <span id="priceSituationRoom">catalog</span> · IGX Orin <span id="priceIgxOrin">catalog</span></li>
-              <li>+ NVIDIA Model Install <span id="priceNvidiaInstall">catalog</span> · Sovereign Model Updates <span id="priceModelUpdates">catalog</span></li>
+              <li>
+                Control Room (Acer Veriton GN100) <span id="priceControlRoom">catalog</span> · DGX
+                Spark <span id="priceDgxSpark">catalog</span>
+              </li>
+              <li>
+                Situation Room (two nodes) <span id="priceSituationRoom">catalog</span> · IGX Orin
+                <span id="priceIgxOrin">catalog</span>
+              </li>
+              <li>
+                + NVIDIA Model Install <span id="priceNvidiaInstall">catalog</span> · Sovereign
+                Model Updates <span id="priceModelUpdates">catalog</span>
+              </li>
               <li>Daten verlassen Ihr Netz nie · Ihnen gehören 100 % der Modellgewichte</li>
             </ul>
             <div class="deploy-best">
@@ -808,7 +837,12 @@
             <tr>
               <td>Investitionsaufwand</td>
               <td class="c-cloud">Keiner — Sie mieten Kapazität</td>
-              <td class="c-onprem">Hardware catalog range: <span id="priceHardwareLow">catalog</span>–<span id="priceHardwareHigh">catalog</span></td>
+              <td class="c-onprem">
+                Hardware catalog range: <span id="priceHardwareLow">catalog</span>–<span
+                  id="priceHardwareHigh"
+                  >catalog</span
+                >
+              </td>
             </tr>
             <tr>
               <td>Laufende Kosten</td>
@@ -853,7 +887,8 @@
           </tbody>
         </table>
         <p class="deploy-note">
-          <strong>Faustregel.</strong> Beginnen Sie mit <strong>EU-souveräne Cloud</strong> — das ist der schnellste und risikoärmste Weg und schließt den CLOUD Act am ersten Tag. Wechseln Sie zu
+          <strong>Faustregel.</strong> Beginnen Sie mit <strong>EU-souveräne Cloud</strong> — it is the
+          fastest, lowest-risk path and reduces CLOUD Act exposure on day one. Move to
           <strong>Aegis</strong> , wenn Sie Einzelmandanten-Isolierung und eine vollständige Artikel-12-Steuerungsebene brauchen. Wählen Sie die <strong>souveräne NVIDIA DGX</strong> -Lösung, wenn ein physisches Air-Gap oder das vollständige Eigentum an den Modellgewichten nicht verhandelbar ist, oder wenn eine gleichmäßige, hoch ausgelastete Last eigene Hardware über 2–3 Jahre günstiger macht als getaktete Cloud. Viele Kunden betreiben beides: DGX an der regulierten Kante, Cloud für elastische Spitzen.
           <a href="/products/cloud-pricing.html">Cloud-Stufen vergleichen →</a>
         </p>
@@ -878,15 +913,15 @@
           <p>Verantwortlich: <span id="lOwner">Risto Anton Päärni</span></p>
           <p>Rhythmus: Prüfung in jedem Kalenderquartal</p>
           <p>
-            Version des DWS-Dokumentenstandards: <strong>1.25</strong> · Gültig ab
-            <strong>2026-08-18</strong>
+            Version des DWS-Dokumentenstandards: <strong id="lDocVersion">1.29</strong> · Gültig ab
+            <strong id="lDocEffective">2026-08-30</strong>
           </p>
           <p style="margin-top: 6px">
             Markt: <strong>Finnland / EU B2B · USt. 0 % (Reverse Charge)</strong>. Die Hardwarekosten beruhen auf geprüften EU-Distributoren- und EMEA-Einführungspreisen — nicht aus US-Listenpreisen umgerechnet. Die EU-Quellen von NVIDIA / Acer sind dokumentiert in <code>priceHistory[]</code>.
           </p>
           <p style="margin-top: 6px">
-            Catalog version <strong>1.25</strong>. Current product and hardware prices load directly
-            from <code>dws10.com/config/products.json</code>.
+            Catalog version <strong id="lCatalogVersion">1.29</strong>. Current product and hardware
+            prices load directly from <code>dws10.com/config/products.json</code>.
           </p>
           <p>Quelle der Wahrheit: <code>dws10.com/config/products.json</code></p>
         </div>
@@ -1050,21 +1085,44 @@
             throw new Error("commercialPortfolio.seriousProductIds must contain exactly 13 IDs");
           }
           var seriousLookup = {};
-          seriousIds.forEach(function (id) { seriousLookup[id] = true; });
-          var catalogProducts = data.products || {};
-          var publicProducts = Object.keys(catalogProducts).map(function (key) {
-            return catalogProducts[key];
-          }).filter(function (product) {
-            return product && product.deploymentColor !== "blue" &&
-              product.archived !== true && product.productType !== "archived";
+          seriousIds.forEach(function (id) {
+            seriousLookup[id] = true;
           });
-          if (publicProducts.length !== 49) {
-            throw new Error("Expected 49 public products; found " + publicProducts.length);
+          var catalogProducts = data.products || {};
+          var publicProducts = Object.keys(catalogProducts)
+            .map(function (key) {
+              return catalogProducts[key];
+            })
+            .filter(function (product) {
+              return (
+                product &&
+                product.deploymentColor !== "blue" &&
+                product.archived !== true &&
+                product.productType !== "archived"
+              );
+            });
+          var expectedPublic =
+            portfolio.surfaces &&
+            portfolio.surfaces.priceList &&
+            Number(portfolio.surfaces.priceList.expectedProductCount);
+          if (!Number.isFinite(expectedPublic) || expectedPublic < 1) {
+            throw new Error(
+              "commercialPortfolio.surfaces.priceList.expectedProductCount is missing",
+            );
+          }
+          if (publicProducts.length !== expectedPublic) {
+            throw new Error(
+              "Expected " + expectedPublic + " public products; found " + publicProducts.length,
+            );
           }
           seriousIds.forEach(function (id) {
             var product = catalogProducts[id];
             if (!product) throw new Error("Serious product missing: " + id);
-            if (product.deploymentColor === "blue" || product.archived === true || product.productType === "archived") {
+            if (
+              product.deploymentColor === "blue" ||
+              product.archived === true ||
+              product.productType === "archived"
+            ) {
               throw new Error("Serious product is not public: " + id);
             }
           });
@@ -1087,6 +1145,14 @@
           document.getElementById("mVersion").textContent = pl.version || "—";
           document.getElementById("mEffective").textContent = fmtDate(pl.effectiveDate);
           document.getElementById("mNext").textContent = fmtDate(pl.nextReviewDate);
+          var docVersionEl = document.getElementById("lDocVersion");
+          if (docVersionEl) docVersionEl.textContent = pl.version || "1.29";
+          var docEffectiveEl = document.getElementById("lDocEffective");
+          if (docEffectiveEl && pl.effectiveDate)
+            docEffectiveEl.textContent = fmtDate(pl.effectiveDate);
+          var catalogVersionEl = document.getElementById("lCatalogVersion");
+          if (catalogVersionEl)
+            catalogVersionEl.textContent = data.priceVersion || pl.version || "1.29";
           document.getElementById("mCurrency").textContent = policy.currency || "EUR";
           document.getElementById("mVat").textContent =
             policy.vatTreatment === "B2B_VAT_0" ? "B2B · 0%" : policy.vatTreatment || "—";
@@ -1184,8 +1250,8 @@
                   var pname = encodeURIComponent(p.name || p.id || "Product");
                   var cardBtn = seriousLookup[p.id]
                     ? '<a class="act-card" href="/buy/#product-' +
-                    pid +
-                    '" title="Product card">Card</a>'
+                      pid +
+                      '" title="Product card">Card</a>'
                     : "";
                   var detailBtn = detailsHref
                     ? '<a class="act-detail" href="' +
@@ -1211,7 +1277,10 @@
                     escapeHtml(p.id || "") +
                     "</td>" +
                     '<td data-label="Class"><span class="portfolio-badge ' +
-                    portfolioClass.toLowerCase() + '">' + portfolioClass + "</span></td>" +
+                    portfolioClass.toLowerCase() +
+                    '">' +
+                    portfolioClass +
+                    "</span></td>" +
                     '<td class="col-name" data-label="Product">' +
                     tierHtml +
                     escapeHtml(p.name || "") +
@@ -1239,7 +1308,6 @@
               "</tbody></table>";
             main.appendChild(block);
           });
-
         }
 
         function fail(msg) {
@@ -1250,7 +1318,7 @@
             '<p style="margin-top:10px">Please refresh, or email <a href="https://dws10.com/contact/">sales@lifetime.fi</a>.</p></div>';
         }
 
-        fetch("../../config/products.json", { cache: "no-store" })
+        fetch("/config/products.json?v=1.29", { cache: "no-store" })
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();
