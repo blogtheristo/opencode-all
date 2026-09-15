@@ -4,11 +4,15 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const ROOT = resolve(process.cwd());
-const CATALOG_VERSION = '1.29';
+const CATALOG_VERSION = '1.30';
 const CONSULTING_VERSION = '1.33';
-const EFFECTIVE = '2026-08-30';
-const NEXT_REVIEW = '2026-11-30';
+const EFFECTIVE = '2026-09-15';
+const BUY_EFFECTIVE = '2026-08-30';
+const LIFETIME_PAGE_EFFECTIVE = '2026-08-30';
+const NEXT_REVIEW = '2026-11-15';
+const CONSULTING_NEXT_REVIEW = '2026-11-30';
 const CONSULTING_EFFECTIVE = '2026-09-14';
+const EXPECTED_INDEPENDENT_IDS = ['LF-ONTOLOGY-25', 'LWM-ONT-SOVEREIGN'];
 const EXPECTED_SERIOUS_IDS = [
   'DWS-EU-STARTER',
   'DWS-EU-PILOT',
@@ -120,11 +124,26 @@ for (const [label, actual, expected] of [
   ['commercialPortfolio.effectiveDate', portfolio.effectiveDate, EFFECTIVE],
   ['commercialPortfolio.nextReviewDate', portfolio.nextReviewDate, NEXT_REVIEW],
   ['consulting.effectiveDate', consulting.effectiveDate, CONSULTING_EFFECTIVE],
-  ['consulting.nextReviewDate', consulting.nextReviewDate, NEXT_REVIEW],
+  ['consulting.nextReviewDate', consulting.nextReviewDate, CONSULTING_NEXT_REVIEW],
 ]) {
   if (actual !== expected) addError(`${label}: expected ${expected}, found ${String(actual)}`);
 }
 
+if (!sameArray(portfolio.independentProductIds || [], EXPECTED_INDEPENDENT_IDS)) {
+  addError(
+    `Independent product IDs/order differ from the fixed mapping: ${JSON.stringify(portfolio.independentProductIds)}`,
+  );
+}
+if (new Set(portfolio.independentProductIds || []).size !== 2)
+  addError(
+    `Independent product IDs must be 2 unique IDs; found ${new Set(portfolio.independentProductIds || []).size}`,
+  );
+for (const id of EXPECTED_INDEPENDENT_IDS) {
+  const product = catalog.products?.[id] || catalog.subscriptions?.[id];
+  if (!product) addError(`[${id}] independent product missing from catalog`);
+  else if (isBlue(product) || isArchived(product))
+    addError(`[${id}] independent product is BLUE or archived`);
+}
 if (!sameArray(seriousIds, EXPECTED_SERIOUS_IDS)) {
   addError(
     `Serious product IDs/order differ from the fixed mapping: ${JSON.stringify(seriousIds)}`,
@@ -139,7 +158,7 @@ for (const id of EXPECTED_SERIOUS_IDS) {
     addError(`[${id}] serious product is BLUE or archived`);
 }
 const definitions = portfolio.definitions || {};
-for (const key of ['serious', 'supporting', 'blue', 'archive']) {
+for (const key of ['serious', 'supporting', 'independent', 'blue', 'archive']) {
   if (!definitions[key]?.description)
     addError(`commercialPortfolio.definitions.${key}.description is required`);
 }
@@ -147,6 +166,10 @@ if (definitions.serious?.publicSalesEligible !== true)
   addError('Serious definition must be public-sales eligible');
 if (definitions.supporting?.publicSalesEligible !== true)
   addError('Supporting definition must be public-sales eligible');
+if (definitions.independent?.publicSalesEligible !== true)
+  addError('Independent definition must be public-sales eligible');
+if (definitions.independent?.expectedProductCount !== 2)
+  addError('Independent definition must expect exactly 2 products');
 if (
   definitions.blue?.publicSalesEligible !== false ||
   !definitions.blue?.activePublicationException
@@ -371,10 +394,10 @@ const PAGE_VERSIONS = {
   },
   'lifetime.fi/price-list/index.html': {
     version: '1.28',
-    effective: EFFECTIVE,
-    nextReview: NEXT_REVIEW,
+    effective: LIFETIME_PAGE_EFFECTIVE,
+    nextReview: CONSULTING_NEXT_REVIEW,
   },
-  'dws10.com/buy/index.html': { version: '2.0', effective: EFFECTIVE },
+  'dws10.com/buy/index.html': { version: '2.0', effective: BUY_EFFECTIVE },
 };
 for (const [path, page] of [
   ['dws10.com/price-list/index.html', priceListPage],
@@ -394,8 +417,8 @@ for (const [path, page] of [
 }
 if (!priceListPage.includes(NEXT_REVIEW))
   addError(`dws10.com/price-list/index.html: next review ${NEXT_REVIEW} missing`);
-if (!lifetimePage.includes(NEXT_REVIEW))
-  addError(`lifetime.fi/price-list/index.html: next review ${NEXT_REVIEW} missing`);
+if (!lifetimePage.includes(CONSULTING_NEXT_REVIEW))
+  addError(`lifetime.fi/price-list/index.html: next review ${CONSULTING_NEXT_REVIEW} missing`);
 if (
   !buyPage.includes('COMMERCIAL_PORTFOLIO.seriousProductIds') ||
   buyPage.includes('getPageProducts(') ||
@@ -408,10 +431,11 @@ if (
 if (
   !priceListPage.includes('portfolio-badge') ||
   !priceListPage.includes('Serious') ||
-  !priceListPage.includes('Supporting')
+  !priceListPage.includes('Supporting') ||
+  !priceListPage.includes('Independent')
 ) {
   addError(
-    'dws10.com/price-list/index.html must visibly classify every public offer as Serious or Supporting',
+    'dws10.com/price-list/index.html must visibly classify public offers as Serious, Independent, or Supporting',
   );
 }
 if (priceListPage.includes('Retired (not for sale)'))

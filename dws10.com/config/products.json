@@ -2235,6 +2235,8 @@
       "price": 499,
       "currency": "EUR",
       "type": "monthly",
+      "priceUnit": "per-month",
+      "setupPrice": 1490,
       "description": "DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). Compliance, Report & Discovery agents, CSRD dashboard, designed to reduce CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.",
       "features": [
         "Designed to reduce CLOUD Act exposure (EU-owned providers)",
@@ -2394,6 +2396,7 @@
       "price": 19990,
       "currency": "EUR",
       "type": "one-time",
+      "priceUnit": "per-3-months",
       "description": "A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of Aegis onboarding — not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
       "features": [
         "3-month scoped engagement — fixed price, fixed end date, one site and one control-room workflow",
@@ -5588,15 +5591,15 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-08-30T00:00:00Z",
-  "priceVersion": "1.29",
+  "lastUpdated": "2026-09-15T00:00:00Z",
+  "priceVersion": "1.30",
   "priceList": {
-    "version": "1.29",
-    "effectiveDate": "2026-08-30",
-    "nextReviewDate": "2026-11-30",
+    "version": "1.30",
+    "effectiveDate": "2026-09-15",
+    "nextReviewDate": "2026-11-15",
     "stampQuarter": "2026.Q3",
-    "stampDate": "2026-08-30",
-    "validUntil": "2026-11-30",
+    "stampDate": "2026-09-15",
+    "validUntil": "2026-11-15",
     "policy": {
       "currency": "EUR",
       "vatTreatment": "B2B_VAT_0",
@@ -5614,9 +5617,9 @@
     }
   },
   "commercialPortfolio": {
-    "version": "1.29",
-    "effectiveDate": "2026-08-30",
-    "nextReviewDate": "2026-11-30",
+    "version": "1.30",
+    "effectiveDate": "2026-09-15",
+    "nextReviewDate": "2026-11-15",
     "definitions": {
       "serious": {
         "description": "The fixed 13-product commercial portfolio. These products are the only products rendered on the primary DWS /buy/ surface.",
@@ -5624,9 +5627,15 @@
         "primarySurface": "/buy/"
       },
       "supporting": {
-        "description": "Every other non-BLUE, non-archived product. Supporting products remain publicly available on the broad DWS /price-list/ surface but are not part of the primary 13-product /buy/ portfolio.",
+        "description": "Every other non-BLUE, non-archived, non-independent product. Supporting products remain publicly available on the broad DWS /price-list/ surface but are not part of the primary 13-product /buy/ portfolio.",
         "publicSalesEligible": true,
         "primarySurface": "/price-list/"
+      },
+      "independent": {
+        "description": "Standalone data products sold without DWS IQ as a required runtime. Exactly two SKUs: LF-ONTOLOGY-25 and LWM-ONT-SOVEREIGN.",
+        "publicSalesEligible": true,
+        "primarySurface": "/price-list/",
+        "expectedProductCount": 2
       },
       "blue": {
         "description": "Internal, experimental or pilot catalog records identified by deploymentColor \"blue\". BLUE records require internal sign-off and are excluded from every public sales surface.",
@@ -5654,6 +5663,7 @@
       "LF-NVIDIA-INSTALL",
       "aws-consultancy"
     ],
+    "independentProductIds": ["LF-ONTOLOGY-25", "LWM-ONT-SOVEREIGN"],
     "surfaces": {
       "buy": {
         "domain": "dws10.com",
@@ -5681,6 +5691,21 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.30",
+      "date": "2026-09-15",
+      "author": "Cursor",
+      "changes": [
+        "LF-ONTOLOGY-25 is an independent annual data product (not a DWS IQ module): European Industry Ontology, 25 industries. Starter 1 named site €25,000/year; 2–5 named sites €60,000/year; 6–20 named sites €120,000/year; 21+ named sites from €200,000/year (enterprise agreement with named-site scope). Optional first-year one-site pilot €15,000–€25,000.",
+        "Moved the 5,000-enterprise phrase out of the product name. Copy treats 25×200 as knowledge-scope coverage, not a licence to 5,000 customer companies.",
+        "LF-TRAIN-IND is Sovereign Training and Site Configuration. From-price €15,000 remote per site (one-time); on-site from €25,000 + expenses; complex plants quoted. Ongoing validation/support €2,000–€5,000/month per site, sold separately.",
+        "One-site launch budget on both SKUs: ontology €25,000/year + remote configuration from €15,000 (first year from €40,000).",
+        "Boardy audit: archived duplicate Air-Gap, DOCA network/storage, and iPCMax subscription SKUs so each commercial offer has one public row.",
+        "Boardy audit: archived LWM-ONT-IND and LWM-ONT-SUITE from the public list; LF-ONTOLOGY-25 is the annual data product; LWM-ONT-SOVEREIGN is the on-prem pack.",
+        "Boardy audit: Independent class is only the two data products in independentProductIds (LF-ONTOLOGY-25, LWM-ONT-SOVEREIGN).",
+        "Validity window: effective 2026-09-15, valid 2 months, next review and validUntil 2026-11-15."
+      ]
+    },
     {
       "version": "1.29",
       "date": "2026-09-04",
@@ -5925,6 +5950,7 @@
       "currency": "EUR",
       "type": "subscription",
       "billingPeriod": "monthly",
+      "priceUnit": "per-month",
       "description": "Required monthly subscription for all DWS IQ deployments. Covers support SLA, named DWS contact, and ongoing service relationship.",
       "features": [
         "Support SLA and named DWS contact",
@@ -5943,6 +5969,7 @@
       "currency": "EUR",
       "type": "subscription",
       "billingPeriod": "monthly",
+      "priceUnit": "per-month",
       "description": "Required monthly subscription covering all Firehorse products. One subscription gives access to support SLA and service relationship across the full Firehorse product suite.",
       "features": [
         "Covers all Firehorse products under one subscription",
@@ -5961,6 +5988,7 @@
       "currency": "EUR",
       "type": "subscription",
       "billingPeriod": "monthly",
+      "priceUnit": "per-month",
       "description": "The NVIDIA stack on your box, kept current. Monthly NIM refreshes (Llama Nemotron Nano/Super/Ultra, Cosmos Reason 2/Predict 2.5/Transfer 2.5, Cosmos Nemotron VLMs, Nemotron Speech/RAG/Safety), TensorRT-LLM kernel updates, and GB10-specific quantization. Plus weekly security backports and daily hotfixes for critical CVEs — pushed over your secure tunnel, sovereign always. Includes 24/7 technical support, warranty servicing, and remote configuration. The hardware is the carrier; this subscription is the moat.",
       "features": [
         "Monthly: new NVIDIA NIMs (Llama Nemotron, Cosmos, Nemotron Speech/RAG/Safety) + TensorRT-LLM + GB10 quantization",
@@ -5977,23 +6005,30 @@
       "id": "LF-ONTOLOGY-25",
       "gtin": null,
       "mpn": "LF-ONTOLOGY-25-2026",
-      "name": "25-Industry Ontology Package — 5,000 European Enterprises",
-      "price": null,
+      "name": "European Industry Ontology, 25 industries",
+      "price": 25000,
       "currency": "EUR",
-      "type": "one-time",
-      "description": "Pre-compiled semantic ontology models capturing the operational constraints, regulatory boundaries, and structural vocabularies of 5,000 leading European industrial enterprises across 25 manufacturing and engineering sectors. Each ontology encodes 5 layers (domain concepts, regulatory terms, operational vocabulary, process taxonomy, compliance requirements) in JSON-LD with OWL/RDF validation. Built from Orbis, Eurostat, CSRD disclosures, patent filings, and equipment catalogs — then synthesized via Claude API and validated against EUR-Lex. Powers the Stage 2 industry fine-tune in the sovereign training cascade.",
+      "type": "subscription",
+      "priceUnit": "per-year",
+      "billingPeriod": "yearly",
+      "startingPrice": false,
+      "priceBasis": "per licensed site-year",
+      "description": "Standalone annual licence for a maintained 25-industry ontology pack: artefacts, versioned updates, and usage rights at named sites. DWS IQ is one possible runtime, not a required dependency. A site is one factory or operating location named in the order. This is a coverage and knowledge product — it does not grant rights to operate at 5,000 customer companies. Internal modelling uses 200 enterprise contexts per industry (25 × 200 = 5,000 contexts) as knowledge scope only.",
       "features": [
-        "25 industry ontologies × 200 enterprises each = 5,000-enterprise semantic base",
-        "5-layer structure: domain, regulatory, operational, process, compliance — JSON-LD + OWL/RDF",
-        "Covers all major EU regulations per industry (ETS, CBAM, CSRD, RED III, MDR, Machinery Reg, Battery Reg, …)",
-        "Pre-loaded on Control Room hardware or delivered as update package",
-        "Quarterly refresh cycle — new enterprises, updated regulatory terms, expanded vocabulary"
+        "Licence unit: named sites / year (Starter: 1 named site €25,000/year)",
+        "Growth: 2–5 named sites €60,000/year · Enterprise: 6–20 named sites €120,000/year",
+        "21+ named sites: from €200,000/year (enterprise agreement with named-site scope)",
+        "Includes: ontology artefacts, version control, quarterly updates, documented usage rights for licensed sites only",
+        "Optional first-year one-site pilot licence: €15,000–€25,000 (quote)",
+        "One-site launch: this licence €25,000/year + LF-TRAIN-IND remote configuration from €15,000 (first year from €40,000)",
+        "Independent data product — configuration service and DWS IQ are optional, not bundled"
       ],
-      "priceNote": "Enterprise License — tiered by site count · contact sales@lifetime.fi",
+      "priceNote": "Starter: 1 named site €25,000/year. 2–5 named sites €60,000/year. 6–20 named sites €120,000/year. 21+ named sites from €200,000/year (enterprise agreement with named-site scope). First-year one-site pilot €15,000–€25,000 on request.",
+      "caption": "Annual data-product licence. Not a one-time fee.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
-      "detailsUrl": "../products/ontology-package.html",
+      "detailsUrl": "https://dws10.com/contact/?subject=LF-ONTOLOGY-25",
       "featured": true,
       "google": {
         "productCategory": "Software > Business & Productivity Software",
@@ -6004,7 +6039,7 @@
         "contentLanguage": "en"
       },
       "storeCategory": "ai-training",
-      "version": "1.0",
+      "version": "1.30",
       "buyPage": 1,
       "buyPageOrder": 20
     },
@@ -6012,23 +6047,29 @@
       "id": "LF-TRAIN-IND",
       "gtin": null,
       "mpn": "LF-TRAIN-IND-2026",
-      "name": "Sovereign Training Service — Per Industry On-Site Configuration",
-      "price": null,
+      "name": "Sovereign Training and Site Configuration",
+      "price": 15000,
       "currency": "EUR",
       "type": "one-time",
-      "description": "On-site configuration of the 5-stage sovereign training cascade using NVIDIA AI Workbench on the customer's DGX Spark or Control Room hardware. Covers: industry ontology selection and validation, location fine-tune (site layout, local regulations, climate zone), factory fine-tune (plant ontology, machine specs, team knowledge), continuous improvement setup, and model confidence benchmarking. All training data stays on-prem — the model is yours, trained where the data lives.",
+      "priceUnit": "per-site",
+      "startingPrice": true,
+      "priceBasis": "per site implementation project",
+      "description": "Optional one-time service: workshops, per-site configuration, validation, and acceptance evidence so the customer can run the ontology (and, if they choose, a sovereign model stack) at a named factory or site. Sold separately from LF-ONTOLOGY-25 — the ontology licence can be purchased without this service. Complex multi-system plants remain quote-only.",
       "features": [
-        "5-stage cascade: base model → industry → location → factory → continuous improvement",
-        "NVIDIA AI Workbench + QLoRA fine-tuning on GB10 (NVFP4 quantization for 70B models)",
-        "100% on-prem — training data never leaves the customer's sovereign boundary",
-        "Includes model confidence benchmarking and first-month review",
-        "Deployment engineer on-site + remote data engineer for fine-tune cycles"
+        "Unit: one named site / factory implementation project (not an enterprise-wide licence)",
+        "Remote configuration from €15,000 per site (workshops, config, validation, acceptance evidence)",
+        "On-site configuration from €25,000 per site plus travel and expenses",
+        "Complex factory or many systems: €50,000–€75,000 per site, quoted",
+        "Ongoing validation/support is not included: €2,000–€5,000 per month per site, separate contract",
+        "Deliverables: workshops, site configuration, validation run, signed acceptance evidence, support-hours cap on the quote",
+        "One-site launch: LF-ONTOLOGY-25 €25,000/year + this remote line from €15,000"
       ],
-      "priceNote": "Quote required — per factory footprint · contact sales@lifetime.fi",
+      "priceNote": "From €15,000 per site (remote). On-site from €25,000/site + expenses. Complex plants €50k–€75k/site quote. Support €2k–€5k/month/site sold separately.",
+      "caption": "One-time implementation per site. Ontology licence sold separately.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
-      "detailsUrl": "../products/sovereign-training.html",
+      "detailsUrl": "https://dws10.com/contact/?subject=LF-TRAIN-IND",
       "featured": true,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -6039,7 +6080,7 @@
         "contentLanguage": "en"
       },
       "storeCategory": "ai-training",
-      "version": "1.0",
+      "version": "1.30",
       "buyPage": 1,
       "buyPageOrder": 21
     },
@@ -6048,6 +6089,9 @@
       "gtin": null,
       "mpn": "LWM-ONT-IND-2026",
       "name": "LWM Industry Ontology — Single Vertical",
+      "archived": true,
+      "productType": "archived",
+      "archivedReason": "Public list uses LF-ONTOLOGY-25 as the independent 25-industry annual licence. Single-vertical quotes remain via sales.",
       "price": 2990,
       "currency": "EUR",
       "type": "subscription",
@@ -6082,6 +6126,9 @@
       "gtin": null,
       "mpn": "LWM-ONT-SUITE-2026",
       "name": "LWM Ontology Suite — All 25 Industries",
+      "archived": true,
+      "productType": "archived",
+      "archivedReason": "Public list uses LF-ONTOLOGY-25 as the independent 25-industry annual licence. On-prem pack remains LWM-ONT-SOVEREIGN.",
       "price": 14990,
       "currency": "EUR",
       "type": "subscription",
@@ -6115,17 +6162,18 @@
       "id": "LWM-ONT-SOVEREIGN",
       "gtin": null,
       "mpn": "LWM-ONT-SOV-2026",
-      "name": "LWM Sovereign Ontology — On-Prem + Fine-Tuning Pipeline",
+      "name": "European Industry Ontology — Sovereign on-prem pack",
       "price": 49990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Perpetual-license sovereign ontology deployed on your NVIDIA hardware with the full QLoRA fine-tuning pipeline. All 25 industries, 5,000 enterprises, plus your proprietary operational data integrated into a private knowledge graph that never leaves your building. Includes on-site deployment, operator training, and 12-month update subscription. Pairs with Control Room or DGX Spark hardware. The ontology becomes a permanent corporate asset — model weights baked into your infrastructure.",
+      "priceUnit": "one-time",
+      "description": "On-prem pack in the same 25-industry family as LF-ONTOLOGY-25: artefacts on customer NVIDIA hardware, QLoRA pipeline, and 12 months of updates. Knowledge-scope modelling uses 200 enterprise contexts per industry; that is coverage, not a licence to 5,000 customer companies.",
       "features": [
-        "Perpetual license — all 25 industries + 5,000 enterprises deployed on-prem",
-        "QLoRA fine-tuning pipeline on your NVIDIA hardware (GB10/DGX Spark)",
-        "On-site deployment + operator training + 12-month sovereign update subscription"
+        "Perpetual artefact licence for named sites on customer hardware",
+        "QLoRA fine-tuning pipeline on NVIDIA GB10 / DGX Spark",
+        "On-site deployment + operator training + 12-month update subscription"
       ],
-      "priceNote": "€49,990 one-time + €9,990/year sovereign updates | Pairs with Control Room (€5,294) or DGX Spark (€6,694)",
+      "priceNote": "€49,990 one-time + €9,990/year updates. Named-site on-prem pack.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -6314,6 +6362,9 @@
       "gtin": null,
       "mpn": "LF-DOCA-NET-2026",
       "name": "DOCA Network + Storage Services — OVS-DOCA + HBN + SNAP",
+      "archived": true,
+      "productType": "archived",
+      "archivedReason": "Duplicate of LF-DOCA-NETWORK-STORAGE. One public DOCA network/storage offer.",
       "price": 2000,
       "currency": "EUR",
       "type": "monthly",
@@ -6513,6 +6564,9 @@
       "gtin": null,
       "mpn": "LF-GOV-AIRGAP-2026",
       "name": "Government Ready — Air-Gap Bundle (per release)",
+      "archived": true,
+      "productType": "archived",
+      "archivedReason": "Duplicate of LF-GOV-AIRGAP-BUNDLE. One public air-gap offer.",
       "price": 1500,
       "currency": "EUR",
       "type": "one-time",
@@ -6546,6 +6600,9 @@
       "gtin": null,
       "mpn": "LF-IPC-409-2026",
       "name": "iPCMax IPC-409 — Fanless DIN-Rail Gateway",
+      "archived": true,
+      "productType": "archived",
+      "archivedReason": "Duplicate of LF-IPCMAX-IPC409. One public IPC-409 offer.",
       "price": 345,
       "currency": "EUR",
       "type": "one-time",
@@ -6579,6 +6636,9 @@
       "gtin": null,
       "mpn": "LF-IPC-P68-2026",
       "name": "iPCMax IPC-P68 — Rugged Edge Controller",
+      "archived": true,
+      "productType": "archived",
+      "archivedReason": "Duplicate of LF-IPCMAX-IPCP68. One public IPC-P68 offer.",
       "price": 680,
       "currency": "EUR",
       "type": "one-time",
@@ -6612,6 +6672,9 @@
       "gtin": null,
       "mpn": "LF-CINCOZE-DA1200-2026",
       "name": "Cincoze DA-1200 — GPU-Accelerated Edge Controller",
+      "archived": true,
+      "productType": "archived",
+      "archivedReason": "Duplicate of LF-IPCMAX-CINCOZE-DA1200. One public Cincoze DA-1200 offer.",
       "price": 1850,
       "currency": "EUR",
       "type": "one-time",
@@ -6648,6 +6711,7 @@
       "currency": "EUR",
       "type": "subscription",
       "billingPeriod": "monthly",
+      "priceUnit": "per-month",
       "description": "Entry tier for SME operators on their own infrastructure. Agent orchestration, inventory, evidence chain and safe updates with rollback — one governed view of deployed services, without replacing existing systems.",
       "features": [
         "Orchestration engine, agent registry and inventory",
@@ -6668,6 +6732,7 @@
       "currency": "EUR",
       "type": "subscription",
       "billingPeriod": "monthly",
+      "priceUnit": "per-month",
       "description": "Essentials on Lifetime-managed, EU-hosted infrastructure. Same product as self-hosted; Lifetime runs the database, backups, security patches and uptime.",
       "features": [
         "Everything in Essentials Self-Hosted",

@@ -34,15 +34,28 @@ const OUT_DIRS = [
   path.join(BASE, 'landing-pages/dws10-com/price-list/versions'),
 ];
 
-const CATEGORY_LABELS = {
-  platform: 'Platform & Products',
-  'ai-cloud': 'AI & Cloud',
-  advisory: 'Expert Advisory & Training',
-  digital: 'Digital Services',
-  hardware: 'Sovereign Hardware',
-  'add-on': 'Add-ons',
+const LAYER_LABELS = {
+  solutions: '1. Customer solutions',
+  data: '2. Independent data products',
+  services: '3. Services and implementation',
+  hardware: '4. Hardware and infra SKUs',
 };
-const CATEGORY_ORDER = ['platform', 'ai-cloud', 'advisory', 'digital', 'hardware', 'add-on'];
+const LAYER_ORDER = ['solutions', 'data', 'services', 'hardware'];
+
+function commercialLayer(p, independentIds) {
+  const id = p.id || '';
+  if (independentIds.has(id)) return 'data';
+  if (p.storeCategory === 'advisory' || id === 'LF-TRAIN-IND' || id === 'aws-consultancy') {
+    return 'services';
+  }
+  if (
+    p.storeCategory === 'hardware' ||
+    /^(LF-K8S|LF-DOCA|LF-NIM|LF-GOV|LF-IPC|LF-FIPS|LF-CINCOZE)/.test(id)
+  ) {
+    return 'hardware';
+  }
+  return 'solutions';
+}
 
 // Per-category buyer notes rendered under the category table. Trusted constants —
 // intentionally NOT escaped, so they may contain inline markup.
@@ -51,7 +64,7 @@ const CATEGORY_ORDER = ['platform', 'ai-cloud', 'advisory', 'digital', 'hardware
 // internal risk register (DD instrument, offered under NDA).
 const CATEGORY_NOTES = {
   hardware:
-    "<strong>Supply continuity.</strong> The models we adopt ship as open weights, so the " +
+    '<strong>Supply continuity.</strong> The models we adopt ship as open weights, so the ' +
     "inference layer is portable by design rather than tied to one vendor's stack. A " +
     'non-NVIDIA fallback path (AMD, Intel accelerators) is carried in our supply-risk plan, ' +
     'and hardware compatibility is validated per engagement rather than assumed. The full ' +
@@ -93,6 +106,8 @@ function unitLabel(p) {
     'per-hour': 'per hour',
     'per-day': 'per day',
     'per-seat': 'per seat',
+    'per-site': 'per site (project)',
+    'per-3-months': 'per 3 months',
     'one-time': 'one-time',
   };
   const priceUnit = prod && prod.priceUnit;
@@ -125,7 +140,12 @@ function renderProductsTable(list) {
           (a.name || '').localeCompare(b.name || ''),
       )
       .map((p) => {
-        const priceCell = p.price === 0 ? '<span class="poa">Free / POA</span>' : eur(p.price);
+        const priceCell =
+          p.price === 0
+            ? '<span class="poa">Free / POA</span>'
+            : p.price == null || !Number.isFinite(Number(p.price))
+              ? '<span class="poa">Quote</span>'
+              : (p.startingPrice === true ? 'from ' : '') + eur(p.price);
         const note = p.priceNote ? `<div class="note">${esc(p.priceNote)}</div>` : '';
         const caption = p.caption ? `<div class="caption">${esc(p.caption)}</div>` : '';
         return (
@@ -178,34 +198,40 @@ function build(data) {
     : pl.effectiveDate || '—';
   const validUntil = pl.validUntil || pl.nextReviewDate || '—';
 
-  const buckets = {};
-  Object.values(data.products || {}).forEach((p) => {
-    if (!p || p.productType === 'archived') return;
-    (buckets[p.storeCategory || 'other'] ||= []).push(p);
+  const products = { ...(data.products || {}) };
+  Object.entries(data.subscriptions || {}).forEach(([key, item]) => {
+    if (!products[key]) products[key] = item;
   });
-  const orderedCats = CATEGORY_ORDER.filter((c) => buckets[c]?.length).concat(
-    Object.keys(buckets).filter((c) => !CATEGORY_ORDER.includes(c)),
+
+  const independentIds = new Set(
+    (data.commercialPortfolio && data.commercialPortfolio.independentProductIds) || [
+      'LF-ONTOLOGY-25',
+      'LWM-ONT-SOVEREIGN',
+    ],
+  );
+
+  const buckets = {};
+  Object.values(products).forEach((p) => {
+    if (!p || typeof p !== 'object') return;
+    if (p.productType === 'archived' || p.archived === true) return;
+    if (p.deploymentColor === 'blue') return;
+    const cat = commercialLayer(p, independentIds);
+    (buckets[cat] ||= []).push(p);
+  });
+  const orderedCats = LAYER_ORDER.filter((c) => buckets[c]?.length).concat(
+    Object.keys(buckets).filter((c) => !LAYER_ORDER.includes(c)),
   );
 
   const catsHtml = orderedCats
     .map(
       (c) =>
-        `<section class="cat"><h2>${esc(CATEGORY_LABELS[c] || c)} <small>(${buckets[c].length})</small></h2>${renderProductsTable(buckets[c])}${CATEGORY_NOTES[c] ? `<div class="notice">${CATEGORY_NOTES[c]}</div>` : ''}</section>`,
+        `<section class="cat"><h2>${esc(LAYER_LABELS[c] || c)} <small>(${buckets[c].length})</small></h2>${renderProductsTable(buckets[c])}${c === 'hardware' && CATEGORY_NOTES.hardware ? `<div class="notice">${CATEGORY_NOTES.hardware}</div>` : ''}</section>`,
     )
     .join('\n');
 
-  // Required subscriptions live under their own top-level key, not in `products`,
-  // so they were previously omitted from this list entirely — a gap, since they are
-  // mandatory on every contract. unitLabel() resolves their billingPeriod ('monthly').
-  const subsList = Object.values(data.subscriptions || {}).filter((s) => s && s.id);
-  const subsHtml = subsList.length
-    ? `<section class="cat"><h2>Required Subscriptions <small>(${subsList.length})</small></h2>` +
-      '<div class="notice">Required on every contract and quoted separately from the one-time product fee. Billed per the unit shown on each line item.</div>' +
-      renderProductsTable(
-        subsList.map((s) => ({ ...s, priceNote: s.priceNote || s.description })),
-      ) +
-      '</section>'
-    : '';
+  const renderedCount = orderedCats.reduce((n, c) => n + buckets[c].length, 0);
+  const countHtml = `<div class="notice">This snapshot lists <strong>${renderedCount}</strong> active public offers (Serious, Independent, or Supporting). BLUE and archived SKUs are omitted. Count is derived from the tables below.</div>`;
+  const subsHtml = '';
 
   const genStamp = new Date().toISOString();
 
@@ -280,6 +306,8 @@ h2 small{color:#64748b;font-weight:400;font-size:.85rem}
   Prices on this snapshot are valid until ${esc(validUntil)}.
   The live, always-current list is at <a href="https://dws10.com/price-list/">https://dws10.com/price-list/</a>.
 </div>
+
+${countHtml}
 
 ${catsHtml}
 

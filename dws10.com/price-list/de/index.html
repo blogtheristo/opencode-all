@@ -4,9 +4,9 @@
   DWS DOCUMENT STANDARD — VERSION AND AGENT HISTORY (HTML mirror)
   ============================================================================
   Document: dws10.com/price-list/index.html
-  Version: 1.29
-  Effective: 2026-08-30
-  Next review: 2026-11-30
+  Version: 1.30
+  Effective: 2026-09-15
+  Next review: 2026-11-15
   Owner: Lifetime Oy (sales@lifetime.fi)
   Publication Status: ACTIVE
   Language: English (primary) · Suomi · Svenska · Deutsch · Français
@@ -16,6 +16,12 @@
   Market: Finnish / EU B2B (VAT 0%, reverse charge against valid EU VAT ID)
 
   Sessions & Modifications:
+    - Version 1.30 | Cursor | 2026-09-15 |
+        Validity: 2026-09-15 for 2 months; next review 2026-11-15.
+        LF-ONTOLOGY-25 annual independent data product (from €25,000/year per 1 site).
+        LF-TRAIN-IND sovereign site configuration (from €15,000 remote per site).
+        Boardy audit: four commercial layers, auto row count, duplicate SKUs archived,
+        monthly units, starter packages, CLOUD Act wording de-absoluted.
     - Version 1.29 | Cursor | 2026-09-15 |
         Unblocked the live page after catalog 1.29 (DWS-IQ-ESS-SETUP; Themis SKUs
         discontinued). Render count now follows commercialPortfolio.surfaces.priceList.expectedProductCount
@@ -94,9 +100,9 @@
       content="Official DWS IQ + Firehorse B2B price list. EUR, VAT 0% (reverse charge). Sovereign intelligence and compliance. Reviewed quarterly."
     />
     <meta name="author" content="Lifetime Oy" />
-    <meta name="dws-doc-version" content="1.29" />
+    <meta name="dws-doc-version" content="1.30" />
     <meta name="dws-doc-market" content="Finnish / EU B2B · VAT 0% reverse charge" />
-    <meta name="dws-doc-effective" content="2026-08-30" />
+    <meta name="dws-doc-effective" content="2026-09-15" />
     <meta name="dws-doc-status" content="ACTIVE" />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="DWS IQ Price List · Lifetime Oy" />
@@ -246,6 +252,54 @@
         font-size: 0.9rem;
         margin-top: 14px;
       }
+      .pkg-band {
+        margin: 22px 0 8px;
+        padding: 20px 20px 8px;
+        background: rgba(30, 41, 59, 0.45);
+        border: 1px solid rgba(71, 85, 105, 0.35);
+        border-radius: 12px;
+      }
+      .pkg-h {
+        font-size: 1.15rem;
+        color: #f1f5f9;
+        margin-bottom: 6px;
+      }
+      .pkg-lead {
+        color: #94a3b8;
+        font-size: 0.88rem;
+        margin-bottom: 14px;
+      }
+      .pkg-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .pkg-card {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(96, 165, 250, 0.25);
+        border-radius: 10px;
+        padding: 14px 14px 16px;
+        color: #e2e8f0;
+        min-height: 48px;
+      }
+      .pkg-card:hover {
+        border-color: #60a5fa;
+        text-decoration: none;
+        color: #fff;
+      }
+      .pkg-k {
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #93c5fd;
+      }
+      .pkg-card strong {
+        color: #f8fafc;
+      }
       .portfolio-badge {
         display: inline-block;
         padding: 3px 8px;
@@ -262,6 +316,11 @@
         color: #bfdbfe;
         border: 1px solid rgba(96, 165, 250, 0.45);
         background: rgba(59, 130, 246, 0.1);
+      }
+      .portfolio-badge.independent {
+        color: #a7f3d0;
+        border: 1px solid rgba(52, 211, 153, 0.5);
+        background: rgba(16, 185, 129, 0.12);
       }
 
       /* Category block */
@@ -555,11 +614,38 @@
           <strong>B2B-Preise · USt. 0 % (Reverse Charge).</strong>
           Alle Preise in EUR, zzgl. USt. Für in Finnland fakturierte Kunden wird die finnische USt. (25,5 %) beim Checkout ergänzt. Innergemeinschaftliche Lieferungen werden gegen eine gültige EU-USt-IdNr. im Reverse-Charge-Verfahren abgerechnet. Angebot gültig <span id="mQuote">30 Tage</span>.
         </div>
-        <p class="portfolio-note">
-          This broad public price list contains 67 non-BLUE, non-archived DWS products plus
-          subscriptions. Every listed offer is marked <strong>Serious</strong> or
-          <strong>Supporting</strong>; BLUE and archived records are not public sales offers.
+        <p class="portfolio-note" id="listCountNote">
+          Loading how many public offers this page will show…
         </p>
+        <section class="pkg-band" aria-label="Buyable starting packages">
+          <h2 class="pkg-h">Starting packages</h2>
+          <p class="pkg-lead">
+            Four commercial entry points. Full SKU tables below are grouped as customer solutions,
+            independent data products, services, and hardware/infra.
+          </p>
+          <div class="pkg-grid">
+            <a class="pkg-card" href="/buy/#product-DWS-EU-STARTER">
+              <span class="pkg-k">Customer solution</span>
+              <strong>EU Sovereign Starter</strong>
+              <span id="pkgEuStarter">catalog</span>
+            </a>
+            <a class="pkg-card" href="/buy/#product-DWS-AEGIS-PILOT-001">
+              <span class="pkg-k">Customer solution</span>
+              <strong>Aegis Pilot</strong>
+              <span id="pkgAegisPilot">catalog</span>
+            </a>
+            <a class="pkg-card" href="/buy/#product-DWS-AEGIS-001">
+              <span class="pkg-k">Customer solution</span>
+              <strong>Aegis production</strong>
+              <span id="pkgAegis">catalog</span>
+            </a>
+            <a class="pkg-card" href="/buy/#product-edge-node-gn100">
+              <span class="pkg-k">Hardware</span>
+              <strong>Sovereign edge starter</strong>
+              <span id="pkgEdge">catalog</span>
+            </a>
+          </div>
+        </section>
       </header>
 
       <!-- ============================================================
@@ -823,7 +909,9 @@
 
         <h3 class="deploy-compare-h">Cloud oder souveräne NVIDIA DGX — der ehrliche Vergleich</h3>
         <p class="deploy-compare-sub">
-          Beide Wege sind souverän und beide schließen den CLOUD Act. Die eigentliche Entscheidung lautet Investition gegen Betriebskosten, Elastizität gegen Eigentum — und ob ein physisches Air-Gap vorgeschrieben ist.
+          Both paths are designed to keep regulated data off a US-provider data path. They are not a
+          legal finding of “zero CLOUD Act exposure.” The real decision is capex vs opex, elasticity
+          vs ownership, and whether a physical air-gap is mandated.
         </p>
         <table class="deploy-table">
           <thead>
@@ -875,9 +963,14 @@
               <td class="c-onprem">An installierte Knoten gebunden; Wachstum durch zusätzliche Geräte</td>
             </tr>
             <tr>
-              <td>CLOUD-Act-Exposition</td>
-              <td class="c-cloud">Keine — in der EU ansässige Anbieter</td>
-              <td class="c-onprem">Keine — überhaupt keine Cloud im Pfad</td>
+              <td>US CLOUD Act posture</td>
+              <td class="c-cloud">
+                Designed to avoid a US-provider data path (EU-incorporated hosts + EU-managed
+                PostgreSQL)
+              </td>
+              <td class="c-onprem">
+                Designed so inference stays on customer premises (no cloud in that path)
+              </td>
             </tr>
             <tr>
               <td>Wirtschaftlich am besten geeignet</td>
@@ -913,14 +1006,14 @@
           <p>Verantwortlich: <span id="lOwner">Risto Anton Päärni</span></p>
           <p>Rhythmus: Prüfung in jedem Kalenderquartal</p>
           <p>
-            Version des DWS-Dokumentenstandards: <strong id="lDocVersion">1.29</strong> · Gültig ab
-            <strong id="lDocEffective">2026-08-30</strong>
+            Version des DWS-Dokumentenstandards: <strong id="lDocVersion">1.30</strong> · Gültig ab
+            <strong id="lDocEffective">2026-09-15</strong>
           </p>
           <p style="margin-top: 6px">
             Markt: <strong>Finnland / EU B2B · USt. 0 % (Reverse Charge)</strong>. Die Hardwarekosten beruhen auf geprüften EU-Distributoren- und EMEA-Einführungspreisen — nicht aus US-Listenpreisen umgerechnet. Die EU-Quellen von NVIDIA / Acer sind dokumentiert in <code>priceHistory[]</code>.
           </p>
           <p style="margin-top: 6px">
-            Catalog version <strong id="lCatalogVersion">1.29</strong>. Current product and hardware
+            Catalog version <strong id="lCatalogVersion">1.30</strong>. Current product and hardware
             prices load directly from <code>dws10.com/config/products.json</code>.
           </p>
           <p>Quelle der Wahrheit: <code>dws10.com/config/products.json</code></p>
@@ -945,25 +1038,28 @@
       (function () {
         "use strict";
 
-        var CATEGORY_LABELS = {
-          platform: "Platform &amp; Products",
-          "ai-cloud": "AI &amp; Cloud",
-          advisory: "Expert Advisory &amp; Training",
-          digital: "Digital Services",
-          hardware: "Sovereign Hardware",
-          "add-on": "Add-ons",
-          subscription: "Required Subscriptions",
-          other: "Other Products",
+        var LAYER_LABELS = {
+          solutions: "1. Customer solutions",
+          data: "2. Independent data products",
+          services: "3. Services and implementation",
+          hardware: "4. Hardware and infra SKUs",
         };
-        var CATEGORY_ORDER = [
-          "platform",
-          "ai-cloud",
-          "advisory",
-          "digital",
-          "hardware",
-          "add-on",
-          "subscription",
-        ];
+        var LAYER_ORDER = ["solutions", "data", "services", "hardware"];
+        var independentLookup = {};
+        function commercialLayer(p) {
+          var id = p.id || "";
+          if (independentLookup[id]) return "data";
+          if (p.storeCategory === "advisory" || id === "LF-TRAIN-IND" || id === "aws-consultancy") {
+            return "services";
+          }
+          if (
+            p.storeCategory === "hardware" ||
+            /^(LF-K8S|LF-DOCA|LF-NIM|LF-GOV|LF-IPC|LF-FIPS|LF-CINCOZE)/.test(id)
+          ) {
+            return "hardware";
+          }
+          return "solutions";
+        }
         var TIER_COLOR = {
           T0: "#94a3b8",
           T1: "#0ea5e9",
@@ -1039,20 +1135,37 @@
           }
         }
 
-        function unitLabel(type) {
-          switch (type) {
+        function unitLabel(p) {
+          var prod = p && typeof p === "object" ? p : null;
+          var t = prod ? prod.type : p;
+          var unitMap = {
+            "per-month": "per month",
+            "per-year": "per year",
+            "per-hour": "per hour",
+            "per-day": "per day",
+            "per-seat": "per seat",
+            "per-site": "per site (project)",
+            "per-engagement": "per engagement",
+            "per-3-months": "per 3 months",
+            "one-time": "one-time",
+          };
+          var priceUnit = prod && prod.priceUnit;
+          if (priceUnit && unitMap[priceUnit]) return unitMap[priceUnit];
+          if (t === "subscription") {
+            var b = String((prod && prod.billingPeriod) || "monthly").toLowerCase();
+            return b === "yearly" || b === "annual" || b === "annually" ? "per year" : "per month";
+          }
+          switch (t) {
             case "hourly":
               return "per hour";
             case "daily":
               return "per day";
             case "monthly":
               return "per month";
-            case "subscription":
-              return "per year";
             case "one-time":
               return "one-time";
             default:
-              return type || "—";
+              return t || "—";
           }
         }
 
@@ -1088,6 +1201,14 @@
           seriousIds.forEach(function (id) {
             seriousLookup[id] = true;
           });
+          var independentIds = portfolio.independentProductIds;
+          if (!Array.isArray(independentIds) || independentIds.length !== 2) {
+            throw new Error("commercialPortfolio.independentProductIds must contain exactly 2 IDs");
+          }
+          independentLookup = {};
+          independentIds.forEach(function (id) {
+            independentLookup[id] = true;
+          });
           var catalogProducts = data.products || {};
           var publicProducts = Object.keys(catalogProducts)
             .map(function (key) {
@@ -1101,20 +1222,6 @@
                 product.productType !== "archived"
               );
             });
-          var expectedPublic =
-            portfolio.surfaces &&
-            portfolio.surfaces.priceList &&
-            Number(portfolio.surfaces.priceList.expectedProductCount);
-          if (!Number.isFinite(expectedPublic) || expectedPublic < 1) {
-            throw new Error(
-              "commercialPortfolio.surfaces.priceList.expectedProductCount is missing",
-            );
-          }
-          if (publicProducts.length !== expectedPublic) {
-            throw new Error(
-              "Expected " + expectedPublic + " public products; found " + publicProducts.length,
-            );
-          }
           seriousIds.forEach(function (id) {
             var product = catalogProducts[id];
             if (!product) throw new Error("Serious product missing: " + id);
@@ -1142,17 +1249,40 @@
           writeCatalogPrice("priceHardwareLow", catalogProducts["LF-DGX-SPARK"]);
           writeCatalogPrice("priceHardwareHigh", catalogProducts["LF-IGX-ORIN"]);
 
+          var eu = catalogProducts["DWS-EU-STARTER"] || {};
+          var euSetup = Number.isFinite(Number(eu.setupPrice)) ? Number(eu.setupPrice) : 1490;
+          var pkgEu = document.getElementById("pkgEuStarter");
+          if (pkgEu) {
+            pkgEu.textContent = eur(euSetup) + " setup + " + eur(Number(eu.price)) + " / month";
+          }
+          var aegisPilot = catalogProducts["DWS-AEGIS-PILOT-001"];
+          var pkgAp = document.getElementById("pkgAegisPilot");
+          if (pkgAp && aegisPilot)
+            pkgAp.textContent = eur(Number(aegisPilot.price)) + " / 3 months";
+          var aegis = catalogProducts["DWS-AEGIS-001"];
+          var pkgAg = document.getElementById("pkgAegis");
+          if (pkgAg && aegis) {
+            pkgAg.textContent = eur(Number(aegis.price)) + " onboarding + licence";
+          }
+          var cr = catalogProducts["edge-node-gn100"];
+          var inst = catalogProducts["LF-NVIDIA-INSTALL"];
+          var pkgEd = document.getElementById("pkgEdge");
+          if (pkgEd && cr && inst) {
+            pkgEd.textContent =
+              "Control Room " + eur(Number(cr.price)) + " + install " + eur(Number(inst.price));
+          }
+
           document.getElementById("mVersion").textContent = pl.version || "—";
           document.getElementById("mEffective").textContent = fmtDate(pl.effectiveDate);
           document.getElementById("mNext").textContent = fmtDate(pl.nextReviewDate);
           var docVersionEl = document.getElementById("lDocVersion");
-          if (docVersionEl) docVersionEl.textContent = pl.version || "1.29";
+          if (docVersionEl) docVersionEl.textContent = pl.version || "1.30";
           var docEffectiveEl = document.getElementById("lDocEffective");
           if (docEffectiveEl && pl.effectiveDate)
             docEffectiveEl.textContent = fmtDate(pl.effectiveDate);
           var catalogVersionEl = document.getElementById("lCatalogVersion");
           if (catalogVersionEl)
-            catalogVersionEl.textContent = data.priceVersion || pl.version || "1.29";
+            catalogVersionEl.textContent = data.priceVersion || pl.version || "1.30";
           document.getElementById("mCurrency").textContent = policy.currency || "EUR";
           document.getElementById("mVat").textContent =
             policy.vatTreatment === "B2B_VAT_0" ? "B2B · 0%" : policy.vatTreatment || "—";
@@ -1174,11 +1304,21 @@
           var subscriptions = data.subscriptions || {};
           var buckets = {};
 
-          // Merge subscriptions into the product map so they render in the
-          // "Required Subscriptions" category on the live price list page.
           Object.keys(subscriptions).forEach(function (key) {
             if (!products[key]) {
-              products[key] = Object.assign({ storeCategory: "subscription" }, subscriptions[key]);
+              products[key] = Object.assign({}, subscriptions[key]);
+            }
+          });
+
+          independentIds.forEach(function (id) {
+            var product = products[id];
+            if (!product) throw new Error("Independent product missing: " + id);
+            if (
+              product.deploymentColor === "blue" ||
+              product.archived === true ||
+              product.productType === "archived"
+            ) {
+              throw new Error("Independent product is not public: " + id);
             }
           });
 
@@ -1186,11 +1326,8 @@
             var p = products[key];
             if (!p || typeof p !== "object") return;
             if (p.archived === true || p.productType === "archived") return;
-            // Public price list never shows Blue/pilot SKUs (T0 or
-            // deploymentColor:"blue"). They remain in products.json
-            // but render only on internal pilot list.
             if (p.deploymentColor === "blue") return;
-            var cat = p.storeCategory || "other";
+            var cat = commercialLayer(p);
             if (!buckets[cat]) buckets[cat] = [];
             buckets[cat].push(p);
           });
@@ -1198,11 +1335,12 @@
           var main = document.getElementById("priceListMain");
           main.innerHTML = "";
 
-          var orderedCats = CATEGORY_ORDER.filter(function (c) {
+          var rendered = 0;
+          var orderedCats = LAYER_ORDER.filter(function (c) {
             return buckets[c] && buckets[c].length;
           }).concat(
             Object.keys(buckets).filter(function (c) {
-              return CATEGORY_ORDER.indexOf(c) === -1;
+              return LAYER_ORDER.indexOf(c) === -1;
             }),
           );
 
@@ -1220,7 +1358,7 @@
             block.innerHTML =
               '<div class="cat-heading">' +
               "<h2>" +
-              (CATEGORY_LABELS[cat] || cat) +
+              (LAYER_LABELS[cat] || cat) +
               "</h2>" +
               '<span class="cat-count">' +
               list.length +
@@ -1234,9 +1372,24 @@
               "</tr></thead><tbody>" +
               list
                 .map(function (p) {
-                  var portfolioClass = seriousLookup[p.id] ? "Serious" : "Supporting";
-                  var priceCell =
-                    p.price === 0 ? '<span style="color:#fbbf24">Free / POA</span>' : eur(p.price);
+                  var portfolioClass = seriousLookup[p.id]
+                    ? "Serious"
+                    : independentLookup[p.id]
+                      ? "Independent"
+                      : "Supporting";
+                  var priceVal = p.price;
+                  var priceCell;
+                  if (priceVal === 0) {
+                    priceCell = '<span style="color:#fbbf24">Free / POA</span>';
+                  } else if (
+                    priceVal === null ||
+                    priceVal === undefined ||
+                    !Number.isFinite(Number(priceVal))
+                  ) {
+                    priceCell = '<span style="color:#fbbf24">Quote</span>';
+                  } else {
+                    priceCell = (p.startingPrice === true ? "from " : "") + eur(Number(priceVal));
+                  }
                   var note = p.priceNote ? "<small>" + escapeHtml(p.priceNote) + "</small>" : "";
                   var caption = p.caption
                     ? '<small class="pl-caption" style="display:block;color:#1e3a5f;font-style:italic;margin:3px 0;">' +
@@ -1293,7 +1446,7 @@
                     priceCell +
                     "</td>" +
                     '<td class="col-unit" data-label="Unit">' +
-                    escapeHtml(unitLabel(p.type)) +
+                    escapeHtml(unitLabel(p)) +
                     "</td>" +
                     '<td class="col-sku" data-label="SKU">' +
                     escapeHtml(p.mpn || p.sku || "—") +
@@ -1306,8 +1459,16 @@
                 })
                 .join("") +
               "</tbody></table>";
+            rendered += list.length;
             main.appendChild(block);
           });
+          var countEl = document.getElementById("listCountNote");
+          if (countEl) {
+            countEl.innerHTML =
+              "This public list shows <strong>" +
+              rendered +
+              "</strong> active offers (Serious, Independent, or Supporting). BLUE and archived SKUs are omitted. The count is taken from the rows below, not a frozen headline.";
+          }
         }
 
         function fail(msg) {
@@ -1318,7 +1479,7 @@
             '<p style="margin-top:10px">Please refresh, or email <a href="https://dws10.com/contact/">sales@lifetime.fi</a>.</p></div>';
         }
 
-        fetch("/config/products.json?v=1.29", { cache: "no-store" })
+        fetch("/config/products.json?v=1.30", { cache: "no-store" })
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();
