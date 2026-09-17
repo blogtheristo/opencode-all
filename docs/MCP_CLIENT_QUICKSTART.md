@@ -26,8 +26,8 @@ Document Status:
 
 DWS MCP is split by use case:
 
-1. **Win11 developer MCP** — local backend + local Python gateway, no Docker
-2. **DGX hub** — orchestration and scheduled automation
+1. **Win11 developer MCP** — local backend + local TypeScript gateway (`cloud-run-gateway-ts`), no Docker
+2. **DGX hub** — orchestration and scheduled automation; HTTP routes include federated LLM mesh **GET /llm/endpoints**, **POST /llm/resolve**, **POST /llm/probe** (`mcp-hub-ts`)
 3. **Remote/mobile MCP** — hosted HTTP endpoints when local processes are not available
 4. **Google-managed MCP** — Google Cloud first-party servers for GCP-native services (Cloud Run, BigQuery, GCS, Maps Grounding Lite, Drive/Gmail/Calendar, …); authenticate via Cloud IAM, not a DWS bearer token. See `docs/MCP_CONFIGURATION.md` section 4 and `mcp.google-managed.example.json`.
 
@@ -48,16 +48,23 @@ For Win11 developer work, use local MCP entries:
     },
     "dws-gateway-local": {
       "type": "stdio",
-      "command": "python",
-      "args": ["mcp-servers/cloud-run-gateway/server.py", "--transport", "stdio"],
+      "command": "node",
+      "args": [
+        "mcp-servers/cloud-run-gateway-ts/dist/server.js",
+        "--transport",
+        "stdio"
+      ],
       "env": {
         "SUPABASE_URL": "${SUPABASE_URL}",
-        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
+        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}",
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
       }
     }
   }
 }
 ```
+
+Before first use, compile the TypeScript gateway: `cd mcp-servers/cloud-run-gateway-ts && npm install && npm run build`.
 
 ### 2. Cursor / VS Code
 

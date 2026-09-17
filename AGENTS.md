@@ -62,19 +62,19 @@ DWS IQ 6 uses three categories of AI agents:
 
 ### Technology Stack
 
-| Layer                 | Technology                                              | Purpose                                 |
-| --------------------- | ------------------------------------------------------- | --------------------------------------- |
-| **Orchestration**     | MCP Hub (`mcp-hub/server.py`)                           | Central coordination, workflow patterns |
-| **Fast Inference**    | Groq API (Llama 3.1 70B)                                | High-speed agent responses              |
-| **Complex Reasoning** | Claude Sonnet 4.5                                       | Deep analysis, planning                 |
-| **Multi-Agent**       | LlamaStack                                              | Agent orchestration                     |
-| **Edge AI**           | NVIDIA Jetson                                           | On-premise SiteSense agents             |
-| **Database**          | Supabase (PostgreSQL + pgvector)                        | Data, embeddings, signals               |
-| **Notifications**     | Microsoft Teams (webhook), Slack (webhook), Email (SES) | Agent alerts                            |
+| Layer                 | Technology                                                                 | Purpose                                 |
+| --------------------- | ---------------------------------------------------------------------------- | --------------------------------------- |
+| **Orchestration**     | MCP Hub (`mcp-hub-ts/`; legacy `mcp-hub/server.py` for Redis/BIM/sandbox) | Central coordination, workflow patterns |
+| **Fast Inference**    | Groq API (Llama 3.1 70B)                                                     | High-speed agent responses              |
+| **Complex Reasoning** | Claude Sonnet 4.5                                                            | Deep analysis, planning                 |
+| **Multi-Agent**       | LlamaStack                                                                   | Agent orchestration                     |
+| **Edge AI**           | NVIDIA Jetson                                                                | On-premise SiteSense agents             |
+| **Database**          | Supabase (PostgreSQL + pgvector)                                             | Data, embeddings, signals               |
+| **Notifications**     | Microsoft Teams (webhook), Slack (webhook), Email (SES)                      | Agent alerts                            |
 
 ### MCP Hub Coordination Patterns
 
-The MCP Hub (`mcp-hub/server.py`) supports three workflow patterns:
+The MCP Hub (`mcp-hub-ts`, or Python `mcp-hub/server.py` where Redis streams / BIM / sandbox are required) supports three workflow patterns:
 
 1. **Fan-Out Pattern**: Parallel task distribution to multiple agents
 2. **Reflection Pattern**: Self-review and iterative improvement
@@ -755,7 +755,7 @@ These are the pre-existing skills in `skills/`. See `docs/DWS_SKILLS_GUIDE.md` f
 | Agent Guidelines          | `AI_AGENT_GUIDELINES.md`                       |
 | DWS Team Agents           | `CloudAgents/dws-team/README.md`               |
 | Customer Agent Configs    | `AgentFoundry/configs/templates/`              |
-| MCP Hub                   | `mcp-hub/server.py`                            |
+| MCP Hub                   | `mcp-hub-ts/` (Cloud Run `mcp-hub-ts/cloudbuild.yaml`); Python `mcp-hub/` optional |
 
 ### Common Commands
 
@@ -775,7 +775,11 @@ docker mcp find stripe               # Find MCP server
 docker mcp add stripe                # Add server
 
 # Start MCP Hub
-cd mcp-hub && python server.py
+# Start MCP Hub (TypeScript — preferred)
+cd mcp-hub-ts && npm install && npm start
+
+# Legacy Python hub (Redis streams, BIM pipeline, sandbox, Gemini review)
+cd mcp-hub && pip install -r requirements.txt && python server.py
 ```
 
 ### V1.0 Completion Criteria

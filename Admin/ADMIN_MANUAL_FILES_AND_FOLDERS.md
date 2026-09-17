@@ -480,7 +480,7 @@ Tamper-evident local mirror of the Supabase `ci_audit_log` legal record-of-truth
 
 - `docs/CI_AUDIT.md` — Full developer spec: architecture diagram, record schema, Supabase migration SQL (RED-zone, apply manually), setup instructions, failure-mode cheatsheet
 - `Admin/ADMIN_MANUAL_AUDIT.md` — External-auditor manual: audit-trail inventory, sample SQL queries, integrity verification, retention policy, auditor access model
-- `Admin/GITHUB_APPS_AUDIT.md` — Audit of 9 installed GitHub Apps with keep / review / remove verdict; suspected source of `submit-pypi`; Continue → Claude Code migration patterns
+- `Admin/GITHUB_APPS_AUDIT.md` — Installed GitHub Apps inventory (8 apps, 2026-05) + keep/review verdicts; suspected source of `submit-pypi`; Continue → Claude Code migration patterns
 - `docs/field-notes/2026-04-22-ci-hygiene-audit.md` — Baseline audit of main's CI red state (5 root causes, 8 failures categorised)
 
 ---

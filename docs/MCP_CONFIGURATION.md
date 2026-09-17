@@ -13,7 +13,7 @@ This repository uses a **split MCP model by use case**, not one universal defaul
 
 | Use case                  | Where it runs          | What belongs there                                                                                   | Config surface                                          |
 | ------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| **Win11 developer MCP**   | Developer workstation  | Local backend `/mcp`, local Python gateway for developer tools, no Docker                            | `.mcp.json.example`, `mcp.dws-local.example.json`       |
+| **Win11 developer MCP**   | Developer workstation  | Local backend `/mcp`, local TypeScript gateway (`cloud-run-gateway-ts`) for developer tools, no Docker                            | `.mcp.json.example`, `mcp.dws-local.example.json`       |
 | **DWS Hub orchestration** | DGX Spark              | Coordination hub, scheduled flows, long-running automation, session persistence                      | `env.mcp.example` / `.env.mcp`                          |
 | **Remote/mobile MCP**     | Hosted HTTP endpoint   | Cloud/mobile access when no local process can run                                                    | `mcp-servers/cloud-run-gateway/mcp-config.example.json` |
 | **Google-managed MCP**    | Google Cloud (managed) | First-party MCP for GCP services (BigQuery, Cloud Run, GCS, Maps, Drive, …) — no DWS process to host | `mcp.google-managed.example.json`                       |
@@ -130,11 +130,16 @@ These are the MCP servers we recommend enabling by default on Win11.
     },
     "dws-gateway-local": {
       "type": "stdio",
-      "command": "python",
-      "args": ["mcp-servers/cloud-run-gateway/server.py", "--transport", "stdio"],
+      "command": "node",
+      "args": [
+        "mcp-servers/cloud-run-gateway-ts/dist/server.js",
+        "--transport",
+        "stdio"
+      ],
       "env": {
         "SUPABASE_URL": "${SUPABASE_URL}",
-        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
+        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}",
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
       }
     }
   }

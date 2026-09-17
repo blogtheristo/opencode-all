@@ -4,21 +4,41 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Cursor Agent | Session: feature/mcp-hub-gateway-ts | Date: 23.05.2026 | Changes: Added authoritative **Installed GitHub Apps** inventory (8 apps) from GitHub Settings → Integrations; noted removals since April 2026 snapshot; added Google Cloud Build and Google Cloud Developer Connect
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/ci-hygiene-audit-vBYGo | Date: 22.04.2026 | Changes: Initial audit of 9 installed GitHub Apps; keep / review / remove recommendations
 
 Document Status:
 
 - Created: 22.04.2026
-- Last Modified: 22.04.2026
+- Last Modified: 23.05.2026
 - Language: English
 - Publication Status: ✅ ACTIVE
-- Audience: Risto (admin) — single-decision audit, not ongoing operational doc
+- Audience: Risto (admin) — operational inventory plus audit recommendations; refresh inventory when GitHub Apps change
 
 ---
+
+## Installed GitHub Apps (authoritative inventory)
+
+GitHub describes GitHub Apps as augmenting and extending workflows on GitHub with **commercial, open source, and homegrown tools**.
+
+The table below matches **GitHub → Settings → Integrations → GitHub Apps** as recorded **2026-05-14** (admin bookkeeping). Use this section as the operational source of truth; older narrative in this file may reference apps that have since been uninstalled.
+
+| GitHub App | Developed by |
+| ---------- | ------------ |
+| Aikido Autofix | AikidoSec |
+| Aikido Security | AikidoSec |
+| Claude | Anthropic |
+| Cloudflare Workers and Pages | Cloudflare |
+| Cursor | Cursor |
+| Google Cloud Build | Google (publisher slug: GoogleCloudBuild) |
+| Google Cloud Developer Connect | Google (publisher slug: GoogleCloudDeveloperConnect) |
+| Google Integrations | Google (publisher slug: google) |
+
+**Change note vs April 2026 audit snapshot:** The following apps **no longer appear** in the installed list: Continue; Linear; Microsoft Teams for GitHub. **Google Cloud Build** and **Google Cloud Developer Connect** are now listed.
 
 ## Why this audit
 
@@ -29,7 +49,9 @@ unused integrations so the surface stays minimal. Also: the mystery
 `submit-pypi` check fails on every PR and is suspected to come from one of
 these apps.
 
-## Current state — 9 apps installed
+## Historical snapshot — detailed purpose table (April 2026)
+
+The rows below describe purposes at audit time; the **installed** set is defined in [Installed GitHub Apps (authoritative inventory)](#installed-github-apps-authoritative-inventory) above.
 
 | App                          | Developer   | Purpose                                                         | Status posts checks?                                          | Cost                      |
 | ---------------------------- | ----------- | --------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------- |
@@ -37,11 +59,12 @@ these apps.
 | Aikido Security              | AikidoSec   | Vuln scanning (SAST/SCA/IaC)                                    | Yes (`pr-security-check` is theirs)                           | Paid SaaS                 |
 | Claude                       | Anthropic   | Powers Claude Code's GitHub interactions (this session uses it) | Yes (review comments)                                         | Included with Claude Code |
 | Cloudflare Workers and Pages | Cloudflare  | Auto-deploys to Pages on push                                   | Yes (`Cloudflare Pages: dws6`, `dws10-com`, `dws6-dashboard`) | Free tier                 |
-| Continue                     | continuedev | IDE extension bridge for local LLMs                             | No                                                            | Free, OSS                 |
 | Cursor                       | Cursor      | Cursor IDE features incl. Bugbot                                | Yes (`Cursor Bugbot`)                                         | Cursor Pro plan           |
+| Google Cloud Build           | Google      | GCP Cloud Build ↔ repository CI triggers                       | Yes (when configured)                                         | GCP billing               |
+| Google Cloud Developer Connect | Google    | Links GCP Developer Connect resources to the repo                | Varies                                                        | GCP                       |
 | Google Integrations          | Google      | Workspace ↔ GitHub linking                                      | No (passive)                                                  | Free                      |
-| Linear                       | Linear      | Issue ↔ commit linking                                          | No (passive)                                                  | Free with Linear plan     |
-| Microsoft Teams for GitHub   | GitHub      | Notifies Teams channel of events                                | No (passive)                                                  | Free                      |
+
+_Removed from install since April 2026 snapshot: Continue (continuedev); Linear; Microsoft Teams for GitHub._
 
 ## Audit verdict
 
@@ -50,12 +73,13 @@ these apps.
 | Claude                       | ✅ **KEEP**   | Critical — Claude Code on web depends on it; PRs in this session prove it works                                                                                                                                                                                    |
 | Cloudflare Workers and Pages | ✅ **KEEP**   | Drives Pages deploys for dws6, dws10-com, dws6-dashboard, onelifetime-world                                                                                                                                                                                        |
 | Cursor                       | ✅ **KEEP**   | Cursor is the primary IDE per CLAUDE.md; Bugbot found 0 issues but the integration is in use                                                                                                                                                                       |
+| Google Cloud Build           | ✅ **KEEP**   | Supports GCP-native CI/CD and aligns with Artifact Registry / Cloud Run workflows when triggers are configured                                                                                                                                                      |
 | Aikido Security              | 🟡 **REVIEW** | Overlaps with our local-first CI (gitleaks + npm-audit) and DGX weekly security-audit. Still complementary if it does SAST our scanners don't. **Question for Risto:** are we paying for Aikido? If yes, what's the ARR?                                           |
 | Aikido Autofix               | 🟡 **REVIEW** | Auto-PR is convenient but Dependabot can do the same for free. Pair with Aikido Security verdict — if we keep one, keep both                                                                                                                                       |
 | Google Integrations          | 🟡 **REVIEW** | Passive; only useful if you actually link Drive/Docs in PRs. Has any PR ever used it? If no in 90 days → remove                                                                                                                                                    |
-| Continue                     | 🔴 **REMOVE** | User reports it doesn't work over SSH to Ollama on DGX Spark. The GitHub App itself does nothing useful (Continue is an IDE extension; the GH App is a bridge that's broken in our setup). Removing has zero cost. See "Replacing Continue with Claude Code" below |
-| Linear                       | 🔴 **REMOVE** | We use GitHub Issues, not Linear. CLAUDE.md mentions no Linear workflow. Zero usage signal                                                                                                                                                                         |
-| Microsoft Teams for GitHub   | 🔴 **REMOVE** | Lifetime Oy doesn't run a Teams channel; notifications go nowhere                                                                                                                                                                                                  |
+| Google Cloud Developer Connect | 🟡 **REVIEW** | Confirm active use with current GCP projects; remove if redundant with OIDC/WIF-only workflows                                                                                                                                                                      |
+
+**Previously audited but uninstalled (see inventory):** Continue — was 🔴 **REMOVE**. Linear — was 🔴 **REMOVE**. Microsoft Teams for GitHub — was 🔴 **REMOVE**.
 
 ### Likely source of `submit-pypi` failing check
 
@@ -66,7 +90,7 @@ Top suspects in order:
    pushing one PR to see if `submit-pypi` disappears.
 2. **Google Integrations** — has dependency-graph permissions; might
    trigger a PyPI-flavoured submission.
-3. **Continue** — unlikely (no status-check permissions in its scope).
+3. **Continue** — unlikely historically; **uninstalled as of May 2026 inventory**.
 
 If `submit-pypi` survives removing Aikido + Google, escalate to GitHub
 support: a phantom check usually means an old GitHub Action workflow
@@ -74,9 +98,11 @@ template is referenced from the org-level required-checks list.
 
 ## Recommended remove sequence (lowest risk first)
 
-1. **Microsoft Teams** — passive, removing it can't break anything
-2. **Linear** — passive, same
-3. **Continue** — broken in our setup, no value to retain
+**Status (2026-05-14):** Per [installed apps inventory](#installed-github-apps-authoritative-inventory), Microsoft Teams, Linear, and Continue are **already removed** — skip steps 1–3 unless they reappear.
+
+1. **Microsoft Teams** — passive *(skip if already uninstalled)*
+2. **Linear** — passive *(skip if already uninstalled)*
+3. **Continue** — broken in our setup *(skip if already uninstalled)*
 4. **Google Integrations** — only if 90-day usage check shows no use
 5. **Aikido (both)** — only if we confirm we're paying for it AND our
    local-CI + DGX-weekly covers the same scope
