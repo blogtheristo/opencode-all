@@ -24,11 +24,19 @@
 
 set -euo pipefail
 
-RUNNER_DIR="/home/admin100/actions-runner"
+RUNNER_USER="admin100"
+RUNNER_DIR="/home/${RUNNER_USER}/actions-runner"
 RUNNER_VERSION="2.325.0"
 REPO="blogtheristo/dws6"
 RUNNER_NAME="dgx-spark"
 LABELS="self-hosted,arm64,dgx-spark,ubuntu-24.04"
+
+if [ "$(whoami)" != "$RUNNER_USER" ]; then
+  echo "ERROR: This script must be run as ${RUNNER_USER}, not $(whoami)."
+  echo "The systemd user service and working directory are bound to ${RUNNER_USER}."
+  echo "Run:  sudo -u ${RUNNER_USER} bash $0 $*"
+  exit 1
+fi
 
 G='\033[0;32m'
 Y='\033[1;33m'
@@ -73,10 +81,11 @@ log "Configuring runner..."
   --unattended
 
 # Install as user-level systemd service (no sudo required)
+SYSTEMD_DIR="/home/${RUNNER_USER}/.config/systemd/user"
 log "Installing systemd service..."
-mkdir -p ~/.config/systemd/user
+mkdir -p "$SYSTEMD_DIR"
 
-cat > ~/.config/systemd/user/github-runner.service << 'UNIT'
+cat > "${SYSTEMD_DIR}/github-runner.service" << UNIT
 [Unit]
 Description=GitHub Actions Self-Hosted Runner (DGX Spark)
 After=network-online.target
@@ -84,8 +93,8 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/admin100/actions-runner
-ExecStart=/home/admin100/actions-runner/run.sh
+WorkingDirectory=${RUNNER_DIR}
+ExecStart=${RUNNER_DIR}/run.sh
 Restart=always
 RestartSec=5
 KillSignal=SIGTERM
@@ -95,7 +104,7 @@ TimeoutStopSec=5min
 WantedBy=default.target
 UNIT
 
-loginctl enable-linger admin100 2>/dev/null || true
+loginctl enable-linger "$RUNNER_USER" 2>/dev/null || true
 
 # Install runner-health companion service (HTTP health probe on :9800)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -112,7 +121,7 @@ if [ -f "$HEALTH_SCRIPT" ]; then
   cp "$HEALTH_SCRIPT" "$RUNNER_DIR/runner-health.sh"
   chmod +x "$RUNNER_DIR/runner-health.sh"
 
-  cat > ~/.config/systemd/user/runner-health.service << 'UNIT'
+  cat > "${SYSTEMD_DIR}/runner-health.service" << UNIT
 [Unit]
 Description=GitHub Actions Runner Health Probe (DGX Spark)
 After=github-runner.service
@@ -120,8 +129,8 @@ BindsTo=github-runner.service
 
 [Service]
 Type=simple
-WorkingDirectory=/home/admin100/actions-runner
-ExecStart=/home/admin100/actions-runner/runner-health.sh
+WorkingDirectory=${RUNNER_DIR}
+ExecStart=${RUNNER_DIR}/runner-health.sh
 Restart=always
 RestartSec=5
 
@@ -137,7 +146,7 @@ systemctl --user enable github-runner.service
 systemctl --user start github-runner.service
 
 # Start health probe if installed
-if [ -f ~/.config/systemd/user/runner-health.service ]; then
+if [ -f "${SYSTEMD_DIR}/runner-health.service" ]; then
   systemctl --user enable runner-health.service
   systemctl --user start runner-health.service
 fi

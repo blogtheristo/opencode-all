@@ -4,17 +4,17 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - '**.py'
-      - '**.ts'
-      - '**.js'
-      - '**.tsx'
-      - '**.jsx'
-      - '**.yaml'
-      - '**.yml'
-      - 'requirements.txt'
-      - 'package.json'
-      - 'Dockerfile'
-      - 'docker-compose.yml'
+      - "**.py"
+      - "**.ts"
+      - "**.js"
+      - "**.tsx"
+      - "**.jsx"
+      - "**.yaml"
+      - "**.yml"
+      - "requirements.txt"
+      - "package.json"
+      - "Dockerfile"
+      - "docker-compose.yml"
 
 permissions:
   contents: read
@@ -23,9 +23,21 @@ permissions:
   security-events: write
 
 jobs:
+  detect-runner:
+    runs-on: ubuntu-latest
+    outputs:
+      runs-on: ${{ steps.failover.outputs.dgx_alive == 'true' && '["self-hosted", "dgx-spark"]' || '["ubuntu-latest"]' }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
   pr-security-check:
-    runs-on: [self-hosted, dgx-spark]
-    
+    needs: detect-runner
+    runs-on: ${{ fromJSON(needs.detect-runner.outputs.runs-on) }}
+
     steps:
       - name: Checkout PR code
         uses: actions/checkout@v4
@@ -36,7 +48,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Get Aikido PR Recommendations
         continue-on-error: true
@@ -58,17 +70,17 @@ jobs:
           script: |
             const fs = require('fs');
             let aikidoResults = {};
-            
+
             try {
               aikidoResults = JSON.parse(fs.readFileSync('aikido-pr-check.json', 'utf8'));
             } catch (e) {
               aikidoResults = { status: 'error' };
             }
-            
+
             const aikidoVulns = aikidoResults.issues || [];
-            
+
             let comment = '## 🔐 Security Review\n\n';
-            
+
             if (aikidoVulns.length === 0) {
               comment += '✅ **No security issues detected**\n\n';
             } else {
@@ -86,11 +98,11 @@ jobs:
                 comment += '\n';
               }
             }
-            
+
             comment += '### 📚 Resources\n';
             comment += '- [Security Backlog](../../security-reports/SECURITY_BACKLOG_BUG_FIXES.md)\n';
             comment += '- [Aikido Security](https://aikido.dev)\n';
-            
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -105,21 +117,21 @@ jobs:
           script: |
             const fs = require('fs');
             let aikidoResults = {};
-            
+
             try {
               aikidoResults = JSON.parse(fs.readFileSync('aikido-pr-check.json', 'utf8'));
             } catch (e) {
               // File might not exist if Aikido check failed
             }
-            
+
             const criticalVulns = (aikidoResults.issues || [])
               .filter(v => v.severity?.toLowerCase() === 'critical');
-            
+
             const conclusion = criticalVulns.length > 0 ? 'failure' : 'success';
             const title = criticalVulns.length > 0 
               ? `Security Check Failed: ${criticalVulns.length} critical issues` 
               : 'Security Check Passed';
-            
+
             github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -142,4 +154,3 @@ jobs:
           path: |
             aikido-pr-check.json
           retention-days: 30
-

@@ -2,7 +2,7 @@
 
 Practical setup guide for Model Context Protocol (MCP) servers used in `dws6`.
 
-**Last Updated:** May 12, 2026
+**Last Updated:** September 17, 2026  
 **Estimated Time:** 10-15 minutes
 
 ---
@@ -81,7 +81,7 @@ For **Win11 developer MCP**:
 
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_KEY`
-- `GITHUB_TOKEN` (optional, only needed for GitHub tool calls from local gateway)
+- `GITHUB_TOKEN` (required — the gateway registers GitHub tools by default; any GitHub tool call without this token crashes with `GITHUB_TOKEN must be set`)
 
 For **DGX hub**:
 
@@ -669,7 +669,7 @@ This keeps the default setup aligned with the official Docker catalog while pres
 
 ---
 
-**Document Version:** 2.1  
+**Document Version:** 2.2  
 **Created:** February 5, 2026  
-**Last Updated:** May 12, 2026  
+**Last Updated:** September 17, 2026  
 **Author:** DWS IQ Team
