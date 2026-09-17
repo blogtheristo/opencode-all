@@ -4,13 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.18
+Version: 3.16
 
 Sessions & Modifications:
 
-- Version: 3.18 | Tool: Cursor Agent | Session: docs/admin-dev-env-opencode-policy | Date: 17.09.2026 | Changes: **Model economics** — OpenCode on DGX exposes **FREE hosted models** plus local **Ollama** for bulk work (translations, 5-lang HTML, large batch). Route these through OpenCode to avoid burning paid Claude/Copilot/Cursor API tokens. Added *Model economics — free inference for bulk work* under OpenCode runtime.
-- Version: 3.17 | Tool: Cursor Agent | Session: claude/sovereignty-segmentation-axis-truth | Date: 17.09.2026 | Changes: **Large work policy** — all substantial tasks must be written as a plan first and executed by **OpenCode agents** on DGX (worktree + batch queue), not ad-hoc in Win11 IDE agents or long interactive CLI sessions. Added *Large work — plan first, OpenCode execution* section with scope heuristics, pipeline, and operator commands. Cross-ref: `WORKTREE_POLICY.md`, `opencode-all/ADMIN_MANUAL.md`, `docs/handovers/HIC_MORNING_ROUTINE.md`.
-- Version: 3.16 | Tool: Cursor Agent | Session: claude/sovereignty-segmentation-axis-truth | Date: 17.09.2026 | Changes: Added **Two dev environments — Win11 and DGX Spark** (Win11: Cursor + VS Code IDEs; DGX: Cursor CLI + GitHub Copilot CLI; shared session layer; git sync rules). Clarified that interactive agent work runs on DGX CLIs with local Ollama — not Win11 cloud agent VMs. Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2.
+- Version: 3.16 | Tool: Cursor Agent | Session: docs/admin-dev-env-opencode-policy | Date: 17.09.2026 | Changes: **Two dev environments — Win11 and DGX Spark** (Win11: Cursor + VS Code IDEs; DGX: Cursor CLI + GitHub Copilot CLI; shared session layer; git sync rules). **Large work policy** — plan first, execute via OpenCode agents on DGX (worktree + batch queue). **Model economics** — route translations and bulk i18n through OpenCode FREE models or local Ollama to save paid API tokens. Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2, `WORKTREE_POLICY.md`, `opencode-all/ADMIN_MANUAL.md`, `docs/handovers/HIC_MORNING_ROUTINE.md`.
 - Version: 3.15 | Tool: Claude Code (Haiku 4.5) | Session: claude/system-refactor-comprehensive-2026-09-07 | Date: 07.09.2026 | Changes: Comprehensive system files refactor — extracted CLAUDE.md specs to `docs/system-config/` (DISCIPLINE.md, STANDARDS_ROUTING.md, SYSTEM_FILES_INDEX.md) with DWS_DOCUMENT_STANDARD versioning; documented multi-tool ecosystem (OpenCode primary + Claude Code standby); identified and documented 3 sync gaps (dws-agents-local intentional disable, permission syntax mismatch, missing bash denies); permitted OpenCode `.env` read on DGX (commit `ff408fa13`) with asymmetric permissions per tool role; archived prior CLAUDE.md v1.0 to field-notes. Cross-refs: `CLAUDE.md` v1.1, `docs/system-config/SYSTEM_FILES_INDEX.md`, `docs/field-notes/CLAUDE.md.archive-2026-09-07.md`, `docs/field-notes/2026-09-07-claude-md-sharpening.md`, permission audit `3758d6a8d`.
 
 - Version: 3.14 | Tool: OpenCode (x-preview-f-free) | Session: meta-whatsapp-catalog / pr-1867 | Date: 22.08.2026 | Changes: Recorded the 2026-08-22 service-account-key hygiene incident and closed the GCR chapter. Findings: a key-shaped file `gcp-sa-key-new.json` was found untracked-but-unignored at repo root; it had been previously tracked and tree-deleted by remediation commit `6a99c3d4a`, but its blob remains reachable in remote branch history — HIC decision (22.08.2026): GCR is no longer used by DWS, so no key-dependent integration exists; rotate/delete the underlying key if it was ever real. Hardened `.gitignore` with `gcp-sa-*.json` and `*sa-key*.json` patterns so no future session can `git add -A` a key file. Re-affirmed v3.0 policy: service-account JSON keys are prohibited (`constraints/iam.disableServiceAccountKeyCreation`); Workload Identity Federation remains the only sanctioned CI auth path for Cloud Run failover/staging deploys. Public information-gap audit recorded at `Admin/PUBLIC_INFO_GAP_AUDIT_2026-08-22.md`.
@@ -174,8 +172,8 @@ If `gbrain doctor` reports resolver or trigger issues in DWS6, normalize the aff
 2. [Installation Manual](#installation-manual-link)
 3. [Google Cloud Run CI Identity Runbook (gcr-skill)](#google-cloud-run-ci-identity-runbook-gcr-skill)
 4. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
-   - [Two dev environments — Win11 and DGX Spark](#two-dev-environments--win11-and-dgx-spark) (v3.16)
-   - [Large work — plan first, OpenCode execution](#large-work--plan-first-opencode-execution) ⭐ **NEW in v3.17**
+   - [Two dev environments — Win11 and DGX Spark](#two-dev-environments--win11-and-dgx-spark) ⭐ **NEW in v3.16**
+   - [Large work — plan first, OpenCode execution](#large-work--plan-first-opencode-execution) ⭐ **NEW in v3.16**
 5. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
 6. [DGX Spark Cron Failover Wrap](#dgx-spark-cron-failover-wrap) ⭐ **NEW**
 7. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
