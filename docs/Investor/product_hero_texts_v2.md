@@ -1,4 +1,5 @@
 # DWS IQ / Firehorse — Product Hero Texts v2
+
 **Purpose:** One-liner hero text per product for the details page. Format: WHO + PAIN + SOLUTION + WHY NOW (business consequence first, regulation as context).
 **Target buyer:** EU enterprises (50–5,000 employees) and SMEs under CSRD, Fit for 55, NIS2, EU AI Act.
 **Version:** 2026-Q2-v2 | Aligned with products.json v2026.Q2
@@ -18,10 +19,11 @@ The regulation belongs in the sub-copy. The hero line belongs to the buyer's mor
 ## How to Use
 
 Each entry provides:
+
 - **Hero Text** — the single sentence for the `<h1>` or hero `<p>` above the fold
 - **Buyer Signal** — the job title / trigger event that makes this person click
 - **Urgency Hook** — the specific EU regulation or deadline that creates now-or-never pressure
-- **CFO Integration** *(where applicable)* — ERP and finance system connectors; surfaces immediately so the CFO knows no re-keying is required
+- **CFO Integration** _(where applicable)_ — ERP and finance system connectors; surfaces immediately so the CFO knows no re-keying is required
 
 ---
 
@@ -30,8 +32,9 @@ Each entry provides:
 ---
 
 ### `DWS-IQ-006` — Lifetime DWS IQ Platform (Version 6)
+
 **€4,999 one-time + €499/mo**
-*[REWRITTEN v2 — was penalty-led, now pain-led with CFO connector signal]*
+_[REWRITTEN v2 — was penalty-led, now pain-led with CFO connector signal]_
 
 > **Hero Text:**
 > "Your sustainability team is reconciling emissions data from 7 systems every quarter — 18 AI agents automate the collection, sign the CSRD report, and connect directly to SAP, Dynamics, or Procountor."
@@ -44,6 +47,7 @@ Each entry provides:
 ---
 
 ### `FH-RPT-001` — Firehorse Report
+
 **€1,999 one-time per template**
 
 > **Hero Text:**
@@ -56,6 +60,7 @@ Each entry provides:
 ---
 
 ### `LIFETIME-BUNDLE-2026` — Firehorse Starter V2
+
 **€9,990 one-time + €1,999/year**
 
 > **Hero Text:**
@@ -68,8 +73,9 @@ Each entry provides:
 ---
 
 ### `FH-AUTO-001` — Firehorse Automation
+
 **€4,950 one-time per project**
-*[REWRITTEN v2 — was abstract/jargon-led, now operational pain-led]*
+_[REWRITTEN v2 — was abstract/jargon-led, now operational pain-led]_
 
 > **Hero Text:**
 > "Three people manually copying numbers from your ERP into ESG spreadsheets every month — one automation project eliminates the work, the errors, and the audit risk."
@@ -82,8 +88,9 @@ Each entry provides:
 ---
 
 ### `FH-OMNI-001` — Firehorse Omnichannel V2
+
 **€1,499/month managed service**
-*[REWRITTEN v2 — was generic marketing copy, now specific sales team pain]*
+_[REWRITTEN v2 — was generic marketing copy, now specific sales team pain]_
 
 > **Hero Text:**
 > "Your sales team follows up with 2 of every 10 leads because there's no time for the rest — AI-managed sequences run all 10 tracks while your team closes the conversations that reply."
@@ -95,6 +102,7 @@ Each entry provides:
 ---
 
 ### `FH-CMS-001` — Firehorse Content Management
+
 **€99 one-time setup**
 
 > **Hero Text:**
@@ -107,6 +115,7 @@ Each entry provides:
 ---
 
 ### `FH-SIGN-001` — Firehorse Signed Reports
+
 **€199/year add-on**
 
 > **Hero Text:**
@@ -119,8 +128,9 @@ Each entry provides:
 ---
 
 ### `DWS-CLIMATE-001` — DWS IQ Climate Intelligence
+
 **€2,999/month + €4,990 setup**
-*[REWRITTEN v2 — was acronym-stacked, now finance team pain-led with CFO connector signal]*
+_[REWRITTEN v2 — was acronym-stacked, now finance team pain-led with CFO connector signal]_
 
 > **Hero Text:**
 > "Your finance team is copying emissions figures from ERP exports into spreadsheets — 8 AI agents connect directly to SAP or Dynamics, calculate your full carbon footprint, and deliver an audit-grade climate disclosure."
@@ -133,6 +143,7 @@ Each entry provides:
 ---
 
 ### `DWS-AEGIS-001` — DWS IQ Aegis — Full Sovereignty
+
 **€59,990 one-time + €999/mo**
 
 > **Hero Text:**
@@ -146,8 +157,9 @@ Each entry provides:
 ---
 
 ### `DWS-THEMIS-001` — DWS IQ Themis — The Aegis Control Plane
+
 **€14,990 one-time + €499/mo**
-*[REWRITTEN v2 — was memo-style regulation-led, now operational risk-led]*
+_[REWRITTEN v2 — was memo-style regulation-led, now operational risk-led]_
 
 > **Hero Text:**
 > "You're running AI in production with no audit trail — Themis adds EU AI Act-compliant logging, a high-risk system registry, and complete governance documentation without rebuilding your existing stack."
@@ -159,6 +171,7 @@ Each entry provides:
 ---
 
 ### `DWS-SOVEREIGN-DB-001` — Sovereign Database
+
 **Free assessment → €499–4,999/month**
 
 > **Hero Text:**
@@ -176,8 +189,9 @@ Each entry provides:
 ---
 
 ### `DWS-EU-STARTER` — Enterprise Navigator
+
 **€499/month + €1,490 setup**
-*[REWRITTEN v2 — was feature-list, now specific trigger event + connector signal]*
+_[REWRITTEN v2 — was feature-list, now specific trigger event + connector signal]_
 
 > **Hero Text:**
 > "Your AI tools are processing EU customer data on US cloud and your enterprise clients are starting to ask — €499/month moves you to Finnish sovereign infrastructure with CSRD monitoring and zero CLOUD Act exposure."
@@ -190,6 +204,7 @@ Each entry provides:
 ---
 
 ### `DWS-EU-PILOT` — Enterprise Premium
+
 **€1,499/month + €3,990 setup**
 
 > **Hero Text:**
@@ -203,8 +218,9 @@ Each entry provides:
 ---
 
 ### `DWS-US-STARTER` — US Cloud Navigator
+
 **€299/month + €990 setup**
-*[REWRITTEN v2 — was weak generic "start today", now specific RFP trigger]*
+_[REWRITTEN v2 — was weak generic "start today", now specific RFP trigger]_
 
 > **Hero Text:**
 > "Your EU customers are asking about your CSRD position and you don't have one — start at €299/month, get your first compliance baseline in 30 days, and have a real answer before the next RFP."
@@ -216,6 +232,7 @@ Each entry provides:
 ---
 
 ### `DWS-US-PILOT` — US Cloud Premium
+
 **€799/month + €2,490 setup**
 
 > **Hero Text:**
@@ -228,8 +245,9 @@ Each entry provides:
 ---
 
 ### `sovereignty-cloud-consulting` — Sovereignty Cloud Consulting
+
 **€1,500–5,000/month**
-*[REWRITTEN v2 — was generic consultancy pitch, now deal-loss consequence-led]*
+_[REWRITTEN v2 — was generic consultancy pitch, now deal-loss consequence-led]_
 
 > **Hero Text:**
 > "You're losing EU enterprise deals because your data residency answer is 'we use AWS' — we migrate your infrastructure to Finnish sovereign cloud in 30 days so that answer becomes a competitive advantage."
@@ -242,10 +260,11 @@ Each entry provides:
 ---
 
 ### `conversational-agent` — Conversational Agent Solution
+
 **€3,500 one-time (25 hours implementation)**
 
 > **Hero Text:**
-> "Deploy compliance AI where your team already works — Teams, Slack, or WhatsApp — without a new portal, new login, or new training programme."
+> "Deploy compliance AI where your team already works — email, WhatsApp, or webhook — without a new portal, new login, or new training programme."
 
 - **Buyer Signal:** IT Director / Operations Manager who knows their team will not adopt a new platform but will use a bot in their existing chat tool
 - **Urgency Hook:** EU AI Act High Risk system operators must ensure AI is accessible and explainable to users — embedding in existing tools creates the usage documentation automatically
@@ -254,6 +273,7 @@ Each entry provides:
 ---
 
 ### `ai-agent-engineering` — AI & Agent Engineering
+
 **€200/hour**
 
 > **Hero Text:**
@@ -266,6 +286,7 @@ Each entry provides:
 ---
 
 ### `ai-consultant-day` — AI Consultant Day
+
 **€1,500/day**
 
 > **Hero Text:**
@@ -278,8 +299,9 @@ Each entry provides:
 ---
 
 ### `ai-consulting-agentic` — AI Consulting — Agentic Software Development
+
 **€2,500 assessment | retainers from €5,000/month**
-*[REWRITTEN v2 — was jargon-stacked, now shipping velocity pain-led]*
+_[REWRITTEN v2 — was jargon-stacked, now shipping velocity pain-led]_
 
 > **Hero Text:**
 > "Your team takes 3 weeks on work your AI-native competitors do in 2 days — we assess your codebase, rebuild the slowest workflows with AI agents, and have a working prototype in 2 weeks."
@@ -291,6 +313,7 @@ Each entry provides:
 ---
 
 ### `devops-lead` — Manufacturing AI Readiness Assessment
+
 **€2,500 one-time**
 
 > **Hero Text:**
@@ -307,6 +330,7 @@ Each entry provides:
 ---
 
 ### `expert-services` — Expert Advisory & Implementation (3-day)
+
 **€4,500 one-time**
 
 > **Hero Text:**
@@ -319,6 +343,7 @@ Each entry provides:
 ---
 
 ### `LIFETIME-EXP-001` — Expert Advisory Retainer
+
 **€4,000/month, 20 hours**
 
 > **Hero Text:**
@@ -331,6 +356,7 @@ Each entry provides:
 ---
 
 ### `consulting-hourly` — Senior Specialist — Hourly Consulting
+
 **€200/hour**
 
 > **Hero Text:**
@@ -343,6 +369,7 @@ Each entry provides:
 ---
 
 ### `consulting-fit55` — Fit for 55 Specialist
+
 **€1,500/day**
 
 > **Hero Text:**
@@ -355,8 +382,9 @@ Each entry provides:
 ---
 
 ### `firehorse-coach` — EU AI Act Literacy Training
+
 **€499 one-time workshop**
-*[REWRITTEN v2 — was law-led, now informal-AI-use risk-led]*
+_[REWRITTEN v2 — was law-led, now informal-AI-use risk-led]_
 
 > **Hero Text:**
 > "Half your team uses AI every day and none of it is documented — one workshop gives every employee a certified literacy record and gives Legal what they need before August 2026."
@@ -368,6 +396,7 @@ Each entry provides:
 ---
 
 ### `business-mentor-30` — Business Mentor — AI Strategy (30 Hours)
+
 **€4,960 one-time, valid 12 months**
 
 > **Hero Text:**
@@ -380,6 +409,7 @@ Each entry provides:
 ---
 
 ### `ai-koulutus-3d` — AI Koulutus 3-Day Programme
+
 **€6,250 one-time**
 
 > **Hero Text:**
@@ -396,8 +426,9 @@ Each entry provides:
 ---
 
 ### `aws-consultancy` — AWS Cloud Architect Consultancy
+
 **€1,500/day**
-*[REWRITTEN v2.1 — industrial focus: cut bill + kill waste + sovereign migration path]*
+_[REWRITTEN v2.1 — industrial focus: cut bill + kill waste + sovereign migration path]_
 
 > **Hero Text:**
 > "Your industrial workloads are running on AWS, the bill is growing, and CLOUD Act exposure is invisible — one day to find what to kill, cut the waste, and map the migration to Finnish sovereign cloud."
@@ -410,8 +441,9 @@ Each entry provides:
 ---
 
 ### `m365-consultancy` — Microsoft Consultancy
+
 **€1,500/day**
-*[REWRITTEN v2.1 — industrial focus: Power Automate + Dynamics 365 for industrial operations]*
+_[REWRITTEN v2.1 — industrial focus: Power Automate + Dynamics 365 for industrial operations]_
 
 > **Hero Text:**
 > "Your plant floor still runs on email approvals and Excel handoffs — one day to connect industrial operations to Power Automate and Dynamics 365 and cut manual process costs by 74%."
@@ -425,8 +457,9 @@ Each entry provides:
 ---
 
 ### `firehorse-data-services` — Firehorse Data Services
+
 **€1,500/day**
-*[REWRITTEN v2.1 — Salesforce Agents added; connect all systems → feed compliance + sales + AI]*
+_[REWRITTEN v2.1 — Salesforce Agents added; connect all systems → feed compliance + sales + AI]_
 
 > **Hero Text:**
 > "Your Salesforce Agents can't close deals they can't see — connect your ERP, compliance data, and operational systems so every AI agent and sales rep works from the same live picture."
@@ -440,6 +473,7 @@ Each entry provides:
 ---
 
 ### `secure-email-proton` — Proton Workspace Implementation
+
 **€499 one-time**
 
 > **Hero Text:**
@@ -452,6 +486,7 @@ Each entry provides:
 ---
 
 ### `professional-web-pages` — Professional Dynamic Web Pages
+
 **€1,099/day**
 
 > **Hero Text:**
@@ -464,6 +499,7 @@ Each entry provides:
 ---
 
 ### `digital-design-gold` — Digital Design Gold V2
+
 **€24,990 one-time**
 
 > **Hero Text:**
@@ -476,6 +512,7 @@ Each entry provides:
 ---
 
 ### `cloud-ready-teams` — On-Demand AI & Cloud Engineers
+
 **€1,500/day**
 
 > **Hero Text:**
@@ -488,6 +525,7 @@ Each entry provides:
 ---
 
 ### `firehorse-flow` — AI Customer Agent
+
 **€499 one-time**
 
 > **Hero Text:**
@@ -504,6 +542,7 @@ Each entry provides:
 ---
 
 ### `edge-node-gn100` — DWS Control Room / Situation Room Nodes
+
 **€3,999/node, minimum 2 units**
 
 > **Hero Text:**
@@ -518,67 +557,67 @@ Each entry provides:
 
 ## CFO INTEGRATION SUMMARY
 
-*For products where ERP/finance system connectivity is a purchase decision factor — surface this in the product details page immediately below the hero text.*
+_For products where ERP/finance system connectivity is a purchase decision factor — surface this in the product details page immediately below the hero text._
 
-| Product | ERP & Finance Connectors | CFO Signal |
-|---|---|---|
-| DWS-IQ-006 | SAP S/4HANA, Dynamics 365, IFS Cloud, Monitor G5, Procountor, Netvisor | Data flows in automatically — no CSV, no re-keying |
-| DWS-CLIMATE-001 | SAP S/4HANA, Dynamics 365, IFS Cloud, Monitor G5 | Emissions data pulled directly from your ERP |
-| DWS-AEGIS-001 | SAP S/4HANA, Dynamics 365, IFS Cloud, Monitor G5, Procountor, Netvisor, Microsoft Graph | Full enterprise data layer — CFO connects on day one |
-| DWS-EU-PILOT | SAP S/4HANA, Dynamics 365, Procountor, Netvisor | Validate ERP → compliance data lineage during pilot |
-| DWS-EU-STARTER | Procountor, Netvisor | Finance data stays accessible — no migration of accounting workflows |
-| firehorse-data-services | SAP S/4HANA, Dynamics 365, IFS Cloud, Monitor G5, Procountor, Netvisor | Direct source-system reads — no middleware layer |
-| FH-AUTO-001 | SAP, Dynamics 365, Monitor G5 | Reads ERP at source — no export step |
-| sovereignty-cloud-consulting | Procountor, Netvisor, ERP access confirmed before migration | Fixed monthly cost — no open-ended project risk |
-| edge-node-gn100 | N/A (hardware) | CapEx asset — no variable cloud cost |
+| Product                      | ERP & Finance Connectors                                                                | CFO Signal                                                           |
+| ---------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| DWS-IQ-006                   | SAP S/4HANA, Dynamics 365, IFS Cloud, Monitor G5, Procountor, Netvisor                  | Data flows in automatically — no CSV, no re-keying                   |
+| DWS-CLIMATE-001              | SAP S/4HANA, Dynamics 365, IFS Cloud, Monitor G5                                        | Emissions data pulled directly from your ERP                         |
+| DWS-AEGIS-001                | SAP S/4HANA, Dynamics 365, IFS Cloud, Monitor G5, Procountor, Netvisor, Microsoft Graph | Full enterprise data layer — CFO connects on day one                 |
+| DWS-EU-PILOT                 | SAP S/4HANA, Dynamics 365, Procountor, Netvisor                                         | Validate ERP → compliance data lineage during pilot                  |
+| DWS-EU-STARTER               | Procountor, Netvisor                                                                    | Finance data stays accessible — no migration of accounting workflows |
+| firehorse-data-services      | SAP S/4HANA, Dynamics 365, IFS Cloud, Monitor G5, Procountor, Netvisor                  | Direct source-system reads — no middleware layer                     |
+| FH-AUTO-001                  | SAP, Dynamics 365, Monitor G5                                                           | Reads ERP at source — no export step                                 |
+| sovereignty-cloud-consulting | Procountor, Netvisor, ERP access confirmed before migration                             | Fixed monthly cost — no open-ended project risk                      |
+| edge-node-gn100              | N/A (hardware)                                                                          | CapEx asset — no variable cloud cost                                 |
 
 ---
 
 ## REFERENCE TABLE — All Hero Texts v2
 
-| Product ID | v2 Change | Hero Text (first 12 words) | Buyer |
-|---|---|---|---|
-| DWS-IQ-006 | ✏️ Rewritten | "Your sustainability team is reconciling emissions data from 7 systems…" | CFO / Compliance |
-| FH-RPT-001 | ✅ Kept | "200 hours of manual compliance reporting, automated into one template…" | Compliance Manager |
-| LIFETIME-BUNDLE-2026 | ✅ Kept | "The complete audit-ready compliance stack — operational in 30 days, not 9 months" | Operations Director |
-| FH-AUTO-001 | ✏️ Rewritten | "Three people manually copying numbers from your ERP into ESG spreadsheets…" | Operations Manager |
-| FH-OMNI-001 | ✏️ Rewritten | "Your sales team follows up with 2 of every 10 leads…" | Sales Director |
-| FH-CMS-001 | ✅ Kept | "When auditors ask for evidence, find it in 10 seconds — not 10 days…" | Compliance Officer |
-| FH-SIGN-001 | ✅ Kept | "CSRD reports need a cryptographic chain of custody — €199/year…" | CFO / Legal |
-| DWS-CLIMATE-001 | ✏️ Rewritten | "Your finance team is copying emissions figures from ERP exports into spreadsheets…" | Head of Sustainability |
-| DWS-AEGIS-001 | ✅ Kept | "21 industrial AI agents on Finnish sovereign infrastructure…" | CTO / CISO |
-| DWS-THEMIS-001 | ✏️ Rewritten | "You're running AI in production with no audit trail…" | Chief AI Officer |
-| DWS-SOVEREIGN-DB-001 | ✅ Kept | "Your EU customer data lives on US-controlled Postgres…" | CTO / DPO |
-| DWS-EU-STARTER | ✏️ Rewritten | "Your AI tools are processing EU customer data on US cloud and your clients are asking…" | IT Director |
-| DWS-EU-PILOT | ✅ Kept + CFO added | "Full sovereign evaluation — 8 agents, NIS2 dashboard, Article 12 logging…" | CTO / CISO |
-| DWS-US-STARTER | ✏️ Rewritten | "Your EU customers are asking about your CSRD position and you don't have one…" | US Operations |
-| DWS-US-PILOT | ✅ Kept | "8 agents, Firehorse Report, 5 seats — real production pilot on US Cloud…" | Enterprise Eval |
-| sovereignty-cloud-consulting | ✏️ Rewritten | "You're losing EU enterprise deals because your data residency answer is 'we use AWS'…" | CTO / DPO |
-| conversational-agent | ✅ Kept | "Deploy compliance AI where your team already works — Teams, Slack, WhatsApp…" | IT Director |
-| ai-agent-engineering | ✅ Kept | "Hire a senior AI engineer by the hour — no recruiter, no €120K salary…" | CTO / Eng Lead |
-| ai-consultant-day | ✅ Kept | "One day to clear your AI backlog…" | CTO / Product Lead |
-| ai-consulting-agentic | ✏️ Rewritten | "Your team takes 3 weeks on work your AI-native competitors do in 2 days…" | VP Engineering |
-| devops-lead | ✅ Kept | "Find out in 2 weeks if your factory floor is AI-ready…" | Plant Manager |
-| expert-services | ✅ Kept | "Three days, one outcome — any Firehorse product live…" | IT Director |
-| LIFETIME-EXP-001 | ✅ Kept | "Your dedicated compliance strategist — 20 hours/month…" | Head of Sustainability |
-| consulting-hourly | ✅ Kept | "Two hours with the architect of DWS IQ 6 — answers today" | Compliance Manager |
-| consulting-fit55 | ✅ Kept | "55% emissions cut by 2030 is law — one day with the Fit for 55 specialist…" | Operations Director |
-| firehorse-coach | ✏️ Rewritten | "Half your team uses AI every day and none of it is documented…" | CHRO / Legal |
-| business-mentor-30 | ✅ Kept | "30 hours of AI strategy mentoring — know which 3 investments this quarter…" | CEO / Founder |
-| ai-koulutus-3d | ✅ Kept | "From AI-curious to AI-productive in 3 days…" | L&D Director |
-| aws-consultancy | ✏️ v2.1 Industrial | "Your industrial workloads are on AWS, the bill is growing, CLOUD Act exposure is invisible…" | CTO / Plant Manager |
-| m365-consultancy | ✏️ v2.1 Industrial | "Your plant floor still runs on email approvals and Excel handoffs — Power Automate + Dynamics 365…" | Operations Director |
-| firehorse-data-services | ✏️ v2.1 Salesforce | "Your Salesforce Agents can't close deals they can't see — connect ERP, compliance, operations…" | Sales Ops / IT Director |
-| secure-email-proton | ✅ Kept | "Replace Gmail with a privacy-first workspace — live in 8 hours" | DPO / CEO |
-| professional-web-pages | ✅ Kept | "Investor- and CFO-grade web presence in days…" | Founder / Marketing |
-| digital-design-gold | ✅ Kept | "Enterprise-grade brand production system — everything Fortune 500 clients expect…" | CMO / CEO |
-| cloud-ready-teams | ✅ Kept | "Pre-vetted senior AI and cloud engineers on-demand — skip the 9-month cycle…" | CTO / Eng Manager |
-| firehorse-flow | ✅ Kept | "Turn every customer interaction into a conversion…" | Sales Director |
-| edge-node-gn100 | ✅ Kept + CFO added | "EU-sovereign edge AI — zero cloud dependency, zero CLOUD Act exposure…" | CISO / Plant Manager |
+| Product ID                   | v2 Change           | Hero Text (first 12 words)                                                                           | Buyer                   |
+| ---------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------- |
+| DWS-IQ-006                   | ✏️ Rewritten        | "Your sustainability team is reconciling emissions data from 7 systems…"                             | CFO / Compliance        |
+| FH-RPT-001                   | ✅ Kept             | "200 hours of manual compliance reporting, automated into one template…"                             | Compliance Manager      |
+| LIFETIME-BUNDLE-2026         | ✅ Kept             | "The complete audit-ready compliance stack — operational in 30 days, not 9 months"                   | Operations Director     |
+| FH-AUTO-001                  | ✏️ Rewritten        | "Three people manually copying numbers from your ERP into ESG spreadsheets…"                         | Operations Manager      |
+| FH-OMNI-001                  | ✏️ Rewritten        | "Your sales team follows up with 2 of every 10 leads…"                                               | Sales Director          |
+| FH-CMS-001                   | ✅ Kept             | "When auditors ask for evidence, find it in 10 seconds — not 10 days…"                               | Compliance Officer      |
+| FH-SIGN-001                  | ✅ Kept             | "CSRD reports need a cryptographic chain of custody — €199/year…"                                    | CFO / Legal             |
+| DWS-CLIMATE-001              | ✏️ Rewritten        | "Your finance team is copying emissions figures from ERP exports into spreadsheets…"                 | Head of Sustainability  |
+| DWS-AEGIS-001                | ✅ Kept             | "21 industrial AI agents on Finnish sovereign infrastructure…"                                       | CTO / CISO              |
+| DWS-THEMIS-001               | ✏️ Rewritten        | "You're running AI in production with no audit trail…"                                               | Chief AI Officer        |
+| DWS-SOVEREIGN-DB-001         | ✅ Kept             | "Your EU customer data lives on US-controlled Postgres…"                                             | CTO / DPO               |
+| DWS-EU-STARTER               | ✏️ Rewritten        | "Your AI tools are processing EU customer data on US cloud and your clients are asking…"             | IT Director             |
+| DWS-EU-PILOT                 | ✅ Kept + CFO added | "Full sovereign evaluation — 8 agents, NIS2 dashboard, Article 12 logging…"                          | CTO / CISO              |
+| DWS-US-STARTER               | ✏️ Rewritten        | "Your EU customers are asking about your CSRD position and you don't have one…"                      | US Operations           |
+| DWS-US-PILOT                 | ✅ Kept             | "8 agents, Firehorse Report, 5 seats — real production pilot on US Cloud…"                           | Enterprise Eval         |
+| sovereignty-cloud-consulting | ✏️ Rewritten        | "You're losing EU enterprise deals because your data residency answer is 'we use AWS'…"              | CTO / DPO               |
+| conversational-agent         | ✅ Kept             | "Deploy compliance AI where your team already works — email, WhatsApp, webhook…"                     | IT Director             |
+| ai-agent-engineering         | ✅ Kept             | "Hire a senior AI engineer by the hour — no recruiter, no €120K salary…"                             | CTO / Eng Lead          |
+| ai-consultant-day            | ✅ Kept             | "One day to clear your AI backlog…"                                                                  | CTO / Product Lead      |
+| ai-consulting-agentic        | ✏️ Rewritten        | "Your team takes 3 weeks on work your AI-native competitors do in 2 days…"                           | VP Engineering          |
+| devops-lead                  | ✅ Kept             | "Find out in 2 weeks if your factory floor is AI-ready…"                                             | Plant Manager           |
+| expert-services              | ✅ Kept             | "Three days, one outcome — any Firehorse product live…"                                              | IT Director             |
+| LIFETIME-EXP-001             | ✅ Kept             | "Your dedicated compliance strategist — 20 hours/month…"                                             | Head of Sustainability  |
+| consulting-hourly            | ✅ Kept             | "Two hours with the architect of DWS IQ 6 — answers today"                                           | Compliance Manager      |
+| consulting-fit55             | ✅ Kept             | "55% emissions cut by 2030 is law — one day with the Fit for 55 specialist…"                         | Operations Director     |
+| firehorse-coach              | ✏️ Rewritten        | "Half your team uses AI every day and none of it is documented…"                                     | CHRO / Legal            |
+| business-mentor-30           | ✅ Kept             | "30 hours of AI strategy mentoring — know which 3 investments this quarter…"                         | CEO / Founder           |
+| ai-koulutus-3d               | ✅ Kept             | "From AI-curious to AI-productive in 3 days…"                                                        | L&D Director            |
+| aws-consultancy              | ✏️ v2.1 Industrial  | "Your industrial workloads are on AWS, the bill is growing, CLOUD Act exposure is invisible…"        | CTO / Plant Manager     |
+| m365-consultancy             | ✏️ v2.1 Industrial  | "Your plant floor still runs on email approvals and Excel handoffs — Power Automate + Dynamics 365…" | Operations Director     |
+| firehorse-data-services      | ✏️ v2.1 Salesforce  | "Your Salesforce Agents can't close deals they can't see — connect ERP, compliance, operations…"     | Sales Ops / IT Director |
+| secure-email-proton          | ✅ Kept             | "Replace Gmail with a privacy-first workspace — live in 8 hours"                                     | DPO / CEO               |
+| professional-web-pages       | ✅ Kept             | "Investor- and CFO-grade web presence in days…"                                                      | Founder / Marketing     |
+| digital-design-gold          | ✅ Kept             | "Enterprise-grade brand production system — everything Fortune 500 clients expect…"                  | CMO / CEO               |
+| cloud-ready-teams            | ✅ Kept             | "Pre-vetted senior AI and cloud engineers on-demand — skip the 9-month cycle…"                       | CTO / Eng Manager       |
+| firehorse-flow               | ✅ Kept             | "Turn every customer interaction into a conversion…"                                                 | Sales Director          |
+| edge-node-gn100              | ✅ Kept + CFO added | "EU-sovereign edge AI — zero cloud dependency, zero CLOUD Act exposure…"                             | CISO / Plant Manager    |
 
 **Summary: 10 hero texts rewritten (✏️) | 9 products received new CFO Integration lines | 27 kept as-is**
 
 ---
 
-*Generated: 2026-04-25 | v2 | Source: dws10.com/config/products.json v2026.Q2*
-*Next step: update products.json with `heroText`, `cfoIntegration`, and `connectors` fields per product ID*
+_Generated: 2026-04-25 | v2 | Source: dws10.com/config/products.json v2026.Q2_
+_Next step: update products.json with `heroText`, `cfoIntegration`, and `connectors` fields per product ID_

@@ -326,7 +326,7 @@ starting up (cold start on Cloud Run). Wait 30 seconds and try again.
 | Channel             | Details                   | Response Time               |
 | ------------------- | ------------------------- | --------------------------- |
 | **Email**           | risto.paarni@lifetime.fi  | 24–48 hours (business days) |
-| **Enterprise SLA**  | Dedicated Slack channel   | 4 hours                     |
+| **Enterprise SLA**  | Dedicated WhatsApp / webhook | 4 hours                  |
 | **API docs**        | https://dws6.com/api/docs | —                           |
 | **Platform status** | GET /api/v1/status        | —                           |
 

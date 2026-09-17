@@ -178,7 +178,7 @@ name: Daily Security Scan (Snyk + Aikido)
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # Daily at 2 AM UTC
+    - cron: "0 2 * * *" # Daily at 2 AM UTC
   workflow_dispatch:
 
 jobs:
@@ -268,7 +268,7 @@ jobs:
 
       # Step 10: Upload Results as Artifacts
       - name: Upload Security Reports
-        uses: actions/upload-artifact@v4  # Updated Jan 2026 (v3 deprecated Apr 2024)
+        uses: actions/upload-artifact@v4 # Updated Jan 2026 (v3 deprecated Apr 2024)
         with:
           name: security-scan-results
           path: |
@@ -279,25 +279,16 @@ jobs:
             merged-results.json
           retention-days: 90
 
-      # Step 11: Send Slack Notification
-      - name: Send Slack Notification
-        uses: slackapi/slack-github-action@v1
+      # Step 11: Write scan summary to the GitHub Actions job log
+      - name: Write Security Scan Summary
         if: always()
-        with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          payload: |
-            {
-              "text": "Daily Security Scan Report",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "🔐 Security Scan Complete\n*Status:* ${{ job.status }}\n*Critical Issues:* ${{ env.CRITICAL_COUNT }}\n*High Issues:* ${{ env.HIGH_COUNT }}"
-                  }
-                }
-              ]
-            }
+        run: |
+          {
+            echo "## Daily Security Scan Report"
+            echo "- Status: ${{ job.status }}"
+            echo "- Critical issues: ${{ env.CRITICAL_COUNT }}"
+            echo "- High issues: ${{ env.HIGH_COUNT }}"
+          } >> "$GITHUB_STEP_SUMMARY"
 ```
 
 ---
@@ -314,14 +305,14 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - '**.py'
-      - '**.ts'
-      - '**.js'
-      - '**.yaml'
-      - '**.yml'
-      - 'requirements.txt'
-      - 'package.json'
-      - 'Dockerfile'
+      - "**.py"
+      - "**.ts"
+      - "**.js"
+      - "**.yaml"
+      - "**.yml"
+      - "requirements.txt"
+      - "package.json"
+      - "Dockerfile"
 
 jobs:
   security-check:
@@ -364,14 +355,14 @@ jobs:
             }' > aikido-pr-check.json
 
       - name: Comment PR with Security Review
-        uses: actions/github-script@v7  # Updated Jan 2026
+        uses: actions/github-script@v7 # Updated Jan 2026
         with:
           script: |
             const fs = require('fs');
             const aikidoResults = JSON.parse(fs.readFileSync('aikido-pr-check.json', 'utf8'));
-            
+
             let comment = '## 🔐 Security Review\n\n';
-            
+
             if (aikidoResults.issues.length === 0) {
               comment += '✅ No security issues detected\n';
             } else {
@@ -381,7 +372,7 @@ jobs:
                 comment += `  ${issue.description}\n`;
               });
             }
-            
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -404,12 +395,12 @@ on:
   workflow_dispatch:
     inputs:
       include_container_scan:
-        description: 'Include container scan'
+        description: "Include container scan"
         required: false
         type: boolean
         default: true
       severity_threshold:
-        description: 'Severity threshold'
+        description: "Severity threshold"
         required: false
         type: choice
         options:
@@ -417,12 +408,12 @@ on:
           - high
           - medium
           - low
-        default: 'medium'
+        default: "medium"
 
 jobs:
   full-audit:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -455,18 +446,18 @@ jobs:
             --output SECURITY_AUDIT_REPORT.md
 
       - name: Upload Report
-        uses: actions/upload-artifact@v4  # Updated Jan 2026 (v3 deprecated)
+        uses: actions/upload-artifact@v4 # Updated Jan 2026 (v3 deprecated)
         with:
           name: full-security-audit
           path: SECURITY_AUDIT_REPORT.md
 
       - name: Create Issue with Report
-        uses: actions/github-script@v7  # Updated Jan 2026
+        uses: actions/github-script@v7 # Updated Jan 2026
         with:
           script: |
             const fs = require('fs');
             const report = fs.readFileSync('SECURITY_AUDIT_REPORT.md', 'utf8');
-            
+
             github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -496,24 +487,24 @@ jobs:
    - Require security checks to pass
    - Status checks: `snyk/test`, `aikido/check`
 
-### Slack Integration
+### Notification Integration
 
 ```yaml
-Send notifications:
-- Daily scan summary
-- Critical findings
-- PR security violations
-- Audit completion
+Send notifications via GitHub job summary, email, or WhatsApp/webhook:
+  - Daily scan summary
+  - Critical findings
+  - PR security violations
+  - Audit completion
 ```
 
 ### Email Integration
 
 ```yaml
 Send alerts for:
-- Critical vulnerabilities
-- Zero-day threats (Aikido)
-- Scan failures
-- Audit overdue
+  - Critical vulnerabilities
+  - Zero-day threats (Aikido)
+  - Scan failures
+  - Audit overdue
 ```
 
 ---
@@ -547,7 +538,7 @@ def merge_results(snyk_sca, snyk_sast, snyk_container, aikido):
         },
         "issues": []
     }
-    
+
     # Aggregate issues by severity
     for issue in snyk_sca.get("vulnerabilities", []):
         merged["issues"].append({
@@ -556,9 +547,9 @@ def merge_results(snyk_sca, snyk_sast, snyk_container, aikido):
             "title": issue.get("title"),
             "id": issue.get("id")
         })
-    
+
     # ... similar for other tools
-    
+
     return merged
 ```
 
@@ -576,7 +567,7 @@ def create_issues(results, repo_name, token):
     """Create GitHub issues for critical/high severity findings"""
     g = github.Github(token)
     repo = g.get_repo(repo_name)
-    
+
     for issue in results["issues"]:
         if issue["severity"] in ["critical", "high"]:
             body = f"""
@@ -596,7 +587,7 @@ def create_issues(results, repo_name, token):
 - Security Backlog: Admin/Security/SECURITY_BACKLOG_BUG_FIXES.md
 - Workflow: Admin/Security/SECURITY_WORKFLOW_SNYK_AIKIDO.md
 """
-            
+
             repo.create_issue(
                 title=f"🔐 [{issue['severity'].upper()}] {issue['title']}",
                 body=body,
@@ -615,10 +606,10 @@ from datetime import datetime
 
 def update_backlog(results, backlog_file):
     """Add new findings to security backlog"""
-    
+
     with open(backlog_file, 'a') as f:
         f.write(f"\n## Security Scan - {datetime.now().isoformat()}\n\n")
-        
+
         for issue in results["issues"]:
             f.write(f"### {issue['severity'].upper()}: {issue['title']}\n\n")
             f.write(f"- **Source:** {issue['source']}\n")
@@ -638,7 +629,8 @@ def update_backlog(results, backlog_file):
 SNYK_TOKEN
 AIKIDO_API_TOKEN
 GITHUB_TOKEN (auto-provided)
-SLACK_WEBHOOK_URL
+NOTIFY_WEBHOOK_URL
+WHATSAPP_ACCESS_TOKEN
 
 # Rotate tokens quarterly
 # Review access in both services
@@ -706,12 +698,12 @@ curl -H "Authorization: token $GITHUB_TOKEN" \
 
 ### Critical Alert Triggers
 
-| Trigger | Action | Recipient |
-|---------|--------|-----------|
-| Critical vulnerability found | Create issue, Slack alert | Security team |
-| Zero-day threat detected (Aikido) | Page on-call | Security team |
-| Scan failure (3x in a row) | Create incident | DevOps team |
-| License violation | Create issue, notify legal | Legal + Security |
+| Trigger                           | Action                                       | Recipient        |
+| --------------------------------- | -------------------------------------------- | ---------------- |
+| Critical vulnerability found      | Create issue, GitHub summary / webhook alert | Security team    |
+| Zero-day threat detected (Aikido) | Page on-call                                 | Security team    |
+| Scan failure (3x in a row)        | Create incident                              | DevOps team      |
+| License violation                 | Create issue, notify legal                   | Legal + Security |
 
 ---
 
@@ -730,12 +722,12 @@ curl -H "Authorization: token $GITHUB_TOKEN" \
 **Status:** ✅ ACTIVE & IMPLEMENTED
 
 ### 2026 Updates Applied:
+
 - ✅ `actions/upload-artifact@v3` → `v4` (deprecated Apr 2024)
 - ✅ `actions/github-script@v6` → `v7`
 - ✅ Command syntax fixes for `safety` and `cyclonedx-py`
-- ✅ Added Ruff linter integration for Python security scanning  
+- ✅ Added Ruff linter integration for Python security scanning
 
 ---
 
-*This workflow provides continuous security monitoring and automated vulnerability management.*
-
+_This workflow provides continuous security monitoring and automated vulnerability management._

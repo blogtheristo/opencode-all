@@ -40,12 +40,24 @@ router.get('/done/:token', async (req: Request, res: Response): Promise<void> =>
           apikey: SUPABASE_SERVICE_KEY,
           Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
         },
-      }
+      },
     );
     if (fetchResp.ok) {
-      const rows = (await fetchResp.json()) as Array<{ id: string; description: string; done_at: string | null }>;
+      const rows = (await fetchResp.json()) as Array<{
+        id: string;
+        description: string;
+        done_at: string | null;
+      }>;
       if (rows.length === 0) {
-        res.status(404).send(confirmPage('Not found', 'This task does not exist or has already been removed.', false));
+        res
+          .status(404)
+          .send(
+            confirmPage(
+              'Not found',
+              'This task does not exist or has already been removed.',
+              false,
+            ),
+          );
         return;
       }
       const row = rows[0];
@@ -73,13 +85,15 @@ router.get('/done/:token', async (req: Request, res: Response): Promise<void> =>
           Prefer: 'return=minimal',
         },
         body: JSON.stringify({ done_at: new Date().toISOString() }),
-      }
+      },
     );
 
     if (patchResp.ok || patchResp.status === 204) {
       res.send(confirmPage('Done ✅', description, true));
     } else {
-      res.status(500).send(confirmPage('Error', 'Could not mark task done — please try again.', false));
+      res
+        .status(500)
+        .send(confirmPage('Error', 'Could not mark task done — please try again.', false));
     }
   } catch {
     res.status(500).send(confirmPage('Error', 'Network error — please try again.', false));
@@ -90,7 +104,7 @@ router.get('/done/:token', async (req: Request, res: Response): Promise<void> =>
  * POST /api/hil/escalate
  *   Programmatic HIL escalation endpoint for agents.
  *   When an agent's confidence < 80%, it can call this to create an
- *   escalation record and notify a human via email (Slack planned).
+ *   escalation record and notify a human via email, webhook, or WhatsApp.
  *
  *   Body: { agentName, reason, confidence, context, channel?, recipient? }
  */

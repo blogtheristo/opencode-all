@@ -1,4 +1,5 @@
 # DWS IQ 6 Observability Assessment
+
 ## "In Software, the Code Documents the App. In AI, the Traces Do."
 
 **Document Version**: 1.0.0  
@@ -15,15 +16,15 @@ DWS IQ 6 operates as an MCP-native AI agent platform processing customer documen
 
 ### Current Observability Maturity: Level 1/5 (BASIC)
 
-| Dimension | Current State | Industry Standard | Gap |
-|-----------|---------------|-------------------|-----|
-| **Logging** | ✅ Basic Python logging | Structured JSON logs | Minor |
-| **Tracing** | ❌ None | OpenTelemetry distributed tracing | **CRITICAL** |
-| **Metrics** | ❌ None | Token/latency/cost tracking | **CRITICAL** |
-| **Agent Visibility** | ❌ None | Full decision path tracing | **CRITICAL** |
-| **MCP Tool Tracing** | ❌ None | End-to-end tool call visibility | **HIGH** |
-| **Cost Tracking** | ❌ None | Real-time token/API cost | **HIGH** |
-| **Eval/Quality** | ❌ None | LLM-as-judge evaluation | **MEDIUM** |
+| Dimension            | Current State           | Industry Standard                 | Gap          |
+| -------------------- | ----------------------- | --------------------------------- | ------------ |
+| **Logging**          | ✅ Basic Python logging | Structured JSON logs              | Minor        |
+| **Tracing**          | ❌ None                 | OpenTelemetry distributed tracing | **CRITICAL** |
+| **Metrics**          | ❌ None                 | Token/latency/cost tracking       | **CRITICAL** |
+| **Agent Visibility** | ❌ None                 | Full decision path tracing        | **CRITICAL** |
+| **MCP Tool Tracing** | ❌ None                 | End-to-end tool call visibility   | **HIGH**     |
+| **Cost Tracking**    | ❌ None                 | Real-time token/API cost          | **HIGH**     |
+| **Eval/Quality**     | ❌ None                 | LLM-as-judge evaluation           | **MEDIUM**   |
 
 ### Financial Impact Assessment
 
@@ -44,6 +45,7 @@ With Full Observability:
 ```
 
 **ROI Projection**:
+
 - Investment: €4,950 one-time + €1,200/year
 - Annual savings: €18,240 (debugging) + €3,600 (token optimization) + €12,000 (prevented churn)
 - **ROI**: (€33,840 - €6,150) / €6,150 = **450%** Year 1
@@ -111,12 +113,14 @@ With Full Observability:
 ### Why This Matters for DWS IQ 6
 
 DWS IQ 6 is an MCP-native platform where:
+
 - Firehorse Report agent decides how to process CSRD compliance documents
 - Energy Optimization agent selects which building systems to adjust
 - Claude Sonnet 4 makes tool selection decisions at runtime
-- Customer data flows through multiple MCP servers (PostgreSQL, Google Drive, Slack)
+- Customer data flows through multiple MCP servers (PostgreSQL, Google Drive, WhatsApp/webhook)
 
 **Without traces, we cannot answer**:
+
 - Why did the agent use this tool instead of that one?
 - What context was retrieved from the customer's documents?
 - How many tokens were consumed per customer per session?
@@ -149,12 +153,14 @@ security_logger.warning(
 ```
 
 **Current Capabilities**:
+
 - ✅ Basic security event logging
 - ✅ Customer ID tracking
 - ✅ Tool activation logging
 - ✅ Error/warning capture
 
 **Current Gaps**:
+
 - ❌ No structured JSON logging
 - ❌ No correlation IDs (request tracing)
 - ❌ No token usage tracking
@@ -168,7 +174,7 @@ security_logger.warning(
 ```sql
 -- Existing (from SIMONWILLISON_Security.md)
 CREATE VIEW security_prompt_injection_attempts AS
-SELECT 
+SELECT
     DATE(created_at) as date,
     customer_id,
     COUNT(*) as attempt_count,
@@ -180,11 +186,13 @@ ORDER BY date DESC, attempt_count DESC;
 ```
 
 **Current Capabilities**:
+
 - ✅ Security-focused aggregations
 - ✅ Customer-level grouping
 - ✅ Temporal analysis
 
 **Missing for Observability**:
+
 - ❌ Token consumption views
 - ❌ Latency percentiles (p50, p95, p99)
 - ❌ Tool call success rates
@@ -193,15 +201,15 @@ ORDER BY date DESC, attempt_count DESC;
 
 ### 2.3 What We Cannot Currently Answer
 
-| Question | Business Impact | Current Answer |
-|----------|----------------|----------------|
-| "Which customer uses the most tokens?" | Cost allocation, pricing | ❌ Unknown |
-| "What's our average latency for CSRD reports?" | SLA compliance | ❌ Unknown |
-| "Why did this compliance check fail?" | Customer trust | ❌ Manual debugging (4-8h) |
-| "Which MCP tool causes the most errors?" | Reliability | ❌ Unknown |
-| "How much does each customer cost us?" | Unit economics | ❌ Estimated only |
-| "What prompt version performs best?" | Optimization | ❌ No A/B testing capability |
-| "When did the agent hallucinate?" | Quality control | ❌ Only if customer reports |
+| Question                                       | Business Impact          | Current Answer               |
+| ---------------------------------------------- | ------------------------ | ---------------------------- |
+| "Which customer uses the most tokens?"         | Cost allocation, pricing | ❌ Unknown                   |
+| "What's our average latency for CSRD reports?" | SLA compliance           | ❌ Unknown                   |
+| "Why did this compliance check fail?"          | Customer trust           | ❌ Manual debugging (4-8h)   |
+| "Which MCP tool causes the most errors?"       | Reliability              | ❌ Unknown                   |
+| "How much does each customer cost us?"         | Unit economics           | ❌ Estimated only            |
+| "What prompt version performs best?"           | Optimization             | ❌ No A/B testing capability |
+| "When did the agent hallucinate?"              | Quality control          | ❌ Only if customer reports  |
 
 ---
 
@@ -246,6 +254,7 @@ Level 1: BASIC ◄────── DWS IQ 6 CURRENT STATE
 #### Gap 1: No Distributed Tracing (CRITICAL)
 
 **Impact**: Cannot trace customer request through:
+
 ```
 Customer Request
      │
@@ -318,7 +327,7 @@ Needed: {
 
 ```
 Current: Agent produced output X
-Needed: 
+Needed:
 ├── Step 1: User asked about Q3 emissions
 ├── Step 2: Agent retrieved context from RAG (3 chunks)
 ├── Step 3: Agent decided to call postgresql_query tool
@@ -414,7 +423,7 @@ Following the emerging OTEL GenAI conventions:
     "gen_ai.usage.input_tokens": 4523,
     "gen_ai.usage.output_tokens": 1892,
     "gen_ai.response.finish_reason": "stop",
-    
+
     # DWS IQ 6 custom attributes
     "dws.customer_id": "uber-finland",
     "dws.session_id": "sess_abc123",
@@ -463,7 +472,7 @@ import os
 def setup_observability():
     """
     Initialize OpenTelemetry with Langfuse as backend.
-    
+
     Cost: €0/month (Langfuse free tier: 50k events)
     Setup time: 2 hours
     """
@@ -474,25 +483,25 @@ def setup_observability():
         "deployment.environment": os.getenv("DWS_ENV", "production"),
         "service.namespace": "lifetime-consulting"
     })
-    
+
     # Langfuse OTLP endpoint
     langfuse_endpoint = "https://cloud.langfuse.com/api/public/otel"
-    
+
     exporter = OTLPSpanExporter(
         endpoint=langfuse_endpoint,
         headers={
             "Authorization": f"Basic {os.getenv('LANGFUSE_API_KEY')}"
         }
     )
-    
+
     provider = TracerProvider(resource=resource)
     provider.add_span_processor(BatchSpanProcessor(exporter))
     trace.set_tracer_provider(provider)
-    
+
     # Auto-instrument frameworks
     FastAPIInstrumentor.instrument()
     HTTPXClientInstrumentor.instrument()
-    
+
     return trace.get_tracer("dws-iq-6")
 
 # Global tracer instance
@@ -524,7 +533,7 @@ tracer = trace.get_tracer("dws-iq-6.llm")
 class InstrumentedAnthropicClient:
     """
     Anthropic client with automatic OpenTelemetry instrumentation.
-    
+
     Tracks:
     - Token usage (input/output/total)
     - Latency (time to first token, total)
@@ -532,7 +541,7 @@ class InstrumentedAnthropicClient:
     - Model version
     - Tool calls
     """
-    
+
     # Claude Sonnet 4 pricing (as of January 2026)
     PRICING = {
         "claude-sonnet-4-20250514": {
@@ -540,10 +549,10 @@ class InstrumentedAnthropicClient:
             "output_per_1k": 0.015   # $15 per 1M output tokens
         }
     }
-    
+
     def __init__(self):
         self.client = Anthropic()
-        
+
     def create_message(
         self,
         model: str,
@@ -557,31 +566,31 @@ class InstrumentedAnthropicClient:
         """
         with tracer.start_as_current_span("claude.create_message") as span:
             start_time = time.time()
-            
+
             # Set span attributes (GenAI semantic conventions)
             span.set_attribute("gen_ai.system", "anthropic")
             span.set_attribute("gen_ai.operation.name", "chat")
             span.set_attribute("gen_ai.request.model", model)
             span.set_attribute("gen_ai.request.max_tokens", kwargs.get("max_tokens", 4096))
             span.set_attribute("gen_ai.request.temperature", kwargs.get("temperature", 0.7))
-            
+
             # DWS IQ 6 custom attributes
             span.set_attribute("dws.customer_id", customer_id)
             span.set_attribute("dws.agent_type", agent_type)
-            
+
             try:
                 response = self.client.messages.create(
                     model=model,
                     messages=messages,
                     **kwargs
                 )
-                
+
                 # Calculate metrics
                 latency_ms = (time.time() - start_time) * 1000
                 input_tokens = response.usage.input_tokens
                 output_tokens = response.usage.output_tokens
                 total_tokens = input_tokens + output_tokens
-                
+
                 # Calculate cost
                 pricing = self.PRICING.get(model, self.PRICING["claude-sonnet-4-20250514"])
                 cost_usd = (
@@ -589,7 +598,7 @@ class InstrumentedAnthropicClient:
                     (output_tokens / 1000) * pricing["output_per_1k"]
                 )
                 cost_eur = cost_usd * 0.95  # USD to EUR approximate
-                
+
                 # Set response attributes
                 span.set_attribute("gen_ai.usage.input_tokens", input_tokens)
                 span.set_attribute("gen_ai.usage.output_tokens", output_tokens)
@@ -598,17 +607,17 @@ class InstrumentedAnthropicClient:
                 span.set_attribute("dws.latency_ms", latency_ms)
                 span.set_attribute("dws.cost_usd", cost_usd)
                 span.set_attribute("dws.cost_eur", cost_eur)
-                
+
                 # Track tool calls if present
                 tool_calls = [
-                    block for block in response.content 
+                    block for block in response.content
                     if hasattr(block, 'type') and block.type == 'tool_use'
                 ]
                 span.set_attribute("dws.tool_calls_count", len(tool_calls))
-                
+
                 span.set_status(Status(StatusCode.OK))
                 return response
-                
+
             except Exception as e:
                 span.set_status(Status(StatusCode.ERROR, str(e)))
                 span.record_exception(e)
@@ -640,14 +649,14 @@ tracer = trace.get_tracer("dws-iq-6.mcp")
 class InstrumentedMCPClient:
     """
     MCP client with OpenTelemetry distributed tracing.
-    
+
     Propagates trace context from client to server using MCP's _meta field.
     Creates linked traces for end-to-end visibility.
     """
-    
+
     def __init__(self, mcp_client):
         self.client = mcp_client
-        
+
     def call_tool(
         self,
         tool_name: str,
@@ -657,29 +666,29 @@ class InstrumentedMCPClient:
     ) -> Dict[str, Any]:
         """
         Call MCP tool with distributed tracing.
-        
+
         Creates span for tool call and propagates trace context
         to MCP server via _meta field (W3C Trace Context format).
         """
         with tracer.start_as_current_span(f"mcp.tool.{tool_name}") as span:
             start_time = time.time()
-            
+
             # Set span attributes
             span.set_attribute("mcp.tool.name", tool_name)
             span.set_attribute("mcp.tool.arguments", json.dumps(arguments)[:1000])  # Truncate
             span.set_attribute("dws.customer_id", customer_id)
-            
+
             # Propagate trace context via _meta field
             carrier = {}
             inject(carrier)
-            
+
             # Add trace context to MCP call
             meta = {
                 "traceparent": carrier.get("traceparent"),
                 "tracestate": carrier.get("tracestate"),
                 "dws_customer_id": customer_id
             }
-            
+
             try:
                 result = self.client.call_tool(
                     name=tool_name,
@@ -688,23 +697,23 @@ class InstrumentedMCPClient:
                         "_meta": meta
                     }
                 )
-                
+
                 # Calculate metrics
                 latency_ms = (time.time() - start_time) * 1000
-                
+
                 span.set_attribute("mcp.latency_ms", latency_ms)
                 span.set_attribute("mcp.result_size_bytes", len(json.dumps(result)))
                 span.set_attribute("mcp.success", True)
-                
+
                 # Track specific tool metrics
                 if tool_name == "postgresql_query":
                     span.set_attribute("mcp.row_count", result.get("row_count", 0))
                 elif tool_name == "google_drive_read":
                     span.set_attribute("mcp.file_size_bytes", result.get("size", 0))
-                    
+
                 span.set_status(Status(StatusCode.OK))
                 return result
-                
+
             except Exception as e:
                 latency_ms = (time.time() - start_time) * 1000
                 span.set_attribute("mcp.latency_ms", latency_ms)
@@ -721,12 +730,12 @@ def extract_mcp_trace_context(arguments: Dict[str, Any]):
     Links server spans to client trace for end-to-end visibility.
     """
     meta = arguments.pop("_meta", {})
-    
+
     carrier = {
         "traceparent": meta.get("traceparent"),
         "tracestate": meta.get("tracestate")
     }
-    
+
     context = extract(carrier)
     return context, meta.get("dws_customer_id")
 ```
@@ -740,17 +749,17 @@ def extract_mcp_trace_context(arguments: Dict[str, Any]):
 
 ### 6.1 Why Langfuse Over Alternatives
 
-| Criteria | Langfuse | LangSmith | Datadog | Phoenix |
-|----------|----------|-----------|---------|---------|
-| **Open Source** | ✅ MIT License | ❌ Proprietary | ❌ Proprietary | ✅ Apache 2.0 |
-| **Self-Host Option** | ✅ Docker/K8s | ❌ | ❌ | ✅ |
-| **OTEL Support** | ✅ Native | ❌ Limited | ✅ Native | ✅ Native |
-| **Free Tier** | ✅ 50k events/mo | ✅ 5k traces/mo | ❌ 14-day trial | ✅ Unlimited (self-host) |
-| **EU Data Residency** | ✅ EU cloud option | ❌ US only | ✅ EU region | ✅ Self-host |
-| **GenAI Conventions** | ✅ Full support | ✅ LangChain focused | ✅ New (2025) | ✅ Full support |
-| **MCP Tracing** | ✅ Documented | ❌ | ✅ New (2025) | ❌ |
-| **Prompt Management** | ✅ Built-in | ✅ Built-in | ❌ | ❌ |
-| **Cost (Year 1)** | **€0-708** | €468-4,680 | €2,400+ | €0 (self-host) |
+| Criteria              | Langfuse           | LangSmith            | Datadog         | Phoenix                  |
+| --------------------- | ------------------ | -------------------- | --------------- | ------------------------ |
+| **Open Source**       | ✅ MIT License     | ❌ Proprietary       | ❌ Proprietary  | ✅ Apache 2.0            |
+| **Self-Host Option**  | ✅ Docker/K8s      | ❌                   | ❌              | ✅                       |
+| **OTEL Support**      | ✅ Native          | ❌ Limited           | ✅ Native       | ✅ Native                |
+| **Free Tier**         | ✅ 50k events/mo   | ✅ 5k traces/mo      | ❌ 14-day trial | ✅ Unlimited (self-host) |
+| **EU Data Residency** | ✅ EU cloud option | ❌ US only           | ✅ EU region    | ✅ Self-host             |
+| **GenAI Conventions** | ✅ Full support    | ✅ LangChain focused | ✅ New (2025)   | ✅ Full support          |
+| **MCP Tracing**       | ✅ Documented      | ❌                   | ✅ New (2025)   | ❌                       |
+| **Prompt Management** | ✅ Built-in        | ✅ Built-in          | ❌              | ❌                       |
+| **Cost (Year 1)**     | **€0-708**         | €468-4,680           | €2,400+         | €0 (self-host)           |
 
 ### 6.2 Langfuse Pricing Analysis
 
@@ -879,19 +888,19 @@ tracer = trace.get_tracer("dws-iq-6.agent-decisions")
 class AgentDecisionLogger:
     """
     Structured logging for agent decision paths.
-    
+
     Creates human-readable decision trails for:
     - Debugging failures
     - Optimizing prompts
     - Understanding tool selection
     - Explaining outputs to customers
     """
-    
+
     def __init__(self, customer_id: str, session_id: str):
         self.customer_id = customer_id
         self.session_id = session_id
         self.decisions: List[Dict[str, Any]] = []
-        
+
     def log_decision(
         self,
         step: int,
@@ -914,9 +923,9 @@ class AgentDecisionLogger:
             "confidence": confidence,
             "alternatives": alternatives or []
         }
-        
+
         self.decisions.append(decision)
-        
+
         # Add to current span
         span = trace.get_current_span()
         span.add_event(
@@ -928,7 +937,7 @@ class AgentDecisionLogger:
                 "dws.decision.confidence": confidence or 0.0
             }
         )
-        
+
     def get_decision_path(self) -> str:
         """
         Generate human-readable decision path.
@@ -939,7 +948,7 @@ class AgentDecisionLogger:
             "---",
             "DECISION PATH:"
         ]
-        
+
         for d in self.decisions:
             path_lines.append(
                 f"  Step {d['step']}: {d['type']}\n"
@@ -948,7 +957,7 @@ class AgentDecisionLogger:
                 f"    Outcome: {d['outcome']}\n"
                 f"    Confidence: {d.get('confidence', 'N/A')}"
             )
-            
+
         return "\n".join(path_lines)
 ```
 
@@ -958,31 +967,31 @@ class AgentDecisionLogger:
 
 ### 8.1 Implementation Investment
 
-| Phase | Hours | Cost (€95/h) | Deliverable |
-|-------|-------|--------------|-------------|
-| Phase 1: Foundation | 16h | €1,520 | OTEL SDK + Langfuse integration |
-| Phase 2: LLM Instrumentation | 20h | €1,900 | Token/cost/latency tracking |
-| Phase 3: MCP Tracing | 16h | €1,520 | End-to-end tool visibility |
-| **Total Development** | **52h** | **€4,940** | |
+| Phase                        | Hours   | Cost (€95/h) | Deliverable                     |
+| ---------------------------- | ------- | ------------ | ------------------------------- |
+| Phase 1: Foundation          | 16h     | €1,520       | OTEL SDK + Langfuse integration |
+| Phase 2: LLM Instrumentation | 20h     | €1,900       | Token/cost/latency tracking     |
+| Phase 3: MCP Tracing         | 16h     | €1,520       | End-to-end tool visibility      |
+| **Total Development**        | **52h** | **€4,940**   |                                 |
 
 ### 8.2 Ongoing Costs
 
-| Item | Monthly | Annual | Notes |
-|------|---------|--------|-------|
-| Langfuse Cloud | €0-59 | €0-708 | Free tier sufficient until €30k MRR |
-| Maintenance | 4h/mo | €4,560 | Updates, dashboard maintenance |
-| **Total Annual** | €4.66-63 | €4,560-5,268 | |
+| Item             | Monthly  | Annual       | Notes                               |
+| ---------------- | -------- | ------------ | ----------------------------------- |
+| Langfuse Cloud   | €0-59    | €0-708       | Free tier sufficient until €30k MRR |
+| Maintenance      | 4h/mo    | €4,560       | Updates, dashboard maintenance      |
+| **Total Annual** | €4.66-63 | €4,560-5,268 |                                     |
 
 ### 8.3 Value Generation
 
-| Benefit | Calculation | Annual Value |
-|---------|-------------|--------------|
-| **Debugging Time Savings** | 24 incidents × 6h saved × €95 | €13,680 |
-| **Token Optimization** | €36k API spend × 10% savings | €3,600 |
-| **Prevented Churn** | 1 customer saved × €84k LTV × 50% | €42,000 |
-| **Faster Feature Development** | 20% velocity improvement | €9,120 |
-| **Reduced Support Tickets** | 12 tickets/mo × 1h × €95 × 50% | €6,840 |
-| **Total Annual Value** | | **€75,240** |
+| Benefit                        | Calculation                       | Annual Value |
+| ------------------------------ | --------------------------------- | ------------ |
+| **Debugging Time Savings**     | 24 incidents × 6h saved × €95     | €13,680      |
+| **Token Optimization**         | €36k API spend × 10% savings      | €3,600       |
+| **Prevented Churn**            | 1 customer saved × €84k LTV × 50% | €42,000      |
+| **Faster Feature Development** | 20% velocity improvement          | €9,120       |
+| **Reduced Support Tickets**    | 12 tickets/mo × 1h × €95 × 50%    | €6,840       |
+| **Total Annual Value**         |                                   | **€75,240**  |
 
 ### 8.4 ROI Calculation
 
@@ -1037,17 +1046,17 @@ New Runway Calculation:
 1. **OpenTelemetry AI Agent Observability (2025)**  
    OpenTelemetry Blog. "AI Agent Observability - Evolving Standards and Best Practices."  
    https://opentelemetry.io/blog/2025/ai-agent-observability/  
-   *Provides GenAI semantic conventions and agent instrumentation standards.*
+   _Provides GenAI semantic conventions and agent instrumentation standards._
 
 2. **Langfuse OpenTelemetry Integration (2025)**  
    Langfuse Documentation. "Open Source LLM Observability via OpenTelemetry."  
    https://langfuse.com/integrations/native/opentelemetry  
-   *Implementation guide for OTEL-native LLM tracing with Langfuse backend.*
+   _Implementation guide for OTEL-native LLM tracing with Langfuse backend._
 
 3. **MCP Observability with OpenTelemetry (2025)**  
    SigNoz Blog. "MCP Observability with OpenTelemetry."  
    https://signoz.io/blog/mcp-observability-with-otel/  
-   *MCP-specific tracing patterns and distributed context propagation.*
+   _MCP-specific tracing patterns and distributed context propagation._
 
 ---
 
@@ -1107,7 +1116,7 @@ dashboards:
       - type: percentile_chart
         metric: "dws.latency_ms"
         percentiles: [50, 95, 99]
-        slo_target_p95: 3000  # 3s SLO
+        slo_target_p95: 3000 # 3s SLO
 
   - name: "MCP Tool Performance"
     widgets:

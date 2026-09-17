@@ -110,6 +110,7 @@ mobile-dashboard/
 ### Priority Order
 
 **Slice 1 (MVP):**
+
 1. **Home/Dashboard Screen**
    - Portfolio KPI tiles (CPI, SPI, Budget vs Forecast)
    - Trend sparklines
@@ -135,13 +136,7 @@ mobile-dashboard/
    - Acknowledge single / bulk acknowledge
    - Alert details modal
 
-**Slice 2 (Extended):**
-5. Cost/Budget Tab
-6. Schedule/Critical Path Tab
-7. Safety Tab
-8. Quality Tab
-9. Resources Tab
-10. Settings Screen
+**Slice 2 (Extended):** 5. Cost/Budget Tab 6. Schedule/Critical Path Tab 7. Safety Tab 8. Quality Tab 9. Resources Tab 10. Settings Screen
 
 ---
 
@@ -325,22 +320,22 @@ mobile-dashboard/
 
 ### Development Metrics
 
-| Metric | Target | Status |
-|--------|--------|--------|
-| Test Coverage | > 70% | 📋 Planned |
-| TypeScript Strict | 100% | 📋 Planned |
-| Performance (FCP) | < 2s | 🔄 In Progress |
-| Bundle Size (JS) | < 1.2MB | 📋 Planned |
-| Accessibility Score | > 90 | 📋 Planned |
+| Metric              | Target  | Status         |
+| ------------------- | ------- | -------------- |
+| Test Coverage       | > 70%   | 📋 Planned     |
+| TypeScript Strict   | 100%    | 📋 Planned     |
+| Performance (FCP)   | < 2s    | 🔄 In Progress |
+| Bundle Size (JS)    | < 1.2MB | 📋 Planned     |
+| Accessibility Score | > 90    | 📋 Planned     |
 
 ### Deployment Metrics
 
-| Metric | Target | Status |
-|--------|--------|--------|
-| Uptime | > 99.5% | 📋 Planned |
-| Error Rate | < 0.1% | 📋 Planned |
+| Metric      | Target  | Status     |
+| ----------- | ------- | ---------- |
+| Uptime      | > 99.5% | 📋 Planned |
+| Error Rate  | < 0.1%  | 📋 Planned |
 | API Latency | < 500ms | 📋 Planned |
-| Crash Rate | < 0.01% | 📋 Planned |
+| Crash Rate  | < 0.01% | 📋 Planned |
 
 ---
 
@@ -348,44 +343,44 @@ mobile-dashboard/
 
 ### Frontend
 
-| Layer | Technology | Version |
-|-------|-----------|---------|
-| Framework | React Native | 0.72 |
-| Platform | Expo | 49.0 |
-| Language | TypeScript | 5.1 |
-| Navigation | React Navigation | 6.5 |
-| State | Redux Toolkit | 1.9.5 |
-| UI Components | NativeBase | 3.4 |
-| Data Fetching | React Query | 3.39 |
-| Testing | Jest | 29.5 |
+| Layer         | Technology       | Version |
+| ------------- | ---------------- | ------- |
+| Framework     | React Native     | 0.72    |
+| Platform      | Expo             | 49.0    |
+| Language      | TypeScript       | 5.1     |
+| Navigation    | React Navigation | 6.5     |
+| State         | Redux Toolkit    | 1.9.5   |
+| UI Components | NativeBase       | 3.4     |
+| Data Fetching | React Query      | 3.39    |
+| Testing       | Jest             | 29.5    |
 
 ### Backend (Integration)
 
-| Component | Technology | Version |
-|-----------|-----------|---------|
-| API | REST | 0.1.0 |
-| Auth | OAuth2/OIDC | - |
-| Data | PostgreSQL | - |
-| Cache | Redis | - |
+| Component | Technology  | Version |
+| --------- | ----------- | ------- |
+| API       | REST        | 0.1.0   |
+| Auth      | OAuth2/OIDC | -       |
+| Data      | PostgreSQL  | -       |
+| Cache     | Redis       | -       |
 
 ---
 
 ## Timeline Estimate
 
-| Phase | Duration | Start | End |
-|-------|----------|-------|-----|
-| Phase 1: Foundation | ✅ 2 days | Dec 21 | Dec 23 |
-| Phase 2: Setup | 2-3 days | Dec 23 | Dec 26 |
-| Phase 3: UI/State | 5-7 days | Dec 26 | Jan 2 |
-| Phase 4: Screens | 10-14 days | Jan 2 | Jan 16 |
-| Phase 5: API | 5-7 days | Jan 16 | Jan 23 |
-| Phase 6: Offline | 5-7 days | Jan 23 | Jan 30 |
-| Phase 7: Auth | 3-5 days | Jan 30 | Feb 4 |
-| Phase 8: Testing | 7-10 days | Feb 4 | Feb 14 |
-| Phase 9: Performance | 5-7 days | Feb 14 | Feb 21 |
-| Phase 10: Security | 5-7 days | Feb 21 | Feb 28 |
-| Phase 11: Release | 7-10 days | Feb 28 | Mar 10 |
-| **Total** | **~72 days** | **Dec 21** | **Mar 10** |
+| Phase                | Duration     | Start      | End        |
+| -------------------- | ------------ | ---------- | ---------- |
+| Phase 1: Foundation  | ✅ 2 days    | Dec 21     | Dec 23     |
+| Phase 2: Setup       | 2-3 days     | Dec 23     | Dec 26     |
+| Phase 3: UI/State    | 5-7 days     | Dec 26     | Jan 2      |
+| Phase 4: Screens     | 10-14 days   | Jan 2      | Jan 16     |
+| Phase 5: API         | 5-7 days     | Jan 16     | Jan 23     |
+| Phase 6: Offline     | 5-7 days     | Jan 23     | Jan 30     |
+| Phase 7: Auth        | 3-5 days     | Jan 30     | Feb 4      |
+| Phase 8: Testing     | 7-10 days    | Feb 4      | Feb 14     |
+| Phase 9: Performance | 5-7 days     | Feb 14     | Feb 21     |
+| Phase 10: Security   | 5-7 days     | Feb 21     | Feb 28     |
+| Phase 11: Release    | 7-10 days    | Feb 28     | Mar 10     |
+| **Total**            | **~72 days** | **Dec 21** | **Mar 10** |
 
 ---
 
@@ -420,14 +415,14 @@ mobile-dashboard/
 
 ## Risks & Mitigation
 
-| Risk | Impact | Mitigation |
-|------|--------|-----------|
-| API Latency | High | Implement caching, pagination, compression |
-| Device Compatibility | High | Test on target device early, emulator testing |
-| Offline Edge Cases | Medium | Comprehensive offline testing, conflict resolution |
-| Performance Regression | Medium | Regular profiling, bundle size monitoring |
-| Security Vulnerabilities | High | Regular security audits, dependency updates |
-| Team Availability | Medium | Clear documentation, modular architecture |
+| Risk                     | Impact | Mitigation                                         |
+| ------------------------ | ------ | -------------------------------------------------- |
+| API Latency              | High   | Implement caching, pagination, compression         |
+| Device Compatibility     | High   | Test on target device early, emulator testing      |
+| Offline Edge Cases       | Medium | Comprehensive offline testing, conflict resolution |
+| Performance Regression   | Medium | Regular profiling, bundle size monitoring          |
+| Security Vulnerabilities | High   | Regular security audits, dependency updates        |
+| Team Availability        | Medium | Clear documentation, modular architecture          |
 
 ---
 
@@ -464,7 +459,7 @@ mobile-dashboard/
 
 - **Daily Standups**: 10 AM CET
 - **Sprint Reviews**: Fridays 3 PM CET
-- **Slack Channel**: #dws-iq-mobile
+- **WhatsApp / webhook**: DWS IQ mobile
 - **Documentation**: Shared on GitHub Wiki
 - **Issue Tracking**: GitHub Issues
 
@@ -474,4 +469,3 @@ mobile-dashboard/
 **Last Updated**: December 23, 2025  
 **Author**: Development Team with GitHub Copilot  
 **Status**: Ready for Phase 2 Implementation
-

@@ -1,12 +1,12 @@
 # Captain Acquisition Funnel
 
-| Field | Value |
-|-------|-------|
-| **Document ID** | DWS-FUNNEL-001 |
-| **Version** | 1.0 |
-| **Date** | 2026-02-15 |
-| **Owner** | Risto Anton Päärni, CEO |
-| **Status** | Active |
+| Field           | Value                   |
+| --------------- | ----------------------- |
+| **Document ID** | DWS-FUNNEL-001          |
+| **Version**     | 1.0                     |
+| **Date**        | 2026-02-15              |
+| **Owner**       | Risto Anton Päärni, CEO |
+| **Status**      | Active                  |
 
 ---
 
@@ -41,6 +41,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 **Timing:** Day 0
 
 **Action:**
+
 - Send personalized teaser linking to `dws10.com/captain/`
 - Reference their specific industry and a concrete regulatory pain point
 - One question at the end — never a pitch deck
@@ -64,6 +65,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 **Timing:** Day 3-7 after reply
 
 **Action:**
+
 - Invite to a 30-minute Situation Room live demo for their industry
 - Show the World Model, regulation tracker, and Situation Room Reports in action
 - Keep it small — max 5 attendees per session, builds exclusivity
@@ -72,6 +74,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 **Format:** Google Meet or Zoom. Share screen of live platform.
 
 **Content:**
+
 1. 5 min — What Fit for 55 means for [their industry] in 2026-2028
 2. 10 min — Live Situation Room walkthrough (their industry data)
 3. 10 min — How the Captain program shapes the product
@@ -90,17 +93,20 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 **Timing:** Day 7-10 (immediately after webinar)
 
 **Action:**
+
 - 1:1 call with Risto
 - Discover: Why this industry? What's their network? Can they commit EUR 50k?
 - Assess: Are they crew or cargo? Will they do the quarterly introductions?
 - Surface the engagement duties early — filter out passive money
 
 **Key questions:**
+
 1. "What's the biggest compliance headache in your industry right now?"
 2. "Who in your network would be the first pilot customer?"
 3. "The Captain role has quarterly engagement duties — introductions, product feedback, briefing attendance. Does that fit how you want to be involved?"
 
 **Disqualifiers:**
+
 - Can't name a single industry contact → not a Captain
 - Wants passive returns only → redirect to Deputy or decline
 - Unclear on the industry → wrong seat
@@ -118,6 +124,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 **Timing:** Day 10-14 (after call)
 
 **Action:**
+
 - Send industry-specific whitepaper:
   - Regulatory landscape (which Fit for 55 mandates hit their industry, by when)
   - Market size and compliance cost data
@@ -126,6 +133,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
   - Traction data: MRR, pilots, infrastructure efficiency
 
 **Whitepaper variants (create per industry):**
+
 - Construction: CSRD + EPBD + EN 15978 carbon reporting
 - Maritime: MRV + FuelEU Maritime + ETS for shipping
 - Aviation: CORSIA + ETS aviation + SAF mandates
@@ -145,6 +153,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 **Timing:** Day 14-18
 
 **Action:**
+
 - Send formal SAFE note terms:
   - EUR 50,000 investment
   - EUR 3.8M valuation cap
@@ -155,6 +164,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 - Attach term sheet summary (1 page) + full SAFE document
 
 **Key elements:**
+
 - Clear: no hidden terms
 - Professional: lawyer-reviewed document
 - Personal: cover note from Risto referencing their specific industry and call discussion
@@ -172,6 +182,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 **Timing:** Day 18-28
 
 **Action:**
+
 - Open data room with:
   - Company registration (Lifetime Oy, Finland)
   - Financial summary (MRR, burn rate, runway)
@@ -185,6 +196,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 - Be transparent about what's early-stage and what's proven
 
 **What Captains verify:**
+
 - Is the company real? → Registration, bank, team
 - Does the product work? → Live demo access, pilot references
 - Is the market real? → Regulation timeline, mandatory compliance dates
@@ -203,6 +215,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 **Timing:** Day 25-30
 
 **Action:**
+
 - Send Captain Benefits Brochure:
   - Founding login to World Model + Situation Room
   - Their industry dashboard (mock-up with their vertical's data)
@@ -214,6 +227,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 - Link to live `dws10.com/captain/` page showing their seat status
 
 **Brochure sections:**
+
 1. What you own (the vertical)
 2. What you see (Situation Room Reports)
 3. What you shape (product roadmap influence)
@@ -234,6 +248,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 **Timing:** Day 28-35
 
 **Action:**
+
 - Meet in person for final conversation
 - Bring printed SAFE for signing (or DocuSign if remote)
 - Keep it relaxed — lunch, coffee, or dinner
@@ -242,11 +257,13 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 - Celebrate — they are now a Captain
 
 **Logistics:**
+
 - For Finnish/Nordic contacts: Helsinki meeting
 - For DACH contacts: Video or travel to their city
 - For remote: DocuSign + video call signing ceremony
 
 **After signing:**
+
 - Immediate welcome email with login credentials
 - Captain profile creation on the platform
 - Announce internally (team) and to other Captains (community)
@@ -264,22 +281,23 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 **Timing:** Day 35-42 (within 1 week of signing)
 
 **Action:**
+
 - Create joint 90-day Work Plan:
   - Month 1: Onboarding, platform access, first briefing, 1 industry introduction
   - Month 2: First design partner introduction routed, product feedback session
   - Month 3: First quarterly briefing, industry-specific feature review
 - Assign Risto as their primary contact for the first 90 days
-- Set up shared communication channel (email thread or Slack)
+- Set up shared communication channel (email thread or WhatsApp)
 
 **Work plan template:**
 
-| Week | Captain Action | DWS IQ Action |
-|------|---------------|---------------|
-| 1 | Platform onboarding, explore Situation Room | Set up industry dashboard, Captain profile |
-| 2-3 | First industry introduction (1 contact) | Route design partner into their vertical |
-| 4 | Product feedback on industry features | Implement top feedback item |
-| 5-8 | Attend first quarterly briefing | Deliver industry-specific intelligence report |
-| 9-12 | Second introduction, review roadmap | 1:1 strategy session, plan next quarter |
+| Week | Captain Action                              | DWS IQ Action                                 |
+| ---- | ------------------------------------------- | --------------------------------------------- |
+| 1    | Platform onboarding, explore Situation Room | Set up industry dashboard, Captain profile    |
+| 2-3  | First industry introduction (1 contact)     | Route design partner into their vertical      |
+| 4    | Product feedback on industry features       | Implement top feedback item                   |
+| 5-8  | Attend first quarterly briefing             | Deliver industry-specific intelligence report |
+| 9-12 | Second introduction, review roadmap         | 1:1 strategy session, plan next quarter       |
 
 **Success metric:** 100% of Captains have active work plan within 7 days of signing
 
@@ -294,12 +312,14 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 **Timing:** Ongoing, quarterly cadence
 
 **Action:**
+
 - Quarterly briefing (all Captains together): transparency, metrics, roadmap
 - Annual 1:1 strategy session (Platinum only): their industry's roadmap
 - Ad hoc calls as needed for introductions, product feedback, or industry events
 - Captain-to-Captain introductions where cross-industry value exists
 
 **Quarterly briefing agenda:**
+
 1. Platform metrics (MRR, users, customers)
 2. Product roadmap update (what shipped, what's next)
 3. Industry-specific intelligence highlights
@@ -319,6 +339,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 **Timing:** Monthly, starting Month 2
 
 **Action:**
+
 - Monthly Captain Report:
   - Platform metrics relevant to their industry
   - Introductions made → outcomes (pilot started, customer signed, etc.)
@@ -329,6 +350,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 - Identify disengaged Captains early and intervene (personal call from Risto)
 
 **Report format:**
+
 ```
 CAPTAIN REPORT — [Industry] — [Month Year]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -347,21 +369,22 @@ Your score:   [engagement rating]
 
 ## Funnel Metrics Summary
 
-| Stage | Name | Channel | Timing | Target Conversion |
-|-------|------|---------|--------|------------------|
-| 1 | DM / Teaser | LinkedIn + Email | Day 0 | 15% reply rate |
-| 2 | Webinar | Email + LinkedIn | Day 3-7 | 60% of replies |
-| 3 | Call | Phone / Video | Day 7-10 | 70% of webinar |
-| 4 | Whitepaper | Email | Day 10-14 | 80% open rate |
-| 5 | Contract Proposal | Email | Day 14-18 | 60% request DD |
-| 6 | Due Diligence | Email + Call | Day 18-28 | 80% proceed |
-| 7 | Benefits Showcase | Email + Call | Day 25-30 | 70% intent |
-| 8 | Lunch & Signatures | In-person / Video | Day 28-35 | 80% sign |
-| 9 | Work Plan | Email + Doc | Day 35-42 | 100% activated |
-| 10 | Meetings | Video + Email | Quarterly | 90% attendance |
-| 11 | Captain Reporting | Email | Monthly | 100% delivery |
+| Stage | Name               | Channel           | Timing    | Target Conversion |
+| ----- | ------------------ | ----------------- | --------- | ----------------- |
+| 1     | DM / Teaser        | LinkedIn + Email  | Day 0     | 15% reply rate    |
+| 2     | Webinar            | Email + LinkedIn  | Day 3-7   | 60% of replies    |
+| 3     | Call               | Phone / Video     | Day 7-10  | 70% of webinar    |
+| 4     | Whitepaper         | Email             | Day 10-14 | 80% open rate     |
+| 5     | Contract Proposal  | Email             | Day 14-18 | 60% request DD    |
+| 6     | Due Diligence      | Email + Call      | Day 18-28 | 80% proceed       |
+| 7     | Benefits Showcase  | Email + Call      | Day 25-30 | 70% intent        |
+| 8     | Lunch & Signatures | In-person / Video | Day 28-35 | 80% sign          |
+| 9     | Work Plan          | Email + Doc       | Day 35-42 | 100% activated    |
+| 10    | Meetings           | Video + Email     | Quarterly | 90% attendance    |
+| 11    | Captain Reporting  | Email             | Monthly   | 100% delivery     |
 
 **Estimated funnel math for 8 Platinum seats:**
+
 - Need ~80 first touches (Stage 1) to close 8 Captains
 - At 15% reply rate → 12 conversations
 - At 60% webinar → 7 webinars
@@ -373,16 +396,17 @@ Your score:   [engagement rating]
 
 All outreach emails route through the existing Firehorse email infrastructure:
 
-| Component | Endpoint / Service |
-|-----------|-------------------|
-| **Queue email** | `POST /api/v1/email/send` (async via Redis Streams) |
-| **Direct email** | `POST /api/v1/email/send-direct` (immediate) |
-| **Provider** | Resend (primary) → SendGrid (fallback) |
-| **Source tracking** | `source: "outreach"` |
-| **Audit trail** | Supabase `email_logs` + `email_queue` tables |
-| **Daily digest** | Automatic Mon-Fri 06:00 via `daily-digest.ts` |
+| Component           | Endpoint / Service                                  |
+| ------------------- | --------------------------------------------------- |
+| **Queue email**     | `POST /api/v1/email/send` (async via Redis Streams) |
+| **Direct email**    | `POST /api/v1/email/send-direct` (immediate)        |
+| **Provider**        | Resend (primary) → SendGrid (fallback)              |
+| **Source tracking** | `source: "outreach"`                                |
+| **Audit trail**     | Supabase `email_logs` + `email_queue` tables        |
+| **Daily digest**    | Automatic Mon-Fri 06:00 via `daily-digest.ts`       |
 
 **Campaign tracking fields:**
+
 - `campaign_id`: `captain-acquisition-2026-q1`
 - `template_type`: `custom`
 - `metadata.funnel_stage`: `1` through `11`
@@ -396,16 +420,19 @@ All outreach emails route through the existing Firehorse email infrastructure:
 LinkedIn is the primary channel for Stage 1 (DM) and Stage 2 (webinar invite).
 
 **Daily cadence:**
+
 - 5 connection requests to targeted industry operators (Mon-Fri)
 - 3 personalized DMs to accepted connections
 - 1 LinkedIn post per week referencing the Captain program (not selling — sharing industry insights)
 
 **Profile optimization:**
+
 - Headline references Fit for 55 + 16 industries
 - Featured section links to `dws10.com/captain/`
 - Activity: regular posts about EU regulation deadlines, industry compliance news
 
 **DM rules:**
+
 - Never send a pitch deck in first message
 - Always reference something specific about their profile or company
 - End with a question, not a CTA
@@ -415,15 +442,15 @@ LinkedIn is the primary channel for Stage 1 (DM) and Stage 2 (webinar invite).
 
 ## File Index
 
-| Deliverable | File | Status |
-|-------------|------|--------|
-| This funnel | `CAPTAIN_ACQUISITION_FUNNEL.md` | Active |
-| Construction teaser DM | `CONSTRUCTION_TEASER_DM.md` | Active |
-| Captain landing page | `dws10.com/captain/index.html` | Live |
-| Investor outreach workflow | `OUTREACH_WORKFLOW.md` | Active |
-| CEO Profile (Magazine) | `docs/CEO_PROFILE_RISTO_PAARNI_2026.md` | Active |
-| Founder Playbook | `docs/FOUNDER_CREDIBILITY_PLAYBOOK.md` | Active |
+| Deliverable                | File                                    | Status |
+| -------------------------- | --------------------------------------- | ------ |
+| This funnel                | `CAPTAIN_ACQUISITION_FUNNEL.md`         | Active |
+| Construction teaser DM     | `CONSTRUCTION_TEASER_DM.md`             | Active |
+| Captain landing page       | `dws10.com/captain/index.html`          | Live   |
+| Investor outreach workflow | `OUTREACH_WORKFLOW.md`                  | Active |
+| CEO Profile (Magazine)     | `docs/CEO_PROFILE_RISTO_PAARNI_2026.md` | Active |
+| Founder Playbook           | `docs/FOUNDER_CREDIBILITY_PLAYBOOK.md`  | Active |
 
 ---
 
-*Document Version 1.0 — 15 February 2026 — Lifetime Oy*
+_Document Version 1.0 — 15 February 2026 — Lifetime Oy_

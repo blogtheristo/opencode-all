@@ -209,7 +209,7 @@
 │                                                                          │
 │  Distribution:                                                          │
 │  • Email to team                                                        │
-│  • Slack notification                                                   │
+│  • WhatsApp / webhook notification                                      │
 │  • Dashboard update                                                     │
 │  • CSV export for analysis                                             │
 │                                                                          │
@@ -249,34 +249,39 @@
 ## Data Flow Summary
 
 ```
-Contact Added → Daily Automation → Email Sent → Investor Opens → 
-Clicks Link → Lands on Page → Fills Form → Logged in Supabase → 
+Contact Added → Daily Automation → Email Sent → Investor Opens →
+Clicks Link → Lands on Page → Fills Form → Logged in Supabase →
 Daily Report → Follow-up Triggered → Meeting Scheduled
 ```
 
 ## Key Integration Points
 
 ### 1. Supabase ↔ Automation
+
 - Automation queries Supabase for contacts
 - Updates contact status after sending
 - Logs all campaign activity
 
 ### 2. Automation ↔ Email Service
+
 - Sends emails via API
 - Receives webhooks for events
 - Handles bounces and unsubscribes
 
 ### 3. Email ↔ Landing Page
+
 - Tracking links with UTM parameters
 - Campaign and investor IDs in URL
 - JavaScript tracking on page
 
 ### 4. Landing Page ↔ Supabase
+
 - Form submissions saved directly
 - Page views logged to campaign_logs
 - Real-time updates
 
 ### 5. Supabase ↔ Reporting
+
 - Daily queries for metrics
 - Aggregation and analysis
 - Export to various formats
@@ -296,6 +301,7 @@ Future: Multi-channel (Email + Social + Content + Events)
 ## System Requirements
 
 ### Infrastructure
+
 - **Database**: Supabase (PostgreSQL)
 - **Email**: SendGrid / Mailgun / AWS SES
 - **Automation**: Node.js + Cron / Cloud Functions
@@ -303,12 +309,14 @@ Future: Multi-channel (Email + Social + Content + Events)
 - **Analytics**: Supabase + Custom dashboards
 
 ### Accounts Needed
+
 - ✅ Supabase (free tier: 500MB, 2GB bandwidth)
 - ✅ SendGrid (free tier: 100 emails/day)
 - ✅ Domain with DNS access (for SPF/DKIM)
 - ✅ Node.js environment (local or cloud)
 
 ### Cost Estimate
+
 - **Supabase**: $0/month (free tier)
 - **SendGrid**: $0/month (free tier) or $15/month (40k emails)
 - **Hosting**: $0 (using existing)
@@ -317,6 +325,7 @@ Future: Multi-channel (Email + Social + Content + Events)
 ## Performance Metrics
 
 ### Target Performance
+
 - **Email Delivery**: <1 second per email
 - **Database Queries**: <100ms
 - **Page Load**: <2 seconds
@@ -324,6 +333,7 @@ Future: Multi-channel (Email + Social + Content + Events)
 - **Report Generation**: <10 seconds
 
 ### Scalability
+
 - **Current**: 20 emails/day = 400/month
 - **Scale to**: 100 emails/day = 2,000/month
 - **Maximum**: 500 emails/day = 10,000/month (with paid plan)
@@ -332,6 +342,6 @@ Future: Multi-channel (Email + Social + Content + Events)
 
 **System Status**: ✅ Architecture Complete  
 **Next Step**: Implement according to QUICK_START.md  
-**Documentation**: See INDEX.md for all guides  
+**Documentation**: See INDEX.md for all guides
 
 **Last Updated**: December 27, 2025

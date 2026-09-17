@@ -1,4 +1,5 @@
 # Admin Manual: Security Monitoring & Incident Response
+
 ## Daily Operations and Alert Management
 
 **Document Version**: 1.0.0  
@@ -15,7 +16,7 @@ This manual covers daily security monitoring, log analysis, alert management, an
 
 **Log Location**: `logs/security/`  
 **Retention**: 90 days (GDPR compliance)  
-**Alert Channels**: Email, PagerDuty, Slack  
+**Alert Channels**: Email, PagerDuty, WhatsApp / webhook  
 **On-Call**: 24/7 rotation
 
 ---
@@ -41,6 +42,7 @@ python scripts/security/pattern_analysis.py --days 7
 ```
 
 **Expected Output**:
+
 ```
 ✅ Security Summary for 2026-01-01
    - Total Events: 145
@@ -48,13 +50,13 @@ python scripts/security/pattern_analysis.py --days 7
    - WARNING: 20 (13.8%)
    - ERROR: 4 (2.8%)
    - CRITICAL: 1 (0.7%)
-   
+
 ✅ Blocked Attempts:
    - PROMPT_INJECTION_ATTEMPT: 15
    - DATA_EXFILTRATION_ATTEMPT: 3
    - CSRF_ATTEMPT: 2
    - OPEN_REDIRECT_ATTEMPT: 0
-   
+
 ✅ Top Affected Customers:
    1. customer-123: 8 events
    2. customer-456: 5 events
@@ -71,6 +73,7 @@ python scripts/security/pattern_analysis.py --days 7
 **Description**: Hidden instructions detected in user content
 
 **Example Log**:
+
 ```json
 {
   "timestamp": "2026-01-02T12:00:00.000Z",
@@ -90,11 +93,13 @@ python scripts/security/pattern_analysis.py --days 7
 ```
 
 **Action Required**:
+
 - **1-5 attempts/day**: Normal - log only
 - **6-20 attempts/day**: Review customer uploads
 - **21+ attempts/day**: Investigate immediately, possible attack
 
 **Response**:
+
 ```bash
 # Identify affected documents
 grep "PROMPT_INJECTION_ATTEMPT" logs/security/security_*.log | grep "customer-123"
@@ -114,6 +119,7 @@ python scripts/security/sanitize_document.py --document doc-id-456
 **Description**: Attempt to send data to untrusted domain
 
 **Example Log**:
+
 ```json
 {
   "timestamp": "2026-01-02T12:00:00.000Z",
@@ -134,6 +140,7 @@ python scripts/security/sanitize_document.py --document doc-id-456
 **Action Required**: IMMEDIATE
 
 **Response**:
+
 ```bash
 # 1. Suspend customer API access (0-5 minutes)
 python scripts/admin/suspend_customer.py --customer-id customer-123 --reason "Security incident - data exfiltration attempt"
@@ -159,6 +166,7 @@ python scripts/admin/send_security_notification.py --customer customer-123 --tem
 **Description**: Cross-site request forgery attempt
 
 **Example Log**:
+
 ```json
 {
   "timestamp": "2026-01-02T12:00:00.000Z",
@@ -178,11 +186,13 @@ python scripts/admin/send_security_notification.py --customer customer-123 --tem
 ```
 
 **Action Required**:
+
 - **1-10 attempts/day**: Normal - log only
 - **11-50 attempts/day**: Review source IPs
 - **51+ attempts/day**: Block IP range, investigate
 
 **Response**:
+
 ```bash
 # Check if coordinated attack
 grep "CSRF_ATTEMPT" logs/security/security_*.log | grep -o '"ip_address": "[^"]*"' | sort | uniq -c | sort -rn
@@ -199,6 +209,7 @@ python scripts/admin/block_ip.py --ip 192.168.1.100 --duration 24h --reason "CSR
 **Description**: SQL injection pattern detected
 
 **Example Log**:
+
 ```json
 {
   "timestamp": "2026-01-02T12:00:00.000Z",
@@ -219,6 +230,7 @@ python scripts/admin/block_ip.py --ip 192.168.1.100 --duration 24h --reason "CSR
 **Action Required**: IMMEDIATE
 
 **Response**:
+
 ```bash
 # 1. Emergency code review
 python scripts/security/audit_sql_injection.py src/
@@ -243,6 +255,7 @@ python scripts/deploy/emergency_deploy.py --reason "SQL injection fix"
 **Description**: Open redirect vulnerability exploitation attempt
 
 **Example Log**:
+
 ```json
 {
   "timestamp": "2026-01-02T12:00:00.000Z",
@@ -260,6 +273,7 @@ python scripts/deploy/emergency_deploy.py --reason "SQL injection fix"
 ```
 
 **Action Required**:
+
 - **1-5 attempts/day**: Normal - log only
 - **6-20 attempts/day**: Review patterns
 - **21+ attempts/day**: Investigate phishing campaign
@@ -272,6 +286,7 @@ python scripts/deploy/emergency_deploy.py --reason "SQL injection fix"
 **Description**: Cross-agent privilege escalation attempt
 
 **Example Log**:
+
 ```json
 {
   "timestamp": "2026-01-02T12:00:00.000Z",
@@ -292,6 +307,7 @@ python scripts/deploy/emergency_deploy.py --reason "SQL injection fix"
 **Action Required**: IMMEDIATE
 
 **Response**:
+
 ```bash
 # 1. Verify config file integrity
 md5sum ~/.config/dws6/settings.json
@@ -310,6 +326,7 @@ python scripts/security/audit_agent_permissions.py
 ### Tier 1: INFO (Log Only)
 
 **Criteria**:
+
 - Normal security events
 - Successful validations
 - Configuration changes (authorized)
@@ -319,29 +336,34 @@ python scripts/security/audit_agent_permissions.py
 ### Tier 2: WARNING (Email Alert)
 
 **Criteria**:
+
 - 1-20 blocked attempts/day
 - Single CSRF attempt
 - Single prompt injection attempt
 
 **Action**:
+
 - Email to security@dws10.com
 - Review during daily morning check
 
-### Tier 3: ERROR (Slack Alert)
+### Tier 3: ERROR (WhatsApp / webhook Alert)
 
 **Criteria**:
+
 - 21-50 blocked attempts/day
 - Multiple attempts from same customer
 - Unusual attack patterns
 
 **Action**:
-- Slack notification to #security channel
+
+- WhatsApp / webhook notification to security ops
 - Review within 1 hour
 - Investigate if pattern continues
 
 ### Tier 4: CRITICAL (PagerDuty Alert)
 
 **Criteria**:
+
 - 51+ blocked attempts/day
 - Data exfiltration attempt
 - SQL injection attempt
@@ -349,6 +371,7 @@ python scripts/security/audit_agent_permissions.py
 - System compromise indicators
 
 **Action**:
+
 - PagerDuty alert to on-call engineer
 - Immediate response (< 15 minutes)
 - Incident commander assigned
@@ -368,6 +391,7 @@ python scripts/security/weekly_report.py --week last
 ```
 
 **Report Sections**:
+
 1. Executive Summary
 2. Event Statistics
 3. Top Affected Customers
@@ -376,6 +400,7 @@ python scripts/security/weekly_report.py --week last
 6. Recommendations
 
 **Distribution**:
+
 - CEO (risto@lifetime.fi)
 - CTO
 - Security Team
@@ -388,12 +413,14 @@ python scripts/security/weekly_report.py --week last
 ### Agenda (First Monday of Month)
 
 **Attendees**:
+
 - Security Team Lead
 - DevOps Lead
 - Customer Success Manager
 - CEO (optional)
 
 **Topics**:
+
 1. Review previous month's incidents
 2. Analyze trends
 3. Update threat model
@@ -402,6 +429,7 @@ python scripts/security/weekly_report.py --week last
 6. Budget review
 
 **Deliverables**:
+
 - Monthly security report
 - Updated threat model
 - Action items for next month
@@ -415,6 +443,7 @@ python scripts/security/weekly_report.py --week last
 **Trigger**: 10+ exfiltration attempts in 1 hour
 
 **Steps**:
+
 1. **Immediate** (0-15 min):
    - Suspend all affected customer accounts
    - Block source IPs
@@ -445,6 +474,7 @@ python scripts/security/weekly_report.py --week last
 **Trigger**: SQL injection pattern in logs
 
 **Steps**:
+
 1. **Immediate** (0-5 min):
    - Take affected service offline
    - Alert security team
@@ -477,21 +507,23 @@ python scripts/security/weekly_report.py --week last
 
 ### Retention Policy
 
-| Log Type | Retention | Storage | Compliance |
-|----------|-----------|---------|------------|
-| **Security Events** | 90 days | Hot storage | GDPR Art. 32 |
-| **Audit Trail** | 7 years | Cold storage | ISO 27001 |
-| **Incident Reports** | Permanent | Encrypted archive | NIS2 |
+| Log Type             | Retention | Storage           | Compliance   |
+| -------------------- | --------- | ----------------- | ------------ |
+| **Security Events**  | 90 days   | Hot storage       | GDPR Art. 32 |
+| **Audit Trail**      | 7 years   | Cold storage      | ISO 27001    |
+| **Incident Reports** | Permanent | Encrypted archive | NIS2         |
 
 ### GDPR Compliance
 
 **Right to Erasure** (Art. 17):
+
 ```bash
 # Remove customer data from logs
 python scripts/gdpr/erase_customer_logs.py --customer customer-123 --reason "GDPR erasure request"
 ```
 
 **Data Export** (Art. 20):
+
 ```bash
 # Export customer security logs
 python scripts/gdpr/export_customer_logs.py --customer customer-123 --format json
@@ -503,18 +535,19 @@ python scripts/gdpr/export_customer_logs.py --customer customer-123 --format jso
 
 ### Contact Matrix
 
-| Severity | Contact | Response Time |
-|----------|---------|---------------|
-| **INFO** | security@dws10.com | Next business day |
-| **WARNING** | security@dws10.com | 4 hours |
-| **ERROR** | Slack #security | 1 hour |
-| **CRITICAL** | PagerDuty + risto@lifetime.fi | 15 minutes |
+| Severity     | Contact                       | Response Time     |
+| ------------ | ----------------------------- | ----------------- |
+| **INFO**     | security@dws10.com            | Next business day |
+| **WARNING**  | security@dws10.com            | 4 hours           |
+| **ERROR**    | WhatsApp / webhook            | 1 hour            |
+| **CRITICAL** | PagerDuty + risto@lifetime.fi | 15 minutes        |
 
 ### On-Call Rotation
 
 **Schedule**: 24/7 coverage, 1-week rotations
 
 **Responsibilities**:
+
 - Monitor PagerDuty alerts
 - Respond to critical incidents
 - Escalate to security team lead if needed

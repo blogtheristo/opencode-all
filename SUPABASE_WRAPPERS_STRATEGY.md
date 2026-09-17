@@ -1,23 +1,27 @@
 # Supabase Wrappers Strategy - DWS6 Ecosystem
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial analysis of Supabase wrappers and integrations strategy
+
+- Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial analysis of Supabase wrappers and integrations strategy
 
 Session Links & References:
-  - GitHub: https://github.com/blogtheristo/dws6/commits/main
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/SUPABASE_WRAPPERS_STRATEGY.md
+
+- GitHub: https://github.com/blogtheristo/dws6/commits/main
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/SUPABASE_WRAPPERS_STRATEGY.md
 
 Document Status:
-  - Created: 30.12.2025
-  - Last Modified: 30.12.2025
-  - Language: English
-  - Languages Available: English
-  - Publication Status: ✅ ACTIVE
+
+- Created: 30.12.2025
+- Last Modified: 30.12.2025
+- Language: English
+- Languages Available: English
+- Publication Status: ✅ ACTIVE
 
 ---
 
@@ -25,16 +29,16 @@ Document Status:
 
 **Recommended Wrappers for DWS6:**
 
-| Priority | Wrapper | Use Case | Status |
-|----------|---------|----------|--------|
-| 🔥 **HIGH** | **Stripe Sync Engine** | Payment & subscription sync | ✅ Recommended |
-| 🔥 **HIGH** | **Cron** | Scheduled jobs & automation | ✅ Recommended |
-| 🔥 **HIGH** | **Database Webhooks** | Real-time notifications | ✅ Recommended |
-| 🔥 **HIGH** | **Queues** | Background job processing | ✅ Recommended |
-| 🟡 **MEDIUM** | **Slack Wrapper** | Team notifications | ⚠️ Consider |
-| 🟡 **MEDIUM** | **S3 Wrapper** | Document storage | ⚠️ Consider |
-| 🟢 **LOW** | **Redis Wrapper** | Advanced caching | 🔄 Future |
-| 🟢 **LOW** | **HubSpot Wrapper** | CRM integration | 🔄 Future |
+| Priority      | Wrapper                | Use Case                                                                | Status         |
+| ------------- | ---------------------- | ----------------------------------------------------------------------- | -------------- |
+| 🔥 **HIGH**   | **Stripe Sync Engine** | Payment & subscription sync                                             | ✅ Recommended |
+| 🔥 **HIGH**   | **Cron**               | Scheduled jobs & automation                                             | ✅ Recommended |
+| 🔥 **HIGH**   | **Database Webhooks**  | Real-time notifications                                                 | ✅ Recommended |
+| 🔥 **HIGH**   | **Queues**             | Background job processing                                               | ✅ Recommended |
+| 🟡 **MEDIUM** | **HTTP Webhooks**      | Team notifications (WhatsApp / generic webhook; Slack wrapper not used) | ⚠️ Consider    |
+| 🟡 **MEDIUM** | **S3 Wrapper**         | Document storage                                                        | ⚠️ Consider    |
+| 🟢 **LOW**    | **Redis Wrapper**      | Advanced caching                                                        | 🔄 Future      |
+| 🟢 **LOW**    | **HubSpot Wrapper**    | CRM integration                                                         | 🔄 Future      |
 
 ---
 
@@ -47,6 +51,7 @@ Document Status:
 #### Why Use It?
 
 **Automatic Data Sync:**
+
 ```
 Stripe Account → Supabase Database
 ├── Customers
@@ -90,11 +95,11 @@ Stripe Account → Supabase Database
 SELECT * FROM stripe.customers;
 
 -- Subscriptions table
-SELECT * FROM stripe.subscriptions 
+SELECT * FROM stripe.subscriptions
 WHERE status = 'active';
 
 -- Revenue query for investor dashboard
-SELECT 
+SELECT
   DATE_TRUNC('month', created) AS month,
   COUNT(*) AS new_customers,
   SUM(amount / 100.0) AS revenue
@@ -104,9 +109,9 @@ GROUP BY month
 ORDER BY month DESC;
 
 -- MRR calculation
-SELECT 
+SELECT
   SUM(
-    CASE 
+    CASE
       WHEN interval = 'month' THEN amount / 100.0
       WHEN interval = 'year' THEN (amount / 100.0) / 12
     END
@@ -121,20 +126,19 @@ WHERE s.status = 'active';
 ```javascript
 // V9 Dashboard - Show customer subscription status
 const { data: subscription } = await supabase
-  .from('stripe.subscriptions')
-  .select('status, current_period_end, plan_name')
-  .eq('customer_id', customerId)
-  .single()
+  .from("stripe.subscriptions")
+  .select("status, current_period_end, plan_name")
+  .eq("customer_id", customerId)
+  .single();
 
 // Investor Dashboard - Real-time MRR
-const { data: mrr } = await supabase
-  .rpc('calculate_mrr')
+const { data: mrr } = await supabase.rpc("calculate_mrr");
 
 // People Management - Link employees to Stripe customers
 const { data: customerData } = await supabase
-  .from('stripe.customers')
-  .select('email, subscription_status')
-  .eq('email', employee.email)
+  .from("stripe.customers")
+  .select("email, subscription_status")
+  .eq("email", employee.email);
 ```
 
 #### Cost & Limitations
@@ -157,6 +161,7 @@ Schedule recurring jobs directly in Postgres without external cron services.
 #### Use Cases for DWS6
 
 1. **Daily Reports**
+
    ```sql
    -- Schedule daily KPI summary at 6 AM
    SELECT cron.schedule(
@@ -164,7 +169,7 @@ Schedule recurring jobs directly in Postgres without external cron services.
      '0 6 * * *',
      $$
      INSERT INTO analytics.daily_summaries
-     SELECT 
+     SELECT
        CURRENT_DATE,
        COUNT(*) AS active_projects,
        AVG(spi) AS avg_spi,
@@ -176,19 +181,21 @@ Schedule recurring jobs directly in Postgres without external cron services.
    ```
 
 2. **Automated Backups**
+
    ```sql
    -- Backup critical data daily at 2 AM
    SELECT cron.schedule(
      'daily-backup',
      '0 2 * * *',
      $$
-     COPY (SELECT * FROM projects.projects) 
+     COPY (SELECT * FROM projects.projects)
      TO '/backups/projects_' || CURRENT_DATE || '.csv';
      $$
    );
    ```
 
 3. **Subscription Checks**
+
    ```sql
    -- Check expiring subscriptions daily at 9 AM
    SELECT cron.schedule(
@@ -196,9 +203,9 @@ Schedule recurring jobs directly in Postgres without external cron services.
      '0 9 * * *',
      $$
      INSERT INTO notifications.alerts (type, message, user_id)
-     SELECT 
+     SELECT
        'subscription_expiring',
-       'Your subscription expires in ' || 
+       'Your subscription expires in ' ||
          (current_period_end - CURRENT_DATE) || ' days',
        user_id
      FROM stripe.subscriptions
@@ -209,6 +216,7 @@ Schedule recurring jobs directly in Postgres without external cron services.
    ```
 
 4. **Data Cleanup**
+
    ```sql
    -- Clean old logs weekly on Sunday at 3 AM
    SELECT cron.schedule(
@@ -229,7 +237,7 @@ Schedule recurring jobs directly in Postgres without external cron services.
      '0 8 1 * *',
      $$
      INSERT INTO investor.monthly_reports
-     SELECT 
+     SELECT
        DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month'),
        (SELECT COUNT(*) FROM projects.projects),
        (SELECT SUM(amount) FROM stripe.charges WHERE created >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month')),
@@ -248,8 +256,8 @@ SELECT * FROM cron.job;
 SELECT cron.unschedule('daily-kpi-summary');
 
 -- View job run history
-SELECT * FROM cron.job_run_details 
-ORDER BY start_time DESC 
+SELECT * FROM cron.job_run_details
+ORDER BY start_time DESC
 LIMIT 10;
 ```
 
@@ -266,6 +274,7 @@ Send real-time notifications when database events occur.
 #### Use Cases for DWS6
 
 1. **Real-time Dashboard Updates**
+
    ```sql
    -- Webhook: When project KPI changes, notify V9 Dashboard
    CREATE TRIGGER notify_kpi_change
@@ -279,7 +288,8 @@ Send real-time notifications when database events occur.
    );
    ```
 
-2. **Slack Notifications**
+2. **Webhook / WhatsApp Notifications**
+
    ```sql
    -- Webhook: Alert team when project goes red
    CREATE TRIGGER alert_red_project
@@ -287,7 +297,7 @@ Send real-time notifications when database events occur.
    FOR EACH ROW
    WHEN (NEW.rag_status = 'red' AND OLD.rag_status != 'red')
    EXECUTE FUNCTION supabase_functions.http_request(
-     'https://hooks.slack.com/services/YOUR/WEBHOOK/URL',
+     current_setting('app.notify_webhook_url', true),
      'POST',
      '{"Content-Type": "application/json"}',
      json_build_object(
@@ -297,6 +307,7 @@ Send real-time notifications when database events occur.
    ```
 
 3. **Email Notifications**
+
    ```sql
    -- Webhook: Send email when subscription created
    CREATE TRIGGER new_subscription_email
@@ -337,8 +348,9 @@ Send real-time notifications when database events occur.
 #### Integration with DWS6
 
 **Use Cases:**
+
 - Real-time V9 Dashboard updates
-- Slack alerts for critical events
+- WhatsApp / webhook alerts for critical events
 - Email notifications for subscriptions
 - Webhook to Firehorse for LinkedIn automation
 - Investor report generation triggers
@@ -356,6 +368,7 @@ Lightweight message queue for background job processing.
 #### Use Cases for DWS6
 
 1. **Report Generation**
+
    ```sql
    -- Queue: Generate PDF report in background
    INSERT INTO pgmq.messages (queue_name, message)
@@ -370,6 +383,7 @@ Lightweight message queue for background job processing.
    ```
 
 2. **Email Queue**
+
    ```sql
    -- Queue: Send emails asynchronously
    INSERT INTO pgmq.messages (queue_name, message)
@@ -385,6 +399,7 @@ Lightweight message queue for background job processing.
    ```
 
 3. **Data Processing**
+
    ```sql
    -- Queue: Process large dataset
    INSERT INTO pgmq.messages (queue_name, message)
@@ -416,77 +431,77 @@ Lightweight message queue for background job processing.
 
 ```javascript
 // Background worker to process queue
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(url, serviceRoleKey)
+const supabase = createClient(url, serviceRoleKey);
 
 async function processQueue(queueName) {
   while (true) {
     // Read message from queue
-    const { data: message } = await supabase
-      .rpc('pgmq_read', { queue_name: queueName, vt: 30 })
-    
+    const { data: message } = await supabase.rpc("pgmq_read", { queue_name: queueName, vt: 30 });
+
     if (message) {
       try {
         // Process message
-        await handleMessage(message.message)
-        
+        await handleMessage(message.message);
+
         // Delete message from queue
-        await supabase
-          .rpc('pgmq_delete', { 
-            queue_name: queueName, 
-            msg_id: message.msg_id 
-          })
+        await supabase.rpc("pgmq_delete", {
+          queue_name: queueName,
+          msg_id: message.msg_id,
+        });
       } catch (error) {
-        console.error('Error processing message:', error)
+        console.error("Error processing message:", error);
         // Message will be retried after visibility timeout
       }
     }
-    
+
     // Wait before next poll
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 }
 
 // Start workers
-processQueue('report-generation')
-processQueue('email-queue')
-processQueue('linkedin-automation')
+processQueue("report-generation");
+processQueue("email-queue");
+processQueue("linkedin-automation");
 ```
 
 ---
 
 ## 🟡 MEDIUM PRIORITY WRAPPERS
 
-### 5. Slack Wrapper
+### 5. HTTP Webhooks (not Slack Wrapper)
 
-**Status:** ⚠️ **CONSIDER**
+**Status:** ⚠️ **CONSIDER** — DWS does not use the Slack Wrapper. Prefer `NOTIFY_WEBHOOK_URL` and WhatsApp Business Cloud API.
 
 #### Why Use It?
 
-Query Slack data and send messages directly from Postgres.
+Post notifications from Postgres to a generic webhook or WhatsApp sender. Do not enable `slack.post_message`.
 
 #### Use Cases for DWS6
 
 1. **Team Notifications**
+
    ```sql
-   -- Send Slack message when project milestone reached
-   SELECT slack.post_message(
-     channel => '#projects',
-     text => 'Project Alpha reached 50% completion! 🎉'
+   -- Send webhook when project milestone reached
+   SELECT http_post(
+     current_setting('app.notify_webhook_url', true),
+     '{"text":"Project Alpha reached 50% completion"}'
    );
    ```
 
 2. **Alert Integration**
+
    ```sql
-   -- Send critical alerts to Slack
-   CREATE FUNCTION notify_slack_on_red_status()
+   -- Send critical alerts to NOTIFY_WEBHOOK_URL
+   CREATE FUNCTION notify_webhook_on_red_status()
    RETURNS TRIGGER AS $$
    BEGIN
      IF NEW.rag_status = 'red' THEN
-       PERFORM slack.post_message(
-         channel => '#alerts',
-         text => 'ALERT: Project ' || NEW.name || ' is RED status!'
+       PERFORM http_post(
+         current_setting('app.notify_webhook_url', true),
+         json_build_object('text', 'ALERT: Project ' || NEW.name || ' is RED status!')::text
        );
      END IF;
      RETURN NEW;
@@ -501,8 +516,8 @@ Query Slack data and send messages directly from Postgres.
      'daily-standup',
      '0 9 * * 1-5',
      $$
-     SELECT slack.post_message(
-       channel => '#standup',
+     SELECT http_post(
+       current_setting('app.notify_webhook_url', true),
        text => (
          SELECT 'Today: ' || COUNT(*) || ' active projects, ' ||
                 'MRR: €' || (SELECT SUM(amount)/100 FROM stripe.subscriptions)
@@ -513,7 +528,7 @@ Query Slack data and send messages directly from Postgres.
    );
    ```
 
-**Alternative:** Use Database Webhooks to Slack webhook URL (simpler, no wrapper needed).
+**Alternative:** Use Database Webhooks to `NOTIFY_WEBHOOK_URL` (simpler, no wrapper needed).
 
 ---
 
@@ -528,6 +543,7 @@ Store and query files in AWS S3 directly from Postgres.
 #### Use Cases for DWS6
 
 1. **Document Storage**
+
    ```sql
    -- Store project documents
    INSERT INTO s3.documents
@@ -595,15 +611,15 @@ CRM integration for sales pipeline.
 
 ### Wrappers to Skip
 
-| Wrapper | Reason |
-|---------|--------|
+| Wrapper                 | Reason                       |
+| ----------------------- | ---------------------------- |
 | **Auth0/Clerk/Cognito** | Use Supabase Auth (built-in) |
-| **Firebase** | Redundant with Supabase |
-| **BigQuery/Snowflake** | Overkill for current scale |
-| **ClickHouse** | Not needed for analytics yet |
-| **Airtable/Notion** | Use Supabase tables instead |
-| **Calendly/Cal.com** | Not relevant to DWS6 |
-| **Paddle/Orb** | Already using Stripe |
+| **Firebase**            | Redundant with Supabase      |
+| **BigQuery/Snowflake**  | Overkill for current scale   |
+| **ClickHouse**          | Not needed for analytics yet |
+| **Airtable/Notion**     | Use Supabase tables instead  |
+| **Calendly/Cal.com**    | Not relevant to DWS6         |
+| **Paddle/Orb**          | Already using Stripe         |
 
 ---
 
@@ -626,7 +642,7 @@ CRM integration for sales pipeline.
   - Test job execution
 
 - [ ] **Enable Database Webhooks**
-  - Set up Slack webhook for alerts
+  - Set up NOTIFY_WEBHOOK_URL or WhatsApp alerts
   - Configure real-time dashboard updates
   - Test webhook delivery
   - Monitor webhook logs
@@ -655,7 +671,7 @@ CRM integration for sales pipeline.
 
 - [ ] **Webhooks**
   - Real-time V9 Dashboard updates
-  - Slack alerts for critical events
+  - WhatsApp / webhook alerts for critical events
   - Email notifications
   - Audit logging
 
@@ -669,7 +685,7 @@ CRM integration for sales pipeline.
 
 **Priority: LOW**
 
-- [ ] **Slack Wrapper** (if needed)
+- [ ] **HTTP webhooks / WhatsApp** (if needed)
   - Team notifications
   - Daily standup reports
   - Alert integration
@@ -685,14 +701,14 @@ CRM integration for sales pipeline.
 
 ### Wrapper Costs
 
-| Wrapper | Cost | Notes |
-|---------|------|-------|
-| **Stripe Sync Engine** | Free (alpha) | May have cost after alpha |
-| **Cron** | Free | Included in Supabase |
-| **Database Webhooks** | Free | Included in Supabase |
-| **Queues** | Free | Included in Supabase |
-| **Slack Wrapper** | Free | Wrapper is free, Slack may have costs |
-| **S3 Wrapper** | Free | Wrapper is free, S3 storage costs apply |
+| Wrapper                | Cost         | Notes                                       |
+| ---------------------- | ------------ | ------------------------------------------- |
+| **Stripe Sync Engine** | Free (alpha) | May have cost after alpha                   |
+| **Cron**               | Free         | Included in Supabase                        |
+| **Database Webhooks**  | Free         | Included in Supabase                        |
+| **Queues**             | Free         | Included in Supabase                        |
+| **HTTP Webhooks**      | Free         | Prefer NOTIFY_WEBHOOK_URL; no Slack Wrapper |
+| **S3 Wrapper**         | Free         | Wrapper is free, S3 storage costs apply     |
 
 **Total Additional Cost:** €0/month (all free!)
 
@@ -709,13 +725,13 @@ Store all API keys in Supabase Vault:
 INSERT INTO vault.secrets (name, secret)
 VALUES ('stripe_api_key', 'sk_live_...');
 
--- Store Slack webhook URL
+-- Store generic notification webhook URL
 INSERT INTO vault.secrets (name, secret)
-VALUES ('slack_webhook_url', 'https://hooks.slack.com/...');
+VALUES ('notify_webhook_url', 'https://ntfy.sh/your-topic');
 
 -- Retrieve secret in function
-SELECT decrypted_secret 
-FROM vault.decrypted_secrets 
+SELECT decrypted_secret
+FROM vault.decrypted_secrets
 WHERE name = 'stripe_api_key';
 ```
 
@@ -738,35 +754,35 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 ### Stripe Sync Engine
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| Sync Latency | < 5 minutes | Time from Stripe event to DB |
-| Data Accuracy | 100% | Compare Stripe dashboard vs. DB |
-| MRR Calculation | Real-time | Query performance < 100ms |
+| Metric          | Target      | Measurement                     |
+| --------------- | ----------- | ------------------------------- |
+| Sync Latency    | < 5 minutes | Time from Stripe event to DB    |
+| Data Accuracy   | 100%        | Compare Stripe dashboard vs. DB |
+| MRR Calculation | Real-time   | Query performance < 100ms       |
 
 ### Cron Jobs
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| Job Success Rate | > 99% | Failed jobs / Total jobs |
-| Execution Time | < 30s | Average job duration |
-| Missed Schedules | 0 | Jobs that didn't run on time |
+| Metric           | Target | Measurement                  |
+| ---------------- | ------ | ---------------------------- |
+| Job Success Rate | > 99%  | Failed jobs / Total jobs     |
+| Execution Time   | < 30s  | Average job duration         |
+| Missed Schedules | 0      | Jobs that didn't run on time |
 
 ### Database Webhooks
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| Delivery Success | > 99% | Successful deliveries / Total |
-| Delivery Latency | < 1s | Time from event to delivery |
-| Retry Rate | < 5% | Webhooks requiring retry |
+| Metric           | Target | Measurement                   |
+| ---------------- | ------ | ----------------------------- |
+| Delivery Success | > 99%  | Successful deliveries / Total |
+| Delivery Latency | < 1s   | Time from event to delivery   |
+| Retry Rate       | < 5%   | Webhooks requiring retry      |
 
 ### Queues
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| Processing Time | < 10s | Average message processing time |
-| Queue Depth | < 100 | Messages waiting in queue |
-| Failed Messages | < 1% | Messages that failed processing |
+| Metric          | Target | Measurement                     |
+| --------------- | ------ | ------------------------------- |
+| Processing Time | < 10s  | Average message processing time |
+| Queue Depth     | < 100  | Messages waiting in queue       |
+| Failed Messages | < 1%   | Messages that failed processing |
 
 ---
 
@@ -781,7 +797,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 ### ⏳ ENABLE LATER
 
-5. **Slack Wrapper** - When team grows
+5. **HTTP Webhooks / WhatsApp** - When team notifications are needed
 6. **S3 Wrapper** - When document storage needs increase
 
 ### ❌ SKIP
@@ -825,4 +841,3 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 **License:** Proprietary - Lifetime Oy  
 **Contact:** risto@lifetime.fi
-

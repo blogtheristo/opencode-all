@@ -119,7 +119,8 @@ INVESTOR_PAGE_URL=https://dws10.com/investor-relations/
 
 # Alerts
 ALERT_EMAIL=team@dws10.com
-SLACK_WEBHOOK=your-slack-webhook-url
+NOTIFY_WEBHOOK_URL=https://ntfy.sh/your-topic
+WHATSAPP_DEFAULT_RECIPIENT=+358401234567
 ```
 
 ### Step 3: Update Investor Relations Page

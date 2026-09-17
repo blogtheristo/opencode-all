@@ -1163,7 +1163,7 @@ git push origin main
 # [restore command for your hosting]
 
 # Notify team
-# Post in Slack/Teams: "🚨 Rolled back [feature] due to [issue]"
+# Post via WhatsApp/webhook: "Rolled back [feature] due to [issue]"
 ```
 
 ---

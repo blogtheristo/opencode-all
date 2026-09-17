@@ -1,24 +1,28 @@
 # SEO Sales Agent Pipeline — Agent Specification
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/seo-sales-agent-pipeline-7et5F | Date: 20.02.2026 | Changes: Initial specification — 5 SEO sales agents with input/output contracts, orchestration architecture, integration points
+
+- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/seo-sales-agent-pipeline-7et5F | Date: 20.02.2026 | Changes: Initial specification — 5 SEO sales agents with input/output contracts, orchestration architecture, integration points
 
 Session Links & References:
-  - Claude Code (claude/seo-sales-agent-pipeline-7et5F): https://github.com/blogtheristo/dws6/commits/claude/seo-sales-agent-pipeline-7et5F
+
+- Claude Code (claude/seo-sales-agent-pipeline-7et5F): https://github.com/blogtheristo/dws6/commits/claude/seo-sales-agent-pipeline-7et5F
 
 Document Status:
-  - Created: 20.02.2026
-  - Last Modified: 20.02.2026
-  - Language: EN
-  - Languages Available: EN
-  - Publication Status: ACTIVE
 
-***
+- Created: 20.02.2026
+- Last Modified: 20.02.2026
+- Language: EN
+- Languages Available: EN
+- Publication Status: ACTIVE
+
+---
 
 **Effective Date:** February 2026
 **Scope:** DWS IQ 6 SEO-to-Sales pipeline across dws10.com, dws6.com, onelifetime.world
@@ -91,15 +95,15 @@ interface KeywordIntentInput {
     searchVolume: number;
     difficulty: number;
     cpc: number;
-    trend: 'rising' | 'stable' | 'declining';
+    trend: "rising" | "stable" | "declining";
   }>;
   /** ICP definition for relevance scoring */
   icpProfile: {
-    industries: string[];    // e.g., ["construction", "manufacturing", "logistics"]
-    companySize: string;     // e.g., "50-5000 employees"
-    regions: string[];       // e.g., ["nordics", "dach", "eu"]
-    painPoints: string[];    // e.g., ["csrd-reporting", "ets-compliance"]
-    regulations: string[];   // e.g., ["fit-for-55", "csrd", "nis2"]
+    industries: string[]; // e.g., ["construction", "manufacturing", "logistics"]
+    companySize: string; // e.g., "50-5000 employees"
+    regions: string[]; // e.g., ["nordics", "dach", "eu"]
+    painPoints: string[]; // e.g., ["csrd-reporting", "ets-compliance"]
+    regulations: string[]; // e.g., ["fit-for-55", "csrd", "nis2"]
   };
 }
 ```
@@ -111,15 +115,15 @@ interface KeywordIntentOutput {
   /** Prioritized keyword queue, sorted by composite score */
   priorityQueue: Array<{
     keyword: string;
-    funnelStage: 'tofu' | 'mofu' | 'bofu';
+    funnelStage: "tofu" | "mofu" | "bofu";
     currentPosition: number | null;
     searchVolume: number;
     difficulty: number;
-    icpRelevance: number;    // 0-1
-    quickWin: boolean;       // true if position 8-15
-    compositeScore: number;  // weighted aggregate
-    cluster: string;         // e.g., "nis2-compliance", "construction-carbon"
-    suggestedContentType: 'blog' | 'landing-page' | 'case-study' | 'product-page' | 'comparison';
+    icpRelevance: number; // 0-1
+    quickWin: boolean; // true if position 8-15
+    compositeScore: number; // weighted aggregate
+    cluster: string; // e.g., "nis2-compliance", "construction-carbon"
+    suggestedContentType: "blog" | "landing-page" | "case-study" | "product-page" | "comparison";
   }>;
   /** Funnel stage distribution summary */
   funnelDistribution: {
@@ -132,7 +136,7 @@ interface KeywordIntentOutput {
     keyword: string;
     currentPosition: number;
     estimatedClicksGain: number;
-    effort: 'low' | 'medium' | 'high';
+    effort: "low" | "medium" | "high";
   }>;
   /** Keyword clusters grouped by topic */
   clusters: Record<string, string[]>;
@@ -141,11 +145,11 @@ interface KeywordIntentOutput {
 
 #### Classification Rules
 
-| Signal | TOFU | MOFU | BOFU |
-|--------|------|------|------|
-| Query contains | "what is", "guide", "overview" | "vs", "comparison", "best", "how to" | "pricing", "demo", "buy", "implementation" |
-| Regulatory terms | General regulation name | Specific article/requirement | Compliance tool + regulation |
-| Example | "EU AI Act overview" | "CSRD vs GRI reporting" | "CSRD reporting automation pricing" |
+| Signal           | TOFU                           | MOFU                                 | BOFU                                       |
+| ---------------- | ------------------------------ | ------------------------------------ | ------------------------------------------ |
+| Query contains   | "what is", "guide", "overview" | "vs", "comparison", "best", "how to" | "pricing", "demo", "buy", "implementation" |
+| Regulatory terms | General regulation name        | Specific article/requirement         | Compliance tool + regulation               |
+| Example          | "EU AI Act overview"           | "CSRD vs GRI reporting"              | "CSRD reporting automation pricing"        |
 
 ---
 
@@ -164,10 +168,10 @@ interface CompetitorSurveillanceInput {
     id: string;
     name: string;
     domain: string;
-    category: 'direct' | 'indirect' | 'adjacent' | 'substitute';
-    trackingUrls: string[];    // specific pages to monitor
+    category: "direct" | "indirect" | "adjacent" | "substitute";
+    trackingUrls: string[]; // specific pages to monitor
     lastCrawlDate: string;
-    lastCrawlHash: string;     // content hash for change detection
+    lastCrawlHash: string; // content hash for change detection
   }>;
   /** Our current content inventory */
   ownContent: Array<{
@@ -190,11 +194,11 @@ interface CompetitorSurveillanceOutput {
   changes: Array<{
     competitorId: string;
     competitorName: string;
-    changeType: 'new-page' | 'content-update' | 'pricing-change' | 'meta-change' | 'new-feature';
+    changeType: "new-page" | "content-update" | "pricing-change" | "meta-change" | "new-feature";
     url: string;
     summary: string;
     detectedAt: string;
-    severity: 'low' | 'medium' | 'high';
+    severity: "low" | "medium" | "high";
     contentHash: string;
   }>;
   /** Content gaps — topics competitors cover that we don't */
@@ -202,8 +206,8 @@ interface CompetitorSurveillanceOutput {
     topic: string;
     competitorsCovering: string[];
     estimatedSearchVolume: number;
-    relevanceToIcp: number;    // 0-1
-    suggestedAction: 'create-new' | 'expand-existing' | 'ignore';
+    relevanceToIcp: number; // 0-1
+    suggestedAction: "create-new" | "expand-existing" | "ignore";
     relatedCluster: string;
   }>;
   /** Pricing intelligence */
@@ -229,13 +233,13 @@ interface CompetitorSurveillanceOutput {
 
 Per `DWS_MARKET_RESEARCH_STANDARD.md`, the default competitor set:
 
-| Competitor | Category | Domain | Focus |
-|-----------|----------|--------|-------|
-| Boardy.ai | Direct | boardy.ai | AI networking |
-| Normative.io | Direct | normative.io | Carbon accounting |
-| Persefoni | Direct | persefoni.ai | Climate management |
-| Sweep | Indirect | sweep.net | Carbon management |
-| Plan A | Indirect | plana.earth | Decarbonization |
+| Competitor   | Category | Domain       | Focus              |
+| ------------ | -------- | ------------ | ------------------ |
+| Boardy.ai    | Direct   | boardy.ai    | AI networking      |
+| Normative.io | Direct   | normative.io | Carbon accounting  |
+| Persefoni    | Direct   | persefoni.ai | Climate management |
+| Sweep        | Indirect | sweep.net    | Carbon management  |
+| Plan A       | Indirect | plana.earth  | Decarbonization    |
 
 ---
 
@@ -252,10 +256,10 @@ interface ContentBriefInput {
   /** Target keyword from priority queue */
   targetKeyword: {
     keyword: string;
-    funnelStage: 'tofu' | 'mofu' | 'bofu';
+    funnelStage: "tofu" | "mofu" | "bofu";
     searchVolume: number;
     cluster: string;
-    suggestedContentType: 'blog' | 'landing-page' | 'case-study' | 'product-page' | 'comparison';
+    suggestedContentType: "blog" | "landing-page" | "case-study" | "product-page" | "comparison";
   };
   /** Competitor content for this keyword (from Surveillance Agent) */
   competitorContent?: Array<{
@@ -270,7 +274,7 @@ interface ContentBriefInput {
   lwmContext: {
     /** Relevant regulatory articles/sections */
     regulations: Array<{
-      name: string;           // e.g., "CSRD"
+      name: string; // e.g., "CSRD"
       relevantArticles: string[];
       keyRequirements: string[];
     }>;
@@ -305,14 +309,14 @@ interface ContentBriefOutput {
   /** Structured content brief */
   brief: {
     title: string;
-    metaDescription: string;       // max 160 chars
+    metaDescription: string; // max 160 chars
     targetKeyword: string;
     secondaryKeywords: string[];
     funnelStage: string;
     contentType: string;
     targetWordCount: number;
     outline: Array<{
-      heading: string;             // H2/H3
+      heading: string; // H2/H3
       level: 2 | 3;
       keyPoints: string[];
       regulatoryReferences: string[];
@@ -324,13 +328,13 @@ interface ContentBriefOutput {
       context: string;
     }>;
     ctaPlacement: Array<{
-      position: 'intro' | 'mid' | 'conclusion';
-      type: 'demo-request' | 'free-trial' | 'download' | 'contact';
+      position: "intro" | "mid" | "conclusion";
+      type: "demo-request" | "free-trial" | "download" | "contact";
       product: string;
       text: string;
     }>;
     schemaMarkup: {
-      type: 'Article' | 'HowTo' | 'FAQ' | 'Product';
+      type: "Article" | "HowTo" | "FAQ" | "Product";
       properties: Record<string, string>;
     };
   };
@@ -339,8 +343,8 @@ interface ContentBriefOutput {
     html: string;
     markdown: string;
     wordCount: number;
-    readabilityScore: number;      // Flesch-Kincaid
-    keywordDensity: number;        // target keyword frequency
+    readabilityScore: number; // Flesch-Kincaid
+    keywordDensity: number; // target keyword frequency
   };
   /** Differentiation notes — what makes this unique vs competitors */
   differentiators: string[];
@@ -369,12 +373,12 @@ interface ContentBriefOutput {
 interface SeoAuditInput {
   /** Site to audit */
   site: {
-    baseUrl: string;              // e.g., "https://dws10.com"
-    sitemapUrl?: string;          // e.g., "https://dws10.com/sitemap.xml"
-    pages: string[];              // specific pages to audit (or all if empty)
+    baseUrl: string; // e.g., "https://dws10.com"
+    sitemapUrl?: string; // e.g., "https://dws10.com/sitemap.xml"
+    pages: string[]; // specific pages to audit (or all if empty)
   };
   /** Audit scope */
-  scope: 'full' | 'deploy-check' | 'single-page';
+  scope: "full" | "deploy-check" | "single-page";
   /** Previous audit results for comparison */
   previousAudit?: {
     date: string;
@@ -395,34 +399,43 @@ interface SeoAuditOutput {
   /** Core Web Vitals per page */
   coreWebVitals: Array<{
     url: string;
-    lcp: number;            // Largest Contentful Paint (ms)
-    fid: number;            // First Input Delay (ms)
-    cls: number;            // Cumulative Layout Shift
-    ttfb: number;           // Time to First Byte (ms)
-    status: 'good' | 'needs-improvement' | 'poor';
+    lcp: number; // Largest Contentful Paint (ms)
+    fid: number; // First Input Delay (ms)
+    cls: number; // Cumulative Layout Shift
+    ttfb: number; // Time to First Byte (ms)
+    status: "good" | "needs-improvement" | "poor";
   }>;
   /** Technical issues found */
   issues: Array<{
-    type: 'missing-canonical' | 'duplicate-title' | 'missing-alt' | 'broken-link'
-      | 'missing-schema' | 'slow-page' | 'missing-meta' | 'redirect-chain'
-      | 'missing-hreflang' | 'orphan-page' | 'thin-content';
+    type:
+      | "missing-canonical"
+      | "duplicate-title"
+      | "missing-alt"
+      | "broken-link"
+      | "missing-schema"
+      | "slow-page"
+      | "missing-meta"
+      | "redirect-chain"
+      | "missing-hreflang"
+      | "orphan-page"
+      | "thin-content";
     url: string;
-    severity: 'critical' | 'warning' | 'info';
+    severity: "critical" | "warning" | "info";
     description: string;
     fix: string;
   }>;
   /** Schema markup coverage */
   schemaMarkup: Array<{
     url: string;
-    schemas: string[];          // e.g., ["Organization", "Product", "Article"]
+    schemas: string[]; // e.g., ["Organization", "Product", "Article"]
     valid: boolean;
     errors: string[];
   }>;
   /** Deploy gate decision */
   deployGate: {
     pass: boolean;
-    blockers: string[];          // critical issues that block deploy
-    warnings: string[];          // non-blocking but should fix
+    blockers: string[]; // critical issues that block deploy
+    warnings: string[]; // non-blocking but should fix
   };
   /** Comparison with previous audit */
   delta?: {
@@ -436,14 +449,14 @@ interface SeoAuditOutput {
 
 #### Deploy Gate Rules
 
-| Condition | Action |
-|-----------|--------|
-| Any page LCP > 4000ms | **BLOCK** deploy |
-| Missing canonical on > 3 pages | **BLOCK** deploy |
-| Broken internal links > 5 | **BLOCK** deploy |
-| Missing meta description | **WARN** (don't block) |
-| Missing alt text on images | **WARN** (don't block) |
-| Schema validation errors | **WARN** (don't block) |
+| Condition                      | Action                 |
+| ------------------------------ | ---------------------- |
+| Any page LCP > 4000ms          | **BLOCK** deploy       |
+| Missing canonical on > 3 pages | **BLOCK** deploy       |
+| Broken internal links > 5      | **BLOCK** deploy       |
+| Missing meta description       | **WARN** (don't block) |
+| Missing alt text on images     | **WARN** (don't block) |
+| Schema validation errors       | **WARN** (don't block) |
 
 ---
 
@@ -462,17 +475,17 @@ interface LeadFeedbackInput {
     dealId: string;
     companyName: string;
     industry: string;
-    dealSize: number;           // EUR
+    dealSize: number; // EUR
     closedDate: string;
     /** How the lead originally found DWS */
     attribution: {
-      channel: 'organic' | 'paid' | 'referral' | 'outbound' | 'event';
+      channel: "organic" | "paid" | "referral" | "outbound" | "event";
       landingPage?: string;
-      searchQuery?: string;     // if organic
+      searchQuery?: string; // if organic
       referralSource?: string;
     };
     /** Key phrases used by the buyer during sales process */
-    buyerLanguage: string[];    // e.g., ["we need CSRD automation", "ETS reporting is killing us"]
+    buyerLanguage: string[]; // e.g., ["we need CSRD automation", "ETS reporting is killing us"]
     /** Pain points that led to purchase */
     painPoints: string[];
     /** Products purchased */
@@ -507,24 +520,24 @@ interface LeadFeedbackOutput {
   /** New keyword suggestions derived from buyer language */
   newKeywordSuggestions: Array<{
     keyword: string;
-    source: 'buyer-language' | 'pain-point' | 'product-inquiry';
-    frequency: number;         // how many deals used this language
-    suggestedFunnelStage: 'tofu' | 'mofu' | 'bofu';
-    dealValueAssociated: number;  // total ARR from deals using this term
-    priority: 'high' | 'medium' | 'low';
+    source: "buyer-language" | "pain-point" | "product-inquiry";
+    frequency: number; // how many deals used this language
+    suggestedFunnelStage: "tofu" | "mofu" | "bofu";
+    dealValueAssociated: number; // total ARR from deals using this term
+    priority: "high" | "medium" | "low";
   }>;
   /** Keyword score adjustments based on conversion data */
   scoreAdjustments: Array<{
     keyword: string;
     currentScore: number;
     adjustedScore: number;
-    reason: string;            // e.g., "3 closed-won deals originated from this keyword"
+    reason: string; // e.g., "3 closed-won deals originated from this keyword"
   }>;
   /** Content conversion insights */
   contentInsights: Array<{
     url: string;
     conversionRate: number;
-    recommendation: 'boost' | 'optimize' | 'retire' | 'repurpose';
+    recommendation: "boost" | "optimize" | "retire" | "repurpose";
     suggestedChanges: string[];
   }>;
   /** Industry-deal correlation */
@@ -537,9 +550,9 @@ interface LeadFeedbackOutput {
   }>;
   /** Closed-loop metrics */
   loopMetrics: {
-    organicLeadToClose: number;     // % of organic leads that closed
-    avgDealSizeOrganic: number;     // avg deal size for organic-sourced
-    avgDealSizePaid: number;        // avg deal size for paid-sourced
+    organicLeadToClose: number; // % of organic leads that closed
+    avgDealSizeOrganic: number; // avg deal size for organic-sourced
+    avgDealSizePaid: number; // avg deal size for paid-sourced
     topConvertingContent: string[]; // URLs with highest deal attribution
     keywordToRevenue: Record<string, number>; // keyword → attributed ARR
   };
@@ -586,12 +599,12 @@ interface LeadFeedbackOutput {
 ```typescript
 // In src/cron/seo-pipeline.ts
 const SEO_PIPELINE_SCHEDULE = {
-  'keyword-intent':         '0 2 * * *',      // Daily at 02:00 UTC
-  'competitor-surveillance': '0 3 * * 0',      // Sundays at 03:00 UTC
-  'seo-audit':              'on-deploy',       // CI/CD trigger
-  'seo-audit-weekly':       '0 4 * * 1',      // Mondays at 04:00 UTC
-  'content-brief':          'on-demand',       // Triggered by other agents
-  'lead-feedback':          '0 6 1 * *',       // 1st of month at 06:00 UTC
+  "keyword-intent": "0 2 * * *", // Daily at 02:00 UTC
+  "competitor-surveillance": "0 3 * * 0", // Sundays at 03:00 UTC
+  "seo-audit": "on-deploy", // CI/CD trigger
+  "seo-audit-weekly": "0 4 * * 1", // Mondays at 04:00 UTC
+  "content-brief": "on-demand", // Triggered by other agents
+  "lead-feedback": "0 6 1 * *", // 1st of month at 06:00 UTC
 };
 ```
 
@@ -599,14 +612,14 @@ const SEO_PIPELINE_SCHEDULE = {
 
 Agents communicate via Supabase tables (event-driven):
 
-| Source Agent | Event | Target Agent | Trigger |
-|-------------|-------|-------------|---------|
-| keyword-intent | `keyword.quick-win-found` | content-brief | Quick-win keyword detected (position 8–15) |
-| competitor-surveillance | `competitor.content-gap` | content-brief | Content gap with high ICP relevance |
-| competitor-surveillance | `competitor.pricing-change` | — | Alert to PM (Slack/email) |
-| seo-audit | `audit.critical-issue` | — | Block deploy, notify engineering |
-| lead-feedback | `feedback.new-keyword` | keyword-intent | New keyword from buyer language |
-| lead-feedback | `feedback.score-adjustment` | keyword-intent | Adjust keyword priority scores |
+| Source Agent            | Event                       | Target Agent   | Trigger                                    |
+| ----------------------- | --------------------------- | -------------- | ------------------------------------------ |
+| keyword-intent          | `keyword.quick-win-found`   | content-brief  | Quick-win keyword detected (position 8–15) |
+| competitor-surveillance | `competitor.content-gap`    | content-brief  | Content gap with high ICP relevance        |
+| competitor-surveillance | `competitor.pricing-change` | —              | Alert to PM (WhatsApp/email)               |
+| seo-audit               | `audit.critical-issue`      | —              | Block deploy, notify engineering           |
+| lead-feedback           | `feedback.new-keyword`      | keyword-intent | New keyword from buyer language            |
+| lead-feedback           | `feedback.score-adjustment` | keyword-intent | Adjust keyword priority scores             |
 
 ### Supabase Schema
 
@@ -683,13 +696,13 @@ CREATE TABLE seo_lead_feedback (
 
 ## 4. External API Dependencies
 
-| API | Purpose | Cost | Rate Limits |
-|-----|---------|------|-------------|
-| Google Search Console API | Search query data, impressions, clicks | Free | 25,000 req/day |
-| Google PageSpeed Insights | Core Web Vitals, performance scores | Free | 25,000 req/day |
-| DataForSEO | Backlink data, SERP data, keyword volumes | ~€50/mo | Per-request pricing |
-| Groq API | LLM inference for classification, drafting | Existing | Per-token |
-| Supabase | Data persistence, event bus | Existing | Existing plan limits |
+| API                       | Purpose                                    | Cost     | Rate Limits          |
+| ------------------------- | ------------------------------------------ | -------- | -------------------- |
+| Google Search Console API | Search query data, impressions, clicks     | Free     | 25,000 req/day       |
+| Google PageSpeed Insights | Core Web Vitals, performance scores        | Free     | 25,000 req/day       |
+| DataForSEO                | Backlink data, SERP data, keyword volumes  | ~€50/mo  | Per-request pricing  |
+| Groq API                  | LLM inference for classification, drafting | Existing | Per-token            |
+| Supabase                  | Data persistence, event bus                | Existing | Existing plan limits |
 
 ### API Key Management
 
@@ -710,52 +723,52 @@ DATAFORSEO_PASSWORD=...
 
 ### KPIs per Agent
 
-| Agent | Primary KPI | Target (Month 6) |
-|-------|-------------|-------------------|
-| Keyword Intent | Quick-win keywords actioned | 10/month |
-| Competitor Surveillance | Content gaps identified & filled | 4/month |
-| Content Brief | Articles published | 8/month |
-| SEO Audit | Critical issues caught pre-deploy | 100% |
-| Lead Feedback | Keywords adjusted from buyer data | 5/month |
+| Agent                   | Primary KPI                       | Target (Month 6) |
+| ----------------------- | --------------------------------- | ---------------- |
+| Keyword Intent          | Quick-win keywords actioned       | 10/month         |
+| Competitor Surveillance | Content gaps identified & filled  | 4/month          |
+| Content Brief           | Articles published                | 8/month          |
+| SEO Audit               | Critical issues caught pre-deploy | 100%             |
+| Lead Feedback           | Keywords adjusted from buyer data | 5/month          |
 
 ### Pipeline Metrics
 
-| Metric | Baseline | Month 3 Target | Month 6 Target |
-|--------|----------|----------------|----------------|
-| Organic MQLs | 0–2/mo | 3/mo | 5/mo |
-| Organic traffic | ~500/mo | 2,000/mo | 5,000/mo |
-| Keyword positions (page 1) | ~5 | 15 | 30 |
-| Content published (agent-assisted) | 0 | 4/mo | 8/mo |
-| Organic-attributed ARR | €0 | €15,000 | €90,000 |
+| Metric                             | Baseline | Month 3 Target | Month 6 Target |
+| ---------------------------------- | -------- | -------------- | -------------- |
+| Organic MQLs                       | 0–2/mo   | 3/mo           | 5/mo           |
+| Organic traffic                    | ~500/mo  | 2,000/mo       | 5,000/mo       |
+| Keyword positions (page 1)         | ~5       | 15             | 30             |
+| Content published (agent-assisted) | 0        | 4/mo           | 8/mo           |
+| Organic-attributed ARR             | €0       | €15,000        | €90,000        |
 
 ---
 
 ## 6. Implementation Phases
 
-| Phase | Duration | Deliverables | Cost |
-|-------|----------|-------------|------|
-| **P0: Instrument** | 2 weeks | Search Console + GA4 connected, keyword data flowing, Supabase tables created | €0 |
-| **P1: Keyword Agent** | 3 weeks | Keyword Intent Agent live, nightly runs, priority queue populated | ~€50/mo LLM |
-| **P2: Competitor + Content** | 4 weeks | Competitor Surveillance Agent + Content Brief Agent, weekly gap analysis | ~€100/mo |
-| **P3: SEO Audit** | 2 weeks | Technical SEO Audit Agent in CI/CD pipeline | €0 (free APIs) |
-| **P4: Lead Feedback** | 4 weeks | Lead-to-SEO Feedback Agent, closed-loop metrics | Internal |
-| **P5: Full Orchestration** | 2 weeks | All agents coordinated, ROI dashboard, alerting | €200/mo total |
+| Phase                        | Duration | Deliverables                                                                  | Cost           |
+| ---------------------------- | -------- | ----------------------------------------------------------------------------- | -------------- |
+| **P0: Instrument**           | 2 weeks  | Search Console + GA4 connected, keyword data flowing, Supabase tables created | €0             |
+| **P1: Keyword Agent**        | 3 weeks  | Keyword Intent Agent live, nightly runs, priority queue populated             | ~€50/mo LLM    |
+| **P2: Competitor + Content** | 4 weeks  | Competitor Surveillance Agent + Content Brief Agent, weekly gap analysis      | ~€100/mo       |
+| **P3: SEO Audit**            | 2 weeks  | Technical SEO Audit Agent in CI/CD pipeline                                   | €0 (free APIs) |
+| **P4: Lead Feedback**        | 4 weeks  | Lead-to-SEO Feedback Agent, closed-loop metrics                               | Internal       |
+| **P5: Full Orchestration**   | 2 weeks  | All agents coordinated, ROI dashboard, alerting                               | €200/mo total  |
 
 ---
 
 ## 7. File Locations
 
-| Artifact | Path |
-|----------|------|
-| Agent types | `src/agents/seo/types.ts` |
-| Keyword Intent Agent | `src/agents/seo/keyword-intent.agent.ts` |
+| Artifact                      | Path                                              |
+| ----------------------------- | ------------------------------------------------- |
+| Agent types                   | `src/agents/seo/types.ts`                         |
+| Keyword Intent Agent          | `src/agents/seo/keyword-intent.agent.ts`          |
 | Competitor Surveillance Agent | `src/agents/seo/competitor-surveillance.agent.ts` |
-| Content Brief Agent | `src/agents/seo/content-brief.agent.ts` |
-| SEO Audit Agent | `src/agents/seo/seo-audit.agent.ts` |
-| Lead Feedback Agent | `src/agents/seo/lead-feedback.agent.ts` |
-| Pipeline scheduler | `src/cron/seo-pipeline.ts` |
-| Supabase migration | `supabase/migrations/YYYYMMDD_seo_pipeline.sql` |
-| This specification | `docs/SEO_SALES_AGENT_SPECIFICATION.md` |
-| Keyword seed list | `docs/SEO_KEYWORD_SEED_LIST.md` |
-| Content calendar | `docs/SEO_CONTENT_CALENDAR.md` |
-| CRM handoff schema | `docs/SEO_CRM_HANDOFF_SCHEMA.md` |
+| Content Brief Agent           | `src/agents/seo/content-brief.agent.ts`           |
+| SEO Audit Agent               | `src/agents/seo/seo-audit.agent.ts`               |
+| Lead Feedback Agent           | `src/agents/seo/lead-feedback.agent.ts`           |
+| Pipeline scheduler            | `src/cron/seo-pipeline.ts`                        |
+| Supabase migration            | `supabase/migrations/YYYYMMDD_seo_pipeline.sql`   |
+| This specification            | `docs/SEO_SALES_AGENT_SPECIFICATION.md`           |
+| Keyword seed list             | `docs/SEO_KEYWORD_SEED_LIST.md`                   |
+| Content calendar              | `docs/SEO_CONTENT_CALENDAR.md`                    |
+| CRM handoff schema            | `docs/SEO_CRM_HANDOFF_SCHEMA.md`                  |
