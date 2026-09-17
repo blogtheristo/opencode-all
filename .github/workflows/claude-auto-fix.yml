@@ -8,13 +8,13 @@ on:
   workflow_dispatch:
     inputs:
       task:
-        description: "Task for Claude to perform"
+        description: 'Task for Claude to perform'
         required: true
         type: string
       allowed_tools:
-        description: "Comma-separated allowed tools"
+        description: 'Comma-separated allowed tools'
         required: false
-        default: "Read,Edit,Bash(npm run lint),Bash(npm run test),Bash(npm run build)"
+        default: 'Read,Edit,Bash(npm run lint),Bash(npm run test),Bash(npm run build)'
         type: string
 
 # Cancel earlier in-flight auto-fix runs when a new commit is pushed.
@@ -28,21 +28,9 @@ permissions:
   contents: write
 
 jobs:
-  detect-runner:
-    runs-on: ubuntu-latest
-    outputs:
-      runs-on: ${{ steps.failover.outputs.dgx_alive == 'true' && '["self-hosted", "dgx-spark"]' || '["ubuntu-latest"]' }}
-    steps:
-      - uses: actions/checkout@v4
-      - id: failover
-        uses: ./.github/actions/dgx-failover-check
-        with:
-          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
-
   auto-fix:
-    needs: detect-runner
     name: Claude Auto-Fix
-    runs-on: ${{ fromJSON(needs.detect-runner.outputs.runs-on) }}
+    runs-on: [self-hosted, dgx-spark]
     timeout-minutes: 10
     # Skip bot-triggered events to prevent fix loops.
     # Skip drafts — only run once a PR is marked ready for review.
@@ -85,8 +73,8 @@ jobs:
         if: steps.skip_check.outputs.skip != 'true' && steps.anthropic.outputs.ok == 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: "24"
-          cache: "npm"
+          node-version: '24'
+          cache: 'npm'
 
       - name: Install dependencies
         if: steps.skip_check.outputs.skip != 'true' && steps.anthropic.outputs.ok == 'true'
