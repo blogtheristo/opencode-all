@@ -222,3 +222,6 @@ result.txt
 .ci-audit/
 __pycache__/
 infrastructure/dgx-spark/.otlp-common.env
+
+# Product i18n string dumps (regenerate via scripts/i18n/products/build-all.cjs)
+scripts/i18n/products/_generated/

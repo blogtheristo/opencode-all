@@ -80,7 +80,9 @@ const translatable = (p) =>
 function aiNotice(cfg, lang, meta) {
   const m = (meta && meta[lang]) || {};
   if (!m.aiNoticeLabel || !m.aiNoticeBody) {
-    throw new Error(`${lang}: aiNotice requested but aiNoticeLabel/aiNoticeBody missing from meta.json`);
+    throw new Error(
+      `${lang}: aiNotice requested but aiNoticeLabel/aiNoticeBody missing from meta.json`,
+    );
   }
   const href = urlFor(cfg, cfg.masterLang).replace(/^https?:\/\/[^/]+/, '');
   const link = m.aiNoticeLink
@@ -99,12 +101,13 @@ function aiNotice(cfg, lang, meta) {
 /** Remove everything this builder injects, so its own output normalises back to a master. */
 function normalize(html) {
   return html
-    .replace(/\n {8}<aside class="ai-notice"[\s\S]*?<\/aside>\n/g, '')
-    .replace(/\n {4}<nav class="i18n-links"[\s\S]*?<\/nav>\n/g, '')
+    .replace(/<aside class="ai-notice"[\s\S]*?<\/aside>\s*/g, '')
+    .replace(/<nav class="i18n-links"[\s\S]*?<\/nav>\s*/g, '')
     .replace(
       / {4}<link\n {6}rel="alternate"\n {6}hreflang="[^"]*"\n {6}href="[^"]*"\n {4}\/>\n/g,
       '',
-    );
+    )
+    .replace(/\n\s*<link\s+rel="alternate"\s+hreflang="[^"]*"\s+href="[^"]*"\s*\/>/g, '');
 }
 
 function extract(html) {
@@ -221,25 +224,23 @@ function retarget(html, cfg, lang, meta) {
   }
 
   out = out.replace(/<html lang="[a-z-]+"/, `<html lang="${lang}"`);
-  out = out.replace(
-    /( *<link\s*\n?\s*rel="canonical"\s*\n?\s*href=")[^"]*(")/,
-    (m) => m.replace(/href="[^"]*"/, `href="${url}"`),
+  out = out.replace(/( *<link\s*\n?\s*rel="canonical"\s*\n?\s*href=")[^"]*(")/, (m) =>
+    m.replace(/href="[^"]*"/, `href="${url}"`),
   );
   // canonical may be single-line in some pages
-  out = out.replace(/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`);
+  out = out.replace(
+    /<link rel="canonical" href="[^"]*" \/>/,
+    `<link rel="canonical" href="${url}" />`,
+  );
 
   // insert hreflang once, right after the canonical link
   if (!/hreflang="x-default"/.test(out)) {
-    out = out.replace(
-      /(<link\s*\n?\s*rel="canonical"[\s\S]*?\/>)/,
-      `$1\n${hreflangBlock(cfg)}`,
-    );
+    out = out.replace(/(<link\s*\n?\s*rel="canonical"[\s\S]*?\/>)/, `$1\n${hreflangBlock(cfg)}`);
   }
 
   out = out.replace(/(<meta property="og:locale" content=")[^"]*(")/, `$1${LOCALES[lang]}$2`);
-  out = out.replace(
-    /(<meta\s*\n?\s*property="og:url"\s*\n?\s*content=")[^"]*(")/,
-    (m) => m.replace(/content="[^"]*"/, `content="${url}"`),
+  out = out.replace(/(<meta\s*\n?\s*property="og:url"\s*\n?\s*content=")[^"]*(")/, (m) =>
+    m.replace(/content="[^"]*"/, `content="${url}"`),
   );
 
   if (!/class="i18n-links"/.test(out)) {
@@ -264,9 +265,7 @@ function main() {
 
   const metaPath = path.join(BASE, cfg.stringsDir, 'meta.json');
   const meta = fs.existsSync(metaPath) ? JSON.parse(fs.readFileSync(metaPath, 'utf8')) : {};
-  const shareTitles = Object.fromEntries(
-    Object.entries(meta).map(([l, m]) => [l, m.shareTitle]),
-  );
+  const shareTitles = Object.fromEntries(Object.entries(meta).map(([l, m]) => [l, m.shareTitle]));
 
   // The master keeps its own text and meta; only its URL-level tags are (re)stamped.
   const builds = [[cfg.masterLang, head, tail]];
@@ -276,7 +275,9 @@ function main() {
     .forEach((lang) => {
       const file = path.join(BASE, cfg.stringsDir, `${lang}-strings.json`);
       if (!fs.existsSync(file)) {
-        console.log(`[i18n:${cfg.id}] SKIP ${lang} — ${cfg.stringsDir}/${lang}-strings.json missing`);
+        console.log(
+          `[i18n:${cfg.id}] SKIP ${lang} — ${cfg.stringsDir}/${lang}-strings.json missing`,
+        );
         return;
       }
       const translated = JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -298,7 +299,9 @@ function main() {
       fs.mkdirSync(abs, { recursive: true });
       fs.writeFileSync(path.join(abs, cfg.files[lang]), html, 'utf8');
     });
-    console.log(`[i18n:${cfg.id}] wrote ${cfg.files[lang]} (${html.length} bytes) × ${cfg.outDirs.length}`);
+    console.log(
+      `[i18n:${cfg.id}] wrote ${cfg.files[lang]} (${html.length} bytes) × ${cfg.outDirs.length}`,
+    );
   });
 }
 
