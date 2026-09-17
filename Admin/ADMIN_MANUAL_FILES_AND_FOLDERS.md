@@ -4,10 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.6
 
 Sessions & Modifications:
 
+- Version: 1.6 | Tool: Cursor Agent | Session: claude/sovereignty-segmentation-axis-truth | Date: 17.09.2026 | Changes: **Large work policy** in workflow table — plan first (`docs/plans/` or handoff), execute on DGX via OpenCode agents; Win11 IDEs for review only on large tasks. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.17.
+- Version: 1.5 | Tool: Cursor Agent | Session: claude/sovereignty-segmentation-axis-truth | Date: 17.09.2026 | Changes: Aligned session environment detection with **Two dev environments** model — Win11 (Cursor + VS Code IDEs), DGX Spark (Cursor CLI + Copilot CLI). Cross-ref: `Admin/ADMIN_MANUAL.md` v3.16.
 - Version: 1.0 | Tool: Claude Code | Session: 0131N2quMXnPZg6UAsreazMV | Date: 09.12.2025 | Changes: Initial creation
 - Version: 1.1 | Tool: Claude Code | Session: Week 52 | Date: 22.12.2025 | Changes: Agent Foundry Architecture, Construction Vertical Spec, Document Management System integration
 - Version: 1.2 | Tool: Claude Code | Session: IjtD0 | Commit: (pending) | Date: 26.12.2025 | Changes: Added Site Quality Standards, Workflow Management System, Daily Backups, Multi-Site Deployment coverage
@@ -1198,11 +1200,12 @@ Sessions frequently move across environments and editors during a single feature
 
 | Keyword          | Environment        |
 | ---------------- | ------------------ |
-| `win` or `win11` | Windows 11 desktop |
+| `win` or `win11` | Windows 11 desktop — **Cursor** + **VS Code** IDEs (`F:\...\dws6`) |
+| `dgx`            | DGX Spark — **Cursor CLI** + **Copilot CLI** (`/home/admin100/dws6`) |
 | `mobile`         | Mobile/web session |
 | `chromebook`     | Chromebook (Linux) |
-| `vscode`         | Editing in VS Code |
-| `cursor`         | Editing in Cursor  |
+| `vscode`         | Editing in VS Code (Win11) |
+| `cursor`         | Editing in Cursor (Win11) or Cursor CLI (DGX) |
 
 Keywords can be combined (e.g., `win vscode`). These are **plain-text keywords in a message**, not slash commands — do NOT type `/win` as a standalone command (it triggers a skill lookup error). When no keyword is given, Claude auto-detects using these signals:
 
@@ -1213,23 +1216,27 @@ Keywords can be combined (e.g., `win vscode`). These are **plain-text keywords i
 | `gh` CLI       | Not available           | Available              | May be available |
 | PowerShell     | Not available           | Available              | Not available    |
 
-**Editor context** (same environment, different editors):
+**Editor context** (canonical two-machine model — full detail in `Admin/ADMIN_MANUAL.md` → *Two dev environments*):
 
-| Editor              | Usage                                                       |
-| ------------------- | ----------------------------------------------------------- |
-| **Claude Code CLI** | Full Claude session, terminal-based                         |
-| **VS Code**         | User edits files directly; Claude via extension or terminal |
-| **Cursor**          | AI-native editor; similar to VS Code                        |
+| Machine | Tool | Usage |
+| ------- | ---- | ----- |
+| **Win11** | **VS Code** | Interactive editing, tests, PR prep |
+| **Win11** | **Cursor** | AI-native IDE; same clone as VS Code |
+| **DGX Spark** | **Cursor CLI** | Interactive agents → local Ollama |
+| **DGX Spark** | **Copilot CLI** | Interactive agents → local Ollama |
+| **DGX Spark** | **OpenCode / opencode-all** | Batch parallel worktrees (queue-driven) |
+| Either | **Claude Code CLI** | Hot standby / failover harness |
 
-**Typical multi-environment workflow:**
+**Typical multi-environment workflow (large work — mandatory path):**
 
-| Step | Environment + Editor | Activity                               |
-| ---- | -------------------- | -------------------------------------- |
-| 1    | Mobile               | Start work, draft changes, push branch |
-| 2    | Win11 + VS Code      | Review code, refine, run tests         |
-| 3    | Chromebook           | Quick fixes on the go                  |
-| 4    | Mobile               | Documentation updates                  |
-| 5    | Win11 + Cursor       | Final review, create PR                |
+| Step | Environment + Tool | Activity |
+| ---- | ---------------- | -------- |
+| 1    | Win11 or DGX | Write plan → `docs/plans/YYYY-MM-DD-<slug>.md` or `.claude/handoffs/<task>.md` |
+| 2    | DGX + **OpenCode** | `new-opencode-worktree.sh <task>` → agent executes plan in isolated worktree; optional batch queue |
+| 3    | Win11 + VS Code / Cursor | Review handoff + diff, run tests, create PR |
+| 4    | Mobile / Chromebook | Triage only — do not implement large scope here |
+
+**Small work:** any step may use Win11 IDEs or DGX CLIs directly (single-file / <1h scope).
 
 **Convention:** Commit messages may include the environment tag when helpful:
 
@@ -1237,7 +1244,7 @@ Keywords can be combined (e.g., `win vscode`). These are **plain-text keywords i
 - `fix: typo (mobile)`
 - `docs: update manual (Chromebook)`
 
-See `CLAUDE.md` → "Session Environment Detection" for the full detection logic and rules.
+See `Admin/ADMIN_MANUAL.md` → *Two dev environments — Win11 and DGX Spark* for git sync rules and shared session stores (handoffs, opencode-all queue, worktrees).
 
 ### Related Files
 
