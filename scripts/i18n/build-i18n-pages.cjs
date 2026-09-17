@@ -102,12 +102,13 @@ function aiNotice(cfg, lang, meta) {
 /** Remove everything this builder injects, so its own output normalises back to a master. */
 function normalize(html) {
   return html
-    .replace(/\n {8}<aside class="ai-notice"[\s\S]*?<\/aside>\n/g, '')
-    .replace(/\n {4}<nav class="i18n-links"[\s\S]*?<\/nav>\n/g, '')
+    .replace(/<aside class="ai-notice"[\s\S]*?<\/aside>\s*/g, '')
+    .replace(/<nav class="i18n-links"[\s\S]*?<\/nav>\s*/g, '')
     .replace(
       / {4}<link\n {6}rel="alternate"\n {6}hreflang="[^"]*"\n {6}href="[^"]*"\n {4}\/>\n/g,
       '',
-    );
+    )
+    .replace(/\n\s*<link\s+rel="alternate"\s+hreflang="[^"]*"\s+href="[^"]*"\s*\/>/g, '');
 }
 
 function extract(html) {
