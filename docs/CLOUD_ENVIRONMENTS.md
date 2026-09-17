@@ -292,6 +292,7 @@ Scaleway GPU (H100) is the candidate for LWM 1 and LWM 2 training runs due to EU
 | Location    | Self-hosted (Lifetime Oy premises, Finland) — zero CLOUD Act exposure, zero marginal compute cost                                                                        |
 | Runtime     | Docker Compose (`infrastructure/dgx-spark/docker-compose.yml`) — `dws-backend` (Express + all agents + node-cron schedulers) and `dws-cron` (script runner) containers   |
 | Deploy      | `.github/workflows/deploy-dgx-spark.yml` — push to `main` triggers SSH + `git reset --hard` + `docker compose build && up -d`, fully automatic, no human action required |
+| Dev checkout | `/home/admin100/dws6` — independent clone; **Cursor CLI** + **Copilot CLI** for interactive agents; **Win11** uses **Cursor** + **VS Code** IDEs on `F:\...\dws6`. Shared session layer: handoffs, `.opencode/sessions/`, opencode-all queue. **Admin:** `Admin/ADMIN_MANUAL.md` → *Two dev environments* |
 | LLM routing | Local Ollama (`nemotron-3-super`, `qwen3-coder:30b`) primary, Groq API fallback                                                                                          |
 | Heartbeat   | `:9999/health`, used by the failover tiers below                                                                                                                         |
 
@@ -1208,7 +1209,7 @@ MCP Agent Server (src/mcp/agent-server.ts)
 | ------------- | ------ | ------------------------------------------------------- | ---- |
 | `/mcp`        | POST   | JSON-RPC 2.0 — `initialize`, `tools/list`, `tools/call` | JWT  |
 | `/mcp/sse`    | GET    | Server-Sent Events — real-time agent events             | JWT  |
-| `/mcp/health` | GET    | Health check with agent count and protocol version      | None |
+| `/mcp/health` | GET    | Health check with protocol version and registered-agent inventory | None |
 
 ### 13.3 Available Meta-Tools
 

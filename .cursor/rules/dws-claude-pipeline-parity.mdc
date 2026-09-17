@@ -22,6 +22,8 @@ Ask the terminal/agent to report:
 1. **MCP:** If `.mcp.json` exists, note how many servers are configured (do not print secrets).
 2. **Dirty tree:** `git status --porcelain` — if non-empty, warn and suggest commit/stash before large refactors.
 3. **Branch:** `git branch --show-current` — if `main` or `master`, warn: create a feature branch before feature work.
+4. **Two environments:** Win11 = Cursor + VS Code IDEs; DGX = Cursor CLI + Copilot CLI (`/home/admin100/dws6`). Read `.claude/handoffs/`, opencode-all queue, and worktrees before git sync advice. **Admin:** `Admin/ADMIN_MANUAL.md` → *Two dev environments*.
+5. **Large work:** Plan first (`docs/plans/` or handoff), execute with **OpenCode agents on DGX** — do not implement large multi-file work inline in Win11 agent sessions. **Admin:** *Large work — plan first, OpenCode execution*.
 
 ## Session exit / before PR (advisory — mirror session-stop.sh)
 

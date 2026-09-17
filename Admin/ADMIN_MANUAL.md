@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.14
+Version: 3.16
 
 Sessions & Modifications:
 
+- Version: 3.16 | Tool: Cursor Agent | Session: docs/admin-dev-env-opencode-policy | Date: 17.09.2026 | Changes: **Two dev environments — Win11 and DGX Spark** (Win11: Cursor + VS Code IDEs; DGX: Cursor CLI + GitHub Copilot CLI; shared session layer; git sync rules). **Large work policy** — plan first, execute via OpenCode agents on DGX (worktree + batch queue). **Model economics** — route translations and bulk i18n through OpenCode FREE models or local Ollama to save paid API tokens. Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2, `WORKTREE_POLICY.md`, `opencode-all/ADMIN_MANUAL.md`, `docs/handovers/HIC_MORNING_ROUTINE.md`.
 - Version: 3.15 | Tool: Claude Code (Haiku 4.5) | Session: claude/system-refactor-comprehensive-2026-09-07 | Date: 07.09.2026 | Changes: Comprehensive system files refactor — extracted CLAUDE.md specs to `docs/system-config/` (DISCIPLINE.md, STANDARDS_ROUTING.md, SYSTEM_FILES_INDEX.md) with DWS_DOCUMENT_STANDARD versioning; documented multi-tool ecosystem (OpenCode primary + Claude Code standby); identified and documented 3 sync gaps (dws-agents-local intentional disable, permission syntax mismatch, missing bash denies); permitted OpenCode `.env` read on DGX (commit `ff408fa13`) with asymmetric permissions per tool role; archived prior CLAUDE.md v1.0 to field-notes. Cross-refs: `CLAUDE.md` v1.1, `docs/system-config/SYSTEM_FILES_INDEX.md`, `docs/field-notes/CLAUDE.md.archive-2026-09-07.md`, `docs/field-notes/2026-09-07-claude-md-sharpening.md`, permission audit `3758d6a8d`.
 
 - Version: 3.14 | Tool: OpenCode (x-preview-f-free) | Session: meta-whatsapp-catalog / pr-1867 | Date: 22.08.2026 | Changes: Recorded the 2026-08-22 service-account-key hygiene incident and closed the GCR chapter. Findings: a key-shaped file `gcp-sa-key-new.json` was found untracked-but-unignored at repo root; it had been previously tracked and tree-deleted by remediation commit `6a99c3d4a`, but its blob remains reachable in remote branch history — HIC decision (22.08.2026): GCR is no longer used by DWS, so no key-dependent integration exists; rotate/delete the underlying key if it was ever real. Hardened `.gitignore` with `gcp-sa-*.json` and `*sa-key*.json` patterns so no future session can `git add -A` a key file. Re-affirmed v3.0 policy: service-account JSON keys are prohibited (`constraints/iam.disableServiceAccountKeyCreation`); Workload Identity Federation remains the only sanctioned CI auth path for Cloud Run failover/staging deploys. Public information-gap audit recorded at `Admin/PUBLIC_INFO_GAP_AUDIT_2026-08-22.md`.
@@ -171,6 +172,8 @@ If `gbrain doctor` reports resolver or trigger issues in DWS6, normalize the aff
 2. [Installation Manual](#installation-manual-link)
 3. [Google Cloud Run CI Identity Runbook (gcr-skill)](#google-cloud-run-ci-identity-runbook-gcr-skill)
 4. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
+   - [Two dev environments — Win11 and DGX Spark](#two-dev-environments--win11-and-dgx-spark) ⭐ **NEW in v3.16**
+   - [Large work — plan first, OpenCode execution](#large-work--plan-first-opencode-execution) ⭐ **NEW in v3.16**
 5. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
 6. [DGX Spark Cron Failover Wrap](#dgx-spark-cron-failover-wrap) ⭐ **NEW**
 7. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
@@ -261,6 +264,8 @@ All admin manuals across the DWS6 repository, organized by domain.
 | **Security Glossary**     | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                                                                                                                                                                                                                                                                                                   |
 | **Playwright Capability** | [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md)                                       | `dws browse` + MCP `dws_browse_*` — JS-rendered fetch, screenshot, snapshot                                                                                                                                                                                                                                                           |
 | **Agent Second Brain**    | [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md)                       | DGX Spark embeddings, KB inbox watcher, `dws kb preflight`                                                                                                                                                                                                                                                                            |
+| **opencode-all (Living Engine)** | [`opencode-all/ADMIN_MANUAL.md`](../opencode-all/ADMIN_MANUAL.md)             | Batch queue, ACP worker, tmux launcher, DGX deployment — **canonical runbook for large-work execution**                                                                                                                                                                                                                               |
+| **Worktree policy**       | [`WORKTREE_POLICY.md`](../WORKTREE_POLICY.md)                                       | Agent isolation — one task = one worktree = one PR; agents never commit from primary checkout                                                                                                                                                                                                                                         |
 | **4P Capital Classes**    | [`DWS_BRAND_STANDARD.md` §23](../DWS_BRAND_STANDARD.md)                             | Canonical company capital model: Prompt / People / Plant / Perception. Registered as DWS_TRUTH_STANDARD.md §2 row 25. Use in investor, sales, and editorial copy. **Future skill:** `4p-diligence` — score an acquisition target on 4P; CLI path + JSON output + skill registration pending HIL approval (Agent Productization Rule). |
 
 ---
@@ -396,17 +401,127 @@ Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no 
 
 ---
 
-## OpenCode Primary Runtime (DGX Spark)
+## Two dev environments — Win11 and DGX Spark
 
-The verified DGX development posture is **OpenCode-primary** with Ollama and local/open models for normal development and agent work. Claude Code remains the hot standby for Claude-specific tooling, stronger fallback reasoning, or recovery when the local runtime is unavailable. This is a harness/model separation: changing the model does not change operator controls, repository policy, or the audit boundary.
+Lifetime Oy maintains **two independent git checkouts** of `dws6` and **one shared session-management layer**. Do not treat either checkout as a throwaway mirror of the other.
 
-### Runtime and model roles
+### Win11 (developer workstation)
 
-| Role                          | Runtime                              | Operational rule                                                                           |
-| ----------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------ |
-| Normal development and agents | OpenCode 1.18.18 -> Ollama (`11434`) | Prefer current NVIDIA/open models; do not hard-code retired `llama3.3:70b` as the default. |
-| Coding and smaller tasks      | OpenCode model routing               | Use the configured coding/smaller-work route (currently Qwen Coder where selected).        |
-| Hot standby                   | Claude Code                          | Use when OpenCode/Ollama is unavailable or Claude tooling is required.                     |
+| Item | Value |
+| ---- | ----- |
+| **Typical path** | `F:\2026\Repos2026\dws6` (machine-specific) |
+| **IDEs (two)** | **Cursor** and **Visual Studio Code** — separate GUIs, same repo clone |
+| **Role** | Plan authoring, PR review, small edits, HIC approval gates |
+| **Agent compute** | **Not** for large implementation — convert to a plan and queue **OpenCode agents on DGX** (see *Large work* below) |
+
+### DGX Spark (Acer Veriton GN100)
+
+| Item | Value |
+| ---- | ----- |
+| **Path** | `/home/admin100/dws6` |
+| **Agent CLIs (two)** | **Cursor CLI** and **GitHub Copilot CLI** |
+| **Inference** | Local **Ollama** (`11434`) — Qwen, Nemotron, and other open weights; zero marginal API token cost |
+| **Also on box** | Docker compose stack, DGX cron, **`opencode-all`** batch orchestration (`scripts/opencode-open-all.sh`) |
+
+### Shared session management (both environments)
+
+All harnesses read/write the same session stores before assuming what another session did:
+
+| Store | Path |
+| ----- | ---- |
+| Branch handoffs | `.claude/handoffs/<branch>.md` |
+| Saved session cards | `.opencode/sessions/*.md` |
+| Batch queue | `.workflows/opencode-all/queue.jsonl` |
+| Worktrees | `git worktree list` (includes `.worktrees/opencode-all/ses_*`) |
+| Operator status (DGX) | `scripts/opencode-open-all.sh --status` |
+
+**Git sync (operator):** Before `git reset --hard` or `git pull` on DGX, run `git log origin/main..main --oneline`. If commits list, branch and push first — DGX sessions produce real commits. Never `git pull origin main` when `main` has diverged; use `git fetch`, inspect, rescue to a feature branch. Push to `main` triggers `deploy-dgx-spark.yml`, which runs `git reset --hard origin/main` on `/home/admin100/dws6`.
+
+Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2, `docs/field-notes/2026-08-14-dws-multi-model-workflow-architecture.md`.
+
+---
+
+## Large work — plan first, OpenCode execution
+
+**Policy (HIC, 2026-09-17):** Every **large** task is written as a **plan** first, then **implemented by OpenCode agents on DGX** — never as a long ad-hoc session in Win11 Cursor/VS Code agents or an open-ended Cursor CLI / Copilot CLI thread on the primary checkout.
+
+### What counts as large
+
+| Signal | Examples |
+| ------ | -------- |
+| **Scope** | 3+ files, multiple subsystems, dual-folder sync, thesis four-file update, Supabase migration |
+| **Duration** | Expected agent runtime **> ~1 hour** or overnight batch |
+| **Risk** | RED/YELLOW zone per `CLAUDE.md` (deploy, migration, public copy, Store sync) |
+| **Isolation** | Needs its own branch, worktree, and PR |
+| **Bulk content** | Translations (FI/SV/DE/FR), multi-page HTML i18n, dual-folder sync at scale, hreflang generation |
+
+**Small work (any harness OK):** single-file fix, typo, reading/reviewing a handoff, drafting a plan, HIC approval on an artifact.
+
+**Canonical large-work examples:** Aegis/product 5-language pages, blog SV/DE/FR drafts, `landing-pages/` mirror updates — plan → OpenCode on DGX with **free or Ollama models** (see *Model economics* below), not Win11 paid cloud agents.
+
+### Plan artifact (required before execution)
+
+Write the plan to **one** of:
+
+| Location | When |
+| -------- | ---- |
+| `docs/plans/YYYY-MM-DD-<slug>.md` | Durable, multi-session, or architectural work |
+| `.claude/handoffs/<task>.md` | Branch-scoped session handoff (include plan in *Next steps* / TODO list) |
+
+Minimum plan contents: **goal**, **file/path scope**, **acceptance criteria**, **trust zone** (GREEN/YELLOW/RED), **base branch**. Structural or RED items stop for HIC approval in plan mode before OpenCode starts (per `CLAUDE.md` Approval Request Rule).
+
+### Execution pipeline (DGX)
+
+```
+Plan (Win11 or DGX) → HIC gate if RED/YELLOW → worktree → OpenCode agent → handoff → Win11 review → PR
+```
+
+| Step | Action | Command / path |
+| ---- | ------ | -------------- |
+| 1 | Isolated worktree + branch | `scripts/new-opencode-worktree.sh <task-name> [base-branch] --launch` |
+| 2 | OpenCode session in worktree | Attach plan as first prompt; follow `WORKTREE_POLICY.md` (never commit from primary checkout) |
+| 3 | Batch queue (parallel / overnight) | `node scripts/opencode-batch-worker.mjs enqueue` then `run --batch N --loop` |
+| 4 | Monitor | `scripts/opencode-open-all.sh --status` / `--watch` |
+| 5 | Handoff output | `.claude/handoffs/opencode-batch/` (worker guarantees a file even on partial completion) |
+| 6 | Human review | Win11 **Cursor** or **VS Code** → `gh pr create` |
+
+**Forbidden for large work:** implementing directly on DGX `/home/admin100/dws6` primary checkout; Win11 cloud-agent VMs for multi-file implementation; `git pull` on diverged `main` before rescuing local commits (see *Two dev environments*).
+
+Cross-ref: `opencode-all/ADMIN_MANUAL.md`, `docs/field-notes/2026-08-24-opencode-all-living-engine.md`, `docs/handovers/HIC_MORNING_ROUTINE.md` (morning queue ritual).
+
+---
+
+## OpenCode and batch runtime (DGX Spark)
+
+**Large implementation runs here.** **Cursor CLI** and **Copilot CLI** on DGX are for **interactive, small-scope** work (debugging, plan drafting, quick reads) — when scope grows, stop and follow *Large work* above. **OpenCode** (`opencode.json`, `opencode-all` submodule, batch worker) is the **mandatory execution path** for planned multi-file work: isolated worktrees, queue in `.workflows/opencode-all/`, local Ollama inference. Claude Code on DGX remains hot standby.
+
+### Runtime and model roles (DGX)
+
+| Role | Runtime | Operational rule |
+| ---- | ------- | ---------------- |
+| **Large / multi-file work (mandatory)** | OpenCode + `opencode-all` | Plan first; worktree via `new-opencode-worktree.sh`; queue via batch worker |
+| Interactive small scope | Cursor CLI, Copilot CLI → Ollama | Escalate to OpenCode when scope crosses *Large work* thresholds |
+| Hot standby | Claude Code | Failover when OpenCode/Ollama unavailable or Claude tooling required |
+
+### Model economics — free inference for bulk work
+
+OpenCode on DGX can run **large tasks at zero purchased-token cost**. Use this deliberately to preserve paid API budget (Claude, Copilot, Cursor cloud agents on Win11) for review, RED-zone reasoning, and short interactive work.
+
+| Tier | Model source | Marginal cost | Route here for |
+| ---- | ------------ | ------------- | -------------- |
+| **1 — Local sovereign** | Ollama on DGX (`opencode.json` default: `qwen3-coder:30b`, also `nemotron-3-super`) | €0 (owned hardware) | Coding agents, refactors, batch worker default fallback |
+| **2 — OpenCode FREE** | OpenCode-hosted free models (`opencode/*`, e.g. `x-preview-f-free`, `mimo-v2.5-free`) | €0 API tokens | **Translations**, multi-file HTML i18n, overnight opencode-all batches, high-volume content generation |
+| **3 — Paid cloud** | Claude API, Copilot/Cursor cloud, Groq metered | Per-token | HIC review, architecture, RED zone, short interactive when local models insufficient |
+
+**Operator rules:**
+
+1. **Translations and 5-lang surfaces** → always queue as *Large work* on DGX OpenCode with tier **1 or 2** — never Win11 cloud-agent VMs for bulk i18n.
+2. **Verify available free models** on DGX before batch runs: `opencode models list` (catalog changes; Rule 12 — fail loud if auth/model errors).
+3. **Fallback ladder:** OpenCode FREE unavailable → switch session/batch to Ollama `qwen3-coder:30b` → then Claude Code hot standby for the single blocked step only.
+4. **Batch worker** (`scripts/opencode-batch-worker.mjs`) runs via OpenCode ACP; model is session-selected — attach plan + preferred model in the worktree session prompt or OpenCode config before `enqueue` / `run`.
+5. **Quality gate unchanged:** free/Ollama output still goes through Win11 review + PR; public copy and blog publish remain HIC-gated per `CLAUDE.md`.
+
+Cross-ref: `docs/field-notes/2026-08-24-opencode-all-living-engine.md` (ox-alpha free tier + expiry watch), `docs/field-notes/2026-08-14-dws-multi-model-workflow-architecture.md`, `opencode.json`.
 
 ### DGX startup and verification
 
@@ -703,7 +818,7 @@ If terminal line continuation keeps breaking provider creation, prefer Cloud She
 
 ## Node.js workspace setup (backend and Cloudflare agents)
 
-**Purpose:** On a fresh clone, CI runner, or Cursor Cloud Agents runtime, install Node dependencies so TypeScript `build`, `test`, and Worker tooling are on the `PATH` via local `node_modules/.bin`.
+**Purpose:** On a fresh clone, CI runner, DGX agent CLI session, or Win11 IDE workspace, install Node dependencies so TypeScript `build`, `test`, and Worker tooling are on the `PATH` via local `node_modules/.bin`.
 
 DWS6 ships **two** lockfile-rooted JavaScript projects:
 
@@ -733,9 +848,12 @@ Older PowerShell builds do not treat `&&` as a command separator; use separate l
 cd /path/to/dws6 && npm ci && cd src/cloudflare && npm ci
 ```
 
-### Worktrees and cloud agents
+### Worktrees and agent CLIs
 
-Each git worktree has its **own** `node_modules/`. Run the same two `npm ci` steps inside every worktree. Cursor or remote cloud agents should execute both installs from the workspace root before relying on `npx`, `vitest`, `tsc`, or `wrangler`.
+Each git worktree has its **own** `node_modules/`. Run the same two `npm ci` steps inside every worktree before relying on `npx`, `vitest`, `tsc`, or `wrangler`.
+
+- **DGX:** Cursor CLI and Copilot CLI sessions (including `opencode-all` worktrees) run `npm ci` at repo root and under `src/cloudflare/` inside each worktree.
+- **Win11:** Cursor and VS Code use the primary clone path; same dual `npm ci` rule applies per worktree.
 
 **Related:** [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md) (Vitest and CI), [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md) (Wrangler from `src/cloudflare`).
 

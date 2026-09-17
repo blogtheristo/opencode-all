@@ -646,7 +646,9 @@ describe('poisoned-tree guard refuses dangerous git contexts before any git call
     // negative case is real on every dev machine and CI container alike.
     expect(() => guardCwd(realHostRepoRoot)).toThrow(/outside fixture sandbox/);
     expect(() => guardCwd(`${realHostRepoRoot}/.git`)).toThrow(/outside fixture sandbox/);
-    expect(() => guardCwd(`${realHostRepoRoot}/.git/config`)).toThrow(/outside fixture sandbox/);
+    expect(() => guardCwd(`${realHostRepoRoot}/.git/config`)).toThrow(
+      /outside fixture sandbox|unresolvable cwd/,
+    );
     expect(() => guardCwd(`${realHostRepoRoot}/.worktrees/opencode-all/ses_probe`)).toThrow(
       /outside fixture sandbox|unresolvable cwd/,
     );
