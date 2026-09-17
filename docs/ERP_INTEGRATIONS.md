@@ -7,6 +7,7 @@ DWS IQ 6 provides seamless integrations with leading Nordic and international ER
 ### Why ERP Integration?
 
 **Bridging the Shop Floor and Back Office**: DWS acts as the "brain" for intelligent machines and robotics. Integration allows AI-driven insights from the shop floor (e.g., predicted maintenance, OEE improvements) to automatically update:
+
 - Production schedules
 - Material requirements planning (MRP)
 - Actual cost vs. planned cost analysis
@@ -22,9 +23,11 @@ DWS IQ 6 provides seamless integrations with leading Nordic and international ER
 ### Tier 1: Must-Have Integrations
 
 #### 1. Monitor ERP
+
 **Market**: Nordic SME manufacturing market leader (especially Sweden)
 
 **Key Features**:
+
 - Production order synchronization
 - Material requirements planning (MRP) integration
 - Real-time shop floor data → ERP costing
@@ -32,6 +35,7 @@ DWS IQ 6 provides seamless integrations with leading Nordic and international ER
 - Predictive maintenance → work order creation
 
 **Configuration**:
+
 ```bash
 MONITOR_ERP_ENABLED=true
 MONITOR_ERP_API_URL=https://api.monitor.se
@@ -41,6 +45,7 @@ MONITOR_ERP_COMPANY_ID=your-company-id
 ```
 
 **Use Cases**:
+
 - SME manufacturers with 50-500 employees
 - Discrete manufacturing
 - Metal fabrication, machinery, electronics
@@ -48,9 +53,11 @@ MONITOR_ERP_COMPANY_ID=your-company-id
 ---
 
 #### 2. IFS Cloud
+
 **Market**: Asset-intensive and project-based manufacturing
 
 **Key Features**:
+
 - Asset lifecycle management
 - Maintenance planning & execution
 - Project costing & tracking
@@ -58,6 +65,7 @@ MONITOR_ERP_COMPANY_ID=your-company-id
 - Equipment effectiveness tracking
 
 **Configuration**:
+
 ```bash
 IFS_ENABLED=true
 IFS_INSTANCE_URL=https://your-instance.ifs.cloud
@@ -67,6 +75,7 @@ IFS_CLIENT_SECRET=your-client-secret
 ```
 
 **Use Cases**:
+
 - Energy sector (wind, solar, hydrogen)
 - Heavy manufacturing
 - Defense contractors
@@ -75,19 +84,23 @@ IFS_CLIENT_SECRET=your-client-secret
 ---
 
 #### 3. Microsoft Dynamics 365
+
 **Market**: Most common cloud-first ERP in the Nordics
 
 **Versions Supported**:
+
 - Business Central (SME)
 - Finance & Operations (Enterprise)
 
 **Key Features**:
+
 - Cloud-native integration
 - Power Platform connectivity
 - Production order management
 - Manufacturing execution
 
 **Configuration**:
+
 ```bash
 DYNAMICS_365_ENABLED=true
 DYNAMICS_365_ENVIRONMENT=org123.crm4.dynamics.com
@@ -98,6 +111,7 @@ DYNAMICS_365_VERSION=business_central
 ```
 
 **Use Cases**:
+
 - Companies already in Microsoft ecosystem
 - Cloud-first organizations
 - Office 365 users
@@ -105,15 +119,18 @@ DYNAMICS_365_VERSION=business_central
 ---
 
 #### 4. SAP S/4HANA
+
 **Market**: Enterprise manufacturing conglomerates
 
 **Key Features**:
+
 - OData v2/v4 support
 - Production planning (PP) integration
 - Plant maintenance (PM) integration
 - Cost center accounting
 
 **Configuration**:
+
 ```bash
 SAP_ENABLED=true
 SAP_API_URL=https://your-sap-system.com
@@ -125,6 +142,7 @@ SAP_ODATA_VERSION=v2
 ```
 
 **Use Cases**:
+
 - Large industrial conglomerates
 - Global manufacturing operations
 - Forestry, pulp & paper
@@ -135,9 +153,11 @@ SAP_ODATA_VERSION=v2
 ### Tier 2: Nordic Specialists
 
 #### 5. Visma (Net/Enterprise)
+
 **Market**: Norwegian and Finnish mid-market
 
 **Configuration**:
+
 ```bash
 VISMA_ENABLED=true
 VISMA_API_URL=https://api.visma.net
@@ -150,9 +170,11 @@ VISMA_PRODUCT=net
 ---
 
 #### 6. Jeeves ERP
+
 **Market**: Swedish manufacturing SMEs
 
 **Configuration**:
+
 ```bash
 JEEVES_ENABLED=true
 JEEVES_API_URL=https://api.jeeves.se
@@ -195,12 +217,14 @@ JEEVES_DATABASE_NAME=your-database
 ### Synchronization Types
 
 #### 1. **FROM ERP → DWS** (Pull)
+
 - Production orders
 - Material requirements
 - Scheduled maintenance
 - Work center availability
 
 #### 2. **DWS → ERP** (Push)
+
 - Machine data (runtime, status, counters)
 - OEE metrics (availability, performance, quality)
 - Predictive maintenance alerts
@@ -208,6 +232,7 @@ JEEVES_DATABASE_NAME=your-database
 - Quality inspection results
 
 #### 3. **Bidirectional**
+
 - Work orders
 - Inventory transactions
 - Asset registry updates
@@ -220,12 +245,12 @@ Inspired by **azure-agentic-infraops** sequential agent choreography with approv
 
 ### Operation Risk Levels
 
-| Risk Level | Auto-Approve | Examples | Approval Required |
-|------------|--------------|----------|-------------------|
-| **LOW** | ✅ Yes | Read operations, OEE metrics sync | No |
-| **MEDIUM** | ⚠️ Optional | Single inventory transaction, maintenance event | Optional |
-| **HIGH** | ❌ No | Production order modification, cost posting | Yes |
-| **CRITICAL** | ❌ No | Mass data sync (>100 records), production schedule changes | Yes (dual approval) |
+| Risk Level   | Auto-Approve | Examples                                                   | Approval Required   |
+| ------------ | ------------ | ---------------------------------------------------------- | ------------------- |
+| **LOW**      | ✅ Yes       | Read operations, OEE metrics sync                          | No                  |
+| **MEDIUM**   | ⚠️ Optional  | Single inventory transaction, maintenance event            | Optional            |
+| **HIGH**     | ❌ No        | Production order modification, cost posting                | Yes                 |
+| **CRITICAL** | ❌ No        | Mass data sync (>100 records), production schedule changes | Yes (dual approval) |
 
 ### Approval Workflow
 
@@ -274,6 +299,7 @@ Inspired by **azure-agentic-infraops** sequential agent choreography with approv
 ### API Usage
 
 **Request Approval**:
+
 ```typescript
 POST /api/v1/erp/sync/production-orders
 {
@@ -294,6 +320,7 @@ Response:
 ```
 
 **Approve Request**:
+
 ```typescript
 POST /api/v1/erp/approvals/apr_1234567890_abc123/approve
 {
@@ -302,6 +329,7 @@ POST /api/v1/erp/approvals/apr_1234567890_abc123/approve
 ```
 
 **Reject Request**:
+
 ```typescript
 POST /api/v1/erp/approvals/apr_1234567890_abc123/reject
 {
@@ -316,12 +344,12 @@ POST /api/v1/erp/approvals/apr_1234567890_abc123/reject
 
 ### Default Schedule
 
-| Job | Frequency | Purpose |
-|-----|-----------|---------|
-| Production Orders Sync | Every 6 hours | Pull updated production schedules |
-| Machine Data Sync | Every hour | Push real-time machine metrics |
-| OEE Metrics Sync | Every 4 hours | Push calculated OEE data |
-| Maintenance Sync | Daily at 02:00 | Bidirectional maintenance events |
+| Job                    | Frequency      | Purpose                           |
+| ---------------------- | -------------- | --------------------------------- |
+| Production Orders Sync | Every 6 hours  | Pull updated production schedules |
+| Machine Data Sync      | Every hour     | Push real-time machine metrics    |
+| OEE Metrics Sync       | Every 4 hours  | Push calculated OEE data          |
+| Maintenance Sync       | Daily at 02:00 | Bidirectional maintenance events  |
 
 ### Configuration
 
@@ -385,6 +413,7 @@ POST /api/v1/erp/sync/production-orders
 Submit carbon emissions and generate sustainability reports.
 
 **Configuration**:
+
 ```bash
 WORLDFAVOR_ENABLED=true
 WORLDFAVOR_API_URL=https://api.worldfavor.com
@@ -393,6 +422,7 @@ WORLDFAVOR_ORGANIZATION_ID=your-org-id
 ```
 
 **Use Case**:
+
 - Convert Physical AI energy savings into verified carbon reports
 - EU Green Deal compliance
 - CSRD (Corporate Sustainability Reporting Directive) reporting
@@ -402,26 +432,31 @@ WORLDFAVOR_ORGANIZATION_ID=your-org-id
 ## Best Practices
 
 ### 1. **Start with Monitor ERP** (for Nordic SMEs)
+
 - Easiest integration for most manufacturers
 - Proven ROI in production efficiency
 - Direct impact on MRP accuracy
 
 ### 2. **Use Approval Gates for Critical Operations**
+
 - Always require approval for production schedule changes
 - Auto-approve OEE metrics and machine data
 - Dual approval for mass operations (>100 records)
 
 ### 3. **Field Mapping**
+
 - Define clear mappings between DWS and ERP fields
 - Document transformation logic
 - Test with sample data before production
 
 ### 4. **Error Handling**
+
 - All syncs include retry logic with exponential backoff
 - Failed records are logged for manual review
 - Partial sync completion is supported
 
 ### 5. **Security**
+
 - Use OAuth where available (IFS, Dynamics 365, Monitor)
 - Rotate API keys quarterly
 - Never commit credentials to git
@@ -436,6 +471,7 @@ WORLDFAVOR_ORGANIZATION_ID=your-org-id
 **Symptom**: `Failed to connect to {provider}`
 
 **Solutions**:
+
 1. Verify API credentials in `.env`
 2. Check network connectivity to ERP system
 3. Ensure firewall allows outbound HTTPS
@@ -446,6 +482,7 @@ WORLDFAVOR_ORGANIZATION_ID=your-org-id
 **Symptom**: `Sync operation failed`
 
 **Solutions**:
+
 1. Check sync history: `GET /api/v1/erp/sync/history/{organizationId}`
 2. Review error messages in logs
 3. Verify field mappings are correct
@@ -457,8 +494,9 @@ WORLDFAVOR_ORGANIZATION_ID=your-org-id
 **Symptom**: `Request {requestId} has expired`
 
 **Solutions**:
+
 1. Increase timeout: `ERP_APPROVAL_TIMEOUT_MINUTES=120`
-2. Enable email/Slack notifications
+2. Enable email/WhatsApp/webhook notifications
 3. Check pending approvals regularly
 
 ---
@@ -466,6 +504,7 @@ WORLDFAVOR_ORGANIZATION_ID=your-org-id
 ## Support
 
 For integration issues, contact:
+
 - **Technical Support**: support@lifetime.fi
 - **Documentation**: https://docs.dws10.com
 - **GitHub Issues**: https://github.com/blogtheristo/dws6/issues
@@ -475,21 +514,25 @@ For integration issues, contact:
 ## Roadmap
 
 ### Q1 2026
+
 - ✅ Monitor ERP integration (COMPLETED)
 - ✅ IFS Cloud integration (COMPLETED)
 - ✅ Approval gate system (COMPLETED)
 
 ### Q2 2026
+
 - 🔄 SAP S/4HANA production validation
 - 🔄 Dynamics 365 Business Central testing
 - 📋 Automated cost variance reporting
 
 ### Q3 2026
+
 - 📋 PLM integration (SolidWorks, PTC Windchill)
 - 📋 MES integration (Siemens Opcenter)
 - 📋 Logistics/WMS (LogTrade, Unifaun)
 
 ### Q4 2026
+
 - 📋 AI-powered field mapping suggestions
 - 📋 Predictive sync scheduling
 - 📋 Advanced ESG analytics

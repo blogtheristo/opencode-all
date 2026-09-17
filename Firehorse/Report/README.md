@@ -9,6 +9,7 @@ Centralized reporting and analytics for all Firehorse campaigns across investors
 ## Report Types
 
 ### 1. Daily Reports
+
 - Emails sent today
 - Delivery rate
 - Open rate
@@ -17,6 +18,7 @@ Centralized reporting and analytics for all Firehorse campaigns across investors
 - Meetings scheduled
 
 ### 2. Weekly Summaries
+
 - Campaign performance trends
 - Top performing templates
 - Engagement metrics
@@ -24,6 +26,7 @@ Centralized reporting and analytics for all Firehorse campaigns across investors
 - Week-over-week comparison
 
 ### 3. Monthly Analytics
+
 - Overall campaign health
 - Channel performance
 - Audience segment analysis
@@ -31,6 +34,7 @@ Centralized reporting and analytics for all Firehorse campaigns across investors
 - Goal achievement
 
 ### 4. Campaign-Specific Reports
+
 - Individual campaign deep-dive
 - A/B test results
 - Cohort analysis
@@ -39,6 +43,7 @@ Centralized reporting and analytics for all Firehorse campaigns across investors
 ## Key Metrics Dashboard
 
 ### Email Performance
+
 ```
 ┌─────────────────────────────────────────┐
 │ Daily Email Metrics                     │
@@ -53,6 +58,7 @@ Centralized reporting and analytics for all Firehorse campaigns across investors
 ```
 
 ### Conversion Funnel
+
 ```
 Contacts in Database:  500
   ↓
@@ -72,20 +78,23 @@ Opportunity Created:   1 (33%)
 ## Report Schedule
 
 ### Automated Reports
+
 - **Daily**: 6 PM every day
 - **Weekly**: Monday 8 AM
 - **Monthly**: 1st of month, 9 AM
 - **Quarterly**: First Monday of quarter
 
 ### Distribution
+
 - Email to team
-- Slack notification
+- WhatsApp / webhook notification
 - Dashboard update
 - Export to CSV/PDF
 
 ## Metrics Definitions
 
 ### Email Metrics
+
 - **Sent**: Total emails dispatched
 - **Delivered**: Successfully delivered (not bounced)
 - **Delivery Rate**: Delivered / Sent
@@ -100,6 +109,7 @@ Opportunity Created:   1 (33%)
 - **Bounce Rate**: Bounced / Sent
 
 ### Engagement Metrics
+
 - **Engagement Score**: Weighted score based on actions
 - **Time to Open**: Hours until first open
 - **Time to Click**: Hours until first click
@@ -107,6 +117,7 @@ Opportunity Created:   1 (33%)
 - **Multi-touch**: Contacts requiring multiple touches
 
 ### Conversion Metrics
+
 - **Meeting Rate**: Meetings / Contacted
 - **Conversion Rate**: Opportunities / Contacted
 - **Pipeline Value**: Total opportunity value
@@ -117,64 +128,77 @@ Opportunity Created:   1 (33%)
 ## Report Templates
 
 ### Daily Report Template
+
 ```markdown
 # Daily Campaign Report - [Date]
 
 ## Summary
+
 - Emails Sent: [X]
 - Open Rate: [X%]
 - Response Rate: [X%]
 - Meetings Scheduled: [X]
 
 ## Top Performers
+
 1. [Contact Name] - [Action]
 2. [Contact Name] - [Action]
 3. [Contact Name] - [Action]
 
 ## Issues
+
 - [Any bounces or errors]
 
 ## Tomorrow's Plan
+
 - [Contacts to reach]
 - [Follow-ups scheduled]
 ```
 
 ### Weekly Summary Template
+
 ```markdown
 # Weekly Campaign Summary - Week of [Date]
 
 ## Overview
+
 - Total Contacts: [X]
 - Emails Sent: [X]
 - Response Rate: [X%]
 - Meetings: [X]
 
 ## Performance by Channel
+
 - Investors: [Metrics]
 - Customers: [Metrics]
 - Partners: [Metrics]
 
 ## Top Templates
+
 1. [Template Name] - [Open Rate]
 2. [Template Name] - [Open Rate]
 
 ## Insights & Recommendations
+
 - [Key findings]
 - [Optimization suggestions]
 
 ## Next Week Goals
+
 - [Objectives]
 ```
 
 ## Analytics Tools
 
 ### Built-in Analytics
+
 - Campaign performance tracking
 - Email engagement metrics
 - Conversion funnel analysis
 - Cohort analysis
 
 ### Integrations
+
 - Google Analytics
 - Mixpanel
 - Amplitude
@@ -183,6 +207,7 @@ Opportunity Created:   1 (33%)
 ## Data Visualization
 
 ### Charts & Graphs
+
 - **Line Chart**: Metrics over time
 - **Bar Chart**: Campaign comparison
 - **Funnel Chart**: Conversion stages
@@ -192,12 +217,14 @@ Opportunity Created:   1 (33%)
 ## Export Formats
 
 ### Available Formats
+
 - **CSV**: Raw data export
 - **PDF**: Formatted reports
 - **JSON**: API integration
 - **Excel**: Advanced analysis
 
 ### Export Commands
+
 ```bash
 # Export daily metrics
 node reporting/export.js --type daily --format csv
@@ -212,12 +239,14 @@ node reporting/export.js --start 2025-12-01 --end 2025-12-31
 ## Benchmarks
 
 ### Industry Standards
+
 - **Open Rate**: 15-25%
 - **Click Rate**: 2-5%
 - **Response Rate**: 1-3%
 - **Meeting Rate**: 0.5-2%
 
 ### Internal Goals
+
 - **Open Rate**: >25%
 - **Click Rate**: >5%
 - **Response Rate**: >3%
@@ -226,12 +255,14 @@ node reporting/export.js --start 2025-12-01 --end 2025-12-31
 ## Alert Thresholds
 
 ### Performance Alerts
+
 - Open rate drops below 15%
 - Bounce rate exceeds 5%
 - Zero responses for 3 days
 - Meeting rate below 1%
 
 ### System Alerts
+
 - Campaign failed to run
 - Database connection error
 - API rate limit reached
@@ -240,6 +271,7 @@ node reporting/export.js --start 2025-12-01 --end 2025-12-31
 ## Optimization Insights
 
 ### What to Monitor
+
 1. **Best Send Times**: When do people open?
 2. **Top Subject Lines**: What drives opens?
 3. **Effective CTAs**: What gets clicks?
@@ -247,6 +279,7 @@ node reporting/export.js --start 2025-12-01 --end 2025-12-31
 5. **Segment Performance**: Which audiences engage?
 
 ### Action Items
+
 - A/B test underperforming elements
 - Double down on what works
 - Pause low-performing campaigns

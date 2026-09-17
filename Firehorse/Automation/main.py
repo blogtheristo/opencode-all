@@ -372,7 +372,7 @@ async def _execute_action(action_type: str, config: dict) -> dict:
             return response.json()
 
     elif action_type == ActionType.SEND_NOTIFICATION.value:
-        channel = config.get("channel", "webhook")
+        channel = str(config.get("channel", "webhook")).lower()
         message = config.get("message", "Automation notification")
         subject = config.get("subject")
         recipient = config.get("recipient")
@@ -523,7 +523,7 @@ async def _send_whatsapp_notification(
         "channel": "whatsapp",
         "to": _redact_recipient(to_number),
         "template": WHATSAPP_TEMPLATE_NAME,
-        "metadata": {"delivery": "meta-cloud-api"} if metadata is not None else {},
+        "metadata": {**(metadata or {}), "delivery": "meta-cloud-api"},
     }
 
 
