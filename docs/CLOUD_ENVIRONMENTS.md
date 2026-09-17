@@ -1209,7 +1209,7 @@ MCP Agent Server (src/mcp/agent-server.ts)
 | ------------- | ------ | ------------------------------------------------------- | ---- |
 | `/mcp`        | POST   | JSON-RPC 2.0 — `initialize`, `tools/list`, `tools/call` | JWT  |
 | `/mcp/sse`    | GET    | Server-Sent Events — real-time agent events             | JWT  |
-| `/mcp/health` | GET    | Health check with agent count and protocol version      | None |
+| `/mcp/health` | GET    | Health check with protocol version and registered-agent inventory | None |
 
 ### 13.3 Available Meta-Tools
 
