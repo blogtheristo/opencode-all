@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "version": "1.0",
+    "date": "2026-09-13",
+    "lang": "sv",
+    "page": "aegis-product"
+  },
+  "seo": {
+    "title": "DWS IQ Aegis — Suverän industriell intelligens för dubbelanvändningsindustri | Lifetime Firehorse™Store",
+    "description": "DWS IQ Aegis — EDIP-klar suverän AI-plattform på finnisk infrastruktur. En flotta av skickliga agenter, UpCloud Kubernetes, EU AI Act Artikel 12 native. Tillgänglig september 2026.",
+    "keywords": "DWS IQ, Aegis, suverän AI, EU AI Act, UpCloud, Kubernetes, Helm, försvar, dubbelanvändning, finsk moln",
+    "og_title": "DWS IQ Aegis — Suverän industriell intelligens för dubbelanvändningsindustri",
+    "og_description": "EDIP-klar suverän AI på finnisk infrastruktur. 21+ industriella AI-agenter. EU AI Act Artikel 12 native. Designad för att minska CLOUD Act-exponering. Tillgänglig september 2026.",
+    "twitter_title": "DWS IQ Aegis — Suverän industriell intelligens för dubbelanvändningsindustri",
+    "twitter_description": "Enkeltenant suverän AI på finnisk infrastruktur. Tillgänglig september 2026."
+  },
+  "nav": {
+    "back_to_store": "← Tillbaka till butiken",
+    "deployment_banner_title": "En plattform, tre distributioner:",
+    "eu_sovereign_cloud": "EU-suveränt moln",
+    "dedicated_cloud_aegis": "Dedikerad moln (Aegis)",
+    "own_nvidia_dgx": "Egen NVIDIA DGX",
+    "deployment_banner_tagline": "hyr suverän kapacitet eller äg maskinen.",
+    "compare_deployments": "Jämför distributioner →"
+  },
+  "hero": {
+    "h1": "DWS IQ Aegis",
+    "tagline": "Suverän industriell intelligensplattform för dubbelanvändningsindustri",
+    "badge_1": "Del av DWS IQ industriella intelligenssvit",
+    "badge_2": "Allmän tillgänglighet: september 2026",
+    "badge_3": "Architekterad för EDIP-alignment",
+    "intro": "Aegis är en enkeltenant suverän AI-plattform som specifikt är konstruerad för dubbelanvändningsfabriker, tung industri och kritisk råvaruinfrastruktur. Distribuerad på dedikerad finnisk infrastruktur optimerar och säkerställer Aegis kontinuerligt de produktionsanläggningar som försörjer Europas försvarssektor — och garanterar absolut dataisolering med noll USA-molnberoende och designad för att minska CLOUD Act-exponering.",
+    "subtitle": "Namngiven efter Athenas sköld — Aegis ger skydd genom intelligens. Dedikerad Kubernetes-cluster per kund. Ingen delad tenancy. Inget USA-moln. Täcker alla 21 EU-reglerade industrier inklusive dubbelanvändnings kritiska råvaror.",
+    "cta_scoping_session": "Begär en distributionskonfigurationssession"
+  },
+  "edip": {
+    "h2": "EDIP-klar: Byggd för EU:s Försvarsindustriprogram",
+    "intro": "Europeiska kommissionen antog sitt €1,5 miljarders EDIP-arbetsprogram den 30 mars 2026, och allokerade €700M+ för industriell produktionsupprustning, €240M för gemensam inköp och €100M för försvars-SME-aktier. Aegis är uttryckligen konstruerad för att uppfylla EDIP Artikel 9 behörighetskrav och erbjuder redo conformances-infrastruktur för anläggningar som får EDIP-finansiering (under förutsättning av formell EU-utvärdering).",
+    "table_caption": "EDIP Artikel 9 behörighetskriterier och Aegis-status / teknisk alignering.",
+    "table_rows": {
+      "eu_establishment": "EU-etablering | Finland (Lifetime Oy, Y-tunnus 0772407-9) | ALIGNERAD",
+      "third_country_control": "Tredjelandskontroll | 100% finskägd, ingen USA-modär eller företagsberoende | ALIGNERAD",
+      "buy_european": "Köp europeiskt (65%) | UpCloud Helsinki-värd, helt EU-ägd och driven stack | ALIGNERAD",
+      "defence_supply_chain": "Försvarskedja | Förkartaad till 21 reglerade industrier inklusive dubbelanvändnings kritiska råvaror | ALIGNERAD",
+      "edip_compliance_stack": "EDIP Efterlevnadsstack | ETS + CBAM + CSRD + NIS2 + EU AI Act + dubbelanvändnings exportkontroll (Reg. 2021/821)"
+    }
+  },
+  "why_aegis": {
+    "h2": "Varför Aegis",
+    "items": {
+      "sovereignty": "Sann industriell suveränitet — Distribuerad uteslutande på finskägd UpCloud-infrastruktur (Helsinki DC). Ditt fabriks operativa telemetri, produktionsvolym och proprietära tillverkningsrecept berör aldrig ett USA-ägt moln eller utsätts för CLOUD Act-exponering.",
+      "single_tenant": "Enkeltenant — Din egen Kubernetes-cluster, din egen databas, dina egna agenter. Ingen delad infrastruktur med andra kunder.",
+      "dual_use_compliance": "Dubbelanvändnings-efterlevnad nativ — Speciellt byggd för snittet mellan tung industri och försvar. Nativt automatiserar NIS2, EU AI Act (Artikel 12 resonemangslinje) och komplexa dubbelanvändnings exportkontroller (Reg. 2021/821).",
+      "deterministic_factory": "Deterministisk fabriksexekvering — Isolerade Firecracker MicroVM-agenter övervakar leveranskedjor, spårar inbyggd koldioxid (CBAM/CSRD) och flaggar industriella störningar med granskbar, noll-hallucinations datapath — styrd av KYA (Känn din agent) med dödsknapp-myndighet.",
+      "edip_aligned": "EDIP-alignerad — Speciellt konstruerad för att uppfylla Artikel 9-krav för etablering och kontroll, och erbjuder efterlevnadsramverket för EDIP-finansierade anläggningar."
+    }
+  },
+  "financial_engine": {
+    "h2": "Efterlevnadens finansiella motor",
+    "p1": "Övergången från experimentell AI till reglerade företagsoperationer är inte bara en teknisk utmaning — det är ett strategiskt skifte för att monetarisera industriellt certifierade tillgångar. Genom att koppla AI-innovation från säkerhetskritiska kärnor flyttar industriella företag från en cykel av kontinuerliga ombesiktningskostnader till en upprepningsbar, skalerbar tillgångsmodell.",
+    "p2": "Integrationen av DWS IQ förvandlar efterlevnad från en kostnadskälla till en drivkraft för det vi kallar \"Finansiell Alpha\" — den punkt där effektivitetsvinster överstiger beräkningskostnader. Styrda, KYA-tierade svärmdistributioner är konstruerade för att nå den tröskeln snabbare än ohanterade, enkelagentdistributioner. Samma arkitektur gör det möjligt för industriella företag att automatisera efterlevnad, minska ombesiktningskostnad och ansvarsexponering jämfört med manuella processer, och producera det försvarbara, granskningsbara bevislaged som försäkringsbolag och domstolar bedömer under den reviderade produktansvarsdirektivet."
+  },
+  "sovereignty": {
+    "h2": "Suveränitetsposition — vår trepelargovernance-ramverk",
+    "intro": "Aegis framtvingar suverän isolering genom vårt proprietära trepelargovernance-ramverk, som kartlägger data, teknik och operativ kontroll strikt inom EU-gränser.",
+    "sovereignty_field_note": "Se suveränitetsfältnot #2",
+    "for_the_full_taxonomy": "för hela taxonomin.",
+    "table_caption": "Pilartäckning. Aegis betjänar J1 (EU) -jurisdiktionen med alla tre pelarna vid full EU-suverän (Tier 1 leverantörsklass). Kvantberedskapsväg via Rightful Oy R-Sac².",
+    "table_rows": {
+      "data_solvency": "DatSuveränitet (KYA SIB-spår) | Full — EU-uppehåll, EU-endast åtkomstväg, finskägd infrastruktur, designad för att minska CLOUD Act-exponering | BESTÅENDE",
+      "technology_sovereignty": "TeknikSuveränitet (KYA CSB-spår) | Full — UpCloud + öppen Kubernetes + öppen Postgres-stack; algorithm-rotation stöds; ingen proprietär inlåsning | BESTÅENDE",
+      "operational_sovereignty": "OperativSuveränitet (KYA EAB-spår) | Full — finsk eskalering, EU-endast jour, Firecracker MicroVM-isolation, hårdvarudödsknapp-myndighet | BESTÅENDE",
+      "jurisdiction_emphasis": "Jurisdiktionsemphasis | J1 (EU) primär. J2 (USA) och J3 (Singapore) marknadsåtkomst via Connect-nivå.",
+      "quantum_resistant": "Kvantresistent skikt (R-Sac²-arkitektur) | Integrerad kryptografisk yta utvecklad i partnerskap med Rightful Oy, möjliggör NIST PQC-migrering (FIPS 203 / 204 / 205) för att skydda försvarsdata mot \"Harvest Now, Decrypt Later\" (HNDL) vektorer före 2030–2035-mandatet"
+    }
+  },
+  "technical_specs": {
+    "h2": "Tekniska specifikationer",
+    "items": {
+      "deployment_model": "Distributionsmodell | Enkeltenant Kubernetes (Helm-diagram) | EU-suverän",
+      "infrastructure": "Infrastruktur | UpCloud Managed Kubernetes (UKS), Helsinki DC (fi-hel1 / fi-hel2)",
+      "sovereignty": "Suveränitet | Finskägd (Tesi-stödd), ISO 27001 (UpCloud-infrastruktur), CISPE-medlem, EU-endast personalåtkomst",
+      "cloud_act_exposure": "CLOUD Act-exponering | Ingen — ingen USA-modär, ingen USA-ägd infrastruktur",
+      "kubernetes": "Kubernetes | CNCF-konformant, fullt Helm-stöd, HPA + VPA + Cluster Autoscaler",
+      "sla": "SLA | 99,9% applikations-tillgänglighetsmål / 99,999% underliggande infrastruktur (UpCloud)",
+      "database": "Databas | UpCloud Managed PostgreSQL + pgvector (HA, automatiserade säkerhetskopior, Helsinki DC)",
+      "cache_queue": "Cache / Kö | UpCloud Managed Valkey/Redis",
+      "gpu": "GPU | NVIDIA L40S-noder för cluster-intern LLM-inference (EU-moln — ingen hårdvara fraktas till plats)",
+      "egress": "Egress | Nollkostnad (UpCloud Essentials)",
+      "load_balancer": "Lastbalanserare | Inkluderad (UpCloud Managed)",
+      "agent_isolation": "Agentisolering | Firecracker MicroVM per agent (KYA Säkerhet v1.2)",
+      "ai_agents": "AI-agenter | 21+ industriella AI-agenter över 21 vertikaler (samma kodbas som DWS IQ 6)",
+      "cli_access": "CLI-åtkomst | dws CLI — alla agenter hanterbara via kommandorad",
+      "eu_ai_act": "EU AI Act | Artikel 12-loggning, resonemangslinje, Aiwen-compliancelager",
+      "compliance": "Efterlevnad | GDPR, NIS2, EU AI Act, CER-direktiv, EU CRM Act, KRITIS, dubbelanvändnings exportkontroll (Reg. 2021/821)",
+      "certifications_roadmap": "Certifieringsvägkarta | ISO 27001 (Lifetime Oy — siktar Q3 2026), SOC 2 Type II (siktar Q4 2026); UpCloud-infrastruktur redan ISO 27001-certifierad",
+      "security_audit": "Säkerhetsrevision | PiTuKri granskat | Traficom NCSC-FI molnsäkerhetskriterier v1.1 — 11 underavdelningar, 52 kriterier bedömda"
+    }
+  },
+  "agents": {
+    "h2": "Ingående agenter",
+    "table_header": "Agent | Förmåga",
+    "items": {
+      "compliance_agent": "ComplianceAgent | EU-regulatorisk efterlevnad (CSRD, ETS, CBAM, Fit for 55, EU AI Act)",
+      "sovereignty_monitor": "SovereigntyMonitor | CLOUD Act-exponeringsidentifiering, EU-datauppehållsverifiering",
+      "argus_agent": "ArgusAgent | Orbital industriell intelligens — SAR-övervakning av logistikhubbar, råvarulagring och anläggningsoverkanter för att förutsäga fabrikens leveranskedjestörningar",
+      "sitesense_agent": "SiteSenseAgent | Dubbelanvändningsproduktionsanläggning säkerhetsbetyg, väderrelaterad operativ risk och arbetarkapacitetsgränser",
+      "material_oracle": "MaterialOracle | Inbyggd koldioxidspråtagning, hållbar inköp",
+      "operational_chronos": "OperationalChronos | Uppdragstidsplan-optimering, industriell resursallokering och kritisk-paths-synkronisering under leveranskedjestörningar",
+      "quality_gate": "QualityGate | Distributionsberedskap, kvalitetsbetyg",
+      "emissions_data_analyst": "EmissionsDataAnalyst | Utsläppsanalys med EU-regulatorisk kontext",
+      "logistics_agent": "LogisticsAgent | Flottefterlevnad, ruttoptimering, leveranskedjekoldioxid",
+      "construction_agent": "ConstructionAgent | Byggnadsprojekt efterlevnadsorkestrering",
+      "kya_engine": "KYA-motor | Känn din agent — identitet, isolering, död-myndighet",
+      "article12_logger": "Article12Logger | EU AI Act-granskningspor för alla AI-beslut",
+      "cross_vertical_intel": "CrossVerticalIntel | Leveranskedjesignalpropagering — identifierar efterlevnadskaskader över 21 industrier",
+      "gaia_agent": "GaiaAgent | Kritiska råvaror — beroende, utvinningsgrad och bearbetningsflaskhalsövervakning för dubbelanvändningsingångar (cement, kalk, sällsynta jordarter) som försörjer militär infrastruktur",
+      "vulcan_agent": "VulcanAgent | Stål och tungmetaller — produktionsnivå-efterlevnad för högspännande tillverkning, kartläggning av ETS Phase 4-anslag och CBAM-koldioxiddeklarationer till försvarskedjebehov",
+      "more_agents": "+ fler | Efterlevnadsforskning, djup-viki-extrahering, Hermes-logistik — och den bredare DWS IQ industriella agentflottan"
+    }
+  },
+  "target_market": {
+    "h2": "Målmarknad",
+    "items": {
+      "government": "Myndigheter — EU-medlemsstater, försvarsministerier, offentlig sektor",
+      "defence_industry": "Försvarsindustri — Entreprenörer, varv, flyg och rymd, dubbelanvändningstillverkning",
+      "critical_infra": "Kritisk infrastruktur — Energi, transport, vatten, bank (NIS2-omfattning)",
+      "regulated_enterprise": "Reglerat företag — Varje organisation som kräver suveränitet under egen infrastrukturkontroll",
+      "geography": "Geografi: — Endast EU"
+    }
+  },
+  "competitive": {
+    "h2": "Konkurrenspositionering",
+    "intro": "Marknadssignal (juni 2026): USA:s armé valde Palantir Foundry som sin NGC2 (Next Generation Command & Control) molndatalager och Anduril Lattice som det taktiska datalagret — bevis på att operativ fördel vinner vid det suveräna datalagret. Aegis konkurrar inte på den taktiska frontlinjen; det vinner på fabriksgolvet och över leveranskedjan — den dubbelanvändningsindustriella bas som driver förvarsverksamheten — med absolut EU-suveränitet och djup efterlevnad.",
+    "table_header": "Konkurrent | Kärnförmågor | Aegis suveräna industriella fördel",
+    "competitors": {
+      "palantir": "Palantir AIP / Foundry | Företagsdataintegration och operativ analys, med etablerade europeiska dotterbolag. | USA CLOUD Act-sårbarhet — en USA-företagsmodär gör proprietära europeiska tillverkningskartor och försvarskedjemetrlicer underkastade extraterritoriella begäranden. Aegis är 100% EU-ägd och immun mot USA-jurisdiktion.",
+      "anduril": "Anduril Lattice | Enastående taktisk hårdvaruintegration, perimetersäkerhet och droneorkestrering. | Kinetic fokus — primärt optimerat för frontlinjens stridshårdvara, saknar det djupa industriella efterlevnadslagret (CBAM, NIS2, EU AI Act) som krävs för att säkert driva en EU-reglerad dubbelanvändningstillverkningsanläggning.",
+      "c3ai": "C3.ai | Förutsägande underhållsmodeller och generella företagsinstrumentpaneler. | Hyperskalareberoende — körs helt som ett lager på kommersiella USA-moln. Aegis exekverar deterministisk, isolerad multiagentresonemang inuti en enkeltenant EU-enklav.",
+      "big_four": "Big Four-konsultering | Hög-nivå regulatorisk rådgivning och efterlevnadsimplementeringsplanering. | Rådgivning endast — levererar ramverk, inte programvara. Aegis levererar deployerbara autonoma agenter och integrerad orbital intelligens direkt i din produktionsmiljö."
+    }
+  },
+  "signal_trace": {
+    "h2": "Signalspårning: Tvärgående dubbelanvändningsidentifiering",
+    "subtitle": "Illustrativ tvärgående spårning — pre-GA modell demonstration",
+    "note": "Deterministisk rekonstruktion från publika EU-datakällor, representativ för Aegis signalspårningsmodell före augusti 2026 allmän tillgänglighet.",
+    "scenario": "Representativt scenario: en ugnstrukturfel stör en stor regional kalkanläggning och lokalmedia avfärdar det som en rutinmässig, isolerad underhållshändelse. Aegis-modellen fångar anläggningens anomalisignaturer och spårar den nedströms dubbelanvändningsindustriella leveranskedjekaskaden:",
+    "table_header": "Signalstadium | Industri | Spår",
+    "trace_stages": {
+      "trigger": "1. Trigger | Kritiska råvaror | Lokaliserad anläggningsnedstängning flaggad; regional leveranskoncentrationsrisk för högrent calciumoxid omberäknad",
+      "upstream": "2. Uppströms | Stål och legeringar | Fluxbrist upptäckt → förestående CBAM-tulltopp förutsagd för icke-EU-stålimport som behövs av närliggande varv",
+      "midstream": "3. Mellanströms | Cement och infrastruktur | Kalcinering råvarubegränsning → kaskaderande klinkerflaskhals som påverkar regionala försvarsanläggningar",
+      "downstream": "4. Nedströms | Försvarsinfrastruktur | Råvarusubstitution kopplad till nettoökning av inbyggd koldioxid → primära entreprenörer varnas för förestående CSRD E1-diskussionsbrott",
+      "regulatory": "5. Reglering | Tvärgående | Strukturfel korsrefererat mot CER-lagen — outövervakad mineralbearbetningssårbarhet uppdagad"
+    },
+    "metric": "fem sammankopplade industriella sektorer kartlagda, fyra europeiska regulatoriska ramverk uppfyllda, en signalkedja löst via deterministisk, noll-hallucinations multiagentspårning — fullständigt granskningsbar tillverifierbara publika EU-källor."
+  },
+  "pricing": {
+    "h2": "Prissättning",
+    "table_header": "Nivå | Onboarding + Integration | Månadsvis | Ingår",
+    "tiers": {
+      "standard": "Aegis Standard | €59 990 | €999/mån | Skickliga agenter, dedikerad K8s-cluster, Artikel 12-loggning, KYA-styrning, standardsupport",
+      "defence": "Aegis Försvar | €89 990 | €1 999/mån | Allt i Standard + NVIDIA L40S GPU, ArgusAgent SAR, prioritetssupport (4h SLA), EDIP-efterlevnadsrapportering",
+      "sovereign": "Aegis Suverän | Anpassad | €4 999/mån | Allt i Försvar + säkerhetsklareringssupport, dedikerat ingenjörsteam, anpassad SLA, högre suveränitetsförsäkring"
+    },
+    "pricing_note": "Nivåerna prissätter hårdvara, SLA, support och suveränitetsförsäkring — de begränsar inte distributionsformen. Lokal / kant-drift är tillgänglig i varje nivå, eftersom kontrollrumsmannen kräver det arkitektoniskt snarare som en uppgradering. Ingen hårdvara paketeras eller återförsäljs i någon form. DWS levererar bara programvaruplattformen och styrningslageret. Cloud-läge GPU-inference körs på L40S-noder inuti EU-värdd enkeltenant-cluster — inget fraktas till plats. Lokala och hybriddistributioner körs på kund- eller partneranskaffad hårdvara, omfattad per åtagande. Kantenheter säljs som egna SKU:er, separat från Aegis-onboarding."
+  },
+  "deployment_architecture": {
+    "h3": "Distributionsarkitektur",
+    "intro": "Aegis är konstruerad lokalförst för djupa och pålitliga industriella operationer. I tillverkningskontrollrum, dubbelanvändningsanläggningar och lufttätade verk kan efterlevnadseksekvering inte förlita sig på extern anslutning. Lokal drift är ett arkitektoniskt krav för kritiska miljöer, medan molnvärd kvarstår som ett giltigt distributionsval för bredare företagsarbetsbelastningar.",
+    "h4_modes": "Distributionsformer",
+    "mode_local": "Lokal / Kant: För tillverkningskontrollrum och andra kritiska eller dubbelanvändningsplatser. Kärnagentsexekvering, bevisinsamling, identitetsverifiering, revisionsloggar och mänsklig död-myndighet förblir strikt på plats, så de kritiska operationellaresultaten inte beror på nätverks tillgänglighet.",
+    "mode_cloud": "EU-suverän moln: För icke-kritiska företagsarbetsbelastningar, utvecklingsmiljöer, platsoverskridande rapportering och kunder som accepterar nätverksberoende.",
+    "mode_hybrid": "Hybrid: Lokal exekvering (bevarande av begränsade, dimensionerade beräknings ekonomier för djupa arbetsflöden) med valfri utgående synkronisering, säkerhetskopiering eller efterlevnadsrapportering till ett EU-suveränt moln.",
+    "h4_commercial": "Kommersiell & staging-väg",
+    "commercial_p1": "Prisnivåerna strukturerar kommersiell täckning, hårdavtryck, SLA:er och dedikerad ingenjörsstöd — de begränsar inte distributionsformen. Lokalförst-utkrävs för kontrollrumsdistributioner, men Aegis hävdar inte att varje företagsdistribution är offline som standard.",
+    "commercial_p2": "För att validera lokal exekvering före åtagande av stora hårdvaruinvesteringar bevisar den 3-månaders Aegis-piloten den kompletta lokala operativa vägen direkt på befintlig kundinfrastruktur eller en kompakt kantenhet före DGX-anskaffning.",
+    "commercial_p3": "Piloten är en stegvis första betalning, inte en extra avgift — den krediteras fullt ut mot Aegis-onboarding om du fortsätter inom sex månader, så den totala kostnaden till produktion oförändras.",
+    "supply_continuity": "Leveranskontinuitet. De modeller vi adopterar skickas som öppna vikter, så inferenslageret är portabelt per design snarare än knutet till en leverantörs stack. En icke-NVIDIA-backup-väg (AMD, Intel-acceleratorer) ingår i vår leveransriskplan, och hårdvarukompatibilitet valideras per åtagande snarare än antas. Den fullständiga leveransriskregistret finns tillgänglig under NDA.",
+    "year1_cost": "År-1 kostnadskontext: Aegis Standard totaler ≈ €72K under år 1 (€59 990 + €999×12) — ungefär 13× lägre än en jämförbar Palantir år-1-åtagande (~€920K). Försvars- och Suverän-nivåerna skalar med GPU, support och klareringskrav (Försvar år-1 ≈ €114K). Jämförelsen gäller Standardnivån."
+  },
+  "distribution": {
+    "h2": "Distribution",
+    "items": {
+      "ifs_cloud": "IFS Cloud Marketplace — Nordisk försvars/industri (Saab, BAE Systems Nordic)",
+      "sap_store": "SAP Store — Försvarslederkedja S/4HANA-integration",
+      "microsoft_appsource": "Microsoft AppSource — Dynamics 365 för försvarsentreprenörer",
+      "define": "DEFINE / Defence Tech Hub — Finskt försvarsökosystem",
+      "direct_sales": "Direkt företagsförsäljning — Försvarsentreprenörer, statliga inköp"
+    }
+  },
+  "cta_final": {
+    "button": "Boka ett distributionskonfigurationsamtal — Allmän tillgänglighet september 2026"
+  },
+  "page_version": "DWS IQ Aegis — produktsida v1.1 · 2026-06-23",
+  "ecosystem": {
+    "tag": "Hela bilden",
+    "h2": "DWS suveräna stack — varje skikt, ett ekosystem.",
+    "lead": "Denna produkt är en del. Hela stacken binds ihop: suverän hårdvara vid kanten, on-premise inference, ett EU-serviceteam och den återkommande NVIDIA-modellrelationen som ackumuleras. Välj nästa stege du behöver."
+  }
+}

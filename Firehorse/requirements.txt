@@ -3,15 +3,15 @@
 # Date: December 30, 2025
 
 # Safe formula evaluation (replaces ast.literal_eval / eval)
-simpleeval>=1.0.3               # Safe expression evaluation for calculated fields
+simpleeval>=1.0.5               # Safe expression evaluation for calculated fields (>=1.0.5: CVE-2026-32640 sandbox-escape/RCE fix)
 
 # Core dependencies
 supabase>=2.0.0                 # Supabase Python client
-python-dotenv>=1.0.0            # Environment variable management
+python-dotenv>=1.2.2            # Environment variable management (>=1.2.2: set_key symlink-overwrite fix)
 
 # PDF generation
 reportlab>=4.0.0                # PDF generation library
-pillow>=10.0.0                  # Image processing for PDFs
+pillow>=11.3.0                  # Image processing for PDFs
 
 # DOCX generation
 python-docx>=1.0.0              # Microsoft Word document generation

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "_profile": "win11",
+  "_comment": "Primary development workstation (Windows 11, PowerShell). Full local MCP surface: the agents server on :3001 and the Python gateway both run here. Generated into .claude/settings.local.json by scripts/Sync-ClaudeEnv.ps1 - edit this profile, never the generated file.",
+  "_hic_decision": "2026-08-13 - HIC authorised shipping permissions.defaultMode=bypassPermissions across all four environments. Rationale: there is a single contributor, and bypassPermissions only skips the permission prompt and the settings.json deny list - it does NOT disable PreToolUse hooks, which fire earlier in the agentic loop and remain the real enforcement layer (see CLAUDE.md 'Secret Egress Rules' and .claude/hooks/pretooluse-guard.sh). If a second contributor joins, revisit this: the deny list becomes load-bearing again.",
+  "permissions": {
+    "defaultMode": "bypassPermissions",
+    "allow": [
+      "Bash(pwsh:*)",
+      "Bash(powershell:*)",
+      "Bash(ssh dgx-spark:*)",
+      "Bash(opencode:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": false,
+  "enabledMcpjsonServers": ["dws-gateway-local", "dws-agents-local"]
+}

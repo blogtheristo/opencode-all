@@ -45,15 +45,17 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }} # optional — enables Tier 3 price extraction
+          DRY_RUN: ${{ inputs.dry_run }}
+          COMPETITOR: ${{ inputs.competitor }}
         run: |
-          ARGS=""
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
-            ARGS="$ARGS --dry-run"
+          args=()
+          if [ "$DRY_RUN" = "true" ]; then
+            args+=(--dry-run)
           fi
-          if [ -n "${{ inputs.competitor }}" ]; then
-            ARGS="$ARGS --competitor '${{ inputs.competitor }}'"
+          if [ -n "$COMPETITOR" ]; then
+            args+=(--competitor "$COMPETITOR")
           fi
-          python scripts/collect_market_research.py $ARGS
+          python scripts/collect_market_research.py "${args[@]}"
 
       - name: Commit market brief
         if: ${{ inputs.dry_run != true }}

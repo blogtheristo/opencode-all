@@ -9,17 +9,16 @@
  * - Swedish market specialization
  */
 
-import { BaseERPConnector } from '../base-connector';
+import { BaseERPConnector } from '../base-connector.js';
+import type { InternalAxiosRequestConfig } from 'axios';
 import {
-  ERPProvider,
-  JeevesConfig,
-  SyncResult,
   EntityType,
-  ProductionOrder,
-  MachineData,
-  OEEMetrics,
-  MaintenanceEvent
-} from '../types';
+  ERPProvider,
+  type JeevesConfig,
+  type MachineData,
+  type OEEMetrics,
+  type SyncResult,
+} from '../types.js';
 
 export class JeevesConnector extends BaseERPConnector {
   private jeevesConfig: JeevesConfig;
@@ -34,8 +33,9 @@ export class JeevesConnector extends BaseERPConnector {
     this.logger.info('Jeeves API key configured');
   }
 
-  protected async addAuthHeaders(config: any): Promise<any> {
-    config.headers = config.headers || {};
+  protected async addAuthHeaders(
+    config: InternalAxiosRequestConfig,
+  ): Promise<InternalAxiosRequestConfig> {
     config.headers['X-API-Key'] = this.jeevesConfig.apiKey;
     config.headers['X-Database'] = this.jeevesConfig.databaseName;
     return config;
@@ -46,7 +46,7 @@ export class JeevesConnector extends BaseERPConnector {
       await this.get('/api/v1/system/info');
       return true;
     } catch (error) {
-      this.logger.error('Jeeves connection test failed', { error });
+      this.logger.error({ error }, 'Jeeves connection test failed');
       return false;
     }
   }
@@ -56,13 +56,17 @@ export class JeevesConnector extends BaseERPConnector {
 
     try {
       const params = since ? { modifiedSince: since.toISOString() } : {};
-      const response = await this.get<{ orders: any[] }>('/api/v1/production/orders', { params });
+      const response = await this.get<{ orders: unknown[] }>('/api/v1/production/orders', { params });
 
       operation.recordsProcessed = response.orders.length;
       return this.createSyncResult(operation, true);
     } catch (error) {
       return this.createSyncResult(operation, false, [
-        this.createSyncError(EntityType.PRODUCTION_ORDER, 'JEEVES_SYNC_FAILED', (error as Error).message)
+        this.createSyncError(
+          EntityType.PRODUCTION_ORDER,
+          'JEEVES_SYNC_FAILED',
+          (error as Error).message,
+        ),
       ]);
     }
   }

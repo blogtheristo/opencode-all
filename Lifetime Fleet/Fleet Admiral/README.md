@@ -11,7 +11,7 @@ END VERSION AND AGENT HISTORY
 
 ## Purpose
 
-Fleet Admiral is the investor-facing GTM asset package for Lifetime Fleet's Physical AI healthcare robotics division. It anchors the value proposition in three structural diamonds, backed by the KYA v1.4 technical manifest and a live Helsinki Sandbox demo protocol.
+Fleet Admiral is the investor-facing GTM asset package for Lifetime Fleet's Physical AI healthcare robotics division. It anchors the value proposition in three structural diamonds, backed by the KYA v1.5 technical specification manifest and a live Helsinki Sandbox demo protocol.
 
 **Core thesis:** Agent Self-Optimization Governance — not just running robots, but governing the autonomous evolution of medical infrastructure.
 
@@ -20,7 +20,7 @@ Fleet Admiral is the investor-facing GTM asset package for Lifetime Fleet's Phys
 | File | Description | Status |
 |------|-------------|--------|
 | `FLEET_ADMIRAL_PITCH.md` | The 3 Diamonds pitch + Alpha-Recovery term sheet | Locked |
-| `KYA_STANDARD_v1.4_MANIFEST.md` | Technical manifest — 11% Efficiency Law, Firecracker MicroVMs, kill-switches | Locked |
+| `KYA_SPECIFICATION_v1.5_MANIFEST.md` | Technical manifest — 11% Efficiency Law, Firecracker MicroVMs, kill-switches | Locked |
 | `HELSINKI_SANDBOX_PLAYBOOK.md` | Site visit protocol, live demo loop, investor profiles, due diligence auto-response | Locked |
 | `README.md` | This file — package index |
 
@@ -29,9 +29,9 @@ Fleet Admiral is the investor-facing GTM asset package for Lifetime Fleet's Phys
 | File | Description |
 |------|-------------|
 | `docs/field-notes/2026-03-10-acer-dgx-sandbox-strategy.md` | Zero-budget sandbox strategy — Acer Veriton GN100 as Desktop AI Factory |
-| `src/firehorse/audit-schema.ts` | Firehorse audit trail TypeScript schema — KYA v1.4 optimization logging |
+| `src/firehorse/audit-schema.ts` | Firehorse audit trail TypeScript schema — KYA v1.5 optimization logging |
 | `src/sandbox/opensandbox.ts` | OpenSandbox Docker isolation (Stage 1.5 on Acer Veriton) |
-| `Legal/KYA_STANDARD_v1.md` | KYA Standard v1.1 — full legal/technical specification |
+| `Legal/KYA_STANDARD_v1.md` | KYA Specification v1.5 (KYA v2 internal in progress) — full legal/technical specification |
 
 ## The 3 Diamonds Framework
 
@@ -46,8 +46,8 @@ Fleet Admiral is the investor-facing GTM asset package for Lifetime Fleet's Phys
 | **Instrument** | Convertible Note |
 | **Post-Money Cap** | €3.8M |
 | **First Close Target** | €1M (April 15, 2026) |
-| **MRR** | €10k (Uber, Bolt, Taksi Helsinki / KELA) |
-| **Retention** | 100%, zero churn |
+| **Services & transport revenue** | ~€7k/month — licensed transport operation + consulting. **Not software revenue.** Company at cash break-even, founder salary €0. Ride orders arrive via the dispatch operators (Uber, Bolt, Taksi Helsinki, Kela) in the Traficom-defined role — they are commercial counterparties, not software customers. |
+| **Software** | €59,900 contracted Q1/2026 — two enterprise pilots at €29,950 each. No retention or churn rate asserted (no cohort data). See `docs/TRACTION_CANONICAL.md`. |
 | **Partners** | NVIDIA ISV, Acer, Siemens, ABB |
 | **KYA Alpha Clause** | >10% fleet latency improvement = valuation floor |
 

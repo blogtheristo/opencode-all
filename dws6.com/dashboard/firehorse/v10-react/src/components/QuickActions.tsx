@@ -83,13 +83,14 @@ export function QuickActions() {
     }));
 
     try {
-      const endpoint = action.agent === 'memory'
+      const isMemoryAction = action.agent === 'memory';
+      const endpoint = isMemoryAction
         ? `${API_BASE}/api/v1/memory/stats`
         : `${API_BASE}/api/agents/${action.agent}/execute`;
       const res = await fetch(endpoint, {
-        method: 'POST',
+        method: isMemoryAction ? 'GET' : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ input: action.input }),
+        ...(isMemoryAction ? {} : { body: JSON.stringify({ input: action.input }) }),
         signal: AbortSignal.timeout(15000),
       });
 
@@ -111,7 +112,7 @@ export function QuickActions() {
 
   return (
     <div className="card">
-      <h3 className="text-sm font-semibold text-gray-900 mb-3">Quick Actions</h3>
+      <h3 className="text-sm font-semibold text-foreground mb-3">Quick Actions</h3>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
         {ACTIONS.map((action) => {
           const result = results[action.id];
@@ -137,8 +138,8 @@ export function QuickActions() {
                   offline
                 </span>
               )}
-              {result?.data && !isLoading && (
-                <span className="absolute top-2 right-2 text-xs bg-white/20 px-1.5 py-0.5 rounded">
+              {!!result?.data && !isLoading && (
+                <span className="absolute top-2 right-2 text-xs bg-surface/20 px-1.5 py-0.5 rounded">
                   done
                 </span>
               )}

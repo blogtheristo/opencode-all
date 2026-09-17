@@ -200,27 +200,32 @@ function extractDate(md) {
 }
 
 // Source files — version and output filename are auto-derived from the markdown
+// NOTE (30.07.2026): the four thesis entries below now read the CANONICAL sources in
+// docs/ (the paths named by the CLAUDE.md Thesis Rule). They previously read duplicate
+// copies under Learn/*.md which had drifted to v3.83 while docs/ was at v3.91 — which is
+// why every regeneration silently re-emitted stale v3.83 filenames. The Learn/*.md copies
+// are now orphaned and should be retired; they are left in place rather than deleted.
 const SOURCES = [
   {
-    src: 'Learn/V3Thesis_EN.md',
+    src: 'docs/metropolia/master-thesis/en/V3Thesis_EN.md',
     titleBase: 'Firehorse Product Manufacturing Operating Model — V3 Thesis (EN)',
     outPrefix: 'Learn/V3Thesis_EN_v',
     lang: 'en',
   },
   {
-    src: 'Learn/V3Thesis_FI.md',
+    src: 'docs/metropolia/master-thesis/fi/V3Thesis_FI.md',
     titleBase: 'Firehorse-tuotevalmistuksen toimintamalli — V3 Opinnäytetyö (FI)',
     outPrefix: 'Learn/V3Thesis_FI_v',
     lang: 'fi',
   },
   {
-    src: 'Learn/PHD_FIREHORSE_EN.md',
+    src: 'docs/PHD_FIREHORSE_EN.md',
     titleBase: 'PHD Firehorse — Doctoral Research (EN)',
     outPrefix: 'Learn/PHD_FIREHORSE_EN_v',
     lang: 'en',
   },
   {
-    src: 'Learn/PHD_FIREHORSE_FI.md',
+    src: 'docs/PHD_FIREHORSE_FI.md',
     titleBase: 'PHD Firehorse — Väitöstutkimus (FI)',
     outPrefix: 'Learn/PHD_FIREHORSE_FI_v',
     lang: 'fi',

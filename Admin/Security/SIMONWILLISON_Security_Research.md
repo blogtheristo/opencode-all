@@ -290,8 +290,8 @@ def test_unknown_domain_blocked():
 
 def test_customer_domain_requires_approval():
     """Customer-specific domains require explicit approval."""
-    customer_id = "uber-finland"
-    domain = "internal.uber.com"
+    customer_id = "example-customer"
+    domain = "internal.example-customer.com"
     
     # Before approval: blocked
     assert not DomainValidator.validate_url(f"https://{domain}/api")[0]
@@ -741,7 +741,7 @@ class FileAccessControl:
 │  1. Customer Documents                                       │
 │     ├── PDFs from subcontractors (invoice attachments)       │
 │     ├── Excel spreadsheets (energy consumption data)         │
-│     ├── Email bodies (Kela healthcare reports)              │
+│     ├── Email bodies (third-party reports)                  │
 │     └── Web scraping (EU regulatory updates)                │
 │                                                               │
 │  2. IoT Sensor Data                                          │
@@ -1932,7 +1932,7 @@ Total Annual: €72,400/year
 
 | MRR Milestone | Annual Revenue | Security Budget as % of Revenue |
 |---------------|----------------|--------------------------------|
-| €7k (current) | €84k | 86.4% (unsustainable) |
+| ~€7k/month services and transport revenue (current; **not** software revenue) | €84k | 86.4% (unsustainable) |
 | €14k (Q1 2026) | €168k | 43.1% (high but acceptable) |
 | **€35k (break-even)** | **€420k** | **17.2%** (industry standard) |
 | €60k (Series A) | €720k | 10.1% (efficient) |

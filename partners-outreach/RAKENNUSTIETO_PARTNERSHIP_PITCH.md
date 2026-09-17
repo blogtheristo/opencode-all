@@ -1,54 +1,58 @@
 # Rakennustieto Partnership Pitch
 
 ***
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/oneclicklca-partnership-pitch-k7R62 | Date: 24.02.2026 | Changes: Initial creation — Finnish construction data chain partnership
+
+- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/oneclicklca-partnership-pitch-k7R62 | Date: 24.02.2026 | Changes: Initial creation — Finnish construction data chain partnership
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — "€84k ARR, 3 customers, 100% retention" replaced with the contracted-pilot statement.
 
 Document Status:
-  - Created: 24.02.2026
-  - Last Modified: 24.02.2026
-  - Language: English / Finnish context
-  - Publication Status: ACTIVE — INTERNAL/CONFIDENTIAL
+
+- Created: 24.02.2026
+- Last Modified: 24.02.2026
+- Language: English / Finnish context
+- Publication Status: ACTIVE — INTERNAL/CONFIDENTIAL
 
 ***
 
 ## Target Company: Rakennustieto Oy
 
-| Field | Detail |
-|-------|--------|
-| **Company** | Rakennustieto Oy |
-| **Owner** | Rakennustietosäätiö RTS sr (foundation) |
-| **HQ** | Helsinki, Finland |
-| **Managing Director** | Laura Apilo |
-| **CFO / HR Director** | Marjut Jensén |
-| **Sales Manager** | Esa Putkonen |
-| **BIM subsidiary** | Rakennustietomalli Oy (MD: Annina Lehikoinen) |
-| **Employees** | ~53 |
-| **Products** | RT cards, RTS EPDs, CO2data.fi (via SYKE), building standards |
-| **Reach** | 40,000+ Finnish construction professionals use daily |
-| **Role** | Finnish construction information standard. Neutral industry foundation. |
+| Field                 | Detail                                                                  |
+| --------------------- | ----------------------------------------------------------------------- |
+| **Company**           | Rakennustieto Oy                                                        |
+| **Owner**             | Rakennustietosäätiö RTS sr (foundation)                                 |
+| **HQ**                | Helsinki, Finland                                                       |
+| **Managing Director** | Laura Apilo                                                             |
+| **CFO / HR Director** | Marjut Jensén                                                           |
+| **Sales Manager**     | Esa Putkonen                                                            |
+| **BIM subsidiary**    | Rakennustietomalli Oy (MD: Annina Lehikoinen)                           |
+| **Employees**         | ~53                                                                     |
+| **Products**          | RT cards, RTS EPDs, CO2data.fi (via SYKE), building standards           |
+| **Reach**             | 40,000+ Finnish construction professionals use daily                    |
+| **Role**              | Finnish construction information standard. Neutral industry foundation. |
 
 ### Key Assets
 
-| Asset | Description | Relevance to DWS IQ |
-|-------|-------------|---------------------|
-| **RT cards** | How-to-build standards (150,000+ products) | Design-phase reference data |
-| **RTS EPDs** | Environmental Product Declarations (EN 15804) | Material carbon data (A1-A3) |
-| **CO2data.fi** | National emissions database (operated by SYKE) | GWP values per kg product, conservative factor 1.2x |
-| **buildingSMART Finland** | Open BIM forum | BIM-to-compliance data bridge |
+| Asset                     | Description                                    | Relevance to DWS IQ                                 |
+| ------------------------- | ---------------------------------------------- | --------------------------------------------------- |
+| **RT cards**              | How-to-build standards (150,000+ products)     | Design-phase reference data                         |
+| **RTS EPDs**              | Environmental Product Declarations (EN 15804)  | Material carbon data (A1-A3)                        |
+| **CO2data.fi**            | National emissions database (operated by SYKE) | GWP values per kg product, conservative factor 1.2x |
+| **buildingSMART Finland** | Open BIM forum                                 | BIM-to-compliance data bridge                       |
 
 ### Connection Path
 
-| Route | Contact | Notes |
-|-------|---------|-------|
-| **Direct** | Laura Apilo (Managing Director) | Decision-maker. Helsinki-based. |
-| **Sales** | Esa Putkonen (Sales Manager) | Owns commercial partnerships. |
-| **BIM/digital** | Annina Lehikoinen (MD, Rakennustietomalli) | BIM integration angle. |
-| **Industry events** | buildingSMART Finland forums | Networking + visibility |
+| Route               | Contact                                    | Notes                           |
+| ------------------- | ------------------------------------------ | ------------------------------- |
+| **Direct**          | Laura Apilo (Managing Director)            | Decision-maker. Helsinki-based. |
+| **Sales**           | Esa Putkonen (Sales Manager)               | Owns commercial partnerships.   |
+| **BIM/digital**     | Annina Lehikoinen (MD, Rakennustietomalli) | BIM integration angle.          |
+| **Industry events** | buildingSMART Finland forums               | Networking + visibility         |
 
 **Recommended approach:** Direct to Laura Apilo (MD) — small org, founder-to-MD conversation. Finnish language. Position as "after the building is built" extension of Rakennustieto's data chain.
 
@@ -106,7 +110,8 @@ I'm Risto Paarni, Founder of DWS IQ — an operations compliance platform for EU
 **Proposal:** 20 minutes to discuss potential collaboration — specifically CO2data.fi integration and a joint customer pathway where Rakennustieto data feeds into automated compliance reports.
 
 **About us:**
-- €84k ARR, 3 customers, 100% retention
+
+- Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts
 - 6 ERP connectors (SAP, IFS, Dynamics, Visma, Monitor, Jeeves)
 - Helsinki-based, same ecosystem
 
@@ -118,12 +123,12 @@ risto@onelifetime.world
 
 ## Follow-Up Strategy
 
-| Step | Action | Timing |
-|------|--------|--------|
-| 1 | Email Laura Apilo (MD) — Finnish language pitch | This week |
-| 2 | If no response Day 5 → email Esa Putkonen (Sales) | Day 5 |
-| 3 | Attend next buildingSMART Finland event for visibility | Next event |
-| 4 | Prepare CO2data.fi integration demo | March 2026 |
+| Step | Action                                                 | Timing     |
+| ---- | ------------------------------------------------------ | ---------- |
+| 1    | Email Laura Apilo (MD) — Finnish language pitch        | This week  |
+| 2    | If no response Day 5 → email Esa Putkonen (Sales)      | Day 5      |
+| 3    | Attend next buildingSMART Finland event for visibility | Next event |
+| 4    | Prepare CO2data.fi integration demo                    | March 2026 |
 
 ---
 

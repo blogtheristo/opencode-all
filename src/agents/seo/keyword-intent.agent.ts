@@ -151,7 +151,7 @@ export class KeywordIntentAgent extends BaseAgent {
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
 
       await this.logExecution({
@@ -163,7 +163,7 @@ export class KeywordIntentAgent extends BaseAgent {
         input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });
@@ -238,11 +238,11 @@ export class KeywordIntentAgent extends BaseAgent {
 
     // Build quick-wins list
     const quickWins = priorityQueue
-      .filter((k) => k.quickWin)
+      .filter((k): k is PriorityKeyword & { currentPosition: number } => k.quickWin && k.currentPosition !== null)
       .map((k) => ({
         keyword: k.keyword,
-        currentPosition: k.currentPosition!,
-        estimatedClicksGain: this.estimateClicksGain(k.currentPosition!, k.searchVolume),
+        currentPosition: k.currentPosition,
+        estimatedClicksGain: this.estimateClicksGain(k.currentPosition, k.searchVolume),
         effort: this.estimateEffort(k) as 'low' | 'medium' | 'high',
       }));
 

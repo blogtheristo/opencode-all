@@ -3,7 +3,8 @@
 
 # Web Framework
 fastapi>=0.109.0
-starlette>=0.49.1
+starlette>=1.0.1
+h11>=0.16.0
 uvicorn[standard]>=0.27.0
 pydantic>=2.5.0
 
@@ -25,12 +26,14 @@ matplotlib>=3.8.0
 plotly>=5.18.0
 
 # Utilities
-python-dotenv>=1.0.0
+python-dotenv>=1.2.2  # >=1.2.2: set_key symlink-overwrite fix
 httpx>=0.26.0
 aiofiles>=23.2.0
 
 # Security
-python-jose[cryptography]>=3.3.0
+# python-jose removed 08.07.2026: unused (nothing imports jose in this tree; auth
+# is HTTP Basic / PyJWT). It pulled in python-ecdsa, which has an unpatched Minerva
+# timing-attack advisory (won't-fix upstream). PyJWT below covers all JWT needs.
 PyJWT>=2.12.0  # CVE fix: crit header validation
 passlib[bcrypt]>=1.7.4
 

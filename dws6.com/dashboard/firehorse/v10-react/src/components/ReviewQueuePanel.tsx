@@ -49,7 +49,7 @@ const CATEGORY_CONFIG: Record<ReviewCategory, { label: string; color: string }> 
   financial: { label: 'Financial', color: 'bg-amber-500/20 text-amber-400' },
   legal: { label: 'Legal', color: 'bg-red-500/20 text-red-400' },
   customer: { label: 'Customer', color: 'bg-blue-500/20 text-blue-400' },
-  low_confidence: { label: 'Low confidence', color: 'bg-gray-500/20 text-gray-400' },
+  low_confidence: { label: 'Low confidence', color: 'bg-background0/20 text-fg-muted' },
   governance: { label: 'Governance', color: 'bg-purple-500/20 text-purple-400' },
 };
 
@@ -72,15 +72,15 @@ function CategoryBadge({ category }: { category: ReviewCategory }) {
 }
 
 function ConfidenceBar({ value }: { value: number | null }) {
-  if (value === null) return <span className="text-[10px] text-gray-600">—</span>;
+  if (value === null) return <span className="text-[10px] text-fg-muted">—</span>;
   const pct = Math.round(value * 100);
   const color = pct >= 75 ? 'bg-green-500' : pct >= 50 ? 'bg-amber-500' : 'bg-red-500';
   return (
     <div className="flex items-center gap-1.5">
-      <div className="w-16 bg-gray-800 rounded-full h-1">
+      <div className="w-16 bg-fg-muted/10 rounded-full h-1">
         <div className={`h-1 rounded-full ${color}`} style={{ width: `${pct}%` }} />
       </div>
-      <span className="text-[10px] text-gray-400">{pct}%</span>
+      <span className="text-[10px] text-fg-muted">{pct}%</span>
     </div>
   );
 }
@@ -110,7 +110,7 @@ function ActionButtons({ item, onAction, busy }: ActionButtonsProps) {
       <span className={`text-[11px] font-medium ${cfg.color}`}>
         {cfg.label}
         {item.reviewed_at && (
-          <span className="text-gray-600 ml-1">· {timeAgo(item.reviewed_at)}</span>
+          <span className="text-fg-muted ml-1">· {timeAgo(item.reviewed_at)}</span>
         )}
       </span>
     );
@@ -154,7 +154,7 @@ function QueueRow({ item, expanded, onToggle, onAction, busy }: QueueRowProps) {
       className={`border rounded-lg transition-colors ${
         item.status === 'pending'
           ? 'border-amber-500/30 bg-amber-500/5'
-          : 'border-gray-800 bg-gray-900/50'
+          : 'border-border bg-surface/50'
       }`}
     >
       {/* Header row */}
@@ -165,47 +165,47 @@ function QueueRow({ item, expanded, onToggle, onAction, busy }: QueueRowProps) {
       >
         <div
           className="shrink-0 w-1.5 h-1.5 rounded-full mt-0.5 bg-current
-          ${item.status === 'pending' ? 'text-amber-400' : 'text-gray-600'}"
+          ${item.status === 'pending' ? 'text-amber-400' : 'text-fg-muted'}"
         />
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-0.5">
-            <span className="text-xs font-semibold text-gray-200">{item.agent_name}</span>
+            <span className="text-xs font-semibold text-foreground">{item.agent_name}</span>
             <CategoryBadge category={item.category} />
           </div>
-          <p className="text-[11px] text-gray-500 truncate">
+          <p className="text-[11px] text-fg-muted truncate">
             {item.reason ?? item.input_summary ?? 'No summary'}
           </p>
         </div>
         <div className="shrink-0 flex flex-col items-end gap-1">
           <ConfidenceBar value={item.confidence} />
-          <span className="text-[10px] text-gray-600">{timeAgo(item.created_at)}</span>
+          <span className="text-[10px] text-fg-muted">{timeAgo(item.created_at)}</span>
         </div>
-        <span className="shrink-0 text-gray-600 text-xs">{expanded ? '▲' : '▼'}</span>
+        <span className="shrink-0 text-fg-muted text-xs">{expanded ? '▲' : '▼'}</span>
       </button>
 
       {/* Expanded detail */}
       {expanded && (
-        <div className="px-3 pb-3 border-t border-gray-800/60 pt-2.5 space-y-2.5">
+        <div className="px-3 pb-3 border-t border-border/60 pt-2.5 space-y-2.5">
           {item.input_summary && (
             <div>
-              <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Input</p>
-              <p className="text-xs text-gray-300 bg-gray-800/50 rounded px-2 py-1.5 font-mono leading-relaxed">
+              <p className="text-[10px] text-fg-muted uppercase tracking-wider mb-1">Input</p>
+              <p className="text-xs text-fg-muted bg-fg-muted/10/50 rounded px-2 py-1.5 font-mono leading-relaxed">
                 {item.input_summary}
               </p>
             </div>
           )}
           {item.output_summary && (
             <div>
-              <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">
+              <p className="text-[10px] text-fg-muted uppercase tracking-wider mb-1">
                 Agent Output
               </p>
-              <p className="text-xs text-gray-300 bg-gray-800/50 rounded px-2 py-1.5 font-mono leading-relaxed">
+              <p className="text-xs text-fg-muted bg-fg-muted/10/50 rounded px-2 py-1.5 font-mono leading-relaxed">
                 {item.output_summary}
               </p>
             </div>
           )}
           <div className="flex items-center justify-between pt-1">
-            <span className="text-[10px] text-gray-600">ID: {item.id.slice(0, 8)}</span>
+            <span className="text-[10px] text-fg-muted">ID: {item.id.slice(0, 8)}</span>
             <ActionButtons item={item} onAction={onAction} busy={busy} />
           </div>
         </div>
@@ -234,14 +234,14 @@ function FilterTabButton({
       type="button"
       onClick={onClick}
       className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
-        active ? 'bg-gray-700 text-white' : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
+        active ? 'bg-fg-muted/20 text-white' : 'text-fg-muted hover:text-foreground hover:bg-fg-muted/10/50'
       }`}
     >
       {label}
       {count !== undefined && count > 0 && (
         <span
           className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
-            active ? 'bg-amber-500 text-gray-900' : 'bg-gray-700 text-gray-300'
+            active ? 'bg-amber-500 text-foreground' : 'bg-fg-muted/20 text-fg-muted'
           }`}
         >
           {count}
@@ -303,11 +303,11 @@ export function ReviewQueuePanel() {
 
   if (loading && items.length === 0) {
     return (
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-5 animate-pulse">
-        <div className="h-4 bg-gray-800 rounded w-40 mb-4" />
+      <div className="bg-surface border border-border rounded-xl p-5 animate-pulse">
+        <div className="h-4 bg-fg-muted/10 rounded w-40 mb-4" />
         <div className="space-y-2">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-14 bg-gray-800 rounded-lg" />
+            <div key={i} className="h-14 bg-fg-muted/10 rounded-lg" />
           ))}
         </div>
       </div>
@@ -315,12 +315,12 @@ export function ReviewQueuePanel() {
   }
 
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+    <div className="bg-surface border border-border rounded-xl p-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div>
-          <h3 className="text-sm font-semibold text-gray-100">Review Queue</h3>
-          <p className="text-[10px] text-gray-500">
+          <h3 className="text-sm font-semibold text-foreground">Review Queue</h3>
+          <p className="text-[10px] text-fg-muted">
             Human oversight — financial · legal · customer
           </p>
         </div>
@@ -332,7 +332,7 @@ export function ReviewQueuePanel() {
       </div>
 
       {/* Filter tabs */}
-      <div className="flex gap-1 mb-3 p-0.5 bg-gray-800/50 rounded-lg">
+      <div className="flex gap-1 mb-3 p-0.5 bg-fg-muted/10/50 rounded-lg">
         <FilterTabButton
           active={filter === 'pending'}
           label="Pending"
@@ -346,10 +346,10 @@ export function ReviewQueuePanel() {
       <div className="space-y-2 max-h-[420px] overflow-y-auto pr-0.5">
         {displayed.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-fg-muted">
               {filter === 'pending' ? 'No pending items' : 'No review items yet'}
             </p>
-            <p className="text-xs text-gray-600 mt-1">
+            <p className="text-xs text-fg-muted mt-1">
               Agent outputs flagged for financial, legal, or customer impact appear here
             </p>
           </div>
@@ -371,7 +371,7 @@ export function ReviewQueuePanel() {
       <button
         type="button"
         onClick={load}
-        className="w-full mt-3 py-1.5 text-xs text-gray-500 hover:text-gray-300 transition-colors"
+        className="w-full mt-3 py-1.5 text-xs text-fg-muted hover:text-fg-muted transition-colors"
       >
         Refresh
       </button>

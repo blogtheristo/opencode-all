@@ -610,7 +610,7 @@ The Firehorse Operations Model demonstrates that AI-assisted e-commerce manageme
 2. Integration patterns for Google Merchant Center and Revolut Business
 3. A roadmap for audio chat with carbon calculator integration (4 phases)
 4. EU compliance mapping for industrial software products
-5. Product recommendation engine architecture for 16 EU industries
+5. Product recommendation engine architecture for 25+ EU industries
 6. Proton products security strategy for GDPR/NIS2 compliance
 
 ## 10.3 Future Work

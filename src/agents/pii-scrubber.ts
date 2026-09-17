@@ -60,19 +60,19 @@ const PATTERNS: Array<{ type: PIIType; regex: RegExp }> = [
   // Email addresses
   {
     type: 'email',
-    regex: /\b[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}\b/g,
+    regex: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g,
   },
 
   // Finnish phone numbers: +358 XX XXXXXXX or 0XX-XXXXXXX
   {
     type: 'phone-fi',
-    regex: /(\+358[\s\-]?|0)\d{2,3}[\s\-]?\d{3,4}[\s\-]?\d{3,4}\b/g,
+    regex: /(\+358[\s-]?|0)\d{2,3}[\s-]?\d{3,4}[\s-]?\d{3,4}\b/g,
   },
 
   // International phone (E.164 non-Finnish)
   {
     type: 'phone-intl',
-    regex: /\+(?!358)\d{1,3}[\s\-]?\d{4,14}\b/g,
+    regex: /\+(?!358)\d{1,3}[\s-]?\d{4,14}\b/g,
   },
 
   // EU VAT numbers: 2-letter country code + 8-12 alphanumeric
@@ -85,7 +85,7 @@ const PATTERNS: Array<{ type: PIIType; regex: RegExp }> = [
   // IBAN (tolerates spaces and hyphens between groups)
   {
     type: 'iban',
-    regex: /\b[A-Z]{2}\d{2}[\s\-]?(?:[A-Z0-9]{4}[\s\-]?){1,7}[A-Z0-9]{1,4}\b/g,
+    regex: /\b[A-Z]{2}\d{2}[\s-]?(?:[A-Z0-9]{4}[\s-]?){1,7}[A-Z0-9]{1,4}\b/g,
   },
 
   // EU ETS installation IDs (FI-nnn-nnnnn format used in Finnish ETS registry)

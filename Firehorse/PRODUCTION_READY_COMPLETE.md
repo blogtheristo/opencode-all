@@ -105,7 +105,7 @@
 
 #### Email 3: The Social Proof
 
-"NCC wants to pilot"
+"[Named prospect] wants to pilot" (only once genuinely true — NCC is an unlanded prospect)
 
 - Expected response: 30-40%
 

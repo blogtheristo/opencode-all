@@ -195,7 +195,7 @@ Respond as JSON with keys: "optimization" (string), "riskMitigation" (string[])`
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
       await this.logExecution({
         agent_name: this.config.name,
@@ -206,7 +206,7 @@ Respond as JSON with keys: "optimization" (string), "riskMitigation" (string[])`
         input: input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });
@@ -260,7 +260,8 @@ Respond as JSON with keys: "optimization" (string), "riskMitigation" (string[])`
 
     // Compute earliest start/finish
     for (const name of sorted) {
-      const task = taskMap.get(name)!;
+      const task = taskMap.get(name);
+      if (!task) continue;
       let es = 0;
       for (const dep of task.dependencies) {
         const depTask = taskMap.get(dep);

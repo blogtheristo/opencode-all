@@ -1,0 +1,42 @@
+# DWS IQ - Revenue Scenarios 2026-2029 V3 - figures export
+# Source of truth: docs/investor/boardy-2026-07-29/BOARDY_REVENUE_SCENARIOS_2026-2029_V3.md (v3.0)
+# Content date: 22.07.2026 | Repo CSV created: 24.07.2026
+# (c) 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved. Business Confidential.
+# Flag: [C]=canonical (repo source-of-truth) [M]=modeled. PRICING FRAME LOCKED 22.07.2026.
+section,metric,unit,flag,y2026,y2027,y2028,y2029
+Ending ARR by scenario,Conservative (labor-comp rejected; slow distribution),EURm,M,0.40,1.4,3.8,9.0
+Ending ARR by scenario,Base (SAFE Nov'26; MACC scales; AI Act co-sign Q4'26),EURm,M,0.60,2.4,7.0,16.0
+Ending ARR by scenario,Upside (Messe lands big; US/UK; 2% capture path),EURm,M,0.95,4.2,13.0,32.0
+Base-case ARR build,Opening ARR,EURm,M,0.08,0.60,2.4,7.0
+Base-case ARR build,New-logo bookings (+),EURm,M,0.55,1.65,3.9,7.5
+Base-case ARR build,Net expansion (+) (attach +40-80%/yr),EURm,C,0.03,0.30,1.1,2.5
+Base-case ARR build,Churn (-),EURm,M,0.00,-0.15,-0.40,-1.0
+Base-case ARR build,Ending ARR (=),EURm,M,0.60,2.4,7.0,16.0
+Base-case ARR build,Gross profit @85%,EURm,C,0.51,2.0,6.0,13.6
+Base-case ARR build,New logos landed,count,M,12,28,55,95
+Base-case ARR build,Avg new-logo ACV,EURk,M,46,59,71,79
+#
+# Scalars (starting point / locked pricing frame)
+section,metric,unit,flag,value,,,
+Starting point,MRR (running),EUR,C,7000,,,
+Starting point,ARR run-rate,EUR,C,84000,,,
+Starting point,Paying customers,count,C,6,,,
+Starting point,Churn (9 months),pct,C,0,,,
+Starting point,Q1/26 pilots booked (2 x EUR29950),EUR,C,59900,,,
+Starting point,Skilled Agents in production,count,C,16,,,
+Starting point,Q4/26 ARR target low (Series-A-ready),EUR,M,600000,,,
+Starting point,Q4/26 ARR target high,EUR,M,900000,,,
+Pricing frame,Full-workforce bundle monthly,EUR/mo,C,19990,,,
+Pricing frame,Full-workforce bundle annual,EUR/yr,C,199990,,,
+Pricing frame,Single agent annual low,EUR/yr,C,7990,,,
+Pricing frame,Single agent annual high,EUR/yr,C,39990,,,
+Margin,Gross margin at list (canonical),pct,C,85,,,
+Margin,Gross margin conservative stress floor,pct,C,80,,,
+Margin sensitivity,Inference 0.5x (tailwind),pct,C,88,,,
+Margin sensitivity,Inference 1.0x (baseline),pct,C,85,,,
+Margin sensitivity,Inference 2.0x (stress),pct,C,73,,,
+Margin sensitivity,Inference 5.0x (severe),pct,C,55,,,
+2030 target,SOM ARR low (TAM_BUILD 7-8yr operating target),EUR,C,25000000,,,
+2030 target,SOM ARR high,EUR,C,50000000,,,
+2030 target,Capture-share ceiling ARR low (1% of pool),EUR,C,600000000,,,
+2030 target,Capture-share ceiling ARR high,EUR,C,900000000,,,

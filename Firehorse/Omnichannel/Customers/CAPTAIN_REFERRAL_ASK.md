@@ -6,7 +6,7 @@
 | **Version** | 1.0 |
 | **Date** | 2026-02-24 |
 | **Funnel Stage** | Stage 1 — Warm Referral |
-| **Target** | Current DWS IQ 6 pilot customers (EUR 7k+ MRR) |
+| **Target** | Current DWS IQ 6 pilot customers (two Q1/2026 enterprise pilots at EUR 29,950 each, plus four smaller landed accounts) |
 | **Channels** | Email (primary), LinkedIn DM (secondary) |
 | **Goal** | Each pilot customer refers 2-3 captain prospects from their network |
 

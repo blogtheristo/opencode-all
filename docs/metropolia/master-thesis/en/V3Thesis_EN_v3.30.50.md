@@ -31,7 +31,7 @@ Sessions & Modifications:
   - Version: 3.12 | Tool: Claude Code (Opus 4.6) | Session: claude/ai-agent-orchestration-t89Ig | Date: 24.02.2026 | Changes: [UNTRACKED DRIFT] CEO Automation Agent Suite: Captain Pre-Briefing, LinkedIn Post Scheduler, EU Regulation Monitor — 3 production agents with GitHub Actions cron
   - Version: 3.11 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 10.10 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² reference (arXiv:2602.23008 — hybrid on/off-policy RL for memory-augmented agents); updated NCC Sandbox stage annotation; added Key Contribution #9
   - Version: 3.10 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 10.9 DWS7 Agent Architecture Modernization — documents 6 critical fixes (agentic loops, tool use, multi-provider LLM, agent delegation, MCP server, event bus), Build for Agents principle (CLI, Claude Code Skills), agent-first product design philosophy
-  - Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage), added 16-industry cross-learning network effects analysis
+  - Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage), added 25+-industry cross-learning network effects analysis
   - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Added sections 10.6 Per-Industry Open LLM Selection (20 industries, 7 candidate models), 10.7 Enterprise BYOA Architecture (Bring Your Own Agent — NCC scenario, 24 agents, Langflow+React Flow+Temporal.io graphical workflow builder, contractor onboarding flow)
   - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix H — Automated PR Workflow (HIL Automation): dual-model AI review (Claude + Gemini), Copilot fix loop, auto-merge workflow, MCP Hub Gemini endpoint, Cloud Run dws6run6 deployment. Generated versioned HTML for Learn/
   - Version: 3.6 | Tool: Claude Code (Opus 4.6) | Session: e5wXD | Date: 20.02.2026 | Changes: Updated DWS standards, admin manuals with HIL automation references. Version header correction (3.4-3.5 were not tracked)
@@ -42,7 +42,7 @@ Sessions & Modifications:
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Added Appendix E - AI Agent Behavioral Guidelines (Karpathy Principles), EU AI Act compliance mapping, implementation outcome metrics
   - Version: 3.0 | Tool: Claude Code (Opus 4.5) | Session: DWS10-Store-Integration | Date: 28.01.2026 | Changes: Added DWS10.com e-commerce store findings, Google Merchant Center integration, Revolut Business payments, Audio chat evolution roadmap with Groq/Llama models, Industry carbon footprint calculator, EU compliance mapping
   - Version: 2.2 | Tool: Word (HIL) | Session: dws6.com Google Run | Date: 19.01.2026 | Changes: Google admin@dws6.com and project under Google. Established 19.1.2026. Google Workspace Standard adopted. DNS records changed from Proton to Google. Created project dws6run to serve Google Run processes.
-  - Version: 2.1 | Tool: Cursor AI (Claude) | Session: 16-Industries | Date: 06.01.2026 | Changes: Added Fit for 55 16-industry analysis, AI usage disclosure, DWS10 use cases, expanded current state analysis
+  - Version: 2.1 | Tool: Cursor AI (Claude) | Session: 16-Industries | Date: 06.01.2026 | Changes: Added Fit for 55 25+-industry analysis, AI usage disclosure, DWS10 use cases, expanded current state analysis
   - Version: 2.0 | Tool: Cursor AI (Claude) | Session: Thesis-Revision | Date: 05.01.2026 | Changes: Major revision - Added Solution Factory model, AgentFoundry documentation, Lifetime Scope Signals theory, SWOT analysis, research questions answers, complete theoretical framework
   - Version: 1.0 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Applied DWS document standard, synchronized with Finnish version
 
@@ -552,7 +552,7 @@ The Omnibus package **does not change** the core Fit for 55 targets:
 |------------|-----------|----------------|-----|---------|
 | **Monthly cost** | EUR 0-350 | EUR 1,400+ | EUR 4,000+ | EUR 2,000+ |
 | **Edge AI** | Native | No | No | Limited |
-| **16 verticals** | Planned | No | Yes | Yes |
+| **25+ verticals** | Planned | No | Yes | Yes |
 | **EU compliant** | Native | Partial | Partial | Yes |
 | **<100ms latency** | Edge | No | No | Partial |
 | **SME accessible** | Yes | No | No | No |
@@ -1178,7 +1178,7 @@ The Firehorse operating model with Claude Code achieved (updated v3.26):
 |------------|-------|-------|--------|----------|
 | EU AI Act | 80% | **92%** | +12% | Article 12 logging implemented (Pantheon agents), SOUL.md pattern |
 | GDPR | 95% | **97%** | +2% | Proton + Supabase RLS + europe-north1 |
-| Fit for 55 | 90% | **93%** | +3% | 16-industry carbon calculator, product catalog |
+| Fit for 55 | 90% | **93%** | +3% | 25+-industry carbon calculator, product catalog |
 | NIS2 | 75% | **85%** | +10% | Security hardening (RC2-RC4), Snyk MCP, agent system hardening |
 | CSRD | 85% | **88%** | +3% | Reporting templates + compliance report export feature |
 | **EU Data Act** | — | **80%** | New | DWS Data Standard, HTAP architecture |
@@ -1408,7 +1408,7 @@ The Firehorse operating model demonstrates that AI-assisted e-commerce managemen
 2. Integration patterns for Google Merchant Center and Revolut Business
 3. Roadmap for audio chat with carbon footprint calculator integration (4 phases)
 4. EU compliance mapping for industrial software products
-5. Product recommendation engine architecture for 16 EU industries
+5. Product recommendation engine architecture for 25+ EU industries
 6. Proton security products strategy for GDPR/NIS2 compliance
 
 ## 10.3 Contribution to Theory
@@ -1439,7 +1439,7 @@ Sections 10.6 through 10.15 document detailed research contributions developed d
 
 ### 10.6.1 Per-Industry LLM Selection and Enterprise BYOA Architecture
 
-A critical finding is that **no single open LLM is optimal across all 16 EU industries**. Each industry vertical has distinct domain language, regulatory context, and structured output requirements. The platform evaluates and selects the best open LLM per industry (7 industry clusters mapped to candidate models including Llama 3.3, Qwen 2.5, Mistral Large, DeepSeek-V3), with enterprise tenants receiving their own Lifetime World Model instance fine-tuned on their industry data.
+A critical finding is that **no single open LLM is optimal across all 25+ EU industries**. Each industry vertical has distinct domain language, regulatory context, and structured output requirements. The platform evaluates and selects the best open LLM per industry (7 industry clusters mapped to candidate models including Llama 3.3, Qwen 2.5, Mistral Large, DeepSeek-V3), with enterprise tenants receiving their own Lifetime World Model instance fine-tuned on their industry data.
 
 The **Enterprise BYOA (Bring Your Own Agent) Architecture** enables enterprise customers to connect their own AI agents (e.g., NCC's 24-agent ecosystem spanning procurement, safety, BIM, and subcontractor agents) via A2A + MCP protocols, with a visual Agent Orchestration Studio (Langflow + React Flow + Temporal.io).
 

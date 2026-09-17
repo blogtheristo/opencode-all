@@ -10,7 +10,7 @@
  * All sources are free, public, and require no API keys.
  */
 
-import { EU_SECTOR_BENCHMARKS, type SectorBenchmark } from './eu-benchmarks.js';
+import { EU_SECTOR_BENCHMARKS, MANUFACTURING_BENCHMARK, type SectorBenchmark } from './eu-benchmarks.js';
 import { ETS_CARBON_PRICE_EUR } from './emission-factors.js';
 import logger from '../utils/logger.js';
 
@@ -86,8 +86,9 @@ export async function fetchEurostatEmissions(
   country: string = 'EU27_2020',
 ): Promise<EurostatResponse | null> {
   const cacheKey = `${naceCode}:${country}`;
-  if (isCacheValid() && cache.eurostat.has(cacheKey)) {
-    return cache.eurostat.get(cacheKey)!;
+  const cached = cache.eurostat.get(cacheKey);
+  if (isCacheValid() && cached) {
+    return cached;
   }
 
   const eurostatNace = NACE_TO_EUROSTAT[naceCode] || naceCode;
@@ -172,7 +173,10 @@ export async function fetchEurostatEmissions(
  */
 function getFallbackBenchmark(naceCode: string): EurostatResponse {
   const benchmark = EU_SECTOR_BENCHMARKS.find((b) => b.naceCode === naceCode);
-  const fallback = benchmark || EU_SECTOR_BENCHMARKS.find((b) => b.sector === 'manufacturing')!;
+  const fallback =
+    benchmark
+    ?? EU_SECTOR_BENCHMARKS.find((b) => b.sector === 'manufacturing')
+    ?? MANUFACTURING_BENCHMARK;
 
   return {
     sector: fallback.sector,
@@ -265,8 +269,10 @@ export async function fetchPublicComplianceData(
   sector: string,
   country: string = 'EU27_2020',
 ): Promise<PublicComplianceData> {
-  const benchmark = EU_SECTOR_BENCHMARKS.find((b) => b.sector === sector.toLowerCase())
-    || EU_SECTOR_BENCHMARKS.find((b) => b.sector === 'manufacturing')!;
+  const benchmark =
+    EU_SECTOR_BENCHMARKS.find((b) => b.sector === sector.toLowerCase())
+    ?? EU_SECTOR_BENCHMARKS.find((b) => b.sector === 'manufacturing')
+    ?? MANUFACTURING_BENCHMARK;
 
   const [sectorEmissions, carbonPrice] = await Promise.all([
     fetchEurostatEmissions(benchmark.naceCode, country),
@@ -274,7 +280,14 @@ export async function fetchPublicComplianceData(
   ]);
 
   return {
-    sectorEmissions: sectorEmissions!,
+    sectorEmissions: sectorEmissions ?? {
+      sector: benchmark.sector,
+      naceCode: benchmark.naceCode,
+      emissions: benchmark.medianEmissions,
+      year: benchmark.year,
+      source: `DWS benchmark (${benchmark.source}) — API unavailable`,
+      fetchedAt: new Date().toISOString(),
+    },
     carbonPrice,
     benchmark,
   };

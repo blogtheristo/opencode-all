@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Fabio Ranghino, Ambienta
-Version: 1.0
+Version: 1.1
 Date: 2026-04-22
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-draft-IM1GB
@@ -9,10 +9,37 @@ Story Lock: Story A — Carbon/compliance infrastructure (NO Aegis/defense — A
 Intro Type: Cold — LinkedIn InMail or warm intro via Federica Mallone
 
 AGENT HISTORY:
+- v1.1 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-22): Initial draft. Fabio Ranghino — Partner & Head of Sustainability & Strategy at Ambienta SGR (Milan). The actual decision-maker for portfolio-wide sustainability tooling adoption at Ambienta. Identified during Federica Mallone INTRO research (v1.1 correction): Federica is Manager-level on his team, Ranghino owns the function. Strategy: prefer warm intro through Federica; fall back to direct LinkedIn InMail referencing Lens 2024 publication if Federica path stalls beyond 14 days.
 -->
 
 # Investor Intro Note — Fabio Ranghino, Ambienta
+
+---
+
+## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: REGULATION
+
+> Master template: `docs/investor/INTRO_TEMPLATE_LABOR_THESIS.md`. This block refreshes the opening of this INTRO around the labor-pricing thesis. Investor-specific context below (Target Profile, Fit Assessment, Strategy, Attachments, Next Steps) is preserved.
+
+**Subject line:** EU regulation is hiring — DWS 365 Skilled Agents supplies the workforce · 2026 Q2 SAFE
+
+**Email body — opening three paragraphs + ask:**
+
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+
+A fleet of skilled agents is already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+
+EU regulation is now hiring. CSRD reporting waves 2026/27, CBAM closing the loop on imports, EU AI Act high-risk obligations live from Aug 2026, NIS2 fully operational — every regulation mandates a piece of work, not a tool. For a fund with a regulation-driven demand thesis, we are the workforce the regulator just created. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
+
+**Ask + two slots + unsubscribe:**
+
+We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commercial pickup through Q3/26. Two slots that work: Thu 22 May 09:00 CET (30 min) or Tue 27 May 14:00 CET (30 min). Messe Germany stand visit (Stuttgart, Sep 17–19, 2026) is also open if you'd rather see it live. If this isn't a fit, reply STOP and you won't hear from me again.
+
+**Sender:** `risto.paarni@lifetime.fi` via Amazon SES SMTP. Never Resend, never noreply@.
+
+**Attachment for first touch:** `docs/investor/INVESTOR_ONE_PAGER_2026Q2.pdf` (HTML mirror at `docs/investor/INVESTOR_ONE_PAGER_2026Q2.html`).
+
+> The investor-specific context (Target Profile, Fit Assessment, Drawbacks / Mitigations, Strategy, Draft LinkedIn DM, Draft Email, Attachments, Next Steps) below this section is the prior INTRO content and remains canonical for fund-specific intel. The opening above replaces the **email opening only**; everything below stays.
 
 ## Target Profile
 
@@ -44,7 +71,7 @@ AGENT HISTORY:
 
 ## Drawbacks / Mitigations
 
-- **Senior partner, high inbound volume.** Cold InMails from EUR 7K MRR seed founders rarely get a reply.
+- **Senior partner, high inbound volume.** Cold InMails from pre-seed founders at our scale rarely get a reply.
   - _Mitigation:_ Warm intro via Federica is the primary path. Cold path requires a Lens-publication hook + concrete portfolio-relevant data point in line one.
 - **Article 9 mandate excludes defense / dual-use.** Aegis, sovereignty, military, defense language is an instant fail.
   - _Mitigation:_ Hard suppression — Story A only. Do NOT send INVESTOR_MEMO_AEGIS.md. Do NOT mention dual-use, defense, sovereign-Aegis framing.
@@ -88,7 +115,7 @@ Hi Fabio,
 
 Risto Päärni, founder of Lifetime Oy (Espoo, Finland). I'm reaching out because the Sustainability & Strategy function at Ambienta — and the Lens publications coming out of it — sit very close to the standard we built DWS IQ 6 to.
 
-DWS IQ 6 is EU compliance automation for industrial companies. 21 AI agents connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready reports across ETS, CBAM (all 6 Annex I sectors, 66 CN codes), CSRD, and EU Taxonomy. Every score traces back to the regulatory source (EUR-Lex, EEA data, EU ETS benchmarks). Hardware-attested agent governance under the KYA Standard provides EU AI Act Art. 12 + Art. 26 evidence.
+DWS IQ 6 is EU compliance automation for industrial companies. A fleet of skilled agents connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready reports across ETS, CBAM (all 6 Annex I sectors, 66 CN codes), CSRD, and EU Taxonomy. Every score traces back to the regulatory source (EUR-Lex, EEA data, EU ETS benchmarks). Hardware-attested agent governance under the KYA Standard provides EU AI Act Art. 12 + Art. 26 evidence.
 
 Why this is relevant to Ambienta:
 
@@ -99,7 +126,7 @@ Why this is relevant to Ambienta:
 
 Concrete ask: one Ambienta industrial PortCo, 8-week pilot, source-cited CSRD report at the end. If the methodology holds up, we discuss a portfolio-wide standard.
 
-Current state: 21 agents live, 32 products, 20 EU-regulated industries, paying customers, 100% retention, 100% EU-sovereign (Finnish-owned, 0772407-9). V1 launches at Arctic 15 in Helsinki on June 15.
+Current state: a fleet of skilled agents live, 32 products, 25 EU-regulated industries, two enterprise pilots contracted Q1/2026 (€59,900 booked), 100% EU-sovereign (Finnish-owned, 0772407-9). V1 launches at Arctic 15 in Helsinki on June 15.
 
 One-pager (Ambienta-tailored) attached. Happy to jump on 20 minutes if there's any overlap.
 

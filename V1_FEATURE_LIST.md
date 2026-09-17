@@ -173,25 +173,25 @@
 
 ### 5. Mobile Dashboard (React Native)
 
-**Status:** Foundation + Redux - Needs screen implementation
+**Status:** NCC scope folded into Firehorse/mobile-app (2026-07-04); standalone `mobile-dashboard/` app retired.
+
+`mobile-dashboard/` was a code-free shell after 6 months (Phase 1 only). Retired to `mobile-dashboard_RETIRED/` — see `mobile-dashboard_RETIRED/RETIRED.md`. NCC's portfolio-dashboard scope now lives in `Firehorse/mobile-app`, which was already a fully built app on the same stack.
 
 #### What EXISTS:
 
-- `mobile-dashboard/` - Complete project structure + 39 pages of documentation
-- `Firehorse/mobile-app/src/store/` - Redux slices (carbon, diary, inspection, offline)
+- `Firehorse/mobile-app/src/screens/DashboardScreen.tsx` - Portfolio KPI tiles (SPI/CPI/active-projects/at-risk) + project list with RAG badges
+- `Firehorse/mobile-app/src/screens/AlertsScreen.tsx` - NCC Portfolio Alert Center (acknowledge / bulk-acknowledge)
+- `Firehorse/mobile-app/src/store/` - Redux slices (carbon, diary, inspection, offline), now with smoke test coverage
 - `Firehorse/mobile-app/src/theme/nordicTheme.ts` - Nordic UI theme
-- `Firehorse/mobile-app/src/navigation/` - Navigation structure
-- `Firehorse/mobile-app/src/screens/` - Screen stubs
-- API mock data fixtures (8 files)
+- `Firehorse/mobile-app/src/navigation/` - Navigation structure, incl. new "NCC PORTFOLIO" drawer section
+- `mobile-dashboard_RETIRED/config/fixtures/` - Original API mock data fixtures, kept for reference
 
 #### What's MISSING:
 
-- Complete screen implementations
-- API integration with MCP Hub
-- Push notifications
-- App store submission
+- Real API integration (portfolio/projects/alerts endpoints are still static demo data)
+- OAuth2/OIDC auth, offline cache, push notifications, app store submission — deferred until there's a firm NCC commercial commitment
 
-**Completion:** 35% (defer full implementation to V1.1)
+**Completion:** MVP portfolio view + alerts folded into Firehorse/mobile-app; full `mobile-dashboard_RETIRED/docs/IMPLEMENTATION_PLAN.md` roadmap not carried forward.
 
 ---
 
@@ -336,6 +336,27 @@
 - ✅ Docker configuration
 - ✅ Cloudflare DNS setup
 - ✅ Google Cloud Run deployment scripts
+
+### 12. Labor-Anchored Product Catalog (T0–T4, Blue/pilot)
+
+- ✅ §13.8 of `DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md` — schema for the
+  labor-anchored SKU (sku / tier / priceUnit / agents[] / replaces /
+  nextUpsellSku / deploymentColor) and the public-render rule that bans
+  SaaS-comparison columns.
+- ✅ 64 Blue/pilot SKUs in `dws10.com/config/products.json` (mirrored to
+  `landing-pages/dws10-com/config/products.json` in lockstep): 39 single
+  agents, 6 Function/Workforce bundles, 9 Industry Pod add-ons,
+  10 Land overlay engagements.
+- ✅ Green + Blue price-list generators render tier, Replaces, and
+  Next Upsell. Green list filters out every Blue SKU.
+- ✅ Public price list (`dws10.com/price-list/` + landing-pages mirror) and
+  `/upsell-map/` with the "Price AI like labor, not like a tool." hero.
+- ✅ `src/services/upsell-rules.ts` implements the §5 trigger ladder
+  (Zod-validated inputs); dashboard banner consumes it.
+- ✅ Pricing validator (`scripts/validate-pricing.ts` / `.ps1`) wired to
+  `.githooks/pre-commit` and a dedicated CI workflow.
+- ⏳ Green ratification — every SKU stays Blue/pilot until Risto signs it
+  Green per §5.
 
 ### 12. Security Framework ✅
 
@@ -604,7 +625,42 @@ See `docs/MVP_ARCHITECTURE.md` for Mermaid diagram of MVP feature flow.
 
 ---
 
-**Document Version:** 2.7
+---
+
+## V2 / System of Action Track
+
+Derived from tietotehdas field research and Google Cloud Agentic Data Cloud analysis (10.05.2026).
+Source: `docs/field-notes/2026-05-10-tietotehdas-datakeskus-suomen-kansallisvarallisuus.md`
+
+Core thesis: DWS IQ is a **System of Action operator**, not a SaaS vendor. V2 track builds the infrastructure that makes this true at product level.
+
+### High Priority
+
+| #   | Feature                                   | Description                                                                                                          | Target  |
+| --- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------- |
+| 1   | **MCP-katalogi julkisille rekistereille** | MCP servers for DVV, Traficom, PRH public APIs — tietotehdas access without data silo fragmentation                  | Q3 2026 |
+| 2   | **Knowledge Catalog prototype**           | Semantic layer on top of DWS IQ agent memory — raw data → contextualized knowledge (Google Knowledge Flywheel model) | Q3 2026 |
+| 3   | **System of Action positioning rollout**  | Update dws10.com hero, all sales decks, investor materials with canonical sentences from §22 DWS_BRAND_STANDARD      | Q2 2026 |
+
+### Medium Priority
+
+| #   | Feature                           | Description                                                                                                                                                         | Target  |
+| --- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| 4   | **Google Cloud partnership eval** | Assess Gemini Enterprise Agent Platform Govern pillar (Agent Identity, Agent Gateway, Model Armor) for DWS governance layer — especially for public register access | Q3 2026 |
+| 5   | **Dark Data inventory**           | Map Finnish public data reserves (DVV, Kela, THL, Luke, Ilmatieteenlaitos) for GDPR-compliant tietotehdas activation                                                | Q3 2026 |
+| 6   | **Agent fleet governance layer**  | Cryptographic agent identities + unified audit trail for all agent actions over regulated data — build or buy decision                                              | Q4 2026 |
+
+### Architecture Decision Required
+
+| Decision                     | Option A                           | Option B                                   | Owner |
+| ---------------------------- | ---------------------------------- | ------------------------------------------ | ----- |
+| Govern layer: build vs. buy  | Own implementation (Anthropic+MCP) | Google Gemini Enterprise Agent Platform    | CTO   |
+| Public register access model | Direct API federation              | Data broker / intermediary (e.g. Findynet) | CTO   |
+| Knowledge Catalog: scope     | DWS IQ agents only                 | Shared across Finnish tietotehdas partners | CEO   |
+
+---
+
+**Document Version:** 2.8
 **Created:** January 3, 2026
-**Last Updated:** April 16, 2026
-**Status:** All planned V1 gaps closed (13/13) — staging env, OpenAPI 79/79, SES migration, customer KB. One human action remaining: set SMTP credentials in Cloud Run.
+**Last Updated:** 10.05.2026
+**Status:** V1 complete. V2 System of Action track added — 6 features, 3 architecture decisions pending.

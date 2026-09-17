@@ -1,0 +1,35 @@
+# =============================================================================
+# GN100 training stack — QLoRA fine-tuning on the Acer Veriton GN100
+# =============================================================================
+# Deployed by scripts/deploy-acer-training.sh. Build context is the repo root
+# so the image can COPY infrastructure/llm-training/* and evals/*.
+# GPU is exposed via the NVIDIA Container Toolkit (validated on this host).
+# =============================================================================
+services:
+  trainer:
+    build:
+      context: ../../..
+      dockerfile: Admin/Acer-Veriton-GN100/training/Dockerfile
+    image: dws-gn100-trainer:latest
+    container_name: dws-gn100-trainer
+    env_file:
+      - .env.training
+    environment:
+      # HF_TOKEN comes from .env.training (never committed)
+      HF_HOME: /cache/hf
+      TRANSFORMERS_CACHE: /cache/hf
+    volumes:
+      - ./checkpoints:/checkpoints
+      - ./datasets:/datasets
+      - ./cache:/cache
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    # Config is passed at run time, e.g.:
+    #   docker compose run --rm trainer --config configs/gn100-8b-qlora.yaml \
+    #     --dataset /datasets/kemira.jsonl --output-dir /checkpoints/8b-qlora
+    restart: "no"

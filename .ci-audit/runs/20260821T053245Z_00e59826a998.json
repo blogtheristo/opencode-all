@@ -1,0 +1,47 @@
+{
+  "branch": "claude/blogi-linkit-merge-errors-wedpz8",
+  "checks": [
+    {
+      "duration_ms": 8070,
+      "name": "npm-install-check",
+      "notes": "",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pass": true
+    },
+    {
+      "duration_ms": 18295,
+      "name": "vitest",
+      "notes": "exit=1",
+      "output_sha256": "89b4073a7f5423a4bd26b021c39f3e7ed48c911f66be9c12909fca1c89ea01c2",
+      "pass": false
+    },
+    {
+      "duration_ms": 5,
+      "name": "gitleaks-full",
+      "notes": "exit=2",
+      "output_sha256": "f2fc9302bf85f885c4e96927e45e62245c4b0f652f897f42536cec1e7f16be83",
+      "pass": false
+    },
+    {
+      "duration_ms": 539,
+      "name": "npm-audit-root",
+      "notes": "exit=1",
+      "output_sha256": "fa6f7bbc61f0f3b5427cf82103ce212028e67374dff83df7d9ac7d34a759a916",
+      "pass": false
+    }
+  ],
+  "checks_failed": 3,
+  "checks_passed": 1,
+  "checks_total": 4,
+  "commit_sha": "00e59826a9987001e7d45ef5a603e2041a3a3ec0",
+  "duration_ms": 26950,
+  "overall_pass": false,
+  "prev_record_hash": "1b44f76ec673a3e8f508f92ec9edcb086970217c7f613723fa851b46a35337cb",
+  "repo": "blogtheristo/dws6",
+  "runner": "root@vm",
+  "runner_kind": "local",
+  "schema": "ci-audit/v1",
+  "this_record_hash": "b7dd7dfc5f10f51acb719b5cc0a4164467fb37a9bbcf30ee13fc1486881289d8",
+  "trigger_kind": "pre-push",
+  "ts": "2026-08-21T05:32:45Z"
+}

@@ -13,7 +13,21 @@ name: AI Code Review (HIL Automation)
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    # Token control (HIC 2026-08-24): no review on open/reopen/sync of drafts or
+    # work-in-progress — burn happens once, when the PR is actually ready.
+    types: [ready_for_review, synchronize]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'Store/**'
+      - 'Learn/**'
+      - '.github/workflows/**.disabled'
+
+# Cancel earlier in-flight reviews when a new commit is pushed to the same PR.
+# Saves significant minutes on rapid push sequences during active development.
+concurrency:
+  group: ai-pr-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -26,8 +40,11 @@ jobs:
     runs-on: ubuntu-latest
     # Skip github-actions[bot] (pure CI automation) but allow Copilot actors
     # so the "@copilot fixes → push → re-review" loop runs correctly.
+    # Skip drafts — review only runs once a PR is marked ready.
     # Livelock is prevented by the iteration cap in the "Route fixes to Copilot" step.
-    if: github.actor != 'github-actions[bot]'
+    if: |
+      !github.event.pull_request.draft &&
+      github.actor != 'github-actions[bot]'
 
     steps:
       - name: Checkout code
@@ -171,14 +188,21 @@ jobs:
       # ──────────────────────────────────────────────
       - name: Claude Review
         id: claude-review
-        if: steps.conflict-check.outputs.has_conflicts != 'true' && secrets.ANTHROPIC_API_KEY != ''
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PR_TITLE_RAW: ${{ github.event.pull_request.title }}
+          PR_BODY_RAW: ${{ github.event.pull_request.body }}
         run: |
+          if [ -z "${ANTHROPIC_API_KEY:-}" ]; then
+            echo "Claude review skipped — ANTHROPIC_API_KEY not set" > /tmp/claude-review.txt
+            exit 0
+          fi
+
           DIFF=$(cat /tmp/pr-diff.txt)
           FILES=$(cat /tmp/changed-files.txt)
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          PR_BODY=$(echo '${{ github.event.pull_request.body }}' | head -c 2000)
+          PR_TITLE=$(printf '%s' "$PR_TITLE_RAW")
+          PR_BODY=$(printf '%s' "$PR_BODY_RAW" | head -c 2000)
 
           PROMPT="You are a senior engineer doing a quick sanity review of a PR for DWS IQ 6 (enterprise climate intelligence platform, TypeScript/Python/React).
 
@@ -230,7 +254,7 @@ jobs:
       # ──────────────────────────────────────────────
       - name: Gemini HIL Review
         id: gemini-review
-        if: steps.conflict-check.outputs.has_conflicts != 'true' && (secrets.GOOGLE_AI_API_KEY != '' || secrets.GOOGLE_API_KEY != '')
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         env:
           # Prefer GOOGLE_AI_API_KEY (backwards-compatible name used across the repo);
           # fall back to GOOGLE_API_KEY for environments that only have the shorter name.
@@ -239,91 +263,96 @@ jobs:
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_BODY_RAW: ${{ github.event.pull_request.body }}
         run: |
+          if [ -z "${GEMINI_API_KEY:-}" ]; then
+            echo "Gemini HIL review skipped — GOOGLE_AI_API_KEY / GOOGLE_API_KEY not set" > /tmp/gemini-review.txt
+            exit 0
+          fi
+
           PR_BODY=$(printf '%s' "$PR_BODY_RAW" | head -c 2000)
 
           # Static prompt — no dynamic content here (avoids backtick/subshell injection)
           # Dynamic parts (diff, files, title, body) are injected safely via jq --arg/--rawfile
           PROMPT_STATIC='You are a STRICT senior engineer performing a thorough code review. You REPLACE the human reviewer — your review is the final quality gate before merge.
 
-YOUR DEFAULT VERDICT IS REQUEST_CHANGES. You must actively find ways to improve the code.
-Only verdict APPROVE if ALL of the following are true:
-- Zero security issues
-- Zero correctness issues
-- Adequate test coverage for new logic
-- No edge cases left unhandled
-- Code follows project conventions
-If you are unsure or borderline on any point, choose REQUEST_CHANGES. Quality over speed.
+          YOUR DEFAULT VERDICT IS REQUEST_CHANGES. You must actively find ways to improve the code.
+          Only verdict APPROVE if ALL of the following are true:
+          - Zero security issues
+          - Zero correctness issues
+          - Adequate test coverage for new logic
+          - No edge cases left unhandled
+          - Code follows project conventions
+          If you are unsure or borderline on any point, choose REQUEST_CHANGES. Quality over speed.
 
-Project: DWS IQ 6 — enterprise climate intelligence platform
-Stack: TypeScript 5.9, React 19, Express, Python 3.11, Supabase, TailwindCSS
-Standards: Strict TypeScript (no any), Zod validation, functional React, OWASP security
+          Project: DWS IQ 6 — enterprise climate intelligence platform
+          Stack: TypeScript 5.9, React 19, Express, Python 3.11, Supabase, TailwindCSS
+          Standards: Strict TypeScript (no any), Zod validation, functional React, OWASP security
 
-Perform deep analysis on ALL of these — do not skip any:
+          Perform deep analysis on ALL of these — do not skip any:
 
-1. SECURITY (Critical)
-   - API key/secret exposure in code or config
-   - Injection vulnerabilities (SQL, XSS, command injection)
-   - Authentication/authorization gaps
-   - CSRF, CORS misconfiguration
-   - Unsafe eval(), exec(), or dynamic code execution
+          1. SECURITY (Critical)
+             - API key/secret exposure in code or config
+             - Injection vulnerabilities (SQL, XSS, command injection)
+             - Authentication/authorization gaps
+             - CSRF, CORS misconfiguration
+             - Unsafe eval(), exec(), or dynamic code execution
 
-2. CORRECTNESS (Critical)
-   - Logic errors, off-by-one, null/undefined handling
-   - Race conditions, async/await misuse
-   - Type safety violations
-   - Missing error handling at system boundaries
+          2. CORRECTNESS (Critical)
+             - Logic errors, off-by-one, null/undefined handling
+             - Race conditions, async/await misuse
+             - Type safety violations
+             - Missing error handling at system boundaries
 
-3. EDGE CASES (Important)
-   - Empty inputs, large inputs, unicode, special characters
-   - Network failures, timeout handling
-   - Concurrent access patterns
+          3. EDGE CASES (Important)
+             - Empty inputs, large inputs, unicode, special characters
+             - Network failures, timeout handling
+             - Concurrent access patterns
 
-4. PERFORMANCE (Important)
-   - N+1 queries, unnecessary re-renders
-   - Memory leaks (event listeners, intervals not cleaned)
-   - Bundle size impact
+          4. PERFORMANCE (Important)
+             - N+1 queries, unnecessary re-renders
+             - Memory leaks (event listeners, intervals not cleaned)
+             - Bundle size impact
 
-5. TESTS (Important)
-   - Are new code paths tested?
-   - Are edge cases covered?
-   - If no tests added for new logic, flag it
+          5. TESTS (Important)
+             - Are new code paths tested?
+             - Are edge cases covered?
+             - If no tests added for new logic, flag it
 
-6. ARCHITECTURE (Advisory)
-   - Does this follow existing patterns in the codebase?
-   - Any unnecessary complexity?
+          6. ARCHITECTURE (Advisory)
+             - Does this follow existing patterns in the codebase?
+             - Any unnecessary complexity?
 
-FORMAT YOUR RESPONSE EXACTLY AS:
+          FORMAT YOUR RESPONSE EXACTLY AS:
 
-## Gemini HIL Review
+          ## Gemini HIL Review
 
-### Summary
-[2-3 sentences: what this PR does and overall quality assessment]
+          ### Summary
+          [2-3 sentences: what this PR does and overall quality assessment]
 
-### Critical Issues
-[List each with file:line reference and clear description. If none: None found.]
+          ### Critical Issues
+          [List each with file:line reference and clear description. If none: None found.]
 
-### Required Changes
-[Specific, actionable changes that MUST be made before merge. Each item should be implementable by a coding agent. If none: None required.]
+          ### Required Changes
+          [Specific, actionable changes that MUST be made before merge. Each item should be implementable by a coding agent. If none: None required.]
 
-### Suggested Improvements
-[Nice-to-have improvements, ordered by impact. These do not block merge.]
+          ### Suggested Improvements
+          [Nice-to-have improvements, ordered by impact. These do not block merge.]
 
-### Test Gaps
-[Missing test coverage. Specific test cases that should be added. If adequate: Test coverage is adequate.]
+          ### Test Gaps
+          [Missing test coverage. Specific test cases that should be added. If adequate: Test coverage is adequate.]
 
-### Verdict
-[Exactly one of: APPROVE / REQUEST_CHANGES]
-[1 sentence justification]
+          ### Verdict
+          [Exactly one of: APPROVE / REQUEST_CHANGES]
+          [1 sentence justification]
 
-IMPORTANT RULES:
-- Your DEFAULT is REQUEST_CHANGES. You must justify an APPROVE.
-- If you find ANY issue (critical, important, or missing tests), verdict MUST be REQUEST_CHANGES
-- Always provide at least 2-3 concrete improvements even for good code
-- Format required changes as clear instructions (e.g., In file X at line Y, change Z to W)
-- Do NOT approve PRs that add new logic without tests
-- Do NOT approve PRs with any TODO/FIXME/HACK comments in new code
-- Be specific — vague feedback like could be improved is useless
-- When in doubt, REQUEST_CHANGES. Quality is more important than velocity.'
+          IMPORTANT RULES:
+          - Your DEFAULT is REQUEST_CHANGES. You must justify an APPROVE.
+          - If you find ANY issue (critical, important, or missing tests), verdict MUST be REQUEST_CHANGES
+          - Always provide at least 2-3 concrete improvements even for good code
+          - Format required changes as clear instructions (e.g., In file X at line Y, change Z to W)
+          - Do NOT approve PRs that add new logic without tests
+          - Do NOT approve PRs with any TODO/FIXME/HACK comments in new code
+          - Be specific — vague feedback like could be improved is useless
+          - When in doubt, REQUEST_CHANGES. Quality is more important than velocity.'
 
           # Build full prompt and JSON payload entirely inside jq — no bash string injection possible.
           # --rawfile reads files as-is (handles backticks, $(), quotes in diffs safely).
@@ -654,11 +683,17 @@ IMPORTANT RULES:
       # ──────────────────────────────────────────────
       - name: Level 5 - Ollama Review (GN-100)
         id: ollama-review
-        if: ${{ secrets.OLLAMA_HOST != '' }}
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         env:
           OLLAMA_HOST: ${{ secrets.OLLAMA_HOST }}
-          OLLAMA_MODEL: ${{ secrets.OLLAMA_MODEL || 'qwen2.5-coder:14b' }}
+          OLLAMA_MODEL: ${{ secrets.OLLAMA_MODEL || 'qwen3-coder:30b' }}
         run: |
+          if [ -z "${OLLAMA_HOST:-}" ]; then
+            echo "Ollama review skipped — OLLAMA_HOST not configured" > /tmp/ollama-review.txt
+            echo "verdict=skip" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
           DIFF=$(cat /tmp/pr-diff.txt | head -c 30000)
           FILES=$(cat /tmp/changed-files.txt)
           PR_TITLE="${{ github.event.pull_request.title }}"

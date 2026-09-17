@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-08-12-git-stash-durability</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-08-12-git-stash-durability</h1>
+</header>
+<h1 id="field-note-54-stashes-were-30-days-from-deletion">Field note — 54 stashes were 30 days from deletion</h1>
+<p><strong>Date:</strong> 2026-08-12 <strong>Branch:</strong> <code>claude/protect-git-stashes</code> <strong>Trigger:</strong> HIC asked whether work stashed via GitHub Desktop had been lost.</p>
+<hr />
+<h2 id="what-happened">What happened</h2>
+<p>The HIC stashed changes through GitHub Desktop and later found the working tree clean, and asked whether the work was gone.</p>
+<p>It was not. Two of the three files (<code>Admin/ADMIN_MANUAL.md</code>, <code>scripts/db-daily-backup.sh</code>) had already been <strong>committed</strong> in <code>873355fbc</code> on <code>fix/windows-db-backup-and-email-alert</code> and pushed to <code>origin</code>. Only <code>.claude/settings.local.json</code> was actually in the stash.</p>
+<p>Answering that question surfaced a much larger problem that nobody had asked about.</p>
+<h2 id="the-real-finding">The real finding</h2>
+<p><code>git stash list</code> showed <strong>54 stashes</strong>, the oldest from April. Inspecting the refs showed why that was dangerous:</p>
+<blockquote>
+<p>Git creates a real ref — <code>refs/stash</code> — for <code>stash@{0}</code> <strong>only</strong>. Every older stash exists purely as a <strong>reflog entry</strong> on that ref.</p>
+</blockquote>
+<p>Reflog entries expire. The defaults are 90 days for reachable commits and <strong>30 days for unreachable</strong> ones, applied by <code>git gc</code>, which also runs automatically. So 53 of the 54 stashes were one maintenance run — or one <code>gc.auto</code> trigger — from silent deletion. No prompt, no error, no diff.</p>
+<p>Among them was <code>stash@{39}</code>, <em>“PROTECTED partners pages 799-line content (case sensitivity)”</em> — 1594 lines across <code>onelifetime.world/partners/index.html</code> and its <code>landing-pages</code> mirror. Project memory explicitly flags that content as never-overwrite.</p>
+<p>The second half of the problem is the one the HIC named directly: <strong>stashes are local-only</strong>. Nothing pushes them. GitHub had no copy of any of the 54, so the repo’s remote was not a backup of them in any sense.</p>
+<h2 id="what-was-done">What was done</h2>
+<ol type="1">
+<li><strong>Root cause.</strong> <code>gc.refs/stash.reflogExpire=never</code> and <code>reflogExpireUnreachable=never</code> (plus the same for the archive namespace). Git itself now never expires stash reflog entries.</li>
+<li><strong>Pinned every stash</strong> to a permanent ref under <code>refs/stash-archive/</code>. A commit with a real ref is not gc-eligible — this survives even <code>git stash drop</code>, which was verified explicitly.</li>
+<li><strong>Bundled</strong> all 54 plus full history to <code>F:\2026\Repos2026\dws6-stash-backup\</code> (617 MB, 754 heads, <code>git bundle verify</code> → <em>“records a complete history”</em>). Restore was proven by cloning the bundle into a throwaway mirror and reading two stashes back.</li>
+<li><strong>Automated it</strong> — <code>scripts/Protect-GitStashes.ps1</code>, registered as the weekly Windows Scheduled Task <code>DWS6-Protect-GitStashes</code> (Sundays 03:00). Per the Script Automation Rule, nothing here depends on anyone remembering.</li>
+<li><strong>MANIFEST.txt</strong>, because a bundle carries refs but not reflog messages — without it the 54 refs are anonymous SHAs with no record of what each was for.</li>
+</ol>
+<h2 id="what-was-deliberately-not-done">What was deliberately NOT done</h2>
+<p><strong>The archive refs were not pushed to GitHub.</strong> Pushing <code>refs/stash-archive/*</code> would genuinely solve “not stored on GitHub”, and the objects are mostly shared with existing history so the push would be small.</p>
+<p>It was not done because <strong>stashes can contain secrets</strong>. Several were created with <code>-u</code> (untracked files included), and untracked files are exactly where <code>.env</code> lives. Pushing 54 unreviewed stashes to a remote risks precisely the leak Non-Negotiable Rule 1 exists to prevent. That trade is the HIC’s to make, after a secret scan — not a side effect of a durability fix.</p>
+<h2 id="lessons">Lessons</h2>
+<ul>
+<li><strong>“It’s in git” is not the same as “it’s safe.”</strong> Stashes, reflogs and untracked files are all inside <code>.git</code> and all disposable. Only a commit with a ref that is pushed somewhere is durable.</li>
+<li><strong>A backup nobody has restored from is a hypothesis.</strong> The bundle was cloned and read back before being called a backup.</li>
+<li><strong>The guard that caught a bug was mine.</strong> <code>Protect-GitStashes.ps1</code> rejected its own correct default <code>BackupPath</code>, because <code>dws6-stash-backup</code> string-starts-with <code>dws6</code>. Path containment needs a trailing separator, not <code>StartsWith</code>. Worth remembering anywhere a path guard is written.</li>
+<li><strong>The question asked was narrower than the problem.</strong> “Did I lose these three files?” was answerable in one command. Checking properly is what exposed 54 stashes at risk.</li>
+</ul>
+<h2 id="follow-ups">Follow-ups</h2>
+<ol type="1">
+<li><strong>Triage the 54.</strong> They are safe now but not <em>reviewed</em>. Most are <code>temp-…</code> scaffolding from PR conflict work in April and are probably droppable; a few (<code>#39</code> protected Partners content, <code>#0</code> settings) are not. Needs a human pass — nothing was dropped in this session.</li>
+<li><strong>Decide on pushing to GitHub</strong>, after scanning the stashes for <code>.env</code> and credential material.</li>
+<li>The same exposure exists in <strong>every other clone and worktree</strong> on this machine. This fix is scoped to <code>F:\2026\Repos2026\dws6</code>.</li>
+</ol>
+<h2 id="learning-standard-steps">Learning Standard steps</h2>
+<ul>
+<li>KB update — <code>N/A</code> — no <code>kb/</code> entry; the durable record is this note, the committed script, and <code>RESTORE.md</code> next to the bundle.</li>
+<li>Drive export — <code>N/A</code> — the artifact is a 617 MB bundle on the local disk by design; exporting it to Drive was not authorised and would duplicate potentially secret-bearing stash content off-machine.</li>
+<li>Calendar — <code>N/A</code> — the recurring commitment is a Windows Scheduled Task (<code>DWS6-Protect-GitStashes</code>, Sundays 03:00), which is a stronger reminder than a calendar entry; no dated deadline was produced.</li>
+<li>HIC question — see below.</li>
+</ul>
+<h2 id="question-for-the-hic">Question for the HIC</h2>
+<p><strong>Should the 54 archived stashes be pushed to <code>origin</code> under <code>refs/stash-archive/*</code>?</strong> It is the only step that makes them survive the loss of this machine — but it publishes 54 unreviewed working states to GitHub, and at least some were stashed with untracked files included. My recommendation: scan for secrets first, push the clean ones, and keep the rest local-only.</p>
+</body>
+</html>

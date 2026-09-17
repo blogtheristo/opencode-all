@@ -20,7 +20,7 @@ cd "$REPO_DIR"
 mkdir -p logs
 
 # Required models (strategic — change only with human approval)
-REQUIRED_MODELS=("llama3.3:70b" "qwen2.5-coder:32b")
+REQUIRED_MODELS=("nemotron-3-super" "qwen3-coder:30b")
 
 # ---------------------------------------------------------------------------
 # 1. Check what's installed

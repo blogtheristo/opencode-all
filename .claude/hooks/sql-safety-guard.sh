@@ -96,19 +96,16 @@ if [ "$TOOL_NAME" != "Bash" ] || [ -z "$COMMAND" ]; then
   exit 0
 fi
 
-# Only fire on actual SQL execution commands — skip everything else
-# SQL keywords inside node/npx/git/echo/commit commands are string literals, not real SQL
+# Only fire on actual SQL execution commands — skip everything else.
+# SQL keywords inside node/npx/git/echo/commit commands are string literals,
+# not real SQL. Checked at COMMAND POSITION anywhere in the string (start,
+# or after `;`/`&&`/`||`/`|`) — not just the first segment — so a compound
+# command like `echo start && psql -c "DROP TABLE users"` cannot smuggle a
+# real psql/supabase invocation past this guard behind a benign first verb.
 IS_SQL_CMD=0
-case "$COMMAND" in
-  psql*|'supabase db'*|'supabase migration'*) IS_SQL_CMD=1 ;;
-  # Skip all non-SQL commands early — git, node, npx, echo, etc.
-  git*|node*|npx*|npm*|echo*|cat*|ls*|cp*|mv*|mkdir*|chmod*|curl*|wget*) IS_SQL_CMD=0 ;;
-  *) # For compound commands (&&, |), check if first segment is SQL
-     FIRST_CMD=$(printf '%s' "$COMMAND" | sed 's/[;&|].*//' | xargs)
-     case "$FIRST_CMD" in
-       psql*|'supabase db'*|'supabase migration'*) IS_SQL_CMD=1 ;;
-     esac ;;
-esac
+if printf '%s' "$COMMAND" | grep -qE '(^|[;&|]+)[[:space:]]*(psql|supabase[[:space:]]+(db|migration))([[:space:]]|$)'; then
+  IS_SQL_CMD=1
+fi
 
 HAS_SQL="$IS_SQL_CMD"
 

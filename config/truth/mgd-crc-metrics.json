@@ -1,0 +1,83 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-07-14",
+  "sourceOfTruth": false,
+  "structuredMirror": true,
+  "humanReadableSource": "docs/field-notes/2026-07-05-groq-ross-dominant-game-recipe.md",
+  "owner": "risto.paarni@lifetime.fi",
+  "note": "Structured mirror of the MGD/CRC north-star metric doctrine defined in docs/field-notes/2026-07-05-groq-ross-dominant-game-recipe.md §3 (the dominant game DWS plays). Machine-readable reflection only, not a reinterpretation — if this file and the field note disagree, the field note §3 wins. Lets scripts/lint-truth-claims.mjs / truth-check FAIL the acquisition/activity anti-metrics (the §2 games DWS refuses to play) in public-layer copy and suggest the dominant-game phrasing (MGD / CRC) instead. The metric definitions below are copied verbatim from field note §3. The flat deprecatedDisplayPhrases array is the lint-consumed aggregate of the per-game phrases in deprecatedGames[], seeded from the field note §2 anti-games table. Registered in DWS_TRUTH_STANDARD.md §2 row 29.",
+  "dominantGameMetrics": {
+    "primary": {
+      "name": "Monthly Governed Decisions",
+      "abbreviation": "MGD",
+      "role": "primary",
+      "definition": "A decision counts only when it (a) flows through the governed outcome layer, (b) carries full Article 12 reasoning lineage, and (c) is audit-grade (would survive regulator or internal-audit scrutiny). Pilots, demos, and ungoverned agent runs do not count — exactly as MySpace's dormant accounts did not count for Facebook."
+    },
+    "secondary": {
+      "name": "Customer-Retained Capital",
+      "abbreviation": "CRC",
+      "role": "secondary/compounding",
+      "definition": "The 4P assets (ontology, skills, calibrated Control Room thresholds, evaluated datasets) the customer owns after the engagement. This is the anti-Karp metric: proof DWS's game is capital formation, not extraction."
+    }
+  },
+  "deprecatedGames": [
+    {
+      "slug": "agent-count-as-headline",
+      "game": "Agent / skill / workflow count",
+      "whyLosingGame": "Implementation detail dressed as progress; buyer cannot procure \"50 agents\"",
+      "existingGuard": "Positioning Pillar 2 — agent count is never a headline (DWS_TRUTH_STANDARD.md §2A)",
+      "deprecatedDisplayPhrases": ["agent count", "agents shipped", "skill count", "workflow count"]
+    },
+    {
+      "slug": "tokens-consumed",
+      "game": "Tokens consumed / API throughput",
+      "whyLosingGame": "Meters the input; Karp's \"wealth tax\" — value extraction, not value delivery",
+      "existingGuard": "Karp field note §1–2; 4P model (tokens are cost, not capital)",
+      "deprecatedDisplayPhrases": ["tokens consumed", "tokens processed", "API throughput"]
+    },
+    {
+      "slug": "benchmark-scores",
+      "game": "Benchmark scores / model rankings",
+      "whyLosingGame": "The frontier labs' game — a layer DWS deliberately does not compete in (multi-model posture)",
+      "existingGuard": "§2D model-dependency posture — DWS is not its model vendor",
+      "deprecatedDisplayPhrases": [
+        "benchmark scores",
+        "benchmark score",
+        "model rankings",
+        "leaderboard ranking"
+      ]
+    },
+    {
+      "slug": "pilot-logo-counts-as-success",
+      "game": "Logos / sign-ups / pilot count",
+      "whyLosingGame": "Accounts-signed-up, literally — pilots that never reach a governed production decision",
+      "existingGuard": "Ari test (Pillar 3): a pilot that removes no risk is not quotable in procurement",
+      "deprecatedDisplayPhrases": ["pilot count", "pilots signed", "logo count", "sign-up count"]
+    }
+  ],
+  "approvedDisplayPhrases": [
+    "Monthly Governed Decisions",
+    "MGD",
+    "Customer-Retained Capital",
+    "CRC",
+    "audit-surviving governed decisions",
+    "the capital the customer keeps"
+  ],
+  "deprecatedDisplayPhrases": [
+    "agent count",
+    "agents shipped",
+    "skill count",
+    "workflow count",
+    "tokens consumed",
+    "tokens processed",
+    "API throughput",
+    "benchmark scores",
+    "benchmark score",
+    "model rankings",
+    "leaderboard ranking",
+    "pilot count",
+    "pilots signed",
+    "logo count",
+    "sign-up count"
+  ]
+}

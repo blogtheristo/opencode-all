@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/>
+<meta name="generator" content="manual render (pandoc unavailable in-container; python-markdown 3.10.3 used instead)"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="author" content="Risto Anton Päärni"/>
+<title>Branch Death by Re-root — and the KYA-S1 Re-land — 2026-08-04</title>
+<style>
+html{color:#1a1a1a;background:#fdfdfd}
+body{margin:0 auto;max-width:42em;padding:50px 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.6}
+h1{font-size:1.9em;border-bottom:2px solid #ddd;padding-bottom:.3em}
+h2{font-size:1.4em;margin-top:1.8em;border-bottom:1px solid #eee;padding-bottom:.2em}
+h3{font-size:1.12em;margin-top:1.4em}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.92em}
+th,td{border:1px solid #ccc;padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#f2f2f2}
+code{background:#f2f2f2;padding:1px 5px;border-radius:3px;font-size:.9em}
+pre{background:#f6f8fa;border:1px solid #ddd;border-radius:6px;padding:12px 14px;overflow-x:auto}
+pre code{background:none;padding:0}
+blockquote{border-left:3px solid #d4a843;margin-left:0;padding-left:1em;color:#444}
+details.provenance{background:#f8f8f8;border:1px solid #ddd;border-radius:6px;padding:10px 16px;margin-bottom:2em;font-size:.85em;color:#555}
+a{color:#0645ad}
+footer{margin-top:3em;padding-top:1em;border-top:1px solid #eee;font-size:.85em;color:#666}
+@media print{body{background:#fff}}
+</style></head><body>
+<details class="provenance"><summary>Document provenance (VERSION AND AGENT HISTORY)</summary><pre>VERSION AND AGENT HISTORY
+Document: HIC Learning Outcome — Branch death by re-root, and the KYA-S1 re-land, 2026-08-04 session
+Version: 1.0
+Date: 2026-08-04
+Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
+Owner: Lifetime Oy
+Status: Active
+Agent: Claude Code (claude-opus-5), session claude/study-palantir-mas2-MwtEw
+Purpose: Record a failure mode not previously named in DWS practice — a branch becoming unmergeable through history re-rooting rather than through conflict — and the re-land of the KYA-S1 vendor standard on current main, including the two facts that had decayed while the work sat unmerged. Per DWS_LEARNING_STANDARD (EU AI Act Article 14 human oversight).</pre></details>
+<h1 id="branch-death-by-re-root-and-the-kya-s1-re-land-2026-08-04">Branch Death by Re-root — and the KYA-S1 Re-land — 2026-08-04</h1>
+<h2 id="1-what-the-session-was-asked-to-do-and-what-it-actually-was">1. What the session was asked to do, and what it actually was</h2>
+<p>The instruction was three words: <em>"fix merge errors."</em></p>
+<p>There were no merge errors. There was no conflict to resolve. The branch carrying KYA-S1
+(<code>claude/study-palantir-mas2-MwtEw</code>, PR #1317, closed 26.07.2026 as superseded) could not be merged
+into <code>main</code> for a reason git does not report as a conflict at all: <strong>the two histories had no common
+ancestor.</strong></p>
+<pre><code>git merge-base HEAD origin/main   -&gt;   (empty)
+ahead:  4281 commits
+behind:  709 commits
+</code></pre>
+<p><code>main</code> was re-rooted between May and August 2026. Different root commit, disjoint graph. Every
+<code>git merge</code> attempt against it produces conflicts in every file that exists on both sides — which
+<em>looks</em> exactly like a bad merge, and invites hours of conflict resolution that can never converge.
+The prior session in this branch had in fact spent that time: it resolved six conflict hunks by hand
+against what it believed was an ordinary divergence, and pushed a merge commit that was already
+meaningless.</p>
+<h2 id="2-the-insight-stated-plainly">2. The insight, stated plainly</h2>
+<p><strong>An empty <code>git merge-base</code> is a distinct diagnosis, and it is the first thing to check when a
+branch "won't merge."</strong></p>
+<p>The two conditions look identical at the point of pain — conflict markers everywhere — but the
+remedies are opposites:</p>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Real cause</th>
+<th>Correct action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conflicts in files both sides touched</td>
+<td>Ordinary divergence</td>
+<td>Resolve hunks, merge</td>
+</tr>
+<tr>
+<td>Conflicts in <em>every</em> shared file, <code>merge-base</code> empty</td>
+<td>History re-rooted</td>
+<td><strong>Do not resolve. Rebuild on current main.</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Resolving conflicts in the second case is not slow — it is void. The output cannot be merged no
+matter how correct each hunk is. The cheap check (<code>git merge-base A B</code> returning nothing) should
+precede any conflict work.</p>
+<p><strong>Corollary for the PR backlog cleanup.</strong> The July backlog triage
+(<code>docs/pr-cleanup/next-prompts-v2-bundle.md</code>) reached the right verdict for this PR — "predates too
+much of current main to merge as-is" — but by judgement rather than by measurement. The
+<code>merge-base</code> check turns that judgement into a one-command test that any session can run on any
+stale PR, and it distinguishes "stale but mergeable" from "structurally dead" without reading a
+diff.</p>
+<h2 id="3-the-second-insight-unmerged-work-decays-silently">3. The second insight: unmerged work decays, silently</h2>
+<p>The KYA-S1 standard sat in an unmerged branch from 15 May to 4 August. Two facts inside it went
+stale while nobody could see them, because <strong>an unmerged branch is invisible to every review
+mechanism DWS has</strong> — the truth registry does not lint it, the calendar does not see its dates, and
+the standards library does not know it exists.</p>
+<ol>
+<li><strong>A self-imposed deadline expired unserved.</strong> The standard opened a public-comment window of
+   15.05.2026–15.08.2026. Had it merged in August as written, it would have arrived with eleven days
+   left on a window nobody had been able to comment in. Reset to 04.08.2026–04.11.2026, with the
+   reason written into the document rather than the window quietly re-dated.</li>
+<li><strong>The law moved underneath it.</strong> EU AI Act <strong>Article 50 began to apply on 2 August 2026</strong> — two
+   days before this re-land, eleven weeks after the text was written. The draft discussed labelling
+   obligations in the future tense. It now states them as in force.</li>
+</ol>
+<p>This is the same class of failure as the Outokumpu offer that lapsed unnoticed (Learning Standard
+v1.5 §4.1): a date sitting correctly inside a document that never speaks first. The new element is
+that a whole document can be in that state, not just a date within it.</p>
+<h2 id="4-what-was-actually-landed">4. What was actually landed</h2>
+<p>Rebuilt on current <code>main</code> (<code>ec685eb3</code>) rather than merged. Old tip preserved locally as
+<code>backup/kya-s1-preredo-2f7b8584</code>; branch force-pushed with lease. Commit <code>8cac1ec1</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Legal/KYA_S1.md</code> v1.2</td>
+<td>Seven controls unchanged (IDV / BHM / REG / TC4 + FLT / TRS / PRV). New §4 regulatory anchoring. Comment window reset. §9 states DWS claims <strong>no tier</strong>.</td>
+</tr>
+<tr>
+<td><code>DWS_TRUTH_STANDARD.md</code> v4.5</td>
+<td><strong>Row 35</strong> — canonical internal registration, with two drift guards.</td>
+</tr>
+<tr>
+<td><code>DWS_STANDARDS_LIBRARY.md</code> v1.10</td>
+<td>Thin §3.3 row pointing at row 35 (this file catalogs <em>external</em> standards; KYA-S1 is ours).</td>
+</tr>
+<tr>
+<td><code>dws10.com/compliance/</code> v3.4</td>
+<td>KYA-S1 framework card + landing-pages mirror, same commit.</td>
+</tr>
+<tr>
+<td><code>docs/blog-drafts/kya-s1-one-signed-page.md</code></td>
+<td><strong>DRAFT</strong> — full text shown to the HIC this session, awaiting approval (Rule 13). Not published.</td>
+</tr>
+<tr>
+<td>Cloudflare Pages workflow</td>
+<td><strong>Excluded</strong> — split to its own change per the redo prompt's "do not bundle".</td>
+</tr>
+</tbody>
+</table>
+<h3 id="two-drift-guards-recorded-in-row-35">Two drift guards recorded in row 35</h3>
+<p>Both are corrections of things this same standard previously got wrong, so they are worth keeping
+as FAIL patterns rather than as prose:</p>
+<ul>
+<li><strong>"Sibling standard to MA-S2" / "co-attested with MA-S2"</strong> — the v1.0 framing. Nothing is agreed
+  with Palantir. Corrected in v1.1 after the HIC observed that front-dooring another vendor's
+  standard without an interoperability agreement escalates their work without consent. MA-S2 is
+  credited as structural inspiration only.</li>
+<li><strong>"KYA-S1 aligned, therefore EU AI Act compliant"</strong> — the claim §4 exists to prevent. Articles 12,
+  14 and 50 are three distinct duties (Truth Standard rows 30, 31); a control being <em>nearest</em> to a
+  duty does not discharge it.</li>
+</ul>
+<h3 id="a-note-on-the-registry-split">A note on the registry split</h3>
+<p>KYA-S1 is the first <strong>DWS-authored, externally-published</strong> standard, which does not fit either
+registry cleanly. <code>DWS_STANDARDS_LIBRARY.md</code> catalogs standards DWS <em>consumes</em>;
+<code>DWS_TRUTH_STANDARD.md</code> catalogs canonical files DWS <em>owns</em>. Resolved by putting the substance in
+the Truth Standard (row 35) and a thin pointer in the Standards Library — the same split already
+used for <code>DWS_LEARNING_STANDARD.md</code>. If DWS publishes more standards, this becomes a pattern worth
+naming explicitly.</p>
+<h2 id="5-six-step-learning-standard-record">5. Six-step Learning Standard record</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Step</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Update knowledge base</td>
+<td>✅ <code>kb/raw/signals/2026-08-04-merge-base-empty-branch-death.md</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Field note</td>
+<td>✅ This document</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>Learn/</code> HTML render</td>
+<td>✅ <code>Learn/2026-08-04-branch-death-by-reroot-kya-s1-reland.html</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Export to Drive</td>
+<td>⏳ See §8 — offered, not yet performed</td>
+</tr>
+<tr>
+<td>5</td>
+<td>HIC decision-shaped question</td>
+<td>✅ §6</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Calendar dated commitments</td>
+<td>✅ §7</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-hic-decisions">6. HIC decisions</h2>
+<h3 id="q1-publish-the-kya-s1-blog-post-or-park-it-two-way-door-on-the-text-one-way-door-on-publication">Q1 — Publish the KYA-S1 blog post, or park it? (two-way door on the text, ONE-WAY DOOR on publication)</h3>
+<p>The full text was shown in one fenced code block this session and is parked at
+<code>docs/blog-drafts/kya-s1-one-signed-page.md</code> with <code>Status: DRAFT</code>.</p>
+<p><strong>(RECOMMEND: approve the text now, publish in a following session.)</strong> Publication is one of the
+five acts §10.3 classifies one-way by default, and §10.3.1 requires a cooling gap — nothing
+irreversible ships in the session that conceived it. The text was re-drafted today, so approval
+today and publication in the next session satisfies both the draft gate and the cooling gap. The
+alternative — park the post entirely and ship only the standard — is defensible if you would rather
+the standard exist quietly until an assessor is lined up (see Q2), since the post's strongest line
+is "we claim no tier until someone signs," and that line is more credible once someone has.</p>
+<h3 id="q2-who-signs-the-first-kya-s1-attestation-two-way-door-but-slow">Q2 — Who signs the first KYA-S1 attestation? (two-way door, but slow)</h3>
+<p>The standard's whole weight rests on §3: self-attestation is not evidence. DWS therefore claims no
+tier under its own standard. That is honest today and gets less comfortable the longer it stands —
+a published standard whose author qualifies for none of its tiers invites the obvious question.</p>
+<p><strong>(RECOMMEND: scope a Bronze-tier assessment against the existing KYA implementation, and treat the
+IDV domain as the pilot.)</strong> Bronze needs a third-party audit on at least one domain, and IDV is the
+domain where an external attestation already plausibly exists — the IDV providers named in §9
+(Shufti, Veriff, Signicat) attest identity verification as their business. That converts "no tier"
+into "Bronze, IDV domain third-party attested" at the lowest marginal cost, and the remaining six
+domains can run on signed platform telemetry. The decision I need from you is whether to spend
+anything on this in 2026 at all, or to leave the standard tier-less through the comment window and
+revisit in Q1/2027.</p>
+<h2 id="7-dated-commitments-step-6">7. Dated commitments (Step 6)</h2>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Commitment</th>
+<th>Source</th>
+<th>Lead time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>04.11.2026</strong></td>
+<td>KYA-S1 v1.2 public-comment window closes — either publish v1.3 incorporating comments, or extend deliberately</td>
+<td><code>Legal/KYA_S1.md</code> §11</td>
+<td>2 weeks (14.10.2026) — enough to read comments and cut a version</td>
+</tr>
+<tr>
+<td>02.12.2027</td>
+<td>EU AI Act Annex III high-risk obligations enforce (referenced in KYA-S1 §4, already tracked)</td>
+<td><code>DWS_STANDARDS_LIBRARY.md</code> §3.1</td>
+<td>Already in the regulatory radar; no new event</td>
+</tr>
+</tbody>
+</table>
+<p>The 04.11.2026 date is the one this session created and the one that did not previously exist
+anywhere a calendar could see. Note the weekend check: 04.11.2026 is a Wednesday, so the reminder
+needs no shift.</p>
+<h2 id="8-what-i-did-not-do-and-why">8. What I did not do, and why</h2>
+<ul>
+<li><strong>Did not publish the blog post</strong> — Rule 13 draft gate; awaiting Q1.</li>
+<li><strong>Did not create the calendar event or the Drive export yet</strong> — both are outbound actions on your
+  accounts. Say the word and I will create the 14.10.2026 reminder for the comment-window close and
+  push this note plus the <code>Learn/</code> render to the <code>2026 DWS6</code> Drive folder.</li>
+<li><strong>Did not open a PR</strong> — the redo prompt ends with "open PR", but PRs are opened only on your
+  explicit ask. The branch is pushed and ready.</li>
+<li><strong>Did not bundle the Cloudflare Pages workflow</strong> — the redo prompt explicitly says to split it.
+  It remains unlanded; it is preserved in this session's scratchpad and in
+  <code>backup/kya-s1-preredo-2f7b8584</code> if you want it as its own change.</li>
+</ul>
+<h2 id="9-anti-patterns-this-session-avoided-for-the-record">9. Anti-patterns this session avoided (for the record)</h2>
+<ul>
+<li><strong>Resolving conflicts that could never merge.</strong> Caught by checking <code>merge-base</code> before touching a
+  hunk. The prior session in this branch did not, and its work was void.</li>
+<li><strong>Shipping a stale self-imposed deadline.</strong> The comment window was reset with the reason stated,
+  rather than silently re-dated or allowed to expire unserved.</li>
+<li><strong>Publishing in the session that drafted.</strong> Cooling gap respected (§10.3.1).</li>
+<li><strong>Carrying old-main baggage into the rebuild.</strong> The dead branch's diff listed 31 files; only 4
+  were authored by this work. The other 27 were old main's content pulled in by the void merge and
+  would have re-landed 709-commit-old versions of telemetry code, migrations and posts on top of
+  current main. Only the 4 authored files were carried across.</li>
+</ul>
+<footer>Lifetime Oy · Business ID 0772407-9 · VAT FI07724079 · Laidunmaanraitti 2 A 25, 02330 Espoo, Finland<br/>
+HIC Learning Outcome per DWS_LEARNING_STANDARD (EU AI Act Article 14 human oversight).</footer>
+</body></html>

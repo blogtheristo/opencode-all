@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-07-25-session-close-merge-and-the-first-cooling-gap-test</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-07-25-session-close-merge-and-the-first-cooling-gap-test</h1>
+</header>
+<h1 id="field-note-session-close-the-merge-and-the-first-real-test-of-the-cooling-gap">Field
+Note — Session Close: the Merge, and the First Real Test of the Cooling
+Gap</h1>
+<ul>
+<li><strong>Date:</strong> 2026-07-25</li>
+<li><strong>Author:</strong> Risto Anton Päärni (Founder, CEO · Lifetime
+Oy) — via Claude Code session
+<code>claude/greg-isenberg-field-notes-a2r544</code></li>
+<li><strong>Location:</strong> Europe &gt; Finland &gt; Espoo</li>
+<li><strong>Context:</strong> DWS6 — final HIC Learning Outcome; branch
+merge to <code>main</code></li>
+<li><strong>Confidence:</strong> High (branch state verified: 24 commits
+ahead, 0 behind, 0 conflicts)</li>
+</ul>
+<h2 id="ontology-tags">Ontology Tags</h2>
+<ul>
+<li><strong>Geography:</strong> Europe &gt; EU</li>
+<li><strong>Sector:</strong> Governance &gt; AI_Compliance &gt;
+Engineering practice</li>
+<li><strong>Entities:</strong> DWS_LEARNING_STANDARD §10.3.1, V3Thesis
+§10.27, KYA Specification v1.5, <code>dws10.com/kya-standard/</code>,
+backlog D5</li>
+<li><strong>Temporal Context:</strong> 2026-Q3</li>
+</ul>
+<hr />
+<h2 id="the-story">The Story</h2>
+<p>Closing a long session that began as a field note on an external
+thread and ended with a thesis section, a specification, a crypto fix,
+and a new rule in the Learning Standard.</p>
+<p>The merge request created the session’s most interesting moment:
+<strong>the rule written this session immediately governed the session’s
+own last action.</strong> <code>§10.3.1</code> — <em>nothing
+irreversible ships in the session that conceived it</em> — names
+<strong>publish</strong> as one-way by default. Merging this branch to
+<code>main</code> deploys four public-site files. So the rule applied,
+on its first real test, to its own author.</p>
+<h2 id="the-insight-a-retraction-is-not-a-publication">The Insight — a
+retraction is not a publication</h2>
+<p>The gap’s purpose decides the case, not its literal wording.</p>
+<p><code>§10.3.1</code> exists to stop <strong>over-claims reaching the
+public at machine speed</strong>. The public-site change in this branch
+does the opposite: it <strong>removes</strong> over-claims. What is live
+on <code>dws10.com/kya-standard/</code> right now asserts <em>“ensures
+legal accountability”</em>, <em>“court-defensible provenance”</em>, and
+<em>“KYA becomes the EU AI Act compliance layer”</em>. The branch
+replaces all three with design-intent language.</p>
+<p>So the two options are not “risk now” versus “safety later.” They
+are:</p>
+<ul>
+<li><strong>Merge</strong> — the weaker, more defensible claims go live
+today; backlog <strong>D5</strong> stays open for the counsel pass.</li>
+<li><strong>Hold</strong> — the <em>stronger, less defensible</em>
+claims stay live for as long as the hold lasts.</li>
+</ul>
+<p><strong>Holding is the riskier option.</strong> Delay preserves the
+worse state. A cooling gap applied to a retraction protects nothing and
+costs exposure every day it runs.</p>
+<p><strong>The principled distinction, recorded for reuse:</strong> the
+cooling gap governs <strong>claims being made</strong>, not
+<strong>claims being withdrawn</strong>. Adding an assertion to a public
+surface is one-way; removing one is a return to a weaker position, which
+is where the gap would have wanted the artifact anyway. A rule that
+cannot distinguish those two is a rule that punishes correction — which
+would have produced exactly the opposite of the behaviour it was written
+to encourage.</p>
+<p>This is also the first evidence that <code>§10.3.1</code> is a usable
+rule rather than ceremony: it forced the question, the question had a
+clear answer, and the answer took a minute. Earlier the same day the gap
+correctly <strong>did not</strong> fire on a thesis edit (writing a
+document is not publishing it). Two tests, two correct outcomes, no
+obstruction.</p>
+<h2 id="what-merged">What merged</h2>
+<p>24 commits, 0 conflicts, no production code. Field notes (7),
+<code>standards/kya-open/</code> (KYA <strong>Specification</strong>
+v1.5 + Apache-2.0 + NOTICE), a crypto review with a verified patch,
+three KB concepts, <code>DWS_LEARNING_STANDARD</code> v1.3, thesis v3.87
+(four files, lockstep), research scope v1.1 (EN/FI), four P0 backlog
+items, and the corrected public KYA page.</p>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><strong>D5 counsel pass</strong> on the softened compliance claims —
+merged, still not legally reviewed.</li>
+<li>Push the <strong>F1/F3 patch</strong> to PR #1716’s branch (needs
+permission; not this branch’s to push).</li>
+<li><strong>B9</strong> — settle the 074/079 production-state
+contradiction (needs Supabase approval).</li>
+<li><strong>Migration 080</strong> = B7 + B8 + D4, gated on B9.</li>
+<li>The three <code>[HIC INPUT NEEDED]</code> on the Specification
+remain <strong>open</strong>, whatever a summary may say.</li>
+</ul>
+<h3 id="learning-loop-steps-dws_learning_standard-five-step">Learning-loop
+steps (DWS_LEARNING_STANDARD five-step)</h3>
+<ul>
+<li><strong>(1) KB entry</strong> —
+<code>kb/wiki/concepts/artifact-legitimacy-gap.md</code> (new). ✅</li>
+<li><strong>(2) Field note</strong> — this file. ✅</li>
+<li><strong>(3) <code>Learn/</code> HTML render</strong> — this note +
+thesis v3.87 renders. ✅</li>
+<li><strong>(4) Drive export</strong> — <strong>N/A. Ninth consecutive
+skip this session.</strong> Repo remains source of truth (Truth Standard
+§2E), but step 4 has now not run once across nine notes. It is not an
+exemption; it is a step that is not implemented in this environment, and
+it should either be automated or removed from the five-step minimum.
+Recorded rather than quietly repeated.</li>
+<li><strong>(5) HIC question</strong> — below. ✅</li>
+</ul>
+<h3 id="hic-question-eu-ai-act-art.-14-intervention-point">HIC question
+(EU AI Act Art. 14 intervention point)</h3>
+<blockquote>
+<p><strong>Step 4 of your own five-step minimum has not run once in nine
+attempts. Do you automate it, scope it, or drop it?</strong> A standard
+whose step is skipped every time is not a standard being followed — it
+is a standard being routinely violated with a note attached, which is
+worse than not having the step, because the <code>N/A</code> line makes
+the omission look governed. Three options: <strong>automate</strong> it
+(a Drive MCP export in the session-stop hook, so it happens without
+anyone remembering); <strong>scope</strong> it (require export only for
+HIC-facing artifacts — decisions, standards, customer-facing material —
+not every field note); or <strong>drop</strong> it and let the repo plus
+<code>Learn/</code> be the whole delivery. <strong>My recommendation:
+scope it.</strong> The step exists so a HIC can reach the material from
+a phone without the repo, which matters for a decision brief and does
+not matter for an engineering field note. Automating an unscoped step
+would just produce nine Drive files nobody opens; dropping it loses the
+one case where it genuinely helps.</p>
+</blockquote>
+<hr />
+<p><em>© Lifetime Oy — all rights reserved. Business Confidential. Field
+note · 25.07.2026.</em></p>
+</body>
+</html>

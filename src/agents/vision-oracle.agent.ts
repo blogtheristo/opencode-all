@@ -40,8 +40,8 @@ const VISION_MODEL_MAP: Record<VisionAction, string> = {
   describe: 'claude-opus-4-7', // best general VLM
   'site-inspect': 'claude-opus-4-7', // safety-critical, use best
   'sar-interpret': 'claude-opus-4-7', // complex radar imagery
-  'document-scan': 'claude-sonnet-4-6', // structured extraction
-  'equipment-id': 'claude-sonnet-4-6', // classification task
+  'document-scan': 'claude-sonnet-5', // structured extraction
+  'equipment-id': 'claude-sonnet-5', // classification task
 };
 
 /** Industrial hazard categories for site inspection */

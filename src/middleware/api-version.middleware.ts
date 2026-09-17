@@ -11,7 +11,6 @@ const API_VERSION = '1.0.0';
 
 export function apiVersionMiddleware(_req: Request, res: Response, next: NextFunction): void {
   res.setHeader('X-API-Version', API_VERSION);
-  res.setHeader('X-Powered-By', 'DWS IQ 6');
   next();
 }
 

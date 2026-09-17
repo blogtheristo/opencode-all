@@ -133,7 +133,7 @@ function generateFeed(config) {
   <channel>
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>${BASE_URL}/buy/</link>
-    <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
+    <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, designed to reduce CLOUD Act exposure. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <g:feedVersion>2.0</g:feedVersion>
 `;

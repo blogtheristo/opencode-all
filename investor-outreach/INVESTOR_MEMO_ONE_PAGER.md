@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Memo — One Pager
-Version: 4.3
+Version: 4.4
 Date: 2026-04-20
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-v5.2-update-SROEG
@@ -8,8 +8,9 @@ Status: Final Draft
 Source: Aligned with INVESTOR_MEMO.md v4.3 and V4.3-DWS-IQ6-InvestorPD_2026.md
 
 AGENT HISTORY:
+- v4.4 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-08): Created from INVESTOR_MEMO.md. Distilled 560 lines to one-pager format. Designed for LinkedIn DM attachments, first-touch emails, and quick-scan by connectors like Mercedes Bankston who process high volume. Numbers-forward, no fluff.
-- v4.3 (2026-04-20): Aligned with V4.3 Pitch Deck — added CBAM Annex I 6-sector coverage, Alpha-Share pricing (7.5% of verified gains), DWS IQ 7 4-jurisdiction roadmap, 21 moats across 4 tiers (canonical, replaces all "4 structural moats" framings), April 2026 traction month.
+- v4.3 (2026-04-20): Aligned with V4.3 Pitch Deck — added CBAM Annex I 6-sector coverage, Alpha-Share pricing (7.5% of verified gains), DWS IQ 7 4-jurisdiction roadmap, 19 moats across 4 tiers (canonical, replaces all "4 structural moats" framings), April 2026 traction month.
 -->
 
 # Lifetime Oy — Investor One-Pager
@@ -20,28 +21,28 @@ AGENT HISTORY:
 
 ## The Problem
 
-49,000+ EU companies face mandatory carbon reporting (CSRD, ETS, CBAM, Taxonomy). Current process: consultants, Excel, €500K+ per year, 40-80 hours/month manual work. No tool automatically pulls operational data from ERP systems and turns it into compliance reports.
+fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) face mandatory carbon reporting (CSRD, ETS, CBAM, Taxonomy). Current process: consultants, Excel, €500K+ per year, 40-80 hours/month manual work. No tool automatically pulls operational data from ERP systems and turns it into compliance reports.
 
 ## The Solution
 
-**DWS IQ 6** — 21 AI agents that connect to SAP/IFS/Dynamics, import building assessments, and auto-generate audit-ready compliance reports every quarter. One carbon ledger, four regulatory touchpoints, full audit trail. EU AI Act compliant (KYA Standard: hardware-attested agent governance).
+**DWS IQ 6** — a fleet of skilled agents that connect to SAP/IFS/Dynamics, import building assessments, and auto-generate audit-ready compliance reports every quarter. One carbon ledger, four regulatory touchpoints, full audit trail. EU AI Act compliant (KYA Standard: hardware-attested agent governance).
 
 ## Traction
 
-| Metric           | Value                                 |
-| ---------------- | ------------------------------------- |
-| MRR              | €7K (April 2026)                      |
-| Paying Customers | 6                                     |
-| Retention        | 100% (zero churn)                     |
-| Customer LTV     | €70K–€120K/year                       |
-| Time Saved       | 40+ hours/month per customer          |
-| Platform         | 21 agents, 32 products, 20 industries |
-| CBAM Coverage    | ✅ All 6 Annex I sectors, 66 CN codes |
-| Fortress         | 21 moats across 4 tiers               |
+| Metric           | Value                                                 |
+| ---------------- | ----------------------------------------------------- |
+| Services + transport revenue | ~€7,000/month (April 2026) — not software revenue; cash break-even, founder salary €0 |
+| Software revenue | €0 (pre-revenue)                                      |
+| Contracted enterprise pilots | 2 (Q1/2026, €29,950 each, €59,900 booked) |
+| Customer LTV     | €70K–€120K/year                                       |
+| Time Saved       | 40+ hours/month per customer                          |
+| Platform         | a fleet of skilled agents, 32 products, 25 industries |
+| CBAM Coverage    | ✅ All 6 Annex I sectors, 66 CN codes                 |
+| Fortress         | 19 moats across 4 tiers                               |
 
 ## Market
 
-- **CSRD:** 49,000+ EU companies, mandatory 2025+
+- **CSRD:** fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees), mandatory 2025+
 - **Fit for 55:** Forces €10K–€50K compliance spend per project
 - **TAM:** EU compliance automation across 20 regulated verticals
 - **Comp:** Persefoni raised Series A at higher implied valuation with $1.8M ARR
@@ -74,7 +75,7 @@ Enterprise Navigator pilots at €4,950 convert to €8,950/year. Target: 25 cus
 
 Product Development 40% | Sales & Marketing 35% | Operations 15% | Buffer 10%
 
-## Competitive Fortress — 21 Moats Across 4 Tiers
+## Competitive Fortress — 19 Moats Across 4 Tiers
 
 **€3–6M / 24–36 month entry barrier for competitors.** Full numbered breakdown in V4.3 Pitch Deck.
 

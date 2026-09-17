@@ -42,10 +42,10 @@ export function MeetingPanel({ userName, userEmail }: MeetingPanelProps) {
     return (
       <div className="card p-0 overflow-hidden">
         {/* Meeting header */}
-        <div className="flex items-center justify-between px-4 py-3 bg-gray-50 border-b border-gray-200">
+        <div className="flex items-center justify-between px-4 py-3 bg-background border-b border-border">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-foreground">
               {activeRoom}
             </span>
           </div>
@@ -75,10 +75,10 @@ export function MeetingPanel({ userName, userEmail }: MeetingPanelProps) {
         <svg className="w-5 h-5 text-primary-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
         </svg>
-        <h3 className="text-lg font-semibold text-gray-900">Video Meeting</h3>
+        <h3 className="text-lg font-semibold text-foreground">Video Meeting</h3>
       </div>
 
-      <p className="text-sm text-gray-500 mb-6">
+      <p className="text-sm text-fg-muted mb-6">
         Secure, encrypted video conferencing powered by Jitsi Meet.
         No downloads required.
       </p>
@@ -96,9 +96,9 @@ export function MeetingPanel({ userName, userEmail }: MeetingPanelProps) {
 
       {/* Divider */}
       <div className="flex items-center gap-3 mb-4">
-        <div className="flex-1 h-px bg-gray-200" />
-        <span className="text-xs text-gray-400 uppercase">or join existing</span>
-        <div className="flex-1 h-px bg-gray-200" />
+        <div className="flex-1 h-px bg-fg-muted/20" />
+        <span className="text-xs text-fg-muted uppercase">or join existing</span>
+        <div className="flex-1 h-px bg-fg-muted/20" />
       </div>
 
       {/* Join existing meeting */}
@@ -109,7 +109,7 @@ export function MeetingPanel({ userName, userEmail }: MeetingPanelProps) {
           onChange={(e) => setRoomName(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleJoinMeeting()}
           placeholder="Enter room name..."
-          className="flex-1 text-sm border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          className="flex-1 text-sm border border-border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
         />
         <button
           onClick={handleJoinMeeting}

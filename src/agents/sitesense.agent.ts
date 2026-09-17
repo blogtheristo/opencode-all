@@ -71,14 +71,33 @@ export class SiteSenseAgent extends BaseAgent {
       ],
       model: 'llama-3.3-70b-versatile',
       modelTier: 'lite',
+      // Proactive: Phase 2 (advisor) — objective safety thresholds, edge data.
+      autonomyPhase: 'advisor',
+      notify: { channels: ['teams', 'in_app'], maxPerHour: 5, maxPerDay: 20 },
     });
   }
 
   /** Normalize loose input into the strict SiteSenseInput shape */
   private normalizeInput(input: Record<string, unknown>): SiteSenseInput {
-    const raw = input as Record<string, any>;
+    const raw = input as {
+      siteId?: string;
+      site_id?: string;
+      site?: string;
+      metrics?: unknown;
+    };
     // Accept both nested { metrics: {...} } and flat { temperature, humidity, ... }
-    const m = raw.metrics ?? raw;
+    const m = (raw.metrics ?? raw) as {
+      temperature?: number;
+      humidity?: number;
+      windSpeed?: number;
+      wind_speed?: number;
+      wind?: number;
+      workers?: number;
+      workerCount?: number;
+      worker_count?: number;
+      incidents?: number;
+      recentIncidents?: unknown[];
+    };
     return {
       siteId: raw.siteId ?? raw.site_id ?? raw.site ?? 'unknown-site',
       metrics: {
@@ -208,7 +227,7 @@ Respond as JSON with keys: "insight" (string), "additionalRisks" (string[])`,
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
 
       await this.logExecution({
@@ -220,7 +239,7 @@ Respond as JSON with keys: "insight" (string), "additionalRisks" (string[])`,
         input: input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });

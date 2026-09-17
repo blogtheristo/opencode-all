@@ -1034,7 +1034,7 @@ LOG_FILE="$HOME/dws-lwm/logs/ollama-pr-review.log"
 echo "$(date) — Ollama PR Review Service started" >> "$LOG_FILE"
 
 # Ensure model is loaded
-ollama pull qwen2.5-coder:14b 2>> "$LOG_FILE"
+ollama pull qwen3-coder:30b 2>> "$LOG_FILE"
 
 # Health check loop
 while true; do
@@ -1100,7 +1100,7 @@ curl -s -X POST http://localhost:11434/api/generate \
   -d "$(jq -n \
     --arg prompt "Review this PR diff for security:\n\n$DIFF\n\nFormat: ## Ollama Review\n**Summary:** ...\n**Issues Found:** ...\n**Verdict:** APPROVE / REQUEST_CHANGES" \
     '{
-      model: "qwen2.5-coder:14b",
+      model: "qwen3-coder:30b",
       prompt: $prompt,
       stream: false,
       options: { temperature: 0.1, num_predict: 2000 }
@@ -1121,9 +1121,9 @@ GitHub Actions PR
       ├─ Level 4: Standards Check (bash) → DWS compliance
       └─ Level 5: Ollama (GN-100) → Sovereign open-source review
                     │
-                    ├─ Model: qwen2.5-coder:14b
-                    ├─ Host: Acer Veriton GN-100
-                    ├─ GPU: NVIDIA RTX (24GB VRAM)
+                    ├─ Model: qwen3-coder:30b (MoE, 3.3B active)
+                    ├─ Host: Acer Veriton GN-100 (= DGX Spark)
+                    ├─ GPU: NVIDIA Grace Blackwell GB10 (128GB unified)
                     ├─ Access: Cloudflare Tunnel
                     └─ Cost: €0 (self-hosted)
 ```
@@ -1133,7 +1133,7 @@ GitHub Actions PR
 | Secret | Value | Purpose |
 |--------|-------|---------|
 | `OLLAMA_HOST` | `https://gn100-ollama.yourdomain.com` | Ollama API endpoint on GN-100 |
-| `OLLAMA_MODEL` | `qwen2.5-coder:14b` | Model for Level 5 review |
+| `OLLAMA_MODEL` | `qwen3-coder:30b` | Model for Level 5 review |
 
 ### 6.6 Monitoring & Maintenance
 
@@ -1151,7 +1151,7 @@ tail -f ~/dws-lwm/logs/ollama-pr-review.log
 nvidia-smi --query-gpu=utilization.gpu,memory.used --format=csv -l 5
 
 # Update model periodically
-ollama pull qwen2.5-coder:14b  # Gets latest version
+ollama pull qwen3-coder:30b  # Gets latest version
 ```
 
 ---

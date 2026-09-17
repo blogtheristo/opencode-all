@@ -196,7 +196,7 @@ export function createRateLimiter(options: RateLimitOptions) {
       const key = limiter['keyGenerator'](req);
 
       // If key generator returns null/undefined, skip rate limiting
-      if (key == null) {
+      if (key === null || key === undefined) {
         next();
         return;
       }

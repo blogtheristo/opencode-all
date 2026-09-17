@@ -13,7 +13,7 @@ interface SkeletonProps {
 export function Skeleton({ className = '' }: SkeletonProps) {
   return (
     <div
-      className={`animate-pulse rounded bg-gray-200 ${className}`}
+      className={`animate-pulse rounded bg-fg-muted/20 ${className}`}
       aria-hidden="true"
     />
   );
@@ -22,7 +22,7 @@ export function Skeleton({ className = '' }: SkeletonProps) {
 /** Skeleton for a metric card (used in MetricsHeader) */
 export function MetricCardSkeleton() {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-4">
+    <div className="rounded-xl border border-border bg-surface p-4">
       <Skeleton className="mb-2 h-3 w-20" />
       <Skeleton className="mb-1 h-8 w-16" />
       <Skeleton className="h-3 w-24" />
@@ -33,7 +33,7 @@ export function MetricCardSkeleton() {
 /** Skeleton for a project card */
 export function ProjectCardSkeleton() {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-5">
+    <div className="rounded-xl border border-border bg-surface p-5">
       <div className="flex items-center justify-between mb-4">
         <Skeleton className="h-5 w-40" />
         <Skeleton className="h-6 w-16 rounded-full" />
@@ -55,7 +55,7 @@ export function ProjectCardSkeleton() {
 /** Skeleton for the compliance score panel */
 export function ComplianceScoreSkeleton() {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6">
+    <div className="rounded-xl border border-border bg-surface p-6">
       <Skeleton className="mb-4 h-5 w-32" />
       <div className="flex items-center justify-center mb-4">
         <Skeleton className="h-24 w-24 rounded-full" />
@@ -72,7 +72,7 @@ export function ComplianceScoreSkeleton() {
 /** Skeleton for a table row */
 export function TableRowSkeleton({ columns = 4 }: { columns?: number }) {
   return (
-    <div className="flex items-center gap-4 py-3 border-b border-gray-100">
+    <div className="flex items-center gap-4 py-3 border-b border-border">
       {Array.from({ length: columns }).map((_, i) => (
         <Skeleton key={i} className="h-4 flex-1" />
       ))}

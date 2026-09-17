@@ -4,7 +4,7 @@
  * GET /api/climate-assistant/health - Health check
  */
 
-import express, { type Request, type Response, type Router } from 'express';
+import express, { type NextFunction, type Request, type Response, type Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';
@@ -38,7 +38,7 @@ const chatValidation = [
 ];
 
 // Validation middleware
-const validateRequest = (req: Request, res: Response, next: any) => {
+const validateRequest = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     logger.warn('Climate assistant validation error', {
@@ -82,17 +82,17 @@ router.post(
         usage: response.usage,
         timestamp: new Date().toISOString(),
       });
-    } catch (error: any) {
-      logger.error('Climate assistant error', { error: error.message });
+    } catch (error) {
+      logger.error('Climate assistant error', { error: error instanceof Error ? error.message : String(error) });
 
       // Determine appropriate status code
       let statusCode = 500;
-      if (error.message.includes('authentication')) statusCode = 401;
-      if (error.message.includes('Rate limit')) statusCode = 429;
+      if (error instanceof Error ? error.message : String(error).includes('authentication')) statusCode = 401;
+      if (error instanceof Error ? error.message : String(error).includes('Rate limit')) statusCode = 429;
 
       res.status(statusCode).json({
         error: 'Climate Assistant Error',
-        message: error.message || 'An unexpected error occurred',
+        message: error instanceof Error ? error.message : String(error) || 'An unexpected error occurred',
       });
     }
   },
@@ -115,11 +115,11 @@ router.get('/health', async (_req: Request, res: Response) => {
         groqApiKey: !!process.env.GROQ_API_KEY,
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     res.status(503).json({
       status: 'unhealthy',
       service: 'climate-assistant',
-      error: error.message,
+      error: error instanceof Error ? error.message : String(error),
     });
   }
 });
@@ -137,10 +137,10 @@ router.get('/usage', async (_req: Request, res: Response) => {
       ...stats,
       timestamp: new Date().toISOString(),
     });
-  } catch (error: any) {
+  } catch (error) {
     res.status(500).json({
       error: 'Failed to get usage stats',
-      message: error.message,
+      message: error instanceof Error ? error.message : String(error),
     });
   }
 });

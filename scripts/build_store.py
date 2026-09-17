@@ -1,4 +1,5 @@
 import csv
+import html as html_module
 import json
 import os
 import re
@@ -24,9 +25,88 @@ except ImportError:
 # Configuration
 STORE_DIR = "Store"
 PRODUCTS_JSON = "dws10.com/config/products.json"
-OUTPUT_HTML_DIR = "landing-pages/dws10-com/products"
-OUTPUT_FEED_FILE = "landing-pages/dws10-com/products.xml"
+
+# Output goes to the SOURCE folder, never the landing-pages mirror.
+# Writing to the mirror is what caused the 2026-07-31 drift incident: this
+# generator emitted 121+ pages that existed only under landing-pages/, while
+# sync-dws6-landing-pages.yml rsyncs source -> mirror with --delete. The two
+# fought, and 94 product pages survived only because that sync had not run.
+# See docs/field-notes/2026-07-31-post-mass-merge-investor-and-store-sync-audit.md
+SITE_DIR = "dws10.com"
+OUTPUT_HTML_DIR = f"{SITE_DIR}/products"
+OUTPUT_FEED_FILE = f"{SITE_DIR}/products.xml"
+OUTPUT_CSV_FILE = f"{SITE_DIR}/products.csv"
 BASE_URL = "https://dws10.com"
+
+# DWS IQ product email (CLAUDE.md sender-identity table). Never a noreply@.
+PRODUCT_EMAIL = "risto@onelifetime.world"
+
+# ── Hand-authored pages: generation SKIPS these ──────────────────────────────
+# These carry bespoke bodies (175-1060 lines, some gamma-styled) that the
+# generated template would flatten. The generator leaves their HTML alone but
+# STILL enforces products.json as the pricing source of truth against them --
+# see check_handauthored_prices(). Shrink this set as the template improves;
+# a page only belongs here while its body is genuinely richer than a generated
+# one would be.
+HAND_AUTHORED = {
+    "ai-agent-engineering",
+    "ai-consultant-day",
+    "ai-consulting-agentic",
+    "ai-koulutus-3d",
+    "aws-consultancy",
+    "business-mentor-30",
+    "cloud-ready-teams",
+    "consulting-fit55",
+    "consulting-hourly",
+    "conversational-agent",
+    "devops-lead",
+    "dws-iq-006",
+    "edge-node-gn100",
+    "fh-auto-001",
+    "fh-cms-001",
+    "fh-omni-001",
+    "fh-rpt-001",
+    "firehorse-coach",
+    "firehorse-data-services",
+    "firehorse-flow",
+    "firehorse-mobile",
+    "lean-project",
+    "lifetime-bundle-2026",
+    "m365-consultancy",
+    "omnichannel-multimodal",
+    "professional-web-pages",
+    "secure-email-proton",
+    "sovereignty-cloud-consulting",
+}
+
+# Hand-authored pages whose displayed price does not match products.json and
+# which the HIC has not yet reconciled. Listed so the build reports them every
+# run instead of failing the pipeline on a pricing decision no script can make.
+# Empty this set as each is resolved; do not add to it to silence a new drift.
+PRICE_REVIEW_PENDING = {
+    # slug: (products.json price, what the page shows, why unresolved)
+    "ai-agent-engineering": (200, "€99", "page undercuts catalog"),
+    "ai-consultant-day": (1200, "€699", "page undercuts catalog"),
+    "aws-consultancy": (3750, "€1500 / day", "day rate vs flat catalog price"),
+    # Found by this check on first run, not by the manual audit that preceded
+    # it -- the manual pass matched a EUR 3000 mention elsewhere in the page's
+    # 1060 lines and read it as agreement. Same class of drift as the two above.
+    "consulting-fit55": (3000, "€1,500", "page undercuts catalog by half"),
+}
+# RESOLVED 2026-09-09 — edge-node-gn100. Found by this check on its first run
+# against the current catalog, then ruled by the HIC: EUR 8,008 is real. The
+# page had carried three mutually inconsistent hardware figures (a EUR 3,999
+# line item, a EUR 4,299 figure inside a EUR 5,294 "turnkey" total, against the
+# catalog's EUR 8,008) and its own breakdown did not sum to its own total. Page
+# corrected to EUR 8,008 hardware; turnkey restated as EUR 9,003 (8,008 + 995
+# install) per the catalog priceNote, which is the authority under
+# DWS_TRUTH_STANDARD §3. The spec-table row quoting EUR 3,999 as Acer's EMEA
+# launch price is left alone -- it is attributed third-party MSRP, not our
+# sell price, and rewriting it would make it a false claim about Acer.
+# Dropped 2026-09-09, both no longer in dws10.com/config/products.json so the
+# generator can never reach them: "digital-design-gold" (page also gone from
+# main) and "cloud-ready-teams" (page remains, but is now hand-maintained
+# outside the catalog and so is not held to it).
 
 # Ensure output directory exists
 os.makedirs(OUTPUT_HTML_DIR, exist_ok=True)
@@ -157,18 +237,83 @@ def parse_product(filename):
 def generate_html(product):
     # Simple template for product page
     footer_html = get_footer()
+
+    # Derive the head metadata from the catalog entry rather than leaving the
+    # page bare: these pages are the Google Merchant landing targets, so a
+    # missing description or price is a feed-quality problem, not just SEO.
+    canonical = f"{BASE_URL}/products/{product['slug']}.html"
+    title_attr = html_module.escape(product["title"], quote=True)
+    plain = re.sub(r"<[^>]+>", " ", product.get("html_content", ""))
+    plain = re.sub(r"\s+", " ", html_module.unescape(plain)).strip()
+    meta_desc = html_module.escape(plain[:300].rstrip(), quote=True)
+    # Respect the catalog currency instead of hardcoding a euro sign, and read
+    # "0" as free rather than printing "EUR 0".
+    currency = product.get("currency", "EUR")
+    symbol = {"EUR": "€", "USD": "$", "GBP": "£"}.get(currency, currency + " ")
+    try:
+        price_num = float(product["price"])
+    except (TypeError, ValueError):
+        price_num = None
+    if price_num == 0:
+        price_display = "Free"
+    elif price_num is not None:
+        price_display = f"{symbol}{price_num:,.0f}".replace(",", " ")
+    else:
+        price_display = f"{symbol}{product['price']}"
+
+    price_note = product.get("priceNote") or ""
+    price_note_html = (
+        f'<div class="price-note">{html_module.escape(price_note)}</div>'
+        if price_note
+        else ""
+    )
+    structured_data = json.dumps(
+        {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": product["title"],
+            "sku": product["sku"],
+            "description": plain[:500],
+            "image": product["image_link"],
+            "brand": {"@type": "Brand", "name": product.get("brand", "Lifetime")},
+            "offers": {
+                "@type": "Offer",
+                "url": canonical,
+                "price": str(product["price"]),
+                "priceCurrency": product.get("currency", "EUR"),
+                "availability": f"https://schema.org/{'InStock' if product.get('availability') == 'in_stock' else 'PreOrder'}",
+                "seller": {"@type": "Organization", "name": "Lifetime Oy"},
+            },
+        },
+        indent=2,
+        ensure_ascii=False,
+    )
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{product["title"]} | Lifetime Firehorse™Store</title>
-    <link rel="stylesheet" href="../static/css/style.css">
+    <meta name="description" content="{meta_desc}">
+    <meta name="author" content="Lifetime Oy">
+    <link rel="canonical" href="{canonical}">
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
+    <meta property="og:type" content="product">
+    <meta property="og:title" content="{title_attr}">
+    <meta property="og:description" content="{meta_desc}">
+    <meta property="og:url" content="{canonical}">
+    <meta property="og:image" content="{product["image_link"]}">
+    <script type="application/ld+json">
+{structured_data}
+    </script>
     <style>
         body {{ font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }}
         .container {{ max-width: 800px; margin: 40px auto; background: rgba(30, 41, 59, 0.5); padding: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); flex-grow: 1; }}
         h1 {{ color: #60a5fa; }}
-        .price {{ font-size: 2rem; color: #4ade80; font-weight: bold; margin-bottom: 20px; }}
+        .price {{ font-size: 2rem; color: #4ade80; font-weight: bold; margin-bottom: 4px; }}
+        .price-note {{ font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px; }}
+        .content ul {{ padding-left: 20px; }}
+        .content li {{ margin-bottom: 6px; }}
         a.buy-btn {{ display: inline-block; background: #2563eb; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 20px; }}
         a.back-link {{ color: #94a3b8; text-decoration: none; display: block; margin-bottom: 20px; }}
 
@@ -192,11 +337,12 @@ def generate_html(product):
     <div class="container">
         <a href="../" class="back-link">← Back to Store</a>
         <h1>{product["title"]}</h1>
-        <div class="price">€{product["price"]}</div>
+        <div class="price">{price_display}</div>
+        {price_note_html}
         <div class="content">
             {product["html_content"]}
         </div>
-        <a href="mailto:risto@lifetime.fi?subject=Order Inquiry: {product["title"]} ({product["sku"]})" class="buy-btn">Contact Sales to Order</a>
+        <a href="mailto:{PRODUCT_EMAIL}?subject=Order Inquiry: {product["title"]} ({product["sku"]})" class="buy-btn">Contact Sales to Order</a>
     </div>
     {footer_html}
 </body>
@@ -206,6 +352,97 @@ def generate_html(product):
         os.path.join(OUTPUT_HTML_DIR, f"{product['slug']}.html"), "w", encoding="utf-8"
     ) as f:
         f.write(html)
+
+
+def page_price(path):
+    """Return the page's OWN displayed price: the first element carrying a
+    'price' class. Later ones are cross-referenced products (an aws-consultancy
+    page lists Jetson hardware, for example) and must not be read as its price."""
+    try:
+        with open(path, encoding="utf-8", errors="replace") as f:
+            text = f.read()
+    except OSError:
+        return None, None
+    # Walk every price-ish element and return the first that yields a NUMBER.
+    # Taking literally the first match is wrong: pages wrap the real figure in
+    # empty containers ('price-block') and follow it with labels
+    # ('price-suffix'), so a naive first-match reads '' and the page slips
+    # through unchecked.
+    for m in re.finditer(r'class="[^"]*\bprice\b[^"]*"[^>]*>\s*([^<]{1,40})<', text):
+        shown = html_module.unescape(m.group(1)).strip()
+        digits = re.sub(r"[^\d.,]", "", shown).replace(" ", "")
+        if not digits:
+            continue
+        if "," in digits and "." in digits:
+            digits = digits.replace(",", "")
+        elif re.search(r",\d{3}\b", digits):
+            digits = digits.replace(",", "")
+        else:
+            digits = digits.replace(",", ".")
+        digits = re.sub(r"\.(?=\d{3}\b)", "", digits)
+        try:
+            return shown, float(digits)
+        except ValueError:
+            continue
+    return None, None
+
+
+def check_handauthored_prices(products):
+    """products.json is the single pricing source (CLAUDE.md, Source-of-Truth
+    Rules). Hand-authored pages are exempt from generation, NOT from that rule.
+    Fails the build on any NEW divergence; already-known ones are reported
+    loudly every run via PRICE_REVIEW_PENDING rather than silently passing."""
+    known, fresh, unreadable = [], [], []
+    for p in products:
+        slug = p["slug"]
+        if slug not in HAND_AUTHORED:
+            continue
+        path = os.path.join(OUTPUT_HTML_DIR, f"{slug}.html")
+        if not os.path.exists(path):
+            continue
+        shown, value = page_price(path)
+        if value is None:
+            # Never pass silently: an unreadable price is an unverified price.
+            unreadable.append((slug, float(p["price"])))
+            continue
+        if abs(value - float(p["price"])) < 0.01:
+            continue
+        # products.json prices arrive as strings via load_products_json().
+        (known if slug in PRICE_REVIEW_PENDING else fresh).append(
+            (slug, float(p["price"]), shown)
+        )
+
+    if known:
+        print(
+            f"\n  !! {len(known)} hand-authored page(s) priced against an unreconciled "
+            f"catalog value -- awaiting an HIC pricing decision:"
+        )
+        for slug, want, shown in known:
+            why = PRICE_REVIEW_PENDING[slug][2]
+            print(
+                f"       {slug:30s} products.json=EUR {want:<9,.0f} "
+                f"page={shown:<14s} ({why})"
+            )
+
+    if unreadable:
+        print(
+            f"\n  ?? {len(unreadable)} hand-authored page(s) with no machine-readable "
+            f"price -- cannot be verified against products.json:"
+        )
+        for slug, want in unreadable:
+            print(f"       {slug:30s} products.json=EUR {want:<9,.0f} page=<unparsed>")
+
+    if fresh:
+        print(f"\n  XX BUILD FAILED -- {len(fresh)} NEW price divergence(s):")
+        for slug, want, shown in fresh:
+            print(f"       {slug:30s} products.json=EUR {want:<9,.0f} page={shown}")
+        print(
+            "     products.json is the single pricing source. Either correct the page,\n"
+            "     correct products.json, or -- if this is a deliberate unit difference\n"
+            "     (a day rate against a flat price) -- add it to PRICE_REVIEW_PENDING\n"
+            "     with a reason so it stays visible."
+        )
+        raise SystemExit(1)
 
 
 def generate_policy(filename, output_subdir, title_override=None):
@@ -290,7 +527,7 @@ def generate_policy(filename, output_subdir, title_override=None):
 </html>"""
 
     # Output dir
-    out_dir = os.path.join("landing-pages/dws10-com", output_subdir)
+    out_dir = os.path.join(SITE_DIR, output_subdir)
     os.makedirs(out_dir, exist_ok=True)
 
     with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as f:
@@ -299,7 +536,7 @@ def generate_policy(filename, output_subdir, title_override=None):
 
 
 def generate_csv(products):
-    filename = "landing-pages/dws10-com/products.csv"
+    filename = OUTPUT_CSV_FILE
     fieldnames = [
         "id",
         "title",
@@ -430,7 +667,7 @@ def generate_store_page(products):
 </body>
 </html>"""
 
-    out_dir = os.path.join("landing-pages/dws10-com", "buy")
+    out_dir = os.path.join(SITE_DIR, "buy")
     os.makedirs(out_dir, exist_ok=True)
 
     with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as f:
@@ -559,9 +796,21 @@ def main():
 
     print(f"\nTotal products: {len(products)}")
 
-    # Generate outputs
+    # Generate outputs.
+    # Hand-authored pages are skipped for the same reason generate_store_page()
+    # is not called below: generating over them replaces a bespoke body with the
+    # template. Their prices are still held to products.json afterwards.
+    generated = skipped = 0
     for p in products:
+        if p["slug"] in HAND_AUTHORED:
+            skipped += 1
+            continue
         generate_html(p)
+        generated += 1
+    print(f"\nProduct pages: {generated} generated, {skipped} hand-authored (skipped)")
+
+    check_handauthored_prices(products)
+
     generate_feed(products)
     generate_csv(products)
     # NOTE: Do NOT call generate_store_page() here.

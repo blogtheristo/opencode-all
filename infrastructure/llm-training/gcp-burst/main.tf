@@ -407,7 +407,7 @@ resource "google_compute_instance" "training_node" {
     # Install training dependencies
     pip install --upgrade pip
     pip install \
-      transformers>=4.37.0 \
+      transformers>=4.57.6 \
       datasets>=2.16.0 \
       accelerate>=0.26.0 \
       peft>=0.7.0 \

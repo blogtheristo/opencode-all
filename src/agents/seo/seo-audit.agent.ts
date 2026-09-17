@@ -1,4 +1,7 @@
 /**
+ * Evidence: Tool=Copilot CLI 1.0.83 Model=gpt-5.6-luna Agent=Copilot CLI Date=2026-09-05
+ * Audit trail: git log -- src/agents/seo/seo-audit.agent.ts
+ *
  * Technical SEO Audit Agent — Crawls DWS sites on deploy,
  * checks Core Web Vitals, canonical tags, schema markup,
  * and blocks deployment if critical issues are found.
@@ -23,6 +26,24 @@ interface PageAuditResult {
   internalLinks: string[];
   brokenLinks: string[];
   wordCount: number;
+  ctaSignals: {
+    buttons: Array<{ text: string; position: string }>;
+    links: Array<{ text: string; position: string }>;
+    forms: number;
+  };
+  schemaDetails: {
+    types: string[];
+    hasLocalBusiness: boolean;
+    hasOrganization: boolean;
+    hasWebSite: boolean;
+    hasProduct: boolean;
+    requiredProperties: string[];
+    missingProperties: string[];
+  };
+  linkMetrics: {
+    internalCount: number;
+    externalCount: number;
+  };
 }
 
 export class SeoAuditAgent extends BaseAgent {
@@ -98,7 +119,7 @@ export class SeoAuditAgent extends BaseAgent {
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
 
       await this.logExecution({
@@ -110,7 +131,7 @@ export class SeoAuditAgent extends BaseAgent {
         input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });
@@ -127,6 +148,10 @@ export class SeoAuditAgent extends BaseAgent {
     const issues: SeoAuditOutput['issues'] = [];
     const schemaMarkup: SeoAuditOutput['schemaMarkup'] = [];
     const coreWebVitals: SeoAuditOutput['coreWebVitals'] = [];
+    const ctaAnalysis: SeoAuditOutput['ctaAnalysis'] = [];
+    const schemaValidation: SeoAuditOutput['schemaValidation'] = [];
+    const linkArchitecture: SeoAuditOutput['linkArchitecture'] = [];
+    const interactionPerformance: SeoAuditOutput['interactionPerformance'] = [];
     const seenTitles = new Map<string, string>();
 
     for (const pageUrl of pages) {
@@ -215,6 +240,80 @@ export class SeoAuditAgent extends BaseAgent {
         errors: [],
       });
 
+      // Analyze CTA signals
+      const ctaScore = this.calculateCtaScore(pageResult.ctaSignals);
+      const totalCtas = pageResult.ctaSignals.buttons.length + pageResult.ctaSignals.links.length + pageResult.ctaSignals.forms;
+      ctaAnalysis.push({
+        url: fullUrl,
+        ctaCount: totalCtas,
+        primaryCta: {
+          present: totalCtas > 0,
+          text: pageResult.ctaSignals.buttons[0]?.text || pageResult.ctaSignals.links[0]?.text || (pageResult.ctaSignals.forms > 0 ? 'contact form' : null),
+          position: (pageResult.ctaSignals.buttons[0]?.position || pageResult.ctaSignals.links[0]?.position || 'none') as 'header' | 'hero' | 'mid-content' | 'footer' | 'none',
+          type: pageResult.ctaSignals.buttons.length > 0 ? 'button' : pageResult.ctaSignals.links.length > 0 ? 'link' : pageResult.ctaSignals.forms > 0 ? 'form' : 'none',
+        },
+        ctaDensity: pageResult.wordCount > 0 ? totalCtas / (pageResult.wordCount / 100) : 0,
+        score: ctaScore,
+      });
+
+      // Add CTA issues if score is low
+      if (ctaScore < 50) {
+        issues.push({
+          type: 'weak-cta',
+          url: fullUrl,
+          severity: 'critical',
+          description: `Weak CTA signals detected (score: ${ctaScore}/100). ${pageResult.ctaSignals.buttons.length} buttons, ${pageResult.ctaSignals.links.length} CTA links, ${pageResult.ctaSignals.forms} forms found.`,
+          fix: 'Add prominent call-to-action buttons in hero section and throughout content. Use action-oriented text like "Get Started", "Request Demo", "Contact Sales".',
+        });
+      }
+
+      // Validate schema
+      const schemaValid = this.validateSchema(pageResult.schemaDetails);
+      schemaValidation.push({
+        url: fullUrl,
+        schemaTypes: pageResult.schemaDetails.types,
+        hasLocalBusiness: pageResult.schemaDetails.hasLocalBusiness,
+        hasOrganization: pageResult.schemaDetails.hasOrganization,
+        hasWebSite: pageResult.schemaDetails.hasWebSite,
+        hasProduct: pageResult.schemaDetails.hasProduct,
+        requiredProperties: pageResult.schemaDetails.requiredProperties,
+        missingProperties: pageResult.schemaDetails.missingProperties,
+        isValid: schemaValid.isValid,
+        errors: schemaValid.errors,
+      });
+
+      // Add schema issues
+      if (!pageResult.schemaDetails.hasLocalBusiness && !pageResult.schemaDetails.hasOrganization) {
+        issues.push({
+          type: 'missing-local-schema',
+          url: fullUrl,
+          severity: 'critical',
+          description: 'No LocalBusiness or Organization schema detected.',
+          fix: 'Add LocalBusiness or Organization schema with name, address, and contact details for local SEO.',
+        });
+      }
+
+      // Analyze link architecture
+      const discoveryScore = this.calculateDiscoveryScore(pageResult.linkMetrics, pageResult.internalLinks);
+      linkArchitecture.push({
+        url: fullUrl,
+        internalLinkCount: pageResult.linkMetrics.internalCount,
+        discoveryScore,
+        linkDepth: this.calculateLinkDepth(pageResult.internalLinks),
+        orphanRisk: discoveryScore < 30,
+      });
+
+      // Add link architecture issues
+      if (discoveryScore < 30) {
+        issues.push({
+          type: 'low-discovery',
+          url: fullUrl,
+          severity: 'warning',
+          description: `Low discovery score (${discoveryScore}/100). Page may be hard for search engines to find.`,
+          fix: 'Add internal links from high-authority pages, include in navigation menus, and create related content sections.',
+        });
+      }
+
       // Check for broken internal links
       for (const brokenLink of pageResult.brokenLinks) {
         issues.push({
@@ -285,7 +384,7 @@ export class SeoAuditAgent extends BaseAgent {
       };
     }
 
-    return { healthScore, coreWebVitals, issues, schemaMarkup, deployGate, delta };
+    return { healthScore, coreWebVitals, issues, schemaMarkup, ctaAnalysis, schemaValidation, linkArchitecture, interactionPerformance, deployGate, delta };
   }
 
   private async discoverPages(_baseUrl: string, sitemapUrl?: string): Promise<string[]> {
@@ -373,6 +472,15 @@ export class SeoAuditAgent extends BaseAgent {
         internalLinks.push(linkMatch[1]);
       }
 
+      // Analyze CTA signals
+      const ctaSignals = this.analyzeCtaSignals(html);
+
+      // Analyze schema details
+      const schemaDetails = this.analyzeSchemaDetails(html, schemas);
+
+      // Analyze link metrics
+      const linkMetrics = this.analyzeLinkMetrics(html, internalLinks);
+
       return {
         url,
         title,
@@ -384,6 +492,9 @@ export class SeoAuditAgent extends BaseAgent {
         internalLinks,
         brokenLinks: [],
         wordCount,
+        ctaSignals,
+        schemaDetails,
+        linkMetrics,
       };
     } catch {
       return null;
@@ -406,6 +517,8 @@ export class SeoAuditAgent extends BaseAgent {
             'first-input-delay'?: { numericValue?: number };
             'cumulative-layout-shift'?: { numericValue?: number };
             'server-response-time'?: { numericValue?: number };
+            'total-blocking-time'?: { numericValue?: number };
+            'interactive'?: { numericValue?: number };
           };
         };
       };
@@ -417,15 +530,271 @@ export class SeoAuditAgent extends BaseAgent {
       const fid = audits['first-input-delay']?.numericValue ?? 0;
       const cls = audits['cumulative-layout-shift']?.numericValue ?? 0;
       const ttfb = audits['server-response-time']?.numericValue ?? 0;
+      const tbt = audits['total-blocking-time']?.numericValue ?? 0;
+      const tti = audits['interactive']?.numericValue ?? 0;
 
       let status: 'good' | 'needs-improvement' | 'poor' = 'good';
       if (lcp > 4000 || cls > 0.25) status = 'poor';
       else if (lcp > 2500 || cls > 0.1) status = 'needs-improvement';
 
-      return { url, lcp, fid, cls, ttfb, status };
+      return { url, lcp, fid, cls, ttfb, tbt, tti, status };
     } catch {
       return null;
     }
+  }
+
+  private analyzeCtaSignals(html: string): { buttons: Array<{ text: string; position: string }>; links: Array<{ text: string; position: string }>; forms: number } {
+    const buttons: Array<{ text: string; position: string }> = [];
+    const links: Array<{ text: string; position: string }> = [];
+    let forms = 0;
+
+    // Detect buttons
+    const buttonRegex = /<button[^>]*>(.*?)<\/button>/gi;
+    let buttonMatch: RegExpExecArray | null;
+    while ((buttonMatch = buttonRegex.exec(html)) !== null) {
+      const text = buttonMatch[1].replace(/<[^>]+>/g, '').trim();
+      if (text) {
+        buttons.push({ text, position: this.detectElementPosition(html, buttonMatch.index) });
+      }
+    }
+
+    // Detect CTA links (links with common CTA classes/text)
+    const ctaPatterns = ['cta', 'btn', 'button', 'signup', 'register', 'demo', 'contact', 'buy', 'purchase', 'get-started', 'try', 'free'];
+    const linkRegex = /<a[^>]*href=["'][^"']+["'][^>]*>(.*?)<\/a>/gi;
+    let linkMatch: RegExpExecArray | null;
+    while ((linkMatch = linkRegex.exec(html)) !== null) {
+      const text = linkMatch[1].replace(/<[^>]+>/g, '').trim();
+      const fullTag = linkMatch[0].toLowerCase();
+      if (text && ctaPatterns.some(pattern => fullTag.includes(pattern) || text.toLowerCase().includes(pattern))) {
+        links.push({ text, position: this.detectElementPosition(html, linkMatch.index) });
+      }
+    }
+
+    // Detect forms
+    const formRegex = /<form[^>]*>/gi;
+    while (formRegex.exec(html) !== null) {
+      forms++;
+    }
+
+    return { buttons, links, forms };
+  }
+
+  private detectElementPosition(html: string, index: number): string {
+    const openElements: Array<{ name: string; attributes: string }> = [];
+    const tagRegex = /<\/?([a-z][\w:-]*)\b([^>]*)>/gi;
+    const voidElements = new Set([
+      'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link',
+      'meta', 'param', 'source', 'track', 'wbr',
+    ]);
+    let tagMatch: RegExpExecArray | null;
+
+    while ((tagMatch = tagRegex.exec(html)) !== null && tagMatch.index < index) {
+      const name = tagMatch[1].toLowerCase();
+      const attributes = tagMatch[2];
+      if (tagMatch[0][1] === '/') {
+        const openIndex = openElements.map((element) => element.name).lastIndexOf(name);
+        if (openIndex >= 0) openElements.splice(openIndex, 1);
+      } else if (!voidElements.has(name) && !tagMatch[0].endsWith('/>')) {
+        openElements.push({ name, attributes });
+      }
+    }
+
+    if (openElements.some((element) => element.name === 'header')) {
+      return 'header';
+    }
+    if (openElements.some((element) => /(?:class|id)\s*=\s*["'][^"']*(?:hero|banner)[^"']*["']/i.test(element.attributes))) {
+      return 'hero';
+    }
+    if (openElements.some((element) => element.name === 'footer')) {
+      return 'footer';
+    }
+    return 'mid-content';
+  }
+
+  private analyzeSchemaDetails(html: string, schemas: string[]): {
+    types: string[];
+    hasLocalBusiness: boolean;
+    hasOrganization: boolean;
+    hasWebSite: boolean;
+    hasProduct: boolean;
+    requiredProperties: string[];
+    missingProperties: string[];
+  } {
+    const hasLocalBusiness = schemas.some(s => s.toLowerCase().includes('localbusiness'));
+    const hasOrganization = schemas.some(s => s.toLowerCase().includes('organization'));
+    const hasWebSite = schemas.some(s => s.toLowerCase().includes('website'));
+    const hasProduct = schemas.some(s => s.toLowerCase().includes('product'));
+
+    // Extract actual JSON-LD blocks for property validation
+    const jsonLdObjects = this.extractJsonLdBlocks(html);
+
+    // Deduplicate required properties per schema type
+    const requiredSet = new Set<string>();
+    const missingSet = new Set<string>();
+
+    for (const obj of jsonLdObjects) {
+      const type = obj['@type'];
+      if (typeof type !== 'string') continue;
+      const typeLower = type.toLowerCase();
+
+      if (typeLower.includes('localbusiness')) {
+        for (const prop of ['name', 'address', 'telephone']) {
+          requiredSet.add(prop);
+          if (!(prop in obj)) missingSet.add(prop);
+        }
+      }
+
+      if (typeLower.includes('organization')) {
+        for (const prop of ['name', 'url']) {
+          requiredSet.add(prop);
+          if (!(prop in obj)) missingSet.add(prop);
+        }
+      }
+    }
+
+    return {
+      types: schemas,
+      hasLocalBusiness,
+      hasOrganization,
+      hasWebSite,
+      hasProduct,
+      requiredProperties: [...requiredSet],
+      missingProperties: [...missingSet],
+    };
+  }
+
+  private extractJsonLdBlocks(html: string): Array<Record<string, unknown>> {
+    const blocks: Array<Record<string, unknown>> = [];
+    const regex = /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
+    let match: RegExpExecArray | null;
+    while ((match = regex.exec(html)) !== null) {
+      try {
+        const parsed = JSON.parse(match[1]);
+        if (parsed && typeof parsed === 'object') {
+          if (Array.isArray(parsed)) {
+            for (const item of parsed) {
+              if (item && typeof item === 'object' && '@type' in item) blocks.push(item);
+            }
+          } else if ('@type' in parsed) {
+            blocks.push(parsed);
+          } else if ('@graph' in parsed && Array.isArray(parsed['@graph'])) {
+            for (const item of parsed['@graph']) {
+              if (item && typeof item === 'object' && '@type' in item) blocks.push(item);
+            }
+          }
+        }
+      } catch {
+        // malformed JSON-LD — skip
+      }
+    }
+    return blocks;
+  }
+
+  private analyzeLinkMetrics(html: string, internalLinks: string[]): {
+    internalCount: number;
+    externalCount: number;
+  } {
+    const internalCount = internalLinks.length;
+
+    // Count external links
+    const externalLinkRegex = /href=["']https?:\/\/(?!dws10\.com)[^"']+["']/gi;
+    const externalMatches = html.match(externalLinkRegex);
+    const externalCount = externalMatches ? externalMatches.length : 0;
+
+    return { internalCount, externalCount };
+  }
+
+  private calculateCtaScore(ctaSignals: { buttons: Array<{ text: string; position: string }>; links: Array<{ text: string; position: string }>; forms: number }): number {
+    let score = 0;
+
+    // Points for having CTAs
+    if (ctaSignals.buttons.length > 0) score += 30;
+    if (ctaSignals.links.length > 0) score += 20;
+    if (ctaSignals.forms > 0) score += 10;
+
+    // Points for CTA placement
+    const allCtas = [...ctaSignals.buttons, ...ctaSignals.links];
+    const hasHeroCta = allCtas.some(cta => cta.position === 'hero');
+    const hasHeaderCta = allCtas.some(cta => cta.position === 'header');
+    
+    if (hasHeroCta) score += 25;
+    if (hasHeaderCta) score += 15;
+
+    // Points for multiple CTAs
+    if (allCtas.length >= 3) score += 10;
+
+    return Math.min(100, score);
+  }
+
+  private validateSchema(schemaDetails: {
+    hasLocalBusiness: boolean;
+    hasOrganization: boolean;
+    hasWebSite: boolean;
+    hasProduct: boolean;
+    requiredProperties: string[];
+    missingProperties: string[];
+  }): { isValid: boolean; errors: string[] } {
+    const errors: string[] = [];
+
+    if (!schemaDetails.hasLocalBusiness && !schemaDetails.hasOrganization) {
+      errors.push('Missing LocalBusiness or Organization schema');
+    }
+
+    if (schemaDetails.missingProperties.length > 0) {
+      errors.push(`Missing required properties: ${schemaDetails.missingProperties.join(', ')}`);
+    }
+
+    return {
+      isValid: errors.length === 0,
+      errors,
+    };
+  }
+
+  private calculateDiscoveryScore(linkMetrics: { internalCount: number; externalCount: number }, internalLinks: string[]): number {
+    let score = 0;
+
+    // Points for internal links (verifiable from page HTML)
+    if (linkMetrics.internalCount >= 5) score += 30;
+    else if (linkMetrics.internalCount >= 3) score += 20;
+    else if (linkMetrics.internalCount >= 1) score += 10;
+
+    // Points for external outbound links (signals a well-connected page)
+    if (linkMetrics.externalCount >= 3) score += 15;
+    else if (linkMetrics.externalCount >= 1) score += 5;
+
+    // Points for link diversity (unique path segments)
+    const uniquePaths = new Set(internalLinks.map(link => {
+      const url = new URL(link, 'https://dws10.com');
+      return url.pathname.split('/')[1] || '/';
+    }));
+    if (uniquePaths.size >= 3) score += 25;
+    else if (uniquePaths.size >= 2) score += 15;
+
+    // Points for having links from different sections
+    const sections = new Set(internalLinks.map(link => {
+      if (link.includes('/products/')) return 'products';
+      if (link.includes('/compliance/')) return 'compliance';
+      if (link.includes('/investor-centre/')) return 'investor';
+      return 'other';
+    }));
+    if (sections.size >= 3) score += 20;
+    else if (sections.size >= 2) score += 10;
+
+    // Penalty: very few internal links suggests weak crawl path
+    if (linkMetrics.internalCount === 0) score -= 20;
+
+    return Math.max(0, Math.min(100, score));
+  }
+
+  private calculateLinkDepth(internalLinks: string[]): number {
+    // Simplified depth calculation based on URL structure
+    let maxDepth = 1;
+    for (const link of internalLinks) {
+      const url = new URL(link, 'https://dws10.com');
+      const depth = url.pathname.split('/').filter(Boolean).length;
+      if (depth > maxDepth) maxDepth = depth;
+    }
+    return maxDepth;
   }
 
   private generateRecommendations(output: SeoAuditOutput): string[] {
@@ -453,6 +822,27 @@ export class SeoAuditAgent extends BaseAgent {
     if (slowPages.length > 0) {
       recs.push(
         `${slowPages.length} pages have poor Core Web Vitals. Prioritize LCP optimization.`,
+      );
+    }
+
+    const weakCtas = output.issues.filter((i) => i.type === 'weak-cta');
+    if (weakCtas.length > 0) {
+      recs.push(
+        `${weakCtas.length} pages have weak CTA signals. Add prominent call-to-action buttons in hero sections.`,
+      );
+    }
+
+    const missingLocalSchema = output.issues.filter((i) => i.type === 'missing-local-schema');
+    if (missingLocalSchema.length > 0) {
+      recs.push(
+        `${missingLocalSchema.length} pages missing LocalBusiness/Organization schema. Add for local SEO.`,
+      );
+    }
+
+    const lowDiscovery = output.issues.filter((i) => i.type === 'low-discovery');
+    if (lowDiscovery.length > 0) {
+      recs.push(
+        `${lowDiscovery.length} pages have low discovery scores. Improve internal linking structure.`,
       );
     }
 

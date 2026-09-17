@@ -59,7 +59,7 @@ The report aims to help policymakers navigate the **"evidence dilemma"**: AI sys
 
 > "While this Report focuses on risks, general-purpose AI can also deliver significant benefits. These systems are already being usefully applied in healthcare, scientific research, education, and other sectors, albeit at highly uneven rates globally. But to realise their full potential, risks must be effectively managed."
 
-**DWS Relevance:** This "evidence dilemma" framing is powerful for sales. Our clients face the same dilemma — they need to act on AI compliance before August 2026 but lack evidence on which risks apply to their specific industry. DWS IQ 6 resolves this dilemma by providing pre-built compliance frameworks for 16 EU industries.
+**DWS Relevance:** This "evidence dilemma" framing is powerful for sales. Our clients face the same dilemma — they need to act on AI compliance before August 2026 but lack evidence on which risks apply to their specific industry. DWS IQ 6 resolves this dilemma by providing pre-built compliance frameworks for 25+ EU industries.
 
 ---
 
@@ -89,7 +89,7 @@ The report documents seven notable developments since the first edition (January
 
 General-purpose AI capabilities have improved rapidly in mathematics, coding, and autonomous operation. AI systems achieved gold-medal IMO performance. In coding, AI agents can now reliably complete tasks that would take a human about half an hour, up from under 10 minutes a year ago. Performance remains "jagged" — leading systems still fail at some seemingly simple tasks.
 
-**DWS Relevance:** Our clients in 16 EU industries face a widening gap between AI capability and their organizational readiness. The "jagged" performance profile is critical for sales messaging — it means human oversight is not optional, it is structurally necessary. This is the core value proposition of DWS IQ 6's human-in-the-loop architecture.
+**DWS Relevance:** Our clients in 25+ EU industries face a widening gap between AI capability and their organizational readiness. The "jagged" performance profile is critical for sales messaging — it means human oversight is not optional, it is structurally necessary. This is the core value proposition of DWS IQ 6's human-in-the-loop architecture.
 
 ### 2. Autonomous Agents — Opportunity and Risk
 

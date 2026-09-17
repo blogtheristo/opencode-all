@@ -115,16 +115,51 @@ CREATE TABLE IF NOT EXISTS agent_approvals (
   expires_at TIMESTAMPTZ NOT NULL DEFAULT (NOW() + INTERVAL '24 hours')
 );
 
-CREATE INDEX IF NOT EXISTS agent_metrics_agent_name_date_idx ON agent_metrics (agent_name, date DESC);
-CREATE INDEX IF NOT EXISTS agent_signals_agent_name_idx ON agent_signals (agent_name);
-CREATE INDEX IF NOT EXISTS agent_signals_expires_at_idx ON agent_signals (expires_at);
-CREATE INDEX IF NOT EXISTS agent_costs_agent_name_idx ON agent_costs (agent_name);
-CREATE INDEX IF NOT EXISTS agent_costs_created_at_idx ON agent_costs (created_at DESC);
-CREATE INDEX IF NOT EXISTS agent_approvals_status_idx ON agent_approvals (approval_status);
-CREATE INDEX IF NOT EXISTS agent_approvals_expires_at_idx ON agent_approvals (expires_at);
+-- These indexes assume the Section-2 table variants (agent_name/date columns).
+-- When 013_agent_tracking's variants already exist (agent_id/metric_date), the
+-- CREATE TABLE IF NOT EXISTS above no-ops and these columns are absent — guard
+-- each index on the columns it needs (caught by the CI soak, blank-slate replay).
+DO $$
+DECLARE
+  spec RECORD;
+BEGIN
+  FOR spec IN
+    SELECT * FROM (VALUES
+      ('agent_metrics_agent_name_date_idx', 'agent_metrics',  ARRAY['agent_name','date'],
+       'CREATE INDEX IF NOT EXISTS agent_metrics_agent_name_date_idx ON agent_metrics (agent_name, date DESC)'),
+      ('agent_signals_agent_name_idx',      'agent_signals',  ARRAY['agent_name'],
+       'CREATE INDEX IF NOT EXISTS agent_signals_agent_name_idx ON agent_signals (agent_name)'),
+      ('agent_signals_expires_at_idx',      'agent_signals',  ARRAY['expires_at'],
+       'CREATE INDEX IF NOT EXISTS agent_signals_expires_at_idx ON agent_signals (expires_at)'),
+      ('agent_costs_agent_name_idx',        'agent_costs',    ARRAY['agent_name'],
+       'CREATE INDEX IF NOT EXISTS agent_costs_agent_name_idx ON agent_costs (agent_name)'),
+      ('agent_costs_created_at_idx',        'agent_costs',    ARRAY['created_at'],
+       'CREATE INDEX IF NOT EXISTS agent_costs_created_at_idx ON agent_costs (created_at DESC)'),
+      ('agent_approvals_status_idx',        'agent_approvals', ARRAY['approval_status'],
+       'CREATE INDEX IF NOT EXISTS agent_approvals_status_idx ON agent_approvals (approval_status)'),
+      ('agent_approvals_expires_at_idx',    'agent_approvals', ARRAY['expires_at'],
+       'CREATE INDEX IF NOT EXISTS agent_approvals_expires_at_idx ON agent_approvals (expires_at)')
+    ) AS t(idx_name, tbl, cols, ddl)
+  LOOP
+    IF (SELECT count(*) FROM information_schema.columns c
+        WHERE c.table_schema = 'public' AND c.table_name = spec.tbl
+          AND c.column_name = ANY(spec.cols)) = array_length(spec.cols, 1) THEN
+      EXECUTE spec.ddl;
+    ELSE
+      RAISE NOTICE '041: skipping % — %.% lacks required column(s)', spec.idx_name, 'public', spec.tbl;
+    END IF;
+  END LOOP;
+END $$;
 
 -- Section 3: 013 views/functions/RLS
-CREATE OR REPLACE VIEW v_high_priority_leads WITH (security_invoker = true) AS
+-- Guarded: this definition assumes the 041-variant agent tables; when the
+-- 013-variant is live, skip (and keep 013's view) — caught by the CI soak.
+DO $v1$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='agent_metrics' AND column_name='agent_name') THEN
+    EXECUTE 'DROP VIEW IF EXISTS v_high_priority_leads';
+    EXECUTE $ddl$
+CREATE VIEW v_high_priority_leads WITH (security_invoker = true) AS
 SELECT
   l.*,
   m.conversion_rate,
@@ -133,9 +168,21 @@ FROM firehorse_leads l
 LEFT JOIN agent_metrics m ON l.agent_id = m.agent_name
 WHERE l.agent_priority_score > 0.8
   AND l.created_at > NOW() - INTERVAL '30 days'
-ORDER BY l.agent_priority_score DESC, l.created_at DESC;
+ORDER BY l.agent_priority_score DESC, l.created_at DESC
+$ddl$;
+  ELSE
+    RAISE NOTICE '041: keeping 013-variant v_high_priority_leads';
+  END IF;
+END $v1$;
 
-CREATE OR REPLACE VIEW v_pending_approvals WITH (security_invoker = true) AS
+-- Guarded: this definition assumes the 041-variant agent tables; when the
+-- 013-variant is live, skip (and keep 013's view) — caught by the CI soak.
+DO $v2$
+BEGIN
+  IF (SELECT count(*) FROM information_schema.columns WHERE table_schema='public' AND table_name='agent_approvals' AND column_name IN ('approval_status','expires_at','approved_by')) = 3 THEN
+    EXECUTE 'DROP VIEW IF EXISTS v_pending_approvals';
+    EXECUTE $ddl$
+CREATE VIEW v_pending_approvals WITH (security_invoker = true) AS
 SELECT
   a.*,
   u.email as approver_email
@@ -143,9 +190,21 @@ FROM agent_approvals a
 LEFT JOIN auth.users u ON a.approved_by = u.id
 WHERE a.approval_status = 'pending'
   AND a.expires_at > NOW()
-ORDER BY a.created_at DESC;
+ORDER BY a.created_at DESC
+$ddl$;
+  ELSE
+    RAISE NOTICE '041: keeping 013-variant v_pending_approvals';
+  END IF;
+END $v2$;
 
-CREATE OR REPLACE VIEW v_agent_performance_leaderboard WITH (security_invoker = true) AS
+-- Guarded: this definition assumes the 041-variant agent tables; when the
+-- 013-variant is live, skip (and keep 013's view) — caught by the CI soak.
+DO $v3$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='agent_metrics' AND column_name='agent_name') THEN
+    EXECUTE 'DROP VIEW IF EXISTS v_agent_performance_leaderboard';
+    EXECUTE $ddl$
+CREATE VIEW v_agent_performance_leaderboard WITH (security_invoker = true) AS
 SELECT
   agent_name,
   SUM(leads_processed) as total_leads,
@@ -157,7 +216,12 @@ SELECT
 FROM agent_metrics
 WHERE date > NOW() - INTERVAL '30 days'
 GROUP BY agent_name
-ORDER BY avg_conversion_rate DESC, total_conversions DESC;
+ORDER BY avg_conversion_rate DESC, total_conversions DESC
+$ddl$;
+  ELSE
+    RAISE NOTICE '041: keeping 013-variant v_agent_performance_leaderboard';
+  END IF;
+END $v3$;
 
 CREATE OR REPLACE FUNCTION update_agent_metrics()
 RETURNS TRIGGER LANGUAGE plpgsql AS $$
@@ -206,7 +270,10 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION expire_pending_approvals()
+-- 013 defined this with RETURNS INTEGER; CREATE OR REPLACE cannot change a
+-- return type (42P13) — drop first. (CI soak catch, blank-slate replay.)
+DROP FUNCTION IF EXISTS expire_pending_approvals();
+CREATE FUNCTION expire_pending_approvals()
 RETURNS void LANGUAGE plpgsql AS $$
 BEGIN
   UPDATE agent_approvals
@@ -267,8 +334,25 @@ CREATE TABLE IF NOT EXISTS climate_assistant_usage (
   UNIQUE (user_id, date)
 );
 
-CREATE INDEX IF NOT EXISTS climate_assistant_usage_user_date_idx ON climate_assistant_usage (user_id, date DESC);
-CREATE INDEX IF NOT EXISTS climate_assistant_usage_org_date_idx ON climate_assistant_usage (org_id, date DESC);
+-- 014's live climate_assistant_usage has no user_id/org_id (041 variant only) —
+-- guard like the agent_* indexes above. (CI soak catch, blank-slate replay.)
+DO $ci$
+BEGIN
+  IF (SELECT count(*) FROM information_schema.columns
+      WHERE table_schema='public' AND table_name='climate_assistant_usage'
+        AND column_name IN ('user_id','date')) = 2 THEN
+    CREATE INDEX IF NOT EXISTS climate_assistant_usage_user_date_idx ON climate_assistant_usage (user_id, date DESC);
+  ELSE
+    RAISE NOTICE '041: skipping climate_assistant_usage_user_date_idx — 014-variant table';
+  END IF;
+  IF (SELECT count(*) FROM information_schema.columns
+      WHERE table_schema='public' AND table_name='climate_assistant_usage'
+        AND column_name IN ('org_id','date')) = 2 THEN
+    CREATE INDEX IF NOT EXISTS climate_assistant_usage_org_date_idx ON climate_assistant_usage (org_id, date DESC);
+  ELSE
+    RAISE NOTICE '041: skipping climate_assistant_usage_org_date_idx — 014-variant table';
+  END IF;
+END $ci$;
 
 CREATE OR REPLACE FUNCTION get_or_create_usage_for_date(
   p_user_id UUID,
@@ -318,7 +402,11 @@ DO $$ BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'climate_assistant_usage' AND policyname = 'Service role full access to climate_assistant_usage') THEN
     CREATE POLICY "Service role full access to climate_assistant_usage" ON climate_assistant_usage FOR ALL TO service_role USING (true) WITH CHECK (true);
   END IF;
-  IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'climate_assistant_usage' AND policyname = 'Users can read their own usage') THEN
+  -- Policy predicate references user_id, which the live 014-variant lacks —
+  -- guard on the column (CI soak catch, blank-slate replay).
+  IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'climate_assistant_usage' AND policyname = 'Users can read their own usage')
+     AND EXISTS (SELECT 1 FROM information_schema.columns
+                 WHERE table_schema = 'public' AND table_name = 'climate_assistant_usage' AND column_name = 'user_id') THEN
     CREATE POLICY "Users can read their own usage" ON climate_assistant_usage FOR SELECT TO authenticated USING (auth.uid() = user_id);
   END IF;
 END $$;
@@ -345,7 +433,8 @@ CREATE INDEX IF NOT EXISTS email_queue_to_email_idx ON email_queue (to_email);
 CREATE INDEX IF NOT EXISTS email_queue_status_created_idx ON email_queue (status, created_at DESC);
 CREATE INDEX IF NOT EXISTS email_queue_sent_at_idx ON email_queue (sent_at DESC);
 
-CREATE OR REPLACE VIEW v_email_queue_stats WITH (security_invoker = true) AS
+DROP VIEW IF EXISTS v_email_queue_stats;
+CREATE VIEW v_email_queue_stats WITH (security_invoker = true) AS
 SELECT
   status,
   COUNT(*) as count,

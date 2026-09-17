@@ -1,0 +1,35 @@
+name: Definition of Done Validation
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  dod-check:
+    runs-on: ubuntu-latest
+    name: DoD Gate
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history to compare against main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.17.0"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests (coverage)
+        run: npm test -- --run --coverage
+        continue-on-error: true # Don't block if tests fail; DoD check handles it
+
+      - name: Run DoD validation
+        run: bash scripts/validate-dod.sh
+        env:
+          BASELINE_COVERAGE: 60
+          MAIN_BRANCH: main

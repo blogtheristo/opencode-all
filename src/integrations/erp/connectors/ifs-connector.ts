@@ -12,19 +12,17 @@
  * API Documentation: https://docs.ifs.com/techdocs/
  */
 
-import { BaseERPConnector } from '../base-connector';
+import { BaseERPConnector } from '../base-connector.js';
+import type { InternalAxiosRequestConfig } from 'axios';
 import {
-  ERPProvider,
-  IFSCloudConfig,
-  SyncResult,
   EntityType,
-  ProductionOrder,
-  MaintenanceEvent,
-  Asset,
-  IFSAsset,
-  OEEMetrics,
-  MachineData
-} from '../types';
+  ERPProvider,
+  type IFSAsset,
+  type IFSCloudConfig,
+  type MachineData,
+  type OEEMetrics,
+  type SyncResult,
+} from '../types.js';
 
 export class IFSCloudConnector extends BaseERPConnector {
   private accessToken?: string;
@@ -47,7 +45,7 @@ export class IFSCloudConnector extends BaseERPConnector {
       }>(this.ifsConfig.oauthTokenUrl, {
         grant_type: 'client_credentials',
         client_id: this.ifsConfig.clientId,
-        client_secret: this.ifsConfig.clientSecret
+        client_secret: this.ifsConfig.clientSecret,
       });
 
       this.accessToken = response.data.access_token;
@@ -55,12 +53,14 @@ export class IFSCloudConnector extends BaseERPConnector {
 
       this.logger.info('Successfully authenticated with IFS Cloud');
     } catch (error) {
-      this.logger.error('IFS Cloud authentication failed', { error });
+      this.logger.error({ error }, 'IFS Cloud authentication failed');
       throw error;
     }
   }
 
-  protected async addAuthHeaders(config: any): Promise<any> {
+  protected async addAuthHeaders(
+    config: InternalAxiosRequestConfig,
+  ): Promise<InternalAxiosRequestConfig> {
     if (
       !this.accessToken ||
       !this.tokenExpiresAt ||
@@ -69,7 +69,6 @@ export class IFSCloudConnector extends BaseERPConnector {
       await this.authenticate();
     }
 
-    config.headers = config.headers || {};
     config.headers['Authorization'] = `Bearer ${this.accessToken}`;
     return config;
   }
@@ -80,7 +79,7 @@ export class IFSCloudConnector extends BaseERPConnector {
       await this.get('/main/ifsapplications/projection/v1/SystemInfo.svc/SystemInfoSet');
       return true;
     } catch (error) {
-      this.logger.error('IFS Cloud connection test failed', { error });
+      this.logger.error({ error }, 'IFS Cloud connection test failed');
       return false;
     }
   }
@@ -97,9 +96,9 @@ export class IFSCloudConnector extends BaseERPConnector {
       if (since) {
         params.$filter = `DateModified gt datetime'${since.toISOString()}'`;
       }
-      const response = await this.get<{ value: any[] }>(
+      const response = await this.get<{ value: unknown[] }>(
         '/main/ifsapplications/projection/v1/ShopOrderHandling.svc/ShopOrders',
-        { params }
+        { params },
       );
 
       operation.recordsProcessed = response.value.length;
@@ -107,9 +106,13 @@ export class IFSCloudConnector extends BaseERPConnector {
 
       return this.createSyncResult(operation, true);
     } catch (error) {
-      this.logger.error('Failed to sync IFS production orders', { error });
+      this.logger.error({ error }, 'Failed to sync IFS production orders');
       return this.createSyncResult(operation, false, [
-        this.createSyncError(EntityType.PRODUCTION_ORDER, 'IFS_SYNC_FAILED', (error as Error).message)
+        this.createSyncError(
+          EntityType.PRODUCTION_ORDER,
+          'IFS_SYNC_FAILED',
+          (error as Error).message,
+        ),
       ]);
     }
   }
@@ -120,18 +123,21 @@ export class IFSCloudConnector extends BaseERPConnector {
     try {
       // IFS stores machine data in MaintenanceObject with custom attributes
       for (const machineData of data) {
-        await this.post('/main/ifsapplications/projection/v1/MaintenanceObject.svc/ObjectMeasurements', {
-          ObjectId: machineData.machineId,
-          MeasurementType: 'RUNTIME_DATA',
-          Value: JSON.stringify(machineData),
-          DateRecorded: machineData.timestamp.toISOString()
-        });
+        await this.post(
+          '/main/ifsapplications/projection/v1/MaintenanceObject.svc/ObjectMeasurements',
+          {
+            ObjectId: machineData.machineId,
+            MeasurementType: 'RUNTIME_DATA',
+            Value: JSON.stringify(machineData),
+            DateRecorded: machineData.timestamp.toISOString(),
+          },
+        );
       }
 
       operation.recordsProcessed = data.length;
       return this.createSyncResult(operation, true);
     } catch (error) {
-      this.logger.error('Failed to sync machine data to IFS', { error });
+      this.logger.error({ error }, 'Failed to sync machine data to IFS');
       return this.createSyncResult(operation, false);
     }
   }
@@ -142,21 +148,24 @@ export class IFSCloudConnector extends BaseERPConnector {
     try {
       // IFS can store OEE as equipment effectiveness measurements
       for (const metric of metrics) {
-        await this.post('/main/ifsapplications/projection/v1/EquipmentEffectiveness.svc/Measurements', {
-          EquipmentObjectId: metric.machineId,
-          MeasurementPeriodStart: metric.periodStart.toISOString(),
-          MeasurementPeriodEnd: metric.periodEnd.toISOString(),
-          Availability: metric.availability,
-          Performance: metric.performance,
-          Quality: metric.quality,
-          OEE: metric.oee
-        });
+        await this.post(
+          '/main/ifsapplications/projection/v1/EquipmentEffectiveness.svc/Measurements',
+          {
+            EquipmentObjectId: metric.machineId,
+            MeasurementPeriodStart: metric.periodStart.toISOString(),
+            MeasurementPeriodEnd: metric.periodEnd.toISOString(),
+            Availability: metric.availability,
+            Performance: metric.performance,
+            Quality: metric.quality,
+            OEE: metric.oee,
+          },
+        );
       }
 
       operation.recordsProcessed = metrics.length;
       return this.createSyncResult(operation, true);
     } catch (error) {
-      this.logger.error('Failed to sync OEE metrics to IFS', { error });
+      this.logger.error({ error }, 'Failed to sync OEE metrics to IFS');
       return this.createSyncResult(operation, false);
     }
   }
@@ -171,15 +180,15 @@ export class IFSCloudConnector extends BaseERPConnector {
         return this.createSyncResult(operation, true);
       } else {
         // Pull scheduled maintenance from IFS
-        const response = await this.get<{ value: any[] }>(
-          "/main/ifsapplications/projection/v1/ActiveWorkOrder.svc/WorkOrders?$filter=State eq 'WORKSTARTED' or State eq 'RELEASED'"
+        const response = await this.get<{ value: unknown[] }>(
+          "/main/ifsapplications/projection/v1/ActiveWorkOrder.svc/WorkOrders?$filter=State eq 'WORKSTARTED' or State eq 'RELEASED'",
         );
 
         operation.recordsProcessed = response.value.length;
         return this.createSyncResult(operation, true);
       }
     } catch (error) {
-      this.logger.error('Failed to sync maintenance events with IFS', { error });
+      this.logger.error({ error }, 'Failed to sync maintenance events with IFS');
       return this.createSyncResult(operation, false);
     }
   }
@@ -189,8 +198,22 @@ export class IFSCloudConnector extends BaseERPConnector {
    */
   async syncAssets(): Promise<IFSAsset[]> {
     try {
-      const response = await this.get<{ value: any[] }>(
-        '/main/ifsapplications/projection/v1/EquipmentObject.svc/EquipmentObjects'
+      interface IFSObjectRaw {
+        ObjectId: string;
+        ObjectDescription: string;
+        ObjectType: string;
+        ObjectCategory: string;
+        Manufacturer?: string;
+        ModelDesignation?: string;
+        SerialNo?: string;
+        LocationId: string;
+        OperationalStatus?: string;
+        FunctionalObjectId?: string;
+        MaintenanceOrganization?: string;
+        Criticality?: string;
+      }
+      const response = await this.get<{ value: IFSObjectRaw[] }>(
+        '/main/ifsapplications/projection/v1/EquipmentObject.svc/EquipmentObjects',
       );
 
       return response.value.map((obj) => ({
@@ -204,34 +227,34 @@ export class IFSCloudConnector extends BaseERPConnector {
         model: obj.ModelDesignation,
         serialNumber: obj.SerialNo,
         location: obj.LocationId,
-        status: this.mapIFSObjectStatus(obj.OperationalStatus),
+        status: this.mapIFSObjectStatus(obj.OperationalStatus ?? ''),
         functionalObjectId: obj.FunctionalObjectId,
         maintenanceOrganization: obj.MaintenanceOrganization,
         operationalStatus: obj.OperationalStatus,
-        criticality: this.mapCriticality(obj.Criticality)
+        criticality: this.mapCriticality(obj.Criticality ?? 'C'),
       }));
     } catch (error) {
-      this.logger.error('Failed to sync assets from IFS', { error });
+      this.logger.error({ error }, 'Failed to sync assets from IFS');
       throw error;
     }
   }
 
   private mapIFSObjectStatus(status: string): 'operational' | 'maintenance' | 'down' | 'retired' {
-    const statusMap: Record<string, any> = {
+    const statusMap: Record<string, IFSAsset['status']> = {
       INOPERATION: 'operational',
       UNDERMAINTENANCE: 'maintenance',
       OUTOFOPERATION: 'down',
-      SCRAPPED: 'retired'
+      SCRAPPED: 'retired',
     };
     return statusMap[status] || 'operational';
   }
 
   private mapCriticality(criticality: string): 'low' | 'medium' | 'high' | 'critical' {
-    const criticalityMap: Record<string, any> = {
+    const criticalityMap: Record<string, IFSAsset['criticality']> = {
       A: 'critical',
       B: 'high',
       C: 'medium',
-      D: 'low'
+      D: 'low',
     };
     return criticalityMap[criticality] || 'medium';
   }

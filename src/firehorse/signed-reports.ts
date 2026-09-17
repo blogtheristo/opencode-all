@@ -100,7 +100,7 @@ async function convertToPdf(inputPath: string): Promise<string> {
       logger.info('PDF converted via markdown-pdf', { inputPath, outputPath });
       return outputPath;
     } catch (err) {
-      throw new Error(`PDF conversion failed: ${err}`);
+      throw new Error(`PDF conversion failed: ${err}`, { cause: err });
     }
   }
 

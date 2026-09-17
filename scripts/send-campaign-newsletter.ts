@@ -9,7 +9,7 @@
  *   npx tsx scripts/send-campaign-newsletter.ts
  *
  * Required env vars:
- *   RESEND_API_KEY or AWS_SES_SMTP_* (for email transport)
+ *   SMTP_* / AWS_SES_SMTP_* (Amazon SES email transport)
  *   SUPABASE_URL + SUPABASE_SERVICE_KEY (for subscriber list)
  */
 

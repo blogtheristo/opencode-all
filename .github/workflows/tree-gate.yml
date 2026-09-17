@@ -1,0 +1,158 @@
+# Evidence: Tool=Claude Code Model=undisclosed-in-source (see commit trailer) Agent=claude Date=2026-09-10
+# Audit trail: git log -- .github/workflows/tree-gate.yml
+name: Tree Gate (PR)
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to test against (optional, for manual dispatch)"
+        required: false
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  tree-gate:
+    name: Tree Gate
+    runs-on: dgx-spark
+    timeout-minutes: 30
+    steps:
+      - name: Checkout PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Resolve base and head
+        id: refs
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          BASE_REF: ${{ github.event.pull_request.base.ref || 'main' }}
+        run: |
+          set -euo pipefail
+          # Fail closed if either commit is unreadable — the gate must never be
+          # handed a sha it cannot walk.
+          git cat-file -e "$HEAD_SHA^{commit}" || { echo "::error::head sha $HEAD_SHA unreadable"; exit 1; }
+          git fetch --no-tags origin "$BASE_SHA" 2>/dev/null || true
+          git cat-file -e "$BASE_SHA^{commit}" || { echo "::error::base sha $BASE_SHA unreadable"; exit 1; }
+
+          # The gate's P1 treats a base that is not an ancestor of the head as a
+          # non-fast-forward update and blocks it. For a PR that is the wrong
+          # comparison: `base.sha` is the tip of main at event time, which moves
+          # independently of the branch. The state this PR actually diverged
+          # from is the merge-base, so that is what the gate is given.
+          MERGE_BASE=$(git merge-base "$BASE_SHA" "$HEAD_SHA") || {
+            echo "::error::cannot relate head $HEAD_SHA to base $BASE_SHA"; exit 1;
+          }
+          echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
+          echo "base_sha=$MERGE_BASE" >> "$GITHUB_OUTPUT"
+          echo "head_ref=refs/heads/$HEAD_REF" >> "$GITHUB_OUTPUT"
+          echo "base_ref=refs/heads/$BASE_REF" >> "$GITHUB_OUTPUT"
+          echo "Comparing $HEAD_SHA against merge-base $MERGE_BASE (base tip $BASE_SHA)"
+
+      - name: Generate P4 manifest for the resolved base
+        env:
+          BASE_SHA: ${{ steps.refs.outputs.base_sha }}
+        run: |
+          set -euo pipefail
+          # The P4 manifest is bound to the base commit it was generated from,
+          # so it cannot be a static committed file. The reviewed artifact is
+          # .githooks/critical-files.roster.json, which this reads from the BASE
+          # tree — a PR cannot widen or empty its own allowlist.
+          node scripts/gen-tree-gate-manifest.mjs \
+            --repo . \
+            --base "$BASE_SHA" \
+            --out .githooks/critical-files.manifest
+
+      - name: Run Tree Gate
+        id: gate
+        env:
+          HEAD_REF: ${{ steps.refs.outputs.head_ref }}
+          HEAD_SHA: ${{ steps.refs.outputs.head_sha }}
+          BASE_REF: ${{ steps.refs.outputs.base_ref }}
+          BASE_SHA: ${{ steps.refs.outputs.base_sha }}
+        run: |
+          set -uo pipefail
+          # The gate reads the pre-push stdin contract:
+          #   <local_ref> <local_sha> <remote_ref> <remote_sha>
+          # Reasons go to stderr; a JSON array of {ref,decision} to stdout.
+          set +e
+          printf '%s %s %s %s\n' "$HEAD_REF" "$HEAD_SHA" "$BASE_REF" "$BASE_SHA" \
+            | node scripts/poisoned-tree-gate.mjs \
+                --config .githooks/poisoned-tree-gate.config.json \
+                > /tmp/gate-result.json 2> /tmp/gate-reasons.txt
+          GATE_EXIT=$?
+          set -e
+          echo "gate exit code: $GATE_EXIT"
+          echo "--- stdout ---"; cat /tmp/gate-result.json || true
+          echo "--- stderr ---"; cat /tmp/gate-reasons.txt || true
+          echo "exit_code=$GATE_EXIT" >> "$GITHUB_OUTPUT"
+
+      - name: Interpret gate result
+        id: report
+        if: always()
+        env:
+          BASE_REF: ${{ steps.refs.outputs.base_ref }}
+        run: |
+          set +e
+          node scripts/tree-gate-report.mjs \
+            --result /tmp/gate-result.json \
+            --reasons /tmp/gate-reasons.txt \
+            --exit-code "${{ steps.gate.outputs.exit_code || '2' }}" \
+            --expected-ref "$BASE_REF"
+          echo "report_exit=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Post gate result as PR comment
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        env:
+          COMMENT: ${{ steps.report.outputs.comment }}
+          DECISION: ${{ steps.report.outputs.decision }}
+        with:
+          script: |
+            const body = process.env.COMMENT
+              || '### Tree Gate: ERROR — the gate did not execute\n\nThe workflow produced no report; treat this PR as unverified.';
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body,
+            });
+
+      - name: Fail job unless the gate ran and allowed
+        if: always()
+        env:
+          DECISION: ${{ steps.report.outputs.decision }}
+        run: |
+          case "${DECISION:-error}" in
+            allow) echo "Tree Gate allowed this push." ;;
+            block) echo "::error::Tree Gate blocked this push — see the PR comment for reasons."; exit 1 ;;
+            *)     echo "::error::Tree Gate did not produce a verdict (decision='${DECISION:-<none>}'); failing closed."; exit 1 ;;
+          esac
+
+      - name: Upload gate result artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tree-gate-result
+          path: |
+            /tmp/gate-result.json
+            /tmp/gate-reasons.txt
+          retention-days: 7
+
+# Required status check for branch protection on main
+# Add this job name ("Tree Gate") to main's protection rules: Settings > Branches > main > Status checks

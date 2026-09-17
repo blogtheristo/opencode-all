@@ -55,7 +55,11 @@ const NotificationPrefsSchema = z.object({
  */
 router.get('/profile', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = req.userId!;
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
 
     if (!supabase) {
       // Fallback: return basic info from JWT
@@ -113,7 +117,11 @@ router.put(
   validate({ body: ProfileUpdateSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userId = req.userId!;
+      const userId = req.userId;
+      if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
       const updates = req.body;
 
       if (!supabase) {
@@ -169,7 +177,11 @@ router.put(
  */
 router.get('/notifications', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = req.userId!;
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
 
     // Default preferences for new users
     const defaults = {
@@ -215,7 +227,11 @@ router.put(
   validate({ body: NotificationPrefsSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userId = req.userId!;
+      const userId = req.userId;
+      if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
       const prefs = req.body;
 
       if (!supabase) {

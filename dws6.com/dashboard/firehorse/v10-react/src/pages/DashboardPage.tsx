@@ -70,11 +70,11 @@ export function DashboardPage({ user, sidePanel, onSetSidePanel: _onSetSidePanel
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className={`${sidePanel ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-semibold text-foreground">
               Projects ({projects.length})
             </h2>
             <div className="flex items-center gap-2">
-              <select className="text-sm border border-gray-300 rounded-lg px-3 py-1.5">
+              <select className="text-sm border border-border rounded-lg px-3 py-1.5">
                 <option>All Status</option>
                 <option>Green</option>
                 <option>Amber</option>
@@ -87,16 +87,16 @@ export function DashboardPage({ user, sidePanel, onSetSidePanel: _onSetSidePanel
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[...Array(4)].map((_, i) => (
                 <div key={i} className="card animate-pulse">
-                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
-                  <div className="h-20 bg-gray-200 rounded mb-4"></div>
-                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                  <div className="h-4 bg-fg-muted/20 rounded w-3/4 mb-4"></div>
+                  <div className="h-20 bg-fg-muted/20 rounded mb-4"></div>
+                  <div className="h-4 bg-fg-muted/20 rounded w-1/2"></div>
                 </div>
               ))}
             </div>
           ) : projects.length === 0 ? (
             <div className="card text-center py-12">
-              <p className="text-gray-500 mb-4">No projects found</p>
-              <p className="text-sm text-gray-400">
+              <p className="text-fg-muted mb-4">No projects found</p>
+              <p className="text-sm text-fg-muted">
                 Connect to Supabase to view your portfolio
               </p>
             </div>

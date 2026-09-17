@@ -15,7 +15,7 @@ INSERT INTO firehorse_templates (id, name, subject, body, language, template_typ
 
 I see PORR is executing an impressive transformation with your "future programme PORR 2025" – focusing on operational excellence, digitalization (BIM, LEAN Design & Construction), and your Green and Lean strategy toward ESG 2030 targets.
 
-I'm building the DWS IQ 6 platform at Lifetime Group to address exactly this: giving construction and infrastructure portfolios a **real-time mobile control room** for SPI/CPI steering, safety oversight, and Fit for 55 compliance tracking. Here's a short live demo of an NCC-style portfolio view:
+I''m building the DWS IQ 6 platform at Lifetime Group to address exactly this: giving construction and infrastructure portfolios a **real-time mobile control room** for SPI/CPI steering, safety oversight, and Fit for 55 compliance tracking. Here''s a short live demo of an NCC-style portfolio view:
 https://j6prmljgpvnia.ok.kimi.link/
 
 **Why this might fit PORR 2025:**
@@ -30,7 +30,7 @@ https://j6prmljgpvnia.ok.kimi.link/
 • Starting from 29,950 € (pilot pricing for strategic partners)
 • Focused on 1-2 flagship PORR projects (tunnels, infra, or CEE portfolio)
 
-Would you be open to a 20-minute call to explore if DWS IQ 6 could support PORR's operational efficiency and ESG targets?
+Would you be open to a 20-minute call to explore if DWS IQ 6 could support PORR''s operational efficiency and ESG targets?
 
 Best regards,
 Risto Anton Päärni
@@ -51,7 +51,7 @@ INSERT INTO firehorse_templates (id, name, subject, body, language, template_typ
   'PORR_LinkedIn_DM',
   'PORR AG - LinkedIn Connection Request',
   'DWS IQ 6 Platform',
-  'Hi {{first_name}}, I see you're leading {{role_context}} at PORR with expertise in high-complexity projects. We're developing DWS IQ 6 – a mobile portfolio control room for real-time SPI/CPI, safety & Fit for 55 steering, aligned with PORR 2025's Green and Lean strategy.
+  'Hi {{first_name}}, I see you''re leading {{role_context}} at PORR with expertise in high-complexity projects. We''re developing DWS IQ 6 – a mobile portfolio control room for real-time SPI/CPI, safety & Fit for 55 steering, aligned with PORR 2025''s Green and Lean strategy.
 
 Seeking pilot partners in Central Europe (5 months, 29,950 €). Open for a quick demo?
 
@@ -75,7 +75,7 @@ INSERT INTO firehorse_templates (id, name, subject, body, language, template_typ
   'Re: DWS IQ 6 for PORR 2025 transformation',
   'Hi {{first_name}},
 
-Quick follow-up on my previous email about DWS IQ 6 and how it could support PORR's operational excellence goals in the PORR 2025 programme.
+Quick follow-up on my previous email about DWS IQ 6 and how it could support PORR''s operational excellence goals in the PORR 2025 programme.
 
 Given your focus on digitalization (BIM, LEAN), ESG 2030 targets (Scope 1-3 reduction), and portfolio resilience, I thought this might be timely:
 

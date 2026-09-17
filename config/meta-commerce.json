@@ -1,0 +1,53 @@
+{
+  "adAccount": {
+    "id": "57372468",
+    "type": "Facebook",
+    "owner": "Risto Anton Päärni",
+    "note": "Mainostili (ad account). Yhdistetty Business Manageriin Lifetime Group (Tunnus: 133022958190)."
+  },
+  "commerceManager": {
+    "catalogName": "DWS IQ Store",
+    "catalogId": "1272289434912643",
+    "businessId": "133022958190",
+    "businessName": "Lifetime Group",
+    "primaryBusinessPage": "Lifetime Group",
+    "businessPages": [
+      {
+        "name": "Lifetime Group",
+        "id": "133022958190",
+        "owner": "Lifetime Group",
+        "role": "Ensisijainen yrityssivu"
+      },
+      {
+        "name": "Lifetime Studios",
+        "id": "116629975052",
+        "owner": "Lifetime Group",
+        "role": "Toissijainen yrityssivu"
+      }
+    ]
+  },
+  "feeds": {
+    "googleMerchant": "https://dws10.com/feeds/google-products.xml",
+    "csv": "https://dws10.com/products.csv",
+    "xml": "https://dws10.com/products.xml"
+  },
+  "pixel": {
+    "pixelId": "1061355716618688",
+    "envVar": "META_PIXEL_ID",
+    "middleware": "dws10.com/functions/_middleware.js",
+    "status": "Luotu. Injektoidaan Cloudflare Pages -middlewarella."
+  },
+  "facebookApp": {
+    "name": "DWS IQ Store",
+    "appId": "2072010777010042",
+    "email": "risto.paarni@lifetime.fi",
+    "business": "Lifetime Group (unverified)",
+    "useCases": ["Threads API", "+1 use case"],
+    "threadsAppId": "2219408585458484",
+    "threadsDisplayName": "DWS IQ Store",
+    "apiVersion": "v26.0",
+    "ageRestriction": "Anyone (13+)",
+    "purpose": "Page Access Token -haku blogijulkaisujen viemiseksi Lifetime Group -Facebook-sivulle (pages_manage_posts)",
+    "notes": "App secret ja client token (e11c75b8...) eivät ole commitattuna — ne asetetaan env-muuttujina."
+  }
+}

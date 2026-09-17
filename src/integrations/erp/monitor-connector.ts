@@ -13,23 +13,42 @@
  * API Documentation: https://www.monitor.se/api-docs
  */
 
-import { BaseERPConnector } from './base-connector';
+import { BaseERPConnector } from './base-connector.js';
 import {
-  ERPProvider,
-  MonitorERPConfig,
-  SyncResult,
+  type CostTransaction,
   EntityType,
-  ProductionOrder,
-  MonitorProductionOrder,
-  WorkOrder,
-  MaterialRequirement,
-  MachineData,
-  OEEMetrics,
-  MaintenanceEvent,
-  InventoryTransaction,
-  CostTransaction
-} from './types';
+  ERPProvider,
+  type InventoryTransaction,
+  type MachineData,
+  type MaintenanceEvent,
+  type MaterialRequirement,
+  type MonitorERPConfig,
+  type OEEMetrics,
+  type ProductionOrder,
+  type SyncOperation,
+  type SyncResult,
+} from './types.js';
 import { getSupabaseClient } from '../../config/supabase.js';
+import type { InternalAxiosRequestConfig } from 'axios';
+
+interface MonitorProductionOrderRaw {
+  id: string;
+  order_number: string;
+  article_number: string;
+  article_name: string;
+  quantity: number;
+  unit: string;
+  scheduled_start: string;
+  scheduled_end: string;
+  actual_start?: string;
+  actual_end?: string;
+  status: string;
+  priority?: number;
+  work_center_id?: string;
+  estimated_cost?: number;
+  actual_cost?: number;
+  customer_order_number?: string;
+}
 
 export class MonitorERPConnector extends BaseERPConnector {
   private accessToken?: string;
@@ -58,22 +77,27 @@ export class MonitorERPConnector extends BaseERPConnector {
         grant_type: 'client_credentials',
         client_id: this.monitorConfig.clientId,
         client_secret: this.monitorConfig.clientSecret,
-        scope: 'production inventory costing'
+        scope: 'production inventory costing',
       });
 
       this.accessToken = response.data.access_token;
       this.tokenExpiresAt = new Date(Date.now() + response.data.expires_in * 1000);
 
-      this.logger.info('Successfully authenticated with Monitor ERP', {
-        expiresAt: this.tokenExpiresAt
-      });
+      this.logger.info(
+        {
+          expiresAt: this.tokenExpiresAt,
+        },
+        'Successfully authenticated with Monitor ERP',
+      );
     } catch (error) {
-      this.logger.error('Authentication failed', { error });
-      throw new Error('Failed to authenticate with Monitor ERP');
+      this.logger.error({ error }, 'Authentication failed');
+      throw new Error('Failed to authenticate with Monitor ERP', { cause: error });
     }
   }
 
-  protected async addAuthHeaders(config: any): Promise<any> {
+  protected async addAuthHeaders(
+    config: InternalAxiosRequestConfig,
+  ): Promise<InternalAxiosRequestConfig> {
     // Check if token is expired or about to expire (within 5 minutes)
     if (
       !this.accessToken ||
@@ -83,7 +107,6 @@ export class MonitorERPConnector extends BaseERPConnector {
       await this.authenticate();
     }
 
-    config.headers = config.headers || {};
     config.headers['Authorization'] = `Bearer ${this.accessToken}`;
     config.headers['X-Monitor-Company-Id'] = this.monitorConfig.companyId;
 
@@ -97,13 +120,11 @@ export class MonitorERPConnector extends BaseERPConnector {
   async testConnection(): Promise<boolean> {
     try {
       await this.authenticate();
-      const response = await this.get<{ status: string; company: any }>(
-        '/api/v1/company/info'
-      );
-      this.logger.info('Connection test successful', { company: response.company });
+      const response = await this.get<{ status: string; company: unknown }>('/api/v1/company/info');
+      this.logger.info({ company: response.company }, 'Connection test successful');
       return true;
     } catch (error) {
-      this.logger.error('Connection test failed', { error });
+      this.logger.error({ error }, 'Connection test failed');
       return false;
     }
   }
@@ -116,16 +137,16 @@ export class MonitorERPConnector extends BaseERPConnector {
     const operation = this.createSyncOperation(
       this.monitorConfig.companyId,
       EntityType.PRODUCTION_ORDER,
-      'from_erp'
+      'from_erp',
     );
 
     try {
-      this.logger.info('Syncing production orders from Monitor ERP', { since });
+      this.logger.info({ since }, 'Syncing production orders from Monitor ERP');
 
       // Build query parameters
-      const params: any = {
+      const params: Record<string, string | number> = {
         limit: 100,
-        status: 'released,in_progress' // Only sync active orders
+        status: 'released,in_progress', // Only sync active orders
       };
 
       if (since) {
@@ -134,7 +155,7 @@ export class MonitorERPConnector extends BaseERPConnector {
 
       // Fetch production orders from Monitor
       const response = await this.get<{
-        data: MonitorProductionOrder[];
+        data: MonitorProductionOrderRaw[];
         pagination: { total: number; hasMore: boolean };
       }>('/api/v1/production/orders', { params });
 
@@ -147,21 +168,19 @@ export class MonitorERPConnector extends BaseERPConnector {
       // Persist to Supabase
       const client = getSupabaseClient();
       if (client && transformedOrders.length > 0) {
-        const { error } = await client
-          .from('erp_production_orders')
-          .upsert(
-            transformedOrders.map((o) => ({
-              id: o.id,
-              erp_provider: ERPProvider.MONITOR,
-              organization_id: this.monitorConfig.companyId,
-              order_data: o,
-              synced_at: new Date().toISOString(),
-            })),
-            { onConflict: 'id' },
-          );
+        const { error } = await client.from('erp_production_orders').upsert(
+          transformedOrders.map((o) => ({
+            id: o.id,
+            erp_provider: ERPProvider.MONITOR,
+            organization_id: this.monitorConfig.companyId,
+            order_data: o,
+            synced_at: new Date().toISOString(),
+          })),
+          { onConflict: 'id' },
+        );
 
         if (error) {
-          this.logger.error('Failed to persist production orders', { error: error.message });
+          this.logger.error({ error: error.message }, 'Failed to persist production orders');
         }
       }
 
@@ -169,7 +188,7 @@ export class MonitorERPConnector extends BaseERPConnector {
 
       return this.createSyncResult(operation, true);
     } catch (error) {
-      this.logger.error('Failed to sync production orders', { error });
+      this.logger.error({ error }, 'Failed to sync production orders');
       operation.recordsFailed = operation.recordsProcessed;
       return this.createSyncResult(operation, false, [
         this.createSyncError(
@@ -177,8 +196,8 @@ export class MonitorERPConnector extends BaseERPConnector {
           'SYNC_FAILED',
           (error as Error).message,
           undefined,
-          true
-        )
+          true,
+        ),
       ]);
     }
   }
@@ -192,16 +211,19 @@ export class MonitorERPConnector extends BaseERPConnector {
 
       const response = await this.post<{ orderId: string }>(
         '/api/v1/production/orders',
-        monitorOrder
+        monitorOrder,
       );
 
-      this.logger.info('Created production order in Monitor ERP', {
-        orderId: response.orderId
-      });
+      this.logger.info(
+        {
+          orderId: response.orderId,
+        },
+        'Created production order in Monitor ERP',
+      );
 
       return response.orderId;
     } catch (error) {
-      this.logger.error('Failed to create production order', { error });
+      this.logger.error({ error }, 'Failed to create production order');
       throw error;
     }
   }
@@ -217,17 +239,17 @@ export class MonitorERPConnector extends BaseERPConnector {
       actualEndDate?: Date;
       actualQuantity?: number;
       actualCost?: number;
-    }
+    },
   ): Promise<void> {
     try {
       await this.put(`/api/v1/production/orders/${orderId}/status`, {
         status,
-        ...actualData
+        ...actualData,
       });
 
-      this.logger.info('Updated production order status', { orderId, status });
+      this.logger.info({ orderId, status }, 'Updated production order status');
     } catch (error) {
-      this.logger.error('Failed to update production order status', { error });
+      this.logger.error({ error }, 'Failed to update production order status');
       throw error;
     }
   }
@@ -240,7 +262,7 @@ export class MonitorERPConnector extends BaseERPConnector {
     const operation = this.createSyncOperation(
       this.monitorConfig.companyId,
       EntityType.MACHINE_DATA,
-      'to_erp'
+      'to_erp',
     );
 
     try {
@@ -251,29 +273,28 @@ export class MonitorERPConnector extends BaseERPConnector {
         data,
         50, // Batch size
         async (batch) => {
-          return await this.post<any[]>('/api/v1/production/machine-data/batch', {
-            data: batch.map((d) => this.transformMachineData(d))
+          return await this.post<unknown[]>('/api/v1/production/machine-data/batch', {
+            data: batch.map((d) => this.transformMachineData(d)),
           });
-        }
+        },
       );
 
       operation.recordsProcessed = results.length;
       operation.recordsFailed = errors.length;
 
-      this.logger.info('Machine data sync completed', {
-        processed: operation.recordsProcessed,
-        failed: operation.recordsFailed
-      });
+      this.logger.info(
+        {
+          processed: operation.recordsProcessed,
+          failed: operation.recordsFailed,
+        },
+        'Machine data sync completed',
+      );
 
       return this.createSyncResult(operation, errors.length === 0);
     } catch (error) {
-      this.logger.error('Failed to sync machine data', { error });
+      this.logger.error({ error }, 'Failed to sync machine data');
       return this.createSyncResult(operation, false, [
-        this.createSyncError(
-          EntityType.MACHINE_DATA,
-          'SYNC_FAILED',
-          (error as Error).message
-        )
+        this.createSyncError(EntityType.MACHINE_DATA, 'SYNC_FAILED', (error as Error).message),
       ]);
     }
   }
@@ -282,14 +303,14 @@ export class MonitorERPConnector extends BaseERPConnector {
     const operation = this.createSyncOperation(
       this.monitorConfig.companyId,
       EntityType.OEE_METRICS,
-      'to_erp'
+      'to_erp',
     );
 
     try {
       this.logger.info(`Syncing ${metrics.length} OEE metrics to Monitor ERP`);
 
       // Send OEE metrics to Monitor for production analysis
-      const response = await this.post('/api/v1/production/oee/batch', {
+      await this.post('/api/v1/production/oee/batch', {
         metrics: metrics.map((m) => ({
           machine_id: m.machineId,
           period_start: m.periodStart.toISOString(),
@@ -301,21 +322,24 @@ export class MonitorERPConnector extends BaseERPConnector {
           total_pieces: m.totalPieces,
           good_pieces: m.goodPieces,
           rejected_pieces: m.rejectedPieces,
-          downtime_minutes: m.downtime
-        }))
+          downtime_minutes: m.downtime,
+        })),
       });
 
       operation.recordsProcessed = metrics.length;
 
-      this.logger.info('OEE metrics sync completed', {
-        processed: operation.recordsProcessed
-      });
+      this.logger.info(
+        {
+          processed: operation.recordsProcessed,
+        },
+        'OEE metrics sync completed',
+      );
 
       return this.createSyncResult(operation, true);
     } catch (error) {
-      this.logger.error('Failed to sync OEE metrics', { error });
+      this.logger.error({ error }, 'Failed to sync OEE metrics');
       return this.createSyncResult(operation, false, [
-        this.createSyncError(EntityType.OEE_METRICS, 'SYNC_FAILED', (error as Error).message)
+        this.createSyncError(EntityType.OEE_METRICS, 'SYNC_FAILED', (error as Error).message),
       ]);
     }
   }
@@ -328,7 +352,7 @@ export class MonitorERPConnector extends BaseERPConnector {
     const operation = this.createSyncOperation(
       this.monitorConfig.companyId,
       EntityType.MAINTENANCE_EVENT,
-      direction
+      direction,
     );
 
     try {
@@ -340,18 +364,14 @@ export class MonitorERPConnector extends BaseERPConnector {
         return await this.pullMaintenanceFromERP(operation);
       }
     } catch (error) {
-      this.logger.error('Failed to sync maintenance events', { error });
+      this.logger.error({ error }, 'Failed to sync maintenance events');
       return this.createSyncResult(operation, false, [
-        this.createSyncError(
-          EntityType.MAINTENANCE_EVENT,
-          'SYNC_FAILED',
-          (error as Error).message
-        )
+        this.createSyncError(EntityType.MAINTENANCE_EVENT, 'SYNC_FAILED', (error as Error).message),
       ]);
     }
   }
 
-  private async pushMaintenanceToERP(operation: any): Promise<SyncResult> {
+  private async pushMaintenanceToERP(operation: SyncOperation): Promise<SyncResult> {
     // Fetch pending maintenance events from DWS database
     let events: MaintenanceEvent[] = [];
     const client = getSupabaseClient();
@@ -366,7 +386,7 @@ export class MonitorERPConnector extends BaseERPConnector {
       if (!error && data) {
         events = data as MaintenanceEvent[];
       } else if (error) {
-        this.logger.error('Failed to fetch maintenance events', { error: error.message });
+        this.logger.error({ error: error.message }, 'Failed to fetch maintenance events');
       }
     }
 
@@ -379,23 +399,32 @@ export class MonitorERPConnector extends BaseERPConnector {
           severity: event.severity,
           description: event.description,
           scheduled_date: event.scheduledMaintenanceDate?.toISOString(),
-          estimated_cost: event.estimatedCost
+          estimated_cost: event.estimatedCost,
         });
 
         operation.recordsProcessed++;
       } catch (error) {
         operation.recordsFailed++;
-        this.logger.error('Failed to create work order', { event, error });
+        this.logger.error({ event, error }, 'Failed to create work order');
       }
     }
 
     return this.createSyncResult(operation, operation.recordsFailed === 0);
   }
 
-  private async pullMaintenanceFromERP(operation: any): Promise<SyncResult> {
-    const response = await this.get<{ data: any[] }>('/api/v1/maintenance/work-orders', {
-      params: { status: 'scheduled,in_progress' }
-    });
+  private async pullMaintenanceFromERP(operation: SyncOperation): Promise<SyncResult> {
+    interface MonitorMaintenanceWorkOrder {
+      id?: string;
+      work_order_id?: string;
+      status?: string;
+      [key: string]: unknown;
+    }
+    const response = await this.get<{ data: MonitorMaintenanceWorkOrder[] }>(
+      '/api/v1/maintenance/work-orders',
+      {
+        params: { status: 'scheduled,in_progress' },
+      },
+    );
 
     operation.recordsProcessed = response.data.length;
 
@@ -403,17 +432,17 @@ export class MonitorERPConnector extends BaseERPConnector {
     const client = getSupabaseClient();
     if (client && response.data.length > 0) {
       const { error } = await client.from('erp_maintenance_orders').upsert(
-        response.data.map((wo: any) => ({
+        response.data.map((wo) => ({
           external_id: wo.id || wo.work_order_id,
           provider: 'monitor',
           status: wo.status,
           data: wo,
           synced_at: new Date().toISOString(),
         })),
-        { onConflict: 'external_id,provider' }
+        { onConflict: 'external_id,provider' },
       );
       if (error) {
-        this.logger.warn('Failed to store maintenance orders', { error: error.message });
+        this.logger.warn({ error: error.message }, 'Failed to store maintenance orders');
         operation.recordsFailed = response.data.length;
       }
     }
@@ -430,9 +459,20 @@ export class MonitorERPConnector extends BaseERPConnector {
    */
   async syncMaterialRequirements(productionOrderId: string): Promise<MaterialRequirement[]> {
     try {
-      const response = await this.get<{ data: any[] }>(
-        `/api/v1/production/orders/${productionOrderId}/materials`
-      );
+      const response = await this.get<{
+        data: Array<{
+          id: string;
+          material_id: string;
+          material_name: string;
+          required_quantity: number;
+          unit: string;
+          available_quantity?: number;
+          allocated_quantity?: number;
+          required_date: string;
+          status: MaterialRequirement['status'];
+          warehouse_location?: string;
+        }>;
+      }>(`/api/v1/production/orders/${productionOrderId}/materials`);
 
       return response.data.map((item) => ({
         id: item.id,
@@ -445,10 +485,10 @@ export class MonitorERPConnector extends BaseERPConnector {
         allocatedQuantity: item.allocated_quantity,
         requiredDate: new Date(item.required_date),
         status: item.status,
-        warehouseLocation: item.warehouse_location
+        warehouseLocation: item.warehouse_location,
       }));
     } catch (error) {
-      this.logger.error('Failed to sync material requirements', { error });
+      this.logger.error({ error }, 'Failed to sync material requirements');
       throw error;
     }
   }
@@ -466,12 +506,12 @@ export class MonitorERPConnector extends BaseERPConnector {
         from_location: transaction.fromLocation,
         to_location: transaction.toLocation,
         related_order_id: transaction.relatedOrderId,
-        timestamp: transaction.timestamp.toISOString()
+        timestamp: transaction.timestamp.toISOString(),
       });
 
-      this.logger.info('Posted inventory transaction', { transaction });
+      this.logger.info({ transaction }, 'Posted inventory transaction');
     } catch (error) {
-      this.logger.error('Failed to post inventory transaction', { error });
+      this.logger.error({ error }, 'Failed to post inventory transaction');
       throw error;
     }
   }
@@ -487,7 +527,7 @@ export class MonitorERPConnector extends BaseERPConnector {
     const operation = this.createSyncOperation(
       this.monitorConfig.companyId,
       EntityType.COST_TRANSACTION,
-      'to_erp'
+      'to_erp',
     );
 
     try {
@@ -504,25 +544,21 @@ export class MonitorERPConnector extends BaseERPConnector {
             related_asset_id: cost.relatedAssetId,
             timestamp: cost.timestamp.toISOString(),
             description: cost.description,
-            actual_vs_planned: cost.actualVsPlanned
+            actual_vs_planned: cost.actualVsPlanned,
           });
 
           operation.recordsProcessed++;
         } catch (error) {
           operation.recordsFailed++;
-          this.logger.error('Failed to post cost transaction', { cost, error });
+          this.logger.error({ cost, error }, 'Failed to post cost transaction');
         }
       }
 
       return this.createSyncResult(operation, operation.recordsFailed === 0);
     } catch (error) {
-      this.logger.error('Failed to sync cost transactions', { error });
+      this.logger.error({ error }, 'Failed to sync cost transactions');
       return this.createSyncResult(operation, false, [
-        this.createSyncError(
-          EntityType.COST_TRANSACTION,
-          'SYNC_FAILED',
-          (error as Error).message
-        )
+        this.createSyncError(EntityType.COST_TRANSACTION, 'SYNC_FAILED', (error as Error).message),
       ]);
     }
   }
@@ -531,7 +567,7 @@ export class MonitorERPConnector extends BaseERPConnector {
   // Data Transformation Methods
   // ============================================================================
 
-  private transformProductionOrder(monitorOrder: any): ProductionOrder {
+  private transformProductionOrder(monitorOrder: MonitorProductionOrderRaw): ProductionOrder {
     return {
       id: monitorOrder.id,
       orderNumber: monitorOrder.order_number,
@@ -541,9 +577,7 @@ export class MonitorERPConnector extends BaseERPConnector {
       unit: monitorOrder.unit,
       scheduledStartDate: new Date(monitorOrder.scheduled_start),
       scheduledEndDate: new Date(monitorOrder.scheduled_end),
-      actualStartDate: monitorOrder.actual_start
-        ? new Date(monitorOrder.actual_start)
-        : undefined,
+      actualStartDate: monitorOrder.actual_start ? new Date(monitorOrder.actual_start) : undefined,
       actualEndDate: monitorOrder.actual_end ? new Date(monitorOrder.actual_end) : undefined,
       status: this.mapMonitorStatus(monitorOrder.status),
       priority: monitorOrder.priority || 0,
@@ -552,12 +586,12 @@ export class MonitorERPConnector extends BaseERPConnector {
       actualCost: monitorOrder.actual_cost,
       metadata: {
         monitorOrderId: monitorOrder.id,
-        customerOrderNumber: monitorOrder.customer_order_number
-      }
+        customerOrderNumber: monitorOrder.customer_order_number,
+      },
     };
   }
 
-  private transformToMonitorOrder(order: ProductionOrder): any {
+  private transformToMonitorOrder(order: ProductionOrder): Record<string, unknown> {
     return {
       article_number: order.productId,
       quantity: order.quantity,
@@ -565,11 +599,11 @@ export class MonitorERPConnector extends BaseERPConnector {
       scheduled_start: order.scheduledStartDate.toISOString(),
       scheduled_end: order.scheduledEndDate.toISOString(),
       work_center_id: order.workCenterId,
-      priority: order.priority
+      priority: order.priority,
     };
   }
 
-  private transformMachineData(data: MachineData): any {
+  private transformMachineData(data: MachineData): Record<string, unknown> {
     return {
       machine_id: data.machineId,
       timestamp: data.timestamp.toISOString(),
@@ -578,14 +612,14 @@ export class MonitorERPConnector extends BaseERPConnector {
       reject_count: data.rejectCount,
       cycle_time: data.cycleTime,
       energy_consumption: data.energyConsumption,
-      metadata: data.metadata
+      metadata: data.metadata,
     };
   }
 
   private mapMonitorStatus(
-    status: string
+    status: string,
   ): 'planned' | 'released' | 'in_progress' | 'completed' | 'cancelled' {
-    const statusMap: Record<string, any> = {
+    const statusMap: Record<string, ProductionOrder['status']> = {
       planned: 'planned',
       released: 'released',
       started: 'in_progress',
@@ -593,7 +627,7 @@ export class MonitorERPConnector extends BaseERPConnector {
       completed: 'completed',
       finished: 'completed',
       cancelled: 'cancelled',
-      closed: 'completed'
+      closed: 'completed',
     };
 
     return statusMap[status.toLowerCase()] || 'planned';

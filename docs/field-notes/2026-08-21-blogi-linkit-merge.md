@@ -1,0 +1,13 @@
+# 2026-08-21 — blogi-linkit merge-conflict resolution
+
+N/A — routine merge-conflict repair, no new product/architecture decision. Recorded per Rule 12 (fail loud) since the branch touched 259 files.
+
+**Task:** fix merge conflicts between `claude/blogi-linkit-kohteet-f1j1cm` (PR #1764, LSJ blog content audit — price removal from post "From the Store" cards, Finnish diacritic fixes on 22 day-series posts, 5-language price-list pages, blog nav links) and `origin/main` (which had independently advanced with hero images, CSP script-src fixes, mailto→contact-form migration, KYA-S1 series map/nav, 5-language i18n nav/footer/lang-bar), and land the result on the designated branch `claude/blogi-linkit-merge-errors-wedpz8`.
+
+**What happened:** 148 files conflicted. Resolution was delegated to a background agent in an isolated git worktree rather than resolved blindly, because a naive `ours`/`theirs` pick would have silently dropped real work from one side or the other. The agent resolved every conflict file-by-file: ~116 were simple (this branch's price-removal text superseded main's stale hardcoded price), ~30 needed genuine two-sided merging (kept this branch's diacritic-correct Finnish text while splicing in main's new hero-image meta tags), one post (`business-case-logistics.html`) had been deliberately retired on main and that retirement was honored over continuing to patch it, and 3 files needed manual reconstruction after a bad first-pass regex resolution (caught by a post-resolution grep sweep for leftover conflict markers). Dual-folder mirrors (`onelifetime.world/` ↔ `landing-pages/onelifetime-world/`) were verified byte-identical after resolution.
+
+**Result:** commit `334b47e8d` on `claude/blogi-linkit-merge-errors-wedpz8`, pushed to origin, zero conflict markers remain, tree is clean, HEAD is ahead of `origin/main` (259 files changed cleanly against main). PR #1764 itself (head `claude/blogi-linkit-kohteet-f1j1cm`) was left untouched — task instructions required developing on the separate `-merge-errors-` branch, and no PR was opened per the "don't open a PR unless asked" rule.
+
+**One item worth a human glance:** in `liquidity-engine-captain-seats.html`, the agent kept the original generic `og:image` (`dws10.com/DWS_IQ2026.png`) rather than switching to main's new hero-specific image, to avoid touching more of that already-approved published post than the metadata merge required.
+
+**Not done (N/A):** KB update, Learn/ HTML render, Drive export — this is a routine conflict-repair task with no new concept/whitepaper/signal to capture; the six-step Learning Outcome is scoped to substantive sessions.

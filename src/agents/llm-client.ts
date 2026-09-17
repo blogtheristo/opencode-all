@@ -18,9 +18,20 @@
  */
 
 import logger from '../utils/logger.js';
-import type { ToolDefinition, ToolCall, LLMMessage, LLMResponse, ModelTier } from './types.js';
-import { selectModel } from './model-selector.js';
+import type { LLMMessage, LLMResponse, ModelTier, ToolCall, ToolDefinition } from './types.js';
+import { OLLAMA_DEPLOYED_MODELS, selectModel } from './model-selector.js';
 import type { ModelSelection } from './model-selector.js';
+import { recordLLMResponse, withLLMSpan } from '../observability/tracing.js';
+
+const PROVIDER_GENAI_SYSTEM: Record<string, string> = {
+  anthropic: 'anthropic',
+  google: 'gcp.gemini',
+  groq: 'groq',
+  baseten: 'baseten',
+  'ollama-local': 'ollama',
+  'vllm-local': 'vllm',
+  'openai-compatible': 'openai',
+};
 
 // ============ PROVIDER CONFIGURATION ============
 
@@ -41,6 +52,10 @@ export interface LLMClientConfig {
   model: string;
   maxTokens?: number;
   temperature?: number;
+  /** Optional Ollama KV cache mode configured on the local host. */
+  kvCacheCompression?: 'none' | 'q4_0' | 'q8_0' | 'turboquant-3bit';
+  /** Optional Ollama context window size sent as num_ctx. */
+  numCtx?: number;
   /** Model selection metadata (when created via createLLMClientForAgent) */
   selection?: ModelSelection;
 }
@@ -56,7 +71,7 @@ export function resolveProvider(agentModel: string): LLMClientConfig | null {
       provider: 'anthropic',
       apiKey: process.env.ANTHROPIC_API_KEY,
       baseUrl: 'https://api.anthropic.com/v1',
-      model: process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514',
+      model: process.env.ANTHROPIC_MODEL || agentModel || 'claude-sonnet-5',
       maxTokens: 4096,
       temperature: 0.3,
     };
@@ -88,14 +103,18 @@ export function resolveProvider(agentModel: string): LLMClientConfig | null {
 
   // Ollama on Acer Veriton GN100 (OpenAI-compatible API)
   if (process.env.OLLAMA_BASE_URL) {
-    return {
-      provider: 'ollama-local',
-      apiKey: 'ollama', // Ollama doesn't require auth
-      baseUrl: process.env.OLLAMA_BASE_URL, // e.g. http://localhost:11434/v1
-      model: agentModel || 'qwen2.5:32b',
-      maxTokens: 4096,
-      temperature: 0.3,
-    };
+      return {
+        provider: 'ollama-local',
+        apiKey: 'ollama', // Ollama doesn't require auth
+        baseUrl: process.env.OLLAMA_BASE_URL, // e.g. http://localhost:11434/v1
+        // Default must be a model the box actually has (drift incident 31.07.2026).
+        model: agentModel || OLLAMA_DEPLOYED_MODELS.deep,
+        maxTokens: 4096,
+        temperature: 0.3,
+        kvCacheCompression:
+          (process.env.OLLAMA_KV_CACHE_TYPE as LLMClientConfig['kvCacheCompression']) || 'none',
+        numCtx: process.env.OLLAMA_NUM_CTX ? parseInt(process.env.OLLAMA_NUM_CTX, 10) : undefined,
+      };
   }
 
   // vLLM on Acer Veriton GN100 (OpenAI-compatible API)
@@ -224,6 +243,9 @@ function mapSelectionToConfig(selection: ModelSelection): LLMClientConfig | null
         model: selection.modelId,
         maxTokens: selection.maxTokens,
         temperature: selection.temperature,
+        kvCacheCompression:
+          (process.env.OLLAMA_KV_CACHE_TYPE as LLMClientConfig['kvCacheCompression']) || 'none',
+        numCtx: process.env.OLLAMA_NUM_CTX ? parseInt(process.env.OLLAMA_NUM_CTX, 10) : undefined,
         selection,
       };
     }
@@ -285,14 +307,33 @@ export class LLMClient {
    * Returns the assistant's response, which may include tool calls.
    */
   async chat(messages: LLMMessage[], tools?: ToolDefinition[]): Promise<LLMResponse> {
-    if (this.config.provider === 'anthropic') {
-      return this.chatAnthropic(messages, tools);
-    }
-    if (this.config.provider === 'google') {
-      return this.chatGoogle(messages, tools);
-    }
-    // Groq, Ollama, vLLM, and OpenAI-compatible all share the same API shape
-    return this.chatOpenAICompatible(messages, tools);
+    return withLLMSpan(
+      {
+        system: PROVIDER_GENAI_SYSTEM[this.config.provider] || this.config.provider,
+        operationName: 'chat',
+        requestModel: this.config.model,
+        requestMaxTokens: this.config.maxTokens,
+        requestTemperature: this.config.temperature,
+      },
+      async (span) => {
+        let response: LLMResponse;
+        if (this.config.provider === 'anthropic') {
+          response = await this.chatAnthropic(messages, tools);
+        } else if (this.config.provider === 'google') {
+          response = await this.chatGoogle(messages, tools);
+        } else {
+          // Groq, Ollama, vLLM, and OpenAI-compatible all share the same API shape
+          response = await this.chatOpenAICompatible(messages, tools);
+        }
+        recordLLMResponse(span, {
+          responseModel: response.model,
+          inputTokens: response.inputTokens,
+          outputTokens: response.outputTokens,
+          finishReason: response.stopReason,
+        });
+        return response;
+      },
+    );
   }
 
   // ============ ANTHROPIC PROVIDER ============
@@ -488,11 +529,11 @@ export class LLMClient {
     const textParts = parts.filter((p) => p.text).map((p) => p.text || '');
     const fnCalls = parts.filter((p) => p.functionCall);
 
-    const toolCalls: ToolCall[] = fnCalls.map((p, idx) => ({
-      id: `call_gemini_${Date.now()}_${idx}`,
-      name: p.functionCall!.name,
-      arguments: p.functionCall!.args || {},
-    }));
+    const toolCalls: ToolCall[] = fnCalls.flatMap((p, idx) =>
+      p.functionCall
+        ? [{ id: `call_gemini_${Date.now()}_${idx}`, name: p.functionCall.name, arguments: p.functionCall.args || {} }]
+        : [],
+    );
 
     return {
       content: textParts.join('\n'),
@@ -554,6 +595,10 @@ export class LLMClient {
       max_completion_tokens: this.config.maxTokens || 1024,
       temperature: this.config.temperature || 0.3,
     };
+
+    if (this.config.provider === 'ollama-local' && this.config.numCtx) {
+      body.options = { num_ctx: this.config.numCtx };
+    }
 
     if (openaiTools && openaiTools.length > 0) {
       body.tools = openaiTools;
@@ -665,6 +710,8 @@ export function createLLMClientForAgent(
     tier: config.selection?.tier,
     isLocal: config.selection?.isLocal,
     reason: config.selection?.reason,
+    numCtx: config.numCtx,
+    kvCacheCompression: config.kvCacheCompression,
   });
   return new LLMClient(config);
 }

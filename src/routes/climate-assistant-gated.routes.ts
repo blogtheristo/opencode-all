@@ -7,7 +7,7 @@
  * GET /api/climate-assistant/session/:id - Get session info
  */
 
-import express, { type Request, type Response, type Router } from 'express';
+import express, { type NextFunction, type Request, type Response, type Router } from 'express';
 import { body, param, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
 import crypto from 'crypto';
@@ -71,7 +71,7 @@ const leadValidation = [
 ];
 
 // Validation middleware
-const validate = (req: Request, res: Response, next: any) => {
+const validate = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({
@@ -94,7 +94,7 @@ router.post(
   validate,
   async (req: Request, res: Response) => {
     try {
-      const { message, sessionId, userId, conversationHistory } = req.body;
+      const { message, sessionId, conversationHistory } = req.body;
 
       // Determine tier based on authentication status (server-side only)
       // Do NOT trust client-provided tier parameter
@@ -137,7 +137,7 @@ router.post(
       const response = await GatedService.processGatedMessage({
         message,
         sessionId,
-        userId,
+        userId: req.userId,
         tier: effectiveTier,
         conversationHistory,
       });
@@ -150,12 +150,12 @@ router.post(
         tier: effectiveTier,
         timestamp: new Date().toISOString(),
       });
-    } catch (error: any) {
-      logger.error('Gated chat error', { error: error.message });
+    } catch (error) {
+      logger.error('Gated chat error', { error: error instanceof Error ? error.message : String(error) });
       res.status(500).json({
         success: false,
         error: 'Chat Error',
-        message: error.message || 'An unexpected error occurred',
+        message: error instanceof Error ? error.message : String(error) || 'An unexpected error occurred',
       });
     }
   },
@@ -197,12 +197,12 @@ router.post(
         tier: 'lead',
         messagesRemaining: 3,
       });
-    } catch (error: any) {
-      logger.error('Lead capture error', { error: error.message });
+    } catch (error) {
+      logger.error('Lead capture error', { error: error instanceof Error ? error.message : String(error) });
       res.status(500).json({
         success: false,
         error: 'Lead Capture Error',
-        message: error.message,
+        message: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -226,10 +226,10 @@ router.get(
         questionCount: questions.length,
         questions,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         error: 'Session Error',
-        message: error.message,
+        message: error instanceof Error ? error.message : String(error),
       });
     }
   },
@@ -274,12 +274,12 @@ router.get('/leads', (req: Request, res: Response) => {
       count: leads.length,
       leads,
     });
-  } catch (error: any) {
-    logger.error('Failed to get leads', { error: error.message });
+  } catch (error) {
+    logger.error('Failed to get leads', { error: error instanceof Error ? error.message : String(error) });
     return res.status(500).json({
       error: 'Failed to get leads',
       // Don't expose internal error details in production
-      message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
+      message: process.env.NODE_ENV === 'development' ? error instanceof Error ? error.message : String(error) : 'Internal server error',
     });
   }
 });

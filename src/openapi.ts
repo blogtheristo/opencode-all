@@ -1132,7 +1132,7 @@ const spec = {
                   context: { type: 'object' },
                   channel: {
                     type: 'string',
-                    enum: ['email', 'webhook', 'whatsapp'],
+                    enum: ['email', 'webhook', 'teams'],
                     default: 'email',
                   },
                   recipient: { type: 'string' },

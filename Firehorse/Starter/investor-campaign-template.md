@@ -3,7 +3,7 @@
 ## DWS6 Targeting Criteria
 
 ### Institutional Investors (€100k–€500k)
-- **Stage**: Seed / Seed-extension (bridge to Series A 2026), €7k MRR → €900k ARR target
+- **Stage**: Seed / Seed-extension (bridge to Series A 2026), €59,900 of contracted Q1/2026 enterprise pilots → €900k ARR target
 - **Sectors**: Climate tech, industrial decarbonization, construction/infra SaaS, ESG/CSRD automation, industrial AI
 - **Geography**: Nordics + DACH + Benelux + UK; EU-focused climate funds (incl. US funds with EU climate/infra thesis)
 - **Portfolio**: Construction tech, infra/asset mgmt SaaS, climate/ESG reporting, regulatory SaaS, industrial automation

@@ -12,7 +12,6 @@ import { describe, expect, it } from 'vitest';
 import {
   buildDataSourceMatrix,
   buildIndustryProfile,
-  calculateCorrelations,
   CROSS_VERTICAL_SIGNALS,
   type CrossVerticalSimResult,
   extractQanticCase,

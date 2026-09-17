@@ -1,11 +1,6 @@
 ---
 name: material-oracle
-description: >
-  Embodied carbon calculation per EN 15978 lifecycle assessment (stages A1–D).
-  Computes kgCO2e per material, suggests lower-carbon alternatives, and
-  integrates with EC3 database for EPD data. Use when: "embodied carbon",
-  "carbon footprint", "kgCO2e", "lifecycle assessment", "LCA", "A1-A3
-  emissions", "material carbon", "procurement carbon", "construction materials".
+description: "Embodied carbon per EN 15978 (stages A1–D). kgCO2e per material, lower-carbon alternatives, EC3 EPD database integration."
 argument-hint: "list of materials with quantities and units"
 allowed-tools: [Bash, WebSearch, WebFetch]
 ---
@@ -108,6 +103,19 @@ The agent compares materials against low-carbon substitutes:
 - CSRD E1 (climate) embodied carbon disclosure
 - EN 15978 compliant LCA for building certification (LEED, BREEAM, DGNB)
 - Whole-life carbon budget planning
+
+## Latent vs Deterministic
+
+| Step                                                   | Where                                       | Kind          |
+| ------------------------------------------------------ | ------------------------------------------- | ------------- |
+| Emission factor lookup per material                    | ICE v3 / EC3 / EPD tables                   | Deterministic |
+| `kgCO2e = factor × quantity` arithmetic                | `src/agents/material-oracle.agent.ts`       | Deterministic |
+| Stage allocation per EN 15978 (A1–A3, A4, A5, B, C, D) | Agent code (fixed mapping)                  | Deterministic |
+| Material name disambiguation (free-text → catalog)     | LLM                                         | Latent        |
+| Lower-carbon alternative ranking by cost/saving        | LLM (proposes), arithmetic confirms savings | Latent        |
+| Recommendation narrative                               | LLM                                         | Latent        |
+
+Rule: do not ask the LLM to compute kgCO2e. Use the factor table and the agent's arithmetic. The LLM's job is to name the material correctly and to judge which alternative is realistic for the project.
 
 ## Standards References
 

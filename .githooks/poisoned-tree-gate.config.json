@@ -1,0 +1,7 @@
+{
+  "pusherIdentity": "blogtheristo",
+  "manifestPath": ".githooks/critical-files.manifest",
+  "approvalsDir": ".githooks/approvals",
+  "trustedKeysDir": ".githooks/trusted-keys",
+  "maxDeletions": 500
+}

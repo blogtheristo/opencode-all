@@ -7,13 +7,14 @@
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { EmissionsDataAnalystAgent } from '../agents/emissions-data-analyst.agent.js';
+import type { AgentContext } from '../agents/types.js';
 
 // Suppress logger noise during tests
 vi.mock('../utils/logger.js', () => ({
   default: { info: vi.fn(), debug: vi.fn(), warn: vi.fn(), error: vi.fn() },
 }));
 
-const CONTEXT: import('../agents/types.js').AgentContext = {
+const CONTEXT: AgentContext = {
   userId: 'test-user',
   orgId: 'test-org',
   sessionId: 'test-session',

@@ -4,12 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/synthetic-data-pipeline-TK1Lp | Date: 06.04.2026 | Changes: Initial — built complete synthetic data pipeline: CBAM schema (NeMo DataDesigner), LLM-as-Judge validation, 50 seed filings, compute strategy, SyntheticDataAgent (Agent 19), daily health check
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vulcan-cn-codes-pr-dv519 | Date: 06.04.2026 | Changes: Vulcan CN code expansion (12 → 42 explicit codes, 55 heading range), Red Team seed negatives documentation, isCBAMSteelAndIron() helper
+- Version: 1.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/cbam-alignment-pr-6as8L-gm8Fx | Date: 21.05.2026 | Changes: Phase 2 — added Scaleway H100 Python runner script (scripts/scaleway/generate-cbam-1k.py); generates 1,000 validated CBAM declarations with MTC narratives for NCC V1 demo (deadline: June 15, 2026); async LLM generation via Scaleway Generative APIs, deterministic rule-checker + LLM-as-Judge validation, checkpoint resume, JSONL + CSV output
 
 Session Links & References:
 
@@ -162,9 +163,61 @@ This means V1 demo for NCC is possible with existing code — no integration gap
 | Phase          | Timeline       | Deliverable                                                  |
 | -------------- | -------------- | ------------------------------------------------------------ |
 | Phase 1 (done) | April 2026     | 50 seeds + deterministic validation + agent registration     |
-| Phase 2        | May–June 2026  | NIM judge deployment, 1K records, V1 demo for NCC (June 15)  |
+| Phase 2 (done) | May–June 2026  | Scaleway H100 runner script, 1K records, V1 demo for NCC (June 15) |
 | Phase 3        | July–Sept 2026 | 100K records via NeMo DataDesigner on B200, cuDF integration |
 | Phase 4        | Oct 2026+      | Continuous re-simulation on regulatory updates, Vera Rubin   |
+
+---
+
+## Phase 2 — Scaleway H100 Runner Script
+
+**File:** `scripts/scaleway/generate-cbam-1k.py`
+**Deps:** `scripts/scaleway/requirements.txt` (openai, tqdm; Python 3.11)
+
+### What it does
+
+Generates 1,000 synthetic CBAM declarations suitable for the NCC due diligence demo.
+Ported directly from the TypeScript schema in `src/synthetic-data/cbam-schema.ts`.
+
+| Step | Detail |
+| ---- | ------ |
+| 1. Sample | 13 seed installations × weighted categorical columns for all CBAM fields |
+| 2. Anomaly inject | 60% clean / 40% anomalous (8 anomaly types, 5 severities) |
+| 3. Deterministic validate | Rule-check physical bounds, positive quantities, valid CN codes |
+| 4. MTC narrative | Async call to `llama-3.3-70b-instruct` via Scaleway Generative APIs |
+| 5. LLM judge | `mistral-nemo-instruct-2407` scores 0.0–1.0; threshold 0.80 to accept |
+| 6. Checkpoint | Save to `data/cbam-1k-ncc-v1-checkpoint.jsonl` every batch |
+| 7. Final output | `data/cbam-1k-ncc-v1.jsonl` (full) + `data/cbam-1k-ncc-v1.csv` (truncated MTC) |
+
+### How to run on Scaleway H100
+
+```bash
+# 1. Provision Scaleway GPU Instance (fr-par-2, H100 SXM 80GB, Ubuntu 22.04 LTS)
+# 2. SSH in, clone repo, install deps:
+pip install -r scripts/scaleway/requirements.txt
+
+# 3. Set API key (from Scaleway Console → IAM → API Keys):
+export SCW_SECRET_KEY=<your-scaleway-api-key>
+
+# 4. Dry-run first (no LLM calls, instant):
+python scripts/scaleway/generate-cbam-1k.py --dry-run --records 10
+
+# 5. Full 1K run (skip judge for speed during demo prep):
+python scripts/scaleway/generate-cbam-1k.py --skip-llm-judge
+
+# 6. Full 1K with judge validation (production-quality, ~5h, EUR 14):
+python scripts/scaleway/generate-cbam-1k.py
+```
+
+Checkpoint resume is automatic — re-run the same command if interrupted.
+
+### Cost envelope
+
+| Mode | Duration | Cost |
+| ---- | -------- | ---- |
+| `--skip-llm-judge` | ~1h | EUR 2.73 (H100) + free tier judge |
+| Full with judge | ~5h | EUR 13.65 (H100) + Generative APIs free tier |
+| 100K Phase 3 | ~200h on 2× H100 | EUR 1,092 |
 
 ---
 

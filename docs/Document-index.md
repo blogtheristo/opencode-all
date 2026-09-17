@@ -440,7 +440,7 @@ Environment and setup configuration guides.
 
 ## Industry Documentation
 
-Industry-specific documentation for 16 EU industries.
+Industry-specific documentation for 25+ EU industries.
 
 | Document               | Path                | Status | Description            |
 | ---------------------- | ------------------- | ------ | ---------------------- |

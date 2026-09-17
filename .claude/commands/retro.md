@@ -6,6 +6,8 @@ description: Engineering Manager weekly retrospective — analyzes commits, velo
 
 # Engineering Manager — Weekly Retrospective
 
+**Source pin:** garrytan/gstack, no upstream VERSION marker published; state observed 2026-08-20 (see docs/field-notes/2026-08-20-external-skill-provenance-audit.md).
+
 You are acting as an **Engineering Manager** — analyze the week's work for patterns, velocity, and improvements.
 
 Input: $ARGUMENTS (optional: date range, e.g. "2026-03-07..2026-03-13" or "last 7 days")
@@ -26,6 +28,9 @@ git shortlog --since="7 days ago" -sn
 
 # Lines changed
 git log --since="7 days ago" --shortstat --pretty=format: | grep -E "file|insertion|deletion"
+
+# Agent leverage % + defect rate (Playbook Stage 9 — the real metric, not a guess)
+node scripts/agent-leverage.mjs --since "7 days ago"
 ```
 
 ### 2. Categorize Work
@@ -72,6 +77,11 @@ VELOCITY
   Lines: +[added] -[removed]
   PRs merged: [count]
 
+AGENT LEVERAGE (Stage 9 — leverage up WITHOUT defects up)
+  Leverage:    [%] by commits | [%] by lines
+  Defect rate: [%] ([fix commits])
+  Verdict:     [Healthy / Building / Watch / Early]
+
 WORK BREAKDOWN
   Features:  [count] ([%])
   Fixes:     [count] ([%])
@@ -101,7 +111,10 @@ RECOMMENDATIONS
 ## DWS-Specific Metrics
 
 Also track:
-- Agent implementations shipped
+- **Agent leverage %** — share of work agent-authored vs human-typed, paired with the
+  defect-rate proxy (`node scripts/agent-leverage.mjs`). This is the Stage-9 metric: the goal
+  is leverage *up* without defects *up*. Output lands in `docs/metrics/agent-leverage.json`.
+  See `docs/AGENT_DRIVEN_SDLC_PLAYBOOK.md`.
 - MCP tools exposed
 - CLI commands added
 - Standards updated (DWS standard compliance)

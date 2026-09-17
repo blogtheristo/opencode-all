@@ -10,7 +10,7 @@
  * Owner: Lifetime Oy
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mock node-cron before importing scheduler
 const mockSchedule = vi.fn(() => ({ stop: vi.fn() }));
@@ -18,30 +18,13 @@ vi.mock('node-cron', () => ({
   schedule: mockSchedule,
 }));
 
-// Mock Supabase
-const mockRpc = vi.fn();
-const mockSelect = vi.fn();
-const mockNot = vi.fn();
-const mockIs = vi.fn();
-const mockLimit = vi.fn();
+// Mock the internal Postgres pool (memory.service.ts / memory.scheduler.ts
+// both call getInternalDbPool() directly, no Supabase involved anymore).
+const mockQuery = vi.fn();
+const mockGetInternalDbPool = vi.fn(() => ({ query: mockQuery }));
 
-const mockQueryBuilder = {
-  select: mockSelect,
-  not: mockNot,
-  is: mockIs,
-  limit: mockLimit,
-};
-
-// Chain returns itself
-mockSelect.mockReturnValue(mockQueryBuilder);
-mockNot.mockReturnValue(mockQueryBuilder);
-mockIs.mockReturnValue(mockQueryBuilder);
-
-vi.mock('@supabase/supabase-js', () => ({
-  createClient: vi.fn(() => ({
-    rpc: mockRpc,
-    from: vi.fn(() => mockQueryBuilder),
-  })),
+vi.mock('../config/internal-db.js', () => ({
+  getInternalDbPool: () => mockGetInternalDbPool(),
 }));
 
 vi.mock('../utils/logger.js', () => ({
@@ -54,20 +37,21 @@ vi.mock('../utils/logger.js', () => ({
 }));
 
 describe('MemoryScheduler', () => {
-  let MemoryScheduler: typeof import('../agents/memory.scheduler.js').MemoryScheduler;
+  let MemoryScheduler: typeof MemoryScheduler;
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    process.env.SUPABASE_URL = 'https://test.supabase.co';
-    process.env.SUPABASE_SERVICE_KEY = 'test-key';
-
-    // Reset chain mocks
-    mockSelect.mockReturnValue(mockQueryBuilder);
-    mockNot.mockReturnValue(mockQueryBuilder);
-    mockIs.mockReturnValue(mockQueryBuilder);
+    mockGetInternalDbPool.mockReturnValue({ query: mockQuery });
+    process.env.INTERNAL_DB_URL = 'postgres://test/test_internal';
+    process.env.ENABLE_INTERNAL_DB_IN_TESTS = 'true';
 
     const mod = await import('../agents/memory.scheduler.js');
     MemoryScheduler = mod.MemoryScheduler;
+  });
+
+  afterEach(() => {
+    delete process.env.INTERNAL_DB_URL;
+    delete process.env.ENABLE_INTERNAL_DB_IN_TESTS;
   });
 
   describe('start()', () => {
@@ -76,18 +60,12 @@ describe('MemoryScheduler', () => {
       scheduler.start();
 
       expect(mockSchedule).toHaveBeenCalledTimes(2);
-      expect(mockSchedule).toHaveBeenNthCalledWith(
-        1,
-        '0 3 * * *',
-        expect.any(Function),
-        { timezone: 'Europe/Helsinki' },
-      );
-      expect(mockSchedule).toHaveBeenNthCalledWith(
-        2,
-        '30 3 * * *',
-        expect.any(Function),
-        { timezone: 'Europe/Helsinki' },
-      );
+      expect(mockSchedule).toHaveBeenNthCalledWith(1, '0 3 * * *', expect.any(Function), {
+        timezone: 'Europe/Helsinki',
+      });
+      expect(mockSchedule).toHaveBeenNthCalledWith(2, '30 3 * * *', expect.any(Function), {
+        timezone: 'Europe/Helsinki',
+      });
 
       scheduler.stop();
     });
@@ -108,89 +86,91 @@ describe('MemoryScheduler', () => {
 
   describe('runManually()', () => {
     it('should run decay job on manual trigger', async () => {
-      // decay RPC
-      mockRpc.mockResolvedValueOnce({ data: [], error: null });
+      // decay_stale_memories via callDbFunction -> pool.query
+      mockQuery.mockResolvedValueOnce({ rows: [] });
 
       const scheduler = new MemoryScheduler();
       await scheduler.runManually('decay');
 
-      expect(mockRpc).toHaveBeenCalledWith('decay_stale_memories', expect.objectContaining({
-        p_half_life_days: 90,
-        p_decay_threshold: 0.1,
-      }));
+      expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('decay_stale_memories'), [
+        90,
+        0.1,
+        false,
+        null,
+      ]);
     });
 
     it('should run consolidation job on manual trigger', async () => {
       // getActiveScopes: customer query returns empty
-      mockLimit.mockResolvedValueOnce({ data: [], error: null });
+      mockQuery.mockResolvedValueOnce({ rows: [] });
       // getActiveScopes: org query returns empty
-      mockLimit.mockResolvedValueOnce({ data: [], error: null });
+      mockQuery.mockResolvedValueOnce({ rows: [] });
 
       const scheduler = new MemoryScheduler();
       await scheduler.runManually('consolidation');
 
-      // Only scope discovery queries, no consolidation RPCs (no scopes)
-      expect(mockLimit).toHaveBeenCalledTimes(2);
+      // Only scope discovery queries, no consolidation RPCs (no scopes found)
+      expect(mockQuery).toHaveBeenCalledTimes(2);
     });
 
     it('should run both jobs when "all" is specified', async () => {
-      // decay RPC
-      mockRpc.mockResolvedValueOnce({ data: [], error: null });
+      // decay
+      mockQuery.mockResolvedValueOnce({ rows: [] });
       // getActiveScopes: customer + org queries
-      mockLimit.mockResolvedValueOnce({ data: [], error: null });
-      mockLimit.mockResolvedValueOnce({ data: [], error: null });
+      mockQuery.mockResolvedValueOnce({ rows: [] });
+      mockQuery.mockResolvedValueOnce({ rows: [] });
 
       const scheduler = new MemoryScheduler();
       await scheduler.runManually('all');
 
-      // decay RPC was called
-      expect(mockRpc).toHaveBeenCalledWith('decay_stale_memories', expect.any(Object));
+      // decay query was issued
+      expect(mockQuery).toHaveBeenCalledWith(
+        expect.stringContaining('decay_stale_memories'),
+        expect.any(Array),
+      );
     });
 
     it('should iterate over discovered customer scopes', async () => {
-      // getActiveScopes: customer query returns two scopes
-      mockLimit.mockResolvedValueOnce({
-        data: [
+      // getActiveScopes: customer query returns two scopes (dedup from 3 rows)
+      mockQuery.mockResolvedValueOnce({
+        rows: [
           { org_id: 'org-1', customer_id: 'cust-a' },
           { org_id: 'org-1', customer_id: 'cust-b' },
           { org_id: 'org-1', customer_id: 'cust-a' }, // duplicate, should be deduped
         ],
-        error: null,
       });
       // getActiveScopes: org query returns one org
-      mockLimit.mockResolvedValueOnce({
-        data: [{ org_id: 'org-1' }],
-        error: null,
-      });
+      mockQuery.mockResolvedValueOnce({ rows: [{ org_id: 'org-1' }] });
 
-      // consolidateDuplicates for cust-a: find + audit
-      mockRpc.mockResolvedValueOnce({ data: [], error: null });
-      mockRpc.mockResolvedValueOnce({ data: 'audit-1', error: null });
-      // consolidateDuplicates for cust-b: find + audit
-      mockRpc.mockResolvedValueOnce({ data: [], error: null });
-      mockRpc.mockResolvedValueOnce({ data: 'audit-2', error: null });
-      // consolidateOrgDuplicates for org-1: find + audit
-      mockRpc.mockResolvedValueOnce({ data: [], error: null });
-      mockRpc.mockResolvedValueOnce({ data: 'audit-3', error: null });
+      // consolidateDuplicates for cust-a: find_duplicate_memories -> no pairs
+      mockQuery.mockResolvedValueOnce({ rows: [] });
+      // consolidateDuplicates for cust-b: find_duplicate_memories -> no pairs
+      mockQuery.mockResolvedValueOnce({ rows: [] });
+      // consolidateOrgDuplicates for org-1: find_duplicate_org_memories -> no pairs
+      mockQuery.mockResolvedValueOnce({ rows: [] });
 
       const scheduler = new MemoryScheduler();
       await scheduler.runManually('consolidation');
 
       // 2 customer scopes (deduped from 3 rows) + 1 org scope = 3 find_duplicate calls
-      expect(mockRpc).toHaveBeenCalledWith('find_duplicate_memories', expect.objectContaining({
-        p_org_id: 'org-1',
-        p_customer_id: 'cust-a',
-        p_limit: 500,
-      }));
-      expect(mockRpc).toHaveBeenCalledWith('find_duplicate_memories', expect.objectContaining({
-        p_org_id: 'org-1',
-        p_customer_id: 'cust-b',
-        p_limit: 500,
-      }));
-      expect(mockRpc).toHaveBeenCalledWith('find_duplicate_org_memories', expect.objectContaining({
-        p_org_id: 'org-1',
-        p_limit: 500,
-      }));
+      expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('find_duplicate_memories'), [
+        'org-1',
+        'cust-a',
+        0.92,
+        0.8,
+        500,
+      ]);
+      expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('find_duplicate_memories'), [
+        'org-1',
+        'cust-b',
+        0.92,
+        0.8,
+        500,
+      ]);
+      expect(mockQuery).toHaveBeenCalledWith(
+        expect.stringContaining('find_duplicate_org_memories'),
+        ['org-1', 0.92, 0.8, 500],
+      );
     });
   });
 });

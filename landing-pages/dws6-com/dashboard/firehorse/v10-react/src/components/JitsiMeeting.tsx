@@ -118,7 +118,7 @@ export function JitsiMeeting({
   return (
     <div
       ref={containerRef}
-      className="w-full rounded-lg overflow-hidden border border-gray-200"
+      className="w-full rounded-lg overflow-hidden border border-border"
       style={{ height: '500px' }}
     />
   );

@@ -1,0 +1,38 @@
+{
+  "$schema_comment": "Aiven MCP server registration for NemoClaw / Firehorse. Upstream: https://github.com/Aiven-Open/mcp-aiven",
+  "name": "aiven",
+  "transport": "stdio",
+  "command": "mcp-aiven",
+  "args": [],
+  "env_passthrough": ["AIVEN_TOKEN"],
+  "install": {
+    "package": "mcp-aiven",
+    "registry": "npm",
+    "install_cmd": "npm install -g mcp-aiven",
+    "verify_cmd": "mcp-aiven --help"
+  },
+  "auth": {
+    "primary": "api_token",
+    "token_env": "AIVEN_TOKEN",
+    "token_source_url": "https://console.aiven.io/profile/auth",
+    "note": "Token NEVER goes in this file or in .mcp.json. Loaded from env (vault on prod, .env in dev)."
+  },
+  "scope": [
+    "list / read services (PostgreSQL, Kafka, OpenSearch)",
+    "fetch service URIs for VAULT_PROVIDER=aiven",
+    "inspect billing / quotas",
+    "DOES NOT modify the app_secrets vault table (that goes through scripts/provision-secrets-aiven.ts only)"
+  ],
+  "use_cases": [
+    "Discover AIVEN_DATABASE_URL for new environments",
+    "Verify vault service health from agents",
+    "Audit Aiven cloud posture (region = eu-north-1 / Finland)"
+  ],
+  "sovereignty": {
+    "policy": "eu_only",
+    "required_region_prefix": "europe-",
+    "preferred_cloud": "aiven-cloud",
+    "preferred_provider_region": "google-europe-north1 | aws-eu-north-1",
+    "rationale": "EU jurisdiction, no CLOUD Act exposure. See CLAUDE.md and docs/field-notes/2026-03-10-v1-aiven-plan-decision.md"
+  }
+}

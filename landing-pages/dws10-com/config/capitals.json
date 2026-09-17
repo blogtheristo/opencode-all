@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "sourceOfTruth": false,
+  "structuredMirror": true,
+  "humanReadableSource": "../../DWS_BRAND_STANDARD.md",
+  "owner": "risto.paarni@lifetime.fi",
+  "note": "Structured mirror of DWS_BRAND_STANDARD.md §23 (canonical 4P Capital Classes terminology). Lets scripts/lint-truth-claims.mjs and /truth-check flag the deprecated 'three-capital model' / 'Token Capital' / 'Control Room Capital' phrasing in new public-layer copy. 'Human Capital' is intentionally WARN-only (ambiguous) to avoid false positives on legitimate DESI / labour-economics citations.",
+  "canonicalSources": [
+    "DWS_BRAND_STANDARD.md §23",
+    "docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md (v2.0)",
+    "docs/PHD_FIREHORSE_EN.md §14.26–§14.27",
+    "docs/metropolia/master-thesis/en/V3Thesis_EN.md §10.23.7"
+  ],
+  "canonicalTerminology": {
+    "order": "Prompt, People, Plant, Perception (fixed mnemonic order — never reorder)",
+    "classes": [
+      {
+        "position": 1,
+        "canonical": "Prompt Capital",
+        "prior": "Token Capital",
+        "fi": "Prompt-pääoma",
+        "definition": "The codified intelligence — validated prompts, skills, agent configs, eval datasets, automation."
+      },
+      {
+        "position": 2,
+        "canonical": "People Capital",
+        "prior": "Human Capital",
+        "fi": "Ihmispääoma",
+        "definition": "Calibrated operator judgment from the HIL phase; the human-in-the-loop → human-in-control promotion."
+      },
+      {
+        "position": 3,
+        "canonical": "Plant Capital",
+        "prior": "Control Room Capital",
+        "fi": "Laitospääoma",
+        "definition": "The sovereign, mobile two-room stack (Control Room + Situation Room) — at a site or in a fleet vehicle."
+      },
+      {
+        "position": 4,
+        "canonical": "Perception Capital",
+        "prior": null,
+        "fi": "Havaintopääoma",
+        "definition": "The governed world model + closed sense→decide→act loop (sensors, mobility, satellite, robotics). The only class with data-network effects and a physical-AI character — the re-rate lever."
+      }
+    ]
+  },
+  "approvedDisplayPhrases": [
+    "4P Capital Classes",
+    "4P Capital Class",
+    "four capital classes",
+    "Prompt Capital",
+    "People Capital",
+    "Plant Capital",
+    "Perception Capital",
+    "Prompt, People, Plant, Perception",
+    "Prompt Capital (formerly Token Capital)",
+    "People Capital (formerly Human Capital)",
+    "Plant Capital (formerly Control Room Capital)",
+    "Prompt-pääoma",
+    "Ihmispääoma",
+    "Laitospääoma",
+    "Havaintopääoma"
+  ],
+  "deprecatedDisplayPhrases": [
+    "three-capital model",
+    "three capital model",
+    "Token / Human / Control Room Capital",
+    "Token, Human and Control Room Capital"
+  ],
+  "ambiguousDisplayPhrasesNeedingContext": [
+    {
+      "phrase": "Human Capital",
+      "validIf": "DWS 4P context only — must appear alongside 'Perception', 'Prompt', 'Plant', 'agentic', or 'Firehorse'. Then it is a deprecated alias for 'People Capital'; use the canonical name.",
+      "invalidIf": "Generic HR, labour-economics, CSRD S1, or DESI/index citation context — leave untouched, it is not the DWS capital class."
+    },
+    {
+      "phrase": "Token Capital",
+      "validIf": "Deprecated alias for Prompt Capital. Valid only as a citation or historical reference — must appear alongside 'formerly', 'Nadella', or 'historical'. In new primary copy use the canonical Prompt Capital name.",
+      "invalidIf": "Used as a primary term in new positioning / investor / sales copy without the parenthetical."
+    },
+    {
+      "phrase": "Control Room Capital",
+      "validIf": "Deprecated alias for Plant Capital. Valid only as a citation or historical reference — must appear alongside 'formerly' or 'historical'. In new primary copy use the canonical Plant Capital name.",
+      "invalidIf": "Used as a primary term in new positioning / investor / sales copy without the parenthetical."
+    }
+  ]
+}

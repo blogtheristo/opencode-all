@@ -47,7 +47,7 @@ Google Cloud Run will host:
 | **Groq**                        | GROQ_API_KEY               | https://console.groq.com                | $0.59/1M tokens (cheaper!) |
 | **Apollo.io**                   | APOLLO_API_KEY             | https://apollo.io/settings/integrations | $290/year                  |
 | **Clearbit is part of Hubspot** | CLEARBIT_API_KEY           | https://clearbit.com/pricing            | $99/month                  |
-| **Amazon SES (SMTP)**           | SMTP_USER, SMTP_PASS, SMTP_HOST | https://console.aws.amazon.com/ses/     | Pay-as-you-go               |
+| **Resend**                      | RESEND_API_KEY             | https://resend.com/api-keys             | $10/month                  |
 | **Supabase**                    | SUPABASE_URL, SUPABASE_KEY | https://supabase.com/dashboard          | Included in DWS project    |
 
 ### 3. Install Google Cloud SDK
@@ -88,10 +88,15 @@ gcloud services enable \
   cloudscheduler.googleapis.com \
   secretmanager.googleapis.com \
   logging.googleapis.com \
-  monitoring.googleapis.com
+  monitoring.googleapis.com \
+  cloudtrace.googleapis.com \
+  telemetry.googleapis.com
 
 # Wait for APIs to be enabled...
 echo "✅ APIs enabled successfully"
+# Note: telemetry.googleapis.com (unified OTLP ingestion endpoint) is auto-activated
+# by GCP when logging/monitoring APIs are enabled (March 2026+), but listing it
+# explicitly ensures activation for projects created via API rather than console/CLI.
 ```
 
 ---

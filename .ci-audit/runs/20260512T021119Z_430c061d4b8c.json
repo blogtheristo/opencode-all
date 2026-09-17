@@ -1,0 +1,47 @@
+{
+  "branch": "claude/add-otel-api-docs-fU7r0",
+  "checks": [
+    {
+      "duration_ms": 4,
+      "name": "npm-install-check",
+      "notes": "",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pass": true
+    },
+    {
+      "duration_ms": 11184,
+      "name": "vitest",
+      "notes": "exit=1",
+      "output_sha256": "0a4021f6f09fb11be5bcb018786d0a57a3fe626722199ec8678a4f40589058f3",
+      "pass": false
+    },
+    {
+      "duration_ms": 5,
+      "name": "gitleaks-full",
+      "notes": "exit=2",
+      "output_sha256": "f2fc9302bf85f885c4e96927e45e62245c4b0f652f897f42536cec1e7f16be83",
+      "pass": false
+    },
+    {
+      "duration_ms": 465,
+      "name": "npm-audit-root",
+      "notes": "",
+      "output_sha256": "adcd69c1500c4f5d32defa19396edff0382c93b167547b4bd9439248e11ecf1e",
+      "pass": true
+    }
+  ],
+  "checks_failed": 2,
+  "checks_passed": 2,
+  "checks_total": 4,
+  "commit_sha": "430c061d4b8c5fe24ac3fbcb5afed637f98137cf",
+  "duration_ms": 11693,
+  "overall_pass": false,
+  "prev_record_hash": "4a06ecb0e057e9efd45dfe69bbd87a312f2762b24004fc8bb644b5cbc1263ef7",
+  "repo": "blogtheristo/dws6",
+  "runner": "root@vm",
+  "runner_kind": "local",
+  "schema": "ci-audit/v1",
+  "this_record_hash": "4dd739c5da8a8fc5db10b609b4dacd8d0e51eb4d2b972af5b8a7ecb536999a93",
+  "trigger_kind": "pre-push",
+  "ts": "2026-05-12T02:11:19Z"
+}

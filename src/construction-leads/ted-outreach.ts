@@ -279,10 +279,11 @@ export async function runWeeklyTedLearning(): Promise<WeeklyLearningResult> {
     const lang = row.open_rate_lang || inferOutreachLang(row.country_code);
     const cpv = cpvPrefix(row.cpv_code);
     const key = `${lang}|${cpv}`;
-    if (!buckets.has(key)) {
-      buckets.set(key, { lang, cpv, sends: 0, opens: 0, replies: 0, bounces: 0 });
+    let b = buckets.get(key);
+    if (!b) {
+      b = { lang, cpv, sends: 0, opens: 0, replies: 0, bounces: 0 };
+      buckets.set(key, b);
     }
-    const b = buckets.get(key)!;
     b.sends += 1;
     if (row.opened) b.opens += 1;
     if (row.replied) b.replies += 1;

@@ -3,9 +3,9 @@ version: 1.0.0
 schema: v1
 
 models:
-  - name: Qwen 2.5 Coder 32B (Veriton Tunnel)
+  - name: Qwen3-Coder 30B (Veriton Tunnel)
     provider: ollama
-    model: qwen2.5-coder:32b
+    model: qwen3-coder:30b
     # Prefer 127.0.0.1 on Windows (see docs/continue-ollama-tunnel.yaml in repo root).
     apiBase: http://127.0.0.1:11435
     roles:
@@ -23,5 +23,5 @@ context:
   - provider: terminal
 
 rules:
-  - Start an SSH tunnel before use: ssh -L 11435:localhost:11434 admin100@<veriton-host>
+  - Start an SSH tunnel before use: ssh -L 127.0.0.1:11435:localhost:11434 admin100@192.168.101.113
   - Point Continue at localhost:11435 so the inference endpoint stays private.

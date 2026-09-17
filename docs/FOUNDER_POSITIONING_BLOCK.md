@@ -29,7 +29,7 @@ Paste this block into: LinkedIn profile, pitch deck "Team" slide, website About 
 
 ## The Block (4 sentences)
 
-> **Risto Paarni** is the founder and CEO of Lifetime Oy, where he builds DWS IQ 6 — an AI platform that automates Fit for 55 climate compliance across 16 EU industries. He holds an M.Sc. in Industrial Management and has spent 35 years in industrial IT, from factory floors to cloud architecture — and still commits code daily. Lifetime's edge AI deployment on NVIDIA Jetson cuts inference costs by EUR 333,000/year versus cloud-only competitors, running the full platform on EUR 15-50/month infrastructure. The company's Fleet division already generates EUR 7-14k MRR, with two pilot contracts signed at EUR 29,950 each for Q1 2026.
+> **Risto Paarni** is the founder and CEO of Lifetime Oy, where he builds DWS IQ 6 — an AI platform that automates Fit for 55 climate compliance across **16 captain hats covering 25+ EU industries**. He holds an M.Sc. in Industrial Management and has spent 35 years in industrial IT, from factory floors to cloud architecture — and still commits code daily. Lifetime's edge AI deployment on NVIDIA Jetson cuts inference costs by EUR 333,000/year versus cloud-only competitors, running the full platform on EUR 15-50/month infrastructure. The company's Fleet division already generates EUR 7-14k MRR, with two pilot contracts signed at EUR 29,950 each for Q1 2026.
 
 ---
 
@@ -37,7 +37,7 @@ Paste this block into: LinkedIn profile, pitch deck "Team" slide, website About 
 
 | Sentence | What it proves |
 |----------|---------------|
-| **1 — What he builds** | Domain credibility. "16 EU industries" + "Fit for 55" = specific, not vague. |
+| **1 — What he builds** | Domain credibility. "16 captain hats covering 25+ EU industries" + "Fit for 55" = specific, not vague. |
 | **2 — Technical credibility** | MSc + 35 years + writes code. This is the "founder who ships" signal investors look for. |
 | **3 — Edge AI economics** | The EUR 333k number is the hook. It's concrete, differentiated, and verifiable. |
 | **4 — Traction proof** | Revenue today, not revenue someday. MRR + signed contracts = real business. |
@@ -60,13 +60,13 @@ The block is **facts only**. Let the facts do the positioning.
 
 ### Short Version (2 sentences — for Twitter/X bio, email sig)
 
-> Founder & CEO, Lifetime Oy. Building DWS IQ 6 — edge AI for EU climate compliance across 16 industries. EUR 333k/year cheaper than cloud. Already generating revenue.
+> Founder & CEO, Lifetime Oy. Building DWS IQ 6 — edge AI for EU climate compliance across **16 captain hats covering 25+ industries**. EUR 333k/year cheaper than cloud. Already generating revenue.
 
 ### Deck Slide Version (with formatting)
 
 **Risto Paarni** — Founder & CEO
 - M.Sc. Industrial Management | 35 years industrial IT | Writes code daily
-- DWS IQ 6: Fit for 55 compliance automation for 16 EU industries
+- DWS IQ 6: Fit for 55 compliance automation across **16 captain hats covering 25+ EU industries**
 - Edge AI on NVIDIA Jetson: EUR 333k/year cost advantage
 - Fleet MRR: EUR 7-14k | Q1 2026 pilots: EUR 59,900 signed
 

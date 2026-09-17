@@ -47,7 +47,7 @@ export function requestTimeout(timeoutMs?: number) {
       }
 
       // Mark the request as timed out so downstream logic can short-circuit.
-      (req as any).timedout = true;
+      req.timedout = true;
 
       logger.warn('Request timeout exceeded', {
         path: req.path,

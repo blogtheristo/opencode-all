@@ -67,6 +67,9 @@ spec:
             - secretRef:
                 name: clearbit-api-key
             - secretRef:
+                name: slack-webhook
+            - secretRef:
+                name: teams-webhook
                 name: notify-webhook
             - secretRef:
                 name: whatsapp-alerting

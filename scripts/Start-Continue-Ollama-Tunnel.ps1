@@ -11,11 +11,11 @@
 #>
 
 param(
-    [string]$RemoteSsh = "admin100@gn100-cb5d",
+    [string]$RemoteSsh = "admin100@192.168.101.113",
     [int]$LocalPort = 11435,
     [int]$RemotePort = 11434,
     [int]$MaxWaitSeconds = 15,
-    [string]$OllamaModel = "qwen2.5-coder:32b",
+    [string]$OllamaModel = "qwen3-coder:30b",
     [switch]$SkipDiagnostics,
     [switch]$SkipCursor
 )

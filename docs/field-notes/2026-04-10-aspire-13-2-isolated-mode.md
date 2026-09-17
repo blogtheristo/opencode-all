@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (Opus 4.8) | Session: claude/ollama-orchestration-merge-047pj7 | Date: 26.07.2026 | Changes: Ground-truth update — bumped `infrastructure/dgx-spark/docker-compose.yml` aspire-dashboard image 13.3.5 → 13.4.6 (current latest **stable** of microsoft/aspire, verified 26.07.2026; 13.5.0 is preview, stayed on stable). Added §3.8 auditing the Aspire 13.4 breaking changes against DGX Spark's dashboard-only footprint (none apply). Synced `Admin/ADMIN_MANUAL.md` dashboard reference to 13.4.6. Carries forward the substance of PR #1557 (which went `dirty` against compose v1.3.1) onto current `main`. No SSH/network path to the physical DGX Spark host exists from the cloud session, so the Aspire CLI itself was not installed — dashboard-only, per the standing decision.
 - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/aspire-isolated-mode-research-ilcUR | Date: 10.04.2026 | Changes: Added Section 3.7 documenting the `aspire docs` CLI command family (list/search/get with `--format Json`), introduced alongside Aspire 13.2 per the "Aspire Docs in Your Terminal (and Your AI's Brain)" devblog post. Added DWS architectural gap analysis — Aspire 13.2 implements the exact "Build for Agents" pattern our CLAUDE.md rule requires, and our own `dws` CLI is missing the equivalent `dws docs` subcommand.
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/aspire-isolated-mode-research-ilcUR | Date: 10.04.2026 | Changes: Studied the 9.x → 13 version jump via web search (InfoQ, Visual Studio Magazine, aspire.dev, hexmaster.nl, NashTech). Added Section 3 "The 9.5 → 13 Version Jump — Resolved" explaining the .NET Conf 2025 announcement (Nov 11, 2025), deliberate skip of 10/11/12, decoupling from .NET release cadence, and the ".NET Aspire" → "Aspire" rebrand. Corrected repo's "9.2" reference (last 9.x was actually 9.5). Updated honesty register and follow-ups.
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/aspire-isolated-mode-research-ilcUR | Date: 10.04.2026 | Changes: Initial capture of Aspire 13.2 isolated mode announcement (@JamesNK / devblogs.microsoft.com/aspire) and version-gap analysis against DGX Spark backend observability stack
@@ -295,6 +296,29 @@ dws docs get DWS_DATA_STANDARD --section "Retention policy" --format markdown
 **Recommendation:** Do not build `dws docs` today as part of this field note. Flag it as a follow-up, evaluate it as a standalone feature after the option 1/2/3 Aspire adoption decision is made. If we adopt option 1 (Aspire dashboard on DGX Spark), `aspire docs` can be proven in our environment first, which gives us a known-good reference before we write our own.
 
 > **See dedicated gap analysis:** `docs/field-notes/2026-04-10-dws-docs-cli-gap-aspire-pattern.md` — expanded treatment of the `dws kb` vs `dws docs` distinction, the decision rule for agents picking between them, and the full Aspire CLI reference for context.
+
+---
+
+### 3.8 Aspire 13.4 ground-truth update (v1.3) — dashboard bump 13.3.5 → 13.4.6, breaking-change audit
+
+Option 1 (dashboard-only adoption, Section 2.4) is live: `aspire-dashboard:13.3.5` shipped in `infrastructure/dgx-spark/docker-compose.yml` (compose v1.1.1). This update bumps it **13.3.5 → 13.4.6** — the current latest **stable** release of `microsoft/aspire` (v13.4.6, 2026-06-20, verified 2026-07-26; the `main` branch is developing 13.5.0-preview.1, which we deliberately do **not** pin — stable only, never `:latest`).
+
+**Breaking-change audit against the Aspire 13.4 release notes**, checked against what DGX Spark actually runs (standalone dashboard container only — no AppHost, no C#/TypeScript AppHost, no Aspire-hosted Postgres/RabbitMQ/Kubernetes/Foundry resources):
+
+| 13.4 breaking change                                             | Applies to DGX Spark?                                                   |
+| ---------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `aspire exec` removed                                            | No — never used                                                         |
+| TypeScript SDK modules moved to `.aspire/modules/`               | No — no AppHost project                                                 |
+| Persistent executable/project lifetimes (DCP schema change)      | No — no AppHost project                                                 |
+| Kubernetes `WithRoute` → `WithPath` rename                       | No — no Kubernetes environment resource                                 |
+| Azure Front Door naming change                                   | No — no Azure Front Door resource                                       |
+| Foundry hosted-agent API renames                                 | No — no Foundry hosted-agent resource                                   |
+| RabbitMQ default image 4.2 → 4.3                                 | No — no Aspire-hosted RabbitMQ resource                                 |
+| **PostgreSQL default image 17.6 → 18.3** (data-volume breakage)  | No — no Aspire-hosted Postgres resource; DWS Postgres runs via Supabase |
+
+**Conclusion:** for the dashboard-only architecture this note has tracked since v1.0, the 13.4 upgrade is a pure image-tag bump with zero migration surface — the same conclusion §3.4 reached for the 9.5 → 13 jump. Adopting a newer Aspire line costs nothing extra as long as we stay dashboard-only.
+
+**Provenance:** this carries forward the substance of PR #1557 (`claude/aspire-version-update-w21fyd`, Sonnet 5, 2026-07-05), which became `dirty` against compose v1.3.1 (the July silent-telemetry port fix) and could not be merged as-is; the change is re-applied here on current `main`. As in that PR, the Aspire CLI itself was **not** installed on the DGX Spark host — the cloud session has no SSH/network path to the physical machine, and moving from "dashboard-only, no CLI" to "CLI + dashboard" is a separate architecture decision (Section 5 gate), not a version-bump task.
 
 ---
 

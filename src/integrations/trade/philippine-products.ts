@@ -14,14 +14,14 @@
  */
 
 import {
-  TradeProduct,
+  CarbonImpactRating,
+  CBAMStatus,
+  ImportComplianceStatus,
+  OriginCountry,
+  TariffScheme,
+  type TradeProduct,
   TradeProductCategory,
   TradeProductStatus,
-  TariffScheme,
-  CBAMStatus,
-  CarbonImpactRating,
-  OriginCountry,
-  ImportComplianceStatus,
 } from './types';
 
 // ============================================================================

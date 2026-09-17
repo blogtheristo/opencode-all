@@ -1,0 +1,47 @@
+{
+  "branch": "lsj-blog-langbar",
+  "checks": [
+    {
+      "duration_ms": 3,
+      "name": "npm-install-check",
+      "notes": "",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pass": true
+    },
+    {
+      "duration_ms": 5127,
+      "name": "vitest",
+      "notes": "",
+      "output_sha256": "8d26220a7ac30b2444309e136d39e28cfda6b0b680b712c616e7833e12e72719",
+      "pass": true
+    },
+    {
+      "duration_ms": 16227,
+      "name": "gitleaks-full",
+      "notes": "",
+      "output_sha256": "a77ac8c63a2452dfd50ab530f2310fca5fc90979e50fa4498d9d88048220cbfb",
+      "pass": true
+    },
+    {
+      "duration_ms": 371,
+      "name": "npm-audit-root",
+      "notes": "",
+      "output_sha256": "adcd69c1500c4f5d32defa19396edff0382c93b167547b4bd9439248e11ecf1e",
+      "pass": true
+    }
+  ],
+  "checks_failed": 0,
+  "checks_passed": 4,
+  "checks_total": 4,
+  "commit_sha": "30266ed8b54e6b42f398d9ff9c6d24fd859352e8",
+  "duration_ms": 21760,
+  "overall_pass": true,
+  "prev_record_hash": "6e4ed6bb78579bda831b9d27709d62ea0a1672439ec62185308ab3ec7010d4ac",
+  "repo": "blogtheristo/dws6",
+  "runner": "admin100@gn100-cb5d",
+  "runner_kind": "local",
+  "schema": "ci-audit/v1",
+  "this_record_hash": "6206b8753411376b926851d9e78cb5e19743059cd2f2bdb88d7b9bf96d3eac35",
+  "trigger_kind": "pre-push",
+  "ts": "2026-08-22T00:56:15Z"
+}

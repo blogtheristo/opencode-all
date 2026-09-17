@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "version": "1.0",
+    "date": "2026-09-13",
+    "lang": "de",
+    "page": "aegis-product"
+  },
+  "seo": {
+    "title": "DWS IQ Aegis — Souveräne Industrieintelligenz für Dual-Use-Fertigung | Lifetime Firehorse™Store",
+    "description": "DWS IQ Aegis — EDIP-fähige souveräne KI-Plattform auf finnischer Infrastruktur. Eine Flotte erfahrener Agenten, UpCloud Kubernetes, EU AI Act Artikel 12 nativ. Verfügbar September 2026.",
+    "keywords": "DWS IQ, Aegis, souveräne KI, EU AI Act, UpCloud, Kubernetes, Helm, Verteidigung, Dual-Use, finnische Cloud",
+    "og_title": "DWS IQ Aegis — Souveräne Industrieintelligenz für Dual-Use-Fertigung",
+    "og_description": "EDIP-fähige souveräne KI auf finnischer Infrastruktur. 21+ industrielle KI-Agenten. EU AI Act Artikel 12 nativ. Entworfen, um CLOUD Act-Exposition zu reduzieren. Verfügbar September 2026.",
+    "twitter_title": "DWS IQ Aegis — Souveräne Industrieintelligenz für Dual-Use-Fertigung",
+    "twitter_description": "Einzelner Mandant souveräne KI auf finnischer Infrastruktur. Verfügbar September 2026."
+  },
+  "nav": {
+    "back_to_store": "← Zurück zum Store",
+    "deployment_banner_title": "Eine Plattform, drei Bereitstellungen:",
+    "eu_sovereign_cloud": "EU-Souveräne Cloud",
+    "dedicated_cloud_aegis": "Dedizierte Cloud (Aegis)",
+    "own_nvidia_dgx": "Eigene NVIDIA DGX",
+    "deployment_banner_tagline": "Mieten Sie souveräne Kapazität oder besitzen Sie die Maschine.",
+    "compare_deployments": "Bereitstellungen vergleichen →"
+  },
+  "hero": {
+    "h1": "DWS IQ Aegis",
+    "tagline": "Souveräne Industrieintelligenz-Plattform für Dual-Use-Fertigung",
+    "badge_1": "Teil der DWS IQ Industrieintelligenz-Suite",
+    "badge_2": "Allgemeine Verfügbarkeit: September 2026",
+    "badge_3": "Architekturell für EDIP-Ausrichtung konzipiert",
+    "intro": "Aegis ist eine einzelner Mandant souveräne KI-Plattform, die speziell für Dual-Use-Fabriken, Schwerindustrie und kritische Rohstoff-Infrastruktur entwickelt wurde. Auf dedizierter finnischer Infrastruktur bereitgestellt, optimiert und schützt Aegis kontinuierlich die Produktionsanlagen, die Europas Verteidigungssektor versorgen — mit absoluter Datenisolation und null US-Cloud-Abhängigkeiten und entwickelt, um CLOUD Act-Exposition zu reduzieren.",
+    "subtitle": "Benannt nach Athenas Schild — Aegis bietet Schutz durch Intelligenz. Dedizierter Kubernetes-Cluster pro Kunde. Kein gemeinsamer Mandant. Keine US-Cloud. Abdeckung aller 21 EU-regulierten Industrien inklusive Dual-Use kritische Rohstoffe.",
+    "cta_scoping_session": "Bereitstellungskonfigurationssitzung anfordern"
+  },
+  "edip": {
+    "h2": "EDIP-fähig: Für das EU-Verteidigungsindustrieprogramm entwickelt",
+    "intro": "Die Europäische Kommission hat ihr €1,5 Milliarden EDIP-Arbeitsprogramm am 30. März 2026 verabschiedet, mit €700M+ für industrielle Produktionssteigerung, €240M für gemeinsame Beschaffung und €100M für Verteidigungs-SME-Eigenkapital. Aegis ist explizit für EDIP Artikel 9 Berechtigungsanforderungen konzipiert und bietet fertige Compliance-Infrastruktur für Einrichtungen, die EDIP-Förderung erhalten (vorbehaltlich einer formellen EU-Bewertung).",
+    "table_caption": "EDIP Artikel 9 Berechtigungskriterien und Aegis-Status / technische Ausrichtung.",
+    "table_rows": {
+      "eu_establishment": "EU-Einrichtung | Finnland (Lifetime Oy, Y-tunnus 0772407-9) | AUSGERICHTET",
+      "third_country_control": "Drittlandkontrolle | 100% finnisch-eigen, keine US-Muttergesellschaft oder Unternehmensabhängigkeiten | AUSGERICHTET",
+      "buy_european": "Europäisch kaufen (65%) | UpCloud Helsinki-Hosting, vollständig EU-eigener und betriebener Stack | AUSGERICHTET",
+      "defence_supply_chain": "Verteidigungslieferkette | Voraus auf 21 regulierte Industrien einschließlich Dual-Use kritische Rohstoffe abgebildet | AUSGERICHTET",
+      "edip_compliance_stack": "EDIP-Compliance-Stack | ETS + CBAM + CSRD + NIS2 + EU AI Act + Dual-Use-Exportkontrolle (Reg. 2021/821)"
+    }
+  },
+  "why_aegis": {
+    "h2": "Warum Aegis",
+    "items": {
+      "sovereignty": "Wahre industrielle Souveränität — Ausschließlich auf finnisch-eigener UpCloud-Infrastruktur (Helsinki DC) bereitgestellt. Die Betriebstelemetrie, Produktionsvolumina und proprietären Fertigungsrezepte Ihres Werks berühren niemals eine US-eigene Cloud oder sehen sich CLOUD Act-Exposition ausgesetzt.",
+      "single_tenant": "Einzelner Mandant — Ihr eigener Kubernetes-Cluster, Ihre eigene Datenbank, Ihre eigenen Agenten. Keine gemeinsame Infrastruktur mit anderen Kunden.",
+      "dual_use_compliance": "Dual-Use-Compliance nativ — Speziell für die Schnittstelle von Schwerindustrie und Verteidigung gebaut. Automatisiert nativ NIS2, EU AI Act (Artikel 12 Reasoning Lineage) und komplexe Dual-Use-Exportkontrollen (Reg. 2021/821).",
+      "deterministic_factory": "Deterministische Werksausführung — Isolierte Firecracker MicroVM-Agenten überwachen Lieerketten, verfolgen eingebetteten Kohlenstoff (CBAM/CSRD) und markieren industrielle Störungen mit nachvollziehbaren null-Halluzination-Datenpfaden — gesteuert durch KYA (Know Your Agent) mit Kill-Schalter-Befugnis.",
+      "edip_aligned": "EDIP-ausgerichtet — Speziell für Artikel 9 Einrichtungs- und Kontrollanforderungen konzipiert und bietet das Compliance-Finanzierungsrahmenwerk für EDIP-finanzierte Einrichtungen."
+    }
+  },
+  "financial_engine": {
+    "h2": "Die Finanzmaschinerie der Compliance",
+    "p1": "Der Übergang von experimenteller KI zu regulierten Unternehmensoperationen ist nicht nur eine technische Herausforderung — es ist ein strategischer Wendepunkt, um industriell zertifizierte Vermögenswerte zu monetarisieren. Durch die Entkopplung von KI-Innovation von sicherheitskritischen Kernen bewegen sich Industrieunternehmen von einem Zyklus kontinuierlicher Rezertifizierungskosten zu einem wiederholbaren, skalierbaren Vermögenswertmodell.",
+    "p2": "Die Integration von DWS IQ verwandelt Compliance von einem Kostenfaktor in einen Treiber dessen, was wir \"Finanzielle Alpha\" nennen — der Punkt, an dem Effizienzsteigerungen die Rechenkosten übersteigen. Gesteuerte, KYA-stufige Schwarmbereitstellungen sind so konzipiert, dass sie diesen Schwellenwert schneller erreichen als unverwaltete Einzelagent-Bereitstellungen. Dieselbe Architektur ermöglicht es Industrieunternehmen, Compliance zu automatisieren, Rezertifizierungskosten und Haftungsexposition im Vergleich zu manuellen Prozessen zu reduzieren und die verteidigbare, nachprüfbare Beweisführung zu erzeugen, die von Versicherern und Gerichten unter dem überarbeiteten Produkthaftungsgesetz bewertet wird."
+  },
+  "sovereignty": {
+    "h2": "Souveränitätsposition — unser Dreisäulen-Governance-Framework",
+    "intro": "Aegis erzwingt souveräne Isolation durch unser proprietäres Dreisäulen-Governance-Framework, das Daten, Technologie und operative Kontrolle strikt innerhalb EU-Grenzen abbildet.",
+    "sovereignty_field_note": "Siehe Souveränitäts-Feldnotiz #2",
+    "for_the_full_taxonomy": "für die vollständige Taxonomie.",
+    "table_caption": "Säulenabdeckung. Aegis bedient die J1 (EU) Gerichtsbarkeit mit allen drei Säulen in voller EU-suverän (Stufe 1 Anbieterklasse). Quantenbereitschaftspfad via Rightful Oy R-Sac².",
+    "table_rows": {
+      "data_sovereignty": "Datensouveränität (KYA SIB-Track) | Voll — EU-Aufenthalt, EU-only Zugangspfad, finnisch-eigene Infrastruktur, entwickelt um CLOUD Act-Exposition zu reduzieren | BESTEHEND",
+      "technology_sovereignty": "Technologiesouveränität (KYA CSB-Track) | Voll — UpCloud + offenes Kubernetes + offener Postgres-Stack; Algorithmus-Rotation unterstützt; kein proprietärer Lock-in | BESTEHEND",
+      "operational_sovereignty": "Operationsouveränität (KYA EAB-Track) | Voll — Finnische Eskalation, EU-only Bereitschaft, Firecracker MicroVM-Isolation, Hardware-Kill-Schalter-Befugnis | BESTEHEND",
+      "jurisdiction_emphasis": "Gerichtsbarkeitsschwerpunkt | J1 (EU) primär. J2 (US) und J3 (Singapur) Marktzugang via Connect-Stufe.",
+      "quantum_resistant": "Quantenresistente Schicht (R-Sac²-Architektur) | Integrierte kryptografische Oberfläche in Partnerschaft mit Rightful Oy entwickelt, ermöglicht NIST PQC-Migration (FIPS 203 / 204 / 205) zum Schutz von Verteidigungsdaten vor \"Harvest Now, Decrypt Later\" (HNDL) Vektoren vor dem 2030-2035-Mandat"
+    }
+  },
+  "technical_specs": {
+    "h2": "Technische Spezifikationen",
+    "items": {
+      "deployment_model": "Bereitstellungsmodell | Einzelner Mandant Kubernetes (Helm Chart) | EU-Souverän",
+      "infrastructure": "Infrastruktur | UpCloud Managed Kubernetes (UKS), Helsinki DC (fi-hel1 / fi-hel2)",
+      "sovereignty": "Souveränität | Finnisch-eigen (Tesi-gestützt), ISO 27001 (UpCloud-Infrastruktur), CISPE-Mitglied, EU-only Personalzugang",
+      "cloud_act_exposure": "CLOUD Act-Exposition | Keine — keine US-Muttergesellschaft, keine US-eigene Infrastruktur",
+      "kubernetes": "Kubernetes | CNCF-konformant, volle Helm-Unterstützung, HPA + VPA + Cluster Autoscaler",
+      "sla": "SLA | 99,9% Anwendungsverfügbarkeitsziel / 99,999% zugrunde liegende Infrastruktur (UpCloud)",
+      "database": "Datenbank | UpCloud Managed PostgreSQL + pgvector (HA, automatische Sicherungen, Helsinki DC)",
+      "cache_queue": "Cache / Warteschlange | UpCloud Managed Valkey/Redis",
+      "gpu": "GPU | NVIDIA L40S-Knoten für cluster-interne LLM-Inference (EU-Cloud — keine Hardware wird zum Standort verschifft)",
+      "egress": "Ausgehend | Keine Kosten (UpCloud Essentials)",
+      "load_balancer": "Load Balancer | Inbegriffen (UpCloud Managed)",
+      "agent_isolation": "Agenten-Isolation | Firecracker MicroVM pro Agent (KYA Sicherheit v1.2)",
+      "ai_agents": "KI-Agenten | 21+ industrielle KI-Agenten über 21 Vertikale (gleiche Codebasis wie DWS IQ 6)",
+      "cli_access": "CLI-Zugang | dws CLI — alle Agenten über Kommandozeile steuerbar",
+      "eu_ai_act": "EU AI Act | Artikel 12 Protokollierung, Reasoning Lineage, Aiwen Compliance-Schicht",
+      "compliance": "Compliance | GDPR, NIS2, EU AI Act, CER-Richtlinie, EU CRM Act, KRITIS, Dual-Use-Exportkontrolle (Reg. 2021/821)",
+      "certifications_roadmap": "Zertifizierungsfahrplan | ISO 27001 (Lifetime Oy — Ziel Q3 2026), SOC 2 Type II (Ziel Q4 2026); UpCloud-Infrastruktur bereits ISO 27001-zertifiziert",
+      "security_audit": "Sicherheitsprüfung | PiTuKri geprüft | Traficom NCSC-FI Cloud-Sicherheitskriterien v1.1 — 11 Unterabschnitte, 52 Kriterien bewertet"
+    }
+  },
+  "agents": {
+    "h2": "Enthaltene Agenten",
+    "table_header": "Agent | Fähigkeit",
+    "items": {
+      "compliance_agent": "ComplianceAgent | EU-regulatorische Compliance (CSRD, ETS, CBAM, Fit for 55, EU AI Act)",
+      "sovereignty_monitor": "SovereigntyMonitor | CLOUD Act-Expositionserkennung, EU-Datenresidenz-Verifizierung",
+      "argus_agent": "ArgusAgent | Orbitale Industrieintelligenz — SAR-Überwachung von Logistik-Hubs, Rohstofflagern und Anlagenperimetern zur Vorhersage von Fabrik-Lieferkettenstörungen",
+      "sitesense_agent": "SiteSenseAgent | Dual-Use-Produktionsanlagen-Sicherheitsbewertung, wetterbedingte operative Risiken und Mitarbeiterkapazitätsgrenzen",
+      "material_oracle": "MaterialOracle | Eingebettete Kohlenstoffverfolgung, nachhaltige Beschaffung",
+      "operational_chronos": "OperationalChronos | Auftragszeitplanoptimierung, industrielle Ressourcenallokation und kritischer Pfad-Synchronisation unter Lieferkettenstörungen",
+      "quality_gate": "QualityGate | Bereitstellungsbereitschaft, Qualitätsbewertung",
+      "emissions_data_analyst": "EmissionsDataAnalyst | Emissionsanalyse mit EU-regulatorischem Kontext",
+      "logistics_agent": "LogisticsAgent | Flottencompliance, Routenoptimierung, Lieferkettenkohlenstoff",
+      "construction_agent": "ConstructionAgent | Bauprojekt-Compliance-Orchestrierung",
+      "kya_engine": "KYA-Engine | Know Your Agent — Identität, Isolation, Kill-Befugnis",
+      "article12_logger": "Article12Logger | EU AI Act Audit Trails für alle KI-Entscheidungen",
+      "cross_vertical_intel": "CrossVerticalIntel | Lieerkettensignalpropagierung — erkennt Compliance-Kaskaden über 21 Industrien",
+      "gaia_agent": "GaiaAgent | Kritische Rohstoffe — Abhängigkeits-, Extraktionsraten- und Verarbeitungsengpassüberwachung für Dual-Use-Einsatzmaterialien (Zement, Kalk, Seltene Erden) für militärische Infrastruktur",
+      "vulcan_agent": "VulcanAgent | Stahl & Schwermetalle — Produktionsniveau-Compliance für hochbeanspruchte Fertigung, Abbildung von ETS Phase 4-Zuweisungen und CBAM-Kohlenstoffdeklarationen auf Verteidigungslieferkettenanforderungen",
+      "more_agents": "+ weitere | Compliance-Forschung, Deep-Wiki-Extraktion, Hermes-Logistik — und die breitere DWS IQ Industrieagentenflotte"
+    }
+  },
+  "target_market": {
+    "h2": "Zielmarkt",
+    "items": {
+      "government": "Behörden — EU-Mitgliedstaaten, Verteidigungsministerien, öffentlicher Sektor",
+      "defence_industry": "Verteidigungsindustrie — Auftragnehmer, Werft, Luft- und Raumfahrt, Dual-Use-Fertigung",
+      "critical_infra": "Kritische Infrastruktur — Energie, Verkehr, Wasser, Bankwesen (NIS2-Umfang)",
+      "regulated_enterprise": "Regulierte Unternehmen — Jede Organisation, die Souveränität unter Kontrolle ihrer eigenen Infrastruktur benötigt",
+      "geography": "Geografie: — Nur EU"
+    }
+  },
+  "competitive": {
+    "h2": "Wettbewerbspositionierung",
+    "intro": "Marktsignal (Juni 2026): Die US-Armee wählte Palantir Foundry als NGC2 (Next Generation Command & Control) Cloud-Datenschicht und Anduril Lattice als taktische Datenschicht — ein Beweis dafür, dass operativer Vorteil auf der souveränen Datenschicht gewonnen wird. Aegis konkurriert nicht an der taktischen Frontlinie; es gewinnt am Fabrikboden und über die Lieerkette — der Dual-Use-Industriebasis, die die Verteidigung antreibt — mit absoluter EU-Souveränität und tiefem Compliance.",
+    "table_header": "Wettbewerber | Kernfähigkeiten | Aegis' souveräner Industrievorteil",
+    "competitors": {
+      "palantir": "Palantir AIP / Foundry | Unternehmensdatenintegration und operative Analytik, mit etablierten europäischen Tochtergesellschaften. | US CLOUD Act-Anfälligkeit — eine US-Muttergesellschaft macht proprietäre europäische Fertigungspläne und Verteidigungslieerkettendaten extraterritorialen Entdeckungsanfragen ausgesetzt. Aegis ist 100% EU-eigen und immun gegen US-Gerichtsbarkeit.",
+      "anduril": "Anduril Lattice | Herausragende taktische Hardwareintegration, Perimetersicherheit und Drohnenorchestrierung. | Kinetic-Fokus — primär für Frontline-Kampfhardware optimiert, fehlt die tiefe industrielle Compliance-Schicht (CBAM, NIS2, EU AI Act) die benötigt wird, um eine EU-regulierte Dual-Use-Fertigungsanlage sicher zu betreiben.",
+      "c3ai": "C3.ai | Prädiktive Wartungsmodelle und verallgemeinerte Unternehmens-Dashboards. | Hyperscaler-Abhängigkeit — läuft vollständig als Overlay auf kommerziellen US-Public-Clouds. Aegis führt deterministische, isolierte Multi-Agenten-Reasoning innerhalb eines einzelnen Mandanten EU-Enklave aus.",
+      "big_four": "Big Four Beratung | Hochrangige regulatorische Beratung und Compliance-Implementierungsplanung. | Nur Beratung — liefert Frameworks, nicht Software. Aegis liefert einsetzbare autonome Agenten und integrierte orbitale Intelligenz direkt in Ihre Produktionsumgebung."
+    }
+  },
+  "signal_trace": {
+    "h2": "Signal-Trace: Cross-Vertical Dual-Use-Erkennung",
+    "subtitle": "Illustrierender Cross-Vertical-Trace — Pre-GA Modell-Demonstration",
+    "note": "Deterministische Rekonstruktion aus öffentlichen EU-Datenquellen, repräsentativ für das Aegis Signal-Tracing-Modell vor August 2026 allgemeiner Verfügbarkeit.",
+    "scenario": "Repräsentatives Szenario: Ein Ofenstrukturschaden stört eine große regionale Kalkverarbeitungsanlage, und lokale Medien werten es als routinemäßiges, isoliertes Wartungsereignis. Das Aegis-Modell erkennt die Anomaliesignaturen der Anlage und verfolgt den nachgelagerten Dual-Use-industriellen Lieferkettenkaskade:",
+    "table_header": "Signalstufe | Industrie | Trace",
+    "trace_stages": {
+      "trigger": "1. Trigger | Kritische Rohstoffe | Lokalisierte Anlagenabschaltung markiert; regionales Versorgungskonzentrisches Risiko für hochreines Calciumoxid neu berechnet",
+      "upstream": "2. Aufwärts | Stahl & Legierungen | Flux-Mangel erkannt → bevorstehende CBAM-Zollspitze für nicht-EU-Stahlimporte vorhergesagt, die von nahegelegenen Werften benötigt werden",
+      "midstream": "3. Mittelstrom | Zement & Infrastruktur | Kalzinierungsrohstoffbeschränkung → kaskadierender Klinker-Engpass beeinträchtigt regionale Verteidigungsinstallationen",
+      "downstream": "4. Abwärts | Verteidigungsinfrastruktur | Rohstoffsubstitution mit Netto-Anstieg des eingebetteten Kohlenstoffs verknüpft → primäre Auftragnehmer vor bevorstehendem CSRD E1-Diskussionsverstoß gewarnt",
+      "regulatory": "5. Regulierung | Cross-Vertical | Strukturfehler gegen CER Act referenziert — unüberwachte mineralverarbeitungsbedingte Anfälligkeit aufgedeckt"
+    },
+    "metric": "Fünf miteinander verbundene industrielle Sektoren abgebildet, vier europäische regulatorische Rahmenwerke erfüllt, eine Signalkette über deterministisches, null-Halluzination Multi-Agenten-Tracing gelöst — vollständig rückverfolgbar auf verifiable öffentliche EU-Quellen."
+  },
+  "pricing": {
+    "h2": "Preisgestaltung",
+    "table_header": "Stufe | Onboarding + Integration | Monatlich | Inbegriffen",
+    "tiers": {
+      "standard": "Aegis Standard | €59.990 | €999/Mon | Erfahrene Agenten, dedizierter K8s-Cluster, Artikel 12-Protokollierung, KYA-Governance, Standard-Support",
+      "defence": "Aegis Verteidigung | €89.990 | €1.999/Mon | Alles in Standard + NVIDIA L40S GPU, ArgusAgent SAR, Prioritätssupport (4h SLA), EDIP-Compliance-Berichterstattung",
+      "sovereign": "Aegis Souverän | Benutzerdefiniert | €4.999/Mon | Alles in Verteidigung + Sicherheitsfreigabe-Unterstützung, dediziertes Engineering-Team, individueller SLA, erhöhte Souveränitätsversicherung"
+    },
+    "pricing_note": "Stufenpreise strukturieren kommerzielle Abdeckung, Hardware-Fußabdruck, SLAs und dedizierte Engineering-Unterstützung — sie schränken nicht die Bereitstellungsmodi ein. Lokale Erstausführung ist für Kontrollraum-Bereitstellungen erforderlich, aber Aegis behauptet nicht, dass jede Unternehmensbereitstellung standardmäßig offline ist. Lokale / Edge-Betrieb ist in jeder Stufe verfügbar, weil der Kontrollraum-Anwendungsfall es architektonisch erfordert, nicht als Upgrade. Keine Hardware wird in irgendeinem Modus gebündelt oder weiterverkauft. DWS liefert nur die Softwareplattform und die Governance-Schicht. Cloud-Modus GPU-Inference läuft auf L40S-Knoten innerhalb der EU-gehosteten Einzelmandanten-Cluster — nichts wird zum Standort verschifft. Lokale und hybride Bereitstellungen laufen auf Kunden- oder Partnerbeschaffungs-Hardware, je nach Engagement. Edge-Geräte werden als eigene SKUs verkauft, separat von Aegis-Onboarding."
+  },
+  "deployment_architecture": {
+    "h3": "Bereitstellungsarchitektur",
+    "intro": "Aegis ist lokalerst für tiefe und zuverlässige industrielle Operationen konzipiert. In Fertigungskontrollräumen, Dual-Use-Einrichtungen und luftdichten Werken kann Compliance-Ausführung nicht auf externe Konnektivität vertrauen. Lokaler Betrieb ist eine architektonische Anforderung für kritische Umgebungen, während Cloud-Hosting eine gültige Bereitstellungsoption für breitere Unternehmensarbeitslasten bleibt.",
+    "h4_modes": "Bereitstellungsmodi",
+    "mode_local": "Lokal / Edge: Für Fertigungskontrollräume und andere kritische oder Dual-Use-Standorte. Kern-Agenten-Ausführung, Beweiserfassung, Identitätsverifizierung, Audit-Protokolle und menschliche Kill-Befugnis bleiben streng vor Ort, sodass die kritischen operativen Ergebnisse nicht von der Netzwerkverfügbarkeit abhängen.",
+    "mode_cloud": "EU-Souveräne Cloud: Für nicht-kritische Unternehmensarbeitslasten, Entwicklungsumgebungen, standortübergreifende Berichterstattung und Kunden, die Netzwerkabhängigkeit akzeptieren.",
+    "mode_hybrid": "Hybrid: Lokale Ausführung (Bewahrung begrenzter, dimensionierter Rechenökonomien für tiefe Workflows) mit optionaler ausgehender Synchronisierung, Sicherung oder Compliance-Berichterstattung an eine EU-suveräne Cloud.",
+    "h4_commercial": "Kommerzieller & Staging-Pfad",
+    "commercial_p1": "Preisstufen strukturieren kommerzielle Abdeckung, Hardware-Fußabdruck, SLAs und dedizierte Engineering-Unterstützung — sie schränken nicht die Bereitstellungsmodi ein. Lokalerst-Ausführung ist für Kontrollraum-Bereitstellungen erforderlich, aber Aegis behauptet nicht, dass jede Unternehmensbereitstellung standardmäßig offline ist.",
+    "commercial_p2": "Um lokale Ausführung vor dem Commit zu großen Hardware-Investitionen zu validieren, beweist der 3-Monats-Aegis-Pilot den kompletten lokalen operativen Weg direkt auf bestehender Kundeninfrastruktur oder einem kompakten Edge-Gerät vor DGX-Beschaffung.",
+    "commercial_p3": "Der Pilot ist eine gestaffelte erste Zahlung, keine zusätzliche Gebühr — er wird vollständig auf Aegis-Onboarding angerechnet, wenn Sie innerhalb von sechs Monaten fortfahren, sodass die Gesamtkosten zur Produktion unverändert bleiben.",
+    "supply_continuity": "Lieferkontinuität. Die von uns übernommenen Modelle werden als offene Gewichte geliefert, sodass die Inferenzschicht per Design portabel ist und nicht an einen Anbieter-Stack gebunden. Ein nicht-NVIDIA-Rettungspfad (AMD, Intel-Beschleuniger) ist in unserem Lieferketten-Risikoplan enthalten, und Hardware-Kompatibilität wird pro Engagement validiert, nicht angenommen. Das vollständige Lieferketten-Risikoregister ist unter NDA verfügbar.",
+    "year1_cost": "Jahr-1-Kostenkontext: Aegis Standard insgesamt ≈ €72K im Jahr 1 (€59.990 + €999×12) — etwa 13× niedriger als ein vergleichbarer Palantir Jahr-1-Engagement (~€920K). Die Verteidigungs- und Souverän-Stufen skalieren mit GPU-, Support- und Freigabeanforderungen (Verteidigung Jahr-1 ≈ €114K). Der Vergleich gilt für die Standard-Stufe."
+  },
+  "distribution": {
+    "h2": "Vertrieb",
+    "items": {
+      "ifs_cloud": "IFS Cloud Marketplace — Nordische Verteidigung/Industrie (Saab, BAE Systems Nordic)",
+      "sap_store": "SAP Store — Verteidigungslieferkette S/4HANA-Integration",
+      "microsoft_appsource": "Microsoft AppSource — Dynamics 365 für Verteidigungsauftragnehmer",
+      "define": "DEFINE / Defence Tech Hub — Finnisches Verteidigungssystem",
+      "direct_sales": "Direkter Unternehmensverkauf — Verteidigungsauftragnehmer, staatliche Beschaffung"
+    }
+  },
+  "cta_final": {
+    "button": "Bereitstellungskonfigurationsgespräch vereinbaren — Allgemeine Verfügbarkeit September 2026"
+  },
+  "page_version": "DWS IQ Aegis — Produktseite v1.1 · 2026-06-23",
+  "ecosystem": {
+    "tag": "Das Gesamtbild",
+    "h2": "DWS souveräner Stack — jede Schicht, ein Ökosystem.",
+    "lead": "Dieses Produkt ist ein Teil. Der gesamte Stack verbindet sich: souveräne Hardware am Edge, On-Premise-Inference, ein EU-Service-Team und die wiederkehrende NVIDIA-Modellbeziehung, die sich verstärkt. Wählen Sie die nächste Stufe, die Sie benötigen."
+  }
+}

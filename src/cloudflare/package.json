@@ -73,7 +73,7 @@
   "author": "Lifetime Oy <risto@lifetime.fi>",
   "license": "UNLICENSED",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.17.0"
   },
   "repository": {
     "type": "git",

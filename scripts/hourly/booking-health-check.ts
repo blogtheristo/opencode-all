@@ -135,7 +135,7 @@ async function checkBookingServicesApi(): Promise<HealthIssue[]> {
 
 async function upsertHilTodo(issues: HealthIssue[]): Promise<void> {
   const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_KEY;
+  const key = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return;
 
   const description = `Booking outage detected: ${issues.map((i) => i.code).join(', ')}`;

@@ -5,7 +5,7 @@
  * Validates agent listing, discovery, and execution request validation.
  */
 
-import { describe, it, expect, beforeAll } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import express from 'express';
 import request from 'supertest';
 
@@ -16,7 +16,6 @@ beforeAll(async () => {
   process.env.NODE_ENV = 'test';
 
   // Import auth service to generate a test token
-  const AuthService = (await import('../../services/auth.service.js')).default;
   const agentRoutes = (await import('../../agents/routes.js')).default;
   const complianceRoutes = (await import('../../routes/compliance.routes.js')).default;
 
@@ -27,7 +26,7 @@ beforeAll(async () => {
 
   // Error handler
   app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-    res.status(err.status || 500).json({ error: err.message });
+    res.status(err.statusCode || err.status || 500).json({ error: err.message });
   });
 });
 
@@ -168,5 +167,18 @@ describe('POST /api/v1/compliance/cost-estimate', () => {
 
     expect(res.status).toBe(200);
     expect(res.body.totalEstimatedCost).toBe(0);
+  });
+
+  it('rejects invalid body types with 400', async () => {
+    const res = await request(app)
+      .post('/api/v1/compliance/cost-estimate')
+      .send({
+        annualEmissions: '10',
+        importQuantity: { bad: true },
+        sector: 'steel',
+        originCountry: 'CN',
+      });
+
+    expect(res.status).toBe(400);
   });
 });

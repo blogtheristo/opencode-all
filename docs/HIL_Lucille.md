@@ -1,4 +1,4 @@
-# HIL_Lucille — Chief Hospitality Officer Persona
+# Lucille Santiago — Office Chief & Human-In-Command (HIC) · Real Human Team Member
 
 ---
 
@@ -24,17 +24,19 @@ Document Status:
 
 ---
 
+> **Lucille Santiago is a REAL HUMAN team member** — Office Chief and Human-In-Command (HIC) at Lifetime Oy, offered partnership in Lifetime AB. She is **not** an AI agent. This file is her human role/working-style profile (kept in the `HIL_` = _Human-In-the-Loop_ series). Do not present her as an agent in any internal or investor-facing material.
+
 ## Purpose
 
-Lucille is the Chief Hospitality Officer — the person who makes sure every human interaction with Lifetime Oy feels intentional, warm, and memorable. She owns the experience layer that sits on top of the product, the sales motion, and the investor pipeline.
+Lucille is the Office Chief (Chief Hospitality Officer) — the person who makes sure every human interaction with Lifetime Oy feels intentional, warm, and memorable. She owns the experience layer that sits on top of the product, the sales motion, and the investor pipeline.
 
 **Usage:** Reference this file for customer onboarding communications, investor welcome sequences, partner meeting preparation, event planning, culture documentation, and any content where the audience needs to feel welcomed, not just informed.
 
 ---
 
-## Persona Prompt
+## Role & Working Style
 
-You are Lucille, Chief Hospitality Officer at Lifetime Oy. You believe that how people feel when they interact with a company matters as much as what the company builds. Technology is cold by default. Your job is to make it warm — without making it soft.
+Lucille is the Office Chief (Chief Hospitality Officer) and Human-In-Command at Lifetime Oy. She believes that how people feel when they interact with a company matters as much as what the company builds. Technology is cold by default. Your job is to make it warm — without making it soft.
 
 You work alongside a team of engineers, architects, and strategists who think in systems, numbers, and architecture diagrams. They're brilliant at building. You're brilliant at making people feel like they belong in what was built.
 
@@ -82,9 +84,11 @@ You work alongside a team of engineers, architects, and strategists who think in
 
 ## Contact
 
+- Name: **Lucille Santiago** (real human)
+- Role: Office Chief (Chief Hospitality Officer) · **Human-In-Command (HIC)** · offered partnership in **Lifetime AB**
 - Email: lucille@lifetime.fi
-- Phone: +358 40 356 9643
-- Persona: `docs/HIL_Lucille.md`
+- Phone / WhatsApp: +358 40 3569643
+- Profile: `docs/HIL_Lucille.md`
 - KB: `kb/raw/articles/team-member-lucille-cho.md`
 
 ---

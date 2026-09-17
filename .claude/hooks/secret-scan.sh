@@ -79,51 +79,19 @@ if [ -z "$CONTENT" ]; then
   exit 0
 fi
 
-# Secret patterns (14 patterns — adapted from ECC AgentShield)
-PATTERNS=(
-  # AWS
-  'AKIA[0-9A-Z]{16}'
-  # GitHub tokens
-  'ghp_[a-zA-Z0-9]{36}'
-  'github_pat_[a-zA-Z0-9_]{22,}'
-  'gho_[a-zA-Z0-9]{36}'
-  # Slack
-  'xox[bpors]-[0-9a-zA-Z-]+'
-  # Generic API keys (long hex strings assigned to variables)
-  '(?i)(api[_-]?key|api[_-]?secret|access[_-]?token|secret[_-]?key)\s*[=:]\s*["\x27][a-zA-Z0-9/+=]{20,}["\x27]'
-  # Private keys
-  '-----BEGIN (RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----'
-  # Supabase service role (eyJ prefix is JWT)
-  'service_role.*eyJ[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+'
-  # Stripe
-  'sk_live_[a-zA-Z0-9]{24,}'
-  'sk_test_[a-zA-Z0-9]{24,}'
-  # SendGrid
-  'SG\.[a-zA-Z0-9_-]{22}\.[a-zA-Z0-9_-]{43}'
-  # Google
-  'AIza[0-9A-Za-z_-]{35}'
-  # npm tokens
-  'npm_[a-zA-Z0-9]{36}'
-  # Anthropic
-  'sk-ant-[a-zA-Z0-9_-]{40,}'
-)
+# Patterns + scanner are shared with secret-output-scan.sh (single source of truth).
+# shellcheck source=/dev/null
+. "$(dirname "$0")/secret-patterns.sh"
 
-# Scan content against each pattern
-for PATTERN in "${PATTERNS[@]}"; do
-  if echo "$CONTENT" | grep -qP "$PATTERN" 2>/dev/null; then
-    MATCH=$(echo "$CONTENT" | grep -oP "$PATTERN" 2>/dev/null | head -1)
-    # Redact most of the match
-    REDACTED="${MATCH:0:8}...REDACTED"
+# Scan the tool input for any real (non-placeholder) secret
+if REDACTED=$(scan_for_secrets "$CONTENT"); then
+  AUDIT_DIR=".claude/hooks/audit"
+  mkdir -p "$AUDIT_DIR"
+  echo "$(date -Iseconds) BLOCKED secret-scan: pattern matched ($REDACTED)" >> "$AUDIT_DIR/secret-scan.log"
 
-    # Log to audit
-    AUDIT_DIR=".claude/hooks/audit"
-    mkdir -p "$AUDIT_DIR"
-    echo "$(date -Iseconds) BLOCKED secret-scan: pattern matched ($REDACTED)" >> "$AUDIT_DIR/secret-scan.log"
-
-    echo "BLOCKED: Potential secret detected in tool input ($REDACTED). Use environment variables instead." >&2
-    exit 2
-  fi
-done
+  echo "BLOCKED: Potential secret detected in tool input ($REDACTED). Use environment variables instead." >&2
+  exit 2
+fi
 
 # No secrets found
 exit 0

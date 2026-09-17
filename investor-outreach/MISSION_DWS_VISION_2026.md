@@ -1,12 +1,13 @@
 <!-- VERSION AND AGENT HISTORY
 Document: MISSION + DWS Vision One-Pager
-Version: 1.1
+Version: 1.2
 Date: 2026-04-23
 Author: Claude Sonnet 4.6 + Human Review
 Branch: claude/cool-margulis-1724ce
 Status: Draft — Investor Use
 
 AGENT HISTORY:
+- v1.2 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.0 (2026-04-23): Created. MISSION reply + three visions + round table.
 - v1.1 (2026-04-23): Separated Lifetime Oy company mission (climate, droughts, way of living) from DWS IQ mission (regulation → euros, operational layer). Added KYA as conscience layer, not a feature. Expanded to EU / ASEAN / US jurisdictions.
 -->
@@ -18,7 +19,7 @@ AGENT HISTORY:
 We're always looking for the next Superhero.
 
 — Superhero Capital
-*Your sidekick when it matters.*
+_Your sidekick when it matters._
 
 ---
 
@@ -62,7 +63,7 @@ Across EU, ASEAN, and US jurisdictions — in one platform.
 The carbon balance sheet: double-entry bookkeeping for CO₂,
 so every tonne is tracked like every euro.
 
-49,000+ EU companies face mandatory climate reporting.
+fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) face mandatory climate reporting.
 Every one of them needs an operational system.
 None of them want to buy another dashboard.
 
@@ -136,7 +137,7 @@ and route decisions to the right human at the right moment.
 EU (Finnish sovereignty) · ASEAN · US — with a KYA-governed compliance backbone across all of them.
 
 **The architecture shift:**
-From 21 agents serving one enterprise
+From a fleet of skilled agents serving one enterprise
 to an agent network that serves an entire regulated industry —
 benchmarking anonymized performance across every site, every company, every quarter,
 so the platform gets smarter the more it is used.
@@ -162,24 +163,24 @@ AAA sovereign credit. GDPR-native infrastructure. No CLOUD Act exposure.
 The New Nordics are not a geography — they are a regulatory moat.
 
 **Us:** 35 years of industrial domain expertise, 7 years of platform IP,
-6 paying customers with zero churn, hardware-attested agent governance already deployed,
+two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), hardware-attested agent governance already deployed,
 and a founder who has operated in construction, logistics, and infrastructure
 long enough to know exactly where the Excel sheets break.
 
 We are not building for the market that might exist.
-We are building for the 49,000 companies that must comply by law — today.
+We are building for the fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) companies that must comply by law — today.
 
 ---
 
 ## The Round
 
-| Instrument       | SAFE                               |
-| ---------------- | ---------------------------------- |
-| Valuation Cap    | €3.8M                              |
-| Total Raise      | €650K                              |
-| Fleet Admiral    | €200K (1 EU/EEA-domiciled lead)    |
-| Captain          | €50K (9 seats)                     |
-| Deputy Captain   | €5K (open)                         |
+| Instrument     | SAFE                            |
+| -------------- | ------------------------------- |
+| Valuation Cap  | €3.8M                           |
+| Total Raise    | €650K                           |
+| Fleet Admiral  | €200K (1 EU/EEA-domiciled lead) |
+| Captain        | €50K (9 seats)                  |
+| Deputy Captain | €5K (open)                      |
 
 **Anchor moment:** V1 Launch at Arctic 15, Helsinki — June 15, 2026.
 Investors who commit pre-launch enter at seed valuation ahead of the first sales cycle data (August 15, 2026).
@@ -190,4 +191,4 @@ Investors who commit pre-launch enter at seed valuation ahead of the first sales
 Risto Anton Päärni · risto@onelifetime.world · +358 400 319 010
 https://dws10.com
 
-*Confidential — For Potential Investors Only*
+_Confidential — For Potential Investors Only_

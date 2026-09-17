@@ -27,7 +27,7 @@ if ($adminFiles -and $adminFiles.Count -gt 0) {
         $_ -notmatch '^Admin/Security/DWS-IQ6-.*\.md$' -and
         $_ -notmatch '^Admin/Security/REORGANIZATION_.*\.md$' -and
         $_ -notmatch '^Admin/SECURITY_.*\.md$' -and
-        $_ -notmatch '^Admin/ADMIN_MANUAL\.md$' -and
+        $_ -notmatch '^Admin/ADMIN_MANUAL.*\.md$' -and
         $_ -notmatch '^Admin/PORT_MAPPING\.md$' -and
         $_ -notmatch '^Admin/TWITTER_AUTOMATION_GUIDE\.md$' -and
         $_ -notmatch '^Admin/CONFIDENTIAL-handling-policy\.md$' -and

@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Memo — DWS IQ Aegis (Defence & Sovereignty)
-Version: 1.1
+Version: 1.2
 Date: 2026-04-01
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/review-investment-decision-0zTSR
@@ -9,6 +9,7 @@ Story Lock: Defence Supply Chain Resilience + Sovereign AI + Dual-Use Intelligen
 Audience: Defence & Resilience VCs (Sentris, Keen, Join Capital, Vsquared, NATO Innovation Fund, OTB)
 
 AGENT HISTORY:
+- v1.2 (2026-07-29): Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - v1.1 (2026-04-01): Updated one-liner to "intelligence interceptor" framing — sharper for defence VCs. Old: "autonomous compliance intelligence" (too generic). New: sovereign + CLOUD Act-free in the first sentence.
 - v1.0 (2026-04-01): Created after Sentris Capital rejection. Root cause: general investor memo led with "Climate Tech" — defence VCs pattern-matched to "not our mandate." This memo inverts the framing: defence supply chain resilience first, carbon compliance as a defence capability. Same company, same numbers, different lens.
 -->
@@ -177,15 +178,15 @@ No existing platform — Palantir, Anduril, C3.ai, or Big 4 consulting — provi
 
 **Current Metrics (March 2026):**
 
-| Metric           | Value                                           |
-| ---------------- | ----------------------------------------------- |
-| MRR              | EUR 7K live run-rate                            |
-| Paying Customers | 5                                               |
-| Retention        | 100% (zero churn)                               |
-| Customer LTV     | EUR 70K–120K annual value per logo              |
-| Platform         | 21 AI agents, 32 products, 5 cloud environments |
-| Industries       | 21 EU-regulated verticals                       |
-| Time Savings     | 40+ hours/month saved per customer              |
+| Metric           | Value                                                        |
+| ---------------- | ------------------------------------------------------------ |
+| Services + transport revenue | ~EUR 7,000/month — not software revenue; cash break-even, founder salary EUR 0 |
+| Software revenue | EUR 0 (Aegis is preorder; GA September 2026; pre-revenue)    |
+| Contracted enterprise pilots | 2 (Q1/2026, EUR 29,950 each, EUR 59,900 booked)  |
+| Customer LTV     | EUR 70K–120K annual value per logo                           |
+| Platform         | a fleet of skilled agents, 32 products, 5 cloud environments |
+| Industries       | 21 EU-regulated verticals                                    |
+| Time Savings     | 40+ hours/month saved per customer                           |
 
 **Sales Timeline:**
 
@@ -223,7 +224,7 @@ No existing platform — Palantir, Anduril, C3.ai, or Big 4 consulting — provi
 | Infrastructure cost              | EUR 376/mo             |
 | **Infra gross margin**           | **62% (EUR 623/mo)**   |
 | Effective margin (amortized 5yr) | **81% (EUR 1,623/mo)** |
-| Breakeven                        | ~5 customers           |
+| Breakeven                        | ~6 customers           |
 
 Enterprise and government pricing on request.
 
@@ -321,9 +322,9 @@ The KYA Standard (v1.6) is why Aegis is not just another AI platform:
 ## Risk Factors
 
 - Early-stage company risk — seed stage, pre-Series A
-- Single founder dependency
+- Lean two-person team; senior technical (CTO) hire still pending (funded by the raise)
 - Market adoption risk — enterprise sales cycles are long
-- Execution risk — scaling from 5 to 25 customers in 2026
+- Execution risk — scaling from 6 to 25 customers in 2026
 - Competition risk — well-funded US platforms may build EU-sovereign offerings
 - Regulatory risk — EU regulation timeline may shift
 - Technology risk — AI capabilities evolving rapidly

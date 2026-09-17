@@ -19,9 +19,11 @@
 import logger from '../utils/logger.js';
 import { agentRegistry } from './index.js';
 import { eventBus } from './event-bus.js';
+import { withWorkflowSpan, withWorkflowStepSpan } from '../observability/tracing.js';
 import type { AgentContext, AgentResponse } from './types.js';
 import { MORNING_INTELLIGENCE_WORKFLOW } from './workflow/workflows/morning-intelligence.js';
 import { CONTENT_PIPELINE_WORKFLOW } from './workflow/workflows/content-pipeline.js';
+import { OUTREACH_FULL_WORKFLOW } from './outreach-orchestrator.agent.js';
 
 // ============ WORKFLOW TYPES ============
 
@@ -70,7 +72,8 @@ export interface WorkflowExecution {
 /** Full compliance assessment: data analysis → regulatory check → recommendations */
 export const COMPLIANCE_ASSESSMENT_WORKFLOW: WorkflowDefinition = {
   name: 'compliance-assessment',
-  description: 'Full EU compliance assessment: emissions analysis, regulatory gap check, and remediation recommendations',
+  description:
+    'Full EU compliance assessment: emissions analysis, regulatory gap check, and remediation recommendations',
   version: '1.0.0',
   timeoutMs: 300_000, // 5 minutes
   steps: [
@@ -106,7 +109,8 @@ export const COMPLIANCE_ASSESSMENT_WORKFLOW: WorkflowDefinition = {
 /** Construction project full assessment: parallel sensor data + material + schedule, then unified assessment */
 export const CONSTRUCTION_FULL_WORKFLOW: WorkflowDefinition = {
   name: 'construction-full',
-  description: 'Full construction project assessment: site safety, material carbon, schedule risk, then unified compliance',
+  description:
+    'Full construction project assessment: site safety, material carbon, schedule risk, then unified compliance',
   version: '1.0.0',
   timeoutMs: 300_000,
   steps: [
@@ -177,6 +181,8 @@ export const WORKFLOW_REGISTRY: Map<string, WorkflowDefinition> = new Map([
   // Climate IQ Pantheon Workflows
   ['morning-intelligence', MORNING_INTELLIGENCE_WORKFLOW],
   ['content-pipeline', CONTENT_PIPELINE_WORKFLOW],
+  // Outreach Pipeline
+  ['outreach-full', OUTREACH_FULL_WORKFLOW],
 ]);
 
 // ============ WORKFLOW EXECUTOR ============
@@ -223,75 +229,88 @@ export async function executeWorkflow(
   const deadline = Date.now() + timeout;
 
   try {
-    for (const step of workflow.steps) {
-      // Check timeout
-      if (Date.now() > deadline) {
-        execution.status = 'timed-out';
-        execution.error = `Workflow timed out after ${timeout}ms`;
-        break;
-      }
+    await withWorkflowSpan(
+      workflow.name,
+      {
+        executionId,
+        orgId: context.orgId,
+        sessionId: context.sessionId,
+        stepCount: workflow.steps.length,
+      },
+      async (wfSpan) => {
+        for (const step of workflow.steps) {
+          // Check timeout
+          if (Date.now() > deadline) {
+            execution.status = 'timed-out';
+            execution.error = `Workflow timed out after ${timeout}ms`;
+            wfSpan.setAttribute('dws.workflow.timed_out', true);
+            break;
+          }
 
-      logger.debug('Workflow step executing', {
-        workflow: workflow.name,
-        step: step.id,
-        type: step.type,
-      });
-
-      // Build step input from previous results
-      const stepInput = buildStepInput(input, step.inputFrom, execution.stepResults);
-
-      switch (step.type) {
-        case 'agent': {
-          if (!step.agent) throw new Error(`Step ${step.id} missing agent name`);
-          const result = await agentRegistry.executeAgent(step.agent, context, stepInput);
-          execution.stepResults.set(step.id, result);
-          break;
-        }
-
-        case 'parallel': {
-          if (!step.agents) throw new Error(`Step ${step.id} missing agents list`);
-          const results = await Promise.all(
-            step.agents.map((agent) =>
-              agentRegistry.executeAgent(agent, context, stepInput),
-            ),
-          );
-          // Store as array keyed by step.id
-          execution.stepResults.set(step.id, results as unknown as AgentResponse);
-          break;
-        }
-
-        case 'emit-event': {
-          if (!step.eventType) throw new Error(`Step ${step.id} missing eventType`);
-          await eventBus.emit({
-            type: step.eventType,
-            source: `workflow:${executionId}`,
-            payload: {
-              workflowName: workflow.name,
-              executionId,
-              stepResults: Object.fromEntries(execution.stepResults),
-            },
-            priority: 'normal',
-            timestamp: new Date().toISOString(),
-            orgId: context.orgId,
-            sessionId: context.sessionId,
-          });
-          break;
-        }
-
-        case 'condition': {
-          // Simple condition evaluation — skip remaining steps if false
-          // In Temporal, this would be a proper saga compensation
-          logger.debug('Condition step (pass-through in local executor)', {
+          logger.debug('Workflow step executing', {
+            workflow: workflow.name,
             step: step.id,
+            type: step.type,
           });
-          break;
-        }
-      }
-    }
 
-    if (execution.status === 'running') {
-      execution.status = 'completed';
-    }
+          // Build step input from previous results
+          const stepInput = buildStepInput(input, step.inputFrom, execution.stepResults);
+
+          await withWorkflowStepSpan(step.id, step.type, async () => {
+            switch (step.type) {
+              case 'agent': {
+                if (!step.agent) throw new Error(`Step ${step.id} missing agent name`);
+                const result = await agentRegistry.executeAgent(step.agent, context, stepInput);
+                execution.stepResults.set(step.id, result);
+                break;
+              }
+
+              case 'parallel': {
+                if (!step.agents) throw new Error(`Step ${step.id} missing agents list`);
+                const results = await Promise.all(
+                  step.agents.map((agent) => agentRegistry.executeAgent(agent, context, stepInput)),
+                );
+                // Store as array keyed by step.id
+                execution.stepResults.set(step.id, results as unknown as AgentResponse);
+                break;
+              }
+
+              case 'emit-event': {
+                if (!step.eventType) throw new Error(`Step ${step.id} missing eventType`);
+                await eventBus.emit({
+                  type: step.eventType,
+                  source: `workflow:${executionId}`,
+                  payload: {
+                    workflowName: workflow.name,
+                    executionId,
+                    stepResults: Object.fromEntries(execution.stepResults),
+                  },
+                  priority: 'normal',
+                  timestamp: new Date().toISOString(),
+                  orgId: context.orgId,
+                  sessionId: context.sessionId,
+                });
+                break;
+              }
+
+              case 'condition': {
+                // Simple condition evaluation — skip remaining steps if false
+                // In Temporal, this would be a proper saga compensation
+                logger.debug('Condition step (pass-through in local executor)', {
+                  step: step.id,
+                });
+                break;
+              }
+            }
+          });
+        }
+
+        if (execution.status === 'running') {
+          execution.status = 'completed';
+        }
+        wfSpan.setAttribute('dws.workflow.status', execution.status);
+      },
+    );
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : 'Unknown error';
     execution.status = 'failed';

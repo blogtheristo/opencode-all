@@ -10,7 +10,7 @@
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { NextFunction, type Request, type Response } from 'express';
+import { type Request, type Response } from 'express';
 import { AppError } from '../../middleware/error-handler.js';
 import {
   ComplianceCheckSchema,
@@ -310,8 +310,8 @@ describe('validate() middleware', () => {
 // ============ SCORING ENGINE INTEGRATION ============
 
 describe('Compliance Scoring Pipeline (Integration)', () => {
-  let scoreCompliance: typeof import('../../compliance/scoring-engine.js').scoreCompliance;
-  let generateReport: typeof import('../../compliance/report-generator.js').generateReport;
+  let scoreCompliance: typeof scoreCompliance;
+  let generateReport: typeof generateReport;
 
   beforeEach(async () => {
     const scoring = await import('../../compliance/scoring-engine.js');

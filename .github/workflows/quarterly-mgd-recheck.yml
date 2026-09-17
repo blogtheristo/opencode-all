@@ -1,0 +1,76 @@
+name: Quarterly MGD Game Re-check
+
+# ============================================================================
+# Recipe step 8 (SCHEDULE) — dominant-game recipe. Produces the quarterly
+# "is MGD still the dominant game?" data artifact for the /retro -> /learn
+# loop (docs/retros/), on the first day of each calendar quarter.
+#
+# PRIMARY runtime is DGX Spark via scripts/daily/mgd-game-recheck-quarterly-gate.sh
+# (auto-discovered day-runner — scripts/daily/README.md). This workflow is the
+# FAILOVER per CLAUDE.md Script Automation Rule. Both call the SAME gate script,
+# which self-gates to quarter-start and is idempotent, so a double-run is a no-op.
+#
+# Produces data only. It does NOT send email (RED-zone) and does NOT apply any
+# migration. The gate script records a schema gap rather than proxying a number.
+# ============================================================================
+
+on:
+  schedule:
+    # Quarterly, 06:00 UTC on the 1st of Jan / Apr / Jul / Oct.
+    - cron: "0 6 1 1,4,7,10 *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  recheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # DGX Spark day-runner is primary; this GHA run is failover only.
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
+      - name: Setup Node
+        if: steps.failover.outputs.dgx_alive != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Run the quarterly MGD game re-check (produces docs/retros artifact)
+        if: steps.failover.outputs.dgx_alive != 'true'
+        env:
+          # Preferred: the live agent_executions table. Falls back to an export path.
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          MGD_LOGS: ${{ vars.MGD_LOGS_PATH }}
+          MGD_AGENT_OUTPUTS_DIR: ${{ vars.MGD_AGENT_OUTPUTS_DIR }}
+        run: bash scripts/daily/mgd-game-recheck-quarterly-gate.sh
+
+      - name: Open PR with the quarterly re-check (if produced)
+        if: steps.failover.outputs.dgx_alive != 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/mgd-game-recheck
+          add-paths: docs/retros/**
+          commit-message: "retro: quarterly MGD game re-check"
+          title: "retro: quarterly MGD game re-check"
+          body: |
+            Auto-opened by `.github/workflows/quarterly-mgd-recheck.yml` (failover for the DGX Spark day-runner).
+
+            The `docs/retros/<year>-Q<n>-mgd-game-recheck.md` artifact carries the standing
+            question **"is MGD still the dominant game?"** plus current/prior MGD, trend, and the
+            anti-game-phrase flag — for the `/retro` -> `/learn` loop to evaluate.
+
+            No number is proxied: if MGD cannot be computed the artifact records the schema gap
+            (migration 075, un-applied).
+          labels: retro, quarterly

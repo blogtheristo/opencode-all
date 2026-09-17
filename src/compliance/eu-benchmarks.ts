@@ -41,6 +41,26 @@ export interface SectorBenchmark {
  * - EUTL: ec.europa.eu/clima/ets/oha.do
  * - CSRD readiness: EFRAG 2025 implementation monitoring report
  */
+/**
+ * Generic baseline used by getBenchmark() when a sector has no dedicated entry.
+ * Also included in EU_SECTOR_BENCHMARKS below.
+ */
+export const MANUFACTURING_BENCHMARK: SectorBenchmark = {
+  naceCode: 'C10-C33',
+  sector: 'manufacturing',
+  avgEmissions: 25_000,
+  medianEmissions: 12_000,
+  avgImportValue: 600_000,
+  avgEmployees: 500,
+  avgRevenue: 150_000_000,
+  csrdReadiness: 38,
+  etsExposure: 'medium',
+  cbamExposure: 'low',
+  typicalMeasures: { transitionPlan: 28, emissionsMonitoring: 45, supplyChainDD: 20 },
+  source: 'EEA GHG Inventory 2024 + Eurostat SBS',
+  year: 2024,
+};
+
 export const EU_SECTOR_BENCHMARKS: SectorBenchmark[] = [
   {
     naceCode: 'C24',
@@ -147,21 +167,7 @@ export const EU_SECTOR_BENCHMARKS: SectorBenchmark[] = [
     source: 'EEA GHG Inventory 2024 + Eurelectric',
     year: 2024,
   },
-  {
-    naceCode: 'C10-C33',
-    sector: 'manufacturing',
-    avgEmissions: 25_000,
-    medianEmissions: 12_000,
-    avgImportValue: 600_000,
-    avgEmployees: 500,
-    avgRevenue: 150_000_000,
-    csrdReadiness: 38,
-    etsExposure: 'medium',
-    cbamExposure: 'low',
-    typicalMeasures: { transitionPlan: 28, emissionsMonitoring: 45, supplyChainDD: 20 },
-    source: 'EEA GHG Inventory 2024 + Eurostat SBS',
-    year: 2024,
-  },
+  MANUFACTURING_BENCHMARK,
   {
     naceCode: 'F41-F43',
     sector: 'construction',
@@ -200,8 +206,9 @@ export const EU_SECTOR_BENCHMARKS: SectorBenchmark[] = [
  */
 export function getBenchmark(sector: string): SectorBenchmark {
   const normalized = sector.toLowerCase();
-  return EU_SECTOR_BENCHMARKS.find((b) => b.sector === normalized)
-    ?? EU_SECTOR_BENCHMARKS.find((b) => b.sector === 'manufacturing')!;
+  return (
+    EU_SECTOR_BENCHMARKS.find((b) => b.sector === normalized) ?? MANUFACTURING_BENCHMARK
+  );
 }
 
 /**

@@ -1,0 +1,198 @@
+<!doctype html>
+<!--
+  DWS IQ 6 Resilience on Build
+  Language: fi
+  Slug: dws-iq-resilience-on-build.fi
+  Date: 2026-08-20
+  Owner: Lifetime Oy
+  Note: Kenttämuistio jatkuvuudesta suunnitteluperiaatteena: local-first AI-kehitys
+  Lifetime Oy:ssä. HIC-hyväksytty 2026-08-20.
+-->
+<html lang="fi">
+  <head>
+    <meta property="article:class" content="1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DWS IQ 6 — Jatkuvuus rakennusvaiheessa</title>
+    <meta name="description" content="Jos koko kehitystyönkulku pysähtyy sillä hetkellä kun yksi AI-toimittaja muuttaa suuntaa, se ei ole joustava pino. Se on riippuvuus. Kolme päätöstä Lifetime Oy:ssä tekee jatkuvuudesta suunnittelutavoitteen." />
+    <meta name="author" content="Risto Päärni" />
+    <meta name="date" content="2026-08-20" />
+    <meta property="og:title" content="DWS IQ 6 — Jatkuvuus rakennusvaiheessa" />
+    <meta property="og:description" content="Jos koko kehitystyönkulku pysähtyy sillä hetkellä kun yksi AI-toimittaja muuttaa suuntaa, se ei ole joustava pino. Se on riippuvuus. Kolme päätöstä Lifetime Oy:ssä tekee jatkuvuudesta suunnittelutavoitteen." />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="fi_FI" />
+    <meta property="og:url" content="https://onelifetime.world/posts/dws-iq-resilience-on-build.fi.html" />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://onelifetime.world/static/images/blog/heroes/dws-iq-resilience-on-build.png" />
+    <meta property="article:published_time" content="2026-08-20" />
+    <meta property="article:author" content="Risto Päärni" />
+    <meta property="article:section" content="Suvereeni teknologia" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DWS IQ 6 — Jatkuvuus rakennusvaiheessa" />
+    <meta name="twitter:description" content="Jos koko kehitystyönkulku pysähtyy sillä hetkellä kun yksi AI-toimittaja muuttaa suuntaa, se ei ole joustava pino. Se on riippuvuus." />
+    <link rel="alternate" hreflang="en" href="https://onelifetime.world/posts/dws-iq-resilience-on-build.html" />
+    <link rel="canonical" href="https://onelifetime.world/posts/dws-iq-resilience-on-build.fi.html" />
+    <link rel="alternate" hreflang="fi" href="https://onelifetime.world/posts/dws-iq-resilience-on-build.fi.html" />
+    <link rel="alternate" hreflang="sv" href="https://onelifetime.world/posts/dws-iq-resilience-on-build.sv.html" />
+    <link rel="alternate" hreflang="de" href="https://onelifetime.world/posts/dws-iq-resilience-on-build.de.html" />
+    <link rel="alternate" hreflang="fr" href="https://onelifetime.world/posts/dws-iq-resilience-on-build.fr.html" />
+    <link rel="alternate" hreflang="x-default" href="https://onelifetime.world/posts/dws-iq-resilience-on-build.html" />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/shared-assets/olw-vertical-lang-bar.js" defer></script>
+    <style>
+      .version-chip {
+        display: inline-block;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #60a5fa;
+        background: rgba(96, 165, 250, 0.08);
+        border: 1px solid rgba(96, 165, 250, 0.25);
+        border-radius: 9999px;
+      }
+      .hero-fig {
+        margin: 8px 0 32px;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(96, 165, 250, 0.2);
+      }
+      .hero-fig img { width: 100%; height: auto; display: block; }
+      .prose-light h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #f1f5f9;
+        margin-top: 40px;
+        margin-bottom: 14px;
+      }
+      .prose-light h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #e2e8f0;
+        margin-top: 24px;
+        margin-bottom: 10px;
+      }
+      .prose-light p {
+        color: #cbd5e1;
+        line-height: 1.75;
+        margin-bottom: 16px;
+      }
+      .prose-light ul {
+        color: #cbd5e1;
+        margin: 0 0 16px 1.25rem;
+        line-height: 1.75;
+      }
+      .prose-light li { margin-bottom: 8px; }
+      .prose-light blockquote {
+        border-left: 3px solid #60a5fa;
+        padding-left: 16px;
+        color: #e2e8f0;
+        font-style: italic;
+        margin: 24px 0;
+      }
+    </style>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); color: #f1f5f9;"
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)" class="sticky top-0 z-50 border-b border-gray-700">
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Valikko">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img src="../OneLifetime+Logo.png" alt="OneLifetime.World" class="h-8 w-auto" style="filter: brightness(1.1)" />
+        </a>
+        <a href="https://dws10.com/buy" class="text-xs font-bold px-3 py-1 rounded" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a">Kauppa</a>
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Lifetime Scope Journal</a>
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Press</a>
+        <a href="https://dws10.com" target="_blank" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">DWS IQ -alusta</a>
+        <a href="https://dws10.com/buy" target="_blank" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Kauppa</a>
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12 prose-light">
+        <header class="mb-8">
+          <span class="version-chip">Kenttämuistio</span>
+          <h1 class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight" style="color: #f8fafc">
+            DWS IQ 6 — Jatkuvuus rakennusvaiheessa
+          </h1>
+          <p class="mt-4 text-base text-gray-400">20.08.2026 &middot; Risto P&auml;&auml;rni &middot; Espoo, Suomi</p>
+        </header>
+
+        <aside class="ai-notice" role="note" aria-label="Tekoälyn tuottama sisältö" style="margin:0 0 1.75rem;padding:0.85rem 1.1rem;border-left:3px solid #94a3b8;background:rgba(30,41,59,0.55);color:#cbd5e1;font-size:0.85rem;line-height:1.6">
+          <strong style="color:#f1f5f9">HIC-hyväksytty kenttämuistio</strong> &middot; Tämä sivu on luonnosteltu tekoälyn avulla ja tarkistettu nimetyn ihmisen toimesta ennen julkaisua (human-in-the-loop, EU:n AI-laki, artikla 14).
+        </aside>
+
+        <figure class="hero-fig">
+          <img src="../static/images/blog/heroes/dws-iq-resilience-on-build.png" alt="DWS IQ 6 — Jatkuvuus rakennusvaiheessa" loading="lazy" />
+        </figure>
+
+        <h2>Ydin</h2>
+<p>Jos koko kehitystyönkulku pysähtyy sillä hetkellä kun yksi AI-toimittaja muuttaa suuntaa, se ei ole joustava pino. Se on riippuvuus.</p>
+<p>Mallit muuttuvat joka kuukausi. Hinnat muuttuvat. Käytännöt muuttuvat. Tuotteen on tultava valmiiksi kaikesta tästä huolimatta.</p>
+<p>Lifetime Oy:ssä teimme jatkuvuudesta suunnittelutavoitteen.</p>
+<p>Kolme päätöstä kantaa tämän:</p>
+<ul>
+  <li><strong>Paikalliset avoimen lähdekoodin mallit ovat oletusarvo jokapäiväisessä kehityksessä.</strong> Perusta pysyy talossa.</li>
+  <li><strong>Frontier-mallit tulevat mukaan kutsusta.</strong> Kun tehtävä on liian vaikea paikalliselle mallille, frontier-malli tekee raskaan työn ja palauttaa työn takaisin.</li>
+  <li><strong>Standardit kulkevat työn mukana, eivät toimittajan.</strong> Totuusstandardimme, DWS-ontologia ja toimialasanastot varmistavat jäljitettävyyden ja pitävät perustelemattomat väitteet ja tekoälypaisunnuksen poissa koodikannasta riippumatta siitä, mikä malli koodin kirjoitti.</li>
+</ul>
+<p>En väitä, että tämä tekee meistä toimittajariippumattomia. Jatkuvuus on tavoite, ja läheisyytesi tavoitteeseen selviää vain testaamalla yksi kysymys rehellisesti:</p>
+<blockquote>Jos ensisijainen AI-toimittajasi muuttaisi hintoja tai käytäntöjä huomenna, kuinka suuri osa kehitystyönkulustasi jatkaisi toimintaansa?</blockquote>
+
+<h2>Tarina</h2>
+<p>Kesäkuu 2026 oli paras kuukauteni rakentaa Claude-työkalulla. Lokakuusta 2025 lähtien tekoälyllä koodaamisen oppiminen ja Firehorse-tuotantomallin rakentaminen toivat vauhtia ja tuottivat 116 tuotetta vuodessa — unohtamatta ensimmäisiä kuukausia Cursor.AI:n ja Visual Studio Coden kanssa, jolloin koodin valmisteli vielä ihminen silmukassa. Kaiken kaikkiaan Claude Coden kasvu yhtenäisenä työkaluna on tehnyt minusta 10x vahvemman viimeisen 10 kuukauden aikana. Kiitos Anthropic, Cursor-tiimi, Microsoft ja GitHub.</p>
+<p>Tänään keskittymisenä on siirtää kaikki mahdollinen työkuorma ensin paikallisiin malleihin: 1) oppia suvereenia AI-kehitystä, malleja, hyödyntämistä ja niin edelleen; 2) olla riippumaton frontier-malleista ja säästää hieman rahaa (ei vielä näkyvissä).</p>
+<p>Yrityksessämme Lifetime Oy rakennamme päivittäin paikallisilla avoimen lähdekoodin malleilla. Tänään Claude on kuumassa valmiudessa: kun tehtävä on liian vaikea paikalliselle mallille, frontier-malli astuu sisään, tekee raskaan työn ja palauttaa työn takaisin. Perusta pysyy talossa. Toinen on GitHub Copilot, joka päivittää sitoumuksiani, korjaa paketeista löydettyjä uusimpia ongelmia ja on todella arvokas työkalu useiden git-arkistojen ja asiakasasennusversioiden hallintaan.</p>
+
+<h2>Perunat</h2>
+<p>Mallit muuttuvat joka kuukausi. Hinnat muuttuvat. Käytännöt muuttuvat. Tuote on silti saatava valmiiksi.</p>
+<p>Siksi kirjoitin toistasataa DWS-standardia suojaamaan työtä. Totuusstandardi pitää perustelemattomat väitteet poissa. DWS-ontologia pitää rakenteen rehellisenä. Toimialasanastot pitävät kunkin tietoalueen täsmällisenä. Yhdessä ne antavat jäljitettävyyden ja pysäyttävät tekoälypaisunnuksen ennen kuin se leviää.</p>
+<p>Suvereeni AI käytännössä on kurinalaisuutta siitä, mitä missäkin ajetaan: paikalliset avoimen lähdekoodin mallit kantavat päivittäisen työn, ja frontier-malliin siirrytään vain kun korjaus sitä vaatii.</p>
+<p>Tältä se näyttää työpöydälläni elokuussa 2026. Jos tarvitset apua paikalliseen malliin perustuvan kehityksen käyttöönotossa, laita DM — olen täällä auttamassa.</p>
+
+<h2>Työpöytäni &amp; työnkulku — elokuu 2026</h2>
+<p>Päivittäinen koodaus pyörii toimiston kehityskoneilla. Pilvi- ja frontier-mallit tulevat mukaan vain kun kutsumme ne.</p>
+<p>Lifetime Oy:n nykyinen pino:</p>
+<ul>
+  <li><strong>Paikallinen, joka päivä:</strong> OpenCode DGX Sparkilla, mallit Ollaman kautta.</li>
+  <li><strong>DeepSeek V4 ja Qwen3 Coder</strong> nopeisiin muokkauksiin.</li>
+  <li><strong>Nemotron-3-Super</strong> kun ongelma vaatii toimialapäättelyä Lifetime World Model -työhön.</li>
+  <li><strong>Arkisto- ja git-työnkulku:</strong> GitHub Copilot CLI.</li>
+  <li><strong>Pilvitarkistus:</strong> Gemini lukee jokaisen PR:n — suuri konteksti, monimuotoinen, pakollinen laadunportti ennen kuin mikään yhdistyy.</li>
+  <li><strong>Vain eskalointi:</strong> Claude Code vaikeisiin arkkitehtuuripäätöksiin. Kuuma valmius, ei päivittäinen ajuri.</li>
+</ul>
+<p>Järjestys on tärkeämpi kuin työkalut. Paikallinen on oletus. Ihmisen silmukassa on HIC-tehtävä. Jokaisen pilvipalvelun on perusteltava tasonsa ja tehtävänsä, ja kaikki mitä se koskettaa on jo kulkenut ihmisen kautta tällä puolella johtoa. Laadunportit ovat todellisia.</p>
+<p>Kirjoitin KYA-S1:n — v1.5 on normatiivinen spec-luonnos, julkinen kommentointi on auki — ja rakennan DWS IQ:ta sen päälle. KYA v2 on kehitteillä ja tarkoitus julkaista myöhemmin tänä vuonna.</p>
+<p>Ajetaan omat suvereniteettisääntömme ennen kuin pyydämme ketään muuta noudattamaan niitä.</p>
+<p>Keräämme €650K SAFE -rahoitusta €3,8M capilla, avoinna EU/ETA-sijoittajille. Jos oman specinsä elävän tiimin tukeminen kuulostaa oikealta — DM.</p>
+
+        <p style="margin-top:40px;"><em>Risto P&auml;&auml;rni &mdash; Perustaja &amp; toimitusjohtaja, Lifetime Oy.</em></p>
+
+        <div class="mt-16 p-8 rounded-lg" style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(96, 165, 250, 0.2);">
+          <h3 class="text-xl font-bold mb-2" style="color: #e2e8f0;">Tilaa Lifetime Scope Journal</h3>
+          <p class="text-sm text-gray-400 mb-4">Viikoittaisia oivalluksia EU-vaatimustenmukaisuudesta, AI-agenteista ja teollisesta murroksesta.</p>
+          <a href="https://dws10.com/contact/" class="inline-block px-6 py-2 rounded text-sm font-bold" style="background: linear-gradient(135deg, #0066cc, #2563eb); color: #fff;">Tilaa</a>
+        </div>
+      </article>
+    </main>
+
+    <script src="/shared-assets/footer/ironclad-footer.js" defer></script>
+  </body>
+</html>

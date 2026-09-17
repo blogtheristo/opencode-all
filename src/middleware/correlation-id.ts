@@ -1,3 +1,5 @@
+// Evidence: Tool=OpenCode 1.18.22 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-24
+// Audit trail: git log -- src/middleware/correlation-id.ts
 /**
  * Correlation ID Middleware
  *
@@ -10,7 +12,11 @@ import crypto from 'crypto';
 
 export function correlationId(req: Request, res: Response, next: NextFunction): void {
   const existing = req.headers['x-correlation-id'] as string | undefined;
-  const id = existing || crypto.randomUUID();
+  // Only trust well-formed client IDs; anything else (control chars, overlong,
+  // hostile charset) is replaced — Node's header validator would otherwise
+  // throw on setHeader and turn garbage input into a 500.
+  const id =
+    existing && /^[A-Za-z0-9\-_.]{1,64}$/.test(existing) ? existing : crypto.randomUUID();
 
   // Make it available on req and response headers
   req.headers['x-correlation-id'] = id;

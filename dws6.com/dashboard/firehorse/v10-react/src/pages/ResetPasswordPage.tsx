@@ -35,7 +35,7 @@ export function ResetPasswordPage({ onBackToLogin }: ResetPasswordPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+    <div className="min-h-dvh bg-background flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         {/* Branding */}
         <div className="text-center mb-8">
@@ -43,11 +43,11 @@ export function ResetPasswordPage({ onBackToLogin }: ResetPasswordPageProps) {
             <span className="text-white font-bold text-2xl">D</span>
           </div>
           <h1 className="text-2xl font-bold text-white">DWS IQ 6</h1>
-          <p className="text-gray-400 text-sm mt-1">Reset Your Password</p>
+          <p className="text-fg-muted text-sm mt-1">Reset Your Password</p>
         </div>
 
         {/* Card */}
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8">
+        <div className="bg-surface border border-border rounded-2xl p-8">
           {success ? (
             <div className="text-center">
               <div className="w-12 h-12 bg-green-900/40 border border-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -56,7 +56,7 @@ export function ResetPasswordPage({ onBackToLogin }: ResetPasswordPageProps) {
                 </svg>
               </div>
               <h2 className="text-lg font-semibold text-white mb-2">Check your email</h2>
-              <p className="text-gray-400 text-sm mb-6">
+              <p className="text-fg-muted text-sm mb-6">
                 We sent a password reset link to <span className="text-white">{email}</span>.
                 Click the link in the email to set a new password.
               </p>
@@ -72,7 +72,7 @@ export function ResetPasswordPage({ onBackToLogin }: ResetPasswordPageProps) {
             </div>
           ) : (
             <>
-              <p className="text-gray-400 text-sm mb-6">
+              <p className="text-fg-muted text-sm mb-6">
                 Enter the email address associated with your account. We will send you a link to reset your password.
               </p>
 
@@ -85,7 +85,7 @@ export function ResetPasswordPage({ onBackToLogin }: ResetPasswordPageProps) {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="reset-email" className="block text-sm font-medium text-gray-300 mb-1">
+                  <label htmlFor="reset-email" className="block text-sm font-medium text-fg-muted mb-1">
                     Email
                   </label>
                   <input
@@ -94,7 +94,7 @@ export function ResetPasswordPage({ onBackToLogin }: ResetPasswordPageProps) {
                     required
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 bg-fg-muted/10 border border-border rounded-lg text-white placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="you@company.com"
                   />
                 </div>
@@ -112,7 +112,7 @@ export function ResetPasswordPage({ onBackToLogin }: ResetPasswordPageProps) {
                 <button
                   type="button"
                   onClick={onBackToLogin}
-                  className="w-full mt-4 text-sm text-gray-400 hover:text-gray-300 transition-colors"
+                  className="w-full mt-4 text-sm text-fg-muted hover:text-fg-muted transition-colors"
                 >
                   Back to sign in
                 </button>
@@ -122,7 +122,7 @@ export function ResetPasswordPage({ onBackToLogin }: ResetPasswordPageProps) {
         </div>
 
         {/* Footer */}
-        <p className="text-center text-gray-600 text-xs mt-6">
+        <p className="text-center text-fg-muted text-xs mt-6">
           &copy; 2026 DWS IQ &middot; Climate Intelligence Platform
         </p>
       </div>

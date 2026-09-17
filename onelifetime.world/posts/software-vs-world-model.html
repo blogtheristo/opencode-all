@@ -1,0 +1,436 @@
+<!doctype html>
+<!--
+  Software You Operate vs Intelligence That Operates — SaaS and the World Model
+  Code-Version: 1.0
+  Introduced-In: PR-capital-classes-audit
+  Branch: claude/capital-classes-audit-jgworp
+  Date: 2026-06-20
+  Owner: Lifetime Oy
+  Related:
+    - onelifetime.world/posts/four-capital-classes.html
+    - onelifetime.world/posts/point-it-at-the-ontology.html
+    - ONTOLOGY.md
+    - Firehorse/SITUATION_CONTROL_ROOMS_INDEX.md
+-->
+<html lang="en">
+  <head>
+    <meta property="article:class" content="2">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Software You Operate vs Intelligence That Operates — SaaS and the World Model</title>
+    <meta
+      name="description"
+      content="Most AI sold to industry is SaaS with a chat box. DWS is intelligence that operates on a governed World Model — it perceives, decides, and acts. Here is the category line, and the three-question test."
+    />
+    <meta name="author" content="Risto Anton Päärni" />
+    <meta name="date" content="2026-06-20" />
+    <meta
+      property="og:title"
+      content="Software You Operate vs Intelligence That Operates — SaaS and the World Model"
+    />
+    <meta
+      property="og:description"
+      content="SaaS is software you operate. DWS is intelligence that operates on a governed World Model. The category line is the valuation line."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/software-vs-world-model.html"
+    />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://onelifetime.world/static/images/blog/heroes/software-vs-world-model.png" />
+    <meta property="article:published_time" content="2026-06-20" />
+    <meta property="article:author" content="Risto Anton Päärni" />
+    <meta property="article:section" content="Ontology" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://onelifetime.world/static/images/blog/heroes/software-vs-world-model.png">
+
+    <meta
+      name="twitter:title"
+      content="Software You Operate vs Intelligence That Operates — SaaS and the World Model"
+    />
+    <meta
+      name="twitter:description"
+      content="A tool waits for you to operate it. A world model operates and reports back. Three questions tell the two apart."
+    />
+    <link rel="canonical" href="https://onelifetime.world/posts/software-vs-world-model.html" />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/shared-assets/olw-vertical-lang-bar.js" defer></script>
+    <style>
+      .version-chip {
+        display: inline-block;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #60a5fa;
+        background: rgba(96, 165, 250, 0.08);
+        border: 1px solid rgba(96, 165, 250, 0.25);
+        border-radius: 9999px;
+      }
+      .signal-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(96, 165, 250, 0.2);
+        transition:
+          border-color 0.3s ease,
+          transform 0.3s ease;
+      }
+      .signal-card:hover {
+        border-color: rgba(96, 165, 250, 0.55);
+        transform: translateY(-2px);
+      }
+      .news-box {
+        border-left: 4px solid #60a5fa;
+        background: rgba(96, 165, 250, 0.07);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 22px;
+        margin: 24px 0;
+        color: #e2e8f0;
+      }
+      .gold-box {
+        border-left: 4px solid #d4a843;
+        background: rgba(212, 168, 67, 0.07);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 22px;
+        margin: 28px 0;
+        color: #f1f5f9;
+      }
+      .gold-box h3 {
+        color: #d4a843;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .short-box {
+        border: 1px solid rgba(96, 165, 250, 0.3);
+        background: rgba(96, 165, 250, 0.06);
+        border-radius: 10px;
+        padding: 22px 26px;
+        margin: 34px 0;
+      }
+      .short-box h3 {
+        color: #60a5fa;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      blockquote.pull {
+        border-left: 4px solid #60a5fa;
+        background: rgba(96, 165, 250, 0.06);
+        border-radius: 0 8px 8px 0;
+        padding: 20px 24px;
+        margin: 28px 0;
+        font-style: italic;
+        color: #e2e8f0;
+      }
+      blockquote.pull cite {
+        display: block;
+        margin-top: 10px;
+        font-style: normal;
+        font-size: 0.85rem;
+        color: #94a3b8;
+      }
+      .prose-light h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #f1f5f9;
+        margin-top: 40px;
+        margin-bottom: 14px;
+      }
+      .prose-light p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        color: #cbd5e1;
+        margin-bottom: 18px;
+      }
+      .prose-light ul {
+        margin-bottom: 20px;
+        list-style: disc;
+        padding-left: 22px;
+      }
+      .prose-light li {
+        color: #cbd5e1;
+        padding-left: 4px;
+        margin-bottom: 8px;
+      }
+      .prose-light strong {
+        color: #f1f5f9;
+      }
+      .prose-light a {
+        color: #60a5fa;
+      }
+      .prose-light a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Software You Operate vs Intelligence That Operates — SaaS and the World Model",
+        "description": "SaaS is software you operate. DWS is intelligence that operates on a governed World Model. The category line is the valuation line.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Päärni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Lifetime Oy",
+          "url": "https://dws10.com"
+        },
+        "datePublished": "2026-06-20",
+        "mainEntityOfPage": "https://onelifetime.world/posts/software-vs-world-model.html",
+        "articleSection": "Ontology",
+        "inLanguage": "en"
+      }
+    </script>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menu">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Store</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Press</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ Platform</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Store</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12 prose-light">
+        <header class="mb-8">
+          <span class="version-chip">Field Note &middot; Ontology</span>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            Software you operate vs intelligence that operates
+          </h1>
+          <p class="mt-4 text-base text-gray-400">
+            20 June 2026 &middot; Risto Anton Päärni &middot; Helsinki, Finland
+          </p>
+        </header>
+
+        <p>
+          Third in the Ontology Series. The ontology is the product. The ontology is capital. Here
+          is why it isn't software.
+        </p>
+
+        <div class="news-box">
+          Most "AI" sold to industry is SaaS with a chat box bolted on. You still operate it.
+        </div>
+
+        <p>A tool waits for you to operate it. A world model operates.</p>
+
+        <blockquote class="pull">
+          SaaS is software you operate. DWS is intelligence that operates on a governed World Model.
+        </blockquote>
+
+        <ul>
+          <li>
+            It fuses live signal — sensors, mobility, satellite, robotics — into one governed
+            picture.
+          </li>
+          <li>It closes the loop: sense, decide, act.</li>
+          <li>It is sovereign: EU-resident, audit-logged, bound to a verified human.</li>
+        </ul>
+
+        <div class="gold-box">
+          <h3>The test</h3>
+          <p class="mb-0" style="color: #f1f5f9">
+            A vendor calls a chat box a "world model"? Three questions. Does it fuse live signal?
+            Does it close the loop? Is it governed and sovereign? Three no's and you are buying
+            software. That is fine — as long as you are not paying world-model prices for it.
+          </p>
+        </div>
+
+        <p>
+          Nobody runs a plant for forty years and then lets a stranger rebuild it. So you don't ask.
+          You leave one small, harmless tool that quietly does something the old team never could —
+          and by the time that matters, the governed world model behind it is a moat no competitor
+          can copy.
+        </p>
+
+        <p class="text-sm text-gray-400">
+          One honest caveat: Perception is the class still being proven. A world model compounds in
+          deployment — that proof is in progress, not finished.
+        </p>
+
+        <h2>The Ontology Series</h2>
+        <ol>
+          <li><a href="/posts/point-it-at-the-ontology.html">Don't Point the LLM at the Data — Point It at the Ontology</a></li>
+          <li><a href="/posts/four-capital-classes.html">Prompt, People, Plant, Perception — The Four Capital Classes</a></li>
+          <li><a href="/posts/software-vs-world-model.html">Software You Operate vs Intelligence That Operates</a></li>
+          <li><a href="/posts/the-ontology-lives-in-the-team.html">The Ontology Lives in the Team (EN)</a></li>
+          <li><a href="/posts/ontologia-tiimin-aivoissa.html">Ontologia elää tiimin aivoissa (FI)</a></li>
+        </ol>
+
+        <h2>Read next</h2>
+        <ul>
+          <li>
+            <a href="/posts/point-it-at-the-ontology.html"
+              >Don't Point the LLM at the Data — Point It at the Ontology</a
+            >
+          </li>
+          <li>
+            <a href="/posts/your-model-cant-beat-your-noise-floor.html"
+              >Your Model Can't Beat Your Noise Floor</a
+            >
+          </li>
+          <li>
+            <a href="/posts/four-capital-classes.html"
+              >Prompt, People, Plant, Perception — The Four Capital Classes of the Agentic Era</a
+            >
+          </li>
+          <li>
+            <a href="/posts/the-ontology-lives-in-the-team.html">The Ontology Lives in the Team</a>
+          </li>
+        </ul>
+
+        <hr class="my-10 border-gray-700" />
+
+        <p class="text-sm text-gray-500">
+          <em
+            >Risto Anton Päärni — Founder, CEO, Lifetime Oy &middot; Editor in Chief, Lifetime Scope
+            Journal.</em
+          >
+          Sources: DWS architecture catalogued in <code>ONTOLOGY.md</code>,
+          <code>Firehorse/SITUATION_CONTROL_ROOMS_INDEX.md</code>, and
+          <code
+            >docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md</code
+          >. This post is commentary and carries no financial terms.
+        </p>
+      </article>
+
+      <!-- Featured Products -->
+      <div class="max-w-3xl mx-auto px-4 pb-12">
+        <h3 class="text-lg font-bold mb-4" style="color: #d4a843">From the Store</h3>
+                    <p class="text-xs mb-4"><a href="https://dws10.com/price-list/" style="color:#22d3ee;text-decoration:underline">See the price list &rarr;</a></p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <a
+            href="https://dws10.com/products/dwsiq.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Flagship</span
+            >
+            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+            <p class="text-sm font-bold text-cyan-400 my-1">Prices on the price list</p>
+            <p class="text-xs text-gray-500">DWS IQ + Firehorse Report + Workshop</p>
+          </a>
+
+          <a
+            href="https://dws10.com/products/firehorse-omnichannel.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Start Here</span
+            >
+            <p class="text-sm font-semibold text-gray-200">Firehorse Omnichannel</p>
+            <p class="text-sm font-bold text-cyan-400 my-1">Prices on the price list</p>
+            <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <div id="ontology-cta"></div>
+    <script src="https://dws10.com/shared-assets/cta/ontology-cta.js" defer></script>
+    <!-- Iron Clad Footer — self-injects before </body>, replacing any existing footer -->
+    <script src="/shared-assets/footer/ironclad-footer.js" defer></script>
+  </body>
+</html>

@@ -195,7 +195,7 @@ The following methods are candidates for patent protection:
 #### 5.1 CIDM — Climate-Intelligent Decision Making (PRIORITY 1)
 
 **Status:** Patent pending
-**Novelty:** Multi-agent AI orchestration for regulatory compliance decision-making across 16 EU industries simultaneously.
+**Novelty:** Multi-agent AI orchestration for regulatory compliance decision-making across 25+ EU industries simultaneously.
 
 **Key claims (to be refined with patent attorney):**
 

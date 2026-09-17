@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Osa-alue 3 — Agenttipohjainen järjestelmäkehitys v2.0</title>
+<style>
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:1000px;margin:0 auto;padding:0 20px 40px;line-height:1.7;color:#1a1a2e;background:#fafafa}
+h1{color:#0f172a;border-bottom:3px solid #fbbf24;padding-bottom:10px}
+h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-top:40px}
+h3{color:#334155}h4{color:#475569}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.9em}
+pre{background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}
+table{border-collapse:collapse;width:100%;margin:20px 0}
+th,td{border:1px solid #cbd5e1;padding:10px 14px;text-align:left}
+th{background:#1e3a5f;color:white}tr:nth-child(even){background:#f8fafc}
+blockquote{border-left:4px solid #fbbf24;margin:20px 0;padding:10px 20px;background:#fffbeb}
+a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
+.dws-version-banner{background:#1e293b;color:#e2e8f0;padding:12px 20px;margin:0 -20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.85rem}
+.dws-version-badge{background:#fbbf24;color:#0f172a;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.9rem;letter-spacing:.04em}
+.dws-version-meta{color:#94a3b8;font-size:.8rem}
+.dws-version-title{color:#e2e8f0;font-weight:600}
+.col2{column-count:2;column-gap:32px}
+.col2 li{break-inside:avoid}
+.status-DRAFT{color:#b45309;font-weight:600}.status-ACTIVE{color:#15803d;font-weight:600}
+</style>
+</head>
+<body>
+<div class="dws-version-banner">
+  <span class="dws-version-title">Osa-alue 3 — Agenttipohjainen järjestelmäkehitys</span>
+  <span class="dws-version-badge">v2.0</span>
+  <span class="dws-version-meta">Lifetime Oy · tarjous ORK160826</span>
+</div>
+<h1>Osa-alue 3 — Agenttipohjainen järjestelmäkehitys</h1>
+<h2>Referenssilomake | ORK/1462/2026</h2>
+<hr />
+<p>VERSION AND AGENT HISTORY Version: 2.0 | 2026-06-27 | Claude Sonnet 4.6 | Päivitetty osa-aluekohtaisten vaatimusten mukaiseksi</p>
+<hr />
+<hr />
+<h2>Tarjoajan tiedot</h2>
+<p>Yritys: Lifetime Oy Y-tunnus: 0772407-9 Yhteyshenkilö: Risto Anton Päärni Sähköposti: risto.paarni@lifetime.fi</p>
+<hr />
+<h2>Vaatimuskartoitus — Osa-alue 3</h2>
+<table><thead><tr><th>Vaatimus</th><th>Referenssi</th><th>HTP</th></tr></thead><tbody><tr><td>AI-avusteinen ohjelmistokehitys + merkittävä kehitysnopeuden tehostaminen</td><td>Referenssi 1 — DWS IQ 6: Claude Code + MCP Hub kehitysympäristö</td><td>~300 htp</td></tr><tr><td>AWS/Azure tai on-prem -ohjelmisto, toteutettu tekoälypohjaisesti</td><td>Referenssi 2 — AWS IoT Greengrass + DGX Spark on-prem AI-ohjelmisto</td><td>~30 htp</td></tr><tr><td>Tuotantoohjelmisto, tehty pääsääntöisesti tekoälyn avulla</td><td>Referenssi 1 — DWS IQ 6 (1 500+ PR Claude Code -avusteisesti)</td><td>~300 htp</td></tr><tr><td>Konttiteknologiaa hyödyntävä tuotanto-ohjelmisto, ≥50 htp</td><td>Referenssi 3 — DWS IQ 6 Docker-tuotantojärjestelmä + CI/CD</td><td>~120 htp</td></tr></tbody></table>
+<hr />
+<h2>Referenssi 1 — DWS IQ 6: AI-avusteinen agenttijärjestelmäkehitys (Claude Code + MCP Hub)</h2>
+<strong>Kattaa vaatimukset:</strong> AI-avusteinen kehitys + merkittävä nopeutuminen; Tuotantoohjelmisto pääsääntöisesti tekoälyllä
+<strong>Asiakas / tilaaja:</strong> Lifetime Oy (tuotantokäyttö, pohjoismaiset teollisuusasiakkaat)
+<strong>Ajanjakso:</strong> 2023–2026 (jatkuva)
+<strong>Laajuus:</strong> n. 300 htp (Risto Päärni 100 %, Claude Code päivittäisessä käytössä koko projektin ajan)
+<strong>Tuotantostatus:</strong> Tuotannossa, 6 maksavaa asiakasta, MRR 7 000 €
+<strong>Kuvaus — Tekoälyavusteinen kehitys ja sen mitattava vaikutus:</strong>
+<p>DWS IQ 6 on kehitetty alusta loppuun käyttäen Claude Code CLI -kehitysympäristöä päivittäisenä työnkulkuna. Kehitysnopeus on mitattu ja dokumentoitu YAMK-lopputyössä (Metropolia AMK, 2026):</p>
+<strong>Mitattu kehitysnopeuden tehostaminen (YAMK-tutkimus 2026):</strong>
+<table><thead><tr><th>Mittari</th><th>Tulos</th></tr></thead><tbody><tr><td>Kehitysnopeus (MCP Hub käyttöönotto)</td><td>+62 % verrattuna perinteiseen kehitykseen</td></tr><tr><td>GitHub: suljettuja PR:iä dws6-repositoriossa</td><td>1 500+ (2024–2026)</td></tr><tr><td>GitHub Actions -työnkulkuja</td><td>15 (CI/CD, tietoturkatarkistukset, automaattiset deployit)</td></tr><tr><td>Agentit tuotannossa</td><td>16+ TypeScript-agenttia</td></tr></tbody></table>
+<strong>MCP Hub -arkkitehtuurin rooli kehitysnopeudessa:</strong>
+<li>Model Context Protocol (MCP) Hub: agenttiyhteistyön standardiprotokolla, joka mahdollistaa Claude Code -agentin suoran pääsyn kaikkiin järjestelmän osiin</li>
+<li>Branch-strategia: feature-branch-workflow, suojatut päähaarat, automatisoidut tarkistukset jokaisessa PR:ssä</li>
+<li>Agenttipohjainen kehitys: plan → implement → review → ship -sykli Claude Code CLI:llä</li>
+<li>Cloudflare Pages -integraatio: automaattinen julkaisu main-haaraan</li>
+<strong>Järjestelmän rakenne (tuotannossa):</strong>
+<li><strong>Arkkitehtuuri:</strong> Brain-Memory-Body-Hands -viitekehys (deterministinen agenttivastuujako)</li>
+<li><strong>Agentit:</strong> 16+ TypeScript-agenttia, kukin rajatulla vastuualueella</li>
+<li><strong>Tietokanta:</strong> Supabase PostgreSQL + pgvector (vektorimuisti)</li>
+<li><strong>RAG:</strong> 15 000+ EU-sääntelydokumenttia, semanttinen haku < 800 ms</li>
+<li><strong>Tietoturva:</strong> EU AI Act Article 12, RLS, JWT, AES-256-GCM, immutable audit trail</li>
+<li><strong>Protokollat:</strong> MCP, JSON-RPC 2.0, RESTful API</li>
+<strong>Teknologia:</strong> TypeScript, Python, React 19, Node.js, Supabase, PostgreSQL, pgvector, Google Cloud Run, Cloudflare Workers, Docker, GitHub Actions, Claude Code CLI
+<strong>Rooli:</strong> Pää-arkkitehti ja -kehittäjä (100 %)
+<hr />
+<h2>Referenssi 2 — AWS IoT Greengrass + NVIDIA DGX Spark: on-prem AI-ohjelmisto</h2>
+<strong>Kattaa vaatimuksen:</strong> AWS tai on-prem -ohjelmisto, toteutettu tekoälypohjaisesti
+<strong>Asiakas / tilaaja:</strong> Lifetime Oy / NVIDIA Inception -ohjelma
+<strong>Ajanjakso:</strong> 2024–2026
+<strong>Laajuus:</strong> n. 30 htp
+<strong>Kuvaus — AWS-integroitu on-prem AI-ohjelmisto:</strong>
+<p>Kehitetty tekoälypohjainen hybridijärjestelmä, joka yhdistää AWS-orkestrointikerroksen ja paikallisen AI-päättelyn:</p>
+<strong>AWS-komponentti:</strong>
+<li>AWS IoT Greengrass v2: agentin elinkaarihallinta, OTA-päivitykset</li>
+<li>AWS Lambda: reunakomponenttien orkestrointi</li>
+<li>AWS IoT Core: laitehallinta ja telemetria</li>
+<strong>On-prem-komponentti (NVIDIA DGX Spark):</strong>
+<li>24/7 primääripalvelin 15 tuotantotyönkululle</li>
+<li>Ollama + paikalliset LLM-mallit (Llama 3.3 70B, Qwen 2.5)</li>
+<li>Docker Compose -palveluarkkitehtuuri</li>
+<li>GitHub Actions failover (aktivoituu vain DGX Sparkin vikatilanteessa)</li>
+<strong>Edge AI (NVIDIA Jetson Orin Nano):</strong>
+<li>Python-agentti + LlamaStack suljetussa verkossa</li>
+<li>< 100 ms latenssi, 7–15 W tehonkulutus</li>
+<strong>Teknologia:</strong> AWS IoT Greengrass, AWS Lambda, Python, LlamaStack, Ollama, NVIDIA DGX Spark, NVIDIA Jetson Orin Nano, Docker Compose
+<strong>Rooli:</strong> Pää-arkkitehti ja -kehittäjä
+<hr />
+<h2>Referenssi 3 — DWS IQ 6 Docker-tuotantojärjestelmä (konttiteknologia ≥50 htp)</h2>
+<strong>Kattaa vaatimuksen:</strong> Konttiteknologiaa hyödyntävä tuotantoohjelmisto ≥50 htp
+<strong>Asiakas / tilaaja:</strong> Lifetime Oy (tuotantokäyttö) / pohjoismaiset teollisuusasiakkaat
+<strong>Ajanjakso:</strong> 2024–2026
+<strong>Laajuus:</strong> n. 120 htp (Docker-arkkitehtuuri, CI/CD-putkisto, tuotantokäyttöönotto ja ylläpito)
+<strong>Tuotantostatus:</strong> Käytössä 24/7, 6 maksavaa asiakasta
+<strong>Kuvaus — Docker-pohjainen tuotantojärjestelmä:</strong>
+<p>DWS IQ 6 -tuotantojärjestelmä on rakennettu täysin konttiteknologian varaan kaikilla tasoilla:</p>
+<strong>Docker-arkkitehtuuri tuotannossa:</strong>
+<li>Google Cloud Run: kontitetut backend-palvelut, automaattinen skaalaus</li>
+<li>NVIDIA DGX Spark: Docker Compose, paikalliset AI-palvelut</li>
+<li>Cloudflare Workers: edge-funktiot kontitetussa ympäristössä</li>
+<li>Kehitysympäristö: Docker Compose -pohjainen paikallinen kehitys</li>
+<strong>GitHub Actions CI/CD -putkisto (15 työnkulkua):</strong>
+<li>Automaattinen konttirakentaminen jokaisen PR:n yhteydessä</li>
+<li>Tietoturkatarkistukset: Trivy-haavoittuvuusskannaus konttikuville</li>
+<li>Automaattinen deploy: main-haara → Cloudflare Pages / Google Cloud Run</li>
+<li>Rollback: edelliseen konttiversioon < 2 min</li>
+<strong>Konttipohjaisen kehityksen laajuus:</strong>
+<li>1 500+ suljettua PR:ää — jokainen CI/CD-putkiston läpi</li>
+<li>15 automatisoidut työnkulkua konttipohjaisten deployien hallintaan</li>
+<li>Multi-stage Dockerfile: kehitys / testaus / tuotanto eroteltu</li>
+<strong>Teknologia:</strong> Docker, Docker Compose, Google Cloud Run, GitHub Actions, Cloudflare Workers, Trivy
+<strong>Rooli:</strong> Pää-arkkitehti, DevOps-insinööri (100 %)
+<hr />
+<h2>Avainasiantuntija: Risto Anton Päärni</h2>
+<table><thead><tr><th>Kenttä</th><th>Tieto</th></tr></thead><tbody><tr><td>Nimi</td><td>Risto Anton Päärni</td></tr><tr><td>Titteli</td><td>Toimitusjohtaja & Pää-arkkitehti, Lifetime Oy</td></tr><tr><td>Kokemusvuodet</td><td>35+ vuotta teollisuuden IT-järjestelmistä</td></tr><tr><td>AI-kehitys</td><td>3+ vuotta tuotantotason agenttijärjestelmistä; kirjoittaa koodia päivittäin</td></tr><tr><td>Koulutus</td><td>YAMK, Smart Factory — Metropolia AMK (lopputyö jätetty 20.6.2026)</td></tr><tr><td>Kielet</td><td>Suomi (äidinkieli), englanti (C2), ruotsi (B2)</td></tr><tr><td>GitHub</td><td>1 500+ suljettua PR:ää dws6-repositoriossa (2024–2026)</td></tr><tr><td>Ohjelmat</td><td>NVIDIA Inception Program, Microsoft Founders Hub L1–L4</td></tr></tbody></table>
+<h3>Tekninen osaaminen tähän osa-alueeseen</h3>
+<li>AI-avusteinen ohjelmistokehitys: Claude Code CLI päivittäisessä tuotantokäytössä</li>
+<li>+62 % kehitysnopeutuminen MCP Hub -arkkitehtuurilla (YAMK-tutkimus 2026)</li>
+<li>Konttiteknologia: Docker, Docker Compose, Google Cloud Run, GitHub Actions CI/CD</li>
+<li>AWS: IoT Greengrass, Lambda, IoT Core, edge-cloud-hybridiarkkitehtuuri</li>
+<li>On-prem: NVIDIA DGX Spark, Jetson Orin Nano, Ollama</li>
+<li>Tietoturva: RLS, JWT, AES-256-GCM, EU AI Act Article 12, NIS2, GDPR</li>
+<li>TypeScript, Python, React 19, Node.js — tuotantotason arkkitehtuuri</li>
+</body>
+</html>

@@ -10,7 +10,7 @@
  * Owner: DWS IQ 6
  */
 
-import { ERPProvider } from './types';
+import { ERPProvider } from './types.js';
 
 // ============================================================================
 // Company ERP Registry Types

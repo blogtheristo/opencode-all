@@ -1,0 +1,39 @@
+# DWS IQ - 2026-2029 Budget V3 (actuals-anchored) - figures export
+# Source of truth: docs/investor/boardy-2026-07-29/BOARDY_BUDGET_2026-2029_V3.md (v3.0)
+# Content date: 22.07.2026 | Repo CSV created: 24.07.2026
+# (c) 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved. Business Confidential.
+# Units: EUR thousands (000s) unless the unit column says otherwise. Flag: [A]=actual [M]=modeled
+section,metric,unit,flag,y2026,y2027,y2028,y2029
+Cash-basis P&L,Recognized revenue,EUR000,M,220,1300,4000,10500
+Cash-basis P&L,Cash operating costs (funded-growth plan),EUR000,M,-330,-1500,-3600,-8000
+Cash-basis P&L,Net operating cash flow,EUR000,M,-110,-200,400,2500
+Cash-basis P&L,Cumulative net op cash flow (pre-financing),EUR000,M,-110,-310,90,2590
+Cost detail,Baseline organic (infra/maintenance/accounting),EUR000,A/M,-84,-150,-300,-500
+Cost detail,Growth hires (cash-paid; post-SAFE/Series-A),EUR000,M,-150,-930,-2450,-5700
+Cost detail,Sales & marketing (Messe/MACC/AppExchange/travel),EUR000,M,-60,-300,-700,-1600
+Cost detail,G&A (legal/audit/compliance),EUR000,M,-36,-120,-150,-200
+Cost detail,Total cash operating costs,EUR000,M,-330,-1500,-3600,-8000
+Cost detail,Cash-paid headcount EoY (founder EUR0 excl. deferred),FTE,M,2,8,20,40
+Financing,SAFE (target EUR650k; up to EUR1.0M) - GROWTH capital,EUR000,A,650,,,
+Financing,Series A (growth-acceleration option ~EUR3.5M H2'27),EUR000,M,,3500,,
+#
+# Scalars (single-value actuals / locked figures)
+section,metric,unit,flag,value,,,
+Current state,MRR (running),EUR,A,7000,,,
+Current state,Paying customers,count,A,6,,,
+Current state,Churn,pct,A,0,,,
+Current state,Monthly cash out (~break-even),EUR,A,7000,,,
+Current state,Founder salary,EUR,A,0,,,
+Cost base,Product maintenance,EUR/mo,A,999,,,
+Equity cure,R&D capitalization total (KILA-confirmed),EUR,A,594000,,,
+Equity cure,R&D capitalization booked (Phase 1 10.04.2026),EUR,A,100000,,,
+Equity cure,R&D capitalization available (Phase 2),EUR,A,494000,,,
+Equity cure,2026 work additional activation (directional),EUR,A/M,100000-150000,,,
+Valuation support,Gust independent valuation (2021),EUR,A,3800000,,,
+Valuation support,Monaco Fondry independent valuation (2022),USD,A,6000000,,,
+Unit economics,Gross margin at list,pct,A/M,85,,,
+Unit economics,Gross margin conservative stress floor,pct,A/M,80,,,
+Unit economics,CAC direct,EUR,A/M,12000,,,
+Unit economics,CAC MACC-burn,EUR,A/M,6000,,,
+Unit economics,CAC AppExchange,EUR,A/M,9000,,,
+Pipeline,ORK framework reference (ORK/1462/2026 filed),EUR,A,1700000,,,

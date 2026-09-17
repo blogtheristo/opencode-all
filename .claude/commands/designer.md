@@ -1,6 +1,6 @@
 ---
 name: designer
-description: Design-to-code bridge for non-technical designers. Converts Figma screenshots to working code, implements style changes, creates components, manages state, fixes polish issues, and audits edge cases. Inspired by Anthropic's designer workflow where designers ship production code with Claude Code. Use when user mentions "design to code", "figma to code", "screenshot to prototype", "style change", "designer workflow", "polish fix", "edge cases", or "design review".
+description: Use when turning design intent into code: Figma or screenshot-to-code, style changes, new components, polish fixes, edge-case audits, or design review.
 ---
 
 Run the DWS Designer Agent — the design-to-code bridge.

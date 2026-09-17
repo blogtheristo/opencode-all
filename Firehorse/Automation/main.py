@@ -30,6 +30,7 @@ import os
 import uuid
 from datetime import datetime
 from enum import StrEnum
+from urllib.parse import urlsplit
 
 import httpx
 from fastapi import BackgroundTasks, FastAPI, HTTPException
@@ -424,7 +425,8 @@ def _redact_recipient(recipient: str | None) -> str | None:
         return None
 
     if recipient.startswith("http"):
-        return recipient.split("?", 1)[0]
+        parsed = urlsplit(recipient)
+        return f"{parsed.scheme}://{parsed.netloc}/***"
 
     return f"***{recipient[-4:]}" if len(recipient) > 4 else "***"
 

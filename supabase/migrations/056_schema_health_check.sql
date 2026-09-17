@@ -210,7 +210,12 @@ BEGIN
   RAISE NOTICE 'RLS coverage: %percent', ROUND(100.0 * rls_tables / GREATEST(total_tables, 1), 1);
 END $$;
 
-RAISE NOTICE '';
-RAISE NOTICE '=== Schema health check complete. Review NOTICE output above. ===';
+-- RAISE is only legal inside PL/pgSQL — wrap the closing banner in a DO block.
+-- (CI soak catch, blank-slate replay.)
+DO $$
+BEGIN
+  RAISE NOTICE '';
+  RAISE NOTICE '=== Schema health check complete. Review NOTICE output above. ===';
+END $$;
 
 COMMIT;

@@ -11,6 +11,7 @@ import {
   type LinkClickedPayload,
   type MeetingBookedPayload,
   ReplyIntent,
+  TaskType,
 } from './types';
 import * as actions from './actions';
 import logger from '../utils/logger.js';
@@ -30,7 +31,7 @@ export async function handleEmailOpened(payload: EmailOpenedPayload): Promise<vo
   // Get current lead state
   const lead = await actions.getLead(lead_id);
   if (!lead) {
-    console.error(`Lead ${lead_id} not found`);
+    logger.error(`Lead ${lead_id} not found`);
     return;
   }
 
@@ -72,7 +73,7 @@ export async function handleLinkClicked(payload: LinkClickedPayload): Promise<vo
 
   const lead = await actions.getLead(lead_id);
   if (!lead) {
-    console.error(`Lead ${lead_id} not found`);
+    logger.error(`Lead ${lead_id} not found`);
     return;
   }
 
@@ -111,7 +112,7 @@ export async function handleLinkClicked(payload: LinkClickedPayload): Promise<vo
     // Create task for manual reply
     await actions.createTask({
       owner: 'Risto',
-      task_type: 'ManualReply' as any,
+      task_type: TaskType.ManualReply,
       lead_id,
       description: `Lead clicked link: ${link_url}`,
     });
@@ -126,7 +127,7 @@ export async function handleEmailReply(payload: EmailReplyPayload): Promise<void
 
   const lead = await actions.getLead(lead_id);
   if (!lead) {
-    console.error(`Lead ${lead_id} not found`);
+    logger.error(`Lead ${lead_id} not found`);
     return;
   }
 
@@ -159,7 +160,7 @@ export async function handleEmailReply(payload: EmailReplyPayload): Promise<void
 
     await actions.createTask({
       owner: 'Risto',
-      task_type: 'ManualReply' as any,
+      task_type: TaskType.ManualReply,
       lead_id,
       description: `Lead replied with positive intent: ${intent}`,
     });
@@ -181,7 +182,7 @@ export async function handleEmailReply(payload: EmailReplyPayload): Promise<void
     // Unknown intent: create manual review task so human classifies the reply
     await actions.createTask({
       owner: 'Risto',
-      task_type: 'ManualReply' as any,
+      task_type: TaskType.ManualReply,
       lead_id,
       description: `Reply intent could not be classified automatically — manual review needed. Preview: "${reply_text.slice(0, 80)}"`,
     });
@@ -196,7 +197,7 @@ export async function handleMeetingBooked(payload: MeetingBookedPayload): Promis
 
   const lead = await actions.getLead(lead_id);
   if (!lead) {
-    console.error(`Lead ${lead_id} not found`);
+    logger.error(`Lead ${lead_id} not found`);
     return;
   }
 
@@ -250,7 +251,7 @@ export async function processCold2Candidates(): Promise<void> {
     });
   }
 
-  console.log(`Processed ${candidates.length} Cold 2 candidates`);
+  logger.info(`Processed ${candidates.length} Cold 2 candidates`);
 }
 
 /**
@@ -286,7 +287,7 @@ export async function processCold3Candidates(): Promise<void> {
     });
   }
 
-  console.log(`Processed ${candidates.length} Cold 3 candidates`);
+  logger.info(`Processed ${candidates.length} Cold 3 candidates`);
 }
 
 /**
@@ -327,7 +328,7 @@ export async function processNewLeadsDaily(): Promise<void> {
     });
   }
 
-  console.log(`Processed ${newLeads.length} new leads for today`);
+  logger.info(`Processed ${newLeads.length} new leads for today`);
 }
 
 // ============================================================================

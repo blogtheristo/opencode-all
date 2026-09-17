@@ -144,6 +144,6 @@ on:
 # 1. Collect posts published this week
 # 2. Generate EN digest from email.service.ts
 # 3. Generate FI digest
-# 4. Send via SES/Resend to newsletter_subscribers
+# 4. Send via Amazon SES (SMTP only — Resend banned per LD-2026-008)
 # 5. Log to Supabase email_logs
 ```

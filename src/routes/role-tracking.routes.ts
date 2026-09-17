@@ -12,8 +12,9 @@
  * Owner: Lifetime Oy
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { roleTrackingService } from '../services/role-tracking.service.js';
+import logger from '../utils/logger.js';
 
 const router = Router();
 
@@ -73,7 +74,7 @@ router.post('/designation', async (req: Request, res: Response) => {
 
     return res.json({ success: true, path: 'PATH_A_CFO_DESIGNATED' });
   } catch (error) {
-    console.error('Role tracking error:', error);
+    logger.error('Role tracking error:', error);
     return res.status(500).json({ error: 'Failed to log designation event' });
   }
 });
@@ -105,7 +106,7 @@ router.post('/auto-promotion', async (req: Request, res: Response) => {
 
     return res.json({ success: true, path: 'PATH_B_AUTO_PROMOTED' });
   } catch (error) {
-    console.error('Role tracking error:', error);
+    logger.error('Role tracking error:', error);
     return res.status(500).json({ error: 'Failed to log auto-promotion event' });
   }
 });
@@ -130,7 +131,7 @@ router.post('/confirmation', async (req: Request, res: Response) => {
 
     return res.json({ success: true, event: 'admin_confirmation' });
   } catch (error) {
-    console.error('Role tracking error:', error);
+    logger.error('Role tracking error:', error);
     return res.status(500).json({ error: 'Failed to log confirmation event' });
   }
 });
@@ -162,7 +163,7 @@ router.post('/sod-waiver', async (req: Request, res: Response) => {
 
     return res.json({ success: true, event: 'sod_waiver_exception' });
   } catch (error) {
-    console.error('Role tracking error:', error);
+    logger.error('Role tracking error:', error);
     return res.status(500).json({ error: 'Failed to log SoD waiver event' });
   }
 });

@@ -1,13 +1,15 @@
 # SEO Sales Agent Pipeline — Agent Specification
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code (Sonnet 5) | Session: claude/sales-outreach-supermetrics-zr3kmb | Date: 31.07.2026 | Changes: Merged PR #1548 onto main (rebase/merge + build fix). Restored `***` VERSION AND AGENT HISTORY delimiters (the PR had swapped them for `---`, which breaks Pandoc's YAML front-matter parsing per the Markdown Delimiter Rule). No content change beyond the v1.1 entry below.
+- Version: 1.1 | Tool: Claude Code (Sonnet 5) | Session: claude/sales-outreach-supermetrics-zr3kmb | Date: 04.07.2026 | Changes: §4 — replaced the bespoke Google Search Console + GA4 + DataForSEO integration plan with the Supermetrics MCP connector (one auth flow across all three). Added `src/integrations/supermetrics/transform.ts` (deterministic row normalization, unit tested) and the `supermetrics-seo-sync` skill pack that performs the P0 instrumentation step end-to-end.
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/seo-sales-agent-pipeline-7et5F | Date: 20.02.2026 | Changes: Initial specification — 5 SEO sales agents with input/output contracts, orchestration architecture, integration points
 
 Session Links & References:
@@ -17,12 +19,12 @@ Session Links & References:
 Document Status:
 
 - Created: 20.02.2026
-- Last Modified: 20.02.2026
+- Last Modified: 31.07.2026
 - Language: EN
 - Languages Available: EN
 - Publication Status: ACTIVE
 
----
+***
 
 **Effective Date:** February 2026
 **Scope:** DWS IQ 6 SEO-to-Sales pipeline across dws10.com, dws6.com, onelifetime.world
@@ -616,7 +618,7 @@ Agents communicate via Supabase tables (event-driven):
 | ----------------------- | --------------------------- | -------------- | ------------------------------------------ |
 | keyword-intent          | `keyword.quick-win-found`   | content-brief  | Quick-win keyword detected (position 8–15) |
 | competitor-surveillance | `competitor.content-gap`    | content-brief  | Content gap with high ICP relevance        |
-| competitor-surveillance | `competitor.pricing-change` | —              | Alert to PM (WhatsApp/email)               |
+| competitor-surveillance | `competitor.pricing-change` | —              | Alert to PM (Slack/email)                  |
 | seo-audit               | `audit.critical-issue`      | —              | Block deploy, notify engineering           |
 | lead-feedback           | `feedback.new-keyword`      | keyword-intent | New keyword from buyer language            |
 | lead-feedback           | `feedback.score-adjustment` | keyword-intent | Adjust keyword priority scores             |
@@ -696,25 +698,33 @@ CREATE TABLE seo_lead_feedback (
 
 ## 4. External API Dependencies
 
-| API                       | Purpose                                    | Cost     | Rate Limits          |
-| ------------------------- | ------------------------------------------ | -------- | -------------------- |
-| Google Search Console API | Search query data, impressions, clicks     | Free     | 25,000 req/day       |
-| Google PageSpeed Insights | Core Web Vitals, performance scores        | Free     | 25,000 req/day       |
-| DataForSEO                | Backlink data, SERP data, keyword volumes  | ~€50/mo  | Per-request pricing  |
-| Groq API                  | LLM inference for classification, drafting | Existing | Per-token            |
-| Supabase                  | Data persistence, event bus                | Existing | Existing plan limits |
+| API                       | Purpose                                                      | Cost                  | Rate Limits           |
+| ------------------------- | ------------------------------------------------------------ | --------------------- | --------------------- |
+| Supermetrics              | Unified connector: Search Console + GA4 (+150 other sources) | Per Supermetrics plan | Per Supermetrics plan |
+| Google PageSpeed Insights | Core Web Vitals, performance scores                          | Free                  | 25,000 req/day        |
+| Groq API                  | LLM inference for classification, drafting                   | Existing              | Per-token             |
+| Supabase                  | Data persistence, event bus                                  | Existing              | Existing plan limits  |
+
+**Supermetrics replaces the separate Google Search Console OAuth app, GA4 API
+setup, and DataForSEO subscription** originally planned for P0 — one
+connector covers `keyword-intent`'s Search Console input and
+`lead-feedback`'s GA4-derived `contentPerformance` input (§2.1, §2.5). See
+`skills/supermetrics-seo-sync/SKILL.md` for the discovery → query → normalize
+→ run-agent procedure, and `src/integrations/supermetrics/transform.ts` for
+the deterministic row-normalization functions (unit tested in
+`src/__tests__/supermetrics-transform.test.ts`). DataForSEO remains a future
+option only if backlink/SERP-volume data beyond what Supermetrics' sources
+offer is needed.
 
 ### API Key Management
 
-All API keys stored in `.env`:
+Supermetrics is accessed via its MCP connector (session-level OAuth — no
+`.env` key needed for the connector itself). Remaining keys stored in
+`.env`:
 
 ```env
 # SEO Pipeline APIs
-GOOGLE_SEARCH_CONSOLE_CLIENT_ID=...
-GOOGLE_SEARCH_CONSOLE_CLIENT_SECRET=...
 GOOGLE_PAGESPEED_API_KEY=...
-DATAFORSEO_LOGIN=...
-DATAFORSEO_PASSWORD=...
 ```
 
 ---
@@ -745,30 +755,32 @@ DATAFORSEO_PASSWORD=...
 
 ## 6. Implementation Phases
 
-| Phase                        | Duration | Deliverables                                                                  | Cost           |
-| ---------------------------- | -------- | ----------------------------------------------------------------------------- | -------------- |
-| **P0: Instrument**           | 2 weeks  | Search Console + GA4 connected, keyword data flowing, Supabase tables created | €0             |
-| **P1: Keyword Agent**        | 3 weeks  | Keyword Intent Agent live, nightly runs, priority queue populated             | ~€50/mo LLM    |
-| **P2: Competitor + Content** | 4 weeks  | Competitor Surveillance Agent + Content Brief Agent, weekly gap analysis      | ~€100/mo       |
-| **P3: SEO Audit**            | 2 weeks  | Technical SEO Audit Agent in CI/CD pipeline                                   | €0 (free APIs) |
-| **P4: Lead Feedback**        | 4 weeks  | Lead-to-SEO Feedback Agent, closed-loop metrics                               | Internal       |
-| **P5: Full Orchestration**   | 2 weeks  | All agents coordinated, ROI dashboard, alerting                               | €200/mo total  |
+| Phase                        | Duration | Deliverables                                                                                        | Cost           |
+| ---------------------------- | -------- | --------------------------------------------------------------------------------------------------- | -------------- |
+| **P0: Instrument**           | 2 weeks  | Supermetrics connector wired to Search Console + GA4, keyword data flowing, Supabase tables created | €0             |
+| **P1: Keyword Agent**        | 3 weeks  | Keyword Intent Agent live, nightly runs, priority queue populated                                   | ~€50/mo LLM    |
+| **P2: Competitor + Content** | 4 weeks  | Competitor Surveillance Agent + Content Brief Agent, weekly gap analysis                            | ~€100/mo       |
+| **P3: SEO Audit**            | 2 weeks  | Technical SEO Audit Agent in CI/CD pipeline                                                         | €0 (free APIs) |
+| **P4: Lead Feedback**        | 4 weeks  | Lead-to-SEO Feedback Agent, closed-loop metrics                                                     | Internal       |
+| **P5: Full Orchestration**   | 2 weeks  | All agents coordinated, ROI dashboard, alerting                                                     | €200/mo total  |
 
 ---
 
 ## 7. File Locations
 
-| Artifact                      | Path                                              |
-| ----------------------------- | ------------------------------------------------- |
-| Agent types                   | `src/agents/seo/types.ts`                         |
-| Keyword Intent Agent          | `src/agents/seo/keyword-intent.agent.ts`          |
-| Competitor Surveillance Agent | `src/agents/seo/competitor-surveillance.agent.ts` |
-| Content Brief Agent           | `src/agents/seo/content-brief.agent.ts`           |
-| SEO Audit Agent               | `src/agents/seo/seo-audit.agent.ts`               |
-| Lead Feedback Agent           | `src/agents/seo/lead-feedback.agent.ts`           |
-| Pipeline scheduler            | `src/cron/seo-pipeline.ts`                        |
-| Supabase migration            | `supabase/migrations/YYYYMMDD_seo_pipeline.sql`   |
-| This specification            | `docs/SEO_SALES_AGENT_SPECIFICATION.md`           |
-| Keyword seed list             | `docs/SEO_KEYWORD_SEED_LIST.md`                   |
-| Content calendar              | `docs/SEO_CONTENT_CALENDAR.md`                    |
-| CRM handoff schema            | `docs/SEO_CRM_HANDOFF_SCHEMA.md`                  |
+| Artifact                       | Path                                              |
+| ------------------------------ | ------------------------------------------------- |
+| Agent types                    | `src/agents/seo/types.ts`                         |
+| Keyword Intent Agent           | `src/agents/seo/keyword-intent.agent.ts`          |
+| Competitor Surveillance Agent  | `src/agents/seo/competitor-surveillance.agent.ts` |
+| Content Brief Agent            | `src/agents/seo/content-brief.agent.ts`           |
+| SEO Audit Agent                | `src/agents/seo/seo-audit.agent.ts`               |
+| Lead Feedback Agent            | `src/agents/seo/lead-feedback.agent.ts`           |
+| Pipeline scheduler             | `src/cron/seo-pipeline.ts`                        |
+| Supabase migration             | `supabase/migrations/YYYYMMDD_seo_pipeline.sql`   |
+| This specification             | `docs/SEO_SALES_AGENT_SPECIFICATION.md`           |
+| Keyword seed list              | `docs/SEO_KEYWORD_SEED_LIST.md`                   |
+| Content calendar               | `docs/SEO_CONTENT_CALENDAR.md`                    |
+| CRM handoff schema             | `docs/SEO_CRM_HANDOFF_SCHEMA.md`                  |
+| Supermetrics sync procedure    | `skills/supermetrics-seo-sync/SKILL.md`           |
+| Supermetrics row normalization | `src/integrations/supermetrics/transform.ts`      |

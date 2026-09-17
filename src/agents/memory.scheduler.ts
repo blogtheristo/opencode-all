@@ -15,7 +15,7 @@
  */
 
 import * as cron from 'node-cron';
-import { createClient } from '@supabase/supabase-js';
+import { getInternalDbPool } from '../config/internal-db.js';
 import logger from '../utils/logger.js';
 import { memoryService } from './memory.service.js';
 
@@ -121,11 +121,9 @@ export class MemoryScheduler {
 
     // Customer-scoped consolidation
     for (const scope of scopes.customerScopes) {
-      const result = await memoryService.consolidateDuplicates(
-        scope.orgId,
-        scope.customerId,
-        { limit: MemoryScheduler.CONSOLIDATION_SCOPE_LIMIT },
-      );
+      const result = await memoryService.consolidateDuplicates(scope.orgId, scope.customerId, {
+        limit: MemoryScheduler.CONSOLIDATION_SCOPE_LIMIT,
+      });
       totalPairs += result.pairsFound;
       totalConsolidated += result.autoConsolidated;
     }
@@ -155,33 +153,32 @@ export class MemoryScheduler {
     customerScopes: Array<{ orgId: string; customerId: string }>;
     orgIds: string[];
   }> {
-    const url = process.env.SUPABASE_URL;
-    const key = process.env.SUPABASE_SERVICE_KEY;
-    if (!url || !key) {
-      logger.warn('Supabase not configured, skipping scope discovery');
+    const pool = getInternalDbPool();
+    if (!pool) {
+      logger.warn('Internal Postgres not configured, skipping scope discovery');
       return { customerScopes: [], orgIds: [] };
     }
 
-    const client = createClient(url, key);
-
     // Get distinct org_id + customer_id pairs (customer-scoped)
-    const { data: customerData, error: customerError } = await client
-      .from('semantic_memories')
-      .select('org_id, customer_id')
-      .not('customer_id', 'is', null)
-      .is('expired_at', null)
-      .is('superseded_by', null)
-      .limit(1000);
-
-    if (customerError) {
-      logger.error('Failed to fetch customer scopes', { error: customerError.message });
+    let customerData: Array<{ org_id: string; customer_id: string }>;
+    try {
+      const result = await pool.query(
+        `SELECT org_id, customer_id FROM semantic_memories
+         WHERE customer_id IS NOT NULL AND expired_at IS NULL AND superseded_by IS NULL
+         LIMIT 1000`,
+      );
+      customerData = result.rows;
+    } catch (err) {
+      logger.error('Failed to fetch customer scopes', {
+        error: err instanceof Error ? err.message : String(err),
+      });
       return { customerScopes: [], orgIds: [] };
     }
 
     // Deduplicate org+customer pairs
     const seen = new Set<string>();
     const customerScopes: Array<{ orgId: string; customerId: string }> = [];
-    for (const row of customerData || []) {
+    for (const row of customerData) {
       const key = `${row.org_id}:${row.customer_id}`;
       if (!seen.has(key)) {
         seen.add(key);
@@ -190,20 +187,22 @@ export class MemoryScheduler {
     }
 
     // Get distinct org_ids (for org-level memories)
-    const { data: orgData, error: orgError } = await client
-      .from('semantic_memories')
-      .select('org_id')
-      .is('customer_id', null)
-      .is('expired_at', null)
-      .is('superseded_by', null)
-      .limit(1000);
-
-    if (orgError) {
-      logger.error('Failed to fetch org scopes', { error: orgError.message });
+    let orgData: Array<{ org_id: string }>;
+    try {
+      const result = await pool.query(
+        `SELECT org_id FROM semantic_memories
+         WHERE customer_id IS NULL AND expired_at IS NULL AND superseded_by IS NULL
+         LIMIT 1000`,
+      );
+      orgData = result.rows;
+    } catch (err) {
+      logger.error('Failed to fetch org scopes', {
+        error: err instanceof Error ? err.message : String(err),
+      });
       return { customerScopes, orgIds: [] };
     }
 
-    const orgIds = Array.from(new Set((orgData || []).map((r: { org_id: string }) => r.org_id)));
+    const orgIds = Array.from(new Set(orgData.map((r) => r.org_id)));
 
     logger.debug('Active scopes discovered', {
       customerScopes: customerScopes.length,

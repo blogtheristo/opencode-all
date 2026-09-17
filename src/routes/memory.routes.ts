@@ -13,6 +13,7 @@
 import { type Request, type Response, Router } from 'express';
 import { createClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
+import { authenticateToken, requireRole } from '../middleware/auth.middleware.js';
 
 const router = Router();
 
@@ -85,7 +86,7 @@ router.get('/stats', async (_req: Request, res: Response) => {
  * GET /api/v1/memory/audit
  * Returns recent audit log entries.
  */
-router.get('/audit', async (req: Request, res: Response) => {
+router.get('/audit', authenticateToken, requireRole(['admin', 'owner']), async (req: Request, res: Response) => {
   const supabase = getSupabase();
   if (!supabase) {
     res.status(503).json({ error: 'Supabase not configured' });
@@ -113,9 +114,9 @@ router.get('/audit', async (req: Request, res: Response) => {
 /**
  * POST /api/v1/memory/decay/dry-run
  * Preview what the decay scheduler would do without applying changes.
- * Admin-only (x-admin-key).
+ * Admin-only.
  */
-router.post('/decay/dry-run', async (req: Request, res: Response) => {
+router.post('/decay/dry-run', authenticateToken, requireRole(['admin', 'owner']), async (req: Request, res: Response) => {
   const supabase = getSupabase();
   if (!supabase) {
     res.status(503).json({ error: 'Supabase not configured' });

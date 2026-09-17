@@ -4,6 +4,14 @@
 
 ---
 
+> **Perustajan strateginen ydinlause / Founder's Strategic Core Statement**
+>
+> Tämä on Suomen tietotehtaiden strateginen ydinlause — kolmikerrosmalli jossa hyperscalerit rakentavat infrastruktuuri-kerroksen, Suomi omistaa datavarannon, ja rakentamani tuote DWS IQ operoi älykkyyden (System Of Action Operator).
+>
+> — Risto Anton Paarni, Lifetime Oy, 10.05.2026
+
+---
+
 ## Slide 1: Why Now
 
 ![Logo](../OneLifetime+Logo.png)
@@ -12,13 +20,13 @@
 
 **The Opportunity**
 
-- **€7k MRR live** (Uber/Bolt/Kela), path to **€14k MRR** by Q1 2026
+- **~€7,000/month services and transport revenue** — not software revenue; company at cash break-even with founder salary €0
 - **Mandatory demand**: Fit for 55 / CSRD / ETS regulations driving market
 - **Climate Reporting Starter Bundle** live and deployed
 - **Finland + EU regulation** = downside protection & first-mover advantage
 - **€150k SAFE @ €3.8M cap**, bridge to **€15M+ Series A** in 2026
 - **Strategic upside**: MCP-native platform architecture, not just a point product
-- **100% retention** on paying customers, zero churn to date
+- **Two enterprise pilots contracted Q1/2026** at €29,950 each (€59,900 booked)
 
 ---
 
@@ -47,7 +55,7 @@
 
 | Year      | Regulation                                              | Impact                                                     |
 | --------- | ------------------------------------------------------- | ---------------------------------------------------------- |
-| 2024–2025 | **CSRD** (Corporate Sustainability Reporting Directive) | 50,000+ EU companies must report                           |
+| 2024–2025 | **CSRD** (Corporate Sustainability Reporting Directive) | Fewer than ~5,000 large EU companies must report directly (post-Omnibus)                           |
 | 2025–2026 | **Fit for 55** – Building renovation wave               | All major renovations require energy/climate documentation |
 | 2026–2030 | **EPBD** (Energy Performance of Buildings Directive)    | Mandatory building passports across EU                     |
 | 2027–2035 | **ETS expansion** (Emissions Trading System)            | Construction, logistics, healthcare included               |
@@ -109,9 +117,8 @@
 
 **Current State (December 2025)**
 
-- **€7k MRR** – Live recurring revenue
-- **6 paying customers** + 2 pilot customers
-- **100% retention** – Zero churn on paying customers
+- **~€7,000/month services and transport revenue** – not software revenue; company at cash break-even with founder salary €0
+- **Two enterprise pilots contracted Q1/2026** at €29,950 each (€59,900 booked)
 - **€70k–€120k annual value per logo** (logistics sector)
 - **40+ hours/month saved** per customer (manual work eliminated)
 
@@ -119,9 +126,8 @@
 
 | Customer           | Vertical     | Status | MRR       | Annual Savings |
 | ------------------ | ------------ | ------ | --------- | -------------- |
-| Uber Finland       | Logistics    | Paid   | €2,500    | €50,000        |
-| Bolt Finland       | Logistics    | Paid   | €2,000    | €40,000        |
-| Kela               | Healthcare   | Paid   | €2,500    | €60,000        |
+| Enterprise Pilot 1 (LAND-001) | Industrial   | Contracted Q1/2026 | €29,950 (contract value) | TBD |
+| Enterprise Pilot 2 (LAND-002) | Industrial   | Contracted Q1/2026 | €29,950 (contract value) | TBD |
 | Construction Co. A | Construction | Pilot  | €0 (→€3k) | TBD            |
 | Construction Co. B | Construction | Pilot  | €0 (→€3k) | TBD            |
 
@@ -130,7 +136,7 @@
 - Weekly progress logs: `/docs/Reports/en/`
 - Live deployments on private cloud infrastructure
 - Customer workshops completed, reports delivered
-- Zero churn demonstrates product-market fit
+- Two enterprise pilots contracted Q1/2026 (€59,900 booked)
 
 **Path to €14k MRR (Q1 2026)**
 
@@ -149,14 +155,14 @@
 
 **Nordic Market (Finland, Sweden, Norway, Denmark)**
 
-- 150,000 companies affected by CSRD/Fit for 55/EPBD
+- 1fewer than 5,000 large companies (post-Omnibus, >1,000 employees) affected by CSRD/Fit for 55/EPBD
 - Average contract value: €6,500 setup + €1,999/year = €2,500/year blended
 - **Nordic TAM: €375M annual recurring**
 - With multi-vertical expansion: **€2.68B over 10 years**
 
 **EU Market (Expansion)**
 
-- 50,000+ companies under CSRD mandate
+- Fewer than ~5,000 large companies under direct CSRD mandate (post-Omnibus)
 - 500,000+ affected by Fit for 55 & EPBD
 - **EU TAM: €15–20B over 10 years**
 
@@ -166,7 +172,7 @@
 
 1. **Logistics & Transportation** (current focus)
 2. **Construction & Real Estate** (pilot phase)
-3. **Healthcare** (live customer: Kela)
+3. **Healthcare**
 4. **Manufacturing**
 5. **Energy & Utilities**
 6. **Agriculture**
@@ -223,9 +229,14 @@ DWS IQ 6   → Private cloud (EU-hosted, GDPR/CSRD compliant by design)
 
 Competitors → Single vertical focus
 DWS IQ 6   → 8 verticals via modular agent architecture
+
+Competitors → System of Intelligence (reports what happened)
+DWS IQ 6   → System of Action operator (carries regulated work to completion with audit trail)
 ```
 
-**Strategic Upside**: We're not building a climate reporting tool. We're building the platform for agentic compliance automation.
+**Core Positioning (verbatim):** We are not a SaaS vendor — we are a _System of Action operator_ that carries regulated work reliably to completion with a full audit trail.
+
+**Strategic Upside**: We're not building a climate reporting tool. We're building the System of Action operating layer for regulated European industry — where compliance can freeze or release money.
 
 ### Enterprise Sandbox (New Revenue Stream)
 
@@ -270,7 +281,7 @@ Strengthens enterprise security posture for Tier 1 construction customers by kee
 
 **Revenue Roadmap**
 
-- **Phase 1 (2025)**: Logistics → €7k MRR achieved
+- **Phase 1 (2025)**: Services and transport revenue base (~€7,000/month, not software revenue) established
 - **Phase 2 (2026)**: Construction → Target €14k MRR (+2 pilots)
 - **Phase 3 (2026–2027)**: Healthcare expansion → Target €30k MRR
 - **Phase 4 (2027+)**: Multi-vertical scale → €100k+ MRR
@@ -303,15 +314,37 @@ Strengthens enterprise security posture for Tier 1 construction customers by kee
 
 ### The Finland Advantage
 
+**National Strategy Alignment — Three-Layer Model**
+
+> International actors build physical data factories in Finland so that data reserves can be mined here, control kept in Finland, and utilized by systems like DWS.
+
+This is not positioning — it is conscious alignment with Finnish national infrastructure strategy.
+
+```
+Layer 3 — INTELLIGENCE LAYER        DWS IQ (System of Action operator)
+                                     Mines, refines, creates — value stays in Finland
+                  ↑ operates on top of ↑
+Layer 2 — DATA RESERVE LAYER        Finnish national registers
+                                     DVV · Maanmittauslaitos · Kela · Traficom · Luke
+                                     National ore — not exported, governed here
+                  ↑ builds infrastructure for ↑
+Layer 1 — PHYSICAL LAYER            International hyperscalers
+                                     Microsoft · Google · AWS
+                                     Investing billions in Finnish data factory real estate
+```
+
+**The investor logic:** Hyperscalers invest billions building the mine. DWS is the system that knows how to dig. Without DWS (or equivalent), the infrastructure is an empty building. DWS makes it productive.
+
 **Why Finland = Investor Protection & Market Edge**
 
 1. **AAA Credit Rating** – Sovereign stability, rule of law
 2. **GDPR Compliance Leader** – Data protection built into national infrastructure
 3. **Nordic Regulatory First-Mover** – Finland implements EU directives faster than most member states
-4. **Innovation Ecosystem** – Slush, Nordic VC networks, government R&D support
-5. **Investor Protection** – Strong legal framework, transparent governance, founder-friendly SAFE terms
+4. **Hyperscaler Infrastructure Magnet** – Microsoft, Google, AWS all building Finnish data centres — Layer 1 is funded by others
+5. **National Data Reserves** – DVV, Kela, Traficom, Luke: uniquely rich, GDPR-native, underutilised — DWS's ore
+6. **Investor Protection** – Strong legal framework, transparent governance, founder-friendly SAFE terms
 
-**Finland is not just a location. It's a strategic advantage for EU climate tech.**
+**Finland is not just a location. It is the three-layer stack that makes DWS structurally defensible.**
 
 ---
 
@@ -363,7 +396,7 @@ This SAFE round provides runway to hit the milestones that justify a €15M+ Ser
 
 **Why Invest Now**
 
-✓ **Proven traction**: €7k MRR, 100% retention, live deployments
+✓ **Traction**: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); ~€7,000/month services and transport revenue funds development
 ✓ **Mandatory market**: CSRD/Fit for 55 regulations = forced purchases
 ✓ **Platform moat**: MCP-native architecture, not a point solution
 ✓ **Clear path to Series A**: €900k ARR milestone in 18 months
@@ -406,10 +439,10 @@ DWS IQ 6 – Climate Intelligence Platform
 
 | Metric           | Current | Q1 2026 Target | Q4 2026 Target |
 | ---------------- | ------- | -------------- | -------------- |
-| MRR              | €7k     | €14k           | €60k           |
-| Paying Customers | 5       | 8              | 25             |
+| Software MRR     | €0 (pre-revenue; the ~€7k/mo base is services and transport revenue) | €14k | €60k |
+| Contracted Enterprise Pilots | 2 (Q1/2026, €59,900 booked) | 8 | 25 |
 | Pilot Customers  | 2       | 0 (converted)  | 5              |
-| Churn Rate       | 0%      | <5%            | <5%            |
+| Churn Rate       | not asserted | <5%       | <5%            |
 | CAC              | €6k     | €5k            | €4k            |
 | LTV              | €90k    | €100k          | €110k          |
 | LTV:CAC          | 15:1    | 20:1           | 25:1           |

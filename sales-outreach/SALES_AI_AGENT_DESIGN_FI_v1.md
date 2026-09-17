@@ -1,27 +1,32 @@
 # Sales AI Agent Design - DWS IQ 6 Myyntiautomaatio
 
 ***
+
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code | Session: jqfl0 | Date: 19.01.2026 | Changes: Initial creation - Comprehensive sales AI agent design for 5 customer segments
+
+- Version: 1.0 | Tool: Claude Code | Session: jqfl0 | Date: 19.01.2026 | Changes: Initial creation - Comprehensive sales AI agent design for 5 customer segments
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — Kela and Uber Finland removed as customers/case studies (dispatch operators), "€7k → €60k MRR" restated as a software-MRR roadmap from the contracted Q1/2026 pilots.
 
 Session Links & References:
-  - Claude Code (jqfl0): https://github.com/blogtheristo/dws6/tree/claude/sales-ai-agent-design-jqfl0
-  - View on GitHub: [Pending commit]
+
+- Claude Code (jqfl0): https://github.com/blogtheristo/dws6/tree/claude/sales-ai-agent-design-jqfl0
+- View on GitHub: [Pending commit]
 
 Document Status:
-  - Created: 19.01.2026
-  - Last Modified: 19.01.2026
-  - Language: Finnish & English (bilingual)
-  - Languages Available: Suomi, English
-  - Publication Status: 🚧 DRAFT
 
----
+- Created: 19.01.2026
+- Last Modified: 19.01.2026
+- Language: Finnish & English (bilingual)
+- Languages Available: Suomi, English
+- Publication Status: 🚧 DRAFT
 
-**Version:** 1.0
+***
+
+**Version:** 1.1
 **Purpose:** Määritellä AI-agentit myynnin tehostamiseen viidelle asiakassegmentille
 **Audience:** Sales Leadership, Product Management, Engineering
 **Updated:** 19.01.2026
@@ -45,8 +50,9 @@ DWS IQ 6:lla on viisi erillistä myyntihaastetta:
 Tämä dokumentti määrittelee **6 erikoistunutta myyntiagenttia** + **1 Sales HIL Director** -roolit, jotka yhdessä muodostavat skaalautuvan myyntiorganisaation.
 
 **Keskeiset mittarit:**
+
 - Human-to-Agent ratio: 1:6 (1 Director + 6 agenttia)
-- Tavoite: €7k → €60k MRR (16-18 kuukaudessa)
+- Tavoite: €60k ohjelmisto-MRR (16-18 kuukaudessa) nykyisestä ohjelmistoliikevaihdon lähtötasosta (kaksi sovittua yritysasiakaspilottia, 59 900 € kirjattu)
 - Kustannustehokkuus: €900-1,500/kk (vs. €25k-35k/kk 3 SDR:ää)
 
 ---
@@ -71,16 +77,17 @@ Tämä dokumentti määrittelee **6 erikoistunutta myyntiagenttia** + **1 Sales 
 
 **Human-in-Loop (HIL): Sales Director -rooli**
 
-| Vaihe | Ihmisen lisäarvo | Miksi AI ei riitä? |
-|-------|------------------|-------------------|
-| **Strategic account selection** | Subjektiivinen bisneslogiikka | Agent ei ymmärrä markkinadynamiikkaa, kilpailutilannetta, poliittisia tekijöitä |
-| **High-touch negotiations** | Luottamuksen rakentaminen | €29,950 pilotti + €8,500/kk deals vaativat henkilökohtaisen suhteen |
-| **Complex RFP response** | Räätälöinti & storytelling | Nordic construction RFP:t vaativat kulttuurista ymmärrystä (Kela, Senaatti) |
-| **Executive relationships** | Pitkäaikaiset suhteet | CFO/CSO/CTO -tasolla ihmiskontakti pakollinen |
-| **Crisis management** | Emotionaalinen äly | Churn prevention, escalation handling vaatii empatiaa |
-| **Product-market fit validation** | Strateginen oivallus | Määrittää mitä tuotteita kenellekin segmentille myydään |
+| Vaihe                             | Ihmisen lisäarvo              | Miksi AI ei riitä?                                                                        |
+| --------------------------------- | ----------------------------- | ----------------------------------------------------------------------------------------- |
+| **Strategic account selection**   | Subjektiivinen bisneslogiikka | Agent ei ymmärrä markkinadynamiikkaa, kilpailutilannetta, poliittisia tekijöitä           |
+| **High-touch negotiations**       | Luottamuksen rakentaminen     | €29,950 pilotti + €8,500/kk deals vaativat henkilökohtaisen suhteen                       |
+| **Complex RFP response**          | Räätälöinti & storytelling    | Nordic construction RFP:t vaativat kulttuurista ymmärrystä (julkiset hankinnat, Senaatti) |
+| **Executive relationships**       | Pitkäaikaiset suhteet         | CFO/CSO/CTO -tasolla ihmiskontakti pakollinen                                             |
+| **Crisis management**             | Emotionaalinen äly            | Churn prevention, escalation handling vaatii empatiaa                                     |
+| **Product-market fit validation** | Strateginen oivallus          | Määrittää mitä tuotteita kenellekin segmentille myydään                                   |
 
 **Kontribuutio:**
+
 - **Ihminen:** 20% ajasta, 80% arvosta (high-value touchpoints)
 - **Agentit:** 80% ajasta, 20% arvosta (repetitive, data-driven tasks)
 
@@ -90,14 +97,14 @@ Tämä dokumentti määrittelee **6 erikoistunutta myyntiagenttia** + **1 Sales 
 
 **Mitä agentit tekevät paremmin:**
 
-| Tehtävä | Agentin etu | ROI |
-|---------|-------------|-----|
-| **Lead enrichment** | 24/7 LinkedIn scraping, company data aggregation | 10x nopeampi kuin manuaalinen |
-| **Email sequence execution** | Perfect timing, no "forgot to follow up" | 3x parempi response rate |
-| **Meeting scheduling** | Instant calendar coordination | 5h/viikko aikasäästö |
-| **CRM hygiene** | Auto-update contact info, deal stages | 100% data accuracy |
-| **Multi-channel presence** | Simultaneous LinkedIn + Email + calls | Inhimillisesti mahdoton |
-| **A/B testing** | Continuous subject line, CTA optimization | 40% parempi open rate |
+| Tehtävä                      | Agentin etu                                      | ROI                           |
+| ---------------------------- | ------------------------------------------------ | ----------------------------- |
+| **Lead enrichment**          | 24/7 LinkedIn scraping, company data aggregation | 10x nopeampi kuin manuaalinen |
+| **Email sequence execution** | Perfect timing, no "forgot to follow up"         | 3x parempi response rate      |
+| **Meeting scheduling**       | Instant calendar coordination                    | 5h/viikko aikasäästö          |
+| **CRM hygiene**              | Auto-update contact info, deal stages            | 100% data accuracy            |
+| **Multi-channel presence**   | Simultaneous LinkedIn + Email + calls            | Inhimillisesti mahdoton       |
+| **A/B testing**              | Continuous subject line, CTA optimization        | 40% parempi open rate         |
 
 ---
 
@@ -151,14 +158,14 @@ Tämä dokumentti määrittelee **6 erikoistunutta myyntiagenttia** + **1 Sales 
 
 ### 2.2 Mikä agentti on ylivoimainen missä?
 
-| Sales Funnel Vaihe | Paras Agentti | Perustelu |
-|-------------------|---------------|-----------|
-| **Top-of-funnel (TOFU)** | Lead Scout Agent | Skaalaa 1,000+ leads/week, ihminen max 50 |
-| **Middle-of-funnel (MOFU)** | Discovery Agent | Tuottaa ROI calcit, case studyt 24/7 |
-| **Bottom-of-funnel (BOFU)** | Proposal Agent | €29,950 proposals error-free, legal compliance |
-| **Post-sale retention** | Customer Success Agent | NPS monitoring, churn signals, proactive support |
-| **Investor outreach** | Investor Outreach Agent | 500+ VC/PE database, warm intro paths |
-| **Multi-channel sequencing** | Outreach Agent | Koordinoi Email+LinkedIn+Phone perfectly |
+| Sales Funnel Vaihe           | Paras Agentti           | Perustelu                                        |
+| ---------------------------- | ----------------------- | ------------------------------------------------ |
+| **Top-of-funnel (TOFU)**     | Lead Scout Agent        | Skaalaa 1,000+ leads/week, ihminen max 50        |
+| **Middle-of-funnel (MOFU)**  | Discovery Agent         | Tuottaa ROI calcit, case studyt 24/7             |
+| **Bottom-of-funnel (BOFU)**  | Proposal Agent          | €29,950 proposals error-free, legal compliance   |
+| **Post-sale retention**      | Customer Success Agent  | NPS monitoring, churn signals, proactive support |
+| **Investor outreach**        | Investor Outreach Agent | 500+ VC/PE database, warm intro paths            |
+| **Multi-channel sequencing** | Outreach Agent          | Koordinoi Email+LinkedIn+Phone perfectly         |
 
 ---
 
@@ -168,27 +175,30 @@ Tämä dokumentti määrittelee **6 erikoistunutta myyntiagenttia** + **1 Sales 
 
 **Phased Deployment Model (Agent Foundry Standard):**
 
-| Phase | Duration | Agent Mode | Human Approval | Checkpoint |
-|-------|----------|------------|----------------|------------|
-| **Silent Pilot** | 30 days | Observe only | Not required | Daily review of agent recommendations |
-| **Advisor Mode** | 60 days | Recommend | Every action requires approval | Director approves before send |
-| **Autonomous** | Ongoing | Execute | Exception-based (€10k+ deals) | Weekly pipeline review |
+| Phase            | Duration | Agent Mode   | Human Approval                 | Checkpoint                            |
+| ---------------- | -------- | ------------ | ------------------------------ | ------------------------------------- |
+| **Silent Pilot** | 30 days  | Observe only | Not required                   | Daily review of agent recommendations |
+| **Advisor Mode** | 60 days  | Recommend    | Every action requires approval | Director approves before send         |
+| **Autonomous**   | Ongoing  | Execute      | Exception-based (€10k+ deals)  | Weekly pipeline review                |
 
 ### 3.2 Tarkistuspisteet (Checkpoints)
 
 **Daily (Automated):**
+
 - Email send volume (max 50/day per agent)
 - Response rate tracking (alert if <5%)
 - Spam complaint monitoring (threshold: 0.1%)
 - CRM data quality score (Supabase validation)
 
 **Weekly (Human Review):**
+
 - HIL Director reviews all proposals >€10k
 - Pipeline velocity analysis (stuck deals flagged)
 - A/B test results review & optimization
 - Agent performance leaderboard
 
 **Monthly (Strategic):**
+
 - Win/loss analysis (why deals closed/lost)
 - ICP refinement (which segments convert best)
 - Agent skill upgrades (new tools, prompts)
@@ -265,6 +275,7 @@ SALES_WORKFLOW = {
 **Signal Format:** `[AGENT-ID]:SIGNAL_TYPE:MILESTONE:TIMESTAMP`
 
 **Example Flow:**
+
 ```
 [LEAD-SCOUT-001]:READY:lead-enriched:2026-01-19T10:00:00Z
   ↓
@@ -283,14 +294,14 @@ SALES_WORKFLOW = {
 
 **Sales HIL Director - Required Skills:**
 
-| Skill Category | Specific Skills | Why Critical |
-|---------------|-----------------|--------------|
-| **Agent Management** | Prompt engineering, YAML config tuning | Optimize agent performance |
-| **Data Literacy** | SQL, Supabase queries, pipeline analytics | Identify bottlenecks |
-| **Sales Strategy** | ICP definition, vertical positioning | Guide agent targeting |
-| **Emotional Intelligence** | Objection handling, executive rapport | High-touch moments |
-| **Compliance** | GDPR, CSRD, NIS2 awareness | Avoid legal risks |
-| **Storytelling** | Value prop articulation, case studies | Differentiate in crowded market |
+| Skill Category             | Specific Skills                           | Why Critical                    |
+| -------------------------- | ----------------------------------------- | ------------------------------- |
+| **Agent Management**       | Prompt engineering, YAML config tuning    | Optimize agent performance      |
+| **Data Literacy**          | SQL, Supabase queries, pipeline analytics | Identify bottlenecks            |
+| **Sales Strategy**         | ICP definition, vertical positioning      | Guide agent targeting           |
+| **Emotional Intelligence** | Objection handling, executive rapport     | High-touch moments              |
+| **Compliance**             | GDPR, CSRD, NIS2 awareness                | Avoid legal risks               |
+| **Storytelling**           | Value prop articulation, case studies     | Differentiate in crowded market |
 
 **Leadership Methods:**
 
@@ -341,27 +352,27 @@ agent:
 
 **Full Agent Skill Matrix:**
 
-| Agent | Core Skills | Tools | Output |
-|-------|-------------|-------|--------|
-| **Lead Scout** | LinkedIn scraping, ICP scoring, trigger events | Apollo.io API, LinkedIn Sales Nav, Clearbit | Enriched lead records |
-| **Outreach** | Email copywriting, A/B testing, send-time optimization | Resend API, Supabase, LinkedIn API | Email sequences, connection requests |
-| **Meeting** | Calendar coordination, reminder sequences, no-show prevention | Google Calendar API, Calendly | Scheduled meetings |
-| **Discovery** | Company research, MEDDPICC, battle cards | Perplexity API, internal knowledge base | Discovery prep docs |
-| **Proposal** | ROI calculations, proposal drafting, contract templating | Pandoc, Supabase templates | Proposals, contracts |
-| **Customer Success** | NPS monitoring, churn prediction, upsell signals | Supabase analytics, Slack API | Health scores, alerts |
+| Agent                | Core Skills                                                   | Tools                                       | Output                               |
+| -------------------- | ------------------------------------------------------------- | ------------------------------------------- | ------------------------------------ |
+| **Lead Scout**       | LinkedIn scraping, ICP scoring, trigger events                | Apollo.io API, LinkedIn Sales Nav, Clearbit | Enriched lead records                |
+| **Outreach**         | Email copywriting, A/B testing, send-time optimization        | Resend API, Supabase, LinkedIn API          | Email sequences, connection requests |
+| **Meeting**          | Calendar coordination, reminder sequences, no-show prevention | Google Calendar API, Calendly               | Scheduled meetings                   |
+| **Discovery**        | Company research, MEDDPICC, battle cards                      | Perplexity API, internal knowledge base     | Discovery prep docs                  |
+| **Proposal**         | ROI calculations, proposal drafting, contract templating      | Pandoc, Supabase templates                  | Proposals, contracts                 |
+| **Customer Success** | NPS monitoring, churn prediction, upsell signals              | Supabase analytics, Slack API               | Health scores, alerts                |
 
 ### 5.2 Sales HIL Director Skills
 
 **Unique Human Skills (AI cannot replicate):**
 
-| Skill Domain | Specific Competencies | Example Application |
-|--------------|----------------------|---------------------|
-| **Strategic Intuition** | Market timing, competitive positioning | "We should focus on logistics NOW because NIS2 Oct 2024 deadline creates urgency" |
-| **Relationship Capital** | Executive network, warm intros, trust | Leveraging Kela relationship to unlock Senaatti (Finnish Senate) |
-| **Cultural Fluency** | Nordic business culture, hierarchy navigation | Understanding Finnish decision-making (consensus-based, slow but sticky) |
-| **Complex Negotiation** | Multi-stakeholder alignment, creative deal structures | "We'll discount pilot to €19,950 if you commit to €8.5k/mo for 12 months" |
-| **Crisis Leadership** | Churn prevention, escalation handling | When Uber threatens to cancel, Director steps in with executive call |
-| **Product Vision** | Roadmap influence, customer feedback synthesis | "Construction customers need EN 15978 carbon reporting → prioritize DWS IQ 6 feature" |
+| Skill Domain             | Specific Competencies                                 | Example Application                                                                   |
+| ------------------------ | ----------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| **Strategic Intuition**  | Market timing, competitive positioning                | "We should focus on logistics NOW because NIS2 Oct 2024 deadline creates urgency"     |
+| **Relationship Capital** | Executive network, warm intros, trust                 | Leveraging a landed public-sector relationship to unlock Senaatti (Finnish Senate)    |
+| **Cultural Fluency**     | Nordic business culture, hierarchy navigation         | Understanding Finnish decision-making (consensus-based, slow but sticky)              |
+| **Complex Negotiation**  | Multi-stakeholder alignment, creative deal structures | "We'll discount pilot to €19,950 if you commit to €8.5k/mo for 12 months"             |
+| **Crisis Leadership**    | Churn prevention, escalation handling                 | When a pilot account threatens to cancel, Director steps in with executive call       |
+| **Product Vision**       | Roadmap influence, customer feedback synthesis        | "Construction customers need EN 15978 carbon reporting → prioritize DWS IQ 6 feature" |
 
 **Skill Development Plan for HIL Director:**
 
@@ -391,20 +402,20 @@ sales_hil_director:
 
 **Agent Roster:**
 
-| # | Agent Name | ID | Primary Function | Customer Segments |
-|---|------------|-----|------------------|-------------------|
-| 1 | **Lead Scout Agent** | `lead-scout-001` | Lead enrichment, ICP scoring | All segments |
-| 2 | **Outreach Agent** | `outreach-001` | Multi-channel sequences (Email + LinkedIn) | Construction, Consulting, Education pilots |
-| 3 | **Meeting Agent** | `meeting-001` | Scheduling, reminders, follow-ups | All segments |
-| 4 | **Discovery Agent** | `discovery-001` | Research, MEDDPICC, demo prep | Construction, Consulting, Education pilots |
-| 5 | **Proposal Agent** | `proposal-001` | ROI calculators, proposals, contracts | All segments |
-| 6 | **Customer Success Agent** | `customer-success-001` | Onboarding, NPS, churn prevention | Firehorse customers |
+| #   | Agent Name                 | ID                     | Primary Function                           | Customer Segments                          |
+| --- | -------------------------- | ---------------------- | ------------------------------------------ | ------------------------------------------ |
+| 1   | **Lead Scout Agent**       | `lead-scout-001`       | Lead enrichment, ICP scoring               | All segments                               |
+| 2   | **Outreach Agent**         | `outreach-001`         | Multi-channel sequences (Email + LinkedIn) | Construction, Consulting, Education pilots |
+| 3   | **Meeting Agent**          | `meeting-001`          | Scheduling, reminders, follow-ups          | All segments                               |
+| 4   | **Discovery Agent**        | `discovery-001`        | Research, MEDDPICC, demo prep              | Construction, Consulting, Education pilots |
+| 5   | **Proposal Agent**         | `proposal-001`         | ROI calculators, proposals, contracts      | All segments                               |
+| 6   | **Customer Success Agent** | `customer-success-001` | Onboarding, NPS, churn prevention          | Firehorse customers                        |
 
 **Special-Purpose Agents:**
 
-| # | Agent Name | ID | Primary Function | Customer Segment |
-|---|------------|-----|------------------|------------------|
-| 7 | **Investor Outreach Agent** | `investor-outreach-001` | VC/PE database, warm intro paths, pitch deck versioning | Investor outreach |
+| #   | Agent Name                  | ID                      | Primary Function                                        | Customer Segment  |
+| --- | --------------------------- | ----------------------- | ------------------------------------------------------- | ----------------- |
+| 7   | **Investor Outreach Agent** | `investor-outreach-001` | VC/PE database, warm intro paths, pitch deck versioning | Investor outreach |
 
 ### 6.2 Agent Deployment Map by Segment
 
@@ -415,7 +426,7 @@ sales_hil_director:
 │                                                                         │
 │  🏗️  CONSTRUCTION PILOTS (Target: 2 in Q1/2026)                        │
 │  ├─ Lead Scout → Outreach → Meeting → Discovery → Proposal             │
-│  └─ Focus: Kela, Senaatti, YIT, SRV                                    │
+│  └─ Focus: Senaatti, YIT, SRV, public-sector tenders                   │
 │                                                                         │
 │  💼 CONSULTING PILOTS (Target: 1 in Q1/2026)                            │
 │  ├─ Lead Scout → Outreach → Meeting → Discovery → Proposal             │
@@ -452,15 +463,15 @@ sales_hil_director:
 **Price:** €29,950 pilot + €8,500/month
 **Sales Cycle:** 16 months (long, complex, multi-stakeholder)
 
-| Element | Construction Playbook |
-|---------|----------------------|
-| **Buyer Persona** | CFO (ROI), CSO (CSRD compliance), Facilities Manager (operations) |
-| **Pain Points** | 2-5 min legacy BMS latency, CSRD reporting gaps, 15-25% energy waste |
-| **Value Prop** | Sub-100ms climate intelligence → €25-50k/year energy savings + CSRD compliance |
-| **Competitive Moat** | NVIDIA Jetson edge AI (vs. Siemens/Schneider cloud latency) |
-| **Sales Approach** | Enterprise B2B: Discovery → Demo → ROI calc → Pilot → Production |
-| **Key Documents** | 14-slide pitch deck, ROI calculator, Kela case study, NIS2 compliance package |
-| **Agent Focus** | Discovery Agent (MEDDPICC), Proposal Agent (ROI calc) |
+| Element              | Construction Playbook                                                                     |
+| -------------------- | ----------------------------------------------------------------------------------------- |
+| **Buyer Persona**    | CFO (ROI), CSO (CSRD compliance), Facilities Manager (operations)                         |
+| **Pain Points**      | 2-5 min legacy BMS latency, CSRD reporting gaps, 15-25% energy waste                      |
+| **Value Prop**       | Sub-100ms climate intelligence → €25-50k/year energy savings + CSRD compliance            |
+| **Competitive Moat** | NVIDIA Jetson edge AI (vs. Siemens/Schneider cloud latency)                               |
+| **Sales Approach**   | Enterprise B2B: Discovery → Demo → ROI calc → Pilot → Production                          |
+| **Key Documents**    | 14-slide pitch deck, ROI calculator, contracted-pilot case study, NIS2 compliance package |
+| **Agent Focus**      | Discovery Agent (MEDDPICC), Proposal Agent (ROI calc)                                     |
 
 #### 7.2.2 Firehorse CRM
 
@@ -468,15 +479,15 @@ sales_hil_director:
 **Price:** €500-2,000/month (tiered)
 **Sales Cycle:** 3-6 months (mid-market SaaS)
 
-| Element | Firehorse Playbook |
-|---------|-------------------|
-| **Buyer Persona** | VP Sales, Sales Ops Manager, SDR Team Lead |
-| **Pain Points** | Manual prospecting, low reply rates, CRM data rot |
-| **Value Prop** | 3x reply rates, 10x SDR productivity, perfect CRM hygiene |
+| Element              | Firehorse Playbook                                                     |
+| -------------------- | ---------------------------------------------------------------------- |
+| **Buyer Persona**    | VP Sales, Sales Ops Manager, SDR Team Lead                             |
+| **Pain Points**      | Manual prospecting, low reply rates, CRM data rot                      |
+| **Value Prop**       | 3x reply rates, 10x SDR productivity, perfect CRM hygiene              |
 | **Competitive Moat** | Account-based enforcement (no spray-and-pray), Nordic data sovereignty |
-| **Sales Approach** | Product-led growth: Free trial → Advisor mode → Autonomous upgrade |
-| **Key Documents** | Interactive demo, A/B test results, customer testimonials |
-| **Agent Focus** | Outreach Agent (self-demo), Customer Success Agent (retention) |
+| **Sales Approach**   | Product-led growth: Free trial → Advisor mode → Autonomous upgrade     |
+| **Key Documents**    | Interactive demo, A/B test results, customer testimonials              |
+| **Agent Focus**      | Outreach Agent (self-demo), Customer Success Agent (retention)         |
 
 #### 7.2.3 Agent Foundry (Enterprise Platform)
 
@@ -484,36 +495,40 @@ sales_hil_director:
 **Price:** €500-2,000/month (Starter/Pro), Custom (Enterprise)
 **Sales Cycle:** 12-18 months (platform sale, integration-heavy)
 
-| Element | Agent Foundry Playbook |
-|---------|------------------------|
-| **Buyer Persona** | CTO, VP Engineering, Head of Digital Transformation |
-| **Pain Points** | AI pilot hell (never scale), lack of governance, cost overruns |
-| **Value Prop** | Production-grade agent framework, EU AI Act compliance, phased rollout |
+| Element              | Agent Foundry Playbook                                                  |
+| -------------------- | ----------------------------------------------------------------------- |
+| **Buyer Persona**    | CTO, VP Engineering, Head of Digital Transformation                     |
+| **Pain Points**      | AI pilot hell (never scale), lack of governance, cost overruns          |
+| **Value Prop**       | Production-grade agent framework, EU AI Act compliance, phased rollout  |
 | **Competitive Moat** | YAML-based config (no-code), MCP Hub orchestration, built-in guardrails |
-| **Sales Approach** | Consultative: POC → Silent Pilot → Advisor → Autonomous |
-| **Key Documents** | Technical architecture doc, compliance matrix (GDPR/AI Act), ROI model |
-| **Agent Focus** | Discovery Agent (technical deep-dive), Proposal Agent (MSA/SLA) |
+| **Sales Approach**   | Consultative: POC → Silent Pilot → Advisor → Autonomous                 |
+| **Key Documents**    | Technical architecture doc, compliance matrix (GDPR/AI Act), ROI model  |
+| **Agent Focus**      | Discovery Agent (technical deep-dive), Proposal Agent (MSA/SLA)         |
 
 ### 7.3 Vertical-Specific Customizations
 
 **Construction Vertical:**
+
 - Emphasize: EN 15978 carbon reporting, BIM integration, Fit for 55 compliance
-- Case studies: Kela, Senaatti
+- Case studies: contracted Q1/2026 enterprise pilots (named only under NDA)
 - Competitive: Siemens, Schneider, Honeywell
 
 **Consulting Vertical:**
+
 - Emphasize: Client billability, sustainability advisory tools, CSRD expertise
 - Case studies: McKinsey Digital sustainability practice
 - Competitive: Internal builds, Watershed, Persefoni
 
 **Education Vertical:**
+
 - Emphasize: Campus energy savings, student sustainability engagement, grant funding
 - Case studies: Aalto University smart campus
 - Competitive: Legacy campus management systems
 
 **Investor Vertical:**
+
 - Emphasize: €720k ARR roadmap, 21-moat competitive fortress, Nordic market leadership
-- Case studies: Kela (B2B2G validation), Uber Finland (logistics)
+- Case studies: contracted Q1/2026 enterprise pilots (€59,900 booked; named only under NDA)
 - Competitive: Other climate tech startups (Normative, Plan A)
 
 ---
@@ -565,7 +580,7 @@ agent:
     - max_leads_per_day: 100
     - min_icp_score_for_outreach: 70
     - gdpr_compliant: true
-    - no_competitors: true  # Don't scrape Siemens, Schneider employees
+    - no_competitors: true # Don't scrape Siemens, Schneider employees
 
   cost_tracking:
     budget_monthly_eur: 150
@@ -576,8 +591,8 @@ agent:
         output_per_1m_tokens: 15.00
 
   deployment:
-    phase: "advisor"  # Silent Pilot → Advisor → Autonomous
-    approval_required: false  # Auto-enrich, HIL reviews scores weekly
+    phase: "advisor" # Silent Pilot → Advisor → Autonomous
+    approval_required: false # Auto-enrich, HIL reviews scores weekly
 ```
 
 ### 8.2 Outreach Agent
@@ -592,7 +607,7 @@ agent:
   model:
     provider: "groq"
     name: "llama-3.1-70b-versatile"
-    temperature: 0.7  # Higher temp for creative email copy
+    temperature: 0.7 # Higher temp for creative email copy
 
   system_prompt: |
     You are a B2B sales outreach specialist for DWS IQ 6.
@@ -614,7 +629,7 @@ agent:
     Example Subject Lines (A/B test):
     - "Sub-100ms building intelligence?"
     - "CSRD compliance for [Company]?"
-    - "15% energy savings at Kela"
+    - "15% energy savings on a pilot site"
 
     LinkedIn Rules:
     - Max 20 connection requests/day
@@ -630,7 +645,7 @@ agent:
     - resend_email_api
     - linkedin_api
     - supabase_crm
-    - perplexity_research  # For personalization research
+    - perplexity_research # For personalization research
 
   guardrails:
     - max_emails_per_day: 50
@@ -638,7 +653,7 @@ agent:
     - stop_on_spam_complaint: true
     - respect_optout: true
     - never_send_weekends: true
-    - send_time_optimization: true  # 9-11am CET highest open rates
+    - send_time_optimization: true # 9-11am CET highest open rates
 
   cost_tracking:
     budget_monthly_eur: 200
@@ -648,8 +663,8 @@ agent:
       linkedin_inmails: 10.00_per_inmail
 
   deployment:
-    phase: "advisor"  # Requires HIL approval for first 60 days
-    approval_required: true  # Every email reviewed before send
+    phase: "advisor" # Requires HIL approval for first 60 days
+    approval_required: true # Every email reviewed before send
 ```
 
 ### 8.3 Discovery Agent
@@ -664,7 +679,7 @@ agent:
   model:
     provider: "anthropic"
     name: "claude-sonnet-4.5"
-    temperature: 0.2  # Low temp for accurate research
+    temperature: 0.2 # Low temp for accurate research
 
   system_prompt: |
     You are a sales engineer and discovery specialist for DWS IQ 6.
@@ -702,12 +717,12 @@ agent:
     - company_financials_api
     - tech_stack_detection
     - news_aggregation
-    - internal_knowledge_base  # Case studies, battle cards, ROI models
+    - internal_knowledge_base # Case studies, battle cards, ROI models
 
   guardrails:
-    - verify_facts: true  # Never hallucinate company data
-    - cite_sources: true  # Link to LinkedIn, news articles
-    - flag_low_confidence: true  # Alert HIL if research incomplete
+    - verify_facts: true # Never hallucinate company data
+    - cite_sources: true # Link to LinkedIn, news articles
+    - flag_low_confidence: true # Alert HIL if research incomplete
 
   cost_tracking:
     budget_monthly_eur: 100
@@ -715,7 +730,7 @@ agent:
 
   deployment:
     phase: "advisor"
-    approval_required: false  # Auto-generate research, HIL reviews before call
+    approval_required: false # Auto-generate research, HIL reviews before call
 ```
 
 ### 8.4 Proposal Agent
@@ -730,7 +745,7 @@ agent:
   model:
     provider: "anthropic"
     name: "claude-sonnet-4.5"
-    temperature: 0.1  # Very low temp for legal accuracy
+    temperature: 0.1 # Very low temp for legal accuracy
 
   system_prompt: |
     You are a proposal and contract specialist for DWS IQ 6.
@@ -759,7 +774,7 @@ agent:
     1. Executive Summary (1 paragraph)
     2. Challenge (prospect's pain points)
     3. Solution (DWS IQ 6 deployment plan)
-    4. Results (Kela case study metrics)
+    4. Results (contracted-pilot case study metrics)
     5. Investment (€29,950 pilot + €8,500/mo)
     6. Timeline (12-week implementation)
     7. Next Steps (sign by [date], kickoff [date])
@@ -777,12 +792,12 @@ agent:
   tools:
     - pandoc_pdf_generation
     - excel_formula_engine
-    - supabase_templates  # MSA, DPA, SLA templates
-    - docusign_api  # For contract signing
+    - supabase_templates # MSA, DPA, SLA templates
+    - docusign_api # For contract signing
 
   guardrails:
-    - legal_template_only: true  # Never deviate from approved MSA/DPA
-    - pricing_within_bounds: true  # Min €8,500/mo, max 20% discount
+    - legal_template_only: true # Never deviate from approved MSA/DPA
+    - pricing_within_bounds: true # Min €8,500/mo, max 20% discount
     - approval_threshold_eur: 10000
     - never_share_competitor_data: true
 
@@ -791,8 +806,8 @@ agent:
     alert_at_percentage: 80
 
   deployment:
-    phase: "autonomous"  # Can auto-draft, but approval gates enforce HIL review
-    approval_required: conditional  # Based on deal size
+    phase: "autonomous" # Can auto-draft, but approval gates enforce HIL review
+    approval_required: conditional # Based on deal size
 ```
 
 ### 8.5 Customer Success Agent
@@ -841,13 +856,13 @@ agent:
     Output: Health score (0-100), churn risk (low/medium/high), recommended actions.
 
   tools:
-    - supabase_analytics  # Login frequency, feature usage
+    - supabase_analytics # Login frequency, feature usage
     - nps_survey_api
-    - slack_api  # Alert HIL Director
-    - calendly_api  # Schedule check-ins
+    - slack_api # Alert HIL Director
+    - calendly_api # Schedule check-ins
 
   guardrails:
-    - escalate_churn_risk_high: true  # Alert HIL immediately
+    - escalate_churn_risk_high: true # Alert HIL immediately
     - max_automated_emails: 10_per_month_per_customer
     - never_push_upsell_if_churn_risk: true
 
@@ -857,7 +872,7 @@ agent:
 
   deployment:
     phase: "autonomous"
-    approval_required: false  # Auto-monitor, auto-alert HIL on issues
+    approval_required: false # Auto-monitor, auto-alert HIL on issues
 ```
 
 ### 8.6 Investor Outreach Agent
@@ -893,7 +908,7 @@ agent:
     Warm Intro Strategy:
     - Check LinkedIn for shared connections (founder network, advisors)
     - Prioritize 1st degree intros > cold emails
-    - Leverage Kela case study for B2B2G credibility
+    - Leverage the contracted-pilot case study for B2B2G credibility
 
     Pitch Deck Customization:
     - Seed ($1-2M): Emphasize market urgency (EPBD 2027, CSRD), team, traction
@@ -902,7 +917,7 @@ agent:
 
     Investor FAQs:
     - Market size: €127B TAM (EU smart building market)
-    - Traction: €7k → €60k MRR roadmap, Kela/Uber Finland customers
+    - Traction: two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked); roadmap to €60k software MRR. Separately ~€7,000/month services and transport revenue (not software revenue), company at cash break-even with founder salary €0. Kela/Uber/Bolt/Taksi Helsinki are dispatch operators, not software customers.
     - Competition: Siemens/Schneider = €3-6M entry barrier, we're €29,950 pilot
     - Defensibility: 21-moat framework (NVIDIA Jetson, EU data sovereignty, edge AI)
     - Exit: Strategic acquirer (Siemens, Schneider, Honeywell) or IPO (2030+)
@@ -912,14 +927,14 @@ agent:
   tools:
     - linkedin_api
     - crunchbase_api
-    - pitch_deck_versioning  # Auto-generate slide variations
+    - pitch_deck_versioning # Auto-generate slide variations
     - supabase_investor_crm
 
   guardrails:
-    - never_cold_email_tier1_vcs: true  # Always seek warm intro
-    - max_outreach_per_week: 10  # Quality > quantity
-    - verify_investor_focus: true  # Only climate tech, B2B SaaS, industrial IoT
-    - nda_compliance: true  # Never share confidential metrics publicly
+    - never_cold_email_tier1_vcs: true # Always seek warm intro
+    - max_outreach_per_week: 10 # Quality > quantity
+    - verify_investor_focus: true # Only climate tech, B2B SaaS, industrial IoT
+    - nda_compliance: true # Never share confidential metrics publicly
 
   cost_tracking:
     budget_monthly_eur: 100
@@ -927,7 +942,7 @@ agent:
 
   deployment:
     phase: "advisor"
-    approval_required: true  # Every investor outreach reviewed by HIL Director
+    approval_required: true # Every investor outreach reviewed by HIL Director
 ```
 
 ---
@@ -938,14 +953,15 @@ agent:
 
 **Goal:** Deploy Lead Scout + Outreach agents in Silent Pilot mode
 
-| Week | Milestone | Owner | Deliverable |
-|------|-----------|-------|-------------|
-| 1 | Agent infrastructure setup | Engineering | MCP Hub deployed, Supabase tables created |
-| 2 | Lead Scout agent YAML config | Sales HIL Director | `lead-scout-001.yaml` finalized |
-| 3 | Outreach agent YAML config | Sales HIL Director | `outreach-001.yaml` finalized |
-| 4 | Silent Pilot launch | Sales HIL Director | 30-day observation log started |
+| Week | Milestone                    | Owner              | Deliverable                               |
+| ---- | ---------------------------- | ------------------ | ----------------------------------------- |
+| 1    | Agent infrastructure setup   | Engineering        | MCP Hub deployed, Supabase tables created |
+| 2    | Lead Scout agent YAML config | Sales HIL Director | `lead-scout-001.yaml` finalized           |
+| 3    | Outreach agent YAML config   | Sales HIL Director | `outreach-001.yaml` finalized             |
+| 4    | Silent Pilot launch          | Sales HIL Director | 30-day observation log started            |
 
 **Success Metrics:**
+
 - 100 leads enriched/week (Lead Scout)
 - 50 emails drafted/week (Outreach, not sent yet)
 - 0 errors, 0 spam complaints
@@ -954,14 +970,15 @@ agent:
 
 **Goal:** Activate Outreach + Discovery + Meeting agents with HIL approval
 
-| Week | Milestone | Owner | Deliverable |
-|------|-----------|-------|-------------|
-| 5 | Advance to Advisor mode | Sales HIL Director | Approval workflow configured |
-| 6-8 | Discovery agent deployment | Engineering | `discovery-001.yaml` live |
-| 9-10 | Meeting agent deployment | Engineering | `meeting-001.yaml` live |
+| Week  | Milestone                   | Owner              | Deliverable                          |
+| ----- | --------------------------- | ------------------ | ------------------------------------ |
+| 5     | Advance to Advisor mode     | Sales HIL Director | Approval workflow configured         |
+| 6-8   | Discovery agent deployment  | Engineering        | `discovery-001.yaml` live            |
+| 9-10  | Meeting agent deployment    | Engineering        | `meeting-001.yaml` live              |
 | 11-12 | First agent-sourced meeting | Sales HIL Director | 1 discovery call from agent outreach |
 
 **Success Metrics:**
+
 - 10% reply rate on outreach emails
 - 5 meetings scheduled (agent-sourced)
 - 1 demo delivered
@@ -970,15 +987,16 @@ agent:
 
 **Goal:** Full agent orchestration, 2 pilots signed
 
-| Week | Milestone | Owner | Deliverable |
-|------|-----------|-------|-------------|
-| 13 | Proposal agent deployment | Engineering | `proposal-001.yaml` live |
-| 14 | Customer Success agent deployment | Engineering | `customer-success-001.yaml` live |
-| 15 | Investor Outreach agent deployment | Sales HIL Director | `investor-outreach-001.yaml` live |
-| 16-20 | Autonomous mode for Outreach + Meeting | Sales HIL Director | Approval gates configured |
-| 21-24 | First agent-sourced pilot signed | Sales HIL Director | €29,950 pilot contract |
+| Week  | Milestone                              | Owner              | Deliverable                       |
+| ----- | -------------------------------------- | ------------------ | --------------------------------- |
+| 13    | Proposal agent deployment              | Engineering        | `proposal-001.yaml` live          |
+| 14    | Customer Success agent deployment      | Engineering        | `customer-success-001.yaml` live  |
+| 15    | Investor Outreach agent deployment     | Sales HIL Director | `investor-outreach-001.yaml` live |
+| 16-20 | Autonomous mode for Outreach + Meeting | Sales HIL Director | Approval gates configured         |
+| 21-24 | First agent-sourced pilot signed       | Sales HIL Director | €29,950 pilot contract            |
 
 **Success Metrics:**
+
 - 2 pilots signed (€59,900 revenue)
 - 8-12 demos delivered
 - €7k → €15k MRR growth
@@ -987,13 +1005,14 @@ agent:
 
 **Goal:** €7k → €60k MRR with agent-led sales
 
-| Month | Milestone | Target |
-|-------|-----------|--------|
-| 7-9 | Optimize agent performance (A/B testing) | 15% reply rate, 8% meeting-booked rate |
+| Month | Milestone                                 | Target                                             |
+| ----- | ----------------------------------------- | -------------------------------------------------- |
+| 7-9   | Optimize agent performance (A/B testing)  | 15% reply rate, 8% meeting-booked rate             |
 | 10-12 | Deploy vertical-specific agent variations | Construction, Consulting, Education playbooks live |
-| 12 | Achieve €60k MRR | 7 production customers @ €8.5k/mo |
+| 12    | Achieve €60k MRR                          | 7 production customers @ €8.5k/mo                  |
 
 **Success Metrics:**
+
 - €60k MRR
 - 1:6 Human-to-Agent ratio maintained
 - <€1,500/mo agent operational costs
@@ -1004,29 +1023,31 @@ agent:
 
 ### 10.1 Agent Operating Costs
 
-| Agent | Monthly Cost | Breakdown |
-|-------|-------------|-----------|
-| Lead Scout | €150 | Claude API (100k tokens/day) |
-| Outreach | €200 | Groq API + Resend (2k emails/mo) + LinkedIn (20 InMails/mo) |
-| Meeting | €50 | Calendly API, Google Calendar |
-| Discovery | €100 | Claude API + Perplexity (research) |
-| Proposal | €50 | Claude API + Pandoc |
-| Customer Success | €100 | Groq API + Slack alerts |
-| Investor Outreach | €100 | Claude API + Crunchbase |
-| **TOTAL** | **€750-900/mo** | vs. €25k-35k/mo for 3 human SDRs |
+| Agent             | Monthly Cost    | Breakdown                                                   |
+| ----------------- | --------------- | ----------------------------------------------------------- |
+| Lead Scout        | €150            | Claude API (100k tokens/day)                                |
+| Outreach          | €200            | Groq API + Resend (2k emails/mo) + LinkedIn (20 InMails/mo) |
+| Meeting           | €50             | Calendly API, Google Calendar                               |
+| Discovery         | €100            | Claude API + Perplexity (research)                          |
+| Proposal          | €50             | Claude API + Pandoc                                         |
+| Customer Success  | €100            | Groq API + Slack alerts                                     |
+| Investor Outreach | €100            | Claude API + Crunchbase                                     |
+| **TOTAL**         | **€750-900/mo** | vs. €25k-35k/mo for 3 human SDRs                            |
 
 **ROI:**
+
 - Cost savings: 96% (€750 vs. €25k)
 - Output: 6x more leads processed
 - Quality: Higher (no "forgot to follow up")
 
 ### 10.2 Human Cost (Sales HIL Director)
 
-| Role | FTE | Monthly Cost | Responsibilities |
-|------|-----|--------------|------------------|
+| Role               | FTE | Monthly Cost  | Responsibilities                                          |
+| ------------------ | --- | ------------- | --------------------------------------------------------- |
 | Sales HIL Director | 1.0 | €8,000-12,000 | Agent orchestration, high-touch deals, strategic accounts |
 
 **Total Sales Cost:**
+
 - Agents: €900/mo
 - Human: €10,000/mo
 - **Combined: €10,900/mo** (vs. €35k/mo traditional SDR team)
@@ -1037,35 +1058,35 @@ agent:
 
 ### 11.1 Agent Performance Metrics
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| **Lead Enrichment Rate** | 100 leads/week | Supabase `firehorse_leads` table growth |
-| **ICP Score Accuracy** | 80%+ qualified | Win rate on >70 ICP score leads |
-| **Email Reply Rate** | 10-15% | Resend analytics |
-| **Meeting-Booked Rate** | 5-8% | Calendly conversions |
-| **Demo-to-Pilot Rate** | 25% | 8 demos → 2 pilots |
-| **Pilot-to-Production Rate** | 50% | 2 pilots → 1 production |
-| **Customer Health Score** | 75+ (low churn risk) | Supabase analytics |
-| **Agent Cost per Deal** | <€500 | Agent costs / deals closed |
+| Metric                       | Target               | Measurement                             |
+| ---------------------------- | -------------------- | --------------------------------------- |
+| **Lead Enrichment Rate**     | 100 leads/week       | Supabase `firehorse_leads` table growth |
+| **ICP Score Accuracy**       | 80%+ qualified       | Win rate on >70 ICP score leads         |
+| **Email Reply Rate**         | 10-15%               | Resend analytics                        |
+| **Meeting-Booked Rate**      | 5-8%                 | Calendly conversions                    |
+| **Demo-to-Pilot Rate**       | 25%                  | 8 demos → 2 pilots                      |
+| **Pilot-to-Production Rate** | 50%                  | 2 pilots → 1 production                 |
+| **Customer Health Score**    | 75+ (low churn risk) | Supabase analytics                      |
+| **Agent Cost per Deal**      | <€500                | Agent costs / deals closed              |
 
 ### 11.2 Human (HIL Director) Metrics
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| **High-Touch Deal Close Rate** | 30% | Deals >€10k requiring negotiation |
-| **Executive Relationship NPS** | 9+ | Quarterly surveys with C-level buyers |
-| **Agent Optimization Cycles** | 2/month | YAML config updates, prompt tuning |
-| **Time Spent on Admin** | <10% | More time on strategy, less on CRM hygiene |
+| Metric                         | Target  | Measurement                                |
+| ------------------------------ | ------- | ------------------------------------------ |
+| **High-Touch Deal Close Rate** | 30%     | Deals >€10k requiring negotiation          |
+| **Executive Relationship NPS** | 9+      | Quarterly surveys with C-level buyers      |
+| **Agent Optimization Cycles**  | 2/month | YAML config updates, prompt tuning         |
+| **Time Spent on Admin**        | <10%    | More time on strategy, less on CRM hygiene |
 
 ### 11.3 Business Outcomes
 
-| Metric | Q1/2026 Target | Q4/2026 Target |
-|--------|----------------|----------------|
-| **MRR** | €15k | €60k |
-| **New Pilots Signed** | 2 | 8 |
-| **Production Customers** | 1 | 7 |
-| **Investor Meetings** | 5 | 20 |
-| **Customer Churn Rate** | <5% | <5% |
+| Metric                   | Q1/2026 Target | Q4/2026 Target |
+| ------------------------ | -------------- | -------------- |
+| **MRR**                  | €15k           | €60k           |
+| **New Pilots Signed**    | 2              | 8              |
+| **Production Customers** | 1              | 7              |
+| **Investor Meetings**    | 5              | 20             |
+| **Customer Churn Rate**  | <5%            | <5%            |
 
 ---
 
@@ -1073,14 +1094,14 @@ agent:
 
 ### 12.1 Risks & Mitigations
 
-| Risk | Likelihood | Impact | Mitigation |
-|------|------------|--------|------------|
-| **Agent sends spam** | Medium | High (brand damage) | Advisor mode for 60 days, max 50 emails/day, spam monitoring |
-| **Low reply rates** | Medium | Medium (wasted effort) | A/B testing, ICP refinement, warm intros via HIL |
-| **Agent hallucinates data** | Low | High (legal risk) | Fact verification, cite sources, HIL review before send |
-| **GDPR violation** | Low | Critical (fines) | Opt-out enforcement, EU data residency, legal review |
-| **Agent cost overruns** | Low | Low (budget impact) | Monthly budget alerts at 80%, hard caps on API calls |
-| **Over-reliance on agents** | Medium | Medium (skill atrophy) | HIL Director maintains high-touch deal skills |
+| Risk                        | Likelihood | Impact                 | Mitigation                                                   |
+| --------------------------- | ---------- | ---------------------- | ------------------------------------------------------------ |
+| **Agent sends spam**        | Medium     | High (brand damage)    | Advisor mode for 60 days, max 50 emails/day, spam monitoring |
+| **Low reply rates**         | Medium     | Medium (wasted effort) | A/B testing, ICP refinement, warm intros via HIL             |
+| **Agent hallucinates data** | Low        | High (legal risk)      | Fact verification, cite sources, HIL review before send      |
+| **GDPR violation**          | Low        | Critical (fines)       | Opt-out enforcement, EU data residency, legal review         |
+| **Agent cost overruns**     | Low        | Low (budget impact)    | Monthly budget alerts at 80%, hard caps on API calls         |
+| **Over-reliance on agents** | Medium     | Medium (skill atrophy) | HIL Director maintains high-touch deal skills                |
 
 ### 12.2 Compliance Checklist
 
@@ -1096,41 +1117,41 @@ agent:
 
 ### 13.1 DWS Internal Docs
 
-| Document | Path | Purpose |
-|----------|------|---------|
-| **DWS Document Standard** | `DWS_DOCUMENT_STANDARD.md` | Versioning, naming conventions |
-| **Agent Foundry Product Doc** | `Store/PRODUCT_AGENT_FOUNDRY.md` | Agent framework, YAML templates |
-| **AGENTS.md** | `AGENTS.md` | Master agent index, MCP Hub patterns |
-| **Enterprise Sales Blueprint** | `sales-outreach/enterprise-sales.md` | 13-document sales stack |
-| **Firehorse Sales Pipeline** | `src/firehorse/sales-pipeline.ts` | Meeting & proposal tracking code |
-| **MCP Hub Orchestration** | `mcp-hub/server.py` | Workflow coordination logic |
+| Document                       | Path                                 | Purpose                              |
+| ------------------------------ | ------------------------------------ | ------------------------------------ |
+| **DWS Document Standard**      | `DWS_DOCUMENT_STANDARD.md`           | Versioning, naming conventions       |
+| **Agent Foundry Product Doc**  | `Store/PRODUCT_AGENT_FOUNDRY.md`     | Agent framework, YAML templates      |
+| **AGENTS.md**                  | `AGENTS.md`                          | Master agent index, MCP Hub patterns |
+| **Enterprise Sales Blueprint** | `sales-outreach/enterprise-sales.md` | 13-document sales stack              |
+| **Firehorse Sales Pipeline**   | `src/firehorse/sales-pipeline.ts`    | Meeting & proposal tracking code     |
+| **MCP Hub Orchestration**      | `mcp-hub/server.py`                  | Workflow coordination logic          |
 
 ### 13.2 External Resources
 
-| Resource | URL | Purpose |
-|----------|-----|---------|
-| **MEDDPICC Framework** | [meddpicc.com](https://www.meddpicc.com) | Sales qualification methodology |
-| **Apollo.io API** | [apollo.io/api](https://www.apollo.io/api) | Lead enrichment |
-| **Resend Email API** | [resend.com/docs](https://resend.com/docs) | Transactional email |
-| **LinkedIn Sales Navigator** | [linkedin.com/sales](https://www.linkedin.com/sales) | B2B prospecting |
-| **EU AI Act Compliance** | [digital-strategy.ec.europa.eu](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) | Regulatory guidance |
+| Resource                     | URL                                                                                                        | Purpose                         |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| **MEDDPICC Framework**       | [meddpicc.com](https://www.meddpicc.com)                                                                   | Sales qualification methodology |
+| **Apollo.io API**            | [apollo.io/api](https://www.apollo.io/api)                                                                 | Lead enrichment                 |
+| **Resend Email API**         | [resend.com/docs](https://resend.com/docs)                                                                 | Transactional email             |
+| **LinkedIn Sales Navigator** | [linkedin.com/sales](https://www.linkedin.com/sales)                                                       | B2B prospecting                 |
+| **EU AI Act Compliance**     | [digital-strategy.ec.europa.eu](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) | Regulatory guidance             |
 
 ---
 
 ## 14. Glossary / Sanasto
 
-| Term (EN) | Termi (FI) | Definition |
-|-----------|------------|------------|
-| **Human-in-Loop (HIL)** | Ihminen silmukassa | Human oversight in AI workflows, especially for high-stakes decisions |
-| **Agent** | Agentti | Autonomous AI software that performs tasks (email, research, scheduling) |
-| **ICP** | Ideaaliasiakasprofiili | Ideal Customer Profile - target customer characteristics |
-| **MEDDPICC** | MEDDPICC | Sales qualification framework (Metrics, Economic Buyer, Decision Criteria, etc.) |
-| **MRR** | Kuukausittainen toistuva liikevaihto | Monthly Recurring Revenue |
-| **Churn** | Asiakaspoistuma | Customer cancellation rate |
-| **NPS** | Net Promoter Score | Customer satisfaction metric (-100 to +100) |
-| **Sales Funnel** | Myyntisuppilo | Customer journey stages (Awareness → Interest → Decision) |
-| **Pilot** | Pilotti | Trial deployment (€29,950 for 3 months) |
-| **Production** | Tuotantokäyttö | Full deployment (€8,500/month) |
+| Term (EN)               | Termi (FI)                           | Definition                                                                       |
+| ----------------------- | ------------------------------------ | -------------------------------------------------------------------------------- |
+| **Human-in-Loop (HIL)** | Ihminen silmukassa                   | Human oversight in AI workflows, especially for high-stakes decisions            |
+| **Agent**               | Agentti                              | Autonomous AI software that performs tasks (email, research, scheduling)         |
+| **ICP**                 | Ideaaliasiakasprofiili               | Ideal Customer Profile - target customer characteristics                         |
+| **MEDDPICC**            | MEDDPICC                             | Sales qualification framework (Metrics, Economic Buyer, Decision Criteria, etc.) |
+| **MRR**                 | Kuukausittainen toistuva liikevaihto | Monthly Recurring Revenue                                                        |
+| **Churn**               | Asiakaspoistuma                      | Customer cancellation rate                                                       |
+| **NPS**                 | Net Promoter Score                   | Customer satisfaction metric (-100 to +100)                                      |
+| **Sales Funnel**        | Myyntisuppilo                        | Customer journey stages (Awareness → Interest → Decision)                        |
+| **Pilot**               | Pilotti                              | Trial deployment (€29,950 for 3 months)                                          |
+| **Production**          | Tuotantokäyttö                       | Full deployment (€8,500/month)                                                   |
 
 ---
 
@@ -1146,6 +1167,7 @@ agent:
 ### For Sales HIL Director
 
 **Daily Tasks:**
+
 ```bash
 # Check agent status
 cd .workflows/agents
@@ -1159,6 +1181,7 @@ psql $DATABASE_URL -c "SELECT * FROM firehorse_events WHERE status='pending_appr
 ```
 
 **Weekly Review:**
+
 ```bash
 # Pipeline analytics
 psql $DATABASE_URL -f scripts/weekly_sales_report.sql
@@ -1168,6 +1191,7 @@ python scripts/agent_performance.py --week=$(date +%U)
 ```
 
 **Monthly Optimization:**
+
 ```bash
 # A/B test results
 python scripts/ab_test_analysis.py --month=$(date +%m)
@@ -1179,6 +1203,7 @@ vim AgentFoundry/configs/production/outreach-001.yaml
 ### For Engineering
 
 **Deploy new agent:**
+
 ```bash
 # 1. Create YAML config
 cp AgentFoundry/configs/templates/agent-template.yaml \
@@ -1195,6 +1220,7 @@ tail -f logs/agents/new-agent.log
 ```
 
 **Emergency shutdown:**
+
 ```bash
 # Stop runaway agent
 python scripts/kill_agent.py --agent=outreach-001 --reason="spam_detected"

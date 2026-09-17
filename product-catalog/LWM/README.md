@@ -1,6 +1,8 @@
 # Lifetime World Model (LWM) - Product Catalog
 **55B Parameter Sovereign Physical AI for Construction**
 
+> **Positioning correction (2026-07-26).** DWS does **not** pretrain a 55B base model — that is cloud CAPEX without a moat and does not fit the GN-100 (`docs/field-notes/2026-07-26-lwm-training-hardware-reality.md`). The LWM position is now **adopt an open sovereign edge world model + own the loop**: the physical/embodied base is **NVIDIA Cosmos 3 Edge** (4B + 2B Nemotron reasoner, DGX-Spark-native, verified — `docs/field-notes/2026-07-26-cosmos-3-edge-lwm-build-adopt-inflection.md`, PHD §14.44); a compliance LLM tier runs via NVIDIA NIM; and the **moat is the owned loop** — KYA governance + private evals + RL on sovereign fleet data + Article-12 evidence. The base is a commodity; the loop is what no one can copy. The "55B" figure below is retained as **V1 historical positioning** (Rule 12), not the current build plan.
+
 Product Family: LWM
 Current Version: V1 (NVIDIA Inception Submission)
 Status: In Development

@@ -134,7 +134,7 @@ Grok is optional, used only for non-safety-critical, non-high-risk reasoning tas
 
 ## 9. Strategic Goal: €500k SAFE
 
-Closing the first tranche of 8 Platinum Captain seats (€50k each) to activate the Genesis Fleet. This funds the "Last Mile" deployment of the DWS IQ Brain across the EU, utilizing the Acer-NVIDIA-Siemens-ABB stack.
+Closing the first tranche of 8 Industry Captain seats (€50k each) to activate the Genesis Fleet. This funds the "Last Mile" deployment of the DWS IQ Brain across the EU, utilizing the Acer-NVIDIA-Siemens-ABB stack.
 
 ## 10. Next Step
 

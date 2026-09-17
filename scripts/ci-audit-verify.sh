@@ -17,7 +17,11 @@
 #   bash scripts/ci-audit-verify.sh                      # verify against HEAD
 #   bash scripts/ci-audit-verify.sh --commit <sha>       # verify against specific commit
 #   bash scripts/ci-audit-verify.sh --chain-only         # skip HEAD coverage check
-#   bash scripts/ci-audit-verify.sh --allow-failure      # chain intact is enough
+#   bash scripts/ci-audit-verify.sh --allow-failure      # baseline-rollout mode:
+#                                                          warn (do not fail) on
+#                                                          chain break, missing
+#                                                          HEAD record, or
+#                                                          overall_pass=false
 #
 # Used by:
 #   - .github/workflows/ci-audit-verify.yml (3-second gate on every PR/push)
@@ -125,11 +129,16 @@ done
 
 if [ $errors -gt 0 ]; then
   echo ""
-  echo "❌ chain verification FAILED ($errors issue(s))"
-  exit 1
+  if [ $ALLOW_FAILURE -eq 1 ]; then
+    echo "⚠️  chain verification failed ($errors issue(s)), but --allow-failure set"
+    echo "   (baseline rollout — re-run without --allow-failure for the strict check)"
+  else
+    echo "❌ chain verification FAILED ($errors issue(s))"
+    exit 1
+  fi
+else
+  echo "✅ chain intact across ${#FILES[@]} record(s)"
 fi
-
-echo "✅ chain intact across ${#FILES[@]} record(s)"
 
 if [ $CHAIN_ONLY -eq 1 ]; then
   exit 0

@@ -8,7 +8,7 @@
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { NextFunction, type Request, type Response } from 'express';
+import { type Request, type Response } from 'express';
 import crypto from 'crypto';
 import { webhookHandler, WebhookMiddleware } from '../middleware/webhook.middleware.js';
 

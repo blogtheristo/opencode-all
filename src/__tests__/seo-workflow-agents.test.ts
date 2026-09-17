@@ -1,8 +1,11 @@
 /**
+ * Evidence: Tool=Copilot CLI 1.0.83 Model=gpt-5.6-luna Agent=Copilot CLI Date=2026-09-05
+ * Audit trail: git log -- src/__tests__/seo-workflow-agents.test.ts
+ *
  * SEO & Workflow Agent Tests — Coverage for SEO pipeline and workflow orchestrators
  *
  * Tests: keyword-intent, seo-audit, competitor-surveillance, content-brief,
- * lead-feedback, atlas, athena, hephaestus, iris, hermes, apollo,
+ * lead-feedback, atlas, athena, hephaestus, iris, mercury, apollo,
  * and industry specialists (vulcan, helios, neptune, ceres, prometheus, mars, bess, gaia).
  *
  * Does NOT require LLM or Supabase.
@@ -147,6 +150,34 @@ describe('SeoAudit Agent', () => {
     expect(result.agentName).toBe('seo-audit');
     expect(result.confidence).toBeGreaterThan(0);
   });
+
+  it('should classify CTAs by their containing section', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      text: async () => `
+        <header><nav>Navigation</nav></header>
+        <main>
+          <section class="hero"><button>Request demo</button></section>
+          <section><p>Useful content</p></section>
+        </main>
+        <footer><p>Footer</p></footer>
+      `,
+      json: async () => ({}),
+      headers: new Headers({ 'content-type': 'text/html' }),
+    } as Response));
+
+    const result = await agent.execute(ctx, {
+      site: { baseUrl: 'https://dws10.com', pages: ['/'] },
+      scope: 'single-page',
+    });
+    const output = result.result as {
+      ctaAnalysis: Array<{ ctaCount: number; primaryCta: { position: string } }>;
+    };
+
+    expect(output.ctaAnalysis[0].primaryCta.position).toBe('hero');
+    expect(output.ctaAnalysis[0].ctaCount).toBe(1);
+  });
 });
 
 describe('CompetitorSurveillance Agent', () => {
@@ -184,7 +215,9 @@ describe('CompetitorSurveillance Agent', () => {
 
     expect(result.agentName).toBe('competitor-surveillance');
     expect(result.confidence).toBeGreaterThan(0);
-  });
+    // 15s: this test times out at the default 5s when the box is under
+    // concurrent agent load (batch worker + sessions); logic itself is fast.
+  }, 15000);
 });
 
 describe('ContentBrief Agent', () => {
@@ -332,12 +365,12 @@ describe('Iris Agent', () => {
   });
 });
 
-describe('Hermes Agent', () => {
+describe('Mercury Agent', () => {
   let agent: any;
 
   beforeEach(async () => {
-    const mod = await import('../agents/workflow/hermes/hermes.agent.js');
-    agent = new mod.HermesAgent();
+    const mod = await import('../agents/workflow/mercury/mercury.agent.js');
+    agent = new mod.MercuryAgent();
   });
 
   it('should execute with basic input', async () => {
@@ -345,7 +378,7 @@ describe('Hermes Agent', () => {
       query: 'Coordinate communication workflow',
     });
 
-    expect(result.agentName).toBe('hermes');
+    expect(result.agentName).toBe('mercury');
     expect(result.confidence).toBeGreaterThan(0);
   });
 });

@@ -1,31 +1,37 @@
 # MCP Client Quickstart
 
 ---
+
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.3
 
 Sessions & Modifications:
-  - Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: current | Date: 18.04.2026 | Changes: Updated quickstart to reflect Win11 developer MCP, DGX hub orchestration, and remote/mobile MCP split
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-dws6-ux-1RWJg | Date: 07.03.2026 | Changes: Initial creation — client quickstart for MCP Hub integration
+
+- Version: 1.3 | Tool: Cursor AI (Opus 4.6) | Session: cursor/fix-dgx-runner-workflows-0d84 | Date: 17.09.2026 | Changes: Corrected GITHUB_TOKEN from optional to required — gateway server.ts:38 throws on any GitHub tool call without it
+- Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/update-dws-mcp-hub-oVklG | Date: 12.05.2026 | Changes: Added Google-managed MCP as fourth profile (Cloud IAM auth, GCP-native services); pointed at MCP_CONFIGURATION.md §4 and mcp.google-managed.example.json
+- Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: current | Date: 18.04.2026 | Changes: Updated quickstart to reflect Win11 developer MCP, DGX hub orchestration, and remote/mobile MCP split
+- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-dws6-ux-1RWJg | Date: 07.03.2026 | Changes: Initial creation — client quickstart for MCP Hub integration
 
 Document Status:
-  - Created: 07.03.2026
-  - Last Modified: 18.04.2026
-  - Language: English
-  - Publication Status: ACTIVE
 
-***
+- Created: 07.03.2026
+- Last Modified: 17.09.2026
+- Language: English
+- Publication Status: ACTIVE
+
+---
 
 ## Overview
 
 DWS MCP is split by use case:
 
-1. **Win11 developer MCP** — local backend + local Python gateway, no Docker
-2. **DGX hub** — orchestration and scheduled automation
+1. **Win11 developer MCP** — local backend + local TypeScript gateway (`cloud-run-gateway-ts`), no Docker
+2. **DGX hub** — orchestration and scheduled automation; HTTP routes include federated LLM mesh **GET /llm/endpoints**, **POST /llm/resolve**, **POST /llm/probe** (`mcp-hub-ts`)
 3. **Remote/mobile MCP** — hosted HTTP endpoints when local processes are not available
+4. **Google-managed MCP** — Google Cloud first-party servers for GCP-native services (Cloud Run, BigQuery, GCS, Maps Grounding Lite, Drive/Gmail/Calendar, …); authenticate via Cloud IAM, not a DWS bearer token. See `docs/MCP_CONFIGURATION.md` section 4 and `mcp.google-managed.example.json`.
 
-Supabase is shared across the split: local dev needs it, and DGX orchestration needs it too.
+Supabase is shared across the split: local dev needs it, and DGX orchestration needs it too. Google-managed MCP does **not** host Supabase — Supabase stays on the DWS path.
 
 ## Quick Connection
 
@@ -38,24 +44,27 @@ For Win11 developer work, use local MCP entries:
   "mcpServers": {
     "dws-agents-local": {
       "type": "http",
-      "url": "http://localhost:8080/mcp"
+      "url": "http://localhost:3001/mcp"
     },
     "dws-gateway-local": {
       "type": "stdio",
-      "command": "python",
+      "command": "node",
       "args": [
-        "mcp-servers/cloud-run-gateway/server.py",
+        "mcp-servers/cloud-run-gateway-ts/dist/server.js",
         "--transport",
         "stdio"
       ],
       "env": {
         "SUPABASE_URL": "${SUPABASE_URL}",
-        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
+        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}",
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
       }
     }
   }
 }
 ```
+
+Before first use, compile the TypeScript gateway: `cd mcp-servers/cloud-run-gateway-ts && npm install && npm run build`.
 
 ### 2. Cursor / VS Code
 
@@ -82,7 +91,7 @@ If you need remote/mobile access instead, use hosted URLs in your editor's MCP s
 
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_KEY`
-- `GITHUB_TOKEN` (optional, only needed for GitHub tool calls from local gateway)
+- `GITHUB_TOKEN` (required — the gateway registers GitHub tools by default; any GitHub tool call without this token crashes with `GITHUB_TOKEN must be set`)
 
 #### DGX hub
 
@@ -146,24 +155,24 @@ dws status
 
 ## Available Tools
 
-| Tool | Description |
-|------|-------------|
-| `dws_list_agents` | List all available agents |
-| `dws_discover` | Find agents by capability |
-| `dws_workflow` | Trigger multi-agent workflow |
-| `dws_events` | Get recent event bus events |
-| `dws_compliance` | EU compliance assessment |
-| `dws_sitesense` | Construction site safety |
-| `dws_material_oracle` | Material carbon analysis |
-| `dws_emissions_data_analyst` | Emissions data queries |
-| `dws_schedule_genius` | Construction scheduling |
-| `dws_customer_sat` | Customer satisfaction analysis |
-| `dws_viability` | Project viability assessment |
-| `dws_competitor_surveillance` | Competitive intelligence |
-| `dws_seo_audit` | SEO analysis |
-| `dws_lead_feedback` | Lead feedback scoring |
-| `dws_quality_gate` | Quality gate assessment |
-| `dws_logistics` | Logistics optimization |
+| Tool                          | Description                    |
+| ----------------------------- | ------------------------------ |
+| `dws_list_agents`             | List all available agents      |
+| `dws_discover`                | Find agents by capability      |
+| `dws_workflow`                | Trigger multi-agent workflow   |
+| `dws_events`                  | Get recent event bus events    |
+| `dws_compliance`              | EU compliance assessment       |
+| `dws_sitesense`               | Construction site safety       |
+| `dws_material_oracle`         | Material carbon analysis       |
+| `dws_emissions_data_analyst`  | Emissions data queries         |
+| `dws_schedule_genius`         | Construction scheduling        |
+| `dws_customer_sat`            | Customer satisfaction analysis |
+| `dws_viability`               | Project viability assessment   |
+| `dws_competitor_surveillance` | Competitive intelligence       |
+| `dws_seo_audit`               | SEO analysis                   |
+| `dws_lead_feedback`           | Lead feedback scoring          |
+| `dws_quality_gate`            | Quality gate assessment        |
+| `dws_logistics`               | Logistics optimization         |
 
 ## Workflows
 
@@ -189,7 +198,7 @@ For Win11 backend development, start the Express app and use the local agent end
   "mcpServers": {
     "dws-agents-local": {
       "type": "http",
-      "url": "http://localhost:8080/mcp"
+      "url": "http://localhost:3001/mcp"
     }
   }
 }
@@ -206,7 +215,7 @@ For DGX orchestration, use `.env.mcp` and the DGX day-runner / hub processes rat
 Subscribe to real-time agent events:
 
 ```bash
-curl -N http://localhost:8080/mcp/sse
+curl -N http://localhost:3001/mcp/sse
 ```
 
 Events include agent executions, workflow progress, and compliance alerts.
@@ -218,10 +227,11 @@ Events include agent executions, workflow progress, and compliance alerts.
 dws health
 
 # Via HTTP
-curl http://localhost:8080/mcp/health
+curl http://localhost:3001/mcp/health
 ```
 
 Response:
+
 ```json
 {
   "status": "ok",
@@ -234,12 +244,12 @@ Response:
 
 ## Troubleshooting
 
-| Issue | Fix |
-|-------|-----|
+| Issue              | Fix                                                                                        |
+| ------------------ | ------------------------------------------------------------------------------------------ |
 | Connection refused | Confirm the configured MCP URL is reachable or start `npm run dev` for local agent testing |
-| 401 Unauthorized | Set `MCP_GATEWAY_API_KEY` or `DWS_API_TOKEN` to a valid bearer token |
-| Tool not found | Run `dws mcp tools` to list available tools |
-| Timeout | Check if backend is healthy: `dws health` |
+| 401 Unauthorized   | Set `MCP_GATEWAY_API_KEY` or `DWS_API_TOKEN` to a valid bearer token                       |
+| Tool not found     | Run `dws mcp tools` to list available tools                                                |
+| Timeout            | Check if backend is healthy: `dws health`                                                  |
 
 ## Architecture
 

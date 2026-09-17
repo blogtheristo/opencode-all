@@ -15,9 +15,9 @@
  * Date: 2026-03-22
  */
 
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { SAPConnector } from '../../integrations/erp/connectors/sap-connector.js';
-import { EntityType, ERPProvider, SyncStatus } from '../../integrations/erp/types.js';
+import { EntityType, ERPProvider } from '../../integrations/erp/types.js';
 import type { SAPConfig, SyncResult } from '../../integrations/erp/types.js';
 
 // ============ HELPERS ============

@@ -69,7 +69,7 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 >
 > Quick question: how is your team automating [REGULATION] compliance right now? We're seeing most [industry] companies still running this through consultants + spreadsheets at 6-figure annual cost.
 >
-> I'm building DWS IQ 6 — a climate intelligence platform that automates Fit for 55 compliance across 20 EU industries. We have EUR 7k+ MRR, 100% retention, and live deployments in [industry].
+> I'm building DWS IQ 6 — a climate intelligence platform that automates Fit for 55 compliance across 20 EU industries. We have EUR 59,900 of contracted Q1/2026 enterprise pilots and live deployments in [industry].
 >
 > Would a 30-minute demo make sense? Live data, not slides.
 >
@@ -89,7 +89,7 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 >
 > One thing I'm curious about: how much of the [REGULATION] reporting is automated vs. manual? I've spoken with 40+ [industry] operators and the answer is usually "too much Excel."
 >
-> We built DWS IQ 6 to fix that — automated compliance intelligence for ETS, CBAM, CSRD, and 16 more EU mandates. Live in production. EUR 7-14k MRR.
+> We built DWS IQ 6 to fix that — automated compliance intelligence for ETS, CBAM, CSRD, and 16 more EU mandates. Live in production. EUR 59,900 of contracted Q1/2026 enterprise pilots.
 >
 > Worth 15 minutes? I can show you live data for [industry] specifically.
 >
@@ -107,7 +107,7 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 >
 > I came across your investment in [FILL IN: portfolio company or sector interest — DO NOT send with brackets]. We overlap.
 >
-> I run DWS IQ 6 — an EU climate compliance platform automating Fit for 55 (ETS, CBAM, CSRD) across 20 regulated industries. EUR 7k+ MRR, 100% retention, EUR 15-50/mo infra cost. Capital efficient by design.
+> I run DWS IQ 6 — an EU climate compliance platform automating Fit for 55 (ETS, CBAM, CSRD) across 20 regulated industries. EUR 59,900 of contracted Q1/2026 enterprise pilots, EUR 15-50/mo infra cost. Capital efficient by design.
 >
 > Would a 30-minute briefing make sense? I can walk you through live data and the unit economics.
 >
@@ -158,7 +158,7 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 >
 > En snabb fraga: hur automatiserar ert team [REGULATION]-efterlevnad idag? Vi ser att de flesta [bransch]-foretag fortfarande kor detta via konsulter och kalkylark till sexsiffriga arskostnader.
 >
-> Jag bygger DWS IQ 6 — en klimatintelligensplattform som automatiserar Fit for 55-efterlevnad over 20 EU-reglerade branscher. Vi har EUR 7k+ MRR, 100% retention och aktiva kunder inom [bransch].
+> Jag bygger DWS IQ 6 — en klimatintelligensplattform som automatiserar Fit for 55-efterlevnad over 20 EU-reglerade branscher. Vi har EUR 59 900 i kontrakterade pilotprojekt fran Q1/2026 och aktiva kunder inom [bransch].
 >
 > Passar en 30-minuters demo? Livedata, inga slides.
 >
@@ -176,7 +176,7 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 >
 > Eine kurze Frage: Wie automatisiert Ihr Team die [REGULATION]-Compliance derzeit? Wir sehen, dass die meisten [Branche]-Unternehmen dies noch uber Berater und Tabellenkalkulationen abwickeln — zu sechsstelligen Jahreskosten.
 >
-> Ich baue DWS IQ 6 — eine Klimaintelligenz-Plattform, die Fit-for-55-Compliance uber 20 EU-regulierte Branchen automatisiert. Wir haben EUR 7k+ MRR, 100% Retention und aktive Kunden in der [Branche].
+> Ich baue DWS IQ 6 — eine Klimaintelligenz-Plattform, die Fit-for-55-Compliance uber 20 EU-regulierte Branchen automatisiert. Wir haben EUR 59.900 an vertraglich gesicherten Q1/2026-Pilotprojekten und aktive Kunden in der [Branche].
 >
 > Passt eine 30-Minuten-Demo? Live-Daten, keine Slides.
 >
@@ -194,7 +194,7 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 >
 > Nopea kysymys: miten tiiminna automatisoi [REGULATION]-vaatimustenmukaisuutta talla hetkella? Naemme etta useimmat [toimiala]-yritykset hoitavat taman viela konsulteilla ja Excelilla — kuusinumeroisin vuosikustannuksin.
 >
-> Rakennan DWS IQ 6:ta — ilmastoalyalustaa joka automatisoi Fit for 55 -vaatimustenmukaisuuden 20 EU-saannellylla toimialalla. Meilla on EUR 7k+ MRR, 100% asiakaspysyvyys ja aktiivisia asiakkaita [toimiala]-sektorilla.
+> Rakennan DWS IQ 6:ta — ilmastoalyalustaa joka automatisoi Fit for 55 -vaatimustenmukaisuuden 20 EU-saannellylla toimialalla. Meilla on EUR 59 900 sopimuksin varmistettuja Q1/2026-pilotteja ja aktiivisia asiakkaita [toimiala]-sektorilla.
 >
 > Sopiiko 30 minuutin demo? Livedataa, ei slideja.
 >
@@ -212,7 +212,7 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 >
 > Une question rapide : comment votre equipe automatise-t-elle la conformite [REGULATION] aujourd'hui ? Nous constatons que la plupart des entreprises du [secteur] gerent encore cela via des consultants et des tableurs — a un cout annuel a six chiffres.
 >
-> Je developpe DWS IQ 6 — une plateforme d'intelligence climatique qui automatise la conformite Fit for 55 dans 20 secteurs reglementes de l'UE. Nous avons EUR 7k+ de MRR, 100% de retention et des clients actifs dans le [secteur].
+> Je developpe DWS IQ 6 — une plateforme d'intelligence climatique qui automatise la conformite Fit for 55 dans 20 secteurs reglementes de l'UE. Nous avons EUR 59 900 de projets pilotes contractualises au T1/2026 et des clients actifs dans le [secteur].
 >
 > Un demo de 30 minutes, ca vous dit ? Donnees en direct, pas de slides.
 >
@@ -230,7 +230,7 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 >
 > En sak jag ar nyfiken pa: hur mycket av [REGULATION]-rapporteringen ar automatiserad kontra manuell? Jag har pratat med 40+ [bransch]-operatorer och svaret ar vanligtvis "for mycket Excel."
 >
-> Vi byggde DWS IQ 6 for att losa det — automatiserad compliance-intelligens for ETS, CBAM, CSRD och 16 fler EU-mandat. I produktion. EUR 7-14k MRR.
+> Vi byggde DWS IQ 6 for att losa det — automatiserad compliance-intelligens for ETS, CBAM, CSRD och 16 fler EU-mandat. I produktion. EUR 59 900 i kontrakterade pilotprojekt fran Q1/2026.
 >
 > Vart 15 minuter? Jag kan visa livedata for [bransch] specifikt.
 >
@@ -248,7 +248,7 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 >
 > Eine Sache interessiert mich: Wie viel der [REGULATION]-Berichterstattung ist automatisiert vs. manuell? Ich habe mit 40+ [Branche]-Operatoren gesprochen und die Antwort ist meist "zu viel Excel."
 >
-> Wir haben DWS IQ 6 dafur gebaut — automatisierte Compliance-Intelligenz fur ETS, CBAM, CSRD und 16 weitere EU-Mandate. In Produktion. EUR 7-14k MRR.
+> Wir haben DWS IQ 6 dafur gebaut — automatisierte Compliance-Intelligenz fur ETS, CBAM, CSRD und 16 weitere EU-Mandate. In Produktion. EUR 59.900 an vertraglich gesicherten Q1/2026-Pilotprojekten.
 >
 > 15 Minuten wert? Ich kann Live-Daten fur [Branche] zeigen.
 >
@@ -266,7 +266,7 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 >
 > Yksi asia kiinnostaa: kuinka paljon [REGULATION]-raportoinnista on automatisoitu vs. manuaalista? Olen puhunut 40+ [toimiala]-operaattorin kanssa ja vastaus on yleensa "liikaa Excelia."
 >
-> Rakensimme DWS IQ 6:n ratkaisemaan taman — automatisoitu compliance-aly ETS:lle, CBAM:lle, CSRD:lle ja 16 muulle EU-mandaatille. Tuotannossa. EUR 7-14k MRR.
+> Rakensimme DWS IQ 6:n ratkaisemaan taman — automatisoitu compliance-aly ETS:lle, CBAM:lle, CSRD:lle ja 16 muulle EU-mandaatille. Tuotannossa. EUR 59 900 sopimuksin varmistettuja Q1/2026-pilotteja.
 >
 > Onko 15 minuuttia mahdollista? Voin nayttaa livedataa [toimiala]-sektorilta.
 >
@@ -284,7 +284,7 @@ Replace `[REGULATION]` and `[PAIN POINT]` with the industry-specific terms below
 >
 > Une chose m'interesse : quelle part du reporting [REGULATION] est automatisee vs. manuelle ? J'ai echange avec 40+ operateurs du [secteur] et la reponse est generalement "trop d'Excel."
 >
-> Nous avons construit DWS IQ 6 pour resoudre ca — intelligence de conformite automatisee pour ETS, CBAM, CSRD et 16 autres mandats UE. En production. EUR 7-14k de MRR.
+> Nous avons construit DWS IQ 6 pour resoudre ca — intelligence de conformite automatisee pour ETS, CBAM, CSRD et 16 autres mandats UE. En production. EUR 59 900 de projets pilotes contractualises au T1/2026.
 >
 > 15 minutes, ca vaut le coup ? Je peux montrer des donnees en direct pour le [secteur].
 >

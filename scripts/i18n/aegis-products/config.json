@@ -1,0 +1,20 @@
+{
+  "id": "aegis-products",
+  "master": "dws10.com/products/aegis.html",
+  "masterLang": "en",
+  "stringsDir": "scripts/i18n/aegis-products",
+  "outDirs": ["dws10.com/products", "landing-pages/dws10-com/products"],
+  "urlBase": "https://dws10.com/products/",
+  "files": {
+    "en": "aegis.html",
+    "fi": "aegis.fi.html",
+    "sv": "aegis.sv.html",
+    "de": "aegis.de.html",
+    "fr": "aegis.fr.html"
+  },
+  "aiNotice": {
+    "langs": ["fi", "sv", "de", "fr"],
+    "after": "</header>",
+    "_note": "Current *-strings.json files are object-section memory, not builder arrays. build-i18n-pages.cjs will refuse them until they are converted to document-order arrays (or a dedicated stringsDir of arrays is added)."
+  }
+}

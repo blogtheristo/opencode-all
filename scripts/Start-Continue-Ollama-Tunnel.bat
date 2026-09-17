@@ -10,7 +10,7 @@ REM ============================================================================
 pushd "%~dp0.."
 set "REPO_PATH=%CD%"
 popd
-set "REMOTE_SSH=admin100@gn100-cb5d"
+set "REMOTE_SSH=admin100@192.168.101.113"
 set "LOCAL_PORT=11435"
 set "REMOTE_PORT=11434"
 set "TAGS_URL=http://localhost:%LOCAL_PORT%/api/tags"

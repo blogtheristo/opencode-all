@@ -2,7 +2,7 @@
  * Memory Decay & Forget Passthrough Tests — DWS IQ 6/7
  *
  * Tests for:
- * - forget() agentId passthrough to forget_memory() RPC (KYA-S §10.4 audit gap fix)
+ * - forget() agentId passthrough to forget_memory() (KYA-S §10.4 audit gap fix)
  * - decayStaleMemories() confidence decay + auto-forget below threshold
  *
  * Code-Version: 1.0.0
@@ -14,15 +14,13 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MemoryService } from '../agents/memory.service.js';
 
-// Mock Supabase client
-const mockRpc = vi.fn();
-const mockFrom = vi.fn();
+// Mock the internal Postgres pool (src/config/internal-db.ts)
+const mockQuery = vi.fn();
+const mockPool = { query: mockQuery };
+const mockGetInternalDbPool = vi.fn(() => mockPool);
 
-vi.mock('@supabase/supabase-js', () => ({
-  createClient: vi.fn(() => ({
-    rpc: mockRpc,
-    from: mockFrom,
-  })),
+vi.mock('../config/internal-db.js', () => ({
+  getInternalDbPool: () => mockGetInternalDbPool(),
 }));
 
 // Mock logger
@@ -40,13 +38,14 @@ describe('MemoryService — Forget agentId Passthrough', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    process.env.SUPABASE_URL = 'https://test.supabase.co';
-    process.env.SUPABASE_SERVICE_KEY = 'test-key';
+    process.env.INTERNAL_DB_URL = 'postgres://test:test@localhost:5432/test';
+    process.env.ENABLE_INTERNAL_DB_IN_TESTS = 'true';
+    mockGetInternalDbPool.mockReturnValue(mockPool);
     service = new MemoryService();
   });
 
-  it('should pass agentId to forget_memory RPC', async () => {
-    mockRpc.mockResolvedValueOnce({ data: true, error: null });
+  it('should pass agentId to forget_memory', async () => {
+    mockQuery.mockResolvedValueOnce({ rows: [{ forget_memory: true }] });
 
     await service.forget({
       memoryId: 'mem-123',
@@ -55,16 +54,17 @@ describe('MemoryService — Forget agentId Passthrough', () => {
       agentId: 'decay-cron',
     });
 
-    expect(mockRpc).toHaveBeenCalledWith('forget_memory', {
-      p_memory_id: 'mem-123',
-      forget_reason: 'confidence_decay',
-      p_agent_id: 'decay-cron',
-      p_org_id: 'org-test',
-    });
+    // Param order: p_memory_id, forget_reason, p_agent_id, p_org_id
+    expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('forget_memory'), [
+      'mem-123',
+      'confidence_decay',
+      'decay-cron',
+      'org-test',
+    ]);
   });
 
   it('should default agentId to system when not provided', async () => {
-    mockRpc.mockResolvedValueOnce({ data: true, error: null });
+    mockQuery.mockResolvedValueOnce({ rows: [{ forget_memory: true }] });
 
     await service.forget({
       memoryId: 'mem-456',
@@ -72,16 +72,16 @@ describe('MemoryService — Forget agentId Passthrough', () => {
       reason: 'user_request',
     });
 
-    expect(mockRpc).toHaveBeenCalledWith('forget_memory', {
-      p_memory_id: 'mem-456',
-      forget_reason: 'user_request',
-      p_agent_id: 'system',
-      p_org_id: 'org-test',
-    });
+    expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('forget_memory'), [
+      'mem-456',
+      'user_request',
+      'system',
+      'org-test',
+    ]);
   });
 
-  it('should pass orgId to forget_memory RPC', async () => {
-    mockRpc.mockResolvedValueOnce({ data: true, error: null });
+  it('should pass orgId to forget_memory', async () => {
+    mockQuery.mockResolvedValueOnce({ rows: [{ forget_memory: true }] });
 
     await service.forget({
       memoryId: 'mem-789',
@@ -90,9 +90,12 @@ describe('MemoryService — Forget agentId Passthrough', () => {
       agentId: 'test-agent',
     });
 
-    expect(mockRpc).toHaveBeenCalledWith('forget_memory', expect.objectContaining({
-      p_org_id: 'org-specific',
-    }));
+    expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('forget_memory'), [
+      'mem-789',
+      'test',
+      'test-agent',
+      'org-specific',
+    ]);
   });
 });
 
@@ -101,26 +104,28 @@ describe('MemoryService — Decay Stale Memories', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    process.env.SUPABASE_URL = 'https://test.supabase.co';
-    process.env.SUPABASE_SERVICE_KEY = 'test-key';
+    process.env.INTERNAL_DB_URL = 'postgres://test:test@localhost:5432/test';
+    process.env.ENABLE_INTERNAL_DB_IN_TESTS = 'true';
+    mockGetInternalDbPool.mockReturnValue(mockPool);
     service = new MemoryService();
   });
 
-  it('should call decay_stale_memories RPC with defaults', async () => {
-    mockRpc.mockResolvedValueOnce({ data: [], error: null });
+  it('should call decay_stale_memories with defaults', async () => {
+    mockQuery.mockResolvedValueOnce({ rows: [] });
 
     await service.decayStaleMemories();
 
-    expect(mockRpc).toHaveBeenCalledWith('decay_stale_memories', {
-      p_half_life_days: 90,
-      p_decay_threshold: 0.1,
-      p_dry_run: false,
-      p_org_id: null,
-    });
+    // Param order: p_half_life_days, p_decay_threshold, p_dry_run, p_org_id
+    expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('decay_stale_memories'), [
+      90,
+      0.1,
+      false,
+      null,
+    ]);
   });
 
-  it('should pass custom options to RPC', async () => {
-    mockRpc.mockResolvedValueOnce({ data: [], error: null });
+  it('should pass custom options to the query', async () => {
+    mockQuery.mockResolvedValueOnce({ rows: [] });
 
     await service.decayStaleMemories({
       halfLifeDays: 30,
@@ -129,25 +134,36 @@ describe('MemoryService — Decay Stale Memories', () => {
       orgId: 'org-custom',
     });
 
-    expect(mockRpc).toHaveBeenCalledWith('decay_stale_memories', {
-      p_half_life_days: 30,
-      p_decay_threshold: 0.2,
-      p_dry_run: true,
-      p_org_id: 'org-custom',
-    });
+    expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('decay_stale_memories'), [
+      30,
+      0.2,
+      true,
+      'org-custom',
+    ]);
   });
 
   it('should auto-forget memories below threshold', async () => {
-    // First call: decay RPC returns two memories, one below threshold
-    mockRpc.mockResolvedValueOnce({
-      data: [
-        { memory_id: 'mem-a', org_id: 'org-1', old_confidence: 0.5, new_confidence: 0.3, below_threshold: false },
-        { memory_id: 'mem-b', org_id: 'org-1', old_confidence: 0.2, new_confidence: 0.05, below_threshold: true },
+    // First call: decay query returns two memories, one below threshold
+    mockQuery.mockResolvedValueOnce({
+      rows: [
+        {
+          memory_id: 'mem-a',
+          org_id: 'org-1',
+          old_confidence: 0.5,
+          new_confidence: 0.3,
+          below_threshold: false,
+        },
+        {
+          memory_id: 'mem-b',
+          org_id: 'org-1',
+          old_confidence: 0.2,
+          new_confidence: 0.05,
+          below_threshold: true,
+        },
       ],
-      error: null,
     });
-    // Second call: forget_memory RPC for the below-threshold memory
-    mockRpc.mockResolvedValueOnce({ data: true, error: null });
+    // Second call: forget_memory query for the below-threshold memory
+    mockQuery.mockResolvedValueOnce({ rows: [{ forget_memory: true }] });
 
     const result = await service.decayStaleMemories();
 
@@ -156,20 +172,25 @@ describe('MemoryService — Decay Stale Memories', () => {
     expect(result.forgottenIds).toEqual(['mem-b']);
 
     // Verify forget was called with decay-cron agent attribution
-    expect(mockRpc).toHaveBeenCalledWith('forget_memory', {
-      p_memory_id: 'mem-b',
-      forget_reason: expect.stringContaining('confidence_decay'),
-      p_agent_id: 'decay-cron',
-      p_org_id: 'org-1',
-    });
+    expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('forget_memory'), [
+      'mem-b',
+      expect.stringContaining('confidence_decay'),
+      'decay-cron',
+      'org-1',
+    ]);
   });
 
   it('should not forget in dry run mode', async () => {
-    mockRpc.mockResolvedValueOnce({
-      data: [
-        { memory_id: 'mem-c', org_id: 'org-1', old_confidence: 0.2, new_confidence: 0.05, below_threshold: true },
+    mockQuery.mockResolvedValueOnce({
+      rows: [
+        {
+          memory_id: 'mem-c',
+          org_id: 'org-1',
+          old_confidence: 0.2,
+          new_confidence: 0.05,
+          below_threshold: true,
+        },
       ],
-      error: null,
     });
 
     const result = await service.decayStaleMemories({ dryRun: true });
@@ -177,15 +198,12 @@ describe('MemoryService — Decay Stale Memories', () => {
     expect(result.decayedCount).toBe(1);
     expect(result.forgottenCount).toBe(0);
     expect(result.forgottenIds).toEqual([]);
-    // Only one RPC call (decay), no forget calls
-    expect(mockRpc).toHaveBeenCalledTimes(1);
+    // Only one query (decay), no forget calls
+    expect(mockQuery).toHaveBeenCalledTimes(1);
   });
 
-  it('should handle RPC errors gracefully', async () => {
-    mockRpc.mockResolvedValueOnce({
-      data: null,
-      error: { message: 'function does not exist' },
-    });
+  it('should handle query errors gracefully', async () => {
+    mockQuery.mockRejectedValueOnce(new Error('function does not exist'));
 
     const result = await service.decayStaleMemories();
 
@@ -194,9 +212,8 @@ describe('MemoryService — Decay Stale Memories', () => {
     expect(result.dryRun).toBe(false);
   });
 
-  it('should return empty results when supabase not configured', async () => {
-    delete process.env.SUPABASE_URL;
-    delete process.env.SUPABASE_SERVICE_KEY;
+  it('should return empty results when internal Postgres is not configured', async () => {
+    mockGetInternalDbPool.mockReturnValueOnce(null);
     const unconfigured = new MemoryService();
 
     const result = await unconfigured.decayStaleMemories();

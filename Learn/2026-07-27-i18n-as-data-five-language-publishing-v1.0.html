@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Translation as data — and what a string array does not cover — Lifetime Oy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      body { font-family: 'Inter','Segoe UI',Tahoma,Geneva,Verdana,sans-serif; max-width: 900px; margin: 0 auto; padding: 0 20px 60px; line-height: 1.7; color: #1a1a2e; background: #fafafa; }
+      h1 { color: #0f172a; border-bottom: 3px solid #fbbf24; padding-bottom: 10px; }
+      h2 { color: #1e3a5f; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-top: 40px; }
+      h3 { color: #334155; margin-top: 28px; } h4 { color: #475569; }
+      code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+      table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+      th, td { border: 1px solid #cbd5e1; padding: 10px 14px; text-align: left; }
+      th { background: #1e3a5f; color: white; } tr:nth-child(even) { background: #f8fafc; }
+      blockquote { border-left: 4px solid #fbbf24; margin: 20px 0; padding: 10px 20px; background: #fffbeb; color: #334155; }
+      a { color: #2563eb; } strong { color: #0f172a; } li { margin: 4px 0; }
+      hr { border: none; border-top: 1px solid #e2e8f0; margin: 32px 0; }
+      .dws-version-banner { background: #1e293b; color: #e2e8f0; padding: 14px 24px; margin: 0 -20px 36px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 0.85rem; }
+      .dws-version-badge { background: #fbbf24; color: #0f172a; font-weight: 700; padding: 4px 14px; border-radius: 20px; font-size: 0.9rem; letter-spacing: 0.04em; }
+      .dws-version-meta { color: #94a3b8; font-size: 0.8rem; } .dws-version-title { color: #e2e8f0; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <div class="dws-version-banner">
+      <span class="dws-version-title">Translation as data — and what a string array does not cover</span>
+      <span class="dws-version-badge">v1.0</span>
+      <span class="dws-version-meta">Lifetime Oy · whitepaper</span>
+    </div>
+    <p>&lt;!-- VERSION AND AGENT HISTORY Document: Field note — translation as data, and the second-time rule Version: 1.0 Date: 2026-07-27 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy Owner: Lifetime Oy Status: Active Agent: Claude Code, session claude/ollama-orchestration-merge-047pj7 Purpose: Record the generalisation of the i18n page builder and the five-language publication of LSJ #43, including what the string-array approach does not cover and what shipped unreviewed. --&gt;</p>
+    <h1>Translation as data — and what a string array does not cover</h1>
+    <p><strong>Date:</strong> 2026-07-27 · <strong>Scope:</strong> <code>scripts/i18n/build-i18n-pages.cjs</code>, LSJ #43–#47</p>
+    <h2 id="1-the-second-time-is-the-signal">1. The second time is the signal</h2>
+    <p>The Aegis page needed five languages. Then the blog post needed five languages. Per the Skill Codification Rule, the second ask is not "do it again" — it is "the procedure was never written down". <code>build-aegis-pages.cjs</code> became <code>build-i18n-pages.cjs</code>: same design, config-driven, target-agnostic. Adding a sixth surface is now a JSON file, not a script.</p>
+    <p>The design that survived generalisation:</p>
+    <blockquote><strong>Translation is data. Markup manipulation is deterministic code.</strong></blockquote>
+    <p>Translators receive a JSON array of text nodes in document order and return the same array, same length. They never see HTML, so they cannot break it. The builder reassembles. When a translation's string count drifts from the master, the builder <strong>refuses to write</strong> rather than emitting a page whose paragraphs have quietly shifted by one.</p>
+    <h2 id="2-what-the-string-array-missed-found-by-verifying-not-by-planning">2. What the string array missed (found by verifying, not by planning)</h2>
+    <p>Text nodes are not all the text. Four categories of user-visible copy live in <strong>attributes</strong> and sailed straight through the first build in Finnish:</p>
+    <table>
+    <thead>
+    <tr>
+    <th>Missed</th>
+    <th>Where it shows</th>
+    <th>Severity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>og:title</code>, <code>twitter:title</code></td>
+    <td>The headline on every LinkedIn and X preview card</td>
+    <td><strong>High</strong> — the share card is the post for most readers</td>
+    </tr>
+    <tr>
+    <td><code>description</code>, <code>og:description</code>, <code>twitter:description</code></td>
+    <td>Search snippet, preview card body</td>
+    <td>High</td>
+    </tr>
+    <tr>
+    <td><code>article:section</code></td>
+    <td>Structured data</td>
+    <td>Low</td>
+    </tr>
+    <tr>
+    <td><code>aria-label="Valikko"</code></td>
+    <td>Screen readers, on all four translated pages</td>
+    <td>Low, but it is an accessibility defect</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>Fixed by adding <code>meta.json</code> — the same data-not-markup pattern, one level down. A key that looks like a full attribute (<code>aria-label="Valikko"</code>) is replaced literally; anything else is treated as a <code>&lt;meta&gt;</code> name/property. Both forms fail loud if the key is absent from the master.</p>
+    <p><strong>The lesson generalises:</strong> "extract the text nodes" is an incomplete definition of "the text". Anything a human reads — including what they read in a preview card they never click — is copy.</p>
+    <h2 id="3-two-tools-one-file-no-contention">3. Two tools, one file, no contention</h2>
+    <p><code>inject-blog-nav.cjs</code> owns a generated block at the bottom of every post. The i18n builder owns the rest. Left alone they would fight over the same bytes on every run.</p>
+    <p>Resolution: a <code>cutMarker</code> in the config. Content after it is never translated, but its URL and share title <strong>are</strong> retargeted, so a French page shares itself rather than the Finnish master. The translated pages stay out of the injector's <code>posts</code> array, so the injector skips them entirely. Verified: running the injector afterwards is a no-op on all five files.</p>
+    <p>The prev/next chain therefore contains the editorial unit once, not five times. A reading order whose length depends on how many languages a post has is not a reading order.</p>
+    <h2 id="4-idempotency-is-a-property-you-test-not-one-you-assert">4. Idempotency is a property you test, not one you assert</h2>
+    <p>The builder's master may be a page the builder itself produced. Three consecutive runs were diffed and are byte-identical. The earlier Aegis builder failed exactly here — a one-byte asymmetry between strip and insert meant every run grew the file. The guard that caught it was the builder's own string-count check, the same hour it was written.</p>
+    <h2 id="5-fail-loud-register">5. Fail-loud register</h2>
+    <ul>
+    <li>The EN/SV/DE/FR text is <strong>machine translation</strong> built to canonical regulatory terms. **No</li>
+    </ul>
+    <p>native-speaker and no legal review.** Recorded in the PR body and in <code>BLOG_STANDARD.md</code> §3.2.</p>
+    <ul>
+    <li>SV/DE/FR are not listed in <code>latestPosts</code> — reachable via <code>hreflang</code>, the on-page switcher and</li>
+    </ul>
+    <p>the §3 registry, but not from the blog index list. Deliberate (PAGE_SIZE is 5); documented.</p>
+    <ul>
+    <li>Blog posts do not pass <code>prettier --check</code>, including every post already on <code>main</code>. Not fixed</li>
+    </ul>
+    <p>here — reformatting 60 committed files is not this change.</p>
+    <ul>
+    <li>Blog posts are absent from <code>sitemap.xml</code> entirely. **Pre-existing, not introduced here, and</li>
+    </ul>
+    <p>not fixed here** — it is a real SEO gap and belongs in its own change.</p>
+    <ul>
+    <li><code>Learn/</code> HTML still not regenerated: no pandoc in the container, and <code>gen-thesis-html.cjs</code></li>
+    </ul>
+    <p>mislabels output versions. Open action carried from 2026-07-26.</p>
+    <h2 id="6-the-question-has-a-legal-deadline-eu-ai-act-article-504">6. The question has a legal deadline — EU AI Act Article 50(4)</h2>
+    <p>Added the same day, after the HIC supplied the Commission's EU Icons page. What looked like an editorial judgement call turns out to have a statutory clock on it.</p>
+    <p><strong>Article 50(4)</strong> obliges *deployers* to label AI-generated or manipulated <strong>text published to inform the public on matters of public interest</strong>. It <strong>applies from 2 August 2026</strong> — six days after this note. DWS is a deployer on its own sites, and a machine-translated page is AI-manipulated text. The four translations are therefore in scope.</p>
+    <p>There is an exemption, and it is narrow: content that underwent <strong>substantive human review before publication</strong> under a <strong>publicly identifiable person holding editorial responsibility</strong>, with a genuine ability to amend or reject. Cursory approval does not qualify. <strong>The four translations have had no review at all</strong>, so the exemption does not currently apply to them.</p>
+    <p>The Commission's <strong>EU Icons</strong> (published 10.06.2026, free, SVG/PNG, no attribution required) are <strong>optional</strong>. The label is not. Using an icon does not by itself establish compliance.</p>
+    <p>Registered as <code>DWS_TRUTH_STANDARD.md</code> §2 row 31 / §2G, with the verification caveat that <code>ec.europa.eu</code> returns HTTP 403 to automated fetch — the dates and paragraph numbers were corroborated from Commission FAQ text in search plus independent legal commentary, and need a human to confirm against the primary source.</p>
+    <h2 id="7-the-article-50-decision-and-what-shipped">7. The Article 50 decision, and what shipped</h2>
+    <blockquote><strong>Five languages now ship from one master with no human in the translation path.</strong> The<br />string-count guard proves the page is *structurally* correct; nothing proves it is<br />*linguistically* correct, and the regulatory vocabulary (asetus / Verordnung / règlement)<br />is precisely where a wrong word becomes a wrong claim.<br /><br />Article 50(4) narrows this from a preference to a choice with a date on it. **Before<br />2 August 2026, which one:** (a) a named human reviews and signs each translated page, taking<br />editorial responsibility publicly — the exemption route, which also fixes the quality gap;<br />(b) the pages carry an AI-generated-content label, optionally the EU Icon — the transparency<br />route, cheap and honest but it tells every buyer the page is unreviewed; or (c) the<br />translations come down until (a) is done.<br /><br />Doing nothing is not a fourth option — it is (b) without the label, which is the one state<br />the regulation forbids.</blockquote>
+    <p><strong>Answered the same day.</strong> HIC: <em>"A is ideal choice but B is minimum requirement."</em></p>
+    <p>So (b) is now the <strong>default state of the machinery</strong>, not a one-off patch: every machine-translated page ships with the label, and (a) is what removes it. The four translations carry an <code>&lt;aside class="ai-notice"&gt;</code> before the article body, in their own language, linking to the Finnish original as the authoritative text. Lifting a label per language requires four things to actually be true (named reviewer, substantive pre-publication review, authority to reject, publicly reachable contact) — written down in <code>BLOG_STANDARD.md</code> §3.2.1 so the exemption cannot be claimed casually.</p>
+    <p>Two things deliberately left undone rather than faked:</p>
+    <ul>
+    <li><strong>No EU Icon asset.</strong> It is optional, the Commission's site blocks automated download, and drawing</li>
+    </ul>
+    <p>a lookalike would misrepresent an official mark. The builder has the slot; a human fetches the file.</p>
+    <ul>
+    <li><strong>The Finnish master is unlabelled</strong>, on the theory that the HIC read and released it and is named</li>
+    </ul>
+    <p>on it with public contact details. That is a plausible exemption, not a confirmed one — raised in <code>DWS_TRUTH_STANDARD.md</code> §2G rather than quietly assumed.</p>
+    <p>The design lesson worth keeping: the compliant state had to become <strong>the default the tool produces</strong>, not a step someone remembers. A label you have to remember to add is a label that will be missing on the page that matters.</p>
+    <h2 id="8-then-the-hic-supplied-the-primary-source-and-it-corrected-me">8. Then the HIC supplied the primary source — and it corrected me</h2>
+    <p><code>ec.europa.eu</code> returns 403 to automated fetch, so the first pass was built from Commission FAQ text surfaced in search plus legal commentary. The HIC retrieved the page. Four corrections followed, and the pattern in them is worth more than the individual facts.</p>
+    <table>
+    <thead>
+    <tr>
+    <th>I had</th>
+    <th>The source says</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>A "narrow interpretation" test attributed to *Commission guidance* — substantive review of accuracy/plausibility/sources, publicly accessible contact details</td>
+    <td><strong>Not Commission text.</strong> It came from secondary commentary on draft guidelines. Moved to <code>BLOG_STANDARD.md</code> §3.2.1 and relabelled as <strong>DWS policy, stricter than the minimum</strong> — which is what it always was</td>
+    </tr>
+    <tr>
+    <td>Icons "published 10 June 2026"</td>
+    <td><strong>Not on the page.</strong> Date removed rather than restated — nothing depended on it</td>
+    </tr>
+    <tr>
+    <td>The human-review carve-out as an exemption bolted onto the duty</td>
+    <td>It is written <strong>into the scope of the duty</strong>: text is in scope only where it had <strong>neither</strong> review/editorial control <strong>nor</strong> an assumed editorial owner</td>
+    </tr>
+    <tr>
+    <td>One undifferentiated "EU icon"</td>
+    <td><strong>Three classes</strong> — Basic / Fully AI-Generated / Partially AI-Modified — plus placement, accessibility and licence rules I did not have at all</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>Two things I had simply missed, both of which change the work:</p>
+    <ul>
+    <li><strong>Icon + text label beats either alone.</strong> The Commission user-tested this; performance improved</li>
+    </ul>
+    <p>across all measures. Our label-only implementation is therefore the weaker tested form, not an equivalent substitute. The icon is a real gap, not a nice-to-have.</p>
+    <ul>
+    <li><strong>The disclosure must survive resharing and downloading.</strong> Ours is embedded in the page HTML so it</li>
+    </ul>
+    <p>survives download — but it is absent from the <code>og:</code>/<code>twitter:</code> card, so a LinkedIn share of a translated page shows the headline with no label. Recorded in §2G as a known gap.</p>
+    <p>Two judgement calls I refused to make alone:</p>
+    <ul>
+    <li><strong>Which icon class fits a machine translation.</strong> The target text is entirely AI-produced (*Fully</li>
+    </ul>
+    <p>AI-Generated*) but derives from human-written source (*Partially AI-Modified*). The Commission's examples do not cover translation. The DWS label sidesteps it by stating the fact — "machine translation of the Finnish original" — rather than asserting a category.</p>
+    <ul>
+    <li><strong>Abbreviations.</strong> The accessibility guidance says avoid abbreviations other than "AI". The German</li>
+    </ul>
+    <p>and French labels used KI and IA. Rather than choose between the literal reading and the obvious national equivalents, both now expand on first use: *Von künstlicher Intelligenz (KI) generierter Inhalt*, *Contenu généré par intelligence artificielle (IA)*.</p>
+    <p><strong>The generalisable failure:</strong> every one of these came from summarising a summary. Secondary sources were directionally right and specifically wrong, and the errors all pointed the same way — toward *more confident, more quotable* claims than the primary text supported. When a source cannot be read, that is a fact to record, not a gap to fill with the most plausible-sounding version.</p>
+    <h2 id="9-the-second-unenforced-rule-found-by-being-told-about-it">9. The second unenforced rule, found by being told about it</h2>
+    <p>Then the HIC said the thing that reframed the whole session:</p>
+    <blockquote>"I have many times i want blog entries as drafts for me to review as copy paste window before i<br />approve them … but this never comes real. Sometimes container publish without showing me anything,<br />sometimes entry is never published, almost never i get to see the text."</blockquote>
+    <p>That is the same failure as the AI label, seen from the other end. The label was *going to be* missing because adding it was something to remember. The draft review <strong>had been</strong> missing, for months, for exactly the same reason. Two instances in one session is not coincidence; it is a category.</p>
+    <p>So the fix took the same shape, not a firmer promise:</p>
+    <ul>
+    <li><code>.claude/hooks/blog-draft-gate.sh</code> — PreToolUse on <code>Edit|Write</code>, blocks any write to</li>
+    </ul>
+    <p><code>*/posts/*.html</code> unless <code>docs/blog-drafts/&lt;slug&gt;.md</code> exists and reads <code>Status: APPROVED</code>.</p>
+    <ul>
+    <li><code>/blog-draft</code> — the loop: full text → <strong>one fenced code block</strong> → <strong>stop and ask</strong> → revise →</li>
+    </ul>
+    <p>explicit approval → publish.</p>
+    <ul>
+    <li><code>session-stop.sh</code> — back-stops <strong>both</strong> directions: a published post with no approved draft, and a</li>
+    </ul>
+    <p>draft parked in <code>Status: DRAFT</code> that was never shown. The HIC's two complaints are the same gap seen from opposite sides, so both are checked.</p>
+    <ul>
+    <li>Escalated to <strong><code>CLAUDE.md</code> Non-Negotiable Rule 13</strong> and written into every path that could bypass</li>
+    </ul>
+    <p>the hook — <code>GEMINI.md</code>, <code>session-start.sh</code>, <code>/lsj-publish</code>, the weekly cron script.</p>
+    <p><strong>Why write it in ten places when there is a hook?</strong> Because the hook is the weakest part. It sees only hand-authored writes, in a session that already loaded it. Generators, cron runs, other agent surfaces and fresh clones are all outside it. The sentence carrying the weight is therefore not in the hook at all: <strong>a bypass is not permission.</strong></p>
+    <p>The reusable rule is extracted to <code>kb/wiki/concepts/make-the-compliant-state-the-default.md</code>.</p>
+    <h3 id="91-two-things-i-got-wrong-while-fixing-it">9.1 Two things I got wrong while fixing it</h3>
+    <ul>
+    <li>**I verified the hook by invoking it directly, then "tested" it with a real <code>Write</code> — which went</li>
+    </ul>
+    <p>straight through.** Hooks arm at session start, so a hook committed mid-session protects nothing until the next one. Recorded in the hook header and <code>BLOG_STANDARD.md</code> §3.3, because "the gate is committed" reads as "the gate is working" and is not the same claim.</p>
+    <ul>
+    <li><strong>I committed a lint-clean claim that was false.</strong> The changelog entry explaining that a phrase is</li>
+    </ul>
+    <p>banned quoted that phrase twice, so the file still failed. I had run the linter and read the wrong line of its output. The check existed and was correct; I did not look at it. Fixed in a follow-up commit that says so, rather than a quiet amend.</p>
+    <p>Both belong here for the same reason as everything else in this note: discipline fails silently unless something forces it, and that applies to my own verification too. Running a check is not reading its result.</p>
+    <h3 id="92-a-structural-error-in-this-very-file">9.2 A structural error in this very file</h3>
+    <p>While closing, §6.1 was found sitting at the <strong>end</strong> of the document rather than after §6 — an earlier edit had anchored on text inside the HIC-question section, so the correction table appended in the wrong place and the reading order was wrong for several commits. Rebuilt and renumbered here.</p>
+    <p>It is a small thing that makes the same point twice over: an insert anchored on prose, with no check of where it landed, is the document-level version of every other failure in this note.</p>
+    <h2 id="10-hic-learning-outcome-the-five-step-record">10. HIC Learning Outcome — the five-step record</h2>
+    <table>
+    <thead>
+    <tr>
+    <th>#</th>
+    <th>Step</th>
+    <th>State</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>1</td>
+    <td><strong>Knowledge base</strong></td>
+    <td>✅ <code>kb/wiki/concepts/make-the-compliant-state-the-default.md</code> — the rule both failures share</td>
+    </tr>
+    <tr>
+    <td>2</td>
+    <td><strong>Field note</strong></td>
+    <td>✅ this file</td>
+    </tr>
+    <tr>
+    <td>3</td>
+    <td><strong><code>Learn/</code> HTML</strong></td>
+    <td>✅ rendered via <code>scripts/gen-doc-html.cjs</code>. <strong>Recorded twice before as "N/A — no pandoc"; that was wrong.</strong> <code>render-doc.sh</code> needs pandoc, but a node renderer was already in the repo. The blocker was mine, not the container's</td>
+    </tr>
+    <tr>
+    <td>4</td>
+    <td><strong>Drive export</strong></td>
+    <td>✅ <a href="https://docs.google.com/document/d/1rOpGiqEFb_NxlZSg6DPQTT6FfjsgdVycz75aBIooCJk/edit">Google Doc</a> — owner <code>risto.paarni2024@lifetime.fi</code>. The repo file stays the master (§2E); this is a generated copy, and if the two disagree the repo wins</td>
+    </tr>
+    <tr>
+    <td>5</td>
+    <td><strong>HIC question</strong></td>
+    <td>✅ §11</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="101-still-open-carried-forward">10.1 Still open, carried forward</h3>
+    <ul>
+    <li><strong>KEEP_REVIEW (30 code PRs)</strong> — reviewed and classified, not merged; several carry migrations</li>
+    </ul>
+    <p>without the mandatory Supabase <code>GRANT</code>s. Needs build + test per PR on a machine with the toolchain.</p>
+    <ul>
+    <li><strong><code>gen-thesis-html.cjs</code> mislabels output versions</strong> (writes v3.83 while sources are at 3.91).</li>
+    <li><strong>Blog posts are absent from <code>sitemap.xml</code></strong> — pre-existing SEO gap, deserves its own change.</li>
+    <li><strong>The AI-content disclosure is absent from <code>og:</code>/<code>twitter:</code> cards</strong>, so a reshare of a translated</li>
+    </ul>
+    <p>page shows the headline with no label (Section 2 asks the disclosure to survive resharing).</p>
+    <ul>
+    <li><strong>No EU Icon asset</strong> — optional, and ec.europa.eu blocks automated download.</li>
+    <li><strong>FI/SV/DE/FR translations have had no native or legal review.</strong></li>
+    <li><strong>DE/FR <code>og:title</code> vs share-title register mismatch</strong> — one line in <code>meta.json</code> plus a rebuild.</li>
+    <li><strong>Lint scoping:</strong> the MGD/CRC anti-metric rule hard-FAILs inside <code>VERSION AND AGENT HISTORY</code></li>
+    </ul>
+    <p>blocks, so dated changelog lines block CI on any edit to their file. Excluding those blocks is a better fix than rewording history each time.</p>
+    <h2 id="11-hic-question-eu-ai-act-article-14">11. HIC question (EU AI Act Article 14)</h2>
+    <p>The Article 50 question from §7 is answered and shipped. This is the one left.</p>
+    <blockquote>**Two disciplines failed the same way this session — the AI-content label and the blog draft<br />review. Both were written down clearly. Both were missing in practice, for months, because<br />following them depended on an agent remembering. Both are now defaults enforced by mechanism.**<br /><br /><strong>The question is how many more there are.</strong> Between the 12 Engineering Discipline Rules and the<br />13 Non-Negotiable Rules, only a handful have a mechanism behind them — secrets, public <code>.md</code>, SQL<br />safety, branch names, and now blog drafts. The rest, including dual-folder sync, thesis lockstep,<br />Supabase <code>GRANT</code>s, "no hardcoded prices", and the Learning Outcome itself, depend on the same<br />memory that just failed twice in one day.<br /><br />**Should the next session audit all 25 rules against one question — "what does the tool produce if<br />the agent forgets?" — and give a mechanism to the ones that fail silently? Or is that<br />over-engineering the harness, and the right move is to fix each one as it actually breaks?**<br /><br />The audit front-loads work on rules that may never break. Fixing on breakage is cheaper, but it<br />means every mechanism arrives *after* a failure the HIC had to notice — which is exactly how both<br />of today's were found, and both cost more than the audit would have.</blockquote>
+    <hr />
+    <p><em>Follows DWS Document Standard and DWS Learning Standard (HIC Learning Outcome, EU AI Act Art. 14).</em></p>
+  </body>
+</html>

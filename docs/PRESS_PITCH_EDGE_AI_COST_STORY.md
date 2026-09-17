@@ -52,7 +52,7 @@ Hi [journalist name],
 
 I'm writing because I think you'd find this cost story interesting.
 
-A Finnish company called Lifetime Oy runs a climate compliance AI platform across 16 EU industries. Their infrastructure cost is EUR 15-50 per month. That's the full production platform, not a demo.
+A Finnish company called Lifetime Oy runs a climate compliance AI platform organized around **16 captain hats covering 25+ EU industries**. Their infrastructure cost is EUR 15-50 per month. That's the full production platform, not a demo.
 
 The economics: they deploy NVIDIA Jetson Orin Nano devices at the edge — construction sites, factories, maritime vessels — instead of routing inference through cloud APIs. The result:
 

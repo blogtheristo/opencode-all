@@ -1,0 +1,96 @@
+name: Deploy Cloudflare Workflows
+
+# Why this file exists
+# --------------------
+# cloudflare-workflows/ declares the worker `dws-workflows` with 11 Workflow
+# bindings (outokumpu/ncc/kemira dev+prod, dws6-com/dws10-com/onelifetime-world
+# dev+prod). None of them had ever run, and the reason was not a stuck instance:
+# **the worker had no deployment path at all.** The Cloudflare account held only
+# `cari` and `dws-revolut-checkout`; `dws-workflows` was never deployed, so there
+# was nothing for an instance to stall in. Verified 2026-09-09 against the live
+# account.
+#
+# Deploying is only half of it. Both guarded endpoints fail closed
+# (src/index.ts:355 — "if WORKFLOW_API_TOKEN is not bound, every request is
+# rejected") and the GitHub webhook path 401s without GITHUB_WEBHOOK_SECRET. So
+# a deployed worker stays inert until a human sets those two secrets ONCE:
+#
+#   npx wrangler secret put WORKFLOW_API_TOKEN    -c cloudflare-workflows/wrangler.toml
+#   npx wrangler secret put GITHUB_WEBHOOK_SECRET -c cloudflare-workflows/wrangler.toml
+#
+# Setting secrets is deliberately NOT automated here — secrets are a
+# human-required action under the repo's trust boundary, and a workflow that
+# could write them would be a wider blast radius than the thing it deploys.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "cloudflare-workflows/**"
+      - ".github/workflows/deploy-cloudflare-workflows.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-cloudflare-workflows
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      # Fail loud and early rather than letting wrangler emit a confusing auth
+      # error. wrangler.toml deliberately reads account_id from the environment
+      # instead of hardcoding it, so both of these must be present.
+      - name: Verify required credentials are configured
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          missing=0
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::error::CLOUDFLARE_API_TOKEN is not set in repository secrets."
+            missing=1
+          fi
+          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::CLOUDFLARE_ACCOUNT_ID is not set in repository secrets. cloudflare-workflows/wrangler.toml reads account_id from this variable by design, so it cannot be inferred."
+            missing=1
+          fi
+          [ "$missing" -eq 0 ] || exit 1
+          echo "Both credentials present."
+
+      - name: Deploy dws-workflows
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx --yes wrangler@latest deploy -c cloudflare-workflows/wrangler.toml
+
+      # Deploy success is not the same as the worker being usable. Say so in the
+      # job summary so a green check is not mistaken for "the workflows run now".
+      - name: Report post-deploy state
+        run: |
+          {
+            echo "### dws-workflows deployed"
+            echo ""
+            echo "The worker is deployed, but it is **inert until its two secrets are set**:"
+            echo ""
+            echo '```'
+            echo "npx wrangler secret put WORKFLOW_API_TOKEN    -c cloudflare-workflows/wrangler.toml"
+            echo "npx wrangler secret put GITHUB_WEBHOOK_SECRET -c cloudflare-workflows/wrangler.toml"
+            echo '```'
+            echo ""
+            echo "Until then the approval and status endpoints reject every request (fail-closed,"
+            echo "\`src/index.ts:355\`) and the GitHub webhook path returns 401. A green check on"
+            echo "this job means *deployed*, not *running*."
+          } >> "$GITHUB_STEP_SUMMARY"

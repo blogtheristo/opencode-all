@@ -65,7 +65,7 @@ All 11 critical security fixes from the security audit have been successfully im
 
 ### 3. MCP Colors Framework (P1 - HIGH) ✅
 
-**Location**: `src/mcp/security/tool_colors.py`
+**Location**: `src/mcp/security/tool-colors.ts`
 
 **Protection**: Prevents mixing RED (untrusted input) + BLUE (critical actions) tools
 
@@ -76,7 +76,7 @@ All 11 critical security fixes from the security audit have been successfully im
 - Custom tool registration
 - Comprehensive error messages with references
 
-**Testing**: `tests/security/test_tool_colors.py` (11 test cases)
+**Testing**: `src/__tests__/security-ports.test.ts`
 
 **Cost**: €1,900 | **Risk Mitigated**: €20M+ (GDPR breach)
 
@@ -122,7 +122,7 @@ All 11 critical security fixes from the security audit have been successfully im
 
 ### 6. OAuth DCR for MCP (P1 - HIGH) ✅
 
-**Location**: `src/mcp/oauth_dcr.py`
+**Location**: `src/mcp/oauth-handler.ts`
 
 **Protection**: Prevents agents from accessing API tokens
 
@@ -141,7 +141,7 @@ All 11 critical security fixes from the security audit have been successfully im
 
 ### 7. Modern CSRF Protection (P1 - HIGH) ✅
 
-**Location**: `src/web/middleware/csrf_protection.py`
+**Location**: `src/middleware/csrf-protection.ts`
 
 **Protection**: Prevents cross-site request forgery
 
@@ -149,10 +149,10 @@ All 11 critical security fixes from the security audit have been successfully im
 - Sec-Fetch-Site header validation (94.18% browser support)
 - Origin/Host comparison fallback (legacy browsers)
 - Referer check (last resort)
-- Flask middleware integration
+- Express middleware integration
 - Automatic blocking with detailed logging
 
-**Testing**: `tests/security/test_csrf_protection.py` (9 test cases)
+**Testing**: `src/__tests__/security-ports.test.ts`
 
 **Cost**: €950 | **Risk Mitigated**: Account takeover prevention
 
@@ -160,7 +160,7 @@ All 11 critical security fixes from the security audit have been successfully im
 
 ### 8. Redirect Validator (P2 - MEDIUM) ✅
 
-**Location**: `src/web/utils/redirect_validator.py`
+**Location**: `src/middleware/redirect-validator.ts`
 
 **Protection**: Prevents open redirect vulnerabilities
 
@@ -171,7 +171,7 @@ All 11 critical security fixes from the security audit have been successfully im
 - Scheme validation (block javascript:, data:, etc.)
 - Sanitization with safe defaults
 
-**Testing**: `tests/security/test_redirect_validator.py` (11 test cases)
+**Testing**: `src/__tests__/security-ports.test.ts`
 
 **Cost**: €570 | **Risk Mitigated**: Phishing prevention
 

@@ -13,18 +13,13 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MemoryService } from '../agents/memory.service.js';
 
-// Mock Supabase client
-const mockRpc = vi.fn();
-const mockFrom = vi.fn();
-const mockInsert = vi.fn();
-const mockSelect = vi.fn();
-const mockSingle = vi.fn();
+// Mock the internal Postgres pool (src/config/internal-db.ts)
+const mockQuery = vi.fn();
+const mockPool = { query: mockQuery };
+const mockGetInternalDbPool = vi.fn(() => mockPool);
 
-vi.mock('@supabase/supabase-js', () => ({
-  createClient: vi.fn(() => ({
-    rpc: mockRpc,
-    from: mockFrom,
-  })),
+vi.mock('../config/internal-db.js', () => ({
+  getInternalDbPool: () => mockGetInternalDbPool(),
 }));
 
 // Mock logger
@@ -42,22 +37,24 @@ describe('MemoryService — Supersede (Contradiction Resolution)', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    // Set env vars so getClient() succeeds
-    process.env.SUPABASE_URL = 'https://test.supabase.co';
-    process.env.SUPABASE_SERVICE_KEY = 'test-key';
+    // Set env vars so getPool() succeeds
+    process.env.INTERNAL_DB_URL = 'postgres://test:test@localhost:5432/test';
+    process.env.ENABLE_INTERNAL_DB_IN_TESTS = 'true';
+    mockGetInternalDbPool.mockReturnValue(mockPool);
     service = new MemoryService();
   });
 
   describe('supersede()', () => {
     it('should auto-approve when confidence_delta <= 0.3', async () => {
-      mockRpc.mockResolvedValueOnce({
-        data: [{
-          new_memory_id: 'new-mem-123',
-          requires_review: false,
-          confidence_delta: 0.1,
-          kya_decision: 'auto_approved (confidence_delta 0.10 <= 0.3)',
-        }],
-        error: null,
+      mockQuery.mockResolvedValueOnce({
+        rows: [
+          {
+            new_memory_id: 'new-mem-123',
+            requires_review: false,
+            confidence_delta: 0.1,
+            kya_decision: 'auto_approved (confidence_delta 0.10 <= 0.3)',
+          },
+        ],
       });
 
       const result = await service.supersede({
@@ -75,30 +72,34 @@ describe('MemoryService — Supersede (Contradiction Resolution)', () => {
       expect(result.confidenceDelta).toBe(0.1);
       expect(result.kyaDecision).toContain('auto_approved');
 
-      // Verify RPC was called with correct params
-      expect(mockRpc).toHaveBeenCalledWith('supersede_memory', {
-        p_old_memory_id: 'old-mem-456',
-        p_new_content: 'ACME has 300 employees',
-        p_new_confidence: 1.0,
-        p_new_source: 'annual-report-2025',
-        p_reason: 'temporal_supersede: newer source',
-        p_agent_id: 'compliance-agent',
-        p_agent_ats: null,
-        p_org_id: 'org-test',
-        p_customer_id: null,
-        p_new_metadata: {},
-      });
+      // Verify the supersede_memory query was called with correct positional params,
+      // in the same order memory.service.ts builds them (p_old_memory_id, p_new_content,
+      // p_new_confidence, p_new_source, p_reason, p_agent_id, p_agent_ats, p_org_id,
+      // p_customer_id, p_new_metadata).
+      expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('supersede_memory'), [
+        'old-mem-456',
+        'ACME has 300 employees',
+        1.0,
+        'annual-report-2025',
+        'temporal_supersede: newer source',
+        'compliance-agent',
+        null,
+        'org-test',
+        null,
+        {},
+      ]);
     });
 
     it('should require review when confidence_delta > 0.3', async () => {
-      mockRpc.mockResolvedValueOnce({
-        data: [{
-          new_memory_id: null,
-          requires_review: true,
-          confidence_delta: 0.5,
-          kya_decision: 'pending_review (confidence_delta > 0.3)',
-        }],
-        error: null,
+      mockQuery.mockResolvedValueOnce({
+        rows: [
+          {
+            new_memory_id: null,
+            requires_review: true,
+            confidence_delta: 0.5,
+            kya_decision: 'pending_review (confidence_delta > 0.3)',
+          },
+        ],
       });
 
       const result = await service.supersede({
@@ -115,11 +116,8 @@ describe('MemoryService — Supersede (Contradiction Resolution)', () => {
       expect(result.kyaDecision).toContain('pending_review');
     });
 
-    it('should handle RPC errors gracefully', async () => {
-      mockRpc.mockResolvedValueOnce({
-        data: null,
-        error: { message: 'Memory not found or already superseded' },
-      });
+    it('should handle query errors gracefully', async () => {
+      mockQuery.mockRejectedValueOnce(new Error('Memory not found or already superseded'));
 
       const result = await service.supersede({
         oldMemoryId: 'nonexistent-id',
@@ -132,14 +130,15 @@ describe('MemoryService — Supersede (Contradiction Resolution)', () => {
     });
 
     it('should pass agent_ats when provided', async () => {
-      mockRpc.mockResolvedValueOnce({
-        data: [{
-          new_memory_id: 'new-mem-ats',
-          requires_review: false,
-          confidence_delta: 0.0,
-          kya_decision: 'auto_approved (confidence_delta 0.00 <= 0.3)',
-        }],
-        error: null,
+      mockQuery.mockResolvedValueOnce({
+        rows: [
+          {
+            new_memory_id: 'new-mem-ats',
+            requires_review: false,
+            confidence_delta: 0.0,
+            kya_decision: 'auto_approved (confidence_delta 0.00 <= 0.3)',
+          },
+        ],
       });
 
       await service.supersede({
@@ -150,15 +149,22 @@ describe('MemoryService — Supersede (Contradiction Resolution)', () => {
         agentAts: 0.87,
       });
 
-      expect(mockRpc).toHaveBeenCalledWith('supersede_memory', expect.objectContaining({
-        p_agent_ats: 0.87,
-        p_agent_id: 'compliance-agent',
-      }));
+      expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('supersede_memory'), [
+        'old-mem-ats',
+        'Updated fact',
+        1.0,
+        'agent',
+        'temporal_supersede',
+        'compliance-agent',
+        0.87,
+        'org-test',
+        null,
+        {},
+      ]);
     });
 
-    it('should return gracefully when supabase is not configured', async () => {
-      delete process.env.SUPABASE_URL;
-      delete process.env.SUPABASE_SERVICE_KEY;
+    it('should return gracefully when internal Postgres is not configured', async () => {
+      mockGetInternalDbPool.mockReturnValueOnce(null);
       const unconfiguredService = new MemoryService();
 
       const result = await unconfiguredService.supersede({
@@ -173,34 +179,30 @@ describe('MemoryService — Supersede (Contradiction Resolution)', () => {
   });
 
   describe('logAudit()', () => {
-    it('should log store audit entry via RPC', async () => {
-      mockRpc.mockResolvedValueOnce({
-        data: 'audit-id-123',
-        error: null,
+    it('should log store audit entry via query', async () => {
+      mockQuery.mockResolvedValueOnce({
+        rows: [{ log_memory_audit: 'audit-id-123' }],
       });
 
-      const auditId = await service.logAudit(
-        'store',
-        'compliance-agent',
-        'org-test',
-        'mem-123',
-        { memory_type: 'fact', confidence: 0.9 },
-      );
+      const auditId = await service.logAudit('store', 'compliance-agent', 'org-test', 'mem-123', {
+        memory_type: 'fact',
+        confidence: 0.9,
+      });
 
       expect(auditId).toBe('audit-id-123');
-      expect(mockRpc).toHaveBeenCalledWith('log_memory_audit', {
-        p_operation: 'store',
-        p_agent_id: 'compliance-agent',
-        p_memory_id: 'mem-123',
-        p_org_id: 'org-test',
-        p_metadata: { memory_type: 'fact', confidence: 0.9 },
-      });
+      // Param order: p_operation, p_agent_id, p_memory_id, p_org_id, p_metadata
+      expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('log_memory_audit'), [
+        'store',
+        'compliance-agent',
+        'mem-123',
+        'org-test',
+        { memory_type: 'fact', confidence: 0.9 },
+      ]);
     });
 
-    it('should log extract audit entry via RPC', async () => {
-      mockRpc.mockResolvedValueOnce({
-        data: 'audit-id-456',
-        error: null,
+    it('should log extract audit entry via query', async () => {
+      mockQuery.mockResolvedValueOnce({
+        rows: [{ log_memory_audit: 'audit-id-456' }],
       });
 
       const auditId = await service.logAudit(
@@ -212,25 +214,24 @@ describe('MemoryService — Supersede (Contradiction Resolution)', () => {
       );
 
       expect(auditId).toBe('audit-id-456');
-      expect(mockRpc).toHaveBeenCalledWith('log_memory_audit', expect.objectContaining({
-        p_operation: 'extract',
-        p_memory_id: null,
-      }));
+      expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('log_memory_audit'), [
+        'extract',
+        'fact-extraction-agent',
+        null,
+        'org-test',
+        { facts_count: 3 },
+      ]);
     });
 
     it('should handle audit log errors without throwing', async () => {
-      mockRpc.mockResolvedValueOnce({
-        data: null,
-        error: { message: 'DB error' },
-      });
+      mockQuery.mockRejectedValueOnce(new Error('DB error'));
 
       const auditId = await service.logAudit('store', 'agent', 'org');
       expect(auditId).toBeNull();
     });
 
-    it('should return null when supabase is not configured', async () => {
-      delete process.env.SUPABASE_URL;
-      delete process.env.SUPABASE_SERVICE_KEY;
+    it('should return null when internal Postgres is not configured', async () => {
+      mockGetInternalDbPool.mockReturnValueOnce(null);
       const unconfiguredService = new MemoryService();
 
       const auditId = await unconfiguredService.logAudit('store', 'agent', 'org');

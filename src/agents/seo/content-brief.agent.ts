@@ -85,7 +85,7 @@ export class ContentBriefAgent extends BaseAgent {
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
 
       await this.logExecution({
@@ -97,7 +97,7 @@ export class ContentBriefAgent extends BaseAgent {
         input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });
@@ -175,7 +175,28 @@ Respond in JSON with this structure:
   }
 
   private structureOutput(
-    parsed: Record<string, any>,
+    parsed: {
+      draft?: string;
+      title?: string;
+      metaDescription?: string;
+      secondaryKeywords?: string[];
+      outline?: Array<{
+        heading?: string;
+        level?: 2 | 3;
+        keyPoints?: string[];
+        regulatoryReferences?: string[];
+        wordCountTarget?: number;
+      }>;
+      internalLinks?: Array<{ anchorText: string; targetUrl: string; context: string }>;
+      ctaPlacement?: Array<{
+        position: 'intro' | 'mid' | 'conclusion';
+        type: 'demo-request' | 'free-trial' | 'download' | 'contact';
+        product: string;
+        text: string;
+      }>;
+      schemaType?: 'Article' | 'HowTo' | 'FAQ' | 'Product';
+      differentiators?: string[];
+    },
     targetKeyword: ContentBriefInput['targetKeyword'],
   ): ContentBriefOutput {
     const draftMarkdown = parsed.draft || '';
@@ -190,7 +211,7 @@ Respond in JSON with this structure:
         funnelStage: targetKeyword.funnelStage,
         contentType: targetKeyword.suggestedContentType,
         targetWordCount: this.targetWordCount(targetKeyword.suggestedContentType),
-        outline: (parsed.outline || []).map((s: any) => ({
+        outline: (parsed.outline || []).map((s) => ({
           heading: s.heading || '',
           level: s.level || 2,
           keyPoints: s.keyPoints || [],

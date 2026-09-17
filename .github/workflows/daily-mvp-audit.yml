@@ -1,20 +1,9 @@
 name: Daily MVP Feature Audit
 
 on:
-  # Target: 05:00 Helsinki daily — one hour before the morning briefing
-  # (DGX Spark primary cron fires morning-brief-v2 at 04:00 UTC, which is
-  # 07:00 Helsinki in summer / 06:00 Helsinki in winter). Running at
-  # 05:00 Helsinki leaves the audit result on the issue tracker before
-  # operators read the brief.
-  #
-  # DST-safe pattern (matches construction-leads.yml, campaign-daily-posts.yml):
-  # two cron rows one hour apart in UTC + a Helsinki time guard that allows
-  # only one of them through.
-  #   02:00 UTC → 05:00 Helsinki when EEST (summer, Mar–Oct)
-  #   03:00 UTC → 05:00 Helsinki when EET  (winter, Oct–Mar)
-  schedule:
-    - cron: "0 2 * * *"
-    - cron: "0 3 * * *"
+  # Schedule REMOVED 2026-05-25 (#1384) — DGX Spark is primary (scripts/daily/mvp-audit.sh)
+  # Failover check was consuming ~60 GHA min/month even when skipping.
+  # Was: cron '0 2 * * *' + '0 3 * * *' (2x daily for DST coverage)
   workflow_dispatch:
 
 concurrency:
@@ -35,7 +24,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      # DGX Spark runs scripts/daily/mvp-audit.sh as primary (day-runner.sh
+      # handles once-per-day semantics in Europe/Helsinki via state file).
+      # This GHA workflow is failover only.
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
       - name: Helsinki time guard
+        if: steps.failover.outputs.dgx_alive != 'true'
         id: timecheck
         run: |
           HELSINKI_HOUR=$(TZ='Europe/Helsinki' date +%H)
@@ -249,7 +248,7 @@ jobs:
       - name: Update or create tracking issue
         if: steps.timecheck.outputs.should_run == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           TITLE="MVP Audit: ${{ steps.audit.outputs.score }}/${{ steps.audit.outputs.total }} (${{ steps.audit.outputs.pct }}%) — $(date -u +%Y-%m-%d)"
 

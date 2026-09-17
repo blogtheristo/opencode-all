@@ -1,6 +1,6 @@
 ---
 name: investor-outreach
-description: Generates and manages investor intro notes (INTRO_<NAME>_<FIRM>.md) for the DWS IQ 6 SAFE round. Use when user says "add investor", "new investor match", "pull investor", "draft investor intro", "triage investor list", "who's ready to send", "investor follow-up", "which INTRO next". Supports add, list, triage, ready, followup, status. Focus: selling V1 to investors at PE meetings and German Messe, not entrepreneur networking.
+description: Use when adding, triaging, or following up investor intro notes for the DWS IQ 6 SAFE round. Supports add, list, triage, ready, followup, and status.
 ---
 
 Generate, triage, and track investor intro notes in `investor-outreach/` for the DWS IQ 6 SAFE round.

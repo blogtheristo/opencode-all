@@ -1,8 +1,8 @@
 /**
  * Session Checkpoint Service — DWS IQ 6/7 (ASTA Phase 1)
  *
- * Persists agent loop state to Supabase so sessions can survive
- * interruptions and resume from the last checkpoint.
+ * Persists agent loop state to the internal Postgres pool (DGX Spark) so
+ * sessions can survive interruptions and resume from the last checkpoint.
  *
  * - checkpoint(): saves current loop state after each act phase
  * - recover(): loads most recent checkpoint for a session (24h TTL)
@@ -17,6 +17,7 @@
  * Owner: Lifetime Oy
  */
 
+import { getInternalDbPool } from '../config/internal-db.js';
 import logger from '../utils/logger.js';
 import type { AgentContext } from './types.js';
 import type { SessionState } from './session-checkpoint.types.js';
@@ -27,38 +28,34 @@ class SessionCheckpointService {
   /** Save a checkpoint of the current agent loop state. Non-blocking. */
   async checkpoint(context: AgentContext, state: SessionState): Promise<string | null> {
     try {
-      const { createClient } = await import('@supabase/supabase-js');
-      const url = process.env.SUPABASE_URL;
-      const key = process.env.SUPABASE_SERVICE_KEY;
-      if (!url || !key) {
-        logger.debug('Checkpoint skipped — Supabase not configured');
+      const pool = getInternalDbPool();
+      if (!pool) {
+        logger.debug('Checkpoint skipped — internal Postgres not configured');
         return null;
       }
 
-      const client = createClient(url, key);
       const expiresAt = new Date(Date.now() + CHECKPOINT_TTL_HOURS * 60 * 60 * 1000).toISOString();
 
       // Upsert: one checkpoint per session+agent (latest wins)
-      const { data, error } = await client
-        .from('session_checkpoints')
-        .upsert(
-          {
-            session_id: context.sessionId,
-            org_id: context.orgId,
-            agent_name: state.agentName,
-            state: JSON.stringify(state),
-            created_at: new Date().toISOString(),
-            expires_at: expiresAt,
-          },
-          { onConflict: 'session_id,agent_name' },
-        )
-        .select('id')
-        .single();
-
-      if (error) {
-        logger.warn('Checkpoint save failed', { error: error.message, session: context.sessionId });
-        return null;
-      }
+      const result = await pool.query(
+        `INSERT INTO session_checkpoints (session_id, org_id, agent_name, state, created_at, expires_at)
+         VALUES ($1, $2, $3, $4, $5, $6)
+         ON CONFLICT (session_id, agent_name)
+         DO UPDATE SET
+           org_id = EXCLUDED.org_id,
+           state = EXCLUDED.state,
+           created_at = EXCLUDED.created_at,
+           expires_at = EXCLUDED.expires_at
+         RETURNING id`,
+        [
+          context.sessionId,
+          context.orgId,
+          state.agentName,
+          JSON.stringify(state),
+          new Date().toISOString(),
+          expiresAt,
+        ],
+      );
 
       logger.debug('Checkpoint saved', {
         session: context.sessionId,
@@ -66,7 +63,7 @@ class SessionCheckpointService {
         iteration: state.iterationIndex,
       });
 
-      return data?.id || null;
+      return result.rows[0]?.id || null;
     } catch (err) {
       logger.warn('Checkpoint save exception', { error: String(err) });
       return null;
@@ -76,33 +73,26 @@ class SessionCheckpointService {
   /** Recover the most recent checkpoint for a session. Returns null if none or expired. */
   async recover(sessionId: string, orgId: string, agentName: string): Promise<SessionState | null> {
     try {
-      const { createClient } = await import('@supabase/supabase-js');
-      const url = process.env.SUPABASE_URL;
-      const key = process.env.SUPABASE_SERVICE_KEY;
-      if (!url || !key) return null;
+      const pool = getInternalDbPool();
+      if (!pool) return null;
 
-      const client = createClient(url, key);
-      const { data, error } = await client
-        .from('session_checkpoints')
-        .select('state, expires_at')
-        .eq('session_id', sessionId)
-        .eq('org_id', orgId)
-        .eq('agent_name', agentName)
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .single();
+      const result = await pool.query(
+        `SELECT state, expires_at FROM session_checkpoints
+         WHERE session_id = $1 AND org_id = $2 AND agent_name = $3
+         ORDER BY created_at DESC LIMIT 1`,
+        [sessionId, orgId, agentName],
+      );
 
-      if (error || !data) return null;
+      const row = result.rows[0];
+      if (!row) return null;
 
       // Check expiry
-      if (new Date(data.expires_at) < new Date()) {
+      if (new Date(row.expires_at) < new Date()) {
         logger.debug('Checkpoint expired', { session: sessionId, agent: agentName });
         return null;
       }
 
-      const state: SessionState = typeof data.state === 'string'
-        ? JSON.parse(data.state)
-        : data.state;
+      const state: SessionState = typeof row.state === 'string' ? JSON.parse(row.state) : row.state;
 
       logger.info('Checkpoint recovered', {
         session: sessionId,
@@ -120,17 +110,13 @@ class SessionCheckpointService {
   /** Clear checkpoints after successful session completion. */
   async clear(sessionId: string, agentName: string): Promise<void> {
     try {
-      const { createClient } = await import('@supabase/supabase-js');
-      const url = process.env.SUPABASE_URL;
-      const key = process.env.SUPABASE_SERVICE_KEY;
-      if (!url || !key) return;
+      const pool = getInternalDbPool();
+      if (!pool) return;
 
-      const client = createClient(url, key);
-      await client
-        .from('session_checkpoints')
-        .delete()
-        .eq('session_id', sessionId)
-        .eq('agent_name', agentName);
+      await pool.query(
+        `DELETE FROM session_checkpoints WHERE session_id = $1 AND agent_name = $2`,
+        [sessionId, agentName],
+      );
 
       logger.debug('Checkpoint cleared', { session: sessionId, agent: agentName });
     } catch (err) {

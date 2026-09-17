@@ -7,26 +7,41 @@
  * - Event-driven agent runtime initialized on startup (Fix #6)
  */
 
-import express, { Express, Request, Response, NextFunction } from 'express';
+// Centralized env config — MUST be the first import: loads .env before any
+// statically imported module reads process.env at module-load time.
+import './config/env.js';
+
+// Initialize OTel before any module that may emit spans (agent registry,
+// llm-client, workflows). Safe no-op when OTEL_EXPORTER_OTLP_ENDPOINT is unset.
+import { initOtel, shutdownOtel } from './observability/otel.js';
+import { recordHttpRequest } from './observability/metrics.js';
+initOtel();
+
+import express, { type Express, type NextFunction, type Request, type Response } from 'express';
 import cors from 'cors';
 import crypto from 'crypto';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import logger from './utils/logger.js';
 import authRoutes from './routes/auth.routes.js';
+import { brokerRouter } from './broker/broker.routes.js';
 import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
+import adminSupportRoutes from './routes/admin-support.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import bookingRoutes from './routes/booking.routes.js';
+import supportRoutes from './routes/support.routes.js';
+import supportReviewRoutes from './routes/support-review.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
+import nudgeRoutes from './routes/nudge.routes.js';
+import nudgeWebhookRoutes from './routes/nudge-webhook.routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import hilRoutes from './routes/hil.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
@@ -37,14 +52,24 @@ import stripeWebhookRoutes from './routes/stripe-webhook.routes.js';
 import captainRoutes from './routes/captain.routes.js';
 import usageRoutes from './routes/usage.routes.js';
 import onboardRoutes from './routes/onboard.routes.js';
+import memoryRoutes from './routes/memory.routes.js';
 import complianceRoutes from './routes/compliance.routes.js';
+import cbamPilotRoutes from './routes/cbam-pilot.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
+import opencodeQueueRoutes from './routes/opencode-queue.routes.js';
+import learnCalendarRoutes from './routes/learn-calendar.routes.js';
+import { contentRoutes } from './contentms/index.js';
 import gtmEventsRoutes from './routes/gtm-events.routes.js';
 import emailWebhookRoutes from './routes/email-webhook.routes.js';
 import analyticsRoutes from './routes/analytics.routes.js';
 import erpTrackingRoutes from './routes/erp-tracking.routes.js';
+import {
+  erpRoutes,
+  initializeERPIntegrations,
+  shutdownERPIntegrations,
+} from './integrations/erp/index.js';
 import roleTrackingRoutes from './routes/role-tracking.routes.js';
 import gapsRoutes from './routes/gaps.routes.js';
 import agentsRoutes from './routes/agents.routes.js';
@@ -54,19 +79,26 @@ import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
 import { memoryScheduler } from './agents/memory.scheduler.js';
+import { signalPoller } from './agents/signal-poller.js';
+import { inboundTicketScheduler } from './services/inbound-ticket.service.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
+import { createMCPRouter } from './mcp/agent-server.js';
+import capTableRouter from './investor-reports/cap-table-routes.js';
+import { loadSecrets } from './config/secret-loader.js';
 
 // ============ STUBS FOR MODULES EXCLUDED FROM BUILD ============
-// tsconfig.json excludes src/firehorse/**, src/mcp/**, and src/investor-reports/**
-// from compilation, so they are not present in dist/ at runtime. Static imports
-// from these paths would crash the container with ERR_MODULE_NOT_FOUND before
-// app.listen() — breaking Cloud Run health checks. Instead we expose no-op
-// stubs; affected routes will 404 and scheduled hooks are no-ops. Unstub by
-// restoring the modules in tsconfig `include` and reverting this block.
+// tsconfig.json excludes src/firehorse/** and src/integrations/** from
+// compilation (they have unresolved type errors that surfaced when the
+// modules were brought back into the strict-build graph; see PR-1208 follow-up).
+// Static imports from these paths would crash the container with
+// ERR_MODULE_NOT_FOUND before app.listen() — breaking Cloud Run health
+// checks. Instead we expose no-op stubs; affected routes will 404 and
+// scheduled hooks are no-ops. Unstub by restoring the modules in tsconfig
+// `include` and reverting this block (see follow-up PR for the type fixes).
 const firehorseRoutes = express.Router();
 const initFirehorsePilot = (): void => {
   logger.warn('firehorse stubbed — module excluded from build');
@@ -74,11 +106,16 @@ const initFirehorsePilot = (): void => {
 const shutdownFirehorsePilot = (): void => {
   /* no-op */
 };
-const createMCPRouter = () => express.Router();
-const capTableRouter = express.Router();
 // ================================================================
 
-dotenv.config();
+// ============ VAULT BOOTSTRAP ============
+// Pull secrets from configured vault (Aiven / GCP Secret Manager) into
+// process.env before validation. No-op if VAULT_PROVIDER is not set.
+await loadSecrets();
+
+// Re-validate env snapshot after vault injection
+const { refreshEnv } = await import('./config/env.js');
+refreshEnv();
 
 // ============ STARTUP VALIDATION ============
 
@@ -92,7 +129,8 @@ if (!envResult.valid && process.env.NODE_ENV === 'production') {
 }
 
 const app: Express = express();
-const PORT = process.env.PORT || 8080; // Cloud Run default
+app.disable('x-powered-by');
+const PORT = process.env.PORT || (process.env.NODE_ENV === 'production' ? '8080' : '3001');
 
 // ES Module path helpers
 const __filename = fileURLToPath(import.meta.url);
@@ -176,6 +214,16 @@ app.use(correlationId);
 // API versioning header on all responses
 app.use(apiVersionMiddleware);
 
+// OTel HTTP metrics — counter + duration histogram per request (Aspire Metrics tab)
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const startAt = process.hrtime.bigint();
+  res.on('finish', () => {
+    const durationMs = Number(process.hrtime.bigint() - startAt) / 1_000_000;
+    recordHttpRequest(req.path || 'unknown', req.method, res.statusCode, durationMs);
+  });
+  next();
+});
+
 // Body parsers with size limits
 //
 // IMPORTANT: stripe-webhook routes are mounted BEFORE express.json() (further
@@ -185,11 +233,14 @@ app.use(apiVersionMiddleware);
 // causing the webhook handler to hang until Cloud Run kills the request at
 // the 60s timeout.
 app.use((req, res, next) => {
-  if (req.path.startsWith('/webhooks/stripe')) return next();
+  // Webhooks that verify an HMAC over the raw body must NOT be pre-parsed.
+  if (req.path.startsWith('/webhooks/stripe') || req.path.startsWith('/webhooks/nudge'))
+    return next();
   return express.json({ limit: '10kb' })(req, res, next);
 });
 app.use((req, res, next) => {
-  if (req.path.startsWith('/webhooks/stripe')) return next();
+  if (req.path.startsWith('/webhooks/stripe') || req.path.startsWith('/webhooks/nudge'))
+    return next();
   return express.urlencoded({ extended: true, limit: '10kb' })(req, res, next);
 });
 
@@ -248,6 +299,7 @@ app.use('/landing-pages', express.static(landingPagesPath));
 // ============ API ROUTES ============
 
 // Auth routes
+app.use('/api/v1/broker', brokerRouter);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
 
@@ -256,6 +308,9 @@ app.use('/api/climate-assistant', climateAssistantRoutes);
 
 // Climate Assistant Gated routes (tiered access with lead capture)
 app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
+
+// Admin support chat channel (settings panel)
+app.use('/api/v1/admin/support', adminSupportRoutes);
 
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
@@ -266,6 +321,9 @@ app.use('/api/v1/outreach', outreachSendRoutes);
 // Firehorse Omnichannel Pilot (sales automation, signals, lead management)
 app.use('/api/v1/firehorse', firehorseRoutes);
 
+// Firehorse Content DMS (Evidence Vault: 5 agents, HIL review, artifact publishing)
+app.use('/api/v1/content', contentRoutes);
+
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
 
@@ -275,8 +333,16 @@ app.use('/api/v1/usage', usageRoutes);
 // Onboarding wizard (baseline compliance assessment)
 app.use('/api/v1/onboard', onboardRoutes);
 
+// Memory dashboard stats + audit endpoints
+app.use('/api/v1/memory', memoryRoutes);
+
 // Compliance assessment API (scoring, registry, cost estimate)
 app.use('/api/v1/compliance', complianceRoutes);
+
+// CBAM Paid Pilot — KYA-S1 calculation endpoint (€0.10/call, pilot API key required)
+// GET  /api/v1/cbam/calculation/schema — free, returns JSON schema for agent self-description
+// POST /api/v1/cbam/calculation        — paid, returns LedgerNativeOutput with citations + signature
+app.use('/api/v1/cbam/calculation', cbamPilotRoutes);
 
 // Report export & scheduling (MVP Feature 3)
 app.use('/api/v1/reports', reportExportRoutes);
@@ -293,19 +359,31 @@ app.use('/api/v1/b2b', b2bPaymentRoutes);
 // Stripe webhook (invoice payments, refunds, customer events)
 app.use('/webhooks/stripe', stripeWebhookRoutes);
 
+// Nudge callback webhook (Teams/Slack button click → resolveNudge).
+// Mounted before express.json so its HMAC can verify the raw body.
+app.use('/webhooks/nudge', nudgeWebhookRoutes);
+
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
 app.use('/api/v1/booking', bookingRoutes);
+app.use('/api/v1/support', supportRoutes);
+app.use('/api/v1/support', supportReviewRoutes);
+app.use('/api/v1/opencode-queue', opencodeQueueRoutes);
+app.use('/api/v1/learn', learnCalendarRoutes);
 app.use('/api/v1/captain', captainRoutes);
+app.use('/api/v1/opencode-queue', opencodeQueueRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
 
 // KYA Webhook Bridge (Shufti Pro → Policy Engine)
 app.use('/api/v1/kya', kyaWebhookRoutes);
+
+// Nudge inbox (in_app channel — list + resolve pending proactive nudges)
+app.use('/api/v1/nudges', nudgeRoutes);
 
 // GTM Events API (Google Tag Manager event logging — Phase 1)
 app.use('/api/gtm/events', gtmEventsRoutes);
@@ -388,6 +466,9 @@ app.use('/api/bim', bimRoutes);
 
 // HIL (Human-in-the-Loop) one-click task completion from morning briefing email
 app.use('/api/hil', hilRoutes);
+
+// ERP Integrations (Monitor/IFS/Dynamics365/SAP/Visma/Jeeves connectors)
+app.use('/api/v1/erp', erpRoutes);
 
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
@@ -644,14 +725,25 @@ const server = app.listen(PORT, () => {
   initFirehorsePilot();
   logger.info('Firehorse Omnichannel Pilot started');
 
-  // Start outreach digest scheduler (backup — primary is GitHub Actions).
-  // On Cloud Run this may not fire reliably due to scale-to-zero,
-  // but covers local dev and always-on deployments.
-  outreachScheduler.start();
+  // Outreach digest SES disabled 2026-09-13 (HIC): stale daily "Outreach {date}"
+  // mail replaced by Mission Control (.claude/handoffs/claude/mission-control-ops.md).
+  // Keep stop() on shutdown; manual run via outreachScheduler.runManually() / API only.
+  // outreachScheduler.start();
 
   // Memory maintenance: decay at 03:00 Helsinki, consolidation at 03:30 Helsinki
   // Manual trigger available via POST /api/v1/admin/memory/maintenance
   memoryScheduler.start();
+
+  // Proactive observation: watch the signal catalogue and raise human nudges,
+  // plus sweep overdue nudges for escalation (restart-safe).
+  signalPoller.start();
+
+  // ERP integrations (Monitor/IFS/Dynamics365/SAP/Visma/Jeeves). Scheduler
+  // itself only starts when ERP_SCHEDULER_ENABLED=true (checked internally).
+  initializeERPIntegrations();
+  // Poll inbound_emails → create support_tickets every INBOUND_TICKET_POLL_MS (default 30s).
+  // Disable with INBOUND_TICKET_DISABLED=true.
+  inboundTicketScheduler.start();
 
   // Initialize email queue (Redis Streams)
   emailQueue
@@ -696,8 +788,11 @@ process.on('SIGTERM', () => {
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
   memoryScheduler.stop();
+  signalPoller.stop();
+  inboundTicketScheduler.stop();
+  shutdownERPIntegrations();
   shutdownFirehorsePilot();
-  emailQueue.shutdown().finally(() => {
+  Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
       process.exit(0);
@@ -710,8 +805,11 @@ process.on('SIGINT', () => {
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
   memoryScheduler.stop();
+  signalPoller.stop();
+  inboundTicketScheduler.stop();
+  shutdownERPIntegrations();
   shutdownFirehorsePilot();
-  emailQueue.shutdown().finally(() => {
+  Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
       process.exit(0);

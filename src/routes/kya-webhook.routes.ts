@@ -1,3 +1,5 @@
+// Evidence: Tool=OpenCode 1.18.22 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-24
+// Audit trail: git log -- src/routes/kya-webhook.routes.ts
 /**
  * KYA Webhook Routes — Shufti Pro → DWS IQ 6 API Bridge
  *
@@ -25,6 +27,7 @@ import crypto from 'crypto';
 import express, { type NextFunction, type Request, type Response, type Router } from 'express';
 import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';
+import { claimOnce } from '../services/redis-token-blacklist.service.js';
 import {
   evaluateSignal,
   executeDecision,
@@ -69,13 +72,22 @@ function validateShuftiSignature(req: Request, res: Response, next: NextFunction
     return;
   }
 
-  const rawBody = JSON.stringify(req.body);
+  // Verify over the EXACT raw bytes the sender signed. app.ts stashes rawBody
+  // in express.json's verify callback; fail closed rather than signing a
+  // re-serialization whose byte order may differ from the original payload.
+  const rawBody = (req as Request & { rawBody?: Buffer }).rawBody;
+  if (!rawBody) {
+    logger.error('Shufti webhook: raw body unavailable — cannot verify signature over exact bytes');
+    res.status(500).json({ error: 'Raw body not captured for signature verification' });
+    return;
+  }
   const expectedSignature = crypto
     .createHash('sha256')
-    .update(secretKey + rawBody)
+    .update(Buffer.concat([Buffer.from(secretKey, 'utf8'), rawBody]))
     .digest('hex');
 
-  // Constant-time comparison
+  // Constant-time comparison (length-guard first: timingSafeEqual throws on
+  // mismatched lengths)
   const sigBuffer = Buffer.from(signature, 'hex');
   const expectedBuffer = Buffer.from(expectedSignature, 'hex');
 
@@ -83,12 +95,26 @@ function validateShuftiSignature(req: Request, res: Response, next: NextFunction
     || !crypto.timingSafeEqual(sigBuffer, expectedBuffer)) {
     logger.warn('Shufti webhook: invalid signature', {
       receivedLength: signature.length,
+      correlationId: req.headers['x-correlation-id'],
     });
     res.status(401).json({ error: 'Invalid signature' });
     return;
   }
 
   next();
+}
+
+// ============ REPLAY PROTECTION ============
+
+// Replay contract: Shufti payloads carry no trusted timestamp, so the contract
+// is event-ID deduplication — sha256 of the exact raw body claimed atomically
+// (Redis SET NX PX; in-memory fallback) for 24h. A replayed identical webhook
+// is acknowledged but not re-processed into the policy engine.
+const REPLAY_TTL_MS = 24 * 60 * 60 * 1000;
+
+async function replayGate(rawBody: Buffer): Promise<boolean> {
+  const dedupKey = crypto.createHash('sha256').update(rawBody).digest('hex');
+  return claimOnce(dedupKey, REPLAY_TTL_MS);
 }
 
 // ============ INPUT VALIDATION ============
@@ -149,6 +175,15 @@ router.post(
     }
 
     const payload = (validation as { valid: true; payload: ShuftiWebhookPayload }).payload;
+
+    // Replay gate: identical raw-body webhooks within 24h are acknowledged but
+    // not re-processed into the policy engine.
+    const rawBody = (req as Request & { rawBody?: Buffer }).rawBody ?? Buffer.from(JSON.stringify(req.body));
+    if (!(await replayGate(rawBody))) {
+      logger.warn('Shufti webhook: duplicate delivery suppressed', { reference: payload.reference });
+      res.status(200).json({ received: true, duplicate: true });
+      return;
+    }
 
     logger.info('Shufti webhook received', {
       event: payload.event,

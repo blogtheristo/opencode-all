@@ -312,7 +312,7 @@ A **DWS6 Compliance Plugin** for Claude Cowork could offer:
 - Compliance checklist generation
 - Integration with Firehorse Report
 
-**Market Opportunity**: 16 EU industries need simplified compliance tools. Non-technical sustainability managers could use Cowork + DWS6 plugin instead of full dashboard.
+**Market Opportunity**: 25+ EU industries need simplified compliance tools. Non-technical sustainability managers could use Cowork + DWS6 plugin instead of full dashboard.
 
 ### Security Considerations
 

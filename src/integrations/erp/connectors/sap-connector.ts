@@ -9,17 +9,16 @@
  * - Plant maintenance (PM) integration
  */
 
-import { BaseERPConnector } from '../base-connector';
+import { BaseERPConnector } from '../base-connector.js';
+import type { InternalAxiosRequestConfig } from 'axios';
 import {
   EntityType,
   ERPProvider,
   type MachineData,
-  MaintenanceEvent,
   type OEEMetrics,
-  ProductionOrder,
   type SAPConfig,
-  type SyncResult
-} from '../types';
+  type SyncResult,
+} from '../types.js';
 
 export class SAPConnector extends BaseERPConnector {
   private sapConfig: SAPConfig;
@@ -35,10 +34,11 @@ export class SAPConnector extends BaseERPConnector {
     this.logger.info('SAP authentication configured');
   }
 
-  protected async addAuthHeaders(config: any): Promise<any> {
-    config.headers = config.headers || {};
+  protected async addAuthHeaders(
+    config: InternalAxiosRequestConfig,
+  ): Promise<InternalAxiosRequestConfig> {
     config.headers['Authorization'] = `Basic ${Buffer.from(
-      `${this.sapConfig.username}:${this.sapConfig.password}`
+      `${this.sapConfig.username}:${this.sapConfig.password}`,
     ).toString('base64')}`;
     config.headers['sap-client'] = this.sapConfig.client;
     return config;
@@ -46,11 +46,12 @@ export class SAPConnector extends BaseERPConnector {
 
   async testConnection(): Promise<boolean> {
     try {
-      const odataPath = this.sapConfig.odataVersion === 'v4' ? '/sap/opu/odata4' : '/sap/opu/odata/sap';
+      const odataPath =
+        this.sapConfig.odataVersion === 'v4' ? '/sap/opu/odata4' : '/sap/opu/odata/sap';
       await this.get(`${odataPath}/API_PRODUCTION_ORDER_2_SRV`);
       return true;
     } catch (error) {
-      this.logger.error('SAP connection test failed', { error });
+      this.logger.error({ error }, 'SAP connection test failed');
       return false;
     }
   }
@@ -59,23 +60,28 @@ export class SAPConnector extends BaseERPConnector {
     const operation = this.createSyncOperation('default', EntityType.PRODUCTION_ORDER, 'from_erp');
 
     try {
-      const odataPath = this.sapConfig.odataVersion === 'v4' ? '/sap/opu/odata4' : '/sap/opu/odata/sap';
+      const odataPath =
+        this.sapConfig.odataVersion === 'v4' ? '/sap/opu/odata4' : '/sap/opu/odata/sap';
       // SECURITY FIX: Use params object instead of string interpolation to prevent OData injection
       const params: Record<string, string> = {};
       if (since) {
         params.$filter = `LastChangeDate gt datetime'${since.toISOString()}'`;
       }
 
-      const response = await this.get<{ d: { results: any[] } }>(
+      const response = await this.get<{ d: { results: unknown[] } }>(
         `${odataPath}/API_PRODUCTION_ORDER_2_SRV/A_ProductionOrder`,
-        { params }
+        { params },
       );
 
       operation.recordsProcessed = response.d.results.length;
       return this.createSyncResult(operation, true);
     } catch (error) {
       return this.createSyncResult(operation, false, [
-        this.createSyncError(EntityType.PRODUCTION_ORDER, 'SAP_SYNC_FAILED', (error as Error).message)
+        this.createSyncError(
+          EntityType.PRODUCTION_ORDER,
+          'SAP_SYNC_FAILED',
+          (error as Error).message,
+        ),
       ]);
     }
   }
@@ -99,13 +105,13 @@ export class SAPConnector extends BaseERPConnector {
     try {
       if (direction === 'from_erp') {
         // Pull maintenance notifications from SAP PM
-        const response = await this.get<{ d: { results: any[] } }>(
-          '/sap/opu/odata/sap/API_MAINTNOTIFICATION/MaintenanceNotification'
+        const response = await this.get<{ d: { results: unknown[] } }>(
+          '/sap/opu/odata/sap/API_MAINTNOTIFICATION/MaintenanceNotification',
         );
         operation.recordsProcessed = response.d.results.length;
       }
       return this.createSyncResult(operation, true);
-    } catch (error) {
+    } catch {
       return this.createSyncResult(operation, false);
     }
   }

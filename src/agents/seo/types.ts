@@ -260,9 +260,56 @@ export type SeoIssueType =
   | 'redirect-chain'
   | 'missing-hreflang'
   | 'orphan-page'
-  | 'thin-content';
+  | 'thin-content'
+  | 'weak-cta'
+  | 'missing-local-schema'
+  | 'low-discovery'
+  | 'slow-interaction';
 
 export type IssueSeverity = 'critical' | 'warning' | 'info';
+
+export interface CtaSignal {
+  url: string;
+  ctaCount: number;
+  primaryCta: {
+    present: boolean;
+    text: string | null;
+    position: 'header' | 'hero' | 'mid-content' | 'footer' | 'none';
+    type: 'button' | 'link' | 'form' | 'none';
+  };
+  ctaDensity: number;
+  score: number;
+}
+
+export interface SchemaValidation {
+  url: string;
+  schemaTypes: string[];
+  hasLocalBusiness: boolean;
+  hasOrganization: boolean;
+  hasWebSite: boolean;
+  hasProduct: boolean;
+  requiredProperties: string[];
+  missingProperties: string[];
+  isValid: boolean;
+  errors: string[];
+}
+
+export interface LinkArchitecture {
+  url: string;
+  internalLinkCount: number;
+  discoveryScore: number;
+  linkDepth: number;
+  orphanRisk: boolean;
+}
+
+export interface InteractionPerformance {
+  url: string;
+  fid: number;
+  tti: number;
+  tbt: number;
+  status: 'good' | 'needs-improvement' | 'poor';
+  recommendations: string[];
+}
 
 export interface SeoAuditOutput {
   healthScore: number;
@@ -272,6 +319,8 @@ export interface SeoAuditOutput {
     fid: number;
     cls: number;
     ttfb: number;
+    tbt: number;
+    tti: number;
     status: 'good' | 'needs-improvement' | 'poor';
   }>;
   issues: Array<{
@@ -287,6 +336,10 @@ export interface SeoAuditOutput {
     valid: boolean;
     errors: string[];
   }>;
+  ctaAnalysis: CtaSignal[];
+  schemaValidation: SchemaValidation[];
+  linkArchitecture: LinkArchitecture[];
+  interactionPerformance: InteractionPerformance[];
   deployGate: {
     pass: boolean;
     blockers: string[];

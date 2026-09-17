@@ -83,7 +83,7 @@
   - Direct input on product roadmap for your vertical
   - Pro-rata rights in subsequent rounds
 - SAFE terms: EUR 50k, EUR 3.8M cap, 18% discount, MFN
-- Why the structure works: "You're not buying equity in a pitch deck. You're buying a seat in a live platform with EUR 7k+ MRR and 100% retention."
+- Why the structure works: "You're not buying equity in a pitch deck. You're buying a seat in a live platform with EUR 59,900 of contracted Q1/2026 enterprise pilots."
 
 **Key slide:** The seat map (8 industries, which are filled, which are open)
 

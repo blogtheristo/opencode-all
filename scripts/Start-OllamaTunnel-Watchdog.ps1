@@ -12,7 +12,7 @@
 #>
 
 param(
-    [string]$RemoteSsh = "admin100@gn100-cb5d",
+    [string]$RemoteSsh = "admin100@192.168.101.113",
     [string]$LocalBindAddress = "127.0.0.1",
     [int]$LocalPort = 11435,
     [int]$RemotePort = 11434,

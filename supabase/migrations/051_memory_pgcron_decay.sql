@@ -138,8 +138,8 @@ COMMENT ON TABLE memory_audit_log_archive IS
   'KYA-S §10, EU AI Act Art. 12, Finnish Accounting Act §2:10.';
 -- RLS: same policy as source — org isolation, immutable
 ALTER TABLE memory_audit_log_archive ENABLE ROW LEVEL SECURITY;
-CREATE POLICY IF NOT EXISTS "audit_archive_org_isolation"
-  ON memory_audit_log_archive FOR SELECT
+DROP POLICY IF EXISTS "audit_archive_org_isolation" ON memory_audit_log_archive;
+CREATE POLICY "audit_archive_org_isolation" ON memory_audit_log_archive FOR SELECT
   USING (org_id = current_setting('app.org_id', true));
 -- No UPDATE/DELETE policies — archive is append-only
 -- No pg_cron job to purge — retention is enforced by ABSENCE of deletion

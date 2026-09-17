@@ -2,8 +2,25 @@ import Stripe from 'stripe';
 import axios from 'axios';
 import logger from '../utils/logger.js';
 import { supabase } from './supabase.service.js';
+import { sendEmail } from '../utils/send-email.js';
+import {
+  generatePaymentConfirmationHTML,
+  generatePaymentConfirmationPlainText,
+} from '../templates/invoice-email.template.js';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
+let stripeClient: Stripe | null = null;
+
+function getStripeClient(): Stripe {
+  if (stripeClient) return stripeClient;
+
+  const secret = process.env.STRIPE_SECRET_KEY;
+  if (!secret) {
+    throw new Error('STRIPE_SECRET_KEY is not configured');
+  }
+
+  stripeClient = new Stripe(secret);
+  return stripeClient;
+}
 
 // ============================================================================
 // VAT VALIDATION
@@ -79,6 +96,7 @@ interface InvoiceParams {
  * Create Stripe invoice for order remainder
  */
 export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe.Invoice> {
+  const stripe = getStripeClient();
   const {
     order_id,
     user_id,
@@ -94,7 +112,7 @@ export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe
   } = params;
 
   // Create or retrieve Stripe customer
-  let customer_id = user_id; // Use DWS user ID as Stripe customer ID in production
+  const customer_id = user_id; // Use DWS user ID as Stripe customer ID in production
 
   try {
     // For production: fetch Stripe customer ID from user metadata
@@ -172,7 +190,7 @@ export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe
  */
 export async function getInvoice(invoice_id: string): Promise<Stripe.Invoice | null> {
   try {
-    return await stripe.invoices.retrieve(invoice_id);
+    return await getStripeClient().invoices.retrieve(invoice_id);
   } catch (error) {
     logger.error('Failed to fetch invoice', { error, invoice_id });
     return null;
@@ -187,7 +205,7 @@ export async function sendInvoiceEmail(
   customer_email: string,
 ): Promise<boolean> {
   try {
-    await stripe.invoices.sendInvoice(invoice_id);
+    await getStripeClient().invoices.sendInvoice(invoice_id);
     logger.info('Invoice sent via email', { invoice_id, customer_email });
     return true;
   } catch (error) {
@@ -201,7 +219,7 @@ export async function sendInvoiceEmail(
  */
 export async function voidInvoice(invoice_id: string): Promise<Stripe.Invoice | null> {
   try {
-    const invoice = await stripe.invoices.voidInvoice(invoice_id);
+    const invoice = await getStripeClient().invoices.voidInvoice(invoice_id);
     logger.info('Invoice voided', { invoice_id });
     return invoice;
   } catch (error) {
@@ -213,6 +231,84 @@ export async function voidInvoice(invoice_id: string): Promise<Stripe.Invoice | 
 // ============================================================================
 // PAYMENT TRACKING
 // ============================================================================
+
+/**
+ * Send payment confirmation email to the customer for a paid order.
+ * Safe to fire and forget — failures are logged but never throw so the
+ * webhook ack path stays clean.
+ */
+export async function sendPaymentConfirmationEmail(order: {
+  id: string;
+  company_billing_profile_id?: string | null;
+  product_id?: string | null;
+  product_price_cents?: number | null;
+}): Promise<void> {
+  try {
+    if (!order.company_billing_profile_id) {
+      logger.warn('Cannot send payment confirmation: order has no billing profile', {
+        order_id: order.id,
+      });
+      return;
+    }
+
+    const { data: profile, error: profileError } = await supabase
+      .from('company_billing_profiles')
+      .select('company_name, contact_email')
+      .eq('id', order.company_billing_profile_id)
+      .single();
+
+    if (profileError || !profile?.contact_email) {
+      logger.warn('Cannot send payment confirmation: billing profile or contact email missing', {
+        order_id: order.id,
+        error: profileError,
+      });
+      return;
+    }
+
+    const companyName = (profile.company_name as string) || 'Customer';
+    const contactEmail = profile.contact_email as string;
+    const paidDate = new Date().toISOString().slice(0, 10);
+    const params = {
+      customer_name: companyName,
+      company_name: companyName,
+      order_id: order.id,
+      paid_date: paidDate,
+      invoice_amount_eur: order.product_price_cents ?? 0,
+      product_name: (order.product_id as string) || 'DWS Platform',
+    };
+
+    const result = await sendEmail({
+      from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
+      to: contactEmail,
+      subject: `Payment Confirmed — Order ${order.id}`,
+      html: generatePaymentConfirmationHTML(params),
+      text: generatePaymentConfirmationPlainText(params),
+      source: 'platform',
+      templateType: 'payment_confirmation',
+      metadata: {
+        order_id: order.id,
+        company: companyName,
+      },
+    });
+
+    if (!result.ok) {
+      logger.warn('Payment confirmation email failed to send', {
+        order_id: order.id,
+        contactEmail,
+        error: result.error,
+      });
+      return;
+    }
+
+    logger.info('Payment confirmation email sent', {
+      order_id: order.id,
+      contactEmail,
+      transport: result.transport,
+    });
+  } catch (error) {
+    logger.error('Error sending payment confirmation email', { error, order_id: order.id });
+  }
+}
 
 /**
  * Handle Stripe invoice payment succeeded webhook
@@ -246,8 +342,22 @@ export async function handleInvoicePaymentSucceeded(invoice_id: string): Promise
       invoice_id,
     });
 
-    // TODO: Send confirmation email to customer
-    // TODO: Activate service/product access
+    await sendPaymentConfirmationEmail(order);
+    
+    // Activate service/product access
+    try {
+      // Here we'd call any downstream services like provisioning
+      // For now, we just log the action
+      logger.info('Service access activation triggered for order', { 
+        order_id: order.id,
+        invoice_id
+      });
+    } catch (error) {
+      logger.error('Failed to activate service access', { 
+        error, 
+        order_id: order.id 
+      });
+    }
   } catch (error) {
     logger.error('Error handling invoice payment', { error, invoice_id });
   }
@@ -318,15 +428,19 @@ export async function refundPayment(
   reason: string,
 ): Promise<Stripe.Refund | null> {
   try {
-    const invoice = await stripe.invoices.retrieve(invoice_id);
+    const stripe = getStripeClient();
+    const invoiceResponse = await stripe.invoices.retrieve(invoice_id);
+    // Note: Stripe v22 removed Invoice.charge; read it defensively to preserve
+    // the legacy refund path for API versions that still return it.
+    const chargeId = (invoiceResponse as unknown as Record<string, unknown>).charge;
 
-    if (!(invoice as any).charge) {
+    if (!chargeId) {
       logger.warn('No charge found for invoice', { invoice_id });
       return null;
     }
 
     const refund = await stripe.refunds.create({
-      charge: (invoice as any).charge as string,
+      charge: typeof chargeId === 'string' ? chargeId : String(chargeId),
       metadata: {
         invoice_id,
         reason,

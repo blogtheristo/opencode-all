@@ -92,7 +92,7 @@ function ScoreRing({ score, size = 140, strokeWidth = 10 }: { score: number; siz
         r={radius}
         fill="none"
         stroke="currentColor"
-        className="text-gray-800"
+        className="text-foreground"
         strokeWidth={strokeWidth}
       />
       <circle
@@ -136,7 +136,7 @@ function UrgencyBadge({ urgency }: { urgency: DeadlineItem['urgency'] }) {
     critical: 'bg-red-500/15 text-red-300',
     urgent: 'bg-amber-500/20 text-amber-400',
     upcoming: 'bg-blue-500/20 text-blue-400',
-    planned: 'bg-gray-500/20 text-gray-400',
+    planned: 'bg-background0/20 text-fg-muted',
   };
 
   return (
@@ -153,8 +153,8 @@ function TabButton({ active, label, onClick }: { active: boolean; label: string;
       onClick={onClick}
       className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
         active
-          ? 'bg-gray-700 text-white'
-          : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
+          ? 'bg-fg-muted/20 text-white'
+          : 'text-fg-muted hover:text-foreground hover:bg-fg-muted/10/50'
       }`}
     >
       {label}
@@ -166,14 +166,14 @@ function DataQualityBar({ quality }: { quality: number }) {
   const color = quality >= 80 ? 'bg-green-500' : quality >= 60 ? 'bg-amber-500' : 'bg-red-500';
   return (
     <div className="flex items-center gap-2">
-      <span className="text-[10px] text-gray-500 w-16">Data quality</span>
-      <div className="flex-1 bg-gray-800 rounded-full h-1">
+      <span className="text-[10px] text-fg-muted w-16">Data quality</span>
+      <div className="flex-1 bg-fg-muted/10 rounded-full h-1">
         <div
           className={`h-1 rounded-full transition-all duration-700 ${color}`}
           style={{ width: `${quality}%` }}
         />
       </div>
-      <span className="text-[10px] text-gray-500 w-8 text-right">{quality}%</span>
+      <span className="text-[10px] text-fg-muted w-8 text-right">{quality}%</span>
     </div>
   );
 }
@@ -188,7 +188,7 @@ function OverviewPanel({
   animatedScore: number;
 }) {
   const trend = overview.overallScore - overview.previousScore;
-  const trendColor = trend > 0 ? 'text-green-500' : trend < 0 ? 'text-red-500' : 'text-gray-400';
+  const trendColor = trend > 0 ? 'text-green-500' : trend < 0 ? 'text-red-500' : 'text-fg-muted';
   const trendIcon = trend > 0 ? '+' : '';
 
   return (
@@ -199,8 +199,8 @@ function OverviewPanel({
         <div className="relative shrink-0">
           <ScoreRing score={overview.overallScore} size={100} strokeWidth={8} />
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-2xl font-bold text-gray-100">{animatedScore}</span>
-            <span className="text-[10px] text-gray-500">/ 100</span>
+            <span className="text-2xl font-bold text-foreground">{animatedScore}</span>
+            <span className="text-[10px] text-fg-muted">/ 100</span>
           </div>
         </div>
         {/* Stats */}
@@ -209,16 +209,16 @@ function OverviewPanel({
             <span className={`text-sm font-semibold ${trendColor}`}>
               {trendIcon}{trend} pts
             </span>
-            <span className="text-[10px] text-gray-500">vs previous</span>
+            <span className="text-[10px] text-fg-muted">vs previous</span>
           </div>
           <div className="grid grid-cols-2 gap-2">
-            <div className="bg-gray-800/50 rounded-lg p-2 text-center">
-              <p className="text-lg font-bold text-gray-100">{overview.totalGaps}</p>
-              <p className="text-[10px] text-gray-500">Gaps</p>
+            <div className="bg-fg-muted/10/50 rounded-lg p-2 text-center">
+              <p className="text-lg font-bold text-foreground">{overview.totalGaps}</p>
+              <p className="text-[10px] text-fg-muted">Gaps</p>
             </div>
-            <div className="bg-gray-800/50 rounded-lg p-2 text-center">
+            <div className="bg-fg-muted/10/50 rounded-lg p-2 text-center">
               <p className="text-lg font-bold text-red-400">{overview.criticalGaps}</p>
-              <p className="text-[10px] text-gray-500">Critical</p>
+              <p className="text-[10px] text-fg-muted">Critical</p>
             </div>
           </div>
         </div>
@@ -229,8 +229,8 @@ function OverviewPanel({
         {overview.regulations.map(reg => (
           <div key={reg.id} className="flex items-center justify-between">
             <div className="flex items-center gap-2 min-w-0 flex-1">
-              <span className="text-xs font-medium text-gray-300 w-14 shrink-0">{reg.name}</span>
-              <div className="flex-1 bg-gray-800 rounded-full h-1.5">
+              <span className="text-xs font-medium text-fg-muted w-14 shrink-0">{reg.name}</span>
+              <div className="flex-1 bg-fg-muted/10 rounded-full h-1.5">
                 <div
                   className={`h-1.5 rounded-full transition-all duration-700 ${
                     reg.score >= 80 ? 'bg-green-500' :
@@ -240,7 +240,7 @@ function OverviewPanel({
                   style={{ width: `${reg.score}%` }}
                 />
               </div>
-              <span className="text-xs text-gray-500 w-7 text-right shrink-0">{reg.score}</span>
+              <span className="text-xs text-fg-muted w-7 text-right shrink-0">{reg.score}</span>
             </div>
             <StatusBadge status={reg.status} />
           </div>
@@ -249,9 +249,9 @@ function OverviewPanel({
 
       {/* Data source */}
       {overview.dataSource && (
-        <div className="flex items-center gap-2 px-2 py-1.5 bg-gray-800/30 rounded-lg mb-3">
+        <div className="flex items-center gap-2 px-2 py-1.5 bg-fg-muted/10/30 rounded-lg mb-3">
           <span className={`w-1.5 h-1.5 rounded-full ${overview.dataSource === 'database' ? 'bg-green-500' : 'bg-amber-500'}`} />
-          <span className="text-[10px] text-gray-500">
+          <span className="text-[10px] text-fg-muted">
             {overview.dataSource === 'database'
               ? 'Live company data'
               : `Sector benchmark (${overview.benchmark?.sector || 'manufacturing'})`}
@@ -270,8 +270,8 @@ function TimelinePanel({ deadlines }: { deadlines: DeadlineItem[] }) {
   if (!deadlines || deadlines.length === 0) {
     return (
       <div className="text-center py-6">
-        <p className="text-sm text-gray-500">No deadline data available</p>
-        <p className="text-xs text-gray-600 mt-1">Run an assessment to populate the regulatory timeline</p>
+        <p className="text-sm text-fg-muted">No deadline data available</p>
+        <p className="text-xs text-fg-muted mt-1">Run an assessment to populate the regulatory timeline</p>
       </div>
     );
   }
@@ -283,27 +283,27 @@ function TimelinePanel({ deadlines }: { deadlines: DeadlineItem[] }) {
 
   return (
     <div className="space-y-2">
-      <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-2">Regulatory Deadlines</p>
+      <p className="text-[10px] text-fg-muted uppercase tracking-wider mb-2">Regulatory Deadlines</p>
       {display.map((d, i) => (
         <div
           key={i}
           className={`flex items-start justify-between gap-2 px-2 py-1.5 rounded-lg ${
             d.urgency === 'overdue' ? 'bg-red-500/10 border border-red-500/20' :
             d.urgency === 'critical' ? 'bg-red-500/5 border border-red-500/10' :
-            'bg-gray-800/30'
+            'bg-fg-muted/10/30'
           }`}
         >
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5 mb-0.5">
-              <span className="text-[10px] font-semibold text-gray-300">{d.regulation}</span>
+              <span className="text-[10px] font-semibold text-fg-muted">{d.regulation}</span>
               <UrgencyBadge urgency={d.urgency} />
             </div>
-            <p className="text-[11px] text-gray-400 truncate">{d.milestone}</p>
+            <p className="text-[11px] text-fg-muted truncate">{d.milestone}</p>
           </div>
           <span className={`text-xs font-mono shrink-0 ${
             d.daysRemaining < 0 ? 'text-red-400' :
             d.daysRemaining <= 90 ? 'text-amber-400' :
-            'text-gray-400'
+            'text-fg-muted'
           }`}>
             {d.countdown}
           </span>
@@ -317,8 +317,8 @@ function LifecyclePanel({ stages }: { stages: LifecycleStage[] }) {
   if (!stages || stages.length === 0) {
     return (
       <div className="text-center py-6">
-        <p className="text-sm text-gray-500">No lifecycle data</p>
-        <p className="text-xs text-gray-600 mt-1">Available for construction projects with EN 15978 assessment</p>
+        <p className="text-sm text-fg-muted">No lifecycle data</p>
+        <p className="text-xs text-fg-muted mt-1">Available for construction projects with EN 15978 assessment</p>
       </div>
     );
   }
@@ -338,17 +338,17 @@ function LifecyclePanel({ stages }: { stages: LifecycleStage[] }) {
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between mb-2">
-        <p className="text-[10px] text-gray-500 uppercase tracking-wider">EN 15978 Lifecycle</p>
-        <p className="text-[10px] text-gray-500">kgCO2e/m2</p>
+        <p className="text-[10px] text-fg-muted uppercase tracking-wider">EN 15978 Lifecycle</p>
+        <p className="text-[10px] text-fg-muted">kgCO2e/m2</p>
       </div>
       {stages.map((s) => {
         const isNegative = s.kgCO2e < 0;
         const barWidth = maxKg > 0 ? (Math.abs(s.kgCO2e) / maxKg) * 100 : 0;
-        const color = stageColors[s.stage] || 'bg-gray-500';
+        const color = stageColors[s.stage] || 'bg-background0';
 
         return (
           <div key={s.stage} className="flex items-center gap-2">
-            <span className="text-[10px] font-mono text-gray-400 w-12 shrink-0">{s.stage}</span>
+            <span className="text-[10px] font-mono text-fg-muted w-12 shrink-0">{s.stage}</span>
             <div className="flex-1 relative h-4">
               <div
                 className={`h-4 rounded ${isNegative ? 'bg-green-500/60' : color} transition-all duration-700`}
@@ -356,17 +356,17 @@ function LifecyclePanel({ stages }: { stages: LifecycleStage[] }) {
               />
             </div>
             <div className="text-right shrink-0 w-16">
-              <span className={`text-[11px] font-medium ${isNegative ? 'text-green-400' : 'text-gray-300'}`}>
+              <span className={`text-[11px] font-medium ${isNegative ? 'text-green-400' : 'text-fg-muted'}`}>
                 {isNegative ? '' : ''}{s.kgCO2ePerM2}
               </span>
             </div>
-            <span className="text-[10px] text-gray-600 w-10 text-right">{s.percentage}%</span>
+            <span className="text-[10px] text-fg-muted w-10 text-right">{s.percentage}%</span>
           </div>
         );
       })}
-      <div className="mt-2 pt-2 border-t border-gray-800">
+      <div className="mt-2 pt-2 border-t border-border">
         <div className="flex items-center justify-between text-[10px]">
-          <span className="text-gray-500">A1-A3 = Materials | B = Use | C = End-of-life | D = Recovery</span>
+          <span className="text-fg-muted">A1-A3 = Materials | B = Use | C = End-of-life | D = Recovery</span>
         </div>
       </div>
     </div>
@@ -377,8 +377,8 @@ function CostsPanel({ costs }: { costs: CostBreakdown | undefined }) {
   if (!costs) {
     return (
       <div className="text-center py-6">
-        <p className="text-sm text-gray-500">No cost data available</p>
-        <p className="text-xs text-gray-600 mt-1">Run an assessment to see regulatory cost exposure</p>
+        <p className="text-sm text-fg-muted">No cost data available</p>
+        <p className="text-xs text-fg-muted mt-1">Run an assessment to see regulatory cost exposure</p>
       </div>
     );
   }
@@ -396,30 +396,30 @@ function CostsPanel({ costs }: { costs: CostBreakdown | undefined }) {
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between mb-2">
-        <p className="text-[10px] text-gray-500 uppercase tracking-wider">Cost Waterfall (EUR)</p>
-        <p className="text-sm font-bold text-gray-100">
+        <p className="text-[10px] text-fg-muted uppercase tracking-wider">Cost Waterfall (EUR)</p>
+        <p className="text-sm font-bold text-foreground">
           {formatEur(costs.totalCostEur)}
         </p>
       </div>
 
       {items.map((item, i) => (
         <div key={i} className="flex items-center gap-2">
-          <span className="text-[11px] text-gray-400 w-28 shrink-0 truncate">{item.label}</span>
-          <div className="flex-1 bg-gray-800 rounded h-3">
+          <span className="text-[11px] text-fg-muted w-28 shrink-0 truncate">{item.label}</span>
+          <div className="flex-1 bg-fg-muted/10 rounded h-3">
             <div
               className={`h-3 rounded ${item.color} transition-all duration-700`}
               style={{ width: `${(item.value / maxCost) * 100}%` }}
             />
           </div>
-          <span className="text-[11px] font-medium text-gray-300 w-20 text-right">
+          <span className="text-[11px] font-medium text-fg-muted w-20 text-right">
             {formatEur(item.value)}
           </span>
         </div>
       ))}
 
-      <div className="mt-3 pt-2 border-t border-gray-800">
+      <div className="mt-3 pt-2 border-t border-border">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-semibold text-gray-300">Total Regulatory Exposure</span>
+          <span className="text-[11px] font-semibold text-fg-muted">Total Regulatory Exposure</span>
           <span className="text-sm font-bold text-amber-400">{formatEur(costs.totalCostEur)}</span>
         </div>
       </div>
@@ -475,14 +475,14 @@ export function ComplianceScoreWidget({ onRunAssessment }: ComplianceScoreWidget
 
   if (loading && !overview) {
     return (
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-5 animate-pulse">
-        <div className="h-4 bg-gray-800 rounded w-32 mb-4" />
+      <div className="bg-surface border border-border rounded-xl p-5 animate-pulse">
+        <div className="h-4 bg-fg-muted/10 rounded w-32 mb-4" />
         <div className="flex justify-center mb-4">
-          <div className="w-24 h-24 bg-gray-800 rounded-full" />
+          <div className="w-24 h-24 bg-fg-muted/10 rounded-full" />
         </div>
         <div className="space-y-2">
-          <div className="h-3 bg-gray-800 rounded" />
-          <div className="h-3 bg-gray-800 rounded w-3/4" />
+          <div className="h-3 bg-fg-muted/10 rounded" />
+          <div className="h-3 bg-fg-muted/10 rounded w-3/4" />
         </div>
       </div>
     );
@@ -490,13 +490,13 @@ export function ComplianceScoreWidget({ onRunAssessment }: ComplianceScoreWidget
 
   if (!overview) {
     return (
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-5 text-center">
-        <p className="text-sm text-gray-500">No compliance data available</p>
-        <p className="text-xs text-gray-600 mt-1">Run your first assessment to see scores, timeline, and cost exposure</p>
+      <div className="bg-surface border border-border rounded-xl p-5 text-center">
+        <p className="text-sm text-fg-muted">No compliance data available</p>
+        <p className="text-xs text-fg-muted mt-1">Run your first assessment to see scores, timeline, and cost exposure</p>
         <button
           type="button"
           onClick={onRunAssessment}
-          className="mt-3 px-4 py-2 bg-white hover:bg-gray-100 text-gray-900 text-sm font-medium rounded-lg transition-colors"
+          className="mt-3 px-4 py-2 bg-surface hover:bg-border text-foreground text-sm font-medium rounded-lg transition-colors"
         >
           Run First Assessment
         </button>
@@ -509,12 +509,12 @@ export function ComplianceScoreWidget({ onRunAssessment }: ComplianceScoreWidget
   );
 
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+    <div className="bg-surface border border-border rounded-xl p-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div>
-          <h3 className="text-sm font-semibold text-gray-100">EU Compliance</h3>
-          <p className="text-[10px] text-gray-500">
+          <h3 className="text-sm font-semibold text-foreground">EU Compliance</h3>
+          <p className="text-[10px] text-fg-muted">
             {daysSinceAssessment === 0 ? 'Updated today' : `${daysSinceAssessment}d ago`}
             {overview.jurisdiction && ` | ${overview.jurisdiction}`}
           </p>
@@ -529,7 +529,7 @@ export function ComplianceScoreWidget({ onRunAssessment }: ComplianceScoreWidget
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-3 p-0.5 bg-gray-800/50 rounded-lg">
+      <div className="flex gap-1 mb-3 p-0.5 bg-fg-muted/10/50 rounded-lg">
         <TabButton active={activeTab === 'overview'} label="Score" onClick={() => setActiveTab('overview')} />
         <TabButton active={activeTab === 'timeline'} label="Timeline" onClick={() => setActiveTab('timeline')} />
         <TabButton active={activeTab === 'lifecycle'} label="LCA" onClick={() => setActiveTab('lifecycle')} />
@@ -556,7 +556,7 @@ export function ComplianceScoreWidget({ onRunAssessment }: ComplianceScoreWidget
       <button
         type="button"
         onClick={onRunAssessment}
-        className="w-full mt-3 py-2 bg-white hover:bg-gray-100 text-gray-900 text-sm font-medium rounded-lg transition-colors"
+        className="w-full mt-3 py-2 bg-surface hover:bg-border text-foreground text-sm font-medium rounded-lg transition-colors"
       >
         Run New Assessment
       </button>

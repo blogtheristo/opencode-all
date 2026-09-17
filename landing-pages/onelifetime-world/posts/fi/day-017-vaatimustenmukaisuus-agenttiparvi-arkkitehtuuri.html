@@ -4,20 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vaatimustenmukaisuusagenttiparven rakentaminen: Arkkitehtuuriopas — Lifetime Scope Journal</title>
-    <meta name="description" content="Kuinka DWS IQ orkestroi useita tekoalyagentteja vaatimustenmukaisuustyossa. Arkkitehtuurimalli, agenttisuunnittelu ja KYA-turvallisuuskehys.">
-    <meta name="author" content="Risto Anton">
+    <meta name="description" content="Kuinka DWS IQ orkestroi useita tekoälyagentteja vaatimustenmukaisuustyossa. Arkkitehtuurimalli, agenttisuunnittelu ja KYA-turvallisuuskehys.">
+    <meta name="author" content="Risto Anton Päärni">
     <meta property="og:title" content="Vaatimustenmukaisuusagenttiparven rakentaminen: Arkkitehtuuriopas">
-    <meta property="og:description" content="Kuinka DWS IQ orkestroi useita tekoalyagentteja vaatimustenmukaisuustyossa.">
+    <meta property="og:description" content="Kuinka DWS IQ orkestroi useita tekoälyagentteja vaatimustenmukaisuustyossa.">
     <meta property="og:type" content="article">
+    <meta property="article:class" content="2">
     <meta property="og:locale" content="fi_FI">
     <meta property="og:url" content="https://onelifetime.world/posts/fi/day-017-vaatimustenmukaisuus-agenttiparvi-arkkitehtuuri.html">
     <meta property="og:site_name" content="Lifetime Scope Journal">
     <meta property="article:published_time" content="2026-04-01">
-    <meta property="article:author" content="Risto Anton">
-    <meta property="article:section" content="Tekoaly ja automaatio">
+    <meta property="article:author" content="Risto Anton Päärni">
+    <meta property="article:section" content="Tekoäly ja automaatio">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://onelifetime.world/static/images/blog/heroes/fi__day-017-vaatimustenmukaisuus-agenttiparvi-arkkitehtuuri.png">
+
+    <meta property="og:image" content="https://onelifetime.world/static/images/blog/heroes/fi__day-017-vaatimustenmukaisuus-agenttiparvi-arkkitehtuuri.png" />
+
     <meta name="twitter:title" content="Vaatimustenmukaisuusagenttiparven rakentaminen: Arkkitehtuuriopas">
-    <meta name="twitter:description" content="Kuinka DWS IQ orkestroi useita tekoalyagentteja vaatimustenmukaisuustyossa.">
+    <meta name="twitter:description" content="Kuinka DWS IQ orkestroi useita tekoälyagentteja vaatimustenmukaisuustyossa.">
     <link rel="alternate" hreflang="en" href="https://onelifetime.world/posts/en/day-017-building-compliance-agent-swarm.html">
     <link rel="alternate" hreflang="fi" href="https://onelifetime.world/posts/fi/day-017-vaatimustenmukaisuus-agenttiparvi-arkkitehtuuri.html">
     <link rel="canonical" href="https://onelifetime.world/posts/fi/day-017-vaatimustenmukaisuus-agenttiparvi-arkkitehtuuri.html">
@@ -33,7 +38,7 @@
         "@context": "https://schema.org", "@type": "Article",
         "headline": "Vaatimustenmukaisuusagenttiparven rakentaminen: Arkkitehtuuriopas",
         "description": "Kuinka DWS IQ orkestroi useita tekoalyagentteja vaatimustenmukaisuustyossa.",
-        "author": { "@type": "Person", "name": "Risto Anton", "url": "https://onelifetime.world" },
+        "author": { "@type": "Person", "name": "Risto Anton Päärni", "url": "https://onelifetime.world" },
         "publisher": { "@type": "Organization", "name": "Lifetime Oy", "url": "https://dws10.com" },
         "datePublished": "2026-04-01",
         "mainEntityOfPage": "https://onelifetime.world/posts/fi/day-017-vaatimustenmukaisuus-agenttiparvi-arkkitehtuuri.html",
@@ -62,71 +67,71 @@
     <main class="flex-1">
         <article class="max-w-3xl mx-auto px-4 py-12">
             <div class="flex items-center gap-3 mb-6">
-                <span class="inline-block px-3 py-1 text-xs font-bold rounded" style="background: rgba(212, 168, 67, 0.15); color: #d4a843; border: 1px solid rgba(212, 168, 67, 0.25);">Tekoaly ja automaatio</span>
-                <span class="text-xs text-gray-500">Paiva 17 / 800</span>
+                <span class="inline-block px-3 py-1 text-xs font-bold rounded" style="background: rgba(212, 168, 67, 0.15); color: #d4a843; border: 1px solid rgba(212, 168, 67, 0.25);">Tekoäly ja automaatio</span>
+                <span class="text-xs text-gray-500">Päivä 17 / 800</span>
             </div>
 
             <h1 class="text-3xl md:text-4xl font-bold mb-4" style="color: #e2e8f0;">Vaatimustenmukaisuusagenttiparven rakentaminen: Arkkitehtuuriopas</h1>
 
             <div class="flex items-center gap-4 mb-8 text-sm text-gray-400">
-                <span>1. huhtikuuta 2026</span><span>&middot;</span><span>Risto Anton</span><span>&middot;</span><span>Lifetime Oy</span>
+                <span>1. huhtikuuta 2026</span><span>&middot;</span><span>Risto Anton Päärni</span><span>&middot;</span><span>Lifetime Oy</span>
             </div>
 
             <div class="w-16 h-0.5 mb-8" style="background: linear-gradient(90deg, #06b6d4, #2563eb);"></div>
 
             <div class="prose prose-invert max-w-none space-y-6" style="color: #cbd5e1;">
-                <p>Yksittainen tekoalyagentti voi automatisoida yhden tehtavan. Agenttiparvi voi automatisoida kokonaisen liiketoimintaprosessin. Vaatimustenmukaisuusraportoinnissa tama tarkoittaa, etta kymmenet erikoistuneet agentit tekevat yhteistyota — ja orkestroija varmistaa, etta tulos on koherentti ja auditoitavissa.</p>
+                <p>Yksittäinen tekoälyagentti voi automatisoida yhden tehtävän. Agenttiparvi voi automatisoida kokonaisen liiketoimintaprosessin. Vaatimustenmukaisuusraportoinnissa tämä tarkoittaa, että kymmenet erikoistuneet agentit tekevät yhteistyota — ja orkestroija varmistaa, että tulos on koherentti ja auditoitavissa.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Agenttiparven rakenne</h2>
-                <p>DWS IQ -alustan vaatimustenmukaisuusagenttiparvi koostuu neljasta kerroksesta: orkestroija, erikoisagentit, tyokalukerros ja auditointikerros.</p>
+                <p>DWS IQ -alustan vaatimustenmukaisuusagenttiparvi koostuu neljästä kerroksesta: orkestroija, erikoisagentit, työkalukerros ja auditointikerros.</p>
 
-                <p><strong>Orkestroija</strong> on parven "aivot". Se ottaa vastaan tehtavan (esimerkiksi "tuota Q1 2026 CSRD-raportti"), pilkkoo sen osatehtaviksi, jakaa työn erikoisagenteille ja kokoaa lopputuloksen. Orkestroija ei itse kasittele dataa — se koordinoi.</p>
+                <p><strong>Orkestroija</strong> on parven "aivot". Se ottaa vastaan tehtävän (esimerkiksi "tuota Q1 2026 CSRD-raportti"), pilkkoo sen osatehtäviksi, jakaa työn erikoisagenteille ja kokoaa lopputuloksen. Orkestroija ei itse käsittele dataa — se koordinoi.</p>
 
-                <p><strong>Erikoisagentit</strong> ovat tehtavakohtaisia. Tyypillisessa vaatimustenmukaisuusparvessa on vahintaan: ESRS-datakeruuagentti (hakee datan ERP:sta ja muista lahteista), paastoanalyysiagentii (laskee Scope 1-3 -paastot), toimitusketjuagentti (arvioi toimittajariskeja ja vastuullisuutta), raporttimuotoiluagentti (tuottaa ESRS-raportin), riskianalyysiagentii (tunnistaa vaatimustenmukaisuuspoikkeamat) ja laadunvarmistusagentti (tarkistaa lopputuloksen).</p>
+                <p><strong>Erikoisagentit</strong> ovat tehtäväkohtaisia. Tyypillisessä vaatimustenmukaisuusparvessa on vähintään: ESRS-datakeruuagentti (hakee datan ERP:sta ja muista lähteistä), päästöanalyysiagentti (laskee Scope 1-3 -päästöt), toimitusketjuagentti (arvioi toimittajariskeja ja vastuullisuutta), raporttimuotoiluagentti (tuottaa ESRS-raportin), riskianalyysiagentti (tunnistaa vaatimustenmukaisuuspoikkeamat) ja laadunvarmistusagentti (tarkistaa lopputuloksen).</p>
 
-                <p><strong>Tyokalukerros</strong> tarjoaa MCP-rajapinnat ulkoisiin jarjestelmiin: ERP, energianmittaus, HR, taloushallinto. Jokainen tyokalu on standardoitu ja dokumentoitu.</p>
+                <p><strong>Työkalukerros</strong> tarjoaa MCP-rajapinnat ulkoisiin järjestelmiin: ERP, energianmittaus, HR, taloushallinto. Jokainen työkalu on standardoitu ja dokumentoitu.</p>
 
-                <p><strong>Auditointikerros</strong> (Firehorse) tallentaa jokaisen agentin toimenpiteen muuttumattomaan lokiin. Tama mahdollistaa jalkikateen taydellisen jaljitettavyyden: mita dataa kukin agentti haki, miten se kasitteli tiedon ja mita se tuotti vastauksena.</p>
+                <p><strong>Auditointikerros</strong> (Firehorse) tallentaa jokaisen agentin toimenpiteen muuttumattomaan lokiin. Tämä mahdollistaa jälkikäteen täydellisen jäljitettävyyden: mitä dataa kukin agentti haki, miten se käsitteli tiedon ja mitä se tuotti vastauksena.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Orkestroinnin haasteet</h2>
-                <p>Agenttiparven suurin haaste on koordinaatio. Kun kuusi agenttia tyoskentelee rinnakkain, syntyy riippuvuuksia: raporttimuotoiluagentti tarvitsee paastoanalyysin tulokset ennen kuin se voi aloittaa tyonsa. Riskianalyysiagentti tarvitsee seka taloudellisen etta ymparistodatan.</p>
+                <p>Agenttiparven suurin haaste on koordinaatio. Kun kuusi agenttia työskentelee rinnakkain, syntyy riippuvuuksia: raporttimuotoiluagentti tarvitsee päästöanalyysin tulokset ennen kuin se voi aloittaa työnsä. Riskianalyysiagentti tarvitsee sekä taloudellisen että ympäristödatan.</p>
 
-                <p>DWS IQ ratkaisee taman Temporal.io-orkestroinnin kautta. Jokainen agentin tehtava on "workflow step", jolla on selkeat syotteet, tuotokset ja virheenkasittelysaannot. Jos yksi agentti epaonnistuu, orkestroija tietaa miten toipua: yrittaa uudelleen, kayttaa vaihtoehtoista datalahdeftta tai ilmoittaa ihmiselle.</p>
+                <p>DWS IQ ratkaisee tämän Temporal.io-orkestroinnin kautta. Jokainen agentin tehtävä on "workflow step", jolla on selkeat syötteet, tuotokset ja virheenkäsittelysäännöt. Jos yksi agentti epäonnistuu, orkestroija tietää miten toipua: yrittää uudelleen, käyttää vaihtoehtoista datalähdettä tai ilmoittaa ihmiselle.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">KYA-turvallisuuskehys</h2>
-                <p>Know Your Agent (KYA) on DWS IQ:n turvallisuusstandardi, joka maarittelee saannot agenttiparven hallintaan. Jokainen agentti rekisteroidaan KYA-rekisteriin ennen kayttoonottoa. Rekisteroinnissa maaritellaan agentin identiteetti ja versio, sallitut tyokalut ja datalahteet, toimintarajat (esimerkiksi "saa lukea, ei saa kirjoittaa"), valvontasaannot (koska ihmisen hyvaksynta vaaditaan) ja elinkaari (milloin agentti deaktivoidaan).</p>
+                <p>Know Your Agent (KYA) on DWS IQ:n turvallisuusstandardi, joka määrittelee säännöt agenttiparven hallintaan. Jokainen agentti rekisteroidaan KYA-rekisteriin ennen käyttöönottoa. Rekisteroinnissa määritellään agentin identiteetti ja versio, sallitut työkalut ja datalahteet, toimintarajat (esimerkiksi "saa lukea, ei saa kirjoittaa"), valvontasäännöt (koska ihmisen hyväksyntä vaaditaan) ja elinkaari (milloin agentti deaktivoidaan).</p>
 
-                <p>Agenttiparven sisaisessa viestinnassa jokainen viesti on allekirjoitettu lahettajan identiteetilla. Tama estaa tilanteen, jossa yksi agentti voisi manipuloida toisen agentin dataa.</p>
+                <p>Agenttiparven sisäisessä viestinnassa jokainen viesti on allekirjoitettu lähettäjän identiteetillä. Tämä estää tilanteen, jossa yksi agentti voisi manipuloida toisen agentin dataa.</p>
 
-                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Kaytannon suunnitteluperiaatteet</h2>
-                <p><strong>Yksi tehtava per agentti.</strong> Vastusta kiusausta rakentaa "super-agenttia", joka tekee kaiken. Erikoistuneet agentit ovat luotettavampia, testattavampia ja korvattavampia.</p>
+                <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Käytännön suunnitteluperiaatteet</h2>
+                <p><strong>Yksi tehtävä per agentti.</strong> Vastusta kiusausta rakentaa "super-agenttia", joka tekee kaiken. Erikoistuneet agentit ovat luotettavampia, testattavampia ja korvattavampia.</p>
 
-                <p><strong>Idempotentti kasittely.</strong> Jokaisen agentin pitaa tuottaa sama tulos, jos se saa saman syotteen. Tama mahdollistaa uudelleenajamisen ilman sivuvaikutuksia.</p>
+                <p><strong>Idempotentti käsittely.</strong> Jokaisen agentin pitää tuottaa sama tulos, jos se saa saman syötteen. Tämä mahdollistaa uudelleenajamisen ilman sivuvaikutuksia.</p>
 
-                <p><strong>Ihminen silmukassa.</strong> Kriittisissa paatoksissa — kuten raportin lopullisessa hyvaksynnassa tai poikkeaman eskalaatiossa — ihminen tekee paatoksen. Agentit ehdottavat, ihminen paattaa.</p>
+                <p><strong>Ihminen silmukassa.</strong> Kriittisissä päätöksissä — kuten raportin lopullisessa hyväksynnässä tai poikkeaman eskalaatiossa — ihminen tekee päätöksen. Agentit ehdottavat, ihminen päättää.</p>
 
-                <p><strong>Asteittainen kayttoonotto.</strong> Aloita kahdella agentilla (datakeruuu + raportointi). Lisaa agenteja tarpeen mukaan. Monimutkainen parvi, jota kukaan ei ymmarra, on pahempi kuin manuaalinen prosessi.</p>
+                <p><strong>Asteittainen käyttöönotto.</strong> Aloita kahdella agentilla (datakeruu + raportointi). Lisää agenteja tarpeen mukaan. Monimutkainen parvi, jota kukaan ei ymmarra, on pahempi kuin manuaalinen prosessi.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4" style="color: #e2e8f0;">Seuraavat askeleet</h2>
-                <p>Agenttiparven rakentaminen alkaa ymmartamisesta: mitka prosessit ovat toistettavia, missa data on saatavilla koneluettavassa muodossa ja missa ihmisen asiantuntemus on korvaamatonta. Aloita kartoituksesta — automatisointi seuraa luonnollisesti.</p>
+                <p>Agenttiparven rakentaminen alkaa ymmärtämisestä: mitkä prosessit ovat toistettavia, missä data on saatavilla koneluettavassa muodossa ja missä ihmisen asiantuntemus on korvaamatonta. Aloita kartoituksesta — automatisointi seuraa luonnollisesti.</p>
             </div>
 
             <div class="mt-16 p-8 rounded-lg" style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(96, 165, 250, 0.2);">
                 <h3 class="text-xl font-bold mb-2" style="color: #e2e8f0;">Tilaa Lifetime Scope Journal</h3>
-                <p class="text-sm text-gray-400 mb-4">Viikoittainen katsaus EU-saantelyyn, tekoalyagentteihin ja teolliseen murrokseen. Suomenkielinen painos.</p>
+                <p class="text-sm text-gray-400 mb-4">Viikoittainen katsaus EU-sääntelyyn, tekoälyagentteihin ja teolliseen murrokseen. Suomenkielinen painos.</p>
                 <a href="https://dws10.com/contact/" class="inline-block px-6 py-2 rounded text-sm font-bold" style="background: linear-gradient(135deg, #0066cc, #2563eb); color: #fff;">Tilaa</a>
             </div>
 
             <div class="mt-12">
-                <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Lue myos</h3>
+                <h3 class="text-lg font-bold mb-4" style="color: #d4a843;">Lue myös</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <a href="day-010-mcp-protokolla-tekoaly-erp-yhteys.html" class="pillar-card p-4 rounded-lg block">
-                        <span class="text-xs text-cyan-400">Paiva 10</span>
-                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">MCP-protokolla: Tekoaly ja ERP-yhteys</p>
+                        <span class="text-xs text-cyan-400">Päivä 10</span>
+                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">MCP-protokolla: Tekoäly ja ERP-yhteys</p>
                     </a>
                     <a href="day-003-tekoalyagentit-korvaavat-manuaalisen-raportoinnin.html" class="pillar-card p-4 rounded-lg block">
-                        <span class="text-xs text-cyan-400">Paiva 3</span>
-                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">Tekoalyagentit korvaavat manuaalisen raportoinnin</p>
+                        <span class="text-xs text-cyan-400">Päivä 3</span>
+                        <p class="text-sm font-semibold mt-1" style="color: #e2e8f0;">Tekoälyagentit korvaavat manuaalisen raportoinnin</p>
                     </a>
                 </div>
             </div>

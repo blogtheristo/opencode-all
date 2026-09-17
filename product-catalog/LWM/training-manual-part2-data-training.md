@@ -1108,8 +1108,8 @@ After completing Part 1's Ollama installation, configure a code review model for
 ```bash
 cat > ~/dws-lwm/configs/ollama/code-reviewer.Modelfile << 'EOF'
 # DWS IQ 6 Code Reviewer — Custom Ollama Model
-# Based on Qwen 2.5 Coder 14B
-FROM qwen2.5-coder:14b
+# Based on Qwen3-Coder 30B (MoE, 3.3B active per token)
+FROM qwen3-coder:30b
 
 # System prompt for code review
 SYSTEM """You are a strict senior code reviewer for DWS IQ 6, an enterprise climate intelligence platform.

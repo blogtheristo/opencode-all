@@ -44,7 +44,7 @@ Document Status:
 
 **Proposal:** Make xAI Grok the official AI Captain's Brain in the DWS IQ 6 physical Control Room + Situation Room — a fully air-gapped, EU-sovereign cluster called the **Captain's Bridge**.
 
-**Who:** Lifetime Oy / DWS10 — EU climate intelligence platform serving Fit for 55, ETS, CBAM, and CSRD compliance across 16 industries.
+**Who:** Lifetime Oy / DWS10 — EU climate intelligence platform serving Fit for 55, ETS, CBAM, and CSRD compliance across 25+ industries.
 
 **Vehicle:** Platinum Industry Captain seat (€50k SAFE @ €3.8M cap, 18% product discount — first tranche, Feb 26 2026 data) combined with an xAI Enterprise on-prem MoU.
 
@@ -143,7 +143,7 @@ This matches DWS10's "100% EU data residency — no US CLOUD Act exposure by des
 | Edge performance | <100 ms latency on GN100 cluster vs cloud round-trip |
 | Cost savings | Validated €333k/year per site vs cloud inference costs |
 | Customer credibility | "Powered by xAI Grok" on Situation Room dashboards — credibility signal for Nordic/EU flagship accounts (NCC, T2H, defense, energy) |
-| Roadmap co-creation | Platinum Captains shape DWS7 feature priorities |
+| Roadmap co-creation | Industry Captains shape DWS7 feature priorities |
 
 ### For xAI
 
@@ -162,7 +162,7 @@ This matches DWS10's "100% EU data residency — no US CLOUD Act exposure by des
 | Step | Action | Owner | Timeline |
 | ---- | ------ | ----- | -------- |
 | 1 | 30-minute alignment call | Risto Paarni + xAI Enterprise | Next week |
-| 2 | Sign Platinum Captain SAFE | Prospective Captain | Week 1 |
+| 2 | Sign Industry Captain SAFE | Prospective Captain | Week 1 |
 | 3 | xAI Enterprise on-prem MoU / pilot license | xAI + Lifetime Oy legal | Week 2 |
 | 4 | Build first connector: Iceye SAR → DWS IQ carbon dashboard with consent flow | DWS10 engineering | Starts immediately |
 
@@ -209,7 +209,7 @@ This matches DWS10's "100% EU data residency – CLOUD Act Free" commitment and 
 - Grok becomes the truthful, debating "Captain's Brain" layered on the Lifetime World Model (15,000+ EU regs).
 - Edge performance & cost: <100 ms latency, massive savings vs cloud (validated €333k/year per site).
 - Instant regulatory credibility: "Powered by xAI Grok" on Situation Room dashboards = magnet for Nordic/EU flagship customers (NCC, T2H, defense, energy).
-- Roadmap influence: As Platinum Captain I get 1:1 CEO sessions + first right of refusal on my vertical.
+- Roadmap influence: As Industry Captain I get 1:1 CEO sessions + first right of refusal on my vertical.
 
 *For xAI:*
 - Compliant EU sovereign beachhead in critical infrastructure (Fit for 55, NIS2, CSRD).
@@ -222,7 +222,7 @@ This partnership is a natural extension of DWS10's existing NVIDIA, Siemens, and
 **Next Steps (proposed)**
 
 1. 30-min alignment call next week (you + me + `ai_director@lifetime.fi` or `sales@x.ai`).
-2. Sign Platinum Captain SAFE + xAI Enterprise on-prem MoU / pilot license.
+2. Sign Industry Captain SAFE + xAI Enterprise on-prem MoU / pilot license.
 3. Build first connector (Iceye SAR → DWS IQ carbon dashboard with consent flow) – I can start this immediately with Grok.
 
 I am ready to move fast. This is the sovereign, no-drama, maximum-truth path Europe is asking for.

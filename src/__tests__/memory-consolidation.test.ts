@@ -11,31 +11,16 @@
  * Owner: Lifetime Oy
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MemoryService } from '../agents/memory.service.js';
 
-const mockRpc = vi.fn();
-const mockFrom = vi.fn();
-const mockUpdate = vi.fn();
-const mockEq = vi.fn();
-const mockIs = vi.fn();
+// Mock the internal Postgres pool (src/config/internal-db.ts)
+const mockQuery = vi.fn();
+const mockPool = { query: mockQuery };
+const mockGetInternalDbPool = vi.fn(() => mockPool);
 
-const mockUpdateChain = {
-  eq: mockEq,
-  is: mockIs,
-};
-
-// update().eq().eq().is().is() chain returns a promise-like result at the end
-mockEq.mockReturnValue(mockUpdateChain);
-mockIs.mockResolvedValue({ error: null });
-mockUpdate.mockReturnValue(mockUpdateChain);
-mockFrom.mockReturnValue({ update: mockUpdate });
-
-vi.mock('@supabase/supabase-js', () => ({
-  createClient: vi.fn(() => ({
-    rpc: mockRpc,
-    from: mockFrom,
-  })),
+vi.mock('../config/internal-db.js', () => ({
+  getInternalDbPool: () => mockGetInternalDbPool(),
 }));
 
 vi.mock('../utils/logger.js', () => ({
@@ -52,66 +37,62 @@ describe('MemoryService — Consolidation', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    mockRpc.mockReset();
-    mockFrom.mockReset();
-    mockUpdate.mockReset();
-    mockEq.mockReset();
-    mockIs.mockReset();
-    mockFrom.mockReturnValue({ update: mockUpdate });
-    mockUpdate.mockReturnValue(mockUpdateChain);
-    mockEq.mockReturnValue(mockUpdateChain);
-    mockIs.mockResolvedValue({ error: null });
-    process.env.SUPABASE_URL = 'https://test.supabase.co';
-    process.env.SUPABASE_SERVICE_KEY = 'test-key';
+    process.env.INTERNAL_DB_URL = 'postgres://test:test@localhost:5432/test';
+    process.env.ENABLE_INTERNAL_DB_IN_TESTS = 'true';
+    mockGetInternalDbPool.mockReturnValue(mockPool);
     service = new MemoryService();
   });
 
   describe('consolidateDuplicates()', () => {
     it('should call find_duplicate_memories with mandatory org + customer scope', async () => {
-      mockRpc.mockResolvedValueOnce({ data: [], error: null });
-      // logAudit RPC
-      mockRpc.mockResolvedValueOnce({ data: 'audit-1', error: null });
+      mockQuery.mockResolvedValueOnce({ rows: [] }); // find_duplicate_memories
+      mockQuery.mockResolvedValueOnce({ rows: [{ log_memory_audit: 'audit-1' }] }); // fire-and-forget logAudit
 
       await service.consolidateDuplicates('org-1', 'cust-abc');
 
-      expect(mockRpc).toHaveBeenCalledWith('find_duplicate_memories', {
-        p_org_id: 'org-1',
-        p_customer_id: 'cust-abc',
-        p_auto_threshold: 0.92,
-        p_review_threshold: 0.80,
-        p_limit: 500,
-      });
+      // Param order: p_org_id, p_customer_id, p_auto_threshold, p_review_threshold, p_limit
+      expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('find_duplicate_memories'), [
+        'org-1',
+        'cust-abc',
+        0.92,
+        0.8,
+        500,
+      ]);
     });
 
     it('should auto-consolidate pairs above 0.92 via supersede', async () => {
       // First call: find duplicates
-      mockRpc.mockResolvedValueOnce({
-        data: [{
-          memory_a_id: 'mem-a',
-          memory_b_id: 'mem-b',
-          content_a: 'ACME has 250 employees',
-          content_b: 'ACME Corp employs 250 people',
-          confidence_a: 0.9,
-          confidence_b: 0.7,
-          cosine_similarity: 0.95,
-          needs_review: false,
-          keep_id: 'mem-a',
-          supersede_id: 'mem-b',
-        }],
-        error: null,
+      mockQuery.mockResolvedValueOnce({
+        rows: [
+          {
+            memory_a_id: 'mem-a',
+            memory_b_id: 'mem-b',
+            content_a: 'ACME has 250 employees',
+            content_b: 'ACME Corp employs 250 people',
+            confidence_a: 0.9,
+            confidence_b: 0.7,
+            cosine_similarity: 0.95,
+            needs_review: false,
+            keep_id: 'mem-a',
+            supersede_id: 'mem-b',
+          },
+        ],
       });
-      // Second call: supersede_memory RPC
-      mockRpc.mockResolvedValueOnce({
-        data: [{
-          new_memory_id: 'new-mem-1',
-          requires_review: false,
-          confidence_delta: 0.2,
-          kya_decision: 'auto_approved (confidence_delta 0.20 <= 0.3)',
-        }],
-        error: null,
+      // Second call: supersede_memory
+      mockQuery.mockResolvedValueOnce({
+        rows: [
+          {
+            new_memory_id: 'new-mem-1',
+            requires_review: false,
+            confidence_delta: 0.2,
+            kya_decision: 'auto_approved (confidence_delta 0.20 <= 0.3)',
+          },
+        ],
       });
-      // Third call: logAudit
-      mockRpc.mockResolvedValueOnce({ data: 'audit-1', error: null });
+      // Third call: UPDATE semantic_memories (mark previously-kept row as superseded)
+      mockQuery.mockResolvedValueOnce({ rows: [] });
+      // Fourth call: fire-and-forget logAudit
+      mockQuery.mockResolvedValueOnce({ rows: [{ log_memory_audit: 'audit-1' }] });
 
       const result = await service.consolidateDuplicates('org-1', 'cust-abc');
 
@@ -119,33 +100,48 @@ describe('MemoryService — Consolidation', () => {
       expect(result.autoConsolidated).toBe(1);
       expect(result.flaggedForReview).toBe(0);
 
-      // Verify supersede was called with correct keep content
-      expect(mockRpc).toHaveBeenCalledWith('supersede_memory', expect.objectContaining({
-        p_old_memory_id: 'mem-b',
-        p_new_content: 'ACME has 250 employees',
-        p_agent_id: 'consolidation-cron',
-        p_reason: expect.stringContaining('duplicate_consolidation'),
-      }));
-      expect(mockFrom).toHaveBeenCalledWith('semantic_memories');
+      // Verify supersede was called with correct keep content, orgId, and agent attribution.
+      // Param order: p_old_memory_id, p_new_content, p_new_confidence, p_new_source,
+      // p_reason, p_agent_id, p_agent_ats, p_org_id, p_customer_id, p_new_metadata
+      expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('supersede_memory'), [
+        'mem-b',
+        'ACME has 250 employees',
+        0.9,
+        'consolidation-cron',
+        expect.stringContaining('duplicate_consolidation'),
+        'consolidation-cron',
+        null,
+        'org-1',
+        null,
+        {},
+      ]);
+
+      // Verify the keep-row was marked superseded by the new canonical memory
+      expect(mockQuery).toHaveBeenCalledWith(expect.stringContaining('UPDATE semantic_memories'), [
+        'new-mem-1',
+        'mem-a',
+        'org-1',
+      ]);
     });
 
     it('should flag pairs in 0.80-0.92 range for review', async () => {
-      mockRpc.mockResolvedValueOnce({
-        data: [{
-          memory_a_id: 'mem-c',
-          memory_b_id: 'mem-d',
-          content_a: 'ACME is in Helsinki',
-          content_b: 'ACME headquarters Finland',
-          confidence_a: 0.8,
-          confidence_b: 0.8,
-          cosine_similarity: 0.87,
-          needs_review: true,
-          keep_id: 'mem-c',
-          supersede_id: 'mem-d',
-        }],
-        error: null,
+      mockQuery.mockResolvedValueOnce({
+        rows: [
+          {
+            memory_a_id: 'mem-c',
+            memory_b_id: 'mem-d',
+            content_a: 'ACME is in Helsinki',
+            content_b: 'ACME headquarters Finland',
+            confidence_a: 0.8,
+            confidence_b: 0.8,
+            cosine_similarity: 0.87,
+            needs_review: true,
+            keep_id: 'mem-c',
+            supersede_id: 'mem-d',
+          },
+        ],
       });
-      mockRpc.mockResolvedValueOnce({ data: 'audit-1', error: null });
+      mockQuery.mockResolvedValueOnce({ rows: [{ log_memory_audit: 'audit-1' }] });
 
       const result = await service.consolidateDuplicates('org-1', 'cust-abc');
 
@@ -153,37 +149,39 @@ describe('MemoryService — Consolidation', () => {
       expect(result.autoConsolidated).toBe(0);
       expect(result.flaggedForReview).toBe(1);
       // No supersede call — only find_duplicate_memories + logAudit
-      expect(mockRpc).toHaveBeenCalledTimes(2);
+      expect(mockQuery).toHaveBeenCalledTimes(2);
     });
 
     it('should count KYA blocks when confidence_delta > 0.3', async () => {
       // Duplicate pair found
-      mockRpc.mockResolvedValueOnce({
-        data: [{
-          memory_a_id: 'mem-e',
-          memory_b_id: 'mem-f',
-          content_a: 'Revenue is 10M',
-          content_b: 'Revenue is ten million',
-          confidence_a: 0.9,
-          confidence_b: 0.4,
-          cosine_similarity: 0.93,
-          needs_review: false,
-          keep_id: 'mem-e',
-          supersede_id: 'mem-f',
-        }],
-        error: null,
+      mockQuery.mockResolvedValueOnce({
+        rows: [
+          {
+            memory_a_id: 'mem-e',
+            memory_b_id: 'mem-f',
+            content_a: 'Revenue is 10M',
+            content_b: 'Revenue is ten million',
+            confidence_a: 0.9,
+            confidence_b: 0.4,
+            cosine_similarity: 0.93,
+            needs_review: false,
+            keep_id: 'mem-e',
+            supersede_id: 'mem-f',
+          },
+        ],
       });
-      // Supersede returns requires_review (confidence_delta 0.5 > 0.3)
-      mockRpc.mockResolvedValueOnce({
-        data: [{
-          new_memory_id: null,
-          requires_review: true,
-          confidence_delta: 0.5,
-          kya_decision: 'pending_review (confidence_delta > 0.3)',
-        }],
-        error: null,
+      // Supersede returns requires_review (confidence_delta 0.5 > 0.3) — no UPDATE follows
+      mockQuery.mockResolvedValueOnce({
+        rows: [
+          {
+            new_memory_id: null,
+            requires_review: true,
+            confidence_delta: 0.5,
+            kya_decision: 'pending_review (confidence_delta > 0.3)',
+          },
+        ],
       });
-      mockRpc.mockResolvedValueOnce({ data: 'audit-1', error: null });
+      mockQuery.mockResolvedValueOnce({ rows: [{ log_memory_audit: 'audit-1' }] });
 
       const result = await service.consolidateDuplicates('org-1', 'cust-abc');
 
@@ -192,36 +190,34 @@ describe('MemoryService — Consolidation', () => {
     });
 
     it('should not call supersede in dry run mode', async () => {
-      mockRpc.mockResolvedValueOnce({
-        data: [{
-          memory_a_id: 'mem-g',
-          memory_b_id: 'mem-h',
-          content_a: 'Fact A',
-          content_b: 'Fact A duplicate',
-          confidence_a: 0.9,
-          confidence_b: 0.8,
-          cosine_similarity: 0.96,
-          needs_review: false,
-          keep_id: 'mem-g',
-          supersede_id: 'mem-h',
-        }],
-        error: null,
+      mockQuery.mockResolvedValueOnce({
+        rows: [
+          {
+            memory_a_id: 'mem-g',
+            memory_b_id: 'mem-h',
+            content_a: 'Fact A',
+            content_b: 'Fact A duplicate',
+            confidence_a: 0.9,
+            confidence_b: 0.8,
+            cosine_similarity: 0.96,
+            needs_review: false,
+            keep_id: 'mem-g',
+            supersede_id: 'mem-h',
+          },
+        ],
       });
-      mockRpc.mockResolvedValueOnce({ data: 'audit-1', error: null });
+      mockQuery.mockResolvedValueOnce({ rows: [{ log_memory_audit: 'audit-1' }] });
 
       const result = await service.consolidateDuplicates('org-1', 'cust-abc', { dryRun: true });
 
       expect(result.autoConsolidated).toBe(1);
       expect(result.dryRun).toBe(true);
       // Only find + logAudit, no supersede
-      expect(mockRpc).toHaveBeenCalledTimes(2);
+      expect(mockQuery).toHaveBeenCalledTimes(2);
     });
 
-    it('should handle RPC errors gracefully', async () => {
-      mockRpc.mockResolvedValueOnce({
-        data: null,
-        error: { message: 'function does not exist' },
-      });
+    it('should handle query errors gracefully', async () => {
+      mockQuery.mockRejectedValueOnce(new Error('function does not exist'));
 
       const result = await service.consolidateDuplicates('org-1', 'cust-abc');
 
@@ -229,9 +225,8 @@ describe('MemoryService — Consolidation', () => {
       expect(result.autoConsolidated).toBe(0);
     });
 
-    it('should return empty when supabase not configured', async () => {
-      delete process.env.SUPABASE_URL;
-      delete process.env.SUPABASE_SERVICE_KEY;
+    it('should return empty when internal Postgres is not configured', async () => {
+      mockGetInternalDbPool.mockReturnValueOnce(null);
       const unconfigured = new MemoryService();
 
       const result = await unconfigured.consolidateDuplicates('org-1', 'cust-abc');
@@ -243,34 +238,31 @@ describe('MemoryService — Consolidation', () => {
 
   describe('consolidateOrgDuplicates()', () => {
     it('should call find_duplicate_org_memories (no customer_id param)', async () => {
-      mockRpc.mockResolvedValueOnce({ data: [], error: null });
-      mockRpc.mockResolvedValueOnce({ data: 'audit-1', error: null });
+      mockQuery.mockResolvedValueOnce({ rows: [] });
+      mockQuery.mockResolvedValueOnce({ rows: [{ log_memory_audit: 'audit-1' }] });
 
       await service.consolidateOrgDuplicates('org-1');
 
-      expect(mockRpc).toHaveBeenCalledWith('find_duplicate_org_memories', {
-        p_org_id: 'org-1',
-        p_auto_threshold: 0.92,
-        p_review_threshold: 0.80,
-        p_limit: 500,
-      });
+      // Param order: p_org_id, p_auto_threshold, p_review_threshold, p_limit
+      expect(mockQuery).toHaveBeenCalledWith(
+        expect.stringContaining('find_duplicate_org_memories'),
+        ['org-1', 0.92, 0.8, 500],
+      );
     });
 
     it('should accept custom thresholds', async () => {
-      mockRpc.mockResolvedValueOnce({ data: [], error: null });
-      mockRpc.mockResolvedValueOnce({ data: 'audit-1', error: null });
+      mockQuery.mockResolvedValueOnce({ rows: [] });
+      mockQuery.mockResolvedValueOnce({ rows: [{ log_memory_audit: 'audit-1' }] });
 
       await service.consolidateOrgDuplicates('org-1', {
         autoThreshold: 0.95,
         reviewThreshold: 0.85,
       });
 
-      expect(mockRpc).toHaveBeenCalledWith('find_duplicate_org_memories', {
-        p_org_id: 'org-1',
-        p_auto_threshold: 0.95,
-        p_review_threshold: 0.85,
-        p_limit: 500,
-      });
+      expect(mockQuery).toHaveBeenCalledWith(
+        expect.stringContaining('find_duplicate_org_memories'),
+        ['org-1', 0.95, 0.85, 500],
+      );
     });
   });
 });

@@ -268,6 +268,8 @@ AI-natiivin kehityksen ilman data sovereignty -riskiä.
 deployment-prosesseja, jotka lopulta johtavat Aegis-tasoisiin
 tuotantoympäristöihin. Portaat ovat loogiset.
 
+> *Kehyshuomio (2026-05-28).* Tuotteiden kolmijako Aegis / Sovereign Infra / Connect on EU-lähtöisen yrityksen operatiivinen ilmentymä universaalista kolmen pilarin (Data / Teknologia / Toiminta) × kolmen jurisdiktion (EU / US / Singapore) suvereniteettimallista. Ks. Sovereignty Field Note #2 (`https://onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html`) taksonomian osalta ja `DWS_TRUTH_STANDARD.md` rivi 16 kanonisena viitteenä.
+
 ---
 
 ## 4. LWM — Lifetime World Model

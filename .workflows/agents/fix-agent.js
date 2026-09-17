@@ -87,7 +87,7 @@ async function fixLatestAudit() {
 async function fixSpecificAudit(auditId) {
   console.log(`🔍 Loading audit report: ${auditId}...\n`);
 
-  const auditPath = path.join(CONFIG.AUDIT_DIR, `${auditId}.json`);
+  const auditPath = validateAuditId(auditId);
   if (!fs.existsSync(auditPath)) {
     throw new Error(`Audit report not found: ${auditId}`);
   }
@@ -277,6 +277,20 @@ function generateTimeoutFix(audit) {
   };
 
   return fix;
+}
+
+function validateAuditId(auditId) {
+  if (typeof auditId !== 'string' || !/^[a-zA-Z0-9_-]+$/.test(auditId)) {
+    throw new Error(`Invalid audit ID: ${auditId}`);
+  }
+
+  const auditDir = path.resolve(CONFIG.AUDIT_DIR);
+  const auditPath = path.resolve(auditDir, auditId + '.json');
+  if (auditPath !== auditDir && !auditPath.startsWith(auditDir + path.sep)) {
+    throw new Error(`Audit report path traversal attempt detected: ${auditId}`);
+  }
+
+  return auditPath;
 }
 
 // Input validation helpers

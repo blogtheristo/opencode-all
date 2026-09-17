@@ -1,0 +1,302 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Sales Lifecycle: Bid, Offer, Contract",
+  "description": "Complete schema for bid → offer → contract lifecycle management",
+  "definitions": {
+    "salesEntity": {
+      "type": "object",
+      "required": ["id", "type", "customer_id", "created_at"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(bid|offer|contract)_\\d{4}_\\d{3}",
+          "description": "Unique identifier: bid_2026_001, offer_2026_001, contract_2026_001"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["bid", "offer", "contract"],
+          "description": "Document type in lifecycle"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "DRAFT",
+            "SENT",
+            "ACCEPTED",
+            "ACTIVE",
+            "RENEWED",
+            "EXPIRED",
+            "ARCHIVED",
+            "REJECTED"
+          ],
+          "description": "Current status in lifecycle"
+        },
+        "customer_id": {
+          "type": "string",
+          "description": "Reference to customer entity (CRM)"
+        },
+        "customer_name": {
+          "type": "string",
+          "description": "Customer organization name"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When document was created"
+        },
+        "created_by": {
+          "type": "string",
+          "description": "Agent or person who created"
+        },
+        "products": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["product_id", "quantity", "unit_price"],
+            "properties": {
+              "product_id": {
+                "type": "string",
+                "description": "Reference to products.json"
+              },
+              "product_name": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "number",
+                "minimum": 0.01
+              },
+              "unit_price": {
+                "type": "number",
+                "minimum": 0,
+                "description": "EUR, from products.json"
+              },
+              "total": {
+                "type": "number",
+                "description": "quantity × unit_price"
+              },
+              "discount_percent": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            }
+          }
+        },
+        "total_value": {
+          "type": "number",
+          "minimum": 0,
+          "description": "EUR"
+        },
+        "currency": {
+          "type": "string",
+          "enum": ["EUR", "USD", "GBP"],
+          "default": "EUR"
+        },
+        "terms": {
+          "type": "object",
+          "properties": {
+            "payment_terms": {
+              "type": "string",
+              "enum": ["net_30", "net_60", "net_90", "prepay", "installments"],
+              "description": "Payment schedule"
+            },
+            "delivery_date": {
+              "type": "string",
+              "format": "date",
+              "description": "Promised delivery date"
+            },
+            "warranty_months": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60
+            },
+            "support_level": {
+              "type": "string",
+              "enum": ["none", "business_hours", "24_7", "premium"],
+              "default": "business_hours"
+            },
+            "sla": {
+              "type": "string",
+              "description": "Service level agreement details"
+            }
+          }
+        },
+        "timeline": {
+          "type": "object",
+          "properties": {
+            "valid_until": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When bid/offer expires"
+            },
+            "effective_date": {
+              "type": "string",
+              "format": "date",
+              "description": "When contract starts (null until signed)"
+            },
+            "expiry_date": {
+              "type": "string",
+              "format": "date",
+              "description": "When contract ends"
+            },
+            "renewal_reminder_date": {
+              "type": "string",
+              "format": "date",
+              "description": "When to notify about renewal (expiry - 30 days)"
+            }
+          }
+        },
+        "legal": {
+          "type": "object",
+          "required": ["company", "business_id", "signatory"],
+          "properties": {
+            "company": {
+              "type": "string",
+              "enum": ["Lifetime Oy"],
+              "description": "Issuing company"
+            },
+            "business_id": {
+              "type": "string",
+              "enum": ["FI07724079"],
+              "description": "Company business ID"
+            },
+            "signatory": {
+              "type": "string",
+              "description": "Person authorized to sign"
+            },
+            "signatory_title": {
+              "type": "string",
+              "default": "Founder, CEO"
+            },
+            "jurisdiction": {
+              "type": "string",
+              "default": "Finland",
+              "description": "Governing law"
+            }
+          }
+        },
+        "compliance": {
+          "type": "object",
+          "properties": {
+            "gdpr_compliant": {
+              "type": "boolean",
+              "default": false
+            },
+            "nda_signed": {
+              "type": "boolean",
+              "default": false
+            },
+            "ai_act_compliant": {
+              "type": "boolean",
+              "default": false,
+              "description": "EU AI Act compliance"
+            },
+            "verified_by": {
+              "type": "string",
+              "description": "Agent that verified (compliance-check, legal-review)"
+            },
+            "verified_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "violations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Any compliance issues found"
+            }
+          }
+        },
+        "signatures": {
+          "type": "object",
+          "properties": {
+            "customer_signed": {
+              "type": "boolean",
+              "default": false
+            },
+            "customer_signed_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "customer_signatory": {
+              "type": "string"
+            },
+            "lifetime_signed": {
+              "type": "boolean",
+              "default": false
+            },
+            "lifetime_signed_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "filename": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["pdf", "docx", "signature", "evidence"]
+              },
+              "path": {
+                "type": "string",
+                "description": "Path in contracts/ folder"
+              },
+              "hash": {
+                "type": "string",
+                "description": "SHA256 for integrity"
+              }
+            }
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "kb_id": {
+              "type": "string",
+              "description": "Knowledge base reference"
+            },
+            "campaign": {
+              "type": "string",
+              "description": "Sales campaign/source"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "audit_trail": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "action": {
+                    "type": "string"
+                  },
+                  "by": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/salesEntity"
+    }
+  ]
+}

@@ -186,6 +186,8 @@ agent:
     retention_days: 90
 
   monitoring:
+    # Optional: Teams, generic webhook, or WhatsApp (Slack is not used)
+    teams_webhook: "${TEAMS_WEBHOOK_URL}"
     primary_channel: "whatsapp"
     notify_webhook: "${NOTIFY_WEBHOOK_URL}"
     whatsapp_recipient: "${WHATSAPP_DEFAULT_RECIPIENT}"

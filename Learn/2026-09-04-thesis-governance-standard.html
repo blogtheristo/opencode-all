@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Field Note: DWS_THESIS_STANDARD.md — 2026-09-04</title>
+<style>
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:900px;margin:0 auto;padding:20px 40px;line-height:1.7;color:#1a1a2e;background:#fafafa}
+h1{color:#0f172a;border-bottom:3px solid #fbbf24;padding-bottom:10px}
+h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-top:40px}
+h3{color:#334155}h4{color:#475569}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.9em}
+pre{background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}
+table{border-collapse:collapse;width:100%;margin:20px 0}
+th,td{border:1px solid #cbd5e1;padding:10px 14px;text-align:left}
+th{background:#1e3a5f;color:white}tr:nth-child(even){background:#f8fafc}
+blockquote{border-left:4px solid #fbbf24;margin:20px 0;padding:10px 20px;background:#fffbeb}
+a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
+.meta{color:#64748b;font-size:.9em;margin-bottom:20px}
+.badge{background:#fbbf24;color:#0f172a;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.85rem;display:inline-block;margin-top:10px}
+</style>
+</head>
+<body>
+<h1>Session Field Note: DWS_THESIS_STANDARD.md Created</h1>
+<div class="meta">
+<strong>Date:</strong> 2026-09-04<br>
+<strong>Session:</strong> claude/ai-software-engineering-krt01q (continuation, AI+SWE gap closure)<br>
+<strong>Artifact:</strong> DWS_THESIS_STANDARD.md (v1.0, 490 lines)<br>
+<span class="badge">Completed</span>
+</div>
+
+<h2>What Happened</h2>
+<p>Following HIC approval of five gap-closure items, this session finalized the governance framework for thesis changes that was missing from earlier work. The HIC explicitly requested: <em>"add to thesis_standard that when lockstep is done you print to HIC the changed text for dialog to improve the overall input before text becomes approved."</em></p>
+<p><strong>Deliverable:</strong> A new canonical standard that operationalizes this workflow.</p>
+
+<h2>DWS_THESIS_STANDARD.md — Content & Scope</h2>
+<p><strong>v1.0 — ~490 lines across 11 sections + 2 appendices</strong></p>
+
+<h3>Core Sections</h3>
+<ol>
+<li><strong>§1: The Four Files</strong> — Names and scope of the sacred quartet (V3Thesis_EN, V3Thesis_FI, PHD_FIREHORSE_EN, PHD_FIREHORSE_FI) with a table clarifying master's thesis = implementation evidence + product decisions (Metropolia), PhD thesis = scientific framing + market signals (LUT).</li>
+
+<li><strong>§1.2: Content Scope Rule</strong> — Copied verbatim from CLAUDE.md to make it canonical here too, establishing that implementation evidence routes to master's thesis and scientific framing to PhD thesis.</li>
+
+<li><strong>§2: Change Types</strong> — Three categories:
+<ul>
+<li><strong>Category A (Additive/GREEN):</strong> Wholly new sections triggering HIC dialogue workflow</li>
+<li><strong>Category B (Lockstep-only/GREEN):</strong> Version bumps across all four files when any file changes</li>
+<li><strong>Category C (Corrective/YELLOW):</strong> Factual corrections requiring HIC spot-check</li>
+</ul>
+</li>
+
+<li><strong>§3: VERSION AND AGENT HISTORY Format</strong> — Exact field specifications to eliminate ambiguity and ensure every version is auditable.</li>
+
+<li><strong>§4: HIC Dialogue Workflow (NEW)</strong> — The user's requested procedure formalized into six phases:
+<ul>
+<li><strong>§4.1: Initiation</strong> — Agent drafts new section</li>
+<li><strong>§4.2: Submission</strong> — Agent shows <strong>full text in fenced code block</strong> to HIC and <strong>explicitly stops and waits</strong></li>
+<li><strong>§4.3: Dialogue</strong> — HIC reads text and provides feedback</li>
+<li><strong>§4.4: Revision</strong> — Agent revises based on feedback</li>
+<li><strong>§4.5: Approval</strong> — HIC gives explicit <strong>"Status: APPROVED"</strong> sign-off</li>
+<li><strong>§4.6: Implementation</strong> — Agent commits to all four files in lockstep</li>
+</ul>
+</li>
+
+<li><strong>§5: Lockstep Version Bumping</strong> — Rules for when and how to bump all four files together.</li>
+<li><strong>§6: Approval Gates Matrix</strong> — Who decides what and which gates are hard-blocking vs. advisory.</li>
+<li><strong>§7: Citation & Sourcing Rules</strong> — Primary sources, secondary sources, field observations, and [UNVERIFIED] marking discipline.</li>
+<li><strong>§8: Handling Obsolete Passages</strong> — Preservation rule per Rule 12 (Fail Loud): keep original, add new section, mark with supersession marker.</li>
+<li><strong>§9: Learn/ HTML Versioning</strong> — Automatic regeneration via gen-thesis-html.cjs; retain all old versions.</li>
+<li><strong>§10: Integration with Other DWS Standards</strong> — Cross-references to DWS_DOCUMENT_STANDARD.md, CLAUDE.md, DWS_TRUTH_STANDARD.md.</li>
+</ol>
+
+<h2>Why This Matters</h2>
+<p><strong>Before this standard:</strong> Thesis changes relied on agent judgment and CLAUDE.md rules alone; no formal HIC review step before content was committed; ambiguity about version status.</p>
+
+<p><strong>After this standard:</strong> Every additive thesis change follows an explicit six-phase workflow; HIC sees the actual text before it's committed; dialogue feedback is solicited and incorporated before approval; approval is explicit and auditable.</p>
+
+<p>This implements the HIC's explicit request to "print to HIC the changed text for dialog to improve the overall input before text becomes approved" — and provides the governance framework so it happens every time.</p>
+
+<h2>Audit Trail</h2>
+<ul>
+<li><strong>Created:</strong> 2026-09-04, session claude/ai-software-engineering-krt01q</li>
+<li><strong>Commit:</strong> 7555989d769f (DWS_THESIS_STANDARD.md v1.0)</li>
+<li><strong>Branch:</strong> claude/ai-software-engineering-krt01q → origin (pushed)</li>
+<li><strong>Size:</strong> 490 lines, ~18 KB</li>
+<li><strong>Related KB:</strong> kb/wiki/ai-swe-gap-closure-2026-09.md</li>
+</ul>
+
+<h2>HIC Decision Question</h2>
+<p><strong>Should the HIC Dialogue Workflow (§4) be <strong>mandatory for all additive thesis changes</strong> (enforced by CI gate), or <strong>advisory</strong> (a process guide agents follow by discipline)?</strong></p>
+
+<p><strong>Trade-off:</strong> Mandatory = higher friction per change but guarantees HIC review; Advisory = faster iteration but relies on agent discipline.</p>
+
+<p><strong>Recommendation:</strong> Start advisory (Phase 1), monitor adoption, migrate to mandatory (Phase 2) if needed.</p>
+
+<hr>
+
+<p style="color:#64748b;font-size:.85em;margin-top:40px">Session Learning Outcome 3 of 6 — Field note + Learn/ HTML rendered. Awaiting HIC decision on dialogue workflow status and calendar/Drive export steps.</p>
+
+</body>
+</html>

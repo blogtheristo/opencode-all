@@ -82,10 +82,13 @@ export class HephaestusAgent extends BaseAgent {
       .map((r, i) => ({ label: taskLabels[i], result: r.status === 'fulfilled' ? r.value : null }))
       .filter((r) => r.result !== null);
 
+    // Index by label for O(1) result extraction.
+    const successfulByLabel = new Map(successful.map((r) => [r.label, r]));
+
     // Extract key metrics from results
-    const sitesenseResult = successful.find((r) => r.label === 'sitesense')?.result;
-    const materialResult = successful.find((r) => r.label === 'material-oracle')?.result;
-    const scheduleResult = successful.find((r) => r.label === 'schedule-genius')?.result;
+    const sitesenseResult = successfulByLabel.get('sitesense')?.result;
+    const materialResult = successfulByLabel.get('material-oracle')?.result;
+    const scheduleResult = successfulByLabel.get('schedule-genius')?.result;
 
     // Synthesize field risk narrative via LLM
     const llmResponse = await this.callLLM(

@@ -1,0 +1,476 @@
+<!doctype html>
+<!--
+VERSION AND AGENT HISTORY
+Document: 3x NVIDIA DGX Spark - Paikallinen prosessikopilotti Kemiralle (Yhden sivun tiivistys)
+Document revision: v1.0
+Version: 1.0 | Tool: Claude Code | Session: claude/dgx-spark-mining-case-gf1159 | Date: 26.06.2026 | Changes: Standalone downloadable HTML rendering of docs/DGX_SPARK_3X_KEMIRA_YHTEENVETO_FI.md (v1.0). Itsenainen inline-SVG hero (ei ulkoisia tiedostoja) DWS Downloadable HTML -saannon mukaisesti.
+Source (markdown): docs/DGX_SPARK_3X_KEMIRA_YHTEENVETO_FI.md
+Status: DRAFT | Language: Finnish
+-->
+<html lang="fi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>3× NVIDIA DGX Spark — Paikallinen prosessikopilotti Kemiralle</title>
+    <style>
+      :root {
+        --green: #76b900;
+        --green-d: #5a8f00;
+        --line: #e2e8ee;
+        --muted: #5b6b7a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: #1c2630;
+        background: #eef1f4;
+        line-height: 1.5;
+        font-size: 15px;
+      }
+      .page {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #fff;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      }
+      .hero {
+        background: linear-gradient(135deg, #0e1419 0%, #13202b 60%, #16303a 100%);
+        color: #eef4f8;
+        padding: 30px 38px 22px;
+      }
+      .hero h1 {
+        margin: 0 0 4px;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+      }
+      .hero .sub {
+        color: var(--green);
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .hero .tier {
+        display: inline-block;
+        background: rgba(118, 185, 0, 0.16);
+        color: var(--green);
+        border: 1px solid rgba(118, 185, 0, 0.5);
+        border-radius: 20px;
+        padding: 2px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+      .hero svg {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin-top: 8px;
+      }
+      .body {
+        padding: 26px 38px 34px;
+      }
+      h2 {
+        font-size: 17px;
+        margin: 22px 0 8px;
+        color: #0e1419;
+        border-bottom: 2px solid var(--green);
+        padding-bottom: 5px;
+        display: inline-block;
+      }
+      p {
+        margin: 8px 0;
+      }
+      ul,
+      ol {
+        margin: 7px 0;
+        padding-left: 21px;
+      }
+      li {
+        margin: 5px 0;
+      }
+      strong {
+        color: #0e1419;
+      }
+      blockquote {
+        margin: 12px 0;
+        padding: 11px 15px;
+        background: #f4f8ee;
+        border-left: 4px solid var(--green);
+        color: #33414c;
+        font-style: italic;
+        border-radius: 4px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 12px 0;
+        font-size: 13.5px;
+      }
+      th,
+      td {
+        border: 1px solid var(--line);
+        padding: 8px 10px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #13202b;
+        color: #eef4f8;
+        font-weight: 600;
+      }
+      tr:nth-child(even) td {
+        background: #f7f9fb;
+      }
+      .note {
+        background: #eef4fb;
+        border: 1px solid #cfe0f2;
+        border-radius: 8px;
+        padding: 5px 17px;
+        margin: 0 0 8px;
+        font-size: 13.5px;
+      }
+      .caveat {
+        background: #fff8ec;
+        border: 1px solid #f0dcb0;
+        border-radius: 8px;
+        padding: 4px 19px;
+        margin: 10px 0;
+        font-size: 14px;
+      }
+      a {
+        color: var(--green-d);
+      }
+      .foot {
+        padding: 18px 38px 28px;
+        color: var(--muted);
+        font-size: 12px;
+        border-top: 1px solid var(--line);
+      }
+      @media print {
+        body {
+          background: #fff;
+          font-size: 11px;
+        }
+        .page {
+          box-shadow: none;
+          max-width: none;
+        }
+        .hero,
+        th {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        h2 {
+          page-break-after: avoid;
+        }
+        table,
+        blockquote {
+          page-break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <span class="tier">ALOITUSTASO · 3× DGX Spark</span>
+        <h1>Paikallinen prosessikopilotti Kemiralle</h1>
+        <div class="sub">Frontier-tason päättely kemian tehtaan reunalla — 100 % paikallinen</div>
+        <svg
+          viewBox="0 0 760 230"
+          role="img"
+          aria-label="3x DGX Spark -klusteri: kolme solmua 100/200G-kytkimella, 384 GB yhtenainen muisti, ~0,75 kW, 200-300B MoE NVFP4, pitka konteksti, vLLM NCCL:n yli"
+        >
+          <defs>
+            <linearGradient id="box" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#c9b87a" />
+              <stop offset="1" stop-color="#a8915a" />
+            </linearGradient>
+          </defs>
+          <rect
+            x="250"
+            y="30"
+            width="260"
+            height="26"
+            rx="5"
+            fill="#1d2a36"
+            stroke="#76b900"
+            stroke-width="1.5"
+          />
+          <text
+            x="380"
+            y="47"
+            fill="#76b900"
+            font-size="12"
+            font-family="monospace"
+            text-anchor="middle"
+          >
+            100/200 GbE -kytkin · ConnectX-7
+          </text>
+          <line x1="320" y1="56" x2="200" y2="120" stroke="#76b900" stroke-width="2" />
+          <line x1="380" y1="56" x2="380" y2="120" stroke="#76b900" stroke-width="2" />
+          <line x1="440" y1="56" x2="560" y2="120" stroke="#76b900" stroke-width="2" />
+          <g font-family="-apple-system,Segoe UI,Roboto,sans-serif">
+            <rect
+              x="150"
+              y="120"
+              width="100"
+              height="64"
+              rx="8"
+              fill="url(#box)"
+              stroke="#7a6a3e"
+            />
+            <text
+              x="200"
+              y="157"
+              fill="#2a2410"
+              font-size="12"
+              text-anchor="middle"
+              font-weight="700"
+            >
+              Spark 1
+            </text>
+            <rect
+              x="330"
+              y="120"
+              width="100"
+              height="64"
+              rx="8"
+              fill="url(#box)"
+              stroke="#7a6a3e"
+            />
+            <text
+              x="380"
+              y="157"
+              fill="#2a2410"
+              font-size="12"
+              text-anchor="middle"
+              font-weight="700"
+            >
+              Spark 2
+            </text>
+            <rect
+              x="510"
+              y="120"
+              width="100"
+              height="64"
+              rx="8"
+              fill="url(#box)"
+              stroke="#7a6a3e"
+            />
+            <text
+              x="560"
+              y="157"
+              fill="#2a2410"
+              font-size="12"
+              text-anchor="middle"
+              font-weight="700"
+            >
+              Spark 3
+            </text>
+          </g>
+          <text x="380" y="208" fill="#9fb2c2" font-size="12.5" text-anchor="middle">
+            384 GB yhtenäinen · ~0,75 kW · 200–300B MoE (NVFP4) · pitkä konteksti · vLLM / NCCL
+          </text>
+        </svg>
+      </header>
+
+      <main class="body">
+        <div class="note">
+          <p>
+            <strong>Asemointi.</strong> DGX Spark -reunaperheen <strong>aloitustaso</strong>. 4×
+            lippulaiva ajaa 753B GLM-5.2:n 1M tokenin kontekstilla; tämä 3× vaihtaa katon
+            <strong>edullisempaan hintaan ja yhden tehtaan jalanjälkeen</strong> — päivittyy 4×:ksi
+            lisäämällä yhden yksikön.
+          </p>
+          <p>
+            <strong>Oletukset.</strong> Kemira-tiedot rajattu julkisesti tunnettuihin (suomalainen
+            kemianyhtiö — vedenkäsittely + sellu &amp; paperi, pääkonttori Helsinki, omaa
+            reseptiikkaa, EU-säädelty tuotanto). Skenaario, mittarit ja kustannukset ovat
+            <strong>suuntaa-antavia esimerkkilukuja</strong>, eivät Kemiran mitattua dataa.
+          </p>
+        </div>
+
+        <h2>Ongelma</h2>
+        <p>
+          Jatkuva- ja eräprosessikemiassa odottamaton linjan pysähdys tai sarja ali-spec-eriä maksaa
+          <strong>tuhansia–kymmeniä tuhansia euroja tunnissa</strong>. Juurisyy on hajallaan:
+          prosessihistoria/SCADA, SOP:t, eräpöytäkirjat, laitemanuaalit,
+          käyttöturvallisuustiedotteet, REACH-aineistot — ja arvokkaimmat
+          (<strong>reseptit</strong>) ovat liikesalaisuuksia, jotka eivät saa poistua
+          tehdasverkosta.
+        </p>
+        <ul>
+          <li>
+            <strong>Dokumentaatiokriisi.</strong> Satoja tuhansia sivuja; kukaan ei ehdi yhdistää
+            niitä vuoropaineessa.
+          </li>
+          <li>
+            <strong>Liikesalaisuus &amp; suvereniteetti.</strong> Reseptiikan vienti julkipilveen ei
+            käy IP-, Seveso- eikä EU-datasijaintisyistä. OT erotettu IT:stä.
+          </li>
+          <li><strong>Viive.</strong> Vastaus tarvitaan paneelilla sekunneissa.</li>
+        </ul>
+
+        <h2>Ratkaisu</h2>
+        <ul>
+          <li>
+            <strong>Laitteisto:</strong> kolme DGX Spark -yksikköä, 100/200 GbE (ConnectX-7) —
+            <strong>384 GB yhtenäistä muistia</strong>, <strong>~0,75 kW</strong>.
+          </li>
+          <li>
+            <strong>Malli:</strong> <strong>200–300B-luokan avoin MoE</strong> NVFP4:nä. ~235B:
+            painot ≈ <strong>118 GB</strong>, jolloin <strong>~260 GB</strong> jää pitkälle
+            (256K–512K) kontekstille.
+          </li>
+          <li>
+            <strong>Päättelymoottori:</strong> <strong>vLLM</strong> NCCL:n yli,
+            tensori-/putkiparalleeli kolmen solmun yli.
+          </li>
+        </ul>
+
+        <h2>Toimintamalli</h2>
+        <ol>
+          <li>
+            <strong>Syöttö:</strong> poikkeama → vuoroinsinööri syöttää historia-ikkunan (24–48 h) +
+            SOP:t, eräpöytäkirjat ja laitemanuaalin.
+          </li>
+          <li>
+            <strong>Analyysi:</strong> malli lukee ohjeet, erähistorian ja telemetrian
+            <em>yhtä aikaa</em> — ei häviöllistä RAG:ia.
+          </li>
+          <li><strong>Lopputulos (sekunneissa):</strong></li>
+        </ol>
+        <blockquote>
+          ”Linjan 2 polymeerisyötön johtokykypoikkeama alkoi 02:40, vastaa annostelupumpun
+          kavitaatio-oiretta (SOP-114 §6.3). Ali-spec-riski seuraavissa kahdessa erässä. Tarkista
+          imupuolen siiviläsuodattimen ΔP, esitäytä SOP-114:n mukaan ja pidä erä B-2287
+          QC-uusintatestiin ennen vapautusta.”
+        </blockquote>
+
+        <h2>Liiketoimintahyöty (ROI)</h2>
+        <p style="color: #5b6b7a; font-size: 13px; margin-top: 0">
+          Suuntaa-antava aloitustaso; Stage 1 korvaa Kemiran todellisilla luvuilla.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Investointi</th>
+              <th>Kustannus (USD)</th>
+              <th>Tuotto / säästö</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>3× DGX Spark -solmua</strong></td>
+              <td>~$13 500</td>
+              <td><strong>Poikkeamasta päätökseen −~40 %.</strong></td>
+            </tr>
+            <tr>
+              <td><strong>100/200G-kytkin + kaapelointi</strong></td>
+              <td>~$4 500</td>
+              <td>
+                <strong>Käyttöaste &amp; saanto:</strong> jo
+                <strong>~1–2 tunnin</strong> pysähdyksen välttäminen kattaa koko ~$18 000.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Ohjelmisto (vLLM / avoin MoE)</strong></td>
+              <td>$0</td>
+              <td>
+                <strong>Ei pilvikuluja</strong> eikä resepti-/OT-datan <strong>egressiä</strong>.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Alkuinvestointi yhteensä</strong></td>
+              <td><strong>~$18 000</strong></td>
+              <td>
+                <strong>Datasuvereniteetti:</strong> 100 % paikallinen. EU-linjassa
+                (REACH/CSRD/Seveso).
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Miksi 3× — eikä 4× tai 2×</h2>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>2× (256 GB)</th>
+              <th>3× (384 GB)</th>
+              <th>4× (512 GB)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Muisti</td>
+              <td>256 GB</td>
+              <td><strong>384 GB</strong></td>
+              <td>512 GB</td>
+            </tr>
+            <tr>
+              <td>Teho</td>
+              <td>~0,5 kW</td>
+              <td><strong>~0,75 kW</strong></td>
+              <td>&lt; 1 kW</td>
+            </tr>
+            <tr>
+              <td>Hinta</td>
+              <td>~$12 000</td>
+              <td><strong>~$18 000</strong></td>
+              <td>~$24 000</td>
+            </tr>
+            <tr>
+              <td>Mallikatto</td>
+              <td>~200–235B</td>
+              <td><strong>200–300B + pitkä ctx</strong></td>
+              <td><strong>753B + 1M ctx</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          <strong>Ei 4×:</strong> 753B/1M-lippulaiva vaatii 512 GB (3×:llä painoille jää vain ~7,5
+          GB). <strong>Ei 2×:</strong> 256 GB kuristaa pitkän kontekstin; 3× antaa väljyyttä ja
+          puhtaan päivityspolun.
+        </p>
+
+        <h2>Huomiot (varmistettava ennen hankintaa)</h2>
+        <div class="caveat">
+          <ul>
+            <li>
+              <strong>Malli on avoin, ei GLM-5.2-lippulaiva.</strong> Varmenna malli,
+              NVFP4-checkpoint, kaupallinen lisenssi ja kontekstipituus.
+            </li>
+            <li>
+              <strong>TP=3-rajoite.</strong> Tensoriparalleeli 3 GPU:lla vaatii dimensiot tasan
+              kolmella; muuten putkiparalleeli tai TP=2 + kolmas solmu.
+            </li>
+            <li><strong>Pitkä konteksti ≠ 1M.</strong> Tähtää 256K–512K (yksi linja).</li>
+            <li><strong>ROI-luvut suuntaa-antavia</strong> — Stage 1 mittaa todelliset.</li>
+            <li>
+              <strong>OT-integraatio on varsinainen työ</strong> — vain-luku historia/SCADA,
+              OT/IT-erottelu, prosessiturvallisuus.
+            </li>
+          </ul>
+        </div>
+      </main>
+
+      <footer class="foot">
+        Dokumenttiversio v1.0 · Päivitetty 26.06.2026 · Tila: DRAFT · Lähde:
+        docs/DGX_SPARK_3X_KEMIRA_YHTEENVETO_FI.md · Täysversio (EN):
+        docs/DGX_SPARK_3X_KEMIRA_BUSINESS_CASE.html<br />
+        Toimittaja: Lifetime Oy · Y-tunnus 0772407-9 · ALV FI07724079 · Laidunmaanraitti 2 A 25,
+        02330 Espoo · CEO Risto Anton Paarni · risto.paarni@lifetime.fi
+      </footer>
+    </div>
+  </body>
+</html>

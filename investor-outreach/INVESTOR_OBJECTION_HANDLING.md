@@ -3,20 +3,22 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 2.0
 
 Sessions & Modifications:
+  - Version: 2.0 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Reconciled to `docs/TRACTION_CANONICAL.md`. Objection 3 rewritten — the six-name "customer" list (KELA, Taksi Helsinki, Uber Finland, Bolt Finland, Limo Helsinki, Sixt) is retired: those are dispatch operators and commercial counterparties of the licensed transport operation, not software customers. €7K MRR reframed as services and transport revenue. Customer Reference Card replaced with the redacted LAND-* software accounts. "100% retention" and the €84K ARR comparable row removed. Closes audit Gap 9 for this file.
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Initial version — 9 objections, locked to Story A (carbon balance sheet infrastructure), sequenced roadmap to fleet/Physical AI. Validated customer list (6 customers), compliance SaaS comparables (Persefoni, Sweep), LeWorldModel research context.
 
 Session Links & References:
   - Claude Code (claude/research-leworldmodel-r3VRA): https://github.com/blogtheristo/dws6/commits/claude/research-leworldmodel-r3VRA
+  - Canonical traction source: docs/TRACTION_CANONICAL.md
   - LeWorldModel research: docs/LeWorldModel.md
   - Investor Hook Deck: docs/INVESTOR_HOOK_DECK.md
   - Fleet Admiral Pitch: Lifetime Fleet/Fleet Admiral/FLEET_ADMIRAL_PITCH.md
 
 Document Status:
   - Created: 25.03.2026
-  - Last Modified: 25.03.2026
+  - Last Modified: 29.07.2026
   - Language: English
   - Publication Status: ACTIVE
 
@@ -40,28 +42,27 @@ Double-entry bookkeeping for CO2. Every compliance event produces a journal entr
 
 A steel mill's ETS surrender flows through to a construction company's CBAM import, becomes their CSRD Scope 3 disclosure, and determines their Taxonomy alignment. Same carbon, four regulatory touchpoints, one auditable ledger.
 
-50,000+ EU companies need this by 2028. We are shipping it now.
+Fewer than ~5,000 large EU companies file directly post-Omnibus, and their value chains need this by 2028. We are shipping it now.
 
 ### 2. "Why can't a Big 4 consultancy or SAP do this?"
 
 Big 4 sells hours. We sell infrastructure. Their output is a PDF report once a year. Ours is a live ledger that updates when regulations change.
 
-SAP has ERP data but no regulatory intelligence graph. We index 15,000+ EU regulatory documents across 20 industries and map obligations across ETS, CBAM, CSRD, EPBD, and Taxonomy simultaneously.
+SAP has ERP data but no regulatory intelligence graph. We index 15,000+ EU regulatory documents across 25 industries and map obligations across ETS, CBAM, CSRD, EPBD, and Taxonomy simultaneously.
 
 Seven years and six platform versions to build. 3-5 years to replicate.
 
-### 3. "EUR 7K MRR is tiny. Why should I care?"
+### 3. "Where is the revenue?"
 
-EUR 7K MRR with 100% retention and zero churn across 6 paying customers:
+Two lines, and we keep them apart deliberately.
 
-- KELA (government payer — national insurance integration)
-- Taksi Helsinki (KELA care rides operator)
-- Uber Finland
-- Bolt Finland
-- Limo Helsinki
-- Sixt
+**Services and transport revenue: ~EUR 7,000/month.** Lifetime Oy runs a licensed passenger-transport operation plus a small consulting practice. That revenue puts the company at cash break-even with a founder salary of EUR 0 — it is what funds product development. It is **not** software revenue and we do not present it as MRR.
 
-Customer pain is validated: Uber Finland went from 60 hours/month to 8 hours/month on CSRD reporting (87% reduction).
+Ride orders reach our vehicles through dispatch operators — Uber, Bolt, Kela, Taksi Helsinki — in the dispatch-service role defined by Traficom. They charge commission on completed jobs and buy transport capacity. They are commercial counterparties of the transport business, **not customers of DWS IQ**.
+
+**Software: EUR 59,900 booked in Q1/2026** — two enterprise pilots at EUR 29,950 each, plus four smaller landed accounts tracked under redacted LAND-* codes in the data room. Outokumpu and Kemira are active discussions with documented inbound replies; we say "in discussion", not "filed".
+
+So the honest answer to "the revenue is tiny" is: yes, the software revenue is early. What the transport line buys us is that we are not burning — we can run at zero salary while the pilots convert.
 
 The market is forced. CSRD, ETS expansion, CBAM, EPBD — EUR 25B compliance spend over 10 years. These are not discretionary purchases.
 
@@ -79,7 +80,7 @@ Three pillars. Each takes years to build. Together they are a moat.
 
 **Pillar 1: Carbon balance sheet with network effects.** No competitor has cross-customer carbon flow. One customer's verified emissions improve another's CBAM factor. That is a network effect. 3-5 years to replicate.
 
-**Pillar 2: Regulatory intelligence graph.** 15,000+ EU documents, 20 industries, 21 AI agents. Not a fine-tuned GPT on PDFs. A structured knowledge graph built over 7 years across 6 platform versions. 3-5 years to replicate.
+**Pillar 2: Regulatory intelligence graph.** 15,000+ EU documents, 25 industries, a fleet of skilled agents. Not a fine-tuned GPT on PDFs. A structured knowledge graph built over 7 years across 6 platform versions. 3-5 years to replicate.
 
 **Pillar 3: Edge deployment + model-agnostic orchestration.** AI inference on-premise at EUR 17K/year. Swap any LLM — the intelligence lives in the knowledge graph and the ledger, not the model provider. Built on Model Context Protocol (MCP). 2-3 years to replicate.
 
@@ -87,9 +88,9 @@ Three pillars. Each takes years to build. Together they are a moat.
 
 They build general-purpose models. We build domain-specific infrastructure.
 
-Our value is not the LLM. Our value is 15,000+ indexed regulatory documents, Nordic ERP connectors (SAP, IFS, Visma, Monitor), KELA government payer integration, and 17 years of operator relationships across 6 logistics customers.
+Our value is not the LLM. Our value is 15,000+ indexed regulatory documents, Nordic ERP connectors (SAP, IFS, Visma, Monitor), and two decades of operating inside EU-regulated industry — including running a licensed transport business under Finnish transport regulation, which is where the founder learned what compliance actually costs an operator.
 
-Silicon Valley cannot disrupt 17 years of handshakes.
+Silicon Valley cannot disrupt that domain time.
 
 ### 7. "What is the world model I keep seeing in your materials?"
 
@@ -103,15 +104,15 @@ The architecture is validated by the broader world models category (LeCun's AMI 
 
 Persefoni raised $9.7M Series A on $1.8M ARR in carbon accounting (April 2021). Sweep raised $22M Series A pre-meaningful-revenue in carbon management (December 2021). Both pure-play compliance SaaS without edge deployment or regulatory knowledge graphs.
 
-Lifetime has EUR 7K MRR, 100% retention, a 7-year head start on a regulatory intelligence engine spanning 20 EU industries, and EUR 17K/year edge deployment vs EUR 350K/year cloud.
+Lifetime has EUR 59,900 of Q1/2026 pilot contract value, a services-and-transport line that covers the burn at a EUR 0 founder salary, a 7-year head start on a regulatory intelligence engine spanning 25 EU-regulated industries, and edge deployment economics that a cloud-only competitor cannot match.
 
-EUR 3.8M cap is below early-stage carbon SaaS benchmarks. Persefoni raised at a higher implied valuation with less traction. Lifetime has more customers, a government payer, edge deployment, and a 7-year knowledge graph they do not have.
+EUR 3.8M cap is below early-stage carbon SaaS benchmarks. Persefoni raised at a higher implied valuation pre-revenue. What Lifetime adds is edge deployment, a 7-year knowledge graph, and a company that does not need the round to survive the next quarter.
 
 ### 9. "What is the roadmap beyond this round?"
 
 **This round (EUR 650K SAFE):** Ship DWS 7 with persistent carbon balance sheet (July 2026). Grow to EUR 900K ARR.
 
-**Next phase:** Helsinki healthcare logistics pilot using the same compliance platform. KELA-backed recurring revenue. Edge deployment on NVIDIA hardware already in-house (Acer GN-100).
+**Next phase:** Helsinki healthcare logistics pilot using the same compliance platform, sold to a transport operator as software. Edge deployment on NVIDIA hardware already in-house (Acer GN-100).
 
 **Series A (2027):** Expand from compliance infrastructure to autonomous industrial operations. The carbon ledger becomes the data backbone for physical AI — fleet management, site logistics, predictive maintenance.
 
@@ -119,18 +120,24 @@ EUR 3.8M cap is below early-stage carbon SaaS benchmarks. Persefoni raised at a 
 
 ---
 
-## Customer Reference Card
+## Software Account Card
 
-| Customer | Type | Key metric |
-|----------|------|------------|
-| KELA | Government payer | 4.2M Finnish citizens covered |
-| Taksi Helsinki | Logistics operator | KELA National Care rides |
-| Uber Finland | Logistics operator | 87% CSRD reporting time reduction |
-| Bolt Finland | Logistics operator | EUR 0 ETS penalties (was EUR 10-50K) |
-| Limo Helsinki | Logistics operator | Transport services |
-| Sixt | Logistics operator | Car rental/transport |
+Names stay redacted until each customer signs the public-name authorization form. Source: `docs/investor/data-room-2026Q2/PROOF_POINTS_2026Q2.md` §3.
 
-**Available for investor reference calls:** Uber, KELA, Bolt
+| Account | Sector | Bundle landed | Year-1 ACV |
+|---------|--------|---------------|-----------|
+| LAND-001 | Nordic Tier-1 constructor | DWS IQ 6 Enterprise Pilot (Q1/26) | EUR 29,950 |
+| LAND-002 | Central-Europe Tier-1 constructor | DWS IQ 6 Enterprise Pilot (Q1/26) | EUR 29,950 |
+| LAND-003 | Nordic engineering consultancy | Material Oracle T2 + Emissions T1 | ~EUR 34k |
+| LAND-004 | DACH industrial OEM | Compliance T2 | ~EUR 30k |
+| LAND-005 | Nordic facilities operator | Sovereignty Monitor T1 | ~EUR 16k |
+| LAND-006 | Nordic infrastructure ops | SiteSense T1 | ~EUR 18k |
+
+**Active discussions with documented inbound replies:** Outokumpu, Kemira.
+
+**Reference calls:** available on request, subject to each customer's authorization. Do not name a reference before authorization is on file.
+
+**Not customers.** Uber, Bolt, Kela and Taksi Helsinki are dispatch operators — commercial counterparties of the licensed transport operation. They must never be presented as software customers. See `docs/TRACTION_CANONICAL.md`.
 
 ---
 
@@ -146,7 +153,7 @@ EUR 3.8M cap is below early-stage carbon SaaS benchmarks. Persefoni raised at a 
 | Sweep | Series B | $73M | Early revenue | 2022 | Carbon management |
 | Workiva | IPO | NYSE:WK | ~$100M ARR | 2014 | SEC compliance |
 | Workiva | Today | $3B mkt cap | $739M revenue | 2026 | Compliance platform |
-| **Lifetime** | **SAFE** | **EUR 650K** | **EUR 84K ARR** | **2026** | **Carbon balance sheet** |
+| **Lifetime** | **SAFE** | **EUR 650K** | **EUR 59.9K Q1/26 pilot contract value (software); services & transport revenue covers burn** | **2026** | **Carbon balance sheet** |
 
 ---
 

@@ -1,11 +1,12 @@
 # Sales AI Agent Design - DWS IQ 6 Myyntiautomaatio
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — Kela/Uber Finland removed as customers and case studies (they are Traficom-defined dispatch operators of the transport business), and the €7k MRR starting point replaced with €59,900 of contracted Q1/2026 pilot value.
   - Version: 1.0 | Tool: Claude Code | Session: jqfl0 | Date: 19.01.2026 | Changes: Initial creation - Comprehensive sales AI agent design for 5 customer segments
 
 Session Links & References:
@@ -19,7 +20,7 @@ Document Status:
   - Languages Available: Suomi, English
   - Publication Status: 🚧 DRAFT
 
----
+***
 
 **Version:** 1.0
 **Purpose:** Määritellä AI-agentit myynnin tehostamiseen viidelle asiakassegmentille
@@ -46,7 +47,7 @@ Tämä dokumentti määrittelee **6 erikoistunutta myyntiagenttia** + **1 Sales 
 
 **Keskeiset mittarit:**
 - Human-to-Agent ratio: 1:6 (1 Director + 6 agenttia)
-- Tavoite: €7k → €60k MRR (16-18 kuukaudessa)
+- Tavoite: €60k MRR (16-18 kuukaudessa). Lähtötaso on €59 900 sopimuksin varmistettua Q1/2026-pilottiarvoa (kaksi yrityspilottia á €29 950) sekä neljä pienempää asiakkuutta — ei €7k MRR:ää, joka on palvelu- ja kuljetusliikevaihtoa.
 - Kustannustehokkuus: €900-1,500/kk (vs. €25k-35k/kk 3 SDR:ää)
 
 ---
@@ -357,10 +358,10 @@ agent:
 | Skill Domain | Specific Competencies | Example Application |
 |--------------|----------------------|---------------------|
 | **Strategic Intuition** | Market timing, competitive positioning | "We should focus on logistics NOW because NIS2 Oct 2024 deadline creates urgency" |
-| **Relationship Capital** | Executive network, warm intros, trust | Leveraging Kela relationship to unlock Senaatti (Finnish Senate) |
+| **Relationship Capital** | Executive network, warm intros, trust | Leveraging an existing transport-side counterparty relationship to unlock a public-sector introduction (Senaatti) |
 | **Cultural Fluency** | Nordic business culture, hierarchy navigation | Understanding Finnish decision-making (consensus-based, slow but sticky) |
 | **Complex Negotiation** | Multi-stakeholder alignment, creative deal structures | "We'll discount pilot to €19,950 if you commit to €8.5k/mo for 12 months" |
-| **Crisis Leadership** | Churn prevention, escalation handling | When Uber threatens to cancel, Director steps in with executive call |
+| **Crisis Leadership** | Churn prevention, escalation handling | When a key account threatens to cancel, Director steps in with executive call |
 | **Product Vision** | Roadmap influence, customer feedback synthesis | "Construction customers need EN 15978 carbon reporting → prioritize DWS IQ 6 feature" |
 
 **Skill Development Plan for HIL Director:**
@@ -459,7 +460,7 @@ sales_hil_director:
 | **Value Prop** | Sub-100ms climate intelligence → €25-50k/year energy savings + CSRD compliance |
 | **Competitive Moat** | NVIDIA Jetson edge AI (vs. Siemens/Schneider cloud latency) |
 | **Sales Approach** | Enterprise B2B: Discovery → Demo → ROI calc → Pilot → Production |
-| **Key Documents** | 14-slide pitch deck, ROI calculator, Kela case study, NIS2 compliance package |
+| **Key Documents** | 14-slide pitch deck, ROI calculator, NIS2 compliance package (no customer case study is published — none authorized) |
 | **Agent Focus** | Discovery Agent (MEDDPICC), Proposal Agent (ROI calc) |
 
 #### 7.2.2 Firehorse CRM
@@ -498,7 +499,7 @@ sales_hil_director:
 
 **Construction Vertical:**
 - Emphasize: EN 15978 carbon reporting, BIM integration, Fit for 55 compliance
-- Case studies: Kela, Senaatti
+- Case studies: none published — no reference customer has authorized one
 - Competitive: Siemens, Schneider, Honeywell
 
 **Consulting Vertical:**
@@ -513,7 +514,7 @@ sales_hil_director:
 
 **Investor Vertical:**
 - Emphasize: €720k ARR roadmap, 20-moat competitive fortress, Nordic market leadership
-- Case studies: Kela (B2B2G validation), Uber Finland (logistics)
+- Case studies: none published. Kela and Uber Finland are **dispatch operators** of the licensed transport operation (Traficom-defined role), not software customers.
 - Competitive: Other climate tech startups (Normative, Plan A)
 
 ---
@@ -614,7 +615,7 @@ agent:
     Example Subject Lines (A/B test):
     - "Sub-100ms building intelligence?"
     - "CSRD compliance for [Company]?"
-    - "15% energy savings at Kela"
+    - "15% energy savings at [reference site]" (use only once a real, authorized reference exists)
 
     LinkedIn Rules:
     - Max 20 connection requests/day
@@ -759,7 +760,7 @@ agent:
     1. Executive Summary (1 paragraph)
     2. Challenge (prospect's pain points)
     3. Solution (DWS IQ 6 deployment plan)
-    4. Results (Kela case study metrics)
+    4. Results (pilot metrics, once a reference customer authorizes publication)
     5. Investment (€29,950 pilot + €8,500/mo)
     6. Timeline (12-week implementation)
     7. Next Steps (sign by [date], kickoff [date])
@@ -893,7 +894,7 @@ agent:
     Warm Intro Strategy:
     - Check LinkedIn for shared connections (founder network, advisors)
     - Prioritize 1st degree intros > cold emails
-    - Leverage Kela case study for B2B2G credibility
+    - No published case study exists; do not cite Kela — it is a dispatch operator of the transport business, not a software customer
 
     Pitch Deck Customization:
     - Seed ($1-2M): Emphasize market urgency (EPBD 2027, CSRD), team, traction
@@ -902,7 +903,7 @@ agent:
 
     Investor FAQs:
     - Market size: €127B TAM (EU smart building market)
-    - Traction: €7k → €60k MRR roadmap, Kela/Uber Finland customers
+    - Traction: €59,900 of contracted Q1/2026 enterprise pilots (two at €29,950 each) plus four smaller landed accounts → €60k MRR roadmap. Kela and Uber Finland are dispatch operators, not software customers.
     - Competition: Siemens/Schneider = €3-6M entry barrier, we're €29,950 pilot
     - Defensibility: 20-moat framework (NVIDIA Jetson, EU data sovereignty, edge AI)
     - Exit: Strategic acquirer (Siemens, Schneider, Honeywell) or IPO (2030+)
@@ -981,11 +982,11 @@ agent:
 **Success Metrics:**
 - 2 pilots signed (€59,900 revenue)
 - 8-12 demos delivered
-- €7k → €15k MRR growth
+- €15k MRR growth target
 
 ### 9.4 Phase 4: Scale (Months 7-12)
 
-**Goal:** €7k → €60k MRR with agent-led sales
+**Goal:** €60k MRR with agent-led sales
 
 | Month | Milestone | Target |
 |-------|-----------|--------|

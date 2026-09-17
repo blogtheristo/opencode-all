@@ -48,7 +48,7 @@ export class MarsAgent extends BaseAgent {
 
     await this.logExecution({ agent_name: this.config.name, user_id: context.userId, org_id: context.orgId, session_id: context.sessionId, project_id: context.projectId, input: { annualEmissions, buildingType, floorAreaM2 }, output: null, status: 'started', duration_ms: 0, created_at: new Date().toISOString() });
 
-    let complianceResult: AgentResponse | null = null;
+    let complianceResult: AgentResponse | null;
     try {
       complianceResult = await agentRegistry.executeAgent('compliance', context, {
         projectId: context.projectId,

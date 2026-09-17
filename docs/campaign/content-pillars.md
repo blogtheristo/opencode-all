@@ -190,7 +190,7 @@ This is Phase 2+ content (Days 101+) that adds genuine depth impossible to fake.
 - Weekly digest every Friday: top 5 posts of the week
 - Separate EN and FI editions
 - Supabase table: newsletter_subscribers (email, lang, subscribed_at, active)
-- Transport: Amazon SES (primary) → Resend (fallback)
+- Transport: Amazon SES only (Resend permanently banned — LOCKED_DECISIONS LD-2026-008)
 
 ## LinkedIn Promotion
 

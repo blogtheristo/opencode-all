@@ -2,19 +2,20 @@
   "mcpServers": {
     "dws-agents-local": {
       "type": "http",
-      "url": "http://localhost:8080/mcp"
+      "url": "http://localhost:3001/mcp"
     },
     "dws-gateway-local": {
       "type": "stdio",
-      "command": "python",
+      "command": "node",
       "args": [
-        "mcp-servers/cloud-run-gateway/server.py",
+        "mcp-servers/cloud-run-gateway-ts/dist/server.js",
         "--transport",
         "stdio"
       ],
       "env": {
         "SUPABASE_URL": "${SUPABASE_URL}",
-        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
+        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}",
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
       }
     }
   }

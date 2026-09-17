@@ -14,6 +14,8 @@
 import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
+import { type DataPointStatus, scoreCompliance } from '../compliance/scoring-engine.js';
+import { generateReport } from '../compliance/report-generator.js';
 
 // ============ REGULATORY THRESHOLDS ============
 
@@ -102,6 +104,7 @@ interface ComplianceInput {
   projectId: string;
   industry: string;
   regulations: string[];
+  dataPoints: DataPointStatus[];
   currentMeasures: {
     carbonReporting: boolean;
     emissionsMonitoring: boolean;
@@ -128,12 +131,34 @@ export class ComplianceAgent extends BaseAgent {
       ],
       model: 'llama-3.3-70b-versatile',
       modelTier: 'standard',
+      // Proactive: Phase 2 (advisor) — deadline-driven, deterministic rules.
+      autonomyPhase: 'advisor',
+      notify: { channels: ['email', 'in_app'], maxPerHour: 5, maxPerDay: 20 },
     });
   }
 
   /** Normalize loose input into the strict ComplianceInput shape */
   private normalizeInput(input: Record<string, unknown>): ComplianceInput {
-    const raw = input as Record<string, any>;
+    const raw = input as {
+      projectId?: string;
+      project_id?: string;
+      project?: string;
+      industry?: string;
+      regulations?: unknown;
+      regulation?: string;
+      dataPoints?: unknown;
+      currentMeasures?: Partial<ComplianceInput['currentMeasures']>;
+      carbonReporting?: boolean;
+      emissionsMonitoring?: boolean;
+      supplyChainDueDiligence?: boolean;
+      aiSystemLogging?: boolean;
+      annualEmissions?: number;
+      annual_emissions?: number;
+      emissions?: number;
+      importValue?: number;
+      import_value?: number;
+      imports?: number;
+    };
     return {
       projectId: raw.projectId ?? raw.project_id ?? raw.project ?? 'unknown',
       industry: raw.industry ?? 'default',
@@ -142,6 +167,18 @@ export class ComplianceAgent extends BaseAgent {
         : typeof raw.regulation === 'string'
           ? [raw.regulation]
           : ['ets', 'cbam', 'csrd'],
+      dataPoints: Array.isArray(raw.dataPoints)
+        ? raw.dataPoints
+            .filter(
+              (d) => d
+                && typeof d === 'object'
+                && typeof (d as { disclosureId?: unknown }).disclosureId === 'string',
+            )
+            .map((d) => ({
+              disclosureId: (d as { disclosureId: string }).disclosureId,
+              provided: Boolean((d as { provided?: unknown }).provided),
+            }))
+        : [],
       currentMeasures: {
         carbonReporting: raw.currentMeasures?.carbonReporting ?? raw.carbonReporting ?? false,
         emissionsMonitoring: raw.currentMeasures?.emissionsMonitoring ?? raw.emissionsMonitoring ?? false,
@@ -159,8 +196,8 @@ export class ComplianceAgent extends BaseAgent {
   ): Promise<AgentResponse> {
     const startTime = Date.now();
 
-    const { projectId, industry, regulations, currentMeasures, annualEmissions, importValue } =
-      this.normalizeInput(input);
+      const { projectId, industry, regulations, dataPoints, currentMeasures, annualEmissions, importValue } =
+        this.normalizeInput(input);
 
     logger.info('Compliance agent executing', {
       projectId,
@@ -183,24 +220,51 @@ export class ComplianceAgent extends BaseAgent {
     });
 
     try {
-      // 1. Score each regulation
-      const regulationScores = regulations.map((reg) =>
-        this.scoreRegulation(reg, currentMeasures, annualEmissions, importValue),
-      );
+      // 1. Score core regulations with deterministic scoring engine
+      const scoringResult = scoreCompliance({
+        industry,
+        dataPoints,
+        annualEmissions,
+        importValue,
+        hasTransitionPlan: currentMeasures.carbonReporting,
+        hasEmissionsMonitoring: currentMeasures.emissionsMonitoring,
+        hasSupplyChainDD: currentMeasures.supplyChainDueDiligence,
+      });
+      const scoringByReg = new Map(scoringResult.regulationScores.map((r) => [r.regulation, r]));
 
-      // 2. Compute overall compliance score
+      // 2. Score each requested regulation (retain fit-for-55/eu-ai-act support)
+      const regulationScores = regulations.map((reg) => {
+        const scoring = scoringByReg.get(reg);
+        if (scoring) {
+          return { regulation: reg, score: scoring.score };
+        }
+        return this.scoreRegulation(reg, currentMeasures, annualEmissions, importValue);
+      });
+
+      // 3. Compute overall compliance score
       const overallScore = this.computeOverallScore(regulationScores);
 
-      // 3. Identify gaps
-      const gaps = this.identifyGaps(regulations, currentMeasures, annualEmissions, importValue);
+      // 4. Identify gaps (merge scoring-engine gaps + legacy non-core gaps)
+      const legacyGaps = this.identifyGaps(regulations, currentMeasures, annualEmissions, importValue);
+      const scoringGaps = scoringResult.gaps.filter((g) => regulations.includes(g.regulation));
+      const mergedGaps = [...scoringGaps];
+      for (const legacyGap of legacyGaps) {
+        const exists = mergedGaps.some(
+          (g) => g.regulation === legacyGap.regulation && g.gap === legacyGap.gap,
+        );
+        if (!exists) {
+          mergedGaps.push(legacyGap);
+        }
+      }
+      const gaps = mergedGaps;
 
-      // 4. Compute deadline urgency
+      // 5. Compute deadline urgency
       const deadlines = this.computeDeadlineUrgency(regulations);
 
-      // 5. Industry risk factor
+      // 6. Industry risk factor
       const industryRisk = INDUSTRY_RISK[industry.toLowerCase()] ?? INDUSTRY_RISK.default;
 
-      // 6. Build deterministic recommendations
+      // 7. Build deterministic recommendations
       const recommendations = this.buildRecommendations(
         gaps,
         deadlines,
@@ -210,7 +274,7 @@ export class ComplianceAgent extends BaseAgent {
         overallScore,
       );
 
-      // 7. LLM enhancement for specific remediation strategies
+      // 8. LLM enhancement for specific remediation strategies
       const llmResponse = await this.callLLM(
         `Analyze EU regulatory compliance and suggest remediation priorities:
 Industry: ${industry}
@@ -235,6 +299,14 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
       }
 
       const durationMs = Date.now() - startTime;
+      const report = generateReport(scoringResult, {
+        name: context.orgId || 'Unknown organization',
+        industry,
+        country: 'FI',
+      });
+      const surrenderObligation = annualEmissions >= ETS_EMISSIONS_THRESHOLD_TONNES
+        ? annualEmissions
+        : 0;
 
       const response: AgentResponse = {
         agentName: this.config.name,
@@ -249,6 +321,22 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
             status: rs.score >= 80 ? 'compliant' : rs.score >= 50 ? 'partial' : 'non-compliant',
           })),
           gaps,
+          dataCompleteness: scoringResult.dataCompleteness,
+          costEstimates: {
+            ets: {
+              estimatedCost: scoringResult.costBreakdown?.etsCostEur ?? 0,
+              surrenderObligation,
+            },
+            cbam: {
+              estimatedCost: scoringResult.costBreakdown?.cbamCostEur ?? 0,
+            },
+            csrd: {
+              estimatedCost: scoringResult.costBreakdown?.csrdReportingCostEur ?? 0,
+            },
+            total: scoringResult.costBreakdown?.totalCostEur ?? 0,
+            carbonPriceEur: scoringResult.costBreakdown?.carbonPriceEur ?? 0,
+          },
+          report,
           deadlines,
           industryRiskFactor: industryRisk,
           thresholds: {
@@ -267,6 +355,7 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
           llmModel: llmResponse.model,
           llmTokens: llmResponse.inputTokens + llmResponse.outputTokens,
           regulationsChecked: regulations.length,
+          scoringEngine: 'v1.0',
         },
       };
 
@@ -284,7 +373,7 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
       await this.logExecution({
         agent_name: this.config.name,
@@ -295,7 +384,7 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
         input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });

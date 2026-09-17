@@ -1,11 +1,11 @@
-# Team Member: Lucille — Chief Hospitality Officer
+# Team Member: Lucille Santiago — Office Chief
 
-**Name:** Lucille
-**Type:** Human (HIL)
-**Role:** Chief Hospitality Officer
+**Name:** Lucille Santiago
+**Type:** Human (HIC — Human-In-Command) — a REAL person, not an AI agent
+**Role:** Office Chief (Chief Hospitality Officer) · offered partnership in Lifetime AB
 **Email:** lucille@lifetime.fi
-**Phone:** +358 40 356 9643
-**Persona:** `docs/HIL_Lucille.md`
+**Phone / WhatsApp:** +358 40 3569643
+**Profile:** `docs/HIL_Lucille.md`
 
 ## Context
 

@@ -1,0 +1,56 @@
+{
+  "version": "1.2",
+  "lastUpdated": "2026-09-14",
+  "sourceOfTruth": false,
+  "structuredMirror": true,
+  "humanReadableSource": "docs/field-notes/2026-09-14-sovereignty-is-the-primary-segmentation-axis.md",
+  "owner": "risto.paarni@lifetime.fi",
+  "note": "Structured mirror of the locked sovereignty-as-segmentation-axis formulation in docs/field-notes/2026-09-14-sovereignty-is-the-primary-segmentation-axis.md §1. Machine-readable reflection only — if this file and the field note §1 disagree, the field note wins. Lets scripts/lint-truth-claims.mjs / truth-check FAIL the monopoly-axis overclaim in public-layer copy and suggest the locked pair. Registered in DWS_TRUTH_STANDARD.md §2 row 39. EN+FI are HIC-locked; SV/DE/FR are Language Standard translations of that pair.",
+  "lockedFormulation": {
+    "en": "Sovereignty is the primary segmentation axis — not the only one.",
+    "fi": "Suvereeniteetti on ensisijainen segmentointiakseli — ei ainoa.",
+    "sv": "Suveränitet är den primära segmenteringsaxeln — inte den enda.",
+    "de": "Souveränität ist die primäre Segmentierungsachse — nicht die einzige.",
+    "fr": "La souveraineté est l'axe de segmentation principal — pas le seul."
+  },
+  "approvedDisplayPhrases": [
+    "Sovereignty is the primary segmentation axis — not the only one.",
+    "Suvereeniteetti on ensisijainen segmentointiakseli — ei ainoa.",
+    "Suveränitet är den primära segmenteringsaxeln — inte den enda.",
+    "Souveränität ist die primäre Segmentierungsachse — nicht die einzige.",
+    "La souveraineté est l'axe de segmentation principal — pas le seul.",
+    "Sovereignty is segmentation",
+    "Sovereignty is segmentation — locally",
+    "Suvereeniteetti on segmentointia",
+    "Sensitive workloads on sovereign substrate; the rest on hyperscalers.",
+    "Herkkä kuorma suvereenille substraatille; muu hyperscalerille."
+  ],
+  "keyFinding": {
+    "en": "Sensitive workloads on sovereign substrate; the rest on hyperscalers.",
+    "fi": "Herkkä kuorma suvereenille substraatille; muu hyperscalerille.",
+    "status": "HIC-named central finding 14.09.2026",
+    "thesis": "PHD_FIREHORSE §14.53.3 / Key Contribution #59",
+    "notAHeadlineReplacement": true
+  },
+  "deprecatedDisplayPhrases": [
+    "The market splits on one axis",
+    "Markkina jakautuu yhdellä akselilla",
+    "Marknaden delas på en axel",
+    "sovereignty is the only segmentation",
+    "suvereeniteetti on ainoa segmentointi"
+  ],
+  "ambiguousDisplayPhrasesNeedingContext": [
+    {
+      "phrase": "Sovereignty is the segmentation",
+      "validIf": "historical citation of the pre-2026-09-14 coaching heading; live headline must use the locked pair"
+    },
+    {
+      "phrase": "Suvereeniteetti on segmentointi",
+      "validIf": "historical citation of the pre-2026-09-14 coaching heading; live headline must use the locked pair"
+    },
+    {
+      "phrase": "Suveränitet är segmenteringen",
+      "validIf": "historical citation of the pre-2026-09-14 coaching heading; live headline must use the locked SV line"
+    }
+  ]
+}

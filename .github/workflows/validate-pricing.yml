@@ -1,0 +1,40 @@
+name: Validate Pricing Catalog
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'dws10.com/config/products.json'
+      - 'landing-pages/dws10-com/config/products.json'
+      - 'DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md'
+      - 'scripts/validate-pricing.ts'
+      - 'scripts/validate-pricing.ps1'
+      - 'scripts/load-labor-catalog.py'
+  push:
+    branches: [main]
+    paths:
+      - 'dws10.com/config/products.json'
+      - 'landing-pages/dws10-com/config/products.json'
+
+concurrency:
+  group: validate-pricing-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # need main for priceVersion monotonic check
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install tsx
+        run: npm i -g tsx@4
+
+      - name: Run validator
+        run: tsx scripts/validate-pricing.ts

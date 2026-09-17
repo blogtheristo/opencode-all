@@ -66,7 +66,7 @@ export interface ERPConnectionConfig {
   tenantId?: string;
   username?: string;
   password?: string;
-  additionalConfig?: Record<string, any>;
+  additionalConfig?: Record<string, unknown>;
 }
 
 export interface ERPIntegrationSettings {
@@ -115,7 +115,7 @@ export interface SyncOperation {
   recordsProcessed: number;
   recordsFailed: number;
   errorMessages?: string[];
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface SyncResult {
@@ -163,7 +163,7 @@ export interface ProductionOrder {
   materialRequirements?: MaterialRequirement[];
   costEstimate?: number;
   actualCost?: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface WorkOrder {
@@ -181,7 +181,7 @@ export interface WorkOrder {
   actualHours?: number;
   scheduledDate?: Date;
   completedDate?: Date;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface MaterialRequirement {
@@ -215,7 +215,7 @@ export interface MachineData {
   pressure?: number;
   energyConsumption?: number; // kWh
   vibration?: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface OEEMetrics {
@@ -260,7 +260,7 @@ export interface MaintenanceEvent {
   status: 'detected' | 'scheduled' | 'in_progress' | 'resolved' | 'deferred';
   rootCause?: string;
   corrective_action?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface Asset {
@@ -283,7 +283,7 @@ export interface Asset {
   nextScheduledMaintenance?: Date;
   maintenanceScheduleCron?: string;
   criticality: 'low' | 'medium' | 'high' | 'critical';
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 // ============================================================================
@@ -306,7 +306,7 @@ export interface InventoryTransaction {
   performedBy?: string;
   cost?: number;
   reason?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface CostTransaction {
@@ -326,7 +326,7 @@ export interface CostTransaction {
     variance: number;
     variancePercentage: number;
   };
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 // ============================================================================
@@ -352,7 +352,7 @@ export interface ESGMetric {
   complianceStandard?: string; // e.g., "GHG Protocol", "ISO 14064"
   targetValue?: number;
   targetDate?: Date;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 // ============================================================================
@@ -366,7 +366,7 @@ export interface ERPWebhookEvent {
   entityType: EntityType;
   entityId: string;
   timestamp: Date;
-  payload: any;
+  payload: unknown;
   processed: boolean;
   processedAt?: Date;
   error?: string;
@@ -376,13 +376,13 @@ export interface ERPWebhookEvent {
 // API Response Types
 // ============================================================================
 
-export interface ERPApiResponse<T = any> {
+export interface ERPApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: {
     code: string;
     message: string;
-    details?: any;
+    details?: unknown;
   };
   metadata?: {
     timestamp: Date;

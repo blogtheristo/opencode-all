@@ -30,6 +30,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import logger from '../utils/logger.js';
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
@@ -136,7 +137,10 @@ function computeDailyStats(lines: LogLine[], date: string): DailyStats | null {
   const endLines = lines.filter((l) => l.event === 'end' && l.confidence !== undefined);
   if (endLines.length === 0) return null;
 
-  const confidences = endLines.map((l) => l.confidence!).sort((a, b) => a - b);
+  const confidences = endLines
+    .map((l) => l.confidence)
+    .filter((c): c is number => c !== undefined)
+    .sort((a, b) => a - b);
   const errors = lines.filter((l) => l.event === 'error').length;
   const mean = confidences.reduce((s, c) => s + c, 0) / confidences.length;
 
@@ -200,8 +204,8 @@ function analyseAgent(agentName: string, byDate: RawEntry[]): AgentDriftResult {
       samplesMap.set(
         date,
         agentLines
-          .filter((l) => l.taskSummary)
-          .map((l) => l.taskSummary!)
+          .filter((l): l is LogLine & { taskSummary: string } => Boolean(l.taskSummary))
+          .map((l) => l.taskSummary)
           .slice(0, 3),
       );
     }
@@ -230,7 +234,7 @@ function analyseAgent(agentName: string, byDate: RawEntry[]): AgentDriftResult {
   const { date: inflectionDate } = findInflection(timeline, baselineMean, WARN_THRESHOLD);
 
   const inflectionSamples =
-    inflectionDate && samplesMap.has(inflectionDate) ? samplesMap.get(inflectionDate)! : [];
+    inflectionDate ? samplesMap.get(inflectionDate) ?? [] : [];
 
   return {
     agentName,
@@ -248,7 +252,7 @@ function analyseAgent(agentName: string, byDate: RawEntry[]): AgentDriftResult {
 
 async function main(): Promise<void> {
   if (!fs.existsSync(LOG_DIR)) {
-    console.log('[drift] No log directory found — no data to analyse.');
+    logger.info('[drift] No log directory found — no data to analyse.');
     process.exit(0);
   }
 
@@ -259,7 +263,7 @@ async function main(): Promise<void> {
     .filter((e) => e.lines.length > 0);
 
   if (byDate.length === 0) {
-    console.log('[drift] No log data found in the lookback window.');
+    logger.info('[drift] No log data found in the lookback window.');
     process.exit(0);
   }
 
@@ -308,20 +312,20 @@ async function main(): Promise<void> {
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
 
   // Print summary
-  console.log(
+  logger.info(
     `\n[drift] ${summary.total} agents | ${summary.ok} ok | ${summary.warn} warn | ${summary.alert} alert`,
   );
-  console.log(`[drift] Report: ${reportPath}\n`);
+  logger.info(`[drift] Report: ${reportPath}\n`);
 
   for (const r of results) {
     if (r.severity === 'ok') continue;
     const pct = (r.dropFraction * 100).toFixed(1);
     const icon = r.severity === 'alert' ? '✗' : '!';
-    console.log(
+    logger.info(
       `  ${icon} ${r.agentName.padEnd(28)} drop=${pct}% (${r.baselineMean} → ${r.currentMean})${r.inflectionDate ? ` | started ${r.inflectionDate}` : ''}`,
     );
     if (r.inflectionSamples.length > 0) {
-      console.log(`      inputs at inflection: "${r.inflectionSamples[0]}"`);
+      logger.info(`      inputs at inflection: "${r.inflectionSamples[0]}"`);
     }
   }
 
@@ -329,6 +333,6 @@ async function main(): Promise<void> {
 }
 
 main().catch((err) => {
-  console.error('[drift] Unhandled error:', err);
+  logger.error('[drift] Unhandled error:', err);
   process.exit(2);
 });

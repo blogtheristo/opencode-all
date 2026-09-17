@@ -101,11 +101,14 @@ Construction companies waste **35 hours per month** on manual reporting. We auto
 - €500/month × 2,500 projects × 12 months
 - **Revenue**: €15M
 
-### Unit Economics
-- **CAC** (Customer Acquisition Cost): €5,000
-- **LTV** (Lifetime Value): €30,000 (5 years)
-- **LTV/CAC Ratio**: 6:1 (excellent)
-- **Payback Period**: 10 months
+### Unit Economics (modelled — not observed)
+
+> These figures are a model, not measured performance. No cohort data exists to support an observed LTV, LTV/CAC ratio, or payback period. Canonical source: `docs/TRACTION_CANONICAL.md`.
+
+- **CAC** (Customer Acquisition Cost): €5,000 (modelled)
+- **LTV** (Lifetime Value): €30,000 over 5 years (modelled)
+- **LTV/CAC Ratio**: 6:1 (modelled)
+- **Payback Period**: 10 months (modelled)
 
 ---
 
@@ -150,7 +153,7 @@ Construction companies waste **35 hours per month** on manual reporting. We auto
 
 **Tactics**:
 1. **Localization** - Swedish, Norwegian, Danish languages
-2. **Partnerships** - NCC, Skanska, Peab, AF Gruppen
+2. **Partnerships** - target prospects: NCC, Skanska, Peab, AF Gruppen (none landed)
 3. **Channel Sales** - Construction software resellers
 4. **Case Studies** - Finnish success stories
 
@@ -282,10 +285,10 @@ Net Margin: 30%
    - 50,000+ potential users
    - 5,000+ enterprise customers
 
-5. **Strong Unit Economics**
-   - LTV/CAC: 6:1
-   - Payback: 10 months
-   - Gross margin: 85%
+5. **Target Unit Economics** (modelled, not observed)
+   - LTV/CAC: 6:1 (modelled)
+   - Payback: 10 months (modelled)
+   - Gross margin: 85% (modelled)
 
 6. **Defensible Moat**
    - Technical complexity (edge nodes, BIM, AI)

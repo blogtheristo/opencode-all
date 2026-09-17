@@ -1,35 +1,42 @@
 # Admin Manual: Supabase Database Management for DWS6
 
 ***
+
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.8
 
 Sessions & Modifications:
-  - Version: 1.5 | Tool: GitHub Copilot CLI | Session: claude/jsonld-dws10-pages-20260426 | Date: 26.04.2026 | Changes: Added §7.4 migration parity repair runbook (Supabase CLI compatibility, duplicate-prefix archive, db push include-all handling) and migration 063 note
-  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added §15 PostgreSQL Columnar Extensions Roadmap — HTAP architecture plan, extension availability matrix (Supabase vs Aiven), TimescaleDB + pg_duckdb phased rollout, reference to DWS_DATA_STANDARD.md
-  - Version: 1.3 | Tool: Claude Code | Session: 2026-03-11 | Date: 11.03.2026 | Changes: Add direct Postgres vs MCP troubleshooting (§11.2), VPN/DoH behavior, migration 043 notes, and `db:test` script reference
-  - Version: 1.2 | Tool: Claude Code | Session: 2026-03-04 | Date: 04.03.2026 | Changes: Add migration audit documentation (§7.3) - comprehensive audit of 29 migration scripts, fixes for 10 missing tables, EU compliance verification
-  - Version: 1.1 | Tool: Claude Code | Session: 2026-02-09 | Date: 09.02.2026 | Changes: Add drift detection (§12), alert router (§13), glossary (§14), Plan→Apply→Verify pipeline
-  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - Supabase admin manual for DWS6 project
+
+- Version: 1.8 | Tool: Claude Code | Session: claude/anon-grant-lockdown-076 | Date: 19.07.2026 | Changes: §7.5 anon-lockdown follow-up CLOSED — migration 076 (`supabase/migrations/076_revoke_anon_legacy_grants.sql`) applied to production via Supabase MCP after a 21-run CI blank-slate soak (`.github/workflows/supabase-anon-soak.yml`, PR #1710) that surfaced and fixed 16 dormant migration-chain defects (002–061) plus 2 harness bugs, and archived 18 duplicate-prefix migration files to `supabase/migrations_archived_duplicates/` per §7.4. Anon reduced from full legacy grants on all 184 tables to a strict opt-in list (16 objects: 12 SELECT, 5 INSERT); revoked `PUBLIC` EXECUTE on `upsert_file_index` (SECURITY DEFINER write path, no internal role check). Post-apply verification: grants match the opt-in list exactly, zero anon privileges on the four append-only audit tables, Security Advisor unchanged at 111 findings.
+- Version: 1.7 | Tool: Claude Code | Session: claude/add-supabase-table-grants-y0Ps6 | Date: 19.07.2026 | Changes: §7.5 updated with production status — migration 075 APPLIED to `dws6` (`kpucuwwfhuwurdxyjjtz`) via Supabase MCP, recorded as `20260719202340_public_schema_grants`. Verified: `authenticated` + `service_role` CRUD on all 184 public tables; default privileges in place for `postgres` + `supabase_admin` owners; Security Advisor shows no missing-grant findings. Documented local/remote migration drift (`file_index` local-only; remote 015 is `email_templates`) and the existence-safe `DO`/`to_regclass()` anon-grant pattern. Logged OPEN follow-up: anon still holds full legacy grants on all 184 tables (grandfathered pre-2026 default) — revocation to the opt-in list is a founder decision pending staged rollout.
+- Version: 1.6 | Tool: Claude Code | Session: claude/add-supabase-table-grants-y0Ps6 | Date: 19.07.2026 | Changes: Added §7.5 New Table GRANT Checklist for the Supabase 2026-05-30 / 2026-10-30 Data API grant change — every new `CREATE TABLE public.*` must be paired with explicit `GRANT` to `service_role` + `authenticated` (anon opt-in only where RLS targets `anon`). Backfill migration `supabase/migrations/075_public_schema_grants.sql` reopens the table-level door for all 88 existing public tables and installs `alter default privileges` as a safety net.
+- Version: 1.5 | Tool: GitHub Copilot CLI | Session: claude/jsonld-dws10-pages-20260426 | Date: 26.04.2026 | Changes: Added §7.4 migration parity repair runbook (Supabase CLI compatibility, duplicate-prefix archive, db push include-all handling) and migration 063 note
+- Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added §15 PostgreSQL Columnar Extensions Roadmap — HTAP architecture plan, extension availability matrix (Supabase vs Aiven), TimescaleDB + pg_duckdb phased rollout, reference to DWS_DATA_STANDARD.md
+- Version: 1.3 | Tool: Claude Code | Session: 2026-03-11 | Date: 11.03.2026 | Changes: Add direct Postgres vs MCP troubleshooting (§11.2), VPN/DoH behavior, migration 043 notes, and `db:test` script reference
+- Version: 1.2 | Tool: Claude Code | Session: 2026-03-04 | Date: 04.03.2026 | Changes: Add migration audit documentation (§7.3) - comprehensive audit of 29 migration scripts, fixes for 10 missing tables, EU compliance verification
+- Version: 1.1 | Tool: Claude Code | Session: 2026-02-09 | Date: 09.02.2026 | Changes: Add drift detection (§12), alert router (§13), glossary (§14), Plan→Apply→Verify pipeline
+- Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - Supabase admin manual for DWS6 project
 
 Session Links & References:
-  - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/pull/77
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md
+
+- Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/pull/77
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md
 
 Document Status:
-  - Created: 30.12.2025
-  - Last Modified: 26.04.2026
-  - Language: English
-  - Languages Available: English
-  - Publication Status: ACTIVE
+
+- Created: 30.12.2025
+- Last Modified: 19.07.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
 
 ***
 
-**Version:** 1.5
+**Version:** 1.8
 **Purpose:** Supabase database administration guide for DWS6 project
 **Audience:** Database Administrators, DevOps Engineers
-**Updated:** 26.04.2026
+**Updated:** 19.07.2026
 
 ---
 
@@ -46,11 +53,14 @@ Document Status:
    - [7.2 Data Maintenance](#72-data-maintenance)
    - [7.3 Migration Management and Audit](#73-migration-management-and-audit)
    - [7.4 Migration Parity Repair (April 2026)](#74-migration-parity-repair-april-2026)
+   - [7.5 New Table GRANT Checklist (Supabase 2026-05-30 / 2026-10-30)](#75-new-table-grant-checklist-supabase-2026-05-30--2026-10-30)
 8. [Monitoring and Logs](#8-monitoring-and-logs)
 9. [Backup and Recovery](#9-backup-and-recovery)
 10. [Performance Tuning](#10-performance-tuning)
 11. [Troubleshooting](#11-troubleshooting)
-   - [11.2 Direct Postgres vs MCP Under VPN](#112-direct-postgres-vs-mcp-under-vpn)
+
+- [11.2 Direct Postgres vs MCP Under VPN](#112-direct-postgres-vs-mcp-under-vpn)
+
 12. [Database Drift Detection](#12-database-drift-detection)
 13. [Alert Router & Redis Pub/Sub](#13-alert-router--redis-pubsub)
 14. [Glossary](#14-glossary)
@@ -62,6 +72,7 @@ Document Status:
 ### 1.1 Supabase Introduction
 
 **Supabase** is an open-source Firebase alternative that provides:
+
 - PostgreSQL database with real-time capabilities
 - Auto-generated REST API
 - Row Level Security (RLS)
@@ -72,6 +83,7 @@ Document Status:
 ### 1.2 DWS6 Supabase Project
 
 **Project Details**:
+
 - **Project ID**: `kpucuwwfhuwurdxyjjtz`
 - **Project Name**: DWS6 Multi-Login Platform
 - **Region**: US East (N. Virginia)
@@ -80,6 +92,7 @@ Document Status:
 - **Database**: PostgreSQL 15
 
 **Free Tier Limits**:
+
 - 50,000 Monthly Active Users (MAU)
 - 500 MB Database Space
 - 1 GB File Storage
@@ -120,6 +133,7 @@ Document Status:
 **URL**: https://app.supabase.com/project/kpucuwwfhuwurdxyjjtz
 
 **Login Credentials**:
+
 - Email: [Your Supabase account email]
 - Password: [Your Supabase password]
 - 2FA: Recommended
@@ -131,6 +145,7 @@ Document Status:
 **Location**: Project Settings → API
 
 **Credentials**:
+
 ```
 Project URL: https://kpucuwwfhuwurdxyjjtz.supabase.co
 API URL: https://kpucuwwfhuwurdxyjjtz.supabase.co/rest/v1/
@@ -141,6 +156,7 @@ service_role key: [KEEP SECRET - Full database access]
 ```
 
 **⚠️ Security Warning**:
+
 - `anon key`: Safe to use in client code (limited by RLS)
 - `service_role key`: NEVER expose in client code (full access)
 
@@ -149,6 +165,7 @@ service_role key: [KEEP SECRET - Full database access]
 **Location**: Project Settings → Database
 
 **Connection Details**:
+
 ```
 Host: db.kpucuwwfhuwurdxyjjtz.supabase.co
 Database name: postgres
@@ -158,6 +175,7 @@ Password: [Your database password]
 ```
 
 **Connection String**:
+
 ```
 postgresql://postgres:[YOUR-PASSWORD]@db.kpucuwwfhuwurdxyjjtz.supabase.co:5432/postgres
 ```
@@ -197,29 +215,29 @@ ALTER DATABASE postgres SET timezone TO 'UTC';
 CREATE TABLE projects (
   -- Primary key
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  
+
   -- Project information
   name TEXT NOT NULL,
   description TEXT,
   region TEXT,
   phase TEXT,
-  
+
   -- Performance metrics
   spi NUMERIC(4,2) CHECK (spi >= 0),  -- Schedule Performance Index
   cpi NUMERIC(4,2) CHECK (cpi >= 0),  -- Cost Performance Index
   percent_complete INTEGER CHECK (percent_complete >= 0 AND percent_complete <= 100),
-  
+
   -- Safety status
   safety_rag TEXT CHECK (safety_rag IN ('green', 'amber', 'red')),
-  
+
   -- Budget information
   budget_total NUMERIC(15,2),
   budget_spent NUMERIC(15,2),
-  
+
   -- Timestamps
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  
+
   -- Soft delete
   deleted_at TIMESTAMP WITH TIME ZONE
 );
@@ -270,24 +288,24 @@ CREATE TRIGGER update_projects_updated_at BEFORE UPDATE ON projects
 CREATE TABLE alerts (
   -- Primary key
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  
+
   -- Alert information
   project_name TEXT NOT NULL,
   message TEXT NOT NULL,
   description TEXT,
-  
+
   -- Alert classification
   type TEXT NOT NULL CHECK (type IN ('schedule', 'cost', 'safety', 'quality', 'info')),
   severity TEXT NOT NULL CHECK (severity IN ('low', 'medium', 'high', 'critical')),
-  
+
   -- Alert timing
   age_hours INTEGER DEFAULT 0,
-  
+
   -- Resolution tracking
   resolved_at TIMESTAMP WITH TIME ZONE,
   resolved_by TEXT,
   resolution_notes TEXT,
-  
+
   -- Timestamps
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -417,6 +435,7 @@ USING (
 #### Rate Limiting
 
 **Supabase Default Limits**:
+
 - 100 requests per second per IP
 - Configurable in Project Settings → API
 
@@ -436,7 +455,7 @@ BEGIN
   FROM api_requests
   WHERE user_id = check_rate_limit.user_id
     AND created_at > NOW() - time_window;
-  
+
   RETURN request_count < max_requests;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
@@ -445,6 +464,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 #### API Key Rotation
 
 **Rotate anon key**:
+
 1. Go to Project Settings → API
 2. Click "Generate new anon key"
 3. Update all client applications
@@ -473,6 +493,7 @@ GRANT SELECT, INSERT, UPDATE ON projects, alerts TO dws_app;
 #### SSL/TLS Configuration
 
 Supabase enforces SSL/TLS by default:
+
 - TLS 1.2+ required
 - Certificate verification enabled
 - Connection string includes `sslmode=require`
@@ -486,6 +507,7 @@ Supabase enforces SSL/TLS by default:
 #### Auto-Generated Endpoints
 
 **Projects**:
+
 ```
 GET    /rest/v1/projects              # List all projects
 GET    /rest/v1/projects?id=eq.{id}   # Get specific project
@@ -495,6 +517,7 @@ DELETE /rest/v1/projects?id=eq.{id}   # Delete project
 ```
 
 **Alerts**:
+
 ```
 GET    /rest/v1/alerts                # List all alerts
 GET    /rest/v1/alerts?id=eq.{id}     # Get specific alert
@@ -506,6 +529,7 @@ DELETE /rest/v1/alerts?id=eq.{id}     # Delete alert
 #### Query Parameters
 
 **Filtering**:
+
 ```
 GET /rest/v1/projects?region=eq.Nordics
 GET /rest/v1/alerts?severity=eq.critical
@@ -513,18 +537,21 @@ GET /rest/v1/projects?spi=lt.0.9
 ```
 
 **Ordering**:
+
 ```
 GET /rest/v1/projects?order=created_at.desc
 GET /rest/v1/alerts?order=severity.desc,created_at.desc
 ```
 
 **Limiting**:
+
 ```
 GET /rest/v1/projects?limit=10
 GET /rest/v1/projects?limit=10&offset=20
 ```
 
 **Selecting Columns**:
+
 ```
 GET /rest/v1/projects?select=id,name,spi,cpi
 GET /rest/v1/alerts?select=project_name,message,severity
@@ -535,6 +562,7 @@ GET /rest/v1/alerts?select=project_name,message,severity
 **Endpoint**: `https://kpucuwwfhuwurdxyjjtz.supabase.co/graphql/v1`
 
 **Example Query**:
+
 ```graphql
 query GetProjects {
   projectsCollection {
@@ -569,13 +597,10 @@ ALTER PUBLICATION supabase_realtime ADD TABLE alerts;
 ```javascript
 // Subscribe to project changes
 const subscription = supabase
-  .channel('projects-changes')
-  .on('postgres_changes', 
-    { event: '*', schema: 'public', table: 'projects' },
-    (payload) => {
-      console.log('Project changed:', payload);
-    }
-  )
+  .channel("projects-changes")
+  .on("postgres_changes", { event: "*", schema: "public", table: "projects" }, (payload) => {
+    console.log("Project changed:", payload);
+  })
   .subscribe();
 ```
 
@@ -590,6 +615,7 @@ const subscription = supabase
 **Location**: Authentication → Providers
 
 **Available Providers**:
+
 - ✅ Email/Password
 - ✅ Magic Link
 - ✅ Google OAuth
@@ -601,6 +627,7 @@ const subscription = supabase
 **Location**: Authentication → Email Templates
 
 **Templates to Configure**:
+
 - Confirmation email
 - Password reset
 - Magic link
@@ -657,6 +684,7 @@ WHERE email = 'user@example.com';
 ### 7.0 Migration Tools
 
 **db_push** – Push migrations to Supabase:
+
 ```powershell
 pwsh -File scripts/db_push.ps1
 # Or: npm run db:push
@@ -669,7 +697,7 @@ pwsh -File scripts/db_push.ps1
 #### Get Project Statistics
 
 ```sql
-SELECT 
+SELECT
   COUNT(*) as total_projects,
   AVG(spi) as avg_spi,
   AVG(cpi) as avg_cpi,
@@ -684,7 +712,7 @@ WHERE deleted_at IS NULL;
 #### Get Critical Alerts
 
 ```sql
-SELECT 
+SELECT
   project_name,
   message,
   severity,
@@ -701,7 +729,7 @@ LIMIT 10;
 #### Get Projects At Risk
 
 ```sql
-SELECT 
+SELECT
   id,
   name,
   region,
@@ -712,7 +740,7 @@ SELECT
 FROM projects
 WHERE deleted_at IS NULL
   AND (spi < 0.9 OR cpi < 0.9 OR safety_rag = 'red')
-ORDER BY 
+ORDER BY
   CASE safety_rag
     WHEN 'red' THEN 1
     WHEN 'amber' THEN 2
@@ -747,10 +775,10 @@ WHERE percent_complete = 100
 ```sql
 -- Recalculate project metrics
 UPDATE projects
-SET 
+SET
   budget_spent = (
-    SELECT SUM(amount) 
-    FROM project_expenses 
+    SELECT SUM(amount)
+    FROM project_expenses
     WHERE project_id = projects.id
   ),
   updated_at = NOW()
@@ -764,9 +792,10 @@ WHERE deleted_at IS NULL;
 **Audit Date**: March 4, 2026  
 **Audit Tool**: Claude Code + Supabase MCP  
 **Total Migrations Reviewed**: 29 SQL files  
-**Status**: ✅ **COMPLETE** - All partial/never-run migrations fixed  
+**Status**: ✅ **COMPLETE** - All partial/never-run migrations fixed
 
 **Migration Files Audited**:
+
 - **002-008**: Firehorse core, investors, auth, payments
 - **011**: Security fixes
 - **012**: Firehorse signals
@@ -785,6 +814,7 @@ WHERE deleted_at IS NULL;
 - **040**: Grok consent (NEVER RAN → FIXED)
 
 **Critical Issues Identified & Fixed**:
+
 1. **Invalid MySQL Syntax**: Early migrations (002/005/006/013) used MySQL-style `INDEX` syntax instead of PostgreSQL
 2. **Missing IF NOT EXISTS Guards**: Several migrations lacked idempotency protection
 3. **Duplicate Migration Prefixes**: 038 prefix used twice (resolved correctly)
@@ -793,6 +823,7 @@ WHERE deleted_at IS NULL;
 6. **Incomplete RLS**: `firehorse_signals` missing authenticated-read policy
 
 **Tables Created/Fixed**:
+
 - ✅ `agent_metrics` (013) - Daily performance metrics for AI agents
 - ✅ `agent_signals` (013) - Lifetime Scope Signals for agent coordination
 - ✅ `agent_costs` (013) - Detailed cost tracking for AI operations
@@ -805,12 +836,14 @@ WHERE deleted_at IS NULL;
 - ✅ `grok_inference_log` (040) - Immutable log of all Grok API calls
 
 **Consolidated Fix Migration**: `041_fix_partial_runs.sql`
+
 - **Location**: `supabase/migrations/041_fix_partial_runs.sql`
 - **Size**: 26,491 bytes
 - **Sections**: 8 consolidated sections applied via MCP
 - **Status**: Committed to git and pushed to `origin/main`
 
 **Verification Results**:
+
 - **Total Tables**: 93 (increased from 83)
 - **RLS Policies**: All tables have Row Level Security enabled
 - **Security Invoker**: All views use `security_invoker = true`
@@ -819,12 +852,14 @@ WHERE deleted_at IS NULL;
 - **Functions**: All database functions operational
 
 **EU Compliance Status**:
+
 - ✅ **Article 12 Audit Log**: Append-only audit trail for AI Act compliance
 - ✅ **GDPR Consent Management**: Immutable audit trails for user consent
 - ✅ **Data Residency**: Hosted in EU (Finland) for regulatory compliance
 - ✅ **PII Scrubbing**: Verified scrubbing location (Veriton Helsinki)
 
 **Maintenance Recommendations**:
+
 1. **Run Migration Audit**: Quarterly review of migration files vs live schema
 2. **Monitor Drift**: Use `scripts/db-drift-check.py` for schema consistency
 3. **Backup Before Changes**: Always backup before applying migrations
@@ -832,6 +867,7 @@ WHERE deleted_at IS NULL;
 5. **Document Changes**: Update this manual when adding new migrations
 
 **Emergency Contacts**:
+
 - **Database Issues**: Check Supabase dashboard logs first
 - **Migration Failures**: Review `041_fix_partial_runs.sql` for reference
 - **Security Incidents**: Follow DWS Security Standard procedures
@@ -841,8 +877,9 @@ WHERE deleted_at IS NULL;
 **Context**: `supabase db push` listed many pending files due to duplicate version prefixes already represented in remote history.
 
 **Root causes fixed**:
-1. Local CLI compatibility drift (`db.health_timeout` unsupported in older CLI)  
-2. Duplicate-prefix migration files in `supabase/migrations/` causing out-of-order push prompts  
+
+1. Local CLI compatibility drift (`db.health_timeout` unsupported in older CLI)
+2. Duplicate-prefix migration files in `supabase/migrations/` causing out-of-order push prompts
 3. Mixed history where remote had only one migration entry per prefix
 
 **Operator procedure (Windows/PowerShell)**:
@@ -864,14 +901,85 @@ npx -y supabase@latest db push --yes
 ```
 
 **Current state**:
+
 - Migration `063_token_usage_optimization.sql` applied
 - Duplicate-prefix files archived to `supabase/migrations_archived_duplicates/`
 - `supabase db push --yes` reports: `Remote database is up to date.`
 
 **Policy**:
+
 - Keep only one active migration file per numeric prefix in `supabase/migrations/`
 - Archive historical duplicate-prefix variants instead of leaving them in active push path
 - Prefer `npx -y supabase@latest` in CI/operator workflows unless pinned version is verified
+
+---
+
+### 7.5 New Table GRANT Checklist (Supabase 2026-05-30 / 2026-10-30)
+
+**Context**: Supabase dropped the implicit Data API grants on `public.*` for the `anon`, `authenticated`, and `service_role` roles on 2026-05-30 for new projects. All existing projects — including `dws6-production` — are enforced on 2026-10-30. A `public` table without an explicit `GRANT` is invisible to `supabase-js` / PostgREST / GraphQL; PostgREST returns `42501` even when RLS would have allowed the row. RLS is the row gate; `GRANT` is the table gate.
+
+**Backfill of record**: `supabase/migrations/075_public_schema_grants.sql`.
+
+**Production status (19.07.2026)**: ✅ APPLIED. Deployed to `dws6` (`kpucuwwfhuwurdxyjjtz`) via Supabase MCP `apply_migration`; recorded in remote migration history as `20260719202340_public_schema_grants` (timestamp version — same convention as `booking_system` and `erp_integration_tables`). Post-apply verification: `authenticated` + `service_role` hold SELECT/INSERT/UPDATE/DELETE on all 184 public tables; default privileges for tables, sequences, and functions are in place under both the `postgres` and `supabase_admin` owner roles; Security Advisor reports no missing-grant findings (all 111 warnings predate the change). **Remediation 077 (same day):** PR #1709 review caught that the blanket grants had re-opened UPDATE/DELETE on the append-only audit tables (`article12_audit_log`, `command_audit_log`, `kya_mandate_events`, `kya_tenant_gating_profiles`) and function EXECUTE for `authenticated`. `supabase/migrations/077_fix_privilege_regressions.sql` was applied to production restoring the 038/041/071/074 revokes; verified post-apply. Anon’s legacy grants on those tables predate 075 and are removed by staged migration 076.
+
+That migration:
+
+1. Grants schema `USAGE` on `public` to `anon`, `authenticated`, `service_role`.
+2. Grants `SELECT, INSERT, UPDATE, DELETE` on every existing public table to `authenticated` + `service_role`.
+3. Grants sequence `USAGE, SELECT` and function `EXECUTE` to the same two roles.
+4. Sets `ALTER DEFAULT PRIVILEGES IN SCHEMA public` so any future table created without an inline grant block still lands granted — belt-and-suspenders against silent 42501s.
+5. Grants per-table `SELECT` / `INSERT` to `anon` only where RLS explicitly targets `anon` (booking public reads, subscription_plans, file_index, captain_inquiries, web_leads, playbook_leads, booking_reservations). These grants run inside a `DO` block that checks `to_regclass()` first, because local migration files and the remote schema have drifted — e.g. `public.file_index` exists only locally (remote prefix 015 is `email_templates`). A missing table is skipped instead of aborting the backfill.
+
+**Follow-up — legacy anon grants (CLOSED 19.07.2026)**: verification after 075 revealed that `anon` still held _full_ legacy grants (SELECT/INSERT/UPDATE/DELETE/TRUNCATE/TRIGGER/REFERENCES) on all 184 public tables — the pre-2026 Supabase default, grandfathered on this project, with RLS as the only effective gate. Resolved by `supabase/migrations/076_revoke_anon_legacy_grants.sql` (PR #1710): revokes anon's blanket table/sequence/function grants and the `postgres`-role default privileges, keeps schema `USAGE`, then re-grants a strict opt-in list derived from `pg_policies` (every policy that explicitly targets `anon`, plus public-read-true policies on reference data). Also revokes `PUBLIC` `EXECUTE` on `upsert_file_index` (SECURITY DEFINER, writes `file_index`, no internal role check — flagged in PR #1710 review) and grants `service_role` explicitly; the full 19-function `anon_security_definer_function_executable` sweep remains a tracked follow-up, since revoking `PUBLIC` from the rest needs individual review (some are legitimately called by `authenticated` via the default grant).
+
+**Validation**: staged via a CI blank-slate soak (`.github/workflows/supabase-anon-soak.yml`, PR #1710) — `supabase db reset` against the full migration chain plus 076, then live REST assertions against the local anon key. 21 soak runs surfaced and fixed 16 dormant, previously-unexercised defects in migrations 002–061 (unescaped string literals, PL/pgSQL variable shadowing, illegal `CREATE POLICY/TRIGGER IF NOT EXISTS`, duplicate version prefixes, table/view schema forks between competing migrations, a missing `pgvector` enable, a top-level `RAISE` outside PL/pgSQL) plus two harness bugs (a broken CI storage image, and an assertion expecting HTTP 403 where PostgREST correctly returns 401 for the anon role). The 18 duplicate-prefix files uncovered are archived to `supabase/migrations_archived_duplicates/` per the §7.4 policy. Final run green on all three pass criteria: opt-in SELECT/INSERT surfaces 200/201 for anon; restricted tables 401/403 with SQLSTATE `42501` in the body — never data.
+
+**Production status (19.07.2026)**: ✅ APPLIED. Deployed via Supabase MCP `apply_migration` after the soak passed. Post-apply verification: anon holds grants on exactly the 16 intended objects (12 SELECT, 5 INSERT — `booking_reservations` carries both); zero anon privileges on the four append-only audit tables (`article12_audit_log`, `command_audit_log`, `kya_mandate_events`, `kya_tenant_gating_profiles`); `upsert_file_index` does not exist in production (table `file_index` is local-only, per its own migration comment) so the guard correctly no-op'd; Security Advisor unchanged at 111 findings (no regressions, no new missing-grant warnings).
+
+**Checklist for every new `CREATE TABLE public.<name>`**:
+
+- [ ] `enable row level security` on the table.
+- [ ] `grant select, insert, update, delete on public.<name> to authenticated, service_role;`
+- [ ] Every RLS policy declared with the roles it targets (`to authenticated`, `to service_role`, `to anon`).
+- [ ] `grant select on public.<name> to anon;` — only if a policy allows anon read.
+- [ ] `grant insert on public.<name> to anon;` — only if a policy allows anon submission.
+- [ ] Sequence grants only if the table uses `SERIAL` / `BIGSERIAL` (UUID PKs need none).
+- [ ] Copy the reference block from the top of `Firehorse/supabase-schema-templates.sql`.
+
+**Verification**:
+
+```sql
+-- Roles and privileges on every public table
+select grantee, privilege_type, count(*) as tables
+from information_schema.role_table_grants
+where table_schema = 'public'
+  and grantee in ('anon', 'authenticated', 'service_role')
+group by 1, 2
+order by 1, 2;
+
+-- Which tables anon can currently reach
+select table_name, string_agg(privilege_type, ', ' order by privilege_type) as privs
+from information_schema.role_table_grants
+where table_schema = 'public' and grantee = 'anon'
+group by 1
+order by 1;
+```
+
+Expected: `authenticated` + `service_role` show SELECT/INSERT/UPDATE/DELETE across every public table; `anon` appears only on the opt-in surfaces listed above.
+
+**Data API smoke test**:
+
+```bash
+# anon-visible surface (expect 200)
+curl -s "${SUPABASE_URL}/rest/v1/booking_services?select=id&limit=1" \
+  -H "apikey: ${SUPABASE_ANON_KEY}"
+
+# non-anon table (expect empty array or 403 by RLS, NOT a 42501 "permission denied for table" error)
+curl -s "${SUPABASE_URL}/rest/v1/firehorse_memory?select=id&limit=1" \
+  -H "apikey: ${SUPABASE_ANON_KEY}"
+```
+
+A `42501` on any table indicates a missing table-level `GRANT` — patch it in a follow-up migration.
 
 ---
 
@@ -882,7 +990,7 @@ npx -y supabase@latest db push --yes
 #### View Slow Queries
 
 ```sql
-SELECT 
+SELECT
   query,
   calls,
   total_time,
@@ -908,7 +1016,7 @@ LIMIT 10;
 #### Table Sizes
 
 ```sql
-SELECT 
+SELECT
   schemaname,
   tablename,
   pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) AS size
@@ -920,7 +1028,7 @@ ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
 #### Index Usage
 
 ```sql
-SELECT 
+SELECT
   schemaname,
   tablename,
   indexname,
@@ -936,6 +1044,7 @@ ORDER BY idx_scan DESC;
 **Location**: Project Dashboard → Logs
 
 **Available Logs**:
+
 - API Logs: REST API requests
 - Database Logs: SQL queries
 - Auth Logs: Authentication events
@@ -950,11 +1059,13 @@ ORDER BY idx_scan DESC;
 ### 9.1 Automatic Backups
 
 **Supabase Free Tier**:
+
 - Daily automatic backups
 - Retained for 7 days
 - No point-in-time recovery
 
 **Access Backups**:
+
 1. Go to Project Dashboard → Database → Backups
 2. View available backups
 3. Download or restore as needed
@@ -1043,7 +1154,7 @@ psql -h db.kpucuwwfhuwurdxyjjtz.supabase.co \
 #### Identify Missing Indexes
 
 ```sql
-SELECT 
+SELECT
   schemaname,
   tablename,
   attname,
@@ -1087,7 +1198,7 @@ WITH at_risk_projects AS (
   FROM projects
   WHERE spi < 0.9 OR cpi < 0.9
 )
-SELECT 
+SELECT
   p.*,
   COUNT(a.id) as alert_count
 FROM at_risk_projects p
@@ -1098,10 +1209,12 @@ GROUP BY p.id, p.name, p.spi, p.cpi;
 ### 10.3 Connection Pooling
 
 **Supabase Connection Pooler**:
+
 - Transaction mode: Best for serverless
 - Session mode: Best for long-lived connections
 
 **Configuration**:
+
 ```
 Transaction mode: db.kpucuwwfhuwurdxyjjtz.supabase.co:6543
 Session mode: db.kpucuwwfhuwurdxyjjtz.supabase.co:5432
@@ -1116,10 +1229,12 @@ Session mode: db.kpucuwwfhuwurdxyjjtz.supabase.co:5432
 #### Issue: Connection Timeout
 
 **Symptoms**:
+
 - "Connection timeout" error
 - Slow query responses
 
 **Solutions**:
+
 1. Check Supabase status: https://status.supabase.com/
 2. Verify network connectivity
 3. Use connection pooler
@@ -1128,10 +1243,12 @@ Session mode: db.kpucuwwfhuwurdxyjjtz.supabase.co:5432
 #### Issue: RLS Policy Blocking Access
 
 **Symptoms**:
+
 - Empty results despite data existing
 - "Permission denied" errors
 
 **Solutions**:
+
 ```sql
 -- Check RLS policies
 SELECT * FROM pg_policies WHERE tablename = 'projects';
@@ -1146,12 +1263,15 @@ ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
 #### Issue: High Database Load
 
 **Symptoms**:
+
 - Slow query performance
 - High CPU usage
 - Connection pool exhausted
 
 **Solutions**:
+
 1. Identify slow queries:
+
 ```sql
 SELECT * FROM pg_stat_activity
 WHERE state = 'active'
@@ -1159,6 +1279,7 @@ ORDER BY query_start;
 ```
 
 2. Kill long-running queries:
+
 ```sql
 SELECT pg_terminate_backend(pid)
 FROM pg_stat_activity
@@ -1173,6 +1294,7 @@ WHERE state = 'active'
 ### 11.2 Direct Postgres vs MCP Under VPN
 
 **Observed behavior (March 2026):**
+
 - Supabase SQL execution through MCP works while VPN is enabled
 - Direct `DATABASE_URL` connections from local tools may fail under VPN
 - Common direct-DB errors seen in practice:
@@ -1181,56 +1303,67 @@ WHERE state = 'active'
   - `28P01 password authentication failed` — wrong or placeholder DB password in `DATABASE_URL`
 
 **Why MCP works while `pg` fails:**
+
 - MCP traffic usually goes over HTTPS (`443`) through an API layer
 - Direct Postgres uses raw TCP to `db.<project-ref>.supabase.co:5432`
 - VPN/browser bypass rules may allow HTTPS while still blocking raw `5432`
 
 **Important conclusion:**
+
 - If MCP works but `npm run db:test` fails, the problem is usually network/VPN routing, not the SQL migration itself
 - If direct DB works only with VPN off, use MCP or Supabase SQL Editor when VPN must remain on
 
 **Known DWS6 host:**
+
 - Direct DB target: `db.kpucuwwfhuwurdxyjjtz.supabase.co:5432`
 - Supabase web UI: `https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/sql/new`
 
 **VPN notes:**
+
 - Hostname-only bypass may be insufficient for direct Postgres
 - Some VPN clients bypass browser HTTPS correctly but still intercept local TCP clients (`node`, Cursor terminal, DGX Spark)
 - If the VPN warns that bypass does not work with DNS over HTTPS (DoH), disable DoH before testing hostname-based bypass rules
 
 **Recommended test order:**
+
 1. Test MCP path first. If MCP SQL works, schema/app logic is probably fine.
 2. Test direct Postgres path with `npm run db:test`
 3. Compare VPN on vs VPN off
 4. If VPN on fails and VPN off works, report the issue as direct Postgres/TCP `5432` interception, not a SQL bug
 
 **Reusable direct DB test:**
+
 ```bash
 npm run db:test
 ```
 
 This script:
+
 - loads `.env`, `100326.env`, `.env.local`
 - sanitizes SSL query params from `DATABASE_URL`
 - tests direct Postgres connectivity
 - runs a harmless query and prints connection details
 
 **Migration helpers for partial-history environments:**
+
 ```bash
 npm run db:migrate:042
 npm run db:migrate:043
 ```
 
 Both migration runners:
+
 - strip SSL query params from `DATABASE_URL`
 - force a local non-verifying SSL config for compatibility
 - print the target DB host/port for debugging
 
 **Password source rule:**
+
 - `DATABASE_URL` must use the actual PostgreSQL password from `Supabase Dashboard -> Project Settings -> Database`
 - Do not use `anon`, `service_role`, or `sb_secret_*` keys as the Postgres password
 
 **Safe fallback when direct DB is blocked:**
+
 1. Use Supabase SQL Editor
 2. Or use MCP-based SQL execution / migration apply path
 3. Defer direct `pg` tooling until VPN bypass for `db.<project-ref>.supabase.co:5432` is proven to work
@@ -1249,10 +1382,10 @@ Database drift occurs when the live Supabase schema diverges from migration file
 
 Three-phase approach to safe database operations, designed to eliminate partial runs and detect drift.
 
-| Phase | Mode | Purpose | Tool |
-|-------|------|---------|------|
-| **Plan** | Read-only | Diff repo migrations vs live schema, output change plan | `scripts/db-drift-check.py` |
-| **Apply** | Write | Execute migrations as single transactions with fail-fast guards | Supabase MCP `apply_migration` |
+| Phase      | Mode      | Purpose                                                            | Tool                                 |
+| ---------- | --------- | ------------------------------------------------------------------ | ------------------------------------ |
+| **Plan**   | Read-only | Diff repo migrations vs live schema, output change plan            | `scripts/db-drift-check.py`          |
+| **Apply**  | Write     | Execute migrations as single transactions with fail-fast guards    | Supabase MCP `apply_migration`       |
 | **Verify** | Read-only | Post-apply checks: RLS enabled, constraints exist, row counts sane | `scripts/db-drift-check.py --verify` |
 
 #### Phase 1: Plan (Read-Only Drift Detection)
@@ -1266,6 +1399,7 @@ python scripts/db-drift-check.py --dry-run
 ```
 
 The script:
+
 1. Lists all migration files in `supabase/migrations/`
 2. Parses CREATE TABLE statements and checks for BEGIN/COMMIT wrappers
 3. Queries live DB for existing tables (via Supabase REST API or MCP)
@@ -1324,23 +1458,23 @@ Requires `SUPABASE_ACCESS_TOKEN` (personal access token from supabase.com/dashbo
 
 ### 12.4 Safety Rules for Migrations
 
-| Rule | Why |
-|------|-----|
-| Every migration wrapped in `BEGIN`/`COMMIT` | Prevents partial runs |
-| RLS enabled on all new tables | Prevents data leakage |
-| No `DROP TABLE` without explicit approval | Prevents accidental data loss |
-| No `SECURITY DEFINER` on public functions | Prevents privilege escalation |
-| `service_role` key never in client code | Prevents total compromise |
-| Use `IF NOT EXISTS` / `IF EXISTS` guards | Makes migrations idempotent |
-| Include sanity SELECT before COMMIT | Confirms expected state |
+| Rule                                        | Why                           |
+| ------------------------------------------- | ----------------------------- |
+| Every migration wrapped in `BEGIN`/`COMMIT` | Prevents partial runs         |
+| RLS enabled on all new tables               | Prevents data leakage         |
+| No `DROP TABLE` without explicit approval   | Prevents accidental data loss |
+| No `SECURITY DEFINER` on public functions   | Prevents privilege escalation |
+| `service_role` key never in client code     | Prevents total compromise     |
+| Use `IF NOT EXISTS` / `IF EXISTS` guards    | Makes migrations idempotent   |
+| Include sanity SELECT before COMMIT         | Confirms expected state       |
 
 ### 12.5 Scripts Reference
 
-| Script | Purpose |
-|--------|---------|
-| `scripts/db-drift-check.py` | Plan + Verify phases — detects schema drift, publishes alerts |
-| `scripts/alert-publisher.py` | Fetches Supabase Performance Advisor results, publishes to Redis |
-| `scripts/test-db-connection.ts` | Tests direct PostgreSQL connectivity using `DATABASE_URL`; use to compare VPN on vs off |
+| Script                           | Purpose                                                                                         |
+| -------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `scripts/db-drift-check.py`      | Plan + Verify phases — detects schema drift, publishes alerts                                   |
+| `scripts/alert-publisher.py`     | Fetches Supabase Performance Advisor results, publishes to Redis                                |
+| `scripts/test-db-connection.ts`  | Tests direct PostgreSQL connectivity using `DATABASE_URL`; use to compare VPN on vs off         |
 | `scripts/apply-migration-042.ts` | Applies migration 042 directly via `pg` when migration history prevents full `supabase db push` |
 | `scripts/apply-migration-043.ts` | Applies migration 043 directly via `pg` when migration history prevents full `supabase db push` |
 
@@ -1363,20 +1497,20 @@ Requires `SUPABASE_ACCESS_TOKEN` (personal access token from supabase.com/dashbo
 
 ### 13.2 Channels
 
-| Channel | Source | Alert Types |
-|---------|--------|-------------|
-| `supabase:alerts` | DB drift check, Supabase advisor, migration events | Schema drift, performance warnings, security advisories |
-| `mcp:alerts` | MCP Hub health, individual MCP server status | Container unhealthy, endpoint unreachable, auth failures |
-| `system:alerts` | Docker events, disk space, training jobs | Container crash, low disk, training complete/failed |
+| Channel           | Source                                             | Alert Types                                              |
+| ----------------- | -------------------------------------------------- | -------------------------------------------------------- |
+| `supabase:alerts` | DB drift check, Supabase advisor, migration events | Schema drift, performance warnings, security advisories  |
+| `mcp:alerts`      | MCP Hub health, individual MCP server status       | Container unhealthy, endpoint unreachable, auth failures |
+| `system:alerts`   | Docker events, disk space, training jobs           | Container crash, low disk, training complete/failed      |
 
 ### 13.3 Routing Rules by Severity
 
 | Severity | Claude Code | Email (admin@dws6.com) | Grafana |
-|----------|-------------|------------------------|---------|
-| INFO | Yes | No | Yes |
-| WARNING | Yes | No | Yes |
-| HIGH | Yes | **Yes** | Yes |
-| CRITICAL | Yes | **Yes** | Yes |
+| -------- | ----------- | ---------------------- | ------- |
+| INFO     | Yes         | No                     | Yes     |
+| WARNING  | Yes         | No                     | Yes     |
+| HIGH     | Yes         | **Yes**                | Yes     |
+| CRITICAL | Yes         | **Yes**                | Yes     |
 
 ### 13.4 Alert Payload Format
 
@@ -1417,14 +1551,14 @@ r.publish("supabase:alerts", json.dumps(alert))
 
 ### 13.6 Configuration
 
-| Variable | Purpose | Where to set |
-|----------|---------|--------------|
-| `REDIS_HOST` | Redis hostname | `.env` / alert router env |
-| `REDIS_PORT` | Redis port (default: 6380) | `.env` / alert router env |
-| `ADMIN_EMAIL` | Email recipient for HIGH/CRITICAL | Alert router env |
-| `SUPABASE_URL` | Supabase project URL | `.env` |
-| `SUPABASE_SERVICE_KEY` | Supabase admin access | `.env` |
-| `SUPABASE_ACCESS_TOKEN` | Personal access token for Management API | `.env` |
+| Variable                | Purpose                                  | Where to set              |
+| ----------------------- | ---------------------------------------- | ------------------------- |
+| `REDIS_HOST`            | Redis hostname                           | `.env` / alert router env |
+| `REDIS_PORT`            | Redis port (default: 6380)               | `.env` / alert router env |
+| `ADMIN_EMAIL`           | Email recipient for HIGH/CRITICAL        | Alert router env          |
+| `SUPABASE_URL`          | Supabase project URL                     | `.env`                    |
+| `SUPABASE_SERVICE_KEY`  | Supabase admin access                    | `.env`                    |
+| `SUPABASE_ACCESS_TOKEN` | Personal access token for Management API | `.env`                    |
 
 ---
 
@@ -1468,15 +1602,15 @@ DWS6 runs on Supabase PostgreSQL (EU) with only `uuid-ossp` and `pgcrypto` exten
 
 ### 15.2 Extension Availability
 
-| Extension | Supabase | Aiven (V1) | Self-hosted | Purpose |
-|-----------|----------|-------------|-------------|---------|
-| uuid-ossp | **Active** | Available | Available | UUID generation |
-| pgcrypto | **Active** | Available | Available | Cryptographic functions |
-| pgvector | Available | Available | Available | Vector embeddings (planned) |
-| pg_stat_statements | Available | Available | Available | Query profiling (Phase 0) |
-| TimescaleDB | No | **Available** | Available | Time-series hypertables (Phase 1) |
-| pg_duckdb | No | Verify | Available | Analytical acceleration (Phase 2) |
-| pg_mooncake | No | No | Available | Lakehouse export (Phase 3) |
+| Extension          | Supabase   | Aiven (V1)    | Self-hosted | Purpose                           |
+| ------------------ | ---------- | ------------- | ----------- | --------------------------------- |
+| uuid-ossp          | **Active** | Available     | Available   | UUID generation                   |
+| pgcrypto           | **Active** | Available     | Available   | Cryptographic functions           |
+| pgvector           | Available  | Available     | Available   | Vector embeddings (planned)       |
+| pg_stat_statements | Available  | Available     | Available   | Query profiling (Phase 0)         |
+| TimescaleDB        | No         | **Available** | Available   | Time-series hypertables (Phase 1) |
+| pg_duckdb          | No         | Verify        | Available   | Analytical acceleration (Phase 2) |
+| pg_mooncake        | No         | No            | Available   | Lakehouse export (Phase 3)        |
 
 ### 15.3 Phased Rollout
 
@@ -1501,6 +1635,7 @@ All extension and storage engine decisions are governed by `DWS_DATA_STANDARD.md
 ### 15.5 Admin Actions
 
 **Before installing any new extension:**
+
 1. Verify it is in the Approved Extensions Registry (`DWS_DATA_STANDARD.md` §12)
 2. Test on Aiven Developer plan ($5/mo) first
 3. Create a migration file following `DWS_DATA_STANDARD.md` §10.4 template

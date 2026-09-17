@@ -149,8 +149,8 @@ export class EC3Client {
 
       const epds = response.results ?? response.items ?? [];
       return this.buildCategoryStats(materialName, ec3Category, epds);
-    } catch (err: any) {
-      logger.error({ materialName, ec3Category, error: err.message }, 'EC3 API search failed');
+    } catch (err) {
+      logger.error({ materialName, ec3Category, error: err instanceof Error ? err.message : String(err) }, 'EC3 API search failed');
       return this.emptyStats(materialName);
     }
   }
@@ -161,8 +161,8 @@ export class EC3Client {
   async getEpdById(id: string): Promise<EC3Epd | null> {
     try {
       return await this.fetchWithRetry<EC3Epd>(`/epds/${id}`, { method: 'GET' });
-    } catch (err: any) {
-      logger.error({ id, error: err.message }, 'EC3 API get EPD failed');
+    } catch (err) {
+      logger.error({ id, error: err instanceof Error ? err.message : String(err) }, 'EC3 API get EPD failed');
       return null;
     }
   }
@@ -227,13 +227,14 @@ export class EC3Client {
     // Extract GWP A1-A3 value
     let gwpA1A3Raw: number | null = null;
 
-    if (epd.gwp?.a1a2a3?.mean != null) {
-      gwpA1A3Raw = epd.gwp.a1a2a3.mean;
-    } else if (epd.gwp_per_declared_unit != null) {
+    const a1a2a3Mean = epd.gwp?.a1a2a3?.mean;
+    if (a1a2a3Mean !== null && a1a2a3Mean !== undefined) {
+      gwpA1A3Raw = a1a2a3Mean;
+    } else if (epd.gwp_per_declared_unit !== null && epd.gwp_per_declared_unit !== undefined) {
       gwpA1A3Raw = epd.gwp_per_declared_unit;
     }
 
-    if (gwpA1A3Raw == null || gwpA1A3Raw <= 0) {
+    if (gwpA1A3Raw === null || gwpA1A3Raw <= 0) {
       return null;
     }
 
@@ -370,7 +371,7 @@ export class EC3Client {
       } catch (err: unknown) {
         const axiosErr = err as AxiosError;
         const status = axiosErr.response?.status;
-        const isRetryable = status === 429 || (status != null && status >= 500);
+        const isRetryable = status === 429 || (status !== undefined && status >= 500);
 
         if (!isRetryable || attempt === maxRetries) {
           throw err;

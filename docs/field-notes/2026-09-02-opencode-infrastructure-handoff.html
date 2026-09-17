@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Claude Haiku 4.5" />
+  <meta name="dcterms.date" content="2026-09-02" />
+  <title>2026-09-02-opencode-infrastructure-handoff</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-02-opencode-infrastructure-handoff</h1>
+<p class="author">Claude Haiku 4.5</p>
+<p class="date">2026-09-02</p>
+</header>
+<h1 id="session-summary-featopencode-infrastructure-upgrade-resume">Session Summary: feat/opencode-infrastructure-upgrade Resume</h1>
+<h2 id="what-happened">What Happened</h2>
+<p>User invoked <code>resume</code> on branch <code>feat/opencode-infrastructure-upgrade</code>, which had uncommitted changes from a prior session (2026-08-31).</p>
+<p><strong>Actions taken:</strong></p>
+<ol type="1">
+<li>Assessed git state: 12 modified files, 5 new untracked files, including changes to Admin manual, Supabase configs, Stripe webhook, and billing service</li>
+<li>Reviewed <code>.gitignore</code> policy (private repo, admin files should be tracked for cloud-session durability)</li>
+<li>Committed safe changes: dependency upgrade (<code>@anthropic-ai/claude-code</code> ^2.1.258) + OpenCode workflow queue updates</li>
+<li>Created per-branch handoff file (<code>.claude/handoffs/feat/opencode-infrastructure-upgrade.md</code>) documenting remaining work and blockers</li>
+</ol>
+<p><strong>Commits created:</strong></p>
+<ul>
+<li><code>0c00dc477</code>: chore: OpenCode infrastructure dependency and workflow updates</li>
+<li><code>e929f4de9</code>: handoff: OpenCode infrastructure upgrade session checkpoint</li>
+</ul>
+<h2 id="blockers-identified">Blockers Identified</h2>
+<p>Three issues require HIC decision:</p>
+<ol type="1">
+<li><p><strong>Security hook vs. policy conflict</strong> — <code>protect-files.sh</code> blocks Admin manual from commit, but <code>.gitignore</code> principle says admin files must be tracked for cloud-session persistence. Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md v1.9 (§7.6 OpenCode session state documentation) is staged but not committed.</p></li>
+<li><p><strong>Migration numbering collision</strong> — Two files share prefix 076: <code>076_revoke_anon_legacy_grants.sql</code> (live, 2026-07-19) and pending <code>076_opencode_session_state.sql</code> (2026-08-31). One must be renumbered per §7.4 policy before migration can be applied.</p></li>
+<li><p><strong>Scope ambiguity</strong> — <code>src/routes/stripe-webhook.routes.ts</code> and <code>src/services/billing.service.ts</code> are uncommitted. Unclear if these are part of the OpenCode upgrade or a separate feature; may need branch split.</p></li>
+</ol>
+<h2 id="why-not-learning-outcome">Why Not Learning Outcome</h2>
+<p>This session was administrative/handoff work: reviewing prior-session state, committing the uncontroversial parts, and documenting blockers for the next session. No new feature, research, or domain insight was produced — only clarification of pre-existing work.</p>
+<p>N/A — Session type is handoff/resume, not substantive feature/research work. Blockers are documented in per-branch handoff file for next session.</p>
+<h2 id="next-session-checklist">Next Session Checklist</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Admin manual commit: confirm security hook policy or override</label></li>
+<li><label><input type="checkbox"></input>Migration 076 numbering: renumber duplicate prefix to 086 or per sequential scheme</label></li>
+<li><label><input type="checkbox"></input>Stripe/billing changes: confirm scope (OpenCode or separate?) and branch split if needed</label></li>
+<li><label><input type="checkbox"></input>Field note .docx content: convert to .md for git persistence</label></li>
+<li><label><input type="checkbox"></input>Review word-count and tone of Admin §7.6 for inclusion readiness</label></li>
+</ul>
+<hr />
+<p><strong>Related files:</strong></p>
+<ul>
+<li><code>.claude/handoffs/feat/opencode-infrastructure-upgrade.md</code> — detailed state + next steps</li>
+<li><code>Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md</code> — v1.9 with §7.6 OpenCode session state docs (staged, not committed)</li>
+<li>Commits: 0c00dc477, e929f4de9</li>
+</ul>
+</body>
+</html>

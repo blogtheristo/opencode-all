@@ -52,4 +52,4 @@ Olen käytettävissä lisäkysymyksiä varten.
 Ystävällisin terveisin,
 Risto Anton Päärni
 CEO, Lifetime Oy
-risto.paarni2024@lifetime.fi
+risto.paarni@lifetime.fi

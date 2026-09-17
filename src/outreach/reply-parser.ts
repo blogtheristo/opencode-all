@@ -23,7 +23,6 @@
  *   T:XXXXXXXX note <text>                   — set next_action text without status change
  */
 
-import crypto from 'crypto';
 import type { OutreachStatus } from './types.js';
 import { generateSignalToken } from '../signals/signal-token.js';
 
@@ -284,35 +283,6 @@ export function parseSubjectCommand(subject: string): ParseResult {
   }
 
   return { command: result, error: null };
-}
-
-// ============================================================================
-// RESEND WEBHOOK SIGNATURE VERIFICATION
-// ============================================================================
-
-/**
- * Verify Resend webhook signature (Svix-based).
- * Headers: svix-id, svix-timestamp, svix-signature
- * Secret: RESEND_WEBHOOK_SECRET (from Resend dashboard, starts with whsec_)
- */
-export function verifyResendSignature(
-  rawBody: string,
-  svixId: string,
-  svixTimestamp: string,
-  svixSignature: string,
-): boolean {
-  const secret = process.env.RESEND_WEBHOOK_SECRET;
-  if (!secret) return false;
-
-  // Svix secret format: whsec_<base64>
-  const secretBytes = Buffer.from(secret.replace('whsec_', ''), 'base64');
-  const signedContent = `${svixId}.${svixTimestamp}.${rawBody}`;
-  const computed = crypto.createHmac('sha256', secretBytes).update(signedContent).digest('base64');
-
-  const expectedSig = `v1,${computed}`;
-
-  // svix-signature can contain multiple signatures separated by space
-  return svixSignature.split(' ').some((sig) => sig.trim() === expectedSig);
 }
 
 // ============================================================================

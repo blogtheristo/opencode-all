@@ -1,0 +1,194 @@
+---
+# Evidence: Tool=Claude Code 1.0 Model=claude-haiku-4-5-20251001 Agent=engineering-execution Date=2026-09-05
+# Deployment manifest for Jetson Orin edge inference nodes (World Model v2 AMR fleet)
+
+apiVersion: v1
+kind: DeploymentManifest
+metadata:
+  name: jetson-orin-amr-nodes
+  namespace: world-model-v2
+  deployment_target: warehouse_amr_fleet
+  pilot_location: Helsinki
+  date_created: 2026-09-05
+
+spec:
+  # Hardware specification (per node)
+  hardware:
+    device_model: "NVIDIA Jetson Orin Nano / NX"
+    compute_capability: 2-8 TOPS
+    memory_lpddr5: 8GB
+    storage_emmc: 64GB
+    gpu_memory: 4GB
+
+  # Operating system and core dependencies
+  os:
+    distribution: Ubuntu 22.04 LTS (official Jetson image)
+    kernel: Linux 5.10+ (Jetson-optimized)
+    boot_mode: secure_boot_enabled
+    auto_update: false
+
+  cuda_toolkit:
+    version: "12.x"
+    cudnn: 8.6.0+
+    tensorrt: "8.5+"
+
+  # Deployment: 3 pilot AMR nodes
+  nodes:
+    - name: amr-warehouse-001
+      hostname: amr001.warehouse.local
+      ip_address: 192.168.1.101
+      location: Aisle A3
+      asset_id: amr_warehouse_001
+      role: primary_pilot
+
+    - name: amr-warehouse-002
+      hostname: amr002.warehouse.local
+      ip_address: 192.168.1.102
+      location: Aisle B2
+      asset_id: amr_warehouse_002
+      role: secondary_pilot
+
+    - name: amr-warehouse-003
+      hostname: amr003.warehouse.local
+      ip_address: 192.168.1.103
+      location: Aisle C1
+      asset_id: amr_warehouse_003
+      role: secondary_pilot
+
+  # World Model inference engine
+  model:
+    name: world_model_v2_amr_lora_1.0
+    format: TensorRT (INT8 quantization)
+    size_gb: 4.2
+    sha256_checksum_validation: required
+    source: ${MODEL_ARTIFACT_REGISTRY}
+    loading_strategy: persistent_memory (no reload per inference)
+
+  # Inference performance targets (Sprint 2 validation)
+  inference:
+    max_latency_ms: 100
+    breakdown:
+      tokenization_ms: 20
+      forward_pass_ms: 60
+      post_processing_ms: 20
+    batch_size: 1 (single decision per inference, no batching)
+    confidence_threshold: 0.65 (minimum for action trigger)
+
+  # Network configuration (isolated mesh)
+  networking:
+    gateway: DGX Spark (192.168.1.50)
+    wifi_mode: IEEE 802.11ax (WiFi 6)
+    isolation: isolated_local_mesh (no direct internet)
+    internet_proxy: optional (DGX Spark gateway only)
+    dns_servers:
+      - 1.1.1.1 (Cloudflare)
+      - 8.8.8.8 (Google)
+
+  # Edge-to-cloud latent sync protocol
+  encryption:
+    protocol: AES-256-GCM (NIST-approved)
+    session_key_rotation: per_decision (ephemeral)
+    compression: attention_based_summarization (decision-relevant features only)
+    target_payload_mb: 1.0
+    target_round_trip_ms: 100
+
+  # Network resilience and fallback
+  fallback_mechanism:
+    latency_threshold_ms: 150
+    trigger_action: "revert_to_local_safety_profile"
+    safety_fallback_mode: "deterministic_stop_in_place"
+    fallback_response_time_ms: 5
+    fallback_actions:
+      - stop_immediate
+      - return_home_navigation
+      - log_to_local_aegis_cache
+
+  # Security posture
+  security:
+    ssh_access: key_based_only (no password)
+    ssh_key_provisioning: ${SSH_PRIVATE_KEY_PATH} (mounted at provision time)
+    ssh_allowed_hosts:
+      - dgx-spark.warehouse.local (gateway)
+    firewall_rules:
+      - inbound: blocked (except SSH from gateway)
+      - outbound: blocked (except to DGX Spark gateway)
+    selinux: enforcing
+    audit_logging: enabled (forward to Aegis)
+    secure_boot: enabled_with_signed_kernel
+
+  # Monitoring and observability
+  monitoring:
+    prometheus_port: 9090 (local only, accessible via gateway)
+    metrics_collection:
+      - inference_latency_p50_p95_p99
+      - model_confidence_scores
+      - data_quality_metrics (NaN, null frames)
+      - network_latency_to_gateway
+      - fallback_activation_count
+      - battery_state_of_charge
+      - temperature_sensors
+    log_forwarding:
+      syslog_target: ${SYSLOG_ENDPOINT}
+      audit_trail_target: Aegis (Article 13 compliance)
+    alert_thresholds:
+      latency_exceeded_ms: 120
+      fallback_activated: immediate
+      model_confidence_below: 0.50
+
+  # Initialization sequence
+  initialization:
+    - step_1_secure_boot: verify kernel signature
+    - step_2_os_hardening: load security policies (SELinux, firewall)
+    - step_3_cuda_setup: initialize CUDA runtime, verify GPU availability
+    - step_4_model_provisioning: download model, validate checksum, convert to TensorRT if needed
+    - step_5_inference_daemon: start inference service on port 8000 (localhost)
+    - step_6_gateway_registration: register node identity with DGX Spark gateway
+    - step_7_health_check: verify <100ms latency to gateway on 5 test inferences
+    - step_8_audit_logging: initialize local Aegis cache and test Article 13 logging
+
+  # Sprint 2 validation checklist (Week 8 gate)
+  validation:
+    - test_latency_end_to_end: measure tokenize + infer + post-process <100ms on live hardware
+    - test_safety_override: trigger network failure, verify AMR reverts to stop-in-place <5ms
+    - test_audit_logging: issue 5 test decisions, verify all logged to Aegis with immutable hash
+    - test_fallback_recovery: disconnect gateway, wait 150ms+, verify fallback activated; reconnect and verify recovery
+    - test_thermal_stability: run 100 consecutive inferences, monitor temperature, verify <80°C sustained
+
+  # Maintenance and updates
+  maintenance:
+    model_update_strategy: manual_approval_only (no auto-update)
+    kernel_security_patches: auto-download, manual_approval_for_reboot
+    log_rotation: daily, retain_7_days_local (older logs forward to Aegis)
+    certificate_rotation: quarterly (TLS for gateway communication)
+
+  # Compliance and audit
+  compliance:
+    article_13_logging: enabled
+    audit_chain_integrity: cryptographic_hash_verification
+    data_residency: EU (all data remains on-device or EU-sovereign Aiven)
+    gdpr_compliance: no_personal_data_in_telemetry (no faces, license plates)
+    nis2_baseline: edge_nodes_isolated_mesh
+
+  # Hardware lifecycle
+  hardware_lifecycle:
+    deployment_date: 2026-09-15 (Week 6, target)
+    pilot_duration_weeks: 8 (Weeks 6-13)
+    end_of_pilot: 2026-11-10
+    decommission_action: secure_wipe (DoD 5220.22-M)
+
+---
+# Configuration notes:
+
+# 1. SSH_PRIVATE_KEY_PATH: Path to the mounted secret key on DGX Spark provisioning host
+#    (not embedded in this manifest; provisioned via secure envelope)
+
+# 2. MODEL_ARTIFACT_REGISTRY: Environment variable pointing to the model artifact store
+#    (default: s3://eu-sovereign-models/world-model-v2/amr-lora-1.0-tensorrt-int8.tar.gz)
+
+# 3. SYSLOG_ENDPOINT: Environment variable for centralized logging (default: 10.0.1.50:514)
+
+# 4. Root-level credential management: Use HashiCorp Vault or AWS Secrets Manager
+#    Credentials are provisioned at node-provision time via secure envelope, not stored in this manifest.
+
+# 5. For Week 8 validation: All tests run against this manifest spec.
+#    If any test fails, root-cause and patch before proceeding to Sprint 3.

@@ -5,7 +5,7 @@
  * Supabase calls are mocked — these are pure unit tests of business logic.
  */
 
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type { GeneratedReport, ReportSection } from '../firehorse/report-module.js';
 
 // ============================================================================

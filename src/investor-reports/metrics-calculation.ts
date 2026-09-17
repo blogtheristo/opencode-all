@@ -3,16 +3,17 @@
  * MRR, ARR, Runway, Churn, Pipeline Analytics
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import logger from '../utils/logger.js';
 import {
-  MRRMetrics,
-  ARRMetrics,
-  CustomerMetrics,
-  PipelineMetrics,
-  CashMetrics,
-  UnitEconomics,
-  MonthlyMetricsSummary,
-  CurrentMRRByCustomer,
+  type ARRMetrics,
+  type CashMetrics,
+  type CurrentMRRByCustomer,
+  type CustomerMetrics,
+  type MonthlyMetricsSummary,
+  type MRRMetrics,
+  type PipelineMetrics,
+  type UnitEconomics,
 } from './types';
 
 // ============================================================================
@@ -49,7 +50,7 @@ export class MetricsCalculationService {
       .single();
 
     if (currentError && currentError.code !== 'PGRST116') {
-      console.error('Error fetching current MRR:', currentError);
+      logger.error('Error fetching current MRR:', currentError);
     }
 
     // Get previous month metrics
@@ -60,7 +61,7 @@ export class MetricsCalculationService {
       .single();
 
     if (previousError && previousError.code !== 'PGRST116') {
-      console.error('Error fetching previous MRR:', previousError);
+      logger.error('Error fetching previous MRR:', previousError);
     }
 
     const currentMRR = currentData?.mrr || 0;
@@ -77,7 +78,10 @@ export class MetricsCalculationService {
       expansion_mrr: currentData?.expansion_mrr || 0,
       contraction_mrr: currentData?.contraction_mrr || 0,
       churned_mrr: currentData?.churned_mrr || 0,
-      net_new_mrr: (currentData?.new_mrr || 0) + (currentData?.expansion_mrr || 0) - (currentData?.churned_mrr || 0),
+      net_new_mrr:
+        (currentData?.new_mrr || 0) +
+        (currentData?.expansion_mrr || 0) -
+        (currentData?.churned_mrr || 0),
     };
   }
 
@@ -131,21 +135,20 @@ export class MetricsCalculationService {
       .single();
 
     // Get total customers by status
-    const { data: statusCounts } = await this.supabase
-      .from('customers')
-      .select('status');
+    const { data: statusCounts } = await this.supabase.from('customers').select('status');
 
     const total = statusCounts?.length || 0;
-    const active = statusCounts?.filter(c => ['active', 'trial', 'expansion'].includes(c.status)).length || 0;
-    const trial = statusCounts?.filter(c => c.status === 'trial').length || 0;
-    const churned = statusCounts?.filter(c => c.status === 'churned').length || 0;
+    const active =
+      statusCounts?.filter((c) => ['active', 'trial', 'expansion'].includes(c.status)).length || 0;
+    const trial = statusCounts?.filter((c) => c.status === 'trial').length || 0;
+    const churned = statusCounts?.filter((c) => c.status === 'churned').length || 0;
 
     const monthlyChurnCount = revenueData?.churned_customers || 0;
     const churnRate = revenueData?.churn_rate || 0;
     const retentionRate = 100 - churnRate;
 
     // Calculate average customer lifetime (simplified)
-    const avgLifetime = churnRate > 0 ? (1 / (churnRate / 100)) : 0;
+    const avgLifetime = churnRate > 0 ? 1 / (churnRate / 100) : 0;
 
     return {
       total_customers: total,
@@ -165,25 +168,28 @@ export class MetricsCalculationService {
 
   async getPipelineMetrics(): Promise<PipelineMetrics> {
     // Get sales pipeline data from Firehorse
-    const { data: pipelineData } = await this.supabase
-      .from('firehorse_sales_pipeline')
-      .select('*');
+    const { data: pipelineData } = await this.supabase.from('firehorse_sales_pipeline').select('*');
 
     if (!pipelineData) {
       return this.getEmptyPipelineMetrics();
     }
 
-    const leadsCount = pipelineData.filter(l =>
-      ['New', 'Cold_1_Sent', 'Cold_1_Opened', 'Cold_1_Clicked', 'Cold_2_Sent', 'Cold_3_Sent'].includes(l.lead_state)
+    const leadsCount = pipelineData.filter((l) =>
+      [
+        'New',
+        'Cold_1_Sent',
+        'Cold_1_Opened',
+        'Cold_1_Clicked',
+        'Cold_2_Sent',
+        'Cold_3_Sent',
+      ].includes(l.lead_state),
     ).length;
 
-    const meetingsCount = pipelineData.filter(l =>
-      l.lead_state === 'Meeting_Booked' || l.meetings_count > 0
+    const meetingsCount = pipelineData.filter(
+      (l) => l.lead_state === 'Meeting_Booked' || l.meetings_count > 0,
     ).length;
 
-    const proposalsCount = pipelineData.filter(l =>
-      l.proposals_count > 0
-    ).length;
+    const proposalsCount = pipelineData.filter((l) => l.proposals_count > 0).length;
 
     // Closed won = customers that came from Firehorse
     const { data: closedWon } = await this.supabase
@@ -199,7 +205,7 @@ export class MetricsCalculationService {
     }, 0);
 
     const qualifiedPipelineValue = pipelineData
-      .filter(l => ['Engaged', 'Meeting_Booked'].includes(l.lead_state) || l.meetings_count > 0)
+      .filter((l) => ['Engaged', 'Meeting_Booked'].includes(l.lead_state) || l.meetings_count > 0)
       .reduce((sum, lead) => sum + (lead.revenue_eur_million || 0) * 1000000, 0);
 
     // Weighted pipeline (20% for engaged, 40% for meeting, 70% for proposal)
@@ -209,7 +215,7 @@ export class MetricsCalculationService {
       if (lead.proposals_count > 0) weight = 0.7;
       else if (lead.meetings_count > 0) weight = 0.4;
       else if (lead.lead_state === 'Engaged') weight = 0.2;
-      return sum + (value * weight);
+      return sum + value * weight;
     }, 0);
 
     // Conversion rates
@@ -273,13 +279,15 @@ export class MetricsCalculationService {
       .gte('month', sixMonthsAgo.toISOString().split('T')[0])
       .lte('month', month.toISOString().split('T')[0]);
 
-    const avg3mBurn = last3Months && last3Months.length > 0
-      ? last3Months.reduce((sum, m) => sum + (m.net_burn || 0), 0) / last3Months.length
-      : currentData?.net_burn || 0;
+    const avg3mBurn =
+      last3Months && last3Months.length > 0
+        ? last3Months.reduce((sum, m) => sum + (m.net_burn || 0), 0) / last3Months.length
+        : currentData?.net_burn || 0;
 
-    const avg6mBurn = last6Months && last6Months.length > 0
-      ? last6Months.reduce((sum, m) => sum + (m.net_burn || 0), 0) / last6Months.length
-      : currentData?.net_burn || 0;
+    const avg6mBurn =
+      last6Months && last6Months.length > 0
+        ? last6Months.reduce((sum, m) => sum + (m.net_burn || 0), 0) / last6Months.length
+        : currentData?.net_burn || 0;
 
     const runwayMonths = currentData?.runway_months || 0;
     const runwayDate = this.addMonths(month, runwayMonths);
@@ -304,7 +312,7 @@ export class MetricsCalculationService {
     // Get active customers with LTV
     const { data: customers } = await this.supabase
       .from('customers')
-      .select('current_mrr, lifetime_value')
+      .select('current_mrr, lifetime_value, created_at')
       .in('status', ['active', 'trial', 'expansion']);
 
     if (!customers || customers.length === 0) {
@@ -324,7 +332,8 @@ export class MetricsCalculationService {
     const arpa = arpu; // Same for now (no differentiation between users/accounts)
 
     // Calculate average LTV
-    const avgLTV = customers.reduce((sum, c) => sum + (c.lifetime_value || 0), 0) / customers.length;
+    const avgLTV =
+      customers.reduce((sum, c) => sum + (c.lifetime_value || 0), 0) / customers.length;
 
     // CAC estimation — attempt to fetch marketing/sales expenses from transactions
     let estimatedCAC = 1000; // Fallback if no transaction data available
@@ -336,11 +345,12 @@ export class MetricsCalculationService {
         .gte('created_at', new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString());
 
       if (expenses && expenses.length > 0) {
-        const totalSpend = expenses.reduce((sum: number, e: any) => sum + Math.abs(e.amount || 0), 0);
+        const totalSpend = expenses.reduce((sum, e) => sum + Math.abs(e.amount || 0), 0);
         const monthlySpend = totalSpend / 3; // 90-day window → monthly average
-        const newCustomersPerMonth = customers.filter(c =>
-          new Date(c.created_at) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
-        ).length || 1;
+        const newCustomersPerMonth =
+          customers.filter(
+            (c) => new Date(c.created_at) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+          ).length || 1;
         estimatedCAC = Math.round(monthlySpend / newCustomersPerMonth);
       }
     } catch {
@@ -373,7 +383,7 @@ export class MetricsCalculationService {
       .gte('month', startMonth.toISOString().split('T')[0])
       .order('month', { ascending: true });
 
-    return (data || []).map(d => ({
+    return (data || []).map((d) => ({
       month: new Date(d.month),
       value: d.mrr,
     }));
@@ -388,13 +398,15 @@ export class MetricsCalculationService {
       .gte('month', startMonth.toISOString().split('T')[0])
       .order('month', { ascending: true });
 
-    return (data || []).map(d => ({
+    return (data || []).map((d) => ({
       month: new Date(d.month),
       value: d.arr,
     }));
   }
 
-  async getHistoricalCustomers(months: number = 12): Promise<Array<{ month: Date; count: number }>> {
+  async getHistoricalCustomers(
+    months: number = 12,
+  ): Promise<Array<{ month: Date; count: number }>> {
     const startMonth = this.getMonthsAgo(new Date(), months);
 
     const { data } = await this.supabase
@@ -403,7 +415,7 @@ export class MetricsCalculationService {
       .gte('month', startMonth.toISOString().split('T')[0])
       .order('month', { ascending: true });
 
-    return (data || []).map(d => ({
+    return (data || []).map((d) => ({
       month: new Date(d.month),
       count: d.active_customers,
     }));
@@ -418,7 +430,7 @@ export class MetricsCalculationService {
       .gte('month', startMonth.toISOString().split('T')[0])
       .order('month', { ascending: true });
 
-    return (data || []).map(d => ({
+    return (data || []).map((d) => ({
       month: new Date(d.month),
       balance: d.cash_balance,
     }));
@@ -435,7 +447,7 @@ export class MetricsCalculationService {
       .order('current_mrr', { ascending: false });
 
     if (error) {
-      console.error('Error fetching MRR by customer:', error);
+      logger.error('Error fetching MRR by customer:', error);
       return [];
     }
 
@@ -449,7 +461,7 @@ export class MetricsCalculationService {
       .limit(limit);
 
     if (error) {
-      console.error('Error fetching monthly metrics summary:', error);
+      logger.error('Error fetching monthly metrics summary:', error);
       return [];
     }
 

@@ -1,0 +1,130 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-09-09",
+  "sourceOfTruth": false,
+  "structuredMirror": true,
+  "humanReadableSource": "../../docs/LOCKED_DECISIONS.md",
+  "registeredIn": "DWS_TRUTH_STANDARD.md §2 row 31",
+  "owner": "Risto Päärni",
+  "note": "Canonical investor seat structure, LD-2026-017 (2026-09-09). Registered here under DWS_TRUTH_STANDARD §3A because this number is repeated across 100+ investor-facing files and had drifted FOUR times in six months while living only in a decision log. Every drift reached live investor-facing pages before it was caught. The deprecatedDisplayPhrases below are the three superseded structures; the linter FAILs on them so a regression cannot reach public copy silently.",
+
+  "round": {
+    "total": 650000,
+    "currency": "EUR",
+    "instrument": "SAFE",
+    "valuationCap": 3800000,
+    "canonicalSurface": "dws10.com/investor-centre/",
+    "mathClosesExactly": true
+  },
+
+  "tiers": [
+    {
+      "name": "Fleet Admiral",
+      "price": 250000,
+      "seats": 1,
+      "subtotal": 250000,
+      "status": "active"
+    },
+    {
+      "name": "Industry Captain",
+      "price": 50000,
+      "seats": 8,
+      "subtotal": 400000,
+      "status": "active",
+      "note": "An investment tier, not a client role (HIC 2026-09-09, dialog item D5). The separate 'Captain' vs 'Industry Captain' labels name the same seat; 'Industry Captain' is the current label."
+    },
+    {
+      "name": "Deputy Captain",
+      "price": 5000,
+      "seats": null,
+      "status": "shelved",
+      "note": "SHELVED by HIC 2026-09-09 (dialog item D3) — not retired, not sellable. EUR 250,000 + 8 x EUR 50,000 = EUR 650,000 exactly, so there is no room for a Deputy inside the round. Must not appear on live investor surfaces or be quoted to an investor while shelved."
+    },
+    {
+      "name": "Captain triple bundle",
+      "price": 150000,
+      "seats": 3,
+      "status": "retired",
+      "note": "RETIRED by HIC 2026-09-09 (dialog item D4). Came from LD-2026-014; absent from the investor-centre surface."
+    }
+  ],
+
+  "supersessionChain": [
+    {
+      "decision": "LD-2026-007",
+      "date": "2026-03-15",
+      "structure": "Fleet Admiral EUR 500K / Captain EUR 150K / Industry Captain EUR 50K x8 / Deputy unlimited",
+      "status": "superseded"
+    },
+    {
+      "decision": "LD-2026-014",
+      "date": "2026-07-31",
+      "structure": "Fleet Admiral EUR 200K / Captain EUR 50K x9 (EUR 150K triple) / Deputy EUR 5K",
+      "total": 650000,
+      "status": "superseded"
+    },
+    {
+      "decision": "(never locked)",
+      "date": "2026-07-29",
+      "structure": "Boardy pack: EUR 500K Admiral + 8 x EUR 50K Captain",
+      "total": 900000,
+      "status": "never canonical — its own math did not close to the EUR 650K it stated"
+    },
+    {
+      "decision": "LD-2026-017",
+      "date": "2026-09-09",
+      "structure": "Fleet Admiral EUR 250K x1 + Industry Captain EUR 50K x8",
+      "total": 650000,
+      "status": "LOCKED — current"
+    }
+  ],
+
+  "approvedDisplayPhrases": [
+    "Fleet Admiral €250,000",
+    "Fleet Admiral €250K",
+    "Industry Captain €50,000",
+    "8 Captain seats",
+    "8 Industry Captain seats",
+    "8 × €50,000 Captain seats",
+    "€650,000 SAFE",
+    "€650K SAFE",
+    "€650,000 SAFE at a €3.8M cap",
+    "€3.8M valuation cap"
+  ],
+
+  "deprecatedDisplayPhrases": [
+    "Fleet Admiral €200,000",
+    "Fleet Admiral €200K",
+    "€200,000 Fleet Admiral",
+    "€200K Fleet Admiral",
+    "Fleet Admiral €500,000",
+    "Fleet Admiral €500K",
+    "€500K Fleet Admiral",
+    "Captain €150,000",
+    "Captain €150K",
+    "9 Captain seats",
+    "Captain €50K×9",
+    "30 Captain seats",
+    "5 Fleet Admirals",
+    "5 Fleet Admiral chairs",
+    "Deputy Captain €25,000",
+    "Deputy Captain €5,000",
+    "Deputy €5K",
+    "€150,000 triple",
+    "Captain triple bundle",
+    "Platinum Captain"
+  ],
+
+  "ambiguousDisplayPhrasesNeedingContext": [
+    {
+      "phrase": "Captain seat",
+      "validIf": "Must carry the €50,000 price or the 8-seat count, or be clearly an investment-tier reference. Bare 'Captain seat' has historically been read as both the €50K investor seat and a non-equity client role (investor-outreach/INVESTOR_MEMO.md v4.4) — the two are mutually exclusive and D5 ruled it is an investment tier.",
+      "severity": "warn"
+    },
+    {
+      "phrase": "16 captain hats",
+      "validIf": "Product taxonomy only, paired with the industry count ('16 captain hats covering 25 EU-regulated industries' — see dws10.com/config/industries.json approvedDisplayPhrases). This is NOT an investor seat count and must never be reconciled against the 8 Captain seats.",
+      "severity": "warn"
+    }
+  ]
+}

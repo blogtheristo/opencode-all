@@ -2,7 +2,7 @@
 
 ## DWS IQ 6 - Agent Architecture & Coordination
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Created:** January 3, 2026  
 **Owner:** Lifetime Oy  
 **Status:** Active
@@ -18,11 +18,14 @@
 5. [Customer-Facing Agents](#5-customer-facing-agents)
 6. [MCP Servers Integration](#6-mcp-servers-integration)
 7. [Agent Guidelines & Conventions](#7-agent-guidelines--conventions)
-8. [Quick Reference](#8-quick-reference)
+8. [Managed Agent Backends — Claude Managed Agents vs. DGX Managed Agents](#8-managed-agent-backends--claude-managed-agents-vs-dgx-managed-agents)
+9. [Quick Reference](#9-quick-reference)
 
 ---
 
 ## 1. Agent Architecture Overview
+
+> **Every agent operates by the 12 Engineering Discipline Rules.** Canonical source: [`CLAUDE.md`](CLAUDE.md) -> "Engineering Discipline — The 12 Rules"; agent-specific bindings in [`AI_AGENT_GUIDELINES.md`](AI_AGENT_GUIDELINES.md) §0. The rules are injected into every session by `.claude/hooks/session-start.sh`.
 
 ### Agent Types
 
@@ -59,23 +62,104 @@ DWS IQ 6 uses three categories of AI agents:
 
 ### Technology Stack
 
-| Layer                 | Technology                            | Purpose                                 |
-| --------------------- | ------------------------------------- | --------------------------------------- |
-| **Orchestration**     | MCP Hub (`mcp-hub/server.py`)         | Central coordination, workflow patterns |
-| **Fast Inference**    | Groq API (Llama 3.1 70B)              | High-speed agent responses              |
-| **Complex Reasoning** | Claude Sonnet 4.5                     | Deep analysis, planning                 |
-| **Multi-Agent**       | LlamaStack                            | Agent orchestration                     |
-| **Edge AI**           | NVIDIA Jetson                         | On-premise SiteSense agents             |
-| **Database**          | Supabase (PostgreSQL + pgvector)      | Data, embeddings, signals               |
-| **Notifications**     | WhatsApp, webhook, Email (Amazon SES) | Agent alerts                            |
+| Layer                 | Technology                                                                 | Purpose                                 |
+| --------------------- | ---------------------------------------------------------------------------- | --------------------------------------- |
+| **Orchestration**     | MCP Hub (`mcp-hub-ts/`; legacy `mcp-hub/server.py` for Redis/BIM/sandbox) | Central coordination, workflow patterns |
+| **Fast Inference**    | Groq API (Llama 3.1 70B)                                                     | High-speed agent responses              |
+| **Complex Reasoning** | Claude Sonnet 4.5                                                            | Deep analysis, planning                 |
+| **Multi-Agent**       | LlamaStack                                                                   | Agent orchestration                     |
+| **Edge AI**           | NVIDIA Jetson                                                                | On-premise SiteSense agents             |
+| **Database**          | Supabase (PostgreSQL + pgvector)                                             | Data, embeddings, signals               |
+| **Notifications**     | Microsoft Teams (webhook), Slack (webhook), Email (SES)                      | Agent alerts                            |
 
 ### MCP Hub Coordination Patterns
 
-The MCP Hub (`mcp-hub/server.py`) supports three workflow patterns:
+The MCP Hub (`mcp-hub-ts`, or Python `mcp-hub/server.py` where Redis streams / BIM / sandbox are required) supports three workflow patterns:
 
 1. **Fan-Out Pattern**: Parallel task distribution to multiple agents
 2. **Reflection Pattern**: Self-review and iterative improvement
 3. **Sequential Pattern**: Step-by-step task execution with dependencies
+
+### Runtime Selection: OpenCode + DGX Primary, Claude Code Standby
+
+> **Platform Strategy (2026-08-13):** OpenCode + DGX Spark is the default runtime for all new development and scheduled agent work. Claude Code serves as a **hot standby** (<10% usage) for rapid recovery if OpenCode is unavailable.
+
+#### Primary Platform
+
+**OpenCode + VS Code** (default runtime)
+
+- **Inference backend:** DGX Spark (NVIDIA Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x)
+- **IDE:** VS Code with OpenCode Connector + remote DGX development
+- **MCP servers:** Identical config to Claude Code (`.opencode/settings.json`)
+- **Usage pattern:** All new interactive development, skill iteration, ad-hoc debugging
+
+**When to use:**
+
+- New feature branches or refactoring work
+- One-off analysis, reporting, or data extraction
+- Scheduled background jobs (cron, CI/CD pipelines)
+- Long-running agent loops (>1 hour execution)
+- Any work that can be serialized into `.claude/handoffs/` for later resumption
+
+#### Standby Platform
+
+**Claude Code** (<10% usage, hot standby)
+
+- **Inference backend:** Claude API (Anthropic)
+- **IDE:** Claude Code CLI / Web / IDE extensions
+- **MCP servers:** Identical config to OpenCode (`.claude/settings.json`)
+- **Usage pattern:** Failover only; not the default for new work
+
+**When to use:**
+
+- OpenCode/DGX unavailable or degraded
+- Rapid session recovery (continue interrupted work via `.claude/handoffs/`)
+- Complex reasoning tasks requiring Claude's extended thinking
+- Any work already in-flight on Claude Code (do not force migration mid-task)
+
+#### Switching Criteria
+
+| Scenario                   | Action                         | Rationale                                                   |
+| -------------------------- | ------------------------------ | ----------------------------------------------------------- |
+| Starting new work          | Use OpenCode + DGX             | Standard default runtime                                    |
+| OpenCode MCP fails         | Resume in Claude Code          | Pre-tested failover path, same MCP config                   |
+| DGX node offline           | Failover to Claude             | Continuity; use `.claude/handoffs/` to hand off             |
+| Extended thinking needed   | Optionally use Claude          | Claude's reasoning > OpenCode for complex analysis          |
+| Session interrupted        | Resume via `.claude/handoffs/` | State already serialized; platform-agnostic switch          |
+| Scheduled job fails on DGX | Retry on Claude                | Scheduled-task failover (documented in `DGX_DEPLOYMENT.md`) |
+
+#### MCP Interface Compatibility
+
+Both platforms share identical MCP server configurations:
+
+- `dws-gateway-local`
+- `dws-agents-local`
+- GitHub, Google Drive, Figma, Supabase (if applicable)
+- Custom enterprise tools (MCP server listings in `.mcp.json`)
+
+**Guarantee:** A skill or routine written for OpenCode requires zero changes to run on Claude Code, provided it does not rely on platform-specific features (e.g., DGX GPU access).
+
+#### Session State & Reliability (2026-08-31 Upgrade)
+
+OpenCode-all session infrastructure migrated from file-based JSONL queue to Supabase database:
+
+**Before:** File-based queue caused merge conflicts, orphaned sessions, no observability
+
+- Professional rating: 60–70%
+- Manual cleanup required every 3–4 days
+- No SQL querying capabilities
+
+**After:** Supabase `opencode_sessions` table with full lifecycle tracking
+
+- Professional rating: 82% (+12–22% improvement)
+- Transactional safety eliminates conflicts
+- SQL-based observability dashboards enabled
+- Automatic stale-session cleanup via queries
+- SessionManager class for CRUD + lifecycle operations
+
+**Implementation:** Schema in `supabase/migrations/076_opencode_session_state.sql`; TypeScript client in `src/opencode/session-manager.ts`. Full migration guide: `docs/OPENCODE_SESSION_STATE_MIGRATION.md`
+
+**Status (2026-08-31):** Code ready; awaiting DB activation for data migration.
 
 ---
 
@@ -239,7 +323,7 @@ PHASE 4 (Enhancements - Optional)
 
 **Listens For:** `Agent-01:supabase-auth`, `Agent-02:report-api`, `Agent-04:mcp-hub`  
 **Signals Emitted:** `expo-setup`, `redux-store`, `navigation`, `dashboard-screen`, `projects-screen`, `offline-sync`, `v1-mobile`  
-**Reference:** `V1_FEATURE_LIST.md` Section 5, `mobile-dashboard/` directory
+**Reference:** `V1_FEATURE_LIST.md` Section 5, `Firehorse/mobile-app/` (NCC scope folded in 2026-07-04; `mobile-dashboard_RETIRED/` for the original shell)
 
 #### Agent-06: Enterprise Integrations
 
@@ -326,6 +410,16 @@ PHASE 4 (Enhancements - Optional)
 | **SiteSense Agent**      | Edge AI, site monitoring            | `SiteSense/` (NVIDIA Jetson)                         |
 | **ScheduleGenius Agent** | Timeline optimization               | Planned                                              |
 | **MaterialOracle Agent** | Carbon tracking, procurement        | Planned                                              |
+| **Industry Analyst**     | Universal 25-industry coverage      | `src/agents/industry-analyst.agent.ts`               |
+
+> **Industry coverage.** The platform serves 25 EU-regulated industries
+> (`dws10.com/config/industries.json`). 13 have a dedicated specialist (the
+> pantheon: Helios, Vulcan, Gaia, Juno, Neptune, Mars, Ceres, Talos, Prometheus,
+> Hermes/Logistics). The remaining 12 — Aviation, Waste, Pulp & Paper, Refining,
+> Food & Beverage, Glass & Ceramics, Mining, Manufacturing, Healthcare, Financial
+> Services, Public Sector, Data Centres — are covered by the universal
+> **Industry Analyst** agent over `src/agents/data/industry-registry.ts`. See
+> `docs/research/INDUSTRY_COVERAGE_25_COMPARISON.md`.
 
 ### Deployment Phases
 
@@ -334,7 +428,7 @@ PHASE 4 (Enhancements - Optional)
 mode: "silent_pilot"
 actions: ["observe", "generate_reports", "calibrate"]
 approval: none
-output: "Daily reports to WhatsApp, webhook, or email"
+output: "Daily reports to Slack and/or Microsoft Teams"
 
 # Phase 2: Advisor (60 days)
 mode: "advisor"
@@ -348,6 +442,31 @@ actions: ["execute", "send_emails", "create_tasks"]
 approval: exception_only
 guardrails: ["max_emails", "approval_for_discounts"]
 ```
+
+### Proactive Agents — Observe → Act (Code Wiring)
+
+The deployment phases above are now enforced in the TypeScript agent runtime via
+`AgentConfig.autonomyPhase` (`silent_pilot` | `advisor` | `autonomous`, default
+`silent_pilot`). The "observe → act" loop is implemented by:
+
+| Concern                                                    | Module                                     |
+| ---------------------------------------------------------- | ------------------------------------------ |
+| What to watch + 2×2 "worth interrupting" gate              | `src/agents/signal-catalogue.ts`           |
+| Phase ladder + comparison                                  | `src/agents/autonomy.ts`                   |
+| Nudge chokepoint (dedup, rate limit, escalation, delivery) | `src/agents/nudge.service.ts`              |
+| Background observation cron + escalation sweep             | `src/agents/signal-poller.ts`              |
+| Confirm / Override / Dismiss / Investigate handling        | `src/agents/nudge-response-handler.ts`     |
+| `send_notification` agent tool (KYA phase-gated, BLUE)     | `src/agents/tools.ts`                      |
+| Persisted nudge state                                      | `supabase/migrations/069_agent_nudges.sql` |
+
+**Currently promoted to Phase 2 (advisor):** `sitesense`, `compliance`,
+`customer-sat`. All other agents remain `silent_pilot` and cannot send nudges.
+
+**Guardrails:** an agent below `advisor` is refused `send_notification` at the
+tool gate; nudges are deduplicated per `(orgId, signalKey, entityId)` while
+pending, rate-limited per agent (default 5/hour, 20/day, counted from the
+persisted table so limits hold across instances), and escalated after a 4h
+no-response window via the poller's restart-safe `escalate_at` sweep.
 
 ### Agent Configuration Structure
 
@@ -429,6 +548,56 @@ docker mcp add stripe --activate
 
 ## 7. Agent Guidelines & Conventions
 
+### Platform Agents (`src/agents/`)
+
+Code-backed agents (one `*.agent.ts` per row). This table is verified against
+the filesystem by `scripts/verify-agents-md.mjs` — keep it in sync when adding
+or removing an agent.
+
+| Agent                      | Role                                              | Implementation                                                                                                                                                                                                                                                                                                      | Default model |
+| -------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `agora`                    | Collective intelligence / multi-agent consensus   |
+| `argus`                    | Geospatial SAR signal intelligence (orbital)      |
+| `auditor`                  | Audit trail + explainability (XAI)                |
+| `cassandra`                | Predictive analytics + recommendations            |
+| `chronos`                  | Regulatory deadline & scheduling intelligence     |
+| `compliance`               | EU regulatory compliance (Fit for 55, CBAM, CSRD) |
+| `compliance-researcher`    | Regulatory research & deadline tracking           |
+| `construction`             | Construction project compliance orchestrator      |
+| `customer-sat`             | Customer satisfaction & churn analysis            |
+| `daedalus`                 | Tool composition + MCP bridge                     |
+| `deepwiki-extractor`       | Code extraction from GitHub repositories          |
+| `designer`                 | Design-to-code bridge                             |
+| `emissions-data-analyst`   | Natural-language queries on emissions data        |
+| `kb`                       | Knowledge base compile / query                    |
+| `logistics`                | Fleet & supply-chain compliance orchestrator      |
+| `material-oracle`          | Carbon footprint & procurement (LCA)              |
+| `minerva`                  | Knowledge transfer + explainability               |
+| `mnemosyne`                | Long-term memory oracle                           |
+| `panacea`                  | Self-improving / adaptive optimization            |
+| `quality-gate`             | Quality-gate / QA verification                    |
+| `hic-content-audit`        | HicContentAuditAgent                              | Binary pre-publication audit against the DWS Content Production Standard — 13 checklist points, Approved/To be corrected, requires a named HIC approver                                                                                                                                                             | Llama 3.3 70B |
+| `version-audit`            | VersionAuditAgent                                 | Audits DWS IQ 6 component versions, agent configurations, and ensures compliance                                                                                                                                                                                                                                    | Llama 3.3 70B |
+| `industry-analyst`         | IndustryAnalystAgent                              | Universal 25-industry analyst — regulatory exposure, emission profile, and decarbonization levers for any EU-regulated industry; fills the coverage gap for the 12 industries without a dedicated agent                                                                                                             | Llama 3.3 70B |
+| `outreach-executor`        | OutreachExecutorAgent                             | Delivers approved outreach threads via email (Amazon SES) or queues LinkedIn drafts for human delivery. Requires explicit human approval (approvedBy) before sending.                                                                                                                                               | Llama 3.3 70B |
+| `outreach-improver`        | OutreachImproverAgent                             | Outer loop of the DWS outreach self-improvement system. Analyzes outreach_threads outcomes from Supabase and proposes specific SKILL.md diffs to improve response rates over time.                                                                                                                                  | Llama 3.3 70B |
+| `outreach-lead-finder`     | OutreachLeadFinderAgent                           | Finds and scores high-intent EU enterprise leads matching an ICP. Upserts results to Supabase outreach_orgs. Powered by DGX Spark Ollama.                                                                                                                                                                           | Llama 3.3 70B |
+| `outreach-message-crafter` | OutreachMessageCrafterAgent                       | Crafts personalized email + LinkedIn message drafts for B2B leads using DWS brand voice and DGX Spark Ollama. Stores drafts to Supabase outreach_threads.                                                                                                                                                           | Llama 3.3 70B |
+| `outreach-orchestrator`    | OutreachOrchestratorAgent                         | Full outreach pipeline: find high-intent leads → craft personalized messages → queue for review. Step 3 (send) requires explicit human approval.                                                                                                                                                                    | Llama 3.3 70B |
+| `sales-manager-newsletter` | SalesManagerNewsletterAgent                       | Synthesizes market_signals (regulation) + news-to-signal.sh incident data into the sales-manager.md Story → Key Takeaway → Sales Opportunity format. Refuses to generate below minStories; sales targets constrained to EU_TARGET_UNIVERSE (no invented company names). Read-only — Stage 3 script writes the file. | Llama 3.3 70B |
+| `smart-factory`            | SmartFactoryAgent                                 | Smart Factory for Sales: matches any-size product catalog against sourced prospects, runs rate-capped multi-channel outreach (email / WhatsApp Cloud API; LinkedIn + Facebook human-in-the-loop), and books calls into booking_reservations. Backed by `src/smart-factory/` (migration 083).                        | Llama 3.3 70B |
+| `aegis`                    | AegisAgent                                        | Vulnerability & patch governance — triages dependency and code-scan findings                                                                                                                                                                                                                                        | Llama 3.3 70B |
+| `helpdesk`                 | HelpdeskAgent                                     | Support ticket triage agent. Reads ticket + customer plan + prior tickets + policy KB,                                                                                                                                                                                                                              | Llama 3.3 70B |
+| `vesta`                    | VestaAgent                                        | Business-critical systems registry — queryable form of docs/BUSINESS_CRITICAL_SYSTEMS.md.                                                                                                                                                                                                                           | Llama 3.3 70B |
+| `sales-outreach`           | B2B lead research & personalized outreach         |
+| `schedule-genius`          | Timeline & critical-path optimization             |
+| `sitesense`                | Site monitoring & safety analysis                 |
+| `sovereignty-monitor`      | Database sovereignty assessment                   |
+| `synthetic-data`           | CBAM synthetic-data pipeline                      |
+| `themis`                   | Legal intelligence + case coordinator             |
+| `viability`                | Unit economics & carbon-credit valuation          |
+| `vision-oracle`            | Vision language model / image analysis            |
+
 ### Documentation Standards
 
 All AI agents follow `AI_AGENT_GUIDELINES.md`:
@@ -470,7 +639,108 @@ cost_tracking:
 
 ---
 
-## 8. Quick Reference
+## 8. Managed Agent Backends — Claude Managed Agents vs. DGX Managed Agents
+
+**Terminology.** Two execution substrates exist (or are being evaluated) for running DWS agent workloads:
+
+- **Claude Managed Agents** — Anthropic's hosted agent-execution service (public beta as of this writing, `managed-agents-2026-04-01`). Anthropic runs the session/sandbox/tool loop on its own infrastructure; DWS sends events and receives results. Distinct from the raw Messages API, the Tool Runner (`client.beta.messages.tool_runner`, self-hosted loop), and the Claude Agent SDK (self-hosted library) — see Anthropic documentation for the full surface comparison.
+- **DGX Managed Agents** (this repo's term for the existing self-hosted substrate) — the self-hosted agent architecture documented in `docs/Deputy-Agents-Architecture.md`, running on DGX Spark hardware (Acer Veriton GN100, NVIDIA GB10 Superchip, `docs/CLOUD_ENVIRONMENTS.md` §3.2.2), Docker + Dockerode container isolation per tenant/agent, Qwen 2.5 72B primary LLM with Claude Haiku fallback via LiteLLM, orchestrated through `infrastructure/dgx-spark/docker-compose.yml` and the `cron` / `ollama-spark` skills. This is already the platform's primary 24/7 runtime (`Cron-works.md`: 31 daily + 16 weekly jobs).
+
+### 8.1 Comparison
+
+| Dimension                  | Claude Managed Agents                                                                                                               | DGX Managed Agents (current)                                                                                                                   |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hosting / control plane    | Anthropic-run cloud sandbox by default; a self-hosted-worker mode exists but orchestration still lives on Anthropic's control plane | Fully self-hosted: Docker/Dockerode on Lifetime Oy premises                                                                                    |
+| Data residency / CLOUD Act | Tool input/output transits Anthropic's control plane even in self-hosted-worker mode; no confirmed EU-only execution SLA found      | Zero CLOUD Act exposure — Finland premises, `--network none` per container, tenant LWM stays on host (§5, Deputy-Agents-Architecture.md)       |
+| Marginal cost              | Standard token rates **+ a per-session-hour execution surcharge** — see uncertainty flag below                                      | Zero marginal compute cost once hardware is owned; only power draw + occasional Claude fallback tokens                                         |
+| Sandbox / tool surface     | Bash, Read/Write/Edit, Glob/Grep, web fetch/search out of the box; custom tools via JSON schema; MCP connector support              | Discrete, typed tools only (`tools.ts`) — deliberately no general `execute_code`, per AI_AGENT_GUIDELINES §11.4 (KYA / lethal-trifecta gating) |
+| Model flexibility          | Claude models only (Opus 4.8 / Sonnet 5 / Haiku 4.5)                                                                                | Multi-model: Qwen 2.5 72B primary, Claude fallback, DeepSeek/Mistral Enterprise override, per-tenant fine-tuned LWMs                           |
+| Statefulness / audit       | Native multi-turn session persistence, managed memory tool                                                                          | `agent_executions` / `agent_loop_iterations` (Supabase/Aiven) + hash-chain audit for EU AI Act Article 12                                      |
+| Ops burden                 | ~Zero — Anthropic manages scaling, patching, sandbox lifecycle                                                                      | Ours — container lifecycle, zombie cleanup, VRAM budget (128GB GB10, max 2 models loaded), heartbeat monitoring                                |
+| Maturity / risk            | Public beta — event schema, limits, and pricing may still shift                                                                     | Production — already load-bearing for the platform's scheduled work                                                                            |
+| Compliance posture         | External processor; would need its own Article 28 DPA review and a bridge to Article 12 lineage requirements                        | Already wired to Article 12 logging, the KYA BYO-agent gate, and tamper-evident audit                                                          |
+
+**Uncertainty flag (Rule 12 — fail loud).** Session-hour pricing figures surfaced during research (roughly $0.08–$0.25/session-hour, depending on source) came from secondary/third-party summaries, not a figure independently confirmed against Anthropic's official pricing reference. **Do not commit a budget line against these numbers** — re-verify directly from Anthropic's console/docs before Phase 0.1 below. EU data-residency posture is similarly unconfirmed from public docs as of this writing.
+
+### 8.2 What each is actually good for
+
+- **Claude Managed Agents fits:** short-lived, non-regulated, non-sovereignty-sensitive workloads where standing up local infra isn't worth it — e.g. the sales/marketing agents already exempt from the Ledger-Native Output Contract (`competitor-surveillance`, `seo-audit`, `lead-feedback`, `customer-sat`; see §2 of `AI_AGENT_GUIDELINES.md`), ad hoc research spikes, or overflow capacity when DGX Spark's VRAM budget is saturated (max 2 models concurrent, §5.5 Deputy-Agents-Architecture.md).
+- **DGX Managed Agents fits (and stays default) for:** any agent whose output touches the carbon ledger or a customer's regulatory exposure (the non-exempt list in AI_AGENT_GUIDELINES §2), anything requiring EU-sovereign / CLOUD-Act-free execution, anything needing a tenant LWM or a BYO-agent via A2A/MCP, and all 24/7 scheduled work already living on DGX Spark cron.
+
+This mirrors the standing decision already recorded for Firehorse Dreaming (`.claude/clawdbot/memory/clawdbot-architecture.md`): keep the local/DGX substrate as source of truth, and treat Claude Managed Agents as an optional thin adapter — not a migration target — until a concrete gap forces the question.
+
+### 8.3 Implementation Plan
+
+**Phase 0 — Decision gate (no code).**
+
+1. Verify Claude Managed Agents pricing and EU-residency posture directly against Anthropic's current docs/console. Until done, treat the cost/residency rows in §8.1 as provisional.
+2. Confirm the sales-agent exemption list (§2 AI_AGENT_GUIDELINES) is the right pilot scope — these agents already don't touch the carbon ledger, so a pilot there carries the least compliance risk.
+
+**Phase 1 — Pilot (one exempt agent).**
+
+1. Pick one exempt, Tier-1 (read-only) agent — e.g. `seo-audit` or `lead-feedback` — as the pilot.
+2. Add a `runtime: 'dgx' | 'claude-managed'` field to that agent's `AgentConfig` (`src/agents/types.ts`), defaulting to `'dgx'`.
+3. Implement a thin adapter (`src/agents/runtime/managed-agents-client.ts`) wrapping the Managed Agents session API behind the same `execute()` contract `BaseAgent` already returns, so `AgentResponse` shape and downstream consumers (dashboards, `agent_executions` logging) are unaffected.
+4. Extend `agent_executions` with a logged `runtime` field via a dedicated migration (not a silent schema change) so both runtimes log identically.
+5. Run the pilot for two weeks side-by-side with the DGX version of the same agent; compare cost, latency, and output quality before drawing conclusions.
+
+**Phase 2 — Guardrails before any wider rollout.**
+
+1. Ledger-Native Output Contract (AI_AGENT_GUIDELINES §2): Claude Managed Agents runtime is **not** permitted for any non-exempt agent until Article 12 lineage (`signedBy: SovereigntyLayerSignature`) can be produced from a Managed Agents session — this needs its own design, not an assumption.
+2. KYA: a Managed-Agents-backed agent is governed like a BYO agent — it must pass the same `KYACheck` gate (`docs/Deputy-Agents-Architecture.md` §8.3) before promotion past Tier 1 autonomy.
+3. Cost tracking: add `claude_managed_agents` to the `model_costs` block (AI_AGENT_GUIDELINES §6) once real pricing is confirmed (Phase 0.1), with its own `budget_monthly_eur` cap separate from direct API spend.
+4. Only update `Cron-works.md` / `skills/cron/SKILL.md` failover tiers if a _scheduled_ (not ad hoc) job moves to Managed Agents — no scheduled job is currently a pilot candidate.
+
+**Phase 3 — Scale decision (data-driven, not calendar-driven).**
+
+Only after Phase 1 produces real cost/latency numbers: decide whether Claude Managed Agents becomes a standing overflow tier for exempt agents (burst capacity when DGX Spark's queue/VRAM is saturated) or gets shelved. Do not pre-build multi-agent Managed Agents routing before that data exists (Rule 2 — simplicity first).
+
+**Explicitly out of scope for Managed Agents (stays on DGX by design):** all self-hosted industry-specialist agents (`src/agents/workflow/industry/`), every agent on the non-exempt Ledger-Native list, and all DGX Spark cron-scheduled jobs — sovereignty, cost, and the existing Article 12 audit chain all argue against moving these.
+
+---
+
+## 9. Quick Reference
+
+### Skills Registry — gbrain Brain/Ops Track
+
+Companion to the existing gstack coding track (`.claude/commands/`). Based on Garry Tan's [gbrain](https://github.com/garrytan/gbrain), MIT. Full details in `docs/DWS_SKILLS_GUIDE.md` Section 3a.
+
+| Skill                | Use when                                             | Location                     |
+| -------------------- | ---------------------------------------------------- | ---------------------------- |
+| `signal-detector`    | "anything unusual" / "what's drifting"               | `skills/signal-detector/`    |
+| `brain-ops`          | "ask the brain" / "what does the brain"              | `skills/brain-ops/`          |
+| `ingest`             | "add to brain" / "ingest this"                       | `skills/ingest/`             |
+| `query`              | "what do we know about" / "wiki says"                | `skills/query/`              |
+| `enrich`             | "auto-link" / "fix backlinks" (after compile)        | `skills/enrich/`             |
+| `maintain`           | "weekly kb cleanup" / "broken backlinks"             | `skills/maintain/`           |
+| `citation-fixer`     | "fix citations" / "broken links in this doc"         | `skills/citation-fixer/`     |
+| `briefing`           | "morning briefing" / "what's new since yesterday"    | `skills/briefing/`           |
+| `daily-task-manager` | "today's tasks" / "what should i work on"            | `skills/daily-task-manager/` |
+| `cron-scheduler`     | "schedule this" / "register a cron"                  | `skills/cron-scheduler/`     |
+| `reports`            | "annual report" / "board pack" / "carbon report"     | `skills/reports/`            |
+| `skill-creator`      | "new skill" / "scaffold a skill"                     | `skills/skill-creator/`      |
+| `skillpack-check`    | "validate skills" / "is the registry in sync"        | `skills/skillpack-check/`    |
+| `soul-audit`         | "does this sound like risto" / "founder voice check" | `skills/soul-audit/`         |
+
+Top-level dispatcher: `skills/RESOLVER.md` (intent → skill table for both gstack and gbrain).
+
+### Skills Registry — Discipline & Agent/Report Tracks (pre-existing)
+
+These are the pre-existing skills in `skills/`. See `docs/DWS_SKILLS_GUIDE.md` for full descriptions.
+
+| Skill                         | Track        | Path                                  |
+| ----------------------------- | ------------ | ------------------------------------- |
+| `verification-gate`           | Discipline   | `skills/verification-gate/`           |
+| `design-first`                | Discipline   | `skills/design-first/`                |
+| `dual-folder-sync`            | Discipline   | `skills/dual-folder-sync/`            |
+| `compliance`                  | Agent/report | `skills/compliance/`                  |
+| `material-oracle`             | Agent/report | `skills/material-oracle/`             |
+| `sitesense`                   | Agent/report | `skills/sitesense/`                   |
+| `risto`                       | Agent/report | `skills/risto/`                       |
+| `firehorse-report-annual`     | Agent/report | `skills/firehorse-report-annual/`     |
+| `firehorse-report-board-pack` | Agent/report | `skills/firehorse-report-board-pack/` |
+| `firehorse-report-carbon`     | Agent/report | `skills/firehorse-report-carbon/`     |
+| `firehorse-report-compliance` | Agent/report | `skills/firehorse-report-compliance/` |
 
 ### File Locations
 
@@ -485,11 +755,15 @@ cost_tracking:
 | Agent Guidelines          | `AI_AGENT_GUIDELINES.md`                       |
 | DWS Team Agents           | `CloudAgents/dws-team/README.md`               |
 | Customer Agent Configs    | `AgentFoundry/configs/templates/`              |
-| MCP Hub                   | `mcp-hub/server.py`                            |
+| MCP Hub                   | `mcp-hub-ts/` (Cloud Run `mcp-hub-ts/cloudbuild.yaml`); Python `mcp-hub/` optional |
 
 ### Common Commands
 
 ```bash
+# Agent Worktree Isolation (WORKTREE_POLICY.md — MANDATORY for agent commits)
+# Agents never commit from the primary checkout; each task gets its own worktree:
+scripts/new-opencode-worktree.sh <task-name> [base-branch] [--launch]
+
 # V1.0 Agent Coordination
 cd .workflows/agents
 node coordinator.cjs status           # All agent statuses
@@ -501,7 +775,11 @@ docker mcp find stripe               # Find MCP server
 docker mcp add stripe                # Add server
 
 # Start MCP Hub
-cd mcp-hub && python server.py
+# Start MCP Hub (TypeScript — preferred)
+cd mcp-hub-ts && npm install && npm start
+
+# Legacy Python hub (Redis streams, BIM pipeline, sandbox, Gemini review)
+cd mcp-hub && pip install -r requirements.txt && python server.py
 ```
 
 ### V1.0 Completion Criteria
@@ -521,8 +799,13 @@ cd mcp-hub && python server.py
 
 ### Timeline
 
+> **Stale as of 2026-08-22:** the Feb 23, 2026 launch countdown below predates the
+> launch window and is no longer maintained here. Current roadmap lives in
+> `DWS7_ROADMAP.md` / `DWS8_ROADMAP.md` / `DWS9_ROADMAP.md`. Retained per Rule 12
+> until the V1.0 completion table above is formally retired.
+
 - **Launch Date:** February 23, 2026
-- **Days Remaining:** 51
+- **Days Remaining:** 51 (frozen — countdown expired)
 - **Estimated Work:** 41-56 days
 - **Buffer:** -5 to 10 days
 
@@ -536,10 +819,58 @@ cd mcp-hub && python server.py
 - [CloudAgents/dws-team/README.md](CloudAgents/dws-team/README.md) - Internal agents
 - [AgentFoundry/README.md](AgentFoundry/README.md) - Customer-facing agents
 - [ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md](ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md) - Design Audit Agent usage guide
+- [docs/Deputy-Agents-Architecture.md](docs/Deputy-Agents-Architecture.md) - DGX Managed Agents self-hosted architecture, referenced in §8
+- [docs/CLOUD_ENVIRONMENTS.md](docs/CLOUD_ENVIRONMENTS.md) - DGX Spark as primary compute (§3.2.2), referenced in §8
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** May 8, 2026  
+## Cursor Cloud specific instructions
+
+### Services overview
+
+| Service         | Path                                      | Start command           | Port |
+| --------------- | ----------------------------------------- | ----------------------- | ---- |
+| Express Backend | `/workspace`                              | See startup notes below | 3001 |
+| React Dashboard | `dws6.com/dashboard/firehorse/v10-react/` | `npm run dev`           | 5173 |
+
+### Starting the Express backend
+
+The backend's `auth.service.ts` validates `JWT_SECRET` at module-load time (before `dotenv.config()` runs in `app.ts`). You must export the env vars **before** running `npm run dev`:
+
+```bash
+JWT_SECRET="dev-jwt-secret-key-for-local-development-only-32chars" \
+SUPABASE_URL="https://placeholder.supabase.co" \
+SUPABASE_SERVICE_KEY="placeholder-service-key" \
+STRIPE_SECRET_KEY="sk_test_placeholder_key_for_dev" \
+npm run dev
+```
+
+Or source the `.env` file properly in your shell. The `.env.example` has these placeholders but `dotenv` loads too late due to ES module import ordering.
+
+### Known pre-existing issues
+
+- **TypeScript build (`npm run build`)**: Clean as of 2026-08-22 (`tsc --noEmit` passes; `npm run typecheck`). Earlier type errors in `booking.routes.ts`, `erp-tracking.routes.ts`, `browser.ts`, `gtm-client.ts` have been resolved.
+- **Dashboard ESLint (`npm run lint` in v10-react)**: Missing `parent-module` transitive dependency from `import-fresh` → ESLint 9.39 issue. Does not affect Vite dev server or build.
+- **Backend ESLint**: Configured 2026-08-22 (`eslint.config.mjs`, `npm run lint` / `lint:fix`). The ~766-warning legacy debt was paid down to **8 documented exceptions** on 2026-08-22 and the paid-off rules promoted to `error` — new violations of those rules now fail the gate. Remaining warns: static-only classes with test-coupled public APIs (×5), Express `namespace` type augmentation (×2), one Cloudflare edge-runtime console (×1). Do not add new errors.
+- **Redis warnings**: Backend logs Redis connection errors at startup (expected without Redis running). The app degrades gracefully.
+- **Supabase "degraded"**: Without real Supabase credentials, `/health` reports degraded status. The server still starts and responds to requests.
+- ~~**dotenv import-ordering bug**:~~ RESOLVED 2026-08-22. `src/config/env.ts` now loads dotenv at first import and validates via zod; `app.ts` imports it before anything else, so `npm run dev` no longer requires pre-exported env vars. Services that read env at module load should use `getEnv()` from `../config/env.js`.
+
+### Tests
+
+Run tests from workspace root: `npx vitest run`. Tests are self-contained and do not require external services. As of 2026-08-22: 102 test files pass (1 skipped), 1164 tests pass (3 skipped) — the previously failing compliance-agent-integration suite has been fixed. Coverage: `npm run test:coverage` (v8 provider; thresholds 60% statements / 50% branches / 55% functions / 60% lines).
+
+### Lint
+
+Root backend has a real ESLint flat config (`eslint.config.mjs`) — run `npm run lint` / `npm run lint:fix`. As of 2026-08-22 the gate is strict: 0 errors / 8 documented warnings. Dashboard linting has the upstream dependency issue noted above.
+
+### Code TODOs
+
+All real `// TODO` markers in `src/` are triaged in [`docs/backlog/CODE_TODO_LEDGER.md`](docs/backlog/CODE_TODO_LEDGER.md) — largest cluster is billing lifecycle notifications (13 items). Audit with `rg -n "// TODO" src`.
+
+---
+
+**Document Version:** 1.3  
+**Last Updated:** August 25, 2026  
 **Status:** Active  
-**Next Review:** January 10, 2026
+**Next Review:** October 10, 2026

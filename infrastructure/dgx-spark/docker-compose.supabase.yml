@@ -1,0 +1,222 @@
+# ============================================================================
+# Self-hosted Supabase — Sovereign DB overlay for the DGX (Scenario S2)
+# ============================================================================
+# Purpose: run the ENTIRE Supabase stack ON the DGX so the backend's existing
+# Supabase client (src/services/supabase.service.ts) talks to a local instance
+# instead of Supabase Cloud (US-incorporated). Same application code; the data
+# never leaves the box → closes the last US link in the DGX sovereignty chain.
+#
+# This is an OPT-IN OVERLAY. It does NOT auto-start with the base stack. Bring it
+# up explicitly (after the one-time key generation in SOVEREIGN_SUPABASE_SETUP.md):
+#
+#   docker compose -f docker-compose.yml -f docker-compose.supabase.yml up -d
+#
+# Then repoint the backend in .env:
+#   SUPABASE_URL=http://supabase-kong:8000
+#   SUPABASE_ANON_KEY=<generated anon JWT>
+#   SUPABASE_SERVICE_KEY=<generated service_role JWT>
+#
+# Shares the base stack's `dws-network`, so dws-backend/dws-cron/mcp-gateway
+# reach Supabase at http://supabase-kong:8000 with zero code change.
+#
+# IMAGE TAGS: pinned below to a recent stable set. Before first boot, CONFIRM each
+# tag against the official Supabase self-hosted release you are targeting
+# (github.com/supabase/supabase → docker/docker-compose.yml) and adjust to match —
+# arm64 (Grace Blackwell) is supported by all of these images but exact patch tags
+# move. This file was authored but NOT executed/validated in CI (no Docker here).
+# ============================================================================
+
+services:
+  # --- Postgres (the sovereign database; ships with pgvector) ----------------
+  supabase-db:
+    image: supabase/postgres:15.8.1.020
+    container_name: supabase-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST: /var/run/postgresql
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_USER: supabase_admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env}
+      JWT_EXP: ${JWT_EXPIRY:-3600}
+    volumes:
+      - supabase-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "supabase_admin", "-d", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 1G
+
+  # --- Kong (single API gateway → the one SUPABASE_URL) ----------------------
+  supabase-kong:
+    image: kong:2.8.1
+    container_name: supabase-kong
+    restart: unless-stopped
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: /home/kong/kong.yml
+      KONG_DNS_ORDER: LAST,A,CNAME
+      KONG_PLUGINS: request-transformer,cors,key-auth,acl
+      SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY:?set SUPABASE_ANON_KEY in .env}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:?set SUPABASE_SERVICE_KEY in .env}
+    # kong.yml is a TEMPLATE — render $SUPABASE_ANON_KEY / $SUPABASE_SERVICE_KEY
+    # from the container env into the live config before Kong starts (the
+    # standard Supabase self-hosted pattern; Kong does not env-substitute natively).
+    entrypoint:
+      - bash
+      - -c
+      - 'eval "echo \"$$(cat /home/kong/temp.yml)\"" > /home/kong/kong.yml && /docker-entrypoint.sh kong docker-start'
+    ports:
+      # Bound to localhost only — public exposure goes through the DGX ingress
+      # (Cloudflare Tunnel / EU reverse proxy), never a raw open port.
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./supabase/kong.yml:/home/kong/temp.yml:ro
+    depends_on:
+      supabase-db:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # --- GoTrue (Supabase Auth / JWT) ------------------------------------------
+  supabase-auth:
+    image: supabase/gotrue:v2.170.0
+    container_name: supabase-auth
+    restart: unless-stopped
+    environment:
+      GOTRUE_API_HOST: 0.0.0.0
+      GOTRUE_API_PORT: 9999
+      API_EXTERNAL_URL: ${SUPABASE_PUBLIC_URL:-http://supabase-kong:8000}
+      GOTRUE_DB_DRIVER: postgres
+      GOTRUE_DB_DATABASE_URL: postgres://supabase_auth_admin:${POSTGRES_PASSWORD}@supabase-db:5432/${POSTGRES_DB:-postgres}
+      GOTRUE_SITE_URL: ${SITE_URL:-http://localhost:8080}
+      GOTRUE_JWT_SECRET: ${JWT_SECRET}
+      GOTRUE_JWT_EXP: ${JWT_EXPIRY:-3600}
+      GOTRUE_JWT_DEFAULT_GROUP_NAME: authenticated
+      GOTRUE_DISABLE_SIGNUP: "false"
+    depends_on:
+      supabase-db:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # --- PostgREST (the REST layer supabase-js .from() calls hit) --------------
+  supabase-rest:
+    image: postgrest/postgrest:v12.2.12
+    container_name: supabase-rest
+    restart: unless-stopped
+    environment:
+      PGRST_DB_URI: postgres://authenticator:${POSTGRES_PASSWORD}@supabase-db:5432/${POSTGRES_DB:-postgres}
+      PGRST_DB_SCHEMAS: public,storage,graphql_public
+      PGRST_DB_ANON_ROLE: anon
+      PGRST_JWT_SECRET: ${JWT_SECRET}
+      PGRST_DB_USE_LEGACY_GUCS: "false"
+    depends_on:
+      supabase-db:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # --- Storage (signed CSRD PDFs / Art.12 evidence objects) ------------------
+  supabase-storage:
+    image: supabase/storage-api:v1.19.3
+    container_name: supabase-storage
+    restart: unless-stopped
+    environment:
+      ANON_KEY: ${SUPABASE_ANON_KEY}
+      SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
+      POSTGREST_URL: http://supabase-rest:3000
+      PGRST_JWT_SECRET: ${JWT_SECRET}
+      DATABASE_URL: postgres://supabase_storage_admin:${POSTGRES_PASSWORD}@supabase-db:5432/${POSTGRES_DB:-postgres}
+      FILE_SIZE_LIMIT: 52428800
+      STORAGE_BACKEND: file
+      FILE_STORAGE_BACKEND_PATH: /var/lib/storage
+      TENANT_ID: stub
+      REGION: dgx-local
+      GLOBAL_S3_BUCKET: stub
+    volumes:
+      - supabase-storage-data:/var/lib/storage
+    depends_on:
+      supabase-db:
+        condition: service_healthy
+      supabase-rest:
+        condition: service_started
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # --- postgres-meta + Studio (admin UI; localhost only) ---------------------
+  supabase-meta:
+    image: supabase/postgres-meta:v0.87.1
+    container_name: supabase-meta
+    restart: unless-stopped
+    environment:
+      PG_META_PORT: 8080
+      PG_META_DB_HOST: supabase-db
+      PG_META_DB_PORT: 5432
+      PG_META_DB_NAME: ${POSTGRES_DB:-postgres}
+      PG_META_DB_USER: supabase_admin
+      PG_META_DB_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      supabase-db:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  supabase-studio:
+    image: supabase/studio:2025.01.28-sha-7fa5f0c
+    container_name: supabase-studio
+    restart: unless-stopped
+    environment:
+      STUDIO_PG_META_URL: http://supabase-meta:8080
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      SUPABASE_URL: http://supabase-kong:8000
+      SUPABASE_PUBLIC_URL: ${SUPABASE_PUBLIC_URL:-http://localhost:8000}
+      SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
+    ports:
+      # Admin UI on localhost only — never publicly exposed.
+      - "127.0.0.1:3001:3000"
+    depends_on:
+      supabase-meta:
+        condition: service_started
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  supabase-db-data:
+  supabase-storage-data:
+
+networks:
+  default:
+    name: dws-network

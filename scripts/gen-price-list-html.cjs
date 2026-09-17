@@ -34,15 +34,42 @@ const OUT_DIRS = [
   path.join(BASE, 'landing-pages/dws10-com/price-list/versions'),
 ];
 
-const CATEGORY_LABELS = {
-  platform: 'Platform & Products',
-  'ai-cloud': 'AI & Cloud',
-  advisory: 'Expert Advisory & Training',
-  digital: 'Digital Services',
-  hardware: 'Sovereign Hardware',
-  'add-on': 'Add-ons',
+const LAYER_LABELS = {
+  solutions: '1. Customer solutions',
+  data: '2. Independent data products',
+  services: '3. Services and implementation',
+  hardware: '4. Hardware and infra SKUs',
 };
-const CATEGORY_ORDER = ['platform', 'ai-cloud', 'advisory', 'digital', 'hardware', 'add-on'];
+const LAYER_ORDER = ['solutions', 'data', 'services', 'hardware'];
+
+function commercialLayer(p, independentIds) {
+  const id = p.id || '';
+  if (independentIds.has(id)) return 'data';
+  if (p.storeCategory === 'advisory' || id === 'LF-TRAIN-IND' || id === 'aws-consultancy') {
+    return 'services';
+  }
+  if (
+    p.storeCategory === 'hardware' ||
+    /^(LF-K8S|LF-DOCA|LF-NIM|LF-GOV|LF-IPC|LF-FIPS|LF-CINCOZE)/.test(id)
+  ) {
+    return 'hardware';
+  }
+  return 'solutions';
+}
+
+// Per-category buyer notes rendered under the category table. Trusted constants —
+// intentionally NOT escaped, so they may contain inline markup.
+// The hardware note answers the question a buyer asks straight after seeing the DGX
+// price: "what if NVIDIA cannot deliver?" It states the position without exposing the
+// internal risk register (DD instrument, offered under NDA).
+const CATEGORY_NOTES = {
+  hardware:
+    '<strong>Supply continuity.</strong> The models we adopt ship as open weights, so the ' +
+    "inference layer is portable by design rather than tied to one vendor's stack. A " +
+    'non-NVIDIA fallback path (AMD, Intel accelerators) is carried in our supply-risk plan, ' +
+    'and hardware compatibility is validated per engagement rather than assumed. The full ' +
+    'supply-risk register is available under NDA.',
+};
 
 function esc(s) {
   if (s === null || s === undefined) return '';
@@ -64,13 +91,36 @@ function eur(n) {
     return '€' + n;
   }
 }
-function unitLabel(t) {
+// Accepts a product object (preferred) or a bare type string (legacy callers).
+// Order of authority: explicit priceUnit -> billingPeriod -> type.
+// NOTE: 'subscription' previously mapped to 'per year', which mislabelled every
+// monthly SKU (e.g. the €499/mo required subscriptions) as an annual price — a
+// material pricing misstatement on a customer-facing list. Subscriptions bill
+// monthly unless the data says otherwise.
+function unitLabel(p) {
+  const prod = p && typeof p === 'object' ? p : null;
+  const t = prod ? prod.type : p;
+  const unitMap = {
+    'per-month': 'per month',
+    'per-year': 'per year',
+    'per-hour': 'per hour',
+    'per-day': 'per day',
+    'per-seat': 'per seat',
+    'per-site': 'per site (project)',
+    'per-3-months': 'per 3 months',
+    'one-time': 'one-time',
+  };
+  const priceUnit = prod && prod.priceUnit;
+  if (priceUnit && unitMap[priceUnit]) return unitMap[priceUnit];
+  if (t === 'subscription') {
+    const b = String((prod && prod.billingPeriod) || 'monthly').toLowerCase();
+    return b === 'yearly' || b === 'annual' || b === 'annually' ? 'per year' : 'per month';
+  }
   return (
     {
       hourly: 'per hour',
       daily: 'per day',
       monthly: 'per month',
-      subscription: 'per year',
       'one-time': 'one-time',
     }[t] ||
     t ||
@@ -90,14 +140,20 @@ function renderProductsTable(list) {
           (a.name || '').localeCompare(b.name || ''),
       )
       .map((p) => {
-        const priceCell = p.price === 0 ? '<span class="poa">Free / POA</span>' : eur(p.price);
+        const priceCell =
+          p.price === 0
+            ? '<span class="poa">Free / POA</span>'
+            : p.price == null || !Number.isFinite(Number(p.price))
+              ? '<span class="poa">Quote</span>'
+              : (p.startingPrice === true ? 'from ' : '') + eur(p.price);
         const note = p.priceNote ? `<div class="note">${esc(p.priceNote)}</div>` : '';
+        const caption = p.caption ? `<div class="caption">${esc(p.caption)}</div>` : '';
         return (
           '<tr>' +
           `<td class="id">${esc(p.id)}</td>` +
-          `<td class="name">${esc(p.name)}${note}</td>` +
+          `<td class="name">${esc(p.name)}${caption}${note}</td>` +
           `<td class="price">${priceCell}</td>` +
-          `<td class="unit">${esc(unitLabel(p.type))}</td>` +
+          `<td class="unit">${esc(unitLabel(p))}</td>` +
           `<td class="sku">${esc(p.mpn || p.sku || '—')}</td>` +
           '</tr>'
         );
@@ -142,21 +198,40 @@ function build(data) {
     : pl.effectiveDate || '—';
   const validUntil = pl.validUntil || pl.nextReviewDate || '—';
 
-  const buckets = {};
-  Object.values(data.products || {}).forEach((p) => {
-    if (!p || p.productType === 'archived') return;
-    (buckets[p.storeCategory || 'other'] ||= []).push(p);
+  const products = { ...(data.products || {}) };
+  Object.entries(data.subscriptions || {}).forEach(([key, item]) => {
+    if (!products[key]) products[key] = item;
   });
-  const orderedCats = CATEGORY_ORDER.filter((c) => buckets[c]?.length).concat(
-    Object.keys(buckets).filter((c) => !CATEGORY_ORDER.includes(c)),
+
+  const independentIds = new Set(
+    (data.commercialPortfolio && data.commercialPortfolio.independentProductIds) || [
+      'LF-ONTOLOGY-25',
+      'LWM-ONT-SOVEREIGN',
+    ],
+  );
+
+  const buckets = {};
+  Object.values(products).forEach((p) => {
+    if (!p || typeof p !== 'object') return;
+    if (p.productType === 'archived' || p.archived === true) return;
+    if (p.deploymentColor === 'blue') return;
+    const cat = commercialLayer(p, independentIds);
+    (buckets[cat] ||= []).push(p);
+  });
+  const orderedCats = LAYER_ORDER.filter((c) => buckets[c]?.length).concat(
+    Object.keys(buckets).filter((c) => !LAYER_ORDER.includes(c)),
   );
 
   const catsHtml = orderedCats
     .map(
       (c) =>
-        `<section class="cat"><h2>${esc(CATEGORY_LABELS[c] || c)} <small>(${buckets[c].length})</small></h2>${renderProductsTable(buckets[c])}</section>`,
+        `<section class="cat"><h2>${esc(LAYER_LABELS[c] || c)} <small>(${buckets[c].length})</small></h2>${renderProductsTable(buckets[c])}${c === 'hardware' && CATEGORY_NOTES.hardware ? `<div class="notice">${CATEGORY_NOTES.hardware}</div>` : ''}</section>`,
     )
     .join('\n');
+
+  const renderedCount = orderedCats.reduce((n, c) => n + buckets[c].length, 0);
+  const countHtml = `<div class="notice">This snapshot lists <strong>${renderedCount}</strong> active public offers (Serious, Independent, or Supporting). BLUE and archived SKUs are omitted. Count is derived from the tables below.</div>`;
+  const subsHtml = '';
 
   const genStamp = new Date().toISOString();
 
@@ -190,6 +265,7 @@ h2 small{color:#64748b;font-weight:400;font-size:.85rem}
 .pl-table td.id,.pl-table td.sku{font-family:ui-monospace,Consolas,monospace;color:#555;font-size:.8rem;white-space:nowrap}
 .pl-table td.name{font-weight:600}
 .pl-table td.name .note{font-weight:400;color:#64748b;font-size:.82rem;margin-top:3px}
+.pl-table td.name .caption{font-weight:400;color:#1e3a5f;font-style:italic;font-size:.84rem;margin-top:3px}
 .pl-table td.price{font-weight:700;color:#065f46;white-space:nowrap;font-variant-numeric:tabular-nums}
 .pl-table td.unit{color:#334155;font-size:.82rem}
 .poa{color:#92400e}
@@ -227,11 +303,15 @@ h2 small{color:#64748b;font-weight:400;font-size:.85rem}
 <div class="notice">
   <strong>B2B list prices, EUR, VAT 0% (reverse charge).</strong>
   Country-specific VAT added at checkout if applicable — see 5-language VAT reference below.
-  Prices on this snapshot are valid for 90 days from the stamp date.
+  Prices on this snapshot are valid until ${esc(validUntil)}.
   The live, always-current list is at <a href="https://dws10.com/price-list/">https://dws10.com/price-list/</a>.
 </div>
 
+${countHtml}
+
 ${catsHtml}
+
+${subsHtml}
 
 ${renderVat(pl.vatReference)}
 
@@ -251,7 +331,7 @@ ${renderVat(pl.vatReference)}
   </div>
   <div>
     <h3>Contact</h3>
-    <p>Sales: <a href="mailto:${esc(gov.salesEmail || 'sales@lifetime.fi')}">${esc(gov.salesEmail || 'sales@lifetime.fi')}</a></p>
+    <p>Sales: <a href="https://dws10.com/contact/">Contact sales</a></p>
     <p>Quote this snapshot by its version number: <strong>v${esc(version)}</strong>.</p>
   </div>
 </footer>

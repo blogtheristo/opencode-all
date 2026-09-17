@@ -9,17 +9,16 @@
  * - Manufacturing execution
  */
 
-import { BaseERPConnector } from '../base-connector';
+import { BaseERPConnector } from '../base-connector.js';
+import type { InternalAxiosRequestConfig } from 'axios';
 import {
-  ERPProvider,
-  Dynamics365Config,
-  SyncResult,
+  type Dynamics365Config,
   EntityType,
-  ProductionOrder,
-  MachineData,
-  OEEMetrics,
-  MaintenanceEvent
-} from '../types';
+  ERPProvider,
+  type MachineData,
+  type OEEMetrics,
+  type SyncResult,
+} from '../types.js';
 
 export class Dynamics365Connector extends BaseERPConnector {
   private accessToken?: string;
@@ -42,19 +41,24 @@ export class Dynamics365Connector extends BaseERPConnector {
       grant_type: 'client_credentials',
       client_id: this.d365Config.clientId,
       client_secret: this.d365Config.clientSecret,
-      scope: `https://${this.d365Config.environment}/.default`
+      scope: `https://${this.d365Config.environment}/.default`,
     });
 
     this.accessToken = response.data.access_token;
     this.tokenExpiresAt = new Date(Date.now() + response.data.expires_in * 1000);
   }
 
-  protected async addAuthHeaders(config: any): Promise<any> {
-    if (!this.accessToken || !this.tokenExpiresAt || this.tokenExpiresAt.getTime() - Date.now() < 300000) {
+  protected async addAuthHeaders(
+    config: InternalAxiosRequestConfig,
+  ): Promise<InternalAxiosRequestConfig> {
+    if (
+      !this.accessToken ||
+      !this.tokenExpiresAt ||
+      this.tokenExpiresAt.getTime() - Date.now() < 300000
+    ) {
       await this.authenticate();
     }
 
-    config.headers = config.headers || {};
     config.headers['Authorization'] = `Bearer ${this.accessToken}`;
     return config;
   }
@@ -62,32 +66,38 @@ export class Dynamics365Connector extends BaseERPConnector {
   async testConnection(): Promise<boolean> {
     try {
       await this.authenticate();
-      const endpoint = this.d365Config.version === 'business_central'
-        ? '/api/v2.0/companies'
-        : '/data/ProductionOrders';
+      const endpoint =
+        this.d365Config.version === 'business_central'
+          ? '/api/v2.0/companies'
+          : '/data/ProductionOrders';
       await this.get(endpoint);
       return true;
     } catch (error) {
-      this.logger.error('Dynamics 365 connection test failed', { error });
+      this.logger.error({ error }, 'Dynamics 365 connection test failed');
       return false;
     }
   }
 
-  async syncProductionOrders(since?: Date): Promise<SyncResult> {
+  async syncProductionOrders(_since?: Date): Promise<SyncResult> {
     const operation = this.createSyncOperation('default', EntityType.PRODUCTION_ORDER, 'from_erp');
 
     try {
-      const endpoint = this.d365Config.version === 'business_central'
-        ? '/api/v2.0/productionOrders'
-        : '/data/ProductionOrders';
+      const endpoint =
+        this.d365Config.version === 'business_central'
+          ? '/api/v2.0/productionOrders'
+          : '/data/ProductionOrders';
 
-      const response = await this.get<{ value: any[] }>(endpoint);
+      const response = await this.get<{ value: unknown[] }>(endpoint);
       operation.recordsProcessed = response.value.length;
 
       return this.createSyncResult(operation, true);
     } catch (error) {
       return this.createSyncResult(operation, false, [
-        this.createSyncError(EntityType.PRODUCTION_ORDER, 'D365_SYNC_FAILED', (error as Error).message)
+        this.createSyncError(
+          EntityType.PRODUCTION_ORDER,
+          'D365_SYNC_FAILED',
+          (error as Error).message,
+        ),
       ]);
     }
   }

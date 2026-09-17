@@ -267,13 +267,16 @@ export async function storeLeads(leads: ConstructionLead[]): Promise<number> {
  * Only creates orgs that don't already exist (by buyer name match).
  */
 export async function createBuyerOrgs(leads: ConstructionLead[]): Promise<number> {
-  const highValue = leads.filter((l) => l.relevance_score >= 60 && l.buyer_name);
+  const highValue = leads.filter(
+    (l): l is ConstructionLead & { buyer_name: string } =>
+      l.relevance_score >= 60 && Boolean(l.buyer_name),
+  );
   if (highValue.length === 0) return 0;
 
   // Deduplicate by buyer name
-  const uniqueBuyers = new Map<string, ConstructionLead>();
+  const uniqueBuyers = new Map<string, ConstructionLead & { buyer_name: string }>();
   for (const lead of highValue) {
-    const key = lead.buyer_name!.toLowerCase().trim();
+    const key = lead.buyer_name.toLowerCase().trim();
     if (!uniqueBuyers.has(key)) {
       uniqueBuyers.set(key, lead);
     }
@@ -282,7 +285,7 @@ export async function createBuyerOrgs(leads: ConstructionLead[]): Promise<number
   let created = 0;
 
   for (const [, lead] of uniqueBuyers) {
-    const buyerName = lead.buyer_name!;
+    const buyerName = lead.buyer_name;
     // Generate a domain-like key from buyer name
     const domain = buyerName
       .toLowerCase()

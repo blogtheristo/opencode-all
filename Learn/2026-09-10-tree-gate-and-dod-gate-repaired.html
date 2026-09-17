@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-10-tree-gate-and-dod-gate-repaired</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-10-tree-gate-and-dod-gate-repaired</h1>
+</header>
+<h1 id="field-note-repairing-two-gates-that-had-never-guarded-anything">Field Note — Repairing Two Gates That Had Never Guarded Anything</h1>
+<p><strong>Date:</strong> 2026-09-10 <strong>Branches:</strong> <code>claude/tree-gate-repair</code> (PR #1991), <code>claude/dod-gate-skip-detection</code> (PR #1992) <strong>Trigger:</strong> HIC: <em>“Take repair if did not succeed. Fix and merge all PRs.”</em> Copilot had been assigned the Tree Gate repair as PR #1989; seven hours later that branch still held a single empty <code>Initial plan</code> commit and no diff.</p>
+<p>Companion to <code>2026-09-09-controls-that-reported-success-while-doing-nothing.md</code>, which diagnosed these. This one is what it took to fix them.</p>
+<hr />
+<h2 id="the-tree-gate-was-broken-in-six-places-not-one">1. The Tree Gate was broken in six places, not one</h2>
+<p>Yesterday’s note listed three faults. Three more only became visible once the earlier ones were fixed and the gate could actually run — the last of them found by the repaired gate blocking its own pull request. That ordering is the lesson: <strong>you cannot enumerate a broken control’s defects from the outside.</strong> Each repair exposed the next.</p>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 41%" />
+<col style="width: 33%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Fault</th>
+<th>Effect</th>
+<th>Found</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>workflow passed seven flags, none of them <code>--config</code></td>
+<td>exit <strong>2</strong> before any check ran</td>
+<td>by reading the code</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>no stdin — the gate reads pre-push ref lines</td>
+<td>with <code>--config</code> alone: <code>[]</code>, <strong>exit 0</strong></td>
+<td>by reading the code</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>jq -r &#39;.decision&#39;</code> against a JSON <strong>array</strong></td>
+<td>always null → “<em>No violations detected.</em>”</td>
+<td>by reading the code</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>P1 rejects <code>pull_request.base.sha</code> as non-fast-forward</td>
+<td>every PR blocked once 1–3 were fixed</td>
+<td><strong>only after 1–3 were fixed</strong></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>P4 binds its manifest to the resolved base sha</td>
+<td>committed <code>[]</code> manifest could never validate</td>
+<td><strong>only after 1–3 were fixed</strong></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><code>gx</code> silently dropped its options argument, so P0’s <code>maxBuffer</code> never applied</td>
+<td><code>execFileSync</code> ENOBUFS past 1 MiB → <strong>“P0 object graph unreadable”</strong> on any large repo</td>
+<td><strong>only when the gate first ran in CI</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fault 4</strong> is the subtle one. <code>pull_request.base.sha</code> is the tip of <code>main</code> at event time; it moves independently of the branch. P1 treats a base that is not an ancestor of the head as a non-fast-forward update and blocks it by default. So the “obvious” base sha would have blocked every PR whose base had advanced — a gate that fails loudly on everything is no more usable than one that passes silently on everything. The state a PR actually diverged from is the <strong>merge-base</strong>, and that is what the workflow now resolves.</p>
+<p><strong>Fault 6</strong> is the one I could not have found by reading, and nearly mis-diagnosed. The repaired gate’s first CI run blocked its own PR with <code>P0 object graph unreadable at 6ff940b1</code> — a perfectly readable commit. <code>execFileSync</code> caps stdout at 1 MiB; <code>gx</code> accepted only two parameters, so the <code>{maxBuffer: 64 MiB}</code> P0 passed it was silently discarded. Any repository whose <code>rev-list --objects</code> walk outgrows 1 MiB is reported as corrupt.</p>
+<p>I measured it locally and got 980 KB — under the cap, so “not the cause”. That measurement was wrong about the situation, not the number: <strong>this container holds a shallow clone</strong>, so the walk stops early. CI checks out with <code>fetch-depth: 0</code>. Checking <code>.git/shallow</code> before trusting the number is what turned a dead end into the root cause. The same run also exposed <code>listTree</code> spawning <code>cat-file -s</code> once per blob — ~7,150 processes per tree, two trees per evaluation — now a single <code>ls-tree -r -l</code>.</p>
+<p><strong>Fault 5</strong> is structural rather than a bug. <code>loadManifest</code> rejects any manifest whose <code>baseline</code> differs from the resolved base, so a <em>committed</em> manifest is stale the moment <code>main</code> moves. The manifest has to be generated per evaluation. What can stay under review is the <strong>roster</strong> — and it must be read from the <strong>base tree</strong>, or a PR could widen or empty its own allowlist in the same commit it exploits.</p>
+<h2 id="two-more-no-ops-found-while-fixing">2. Two more no-ops found while fixing</h2>
+<ul>
+<li><strong>P5 protected directories never protected anything.</strong> <code>loadProtectedRoster</code> treats an absent <code>.githooks/protected-dirs.json</code> as “no directories protected”, and none was ever committed. The gate’s directory-removal check has been vacuously true since it was written. A roster of sixteen source and published-site directories is now committed.</li>
+<li><strong>T1 — the “client hook” tier — is not wired at all.</strong> <code>docs/BACKUP_AND_RESTORE_RUNBOOK.md</code> §9 recorded it as <strong>live</strong>. No hook invokes the gate: <code>.githooks/pre-push</code> enforces NO-DELETE and runs local-ci, and nothing else. Verified by grep across all three hooks and <code>local-ci.sh</code>. That row has been wrong since the day it was written, and it was the row that made the whole defence look redundant enough not to check.</li>
+</ul>
+<p>So the post-#1888 defence stack, as of yesterday, was: branch protection (real), T1 (absent, recorded as live), T3 (never executed, commenting reassurance), T4 (planned), P5 (vacuous). One layer of the five did anything.</p>
+<h2 id="what-fixed-had-to-mean">3. What “fixed” had to mean</h2>
+<p>A repair that made the check green would have reproduced the original defect. Three properties were non-negotiable:</p>
+<ol type="1">
+<li><strong>Failure to run is its own outcome.</strong> <code>scripts/tree-gate-report.mjs</code> resolves exit 2, absent or unparseable stdout, a non-array, a missing expected ref, and any exit-code/decision disagreement to <code>ERROR</code>, and fails the job. None of them can render as an allow. This is the one piece of the repair that exists purely to prevent a class of lie.</li>
+<li><strong>Proved red before proved green.</strong> A synthetic #1888-shaped tree collapse (7,149 deletions, one file left) is blocked with <code>P2 deletion ratio 100.0% exceeds tripwire</code> — the runbook’s own acceptance criterion, unmet since it was written. Only then was ALLOW on a real PR head meaningful.</li>
+<li><strong>The reviewed artifact cannot be edited by the thing being reviewed.</strong> Both rosters are read from the base tree.</li>
+</ol>
+<h2 id="the-dod-gate-for-completeness">4. The DoD Gate, for completeness</h2>
+<p><code>grep -r &quot;\.skip&quot;</code> matched <code>expect(result.skipped).toBe(1)</code> — assertions <em>about</em> a skipped-item count — and reported three permanently skipped tests where none exist. It has failed on every PR since. Two lesser faults in the same block: the reporting <code>grep</code> ran a different pattern than the counting one, so count and listing could disagree; and <code>wc -l</code> returns 1 for empty input, which under <code>set -eu</code> reads as a violation.</p>
+<p>Fixing it is worth a note only because of what it costs: <strong>a gate that cries wolf on every run trains people to merge past it.</strong> Its failure was cheaper to ignore than to fix, so for months it was ignored — which also bought the Tree Gate’s failure the same habit of inattention next door.</p>
+<h2 id="the-rule-worth-keeping">5. The rule worth keeping</h2>
+<p>Yesterday’s note ended: <em>a configured name is not a configured value, and a success message that cannot fail is not evidence.</em> Today adds the sharper form:</p>
+<p><strong>A broken control hides its own defect count.</strong> Fault 1 masked faults 4, 5 and 6 completely — they are unreachable while the process exits at line one, and 6 needed not just execution but execution <em>in CI</em>, on a repository shape my container did not have. So “I have read the code and found three bugs” is a lower bound, never a total, and the only way to enumerate the rest is to make it run and watch what it does — then watch it again where it will actually live. Budget the repair for that, and write the red test first: every one of the six would have been caught on day one by a single deliberate failure case.</p>
+<p>The corollary for status tables: <strong>T1 read “live” for three weeks.</strong> Nobody lied; someone wrote the row while intending to wire the hook, and the intent never became a fact. A status column that is written by hand records intent, not state. If it matters, it has to be derived — or, at minimum, dated and re-verified.</p>
+<h2 id="hic-learning-outcome">6. HIC Learning Outcome</h2>
+<ol type="1">
+<li><strong>KB</strong> — N/A: CI/security-control defects; the durable record is this note plus the two PRs and their tests.</li>
+<li><strong>Field note</strong> — this file.</li>
+<li><strong><code>Learn/</code> HTML</strong> — rendered alongside.</li>
+<li><strong>Drive export</strong> — N/A: repo is source-of-truth (<code>DWS_TRUTH_STANDARD</code> §2E); internal engineering record, no external audience.</li>
+<li><strong>Decision question</strong> — put to the HIC below.</li>
+<li><strong>Calendar</strong> — no new dated commitments. The <code>CLOUDFLARE_API_TOKEN</code> renewal (2027-07-01) from yesterday’s note still stands.</li>
+</ol>
+<h3 id="the-decision-question">The decision question</h3>
+<p><code>.githooks/critical-files.roster.json</code> ships <strong>empty</strong>, deliberately: P4 is enforced unconditionally, with no approval path, so any file listed there can never be changed by any PR until the roster itself is edited in a separate change. That is a strong, useful property — and a trap if used carelessly.</p>
+<p><strong>Which files, if any, should be genuinely frozen that way?</strong> The honest candidates are the ones whose silent modification would defeat the rest of the defence: <code>.githooks/pre-push</code>, <code>scripts/poisoned-tree-gate.mjs</code>, <code>.github/workflows/tree-gate.yml</code>. Freezing a gate against edits by the PRs it gates is the point of P4 — but it also means every future repair to those files needs a deliberate two-step. My recommendation is to leave the roster empty until T1 is wired, then revisit, because freezing a control that is not yet installed protects nothing while making its installation harder.</p>
+<p><strong>Status:</strong> PENDING_REVIEW</p>
+</body>
+</html>

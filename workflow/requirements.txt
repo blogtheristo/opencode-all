@@ -16,4 +16,4 @@ seaborn>=0.12.0,<1.0.0
 anthropic>=0.39.0,<1.0.0
 
 # Environment
-python-dotenv>=1.0.0,<2.0.0
+python-dotenv>=1.2.2,<2.0.0  # >=1.2.2: set_key symlink-overwrite fix

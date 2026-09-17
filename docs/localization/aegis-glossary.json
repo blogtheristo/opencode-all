@@ -1,0 +1,233 @@
+{
+  "sovereign": {
+    "en": "Sovereign",
+    "fi": "Suvereeni",
+    "sv": "Suverän",
+    "de": "Souverän",
+    "fr": "Souverain"
+  },
+  "edip": {
+    "en": "EDIP",
+    "fi": "EDIP",
+    "sv": "EDIP",
+    "de": "EDIP",
+    "fr": "EDIP"
+  },
+  "aegis": {
+    "en": "Aegis",
+    "fi": "Aegis",
+    "sv": "Aegis",
+    "de": "Aegis",
+    "fr": "Aegis"
+  },
+  "defence": {
+    "en": "Defence",
+    "fi": "Puolustus",
+    "sv": "Försvar",
+    "de": "Verteidigung",
+    "fr": "Défense"
+  },
+  "sovereign_tier": {
+    "en": "Sovereign Tier",
+    "fi": "Suvereeni taso",
+    "sv": "Suverän nivå",
+    "de": "Souveräne Ebene",
+    "fr": "Niveau souverain"
+  },
+  "standard_tier": {
+    "en": "Standard Tier",
+    "fi": "Standarditaso",
+    "sv": "Standardnivå",
+    "de": "Standard-Ebene",
+    "fr": "Niveau standard"
+  },
+  "defence_tier": {
+    "en": "Defence Tier",
+    "fi": "Puolustustaso",
+    "sv": "Försvarsnivå",
+    "de": "Verteidigungsebene",
+    "fr": "Niveau de défense"
+  },
+  "dual_use": {
+    "en": "Dual-Use",
+    "fi": "Kaksoiskäyttö",
+    "sv": "Dubbelanvändning",
+    "de": "Dual-Use",
+    "fr": "Double usage"
+  },
+  "dual_use_industries": {
+    "en": "Dual-Use Industries",
+    "fi": "Kaksoiskäyttöteollisuudet",
+    "sv": "Dubbelanvändningsindustrier",
+    "de": "Dual-Use-Industrien",
+    "fr": "Industries à double usage"
+  },
+  "cld_act": {
+    "en": "CLOUD Act",
+    "fi": "CLOUD Act",
+    "sv": "CLOUD Act",
+    "de": "CLOUD Act",
+    "fr": "CLOUD Act"
+  },
+  "eu_ai_act": {
+    "en": "EU AI Act",
+    "fi": "EU AI Act",
+    "sv": "EU AI Act",
+    "de": "EU AI Act",
+    "fr": "AI Act de l'UE"
+  },
+  "article_12": {
+    "en": "Article 12",
+    "fi": "Artikla 12",
+    "sv": "Artikel 12",
+    "de": "Artikel 12",
+    "fr": "Article 12"
+  },
+  "kya": {
+    "en": "Know Your Agent",
+    "fi": "Tiedä agenttisi",
+    "sv": "Känn din agent",
+    "de": "Kenne deinen Agenten",
+    "fr": "Connaissez votre agent"
+  },
+  "agent_isolation": {
+    "en": "Agent Isolation",
+    "fi": "Agentin eristäminen",
+    "sv": "Agent isolering",
+    "de": "Agenten-Isolierung",
+    "fr": "Isolation de l'agent"
+  },
+  "kubernetes": {
+    "en": "Kubernetes",
+    "fi": "Kubernetes",
+    "sv": "Kubernetes",
+    "de": "Kubernetes",
+    "fr": "Kubernetes"
+  },
+  "firecracker": {
+    "en": "Firecracker",
+    "fi": "Firecracker",
+    "sv": "Firecracker",
+    "de": "Firecracker",
+    "fr": "Firecracker"
+  },
+  "single_tenant": {
+    "en": "Single-Tenant",
+    "fi": "Yksittäinen vuokraaja",
+    "sv": "Single-tenant",
+    "de": "Single-Tenant",
+    "fr": "locataire unique"
+  },
+  "data_sovereignty": {
+    "en": "Data Sovereignty",
+    "fi": "Tietosuvereniteetti",
+    "sv": "Datasuveränitet",
+    "de": "Datensouveränität",
+    "fr": "Souveraineté des données"
+  },
+  "technology_sovereignty": {
+    "en": "Technology Sovereignty",
+    "fi": "Teknologisuvereniteetti",
+    "sv": "Teknologisuveränitet",
+    "de": "Technologiesouveränität",
+    "fr": "Souveraineté technologique"
+  },
+  "operational_sovereignty": {
+    "en": "Operational Sovereignty",
+    "fi": "Toiminnallinen suvereniteetti",
+    "sv": "Operativ suveränitet",
+    "de": "Operationsouveränität",
+    "fr": "Souveraineté opérationnelle"
+  },
+  "jurisdiction": {
+    "en": "Jurisdiction",
+    "fi": "Toimivalta",
+    "sv": "Jurisdiktion",
+    "de": "Gerichtsbarkeit",
+    "fr": "Compétence"
+  },
+  "sovereign_infrastructure": {
+    "en": "Sovereign Infrastructure",
+    "fi": "Suvereeni infrastruktuuri",
+    "sv": "Suverän infrastruktur",
+    "de": "Souveräne Infrastruktur",
+    "fr": "Infrastructures souveraines"
+  },
+  "eu_regulated_industries": {
+    "en": "EU-Regulated Industries",
+    "fi": "EU:n säännellyt teollisuudet",
+    "sv": "EU-reglerade industrier",
+    "de": "EU-Regulierte Industrien",
+    "fr": "Industries réglementées par l'UE"
+  },
+  "critical_raw_materials": {
+    "en": "Critical Raw Materials",
+    "fi": "Kriittiset raaka-aineet",
+    "sv": "Kritiska råmaterial",
+    "de": "Kritische Rohstoffe",
+    "fr": "Matières premières critiques"
+  },
+  "dws_iq": {
+    "en": "DWS IQ",
+    "fi": "DWS IQ",
+    "sv": "DWS IQ",
+    "de": "DWS IQ",
+    "fr": "DWS IQ"
+  },
+  "deployment_mode": {
+    "en": "Deployment Mode",
+    "fi": "Käyttömode",
+    "sv": "Distributionsläge",
+    "de": "Bereitstellungsmodus",
+    "fr": "Mode de déploiement"
+  },
+  "local_operation": {
+    "en": "Local Operation",
+    "fi": "Paikallinen toiminta",
+    "sv": "Lokal drift",
+    "de": "Lokaler Betrieb",
+    "fr": "Opération locale"
+  },
+  "hybrid_deployment": {
+    "en": "Hybrid Deployment",
+    "fi": "Hybridi käyttö",
+    "sv": "Hybriddistribution",
+    "de": "Hybride Bereitstellung",
+    "fr": "Déploiement hybride"
+  },
+  "eu_sovereign_cloud": {
+    "en": "EU-Sovereign Cloud",
+    "fi": "EU-suvereeni pilvi",
+    "sv": "EU-suveränt moln",
+    "de": "EU-souveräne Cloud",
+    "fr": "Cloud souverain européen"
+  },
+  "pilot_program": {
+    "en": "Pilot Program",
+    "fi": "Kokeiluohjelma",
+    "sv": "Pilotprogram",
+    "de": "Pilotprogramm",
+    "fr": "Programme pilote"
+  },
+  "implementation_program": {
+    "en": "Implementation Program",
+    "fi": "Toteutusohjelma",
+    "sv": "Implementeringsprogram",
+    "de": "Implementierungsprogramm",
+    "fr": "Programme d'application"
+  },
+  "article_14": {
+    "en": "Article 14",
+    "fi": "Artikla 14",
+    "sv": "Artikel 14",
+    "de": "Artikel 14",
+    "fr": "Article 14"
+  },
+  "article_50": {
+    "en": "Article 50",
+    "fi": "Artikla 50",
+    "sv": "Artikel 50",
+    "de": "Artikel 50",
+    "fr": "Article 50"
+  }
+}

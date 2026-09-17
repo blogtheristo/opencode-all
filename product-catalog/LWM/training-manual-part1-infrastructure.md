@@ -1469,20 +1469,20 @@ curl http://localhost:11434/api/tags
 ### 9.2 Pull Code Review Model
 
 ```bash
-# Pull Qwen 2.5 Coder 14B (recommended for code review)
-ollama pull qwen2.5-coder:14b
+# Pull Qwen3-Coder 30B (MoE 30B total / 3.3B active — recommended for code review)
+ollama pull qwen3-coder:30b
 
 # Alternative smaller models:
-# ollama pull qwen2.5-coder:7b      # Lower VRAM, faster
+# ollama pull qwen3:8b               # Smaller dense model, lower VRAM
 # ollama pull codellama:13b          # Meta's code model
 # ollama pull deepseek-coder-v2:16b  # DeepSeek code model
 
 # Verify model is available
 ollama list
-# Expected: qwen2.5-coder:14b   ~9GB
+# Expected: qwen3-coder:30b   ~19GB (MoE, 3.3B active per token)
 
 # Test inference
-ollama run qwen2.5-coder:14b "Review this Python code for security issues: import os; os.system(input('cmd: '))"
+ollama run qwen3-coder:30b "Review this Python code for security issues: import os; os.system(input('cmd: '))"
 ```
 
 ### 9.3 Configure Ollama for Network Access
@@ -1553,7 +1553,7 @@ Once the tunnel is running, any terminal session on your machine can use `http:/
 3. Left sidebar → **Models**.
 4. Under **OpenAI**: set **Override OpenAI Base URL** to `http://localhost:11435/v1`. **API Key:** leave empty if Cursor allows; if it requires a value, use a placeholder (e.g. `ollama`).
 5. Click **Verify**. If it succeeds, Cursor is using Qwen on the Acer.
-6. **Add custom model:** In Cursor, add a custom model with name `qwen2.5-coder:32b` (Cursor accepts it). Or use `qwen2.5-coder:latest` / `qwen:32b` to match what `ollama list` shows on the Acer.
+6. **Add custom model:** In Cursor, add a custom model with name `qwen3-coder:30b` (Cursor accepts it). Or use `qwen3-coder:latest` to match what `ollama list` shows on the Acer.
 7. Use Chat or Composer; requests go to Qwen via the tunnel.
 
 If you get “Problem reaching OpenAI”, Cursor may be routing via their backend (which cannot reach localhost). Then use **ngrok** to expose port 11435 and put the ngrok HTTPS URL in Base URL, or use **Continue.dev** / **Open WebUI** pointed at `http://localhost:11435` (they talk directly to localhost). Full steps: `docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md`.
@@ -1565,7 +1565,7 @@ If you get “Problem reaching OpenAI”, Cursor may be routing via their backen
 curl -s -X POST http://localhost:11434/api/generate \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "qwen2.5-coder:14b",
+    "model": "qwen3-coder:30b",
     "prompt": "Review this TypeScript code for security issues:\n\nconst query = `SELECT * FROM users WHERE id = ${req.params.id}`;\nconst result = await db.query(query);",
     "stream": false,
     "options": {
@@ -1584,14 +1584,14 @@ Add these secrets to your GitHub repository:
 | Secret | Value | Purpose |
 |--------|-------|---------|
 | `OLLAMA_HOST` | `https://gn100-ollama.yourdomain.com` or `http://gn-100.local:11434` | Ollama API endpoint |
-| `OLLAMA_MODEL` | `qwen2.5-coder:14b` | Model to use for Level 5 review |
+| `OLLAMA_MODEL` | `qwen3-coder:30b` | Model to use for Level 5 review |
 
 The Level 5 step in `.github/workflows/ai-pr-review.yml` will automatically call this endpoint when the secrets are configured.
 
 ### 9.6 Verify Level 5 Checklist
 
 - [ ] `ollama --version` shows version
-- [ ] `ollama list` shows `qwen2.5-coder:14b`
+- [ ] `ollama list` shows `qwen3-coder:30b`
 - [ ] `curl http://localhost:11434/api/tags` returns model list
 - [ ] Code review test produces meaningful output
 - [ ] Network access configured (local or Cloudflare Tunnel)

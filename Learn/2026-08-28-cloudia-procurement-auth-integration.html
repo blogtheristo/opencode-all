@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cloudia Procurement Integration — Auth Refactor & API Monitoring</title>
+    <style>
+      :root {
+        --text: #1a1a1a;
+        --bg: #ffffff;
+        --border: #e5e5e5;
+        --accent: #0066cc;
+        --code-bg: #f5f5f5;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --text: #e5e5e5;
+          --bg: #1a1a1a;
+          --border: #333;
+          --accent: #66b3ff;
+          --code-bg: #2a2a2a;
+        }
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+        color: var(--text);
+        background: var(--bg);
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+      }
+      h1 {
+        font-size: 2em;
+        margin-top: 0;
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 0.5rem;
+      }
+      h2 {
+        font-size: 1.5em;
+        margin-top: 2rem;
+      }
+      h3 {
+        font-size: 1.2em;
+        color: var(--accent);
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      code {
+        background: var(--code-bg);
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: "Monaco", "Courier New", monospace;
+        font-size: 0.95em;
+      }
+      pre {
+        background: var(--code-bg);
+        padding: 1rem;
+        border-left: 3px solid var(--accent);
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+      }
+      th,
+      td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+      }
+      th {
+        background: var(--code-bg);
+        font-weight: 600;
+      }
+      .metadata {
+        background: var(--code-bg);
+        padding: 1rem;
+        border-radius: 6px;
+        font-size: 0.9em;
+        margin-bottom: 2rem;
+      }
+      .metadata strong {
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+      ul,
+      ol {
+        margin: 1rem 0;
+        padding-left: 2rem;
+      }
+      li {
+        margin: 0.5rem 0;
+      }
+      .checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+      .checklist li:before {
+        content: "☐ ";
+        margin-right: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Cloudia Procurement Integration</h1>
+    <p style="font-size: 1.1em; color: var(--accent)">Auth Refactor & API Monitoring</p>
+
+    <div class="metadata">
+      <strong>Date:</strong> 2026-08-28<br />
+      <strong>Author:</strong> Claude Code<br />
+      <strong>Status:</strong> Captured<br />
+      <strong>Tags:</strong> procurement, bid-scout, cloudia, api-integration, security
+    </div>
+
+    <h2>What Happened</h2>
+    <p>
+      The bid-scout agent's Cloudia integration was refactored from
+      <strong>API key authentication</strong> to <strong>basic auth (username/password)</strong>,
+      bringing it into alignment with Cloudia's current API surface. Three new utilities were
+      created to support live procurement monitoring:
+    </p>
+
+    <ol>
+      <li>
+        <strong><code>scripts/bid-scout.mjs</code></strong> (updated) — Main agent that monitors
+        Cloudia bids, filters by criteria (budget €5K–€500K, DWS IQ products fit, target
+        geographies), and flags opportunities. Now uses basic auth with environment variables
+        <code>CLOUDIA_USER_NAME</code> and <code>CLOUDIA_PASSWORD</code>.
+      </li>
+      <li>
+        <strong><code>fetch-opportunity.mjs</code></strong> (new) — Playwright-based scraper for
+        tarjouspalvelu.fi (Finnish procurement portal). Extracts opportunity details when API access
+        is unavailable or for validation.
+      </li>
+      <li>
+        <strong><code>fetch-tarjous.mjs</code></strong> (new) — Lightweight Cloudia API client to
+        fetch a single opportunity by ID via basic auth. Supports ad-hoc lookups during deal
+        evaluation.
+      </li>
+    </ol>
+
+    <h2>Why This Matters</h2>
+
+    <h3>Security & Operations</h3>
+    <ul>
+      <li>
+        API keys are static and global; basic auth ties credentials to a user account, enabling
+        audit logging and per-session revocation if compromised.
+      </li>
+      <li>
+        Cloudia's primary API endpoint now expects <code>Basic</code> auth headers rather than
+        bearer tokens, aligning our client with the platform's real requirements.
+      </li>
+    </ul>
+
+    <h3>Procurement Workflow</h3>
+    <ul>
+      <li>
+        The bid-scout agent can now continuously monitor live opportunities without manual dashboard
+        checks.
+      </li>
+      <li>
+        Fallback to Playwright scraper allows validation when the API is unavailable (network
+        outage, API rate limit).
+      </li>
+      <li>
+        Opportunity fetcher (<code>fetch-tarjous.mjs</code>) enables quick fact-checking during deal
+        evaluation (e.g., verify budget/deadline before committing a quote).
+      </li>
+    </ul>
+
+    <h2>Technical Details</h2>
+
+    <h3>Auth Method (Basic Auth)</h3>
+    <pre><code>const credentials = Buffer.from(`${user}:${secret}`).toString('base64');
+const headers = { Authorization: `Basic ${credentials}` };</code></pre>
+    <p>
+      Credentials flow: <code>.env</code> → <code>CLOUDIA_USER_NAME</code> /
+      <code>CLOUDIA_PASSWORD</code> (never hardcoded).
+    </p>
+
+    <h3>Bid Assessment Criteria</h3>
+    <p>The agent filters opportunities by:</p>
+    <ul>
+      <li>
+        <strong>Budget:</strong> €5,000–€500,000 (excludes small contracts and unrealistic
+        large-value single deals)
+      </li>
+      <li><strong>Products:</strong> DWS IQ, agent services, consulting (categories we win on)</li>
+      <li><strong>Geographies:</strong> FI, SE, DE, UK, US (current market focus)</li>
+      <li><strong>Win Probability:</strong> ≥60% (preliminary estimate based on fit score)</li>
+    </ul>
+
+    <h3>Fallback Strategy</h3>
+    <ol>
+      <li>Agent logs warning and falls back to mock bids (safe demo mode)</li>
+      <li>Playwright scraper can be invoked manually for tarjouspalvelu.fi validation</li>
+      <li>No silent failures — all errors logged to <code>.workflows/bids-log.jsonl</code></li>
+    </ol>
+
+    <h2>Open Questions for HIC</h2>
+
+    <h3>1. Credential Storage</h3>
+    <p>
+      Should we migrate <code>.env</code> secrets to a vault (Supabase Edge Function secrets,
+      1Password, or Google Secret Manager)? Current <code>.env</code> approach is safe for local dev
+      but risky for CI/deployed agents.
+    </p>
+
+    <h3>2. Monitoring Cadence</h3>
+    <p>
+      Should bid-scout run continuously (e.g., every 15 min via cron), hourly, daily, or on-demand?
+      Current code supports all; HIC decision on frequency balances freshness vs. API quota/cost.
+    </p>
+
+    <h3>3. Deal Evaluation Workflow</h3>
+    <p>
+      Once opportunities are flagged, what's the handoff? Should bid-scout auto-draft a response
+      template, route to sales for manual review, or trigger an MCP call to another agent (e.g.,
+      proposal-generator)?
+    </p>
+
+    <h2>Next Steps</h2>
+    <ul class="checklist">
+      <li>
+        Vault migration (if HIC approves): Move secrets to Supabase or Google Cloud Secret Manager
+      </li>
+      <li>
+        Cron scheduling (if HIC decides): Wire bid-scout into <code>/schedule</code> or daily task
+        runner
+      </li>
+      <li>
+        Response automation (if workflow clarified): Add proposal-draft or sales-alert integration
+      </li>
+      <li>
+        Cloudia API documentation (ongoing): Verify API surface (pagination, filtering, rate limits)
+        against live service
+      </li>
+    </ul>
+
+    <h2>Key Files</h2>
+    <table>
+      <tr>
+        <th>Path</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><code>scripts/bid-scout.mjs</code></td>
+        <td>Main procurement monitoring agent</td>
+      </tr>
+      <tr>
+        <td><code>fetch-opportunity.mjs</code></td>
+        <td>Tarjouspalvelu.fi Playwright scraper</td>
+      </tr>
+      <tr>
+        <td><code>fetch-tarjous.mjs</code></td>
+        <td>Cloudia API client (opportunity lookup)</td>
+      </tr>
+      <tr>
+        <td><code>.workflows/bids-log.jsonl</code></td>
+        <td>Audit log of all monitored bids</td>
+      </tr>
+      <tr>
+        <td><code>.workflows/opportunities.json</code></td>
+        <td>Current opportunity snapshot</td>
+      </tr>
+      <tr>
+        <td><code>.env.example</code></td>
+        <td>Template for <code>CLOUDIA_USER_NAME</code>, <code>CLOUDIA_PASSWORD</code></td>
+      </tr>
+    </table>
+
+    <h2>Verification</h2>
+    <pre><code># Set credentials in .env
+export CLOUDIA_USER_NAME=&lt;your-username&gt;
+export CLOUDIA_PASSWORD=&lt;your-password&gt;
+
+# Run bid-scout (live Cloudia API)
+node scripts/bid-scout.mjs
+
+# Fetch single opportunity
+node fetch-tarjous.mjs
+
+# Scrape tarjouspalvelu.fi (Playwright)
+node fetch-opportunity.mjs</code></pre>
+    <p>
+      <strong>Expected output:</strong> Opportunities filtered by criteria, logged to
+      <code>.workflows/bids-log.jsonl</code>.
+    </p>
+
+    <h2>Related Commits</h2>
+    <ul>
+      <li>
+        <code>bc33012ef</code> —
+        <code>fix(bid-scout): Use Cloudia basic auth (username/password) instead of API key</code>
+      </li>
+      <li>
+        <code>1dfcf55e8</code> —
+        <code>docs(admin): Complete admin documentation for procurement monitoring system</code>
+      </li>
+      <li>
+        <code>06dd694c5</code> —
+        <code>feat(tarjouspalvelu): Add Playwright-based procurement monitoring</code>
+      </li>
+    </ul>
+
+    <hr />
+    <p style="font-size: 0.9em; color: var(--text); opacity: 0.7">
+      <strong>Session Context:</strong> Themis Phase 1 orchestration work paused; procurement
+      monitoring system completed as a parallel operational capability. This integration enables
+      real-time deal discovery, foundational for Phase 2 (AI-driven proposal generation).
+    </p>
+  </body>
+</html>

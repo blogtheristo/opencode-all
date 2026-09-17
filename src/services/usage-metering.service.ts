@@ -221,13 +221,21 @@ export const UsageMeteringService = {
           .order('created_at', { ascending: false })
           .limit(20);
 
-        const recentActivity: UsageEvent[] = (events || []).map((e: any) => ({
-          userId: e.user_id,
-          type: e.event_type,
-          endpoint: e.endpoint,
-          timestamp: e.created_at,
-          tokens: e.tokens,
-        }));
+        const recentActivity: UsageEvent[] = (events || []).map(
+          (e: {
+            user_id: string;
+            event_type: UsageEvent['type'];
+            endpoint: string;
+            created_at: string;
+            tokens: number;
+          }) => ({
+            userId: e.user_id,
+            type: e.event_type,
+            endpoint: e.endpoint,
+            timestamp: e.created_at,
+            tokens: e.tokens,
+          }),
+        );
 
         return {
           tier,

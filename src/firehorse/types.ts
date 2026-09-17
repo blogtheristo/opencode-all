@@ -37,6 +37,7 @@ export enum EventType {
   StateChanged = 'StateChanged',
   TaskCreated = 'TaskCreated',
   linkedin_dm_skipped = 'linkedin_dm_skipped',
+  linkedin_dm_queued = 'linkedin_dm_queued',
 }
 
 export enum TaskType {
@@ -89,7 +90,7 @@ export interface Event {
   id: string;
   lead_id: string;
   event_type: EventType;
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
   created_at: Date;
 }
 
@@ -183,7 +184,7 @@ export interface ChangeStateAction {
 export interface LogEventAction {
   event_type: EventType;
   lead_id: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface CreateTaskAction {
@@ -192,3 +193,61 @@ export interface CreateTaskAction {
   lead_id: string;
   description?: string;
 }
+
+// ============================================================================
+// CASE LIFECYCLE EVENTS
+// Emitted on the existing event bus whenever a case transitions state.
+// Agents listen for these to trigger domain reactions (memory writes,
+// deadline checks, approval gates, audit entries).
+// ============================================================================
+
+export type CaseType = 'compliance' | 'sales' | 'erp-sync' | 'contract' | 'custom';
+export type CaseStatus = 'open' | 'in_progress' | 'pending_approval' | 'closed';
+export type CasePriority = 'low' | 'medium' | 'high' | 'critical';
+
+export type CaseEvent =
+  | {
+      type: 'case.opened';
+      caseId: string;
+      orgId: string;
+      caseType: CaseType;
+      assignedAgent?: string;
+    }
+  | {
+      type: 'case.step_completed';
+      caseId: string;
+      stepId: string;
+      agentName: string;
+      result?: Record<string, unknown>;
+    }
+  | {
+      type: 'case.approval_required';
+      caseId: string;
+      orgId: string;
+      priority: CasePriority;
+      reason: string;
+      requestingAgent: string;
+    }
+  | {
+      type: 'case.approved';
+      caseId: string;
+      approvedBy: string;
+    }
+  | {
+      type: 'case.rejected';
+      caseId: string;
+      rejectedBy: string;
+      reason: string;
+    }
+  | {
+      type: 'case.deadline_warning';
+      caseId: string;
+      deadlineAt: string; // ISO 8601
+      hoursRemaining: number;
+    }
+  | {
+      type: 'case.closed';
+      caseId: string;
+      orgId: string;
+      finalStatus: 'resolved' | 'rejected' | 'cancelled';
+    };

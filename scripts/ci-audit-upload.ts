@@ -52,9 +52,9 @@ async function main(): Promise<number> {
   }
 
   const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const key = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) {
-    console.warn('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set — skip (local mirror only)');
+    console.warn('SUPABASE_URL / SUPABASE_SERVICE_KEY not set — skip (local mirror only)');
     return 0;
   }
 

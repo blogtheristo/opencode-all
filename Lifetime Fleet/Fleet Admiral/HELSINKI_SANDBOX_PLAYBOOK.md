@@ -21,7 +21,7 @@ END VERSION AND AGENT HISTORY
 We aren't just running robots; we are governing the **Autonomous Evolution** of medical infrastructure.
 
 - **The Problem:** Human-led medical logistics are static, expensive, and non-scalable
-- **The KYA v1.4 Solution:** A "Base State" fleet that uses Karpathy-inspired optimization to shave 11% off latency every 48 hours within a DWS IQ 6 Firecracker safety vault
+- **The KYA v1.5 Solution:** A "Base State" fleet that uses Karpathy-inspired optimization to shave 11% off latency every 48 hours within a DWS IQ 6 Firecracker safety vault
 
 ### What the Admiral Sees (Not Slides — The Live Loop)
 
@@ -41,7 +41,7 @@ Step 4: THE FLEET EVOLVES
   The robot on the floor immediately moves smoother.
 ```
 
-This is the demo. Not a pitch. A live demonstration of **bounded autonomous evolution** governed by KYA v1.4.
+This is the demo. Not a pitch. A live demonstration of **bounded autonomous evolution** governed by KYA v1.5.
 
 ---
 
@@ -54,7 +54,7 @@ This is the demo. Not a pitch. A live demonstration of **bounded autonomous evol
 | DWS IQ dashboard configured for live demo | Engineering | [ ] |
 | Firehorse logging stream active and visible | Engineering | [ ] |
 | Fleet telemetry feed on wall display | Operations | [ ] |
-| KYA v1.4 kill-switch demo prepared | Engineering | [ ] |
+| KYA v1.5 kill-switch demo prepared | Engineering | [ ] |
 | Venue confirmed (Testbed Helsinki or Lifetime HQ) | Admin | [ ] |
 | Investor briefing packets sent (No-Hype Technical Briefing) | Founder | [ ] |
 
@@ -146,11 +146,11 @@ While Palantir talks about "Logic Gates," we demonstrate **sub-5ms Physical Term
 
 When inquiry comes from target shortlist (Vanjoki, Lifeline, Tesi):
 
-1. **Immediate response:** No-Hype Technical Briefing (KYA v1.4 Manifest + this playbook summary)
+1. **Immediate response:** No-Hype Technical Briefing (KYA Specification v1.5 Manifest + this playbook summary)
 2. **Calendar link:** Site visit slot in last week of March
 3. **Tone:** Technical, direct, no hyperbole — let the demo speak
 4. **Materials sent:**
-   - KYA Standard v1.4 Manifest (technical)
+   - KYA Specification v1.5 Manifest (technical)
    - Fleet Admiral 3 Diamonds Pitch (strategic)
    - Firehorse sample log output (evidence)
    - Term sheet summary (financial)
@@ -162,8 +162,8 @@ Subject: Fleet Admiral — Helsinki Sandbox Technical Briefing
 
 [Name],
 
-Attached is the KYA v1.4 Technical Manifest — our hardware-enforced
-agent governance standard for medical robotics.
+Attached is the KYA v1.5 Technical Manifest — our hardware-enforced
+agent governance specification for medical robotics.
 
 We're running the Helsinki Sandbox pilot in late March. Rather than
 slides, we'd like to show you the live optimization loop: an agent

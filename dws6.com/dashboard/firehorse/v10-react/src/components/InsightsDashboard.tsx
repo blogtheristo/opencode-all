@@ -31,18 +31,19 @@ import type {
 } from '../types/dashboard';
 
 const RAG_COLORS = {
-  green: '#22c55e',
+  green: '#10b981',
   amber: '#f59e0b',
   red: '#ef4444',
 };
 
+/* Color-blind-safe chart palette (DESIGN_SYSTEM.md §Charts) */
 const CHART_COLORS = {
-  primary: '#0ea5e9',
-  secondary: '#8b5cf6',
-  success: '#22c55e',
+  primary: '#0066cc',
+  secondary: '#e8871a',
+  success: '#10b981',
   warning: '#f59e0b',
   danger: '#ef4444',
-  info: '#06b6d4',
+  info: '#00a3a3',
 };
 
 export function InsightsDashboard() {
@@ -145,8 +146,8 @@ function SummaryCard({
     <div className="card">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm text-gray-500 mb-1">{title}</p>
-          <p className="text-2xl font-bold text-gray-900">{value}</p>
+          <p className="text-sm text-fg-muted mb-1">{title}</p>
+          <p className="text-2xl font-bold text-foreground">{value}</p>
           <p className={`text-sm mt-1 ${positive ? 'text-green-600' : 'text-red-600'}`}>
             {change}
           </p>
@@ -161,14 +162,14 @@ function SummaryCard({
 function CarbonTrendsChart({ data }: { data: CarbonTrendData[] }) {
   return (
     <div className="card">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Carbon Emissions Trend</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-4">Carbon Emissions Trend</h3>
       <ResponsiveContainer width="100%" height={280}>
         <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-          <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="#6b7280" />
-          <YAxis tick={{ fontSize: 12 }} stroke="#6b7280" />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+          <XAxis dataKey="month" tick={{ fontSize: 12, fill: 'var(--fg-muted)', fontFamily: 'IBM Plex Mono, monospace' }} stroke="var(--fg-muted)" />
+          <YAxis tick={{ fontSize: 12, fill: 'var(--fg-muted)', fontFamily: 'IBM Plex Mono, monospace' }} stroke="var(--fg-muted)" />
           <Tooltip
-            contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
+            contentStyle={{ backgroundColor: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '8px' }}
             formatter={(value, name) => [`${value} t CO₂e`, name as string]}
           />
           <Legend />
@@ -207,14 +208,14 @@ function CarbonTrendsChart({ data }: { data: CarbonTrendData[] }) {
 function ComplianceTrendsChart({ data }: { data: ComplianceTrendData[] }) {
   return (
     <div className="card">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Compliance Progress</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-4">Compliance Progress</h3>
       <ResponsiveContainer width="100%" height={280}>
         <AreaChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-          <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="#6b7280" />
-          <YAxis tick={{ fontSize: 12 }} stroke="#6b7280" domain={[0, 100]} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+          <XAxis dataKey="month" tick={{ fontSize: 12, fill: 'var(--fg-muted)', fontFamily: 'IBM Plex Mono, monospace' }} stroke="var(--fg-muted)" />
+          <YAxis tick={{ fontSize: 12, fill: 'var(--fg-muted)', fontFamily: 'IBM Plex Mono, monospace' }} stroke="var(--fg-muted)" domain={[0, 100]} />
           <Tooltip
-            contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
+            contentStyle={{ backgroundColor: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '8px' }}
             formatter={(value) => [`${value}%`]}
           />
           <Legend />
@@ -264,21 +265,21 @@ function ComplianceTrendsChart({ data }: { data: ComplianceTrendData[] }) {
 function PerformanceTrendsChart({ data }: { data: PerformanceTrendData[] }) {
   return (
     <div className="card">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Performance Indices</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-4">Performance Indices</h3>
       <ResponsiveContainer width="100%" height={240}>
         <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-          <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="#6b7280" />
-          <YAxis tick={{ fontSize: 12 }} stroke="#6b7280" domain={[0, 1.5]} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+          <XAxis dataKey="month" tick={{ fontSize: 12, fill: 'var(--fg-muted)', fontFamily: 'IBM Plex Mono, monospace' }} stroke="var(--fg-muted)" />
+          <YAxis tick={{ fontSize: 12, fill: 'var(--fg-muted)', fontFamily: 'IBM Plex Mono, monospace' }} stroke="var(--fg-muted)" domain={[0, 1.5]} />
           <Tooltip
-            contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
+            contentStyle={{ backgroundColor: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '8px' }}
           />
           <Legend />
           <Bar dataKey="spi" fill={CHART_COLORS.primary} name="SPI" radius={[4, 4, 0, 0]} />
           <Bar dataKey="cpi" fill={CHART_COLORS.success} name="CPI" radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
-      <p className="text-xs text-gray-500 text-center mt-2">SPI/CPI &gt; 1.0 indicates ahead of schedule/under budget</p>
+      <p className="text-xs text-fg-muted text-center mt-2">SPI/CPI &gt; 1.0 indicates ahead of schedule/under budget</p>
     </div>
   );
 }
@@ -287,7 +288,7 @@ function PerformanceTrendsChart({ data }: { data: PerformanceTrendData[] }) {
 function StatusDistributionChart({ data }: { data: ProjectStatusDistribution[] }) {
   return (
     <div className="card">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Project Status Distribution</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-4">Project Status Distribution</h3>
       <ResponsiveContainer width="100%" height={240}>
         <PieChart>
           <Pie
@@ -318,7 +319,7 @@ function StatusDistributionChart({ data }: { data: ProjectStatusDistribution[] }
               className="w-3 h-3 rounded-full"
               style={{ backgroundColor: RAG_COLORS[item.status] }}
             />
-            <span className="text-sm text-gray-600 capitalize">{item.status}</span>
+            <span className="text-sm text-fg-muted capitalize">{item.status}</span>
           </div>
         ))}
       </div>
@@ -330,27 +331,27 @@ function StatusDistributionChart({ data }: { data: ProjectStatusDistribution[] }
 function TopCarbonProjectsList({ projects }: { projects: InsightsData['topCarbonProjects'] }) {
   return (
     <div className="card">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Carbon Impact Projects</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-4">Top Carbon Impact Projects</h3>
       {projects.length === 0 ? (
-        <p className="text-sm text-gray-500 text-center py-8">No projects found</p>
+        <p className="text-sm text-fg-muted text-center py-8">No projects found</p>
       ) : (
         <div className="space-y-3">
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0"
+              className="flex items-center justify-between py-2 border-b border-border last:border-0"
             >
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-gray-400 w-5">{index + 1}</span>
+                <span className="text-sm font-medium text-fg-muted w-5">{index + 1}</span>
                 <div
                   className="w-2 h-2 rounded-full"
                   style={{ backgroundColor: RAG_COLORS[project.status] }}
                 />
-                <span className="text-sm font-medium text-gray-900 truncate max-w-[120px]">
+                <span className="text-sm font-medium text-foreground truncate max-w-[120px]">
                   {project.name}
                 </span>
               </div>
-              <span className="text-sm font-semibold text-gray-700">
+              <span className="text-sm font-semibold text-foreground">
                 {project.carbon_footprint.toLocaleString()} kg CO2e
               </span>
             </div>
@@ -371,7 +372,7 @@ function RiskAlertsPanel({ alerts }: { alerts: InsightsData['riskAlerts'] }) {
 
   return (
     <div className="card">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Active Risk Alerts</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-4">Active Risk Alerts</h3>
       <div className="space-y-3">
         {alerts.map((alert) => (
           <div
@@ -401,17 +402,17 @@ function LoadingSkeleton() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {[...Array(4)].map((_, i) => (
           <div key={i} className="card animate-pulse">
-            <div className="h-4 bg-gray-200 rounded w-1/2 mb-3"></div>
-            <div className="h-8 bg-gray-200 rounded w-3/4 mb-2"></div>
-            <div className="h-3 bg-gray-200 rounded w-1/4"></div>
+            <div className="h-4 bg-fg-muted/20 rounded w-1/2 mb-3"></div>
+            <div className="h-8 bg-fg-muted/20 rounded w-3/4 mb-2"></div>
+            <div className="h-3 bg-fg-muted/20 rounded w-1/4"></div>
           </div>
         ))}
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {[...Array(2)].map((_, i) => (
           <div key={i} className="card animate-pulse">
-            <div className="h-4 bg-gray-200 rounded w-1/3 mb-4"></div>
-            <div className="h-64 bg-gray-200 rounded"></div>
+            <div className="h-4 bg-fg-muted/20 rounded w-1/3 mb-4"></div>
+            <div className="h-64 bg-fg-muted/20 rounded"></div>
           </div>
         ))}
       </div>

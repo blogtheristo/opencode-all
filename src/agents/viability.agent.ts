@@ -70,7 +70,26 @@ export class ViabilityAgent extends BaseAgent {
 
   /** Normalize loose input into the strict ViabilityInput shape */
   private normalizeInput(input: Record<string, unknown>): ViabilityInput {
-    const raw = input as Record<string, any>;
+    const raw = input as {
+      projectCost?: number;
+      project_cost?: number;
+      investment?: number;
+      cost?: number;
+      revenue?: number;
+      annual_revenue?: number;
+      annualRevenue?: number;
+      savings?: number;
+      carbonSaved?: number;
+      carbon_saved?: number;
+      co2Saved?: number;
+      co2?: number;
+      timeline?: number;
+      years?: number;
+      duration?: number;
+      market?: string;
+      industry?: string;
+      sector?: string;
+    };
     return {
       projectCost: raw.projectCost ?? raw.project_cost ?? raw.investment ?? raw.cost ?? 0,
       revenue: raw.revenue ?? raw.annual_revenue ?? raw.annualRevenue ?? raw.savings ?? 0,
@@ -245,7 +264,7 @@ Respond as JSON with keys: "strategicAdvice" (string), "risks" (string[])`,
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
       await this.logExecution({
         agent_name: this.config.name,
@@ -256,7 +275,7 @@ Respond as JSON with keys: "strategicAdvice" (string), "risks" (string[])`,
         input: input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });

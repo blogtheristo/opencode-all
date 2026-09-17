@@ -16,7 +16,12 @@
 import * as cron from 'node-cron';
 import logger from '../utils/logger.js';
 import { collectCockpitData } from './data-collectors.js';
-import { buildCockpitHtml, buildCockpitPlainText } from './briefing-template.js';
+import {
+  buildCockpitHtml,
+  buildCockpitPlainText,
+  buildSalesBriefHtml,
+  buildSalesBriefPlainText,
+} from './briefing-template.js';
 import { sendEmail } from '../utils/send-email.js';
 
 // ============================================================================
@@ -26,6 +31,7 @@ import { sendEmail } from '../utils/send-email.js';
 async function sendMorningBriefing(): Promise<void> {
   const recipient = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
+  const replyToAddress = process.env.OUTREACH_REPLY_TO_EMAIL || fromAddress;
 
   const data = await collectCockpitData();
   const html = buildCockpitHtml(data);
@@ -44,6 +50,7 @@ async function sendMorningBriefing(): Promise<void> {
     subject,
     html,
     text,
+    replyTo: replyToAddress,
     source: 'admin',
     templateType: 'ceo_cockpit',
     metadata: { recipientCount: 1 },
@@ -63,20 +70,70 @@ async function sendMorningBriefing(): Promise<void> {
 }
 
 // ============================================================================
+// SEND SALES BRIEF
+// ============================================================================
+
+async function sendSalesBriefing(): Promise<void> {
+  const recipient =
+    process.env.SALES_BRIEF_EMAIL ||
+    process.env.OUTREACH_DIGEST_EMAIL ||
+    'risto@lifetime.fi';
+  const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
+  const replyToAddress = process.env.OUTREACH_REPLY_TO_EMAIL || fromAddress;
+
+  const data = await collectCockpitData();
+  const html = buildSalesBriefHtml(data);
+  const text = buildSalesBriefPlainText(data);
+
+  const dateStr = new Date().toLocaleDateString('en-GB', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+  });
+  const subject = `Sales Brief ${dateStr}`;
+
+  const result = await sendEmail({
+    from: fromAddress,
+    to: recipient,
+    subject,
+    html,
+    text,
+    replyTo: replyToAddress,
+    source: 'admin',
+    templateType: 'sales_brief',
+    metadata: { recipientCount: 1 },
+  });
+
+  if (!result.ok) {
+    logger.error('Sales Brief send failed', {
+      error: result.error || 'Unknown SES SMTP failure',
+    });
+    throw new Error(result.error || 'SES SMTP send failed');
+  }
+
+  logger.info('Sales Brief sent via SES SMTP', {
+    transport: result.transport || 'ses',
+    recipientCount: 1,
+  });
+}
+
+// ============================================================================
 // SCHEDULER CLASS
 // ============================================================================
 
 export class MorningBriefingScheduler {
-  private job: cron.ScheduledTask | null = null;
+  private cockpitJob: cron.ScheduledTask | null = null;
+  private salesJob: cron.ScheduledTask | null = null;
 
   /**
-   * Start the scheduler.
-   * Cron: 0 6 * * 1-6 = 06:00, Mon-Sat (Helsinki timezone)
+   * Start the scheduler. Registers two crons (Helsinki timezone):
+   *   - 06:00 Mon-Sat → CEO Cockpit
+   *   - 08:00 Mon-Fri → Sales Brief (slim, pipeline-focused)
    */
   start(): void {
-    logger.info('Starting CEO Cockpit Scheduler');
+    logger.info('Starting MorningBriefingScheduler');
 
-    this.job = cron.schedule(
+    this.cockpitJob = cron.schedule(
       '0 6 * * 1-6',
       async () => {
         logger.info('Running CEO Cockpit briefing');
@@ -86,13 +143,28 @@ export class MorningBriefingScheduler {
           logger.error('CEO Cockpit briefing failed', { error });
         }
       },
-      {
-        timezone: 'Europe/Helsinki',
-      },
+      { timezone: 'Europe/Helsinki' },
     );
 
-    logger.info('CEO Cockpit Scheduler started — 06:00 Helsinki, Mon-Sat', {
-      recipient: process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi',
+    this.salesJob = cron.schedule(
+      '0 8 * * 1-5',
+      async () => {
+        logger.info('Running Sales Brief');
+        try {
+          await sendSalesBriefing();
+        } catch (error) {
+          logger.error('Sales Brief failed', { error });
+        }
+      },
+      { timezone: 'Europe/Helsinki' },
+    );
+
+    logger.info('MorningBriefingScheduler started', {
+      cockpit: '06:00 Helsinki, Mon-Sat',
+      sales: '08:00 Helsinki, Mon-Fri',
+      cockpitRecipient: process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi',
+      salesRecipient:
+        process.env.SALES_BRIEF_EMAIL || process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi',
     });
   }
 
@@ -100,24 +172,35 @@ export class MorningBriefingScheduler {
    * Stop the scheduler.
    */
   stop(): void {
-    if (this.job) {
-      this.job.stop();
-    }
-    logger.info('CEO Cockpit Scheduler stopped');
+    if (this.cockpitJob) this.cockpitJob.stop();
+    if (this.salesJob) this.salesJob.stop();
+    logger.info('MorningBriefingScheduler stopped');
   }
 
   /**
-   * Run manually (for testing or immediate trigger).
+   * Run the CEO Cockpit manually.
    */
   async runManually(): Promise<void> {
     logger.info('Running CEO Cockpit manually');
     await sendMorningBriefing();
   }
+
+  /**
+   * Run the Sales Brief manually.
+   */
+  async runSalesBriefManually(): Promise<void> {
+    logger.info('Running Sales Brief manually');
+    await sendSalesBriefing();
+  }
 }
 
 export const morningBriefingScheduler = new MorningBriefingScheduler();
 
-// Convenience export for manual trigger
+// Convenience exports for manual trigger
 export async function sendBriefingNow(): Promise<void> {
   return morningBriefingScheduler.runManually();
+}
+
+export async function sendSalesBriefNow(): Promise<void> {
+  return morningBriefingScheduler.runSalesBriefManually();
 }

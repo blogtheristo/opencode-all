@@ -1,0 +1,4 @@
+{
+  "$comment": "P4 critical-file allowlist for scripts/poisoned-tree-gate.mjs. Read from the BASE tree by scripts/gen-tree-gate-manifest.mjs, so a PR cannot widen or empty its own allowlist. P4 is enforced unconditionally — it is NOT relaxed by the signed-approval path — so any path listed here can never be changed by a pull request until this roster is edited in a separate, deliberate change. Keep 'paths' byte-wise sorted. Empty is an explicit policy, not an oversight: the post-#1888 protection this gate exists to provide is carried by P2/P3 (deletion tripwire and cap) and P5 (protected directories), which do not have that permanent-freeze property.",
+  "paths": []
+}

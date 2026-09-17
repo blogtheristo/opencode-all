@@ -18,11 +18,20 @@
  * Owner: Risto / Claude
  */
 
-import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'fs';
-import { basename, extname, join, relative, resolve } from 'path';
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  statSync,
+  writeFileSync,
+} from 'fs';
+import { basename, extname, isAbsolute, join, relative, resolve } from 'path';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse, ToolDefinition } from './types.js';
 import logger from '../utils/logger.js';
+import { graphExtractionService } from './graph-extraction.service.js';
 
 // ============ CONSTANTS ============
 
@@ -44,7 +53,8 @@ export const KB_TOOLS: ToolDefinition[] = [
       properties: {
         subdirectory: {
           type: 'string',
-          description: 'Subdirectory within raw/ to list (articles, repos, images, signals). Omit to list all.',
+          description:
+            'Subdirectory within raw/ to list (articles, repos, images, signals). Omit to list all.',
         },
       },
     },
@@ -58,7 +68,8 @@ export const KB_TOOLS: ToolDefinition[] = [
       properties: {
         path: {
           type: 'string',
-          description: 'Relative path from kb/ (e.g., "raw/articles/paper.md", "wiki/_index.md", "wiki/concepts/CBAM.md")',
+          description:
+            'Relative path from kb/ (e.g., "raw/articles/paper.md", "wiki/_index.md", "wiki/concepts/CBAM.md")',
         },
       },
       required: ['path'],
@@ -73,7 +84,8 @@ export const KB_TOOLS: ToolDefinition[] = [
       properties: {
         path: {
           type: 'string',
-          description: 'Relative path from kb/wiki/ (e.g., "concepts/CBAM.md", "summaries/paper-2026.md", "_index.md")',
+          description:
+            'Relative path from kb/wiki/ (e.g., "concepts/CBAM.md", "summaries/paper-2026.md", "_index.md")',
         },
         content: {
           type: 'string',
@@ -92,7 +104,8 @@ export const KB_TOOLS: ToolDefinition[] = [
       properties: {
         subdirectory: {
           type: 'string',
-          description: 'Subdirectory within wiki/ to list (concepts, entities, summaries, reports, slides). Omit to list all.',
+          description:
+            'Subdirectory within wiki/ to list (concepts, entities, summaries, reports, slides). Omit to list all.',
         },
       },
     },
@@ -147,22 +160,36 @@ function listDirectory(dir: string): Array<{ path: string; size: number; modifie
   return results;
 }
 
+function resolveWithin(baseDir: string, targetPath?: string): string | null {
+  const resolved = targetPath ? resolve(baseDir, targetPath) : resolve(baseDir);
+  const rel = relative(baseDir, resolved);
+
+  if (rel.startsWith('..') || isAbsolute(rel)) {
+    return null;
+  }
+
+  return resolved;
+}
+
 export async function registerKBToolHandlers(): Promise<void> {
   // Lazy import to avoid circular dependency
   const { registerToolHandler } = await import('./tools.js');
 
   registerToolHandler('kb_list_raw', async (args: Record<string, unknown>) => {
     const subdir = args.subdirectory as string | undefined;
-    const dir = subdir ? join(RAW_DIR, subdir) : RAW_DIR;
+    const dir = resolveWithin(RAW_DIR, subdir);
+    if (!dir) {
+      return { error: 'Path traversal not allowed — can only list kb/raw/' };
+    }
     return { files: listDirectory(dir) };
   });
 
   registerToolHandler('kb_read_file', async (args: Record<string, unknown>) => {
     const filePath = args.path as string;
-    const fullPath = join(KB_ROOT, filePath);
+    const fullPath = resolveWithin(KB_ROOT, filePath);
 
     // Security: prevent path traversal
-    if (!fullPath.startsWith(KB_ROOT)) {
+    if (!fullPath) {
       return { error: 'Path traversal not allowed' };
     }
 
@@ -182,10 +209,10 @@ export async function registerKBToolHandlers(): Promise<void> {
   registerToolHandler('kb_write_article', async (args: Record<string, unknown>) => {
     const filePath = args.path as string;
     const content = args.content as string;
-    const fullPath = join(WIKI_DIR, filePath);
+    const fullPath = resolveWithin(WIKI_DIR, filePath);
 
     // Security: prevent path traversal
-    if (!fullPath.startsWith(WIKI_DIR)) {
+    if (!fullPath) {
       return { error: 'Path traversal not allowed — can only write to kb/wiki/' };
     }
 
@@ -197,12 +224,29 @@ export async function registerKBToolHandlers(): Promise<void> {
 
     writeFileSync(fullPath, content, 'utf-8');
     logger.info('KB article written', { path: filePath, size: content.length });
+
+    // Populate the fact graph from concept/entity articles only — summaries,
+    // reports, slides, and index files are derived/navigational, not source-of-fact.
+    if (filePath.startsWith('concepts/') || filePath.startsWith('entities/')) {
+      graphExtractionService
+        .extract({ text: content, sourceRef: `wiki/${filePath}`, orgId: 'lifetime-internal' })
+        .catch((err: unknown) => {
+          logger.warn('Graph extraction failed for KB article — wiki write still succeeded', {
+            path: filePath,
+            error: err instanceof Error ? err.message : String(err),
+          });
+        });
+    }
+
     return { written: true, path: filePath, size: content.length };
   });
 
   registerToolHandler('kb_list_wiki', async (args: Record<string, unknown>) => {
     const subdir = args.subdirectory as string | undefined;
-    const dir = subdir ? join(WIKI_DIR, subdir) : WIKI_DIR;
+    const dir = resolveWithin(WIKI_DIR, subdir);
+    if (!dir) {
+      return { error: 'Path traversal not allowed — can only list kb/wiki/' };
+    }
     return { files: listDirectory(dir) };
   });
 
@@ -225,7 +269,13 @@ export async function registerKBToolHandlers(): Promise<void> {
   });
 
   logger.info('KB tool handlers registered', {
-    tools: ['kb_list_raw', 'kb_read_file', 'kb_write_article', 'kb_list_wiki', 'kb_update_metadata'],
+    tools: [
+      'kb_list_raw',
+      'kb_read_file',
+      'kb_write_article',
+      'kb_list_wiki',
+      'kb_update_metadata',
+    ],
   });
 }
 
@@ -320,9 +370,10 @@ export class KBAgent extends BaseAgent {
   constructor() {
     super({
       name: 'kb',
-      description: 'LLM-maintained Knowledge Base — compiles raw sources into a markdown wiki with auto-maintained indexes. Supports compile, ask, research, and lint operations.',
+      description:
+        'LLM-maintained Knowledge Base — compiles raw sources into a markdown wiki with auto-maintained indexes. Supports compile, ask, research, and lint operations.',
       capabilities: ['knowledge-base', 'wiki', 'research', 'compile', 'lint', 'q&a'],
-      model: 'claude-sonnet-4-6',
+      model: 'claude-sonnet-5',
       loop: {
         maxIterations: 15,
         allowDelegation: true,
@@ -331,10 +382,7 @@ export class KBAgent extends BaseAgent {
     });
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const operation = (input.operation as string) || 'status';
     const startTime = Date.now();
 
@@ -368,10 +416,17 @@ export class KBAgent extends BaseAgent {
 
   private ensureDirectories(): void {
     const dirs = [
-      RAW_DIR, join(RAW_DIR, 'articles'), join(RAW_DIR, 'repos'),
-      join(RAW_DIR, 'images'), join(RAW_DIR, 'signals'),
-      WIKI_DIR, join(WIKI_DIR, 'concepts'), join(WIKI_DIR, 'entities'),
-      join(WIKI_DIR, 'summaries'), join(WIKI_DIR, 'reports'), join(WIKI_DIR, 'slides'),
+      RAW_DIR,
+      join(RAW_DIR, 'articles'),
+      join(RAW_DIR, 'repos'),
+      join(RAW_DIR, 'images'),
+      join(RAW_DIR, 'signals'),
+      WIKI_DIR,
+      join(WIKI_DIR, 'concepts'),
+      join(WIKI_DIR, 'entities'),
+      join(WIKI_DIR, 'summaries'),
+      join(WIKI_DIR, 'reports'),
+      join(WIKI_DIR, 'slides'),
       EPHEMERAL_DIR,
     ];
     for (const dir of dirs) {
@@ -379,7 +434,10 @@ export class KBAgent extends BaseAgent {
     }
   }
 
-  private async runCompile(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
+  private async runCompile(
+    context: AgentContext,
+    input: Record<string, unknown>,
+  ): Promise<AgentResponse> {
     const full = input.full === true;
     const userMsg = full
       ? 'Perform a FULL recompile of the entire knowledge base. Process all raw sources, not just new ones.'
@@ -392,7 +450,10 @@ export class KBAgent extends BaseAgent {
       result: { output: loopResult.content, iterations: loopResult.iterations.length },
       confidence: 0.9,
       reasoning: `Knowledge base ${full ? 'full' : 'incremental'} compilation completed in ${loopResult.iterations.length} iterations.`,
-      recommendations: ['Run `dws kb lint` to verify wiki consistency', 'Run `dws kb status` to see updated stats'],
+      recommendations: [
+        'Run `dws kb lint` to verify wiki consistency',
+        'Run `dws kb status` to see updated stats',
+      ],
       metadata: {
         model: loopResult.model,
         totalTokens: loopResult.totalTokens,
@@ -401,7 +462,10 @@ export class KBAgent extends BaseAgent {
     };
   }
 
-  private async runAsk(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
+  private async runAsk(
+    context: AgentContext,
+    input: Record<string, unknown>,
+  ): Promise<AgentResponse> {
     const question = input.question as string;
     if (!question) {
       return {
@@ -435,7 +499,10 @@ export class KBAgent extends BaseAgent {
     };
   }
 
-  private async runResearch(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
+  private async runResearch(
+    context: AgentContext,
+    input: Record<string, unknown>,
+  ): Promise<AgentResponse> {
     const question = input.question as string;
     if (!question) {
       return {
@@ -450,7 +517,11 @@ export class KBAgent extends BaseAgent {
 
     // Use longer loop for deep research
     const savedLoop = this.config.loop;
-    this.config.loop = { maxIterations: 25, allowDelegation: savedLoop?.allowDelegation ?? false, logIterations: savedLoop?.logIterations ?? false };
+    this.config.loop = {
+      maxIterations: 25,
+      allowDelegation: savedLoop?.allowDelegation ?? false,
+      logIterations: savedLoop?.logIterations ?? false,
+    };
 
     const userMsg = `Conduct deep research on this question. Write analysis articles and a final report.\n\n${question}`;
     const loopResult = await this.runLoop(context, RESEARCH_PROMPT, userMsg, KB_TOOLS);
@@ -462,7 +533,10 @@ export class KBAgent extends BaseAgent {
       result: { report: loopResult.content, iterations: loopResult.iterations.length },
       confidence: 0.8,
       reasoning: `Deep research completed on: "${question.slice(0, 100)}" in ${loopResult.iterations.length} iterations.`,
-      recommendations: ['Check wiki/reports/ for the full report', 'Run `dws kb lint` to verify consistency'],
+      recommendations: [
+        'Check wiki/reports/ for the full report',
+        'Run `dws kb lint` to verify consistency',
+      ],
       metadata: {
         model: loopResult.model,
         totalTokens: loopResult.totalTokens,
@@ -472,14 +546,22 @@ export class KBAgent extends BaseAgent {
   }
 
   private async runLint(context: AgentContext): Promise<AgentResponse> {
-    const loopResult = await this.runLoop(context, LINT_PROMPT, 'Run a health check on the knowledge base.', KB_TOOLS);
+    const loopResult = await this.runLoop(
+      context,
+      LINT_PROMPT,
+      'Run a health check on the knowledge base.',
+      KB_TOOLS,
+    );
 
     return {
       agentName: 'kb',
       result: { report: loopResult.content, iterations: loopResult.iterations.length },
       confidence: 0.9,
       reasoning: 'Knowledge base health check completed.',
-      recommendations: ['Review wiki/_stale.md for issues', 'Run `dws kb compile` to fix stale articles'],
+      recommendations: [
+        'Review wiki/_stale.md for issues',
+        'Run `dws kb compile` to fix stale articles',
+      ],
       metadata: {
         model: loopResult.model,
         totalTokens: loopResult.totalTokens,
@@ -522,7 +604,10 @@ export class KBAgent extends BaseAgent {
     const targetPath = join(RAW_DIR, subdir, basename(resolvedSource));
     copyFileSync(resolvedSource, targetPath);
 
-    logger.info('KB raw source ingested', { source: sourcePath, target: relative(KB_ROOT, targetPath) });
+    logger.info('KB raw source ingested', {
+      source: sourcePath,
+      target: relative(KB_ROOT, targetPath),
+    });
 
     return {
       agentName: 'kb',
@@ -542,7 +627,7 @@ export class KBAgent extends BaseAgent {
 
     // Count actual files
     const rawFiles = listDirectory(RAW_DIR);
-    const wikiFiles = listDirectory(WIKI_DIR).filter(f => !f.path.startsWith('wiki/_'));
+    const wikiFiles = listDirectory(WIKI_DIR).filter((f) => !f.path.startsWith('wiki/_'));
 
     return {
       agentName: 'kb',
@@ -550,14 +635,15 @@ export class KBAgent extends BaseAgent {
         ...metadata,
         rawCount: rawFiles.length,
         articleCount: wikiFiles.length,
-        rawFiles: rawFiles.map(f => f.path),
-        wikiFiles: wikiFiles.map(f => f.path),
+        rawFiles: rawFiles.map((f) => f.path),
+        wikiFiles: wikiFiles.map((f) => f.path),
       },
       confidence: 1.0,
       reasoning: `Knowledge base has ${rawFiles.length} raw sources and ${wikiFiles.length} wiki articles.`,
-      recommendations: rawFiles.length > wikiFiles.length
-        ? ['Run `dws kb compile` to process uncompiled raw sources']
-        : ['Knowledge base is up to date'],
+      recommendations:
+        rawFiles.length > wikiFiles.length
+          ? ['Run `dws kb compile` to process uncompiled raw sources']
+          : ['Knowledge base is up to date'],
       metadata: {},
     };
   }

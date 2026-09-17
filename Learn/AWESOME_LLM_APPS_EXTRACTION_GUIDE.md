@@ -74,7 +74,7 @@ These agents directly solve gaps identified in `Learn/MISSING_AGENTS_ANALYSIS.md
 **Pattern:** Triage Agent → Research Agent (web search + fact collection) → Editor Agent (report synthesis) with Pydantic structured output
 
 **Why it fits DWS6:**
-- CSRD/ETS/CBAM regulations change frequently. Manual tracking is unsustainable across 16 industries
+- CSRD/ETS/CBAM regulations change frequently. Manual tracking is unsustainable across 25+ industries
 - The triage→research→report pattern maps perfectly to: regulatory scan → impact analysis → compliance report
 - Structured output (`ResearchPlan`, `ResearchReport`) matches DWS document standard
 - `save_important_fact()` tool creates audit trail (EU AI Act Article 12)

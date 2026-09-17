@@ -48,7 +48,11 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = req.userId!;
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
     const limit = Math.min(parseInt(req.query.limit as string) || 20, 100);
     const offset = parseInt(req.query.offset as string) || 0;
     const typeFilter = req.query.type as string | undefined;
@@ -153,7 +157,11 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
  * Dashboard connects to this for live feed.
  */
 router.get('/stream', async (req: Request, res: Response) => {
-  const userId = req.userId!;
+  const userId = req.userId;
+  if (!userId) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
 
   // Cross-tenant safety: build the set of orgs this user can see events for.
   // Without this filter, eventBus.subscribe('*') would leak every org's

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Noux sales rooms and investor deck V6 — field note 2026-09-04</title>
+<style>
+:root{--ink:#15191e;--soft:#525c68;--rule:#dce1e7;--ground:#fbfbfc;--accent:#0f5c4a;}
+@media (prefers-color-scheme:dark){:root{--ink:#e5eaef;--soft:#a2aeb9;--rule:#2a323a;--ground:#101418;--accent:#63c0a5;}}
+body{margin:0;background:var(--ground);color:var(--ink);font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;}
+main{max-width:44rem;margin:0 auto;padding:2.5rem 1.15rem 4rem;}
+h1{font-family:Georgia,serif;font-size:2rem;line-height:1.15;text-wrap:balance;}
+h2{font-family:Georgia,serif;font-size:1.4rem;margin-top:2.2rem;text-wrap:balance;}
+h3{font-size:1.05rem;margin-top:1.6rem;}
+p,li{margin:.55rem 0;} ul{padding-left:1.2rem;}
+code{font:0.85em ui-monospace,SFMono-Regular,Menlo,monospace;background:rgba(127,127,127,.14);padding:.1em .35em;border-radius:3px;}
+.scroller{overflow-x:auto;} table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.8rem 0;}
+th,td{border-bottom:1px solid var(--rule);text-align:left;padding:.45rem .7rem .45rem 0;vertical-align:top;}
+th{font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--soft);}
+hr{border:none;border-top:1px solid var(--rule);margin:2rem 0;}
+strong{font-weight:650;} em{color:var(--soft);}
+</style></head><body><main>
+<h1>Noux sales rooms, demo-tenant automation, and the investor deck that had to be rewritten three times</h1>
+
+<p><strong>Date:</strong> 2026-09-04 (session ran 30.08–04.09.2026)</p>
+<p><strong>Branch:</strong> <code>claude/noux-sales-rooms-setup-wu73bq</code> · PR #1826</p>
+<p><strong>Owner:</strong> Risto Anton Päärni, Founder, CEO · Lifetime Oy</p>
+
+<hr />
+
+<h2>What happened</h2>
+
+<p>Three live Noux sales rooms existed with no repo-side counterpart. The session built one — and in the</p>
+<p>process turned up a chain of canon problems in the investor material that took three deck rewrites to</p>
+<p>resolve.</p>
+
+<h3>1. <code>sales-rooms/</code> — the rooms now have a source of truth</h3>
+
+<p><code>01-certified-partners-centre/</code>, <code>02-investor-centre/</code>, <code>03-trial-centre/</code>, each with the same three</p>
+<p>files: a room card (audience, visitor journey, demo-stage checklist), a document manifest (repo source →</p>
+<p>room format → upload status), and outreach wiring (feeding pipeline, invite list, a signal→action</p>
+<p>follow-up table, a dated signal log). Repository-first: the <code>.md</code> is master, the Noux room is the</p>
+<p>published copy.</p>
+
+<p>Plus <code>DEMO_TENANTS.md</code> (<code>dev.&lt;customer&gt;@dws10.com</code>, synthetic data only, enforced expiry) and</p>
+<p><code>DEMO_AUTOMATION_PLAN.md</code> — five phases and four workflow definitions (W1 provision · W2 daily expiry</p>
+<p>flow · W3 room document sync · W4 room signals), built on the <code>organizations</code> table, the <code>scripts/daily</code></p>
+<p>runner and SES rather than new infrastructure.</p>
+
+<h3>2. The deck line: V4 → V5 → V6</h3>
+
+<ul><li><strong>V4</strong> replaced the Dec-2025 deck. Three canon violations fixed: Boardy.ai was named as a competitor in</li>
+</ul><p>  four places (it is our warm-intro and review channel, and every <code>INTRO_*</code> doc carries a standing rule</p>
+<p>  not to mention it externally); the moat count mixed &quot;19-Moat&quot; headings with a &quot;20 moats&quot; bullet, and</p>
+<p>  &quot;20 moats&quot; is deprecated; positioning was superseded by the labor lens.</p>
+<ul><li><strong>V5</strong> rebuilt on the DWS IQ Essentials positioning decision that landed the same day — Essentials →</li>
+</ul><p>  Pro → Enterprise on one contract model, Themis as the internal engine rather than a brand.</p>
+<ul><li><strong>V6</strong> is the deck of record. The HIC review rejected V5 for reading as a validated SME business when</li>
+</ul><p>  the SME motion is an untested scenario. V6 presents <strong>two GTM scenarios</strong>: A (SME entry) labelled a</p>
+<p>  hypothesis with no shipped product, no customer and no measured demand — with pre-committed validation</p>
+<p>  metrics and a stated failure condition — and B (enterprise workforce) carrying the only contracted</p>
+<p>  software revenue. The ask funds the six-week launch gate and one paid referenceable beta, not the</p>
+<p>  scaling of a proven motion.</p>
+
+<h3>3. Canon and catalogue corrections that fell out of it</h3>
+
+<div class="scroller"><table>
+<tr><th>Finding</th><th>Resolution</th></tr>
+<tr><td>Essentials pricing contradicted itself inside its own roadmap (§3/§5 €799+€49/€249 vs §7/§8 €750+€200)</td><td>§3/§5 confirmed canonical (HIC); §7/§8 corrected, roadmap → v1.1</td></tr>
+<tr><td>Essentials pricing absent from the single pricing source</td><td>Three SKUs added to <code>dws10.com/config/products.json</code> (priceVersion 1.29) + landing-pages mirror</td></tr>
+<tr><td>Catalogue still sold &quot;Themis Coordinator — Pro&quot; and a workshop</td><td><code>TH-T2</code> and <code>LAND-THEMIS</code> moved to <code>discontinuedProducts</code> with reason and date; struck through in the marketing catalogue</td></tr>
+<tr><td>Two truth-registry rows disagreed about the same round</td><td>Row 37(a) marked <strong>superseded</strong>; the investor-round-structure row is the single authoritative record (<code>DWS_TRUTH_STANDARD.md</code> → v5.0)</td></tr>
+<tr><td>&quot;Captain seat&quot; meant three different things across three documents</td><td>Settled: <strong>investor position</strong>, not a board seat, client position, or &quot;captain hat&quot;</td></tr>
+<tr><td>Deck v3.0 carried Business ID 3180098-3</td><td>Corrected to the canonical <strong>0772407-9</strong></td></tr>
+<tr><td>Two pitch-deck HTML files, byte-identical renders</td><td>Both renamed <code>_OLD</code>; the <code>.md</code> is master</td></tr>
+</table></div>
+
+<hr />
+
+<h2>The insight</h2>
+
+<p>**A deck is a canon consumer, not a canon source — and it fails loudly when the canon underneath it</p>
+<p>disagrees with itself.** Every problem this session found had been sitting in the repository for weeks:</p>
+<p>a price contradicting itself two sections apart, a discontinued brand still sellable in the catalogue,</p>
+<p>two current registry rows asserting opposite things about the same €650k. None surfaced until something</p>
+<p>had to be written that depended on all of them at once.</p>
+
+<p>The second lesson is about labelling. V5 was factually accurate and still wrong to circulate, because it</p>
+<p>presented an untested commercial hypothesis in the same voice as contracted revenue. The fix was not new</p>
+<p>data — it was saying which is which. <strong>Scenario A is a hypothesis with a stated failure condition</strong>, and</p>
+<p>writing that down costs nothing with an investor who was going to ask anyway.</p>
+
+<hr />
+
+<h2>HIC Learning Outcome — six-step status</h2>
+
+<ul><li><strong>Knowledge base</strong> — updated: <code>kb/raw/2026-09-04-noux-sales-rooms.md</code>.</li>
+<li><strong>Field note</strong> — this file.</li>
+<li><strong><code>Learn/</code> HTML</strong> — <code>Learn/2026-09-04-noux-sales-rooms-and-investor-deck-v6.html</code>.</li>
+</ul><p>   _Generated with the Chromium fallback, not <code>scripts/render-doc.sh</code>:_ that script cannot run in a</p>
+<p>   Claude Code cloud session — it shells out over SSH to a LAN address and the container has no <code>ssh</code></p>
+<p>   or <code>scp</code> binary. Re-render from Win11 or the DGX for the pandoc-templated version.</p>
+<ul><li><strong>Drive export</strong> — exported.</li>
+<li><strong>HIC question</strong> — below.</li>
+<li><strong>Calendar</strong> — <code>N/A — no dated commitment was produced or discovered.</code> The one pending date (counsel</li>
+</ul><p>   confirmation of the SAFE instrument language) has <strong>no date yet</strong>; the HIC will announce it. Calendar</p>
+<p>   it in the session that learns the date.</p>
+
+<hr />
+
+<h2>The question for the HIC</h2>
+
+<p>The V6 diligence appendix carries five unreconciled data items, and they are not equal. Two are</p>
+<p>cosmetic in diligence (5-vs-6 accounts at Dec 2025; AppExchange publication status). Three would be</p>
+<p>quoted back at us in a term-sheet conversation:</p>
+
+<ul><li>the <strong>80% gross-margin stress floor</strong> asserted in Budget V3 against the pricing model&#x27;s 73% / 55%,</li>
+<li>the <strong>~€7k/month transport-vs-consulting split</strong> with no bookkeeping export attached,</li>
+<li><strong>account-level evidence</strong> for the Azure Consumption Commitment claim, plus permission to name those</li>
+</ul><p>  accounts.</p>
+
+<p><strong>Which of those three do we close first, and who owns closing it?</strong> The margin conflict is the one an</p>
+<p>investor is most likely to find on their own — but the bookkeeping export is the one that turns a</p>
+<p>paragraph of hedging into a number. Both are yours to decide; neither is an agent task.</p>
+
+<hr />
+
+<h2>Next steps</h2>
+
+<ul><li>Counsel confirmation of the SAFE instrument language — <strong>blocks V6 circulation and the Noux upload.</strong></li>
+<li>Trial Centre has one visitor and zero attachments. Produce the four P0 documents.</li>
+<li>Demo automation Phase 1 (<code>demo_tenants</code> migration + provisioning script) is unblocked; Phase 3 needs</li>
+</ul><p>   Cloudflare account and zone IDs; Phase 4 needs a verified answer on whether Noux has an API at all.</p>
+<ul><li><code>dws10.com/investor-relations/</code> &quot;Request Access&quot; is a <code>mailto:</code> that opens a blank tab, on a</li>
+</ul><p>   non-canonical address, on a page mixing three addresses. Deferred to its own session.</p>
+
+<hr />
+<p style="font-size:.82rem;color:var(--soft)">© 2026 Lifetime Oy · Business ID 0772407-9 · Risto Anton Päärni, Founder, CEO · risto.paarni@lifetime.fi · +358 400 319 010<br />
+Source of truth: <code>docs/field-notes/2026-09-04-noux-sales-rooms-and-investor-deck-v6.md</code>. Rendered with the Chromium/HTML fallback — <code>scripts/render-doc.sh</code> cannot run in a cloud session.</p>
+</main></body></html>

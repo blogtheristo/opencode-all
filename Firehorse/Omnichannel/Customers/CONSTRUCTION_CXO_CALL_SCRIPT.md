@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — €7–14K MRR restated as ~€7,000/month services and transport revenue (not software revenue) and the 100% retention claim retired (no cohort data).
   - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 21.03.2026 | Changes: Fixed three credibility risks — softened €59,900 claim to verifiable "pilotissa/sopimusvaiheessa" language, removed artificial scarcity ("paikka on nyt täyttymässä"), corrected Captain close rate from 25% to 10-15% with recalculated funnel math
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 15.03.2026 | Changes: Removed Deputy Captain price (TBD per memo v3.1, not €25K), replaced sequential funnel math with parallel outreach model (LinkedIn DM + email + calls simultaneously), added channel saturation warning for 88-contact pool
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 15.03.2026 | Changes: Initial creation — construction industry CXO sales call script with Captain seat pitch, objection handling, CSRD/EPBD/Fit for 55 pain points, Monitor ERP integration hook
@@ -233,12 +234,12 @@ Kuuntele. Älä myy. Merkitse vastaukset.
 
 ## Avainluvut muistiin
 
-- **Pilottiyhtiöt:** 2 kpl, €59 900 luokan sopimukset (tarkista status ennen soittoa: allekirjoitettu / sopimusvaiheessa / pilotissa)
+- **Pilottiyhtiöt:** 2 kpl yrityspilottia, sopimukset Q1/2026, á €29 950 (yhteensä €59 900). Lisäksi neljä pienempää asiakkuutta (nimet salattu ennen lupaa).
 - **Captain-hinta:** €50 000 SAFE (18% alennus, MFN, €3.8M cap)
 - **Deputy Captain:** hinta TBD (ei mainita soitossa ennen kuin lukittu)
 - **Rakennusalan paikka:** OPEN — älä väitä "täyttymässä" ellei toinen Captain-keskustelu ole oikeasti käynnissä
 - **Arctic 15:** Helsinki, 15.6.2026 — V1-julkaisu
-- **MRR:** €7–14K nykyinen
+- **Palvelu- ja kuljetusliikevaihto:** noin €7 000/kk (luvanvarainen henkilöliikenne + konsultointi) — **ei** ohjelmistoliikevaihtoa; yhtiö on kassavirraltaan nollatuloksessa perustajan palkalla €0
 - **Gross margin:** >90%
 - **Infra-kustannus:** €15–50/kk
-- **Retention:** 100% (12+ kk)
+- **Retention:** ei väitetä — kohorttidataa ei ole

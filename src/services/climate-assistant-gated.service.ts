@@ -205,15 +205,17 @@ function validateMessage(message: string): { valid: boolean; reason?: string } {
  * Get or create session
  */
 function getSession(sessionId: string, tier: UserTier): SessionData {
-  if (!sessions.has(sessionId)) {
-    sessions.set(sessionId, {
+  let session = sessions.get(sessionId);
+  if (!session) {
+    session = {
       messagesCount: 0,
       lastMessageTime: Date.now(),
       questions: [],
       tier,
-    });
+    };
+    sessions.set(sessionId, session);
   }
-  return sessions.get(sessionId)!;
+  return session;
 }
 
 /**
@@ -301,7 +303,7 @@ export async function processGatedMessage(request: GatedChatRequest): Promise<Ga
   if (!validation.valid) {
     logger.info('Message blocked - off topic', { sessionId, tier, reason: validation.reason });
     return {
-      content: validation.reason!,
+      content: validation.reason ?? 'Message blocked - off topic',
       model: 'filter',
       tier,
       messagesUsed: 0,
@@ -417,9 +419,9 @@ export async function processGatedMessage(request: GatedChatRequest): Promise<Ga
         cost: inputTokens * 0.00000059 + outputTokens * 0.00000079,
       },
     };
-  } catch (error: any) {
-    logger.error('Gated chat error', { error: error.message, tier });
-    throw new Error(error.message || 'Failed to process message.');
+  } catch (error) {
+    logger.error('Gated chat error', { error: error instanceof Error ? error.message : String(error), tier });
+    throw new Error(error instanceof Error ? error.message : String(error) || 'Failed to process message.', { cause: error });
   }
 }
 

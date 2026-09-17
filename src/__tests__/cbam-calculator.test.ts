@@ -12,6 +12,7 @@ import {
   type CBAMDeclaration,
   estimateCBAMCost,
   isCBAMCovered,
+  validateEORI,
 } from '../compliance/cbam-calculator.js';
 import {
   CBAM_CERTIFICATE_PRICE_EUR,
@@ -199,6 +200,21 @@ describe('estimateCBAMCost', () => {
 
     // UK has carbon pricing → lower CBAM cost
     expect(ukResult.estimatedCost).toBeLessThan(cnResult.estimatedCost);
+  });
+});
+
+describe('validateEORI', () => {
+  it('accepts valid uppercase EORI format', () => {
+    expect(validateEORI('FI1234567890')).toBeNull();
+  });
+
+  it('rejects lowercase country code in strict format mode', () => {
+    expect(validateEORI('fi1234567890')).not.toBeNull();
+  });
+
+  it('rejects malformed EORI values', () => {
+    expect(validateEORI('F1234567890')).not.toBeNull();
+    expect(validateEORI('FI123')).not.toBeNull();
   });
 });
 

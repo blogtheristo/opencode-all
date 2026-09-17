@@ -19,7 +19,7 @@ import cron from 'node-cron';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseClient } from '../config/supabase.js';
 import ReportExportService from '../services/report-export.service.js';
-import { sendEmail, escapeHtml } from '../utils/send-email.js';
+import { escapeHtml, sendEmail } from '../utils/send-email.js';
 import logger from '../utils/logger.js';
 
 const exportReport = (

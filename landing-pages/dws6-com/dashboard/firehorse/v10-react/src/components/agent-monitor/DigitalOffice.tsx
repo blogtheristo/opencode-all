@@ -34,7 +34,7 @@ function Workstation({ agent, onClick }: { agent: MonitorAgent; onClick: (a: Mon
       <div className="relative w-36 h-28">
         {/* Monitor */}
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-14 rounded-t-md border-2 border-gray-600 overflow-hidden"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-14 rounded-t-md border-2 border-border overflow-hidden"
           style={{ backgroundColor: isWorking ? '#1e293b' : '#334155' }}
         >
           {/* Screen content */}
@@ -59,9 +59,9 @@ function Workstation({ agent, onClick }: { agent: MonitorAgent; onClick: (a: Mon
           ) : (
             <div className="h-full flex items-center justify-center">
               {isOffline ? (
-                <div className="w-2 h-2 rounded-full bg-gray-500" />
+                <div className="w-2 h-2 rounded-full bg-background0" />
               ) : (
-                <div className="text-[8px] text-gray-400 font-mono">
+                <div className="text-[8px] text-fg-muted font-mono">
                   {isBreak ? 'AFK' : 'IDLE'}
                 </div>
               )}
@@ -70,8 +70,8 @@ function Workstation({ agent, onClick }: { agent: MonitorAgent; onClick: (a: Mon
         </div>
 
         {/* Monitor stand */}
-        <div className="absolute top-14 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-600" />
-        <div className="absolute top-[68px] left-1/2 -translate-x-1/2 w-8 h-1 bg-gray-600 rounded-b" />
+        <div className="absolute top-14 left-1/2 -translate-x-1/2 w-3 h-3 bg-fg-muted" />
+        <div className="absolute top-[68px] left-1/2 -translate-x-1/2 w-8 h-1 bg-fg-muted rounded-b" />
 
         {/* Desk */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-32 h-4 bg-amber-800/80 rounded-sm border border-amber-900/40 shadow-md" />
@@ -82,12 +82,12 @@ function Workstation({ agent, onClick }: { agent: MonitorAgent; onClick: (a: Mon
 
         {/* Keyboard */}
         {isWorking && (
-          <div className="absolute bottom-[26px] left-1/2 -translate-x-1/2 w-12 h-2 bg-gray-700 rounded-sm">
+          <div className="absolute bottom-[26px] left-1/2 -translate-x-1/2 w-12 h-2 bg-fg-muted/20 rounded-sm">
             {/* Typing animation dots */}
             <div className="flex justify-center gap-0.5 pt-0.5">
-              <div className="w-0.5 h-0.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms', animationDuration: '600ms' }} />
-              <div className="w-0.5 h-0.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '100ms', animationDuration: '600ms' }} />
-              <div className="w-0.5 h-0.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '200ms', animationDuration: '600ms' }} />
+              <div className="w-0.5 h-0.5 bg-fg-muted rounded-full animate-bounce" style={{ animationDelay: '0ms', animationDuration: '600ms' }} />
+              <div className="w-0.5 h-0.5 bg-fg-muted rounded-full animate-bounce" style={{ animationDelay: '100ms', animationDuration: '600ms' }} />
+              <div className="w-0.5 h-0.5 bg-fg-muted rounded-full animate-bounce" style={{ animationDelay: '200ms', animationDuration: '600ms' }} />
             </div>
           </div>
         )}
@@ -95,8 +95,8 @@ function Workstation({ agent, onClick }: { agent: MonitorAgent; onClick: (a: Mon
         {/* Coffee cup (break) */}
         {isBreak && (
           <div className="absolute bottom-[26px] right-6">
-            <div className="w-3 h-3 bg-white rounded-b-sm border border-gray-300" />
-            <div className="text-[6px] leading-none text-gray-400 animate-pulse">~</div>
+            <div className="w-3 h-3 bg-surface rounded-b-sm border border-border" />
+            <div className="text-[6px] leading-none text-fg-muted animate-pulse">~</div>
           </div>
         )}
       </div>
@@ -123,14 +123,14 @@ function Workstation({ agent, onClick }: { agent: MonitorAgent; onClick: (a: Mon
 
       {/* Name label */}
       <div className="mt-1.5 text-center">
-        <div className="text-xs font-semibold text-gray-800">{agent.name}</div>
-        <div className="text-[10px] text-gray-500 capitalize">{agent.status}</div>
+        <div className="text-xs font-semibold text-foreground">{agent.name}</div>
+        <div className="text-[10px] text-fg-muted capitalize">{agent.status}</div>
       </div>
 
       {/* Task progress bar (when working) */}
       {agent.currentTask && (
         <div className="mt-1 w-24">
-          <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
+          <div className="h-1 bg-fg-muted/20 rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-1000"
               style={{
@@ -139,7 +139,7 @@ function Workstation({ agent, onClick }: { agent: MonitorAgent; onClick: (a: Mon
               }}
             />
           </div>
-          <div className="text-[8px] text-gray-400 text-center mt-0.5">
+          <div className="text-[8px] text-fg-muted text-center mt-0.5">
             {agent.currentTask.progress}%
           </div>
         </div>
@@ -150,7 +150,7 @@ function Workstation({ agent, onClick }: { agent: MonitorAgent; onClick: (a: Mon
 
 function AgentDetailPanel({ agent, onClose }: { agent: MonitorAgent; onClose: () => void }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-xl p-5 w-80">
+    <div className="bg-surface rounded-xl border border-border shadow-xl p-5 w-80">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
           <div
@@ -160,13 +160,13 @@ function AgentDetailPanel({ agent, onClose }: { agent: MonitorAgent; onClose: ()
             {agent.avatar.initials}
           </div>
           <div>
-            <h3 className="text-sm font-bold text-gray-900">{agent.name}</h3>
-            <p className="text-xs text-gray-500 capitalize">{agent.role.replace('-', ' ')}</p>
+            <h3 className="text-sm font-bold text-foreground">{agent.name}</h3>
+            <p className="text-xs text-fg-muted capitalize">{agent.role.replace('-', ' ')}</p>
           </div>
         </div>
         <button
           onClick={onClose}
-          className="text-gray-400 hover:text-gray-600 text-lg leading-none"
+          className="text-fg-muted hover:text-fg-muted text-lg leading-none"
           aria-label="Close detail panel"
         >
           &times;
@@ -175,12 +175,12 @@ function AgentDetailPanel({ agent, onClose }: { agent: MonitorAgent; onClose: ()
 
       {/* Status */}
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-xs font-medium text-gray-600">Status:</span>
+        <span className="text-xs font-medium text-fg-muted">Status:</span>
         <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${
           agent.status === 'working' ? 'bg-green-100 text-green-700' :
           agent.status === 'idle' ? 'bg-yellow-100 text-yellow-700' :
           agent.status === 'break' ? 'bg-orange-100 text-orange-700' :
-          'bg-gray-100 text-gray-600'
+          'bg-border text-fg-muted'
         }`}>
           {agent.status}
         </span>
@@ -188,42 +188,42 @@ function AgentDetailPanel({ agent, onClose }: { agent: MonitorAgent; onClose: ()
 
       {/* Current task */}
       {agent.currentTask && (
-        <div className="mb-3 p-3 bg-gray-50 rounded-lg">
-          <div className="text-[10px] font-medium text-gray-400 uppercase tracking-wide mb-1">Current Task</div>
-          <div className="text-xs text-gray-800 mb-2">{agent.currentTask.title}</div>
-          <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+        <div className="mb-3 p-3 bg-background rounded-lg">
+          <div className="text-[10px] font-medium text-fg-muted uppercase tracking-wide mb-1">Current Task</div>
+          <div className="text-xs text-foreground mb-2">{agent.currentTask.title}</div>
+          <div className="h-1.5 bg-fg-muted/20 rounded-full overflow-hidden">
             <div
               className="h-full rounded-full"
               style={{ width: `${agent.currentTask.progress}%`, backgroundColor: agent.avatar.color }}
             />
           </div>
-          <div className="text-[10px] text-gray-400 mt-1">{agent.currentTask.progress}% complete</div>
+          <div className="text-[10px] text-fg-muted mt-1">{agent.currentTask.progress}% complete</div>
         </div>
       )}
 
       {/* Metrics */}
       <div className="grid grid-cols-2 gap-2 mb-3">
-        <div className="p-2 bg-gray-50 rounded-lg">
-          <div className="text-[10px] text-gray-400">Tasks Done</div>
-          <div className="text-sm font-bold text-gray-900">{agent.tasksCompleted.toLocaleString()}</div>
+        <div className="p-2 bg-background rounded-lg">
+          <div className="text-[10px] text-fg-muted">Tasks Done</div>
+          <div className="text-sm font-bold text-foreground">{agent.tasksCompleted.toLocaleString()}</div>
         </div>
-        <div className="p-2 bg-gray-50 rounded-lg">
-          <div className="text-[10px] text-gray-400">Uptime</div>
-          <div className="text-sm font-bold text-gray-900">{agent.uptime}h</div>
+        <div className="p-2 bg-background rounded-lg">
+          <div className="text-[10px] text-fg-muted">Uptime</div>
+          <div className="text-sm font-bold text-foreground">{agent.uptime}h</div>
         </div>
-        <div className="p-2 bg-gray-50 rounded-lg">
-          <div className="text-[10px] text-gray-400">CPU</div>
-          <div className="text-sm font-bold text-gray-900">{agent.cpu}%</div>
+        <div className="p-2 bg-background rounded-lg">
+          <div className="text-[10px] text-fg-muted">CPU</div>
+          <div className="text-sm font-bold text-foreground">{agent.cpu}%</div>
         </div>
-        <div className="p-2 bg-gray-50 rounded-lg">
-          <div className="text-[10px] text-gray-400">Memory</div>
-          <div className="text-sm font-bold text-gray-900">{agent.memory}%</div>
+        <div className="p-2 bg-background rounded-lg">
+          <div className="text-[10px] text-fg-muted">Memory</div>
+          <div className="text-sm font-bold text-foreground">{agent.memory}%</div>
         </div>
       </div>
 
       {/* Recent Activity */}
       <div>
-        <div className="text-[10px] font-medium text-gray-400 uppercase tracking-wide mb-2">Recent Activity</div>
+        <div className="text-[10px] font-medium text-fg-muted uppercase tracking-wide mb-2">Recent Activity</div>
         <div className="space-y-1.5">
           {agent.recentActivities.map(activity => (
             <div key={activity.id} className="flex items-start gap-2">
@@ -233,8 +233,8 @@ function AgentDetailPanel({ agent, onClose }: { agent: MonitorAgent; onClose: ()
                 'bg-blue-400'
               }`} />
               <div>
-                <div className="text-[11px] text-gray-700 leading-tight">{activity.action}</div>
-                <div className="text-[9px] text-gray-400">
+                <div className="text-[11px] text-foreground leading-tight">{activity.action}</div>
+                <div className="text-[9px] text-fg-muted">
                   {activity.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </div>
               </div>
@@ -256,19 +256,19 @@ export function DigitalOffice({ agents }: DigitalOfficeProps) {
       {/* Office header */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-sm font-semibold text-gray-700">DWS IQ Office — Floor 1</h3>
-          <p className="text-xs text-gray-400">{workingCount} of {agents.length} agents working</p>
+          <h3 className="text-sm font-semibold text-foreground">DWS IQ Office — Floor 1</h3>
+          <p className="text-xs text-fg-muted">{workingCount} of {agents.length} agents working</p>
         </div>
-        <div className="flex items-center gap-3 text-[10px] text-gray-500">
+        <div className="flex items-center gap-3 text-[10px] text-fg-muted">
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-500" /> Working</span>
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-yellow-500" /> Idle</span>
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-500" /> Break</span>
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-gray-400" /> Offline</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-fg-muted" /> Offline</span>
         </div>
       </div>
 
       {/* Office floor */}
-      <div className="relative bg-gradient-to-b from-gray-100 to-gray-50 border border-gray-200 rounded-xl p-6 min-h-[480px]">
+      <div className="relative bg-gradient-to-b from-border to-background border border-border rounded-xl p-6 min-h-[480px]">
         {/* Floor grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.03] pointer-events-none rounded-xl"
@@ -278,7 +278,7 @@ export function DigitalOffice({ agents }: DigitalOfficeProps) {
         />
 
         {/* Room labels */}
-        <div className="absolute top-3 left-4 text-[10px] font-medium text-gray-300 uppercase tracking-widest">
+        <div className="absolute top-3 left-4 text-[10px] font-medium text-fg-muted uppercase tracking-widest">
           Agent Workspace
         </div>
 
@@ -296,7 +296,7 @@ export function DigitalOffice({ agents }: DigitalOfficeProps) {
         {/* Water cooler area */}
         <div className="absolute bottom-3 right-4 flex items-end gap-1 opacity-30">
           <div className="w-4 h-6 bg-blue-300 rounded-t-full border border-blue-400" />
-          <div className="text-[8px] text-gray-400">Break Area</div>
+          <div className="text-[8px] text-fg-muted">Break Area</div>
         </div>
       </div>
 

@@ -1,0 +1,61 @@
+{
+  "branch": "claude/internal-agent-automation-uS9L4",
+  "checks": [
+    {
+      "duration_ms": 8480,
+      "name": "npm-install-check",
+      "notes": "",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pass": true
+    },
+    {
+      "duration_ms": 14805,
+      "name": "vitest",
+      "notes": "exit=1",
+      "output_sha256": "873103424e8862a8b9259def0f4ecdc673d3f23b5318beaea8caa6777ec20ce2",
+      "pass": false
+    },
+    {
+      "duration_ms": 5,
+      "name": "gitleaks-staged",
+      "notes": "exit=2",
+      "output_sha256": "9ad24768b4fffde2c755635b5edcfa1bf78b8c3afda4b4f8c6698796480fcf29",
+      "pass": false
+    },
+    {
+      "duration_ms": 455,
+      "name": "npm-audit-root",
+      "notes": "",
+      "output_sha256": "adcd69c1500c4f5d32defa19396edff0382c93b167547b4bd9439248e11ecf1e",
+      "pass": true
+    },
+    {
+      "duration_ms": 1058,
+      "name": "ruff-check",
+      "notes": "exit=1",
+      "output_sha256": "6c3d6b725c0be981c412992f0e80f18857a26d710d42d1a027a2220ccef68f73",
+      "pass": false
+    },
+    {
+      "duration_ms": 45,
+      "name": "ruff-format-check",
+      "notes": "exit=1",
+      "output_sha256": "24f31cd7f1e0c532693c89be5e62b2c173cc8d56ca6b181776cdf431b3476954",
+      "pass": false
+    }
+  ],
+  "checks_failed": 4,
+  "checks_passed": 2,
+  "checks_total": 6,
+  "commit_sha": "db9e51b387360e5f4fe4b94d9879922945fc4021",
+  "duration_ms": 24896,
+  "overall_pass": false,
+  "prev_record_hash": "4dd739c5da8a8fc5db10b609b4dacd8d0e51eb4d2b972af5b8a7ecb536999a93",
+  "repo": "blogtheristo/dws6",
+  "runner": "root@vm",
+  "runner_kind": "local",
+  "schema": "ci-audit/v1",
+  "this_record_hash": "c784484b3ea650a2c97abda73465dca9f4623450f987f66542d0a58d9054feb3",
+  "trigger_kind": "pre-push",
+  "ts": "2026-05-13T02:09:17Z"
+}

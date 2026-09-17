@@ -1,0 +1,62 @@
+# =============================================================================
+# CPU smoke config — tiny model, 1 step, no GPU / no 4-bit
+# =============================================================================
+# Drives the CI smoke test (tests/test_smoke_cpu.py). Exercises the full
+# pipeline wiring — load model+tokenizer, build LoRA, run SFT, write a
+# checkpoint — on a tiny random model so it finishes in seconds on CPU with no
+# CUDA and no bitsandbytes. NOT a real training recipe.
+# =============================================================================
+
+# Model — tiny random Llama used by the HF test suite; downloads in seconds
+model_name: "hf-internal-testing/tiny-random-LlamaForCausalLM"
+use_4bit: false          # bitsandbytes/CUDA not available on CI CPU
+use_8bit: false
+bnb_4bit_compute_dtype: "float32"
+bnb_4bit_quant_type: "nf4"
+use_double_quant: false
+
+# LoRA — tiny model exposes q/k/v/o projections
+lora_r: 8
+lora_alpha: 16
+lora_dropout: 0.0
+target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+
+# Training — 1 short run, CPU, fp32
+output_dir: "./.smoke-out"
+num_train_epochs: 1
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 1
+learning_rate: 0.0002
+weight_decay: 0.0
+warmup_ratio: 0.0
+lr_scheduler_type: "constant"
+max_seq_length: 64
+fp16: false
+bf16: false
+gradient_checkpointing: false
+optim: "adamw_torch"
+
+# Data — the test writes a tiny JSONL and points dataset_path at it
+dataset_name: null
+dataset_path: null
+text_column: "text"
+max_samples: 8
+
+# Evaluation
+eval_dataset_path: null
+
+# Logging / checkpoints
+logging_steps: 1
+save_steps: 1
+eval_steps: 1
+save_total_limit: 1
+
+# Tracking — off for CI
+use_wandb: false
+wandb_project: "lifetime-world-model"
+use_mlflow: false
+mlflow_experiment: "smoke"

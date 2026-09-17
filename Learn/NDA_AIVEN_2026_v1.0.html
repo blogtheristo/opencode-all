@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NDA — Lifetime Oy &amp; Aiven Oy — v1.0</title>
+    <style>
+      @media print {
+        body {
+          padding: 20px;
+          font-size: 10pt;
+          background: white;
+        }
+        .dws-version-banner {
+          margin: 0 0 20px;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .no-print {
+          display: none !important;
+        }
+        h1 {
+          page-break-before: avoid;
+        }
+        h2 {
+          page-break-after: avoid;
+        }
+        .article {
+          page-break-inside: avoid;
+        }
+        .signatures {
+          page-break-inside: avoid;
+        }
+        .schedule {
+          page-break-inside: avoid;
+        }
+        .doc-control {
+          page-break-inside: avoid;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 20px 60px;
+        line-height: 1.75;
+        color: #1a1a2e;
+        background: #fafafa;
+        font-size: 10.5pt;
+      }
+      .dws-version-banner {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 12px 20px;
+        margin: 0 -20px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 0.82rem;
+      }
+      .dws-version-badge {
+        background: #fbbf24;
+        color: #0f172a;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.88rem;
+        letter-spacing: 0.04em;
+      }
+      .doc-header {
+        text-align: center;
+        border-bottom: 3px solid #1e3a5f;
+        padding-bottom: 20px;
+        margin-bottom: 32px;
+      }
+      .doc-header h1 {
+        font-size: 1.6rem;
+        color: #0f172a;
+        margin: 0 0 6px;
+        letter-spacing: 0.02em;
+      }
+      .doc-header .subtitle {
+        font-size: 0.9rem;
+        color: #475569;
+        margin: 0;
+      }
+      .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 6px 24px;
+        background: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 14px 18px;
+        margin-bottom: 32px;
+        font-size: 0.85rem;
+      }
+      .meta-grid .meta-item {
+        display: flex;
+        flex-direction: column;
+      }
+      .meta-grid .meta-label {
+        font-weight: 600;
+        color: #64748b;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .meta-grid .meta-value {
+        color: #1e293b;
+      }
+      .parties-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 20px 0 28px;
+      }
+      @media (max-width: 640px) {
+        .parties-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .party-card {
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 16px 18px;
+        background: #fff;
+        font-size: 0.9rem;
+      }
+      .party-card h3 {
+        margin: 0 0 8px;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #1e3a5f;
+      }
+      .party-card p {
+        margin: 2px 0;
+      }
+      h2 {
+        color: #1e3a5f;
+        font-size: 1.05rem;
+        margin: 34px 0 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        border-bottom: 1px solid #cbd5e1;
+        padding-bottom: 4px;
+      }
+      .article p,
+      .article li {
+        margin: 8px 0;
+      }
+      ol.alpha {
+        list-style-type: lower-alpha;
+      }
+      .fill-in {
+        display: inline-block;
+        min-width: 220px;
+        border-bottom: 1px solid #64748b;
+        color: #94a3b8;
+        font-style: italic;
+        font-size: 0.85em;
+        padding: 0 4px;
+      }
+      .sig-line {
+        border-bottom: 1px solid #1a1a2e;
+        height: 34px;
+        margin: 24px 0 6px;
+      }
+      .signatures {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        margin-top: 16px;
+      }
+      @media (max-width: 640px) {
+        .signatures {
+          grid-template-columns: 1fr;
+        }
+      }
+      .schedule table,
+      .doc-control table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 0.9rem;
+      }
+      .schedule td,
+      .schedule th,
+      .doc-control td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 10px;
+        text-align: left;
+      }
+      .schedule th {
+        background: #f1f5f9;
+      }
+      .footer-note {
+        margin-top: 40px;
+        font-size: 0.8rem;
+        color: #64748b;
+        text-align: center;
+        border-top: 1px solid #cbd5e1;
+        padding-top: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dws-version-banner">
+      <span><strong>Lifetime Oy</strong> — Non-Disclosure Agreement</span>
+      <span class="dws-version-badge">DRAFT v1.0 — FOR SIGNATURE</span>
+      <span>NDA-LT-2026-AIVEN · 2026-07-06</span>
+    </div>
+
+    <div class="doc-header">
+      <h1>NON-DISCLOSURE AGREEMENT (NDA)</h1>
+      <p class="subtitle">EU Trade Secrets Directive (2016/943) Compliant — Mutual</p>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <span class="meta-label">Classification</span><span class="meta-value">Confidential</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Version</span><span class="meta-value">1.0 (template v2.0)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Effective Date</span
+        ><span class="meta-value">Date of last signature</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Applicable Law</span
+        ><span class="meta-value">EU Directive 2016/943, Finnish Law</span>
+      </div>
+    </div>
+
+    <h2>Parties</h2>
+    <p>This Non-Disclosure Agreement (hereinafter "Agreement") is entered into by and between:</p>
+    <div class="parties-grid">
+      <div class="party-card">
+        <h3>Party A</h3>
+        <p><strong>Lifetime Oy</strong> (hereinafter "Lifetime")</p>
+        <p>Business Identity Code: 0772407-9</p>
+        <p>VAT ID: FI07724079</p>
+        <p>Registered Address: Laidunmaanraitti 2 A 25, 02330 Espoo, Finland</p>
+        <p>Country of Incorporation: Finland</p>
+        <p>Contact: Risto Anton Paarni, CEO</p>
+        <p>Email: risto.paarni@lifetime.fi</p>
+        <p>Phone: +358 400 319 010</p>
+      </div>
+      <div class="party-card">
+        <h3>Party B</h3>
+        <p><strong>Aiven Oy</strong> (hereinafter "Aiven")</p>
+        <p>Business Identity Code: <span class="fill-in">to be completed by Aiven</span></p>
+        <p>VAT ID: <span class="fill-in">to be completed by Aiven</span></p>
+        <p>Registered Address: <span class="fill-in">to be completed by Aiven</span></p>
+        <p>Country of Incorporation: Finland</p>
+        <p>Contact: Leevi Lindfors, Account Manager</p>
+        <p>Email: leevi.lindfors@aiven.io</p>
+        <p>Phone: +358 45 490 3933</p>
+      </div>
+    </div>
+    <p>(Each individually a "Party" and collectively the "Parties")</p>
+
+    <h2>Recitals</h2>
+    <div class="article">
+      <p>WHEREAS:</p>
+      <p>
+        <strong>A.</strong> The Parties are entering into discussions regarding a potential business
+        relationship, including but not limited to a reseller and/or consulting partnership under
+        which Lifetime Oy would resell and/or provide consulting services around Aiven's managed
+        data infrastructure services, and related technology cooperation (the "Purpose");
+      </p>
+      <p>
+        <strong>B.</strong> In connection with the Purpose, each Party may disclose to the other
+        Party certain Confidential Information and Trade Secrets as defined herein;
+      </p>
+      <p>
+        <strong>C.</strong> The Parties wish to establish the terms and conditions under which such
+        Confidential Information will be disclosed, received, and protected in accordance with
+        Directive (EU) 2016/943 on the protection of undisclosed know-how and business information
+        (trade secrets) against their unlawful acquisition, use and disclosure (the "Trade Secrets
+        Directive");
+      </p>
+      <p>
+        <strong>D.</strong> This Agreement is intended to protect the legitimate business interests
+        of both Parties while facilitating their commercial discussions.
+      </p>
+      <p>
+        NOW, THEREFORE, in consideration of the mutual covenants and agreements set forth herein,
+        and for other good and valuable consideration, the receipt and sufficiency of which are
+        hereby acknowledged, the Parties agree as follows:
+      </p>
+    </div>
+
+    <h2>Article 1: Definitions</h2>
+    <div class="article">
+      <p>
+        <strong>1.1 "Confidential Information"</strong> means any and all information, whether in
+        written, oral, electronic, visual, or any other form, that is disclosed by or on behalf of
+        either Party (the "Disclosing Party") to the other Party (the "Receiving Party"), including
+        but not limited to:
+      </p>
+      <ol class="alpha">
+        <li>
+          <strong>Technical Information:</strong> software, source code, object code, algorithms,
+          APIs, system architecture, databases, technical specifications, designs, drawings,
+          schematics, prototypes, samples, inventions, discoveries, improvements, research and
+          development activities, testing procedures, and technical data;
+        </li>
+        <li>
+          <strong>Business Information:</strong> business plans, strategies, forecasts, projections,
+          financial information, pricing, costs, margins, customer lists, supplier lists, marketing
+          plans, sales data, market research, and competitive analyses;
+        </li>
+        <li>
+          <strong>Commercial Information:</strong> contracts, proposals, negotiations, partnerships,
+          joint ventures, mergers and acquisitions, and investment activities;
+        </li>
+        <li>
+          <strong>Personnel Information:</strong> names, expertise, compensation, and organizational
+          structure of employees, consultants, and contractors;
+        </li>
+        <li>
+          <strong>Intellectual Property:</strong> patents, patent applications, trademarks, trade
+          names, copyrights, trade secrets, know-how, and any other intellectual property rights;
+        </li>
+        <li>
+          <strong>Client Information:</strong> information relating to the Disclosing Party's
+          clients, their projects, requirements, and any information received from clients under
+          confidentiality obligations;
+        </li>
+        <li>
+          Any other information that is marked as "Confidential," "Proprietary," "Trade Secret," or
+          similar designation, or that a reasonable person would understand to be confidential given
+          the nature of the information and circumstances of disclosure.
+        </li>
+      </ol>
+      <p>
+        <strong>1.2 "Trade Secret"</strong> means information which meets all of the following
+        requirements in accordance with Article 2 of the Trade Secrets Directive:
+      </p>
+      <ol class="alpha">
+        <li>
+          It is secret in the sense that it is not, as a body or in the precise configuration and
+          assembly of its components, generally known among or readily accessible to persons within
+          the circles that normally deal with the kind of information in question;
+        </li>
+        <li>It has commercial value because it is secret;</li>
+        <li>
+          It has been subject to reasonable steps under the circumstances, by the person lawfully in
+          control of the information, to keep it secret.
+        </li>
+      </ol>
+      <p>
+        <strong>1.3 "Disclosing Party"</strong> means the Party disclosing Confidential Information,
+        including its affiliates, subsidiaries, or authorized representatives.
+      </p>
+      <p>
+        <strong>1.4 "Receiving Party"</strong> means the Party receiving Confidential Information
+        and includes its employees, officers, directors, agents, consultants, and subcontractors who
+        have a need to know such information for the Purpose.
+      </p>
+      <p>
+        <strong>1.5 "Purpose"</strong> means the evaluation and negotiation of a potential business
+        relationship between the Parties, and any subsequent business relationship that may be
+        established.
+      </p>
+      <p>
+        <strong>1.6 "Authorized Representatives"</strong> means employees, officers, directors,
+        professional advisors (including legal counsel and accountants), and consultants of the
+        Receiving Party who:
+      </p>
+      <ol class="alpha">
+        <li>Have a legitimate need to access the Confidential Information for the Purpose;</li>
+        <li>Have been informed of the confidential nature of the information; and</li>
+        <li>
+          Are bound by confidentiality obligations no less restrictive than those contained in this
+          Agreement.
+        </li>
+      </ol>
+    </div>
+
+    <h2>Article 2: Obligations of the Receiving Party</h2>
+    <div class="article">
+      <p><strong>2.1 Confidentiality Obligation.</strong> The Receiving Party agrees to:</p>
+      <ol class="alpha">
+        <li>Keep and hold all Confidential Information in strict confidence;</li>
+        <li>
+          Not disclose, publish, or otherwise reveal any Confidential Information to any third party
+          without the prior written consent of the Disclosing Party;
+        </li>
+        <li>
+          Use the Confidential Information solely for the Purpose and for no other purpose
+          whatsoever;
+        </li>
+        <li>
+          Protect the Confidential Information using the same degree of care that it uses to protect
+          its own confidential information of like kind, but in no event less than a reasonable
+          degree of care;
+        </li>
+        <li>
+          Limit access to Confidential Information to Authorized Representatives who have a genuine
+          need to know for the Purpose.
+        </li>
+      </ol>
+      <p><strong>2.2 Prohibited Actions.</strong> The Receiving Party shall NOT:</p>
+      <ol class="alpha">
+        <li>
+          Copy, reproduce, or duplicate any Confidential Information except as reasonably necessary
+          for the Purpose;
+        </li>
+        <li>
+          Reverse engineer, disassemble, decompile, or attempt to derive the composition, structure,
+          or underlying information of any Confidential Information, including any software,
+          products, or prototypes;
+        </li>
+        <li>
+          Use any Confidential Information to develop, manufacture, market, or sell any product or
+          service that competes with the Disclosing Party's products or services;
+        </li>
+        <li>
+          Remove, alter, or obscure any proprietary notices, labels, or marks on any Confidential
+          Information;
+        </li>
+        <li>
+          Acquire Confidential Information through any unlawful means as defined in Article 4 of the
+          Trade Secrets Directive, including unauthorized access to, appropriation of, or copying of
+          any documents, objects, materials, substances, or electronic files lawfully under the
+          control of the Disclosing Party; or any other conduct which, under the circumstances, is
+          considered contrary to honest commercial practices.
+        </li>
+      </ol>
+      <p><strong>2.3 Security Measures.</strong> The Receiving Party shall:</p>
+      <ol class="alpha">
+        <li>
+          Implement and maintain appropriate technical and organizational security measures to
+          protect Confidential Information against unauthorized access, disclosure, alteration, or
+          destruction;
+        </li>
+        <li>
+          Comply with any specific security requirements communicated by the Disclosing Party or its
+          clients;
+        </li>
+        <li>
+          Promptly notify the Disclosing Party in writing of any actual or suspected unauthorized
+          access to, use of, or disclosure of Confidential Information;
+        </li>
+        <li>
+          Cooperate with the Disclosing Party in investigating and mitigating any security breach.
+        </li>
+      </ol>
+      <p>
+        <strong>2.4 Binding of Personnel.</strong> The Receiving Party shall ensure that all
+        Authorized Representatives who receive Confidential Information are informed of the
+        confidential nature of the information; are bound by written confidentiality obligations at
+        least as protective as those in this Agreement; and use the Confidential Information only
+        for the Purpose. The Receiving Party shall be liable for any breach of this Agreement by its
+        Authorized Representatives.
+      </p>
+    </div>
+
+    <h2>Article 3: Exceptions to Confidentiality</h2>
+    <div class="article">
+      <p>
+        <strong>3.1</strong> The obligations set forth in Article 2 shall not apply to information
+        that the Receiving Party can demonstrate by clear and convincing evidence:
+      </p>
+      <ol class="alpha">
+        <li>
+          <strong>Public Domain:</strong> Was in the public domain at the time of disclosure or
+          subsequently became part of the public domain through no fault, act, or omission of the
+          Receiving Party;
+        </li>
+        <li>
+          <strong>Prior Knowledge:</strong> Was lawfully in the Receiving Party's possession prior
+          to disclosure by the Disclosing Party, as evidenced by written records predating such
+          disclosure;
+        </li>
+        <li>
+          <strong>Independent Development:</strong> Was independently developed by the Receiving
+          Party without use of or reference to any Confidential Information, as evidenced by written
+          records;
+        </li>
+        <li>
+          <strong>Third Party Disclosure:</strong> Was lawfully received by the Receiving Party from
+          a third party who was not under any obligation of confidentiality to the Disclosing Party
+          and who had the right to disclose such information.
+        </li>
+      </ol>
+      <p>
+        <strong>3.2 Legally Compelled Disclosure.</strong> If the Receiving Party is required by
+        law, regulation, court order, or governmental authority to disclose any Confidential
+        Information, the Receiving Party shall: (a) provide the Disclosing Party with prompt written
+        notice of such requirement (to the extent legally permitted) to allow the Disclosing Party
+        to seek a protective order or other appropriate remedy; (b) cooperate with the Disclosing
+        Party in seeking such protective order or remedy; (c) disclose only that portion of the
+        Confidential Information that is legally required to be disclosed; and (d) use reasonable
+        efforts to obtain assurances that confidential treatment will be accorded to the disclosed
+        information.
+      </p>
+    </div>
+
+    <h2>Article 4: Intellectual Property Rights</h2>
+    <div class="article">
+      <p>
+        <strong>4.1 Ownership.</strong> All Confidential Information remains the sole and exclusive
+        property of the Disclosing Party. Nothing in this Agreement shall be construed as granting
+        or conferring any rights by license or otherwise to any Confidential Information, patents,
+        copyrights, trademarks, trade secrets, or any other intellectual property rights of the
+        Disclosing Party.
+      </p>
+      <p>
+        <strong>4.2 No License.</strong> The disclosure of Confidential Information under this
+        Agreement does not constitute any grant, option, or license under any patent, trademark,
+        copyright, trade secret, or other intellectual property right of the Disclosing Party,
+        whether by implication, estoppel, or otherwise.
+      </p>
+      <p>
+        <strong>4.3 No Warranty.</strong> Neither Party makes any representations or warranties,
+        express or implied, regarding the accuracy, completeness, or fitness for any particular
+        purpose of any Confidential Information disclosed under this Agreement. All Confidential
+        Information is provided "AS IS."
+      </p>
+    </div>
+
+    <h2>Article 5: Return and Destruction of Confidential Information</h2>
+    <div class="article">
+      <p>
+        <strong>5.1</strong> Upon the earlier of: (a) the Disclosing Party's written request; (b)
+        termination of this Agreement; or (c) completion or termination of discussions regarding the
+        Purpose; the Receiving Party shall, at the Disclosing Party's option:
+      </p>
+      <ol class="alpha">
+        <li>
+          Promptly return to the Disclosing Party all Confidential Information and all copies,
+          extracts, and summaries thereof; OR
+        </li>
+        <li>
+          Destroy all Confidential Information and all copies, extracts, and summaries thereof, and
+          provide the Disclosing Party with written certification of such destruction signed by an
+          authorized officer of the Receiving Party.
+        </li>
+      </ol>
+      <p>
+        <strong>5.2</strong> Notwithstanding the foregoing, the Receiving Party may retain: (a) one
+        (1) archival copy of the Confidential Information solely for the purpose of determining its
+        ongoing obligations under this Agreement; and (b) copies required to be retained by
+        applicable law or regulation, provided such copies remain subject to the confidentiality
+        obligations of this Agreement.
+      </p>
+      <p>
+        <strong>5.3</strong> Any Confidential Information retained pursuant to Section 5.2 shall
+        remain subject to the confidentiality obligations of this Agreement for the duration
+        specified in Article 6.
+      </p>
+    </div>
+
+    <h2>Article 6: Term and Duration</h2>
+    <div class="article">
+      <p>
+        <strong>6.1 Agreement Term.</strong> This Agreement shall become effective on the date of
+        the last signature below (the "Effective Date") and shall continue in force for a period of
+        five (5) years from the Effective Date, unless earlier terminated in accordance with this
+        Agreement.
+      </p>
+      <p>
+        <strong>6.2 Survival of Obligations.</strong> The confidentiality obligations set forth in
+        this Agreement shall survive the termination or expiration of this Agreement and shall
+        continue for a period of: (a) five (5) years from the date of disclosure for general
+        Confidential Information; and (b) indefinitely for Trade Secrets, for as long as such
+        information qualifies as a trade secret under applicable law.
+      </p>
+      <p>
+        <strong>6.3 Termination.</strong> Either Party may terminate this Agreement at any time by
+        providing thirty (30) days' prior written notice to the other Party. Termination shall not
+        affect any rights or obligations that have accrued prior to termination.
+      </p>
+    </div>
+
+    <h2>Article 7: Remedies</h2>
+    <div class="article">
+      <p>
+        <strong>7.1 Acknowledgment of Harm.</strong> Each Party acknowledges that: (a) the
+        Confidential Information of the other Party is valuable and unique; (b) unauthorized
+        disclosure or use of the Confidential Information would cause irreparable harm to the
+        Disclosing Party for which monetary damages would be inadequate; and (c) the Disclosing
+        Party shall be entitled to seek equitable relief, including injunction and specific
+        performance, in addition to all other remedies available at law or in equity.
+      </p>
+      <p>
+        <strong>7.2 Injunctive Relief.</strong> In the event of any actual or threatened breach of
+        this Agreement, the Disclosing Party shall be entitled to seek immediate injunctive relief
+        without the necessity of proving actual damages or posting any bond or other security.
+      </p>
+      <p>
+        <strong>7.3 Damages.</strong> The Receiving Party shall be liable for all damages, including
+        but not limited to: (a) direct damages suffered by the Disclosing Party as a result of the
+        breach; (b) indirect and consequential damages, including lost profits and business
+        opportunities; and (c) reasonable attorneys' fees and costs incurred in enforcing this
+        Agreement.
+      </p>
+      <p>
+        <strong>7.4 Contractual Penalty.</strong> In addition to any other remedies available, in
+        the event of a material breach of this Agreement by the Receiving Party, the Receiving Party
+        shall pay to the Disclosing Party a contractual penalty of EUR 100,000 (one hundred thousand
+        euros) (or equivalent in local currency) for each breach. Payment of such penalty shall not
+        limit the Disclosing Party's right to claim additional damages.
+      </p>
+    </div>
+
+    <h2>Article 8: Data Protection (GDPR Compliance)</h2>
+    <div class="article">
+      <p>
+        <strong>8.1</strong> To the extent that any Confidential Information includes personal data
+        as defined by Regulation (EU) 2016/679 (General Data Protection Regulation — "GDPR"), the
+        Receiving Party shall:
+      </p>
+      <ol class="alpha">
+        <li>
+          Process such personal data only in accordance with the Disclosing Party's instructions and
+          for the Purpose;
+        </li>
+        <li>
+          Implement appropriate technical and organizational measures to ensure a level of security
+          appropriate to the risk;
+        </li>
+        <li>
+          Not transfer personal data to any third country or international organization without the
+          Disclosing Party's prior written consent and appropriate safeguards;
+        </li>
+        <li>
+          Assist the Disclosing Party in responding to requests from data subjects exercising their
+          rights under the GDPR;
+        </li>
+        <li>
+          Notify the Disclosing Party without undue delay upon becoming aware of any personal data
+          breach.
+        </li>
+      </ol>
+      <p>
+        <strong>8.2</strong> The Receiving Party shall ensure that any persons authorized to process
+        personal data have committed themselves to confidentiality or are under an appropriate
+        statutory obligation of confidentiality.
+      </p>
+      <p>
+        <strong>8.3</strong> For clarity: this Agreement alone does not constitute a legal basis or
+        instruction for either Party to disclose personal data concerning its own customers or end
+        users to the other Party. Any such disclosure requires a separate, documented GDPR basis
+        (e.g. a data processing agreement and, where applicable, customer consent) agreed in writing
+        before disclosure.
+      </p>
+    </div>
+
+    <h2>Article 9: General Provisions</h2>
+    <div class="article">
+      <p>
+        <strong>9.1 Entire Agreement.</strong> This Agreement constitutes the entire agreement
+        between the Parties with respect to the subject matter hereof and supersedes all prior
+        negotiations, representations, warranties, and agreements between the Parties.
+      </p>
+      <p>
+        <strong>9.2 Amendments.</strong> No amendment, modification, or waiver of any provision of
+        this Agreement shall be effective unless in writing and signed by both Parties.
+      </p>
+      <p>
+        <strong>9.3 Severability.</strong> If any provision of this Agreement is held to be invalid,
+        illegal, or unenforceable, the remaining provisions shall continue in full force and effect.
+        The invalid provision shall be modified to the minimum extent necessary to make it valid and
+        enforceable while preserving the Parties' original intent.
+      </p>
+      <p>
+        <strong>9.4 Waiver.</strong> No failure or delay by either Party in exercising any right
+        under this Agreement shall constitute a waiver of that right. Any waiver must be in writing
+        and signed by the waiving Party.
+      </p>
+      <p>
+        <strong>9.5 Assignment.</strong> Neither Party may assign or transfer this Agreement or any
+        rights or obligations hereunder without the prior written consent of the other Party. Any
+        attempted assignment without such consent shall be void.
+      </p>
+      <p>
+        <strong>9.6 No Partnership.</strong> Nothing in this Agreement shall be construed as
+        creating a partnership, joint venture, agency, or employment relationship between the
+        Parties.
+      </p>
+      <p>
+        <strong>9.7 Notices.</strong> All notices under this Agreement shall be in writing and
+        delivered by: (a) personal delivery; (b) registered mail with return receipt requested; (c)
+        internationally recognized courier service; or (d) email with confirmation of receipt.
+        Notices shall be sent to the addresses set forth above or to such other address as a Party
+        may designate in writing.
+      </p>
+      <p>
+        <strong>9.8 Counterparts.</strong> This Agreement may be executed in counterparts, each of
+        which shall be deemed an original, and all of which together shall constitute one and the
+        same instrument. Electronic signatures shall be deemed valid and binding.
+      </p>
+    </div>
+
+    <h2>Article 10: Governing Law and Dispute Resolution</h2>
+    <div class="article">
+      <p>
+        <strong>10.1 Governing Law.</strong> This Agreement shall be governed by and construed in
+        accordance with the laws of Finland, without regard to its conflict of laws principles. The
+        Parties acknowledge that this Agreement is subject to and complies with Directive (EU)
+        2016/943 on the protection of trade secrets.
+      </p>
+      <p>
+        <strong>10.2 Amicable Resolution.</strong> The Parties shall first attempt to resolve any
+        dispute, controversy, or claim arising out of or relating to this Agreement through good
+        faith negotiations. Either Party may initiate such negotiations by providing written notice
+        to the other Party.
+      </p>
+      <p>
+        <strong>10.3 Arbitration.</strong> Any dispute, controversy, or claim arising out of or
+        relating to this Agreement, or the breach, termination, or invalidity thereof, which cannot
+        be resolved through amicable negotiations within thirty (30) days, shall be finally settled
+        by arbitration in accordance with the Rules of the Arbitration Institute of the Finland
+        Chamber of Commerce. The arbitration shall be conducted as follows: (a) number of
+        arbitrators: one (1) arbitrator appointed by the Arbitration Institute; (b) seat of
+        arbitration: Helsinki, Finland; (c) language: English (or Finnish by mutual agreement); (d)
+        confidentiality: the arbitration proceedings and any award shall be confidential.
+      </p>
+      <p>
+        <strong>10.4 Interim Relief.</strong> Notwithstanding the above, either Party may seek
+        interim or injunctive relief from any court of competent jurisdiction to prevent irreparable
+        harm pending the outcome of arbitration.
+      </p>
+    </div>
+
+    <h2>Article 11: Signatures</h2>
+    <p>
+      IN WITNESS WHEREOF, the Parties have executed this Agreement as of the date last written
+      below.
+    </p>
+    <div class="signatures">
+      <div class="party-card">
+        <h3>Lifetime Oy (Party A)</h3>
+        <div class="sig-line"></div>
+        <p>Name: Risto Anton Paarni</p>
+        <p>Title: CEO</p>
+        <p>Date: <span class="fill-in">&nbsp;</span></p>
+        <p>Place: Espoo, Finland</p>
+        <p>Email: risto.paarni@lifetime.fi</p>
+        <p>Phone: +358 400 319 010</p>
+      </div>
+      <div class="party-card">
+        <h3>Aiven Oy (Party B)</h3>
+        <div class="sig-line"></div>
+        <p>Name: <span class="fill-in">authorized signatory</span></p>
+        <p>Title: <span class="fill-in">&nbsp;</span></p>
+        <p>Date: <span class="fill-in">&nbsp;</span></p>
+        <p>Place: Helsinki, Finland</p>
+        <p>Email: <span class="fill-in">&nbsp;</span></p>
+        <p>Phone: <span class="fill-in">&nbsp;</span></p>
+      </div>
+    </div>
+
+    <h2>Schedule A: Specific Confidential Information Categories</h2>
+    <div class="schedule">
+      <p>
+        The following specific categories of Confidential Information may be disclosed under this
+        Agreement:
+      </p>
+      <table>
+        <tr>
+          <th>Include</th>
+          <th>Category</th>
+          <th>Sensitivity</th>
+        </tr>
+        <tr>
+          <td>☐</td>
+          <td>Technical Documentation</td>
+          <td>High</td>
+        </tr>
+        <tr>
+          <td>☐</td>
+          <td>Software / Source Code</td>
+          <td>Critical</td>
+        </tr>
+        <tr>
+          <td>☐</td>
+          <td>Business Plans</td>
+          <td>High</td>
+        </tr>
+        <tr>
+          <td>☐</td>
+          <td>Financial Information</td>
+          <td>Critical</td>
+        </tr>
+        <tr>
+          <td>☐</td>
+          <td>Customer Data</td>
+          <td>Critical — see Article 8.3 (separate GDPR basis required)</td>
+        </tr>
+        <tr>
+          <td>☐</td>
+          <td>Pricing Information</td>
+          <td>High</td>
+        </tr>
+        <tr>
+          <td>☐</td>
+          <td>Marketing Strategies</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>☐</td>
+          <td>Personnel Information</td>
+          <td>High</td>
+        </tr>
+        <tr>
+          <td>☐</td>
+          <td>Other: <span class="fill-in">&nbsp;</span></td>
+          <td><span class="fill-in">&nbsp;</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>Schedule B: Authorized Representatives</h2>
+    <div class="schedule">
+      <p>
+        The following individuals are authorized to receive Confidential Information on behalf of
+        each Party:
+      </p>
+      <table>
+        <tr>
+          <th>Party</th>
+          <th>Name</th>
+          <th>Title</th>
+          <th>Email</th>
+          <th>Access</th>
+        </tr>
+        <tr>
+          <td>Lifetime Oy</td>
+          <td>Risto Anton Paarni</td>
+          <td>CEO</td>
+          <td>risto.paarni@lifetime.fi</td>
+          <td>Full</td>
+        </tr>
+        <tr>
+          <td>Lifetime Oy</td>
+          <td><span class="fill-in">&nbsp;</span></td>
+          <td><span class="fill-in">&nbsp;</span></td>
+          <td><span class="fill-in">&nbsp;</span></td>
+          <td><span class="fill-in">&nbsp;</span></td>
+        </tr>
+        <tr>
+          <td>Aiven Oy</td>
+          <td>Leevi Lindfors</td>
+          <td>Account Manager</td>
+          <td>leevi.lindfors@aiven.io</td>
+          <td>Full</td>
+        </tr>
+        <tr>
+          <td>Aiven Oy</td>
+          <td><span class="fill-in">&nbsp;</span></td>
+          <td><span class="fill-in">&nbsp;</span></td>
+          <td><span class="fill-in">&nbsp;</span></td>
+          <td><span class="fill-in">&nbsp;</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>Document Control</h2>
+    <div class="doc-control">
+      <table>
+        <tr>
+          <td>Document ID</td>
+          <td>NDA-LT-2026-AIVEN</td>
+        </tr>
+        <tr>
+          <td>Version</td>
+          <td>1.0 (draft for signature)</td>
+        </tr>
+        <tr>
+          <td>Classification</td>
+          <td>Confidential</td>
+        </tr>
+        <tr>
+          <td>Created</td>
+          <td>2026-07-06</td>
+        </tr>
+        <tr>
+          <td>Author</td>
+          <td>Lifetime Oy</td>
+        </tr>
+        <tr>
+          <td>Approved By</td>
+          <td>Risto Anton Paarni</td>
+        </tr>
+        <tr>
+          <td>Review Date</td>
+          <td>2027-07-06</td>
+        </tr>
+      </table>
+    </div>
+
+    <p class="footer-note">
+      END OF AGREEMENT — Lifetime Oy · Business ID 0772407-9 · Espoo, Finland
+    </p>
+  </body>
+</html>

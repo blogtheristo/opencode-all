@@ -1,67 +1,94 @@
 /**
- * Firehorse Omnichannel — LinkedIn Service (Posts API + DM queue)
+ * Firehorse Omnichannel — LinkedIn Service
  *
- * DMs (send): LinkedIn's Messaging API is RESTRICTED to Marketing Developer
- * Platform / Sales Navigator API members. A normal LinkedIn Developer App
- * CANNOT send DMs via api.linkedin.com/v2/messages. Unofficial scrapers
- * (PhantomBuster, Dux-Soup, raw session cookies) violate the LinkedIn User
- * Agreement and risk account suspension — we do NOT use them. Therefore
- * send() queues the outreach to the audit log so a human operator sends
- * manually from their own LinkedIn inbox.
+ * Posts: LinkedIn Posts API (`POST /rest/posts`) with `LINKEDIN_ACCESS_TOKEN` and
+ * `LINKEDIN_AUTHOR_URN` (person or organization). Matches `social-scheduler/publisher.ts`.
  *
- * Posts (createPost): uses the approved v2 Posts API for organization
- * feed posts — this IS allowed with a standard Marketing Developer App
- * and LINKEDIN_ACCESS_TOKEN.
+ * DMs: LinkedIn Messaging API is restricted to Marketing Developer Platform partners.
+ * `send()` records intent and returns a queued id — a human sends from their inbox.
  *
- * Code-Version: 2.1.0
- * Introduced-In: claude/build-mvp-features-Eq6py (merged with main v2.0.0)
- * Date: 2026-04-05
+ * Code-Version: 2.2.0
+ * Branch: claude/fix-linkedin-channel-QK460 (merged with main)
+ * Date: 2026-05-14
  * Owner: Claude Code (Opus 4.6)
  */
 
 import logger from '../utils/logger.js';
 
-interface LinkedInDMPayload {
-  to: string; // LinkedIn profile URN (urn:li:person:XXX) or profile URL
+/** Cap outbound LinkedIn REST calls so omnichannel loops cannot hang indefinitely */
+const LINKEDIN_POST_TIMEOUT_MS = 45_000;
+
+// ============================================================================
+// TYPES
+// ============================================================================
+
+export interface LinkedInDMPayload {
+  to: string;
   message: string;
   lead_id: string;
 }
 
-interface LinkedInPostPayload {
+export interface LinkedInSharePayload {
+  /** Post text (link appended when `url` is set and not already in text) */
   text: string;
-  visibility?: 'PUBLIC' | 'CONNECTIONS';
+  url?: string;
+  content_id?: string;
 }
 
-interface LinkedInApiResponse {
+export interface LinkedInShareResult {
+  success: boolean;
+  post_id?: string;
+  error?: string;
+  dry_run: boolean;
+}
+
+export interface LinkedInApiResponse {
   success: boolean;
   messageId?: string;
   error?: string;
 }
 
+// ============================================================================
+// SERVICE
+// ============================================================================
+
 class LinkedInService {
-  private baseUrl = 'https://api.linkedin.com/v2';
-
-  private getAccessToken(): string | null {
-    return process.env.LINKEDIN_ACCESS_TOKEN || null;
+  private get accessToken(): string | undefined {
+    return process.env.LINKEDIN_ACCESS_TOKEN;
   }
 
-  private getOrganizationId(): string | null {
-    return process.env.LINKEDIN_ORGANIZATION_ID || null;
-  }
-
-  private getAuthorUrn(): string | null {
-    return process.env.LINKEDIN_AUTHOR_URN || null;
+  private get authorUrn(): string | undefined {
+    return process.env.LINKEDIN_AUTHOR_URN;
   }
 
   /**
-   * Queue a LinkedIn DM for manual human send.
-   *
-   * Does NOT call api.linkedin.com/v2/messages — that endpoint is restricted
-   * to LinkedIn Marketing Developer Platform / Sales Navigator API members
-   * (gated to approved Marketing Partners). A normal LinkedIn Developer App
-   * cannot send DMs over the wire. Instead, we log the outreach so a human
-   * operator sends the message manually from their LinkedIn inbox —
-   * preserving audit trail and compliance.
+   * Resolve author URN: explicit `LINKEDIN_AUTHOR_URN`, or
+   * `urn:li:organization:{LINKEDIN_ORGANIZATION_ID}` when only org id is set.
+   */
+  private resolveAuthorUrn(): string | undefined {
+    if (this.authorUrn) return this.authorUrn;
+    const orgId = process.env.LINKEDIN_ORGANIZATION_ID?.trim();
+    if (!orgId) return undefined;
+    if (orgId.startsWith('urn:')) return orgId;
+    return `urn:li:organization:${orgId}`;
+  }
+
+  /**
+   * True when feed posts can be published (token + author).
+   */
+  isShareConfigured(): boolean {
+    return !!(this.accessToken && this.resolveAuthorUrn());
+  }
+
+  /**
+   * Backwards-compatible alias for callers that checked “any post capability”.
+   */
+  isConfigured(): boolean {
+    return this.isShareConfigured();
+  }
+
+  /**
+   * Queue a LinkedIn DM for manual human send (Messaging API not available on standard apps).
    */
   async send(payload: LinkedInDMPayload): Promise<LinkedInApiResponse> {
     const { to, message, lead_id } = payload;
@@ -78,97 +105,125 @@ class LinkedInService {
   }
 
   /**
-   * Create an organization post via LinkedIn Marketing API.
-   * Used for content distribution via Omnichannel.
+   * Publish a public share to the member or organization feed via Posts API.
+   * When `LINKEDIN_ACCESS_TOKEN` or author identity (`LINKEDIN_AUTHOR_URN` or
+   * `LINKEDIN_ORGANIZATION_ID`) is missing, returns success with `dry_run: true` so pipelines keep working.
    */
-  async createPost(payload: LinkedInPostPayload): Promise<LinkedInApiResponse> {
-    const token = this.getAccessToken();
-    const authorUrn = this.getAuthorUrn() || this.getOrganizationId();
-
-    if (!token || !authorUrn) {
-      logger.info('LinkedIn post queued (API not configured)', {
-        textLength: payload.text.length,
-      });
-      return { success: true, messageId: `queued-post-${Date.now()}` };
+  async sharePost(payload: LinkedInSharePayload): Promise<LinkedInShareResult> {
+    const { text, url, content_id } = payload;
+    let commentary = text;
+    if (url && !text.includes(url)) {
+      commentary = `${text}\n\n${url}`;
     }
 
-    const author = authorUrn.startsWith('urn:') ? authorUrn : `urn:li:organization:${authorUrn}`;
+    const author = this.resolveAuthorUrn();
 
+    if (!this.accessToken || !author) {
+      const missing: string[] = [];
+      if (!this.accessToken) missing.push('LINKEDIN_ACCESS_TOKEN');
+      if (!author) {
+        missing.push('LINKEDIN_AUTHOR_URN or LINKEDIN_ORGANIZATION_ID');
+      }
+      logger.info(`LinkedIn: dry-run share (not configured — missing: ${missing.join(', ')})`, {
+        content_id,
+        text_length: commentary.length,
+        has_url: !!url,
+        missing_env: missing,
+        has_access_token: !!this.accessToken,
+        has_author_urn: !!this.authorUrn,
+        has_organization_id: !!process.env.LINKEDIN_ORGANIZATION_ID?.trim(),
+      });
+      return { success: true, dry_run: true };
+    }
+
+    const body = {
+      author,
+      commentary,
+      visibility: 'PUBLIC' as const,
+      distribution: {
+        feedDistribution: 'MAIN_FEED' as const,
+        targetEntities: [] as unknown[],
+        thirdPartyDistributionChannels: [] as unknown[],
+      },
+      lifecycleState: 'PUBLISHED' as const,
+      isReshareDisabledByAuthor: false,
+    };
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), LINKEDIN_POST_TIMEOUT_MS);
     try {
-      const response = await fetch(`${this.baseUrl}/posts`, {
+      const response = await fetch('https://api.linkedin.com/rest/posts', {
         method: 'POST',
+        signal: controller.signal,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${this.accessToken}`,
           'Content-Type': 'application/json',
           'LinkedIn-Version': '202401',
+          'X-Restli-Protocol-Version': '2.0.0',
         },
-        body: JSON.stringify({
-          author,
-          commentary: payload.text,
-          visibility: payload.visibility || 'PUBLIC',
-          distribution: {
-            feedDistribution: 'MAIN_FEED',
-            targetEntities: [],
-            thirdPartyDistributionChannels: [],
-          },
-          lifecycleState: 'PUBLISHED',
-        }),
+        body: JSON.stringify(body),
       });
 
       if (!response.ok) {
         const errorBody = await response.text();
-        logger.error('LinkedIn post API error', { status: response.status, body: errorBody });
-        return { success: false, error: `LinkedIn API ${response.status}: ${errorBody}` };
+        logger.error('LinkedIn: share post failed', {
+          content_id,
+          status: response.status,
+          error: errorBody,
+        });
+        return {
+          success: false,
+          dry_run: false,
+          error: `LinkedIn API ${response.status}: ${errorBody}`,
+        };
       }
 
-      const postId = response.headers.get('x-restli-id') || `post-${Date.now()}`;
-      logger.info('LinkedIn post created', { postId });
-      return { success: true, messageId: postId };
+      const postId = response.headers.get('x-restli-id') || undefined;
+
+      logger.info('LinkedIn: post shared successfully', {
+        content_id,
+        post_id: postId,
+      });
+
+      return { success: true, post_id: postId, dry_run: false };
     } catch (err) {
-      logger.error('LinkedIn post failed', { error: (err as Error).message });
-      return { success: false, error: (err as Error).message };
+      if (err instanceof Error && err.name === 'AbortError') {
+        logger.error('LinkedIn: share post timed out', {
+          content_id,
+          timeout_ms: LINKEDIN_POST_TIMEOUT_MS,
+        });
+        return {
+          success: false,
+          dry_run: false,
+          error: `LinkedIn request timed out after ${LINKEDIN_POST_TIMEOUT_MS / 1000}s`,
+        };
+      }
+      const msg = err instanceof Error ? err.message : String(err);
+      logger.error('LinkedIn: share post network error', {
+        content_id,
+        error: msg,
+      });
+      return { success: false, dry_run: false, error: msg };
+    } finally {
+      clearTimeout(timeout);
     }
   }
 
   /**
-   * Resolve a LinkedIn profile URL to a URN.
-   * Returns null if resolution fails.
+   * Legacy name used by earlier branches — delegates to `sharePost`.
    */
-  // @ts-expect-error Reserved for LinkedIn API integration — not yet called
-  private async resolveProfileUrn(profileUrl: string): Promise<string | null> {
-    // Extract vanity name from URL patterns like linkedin.com/in/username
-    const match = profileUrl.match(/linkedin\.com\/in\/([^/?#]+)/);
-    if (!match) return null;
-
-    const token = this.getAccessToken();
-    if (!token) return null;
-
-    try {
-      const response = await fetch(
-        `${this.baseUrl}/people/(vanityName:${encodeURIComponent(match[1])})`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'LinkedIn-Version': '202401',
-          },
-        },
-      );
-
-      if (!response.ok) return null;
-
-      const data = (await response.json()) as Record<string, unknown>;
-      return (data.id as string) ? `urn:li:person:${data.id}` : null;
-    } catch {
-      return null;
+  async createPost(payload: {
+    text: string;
+    visibility?: 'PUBLIC' | 'CONNECTIONS';
+  }): Promise<LinkedInApiResponse> {
+    const r = await this.sharePost({ text: payload.text });
+    if (r.dry_run) {
+      return { success: true, messageId: `queued-post-${Date.now()}` };
     }
-  }
-
-  /**
-   * Check if LinkedIn integration is configured for POSTS (feed/share API).
-   * DM sending is never "configured" — DMs always queue for manual send.
-   */
-  isConfigured(): boolean {
-    return !!this.getAccessToken();
+    if (r.success) {
+      return { success: true, messageId: r.post_id };
+    }
+    return { success: false, error: r.error };
   }
 }
 

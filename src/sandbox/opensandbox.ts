@@ -161,7 +161,7 @@ export class OpenSandboxClient {
       const res = await fetch(url, {
         method,
         headers: this.buildHeaders(),
-        body: body != null ? JSON.stringify(body) : undefined,
+        body: body !== null && body !== undefined ? JSON.stringify(body) : undefined,
         signal: controller.signal,
       });
 
@@ -237,14 +237,14 @@ export class OpenSandboxClient {
    * Write one or more files into the sandbox filesystem.
    */
   async writeFiles(sandboxId: string, files: SandboxFileEntry[]): Promise<void> {
-    await this.request<void>('PUT', `/sandboxes/${sandboxId}/files`, { files });
+    await this.request<unknown>('PUT', `/sandboxes/${sandboxId}/files`, { files });
   }
 
   /**
    * Destroy a sandbox and release all resources.
    */
   async destroy(sandboxId: string): Promise<void> {
-    await this.request<void>('DELETE', `/sandboxes/${sandboxId}`);
+    await this.request<unknown>('DELETE', `/sandboxes/${sandboxId}`);
     logger.info('OpenSandbox sandbox destroyed', { sandboxId });
   }
 

@@ -1,27 +1,97 @@
 @import "tailwindcss";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-sans/700.css";
+@import "@fontsource/ibm-plex-mono/400.css";
 
-@theme {
+/*
+ * DWS IQ Design System — unified tokens (see /DESIGN_SYSTEM.md)
+ * Primary: Gamma Enterprise Blue. Font: IBM Plex Sans.
+ * Dark mode: class-based (`html.dark`), toggled by ThemeProvider.
+ */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Semantic surface tokens (light defaults) */
+:root {
+  --background: #f9fafb;
+  --surface: #ffffff;
+  --foreground: #111827;
+  --fg-muted: #6b7280;
+  --border: #e5e7eb;
+}
+
+.dark {
+  --background: #0b1220;
+  --surface: #101a2c;
+  --foreground: #e5e7eb;
+  --fg-muted: #94a3b8;
+  --border: #1e293b;
+}
+
+@theme inline {
   --radius: 0.5rem;
-  --color-primary-50: #f0f9ff;
-  --color-primary-100: #e0f2fe;
-  --color-primary-500: #0ea5e9;
-  --color-primary-600: #0284c7;
-  --color-primary-700: #0369a1;
-  --color-nordic-blue: #003f5c;
-  --color-nordic-light: #58508d;
-  --color-nordic-purple: #bc5090;
-  --color-nordic-pink: #ff6361;
-  --color-nordic-orange: #ffa600;
+
+  /* Typography */
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Semantic surfaces */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-fg-muted: var(--fg-muted);
+  --color-border: var(--border);
+
+  /* Gamma Enterprise Blue — canonical primary scale */
+  --color-primary-50: #eff6fc;
+  --color-primary-100: #d8e9f9;
+  --color-primary-200: #b3d3f2;
+  --color-primary-300: #84b7e9;
+  --color-primary-400: #4d95de;
+  --color-primary-500: #1a77d2;
+  --color-primary-600: #0066cc;
+  --color-primary-700: #0052a3;
+  --color-primary-800: #00407e;
+  --color-primary-900: #002e5c;
+
+  /* Color-blind-safe chart palette (blue/orange anchored) */
+  --color-chart-1: #0066cc;
+  --color-chart-2: #e8871a;
+  --color-chart-3: #58508d;
+  --color-chart-4: #00a3a3;
+  --color-chart-5: #bc5090;
+  --color-chart-good: #10b981;
+  --color-chart-warn: #f59e0b;
+  --color-chart-bad: #ef4444;
 }
 
 * {
-  border-color: var(--color-gray-200, #e5e7eb);
+  border-color: var(--border);
 }
 
 body {
-  background-color: var(--color-gray-50, #f9fafb);
-  color: var(--color-gray-900, #111827);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* WCAG 2.2 focus visibility */
+:focus-visible {
+  outline: 2px solid var(--color-primary-600);
+  outline-offset: 2px;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Component classes */
@@ -30,7 +100,7 @@ body {
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  transition: background-color 0.2s;
+  transition: background-color 0.15s ease-out;
 }
 
 .btn-primary:hover {
@@ -38,22 +108,26 @@ body {
 }
 
 .btn-secondary {
-  background-color: var(--color-gray-200, #e5e7eb);
-  color: var(--color-gray-900, #111827);
+  background-color: var(--border);
+  color: var(--foreground);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  transition: background-color 0.2s;
+  transition: background-color 0.15s ease-out;
+}
+
+.dark .btn-secondary {
+  background-color: var(--surface);
 }
 
 .btn-secondary:hover {
-  background-color: var(--color-gray-300, #d1d5db);
+  background-color: color-mix(in srgb, var(--border) 70%, var(--fg-muted));
 }
 
 .card {
-  background-color: white;
+  background-color: var(--surface);
   border-radius: 0.75rem;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  border: 1px solid var(--color-gray-200, #e5e7eb);
+  border: 1px solid var(--border);
   padding: 1.5rem;
 }
 
@@ -71,17 +145,17 @@ body {
 }
 
 .chat-message.assistant {
-  background-color: var(--color-gray-100, #f3f4f6);
-  color: var(--color-gray-900, #111827);
+  background-color: var(--border);
+  color: var(--foreground);
   margin-right: auto;
 }
 
 .metric-card {
-  background-color: white;
+  background-color: var(--surface);
   border-radius: 0.5rem;
   padding: 1rem;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  border: 1px solid var(--color-gray-200, #e5e7eb);
+  border: 1px solid var(--border);
 }
 
 .rag-status {
@@ -94,18 +168,18 @@ body {
 }
 
 .rag-status.green {
-  background-color: var(--color-green-100, #dcfce7);
-  color: var(--color-green-800, #166534);
+  background-color: color-mix(in srgb, var(--color-chart-good) 15%, var(--surface));
+  color: var(--color-chart-good);
 }
 
 .rag-status.amber {
-  background-color: var(--color-yellow-100, #fef9c3);
-  color: var(--color-yellow-800, #854d0e);
+  background-color: color-mix(in srgb, var(--color-chart-warn) 15%, var(--surface));
+  color: var(--color-chart-warn);
 }
 
 .rag-status.red {
-  background-color: var(--color-red-100, #fee2e2);
-  color: var(--color-red-800, #991b1b);
+  background-color: color-mix(in srgb, var(--color-chart-bad) 15%, var(--surface));
+  color: var(--color-chart-bad);
 }
 
 /* Utility classes */
@@ -118,7 +192,7 @@ body {
   display: none;
 }
 
-/* Toast slide-in animation */
+/* Toast slide-in animation (compositor props only) */
 @keyframes slideIn {
   from {
     opacity: 0;

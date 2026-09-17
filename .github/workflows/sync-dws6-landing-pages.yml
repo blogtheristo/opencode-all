@@ -120,19 +120,90 @@ jobs:
           echo "🔗 View: https://github.com/blogtheristo/dws6/actions"
 
       - name: ☁️ Purge Cloudflare Cache
-        if: steps.check_changes.outputs.has_changes == 'true'
+        # Run on EVERY invocation (push or workflow_dispatch) — not gated on
+        # has_changes, because dual-folder PRs that pre-mirror the landing-
+        # pages produce no rsync diff but DO change source content that must
+        # be re-cached. The has_changes gate caused stale CDN cache on the
+        # 25-industries deploy (PR #1326). The `paths:` filter on `on.push`
+        # already ensures this workflow only runs when one of the source
+        # folders changed, so an unconditional purge is safe.
         env:
+          # These are the secret names that ACTUALLY EXIST in this repo. The
+          # step previously read `secrets.CLOUDFLARE_ZONE_ID`, which was never
+          # created — so it resolved to empty, the guard fell through to
+          # "not configured (optional)", and the purge never ran at all. Not
+          # once. Any name added here must match the repo's secret list exactly;
+          # a typo is indistinguishable from "unset" and fails silently, which
+          # is exactly how this went unnoticed.
+          CF_ZONE_DWS10: ${{ secrets.CLOUDFLARE_ZONE_ID_DWS10 }}
+          CF_ZONE_ONELIFETIME: ${{ secrets.CLOUDFLARE_ZONE_ID_ONELIFETIME }}
+          CF_ZONE_DWS6: ${{ secrets.CLOUDFLARE_ZONE_ID_DWS6 }}
+          CF_ZONE_LIFETIMEFI: ${{ secrets.CLOUDFLARE_ZONE_ID_LIFETIMEFI }}
+          # Optional bulk override, and the legacy singular for compatibility.
+          CLOUDFLARE_ZONE_IDS: ${{ secrets.CLOUDFLARE_ZONE_IDS }}
           CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          if [ ! -z "$CLOUDFLARE_ZONE_ID" ] && [ ! -z "$CLOUDFLARE_API_TOKEN" ]; then
-            curl -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/purge_cache" \
+          # The response MUST be checked. Before 2026-09-09 this step ran curl
+          # without --fail and never read the body, then echoed "cache purged"
+          # unconditionally — and curl exits 0 on HTTP 403. Combined with the
+          # missing zone secret above, the step could report neither its own
+          # no-op nor an auth failure.
+          #
+          # The token carries Cache Purge only (no Zone:Read), so zone IDs must
+          # be supplied rather than discovered.
+          ZONES=""
+          MISSING=""
+          for pair in "dws10.com:$CF_ZONE_DWS10" \
+                      "onelifetime.world:$CF_ZONE_ONELIFETIME" \
+                      "dws6.com:$CF_ZONE_DWS6" \
+                      "lifetime.fi:$CF_ZONE_LIFETIMEFI"; do
+            site="${pair%%:*}"; id="${pair#*:}"
+            if [ -n "$id" ]; then ZONES="$ZONES $id"; else MISSING="$MISSING $site"; fi
+          done
+          # Bulk/legacy secrets are additive, not replacements.
+          [ -n "$CLOUDFLARE_ZONE_IDS" ] && ZONES="$ZONES $(echo "$CLOUDFLARE_ZONE_IDS" | tr ',\n' '  ')"
+          [ -n "$CLOUDFLARE_ZONE_ID" ] && ZONES="$ZONES $CLOUDFLARE_ZONE_ID"
+
+          if [ -n "$MISSING" ]; then
+            echo "::warning::No zone ID configured for:$MISSING — those sites are NOT cache-purged and may serve stale pages. Add CLOUDFLARE_ZONE_ID_<SITE> secrets to cover them."
+          fi
+
+          if [ -z "$ZONES" ] || [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::error::No Cloudflare zone IDs or no API token configured — nothing was purged. This is the failure mode that went unnoticed for months; it is an error, not an optional skip."
+            exit 1
+          fi
+
+          failed=0
+          purged=0
+          # Accept comma, space or newline separated IDs.
+          for zone in $(echo "$ZONES" | tr ',\n' '  '); do
+            [ -n "$zone" ] || continue
+            http_code=$(curl -sS -o /tmp/cf_purge.json -w '%{http_code}' \
+              -X POST "https://api.cloudflare.com/client/v4/zones/$zone/purge_cache" \
               -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
               -H "Content-Type: application/json" \
-              --data '{"purge_everything":true}'
-            echo "✅ Cloudflare cache purged"
-          else
-            echo "⚠️ Cloudflare secrets not configured (optional)"
+              --data '{"purge_everything":true}')
+
+            # Cloudflare can return 200 with success:false, so check both.
+            if [ "$http_code" = "200" ] && grep -q '"success":[[:space:]]*true' /tmp/cf_purge.json; then
+              echo "✅ purged zone ${zone:0:8}… (HTTP $http_code)"
+              purged=$((purged + 1))
+            else
+              # Never abort the loop: one bad zone must not hide the others'
+              # results, and knowing which zones failed is the whole point.
+              echo "::error::Cache purge FAILED for zone ${zone:0:8}… (HTTP $http_code)"
+              # Body carries Cloudflare error codes, never the token.
+              sed -e 's/[[:space:]]\+/ /g' /tmp/cf_purge.json | head -c 600
+              echo ""
+              failed=$((failed + 1))
+            fi
+          done
+
+          echo "Cache purge: $purged succeeded, $failed failed."
+          if [ "$failed" -gt 0 ]; then
+            echo "::error::$failed zone(s) still serving stale content. A 401/403 usually means the token is expired, revoked, or that zone is outside its Zone Resources — check the token's expiry and scope before assuming the secret is missing."
+            exit 1
           fi
 
       - name: ✨ Workflow complete

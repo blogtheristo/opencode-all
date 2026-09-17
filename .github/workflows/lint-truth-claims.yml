@@ -1,0 +1,49 @@
+name: Truth-claims Lint
+
+# DWS Truth Standard §8 — PR-time drift gate.
+# Scans the PR diff for deprecated canonical phrases (e.g. "16 EU industries")
+# using scripts/lint-truth-claims.mjs against the structured mirrors.
+# Blocking: a deprecated canonical phrase introduced in the PR diff FAILs the
+# check. Diff-scoped — only fails when the PR itself touches a deprecated phrase.
+
+on:
+  pull_request:
+    paths:
+      - "**/*.md"
+      - "**/*.html"
+      - "**/*.htm"
+      - "**/*.txt"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  truth-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Lint changed files against the truth registry
+        id: lint
+        run: |
+          set +e
+          node scripts/lint-truth-claims.mjs --changed --base "origin/${{ github.base_ref }}" | tee lint.out
+          code=${PIPESTATUS[0]}
+          {
+            echo "## Truth-claims lint"
+            echo '```'
+            cat lint.out
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$code"
+
+      - name: Note result
+        if: failure()
+        run: echo "::error title=Truth-claims drift::Deprecated canonical phrase(s) introduced in this PR — see job summary. This check is blocking; correct the copy to an approved phrase."

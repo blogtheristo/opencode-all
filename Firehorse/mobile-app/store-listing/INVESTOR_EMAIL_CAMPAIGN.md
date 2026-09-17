@@ -2,6 +2,14 @@
 
 **"We Are Ready - Download Here"**
 
+> **Correction (29.07.2026):** every metric in the sample emails below is an
+> illustrative placeholder, not a measured figure. Before any of this copy is
+> sent, replace each number with the canonical traction statement in
+> `docs/TRACTION_CANONICAL.md` §2. In particular: NCC is an **unlanded
+> prospect** — it has never been a customer, a confirmed pilot, or a reference.
+> No retention or churn rate may be asserted (no cohort data exists), and any
+> LTV or LTV/CAC figure is modelled, never observed.
+
 ---
 
 ## 🎯 Campaign Strategy
@@ -16,7 +24,7 @@ Convert investor interest into meetings by demonstrating **execution**, not just
 - Seed/Series A investors
 - Construction tech VCs
 - Nordic/European investors
-- Corporate VCs (NCC, Skanska, etc.)
+- Corporate VCs (NCC, Skanska, etc. — all unlanded prospects)
 - Impact investors (sustainability focus)
 
 ---
@@ -88,7 +96,7 @@ Quick update since my last email:
 "This is exactly what we needed. The auto-fill feature alone saves us 2 hours per day." 
 - Matti K., Site Manager, Helsinki
 
-🎯 What's next:
+🎯 What's next (targets, not results):
 • Week 2: First paying customer
 • Month 1: 10 enterprise customers (€60k MRR)
 • Month 3: Break-even
@@ -111,7 +119,7 @@ P.S. - Download the app and try it yourself. The "Worksite Diary" screen shows t
 ---
 
 ### Email 3: The Social Proof (Day 7)
-**Subject**: Re: Firehorse Mobile - NCC wants to pilot
+**Subject**: Re: Firehorse Mobile - [Prospect] pilot conversation (use only once genuinely true)
 
 **From**: [Founder Name], CEO @ Firehorse  
 **To**: [Investor Name]
@@ -119,24 +127,18 @@ P.S. - Download the app and try it yourself. The "Worksite Diary" screen shows t
 ```
 Hi [Investor Name],
 
-Big news:
-
-NCC (€20B construction giant) wants to pilot Firehorse Mobile on 3 projects in Q1.
-
-If successful, they'll roll out to 50+ projects across Finland and Sweden.
-
-That's €300k ARR from one customer.
+[PLACEHOLDER — do not send until each line below is replaced with a verified
+fact. NCC is an unlanded prospect and must not appear here as a pilot.]
 
 📊 Week 1 metrics:
-• 1,200+ downloads
-• 150+ daily active users
-• 25 enterprise inquiries
-• 2 signed LOIs
+• [downloads]
+• [daily active users]
+• [enterprise inquiries]
+• [signed LOIs]
 
 🚀 Why this matters:
-• Product-market fit: Proven
-• Sales cycle: 2-3 weeks (fast!)
-• Unit economics: LTV/CAC = 6:1
+• Sales cycle: [measured cycle length]
+• Unit economics: LTV/CAC modelled only — not observed
 • Market timing: Fit for 55 mandate creates urgency
 
 We're closing the €2M seed round in 2 weeks.
@@ -150,7 +152,7 @@ Let's talk this week: [Calendar Link]
 Best regards,
 [Your Name]
 
-P.S. - The NCC pilot starts Feb 1st. We need to hire 2 customer success people ASAP. That's what this round is for.
+P.S. - We need to hire 2 customer success people ASAP. That's what this round is for.
 ```
 
 **Timing**: Monday morning, 9-10 AM  
@@ -174,10 +176,10 @@ We're closing the €2M seed round this Friday.
 €1.8M committed. €200k remaining.
 
 📊 Current traction:
-• 2,000+ downloads
-• 300+ daily active users
-• 3 paying customers (€18k MRR)
-• €216k ARR run rate
+• [downloads]
+• [daily active users]
+• Two enterprise pilots contracted Q1/2026 at €29,950 each (€59,900 booked), plus four smaller landed accounts
+• [ARR run rate — do not state unless reproducible from bookkeeping]
 
 🎯 Terms:
 • €2M at €8M pre-money (20% equity)
@@ -380,7 +382,7 @@ Total Meetings: 47 (47% conversion!)
 ✅ **Good**:
 - "Firehorse Mobile is LIVE on Google Play"
 - "500+ downloads in 3 days"
-- "NCC wants to pilot"
+- "[Named prospect] wants to pilot" (only once genuinely true)
 - "Round closing Friday"
 
 ❌ **Bad**:
@@ -486,7 +488,7 @@ Day 10: Ask for decision timeline
 ### Traction
 - "500+ downloads in 3 days"
 - "10 enterprise inquiries in week 1"
-- "NCC wants to pilot on 50+ projects"
+- "[Named prospect] wants to pilot on N projects" (only once genuinely true)
 
 ### Social Proof
 - "Lead investor: [Nordic VC Fund]"
@@ -530,10 +532,9 @@ Hi [Investor],
 
 Quick update since we last spoke:
 
-✅ First paying customer (€6k MRR)
-✅ 3,000+ downloads
-✅ 500+ daily active users
-✅ NCC pilot confirmed
+✅ Two enterprise pilots contracted Q1/2026 at €29,950 each
+✅ [downloads]
+✅ [daily active users]
 
 We're ahead of plan.
 

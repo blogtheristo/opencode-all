@@ -23,16 +23,16 @@ function AgentCard({
       className={`w-full text-left p-3 rounded-lg border transition-all ${
         isSelected
           ? 'bg-primary-50 border-primary-300 ring-1 ring-primary-200'
-          : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-sm'
+          : 'bg-surface border-border hover:border-border hover:shadow-sm'
       }`}
     >
-      <div className="text-sm font-semibold text-gray-900">{agent.name}</div>
-      <div className="text-xs text-gray-500 mt-0.5 line-clamp-2">{agent.description}</div>
+      <div className="text-sm font-semibold text-foreground">{agent.name}</div>
+      <div className="text-xs text-fg-muted mt-0.5 line-clamp-2">{agent.description}</div>
       <div className="flex flex-wrap gap-1 mt-2">
         {agent.capabilities.slice(0, 3).map(cap => (
           <span
             key={cap}
-            className="text-[9px] px-1.5 py-0.5 bg-gray-100 text-gray-500 rounded-full"
+            className="text-[9px] px-1.5 py-0.5 bg-border text-fg-muted rounded-full"
           >
             {cap}
           </span>
@@ -56,14 +56,14 @@ function InputField({
   if (field.type === 'select' && field.options) {
     return (
       <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">
+        <label className="block text-xs font-medium text-foreground mb-1">
           {field.label}
           {field.required && <span className="text-red-500 ml-0.5">*</span>}
         </label>
         <select
           value={String(value || '')}
           onChange={e => onChange(name, e.target.value)}
-          className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+          className="w-full text-sm border border-border rounded-lg px-3 py-2 bg-surface focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
         >
           <option value="">Select...</option>
           {field.options.map(opt => (
@@ -77,7 +77,7 @@ function InputField({
   if (field.type === 'number') {
     return (
       <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">
+        <label className="block text-xs font-medium text-foreground mb-1">
           {field.label}
           {field.required && <span className="text-red-500 ml-0.5">*</span>}
         </label>
@@ -86,7 +86,7 @@ function InputField({
           value={value === '' || value === undefined ? '' : Number(value)}
           onChange={e => onChange(name, e.target.value === '' ? '' : Number(e.target.value))}
           placeholder={field.placeholder}
-          className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+          className="w-full text-sm border border-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
         />
       </div>
     );
@@ -99,16 +99,16 @@ function InputField({
           type="checkbox"
           checked={Boolean(value)}
           onChange={e => onChange(name, e.target.checked)}
-          className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+          className="w-4 h-4 rounded border-border text-primary-600 focus:ring-primary-500"
         />
-        <label className="text-xs font-medium text-gray-700">{field.label}</label>
+        <label className="text-xs font-medium text-foreground">{field.label}</label>
       </div>
     );
   }
 
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-700 mb-1">
+      <label className="block text-xs font-medium text-foreground mb-1">
         {field.label}
         {field.required && <span className="text-red-500 ml-0.5">*</span>}
       </label>
@@ -117,7 +117,7 @@ function InputField({
         value={String(value || '')}
         onChange={e => onChange(name, e.target.value)}
         placeholder={field.placeholder}
-        className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+        className="w-full text-sm border border-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
       />
     </div>
   );
@@ -129,14 +129,14 @@ function ResultPanel({ result, onClear }: { result: AgentExecutionResult; onClea
   const confidencePct = Math.round(result.confidence * 100);
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-4 space-y-4">
+    <div className="bg-surface border border-border rounded-xl p-4 space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className={`w-2.5 h-2.5 rounded-full ${
             result.status === 'success' ? 'bg-green-500' : 'bg-red-500'
           }`} />
-          <h4 className="text-sm font-bold text-gray-900">
+          <h4 className="text-sm font-bold text-foreground">
             {result.agentName} — Result
           </h4>
           {isDemo && (
@@ -145,15 +145,15 @@ function ResultPanel({ result, onClear }: { result: AgentExecutionResult; onClea
             </span>
           )}
         </div>
-        <button onClick={onClear} className="text-gray-400 hover:text-gray-600 text-sm">
+        <button onClick={onClear} className="text-fg-muted hover:text-fg-muted text-sm">
           Clear
         </button>
       </div>
 
       {/* Metrics row */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="bg-gray-50 rounded-lg p-3 text-center">
-          <div className="text-[10px] text-gray-400 uppercase">Confidence</div>
+        <div className="bg-background rounded-lg p-3 text-center">
+          <div className="text-[10px] text-fg-muted uppercase">Confidence</div>
           <div className={`text-xl font-bold font-mono ${
             confidencePct >= 80 ? 'text-green-600' : confidencePct >= 60 ? 'text-yellow-600' : 'text-red-600'
           }`}>
@@ -161,8 +161,8 @@ function ResultPanel({ result, onClear }: { result: AgentExecutionResult; onClea
           </div>
         </div>
         {score !== undefined && (
-          <div className="bg-gray-50 rounded-lg p-3 text-center">
-            <div className="text-[10px] text-gray-400 uppercase">Score</div>
+          <div className="bg-background rounded-lg p-3 text-center">
+            <div className="text-[10px] text-fg-muted uppercase">Score</div>
             <div className={`text-xl font-bold font-mono ${
               score >= 80 ? 'text-green-600' : score >= 60 ? 'text-yellow-600' : 'text-red-600'
             }`}>
@@ -170,9 +170,9 @@ function ResultPanel({ result, onClear }: { result: AgentExecutionResult; onClea
             </div>
           </div>
         )}
-        <div className="bg-gray-50 rounded-lg p-3 text-center">
-          <div className="text-[10px] text-gray-400 uppercase">Duration</div>
-          <div className="text-xl font-bold font-mono text-gray-700">
+        <div className="bg-background rounded-lg p-3 text-center">
+          <div className="text-[10px] text-fg-muted uppercase">Duration</div>
+          <div className="text-xl font-bold font-mono text-foreground">
             {result.durationMs < 1000
               ? `${result.durationMs}ms`
               : `${(result.durationMs / 1000).toFixed(1)}s`}
@@ -182,21 +182,21 @@ function ResultPanel({ result, onClear }: { result: AgentExecutionResult; onClea
 
       {/* Reasoning */}
       <div>
-        <div className="text-[10px] font-medium text-gray-400 uppercase tracking-wide mb-1">
+        <div className="text-[10px] font-medium text-fg-muted uppercase tracking-wide mb-1">
           Reasoning
         </div>
-        <p className="text-xs text-gray-700 leading-relaxed">{result.reasoning}</p>
+        <p className="text-xs text-foreground leading-relaxed">{result.reasoning}</p>
       </div>
 
       {/* Recommendations */}
       {result.recommendations.length > 0 && (
         <div>
-          <div className="text-[10px] font-medium text-gray-400 uppercase tracking-wide mb-1">
+          <div className="text-[10px] font-medium text-fg-muted uppercase tracking-wide mb-1">
             Recommendations
           </div>
           <ul className="space-y-1">
             {result.recommendations.map((rec, i) => (
-              <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
+              <li key={i} className="flex items-start gap-2 text-xs text-foreground">
                 <span className="text-primary-500 mt-0.5 shrink-0">-</span>
                 {rec}
               </li>
@@ -206,7 +206,7 @@ function ResultPanel({ result, onClear }: { result: AgentExecutionResult; onClea
       )}
 
       {/* Timestamp */}
-      <div className="text-[10px] text-gray-400 pt-2 border-t border-gray-100">
+      <div className="text-[10px] text-fg-muted pt-2 border-t border-border">
         Executed at {new Date(result.timestamp).toLocaleString()}
       </div>
     </div>
@@ -217,24 +217,24 @@ function HistoryPanel({ history }: { history: AgentExecutionResult[] }) {
   if (history.length === 0) return null;
 
   return (
-    <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
-      <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+    <div className="bg-background border border-border rounded-xl p-4">
+      <h4 className="text-xs font-semibold text-fg-muted uppercase tracking-wide mb-3">
         Run History ({history.length})
       </h4>
       <div className="space-y-2 max-h-48 overflow-y-auto">
         {history.map((entry, i) => (
-          <div key={i} className="flex items-center justify-between py-1.5 border-b border-gray-200 last:border-0">
+          <div key={i} className="flex items-center justify-between py-1.5 border-b border-border last:border-0">
             <div className="flex items-center gap-2">
               <div className={`w-1.5 h-1.5 rounded-full ${
                 entry.status === 'success' ? 'bg-green-500' : 'bg-red-500'
               }`} />
-              <span className="text-xs font-medium text-gray-700">{entry.agentName}</span>
+              <span className="text-xs font-medium text-foreground">{entry.agentName}</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-[10px] text-gray-400 font-mono">
+              <span className="text-[10px] text-fg-muted font-mono">
                 {Math.round(entry.confidence * 100)}%
               </span>
-              <span className="text-[10px] text-gray-400">
+              <span className="text-[10px] text-fg-muted">
                 {new Date(entry.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </span>
             </div>
@@ -308,12 +308,12 @@ export function AgentRunner() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-sm font-semibold text-gray-700">Agent Runner</h3>
-          <p className="text-xs text-gray-400">
+          <h3 className="text-sm font-semibold text-foreground">Agent Runner</h3>
+          <p className="text-xs text-fg-muted">
             Select an agent, configure inputs, and execute
           </p>
         </div>
-        <div className="text-[10px] text-gray-400">
+        <div className="text-[10px] text-fg-muted">
           {agents.length} agents available
         </div>
       </div>
@@ -321,7 +321,7 @@ export function AgentRunner() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Left: Agent catalog */}
         <div className="space-y-2">
-          <div className="text-[10px] font-medium text-gray-400 uppercase tracking-wide">
+          <div className="text-[10px] font-medium text-fg-muted uppercase tracking-wide">
             Agent Catalog
           </div>
           <div className="space-y-2 max-h-[520px] overflow-y-auto pr-1">
@@ -340,8 +340,8 @@ export function AgentRunner() {
         <div className="space-y-3">
           {selectedAgent ? (
             <>
-              <div className="bg-white border border-gray-200 rounded-xl p-4">
-                <div className="text-[10px] font-medium text-gray-400 uppercase tracking-wide mb-3">
+              <div className="bg-surface border border-border rounded-xl p-4">
+                <div className="text-[10px] font-medium text-fg-muted uppercase tracking-wide mb-3">
                   Configure — {selectedAgent.name}
                 </div>
                 <div className="space-y-3">
@@ -361,13 +361,13 @@ export function AgentRunner() {
                   disabled={loading}
                   className={`w-full mt-4 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
                     loading
-                      ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                      ? 'bg-fg-muted/20 text-fg-muted cursor-not-allowed'
                       : 'bg-primary-600 text-white hover:bg-primary-700 shadow-sm'
                   }`}
                 >
                   {loading ? (
                     <span className="flex items-center justify-center gap-2">
-                      <span className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+                      <span className="w-4 h-4 border-2 border-fg-muted border-t-transparent rounded-full animate-spin" />
                       Running...
                     </span>
                   ) : (
@@ -383,9 +383,9 @@ export function AgentRunner() {
               </div>
             </>
           ) : (
-            <div className="bg-gray-50 border border-dashed border-gray-300 rounded-xl p-8 text-center">
-              <div className="text-gray-400 text-sm">Select an agent to configure</div>
-              <div className="text-gray-300 text-xs mt-1">
+            <div className="bg-background border border-dashed border-border rounded-xl p-8 text-center">
+              <div className="text-fg-muted text-sm">Select an agent to configure</div>
+              <div className="text-fg-muted text-xs mt-1">
                 Choose from the catalog on the left
               </div>
             </div>
@@ -397,9 +397,9 @@ export function AgentRunner() {
           {result ? (
             <ResultPanel result={result} onClear={clearResult} />
           ) : (
-            <div className="bg-gray-50 border border-dashed border-gray-300 rounded-xl p-8 text-center">
-              <div className="text-gray-400 text-sm">No results yet</div>
-              <div className="text-gray-300 text-xs mt-1">
+            <div className="bg-background border border-dashed border-border rounded-xl p-8 text-center">
+              <div className="text-fg-muted text-sm">No results yet</div>
+              <div className="text-fg-muted text-xs mt-1">
                 Execute an agent to see results here
               </div>
             </div>

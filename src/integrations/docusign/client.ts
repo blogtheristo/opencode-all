@@ -14,14 +14,14 @@
 import fs from 'fs';
 import path from 'path';
 import {
-  DocuSignConfig,
+  type CreateEnvelopeRequest,
+  type DocuSignConfig,
   DocuSignEnvironment,
-  CreateEnvelopeRequest,
-  EnvelopeResult,
-  EnvelopeStatusResult,
-  Recipient,
+  type EnvelopeResult,
+  type EnvelopeStatus,
+  type EnvelopeStatusResult,
+  type Recipient,
   RecipientType,
-  EnvelopeDocument,
   SignatureType,
 } from './types';
 
@@ -37,16 +37,18 @@ export class DocuSignClient {
   private tokenExpiresAt: number = 0;
 
   constructor(config: DocuSignConfig) {
+    const basePath = config.environment === DocuSignEnvironment.DEMO
+      ? DEMO_BASE_PATH
+      : PROD_BASE_PATH;
+    const oauthBasePath = config.environment === DocuSignEnvironment.DEMO
+      ? DEMO_OAUTH_PATH
+      : PROD_OAUTH_PATH;
     this.config = {
       ...config,
-      basePath: config.environment === DocuSignEnvironment.DEMO
-        ? DEMO_BASE_PATH
-        : PROD_BASE_PATH,
-      oauthBasePath: config.environment === DocuSignEnvironment.DEMO
-        ? DEMO_OAUTH_PATH
-        : PROD_OAUTH_PATH,
+      basePath,
+      oauthBasePath,
     };
-    this.basePath = this.config.basePath!;
+    this.basePath = basePath;
   }
 
   /**
@@ -135,7 +137,7 @@ export class DocuSignClient {
     this.accessToken = tokenData.access_token;
     this.tokenExpiresAt = Date.now() + (tokenData.expires_in * 1000);
 
-    return this.accessToken!;
+    return this.accessToken;
   }
 
   /**
@@ -195,7 +197,7 @@ export class DocuSignClient {
 
     return {
       envelopeId: data.envelopeId,
-      status: data.status,
+      status: data.status as EnvelopeStatus,
       statusDateTime: data.statusDateTime,
       uri: data.uri,
     };
@@ -221,7 +223,7 @@ export class DocuSignClient {
 
     return {
       envelopeId: envelope.envelopeId as string,
-      status: envelope.status as string,
+      status: envelope.status as EnvelopeStatus,
       statusChangedDateTime: envelope.statusChangedDateTime as string,
       sender: {
         email: sender?.email || '',
@@ -265,7 +267,7 @@ export class DocuSignClient {
     return ((data.envelopes || []) as Record<string, string>[]).map(
       (e) => ({
         envelopeId: e.envelopeId,
-        status: e.status,
+        status: e.status as EnvelopeStatus,
         statusChangedDateTime: e.statusChangedDateTime,
         sender: { email: '', name: '' },
         recipients: [],

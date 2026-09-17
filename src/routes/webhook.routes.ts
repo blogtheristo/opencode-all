@@ -1,3 +1,5 @@
+// Evidence: Tool=OpenCode 1.18.22 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-24
+// Audit trail: git log -- src/routes/webhook.routes.ts
 /**
  * Webhook Routes — Inbound Email
  *
@@ -19,16 +21,26 @@
  *   - Idempotency via provider_message_id UNIQUE constraint
  */
 
-import express, { Router, Request, Response } from 'express';
+import express, { type Request, type Response, type Router } from 'express';
+import crypto from 'crypto';
+import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';
 import {
+  isAuthorizedSender,
   parseReplyText,
   parseSubjectCommand,
-  isAuthorizedSender,
 } from '../outreach/reply-parser.js';
 import type { UpdateCommand } from '../outreach/reply-parser.js';
+
+interface OutreachThreadRow {
+  id: string;
+  pipeline: string;
+  status: string;
+  person_id: string | null;
+  org_id: string | null;
+}
 import { emailQueue } from '../services/email-queue.service.js';
-import { sendEmail, escapeHtml } from '../utils/send-email.js';
+import { escapeHtml, sendEmail } from '../utils/send-email.js';
 
 const router: Router = express.Router();
 
@@ -36,7 +48,7 @@ const router: Router = express.Router();
 // SUPABASE HELPERS
 // ============================================================================
 
-async function supabaseFetch(path: string, options: RequestInit = {}): Promise<any> {
+async function supabaseFetch(path: string, options: RequestInit = {}): Promise<unknown> {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_KEY;
 
@@ -83,7 +95,9 @@ async function sendConfirmationEmail(to: string, subject: string, body: string):
     });
 
     if (!result.ok) {
-      logger.warn('Confirmation email failed', { error: result.error || 'Unknown SES SMTP failure' });
+      logger.warn('Confirmation email failed', {
+        error: result.error || 'Unknown SES SMTP failure',
+      });
       return;
     }
 
@@ -161,9 +175,9 @@ const handleInboundWebhook = async (req: Request, res: Response): Promise<void> 
 
   // 2. Idempotency: insert into inbound_emails. ON CONFLICT DO NOTHING.
   try {
-    const existing = await supabaseFetch(
+    const existing = (await supabaseFetch(
       `inbound_emails?provider_message_id=eq.${encodeURIComponent(messageId)}&select=id&limit=1`,
-    );
+    )) as unknown[];
 
     if (existing.length > 0) {
       logger.info('Webhook: duplicate message_id, skipping', { messageId });
@@ -206,7 +220,9 @@ const handleInboundWebhook = async (req: Request, res: Response): Promise<void> 
 
   // 4. Parse command from first non-quoted line (fallback: subject line)
   const bodyParse = parseReplyText(textBody);
-  const subjectParse = bodyParse.command ? { command: null, error: null } : parseSubjectCommand(subject);
+  const subjectParse = bodyParse.command
+    ? { command: null, error: null }
+    : parseSubjectCommand(subject);
   const command = bodyParse.command || subjectParse.command;
   const parseError = bodyParse.error || subjectParse.error;
   const parseSource = bodyParse.command ? 'body' : subjectParse.command ? 'subject' : 'none';
@@ -239,11 +255,11 @@ const handleInboundWebhook = async (req: Request, res: Response): Promise<void> 
   }
 
   // 5. Lookup thread by token
-  let thread: any;
+  let thread: OutreachThreadRow;
   try {
-    const threads = await supabaseFetch(
+    const threads = (await supabaseFetch(
       `outreach_threads?thread_token=eq.${encodeURIComponent(command.token)}&select=id,pipeline,status,person_id,org_id&limit=1`,
-    );
+    )) as OutreachThreadRow[];
 
     if (threads.length === 0) {
       const errorMsg = `Token T:${command.token} not found`;
@@ -338,11 +354,49 @@ const handleInboundWebhook = async (req: Request, res: Response): Promise<void> 
   }
 };
 
-// Primary inbound endpoint
-router.post('/inbound', handleInboundWebhook);
+// Primary inbound endpoint (Amazon SES inbound → SNS/HTTPS)
+// ============================================================================
+// INBOUND AUTH: provider token gate
+//
+// The From-address allowlist below is not an authentication boundary — email
+// From headers are trivially spoofed. Callers (inbound-parse provider or the
+// reverse proxy in front of it) must present INBOUND_WEBHOOK_TOKEN in the
+// X-Inbound-Token header. Fail-closed 503 when unset, constant-time compare.
+// ============================================================================
 
-// Backward-compatible alias — intentionally routes to same handler
-router.post('/resend/inbound', handleInboundWebhook);
+const inboundLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+function requireInboundToken(req: Request, res: Response): boolean {
+  const expected = process.env.INBOUND_WEBHOOK_TOKEN;
+  if (!expected) {
+    logger.error('INBOUND_WEBHOOK_TOKEN not configured — rejecting inbound webhook');
+    res.status(503).json({ error: 'Inbound webhook auth not configured' });
+    return false;
+  }
+  const provided = req.headers['x-inbound-token'];
+  if (
+    typeof provided !== 'string' ||
+    provided.length !== expected.length ||
+    !crypto.timingSafeEqual(Buffer.from(provided), Buffer.from(expected))
+  ) {
+    logger.warn('Inbound webhook: bad token', {
+      correlationId: req.headers['x-correlation-id'],
+    });
+    res.status(401).json({ error: 'Unauthorized' });
+    return false;
+  }
+  return true;
+}
+
+router.post('/inbound', inboundLimiter, (req: Request, res: Response) => {
+  if (!requireInboundToken(req, res)) return;
+  void handleInboundWebhook(req, res);
+});
 
 // ============================================================================
 // HELPERS
@@ -353,8 +407,8 @@ function extractEmail(from: string): string | null {
   return match ? match[1] : from.includes('@') ? from.trim() : null;
 }
 
-function buildUpdateFields(command: UpdateCommand, currentStatus: string): Record<string, any> {
-  const fields: Record<string, any> = {};
+function buildUpdateFields(command: UpdateCommand, currentStatus: string): Record<string, unknown> {
+  const fields: Record<string, unknown> = {};
   const today = new Date().toISOString().split('T')[0];
 
   if (command.action === 'status' && command.status) {
@@ -416,10 +470,10 @@ function buildSummary(command: UpdateCommand): string {
 }
 
 async function logActivity(
-  thread: any | null,
+  thread: OutreachThreadRow | null,
   outcome: string,
   description: string,
-  rawPayload: any,
+  rawPayload: unknown,
 ): Promise<void> {
   try {
     await supabaseFetch('outreach_activities', {
@@ -444,7 +498,7 @@ async function logActivity(
   }
 }
 
-async function updateInboundEmail(messageId: string, fields: Record<string, any>): Promise<void> {
+async function updateInboundEmail(messageId: string, fields: Record<string, unknown>): Promise<void> {
   try {
     await supabaseFetch(`inbound_emails?provider_message_id=eq.${encodeURIComponent(messageId)}`, {
       method: 'PATCH',

@@ -1,13 +1,21 @@
-# KYA Standard v1.5 — Know Your Agent: Agent Self-Optimization Governance for Enterprise Agent Swarms
+# KYA Standard v1.12 — Know Your Agent: Agent Self-Optimization Governance for Enterprise Agent Swarms
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.12
 
 Sessions & Modifications:
 
+- Version: 1.12 | Tool: Claude Code (Opus 5) | Session: claude/agent-use-cases-comparison-h7vl25 | Date: 07.08.2026 | Changes: §3.1 ATS-kaava sovitettu kanoniin (P0-2/P0-3). Additiivinen `+ A×0.15` oli yha voimassa taman dokumentin maaritelmana, vaikka sisardokumentit `KYA_SECURITY_v1.2.md` §3.1 ja `KYA_OPTIMIZATION_v1.4.md` §3.1 olivat molemmat todenneet additiivisen muodon score-inflaatiovektoriksi ja korvanneet sen. Korvattu multiplikatiivisella `ATS_Final = ATS_Base × (1 + A)`, A ∈ [0, 0.25], A = 0 kun V > 0. Lisatty §3.1.1 hard killit (manifest-allekirjoitus/TTL, IDV-tila/TTL) jotka edeltavat kaavaa eivatka nay siina, ja §3.1.2 superseded-muotoilut sailytettyna Rule 12:n mukaisesti (additiivinen A×0.15, A×0.18, seka epatarkka 'A×0.25' -sanamuoto). Selvennetty etta 0.25 on A:n KATTO multiplikatiivisessa muodossa, ei kerroin. §3.2:een kirjattu ratkaisematon range overflow (ATS_Final voi olla 1.25) paattamatta sita. Todettu etta koodi laskee ATS_Base:n vain ja etta se on tarkoituksellista. Lisaksi korjattu otsikon versiotunniste v1.5 -> v1.12 vastaamaan Version-kenttaa (osittainen B9/P2-3; §14 ja §14.7 omat tunnisteet yha sovittamatta).
+- Version: 1.11 | Tool: Claude Code | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 22.07.2026 | Changes: Added §14.7.1 Signing & Key Custody (v2.0 target design), per Boardy review — fixes the signing model v2.0 implements without yet implementing it: Ed25519 (EdDSA) hardware-backed keys (EUDI Wallet / EU eID convergence; compact for A2A + Article 12 payloads), JWS-enveloped VC first with Data-Integrity only on counterparty demand; `did:web` DNS-rooted issuer identity (no ledger, resolvable institutional anchoring for auditors); key custody by tier (Aegis Defence on-prem DGX Spark holds everything; Standard/Sovereign in UpCloud UKS HSM with admin-gated rotation; never a shared/foreign cloud KMS); one issuer key per tenant at v2.0, root-CA → per-agent delegation deferred to v2.1; tenant-controlled rotation with no DWS escrow (DWS holds only the root CA, counter-signing tenant DID-doc updates for cross-tenant verification continuity). Also: migration 079 APPLIED + verified live in production this session. Invariant restated: the private signing key never leaves the tenant's jurisdiction.
+- Version: 1.10 | Tool: Claude Code | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 22.07.2026 | Changes: Added §14.7 Verified-Done Attestation — the terminal link of the §14.4 trust chain (verified human → signed manifest → signed mandate → verified-done attestation): once a mandate executes, KYA issues a W3C Verifiable Credential attesting completion under governance, so a counterparty can check the outcome instead of trusting it blind. Deny-by-default and HIC binding carry through (no attestation for a denied/anonymous mandate); issuance is a `mandate.attest` event on the §14.5 evidence chain plus a stored credential; revocation is a status transition, not a deletion. Schema landed toward the v2.0 freeze: TS interfaces (`VerifiedDoneAttestation`/`AttestationInput`, `src/identity/types.ts`) + stub issuer `issueVerifiedDoneAttestation()` (`src/identity/ats-engine.ts`, 6 tests in `src/__tests__/verified-done-attestation.test.ts`) + storage (`supabase/migrations/079_kya_verified_done_attestation.sql` — `kya_verified_done_attestations` + `mandate.attest` event type extending the live 074 chain). Signing (Ed25519 / Data Integrity) deferred to the v2.0 key-management decision; credentials mint unsigned. Migration 074 (§14.5 evidence chain) confirmed live in production (dws6, eu-west-1) this session.
+- Version: 1.9.1 | Tool: Claude Code | Session: claude/agent-infrastructure-ideas-1jtgms | Date: 06.07.2026 | Changes: (1) Schema-stability notes added to §14.2.1 and §14.3 per Boardy review — the JSON blocks are illustrative until KYA v2.0; buyer materials quote policy semantics, not field names; the executable Zod validator is the normative shape. (2) §14.2 enforcement point is now REAL CODE: `evaluateMandateGate()` + `tenantGatingProfileSchema` implemented in `src/identity/ats-engine.ts` (deny-by-default, HIC binding required, immovable floors, tighten-only tenant profiles, ceiling/scope violations flagged for §9.2 enforcement), 21 passing tests in `src/__tests__/mandate-gate.test.ts`. Patch version (not 2.0): v2.0 is reserved for the schema freeze after the Supabase mandate-events migration and one end-to-end tenant profile exercise.
+
+- Version: 1.9 | Tool: Claude Code | Session: claude/agent-infrastructure-ideas-1jtgms | Date: 06.07.2026 | Changes: Added §14.2.1 Tenant Policy Profiles per Boardy review of v1.8 — ATS gating bands, ceilings, and HNP availability are per-tenant configurable under a tighten-only rule with two immovable platform floors (no mandates below ATS 0.50; HNP minimum band 0.90 raisable, never lowerable). Industry default profiles across the 25-industry platform; Aegis tier (21-industry defence scope) defaults to HNP disabled + human-signed Payment Mandates regardless of ATS. Profile changes are HIC-signed policy events on the §14.5 evidence chain, non-retroactive for live sessions. Corrected Boardy's "21 industries" framing to platform 25 / Aegis 21 per DWS_TRUTH_STANDARD row 1.
+
+- Version: 1.8 | Tool: Claude Code | Session: claude/agent-infrastructure-ideas-1jtgms | Date: 06.07.2026 | Changes: Added §14 Agentic Commerce Mandate Gating (AP2 / UCP / ACP) — closes the payment-authority gap surfaced by the 2026-07-06 agent-infrastructure scorecard (`docs/field-notes/2026-07-06-greg-isenberg-startups-for-agents-21-answers.md`): mandate-gating rule mapping ATS bands (§3.2) to AP2 Intent/Cart/Payment Mandate privileges incl. Human Not Present pre-authorization; Capability Manifest v1.3 `spend_authority` extension; manifests expressible as W3C Verifiable Credentials for AP2 interop; AP2 Verifiable Intent log bound to KYA forensic trail + EU AI Act Article 12 record-keeping as one evidence chain; FIDO Alliance governance tracking (AP2 v0.2 donated 28.04.2026). Protocol-neutral stance across AP2 / UCP / ACP. Conclusion renumbered §14 → §15.
 - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Article 99 citation sweep in Regulatory Penalty Avoidance — corrected from Art. 99 (blanket €35M/7%) to Art. 99(4) (€15M/3% for high-risk deployer non-compliance), with Art. 99(3) €35M/7% retained only for Art. 5 prohibited-practice context, per PR #976 sweep pattern
 - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added memory audit trail references — KYA-S v1.5 (§10 Memory Audit Trail), KYA-O v1.7 (§12 Memory-Driven Financial Intelligence); dual LWM+client memory architecture; fact extraction governance (PR-254); KYA-first PR ordering for agent memory roadmap; updated split document references
 - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/ai-orbital-target-labeling-MBTl5 | Date: 10.03.2026 | Changes: Pillar 5 — KYA Vision (AI Orbital Target Labeling). ICEYE SAR satellite partnership. Argus agent for 20-industry detection from orbit. SAR signature database, change detection, KYA governance for orbital labels. src/agents/argus.agent.ts, src/integrations/iceye/, /orbital-eye skill.
@@ -20,7 +28,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 09.03.2026
-- Last Modified: 05.04.2026
+- Last Modified: 22.07.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -41,6 +49,12 @@ Related Documents:
 - src/integrations/iceye/client.ts (ICEYE SAR satellite API client)
 - src/integrations/iceye/types.ts (Orbital target labeling type definitions)
 - .claude/commands/orbital-eye.md (Orbital Eye skill for Claude Code)
+- docs/field-notes/2026-07-06-greg-isenberg-startups-for-agents-21-answers.md (Agent-infrastructure scorecard that motivated §14)
+- google-agentic-commerce/AP2 v0.2, FIDO Alliance (external — Agent Payments Protocol, W3C Verifiable Credential mandates)
+- DWS_ARTICLE_12_LOGGING_STANDARD.md (EU AI Act Article 12 record-keeping — evidence chain for §14.5)
+- supabase/migrations/074_kya_mandate_evidence_chain.sql (§14.5 evidence chain — kya_mandate_events, kya_tenant_gating_profiles; live in production)
+- supabase/migrations/079_kya_verified_done_attestation.sql (§14.7 verified-done attestation — kya_verified_done_attestations + mandate.attest event type)
+- src/identity/types.ts (VerifiedDoneAttestation / AttestationInput — normative credential shapes, §14.7)
 
 ---
 
@@ -96,6 +110,8 @@ The upgrade adds **11–30%+ efficiency gains** (benchmarked from real autoresea
 | Named Laws        | None                                    | **Agentic Efficiency Law, Stacking Effect**                        |
 | Swarm Management  | Manual                                  | **Orchestrator Layer (kill early, promote winners)**               |
 | Compliance        | EU AI Act, NIS2, GDPR, Fit for 55, DORA | **+ Autoresearch audit trail for Art. 12/14**                      |
+
+> **Note (07.08.2026).** The ATS Formula row records the state **as of v1.4** and is retained unchanged as a historical entry (Rule 12). The additive `+ A×0.15` form it names was later superseded by the multiplicative `ATS_Final = ATS_Base × (1 + A)`. The current canonical formula is §3.1; the superseded forms and the reason they were replaced are §3.1.2. Do not implement from this table.
 
 ---
 
@@ -295,30 +311,60 @@ Every governed agent can now run internal **autoresearch loops** (depth=12 → d
 
 ---
 
-## 3. Agent Trust Score (ATS) v1.4 — Now with Autoresearch Delta
+## 3. Agent Trust Score (ATS) — Multiplicative with Autoresearch Delta
 
-### 3.1 Updated Formula
+### 3.1 Formula (canonical — multiplicative, V>0 hard stop)
 
 ```
-ATS = max(0, 1.0 - V×0.25 - L - D×0.05 + A×0.15)
+ATS_Base  = max(0, 1.0 - V×0.25 - L - D×0.05)
+ATS_Final = ATS_Base × (1 + A)
 
 V = KYA_VIOLATION count       (4 violations = zero trust)
-L = 0.10 if avg_latency > 500ms
+L = 0.10 if avg_latency > 500ms (+ Cold-Start Latency Penalty, KYA-Security §4.1)
 D = DENIED path access attempts
-A = autoresearch improvement factor (capped, validated on industry proxy metrics)
-    e.g., +0.11 for 11% Time-to-GPT-2 gain; +0.09 for 9% energy efficiency
+A = autoresearch improvement factor, A ∈ [0, 0.25], validated on industry proxy metrics
+    e.g., +0.11 for 11% energy efficiency gain; +0.09 for 9% process optimization
+
+CRITICAL: If V > 0, then A = 0. No exceptions.
 ```
 
-**Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls. The `A` factor is computed from the agent's validated autoresearch improvements, capped at 0.15 to prevent score inflation.
+**0.25 is a cap on A, not a multiplier.** In the superseded additive form the number after `A×` was a coefficient; here A carries its own magnitude and is bounded. Quoting "A×0.25" (as this document's own v1.4 history line does) conflates the two — see §3.1.2.
+
+**Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls. The shipped engine computes **`ATS_Base` only**; the A factor is not implemented in code. This is deliberate, not an omission: security scoring must never be inflatable by optimization performance, so the security baseline ships without A and the A extension is applied by the autoresearch orchestrator layer. Any future in-code A must carry the V>0 hard stop and the §3.2 validation gates of `KYA_OPTIMIZATION_v1.4.md` with it.
+
+The engine additionally applies two **hard kills** that precede the formula and are not expressed in it — an unsigned or TTL-expired Capability Manifest, and a human principal whose IDV state is not `verified` and fresh. Either yields `ATS = 0` outright. See §3.1.1.
+
+#### 3.1.1 Hard kills (evaluated before the formula)
+
+| Condition                                                   | Result    | Control    |
+| ----------------------------------------------------------- | --------- | ---------- |
+| Capability Manifest signature unverified                    | ATS = 0   | REG-2      |
+| Capability Manifest past `signedAt + ttlSeconds`            | ATS = 0   | REG-2      |
+| IDV status not `verified` (revoked / expired / unknown)     | ATS = 0   | IDV-1, IDV-4 |
+| IDV attestation past `verifiedAt + ttlSeconds`              | ATS = 0   | IDV-3      |
+
+`unknown` fails closed by construction: an absent or unusable IDV signal is never read as permission (KYA-S1 v1.3 TRS-5). The manifest limb and the IDV limb are reported independently in `ATSBreakdown` (`manifestValid` / `idvValid`) so an operator can see which control fired.
+
+#### 3.1.2 Superseded formulations (retained per CLAUDE.md Rule 12)
+
+Do not implement these. They are kept so that anyone holding an older copy can recognise it and know why it changed.
+
+- **Additive, `+ A×0.15`** — carried in this document up to 07.08.2026. Superseded because the additive form let a highly "optimal" but "leaky" agent (high A, moderate V) hold a high score: A *compensated* for security failures instead of *amplifying* a clean baseline.
+- **Additive, `+ A×0.18`** — an earlier coefficient, cited in `KYA_OPTIMIZATION_v1.4.md` §3.1 as the form the multiplicative version replaced. Same defect.
+- **"corrected to A×0.25"** — the phrasing in `KYA_OPTIMIZATION_v1.4.md`'s own version history. Imprecise: 0.25 is the **cap on A** in the multiplicative form, not a multiplier. No additive `A×0.25` formula was ever canonical.
+
+Reconciled 07.08.2026 (`Legal/KYA_S1_REVIEW_v1.3_PROPOSAL.md` Part B, findings B3 / P0-2 / P0-3). Canonical source for the A factor, its cap, and its validation gates is `KYA_OPTIMIZATION_v1.4.md` §3; the security baseline is `KYA_SECURITY_v1.2.md` §3.1. This section restates both and must not diverge from them.
 
 ### 3.2 KYA Trust Score Ranges (v1.4 — with Financial Multiplier)
 
-| ATS Range | KYA Score | Permission Level                  | Financial Multiplier (16 industries) | Decision          |
-| --------- | --------- | --------------------------------- | ------------------------------------ | ----------------- |
-| >= 0.80   | >= 80     | Full sandbox + Autoresearch swarm | 1.8–3.2x OPEX savings/yr             | **GO + Monetize** |
-| 0.50–0.79 | 50–79     | Restricted + limited autoresearch | 1.3–2.0x                             | **GO** (limited)  |
-| < 0.50    | < 50      | Suspended — human review required | —                                    | **NO_GO**         |
-| = 0.00    | = 0       | Frozen — agent terminated         | —                                    | **NO_GO**         |
+| ATS Range | KYA Score | Permission Level                  | Financial Multiplier (25+ industries) | Decision          |
+| --------- | --------- | --------------------------------- | ------------------------------------- | ----------------- |
+| >= 0.80   | >= 80     | Full sandbox + Autoresearch swarm | 1.8–3.2x OPEX savings/yr              | **GO + Monetize** |
+| 0.50–0.79 | 50–79     | Restricted + limited autoresearch | 1.3–2.0x                              | **GO** (limited)  |
+| < 0.50    | < 50      | Suspended — human review required | —                                     | **NO_GO**         |
+| = 0.00    | = 0       | Frozen — agent terminated         | —                                     | **NO_GO**         |
+
+**Open item — range overflow (raised 07.08.2026, undecided).** With the multiplicative form, a clean agent at `ATS_Base = 1.0` and `A = 0.25` yields `ATS_Final = 1.25`, i.e. KYA 125 — outside the 0–1 normalized range this table assumes and outside the 0–100 KYA scale asserted elsewhere. Three options: clamp `ATS_Final` to 1.0; extend the scale and say so explicitly; or cap `A` such that the product cannot exceed 1.0. **No option is adopted here** — the shipped engine computes `ATS_Base` only, so the overflow is not currently reachable in code, and picking a clamp in canon before the A factor is implemented would be a guess. Flagged rather than silently resolved (Rule 12).
 
 ---
 
@@ -994,7 +1040,158 @@ Following the nanochat methodology, DWS IQ can deploy optimization agents to tun
 
 ---
 
-## 14. Conclusion
+## 14. Agentic Commerce Mandate Gating (AP2 / UCP / ACP) — v1.11
+
+KYA v1.7 and earlier governed what an agent may **do**; it said nothing about what an agent may **spend**. That gap closed externally in H1 2026: the payment industry shipped the wire formats for agent transactions, and none of them decide whether a given agent should be trusted to transact. KYA supplies that decision. This section is protocol-neutral by design — KYA gates mandates on all three rails.
+
+### 14.1 Protocol Landscape (as of 06.07.2026)
+
+| Protocol                              | Steward                                                                                                 | State                                      | What it standardizes                                                                                                                                                                                                                          |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **AP2** — Agent Payments Protocol     | Google → donated to **FIDO Alliance** (28.04.2026, v0.2)                                                | v0.2, ~60 member orgs                      | Three signed **Mandates** — Intent, Cart, Payment — each a **W3C Verifiable Credential**; **Human Not Present (HNP)** pre-authorized execution; **Verifiable Intent** tamper-proof action log (co-developed with Mastercard, donated to FIDO) |
+| **UCP** — Universal Commerce Protocol | Google + Shopify + Walmart; Tech Council incl. Amazon, Meta, Microsoft, Salesforce, Stripe (24.04.2026) | Launched NRF 11.01.2026                    | Full commerce journey: discovery → cart → checkout → post-purchase                                                                                                                                                                            |
+| **ACP** — Agentic Commerce Protocol   | OpenAI + Stripe                                                                                         | Live in ChatGPT production since late 2025 | Structured checkout flow inside agent surfaces; 4% platform fee                                                                                                                                                                               |
+
+**KYA position:** the protocols define how a mandate is _carried_; KYA decides whether this agent may _hold_ one. AP2's HNP payments are precisely the scenario where a merchant, issuer, or insurer needs a checkable trust score before honoring a pre-authorization — that score is the ATS (§3).
+
+### 14.2 Mandate Gating Rule
+
+An agent may sign or present a payment-protocol mandate **only** within the privileges of its ATS band. Bands extend §3.2; enforcement point is the same pre-execution gate as path access — **implemented as `evaluateMandateGate()` in `src/identity/ats-engine.ts`**, evaluated before any mandate signature (test coverage: `src/__tests__/mandate-gate.test.ts`).
+
+| ATS Range | Mandate privileges                                                      | Human Not Present                                | Decision       |
+| --------- | ----------------------------------------------------------------------- | ------------------------------------------------ | -------------- |
+| >= 0.90   | Intent + Cart + Payment                                                 | **Allowed**, within `spend_authority` ceilings   | GO + Transact  |
+| 0.80–0.89 | Intent + Cart + Payment                                                 | Denied — human confirms above `per_task_ceiling` | GO (confirmed) |
+| 0.50–0.79 | Intent + Cart only — agent assembles, a human signs the Payment Mandate | Denied                                           | GO (limited)   |
+| < 0.50    | **No mandates** — consistent with §3.2 NO_GO                            | Denied                                           | NO_GO          |
+
+A mandate attempt outside the band, or a spend attempt above a manifest ceiling, is a **KYA Violation**: same enforcement sequence as §9.2 (session terminated, −40 trust points, operator alerted), **plus revocation of all live mandates issued in that session**.
+
+### 14.2.1 Tenant Policy Profiles (v1.9)
+
+The §14.2 table is the **platform baseline profile**, not hardcoded policy. A defence contractor's Human Not Present ceiling is not a steel manufacturer's: each tenant carries a **mandate gating profile** that overrides the baseline, which is what makes one standard sellable across the 25 EU-regulated platform industries without forking it per vertical.
+
+**Tighten-only rule.** A tenant profile may tighten any band, ceiling, or privilege; it may never loosen past two immovable platform floors:
+
+1. **ATS < 0.50 = NO_GO under every profile.** No tenant configuration grants mandates to a suspended agent.
+2. **The HNP minimum band (ATS ≥ 0.90) may be raised or HNP disabled entirely — never lowered.**
+
+Everything else is tenant-settable: ceilings, currencies, merchant categories, allowed mandate types, HNP availability, per-band confirmation thresholds. Industry default profiles ship with the platform; the **Aegis tier** (the deliberately narrower 21-industry defence/dual-use scope) defaults to **HNP disabled and human-signed Payment Mandates regardless of ATS** — high trust score, still no unattended spend.
+
+```json
+{
+  "mandate_gating_profile": {
+    "profile_version": "1.0",
+    "tenant_id": "<uuid>",
+    "industry_default": "steel-manufacturing",
+    "band_overrides": {
+      "hnp_min_ats": 0.95,
+      "confirm_above": { "ats_0.80_0.89": 50.0 }
+    },
+    "hnp_enabled": true,
+    "platform_floors_ack": ["no_mandates_below_0.50", "hnp_min_0.90"]
+  }
+}
+```
+
+Profile changes are policy events: logged to the §14.5 evidence chain, signed by the tenant's HIC, and applied only to sessions started after the change (no retroactive loosening of a live session's gates).
+
+> **Schema stability:** the JSON above is **illustrative until KYA v2.0** — quote the policy semantics (tighten-only rule, immovable floors), not the field names. The executable validator (`tenantGatingProfileSchema`, `src/identity/ats-engine.ts`) is the normative shape at any point in time.
+
+### 14.3 Capability Manifest v1.3 — `spend_authority` Extension
+
+The Capability Manifest (§9.1) gains a spend-authority block. Absent block = zero spend authority (deny-by-default).
+
+```json
+{
+  "manifest_version": "1.3",
+  "spend_authority": {
+    "currency": "EUR",
+    "per_task_ceiling": 100.0,
+    "per_day_ceiling": 500.0,
+    "allowed_merchant_categories": ["cloud-compute", "data-services"],
+    "mandate_types_allowed": ["intent", "cart"],
+    "human_not_present": false,
+    "protocols": ["ap2", "acp", "ucp"],
+    "hic": "<verified-human-identity-ref>"
+  }
+}
+```
+
+`hic` binds spend authority to the verified human (Pillar 1 / L1 identity attribution) who is accountable for it — no anonymous spend authority, ever.
+
+> **Schema stability:** the JSON above is **illustrative until KYA v2.0** — buyer-facing materials quote the commitments (deny-by-default, HIC binding, ceilings), not the field names, which may track AP2's VC vocabulary as FIDO moves it toward 1.0.
+
+### 14.4 Manifests as W3C Verifiable Credentials
+
+AP2 mandates travel as W3C Verifiable Credentials. Capability Manifests SHOULD be expressible in the same envelope, so a counterparty can verify the agent's KYA manifest and its AP2 mandate in **one trust chain**: verified human → signed manifest (with ATS at signing, §9.1 `kya_score_at_sign`) → signed mandate. This turns the ATS from an internal score into a portable, checkable credential — the agent's track record, presentable at transaction time.
+
+### 14.5 One Evidence Chain: Verifiable Intent ↔ KYA Forensics ↔ Article 12
+
+AP2's Verifiable Intent log (tamper-proof record of user-authorized agent actions) maps onto the existing KYA forensic trail. Rule: **every mandate event (issue, present, execute, revoke) is logged to both** the Firehorse audit trail and the Article 12 record-keeping layer (`DWS_ARTICLE_12_LOGGING_STANDARD.md`), keyed by `session_id` + mandate VC id. The result is a single evidence chain that satisfies the payment network _and_ the EU AI Act deployer obligation — the differentiator none of the three (US-led) protocols address.
+
+### 14.6 Governance Tracking
+
+- AP2 governance now sits at the **FIDO Alliance**; KYA tracks FIDO releases and adopts mandate-format changes from there, not from any single vendor.
+- Stripe sits in both the ACP and UCP camps — protocol consolidation is likely; KYA remains rail-agnostic and re-maps §14.2 privileges onto whichever mandate vocabulary survives.
+- Review trigger: any AP2/UCP/ACP change to mandate types, HNP semantics, or VC format reopens this section.
+
+### 14.7 Verified-Done Attestation (v1.10)
+
+§14.4 makes the agent's manifest portable _before_ it transacts; §14.5 logs every mandate event to one evidence chain. §14.7 closes the loop on the far side: once a mandate has executed, KYA issues a **Verified-Done Attestation** — a W3C Verifiable Credential attesting that _this_ mandate completed under KYA governance, at a stated ATS, gated by a recorded decision, and written to the Article 12 evidence chain. It is the **terminal link of the §14.4 trust chain**: verified human → signed manifest → signed mandate → **verified-done attestation**. A counterparty (merchant, escrow, insurer, auditor) can then check that the agent did what it was authorized to do, instead of trusting the claim blind — the portable proof of completion, not just of authorization.
+
+Two rules carry through from the gate, unchanged:
+
+1. **Deny-by-default holds.** A mandate the gate did **not** allow cannot be attested done — there is no "verified-done" for a denied or violating mandate.
+2. **No anonymous attestation.** The HIC binding of §14.3 is required on the credential subject; an attestation without an accountable verified human is refused.
+
+Issuing an attestation is itself a mandate lifecycle event: it is recorded as a **`mandate.attest`** event on the §14.5 evidence chain (hash-chained, keyed `session_id` + mandate VC id) **and** stored as the issued credential for later presentation or revocation. Revocation is a status transition on the credential (`unsigned → signed → revoked`), never a deletion — the evidence chain is append-only.
+
+**Signing is deferred to v2.0.** The credential is minted **unsigned** (`proofStatus: 'unsigned'`, no `proof` block). Cryptographic signing (Ed25519 / Data Integrity Proof) waits on the KYA v2.0 key-management decision — which DID method, and where the issuer key lives. Issuance time and issuer reference are caller-supplied, so the credential is deterministic and KYA holds no clock or key authority over a portable artifact.
+
+```json
+{
+  "@context": ["https://www.w3.org/ns/credentials/v2", "https://standards.dws.eu/kya/v1"],
+  "type": ["VerifiableCredential", "KYAVerifiedDoneCredential"],
+  "issuer": "<issuer-did-or-ref>",
+  "validFrom": "<iso-8601>",
+  "credentialSubject": {
+    "id": "urn:kya:mandate:<mandate_vc_id>",
+    "hic": "<verified-human-identity-ref>",
+    "protocol": "ap2",
+    "mandateType": "payment",
+    "atsAtExecution": 0.95,
+    "kyaVerified": true,
+    "article12TraceId": "<trace-id>"
+  }
+}
+```
+
+> **Schema stability:** the JSON above is **illustrative until KYA v2.0** — quote the commitments (portable proof-of-completion, deny-by-default and HIC binding carried through, revocation-not-deletion), not the field names, which may track AP2's VC vocabulary as FIDO moves it toward 1.0. The normative shapes are the `VerifiedDoneAttestation` / `AttestationInput` interfaces (`src/identity/types.ts`) and the issuer `issueVerifiedDoneAttestation()` (`src/identity/ats-engine.ts`, tests in `src/__tests__/verified-done-attestation.test.ts`); the storage shape is `kya_verified_done_attestations` + the `mandate.attest` event type (`supabase/migrations/079_kya_verified_done_attestation.sql`).
+
+### 14.7.1 Signing & Key Custody (v2.0 target design)
+
+§14.7 mints attestations **unsigned** today. This subsection fixes the signing and key-custody model **v2.0 implements**, chosen so a credential never asks a counterparty to trust infrastructure outside the tenant's jurisdiction — the invariant the whole standard rests on: **the private signing key never leaves the tenant's jurisdiction; DWS holds only the root CA for cross-tenant verification.**
+
+**Signature suite — Ed25519 (EdDSA), hardware-backed.** The issuer key lives in a hardware key store and never leaves it. Ed25519 is where the EUDI Wallet and EU member-state eID schemes are converging; it keeps the proof compact for agent-to-agent payloads and for every Article 12 log entry, and it avoids RSA's size overhead at logging scale. First securing format is a JWS-enveloped VC (EdDSA); a Data Integrity proof (`eddsa-rdfc-2022`) is added only if an AP2/FIDO counterparty requires it (no RDF canonicalization on spec).
+
+**Issuer identity — `did:web`, DNS-rooted.** Each issuer is a `did:web` resolved from a `.well-known` endpoint on a domain the issuer controls — DNS-rooted authority with no public ledger or external registry, so resolution stays inside the sovereignty boundary. This gives an auditor or regulator a resolvable, institutionally-anchored answer to "who issued this," which `did:key` cannot.
+
+**Key custody by deployment tier** — signing authority never leaves the tenant's jurisdiction:
+
+| Tier                               | Issuer key custody                                                                                                      |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Aegis Defence (on-prem DGX Spark)  | Tenant physically holds all key material on-prem; DWS holds nothing.                                                    |
+| Standard / Sovereign (UpCloud UKS) | Key in the tenant's UpCloud UKS HSM; the HSM enforces that only the tenant's authenticated admin can rotate.            |
+| Never                              | A shared/foreign cloud KMS — that moves signing authority outside jurisdiction and voids the KYA sovereignty guarantee. |
+
+**Key hierarchy — one issuer key per tenant at v2.0; per-agent delegation at v2.1.** v2.0 ships a single issuer key per tenant (simplest to operate, enough to prove the attestation flow in production). v2.1 adds a root-CA → per-agent signing-key hierarchy for granular revocation if a single agent is compromised — deferred until the flow is proven, to keep v2.0 key management simple.
+
+**Rotation — tenant-controlled, no escrow moment.** When a key expires, the tenant's admin generates a new key pair and publishes the updated DID document to their `.well-known` endpoint. DWS never holds the tenant's private key, so there is no handoff or escrow. The **DWS root CA counter-signs the tenant's DID-document update** to preserve cross-tenant verification continuity, but the rotation itself is fully tenant-controlled. A tenant that loses its key material has an operational-recovery problem on its side — not a sovereignty gap, and not a DWS escrow obligation. On the UpCloud UKS tier the HSM enforces that only the authenticated tenant admin can trigger rotation; on the Aegis Defence on-prem tier the tenant physically holds everything.
+
+---
+
+## 15. Conclusion
 
 The KYA Standard v1.4 delivers **agent self-optimization governance** — the infrastructure for autonomous agents that improve themselves safely, auditably, and with financial accountability. Hardware isolation, real-time identity triggers, governed autoresearch, and the Orchestrator Layer make enterprise agent swarms audit-ready and liability-contained.
 

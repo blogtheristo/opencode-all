@@ -26,7 +26,7 @@ export interface SyntheticKyaSession {
   /** Number of KYA violations in this session */
   violations: number;
 
-  /** Latency penalty (0.0 = within SLA, 1.0 = severe latency) */
+  /** Legacy compatibility field. Latency penalty (0.0 = within SLA, 1.0 = severe latency) no longer affects ATS. */
   latencyPenalty: number;
 
   /** Number of denied access attempts */

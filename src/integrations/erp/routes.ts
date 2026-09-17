@@ -4,11 +4,11 @@
  * API endpoints for managing ERP integrations
  */
 
-import { Router, Request, Response } from 'express';
+import { type NextFunction, type Request, type Response, Router } from 'express';
 import { body, param, query, validationResult } from 'express-validator';
-import { ERPIntegrationService } from './service';
-import { approvalGate, ApprovalStatus } from './approval-gate';
-import { ERPProvider, EntityType } from './types';
+import { ERPIntegrationService } from './service.js';
+import { approvalGate } from './approval-gate.js';
+import { EntityType, ERPProvider } from './types.js';
 
 const router = Router();
 const erpService = new ERPIntegrationService();
@@ -17,12 +17,12 @@ const erpService = new ERPIntegrationService();
 // Validation Middleware
 // ============================================================================
 
-const validateRequest = (req: Request, res: Response, next: Function) => {
+const validateRequest = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  next();
+  return next();
 };
 
 // ============================================================================
@@ -38,7 +38,7 @@ router.post(
   [
     body('organizationId').notEmpty(),
     body('provider').isIn(Object.values(ERPProvider)),
-    body('config').isObject()
+    body('config').isObject(),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -50,20 +50,20 @@ router.post(
         provider,
         config,
         syncSettings,
-        fieldMappings
+        fieldMappings,
       );
 
       res.json({
         success: true,
-        data: integration
+        data: integration,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 /**
@@ -79,25 +79,22 @@ router.post(
       const { provider } = req.params;
       const { organizationId } = req.body;
 
-      const isConnected = await erpService.testConnection(
-        organizationId,
-        provider as ERPProvider
-      );
+      const isConnected = await erpService.testConnection(organizationId, provider as ERPProvider);
 
       res.json({
         success: true,
         data: {
           provider,
-          connected: isConnected
-        }
+          connected: isConnected,
+        },
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 /**
@@ -116,15 +113,15 @@ router.get(
 
       res.json({
         success: true,
-        data: integrations
+        data: integrations,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 // ============================================================================
@@ -140,13 +137,13 @@ router.post(
   [
     body('organizationId').notEmpty(),
     body('provider').isIn(Object.values(ERPProvider)),
-    body('since').optional().isISO8601()
+    body('since').optional().isISO8601(),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
     try {
       const { organizationId, provider, since, requestApproval } = req.body;
-      const userId = (req as any).user?.id || 'system';
+      const userId = req.user?.id || 'system';
 
       // Request approval for sync if required
       if (requestApproval) {
@@ -159,8 +156,8 @@ router.post(
           {
             summary: `Sync production orders from ${provider}`,
             estimatedImpact: 'Will update production schedules in DWS IQ',
-            affectedSystems: [provider, 'dws-iq-production']
-          }
+            affectedSystems: [provider, 'dws-iq-production'],
+          },
         );
 
         return res.json({
@@ -168,28 +165,28 @@ router.post(
           data: {
             approvalRequired: true,
             approvalRequestId: approvalRequest.id,
-            status: approvalRequest.status
-          }
+            status: approvalRequest.status,
+          },
         });
       }
 
       const result = await erpService.syncProductionOrders(
         organizationId,
         provider,
-        since ? new Date(since) : undefined
+        since ? new Date(since) : undefined,
       );
 
-      res.json({
+      return res.json({
         success: result.success,
-        data: result
+        data: result,
       });
-    } catch (error: any) {
-      res.status(500).json({
+    } catch (error) {
+      return res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 /**
@@ -201,7 +198,7 @@ router.post(
   [
     body('organizationId').notEmpty(),
     body('provider').isIn(Object.values(ERPProvider)),
-    body('data').isArray()
+    body('data').isArray(),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -212,15 +209,15 @@ router.post(
 
       res.json({
         success: result.success,
-        data: result
+        data: result,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 /**
@@ -232,7 +229,7 @@ router.post(
   [
     body('organizationId').notEmpty(),
     body('provider').isIn(Object.values(ERPProvider)),
-    body('metrics').isArray()
+    body('metrics').isArray(),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -243,15 +240,15 @@ router.post(
 
       res.json({
         success: result.success,
-        data: result
+        data: result,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 /**
@@ -263,30 +260,26 @@ router.post(
   [
     body('organizationId').notEmpty(),
     body('provider').isIn(Object.values(ERPProvider)),
-    body('direction').isIn(['to_erp', 'from_erp'])
+    body('direction').isIn(['to_erp', 'from_erp']),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
     try {
       const { organizationId, provider, direction } = req.body;
 
-      const result = await erpService.syncMaintenanceEvents(
-        organizationId,
-        provider,
-        direction
-      );
+      const result = await erpService.syncMaintenanceEvents(organizationId, provider, direction);
 
       res.json({
         success: result.success,
-        data: result
+        data: result,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 // ============================================================================
@@ -308,15 +301,15 @@ router.get(
 
       res.json({
         success: true,
-        data: pending
+        data: pending,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 /**
@@ -330,21 +323,21 @@ router.post(
   async (req: Request, res: Response) => {
     try {
       const { requestId } = req.params;
-      const userId = (req as any).user?.id || 'unknown';
+      const userId = req.user?.id || 'unknown';
 
       const request = await approvalGate.approve(requestId, userId);
 
       res.json({
         success: true,
-        data: request
+        data: request,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(400).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 /**
@@ -359,21 +352,21 @@ router.post(
     try {
       const { requestId } = req.params;
       const { reason } = req.body;
-      const userId = (req as any).user?.id || 'unknown';
+      const userId = req.user?.id || 'unknown';
 
       const request = await approvalGate.reject(requestId, userId, reason);
 
       res.json({
         success: true,
-        data: request
+        data: request,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(400).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 /**
@@ -392,21 +385,21 @@ router.get(
       if (!request) {
         return res.status(404).json({
           success: false,
-          error: 'Approval request not found'
+          error: 'Approval request not found',
         });
       }
 
-      res.json({
+      return res.json({
         success: true,
-        data: request
+        data: request,
       });
-    } catch (error: any) {
-      res.status(500).json({
+    } catch (error) {
+      return res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 // ============================================================================
@@ -428,15 +421,15 @@ router.get(
 
       res.json({
         success: true,
-        data: result
+        data: result,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 /**
@@ -458,45 +451,42 @@ router.post(
           results,
           summary: {
             total: results.length,
-            found: results.filter((r: any) => r.found).length,
-            notFound: results.filter((r: any) => !r.found).length,
-          }
-        }
+            found: results.filter((r) => r.found).length,
+            notFound: results.filter((r) => !r.found).length,
+          },
+        },
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 /**
  * GET /api/v1/erp/registry
  * List all registered companies in the ERP registry
  */
-router.get(
-  '/registry',
-  async (_req: Request, res: Response) => {
-    try {
-      const companies = erpService.getAllRegisteredCompanies();
+router.get('/registry', async (_req: Request, res: Response) => {
+  try {
+    const companies = erpService.getAllRegisteredCompanies();
 
-      res.json({
-        success: true,
-        data: {
-          companies,
-          totalRegistered: companies.length,
-        }
-      });
-    } catch (error: any) {
-      res.status(500).json({
-        success: false,
-        error: error.message
-      });
-    }
+    res.json({
+      success: true,
+      data: {
+        companies,
+        totalRegistered: companies.length,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : String(error),
+    });
   }
-);
+});
 
 /**
  * GET /api/v1/erp/registry/:provider
@@ -517,15 +507,15 @@ router.get(
           provider,
           companies,
           count: companies.length,
-        }
+        },
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 // ============================================================================
@@ -541,7 +531,7 @@ router.get(
   [
     param('organizationId').notEmpty(),
     query('provider').optional().isIn(Object.values(ERPProvider)),
-    query('limit').optional().isInt({ min: 1, max: 100 })
+    query('limit').optional().isInt({ min: 1, max: 100 }),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -552,20 +542,20 @@ router.get(
       const history = await erpService.getSyncHistory(
         organizationId,
         provider as ERPProvider | undefined,
-        limit ? parseInt(limit as string) : 50
+        limit ? parseInt(limit as string) : 50,
       );
 
       res.json({
         success: true,
-        data: history
+        data: history,
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 /**
@@ -585,15 +575,15 @@ router.post(
 
       res.json({
         success: true,
-        message: 'Webhook processed'
+        message: 'Webhook processed',
       });
-    } catch (error: any) {
+    } catch (error) {
       res.status(500).json({
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : String(error),
       });
     }
-  }
+  },
 );
 
 export default router;

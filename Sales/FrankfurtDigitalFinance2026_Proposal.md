@@ -7,6 +7,10 @@
 
 ---
 
+> **Correction (29.07.2026):** this proposal was submitted on 5 January 2026 and its body is preserved verbatim. Three claims in it are wrong. (1) "€7k MRR live" → approximately **€7,000/month services and transport revenue** (licensed transport operation + consulting) — **not** software revenue; it puts the company at cash break-even with a founder salary of €0. (2) "Customers: Uber Finland, Bolt Finland, Kela (government)" → these are **dispatch operators** in the role defined by Traficom, dispatching ride orders to Lifetime Fleet vehicles; they are commercial counterparties of the licensed transport operation and **never** customers of DWS IQ, DWS IQ Aegis, or any Lifetime software product. (3) "Kela (Healthcare): €60,000/year savings" is not a case study and the figure has no source on file. The contracted software base is €59,900 — two Q1/2026 enterprise pilots at €29,950 each — plus four smaller landed accounts. Canonical source: `docs/TRACTION_CANONICAL.md`.
+
+---
+
 ## Proposal Email
 
 **Subject:** Speaking Proposal: Fit for 55 & EU AI Act – Reshaping Transition Risk for Financial Institutions
@@ -49,12 +53,15 @@ Espoo, Finland
 ## Talk Outline (Draft)
 
 ### Title
+
 **"Fit for 55 Means Fit for 55: How Industrial Climate AI Is Reshaping Transition Risk for Financial Institutions"**
 
 ### Duration
+
 15 minutes + 5 minutes Q&A
 
 ### Target Audience
+
 - Venture Capital (climate tech, proptech)
 - Private Equity (infrastructure, real assets)
 - Family Offices (ESG, impact investing)
@@ -69,14 +76,14 @@ Espoo, Finland
 
 ### Talk Structure
 
-| Time | Section | Content |
-|------|---------|---------|
-| 0-2 min | **Opening** | "Fit for 55 means Fit for 55" – the Omnibus misconception |
-| 2-6 min | **Case Study** | Construction/logistics: From 100+ Excel files to Situation Room |
-| 6-10 min | **Industrial AI** | How EU-hosted climate models change portfolio evaluation |
-| 10-14 min | **EU AI Act** | High-risk AI implications for finance-adjacent sectors |
-| 14-15 min | **Closing** | Call to action: What FIs should do now |
-| 15-20 min | **Q&A** | Audience questions |
+| Time      | Section           | Content                                                         |
+| --------- | ----------------- | --------------------------------------------------------------- |
+| 0-2 min   | **Opening**       | "Fit for 55 means Fit for 55" – the Omnibus misconception       |
+| 2-6 min   | **Case Study**    | Construction/logistics: From 100+ Excel files to Situation Room |
+| 6-10 min  | **Industrial AI** | How EU-hosted climate models change portfolio evaluation        |
+| 10-14 min | **EU AI Act**     | High-risk AI implications for finance-adjacent sectors          |
+| 14-15 min | **Closing**       | Call to action: What FIs should do now                          |
+| 15-20 min | **Q&A**           | Audience questions                                              |
 
 ### Supporting Visuals
 
@@ -106,13 +113,13 @@ Espoo, Finland
 
 ### Key Regulations Covered
 
-| Regulation | Deadline | Impact |
-|------------|----------|--------|
-| **Fit for 55** | 2030 | 55% GHG reduction |
-| **CSRD** | 2025-2026 | Sustainability reporting |
-| **EPBD** | 2027 (public), 2030 (private) | Zero-emission buildings |
-| **EU AI Act** | 2024-2026 | High-risk AI systems |
-| **ETS Expansion** | 2027 | Construction, logistics, healthcare |
+| Regulation        | Deadline                      | Impact                              |
+| ----------------- | ----------------------------- | ----------------------------------- |
+| **Fit for 55**    | 2030                          | 55% GHG reduction                   |
+| **CSRD**          | 2025-2026                     | Sustainability reporting            |
+| **EPBD**          | 2027 (public), 2030 (private) | Zero-emission buildings             |
+| **EU AI Act**     | 2024-2026                     | High-risk AI systems                |
+| **ETS Expansion** | 2027                          | Construction, logistics, healthcare |
 
 ---
 

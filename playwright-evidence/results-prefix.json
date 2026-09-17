@@ -1,0 +1,105 @@
+[
+  {
+    "page": "/aegis/index.html",
+    "status": "ERR:{\"error\":\"page.goto: Timeout 20000ms exceeded.\\nCall log:\\n\\u001b[2m  - navigating to \\\"http://localhost:8099/aegis/index.html\\\", waiting until \\\"load\\\"\\u001b[22m\\n\"}",
+    "title": "DWS IQ Aegis — Sovereign Industrial Intelligence for Dual-Use Manufacturing | Lifetime Oy",
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_RESET",
+      "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "Failed to load resource: net::ERR_CONNECTION_RESET"
+    ],
+    "failedRequests": [
+      "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap :: net::ERR_CONNECTION_RESET",
+      "https://dws10.com/config/products.json :: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono&display=swap :: net::ERR_CONNECTION_RESET"
+    ]
+  },
+  {
+    "page": "/aegis/index.fi.html",
+    "status": "ERR:{\"error\":\"page.goto: Timeout 20000ms exceeded.\\nCall log:\\n\\u001b[2m  - navigating to \\\"http://localhost:8099/aegis/index.fi.html\\\", waiting until \\\"load\\\"\\u001b[22m\\n\"}",
+    "title": "DWS IQ Aegis — suvereeni teollinen älykkyys kaksikäyttötuotantoon | Lifetime Oy",
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_RESET",
+      "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "Failed to load resource: net::ERR_CONNECTION_RESET"
+    ],
+    "failedRequests": [
+      "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap :: net::ERR_CONNECTION_RESET",
+      "https://dws10.com/config/products.json :: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono&display=swap :: net::ERR_CONNECTION_RESET"
+    ]
+  },
+  {
+    "page": "/aegis/index.de.html",
+    "status": "ERR:{\"error\":\"page.goto: Timeout 20000ms exceeded.\\nCall log:\\n\\u001b[2m  - navigating to \\\"http://localhost:8099/aegis/index.de.html\\\", waiting until \\\"load\\\"\\u001b[22m\\n\"}",
+    "title": "DWS IQ Aegis — Souveräne Industrieintelligenz für die Dual-Use-Fertigung | Lifetime Oy",
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_RESET",
+      "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "Failed to load resource: net::ERR_CONNECTION_RESET"
+    ],
+    "failedRequests": [
+      "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap :: net::ERR_CONNECTION_RESET",
+      "https://dws10.com/config/products.json :: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono&display=swap :: net::ERR_CONNECTION_RESET"
+    ]
+  },
+  {
+    "page": "/aegis/index.fr.html",
+    "status": "ERR:{\"error\":\"page.goto: Timeout 20000ms exceeded.\\nCall log:\\n\\u001b[2m  - navigating to \\\"http://localhost:8099/aegis/index.fr.html\\\", waiting until \\\"load\\\"\\u001b[22m\\n\"}",
+    "title": "DWS IQ Aegis — Intelligence industrielle souveraine pour la fabrication de biens à double usage | Lifetime Oy",
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_RESET",
+      "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "Failed to load resource: net::ERR_CONNECTION_RESET"
+    ],
+    "failedRequests": [
+      "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap :: net::ERR_CONNECTION_RESET",
+      "https://dws10.com/config/products.json :: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono&display=swap :: net::ERR_CONNECTION_RESET"
+    ]
+  },
+  {
+    "page": "/aegis/index.sv.html",
+    "status": "ERR:{\"error\":\"page.goto: Timeout 20000ms exceeded.\\nCall log:\\n\\u001b[2m  - navigating to \\\"http://localhost:8099/aegis/index.sv.html\\\", waiting until \\\"load\\\"\\u001b[22m\\n\"}",
+    "title": "DWS IQ Aegis — Suverän industriell intelligens för tillverkning med dubbla användningsområden | Lifetime Oy",
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_RESET",
+      "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "Failed to load resource: net::ERR_CONNECTION_RESET"
+    ],
+    "failedRequests": [
+      "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap :: net::ERR_CONNECTION_RESET",
+      "https://dws10.com/config/products.json :: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono&display=swap :: net::ERR_CONNECTION_RESET"
+    ]
+  },
+  {
+    "page": "/aegis/hackathlon.html",
+    "status": 200,
+    "title": "What We Would Have Built — Cerebral Valley 4.7 Hackathon | Aegis",
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "Failed to load resource: net::ERR_CONNECTION_RESET"
+    ],
+    "failedRequests": [
+      "https://dws10.com/config/products.json :: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono&display=swap :: net::ERR_CONNECTION_RESET"
+    ]
+  },
+  {
+    "page": "/products/aegis.html",
+    "status": 200,
+    "title": "DWS IQ Aegis — Sovereign Industrial Intelligence for Dual-Use Manufacturing | Lifetime Firehorse™Store",
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "Failed to load resource: net::ERR_CONNECTION_RESET"
+    ],
+    "failedRequests": [
+      "http://localhost:8099/static/css/style.css :: net::ERR_ABORTED",
+      "https://dws10.com/config/products.json :: net::ERR_TUNNEL_CONNECTION_FAILED",
+      "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono&display=swap :: net::ERR_CONNECTION_RESET"
+    ]
+  }
+]

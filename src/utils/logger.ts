@@ -7,6 +7,7 @@
  * - logger.info({ data }, "message")
  */
 
+import '../config/env.js';
 import pino from 'pino';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -31,7 +32,7 @@ const baseLogger = pino({
 });
 
 // Wrapper to support logger.info("message", { data }) pattern
-type LogFn = (msgOrObj: any, data?: any) => void;
+type LogFn = (msgOrObj: unknown, data?: unknown) => void;
 
 interface Logger {
   info: LogFn;
@@ -42,20 +43,22 @@ interface Logger {
   fatal: LogFn;
 }
 
+type PinoLevelFn = (obj: unknown, msg?: string, ...args: unknown[]) => void;
 const createLogFn = (level: keyof pino.Logger): LogFn => {
-  return (msgOrObj: any, data?: any) => {
+  const log = (baseLogger[level] as unknown as PinoLevelFn).bind(baseLogger);
+  return (msgOrObj: unknown, data?: unknown) => {
     if (typeof msgOrObj === 'string' && data !== undefined) {
       // Pattern: logger.info("message", { data })
-      (baseLogger[level] as any)(data, msgOrObj);
+      log(data, msgOrObj);
     } else if (typeof msgOrObj === 'object' && typeof data === 'string') {
       // Pattern: logger.info({ data }, "message")
-      (baseLogger[level] as any)(msgOrObj, data);
+      log(msgOrObj, data);
     } else if (typeof msgOrObj === 'string') {
       // Pattern: logger.info("message")
-      (baseLogger[level] as any)(msgOrObj);
+      log(msgOrObj);
     } else {
       // Pattern: logger.info({ data })
-      (baseLogger[level] as any)(msgOrObj);
+      log(msgOrObj);
     }
   };
 };

@@ -1,8 +1,8 @@
 name: DWS7 Roadmap Weekly Tracker
 
 on:
-  schedule:
-    - cron: '0 8 * * 1'  # Every Monday at 08:00 UTC
+  # Schedule REMOVED 2026-05-25 (#1384) — moved to DGX Spark (scripts/weekly/roadmap-tracker.sh)
+  # Was: cron '0 8 * * 1' (Monday 08:00 UTC)
   workflow_dispatch:      # Allow manual trigger
 
 jobs:
@@ -22,12 +22,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Count roadmap PRs by phase
         id: count
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           WEEK=$(date -u '+%Y-W%V')
           echo "# DWS7 Roadmap Weekly Report — $WEEK" > report.md
@@ -214,7 +214,7 @@ jobs:
 
       - name: Create or update tracking issue
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           WEEK=$(date -u '+%Y-W%V')
           TITLE="DWS7 Roadmap Progress — $WEEK"

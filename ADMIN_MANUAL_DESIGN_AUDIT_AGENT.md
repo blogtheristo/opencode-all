@@ -106,13 +106,19 @@ Before invoking the agent, ensure these files exist (create if missing):
 
 | Document | Path | Purpose | Required |
 |----------|------|---------|----------|
-| `DESIGN_SYSTEM.md` | Root or `/docs/` | Visual tokens (colors, spacing, typography) | Yes |
+| `DESIGN_SYSTEM.md` | Root ✅ (created 2026-08-22, v0.1) | Visual tokens (colors, spacing, typography) | Yes |
+| `UI_SKILLS_GAMMA.md` | Root | Interface constraints & enforcement rules | Yes |
 | `FRONTEND_GUIDELINES.md` | Root or `/docs/` | Component engineering standards | Recommended |
 | `APP_FLOW.md` | Root or `/docs/` | Screen routes and user journeys | Recommended |
 | `PRD.md` | Root or `/docs/` | Product requirements | Recommended |
 | `TECH_STACK.md` | Root or `/docs/` | Technical capabilities/constraints | Recommended |
 | `progress.txt` | Root | Current build state | Optional |
 | `LESSONS.md` | Root or `/docs/` | Design patterns and past mistakes | Optional |
+
+> **Status note (2026-08-22):** The prerequisite gap is closed — `DESIGN_SYSTEM.md`
+> now exists at repo root with the unified Gamma-blue palette, IBM Plex typography,
+> semantic surface tokens, and the color-blind-safe chart palette. Audits should
+> reference it as the canonical token source instead of re-deriving tokens from CSS.
 
 ### Minimal DESIGN_SYSTEM.md Template
 

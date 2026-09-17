@@ -72,13 +72,6 @@ interface TenantConfig {
   enabled: boolean;
 }
 
-interface AuthToken {
-  accessToken: string;
-  tokenType: string;
-  expiresAt: number;
-  scope: string;
-}
-
 // ============================================================================
 // CORS Headers
 // ============================================================================
@@ -86,7 +79,8 @@ interface AuthToken {
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Tenant-ID, X-MCP-Session',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Tenant-ID, X-MCP-Session-ID',
+  'Access-Control-Expose-Headers': 'X-MCP-Session-ID',
   'Access-Control-Max-Age': '86400'
 };
 
@@ -277,15 +271,7 @@ async function getTenantConfig(
   const config = await env.TENANT_ROUTES.get(`tenant:${tenantId}`, 'json') as TenantConfig | null;
   
   if (!config) {
-    // Return default config for unknown tenants
-    return {
-      tenantId,
-      name: 'Default',
-      allowedTools: ['*'],
-      rateLimit: 100,
-      cacheTtl: 300,
-      enabled: true
-    };
+    return null;
   }
   
   return config;
@@ -322,14 +308,6 @@ function parseMCPRequest(body: unknown): MCPRequest {
     id: (request.id as string | number) ?? 0,
     method: request.method,
     params: request.params as Record<string, unknown> | undefined
-  };
-}
-
-function createMCPResponse(id: string | number, result: unknown): MCPResponse {
-  return {
-    jsonrpc: '2.0',
-    id,
-    result
   };
 }
 
@@ -409,7 +387,7 @@ async function forwardToMCPHub(
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${env.MCP_HUB_API_KEY}`,
       'X-Tenant-ID': tenantId,
-      'X-MCP-Session': sessionId || '',
+      'X-MCP-Session-ID': sessionId || '',
       'X-Forwarded-For': 'cloudflare-edge'
     },
     body: JSON.stringify(request)
@@ -487,7 +465,7 @@ async function forwardToCustomerWorker(
     headers: {
       'Content-Type': 'application/json',
       'X-Tenant-ID': tenantId,
-      'X-MCP-Session': sessionId || ''
+      'X-MCP-Session-ID': sessionId || ''
     },
     body: JSON.stringify(request)
   });
@@ -525,7 +503,8 @@ function recordUsage(
 function createSSEStream(
   env: Env,
   tenantId: string,
-  request: MCPRequest
+  request: MCPRequest,
+  sessionId: string | null
 ): ReadableStream {
   const encoder = new TextEncoder();
   
@@ -542,6 +521,7 @@ function createSSEStream(
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${env.MCP_HUB_API_KEY}`,
             'X-Tenant-ID': tenantId,
+            'X-MCP-Session-ID': sessionId || '',
             'Accept': 'text/event-stream'
           },
           body: JSON.stringify(request)
@@ -706,17 +686,18 @@ export default {
       }
       
       // Get session ID for context continuity
-      const sessionId = request.headers.get('X-MCP-Session');
+      const sessionId = request.headers.get('X-MCP-Session-ID');
       
       // Check for streaming request
       if (url.pathname === '/mcp/stream' || request.headers.get('Accept') === 'text/event-stream') {
-        const stream = createSSEStream(env, tenantId, mcpRequest);
+        const stream = createSSEStream(env, tenantId, mcpRequest, sessionId);
         return new Response(stream, {
           headers: {
             ...CORS_HEADERS,
             'Content-Type': 'text/event-stream',
             'Cache-Control': 'no-cache',
-            'Connection': 'keep-alive'
+            'Connection': 'keep-alive',
+            ...(sessionId ? { 'X-MCP-Session-ID': sessionId } : {})
           }
         });
       }
@@ -758,7 +739,8 @@ export default {
             ...CORS_HEADERS,
             'Content-Type': 'application/json',
             'X-Cache': 'MISS',
-            'X-RateLimit-Remaining': rateLimit.remaining.toString()
+            'X-RateLimit-Remaining': rateLimit.remaining.toString(),
+            ...(sessionId ? { 'X-MCP-Session-ID': sessionId } : {})
           }
         }
       );
@@ -796,7 +778,7 @@ export default {
 // Scheduled Handler for Cache Cleanup
 // ============================================================================
 
-export const scheduled: ExportedHandlerScheduledHandler<Env> = async (event, env, ctx) => {
+export const scheduled: ExportedHandlerScheduledHandler<Env> = async (event, _env, _ctx) => {
   // This runs on a cron schedule to clean up expired cache entries
   // Cloudflare KV handles TTL automatically, but we can log stats here
   console.log(`Scheduled cleanup triggered at ${event.scheduledTime}`);

@@ -6,6 +6,14 @@
 -- for temporal contradiction resolution with confidence-delta hard gate.
 --
 -- Dependencies: 047_hybrid_memory_search.sql (semantic_memories, forget_memory)
+--   NOTE: 047_hybrid_memory_search is a duplicate-prefix file (archived per
+--   §7.4); no migration in the active chain enables pgvector or creates
+--   semantic_memories — production got both out-of-band. The VECTOR type is
+--   needed at function-creation time, so enable the extension here (bundled
+--   with the Supabase Postgres image). Table refs resolve at runtime only.
+--   (CI soak catch, blank-slate replay.)
+CREATE EXTENSION IF NOT EXISTS vector;
+
 -- Introduced-In: PR-255 (contradiction-resolution)
 -- KYA Reference: Legal/KYA_SECURITY_v1.2.md §10
 -- Date: 2026-03-23

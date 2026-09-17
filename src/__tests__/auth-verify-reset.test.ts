@@ -15,7 +15,6 @@ process.env.JWT_SECRET = 'test-secret-that-is-at-least-32-characters-long-for-se
 const { default: AuthService } = await import('../services/auth.service.js');
 
 describe('Email Verification', () => {
-  const testEmail = 'verify-test@example.com';
 
   beforeEach(async () => {
     // Register a fresh user for each test

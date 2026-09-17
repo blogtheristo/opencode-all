@@ -17,7 +17,7 @@ ALTER TABLE IF EXISTS firehorse_leads ENABLE ROW LEVEL SECURITY;
 ALTER TABLE IF EXISTS firehorse_events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE IF EXISTS firehorse_tasks ENABLE ROW LEVEL SECURITY;
 ALTER TABLE IF EXISTS firehorse_replies ENABLE ROW LEVEL SECURITY;
-ALTER TABLE IF EXISTS firehorse_email_templates ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS firehorse_templates ENABLE ROW LEVEL SECURITY;
 
 -- Migration 005: Firehorse LinkedIn workflow tables
 ALTER TABLE IF EXISTS firehorse_meetings ENABLE ROW LEVEL SECURITY;
@@ -107,16 +107,17 @@ CREATE POLICY "Service role has full access to firehorse_replies"
   USING (true)
   WITH CHECK (true);
 
--- firehorse_email_templates policies
-DROP POLICY IF EXISTS "Backoffice admins can manage firehorse_email_templates" ON firehorse_email_templates;
-CREATE POLICY "Backoffice admins can manage firehorse_email_templates"
-  ON firehorse_email_templates FOR ALL
+-- firehorse_templates policies (table renamed from firehorse_email_templates in 003;
+-- this block predated the rename and targeted the stale name — caught by the CI soak)
+DROP POLICY IF EXISTS "Backoffice admins can manage firehorse_templates" ON firehorse_templates;
+CREATE POLICY "Backoffice admins can manage firehorse_templates"
+  ON firehorse_templates FOR ALL
   USING (is_backoffice_admin())
   WITH CHECK (is_backoffice_admin());
 
-DROP POLICY IF EXISTS "Service role has full access to firehorse_email_templates" ON firehorse_email_templates;
-CREATE POLICY "Service role has full access to firehorse_email_templates"
-  ON firehorse_email_templates FOR ALL
+DROP POLICY IF EXISTS "Service role has full access to firehorse_templates" ON firehorse_templates;
+CREATE POLICY "Service role has full access to firehorse_templates"
+  ON firehorse_templates FOR ALL
   TO service_role
   USING (true)
   WITH CHECK (true);

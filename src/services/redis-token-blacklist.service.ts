@@ -232,6 +232,34 @@ export async function closeRedis(): Promise<void> {
   }
 }
 
+// ---- Atomic one-time claim (webhook replay protection) ----
+
+const memoryClaims = new Map<string, number>();
+const MEMORY_CLAIM_CAP = 10_000;
+
+/**
+ * Atomically claim a key: returns true exactly once per key within ttlMs.
+ * Redis SET NX PX when available (atomic across instances); in-memory Map
+ * fallback for single-instance/dev when Redis is down.
+ */
+export async function claimOnce(key: string, ttlMs: number): Promise<boolean> {
+  if (redisClient) {
+    const res = await redisClient.set(`kya:claim:${key}`, '1', 'PX', ttlMs, 'NX');
+    return res === 'OK';
+  }
+  // Fallback: single-instance memory claims with lazy TTL sweep.
+  const now = Date.now();
+  if (memoryClaims.size > MEMORY_CLAIM_CAP) {
+    for (const [k, exp] of memoryClaims) {
+      if (exp <= now) memoryClaims.delete(k);
+    }
+  }
+  const exp = memoryClaims.get(key);
+  if (exp && exp > now) return false;
+  memoryClaims.set(key, now + ttlMs);
+  return true;
+}
+
 /**
  * Check Redis health
  */

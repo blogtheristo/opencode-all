@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-07-24-dws-learning-standard-hic-process</title><style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 2rem; color: #24292f; background: #fff; }
+h1 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+h2 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+code { background: #f6f8fa; padding: 0.2em 0.4em; border-radius: 6px; font-size: 85%; }
+pre { background: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #d0d7de; padding: 6px 13px; }
+th { background: #f6f8fa; }
+blockquote { border-left: 4px solid #0969da; margin: 0; padding: 0 1em; color: #57606a; }
+a { color: #0969da; }
+.meta { color: #57606a; font-size: 90%; }
+</style></head>
+<body>
+<h1>Field Note — DWS Learning Standard &amp; the HIC Learning Process</h1>
+<p class="meta">
+Date: 2026-07-24 · Author: Risto Anton Päärni (Founder, CEO · Lifetime Oy) — via Claude Code session <code>claude/dws-learning-hic-process-e70k0a</code><br>
+Location: Europe &gt; Finland &gt; Espoo · Context: DWS6 governance / standards — session learning loop · Confidence: High (founder-directed)
+</p>
+<hr>
+
+<h2>Ontology Tags</h2>
+<ul>
+<li><strong>Geography:</strong> Europe &gt; EU</li>
+<li><strong>Sector:</strong> Governance &gt; AI_Compliance &gt; Human_Oversight</li>
+<li><strong>Entities:</strong> DWS_LEARNING_STANDARD, DWS_TRUTH_STANDARD §2F/row 30, EU AI Act Art. 14, EU AI Act Art. 12, HIC (Human-In-Command), CLAUDE.md, Lifetime Oy</li>
+<li><strong>Temporal Context:</strong> 2026-Q3, post EU AI Act Art. 12/50 active</li>
+</ul>
+
+<h2>The Story</h2>
+<p>Founder directive: new ideas, concepts, theories, code, whitepapers and artifacts are welcome to build DWS further — <strong>but the HIC must be kept informed and must understand each new artifact.</strong> The learning capture is to be treated as a <strong>major outcome of every session</strong>, not an afterthought. The stated minimum: update the knowledge base, write a field note, add an HTML version into <code>Learn/</code>, export a copy to Drive, and ask the HIC a question. And the framing is legal, not stylistic: <strong>Human-In-Command means DWS follows EU AI Act law — it is a legal-basis requirement.</strong></p>
+<p>This session codified that:</p>
+<ol>
+<li><strong>Created <code>DWS_LEARNING_STANDARD.md</code></strong> (v1.0) — Purpose, the EU AI Act <strong>Article 14 (human oversight)</strong> legal basis, the HIC Learning Outcome, the five-step minimum, the substantive-vs-trivial gate, operationalization, cross-references, a Roles chapter, and anti-patterns.</li>
+<li><strong>Registered it in <code>DWS_TRUTH_STANDARD.md</code></strong> — new <strong>§2F</strong> ("HIC Learning Outcome — the major outcome of every session") as a canonical fact, plus <strong>§2 row 30</strong>, version bump 3.7 → 3.8, and a §6 drift-log entry.</li>
+<li><strong>Wired the legal basis in</strong> — added <strong>EU AI Act Article 14 (human oversight)</strong> to <code>DWS_STANDARDS_LIBRARY.md</code> §3.1 (Article 12 named as its auditability sibling); added a Resolver row + a <strong>Session Learning Outcome Rule</strong> to <code>CLAUDE.md</code>.</li>
+<li><strong>Built a cross-session backlog</strong> — <code>docs/backlog/BACKLOG_UNDONE_2026-07-24.md</code>, mined from the 27 per-branch handoff files + <code>HANDOFF.md</code> history.</li>
+<li><strong>Dogfooded the loop</strong> — this field note (step 2), this <code>Learn/</code> HTML render (step 3), a Drive export (step 4), and the HIC question below (step 5).</li>
+</ol>
+<p><strong>Terminology reconciliation (Rule 7 — surface, don't average):</strong> the directive said "human in control"; the registered canonical term (Truth Standard row 23, <code>HIL_Lucille.md</code>) is <strong>HIC = Human-In-Command</strong>. Kept the canonical "Command" and mapped it explicitly to the EU AI Act Article 14 legal term "human oversight" rather than silently substituting "control."</p>
+
+<h2>The Insight</h2>
+<p>Session knowledge was DWS's least-governed asset. Every other canonical fact has a registry; the thing a session <em>learned</em> had none — it lived in ephemeral container memory and chat scrollback, reclaimed when the container died. That is not just lost value; under EU AI Act <strong>Article 14</strong> it is a governance gap: oversight a human cannot exercise because the information never reached them, in a form they could understand, is not oversight. Making the HIC Learning Outcome a required deliverable turns "keep notes" into a <strong>legal-basis control</strong> with a five-step, checkable shape — and gives Article 14 a concrete session-level mechanism, the sibling to Article 12's machine-side reasoning log.</p>
+
+<h2>Next Steps</h2>
+<ul>
+<li><strong>HIC decision needed</strong> (the step-5 question): see below.</li>
+<li>Build the session-stop hook that warns when a substantive session produced no field note + <code>Learn/</code> HTML (backlog C2).</li>
+<li>Fix the <code>***</code>→<code>---</code> Prettier-hook delimiter reversion (backlog C3).</li>
+<li>KB entry (<code>/kb</code>) for the "HIC Learning Outcome" concept — flagged for a follow-up with the <code>/kb</code> toolchain available.</li>
+</ul>
+
+<h3>HIC question (EU AI Act Art. 14 intervention point)</h3>
+<blockquote>
+<p><strong>Should the five-step HIC Learning Outcome be enforced by a blocking session-stop hook (fail-loud, block-don't-ask) once built, or stay an advisory checklist that agents self-report against?</strong> Blocking maximizes the Article 14 evidence chain but will interrupt trivial-but-misclassified sessions; advisory is lower-friction but relies on agent discipline. Recommendation: ship advisory first (this standard), then flip to blocking after the hook has a stable substantive-vs-trivial classifier.</p>
+</blockquote>
+
+<hr>
+<p class="meta">© Lifetime Oy — all rights reserved. Business Confidential. Field note · 24.07.2026. Source of truth: <code>docs/field-notes/2026-07-24-dws-learning-standard-hic-process.md</code></p>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>field-note-agent-factory-sageroute-audit_v1.1</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">field-note-agent-factory-sageroute-audit_v1.1</h1>
+</header>
+<h1 id="agent-factory-sageroute-research-audit-adoption-decision">Agent Factory + SageRoute — Research, Audit, Adoption Decision</h1>
+<p><strong>Date:</strong> 2026-08-03 <strong>Author:</strong> Risto Anton Päärni (risto.paarni@lifetime.fi) via Claude Code agent session <strong>Owner:</strong> Lifetime Oy <strong>Location:</strong> Espoo, Finland (remote cloud session) <strong>Context:</strong> DWS IQ 6 agent-infrastructure sourcing — model-router adoption decision <strong>Status:</strong> ✅ Decided and shipped — REJECT adoption as-is; ADAPT shipped as <code>src/factory/</code> <strong>Session:</strong> <code>claude/agent-factory-research-audit-l6hks2</code> <strong>Subjects:</strong> av1dlive “Agent Factory” thread (x.com/av1dlive/status/2082505465569910850) + <a href="https://github.com/codejunkie99/sageroute">codejunkie99/sageroute</a></p>
+<h2 id="ontology-tags">Ontology Tags</h2>
+<ul>
+<li><strong>Geography:</strong> Global &gt; GitHub OSS; vendor jurisdiction unknown (Levanto Labs)</li>
+<li><strong>Sector:</strong> Software &gt; Agent_Infrastructure &gt; Model_Routing</li>
+<li><strong>Entities:</strong> SageRoute, Levanto Labs (Sage API), Anthropic, OpenAI, DWS-IQ6, DWS Factory Router</li>
+<li><strong>Temporal Context:</strong> 2026-Q3, post-AI-Act-enforcement (Art. 50 live 02.08.2026)</li>
+<li><strong>Confidence:</strong> High (source-level audit; every claim traceable to file:line)</li>
+</ul>
+<hr />
+<h2 id="what-was-audited">1. What was audited</h2>
+<p>Two artifacts referred by the HIC:</p>
+<ol type="1">
+<li><strong>The “Agent Factory”</strong> — a viral X build-guide by <span class="citation" data-cites="Av1dlive">@Av1dlive</span>: an A–Z agent stack where an advisor/orchestrator decomposes work, implementer subagents write every line of shipped code, a reviewer subagent gates it, plus a swarm layer, a verification gate, and an intelligent model router in front.</li>
+<li><strong>SageRoute</strong> — the companion router repo. An OpenAI-compatible proxy (TypeScript/Bun, MIT, 72★) that starts every task on a cheap model, watches trajectory evidence (tool calls, error classes, loops, stalls), and escalates to a stronger model only when the evidence shows the agent is struggling. Routing verdicts come from an external service: <strong>Levanto Labs’ Sage API</strong> (<code>sage.levanto.ai</code>, <code>POST /decide</code>, calibrated-probability answers).</li>
+</ol>
+<p>The repo was cloned and read at source level (commit history through 2026-07-28); the Levanto site, README, SECURITY.md, and the decision/evidence/ oauth modules were reviewed.</p>
+<h2 id="audit-findings">2. Audit findings</h2>
+<h3 id="clean">Clean</h3>
+<ul>
+<li><strong>Supply chain:</strong> zero runtime dependencies; devDeps are only <code>typescript</code> + <code>@types/bun</code>. No postinstall hooks. All <code>curl</code> in scripts targets <code>127.0.0.1</code> health checks. Only outbound hosts in <code>src/</code> are official provider APIs + <code>sage.levanto.ai</code>. No exfiltration patterns found.</li>
+<li><strong>Engineering quality:</strong> genuinely good. Deterministic detectors (identical action/observation 3×, repeated error class 3×, ping-pong 4×, rewrite-retest cycles, steps-since-progress) fire <em>before</em> any model is consulted — Rule 5 done right. Guardrails are sound: budget stop before any call, capability-before-retry, asymmetric hysteresis, one-way ladder (cheap → strong → restart → human), fail-open when Sage is down. 180 tests.</li>
+<li><strong>Data minimization is real in code:</strong> <code>src/core/evidence.ts</code> + <code>signals.ts</code> send Sage a rendered evidence string — task statement capped at 600 chars, per-step <code>tool(args→40 chars)-&gt;ok/errorClass</code> lines, one 220-char last-error preview, SHA-256 digests. Chain-of-thought is deliberately excluded. (The README’s phrasing “tool outputs themselves are sent” overstates it; SECURITY.md and the code agree on bounded previews.)</li>
+</ul>
+<h3 id="red-flags-why-not-to-deploy-it-in-dws">Red flags — why not to deploy it in DWS</h3>
+<ol type="1">
+<li><strong>Third-party data egress to an unknown vendor.</strong> Every routing decision ships task text fragments, tool-arg fragments, and error text to Levanto Labs — a startup with no discoverable team, DPA, GDPR posture, retention policy, or EU hosting statement (levanto.ai blocks crawlers; docs give no compliance page). 220 chars of a tool arg or error body is routinely enough to leak a path, a hostname, a schema, or a secret. Directly conflicts with DWS sovereignty positioning (<code>/sovereignty-assess</code>, EU-only routing rule in <code>/ollama-spark</code>) and the Secret Egress Rules in <code>CLAUDE.md</code>.</li>
+<li><strong>First-party client impersonation.</strong> <code>src/oauth/anthropic.ts</code> hardcodes Claude Code’s OAuth client ID (<code>9d1c250a-e61b-44d9-88ed-5944d1962f5e</code>); <code>src/oauth/openai.ts</code> hardcodes Codex CLI’s (<code>app_EMoamEEZ73f0CkXaXp7hrann</code>) and calls <code>chatgpt.com/backend-api/codex</code>. Routing Claude Pro/Max or ChatGPT subscription quota through a third-party proxy this way is a provider-ToS violation and an account-suspension risk on the exact accounts Lifetime’s production work runs on. The README’s own “users are responsible for subscription compliance” concedes this.</li>
+<li><strong>Maturity.</strong> Entire codebase written in two days (2026-07-27/28) by one author, largely agent-generated. The README itself: one observed live escalation, thresholds untuned, no benchmark of aggregate cost savings, multi-replica state unproven. Single point of failure: the product’s core claim (calibrated verdicts) lives entirely in Levanto’s closed API.</li>
+</ol>
+<h3 id="agent-factory-pattern-itself">Agent Factory pattern itself</h3>
+<p>DWS already implements it natively: <code>architect</code> → implementer → <code>code-reviewer</code> subagents, <code>/plan-review</code> (CEO/eng gates), <code>/qa</code> verification gate, <code>/goal</code> done-conditions, <code>/swarm</code> (six orchestration patterns), AgentFoundry, and Rule 6 token budgets. The thread is good pedagogy, not new capability for this repo. Nothing to adopt there.</p>
+<h2 id="decision">3. Decision</h2>
+<p><strong>REJECT</strong> SageRoute for deployment (Levanto egress + OAuth impersonation + maturity). <strong>ADAPT</strong> two pieces, both MIT-licensed and dependency-free:</p>
+<ol type="1">
+<li><strong>Trajectory detectors + escalation ladder, minus Levanto.</strong> The deterministic detectors and the guardrail policy are ~4 small files (<code>evidence.ts</code>, <code>signals.ts</code>, <code>policy.ts</code>, <code>session.ts</code>) with a built-in <code>OfflineSageClient</code> heuristic that replaces the cloud verdict entirely. Lifted into the DWS router path (e.g. <code>/ollama-spark</code> or a <code>dws route</code> CLI), this gives evidence-based cheap→strong escalation with <strong>zero external egress</strong> — EU-sovereign by construction, and directly serves Rule 6 (budgets) and the KYA leash model (escalate-to-human rung).</li>
+<li><strong>The evidence-rendering idea</strong> (compact <code>key=value</code> signal report per session) as the standard input for any future DWS routing/KYA scoring — it is exactly the “reduce to what the agent DID” discipline Rule 5 asks for.</li>
+</ol>
+<p>Not adapted: subscription OAuth adoption (ToS risk), Sage API dependency (sovereignty), the proxy-in-front-of-Claude-Code deployment mode (adds a mid-path component with our API keys for unproven savings).</p>
+<h2 id="hic-learning-outcome-six-step-record">4. HIC Learning Outcome (six-step record)</h2>
+<ol type="1">
+<li><strong>KB update:</strong> done — concept article <code>kb/wiki/concepts/decision-layer-egress-channel.md</code> (index regeneration happens at the next <code>dws kb compile</code>, per the auto-maintained index rule).</li>
+<li><strong>Field note:</strong> this file.</li>
+<li><strong>Learn/ HTML:</strong> done — pandoc installed in-session; <code>Learn/field-note-agent-factory-sageroute-audit_v1.1.html</code> (+ <code>.docx</code>) and thesis lockstep renders <code>Learn/V3Thesis_{EN,FI}_v3.97.html</code> (+ <code>.docx</code>).</li>
+<li><strong>Drive export:</strong> done — Google Doc “2026-08-03 Agent Factory + SageRoute — Audit &amp; DWS Factory Router (field note v1.2)”, id <code>1ITjNCV-NOpOrc18Ic7MLgAg5LGrOKWQjk8OsHC8oDlc</code>; repo file remains source-of-truth.</li>
+<li><strong>HIC question:</strong> asked and answered across two turns — adapt-vs-park (answered “Yes if it makes dws factory”) and the wiring-target question in the session’s closing message.</li>
+<li><strong>Calendar:</strong> N/A — no dated commitment produced; threshold tuning is gated on wiring the router into a live checkpoint path, not on a date.</li>
+</ol>
+<h2 id="implementation-record-hic-approved-2026-08-03-yes-if-it-makes-dws-factory">5. Implementation record (HIC approved 2026-08-03: “Yes if it makes dws factory”)</h2>
+<p>Shipped in the same session as the <strong>DWS Factory Router</strong>:</p>
+<ul>
+<li><code>src/factory/{types,evidence,detectors,ladder,index}.ts</code> — trajectory recovery for both Anthropic Messages and OpenAI Responses wires, deterministic detectors, and the guarded escalation ladder. The Levanto call is replaced by the transparent additive heuristic (<code>interventionProbability</code> + <code>actionProbabilities</code>); no network, no egress.</li>
+<li><code>scripts/factory-route.ts</code> + <code>npm run factory:route</code> — CLI with structured JSON output and verdict exit codes (0/2/3/4), per the Agent Productization Rule.</li>
+<li><code>skills/factory-route/SKILL.md</code> + <code>skills/manifest.json</code> entry + regenerated <code>docs/DWS_SKILLS_GUIDE.md</code> matrix row.</li>
+<li><code>src/__tests__/factory-router.test.ts</code> — 15 tests asserting intent (loop kinds, thrash counting, gate calibration, hysteresis, one-way ladder, budget hard stop, switch/restart exhaustion). <code>tsc --noEmit</code> clean.</li>
+<li>MIT attribution to codejunkie99/sageroute carried in every adapted file header. Not ported (deliberately): the proxy server, subscription OAuth / first-party client impersonation, and the Sage API client.</li>
+</ul>
+<hr />
+<p>VERSION AND AGENT HISTORY</p>
+<hr />
+<ul>
+<li>v1.0 (2026-08-03) — Initial research, source-level audit, and adoption decision. Agent session <code>claude/agent-factory-research-audit-l6hks2</code>.</li>
+<li>v1.1 (2026-08-03) — HIC approved the adapt path; DWS Factory Router shipped (<code>src/factory/</code>, CLI, skill, tests). Same session.</li>
+<li>v1.2 (2026-08-03) — Propagation on HIC instruction: Admin Manual v3.12 runbook section; thesis lockstep 3.96→3.97 (V3Thesis §10.28 EN/FI implementation evidence; PHD_FIREHORSE §14.47 / Key Contribution #52 EN/FI — the Decision-Layer Egress Channel); KB concept <code>decision-layer-egress-channel</code>; Learn/ HTML renders; Drive export. Same session.</li>
+<li>v1.3 (2026-08-03) — Copilot review fixes on PR #1788: CLI <code>--bad</code> flag so hysteresis persists across checkpoint invocations; <code>verificationsRun</code> counted directly; <code>distinctFilesTouched</code> keyed on file path, not args digest; stage-2 scoring freed of the hardcoded budget number (decide()’s hard stop owns spend policy); HTML <code>lang</code> attribute in renders; field-note required elements + Ontology Tags added per <code>docs/field-notes/README.md</code>. Same session.</li>
+</ul>
+<hr />
+</body>
+</html>

@@ -149,8 +149,8 @@ router.post('/inbound', requireOutreachKey, inboundValidation, async (req: Reque
           .select('id')
           .single();
 
-        if (createErr) throw new Error(`Org create failed: ${createErr.message}`);
-        orgId = created!.id;
+        if (createErr || !created) throw new Error(`Org create failed: ${createErr?.message}`);
+        orgId = created.id;
       }
     }
 
@@ -187,8 +187,8 @@ router.post('/inbound', requireOutreachKey, inboundValidation, async (req: Reque
           .select('id')
           .single();
 
-        if (createErr) throw new Error(`Person create failed: ${createErr.message}`);
-        personId = created!.id;
+        if (createErr || !created) throw new Error(`Person create failed: ${createErr?.message}`);
+        personId = created.id;
       }
     } else {
       // No linkedin_url — create new person
@@ -207,8 +207,8 @@ router.post('/inbound', requireOutreachKey, inboundValidation, async (req: Reque
         .select('id')
         .single();
 
-      if (createErr) throw new Error(`Person create failed: ${createErr.message}`);
-      personId = created!.id;
+      if (createErr || !created) throw new Error(`Person create failed: ${createErr?.message}`);
+      personId = created.id;
     }
 
     // 3. Add email if provided (upsert — ignore duplicates)
@@ -270,8 +270,8 @@ router.post('/inbound', requireOutreachKey, inboundValidation, async (req: Reque
         .select('id')
         .single();
 
-      if (createErr) throw new Error(`Thread create failed: ${createErr.message}`);
-      threadId = created!.id;
+      if (createErr || !created) throw new Error(`Thread create failed: ${createErr?.message}`);
+      threadId = created.id;
     }
 
     // 5. Log the inbound activity
@@ -310,8 +310,8 @@ router.post('/inbound', requireOutreachKey, inboundValidation, async (req: Reque
       org_id: orgId,
       pipeline,
     });
-  } catch (error: any) {
-    logger.error('Outreach inbound failed', { error: error.message });
+  } catch (error) {
+    logger.error('Outreach inbound failed', { error: error instanceof Error ? error.message : String(error) });
     res.status(500).json({ error: 'Failed to process inbound lead' });
   }
 });

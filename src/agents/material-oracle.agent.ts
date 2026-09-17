@@ -378,7 +378,7 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
       });
 
       return response;
-    } catch (err: any) {
+    } catch (err) {
       const durationMs = Date.now() - startTime;
       await this.logExecution({
         agent_name: this.config.name,
@@ -389,7 +389,7 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
         input: input,
         output: null,
         status: 'error',
-        error_message: err.message,
+        error_message: err instanceof Error ? err.message : String(err),
         duration_ms: durationMs,
         created_at: new Date().toISOString(),
       });
@@ -457,12 +457,15 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
 
     // Check EC3 cache for real EPD data (medium+ confidence overrides hardcoded)
     const ec3Stats = this.ec3Cache.get(normalizedName);
-    const useEC3 = ec3Stats && (ec3Stats.confidence === 'high' || ec3Stats.confidence === 'medium');
+    const confidentEC3 =
+      ec3Stats && (ec3Stats.confidence === 'high' || ec3Stats.confidence === 'medium')
+        ? ec3Stats
+        : undefined;
 
     // Select factor source: EC3 EPD median (when confident) or hardcoded ICE/EPD average
-    const effectiveFactor = useEC3
+    const effectiveFactor = confidentEC3
       ? {
-          a1_a3: ec3Stats!.gwpPerKg.median,
+          a1_a3: confidentEC3.gwpPerKg.median,
           a4: factor.a4,    // EC3 often lacks A4+ — keep hardcoded for transport/construction
           a5: factor.a5,
           b: factor.b,
@@ -471,8 +474,8 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
         }
       : factor;
 
-    const dataSource = useEC3
-      ? `EC3 EPD median (${ec3Stats!.epdCount} EPDs, ${ec3Stats!.confidence} confidence)`
+    const dataSource = confidentEC3
+      ? `EC3 EPD median (${confidentEC3.epdCount} EPDs, ${confidentEC3.confidence} confidence)`
       : `ICE Database v3 / EPD averages (hardcoded)`;
 
     // Apply factors to normalized kg quantity
@@ -486,12 +489,12 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
     // Total excludes D (beyond boundary, reported separately per EN 15978)
     const totalCO2e = a1_a3 + a4 + a5 + b + c;
 
-    if (useEC3) {
+    if (confidentEC3) {
       logger.info('MaterialOracle: using EC3 EPD data', {
         material: material.name,
-        epdCount: ec3Stats!.epdCount,
-        confidence: ec3Stats!.confidence,
-        gwpMedian: ec3Stats!.gwpPerKg.median,
+        epdCount: confidentEC3.epdCount,
+        confidence: confidentEC3.confidence,
+        gwpMedian: confidentEC3.gwpPerKg.median,
         hardcodedA1A3: factor.a1_a3,
       });
     }
@@ -521,7 +524,8 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
    * Gracefully degrades if EC3 is unavailable or API calls fail.
    */
   private async prefetchEC3Data(materials: MaterialInput[]): Promise<void> {
-    if (!this.ec3Client) return;
+    const ec3Client = this.ec3Client;
+    if (!ec3Client) return;
 
     const uniqueNames = [...new Set(
       materials.map((m) => m.name.toLowerCase().replace(/[\s_-]+/g, '_')),
@@ -536,7 +540,7 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
     });
 
     const results = await Promise.allSettled(
-      toFetch.map((name) => this.ec3Client!.searchByMaterial(name)),
+      toFetch.map((name) => ec3Client.searchByMaterial(name)),
     );
 
     for (let i = 0; i < toFetch.length; i++) {

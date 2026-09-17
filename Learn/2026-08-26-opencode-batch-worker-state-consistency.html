@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Batch Worker State Consistency Fix</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        color: #333;
+      }
+      h1,
+      h2,
+      h3 {
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+      }
+      h1 {
+        font-size: 2em;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 0.3em;
+      }
+      h2 {
+        font-size: 1.5em;
+        color: #2c3e50;
+      }
+      h3 {
+        font-size: 1.2em;
+      }
+      code {
+        background: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: "Monaco", "Courier New", monospace;
+      }
+      pre {
+        background: #f5f5f5;
+        padding: 12px;
+        border-radius: 5px;
+        overflow-x: auto;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      .meta {
+        color: #666;
+        font-size: 0.95em;
+        margin-bottom: 2em;
+      }
+      .section {
+        margin-bottom: 2em;
+      }
+      strong {
+        color: #2c3e50;
+      }
+      a {
+        color: #0077cc;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Batch Worker State Consistency Fix — OpenCode Fallback Investigation</h1>
+
+    <div class="meta">
+      <strong>Date:</strong> 2026-08-26 |
+      <strong>Branch:</strong> claude/stalled-queue-handoff-investigation-i6gxmo |
+      <strong>PR:</strong> <a href="https://github.com/blogtheristo/dws6/pull/1903">#1903</a>
+    </div>
+
+    <div class="section">
+      <h2>Incident</h2>
+      <p>
+        OpenCode batch queue (<code>opencode-all</code>) stalled with 11 FAILED sessions (max
+        retries exhausted), 1 contradictory MERGE_READY session, and 15 QUEUED sessions blocked.
+        Investigation showed:
+      </p>
+      <ul>
+        <li>
+          9 sessions failed on OpenCode backend service errors (code -32603,
+          <code>service: session</code>)
+        </li>
+        <li>2 sessions had git worktree corruption (broken paths)</li>
+        <li>
+          1 session showed contradictory state: MERGE_READY + failureDetail (OpenCode error) +
+          worktree deleted from filesystem
+        </li>
+      </ul>
+      <p>
+        <strong>Root cause:</strong> Batch worker wrote MERGE_READY state without verifying the
+        worktree still existed. If external process deleted the worktree between validation-passed
+        and queue-write, metadata became impossible to interpret.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Discovery</h2>
+      <p>Tested the MERGE_READY session by attempting to inspect its worktree:</p>
+      <pre><code>find /home -name "ses_fce609dc3ffen8EgwnPwl4zcJp" -type d
+→ (no results)
+
+git -C /home/user/dws6 branch -a | grep opencode
+→ (no opencode branches; all cleaned up)</code></pre>
+      <p>
+        <strong>Queue state:</strong> <code>"worktreeState": "kept-for-review"</code>,
+        <code>validation.passed: true</code>
+      </p>
+      <p><strong>Filesystem state:</strong> worktree absent, no branches</p>
+      <p>
+        <strong>Implication:</strong> No work to recover. Batch is unrecoverable without backend
+        health check and queue reset.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Fix</h2>
+      <p>Two guards added to <code>scripts/opencode-batch-worker.mjs</code>:</p>
+
+      <h3>Guard 1: MERGE_READY Validation (lines 470–493)</h3>
+      <p>Before committing to MERGE_READY after successful validation, verify worktree exists:</p>
+      <pre><code>if (validation.passed) {
+  const wtExists = existsSync(worktreePath);
+  const wtHasDiff = wtExists && worktreeHasDiff(worktreePath, cur.baselineCommit);
+  if (!wtExists) {
+    // Fail loud: validation passed but worktree missing (external deletion)
+    cur.state = 'FAILED';
+    cur.failureCode = 'validation-passed-worktree-missing';
+  } else if (!wtHasDiff) {
+    // Valid: cleanup-only session, no changes expected
+    cur.state = 'MERGE_READY';
+    cur.worktreeState = 'kept-no-diff-but-valid';
+  } else {
+    cur.state = 'MERGE_READY';
+    cur.worktreeState = 'kept-for-review';
+  }
+}</code></pre>
+      <p><strong>Prevents:</strong> Orphaned queue entries claiming work that doesn't exist.</p>
+
+      <h3>Guard 2: Cleanup State Consistency (lines 1079–1085)</h3>
+      <p>
+        After error cleanup, verify <code>worktreeState</code> was explicitly set (never undefined):
+      </p>
+      <pre><code>const cleanupResult = cleanupWorktreeAfterFailure(cur, wt.resumed);
+if (!cur.worktreeState) {
+  cur.worktreeState = 'unknown-cleanup-state';
+  console.error(`[invariant] cleanup did not set worktreeState`);
+}</code></pre>
+      <p><strong>Prevents:</strong> Silent cleanup-function failures leaving metadata blank.</p>
+    </div>
+
+    <div class="section">
+      <h2>Design Principle</h2>
+      <p>
+        <strong>Rule 12 (Fail Loud):</strong> State contradictions are caught eagerly, not silently
+        stored. Metadata must always be consistent with filesystem reality, or the inconsistency is
+        captured and surfaced for human review.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Next Steps</h2>
+      <ol>
+        <li><strong>HIC decision:</strong> Confirm backend health (Phase 1 of action plan)</li>
+        <li><strong>Queue reset:</strong> Delete FAILED entries, restart worker</li>
+        <li>
+          <strong>Long-term:</strong> Integrate worker health checks into batch startup (pre-flight
+          validation of OpenCode service before spawning sessions)
+        </li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>Worker Design Improvements (Post-Recovery)</h2>
+      <p>The batch worker should add:</p>
+
+      <h3>1. Pre-flight Health Check</h3>
+      <p>Before processing any batch:</p>
+      <ul>
+        <li>Verify OpenCode service responds to <code>opencode version</code> or similar</li>
+        <li>Verify git is accessible</li>
+        <li>Verify Supabase session table is readable</li>
+      </ul>
+
+      <h3>2. Exponential Backoff Retry</h3>
+      <p>Instead of "3 fixed retries, then stuck forever":</p>
+      <ul>
+        <li>Failed session: retry after 1 min, then 2 min, then 4 min, cap at 30 min</li>
+        <li>After 3 failures in 30 min: escalate to NEEDS-HUMAN, stop retrying</li>
+      </ul>
+
+      <h3>3. Worktree Consistency Audit on Startup</h3>
+      <p>
+        Reconcile queue state vs. filesystem (orphaned branches, missing worktrees). Report
+        discrepancies before processing new batches.
+      </p>
+
+      <h3>4. Session Isolation Timeout Guard</h3>
+      <p>
+        Track how long each session has been RUNNING. If > N hours (e.g., 6h), mark as stale and
+        escalate to NEEDS-HUMAN.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Evidence</h2>
+      <ul>
+        <li>
+          <strong>Handoff:</strong>
+          .claude/handoffs/claude/stalled-queue-handoff-investigation-i6gxmo.md (root cause analysis
+          + action plan)
+        </li>
+        <li>
+          <strong>Queue snapshot:</strong> .workflows/opencode-all/queue.jsonl (28 sessions, 11
+          FAILED with contradictory metadata)
+        </li>
+        <li>
+          <strong>Worker fix:</strong> scripts/opencode-batch-worker.mjs (commit fc3b0877, 2 guards
+          added)
+        </li>
+        <li>
+          <strong>PR:</strong>
+          <a href="https://github.com/blogtheristo/dws6/pull/1903">#1903</a> (full investigation +
+          fix)
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Conclusion</h2>
+      <p>
+        This was a <strong>hot standby event:</strong> OpenCode (primary runtime) encountered the
+        state consistency bug; Claude Code (standby) investigated, diagnosed, and fixed it. The fix
+        is defensive — it prevents future metadata corruption even if the underlying OpenCode
+        service or external processes delete worktrees unexpectedly.
+      </p>
+      <p>
+        The batch queue is <strong>not yet recovered</strong> (awaiting backend health confirmation
+        + human reset), but it <strong>cannot get worse</strong> (metadata is now guarded against
+        silent corruption).
+      </p>
+    </div>
+  </body>
+</html>

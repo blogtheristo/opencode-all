@@ -1,3 +1,4 @@
+import logger from './logger.js';
 /**
  * GTM Client Utility — DWS IQ 6/7
  *
@@ -22,8 +23,8 @@ export type DataLayer = DataLayerEntry[];
 
 declare global {
   interface Window {
-    dataLayer: DataLayer;
-    gtag: Function;
+    dataLayer: unknown[];
+    gtag: (...args: unknown[]) => void;
   }
 }
 
@@ -43,7 +44,7 @@ class GTMClient {
     if (this.initialized) return;
 
     // Initialize data layer
-    window.dataLayer = window.dataLayer || [];
+    const dataLayer = (window.dataLayer = window.dataLayer || []);
 
     // Inject GTM script
     const scriptId = 'gtm-container';
@@ -58,9 +59,9 @@ class GTMClient {
     // Configure gtag
     window.gtag =
       window.gtag ||
-      function () {
-        window.dataLayer!.push(arguments);
-      };
+      ((...args: unknown[]) => {
+        dataLayer.push(args);
+      });
     window.gtag('js', new Date());
     window.gtag('config', this.containerId, {
       send_page_view: false, // we'll send custom page_view events
@@ -76,7 +77,7 @@ class GTMClient {
    */
   push(event: GTMEvent): void {
     if (!this.initialized) {
-      console.warn('GTMClient not initialized — call init() first');
+      logger.warn('GTMClient not initialized — call init() first');
       return;
     }
     window.dataLayer.push(event);
@@ -237,8 +238,14 @@ const getContainerId = (): string => {
   if (meta) {
     return meta.getAttribute('content') || 'GTM-XXXXXXX';
   }
-  // Fallback to environment variable (if running in Node/Vite)
-  return process.env.VITE_GTM_CONTAINER_ID || 'GTM-XXXXXXX';
+  // Fallback to environment variable — Vite exposes VITE_* vars via import.meta.env
+  // in browser builds; process.env is typically undefined there.
+  const viteEnv =
+    typeof import.meta !== 'undefined'
+      ? (import.meta as unknown as { env?: Record<string, string> }).env
+      : undefined;
+  const nodeEnv = typeof process !== 'undefined' ? process.env : undefined;
+  return viteEnv?.VITE_GTM_CONTAINER_ID || nodeEnv?.VITE_GTM_CONTAINER_ID || 'GTM-XXXXXXX';
 };
 
 export const gtmClient = new GTMClient(getContainerId());

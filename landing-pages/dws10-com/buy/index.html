@@ -1,4 +1,22 @@
 <!doctype html>
+<!--
+  Document: dws10.com/buy/index.html
+  Version: 2.0
+  Effective: 2026-08-30
+  Publication Status: ACTIVE
+
+  Sessions & Modifications:
+    - Version 2.0 | OpenCode | 2026-08-30 |
+        iPCMax-style catalog redesign: clean category navigation, technical specs cards,
+        B2B professional layout, clear filtering, orchestration tiers as add-on matrix.
+        Products.json v1.28 with orchestration tiers, DOCA, Gov Ready, NIM profiles, iPCMax hardware.
+    - Version 1.25 | GitHub Copilot CLI | 2026-08-18 |
+        Published the fixed 13-product serious portfolio from commercialPortfolio.seriousProductIds.
+        Removed buyPage selection and ungoverned fallback rendering; catalog failures now fail loud.
+
+  Source of truth for pricing: /dws10.com/config/products.json (mirrored to
+  /landing-pages/dws10-com/config/products.json in the same change).
+-->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,40 +24,43 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>Sovereign AI Store | DWS IQ Platform - Lifetime Oy</title>
+    <title>Sovereign AI Catalog | DWS IQ Platform - Lifetime Oy</title>
     <meta
       name="description"
-      content="Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy."
+      content="Sovereign AI products and services for enterprises and SMEs. EU-hosted, designed to reduce CLOUD Act exposure. Climate compliance, industrial AI, and expert advisory by Lifetime Oy."
     />
     <meta
       name="keywords"
-      content="sovereign AI, EU AI, compliance tools, enterprise software, EU sovereignty, CLOUD Act free, DWS IQ, Lifetime Oy"
+      content="sovereign AI, EU AI, compliance tools, enterprise software, EU sovereignty, designed to reduce CLOUD Act exposure, DWS IQ, Lifetime Oy"
     />
     <meta name="author" content="Lifetime Oy" />
+    <meta name="dws-doc-version" content="2.0" />
+    <meta name="dws-doc-effective" content="2026-08-30" />
+    <meta name="dws-doc-status" content="ACTIVE" />
     <meta name="robots" content="index, follow" />
     <meta name="dws-lang-stay" content="true" />
     <meta name="dws-default-locale" content="eu" />
-    <meta property="og:title" content="Sovereign AI Store | DWS IQ Platform - Lifetime Oy" />
+    <meta property="og:title" content="Sovereign AI Catalog | DWS IQ Platform - Lifetime Oy" />
     <meta
       property="og:description"
-      content="Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy."
+      content="Sovereign AI products and services for enterprises and SMEs. EU-hosted, designed to reduce CLOUD Act exposure. Climate compliance, industrial AI, and expert advisory by Lifetime Oy."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://dws10.com/buy/index.html" />
     <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
     <meta property="og:site_name" content="DWS IQ Platform" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Sovereign AI Store | DWS IQ Platform - Lifetime Oy" />
+    <meta name="twitter:title" content="Sovereign AI Catalog | DWS IQ Platform - Lifetime Oy" />
     <meta
       name="twitter:description"
-      content="Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy."
+      content="Sovereign AI products and services for enterprises and SMEs. EU-hosted, designed to reduce CLOUD Act exposure. Climate compliance, industrial AI, and expert advisory by Lifetime Oy."
     />
     <link rel="canonical" href="https://dws10.com/buy/index.html" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "name": "Sovereign AI Store | DWS IQ Platform - Lifetime Oy",
+        "name": "Sovereign AI Catalog | DWS IQ Platform - Lifetime Oy",
         "url": "https://dws10.com/buy/index.html",
         "description": "Sovereign AI products and services for enterprises and SMEs by Lifetime Oy.",
         "isPartOf": {
@@ -277,6 +298,12 @@
         color: #94a3b8;
         margin: 4px 0 0 0;
       }
+      .catalog-version {
+        display: block;
+        margin-top: 6px;
+        color: #bfdbfe;
+        font-size: 0.78rem;
+      }
       .store-identity-badges {
         display: flex;
         gap: 8px;
@@ -331,6 +358,17 @@
         font-size: 0.85rem;
         color: #94a3b8;
         margin-bottom: 12px;
+      }
+      .product-pricing-link {
+        display: inline-block;
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #60a5fa;
+        text-decoration: none;
+      }
+      .product-pricing-link:hover {
+        text-decoration: underline;
       }
 
       /* Sales-first card additions: pain hook, proof chip, page tease */
@@ -756,6 +794,101 @@
         box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
       }
 
+      /* Partner Products Section */
+      .partner-section {
+        margin-top: 60px;
+        padding-top: 40px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .partner-section h2 {
+        color: #e2e8f0;
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+      }
+      .partner-section .subtitle {
+        color: #94a3b8;
+        font-size: 0.9rem;
+        margin-bottom: 32px;
+      }
+      .partner-category {
+        margin-bottom: 36px;
+      }
+      .partner-category h3 {
+        color: #60a5fa;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+      }
+      .partner-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 12px;
+      }
+      .partner-card {
+        padding: 16px;
+        background: rgba(30, 41, 59, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        transition: border-color 0.2s;
+      }
+      .partner-card:hover {
+        border-color: rgba(96, 165, 250, 0.3);
+      }
+      .partner-card .partner-name {
+        color: #e2e8f0;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+      }
+      .partner-card .partner-desc {
+        color: #94a3b8;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin-bottom: 8px;
+      }
+      .partner-card .partner-meta {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .capacity-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .capacity-badge.core { background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); }
+      .capacity-badge.production { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
+      .capacity-badge.enterprise { background: rgba(168, 85, 247, 0.15); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.3); }
+      .capacity-badge.sovereign { background: rgba(249, 115, 22, 0.15); color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3); }
+      .partner-card .partner-contact {
+        color: #60a5fa;
+        font-size: 0.78rem;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .partner-card .partner-contact:hover {
+        text-decoration: underline;
+      }
+      .partner-label {
+        display: inline-block;
+        padding: 1px 6px;
+        border-radius: 3px;
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        background: rgba(251, 191, 36, 0.15);
+        color: #fbbf24;
+        border: 1px solid rgba(251, 191, 36, 0.3);
+      }
+
       /* Firehorse Journey Chain */
       .journey-chain {
         display: flex;
@@ -1058,7 +1191,7 @@
           <div class="hero-cta-group">
             <a href="#products" class="hero-cta hero-cta-primary">See All Products</a>
             <a href="/scenarios/" class="hero-cta hero-cta-secondary">Usage Scenarios</a>
-            <a href="mailto:offer@lifetime.fi" class="hero-cta hero-cta-secondary"
+            <a href="https://dws10.com/contact/" class="hero-cta hero-cta-secondary"
               >Enterprise Offer</a
             >
           </div>
@@ -1067,7 +1200,7 @@
           <img src="../DWS_IQ2026.png" alt="DWS IQ - Firehorse Platform" />
           <div class="hero-info-title">Sovereign AI Products & Services</div>
           <div class="hero-info-desc">
-            30+ products for enterprises and SMEs. EU-hosted, GDPR compliant, CLOUD Act free.
+            30+ products for enterprises and SMEs. EU-hosted, GDPR compliant, designed to reduce CLOUD Act exposure.
           </div>
           <div class="hero-info-badges">
             <span class="sovereignty-badge eu-data">EU Data Residency</span>
@@ -1140,9 +1273,10 @@
       <div class="store-identity">
         <div class="store-identity-icon">&#127978;</div>
         <div class="store-identity-content">
-          <h2 class="store-identity-title">Sovereign AI for Enterprises and SMEs</h2>
+          <h2 class="store-identity-title">13 Serious DWS IQ Products</h2>
           <p class="store-identity-subtitle">
-            EU-sovereign products, compliance tools, and expert services for enterprises and SMEs.
+            The fixed primary commercial portfolio for EU-sovereign intelligence, compliance and edge deployment.
+            <span class="catalog-version" id="catalogVersion">Catalog version 1.25 · Effective 2026-08-18</span>
           </p>
         </div>
         <div class="store-identity-badges">
@@ -1227,6 +1361,23 @@
           <p style="font-size: 0.82rem; color: #94a3b8; margin: 0; line-height: 1.4">
             Article 12 logging, KYA governance, and deterministic scoring built in. Ready for 2026
             enforcement.
+          </p>
+        </div>
+        <div
+          style="
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+          "
+        >
+          <div style="font-size: 1.5rem; margin-bottom: 8px">&#9881;</div>
+          <h3 style="font-size: 0.95rem; font-weight: 700; color: #e2e8f0; margin: 0 0 6px">
+            No Per-Token Cost
+          </h3>
+          <p style="font-size: 0.82rem; color: #94a3b8; margin: 0; line-height: 1.4">
+            US AI vendors moved enterprises to full API pricing in 2026. Edge-hosted DWS inference
+            on owned hardware has no per-token bill and no vendor price-hike risk.
           </p>
         </div>
       </div>
@@ -1410,10 +1561,17 @@
       <!-- Pagination 1/3 -->
       <nav class="pagination-bar" aria-label="Store pagination">
         <span class="label">Page</span>
-        <span class="is-current" aria-current="page">1 / 3 &mdash; DWS substance</span>
+        <span class="is-current" aria-current="page">1 / 3 &mdash; 13 serious products</span>
         <a href="./page2/">2 / 3 &mdash; Advisory &amp; Delivery &rarr;</a>
         <a href="./page3/">3 / 3 &mdash; Cloud &amp; AI Skills Specialists Consulting &rarr;</a>
       </nav>
+
+      <!-- Partner Products Section -->
+      <section class="partner-section" id="partnerSection" style="display:none">
+        <h2>Partner Products</h2>
+        <p class="subtitle">Additional capabilities available through the DWS IQ ecosystem. Contact sales for pricing and bundling.</p>
+        <div id="partnerGrid"></div>
+      </section>
 
       <!-- CTA Section -->
       <section
@@ -1443,7 +1601,7 @@
         </p>
         <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap">
           <a
-            href="mailto:offer@lifetime.fi"
+            href="https://dws10.com/contact/"
             class="btn btn-primary"
             style="padding: 14px 28px; font-size: 1rem"
           >
@@ -1586,7 +1744,7 @@
         </div>
         <p style="color: #94a3b8; font-size: 0.9rem">
           Need a custom solution?
-          <a href="mailto:sales@lifetime.fi" style="color: #60a5fa">Contact our sales team</a>
+          <a href="https://dws10.com/contact/" style="color: #60a5fa">Contact our sales team</a>
         </p>
       </section>
     </main>
@@ -1597,6 +1755,7 @@
       // Products configuration - loaded from external JSON
       let PRODUCTS = {};
       let CONFIG = {};
+      let COMMERCIAL_PORTFOLIO = {};
 
       // Load products from config file
       async function loadProducts() {
@@ -1607,56 +1766,43 @@
           const data = await response.json();
           PRODUCTS = data.products;
           CONFIG = data.settings;
+          COMMERCIAL_PORTFOLIO = data.commercialPortfolio || {};
+
+          const priceList = data.priceList || {};
+          const version = priceList.version || "1.25";
+          const effective = priceList.effectiveDate || "2026-08-18";
+          document.getElementById("catalogVersion").textContent =
+            "Catalog version " + version + " · Effective " + effective;
 
           renderProducts();
+          renderPartnerProducts();
         } catch (error) {
           console.error("Error loading products:", error);
-          loadFallbackProducts();
+          document.getElementById("catalogVersion").textContent =
+            "Catalog unavailable — no products rendered";
+          document.getElementById("productGrid").innerHTML =
+            '<p style="color:#fecaca">Could not load the governed 13-product portfolio.</p>';
         }
       }
 
-      // Fallback products if JSON fails to load
-      function loadFallbackProducts() {
-        PRODUCTS = {
-          "climate-bundle": {
-            id: "climate-bundle",
-            name: "Climate Reporting Bundle",
-            price: 6500,
-            currency: "EUR",
-            type: "one-time",
-            description:
-              "Complete starter kit: DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.",
-            features: [
-              "DWS IQ + Firehorse Report + Workshop",
-              "First CSRD reporting deadline ready",
-              "Operational in 30 days",
-            ],
-            priceNote: "One-time + €1,999/year",
-            revolutLink: "https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f",
-            image: "../static/images/8_Industries.png",
-            detailsUrl: "../products/bundle.html",
-            featured: false,
-          },
-        };
-        CONFIG = {
-          revolutFallbackLink: "https://revolut.me/lifetimeoy",
-          paypalEmail: "risto.anton@lifetime.fi",
-        };
-        renderProducts();
-      }
 
-      // Page 1/3 filter — products with buyPage:1, ordered by buyPageOrder.
-      // Source of truth = config/products.json (productType + buyPage + buyPageOrder).
-      function getPageProducts(pageNumber) {
-        return Object.values(PRODUCTS)
-          .filter((p) => p.buyPage === pageNumber)
-          .sort((a, b) => (a.buyPageOrder || 999) - (b.buyPageOrder || 999));
+      // The primary /buy/ surface renders only the governed serious-product IDs.
+      function getSeriousProducts() {
+        const ids = COMMERCIAL_PORTFOLIO.seriousProductIds;
+        if (!Array.isArray(ids) || ids.length !== 13) {
+          throw new Error("commercialPortfolio.seriousProductIds must contain exactly 13 IDs");
+        }
+        const missing = ids.filter((id) => !PRODUCTS[id]);
+        if (missing.length) {
+          throw new Error("Serious products missing from catalog: " + missing.join(", "));
+        }
+        return ids.map((id) => PRODUCTS[id]);
       }
 
       function renderProducts() {
         const grid = document.getElementById("productGrid");
         grid.innerHTML = "";
-        const sortedProducts = getPageProducts(1);
+        const sortedProducts = getSeriousProducts();
         sortedProducts.forEach((product) => {
           const card = createProductCard(product);
           grid.appendChild(card);
@@ -1772,6 +1918,11 @@
             "</span>"
           : "";
 
+        const capClass = product.capacityClass || "";
+        const capBadge = capClass
+          ? '<span class="capacity-badge ' + capClass.toLowerCase() + '" style="margin-left:8px;vertical-align:middle">' + esc(capClass) + '</span>'
+          : "";
+
         const buyButtons = hasPaidLinks
           ? '<div class="btn-group">' +
             '<a href="' +
@@ -1782,7 +1933,7 @@
             '" class="btn btn-paypal" target="_blank" rel="noopener" title="Pay with PayPal">Buy &middot; PayPal</a>' +
             "</div>"
           : '<div class="btn-group">' +
-            '<a href="mailto:risto@lifetime.fi?subject=' +
+            '<a href="https://dws10.com/contact/?subject=' +
             encodeURIComponent("Order: " + product.name + " (" + product.id + ")") +
             '" class="btn btn-primary" style="flex:1">Request quote &rarr;</a>' +
             "</div>";
@@ -1801,20 +1952,23 @@
           '<div class="product-content">' +
           '<h2 class="product-title" itemprop="name">' +
           esc(product.name) +
+          capBadge +
           "</h2>" +
           proofHTML +
           painHTML +
-          '<div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">' +
+          // Price is intentionally NOT shown on the card (enterprise products lead with
+          // value, not price); machine-readable Offer schema is retained for SEO/Merchant,
+          // and the visible price lives on the product details page.
+          '<div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer" hidden>' +
           '<meta itemprop="price" content="' +
           esc(product.price) +
           '"><meta itemprop="priceCurrency" content="' +
           esc(product.currency || "EUR") +
-          '">' +
-          formatEuro(product.price) +
+          '"><link itemprop="availability" href="https://schema.org/InStock">' +
           "</div>" +
-          '<div class="product-price-note">' +
-          esc(product.priceNote || "") +
-          "</div>" +
+          '<a class="product-pricing-link" href="' +
+          esc(detailsUrl) +
+          '">Pricing &amp; details &rarr;</a>' +
           featuresHTML +
           '<p class="product-excerpt" itemprop="description">' +
           esc(product.description) +
@@ -1834,6 +1988,83 @@
           "</div>";
 
         return card;
+      }
+
+      // Render Partner Products grouped by storeCategory
+      function renderPartnerProducts() {
+        const container = document.getElementById("partnerGrid");
+        const section = document.getElementById("partnerSection");
+        if (!container || !section) return;
+
+        // Collect partner products
+        const partners = Object.values(PRODUCTS).filter((p) => p.partnerProduct);
+        if (partners.length === 0) { section.style.display = "none"; return; }
+
+        // Group by storeCategory
+        const groups = {};
+        const catOrder = ["platform", "advisory", "ai-cloud", "hardware", "digital"];
+        partners.forEach((p) => {
+          const cat = p.storeCategory || "other";
+          if (!groups[cat]) groups[cat] = [];
+          groups[cat].push(p);
+        });
+
+        // Category display names
+        const catNames = {
+          platform: "DWS IQ Platform Agents",
+          advisory: "Advisory &amp; Delivery",
+          "ai-cloud": "AI Cloud Services",
+          hardware: "Hardware &amp; Edge",
+          digital: "Digital Services",
+          other: "Other"
+        };
+
+        container.innerHTML = "";
+        catOrder.forEach((cat) => {
+          const items = groups[cat];
+          if (!items || items.length === 0) return;
+
+          const sectionDiv = document.createElement("div");
+          sectionDiv.className = "partner-category";
+
+          const h3 = document.createElement("h3");
+          h3.innerHTML = (catNames[cat] || cat) + " <span style='color:#64748b;font-weight:400;font-size:0.85rem'>(" + items.length + ")</span>";
+          sectionDiv.appendChild(h3);
+
+          const grid = document.createElement("div");
+          grid.className = "partner-grid";
+
+          items.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+          items.forEach((p) => {
+            const card = document.createElement("div");
+            card.className = "partner-card";
+
+            const capClass = p.capacityClass || "";
+            const capBadge = capClass
+              ? '<span class="capacity-badge ' + capClass.toLowerCase() + '">' + esc(capClass) + '</span>'
+              : '';
+
+            const contactUrl = p.detailsUrl && !p.detailsUrl.startsWith("http")
+              ? p.detailsUrl
+              : "https://dws10.com/contact/?subject=" + encodeURIComponent("Interest: " + p.name);
+
+            card.innerHTML =
+              '<div class="partner-name">' + esc(p.name) +
+              ' <span class="partner-label">Partner Product</span></div>' +
+              '<div class="partner-desc">' + esc(p.description || "") + '</div>' +
+              '<div class="partner-meta">' +
+                capBadge +
+                '<a class="partner-contact" href="' + esc(contactUrl) + '" target="_blank" rel="noopener">Contact &rarr;</a>' +
+              '</div>';
+
+            grid.appendChild(card);
+          });
+
+          sectionDiv.appendChild(grid);
+          container.appendChild(sectionDiv);
+        });
+
+        section.style.display = "block";
       }
 
       // Initialize

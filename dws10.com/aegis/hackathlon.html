@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What We Would Have Built — Cerebral Valley 4.7 Hackathon | Aegis</title>
+    <meta name="description" content="We applied to Cerebral Valley's Built with 4.7 hackathon. We were not invited. So we published the demo anyway: one command, one CBAM compliance report, a fleet of skilled agents, under 90 seconds. Built with Claude Opus 4.7.">
+    <meta name="keywords" content="Cerebral Valley, Built with 4.7, Claude Opus 4.7, Aegis demo, CBAM scan, sovereign AI, KYA Engine, Firecracker MicroVM">
+    <meta name="author" content="Lifetime Oy">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="What We Would Have Built — Cerebral Valley 4.7 Hackathon">
+    <meta property="og:description" content="We applied. We were not invited. We published the demo anyway. One command. One CBAM report. A fleet of skilled agents. Under 90 seconds. Built with Claude Opus 4.7.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://dws10.com/aegis/hackathlon.html">
+    <meta property="og:image" content="https://dws10.com/static/images/firehorse-aegis-head.png">
+    <meta property="og:site_name" content="DWS IQ Platform">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="What We Would Have Built — Cerebral Valley 4.7 Hackathon">
+    <meta name="twitter:description" content="Applied. Not invited. Published the demo anyway. One command. One CBAM report. Built with Claude Opus 4.7.">
+    <link rel="canonical" href="https://dws10.com/aegis/hackathlon.html">
+    <link rel="icon" type="image/png" href="/static/images/firehorse-aegis-head.png">
+    <style>
+        :root {
+            --bg-primary: #0a0f1a;
+            --bg-surface: rgba(20, 30, 48, 0.8);
+            --bg-terminal: #05080f;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-gold: rgba(184, 134, 11, 0.3);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-dim: #64748b;
+            --color-gold: #b8860b;
+            --color-gold-light: #d4a843;
+            --color-sovereign: #059669;
+            --color-sovereign-light: #6ee7b7;
+            --color-blue: #60a5fa;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .hero {
+            min-height: 72vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(160deg, #0a0f1a 0%, #111827 40%, #0a0f1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 30% 80%, rgba(184, 134, 11, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 20%, rgba(5, 150, 105, 0.06) 0%, transparent 50%);
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 120px 24px 80px;
+            text-align: center;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 18px;
+            background: rgba(5, 150, 105, 0.12);
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-sovereign-light);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 28px;
+        }
+
+        .pill-dot {
+            width: 6px; height: 6px;
+            background: var(--color-sovereign);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.6; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 22px;
+        }
+
+        .hero-accent {
+            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 36px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 36px;
+        }
+
+        .hero-stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--color-gold-light);
+        }
+
+        .hero-stat-label {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 64px 24px;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-gold);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: clamp(1.4rem, 3vw, 1.9rem);
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .section-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .terminal {
+            background: var(--bg-terminal);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 0;
+            margin: 28px 0;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .terminal-bar {
+            background: #1a2233;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .terminal-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+        }
+        .dot-red    { background: #ef4444; }
+        .dot-yellow { background: #eab308; }
+        .dot-green  { background: #22c55e; }
+
+        .terminal-title {
+            margin-left: 12px;
+            color: var(--text-dim);
+            font-size: 0.78rem;
+            font-family: 'SF Mono', Menlo, Consolas, monospace;
+        }
+
+        .terminal-body {
+            padding: 20px 22px;
+            font-family: 'SF Mono', Menlo, Consolas, monospace;
+            font-size: 0.88rem;
+            line-height: 1.65;
+            color: var(--text-primary);
+            overflow-x: auto;
+        }
+
+        .term-prompt { color: var(--color-sovereign-light); }
+        .term-cmd    { color: var(--color-gold-light); }
+        .term-ok     { color: var(--color-sovereign-light); }
+        .term-info   { color: var(--color-blue); }
+        .term-dim    { color: var(--text-dim); }
+        .term-warn   { color: #fbbf24; }
+
+        .step-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 28px 0;
+        }
+
+        .step-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-left: 3px solid var(--color-gold);
+            border-radius: var(--radius-md);
+            padding: 22px;
+        }
+
+        .step-num {
+            font-size: 0.72rem;
+            color: var(--color-gold);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .step-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--color-gold-light);
+            margin-bottom: 6px;
+        }
+
+        .step-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        .punchline {
+            background: linear-gradient(160deg, rgba(184, 134, 11, 0.1) 0%, rgba(20, 30, 48, 0.9) 100%);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .punchline h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-gold-light);
+            margin-bottom: 14px;
+        }
+
+        .punchline p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .customer-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .customer-tag {
+            padding: 6px 14px;
+            background: rgba(184, 134, 11, 0.08);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius-full);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--color-gold-light);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 34px;
+            background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+            color: #0a0f1a;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: var(--radius-full);
+            box-shadow: 0 8px 24px rgba(184, 134, 11, 0.3);
+            transition: transform 200ms ease;
+        }
+
+        .btn-primary:hover { transform: translateY(-1px); }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 34px;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid rgba(184, 134, 11, 0.3);
+            border-radius: var(--radius-full);
+            transition: all 200ms ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-gold);
+            color: var(--color-gold-light);
+        }
+
+        hr.divider {
+            border: none;
+            border-top: 1px solid var(--border-subtle);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 32px 24px 64px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .hero-inner { padding: 100px 20px 60px; }
+            .section { padding: 48px 20px; }
+            .terminal-body { font-size: 0.78rem; padding: 16px 14px; }
+            .hero-stats { gap: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+<script src="/shared-assets/nav/ironclad-nav.js"></script>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="pill">
+            <span class="pill-dot"></span>
+            Applied &middot; Not Invited &middot; Published Anyway
+        </div>
+
+        <h1>
+            What we <span class="hero-accent">would have</span><br>
+            built on stage.
+        </h1>
+
+        <p class="hero-sub">
+            We applied to Cerebral Valley's
+            <strong style="color: var(--text-primary);">Built with 4.7</strong> hackathon
+            in San Francisco. We were not invited. So we are publishing what we would have
+            demoed anyway &mdash; because the work doesn't need a stage. One command, a fleet
+            of skilled sovereign EU agents, Claude Opus 4.7 as the reasoning brain, signed
+            CBAM compliance report in under 90 seconds.
+        </p>
+
+        <div class="hero-stats">
+            <div>
+                <div class="hero-stat-value">1</div>
+                <div class="hero-stat-label">Command</div>
+            </div>
+            <div>
+                <div class="hero-stat-value">18</div>
+                <div class="hero-stat-label">Agents, Fan-out</div>
+            </div>
+            <div>
+                <div class="hero-stat-value">&lt;90s</div>
+                <div class="hero-stat-label">End-to-End</div>
+            </div>
+            <div>
+                <div class="hero-stat-value">Sep 2026</div>
+                <div class="hero-stat-label">Aegis GA (preorder now)</div>
+            </div>
+        </div>
+
+        <div class="hero-actions">
+            <a href="https://dws10.com/contact/" class="btn-primary">Book a Private Demo</a>
+            <a href="/aegis/" class="btn-secondary">Aegis Overview</a>
+            <a href="/products/aegis.html" class="btn-secondary">Full Specs</a>
+        </div>
+    </div>
+</section>
+
+<hr class="divider">
+
+<!-- Event -->
+<section class="section">
+    <div class="section-label">The Story</div>
+    <h2 class="section-title">We applied. We were not invited. We shipped the demo anyway.</h2>
+    <p class="section-text">
+        Cerebral Valley's <strong style="color: var(--text-primary);">Built with 4.7</strong>
+        was a curated San Francisco hackathon for builders working with Claude Opus 4.7.
+        Lifetime Oy applied with an Aegis demo: a fleet of skilled sovereign EU industrial agents using 4.7
+        as the reasoning brain, producing a court-defensible CBAM compliance report in under
+        90 seconds. We did not make the invite list. The work didn't change &mdash; so we're
+        publishing it here. Stage optional.
+    </p>
+    <div class="step-grid">
+        <div class="step-card">
+            <div class="step-num">Status</div>
+            <div class="step-title">Applied &middot; Not invited</div>
+            <div class="step-desc">
+                Submitted via cerebralvalley.ai/e/built-with-4-7-hackathon. Not selected
+                for the in-person event. No hard feelings &mdash; curated rooms are
+                curated for a reason.
+            </div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">Model</div>
+            <div class="step-title">Claude Opus 4.7</div>
+            <div class="step-desc">
+                Reasoning brain for every agent in the fan-out. Article12Logger captures
+                the full reasoning lineage per call &mdash; per EU AI Act.
+            </div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">Surface</div>
+            <div class="step-title">Claude Code &middot; MCP</div>
+            <div class="step-desc">
+                The same <code>dws</code> CLI is exposed as MCP tools and Claude Code skills.
+                Demo path = production code path. No staging build.
+            </div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">Builder</div>
+            <div class="step-title">Lifetime Oy</div>
+            <div class="step-desc">
+                Finnish-owned, Helsinki-based. Y-tunnus 0772407-9. Sovereign-EU AI for
+                defence supply chains. Not in San Francisco.
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="divider">
+
+<!-- Live demo -->
+<section class="section">
+    <div class="section-label">The Demo</div>
+    <h2 class="section-title">Live: <code>dws cbam-scan --company</code></h2>
+    <p class="section-text">
+        A Nordic construction company. A single CLI call. The agent chain runs end-to-end
+        &mdash; ERP connector, parallel agent fan-out, KYA-governed reasoning,
+        signed audit trail. No dashboard, no SaaS login, no slideware.
+    </p>
+
+    <div class="terminal">
+        <div class="terminal-bar">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+            <span class="terminal-title">~/dws6 &mdash; dws cbam-scan</span>
+        </div>
+        <div class="terminal-body">
+<span class="term-prompt">$</span> <span class="term-cmd">dws cbam-scan --company "Nordic Construction Oy"</span>
+
+<span class="term-info">[00:00.3]</span> <span class="term-ok">&rarr;</span> Visma ERP connector: authenticating &hellip; <span class="term-ok">OK</span>
+<span class="term-info">[00:01.8]</span> <span class="term-ok">&rarr;</span> Pulled 14,283 line items (steel, cement, lime, aluminium)
+<span class="term-info">[00:02.4]</span> <span class="term-ok">&rarr;</span> KYA Engine: spawning 18 Firecracker MicroVMs &hellip; <span class="term-ok">isolated</span>
+
+<span class="term-dim"># Fan-out: skilled agents in parallel</span>
+<span class="term-info">[00:04.1]</span>   VulcanAgent       &mdash; steel CBAM tariff exposure &hellip; <span class="term-ok">done</span>
+<span class="term-info">[00:04.3]</span>   GaiaAgent         &mdash; cement &amp; lime dual-use scan &hellip; <span class="term-ok">done</span>
+<span class="term-info">[00:04.6]</span>   EmissionsAnalyst  &mdash; EU ETS Phase 4 benchmarks &hellip; <span class="term-ok">done</span>
+<span class="term-info">[00:05.0]</span>   LogisticsAgent    &mdash; supply chain carbon factors &hellip; <span class="term-ok">done</span>
+<span class="term-info">[00:05.2]</span>   ComplianceAgent   &mdash; CBAM Reg. 2023/956 threshold &hellip; <span class="term-ok">done</span>
+<span class="term-info">[00:05.5]</span>   MaterialOracle    &mdash; embodied carbon (EN 15978) &hellip; <span class="term-ok">done</span>
+<span class="term-info">[00:05.8]</span>   SovereigntyMonitor &mdash; EU data residency verify &hellip; <span class="term-ok">done</span>
+<span class="term-info">[00:06.2]</span>   CrossVerticalIntel &mdash; cascade detection &hellip; <span class="term-ok">done</span>
+<span class="term-dim">          + 10 more agents &hellip;                          OK</span>
+
+<span class="term-info">[01:12.6]</span> <span class="term-ok">&rarr;</span> Article12Logger: 318 decisions logged w/ reasoning lineage
+<span class="term-info">[01:18.9]</span> <span class="term-ok">&rarr;</span> Signing report &hellip; SHA-256 + Ed25519 &hellip; <span class="term-ok">signed</span>
+<span class="term-info">[01:22.4]</span> <span class="term-ok">&rarr;</span> Output: <span class="term-warn">reports/nordic-construction_cbam_2026-04-19.pdf</span>
+
+<span class="term-ok">&#10003;</span> <span class="term-cmd">CBAM tariff exposure: EUR 842,100 &middot; regulatory submission-ready</span>
+<span class="term-dim">Total runtime: 82.7 seconds &middot; KYA trust score: 98 &middot; zero human clicks</span>
+        </div>
+    </div>
+
+    <p class="section-text" style="margin-top: 12px;">
+        <span class="term-dim">Demo values are illustrative (EN 15978 structure). Real runs use live EU ETS Benchmark 2021&ndash;2025 and CBAM Reg. 2023/1773 default factors.</span>
+    </p>
+</section>
+
+<hr class="divider">
+
+<!-- What happens under the hood -->
+<section class="section">
+    <div class="section-label">Under the Hood</div>
+    <h2 class="section-title">Four moves. No magic.</h2>
+
+    <div class="step-grid">
+        <div class="step-card">
+            <div class="step-num">Step 1</div>
+            <div class="step-title">ERP Pull</div>
+            <div class="step-desc">
+                Visma connector authenticates with customer credentials and pulls invoice
+                lines, material codes, and supplier geography &mdash; straight into the agent bus.
+            </div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">Step 2</div>
+            <div class="step-title">18-Agent Fan-out</div>
+            <div class="step-desc">
+                VulcanAgent, GaiaAgent, EmissionsAnalyst, LogisticsAgent, ComplianceAgent,
+                MaterialOracle, and 12 more &mdash; all run in parallel. Same codebase as DWS IQ 6.
+            </div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">Step 3</div>
+            <div class="step-title">KYA + Firecracker</div>
+            <div class="step-desc">
+                Every agent runs in its own Firecracker MicroVM. KYA Engine logs every decision
+                with reasoning lineage &mdash; EU AI Act Article 12 native, court-defensible.
+            </div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">Step 4</div>
+            <div class="step-title">Signed Report</div>
+            <div class="step-desc">
+                Structured CBAM tariff exposure report. SHA-256 + Ed25519 signed audit trail.
+                Regulatory submission-ready &mdash; no human assembly, no dashboard export.
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="divider">
+
+<!-- Claude Code integration -->
+<section class="section">
+    <div class="section-label">Part Two</div>
+    <h2 class="section-title">Same command &mdash; from inside Claude Code.</h2>
+    <p class="section-text">
+        Then I run the same scan directly from a Claude Code session. The compliance
+        infrastructure is part of the dev workflow &mdash; not a separate SaaS tool behind
+        a login screen. MCP tools expose every agent; skills like <code>/compliance-check</code>
+        chain them.
+    </p>
+
+    <div class="terminal">
+        <div class="terminal-bar">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+            <span class="terminal-title">claude-code &mdash; session</span>
+        </div>
+        <div class="terminal-body">
+<span class="term-dim">&gt;</span> <span class="term-cmd">/compliance-check Nordic Construction Oy CBAM</span>
+
+<span class="term-info">&#8226;</span> Invoking <span class="term-ok">mcp__dws__cbam_scan</span> (company="Nordic Construction Oy")
+<span class="term-info">&#8226;</span> Skilled agents &rarr; Firecracker MicroVM fan-out &hellip; <span class="term-ok">OK</span>
+<span class="term-info">&#8226;</span> Article12Logger &rarr; 318 decisions, reasoning lineage attached
+<span class="term-info">&#8226;</span> Signed report: <span class="term-warn">nordic-construction_cbam_2026-04-19.pdf</span>
+
+<span class="term-ok">&#10003;</span> CBAM tariff exposure: EUR 842,100 &middot; 82.7s
+        </div>
+    </div>
+</section>
+
+<!-- Punchline -->
+<div class="section">
+    <div class="punchline">
+        <h3>This isn't a prototype.</h3>
+        <p>
+            <strong style="color: var(--text-primary);">DWS IQ Aegis is in preorder</strong> &mdash;
+            general availability September 2026. The demo you see above runs on the same stack that ships
+            at GA. No special build, no staging database, no fake data.
+        </p>
+        <div class="customer-row">
+            <span class="customer-tag">Preorder</span>
+            <span class="customer-tag">GA September 2026</span>
+        </div>
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="section" style="text-align: center;">
+    <h2 class="section-title">See the real one.</h2>
+    <p class="section-text">
+        We don't need a stage. Book a 15-minute live run of <code>dws cbam-scan</code>
+        against your own ERP data &mdash; or a sample Nordic dataset &mdash; and see the
+        full agent chain end-to-end.
+    </p>
+    <div class="hero-actions">
+        <a href="https://dws10.com/contact/" class="btn-primary">Book a Private Demo</a>
+        <a href="/aegis/" class="btn-secondary">Back to Aegis</a>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; color: var(--color-gold);">Lifetime Oy</p>
+    <p>
+        DWS IQ Aegis &mdash; Sovereign AI for EU defence supply chains.
+        Lifetime Oy (Y-tunnus 0772407-9), Laidunmaanraitti 2 A 25, 02330 Espoo, Finland.
+    </p>
+    <p style="margin-top: 8px;">&copy; 2026 Lifetime Oy</p>
+</div>
+
+<script src="/shared-assets/footer/ironclad-footer.js"></script>
+</body>
+</html>

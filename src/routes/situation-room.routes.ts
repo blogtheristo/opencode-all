@@ -14,7 +14,7 @@ import { body, param, query, validationResult } from 'express-validator';
 import { createClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
-import { getModelSelectionSummary, estimateLocalModelDiskUsage, AGENT_TIER_MAP, ACER_GN100_BUDGET } from '../agents/model-selector.js';
+import { ACER_GN100_BUDGET, AGENT_TIER_MAP, estimateLocalModelDiskUsage, getModelSelectionSummary } from '../agents/model-selector.js';
 
 const router: Router = express.Router();
 
@@ -22,7 +22,10 @@ const router: Router = express.Router();
 // Supabase service client
 // ---------------------------------------------------------------------------
 const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY || '';
+const supabaseKey =
+  process.env.SUPABASE_SERVICE_KEY
+  || process.env.SUPABASE_SERVICE_ROLE_KEY
+  || '';
 const supabase = supabaseUrl ? createClient(supabaseUrl, supabaseKey) : null;
 
 // ---------------------------------------------------------------------------
@@ -72,6 +75,15 @@ router.use((_req: Request, res: Response, next) => {
   next();
 });
 
+/**
+ * Non-null accessor for the Supabase client. Safe because the router-level
+ * guard above rejects every request when Supabase is not configured.
+ */
+function db() {
+  if (!supabase) throw new Error('Database not configured');
+  return supabase;
+}
+
 // ---------------------------------------------------------------------------
 // Validation helpers
 // ---------------------------------------------------------------------------
@@ -81,7 +93,7 @@ const validateRequest = (req: Request, res: Response): boolean => {
     res.status(400).json({
       error: 'Validation failed',
       details: errors.array().map((e) => ({
-        field: e.type === 'field' ? (e as any).path : 'unknown',
+        field: e.type === 'field' ? e.path : 'unknown',
         message: e.msg,
       })),
     });
@@ -127,9 +139,15 @@ router.post(
         pipeline_workflow_id,
       } = req.body;
 
-      if (!(await assertOrgMember(req.userId!, org_id, res))) return;
+      const userId = req.userId;
+      if (!userId) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
 
-      const { data, error } = await supabase!
+      if (!(await assertOrgMember(userId, org_id, res))) return;
+
+      const { data, error } = await db()
         .from('situation_room_reports')
         .insert({
           org_id,
@@ -182,9 +200,15 @@ router.get(
     try {
       const orgId = req.query.org_id as string;
 
-      if (!(await assertOrgMember(req.userId!, orgId, res))) return;
+      const userId = req.userId;
+      if (!userId) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
 
-      let qb = supabase!
+      if (!(await assertOrgMember(userId, orgId, res))) return;
+
+      let qb = db()
         .from('situation_room_reports')
         .select('*')
         .eq('org_id', orgId)
@@ -230,7 +254,13 @@ router.get(
     if (!validateRequest(req, res)) return;
 
     try {
-      const { data, error } = await supabase!
+      const userId = req.userId;
+      if (!userId) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
+
+      const { data, error } = await db()
         .from('situation_room_reports')
         .select('*')
         .eq('id', req.params.id)
@@ -241,7 +271,7 @@ router.get(
         return;
       }
 
-      if (!(await assertOrgMember(req.userId!, data.org_id, res))) return;
+      if (!(await assertOrgMember(userId, data.org_id, res))) return;
 
       res.json(data);
     } catch (err) {
@@ -268,7 +298,7 @@ router.patch(
     if (!validateRequest(req, res)) return;
 
     try {
-      const updates: Record<string, any> = {};
+      const updates: Record<string, unknown> = {};
       for (const field of ['status', 'payload', 'compliance_rag']) {
         if (req.body[field] !== undefined) {
           updates[field] = req.body[field];
@@ -281,7 +311,7 @@ router.patch(
       }
 
       // Fetch first to get org_id for membership check
-      const { data: existing } = await supabase!
+      const { data: existing } = await db()
         .from('situation_room_reports')
         .select('org_id')
         .eq('id', req.params.id)
@@ -292,9 +322,15 @@ router.patch(
         return;
       }
 
-      if (!(await assertOrgMember(req.userId!, existing.org_id, res))) return;
+      const userId = req.userId;
+      if (!userId) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
 
-      const { data, error } = await supabase!
+      if (!(await assertOrgMember(userId, existing.org_id, res))) return;
+
+      const { data, error } = await db()
         .from('situation_room_reports')
         .update(updates)
         .eq('id', req.params.id)

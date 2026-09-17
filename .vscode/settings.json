@@ -34,5 +34,24 @@
     "inline-style-disabled": false
   },
   "python.terminal.activateEnvironment": true,
-  "python.terminal.useEnvFile": true
+  "python.terminal.useEnvFile": true,
+  "opencode.connector": "local-dgx-spark",
+  "opencode.platform_strategy": {
+    "primary": "opencode",
+    "fallback": "claude-code",
+    "handoff_file": ".claude/handoffs/<branch>.md",
+    "description": "OpenCode + DGX Spark is primary runtime; Claude Code is hot standby for failover."
+  },
+  "opencode.dgx_configuration": {
+    "hostname": "localhost",
+    "port": 8080,
+    "health_check_url": "/v1/health",
+    "health_check_interval": 30,
+    "auto_failover_on_health_check_fail": false,
+    "description": "DGX Spark is primary. Health checks are automatic; platform switching is manual per DGX_DEPLOYMENT.md."
+  },
+  "opencode.mcp_servers": {
+    "enabled": ["dws-gateway-local", "dws-agents-local"],
+    "shared_with_claude_code": ["github", "google-drive", "figma", "supabase"]
+  }
 }

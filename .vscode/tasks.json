@@ -24,6 +24,83 @@
       "problemMatcher": []
     },
     {
+      "label": "OpenCode: Start DGX Ollama tunnel",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/Start-Continue-Ollama-Tunnel.ps1",
+        "-SkipCursor"
+      ],
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "OpenCode: Test DGX Ollama tunnel",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/Test-Continue-OllamaTunnel.ps1"
+      ],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "OpenCode: Debug resolved config",
+      "type": "shell",
+      "command": "opencode",
+      "args": [
+        "debug",
+        "config",
+        "--pure"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "OpenCode: Launch TUI",
+      "type": "shell",
+      "command": "opencode",
+      "args": [
+        "${workspaceFolder}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Sync to Proton Drive",
       "type": "shell",
       "command": "pwsh",

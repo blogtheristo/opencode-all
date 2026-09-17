@@ -113,6 +113,49 @@ Examples:
   EXP-SVC-2026        Service product
 ```
 
+### 2.4 Five-Tier Labor-Anchored Model (Skilled Agents catalog)
+
+Reference: `docs/marketing/PRODUCT-CATALOG-UPSELL-TIERS-2026.md` and
+`DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md` §13.8.
+
+The Skilled Agents catalog is structured as a five-tier upsell ladder.
+Every SKU on the ladder is **anchored to the human role it replaces**,
+not to a SaaS competitor.
+
+| Tier | Name              | Monthly band (€) | Sales motion                                                       |
+|-----:|-------------------|------------------|--------------------------------------------------------------------|
+|  T0  | **Pilot**         | 0 – 999          | 30–90 day pilot, single agent, capped outcomes (Blue only).        |
+|  T1  | **Starter**       | 999 – 1,999      | One agent, metered per-outcome, basic SLA, EU residency.           |
+|  T2  | **Pro**           | 1,999 – 3,999    | One agent, unlimited outcomes, audit pack, KYA TC-2+.              |
+|  T3  | **Function**      | 3,999 – 8,499    | Function-as-a-Service bundle (2–4 agents) + Themis orchestration.  |
+|  T4  | **Workforce**     | 19,990           | Full Skilled Workforce — 16 agents, premium SLA, EU AI Act co-sign.|
+
+Two cross-cutting overlays sit on top of the ladder:
+
+- **Industry Pods** — vertical-specialisation add-ons that sit on top of
+  a T3 bundle (Mars, Helios, Vulcan, Talos, Gaia, Ceres, Neptune,
+  Prometheus, BESS). They never sell standalone.
+- **Land overlay** — engagement-led entry bundles (sprint / accelerator /
+  bootcamp / workshop / programme) attached to a 12-month agent
+  subscription. Land overlays collapse the T0 → T2/T3 climb into one
+  sale and are the highest-velocity entry SKUs.
+
+#### Brand-cut T3 bundles (sit alongside the domain-cut T3 bundles)
+
+In addition to the five domain-cut T3 bundles above (ESG, HSE, CONSTR,
+Sovereignty, GTM), three brand-cut T3 bundles package the same
+underlying Skilled Agents for specific channels. They do **not** replace
+the domain-cut bundles — they sell alongside them.
+
+| SKU              | Brand                    | Primary channel              | Replaces            |
+|------------------|--------------------------|------------------------------|---------------------|
+| `DWS365-CMP-T3`  | DWS 365                  | Microsoft Agent 365          | 1.5 compliance FTE  |
+| `FH-SKILL-T3`    | Firehorse                | Salesforce Agentforce        | 1.4 marketing/CS FTE|
+| `AC365-T3`       | Agentic Commerce 365     | Commerce / Microsoft channels| 1.5 commerce ops FTE|
+
+SKU schema, required fields, and validation rules: see
+`DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md` §13.8.
+
 ***
 
 ## 3. Two-Channel Pricing Model

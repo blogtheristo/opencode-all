@@ -49,7 +49,7 @@ dotenv.config();
 
 import http from 'node:http';
 import { URL } from 'node:url';
-import { exec } from 'node:child_process';
+import { execFile } from 'node:child_process';
 
 // ============================================================================
 // CONFIG
@@ -87,6 +87,7 @@ const SCOPES = [
   'profile',         // name + sub (member ID)
   'email',           // email address
   'w_member_social', // post on behalf of a person
+  'w_organization_social', // post on behalf of an organization / newsletter
 ].join(' ');
 
 // ============================================================================
@@ -95,10 +96,11 @@ const SCOPES = [
 
 function openBrowser(url: string): void {
   const platform = process.platform;
-  const cmd = platform === 'darwin' ? `open "${url}"`
-    : platform === 'win32' ? `start "" "${url}"`
-    : `xdg-open "${url}"`;
-  exec(cmd);
+  const executable = platform === 'darwin' ? 'open'
+    : platform === 'win32' ? 'cmd'
+    : 'xdg-open';
+  const args = platform === 'win32' ? ['/c', 'start', '', url] : [url];
+  execFile(executable, args);
 }
 
 function buildAuthUrl(clientId: string, state: string): string {

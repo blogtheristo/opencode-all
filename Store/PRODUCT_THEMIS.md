@@ -18,9 +18,11 @@ mpn: "DWS-THEMIS-2026"
 
 **The Aegis Control Plane — Sovereign AI Governance for EU AI Act Article 12**
 
+_Part of the DWS IQ Industrial Intelligence suite — the governance control plane for the Aegis dual-use tier._
+
 ## One-Liner
 
-Themis — the Aegis Control Plane. DWS's proprietary implementation of the open KYA standard: identity attribution, Article 12 logging, Annex III systems registry, and policy gating bundled into one sovereign control plane, shipping with every Aegis deployment.
+Themis — the Aegis Control Plane. DWS's proprietary implementation of the open KYA specification: identity attribution, Article 12 logging, Annex III systems registry, and policy gating bundled into one sovereign control plane, shipping with every Aegis deployment.
 
 ## Why Now
 
@@ -44,7 +46,7 @@ A drop-in control plane that turns any DWS IQ deployment — or any open-standar
 
 ## Features
 
-- **KYA-compliant** — implements the open KYA standard; no vendor lock-in on the protocol layer
+- **KYA-compliant** — implements the open KYA specification; no vendor lock-in on the protocol layer
 - **Defence-grade audit** — hash-chained append-only ledger with per-event SHA-256 chain, court-defensible tamper evidence
 - **Cross-tier portable** — same control plane runs on Aegis Tier 1 sovereign infra, Tier 2 EU clouds, or Tier 3 hyperscalers
 - **EU-built, zero CLOUD Act** — no US-incorporated vendor in the Aegis-tier data path
@@ -53,11 +55,11 @@ A drop-in control plane that turns any DWS IQ deployment — or any open-standar
 
 ## Tier Positioning
 
-| Tier                         | Themis Delivery                                                                  | Price                              |
-| ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------- |
-| **Aegis (Tier 1)**           | Included in platform — runs on UpCloud, single-tenant, zero CLOUD Act            | Bundled in €59,990 + €999/mo       |
-| **Sovereign Infra (Tier 2)** | Standalone SKU — customer brings own EU cloud (Scaleway, OVH, Red Hat OpenShift) | **€14,990 one-time + €499/mo**     |
-| **Connect (Tier 3)**         | SaaS — customer chooses underlying cloud                                         | Enterprise pricing — contact sales |
+| Tier                         | Themis Delivery                                                                  | Price                              | Nearest SEAL (indicative) |
+| ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------- | ------------------------- |
+| **Aegis (Tier 1)**           | Included in platform — runs on UpCloud, single-tenant, zero CLOUD Act            | Bundled in €59,990 + €999/mo       | SEAL-3 (aims; SEAL-4 closed by NVIDIA chips) |
+| **Sovereign Infra (Tier 2)** | Standalone SKU — customer brings own EU cloud (Scaleway, OVH, Red Hat OpenShift) | **€14,990 one-time + €499/mo**     | SEAL-2 if EU-owned stack; SEAL-1 if US-parent EU region |
+| **Connect (Tier 3)**         | SaaS — customer chooses underlying cloud                                         | Enterprise pricing — contact sales | SEAL-0 / 1 |
 
 ## Who It's For
 
@@ -75,7 +77,7 @@ A drop-in control plane that turns any DWS IQ deployment — or any open-standar
 
 ## Demo Availability
 
-**Nokia Defence and named sovereign pilots:** live demo environment on UpCloud Helsinki, April 2026. Request access via `risto@onelifetime.world`.
+**Named sovereign pilots:** live demo environment on UpCloud Helsinki, Q2 2026 — reference customers available under NDA on request. Request access via `risto@onelifetime.world`.
 
 **General availability:** Q2 2026, targeted before 2 August 2026 EU AI Act high-risk enforcement.
 

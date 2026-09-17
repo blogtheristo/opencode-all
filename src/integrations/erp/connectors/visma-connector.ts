@@ -9,17 +9,16 @@
  * - Norwegian/Finnish market focus
  */
 
-import { BaseERPConnector } from '../base-connector';
+import { BaseERPConnector } from '../base-connector.js';
+import type { InternalAxiosRequestConfig } from 'axios';
 import {
-  ERPProvider,
-  VismaConfig,
-  SyncResult,
   EntityType,
-  ProductionOrder,
-  MachineData,
-  OEEMetrics,
-  MaintenanceEvent
-} from '../types';
+  ERPProvider,
+  type MachineData,
+  type OEEMetrics,
+  type SyncResult,
+  type VismaConfig,
+} from '../types.js';
 
 export class VismaConnector extends BaseERPConnector {
   private vismaConfig: VismaConfig;
@@ -37,19 +36,20 @@ export class VismaConnector extends BaseERPConnector {
       {
         grant_type: 'client_credentials',
         client_id: this.vismaConfig.clientId,
-        client_secret: this.vismaConfig.clientSecret
-      }
+        client_secret: this.vismaConfig.clientSecret,
+      },
     );
 
     this.accessToken = response.data.access_token;
   }
 
-  protected async addAuthHeaders(config: any): Promise<any> {
+  protected async addAuthHeaders(
+    config: InternalAxiosRequestConfig,
+  ): Promise<InternalAxiosRequestConfig> {
     if (!this.accessToken) {
       await this.authenticate();
     }
 
-    config.headers = config.headers || {};
     config.headers['Authorization'] = `Bearer ${this.accessToken}`;
     config.headers['ipp-company-id'] = this.vismaConfig.companyId;
     return config;
@@ -61,21 +61,25 @@ export class VismaConnector extends BaseERPConnector {
       await this.get('/controller/api/v1/company');
       return true;
     } catch (error) {
-      this.logger.error('Visma connection test failed', { error });
+      this.logger.error({ error }, 'Visma connection test failed');
       return false;
     }
   }
 
-  async syncProductionOrders(since?: Date): Promise<SyncResult> {
+  async syncProductionOrders(_since?: Date): Promise<SyncResult> {
     const operation = this.createSyncOperation('default', EntityType.PRODUCTION_ORDER, 'from_erp');
 
     try {
-      const response = await this.get<any[]>('/controller/api/v1/productionorder');
+      const response = await this.get<unknown[]>('/controller/api/v1/productionorder');
       operation.recordsProcessed = response.length;
       return this.createSyncResult(operation, true);
     } catch (error) {
       return this.createSyncResult(operation, false, [
-        this.createSyncError(EntityType.PRODUCTION_ORDER, 'VISMA_SYNC_FAILED', (error as Error).message)
+        this.createSyncError(
+          EntityType.PRODUCTION_ORDER,
+          'VISMA_SYNC_FAILED',
+          (error as Error).message,
+        ),
       ]);
     }
   }

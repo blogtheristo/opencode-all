@@ -6,8 +6,8 @@ Based on Simon Willison's security research (simonwillison.net/tags/security/).
 """
 
 from .domain_validator import DomainValidator
-from .image_sanitizer import ImagePromptInjectionDetector
-from .tool_colors import MCPToolRegistry, ToolColor
+from .image_sanitizer_OLD import ImagePromptInjectionDetector
+from .tool_colors_OLD import MCPToolRegistry, ToolColor
 
 __all__ = [
     "DomainValidator",

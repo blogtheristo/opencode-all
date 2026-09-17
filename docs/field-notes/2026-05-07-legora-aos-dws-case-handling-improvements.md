@@ -245,10 +245,136 @@ SKILL OPPORTUNITY: `/case-run` — invoke `Themis` as Case Coordinator on a give
 
 ---
 
+## 9. Migration SQL — Pending Human Authoring (RED Zone)
+
+The `.claude/hooks/protect-files.sh` hook blocks agent writes to `supabase/migrations/`.
+A human must create these files. Copy each block below into the appropriate file.
+
+### File: `supabase/migrations/065_cases.sql`
+
+```sql
+-- Migration 065: Unified Case entity
+-- Introduces public.cases — the "Case OS" primitive that links Lead, Contract,
+-- Assessment, and any future domain entity under a single trackable unit.
+--
+-- Run with: supabase db push  OR  psql $DATABASE_URL -f 065_cases.sql
+-- Rollback: DROP TABLE public.cases CASCADE;
+
+BEGIN;
+
+CREATE TABLE IF NOT EXISTS public.cases (
+  id             uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id         uuid        NOT NULL,
+  title          text        NOT NULL,
+  -- 'compliance' | 'sales' | 'erp-sync' | 'contract' | 'custom'
+  type           text        NOT NULL,
+  -- 'open' | 'in_progress' | 'pending_approval' | 'closed'
+  status         text        NOT NULL DEFAULT 'open',
+  -- 'low' | 'medium' | 'high' | 'critical'
+  priority       text        NOT NULL DEFAULT 'medium',
+  lead_id        uuid        REFERENCES public.leads(id) ON DELETE SET NULL,
+  contract_id    uuid,
+  assessment_id  uuid,
+  -- primary responsible agent (e.g. 'themis', 'chronos', 'auditor')
+  assigned_agent text,
+  deadline_at    timestamptz,
+  closed_at      timestamptz,
+  metadata       jsonb       NOT NULL DEFAULT '{}',
+  created_at     timestamptz NOT NULL DEFAULT now(),
+  updated_at     timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS cases_org_id_idx   ON public.cases (org_id);
+CREATE INDEX IF NOT EXISTS cases_status_idx   ON public.cases (status);
+CREATE INDEX IF NOT EXISTS cases_lead_id_idx  ON public.cases (lead_id);
+CREATE INDEX IF NOT EXISTS cases_deadline_idx ON public.cases (deadline_at) WHERE deadline_at IS NOT NULL;
+
+CREATE OR REPLACE FUNCTION public.set_cases_updated_at()
+RETURNS TRIGGER LANGUAGE plpgsql AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS cases_set_updated_at ON public.cases;
+CREATE TRIGGER cases_set_updated_at
+  BEFORE UPDATE ON public.cases
+  FOR EACH ROW EXECUTE FUNCTION public.set_cases_updated_at();
+
+ALTER TABLE public.cases ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "cases_select_own_org" ON public.cases
+  FOR SELECT USING (org_id = (auth.jwt() ->> 'org_id')::uuid);
+
+CREATE POLICY "cases_insert_own_org" ON public.cases
+  FOR INSERT WITH CHECK (org_id = (auth.jwt() ->> 'org_id')::uuid);
+
+CREATE POLICY "cases_update_own_org" ON public.cases
+  FOR UPDATE USING (org_id = (auth.jwt() ->> 'org_id')::uuid);
+
+COMMIT;
+```
+
+### File: `supabase/migrations/066_case_memory.sql`
+
+```sql
+-- Migration 066: Case memory table (pgvector, Mnemosyne-scoped per case)
+-- Enables persistent semantic memory for agents operating within a case.
+-- Requires: pgvector extension (already enabled via earlier migrations).
+--
+-- Run with: supabase db push  OR  psql $DATABASE_URL -f 066_case_memory.sql
+-- Rollback: DROP TABLE public.case_memory CASCADE;
+
+BEGIN;
+
+CREATE TABLE IF NOT EXISTS public.case_memory (
+  id          uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
+  case_id     uuid        NOT NULL REFERENCES public.cases(id) ON DELETE CASCADE,
+  agent_name  text        NOT NULL,
+  content     text        NOT NULL,
+  embedding   vector(1536),
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+
+-- IVFFlat index for cosine similarity search (top-k recall)
+CREATE INDEX IF NOT EXISTS case_memory_embedding_idx
+  ON public.case_memory USING ivfflat (embedding vector_cosine_ops)
+  WITH (lists = 100);
+
+CREATE INDEX IF NOT EXISTS case_memory_case_id_idx ON public.case_memory (case_id);
+
+ALTER TABLE public.case_memory ENABLE ROW LEVEL SECURITY;
+
+-- Access governed via the parent case's org_id
+CREATE POLICY "case_memory_select_via_case" ON public.case_memory
+  FOR SELECT USING (
+    EXISTS (
+      SELECT 1 FROM public.cases c
+      WHERE c.id = case_id
+        AND c.org_id = (auth.jwt() ->> 'org_id')::uuid
+    )
+  );
+
+CREATE POLICY "case_memory_insert_via_case" ON public.case_memory
+  FOR INSERT WITH CHECK (
+    EXISTS (
+      SELECT 1 FROM public.cases c
+      WHERE c.id = case_id
+        AND c.org_id = (auth.jwt() ->> 'org_id')::uuid
+    )
+  );
+
+COMMIT;
+```
+
+---
+
 # VERSION AND AGENT HISTORY
 
-| Version | Date       | Agent                                                      | Change                                                                      |
-| ------- | ---------- | ---------------------------------------------------------- | --------------------------------------------------------------------------- |
-| 1.0     | 2026-05-07 | claude-sonnet-4-6 (claude/improve-dws-case-handling-4VhRu) | Initial field note: Legora AOS analysis + DWS case handling improvement map |
+| Version | Date       | Agent                                                      | Change                                                                                                  |
+| ------- | ---------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| 1.0     | 2026-05-07 | claude-sonnet-4-6 (claude/improve-dws-case-handling-4VhRu) | Initial field note: Legora AOS analysis + DWS case handling improvement map                             |
+| 1.1     | 2026-05-08 | claude-sonnet-4-6 (claude/add-case-schema-context-lM3qe)   | Added §9 with ready-to-run SQL for migrations 065 (cases) + 066 (case_memory); hook blocks agent writes |
 
 ---

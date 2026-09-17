@@ -72,21 +72,22 @@ if ($confirm -ne "y" -and $confirm -ne "Y") {
     exit 0
 }
 
-# Sync using gsutil
+# Sync using gcloud storage (gsutil is deprecated; removed from the default gcloud CLI after March 2027)
 Write-Host ""
 Write-Host "Starting upload..." -ForegroundColor Green
 
-$gsutilArgs = @("-m", "cp", "-r", $CheckpointPath, $destinationPath)
+# gcloud storage parallelizes transfers by default, so the old "gsutil -m" flag is no longer needed.
+$gcloudArgs = @("storage", "cp", "-r", $CheckpointPath, $destinationPath)
 
 if ($Parallel) {
-    # Use parallel composite uploads for large files
-    $gsutilArgs = @("-o", "GSUtil:parallel_composite_upload_threshold=150M") + $gsutilArgs
+    # Use parallel composite uploads for large files (default threshold is 150 MiB).
+    $gcloudArgs = @("storage", "cp", "--parallel-composite-upload-threshold=150M", "-r", $CheckpointPath, $destinationPath)
 }
 
 $startTime = Get-Date
 
 try {
-    gsutil @gsutilArgs
+    gcloud @gcloudArgs
     
     $endTime = Get-Date
     $duration = $endTime - $startTime

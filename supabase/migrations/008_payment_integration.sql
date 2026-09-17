@@ -163,7 +163,8 @@ COMMENT ON TABLE subscription_plans IS 'Available subscription plans with pricin
 ALTER TABLE payment_events ENABLE ROW LEVEL SECURITY;
 
 -- Policy: Service role can do everything
-CREATE POLICY IF NOT EXISTS payment_events_service_all ON payment_events
+DROP POLICY IF EXISTS payment_events_service_all ON payment_events;
+CREATE POLICY payment_events_service_all ON payment_events
     FOR ALL
     TO service_role
     USING (true)
@@ -171,7 +172,8 @@ CREATE POLICY IF NOT EXISTS payment_events_service_all ON payment_events
 
 -- Policy: Authenticated users can view events for their subscriptions
 -- (requires joining through subscriptions -> customers)
-CREATE POLICY IF NOT EXISTS payment_events_user_select ON payment_events
+DROP POLICY IF EXISTS payment_events_user_select ON payment_events;
+CREATE POLICY payment_events_user_select ON payment_events
     FOR SELECT
     TO authenticated
     USING (
@@ -186,13 +188,15 @@ CREATE POLICY IF NOT EXISTS payment_events_user_select ON payment_events
 ALTER TABLE subscription_plans ENABLE ROW LEVEL SECURITY;
 
 -- Policy: Everyone can read plans
-CREATE POLICY IF NOT EXISTS subscription_plans_public_select ON subscription_plans
+DROP POLICY IF EXISTS subscription_plans_public_select ON subscription_plans;
+CREATE POLICY subscription_plans_public_select ON subscription_plans
     FOR SELECT
     TO public
     USING (is_active = TRUE);
 
 -- Policy: Only service role can modify plans
-CREATE POLICY IF NOT EXISTS subscription_plans_service_all ON subscription_plans
+DROP POLICY IF EXISTS subscription_plans_service_all ON subscription_plans;
+CREATE POLICY subscription_plans_service_all ON subscription_plans
     FOR ALL
     TO service_role
     USING (true)

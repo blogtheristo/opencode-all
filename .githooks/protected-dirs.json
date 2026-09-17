@@ -1,0 +1,21 @@
+{
+  "$comment": "P5 protected top-level directories for scripts/poisoned-tree-gate.mjs. Read from the BASE tree, so a PR cannot shorten its own roster. A push that removes one of these directories ENTIRELY (every tracked path under it gone) is blocked unless a valid signed approval artifact is present. Partial deletions inside a directory are governed by P2/P3, not here. Keep 'dirs' byte-wise sorted.",
+  "dirs": [
+    ".githooks",
+    ".github",
+    "Firehorse",
+    "Store",
+    "config",
+    "docs",
+    "dws10.com",
+    "dws6.com",
+    "landing-pages",
+    "lifetime.fi",
+    "onelifetime.world",
+    "scripts",
+    "skills",
+    "src",
+    "supabase",
+    "tests"
+  ]
+}

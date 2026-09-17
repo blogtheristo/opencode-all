@@ -75,7 +75,7 @@ EU climate compliance is not a single workflow. It is dozens of overlapping regu
 
 This is precisely the problem that agentic AI is designed to solve.
 
-DWS IQ's multi-agent system assigns specialized agents to each regulatory domain, runs continuous monitoring across all 16 industries, and surfaces compliance gaps before they become fines. When a new CBAM declaration deadline approaches, an agent doesn't wait to be triggered — it begins assembling the required supply chain carbon data, cross-references it against the Lifetime World Model's regulation index, and initiates the Firehorse report workflow without human instruction.
+DWS IQ's multi-agent system assigns specialized agents to each regulatory domain, runs continuous monitoring across all 25+ industries, and surfaces compliance gaps before they become fines. When a new CBAM declaration deadline approaches, an agent doesn't wait to be triggered — it begins assembling the required supply chain carbon data, cross-references it against the Lifetime World Model's regulation index, and initiates the Firehorse report workflow without human instruction.
 
 The MIT CISR researchers describe this dynamic as agentic AI "sitting between tools and human workers, deriving much of its value from adaptability — how it responds to changing conditions and learns over time." In EU industrial compliance, those changing conditions arrive with every quarterly ETS auction, every CSRD reporting season, and every CBAM certificate submission window.
 

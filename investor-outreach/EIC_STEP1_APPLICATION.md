@@ -1,13 +1,13 @@
 # EIC Accelerator Step 1 — Application Draft
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
-
+Version: 1.1
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/traction-truth-reconciliation | Date: 29.07.2026 | Changes: Traction claims reconciled to docs/TRACTION_CANONICAL.md — retired the "6 paying customers / EUR 7k MRR / 100% retention / EUR 84k ARR" formulation, removed dispatch operators (Uber/Bolt/Kela/Taksi Helsinki/Limo Helsinki/Sixt) from software-customer lists, and restated traction as ~EUR 7,000/month services and transport revenue (not software revenue) plus two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-qivalis-research-ePIAY | Date: 13.04.2026 | Changes: Initial draft — EIC Accelerator Step 1 based on 5-slide Hook Deck narrative (one-liner, cost moat, defensibility moat, Qivalis window, payment-agnostic infrastructure)
 
 Document Status:
@@ -27,7 +27,7 @@ Related Documents:
 EIC Portal: https://eic.ec.europa.eu/eic-funding/eic-accelerator_en
 EIC Accelerator Work Programme 2026: https://eic.ec.europa.eu/document/download/
 
----
+***
 
 ## Application Metadata
 
@@ -54,7 +54,7 @@ Lifetime Oy builds **DWS IQ** — the compliance ledger for European industrial
 payments. Every tonne of CO2 tracked like every euro: double-entry bookkeeping
 for CBAM, CSRD, and ETS obligations, running where cloud cannot reach.
 
-50,000+ EU companies must file CBAM declarations and CSRD sustainability
+Fewer than ~5,000 large EU companies (post-Omnibus), with their value chains, must file CBAM declarations and CSRD sustainability
 reports by 2026–2028. The current state: disconnected spreadsheets, manual
 consultants, and compliance tools that require cloud connectivity at industrial
 sites where connectivity is absent. The cost of failure is not just a reporting
@@ -82,8 +82,8 @@ DWS IQ records every CBAM, CSRD, and ETS obligation regardless of whether the
 payment moves via Qivalis, SEPA, or any future rail. The compliance obligation
 exists at the transaction level, not the rail level.
 
-Current traction: EUR 7K MRR, 6 paying customers, 100% retention, 21 AI agents
-operational across 20 EU-regulated industries. NVIDIA Connect ISV Partner.
+Current traction: two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked); ~EUR 7,000/month services and transport revenue (not software revenue), a fleet of skilled agents
+operational across 25 EU-regulated industries. NVIDIA Connect ISV Partner.
 Microsoft Founders Hub L1–L4. Three InvestEU Portal listings.
 
 ---
@@ -135,7 +135,7 @@ cloud egress, no latency, no CLOUD Act exposure. Model-agnostic: Claude,
 Gemini, or any future frontier model can be swapped without rewriting
 the compliance logic, which lives in the Lifetime World Model.
 
-21 agents operational. 32 products shipped. 20 EU-regulated industries.
+A fleet of skilled agents operational. 32 products shipped. 25 EU-regulated industries.
 
 ---
 
@@ -165,7 +165,7 @@ _(1000 characters max — current draft: ~700 characters)_
 
 **Total Addressable Market:**
 
-- 50,000+ EU companies with CSRD obligations (waves 1–3, 2024–2028)
+- Fewer than ~5,000 large EU companies with direct CSRD obligations post-Omnibus (plus value-chain reporters)
 - 4,000+ CBAM importers in steel, cement, aluminium, chemicals (2026 full enforcement)
 - EUR 150B+ European compliance software market (Gartner 2025)
 
@@ -193,7 +193,7 @@ _(500 characters max — current draft: ~400 characters)_
 software, EU compliance, and AI systems. Master's thesis on AI harness
 engineering (Metropolia University, 2026). PhD continuation planned
 (LUT University, 2027). NVIDIA Connect ISV Partner, Microsoft Founders
-Hub L1–L4. Zero prior VC backing — bootstrapped to EUR 7K MRR.
+Hub L1–L4. Zero prior VC backing — bootstrapped on ~EUR 7,000/month of services and transport revenue (not software revenue).
 
 **Lucille Santiago** — Logistics & Office.
 
@@ -208,7 +208,7 @@ First EUR 50K of raise funds senior technical hire Q3 2026.
 
 _(500 characters max — current draft: ~350 characters)_
 
-**Current:** EUR 7K MRR (March 2026), 5 customers, 100% retention.
+**Current:** ~EUR 7,000/month services and transport revenue (not software revenue), March 2026; two enterprise pilots contracted Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
 
 **Active raise:** EUR 650K SAFE at EUR 3.8M valuation cap (20% discount).
 Bridge to Series A targeting EUR 15M+ pre-money, Q3–Q4 2026.

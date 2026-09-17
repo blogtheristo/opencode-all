@@ -280,7 +280,7 @@ export function webhookHandler(source: WebhookSource) {
     }
 
     // Attach event metadata to the request for downstream handlers
-    (req as any).webhookEvent = event;
+    req.webhookEvent = event;
     next();
   };
 }

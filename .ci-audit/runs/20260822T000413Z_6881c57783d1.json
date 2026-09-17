@@ -1,0 +1,47 @@
+{
+  "branch": "pr-1867",
+  "checks": [
+    {
+      "duration_ms": 3,
+      "name": "npm-install-check",
+      "notes": "",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pass": true
+    },
+    {
+      "duration_ms": 5159,
+      "name": "vitest",
+      "notes": "",
+      "output_sha256": "67244729be4730cfe08d82f0aa653c9ae66fb215f11c61a4dd192fe4028ad4ea",
+      "pass": true
+    },
+    {
+      "duration_ms": 16229,
+      "name": "gitleaks-full",
+      "notes": "",
+      "output_sha256": "541bd42b005ad60f0e4f769b154b0e981d12509aca14a7bcf9efc4cb0f062d23",
+      "pass": true
+    },
+    {
+      "duration_ms": 398,
+      "name": "npm-audit-root",
+      "notes": "exit=1",
+      "output_sha256": "fa6f7bbc61f0f3b5427cf82103ce212028e67374dff83df7d9ac7d34a759a916",
+      "pass": false
+    }
+  ],
+  "checks_failed": 1,
+  "checks_passed": 3,
+  "checks_total": 4,
+  "commit_sha": "6881c57783d1dcba052c5c4e8c08a9f6042e8b11",
+  "duration_ms": 21819,
+  "overall_pass": false,
+  "prev_record_hash": "c53ef3072acff0695d9c448459366954e93c205110809b49cc301895e394ef57",
+  "repo": "blogtheristo/dws6",
+  "runner": "admin100@gn100-cb5d",
+  "runner_kind": "local",
+  "schema": "ci-audit/v1",
+  "this_record_hash": "566bd05d61ee85d95adb8e727fb97f12930b6e48d7472528ffa93b6a6106a3e5",
+  "trigger_kind": "pre-push",
+  "ts": "2026-08-22T00:04:13Z"
+}

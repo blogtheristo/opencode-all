@@ -739,7 +739,7 @@ export default {
   async fetch(
     request: Request,
     env: Env,
-    ctx: ExecutionContext
+    _ctx: ExecutionContext
   ): Promise<Response> {
     const url = new URL(request.url);
     
@@ -868,7 +868,7 @@ export default {
   async scheduled(
     event: ScheduledEvent,
     env: Env,
-    ctx: ExecutionContext
+    _ctx: ExecutionContext
   ): Promise<void> {
     // Get all tenants
     const tenantList = await env.TENANT_CONFIG.list({ prefix: 'tenant:' });

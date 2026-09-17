@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-09-controls-that-reported-success-while-doing-nothing</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-09-controls-that-reported-success-while-doing-nothing</h1>
+</header>
+<h1 id="field-note-five-controls-that-reported-success-while-doing-nothing">Field Note — Five Controls That Reported Success While Doing Nothing</h1>
+<p><strong>Date:</strong> 2026-09-09 <strong>Branch:</strong> <code>claude/truth-register-investor-seats</code> (PR #1986) <strong>Trigger:</strong> HIC reported “Cloudflare workers are stalled”. Nothing was stalled. Several things had never started.</p>
+<hr />
+<h2 id="the-pattern">1. The pattern</h2>
+<p>Every finding below is the same defect wearing different clothes: <strong>a control that cannot fail, guarding something nobody checked.</strong> Not one of them was detected by the thing it was supposed to protect. They were found by reading the code that implements them.</p>
+<p>A green check that cannot go red is worse than no check, because it consumes the attention that would otherwise notice the gap.</p>
+<h2 id="the-five">2. The five</h2>
+<h3 id="the-cloudflare-cache-purge-never-ran-not-once">2.1 The Cloudflare cache purge never ran — not once</h3>
+<p><code>sync-dws6-landing-pages.yml</code> read <code>secrets.CLOUDFLARE_ZONE_ID</code>. <strong>That secret has never existed.</strong> The repo’s actual names are <code>CLOUDFLARE_ZONE_ID_DWS10</code> and <code>CLOUDFLARE_ZONE_ID_ONELIFETIME</code>. The reference resolved to empty, the guard fell to its <code>else</code>, and the step printed <em>“⚠️ Cloudflare secrets not configured (optional)”</em> on every run since it was written.</p>
+<p>A missing secret and a correctly-configured one were indistinguishable in the log, because the “not configured” branch was written as an acceptable outcome.</p>
+<h3 id="and-it-could-not-have-reported-failure-if-it-had">2.2 …and it could not have reported failure if it had</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST <span class="st">&quot;.../purge_cache&quot;</span> ...   <span class="co"># no --fail, response never read</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;✅ Cloudflare cache purged&quot;</span>     <span class="co"># unconditional</span></span></code></pre></div>
+<p><code>curl</code> exits 0 on HTTP 403. So even with a valid zone ID, an expired token would have produced a green step and a success message. Both faults had to be fixed together: naming the right secret without checking the response would have swapped a silent no-op for a silent 403.</p>
+<h3 id="one-zone-for-four-sites">2.3 One zone for four sites</h3>
+<p><code>CLOUDFLARE_ZONE_ID</code> was singular. Four domains publish from this repo. Even in the best case the step would have cache-busted one of them. Now reads every per-site zone secret and <strong>warns by site name</strong> for each one left uncovered, so the gap appears in the log instead of being inferred from silence.</p>
+<h3 id="dws-workflows-had-no-deployment-path">2.4 <code>dws-workflows</code> had no deployment path</h3>
+<p><code>cloudflare-workflows/wrangler.toml</code> declares <strong>11 Workflow bindings</strong> (outokumpu/ncc/kemira dev+prod, dws6-com/dws10-com/onelifetime-world dev+prod). The live account holds only <code>cari</code> and <code>dws-revolut-checkout</code>. No workflow in <code>.github/workflows/</code> deployed it; the toml documented a manual <code>wrangler deploy</code> command, and a manual command nobody runs is not a deployment path.</p>
+<p>“Stalled” implies a stuck instance. There were no instances. Added <code>deploy-cloudflare-workflows.yml</code>, which also states in its job summary that a green deploy still leaves the worker <strong>inert</strong> until <code>WORKFLOW_API_TOKEN</code> and <code>GITHUB_WEBHOOK_SECRET</code> are set — because the endpoints fail closed (<code>src/index.ts:355</code>). Setting secrets is deliberately not automated: a workflow able to write them carries a wider blast radius than the thing it deploys.</p>
+<h3 id="the-tree-gate-the-post-1888-defence-has-never-guarded-anything">2.5 The Tree Gate — the post-#1888 defence — has never guarded anything</h3>
+<pre><code>poisoned-tree-gate: missing --config &lt;file&gt;
+##[error]Process completed with exit code 2</code></pre>
+<p>Exit <strong>2</strong> is a usage error, raised before any check runs. <code>tree-gate.yml</code> passes seven flags but not <code>--config</code>, which the script requires. <strong>This gate has failed on every PR since it was added</strong>, including the deletion tripwire it exists to provide after the repo wipe.</p>
+<p><strong>It is worse than failing silently: it posts reassurance.</strong> Observed on PR #1986:</p>
+<blockquote>
+<h3 id="tree-gate-result">Tree Gate Result:</h3>
+<p><em>No violations detected.</em></p>
+</blockquote>
+<p>That line comes from <code>jq -r &#39;.decision&#39;</code> reading a result file the script never wrote. So the gate built to prevent a repeat of the #1888 repo wipe has, on every PR since it was added, both failed to run <strong>and</strong> told reviewers there were no violations. A reviewer skimming the thread sees a green-sounding verdict from a control that has never executed once. This is the note’s pattern in its most damaging form — not an absent check, but an <em>affirmative false statement</em> produced by one.</p>
+<p><strong>The one-line fix was written, tested, and reverted.</strong> Three faults, not one:</p>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 54%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Fault</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>no <code>--config</code></td>
+<td>exit 2</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>no stdin (script reads pre-push ref lines)</td>
+<td>with <code>--config</code> alone: returns <code>[]</code>, <strong>exits 0</strong></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>emits an array; workflow’s <code>jq</code> reads <code>.decision</code> on an object</td>
+<td>always null</td>
+</tr>
+</tbody>
+</table>
+<p>Fixing only #1 would have converted a loud failure into a green check guarding nothing — this note’s own pattern, introduced while fixing it. Wired up correctly the gate returns a real verdict: <code>block — &quot;P4 manifest: manifest schema invalid&quot;</code>, because the workflow’s <code>find</code> picks <code>./skills/manifest.json</code> while the config expects <code>.githooks/critical-files.manifest</code>. Repairing it may legitimately begin blocking every PR, so it needs its own reviewed change.</p>
+<h2 id="two-more-of-the-same-shape-not-fixed-here">3. Two more of the same shape, not fixed here</h2>
+<ul>
+<li><strong><code>CLOUDFLARE_ACCOUNT_ID</code> exists but is empty.</strong> It appears in the repository secret list, so it reads as configured while carrying nothing. Same class as 2.1.</li>
+<li><strong>The DoD Gate’s skipped-test check is a false positive.</strong> It flags <code>expect(result.skipped).toBe(1)</code> — assertions about a <code>skipped</code> <em>field</em> — as <code>test.skip</code>. A gate that cries wolf trains people to merge past it.</li>
+</ul>
+<h2 id="what-this-cost-and-what-it-did-not">4. What this cost, and what it did not</h2>
+<p>The honest accounting matters, because I overstated it twice before getting it right:</p>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“five weeks of stale cache across all four sites”</td>
+<td><strong>wrong</strong> — token expiry was real but never what broke this step</td>
+</tr>
+<tr class="even">
+<td>“only one zone was ever purged”</td>
+<td><strong>wrong</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>zero zones, ever</strong></td>
+<td>correct</td>
+</tr>
+</tbody>
+</table>
+<p>Impact is bounded by the fact that three of the four sites are Cloudflare <strong>Pages</strong> (<code>docs/CLOUD_ENVIRONMENTS.md:100</code>), which invalidates on deploy; the zone purge is a belt-and-braces layer over that. Real, but narrower than first stated. The lesson is not the blast radius — it is that I asserted a blast radius three times before checking how the sites are served.</p>
+<h2 id="the-rule-worth-keeping">5. The rule worth keeping</h2>
+<p><strong>A configured name is not a configured value, and a success message that cannot fail is not evidence.</strong> When adding a control, write the failing case first and prove it goes red. Every finding here would have been caught on day one by a single deliberate failure test.</p>
+<h2 id="hic-learning-outcome">6. HIC Learning Outcome</h2>
+<ol type="1">
+<li><strong>KB</strong> — N/A: operational defects, captured here and in the commits that fix them.</li>
+<li><strong>Field note</strong> — this file.</li>
+<li><strong><code>Learn/</code> HTML</strong> — rendered alongside.</li>
+<li><strong>Drive export</strong> — N/A: repo is source-of-truth (<code>DWS_TRUTH_STANDARD</code> §2E); no external-audience content.</li>
+<li><strong>Decision question</strong> — the Tree Gate repair is unresolved and put to the HIC: it is a security gate that will likely start blocking PRs once working, so it needs a dedicated reviewed change rather than being folded into an unrelated PR.</li>
+<li><strong>Calendar</strong> — <code>CLOUDFLARE_API_TOKEN</code> was renewed 2026-09-09 with an expiry of <strong>2026-07-01 → 2027-07-01</strong>. That is a dated commitment: a renewal reminder belongs in the calendar ~2 weeks before, since an expired token is now loud but still an outage.</li>
+</ol>
+</body>
+</html>

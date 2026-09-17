@@ -43,12 +43,15 @@ for arg in "$@"; do
   esac
 done
 
+# run: prints the command, then executes it via argv (no eval — argv is never
+# expanded through the shell, so embedded $, `, |, &, ;, or quotes in
+# parameter values cannot inject extra commands).
 run() {
   if [[ $DRY_RUN -eq 1 ]]; then
-    echo "DRY: $*"
+    echo "DRY:" "$@"
   else
-    echo "RUN: $*"
-    eval "$@"
+    echo "RUN:" "$@"
+    "$@"
   fi
 }
 
@@ -74,7 +77,8 @@ echo "Caller OK ($acct)"
 # 2. SES domain identity
 echo
 echo "--- Step 1: SES domain identity ---"
-run "aws_cmd sesv2 create-email-identity --email-identity '$DOMAIN' || echo 'identity may already exist'"
+run aws_cmd sesv2 create-email-identity --email-identity "$DOMAIN" \
+  || echo "identity may already exist"
 
 # 3. DKIM tokens
 echo
@@ -100,9 +104,17 @@ echo "--- Step 3: S3 bucket ($BUCKET) ---"
 if aws_cmd s3api head-bucket --bucket "$BUCKET" 2>/dev/null; then
   echo "Bucket exists, skipping create."
 else
-  run "aws_cmd s3api create-bucket --bucket '$BUCKET' --create-bucket-configuration LocationConstraint=$REGION"
-  run "aws_cmd s3api put-bucket-encryption --bucket '$BUCKET' --server-side-encryption-configuration '{\"Rules\":[{\"ApplyServerSideEncryptionByDefault\":{\"SSEAlgorithm\":\"AES256\"}}]}'"
-  run "aws_cmd s3api put-public-access-block --bucket '$BUCKET' --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
+  run aws_cmd s3api create-bucket \
+    --bucket "$BUCKET" \
+    --create-bucket-configuration "LocationConstraint=$REGION"
+  run aws_cmd s3api put-bucket-encryption \
+    --bucket "$BUCKET" \
+    --server-side-encryption-configuration \
+      '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
+  run aws_cmd s3api put-public-access-block \
+    --bucket "$BUCKET" \
+    --public-access-block-configuration \
+      "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
 fi
 
 # 5. Bucket policy — allow SES PutObject
@@ -129,7 +141,9 @@ EOF
 )
 if [[ $DRY_RUN -eq 0 ]]; then
   echo "$policy" > /tmp/ses-bucket-policy.json
-  run "aws_cmd s3api put-bucket-policy --bucket '$BUCKET' --policy file:///tmp/ses-bucket-policy.json"
+  run aws_cmd s3api put-bucket-policy \
+    --bucket "$BUCKET" \
+    --policy file:///tmp/ses-bucket-policy.json
 else
   echo "DRY: would apply bucket policy:"
   echo "$policy"
@@ -150,8 +164,17 @@ fi
 if [[ -n "$LAMBDA_ARN" ]]; then
   echo
   echo "--- Step 6: Subscribe Lambda to SNS ---"
-  run "aws_cmd sns subscribe --topic-arn '$topic_arn' --protocol lambda --notification-endpoint '$LAMBDA_ARN'"
-  run "aws_cmd lambda add-permission --function-name '$LAMBDA_ARN' --statement-id ses-inbound-sns --action lambda:InvokeFunction --principal sns.amazonaws.com --source-arn '$topic_arn' || true"
+  run aws_cmd sns subscribe \
+    --topic-arn "$topic_arn" \
+    --protocol lambda \
+    --notification-endpoint "$LAMBDA_ARN"
+  run aws_cmd lambda add-permission \
+    --function-name "$LAMBDA_ARN" \
+    --statement-id ses-inbound-sns \
+    --action lambda:InvokeFunction \
+    --principal sns.amazonaws.com \
+    --source-arn "$topic_arn" \
+    || true
 else
   echo
   echo "SKIP Step 6: pass --lambda-arn=arn:aws:lambda:eu-west-1:${ACCOUNT_ID}:function:ses-inbound-parser after deploying Lambda."
@@ -160,8 +183,9 @@ fi
 # 8. Receipt rule set
 echo
 echo "--- Step 7: SES receipt rule set + rule ---"
-run "aws_cmd ses create-receipt-rule-set --rule-set-name '$RULE_SET' || echo 'rule set may exist'"
-run "aws_cmd ses set-active-receipt-rule-set --rule-set-name '$RULE_SET'"
+run aws_cmd ses create-receipt-rule-set --rule-set-name "$RULE_SET" \
+  || echo "rule set may exist"
+run aws_cmd ses set-active-receipt-rule-set --rule-set-name "$RULE_SET"
 
 rule_json=$(cat <<EOF
 {
@@ -178,7 +202,12 @@ EOF
 )
 if [[ $DRY_RUN -eq 0 ]]; then
   echo "$rule_json" > /tmp/ses-rule.json
-  run "aws_cmd ses create-receipt-rule --rule-set-name '$RULE_SET' --rule file:///tmp/ses-rule.json || aws_cmd ses update-receipt-rule --rule-set-name '$RULE_SET' --rule file:///tmp/ses-rule.json"
+  run aws_cmd ses create-receipt-rule \
+    --rule-set-name "$RULE_SET" \
+    --rule file:///tmp/ses-rule.json \
+    || run aws_cmd ses update-receipt-rule \
+      --rule-set-name "$RULE_SET" \
+      --rule file:///tmp/ses-rule.json
 else
   echo "DRY: would create receipt rule:"
   echo "$rule_json"

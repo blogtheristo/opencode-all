@@ -11,9 +11,10 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import logger from '../utils/logger.js';
 import { getSupabaseClient } from '../config/supabase.js';
+import { getEnv } from '../config/env.js';
 
 // SECURITY FIX #1: Fail fast if JWT_SECRET is not set or too weak
-const _jwtSecret = process.env.JWT_SECRET;
+const _jwtSecret = getEnv().JWT_SECRET;
 if (!_jwtSecret) {
   const errorMsg =
     'FATAL: JWT_SECRET environment variable must be set. Application cannot start without a secure secret.';
@@ -40,6 +41,8 @@ interface User {
   lastName?: string;
   role?: string;
   accessLevel?: string;
+  orgId?: string;
+  organizationId?: string;
 }
 
 interface AuthResponse {
@@ -62,12 +65,6 @@ interface StoredUser {
   lastName?: string;
   role?: string;
   accessLevel?: string;
-}
-
-// User repository interface - implement with Supabase in production
-// @ts-expect-error Reserved for Supabase user repository integration
-interface UserRepository {
-  findByEmail(email: string): Promise<StoredUser | null>;
 }
 
 // Temporary in-memory user store for development
@@ -131,6 +128,18 @@ if (process.env.REDIS_URL || process.env.REDIS_HOST) {
     });
 }
 
+export interface DecodedToken {
+  userId?: string;
+  email?: string;
+  role?: string;
+  organizationId?: string;
+  orgId?: string;
+  type?: string;
+  sub?: string;
+  accessLevel?: string;
+  [key: string]: unknown;
+}
+
 class AuthService {
   /**
    * Hash a password using bcrypt
@@ -157,6 +166,8 @@ class AuthService {
         email: user.email,
         role: user.role,
         accessLevel: user.accessLevel,
+        orgId: user.orgId ?? user.organizationId,
+        organizationId: user.organizationId ?? user.orgId,
       },
       JWT_SECRET,
       { expiresIn: JWT_EXPIRES_IN },
@@ -171,6 +182,10 @@ class AuthService {
       {
         userId: user.id,
         email: user.email,
+        role: user.role,
+        accessLevel: user.accessLevel,
+        orgId: user.orgId ?? user.organizationId,
+        organizationId: user.organizationId ?? user.orgId,
         type: 'refresh',
       },
       JWT_SECRET,
@@ -182,7 +197,7 @@ class AuthService {
    * Verify JWT token
    * SECURITY FIX #4: Check blacklist before returning decoded token
    */
-  async verifyToken(token: string): Promise<any> {
+  async verifyToken(token: string): Promise<DecodedToken | null> {
     try {
       // Check if token is revoked (async for Redis support)
       const revoked = await this.isTokenRevoked(token);
@@ -193,7 +208,7 @@ class AuthService {
 
       return jwt.verify(token, JWT_SECRET, {
         algorithms: ['HS256'], // SECURITY FIX #9: Explicitly specify algorithm
-      });
+      }) as unknown as DecodedToken;
     } catch (error) {
       logger.warn('Token verification failed', { error: (error as Error).message });
       return null;
@@ -203,8 +218,22 @@ class AuthService {
   /**
    * Verify access token (alias for verifyToken)
    */
-  async verifyAccessToken(token: string): Promise<any> {
-    return this.verifyToken(token);
+  async verifyAccessToken(token: string): Promise<DecodedToken | null> {
+    const decoded = await this.verifyToken(token);
+    if (!decoded || decoded.type === 'refresh') {
+      return null;
+    }
+
+    return decoded;
+  }
+
+  async verifyRefreshToken(token: string): Promise<DecodedToken | null> {
+    const decoded = await this.verifyToken(token);
+    if (!decoded || decoded.type !== 'refresh') {
+      return null;
+    }
+
+    return decoded;
   }
 
   /**
@@ -255,14 +284,18 @@ class AuthService {
    * Refresh access token using refresh token
    */
   async refreshAccessToken(refreshToken: string): Promise<string | null> {
-    const decoded = await this.verifyToken(refreshToken);
-    if (!decoded || decoded.type !== 'refresh') {
+    const decoded = await this.verifyRefreshToken(refreshToken);
+    if (!decoded) {
       return null;
     }
 
     const user: User = {
-      id: decoded.userId,
-      email: decoded.email,
+      id: decoded.userId as string,
+      email: decoded.email as string,
+      role: decoded.role,
+      accessLevel: decoded.accessLevel as string | undefined,
+      orgId: decoded.orgId,
+      organizationId: decoded.organizationId as string | undefined,
     };
 
     return this.generateAccessToken(user);
@@ -380,46 +413,58 @@ class AuthService {
 
     const client = getSupabaseClient();
     if (client) {
-      // Check if user already exists in Supabase
-      const { data: existing } = await client
-        .from('users')
-        .select('id')
-        .eq('email', normalizedEmail)
-        .single();
+      try {
+        // Check if user already exists in Supabase
+        const { data: existing, error: existingError } = await client
+          .from('users')
+          .select('id')
+          .eq('email', normalizedEmail)
+          .single();
 
-      if (existing) {
-        throw new Error('User already exists');
-      }
+        if (existingError && existingError.code !== 'PGRST116') {
+          throw existingError;
+        }
 
-      const { data, error } = await client
-        .from('users')
-        .insert({
-          id: userId,
-          email: normalizedEmail,
-          password_hash: passwordHash,
-          first_name: userData?.firstName || null,
-          last_name: userData?.lastName || null,
-          role: userData?.role || 'dws_iq_standard',
-          access_level: userData?.accessLevel || 'free',
-        })
-        .select('id, email, first_name, last_name, role, access_level')
-        .single();
+        if (existing) {
+          throw new Error('User already exists');
+        }
 
-      if (error) {
-        logger.error('Supabase user registration failed', { error: error.message });
-        throw new Error('Registration failed');
-      }
+        const { data, error } = await client
+          .from('users')
+          .insert({
+            id: userId,
+            email: normalizedEmail,
+            password_hash: passwordHash,
+            first_name: userData?.firstName || null,
+            last_name: userData?.lastName || null,
+            role: userData?.role || 'dws_iq_standard',
+            access_level: userData?.accessLevel || 'free',
+          })
+          .select('id, email, first_name, last_name, role, access_level')
+          .single();
 
-      if (data) {
-        logger.info('User registered (Supabase)', { userId: data.id });
-        return {
-          id: data.id,
-          email: data.email,
-          firstName: data.first_name,
-          lastName: data.last_name,
-          role: data.role,
-          accessLevel: data.access_level,
-        };
+        if (error) {
+          throw error;
+        }
+
+        if (data) {
+          logger.info('User registered (Supabase)', { userId: data.id });
+          return {
+            id: data.id,
+            email: data.email,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            role: data.role,
+            accessLevel: data.access_level,
+          };
+        }
+      } catch (err) {
+        if (err instanceof Error && err.message === 'User already exists') {
+          throw err;
+        }
+        logger.warn('Supabase user registration failed, falling back to in-memory', {
+          error: err instanceof Error ? err.message : String(err),
+        });
       }
     }
 

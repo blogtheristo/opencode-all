@@ -56,7 +56,7 @@ const templates: Record<string, LangTemplate> = {
     greeting: 'Hej {{name}},',
     line1: 'Ert arbete på {{company}} fångade min uppmärksamhet — särskilt {{reference}}.',
     line2: 'En snabb fråga: hur automatiserar ert team EPBD/EN 15978-efterlevnad idag? Vi ser att de flesta bygg-företag fortfarande kör detta via konsulter och kalkylark till sexsiffriga årskostnader.',
-    line3: 'Jag bygger <strong>DWS IQ 6</strong> — en klimatintelligensplattform som automatiserar Fit for 55-efterlevnad över 20 EU-reglerade branscher. Vi har EUR 7k+ MRR, 100% retention och aktiva kunder inom bygg.',
+    line3: 'Jag bygger <strong>DWS IQ 6</strong> — en klimatintelligensplattform som automatiserar Fit for 55-efterlevnad över 20 EU-reglerade branscher. Vi har två företagspiloter kontrakterade under Q1/2026 om EUR 29 950 vardera, och bolaget går på kassamässig break-even med noll grundarlön.',
     cta: 'Passar en 30-minuters demo? Livedata, inga slides.',
     signoff: '— Risto',
     subject: (name, company) => `${name}, snabb fråga om Fit for 55-rapportering (${company})`,
@@ -67,7 +67,7 @@ const templates: Record<string, LangTemplate> = {
     greeting: 'Hallo {{name}},',
     line1: 'Ihre Arbeit bei {{company}} hat meine Aufmerksamkeit erregt — insbesondere {{reference}}.',
     line2: 'Eine kurze Frage: Wie automatisiert Ihr Team die EPBD/EN 15978-Compliance derzeit? Wir sehen, dass die meisten Bau-Unternehmen dies noch über Berater und Tabellenkalkulationen abwickeln — zu sechsstelligen Jahreskosten.',
-    line3: 'Ich baue <strong>DWS IQ 6</strong> — eine Klimaintelligenz-Plattform, die Fit-for-55-Compliance über 20 EU-regulierte Branchen automatisiert. Wir haben EUR 7k+ MRR, 100% Retention und aktive Kunden im Baubereich.',
+    line3: 'Ich baue <strong>DWS IQ 6</strong> — eine Klimaintelligenz-Plattform, die Fit-for-55-Compliance über 20 EU-regulierte Branchen automatisiert. Wir haben im Q1/2026 zwei Unternehmenspiloten zu je EUR 29.950 unter Vertrag, und das Unternehmen ist cash-break-even bei einem Gründergehalt von null.',
     cta: 'Passt eine 30-Minuten-Demo? Live-Daten, keine Slides.',
     signoff: '— Risto',
     subject: (name, company) => `${name}, kurze Frage zur Fit-for-55-Berichterstattung (${company})`,
@@ -265,9 +265,8 @@ async function main() {
   console.log('╚══════════════════════════════════════════╝\n');
 
   const hasSmtp = !!process.env.SMTP_HOST;
-  const hasResend = !!process.env.RESEND_API_KEY;
-  if (!hasSmtp && !hasResend) {
-    console.error('ERROR: No email transport. Set SMTP_HOST or RESEND_API_KEY in .env');
+  if (!hasSmtp) {
+    console.error('ERROR: No email transport. Set SMTP_HOST (Amazon SES) in .env');
     process.exit(1);
   }
 

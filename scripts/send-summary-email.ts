@@ -1,5 +1,5 @@
 /**
- * One-off / manual: send a plain summary email (SES → Resend fallback).
+ * One-off / manual: send a plain summary email (Amazon SES SMTP).
  * Usage: npx tsx scripts/send-summary-email.ts
  */
 import dotenv from 'dotenv';
@@ -32,8 +32,8 @@ async function main(): Promise<void> {
   const to = process.argv[2] || 'risto.anton@proton.me';
   const from = process.env.EMAIL_FROM || 'risto@onelifetime.world';
 
-  if (!process.env.SMTP_HOST && !process.env.RESEND_API_KEY) {
-    console.error('No SMTP_HOST or RESEND_API_KEY — cannot send.');
+  if (!process.env.SMTP_HOST) {
+    console.error('No SMTP_HOST (Amazon SES) — cannot send.');
     process.exit(1);
   }
 

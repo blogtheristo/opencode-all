@@ -228,16 +228,16 @@ Please ensure the \`VITE_API_URL\` environment variable points to your Google Cl
   };
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-xl shadow-lg border border-gray-200">
+    <div className="flex flex-col h-full bg-surface rounded-xl shadow-lg border border-border">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200">
+      <div className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center">
             <span className="text-white text-xl">🤖</span>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900">Climate Assistant</h3>
-            <p className="text-xs text-gray-500">DWS IQ AI · Powered by Claude</p>
+            <h3 className="font-semibold text-foreground">Climate Assistant</h3>
+            <p className="text-xs text-fg-muted">DWS IQ AI · Powered by Claude</p>
           </div>
         </div>
 
@@ -250,7 +250,7 @@ Please ensure the \`VITE_API_URL\` environment variable points to your Google Cl
               className={`p-2 rounded-lg transition-colors ${
                 autoSpeak
                   ? 'bg-primary-100 text-primary-700'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  : 'bg-border text-fg-muted hover:bg-fg-muted/20'
               }`}
               title={autoSpeak ? 'Disable auto-speak' : 'Enable auto-speak'}
             >
@@ -326,7 +326,7 @@ Please ensure the \`VITE_API_URL\` environment variable points to your Google Cl
       </div>
 
       {/* Input Area */}
-      <div className="p-4 border-t border-gray-200">
+      <div className="p-4 border-t border-border">
         {/* Speech Recognition Error */}
         {speechRecognitionError && (
           <div className="mb-2 text-xs text-red-600">
@@ -336,7 +336,7 @@ Please ensure the \`VITE_API_URL\` environment variable points to your Google Cl
 
         {/* Interim Transcript */}
         {interimTranscript && (
-          <div className="mb-2 text-sm text-gray-500 italic">
+          <div className="mb-2 text-sm text-fg-muted italic">
             Listening: {interimTranscript}
           </div>
         )}
@@ -347,7 +347,7 @@ Please ensure the \`VITE_API_URL\` environment variable points to your Google Cl
             value={input}
             onChange={handleInputChange}
             placeholder="Ask about carbon calculations, compliance, reports..."
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="flex-1 px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             disabled={isLoading || isListening}
           />
 
@@ -359,7 +359,7 @@ Please ensure the \`VITE_API_URL\` environment variable points to your Google Cl
               className={`p-3 rounded-lg transition-all ${
                 isListening
                   ? 'bg-red-500 text-white animate-pulse'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-border text-foreground hover:bg-fg-muted/20'
               }`}
               title={isListening ? 'Stop listening' : 'Start voice input'}
             >
@@ -383,21 +383,21 @@ Please ensure the \`VITE_API_URL\` environment variable points to your Google Cl
             onClick={() =>
               handleSuggestionClick('Calculate embodied carbon for 500m³ of concrete C30/37')
             }
-            className="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 transition-colors"
+            className="text-xs px-3 py-1 bg-border hover:bg-fg-muted/20 rounded-full text-foreground transition-colors"
             disabled={isLoading}
           >
             💡 Carbon calculation
           </button>
           <button
             onClick={() => handleSuggestionClick('Check CSRD compliance for Q4 2025')}
-            className="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 transition-colors"
+            className="text-xs px-3 py-1 bg-border hover:bg-fg-muted/20 rounded-full text-foreground transition-colors"
             disabled={isLoading}
           >
             ✅ CSRD compliance
           </button>
           <button
             onClick={() => handleSuggestionClick('Generate EPBD certificate for Helsinki HQ')}
-            className="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 transition-colors"
+            className="text-xs px-3 py-1 bg-border hover:bg-fg-muted/20 rounded-full text-foreground transition-colors"
             disabled={isLoading}
           >
             📋 EPBD report

@@ -54,7 +54,7 @@ export function ProfileMenu({ user, onSignOut, onNavigate }: ProfileMenuProps) {
   const email = user?.email || '';
 
   const menuItem =
-    'flex items-center gap-3 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors text-left';
+    'flex items-center gap-3 w-full px-4 py-2 text-sm text-foreground hover:bg-background transition-colors text-left';
 
   const handleNav = (view: string) => {
     setOpen(false);
@@ -80,12 +80,12 @@ export function ProfileMenu({ user, onSignOut, onNavigate }: ProfileMenuProps) {
         <div
           role="menu"
           aria-label="Profile menu"
-          className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50"
+          className="absolute right-0 mt-2 w-56 bg-surface rounded-xl shadow-lg border border-border py-1 z-50"
         >
           {/* User identity header */}
-          <div className="px-4 py-3 border-b border-gray-100">
-            <p className="text-sm font-semibold text-gray-900 truncate">{displayName}</p>
-            <p className="text-xs text-gray-500 truncate">{email}</p>
+          <div className="px-4 py-3 border-b border-border">
+            <p className="text-sm font-semibold text-foreground truncate">{displayName}</p>
+            <p className="text-xs text-fg-muted truncate">{email}</p>
           </div>
 
           {/* Navigation items */}
@@ -95,7 +95,7 @@ export function ProfileMenu({ user, onSignOut, onNavigate }: ProfileMenuProps) {
               className={menuItem}
               onClick={() => handleNav('dashboard')}
             >
-              <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-fg-muted shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
               Dashboard
@@ -105,7 +105,7 @@ export function ProfileMenu({ user, onSignOut, onNavigate }: ProfileMenuProps) {
               className={menuItem}
               onClick={() => handleNav('agents')}
             >
-              <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-fg-muted shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
               </svg>
               Agent Monitor
@@ -115,7 +115,7 @@ export function ProfileMenu({ user, onSignOut, onNavigate }: ProfileMenuProps) {
               className={menuItem}
               onClick={() => handleNav('billing')}
             >
-              <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-fg-muted shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
               </svg>
               Billing
@@ -125,7 +125,7 @@ export function ProfileMenu({ user, onSignOut, onNavigate }: ProfileMenuProps) {
               className={menuItem}
               onClick={() => handleNav('settings')}
             >
-              <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-fg-muted shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
@@ -134,7 +134,7 @@ export function ProfileMenu({ user, onSignOut, onNavigate }: ProfileMenuProps) {
           </div>
 
           {/* Destructive actions */}
-          <div className="border-t border-gray-100 py-1">
+          <div className="border-t border-border py-1">
             <button
               role="menuitem"
               onClick={async () => {

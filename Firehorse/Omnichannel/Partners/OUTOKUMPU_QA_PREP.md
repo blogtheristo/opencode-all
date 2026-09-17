@@ -107,12 +107,77 @@ of agreement to proceed.
 
 ---
 
+## Q11: We already have a CBAM Q&A page for our customers. How is DWS different from what we already provide?
+
+**A:** Your Q&A page is excellent at explaining what CBAM is, what it covers, and why sourcing
+from Outokumpu changes the calculation. It is an education layer — and it's working, because
+your customers are reading it and asking the right questions. DWS IQ 6 is the execution layer
+that comes after the Q&A. It takes a fabricator from "I understand CBAM" to "I have a filed,
+verified, auditor-ready annual declaration." Concretely: your Q&A tells them that using your
+ISO 14067 data instead of EU default values saves money. Our platform does the calculation,
+generates the declaration, attaches your certificate as the source document, and archives
+the audit trail for the 30 September 2027 deadline. Q&A and DWS are complementary — the Q&A
+creates the demand, DWS closes it.
+
+---
+
+## Q12: What exactly are the EU punitive default values, and how bad are they for a fabricator buying Outokumpu steel?
+
+**A:** The EU default emission factors under Commission Implementing Regulation (EU) 2023/1773
+are set conservatively — they represent approximately the upper range of carbon intensity for
+each sector globally. For steel, the hot-rolled default is 1.852 tCO₂e per tonne; cold-rolled
+is 2.143 tCO₂e/t. These are calibrated for worst-case non-EU production, not for a mill
+running on 97% recycled scrap and hydropower.
+
+For a fabricator importing 1,000 tonnes of steel from a non-EU supplier who cannot provide
+verified data, the CBAM certificate bill at today's ETS price (~€65/tCO₂e) is approximately
+€120,000–€139,000 per 1,000 tonnes — before any carbon price credit from the country of origin.
+
+If the same fabricator had bought from Outokumpu (EU-produced, no CBAM triggered) or had
+documented a non-EU supplier's actual low-carbon data, that bill drops to near zero.
+
+The punitive default is not a technicality. It is a five- to six-figure annual liability
+per 1,000 tonnes that shows up in a fabricator's CFO meeting. That is the conversation DWS
+enables — in numbers, not in sustainability language.
+
+---
+
+## Q13: What happens to the CBAM advantage if CBAM scope expands to downstream goods?
+
+**A:** This is the upside scenario for both Outokumpu and DWS. Currently CBAM targets direct
+steel imports. Outokumpu's public position is to expand scope to all steel-intensive downstream
+goods — meaning automotive parts, white goods, construction components made from imported steel
+would also carry a CBAM obligation tied to the embedded emissions of the steel input.
+
+If that expansion happens (Outokumpu is actively lobbying for it), the fabricator network
+already using DWS IQ 6 and sourcing from Outokumpu will be the only one able to document
+a near-zero embedded emissions chain all the way to the final product. Their downstream
+customers — OEMs, construction companies — gain a CBAM-clean supply chain argument.
+The DWS + Outokumpu integration scales with every scope expansion Outokumpu advocates for.
+
+---
+
+## Q14: Our customers are large enterprises — do they not already have SAP or Tietoevry tools for this?
+
+**A:** Outokumpu uses Microsoft Fabric + Sustainability Manager (via Tietoevry/TCS) for
+internal CSRD reporting. Your fabricator customers may use SAP, Oracle, or other ERP systems.
+None of those currently produce a CBAM annual declaration — they are not designed for it.
+CBAM declarations require: embedded emissions calculation per CN code, ETS price lookup,
+carbon price credit verification per country of origin, and formatted submission to the EU
+CBAM registry. SAP's CBAM module (released late 2025) handles part of this but requires
+a license tier most mid-size fabricators do not have. DWS IQ 6 is purpose-built for the
+CBAM declaration workflow, integrates Outokumpu's PCF data as a verified source, and is
+priced for mid-market (€2,400–9,600/year) — the exact segment that SAP underserves.
+
+---
+
 ---
 
 VERSION AND AGENT HISTORY
 
-| Version | Date       | Agent / Author      | Change                              |
-| ------- | ---------- | ------------------- | ----------------------------------- |
-| 1.0     | 2026-05-07 | Claude (Sonnet 4.6) | Initial Q&A prep for Outokumpu call |
+| Version | Date       | Agent / Author      | Change                                                                    |
+| ------- | ---------- | ------------------- | ------------------------------------------------------------------------- |
+| 1.0     | 2026-05-07 | Claude (Sonnet 4.6) | Initial Q&A prep for Outokumpu call                                       |
+| 2.0     | 2026-05-10 | Claude (Sonnet 4.6) | Added Q11–Q14: Q&A page gap, punitive defaults math, scope expansion, SAP |
 
 ---

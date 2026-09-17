@@ -4,6 +4,7 @@
  */
 
 import { db } from './database';
+import logger from '../utils/logger.js';
 
 // ============================================================================
 // TYPES
@@ -50,7 +51,7 @@ export interface Proposal {
 export async function scheduleMeeting(meeting: Meeting): Promise<string> {
   const meetingId = await db.createMeeting(meeting);
 
-  console.log(`📅 Meeting scheduled: ${meeting.title} for ${meeting.scheduled_at}`);
+  logger.info(`📅 Meeting scheduled: ${meeting.title} for ${meeting.scheduled_at}`);
 
   return meetingId;
 }
@@ -70,13 +71,13 @@ export async function completeMeeting(
     completed_at: new Date(),
   });
 
-  console.log(`✅ Meeting completed: ${meetingId}`);
+  logger.info(`✅ Meeting completed: ${meetingId}`);
 }
 
 /**
  * Get upcoming meetings (next 7 days)
  */
-export async function getUpcomingMeetings(): Promise<any[]> {
+export async function getUpcomingMeetings(): Promise<unknown[]> {
   return db.getUpcomingMeetings();
 }
 
@@ -90,7 +91,7 @@ export async function getUpcomingMeetings(): Promise<any[]> {
 export async function createProposal(proposal: Proposal): Promise<string> {
   const proposalId = await db.createProposal(proposal);
 
-  console.log(`📄 Proposal created: ${proposal.title} for ${proposal.amount_eur} EUR`);
+  logger.info(`📄 Proposal created: ${proposal.title} for ${proposal.amount_eur} EUR`);
 
   return proposalId;
 }
@@ -111,7 +112,7 @@ export async function sendProposal(
     valid_until: validUntil,
   });
 
-  console.log(`📤 Proposal sent: ${proposalId}, valid until ${validUntil}`);
+  logger.info(`📤 Proposal sent: ${proposalId}, valid until ${validUntil}`);
 }
 
 /**
@@ -123,7 +124,7 @@ export async function acceptProposal(proposalId: string): Promise<void> {
     accepted_at: new Date(),
   });
 
-  console.log(`✅ Proposal accepted: ${proposalId}`);
+  logger.info(`✅ Proposal accepted: ${proposalId}`);
 }
 
 /**
@@ -139,13 +140,13 @@ export async function rejectProposal(
     rejection_reason: reason,
   });
 
-  console.log(`❌ Proposal rejected: ${proposalId}, reason: ${reason}`);
+  logger.info(`❌ Proposal rejected: ${proposalId}, reason: ${reason}`);
 }
 
 /**
  * Get active proposals
  */
-export async function getActiveProposals(): Promise<any[]> {
+export async function getActiveProposals(): Promise<unknown[]> {
   return db.getActiveProposals();
 }
 
@@ -156,7 +157,7 @@ export async function getActiveProposals(): Promise<any[]> {
 /**
  * Get sales pipeline overview
  */
-export async function getSalesPipeline(): Promise<any[]> {
+export async function getSalesPipeline(): Promise<unknown[]> {
   return db.getSalesPipeline();
 }
 

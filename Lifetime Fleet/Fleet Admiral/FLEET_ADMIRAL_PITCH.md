@@ -5,16 +5,16 @@ Version: 2.0
 Date: 2026-03-10
 Agent: Claude Opus 4.6 (claude/fleet-admiral-folder-s1s57)
 v1.0 — Created Fleet Admiral pitch — 3 Diamonds framework
-v2.0 — Sharpened with KYA v1.4, term sheet logic, Helsinki Sandbox targeting, Karpathy catalyst
+v2.0 — Sharpened with KYA v1.5, term sheet logic, Helsinki Sandbox targeting, Karpathy catalyst
 END VERSION AND AGENT HISTORY
 
 **Company:** Lifetime Oy
-**Platform:** DWS IQ 6 / KYA v1.4
+**Platform:** DWS IQ 6 / KYA v1.5
 **Round:** Convertible Note, €3.8M Post-Money Cap
 **Category:** Physical AI for Nordic Healthcare — Agent Self-Optimization Governance
 **Status:** Locked for Helsinki Sandbox (March 2026)
 
----
+***
 
 ## The 3 Diamonds — Why This Is a Perfect Storm
 
@@ -93,7 +93,7 @@ This isn't a 24-year-old looking for a "SaaS exit." This is the **35/17 Rule**: 
 
 This isn't a pivot. It's the final form of a mission to solve the **Care-Bed Crisis through Autonomous Asset Governance (AAG)**.
 
-**The Investor Confidence:** You aren't betting on a pivot. You are betting on a Calling that finally has the technology (DWS IQ 6 / KYA v1.4) to achieve its final product form.
+**The Investor Confidence:** You aren't betting on a pivot. You are betting on a Calling that finally has the technology (DWS IQ 6 / KYA v1.5) to achieve its final product form.
 
 ### Founder-Market Fit Metrics
 
@@ -123,7 +123,7 @@ This isn't a pivot. It's the final form of a mission to solve the **Care-Bed Cri
 | First Close Target | €1M (April 15, 2026) |
 | Conversion Trigger | Series A or KYA Alpha Clause |
 | KYA Alpha Clause | >10% fleet latency improvement in April pilot = valuation protection |
-| Downside Protection | KYA v1.4 efficiency gains logged on-chain via Firehorse |
+| Downside Protection | KYA v1.5 efficiency gains logged on-chain via Firehorse |
 
 ### Investment Logic
 
@@ -160,7 +160,7 @@ Convertible Note @ €3.8M cap
 - Partners: Uber, Bolt, Taksi Helsinki (KELA National Care rides)
 - NVIDIA Connect ISV Partner
 - 4-partner hardware stack: NVIDIA, Acer, Siemens, ABB
-- 100% customer retention, zero churn
+- All dispatch relationships still active. No retention or churn percentage is asserted — see `docs/TRACTION_CANONICAL.md`.
 - Helsinki Sandbox prepped for pilot deployment
 
 ### Helsinki Sandbox Context

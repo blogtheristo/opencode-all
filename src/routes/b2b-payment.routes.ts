@@ -1,11 +1,19 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response, Router } from 'express';
 import { supabase } from '../services/supabase.service.js';
 import { requireAuth } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';
 import Stripe from 'stripe';
+import { sendPaymentConfirmationEmail } from '../services/billing.service.js';
 
 const router = Router();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
+let stripeClient: Stripe | null = null;
+function getStripeClient(): Stripe | null {
+  if (stripeClient) return stripeClient;
+  const secret = process.env.STRIPE_SECRET_KEY;
+  if (!secret) return null;
+  stripeClient = new Stripe(secret);
+  return stripeClient;
+}
 
 // ============================================================================
 // REQUEST/RESPONSE SCHEMAS
@@ -131,14 +139,16 @@ router.post('/orders', requireAuth, async (req: Request, res: Response, next: Ne
       return res.status(500).json({ error: 'Failed to fetch product pricing' });
     }
 
-    const products = JSON.parse(await productsData.text());
-    const product = products.find((p: any) => p.id === product_id);
+    const products = JSON.parse(await productsData.text()) as {
+      data?: Array<{ id?: string; price?: number; [key: string]: unknown }>;
+    };
+    const product = products.data?.find((p) => p.id === product_id);
 
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    const productPriceCents = Math.round(product.price * 100);
+    const productPriceCents = Math.round((product.price as number) * 100);
 
     // Validate deposit doesn't exceed product price
     if (deposit_amount_cents > productPriceCents) {
@@ -260,6 +270,12 @@ router.post(
 
       // Create Stripe invoice for remainder
       try {
+        const stripe = getStripeClient();
+        if (!stripe) {
+          logger.error('Stripe invoice creation unavailable: STRIPE_SECRET_KEY missing');
+          return res.status(503).json({ error: 'Stripe billing is not configured' });
+        }
+
         // Step 1: Create invoice item (Stripe will bundle it into the invoice)
         await stripe.invoiceItems.create({
           customer: userId,
@@ -354,7 +370,7 @@ router.post('/webhook', async (req: Request, res: Response, next: NextFunction) 
 
       logger.info('Order marked as paid', { orderId: order.id, invoiceId: invoice_id });
 
-      // TODO: Send confirmation email to customer
+      await sendPaymentConfirmationEmail(order);
     } else if (type === 'invoice.marked_uncollectible' && invoice_id) {
       // Handle Stripe invoice failure
       const { data: order } = await supabase
@@ -369,6 +385,18 @@ router.post('/webhook', async (req: Request, res: Response, next: NextFunction) 
           invoiceId: invoice_id,
         });
         // TODO: Notify admin, send customer reminder email
+        try {
+          // This would use sendEmail and notification services
+          logger.info('Admin notification + customer reminder placeholder (not implemented)', {
+            order_id: order.id,
+            invoice_id: invoice_id,
+          });
+        } catch (error) {
+          logger.error('Failed to notify admin and remind customer', {
+            error,
+            order_id: order.id,
+          });
+        }
       }
     }
 

@@ -1,0 +1,34 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-08-27T03:22:59.994Z",
+  "active_claims": {
+    "copilot_deddef51-437": {
+      "platform": "claude-code",
+      "claimed_at": "2026-08-27T03:22:59.944Z",
+      "state": "PROCESSING",
+      "branch": "kya-baseline-clean",
+      "repository": "blogtheristo/dws6"
+    },
+    "copilot_dbab1ef1-b88": {
+      "platform": "opencode",
+      "claimed_at": "2026-08-27T03:22:59.994Z",
+      "state": "PROCESSING",
+      "branch": "main",
+      "repository": "blogtheristo/dws6"
+    }
+  },
+  "session_history": [
+    {
+      "session_id": "copilot_deddef51-437",
+      "action": "CLAIMED",
+      "platform": "claude-code",
+      "timestamp": "2026-08-27T03:22:59.944Z"
+    },
+    {
+      "session_id": "copilot_dbab1ef1-b88",
+      "action": "CLAIMED",
+      "platform": "opencode",
+      "timestamp": "2026-08-27T03:22:59.994Z"
+    }
+  ]
+}

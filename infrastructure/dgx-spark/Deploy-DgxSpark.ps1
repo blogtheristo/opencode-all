@@ -44,6 +44,9 @@ param(
     [Parameter(ParameterSetName = 'Models')]
     [switch]$Models,
 
+    [Parameter(ParameterSetName = 'ModelsCleanup')]
+    [switch]$ModelsCleanup,
+
     [Parameter(ParameterSetName = 'SshConfig')]
     [switch]$SshConfig,
 
@@ -206,14 +209,50 @@ function Invoke-DgxStop {
 function Invoke-DgxModels {
     Write-DGX "Pulling required Ollama models on DGX Spark..."
     Invoke-SshCommand @"
-echo 'Pulling llama3.3:70b (may take a while)...'
-ollama pull llama3.3:70b
+echo 'Pulling nemotron-3-super (may take a while — ~87GB)...'
+ollama pull nemotron-3-super
 echo ''
-echo 'Pulling qwen2.5-coder:32b...'
-ollama pull qwen2.5-coder:32b
+echo 'Pulling qwen3-coder:30b...'
+ollama pull qwen3-coder:30b
 echo ''
 echo 'Available models:'
 ollama list
+"@
+}
+
+# ---------------------------------------------------------------------------
+# Ollama cleanup — DESTRUCTIVE: removes deprecated models from the Spark
+# Separate from -Models on purpose. Run only after the new models
+# (nemotron-3-super + qwen3-coder:30b) are verified working in production.
+# Until then, the old models (llama3.3:70b + qwen2.5-coder:32b) stay on
+# disk as warm rollback. The Spark's 3TB NVMe easily holds all four.
+# ---------------------------------------------------------------------------
+function Invoke-DgxModelsCleanup {
+    Write-DGX "Ollama cleanup - DESTRUCTIVE"
+    Write-Host "This will remove the deprecated Spark Brain models:" -ForegroundColor Yellow
+    Write-Host "  - llama3.3:70b        (previous Primary tier, ~40GB)" -ForegroundColor Yellow
+    Write-Host "  - qwen2.5-coder:32b   (previous Fast tier, ~20GB)" -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "Verify the new models work first (curl http://192.168.101.113:11434/api/generate)." -ForegroundColor Yellow
+    Write-Host "Once removed, rolling back requires re-pulling ~60GB from ollama.com." -ForegroundColor Yellow
+    Write-Host ""
+    $confirm = Read-Host "Type 'remove' to confirm"
+    if ($confirm -ne 'remove') {
+        Write-Warn "Aborted."
+        return
+    }
+    Invoke-SshCommand @"
+echo 'Removing llama3.3:70b...'
+ollama rm llama3.3:70b 2>/dev/null && echo '  removed' || echo '  not present (already removed)'
+echo ''
+echo 'Removing qwen2.5-coder:32b...'
+ollama rm qwen2.5-coder:32b 2>/dev/null && echo '  removed' || echo '  not present (already removed)'
+echo ''
+echo 'Remaining models:'
+ollama list
+echo ''
+echo 'Ollama model dir disk usage:'
+du -sh /usr/share/ollama/.ollama/models/ 2>/dev/null || true
 "@
 }
 
@@ -254,6 +293,7 @@ function Show-DgxHelp {
     Write-Host "  .\Deploy-DgxSpark.ps1 -Logs          # Tail container logs"
     Write-Host "  .\Deploy-DgxSpark.ps1 -Pull          # Git pull only"
     Write-Host "  .\Deploy-DgxSpark.ps1 -Models        # Pull Ollama models"
+    Write-Host "  .\Deploy-DgxSpark.ps1 -ModelsCleanup # Remove deprecated models (DESTRUCTIVE, prompts to confirm)"
     Write-Host "  .\Deploy-DgxSpark.ps1 -SshConfig     # Show SSH config"
     Write-Host ""
     Write-Host "Environment variables:" -ForegroundColor Cyan
@@ -273,5 +313,6 @@ elseif ($Stop)      { Invoke-DgxStop }
 elseif ($Logs)      { Invoke-DgxLogs }
 elseif ($Pull)      { Invoke-DgxPull }
 elseif ($Models)    { Invoke-DgxModels }
+elseif ($ModelsCleanup) { Invoke-DgxModelsCleanup }
 elseif ($SshConfig) { Show-SshConfig }
 else                { Invoke-DgxDeploy }

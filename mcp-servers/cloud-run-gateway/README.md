@@ -3,6 +3,24 @@
 Hosts MCP tools over **Streamable HTTP** on Google Cloud Run so Claude Code
 mobile sessions can use Supabase and GitHub MCP tools without local processes.
 
+## Scope (May 2026 update)
+
+Since Google Cloud now ships first-party MCP servers for its native services
+(Cloud Run, BigQuery, GCS, Cloud Logging, Maps Grounding Lite, …), this
+gateway is no longer the place to add new GCP-native tools. See
+`docs/MCP_CONFIGURATION.md` section 4 and `mcp.google-managed.example.json`
+at the repo root.
+
+This gateway keeps:
+
+- Supabase tools (DWS-specific, not a Google service)
+- DWS agent surface (`dws_*` tools)
+- GitHub passthrough for non-Claude clients (Claude Code uses its built-in
+  GitHub MCP via OAuth)
+
+Do not add new thin GCP wrappers here — use the Google-managed MCP for
+those in the client's `.mcp.json` instead.
+
 ## Problem
 
 Claude Code on mobile (web) cannot spawn local MCP server processes via stdio.
@@ -28,6 +46,7 @@ This gateway runs on Cloud Run and exposes the same MCP tools over HTTP.
 ## Available Tools
 
 ### Supabase
+
 - `supabase_query` — Query any table with filters, ordering, limits
 - `supabase_insert` — Insert rows
 - `supabase_update` — Update rows matching filters
@@ -35,6 +54,7 @@ This gateway runs on Cloud Run and exposes the same MCP tools over HTTP.
 - `supabase_list_tables` — List all tables
 
 ### GitHub
+
 - `github_list_repos` — List repos for user/org
 - `github_get_repo` — Get repo details
 - `github_list_issues` — List issues with filters
@@ -44,6 +64,7 @@ This gateway runs on Cloud Run and exposes the same MCP tools over HTTP.
 - `github_create_issue` — Create new issues
 
 ### Gateway
+
 - `gateway_health` — Health check for all connected services
 
 ## Setup
@@ -92,6 +113,7 @@ gcloud builds submit \
 ### 4. Configure Claude Code
 
 Get the Cloud Run URL:
+
 ```bash
 export MCP_URL=$(gcloud run services describe mcp-gateway \
   --region=europe-north1 --format='value(status.url)')
@@ -99,6 +121,7 @@ echo $MCP_URL
 ```
 
 Add to `.claude/settings.json`:
+
 ```json
 {
   "mcpServers": {
@@ -127,9 +150,9 @@ python server.py --transport streamable-http --port 8080
 
 ## Cost
 
-| Resource | Estimate |
-|----------|----------|
-| Cloud Run (scale-to-zero) | ~€2-5/month |
-| Secret Manager | ~€0.50/month |
-| Artifact Registry | ~€0.50/month |
-| **Total** | **~€3-6/month** |
+| Resource                  | Estimate        |
+| ------------------------- | --------------- |
+| Cloud Run (scale-to-zero) | ~€2-5/month     |
+| Secret Manager            | ~€0.50/month    |
+| Artifact Registry         | ~€0.50/month    |
+| **Total**                 | **~€3-6/month** |

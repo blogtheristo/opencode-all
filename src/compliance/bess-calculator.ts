@@ -240,7 +240,6 @@ export function calculateBESSCompliance(input: BESSComplianceInput): BESSComplia
 
   // ---- Scope 2: Charging emissions ----
   let totalChargedMwh = 0;
-  let totalDischargedMwh = 0;
   let weightedEmissions = 0; // gCO2 total
   let etsCoveredHours = 0;
 
@@ -253,7 +252,6 @@ export function calculateBESSCompliance(input: BESSComplianceInput): BESSComplia
       weightedEmissions += entry.chargedMwh * entry.gridEmissionFactor * 1000;
     }
     if (entry.dischargedMwh > 0) {
-      totalDischargedMwh += entry.dischargedMwh;
       // Track grid factor at time of discharge — this is the marginal generation displaced
       dischargeWeightedEmissions += entry.dischargedMwh * entry.gridEmissionFactor * 1000;
     }

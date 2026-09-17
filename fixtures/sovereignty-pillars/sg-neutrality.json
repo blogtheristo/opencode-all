@@ -1,0 +1,30 @@
+{
+  "_fixture": "Singapore-origin enterprise running an East-West bridge with explicit digital-neutrality posture. Expected tier: Connect. Expected quantum_readiness: not-started.",
+  "customer_origin": "SG",
+  "markets": ["SG", "EU", "US"],
+  "data_layer": {
+    "db_vendor": "azure-flex",
+    "residency": "SG",
+    "encryption_at_rest": true,
+    "encryption_in_transit": true,
+    "key_custody": "cloud-kms",
+    "third_country_access_path": "possible"
+  },
+  "compute_layer": {
+    "primary_cloud": "hybrid",
+    "residency": "mixed",
+    "on_prem_fraction": 0.25,
+    "gpu_substrate": "amd-mi300",
+    "portability_index": 75
+  },
+  "identity_layer": {
+    "idv_provider": "jumio",
+    "idp": "entra-id",
+    "mfa": "passkeys"
+  },
+  "pqc_posture": {
+    "algorithms_in_use": ["RSA-2048", "ECC-P256"],
+    "migration_plan_status": "not-started",
+    "rsac2_stage": 0
+  }
+}
