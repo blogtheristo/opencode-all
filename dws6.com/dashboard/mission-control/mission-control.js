@@ -318,7 +318,8 @@ export async function requireHicAuth(getCurrentUser, handleOAuthCallback, getUse
   await handleOAuthCallback();
   const user = await getCurrentUser();
   if (!user) {
-    window.location.href = '/login/';
+    const next = encodeURIComponent(`${location.pathname}${location.search}`);
+    location.replace(`/login/?next=${next}`);
     return null;
   }
   const email = (user.email || '').toLowerCase();
