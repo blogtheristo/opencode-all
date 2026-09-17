@@ -1576,14 +1576,14 @@ For dashboard forms and multi-page experiences:
 
 ### MCP Integration Quality
 
-| Requirement             | Standard                                             |
-| ----------------------- | ---------------------------------------------------- |
-| Client quickstart doc   | `docs/MCP_CLIENT_QUICKSTART.md`                      |
-| Connection test command | `dws status` checks backend + MCP                    |
-| `.mcp.json` template    | Documented for Claude Code, Cursor, VS Code          |
-| Auto-discovery          | Every registered agent auto-becomes an MCP tool      |
-| Health endpoint         | `/mcp/health` returns agent count + protocol version |
-| SSE streaming           | `/mcp/sse` for real-time event subscriptions         |
+| Requirement             | Standard                                                    |
+| ----------------------- | ----------------------------------------------------------- |
+| Client quickstart doc   | `docs/MCP_CLIENT_QUICKSTART.md`                             |
+| Connection test command | `dws status` checks backend + MCP                           |
+| `.mcp.json` template    | Documented for Claude Code, Cursor, VS Code                 |
+| Auto-discovery          | Every registered agent auto-becomes an MCP tool             |
+| Health endpoint         | `/mcp/health` returns protocol version and registered tools |
+| SSE streaming           | `/mcp/sse` for real-time event subscriptions                |
 
 ### Continuous Improvement Checklist
 

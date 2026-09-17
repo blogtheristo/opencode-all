@@ -42,7 +42,7 @@ _[REWRITTEN v2 — was penalty-led, now pain-led with CFO connector signal]_
 - **Buyer Signal:** CFO / Head of Compliance / Sustainability Director whose first CSRD filing is due and whose data is still in spreadsheets
 - **Urgency Hook:** CSRD mid-market cohort (50–500 employees) files FY2025 by June 2026 — the reporting window is open now, not next year
 - **CFO Integration:** SAP S/4HANA (OData V4), Dynamics 365, IFS Cloud, Monitor G5, Procountor, Netvisor — platform pulls data directly, no CSV exports, no re-keying
-- **Why it works:** Opens with the operational pain (7 systems, manual reconciliation), names the concrete agent count (18), and gives the CFO the connector answer before they ask it
+- **Why it works:** Opens with the operational pain (7 systems, manual reconciliation), names Monthly Governed Decisions as the outcome, and gives the CFO the connector answer before they ask it
 
 ---
 
