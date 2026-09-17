@@ -274,6 +274,7 @@ describe("InstructionContext", () => {
                   observed = options
                   return []
                 }),
+              globUp: () => Effect.succeed([]),
             }),
           ),
         ),
@@ -296,7 +297,7 @@ describe("InstructionContext", () => {
       )
 
       expect(observed).toEqual({
-        targets: ["AGENTS.md"],
+        targets: ["AGENTS.md", ".cursorrules"],
         start: FSUtil.resolve("/repo"),
         stop: FSUtil.resolve("/repo"),
       })
