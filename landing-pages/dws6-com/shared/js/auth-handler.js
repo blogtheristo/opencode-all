@@ -10,6 +10,7 @@
 
 import { getSupabaseClient, getCurrentUser, getUserRole } from './supabase-client.js';
 import { supabaseConfig } from '../config/supabase-config.js';
+import { sanitizeNextPath } from './auth-next.js';
 
 // ============================================================
 // EMAIL/PASSWORD AUTHENTICATION
@@ -202,14 +203,16 @@ export function getPasswordStrength(password) {
  * @param {string} role - User role to assign after login
  * @returns {Promise<Object>} Result object {success, error}
  */
-export async function loginWithGoogle(role = null) {
+export async function loginWithGoogle(role = null, redirectPath = null) {
   const client = getSupabaseClient();
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
 
   try {
-    const redirectUrl = role ? supabaseConfig.redirectUrls[role] : '/dashboard/index.html';
+    const redirectUrl =
+      sanitizeNextPath(redirectPath) ||
+      (role ? supabaseConfig.redirectUrls[role] : '/dashboard/index.html');
     const fullRedirectUrl = `${window.location.origin}${redirectUrl}`;
 
     const { data, error } = await client.auth.signInWithOAuth({

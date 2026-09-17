@@ -113,7 +113,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module">
-      import { getSupabaseClient } from "../../shared/js/supabase-client.js";
+      import { getSupabaseClient } from "../../shared/js/supabase-client.js?v=20260917-mc-session";
+      import { sanitizeNextPath } from "../../shared/js/auth-next.js?v=20260917-mc-session";
       import {
         login,
         loginWithGoogle,
@@ -122,8 +123,8 @@
         showError,
         showSuccess,
         setButtonLoading,
-      } from "../../shared/js/auth-handler.js";
-      import { handlePostLoginRedirect } from "../../shared/js/role-router.js";
+      } from "../../shared/js/auth-handler.js?v=20260917-mc-session";
+      import { handlePostLoginRedirect } from "../../shared/js/role-router.js?v=20260917-mc-session";
 
       function getLoginRole(email) {
         // Normalize email: trim and lowercase for case-insensitive comparison
@@ -135,6 +136,10 @@
         // Default role for DWS IQ portal
         return "dws_iq_standard";
       }
+
+      const params = new URLSearchParams(window.location.search);
+      const NEXT = sanitizeNextPath(params.get("next"));
+      if (NEXT) sessionStorage.setItem("dws6_auth_next", NEXT);
 
       window.addEventListener("DOMContentLoaded", () => {
         console.log("DWS IQ 6 Platform Login - Initializing...");
@@ -170,7 +175,7 @@
         const btn = document.getElementById("googleBtn");
         setButtonLoading(btn, true, "Redirecting...");
 
-        const result = await loginWithGoogle("dws_iq_standard");
+        const result = await loginWithGoogle("dws_iq_standard", NEXT);
         if (!result.success) {
           showError(result.error || "Google login failed");
           setButtonLoading(btn, false, "Google Workspace");

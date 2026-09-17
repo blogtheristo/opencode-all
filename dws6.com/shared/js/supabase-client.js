@@ -1,6 +1,6 @@
 /**
  * Supabase Client Initialization
- * 
+ *
  * This module initializes the Supabase client for authentication
  * and database operations across all DWS6.com login endpoints.
  */
@@ -18,22 +18,20 @@ export function getSupabaseClient() {
   if (supabaseClient) {
     return supabaseClient;
   }
-  
-  // Check if Supabase library is loaded
-  if (typeof supabase === 'undefined') {
-    console.error('Supabase library not loaded. Include: <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>');
+
+  // ES modules do not see classic-script globals as bare identifiers.
+  const supabaseLib = globalThis.supabase;
+  if (!supabaseLib?.createClient) {
+    console.error(
+      'Supabase library not loaded. Include: <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>',
+    );
     return null;
   }
-  
-  // Create Supabase client
-  supabaseClient = supabase.createClient(
-    supabaseConfig.url,
-    supabaseConfig.anonKey,
-    {
-      auth: supabaseConfig.auth
-    }
-  );
-  
+
+  supabaseClient = supabaseLib.createClient(supabaseConfig.url, supabaseConfig.anonKey, {
+    auth: supabaseConfig.auth,
+  });
+
   console.log('✅ Supabase client initialized');
   return supabaseClient;
 }
@@ -45,15 +43,29 @@ export function getSupabaseClient() {
 export async function getCurrentUser() {
   const client = getSupabaseClient();
   if (!client) return null;
-  
+
   try {
-    const { data: { user }, error } = await client.auth.getUser();
-    
+    // getSession() waits for localStorage hydration. getUser() hits the Auth
+    // API and returns Auth session missing on first paint → login redirect loop.
+    const {
+      data: { session },
+      error: sessionError,
+    } = await client.auth.getSession();
+    if (sessionError) {
+      console.error('Error getting session:', sessionError.message);
+    }
+    if (session?.user) return session.user;
+
+    const {
+      data: { user },
+      error,
+    } = await client.auth.getUser();
+
     if (error) {
       console.error('Error getting user:', error.message);
       return null;
     }
-    
+
     return user;
   } catch (error) {
     console.error('Exception getting user:', error);
@@ -68,15 +80,18 @@ export async function getCurrentUser() {
 export async function getCurrentSession() {
   const client = getSupabaseClient();
   if (!client) return null;
-  
+
   try {
-    const { data: { session }, error } = await client.auth.getSession();
-    
+    const {
+      data: { session },
+      error,
+    } = await client.auth.getSession();
+
     if (error) {
       console.error('Error getting session:', error.message);
       return null;
     }
-    
+
     return session;
   } catch (error) {
     console.error('Exception getting session:', error);
@@ -100,7 +115,7 @@ export async function isAuthenticated() {
 export async function getUserRole() {
   const user = await getCurrentUser();
   if (!user || !user.user_metadata) return null;
-  
+
   return user.user_metadata.role || null;
 }
 
@@ -111,7 +126,7 @@ export async function getUserRole() {
 export async function getUserPermissions() {
   const user = await getCurrentUser();
   if (!user || !user.user_metadata) return [];
-  
+
   return user.user_metadata.permissions || [];
 }
 
@@ -132,8 +147,10 @@ export async function hasPermission(permission) {
 export function onAuthStateChange(callback) {
   const client = getSupabaseClient();
   if (!client) return null;
-  
-  const { data: { subscription } } = client.auth.onAuthStateChange(callback);
+
+  const {
+    data: { subscription },
+  } = client.auth.onAuthStateChange(callback);
   return subscription;
 }
 

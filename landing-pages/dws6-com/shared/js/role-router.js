@@ -1,12 +1,13 @@
 /**
  * Role-Based Router for DWS6.com Multi-Login Platform
- * 
+ *
  * Handles automatic redirection to appropriate dashboards
  * based on user role stored in Supabase user metadata.
  */
 
 import { getUserRole, getCurrentUser } from './supabase-client.js';
 import { getRedirectUrl, getLoginUrl, getRoleName } from '../config/supabase-config.js';
+import { sanitizeNextPath } from './auth-next.js';
 
 /**
  * Redirect user to their role-specific dashboard
@@ -14,21 +15,21 @@ import { getRedirectUrl, getLoginUrl, getRoleName } from '../config/supabase-con
  */
 export async function redirectToDashboard() {
   const user = await getCurrentUser();
-  
+
   if (!user) {
     console.warn('⚠️ No user found, redirecting to login portal');
     window.location.href = '/login/portal.html';
     return;
   }
-  
+
   const role = await getUserRole();
-  
+
   if (!role) {
     console.warn('⚠️ User has no role assigned, redirecting to role selection');
     window.location.href = '/select-role.html';
     return;
   }
-  
+
   const dashboardUrl = getRedirectUrl(role);
   console.log(`✅ Redirecting to ${getRoleName(role)} dashboard:`, dashboardUrl);
   window.location.href = dashboardUrl;
@@ -57,22 +58,22 @@ export function redirectToLogin(role = null) {
  */
 export async function checkPageAuthorization(requiredRole) {
   const user = await getCurrentUser();
-  
+
   if (!user) {
     console.warn('⚠️ Not authenticated');
     redirectToLogin(requiredRole);
     return false;
   }
-  
+
   const userRole = await getUserRole();
-  
+
   if (userRole !== requiredRole) {
     console.warn(`⚠️ Unauthorized: page requires ${requiredRole}, user has ${userRole}`);
     // Redirect to user's correct dashboard
     await redirectToDashboard();
     return false;
   }
-  
+
   console.log(`✅ Authorized: ${getRoleName(userRole)}`);
   return true;
 }
@@ -85,9 +86,9 @@ export async function checkPageAuthorization(requiredRole) {
  */
 export async function initializePage(requiredRole, onAuthorized = null) {
   console.log(`🔐 Initializing page with required role: ${requiredRole}`);
-  
+
   const isAuthorized = await checkPageAuthorization(requiredRole);
-  
+
   if (isAuthorized && onAuthorized) {
     console.log('✅ Page authorized, executing callback');
     onAuthorized();
@@ -119,6 +120,14 @@ export function getLoginPageUrl(role) {
  */
 export async function handlePostLoginRedirect() {
   console.log('🔄 Handling post-login redirect...');
+  const fromQuery = sanitizeNextPath(new URLSearchParams(window.location.search).get('next'));
+  const fromStore = sanitizeNextPath(sessionStorage.getItem('dws6_auth_next'));
+  const next = fromQuery || fromStore;
+  if (next) {
+    sessionStorage.removeItem('dws6_auth_next');
+    window.location.replace(next);
+    return;
+  }
   await redirectToDashboard();
 }
 
@@ -141,5 +150,5 @@ export default {
   getDashboardUrl,
   getLoginPageUrl,
   handlePostLoginRedirect,
-  handleLogoutRedirect
+  handleLogoutRedirect,
 };
