@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Cursor AI (Opus 4.6) | Session: cursor/fix-dgx-runner-workflows-0d84 | Date: 17.09.2026 | Changes: Corrected GITHUB_TOKEN from optional to required — gateway server.ts:38 throws on any GitHub tool call without it
 - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/update-dws-mcp-hub-oVklG | Date: 12.05.2026 | Changes: Added Google-managed MCP as fourth profile (Cloud IAM auth, GCP-native services); pointed at MCP_CONFIGURATION.md §4 and mcp.google-managed.example.json
 - Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: current | Date: 18.04.2026 | Changes: Updated quickstart to reflect Win11 developer MCP, DGX hub orchestration, and remote/mobile MCP split
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-dws6-ux-1RWJg | Date: 07.03.2026 | Changes: Initial creation — client quickstart for MCP Hub integration
@@ -15,7 +16,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 07.03.2026
-- Last Modified: 12.05.2026
+- Last Modified: 17.09.2026
 - Language: English
 - Publication Status: ACTIVE
 
@@ -83,7 +84,7 @@ If you need remote/mobile access instead, use hosted URLs in your editor's MCP s
 
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_KEY`
-- `GITHUB_TOKEN` (optional, only needed for GitHub tool calls from local gateway)
+- `GITHUB_TOKEN` (required — the gateway registers GitHub tools by default; any GitHub tool call without this token crashes with `GITHUB_TOKEN must be set`)
 
 #### DGX hub
 
