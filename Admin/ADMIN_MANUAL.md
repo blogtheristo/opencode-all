@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.17
+Version: 3.18
 
 Sessions & Modifications:
 
+- Version: 3.18 | Tool: Cursor Agent | Session: docs/admin-dev-env-opencode-policy | Date: 17.09.2026 | Changes: **Model economics** — OpenCode on DGX exposes **FREE hosted models** plus local **Ollama** for bulk work (translations, 5-lang HTML, large batch). Route these through OpenCode to avoid burning paid Claude/Copilot/Cursor API tokens. Added *Model economics — free inference for bulk work* under OpenCode runtime.
 - Version: 3.17 | Tool: Cursor Agent | Session: claude/sovereignty-segmentation-axis-truth | Date: 17.09.2026 | Changes: **Large work policy** — all substantial tasks must be written as a plan first and executed by **OpenCode agents** on DGX (worktree + batch queue), not ad-hoc in Win11 IDE agents or long interactive CLI sessions. Added *Large work — plan first, OpenCode execution* section with scope heuristics, pipeline, and operator commands. Cross-ref: `WORKTREE_POLICY.md`, `opencode-all/ADMIN_MANUAL.md`, `docs/handovers/HIC_MORNING_ROUTINE.md`.
 - Version: 3.16 | Tool: Cursor Agent | Session: claude/sovereignty-segmentation-axis-truth | Date: 17.09.2026 | Changes: Added **Two dev environments — Win11 and DGX Spark** (Win11: Cursor + VS Code IDEs; DGX: Cursor CLI + GitHub Copilot CLI; shared session layer; git sync rules). Clarified that interactive agent work runs on DGX CLIs with local Ollama — not Win11 cloud agent VMs. Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2.
 - Version: 3.15 | Tool: Claude Code (Haiku 4.5) | Session: claude/system-refactor-comprehensive-2026-09-07 | Date: 07.09.2026 | Changes: Comprehensive system files refactor — extracted CLAUDE.md specs to `docs/system-config/` (DISCIPLINE.md, STANDARDS_ROUTING.md, SYSTEM_FILES_INDEX.md) with DWS_DOCUMENT_STANDARD versioning; documented multi-tool ecosystem (OpenCode primary + Claude Code standby); identified and documented 3 sync gaps (dws-agents-local intentional disable, permission syntax mismatch, missing bash denies); permitted OpenCode `.env` read on DGX (commit `ff408fa13`) with asymmetric permissions per tool role; archived prior CLAUDE.md v1.0 to field-notes. Cross-refs: `CLAUDE.md` v1.1, `docs/system-config/SYSTEM_FILES_INDEX.md`, `docs/field-notes/CLAUDE.md.archive-2026-09-07.md`, `docs/field-notes/2026-09-07-claude-md-sharpening.md`, permission audit `3758d6a8d`.
@@ -454,8 +455,11 @@ Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2, `docs/field-notes/2026-08-14-dw
 | **Duration** | Expected agent runtime **> ~1 hour** or overnight batch |
 | **Risk** | RED/YELLOW zone per `CLAUDE.md` (deploy, migration, public copy, Store sync) |
 | **Isolation** | Needs its own branch, worktree, and PR |
+| **Bulk content** | Translations (FI/SV/DE/FR), multi-page HTML i18n, dual-folder sync at scale, hreflang generation |
 
 **Small work (any harness OK):** single-file fix, typo, reading/reviewing a handoff, drafting a plan, HIC approval on an artifact.
+
+**Canonical large-work examples:** Aegis/product 5-language pages, blog SV/DE/FR drafts, `landing-pages/` mirror updates — plan → OpenCode on DGX with **free or Ollama models** (see *Model economics* below), not Win11 paid cloud agents.
 
 ### Plan artifact (required before execution)
 
@@ -500,6 +504,26 @@ Cross-ref: `opencode-all/ADMIN_MANUAL.md`, `docs/field-notes/2026-08-24-opencode
 | **Large / multi-file work (mandatory)** | OpenCode + `opencode-all` | Plan first; worktree via `new-opencode-worktree.sh`; queue via batch worker |
 | Interactive small scope | Cursor CLI, Copilot CLI → Ollama | Escalate to OpenCode when scope crosses *Large work* thresholds |
 | Hot standby | Claude Code | Failover when OpenCode/Ollama unavailable or Claude tooling required |
+
+### Model economics — free inference for bulk work
+
+OpenCode on DGX can run **large tasks at zero purchased-token cost**. Use this deliberately to preserve paid API budget (Claude, Copilot, Cursor cloud agents on Win11) for review, RED-zone reasoning, and short interactive work.
+
+| Tier | Model source | Marginal cost | Route here for |
+| ---- | ------------ | ------------- | -------------- |
+| **1 — Local sovereign** | Ollama on DGX (`opencode.json` default: `qwen3-coder:30b`, also `nemotron-3-super`) | €0 (owned hardware) | Coding agents, refactors, batch worker default fallback |
+| **2 — OpenCode FREE** | OpenCode-hosted free models (`opencode/*`, e.g. `x-preview-f-free`, `mimo-v2.5-free`) | €0 API tokens | **Translations**, multi-file HTML i18n, overnight opencode-all batches, high-volume content generation |
+| **3 — Paid cloud** | Claude API, Copilot/Cursor cloud, Groq metered | Per-token | HIC review, architecture, RED zone, short interactive when local models insufficient |
+
+**Operator rules:**
+
+1. **Translations and 5-lang surfaces** → always queue as *Large work* on DGX OpenCode with tier **1 or 2** — never Win11 cloud-agent VMs for bulk i18n.
+2. **Verify available free models** on DGX before batch runs: `opencode models list` (catalog changes; Rule 12 — fail loud if auth/model errors).
+3. **Fallback ladder:** OpenCode FREE unavailable → switch session/batch to Ollama `qwen3-coder:30b` → then Claude Code hot standby for the single blocked step only.
+4. **Batch worker** (`scripts/opencode-batch-worker.mjs`) runs via OpenCode ACP; model is session-selected — attach plan + preferred model in the worktree session prompt or OpenCode config before `enqueue` / `run`.
+5. **Quality gate unchanged:** free/Ollama output still goes through Win11 review + PR; public copy and blog publish remain HIC-gated per `CLAUDE.md`.
+
+Cross-ref: `docs/field-notes/2026-08-24-opencode-all-living-engine.md` (ox-alpha free tier + expiry watch), `docs/field-notes/2026-08-14-dws-multi-model-workflow-architecture.md`, `opencode.json`.
 
 ### DGX startup and verification
 
