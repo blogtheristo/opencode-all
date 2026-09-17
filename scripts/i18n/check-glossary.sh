@@ -1,67 +1,55 @@
 #!/bin/bash
-# Glossary consistency checker for aegis-products translations
+# Glossary consistency checker — looks for the *target-language* term, not English.
 # Usage: ./scripts/i18n/check-glossary.sh [language-code]
-# Example: ./scripts/i18n/check-glossary.sh sv
+set -euo pipefail
 
 LANG_CODE="${1:-sv}"
 FILE="scripts/i18n/aegis-products/${LANG_CODE}-strings.json"
+GLOSSARY="docs/localization/aegis-glossary.json"
 
 if [ ! -f "$FILE" ]; then
   echo "Error: $FILE not found"
   exit 1
 fi
 
-echo "Glossary Consistency Check for $LANG_CODE:"
-echo ""
-
-# Define glossary mappings (add more as needed)
-declare -A glossary
-
-# Swedish glossary
-if [ "$LANG_CODE" = "sv" ]; then
-  glossary["sovereign"]="suveränitet"
-  glossary["single.tenant"]="enrebell"
-  glossary["dual.use"]="dubbelbruk"
-  glossary["EDIP"]="EDIP"
-  glossary["KYA"]="KYA"
-
-# German glossary
-elif [ "$LANG_CODE" = "de" ]; then
-  glossary["sovereign"]="Souveränität"
-  glossary["single.tenant"]="Single-Tenant"
-  glossary["dual.use"]="Dual-Use"
-  glossary["EDIP"]="EDIP"
-  glossary["KYA"]="KYA"
-
-# French glossary
-elif [ "$LANG_CODE" = "fr" ]; then
-  glossary["sovereign"]="souveraineté"
-  glossary["single.tenant"]="tenant unique"
-  glossary["dual.use"]="usage double"
-  glossary["EDIP"]="EDIP"
-  glossary["KYA"]="KYA"
-
-else
-  echo "Glossary not defined for $LANG_CODE"
+if [ ! -f "$GLOSSARY" ]; then
+  echo "Error: $GLOSSARY not found"
   exit 1
 fi
 
-# Check for key terms (case-insensitive)
-for term in "${!glossary[@]}"; do
-  expected="${glossary[$term]}"
-  # Convert term underscores to space for grep
-  search_term=$(echo "$term" | tr '.' ' ')
+python3 - "$LANG_CODE" "$FILE" "$GLOSSARY" <<'PY'
+import json, sys, re
 
-  count=$(grep -io "$search_term" "$FILE" 2>/dev/null | wc -l || echo "0")
+lang, path, gloss_path = sys.argv[1], sys.argv[2], sys.argv[3]
+data = json.load(open(path, encoding="utf-8"))
+gloss = json.load(open(gloss_path, encoding="utf-8"))
+blob = json.dumps(data, ensure_ascii=False)
 
-  if [ "$count" -gt 0 ]; then
-    echo "✓ '$search_term' found $count times (expected translation: '$expected')"
-  else
-    echo "⚠️  '$search_term' NOT found (expected translation: '$expected')"
-  fi
-done
+print(f"Glossary Consistency Check for {lang}:\n")
+missing = 0
+banned_hits = 0
+for key, row in gloss.items():
+    expected = row.get(lang)
+    if not expected or expected in ("EDIP", "Aegis", "Kubernetes", "Firecracker", "CLOUD Act", "DWS IQ"):
+        continue
+    if expected == row.get("en"):
+        continue
+    if expected.lower() not in blob.lower():
+        print(f"⚠️  '{expected}' ({key}) not found in {path}")
+        missing += 1
+    else:
+        print(f"✓ '{expected}' ({key})")
 
-echo ""
-echo "Manual review recommended:"
-echo "  - Check that all occurrences of the above terms match the expected translations"
-echo "  - Use: grep -i 'sovereign' $FILE"
+banned = {
+    "sv": ["enrebell", "Souverän", "Dataspårighet"],
+    "de": ["Wissen Sie Ihren Agenten"],
+    "fr": ["Monolocalisation"],
+}
+for token in banned.get(lang, []):
+    if token.lower() in blob.lower():
+        print(f"✗ banned token present: {token}")
+        banned_hits += 1
+
+print(f"\n{missing} glossary term(s) not present in copy (advisory).")
+sys.exit(1 if banned_hits else 0)
+PY

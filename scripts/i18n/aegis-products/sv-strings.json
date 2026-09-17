@@ -6,30 +6,30 @@
     "page": "aegis-product"
   },
   "seo": {
-    "title": "DWS IQ Aegis — Souverän industriell intelligens för dubbelanvändningsindustri | Lifetime Firehorse™Store",
-    "description": "DWS IQ Aegis — EDIP-klar souverän AI-plattform på finnisk infrastruktur. En flotta av skickliga agenter, UpCloud Kubernetes, EU AI Act Artikel 12 native. Tillgänglig september 2026.",
-    "keywords": "DWS IQ, Aegis, souverän AI, EU AI Act, UpCloud, Kubernetes, Helm, försvar, dubbelanvändning, finsk moln",
-    "og_title": "DWS IQ Aegis — Souverän industriell intelligens för dubbelanvändningsindustri",
-    "og_description": "EDIP-klar souverän AI på finnisk infrastruktur. 21+ industriella AI-agenter. EU AI Act Artikel 12 native. Designad för att minska CLOUD Act-exponering. Tillgänglig september 2026.",
-    "twitter_title": "DWS IQ Aegis — Souverän industriell intelligens för dubbelanvändningsindustri",
-    "twitter_description": "Enkeltenant souverän AI på finnisk infrastruktur. Tillgänglig september 2026."
+    "title": "DWS IQ Aegis — Suverän industriell intelligens för dubbelanvändningsindustri | Lifetime Firehorse™Store",
+    "description": "DWS IQ Aegis — EDIP-klar suverän AI-plattform på finnisk infrastruktur. En flotta av skickliga agenter, UpCloud Kubernetes, EU AI Act Artikel 12 native. Tillgänglig september 2026.",
+    "keywords": "DWS IQ, Aegis, suverän AI, EU AI Act, UpCloud, Kubernetes, Helm, försvar, dubbelanvändning, finsk moln",
+    "og_title": "DWS IQ Aegis — Suverän industriell intelligens för dubbelanvändningsindustri",
+    "og_description": "EDIP-klar suverän AI på finnisk infrastruktur. 21+ industriella AI-agenter. EU AI Act Artikel 12 native. Designad för att minska CLOUD Act-exponering. Tillgänglig september 2026.",
+    "twitter_title": "DWS IQ Aegis — Suverän industriell intelligens för dubbelanvändningsindustri",
+    "twitter_description": "Enkeltenant suverän AI på finnisk infrastruktur. Tillgänglig september 2026."
   },
   "nav": {
     "back_to_store": "← Tillbaka till butiken",
     "deployment_banner_title": "En plattform, tre distributioner:",
-    "eu_sovereign_cloud": "EU-souverän moln",
+    "eu_sovereign_cloud": "EU-suveränt moln",
     "dedicated_cloud_aegis": "Dedikerad moln (Aegis)",
     "own_nvidia_dgx": "Egen NVIDIA DGX",
-    "deployment_banner_tagline": "hyr souverän kapacitet eller äg maskinen.",
+    "deployment_banner_tagline": "hyr suverän kapacitet eller äg maskinen.",
     "compare_deployments": "Jämför distributioner →"
   },
   "hero": {
     "h1": "DWS IQ Aegis",
-    "tagline": "Souverän industriell intelligensplattform för dubbelanvändningsindustri",
+    "tagline": "Suverän industriell intelligensplattform för dubbelanvändningsindustri",
     "badge_1": "Del av DWS IQ industriella intelligenssvit",
     "badge_2": "Allmän tillgänglighet: september 2026",
     "badge_3": "Architekterad för EDIP-alignment",
-    "intro": "Aegis är en enkeltenant souverän AI-plattform som specifikt är konstruerad för dubbelanvändningsfabriker, tung industri och kritisk råvaruinfrastruktur. Distribuerad på dedikerad finnisk infrastruktur optimerar och säkerställer Aegis kontinuerligt de produktionsanläggningar som försörjer Europas försvarssektor — och garanterar absolut dataisolering med noll USA-molnberoende och designad för att minska CLOUD Act-exponering.",
+    "intro": "Aegis är en enkeltenant suverän AI-plattform som specifikt är konstruerad för dubbelanvändningsfabriker, tung industri och kritisk råvaruinfrastruktur. Distribuerad på dedikerad finnisk infrastruktur optimerar och säkerställer Aegis kontinuerligt de produktionsanläggningar som försörjer Europas försvarssektor — och garanterar absolut dataisolering med noll USA-molnberoende och designad för att minska CLOUD Act-exponering.",
     "subtitle": "Namngiven efter Athenas sköld — Aegis ger skydd genom intelligens. Dedikerad Kubernetes-cluster per kund. Ingen delad tenancy. Inget USA-moln. Täcker alla 21 EU-reglerade industrier inklusive dubbelanvändnings kritiska råvaror.",
     "cta_scoping_session": "Begär en distributionskonfigurationssession"
   },
@@ -161,7 +161,7 @@
     "tiers": {
       "standard": "Aegis Standard | €59 990 | €999/mån | Skickliga agenter, dedikerad K8s-cluster, Artikel 12-loggning, KYA-styrning, standardsupport",
       "defence": "Aegis Försvar | €89 990 | €1 999/mån | Allt i Standard + NVIDIA L40S GPU, ArgusAgent SAR, prioritetssupport (4h SLA), EDIP-efterlevnadsrapportering",
-      "sovereign": "Aegis Souverän | Anpassad | €4 999/mån | Allt i Försvar + säkerhetsklareringssupport, dedikerat ingenjörsteam, anpassad SLA, högre suveränitetsförsäkring"
+      "sovereign": "Aegis Suverän | Anpassad | €4 999/mån | Allt i Försvar + säkerhetsklareringssupport, dedikerat ingenjörsteam, anpassad SLA, högre suveränitetsförsäkring"
     },
     "pricing_note": "Nivåerna prissätter hårdvara, SLA, support och suveränitetsförsäkring — de begränsar inte distributionsformen. Lokal / kant-drift är tillgänglig i varje nivå, eftersom kontrollrumsmannen kräver det arkitektoniskt snarare som en uppgradering. Ingen hårdvara paketeras eller återförsäljs i någon form. DWS levererar bara programvaruplattformen och styrningslageret. Cloud-läge GPU-inference körs på L40S-noder inuti EU-värdd enkeltenant-cluster — inget fraktas till plats. Lokala och hybriddistributioner körs på kund- eller partneranskaffad hårdvara, omfattad per åtagande. Kantenheter säljs som egna SKU:er, separat från Aegis-onboarding."
   },
@@ -177,7 +177,7 @@
     "commercial_p2": "För att validera lokal exekvering före åtagande av stora hårdvaruinvesteringar bevisar den 3-månaders Aegis-piloten den kompletta lokala operativa vägen direkt på befintlig kundinfrastruktur eller en kompakt kantenhet före DGX-anskaffning.",
     "commercial_p3": "Piloten är en stegvis första betalning, inte en extra avgift — den krediteras fullt ut mot Aegis-onboarding om du fortsätter inom sex månader, så den totala kostnaden till produktion oförändras.",
     "supply_continuity": "Leveranskontinuitet. De modeller vi adopterar skickas som öppna vikter, så inferenslageret är portabelt per design snarare än knutet till en leverantörs stack. En icke-NVIDIA-backup-väg (AMD, Intel-acceleratorer) ingår i vår leveransriskplan, och hårdvarukompatibilitet valideras per åtagande snarare än antas. Den fullständiga leveransriskregistret finns tillgänglig under NDA.",
-    "year1_cost": "År-1 kostnadskontext: Aegis Standard totaler ≈ €72K under år 1 (€59 990 + €999×12) — ungefär 13× lägre än en jämförbar Palantir år-1-åtagande (~€920K). Försvars- och Souverän-nivåerna skalar med GPU, support och klareringskrav (Försvar år-1 ≈ €114K). Jämförelsen gäller Standardnivån."
+    "year1_cost": "År-1 kostnadskontext: Aegis Standard totaler ≈ €72K under år 1 (€59 990 + €999×12) — ungefär 13× lägre än en jämförbar Palantir år-1-åtagande (~€920K). Försvars- och Suverän-nivåerna skalar med GPU, support och klareringskrav (Försvar år-1 ≈ €114K). Jämförelsen gäller Standardnivån."
   },
   "distribution": {
     "h2": "Distribution",

@@ -43,13 +43,16 @@ elif has_object_sections:
     # Object format (19 sections)
     print(f"  ℹ️  Object format detected (meta, seo, nav, hero, ...)")
 
-    # Count empty fields in object structure
-    empty_count = 0
-    for section, content in data.items():
-        if isinstance(content, dict):
-            for key, value in content.items():
-                if value == "":
-                    empty_count += 1
+    def count_empty(node):
+        n = 0
+        if node == "":
+            return 1
+        if isinstance(node, dict):
+            return sum(count_empty(v) for v in node.values())
+        if isinstance(node, list):
+            return sum(count_empty(v) for v in node)
+        return 0
+    empty_count = count_empty(data)
 
     if empty_count == 0:
         print(f"  ✓ Valid JSON, no empty fields (ready for HTML generation)")
