@@ -248,6 +248,29 @@ describe("Instruction.system", () => {
   )
 })
 
+describe("Instruction.system Cursor rules", () => {
+  it.live("loads always-apply Cursor rules without extra config", () =>
+    withFiles(
+      {
+        ".cursorrules": "Use bun.",
+        ".cursor/rules/always.mdc": "---\nalwaysApply: true\n---\nPrefer Effect.\n",
+        ".cursor/rules/ts.mdc": "---\nglobs: \"**/*.ts\"\nalwaysApply: false\n---\nTS only.\n",
+      },
+      (dir) =>
+        Effect.gen(function* () {
+          const svc = yield* Instruction.Service
+          const paths = yield* svc.systemPaths()
+          expect(paths.has(path.join(dir, ".cursorrules"))).toBe(true)
+          expect(paths.has(path.join(dir, ".cursor", "rules", "always.mdc"))).toBe(true)
+          expect(paths.has(path.join(dir, ".cursor", "rules", "ts.mdc"))).toBe(false)
+
+          const resolved = yield* svc.resolve([], path.join(dir, "src", "file.ts"), MessageID.make("msg_cursor_1"))
+          expect(resolved.some((item) => item.filepath.endsWith("ts.mdc"))).toBe(true)
+        }),
+    ),
+  )
+})
+
 describe("Instruction.systemPaths global config", () => {
   it.live("uses Global.Service config AGENTS.md", () =>
     Effect.gen(function* () {

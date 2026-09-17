@@ -1,7 +1,7 @@
 {
   "name": "opencode",
   "displayName": "opencode",
-  "description": "opencode for VS Code",
+  "description": "opencode for VS Code, Cursor, and compatible editors",
   "version": "1.18.31",
   "publisher": "sst-dev",
   "repository": {

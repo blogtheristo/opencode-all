@@ -24,6 +24,7 @@ import { LocationServiceMap, locationServiceMapLayer } from "@opencode-ai/core/l
 import { Reference } from "@opencode-ai/core/reference"
 import { MCP } from "@/mcp"
 import { PermissionV1 } from "@opencode-ai/core/v1/permission"
+import { Ide } from "@/ide"
 
 export function provider(model: Provider.Model) {
   if (model.api.id.includes("muse")) {
@@ -80,6 +81,7 @@ const layer = Layer.effect(
             `  Workspace root folder: ${ctx.worktree}`,
             `  Is directory a git repo: ${ctx.project.vcs === "git" ? "yes" : "no"}`,
             `  Platform: ${process.platform}`,
+            `  IDE: ${Ide.ide()}`,
             `  Today's date: ${new Date().toDateString()}`,
             `</env>`,
           ].join("\n"),

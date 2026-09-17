@@ -6,6 +6,7 @@ import type { Agent } from "@/agent/agent"
 import { EventV2Bridge } from "@/event-v2-bridge"
 import { InstanceState } from "@/effect/instance-state"
 import { Global } from "@opencode-ai/core/global"
+import { CursorInstruction } from "@opencode-ai/core/cursor-instruction"
 import { SkillPlugin } from "@opencode-ai/core/plugin/skill"
 import { Permission } from "@/permission"
 import { FSUtil } from "@opencode-ai/core/fs-util"
@@ -20,6 +21,7 @@ import { escapeHtml } from "@/util/html"
 
 const CLAUDE_EXTERNAL_DIR = ".claude"
 const AGENTS_EXTERNAL_DIR = ".agents"
+const CURSOR_EXTERNAL_DIR = CursorInstruction.SKILLS_DIR
 const EXTERNAL_SKILL_PATTERN = "skills/**/SKILL.md"
 const OPENCODE_SKILL_PATTERN = "{skill,skills}/**/SKILL.md"
 const SKILL_PATTERN = "**/SKILL.md"
@@ -186,6 +188,7 @@ const discoverSkills = Effect.fnUntraced(function* (
   if (!disableExternalSkills) {
     if (!disableClaudeCodeSkills) externalDirs.push(CLAUDE_EXTERNAL_DIR)
     externalDirs.push(AGENTS_EXTERNAL_DIR)
+    externalDirs.push(CURSOR_EXTERNAL_DIR)
 
     for (const dir of externalDirs) {
       const root = path.join(global.home, dir)

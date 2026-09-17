@@ -63,7 +63,7 @@ Document Status:
 
 **Submodule:** `opencode-all/` points to `https://github.com/blogtheristo/opencode-all.git` (fork of `anomalyco/opencode`).
 
-**Version:** 1.18.29 (all packages).
+**Version:** 1.18.31 (all packages). OpenCode understands Cursor project rules (`.cursor/rules`, `.cursorrules`) and Cursor skills (`.cursor/skills`).
 
 ---
 
@@ -96,7 +96,7 @@ Document Status:
 
 **Data flow:**
 
-1. **Detect** — `enqueue` scans for halted sessions (Claude Code, Copilot, or OpenCode) and writes them to `queue.jsonl` with state `QUEUED`.
+1. **Detect** — `enqueue` scans for halted sessions (Claude Code, Copilot, Cursor, or OpenCode) and writes them to `queue.jsonl` with state `QUEUED`.
 2. **Isolate** — Each session gets its own git worktree at `.worktrees/opencode-all/<session-id>`.
 3. **Execute** — `run --batch N` picks N sessions, resumes them via ACP `session/load` + `session/prompt`, instructing them to finish work and write a handoff file.
 4. **Handoff** — Worker guarantees a handoff file exists (fallback: `Status: NEEDS-HUMAN`). Sessions transition to `MERGE_READY` or `FAILED`.

@@ -2,6 +2,7 @@ export * as InstructionContext from "./instruction-context"
 
 import { Array, Effect, Layer, Schema } from "effect"
 import { isAbsolute, join, relative, sep } from "path"
+import { CursorInstruction } from "./cursor-instruction"
 import { FSUtil } from "./fs-util"
 import { Flag } from "./flag/flag"
 import { Global } from "./global"
@@ -47,11 +48,7 @@ const layer = Layer.effectDiscard(
         yield* Effect.forEach(
           Flag.OPENCODE_DISABLE_PROJECT_CONFIG || !insideProject
             ? []
-            : yield* fs.up({
-                targets: ["AGENTS.md"],
-                start,
-                stop,
-              }),
+            : yield* discoverProjectInstructions(fs, start, stop),
           fs.resolve,
         ),
       )
@@ -59,18 +56,18 @@ const layer = Layer.effectDiscard(
       const files = yield* Effect.forEach(
         paths,
         (path) =>
-          fs
-            .readFileStringSafe(path)
-            .pipe(
-              Effect.map((content) =>
-                content === undefined ? undefined : new File({ path: AbsolutePath.make(path), content }),
-              ),
-            ),
+          fs.readFileStringSafe(path).pipe(
+            Effect.map((content) => {
+              if (content === undefined) return undefined
+              if (!ambientInstruction(path, content)) return null
+              return new File({ path: AbsolutePath.make(path), content })
+            }),
+          ),
         { concurrency: "unbounded" },
       )
       if (files.some((file, index) => file === undefined && discovered.has(paths[index])))
         return SystemContext.unavailable
-      return files.filter((file): file is File => file !== undefined)
+      return files.filter((file): file is File => file !== undefined && file !== null)
     })
 
     yield* registry.register({
@@ -98,4 +95,24 @@ export const node = makeLocationNode({
 
 function render(files: ReadonlyArray<File>) {
   return files.map((file) => `Instructions from: ${file.path}\n${file.content}`).join("\n\n")
+}
+
+function discoverProjectInstructions(fs: FSUtil.Interface, start: string, stop: string) {
+  return Effect.gen(function* () {
+    const files = yield* fs.up({
+      targets: ["AGENTS.md", ...CursorInstruction.PROJECT_TARGETS],
+      start,
+      stop,
+    })
+    const rules = yield* fs
+      .globUp(CursorInstruction.RULE_GLOB, start, stop)
+      .pipe(Effect.catch(() => Effect.succeed([] as string[])))
+    return [...files, ...rules]
+  })
+}
+
+function ambientInstruction(path: string, content: string) {
+  const posix = path.split(sep).join("/")
+  if (!posix.includes("/.cursor/rules/") && !posix.endsWith("/.cursorrules")) return true
+  return CursorInstruction.isAmbient(CursorInstruction.parse(path, content))
 }

@@ -1,6 +1,6 @@
 # opencode VS Code Extension
 
-A Visual Studio Code extension that integrates [opencode](https://opencode.ai) directly into your development workflow.
+A Visual Studio Code, Cursor, and VSCodium extension that integrates [opencode](https://opencode.ai) directly into your development workflow.
 
 ## Prerequisites
 
@@ -19,7 +19,7 @@ This is an early release. If you encounter issues or have feedback, please creat
 
 ## Development
 
-1. `code sdks/vscode` - Open the `sdks/vscode` directory in VS Code. **Do not open from repo root.**
+1. `code sdks/vscode` - Open the `sdks/vscode` directory in VS Code or Cursor. **Do not open from repo root.**
 2. `bun install` - Run inside the `sdks/vscode` directory.
 3. Press `F5` to start debugging - This launches a new VS Code window with the extension loaded.
 

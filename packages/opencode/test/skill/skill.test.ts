@@ -443,6 +443,34 @@ description: A skill in the .agents/skills directory.
     ),
   )
 
+  it.live("discovers skills from .cursor/skills/ directory", () =>
+    provideTmpdirInstance(
+      (dir) =>
+        Effect.gen(function* () {
+          yield* Effect.promise(() =>
+            Bun.write(
+              path.join(dir, ".cursor", "skills", "cursor-skill", "SKILL.md"),
+              `---
+name: cursor-skill
+description: A skill in the .cursor/skills directory.
+---
+
+# Cursor Skill
+`,
+            ),
+          )
+
+          const skill = yield* Skill.Service
+          const list = (yield* skill.all()).filter((s) => s.location !== "<built-in>")
+          expect(list.find((x) => x.name === "cursor-skill")).toBeDefined()
+          expect(list.find((x) => x.name === "cursor-skill")!.location).toContain(
+            path.join(".cursor", "skills", "cursor-skill", "SKILL.md"),
+          )
+        }),
+      { git: true },
+    ),
+  )
+
   itWithoutClaudeCodeSkills.live("skips Claude Code skills when disabled", () =>
     provideTmpdirInstance(
       (dir) =>

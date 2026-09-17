@@ -109,6 +109,54 @@ describe("InstructionContext", () => {
     ),
   )
 
+  it.live("loads always-apply Cursor rules and ignores glob-scoped rules", () =>
+    Effect.acquireRelease(
+      Effect.promise(() => tmpdir()),
+      (tmp) => Effect.promise(() => tmp[Symbol.asyncDispose]()),
+    ).pipe(
+      Effect.flatMap((tmp) =>
+        Effect.gen(function* () {
+          const global = path.join(tmp.path, "global")
+          const project = path.join(tmp.path, "project")
+          const always = path.join(project, ".cursor", "rules", "always.mdc")
+          const scoped = path.join(project, ".cursor", "rules", "scoped.mdc")
+          const cursorrules = path.join(project, ".cursorrules")
+          yield* Effect.promise(async () => {
+            await fs.mkdir(global, { recursive: true })
+            await fs.mkdir(path.join(project, ".cursor", "rules"), { recursive: true })
+            await fs.writeFile(always, "---\nalwaysApply: true\n---\nAlways apply this.\n")
+            await fs.writeFile(scoped, "---\nglobs: \"**/*.ts\"\nalwaysApply: false\n---\nOnly TypeScript.\n")
+            await fs.writeFile(cursorrules, "Legacy Cursor rules.")
+          })
+
+          const load = SystemContextRegistry.Service.pipe(
+            Effect.flatMap((service) => service.load()),
+            Effect.provide(
+              instructionLayer({
+                config: global,
+                locationServiceLayer: Layer.succeed(
+                  Location.Service,
+                  Location.Service.of(
+                    location(
+                      { directory: AbsolutePath.make(project) },
+                      { projectDirectory: AbsolutePath.make(project) },
+                    ),
+                  ),
+                ),
+              }),
+            ),
+          )
+
+          const initialized = yield* SystemContext.initialize(yield* load)
+          expect(initialized.baseline).toContain(`Instructions from: ${always}`)
+          expect(initialized.baseline).toContain("Always apply this.")
+          expect(initialized.baseline).toContain(`Instructions from: ${cursorrules}`)
+          expect(initialized.baseline).not.toContain("Only TypeScript.")
+        }),
+      ),
+    ),
+  )
+
   it.live("keeps an empty AGENTS.md as available context", () =>
     Effect.acquireRelease(
       Effect.promise(() => tmpdir()),

@@ -1,6 +1,7 @@
 import { LayerNode } from "@opencode-ai/core/effect/layer-node"
 import { httpClient } from "@opencode-ai/core/effect/app-node-platform"
 import path from "path"
+import { CursorInstruction } from "@opencode-ai/core/cursor-instruction"
 import { SessionV1 } from "@opencode-ai/core/v1/session"
 import { Effect, Layer, Context } from "effect"
 import { FetchHttpClient, HttpClient, HttpClientRequest } from "effect/unstable/http"
@@ -66,6 +67,7 @@ const layer: Layer.Layer<
       ...(!flags.disableClaudeCodePrompt ? ["CLAUDE.md"] : []),
       "CONTEXT.md", // deprecated
     ]
+    const extraInstructionFiles = [".cursorrules"]
 
     const state = yield* InstanceState.make(
       Effect.fn("Instruction.state")(() =>
@@ -130,6 +132,22 @@ const layer: Layer.Layer<
             break
           }
         }
+        for (const file of extraInstructionFiles) {
+          const matches = yield* fs
+            .findUp(file, ctx.directory, ctx.worktree)
+            .pipe(Effect.catch(() => Effect.succeed([])))
+          matches.forEach((item) => paths.add(path.resolve(item)))
+        }
+        const cursorRules = yield* fs
+          .globUp(CursorInstruction.RULE_GLOB, ctx.directory, ctx.worktree)
+          .pipe(Effect.catch(() => Effect.succeed([] as string[])))
+        for (const item of cursorRules) {
+          const content = yield* read(item)
+          if (!content) continue
+          if (CursorInstruction.isAmbient(CursorInstruction.parse(item, content))) {
+            paths.add(path.resolve(item))
+          }
+        }
       }
 
       if (config.instructions) {
@@ -169,7 +187,7 @@ const layer: Layer.Layer<
     })
 
     const find = Effect.fn("Instruction.find")(function* (dir: string) {
-      for (const file of instructionFiles) {
+      for (const file of [...instructionFiles, ...extraInstructionFiles]) {
         const filepath = path.resolve(path.join(dir, file))
         if (yield* fs.existsSafe(filepath)) return filepath
       }
@@ -189,31 +207,40 @@ const layer: Layer.Layer<
 
       const target = path.resolve(filepath)
       let current = path.dirname(target)
-
-      // Walk upward from the file being read and attach nearby instruction files once per message.
-      while (current.startsWith(root) && current !== root) {
-        const found = yield* find(current)
-        if (!found || found === target || sys.has(found) || already.has(found)) {
-          current = path.dirname(current)
-          continue
-        }
-
+      const claimed = (found: string) => {
         let set = s.claims.get(messageID)
         if (!set) {
           set = new Set()
           s.claims.set(messageID, set)
         }
-        if (set.has(found)) {
-          current = path.dirname(current)
-          continue
+        if (set.has(found)) return true
+        set.add(found)
+        return false
+      }
+
+      // Walk upward from the file being read and attach nearby instruction files once per message.
+      while (current.startsWith(root)) {
+        const found = yield* find(current)
+        if (found && found !== target && !sys.has(found) && !already.has(found) && !claimed(found)) {
+          const content = yield* read(found)
+          if (content) {
+            results.push({ filepath: found, content: `Instructions from: ${found}\n${content}` })
+          }
         }
 
-        set.add(found)
-        const content = yield* read(found)
-        if (content) {
+        const cursorRules = yield* fs
+          .glob(".cursor/rules/**/*.{md,mdc}", { cwd: current, absolute: true, include: "file", dot: true })
+          .pipe(Effect.catch(() => Effect.succeed([] as string[])))
+        for (const found of cursorRules) {
+          if (found === target || sys.has(found) || already.has(found)) continue
+          const content = yield* read(found)
+          if (!content) continue
+          if (!CursorInstruction.matches(CursorInstruction.parse(found, content), target)) continue
+          if (claimed(found)) continue
           results.push({ filepath: found, content: `Instructions from: ${found}\n${content}` })
         }
 
+        if (current === root) break
         current = path.dirname(current)
       }
 

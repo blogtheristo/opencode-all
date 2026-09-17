@@ -54,17 +54,24 @@ export async function openEditor(input: { value: string; renderer: CliRenderer; 
 }
 
 export function discoverEditorConnection(directory: string) {
-  const root = path.join(os.homedir(), ".claude", "ide")
+  const roots = [path.join(os.homedir(), ".claude", "ide"), path.join(os.homedir(), ".cursor", "ide")]
   const contains = (parent: string) => {
     const resolved = path.resolve(parent)
     const relative = path.relative(resolved, path.resolve(directory))
     return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative)) ? resolved.length : 0
   }
   try {
-    return readdirSync(root)
-      .filter((entry) => entry.endsWith(".lock"))
-      .flatMap((entry) => {
-        const file = path.join(root, entry)
+    return roots
+      .flatMap((root) => {
+        try {
+          return readdirSync(root)
+            .filter((entry) => entry.endsWith(".lock"))
+            .map((entry) => path.join(root, entry))
+        } catch {
+          return [] as string[]
+        }
+      })
+      .flatMap((file) => {
         const port = Number.parseInt(path.basename(file, ".lock"), 10)
         if (!Number.isInteger(port) || port <= 0 || port > 65535) return []
         try {

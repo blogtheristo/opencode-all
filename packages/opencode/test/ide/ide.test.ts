@@ -79,4 +79,11 @@ describe("ide", () => {
 
     expect(Ide.alreadyInstalled()).toBe(false)
   })
+
+  test("should recognize cursor OPENCODE_CALLER", () => {
+    process.env["OPENCODE_CALLER"] = "cursor"
+
+    expect(Ide.alreadyInstalled()).toBe(true)
+    expect(Ide.ide()).toBe("Cursor")
+  })
 })

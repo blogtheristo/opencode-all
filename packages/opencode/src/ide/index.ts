@@ -20,6 +20,12 @@ export const InstallFailedError = NamedError.create("InstallFailedError", {
 })
 
 export function ide() {
+  const caller = process.env["OPENCODE_CALLER"]
+  if (caller === "cursor") return "Cursor"
+  if (caller === "windsurf") return "Windsurf"
+  if (caller === "vscodium") return "VSCodium"
+  if (caller === "vscode-insiders") return "Visual Studio Code - Insiders"
+  if (caller === "vscode") return "Visual Studio Code"
   if (process.env["TERM_PROGRAM"] === "vscode") {
     const v = process.env["GIT_ASKPASS"]
     for (const ide of SUPPORTED_IDES) {
@@ -29,8 +35,11 @@ export function ide() {
   return "unknown"
 }
 
+const INSTALLED_CALLERS = new Set(["vscode", "vscode-insiders", "cursor", "windsurf", "vscodium"])
+
 export function alreadyInstalled() {
-  return process.env["OPENCODE_CALLER"] === "vscode" || process.env["OPENCODE_CALLER"] === "vscode-insiders"
+  const caller = process.env["OPENCODE_CALLER"]
+  return caller !== undefined && INSTALLED_CALLERS.has(caller)
 }
 
 export async function install(ide: (typeof SUPPORTED_IDES)[number]["name"]) {

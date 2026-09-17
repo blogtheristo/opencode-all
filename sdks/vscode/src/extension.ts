@@ -5,6 +5,15 @@ import * as vscode from "vscode"
 
 const TERMINAL_NAME = "opencode"
 
+function caller() {
+  const name = vscode.env.appName.toLowerCase()
+  if (name.includes("cursor")) return "cursor"
+  if (name.includes("windsurf")) return "windsurf"
+  if (name.includes("codium")) return "vscodium"
+  if (name.includes("insiders")) return "vscode-insiders"
+  return "vscode"
+}
+
 export function activate(context: vscode.ExtensionContext) {
   const openNewTerminalDisposable = vscode.commands.registerCommand("opencode.openNewTerminal", async () => {
     await openTerminal()
@@ -57,7 +66,7 @@ export function activate(context: vscode.ExtensionContext) {
       },
       env: {
         _EXTENSION_OPENCODE_PORT: port.toString(),
-        OPENCODE_CALLER: "vscode",
+        OPENCODE_CALLER: caller(),
       },
     })
 
