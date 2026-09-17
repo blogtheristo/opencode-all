@@ -12,7 +12,7 @@
     "og_title": "DWS IQ Aegis — Intelligence industrielle souveraine pour la fabrication à double usage",
     "og_description": "IA souveraine prête pour l'EDIP sur infrastructure finlandaise. 21+ agents IA industriels. EU AI Act Article 12 natif. Conçu pour réduire l'exposition au CLOUD Act. Disponible septembre 2026.",
     "twitter_title": "DWS IQ Aegis — Intelligence industrielle souveraine pour la fabrication à double usage",
-    "twitter_description": "IA souveraine monolocalisation sur infrastructure finlandaise. Disponible septembre 2026."
+    "twitter_description": "IA souveraine locataire unique sur infrastructure finlandaise. Disponible septembre 2026."
   },
   "nav": {
     "back_to_store": "← Retour à la boutique",
@@ -29,7 +29,7 @@
     "badge_1": "Fait partie de la suite d'intelligence industrielle DWS IQ",
     "badge_2": "Disponibilité générale : septembre 2026",
     "badge_3": "Conçu pour l'alignement EDIP",
-    "intro": "Aegis est une plateforme IA souveraine monolocalisation spécifiquement conçue pour les usines à double usage, la fabrication lourde et les infrastructures de matières premières critiques. Déployée sur une infrastructure finlandaise dédiée, Aegis optimise et sécurise en continu les installations de production qui approvisionnent le secteur de la défense européenne — garantissant une isolation absolue des données avec une dépendance nulle aux cloud américains et conçue pour réduire l'exposition au CLOUD Act.",
+    "intro": "Aegis est une plateforme IA souveraine locataire unique spécifiquement conçue pour les usines à double usage, la fabrication lourde et les infrastructures de matières premières critiques. Déployée sur une infrastructure finlandaise dédiée, Aegis optimise et sécurise en continu les installations de production qui approvisionnent le secteur de la défense européenne — garantissant une isolation absolue des données avec une dépendance nulle aux cloud américains et conçue pour réduire l'exposition au CLOUD Act.",
     "subtitle": "Nommée d'après le bouclier d'Athéna — Aegis offre une protection par l'intelligence. Cluster Kubernetes dédié par client. Pas de location partagée. Pas de cloud américain. Couvrant les 21 industries réglementées par l'UE dont les matières premières critiques à double usage.",
     "cta_scoping_session": "Demander une session de configuration de déploiement"
   },
@@ -49,7 +49,7 @@
     "h2": "Pourquoi Aegis",
     "items": {
       "sovereignty": "Souveraineté industrielle réelle — Déployé exclusivement sur l'infrastructure finlandaise UpCloud (Helsinki DC). La télémesure opérationnelle, les volumes de production et les recettes de fabrication propriétaires de votre usine ne touchent jamais un cloud américain ni ne font face à une exposition au CLOUD Act.",
-      "single_tenant": "Monolocalisation — Votre propre cluster Kubernetes, votre propre base de données, vos propres agents. Pas d'infrastructure partagée avec d'autres clients.",
+      "single_tenant": "Locataire unique — Votre propre cluster Kubernetes, votre propre base de données, vos propres agents. Pas d'infrastructure partagée avec d'autres clients.",
       "dual_use_compliance": "Conformité double usage native — Spécialement construite pour l'intersection de l'industrie lourde et de la défense. Automatise nativement NIS2, l'EU AI Act (Article 12 lignée de raisonnement) et les contrôles d'exportation complexes à double usage (Règlement 2021/821).",
       "deterministic_factory": "Exécution déterministe d'usine — Agents isolés Firecracker MicroVM surveillent les chaînes d'approvisionnement, suivent le carbone incorporé (CBAM/CSRD) et signalent les perturbations industrielles avec des parcours de données auditables et sans hallucination — gouvernés par KYA (Connaissez votre agent) avec autorité d'arrêt.",
       "edip_aligned": "Aligné EDIP — Spécialement conçu pour satisfaire les exigences de l'article 9 en matière d'établissement et de contrôle, fournissant le cadre de conformité pour les installations financées par l'EDIP."
@@ -77,7 +77,7 @@
   "technical_specs": {
     "h2": "Spécifications techniques",
     "items": {
-      "deployment_model": "Modèle de déploiement | Kubernetes monolocalisation (Helm chart) | Souverain UE",
+      "deployment_model": "Modèle de déploiement | Kubernetes locataire unique (Helm chart) | Souverain UE",
       "infrastructure": "Infrastructure | UpCloud Managed Kubernetes (UKS), Helsinki DC (fi-hel1 / fi-hel2)",
       "sovereignty": "Souveraineté | Détenu par des Finlandais (soutien Tesi), ISO 27001 (infrastructure UpCloud), membre CISPE, accès personnel UE uniquement",
       "cloud_act_exposure": "Exposition au CLOUD Act | Aucune — pas de maison mère américaine, pas d'infrastructure détenue par des Américains",
@@ -136,7 +136,7 @@
     "competitors": {
       "palantir": "Palantir AIP / Foundry | Intégration de données d'entreprise et analytique opérationnelle, avec des filiales européennes établies. | Vulnérabilité CLOUD Act US — une maison mère américaine soumet les plans de fabrication européens propriétaires et les métriques de chaîne de défense à des demandes de découverte extraterritoriales. Aegis est détenu à 100% par l'UE et immunisé contre la juridiction américaine.",
       "anduril": "Anduril Lattice | Intégration matérielle tactique exceptionnelle, sécurité périmétrique et orchestration de drones. | Focus cinétique — principalement optimisé pour le matériel de champ de bataille, manquant la couche de conformité industrielle profonde (CBAM, NIS2, EU AI Act) nécessaire pour exploiter en toute sécurité une usine de fabrication à double usage réglementée par l'UE.",
-      "c3ai": "C3.ai | Modèles de maintenance prédictive et tableaux de bord d'entreprise généralisés. | Dépendance hyperscaleur — fonctionne entièrement en overlay sur les cloud publics américains commerciaux. Aegis exécute un raisonnement multi-agents déterministe et isolé au sein d'une enclame UE monolocalisation.",
+      "c3ai": "C3.ai | Modèles de maintenance prédictive et tableaux de bord d'entreprise généralisés. | Dépendance hyperscaleur — fonctionne entièrement en overlay sur les cloud publics américains commerciaux. Aegis exécute un raisonnement multi-agents déterministe et isolé au sein d'une enclame UE locataire unique.",
       "big_four": "Conseil Big Four | Conseil réglementaire de haut niveau et planification de mise en œuvre de la conformité. | Conseil uniquement — fournit des cadres, pas des logiciels. Aegis fournit des agents autonomes déployables et une intelligence orbitale intégrée directement dans votre environnement de production."
     }
   },
@@ -163,7 +163,7 @@
       "defence": "Aegis Défense | 89 990 € | 1 999 €/mois | Tout dans Standard + GPU NVIDIA L40S, ArgusAgent SAR, support prioritaire (SLA 4h), rapports de conformité EDIP",
       "sovereign": "Aegis Souverain | Personnalisé | 4 999 €/mois | Tout dans Défense + support de clearance de sécurité, équipe d'ingénierie dédiée, SLA personnalisé, assurance de souveraineté renforcée"
     },
-    "pricing_note": "Les niveaux tarifaires structurent la couverture commerciale, l'empreinte matérielle, les SLA et le support d'ingénierie dédié — ils ne limitent pas les modes de déploiement. L'exécution locale est disponible dans chaque niveau, car le cas d'usage du poste de commandement l'exige architecturalement plutôt que comme une mise à niveau. Aucun matérielle n'est regroupé ou revendu dans aucun mode. DWS fournit uniquement la plateforme logicielle et la couche de gouvernance. L'inférence GPU en mode cloud s'exécute sur des nœuds L40S au sein du cluster monolocalisation hébergé par l'UE — rien n'est expédié sur site. Les déploiements locaux et hybrides s'exécutent sur du matériel acquis par le client ou le partenaire, défini par engagement. Les appareils edge sont vendus en tant que SKUs séparés, distincts de l'onboarding Aegis."
+    "pricing_note": "Les niveaux tarifaires structurent la couverture commerciale, l'empreinte matérielle, les SLA et le support d'ingénierie dédié — ils ne limitent pas les modes de déploiement. L'exécution locale est disponible dans chaque niveau, car le cas d'usage du poste de commandement l'exige architecturalement plutôt que comme une mise à niveau. Aucun matérielle n'est regroupé ou revendu dans aucun mode. DWS fournit uniquement la plateforme logicielle et la couche de gouvernance. L'inférence GPU en mode cloud s'exécute sur des nœuds L40S au sein du cluster locataire unique hébergé par l'UE — rien n'est expédié sur site. Les déploiements locaux et hybrides s'exécutent sur du matériel acquis par le client ou le partenaire, défini par engagement. Les appareils edge sont vendus en tant que SKUs séparés, distincts de l'onboarding Aegis."
   },
   "deployment_architecture": {
     "h3": "Architecture de déploiement",

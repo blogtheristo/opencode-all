@@ -2,7 +2,7 @@
   "sovereign": {
     "en": "Sovereign",
     "fi": "Suvereeni",
-    "sv": "Souverän",
+    "sv": "Suverän",
     "de": "Souverän",
     "fr": "Souverain"
   },
@@ -30,8 +30,8 @@
   "sovereign_tier": {
     "en": "Sovereign Tier",
     "fi": "Suvereeni taso",
-    "sv": "Souverän nivå",
-    "de": "Souveräner Ebene",
+    "sv": "Suverän nivå",
+    "de": "Souveräne Ebene",
     "fr": "Niveau souverain"
   },
   "standard_tier": {
@@ -58,7 +58,7 @@
   "dual_use_industries": {
     "en": "Dual-Use Industries",
     "fi": "Kaksoiskäyttöteollisuudet",
-    "sv": "Dubbelanvändningsindustrer",
+    "sv": "Dubbelanvändningsindustrier",
     "de": "Dual-Use-Industrien",
     "fr": "Industries à double usage"
   },
@@ -87,7 +87,7 @@
     "en": "Know Your Agent",
     "fi": "Tiedä agenttisi",
     "sv": "Känn din agent",
-    "de": "Wissen Sie Ihren Agenten",
+    "de": "Kenne deinen Agenten",
     "fr": "Connaissez votre agent"
   },
   "agent_isolation": {
@@ -114,28 +114,28 @@
   "single_tenant": {
     "en": "Single-Tenant",
     "fi": "Yksittäinen vuokraaja",
-    "sv": "Enkeltenant",
-    "de": "Einzelnes Mieter",
-    "fr": "Monolocalisation"
+    "sv": "Single-tenant",
+    "de": "Single-Tenant",
+    "fr": "locataire unique"
   },
   "data_sovereignty": {
     "en": "Data Sovereignty",
     "fi": "Tietosuvereniteetti",
-    "sv": "Dataspårighet",
+    "sv": "Datasuveränitet",
     "de": "Datensouveränität",
     "fr": "Souveraineté des données"
   },
   "technology_sovereignty": {
     "en": "Technology Sovereignty",
     "fi": "Teknologisuvereniteetti",
-    "sv": "Teknologispårighet",
+    "sv": "Teknologisuveränitet",
     "de": "Technologiesouveränität",
     "fr": "Souveraineté technologique"
   },
   "operational_sovereignty": {
     "en": "Operational Sovereignty",
     "fi": "Toiminnallinen suvereniteetti",
-    "sv": "Operativ spårighet",
+    "sv": "Operativ suveränitet",
     "de": "Operationsouveränität",
     "fr": "Souveraineté opérationnelle"
   },
@@ -149,7 +149,7 @@
   "sovereign_infrastructure": {
     "en": "Sovereign Infrastructure",
     "fi": "Suvereeni infrastruktuuri",
-    "sv": "Souverän infrastruktur",
+    "sv": "Suverän infrastruktur",
     "de": "Souveräne Infrastruktur",
     "fr": "Infrastructures souveraines"
   },
@@ -185,7 +185,7 @@
     "en": "Local Operation",
     "fi": "Paikallinen toiminta",
     "sv": "Lokal drift",
-    "de": "Lokale Betrieb",
+    "de": "Lokaler Betrieb",
     "fr": "Opération locale"
   },
   "hybrid_deployment": {
@@ -198,7 +198,7 @@
   "eu_sovereign_cloud": {
     "en": "EU-Sovereign Cloud",
     "fi": "EU-suvereeni pilvi",
-    "sv": "EU-souverän moln",
+    "sv": "EU-suveränt moln",
     "de": "EU-souveräne Cloud",
     "fr": "Cloud souverain européen"
   },

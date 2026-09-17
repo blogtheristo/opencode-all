@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// Evidence: Tool=Cursor Agent Model=cursor-grok-4.6 Date=2026-09-17
 /**
  * build-i18n-pages.cjs — generate per-language copies of an HTML page from one master.
  *
@@ -80,7 +81,9 @@ const translatable = (p) =>
 function aiNotice(cfg, lang, meta) {
   const m = (meta && meta[lang]) || {};
   if (!m.aiNoticeLabel || !m.aiNoticeBody) {
-    throw new Error(`${lang}: aiNotice requested but aiNoticeLabel/aiNoticeBody missing from meta.json`);
+    throw new Error(
+      `${lang}: aiNotice requested but aiNoticeLabel/aiNoticeBody missing from meta.json`,
+    );
   }
   const href = urlFor(cfg, cfg.masterLang).replace(/^https?:\/\/[^/]+/, '');
   const link = m.aiNoticeLink
@@ -221,25 +224,23 @@ function retarget(html, cfg, lang, meta) {
   }
 
   out = out.replace(/<html lang="[a-z-]+"/, `<html lang="${lang}"`);
-  out = out.replace(
-    /( *<link\s*\n?\s*rel="canonical"\s*\n?\s*href=")[^"]*(")/,
-    (m) => m.replace(/href="[^"]*"/, `href="${url}"`),
+  out = out.replace(/( *<link\s*\n?\s*rel="canonical"\s*\n?\s*href=")[^"]*(")/, (m) =>
+    m.replace(/href="[^"]*"/, `href="${url}"`),
   );
   // canonical may be single-line in some pages
-  out = out.replace(/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`);
+  out = out.replace(
+    /<link rel="canonical" href="[^"]*" \/>/,
+    `<link rel="canonical" href="${url}" />`,
+  );
 
   // insert hreflang once, right after the canonical link
   if (!/hreflang="x-default"/.test(out)) {
-    out = out.replace(
-      /(<link\s*\n?\s*rel="canonical"[\s\S]*?\/>)/,
-      `$1\n${hreflangBlock(cfg)}`,
-    );
+    out = out.replace(/(<link\s*\n?\s*rel="canonical"[\s\S]*?\/>)/, `$1\n${hreflangBlock(cfg)}`);
   }
 
   out = out.replace(/(<meta property="og:locale" content=")[^"]*(")/, `$1${LOCALES[lang]}$2`);
-  out = out.replace(
-    /(<meta\s*\n?\s*property="og:url"\s*\n?\s*content=")[^"]*(")/,
-    (m) => m.replace(/content="[^"]*"/, `content="${url}"`),
+  out = out.replace(/(<meta\s*\n?\s*property="og:url"\s*\n?\s*content=")[^"]*(")/, (m) =>
+    m.replace(/content="[^"]*"/, `content="${url}"`),
   );
 
   if (!/class="i18n-links"/.test(out)) {
@@ -264,9 +265,7 @@ function main() {
 
   const metaPath = path.join(BASE, cfg.stringsDir, 'meta.json');
   const meta = fs.existsSync(metaPath) ? JSON.parse(fs.readFileSync(metaPath, 'utf8')) : {};
-  const shareTitles = Object.fromEntries(
-    Object.entries(meta).map(([l, m]) => [l, m.shareTitle]),
-  );
+  const shareTitles = Object.fromEntries(Object.entries(meta).map(([l, m]) => [l, m.shareTitle]));
 
   // The master keeps its own text and meta; only its URL-level tags are (re)stamped.
   const builds = [[cfg.masterLang, head, tail]];
@@ -276,11 +275,22 @@ function main() {
     .forEach((lang) => {
       const file = path.join(BASE, cfg.stringsDir, `${lang}-strings.json`);
       if (!fs.existsSync(file)) {
-        console.log(`[i18n:${cfg.id}] SKIP ${lang} — ${cfg.stringsDir}/${lang}-strings.json missing`);
+        console.log(
+          `[i18n:${cfg.id}] SKIP ${lang} — ${cfg.stringsDir}/${lang}-strings.json missing`,
+        );
         return;
       }
       const translated = JSON.parse(fs.readFileSync(file, 'utf8'));
-      if (!Array.isArray(translated)) throw new Error(`${lang}: expected a JSON array`);
+      if (!Array.isArray(translated)) {
+        const hint =
+          translated &&
+          typeof translated === 'object' &&
+          !Array.isArray(translated) &&
+          (translated.hero || translated.seo)
+            ? ` Object-section files (seo/hero/…) are a glossary/memory format, not builder input. Use a JSON array of text nodes in document order (DWS_LANGUAGE_STANDARD.md).`
+            : '';
+        throw new Error(`${lang}: expected a JSON array of text nodes.${hint}`);
+      }
       if (translated.length !== masterStrings.length) {
         throw new Error(
           `${lang}: string count mismatch — master ${masterStrings.length}, translation ${translated.length}`,
@@ -298,7 +308,9 @@ function main() {
       fs.mkdirSync(abs, { recursive: true });
       fs.writeFileSync(path.join(abs, cfg.files[lang]), html, 'utf8');
     });
-    console.log(`[i18n:${cfg.id}] wrote ${cfg.files[lang]} (${html.length} bytes) × ${cfg.outDirs.length}`);
+    console.log(
+      `[i18n:${cfg.id}] wrote ${cfg.files[lang]} (${html.length} bytes) × ${cfg.outDirs.length}`,
+    );
   });
 }
 
