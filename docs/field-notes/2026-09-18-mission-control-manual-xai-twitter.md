@@ -2,15 +2,21 @@
 
 ## VERSION AND AGENT HISTORY
 
-***
+---
+
+Version: 1.1
+Tool: Cursor (Grok 4.6)
+Agent: Cursor Agent
+Date: 2026-09-18
+Changes: HIC: second factor for dashboard login is **Google MFA** (Workspace), not the decorative TOTP/SMS radios on `/login/` Standard tab.
 
 Version: 1.0
 Tool: Cursor (Grok 4.6)
 Agent: Cursor Agent
 Date: 2026-09-18
-Changes: HIC confirmed Mission Control login works; reported behaviour as odd and not automatic; recorded X/Twitter @blogtheristo linked to xAI account risto.paarni@lifetime.fi
+Changes: [not latest] HIC confirmed Mission Control login works; reported behaviour as odd and not automatic; recorded X/Twitter @blogtheristo linked to xAI account risto.paarni@lifetime.fi
 
-***
+---
 
 ## Author
 
@@ -34,6 +40,7 @@ DWS IQ Mission Control (`https://dws6.com/dashboard/mission-control/`). Follow-u
 2. 2026-09-18: HIC confirmed **login now opens Mission Control** when signed in.
 3. Same report: **toiminta on outo eikä automaattinen** — the page works, but the operating model is odd and not automatic.
 4. New identity fact (HIC): **Twitter/X account `blogtheristo` is connected to the xAI account `risto.paarni@lifetime.fi`.**
+5. HIC: **MFA Google** — the second factor for Mission Control is **Google Workspace MFA** on `risto.paarni2024@lifetime.fi` (Social → Google Workspace → Google’s own prompt). It is not the `/login/` Standard-tab radios (TOTP / SMS / Email / FIDO2), which do not drive Supabase MFA.
 
 That X account is the same handle as GitHub `blogtheristo`. The xAI login is the Lifetime Oy Proton outbound identity (`risto.paarni@lifetime.fi`), not the Google Workspace login used by Mission Control (`risto.paarni2024@lifetime.fi`).
 
@@ -54,7 +61,7 @@ So “not automatic” matches the shipped design. It feels odd because the only
 
 - **Geography:** Europe > Finland > Espoo
 - **Sector:** Software > Agent operations > Mission Control
-- **Entities:** Lifetime Oy, DWS IQ, Mission Control, X/Twitter, xAI/Grok, blogtheristo
+- **Entities:** Lifetime Oy, DWS IQ, Mission Control, X/Twitter, xAI/Grok, blogtheristo, Google Workspace MFA
 - **Temporal Context:** 2026-09-18, post-#2028
 - **Confidence:** High (HIC first-person + live UI copy)
 
@@ -62,7 +69,9 @@ So “not automatic” matches the shipped design. It feels odd because the only
 
 Connecting `@blogtheristo` on X to xAI under `risto.paarni@lifetime.fi` **closes the identity loop HIC already lives in** (Grok daily on X) and **does not close the product loop**. Mission Control still waits for a paste. Email briefs were killed because they had no steering; the replacement page still has no ingest. Until Grok/X writes into a centre automatically (or HIC accepts paste-as-the-job), Mission Control will keep feeling like a form, not an operations desk.
 
-Do not treat Workspace login `risto.paarni2024@lifetime.fi` and xAI/Proton `risto.paarni@lifetime.fi` as the same mailbox. One is the dashboard allowlist; the other is the Grok/X account.
+Do not treat Workspace login `risto.paarni2024@lifetime.fi` and xAI/Proton `risto.paarni@lifetime.fi` as the same mailbox. One is the dashboard allowlist (Google MFA); the other is the Grok/X account.
+
+The `/login/` card advertises “Mandatory MFA” with TOTP/SMS options. Those controls are **not** the HIC path. Real MFA is Google’s challenge after **Google Workspace**.
 
 ## Next Steps
 

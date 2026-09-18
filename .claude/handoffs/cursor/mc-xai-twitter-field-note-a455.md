@@ -10,9 +10,10 @@
 
 ## Version & Agent History
 
-| Version      | Date       | Changes                         | Agent  |
-| ------------ | ---------- | ------------------------------- | ------ |
-| [Latest] 1.0 | 2026-09-18 | Field note from HIC 18.9 report | Cursor |
+| Version          | Date       | Changes                                         | Agent  |
+| ---------------- | ---------- | ----------------------------------------------- | ------ |
+| [Latest] 1.1     | 2026-09-18 | MFA = Google Workspace, not /login/ TOTP radios | Cursor |
+| [not latest] 1.0 | 2026-09-18 | Field note from HIC 18.9 report                 | Cursor |
 
 ---
 
