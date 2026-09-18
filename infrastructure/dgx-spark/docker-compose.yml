@@ -450,7 +450,8 @@ services:
       - "host.docker.internal:host-gateway"
 
   # ==========================================================================
-  # Aspire Dashboard 13.4.6 — Distributed traces, metrics, logs (OTel aggregator)
+  # Aspire Dashboard 13.4.2 — Distributed traces, metrics, logs (OTel aggregator)
+  # image: pin is 13.4.2 (this comment previously said 13.4.6). Win11 CLI 13.5.4 is not this image.
   # Dashboard-only install — no AppHost or .NET toolchain required.
   # Three distinct endpoints (aspire.dev dashboard configuration reference):
   #   UI:        http://dgx-spark:18888          (browser)

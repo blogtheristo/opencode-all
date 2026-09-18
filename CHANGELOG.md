@@ -12,6 +12,9 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Win11 **WSL 2** recorded as updated (HIC 18.09.2026). Admin Manual v3.17 operator
   pin Microsoft stable **2.7.14**; Plan9 fix is KB5129195 after KB5124008.
   Field note: `docs/field-notes/2026-09-18-win11-wsl-updated.md`.
+- Win11 **Aspire CLI 13.5.4** (HIC `aspire update`, stable). Admin v3.18. Spark
+  `aspire-dashboard` image stays **13.4.2**. Field note:
+  `docs/field-notes/2026-09-18-win11-aspire-cli-13-5-4.md`.
 
 ### Changed
 

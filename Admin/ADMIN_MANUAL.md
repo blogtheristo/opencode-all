@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.17
+Version: 3.18
 
 Sessions & Modifications:
 
+- Version: 3.18 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **Aspire CLI 13.5.4** (stable channel, `C:\Users\risto\.aspire\bin\aspire.exe`, commit `9c1b401`). `aspire update` found no AppHost — expected. Does **not** bump DGX `aspire-dashboard` image (compose pin is **13.4.2**). Admin previously said dashboard 13.4.6; that tag is not the compose image on this branch.
 - Version: 3.17 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **WSL 2** recorded as updated (HIC). Pin Microsoft stable **2.7.14** (github.com/microsoft/WSL, 11.09.2026). Operator: `wsl --update` then `wsl --version`. Plan9 share break after KB5124008 is fixed by KB5129195. Does not restore Docker Desktop / Docker MCP (retired 26.03.2026). WSL is not DGX Ollama.
 - Version: 3.16 | Tool: Cursor Agent | Session: docs/admin-dev-env-opencode-policy | Date: 17.09.2026 | Changes: **Two dev environments — Win11 and DGX Spark** (Win11: Cursor + VS Code IDEs; DGX: Cursor CLI + GitHub Copilot CLI; shared session layer; git sync rules). **Large work policy** — plan first, execute via OpenCode agents on DGX (worktree + batch queue). **Model economics** — route translations and bulk i18n through OpenCode FREE models or local Ollama to save paid API tokens. Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2, `WORKTREE_POLICY.md`, `opencode-all/ADMIN_MANUAL.md`, `docs/handovers/HIC_MORNING_ROUTINE.md`.
 - Version: 3.15 | Tool: Claude Code (Haiku 4.5) | Session: claude/system-refactor-comprehensive-2026-09-07 | Date: 07.09.2026 | Changes: Comprehensive system files refactor — extracted CLAUDE.md specs to `docs/system-config/` (DISCIPLINE.md, STANDARDS_ROUTING.md, SYSTEM_FILES_INDEX.md) with DWS_DOCUMENT_STANDARD versioning; documented multi-tool ecosystem (OpenCode primary + Claude Code standby); identified and documented 3 sync gaps (dws-agents-local intentional disable, permission syntax mismatch, missing bash denies); permitted OpenCode `.env` read on DGX (commit `ff408fa13`) with asymmetric permissions per tool role; archived prior CLAUDE.md v1.0 to field-notes. Cross-refs: `CLAUDE.md` v1.1, `docs/system-config/SYSTEM_FILES_INDEX.md`, `docs/field-notes/CLAUDE.md.archive-2026-09-07.md`, `docs/field-notes/2026-09-07-claude-md-sharpening.md`, permission audit `3758d6a8d`.
@@ -414,6 +415,7 @@ Lifetime Oy maintains **two independent git checkouts** of `dws6` and **one shar
 | **Typical path** | `F:\2026\Repos2026\dws6` (machine-specific) |
 | **IDEs (two)** | **Cursor** and **Visual Studio Code** — separate GUIs, same repo clone |
 | **Linux layer** | **WSL 2** — HIC updated 18.09.2026. Microsoft stable pin **2.7.14** (see *Win11 WSL*) |
+| **Aspire CLI** | **13.5.4** stable at `C:\Users\risto\.aspire\bin\aspire.exe` (see *Win11 Aspire CLI*). Not an AppHost. Does not bump the Spark dashboard image. |
 | **Role** | Plan authoring, PR review, small edits, HIC approval gates |
 | **Agent compute** | **Not** for large implementation — convert to a plan and queue **OpenCode agents on DGX** (see *Large work* below) |
 
@@ -574,7 +576,9 @@ The DGX heartbeat on `9999` and Ollama on `11434` do not substitute for the disa
 
 ## Aspire Dashboard Observability (DGX Spark)
 
-The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — currently `13.4.6`, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
+The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — compose image **`13.4.2`**, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
+
+**Pin split (18.09.2026, fail loud):** Win11 Aspire **CLI** is **13.5.4** (HIC `aspire update`, channel `stable`). The Spark **dashboard image** stays **13.4.2** in `infrastructure/dgx-spark/docker-compose.yml`. A CLI update is not a compose bump. Admin previously said the dashboard was `13.4.6`; that tag is not the `image:` line on this branch (the yaml comment still says 13.4.6 — comment drift only).
 
 ### The three ports (do not mix them up)
 
@@ -592,7 +596,26 @@ The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **
 - **Enable/disable per service:** telemetry is opt-in via `OTEL_EXPORTER_OTLP_ENDPOINT` (unset = no-op, nothing leaves the host). Service names via `OTEL_SERVICE_NAME`.
 - **GenAI message-content capture is OFF** by design — `withLLMSpan` records metadata only (model, tokens, finish reason), never prompt/completion bodies. Turning content capture on is a **data-protection decision (human, RED-zone equivalent)** — customer text would enter dashboard memory. Do not enable without explicit CEO sign-off.
 - **Auth posture:** frontend and OTLP run `Unsecured` — acceptable only while port 18888 is LAN-only on the DGX host. If the host ever gets a routable interface or a tunnel exposes 18888, switch to `BrowserToken` (frontend) and `ApiKey` (OTLP) per the aspire.dev dashboard configuration reference.
-- **Version bumps:** treat the dashboard like any pinned image — bump deliberately, check the aspire.dev release notes (OTLP defaults, auth env var names have changed across majors), never float on `:latest`.
+- **Version bumps:** treat the dashboard like any pinned image — bump deliberately, check the aspire.dev release notes (OTLP defaults, auth env var names have changed across majors), never float on `:latest`. Do **not** bump `aspire-dashboard` because Win11 `aspire update` moved the CLI.
+
+### Win11 Aspire CLI (operator)
+
+**Status (HIC, 18.09.2026):** From `F:\2026\Repos2026\dws6`:
+
+```
+aspire update
+No Aspire AppHost project found. Would you like to update the Aspire CLI instead? [y/N]: y
+Select the channel to update to: stable
+Updated to version: 13.5.4+9c1b401dd67746739044f68959cbf4d3d7af93a6
+```
+
+**Pin:** Aspire CLI **13.5.4** at `C:\Users\risto\.aspire\bin\aspire.exe`. Matches NuGet `Aspire.Cli.*` 13.5.4 (15.09.2026) and GitHub commit `9c1b401dd67746739044f68959cbf4d3d7af93a6`.
+
+**Why no AppHost is correct.** DWS IQ 6 on Spark is **dashboard-only** (option 1, `docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md`). There is no AppHost in this repo. `aspire update` offering a CLI-only update is the expected path. Do **not** run `aspire init` here without a Model/Deployment-standard §10-style gate.
+
+**Do not:** install the CLI on Cursor Cloud; `ollama pull` via Aspire; restore Docker Desktop; bump `mcr.microsoft.com/dotnet/aspire-dashboard` in the same change as a Win11 CLI update.
+
+Field note: `docs/field-notes/2026-09-18-win11-aspire-cli-13-5-4.md`.
 
 ---
 
