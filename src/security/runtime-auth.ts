@@ -398,6 +398,76 @@ function signingSecret(): string | null {
   return process.env.KYA_VERDICT_SIGNING_SECRET || null;
 }
 
+/**
+ * Grace-period secret for rotation: verifyKyaVerdict() also accepts a
+ * verdict signed under this secret. Set it to the OLD value of
+ * KYA_VERDICT_SIGNING_SECRET during a rotation window, then remove it once
+ * every in-flight verdict issued under the old secret has expired — see
+ * "Secret rotation procedure" below. Never used for issuing, only verifying.
+ */
+function previousSigningSecret(): string | null {
+  return process.env.KYA_VERDICT_SIGNING_SECRET_PREVIOUS || null;
+}
+
+/**
+ * Guard against the most common signing-secret mistake: reusing the same
+ * value across environments. If NODE_ENV/DEPLOY_ENV is set, the secret must
+ * not equal a well-known placeholder/example value, and staging vs.
+ * production must not share a secret when both are inspectable from the
+ * same process (defense in depth; the real control is that each
+ * environment's secret manager holds a distinct value — this only catches
+ * the case where someone copy-pasted one env file into another).
+ */
+const KNOWN_PLACEHOLDER_SECRETS = new Set([
+  'test-signing-secret-do-not-use-in-prod',
+  'change-me',
+  'changeme',
+  'secret',
+  'test-secret-a',
+  'test-secret-b',
+]);
+
+function assertNotPlaceholderInProd(secret: string): void {
+  const env = (process.env.NODE_ENV || process.env.DEPLOY_ENV || '').toLowerCase();
+  if (env === 'production' && KNOWN_PLACEHOLDER_SECRETS.has(secret)) {
+    throw new Error(
+      'KYA_VERDICT_SIGNING_SECRET is set to a known test/placeholder value in a production environment. ' +
+        'Staging and production must use distinct, generated secrets — see "Secret rotation procedure" in ' +
+        'src/security/runtime-auth.ts and docs/KYA_JEV_SPECIFICATION.md.',
+    );
+  }
+}
+
+/*
+ * Secret rotation procedure (KYA_VERDICT_SIGNING_SECRET)
+ * ────────────────────────────────────────────────────────────────────────
+ * 1. Staging and production MUST use distinct values, generated independently
+ *    (e.g. `openssl rand -hex 32`), stored only in each environment's secret
+ *    manager — never committed, never shared across environments (Rule 1/2,
+ *    CLAUDE.md Non-Negotiable Rules).
+ * 2. Verdicts are short-lived by design (issued and consumed within a single
+ *    call, not persisted for reuse), so rotation does not require
+ *    invalidating stored data — only in-flight calls during the rotation
+ *    window are at risk of a transient verification failure.
+ * 3. Zero-downtime rotation:
+ *      a. Generate the new secret.
+ *      b. Set KYA_VERDICT_SIGNING_SECRET_PREVIOUS = <old value>,
+ *         KYA_VERDICT_SIGNING_SECRET = <new value>, deploy.
+ *         verifyKyaVerdict() accepts verdicts signed under either secret
+ *         during this window, so in-flight calls issued just before the
+ *         rotation still verify.
+ *      c. After one full deploy cycle with no verification failures
+ *         attributable to the old secret (check logs for
+ *         "kya-jev: KYA verdict failed signature verification"), remove
+ *         KYA_VERDICT_SIGNING_SECRET_PREVIOUS.
+ * 4. Cadence: rotate on a fixed schedule (recommended: quarterly) and
+ *    immediately on suspected compromise. Record each rotation's date and
+ *    reason in docs/KYA_JEV_SPECIFICATION.md's version history — a secret
+ *    rotation with no record is itself an audit gap.
+ * 5. Ownership: Security team owns the secret value and rotation cadence;
+ *    HIC approves emergency (compromise-triggered) rotations.
+ */
+
 function verdictPayload(
   v: Pick<RuntimeKYAVerdict, 'decision' | 'trustScore' | 'policyVersion' | 'gate' | 'issuedAt'>,
 ): string {
@@ -431,17 +501,29 @@ export function issueKyaVerdict(input: {
     // boundary — verification is).
     return { ...input, issuedAt };
   }
+  assertNotPlaceholderInProd(secret);
   const sig = createHmac('sha256', secret)
     .update(verdictPayload({ ...input, issuedAt }))
     .digest('hex');
   return { ...input, issuedAt, sig };
 }
 
+function signatureMatches(verdict: RuntimeKYAVerdict, secret: string): boolean {
+  if (!verdict.sig) return false;
+  const expected = createHmac('sha256', secret).update(verdictPayload(verdict)).digest('hex');
+  const expectedBuf = Buffer.from(expected, 'hex');
+  const actualBuf = Buffer.from(verdict.sig, 'hex');
+  if (expectedBuf.length !== actualBuf.length) return false;
+  return timingSafeEqual(expectedBuf, actualBuf);
+}
+
 /**
  * Verify a KYA verdict's signature. Returns false for any verdict that
- * wasn't produced by issueKyaVerdict() with the current signing secret —
- * including a hand-constructed `{ decision: 'allowed' }` object, a verdict
- * with a tampered field, or one signed under a rotated/different secret.
+ * wasn't produced by issueKyaVerdict() with the current (or, during a
+ * rotation window, the previous — KYA_VERDICT_SIGNING_SECRET_PREVIOUS)
+ * signing secret — including a hand-constructed `{ decision: 'allowed' }`
+ * object, a verdict with a tampered field, or one signed under an unrelated
+ * secret. See "Secret rotation procedure" above `issueKyaVerdict()`.
  */
 export function verifyKyaVerdict(verdict: RuntimeKYAVerdict | undefined): boolean {
   if (!verdict) return false;
@@ -449,9 +531,15 @@ export function verifyKyaVerdict(verdict: RuntimeKYAVerdict | undefined): boolea
   if (!secret) return false; // fail closed — see issueKyaVerdict()
   if (!verdict.sig) return false;
 
-  const expected = createHmac('sha256', secret).update(verdictPayload(verdict)).digest('hex');
-  const expectedBuf = Buffer.from(expected, 'hex');
-  const actualBuf = Buffer.from(verdict.sig, 'hex');
-  if (expectedBuf.length !== actualBuf.length) return false;
-  return timingSafeEqual(expectedBuf, actualBuf);
+  if (signatureMatches(verdict, secret)) return true;
+
+  const previous = previousSigningSecret();
+  if (previous && signatureMatches(verdict, previous)) {
+    logger.warn(
+      'verifyKyaVerdict: verdict verified under KYA_VERDICT_SIGNING_SECRET_PREVIOUS — rotation window still open',
+      { gate: verdict.gate },
+    );
+    return true;
+  }
+  return false;
 }
