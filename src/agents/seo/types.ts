@@ -102,7 +102,12 @@ export interface CompetitorSurveillanceInput {
   targetClusters: Record<string, string[]>;
 }
 
-export type ChangeType = 'new-page' | 'content-update' | 'pricing-change' | 'meta-change' | 'new-feature';
+export type ChangeType =
+  | 'new-page'
+  | 'content-update'
+  | 'pricing-change'
+  | 'meta-change'
+  | 'new-feature';
 export type Severity = 'low' | 'medium' | 'high';
 
 export interface CompetitorChange {
@@ -350,6 +355,17 @@ export interface SeoAuditOutput {
     newIssues: number;
     resolvedIssues: number;
     regressions: string[];
+  };
+  /**
+   * Advisory-only kya-jev typed decision (src/agents/kya-jev.ts). Never
+   * overrides `deployGate`, which remains fully deterministic. Absent when
+   * no KYA verdict / LLM client was available for this run.
+   */
+  kyaJevReview?: {
+    reviewPriority: 'none' | 'low' | 'medium' | 'high';
+    confidence: number;
+    calibration: 'self-reported-uncalibrated';
+    abstained: boolean;
   };
 }
 

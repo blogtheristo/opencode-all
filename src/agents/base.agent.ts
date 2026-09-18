@@ -34,7 +34,11 @@ import type {
   SandboxContext,
   ToolDefinition,
 } from './types.js';
-import { buildSDKSandboxConfig, getSandboxStage, validateNIS2Compliance } from '../sandbox/index.js';
+import {
+  buildSDKSandboxConfig,
+  getSandboxStage,
+  validateNIS2Compliance,
+} from '../sandbox/index.js';
 import type { SDKSandboxConfig } from '../sandbox/index.js';
 
 export abstract class BaseAgent {
@@ -66,10 +70,7 @@ export abstract class BaseAgent {
    * Existing agents: implement this directly with deterministic logic + callLLM().
    * New agents: can call runLoop() from within execute() for agentic behavior.
    */
-  abstract execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse>;
+  abstract execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse>;
 
   // ============ DWS7: AGENTIC LOOP (Fix #1) ============
 
@@ -179,7 +180,11 @@ export abstract class BaseAgent {
       model = response.model;
 
       // If no tool calls, the agent is done thinking
-      if (!response.toolCalls || response.toolCalls.length === 0 || response.stopReason === 'end_turn') {
+      if (
+        !response.toolCalls ||
+        response.toolCalls.length === 0 ||
+        response.stopReason === 'end_turn'
+      ) {
         iterations.push({
           iteration: i,
           phase: 'think',
@@ -234,9 +239,10 @@ export abstract class BaseAgent {
 
     // Extract final content from last assistant message
     const lastAssistant = [...messages].reverse().find((m) => m.role === 'assistant');
-    const finalContent = typeof lastAssistant?.content === 'string'
-      ? lastAssistant.content
-      : JSON.stringify(lastAssistant?.content || {});
+    const finalContent =
+      typeof lastAssistant?.content === 'string'
+        ? lastAssistant.content
+        : JSON.stringify(lastAssistant?.content || {});
 
     // Log iterations to Supabase if configured
     if (loopConfig.logIterations && iterations.length > 0) {
@@ -296,7 +302,10 @@ export abstract class BaseAgent {
    */
   protected soulPrompt: string | null = null;
 
-  protected async callLLM(prompt: string, systemPromptOverride?: string): Promise<{
+  protected async callLLM(
+    prompt: string,
+    systemPromptOverride?: string,
+  ): Promise<{
     content: string;
     model: string;
     inputTokens: number;
@@ -319,9 +328,10 @@ export abstract class BaseAgent {
     }
 
     // Priority: explicit override > soulPrompt > generic fallback
-    const systemContent = systemPromptOverride
-      ?? this.soulPrompt
-      ?? `You are ${this.config.name}, a specialized AI agent for Climate IQ. ${this.config.description}. Always respond with valid JSON.`;
+    const systemContent =
+      systemPromptOverride ??
+      this.soulPrompt ??
+      `You are ${this.config.name}, a specialized AI agent for Climate IQ. ${this.config.description}. Always respond with valid JSON.`;
 
     try {
       const response = await client.chat([
@@ -336,7 +346,10 @@ export abstract class BaseAgent {
         outputTokens: response.outputTokens,
       };
     } catch (err) {
-      logger.error('LLM call failed', { agent: this.config.name, error: err instanceof Error ? err.message : String(err) });
+      logger.error('LLM call failed', {
+        agent: this.config.name,
+        error: err instanceof Error ? err.message : String(err),
+      });
       return {
         content: JSON.stringify({
           summary: 'LLM call failed - analysis based on deterministic logic only',
@@ -400,6 +413,58 @@ export abstract class BaseAgent {
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       logger.debug('Failed to log loop iterations', { error: msg });
+    }
+  }
+
+  /**
+   * Log one kya-jev typed decision (src/agents/kya-jev.ts) to kya_jev_calls
+   * for Article 12 traceability. Non-blocking: failures are logged, never
+   * thrown — an audit-write failure must not fail the calling agent.
+   */
+  protected async logKyaJevCall(
+    context: AgentContext,
+    call: {
+      questionKind: 'choice' | 'score' | 'boolean';
+      questionPrompt: string;
+      decision: string;
+      probabilities?: Record<string, number>;
+      confidence: number;
+      calibration: 'self-reported-uncalibrated';
+      abstained: boolean;
+      model?: string;
+    },
+  ): Promise<void> {
+    const client = this.getSupabaseClient();
+    if (!client) return;
+
+    try {
+      const { error } = await client.from('kya_jev_calls').insert({
+        agent_name: this.config.name,
+        org_id: context.orgId,
+        session_id: context.sessionId,
+        kya_trust_score: context.agentRuntime?.kya?.trustScore ?? null,
+        kya_policy_version: context.agentRuntime?.kya?.policyVersion ?? null,
+        question_kind: call.questionKind,
+        question_prompt: call.questionPrompt,
+        decision: call.decision,
+        probabilities: call.probabilities ?? {},
+        confidence: call.confidence,
+        calibration: call.calibration,
+        abstained: call.abstained,
+        model: call.model ?? null,
+        created_at: new Date().toISOString(),
+      });
+      if (error) {
+        logger.warn('Failed to write kya_jev_calls audit row', {
+          agent: this.config.name,
+          error: error.message,
+        });
+      }
+    } catch (err) {
+      logger.warn('Exception writing kya_jev_calls audit row', {
+        agent: this.config.name,
+        error: err instanceof Error ? err.message : String(err),
+      });
     }
   }
 
@@ -480,7 +545,9 @@ export abstract class BaseAgent {
         },
         confidence: 1,
         reasoning: `Execution blocked by governance: ${enforced.map((e) => e.reason).join('; ')}`,
-        recommendations: ['Contact administrator to adjust governance policies or request approval'],
+        recommendations: [
+          'Contact administrator to adjust governance policies or request approval',
+        ],
         metadata: { governance: audit },
       };
     }
@@ -503,14 +570,29 @@ export abstract class BaseAgent {
 
         if (!state || now - state.windowStart > window_ms) {
           BaseAgent.rateLimitState.set(key, { count: 1, windowStart: now });
-          return { policyId: policy.id, allowed: true, reason: 'Within rate limit', enforcement: policy.enforcement };
+          return {
+            policyId: policy.id,
+            allowed: true,
+            reason: 'Within rate limit',
+            enforcement: policy.enforcement,
+          };
         }
 
         state.count++;
         if (state.count > maxCalls) {
-          return { policyId: policy.id, allowed: false, reason: `Rate limit exceeded: ${state.count}/${maxCalls} calls in window`, enforcement: policy.enforcement };
+          return {
+            policyId: policy.id,
+            allowed: false,
+            reason: `Rate limit exceeded: ${state.count}/${maxCalls} calls in window`,
+            enforcement: policy.enforcement,
+          };
         }
-        return { policyId: policy.id, allowed: true, reason: `Rate limit OK: ${state.count}/${maxCalls}`, enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: `Rate limit OK: ${state.count}/${maxCalls}`,
+          enforcement: policy.enforcement,
+        };
       }
 
       case 'cost-limit': {
@@ -524,25 +606,50 @@ export abstract class BaseAgent {
         // session_id and task_id). Until that read exists, say so rather than imply
         // a limit is in force.
         const maxCost = (policy.config.max_daily_eur as number) || 50;
-        return { policyId: policy.id, allowed: true, reason: `Cost limit configured at EUR ${maxCost}/day — NOT ENFORCED (no spend lookup wired)`, enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: `Cost limit configured at EUR ${maxCost}/day — NOT ENFORCED (no spend lookup wired)`,
+          enforcement: policy.enforcement,
+        };
       }
 
       case 'approval-required': {
-        return { policyId: policy.id, allowed: false, reason: 'Human approval required before execution', enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: false,
+          reason: 'Human approval required before execution',
+          enforcement: policy.enforcement,
+        };
       }
 
       case 'data-boundary': {
         const allowedRegions = (policy.config.allowed_regions as string[]) || ['EU'];
-        return { policyId: policy.id, allowed: true, reason: `Data boundary: ${allowedRegions.join(', ')}`, enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: `Data boundary: ${allowedRegions.join(', ')}`,
+          enforcement: policy.enforcement,
+        };
       }
 
       case 'autonomy-tier': {
         const maxTier = (policy.config.max_tier as number) || 2;
-        return { policyId: policy.id, allowed: true, reason: `Autonomy tier ≤ ${maxTier}`, enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: `Autonomy tier ≤ ${maxTier}`,
+          enforcement: policy.enforcement,
+        };
       }
 
       default:
-        return { policyId: policy.id, allowed: true, reason: 'Unknown policy type - passing', enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: 'Unknown policy type - passing',
+          enforcement: policy.enforcement,
+        };
     }
   }
 
@@ -553,7 +660,9 @@ export abstract class BaseAgent {
     try {
       await client.from('governance_audit').insert(audit);
     } catch (err) {
-      logger.debug('Failed to log governance audit', { error: err instanceof Error ? err.message : String(err) });
+      logger.debug('Failed to log governance audit', {
+        error: err instanceof Error ? err.message : String(err),
+      });
     }
   }
 
