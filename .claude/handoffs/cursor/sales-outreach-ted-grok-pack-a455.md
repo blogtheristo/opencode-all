@@ -8,12 +8,23 @@
 
 ---
 
-## Version & Agent History
+## VERSION AND AGENT HISTORY
 
-| Version          | Date       | Changes                                                                 | Agent  |
-| ---------------- | ---------- | ----------------------------------------------------------------------- | ------ |
-| [Latest] 1.1     | 2026-09-18 | Auto-import via public TED API; all 25 industries; Grok project private | Cursor |
-| [not latest] 1.0 | 2026-09-18 | Partial TED pack + field note from Grok chat URL                        | Cursor |
+***
+
+Version: 1.1
+Tool: Cursor (Grok 4.6)
+Agent: Cursor Agent
+Date: 2026-09-18
+Changes: Auto-import via public TED API; all 25 industries; Grok project private. HIC marked PR ready for review.
+
+Version: 1.0
+Tool: Cursor (Grok 4.6)
+Agent: Cursor Agent
+Date: 2026-09-18
+Changes: [not latest] Partial TED pack + field note from Grok chat URL
+
+***
 
 ---
 
