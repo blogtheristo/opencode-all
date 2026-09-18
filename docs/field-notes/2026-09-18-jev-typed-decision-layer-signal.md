@@ -2,6 +2,31 @@
 
 # Field Note — Jev (TypeSafe AI): Typed Decision-Layer Signal — "Add Jev Support" Decision Gate
 
+---
+
+# VERSION AND AGENT HISTORY
+
+Version: 1.0 [Latest]
+
+Sessions & Modifications:
+
+- Version: 1.0 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: Initial creation — Jev (TypeSafe AI) signal, HIC-approved Phase 0 verification, kya-jev Phase 1 build (seo-audit wiring, audit migration, calibration harness, EUR 99/month Early Access listing).
+
+Session Links & References:
+
+- Claude Code (claude/agents-md-support-eyody6): https://github.com/blogtheristo/dws6
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md
+
+Document Status:
+
+- Created: 18.09.2026
+- Last Modified: 18.09.2026
+- Language: English
+- Languages Available: English
+- Publication Status: INTERNAL — field note, not for public-site publication
+
+---
+
 **Date:** 2026-09-18
 **Session:** Claude Code, branch `claude/agents-md-support-eyody6`
 **Status:** Phase 0 APPROVED by HIC (2026-09-18). Phase 0 verification complete this session. Phase 1 (code) NOT started — separate approval required.
