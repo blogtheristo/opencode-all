@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.23
+Version: 3.24
 
 Sessions & Modifications:
 
+- Version: 3.24 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark docker-ce apt recipe ends with `docker ps`, not `docker compose ps` (compose interpolates `POSTGRES_PASSWORD` without `.env`).
 - Version: 3.23 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: **Environment Version Parity** (`DWS_TRUTH_STANDARD.md` §2I / row 41). Shared-role Docker client pin is **29.8.0** on Win11 and Spark. Spark **29.2.1** is open drift (apt recipe), not a standing split. Aspire CLI vs dashboard stays a role split. Running Spark aspire-dashboard confirmed **13.4.2** /health 200; compose pull needs `.env` or `docker pull` the image. Check: `npm run env:pins`.
 - Version: 3.22 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark Docker **Engine upgrade recipe** (`apt-get install --only-upgrade docker-ce…`). Not `docker update`. Not Win11 29.8.0. Daemon restart expected. This Cloud agent cannot SSH.
 - Version: 3.21 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **Docker client 29.8.0** (`88096ef`) from HIC PowerShell `docker --version` on `F:\2026\Repos2026\dws6`. Split from Spark **29.2.1**. Client on PATH is not a Docker MCP restore (retired 26.03.2026). Product (Desktop vs CE) not in this paste.
@@ -695,8 +696,7 @@ sudo apt-get install --only-upgrade -y \
 sudo systemctl is-active docker
 docker --version
 docker compose version
-cd /home/admin100/dws6/infrastructure/dgx-spark
-docker compose ps
+docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Image}}'
 ```
 
 If `dpkg` shows `docker.io` instead of `docker-ce`, stop and paste that output — do not mix Ubuntu universe Docker with Docker CE. Do **not** re-run `curl https://get.docker.com | sh`. Do not pull `:latest` compose images as part of this. After success, paste the new `docker --version`. When it prints **29.8.0**, update `config/truth/dev-environment-pins.json` observed.spark and set `status` to `aligned`, then `npm run env:pins:strict`.
