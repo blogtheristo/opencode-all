@@ -22,6 +22,7 @@
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { generateSectorDM, cpvToSector, sectorLabel } from './ted-sector-hooks.js';
+import { buildTedV3CpvClause } from '../src/agents/data/industry-cpv.js';
 
 // ── Types ──────────────────────────────────────────────────────────────
 
@@ -92,32 +93,44 @@ const TED_FIELDS = [
 const TARGET_COUNTRIES = ['FIN', 'SWE', 'DEU', 'FRA', 'GBR', 'NOR', 'DNK', 'AUT', 'NLD', 'POL'];
 
 const COUNTRY_TO_DM_LANG: Record<string, string> = {
-  SWE: 'SV', DNK: 'SV', NOR: 'SV',
-  DEU: 'DE', AUT: 'DE', CHE: 'DE',
-  FIN: 'FI', EST: 'FI',
-  FRA: 'FR', BEL: 'FR', LUX: 'FR',
-  GBR: 'EN', IRL: 'EN', NLD: 'EN', POL: 'EN', ITA: 'EN', ESP: 'EN',
+  SWE: 'SV',
+  DNK: 'SV',
+  NOR: 'SV',
+  DEU: 'DE',
+  AUT: 'DE',
+  CHE: 'DE',
+  FIN: 'FI',
+  EST: 'FI',
+  FRA: 'FR',
+  BEL: 'FR',
+  LUX: 'FR',
+  GBR: 'EN',
+  IRL: 'EN',
+  NLD: 'EN',
+  POL: 'EN',
+  ITA: 'EN',
+  ESP: 'EN',
 };
 
 // Known ERP systems per company — extend as we learn more
 // Source: annual reports, LinkedIn job postings, company IT pages
 const KNOWN_ERP: Record<string, string> = {
-  'skanska': 'SAP',
-  'ncc': 'SAP',
-  'peab': 'IFS',
-  'porr': 'SAP',
-  'strabag': 'SAP',
-  'hochtief': 'SAP',
-  'vinci': 'SAP',
-  'bouygues': 'SAP',
-  'eiffage': 'SAP',
+  skanska: 'SAP',
+  ncc: 'SAP',
+  peab: 'IFS',
+  porr: 'SAP',
+  strabag: 'SAP',
+  hochtief: 'SAP',
+  vinci: 'SAP',
+  bouygues: 'SAP',
+  eiffage: 'SAP',
   'balfour beatty': 'SAP',
-  'yit': 'SAP',
-  'srv': 'Visma',
-  'fira': 'Visma',
-  'hartela': 'Monitor',
-  'lehto': 'Visma',
-  'sweco': 'IFS',
+  yit: 'SAP',
+  srv: 'Visma',
+  fira: 'Visma',
+  hartela: 'Monitor',
+  lehto: 'Visma',
+  sweco: 'IFS',
 };
 
 // ── DM Personalization ─────────────────────────────────────────────────
@@ -129,7 +142,7 @@ const KNOWN_ERP: Record<string, string> = {
 function parseArgs() {
   const args = process.argv.slice(2);
   const get = (key: string, fallback: string): string => {
-    const arg = args.find(a => a.startsWith(`--${key}=`));
+    const arg = args.find((a) => a.startsWith(`--${key}=`));
     return arg ? arg.split('=')[1] : fallback;
   };
   const has = (key: string): boolean => args.includes(`--${key}`);
@@ -140,7 +153,7 @@ function parseArgs() {
     dryRun: has('dry-run'),
     cron: has('cron'),
     validate: get('validate', ''),
-    cpv: get('cpv', '45000000'),
+    cpv: get('cpv', ''),
   };
 }
 
@@ -164,7 +177,7 @@ async function fetchTED(query: string, limit = 250): Promise<TEDNotice[]> {
 
     const response = await fetch(TED_API_BASE, {
       method: 'POST',
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify(request),
     });
 
@@ -172,7 +185,7 @@ async function fetchTED(query: string, limit = 250): Promise<TEDNotice[]> {
       throw new Error(`TED API error: ${response.status} ${response.statusText}`);
     }
 
-    const data = await response.json() as TEDSearchResponse;
+    const data = (await response.json()) as TEDSearchResponse;
     allResults.push(...data.results);
 
     // PAGE_NUMBER mode: max 15k results, 250 per page
@@ -192,11 +205,12 @@ function buildQueries(opts: ReturnType<typeof parseArgs>): string[] {
   since.setDate(since.getDate() - opts.days);
   const dateStr = since.toISOString().slice(0, 10).replace(/-/g, '');
 
+  const cpvClause = opts.cpv ? `cpv=${opts.cpv}` : `(${buildTedV3CpvClause()})`;
   const countries = opts.country ? [opts.country] : TARGET_COUNTRIES;
 
   // Build one query per country (cleaner results, easier debugging)
-  return countries.map(country =>
-    `cpv=${opts.cpv} AND buyer-country=${country} AND publication-date>=${dateStr}`
+  return countries.map(
+    (country) => `${cpvClause} AND buyer-country=${country} AND publication-date>=${dateStr}`,
   );
 }
 
@@ -247,7 +261,7 @@ function enrichNotice(notice: TEDNotice): TedLeadRow {
 
 async function getExistingPubNumbers(
   supabase: SupabaseClient,
-  pubNumbers: string[]
+  pubNumbers: string[],
 ): Promise<Set<string>> {
   if (pubNumbers.length === 0) return new Set();
 
@@ -261,7 +275,7 @@ async function getExistingPubNumbers(
       .in('publication_number', chunk);
 
     if (error) throw new Error(`Supabase dedup query failed: ${error.message}`);
-    if (data) data.forEach(row => existing.add(row.publication_number));
+    if (data) data.forEach((row) => existing.add(row.publication_number));
   }
 
   return existing;
@@ -269,19 +283,14 @@ async function getExistingPubNumbers(
 
 // ── Step 4: Insert into Supabase ───────────────────────────────────────
 
-async function insertLeads(
-  supabase: SupabaseClient,
-  leads: TedLeadRow[]
-): Promise<number> {
+async function insertLeads(supabase: SupabaseClient, leads: TedLeadRow[]): Promise<number> {
   if (leads.length === 0) return 0;
 
   let inserted = 0;
   // Insert in batches of 100
   for (let i = 0; i < leads.length; i += 100) {
     const batch = leads.slice(i, i + 100);
-    const { error, count } = await supabase
-      .from('ted_leads')
-      .insert(batch, { count: 'exact' });
+    const { error, count } = await supabase.from('ted_leads').insert(batch, { count: 'exact' });
 
     if (error) {
       // On conflict (duplicate pub number), skip silently
@@ -297,8 +306,8 @@ async function insertLeads(
 // ── Step 5: Generate DM Drafts Summary ─────────────────────────────────
 
 function printDmDrafts(leads: TedLeadRow[]): void {
-  const withErp = leads.filter(l => l.erp_qualifier);
-  const withoutErp = leads.filter(l => !l.erp_qualifier);
+  const withErp = leads.filter((l) => l.erp_qualifier);
+  const withoutErp = leads.filter((l) => !l.erp_qualifier);
 
   if (withErp.length > 0) {
     console.log('\n=== HIGH-PRIORITY LEADS (ERP match — native integration angle) ===\n');
@@ -306,16 +315,22 @@ function printDmDrafts(leads: TedLeadRow[]): void {
       console.log(`  ${lead.publication_number} | ${lead.buyer_name} (${lead.buyer_country})`);
       console.log(`  ERP: ${lead.erp_qualifier} | Lang: ${lead.dm_language}`);
       console.log(`  DM: "${lead.dm_personalization}"`);
-      console.log(`  ERP angle: "We connect directly to your ${lead.erp_qualifier} — no manual data entry"`);
+      console.log(
+        `  ERP angle: "We connect directly to your ${lead.erp_qualifier} — no manual data entry"`,
+      );
       console.log(`  URL: ${lead.ted_url}`);
       console.log('');
     }
   }
 
   if (withoutErp.length > 0) {
-    console.log(`\n=== STANDARD LEADS (${withoutErp.length} — no ERP match yet, check manually) ===\n`);
+    console.log(
+      `\n=== STANDARD LEADS (${withoutErp.length} — no ERP match yet, check manually) ===\n`,
+    );
     for (const lead of withoutErp.slice(0, 10)) {
-      console.log(`  ${lead.publication_number} | ${lead.buyer_name} (${lead.buyer_country}) | ${lead.dm_language}`);
+      console.log(
+        `  ${lead.publication_number} | ${lead.buyer_name} (${lead.buyer_country}) | ${lead.dm_language}`,
+      );
       console.log(`  DM: "${lead.dm_personalization}"`);
       console.log('');
     }
@@ -346,7 +361,9 @@ async function validateTender(pubNumber: string): Promise<void> {
   console.log(`  Title:       ${lead.title}`);
   console.log(`  Buyer:       ${lead.buyer_name} (${lead.buyer_country})`);
   console.log(`  CPV:         ${lead.cpv} → ${sectorLabel(cpvToSector(lead.cpv))}`);
-  console.log(`  Value:       ${lead.estimated_value ? `EUR ${lead.estimated_value.toLocaleString()}` : '(not disclosed)'}`);
+  console.log(
+    `  Value:       ${lead.estimated_value ? `EUR ${lead.estimated_value.toLocaleString()}` : '(not disclosed)'}`,
+  );
   console.log(`  DM Lang:     ${lead.dm_language}`);
   console.log(`  ERP:         ${lead.erp_qualifier || '(not in known list — check manually)'}`);
   console.log(`  DM opener:   "${lead.dm_personalization}"`);
@@ -364,7 +381,13 @@ async function validateTender(pubNumber: string): Promise<void> {
 // ── Pipeline Orchestrator ──────────────────────────────────────────────
 
 async function runPipeline(opts: ReturnType<typeof parseArgs>): Promise<PipelineResult> {
-  const result: PipelineResult = { fetched: 0, newLeads: 0, duplicates: 0, inserted: 0, errors: [] };
+  const result: PipelineResult = {
+    fetched: 0,
+    newLeads: 0,
+    duplicates: 0,
+    inserted: 0,
+    errors: [],
+  };
 
   // Step 1: Fetch
   console.log('Step 1/5: Fetching from TED API...');
@@ -394,7 +417,7 @@ async function runPipeline(opts: ReturnType<typeof parseArgs>): Promise<Pipeline
   // Step 2: Enrich (filter + ERP + DM)
   console.log('Step 2/5: Enriching leads (ERP qualifier + DM personalization)...');
   const leads = allNotices.map(enrichNotice);
-  const withErp = leads.filter(l => l.erp_qualifier);
+  const withErp = leads.filter((l) => l.erp_qualifier);
   console.log(`  Total leads: ${leads.length}`);
   console.log(`  With ERP match: ${withErp.length} (high priority)\n`);
 
@@ -409,14 +432,16 @@ async function runPipeline(opts: ReturnType<typeof parseArgs>): Promise<Pipeline
   console.log('Step 3/5: Deduplicating against Supabase...');
   const supabase = getSupabase();
   if (!supabase) {
-    console.error('ERROR: SUPABASE_URL or SUPABASE_SERVICE_KEY not set. Use --dry-run for preview.');
+    console.error(
+      'ERROR: SUPABASE_URL or SUPABASE_SERVICE_KEY not set. Use --dry-run for preview.',
+    );
     result.errors.push('Missing Supabase credentials');
     return result;
   }
 
-  const pubNumbers = leads.map(l => l.publication_number);
+  const pubNumbers = leads.map((l) => l.publication_number);
   const existing = await getExistingPubNumbers(supabase, pubNumbers);
-  const newLeads = leads.filter(l => !existing.has(l.publication_number));
+  const newLeads = leads.filter((l) => !existing.has(l.publication_number));
   result.duplicates = leads.length - newLeads.length;
   result.newLeads = newLeads.length;
   console.log(`  Existing (skip): ${result.duplicates}`);
@@ -456,19 +481,39 @@ async function startCron(): Promise<void> {
   console.log('Running daily at 06:00 UTC\n');
 
   // Run immediately on startup
-  await runPipeline({ country: '', days: 1, dryRun: false, cron: false, validate: '', cpv: '45000000' });
+  await runPipeline({
+    country: '',
+    days: 1,
+    dryRun: false,
+    cron: false,
+    validate: '',
+    cpv: '',
+  });
 
   // Schedule daily at 06:00 UTC
-  cron.schedule('0 6 * * *', async () => {
-    const timestamp = new Date().toISOString();
-    console.log(`\n[${timestamp}] Daily TED pipeline run starting...\n`);
-    try {
-      const result = await runPipeline({ country: '', days: 1, dryRun: false, cron: false, validate: '', cpv: '45000000' });
-      console.log(`[${timestamp}] Complete: ${result.inserted} new leads, ${result.duplicates} skipped, ${result.errors.length} errors`);
-    } catch (err) {
-      console.error(`[${timestamp}] Pipeline failed:`, err);
-    }
-  }, { timezone: 'UTC' });
+  cron.schedule(
+    '0 6 * * *',
+    async () => {
+      const timestamp = new Date().toISOString();
+      console.log(`\n[${timestamp}] Daily TED pipeline run starting...\n`);
+      try {
+        const result = await runPipeline({
+          country: '',
+          days: 1,
+          dryRun: false,
+          cron: false,
+          validate: '',
+          cpv: '',
+        });
+        console.log(
+          `[${timestamp}] Complete: ${result.inserted} new leads, ${result.duplicates} skipped, ${result.errors.length} errors`,
+        );
+      } catch (err) {
+        console.error(`[${timestamp}] Pipeline failed:`, err);
+      }
+    },
+    { timezone: 'UTC' },
+  );
 
   // Keep process alive
   console.log('Cron scheduled. Process will run until stopped (Ctrl+C).');
@@ -484,7 +529,7 @@ function getSupabase(): SupabaseClient | null {
 }
 
 function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 // ── Main ───────────────────────────────────────────────────────────────
@@ -495,7 +540,7 @@ async function main(): Promise<void> {
   console.log('TED Lead Pipeline — DWS IQ 6');
   console.log('=============================');
   console.log(`Date:    ${new Date().toISOString()}`);
-  console.log(`CPV:     ${opts.cpv}`);
+  console.log(`CPV:     ${opts.cpv || 'all 25 industries (industry-cpv.json)'}`);
   console.log(`Country: ${opts.country || TARGET_COUNTRIES.join(', ')}`);
   console.log(`Days:    ${opts.days}`);
   console.log(`Mode:    ${opts.dryRun ? 'DRY RUN' : opts.cron ? 'CRON' : 'SINGLE RUN'}`);
@@ -524,12 +569,12 @@ async function main(): Promise<void> {
   console.log(`  Inserted:   ${result.inserted}`);
   if (result.errors.length > 0) {
     console.log(`  Errors:     ${result.errors.length}`);
-    result.errors.forEach(e => console.log(`    - ${e}`));
+    result.errors.forEach((e) => console.log(`    - ${e}`));
   }
   console.log('=============================');
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error('Fatal error:', err);
   process.exit(1);
 });

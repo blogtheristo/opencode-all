@@ -7,7 +7,7 @@
  *
  * Sources:
  *   - TED Search API (https://api.ted.europa.eu) — free, anonymous
- *   - CPV 45000000 (Construction Work) + sub-codes
+ *   - CPV parents for all 25 DWS industries (see industry-cpv.json)
  *   - Nordic + DACH countries priority
  *
  * Schedule: Mon-Fri 05:30 Helsinki (30min before CEO Cockpit)
@@ -18,9 +18,11 @@ export {
   fetchAndProcessLeads,
   getLeadsSummary,
   getNewLeads,
+  listNewLeadsForSalesQueue,
   getUpcomingDeadlines,
   storeLeads,
   createBuyerOrgs,
+  buyerOrgIndustry,
   calculateRelevance,
   noticeToLead,
   tedEnrichLead,
@@ -36,11 +38,27 @@ export {
   inferOutreachLang,
 } from './ted-outreach.js';
 export {
+  TED_SEARCH_CPV_CODES,
+  cpvToIndustry,
+  cpvToIndustryId,
+} from '../agents/data/industry-cpv.js';
+export {
   searchConstructionTenders,
   buildExpertQuery,
+  buildV3SearchQuery,
   buildNoticeUrl,
   DEFAULT_QUERY_CONFIG,
+  v3NoticeToTedNotice,
 } from './ted-api.js';
+export {
+  listLiveTedSalesQueue,
+  listStoredTedSalesQueue,
+  listTedSalesQueue,
+  noticeToSalesOutreachItem,
+  storedRowToSalesOutreachItem,
+  toSalesOutreachTedItem,
+} from './sales-queue.js';
+export type { SalesOutreachTedItem, SalesQueueSource } from './sales-queue.js';
 export {
   LEAD_SOURCES,
   getActiveSources,
@@ -64,4 +82,5 @@ export type {
   ConstructionLeadDeadline,
   ConstructionLeadNew,
   ConstructionLeadStatus,
+  StoredSalesLeadRow,
 } from './types.js';

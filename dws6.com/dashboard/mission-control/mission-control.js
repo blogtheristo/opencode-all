@@ -146,8 +146,47 @@ export async function fetchLiveThreads(supabase) {
   }
 }
 
+export async function fetchTedLeads(supabase) {
+  if (!supabase) return [];
+  try {
+    const { data, error } = await supabase
+      .from('construction_leads')
+      .select(
+        'id,title,buyer_name,country_code,cpv_code,estimated_value,currency,ted_url,relevance_score,publication_date,status,raw_data',
+      )
+      .eq('status', 'new')
+      .order('relevance_score', { ascending: false })
+      .limit(25);
+    if (error || !data?.length) return [];
+    return data.map((row) => {
+      const industry =
+        (row.raw_data && (row.raw_data.industryName || row.raw_data.industry_name)) || null;
+      const buyer = row.buyer_name || 'TED buyer';
+      const title = row.title || row.id;
+      return {
+        id: `ted:${row.id}`,
+        centre: 'sales',
+        title: industry ? `${buyer} · ${industry}` : buyer,
+        status: 'ted_lead',
+        nextAction: title,
+        nouxRoom: CENTRES.sales.noux,
+        repoPath: CENTRES.sales.repo,
+        noDemoEnv: true,
+        priority: 2,
+        source: 'ted',
+        tedUrl: row.ted_url,
+        cpv: row.cpv_code,
+        country: row.country_code,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
 export async function buildQueue(supabase) {
   const live = await fetchLiveThreads(supabase);
+  const ted = await fetchTedLeads(supabase);
   const seed = live.length ? [] : await loadSeedQueue();
   const manual = getManualItems();
   const liveAsItems = getLiveInputs()
@@ -165,13 +204,25 @@ export async function buildQueue(supabase) {
       source: 'grok-x-daily',
       fullText: x.text,
     }));
-  const all = [...liveAsItems, ...manual, ...live, ...seed];
+  const all = [...liveAsItems, ...manual, ...ted, ...live, ...seed];
   return all
     .map((item) => {
       const ov = getOverlay(item.id);
       return { ...item, ...ov };
     })
     .sort((a, b) => (a.priority || 9) - (b.priority || 9));
+}
+
+/** Only https://ted.europa.eu links — never other hosts. */
+export function safeTedHref(url) {
+  try {
+    const parsed = new URL(String(url || ''));
+    if (parsed.protocol !== 'https:') return '';
+    if (parsed.hostname !== 'ted.europa.eu' && parsed.hostname !== 'www.ted.europa.eu') return '';
+    return parsed.href;
+  } catch {
+    return '';
+  }
 }
 
 export function itemsForCentre(queue, centreId) {
@@ -213,6 +264,7 @@ MISSION
   Item: ${item.title} (${item.id})
   Status: ${item.status}
   Next action: ${item.nextAction}
+${safeTedHref(item.tedUrl) ? `  TED notice: ${safeTedHref(item.tedUrl)}` : ''}
   Demo env: ${item.noDemoEnv ? 'NONE — provision or schedule demo before close' : 'n/a'}
 ${liveNote ? `\nLIVE GROK/X NOTE (today):\n${liveNote}\n` : ''}
 RULES
@@ -249,6 +301,7 @@ title: ${JSON.stringify(item.title)}
 repo_path: ${JSON.stringify(item.repoPath || centre.repo || '')}
 noux: ${JSON.stringify(item.nouxRoom || centre.noux || '')}
 next_action: ${JSON.stringify(item.nextAction || '')}
+ted_url: ${JSON.stringify(safeTedHref(item.tedUrl) || '')}
 reason: "EU/PII hard gate — raw threads must stay on OpenCode local/EU"
 hic_approved: true
 note: "HIC clicked Open in OpenCode in Mission Control. Do not commit raw PII."

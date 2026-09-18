@@ -5,6 +5,7 @@
  * stores in Supabase, and optionally creates outreach_orgs for high-value buyers.
  */
 
+import { cpvToIndustry } from '../agents/data/industry-cpv.js';
 import logger from '../utils/logger.js';
 import {
   buildNoticeUrl,
@@ -20,6 +21,7 @@ import type {
   ConstructionLeadNew,
   ConstructionLeadRow,
   ConstructionLeadsSummary,
+  StoredSalesLeadRow,
   TedNotice,
   TedQueryConfig,
 } from './types.js';
@@ -74,30 +76,30 @@ async function supabaseFetchSafe<T>(path: string): Promise<T | null> {
 
 /** Priority countries for DWS (higher score) */
 const PRIORITY_COUNTRIES: Record<string, number> = {
-  FI: 30,   // Finland — home market
-  SE: 25,   // Sweden — NCC, Skanska
-  NO: 20,   // Norway — Nordic
-  DK: 20,   // Denmark — Nordic
-  DE: 15,   // Germany — HOCHTIEF, STRABAG
-  AT: 15,   // Austria — PORR
-  EE: 10,   // Estonia — regional
+  FI: 30, // Finland — home market
+  SE: 25, // Sweden — NCC, Skanska
+  NO: 20, // Norway — Nordic
+  DK: 20, // Denmark — Nordic
+  DE: 15, // Germany — HOCHTIEF, STRABAG
+  AT: 15, // Austria — PORR
+  EE: 10, // Estonia — regional
   LV: 10,
   LT: 10,
 };
 
 /** Target construction CPV sub-codes (higher relevance) */
 const PRIORITY_CPV_PREFIXES = [
-  '45210',   // Building construction work
-  '45211',   // Multi-dwelling and individual housing
-  '45213',   // Commercial/industrial buildings
-  '45220',   // Engineering + construction
-  '45230',   // Roads, railways, airfields, sport facilities
-  '45240',   // Hydraulic engineering
-  '45250',   // Factory/mining/oil construction
-  '45310',   // Electrical wiring and fittings
-  '45320',   // Insulation work
-  '45330',   // Plumbing work
-  '45400',   // Building completion work
+  '45210', // Building construction work
+  '45211', // Multi-dwelling and individual housing
+  '45213', // Commercial/industrial buildings
+  '45220', // Engineering + construction
+  '45230', // Roads, railways, airfields, sport facilities
+  '45240', // Hydraulic engineering
+  '45250', // Factory/mining/oil construction
+  '45310', // Electrical wiring and fittings
+  '45320', // Insulation work
+  '45330', // Plumbing work
+  '45400', // Building completion work
 ];
 
 /**
@@ -127,9 +129,10 @@ export function calculateRelevance(notice: TedNotice): number {
     else score += 5;
   }
 
-  // CPV specificity (0-20)
+  // CPV specificity (0-20) — construction sub-codes or any of the 25 industries
   const cpv = notice.CPV || '';
-  const matchedPrefix = PRIORITY_CPV_PREFIXES.some((p) => cpv.startsWith(p));
+  const matchedPrefix =
+    PRIORITY_CPV_PREFIXES.some((p) => cpv.startsWith(p)) || Boolean(cpvToIndustry(cpv));
   if (matchedPrefix) score += 20;
   else if (cpv.startsWith('45')) score += 10;
 
@@ -163,8 +166,9 @@ export function normalizeCompanyNameForDedup(name: string | null | undefined): s
  */
 export function noticeToLead(notice: TedNotice): ConstructionLead {
   const noticeId = notice.ND || notice.documentNumber || `unknown-${Date.now()}`;
-  const title = notice.TI || notice.titleOriginalLanguage || `Construction tender ${noticeId}`;
+  const title = notice.TI || notice.titleOriginalLanguage || `TED tender ${noticeId}`;
   const company_name = normalizeCompanyNameForDedup(notice.AA);
+  const industry = cpvToIndustry(notice.CPV);
 
   return {
     ted_notice_id: noticeId,
@@ -191,7 +195,11 @@ export function noticeToLead(notice: TedNotice): ConstructionLead {
     ted_url: notice.TED_NOTICE_URL || buildNoticeUrl(noticeId),
     status: 'new',
     relevance_score: calculateRelevance(notice),
-    raw_data: notice as Record<string, unknown>,
+    raw_data: {
+      ...(notice as Record<string, unknown>),
+      industryId: industry?.id ?? null,
+      industryName: industry?.name ?? null,
+    },
     source: 'ted_api',
     created_by: 'construction_lead_fetcher',
   };
@@ -266,6 +274,12 @@ export async function storeLeads(leads: ConstructionLead[]): Promise<number> {
  * Create outreach_orgs entries for high-value buyers (relevance >= 60).
  * Only creates orgs that don't already exist (by buyer name match).
  */
+export function buyerOrgIndustry(lead: ConstructionLead): string {
+  const name = lead.raw_data?.industryName;
+  if (typeof name === 'string' && name.trim()) return name.trim();
+  return 'Construction / Public Sector';
+}
+
 export async function createBuyerOrgs(leads: ConstructionLead[]): Promise<number> {
   const highValue = leads.filter(
     (l): l is ConstructionLead & { buyer_name: string } =>
@@ -287,11 +301,12 @@ export async function createBuyerOrgs(leads: ConstructionLead[]): Promise<number
   for (const [, lead] of uniqueBuyers) {
     const buyerName = lead.buyer_name;
     // Generate a domain-like key from buyer name
-    const domain = buyerName
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, '')
-      .replace(/\s+/g, '-')
-      .slice(0, 60) + '.gov';
+    const domain =
+      buyerName
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, '')
+        .replace(/\s+/g, '-')
+        .slice(0, 60) + '.gov';
 
     try {
       // Check if org already exists
@@ -307,8 +322,9 @@ export async function createBuyerOrgs(leads: ConstructionLead[]): Promise<number
           domain,
           name: buyerName,
           description: `Public contracting authority. Source: TED (${lead.ted_notice_id}). ${lead.country_name || lead.country_code || 'EU'}.`,
-          location: [lead.place_of_performance, lead.country_name].filter(Boolean).join(', ') || null,
-          industry: 'Construction / Public Sector',
+          location:
+            [lead.place_of_performance, lead.country_name].filter(Boolean).join(', ') || null,
+          industry: buyerOrgIndustry(lead),
           website: lead.buyer_url || null,
           prospect_status: 'target_needs_contact',
           source: 'cold',
@@ -343,9 +359,9 @@ export async function createBuyerOrgs(leads: ConstructionLead[]): Promise<number
  * Get construction leads summary for morning briefing.
  */
 export async function getLeadsSummary(): Promise<ConstructionLeadsSummary | null> {
-  return supabaseFetchSafe<ConstructionLeadsSummary[]>(
-    'v_construction_leads_summary',
-  ).then((rows) => rows?.[0] || null);
+  return supabaseFetchSafe<ConstructionLeadsSummary[]>('v_construction_leads_summary').then(
+    (rows) => rows?.[0] || null,
+  );
 }
 
 /**
@@ -355,6 +371,18 @@ export async function getLeadsSummary(): Promise<ConstructionLeadsSummary | null
 export async function getNewLeads(): Promise<ConstructionLeadNew[]> {
   const result = await supabaseFetchSafe<ConstructionLeadNew[]>(
     'v_construction_leads_new?limit=10&select=id,title,buyer_name,country_code,cpv_code,estimated_value,currency,publication_date,deadline_date,ted_url,relevance_score',
+  );
+  return result || [];
+}
+
+/**
+ * Stored TED rows for the sales-outreach / Mission Control Sales queue.
+ * Uses the service role — no Google session. Returns [] if Supabase is down.
+ */
+export async function listNewLeadsForSalesQueue(limit = 25): Promise<StoredSalesLeadRow[]> {
+  const capped = Math.min(Math.max(Math.trunc(limit), 1), 50);
+  const result = await supabaseFetchSafe<StoredSalesLeadRow[]>(
+    `construction_leads?status=eq.new&select=id,title,buyer_name,country_code,cpv_code,ted_url,raw_data&order=relevance_score.desc&limit=${capped}`,
   );
   return result || [];
 }
@@ -383,9 +411,7 @@ export async function getUpcomingDeadlines(): Promise<ConstructionLeadDeadline[]
  *
  * Returns summary of what was processed.
  */
-export async function fetchAndProcessLeads(
-  config: TedQueryConfig = DEFAULT_QUERY_CONFIG,
-): Promise<{
+export async function fetchAndProcessLeads(config: TedQueryConfig = DEFAULT_QUERY_CONFIG): Promise<{
   fetched: number;
   /** Rows returned from upsert (`merge-duplicates`); includes updates, not inserts only. */
   upsertedRows: number;
@@ -403,7 +429,7 @@ export async function fetchAndProcessLeads(
     logger.info('Construction leads: compliance filter dropped notices', {
       before: notices.length,
       after: filtered.length,
-      mode: process.env.TED_COMPLIANCE_FILTER || 'strict',
+      mode: process.env.TED_COMPLIANCE_FILTER || 'mapped',
     });
   }
 

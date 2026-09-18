@@ -73,11 +73,12 @@ import {
 import roleTrackingRoutes from './routes/role-tracking.routes.js';
 import gapsRoutes from './routes/gaps.routes.js';
 import agentsRoutes from './routes/agents.routes.js';
+import constructionLeadsRoutes from './routes/construction-leads.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
-import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
+import { constructionLeadsScheduler } from './construction-leads/index.js';
 import { memoryScheduler } from './agents/memory.scheduler.js';
 import { signalPoller } from './agents/signal-poller.js';
 import { inboundTicketScheduler } from './services/inbound-ticket.service.js';
@@ -397,6 +398,7 @@ app.use('/api/erp/track', erpTrackingRoutes);
 app.use('/api/roles/track', roleTrackingRoutes);
 app.use('/api/v1/gaps', gapsRoutes);
 app.use('/api/v1/agents', agentsRoutes);
+app.use('/api/v1/construction-leads', constructionLeadsRoutes);
 
 const getHeaderValue = (value: string | string[] | undefined): string | undefined =>
   Array.isArray(value) ? value[0] : value;
@@ -524,30 +526,6 @@ app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) =>
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Manual morning briefing failed', { error: msg });
     res.status(500).json({ error: 'Failed to send briefing', message: msg });
-  }
-});
-
-// Construction leads manual trigger (secured by admin key)
-app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response) => {
-  const adminKey = process.env.ADMIN_API_KEY;
-  const provided = getHeaderValue(req.headers['x-admin-key']);
-
-  if (!adminKey) {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
-  if (!isAuthorizedAdminKey(provided, adminKey)) {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
-
-  try {
-    const result = await fetchAndProcessLeads();
-    res.json({ status: 'complete', timestamp: new Date().toISOString(), ...result });
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : 'Unknown error';
-    logger.error('Manual construction leads fetch failed', { error: msg });
-    res.status(500).json({ error: 'Failed to fetch construction leads', message: msg });
   }
 });
 

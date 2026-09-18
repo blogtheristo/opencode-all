@@ -271,8 +271,13 @@
       </header>
 
       <section class="live" aria-label="Grok X daily input">
-        <label for="livePaste">Paste today’s Grok / X daily (not synced to Supabase yet)</label>
-        <textarea id="livePaste" placeholder="Paste live market note from Grok on X…"></textarea>
+        <label for="livePaste"
+          >Optional Grok / X note (TED sales leads auto-load when signed in)</label
+        >
+        <textarea
+          id="livePaste"
+          placeholder="Paste a live market note from Grok on X if you want it on a centre…"
+        ></textarea>
         <div class="row">
           <select id="liveCentre" aria-label="Assign to centre">
             <option value="investor">Investor</option>
@@ -356,7 +361,8 @@
         addManualItem,
         setOverlay,
         getLiveInputs,
-      } from "./mission-control.js?v=20260917-mc-session";
+        safeTedHref,
+      } from "./mission-control.js?v=20260918-ted-url";
 
       let lastDownloadName = "mission-control-grok-overflow.md";
       let lastDownloadBody = "";
@@ -374,9 +380,13 @@
 
       const supabase = getSupabaseClient();
       let queue = await buildQueue(supabase);
-      const hasLive = queue.some((i) => i.source === "supabase");
-      document.getElementById("dataSource").textContent = hasLive
-        ? "Source: Supabase outreach_threads"
+      const hasThreads = queue.some((i) => i.source === "supabase");
+      const hasTed = queue.some((i) => i.source === "ted");
+      const sourceBits = [];
+      if (hasThreads) sourceBits.push("outreach_threads");
+      if (hasTed) sourceBits.push("TED leads (all industries)");
+      document.getElementById("dataSource").textContent = sourceBits.length
+        ? `Source: ${sourceBits.join(" + ")}`
         : "Source: Brief V2 seed (2026-08-24) + local";
 
       function render() {
@@ -404,6 +414,7 @@
               </h3>
               <div class="meta">${escapeHtml(item.status)} · ${escapeHtml(item.id)} · ${escapeHtml(item.source || "")}</div>
               <div class="meta">${escapeHtml(item.nextAction || "")}</div>
+              ${safeTedHref(item.tedUrl) ? `<div class="meta"><a href="${escapeAttr(safeTedHref(item.tedUrl))}" target="_blank" rel="noopener noreferrer">TED notice</a></div>` : ""}
               <div class="row">
                 <button type="button" class="btn btn-primary" data-grok="${escapeAttr(item.id)}">Hand to Grok</button>
                 <button type="button" class="btn" data-opencode="${escapeAttr(item.id)}">Open in OpenCode</button>

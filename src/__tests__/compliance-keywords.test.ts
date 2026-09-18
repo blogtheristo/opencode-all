@@ -41,4 +41,14 @@ describe('compliance keywords', () => {
     const plain: TedNotice = { ...base, TI: 'Paint fence' };
     expect(passesComplianceFilter(plain)).toBe(true);
   });
+
+  it('mapped default keeps industry-mapped notices without climate keywords', () => {
+    const health: TedNotice = {
+      ND: 'health-1',
+      PD: '2026-01-01',
+      TI: 'Hospital MRI framework agreement',
+      CPV: '33100000',
+    };
+    expect(passesComplianceFilter(health)).toBe(true);
+  });
 });
