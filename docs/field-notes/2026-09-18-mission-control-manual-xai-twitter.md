@@ -2,7 +2,7 @@
 
 ## VERSION AND AGENT HISTORY
 
----
+***
 
 Version: 1.1
 Tool: Cursor (Grok 4.6)
@@ -16,7 +16,7 @@ Agent: Cursor Agent
 Date: 2026-09-18
 Changes: [not latest] HIC confirmed Mission Control login works; reported behaviour as odd and not automatic; recorded X/Twitter @blogtheristo linked to xAI account risto.paarni@lifetime.fi
 
----
+***
 
 ## Author
 
