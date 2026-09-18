@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.11
+Version: 1.12
 
 Sessions & Modifications:
 
+- Version: 1.12 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Keyword `gh`: Spark observed Ubuntu ESM **2.45.0**. GitHub apt recipe did not upgrade it.
 - Version: 1.11 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Keyword `docker`: shared target **29.8.0**; Spark observed **29.6.2** after NVIDIA apt. Docker MCP stays retired.
 - Version: 1.10 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Keyword `docker` is the **shared pin 29.8.0**. Spark **29.2.1** is open drift (`DWS_TRUTH_STANDARD.md` §2I). Docker MCP stays retired.
 - Version: 1.9 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Keyword `docker` splits Win11 client **29.8.0** vs Spark **29.2.1**. Docker MCP stays retired. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.21 _Win11 Docker_.
@@ -1209,6 +1210,7 @@ Sessions frequently move across environments and editors during a single feature
 | `wsl`            | Win11 **WSL 2** Linux layer (same clone via `/mnt/f/...` when Plan9 is healthy)                                                             |
 | `dgx`            | DGX Spark — **Cursor CLI** + **Copilot CLI** (`/home/admin100/dws6`)                                                                        |
 | `docker`         | Docker client **target 29.8.0**. Spark **29.6.2** after NVIDIA apt (ARM64 cap). Bare `docker update` is **not** an upgrade. Not Docker MCP. |
+| `gh`             | GitHub CLI. Spark observed **2.45.0** Ubuntu ESM (`2.45.0-1ubuntu0.3+esm3`). Official cli.github.com recipe did not replace it. |
 | `mobile`         | Mobile/web session                                                                                                                          |
 | `chromebook`     | Chromebook (Linux)                                                                                                                          |
 | `vscode`         | Editing in VS Code (Win11)                                                                                                                  |
@@ -1235,6 +1237,7 @@ Keywords can be combined (e.g., `win vscode`). These are **plain-text keywords i
 | **DGX Spark** | **Copilot CLI**                                   | Interactive agents → local Ollama                        |
 | **DGX Spark** | **OpenCode / opencode-all**                       | Batch parallel worktrees (queue-driven)                  |
 | **DGX Spark** | **Docker Engine 29.6.2 observed / 29.8.0 target** | NVIDIA ARM64 repo cap after apt; not Docker Desktop      |
+| **DGX Spark** | **GitHub CLI 2.45.0** (Ubuntu ESM)                | cli.github.com recipe was a no-op; not a second install  |
 | Either        | **Claude Code CLI**                               | Hot standby / failover harness                           |
 
 **Typical multi-environment workflow (large work — mandatory path):**

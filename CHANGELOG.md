@@ -25,6 +25,7 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Spark docker-ce apt **ran** (HIC `gn100-cb5d` 18.09.2026). Observed **29.6.2** (`dfc4efb`, NVIDIA noble/arm64 candidate `5:29.6.2-1~ubuntu.24.04~noble`), not Win11 **29.8.0**. Shared target remains 29.8.0; pin status stays `open-drift`. `docker compose ps` still interpolates `POSTGRES_PASSWORD` without `.env` — use `docker ps`. Truth v5.4. Admin v3.25. Q7 pending.
 - Spark needrestart after docker-ce apt listed outdated **user sessions** (admin100 sshd #129/#130, admin100 and gdm systemd user managers). Not Docker containers. Log out SSH and reconnect. Do not restart docker/gdm. Admin v3.26.
 - Spark SSH leftover how-to: `exit` sessions #129/#130 (or `loginctl terminate-session` the other id) and reconnect. Do not restart docker/gdm. Admin v3.27.
+- Spark **GitHub CLI**: official apt recipe ran; already **2.45.0-1ubuntu0.3+esm3** (Ubuntu ESM). cli.github.com did not replace it. Admin v3.28. Field note: `docs/field-notes/2026-09-18-spark-gh-2-45-0.md`.
 
 ### Changed
 

@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.27
+Version: 3.28
 
 Sessions & Modifications:
 
+- Version: 3.28 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark **GitHub CLI**. Official apt recipe **ran**; `gh` already **2.45.0-1ubuntu0.3+esm3** (Ubuntu ESM). cli.github.com did not replace it. Do not force-upgrade until `apt-cache policy gh`. GitHub flags 2.45.x community packages as broken (deprecated APIs).
 - Version: 3.27 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: How to log out Spark SSH sessions **#129/#130** after needrestart: `exit` each SSH (or `loginctl terminate-session` the other id), reconnect. Do not restart docker/gdm. Do not `terminate-user gdm`.
 - Version: 3.26 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: needrestart **did** flag outdated **user sessions** after docker-ce apt: admin100 sshd #129/#130, admin100 systemd user manager, gdm systemd user manager. Not Docker containers. Log out SSH and reconnect. Do not restart docker/gdm for this. Earlier “no user sessions” line was incomplete.
 - Version: 3.25 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark docker-ce apt **ran**. `docker --version` **29.6.2** (`dfc4efb`). NVIDIA noble/arm64 candidate was 29.6.2, not Win11 **29.8.0**. Compose `ps` still needs `.env`. Do not add download.docker.com. Q7: keep 29.8.0 as target.
@@ -749,6 +750,31 @@ If `dpkg` shows `docker.io` instead of `docker-ce`, stop and paste that output �
 Field note: `docs/field-notes/2026-09-18-spark-docker-29-2-1.md`.
 
 ---
+
+
+### Spark GitHub CLI (operator)
+
+**Status (HIC, 18.09.2026):** On `gn100-cb5d` as `admin100` in `~/dws6/infrastructure/dgx-spark`, HIC ran the GitHub-published apt install (curl keyring → `/usr/share/keyrings/githubcli-archive-keyring.gpg`, 4528 bytes, then `sudo apt update` && `sudo apt install gh -y`).
+
+Result: **`gh is already the newest version (2.45.0-1ubuntu0.3+esm3)`**. 0 upgraded, 0 newly installed. That package is **Ubuntu ESM** (`+esm3`), not a GitHub-published `cli.github.com` build.
+
+`https://cli.github.com/packages` was already in this host's apt (Hit during the same-day docker-ce upgrade). Rewriting the keyring may still have been useful: GitHub rotated the Linux repo PGP key on **5.09.2026**. Current GitHub install docs put the keyring at `/etc/apt/keyrings/githubcli-archive-keyring.gpg` and use `wget`; this paste used the older `/usr/share/keyrings/` + `curl` + `dd` path.
+
+GitHub CLI maintainers (Nov 2025, `cli/cli` Linux install docs): community **2.45.x / 2.46.x** is **broken** (deprecated GitHub APIs). Spark is on that generation until `apt-cache policy gh` shows why the GitHub repo did not win.
+
+Do **not** `apt install --reinstall gh` or pin a GitHub version until this paste:
+
+```bash
+gh --version
+apt-cache policy gh
+dpkg -l gh | awk 'NR==1 || /^ii/'
+cat /etc/apt/sources.list.d/github-cli.list
+ls -l /usr/share/keyrings/githubcli-archive-keyring.gpg /etc/apt/keyrings/githubcli-archive-keyring.gpg 2>/dev/null
+```
+
+**Do not:** treat this as a Docker/Aspire bump; remove Ubuntu ESM; `apt remove gh`; install a second `gh` via snap/brew on GN100; add more apt sources without the policy paste.
+
+Field note: `docs/field-notes/2026-09-18-spark-gh-2-45-0.md`.
 
 ## DWS Factory Router (model escalation runbook)
 

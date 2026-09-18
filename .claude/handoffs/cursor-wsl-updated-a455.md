@@ -5,17 +5,18 @@
 **State:** READY-FOR-REVIEW  
 **PR:** https://github.com/blogtheristo/dws6/pull/2040  
 **Date:** 2026-09-18  
-**Highest HIC question on this branch:** Q8 PENDING_REVIEW (reconnect SSH after needrestart; Q7 still open keep 29.8.0; Q5 ANSWERED 29.6.2; Q6 cannot close aligned; Q2 A confirmed)
+**Highest HIC question on this branch:** Q9 PENDING_REVIEW (Spark gh 2.45.0 ESM vs GitHub apt; Q8 SSH logout; Q7 Docker 29.8.0 target)
 
 ***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.10
+Version: 1.11
 
 Sessions & Modifications:
 
-- Version: 1.10 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [Latest] How to log out SSH #129/#130: exit each window or loginctl terminate-session the other id; reconnect. Do not restart docker/gdm.
+- Version: 1.11 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [Latest] Spark gh already Ubuntu ESM **2.45.0**. GitHub apt recipe no-op. Q9 paste apt-cache policy gh.
+- Version: 1.10 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [not latest] How to log out SSH #129/#130: exit each window or loginctl terminate-session the other id; reconnect. Do not restart docker/gdm.
 - Version: 1.9 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [not latest] needrestart listed outdated user sessions (sshd #129/#130, admin100 and gdm systemd --user). Not Docker. Q8 recommend log out SSH. Do not restart docker/gdm.
 - Version: 1.8 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [not latest] Spark docker-ce apt **ran**. Observed **29.6.2** (`dfc4efb`, NVIDIA noble/arm64 candidate). Shared target remains **29.8.0**. Pin status stays `open-drift`. Q5 ANSWERED. Q6 cannot A. Q7 pending (recommend A: keep 29.8.0; do not add download.docker.com). `docker compose ps` still needs `.env`.
 - Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [not latest] HIC “environments must have same versions”. Truth Standard v5.3 row 41 + §2I. Pin file + `check-dev-env-pins.mjs`. Docker shared pin 29.8.0; Spark 29.2.1 open drift. Running aspire-dashboard 13.4.2 /health 200. Q6 pending.
@@ -29,7 +30,8 @@ Sessions & Modifications:
 
 | Version      | Date       | Changes                                                         | Agent           |
 | ------------ | ---------- | --------------------------------------------------------------- | --------------- |
-| [Latest] 1.10 | 2026-09-18 | SSH logout how-to for sessions #129/#130                        | Cursor Grok 4.6 |
+| [Latest] 1.11 | 2026-09-18 | Spark gh 2.45.0 ESM; GitHub apt recipe no-op                    | Cursor Grok 4.6 |
+| 1.10          | 2026-09-18 | [not latest] SSH logout how-to for sessions #129/#130           | Cursor Grok 4.6 |
 | 1.9           | 2026-09-18 | [not latest] needrestart SSH leftover; Q8 log out               | Cursor Grok 4.6 |
 | 1.8          | 2026-09-18 | [not latest] Spark apt 29.6.2 NVIDIA cap; Q7 keep 29.8.0 target | Cursor Grok 4.6 |
 | 1.7          | 2026-09-18 | [not latest] Truth §2I Environment Version Parity; pin check    | Cursor Grok 4.6 |
@@ -59,17 +61,18 @@ HIC: environments must have the same versions; encode in DWS Truth Standard and 
 
 ## State
 
-- **What's done:** Truth v5.4 row 41 + §2I. Pin file records Spark **29.6.2** / Win11 **29.8.0** / status `open-drift`. Admin v3.26. Q2 A confirmed (aspire-dashboard 13.4.2 /health 200). Q5 ANSWERED (apt ran; 29.6.2). Q6 cannot close aligned. Q4 superseded. needrestart user-session leftover recorded (Q8).
+- **What's done:** Truth v5.4 row 41 + §2I. Pin file records Spark **29.6.2** / Win11 **29.8.0** / status `open-drift`. Admin v3.28. Spark `gh` observed Ubuntu ESM **2.45.0** (GitHub apt recipe no-op). Q2 A confirmed. Q5 ANSWERED. Q6 cannot close aligned. Q8/Q9 pending.
 - **What's in progress:** PR #2040 update.
-- **What's blocked:** NVIDIA noble/arm64 has no 29.8.0 candidate. Exact `wsl --version`. Win11 `Get-Command docker`. Q7 HIC choice.
+- **What's blocked:** NVIDIA noble/arm64 has no 29.8.0 candidate. Spark `gh` stuck on ESM 2.45.0 until `apt-cache policy gh`. Exact `wsl --version`. Win11 `Get-Command docker` / `gh --version`. Q7/Q9 HIC choice.
 
 ## Next steps
 
-1. Q8 A (recommend): on Spark, `exit` every SSH to gn100-cb5d (or `loginctl terminate-session` the other id), then `ssh admin100@gn100-cb5d` from Win11. Do not restart docker or gdm.
-2. Q7 A (recommend): keep shared target **29.8.0**. Wait for NVIDIA. Do not add download.docker.com. Do not downgrade Win11 to 29.6.2. Do not re-run apt.
-3. After any further host Docker work: `docker ps`, not `docker compose ps`, unless `.env` is sourced.
-4. If `/mnt/f` is empty: install KB5129195.
-5. Merge #2040 independently of #2039 (row 40 lives on #2039; this branch used 41). Rebase Admin if #2039 lands first.
+1. Q9: paste `gh --version` and `apt-cache policy gh` on Spark. Do not `--reinstall` until that paste.
+2. Q8 A: `exit` every SSH to gn100-cb5d (or `loginctl terminate-session` the other id), then reconnect. Do not restart docker or gdm.
+3. Q7 A (recommend): keep shared target **29.8.0**. Wait for NVIDIA. Do not add download.docker.com. Do not downgrade Win11 to 29.6.2. Do not re-run apt.
+4. After any further host Docker work: `docker ps`, not `docker compose ps`, unless `.env` is sourced.
+5. If `/mnt/f` is empty: install KB5129195.
+6. Merge #2040 independently of #2039 (row 40 lives on #2039; this branch used 41). Rebase Admin if #2039 lands first.
 
 ## Notes for next session
 
