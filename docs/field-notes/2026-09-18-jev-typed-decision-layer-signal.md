@@ -55,11 +55,27 @@ Verified independently (not X posts) via `docs.typesafe.ai` and `openrouter.ai/t
 
 **Pilot candidate selected:** `seo-audit` (`src/agents/` — Ledger-Native exempt, Tier-1 read-only, currently `llama-3.3-70b-versatile`). Rationale: bounded, repetitive classification (Core Web Vitals / canonical / schema-markup pass-fail calls) is exactly Jev's `Choice`/`Boolean` shape, output never touches the carbon ledger or a customer commitment, and a wrong call is a missed SEO nit, not a compliance or financial exposure — lowest-risk place to measure real calibration before trusting Jev anywhere consequential.
 
-## Phase 1 (pilot — NOT started; requires separate go-ahead)
+## Pivot: build `kya-jev` in-house instead of adopting vendor Jev (HIC decision, 2026-09-18)
 
-Scope, if and when approved: add a `runtime: 'dgx' | 'claude-managed' | 'jev'` field to `AgentConfig` (`src/agents/types.ts`); thin adapter behind the existing `BaseAgent.execute()` contract; log to `agent_executions` with a `runtime` column (migration, not silent schema change); run our own calibration harness (accuracy + expected-calibration-error by class, on DWS's real routing/ranking data) before trusting its confidence for any threshold or auto-execute decision.
+Given the CLOUD-Act exposure above, the HIC decided to build a DWS-native, DGX-sovereign equivalent — **`kya-jev`** — rather than integrate the vendor API. Strategic framing: this turns KYA from a pure governance/gating layer into a sellable product primitive (a KYA-gated typed-decision function), not just an internal safety control.
 
-**Never without further approval:** any Ledger-Native / non-exempt agent, any auto-execute action gated only by Jev's self-reported confidence, any consequential (financial, compliance, customer-facing) decision — same boundary already drawn for Managed Agents (`AGENTS.md` §8.2).
+**Phase 1 shipped this session:** `src/agents/kya-jev.ts` — `makeTypedDecision()`.
+
+- Implements the same three typed-question primitives as Jev (`choice`, `score`, `boolean`) over the existing `LLMClient` (any configured provider — Groq, DGX Ollama, Anthropic; no new vendor dependency, no new secret).
+- **The "kya" part is load-bearing, not branding:** `requireKyaVerdict()` refuses to run unless `AgentRuntimeContext.kya.decision === 'allowed'` — a typed decision cannot be produced without an already-issued runtime KYA verdict (`src/security/runtime-auth.ts`), the same gate that governs proactive nudges. This is the differentiator vendor Jev cannot offer as an external SaaS call.
+- Confidence is explicitly typed `calibration: 'self-reported-uncalibrated'` on every result — Rule 12 fail-loud baked into the type, not just documented. No caller can silently treat it as trustworthy.
+- Malformed/invalid model output retries once, then returns a safe `abstained: true` result rather than throwing or guessing — never blocks the caller's own fallback logic.
+- Tests: `src/__tests__/agents/kya-jev.test.ts` (5/5 passing) — KYA-denial refusal, valid choice/boolean parsing, retry-then-succeed, retry-then-abstain.
+- Zero new infra: runs entirely on already-deployed DGX/Groq/Anthropic clients — no CLOUD Act exposure, no DPA, no vendor API key.
+
+**Not done yet (next steps, need HIC go-ahead per item):**
+
+1. Wire into a real agent (`seo-audit` remains the lowest-risk pilot candidate) — currently a standalone primitive, not called by any agent.
+2. `agent_executions` `runtime`/decision logging column (migration) so kya-jev calls are Article-12 auditable like other agent executions.
+3. **The actual calibration study** — expected-calibration-error measurement against a labeled DWS dataset. Until this runs, `kya-jev` output must be treated exactly like vendor Jev's: useful signal, not a threshold for auto-execution.
+4. Product framing: if this becomes a KYA product surface (per HIC's "makes KYA a product" framing), it needs its own `DWS_TRUTH_STANDARD.md` entry (pricing/positioning) and a `DWS_STANDARDS_LIBRARY.md` registration akin to DDM-v1 — not done this session, flagged for a product/GTM pass, not an engineering one.
+
+**Never without further approval:** any Ledger-Native / non-exempt agent, any auto-execute action gated only on `kya-jev`'s self-reported confidence, any consequential (financial, compliance, customer-facing) decision — same boundary already drawn for Managed Agents (`AGENTS.md` §8.2) and vendor Jev above.
 
 ## Learning Outcome steps (EU AI Act Art. 14)
 
