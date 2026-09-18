@@ -3,11 +3,11 @@
 **Branch:** `cursor/wsl-updated-a455`  
 **Task:** Record HIC Win11 WSL update in Admin + cloud-env docs  
 **State:** READY-FOR-REVIEW  
-**PR:** (create this session)  
+**PR:** https://github.com/blogtheristo/dws6/pull/2040  
 **Date:** 2026-09-18  
 **Highest HIC question on this branch:** Q1 PENDING_REVIEW
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -30,7 +30,7 @@ Document Status:
 - Classification: INTERNAL
 - Document Type: Session handoff
 
-***
+---
 
 ## Task
 
