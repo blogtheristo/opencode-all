@@ -161,6 +161,17 @@ export interface ConstructionLeadNew {
   relevance_score: number;
 }
 
+/** Row fields needed to build a Mission Control Sales TED item */
+export interface StoredSalesLeadRow {
+  id: string;
+  title: string | null;
+  buyer_name: string | null;
+  country_code: string | null;
+  cpv_code: string | null;
+  ted_url: string | null;
+  raw_data: Record<string, unknown> | null;
+}
+
 /** TED API query configuration */
 export interface TedQueryConfig {
   /** CPV codes to search (default: all 25-industry parent codes) */

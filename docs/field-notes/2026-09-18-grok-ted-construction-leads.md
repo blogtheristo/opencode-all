@@ -4,11 +4,17 @@
 
 ***
 
+Version: 1.2
+Tool: Cursor (Grok 4.6)
+Agent: Cursor Agent
+Date: 2026-09-18
+Changes: Machine API GET /api/v1/construction-leads/ted-live (X-Admin-Key) and npm run ted:sales-queue (public TED, no Google/Grok). requireHicAuth on MC dashboard stays.
+
 Version: 1.1
 Tool: Cursor (Grok 4.6)
 Agent: Cursor Agent
 Date: 2026-09-18
-Changes: HIC auto-import + all-industry sales-outreach; Grok project https://grok.com/project/5e85a398-76db-4714-9117-e0945d357441 also private. TED public API is the ingest path. MC auth stays.
+Changes: [not latest] HIC auto-import + all-industry sales-outreach; Grok project https://grok.com/project/5e85a398-76db-4714-9117-e0945d357441 also private. TED public API is the ingest path. MC auth stays.
 
 Version: 1.0
 Tool: Cursor (Grok 4.6)
@@ -44,6 +50,7 @@ Sales-outreach / EU construction TED. Follows Mission Control field note (PR #20
 6. HIC: **2. tuodaan automaattisesti** + sales-outreach must hold leads from **all industries**. TED default CPV is no longer construction-only (`industry-cpv.json` → 25 ids).
 7. HIC pointed at Grok project [5e85a398-76db-4714-9117-e0945d357441](https://grok.com/project/5e85a398-76db-4714-9117-e0945d357441?tab=conversations). Public HTML title is “Projects - Grok”; project REST 404 without xAI session. Same gate as the chat — do not scrape with secrets.
 8. Automatic path is the **public TED API** (anonymous), not grok.com. Mission Control still requires HIC Google Workspace login; TED rows load into Sales centre after that.
+9. HIC: **find api way bypass login in mission-control sales outreach**. Wired `GET /api/v1/construction-leads/ted-live` + `GET /sales-queue` behind `X-Admin-Key`, and `npm run ted:sales-queue` (TED, no keys). Did not remove `requireHicAuth`.
 
 
 ## Ontology Tags
@@ -62,7 +69,7 @@ HIC handed sales-outreach a **Grok lead-source brief**, not a Mission Control da
 
 1. Optional: paste unread Grok remainder from the project while logged in as `risto.paarni@lifetime.fi`.
 2. Confirm daily TED cron on DGX is running the new all-industry CPV query.
-3. Do not bypass Mission Control login. TED auto-load is for the authenticated HIC session.
+3. Machine path: `npm run ted:sales-queue` or `GET /api/v1/construction-leads/ted-live` with `X-Admin-Key`. Do not unauthenticate the Mission Control page.
 
 ## N/A items (Rule 12)
 

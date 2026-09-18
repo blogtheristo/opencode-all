@@ -21,6 +21,7 @@ import type {
   ConstructionLeadNew,
   ConstructionLeadRow,
   ConstructionLeadsSummary,
+  StoredSalesLeadRow,
   TedNotice,
   TedQueryConfig,
 } from './types.js';
@@ -364,6 +365,18 @@ export async function getLeadsSummary(): Promise<ConstructionLeadsSummary | null
 export async function getNewLeads(): Promise<ConstructionLeadNew[]> {
   const result = await supabaseFetchSafe<ConstructionLeadNew[]>(
     'v_construction_leads_new?limit=10&select=id,title,buyer_name,country_code,cpv_code,estimated_value,currency,publication_date,deadline_date,ted_url,relevance_score',
+  );
+  return result || [];
+}
+
+/**
+ * Stored TED rows for the sales-outreach / Mission Control Sales queue.
+ * Uses the service role — no Google session. Returns [] if Supabase is down.
+ */
+export async function listNewLeadsForSalesQueue(limit = 25): Promise<StoredSalesLeadRow[]> {
+  const capped = Math.min(Math.max(Math.trunc(limit), 1), 50);
+  const result = await supabaseFetchSafe<StoredSalesLeadRow[]>(
+    `construction_leads?status=eq.new&select=id,title,buyer_name,country_code,cpv_code,ted_url,raw_data&order=relevance_score.desc&limit=${capped}`,
   );
   return result || [];
 }

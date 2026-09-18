@@ -18,6 +18,7 @@ export {
   fetchAndProcessLeads,
   getLeadsSummary,
   getNewLeads,
+  listNewLeadsForSalesQueue,
   getUpcomingDeadlines,
   storeLeads,
   createBuyerOrgs,
@@ -47,6 +48,15 @@ export {
   DEFAULT_QUERY_CONFIG,
 } from './ted-api.js';
 export {
+  listLiveTedSalesQueue,
+  listStoredTedSalesQueue,
+  listTedSalesQueue,
+  noticeToSalesOutreachItem,
+  storedRowToSalesOutreachItem,
+  toSalesOutreachTedItem,
+} from './sales-queue.js';
+export type { SalesOutreachTedItem, SalesQueueSource } from './sales-queue.js';
+export {
   LEAD_SOURCES,
   getActiveSources,
   getPlannedSources,
@@ -69,4 +79,5 @@ export type {
   ConstructionLeadDeadline,
   ConstructionLeadNew,
   ConstructionLeadStatus,
+  StoredSalesLeadRow,
 } from './types.js';
