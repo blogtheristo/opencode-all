@@ -4,7 +4,7 @@
 
 **Date:** 2026-09-18
 **Session:** Claude Code, branch `claude/agents-md-support-eyody6`
-**Status:** Signal logged; NOT integrated — Phase 0 decision gate open (HIC input required before any code)
+**Status:** Phase 0 APPROVED by HIC (2026-09-18). Phase 0 verification complete this session. Phase 1 (code) NOT started — separate approval required.
 **Source:** Excerpt supplied by HIC — "Jev in Depth Report" (TypeSafe AI), compiled via levangielabs.com + @scobleizer's AI lists (x.com/scobleizer/lists), forwarded as a Google Docs excerpt. All primary citations in the excerpt are X (Twitter) posts — none independently verified by this session (Rule 12, fail loud).
 
 ## What Jev is (per the excerpt)
@@ -43,11 +43,20 @@ The excerpt itself is explicit that the central open question is whether Jev's r
 2. No sovereignty/data-residency review has been done — same gate KYA would require for any BYO model substrate (`docs/Deputy-Agents-Architecture.md` §8.3).
 3. Non-Negotiable Rule 6 (`CLAUDE.md`) requires an env-var-scoped secret and provider entry before any API key exists in this repo — none does yet.
 
-## If HIC approves a pilot (Phase 0 → Phase 1, mirroring AGENTS.md §8.3)
+## Phase 0 — completed 2026-09-18 (HIC-approved)
 
-**Phase 0 (no code):** verify Jev's actual production pricing/API terms directly against TypeSafe AI's docs (not X posts); pick one exempt, Tier-1, high-volume classification workload as pilot candidate (`seo-audit` or `lead-feedback`, same rationale as the Managed Agents pilot pick).
+Verified independently (not X posts) via `docs.typesafe.ai` and `openrouter.ai/typesafe/jev-1.13`:
 
-**Phase 1 (pilot):** add a `runtime: 'dgx' | 'claude-managed' | 'jev'` field to `AgentConfig` (`src/agents/types.ts`); thin adapter behind the existing `BaseAgent.execute()` contract; log to `agent_executions` with a `runtime` column (migration, not silent schema change); run our own calibration harness (accuracy + expected-calibration-error by class, on DWS's real routing/ranking data) before trusting its confidence for any threshold or auto-execute decision.
+- **Live API:** `POST https://api.typesafe.ai/v1/systemone`, model id `jev-latest`, single call accepts one state (text or program state) + any number of typed questions, returns every answer in that call. 32,000-token context window (Jev 1.13).
+- **Three answer primitives:** `Choice` (pick one option from a fixed set → choice + per-option probabilities + confidence), `Score` (rate state against ordered levels → score + probabilities + confidence), `Boolean` (probability the answer is yes).
+- **Pricing confirmed:** $0.042/M input tokens, $0/M output tokens — matches the excerpt's OpenRouter figure. TypeSafe states this price may be subsidized and could rise, not just fall — treat as provisional for budget lines (Rule 12).
+- **Not yet found in independent docs:** EU data-residency / CLOUD Act posture, SLA, or an independent (non-vendor) calibration benchmark. This gap is unresolved — see "Never without further approval" below.
+
+**Pilot candidate selected:** `seo-audit` (`src/agents/` — Ledger-Native exempt, Tier-1 read-only, currently `llama-3.3-70b-versatile`). Rationale: bounded, repetitive classification (Core Web Vitals / canonical / schema-markup pass-fail calls) is exactly Jev's `Choice`/`Boolean` shape, output never touches the carbon ledger or a customer commitment, and a wrong call is a missed SEO nit, not a compliance or financial exposure — lowest-risk place to measure real calibration before trusting Jev anywhere consequential.
+
+## Phase 1 (pilot — NOT started; requires separate go-ahead)
+
+Scope, if and when approved: add a `runtime: 'dgx' | 'claude-managed' | 'jev'` field to `AgentConfig` (`src/agents/types.ts`); thin adapter behind the existing `BaseAgent.execute()` contract; log to `agent_executions` with a `runtime` column (migration, not silent schema change); run our own calibration harness (accuracy + expected-calibration-error by class, on DWS's real routing/ranking data) before trusting its confidence for any threshold or auto-execute decision.
 
 **Never without further approval:** any Ledger-Native / non-exempt agent, any auto-execute action gated only by Jev's self-reported confidence, any consequential (financial, compliance, customer-facing) decision — same boundary already drawn for Managed Agents (`AGENTS.md` §8.2).
 
@@ -57,5 +66,5 @@ The excerpt itself is explicit that the central open question is whether Jev's r
 2. Field note: this file.
 3. Learn/ HTML: N/A — internal signal, no publication intent.
 4. Drive export: N/A — repo is source of truth.
-5. HIC question: **open** — does the founder want a Phase 0 calibration pilot started on one exempt agent (`seo-audit` or `lead-feedback`), and if so, against which DWS dataset should expected-calibration-error be measured first?
-6. Calendar: N/A — no dated commitment created; would follow once Phase 0 is approved.
+5. HIC question: resolved — Phase 0 approved 2026-09-18; pilot candidate is `seo-audit`. Open follow-up: confirm Phase 1 (code) go-ahead, and which historical `seo-audit` run outputs to use as the calibration ground-truth set.
+6. Calendar: N/A — no dated commitment created; would follow once Phase 1 start date is set.
