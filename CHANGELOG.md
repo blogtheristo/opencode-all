@@ -18,6 +18,7 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Spark **Docker Engine client 29.2.1** (`a5c7197`, HIC `docker --version` on
   `gn100-cb5d`). Admin v3.19. Bare `docker update` is not an Engine upgrade.
   Field note: `docs/field-notes/2026-09-18-spark-docker-29-2-1.md`.
+- Spark **aspire-dashboard** host pull recipe at pin **13.4.2** (HIC). Compose image already 13.4.2 on main; Admin v3.20. Did not bump to 13.5.4.
 
 ### Changed
 

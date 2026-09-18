@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.19
+Version: 3.20
 
 Sessions & Modifications:
 
+- Version: 3.20 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: HIC “update Spark dashboard image at 13.4.2”. Compose `image:` is already `mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2` (main and this branch). Added Spark pull recipe. This Cloud agent cannot SSH to `gn100-cb5d`. Did **not** bump to 13.5.4.
 - Version: 3.19 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark **Docker Engine client 29.2.1** (`a5c7197`) from HIC SSH `admin100@gn100-cb5d` `docker --version`. Bare `docker update` is not an Engine upgrade (it needs a container). Does not restore Docker Desktop / Docker MCP. Does not bump compose images. Aspire yaml comment already aligned to dashboard **13.4.2** (v3.18 “comment still says 13.4.6” is stale).
 - Version: 3.18 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **Aspire CLI 13.5.4** (stable channel, `C:\Users\risto\.aspire\bin\aspire.exe`, commit `9c1b401`). `aspire update` found no AppHost — expected. Does **not** bump DGX `aspire-dashboard` image (compose pin is **13.4.2**). Admin previously said dashboard 13.4.6; that tag is not the compose image on this branch.
 - Version: 3.17 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **WSL 2** recorded as updated (HIC). Pin Microsoft stable **2.7.14** (github.com/microsoft/WSL, 11.09.2026). Operator: `wsl --update` then `wsl --version`. Plan9 share break after KB5124008 is fixed by KB5129195. Does not restore Docker Desktop / Docker MCP (retired 26.03.2026). WSL is not DGX Ollama.
@@ -602,6 +603,20 @@ The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **
 - **Auth posture:** frontend and OTLP run `Unsecured` — acceptable only while port 18888 is LAN-only on the DGX host. If the host ever gets a routable interface or a tunnel exposes 18888, switch to `BrowserToken` (frontend) and `ApiKey` (OTLP) per the aspire.dev dashboard configuration reference.
 - **Version bumps:** treat the dashboard like any pinned image — bump deliberately, check the aspire.dev release notes (OTLP defaults, auth env var names have changed across majors), never float on `:latest`. Do **not** bump `aspire-dashboard` because Win11 `aspire update` moved the CLI.
 
+**Update running image to 13.4.2 (HIC, 18.09.2026).** Compose on `main` already has `image: mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2`. `docker update` is not this. Cursor Cloud cannot SSH. On `gn100-cb5d` as `admin100`:
+
+```bash
+cd /home/admin100/dws6/infrastructure/dgx-spark
+grep 'image: mcr.microsoft.com/dotnet/aspire-dashboard' docker-compose.yml
+# must print :13.4.2 — if it prints :13.4.6 or :13.3.5, fetch origin/main first (deploy clone uses git reset --hard)
+docker compose pull aspire-dashboard
+docker compose up -d aspire-dashboard
+docker inspect -f '{{.Config.Image}}' aspire-dashboard
+curl -sS -o /dev/null -w '%{http_code}\n' http://127.0.0.1:18888/health
+```
+
+Expect inspect `...:13.4.2` and health `200`. Do not pull `:latest` or `:13.5.4`.
+
 ### Win11 Aspire CLI (operator)
 
 **Status (HIC, 18.09.2026):** From `F:\2026\Repos2026\dws6`:
@@ -636,7 +651,7 @@ Usage:  docker update [OPTIONS] CONTAINER [CONTAINER...]
 
 **Pin:** Docker **client** **29.2.1** (`a5c7197`) on Spark. Matches docker/cli 29.2.1 / moby `docker-v29.2.1` (02.02.2026). `docker --version` is the CLI string; this paste does not include `docker version` (server/Engine git on that release is `6bc6209`).
 
-**`docker update` is not an Engine upgrade.** It changes resource limits on a _running named container_. Bare `docker update` is expected to fail. To refresh **compose images**: `docker compose -f infrastructure/dgx-spark/docker-compose.yml pull` then `up -d` on the host (push to `main` already does this via `deploy-dgx-spark.yml`). To upgrade the **Engine package**: Ubuntu `apt` for `docker-ce` — a host change; do not run it from Cursor Cloud.
+**`docker update` is not an Engine upgrade.** It changes resource limits on a _running named container_. Bare `docker update` is expected to fail. To refresh the **Aspire dashboard image to 13.4.2**, use the _Update running image_ recipe under Aspire Dashboard above (`docker compose pull aspire-dashboard`). To refresh **all** compose images: `docker compose pull` then `up -d` (push to `main` already does this via `deploy-dgx-spark.yml`). To upgrade the **Engine package**: Ubuntu `apt` for `docker-ce` — a host change; do not run it from Cursor Cloud.
 
 **Do not:** treat this paste as a compose image bump; restore Docker Desktop / Docker MCP on Win11 (retired 26.03.2026); install Docker on Cursor Cloud; run `docker update` on live DWS containers without a named resource change.
 
