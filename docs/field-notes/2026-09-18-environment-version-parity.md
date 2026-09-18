@@ -4,11 +4,19 @@
 
 ***
 
+Version: 1.1
+Tool: Cursor (Grok 4.6)
+Agent: Cursor Agent
+Date: 2026-09-18
+Changes: [Latest] Spark apt ran. Observed **29.6.2** (NVIDIA ARM64 cap). Shared target remains **29.8.0**. Q6 cannot close aligned. Q7 opened (recommend A).
+
+***
+
 Version: 1.0
 Tool: Cursor (Grok 4.6)
 Agent: Cursor Agent
 Date: 2026-09-18
-Changes: [Latest] HIC: environments must have the same versions. Registered DWS_TRUTH_STANDARD.md v5.3 row 41 + §2I. Pin file + check-dev-env-pins.mjs. Docker 29.8.0 shared; Spark 29.2.1 open drift.
+Changes: [not latest] HIC: environments must have the same versions. Registered DWS_TRUTH_STANDARD.md v5.3 row 41 + §2I. Pin file + check-dev-env-pins.mjs. Docker 29.8.0 shared; Spark 29.2.1 open drift.
 
 ***
 
@@ -28,7 +36,7 @@ Espoo, Finland (HIC). Agent: Cursor Cloud.
 
 - **Geography:** Europe > Finland > Espoo
 - **Sector:** Development infrastructure / source-of-truth
-- **Entities:** Lifetime Oy, Win11, DGX Spark, Docker, DWS Truth Standard
+- **Entities:** Lifetime Oy, Win11, DGX Spark, Docker, DWS Truth Standard, NVIDIA baseos
 
 ## The Story
 
@@ -38,22 +46,24 @@ Espoo, Finland (HIC). Agent: Cursor Cloud.
 4. “Make that sure” is not more Admin prose. It is a pin file + a check that exits 1 + a lint FAIL on the old split-as-policy sentence.
 5. Role-unique tools stay split: WSL 2.7.14 and Aspire CLI 13.5.4 (Win11); aspire-dashboard 13.4.2 and Spark Ollama (Spark). Averaging the CLI into the dashboard image remains wrong.
 6. HIC Spark dashboard paste: compose `pull`/`up` failed interpolating `POSTGRES_PASSWORD`; `docker inspect` of the running container was already `mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2`; `/health` **200**. Recipe now uses `docker pull` of the image.
+7. HIC then ran Spark docker-ce apt. Result: **29.6.2** (`dfc4efb`), NVIDIA `noble/arm64` candidate `5:29.6.2-1~ubuntu.24.04~noble`. Not 29.8.0. `docker compose ps` failed the same interpolate error. needrestart: no containers bounced.
 
 ## The Insight
 
-Two checkouts are two copies of the repo, not two allowed Docker Engines. The pin is the **role**. A check that cannot fail is not a check.
+Two checkouts are two copies of the repo, not two allowed Docker Engines. The pin is the **role**. A check that cannot fail is not a check. Apt that cannot reach the pin is still honest drift — record the cap, do not retarget silently.
 
 ## What shipped
 
-- `DWS_TRUTH_STANDARD.md` v5.3 — row 41 + §2I.
-- `config/truth/dev-environment-pins.json`
+- `DWS_TRUTH_STANDARD.md` v5.4 — row 41 / §2I live copy names NVIDIA cap **29.6.2**.
+- `config/truth/dev-environment-pins.json` v1.1 — `observed.spark` 29.6.2; `sparkRepoCap` 29.6.2; status `open-drift`.
+- Admin v3.25, CLOUD_ENVIRONMENTS v2.10, Files & Folders v1.11, Acer README v1.9.
 - `scripts/check-dev-env-pins.mjs` + `npm run env:pins` / `env:pins:strict`
-- Admin v3.23, CLOUD_ENVIRONMENTS v2.9, Files & Folders v1.10, Acer README v1.8
-- `docs/system-config/STANDARDS_ROUTING.md` trigger; `DWS_STANDARDS_LIBRARY.md` v1.13 pointer
 
 ## What did not ship
 
-- No Spark apt from this VM (cannot SSH).
+- No `aligned` (29.6.2 ≠ 29.8.0).
+- No `download.docker.com` on GN100.
+- No pin retarget to 29.6.2 (Q7).
 - No Docker install on Cursor Cloud.
 - No aspire-dashboard image bump.
 - No Docker MCP restore.
@@ -73,13 +83,13 @@ node scripts/check-dev-env-pins.mjs --compare win11.json spark.json
 npm run env:pins:strict
 ```
 
-Exit 1 until Spark `docker --version` prints **29.8.0**.
+Exit 1 until Spark `docker --version` prints **29.8.0** (or HIC retargets the pin via Q7).
 
 ## Next Steps
 
-1. HIC Q6 (recommend A): after Spark apt, paste `docker --version` and flip the pin file to `aligned`.
-2. Q5 remains the apt run on `gn100-cb5d`.
-3. Q4 (split Win11 29.8.0 from Spark) is superseded by Q6.
+1. Q7 (recommend A): keep shared target **29.8.0**; wait for NVIDIA on noble/arm64. Do not mix docker.com. Do not downgrade Win11 to 29.6.2.
+2. Q6 cannot set `aligned`. Q5 is ANSWERED with 29.6.2.
+3. Q4 (split Win11 29.8.0 from Spark) stays superseded.
 
 ## HIC decision — Q6 (branch `cursor/wsl-updated-a455`)
 
@@ -95,8 +105,26 @@ Q6. After Spark docker-ce apt, set config/truth/dev-environment-pins.json
     Unblocks:     env:pins:strict becomes the merge gate for future version drift
     Cost of delay: Admin and Spark stay 29.2.1 while Win11 is 29.8.0
     Rests on:     Verified — HIC 18.09.2026 “environments must have same versions”;
-                  Win11 paste 29.8.0; Spark paste 29.2.1; PR #2039 holds Truth row 40.
+                  Win11 paste 29.8.0; Spark paste 29.2.1 then 29.6.2; PR #2039 holds Truth row 40.
                   Propagated — pin file + check script this session.
+```
+
+Status: `ANSWERED` — observed.spark set to **29.6.2**. **Cannot A:** 29.6.2 ≠ 29.8.0; `status` stays `open-drift`; `npm run env:pins:strict` still exits 1. **Not B:** 29.2.1 / 29.6.2 are not a second allowed pin.
+
+## HIC decision — Q7 (branch `cursor/wsl-updated-a455`)
+
+```
+Q7. Shared Docker pin is Win11 **29.8.0**. Spark apt maxed at NVIDIA ARM64 **29.6.2**. What closes the remaining §2I gap?
+    Options:      <A> Keep target **29.8.0**. Wait until NVIDIA publishes 29.8.0 on noble/arm64. Do not add download.docker.com on GN100. Do not downgrade Win11.
+                  vs <B> Retarget the shared pin to **29.6.2** (NVIDIA cap becomes the pin; Win11 29.8.0 becomes the drift)
+                  vs <C> Add Docker CE ARM64 from download.docker.com on GN100 to chase 29.8.0 now
+    (RECOMMEND:   <A> — NVIDIA already owns docker-ce on this box. Mixing docker.com risks a split Engine. B hides the Win11/Spark mismatch by moving the target. C is a host-policy change, not a docs edit.)
+    Reversibility: A two-way (docs). B two-way (pin file). C one-way-ish (apt source on GN100).
+    Unlocks:      operators stop treating 29.6.2 as “the environments now match”
+    Cost of delay: env:pins:strict stays red until NVIDIA or a HIC retarget
+    Rests on:     Verified — HIC apt paste 18.09.2026; apt-cache policy candidate 5:29.6.2-1~ubuntu.24.04~noble;
+                  docker --version 29.6.2 dfc4efb; Compose v5.2.0; Truth §2I.
+                  Propagated — this VM did not SSH; sudo password from the paste is not stored.
 ```
 
 Status: `PENDING_REVIEW`
@@ -109,6 +137,6 @@ Status: `PENDING_REVIEW`
 
 ***
 
-**Document version:** v1.0 · **Date:** 18.09.2026 · **Owner:** Lifetime Oy
+**Document version:** v1.1 · **Date:** 18.09.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.

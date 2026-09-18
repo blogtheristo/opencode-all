@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.24
+Version: 3.25
 
 Sessions & Modifications:
 
+- Version: 3.25 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark docker-ce apt **ran**. `docker --version` **29.6.2** (`dfc4efb`). NVIDIA noble/arm64 candidate was 29.6.2, not Win11 **29.8.0**. Compose `ps` still needs `.env`. Do not add download.docker.com. Q7: keep 29.8.0 as target.
 - Version: 3.24 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark docker-ce apt recipe ends with `docker ps`, not `docker compose ps` (compose interpolates `POSTGRES_PASSWORD` without `.env`).
 - Version: 3.23 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: **Environment Version Parity** (`DWS_TRUTH_STANDARD.md` §2I / row 41). Shared-role Docker client pin is **29.8.0** on Win11 and Spark. Spark **29.2.1** is open drift (apt recipe), not a standing split. Aspire CLI vs dashboard stays a role split. Running Spark aspire-dashboard confirmed **13.4.2** /health 200; compose pull needs `.env` or `docker pull` the image. Check: `npm run env:pins`.
 - Version: 3.22 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark Docker **Engine upgrade recipe** (`apt-get install --only-upgrade docker-ce…`). Not `docker update`. Not Win11 29.8.0. Daemon restart expected. This Cloud agent cannot SSH.
@@ -415,7 +416,7 @@ Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no 
 
 ## Two dev environments — Win11 and DGX Spark
 
-Lifetime Oy maintains **two independent git checkouts** of `dws6` and **one shared session-management layer**. Do not treat either checkout as a throwaway mirror of the other. **Shared-role tools must match versions** (`DWS_TRUTH_STANDARD.md` §2I): Docker client pin **29.8.0**. WSL / Aspire CLI / aspire-dashboard / Ollama stay role-split. Check: `npm run env:pins`.
+Lifetime Oy maintains **two independent git checkouts** of `dws6` and **one shared session-management layer**. Do not treat either checkout as a throwaway mirror of the other. **Shared-role tools must match versions** (`DWS_TRUTH_STANDARD.md` §2I): Docker client **target 29.8.0**. Spark observed **29.6.2** (NVIDIA ARM64 repo max after apt 18.09.2026). WSL / Aspire CLI / aspire-dashboard / Ollama stay role-split. Check: `npm run env:pins`.
 
 ### Win11 (developer workstation)
 
@@ -431,13 +432,13 @@ Lifetime Oy maintains **two independent git checkouts** of `dws6` and **one shar
 
 ### DGX Spark (Acer Veriton GN100)
 
-| Item                 | Value                                                                                                                                                                                                         |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Path**             | `/home/admin100/dws6`                                                                                                                                                                                         |
-| **Agent CLIs (two)** | **Cursor CLI** and **GitHub Copilot CLI**                                                                                                                                                                     |
-| **Inference**        | Local **Ollama** (`11434`) — Qwen, Nemotron, and other open weights; zero marginal API token cost                                                                                                             |
-| **Also on box**      | Docker compose stack, DGX cron, **`opencode-all`** batch orchestration (`scripts/opencode-open-all.sh`)                                                                                                       |
-| **Docker Engine**    | **Shared pin 29.8.0.** Last paste **29.2.1** (`a5c7197`) on `gn100-cb5d` is **open drift** — run the docker-ce apt recipe (see _Spark Docker Engine_). Not Docker Desktop. `docker update` is not an upgrade. |
+| Item                 | Value                                                                                                                                                                                                              |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Path**             | `/home/admin100/dws6`                                                                                                                                                                                              |
+| **Agent CLIs (two)** | **Cursor CLI** and **GitHub Copilot CLI**                                                                                                                                                                          |
+| **Inference**        | Local **Ollama** (`11434`) — Qwen, Nemotron, and other open weights; zero marginal API token cost                                                                                                                  |
+| **Also on box**      | Docker compose stack, DGX cron, **`opencode-all`** batch orchestration (`scripts/opencode-open-all.sh`)                                                                                                            |
+| **Docker Engine**    | **Target 29.8.0.** Observed **29.6.2** (`dfc4efb`, deb `5:29.6.2-1~ubuntu.24.04~noble`) after HIC apt 18.09.2026. NVIDIA ARM64 repo cap — not Win11 29.8.0. Not Docker Desktop. `docker update` is not an upgrade. |
 
 ### Shared session management (both environments)
 
@@ -474,7 +475,7 @@ wsl --status
 
 1. WSL is the Win11 Linux layer for bash scripts that need Linux. It is **not** DGX Spark and **not** a place to `ollama pull` undeployed models. Large work still queues to OpenCode on DGX.
 2. The git clone stays on NTFS (`F:\2026\Repos2026\dws6`). Do not move the clone into `\\wsl.localhost` without a HIC decision.
-3. A `docker --version` on Win11 (18.09.2026: **29.8.0**) is the **shared Docker pin** (`DWS_TRUTH_STANDARD.md` §2I), not a Docker MCP restore. Docker MCP stayed retired 26.03.2026. Spark last paste **29.2.1** is open drift — apt docker-ce to **29.8.0**. Do not reinstall Docker Desktop.
+3. A `docker --version` on Win11 (18.09.2026: **29.8.0**) is the **shared Docker target** (`DWS_TRUTH_STANDARD.md` §2I), not a Docker MCP restore. Docker MCP stayed retired 26.03.2026. Spark apt ran the same day and printed **29.6.2** — NVIDIA noble/arm64 candidate, not 29.8.0. Do not reinstall Docker Desktop. Do not add `download.docker.com` on GN100.
 4. Windows 11 **KB5124008** (8.09.2026) can leave Plan9 host-folder shares unmounted (`/mnt/f` empty; “no Plan9 drive shares were mounted”). Microsoft fixed this in out-of-band **KB5129195** (14.09.2026). If `/mnt/f` is missing after the WSL update, install KB5129195 via Windows Update, then `wsl --shutdown`.
 5. After `wsl --update`, restart the distro (`wsl --shutdown`) before assuming PATH, mounts, or `gh` still work.
 
@@ -658,7 +659,7 @@ Docker version 29.8.0, build 88096ef
 
 **Shared pin:** Docker **client 29.8.0** (`88096ef`) on Win11 **and** Spark (`DWS_TRUTH_STANDARD.md` §2I). Matches docker/cli 29.8.0 (Engine release notes 03.09.2026; Alpine CLI GitCommit `88096ef00576baf72a9cb45caa45c0544c40e0a7`). This paste does not include `docker version` (client vs server) or `Get-Command docker` (Desktop vs CE vs WSL shim).
 
-**Open drift:** Spark last paste is **29.2.1** (`a5c7197`) on `gn100-cb5d`. Close with the Spark docker-ce apt recipe below, then `node scripts/check-dev-env-pins.mjs --compare win11.json spark.json`. Do not treat this as permission to bump `aspire-dashboard`.
+**Open drift:** Spark apt ran 18.09.2026. Observed **29.6.2** (`dfc4efb`). NVIDIA `noble-updates/common` arm64 candidate was `5:29.6.2-1~ubuntu.24.04~noble`, not 29.8.0. `npm run env:pins:strict` still exits 1. Do not treat this as permission to bump `aspire-dashboard`.
 
 **Docker MCP stays retired (26.03.2026).** A client on the Win11 PATH is not Docker Desktop restored and is not Docker MCP restored.
 
@@ -679,11 +680,13 @@ docker: 'docker update' requires at least 1 argument
 Usage:  docker update [OPTIONS] CONTAINER [CONTAINER...]
 ```
 
-**Shared pin:** Docker **client 29.8.0** on Spark (same as Win11). **Observed:** **29.2.1** (`a5c7197`) — open drift. Matches docker/cli 29.2.1 / moby `docker-v29.2.1` (02.02.2026) as the last paste, not as policy. `docker --version` is the CLI string; this paste does not include `docker version` (server/Engine git on that release is `6bc6209`).
+**Shared target:** Docker **client 29.8.0** on Spark (same as Win11). **Observed after apt (18.09.2026):** **29.6.2** (`dfc4efb`, `docker-ce` `5:29.6.2-1~ubuntu.24.04~noble`). Compose plugin **v5.2.0**, containerd **2.2.5**, buildx **0.35.0**. `systemctl is-active docker` → `active`. `needrestart` reported no containers to restart. `docker compose ps` failed interpolating `POSTGRES_PASSWORD` (and WARN on unset `CLOUDFLARE_TUNNEL_TOKEN`) — use `docker ps`, not compose, unless `.env` is loaded. Do **not** re-run apt. Do **not** add `https://download.docker.com` on GN100 (NVIDIA baseos already owns docker-ce).
+
+**Before apt (historical):** 29.2.1 (`a5c7197`). `docker --version` is the CLI string.
 
 **`docker update` is not an Engine upgrade.** It changes resource limits on a _running named container_. Bare `docker update` is expected to fail. To refresh the **Aspire dashboard image to 13.4.2**, use the _Update running image_ recipe under Aspire Dashboard above (`docker compose pull aspire-dashboard`). To refresh **all** compose images: `docker compose pull` then `up -d` (push to `main` already does this via `deploy-dgx-spark.yml`).
 
-**Upgrade Engine on Spark (closes §2I open drift).** GN100 installed Docker via `get.docker.com` (docker-ce apt). Observed **29.2.1**; shared pin **29.8.0**. This restarts `dockerd`; compose services with `restart: unless-stopped` should return. Cursor Cloud cannot SSH. On `gn100-cb5d` as `admin100`:
+**Upgrade Engine on Spark (RAN 18.09.2026).** GN100 docker-ce comes from NVIDIA baseos (`repo.download.nvidia.com/baseos/ubuntu/noble/arm64`), not a leftover `get.docker.com` pin. Apt moved **29.2.1 → 29.6.2**. Shared target remains Win11 **29.8.0**. Do not run this again unless NVIDIA publishes a newer candidate. Cursor Cloud cannot SSH. Recipe kept for the next box:
 
 ```bash
 docker --version
@@ -699,7 +702,7 @@ docker compose version
 docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Image}}'
 ```
 
-If `dpkg` shows `docker.io` instead of `docker-ce`, stop and paste that output — do not mix Ubuntu universe Docker with Docker CE. Do **not** re-run `curl https://get.docker.com | sh`. Do not pull `:latest` compose images as part of this. After success, paste the new `docker --version`. When it prints **29.8.0**, update `config/truth/dev-environment-pins.json` observed.spark and set `status` to `aligned`, then `npm run env:pins:strict`.
+If `dpkg` shows `docker.io` instead of `docker-ce`, stop and paste that output — do not mix Ubuntu universe Docker with Docker CE. Do **not** re-run `curl https://get.docker.com | sh`. Do not pull `:latest` compose images as part of this. **This host already printed 29.6.2.** Do not `apt autoremove` the leftover nvidia kernel packages unless HIC asks. Q7: keep 29.8.0 as target until NVIDIA ships it on ARM64, or retarget the pin.
 
 **Do not:** treat this paste as a compose image bump; restore Docker Desktop / Docker MCP on Win11 (retired 26.03.2026); install Docker on Cursor Cloud; run `docker update` on live DWS containers without a named resource change.
 

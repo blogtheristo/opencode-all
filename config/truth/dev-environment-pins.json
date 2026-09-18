@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "lastUpdated": "2026-09-18",
   "sourceOfTruth": false,
   "structuredMirror": true,
@@ -16,7 +16,9 @@
       "command": "docker --version",
       "parse": "Docker version X.Y.Z",
       "status": "open-drift",
-      "closeWith": "Admin/ADMIN_MANUAL.md Spark docker-ce apt recipe, then paste docker --version and set observed.spark.version to the pin",
+      "closeWith": "Spark apt already ran 18.09.2026. NVIDIA baseos ARM64 candidate was 5:29.6.2-1~ubuntu.24.04~noble, not 29.8.0. Do not add download.docker.com on GN100. Close when NVIDIA publishes 29.8.0 on noble/arm64 or HIC retargets the shared pin (Q7).",
+      "sparkRepo": "https://repo.download.nvidia.com/baseos/ubuntu/noble/arm64 noble-updates/common",
+      "sparkRepoCap": "29.6.2",
       "observed": {
         "win11": {
           "version": "29.8.0",
@@ -25,11 +27,15 @@
           "source": "HIC PowerShell F:\\2026\\Repos2026\\dws6"
         },
         "spark": {
-          "version": "29.2.1",
-          "build": "a5c7197",
+          "version": "29.6.2",
+          "build": "dfc4efb",
+          "deb": "5:29.6.2-1~ubuntu.24.04~noble",
+          "composePlugin": "5.2.0",
+          "containerd": "2.2.5-1~ubuntu.24.04~noble",
+          "buildx": "0.35.0-1~ubuntu.24.04~noble",
           "date": "2026-09-18",
           "host": "gn100-cb5d",
-          "source": "HIC SSH admin100@gn100-cb5d docker --version"
+          "source": "HIC apt-get install --only-upgrade docker-ce… ; docker --version"
         }
       }
     }
@@ -78,7 +84,7 @@
   "approvedDisplayPhrases": [
     "Shared-role tools must match across Win11 and Spark",
     "Docker client pin is 29.8.0 on Win11 and Spark",
-    "Spark Docker 29.2.1 is open drift until docker-ce apt matches 29.8.0",
+    "Spark Docker 29.6.2 is NVIDIA ARM64 repo max; shared target remains 29.8.0",
     "WSL and Aspire CLI are Win11-only; aspire-dashboard is Spark-only",
     "Aspire CLI 13.5.4 is not the Spark dashboard image 13.4.2"
   ],

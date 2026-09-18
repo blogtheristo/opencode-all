@@ -30,12 +30,13 @@ function writeDump(dir: string, name: string, version: string) {
 }
 
 describe('check-dev-env-pins', () => {
-  it('records Docker 29.8.0 as the shared pin and Spark 29.2.1 as open drift', () => {
+  it('records Docker 29.8.0 as the shared pin and Spark 29.6.2 as NVIDIA ARM64 cap', () => {
     const pins = JSON.parse(fs.readFileSync(PINS, 'utf8'));
     expect(pins.sharedPins['docker.client'].pin).toBe('29.8.0');
     expect(pins.sharedPins['docker.client'].status).toBe('open-drift');
     expect(pins.sharedPins['docker.client'].observed.win11.version).toBe('29.8.0');
-    expect(pins.sharedPins['docker.client'].observed.spark.version).toBe('29.2.1');
+    expect(pins.sharedPins['docker.client'].observed.spark.version).toBe('29.6.2');
+    expect(pins.sharedPins['docker.client'].sparkRepoCap).toBe('29.6.2');
     expect(pins.splitPins.aspireCli.pin).toBe('13.5.4');
     expect(pins.splitPins.aspireDashboard.pin).toBe('13.4.2');
   });
@@ -44,10 +45,10 @@ describe('check-dev-env-pins', () => {
     const r = run([]);
     expect(r.code).toBe(0);
     expect(r.out).toMatch(/open-drift/);
-    expect(r.out).toMatch(/spark=29\.2\.1/);
+    expect(r.out).toMatch(/spark=29\.6\.2/);
   });
 
-  it('--require-aligned exits 1 while Spark is still 29.2.1', () => {
+  it('--require-aligned exits 1 while Spark is 29.6.2 and the pin is 29.8.0', () => {
     const r = run(['--require-aligned']);
     expect(r.code).toBe(1);
   });
@@ -65,14 +66,14 @@ describe('check-dev-env-pins', () => {
     }
   });
 
-  it('--compare of 29.8.0 vs 29.2.1 fails', () => {
+  it('--compare of 29.8.0 vs 29.6.2 fails', () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'env-pins-'));
     try {
       const a = writeDump(dir, 'win11.json', '29.8.0');
-      const b = writeDump(dir, 'spark.json', '29.2.1');
+      const b = writeDump(dir, 'spark.json', '29.6.2');
       const r = run(['--compare', a, b]);
       expect(r.code).toBe(1);
-      expect(r.out).toMatch(/29\.2\.1/);
+      expect(r.out).toMatch(/29\.6\.2/);
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }

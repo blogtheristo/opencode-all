@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.8
+Version: 1.9
 
 Sessions & Modifications:
 
+- Version: 1.9 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Host Docker observed **29.6.2** after apt (NVIDIA ARM64 cap). Shared target **29.8.0**.
 - Version: 1.8 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Host Docker **shared pin 29.8.0**; last paste **29.2.1** is open drift (`DWS_TRUTH_STANDARD.md` §2I). `docker update` is not an Engine upgrade.
 - Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Pin host **Docker Engine client 29.2.1** (`a5c7197`) from HIC `docker --version` on `gn100-cb5d`. `docker update` is not an Engine upgrade. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.19 _Spark Docker Engine_.
 - Version: 1.6 | Tool: GPT-5.4 | Date: 11.03.2026 | Changes: Added Veriton Edge Stack Runbook and client endpoint templates for Control Room / Situation Room delivery
@@ -54,7 +55,7 @@ Document Status:
 
 - **NVIDIA AI Workbench** — Local AI development environment
 - **CUDA** — GPU compute (version TBD)
-- **Docker** — Container runtime for edge agents. **Shared pin 29.8.0** (`DWS_TRUTH_STANDARD.md` §2I). Last host paste **29.2.1** client (`a5c7197`, HIC `docker --version` 18.09.2026) is open drift until `apt-get install --only-upgrade docker-ce`. `docker update` changes running-container limits; it is not that upgrade.
+- **Docker** — Container runtime for edge agents. **Shared target 29.8.0** (`DWS_TRUTH_STANDARD.md` §2I). Host observed **29.6.2** (`dfc4efb`, HIC apt 18.09.2026, NVIDIA noble/arm64). Do not add download.docker.com. `docker update` changes running-container limits; it is not that upgrade.
 - **OpenSandbox** — Agent isolation platform (Stage 1.5 sandbox)
 
 ## 2026-03-11 Environment Validation
