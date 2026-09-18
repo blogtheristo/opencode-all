@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 0.1 [Latest]
+Version: 0.2 [Latest]
 
 Sessions & Modifications:
 
+- Version: 0.2 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) flagged that §1's earlier claim "not difficult to deliver as engineering" (made in chat, not this document) was an unsupported opinion. Added a grounded paragraph to §1 citing the two pre-existing components that made the build low-effort — KYA-gating (`authorizeToolCall()`, `src/security/runtime-auth.ts:271`) and Article-12 audit logging (`agent_executions`, extended by `087_kya_jev_calls.sql` + `BaseAgent.logKyaJevCall()`) — turning the claim into cited evidence.
 - Version: 0.1 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: Initial creation. Codifies kya-jev (KYA-gated typed decision primitive) as a specification, incorporating the Boardy audit (A1–E2) requested against PR #2043 and the public `blogtheristo/KYAv2` release candidate. Records the audit's Overall Recommendations (MERGE-WITH-CONDITIONS on PR #2043; PUBLISH on KYAv2) and closes the one blocking condition (D2) by setting `KYA-JEV-001.detailsUrl` to `null` in `dws10.com/config/products.json` and its landing-pages mirror, so the storefront falls back to the products index instead of 404ing on a non-existent `products/kya-jev.html`.
 
 Session Links & References:
@@ -19,7 +20,7 @@ Session Links & References:
 Document Status:
 
 - Created: 18.09.2026
-- Last Modified: 18.09.2026
+- Last Modified: 18.09.2026 (v0.2)
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE — internal specification
@@ -31,6 +32,8 @@ Document Status:
 `kya-jev` is a KYA-gated typed decision primitive: given application state and a typed question (`choice` / `score` / `boolean`), it returns a typed decision plus self-reported probabilities and confidence. It differs from a bare structured-output wrapper in one load-bearing way — every call requires an already-issued `allowed` verdict from the caller's own KYA runtime-authorization gate; there is no code path to a decision without one.
 
 Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe AI's "Jev" model, after independent verification (`docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md`) found Jev is US-hosted and CLOUD Act-exposed.
+
+**Why this was not a difficult build (evidence, not opinion):** the two components that make `kya-jev` a governed primitive rather than a bare structured-output wrapper already existed on the DWS agent platform before this work started — KYA-gating (`authorizeToolCall()`, `src/security/runtime-auth.ts:271`) and Article-12 audit logging (`agent_executions`, extended this session by `087_kya_jev_calls.sql` + `BaseAgent.logKyaJevCall()`). The new work was `makeTypedDecision()` itself (`src/agents/kya-jev.ts`) sitting on top of that existing infrastructure, not building the governance layer from zero.
 
 ## 2. Scope
 
