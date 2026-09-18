@@ -23,6 +23,7 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Spark Docker **Engine upgrade** bash recipe (`apt-get install --only-upgrade docker-ce`). Not `docker update`. Admin v3.22.
 - **Environment Version Parity** (`DWS_TRUTH_STANDARD.md` v5.3 row 41 / §2I). Shared-role tools must match across Win11 and Spark. Docker client pin **29.8.0**; Spark **29.2.1** is open drift. Pin file `config/truth/dev-environment-pins.json`; check `npm run env:pins` / `env:pins:strict`. Field note: `docs/field-notes/2026-09-18-environment-version-parity.md`. Admin v3.23.
 - Spark docker-ce apt **ran** (HIC `gn100-cb5d` 18.09.2026). Observed **29.6.2** (`dfc4efb`, NVIDIA noble/arm64 candidate `5:29.6.2-1~ubuntu.24.04~noble`), not Win11 **29.8.0**. Shared target remains 29.8.0; pin status stays `open-drift`. `docker compose ps` still interpolates `POSTGRES_PASSWORD` without `.env` — use `docker ps`. Truth v5.4. Admin v3.25. Q7 pending.
+- Spark needrestart after docker-ce apt listed outdated **user sessions** (admin100 sshd #129/#130, admin100 and gdm systemd user managers). Not Docker containers. Log out SSH and reconnect. Do not restart docker/gdm. Admin v3.26.
 
 ### Changed
 

@@ -4,11 +4,19 @@
 
 ***
 
+Version: 1.2
+Tool: Cursor (Grok 4.6)
+Agent: Cursor Agent
+Date: 2026-09-18
+Changes: [Latest] needrestart user-session leftover (sshd #129/#130). Not Docker. Q8 recommend log out SSH.
+
+***
+
 Version: 1.1
 Tool: Cursor (Grok 4.6)
 Agent: Cursor Agent
 Date: 2026-09-18
-Changes: [Latest] Spark apt ran. Observed **29.6.2** (NVIDIA ARM64 cap). Shared target remains **29.8.0**. Q6 cannot close aligned. Q7 opened (recommend A).
+Changes: [not latest] Spark apt ran. Observed **29.6.2** (NVIDIA ARM64 cap). Shared target remains **29.8.0**. Q6 cannot close aligned. Q7 opened (recommend A).
 
 ***
 
@@ -46,7 +54,7 @@ Espoo, Finland (HIC). Agent: Cursor Cloud.
 4. “Make that sure” is not more Admin prose. It is a pin file + a check that exits 1 + a lint FAIL on the old split-as-policy sentence.
 5. Role-unique tools stay split: WSL 2.7.14 and Aspire CLI 13.5.4 (Win11); aspire-dashboard 13.4.2 and Spark Ollama (Spark). Averaging the CLI into the dashboard image remains wrong.
 6. HIC Spark dashboard paste: compose `pull`/`up` failed interpolating `POSTGRES_PASSWORD`; `docker inspect` of the running container was already `mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2`; `/health` **200**. Recipe now uses `docker pull` of the image.
-7. HIC then ran Spark docker-ce apt. Result: **29.6.2** (`dfc4efb`), NVIDIA `noble/arm64` candidate `5:29.6.2-1~ubuntu.24.04~noble`. Not 29.8.0. `docker compose ps` failed the same interpolate error. needrestart: no containers bounced.
+7. HIC then ran Spark docker-ce apt. Result: **29.6.2** (`dfc4efb`), NVIDIA `noble/arm64` candidate `5:29.6.2-1~ubuntu.24.04~noble`. Not 29.8.0. `docker compose ps` failed the same interpolate error. needrestart: no containers bounced; **user sessions** (sshd #129/#130, admin100 and gdm systemd --user) still hold old binaries — log out SSH, do not bounce docker/gdm.
 
 ## The Insight
 
@@ -137,6 +145,6 @@ Status: `PENDING_REVIEW`
 
 ***
 
-**Document version:** v1.1 · **Date:** 18.09.2026 · **Owner:** Lifetime Oy
+**Document version:** v1.2 · **Date:** 18.09.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.
