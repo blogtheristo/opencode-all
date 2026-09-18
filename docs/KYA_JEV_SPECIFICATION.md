@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 0.3 [Latest]
+Version: 0.4 [Latest]
 
 Sessions & Modifications:
 
+- Version: 0.4 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: Registered `kya-jev` in `DWS_STANDARDS_LIBRARY.md` §3.2 (D3, closed) **before** production migration 087 is applied, per HIC (Finnish): a component running in production without a standards-registry entry is exactly the audit inconsistency that gets caught later. Added §8 (Execution & Backlog Order) recording the corrected sequence: D3 → PR #2043 merge → apply migration 087; backlog P0 is the storefront/commercial visual check (B2/D1), not A2. **Correction to an external review relayed this session:** a Boardy-style re-review (quoted by HIC) still listed A2 ("KYA-context hardening") as an open P0 backlog item — that review was working from v0.2. A2 was already closed in v0.3 (signed verdicts, `issueKyaVerdict()`/`verifyKyaVerdict()`, 13/13 tests passing) two turns before this one; this version states that plainly so the record doesn't imply a still-open critical gap that in fact shipped.
 - Version: 0.3 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) identified A2 as the one genuinely severe finding — a caller-constructible `{decision:'allowed'}` verdict makes the KYA gate decorative ("signer and approver are the same party proves nothing"), and flagged D1/B2 as the same problem from two directions (an uncalibrated price shown without its caveat on the storefront card, not just in JSON, invites after-the-fact complaint). **A2 fixed this session**: `RuntimeKYAVerdict` now carries an HMAC-SHA256 `sig` + `issuedAt`, signed only by the new `issueKyaVerdict()` (`src/security/runtime-auth.ts`) using `KYA_VERDICT_SIGNING_SECRET`; `kya-jev`'s `requireKyaVerdict()` now calls `verifyKyaVerdict()` and rejects unsigned, tampered, or wrong-secret verdicts, and fails closed (rejects everything) when no secret is configured at all. 5 new tests added (`runtime-auth-kya-verdict.test.ts`) plus 4 rewritten `kya-jev.test.ts` cases proving the forged-verdict and tampered-verdict paths are actually rejected, not just documented as a risk. D1/B2 remain open (Needs-Human) pending a storefront-card-copy check, not a code fix.
 - Version: 0.2 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) flagged that §1's earlier claim "not difficult to deliver as engineering" (made in chat, not this document) was an unsupported opinion. Added a grounded paragraph to §1 citing the two pre-existing components that made the build low-effort — KYA-gating (`authorizeToolCall()`, `src/security/runtime-auth.ts:271`) and Article-12 audit logging (`agent_executions`, extended by `087_kya_jev_calls.sql` + `BaseAgent.logKyaJevCall()`) — turning the claim into cited evidence.
 - Version: 0.1 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: Initial creation. Codifies kya-jev (KYA-gated typed decision primitive) as a specification, incorporating the Boardy audit (A1–E2) requested against PR #2043 and the public `blogtheristo/KYAv2` release candidate. Records the audit's Overall Recommendations (MERGE-WITH-CONDITIONS on PR #2043; PUBLISH on KYAv2) and closes the one blocking condition (D2) by setting `KYA-JEV-001.detailsUrl` to `null` in `dws10.com/config/products.json` and its landing-pages mirror, so the storefront falls back to the products index instead of 404ing on a non-existent `products/kya-jev.html`.
@@ -21,7 +22,7 @@ Session Links & References:
 Document Status:
 
 - Created: 18.09.2026
-- Last Modified: 18.09.2026 (v0.3)
+- Last Modified: 18.09.2026 (v0.4)
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE — internal specification
@@ -97,8 +98,8 @@ Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe 
 
 **B2 and D1 are one problem seen from two directions**, per HIC: €99/month as a preorder reservation is fine, but only if the uncalibrated-confidence caveat is visible wherever the price is — not just in the JSON `description` a human never reads on the storefront card. Showing the price without the caveat on the card is exactly the gap that generates a complaint after the fact.
 
-1. **B2/D1 (combined) — verified, not an open gap.** Checked both surfaces directly: `dws10.com/buy/index.html` intentionally hides price on the product card by design (`.product-price { hidden }`, comment: "enterprise products lead with value, not price") and instead renders `product.description` on the card — which already contains the Early Access / uncalibrated-confidence caveat text (`dws10.com/config/products.json:118`), so the card never shows a bare, caveat-free claim. `dws10.com/price-list/index.html:1409` is the one surface that _does_ show the price directly, and it renders `p.priceNote` in the same table cell as the price (`dws10.com/price-list/index.html:1410`) — the €99/month + "Early Access — calibration study in progress" note pair together there. **Remaining Needs-Human step:** visually confirm this on the live/preview site once deployed (this session could not render the page); if the pairing doesn't actually appear together on screen, that is now a real regression to fix, not a design question.
-2. **D3** — register `kya-jev` in `DWS_STANDARDS_LIBRARY.md` before treating it as an official, generally-available product tier.
+1. **B2/D1 (combined) — verified, not an open gap.** Checked both surfaces directly: `dws10.com/buy/index.html` intentionally hides price on the product card by design (`.product-price { hidden }`, comment: "enterprise products lead with value, not price") and instead renders `product.description` on the card — which already contains the Early Access / uncalibrated-confidence caveat text (`dws10.com/config/products.json:118`), so the card never shows a bare, caveat-free claim. `dws10.com/price-list/index.html:1409` is the one surface that _does_ show the price directly, and it renders `p.priceNote` in the same table cell as the price (`dws10.com/price-list/index.html:1410`) — the €99/month + "Early Access — calibration study in progress" note pair together there. **Remaining step:** visually confirm this on the live/preview site once deployed (this session could not render the page); if the pairing doesn't actually appear together on screen, that is now a real regression to fix, not a design question.
+2. **D3 — closed this session.** Registered in `DWS_STANDARDS_LIBRARY.md` §3.2 Process/Quality, same pattern as the `DDM-v1` row (owner HIC, status 🎯 Early Access pending calibration study). Registered **before** migration 087 is applied to production, per HIC: registering it after the fact would leave a real, unaudited gap between what's running and what's catalogued — exactly the kind of inconsistency an audit is supposed to catch.
 
 ## 6. Outstanding Blocker (tooling, not audit)
 
@@ -107,3 +108,19 @@ Publishing `blogtheristo/KYAv2` requires creating a new GitHub repository; this 
 ## 7. Never Without Further Approval
 
 Unchanged from the field note and this specification's audit: no auto-execute or consequential (financial, compliance, customer-facing) action may be gated on `kya-jev`'s self-reported confidence alone until a real calibration study runs against a human-labeled DWS dataset.
+
+## 8. Execution & Backlog Order (corrected, HIC 2026-09-18)
+
+**Do now, in this order:**
+
+1. **D3 — done.** `kya-jev` registered in `DWS_STANDARDS_LIBRARY.md` §3.2 (this version).
+2. **Merge PR #2043** into `main`.
+3. **Apply migration `087_kya_jev_calls.sql`** to production Supabase.
+
+Reordered from an earlier draft that had the migration before the registry entry — per HIC, a production component with no standards-registry entry is the inconsistency an audit catches, so registration must land first.
+
+**Backlog, in priority order:**
+
+- **P0 — already closed, not open backlog:** A2 (KYA-context hardening / signed verdicts) shipped in v0.3 of this document, before this reordering was requested. An external review quoted this session still carried it as an open P0 — that review was reading v0.2. Restated here so the record is unambiguous: **A2 is done**, not pending.
+- **P1 — `blogtheristo/KYAv2` public repo.** Blocked on a human creating the empty GitHub repo (§6); package is staged and ready to push the moment it exists.
+- **P2 — B2/D1 live visual confirmation.** Already verified correct by code inspection (§5, item 1); only a live-site screenshot/check remains, and billing stays `preorder` regardless until the calibration study runs.
