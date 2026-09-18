@@ -1,0 +1,3647 @@
+{
+  "generatedAt": "2026-09-18",
+  "source": "Wave 0 inventory — no translation",
+  "counts": {
+    "htmlTotal": 988,
+    "publicHtml": 978,
+    "masters": 306,
+    "localizedSiblings": 672,
+    "fiveLanguageMasters": 172,
+    "partialMasters": 0,
+    "enOnlyMasters": 134,
+    "dualFolderMissing": 0
+  },
+  "notes": [
+    "Localized siblings counted as .fi/.sv/.de/.fr.html or lang-subdir index.html",
+    "Industry mapping is filename heuristic; platform is default",
+    "Do not treat localized siblings as dictionary-built until Wave 3 rebuild"
+  ],
+  "pages": [
+    {
+      "path": "dws10.com/aegis-partners/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/aegis/hackathlon.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/aegis/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/architecture/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/assistant/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/book/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/buy/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/buy/page2/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/buy/page3/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/calculator/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/captain/customer/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/captain/deck/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/captain/details/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/captain/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/careers/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/checkout/cancel/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/checkout/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/checkout/success/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/compliance/de/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/compliance/fi/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/compliance/fr/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/compliance/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/compliance/sv/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/compliance/trust-center/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/compliance/vulnerability-disclosure-policy/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/connect-partners/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/construction/index.html",
+      "industryIds": [
+        8
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/contact/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/csrd/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/dashboard/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/dashboard/login/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/data-handling-policy/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/data-security-policy/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/de/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/designs/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/dual-use-industries/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/dual-use/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/energy/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/enterprise-integrations/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/enterprise-integrations/siemens/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/fi/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/financial-services/index.html",
+      "industryIds": [
+        20
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/fit-for-55/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/fleet-admiral/index.html",
+      "industryIds": [
+        7,
+        23
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/fr/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/free-audit/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/gamma/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/get-started/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/healthcare/index.html",
+      "industryIds": [
+        19
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/industrial-preview/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/industries/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/investment-safety/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/investor-centre/admiral/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/investor-centre/captain/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/investor-centre/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/investor-centre/one-pager/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/investor-centre/request-access/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/investor-relations/dvdi.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/investor-relations/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/investor-relations/pitch-deck.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/kya-standard/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/kya-standard/whitepaper/index.html",
+      "industryIds": [
+        12
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/legal-hub/dpa.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/legal-hub/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/legal-hub/sub-processors.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/legal/de/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/legal/dpa.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/legal/fi/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/legal/fr/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/legal/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/legal/sub-processors.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/legal/sv/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/lifetime-consulting/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/lifetime-fleet/index.html",
+      "industryIds": [
+        7,
+        23
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/lifetime-fleet/keenon/index.html",
+      "industryIds": [
+        7,
+        23
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/lifetime-fleet/nvidia-isv/index.html",
+      "industryIds": [
+        7,
+        23
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/lifetime-fleet/optimus-v3/index.html",
+      "industryIds": [
+        7,
+        23
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/lifetime-studios/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/logistics/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/manufacturing/index.html",
+      "industryIds": [
+        18
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/mining/index.html",
+      "industryIds": [
+        16
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/nvidia-inception/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/partners/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/playbooks/defence/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/playbooks/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/press-releases/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/price-list/de/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/price-list/fi/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/price-list/fr/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/price-list/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/price-list/sv/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/price-list/versions/price-list-v1.21.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/price-list/versions/price-list-v1.22.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/price-list/versions/price-list-v1.23.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/price-list/versions/price-list-v1.28.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/price-list/versions/price-list-v1.29.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/price-list/versions/price-list-v1.30.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/price-list/versions/price-list-v2026.Q2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/pricing/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/privacy-policy/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ac365-t3.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/aegis.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ai-agent-engineering.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ai-consultant-day.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ai-consulting-agentic.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ai-consulting.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ai-koulutus-3d.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ais-eu-sov-oc.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ais-outcome-pilot.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/aws-consultancy.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/bundle.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/business-mentor-30.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/claude-code-coaching-3day.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/claude-code-coaching-de.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/claude-code-coaching-fi.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/claude-code-coaching-fr.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/claude-code-coaching-lecture.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/claude-code-coaching-project.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/claude-code-coaching-sv.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/claude-code-coaching-workshop.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/claude-code-coaching.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/climate-intelligence.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/cloud-pricing.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/cloud-ready-teams.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/cmp-oc-ent.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/cmp-oc-std.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/cmp-t0.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/cmp-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/cmp-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/constr-t2.html",
+      "industryIds": [
+        8
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/constr-t3.html",
+      "industryIds": [
+        8
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/consulting-fit55.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/consulting-hourly.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/consulting.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/conversational-agent.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/cs-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/cs-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/csat-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/csat-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/devops-lead.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dgx-spark.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dw-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dw-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-aegis-001.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-aegis-impl-001.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-aegis-pilot-001.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-climate-001.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-eu-pilot.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-eu-starter.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-iq-006.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-iq-compliance-ambulance.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-iq-ess-setup.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-iq-free-2026.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-iq5.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-sovereign-db-001.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-us-pilot.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws-us-starter.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dws365-cmp-t3.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dwsiq-free.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/dwsiq.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ed-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ed-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/edge-node-gn100.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/energy-industry.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/esg-t3.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/expert-advisory.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/expert-services.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/fh-auto-001.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/fh-cms-001.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/fh-omni-001.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/fh-rpt-001.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/fh-sign-001.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/fh-skill-t3.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/firehorse-amplify.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/firehorse-coach.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/firehorse-content-management.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/firehorse-data-services.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/firehorse-flow.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/firehorse-mobile.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/firehorse-omnichannel.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/firehorse-reports.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/firehorse-signed-reports.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/firehorse-starter-v2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/firehorse-subscription.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/gtm-t3.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/hse-t3.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/igx-orin.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ind-bess.html",
+      "industryIds": [
+        1,
+        25
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ind-ceres.html",
+      "industryIds": [
+        9
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ind-gaia.html",
+      "industryIds": [
+        3
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ind-helios.html",
+      "industryIds": [
+        1
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ind-mars.html",
+      "industryIds": [
+        8
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ind-neptun.html",
+      "industryIds": [
+        6,
+        22
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ind-prom.html",
+      "industryIds": [
+        25
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ind-talos.html",
+      "industryIds": [
+        11
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ind-vulcan.html",
+      "industryIds": [
+        2
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/jetson-sensor.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/land-ail.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/land-csrd.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/land-euai.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/land-gtm.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/land-hse.html",
+      "industryIds": [
+        8
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/land-lca.html",
+      "industryIds": [
+        8
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/land-ops.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/land-sov.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/land-wf.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lean-project.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-compliance-ambulance-001.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-dgx-spark.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-doca-essential.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-doca-network-storage.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-doca-security.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-fips-validation.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-gov-airgap-bundle.html",
+      "industryIds": [
+        21
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-gov-ready-annual.html",
+      "industryIds": [
+        21
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-gov-ready-setup.html",
+      "industryIds": [
+        21
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-igx-orin.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-ipcmax-cincoze-da1200.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-ipcmax-ipc409.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-ipcmax-ipcp68.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-jetson-agx.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-jetson-nano.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-jetson-nx.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-k8s-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-k8s-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-k8s-t3.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-k8s-t4.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-nim-biology.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-nim-code.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-nim-retrieval.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-nim-starter.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-nvidia-install.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-sitroom-001.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lf-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lifetime-bundle-2026.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lifetime-exp-001.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/log-t1.html",
+      "industryIds": [
+        7,
+        23
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/log-t2.html",
+      "industryIds": [
+        7,
+        23
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/lwm-ontology.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/m365-consultancy.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/mo-oc-ent.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/mo-oc-std.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/mo-t0.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/mo-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/mo-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/nvidia-model-install.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/omnichannel-multimodal.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/PRODUCT-THEMIS.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/professional-web-pages.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/qg-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/qg-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/secure-email-proton.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/seo-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/seo-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/sg-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/sg-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/situation-room.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/sov-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/sov-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/sov-t3.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/sovereign-database.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/sovereignty-cloud-consulting.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ss-oc-ent.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ss-oc-std.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ss-t0.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ss-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/ss-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/synthetic-data/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/themis.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/via-t1.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/via-t2.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/products/wf-t4.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [
+        "fi",
+        "sv",
+        "de",
+        "fr"
+      ],
+      "localizationStatus": "five-language",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/progress-report.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/progress-report/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/public-sector/index.html",
+      "industryIds": [
+        21
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/real-estate/index.html",
+      "industryIds": [
+        17
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/regulatory-notice/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/return-policy/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/roadmap/index.html",
+      "industryIds": [
+        7,
+        23
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/scenarios/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/series-a/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/shared-assets/ecosystem-block.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/shared-assets/moat-block.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/shared-assets/nav/ironclad-nav.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/shipbuilding/index.html",
+      "industryIds": [
+        6,
+        22
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/sovereign-cbam-disclosure/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/sovereign-defense-manufacturing/index.html",
+      "industryIds": [
+        18
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/sovereign-infra-partners/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/sovereignty-assessment/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/sovereignty/sovereignty.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/sv/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/terms-dws-iq/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/terms-firehorse/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/terms-lifetime-fleet/index.html",
+      "industryIds": [
+        7,
+        23
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/terms-professional/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/terms/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/testimonials/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/theta/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/ultra/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/waste/index.html",
+      "industryIds": [
+        10
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/week-50/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/week-51/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/whitepapers/index.html",
+      "industryIds": [
+        12
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    },
+    {
+      "path": "dws10.com/world-model/index.html",
+      "industryIds": [
+        "platform"
+      ],
+      "localizedLangs": [],
+      "localizationStatus": "en-master-only",
+      "dualFolderPresent": true
+    }
+  ]
+}
