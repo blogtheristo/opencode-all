@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.20
+Version: 3.21
 
 Sessions & Modifications:
 
+- Version: 3.21 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **Docker client 29.8.0** (`88096ef`) from HIC PowerShell `docker --version` on `F:\2026\Repos2026\dws6`. Split from Spark **29.2.1**. Client on PATH is not a Docker MCP restore (retired 26.03.2026). Product (Desktop vs CE) not in this paste.
 - Version: 3.20 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: HIC “update Spark dashboard image at 13.4.2”. Compose `image:` is already `mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2` (main and this branch). Added Spark pull recipe. This Cloud agent cannot SSH to `gn100-cb5d`. Did **not** bump to 13.5.4.
 - Version: 3.19 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark **Docker Engine client 29.2.1** (`a5c7197`) from HIC SSH `admin100@gn100-cb5d` `docker --version`. Bare `docker update` is not an Engine upgrade (it needs a container). Does not restore Docker Desktop / Docker MCP. Does not bump compose images. Aspire yaml comment already aligned to dashboard **13.4.2** (v3.18 “comment still says 13.4.6” is stale).
 - Version: 3.18 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **Aspire CLI 13.5.4** (stable channel, `C:\Users\risto\.aspire\bin\aspire.exe`, commit `9c1b401`). `aspire update` found no AppHost — expected. Does **not** bump DGX `aspire-dashboard` image (compose pin is **13.4.2**). Admin previously said dashboard 13.4.6; that tag is not the compose image on this branch.
@@ -179,6 +180,7 @@ If `gbrain doctor` reports resolver or trigger issues in DWS6, normalize the aff
    - [Two dev environments — Win11 and DGX Spark](#two-dev-environments--win11-and-dgx-spark) ⭐ **NEW in v3.16**
    - [Win11 WSL](#win11-wsl-operator) ⭐ **NEW in v3.17**
    - [Win11 Aspire CLI](#win11-aspire-cli-operator) ⭐ **NEW in v3.18**
+   - [Win11 Docker](#win11-docker-operator) ⭐ **NEW in v3.21**
    - [Spark Docker Engine](#spark-docker-engine-operator) ⭐ **NEW in v3.19**
    - [Large work — plan first, OpenCode execution](#large-work--plan-first-opencode-execution) ⭐ **NEW in v3.16**
 5. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
@@ -420,6 +422,7 @@ Lifetime Oy maintains **two independent git checkouts** of `dws6` and **one shar
 | **IDEs (two)**    | **Cursor** and **Visual Studio Code** — separate GUIs, same repo clone                                                                          |
 | **Linux layer**   | **WSL 2** — HIC updated 18.09.2026. Microsoft stable pin **2.7.14** (see _Win11 WSL_)                                                           |
 | **Aspire CLI**    | **13.5.4** stable at `C:\Users\risto\.aspire\bin\aspire.exe` (see _Win11 Aspire CLI_). Not an AppHost. Does not bump the Spark dashboard image. |
+| **Docker client** | **29.8.0** (`88096ef`) — HIC `docker --version` in PowerShell 18.09.2026 (see _Win11 Docker_). Not Spark 29.2.1. Not a Docker MCP restore.      |
 | **Role**          | Plan authoring, PR review, small edits, HIC approval gates                                                                                      |
 | **Agent compute** | **Not** for large implementation — convert to a plan and queue **OpenCode agents on DGX** (see _Large work_ below)                              |
 
@@ -468,7 +471,7 @@ wsl --status
 
 1. WSL is the Win11 Linux layer for bash scripts that need Linux. It is **not** DGX Spark and **not** a place to `ollama pull` undeployed models. Large work still queues to OpenCode on DGX.
 2. The git clone stays on NTFS (`F:\2026\Repos2026\dws6`). Do not move the clone into `\\wsl.localhost` without a HIC decision.
-3. Do **not** reinstall Docker Desktop or Docker MCP. Those were retired 26.03.2026. A WSL update is not a Docker MCP restore.
+3. A `docker --version` on Win11 (18.09.2026: **29.8.0**) is a **client pin**, not a Docker MCP restore. Docker MCP stayed retired 26.03.2026. Do not reinstall Docker Desktop to “match Spark”; Spark is **29.2.1**.
 4. Windows 11 **KB5124008** (8.09.2026) can leave Plan9 host-folder shares unmounted (`/mnt/f` empty; “no Plan9 drive shares were mounted”). Microsoft fixed this in out-of-band **KB5129195** (14.09.2026). If `/mnt/f` is missing after the WSL update, install KB5129195 via Windows Update, then `wsl --shutdown`.
 5. After `wsl --update`, restart the distro (`wsl --shutdown`) before assuming PATH, mounts, or `gh` still work.
 
@@ -635,6 +638,25 @@ Updated to version: 13.5.4+9c1b401dd67746739044f68959cbf4d3d7af93a6
 **Do not:** install the CLI on Cursor Cloud; `ollama pull` via Aspire; restore Docker Desktop; bump `mcr.microsoft.com/dotnet/aspire-dashboard` in the same change as a Win11 CLI update.
 
 Field note: `docs/field-notes/2026-09-18-win11-aspire-cli-13-5-4.md`.
+
+### Win11 Docker (operator)
+
+**Status (HIC, 18.09.2026):** From `F:\2026\Repos2026\dws6` PowerShell:
+
+```
+docker --version
+Docker version 29.8.0, build 88096ef
+```
+
+**Pin:** Win11 Docker **client** **29.8.0** (`88096ef`). Matches docker/cli 29.8.0 (Engine release notes 03.09.2026; Alpine CLI GitCommit `88096ef00576baf72a9cb45caa45c0544c40e0a7`). This paste does not include `docker version` (client vs server) or `Get-Command docker` (Desktop vs CE vs WSL shim).
+
+**Pin split (fail loud):** Spark remains **29.2.1** (`a5c7197`) on `gn100-cb5d`. Do not “upgrade Spark to 29.8.0” because Win11 printed a newer client. Do not treat this as permission to bump `aspire-dashboard`.
+
+**Docker MCP stays retired (26.03.2026).** A client on the Win11 PATH is not Docker Desktop restored and is not Docker MCP restored.
+
+**Do not:** install Docker on Cursor Cloud; run Spark compose from Win11 against the GN100 socket; use `docker update` as an upgrade.
+
+Field note: `docs/field-notes/2026-09-18-win11-docker-29-8-0.md`.
 
 ### Spark Docker Engine (operator)
 

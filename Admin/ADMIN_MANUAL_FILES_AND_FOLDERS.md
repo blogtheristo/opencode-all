@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.8
+Version: 1.9
 
 Sessions & Modifications:
 
+- Version: 1.9 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Keyword `docker` splits Win11 client **29.8.0** vs Spark **29.2.1**. Docker MCP stays retired. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.21 _Win11 Docker_.
 - Version: 1.8 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Session keywords note `docker update` is not an Engine upgrade. DGX editor table pins Docker Engine client **29.2.1**. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.19 _Spark Docker Engine_.
 - Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Session keywords add `wsl`. Win11 Linux layer is WSL 2 (HIC updated 18.09.2026; Microsoft stable pin 2.7.14). Cross-ref: `Admin/ADMIN_MANUAL.md` v3.17 _Win11 WSL_.
 - Version: 1.6 | Tool: Cursor Agent | Session: claude/sovereignty-segmentation-axis-truth | Date: 17.09.2026 | Changes: **Large work policy** in workflow table — plan first (`docs/plans/` or handoff), execute on DGX via OpenCode agents; Win11 IDEs for review only on large tasks. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.17.
@@ -1205,7 +1206,7 @@ Sessions frequently move across environments and editors during a single feature
 | `win` or `win11` | Windows 11 desktop — **Cursor** + **VS Code** IDEs (`F:\...\dws6`)                                               |
 | `wsl`            | Win11 **WSL 2** Linux layer (same clone via `/mnt/f/...` when Plan9 is healthy)                                  |
 | `dgx`            | DGX Spark — **Cursor CLI** + **Copilot CLI** (`/home/admin100/dws6`)                                             |
-| `docker`         | Spark **Docker Engine** (compose stack). Bare `docker update` is **not** an upgrade — it needs a container name. |
+| `docker`         | Docker client: Win11 **29.8.0** vs Spark **29.2.1**. Bare `docker update` is **not** an upgrade. Not Docker MCP. |
 | `mobile`         | Mobile/web session                                                                                               |
 | `chromebook`     | Chromebook (Linux)                                                                                               |
 | `vscode`         | Editing in VS Code (Win11)                                                                                       |
@@ -1222,16 +1223,17 @@ Keywords can be combined (e.g., `win vscode`). These are **plain-text keywords i
 
 **Editor context** (canonical two-machine model — full detail in `Admin/ADMIN_MANUAL.md` → _Two dev environments_):
 
-| Machine       | Tool                        | Usage                                           |
-| ------------- | --------------------------- | ----------------------------------------------- |
-| **Win11**     | **VS Code**                 | Interactive editing, tests, PR prep             |
-| **Win11**     | **Cursor**                  | AI-native IDE; same clone as VS Code            |
-| **Win11**     | **WSL 2**                   | Linux bash for scripts; not DGX; pin 2.7.14     |
-| **DGX Spark** | **Cursor CLI**              | Interactive agents → local Ollama               |
-| **DGX Spark** | **Copilot CLI**             | Interactive agents → local Ollama               |
-| **DGX Spark** | **OpenCode / opencode-all** | Batch parallel worktrees (queue-driven)         |
-| **DGX Spark** | **Docker Engine 29.2.1**    | Host client pin (`a5c7197`); not Docker Desktop |
-| Either        | **Claude Code CLI**         | Hot standby / failover harness                  |
+| Machine       | Tool                        | Usage                                             |
+| ------------- | --------------------------- | ------------------------------------------------- |
+| **Win11**     | **VS Code**                 | Interactive editing, tests, PR prep               |
+| **Win11**     | **Cursor**                  | AI-native IDE; same clone as VS Code              |
+| **Win11**     | **WSL 2**                   | Linux bash for scripts; not DGX; pin 2.7.14       |
+| **Win11**     | **Docker client 29.8.0**    | HIC `docker --version`; not Spark; not Docker MCP |
+| **DGX Spark** | **Cursor CLI**              | Interactive agents → local Ollama                 |
+| **DGX Spark** | **Copilot CLI**             | Interactive agents → local Ollama                 |
+| **DGX Spark** | **OpenCode / opencode-all** | Batch parallel worktrees (queue-driven)           |
+| **DGX Spark** | **Docker Engine 29.2.1**    | Host client pin (`a5c7197`); not Docker Desktop   |
+| Either        | **Claude Code CLI**         | Hot standby / failover harness                    |
 
 **Typical multi-environment workflow (large work — mandatory path):**
 
