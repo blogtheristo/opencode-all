@@ -11,11 +11,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.9
+Version: 1.10
 
 Sessions & Modifications:
 
-- Version: 1.9 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [Latest] needrestart listed outdated user sessions (sshd #129/#130, admin100 and gdm systemd --user). Not Docker. Q8 recommend log out SSH. Do not restart docker/gdm.
+- Version: 1.10 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [Latest] How to log out SSH #129/#130: exit each window or loginctl terminate-session the other id; reconnect. Do not restart docker/gdm.
+- Version: 1.9 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [not latest] needrestart listed outdated user sessions (sshd #129/#130, admin100 and gdm systemd --user). Not Docker. Q8 recommend log out SSH. Do not restart docker/gdm.
 - Version: 1.8 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [not latest] Spark docker-ce apt **ran**. Observed **29.6.2** (`dfc4efb`, NVIDIA noble/arm64 candidate). Shared target remains **29.8.0**. Pin status stays `open-drift`. Q5 ANSWERED. Q6 cannot A. Q7 pending (recommend A: keep 29.8.0; do not add download.docker.com). `docker compose ps` still needs `.env`.
 - Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [not latest] HIC “environments must have same versions”. Truth Standard v5.3 row 41 + §2I. Pin file + `check-dev-env-pins.mjs`. Docker shared pin 29.8.0; Spark 29.2.1 open drift. Running aspire-dashboard 13.4.2 /health 200. Q6 pending.
 - Version: 1.6 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [not latest] HIC asked for DGX Docker bash upgrade. Admin v3.22 `apt-get install --only-upgrade docker-ce`. Not `docker update`. Q5 pending.
@@ -28,7 +29,8 @@ Sessions & Modifications:
 
 | Version      | Date       | Changes                                                         | Agent           |
 | ------------ | ---------- | --------------------------------------------------------------- | --------------- |
-| [Latest] 1.9 | 2026-09-18 | needrestart SSH sessions leftover; Q8 log out and reconnect     | Cursor Grok 4.6 |
+| [Latest] 1.10 | 2026-09-18 | SSH logout how-to for sessions #129/#130                        | Cursor Grok 4.6 |
+| 1.9           | 2026-09-18 | [not latest] needrestart SSH leftover; Q8 log out               | Cursor Grok 4.6 |
 | 1.8          | 2026-09-18 | [not latest] Spark apt 29.6.2 NVIDIA cap; Q7 keep 29.8.0 target | Cursor Grok 4.6 |
 | 1.7          | 2026-09-18 | [not latest] Truth §2I Environment Version Parity; pin check    | Cursor Grok 4.6 |
 | 1.6          | 2026-09-18 | [not latest] Spark docker-ce apt upgrade recipe                 | Cursor Grok 4.6 |
@@ -63,7 +65,7 @@ HIC: environments must have the same versions; encode in DWS Truth Standard and 
 
 ## Next steps
 
-1. Q8 A (recommend): log out SSH #129/#130 and reconnect. Do not restart docker or gdm.
+1. Q8 A (recommend): on Spark, `exit` every SSH to gn100-cb5d (or `loginctl terminate-session` the other id), then `ssh admin100@gn100-cb5d` from Win11. Do not restart docker or gdm.
 2. Q7 A (recommend): keep shared target **29.8.0**. Wait for NVIDIA. Do not add download.docker.com. Do not downgrade Win11 to 29.6.2. Do not re-run apt.
 3. After any further host Docker work: `docker ps`, not `docker compose ps`, unless `.env` is sourced.
 4. If `/mnt/f` is empty: install KB5129195.

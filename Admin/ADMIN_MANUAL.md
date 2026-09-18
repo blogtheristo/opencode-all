@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.26
+Version: 3.27
 
 Sessions & Modifications:
 
+- Version: 3.27 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: How to log out Spark SSH sessions **#129/#130** after needrestart: `exit` each SSH (or `loginctl terminate-session` the other id), reconnect. Do not restart docker/gdm. Do not `terminate-user gdm`.
 - Version: 3.26 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: needrestart **did** flag outdated **user sessions** after docker-ce apt: admin100 sshd #129/#130, admin100 systemd user manager, gdm systemd user manager. Not Docker containers. Log out SSH and reconnect. Do not restart docker/gdm for this. Earlier “no user sessions” line was incomplete.
 - Version: 3.25 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark docker-ce apt **ran**. `docker --version` **29.6.2** (`dfc4efb`). NVIDIA noble/arm64 candidate was 29.6.2, not Win11 **29.8.0**. Compose `ps` still needs `.env`. Do not add download.docker.com. Q7: keep 29.8.0 as target.
 - Version: 3.24 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark docker-ce apt recipe ends with `docker ps`, not `docker compose ps` (compose interpolates `POSTGRES_PASSWORD` without `.env`).
@@ -681,7 +682,45 @@ docker: 'docker update' requires at least 1 argument
 Usage:  docker update [OPTIONS] CONTAINER [CONTAINER...]
 ```
 
-**Shared target:** Docker **client 29.8.0** on Spark (same as Win11). **Observed after apt (18.09.2026):** **29.6.2** (`dfc4efb`, `docker-ce` `5:29.6.2-1~ubuntu.24.04~noble`). Compose plugin **v5.2.0**, containerd **2.2.5**, buildx **0.35.0**. `systemctl is-active docker` → `active`. `needrestart` reported **no containers** and (in the first scan) no services. A later/fuller scan listed **user sessions** still on old binaries: `admin100` sshd sessions **#129** (`sshd[1062639]`) and **#130** (`sshd[1063661]`); `admin100` user manager `systemd[2254]`; `gdm` user manager `systemd[3709]`. No qemu VM guests. This is SSH/desktop user-manager, **not** Docker. Log out those SSH sessions and reconnect. Do **not** `systemctl restart docker` and do **not** restart `gdm` for this. The earlier Admin line “no user sessions” was incomplete relative to this paste. `docker compose ps` failed interpolating `POSTGRES_PASSWORD` (and WARN on unset `CLOUDFLARE_TUNNEL_TOKEN`) — use `docker ps`, not compose, unless `.env` is loaded. Do **not** re-run apt. Do **not** add `https://download.docker.com` on GN100 (NVIDIA baseos already owns docker-ce).
+**Shared target:** Docker **client 29.8.0** on Spark (same as Win11). **Observed after apt (18.09.2026):** **29.6.2** (`dfc4efb`, `docker-ce` `5:29.6.2-1~ubuntu.24.04~noble`). Compose plugin **v5.2.0**, containerd **2.2.5**, buildx **0.35.0**. `systemctl is-active docker` → `active`. `needrestart` reported **no containers** and (in the first scan) no services. A later/fuller scan listed **user sessions** still on old binaries: `admin100` sshd sessions **#129** (`sshd[1062639]`) and **#130** (`sshd[1063661]`); `admin100` user manager `systemd[2254]`; `gdm` user manager `systemd[3709]`. No qemu VM guests. This is SSH/desktop user-manager, **not** Docker. Log out those SSH sessions and reconnect. Do **not** `systemctl restart docker` and do **not** restart `gdm` for this. The earlier Admin line “no user sessions” was incomplete relative to this paste.
+
+**How to log out SSH sessions #129 and #130 (do not restart docker or gdm).** `#129` / `#130` are `loginctl` session ids for the two `admin100` SSH logins that ran apt (`sshd[1062639]`, `sshd[1063661]`). They are not container ids. Closing those SSH terminals is enough. New SSH after that uses a new sshd with the upgraded libraries.
+
+On `gn100-cb5d` as `admin100`:
+
+```bash
+loginctl list-sessions
+echo "this session: ${XDG_SESSION_ID:-unset}"
+who
+```
+
+Simplest: type `exit` in **every** SSH window to this host (or close those windows), then from Win11 open one new SSH:
+
+```powershell
+ssh admin100@gn100-cb5d
+```
+
+If one session is leftover with no window, terminate the **other** id, not this one. Example if `echo $XDG_SESSION_ID` prints `130`:
+
+```bash
+loginctl terminate-session 129
+exit
+```
+
+Then reconnect. Verify old PIDs are gone:
+
+```bash
+echo "this session: $XDG_SESSION_ID"
+loginctl list-sessions
+ps -p 1062639,1063661 -o pid,cmd || true
+sudo systemctl is-active docker
+```
+
+`XDG_SESSION_ID` should no longer be 129 or 130. `ps` should print nothing for those PIDs. docker stays `active`.
+
+**Do not:** `sudo systemctl restart docker`; `sudo systemctl restart gdm`; `loginctl terminate-user gdm`; `loginctl terminate-user admin100` (drops every admin100 login, including a local console); `sudo reboot` for this; `sudo kill` those sshd PIDs unless `terminate-session` failed. `systemctl restart ssh` does **not** replace already-running session sshd processes.
+
+`docker compose ps` failed interpolating `POSTGRES_PASSWORD` (and WARN on unset `CLOUDFLARE_TUNNEL_TOKEN`) — use `docker ps`, not compose, unless `.env` is loaded. Do **not** re-run apt. Do **not** add `https://download.docker.com` on GN100 (NVIDIA baseos already owns docker-ce).
 
 **Before apt (historical):** 29.2.1 (`a5c7197`). `docker --version` is the CLI string.
 
