@@ -26,7 +26,7 @@ describe('sales-outreach TED queue mapper', () => {
     expect(item.country).toBe('FI');
     expect(item.cpv).toBe('45000000');
     expect(item.noDemoEnv).toBe(true);
-    expect(item.tedUrl).toContain('2026/S 038-123456');
+    expect(item.tedUrl).toContain('2026%2FS%20038-123456');
   });
 
   it('falls back to TED buyer when the notice has no contracting authority', () => {
