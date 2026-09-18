@@ -82,13 +82,12 @@ describe('SalesOutreachAgent input compatibility', () => {
     const response = await agent.execute(CONTEXT, {
       targetDescription: 'EU leads from all 25 industries for sales-outreach TED auto-import',
       offering: 'dws-iq6',
-      maxCompanies: 10,
     });
     const result = response.result as Record<string, unknown>;
     const companies = result.companies as Array<Record<string, unknown>>;
-    expect(companies).toHaveLength(10);
+    expect(companies).toHaveLength(25);
     const industries = companies.map((c) => c.industry as string);
-    expect(new Set(industries).size).toBe(10);
+    expect(new Set(industries).size).toBe(25);
     expect(industries[0]).toBe('Power & Heat Generation');
   });
 });

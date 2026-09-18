@@ -4,11 +4,17 @@
 
 ***
 
+Version: 1.3
+Tool: Cursor (Grok 4.6)
+Agent: Cursor Agent
+Date: 2026-09-18
+Changes: Copilot review: mapped compliance default; all-industry seed cap 25; TED notice links; seed-queue kept; CPV 45 row marked historical.
+
 Version: 1.2
 Tool: Cursor (Grok 4.6)
 Agent: Cursor Agent
 Date: 2026-09-18
-Changes: Machine API for sales-outreach TED without Google/Grok login: GET /api/v1/construction-leads/ted-live (X-Admin-Key) and npm run ted:sales-queue (public TED). Mission Control requireHicAuth stays.
+Changes: [not latest] Machine API for sales-outreach TED without Google/Grok login: GET /api/v1/construction-leads/ted-live (X-Admin-Key) and npm run ted:sales-queue (public TED). Mission Control requireHicAuth stays.
 
 Version: 1.1
 Tool: Cursor (Grok 4.6)
@@ -98,7 +104,7 @@ Grok’s “best official source = TED, CPV 45” is the production construction
 | Grok advice (captured)           | DWS implementation                                                                                                                                |
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | TED at ted.europa.eu             | `src/construction-leads/ted-api.ts` (`TED_API_BASE` v3.0 notices search); `scripts/fetch_tenders.py`; daily `scripts/daily/construction-leads.sh` |
-| CPV division 45                  | `DEFAULT_QUERY_CONFIG.cpvCodes = ['45000000']` in `ted-api.ts`                                                                                    |
+| CPV division 45 (Grok brief)     | Historical. Current `DEFAULT_QUERY_CONFIG.cpvCodes` is `TED_SEARCH_CPV_CODES` (all 25 industries). Construction 45 remains one parent among them. |
 | Building construction `45210000` | Priority prefixes `45210`, `45211`, `45213` in `lead-processor.ts`                                                                                |
 | Roads / pipelines `45230000`     | Priority prefix `45230`                                                                                                                           |
 | Installations `45300000`         | Priority prefixes `45310`, `45320`, `45330`                                                                                                       |
@@ -150,4 +156,8 @@ curl -sS -H "X-Admin-Key: $ADMIN_API_KEY" \
 
 ## Footer
 
-Version 1.2 · 2026-09-18 · © Lifetime Oy · Business Confidential · Internal
+***
+
+**Document version:** v1.3 · **Date:** 18.09.2026 · **Owner:** Lifetime Oy
+© 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
+**Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.

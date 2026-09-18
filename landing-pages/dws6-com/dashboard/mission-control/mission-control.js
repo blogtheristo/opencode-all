@@ -187,7 +187,7 @@ export async function fetchTedLeads(supabase) {
 export async function buildQueue(supabase) {
   const live = await fetchLiveThreads(supabase);
   const ted = await fetchTedLeads(supabase);
-  const seed = live.length || ted.length ? [] : await loadSeedQueue();
+  const seed = live.length ? [] : await loadSeedQueue();
   const manual = getManualItems();
   const liveAsItems = getLiveInputs()
     .filter((x) => x.centre && x.text)
@@ -211,6 +211,18 @@ export async function buildQueue(supabase) {
       return { ...item, ...ov };
     })
     .sort((a, b) => (a.priority || 9) - (b.priority || 9));
+}
+
+/** Only https://ted.europa.eu links — never other hosts. */
+export function safeTedHref(url) {
+  try {
+    const parsed = new URL(String(url || ''));
+    if (parsed.protocol !== 'https:') return '';
+    if (parsed.hostname !== 'ted.europa.eu' && parsed.hostname !== 'www.ted.europa.eu') return '';
+    return parsed.href;
+  } catch {
+    return '';
+  }
 }
 
 export function itemsForCentre(queue, centreId) {
@@ -252,6 +264,7 @@ MISSION
   Item: ${item.title} (${item.id})
   Status: ${item.status}
   Next action: ${item.nextAction}
+${safeTedHref(item.tedUrl) ? `  TED notice: ${safeTedHref(item.tedUrl)}` : ''}
   Demo env: ${item.noDemoEnv ? 'NONE — provision or schedule demo before close' : 'n/a'}
 ${liveNote ? `\nLIVE GROK/X NOTE (today):\n${liveNote}\n` : ''}
 RULES
@@ -288,6 +301,7 @@ title: ${JSON.stringify(item.title)}
 repo_path: ${JSON.stringify(item.repoPath || centre.repo || '')}
 noux: ${JSON.stringify(item.nouxRoom || centre.noux || '')}
 next_action: ${JSON.stringify(item.nextAction || '')}
+ted_url: ${JSON.stringify(safeTedHref(item.tedUrl) || '')}
 reason: "EU/PII hard gate — raw threads must stay on OpenCode local/EU"
 hic_approved: true
 note: "HIC clicked Open in OpenCode in Mission Control. Do not commit raw PII."

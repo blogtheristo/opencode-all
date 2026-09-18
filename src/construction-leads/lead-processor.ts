@@ -274,6 +274,12 @@ export async function storeLeads(leads: ConstructionLead[]): Promise<number> {
  * Create outreach_orgs entries for high-value buyers (relevance >= 60).
  * Only creates orgs that don't already exist (by buyer name match).
  */
+export function buyerOrgIndustry(lead: ConstructionLead): string {
+  const name = lead.raw_data?.industryName;
+  if (typeof name === 'string' && name.trim()) return name.trim();
+  return 'Construction / Public Sector';
+}
+
 export async function createBuyerOrgs(leads: ConstructionLead[]): Promise<number> {
   const highValue = leads.filter(
     (l): l is ConstructionLead & { buyer_name: string } =>
@@ -318,7 +324,7 @@ export async function createBuyerOrgs(leads: ConstructionLead[]): Promise<number
           description: `Public contracting authority. Source: TED (${lead.ted_notice_id}). ${lead.country_name || lead.country_code || 'EU'}.`,
           location:
             [lead.place_of_performance, lead.country_name].filter(Boolean).join(', ') || null,
-          industry: 'Construction / Public Sector',
+          industry: buyerOrgIndustry(lead),
           website: lead.buyer_url || null,
           prospect_status: 'target_needs_contact',
           source: 'cold',
@@ -423,7 +429,7 @@ export async function fetchAndProcessLeads(config: TedQueryConfig = DEFAULT_QUER
     logger.info('Construction leads: compliance filter dropped notices', {
       before: notices.length,
       after: filtered.length,
-      mode: process.env.TED_COMPLIANCE_FILTER || 'strict',
+      mode: process.env.TED_COMPLIANCE_FILTER || 'mapped',
     });
   }
 

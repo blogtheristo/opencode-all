@@ -4,11 +4,17 @@
 
 ***
 
+Version: 1.3
+Tool: Cursor (Grok 4.6)
+Agent: Cursor Agent
+Date: 2026-09-18
+Changes: Copilot review fixes — mapped compliance default, 25-industry seed cap, TED notice links. RLS tightening not applied (RED migration).
+
 Version: 1.2
 Tool: Cursor (Grok 4.6)
 Agent: Cursor Agent
 Date: 2026-09-18
-Changes: Machine API GET /api/v1/construction-leads/ted-live (X-Admin-Key) and npm run ted:sales-queue (public TED, no Google/Grok). requireHicAuth on MC dashboard stays.
+Changes: [not latest] Machine API GET /api/v1/construction-leads/ted-live (X-Admin-Key) and npm run ted:sales-queue (public TED, no Google/Grok). requireHicAuth on MC dashboard stays.
 
 Version: 1.1
 Tool: Cursor (Grok 4.6)
@@ -63,7 +69,7 @@ Sales-outreach / EU construction TED. Follows Mission Control field note (PR #20
 
 ## The Insight
 
-HIC handed sales-outreach a **Grok lead-source brief**, not a Mission Control daily and not a list of named buyers. The product already runs TED CPV 45 daily; the gap is **thread capture** (private grok.com) and **whether MC should ingest Grok at all** (still paste-only). Completing the pack needs HIC export from the xAI session, not another unauthenticated scrape.
+HIC handed sales-outreach a **Grok lead-source brief**, not a Mission Control daily and not a list of named buyers. Daily TED used to be CPV 45 only; it now searches parent CPV codes for all 25 industries. Remaining gaps: **thread capture** (private grok.com) and **whether MC should ingest Grok at all** (still paste-only). Completing the pack needs HIC export from the xAI session, not another unauthenticated scrape.
 
 ## Next Steps
 
@@ -76,3 +82,9 @@ HIC handed sales-outreach a **Grok lead-source brief**, not a Mission Control da
 - KB compile / Learn HTML / Drive export: N/A this turn — capture is the pack + this note; `scripts/render-doc.sh` needs DGX pandoc.
 - Calendar: no new dated commitment.
 - Status: `PENDING_REVIEW` (OpenCode/async HIC batch).
+
+***
+
+**Document version:** v1.3 · **Date:** 18.09.2026 · **Owner:** Lifetime Oy
+© 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
+**Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.

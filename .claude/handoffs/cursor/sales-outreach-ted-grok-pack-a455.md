@@ -12,11 +12,17 @@
 
 ***
 
+Version: 1.3
+Tool: Cursor (Grok 4.6)
+Agent: Cursor Agent
+Date: 2026-09-18
+Changes: Copilot review: mapped filter, 25 seeds, TED links, keep seed-queue. No RLS migration.
+
 Version: 1.2
 Tool: Cursor (Grok 4.6)
 Agent: Cursor Agent
 Date: 2026-09-18
-Changes: Admin-key TED live sales-queue API + ted:sales-queue CLI. requireHicAuth stays.
+Changes: [not latest] Admin-key TED live sales-queue API + ted:sales-queue CLI. requireHicAuth stays.
 
 Version: 1.1
 Tool: Cursor (Grok 4.6)
@@ -52,3 +58,9 @@ HIC: import automatically; sales-outreach holds leads from all industries. Grok 
 ## Notes for next session
 
 TED API is anonymous — that is the “bypass Google/Grok login” path for sales-outreach JSON. `requireHicAuth` on Mission Control stays. Endpoints: GET /api/v1/construction-leads/ted-live and GET /sales-queue.
+
+***
+
+**Document version:** v1.3 · **Date:** 18.09.2026 · **Owner:** Lifetime Oy
+© 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
+**Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.

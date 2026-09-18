@@ -341,7 +341,8 @@
         addManualItem,
         setOverlay,
         getLiveInputs,
-      } from "./mission-control.js?v=20260918-ted-all-industries";
+        safeTedHref,
+      } from "./mission-control.js?v=20260918-ted-url";
 
       let lastDownloadName = "mission-control-grok-overflow.md";
       let lastDownloadBody = "";
@@ -393,6 +394,7 @@
               </h3>
               <div class="meta">${escapeHtml(item.status)} · ${escapeHtml(item.id)} · ${escapeHtml(item.source || "")}</div>
               <div class="meta">${escapeHtml(item.nextAction || "")}</div>
+              ${safeTedHref(item.tedUrl) ? `<div class="meta"><a href="${escapeAttr(safeTedHref(item.tedUrl))}" target="_blank" rel="noopener noreferrer">TED notice</a></div>` : ""}
               <div class="row">
                 <button type="button" class="btn btn-primary" data-grok="${escapeAttr(item.id)}">Hand to Grok</button>
                 <button type="button" class="btn" data-opencode="${escapeAttr(item.id)}">Open in OpenCode</button>

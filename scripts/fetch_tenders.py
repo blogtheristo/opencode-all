@@ -185,14 +185,16 @@ class TEDClient:
         """
         logger.info("Using TED fallback search (RSS/export)...")
 
-        # TED legacy search URL
         base_url = "https://ted.europa.eu/api/v2.0/notices/search"
 
-        cpv_short = cpv_codes[0][:2]  # Use top-level "45" prefix
+        prefixes = sorted({code[:2] for code in cpv_codes if len(code) >= 2})
+        if not prefixes:
+            return {"notices": [], "total": 0}
+        cpv_query = " OR ".join(f"cpv:{prefix}*" for prefix in prefixes)
         country_list = ",".join(countries)
 
         params = {
-            "q": f"cpv:{cpv_short}* AND country:{country_list}",
+            "q": f"({cpv_query}) AND country:{country_list}",
             "reverseOrder": "true",
             "sortField": "PUBLICATION_DATE",
             "scope": 3,

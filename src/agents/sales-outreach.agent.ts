@@ -17,7 +17,7 @@
  *   senderName:        Sales rep name
  *   senderCompany:     "Lifetime Oy" or "DWS"
  *   emailStyle:        "professional" | "cold" | "consultative"
- *   maxCompanies:      Number of companies to target (1-10)
+ *   maxCompanies:      Number of companies to target (1-25; all-industry defaults to 25)
  * }
  *
  * Output: List of target companies with contacts, research insights, and draft emails
@@ -451,11 +451,15 @@ export class SalesOutreachAgent extends BaseAgent {
     const style = styles.includes(input.emailStyle as string)
       ? (input.emailStyle as 'professional' | 'cold' | 'consultative')
       : 'professional';
+    const allIndustries = wantsAllIndustries(targetDescription);
     const rawMaxCompanies =
       typeof input.maxCompanies === 'number' && Number.isFinite(input.maxCompanies)
         ? input.maxCompanies
-        : 5;
-    const maxCompanies = Math.max(1, Math.min(10, Math.round(rawMaxCompanies)));
+        : allIndustries
+          ? 25
+          : 5;
+    const cap = allIndustries ? 25 : 10;
+    const maxCompanies = Math.max(1, Math.min(cap, Math.round(rawMaxCompanies)));
     const senderName =
       (typeof input.senderName === 'string' ? input.senderName.trim() : '') || 'DWS Sales Team';
     const senderCompany =

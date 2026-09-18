@@ -22,6 +22,7 @@ export {
   getUpcomingDeadlines,
   storeLeads,
   createBuyerOrgs,
+  buyerOrgIndustry,
   calculateRelevance,
   noticeToLead,
   tedEnrichLead,

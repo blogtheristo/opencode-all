@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { buyerOrgIndustry, noticeToLead } from '../construction-leads/lead-processor.js';
 import {
   noticeToSalesOutreachItem,
   storedRowToSalesOutreachItem,
@@ -7,7 +8,7 @@ import {
 import type { TedNotice } from '../construction-leads/types.js';
 
 describe('sales-outreach TED queue mapper', () => {
-  it('builds a Mission Control Sales item from a TED notice', () => {
+  it('maps a TED notice into an MC Sales item', () => {
     const notice: TedNotice = {
       ND: '2026/S 038-123456',
       PD: '20260917',
@@ -56,5 +57,18 @@ describe('sales-outreach TED queue mapper', () => {
     expect(item.id).toBe('ted:uuid-1');
     expect(item.title).toBe('Helen Oy · Energy');
     expect(item.nextAction).toBe('Framework for district heating');
+  });
+
+  it('sets outreach_orgs industry from mapped CPV, not construction-only', () => {
+    const lead = noticeToLead({
+      ND: 'n-health',
+      PD: '20260911',
+      TI: 'Hospital MRI framework',
+      AA: 'HUS',
+      CY: 'FI',
+      CPV: '33100000',
+    });
+    expect(buyerOrgIndustry(lead)).toBe('Healthcare');
+    expect(buyerOrgIndustry({ ...lead, raw_data: {} })).toBe('Construction / Public Sector');
   });
 });
