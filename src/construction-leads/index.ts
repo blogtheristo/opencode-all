@@ -44,8 +44,10 @@ export {
 export {
   searchConstructionTenders,
   buildExpertQuery,
+  buildV3SearchQuery,
   buildNoticeUrl,
   DEFAULT_QUERY_CONFIG,
+  v3NoticeToTedNotice,
 } from './ted-api.js';
 export {
   listLiveTedSalesQueue,

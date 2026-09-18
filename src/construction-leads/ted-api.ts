@@ -13,7 +13,7 @@
 
 import { TED_SEARCH_CPV_CODES } from '../agents/data/industry-cpv.js';
 import logger from '../utils/logger.js';
-import type { TedNotice, TedQueryConfig, TedSearchResponse } from './types.js';
+import type { TedNotice, TedQueryConfig } from './types.js';
 
 // ============================================================================
 // DEFAULTS
@@ -38,9 +38,51 @@ export const DEFAULT_QUERY_CONFIG: TedQueryConfig = {
   worksOnly: false,
 };
 
-/** TED API base URLs */
-const TED_API_BASE = 'https://ted.europa.eu/api/v3.0/notices/search';
+/** TED Search API v3 — POST, anonymous. GET ted.europa.eu/api/v3.0 is gone (404). */
+const TED_API_BASE = 'https://api.ted.europa.eu/v3/notices/search';
 const TED_NOTICE_URL_BASE = 'https://ted.europa.eu/en/notice/-/detail';
+
+const TED_V3_FIELDS = [
+  'publication-number',
+  'notice-title',
+  'buyer-name',
+  'buyer-country',
+  'notice-type',
+  'classification-cpv',
+  'estimated-value-proc',
+  'place-of-performance',
+  'publication-date',
+  'deadline',
+] as const;
+
+/** ISO 3166-1 alpha-2 → TED buyer-country (alpha-3). */
+const ISO2_TO_ISO3: Record<string, string> = {
+  FI: 'FIN',
+  SE: 'SWE',
+  NO: 'NOR',
+  DK: 'DNK',
+  DE: 'DEU',
+  AT: 'AUT',
+  EE: 'EST',
+  LV: 'LVA',
+  LT: 'LTU',
+  FR: 'FRA',
+  NL: 'NLD',
+  BE: 'BEL',
+  PL: 'POL',
+  CZ: 'CZE',
+  IT: 'ITA',
+  ES: 'ESP',
+  PT: 'PRT',
+  IE: 'IRL',
+  UK: 'GBR',
+  GB: 'GBR',
+  CH: 'CHE',
+};
+
+const ISO3_TO_ISO2: Record<string, string> = Object.fromEntries(
+  Object.entries(ISO2_TO_ISO3).map(([iso2, iso3]) => [iso3, iso2]),
+);
 
 // ============================================================================
 // QUERY BUILDER
@@ -80,20 +122,107 @@ export function buildExpertQuery(config: TedQueryConfig): string {
   return parts.join(' AND ');
 }
 
+export function toTedIso3Country(code: string): string {
+  const upper = code.trim().toUpperCase();
+  if (upper.length === 3) return upper;
+  return ISO2_TO_ISO3[upper] || upper;
+}
+
+export function fromTedIso3Country(code: string | undefined): string | undefined {
+  if (!code) return undefined;
+  const upper = code.trim().toUpperCase();
+  return ISO3_TO_ISO2[upper] || (upper.length === 2 ? upper : undefined) || upper.slice(0, 2);
+}
+
+/**
+ * TED Search API v3 expert query (POST body `query`).
+ * `classification-cpv IN (…)` + `buyer-country IN (ISO3…)` + `publication-date>=YYYYMMDD`.
+ */
+export function buildV3SearchQuery(config: TedQueryConfig): string {
+  const parts: string[] = [];
+
+  if (config.cpvCodes.length > 0) {
+    parts.push(`classification-cpv IN (${config.cpvCodes.join(', ')})`);
+  }
+
+  if (config.countryCodes.length > 0) {
+    const iso3 = config.countryCodes.map(toTedIso3Country);
+    parts.push(`buyer-country IN (${iso3.join(', ')})`);
+  }
+
+  const fromDate = new Date(Date.now() - config.lookbackDays * 86_400_000);
+  const fromStr = fromDate.toISOString().split('T')[0].replace(/-/g, '');
+  parts.push(`publication-date>=${fromStr}`);
+
+  return parts.join(' AND ');
+}
+
+function pickText(value: unknown): string | undefined {
+  if (typeof value === 'string' && value.trim()) return value.trim();
+  if (typeof value === 'number' && Number.isFinite(value)) return String(value);
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const hit = pickText(item);
+      if (hit) return hit;
+    }
+    return undefined;
+  }
+  if (value && typeof value === 'object') {
+    const rec = value as Record<string, unknown>;
+    for (const lang of ['eng', 'en', 'fin', 'swe', 'deu', 'nld', 'fra']) {
+      const hit = pickText(rec[lang]);
+      if (hit) return hit;
+    }
+    for (const nested of Object.values(rec)) {
+      const hit = pickText(nested);
+      if (hit) return hit;
+    }
+  }
+  return undefined;
+}
+
+export function v3NoticeToTedNotice(raw: Record<string, unknown>): TedNotice {
+  const publicationNumber = pickText(raw['publication-number']) || '';
+  const countryIso3 = pickText(raw['buyer-country']);
+  const cpv = pickText(raw['classification-cpv']);
+  const title = pickText(raw['notice-title']);
+  const buyer = pickText(raw['buyer-name']);
+  return {
+    ND: publicationNumber,
+    documentNumber: publicationNumber || undefined,
+    PD: pickText(raw['publication-date']) || '',
+    TI: title,
+    CY: fromTedIso3Country(countryIso3),
+    countryName: countryIso3,
+    TW: pickText(raw['place-of-performance']),
+    AA: buyer,
+    CPV: cpv,
+    TD: pickText(raw['notice-type']),
+    DT: pickText(raw['deadline']),
+    TV: pickText(raw['estimated-value-proc']),
+    TED_NOTICE_URL: publicationNumber ? buildNoticeUrl(publicationNumber) : undefined,
+  };
+}
+
 // ============================================================================
 // API CLIENT
 // ============================================================================
 
+interface TedV3SearchResponse {
+  notices?: Record<string, unknown>[];
+  results?: Record<string, unknown>[];
+  totalNoticeCount?: number;
+  total?: number;
+}
+
 /**
- * Search TED for construction tenders.
- *
- * Uses the v3.0 search endpoint which supports both eForms and TED schema notices.
- * Anonymous access — no authentication required.
+ * Search TED via POST https://api.ted.europa.eu/v3/notices/search.
+ * Anonymous — no Google, Grok, or TED API key.
  */
 export async function searchConstructionTenders(
   config: TedQueryConfig = DEFAULT_QUERY_CONFIG,
 ): Promise<TedNotice[]> {
-  const query = buildExpertQuery(config);
+  const query = buildV3SearchQuery(config);
 
   logger.info('TED API: searching construction tenders', {
     query,
@@ -106,21 +235,20 @@ export async function searchConstructionTenders(
 
   try {
     while (allNotices.length < config.maxResults) {
-      const params = new URLSearchParams({
-        q: query,
-        page: String(page),
-        limit: String(pageSize),
-        scope: '3', // All notices (last 10 years)
-        fields: 'ND,PD,TI,CY,TW,AA,CPV,NC,PR,TD,DT,TV,TVL,NUTS',
-      });
-
-      const url = `${TED_API_BASE}?${params.toString()}`;
-
-      const response = await fetch(url, {
+      const response = await fetch(TED_API_BASE, {
+        method: 'POST',
         headers: {
           Accept: 'application/json',
+          'Content-Type': 'application/json',
           'User-Agent': 'DWS-IQ6-TedLeads/1.1',
         },
+        body: JSON.stringify({
+          query,
+          fields: [...TED_V3_FIELDS],
+          limit: pageSize,
+          scope: 'ALL',
+          page,
+        }),
         signal: AbortSignal.timeout(30_000),
       });
 
@@ -133,43 +261,41 @@ export async function searchConstructionTenders(
           page,
         });
 
-        // If first page fails, throw. If subsequent pages fail, return what we have.
         if (page === 1) {
           throw new Error(`TED API returned ${response.status}: ${errorText.slice(0, 200)}`);
         }
         break;
       }
 
-      const data = (await response.json()) as TedSearchResponse;
+      const data = (await response.json()) as TedV3SearchResponse;
+      const rows = data.notices ?? data.results ?? [];
 
-      if (!data.results || data.results.length === 0) {
+      if (rows.length === 0) {
         break;
       }
 
-      allNotices.push(...data.results);
+      const mapped = rows.map(v3NoticeToTedNotice);
+      allNotices.push(...mapped);
 
+      const totalAvailable = data.totalNoticeCount ?? data.total ?? 0;
       logger.info('TED API: page fetched', {
         page,
-        resultsOnPage: data.results.length,
+        resultsOnPage: rows.length,
         totalAccumulated: allNotices.length,
-        totalAvailable: data.total,
+        totalAvailable,
       });
 
-      // No more pages
-      if (allNotices.length >= (data.total || 0) || data.results.length < pageSize) {
+      if (allNotices.length >= totalAvailable || rows.length < pageSize) {
         break;
       }
 
       page++;
-
-      // Rate limiting: 500ms between requests to be respectful
       await new Promise((resolve) => setTimeout(resolve, 500));
     }
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     logger.error('TED API search failed', { error: msg, query });
 
-    // Return whatever we collected so far
     if (allNotices.length === 0) {
       throw err;
     }
