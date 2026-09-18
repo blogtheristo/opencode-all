@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.21
+Version: 3.22
 
 Sessions & Modifications:
 
+- Version: 3.22 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark Docker **Engine upgrade recipe** (`apt-get install --only-upgrade docker-ce…`). Not `docker update`. Not Win11 29.8.0. Daemon restart expected. This Cloud agent cannot SSH.
 - Version: 3.21 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **Docker client 29.8.0** (`88096ef`) from HIC PowerShell `docker --version` on `F:\2026\Repos2026\dws6`. Split from Spark **29.2.1**. Client on PATH is not a Docker MCP restore (retired 26.03.2026). Product (Desktop vs CE) not in this paste.
 - Version: 3.20 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: HIC “update Spark dashboard image at 13.4.2”. Compose `image:` is already `mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2` (main and this branch). Added Spark pull recipe. This Cloud agent cannot SSH to `gn100-cb5d`. Did **not** bump to 13.5.4.
 - Version: 3.19 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark **Docker Engine client 29.2.1** (`a5c7197`) from HIC SSH `admin100@gn100-cb5d` `docker --version`. Bare `docker update` is not an Engine upgrade (it needs a container). Does not restore Docker Desktop / Docker MCP. Does not bump compose images. Aspire yaml comment already aligned to dashboard **13.4.2** (v3.18 “comment still says 13.4.6” is stale).
@@ -673,7 +674,26 @@ Usage:  docker update [OPTIONS] CONTAINER [CONTAINER...]
 
 **Pin:** Docker **client** **29.2.1** (`a5c7197`) on Spark. Matches docker/cli 29.2.1 / moby `docker-v29.2.1` (02.02.2026). `docker --version` is the CLI string; this paste does not include `docker version` (server/Engine git on that release is `6bc6209`).
 
-**`docker update` is not an Engine upgrade.** It changes resource limits on a _running named container_. Bare `docker update` is expected to fail. To refresh the **Aspire dashboard image to 13.4.2**, use the _Update running image_ recipe under Aspire Dashboard above (`docker compose pull aspire-dashboard`). To refresh **all** compose images: `docker compose pull` then `up -d` (push to `main` already does this via `deploy-dgx-spark.yml`). To upgrade the **Engine package**: Ubuntu `apt` for `docker-ce` — a host change; do not run it from Cursor Cloud.
+**`docker update` is not an Engine upgrade.** It changes resource limits on a _running named container_. Bare `docker update` is expected to fail. To refresh the **Aspire dashboard image to 13.4.2**, use the _Update running image_ recipe under Aspire Dashboard above (`docker compose pull aspire-dashboard`). To refresh **all** compose images: `docker compose pull` then `up -d` (push to `main` already does this via `deploy-dgx-spark.yml`).
+
+**Upgrade Engine on Spark (HIC asked, 18.09.2026).** GN100 installed Docker via `get.docker.com` (docker-ce apt). Current pin **29.2.1**. This restarts `dockerd`; compose services with `restart: unless-stopped` should return. Cursor Cloud cannot SSH. On `gn100-cb5d` as `admin100`:
+
+```bash
+docker --version
+dpkg -l docker-ce docker-ce-cli docker-compose-plugin 2>/dev/null | awk 'NR==1 || /^ii/'
+sudo apt-get update
+apt-cache policy docker-ce | sed -n '1,12p'
+sudo apt-get install --only-upgrade -y \
+  docker-ce docker-ce-cli containerd.io \
+  docker-buildx-plugin docker-compose-plugin
+sudo systemctl is-active docker
+docker --version
+docker compose version
+cd /home/admin100/dws6/infrastructure/dgx-spark
+docker compose ps
+```
+
+If `dpkg` shows `docker.io` instead of `docker-ce`, stop and paste that output — do not mix Ubuntu universe Docker with Docker CE. Do **not** re-run `curl https://get.docker.com | sh`. Do not pull `:latest` compose images as part of this. After success, paste the new `docker --version` so Admin can replace the 29.2.1 pin.
 
 **Do not:** treat this paste as a compose image bump; restore Docker Desktop / Docker MCP on Win11 (retired 26.03.2026); install Docker on Cursor Cloud; run `docker update` on live DWS containers without a named resource change.
 
