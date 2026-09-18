@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.16
+Version: 3.17
 
 Sessions & Modifications:
 
+- Version: 3.17 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **WSL 2** recorded as updated (HIC). Pin Microsoft stable **2.7.14** (github.com/microsoft/WSL, 11.09.2026). Operator: `wsl --update` then `wsl --version`. Plan9 share break after KB5124008 is fixed by KB5129195. Does not restore Docker Desktop / Docker MCP (retired 26.03.2026). WSL is not DGX Ollama.
 - Version: 3.16 | Tool: Cursor Agent | Session: docs/admin-dev-env-opencode-policy | Date: 17.09.2026 | Changes: **Two dev environments — Win11 and DGX Spark** (Win11: Cursor + VS Code IDEs; DGX: Cursor CLI + GitHub Copilot CLI; shared session layer; git sync rules). **Large work policy** — plan first, execute via OpenCode agents on DGX (worktree + batch queue). **Model economics** — route translations and bulk i18n through OpenCode FREE models or local Ollama to save paid API tokens. Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2, `WORKTREE_POLICY.md`, `opencode-all/ADMIN_MANUAL.md`, `docs/handovers/HIC_MORNING_ROUTINE.md`.
 - Version: 3.15 | Tool: Claude Code (Haiku 4.5) | Session: claude/system-refactor-comprehensive-2026-09-07 | Date: 07.09.2026 | Changes: Comprehensive system files refactor — extracted CLAUDE.md specs to `docs/system-config/` (DISCIPLINE.md, STANDARDS_ROUTING.md, SYSTEM_FILES_INDEX.md) with DWS_DOCUMENT_STANDARD versioning; documented multi-tool ecosystem (OpenCode primary + Claude Code standby); identified and documented 3 sync gaps (dws-agents-local intentional disable, permission syntax mismatch, missing bash denies); permitted OpenCode `.env` read on DGX (commit `ff408fa13`) with asymmetric permissions per tool role; archived prior CLAUDE.md v1.0 to field-notes. Cross-refs: `CLAUDE.md` v1.1, `docs/system-config/SYSTEM_FILES_INDEX.md`, `docs/field-notes/CLAUDE.md.archive-2026-09-07.md`, `docs/field-notes/2026-09-07-claude-md-sharpening.md`, permission audit `3758d6a8d`.
 
@@ -58,7 +59,7 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 06.07.2026
+- Last Modified: 18.09.2026
 - Version: 4.0
 - Language: English
 - Languages Available: English
@@ -173,6 +174,7 @@ If `gbrain doctor` reports resolver or trigger issues in DWS6, normalize the aff
 3. [Google Cloud Run CI Identity Runbook (gcr-skill)](#google-cloud-run-ci-identity-runbook-gcr-skill)
 4. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
    - [Two dev environments — Win11 and DGX Spark](#two-dev-environments--win11-and-dgx-spark) ⭐ **NEW in v3.16**
+   - [Win11 WSL](#win11-wsl-operator) ⭐ **NEW in v3.17**
    - [Large work — plan first, OpenCode execution](#large-work--plan-first-opencode-execution) ⭐ **NEW in v3.16**
 5. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
 6. [DGX Spark Cron Failover Wrap](#dgx-spark-cron-failover-wrap) ⭐ **NEW**
@@ -411,6 +413,7 @@ Lifetime Oy maintains **two independent git checkouts** of `dws6` and **one shar
 | ---- | ----- |
 | **Typical path** | `F:\2026\Repos2026\dws6` (machine-specific) |
 | **IDEs (two)** | **Cursor** and **Visual Studio Code** — separate GUIs, same repo clone |
+| **Linux layer** | **WSL 2** — HIC updated 18.09.2026. Microsoft stable pin **2.7.14** (see *Win11 WSL*) |
 | **Role** | Plan authoring, PR review, small edits, HIC approval gates |
 | **Agent compute** | **Not** for large implementation — convert to a plan and queue **OpenCode agents on DGX** (see *Large work* below) |
 
@@ -438,6 +441,31 @@ All harnesses read/write the same session stores before assuming what another se
 **Git sync (operator):** Before `git reset --hard` or `git pull` on DGX, run `git log origin/main..main --oneline`. If commits list, branch and push first — DGX sessions produce real commits. Never `git pull origin main` when `main` has diverged; use `git fetch`, inspect, rescue to a feature branch. Push to `main` triggers `deploy-dgx-spark.yml`, which runs `git reset --hard origin/main` on `/home/admin100/dws6`.
 
 Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2, `docs/field-notes/2026-08-14-dws-multi-model-workflow-architecture.md`.
+
+### Win11 WSL (operator)
+
+**Status (HIC, 18.09.2026):** WSL updated on the Win11 workstation. This supersedes `docs/field-notes/2026-03-26-post-incident-cli-first-migration.md` (“WSL — confirmed not installed”).
+
+**Pin:** Microsoft WSL **2.7.14** is the current *stable* release as of 18.09.2026 ([microsoft/WSL 2.7.14](https://github.com/microsoft/WSL/releases/tag/2.7.14), published 11.09.2026). This Cloud agent cannot run `wsl --version` on Win11 — confirm on the box. Do **not** pin a 2.9.x pre-release.
+
+**PowerShell (primary on Windows 11):**
+
+```powershell
+wsl --update
+wsl --shutdown
+wsl --version
+wsl --status
+```
+
+**Operator rules:**
+
+1. WSL is the Win11 Linux layer for bash scripts that need Linux. It is **not** DGX Spark and **not** a place to `ollama pull` undeployed models. Large work still queues to OpenCode on DGX.
+2. The git clone stays on NTFS (`F:\2026\Repos2026\dws6`). Do not move the clone into `\\wsl.localhost` without a HIC decision.
+3. Do **not** reinstall Docker Desktop or Docker MCP. Those were retired 26.03.2026. A WSL update is not a Docker MCP restore.
+4. Windows 11 **KB5124008** (8.09.2026) can leave Plan9 host-folder shares unmounted (`/mnt/f` empty; “no Plan9 drive shares were mounted”). Microsoft fixed this in out-of-band **KB5129195** (14.09.2026). If `/mnt/f` is missing after the WSL update, install KB5129195 via Windows Update, then `wsl --shutdown`.
+5. After `wsl --update`, restart the distro (`wsl --shutdown`) before assuming PATH, mounts, or `gh` still work.
+
+Field note: `docs/field-notes/2026-09-18-win11-wsl-updated.md`.
 
 ---
 

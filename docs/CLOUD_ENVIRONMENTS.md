@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.5
+Version: 2.6
 
 Sessions & Modifications:
 
+- Version: 2.6 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: §3.2.2 Win11 checkout now names **WSL 2** (HIC updated 18.09.2026; Microsoft stable pin 2.7.14). WSL is not DGX Spark. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.17 *Win11 WSL*.
 - Version: 2.5 | Tool: Claude Code (Opus 4.8) | Session: claude/gsutil-deprecation-migration-69l85d | Date: 22.07.2026 | Changes: Added Section 2.4.1 recording the July 2026 orphaned-project cleanup under `risto.paarni2024@lifetime.fi` — `dws-iq-pilot` and `gen-lang-client-0339803660` (Kaggle101125) deleted; the four remaining "check-first" Google-integration projects (`dws6login`, `coral-loop-494008-r2`, `dws-mcp-hub`, Gemini API) documented with keep/verify status. Annotated the Section 2.4 snapshot rows for the deleted projects (snapshot preserved, not rewritten). Context: the gsutil→gcloud storage migration surfaced these orphans; `src/sandbox/cloudrun-ephemeral.ts` was repointed off the now-deleted `dws-iq-pilot` default (fails loud if `GOOGLE_CLOUD_PROJECT` unset). Added `scripts/gcp-project-audit.cmd` as the repeatable read-only inventory tool
 - Version: 2.4 | Tool: Claude Code (Sonnet 5) | Session: claude/cloudflare-serverless-research-9m90rh | Date: 05.07.2026 | Changes: Corrected a significant staleness gap found during Cloudflare-migration research — this document never mentioned DGX Spark, which took over as the actual primary 24/7 backend + cron runtime around April-May 2026 (see `Cron-works.md`), demoting Cloud Run to secondary/staging. Added new Section 3.2.2 documenting DGX Spark. Updated Section 4.2 (Backend API row) and Section 8 (Environment Matrix) to reflect this. Corrected the Cloudflare Workers status in Sections 4.2/8/12 against a live account check (Cloudflare Developer Platform MCP): of the 8 workers designed in `src/cloudflare/`, only 1 (`dws-revolut-checkout`) is actually deployed — zero KV namespaces exist account-wide, so the other 7 (including the MCP Edge Gateway referenced in Section 12) cannot be running. Also corrected the header version number itself, which had drifted one behind the latest changelog entry.
 - Version: 2.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/fix-config-dependencies-7npjf | Date: 24.05.2026 | Changes: Added Section 3.2.1 "Deployment Tier Choice: GCP Primary vs Scaleway Sovereign" — documents the two-tier deployment decision logic, activation triggers for Scaleway, and the intentionally dormant `deploy-scaleway_OLD.yml` CI/CD workflow (preserved for Tier 2 sovereignty customers, not dead infra)
@@ -34,7 +35,7 @@ Session Links & References:
 Document Status:
 
 - Created: 16.02.2026
-- Last Modified: 11.05.2026
+- Last Modified: 18.09.2026
 - Language: EN
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -292,7 +293,7 @@ Scaleway GPU (H100) is the candidate for LWM 1 and LWM 2 training runs due to EU
 | Location    | Self-hosted (Lifetime Oy premises, Finland) — zero CLOUD Act exposure, zero marginal compute cost                                                                        |
 | Runtime     | Docker Compose (`infrastructure/dgx-spark/docker-compose.yml`) — `dws-backend` (Express + all agents + node-cron schedulers) and `dws-cron` (script runner) containers   |
 | Deploy      | `.github/workflows/deploy-dgx-spark.yml` — push to `main` triggers SSH + `git reset --hard` + `docker compose build && up -d`, fully automatic, no human action required |
-| Dev checkout | `/home/admin100/dws6` — independent clone; **Cursor CLI** + **Copilot CLI** for interactive agents; **Win11** uses **Cursor** + **VS Code** IDEs on `F:\...\dws6`. Shared session layer: handoffs, `.opencode/sessions/`, opencode-all queue. **Admin:** `Admin/ADMIN_MANUAL.md` → *Two dev environments* |
+| Dev checkout | `/home/admin100/dws6` — independent clone; **Cursor CLI** + **Copilot CLI** for interactive agents; **Win11** uses **Cursor** + **VS Code** IDEs on `F:\...\dws6` with **WSL 2** (Microsoft stable pin 2.7.14, HIC updated 18.09.2026). WSL is not DGX. Shared session layer: handoffs, `.opencode/sessions/`, opencode-all queue. **Admin:** `Admin/ADMIN_MANUAL.md` → *Two dev environments* / *Win11 WSL* |
 | LLM routing | Local Ollama (`nemotron-3-super`, `qwen3-coder:30b`) primary, Groq API fallback                                                                                          |
 | Heartbeat   | `:9999/health`, used by the failover tiers below                                                                                                                         |
 

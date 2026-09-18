@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
 
+- Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Session keywords add `wsl`. Win11 Linux layer is WSL 2 (HIC updated 18.09.2026; Microsoft stable pin 2.7.14). Cross-ref: `Admin/ADMIN_MANUAL.md` v3.17 *Win11 WSL*.
 - Version: 1.6 | Tool: Cursor Agent | Session: claude/sovereignty-segmentation-axis-truth | Date: 17.09.2026 | Changes: **Large work policy** in workflow table — plan first (`docs/plans/` or handoff), execute on DGX via OpenCode agents; Win11 IDEs for review only on large tasks. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.17.
 - Version: 1.5 | Tool: Cursor Agent | Session: claude/sovereignty-segmentation-axis-truth | Date: 17.09.2026 | Changes: Aligned session environment detection with **Two dev environments** model — Win11 (Cursor + VS Code IDEs), DGX Spark (Cursor CLI + Copilot CLI). Cross-ref: `Admin/ADMIN_MANUAL.md` v3.16.
 - Version: 1.0 | Tool: Claude Code | Session: 0131N2quMXnPZg6UAsreazMV | Date: 09.12.2025 | Changes: Initial creation
@@ -24,7 +25,7 @@ Session Links & References:
 Document Status:
 
 - Created: 09.12.2025
-- Last Modified: 22.04.2026
+- Last Modified: 18.09.2026
 - Language: English (Suomi thesis included)
 - Languages Available: English, Suomi (partial)
 - Publication Status: ✅ ACTIVE
@@ -1201,6 +1202,7 @@ Sessions frequently move across environments and editors during a single feature
 | Keyword          | Environment        |
 | ---------------- | ------------------ |
 | `win` or `win11` | Windows 11 desktop — **Cursor** + **VS Code** IDEs (`F:\...\dws6`) |
+| `wsl`            | Win11 **WSL 2** Linux layer (same clone via `/mnt/f/...` when Plan9 is healthy) |
 | `dgx`            | DGX Spark — **Cursor CLI** + **Copilot CLI** (`/home/admin100/dws6`) |
 | `mobile`         | Mobile/web session |
 | `chromebook`     | Chromebook (Linux) |
@@ -1212,7 +1214,7 @@ Keywords can be combined (e.g., `win vscode`). These are **plain-text keywords i
 | Signal         | Mobile/Web              | Windows 11 Desktop     | Chromebook       |
 | -------------- | ----------------------- | ---------------------- | ---------------- |
 | Git remote URL | `local_proxy@127.0.0.1` | `github.com`           | `github.com`     |
-| Platform       | `linux` (cloud)         | `win32` / `MINGW64_NT` | `linux` (native) |
+| Platform       | `linux` (cloud)         | `win32` / `MINGW64_NT` / WSL (`linux` + Microsoft in `/proc/version`) | `linux` (native) |
 | `gh` CLI       | Not available           | Available              | May be available |
 | PowerShell     | Not available           | Available              | Not available    |
 
@@ -1222,6 +1224,7 @@ Keywords can be combined (e.g., `win vscode`). These are **plain-text keywords i
 | ------- | ---- | ----- |
 | **Win11** | **VS Code** | Interactive editing, tests, PR prep |
 | **Win11** | **Cursor** | AI-native IDE; same clone as VS Code |
+| **Win11** | **WSL 2** | Linux bash for scripts; not DGX; pin 2.7.14 |
 | **DGX Spark** | **Cursor CLI** | Interactive agents → local Ollama |
 | **DGX Spark** | **Copilot CLI** | Interactive agents → local Ollama |
 | **DGX Spark** | **OpenCode / opencode-all** | Batch parallel worktrees (queue-driven) |
