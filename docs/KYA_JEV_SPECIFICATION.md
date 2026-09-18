@@ -1,6 +1,6 @@
 # kya-jev Specification
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -28,7 +28,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE — internal specification
 
----
+***
 
 ## 1. Summary
 
