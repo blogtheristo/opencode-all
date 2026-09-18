@@ -69,6 +69,15 @@ export interface RuntimeKYAVerdict {
   trustScore?: number;
   policyVersion?: string;
   gate?: string;
+  /**
+   * HMAC-SHA256 signature over the verdict's other fields, produced only by
+   * `issueKyaVerdict()` (src/security/runtime-auth.ts). A verdict without a
+   * valid signature is not proof of anything — see `verifyKyaVerdict()` and
+   * kya-jev's `requireKyaVerdict()`, which rejects unsigned/tampered verdicts.
+   */
+  sig?: string;
+  /** ISO 8601 timestamp the verdict was issued at; part of the signed payload. */
+  issuedAt?: string;
 }
 
 /** Runtime policy attached to AgentContext for tool-level enforcement */
@@ -273,7 +282,12 @@ export interface AgentExecutionLog {
 // ============ GOVERNANCE POLICY ENGINE ============
 
 /** Policy types for agent governance (extracted from awesome-llm-apps governance pattern) */
-export type PolicyType = 'rate-limit' | 'cost-limit' | 'approval-required' | 'data-boundary' | 'autonomy-tier';
+export type PolicyType =
+  | 'rate-limit'
+  | 'cost-limit'
+  | 'approval-required'
+  | 'data-boundary'
+  | 'autonomy-tier';
 
 /** A single governance policy applied to agent execution */
 export interface GovernancePolicy {

@@ -19,6 +19,7 @@
 import type { AgentRuntimeContext } from './types.js';
 import type { LLMClient } from './llm-client.js';
 import logger from '../utils/logger.js';
+import { verifyKyaVerdict } from '../security/runtime-auth.js';
 
 export type TypedQuestion =
   | { kind: 'choice'; prompt: string; options: string[] }
@@ -50,13 +51,24 @@ const ABSTAIN_CHOICE = '__ABSTAIN__';
 
 /**
  * KYA gate: refuse to make a typed decision unless the caller already holds
- * an 'allowed' KYA verdict for this session. This is what makes it kya-jev
- * rather than a bare structured-output wrapper.
+ * a SIGNED 'allowed' KYA verdict for this session. Checking `decision ===
+ * 'allowed'` on a plain object is not a gate — anyone can construct
+ * `{ decision: 'allowed' }`. The signature (`issueKyaVerdict()` /
+ * `verifyKyaVerdict()`, src/security/runtime-auth.ts) is what makes this a
+ * real authorization boundary rather than a decorative check: only the
+ * actual KYA runtime holds the signing secret, so a caller cannot forge a
+ * passing verdict for itself. This is what makes it kya-jev rather than a
+ * bare structured-output wrapper.
  */
 function requireKyaVerdict(runtime: AgentRuntimeContext | undefined): void {
   if (!runtime?.kya || runtime.kya.decision !== 'allowed') {
     throw new Error(
       'kya-jev: no allowed KYA verdict on AgentRuntimeContext — typed decisions require a runtime gate verdict, never an LLM- or user-supplied one',
+    );
+  }
+  if (!verifyKyaVerdict(runtime.kya)) {
+    throw new Error(
+      'kya-jev: KYA verdict failed signature verification — unsigned, tampered, or issued under a different signing secret. A caller cannot self-issue authorization.',
     );
   }
 }

@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 0.2 [Latest]
+Version: 0.3 [Latest]
 
 Sessions & Modifications:
 
+- Version: 0.3 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) identified A2 as the one genuinely severe finding — a caller-constructible `{decision:'allowed'}` verdict makes the KYA gate decorative ("signer and approver are the same party proves nothing"), and flagged D1/B2 as the same problem from two directions (an uncalibrated price shown without its caveat on the storefront card, not just in JSON, invites after-the-fact complaint). **A2 fixed this session**: `RuntimeKYAVerdict` now carries an HMAC-SHA256 `sig` + `issuedAt`, signed only by the new `issueKyaVerdict()` (`src/security/runtime-auth.ts`) using `KYA_VERDICT_SIGNING_SECRET`; `kya-jev`'s `requireKyaVerdict()` now calls `verifyKyaVerdict()` and rejects unsigned, tampered, or wrong-secret verdicts, and fails closed (rejects everything) when no secret is configured at all. 5 new tests added (`runtime-auth-kya-verdict.test.ts`) plus 4 rewritten `kya-jev.test.ts` cases proving the forged-verdict and tampered-verdict paths are actually rejected, not just documented as a risk. D1/B2 remain open (Needs-Human) pending a storefront-card-copy check, not a code fix.
 - Version: 0.2 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) flagged that §1's earlier claim "not difficult to deliver as engineering" (made in chat, not this document) was an unsupported opinion. Added a grounded paragraph to §1 citing the two pre-existing components that made the build low-effort — KYA-gating (`authorizeToolCall()`, `src/security/runtime-auth.ts:271`) and Article-12 audit logging (`agent_executions`, extended by `087_kya_jev_calls.sql` + `BaseAgent.logKyaJevCall()`) — turning the claim into cited evidence.
 - Version: 0.1 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: Initial creation. Codifies kya-jev (KYA-gated typed decision primitive) as a specification, incorporating the Boardy audit (A1–E2) requested against PR #2043 and the public `blogtheristo/KYAv2` release candidate. Records the audit's Overall Recommendations (MERGE-WITH-CONDITIONS on PR #2043; PUBLISH on KYAv2) and closes the one blocking condition (D2) by setting `KYA-JEV-001.detailsUrl` to `null` in `dws10.com/config/products.json` and its landing-pages mirror, so the storefront falls back to the products index instead of 404ing on a non-existent `products/kya-jev.html`.
 
@@ -20,7 +21,7 @@ Session Links & References:
 Document Status:
 
 - Created: 18.09.2026
-- Last Modified: 18.09.2026 (v0.2)
+- Last Modified: 18.09.2026 (v0.3)
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE — internal specification
@@ -53,11 +54,11 @@ Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe 
 
 ### A. Governance / KYA Integrity
 
-| #   | Verdict     | Finding                                                                                                                                                         | Reference                         |
-| --- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| A1  | Pass        | `requireKyaVerdict()` strictly checks runtime context and rejects any verdict other than `'allowed'`.                                                           | `src/agents/kya-jev.ts:42`        |
-| A2  | Needs-Human | A caller can pass arbitrary context in unmanaged environments unless context creation is strictly bound to internal factory functions using signed auth tokens. | `src/security/runtime-auth.ts:18` |
-| A3  | Pass        | KYAv2 exposes only generic TypeScript interfaces, keeping proprietary DWS policy engines and authorization flows completely offline.                            | `blogtheristo/KYAv2:src/index.ts` |
+| #   | Verdict                        | Finding                                                                                                                                                                                                                                                                                                                                                                                                                                         | Reference                                                                                          |
+| --- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| A1  | Pass                           | `requireKyaVerdict()` strictly checks runtime context and rejects any verdict other than `'allowed'`.                                                                                                                                                                                                                                                                                                                                           | `src/agents/kya-jev.ts:42`                                                                         |
+| A2  | Fail → **Closed this session** | A caller could pass arbitrary context — `{decision:'allowed'}` verified as authorization on its own shape, making the gate decorative (signer and approver were the same party). Fixed: `RuntimeKYAVerdict` now requires an HMAC-SHA256 `sig`, produced only by `issueKyaVerdict()` and checked by `verifyKyaVerdict()`; unsigned, tampered, or wrong-secret verdicts are rejected, and no secret configured fails closed (rejects everything). | `src/security/runtime-auth.ts` (`issueKyaVerdict`, `verifyKyaVerdict`); `src/agents/kya-jev.ts:56` |
+| A3  | Pass                           | KYAv2 exposes only generic TypeScript interfaces, keeping proprietary DWS policy engines and authorization flows completely offline.                                                                                                                                                                                                                                                                                                            | `blogtheristo/KYAv2:src/index.ts`                                                                  |
 
 ### B. Calibration / Truthfulness
 
@@ -92,10 +93,12 @@ Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe 
 
 ## 5. Needs-Human Items (open, not blocking this version)
 
-1. **A2** — harden `AgentRuntimeContext.kya` construction so it can only originate from a signed, internal factory (not caller-constructed) in any environment, not just the managed one.
-2. **B2** — verify the Early Access calibration caveat renders on the live storefront card copy, not only in the JSON `description` field.
-3. **D1** — keep commercial activation (actual billing) gated until a calibration study runs; `preorder` availability stays until then.
-4. **D3** — register `kya-jev` in `DWS_STANDARDS_LIBRARY.md` before treating it as an official, generally-available product tier.
+**A2 closed this session (see §4A) — was the only genuinely severe finding.** HIC's framing: a verdict a caller can construct itself proves nothing, same as a document where signer and approver are the same party. Now enforced by signature, not by convention.
+
+**B2 and D1 are one problem seen from two directions**, per HIC: €99/month as a preorder reservation is fine, but only if the uncalibrated-confidence caveat is visible wherever the price is — not just in the JSON `description` a human never reads on the storefront card. Showing the price without the caveat on the card is exactly the gap that generates a complaint after the fact.
+
+1. **B2/D1 (combined) — verified, not an open gap.** Checked both surfaces directly: `dws10.com/buy/index.html` intentionally hides price on the product card by design (`.product-price { hidden }`, comment: "enterprise products lead with value, not price") and instead renders `product.description` on the card — which already contains the Early Access / uncalibrated-confidence caveat text (`dws10.com/config/products.json:118`), so the card never shows a bare, caveat-free claim. `dws10.com/price-list/index.html:1409` is the one surface that _does_ show the price directly, and it renders `p.priceNote` in the same table cell as the price (`dws10.com/price-list/index.html:1410`) — the €99/month + "Early Access — calibration study in progress" note pair together there. **Remaining Needs-Human step:** visually confirm this on the live/preview site once deployed (this session could not render the page); if the pairing doesn't actually appear together on screen, that is now a real regression to fix, not a design question.
+2. **D3** — register `kya-jev` in `DWS_STANDARDS_LIBRARY.md` before treating it as an official, generally-available product tier.
 
 ## 6. Outstanding Blocker (tooling, not audit)
 
