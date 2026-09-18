@@ -7,7 +7,7 @@
 **Date:** 2026-09-18  
 **Highest HIC question on this branch:** Q6 PENDING_REVIEW (Q5 apt still needed; Q2 A confirmed on running dashboard; Q4 superseded)
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -45,7 +45,7 @@ Document Status:
 - Classification: INTERNAL
 - Document Type: Session handoff
 
----
+***
 
 ## Task
 
