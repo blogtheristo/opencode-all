@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.6
+Version: 2.7
 
 Sessions & Modifications:
 
-- Version: 2.6 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: §3.2.2 Win11 checkout now names **WSL 2** (HIC updated 18.09.2026; Microsoft stable pin 2.7.14). WSL is not DGX Spark. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.17 *Win11 WSL*.
+- Version: 2.7 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: §3.2.2 Runtime names Spark **Docker Engine client 29.2.1** (`a5c7197`, HIC `docker --version` on `gn100-cb5d`). `docker update` is not an upgrade. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.19 _Spark Docker Engine_.
+- Version: 2.6 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: §3.2.2 Win11 checkout now names **WSL 2** (HIC updated 18.09.2026; Microsoft stable pin 2.7.14). WSL is not DGX Spark. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.17 _Win11 WSL_.
 - Version: 2.5 | Tool: Claude Code (Opus 4.8) | Session: claude/gsutil-deprecation-migration-69l85d | Date: 22.07.2026 | Changes: Added Section 2.4.1 recording the July 2026 orphaned-project cleanup under `risto.paarni2024@lifetime.fi` — `dws-iq-pilot` and `gen-lang-client-0339803660` (Kaggle101125) deleted; the four remaining "check-first" Google-integration projects (`dws6login`, `coral-loop-494008-r2`, `dws-mcp-hub`, Gemini API) documented with keep/verify status. Annotated the Section 2.4 snapshot rows for the deleted projects (snapshot preserved, not rewritten). Context: the gsutil→gcloud storage migration surfaced these orphans; `src/sandbox/cloudrun-ephemeral.ts` was repointed off the now-deleted `dws-iq-pilot` default (fails loud if `GOOGLE_CLOUD_PROJECT` unset). Added `scripts/gcp-project-audit.cmd` as the repeatable read-only inventory tool
 - Version: 2.4 | Tool: Claude Code (Sonnet 5) | Session: claude/cloudflare-serverless-research-9m90rh | Date: 05.07.2026 | Changes: Corrected a significant staleness gap found during Cloudflare-migration research — this document never mentioned DGX Spark, which took over as the actual primary 24/7 backend + cron runtime around April-May 2026 (see `Cron-works.md`), demoting Cloud Run to secondary/staging. Added new Section 3.2.2 documenting DGX Spark. Updated Section 4.2 (Backend API row) and Section 8 (Environment Matrix) to reflect this. Corrected the Cloudflare Workers status in Sections 4.2/8/12 against a live account check (Cloudflare Developer Platform MCP): of the 8 workers designed in `src/cloudflare/`, only 1 (`dws-revolut-checkout`) is actually deployed — zero KV namespaces exist account-wide, so the other 7 (including the MCP Edge Gateway referenced in Section 12) cannot be running. Also corrected the header version number itself, which had drifted one behind the latest changelog entry.
 - Version: 2.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/fix-config-dependencies-7npjf | Date: 24.05.2026 | Changes: Added Section 3.2.1 "Deployment Tier Choice: GCP Primary vs Scaleway Sovereign" — documents the two-tier deployment decision logic, activation triggers for Scaleway, and the intentionally dormant `deploy-scaleway_OLD.yml` CI/CD workflow (preserved for Tier 2 sovereignty customers, not dead infra)
@@ -157,15 +158,15 @@ Two primary accounts manage the DWS platform, each with distinct responsibilitie
 
 The following inventory reflects the currently visible projects/org context when troubleshooting staging deploy permissions:
 
-| Resource                         | Type                         | Status in account context |
-| -------------------------------- | ---------------------------- | ------------------------- |
-| `dws6run6`                       | Project                      | **Current**               |
-| `coral-loop-494008-r2`           | Project (MCP Google Drive)   | Not current               |
-| `dws-mcp-hub`                    | Project (DWS MCP Hub)        | Not current               |
+| Resource                         | Type                         | Status in account context       |
+| -------------------------------- | ---------------------------- | ------------------------------- |
+| `dws6run6`                       | Project                      | **Current**                     |
+| `coral-loop-494008-r2`           | Project (MCP Google Drive)   | Not current                     |
+| `dws-mcp-hub`                    | Project (DWS MCP Hub)        | Not current                     |
 | `dws-iq-pilot`                   | Project (DWS IQ Pilot)       | **Deleted 2026-07-22** (§2.4.1) |
-| `dws6login`                      | Project                      | Not current               |
-| `sys-28065221981339444149331534` | Project (GPT3 Demo Template) | Not current               |
-| `1074856518213`                  | Organisation (`lifetime.fi`) | Not current               |
+| `dws6login`                      | Project                      | Not current                     |
+| `sys-28065221981339444149331534` | Project (GPT3 Demo Template) | Not current                     |
+| `1074856518213`                  | Organisation (`lifetime.fi`) | Not current                     |
 
 ### 2.4.1 Orphaned-project cleanup (July 2026)
 
@@ -173,19 +174,19 @@ Triggered by the March-2027 `gsutil` deprecation notice (Google), which flagged 
 
 **Deleted** (30-day undelete window applies — `gcloud projects undelete <id>`):
 
-| Project | Reason | Code impact |
-| ------- | ------ | ----------- |
-| `dws-iq-pilot` | Idle since Apr 2026; the bundled-`gsutil` project Google flagged. CI deploy workflows that used its `github-actions-deployer` SA are `.disabled`; authoritative deploy identity had already moved to `dws-iq-60`. | `src/sandbox/cloudrun-ephemeral.ts` silently defaulted to it — repointed to derive project/image/SA from `GOOGLE_CLOUD_PROJECT` / `AGENT_RUNNER_IMAGE` and **fail loud** if unset. |
-| `gen-lang-client-0339803660` (Kaggle101125) | Google AI Studio project from the Nov-2025 DWS6 build push; no recent access, no charges. | None — no repo references. |
+| Project                                     | Reason                                                                                                                                                                                                            | Code impact                                                                                                                                                                        |
+| ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `dws-iq-pilot`                              | Idle since Apr 2026; the bundled-`gsutil` project Google flagged. CI deploy workflows that used its `github-actions-deployer` SA are `.disabled`; authoritative deploy identity had already moved to `dws-iq-60`. | `src/sandbox/cloudrun-ephemeral.ts` silently defaulted to it — repointed to derive project/image/SA from `GOOGLE_CLOUD_PROJECT` / `AGENT_RUNNER_IMAGE` and **fail loud** if unset. |
+| `gen-lang-client-0339803660` (Kaggle101125) | Google AI Studio project from the Nov-2025 DWS6 build push; no recent access, no charges.                                                                                                                         | None — no repo references.                                                                                                                                                         |
 
 **Kept — verify credential/SA before any future deletion** (all are Google-integration projects whose value lives in OAuth clients / API keys, which do **not** appear in bucket/Cloud Run/Compute listings, so an empty resource audit is not proof they are unused):
 
-| Project | Backs | Verify before deleting |
-| ------- | ----- | ---------------------- |
-| `dws6login` | OAuth sign-in for dws6 | `console.cloud.google.com/apis/credentials?project=dws6login` |
-| `coral-loop-494008-r2` | Google Drive MCP connector (OAuth) | Drive connector still in use? |
-| `gen-lang-client-0279605237` (Gemini API) | Gemini API key(s) | Any live key referencing this project |
-| `dws-mcp-hub` | Not referenced as a cloud project (the code hits are a local Docker/Temporal name collision) | `gcloud iam service-accounts list --project=dws-mcp-hub` |
+| Project                                   | Backs                                                                                        | Verify before deleting                                        |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| `dws6login`                               | OAuth sign-in for dws6                                                                       | `console.cloud.google.com/apis/credentials?project=dws6login` |
+| `coral-loop-494008-r2`                    | Google Drive MCP connector (OAuth)                                                           | Drive connector still in use?                                 |
+| `gen-lang-client-0279605237` (Gemini API) | Gemini API key(s)                                                                            | Any live key referencing this project                         |
+| `dws-mcp-hub`                             | Not referenced as a cloud project (the code hits are a local Docker/Temporal name collision) | `gcloud iam service-accounts list --project=dws-mcp-hub`      |
 
 **Never delete:** `lifetime.fi` (org root), `system-gsuite`, `apps-script`, `sys-…` (GPT3 Demo Template) — Google-managed, auto-recreated.
 
@@ -287,15 +288,15 @@ Scaleway GPU (H100) is the candidate for LWM 1 and LWM 2 training runs due to EU
 
 **This section corrects a long-standing gap: prior to v2.4, this document did not mention DGX Spark anywhere, despite it being the environment the backend and all scheduled work actually run on today.** Cloud Run (§3.2, §4) remains live and is the correct target for secondary/staging traffic and anything that must be reachable without depending on a single self-hosted box, but it is no longer the primary 24/7 runtime.
 
-| Property    | Value                                                                                                                                                                    |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Hardware    | Acer Veriton GN100 — NVIDIA Grace Blackwell GB10, 128GB RAM, ARM64                                                                                                       |
-| Location    | Self-hosted (Lifetime Oy premises, Finland) — zero CLOUD Act exposure, zero marginal compute cost                                                                        |
-| Runtime     | Docker Compose (`infrastructure/dgx-spark/docker-compose.yml`) — `dws-backend` (Express + all agents + node-cron schedulers) and `dws-cron` (script runner) containers   |
-| Deploy      | `.github/workflows/deploy-dgx-spark.yml` — push to `main` triggers SSH + `git reset --hard` + `docker compose build && up -d`, fully automatic, no human action required |
-| Dev checkout | `/home/admin100/dws6` — independent clone; **Cursor CLI** + **Copilot CLI** for interactive agents; **Win11** uses **Cursor** + **VS Code** IDEs on `F:\...\dws6` with **WSL 2** (Microsoft stable pin 2.7.14, HIC updated 18.09.2026). WSL is not DGX. Shared session layer: handoffs, `.opencode/sessions/`, opencode-all queue. **Admin:** `Admin/ADMIN_MANUAL.md` → *Two dev environments* / *Win11 WSL* |
-| LLM routing | Local Ollama (`nemotron-3-super`, `qwen3-coder:30b`) primary, Groq API fallback                                                                                          |
-| Heartbeat   | `:9999/health`, used by the failover tiers below                                                                                                                         |
+| Property     | Value                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Hardware     | Acer Veriton GN100 — NVIDIA Grace Blackwell GB10, 128GB RAM, ARM64                                                                                                                                                                                                                                                                                                                                           |
+| Location     | Self-hosted (Lifetime Oy premises, Finland) — zero CLOUD Act exposure, zero marginal compute cost                                                                                                                                                                                                                                                                                                            |
+| Runtime      | **Docker Engine client 29.2.1** (`a5c7197`, HIC 18.09.2026 on `gn100-cb5d`) + Docker Compose (`infrastructure/dgx-spark/docker-compose.yml`) — `dws-backend` (Express + all agents + node-cron schedulers) and `dws-cron` (script runner) containers. Bare `docker update` is not an Engine upgrade.                                                                                                         |
+| Deploy       | `.github/workflows/deploy-dgx-spark.yml` — push to `main` triggers SSH + `git reset --hard` + `docker compose build && up -d`, fully automatic, no human action required                                                                                                                                                                                                                                     |
+| Dev checkout | `/home/admin100/dws6` — independent clone; **Cursor CLI** + **Copilot CLI** for interactive agents; **Win11** uses **Cursor** + **VS Code** IDEs on `F:\...\dws6` with **WSL 2** (Microsoft stable pin 2.7.14, HIC updated 18.09.2026). WSL is not DGX. Shared session layer: handoffs, `.opencode/sessions/`, opencode-all queue. **Admin:** `Admin/ADMIN_MANUAL.md` → _Two dev environments_ / _Win11 WSL_ |
+| LLM routing  | Local Ollama (`nemotron-3-super`, `qwen3-coder:30b`) primary, Groq API fallback                                                                                                                                                                                                                                                                                                                              |
+| Heartbeat    | `:9999/health`, used by the failover tiers below                                                                                                                                                                                                                                                                                                                                                             |
 
 **Scheduling is DGX-primary, not GitHub-Actions-primary.** All 31 daily and 16 weekly scripts (`scripts/daily/`, `scripts/weekly/`) run on DGX Spark's cron, auto-discovered by a day-runner. GitHub Actions' own `schedule:` triggers were deliberately removed from 20 previously-scheduled workflows during the April–May 2026 migration (each carries a `# Schedule REMOVED ... DGX Spark is primary` comment) and now survive only as manual `workflow_dispatch` failover. This cut GHA usage from ~2,250 min/month (~$18) to ~415–515 min/month (~$3.32–4.12), a ~78% reduction. Full detail: `Cron-works.md`.
 
@@ -1206,10 +1207,10 @@ MCP Agent Server (src/mcp/agent-server.ts)
 
 ### 13.2 Endpoints
 
-| Endpoint      | Method | Purpose                                                 | Auth |
-| ------------- | ------ | ------------------------------------------------------- | ---- |
-| `/mcp`        | POST   | JSON-RPC 2.0 — `initialize`, `tools/list`, `tools/call` | JWT  |
-| `/mcp/sse`    | GET    | Server-Sent Events — real-time agent events             | JWT  |
+| Endpoint      | Method | Purpose                                                           | Auth |
+| ------------- | ------ | ----------------------------------------------------------------- | ---- |
+| `/mcp`        | POST   | JSON-RPC 2.0 — `initialize`, `tools/list`, `tools/call`           | JWT  |
+| `/mcp/sse`    | GET    | Server-Sent Events — real-time agent events                       | JWT  |
 | `/mcp/health` | GET    | Health check with protocol version and registered-agent inventory | None |
 
 ### 13.3 Available Meta-Tools

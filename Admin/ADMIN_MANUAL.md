@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.18
+Version: 3.19
 
 Sessions & Modifications:
 
+- Version: 3.19 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark **Docker Engine client 29.2.1** (`a5c7197`) from HIC SSH `admin100@gn100-cb5d` `docker --version`. Bare `docker update` is not an Engine upgrade (it needs a container). Does not restore Docker Desktop / Docker MCP. Does not bump compose images. Aspire yaml comment already aligned to dashboard **13.4.2** (v3.18 “comment still says 13.4.6” is stale).
 - Version: 3.18 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **Aspire CLI 13.5.4** (stable channel, `C:\Users\risto\.aspire\bin\aspire.exe`, commit `9c1b401`). `aspire update` found no AppHost — expected. Does **not** bump DGX `aspire-dashboard` image (compose pin is **13.4.2**). Admin previously said dashboard 13.4.6; that tag is not the compose image on this branch.
 - Version: 3.17 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **WSL 2** recorded as updated (HIC). Pin Microsoft stable **2.7.14** (github.com/microsoft/WSL, 11.09.2026). Operator: `wsl --update` then `wsl --version`. Plan9 share break after KB5124008 is fixed by KB5129195. Does not restore Docker Desktop / Docker MCP (retired 26.03.2026). WSL is not DGX Ollama.
 - Version: 3.16 | Tool: Cursor Agent | Session: docs/admin-dev-env-opencode-policy | Date: 17.09.2026 | Changes: **Two dev environments — Win11 and DGX Spark** (Win11: Cursor + VS Code IDEs; DGX: Cursor CLI + GitHub Copilot CLI; shared session layer; git sync rules). **Large work policy** — plan first, execute via OpenCode agents on DGX (worktree + batch queue). **Model economics** — route translations and bulk i18n through OpenCode FREE models or local Ollama to save paid API tokens. Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2, `WORKTREE_POLICY.md`, `opencode-all/ADMIN_MANUAL.md`, `docs/handovers/HIC_MORNING_ROUTINE.md`.
@@ -176,6 +177,8 @@ If `gbrain doctor` reports resolver or trigger issues in DWS6, normalize the aff
 4. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
    - [Two dev environments — Win11 and DGX Spark](#two-dev-environments--win11-and-dgx-spark) ⭐ **NEW in v3.16**
    - [Win11 WSL](#win11-wsl-operator) ⭐ **NEW in v3.17**
+   - [Win11 Aspire CLI](#win11-aspire-cli-operator) ⭐ **NEW in v3.18**
+   - [Spark Docker Engine](#spark-docker-engine-operator) ⭐ **NEW in v3.19**
    - [Large work — plan first, OpenCode execution](#large-work--plan-first-opencode-execution) ⭐ **NEW in v3.16**
 5. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
 6. [DGX Spark Cron Failover Wrap](#dgx-spark-cron-failover-wrap) ⭐ **NEW**
@@ -258,18 +261,18 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Related Documentation
 
-| Document                  | Location                                                                            | Description                                                                                                                                                                                                                                                                                                                           |
-| ------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **CLAUDE.md**             | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles)                                                                                                                                                                                                                                                                                    |
-| **DPA Agreement**         | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                                                                                                                                                                                                                                                                                                        |
-| **MCP Configuration**     | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                                                                                                                                                                                                                                                                                                   |
-| **Security Compliance**   | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status                                                                                                                                                                                                                                                                                              |
-| **Security Glossary**     | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                                                                                                                                                                                                                                                                                                   |
-| **Playwright Capability** | [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md)                                       | `dws browse` + MCP `dws_browse_*` — JS-rendered fetch, screenshot, snapshot                                                                                                                                                                                                                                                           |
-| **Agent Second Brain**    | [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md)                       | DGX Spark embeddings, KB inbox watcher, `dws kb preflight`                                                                                                                                                                                                                                                                            |
-| **opencode-all (Living Engine)** | [`opencode-all/ADMIN_MANUAL.md`](../opencode-all/ADMIN_MANUAL.md)             | Batch queue, ACP worker, tmux launcher, DGX deployment — **canonical runbook for large-work execution**                                                                                                                                                                                                                               |
-| **Worktree policy**       | [`WORKTREE_POLICY.md`](../WORKTREE_POLICY.md)                                       | Agent isolation — one task = one worktree = one PR; agents never commit from primary checkout                                                                                                                                                                                                                                         |
-| **4P Capital Classes**    | [`DWS_BRAND_STANDARD.md` §23](../DWS_BRAND_STANDARD.md)                             | Canonical company capital model: Prompt / People / Plant / Perception. Registered as DWS_TRUTH_STANDARD.md §2 row 25. Use in investor, sales, and editorial copy. **Future skill:** `4p-diligence` — score an acquisition target on 4P; CLI path + JSON output + skill registration pending HIL approval (Agent Productization Rule). |
+| Document                         | Location                                                                            | Description                                                                                                                                                                                                                                                                                                                           |
+| -------------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CLAUDE.md**                    | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles)                                                                                                                                                                                                                                                                                    |
+| **DPA Agreement**                | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                                                                                                                                                                                                                                                                                                        |
+| **MCP Configuration**            | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                                                                                                                                                                                                                                                                                                   |
+| **Security Compliance**          | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status                                                                                                                                                                                                                                                                                              |
+| **Security Glossary**            | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                                                                                                                                                                                                                                                                                                   |
+| **Playwright Capability**        | [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md)                                       | `dws browse` + MCP `dws_browse_*` — JS-rendered fetch, screenshot, snapshot                                                                                                                                                                                                                                                           |
+| **Agent Second Brain**           | [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md)                       | DGX Spark embeddings, KB inbox watcher, `dws kb preflight`                                                                                                                                                                                                                                                                            |
+| **opencode-all (Living Engine)** | [`opencode-all/ADMIN_MANUAL.md`](../opencode-all/ADMIN_MANUAL.md)                   | Batch queue, ACP worker, tmux launcher, DGX deployment — **canonical runbook for large-work execution**                                                                                                                                                                                                                               |
+| **Worktree policy**              | [`WORKTREE_POLICY.md`](../WORKTREE_POLICY.md)                                       | Agent isolation — one task = one worktree = one PR; agents never commit from primary checkout                                                                                                                                                                                                                                         |
+| **4P Capital Classes**           | [`DWS_BRAND_STANDARD.md` §23](../DWS_BRAND_STANDARD.md)                             | Canonical company capital model: Prompt / People / Plant / Perception. Registered as DWS_TRUTH_STANDARD.md §2 row 25. Use in investor, sales, and editorial copy. **Future skill:** `4p-diligence` — score an acquisition target on 4P; CLI path + JSON output + skill registration pending HIL approval (Agent Productization Rule). |
 
 ---
 
@@ -291,18 +294,18 @@ Two rules follow, and they matter more than the checklist below:
 
 1. **A configured name is not a configured value.** `CLOUDFLARE_ACCOUNT_ID` existed in the GitHub
    secret list while holding an empty string — it read as done and did nothing. Test for a
-   *usable* credential, never for a *present* variable name.
+   _usable_ credential, never for a _present_ variable name.
 2. **Prove the failing case before trusting the passing one.** When wiring a credential into a
    pipeline, first make it fail on purpose and confirm the job goes red. Every fault found on
    2026-09-09 would have been caught on day one by that single test.
 
 ### Storage tiers
 
-| Tier | Store | Used by |
-| --- | --- | --- |
-| Local development | `.env` (never committed; `.gitignore`-enforced) | developer machine, DGX Spark |
-| CI/CD | GitHub repository secrets | GitHub Actions workflows |
-| Production | Google Cloud Secret Manager (`europe-north1`, user-managed replication) | Cloud Run services — see `docs/CLOUD_ENVIRONMENTS.md` §4.5 |
+| Tier              | Store                                                                   | Used by                                                    |
+| ----------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Local development | `.env` (never committed; `.gitignore`-enforced)                         | developer machine, DGX Spark                               |
+| CI/CD             | GitHub repository secrets                                               | GitHub Actions workflows                                   |
+| Production        | Google Cloud Secret Manager (`europe-north1`, user-managed replication) | Cloud Run services — see `docs/CLOUD_ENVIRONMENTS.md` §4.5 |
 
 **Backup: Proton Pass**, with full metadata (provider, owner, expiry, purpose, scope). This is a
 **new policy as of 2026-09-09** — prior to this the repo documented Proton Pass only as a product
@@ -312,22 +315,22 @@ retroactively covered until someone does the pass.
 ### Rotation protocol
 
 1. **Generate** in the provider console with the **narrowest scope that works**. For Cloudflare
-   prefer *Account* API Tokens over *User* tokens — a user token dies with the user account, which
+   prefer _Account_ API Tokens over _User_ tokens — a user token dies with the user account, which
    for a one-founder company is a single point of failure for the whole deploy pipeline.
 2. **Record** provider, owner, purpose, scope, and expiry as `YYYY-MM-DD`.
 3. **Store** in the tier(s) above that actually consume it. Do not widen an existing token to cover
    a new use: mint a separate one, so a leak of either does not hand over the other.
 4. **Back up** to Proton Pass with the metadata from step 2.
 5. **Validate against the live API before deployment** — not by checking the variable is set.
-6. **Deploy**, then confirm the consuming job goes green *and* that it would go red without the
+6. **Deploy**, then confirm the consuming job goes green _and_ that it would go red without the
    credential.
 7. **Calendar the renewal** ~2 weeks before expiry. An expired token is now loud, but loud is still
    an outage.
 
 ### Expiry register
 
-| Credential | Scope | Expires | Notes |
-| --- | --- | --- | --- |
+| Credential             | Scope                                                                              | Expires        | Notes                                                                        |
+| ---------------------- | ---------------------------------------------------------------------------------- | -------------- | ---------------------------------------------------------------------------- |
 | `CLOUDFLARE_API_TOKEN` | Zone → Cache Purge on dws10.com, dws6.com, lifetime.fi, onelifetime.world, cari.fi | **2027-07-01** | Renewed 2026-09-09, replacing a token expired 2026-08-01. Account API Token. |
 
 Add a row here whenever a credential with an expiry is minted. A credential whose expiry is not in
@@ -410,35 +413,36 @@ Lifetime Oy maintains **two independent git checkouts** of `dws6` and **one shar
 
 ### Win11 (developer workstation)
 
-| Item | Value |
-| ---- | ----- |
-| **Typical path** | `F:\2026\Repos2026\dws6` (machine-specific) |
-| **IDEs (two)** | **Cursor** and **Visual Studio Code** — separate GUIs, same repo clone |
-| **Linux layer** | **WSL 2** — HIC updated 18.09.2026. Microsoft stable pin **2.7.14** (see *Win11 WSL*) |
-| **Aspire CLI** | **13.5.4** stable at `C:\Users\risto\.aspire\bin\aspire.exe` (see *Win11 Aspire CLI*). Not an AppHost. Does not bump the Spark dashboard image. |
-| **Role** | Plan authoring, PR review, small edits, HIC approval gates |
-| **Agent compute** | **Not** for large implementation — convert to a plan and queue **OpenCode agents on DGX** (see *Large work* below) |
+| Item              | Value                                                                                                                                           |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Typical path**  | `F:\2026\Repos2026\dws6` (machine-specific)                                                                                                     |
+| **IDEs (two)**    | **Cursor** and **Visual Studio Code** — separate GUIs, same repo clone                                                                          |
+| **Linux layer**   | **WSL 2** — HIC updated 18.09.2026. Microsoft stable pin **2.7.14** (see _Win11 WSL_)                                                           |
+| **Aspire CLI**    | **13.5.4** stable at `C:\Users\risto\.aspire\bin\aspire.exe` (see _Win11 Aspire CLI_). Not an AppHost. Does not bump the Spark dashboard image. |
+| **Role**          | Plan authoring, PR review, small edits, HIC approval gates                                                                                      |
+| **Agent compute** | **Not** for large implementation — convert to a plan and queue **OpenCode agents on DGX** (see _Large work_ below)                              |
 
 ### DGX Spark (Acer Veriton GN100)
 
-| Item | Value |
-| ---- | ----- |
-| **Path** | `/home/admin100/dws6` |
-| **Agent CLIs (two)** | **Cursor CLI** and **GitHub Copilot CLI** |
-| **Inference** | Local **Ollama** (`11434`) — Qwen, Nemotron, and other open weights; zero marginal API token cost |
-| **Also on box** | Docker compose stack, DGX cron, **`opencode-all`** batch orchestration (`scripts/opencode-open-all.sh`) |
+| Item                 | Value                                                                                                                                                                 |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Path**             | `/home/admin100/dws6`                                                                                                                                                 |
+| **Agent CLIs (two)** | **Cursor CLI** and **GitHub Copilot CLI**                                                                                                                             |
+| **Inference**        | Local **Ollama** (`11434`) — Qwen, Nemotron, and other open weights; zero marginal API token cost                                                                     |
+| **Also on box**      | Docker compose stack, DGX cron, **`opencode-all`** batch orchestration (`scripts/opencode-open-all.sh`)                                                               |
+| **Docker Engine**    | **29.2.1** client (`a5c7197`) — HIC `docker --version` on `gn100-cb5d` 18.09.2026 (see _Spark Docker Engine_). Not Docker Desktop. `docker update` is not an upgrade. |
 
 ### Shared session management (both environments)
 
 All harnesses read/write the same session stores before assuming what another session did:
 
-| Store | Path |
-| ----- | ---- |
-| Branch handoffs | `.claude/handoffs/<branch>.md` |
-| Saved session cards | `.opencode/sessions/*.md` |
-| Batch queue | `.workflows/opencode-all/queue.jsonl` |
-| Worktrees | `git worktree list` (includes `.worktrees/opencode-all/ses_*`) |
-| Operator status (DGX) | `scripts/opencode-open-all.sh --status` |
+| Store                 | Path                                                           |
+| --------------------- | -------------------------------------------------------------- |
+| Branch handoffs       | `.claude/handoffs/<branch>.md`                                 |
+| Saved session cards   | `.opencode/sessions/*.md`                                      |
+| Batch queue           | `.workflows/opencode-all/queue.jsonl`                          |
+| Worktrees             | `git worktree list` (includes `.worktrees/opencode-all/ses_*`) |
+| Operator status (DGX) | `scripts/opencode-open-all.sh --status`                        |
 
 **Git sync (operator):** Before `git reset --hard` or `git pull` on DGX, run `git log origin/main..main --oneline`. If commits list, branch and push first — DGX sessions produce real commits. Never `git pull origin main` when `main` has diverged; use `git fetch`, inspect, rescue to a feature branch. Push to `main` triggers `deploy-dgx-spark.yml`, which runs `git reset --hard origin/main` on `/home/admin100/dws6`.
 
@@ -448,7 +452,7 @@ Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2, `docs/field-notes/2026-08-14-dw
 
 **Status (HIC, 18.09.2026):** WSL updated on the Win11 workstation. This supersedes `docs/field-notes/2026-03-26-post-incident-cli-first-migration.md` (“WSL — confirmed not installed”).
 
-**Pin:** Microsoft WSL **2.7.14** is the current *stable* release as of 18.09.2026 ([microsoft/WSL 2.7.14](https://github.com/microsoft/WSL/releases/tag/2.7.14), published 11.09.2026). This Cloud agent cannot run `wsl --version` on Win11 — confirm on the box. Do **not** pin a 2.9.x pre-release.
+**Pin:** Microsoft WSL **2.7.14** is the current _stable_ release as of 18.09.2026 ([microsoft/WSL 2.7.14](https://github.com/microsoft/WSL/releases/tag/2.7.14), published 11.09.2026). This Cloud agent cannot run `wsl --version` on Win11 — confirm on the box. Do **not** pin a 2.9.x pre-release.
 
 **PowerShell (primary on Windows 11):**
 
@@ -477,26 +481,26 @@ Field note: `docs/field-notes/2026-09-18-win11-wsl-updated.md`.
 
 ### What counts as large
 
-| Signal | Examples |
-| ------ | -------- |
-| **Scope** | 3+ files, multiple subsystems, dual-folder sync, thesis four-file update, Supabase migration |
-| **Duration** | Expected agent runtime **> ~1 hour** or overnight batch |
-| **Risk** | RED/YELLOW zone per `CLAUDE.md` (deploy, migration, public copy, Store sync) |
-| **Isolation** | Needs its own branch, worktree, and PR |
+| Signal           | Examples                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------ |
+| **Scope**        | 3+ files, multiple subsystems, dual-folder sync, thesis four-file update, Supabase migration     |
+| **Duration**     | Expected agent runtime **> ~1 hour** or overnight batch                                          |
+| **Risk**         | RED/YELLOW zone per `CLAUDE.md` (deploy, migration, public copy, Store sync)                     |
+| **Isolation**    | Needs its own branch, worktree, and PR                                                           |
 | **Bulk content** | Translations (FI/SV/DE/FR), multi-page HTML i18n, dual-folder sync at scale, hreflang generation |
 
 **Small work (any harness OK):** single-file fix, typo, reading/reviewing a handoff, drafting a plan, HIC approval on an artifact.
 
-**Canonical large-work examples:** Aegis/product 5-language pages, blog SV/DE/FR drafts, `landing-pages/` mirror updates — plan → OpenCode on DGX with **free or Ollama models** (see *Model economics* below), not Win11 paid cloud agents.
+**Canonical large-work examples:** Aegis/product 5-language pages, blog SV/DE/FR drafts, `landing-pages/` mirror updates — plan → OpenCode on DGX with **free or Ollama models** (see _Model economics_ below), not Win11 paid cloud agents.
 
 ### Plan artifact (required before execution)
 
 Write the plan to **one** of:
 
-| Location | When |
-| -------- | ---- |
-| `docs/plans/YYYY-MM-DD-<slug>.md` | Durable, multi-session, or architectural work |
-| `.claude/handoffs/<task>.md` | Branch-scoped session handoff (include plan in *Next steps* / TODO list) |
+| Location                          | When                                                                     |
+| --------------------------------- | ------------------------------------------------------------------------ |
+| `docs/plans/YYYY-MM-DD-<slug>.md` | Durable, multi-session, or architectural work                            |
+| `.claude/handoffs/<task>.md`      | Branch-scoped session handoff (include plan in _Next steps_ / TODO list) |
 
 Minimum plan contents: **goal**, **file/path scope**, **acceptance criteria**, **trust zone** (GREEN/YELLOW/RED), **base branch**. Structural or RED items stop for HIC approval in plan mode before OpenCode starts (per `CLAUDE.md` Approval Request Rule).
 
@@ -506,16 +510,16 @@ Minimum plan contents: **goal**, **file/path scope**, **acceptance criteria**, *
 Plan (Win11 or DGX) → HIC gate if RED/YELLOW → worktree → OpenCode agent → handoff → Win11 review → PR
 ```
 
-| Step | Action | Command / path |
-| ---- | ------ | -------------- |
-| 1 | Isolated worktree + branch | `scripts/new-opencode-worktree.sh <task-name> [base-branch] --launch` |
-| 2 | OpenCode session in worktree | Attach plan as first prompt; follow `WORKTREE_POLICY.md` (never commit from primary checkout) |
-| 3 | Batch queue (parallel / overnight) | `node scripts/opencode-batch-worker.mjs enqueue` then `run --batch N --loop` |
-| 4 | Monitor | `scripts/opencode-open-all.sh --status` / `--watch` |
-| 5 | Handoff output | `.claude/handoffs/opencode-batch/` (worker guarantees a file even on partial completion) |
-| 6 | Human review | Win11 **Cursor** or **VS Code** → `gh pr create` |
+| Step | Action                             | Command / path                                                                                |
+| ---- | ---------------------------------- | --------------------------------------------------------------------------------------------- |
+| 1    | Isolated worktree + branch         | `scripts/new-opencode-worktree.sh <task-name> [base-branch] --launch`                         |
+| 2    | OpenCode session in worktree       | Attach plan as first prompt; follow `WORKTREE_POLICY.md` (never commit from primary checkout) |
+| 3    | Batch queue (parallel / overnight) | `node scripts/opencode-batch-worker.mjs enqueue` then `run --batch N --loop`                  |
+| 4    | Monitor                            | `scripts/opencode-open-all.sh --status` / `--watch`                                           |
+| 5    | Handoff output                     | `.claude/handoffs/opencode-batch/` (worker guarantees a file even on partial completion)      |
+| 6    | Human review                       | Win11 **Cursor** or **VS Code** → `gh pr create`                                              |
 
-**Forbidden for large work:** implementing directly on DGX `/home/admin100/dws6` primary checkout; Win11 cloud-agent VMs for multi-file implementation; `git pull` on diverged `main` before rescuing local commits (see *Two dev environments*).
+**Forbidden for large work:** implementing directly on DGX `/home/admin100/dws6` primary checkout; Win11 cloud-agent VMs for multi-file implementation; `git pull` on diverged `main` before rescuing local commits (see _Two dev environments_).
 
 Cross-ref: `opencode-all/ADMIN_MANUAL.md`, `docs/field-notes/2026-08-24-opencode-all-living-engine.md`, `docs/handovers/HIC_MORNING_ROUTINE.md` (morning queue ritual).
 
@@ -523,29 +527,29 @@ Cross-ref: `opencode-all/ADMIN_MANUAL.md`, `docs/field-notes/2026-08-24-opencode
 
 ## OpenCode and batch runtime (DGX Spark)
 
-**Large implementation runs here.** **Cursor CLI** and **Copilot CLI** on DGX are for **interactive, small-scope** work (debugging, plan drafting, quick reads) — when scope grows, stop and follow *Large work* above. **OpenCode** (`opencode.json`, `opencode-all` submodule, batch worker) is the **mandatory execution path** for planned multi-file work: isolated worktrees, queue in `.workflows/opencode-all/`, local Ollama inference. Claude Code on DGX remains hot standby.
+**Large implementation runs here.** **Cursor CLI** and **Copilot CLI** on DGX are for **interactive, small-scope** work (debugging, plan drafting, quick reads) — when scope grows, stop and follow _Large work_ above. **OpenCode** (`opencode.json`, `opencode-all` submodule, batch worker) is the **mandatory execution path** for planned multi-file work: isolated worktrees, queue in `.workflows/opencode-all/`, local Ollama inference. Claude Code on DGX remains hot standby.
 
 ### Runtime and model roles (DGX)
 
-| Role | Runtime | Operational rule |
-| ---- | ------- | ---------------- |
-| **Large / multi-file work (mandatory)** | OpenCode + `opencode-all` | Plan first; worktree via `new-opencode-worktree.sh`; queue via batch worker |
-| Interactive small scope | Cursor CLI, Copilot CLI → Ollama | Escalate to OpenCode when scope crosses *Large work* thresholds |
-| Hot standby | Claude Code | Failover when OpenCode/Ollama unavailable or Claude tooling required |
+| Role                                    | Runtime                          | Operational rule                                                            |
+| --------------------------------------- | -------------------------------- | --------------------------------------------------------------------------- |
+| **Large / multi-file work (mandatory)** | OpenCode + `opencode-all`        | Plan first; worktree via `new-opencode-worktree.sh`; queue via batch worker |
+| Interactive small scope                 | Cursor CLI, Copilot CLI → Ollama | Escalate to OpenCode when scope crosses _Large work_ thresholds             |
+| Hot standby                             | Claude Code                      | Failover when OpenCode/Ollama unavailable or Claude tooling required        |
 
 ### Model economics — free inference for bulk work
 
 OpenCode on DGX can run **large tasks at zero purchased-token cost**. Use this deliberately to preserve paid API budget (Claude, Copilot, Cursor cloud agents on Win11) for review, RED-zone reasoning, and short interactive work.
 
-| Tier | Model source | Marginal cost | Route here for |
-| ---- | ------------ | ------------- | -------------- |
-| **1 — Local sovereign** | Ollama on DGX (`opencode.json` default: `qwen3-coder:30b`, also `nemotron-3-super`) | €0 (owned hardware) | Coding agents, refactors, batch worker default fallback |
-| **2 — OpenCode FREE** | OpenCode-hosted free models (`opencode/*`, e.g. `x-preview-f-free`, `mimo-v2.5-free`) | €0 API tokens | **Translations**, multi-file HTML i18n, overnight opencode-all batches, high-volume content generation |
-| **3 — Paid cloud** | Claude API, Copilot/Cursor cloud, Groq metered | Per-token | HIC review, architecture, RED zone, short interactive when local models insufficient |
+| Tier                    | Model source                                                                          | Marginal cost       | Route here for                                                                                         |
+| ----------------------- | ------------------------------------------------------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------ |
+| **1 — Local sovereign** | Ollama on DGX (`opencode.json` default: `qwen3-coder:30b`, also `nemotron-3-super`)   | €0 (owned hardware) | Coding agents, refactors, batch worker default fallback                                                |
+| **2 — OpenCode FREE**   | OpenCode-hosted free models (`opencode/*`, e.g. `x-preview-f-free`, `mimo-v2.5-free`) | €0 API tokens       | **Translations**, multi-file HTML i18n, overnight opencode-all batches, high-volume content generation |
+| **3 — Paid cloud**      | Claude API, Copilot/Cursor cloud, Groq metered                                        | Per-token           | HIC review, architecture, RED zone, short interactive when local models insufficient                   |
 
 **Operator rules:**
 
-1. **Translations and 5-lang surfaces** → always queue as *Large work* on DGX OpenCode with tier **1 or 2** — never Win11 cloud-agent VMs for bulk i18n.
+1. **Translations and 5-lang surfaces** → always queue as _Large work_ on DGX OpenCode with tier **1 or 2** — never Win11 cloud-agent VMs for bulk i18n.
 2. **Verify available free models** on DGX before batch runs: `opencode models list` (catalog changes; Rule 12 — fail loud if auth/model errors).
 3. **Fallback ladder:** OpenCode FREE unavailable → switch session/batch to Ollama `qwen3-coder:30b` → then Claude Code hot standby for the single blocked step only.
 4. **Batch worker** (`scripts/opencode-batch-worker.mjs`) runs via OpenCode ACP; model is session-selected — attach plan + preferred model in the worktree session prompt or OpenCode config before `enqueue` / `run`.
@@ -578,7 +582,7 @@ The DGX heartbeat on `9999` and Ollama on `11434` do not substitute for the disa
 
 The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — compose image **`13.4.2`**, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
 
-**Pin split (18.09.2026, fail loud):** Win11 Aspire **CLI** is **13.5.4** (HIC `aspire update`, channel `stable`). The Spark **dashboard image** stays **13.4.2** in `infrastructure/dgx-spark/docker-compose.yml`. A CLI update is not a compose bump. Admin previously said the dashboard was `13.4.6`; that tag is not the `image:` line on this branch (the yaml comment still says 13.4.6 — comment drift only).
+**Pin split (18.09.2026, fail loud):** Win11 Aspire **CLI** is **13.5.4** (HIC `aspire update`, channel `stable`). The Spark **dashboard image** stays **13.4.2** in `infrastructure/dgx-spark/docker-compose.yml`. A CLI update is not a compose bump. Admin previously said the dashboard was `13.4.6`; compose `image:` and the yaml comment on this branch are **13.4.2**.
 
 ### The three ports (do not mix them up)
 
@@ -616,6 +620,27 @@ Updated to version: 13.5.4+9c1b401dd67746739044f68959cbf4d3d7af93a6
 **Do not:** install the CLI on Cursor Cloud; `ollama pull` via Aspire; restore Docker Desktop; bump `mcr.microsoft.com/dotnet/aspire-dashboard` in the same change as a Win11 CLI update.
 
 Field note: `docs/field-notes/2026-09-18-win11-aspire-cli-13-5-4.md`.
+
+### Spark Docker Engine (operator)
+
+**Status (HIC, 18.09.2026):** SSH session on Acer Veriton GN100 (`gn100-cb5d`, user `admin100`, from `192.168.101.104`):
+
+```
+admin100@gn100-cb5d:~$ docker --version
+Docker version 29.2.1, build a5c7197
+admin100@gn100-cb5d:~$ docker update
+docker: 'docker update' requires at least 1 argument
+
+Usage:  docker update [OPTIONS] CONTAINER [CONTAINER...]
+```
+
+**Pin:** Docker **client** **29.2.1** (`a5c7197`) on Spark. Matches docker/cli 29.2.1 / moby `docker-v29.2.1` (02.02.2026). `docker --version` is the CLI string; this paste does not include `docker version` (server/Engine git on that release is `6bc6209`).
+
+**`docker update` is not an Engine upgrade.** It changes resource limits on a _running named container_. Bare `docker update` is expected to fail. To refresh **compose images**: `docker compose -f infrastructure/dgx-spark/docker-compose.yml pull` then `up -d` on the host (push to `main` already does this via `deploy-dgx-spark.yml`). To upgrade the **Engine package**: Ubuntu `apt` for `docker-ce` — a host change; do not run it from Cursor Cloud.
+
+**Do not:** treat this paste as a compose image bump; restore Docker Desktop / Docker MCP on Win11 (retired 26.03.2026); install Docker on Cursor Cloud; run `docker update` on live DWS containers without a named resource change.
+
+Field note: `docs/field-notes/2026-09-18-spark-docker-29-2-1.md`.
 
 ---
 

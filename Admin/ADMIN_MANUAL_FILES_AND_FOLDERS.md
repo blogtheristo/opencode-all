@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.8
 
 Sessions & Modifications:
 
-- Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Session keywords add `wsl`. Win11 Linux layer is WSL 2 (HIC updated 18.09.2026; Microsoft stable pin 2.7.14). Cross-ref: `Admin/ADMIN_MANUAL.md` v3.17 *Win11 WSL*.
+- Version: 1.8 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Session keywords note `docker update` is not an Engine upgrade. DGX editor table pins Docker Engine client **29.2.1**. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.19 _Spark Docker Engine_.
+- Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Session keywords add `wsl`. Win11 Linux layer is WSL 2 (HIC updated 18.09.2026; Microsoft stable pin 2.7.14). Cross-ref: `Admin/ADMIN_MANUAL.md` v3.17 _Win11 WSL_.
 - Version: 1.6 | Tool: Cursor Agent | Session: claude/sovereignty-segmentation-axis-truth | Date: 17.09.2026 | Changes: **Large work policy** in workflow table — plan first (`docs/plans/` or handoff), execute on DGX via OpenCode agents; Win11 IDEs for review only on large tasks. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.17.
 - Version: 1.5 | Tool: Cursor Agent | Session: claude/sovereignty-segmentation-axis-truth | Date: 17.09.2026 | Changes: Aligned session environment detection with **Two dev environments** model — Win11 (Cursor + VS Code IDEs), DGX Spark (Cursor CLI + Copilot CLI). Cross-ref: `Admin/ADMIN_MANUAL.md` v3.16.
 - Version: 1.0 | Tool: Claude Code | Session: 0131N2quMXnPZg6UAsreazMV | Date: 09.12.2025 | Changes: Initial creation
@@ -1199,45 +1200,47 @@ Sessions frequently move across environments and editors during a single feature
 
 **Quick switch keywords** — include any of these in your message to tell Claude your current environment:
 
-| Keyword          | Environment        |
-| ---------------- | ------------------ |
-| `win` or `win11` | Windows 11 desktop — **Cursor** + **VS Code** IDEs (`F:\...\dws6`) |
-| `wsl`            | Win11 **WSL 2** Linux layer (same clone via `/mnt/f/...` when Plan9 is healthy) |
-| `dgx`            | DGX Spark — **Cursor CLI** + **Copilot CLI** (`/home/admin100/dws6`) |
-| `mobile`         | Mobile/web session |
-| `chromebook`     | Chromebook (Linux) |
-| `vscode`         | Editing in VS Code (Win11) |
-| `cursor`         | Editing in Cursor (Win11) or Cursor CLI (DGX) |
+| Keyword          | Environment                                                                                                      |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `win` or `win11` | Windows 11 desktop — **Cursor** + **VS Code** IDEs (`F:\...\dws6`)                                               |
+| `wsl`            | Win11 **WSL 2** Linux layer (same clone via `/mnt/f/...` when Plan9 is healthy)                                  |
+| `dgx`            | DGX Spark — **Cursor CLI** + **Copilot CLI** (`/home/admin100/dws6`)                                             |
+| `docker`         | Spark **Docker Engine** (compose stack). Bare `docker update` is **not** an upgrade — it needs a container name. |
+| `mobile`         | Mobile/web session                                                                                               |
+| `chromebook`     | Chromebook (Linux)                                                                                               |
+| `vscode`         | Editing in VS Code (Win11)                                                                                       |
+| `cursor`         | Editing in Cursor (Win11) or Cursor CLI (DGX)                                                                    |
 
 Keywords can be combined (e.g., `win vscode`). These are **plain-text keywords in a message**, not slash commands — do NOT type `/win` as a standalone command (it triggers a skill lookup error). When no keyword is given, Claude auto-detects using these signals:
 
-| Signal         | Mobile/Web              | Windows 11 Desktop     | Chromebook       |
-| -------------- | ----------------------- | ---------------------- | ---------------- |
-| Git remote URL | `local_proxy@127.0.0.1` | `github.com`           | `github.com`     |
+| Signal         | Mobile/Web              | Windows 11 Desktop                                                    | Chromebook       |
+| -------------- | ----------------------- | --------------------------------------------------------------------- | ---------------- |
+| Git remote URL | `local_proxy@127.0.0.1` | `github.com`                                                          | `github.com`     |
 | Platform       | `linux` (cloud)         | `win32` / `MINGW64_NT` / WSL (`linux` + Microsoft in `/proc/version`) | `linux` (native) |
-| `gh` CLI       | Not available           | Available              | May be available |
-| PowerShell     | Not available           | Available              | Not available    |
+| `gh` CLI       | Not available           | Available                                                             | May be available |
+| PowerShell     | Not available           | Available                                                             | Not available    |
 
-**Editor context** (canonical two-machine model — full detail in `Admin/ADMIN_MANUAL.md` → *Two dev environments*):
+**Editor context** (canonical two-machine model — full detail in `Admin/ADMIN_MANUAL.md` → _Two dev environments_):
 
-| Machine | Tool | Usage |
-| ------- | ---- | ----- |
-| **Win11** | **VS Code** | Interactive editing, tests, PR prep |
-| **Win11** | **Cursor** | AI-native IDE; same clone as VS Code |
-| **Win11** | **WSL 2** | Linux bash for scripts; not DGX; pin 2.7.14 |
-| **DGX Spark** | **Cursor CLI** | Interactive agents → local Ollama |
-| **DGX Spark** | **Copilot CLI** | Interactive agents → local Ollama |
-| **DGX Spark** | **OpenCode / opencode-all** | Batch parallel worktrees (queue-driven) |
-| Either | **Claude Code CLI** | Hot standby / failover harness |
+| Machine       | Tool                        | Usage                                           |
+| ------------- | --------------------------- | ----------------------------------------------- |
+| **Win11**     | **VS Code**                 | Interactive editing, tests, PR prep             |
+| **Win11**     | **Cursor**                  | AI-native IDE; same clone as VS Code            |
+| **Win11**     | **WSL 2**                   | Linux bash for scripts; not DGX; pin 2.7.14     |
+| **DGX Spark** | **Cursor CLI**              | Interactive agents → local Ollama               |
+| **DGX Spark** | **Copilot CLI**             | Interactive agents → local Ollama               |
+| **DGX Spark** | **OpenCode / opencode-all** | Batch parallel worktrees (queue-driven)         |
+| **DGX Spark** | **Docker Engine 29.2.1**    | Host client pin (`a5c7197`); not Docker Desktop |
+| Either        | **Claude Code CLI**         | Hot standby / failover harness                  |
 
 **Typical multi-environment workflow (large work — mandatory path):**
 
-| Step | Environment + Tool | Activity |
-| ---- | ---------------- | -------- |
-| 1    | Win11 or DGX | Write plan → `docs/plans/YYYY-MM-DD-<slug>.md` or `.claude/handoffs/<task>.md` |
-| 2    | DGX + **OpenCode** | `new-opencode-worktree.sh <task>` → agent executes plan in isolated worktree; optional batch queue |
-| 3    | Win11 + VS Code / Cursor | Review handoff + diff, run tests, create PR |
-| 4    | Mobile / Chromebook | Triage only — do not implement large scope here |
+| Step | Environment + Tool       | Activity                                                                                           |
+| ---- | ------------------------ | -------------------------------------------------------------------------------------------------- |
+| 1    | Win11 or DGX             | Write plan → `docs/plans/YYYY-MM-DD-<slug>.md` or `.claude/handoffs/<task>.md`                     |
+| 2    | DGX + **OpenCode**       | `new-opencode-worktree.sh <task>` → agent executes plan in isolated worktree; optional batch queue |
+| 3    | Win11 + VS Code / Cursor | Review handoff + diff, run tests, create PR                                                        |
+| 4    | Mobile / Chromebook      | Triage only — do not implement large scope here                                                    |
 
 **Small work:** any step may use Win11 IDEs or DGX CLIs directly (single-file / <1h scope).
 
@@ -1247,7 +1250,7 @@ Keywords can be combined (e.g., `win vscode`). These are **plain-text keywords i
 - `fix: typo (mobile)`
 - `docs: update manual (Chromebook)`
 
-See `Admin/ADMIN_MANUAL.md` → *Two dev environments — Win11 and DGX Spark* for git sync rules and shared session stores (handoffs, opencode-all queue, worktrees).
+See `Admin/ADMIN_MANUAL.md` → _Two dev environments — Win11 and DGX Spark_ for git sync rules and shared session stores (handoffs, opencode-all queue, worktrees).
 
 ### Related Files
 
