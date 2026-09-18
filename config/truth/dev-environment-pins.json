@@ -1,0 +1,97 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-09-18",
+  "sourceOfTruth": false,
+  "structuredMirror": true,
+  "humanReadableSource": "DWS_TRUTH_STANDARD.md §2I",
+  "owner": "risto.paarni@lifetime.fi",
+  "note": "Structured mirror of DWS_TRUTH_STANDARD.md §2 row 41 / §2I Environment Version Parity. Machine-readable pins only — if this file and §2I disagree, §2I wins. Shared-role tools MUST match on every machine that runs that role. Role-unique tools stay split. scripts/check-dev-env-pins.mjs enforces the file; scripts/lint-truth-claims.mjs FAILs live copy that treats a shared-role split as standing policy.",
+  "rule": "Shared-role tools must match across Win11 and Spark. Role-unique tools stay split.",
+  "sharedPins": {
+    "docker.client": {
+      "id": "docker.client",
+      "role": "shared",
+      "environments": ["win11", "spark"],
+      "pin": "29.8.0",
+      "command": "docker --version",
+      "parse": "Docker version X.Y.Z",
+      "status": "open-drift",
+      "closeWith": "Admin/ADMIN_MANUAL.md Spark docker-ce apt recipe, then paste docker --version and set observed.spark.version to the pin",
+      "observed": {
+        "win11": {
+          "version": "29.8.0",
+          "build": "88096ef",
+          "date": "2026-09-18",
+          "source": "HIC PowerShell F:\\2026\\Repos2026\\dws6"
+        },
+        "spark": {
+          "version": "29.2.1",
+          "build": "a5c7197",
+          "date": "2026-09-18",
+          "host": "gn100-cb5d",
+          "source": "HIC SSH admin100@gn100-cb5d docker --version"
+        }
+      }
+    }
+  },
+  "splitPins": {
+    "wsl": {
+      "id": "wsl",
+      "role": "win11-only",
+      "pin": "2.7.14",
+      "command": "wsl --version",
+      "note": "Microsoft WSL stable. Not DGX. Do not pin 2.9.x pre-release."
+    },
+    "aspireCli": {
+      "id": "aspireCli",
+      "role": "win11-only",
+      "pin": "13.5.4",
+      "command": "aspire --version",
+      "path": "C:\\Users\\risto\\.aspire\\bin\\aspire.exe",
+      "note": "Win11 CLI. Not the Spark dashboard image. A CLI update is not a compose bump."
+    },
+    "aspireDashboard": {
+      "id": "aspireDashboard",
+      "role": "spark-only",
+      "pin": "13.4.2",
+      "image": "mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2",
+      "compose": "infrastructure/dgx-spark/docker-compose.yml",
+      "status": "aligned",
+      "observed": {
+        "spark": {
+          "image": "mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2",
+          "health": "200",
+          "date": "2026-09-18",
+          "host": "gn100-cb5d",
+          "note": "docker compose pull/up interpolated POSTGRES_PASSWORD and failed; docker inspect of the already-running container was 13.4.2 and /health returned 200. Image-only docker pull does not parse compose .env."
+        }
+      }
+    },
+    "ollamaDeployedPair": {
+      "id": "ollamaDeployedPair",
+      "role": "spark-only",
+      "pin": ["nemotron-3-super", "qwen3-coder:30b"],
+      "source": "src/agents/model-selector.ts OLLAMA_DEPLOYED_MODELS",
+      "note": "Spark inference only. Names also registered on PR #2039 as Truth row 40 when that branch merges. Do not ollama pull from Win11 WSL."
+    }
+  },
+  "approvedDisplayPhrases": [
+    "Shared-role tools must match across Win11 and Spark",
+    "Docker client pin is 29.8.0 on Win11 and Spark",
+    "Spark Docker 29.2.1 is open drift until docker-ce apt matches 29.8.0",
+    "WSL and Aspire CLI are Win11-only; aspire-dashboard is Spark-only",
+    "Aspire CLI 13.5.4 is not the Spark dashboard image 13.4.2"
+  ],
+  "deprecatedDisplayPhrases": [
+    "Win11 Docker is not Spark",
+    "Do not upgrade Spark to 29.8.0 because Win11",
+    "Do not “upgrade Spark to 29.8.0” because Win11 printed a newer client",
+    "Keep the two pins"
+  ],
+  "ambiguousDisplayPhrasesNeedingContext": [
+    {
+      "phrase": "pin split",
+      "validIf": "Aspire CLI vs aspire-dashboard (different roles) or WSL vs Spark Ollama; never Docker Engine client across Win11 and Spark"
+    }
+  ]
+}

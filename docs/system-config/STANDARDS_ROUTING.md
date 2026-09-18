@@ -28,6 +28,7 @@ source: CLAUDE.md (canonical)
 | BaseAgent class, new agent in `src/agents/`, autonomy tier, cost budget, agent execution logging, bacterial-code extraction | `AI_AGENT_GUIDELINES.md` |
 | agent topology, signal dependencies (READY / COMPLETE / ERROR / BLOCKED), agent-XX numbering, what unlocks what | `AGENTS.md` |
 | asserting an industry count, product price, captain hat, KYA tier, role name, or canonical fact | `DWS_TRUTH_STANDARD.md` (routes to the canonical source) |
+| Win11 vs Spark versions, `docker --version` pins, WSL vs DGX, Aspire CLI vs dashboard image, environment version parity | `DWS_TRUTH_STANDARD.md` §2I + `config/truth/dev-environment-pins.json` (`npm run env:pins`) |
 | sales outreach, role-by-stage matrix, enterprise funnel stage | `DWS_ROLES_REGISTRY.md` |
 | standards index / lookup / catalogue | `DWS_STANDARDS_LIBRARY.md` |
 | session outcome, field note, `Learn/` HTML, HIC decision point (EU AI Act Art. 14) | `DWS_LEARNING_STANDARD.md` |

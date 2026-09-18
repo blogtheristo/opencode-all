@@ -21,6 +21,7 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Spark **aspire-dashboard** host pull recipe at pin **13.4.2** (HIC). Compose image already 13.4.2 on main; Admin v3.20. Did not bump to 13.5.4.
 - Win11 **Docker client 29.8.0** (`88096ef`, HIC PowerShell `docker --version`). Split from Spark **29.2.1**. Docker MCP stays retired. Admin v3.21. Field note: `docs/field-notes/2026-09-18-win11-docker-29-8-0.md`.
 - Spark Docker **Engine upgrade** bash recipe (`apt-get install --only-upgrade docker-ce`). Not `docker update`. Admin v3.22.
+- **Environment Version Parity** (`DWS_TRUTH_STANDARD.md` v5.3 row 41 / §2I). Shared-role tools must match across Win11 and Spark. Docker client pin **29.8.0**; Spark **29.2.1** is open drift. Pin file `config/truth/dev-environment-pins.json`; check `npm run env:pins` / `env:pins:strict`. Field note: `docs/field-notes/2026-09-18-environment-version-parity.md`. Admin v3.23.
 
 ### Changed
 

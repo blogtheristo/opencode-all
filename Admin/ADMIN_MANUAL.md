@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.22
+Version: 3.23
 
 Sessions & Modifications:
 
+- Version: 3.23 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: **Environment Version Parity** (`DWS_TRUTH_STANDARD.md` §2I / row 41). Shared-role Docker client pin is **29.8.0** on Win11 and Spark. Spark **29.2.1** is open drift (apt recipe), not a standing split. Aspire CLI vs dashboard stays a role split. Running Spark aspire-dashboard confirmed **13.4.2** /health 200; compose pull needs `.env` or `docker pull` the image. Check: `npm run env:pins`.
 - Version: 3.22 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark Docker **Engine upgrade recipe** (`apt-get install --only-upgrade docker-ce…`). Not `docker update`. Not Win11 29.8.0. Daemon restart expected. This Cloud agent cannot SSH.
 - Version: 3.21 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **Docker client 29.8.0** (`88096ef`) from HIC PowerShell `docker --version` on `F:\2026\Repos2026\dws6`. Split from Spark **29.2.1**. Client on PATH is not a Docker MCP restore (retired 26.03.2026). Product (Desktop vs CE) not in this paste.
 - Version: 3.20 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: HIC “update Spark dashboard image at 13.4.2”. Compose `image:` is already `mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2` (main and this branch). Added Spark pull recipe. This Cloud agent cannot SSH to `gn100-cb5d`. Did **not** bump to 13.5.4.
@@ -413,29 +414,29 @@ Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no 
 
 ## Two dev environments — Win11 and DGX Spark
 
-Lifetime Oy maintains **two independent git checkouts** of `dws6` and **one shared session-management layer**. Do not treat either checkout as a throwaway mirror of the other.
+Lifetime Oy maintains **two independent git checkouts** of `dws6` and **one shared session-management layer**. Do not treat either checkout as a throwaway mirror of the other. **Shared-role tools must match versions** (`DWS_TRUTH_STANDARD.md` §2I): Docker client pin **29.8.0**. WSL / Aspire CLI / aspire-dashboard / Ollama stay role-split. Check: `npm run env:pins`.
 
 ### Win11 (developer workstation)
 
-| Item              | Value                                                                                                                                           |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Typical path**  | `F:\2026\Repos2026\dws6` (machine-specific)                                                                                                     |
-| **IDEs (two)**    | **Cursor** and **Visual Studio Code** — separate GUIs, same repo clone                                                                          |
-| **Linux layer**   | **WSL 2** — HIC updated 18.09.2026. Microsoft stable pin **2.7.14** (see _Win11 WSL_)                                                           |
-| **Aspire CLI**    | **13.5.4** stable at `C:\Users\risto\.aspire\bin\aspire.exe` (see _Win11 Aspire CLI_). Not an AppHost. Does not bump the Spark dashboard image. |
-| **Docker client** | **29.8.0** (`88096ef`) — HIC `docker --version` in PowerShell 18.09.2026 (see _Win11 Docker_). Not Spark 29.2.1. Not a Docker MCP restore.      |
-| **Role**          | Plan authoring, PR review, small edits, HIC approval gates                                                                                      |
-| **Agent compute** | **Not** for large implementation — convert to a plan and queue **OpenCode agents on DGX** (see _Large work_ below)                              |
+| Item              | Value                                                                                                                                                                               |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Typical path**  | `F:\2026\Repos2026\dws6` (machine-specific)                                                                                                                                         |
+| **IDEs (two)**    | **Cursor** and **Visual Studio Code** — separate GUIs, same repo clone                                                                                                              |
+| **Linux layer**   | **WSL 2** — HIC updated 18.09.2026. Microsoft stable pin **2.7.14** (see _Win11 WSL_)                                                                                               |
+| **Aspire CLI**    | **13.5.4** stable at `C:\Users\risto\.aspire\bin\aspire.exe` (see _Win11 Aspire CLI_). Not an AppHost. Does not bump the Spark dashboard image.                                     |
+| **Docker client** | **Shared pin 29.8.0** (`88096ef`) — HIC `docker --version` in PowerShell 18.09.2026 (see _Win11 Docker_). Spark must match (`DWS_TRUTH_STANDARD.md` §2I). Not a Docker MCP restore. |
+| **Role**          | Plan authoring, PR review, small edits, HIC approval gates                                                                                                                          |
+| **Agent compute** | **Not** for large implementation — convert to a plan and queue **OpenCode agents on DGX** (see _Large work_ below)                                                                  |
 
 ### DGX Spark (Acer Veriton GN100)
 
-| Item                 | Value                                                                                                                                                                 |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Path**             | `/home/admin100/dws6`                                                                                                                                                 |
-| **Agent CLIs (two)** | **Cursor CLI** and **GitHub Copilot CLI**                                                                                                                             |
-| **Inference**        | Local **Ollama** (`11434`) — Qwen, Nemotron, and other open weights; zero marginal API token cost                                                                     |
-| **Also on box**      | Docker compose stack, DGX cron, **`opencode-all`** batch orchestration (`scripts/opencode-open-all.sh`)                                                               |
-| **Docker Engine**    | **29.2.1** client (`a5c7197`) — HIC `docker --version` on `gn100-cb5d` 18.09.2026 (see _Spark Docker Engine_). Not Docker Desktop. `docker update` is not an upgrade. |
+| Item                 | Value                                                                                                                                                                                                         |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Path**             | `/home/admin100/dws6`                                                                                                                                                                                         |
+| **Agent CLIs (two)** | **Cursor CLI** and **GitHub Copilot CLI**                                                                                                                                                                     |
+| **Inference**        | Local **Ollama** (`11434`) — Qwen, Nemotron, and other open weights; zero marginal API token cost                                                                                                             |
+| **Also on box**      | Docker compose stack, DGX cron, **`opencode-all`** batch orchestration (`scripts/opencode-open-all.sh`)                                                                                                       |
+| **Docker Engine**    | **Shared pin 29.8.0.** Last paste **29.2.1** (`a5c7197`) on `gn100-cb5d` is **open drift** — run the docker-ce apt recipe (see _Spark Docker Engine_). Not Docker Desktop. `docker update` is not an upgrade. |
 
 ### Shared session management (both environments)
 
@@ -472,7 +473,7 @@ wsl --status
 
 1. WSL is the Win11 Linux layer for bash scripts that need Linux. It is **not** DGX Spark and **not** a place to `ollama pull` undeployed models. Large work still queues to OpenCode on DGX.
 2. The git clone stays on NTFS (`F:\2026\Repos2026\dws6`). Do not move the clone into `\\wsl.localhost` without a HIC decision.
-3. A `docker --version` on Win11 (18.09.2026: **29.8.0**) is a **client pin**, not a Docker MCP restore. Docker MCP stayed retired 26.03.2026. Do not reinstall Docker Desktop to “match Spark”; Spark is **29.2.1**.
+3. A `docker --version` on Win11 (18.09.2026: **29.8.0**) is the **shared Docker pin** (`DWS_TRUTH_STANDARD.md` §2I), not a Docker MCP restore. Docker MCP stayed retired 26.03.2026. Spark last paste **29.2.1** is open drift — apt docker-ce to **29.8.0**. Do not reinstall Docker Desktop.
 4. Windows 11 **KB5124008** (8.09.2026) can leave Plan9 host-folder shares unmounted (`/mnt/f` empty; “no Plan9 drive shares were mounted”). Microsoft fixed this in out-of-band **KB5129195** (14.09.2026). If `/mnt/f` is missing after the WSL update, install KB5129195 via Windows Update, then `wsl --shutdown`.
 5. After `wsl --update`, restart the distro (`wsl --shutdown`) before assuming PATH, mounts, or `gh` still work.
 
@@ -587,7 +588,7 @@ The DGX heartbeat on `9999` and Ollama on `11434` do not substitute for the disa
 
 The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — compose image **`13.4.2`**, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
 
-**Pin split (18.09.2026, fail loud):** Win11 Aspire **CLI** is **13.5.4** (HIC `aspire update`, channel `stable`). The Spark **dashboard image** stays **13.4.2** in `infrastructure/dgx-spark/docker-compose.yml`. A CLI update is not a compose bump. Admin previously said the dashboard was `13.4.6`; compose `image:` and the yaml comment on this branch are **13.4.2**.
+**Role split (not an environment split):** Win11 Aspire **CLI** is **13.5.4** (HIC `aspire update`, channel `stable`). The Spark **dashboard image** stays **13.4.2** in `infrastructure/dgx-spark/docker-compose.yml`. A CLI update is not a compose bump. Admin previously said the dashboard was `13.4.6`; compose `image:` and the yaml comment on this branch are **13.4.2**. HIC 18.09.2026: running container `docker inspect` = `mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2`, `/health` **200**. `docker compose pull/up` failed interpolating `POSTGRES_PASSWORD` (compose parses the whole file). Use `docker pull` of the image when `.env` is not loaded.
 
 ### The three ports (do not mix them up)
 
@@ -613,13 +614,18 @@ The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **
 cd /home/admin100/dws6/infrastructure/dgx-spark
 grep 'image: mcr.microsoft.com/dotnet/aspire-dashboard' docker-compose.yml
 # must print :13.4.2 — if it prints :13.4.6 or :13.3.5, fetch origin/main first (deploy clone uses git reset --hard)
-docker compose pull aspire-dashboard
-docker compose up -d aspire-dashboard
+# Image-only pull does not interpolate compose .env (POSTGRES_PASSWORD):
+docker pull mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2
+# Recreate parses the whole compose file — load .env first if present:
+set -a
+[ -f .env ] && . ./.env
+set +a
+docker compose up -d --no-deps aspire-dashboard
 docker inspect -f '{{.Config.Image}}' aspire-dashboard
 curl -sS -o /dev/null -w '%{http_code}\n' http://127.0.0.1:18888/health
 ```
 
-Expect inspect `...:13.4.2` and health `200`. Do not pull `:latest` or `:13.5.4`.
+Expect inspect `...:13.4.2` and health `200`. Do not pull `:latest` or `:13.5.4`. HIC 18.09.2026: compose `pull`/`up` without `.env` failed on `POSTGRES_PASSWORD`; `docker inspect` of the already-running container was already **13.4.2** and health **200**.
 
 ### Win11 Aspire CLI (operator)
 
@@ -649,9 +655,9 @@ docker --version
 Docker version 29.8.0, build 88096ef
 ```
 
-**Pin:** Win11 Docker **client** **29.8.0** (`88096ef`). Matches docker/cli 29.8.0 (Engine release notes 03.09.2026; Alpine CLI GitCommit `88096ef00576baf72a9cb45caa45c0544c40e0a7`). This paste does not include `docker version` (client vs server) or `Get-Command docker` (Desktop vs CE vs WSL shim).
+**Shared pin:** Docker **client 29.8.0** (`88096ef`) on Win11 **and** Spark (`DWS_TRUTH_STANDARD.md` §2I). Matches docker/cli 29.8.0 (Engine release notes 03.09.2026; Alpine CLI GitCommit `88096ef00576baf72a9cb45caa45c0544c40e0a7`). This paste does not include `docker version` (client vs server) or `Get-Command docker` (Desktop vs CE vs WSL shim).
 
-**Pin split (fail loud):** Spark remains **29.2.1** (`a5c7197`) on `gn100-cb5d`. Do not “upgrade Spark to 29.8.0” because Win11 printed a newer client. Do not treat this as permission to bump `aspire-dashboard`.
+**Open drift:** Spark last paste is **29.2.1** (`a5c7197`) on `gn100-cb5d`. Close with the Spark docker-ce apt recipe below, then `node scripts/check-dev-env-pins.mjs --compare win11.json spark.json`. Do not treat this as permission to bump `aspire-dashboard`.
 
 **Docker MCP stays retired (26.03.2026).** A client on the Win11 PATH is not Docker Desktop restored and is not Docker MCP restored.
 
@@ -672,11 +678,11 @@ docker: 'docker update' requires at least 1 argument
 Usage:  docker update [OPTIONS] CONTAINER [CONTAINER...]
 ```
 
-**Pin:** Docker **client** **29.2.1** (`a5c7197`) on Spark. Matches docker/cli 29.2.1 / moby `docker-v29.2.1` (02.02.2026). `docker --version` is the CLI string; this paste does not include `docker version` (server/Engine git on that release is `6bc6209`).
+**Shared pin:** Docker **client 29.8.0** on Spark (same as Win11). **Observed:** **29.2.1** (`a5c7197`) — open drift. Matches docker/cli 29.2.1 / moby `docker-v29.2.1` (02.02.2026) as the last paste, not as policy. `docker --version` is the CLI string; this paste does not include `docker version` (server/Engine git on that release is `6bc6209`).
 
 **`docker update` is not an Engine upgrade.** It changes resource limits on a _running named container_. Bare `docker update` is expected to fail. To refresh the **Aspire dashboard image to 13.4.2**, use the _Update running image_ recipe under Aspire Dashboard above (`docker compose pull aspire-dashboard`). To refresh **all** compose images: `docker compose pull` then `up -d` (push to `main` already does this via `deploy-dgx-spark.yml`).
 
-**Upgrade Engine on Spark (HIC asked, 18.09.2026).** GN100 installed Docker via `get.docker.com` (docker-ce apt). Current pin **29.2.1**. This restarts `dockerd`; compose services with `restart: unless-stopped` should return. Cursor Cloud cannot SSH. On `gn100-cb5d` as `admin100`:
+**Upgrade Engine on Spark (closes §2I open drift).** GN100 installed Docker via `get.docker.com` (docker-ce apt). Observed **29.2.1**; shared pin **29.8.0**. This restarts `dockerd`; compose services with `restart: unless-stopped` should return. Cursor Cloud cannot SSH. On `gn100-cb5d` as `admin100`:
 
 ```bash
 docker --version
@@ -693,7 +699,7 @@ cd /home/admin100/dws6/infrastructure/dgx-spark
 docker compose ps
 ```
 
-If `dpkg` shows `docker.io` instead of `docker-ce`, stop and paste that output — do not mix Ubuntu universe Docker with Docker CE. Do **not** re-run `curl https://get.docker.com | sh`. Do not pull `:latest` compose images as part of this. After success, paste the new `docker --version` so Admin can replace the 29.2.1 pin.
+If `dpkg` shows `docker.io` instead of `docker-ce`, stop and paste that output — do not mix Ubuntu universe Docker with Docker CE. Do **not** re-run `curl https://get.docker.com | sh`. Do not pull `:latest` compose images as part of this. After success, paste the new `docker --version`. When it prints **29.8.0**, update `config/truth/dev-environment-pins.json` observed.spark and set `status` to `aligned`, then `npm run env:pins:strict`.
 
 **Do not:** treat this paste as a compose image bump; restore Docker Desktop / Docker MCP on Win11 (retired 26.03.2026); install Docker on Cursor Cloud; run `docker update` on live DWS containers without a named resource change.
 

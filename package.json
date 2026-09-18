@@ -50,6 +50,8 @@
     "skills:sync-antigravity": "node scripts/skill-manifest-sync.mjs --antigravity",
     "dora:metrics": "tsx scripts/dora-metrics.ts",
     "analyze:decision-log": "tsx scripts/analyze-decision-log.ts",
+    "env:pins": "node scripts/check-dev-env-pins.mjs",
+    "env:pins:strict": "node scripts/check-dev-env-pins.mjs --require-aligned",
     "validate:pricing": "tsx scripts/validate-pricing.ts && node scripts/validate-product-publication.mjs",
     "validate:dod": "bash scripts/validate-dod.sh",
     "fairness:pilot": "tsx scripts/run-fairness-pilot.ts",

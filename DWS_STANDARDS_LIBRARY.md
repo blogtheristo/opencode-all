@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.12
+Version: 1.13
 
 Sessions & Modifications:
 
+- Version: 1.13 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Pointed §7 at `DWS_TRUTH_STANDARD.md` §2I Environment Version Parity (internal pin file `config/truth/dev-environment-pins.json` + `scripts/check-dev-env-pins.mjs`). This library still catalogs external standards; the pins are internal.
 - Version: 1.12 | Tool: OpenCode 1.18.22 | Model: opencode/x-preview-f-free (ox-alpha) | Session: interactive HIC ping-pong (authored live with the founder) | Date: 24.08.2026 | Changes: Registered `DWS_ENGINEERING_STANDARD.md` v1.0 (DDM-v1) — the policy layer for autonomous 48-hour development cycles on the opencode-all Living Engine runtime. Added rows in §3.2 (Process / Quality), §3.3 (human approval boundaries / NEEDS-HUMAN), and §3.5 (cycle reporting artifacts); extended §5 Lookup Procedure (agents must load applicable standards pre-task and return them in results) and §6 Maintenance (Boardy proposes DDM updates between cycles; changes are accepted as versions, never mid-flight edits).
 
 - Version: 1.11 | Tool: Claude Code (Sonnet 5) | Session: claude/arvonluonnin-ajurit-research-hpiipo | Date: 06.08.2026 | Changes: Corrected the §3.3 KYA-S1 row — reclassified from "standard" to "specification" (HIC correction, propagated from `DWS_TRUTH_STANDARD.md` row 35 v4.6); version bumped to v1.3 (06.08.2026). No change to control content or tiers.
@@ -209,7 +210,7 @@ When an agent (or human) needs to determine which standards apply to a given pro
 
 ## 7. Related Documents
 
-- `DWS_TRUTH_STANDARD.md` — **Sibling meta-standard.** Where `DWS_STANDARDS_LIBRARY.md` registers _external_ standards (EU regulations, ISO, IETF), `DWS_TRUTH_STANDARD.md` registers _internal_ canonical files (which file owns the industries count, which owns product prices, which owns KYA scoring, etc.). Founded 2026-05-25 after the industry-count propagation incident, in which a superseded figure of 16 lived in 58 files because no index of canonical files existed. Consult both when investigating a question.
+- `DWS_TRUTH_STANDARD.md` — **Sibling meta-standard.** Where `DWS_STANDARDS_LIBRARY.md` registers _external_ standards (EU regulations, ISO, IETF), `DWS_TRUTH_STANDARD.md` registers _internal_ canonical files (which file owns the industries count, which owns product prices, which owns KYA scoring, etc.). Founded 2026-05-25 after the industry-count propagation incident, in which a superseded figure of 16 lived in 58 files because no index of canonical files existed. Consult both when investigating a question. **§2I / row 41** owns Environment Version Parity (Win11 vs Spark shared-role pins; `config/truth/dev-environment-pins.json`; `npm run env:pins`).
 - `DWS_ENGINEERING_STANDARD.md` — **DDM-v1.** Policy layer for autonomous agent development on the opencode-all Living Engine runtime: versioned instruction packs, bounded 48-hour cycles, seven audit gates, NEEDS-HUMAN boundaries, and the cycle review loop that produces each next policy version.
 - `DWS_ROLES_REGISTRY.md` — Canonical 25-role enterprise taxonomy + 5 buying-journey stages (Sponsors / Owners / Approvers / Drivers / Sign-off). Extracted from the Outokumpu case (2026-05-18). Source for every standard's optional Roles & Responsibilities chapter (template piloted in `DWS_TRUTH_STANDARD.md` §9) and every per-customer outreach wedge matrix. Roles referenced by R-ID (R01–R25).
 - `docs/DWS_STANDARDS_ROADMAP.md` — Gap analysis + Q1-Q4 2026 roadmap

@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.8
 
 Sessions & Modifications:
 
+- Version: 1.8 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Host Docker **shared pin 29.8.0**; last paste **29.2.1** is open drift (`DWS_TRUTH_STANDARD.md` §2I). `docker update` is not an Engine upgrade.
 - Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Pin host **Docker Engine client 29.2.1** (`a5c7197`) from HIC `docker --version` on `gn100-cb5d`. `docker update` is not an Engine upgrade. Cross-ref: `Admin/ADMIN_MANUAL.md` v3.19 _Spark Docker Engine_.
 - Version: 1.6 | Tool: GPT-5.4 | Date: 11.03.2026 | Changes: Added Veriton Edge Stack Runbook and client endpoint templates for Control Room / Situation Room delivery
 - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Add Edge PostgreSQL section — TimescaleDB + pg_duckdb + pgvector Docker setup, SSH deployment script, GN100-tuned configuration
@@ -53,7 +54,7 @@ Document Status:
 
 - **NVIDIA AI Workbench** — Local AI development environment
 - **CUDA** — GPU compute (version TBD)
-- **Docker** — Container runtime for edge agents. Host pin **29.2.1** client (`a5c7197`, HIC `docker --version` 18.09.2026). `docker update` changes running-container limits; it is not `apt upgrade docker-ce`.
+- **Docker** — Container runtime for edge agents. **Shared pin 29.8.0** (`DWS_TRUTH_STANDARD.md` §2I). Last host paste **29.2.1** client (`a5c7197`, HIC `docker --version` 18.09.2026) is open drift until `apt-get install --only-upgrade docker-ce`. `docker update` changes running-container limits; it is not that upgrade.
 - **OpenSandbox** — Agent isolation platform (Stage 1.5 sandbox)
 
 ## 2026-03-11 Environment Validation
