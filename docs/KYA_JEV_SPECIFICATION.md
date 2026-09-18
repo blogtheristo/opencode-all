@@ -1,6 +1,6 @@
 # kya-jev Specification
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -28,7 +28,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE — internal specification
 
-***
+---
 
 ## 1. Summary
 
@@ -80,11 +80,11 @@ Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe 
 
 ### D. Product / Commercial Integrity
 
-| #   | Verdict                        | Finding                                                                                                                                                     | Reference                            |
-| --- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| D1  | Needs-Human                    | EUR 99/month pricing is defensible as a preorder reservation, but commercial activation must remain gated until calibration benchmarks complete.            | `dws10.com/config/products.json:120` |
-| D2  | Fail → **Closed this session** | Storefront would throw a 404 because `products/kya-jev.html` is missing; page must be created or URL unlinked before merging. Fixed via `detailsUrl: null`. | `dws10.com/config/products.json:105` |
-| D3  | Needs-Human                    | Requires standard registration in `DWS_STANDARDS_LIBRARY.md` before promotion to official product tier.                                                     | `docs/DWS_STANDARDS_LIBRARY.md`      |
+| #   | Verdict                        | Finding                                                                                                                                                                                                    | Reference                            |
+| --- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| D1  | Needs-Human                    | EUR 99/month pricing is defensible as a preorder reservation, but commercial activation must remain gated until calibration benchmarks complete.                                                           | `dws10.com/config/products.json:120` |
+| D2  | Fail → **Closed this session** | Storefront would throw a 404 because `products/kya-jev.html` is missing; page must be created or URL unlinked before merging. Fixed via `detailsUrl: null`.                                                | `dws10.com/config/products.json:105` |
+| D3  | Fail → **Closed**              | Required standard registration in `DWS_STANDARDS_LIBRARY.md` before promotion to official product tier. Fixed: registered in §3.2 (Process/Quality, v1.15), before migration 087 is applied to production. | `DWS_STANDARDS_LIBRARY.md` §3.2      |
 
 ### E. Scope / Blast Radius
 
