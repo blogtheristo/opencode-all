@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.28
+Version: 3.29
 
 Sessions & Modifications:
 
+- Version: 3.29 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark loginctl: this SSH is **130**; **129** is the other admin100 session; **c1** is gdm (leave it). `who` shows tmux(3006) on pts/0 since 17.09. Inspect tmux before `terminate-session 129` — that can kill tmux.
 - Version: 3.28 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark **GitHub CLI**. Official apt recipe **ran**; `gh` already **2.45.0-1ubuntu0.3+esm3** (Ubuntu ESM). cli.github.com did not replace it. Do not force-upgrade until `apt-cache policy gh`. GitHub flags 2.45.x community packages as broken (deprecated APIs).
 - Version: 3.27 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: How to log out Spark SSH sessions **#129/#130** after needrestart: `exit` each SSH (or `loginctl terminate-session` the other id), reconnect. Do not restart docker/gdm. Do not `terminate-user gdm`.
 - Version: 3.26 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: needrestart **did** flag outdated **user sessions** after docker-ce apt: admin100 sshd #129/#130, admin100 systemd user manager, gdm systemd user manager. Not Docker containers. Log out SSH and reconnect. Do not restart docker/gdm for this. Earlier “no user sessions” line was incomplete.
@@ -700,6 +701,37 @@ Simplest: type `exit` in **every** SSH window to this host (or close those windo
 ```powershell
 ssh admin100@gn100-cb5d
 ```
+
+
+**Observed (HIC, 18.09.2026, this window is 130):**
+
+```
+SESSION  UID USER     SEAT  TTY  STATE  IDLE SINCE
+    129 1000 admin100 -     -    active no   -
+    130 1000 admin100 -     -    active no   -
+     c1  126 gdm      seat0 tty1 active yes  14h ago
+this session: 130
+admin100 pts/0        2026-09-17 20:22 (tmux(3006).%0)
+admin100 pts/1        2026-09-18 10:14 (192.168.101.104)
+```
+
+**c1** is gdm on the console — do not terminate it. **130** is this SSH from `192.168.101.104` — do not terminate it while you are in it. **129** is the other admin100 session. `pts/0` is **tmux pid 3006** started 17.09.2026; `terminate-session 129` can kill that tmux server and every pane in it.
+
+Inspect first:
+
+```bash
+loginctl session-status 129 | sed -n '1,40p'
+tmux ls
+tmux list-clients
+```
+
+If tmux has nothing you need to keep:
+
+```bash
+loginctl terminate-session 129
+```
+
+Stay in 130. Do not `terminate-session 130`. Do not `terminate-session c1`. Then when ready, `exit` this window and from Win11 `ssh admin100@gn100-cb5d`. If tmux still matters, copy anything needed out of it **before** terminating 129; attaching from 130 does not move the tmux server out of 129's logind session.
 
 If one session is leftover with no window, terminate the **other** id, not this one. Example if `echo $XDG_SESSION_ID` prints `130`:
 

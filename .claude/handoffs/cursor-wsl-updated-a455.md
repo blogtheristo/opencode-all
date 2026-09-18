@@ -11,11 +11,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.11
+Version: 1.12
 
 Sessions & Modifications:
 
-- Version: 1.11 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [Latest] Spark gh already Ubuntu ESM **2.45.0**. GitHub apt recipe no-op. Q9 paste apt-cache policy gh.
+- Version: 1.12 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [Latest] loginctl: this SSH **130**; other **129** may own tmux(3006); gdm **c1** leave it. Inspect tmux before terminate 129.
+- Version: 1.11 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [not latest] Spark gh already Ubuntu ESM **2.45.0**. GitHub apt recipe no-op. Q9 paste apt-cache policy gh.
 - Version: 1.10 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [not latest] How to log out SSH #129/#130: exit each window or loginctl terminate-session the other id; reconnect. Do not restart docker/gdm.
 - Version: 1.9 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [not latest] needrestart listed outdated user sessions (sshd #129/#130, admin100 and gdm systemd --user). Not Docker. Q8 recommend log out SSH. Do not restart docker/gdm.
 - Version: 1.8 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: [not latest] Spark docker-ce apt **ran**. Observed **29.6.2** (`dfc4efb`, NVIDIA noble/arm64 candidate). Shared target remains **29.8.0**. Pin status stays `open-drift`. Q5 ANSWERED. Q6 cannot A. Q7 pending (recommend A: keep 29.8.0; do not add download.docker.com). `docker compose ps` still needs `.env`.
@@ -30,7 +31,8 @@ Sessions & Modifications:
 
 | Version      | Date       | Changes                                                         | Agent           |
 | ------------ | ---------- | --------------------------------------------------------------- | --------------- |
-| [Latest] 1.11 | 2026-09-18 | Spark gh 2.45.0 ESM; GitHub apt recipe no-op                    | Cursor Grok 4.6 |
+| [Latest] 1.12 | 2026-09-18 | loginctl 130 this SSH; 129 may own tmux; leave gdm c1           | Cursor Grok 4.6 |
+| 1.11          | 2026-09-18 | [not latest] Spark gh 2.45.0 ESM; GitHub apt recipe no-op       | Cursor Grok 4.6 |
 | 1.10          | 2026-09-18 | [not latest] SSH logout how-to for sessions #129/#130           | Cursor Grok 4.6 |
 | 1.9           | 2026-09-18 | [not latest] needrestart SSH leftover; Q8 log out               | Cursor Grok 4.6 |
 | 1.8          | 2026-09-18 | [not latest] Spark apt 29.6.2 NVIDIA cap; Q7 keep 29.8.0 target | Cursor Grok 4.6 |
@@ -68,7 +70,7 @@ HIC: environments must have the same versions; encode in DWS Truth Standard and 
 ## Next steps
 
 1. Q9: paste `gh --version` and `apt-cache policy gh` on Spark. Do not `--reinstall` until that paste.
-2. Q8 A: `exit` every SSH to gn100-cb5d (or `loginctl terminate-session` the other id), then reconnect. Do not restart docker or gdm.
+2. Q8 A: this window is **130**. Inspect `tmux ls` then `loginctl terminate-session 129`. Do not terminate 130 or gdm **c1**. Then `exit` and reconnect.
 3. Q7 A (recommend): keep shared target **29.8.0**. Wait for NVIDIA. Do not add download.docker.com. Do not downgrade Win11 to 29.6.2. Do not re-run apt.
 4. After any further host Docker work: `docker ps`, not `docker compose ps`, unless `.env` is sourced.
 5. If `/mnt/f` is empty: install KB5129195.

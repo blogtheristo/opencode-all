@@ -26,6 +26,7 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Spark needrestart after docker-ce apt listed outdated **user sessions** (admin100 sshd #129/#130, admin100 and gdm systemd user managers). Not Docker containers. Log out SSH and reconnect. Do not restart docker/gdm. Admin v3.26.
 - Spark SSH leftover how-to: `exit` sessions #129/#130 (or `loginctl terminate-session` the other id) and reconnect. Do not restart docker/gdm. Admin v3.27.
 - Spark **GitHub CLI**: official apt recipe ran; already **2.45.0-1ubuntu0.3+esm3** (Ubuntu ESM). cli.github.com did not replace it. Admin v3.28. Field note: `docs/field-notes/2026-09-18-spark-gh-2-45-0.md`.
+- Spark loginctl: this SSH is **130**; **129** may own tmux(3006) from 17.09. Inspect tmux before `terminate-session 129`. Leave gdm **c1**. Admin v3.29.
 
 ### Changed
 
