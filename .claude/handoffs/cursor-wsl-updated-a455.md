@@ -28,6 +28,7 @@ Document Status:
 - Created: 18.09.2026
 - Last Modified: 18.09.2026
 - Language: English
+- Languages Available: English
 - Publication Status: ACTIVE
 - Classification: INTERNAL
 - Document Type: Session handoff
