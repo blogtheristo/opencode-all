@@ -4,18 +4,25 @@
 
 ***
 
+Version: 1.1
+Tool: Cursor (Grok 4.6)
+Agent: Cursor Agent
+Date: 2026-09-18
+Changes: HIC — import automatically; sales-outreach covers all 25 industries. TED daily query uses industry-cpv.json (not CPV 45 only). Grok project https://grok.com/project/5e85a398-76db-4714-9117-e0945d357441 is private (same 401/empty shell as the chat). Mission Control Sales centre auto-loads construction_leads for authenticated HIC. No Grok-login scrape; no MC auth bypass.
+
 Version: 1.0
 Tool: Cursor (Grok 4.6)
 Agent: Cursor Agent
 Date: 2026-09-18
-Changes: Captured HIC GLASS paste of Grok TED construction-leads brief; grok.com thread not readable without xAI login; mapped onto existing DWS construction-leads pipeline. No invented tenders.
+Changes: [not latest] Captured HIC GLASS paste of Grok TED construction-leads brief; grok.com thread not readable without xAI login; mapped onto existing DWS construction-leads pipeline. No invented tenders.
 
 ***
 
-**Status:** PARTIAL_CAPTURE — `PENDING_REVIEW`
+**Status:** PARTIAL_CAPTURE + AUTO_IMPORT — `PENDING_REVIEW`
 **Audience:** Internal — sales-outreach / construction TED (PRIVATE)
 **Language:** English
 **Source chat:** [grok.com/chat/bc915922-3ccb-4e2e-85d9-d1fd28b5f32f](https://grok.com/chat/bc915922-3ccb-4e2e-85d9-d1fd28b5f32f)
+**Grok project:** [grok.com/project/5e85a398-76db-4714-9117-e0945d357441](https://grok.com/project/5e85a398-76db-4714-9117-e0945d357441?tab=conversations)
 **HIC paste:** Cursor Cloud GLASS, 2026-09-18T00:53:41Z (run `bc-01a09dae-c4ec-7cd5-a66e-f6ae9071a455`)
 
 This file is **not** a send list and **not** Mission Control ingest. It is the sales-outreach TED brief HIC pointed at.
@@ -103,6 +110,18 @@ Sources registered but **not** auto-fetched: DTAD, Building Radar, Mercell, Glob
 - Do not claim “sales-outreach is ready” as a product ship — that was Grok’s heading on a lead-source brief.
 - Do not mix xAI login `risto.paarni@lifetime.fi` with dashboard login `risto.paarni2024@lifetime.fi`.
 
+## 7. Automatic import (HIC 2026-09-18)
+
+HIC: **tuodaan automaattisesti** — do not wait for Grok paste. Public TED API is anonymous; grok.com chats/projects are not.
+
+| Path | Behaviour |
+| ---- | --------- |
+| Daily TED fetch | `DEFAULT_QUERY_CONFIG` ORs parent CPV codes for all 25 industries; `worksOnly` is off so services/supplies (healthcare, finance, data centres) are included |
+| Sales-outreach agent | Seed list is one public EU company per industry; “all 25 industries” picks diverse industries |
+| Mission Control Sales | Authenticated HIC auto-loads `construction_leads` (status=new). Grok/X paste stays optional. **Login is not bypassed.** |
+| Grok project | [Conversations tab](https://grok.com/project/5e85a398-76db-4714-9117-e0945d357441?tab=conversations) — REST 404/unauthenticated; Cursor will not scrape xAI with secrets |
+
 ## Footer
 
-Version 1.0 · 2026-09-18 · © Lifetime Oy · Business Confidential · Internal
+
+Version 1.1 · 2026-09-18 · © Lifetime Oy · Business Confidential · Internal

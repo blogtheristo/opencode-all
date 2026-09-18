@@ -4,11 +4,17 @@
 
 ***
 
+Version: 1.1
+Tool: Cursor (Grok 4.6)
+Agent: Cursor Agent
+Date: 2026-09-18
+Changes: HIC auto-import + all-industry sales-outreach; Grok project https://grok.com/project/5e85a398-76db-4714-9117-e0945d357441 also private. TED public API is the ingest path. MC auth stays.
+
 Version: 1.0
 Tool: Cursor (Grok 4.6)
 Agent: Cursor Agent
 Date: 2026-09-18
-Changes: Filed HIC pointer https://grok.com/chat/bc915922-3ccb-4e2e-85d9-d1fd28b5f32f plus truncated GLASS paste; conversation API 401 without xAI session; mapped to existing TED pipeline. Status PENDING_REVIEW.
+Changes: [not latest] Filed HIC pointer https://grok.com/chat/bc915922-3ccb-4e2e-85d9-d1fd28b5f32f plus truncated GLASS paste; conversation API 401 without xAI session; mapped to existing TED pipeline. Status PENDING_REVIEW.
 
 ***
 
@@ -34,7 +40,11 @@ Sales-outreach / EU construction TED. Follows Mission Control field note (PR #20
 2. The paste in the agent queue is **931 characters**, starts `ales-outreach` (dropped `s`), ends at `44 (materials / struc ...`.
 3. Next message: `linkki vie; https://grok.com/chat/bc915922-3ccb-4e2e-85d9-d1fd28b5f32f` — HIC named that chat as the full source ([grok.com chat](https://grok.com/chat/bc915922-3ccb-4e2e-85d9-d1fd28b5f32f)).
 4. Unauthenticated fetch of the conversation REST endpoint returned **401**. Public HTML is the Grok app shell, not the thread. Cursor must not use xAI/Proton credentials from `.env`.
-5. Capture written to `sales-outreach/TED_CONSTRUCTION_LEADS_PACK_2026-09-18.md` (PARTIAL). No tenders invented. Existing DWS pipeline already implements TED CPV 45 (`src/construction-leads/`).
+5. Capture written to `sales-outreach/TED_CONSTRUCTION_LEADS_PACK_2026-09-18.md` (PARTIAL). No tenders invented.
+6. HIC: **2. tuodaan automaattisesti** + sales-outreach must hold leads from **all industries**. TED default CPV is no longer construction-only (`industry-cpv.json` → 25 ids).
+7. HIC pointed at Grok project [5e85a398-76db-4714-9117-e0945d357441](https://grok.com/project/5e85a398-76db-4714-9117-e0945d357441?tab=conversations). Public HTML title is “Projects - Grok”; project REST 404 without xAI session. Same gate as the chat — do not scrape with secrets.
+8. Automatic path is the **public TED API** (anonymous), not grok.com. Mission Control still requires HIC Google Workspace login; TED rows load into Sales centre after that.
+
 
 ## Ontology Tags
 
@@ -50,9 +60,9 @@ HIC handed sales-outreach a **Grok lead-source brief**, not a Mission Control da
 
 ## Next Steps
 
-1. HIC: while logged into Grok as `risto.paarni@lifetime.fi`, paste the remainder of that chat into the pack (v1.1) — or confirm PARTIAL is enough.
-2. Do not treat this as MC ingest unless HIC asks.
-3. Do not start a second TED fetcher; extend `lead-sources.ts` only if the unread remainder names a source we do not already list.
+1. Optional: paste unread Grok remainder from the project while logged in as `risto.paarni@lifetime.fi`.
+2. Confirm daily TED cron on DGX is running the new all-industry CPV query.
+3. Do not bypass Mission Control login. TED auto-load is for the authenticated HIC session.
 
 ## N/A items (Rule 12)
 

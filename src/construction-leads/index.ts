@@ -7,7 +7,7 @@
  *
  * Sources:
  *   - TED Search API (https://api.ted.europa.eu) — free, anonymous
- *   - CPV 45000000 (Construction Work) + sub-codes
+ *   - CPV parents for all 25 DWS industries (see industry-cpv.json)
  *   - Nordic + DACH countries priority
  *
  * Schedule: Mon-Fri 05:30 Helsinki (30min before CEO Cockpit)
@@ -35,6 +35,11 @@ export {
   runWeeklyTedLearning,
   inferOutreachLang,
 } from './ted-outreach.js';
+export {
+  TED_SEARCH_CPV_CODES,
+  cpvToIndustry,
+  cpvToIndustryId,
+} from '../agents/data/industry-cpv.js';
 export {
   searchConstructionTenders,
   buildExpertQuery,

@@ -1,35 +1,37 @@
 # Handoff — cursor/sales-outreach-ted-grok-pack-a455
 
 **Branch:** `cursor/sales-outreach-ted-grok-pack-a455`
-**Task:** Persist Grok TED construction-leads brief (partial — grok.com private)
+**Task:** TED auto-import for sales-outreach across all 25 industries (Grok chats stay private)
 **State:** READY-FOR-REVIEW
-**PR:** (this branch)
+**PR:** https://github.com/blogtheristo/dws6/pull/2038
 **Date:** 2026-09-18
 
 ---
 
 ## Version & Agent History
 
-| Version      | Date       | Changes                                      | Agent  |
-| ------------ | ---------- | -------------------------------------------- | ------ |
-| [Latest] 1.0 | 2026-09-18 | Partial TED pack + field note from Grok URL  | Cursor |
+| Version          | Date       | Changes                                                                 | Agent  |
+| ---------------- | ---------- | ----------------------------------------------------------------------- | ------ |
+| [Latest] 1.1     | 2026-09-18 | Auto-import via public TED API; all 25 industries; Grok project private | Cursor |
+| [not latest] 1.0 | 2026-09-18 | Partial TED pack + field note from Grok chat URL                        | Cursor |
 
 ---
 
 ## Task
 
-HIC: “linkki vie” → https://grok.com/chat/bc915922-3ccb-4e2e-85d9-d1fd28b5f32f after a truncated “sales-outreach is ready / TED / CPV 45” paste.
+HIC: import automatically; sales-outreach holds leads from all industries. Grok project https://grok.com/project/5e85a398-76db-4714-9117-e0945d357441?tab=conversations is private (same as the chat).
 
 ## State
 
-- **What's done:** Verbatim truncated paste filed; CPV names from official vocabulary only; mapped to `src/construction-leads/`; field note `PENDING_REVIEW`.
-- **What's blocked:** Full Grok thread requires xAI login (`risto.paarni@lifetime.fi`). Conversation API 401.
+- **What's done:** `industry-cpv.json` maps CPV → industries 1–25; TED default query uses those parents, `worksOnly` off; sales-outreach seed = one public EU company per industry; MC Sales auto-loads `construction_leads` for authenticated HIC (dual-folder). No Grok scrape. No MC login bypass.
+- **What's blocked:** grok.com REST without xAI session (401/404). Vitest not installed in this cloud image.
 
 ## Next steps
 
-1. HIC paste remainder from grok.com, or merge PARTIAL.
-2. Keep separate from PR #2037 (MC / X / MFA field note).
+1. Do not bypass Mission Control login.
+2. DGX daily cron picks up the new CPV list on next run.
+3. Optional: HIC paste unread Grok remainder while logged in as `risto.paarni@lifetime.fi`.
 
 ## Notes for next session
 
-Do not invent tenders. Do not read `.env` for xAI cookies. MC stays paste-only unless HIC decides otherwise.
+TED API is anonymous — that is the “bypass Grok login” path. `requireHicAuth` on Mission Control stays.

@@ -7,10 +7,11 @@
  * API docs: https://docs.ted.europa.eu/api/latest/search.html
  * Swagger:  https://api.ted.europa.eu/swagger
  *
- * CPV 45000000 = "Construction Work" (all sub-codes).
+ * Default CPV = parent codes for all 25 DWS industries (not construction-only).
  * Expert search syntax: https://ted.europa.eu/en/expert-search
  */
 
+import { TED_SEARCH_CPV_CODES } from '../agents/data/industry-cpv.js';
 import logger from '../utils/logger.js';
 import type { TedNotice, TedQueryConfig, TedSearchResponse } from './types.js';
 
@@ -18,22 +19,23 @@ import type { TedNotice, TedQueryConfig, TedSearchResponse } from './types.js';
 // DEFAULTS
 // ============================================================================
 
-/** Default query config: Nordic + DACH construction tenders, last 7 days */
+/** Default query: Nordic + DACH tenders across all 25 DWS industries, last 7 days */
 export const DEFAULT_QUERY_CONFIG: TedQueryConfig = {
-  cpvCodes: ['45000000'],     // Construction Work (parent code covers all sub-codes)
+  cpvCodes: [...TED_SEARCH_CPV_CODES],
   countryCodes: [
-    'FI',   // Finland (home market)
-    'SE',   // Sweden (NCC, Skanska HQ)
-    'NO',   // Norway (Nordic)
-    'DK',   // Denmark (Nordic)
-    'DE',   // Germany (HOCHTIEF, STRABAG)
-    'AT',   // Austria (PORR, STRABAG)
-    'EE',   // Estonia (Nordic region)
-    'LV',   // Latvia
-    'LT',   // Lithuania
+    'FI', // Finland (home market)
+    'SE', // Sweden (NCC, Skanska HQ)
+    'NO', // Norway (Nordic)
+    'DK', // Denmark (Nordic)
+    'DE', // Germany (HOCHTIEF, STRABAG)
+    'AT', // Austria (PORR, STRABAG)
+    'EE', // Estonia (Nordic region)
+    'LV', // Latvia
+    'LT', // Lithuania
   ],
   lookbackDays: 7,
   maxResults: 100,
+  worksOnly: false,
 };
 
 /** TED API base URLs */
@@ -52,30 +54,28 @@ const TED_NOTICE_URL_BASE = 'https://ted.europa.eu/en/notice/-/detail';
  *   CY=(FI OR SE OR DE)   — Country filter
  *   PD=[20260215 TO *]    — Publication date range
  *   TD=3                  — Notice type: contract notices
- *   NC=1                  — Contract type: works
+ *   NC=1                  — Contract type: works (optional; off by default)
  */
 export function buildExpertQuery(config: TedQueryConfig): string {
   const parts: string[] = [];
 
-  // CPV filter — construction codes
   if (config.cpvCodes.length > 0) {
     const cpvPart = config.cpvCodes.map((c) => `CPV=${c}`).join(' OR ');
     parts.push(`(${cpvPart})`);
   }
 
-  // Country filter
   if (config.countryCodes.length > 0) {
     const countries = config.countryCodes.join(' OR ');
     parts.push(`CY=(${countries})`);
   }
 
-  // Date range: lookback from today
   const fromDate = new Date(Date.now() - config.lookbackDays * 86_400_000);
   const fromStr = fromDate.toISOString().split('T')[0].replace(/-/g, '');
   parts.push(`PD=[${fromStr} TO *]`);
 
-  // Contract type: works (NC=1) — construction-specific
-  parts.push('NC=1');
+  if (config.worksOnly) {
+    parts.push('NC=1');
+  }
 
   return parts.join(' AND ');
 }
@@ -110,7 +110,7 @@ export async function searchConstructionTenders(
         q: query,
         page: String(page),
         limit: String(pageSize),
-        scope: '3',           // All notices (last 10 years)
+        scope: '3', // All notices (last 10 years)
         fields: 'ND,PD,TI,CY,TW,AA,CPV,NC,PR,TD,DT,TV,TVL,NUTS',
       });
 
@@ -119,7 +119,7 @@ export async function searchConstructionTenders(
       const response = await fetch(url, {
         headers: {
           Accept: 'application/json',
-          'User-Agent': 'DWS-IQ6-ConstructionLeads/1.0',
+          'User-Agent': 'DWS-IQ6-TedLeads/1.1',
         },
         signal: AbortSignal.timeout(30_000),
       });
@@ -140,7 +140,7 @@ export async function searchConstructionTenders(
         break;
       }
 
-      const data = await response.json() as TedSearchResponse;
+      const data = (await response.json()) as TedSearchResponse;
 
       if (!data.results || data.results.length === 0) {
         break;

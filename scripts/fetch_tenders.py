@@ -19,11 +19,12 @@ Environment Variables:
 
 Sources:
     - TED (Tenders Electronic Daily): https://ted.europa.eu
-    - CPV codes 45xxxxxx (Construction work)
+    - CPV parents for all 25 DWS industries (src/agents/data/industry-cpv.json)
 """
 
 import argparse
 import csv
+import json
 import logging
 import os
 import sys
@@ -47,23 +48,17 @@ LOG_DIR = PROJECT_ROOT / "logs"
 TED_SEARCH_URL = "https://api.ted.europa.eu/v3/notices/search"
 TED_NOTICE_URL = "https://ted.europa.eu/en/notice/-/detail/{}"
 
-# Construction CPV codes (top-level)
-CONSTRUCTION_CPV_CODES = [
-    "45000000",  # Construction work
-    "45100000",  # Site preparation work
-    "45200000",  # Complete/part construction and civil engineering
-    "45210000",  # Building construction work
-    "45220000",  # Engineering works and construction works
-    "45230000",  # Pipeline, communication and power line construction
-    "45240000",  # Water works construction
-    "45250000",  # Plant construction (non-mining)
-    "45260000",  # Roof works and other special trade construction
-    "45300000",  # Building installation work
-    "45400000",  # Building completion work
-    "71000000",  # Architectural, construction, engineering, inspection
-    "71300000",  # Engineering services
-    "71500000",  # Construction-related services
-]
+# TED CPV parents — all 25 DWS industries (src/agents/data/industry-cpv.json)
+def _load_ted_cpv_codes() -> list[str]:
+    cpv_path = PROJECT_ROOT / "src" / "agents" / "data" / "industry-cpv.json"
+    data = json.loads(cpv_path.read_text(encoding="utf-8"))
+    codes = data.get("tedSearchCpvCodes")
+    if not isinstance(codes, list) or not codes:
+        raise RuntimeError(f"Missing tedSearchCpvCodes in {cpv_path}")
+    return [str(c) for c in codes]
+
+
+TED_SEARCH_CPV_CODES = _load_ted_cpv_codes()
 
 # Target countries (ISO 3166-1 alpha-2 → TED country codes)
 DEFAULT_COUNTRIES = ["FIN", "SWE", "NOR", "DNK", "DEU", "AUT", "FRA", "NLD", "BEL", "EST"]
@@ -116,7 +111,7 @@ class TEDClient:
         self.session = requests.Session()
         self.session.headers.update({
             "Accept": "application/json",
-            "User-Agent": "DWS6-ConstructionLeadScraper/1.0",
+            "User-Agent": "DWS6-TedLeadScraper/1.1",
         })
         if api_key:
             self.session.headers["Authorization"] = f"Bearer {api_key}"
@@ -144,7 +139,7 @@ class TEDClient:
             API response dict with notices
         """
         # Build TED expert search query
-        cpv_query = " OR ".join(f'cpv="{code}"' for code in cpv_codes[:5])
+        cpv_query = " OR ".join(f'cpv="{code}"' for code in cpv_codes)
         country_query = " OR ".join(f'country="{c}"' for c in countries)
         date_query = f'publication-date>={published_after}'
 
@@ -595,7 +590,7 @@ def main():
 
     # Search with top-level construction CPV codes
     raw_data = client.search_tenders(
-        cpv_codes=CONSTRUCTION_CPV_CODES[:5],  # Use top 5 CPV codes
+        cpv_codes=TED_SEARCH_CPV_CODES,
         countries=countries,
         published_after=since_date,
         page_size=MAX_RESULTS,

@@ -146,9 +146,48 @@ export async function fetchLiveThreads(supabase) {
   }
 }
 
+export async function fetchTedLeads(supabase) {
+  if (!supabase) return [];
+  try {
+    const { data, error } = await supabase
+      .from('construction_leads')
+      .select(
+        'id,title,buyer_name,country_code,cpv_code,estimated_value,currency,ted_url,relevance_score,publication_date,status,raw_data',
+      )
+      .eq('status', 'new')
+      .order('relevance_score', { ascending: false })
+      .limit(25);
+    if (error || !data?.length) return [];
+    return data.map((row) => {
+      const industry =
+        (row.raw_data && (row.raw_data.industryName || row.raw_data.industry_name)) || null;
+      const buyer = row.buyer_name || 'TED buyer';
+      const title = row.title || row.id;
+      return {
+        id: `ted:${row.id}`,
+        centre: 'sales',
+        title: industry ? `${buyer} · ${industry}` : buyer,
+        status: 'ted_lead',
+        nextAction: title,
+        nouxRoom: CENTRES.sales.noux,
+        repoPath: CENTRES.sales.repo,
+        noDemoEnv: true,
+        priority: 2,
+        source: 'ted',
+        tedUrl: row.ted_url,
+        cpv: row.cpv_code,
+        country: row.country_code,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
 export async function buildQueue(supabase) {
   const live = await fetchLiveThreads(supabase);
-  const seed = live.length ? [] : await loadSeedQueue();
+  const ted = await fetchTedLeads(supabase);
+  const seed = live.length || ted.length ? [] : await loadSeedQueue();
   const manual = getManualItems();
   const liveAsItems = getLiveInputs()
     .filter((x) => x.centre && x.text)
@@ -165,7 +204,7 @@ export async function buildQueue(supabase) {
       source: 'grok-x-daily',
       fullText: x.text,
     }));
-  const all = [...liveAsItems, ...manual, ...live, ...seed];
+  const all = [...liveAsItems, ...manual, ...ted, ...live, ...seed];
   return all
     .map((item) => {
       const ov = getOverlay(item.id);
