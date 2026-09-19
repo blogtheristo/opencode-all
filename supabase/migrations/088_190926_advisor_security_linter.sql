@@ -16,9 +16,11 @@
 -- DELETE/TRUNCATE rows and does not DROP TABLE/SCHEMA/FUNCTION.
 -- Policies are ALTER-ed in place (no DROP POLICY).
 --
--- STATUS: review before apply. May return 42501 on /rest/v1/rpc/* for
--- SECURITY DEFINER functions that were accidentally public. Backend must
--- keep using the service_role key for those RPCs.
+-- STATUS: HIC REFUSED 2026-09-19 — DO NOT APPLY.
+-- Reason: authored without a per-function caller map of this repo.
+-- 076 already required that review (not a blanket PUBLIC revoke).
+-- Next version only after: src/ rpc call sites, RLS helper usage,
+-- dashboard JWT vs service_role, and DWS_SECURITY_STANDARD §16.
 --
 -- Idempotent. Safe to re-run.
 -- Filename per DWS_DOCUMENT_STANDARD.md §4.5 / §1 (v2.16).

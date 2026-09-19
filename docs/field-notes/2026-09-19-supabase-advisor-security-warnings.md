@@ -4,11 +4,12 @@
 
 ***
 
-Version: 1.0 [Latest]
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Advisor SECURITY dump field note; 088 not applied.
+- Version: 1.1 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC refused to run 088 — agent lacked dws6 repo awareness. File marked DO NOT APPLY. Prior 1.0 [not latest].
+- Version: 1.0 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Advisor SECURITY dump field note; 088 not applied.
 
 Document Status:
 
@@ -20,10 +21,11 @@ Document Status:
 
 ***
 
-
 **Observed at:** 2026-09-19T00:51:14.175Z (HIC paste)
 **Branch:** `cursor/supabase-advisor-warnings-3f7a`
-**Status:** PENDING_REVIEW — migration `088_190926_advisor_security_linter.sql` is in repo only; not applied.
+**Status:** HIC REFUSED 2026-09-19 — do not apply `088_190926_advisor_security_linter.sql`.
+
+HIC: agent is not aware of dws6 repository work enough. Accepted. 076 already said the Advisor 0028 sweep needs a **per-function review**, not a loop over every `prosecdef`. 088 skipped that.
 
 ## What the advisor reported
 
@@ -58,10 +60,20 @@ Expected. The editor keyword-scans `REVOKE` and `ALTER EXTENSION`. 088 does **no
 
 Leaked-password protection: Auth → Providers → Email → enable “Leaked password protection”.
 
-## HIC decision needed
+## HIC decision (closed)
 
-1. Apply 088 on staging, then production? (YELLOW/RED apply — needs explicit go-ahead.)
-2. Enable leaked-password protection in the Auth dashboard?
-3. Accept remaining lint 0029 on the six RLS helpers, or schedule a follow-up that moves them to a private schema?
+**Refuse 088.** Do not run it. A replacement is allowed only after a per-function caller map (076 follow-up text).
 
-N/A — KB compile / Learn HTML / Drive export / calendar: this note is the session outcome; no dated external commitment besides the apply decision above.
+Gaps this session did not have before writing 088 (now checked, still not enough to apply):
+
+| Repo fact                                                                                                          | Why 088 was unsafe to guess                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/services/supabase.service.ts` uses **service_role**                                                           | Billing RPCs (`mark_order_paid`, `create_b2b_order`, …) would keep working **if** only that client calls them — not proven for dashboards |
+| `DWS_SECURITY_STANDARD.md` §16: `increment_usage_counter` is SECURITY DEFINER with a **service_role caller guard** | Blanket REVOKE is the wrong unit of change                                                                                                |
+| 076: “full sweep needs a **per-function review**”                                                                  | 088 did a `FOR f IN prosecdef` loop                                                                                                       |
+| `web_leads` authenticated UPDATE is used as admin (070)                                                            | Switching to `is_backoffice_admin()` can lock Mission Control if `organization_members` is empty                                          |
+| `vector` / `citext` columns (`playbook_leads.email`, memory search)                                                | `ALTER EXTENSION SET SCHEMA` not traced against `hybrid_memory_search` / dashboard types                                                  |
+
+Leaked-password Auth toggle is still a dashboard decision, separate from 088.
+
+N/A — KB / Learn / Drive / calendar.
