@@ -2,13 +2,14 @@
 
 # VERSION AND AGENT HISTORY
 
----
+***
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.1 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC approved the thin always-on Cursor rule (`.cursor/rules/dws-standards-always.mdc`). Migration-filename CI not in this approval. 088 still refused.
+- Version: 1.2 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC approved item 2 — migration-filename CI. Diff-scoped; existing names grandfathered. 088 still not applied.
+- Version: 1.1 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC approved the thin always-on Cursor rule (`.cursor/rules/dws-standards-always.mdc`). Migration-filename CI not in this approval. 088 still refused.
 - Version: 1.0 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Audit Cloud + git Cursor sessions since 2026-09-12; fix provenance on repo artifacts.
 
 Document Status:
@@ -19,7 +20,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
----
+***
 
 **Standards loaded:** DWS_DOCUMENT_STANDARD.md §1/§4.5/§19.3 (v2.17).
 
@@ -38,7 +39,7 @@ Git: author Cursor* since 2026-09-12.
 
 ## Left as-is (intentional)
 
-- Generated `dws10.com/products/*.html` language siblings — public HTML, not §2 markdown.
+- Generated `dws10.com/products/*.{fi,sv,de,fr}.html` — now stamped `DWS_DOC_PROVENANCE generated-i18n` (and landing-pages mirror).
 - Sep 17 WhatsApp copy sweep — content, not missing provenance.
 - Sep 18 env-pin field notes / handoffs — already have VERSION AND AGENT HISTORY with `***`.
 - `scripts/ted-lead-pipeline.ts` / `fetch_tenders.py` — pre-existing; already had a version note or were not Cursor-new.
@@ -47,5 +48,5 @@ Git: author Cursor* since 2026-09-12.
 ## HIC decision
 
 1. **Approved 19.09.2026:** thin always-on Cursor rule `.cursor/rules/dws-standards-always.mdc`.
-2. **Not in this approval:** migration-filename CI.
-3. Open (unchanged): generated i18n HTML vs §2 provenance.
+2. **Approved 19.09.2026:** migration-filename CI (`scripts/check-migration-filenames.mjs`).
+3. **Approved 19.09.2026:** generated i18n HTML §2.1 HTML-comment provenance (not markdown VAH).

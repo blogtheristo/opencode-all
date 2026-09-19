@@ -1,0 +1,43 @@
+# Evidence: Tool=Cursor Grok 4.6 Model=Cursor Grok 4.6 Agent=cursor Date=2026-09-19
+# Audit trail: git log -- .github/workflows/migration-filename.yml
+name: Migration filename (§4.5)
+
+# HIC approved 19.09.2026. Diff-scoped: only added/renamed files under
+# supabase/migrations/. Existing names on the merge-base are grandfathered.
+# Does not apply migrations.
+
+on:
+  pull_request:
+    paths:
+      - "supabase/migrations/**"
+      - "scripts/check-migration-filenames.mjs"
+      - ".github/workflows/migration-filename.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  filename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Check added migration filenames
+        run: |
+          set +e
+          node scripts/check-migration-filenames.mjs --changed --base "origin/${{ github.base_ref || 'main' }}" | tee lint.out
+          code=${PIPESTATUS[0]}
+          {
+            echo "## Migration filename (§4.5)"
+            echo '```'
+            cat lint.out
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$code"

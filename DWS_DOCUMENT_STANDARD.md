@@ -4,11 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.17 [Latest]
+Version: 2.19 [Latest]
 
 Sessions & Modifications:
 
-- Version: 2.17 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §1 Scope lists TypeScript/JavaScript (`.ts`, `.tsx`, `.js`, `.jsx`) and Python (`.py`) the same way as `.sql`: in scope; provenance is §19.3 `CODE VERSIONING NOTE`; do not paste the §2 markdown history block into executable source. Triggered by a Cursor-session audit (last 7 days) that found §19.3 templates without a scope line.
+- Version: 2.19 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §2.1 generated-i18n — public product language siblings (`*.fi.html` / `.sv` / `.de` / `.fr`) carry an HTML-comment provenance block (`DWS_DOC_PROVENANCE generated-i18n`). Markdown VERSION AND AGENT HISTORY is forbidden on public HTML (Rule 5). Builder + stamp script. HIC approved 19.09.2026.
+- Version: 2.18 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §4.5 CI — PR-added `supabase/migrations/` filenames must match `NNN_DDMMYY_name.sql`. Existing names grandfathered. HIC approved this gate 19.09.2026. Does not apply migrations.
+- Version: 2.17 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §1 Scope lists TypeScript/JavaScript (`.ts`, `.tsx`, `.js`, `.jsx`) and Python (`.py`) the same way as `.sql`: in scope; provenance is §19.3 `CODE VERSIONING NOTE`; do not paste the §2 markdown history block into executable source. Triggered by a Cursor-session audit (last 7 days) that found §19.3 templates without a scope line.
 - Version: 2.16 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §1 Scope now includes SQL (`.sql`). Naming stays §4.5; provenance is the §19.3 `CODE VERSIONING NOTE` comment block — not the §2 markdown `VERSION AND AGENT HISTORY` header (invalid as SQL). §2.1 and §25.2 state the SQL exception. Triggered by migration `088` failing a scope check because §1 listed only `.md` / workflows / PDFs. Prior 2.15 marked [not latest].
 - Version: 2.15 [not latest] | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 10.08.2026 | Changes: Merged origin/main (v2.13, which itself merged this branch's v2.12 base and added §25/§26) into this branch. Both sides had independently bumped past v2.12: this branch added §4.7 (Exported/Shared Deliverable Naming) at v2.13-2.14; main added §25 (Universal Document Footer) and §26 (Repository-First, Then Export) at v2.13. No section-number collision — main's new sections (25, 26) sit after this branch's existing §24, and §4.7 is a subsection under §4, so both merged cleanly with no content loss. Only the VERSION AND AGENT HISTORY block itself conflicted (both sides claimed "2.13"); resolved by keeping both change entries below and bumping to 2.15.
 - Version: 2.14 | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 23.07.2026 | Changes: Refined §4.7 — the exported-deliverable prefix is now the **full version number** (`2.0_`, `1.0_`, `1.9.1_`) rather than `V<MAJOR>_`, so minor bumps stay distinguishable in short-name lists. Founder compact shorthand (`1.91_kya`) recorded as an accepted equivalent. Match rule tightened to full `MAJOR.MINOR[.PATCH]`.
@@ -118,6 +120,7 @@ Applies to:
 - SQL migrations and hand-written DDL (`.sql`) — including `supabase/migrations/*.sql` and any other repo `.sql`. Filename: §4.5. Provenance: §19.3 `CODE VERSIONING NOTE` as SQL comments. Do **not** paste the §2 markdown `VERSION AND AGENT HISTORY` block into `.sql` (not valid SQL).
 - TypeScript / JavaScript source (`.ts`, `.tsx`, `.js`, `.jsx`) — provenance: §19.3 block comment. Do **not** paste the §2 markdown history block into source.
 - Python source (`.py`) — provenance: §19.3 docstring or `#` comment. Do **not** paste the §2 markdown history block into source.
+- Generated public HTML language siblings (`dws10.com/products/*.{fi,sv,de,fr}.html` and `landing-pages/dws10-com/products/` mirror) — provenance: §2.1 **generated-i18n** HTML comment. Do **not** paste the §2 markdown history block (CLAUDE.md Non-Negotiable Rule 5). English masters stay hand-authored; they are not auto-stamped.
 
 Soveltuu myös SQL-, TypeScript- ja Python-tiedostoihin: jäljitettävyys §19.3-kommenttina — ei markdown-otsikkolohkoa.
 
@@ -144,6 +147,7 @@ Soveltuu myös SQL-, TypeScript- ja Python-tiedostoihin: jäljitettävyys §19.3
 
 **Executable-source exception:** `.sql`, `.ts`, `.tsx`, `.js`, `.jsx`, and `.py` are in §1 scope but **must not** use this markdown block. They use the §19.3 `CODE VERSIONING NOTE` in language-appropriate comments. SQL filenames also follow §4.5. A markdown `VERSION AND AGENT HISTORY` block inside executable source is a Rule 12 violation.
 
+**Generated-i18n HTML exception (HIC 19.09.2026):** Machine-built public language siblings (`*.fi.html`, `*.sv.html`, `*.de.html`, `*.fr.html` under the product trees above) **must not** use this markdown block. Immediately after `<!doctype html>` they carry an HTML comment whose first line is `DWS_DOC_PROVENANCE generated-i18n` (lang, file, master, builder, date, session). Visible store UI must not show the changelog. Emitter: `scripts/i18n/build-i18n-pages.cjs`. One-shot stamp: `scripts/i18n/stamp-generated-html-provenance.mjs`. Dual-folder in the same commit.
 
 > **IMPORTANT: Pandoc Compatibility.** Use `***` (not `---`) as delimiters around
 > the VERSION AND AGENT HISTORY block. Pandoc interprets `---` as YAML front matter,
@@ -435,6 +439,7 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations. Bindin
   - The **name** must be descriptive enough to understand purpose at a glance.
 - Always use `_` (underscore) as separator; avoid spaces and mixed separators.
 - When renumbering or adding late migrations (e.g. `036_*`), keep the original date to preserve historical traceability.
+- **CI (HIC 19.09.2026):** New or renamed files on a PR vs the merge-base must match this format. Names already on the base are grandfathered. Gate: `scripts/check-migration-filenames.mjs` / `.github/workflows/migration-filename.yml`. The gate does **not** apply SQL.
 
 ### 4.4 Prohibited Naming Patterns
 
@@ -2885,7 +2890,7 @@ Exported cloud documents (Google Docs/Drive, Gamma, shared PDFs) **must lead the
 - If a document will exceed 9 minor versions, **zero-pad the minor** (`V1.03`) so lexical sort stays correct. Same idea as the whitepaper pipeline's zero-padded `NN_` prefix (§23.2).
 - When the connector cannot rename/update-in-place (e.g. Google Drive), a re-export makes a new file — **link every superseded file for manual deletion (§20.7)** so stale versions don't accumulate.
 
-***
+---
 
 **Document version:** v2.17 · **Date:** 19.09.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.

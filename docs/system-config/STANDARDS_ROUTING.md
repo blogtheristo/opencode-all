@@ -1,6 +1,6 @@
 ---
 title: Standards Resolver — Multi-Standard Task Routing
-version: 1.1
+version: 1.3
 status: Active
 applies_to: ["Claude Code", "OpenCode", "Cursor", "Cursor Cloud", "all agents"]
 source: CLAUDE.md (canonical)
@@ -33,6 +33,8 @@ source: CLAUDE.md (canonical)
 | sales outreach, role-by-stage matrix, enterprise funnel stage                                                                                                                                          | `DWS_ROLES_REGISTRY.md`                                                                     |
 | standards index / lookup / catalogue                                                                                                                                                                   | `DWS_STANDARDS_LIBRARY.md`                                                                  |
 | session outcome, field note, `Learn/` HTML, HIC decision point (EU AI Act Art. 14)                                                                                                                     | `DWS_LEARNING_STANDARD.md`                                                                  |
+| new file under `supabase/migrations/`                                                                                                                                                                  | `DWS_DOCUMENT_STANDARD.md` §4.5 — filename `NNN_DDMMYY_name.sql` (CI; do not apply SQL)     |
+| generated public HTML language siblings (`*.fi.html` / `.sv` / `.de` / `.fr` under `dws10.com/products/` and the landing-pages mirror)                                                                 | `DWS_DOCUMENT_STANDARD.md` §2.1 generated-i18n HTML comment — never markdown VAH            |
 
 ## How to Apply
 
@@ -40,7 +42,7 @@ source: CLAUDE.md (canonical)
 2. **Load all matched standards** (not just the "most relevant") — **Read the files**. Recalling `CLAUDE.md` does not count.
 3. **If no match:** Ask the user. When the user says "Use DWS standard," apply all matched standards and update impacted docs in the same commit.
 
-**Cursor / Cursor Cloud:** `.cursor/rules/dws-standards-always.mdc` is `alwaysApply: true`. **HIC approved 19.09.2026** (thin rule only). First writes of a task require the Reads above plus `Standards loaded:` on the HIC reply.
+**Cursor / Cursor Cloud:** `.cursor/rules/dws-standards-always.mdc` is `alwaysApply: true`. **HIC approved 19.09.2026** (thin rule + migration-filename CI). First writes of a task require the Reads above plus `Standards loaded:` on the HIC reply.
 
 ## Multi-Standard Example
 
