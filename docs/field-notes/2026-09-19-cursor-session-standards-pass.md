@@ -25,7 +25,7 @@ Document Status:
 
 ---
 
-**Standards loaded:** DWS_DOCUMENT_STANDARD.md §1/§4.5/§19.3 (v2.17).
+**Standards loaded:** DWS_DOCUMENT_STANDARD.md §2.6 / §27 (v2.20).
 
 ## Corpus
 
