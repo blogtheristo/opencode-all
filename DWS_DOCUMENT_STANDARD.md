@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.15
+Version: 2.16 [Latest]
 
 Sessions & Modifications:
 
-- Version: 2.15 | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 10.08.2026 | Changes: Merged origin/main (v2.13, which itself merged this branch's v2.12 base and added §25/§26) into this branch. Both sides had independently bumped past v2.12: this branch added §4.7 (Exported/Shared Deliverable Naming) at v2.13-2.14; main added §25 (Universal Document Footer) and §26 (Repository-First, Then Export) at v2.13. No section-number collision — main's new sections (25, 26) sit after this branch's existing §24, and §4.7 is a subsection under §4, so both merged cleanly with no content loss. Only the VERSION AND AGENT HISTORY block itself conflicted (both sides claimed "2.13"); resolved by keeping both change entries below and bumping to 2.15.
+- Version: 2.16 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §1 Scope now includes SQL (`.sql`). Naming stays §4.5; provenance is the §19.3 `CODE VERSIONING NOTE` comment block — not the §2 markdown `VERSION AND AGENT HISTORY` header (invalid as SQL). §2.1 and §25.2 state the SQL exception. Triggered by migration `088` failing a scope check because §1 listed only `.md` / workflows / PDFs. Prior 2.15 marked [not latest].
+- Version: 2.15 [not latest] | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 10.08.2026 | Changes: Merged origin/main (v2.13, which itself merged this branch's v2.12 base and added §25/§26) into this branch. Both sides had independently bumped past v2.12: this branch added §4.7 (Exported/Shared Deliverable Naming) at v2.13-2.14; main added §25 (Universal Document Footer) and §26 (Repository-First, Then Export) at v2.13. No section-number collision — main's new sections (25, 26) sit after this branch's existing §24, and §4.7 is a subsection under §4, so both merged cleanly with no content loss. Only the VERSION AND AGENT HISTORY block itself conflicted (both sides claimed "2.13"); resolved by keeping both change entries below and bumping to 2.15.
 - Version: 2.14 | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 23.07.2026 | Changes: Refined §4.7 — the exported-deliverable prefix is now the **full version number** (`2.0_`, `1.0_`, `1.9.1_`) rather than `V<MAJOR>_`, so minor bumps stay distinguishable in short-name lists. Founder compact shorthand (`1.91_kya`) recorded as an accepted equivalent. Match rule tightened to full `MAJOR.MINOR[.PATCH]`.
 - Version: 2.13a | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 22.07.2026 | Changes: Added §4.7 Exported / Shared Deliverable Naming — Version-First Prefix. Codifies that deliverables exported or shared outside the repo (Google Drive docs, PDFs, presentation exports) carry a leading `V<MAJOR>_` prefix so the version stays visible in short-name lists that truncate the tail (Drive, mobile, file pickers), while in-repo files keep the §4.6 `_vN` suffix. Prefix major must equal the header `Version:` major (same match rule as §4.6). Requested by the founder after the LUT/PhD Drive set grew past a screen.
 - Version: 2.13b | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Merged origin/main (v2.12). Added §25 (Universal Document Footer — mandatory: version · date · © Lifetime Oy all-rights-reserved · Business Confidentiality clause at the bottom of every document; footer version lockstep with the §2 header) and §26 (Repository-First, Then Export — anti-drift: an export with no repository source-of-truth is a drift incident; repo .md, plus .csv for financial models, is the master; §26.4 requires cloud export TITLES to lead with the version number for Drive manageability). Authored as §23/§24 on this branch pre-merge; renumbered to §25/§26 because main already holds §22 (Multimodal), §23 (Whitepaper), §24 (Correspondence Preservation). Internal cross-references repointed to main's §23 Whitepaper. No content lost from either side; ToC updated.
@@ -21,7 +22,7 @@ Sessions & Modifications:
 - Version: 2.11 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: HIC löysi kaksi itse-ristiriitaa. (1) Tämän dokumentin oma yläotsikko käytti `---`-erotinta rivillä 3, vaikka §2.1 määrää `***`:n pandoc-yhteensopivuuden vuoksi — korjattu. (2) §20.6:n oma Layout-mallipohja (koodilohko) käytti `---`-erottimia kaikissa kolmessa kohdassa — sama virhe periytyi jokaiseen §20.6-mallia noudattavaan dokumenttiin (mm. CV_ORK160826, korjattu samassa istunnossa) — korjattu `***`:ksi. **Juurisyy löytyi:** `.claude/settings.json`:n PostToolUse-koukku (matcher `Write\|Edit`) ajaa Prettier'n `--write`-tilassa jokaisen Edit/Write-työkalukutsun jälkeen KOKO tiedostolle, ei vain muutetulle osalle — Prettier normalisoi oletusarvoisesti kaikki markdown-thematic-break-merkinnät (`***`, `___`) muotoon `---`. Tämä tarkoittaa, että `***`-sääntö ei voi koskaan pysyä voimassa suoralla Edit/Write-työkalukutsulla riippumatta siitä mitä tiedostoon kirjoitetaan — jokainen aiempi yritys korjata tämä on hiljaisesti peruuntunut seuraavassa Edit-kutsussa. Ei `.prettierrc`/`.prettierignore`-tiedostoa löytynyt, joten Prettier ajaa oletusasetuksin. Väliaikainen kiertotapa: tee `***`-korjaus Bash/sed-komennolla VIIMEISENÄ askeleena ennen committia (Bash ei laukaise tätä koukkua). Pysyvä korjaus (esim. `.prettierignore`-poikkeus VERSION-lohkoa sisältäville dokumenteille, tai koukun `proseWrap`/custom-parserin muokkaus) on vielä tekemättä — merkitty avoimeksi seuraavalle istunnolle.
 - Version: 2.10 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: Added §4.6 Exemption 2 (heavily cross-referenced living standards may keep an un-versioned filename instead of embedding `_vX`). Triggered by renaming `docs/KONSULTIN_KASIKIRJA_2026.md` → `docs/KONSULTOINNIN_KASIKIRJA_2026.md` (name-spelling fix, not a version bump) — the file has ~20 repo-wide cross-references, so embedding a version tag per the §4.6 default would force a rename-plus-reference-update ripple on every future edit; HIC chose to exempt it and keep `Version:` inside the file as the single source of truth for revision tracking.
 - Version: 2.9 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: Added `FINAL` to the §2.3 Publication Status Values table — a customer-facing deliverable (§20.6 scope) that is complete, corrected, and ready to send/submit uses `FINAL` in place of `ACTIVE`, since ACTIVE implies an internally-maintained lifecycle document, not a one-shot external artifact. Triggered by `bids/ORK160826/CV_ORK160826_v172.md` (→ v173 this session) which had carried `Publication Status: DRAFT` for 172 versions despite being an actively-submitted bid CV, and had never actually complied with the already-existing §20.6 rule (version block was still on page 1, not the last page) across 8+ prior editing sessions. §20.6 itself required no new text — the gap was non-compliance, not a missing rule; applying it to the CV file happens in the same commit as this entry.
-- Version: 2.8 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 13.07.2026 | Changes: Added §4.6 (Filename Version Tag Must Match the Header Version) — a filename's embedded version number must equal the document's own `Version:` header at all times; renaming happens in the same commit as the version bump, not deferred. Triggered by `bids/ORK160826/CV_ORK160826_v165.md` drifting to internal Version: 170 across 5 edit sessions without ever being renamed. Exempts deliberately-frozen archival snapshots (e.g. `CV/CV_Risto_Paarni_155.md`). Applied immediately: renamed `CV_ORK160826_v165.{md,html,docx}` → `CV_ORK160826_v170.{md,html,docx}` in the same commit as this rule.
+- Version: 2.8 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 13.07.2026 | Changes: Added §4.6 (Filename Version Tag Must Match the Header Version) — a filename's embedded version number must equal the document's own `Version:` header at all times; renaming happens in the same commit as the version bump, not deferred. Triggered by `bids/ORK160826/CV_ORK160826_v165.md` drifting to internal Version: 170 across 5 edit sessions without ever being renamed. Exempts deliberately-frozen archival snapshots (e.g. `CV/CV_Risto_Päärni_155.md`). Applied immediately: renamed `CV_ORK160826_v165.{md,html,docx}` → `CV_ORK160826_v170.{md,html,docx}` in the same commit as this rule.
 - Version: 2.7 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: Merged origin/main (v2.5, session claude/jasenko-hadzic-outreach-ici0e7) into this branch's v2.6. Both branches had independently added a new "§22" section since diverging — this branch's §22 (Multimodal Document Assets) and main's §22 (Whitepaper Standard, defined 24.06.2026 by session claude/nvidia-halos-robotics-suqayg, entry below). Resolved by renumbering main's Whitepaper Standard section (and its §22.1–22.3 subsections, and all internal §22.x cross-references within it) to §23 — this branch's Multimodal Document Assets keeps §22 as originally numbered. No content lost from either side; only section numbers changed on the Whitepaper Standard side. Updated ToC accordingly.
 - Version: 2.6 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: §22.4 updated — `scripts/render-doc.sh` now passes `--resource-path` so relative image paths resolve against the source .md's own directory (fixes a real bug: pandoc was resolving them against the caller's cwd instead, silently dropping the image). Documented the permanent pandoc install path: `infrastructure/dgx-spark/first-boot.sh` (step 3a) installs it once on the DGX Spark box so it survives across sessions, distinct from the ephemeral cloud-session `apt-get install` fallback. First real-world use: `bids/ORK160826/CV_ORK160826_v165.md` v170 — first image reference in 170 versions, rendered to `.html`/`.docx` with the photo embedded.
 - Version: 2.5 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: Added §22 (Multimodal Document Assets) — canonical asset locations (images/fonts/evidence PDFs), Markdown image reference convention, the Base64-embed rule for downloadable HTML/DOCX (formalizes CLAUDE.md's "Downloadable HTML Rule" here as canonical, via new `scripts/render-doc.sh` pandoc wrapper), video/audio handling (poster-frame + external link, never inline data URI), personnel photo quality bar, and the "never drop silently — HIC decision + shared Drive link" fallback rule for artifacts that can't be embedded. Triggered by discovering `bids/ORK160826/CV_ORK160826_v165.md` had zero image references across 168 versions despite a canonical photo already existing in-repo, and that the existing CV-facing photo (`CV/risto70.png`) has an unprofessional background unsuitable for procurement documents. Added §22 to ToC.
@@ -55,7 +56,7 @@ Session Links & References:
 Document Status:
 
 - Created: 30.12.2025
-- Last Modified: 17.07.2026
+- Last Modified: 19.09.2026
 - Language: English & Finnish (bilingual)
 - Languages Available: English, Suomi
 - Publication Status: ACTIVE
@@ -113,6 +114,9 @@ Applies to:
 - Technical specifications
 - Master thesis documents
 - PDF documents (`.pdf`)
+- SQL migrations and hand-written DDL (`.sql`) — including `supabase/migrations/*.sql` and any other repo `.sql`. Filename: §4.5. Provenance: §19.3 `CODE VERSIONING NOTE` as SQL comments. Do **not** paste the §2 markdown `VERSION AND AGENT HISTORY` block into `.sql` (not valid SQL).
+
+Soveltuu myös SQL-tiedostoihin (`.sql`): tiedostonimi §4.5, jäljitettävyys §19.3 -kommenttina — ei markdown-otsikkolohkoa.
 
 **Does NOT apply to:**
 
@@ -133,7 +137,10 @@ Applies to:
 
 ### 2.1 Required Header Block
 
-**ALL documents MUST include this header block at the top:**
+**ALL narrative documents (`.md` and other prose listed in §1) MUST include this header block at the top.**
+
+**SQL exception:** `.sql` files are in §1 scope but **must not** use this markdown block. They use the §19.3 `CODE VERSIONING NOTE` comment template at the top of the file, and the §4.5 filename. A markdown `VERSION AND AGENT HISTORY` block inside `.sql` is a Rule 12 violation (it is not SQL).
+
 
 > **IMPORTANT: Pandoc Compatibility.** Use `***` (not `---`) as delimiters around
 > the VERSION AND AGENT HISTORY block. Pandoc interprets `---` as YAML front matter,
@@ -393,7 +400,7 @@ deploy_production_v1.js
 
 ### 4.5 SQL Migration Files (Supabase / Postgres)
 
-Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
+Used for `supabase/migrations/*.sql` and any hand-written DDL migrations. Binding because `.sql` is in §1 scope — not an informal convention.
 
 **Format:**
 
@@ -448,7 +455,7 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
 2. Grep the repo for the old filename before renaming (`grep -rl "<old-filename>" .`) and update any exact-path references found, same as any other rename.
 3. Record the rename itself as a line item in that commit's VERSION AND AGENT HISTORY entry, not silently.
 
-**Exemption 1 — frozen archival snapshots:** point-in-time **archival snapshots** that are deliberately never edited again (e.g. `CV/CV_Risto_Paarni_155.md`, `CV/CV_Risto_Paarni_156.md` — frozen copies taken at a specific moment for historical reference) are exempt — their filename version is a creation-time snapshot label, not a live-synced tag, precisely because the file itself is frozen and cannot drift. This rule applies only to **actively-edited working documents** whose filename carries a version number.
+**Exemption 1 — frozen archival snapshots:** point-in-time **archival snapshots** that are deliberately never edited again (e.g. `CV/CV_Risto_Päärni_155.md`, `CV/CV_Risto_Päärni_156.md` — frozen copies taken at a specific moment for historical reference) are exempt — their filename version is a creation-time snapshot label, not a live-synced tag, precisely because the file itself is frozen and cannot drift. This rule applies only to **actively-edited working documents** whose filename carries a version number.
 
 **Exemption 2 — heavily cross-referenced living standards:** a document that is (a) revised frequently and (b) cross-referenced by exact filename from many other files may keep an **un-versioned filename** (no `_vX` tag at all) instead of embedding a version tag, if embedding one would force a rename-plus-reference-update ripple across the repo on every single edit. Example: `docs/KONSULTOINNIN_KASIKIRJA_2026.md` — ~20 cross-references repo-wide (Admin Manual, thesis/PhD chapters, whitepapers, `.claude/commands/dialog.md`, public site pages under `onelifetime.world/` and its `landing-pages/` mirror) as of 14.07.2026. Contrast with a bid CV, which typically has 0–1 cross-references and so pays the §4.6 rename cost cheaply. When in doubt, count real cross-references before deciding: few → embed the version (§4.6 default); many → this exemption, keep the base name stable and let `Version:` inside the file be the single source of truth for "which revision is this."
 
@@ -2243,7 +2250,7 @@ Env-Schema: env-v1.0
 """
 ```
 
-**SQL migrations (`.sql`):**
+**SQL migrations (`.sql`) — mandatory for new and rewritten files in §1 scope:**
 
 ```sql
 -- CODE VERSIONING NOTE
@@ -2839,6 +2846,7 @@ Every document produced in this repository — internal or external, narrative o
 - **Customer-facing documents (§20.6)** already move the version block + copyright to the end — this footer _is_ that block; do not duplicate it at the top for those docs.
 - **Whitepapers (§23.1)** carry the per-page printed footer defined there; §25 is the Markdown-source equivalent and both must agree on classification.
 - **Delimiter:** the footer opens with `***` (never `---`) per the Markdown Delimiter Rule.
+- **SQL exception:** `.sql` files do not use this Markdown footer. Put the same four facts (version, date, copyright, confidentiality) in a trailing `--` comment block, or omit confidentiality on schema that is already in the public repo. Version in that comment must match `Code-Version` in the §19.3 note.
 
 ## 26. Repository-First, Then Export (anti-drift)
 
@@ -2873,3 +2881,9 @@ Exported cloud documents (Google Docs/Drive, Gamma, shared PDFs) **must lead the
 - The leading version must equal the repo master's current version; bump it on every re-export.
 - If a document will exceed 9 minor versions, **zero-pad the minor** (`V1.03`) so lexical sort stays correct. Same idea as the whitepaper pipeline's zero-padded `NN_` prefix (§23.2).
 - When the connector cannot rename/update-in-place (e.g. Google Drive), a re-export makes a new file — **link every superseded file for manual deletion (§20.7)** so stale versions don't accumulate.
+
+***
+
+**Document version:** v2.16 · **Date:** 19.09.2026 · **Owner:** Lifetime Oy
+© 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
+**Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.

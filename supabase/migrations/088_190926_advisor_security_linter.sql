@@ -1,3 +1,12 @@
+-- CODE VERSIONING NOTE
+-- Code-Version: 1.1.0
+-- Introduced-In: PR-2045
+-- Branch: cursor/supabase-advisor-warnings-3f7a
+-- Commit: (see git log -- this-file)
+-- Date: 2026-09-19
+-- Owner: DWS Platform / Cursor cloud agent
+-- Env-Schema: env-v1.0
+--
 -- Migration 088: Clear Supabase Database Linter SECURITY warnings
 -- (2026-09-19 advisor dump: function_search_path_mutable, extension_in_public,
 -- rls_policy_always_true, anon/authenticated SECURITY DEFINER EXECUTE).
@@ -12,8 +21,7 @@
 -- keep using the service_role key for those RPCs.
 --
 -- Idempotent. Safe to re-run.
--- Evidence: Tool=Cursor Grok 4.6 Agent=cloud Date=2026-09-19
--- Audit trail: git log -- supabase/migrations/088_advisor_security_linter.sql
+-- Filename per DWS_DOCUMENT_STANDARD.md §4.5 / §1 (v2.16).
 
 BEGIN;
 
@@ -296,4 +304,7 @@ $$;
 
 COMMIT;
 
-SELECT 'Migration 088_advisor_security_linter.sql completed' AS status;
+SELECT 'Migration 088_190926_advisor_security_linter.sql completed' AS status;
+
+-- Document version: 1.1.0 · Date: 19.09.2026 · Owner: Lifetime Oy
+-- © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.

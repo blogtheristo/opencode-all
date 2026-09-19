@@ -2,7 +2,7 @@
 
 **Observed at:** 2026-09-19T00:51:14.175Z (HIC paste)
 **Branch:** `cursor/supabase-advisor-warnings-3f7a`
-**Status:** PENDING_REVIEW — migration `088_advisor_security_linter.sql` is in repo only; not applied.
+**Status:** PENDING_REVIEW — migration `088_190926_advisor_security_linter.sql` is in repo only; not applied.
 
 ## What the advisor reported
 
@@ -29,7 +29,7 @@ Expected. The editor keyword-scans `REVOKE` and `ALTER EXTENSION`. 088 does **no
 
 1. `ALTER FUNCTION … SET search_path = pg_catalog, public` for every public function missing a pin.
 2. For every public SECURITY DEFINER function: `REVOKE EXECUTE` from `PUBLIC` and `anon`; `GRANT` to `service_role`. Authenticated EXECUTE is **kept only** for RLS helpers: `is_advisor`, `is_backoffice_admin`, `is_security_auditor`, `user_has_org_role`, `get_user_organizations`, `get_advisor_permissions`. Those six will still appear on lint 0029 until they move to a private schema.
-3. Drop unrestricted service-role-named `ALL (true)` policies (service_role already bypasses RLS).
+3. `ALTER POLICY … TO service_role` on unrestricted ALL(true) policies (service_role already bypasses RLS).
 4. Anon INSERT checks require a plausible email (and name / industry_slug where those columns exist). Authenticated write on `web_leads` / `captain_inquiries` / `blog_subscribers` requires `is_backoffice_admin()`.
 5. `ALTER EXTENSION vector/citext SET SCHEMA extensions` when they still sit in `public`.
 
