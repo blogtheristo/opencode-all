@@ -7,11 +7,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0 [Latest]
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: Drafts only. Not posted to X. Sources: field note 1, KYA spec, Jev notes 2–6, Han Xiao, TypeSafe use-case map, CUA-S1 note. No UNVERIFIED user economics (22M tokens, $3.40, 390×, 193.6×) as facts against TypeSafe.
+- Version: 1.1 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: Record HIC posted Draft B + closer to X. Status POSTED. No tweet URL supplied — not invented. Draft A/C remain drafts, not posted. Typo “juridisction” kept as written.
+- Version: 1.0 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: Drafts only. Not posted to X. Sources: field note 1, KYA spec, Jev notes 2–6, Han Xiao, TypeSafe use-case map, CUA-S1 note. No UNVERIFIED user economics (22M tokens, $3.40, 390×, 193.6×) as facts against TypeSafe.
 
 Session Links & References:
 
@@ -25,16 +26,16 @@ Document Status:
 - Created: 19.09.2026
 - Last Modified: 19.09.2026
 - Language: English
-- Publication Status: INTERNAL — field note, not for public-site publication. Drafts may be posted only by HIC.
+- Publication Status: INTERNAL — field note. Public X post is HIC-authored Draft B + closer; this file is not for public-site publication.
 
 <!-- prettier-ignore -->
 ***
 
 **Date:** 2026-09-19
 **Session:** Cursor, branch `cursor/dws10-i18n-25-dictionary-c0ce`
-**Status:** PENDING_REVIEW — copy drafts. **Do not post from this agent.** No vendor API. No spec bump. No 087 apply.
+**Status:** POSTED (HIC, 19.09.2026). Public text = Draft B + HIC closer. **No tweet URL supplied** — fail loud; do not invent a status URL. Agent did **not** tweet. No vendor API. No spec bump. No 087 apply.
 
-**HIC note (one line):** Keep email-length **internal**; post the short X variant only if you want a public, non-dunking sovereignty+calibration reply — otherwise keep all three drafts internal.
+**HIC note (one line):** Posted Draft B with closer; Draft A and Draft C were **not** posted.
 
 ## Constraints (Rule 12)
 
@@ -63,6 +64,16 @@ We documented this and built a KYA-gated analog on our own stack rather than cal
 ```
 
 Character count (Draft B body, excluding fences): agent should treat as under ~500; HIC paste into X composer to confirm.
+
+## Posted text (X, HIC, 19.09.2026)
+
+Exact text as HIC wrote it (typo **juridisction** preserved). **Tweet URL: unknown** (not supplied).
+
+```
+@typesafeai For us (EU regulatory workloads) hosted Jev fails on two checked points: US host + SCCs, not EU-local processing (CLOUD Act), and confidence we cannot treat as calibrated (no DWS ECE; public ECE 0.144 / 16k “not ready” are not our tests). The System-1 *idea* we agree with — typed judge + LLMs, not vs them. Sequential generative wrappers aren’t that. We built a KYA-gated analog in-house instead of calling the US API. JEV Rocks (with juridisction problem not that of yours) !
+```
+
+**Closer interpretation:** HIC affirms the product/idea (“JEV Rocks”) and attributes the blocker to **jurisdiction / CLOUD Act / US host**, not to TypeSafe’s team or the typed-decision idea (“not that of yours”).
 
 ## Draft C — email-length
 
@@ -94,5 +105,5 @@ risto.paarni@lifetime.fi · +358 400 319 010
 2. Field note: this file.
 3. Learn/ HTML: N/A — internal.
 4. Drive: N/A.
-5. **HIC question:** Post Draft B on X, keep all drafts internal, or send Draft C privately?
+5. **HIC question:** N/A — Draft B + closer already posted by HIC. Remaining: supply tweet URL if audit needs a permalink; Draft A/C stay unposted.
 6. Calendar: N/A.
