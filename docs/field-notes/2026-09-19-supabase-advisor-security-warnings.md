@@ -21,6 +21,10 @@ Service-role `ALL (true)` policies on `agent_sessions`, `agent_tasks`, `bim_meta
 
 Public-form `WITH CHECK (true)` on `web_leads`, `captain_inquiries`, `playbook_leads`, `blog_subscribers` is the intended anon insert path; the lint still flags the literal `true`. Authenticated UPDATE/DELETE on leads was also unrestricted.
 
+## Studio “destructive operations” banner
+
+Expected. The editor keyword-scans `REVOKE` and `ALTER EXTENSION`. 088 does **not** `DELETE`/`TRUNCATE` rows and does **not** `DROP TABLE`/`SCHEMA`/`FUNCTION`. Policies are `ALTER POLICY` in place.
+
 ## What 088 does
 
 1. `ALTER FUNCTION … SET search_path = pg_catalog, public` for every public function missing a pin.

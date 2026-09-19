@@ -2,9 +2,14 @@
 -- (2026-09-19 advisor dump: function_search_path_mutable, extension_in_public,
 -- rls_policy_always_true, anon/authenticated SECURITY DEFINER EXECUTE).
 --
--- STATUS: review before apply. Non-breaking for table data. May return 42501
--- on /rest/v1/rpc/* for SECURITY DEFINER functions that were accidentally
--- public. Backend must keep using the service_role key for those RPCs.
+-- Studio banner "This query includes destructive operations":
+-- keyword scan hits REVOKE and ALTER EXTENSION. This file does not
+-- DELETE/TRUNCATE rows and does not DROP TABLE/SCHEMA/FUNCTION.
+-- Policies are ALTER-ed in place (no DROP POLICY).
+--
+-- STATUS: review before apply. May return 42501 on /rest/v1/rpc/* for
+-- SECURITY DEFINER functions that were accidentally public. Backend must
+-- keep using the service_role key for those RPCs.
 --
 -- Idempotent. Safe to re-run.
 -- Evidence: Tool=Cursor Grok 4.6 Agent=cloud Date=2026-09-19
@@ -81,108 +86,149 @@ END
 $$;
 
 -- ============================================================
--- 3. Drop USING(true) ALL policies that apply to every role (lint 0024)
---    service_role already bypasses RLS; these policies opened the table
---    to any granted role. Existence-safe: tables may be remote-only.
+-- 3. Tighten always-true write policies (lint 0024) via ALTER POLICY
 -- ============================================================
 DO $$
 BEGIN
-  IF to_regclass('public.agent_sessions') IS NOT NULL THEN
-    EXECUTE 'DROP POLICY IF EXISTS "Service role has full access to agent_sessions" ON public.agent_sessions';
+  -- Unscoped ALL(true) → service_role only (bypasses RLS anyway).
+  IF EXISTS (
+    SELECT 1 FROM pg_policies
+    WHERE schemaname = 'public' AND tablename = 'agent_sessions'
+      AND policyname = 'Service role has full access to agent_sessions'
+  ) THEN
+    EXECUTE 'ALTER POLICY "Service role has full access to agent_sessions" ON public.agent_sessions TO service_role';
   END IF;
-  IF to_regclass('public.agent_tasks') IS NOT NULL THEN
-    EXECUTE 'DROP POLICY IF EXISTS "Service role has full access to agent_tasks" ON public.agent_tasks';
+
+  IF EXISTS (
+    SELECT 1 FROM pg_policies
+    WHERE schemaname = 'public' AND tablename = 'agent_tasks'
+      AND policyname = 'Service role has full access to agent_tasks'
+  ) THEN
+    EXECUTE 'ALTER POLICY "Service role has full access to agent_tasks" ON public.agent_tasks TO service_role';
   END IF;
-  IF to_regclass('public.bim_metadata') IS NOT NULL THEN
-    EXECUTE 'DROP POLICY IF EXISTS "Service role has full access to bim_metadata" ON public.bim_metadata';
+
+  IF EXISTS (
+    SELECT 1 FROM pg_policies
+    WHERE schemaname = 'public' AND tablename = 'bim_metadata'
+      AND policyname = 'Service role has full access to bim_metadata'
+  ) THEN
+    EXECUTE 'ALTER POLICY "Service role has full access to bim_metadata" ON public.bim_metadata TO service_role';
   END IF;
-  IF to_regclass('public.opencode_sessions') IS NOT NULL THEN
-    EXECUTE 'DROP POLICY IF EXISTS service_role_all ON public.opencode_sessions';
+
+  IF EXISTS (
+    SELECT 1 FROM pg_policies
+    WHERE schemaname = 'public' AND tablename = 'opencode_sessions'
+      AND policyname = 'service_role_all'
+  ) THEN
+    EXECUTE 'ALTER POLICY service_role_all ON public.opencode_sessions TO service_role';
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM pg_policies
+    WHERE schemaname = 'public' AND tablename = 'web_leads'
+      AND policyname = 'Anyone can submit a web lead'
+  ) THEN
+    EXECUTE $p$
+      ALTER POLICY "Anyone can submit a web lead" ON public.web_leads
+      WITH CHECK (
+        email IS NOT NULL
+        AND length(btrim(email)) >= 5
+        AND position('@' IN email) > 1
+      )
+    $p$;
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM pg_policies
+    WHERE schemaname = 'public' AND tablename = 'web_leads'
+      AND policyname = 'Authenticated users can update web leads'
+  ) THEN
+    EXECUTE $p$
+      ALTER POLICY "Authenticated users can update web leads" ON public.web_leads
+      USING (is_backoffice_admin())
+      WITH CHECK (is_backoffice_admin())
+    $p$;
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM pg_policies
+    WHERE schemaname = 'public' AND tablename = 'web_leads'
+      AND policyname = 'Authenticated users can delete web leads'
+  ) THEN
+    EXECUTE $p$
+      ALTER POLICY "Authenticated users can delete web leads" ON public.web_leads
+      USING (is_backoffice_admin())
+    $p$;
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM pg_policies
+    WHERE schemaname = 'public' AND tablename = 'captain_inquiries'
+      AND policyname = 'Anyone can submit an inquiry'
+  ) THEN
+    EXECUTE $p$
+      ALTER POLICY "Anyone can submit an inquiry" ON public.captain_inquiries
+      WITH CHECK (
+        email IS NOT NULL
+        AND length(btrim(email)) >= 5
+        AND position('@' IN email) > 1
+        AND name IS NOT NULL
+        AND length(btrim(name)) >= 1
+      )
+    $p$;
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM pg_policies
+    WHERE schemaname = 'public' AND tablename = 'captain_inquiries'
+      AND policyname = 'Authenticated users can update inquiries'
+  ) THEN
+    EXECUTE $p$
+      ALTER POLICY "Authenticated users can update inquiries" ON public.captain_inquiries
+      USING (is_backoffice_admin())
+      WITH CHECK (is_backoffice_admin())
+    $p$;
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM pg_policies
+    WHERE schemaname = 'public' AND tablename = 'playbook_leads'
+      AND policyname = 'anon can insert playbook leads'
+  ) THEN
+    EXECUTE $p$
+      ALTER POLICY "anon can insert playbook leads" ON public.playbook_leads
+      WITH CHECK (
+        email IS NOT NULL
+        AND length(btrim(email::text)) >= 5
+        AND position('@' IN email::text) > 1
+        AND industry_slug IS NOT NULL
+        AND length(btrim(industry_slug)) >= 1
+      )
+    $p$;
   END IF;
 END
 $$;
 
--- Public form INSERTs: keep anon write, replace WITH CHECK (true) with a
--- real predicate so lint 0024 clears.
-DO $$
-BEGIN
-  IF to_regclass('public.web_leads') IS NOT NULL THEN
-    EXECUTE 'DROP POLICY IF EXISTS "Anyone can submit a web lead" ON public.web_leads';
-    EXECUTE $p$
-      CREATE POLICY "Anyone can submit a web lead"
-        ON public.web_leads FOR INSERT TO anon
-        WITH CHECK (
-          email IS NOT NULL
-          AND length(btrim(email)) >= 5
-          AND position('@' IN email) > 1
-        )
-    $p$;
-
-    EXECUTE 'DROP POLICY IF EXISTS "Authenticated users can update web leads" ON public.web_leads';
-    EXECUTE $p$
-      CREATE POLICY "Authenticated users can update web leads"
-        ON public.web_leads FOR UPDATE TO authenticated
-        USING (is_backoffice_admin())
-        WITH CHECK (is_backoffice_admin())
-    $p$;
-
-    EXECUTE 'DROP POLICY IF EXISTS "Authenticated users can delete web leads" ON public.web_leads';
-    EXECUTE $p$
-      CREATE POLICY "Authenticated users can delete web leads"
-        ON public.web_leads FOR DELETE TO authenticated
-        USING (is_backoffice_admin())
-    $p$;
-  END IF;
-
-  IF to_regclass('public.captain_inquiries') IS NOT NULL THEN
-    EXECUTE 'DROP POLICY IF EXISTS "Anyone can submit an inquiry" ON public.captain_inquiries';
-    EXECUTE $p$
-      CREATE POLICY "Anyone can submit an inquiry"
-        ON public.captain_inquiries FOR INSERT TO anon
-        WITH CHECK (
-          email IS NOT NULL
-          AND length(btrim(email)) >= 5
-          AND position('@' IN email) > 1
-          AND name IS NOT NULL
-          AND length(btrim(name)) >= 1
-        )
-    $p$;
-
-    EXECUTE 'DROP POLICY IF EXISTS "Authenticated users can update inquiries" ON public.captain_inquiries';
-    EXECUTE $p$
-      CREATE POLICY "Authenticated users can update inquiries"
-        ON public.captain_inquiries FOR UPDATE TO authenticated
-        USING (is_backoffice_admin())
-        WITH CHECK (is_backoffice_admin())
-    $p$;
-  END IF;
-
-  IF to_regclass('public.playbook_leads') IS NOT NULL THEN
-    EXECUTE 'DROP POLICY IF EXISTS "anon can insert playbook leads" ON public.playbook_leads';
-    EXECUTE $p$
-      CREATE POLICY "anon can insert playbook leads"
-        ON public.playbook_leads FOR INSERT TO anon
-        WITH CHECK (
-          email IS NOT NULL
-          AND length(btrim(email::text)) >= 5
-          AND position('@' IN email::text) > 1
-          AND industry_slug IS NOT NULL
-          AND length(btrim(industry_slug)) >= 1
-        )
-    $p$;
-  END IF;
-
-END
-$$;
-
--- blog_subscribers: replace authenticated ALL(true) if the table exists.
--- Recreate insert with a column-aware check.
 DO $$
 DECLARE
   email_col text;
+  check_sql text;
 BEGIN
   IF to_regclass('public.blog_subscribers') IS NULL THEN
     RETURN;
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM pg_policies
+    WHERE schemaname = 'public' AND tablename = 'blog_subscribers'
+      AND policyname = 'blog_subscribers_auth_all'
+  ) THEN
+    EXECUTE $p$
+      ALTER POLICY blog_subscribers_auth_all ON public.blog_subscribers
+      TO authenticated
+      USING (is_backoffice_admin())
+      WITH CHECK (is_backoffice_admin())
+    $p$;
   END IF;
 
   SELECT a.attname INTO email_col
@@ -193,34 +239,30 @@ BEGIN
     AND a.attname IN ('email', 'subscriber_email')
   LIMIT 1;
 
-  EXECUTE 'DROP POLICY IF EXISTS blog_subscribers_auth_all ON public.blog_subscribers';
-  EXECUTE $p$
-    CREATE POLICY blog_subscribers_auth_all
-      ON public.blog_subscribers FOR ALL TO authenticated
-      USING (is_backoffice_admin())
-      WITH CHECK (is_backoffice_admin())
-  $p$;
-
-  EXECUTE 'DROP POLICY IF EXISTS blog_subscribers_anon_insert ON public.blog_subscribers';
-  IF email_col IS NOT NULL THEN
-    EXECUTE format(
-      $p$
-        CREATE POLICY blog_subscribers_anon_insert
-          ON public.blog_subscribers FOR INSERT TO anon
+  IF EXISTS (
+    SELECT 1 FROM pg_policies
+    WHERE schemaname = 'public' AND tablename = 'blog_subscribers'
+      AND policyname = 'blog_subscribers_anon_insert'
+  ) THEN
+    IF email_col IS NOT NULL THEN
+      check_sql := format(
+        $p$
+          ALTER POLICY blog_subscribers_anon_insert ON public.blog_subscribers
           WITH CHECK (
             %1$I IS NOT NULL
             AND length(btrim(%1$I::text)) >= 5
             AND position('@' IN %1$I::text) > 1
           )
-      $p$,
-      email_col
-    );
-  ELSE
-    EXECUTE $p$
-      CREATE POLICY blog_subscribers_anon_insert
-        ON public.blog_subscribers FOR INSERT TO anon
+        $p$,
+        email_col
+      );
+    ELSE
+      check_sql := $p$
+        ALTER POLICY blog_subscribers_anon_insert ON public.blog_subscribers
         WITH CHECK (id IS NOT NULL)
-    $p$;
+      $p$;
+    END IF;
+    EXECUTE check_sql;
   END IF;
 END
 $$;
