@@ -2,6 +2,7 @@
 -- Code-Version: 1.0.2
 -- Introduced-In: PR-2044
 -- Branch: cursor/dws10-i18n-25-dictionary-c0ce
+-- Commit: 571afe02d
 -- Date: 2026-09-19
 -- Owner: DWS Platform / AI Agent
 -- Evidence: Tool=Cursor Grok 4.6 Model=Cursor Grok 4.6 Agent=cursor Date=2026-09-19
