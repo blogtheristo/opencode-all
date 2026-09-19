@@ -5,6 +5,7 @@
 --
 -- Reviewed: HIC 2026-09-18 (non-breaking, additive table)
 -- Context: docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md
+-- RLS ENABLE is immediately after CREATE (before grants): SQL editor advisor flags CREATE without ENABLE in the same parse.
 -- ============================================================================
 
 CREATE TABLE IF NOT EXISTS kya_jev_calls (
@@ -31,6 +32,8 @@ CREATE TABLE IF NOT EXISTS kya_jev_calls (
   created_at timestamptz DEFAULT now()
 );
 
+ALTER TABLE public.kya_jev_calls ENABLE ROW LEVEL SECURITY;
+
 CREATE INDEX IF NOT EXISTS idx_kya_jev_calls_agent_name ON kya_jev_calls(agent_name);
 CREATE INDEX IF NOT EXISTS idx_kya_jev_calls_execution_id ON kya_jev_calls(agent_execution_id);
 CREATE INDEX IF NOT EXISTS idx_kya_jev_calls_org_id ON kya_jev_calls(org_id);
@@ -39,9 +42,27 @@ CREATE INDEX IF NOT EXISTS idx_kya_jev_calls_created_at ON kya_jev_calls(created
 COMMENT ON TABLE kya_jev_calls IS
   'Article 12 audit trail for kya-jev (src/agents/kya-jev.ts) typed decisions. Confidence is self-reported and uncalibrated until a DWS calibration study runs — see docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md.';
 
+-- service_role: full access (030_agent_logging_tables / 069_agent_nudges)
+DROP POLICY IF EXISTS kya_jev_calls_service_all ON public.kya_jev_calls;
+CREATE POLICY kya_jev_calls_service_all
+  ON public.kya_jev_calls
+  FOR ALL
+  TO service_role
+  USING (true)
+  WITH CHECK (true);
+
+-- authenticated: own org_id via JWT claim (042_csrd_compliance_data.sql)
+DROP POLICY IF EXISTS kya_jev_calls_authenticated_org ON public.kya_jev_calls;
+CREATE POLICY kya_jev_calls_authenticated_org
+  ON public.kya_jev_calls
+  FOR ALL
+  TO authenticated
+  USING (org_id::text = current_setting('request.jwt.claims', true)::json->>'org_id')
+  WITH CHECK (org_id::text = current_setting('request.jwt.claims', true)::json->>'org_id');
+
 -- ============================================================================
 -- Standard grants (Firehorse/supabase-schema-templates.sql)
+-- No anon grant. RLS is the row gate; GRANT is the table gate.
 -- ============================================================================
-grant select, insert, update, delete on public.kya_jev_calls
-  to authenticated, service_role;
-alter table public.kya_jev_calls enable row level security;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.kya_jev_calls
+  TO authenticated, service_role;
