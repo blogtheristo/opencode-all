@@ -5,7 +5,7 @@ alwaysApply: true
 
 # DWS standards — always follow (Cursor harness)
 
-HIC approved 19.09.2026: thin always-on rule; migration CI; i18n HTML provenance; caller map; Auth leaked-password (Studio, Security Standard §16.0.2). Do not apply 088.
+HIC approved 19.09.2026: thin always-on rule; migration CI; i18n HTML provenance; caller map; Auth leaked-password (Studio, Security Standard §16.0.2); retire `***` / agent PDF-from-md. Do not apply 088.
 
 Do not "remember" standards. **Read the files.** Dumping `CLAUDE.md` is not compliance.
 
@@ -21,7 +21,7 @@ Do not "remember" standards. **Read the files.** Dumping `CLAUDE.md` is not comp
 
 New or rewritten `.sql`, `.ts`, `.tsx`, `.js`, `.jsx`, `.py`: language-appropriate `CODE VERSIONING NOTE` including `Harness` and `Hic-Approved-Drift` (`none` or dated HIC id). SQL filenames: `[NNN]_[DDMMYY]_[name].sql`. Never paste markdown `VERSION AND AGENT HISTORY` into source.
 
-Narrative `.md`: `VERSION AND AGENT HISTORY` with `***` delimiters (not `---`).
+Narrative `.md`: `VERSION AND AGENT HISTORY` with `---` delimiters. Do not convert `***`↔`---` for Pandoc. HIC makes PDFs from HTML.
 
 ## Do not
 

@@ -1,13 +1,13 @@
 ---
 title: CLAUDE.md — Operational Rules for AI Agents
-version: 1.2
+version: 1.3
 status: Active
 last_updated: 2026-09-19
 applies_to:
   ["Claude Code", "OpenCode", "BaseAgent", "MCP tools", "Cursor", "Cursor Cloud", "all agents"]
 language: en
 schema: DWS_DOCUMENT_STANDARD
-changes_in_this_version: "Cursor/Cloud harness: standards resolver is mandatory Read, not memory; table + Resolver + Key Operating Rules"
+changes_in_this_version: "HIC 19.09.2026: retire *** Pandoc delimiter; HIC makes PDFs from HTML"
 source_control_url: "https://github.com/blogtheristo/dws6/blob/main/CLAUDE.md"
 ---
 
@@ -158,7 +158,7 @@ OpenCode operates with elevated permissions beyond Claude Code. These items move
 
 **Store content:** `Store/*.md` uses YAML frontmatter. No DWS Document Standard header blocks.
 
-**Markdown delimiters:** `VERSION AND AGENT HISTORY` blocks use `***`, not `---` (Pandoc compatibility).
+**Markdown delimiters:** `VERSION AND AGENT HISTORY` uses `---` (Prettier-stable). HIC 19.09.2026 retired `***` / Pandoc-from-markdown PDF. HIC makes PDFs from HTML when needed.
 
 **Supabase table grants:** Every `CREATE TABLE public.*` needs `GRANT` to `service_role` + `authenticated` + `ENABLE ROW LEVEL SECURITY`. Copy standard block from `Firehorse/supabase-schema-templates.sql`. Grant `anon` only where an RLS policy targets it.
 
@@ -429,6 +429,7 @@ Use these for full detail when needed:
 
 | Version | Date       | Changes                                                                                                                                                                                            | Author      |
 | ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| 1.3     | 2026-09-19 | HIC: retire `***` / Pandoc-from-markdown PDF. VAH uses `---`. HIC prints PDF from HTML.                                                                                                            | Cursor      |
 | 1.2     | 2026-09-19 | Cursor/Cloud: standards resolver is mandatory file Reads; `dws-standards-always.mdc` is the harness Cursor actually injects                                                                        | Cursor      |
 | 1.1     | 2026-09-07 | Extracted long specs (Discipline, Standards Routing) to separate indexed files; added multi-tool acknowledgment and system file ecosystem cross-references; added DWS Document Standard versioning | Claude Code |
 | 1.0     | Prior      | Original consolidated rules file                                                                                                                                                                   | HIC         |

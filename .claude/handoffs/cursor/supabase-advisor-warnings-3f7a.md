@@ -10,11 +10,16 @@
 
 ---
 
-Version: 1.3 [Latest]
+Version: 1.4 [Latest]
 Tool: Cursor Grok 4.6
 Agent: Cursor Cloud
 Date: 19.09.2026
-Changes: HIC item 5 — Auth leaked-password required (Studio). Do not apply 088.
+Changes: HIC retired `***` / agent PDF-from-markdown. VAH is `---`. Do not apply 088.
+Version: 1.3
+Tool: Cursor Grok 4.6
+Agent: Cursor Cloud
+Date: 19.09.2026
+Changes: [not latest] HIC item 5 — Auth leaked-password required (Studio). Do not apply 088.
 Version: 1.2
 Tool: Cursor Grok 4.6
 Agent: Cursor Cloud
@@ -81,7 +86,7 @@ Earlier on same lineage (if present on PR): advisor field note + first 088 draft
 ## Next steps (OpenCode)
 
 1. Audit commits + uncommitted output against CLAUDE.md / Document Standard / Security Standard / 076 text. Write findings; do not “fix” by applying 088.
-2. Finish or reject the WIP CI: only new `supabase/migrations/` files vs merge-base; pattern `NNN_DDMMYY_snake.sql`; tests; `***` in markdown VAH (Prettier rewrites `***` → `---` on Edit/Write).
+2. Do not convert leftover `***` in old files. Do not PDF-from-markdown. HIC prints PDF from HTML.
 3. Commit + push only after audit; update PR 2046.
 
 ## Notes for next session

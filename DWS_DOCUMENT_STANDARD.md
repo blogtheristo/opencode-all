@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.21 [Latest]
+Version: 2.22 [Latest]
 
 Sessions & Modifications:
 
-- Version: 2.21 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §27.3 — gaps require a proposed standards update, not only N/A. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 do not apply 088
+- Version: 2.22 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC — retire `***` Pandoc delimiter. Agents do not PDF-from-markdown. HIC prints PDF from HTML. VAH uses `---`. Do not convert leftover `***`. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 retire *** / no agent PDF-from-md
+- Version: 2.21 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §27.3 — gaps require a proposed standards update, not only N/A. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 do not apply 088
 - Version: 2.20 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §2.6 / §19 / §27 — every artefact names Version, Harness, and HIC-approved-drift (`none` or dated exception). Maps NIS2 Art. 21(2)(a)(e)(f)(i) and Katakri 2020 hallinnollinen + tietojärjestelmät change control. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 do not apply 088
 - Version: 2.19 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §2.1 generated-i18n — public product language siblings (`*.fi.html` / `.sv` / `.de` / `.fr`) carry an HTML-comment provenance block (`DWS_DOC_PROVENANCE generated-i18n`). Markdown VERSION AND AGENT HISTORY is forbidden on public HTML (Rule 5). Builder + stamp script. HIC approved 19.09.2026.
 - Version: 2.18 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §4.5 CI — PR-added `supabase/migrations/` filenames must match `NNN_DDMMYY_name.sql`. Existing names grandfathered. HIC approved this gate 19.09.2026. Does not apply migrations.
@@ -152,11 +153,7 @@ Soveltuu myös SQL-, TypeScript- ja Python-tiedostoihin: jäljitettävyys §19.3
 
 **Generated-i18n HTML exception (HIC 19.09.2026):** Machine-built public language siblings (`*.fi.html`, `*.sv.html`, `*.de.html`, `*.fr.html` under the product trees above) **must not** use this markdown block. Immediately after `<!doctype html>` they carry an HTML comment whose first line is `DWS_DOC_PROVENANCE generated-i18n` (lang, file, master, builder, date, session). Visible store UI must not show the changelog. Emitter: `scripts/i18n/build-i18n-pages.cjs`. One-shot stamp: `scripts/i18n/stamp-generated-html-provenance.mjs`. Dual-folder in the same commit.
 
-> **IMPORTANT: Pandoc Compatibility.** Use `***` (not `---`) as delimiters around
-> the VERSION AND AGENT HISTORY block. Pandoc interprets `---` as YAML front matter,
-> which causes parse errors because the history block isn't valid YAML.
-> Both `***` and `---` render as horizontal rules in markdown, but only `---` triggers
-> YAML parsing.
+> **HIC 19.09.2026 — `***` delimiter retired.** Agents do **not** produce PDF from markdown. HIC makes PDFs from **HTML** (`Learn/` / `scripts/render-doc.sh` / browser print) when needed. VERSION AND AGENT HISTORY uses `---` (Prettier-stable). Existing `***` in old files is leftover, not a defect. Do not spend tokens converting `---` ↔ `***`.
 
 ```markdown
 # [Document Title]
@@ -241,7 +238,7 @@ DRAFT → ACTIVE → OUTDATED → ARCHIVED
 
 When a document is superseded or no longer maintained, mark it as OUTDATED **before** archiving.
 
-**Step 1:** Add this block immediately after the document title (before `***`):
+**Step 1:** Add this block immediately after the document title (before the first `---`):
 
 ```markdown
 > **STATUS: OUTDATED** — This document is no longer maintained.
@@ -705,9 +702,9 @@ Usage: python script_name.py [args]
 
 ### 8.1 Purpose / Tarkoitus
 
-Establishes standardized procedures for creating professional PDF documents from markdown sources, ensuring consistent quality and file size optimization.
+Establishes how PDFs are produced when HIC needs one: render HTML first (`Learn/` / `scripts/render-doc.sh` / §18), then HIC prints to PDF. Agents do **not** generate PDF from markdown. The retired `***` Pandoc delimiter is not used.
 
-Määrittää standardoidut menettelyt ammattimaisten PDF-dokumenttien luomiseksi markdown-lähteistä, varmistaen johdonmukaisen laadun ja tiedostokoon optimoinnin.
+Määrittää PDF-tuotannon: ensin HTML, sitten HIC tulostaa PDF:n. Agentit eivät tee PDF:ää markdownista.
 
 ### 8.2 File Size Requirements
 
@@ -780,9 +777,7 @@ pandoc "input.md" -o "output.pdf" --pdf-engine=wkhtmltopdf --toc -f markdown-yam
 pandoc "input.md" -o "output.pdf" --pdf-engine=xelatex --toc -f markdown-yaml_metadata_block+smart
 ```
 
-> **WARNING:** Do NOT use `pdflatex` - it cannot handle Unicode emoji.
-> Do NOT use `---` delimiters in document headers - pandoc treats them as YAML.
-> Use `***` delimiters instead (see Section 2.1).
+> **HIC 19.09.2026:** Do not run these PDF-from-markdown commands in agent sessions. Render HTML (`scripts/render-doc.sh` / §18). HIC creates the PDF from that HTML when a PDF is required.
 
 ### 8.4 HTML Styling Standard (DWS Brand)
 
@@ -2537,7 +2532,7 @@ Document Status:
 ---
 ```
 
-> **Remember:** Use `***` not `---` for pandoc compatibility.
+> **HIC 19.09.2026:** `---` delimiters. No agent PDF-from-markdown.
 
 ### Workflow Naming Template
 
@@ -2584,7 +2579,7 @@ A whitepaper references a **subject version** (the standard or product it descri
 1. **Visible revision line** near the title or in the footer:
    `Document revision v1.1 · Last updated 25 Jun 2026`
 2. **VERSION AND AGENT HISTORY provenance block:**
-   - **Markdown-sourced** whitepapers: the standard `***`-delimited block per §2 / Appendix B.
+   - **Markdown-sourced** whitepapers: the standard `---`-delimited block per §2 / Appendix B.
    - **HTML-only** whitepapers (public-site pages — `.md` is forbidden in public folders per CLAUDE.md Non-Negotiable Rule 5): embed the history as an `<!-- VERSION AND AGENT HISTORY ... -->` HTML comment immediately after `<head>`, plus the visible revision line in §20.2(1).
 
 ### 20.3 Increment rule (per §5 table)
@@ -2880,7 +2875,7 @@ Every document produced in this repository — internal or external, narrative o
 ### 25.1 Canonical footer block
 
 ```
-***
+---
 
 **Document version:** vX.Y · **Date:** DD.MM.YYYY · **Owner:** Lifetime Oy
 © <year> Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
@@ -2893,7 +2888,7 @@ Every document produced in this repository — internal or external, narrative o
 - **Public documents** replace the confidentiality clause with a short public-license/attribution line, but still carry version, date, and copyright.
 - **Customer-facing documents (§20.6)** already move the version block + copyright to the end — this footer _is_ that block; do not duplicate it at the top for those docs.
 - **Whitepapers (§23.1)** carry the per-page printed footer defined there; §25 is the Markdown-source equivalent and both must agree on classification.
-- **Delimiter:** the footer opens with `***` (never `---`) per the Markdown Delimiter Rule.
+- **Delimiter:** `---` (HIC 19.09.2026). The retired `***` rule is not enforced.
 - **Executable-source exception:** `.sql` / `.ts` / `.py` do not use this Markdown footer. Put version + date + copyright in a trailing language comment, or omit confidentiality on public repo source. Version must match `Code-Version` in the §19.3 note.
 
 ## 26. Repository-First, Then Export (anti-drift)
@@ -2977,6 +2972,6 @@ Routing: `docs/system-config/STANDARDS_ROUTING.md` How to Apply step 4.
 
 ---
 
-**Document version:** v2.21 · **Date:** 19.09.2026 · **Owner:** Lifetime Oy
+**Document version:** v2.22 · **Date:** 19.09.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.
