@@ -271,6 +271,22 @@
 
       <div class="centres" id="centres"></div>
 
+      <section class="live" style="margin-top: 16px" aria-label="Cost Review" id="costReviewSection" hidden>
+        <label>Cost Audit Review</label>
+        <p style="color: var(--muted); font-size: 0.9rem; margin: 6px 0 12px;">
+          DGX vs. Cloud compute decisions from the past 7 days.
+        </p>
+        <div id="costChart" style="margin: 12px 0; text-align: center;"></div>
+        <div class="row" style="margin-top: 12px;">
+          <span style="flex: 1; color: var(--muted); font-size: 0.8rem;">
+            <span style="display: inline-block; width: 12px; height: 12px; background: #7dd3c0; margin-right: 4px;"></span>DGX
+            <span style="display: inline-block; width: 12px; height: 12px; background: #e8a87c; margin: 0 8px 0 16px;"></span>Cloud
+            <span style="display: inline-block; width: 12px; height: 12px; background: #e07a7a; margin-right: 4px;"></span>Blocked
+          </span>
+          <button type="button" class="btn" id="btnExportCost">Export CSV</button>
+        </div>
+      </section>
+
       <section class="live" style="margin-top: 16px" aria-label="Add manual item">
         <label>Manual add</label>
         <div class="row">
@@ -343,6 +359,17 @@
         getLiveInputs,
         safeTedHref,
       } from "./mission-control.js?v=20260918-ted-url";
+      import {
+        COST_REVIEW_ALLOWED,
+        isUserAllowed,
+        loadCostAuditLog,
+        parseCostLog,
+        groupByDate,
+        summarizeByDecision,
+        summarizeByWorkload,
+        exportToCSV,
+        renderChart,
+      } from "./cost-review.js?v=20260919-cost";
 
       let lastDownloadName = "mission-control-grok-overflow.md";
       let lastDownloadBody = "";
@@ -353,6 +380,25 @@
       document.getElementById("authLine").textContent =
         `${user.email} · Workspace login only · Proton for outbound`;
       document.getElementById("stats").hidden = false;
+
+      // Initialize cost review section for allowed admins
+      if (isUserAllowed(user.email)) {
+        document.getElementById("costReviewSection").hidden = false;
+        (async () => {
+          try {
+            const auditLog = await loadCostAuditLog();
+            if (auditLog && auditLog.length > 0) {
+              const entries = Array.isArray(auditLog)
+                ? auditLog
+                : parseCostLog(typeof auditLog === 'string' ? auditLog : JSON.stringify(auditLog));
+              renderChart('costChart', entries);
+              document.getElementById('btnExportCost').onclick = () => exportToCSV(entries);
+            }
+          } catch (e) {
+            console.error('Cost review load failed:', e);
+          }
+        })();
+      }
 
       const params = new URLSearchParams(location.search);
       const focusId = params.get("id");
