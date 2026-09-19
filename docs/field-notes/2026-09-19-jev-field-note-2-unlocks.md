@@ -16,6 +16,7 @@ Sessions & Modifications:
 Session Links & References:
 
 - Field note 1: `docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md`
+- Field note 5 (headline pile / newsjack shape): `docs/field-notes/2026-09-19-jev-field-note-5-elvis-newsjack.md`
 - Han Xiao / LWM: `docs/field-notes/2026-09-19-lwm-ideas-han-xiao-jev.md`
 - Spec: `docs/KYA_JEV_SPECIFICATION.md` (v0.6)
 - Named URL in source (not fetched this session): `https://youtube.com/watch?v=4mTLpuQpB80`
