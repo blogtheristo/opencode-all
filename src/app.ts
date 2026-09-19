@@ -91,6 +91,7 @@ import { validateEnv } from './middleware/env-validation.js';
 import { createMCPRouter } from './mcp/agent-server.js';
 import capTableRouter from './investor-reports/cap-table-routes.js';
 import { loadSecrets } from './config/secret-loader.js';
+import { createProxyTrustValidator } from './middleware/proxy-trust-validator.middleware.js';
 
 // ============ STUBS FOR MODULES EXCLUDED FROM BUILD ============
 // tsconfig.json excludes src/firehorse/** and src/integrations/** from
@@ -137,6 +138,20 @@ const PORT = process.env.PORT || (process.env.NODE_ENV === 'production' ? '8080'
 // ES Module path helpers
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// ============ PROXY TRUST VALIDATION ============
+// Validate trust subnet configuration early to catch IP spoofing misconfigurations.
+// IPv4-mapped IPv6 subnets must have correct prefix lengths to prevent all-IPv4 trust.
+// E.g., ::ffff:10.0.0.0/8 is INVALID; ::ffff:10.0.0.0/104 is valid (10.0.0.0/8).
+const trustProxy = process.env.TRUST_PROXY;
+if (trustProxy) {
+  const subnets = trustProxy.split(',').map((s) => s.trim());
+  app.use(createProxyTrustValidator(subnets));
+  app.set('trust proxy', trustProxy);
+} else {
+  // Default: trust single upstream proxy (Cloud Run, typical reverse proxy)
+  app.set('trust proxy', 1);
+}
 
 // ============ MIDDLEWARE ============
 
