@@ -1,0 +1,26 @@
+---
+description: Mandatory DWS standards resolver for every Cursor / Cloud Agent turn
+alwaysApply: true
+---
+
+# DWS standards — always follow (Cursor harness)
+
+Do not "remember" standards. **Read the files.** Dumping `CLAUDE.md` is not compliance.
+
+## Every task, before edits
+
+1. Read `docs/system-config/STANDARDS_ROUTING.md`.
+2. Read `DWS_TRUTH_STANDARD.md` and `DWS_ROLES_REGISTRY.md` (always).
+3. Read **every** other standard the routing table matches (Security, Document, Brand, Learning, …).
+4. In the HIC reply, one line: `Standards loaded: <paths>`. If a match was skipped: `N/A — <reason>` (Discipline Rule 12).
+
+## Executable source (Document Standard §1 / §19.3)
+
+New or rewritten `.sql`, `.ts`, `.tsx`, `.js`, `.jsx`, `.py`: language-appropriate `CODE VERSIONING NOTE`. SQL filenames: `[NNN]_[DDMMYY]_[name].sql`. Never paste markdown `VERSION AND AGENT HISTORY` into source.
+
+Narrative `.md`: `VERSION AND AGENT HISTORY` with `***` delimiters (not `---`).
+
+## Do not
+
+- Apply migrations / send email / publish blogs without the zone in `CLAUDE.md`.
+- Invent prices, role names, or industry counts — Truth Standard first.

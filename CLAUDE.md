@@ -1,12 +1,13 @@
 ---
 title: CLAUDE.md — Operational Rules for AI Agents
-version: 1.1
+version: 1.2
 status: Active
-last_updated: 2026-09-07
-applies_to: ["Claude Code", "OpenCode", "BaseAgent", "MCP tools", "all agents"]
+last_updated: 2026-09-19
+applies_to:
+  ["Claude Code", "OpenCode", "BaseAgent", "MCP tools", "Cursor", "Cursor Cloud", "all agents"]
 language: en
 schema: DWS_DOCUMENT_STANDARD
-changes_in_this_version: "Extracted long specs (Discipline, Standards Routing) to separate indexed files; added multi-tool acknowledgment and system file ecosystem cross-references"
+changes_in_this_version: "Cursor/Cloud harness: standards resolver is mandatory Read, not memory; table + Resolver + Key Operating Rules"
 source_control_url: "https://github.com/blogtheristo/dws6/blob/main/CLAUDE.md"
 ---
 
@@ -18,12 +19,13 @@ source_control_url: "https://github.com/blogtheristo/dws6/blob/main/CLAUDE.md"
 
 This file is loaded by:
 
-| Tool            | Load Mechanism                                          | Reference                                                      |
-| --------------- | ------------------------------------------------------- | -------------------------------------------------------------- |
-| **OpenCode**    | `opencode.json` line 3: `"instructions": ["CLAUDE.md"]` | [opencode.json](opencode.json)                                 |
-| **Claude Code** | Hooks system via `session-start.sh`                     | [.claude/settings.json](.claude/settings.json)                 |
-| **BaseAgent**   | Runtime environment + `AI_AGENT_GUIDELINES.md` §0       | [src/agents/BaseAgent.ts](src/agents/BaseAgent.ts) (reference) |
-| **MCP tools**   | Via agent context + session startup                     | [.mcp.json](.mcp.json)                                         |
+| Tool                      | Load Mechanism                                                                                                           | Reference                                                                        |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
+| **OpenCode**              | `opencode.json` line 3: `"instructions": ["CLAUDE.md"]`                                                                  | [opencode.json](opencode.json)                                                   |
+| **Claude Code**           | Hooks system via `session-start.sh`                                                                                      | [.claude/settings.json](.claude/settings.json)                                   |
+| **BaseAgent**             | Runtime environment + `AI_AGENT_GUIDELINES.md` §0                                                                        | [src/agents/BaseAgent.ts](src/agents/BaseAgent.ts) (reference)                   |
+| **MCP tools**             | Via agent context + session startup                                                                                      | [.mcp.json](.mcp.json)                                                           |
+| **Cursor / Cursor Cloud** | `alwaysApply` rules + `AGENTS.md` + this file. Resolver **must** be executed as file Reads, not recalled from this dump. | [.cursor/rules/dws-standards-always.mdc](.cursor/rules/dws-standards-always.mdc) |
 
 **Related system files:** See [System Files Index](#system-files-index) below.
 
@@ -35,7 +37,7 @@ Ship reliable outcomes fast, but never past security, compliance, or source-of-t
 
 - **Sender Identity:** Risto Anton Päärni, Founder/CEO, Lifetime Oy. Email: `risto.paarni@lifetime.fi` (Proton outbound). Phone: +358 400 319 010. See [Legal Identity Rule](#legal-identity-rule).
 - **Engineering Discipline:** 12 rules for all agents. **Detailed:** `docs/system-config/DISCIPLINE.md` (separate file).
-- **Standards Routing:** Match tasks to standards triggers; load all matched. **Detailed:** `docs/system-config/STANDARDS_ROUTING.md` (separate file).
+- **Standards Routing:** Match tasks to standards triggers; **Read** all matched files (never “I already know CLAUDE.md”). **Detailed:** `docs/system-config/STANDARDS_ROUTING.md`. Cursor: `.cursor/rules/dws-standards-always.mdc` (`alwaysApply: true`).
 - **OpenCode Permissions:** YELLOW zone for blog publishing, thesis edits, migration application, learning outcome deferral. See [OpenCode Permission Elevation](#opencode-permission-elevation-yellow-zone).
 - **Non-Negotiable Rules:** 13 rules governing secrets, git, identity, destructive actions. See below.
 - **Session Learning Outcome:** HIC oversight required. See [Session Learning Outcome Rule](#session-learning-outcome-rule-eu-ai-act-art-14).
@@ -54,7 +56,9 @@ The 12 rules are canonical and apply to all agents. **Quick summary:**
 
 **Full routing table:** `docs/system-config/STANDARDS_ROUTING.md`
 
-**Quick rule:** Task fires multiple triggers → load all matched standards. Always start with `DWS_TRUTH_STANDARD.md` and `DWS_ROLES_REGISTRY.md`.
+**Quick rule:** Task fires multiple triggers → **Read** all matched standards. Always start with `DWS_TRUTH_STANDARD.md` and `DWS_ROLES_REGISTRY.md`. Having this file in context does **not** count as loading those standards.
+
+**Cursor / Cloud Agent:** First tool calls of a task that writes files are Reads of `STANDARDS_ROUTING.md` + Truth + Roles + every match. HIC line: `Standards loaded: <paths>`. Skip → `N/A — <reason>` (Rule 12).
 
 ---
 
@@ -402,6 +406,7 @@ For new taxonomy-facing copy, use the DWS skilled terminology model from canonic
 | **docs/system-config/SYSTEM_FILES_INDEX.md** | Master system file ecosystem documentation        | Maintainers                                  | Active      |
 | **.claude/hooks/README.md**                  | Hook system documentation                         | Claude Code hooks                            | Reference   |
 | **.claude/handoffs/<branch>.md**             | Per-branch session handoff state                  | OpenCode ↔ Claude Code failover              | Per-session |
+| **.cursor/rules/dws-standards-always.mdc**   | Cursor always-on standards resolver (Read, don't recall) | Cursor, Cursor Cloud                    | Active      |
 
 **Versioning:** All system files follow `DWS_DOCUMENT_STANDARD` versioning (see header of this file). Check version fields when updating configuration across tools.
 
@@ -424,5 +429,6 @@ Use these for full detail when needed:
 
 | Version | Date       | Changes                                                                                                                                                                                            | Author      |
 | ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| 1.2     | 2026-09-19 | Cursor/Cloud: standards resolver is mandatory file Reads; `dws-standards-always.mdc` is the harness Cursor actually injects                                                                        | Cursor      |
 | 1.1     | 2026-09-07 | Extracted long specs (Discipline, Standards Routing) to separate indexed files; added multi-tool acknowledgment and system file ecosystem cross-references; added DWS Document Standard versioning | Claude Code |
 | 1.0     | Prior      | Original consolidated rules file                                                                                                                                                                   | HIC         |
