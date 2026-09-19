@@ -8,7 +8,7 @@ Version: 0.6 [Latest]
 
 Sessions & Modifications:
 
-- Version: 0.6 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: Additive dictionary consumer — `src/agents/dictionary-kya-jev.ts` (`adviseDictionaryTerm`). Same signed-KYA gate. Advisory only (`actionable: false`); does not lock glossary strings, prices, or Wave 3 pages. Merged v0.5 into the dictionary branch after Claude session exhausted. Migration 087 still not applied (RED).
+- Version: 0.6 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: Evidence from the dictionary session (no price/calibration invention; 0.5 history left intact). (1) Additive consumer `adviseDictionaryTerm()` — signed KYA required; `actionable: false`; unit tests with test signing secret only — no live LLM call, no production secret. (2) Fail-closed at the advisory API (throws; unlike seo-audit `try/catch`) — recorded as §4 E3. (3) Wave 3 live trio and glossary locks remain HIC; proposed 8/2/24, live this PR = industry 8 only. (4) `docs/localization/dws-dictionary.json` `kyaJev.specVersion` synced to 0.6. (5) SKU `KYA-JEV-001` still EUR 99/mo Early Access, `detailsUrl: null` (re-read `dws10.com/config/products.json`). (6) Merge vehicle: this tree is on PR #2044 as well as #2043 — do not treat #2043 as merged; 087 still RED/unapplied. Merged v0.5 into the dictionary branch after Claude session exhausted.
 - Version: 0.5 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) flagged a gap the A2 fix left open: a technically-sound signing gate is worthless if `KYA_VERDICT_SIGNING_SECRET` is shared across staging/production or its rotation is undocumented — "the gate is fine but key management isn't." Added: (1) `KYA_VERDICT_SIGNING_SECRET_PREVIOUS` support in `verifyKyaVerdict()` for zero-downtime rotation (accepts a verdict signed under either the current or previous secret during a rotation window); (2) `assertNotPlaceholderInProd()` — `issueKyaVerdict()` now throws if a known test/placeholder secret is used with `NODE_ENV=production`, catching the "copy-pasted staging env into production" mistake; (3) a documented rotation procedure (staging/production must use distinct, independently-generated secrets; zero-downtime rotation steps; quarterly cadence + immediate rotation on suspected compromise; each rotation recorded in this document's version history) as a code comment directly above `issueKyaVerdict()` in `src/security/runtime-auth.ts`. 6 new tests (rotation window accept/reject/expire, placeholder guard in prod vs. non-prod); 18/18 total passing, `tsc` clean. [not latest]
 - Version: 0.4 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: Registered `kya-jev` in `DWS_STANDARDS_LIBRARY.md` §3.2 (D3, closed) **before** production migration 087 is applied, per HIC (Finnish): a component running in production without a standards-registry entry is exactly the audit inconsistency that gets caught later. Added §8 (Execution & Backlog Order) recording the corrected sequence: D3 → PR #2043 merge → apply migration 087; backlog P0 is the storefront/commercial visual check (B2/D1), not A2. **Correction to an external review relayed this session:** a Boardy-style re-review (quoted by HIC) still listed A2 ("KYA-context hardening") as an open P0 backlog item — that review was working from v0.2. A2 was already closed in v0.3 (signed verdicts, `issueKyaVerdict()`/`verifyKyaVerdict()`, 13/13 tests passing) two turns before this one; this version states that plainly so the record doesn't imply a still-open critical gap that in fact shipped.
 - Version: 0.3 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) identified A2 as the one genuinely severe finding — a caller-constructible `{decision:'allowed'}` verdict makes the KYA gate decorative ("signer and approver are the same party proves nothing"), and flagged D1/B2 as the same problem from two directions (an uncalibrated price shown without its caveat on the storefront card, not just in JSON, invites after-the-fact complaint). **A2 fixed this session**: `RuntimeKYAVerdict` now carries an HMAC-SHA256 `sig` + `issuedAt`, signed only by the new `issueKyaVerdict()` (`src/security/runtime-auth.ts`) using `KYA_VERDICT_SIGNING_SECRET`; `kya-jev`'s `requireKyaVerdict()` now calls `verifyKyaVerdict()` and rejects unsigned, tampered, or wrong-secret verdicts, and fails closed (rejects everything) when no secret is configured at all. 5 new tests added (`runtime-auth-kya-verdict.test.ts`) plus 4 rewritten `kya-jev.test.ts` cases proving the forged-verdict and tampered-verdict paths are actually rejected, not just documented as a risk. D1/B2 remain open (Needs-Human) pending a storefront-card-copy check, not a code fix.
@@ -19,7 +19,7 @@ Session Links & References:
 
 - Claude Code (claude/agents-md-support-eyody6): https://github.com/blogtheristo/dws6
 - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/KYA_JEV_SPECIFICATION.md
-- Related: `docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md`, PR #2043, `blogtheristo/KYAv2` (staged, not yet published)
+- Related: `docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md`, PR #2043, PR #2044, `blogtheristo/KYAv2` (staged, not yet published)
 
 Document Status:
 
@@ -90,10 +90,11 @@ Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe 
 
 ### E. Scope / Blast Radius
 
-| #   | Verdict | Finding                                                                                                                      | Reference                                     |
-| --- | ------- | ---------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| E1  | Pass    | `reviewWithKyaJev()` is fully isolated inside a try/catch block, populating advisory metadata without blocking `deployGate`. | `src/agents/seo/seo-audit.agent.ts:142`       |
-| E2  | Pass    | Migration 087 is strictly additive (`CREATE TABLE IF NOT EXISTS`) and poses zero risk to existing production tables.         | `supabase/migrations/087_kya_jev_calls.sql:1` |
+| #   | Verdict | Finding                                                                                                                                                                                                                                                                                                                                                  | Reference                                                                               |
+| --- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| E1  | Pass    | `reviewWithKyaJev()` is fully isolated inside a try/catch block, populating advisory metadata without blocking `deployGate`.                                                                                                                                                                                                                             | `src/agents/seo/seo-audit.agent.ts:142`                                                 |
+| E2  | Pass    | Migration 087 is strictly additive (`CREATE TABLE IF NOT EXISTS`) and poses zero risk to existing production tables.                                                                                                                                                                                                                                     | `supabase/migrations/087_kya_jev_calls.sql:1`                                           |
+| E3  | Pass    | Dictionary consumer is fail-closed at the function boundary: `adviseDictionaryTerm()` does not wrap `makeTypedDecision()` in try/catch; missing/unsigned/forged KYA throws (same A2 gate). That is not a deploy-gate (no HTML write). seo-audit still isolates via try/catch so `deployGate` stays deterministic. No live advisory was run this session. | `src/agents/dictionary-kya-jev.ts`; `src/__tests__/i18n/dws-dictionary-kya-jev.test.ts` |
 
 ## 5. Needs-Human Items (open, not blocking this version)
 
@@ -112,13 +113,18 @@ Publishing `blogtheristo/KYAv2` requires creating a new GitHub repository; this 
 
 Unchanged from the field note and this specification's audit: no auto-execute or consequential (financial, compliance, customer-facing) action may be gated on `kya-jev`'s self-reported confidence alone until a real calibration study runs against a human-labeled DWS dataset.
 
+Also never without HIC (this session, cited):
+
+- **Glossary lock.** `adviseDictionaryTerm()` must not persist `result.decision` into `dws-dictionary.json` or i18n strings.
+- **Wave 3 live pages.** Industry go-live is HIC-only. Harvest density proposed 8 / 2 / 24; this PR may ship industry 8 (Mars + CONSTR-T2) only until HIC confirms the trio. kya-jev `wave3_live` choice is advisory, uncalibrated, and not a page-publish gate.
+
 ## 8. Execution & Backlog Order (corrected, HIC 2026-09-18)
 
 **Do now, in this order:**
 
-1. **D3 — done.** `kya-jev` registered in `DWS_STANDARDS_LIBRARY.md` §3.2 (this version).
-2. **Merge PR #2043** into `main`.
-3. **Apply migration `087_kya_jev_calls.sql`** to production Supabase.
+1. **D3 — done.** `kya-jev` registered in `DWS_STANDARDS_LIBRARY.md` §3.2 (v0.5 row; library pointer bumped to v0.6 in the same session as this spec body).
+2. **Merge one kya-jev vehicle into `main`.** PR #2043 is still the original kya-jev PR and is **not** treated as merged. After the Claude session exhausted, v0.5 was merged into `cursor/dws10-i18n-25-dictionary-c0ce` (PR #2044). Landing both PRs without coordination can double-apply `products.json` / feed edits. Pick one merge path; do not apply 087 from a branch that is not yet on `main`.
+3. **Apply migration `087_kya_jev_calls.sql`** to production Supabase only after that merge (RED until then).
 
 Reordered from an earlier draft that had the migration before the registry entry — per HIC, a production component with no standards-registry entry is the inconsistency an audit catches, so registration must land first.
 

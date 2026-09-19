@@ -70,12 +70,13 @@ describe('dictionary kya-jev advisory', () => {
     const dict = JSON.parse(
       readFileSync(join(ROOT, 'docs/localization/dws-dictionary.json'), 'utf8'),
     ) as {
-      kyaJev: { sku: string };
+      kyaJev: { sku: string; specVersion: string };
       shared: { sku_kya_jev_001: { en: string } };
     };
     const products = JSON.parse(
       readFileSync(join(ROOT, 'dws10.com/config/products.json'), 'utf8'),
     ) as { products: Record<string, { price: number; currency: string }> };
+    expect(dict.kyaJev.specVersion).toBe('0.6');
     expect(dict.kyaJev.sku).toBe('KYA-JEV-001');
     expect(dict.shared.sku_kya_jev_001.en).toBe('KYA-JEV-001');
     expect(products.products['KYA-JEV-001'].price).toBe(99);

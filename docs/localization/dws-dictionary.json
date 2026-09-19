@@ -4,30 +4,18 @@
   "enIsMaster": true,
   "article50": "Machine translations labelled until a named human reviews. Icon optional; label required.",
   "bannedTokens": {
-    "sv": [
-      "Souverän"
-    ],
-    "all": [
-      "Monolocalisation"
-    ],
-    "sovereigntyMustNotUse": [
-      "spårighet"
-    ]
+    "sv": ["Souverän"],
+    "all": ["Monolocalisation"],
+    "sovereigntyMustNotUse": ["spårighet"]
   },
   "wave3Proposal": {
-    "liveThisPr": [
-      8
-    ],
-    "askHicNextThree": [
-      8,
-      2,
-      24
-    ],
+    "liveThisPr": [8],
+    "askHicNextThree": [8, 2, 24],
     "rationale": "8 Construction has Mars+CONSTR-T2 pages and Mission Control NCC item; 2 Iron & Steel has the densest named outreach; 24 Data Centres has GreeniumDC intro-made. HIC must confirm which three go live vs stay dictionary-only."
   },
   "kyaJev": {
     "spec": "docs/KYA_JEV_SPECIFICATION.md",
-    "specVersion": "0.5",
+    "specVersion": "0.6",
     "primitive": "src/agents/kya-jev.ts",
     "dictionaryAdvisory": "src/agents/dictionary-kya-jev.ts",
     "role": "advisory-only — never auto-locks terms, prices, or Wave 3 pages",
@@ -44,13 +32,8 @@
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "forbidden": {
-        "sv": [
-          "Souverän",
-          "spårighet"
-        ],
-        "all": [
-          "Monolocalisation"
-        ]
+        "sv": ["Souverän", "spårighet"],
+        "all": ["Monolocalisation"]
       }
     },
     "edip": {
@@ -93,13 +76,8 @@
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "forbidden": {
-        "sv": [
-          "Souverän",
-          "spårighet"
-        ],
-        "all": [
-          "Monolocalisation"
-        ]
+        "sv": ["Souverän", "spårighet"],
+        "all": ["Monolocalisation"]
       }
     },
     "standard_tier": {
@@ -232,13 +210,8 @@
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "forbidden": {
-        "sv": [
-          "Souverän",
-          "spårighet"
-        ],
-        "all": [
-          "Monolocalisation"
-        ]
+        "sv": ["Souverän", "spårighet"],
+        "all": ["Monolocalisation"]
       }
     },
     "technology_sovereignty": {
@@ -251,13 +224,8 @@
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "forbidden": {
-        "sv": [
-          "Souverän",
-          "spårighet"
-        ],
-        "all": [
-          "Monolocalisation"
-        ]
+        "sv": ["Souverän", "spårighet"],
+        "all": ["Monolocalisation"]
       }
     },
     "operational_sovereignty": {
@@ -270,13 +238,8 @@
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "forbidden": {
-        "sv": [
-          "Souverän",
-          "spårighet"
-        ],
-        "all": [
-          "Monolocalisation"
-        ]
+        "sv": ["Souverän", "spårighet"],
+        "all": ["Monolocalisation"]
       }
     },
     "jurisdiction": {
@@ -417,10 +380,7 @@
       "fr": "La souveraineté est l’axe de segmentation primaire — pas le seul.",
       "ontologyId": "sovereignty",
       "forbidden": {
-        "all": [
-          "The market splits on one axis",
-          "sovereignty is the only segmentation"
-        ]
+        "all": ["The market splits on one axis", "sovereignty is the only segmentation"]
       },
       "source": "DWS_TRUTH_STANDARD.md row 39 / config/truth/sovereignty-segmentation-axis.json"
     },
@@ -582,11 +542,7 @@
       "dedicatedAgent": "helios",
       "coverage": "pantheon",
       "aegisInScope": true,
-      "roles": [
-        "R07",
-        "R08",
-        "R11"
-      ],
+      "roles": ["R07", "R08", "R11"],
       "terms": {
         "name": {
           "en": "Power & Heat Generation",
@@ -709,12 +665,7 @@
       "dedicatedAgent": "vulcan",
       "coverage": "pantheon",
       "aegisInScope": true,
-      "roles": [
-        "R02",
-        "R07",
-        "R11",
-        "R19"
-      ],
+      "roles": ["R02", "R07", "R11", "R19"],
       "terms": {
         "name": {
           "en": "Iron & Steel Production",
@@ -838,11 +789,7 @@
       "dedicatedAgent": "gaia",
       "coverage": "pantheon",
       "aegisInScope": true,
-      "roles": [
-        "R07",
-        "R08",
-        "R11"
-      ],
+      "roles": ["R07", "R08", "R11"],
       "terms": {
         "name": {
           "en": "Cement & Lime Production",
@@ -942,10 +889,7 @@
           "forbidden": {}
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "dws10.com/products/ind-gaia.html"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "dws10.com/products/ind-gaia.html"],
       "outreachUse": "Lead with clinker factor + CBAM cement; do not claim CCUS project bankability as shipped."
     },
     "4": {
@@ -956,12 +900,7 @@
       "dedicatedAgent": "juno",
       "coverage": "pantheon",
       "aegisInScope": true,
-      "roles": [
-        "R03",
-        "R04",
-        "R05",
-        "R07"
-      ],
+      "roles": ["R03", "R04", "R05", "R07"],
       "terms": {
         "name": {
           "en": "Chemicals & Petrochemicals",
@@ -1084,11 +1023,7 @@
       "dedicatedAgent": null,
       "coverage": "analyst-only",
       "aegisInScope": true,
-      "roles": [
-        "R07",
-        "R08",
-        "R12"
-      ],
+      "roles": ["R07", "R08", "R12"],
       "terms": {
         "name": {
           "en": "Aviation",
@@ -1180,10 +1115,7 @@
           "forbidden": {}
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "INDUSTRIES.md"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "INDUSTRIES.md"],
       "outreachUse": "Analyst-only: SAF / ReFuelEU language; fail loud if copy invents a dedicated agent."
     },
     "6": {
@@ -1194,11 +1126,7 @@
       "dedicatedAgent": "neptune",
       "coverage": "pantheon",
       "aegisInScope": true,
-      "roles": [
-        "R12",
-        "R20",
-        "R07"
-      ],
+      "roles": ["R12", "R20", "R07"],
       "terms": {
         "name": {
           "en": "Maritime Shipping",
@@ -1313,11 +1241,7 @@
       "dedicatedAgent": "hermes",
       "coverage": "pantheon",
       "aegisInScope": true,
-      "roles": [
-        "R12",
-        "R07",
-        "R20"
-      ],
+      "roles": ["R12", "R07", "R20"],
       "terms": {
         "name": {
           "en": "Road Transport & Logistics",
@@ -1409,10 +1333,7 @@
           "forbidden": {}
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "dws10.com/products/log-t1.de.html"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "dws10.com/products/log-t1.de.html"],
       "outreachUse": "ETS2 2027 readiness; do not invent fleet customers."
     },
     "8": {
@@ -1423,12 +1344,7 @@
       "dedicatedAgent": "mars",
       "coverage": "pantheon",
       "aegisInScope": true,
-      "roles": [
-        "R12",
-        "R09",
-        "R17",
-        "R20"
-      ],
+      "roles": ["R12", "R09", "R17", "R20"],
       "terms": {
         "name": {
           "en": "Construction & Buildings",
@@ -1578,11 +1494,7 @@
       "dedicatedAgent": "ceres",
       "coverage": "pantheon",
       "aegisInScope": true,
-      "roles": [
-        "R07",
-        "R08",
-        "R12"
-      ],
+      "roles": ["R07", "R08", "R12"],
       "terms": {
         "name": {
           "en": "Agriculture & Livestock",
@@ -1689,10 +1601,7 @@
       "dedicatedAgent": null,
       "coverage": "analyst-only",
       "aegisInScope": true,
-      "roles": [
-        "R07",
-        "R12"
-      ],
+      "roles": ["R07", "R12"],
       "terms": {
         "name": {
           "en": "Waste Management & Recycling",
@@ -1768,10 +1677,7 @@
           "forbidden": {}
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "INDUSTRIES.md"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "INDUSTRIES.md"],
       "outreachUse": "Analyst-only circular-economy language; no invented operators."
     },
     "11": {
@@ -1782,11 +1688,7 @@
       "dedicatedAgent": "talos",
       "coverage": "pantheon",
       "aegisInScope": true,
-      "roles": [
-        "R07",
-        "R11",
-        "R02"
-      ],
+      "roles": ["R07", "R11", "R02"],
       "terms": {
         "name": {
           "en": "Aluminium Production",
@@ -1878,10 +1780,7 @@
           "forbidden": {}
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "dws10.com/products/ind-talos.html"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "dws10.com/products/ind-talos.html"],
       "outreachUse": "Lead with indirect CBAM / grid carbon; no invented smelters."
     },
     "12": {
@@ -1892,10 +1791,7 @@
       "dedicatedAgent": null,
       "coverage": "analyst-only",
       "aegisInScope": true,
-      "roles": [
-        "R07",
-        "R11"
-      ],
+      "roles": ["R07", "R11"],
       "terms": {
         "name": {
           "en": "Pulp, Paper & Printing",
@@ -1979,10 +1875,7 @@
           "forbidden": {}
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "INDUSTRIES.md"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "INDUSTRIES.md"],
       "outreachUse": "Analyst-only; do not invent mill customers."
     },
     "13": {
@@ -1993,11 +1886,7 @@
       "dedicatedAgent": null,
       "coverage": "analyst-only",
       "aegisInScope": true,
-      "roles": [
-        "R07",
-        "R11",
-        "R04"
-      ],
+      "roles": ["R07", "R11", "R04"],
       "terms": {
         "name": {
           "en": "Petroleum Refining",
@@ -2081,10 +1970,7 @@
           "forbidden": {}
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "INDUSTRIES.md"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "INDUSTRIES.md"],
       "outreachUse": "Analyst-only refining vocabulary; no invented refiners."
     },
     "14": {
@@ -2095,10 +1981,7 @@
       "dedicatedAgent": null,
       "coverage": "analyst-only",
       "aegisInScope": true,
-      "roles": [
-        "R07",
-        "R08"
-      ],
+      "roles": ["R07", "R08"],
       "terms": {
         "name": {
           "en": "Food & Beverage Processing",
@@ -2188,10 +2071,7 @@
       "dedicatedAgent": null,
       "coverage": "analyst-only",
       "aegisInScope": true,
-      "roles": [
-        "R07",
-        "R11"
-      ],
+      "roles": ["R07", "R11"],
       "terms": {
         "name": {
           "en": "Glass & Ceramics Production",
@@ -2275,10 +2155,7 @@
           "forbidden": {}
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "INDUSTRIES.md"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "INDUSTRIES.md"],
       "outreachUse": "Analyst-only; no invented glass plants."
     },
     "16": {
@@ -2289,10 +2166,7 @@
       "dedicatedAgent": null,
       "coverage": "analyst-only",
       "aegisInScope": true,
-      "roles": [
-        "R07",
-        "R15"
-      ],
+      "roles": ["R07", "R15"],
       "terms": {
         "name": {
           "en": "Mining & Quarrying",
@@ -2368,10 +2242,7 @@
           "forbidden": {}
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "INDUSTRIES.md"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "INDUSTRIES.md"],
       "outreachUse": "Analyst-only CRM Act language; no invented mines."
     },
     "17": {
@@ -2382,11 +2253,7 @@
       "dedicatedAgent": "mars",
       "coverage": "pantheon-folded",
       "aegisInScope": false,
-      "roles": [
-        "R07",
-        "R23",
-        "R12"
-      ],
+      "roles": ["R07", "R23", "R12"],
       "terms": {
         "name": {
           "en": "Real Estate",
@@ -2468,16 +2335,11 @@
           "fr": "false",
           "ontologyId": "none",
           "forbidden": {
-            "all": [
-              "Aegis covers this industry as one of 21 without qualifier"
-            ]
+            "all": ["Aegis covers this industry as one of 21 without qualifier"]
           }
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "dws10.com/real-estate/index.html"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "dws10.com/real-estate/index.html"],
       "outreachUse": "Folded under construction hat; never use in Aegis 21-industry lists."
     },
     "18": {
@@ -2488,11 +2350,7 @@
       "dedicatedAgent": null,
       "coverage": "analyst-only",
       "aegisInScope": true,
-      "roles": [
-        "R13",
-        "R07",
-        "R09"
-      ],
+      "roles": ["R13", "R07", "R09"],
       "terms": {
         "name": {
           "en": "Manufacturing (cross-sector)",
@@ -2590,11 +2448,7 @@
       "dedicatedAgent": null,
       "coverage": "analyst-only",
       "aegisInScope": false,
-      "roles": [
-        "R05",
-        "R07",
-        "R13"
-      ],
+      "roles": ["R05", "R07", "R13"],
       "terms": {
         "name": {
           "en": "Healthcare",
@@ -2676,9 +2530,7 @@
           "fr": "false",
           "ontologyId": "none",
           "forbidden": {
-            "all": [
-              "Aegis covers this industry as one of 21 without qualifier"
-            ]
+            "all": ["Aegis covers this industry as one of 21 without qualifier"]
           }
         }
       },
@@ -2697,11 +2549,7 @@
       "dedicatedAgent": null,
       "coverage": "analyst-only",
       "aegisInScope": false,
-      "roles": [
-        "R23",
-        "R24",
-        "R05"
-      ],
+      "roles": ["R23", "R24", "R05"],
       "terms": {
         "name": {
           "en": "Financial Services",
@@ -2783,16 +2631,11 @@
           "fr": "false",
           "ontologyId": "none",
           "forbidden": {
-            "all": [
-              "Aegis covers this industry as one of 21 without qualifier"
-            ]
+            "all": ["Aegis covers this industry as one of 21 without qualifier"]
           }
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "INDUSTRIES.md"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "INDUSTRIES.md"],
       "outreachUse": "Door R23 CFO: SFDR financed emissions. No invented banks."
     },
     "21": {
@@ -2803,11 +2646,7 @@
       "dedicatedAgent": null,
       "coverage": "analyst-only",
       "aegisInScope": false,
-      "roles": [
-        "R05",
-        "R13",
-        "R15"
-      ],
+      "roles": ["R05", "R13", "R15"],
       "terms": {
         "name": {
           "en": "Public Sector",
@@ -2889,16 +2728,11 @@
           "fr": "false",
           "ontologyId": "none",
           "forbidden": {
-            "all": [
-              "Aegis covers this industry as one of 21 without qualifier"
-            ]
+            "all": ["Aegis covers this industry as one of 21 without qualifier"]
           }
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "INDUSTRIES.md"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "INDUSTRIES.md"],
       "outreachUse": "Door R05 General Counsel: NIS2 + sovereign procurement."
     },
     "22": {
@@ -2909,11 +2743,7 @@
       "dedicatedAgent": "neptune",
       "coverage": "pantheon-folded",
       "aegisInScope": true,
-      "roles": [
-        "R12",
-        "R20",
-        "R07"
-      ],
+      "roles": ["R12", "R20", "R07"],
       "terms": {
         "name": {
           "en": "Shipbuilding",
@@ -2997,10 +2827,7 @@
           "forbidden": {}
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "dws10.com/shipbuilding/index.html"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "dws10.com/shipbuilding/index.html"],
       "outreachUse": "Folded under maritime hat; R12 FuelEU/ETS language."
     },
     "23": {
@@ -3011,11 +2838,7 @@
       "dedicatedAgent": "logistics",
       "coverage": "pantheon-folded",
       "aegisInScope": true,
-      "roles": [
-        "R12",
-        "R07",
-        "R20"
-      ],
+      "roles": ["R12", "R07", "R20"],
       "terms": {
         "name": {
           "en": "Logistics (multimodal freight)",
@@ -3099,10 +2922,7 @@
           "forbidden": {}
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "INDUSTRIES.md"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "INDUSTRIES.md"],
       "outreachUse": "Distinct from industry 7 road fleet; do not collapse the two ids."
     },
     "24": {
@@ -3113,11 +2933,7 @@
       "dedicatedAgent": null,
       "coverage": "analyst-only",
       "aegisInScope": true,
-      "roles": [
-        "R15",
-        "R13",
-        "R07"
-      ],
+      "roles": ["R15", "R13", "R07"],
       "terms": {
         "name": {
           "en": "Data Centres",
@@ -3223,11 +3039,7 @@
       "dedicatedAgent": "prometheus",
       "coverage": "pantheon-folded",
       "aegisInScope": true,
-      "roles": [
-        "R03",
-        "R04",
-        "R07"
-      ],
+      "roles": ["R03", "R04", "R07"],
       "terms": {
         "name": {
           "en": "RFNBO / Green H2 & E-Fuels",
@@ -3327,10 +3139,7 @@
           "forbidden": {}
         }
       },
-      "sources": [
-        "src/agents/data/industry-registry.ts",
-        "dws10.com/products/ind-prom.html"
-      ],
+      "sources": ["src/agents/data/industry-registry.ts", "dws10.com/products/ind-prom.html"],
       "outreachUse": "Folded under chemicals hat; keep RFNBO certification vs hourly proof distinction."
     }
   }

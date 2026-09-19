@@ -25,7 +25,7 @@ describe('dws-dictionary shape', () => {
       }
     >;
     bannedTokens: { sv: string[]; all: string[]; sovereigntyMustNotUse: string[] };
-    kyaJev: { sku: string; role: string };
+    kyaJev: { sku: string; role: string; specVersion: string };
   };
 
   it('has industries 1–25 once each', () => {
@@ -41,7 +41,10 @@ describe('dws-dictionary shape', () => {
   it('records kya-jev as advisory bind, SKU only', () => {
     expect(dict.kyaJev.sku).toBe('KYA-JEV-001');
     expect(dict.kyaJev.role).toMatch(/advisory-only/);
+    expect(dict.kyaJev.specVersion).toBe('0.6');
     expect(dict.shared.kya_jev.en).toBe('kya-jev');
+    const spec = readFileSync(join(ROOT, 'docs/KYA_JEV_SPECIFICATION.md'), 'utf8');
+    expect(spec).toMatch(/Version: 0\.6 \[Latest\]/);
   });
 
   it('shared terms have five languages and ontologyId', () => {
