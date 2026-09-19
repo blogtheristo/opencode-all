@@ -1,6 +1,7 @@
 # kya-jev Specification
 
----
+<!-- prettier-ignore -->
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -29,7 +30,8 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE — internal specification
 
----
+<!-- prettier-ignore -->
+***
 
 ## 1. Summary
 
