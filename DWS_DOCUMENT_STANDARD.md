@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.19 [Latest]
+Version: 2.20 [Latest]
 
 Sessions & Modifications:
 
-- Version: 2.19 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §2.1 generated-i18n — public product language siblings (`*.fi.html` / `.sv` / `.de` / `.fr`) carry an HTML-comment provenance block (`DWS_DOC_PROVENANCE generated-i18n`). Markdown VERSION AND AGENT HISTORY is forbidden on public HTML (Rule 5). Builder + stamp script. HIC approved 19.09.2026.
+- Version: 2.20 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §2.6 / §19 / §27 — every artefact names Version, Harness, and HIC-approved-drift (`none` or dated exception). Maps NIS2 Art. 21(2)(a)(e)(f)(i) and Katakri 2020 hallinnollinen + tietojärjestelmät change control. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 do not apply 088
+- Version: 2.19 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §2.1 generated-i18n — public product language siblings (`*.fi.html` / `.sv` / `.de` / `.fr`) carry an HTML-comment provenance block (`DWS_DOC_PROVENANCE generated-i18n`). Markdown VERSION AND AGENT HISTORY is forbidden on public HTML (Rule 5). Builder + stamp script. HIC approved 19.09.2026.
 - Version: 2.18 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §4.5 CI — PR-added `supabase/migrations/` filenames must match `NNN_DDMMYY_name.sql`. Existing names grandfathered. HIC approved this gate 19.09.2026. Does not apply migrations.
 - Version: 2.17 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §1 Scope lists TypeScript/JavaScript (`.ts`, `.tsx`, `.js`, `.jsx`) and Python (`.py`) the same way as `.sql`: in scope; provenance is §19.3 `CODE VERSIONING NOTE`; do not paste the §2 markdown history block into executable source. Triggered by a Cursor-session audit (last 7 days) that found §19.3 templates without a scope line.
 - Version: 2.16 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §1 Scope now includes SQL (`.sql`). Naming stays §4.5; provenance is the §19.3 `CODE VERSIONING NOTE` comment block — not the §2 markdown `VERSION AND AGENT HISTORY` header (invalid as SQL). §2.1 and §25.2 state the SQL exception. Triggered by migration `088` failing a scope check because §1 listed only `.md` / workflows / PDFs. Prior 2.15 marked [not latest].
@@ -94,6 +95,7 @@ Document Status:
 24. [Correspondence Preservation](#24-correspondence-preservation) ⭐ NEW
 25. [Universal Document Footer (mandatory)](#25-universal-document-footer-mandatory) ⭐ NEW
 26. [Repository-First, Then Export (anti-drift)](#26-repository-first-then-export-anti-drift) ⭐ NEW
+27. [Audit provenance — harness, version, HIC-approved drift (NIS2 / Katakri)](#27-audit-provenance--harness-version-hic-approved-drift-nis2--katakri) ⭐ NEW
 
 ---
 
@@ -166,7 +168,7 @@ Version: X.Y
 
 Sessions & Modifications:
 
-- Version: X.Y | Tool: [Tool Name] | Session: [Session ID] | Date: DD.MM.YYYY | Changes: [Description]
+- Version: X.Y | Tool: [Tool Name] | Session: [Session ID] | Date: DD.MM.YYYY | Changes: [Description] | Harness: [runtime + instruction files] | HIC-approved-drift: none
 
 Session Links & References:
 
@@ -186,19 +188,21 @@ Document Status:
 
 ### 2.2 Header Components
 
-| Component               | Required       | Description               | Example                                     |
-| ----------------------- | -------------- | ------------------------- | ------------------------------------------- |
-| **Version**             | ✅ Yes         | Semantic version (X.Y)    | `1.0`, `1.1`, `2.0`                         |
-| **Tool**                | ✅ Yes         | AI tool or author         | `Cursor AI`, `Claude Code`, `Manual`        |
-| **Session**             | ✅ Yes         | Unique session identifier | `2025-12-30`, `QVvDX`, `IjtD0`              |
-| **Date**                | ✅ Yes         | Date of modification      | `30.12.2025`                                |
-| **Changes**             | ✅ Yes         | Brief description         | `Initial creation`, `Added workflow naming` |
-| **Session Links**       | ⚠️ Recommended | GitHub commit links       | URL to commits                              |
-| **Created**             | ✅ Yes         | Document creation date    | `30.12.2025`                                |
-| **Last Modified**       | ✅ Yes         | Last modification date    | `30.12.2025`                                |
-| **Language**            | ✅ Yes         | Primary language          | `English`, `Finnish`, `Bilingual`           |
-| **Languages Available** | ✅ Yes         | All available languages   | `English, Suomi`                            |
-| **Publication Status**  | ✅ Yes         | Document status           | `ACTIVE`, `DRAFT`, `OUTDATED`, `ARCHIVED`   |
+| Component               | Required       | Description                                        | Example                                                             |
+| ----------------------- | -------------- | -------------------------------------------------- | ------------------------------------------------------------------- |
+| **Version**             | ✅ Yes         | Semantic version (X.Y)                             | `1.0`, `1.1`, `2.0`                                                 |
+| **Tool**                | ✅ Yes         | AI tool or author                                  | `Cursor AI`, `Claude Code`, `Manual`                                |
+| **Session**             | ✅ Yes         | Unique session identifier                          | `2025-12-30`, `QVvDX`, `IjtD0`                                      |
+| **Date**                | ✅ Yes         | Date of modification                               | `30.12.2025`                                                        |
+| **Changes**             | ✅ Yes         | Brief description                                  | `Initial creation`, `Added workflow naming`                         |
+| **Session Links**       | ⚠️ Recommended | GitHub commit links                                | URL to commits                                                      |
+| **Created**             | ✅ Yes         | Document creation date                             | `30.12.2025`                                                        |
+| **Last Modified**       | ✅ Yes         | Last modification date                             | `30.12.2025`                                                        |
+| **Language**            | ✅ Yes         | Primary language                                   | `English`, `Finnish`, `Bilingual`                                   |
+| **Languages Available** | ✅ Yes         | All available languages                            | `English, Suomi`                                                    |
+| **Publication Status**  | ✅ Yes         | Document status                                    | `ACTIVE`, `DRAFT`, `OUTDATED`, `ARCHIVED`                           |
+| **Harness**             | ✅ Yes         | Runtime + instruction set that produced the change | `Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md` |
+| **HIC-approved-drift**  | ✅ Yes         | Named exception, or `none`                         | `none` or `HIC-2026-09-19: 088 not applied`                         |
 
 ### 2.3 Publication Status Values
 
@@ -274,6 +278,25 @@ docs/archive/
 - Add a session entry to the version history recording the archive action
 
 ---
+
+### 2.6 Harness and HIC-approved drift (required)
+
+Every new VERSION AND AGENT HISTORY line and every §19.3 note MUST name:
+
+1. **Harness** — the runtime that executed the work **and** the instruction files it was bound to. Examples:
+   - `Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md`
+   - `OpenCode + opencode.json + CLAUDE.md`
+   - `Claude Code + .claude/settings.json + CLAUDE.md`
+   - `Manual / HIC` (human typed; still version the file)
+     Dumping `CLAUDE.md` into chat is not a harness. The always-on Cursor rule is: **Read** `STANDARDS_ROUTING.md` and matched standards.
+
+2. **HIC-approved-drift** — either `none` or a single explicit exception:
+   `HIC-YYYY-MM-DD: <what was allowed to deviate> — <why> — <ticket/PR>`.
+   Silent deviation from a DWS standard is a Rule 12 failure. Approved drift is still drift: keep the original requirement visible and point at the exception. Example from this branch: `HIC-2026-09-19: do not apply 088_190926_advisor_security_linter.sql — agent lacked repo caller map`.
+
+Markdown history lines append `| Harness: … | HIC-approved-drift: none`.
+
+**Why (binding, not style):** NIS2 Art. 21(2)(a)(e)(f)(i) and Katakri 2020 administrative + information-system families require reconstructable change control — who/what produced the artefact, under which procedure, and which named exception applied. See §27.
 
 ## 3. Workflow Naming Standard
 
@@ -2223,6 +2246,8 @@ Every Code Versioning Note MUST contain:
 - `Date` (`YYYY-MM-DD`)
 - `Owner` (team or tool)
 - `Env-Schema` (e.g. `env-v1.0`) if runtime config is required
+- `Harness` — which agent runtime and instruction set produced the change (see §2.6 / §27)
+- `Hic-Approved-Drift` — `none` or a dated HIC exception id (never silent)
 
 ### 19.3 Syntax-Safe Templates (CRITICAL)
 
@@ -2240,6 +2265,8 @@ Use language-appropriate comment syntax. Never insert markdown prose directly in
  * Date: 2026-03-13
  * Owner: DWS Platform / AI Agent
  * Env-Schema: env-v1.0
+ * Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md
+ * Hic-Approved-Drift: none
  */
 ```
 
@@ -2255,6 +2282,8 @@ Commit: abc1234
 Date: 2026-03-13
 Owner: DWS Platform / AI Agent
 Env-Schema: env-v1.0
+Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md
+Hic-Approved-Drift: none
 """
 ```
 
@@ -2269,6 +2298,8 @@ Env-Schema: env-v1.0
 -- Date: 2026-03-13
 -- Owner: DWS Platform / AI Agent
 -- Env-Schema: env-v1.0
+-- Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md
+-- Hic-Approved-Drift: none
 ```
 
 **Shell / YAML / Dockerfile:**
@@ -2282,6 +2313,8 @@ Env-Schema: env-v1.0
 # Date: 2026-03-13
 # Owner: DWS Platform / AI Agent
 # Env-Schema: env-v1.0
+# Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md
+# Hic-Approved-Drift: none
 ```
 
 ### 19.4 Increment Rules for `Code-Version`
@@ -2310,6 +2343,8 @@ Before merging code PRs:
 - [ ] New/rewritten files include Code Versioning Note
 - [ ] `Introduced-In` references current PR number (e.g., `PR-699`)
 - [ ] `Code-Version` increment is justified by change scope
+- [ ] `Harness` names runtime + instruction files (not “remembered CLAUDE.md”)
+- [ ] `Hic-Approved-Drift` is `none` or a dated HIC exception (never omitted)
 - [ ] If config changed: `.env.example` updated and `ENV_SCHEMA_VERSION` bumped
 - [ ] No secrets/keys included in version notes
 
@@ -2326,6 +2361,10 @@ rg "Introduced-In:\\s*PR-699"
 
 # All files using env schema lineage
 rg "Env-Schema:\\s*env-v"
+
+# Harness / approved-drift (NIS2 / Katakri change-control fields)
+rg "Harness:"
+rg "Hic-Approved-Drift:"
 ```
 
 ---
@@ -2892,6 +2931,40 @@ Exported cloud documents (Google Docs/Drive, Gamma, shared PDFs) **must lead the
 
 ---
 
-**Document version:** v2.17 · **Date:** 19.09.2026 · **Owner:** Lifetime Oy
+## 27. Audit provenance — harness, version, HIC-approved drift (NIS2 / Katakri)
+
+Documentation and source provenance are **security controls**, not house style. An auditor must reconstruct: which version is current, which agent/runtime produced a change, which instruction set bound that runtime, and whether HIC authorized a deviation.
+
+### 27.1 NIS2 Directive (EU) 2022/2555
+
+Mapped from `DWS_SECURITY_STANDARD.md` §7.2 (this table is the **document-control** slice only):
+
+| Article       | Requirement (paraphrase)                                  | What this standard requires on every artefact                                           |
+| ------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Art. 21(2)(a) | Policies on risk analysis and information-system security | Versioned standards + `Harness` so the policy set in force is named                     |
+| Art. 21(2)(e) | Security in acquisition, development and maintenance      | `Code-Version` / document `Version:` + git commit + PR (`Introduced-In`)                |
+| Art. 21(2)(f) | Assessing effectiveness of risk-management measures       | Reconstruct which harness produced a failing change; `Standards loaded:` on HIC replies |
+| Art. 21(2)(i) | Human resources security and access control               | Tool + session + HIC exception id — accountability of the operator and the agent        |
+| Art. 23       | Incident reporting                                        | Field notes keep the same header so an incident file names harness and drift            |
+
+Art. 12–14 of the EU AI Act (logging, transparency, human oversight) are the same shape: do not hide the producer or the override.
+
+### 27.2 Katakri 2020 (Traficom / national security audit criteria)
+
+Katakri is Finland’s authority audit tool for information security. Official PDF is **not** stored in this repo (fail loud). Mapping uses the published 2020 family names, not a certificate claim:
+
+| Family (2020)                    | Relevance here                                                                   |
+| -------------------------------- | -------------------------------------------------------------------------------- |
+| Hallinnollinen tietoturvallisuus | Written procedure for how documents/code are versioned and who may approve drift |
+| Henkilöstöturvallisuus           | Identify the human (HIC) and the delegated agent/session                         |
+| Tietojärjestelmäturvallisuus     | Change control, logging, configuration/version identity of system artefacts      |
+
+**Rules:** (1) Every change has a version. (2) Every change names its harness. (3) Drift without a HIC line is non-compliant. (4) Do not claim “Katakri certified” from these fields alone.
+
+Cross-ref: `DWS_SECURITY_STANDARD.md` §7–§8 (NIS2 + alignment matrix, including Katakri).
+
+---
+
+**Document version:** v2.20 · **Date:** 19.09.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.

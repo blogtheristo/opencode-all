@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.4 [Latest]
+Version: 1.5 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.4 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC item 5 — leaked-password Auth required (§16.0.2). Toggle is HIC Studio. 088 still not applied.
+- Version: 1.5 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Document Standard v2.20 — Harness + HIC-approved-drift required (NIS2 / Katakri). 088 still not applied. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 do not apply 088
+- Version: 1.4 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC item 5 — leaked-password Auth required (§16.0.2). Toggle is HIC Studio. 088 still not applied.
 - Version: 1.3 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC item 4 — per-function caller map. 088 still not applied.
 - Version: 1.2 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC approved item 2 — migration-filename CI. Diff-scoped; existing names grandfathered. 088 still not applied.
 - Version: 1.1 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC approved the thin always-on Cursor rule (`.cursor/rules/dws-standards-always.mdc`). Migration-filename CI not in this approval. 088 still refused.

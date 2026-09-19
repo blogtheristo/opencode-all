@@ -6,6 +6,8 @@
 -- Date: 2026-09-19
 -- Owner: DWS Platform / Cursor cloud agent
 -- Env-Schema: env-v1.0
+-- Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md
+-- Hic-Approved-Drift: HIC-2026-09-19 do not apply this file
 --
 -- Migration 088: Clear Supabase Database Linter SECURITY warnings
 -- (2026-09-19 advisor dump: function_search_path_mutable, extension_in_public,

@@ -18,7 +18,7 @@ Do not "remember" standards. **Read the files.** Dumping `CLAUDE.md` is not comp
 
 ## Executable source (Document Standard §1 / §19.3)
 
-New or rewritten `.sql`, `.ts`, `.tsx`, `.js`, `.jsx`, `.py`: language-appropriate `CODE VERSIONING NOTE`. SQL filenames: `[NNN]_[DDMMYY]_[name].sql`. Never paste markdown `VERSION AND AGENT HISTORY` into source.
+New or rewritten `.sql`, `.ts`, `.tsx`, `.js`, `.jsx`, `.py`: language-appropriate `CODE VERSIONING NOTE` including `Harness` and `Hic-Approved-Drift` (`none` or dated HIC id). SQL filenames: `[NNN]_[DDMMYY]_[name].sql`. Never paste markdown `VERSION AND AGENT HISTORY` into source.
 
 Narrative `.md`: `VERSION AND AGENT HISTORY` with `***` delimiters (not `---`).
 
