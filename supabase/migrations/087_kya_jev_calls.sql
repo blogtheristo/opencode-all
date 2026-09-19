@@ -1,5 +1,11 @@
--- PASTE_VERSION: 087.2
+-- CODE VERSIONING NOTE
+-- Code-Version: 1.0.2
+-- Introduced-In: PR-2044
+-- Branch: cursor/dws10-i18n-25-dictionary-c0ce
 -- Date: 2026-09-19
+-- Owner: DWS Platform / AI Agent
+-- Evidence: Tool=Cursor Grok 4.6 Model=Cursor Grok 4.6 Agent=cursor Date=2026-09-19
+-- Audit trail: git log -- supabase/migrations/087_kya_jev_calls.sql
 -- ============================================================================
 -- kya_jev_calls — Article 12 audit trail for kya-jev typed decisions
 -- (src/agents/kya-jev.ts). One row per makeTypedDecision() call, in addition
@@ -44,7 +50,7 @@ CREATE INDEX IF NOT EXISTS idx_kya_jev_calls_org_id ON kya_jev_calls(org_id);
 CREATE INDEX IF NOT EXISTS idx_kya_jev_calls_created_at ON kya_jev_calls(created_at);
 
 COMMENT ON TABLE kya_jev_calls IS
-  'paste_version=087.2 Article 12 audit trail for kya-jev (src/agents/kya-jev.ts) typed decisions. Confidence is self-reported and uncalibrated until a DWS calibration study runs — see docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md.';
+  'Code-Version=1.0.2 Article 12 audit trail for kya-jev (src/agents/kya-jev.ts) typed decisions. Confidence is self-reported and uncalibrated until a DWS calibration study runs — see docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md.';
 
 -- service_role: full access (030_agent_logging_tables / 069_agent_nudges)
 -- Additive name: no DROP POLICY (SQL editor destructive warning).
