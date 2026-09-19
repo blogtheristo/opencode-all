@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.20 [Latest]
+Version: 2.21 [Latest]
 
 Sessions & Modifications:
 
-- Version: 2.20 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §2.6 / §19 / §27 — every artefact names Version, Harness, and HIC-approved-drift (`none` or dated exception). Maps NIS2 Art. 21(2)(a)(e)(f)(i) and Katakri 2020 hallinnollinen + tietojärjestelmät change control. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 do not apply 088
+- Version: 2.21 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §27.3 — gaps require a proposed standards update, not only N/A. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 do not apply 088
+- Version: 2.20 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §2.6 / §19 / §27 — every artefact names Version, Harness, and HIC-approved-drift (`none` or dated exception). Maps NIS2 Art. 21(2)(a)(e)(f)(i) and Katakri 2020 hallinnollinen + tietojärjestelmät change control. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 do not apply 088
 - Version: 2.19 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §2.1 generated-i18n — public product language siblings (`*.fi.html` / `.sv` / `.de` / `.fr`) carry an HTML-comment provenance block (`DWS_DOC_PROVENANCE generated-i18n`). Markdown VERSION AND AGENT HISTORY is forbidden on public HTML (Rule 5). Builder + stamp script. HIC approved 19.09.2026.
 - Version: 2.18 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §4.5 CI — PR-added `supabase/migrations/` filenames must match `NNN_DDMMYY_name.sql`. Existing names grandfathered. HIC approved this gate 19.09.2026. Does not apply migrations.
 - Version: 2.17 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §1 Scope lists TypeScript/JavaScript (`.ts`, `.tsx`, `.js`, `.jsx`) and Python (`.py`) the same way as `.sql`: in scope; provenance is §19.3 `CODE VERSIONING NOTE`; do not paste the §2 markdown history block into executable source. Triggered by a Cursor-session audit (last 7 days) that found §19.3 templates without a scope line.
@@ -2963,8 +2964,19 @@ Katakri is Finland’s authority audit tool for information security. Official P
 
 Cross-ref: `DWS_SECURITY_STANDARD.md` §7–§8 (NIS2 + alignment matrix, including Katakri).
 
+### 27.3 Gaps — propose the standard, do not only N/A
+
+When work shows a DWS standard is **silent, contradictory, or missing** a control that NIS2 Art. 21, Katakri 2020 families, or EU AI Act Art. 12–14 require:
+
+1. Name the gap in the field note (`Gap:` + which file/section).
+2. Draft the missing wording (short). Do not invent Katakri criterion-IDs or prices.
+3. Land the draft in the standard in the same PR **or** mark `Status: PENDING_REVIEW` if HIC/RED-zone is required.
+4. `HIC-approved-drift` only after HIC names the exception.
+
+Routing: `docs/system-config/STANDARDS_ROUTING.md` How to Apply step 4.
+
 ---
 
-**Document version:** v2.20 · **Date:** 19.09.2026 · **Owner:** Lifetime Oy
+**Document version:** v2.21 · **Date:** 19.09.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.

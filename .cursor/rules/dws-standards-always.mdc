@@ -15,6 +15,7 @@ Do not "remember" standards. **Read the files.** Dumping `CLAUDE.md` is not comp
 2. Read `DWS_TRUTH_STANDARD.md` and `DWS_ROLES_REGISTRY.md` (always).
 3. Read **every** other standard the routing table matches (Security, Document, Brand, Learning, …).
 4. In the HIC reply, one line: `Standards loaded: <paths>`. If a match was skipped: `N/A — <reason>` (Discipline Rule 12).
+5. If a loaded standard has a **gap** (silent, contradictory, or missing a NIS2/Katakri/AI Act control): propose the update (field note + draft wording). Do not only N/A. See `STANDARDS_ROUTING.md` How to Apply step 4.
 
 ## Executable source (Document Standard §1 / §19.3)
 

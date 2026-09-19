@@ -1,6 +1,6 @@
 ---
 title: Standards Resolver — Multi-Standard Task Routing
-version: 1.4
+version: 1.5
 status: Active
 applies_to: ["Claude Code", "OpenCode", "Cursor", "Cursor Cloud", "all agents"]
 source: CLAUDE.md (canonical)
@@ -41,6 +41,7 @@ source: CLAUDE.md (canonical)
 1. **Match the task** to one or more triggers in the table above.
 2. **Load all matched standards** (not just the "most relevant") — **Read the files**. Recalling `CLAUDE.md` does not count.
 3. **If no match:** Ask the user. When the user says "Use DWS standard," apply all matched standards and update impacted docs in the same commit.
+4. **If a standard is silent, contradictory, or missing a control the task needs:** do not stop at `N/A`. **Propose a standards update** in the same effort: (a) field note with the gap, the article/family it maps to if NIS2/Katakri/AI Act, and draft wording; (b) apply the draft only in the matched standard files HIC already uses — or leave it as `Status: PENDING_REVIEW` if it would invent a fact, a Katakri criterion-ID, or a RED-zone change. Silent gaps are Rule 12.
 
 **Cursor / Cursor Cloud:** `.cursor/rules/dws-standards-always.mdc` is `alwaysApply: true`. **HIC approved 19.09.2026** (thin rule + migration-filename CI). First writes of a task require the Reads above plus `Standards loaded:` on the HIC reply.
 

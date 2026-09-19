@@ -1,6 +1,6 @@
 ---
 title: DWS Security Standard
-version: 3.7
+version: 3.8
 created: 2026-02-07
 last_modified: 2026-09-19
 author: Lifetime Oy Security Team
@@ -19,10 +19,11 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.7
+Version: 3.8
 
 Sessions & Modifications:
 
+- Version: 3.8 | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §16.0.3 — advisor SECURITY DEFINER remediations are per-function (076). Catalog prosecdef loops forbidden. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 do not apply 088
 - Version: 3.7 | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §8.1 lists Katakri 2020 as documentation mapping (not a certificate). Provenance fields in Document Standard §2.6 / §27 satisfy the NIS2 Art. 21 document-control slice and Katakri hallinnollinen + tietojärjestelmät change-control families.
 - Version: 3.6 | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Added §16.0.2 (Supabase Auth leaked-password protection). Advisor lint `auth_leaked_password_protection` is dashboard-only. HIC approved enabling it 19.09.2026. Not SQL. 088 still not applied.
 - Version: 3.5 | Tool: Claude Code (Sonnet 5) | Session: claude/ai-pact-enforcement-transparency-gnnipk | Date: 31.07.2026 | Changes: Added §20 (Public Vulnerability Disclosure) — pointer to the new standalone `dws10.com/compliance/vulnerability-disclosure-policy/` page (adapted from the European Commission's public VDP, EC-institution-specific legal references dropped as inapplicable to a private company). Locked the SLA (48h ack, Critical 48h/High 7d/Medium 30d/Low next release) as the single source of truth, now cross-linked from `.well-known/security.txt`, `legal/index.html` §10, and `compliance/trust-center/index.html` rather than restated independently in each.
@@ -1517,6 +1518,12 @@ Advisor lint `auth_leaked_password_protection` is an **Auth product setting**, n
 **Required on every Supabase Auth project that accepts email sign-in:** Authentication → Providers → Email → enable **Leaked password protection**.
 
 **HIC** flips the toggle in Studio. Agents do not store Auth admin tokens in git. Confirm on the production project after change; record date in `docs/field-notes/2026-09-19-auth-leaked-password-protection.md`.
+
+### 16.0.3 Advisor SECURITY DEFINER remediations are per-function (076)
+
+Migration `076_revoke_anon_legacy_grants.sql` already states: a full PUBLIC/anon EXECUTE sweep on `prosecdef` functions needs a **per-function review**. A catalog loop over every `prosecdef` (as in unapplied `088`) is not an acceptable remediations unit.
+
+**Required:** one function or one policy family per reviewed hunk; in-repo caller map; HIC accept before apply. NIS2 Art. 21(2)(e); Katakri tietojärjestelmät change control.
 
 ### 16.1 API Key Management Security
 
