@@ -56,7 +56,7 @@ Official table → what `makeTypedDecision()` can express today (`choice` / `sco
 | ---------------------------- | -------------------------- | ----------------------------------------------------------------------- |
 | Classification               | `choice`                   | Already used (dictionary `wave3_live`, seo-audit priority)              |
 | Detection                    | `boolean`                  | Dictionary `sv_display_safe`, `aegis_scope`                             |
-| Scoring                      | `score`                    | Primitive exists; no DWS consumer yet                                   |
+| Scoring                      | `score`                    | Lead-score advisory (`adviseLeadScore`) uses this                       |
 | Routing                      | `choice`                   | Category → next path; still must be executed by **code**, not the model |
 | Search / Retrieval / Ranking | **not first-class**        | Would be many scored/boolean calls or stay embeddings/RAG               |
 | Verification                 | `boolean` or `choice`      | Closest to Universal Verification / guardrails                          |
@@ -103,5 +103,5 @@ Treat https://docs.typesafe.ai/concepts/use-case-map as the vendor canon for _sh
 2. Field note: this file.
 3. Learn/ HTML: N/A.
 4. Drive: N/A.
-5. **HIC question:** After helpdesk vs lead-scoring (field note 2), is the _third_ advisory consumer **model routing** (harness) or **compliance filing classify** (Ledger-Native, kya-jev only)? Lead scoring is the second consumer (HIC 19.09.2026). Third still open.
+5. **HIC question:** After helpdesk vs lead-scoring (field note 2), is the _third_ advisory consumer **model routing** (harness) or **compliance filing classify** (Ledger-Native, kya-jev only)? **Answered 19.09.2026: model routing.** `adviseModelRoute()`; `selectModel()` unchanged. Compliance classify not wired.
 6. Calendar: N/A.

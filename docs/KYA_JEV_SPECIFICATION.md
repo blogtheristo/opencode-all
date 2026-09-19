@@ -5,11 +5,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 0.7 [Latest]
+Version: 0.8 [Latest]
 
 Sessions & Modifications:
 
-- Version: 0.7 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: HIC chose **lead scoring** as the next advisory queue (not helpdesk). Added `adviseLeadScore()` (`src/agents/lead-score-kya-jev.ts`) — `score` levels discard/watch/call; `actionable: false`; does not change `fitScore` or upsert `outreach_orgs`. Wired try/catch on `outreach-lead-finder` top lead only (same isolation as seo-audit). TypeSafe map bind: Lead generation. No vendor Jev.
+- Version: 0.8 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: HIC chose **model routing** as the third advisory consumer (not compliance classify). `adviseModelRoute()` (`src/agents/model-route-kya-jev.ts`) — choice stay/escalate/demote; `actionable: false`. `selectModel()` stays deterministic and is not rewritten by the hint. TypeSafe map: Model routing / Harness Engineering.
+- Version: 0.7 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: HIC chose **lead scoring** as the next advisory queue (not helpdesk). Added `adviseLeadScore()` (`src/agents/lead-score-kya-jev.ts`) — `score` levels discard/watch/call; `actionable: false`; does not change `fitScore` or upsert `outreach_orgs`. Wired try/catch on `outreach-lead-finder` top lead only (same isolation as seo-audit). TypeSafe map bind: Lead generation. No vendor Jev. [not latest]
 - Version: 0.6 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: Evidence from the dictionary session (no price/calibration invention; 0.5 history left intact). (1) Additive consumer `adviseDictionaryTerm()` — signed KYA required; `actionable: false`; unit tests with test signing secret only — no live LLM call, no production secret. (2) Fail-closed at the advisory API (throws; unlike seo-audit `try/catch`) — recorded as §4 E3. (3) Wave 3 live trio and glossary locks remain HIC; proposed 8/2/24, live this PR = industry 8 only. (4) `docs/localization/dws-dictionary.json` `kyaJev.specVersion` synced to 0.6. (5) SKU `KYA-JEV-001` still EUR 99/mo Early Access, `detailsUrl: null` (re-read `dws10.com/config/products.json`). (6) Merge vehicle: this tree is on PR #2044 as well as #2043 — do not treat #2043 as merged; 087 still RED/unapplied. Merged v0.5 into the dictionary branch after Claude session exhausted. [not latest]
 - Version: 0.5 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) flagged a gap the A2 fix left open: a technically-sound signing gate is worthless if `KYA_VERDICT_SIGNING_SECRET` is shared across staging/production or its rotation is undocumented — "the gate is fine but key management isn't." Added: (1) `KYA_VERDICT_SIGNING_SECRET_PREVIOUS` support in `verifyKyaVerdict()` for zero-downtime rotation (accepts a verdict signed under either the current or previous secret during a rotation window); (2) `assertNotPlaceholderInProd()` — `issueKyaVerdict()` now throws if a known test/placeholder secret is used with `NODE_ENV=production`, catching the "copy-pasted staging env into production" mistake; (3) a documented rotation procedure (staging/production must use distinct, independently-generated secrets; zero-downtime rotation steps; quarterly cadence + immediate rotation on suspected compromise; each rotation recorded in this document's version history) as a code comment directly above `issueKyaVerdict()` in `src/security/runtime-auth.ts`. 6 new tests (rotation window accept/reject/expire, placeholder guard in prod vs. non-prod); 18/18 total passing, `tsc` clean. [not latest]
 - Version: 0.4 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: Registered `kya-jev` in `DWS_STANDARDS_LIBRARY.md` §3.2 (D3, closed) **before** production migration 087 is applied, per HIC (Finnish): a component running in production without a standards-registry entry is exactly the audit inconsistency that gets caught later. Added §8 (Execution & Backlog Order) recording the corrected sequence: D3 → PR #2043 merge → apply migration 087; backlog P0 is the storefront/commercial visual check (B2/D1), not A2. **Correction to an external review relayed this session:** a Boardy-style re-review (quoted by HIC) still listed A2 ("KYA-context hardening") as an open P0 backlog item — that review was working from v0.2. A2 was already closed in v0.3 (signed verdicts, `issueKyaVerdict()`/`verifyKyaVerdict()`, 13/13 tests passing) two turns before this one; this version states that plainly so the record doesn't imply a still-open critical gap that in fact shipped.
@@ -26,7 +27,7 @@ Session Links & References:
 Document Status:
 
 - Created: 18.09.2026
-- Last Modified: 19.09.2026 (v0.7)
+- Last Modified: 19.09.2026 (v0.8)
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE — internal specification
@@ -48,6 +49,7 @@ Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe 
 - **Pilot integration:** `src/agents/seo/seo-audit.agent.ts` — `reviewWithKyaJev()`, advisory-only; `deployGate` remains fully deterministic.
 - **Dictionary advisory:** `src/agents/dictionary-kya-jev.ts` — `adviseDictionaryTerm()`, advisory-only; does not write `dws-dictionary.json`.
 - **Lead-score advisory:** `src/agents/lead-score-kya-jev.ts` — `adviseLeadScore()`; HIC 19.09.2026 next queue after seo-audit + dictionary. `outreach-lead-finder` may attach `metadata.kyaJevLeadReview`; scoring/upsert stay the existing path.
+- **Model-route advisory:** `src/agents/model-route-kya-jev.ts` — `adviseModelRoute()`; HIC 19.09.2026 third consumer. Does not replace `selectModel()` (`src/agents/model-selector.ts`).
 - **Audit trail:** `supabase/migrations/087_kya_jev_calls.sql` + `BaseAgent.logKyaJevCall()`.
 - **Calibration tooling:** `scripts/calibrate-kya-jev.mjs` (real ECE harness; no fabricated results — no labeled dataset exists yet).
 - **Commercial listing:** `KYA-JEV-001`, EUR 99/month, Early Access, `dws10.com/config/products.json` (+ landing-pages mirror).

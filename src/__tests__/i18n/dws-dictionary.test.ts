@@ -41,10 +41,10 @@ describe('dws-dictionary shape', () => {
   it('records kya-jev as advisory bind, SKU only', () => {
     expect(dict.kyaJev.sku).toBe('KYA-JEV-001');
     expect(dict.kyaJev.role).toMatch(/advisory-only/);
-    expect(dict.kyaJev.specVersion).toBe('0.7');
+    expect(dict.kyaJev.specVersion).toBe('0.8');
     expect(dict.shared.kya_jev.en).toBe('kya-jev');
     const spec = readFileSync(join(ROOT, 'docs/KYA_JEV_SPECIFICATION.md'), 'utf8');
-    expect(spec).toMatch(/Version: 0\.7 \[Latest\]/);
+    expect(spec).toMatch(/Version: 0\.8 \[Latest\]/);
   });
 
   it('shared terms have five languages and ontologyId', () => {
