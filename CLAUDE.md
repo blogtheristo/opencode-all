@@ -394,19 +394,19 @@ For new taxonomy-facing copy, use the DWS skilled terminology model from canonic
 
 **This file is part of a multi-tool configuration ecosystem. Related files:**
 
-| File                                         | Purpose                                           | Tools                                        | Status      |
-| -------------------------------------------- | ------------------------------------------------- | -------------------------------------------- | ----------- |
-| **CLAUDE.md** (this file)                    | Canonical operational rules                       | OpenCode, Claude Code, BaseAgent, all agents | Active      |
-| **opencode.json**                            | OpenCode runtime config + instructions reference  | OpenCode primary                             | Active      |
-| **.claude/settings.json**                    | Claude Code settings, hooks, permissions          | Claude Code standby                          | Active      |
-| **.claude/settings.local.json**              | Local user overrides                              | Claude Code local development                | Active      |
-| **.mcp.json**                                | MCP server configuration                          | Claude Code, OpenCode, agents                | Active      |
-| **docs/system-config/DISCIPLINE.md**         | Engineering Discipline — The 12 Rules (extracted) | All agents                                   | Active      |
-| **docs/system-config/STANDARDS_ROUTING.md**  | Standards Resolver task routing (extracted)       | All agents                                   | Active      |
-| **docs/system-config/SYSTEM_FILES_INDEX.md** | Master system file ecosystem documentation        | Maintainers                                  | Active      |
-| **.claude/hooks/README.md**                  | Hook system documentation                         | Claude Code hooks                            | Reference   |
-| **.claude/handoffs/<branch>.md**             | Per-branch session handoff state                  | OpenCode ↔ Claude Code failover              | Per-session |
-| **.cursor/rules/dws-standards-always.mdc**   | Cursor always-on standards resolver (Read, don't recall) | Cursor, Cursor Cloud                    | Active      |
+| File                                         | Purpose                                                  | Tools                                        | Status      |
+| -------------------------------------------- | -------------------------------------------------------- | -------------------------------------------- | ----------- |
+| **CLAUDE.md** (this file)                    | Canonical operational rules                              | OpenCode, Claude Code, BaseAgent, all agents | Active      |
+| **opencode.json**                            | OpenCode runtime config + instructions reference         | OpenCode primary                             | Active      |
+| **.claude/settings.json**                    | Claude Code settings, hooks, permissions                 | Claude Code standby                          | Active      |
+| **.claude/settings.local.json**              | Local user overrides                                     | Claude Code local development                | Active      |
+| **.mcp.json**                                | MCP server configuration                                 | Claude Code, OpenCode, agents                | Active      |
+| **docs/system-config/DISCIPLINE.md**         | Engineering Discipline — The 12 Rules (extracted)        | All agents                                   | Active      |
+| **docs/system-config/STANDARDS_ROUTING.md**  | Standards Resolver task routing (extracted)              | All agents                                   | Active      |
+| **docs/system-config/SYSTEM_FILES_INDEX.md** | Master system file ecosystem documentation               | Maintainers                                  | Active      |
+| **.claude/hooks/README.md**                  | Hook system documentation                                | Claude Code hooks                            | Reference   |
+| **.claude/handoffs/<branch>.md**             | Per-branch session handoff state                         | OpenCode ↔ Claude Code failover              | Per-session |
+| **.cursor/rules/dws-standards-always.mdc**   | Cursor always-on standards resolver (Read, don't recall) | Cursor, Cursor Cloud                         | Active      |
 
 **Versioning:** All system files follow `DWS_DOCUMENT_STANDARD` versioning (see header of this file). Check version fields when updating configuration across tools.
 
