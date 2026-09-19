@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-19-security-definer-caller-map</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-19-security-definer-caller-map</h1>
+</header>
+<h1 id="security-definer-rpc-caller-map-dws6-repo">2026-09-19 — SECURITY DEFINER / RPC caller map (dws6 repo)</h1>
+<h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+<hr />
+<p>Version: 1.0 [Latest]</p>
+<p>Sessions &amp; Modifications:</p>
+<ul>
+<li>Version: 1.0 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC item 4 — per-function caller map from this repository. Does not apply 088.</li>
+</ul>
+<p>Document Status:</p>
+<ul>
+<li>Created: 19.09.2026</li>
+<li>Last Modified: 19.09.2026</li>
+<li>Language: English</li>
+<li>Languages Available: English</li>
+<li>Publication Status: ACTIVE</li>
+<li>Status: PENDING_REVIEW</li>
+</ul>
+<hr />
+<p><strong>Standards loaded:</strong> DWS_DOCUMENT_STANDARD.md, DWS_SECURITY_STANDARD.md §16, DWS_TRUTH_STANDARD.md, DWS_ROLES_REGISTRY.md.</p>
+<p><strong>Scope:</strong> Static callers in this git tree (2026-09-19). Not a live Postgres catalog. <strong>088 stays unapplied.</strong></p>
+<p><strong>Method:</strong> <code>rg</code> for <code>.rpc(&#39;…&#39;)</code>, <code>SELECT * FROM &lt;fn&gt;(</code>, function names from the advisor high-risk list and 088 RLS-helper list. Frontend <code>dws6.com/</code> / <code>dws10.com/</code> have <strong>no</strong> <code>supabase.rpc</code> calls.</p>
+<h2 id="client-keys-in-this-repo">Client keys in this repo</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Key</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>src/services/supabase.service.ts</code></td>
+<td><code>SUPABASE_SERVICE_KEY</code> / <code>SUPABASE_SERVICE_ROLE_KEY</code></td>
+<td>service_role</td>
+</tr>
+<tr class="even">
+<td><code>src/config/supabase.ts</code></td>
+<td>same</td>
+<td>service_role</td>
+</tr>
+<tr class="odd">
+<td><code>src/routes/memory.routes.ts</code> <code>getSupabase()</code></td>
+<td><code>SUPABASE_SERVICE_KEY</code></td>
+<td>service_role</td>
+</tr>
+<tr class="even">
+<td><code>src/firehorse/database.ts</code></td>
+<td><code>SUPABASE_SERVICE_KEY</code></td>
+<td>service_role</td>
+</tr>
+<tr class="odd">
+<td><code>src/investor-reports/scheduler.ts</code></td>
+<td><code>SUPABASE_SERVICE_KEY</code></td>
+<td>service_role</td>
+</tr>
+<tr class="even">
+<td>Other <code>src/**</code> <code>createClient</code> sites checked</td>
+<td>service key, not anon</td>
+<td>service_role</td>
+</tr>
+</tbody>
+</table>
+<p>No PostgREST caller in-repo uses the anon JWT to hit the high-risk billing RPCs. That does <strong>not</strong> prove Studio / ad-hoc SQL / a forgotten dashboard never will. PUBLIC + anon EXECUTE is still the advisor finding.</p>
+<h2 id="high-risk-functions-advisor-dump">High-risk functions (advisor dump)</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Kind</th>
+<th>In-repo caller</th>
+<th>Client</th>
+<th>088 revoke PUBLIC/anon?</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>mark_order_paid</code></td>
+<td>RPC</td>
+<td><code>src/services/billing.service.ts:331</code>; <code>src/routes/b2b-payment.routes.ts:362</code>; <code>src/routes/stripe-webhook.routes.ts:75</code></td>
+<td>service_role (<code>supabase.service.ts</code>)</td>
+<td>Would keep working <strong>if</strong> only these paths call it</td>
+<td>Stripe webhook + B2B confirm. No dashboard <code>.rpc</code>.</td>
+</tr>
+<tr class="even">
+<td><code>create_b2b_order</code></td>
+<td>RPC</td>
+<td><code>src/routes/b2b-payment.routes.ts:159</code></td>
+<td>service_role</td>
+<td>Same</td>
+<td>Behind <code>requireAuth</code> on the HTTP route; DB still runs as service_role.</td>
+</tr>
+<tr class="odd">
+<td><code>confirm_order_deposit</code></td>
+<td>RPC</td>
+<td><code>src/routes/b2b-payment.routes.ts:249</code></td>
+<td>service_role</td>
+<td>Same</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>issue_order_invoice</code></td>
+<td>RPC</td>
+<td><code>src/routes/b2b-payment.routes.ts:305</code></td>
+<td>service_role</td>
+<td>Same</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>create_company_billing_profile</code></td>
+<td>RPC</td>
+<td><code>src/routes/b2b-payment.routes.ts:52</code></td>
+<td>service_role</td>
+<td>Same</td>
+<td>Not on the original “highest-risk” paste; same client.</td>
+</tr>
+<tr class="even">
+<td><code>increment_usage_counter</code></td>
+<td>RPC</td>
+<td><code>src/services/usage-metering.service.ts:132</code></td>
+<td>service_role (<code>src/config/supabase.ts</code>)</td>
+<td>Function <strong>already</strong> raises if JWT role ≠ <code>service_role</code> (043)</td>
+<td>Security Standard §16. Blanket REVOKE is redundant with the guard; still do not loop-revoke every prosecdef.</td>
+</tr>
+<tr class="odd">
+<td><code>assign_external_user_role</code></td>
+<td><strong>TRIGGER</strong> on <code>auth.users</code></td>
+<td>No <code>.rpc</code> — <code>080</code>/<code>081</code> <code>EXECUTE FUNCTION</code></td>
+<td>Trigger owner; <code>GRANT EXECUTE</code> already <code>service_role</code></td>
+<td>Revoking authenticated is likely fine; do not treat as a user RPC</td>
+<td>Trigger, not PostgREST.</td>
+</tr>
+<tr class="even">
+<td><code>bump_project_version</code></td>
+<td>unknown</td>
+<td><strong>No match</strong> in repo (except this session’s field notes)</td>
+<td>—</td>
+<td><strong>Do not revoke until found</strong> in Studio / another branch / types-only leftover</td>
+<td>Named in the HIC paste. Absent from <code>src/</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="other-.rpc-sql-function-calls">Other <code>.rpc</code> / SQL function calls</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Caller</th>
+<th>Client</th>
+<th>DEFINER? (migration text)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>decay_stale_memories</code></td>
+<td><code>src/routes/memory.routes.ts:129</code>; <code>src/agents/memory.service.ts</code> via <code>callDbFunction</code> / pool</td>
+<td>service_role <strong>and</strong> direct Postgres pool</td>
+<td>049 function (pg_cron also 051)</td>
+</tr>
+<tr class="even">
+<td><code>hybrid_memory_search</code></td>
+<td><code>src/agents/memory.service.ts</code> SQL <code>SELECT * FROM hybrid_memory_search(</code></td>
+<td>backend pool, not PostgREST</td>
+<td>Extension/<code>vector</code> move in 088 <strong>untraced</strong> vs this SQL</td>
+</tr>
+<tr class="odd">
+<td><code>get_country_context</code></td>
+<td><code>src/firehorse/database.ts:212</code></td>
+<td>service_role</td>
+<td>003: <code>IMMUTABLE</code>, not DEFINER</td>
+</tr>
+<tr class="even">
+<td><code>calculate_monthly_metrics</code></td>
+<td><code>src/investor-reports/scheduler.ts:139</code></td>
+<td>service_role</td>
+<td>006: not marked DEFINER in the header read</td>
+</tr>
+<tr class="odd">
+<td><code>get_pending_approvals_with_details</code></td>
+<td><code>AgentFoundry/scripts/director_dashboard.py</code></td>
+<td>that script’s supabase client</td>
+<td>Out of Express backend; review before REVOKE authenticated</td>
+</tr>
+<tr class="even">
+<td><code>next_migration_number</code></td>
+<td><code>mcp-servers/claude_DEPRECATED/server.py</code></td>
+<td>deprecated MCP</td>
+<td>Do not design 088 around this</td>
+</tr>
+<tr class="odd">
+<td><code>get_table_info</code></td>
+<td><code>mcp-servers/cloud-run-gateway-ts/src/server.ts</code></td>
+<td>that server’s <code>db</code></td>
+<td>Review separately</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rls-helpers-088-would-keep-authenticated-execute">RLS helpers (088 would <strong>keep</strong> authenticated EXECUTE)</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Callers in repo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>is_backoffice_admin()</code></td>
+<td>Policies in <code>011</code>, <code>026</code>, and 088 <code>ALTER POLICY</code> on <code>web_leads</code> / <code>captain_inquiries</code> / <code>blog_subscribers</code>. <strong>Not</strong> called from TypeScript. 070 admin UPDATE on <code>web_leads</code> as <code>authenticated</code> can lock Mission Control if <code>organization_members</code> is empty (helper is owner/admin on that table).</td>
+</tr>
+<tr class="even">
+<td><code>is_advisor</code>, <code>is_security_auditor</code>, <code>user_has_org_role</code>, <code>get_user_organizations</code>, <code>get_advisor_permissions</code></td>
+<td>SQL policies / 007 / 026. No <code>.rpc</code> from <code>src/</code>. Must remain executable by <code>authenticated</code> or RLS breaks.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-this-map-does-not-authorize">What this map does <strong>not</strong> authorize</h2>
+<ul>
+<li>Applying <code>088_190926_advisor_security_linter.sql</code> (still a <code>prosecdef</code> loop + extension move).</li>
+<li>A replacement migration. Next SQL, if any, must be <strong>one function or one policy family per reviewed hunk</strong>, each row above ticked by HIC.</li>
+<li>Enabling leaked-password protection (Auth dashboard; not in this map).</li>
+</ul>
+<p>N/A — Drive / calendar. Learn/ HTML not rendered this step.</p>
+</body>
+</html>
