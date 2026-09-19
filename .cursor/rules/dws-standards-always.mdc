@@ -5,6 +5,8 @@ alwaysApply: true
 
 # DWS standards — always follow (Cursor harness)
 
+HIC approved 19.09.2026 (thin always-on rule only — no migration-filename CI in this decision).
+
 Do not "remember" standards. **Read the files.** Dumping `CLAUDE.md` is not compliance.
 
 ## Every task, before edits

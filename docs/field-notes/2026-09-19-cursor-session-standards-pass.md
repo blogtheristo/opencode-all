@@ -2,13 +2,14 @@
 
 # VERSION AND AGENT HISTORY
 
-***
+---
 
-Version: 1.0 [Latest]
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Audit Cloud + git Cursor sessions since 2026-09-12; fix provenance on repo artifacts.
+- Version: 1.1 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC approved the thin always-on Cursor rule (`.cursor/rules/dws-standards-always.mdc`). Migration-filename CI not in this approval. 088 still refused.
+- Version: 1.0 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Audit Cloud + git Cursor sessions since 2026-09-12; fix provenance on repo artifacts.
 
 Document Status:
 
@@ -18,7 +19,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
-***
+---
 
 **Standards loaded:** DWS_DOCUMENT_STANDARD.md §1/§4.5/§19.3 (v2.17).
 
@@ -45,4 +46,6 @@ Git: author Cursor* since 2026-09-12.
 
 ## HIC decision
 
-Treat generated i18n HTML as out of §2, or require HTML-comment provenance on every new public page?
+1. **Approved 19.09.2026:** thin always-on Cursor rule `.cursor/rules/dws-standards-always.mdc`.
+2. **Not in this approval:** migration-filename CI.
+3. Open (unchanged): generated i18n HTML vs §2 provenance.
