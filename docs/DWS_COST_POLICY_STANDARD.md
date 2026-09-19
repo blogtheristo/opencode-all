@@ -1,10 +1,21 @@
 # DWS Cost Policy Standard — AI Tool Procurement & Sandbox Governance
 
-**Version:** 1.0  
-**Date:** 2026-09-19  
-**Effective:** 2026-09-20  
-**Author:** DWS Architecture Team  
-**Governance:** EU AI Act Art. 14 (transparency, tool selection rationale)
+<!-- Evidence: Tool=Claude Code 1.0 Model=claude-haiku-4-5-20251001 Agent=standards-audit Date=2026-09-19 -->
+<!-- Audit trail: git log -- docs/DWS_COST_POLICY_STANDARD.md -->
+
+## VERSION AND AGENT HISTORY
+
+***
+Version: 1.0 [Latest]
+Tool: Claude Code 1.0
+Model: claude-haiku-4-5-20251001
+Agent: standards-audit
+Date: 2026-09-19
+Changes: Initial policy: DGX-first agentic compute, 21-day free-credit window, sandbox requirement, full audit trail (EU AI Act Art. 14)
+***
+
+**Effective Date:** 2026-09-20  
+**Governance Basis:** EU AI Act Art. 12–14 (transparency, tool selection rationale, HIC oversight)
 
 ---
 

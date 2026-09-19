@@ -47,6 +47,43 @@ while read -r local_ref local_sha remote_ref remote_sha; do
   esac
 done
 
+# ─── Cost Policy Enforcement (DWS_COST_POLICY_STANDARD.md) ──────────────────────
+# Blocks pushes from sessions that violate DGX-first policy post-Day 21 (2026-10-12+)
+POLICY_START="2026-09-20"
+FREE_CREDIT_DAYS=21
+
+date_to_epoch() {
+  date -d "$1" +%s 2>/dev/null || echo "0"
+}
+
+TODAY=$(date +%Y-%m-%d)
+TODAY_EPOCH=$(date_to_epoch "$TODAY")
+POLICY_EPOCH=$(date_to_epoch "$POLICY_START")
+DAYS_ELAPSED=$(( (TODAY_EPOCH - POLICY_EPOCH) / 86400 ))
+
+# Post-Day 21: check for cloud-agent session markers in commits being pushed
+if [ $DAYS_ELAPSED -gt 21 ]; then
+  COMMITS=$(git rev-list origin/main..HEAD 2>/dev/null || echo "")
+  if [ -n "$COMMITS" ]; then
+    for commit in $COMMITS; do
+      MESSAGE=$(git show -s --format='%B' "$commit" 2>/dev/null || echo "")
+      if echo "$MESSAGE" | grep -qi "cursor-cloud\|grok-cloud\|cloud-agent\|CLOUD_AGENT"; then
+        echo "" >&2
+        echo "❌ COST POLICY VIOLATION" >&2
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >&2
+        echo "Post-free-credit-window push detected (Day $(($DAYS_ELAPSED)) > 21)" >&2
+        echo "Commit $commit contains cloud-agent session marker." >&2
+        echo "" >&2
+        echo "Policy: DWS_COST_POLICY_STANDARD.md (effective 2026-09-20)" >&2
+        echo "Rule: Cloud agents blocked after 2026-10-11 (Day 22+)" >&2
+        echo "Action: Use DGX compute only. See docs/DWS_COST_POLICY_STANDARD.md" >&2
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >&2
+        exit 1
+      fi
+    done
+  fi
+fi
+
 # ZenFree local scanner removed: false positives blocked routine work.
 # Security checks run GitHub-side instead.
 
