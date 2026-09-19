@@ -10,11 +10,16 @@
 
 ***
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
 Tool: Cursor Grok 4.6
 Agent: Cursor Cloud
 Date: 19.09.2026
-Changes: HIC 2+3 landed — migration-filename CI + generated-i18n HTML comments. Do not apply 088.
+Changes: HIC item 4 — SECURITY DEFINER caller map field note. Do not apply 088.
+Version: 1.1
+Tool: Cursor Grok 4.6
+Agent: Cursor Cloud
+Date: 19.09.2026
+Changes: [not latest] HIC 2+3 landed — migration-filename CI + generated-i18n HTML comments. Do not apply 088.
 Version: 1.0
 Tool: Cursor Grok 4.6
 Agent: Cursor Cloud
@@ -51,7 +56,7 @@ Earlier on same lineage (if present on PR): advisor field note + first 088 draft
 
 ### Open
 
-- Generated `dws10.com/products/*.html` i18n vs Document Standard §2 provenance.
+- Caller map is PENDING_REVIEW — not an apply-088 ticket.
 - Leaked-password Auth dashboard toggle (not SQL).
 - Session learning: KB / Learn / Drive / calendar = N/A.
 

@@ -5,7 +5,7 @@ alwaysApply: true
 
 # DWS standards — always follow (Cursor harness)
 
-HIC approved 19.09.2026: thin always-on rule; migration-filename CI; generated i18n HTML uses §2.1 HTML-comment provenance (not markdown VAH). Do not apply 088.
+HIC approved 19.09.2026: thin always-on rule; migration-filename CI; generated i18n HTML §2.1 comment; SECURITY DEFINER caller map (field note). Do not apply 088.
 
 Do not "remember" standards. **Read the files.** Dumping `CLAUDE.md` is not compliance.
 

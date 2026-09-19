@@ -1,5 +1,5 @@
 -- CODE VERSIONING NOTE
--- Code-Version: 1.1.0
+-- Code-Version: 1.2.0
 -- Introduced-In: PR-2045
 -- Branch: cursor/supabase-advisor-warnings-3f7a
 -- Commit: (see git log -- this-file)
@@ -19,8 +19,9 @@
 -- STATUS: HIC REFUSED 2026-09-19 — DO NOT APPLY.
 -- Reason: authored without a per-function caller map of this repo.
 -- 076 already required that review (not a blanket PUBLIC revoke).
--- Next version only after: src/ rpc call sites, RLS helper usage,
--- dashboard JWT vs service_role, and DWS_SECURITY_STANDARD §16.
+-- Caller map (still not an apply authorization):
+--   docs/field-notes/2026-09-19-security-definer-caller-map.md
+-- Next SQL only as reviewed hunks, not this loop.
 --
 -- Idempotent. Safe to re-run.
 -- Filename per DWS_DOCUMENT_STANDARD.md §4.5 / §1 (v2.16).

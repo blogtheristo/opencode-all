@@ -4,11 +4,12 @@
 
 ***
 
-Version: 1.2 [Latest]
+Version: 1.3 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.2 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC approved item 2 — migration-filename CI. Diff-scoped; existing names grandfathered. 088 still not applied.
+- Version: 1.3 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC item 4 — per-function caller map. 088 still not applied.
+- Version: 1.2 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC approved item 2 — migration-filename CI. Diff-scoped; existing names grandfathered. 088 still not applied.
 - Version: 1.1 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC approved the thin always-on Cursor rule (`.cursor/rules/dws-standards-always.mdc`). Migration-filename CI not in this approval. 088 still refused.
 - Version: 1.0 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Audit Cloud + git Cursor sessions since 2026-09-12; fix provenance on repo artifacts.
 
@@ -50,3 +51,4 @@ Git: author Cursor* since 2026-09-12.
 1. **Approved 19.09.2026:** thin always-on Cursor rule `.cursor/rules/dws-standards-always.mdc`.
 2. **Approved 19.09.2026:** migration-filename CI (`scripts/check-migration-filenames.mjs`).
 3. **Approved 19.09.2026:** generated i18n HTML §2.1 HTML-comment provenance (not markdown VAH).
+4. **Approved 19.09.2026:** per-function caller map (`docs/field-notes/2026-09-19-security-definer-caller-map.md`). 088 still refused.

@@ -4,11 +4,12 @@
 
 ***
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.1 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC refused to run 088 — agent lacked dws6 repo awareness. File marked DO NOT APPLY. Prior 1.0 [not latest].
+- Version: 1.2 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC item 4 — caller map written (`2026-09-19-security-definer-caller-map.md`). 088 still DO NOT APPLY.
+- Version: 1.1 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC refused to run 088 — agent lacked dws6 repo awareness. File marked DO NOT APPLY. Prior 1.0 [not latest].
 - Version: 1.0 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Advisor SECURITY dump field note; 088 not applied.
 
 Document Status:
@@ -62,7 +63,9 @@ Leaked-password protection: Auth → Providers → Email → enable “Leaked pa
 
 ## HIC decision (closed)
 
-**Refuse 088.** Do not run it. A replacement is allowed only after a per-function caller map (076 follow-up text).
+**Refuse 088.** Do not run it.
+
+**Caller map (HIC item 4, 19.09.2026):** `docs/field-notes/2026-09-19-security-definer-caller-map.md`. Replacement SQL still not authorized — map is PENDING_REVIEW.
 
 Gaps this session did not have before writing 088 (now checked, still not enough to apply):
 
