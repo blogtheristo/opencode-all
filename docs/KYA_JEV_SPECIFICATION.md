@@ -49,7 +49,7 @@ Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe 
 - **Pilot integration:** `src/agents/seo/seo-audit.agent.ts` — `reviewWithKyaJev()`, advisory-only; `deployGate` remains fully deterministic.
 - **Dictionary advisory:** `src/agents/dictionary-kya-jev.ts` — `adviseDictionaryTerm()`, advisory-only; does not write `dws-dictionary.json`.
 - **Lead-score advisory:** `src/agents/lead-score-kya-jev.ts` — `adviseLeadScore()`; HIC 19.09.2026 next queue after seo-audit + dictionary. `outreach-lead-finder` may attach `metadata.kyaJevLeadReview`; scoring/upsert stay the existing path.
-- **Model-route advisory:** `src/agents/model-route-kya-jev.ts` — `adviseModelRoute()`; HIC 19.09.2026 third consumer. Does not replace `selectModel()` (`src/agents/model-selector.ts`).
+- **Model-route advisory:** `src/agents/model-route-kya-jev.ts` — `adviseModelRoute()`; HIC 19.09.2026 third consumer. Does not replace `selectModel()` (`src/agents/model-selector.ts`). NVIDIA SoL-Pi (arXiv:2609.20519) is a _harness-search_ paper, not a reason to auto-mutate `kya-jev`.
 - **Audit trail:** `supabase/migrations/087_kya_jev_calls.sql` + `BaseAgent.logKyaJevCall()`.
 - **Calibration tooling:** `scripts/calibrate-kya-jev.mjs` (real ECE harness; no fabricated results — no labeled dataset exists yet).
 - **Commercial listing:** `KYA-JEV-001`, EUR 99/month, Early Access, `dws10.com/config/products.json` (+ landing-pages mirror).

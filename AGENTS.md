@@ -62,15 +62,15 @@ DWS IQ 6 uses three categories of AI agents:
 
 ### Technology Stack
 
-| Layer                 | Technology                                                                 | Purpose                                 |
-| --------------------- | ---------------------------------------------------------------------------- | --------------------------------------- |
+| Layer                 | Technology                                                                | Purpose                                 |
+| --------------------- | ------------------------------------------------------------------------- | --------------------------------------- |
 | **Orchestration**     | MCP Hub (`mcp-hub-ts/`; legacy `mcp-hub/server.py` for Redis/BIM/sandbox) | Central coordination, workflow patterns |
-| **Fast Inference**    | Groq API (Llama 3.1 70B)                                                     | High-speed agent responses              |
-| **Complex Reasoning** | Claude Sonnet 4.5                                                            | Deep analysis, planning                 |
-| **Multi-Agent**       | LlamaStack                                                                   | Agent orchestration                     |
-| **Edge AI**           | NVIDIA Jetson                                                                | On-premise SiteSense agents             |
-| **Database**          | Supabase (PostgreSQL + pgvector)                                             | Data, embeddings, signals               |
-| **Notifications**     | Microsoft Teams (webhook), Slack (webhook), Email (SES)                      | Agent alerts                            |
+| **Fast Inference**    | Groq API (Llama 3.1 70B)                                                  | High-speed agent responses              |
+| **Complex Reasoning** | Claude Sonnet 4.5                                                         | Deep analysis, planning                 |
+| **Multi-Agent**       | LlamaStack                                                                | Agent orchestration                     |
+| **Edge AI**           | NVIDIA Jetson                                                             | On-premise SiteSense agents             |
+| **Database**          | Supabase (PostgreSQL + pgvector)                                          | Data, embeddings, signals               |
+| **Notifications**     | Microsoft Teams (webhook), Slack (webhook), Email (SES)                   | Agent alerts                            |
 
 ### MCP Hub Coordination Patterns
 
@@ -777,17 +777,17 @@ These are the pre-existing skills in `skills/`. See `docs/DWS_SKILLS_GUIDE.md` f
 
 ### File Locations
 
-| Resource                  | Path                                           |
-| ------------------------- | ---------------------------------------------- |
-| V1.0 Feature List         | `V1_FEATURE_LIST.md`                           |
-| Signal Registry           | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json` |
-| Coordinator Script        | `.workflows/agents/coordinator.cjs`            |
-| Coordinator Guide         | `.workflows/agents/ULTRA_AGENT_COORDINATOR.md` |
-| Design Audit Agent        | `.workflows/agents/DESIGN_AUDIT_AGENT.md`      |
-| Design Audit Admin Manual | `ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md`           |
-| Agent Guidelines          | `AI_AGENT_GUIDELINES.md`                       |
-| DWS Team Agents           | `CloudAgents/dws-team/README.md`               |
-| Customer Agent Configs    | `AgentFoundry/configs/templates/`              |
+| Resource                  | Path                                                                               |
+| ------------------------- | ---------------------------------------------------------------------------------- |
+| V1.0 Feature List         | `V1_FEATURE_LIST.md`                                                               |
+| Signal Registry           | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json`                                     |
+| Coordinator Script        | `.workflows/agents/coordinator.cjs`                                                |
+| Coordinator Guide         | `.workflows/agents/ULTRA_AGENT_COORDINATOR.md`                                     |
+| Design Audit Agent        | `.workflows/agents/DESIGN_AUDIT_AGENT.md`                                          |
+| Design Audit Admin Manual | `ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md`                                               |
+| Agent Guidelines          | `AI_AGENT_GUIDELINES.md`                                                           |
+| DWS Team Agents           | `CloudAgents/dws-team/README.md`                                                   |
+| Customer Agent Configs    | `AgentFoundry/configs/templates/`                                                  |
 | MCP Hub                   | `mcp-hub-ts/` (Cloud Run `mcp-hub-ts/cloudbuild.yaml`); Python `mcp-hub/` optional |
 
 ### Common Commands
@@ -854,6 +854,7 @@ cd mcp-hub && pip install -r requirements.txt && python server.py
 - [ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md](ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md) - Design Audit Agent usage guide
 - [docs/Deputy-Agents-Architecture.md](docs/Deputy-Agents-Architecture.md) - DGX Managed Agents self-hosted architecture, referenced in §8
 - [docs/CLOUD_ENVIRONMENTS.md](docs/CLOUD_ENVIRONMENTS.md) - DGX Spark as primary compute (§3.2.2), referenced in §8
+- [NVIDIA SoL-Pi (harness-search paper, not DWS)](docs/field-notes/2026-09-19-nvidia-sol-pi-self-evolving-harness.md) — arXiv [2609.20519](https://arxiv.org/abs/2609.20519). Literature bookmark only; DWS does not run SoL-Pi.
 
 ---
 
