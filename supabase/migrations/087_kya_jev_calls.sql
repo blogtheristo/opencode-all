@@ -1,3 +1,5 @@
+-- PASTE_VERSION: 087.2
+-- Date: 2026-09-19
 -- ============================================================================
 -- kya_jev_calls — Article 12 audit trail for kya-jev typed decisions
 -- (src/agents/kya-jev.ts). One row per makeTypedDecision() call, in addition
@@ -5,7 +7,8 @@
 --
 -- Reviewed: HIC 2026-09-18 (non-breaking, additive table)
 -- Context: docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md
--- RLS ENABLE is immediately after CREATE (before grants): SQL editor advisor flags CREATE without ENABLE in the same parse.
+-- No DROP POLICY / DROP TABLE. Policies are additive (v087_2 names).
+-- RLS ENABLE + FORCE immediately after CREATE (before grants).
 -- ============================================================================
 
 CREATE TABLE IF NOT EXISTS kya_jev_calls (
@@ -33,6 +36,7 @@ CREATE TABLE IF NOT EXISTS kya_jev_calls (
 );
 
 ALTER TABLE public.kya_jev_calls ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.kya_jev_calls FORCE ROW LEVEL SECURITY;
 
 CREATE INDEX IF NOT EXISTS idx_kya_jev_calls_agent_name ON kya_jev_calls(agent_name);
 CREATE INDEX IF NOT EXISTS idx_kya_jev_calls_execution_id ON kya_jev_calls(agent_execution_id);
@@ -40,11 +44,11 @@ CREATE INDEX IF NOT EXISTS idx_kya_jev_calls_org_id ON kya_jev_calls(org_id);
 CREATE INDEX IF NOT EXISTS idx_kya_jev_calls_created_at ON kya_jev_calls(created_at);
 
 COMMENT ON TABLE kya_jev_calls IS
-  'Article 12 audit trail for kya-jev (src/agents/kya-jev.ts) typed decisions. Confidence is self-reported and uncalibrated until a DWS calibration study runs — see docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md.';
+  'paste_version=087.2 Article 12 audit trail for kya-jev (src/agents/kya-jev.ts) typed decisions. Confidence is self-reported and uncalibrated until a DWS calibration study runs — see docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md.';
 
 -- service_role: full access (030_agent_logging_tables / 069_agent_nudges)
-DROP POLICY IF EXISTS kya_jev_calls_service_all ON public.kya_jev_calls;
-CREATE POLICY kya_jev_calls_service_all
+-- Additive name: no DROP POLICY (SQL editor destructive warning).
+CREATE POLICY kya_jev_calls_service_all_v087_2
   ON public.kya_jev_calls
   FOR ALL
   TO service_role
@@ -52,8 +56,7 @@ CREATE POLICY kya_jev_calls_service_all
   WITH CHECK (true);
 
 -- authenticated: own org_id via JWT claim (042_csrd_compliance_data.sql)
-DROP POLICY IF EXISTS kya_jev_calls_authenticated_org ON public.kya_jev_calls;
-CREATE POLICY kya_jev_calls_authenticated_org
+CREATE POLICY kya_jev_calls_authenticated_org_v087_2
   ON public.kya_jev_calls
   FOR ALL
   TO authenticated
