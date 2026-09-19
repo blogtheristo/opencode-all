@@ -2,13 +2,14 @@
 
 # VERSION AND AGENT HISTORY
 
-***
+---
 
-Version: 1.2 [Latest]
+Version: 1.3 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.2 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC item 4 — caller map written (`2026-09-19-security-definer-caller-map.md`). 088 still DO NOT APPLY.
+- Version: 1.3 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC item 5 — leaked-password protection required (Studio). 088 still DO NOT APPLY.
+- Version: 1.2 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC item 4 — caller map written (`2026-09-19-security-definer-caller-map.md`). 088 still DO NOT APPLY.
 - Version: 1.1 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC refused to run 088 — agent lacked dws6 repo awareness. File marked DO NOT APPLY. Prior 1.0 [not latest].
 - Version: 1.0 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Advisor SECURITY dump field note; 088 not applied.
 
@@ -20,7 +21,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
-***
+---
 
 **Observed at:** 2026-09-19T00:51:14.175Z (HIC paste)
 **Branch:** `cursor/supabase-advisor-warnings-3f7a`
@@ -77,6 +78,6 @@ Gaps this session did not have before writing 088 (now checked, still not enough
 | `web_leads` authenticated UPDATE is used as admin (070)                                                            | Switching to `is_backoffice_admin()` can lock Mission Control if `organization_members` is empty                                          |
 | `vector` / `citext` columns (`playbook_leads.email`, memory search)                                                | `ALTER EXTENSION SET SCHEMA` not traced against `hybrid_memory_search` / dashboard types                                                  |
 
-Leaked-password Auth toggle is still a dashboard decision, separate from 088.
+Leaked-password Auth toggle: HIC approved enable 19.09.2026 — `docs/field-notes/2026-09-19-auth-leaked-password-protection.md`. Still not SQL / not 088.
 
 N/A — KB / Learn / Drive / calendar.

@@ -8,13 +8,18 @@
 
 # VERSION AND AGENT HISTORY
 
-***
+---
 
-Version: 1.2 [Latest]
+Version: 1.3 [Latest]
 Tool: Cursor Grok 4.6
 Agent: Cursor Cloud
 Date: 19.09.2026
-Changes: HIC item 4 — SECURITY DEFINER caller map field note. Do not apply 088.
+Changes: HIC item 5 — Auth leaked-password required (Studio). Do not apply 088.
+Version: 1.2
+Tool: Cursor Grok 4.6
+Agent: Cursor Cloud
+Date: 19.09.2026
+Changes: [not latest] HIC item 4 — SECURITY DEFINER caller map field note. Do not apply 088.
 Version: 1.1
 Tool: Cursor Grok 4.6
 Agent: Cursor Cloud
@@ -26,7 +31,7 @@ Agent: Cursor Cloud
 Date: 19.09.2026
 Changes: [not latest] Session handoff for OpenCode audit. Do not apply 088.
 
-***
+---
 
 ## Task
 
@@ -36,15 +41,15 @@ HIC pasted Supabase Database Linter SECURITY (2026-09-19). Cursor wrote field no
 
 ### Committed on branch (vs `main`)
 
-| SHA | Subject |
-| --- | --- |
-| `7f0c53af9` | Record HIC approval of the thin always-on Cursor standards rule |
-| `83c6bb24e` | Record HIC refusal: do not apply migration 088 |
-| `b32cc959f` | Register dws-standards-always.mdc in CLAUDE.md system files index |
-| `0c670c4cd` | Make DWS standards a Cursor always-on harness, not memory |
-| `d81d31d11` | Bring last-week Cursor artifacts under Document Standard v2.17 |
+| SHA         | Subject                                                                   |
+| ----------- | ------------------------------------------------------------------------- |
+| `7f0c53af9` | Record HIC approval of the thin always-on Cursor standards rule           |
+| `83c6bb24e` | Record HIC refusal: do not apply migration 088                            |
+| `b32cc959f` | Register dws-standards-always.mdc in CLAUDE.md system files index         |
+| `0c670c4cd` | Make DWS standards a Cursor always-on harness, not memory                 |
+| `d81d31d11` | Bring last-week Cursor artifacts under Document Standard v2.17            |
 | `8ce85f5ca` | Put .sql in Document Standard scope (v2.16); rename 088 to `088_190926_*` |
-| `8bb672fed` | Rewrite 088 policies as ALTER POLICY (Studio DROP banner) |
+| `8bb672fed` | Rewrite 088 policies as ALTER POLICY (Studio DROP banner)                 |
 
 Earlier on same lineage (if present on PR): advisor field note + first 088 draft.
 
@@ -57,7 +62,7 @@ Earlier on same lineage (if present on PR): advisor field note + first 088 draft
 ### Open
 
 - Caller map is PENDING_REVIEW — not an apply-088 ticket.
-- Leaked-password Auth dashboard toggle (not SQL).
+- Auth advisor lint `auth_leaked_password_protection`: approved; HIC must flip Studio (`PENDING_HIC_TOGGLE`).
 - Session learning: KB / Learn / Drive / calendar = N/A.
 
 ### Uncommitted (do not treat as shipped)

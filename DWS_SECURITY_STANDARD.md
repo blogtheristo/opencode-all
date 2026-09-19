@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 3.5
+version: 3.6
 created: 2026-02-07
-last_modified: 2026-07-31
+last_modified: 2026-09-19
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,10 +19,11 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.5
+Version: 3.6
 
 Sessions & Modifications:
 
+- Version: 3.6 | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Added §16.0.2 (Supabase Auth leaked-password protection). Advisor lint `auth_leaked_password_protection` is dashboard-only. HIC approved enabling it 19.09.2026. Not SQL. 088 still not applied.
 - Version: 3.5 | Tool: Claude Code (Sonnet 5) | Session: claude/ai-pact-enforcement-transparency-gnnipk | Date: 31.07.2026 | Changes: Added §20 (Public Vulnerability Disclosure) — pointer to the new standalone `dws10.com/compliance/vulnerability-disclosure-policy/` page (adapted from the European Commission's public VDP, EC-institution-specific legal references dropped as inapplicable to a private company). Locked the SLA (48h ack, Critical 48h/High 7d/Medium 30d/Low next release) as the single source of truth, now cross-linked from `.well-known/security.txt`, `legal/index.html` §10, and `compliance/trust-center/index.html` rather than restated independently in each.
 - Version: 3.4 | Tool: Claude Code | Session: claude/add-supabase-table-grants-y0Ps6 | Date: 19.07.2026 | Changes: Added §16.0.1 (Data API Grants — Supabase May/Oct 2026 change). Every `CREATE TABLE public.*` must be paired with an explicit `GRANT` to `service_role` + `authenticated` (anon opt-in) — Supabase dropped the implicit Data API grants on 2026-05-30 for new projects and enforces the same on all existing projects on 2026-10-30. Backfill migration `supabase/migrations/075_public_schema_grants.sql` reopens the table-level door for the 88 existing public tables and sets `alter default privileges` so future migrations do not silently break the Data API. Standard block codified in `Firehorse/supabase-schema-templates.sql` (top of file).
 - Version: 3.3 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Continued live-vs-dead-code Dependabot triage. Raised live `cryptography` floor to `>=48.0.1` (2 files). Removed unused `python-jose` from `AgentFoundry`/`Firehorse/api` requirements (eliminated the unpatched `python-ecdsa` Minerva transitive). Relaxed `mcp-hub` `fastapi==0.115.12` → `>=0.115.12` to unstick Starlette from the vulnerable 0.46.2 (the hard pin capped `starlette<0.47.0`). Raised `lxml` floor `>=5.0.0` → `>=6.1.0` in `AgentFoundry`/`scripts/requirements-signals.txt` (XXE fix). Confirmed live copies of axios, vite, react-router, form-data, babel, undici, fast-uri, ws were already patched — vulnerable versions only in deleted `artifacts/` or `*_DEPRECATED/` trees.
@@ -1494,6 +1495,14 @@ Reference copy at the top of `Firehorse/supabase-schema-templates.sql`.
 **Backfill.** `supabase/migrations/075_public_schema_grants.sql` grants CRUD on every existing public table to `service_role` + `authenticated`, plus per-table anon SELECT/INSERT for the surfaces whose RLS policies explicitly target `anon` (booking\_\* public reads, subscription_plans, file_index, captain_inquiries submissions, web_leads, playbook_leads). It also sets `alter default privileges in schema public` so a future migration that forgets the inline block still lands with the correct grants — a belt-and-suspenders safeguard against silent 42501s in production.
 
 **Anon posture.** Anon is deny-by-default at the GRANT layer: the standard block does not include `anon`. Add it only when an RLS policy already permits the action for `anon` or the `public` pseudo-role — never grant `anon` privileges the RLS layer does not corroborate.
+
+### 16.0.2 Supabase Auth — leaked-password protection (HIC 19.09.2026)
+
+Advisor lint `auth_leaked_password_protection` is an **Auth product setting**, not a migration. There is no SQL for it. Do not put breach-corpus checks into `supabase/migrations/`.
+
+**Required on every Supabase Auth project that accepts email sign-in:** Authentication → Providers → Email → enable **Leaked password protection**.
+
+**HIC** flips the toggle in Studio. Agents do not store Auth admin tokens in git. Confirm on the production project after change; record date in `docs/field-notes/2026-09-19-auth-leaked-password-protection.md`.
 
 ### 16.1 API Key Management Security
 
