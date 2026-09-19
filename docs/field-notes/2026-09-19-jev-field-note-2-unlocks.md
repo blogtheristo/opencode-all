@@ -77,5 +77,5 @@ Keep vendor Jev as a **market signal** (System-1 sorter in front of expensive qu
 2. Field note: this file.
 3. Learn/ HTML: N/A.
 4. Drive: N/A.
-5. **HIC question:** Which one queue (1–7) should be the next _advisory_ kya-jev consumer after `seo-audit` + dictionary — helpdesk triage (#3) or lead scoring (#2)? Not a ship-the-quote-engine question.
+5. **HIC question:** Which one queue (1–7) should be the next _advisory_ kya-jev consumer after `seo-audit` + dictionary — helpdesk triage (#3) or lead scoring (#2)? **Answered 19.09.2026: lead scoring (#2).** `adviseLeadScore()`; helpdesk not wired.
 6. Calendar: N/A.

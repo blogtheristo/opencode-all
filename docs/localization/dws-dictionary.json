@@ -15,7 +15,7 @@
   },
   "kyaJev": {
     "spec": "docs/KYA_JEV_SPECIFICATION.md",
-    "specVersion": "0.6",
+    "specVersion": "0.7",
     "primitive": "src/agents/kya-jev.ts",
     "dictionaryAdvisory": "src/agents/dictionary-kya-jev.ts",
     "role": "advisory-only — never auto-locks terms, prices, or Wave 3 pages",

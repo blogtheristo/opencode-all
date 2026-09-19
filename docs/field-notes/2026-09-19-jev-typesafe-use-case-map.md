@@ -103,5 +103,5 @@ Treat https://docs.typesafe.ai/concepts/use-case-map as the vendor canon for _sh
 2. Field note: this file.
 3. Learn/ HTML: N/A.
 4. Drive: N/A.
-5. **HIC question:** After helpdesk vs lead-scoring (field note 2), is the _third_ advisory consumer **model routing** (harness) or **compliance filing classify** (Ledger-Native, kya-jev only)?
+5. **HIC question:** After helpdesk vs lead-scoring (field note 2), is the _third_ advisory consumer **model routing** (harness) or **compliance filing classify** (Ledger-Native, kya-jev only)? Lead scoring is the second consumer (HIC 19.09.2026). Third still open.
 6. Calendar: N/A.

@@ -18,6 +18,7 @@
 import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
+import { adviseLeadScore } from './lead-score-kya-jev.js';
 
 // ============ ICP TARGET UNIVERSE ============
 
@@ -280,6 +281,7 @@ export class OutreachLeadFinderAgent extends BaseAgent {
           region: validated.region,
           roleId: validated.roleId,
           regulatoryTrigger: validated.regulatoryTrigger,
+          kyaJevLeadReview: await this.reviewTopLeadWithKyaJev(scored[0], validated, context),
         },
       };
 
@@ -436,6 +438,63 @@ export class OutreachLeadFinderAgent extends BaseAgent {
         );
       })
       .sort((a, b) => b.fitScore - a.fitScore);
+  }
+
+  /**
+   * HIC 2026-09-19: next kya-jev queue is lead scoring (not helpdesk).
+   * Advisory only — does not change fitScore or upsert payload.
+   */
+  private async reviewTopLeadWithKyaJev(
+    top: ScoredLead | undefined,
+    input: LeadFinderInput,
+    context: AgentContext,
+  ): Promise<
+    | {
+        callbackPriority: string;
+        confidence: number;
+        calibration: 'self-reported-uncalibrated';
+        abstained: boolean;
+      }
+    | undefined
+  > {
+    const client = this.getLLMClient();
+    if (!client || !top) return undefined;
+    try {
+      const out = await adviseLeadScore(
+        client,
+        {
+          kind: 'callback_priority',
+          state: JSON.stringify({
+            icp: input.icp,
+            name: top.name,
+            domain: top.domain,
+            industry: top.industry,
+            region: top.region,
+            regulations: top.regulations,
+            fitScore: top.fitScore,
+          }),
+        },
+        context.agentRuntime,
+      );
+      await this.logKyaJevCall(context, {
+        questionKind: 'score',
+        questionPrompt: 'outreach lead callback-priority (advisory)',
+        decision: out.result.decision,
+        probabilities: out.result.probabilities,
+        confidence: out.result.confidence,
+        calibration: out.result.calibration,
+        abstained: out.result.abstained,
+        model: client.model,
+      });
+      return {
+        callbackPriority: out.result.abstained ? 'watch' : out.result.decision,
+        confidence: out.result.confidence,
+        calibration: out.result.calibration,
+        abstained: out.result.abstained,
+      };
+    } catch {
+      return undefined;
+    }
   }
 
   private toScoredLead(
