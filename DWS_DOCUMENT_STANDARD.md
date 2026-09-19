@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.16 [Latest]
+Version: 2.17 [Latest]
 
 Sessions & Modifications:
 
-- Version: 2.16 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §1 Scope now includes SQL (`.sql`). Naming stays §4.5; provenance is the §19.3 `CODE VERSIONING NOTE` comment block — not the §2 markdown `VERSION AND AGENT HISTORY` header (invalid as SQL). §2.1 and §25.2 state the SQL exception. Triggered by migration `088` failing a scope check because §1 listed only `.md` / workflows / PDFs. Prior 2.15 marked [not latest].
+- Version: 2.17 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §1 Scope lists TypeScript/JavaScript (`.ts`, `.tsx`, `.js`, `.jsx`) and Python (`.py`) the same way as `.sql`: in scope; provenance is §19.3 `CODE VERSIONING NOTE`; do not paste the §2 markdown history block into executable source. Triggered by a Cursor-session audit (last 7 days) that found §19.3 templates without a scope line.
+- Version: 2.16 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §1 Scope now includes SQL (`.sql`). Naming stays §4.5; provenance is the §19.3 `CODE VERSIONING NOTE` comment block — not the §2 markdown `VERSION AND AGENT HISTORY` header (invalid as SQL). §2.1 and §25.2 state the SQL exception. Triggered by migration `088` failing a scope check because §1 listed only `.md` / workflows / PDFs. Prior 2.15 marked [not latest].
 - Version: 2.15 [not latest] | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 10.08.2026 | Changes: Merged origin/main (v2.13, which itself merged this branch's v2.12 base and added §25/§26) into this branch. Both sides had independently bumped past v2.12: this branch added §4.7 (Exported/Shared Deliverable Naming) at v2.13-2.14; main added §25 (Universal Document Footer) and §26 (Repository-First, Then Export) at v2.13. No section-number collision — main's new sections (25, 26) sit after this branch's existing §24, and §4.7 is a subsection under §4, so both merged cleanly with no content loss. Only the VERSION AND AGENT HISTORY block itself conflicted (both sides claimed "2.13"); resolved by keeping both change entries below and bumping to 2.15.
 - Version: 2.14 | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 23.07.2026 | Changes: Refined §4.7 — the exported-deliverable prefix is now the **full version number** (`2.0_`, `1.0_`, `1.9.1_`) rather than `V<MAJOR>_`, so minor bumps stay distinguishable in short-name lists. Founder compact shorthand (`1.91_kya`) recorded as an accepted equivalent. Match rule tightened to full `MAJOR.MINOR[.PATCH]`.
 - Version: 2.13a | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 22.07.2026 | Changes: Added §4.7 Exported / Shared Deliverable Naming — Version-First Prefix. Codifies that deliverables exported or shared outside the repo (Google Drive docs, PDFs, presentation exports) carry a leading `V<MAJOR>_` prefix so the version stays visible in short-name lists that truncate the tail (Drive, mobile, file pickers), while in-repo files keep the §4.6 `_vN` suffix. Prefix major must equal the header `Version:` major (same match rule as §4.6). Requested by the founder after the LUT/PhD Drive set grew past a screen.
@@ -115,8 +116,10 @@ Applies to:
 - Master thesis documents
 - PDF documents (`.pdf`)
 - SQL migrations and hand-written DDL (`.sql`) — including `supabase/migrations/*.sql` and any other repo `.sql`. Filename: §4.5. Provenance: §19.3 `CODE VERSIONING NOTE` as SQL comments. Do **not** paste the §2 markdown `VERSION AND AGENT HISTORY` block into `.sql` (not valid SQL).
+- TypeScript / JavaScript source (`.ts`, `.tsx`, `.js`, `.jsx`) — provenance: §19.3 block comment. Do **not** paste the §2 markdown history block into source.
+- Python source (`.py`) — provenance: §19.3 docstring or `#` comment. Do **not** paste the §2 markdown history block into source.
 
-Soveltuu myös SQL-tiedostoihin (`.sql`): tiedostonimi §4.5, jäljitettävyys §19.3 -kommenttina — ei markdown-otsikkolohkoa.
+Soveltuu myös SQL-, TypeScript- ja Python-tiedostoihin: jäljitettävyys §19.3-kommenttina — ei markdown-otsikkolohkoa.
 
 **Does NOT apply to:**
 
@@ -139,7 +142,7 @@ Soveltuu myös SQL-tiedostoihin (`.sql`): tiedostonimi §4.5, jäljitettävyys �
 
 **ALL narrative documents (`.md` and other prose listed in §1) MUST include this header block at the top.**
 
-**SQL exception:** `.sql` files are in §1 scope but **must not** use this markdown block. They use the §19.3 `CODE VERSIONING NOTE` comment template at the top of the file, and the §4.5 filename. A markdown `VERSION AND AGENT HISTORY` block inside `.sql` is a Rule 12 violation (it is not SQL).
+**Executable-source exception:** `.sql`, `.ts`, `.tsx`, `.js`, `.jsx`, and `.py` are in §1 scope but **must not** use this markdown block. They use the §19.3 `CODE VERSIONING NOTE` in language-appropriate comments. SQL filenames also follow §4.5. A markdown `VERSION AND AGENT HISTORY` block inside executable source is a Rule 12 violation.
 
 
 > **IMPORTANT: Pandoc Compatibility.** Use `***` (not `---`) as delimiters around
@@ -2250,7 +2253,7 @@ Env-Schema: env-v1.0
 """
 ```
 
-**SQL migrations (`.sql`) — mandatory for new and rewritten files in §1 scope:**
+**SQL (`.sql`), TypeScript/JavaScript, and Python — mandatory for new and rewritten files in §1 scope:**
 
 ```sql
 -- CODE VERSIONING NOTE
@@ -2846,7 +2849,7 @@ Every document produced in this repository — internal or external, narrative o
 - **Customer-facing documents (§20.6)** already move the version block + copyright to the end — this footer _is_ that block; do not duplicate it at the top for those docs.
 - **Whitepapers (§23.1)** carry the per-page printed footer defined there; §25 is the Markdown-source equivalent and both must agree on classification.
 - **Delimiter:** the footer opens with `***` (never `---`) per the Markdown Delimiter Rule.
-- **SQL exception:** `.sql` files do not use this Markdown footer. Put the same four facts (version, date, copyright, confidentiality) in a trailing `--` comment block, or omit confidentiality on schema that is already in the public repo. Version in that comment must match `Code-Version` in the §19.3 note.
+- **Executable-source exception:** `.sql` / `.ts` / `.py` do not use this Markdown footer. Put version + date + copyright in a trailing language comment, or omit confidentiality on public repo source. Version must match `Code-Version` in the §19.3 note.
 
 ## 26. Repository-First, Then Export (anti-drift)
 
@@ -2884,6 +2887,6 @@ Exported cloud documents (Google Docs/Drive, Gamma, shared PDFs) **must lead the
 
 ***
 
-**Document version:** v2.16 · **Date:** 19.09.2026 · **Owner:** Lifetime Oy
+**Document version:** v2.17 · **Date:** 19.09.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.

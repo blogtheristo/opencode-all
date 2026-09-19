@@ -1,5 +1,26 @@
 # 2026-09-19 — Supabase Database Linter SECURITY warnings
 
+# VERSION AND AGENT HISTORY
+
+***
+
+Version: 1.0 [Latest]
+
+Sessions & Modifications:
+
+- Version: 1.0 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Advisor SECURITY dump field note; 088 not applied.
+
+Document Status:
+
+- Created: 19.09.2026
+- Last Modified: 19.09.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
+
+***
+
+
 **Observed at:** 2026-09-19T00:51:14.175Z (HIC paste)
 **Branch:** `cursor/supabase-advisor-warnings-3f7a`
 **Status:** PENDING_REVIEW — migration `088_190926_advisor_security_linter.sql` is in repo only; not applied.
