@@ -25,6 +25,7 @@ source: CLAUDE.md (canonical)
 | site QA, image quality / format / weight, copy quality, dual-folder mirror checks, deploy-readiness checklist | `SITE_QUALITY_STANDARDS.md` |
 | adding / removing / renaming a slash command or `skills/<name>/SKILL.md`; updating discipline gates; skill manifest | `docs/DWS_SKILLS_GUIDE.md` |
 | blog post on `onelifetime.world/blog/`, `dws10.com/blog/`, editorial cadence, LSJ — **always run `/blog-draft`; HIC approval before publishing is Non-Negotiable Rule 13** | `docs/BLOG_STANDARD.md` (§3.3 draft gate) |
+| tool selection (Cursor, Grok, Claude Code, OpenCode), agent compute resource (cloud vs DGX), cost justification, free-credit window, agentic workload procurement | `DWS_COST_POLICY_STANDARD.md` (EU AI Act Art. 14 transparency) |
 | BaseAgent class, new agent in `src/agents/`, autonomy tier, cost budget, agent execution logging, bacterial-code extraction | `AI_AGENT_GUIDELINES.md` |
 | agent topology, signal dependencies (READY / COMPLETE / ERROR / BLOCKED), agent-XX numbering, what unlocks what | `AGENTS.md` |
 | asserting an industry count, product price, captain hat, KYA tier, role name, or canonical fact | `DWS_TRUTH_STANDARD.md` (routes to the canonical source) |

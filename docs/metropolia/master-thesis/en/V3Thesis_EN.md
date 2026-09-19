@@ -6,11 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.10
+Version: 4.11
 
 Sessions & Modifications:
 
-- Version: 4.10 [Latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 names the hybrid split as the implementation of PhD Key Contribution #59 (sensitive on Aegis/Infra, remainder on Connect). Lockstep 4.09->4.10.
+- Version: 4.11 [Latest] | Tool: Claude Code (Haiku 4.5) | Session: claude/cursor-dws-audit-zl8ts1 | Date: 19.09.2026 | Changes: Lockstep version bump 4.10 -> 4.11 per CLAUDE.md Thesis Rule. PR #2037 field note (2026-09-18): Mission Control login works when signed in; operations stay manual; X @blogtheristo linked to xAI risto.paarni@lifetime.fi. No master's-thesis content; recorded as lockstep-only per §1.4 master-vs-PhD scope rule.
+- Version: 4.10 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 names the hybrid split as the implementation of PhD Key Contribution #59 (sensitive on Aegis/Infra, remainder on Connect). Lockstep 4.09->4.10.
 - Version: 4.09 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 fence wording — SEAL is a Cloud III DPS gate, not a standalone certificate. Catalogue nearest-SEAL remains indicative; DWS four-tier score is not a Cloud III evaluation. Lockstep 4.08->4.09.
 - Version: 4.08 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Added §10.33 (Indicative SEAL naming on catalogue SKUs and the DWS-score / EU-SEAL fence). Implementation counterpart to PHD_FIREHORSE §14.53 / Key Contribution #58: dual-folder `products.json` feature lines, `docs/PRODUCT_TIERS.md`, `DWS_DEPLOYMENT_STANDARD.md` v1.7, public `/compliance/#seal-0-4` and `/legal/#seal-0-4` literacy, `/sovereignty-assessment/` fence that the DWS four-tier score is not an EU SEAL certificate. Same-day addendum: catalogue does not import AWS/Microsoft/Oracle/S3NS SKU claims as SEAL evidence (PhD §14.53.2 comparison). Scientific framing stays in the PhD. Lockstep 4.07->4.08.
 - Version: 4.07 [not latest] | Tool: Claude Code (Sonnet 5) | Session: claude/nis2-dws-compliance-wordings-qjidyn | Date: 11.09.2026 | Changes: **Lockstep version bump 4.06 -> 4.07 across all 4 thesis files per the CLAUDE.md Thesis Rule.** No new master's-thesis content added — this session's substantive work was market/scientific-signal (PHD_FIREHORSE_EN/FI §14.52, IDC NIS2 readiness-gap survey, Key Contribution #57) plus a routine Compliance Hub content update (`dws10.com/compliance/index.html` NIS2 card copy, v3.6, synced to `landing-pages/dws10-com/compliance/index.html`); recorded here as a lockstep-only entry per the §1.4 master-vs-PhD scope rule. Lockstep 4.06->4.07.

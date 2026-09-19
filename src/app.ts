@@ -32,6 +32,7 @@ import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
 import adminSupportRoutes from './routes/admin-support.routes.js';
+import adminCostAuditRoutes from './routes/admin-cost-audit.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
@@ -312,6 +313,9 @@ app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
 
 // Admin support chat channel (settings panel)
 app.use('/api/v1/admin/support', adminSupportRoutes);
+
+// Admin cost audit (mission control cost review dashboard)
+app.use('/api/admin', adminCostAuditRoutes);
 
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
