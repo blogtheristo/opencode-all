@@ -1,14 +1,15 @@
 # kya-jev Specification
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
-Version: 0.5 [Latest]
+Version: 0.6 [Latest]
 
 Sessions & Modifications:
 
-- Version: 0.5 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) flagged a gap the A2 fix left open: a technically-sound signing gate is worthless if `KYA_VERDICT_SIGNING_SECRET` is shared across staging/production or its rotation is undocumented — "the gate is fine but key management isn't." Added: (1) `KYA_VERDICT_SIGNING_SECRET_PREVIOUS` support in `verifyKyaVerdict()` for zero-downtime rotation (accepts a verdict signed under either the current or previous secret during a rotation window); (2) `assertNotPlaceholderInProd()` — `issueKyaVerdict()` now throws if a known test/placeholder secret is used with `NODE_ENV=production`, catching the "copy-pasted staging env into production" mistake; (3) a documented rotation procedure (staging/production must use distinct, independently-generated secrets; zero-downtime rotation steps; quarterly cadence + immediate rotation on suspected compromise; each rotation recorded in this document's version history) as a code comment directly above `issueKyaVerdict()` in `src/security/runtime-auth.ts`. 6 new tests (rotation window accept/reject/expire, placeholder guard in prod vs. non-prod); 18/18 total passing, `tsc` clean.
+- Version: 0.6 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: Additive dictionary consumer — `src/agents/dictionary-kya-jev.ts` (`adviseDictionaryTerm`). Same signed-KYA gate. Advisory only (`actionable: false`); does not lock glossary strings, prices, or Wave 3 pages. Merged v0.5 into the dictionary branch after Claude session exhausted. Migration 087 still not applied (RED).
+- Version: 0.5 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) flagged a gap the A2 fix left open: a technically-sound signing gate is worthless if `KYA_VERDICT_SIGNING_SECRET` is shared across staging/production or its rotation is undocumented — "the gate is fine but key management isn't." Added: (1) `KYA_VERDICT_SIGNING_SECRET_PREVIOUS` support in `verifyKyaVerdict()` for zero-downtime rotation (accepts a verdict signed under either the current or previous secret during a rotation window); (2) `assertNotPlaceholderInProd()` — `issueKyaVerdict()` now throws if a known test/placeholder secret is used with `NODE_ENV=production`, catching the "copy-pasted staging env into production" mistake; (3) a documented rotation procedure (staging/production must use distinct, independently-generated secrets; zero-downtime rotation steps; quarterly cadence + immediate rotation on suspected compromise; each rotation recorded in this document's version history) as a code comment directly above `issueKyaVerdict()` in `src/security/runtime-auth.ts`. 6 new tests (rotation window accept/reject/expire, placeholder guard in prod vs. non-prod); 18/18 total passing, `tsc` clean. [not latest]
 - Version: 0.4 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: Registered `kya-jev` in `DWS_STANDARDS_LIBRARY.md` §3.2 (D3, closed) **before** production migration 087 is applied, per HIC (Finnish): a component running in production without a standards-registry entry is exactly the audit inconsistency that gets caught later. Added §8 (Execution & Backlog Order) recording the corrected sequence: D3 → PR #2043 merge → apply migration 087; backlog P0 is the storefront/commercial visual check (B2/D1), not A2. **Correction to an external review relayed this session:** a Boardy-style re-review (quoted by HIC) still listed A2 ("KYA-context hardening") as an open P0 backlog item — that review was working from v0.2. A2 was already closed in v0.3 (signed verdicts, `issueKyaVerdict()`/`verifyKyaVerdict()`, 13/13 tests passing) two turns before this one; this version states that plainly so the record doesn't imply a still-open critical gap that in fact shipped.
 - Version: 0.3 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) identified A2 as the one genuinely severe finding — a caller-constructible `{decision:'allowed'}` verdict makes the KYA gate decorative ("signer and approver are the same party proves nothing"), and flagged D1/B2 as the same problem from two directions (an uncalibrated price shown without its caveat on the storefront card, not just in JSON, invites after-the-fact complaint). **A2 fixed this session**: `RuntimeKYAVerdict` now carries an HMAC-SHA256 `sig` + `issuedAt`, signed only by the new `issueKyaVerdict()` (`src/security/runtime-auth.ts`) using `KYA_VERDICT_SIGNING_SECRET`; `kya-jev`'s `requireKyaVerdict()` now calls `verifyKyaVerdict()` and rejects unsigned, tampered, or wrong-secret verdicts, and fails closed (rejects everything) when no secret is configured at all. 5 new tests added (`runtime-auth-kya-verdict.test.ts`) plus 4 rewritten `kya-jev.test.ts` cases proving the forged-verdict and tampered-verdict paths are actually rejected, not just documented as a risk. D1/B2 remain open (Needs-Human) pending a storefront-card-copy check, not a code fix.
 - Version: 0.2 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) flagged that §1's earlier claim "not difficult to deliver as engineering" (made in chat, not this document) was an unsupported opinion. Added a grounded paragraph to §1 citing the two pre-existing components that made the build low-effort — KYA-gating (`authorizeToolCall()`, `src/security/runtime-auth.ts:271`) and Article-12 audit logging (`agent_executions`, extended by `087_kya_jev_calls.sql` + `BaseAgent.logKyaJevCall()`) — turning the claim into cited evidence.
@@ -23,12 +24,12 @@ Session Links & References:
 Document Status:
 
 - Created: 18.09.2026
-- Last Modified: 18.09.2026 (v0.5)
+- Last Modified: 19.09.2026 (v0.6)
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE — internal specification
 
-***
+---
 
 ## 1. Summary
 
@@ -42,6 +43,7 @@ Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe 
 
 - **Primitive:** `src/agents/kya-jev.ts` — `makeTypedDecision()`.
 - **Pilot integration:** `src/agents/seo/seo-audit.agent.ts` — `reviewWithKyaJev()`, advisory-only; `deployGate` remains fully deterministic.
+- **Dictionary advisory:** `src/agents/dictionary-kya-jev.ts` — `adviseDictionaryTerm()`, advisory-only; does not write `dws-dictionary.json`.
 - **Audit trail:** `supabase/migrations/087_kya_jev_calls.sql` + `BaseAgent.logKyaJevCall()`.
 - **Calibration tooling:** `scripts/calibrate-kya-jev.mjs` (real ECE harness; no fabricated results — no labeled dataset exists yet).
 - **Commercial listing:** `KYA-JEV-001`, EUR 99/month, Early Access, `dws10.com/config/products.json` (+ landing-pages mirror).

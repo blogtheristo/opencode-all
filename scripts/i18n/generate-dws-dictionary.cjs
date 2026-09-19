@@ -124,6 +124,38 @@ shared.fit_for_55 = T(
   'Ajustement à l’objectif 55',
   'none',
 );
+shared.kya_jev = T('kya-jev', 'kya-jev', 'kya-jev', 'kya-jev', 'kya-jev', 'none', {
+  source: 'docs/KYA_JEV_SPECIFICATION.md v0.5; src/agents/kya-jev.ts',
+  forbidden: {
+    all: ['use kya-jev confidence as the sole auto-execute gate', 'unsigned KYA allowed verdict'],
+  },
+});
+shared.sku_kya_jev_001 = T(
+  'KYA-JEV-001',
+  'KYA-JEV-001',
+  'KYA-JEV-001',
+  'KYA-JEV-001',
+  'KYA-JEV-001',
+  'none',
+  { source: 'dws10.com/config/products.json — price EUR 99/month Early Access preorder' },
+);
+shared.typed_decision = T(
+  'typed decision (choice / score / boolean)',
+  'tyypitetty päätös (choice / score / boolean)',
+  'typat beslut (choice / score / boolean)',
+  'typisierte Entscheidung (choice / score / boolean)',
+  'décision typée (choice / score / boolean)',
+  'none',
+);
+shared.uncalibrated_confidence = T(
+  'self-reported-uncalibrated',
+  'itse ilmoitettu, kalibroimaton',
+  'självrapporterad, okalibrerad',
+  'selbstberichted, unkalibriert',
+  'auto-déclaré, non calibré',
+  'none',
+  { source: 'docs/KYA_JEV_SPECIFICATION.md §7' },
+);
 
 const AEGIS_EXCLUDE = new Set([17, 19, 20, 21]);
 
@@ -1189,6 +1221,14 @@ const dict = {
     askHicNextThree: [8, 2, 24],
     rationale:
       '8 Construction has Mars+CONSTR-T2 pages and Mission Control NCC item; 2 Iron & Steel has the densest named outreach; 24 Data Centres has GreeniumDC intro-made. HIC must confirm which three go live vs stay dictionary-only.',
+  },
+  kyaJev: {
+    spec: 'docs/KYA_JEV_SPECIFICATION.md',
+    specVersion: '0.5',
+    primitive: 'src/agents/kya-jev.ts',
+    dictionaryAdvisory: 'src/agents/dictionary-kya-jev.ts',
+    role: 'advisory-only — never auto-locks terms, prices, or Wave 3 pages',
+    sku: 'KYA-JEV-001',
   },
   shared,
   industries,

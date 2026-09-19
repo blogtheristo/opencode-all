@@ -25,6 +25,14 @@
     ],
     "rationale": "8 Construction has Mars+CONSTR-T2 pages and Mission Control NCC item; 2 Iron & Steel has the densest named outreach; 24 Data Centres has GreeniumDC intro-made. HIC must confirm which three go live vs stay dictionary-only."
   },
+  "kyaJev": {
+    "spec": "docs/KYA_JEV_SPECIFICATION.md",
+    "specVersion": "0.5",
+    "primitive": "src/agents/kya-jev.ts",
+    "dictionaryAdvisory": "src/agents/dictionary-kya-jev.ts",
+    "role": "advisory-only — never auto-locks terms, prices, or Wave 3 pages",
+    "sku": "KYA-JEV-001"
+  },
   "shared": {
     "sovereign": {
       "en": "Sovereign",
@@ -522,6 +530,47 @@
       "de": "Fit for 55",
       "fr": "Ajustement à l’objectif 55",
       "ontologyId": "none"
+    },
+    "kya_jev": {
+      "en": "kya-jev",
+      "fi": "kya-jev",
+      "sv": "kya-jev",
+      "de": "kya-jev",
+      "fr": "kya-jev",
+      "ontologyId": "none",
+      "source": "docs/KYA_JEV_SPECIFICATION.md v0.5; src/agents/kya-jev.ts",
+      "forbidden": {
+        "all": [
+          "use kya-jev confidence as the sole auto-execute gate",
+          "unsigned KYA allowed verdict"
+        ]
+      }
+    },
+    "sku_kya_jev_001": {
+      "en": "KYA-JEV-001",
+      "fi": "KYA-JEV-001",
+      "sv": "KYA-JEV-001",
+      "de": "KYA-JEV-001",
+      "fr": "KYA-JEV-001",
+      "ontologyId": "none",
+      "source": "dws10.com/config/products.json — price EUR 99/month Early Access preorder"
+    },
+    "typed_decision": {
+      "en": "typed decision (choice / score / boolean)",
+      "fi": "tyypitetty päätös (choice / score / boolean)",
+      "sv": "typat beslut (choice / score / boolean)",
+      "de": "typisierte Entscheidung (choice / score / boolean)",
+      "fr": "décision typée (choice / score / boolean)",
+      "ontologyId": "none"
+    },
+    "uncalibrated_confidence": {
+      "en": "self-reported-uncalibrated",
+      "fi": "itse ilmoitettu, kalibroimaton",
+      "sv": "självrapporterad, okalibrerad",
+      "de": "selbstberichted, unkalibriert",
+      "fr": "auto-déclaré, non calibré",
+      "ontologyId": "none",
+      "source": "docs/KYA_JEV_SPECIFICATION.md §7"
     }
   },
   "industries": {

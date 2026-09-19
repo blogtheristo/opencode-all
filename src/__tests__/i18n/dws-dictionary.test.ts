@@ -25,6 +25,7 @@ describe('dws-dictionary shape', () => {
       }
     >;
     bannedTokens: { sv: string[]; all: string[]; sovereigntyMustNotUse: string[] };
+    kyaJev: { sku: string; role: string };
   };
 
   it('has industries 1–25 once each', () => {
@@ -35,6 +36,12 @@ describe('dws-dictionary shape', () => {
     for (const id of ids) {
       expect(dict.industries[String(id)].id).toBe(id);
     }
+  });
+
+  it('records kya-jev as advisory bind, SKU only', () => {
+    expect(dict.kyaJev.sku).toBe('KYA-JEV-001');
+    expect(dict.kyaJev.role).toMatch(/advisory-only/);
+    expect(dict.shared.kya_jev.en).toBe('kya-jev');
   });
 
   it('shared terms have five languages and ontologyId', () => {

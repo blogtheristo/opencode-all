@@ -1966,6 +1966,7 @@ Pointer only — do not treat this appendix as a price or industry-count source.
 | Five-language dictionary           | `docs/localization/dws-dictionary.json` | EN master. Each `termKey` has `ontologyId` or `"none"`. Shared terms are not copied per industry unless the industry sense differs.                    |
 | CCP preferred / forbidden          | Appendix D (`concept_context_policy`)   | Per-industry preferred term + forbidden list remains here. Dictionary `forbidden` arrays are outreach/i18n guards, not a silent rewrite of Appendix D. |
 | LF-ONTOLOGY-25 / LWM-ONT-SOVEREIGN | later builds                            | Copy must stay consistent with `dws10.com/config/products.json` prices and `INDUSTRIES.md` (25 platform / Aegis 21).                                   |
+| kya-jev advisory                   | `src/agents/dictionary-kya-jev.ts`      | Signed KYA `allowed` verdict required. Output is not a glossary lock. Confidence is `self-reported-uncalibrated` (`docs/KYA_JEV_SPECIFICATION.md` §7). |
 
 Industry slug aliases used when `scope_type=industry` in Appendix D: `construction` → industry 8, steel aliases → industry 2. New industry CCP rows are added only when a preferred term actually differs.
 

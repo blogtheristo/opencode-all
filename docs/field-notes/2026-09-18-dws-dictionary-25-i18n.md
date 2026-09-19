@@ -8,6 +8,8 @@ date: 2026-09-18
 
 Wave 0 inventory, Wave 1–2 dictionary, Wave 3 Construction (Mars + CONSTR-T2) via `build-i18n-pages.cjs`, Wave 4 ONTOLOGY Appendix E pointer, Wave 5 lead packs (no send).
 
+2026-09-19: merged `kya-jev` spec v0.5 (`claude/agents-md-support-eyody6`) onto this branch. Dictionary may call `adviseDictionaryTerm()` under a signed KYA verdict only. Does not auto-lock terms. Migration 087 not applied.
+
 Retired translators (`translate.cjs`, `generate-translations.cjs`, `generate-hreflang-html.py`) were not run.
 
 ## HIC decision (do not skip)
