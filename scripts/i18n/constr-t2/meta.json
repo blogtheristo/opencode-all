@@ -1,0 +1,44 @@
+{
+  "en": {
+    "description": "Safety + materials + plan in one assessment workflow. Replaces Construction PM ≈ 0.7 FTE Tier T2 Blue/pilot — internal sign-off required before quoting",
+    "og:description": "Safety + materials + plan in one assessment workflow. Replaces Construction PM ≈ 0.7 FTE Tier T2 Blue/pilot — internal sign-off required before quoting",
+    "og:title": "Construction Agent — Pro (bundle)",
+    "shareTitle": "Construction Agent — Pro (bundle)"
+  },
+  "fi": {
+    "description": "Turvallisuus + materiaalit + suunnitelma yhdessä arviointityönkulussa. Korvaa Construction PM ≈ 0,7 FTE. Taso T2 Blue/pilot — sisäinen hyväksyntä ennen tarjousta",
+    "og:description": "Turvallisuus + materiaalit + suunnitelma yhdessä arviointityönkulussa. Korvaa Construction PM ≈ 0,7 FTE.",
+    "og:title": "Construction Agent — Pro (bundle)",
+    "shareTitle": "Construction Agent — Pro (bundle)",
+    "aiNoticeLabel": "Tekoälyn tuottama sisältö",
+    "aiNoticeBody": "Tämä sivu on konekäännös englanninkielisestä alkuperäisestä eikä sitä ole vielä tarkistanut nimetty ihminen. Englanninkielinen versio on lähdeteksti.",
+    "aiNoticeLink": "Lue englanninkielinen alkuperäinen"
+  },
+  "sv": {
+    "description": "Säkerhet + material + plan i ett bedömningsflöde. Ersätter Construction PM ≈ 0,7 FTE. Nivå T2 Blue/pilot — intern sign-off före offert",
+    "og:description": "Säkerhet + material + plan i ett bedömningsflöde. Ersätter Construction PM ≈ 0,7 FTE.",
+    "og:title": "Construction Agent — Pro (bundle)",
+    "shareTitle": "Construction Agent — Pro (bundle)",
+    "aiNoticeLabel": "AI-genererat innehåll",
+    "aiNoticeBody": "Den här sidan är en maskinöversättning av det engelska originalet och har inte granskats av en namngiven människa. Den engelska versionen är källtexten.",
+    "aiNoticeLink": "Läs det engelska originalet"
+  },
+  "de": {
+    "description": "Sicherheit + Materialien + Plan in einem Bewertungsworkflow. Ersetzt Construction PM ≈ 0,7 FTE. Stufe T2 Blue/pilot — interne Freigabe vor dem Angebot",
+    "og:description": "Sicherheit + Materialien + Plan in einem Bewertungsworkflow. Ersetzt Construction PM ≈ 0,7 FTE.",
+    "og:title": "Construction Agent — Pro (bundle)",
+    "shareTitle": "Construction Agent — Pro (bundle)",
+    "aiNoticeLabel": "Von künstlicher Intelligenz (KI) generierter Inhalt",
+    "aiNoticeBody": "Diese Seite ist eine maschinelle Übersetzung des englischen Originals und wurde noch nicht von einer namentlich genannten Person geprüft. Die englische Fassung ist der Quelltext.",
+    "aiNoticeLink": "Das englische Original lesen"
+  },
+  "fr": {
+    "description": "Sécurité + matériaux + plan dans un seul flux d’évaluation. Remplace Construction PM ≈ 0,7 ETP. Niveau T2 Blue/pilot — validation interne avant devis",
+    "og:description": "Sécurité + matériaux + plan dans un seul flux d’évaluation. Remplace Construction PM ≈ 0,7 ETP.",
+    "og:title": "Construction Agent — Pro (bundle)",
+    "shareTitle": "Construction Agent — Pro (bundle)",
+    "aiNoticeLabel": "Contenu généré par intelligence artificielle (IA)",
+    "aiNoticeBody": "Cette page est une traduction automatique de l’original anglais et n’a pas encore été révisée par une personne nommée. La version anglaise est le texte source.",
+    "aiNoticeLink": "Lire l’original anglais"
+  }
+}

@@ -1,0 +1,1246 @@
+#!/usr/bin/env node
+// Evidence: Tool=Cursor Grok 4.6 Date=2026-09-18
+// Harvests docs/localization/dws-dictionary.json from canon sources. Does not translate HTML.
+const fs = require('fs');
+const path = require('path');
+const ROOT = path.resolve(__dirname, '../..');
+
+const glossary = JSON.parse(
+  fs.readFileSync(path.join(ROOT, 'docs/localization/aegis-glossary.json'), 'utf8'),
+);
+
+function T(en, fi, sv, de, fr, ontologyId = 'none', extra = {}) {
+  return { en, fi, sv, de, fr, ontologyId, ...extra };
+}
+
+const shared = {};
+for (const [key, langs] of Object.entries(glossary)) {
+  shared[key] = {
+    ...langs,
+    ontologyId: key.includes('sovereign') || key === 'jurisdiction' ? 'sovereignty' : 'none',
+    machineTranslationReview: 'pending_named_human',
+    article50: true,
+  };
+  if (key === 'sovereign' || key.includes('sovereignty') || key === 'sovereign_tier') {
+    shared[key].forbidden = {
+      sv: ['Souverän', 'spårighet'],
+      all: ['Monolocalisation'],
+    };
+  }
+}
+
+shared.sovereignty_segmentation_axis = T(
+  'Sovereignty is the primary segmentation axis — not the only one.',
+  'Suvereeniteetti on ensisijainen segmentointiakseli — ei ainoa.',
+  'Suveränitet är den primära segmenteringsaxeln — inte den enda.',
+  'Souveränität ist die primäre Segmentierungsachse — nicht die einzige.',
+  'La souveraineté est l’axe de segmentation primaire — pas le seul.',
+  'sovereignty',
+  {
+    forbidden: { all: ['The market splits on one axis', 'sovereignty is the only segmentation'] },
+    source: 'DWS_TRUTH_STANDARD.md row 39 / config/truth/sovereignty-segmentation-axis.json',
+  },
+);
+shared.platform_industry_count = T(
+  '25 EU-regulated industries',
+  '25 EU-säänneltyä toimialaa',
+  '25 EU-reglerade branscher',
+  '25 EU-regulierte Branchen',
+  '25 industries réglementées par l’UE',
+  'none',
+  {
+    forbidden: {
+      all: [
+        '20 EU-regulated industries',
+        '16 EU industries as platform total',
+        '21 industries as platform claim',
+      ],
+    },
+    source: 'INDUSTRIES.md / dws10.com/config/industries.json',
+  },
+);
+shared.aegis_industry_count = T(
+  '21 industries (Aegis defence/dual-use tier only)',
+  '21 toimialaa (vain Aegis-puolustus/kaksoiskäyttötaso)',
+  '21 branscher (endast Aegis försvar/dubbelanvändning)',
+  '21 Branchen (nur Aegis-Verteidigungs-/Dual-Use-Stufe)',
+  '21 industries (niveau Aegis défense/double usage uniquement)',
+  'none',
+  {
+    forbidden: {
+      all: [
+        'Aegis covers Healthcare',
+        'Aegis covers Financial Services',
+        'Aegis covers Real Estate',
+        'Aegis covers all 25',
+      ],
+    },
+    source: 'Store/PRODUCT_AEGIS.md + industries.json aegisProductIndustryCountNote',
+  },
+);
+shared.hic = T(
+  'Human-In-Command',
+  'Ihmisen johtamisvalta',
+  'Mänsklig ledningsrätt',
+  'Menschliche Führung',
+  'Commandement humain',
+  'none',
+  { source: 'ONTOLOGY.md §16' },
+);
+shared.article50_label = T(
+  'AI-generated content',
+  'Tekoälyn tuottama sisältö',
+  'AI-genererat innehåll',
+  'Von künstlicher Intelligenz (KI) generierter Inhalt',
+  'Contenu généré par intelligence artificielle (IA)',
+  'none',
+  { source: 'DWS_TRUTH_STANDARD.md §2G' },
+);
+shared.embodied_carbon = T(
+  'embodied carbon',
+  'sitoutunut hiili',
+  'inbäddat kol',
+  'grauer Kohlenstoff',
+  'carbone incarné',
+  'carbon_balance',
+);
+shared.whole_life_carbon = T(
+  'whole-life carbon',
+  'elinkaaren hiilijalanjälki',
+  'livscykelkoldioxid',
+  'Lebenszyklus-Kohlenstoff',
+  'carbone sur le cycle de vie',
+  'carbon_balance',
+);
+shared.en_15978 = T('EN 15978', 'EN 15978', 'EN 15978', 'EN 15978', 'EN 15978', 'carbon_balance');
+shared.csrd = T('CSRD', 'CSRD', 'CSRD', 'CSRD', 'CSRD', 'compliance_agent');
+shared.cbam = T('CBAM', 'CBAM', 'CBAM', 'CBAM', 'CBAM', 'compliance_agent');
+shared.ets = T('EU ETS', 'EU ETS', 'EU ETS', 'EU-EHS', 'SEQE-UE', 'compliance_agent');
+shared.fit_for_55 = T(
+  'Fit for 55',
+  'Fit for 55',
+  'Fit for 55',
+  'Fit for 55',
+  'Ajustement à l’objectif 55',
+  'none',
+);
+shared.kya_jev = T('kya-jev', 'kya-jev', 'kya-jev', 'kya-jev', 'kya-jev', 'none', {
+  source: 'docs/KYA_JEV_SPECIFICATION.md v0.5; src/agents/kya-jev.ts',
+  forbidden: {
+    all: ['use kya-jev confidence as the sole auto-execute gate', 'unsigned KYA allowed verdict'],
+  },
+});
+shared.sku_kya_jev_001 = T(
+  'KYA-JEV-001',
+  'KYA-JEV-001',
+  'KYA-JEV-001',
+  'KYA-JEV-001',
+  'KYA-JEV-001',
+  'none',
+  { source: 'dws10.com/config/products.json — price EUR 99/month Early Access preorder' },
+);
+shared.typed_decision = T(
+  'typed decision (choice / score / boolean)',
+  'tyypitetty päätös (choice / score / boolean)',
+  'typat beslut (choice / score / boolean)',
+  'typisierte Entscheidung (choice / score / boolean)',
+  'décision typée (choice / score / boolean)',
+  'none',
+);
+shared.uncalibrated_confidence = T(
+  'self-reported-uncalibrated',
+  'itse ilmoitettu, kalibroimaton',
+  'självrapporterad, okalibrerad',
+  'selbstberichted, unkalibriert',
+  'auto-déclaré, non calibré',
+  'none',
+  { source: 'docs/KYA_JEV_SPECIFICATION.md §7' },
+);
+
+const AEGIS_EXCLUDE = new Set([17, 19, 20, 21]);
+
+const INDUSTRY_META = [
+  {
+    id: 1,
+    slug: 'power-heat',
+    name: T(
+      'Power & Heat Generation',
+      'Sähkö- ja lämmöntuotanto',
+      'El- och värmeproduktion',
+      'Strom- und Wärmeerzeugung',
+      'Production d’électricité et de chaleur',
+    ),
+    captainHat: 'Power & Heat Generation',
+    dedicatedAgent: 'helios',
+    coverage: 'pantheon',
+    regs: ['ETS / ETS2', 'Fit for 55', 'RED III', 'CSRD'],
+    sku: ['IND-HELIOS'],
+    jargon: [
+      [
+        'ets_allowance',
+        'ETS allowance modelling',
+        'ETS-kiintiömallinnus',
+        'ETS-tilldelningsmodellering',
+        'EHS-Zuteilungsmodellierung',
+        'modélisation des quotas SEQE',
+      ],
+      ['red_iii', 'RED III', 'RED III', 'RED III', 'RED III', 'RED III'],
+      [
+        'hourly_cfe',
+        'hourly carbon-free energy matching',
+        'tuntikohtainen hiilivapaan energian täsmäys',
+        'timvis koldioxidfri energimatchning',
+        'stündliche CO2-freie Energiematchung',
+        'appariement horaire d’énergie sans carbone',
+      ],
+    ],
+    claim: T(
+      'Helios models ETS allowance, generation-mix emissions, and RED III tracking. Hourly CFE matching is a named coverage gap, not a shipped claim.',
+      'Helios mallintaa ETS-kiintiöitä, tuotantoseoksen päästöjä ja RED III -seurantaa. Tuntikohtainen CFE-täsmäys on nimetty aukko, ei toimitettu väite.',
+      'Helios modellerar ETS-tilldelning, produktionsmixutsläpp och RED III-spårning. Timvis CFE-matchning är ett namngivet täckningsgap, inte ett levererat påstående.',
+      'Helios modelliert EHS-Zuteilung, Erzeugungsmix-Emissionen und RED-III-Nachverfolgung. Stündliches CFE-Matching ist eine benannte Lücke, kein ausgelieferter Anspruch.',
+      'Helios modélise les quotas SEQE, les émissions du mix de production et le suivi RED III. L’appariement CFE horaire est un écart nommé, pas une promesse livrée.',
+      'compliance_agent',
+    ),
+    sources: [
+      'src/agents/data/industry-registry.ts',
+      'INDUSTRIES.md',
+      'dws10.com/products/ind-helios.html',
+    ],
+    outreachUse: 'Use Helios + RED III / ETS language; do not claim hourly CFE matching as live.',
+    roles: ['R07', 'R08', 'R11'],
+  },
+  {
+    id: 2,
+    slug: 'iron-steel',
+    name: T(
+      'Iron & Steel Production',
+      'Rauta- ja terästuotanto',
+      'Järn- och stålproduktion',
+      'Eisen- und Stahlerzeugung',
+      'Production de fer et d’acier',
+    ),
+    captainHat: 'Iron & Steel',
+    dedicatedAgent: 'vulcan',
+    coverage: 'pantheon',
+    regs: ['ETS / ETS2', 'CBAM', 'Fit for 55', 'CSRD'],
+    sku: ['IND-VULCAN'],
+    jargon: [
+      ['h2_dri', 'H2-DRI', 'H2-DRI', 'H2-DRI', 'H2-DRI', 'H2-DRI'],
+      [
+        'eaf',
+        'Scrap-EAF route',
+        'romu-EAF-reitti',
+        'skrot-EAF-rutt',
+        'Schrott-EAF-Route',
+        'filière ferraille-EAF',
+      ],
+      [
+        'cbam_codes',
+        'CBAM carbon content',
+        'CBAM-hiilisisältö',
+        'CBAM-kolinnehåll',
+        'CBAM-Kohlenstoffgehalt',
+        'teneur carbone CBAM',
+      ],
+    ],
+    claim: T(
+      'Vulcan covers ETS Phase 4 gap and CBAM carbon content for steel pathways. Scope 3 precursor tracing at scale is a coverage gap.',
+      'Vulcan kattaa ETS-vaihe 4 -aukon ja teräksen CBAM-hiilisisällön. Laaja Scope 3 -esiasteiden jäljitys on aukko.',
+      'Vulcan täcker ETS fas 4-gapet och CBAM-kolinnehåll för stålvägar. Scope 3-prekursor spårning i skala är ett täckningsgap.',
+      'Vulcan deckt die ETS-Phase-4-Lücke und CBAM-Kohlenstoffgehalt für Stahlpfade ab. Scope-3-Vorstufenverfolgung in der Breite ist eine Lücke.',
+      'Vulcan couvre l’écart ETS phase 4 et le contenu carbone CBAM des filières acier. Le traçage des précurseurs Scope 3 à l’échelle est un écart.',
+      'compliance_agent',
+    ),
+    sources: [
+      'src/agents/data/industry-registry.ts',
+      'sales-outreach/CAMPAIGN_OUTOKUMPU_CBAM_BETTER_STEEL.md',
+      'sales-outreach/PILOT_SHEET_OUTOKUMPU_FORTA.md',
+      'dws10.com/products/ind-vulcan.html',
+    ],
+    outreachUse:
+      'Door R02 IP Director: CBAM disclosures as IP filings. Named accounts only from existing outreach files.',
+    roles: ['R02', 'R07', 'R11', 'R19'],
+  },
+  {
+    id: 3,
+    slug: 'cement-lime',
+    name: T(
+      'Cement & Lime Production',
+      'Sementin ja kalkin tuotanto',
+      'Cement- och kalkproduktion',
+      'Zement- und Kalkherstellung',
+      'Production de ciment et de chaux',
+    ),
+    captainHat: 'Cement & Lime',
+    dedicatedAgent: 'gaia',
+    coverage: 'pantheon',
+    regs: ['ETS / ETS2', 'CBAM', 'Fit for 55', 'CSRD'],
+    sku: ['IND-GAIA'],
+    jargon: [
+      [
+        'clinker',
+        'clinker factor',
+        'klinkerikerroin',
+        'klinkerfaktor',
+        'Klinkerfaktor',
+        'facteur de clinker',
+      ],
+      [
+        'lc3',
+        'calcined clay (LC3)',
+        'kalsinoitu savi (LC3)',
+        'kalcinerad lera (LC3)',
+        'kalzinierter Ton (LC3)',
+        'argile calcinée (LC3)',
+      ],
+    ],
+    claim: T(
+      'Gaia models clinker factor, ETS process-emission gap, and CBAM cement scope. CCUS bankability is a coverage gap.',
+      'Gaia mallintaa klinkerikerrointa, ETS-prosessipäästöaukkoa ja CBAM-sementin soveltamisalaa. CCUS-pankkikelpoisuus on aukko.',
+      'Gaia modellerar klinkerfaktor, ETS-processutsläppsgap och CBAM-cementscope. CCUS-bankbarhet är ett täckningsgap.',
+      'Gaia modelliert Klinkerfaktor, EHS-Prozessemissionslücke und CBAM-Zementumfang. CCUS-Bankfähigkeit ist eine Lücke.',
+      'Gaia modélise le facteur de clinker, l’écart d’émissions de procédé ETS et le périmètre ciment CBAM. La bancabilité CCUS est un écart.',
+      'carbon_balance',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'dws10.com/products/ind-gaia.html'],
+    outreachUse:
+      'Lead with clinker factor + CBAM cement; do not claim CCUS project bankability as shipped.',
+    roles: ['R07', 'R08', 'R11'],
+  },
+  {
+    id: 4,
+    slug: 'chemicals',
+    name: T(
+      'Chemicals & Petrochemicals',
+      'Kemikaalit ja petrokemikaalit',
+      'Kemi och petrokemikalier',
+      'Chemie und Petrochemie',
+      'Chimie et pétrochimie',
+    ),
+    captainHat: 'Chemicals & Petrochemicals',
+    dedicatedAgent: 'juno',
+    coverage: 'pantheon',
+    regs: ['ETS / ETS2', 'CBAM', 'RED III', 'CSRD', 'ESPR'],
+    sku: ['IND-JUNO'],
+    jargon: [
+      ['reach', 'REACH', 'REACH', 'REACH', 'REACH', 'REACH'],
+      ['smr', 'hydrogen (SMR)', 'vety (SMR)', 'väte (SMR)', 'Wasserstoff (SMR)', 'hydrogène (SMR)'],
+    ],
+    claim: T(
+      'Juno covers CBAM fertiliser/H2 precursors and ETS process emissions. Mass-balance bio/recycled feedstock certification is a coverage gap.',
+      'Juno kattaa CBAM-lannoite/H2-esiasteet ja ETS-prosessipäästöt. Massataseen bio/kierrätyssyötteen sertifiointi on aukko.',
+      'Juno täcker CBAM-gödsel/H2-prekursorer och ETS-processutsläpp. Massbalanscertifiering av bio/återvunnet råmaterial är ett täckningsgap.',
+      'Juno deckt CBAM-Dünger/H2-Vorstufen und EHS-Prozessemissionen ab. Massenbilanz-Zertifizierung biobasierter/recycelter Einsatzstoffe ist eine Lücke.',
+      'Juno couvre les précurseurs CBAM engrais/H2 et les émissions de procédé ETS. La certification mass-balance des charges bio/recyclées est un écart.',
+      'compliance_agent',
+    ),
+    sources: [
+      'src/agents/data/industry-registry.ts',
+      'sales-outreach/INTRO_MARIA_SEDERHOLM_KEMIRA.md',
+      'sales-outreach/KEMIRA_AEGIS_DEPLOYMENT_ALTERNATIVES.md',
+    ],
+    outreachUse:
+      'Door R03/R04: REACH + CBAM + H2. Use only named outreach files; no invented accounts.',
+    roles: ['R03', 'R04', 'R05', 'R07'],
+  },
+  {
+    id: 5,
+    slug: 'aviation',
+    name: T('Aviation', 'Ilmailu', 'Luftfart', 'Luftfahrt', 'Aviation'),
+    captainHat: 'Aviation',
+    dedicatedAgent: null,
+    coverage: 'analyst-only',
+    regs: ['ETS / ETS2', 'ReFuelEU Aviation', 'Fit for 55', 'CSRD'],
+    sku: [],
+    jargon: [
+      [
+        'saf',
+        'SAF blending mandates',
+        'SAF-sekoitusvelvoitteet',
+        'SAF-inblandningskrav',
+        'SAF-Beimischungsmandate',
+        'mandats d’incorporation SAF',
+      ],
+      [
+        'refueleu',
+        'ReFuelEU Aviation',
+        'ReFuelEU Aviation',
+        'ReFuelEU Aviation',
+        'ReFuelEU Aviation',
+        'ReFuelEU Aviation',
+      ],
+    ],
+    claim: T(
+      'Universal Industry Analyst only — no dedicated aviation agent. Do not claim a pantheon captain for this vertical.',
+      'Vain yleinen Industry Analyst — ei omistettua ilmailuagenttia. Älä väitä pantheon-kapteenia tälle vertikaalille.',
+      'Endast universal Industry Analyst — ingen dedikerad flygagent. Påstå inte en pantheon-kapten för denna vertikal.',
+      'Nur universeller Industry Analyst — kein eigener Luftfahrt-Agent. Keinen Pantheon-Kapitän für diese Vertikale behaupten.',
+      'Analyste industrie universel uniquement — pas d’agent aviation dédié. Ne pas revendiquer un capitaine panthéon pour cette verticale.',
+      'none',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'INDUSTRIES.md'],
+    outreachUse:
+      'Analyst-only: SAF / ReFuelEU language; fail loud if copy invents a dedicated agent.',
+    roles: ['R07', 'R08', 'R12'],
+  },
+  {
+    id: 6,
+    slug: 'maritime',
+    name: T('Maritime Shipping', 'Meriliikenne', 'Sjöfart', 'Seeschifffahrt', 'Transport maritime'),
+    captainHat: 'Maritime Shipping',
+    dedicatedAgent: 'neptune',
+    coverage: 'pantheon',
+    regs: ['ETS / ETS2', 'FuelEU Maritime', 'Fit for 55', 'CSRD'],
+    sku: ['IND-NEPTUN'],
+    jargon: [
+      [
+        'fueleu',
+        'FuelEU Maritime',
+        'FuelEU Maritime',
+        'FuelEU Maritime',
+        'FuelEU Maritime',
+        'FuelEU Maritime',
+      ],
+      [
+        'well_to_wake',
+        'well-to-wake',
+        'kaivosta herätykseen',
+        'well-to-wake',
+        'Well-to-Wake',
+        'du puits au sillage',
+      ],
+    ],
+    claim: T(
+      'Neptune covers FuelEU intensity, ETS Maritime phase-in, and voyage emissions. Well-to-wake certification and pooling optimisation are coverage gaps.',
+      'Neptune kattaa FuelEU-intensiteetin, ETS-merenkulun vaiheittaisen tulon ja matkapäästöt. Well-to-wake-sertifiointi ja pooling-optimointi ovat aukkoja.',
+      'Neptune täcker FuelEU-intensitet, ETS Maritime infasning och reseutsläpp. Well-to-wake-certifiering och pooloptimering är täckningsgap.',
+      'Neptune deckt FuelEU-Intensität, ETS-Seeverkehr-Einführung und Reiseemissionen ab. Well-to-Wake-Zertifizierung und Pool-Optimierung sind Lücken.',
+      'Neptune couvre l’intensité FuelEU, l’entrée ETS maritime et les émissions de voyage. La certification well-to-wake et l’optimisation du pooling sont des écarts.',
+      'compliance_agent',
+    ),
+    sources: [
+      'src/agents/data/industry-registry.ts',
+      'sales-outreach/PITCH_VIKINGLINE_ENGBLOM_20260510.md',
+      'dws10.com/products/ind-neptun.html',
+    ],
+    outreachUse: 'Door R12: FuelEU + ETS Maritime. Named files only.',
+    roles: ['R12', 'R20', 'R07'],
+  },
+  {
+    id: 7,
+    slug: 'road-logistics',
+    name: T(
+      'Road Transport & Logistics',
+      'Tieliikenne ja logistiikka',
+      'Vägtransport och logistik',
+      'Straßenverkehr und Logistik',
+      'Transport routier et logistique',
+    ),
+    captainHat: 'Road Transport & Logistics',
+    dedicatedAgent: 'hermes',
+    coverage: 'pantheon',
+    regs: ['ETS / ETS2', 'Fit for 55', 'CSRD'],
+    sku: ['LOG-T1'],
+    jargon: [
+      ['ets2', 'ETS2', 'ETS2', 'ETS2', 'ETS2', 'ETS2'],
+      [
+        'hvo',
+        'Biofuels/HVO',
+        'biopolttoaineet/HVO',
+        'biobränslen/HVO',
+        'Biokraftstoffe/HVO',
+        'biocarburants/HVO',
+      ],
+    ],
+    claim: T(
+      'Hermes/Logistics agents cover ETS2 fuel exposure, fleet emissions, and modal analysis. Depot grid-capacity planning is a coverage gap.',
+      'Hermes/Logistics-agentit kattavat ETS2-polttoainealtistuksen, kalustopäästöt ja kulkutapa-analyysin. Varikon verkkokapasiteetin suunnittelu on aukko.',
+      'Hermes/Logistics-agenter täcker ETS2-bränsleexponering, flottutsläpp och modal analys. Depotnätkapacitetsplanering är ett täckningsgap.',
+      'Hermes/Logistics-Agenten decken ETS2-Kraftstoffexposition, Flottenemissionen und Modalanalyse ab. Depot-Netzkapazitätsplanung ist eine Lücke.',
+      'Les agents Hermès/logistique couvrent l’exposition carburant ETS2, les émissions de flotte et l’analyse modale. La planification de capacité réseau des dépôts est un écart.',
+      'compliance_agent',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'dws10.com/products/log-t1.de.html'],
+    outreachUse: 'ETS2 2027 readiness; do not invent fleet customers.',
+    roles: ['R12', 'R07', 'R20'],
+  },
+  {
+    id: 8,
+    slug: 'construction',
+    name: T(
+      'Construction & Buildings',
+      'Rakentaminen ja rakennukset',
+      'Bygg och fastigheter (byggnader)',
+      'Bau und Gebäude',
+      'Construction et bâtiments',
+    ),
+    captainHat: 'Construction & Buildings',
+    dedicatedAgent: 'mars',
+    coverage: 'pantheon',
+    regs: ['EPBD', 'ETS / ETS2', 'CSRD', 'ESPR', 'EU Taxonomy'],
+    sku: ['IND-MARS', 'CONSTR-T2', 'CONSTR-T3'],
+    jargon: [
+      ['epbd', 'EPBD', 'EPBD', 'EPBD', 'EPBD', 'EPBD'],
+      ['en15978', 'EN 15978', 'EN 15978', 'EN 15978', 'EN 15978', 'EN 15978'],
+      [
+        'a1d',
+        'embodied carbon (A1–D)',
+        'sitoutunut hiili (A1–D)',
+        'inbäddat kol (A1–D)',
+        'grauer Kohlenstoff (A1–D)',
+        'carbone incarné (A1–D)',
+      ],
+    ],
+    claim: T(
+      'Mars + Material Oracle: embodied carbon A1–D and EPBD pathway. Digital Building Logbook reconciliation is a coverage gap. Prices from products.json only (IND-MARS €999/mo add-on; CONSTR-T2 €3,999/mo).',
+      'Mars + Material Oracle: sitoutunut hiili A1–D ja EPBD-polku. Digitaalisen rakennuslokin täsmäys on aukko. Hinnat vain products.jsonista.',
+      'Mars + Material Oracle: inbäddat kol A1–D och EPBD-väg. Digital Building Logbook-avstämning är ett täckningsgap. Priser endast från products.json.',
+      'Mars + Material Oracle: grauer Kohlenstoff A1–D und EPBD-Pfad. Digital-Building-Logbook-Abgleich ist eine Lücke. Preise nur aus products.json.',
+      'Mars + Material Oracle : carbone incarné A1–D et trajectoire EPBD. La réconciliation du carnet numérique du bâtiment est un écart. Prix uniquement depuis products.json.',
+      'carbon_balance',
+    ),
+    sources: [
+      'src/agents/data/industry-registry.ts',
+      'dws6.com/dashboard/mission-control/seed-queue.json',
+      'sales-outreach/PITCH_NCC_WILSON_20260510.md',
+      'sales-outreach/TED_CONSTRUCTION_LEADS_PACK_2026-09-18.md',
+      'dws10.com/products/ind-mars.html',
+      'dws10.com/products/constr-t2.html',
+    ],
+    outreachUse:
+      'Door R12 Operations: EPBD embodied carbon. Queue item Sustainability Director (NCC AB) is a research next-action, not a closed win.',
+    roles: ['R12', 'R09', 'R17', 'R20'],
+  },
+  {
+    id: 9,
+    slug: 'agriculture',
+    name: T(
+      'Agriculture & Livestock',
+      'Maatalous ja karjatalous',
+      'Jordbruk och boskap',
+      'Landwirtschaft und Viehzucht',
+      'Agriculture et élevage',
+    ),
+    captainHat: 'Agriculture',
+    dedicatedAgent: 'ceres',
+    coverage: 'pantheon',
+    regs: ['ESR', 'CSRD', 'Fit for 55'],
+    sku: ['IND-CERES'],
+    jargon: [
+      ['n2o', 'fertiliser N2O', 'lannoitteen N2O', 'gödsel-N2O', 'Dünger-N2O', 'N2O des engrais'],
+      ['flag', 'SBTi FLAG', 'SBTi FLAG', 'SBTi FLAG', 'SBTi FLAG', 'SBTi FLAG'],
+    ],
+    claim: T(
+      'Ceres covers ESR non-ETS exposure and fertiliser/livestock emissions. Field-level MRV is a coverage gap.',
+      'Ceres kattaa ESR-ei-ETS-altistuksen ja lannoite/karjapäästöt. Pellon tason MRV on aukko.',
+      'Ceres täcker ESR utanför ETS och gödsel-/boskapsutsläpp. Fältnivå-MRV är ett täckningsgap.',
+      'Ceres deckt ESR-Nicht-EHS-Exposition und Dünger-/Vieh-Emissionen ab. Feld-MRV ist eine Lücke.',
+      'Ceres couvre l’exposition ESR hors ETS et les émissions engrais/élevage. Le MRV parcellaire est un écart.',
+      'compliance_agent',
+    ),
+    sources: [
+      'src/agents/data/industry-registry.ts',
+      'artifacts/AGRICULTURE/ART-2026-001-agriculture-food-data-governance-ontology.md',
+      'dws10.com/products/ind-ceres.html',
+    ],
+    outreachUse: 'Use ART-2026-001 for data-governance vocabulary; do not invent farm names.',
+    roles: ['R07', 'R08', 'R12'],
+  },
+  {
+    id: 10,
+    slug: 'waste',
+    name: T(
+      'Waste Management & Recycling',
+      'Jätehuolto ja kierrätys',
+      'Avfallshantering och återvinning',
+      'Abfallwirtschaft und Recycling',
+      'Gestion des déchets et recyclage',
+    ),
+    captainHat: 'Waste Management',
+    dedicatedAgent: null,
+    coverage: 'analyst-only',
+    regs: ['ETS / ETS2', 'CSRD', 'Fit for 55'],
+    sku: [],
+    jargon: [
+      [
+        'wte',
+        'waste-to-energy',
+        'jäte-energiaksi',
+        'avfall-till-energi',
+        'Abfall-zu-Energie',
+        'valorisation énergétique des déchets',
+      ],
+    ],
+    claim: T(
+      'Universal analyst only. WtE ETS inclusion (2028) is a coverage gap — do not claim a dedicated waste agent.',
+      'Vain yleinen analyytikko. WtE:n ETS-sisällytys (2028) on aukko — älä väitä omistettua jäteagenttia.',
+      'Endast universalanalytiker. WtE-ETS-inkludering (2028) är ett täckningsgap — påstå inte en dedikerad avfallsagent.',
+      'Nur universeller Analyst. WtE-EHS-Einbeziehung (2028) ist eine Lücke — keinen eigenen Abfall-Agenten behaupten.',
+      'Analyste universel uniquement. L’inclusion ETS des UVE (2028) est un écart — ne pas revendiquer un agent déchets dédié.',
+      'none',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'INDUSTRIES.md'],
+    outreachUse: 'Analyst-only circular-economy language; no invented operators.',
+    roles: ['R07', 'R12'],
+  },
+  {
+    id: 11,
+    slug: 'aluminium',
+    name: T(
+      'Aluminium Production',
+      'Alumiinin tuotanto',
+      'Aluminiumproduktion',
+      'Aluminiumherstellung',
+      'Production d’aluminium',
+    ),
+    captainHat: 'Aluminium',
+    dedicatedAgent: 'talos',
+    coverage: 'pantheon',
+    regs: ['ETS / ETS2', 'CBAM', 'Fit for 55', 'CSRD'],
+    sku: ['IND-TALOS'],
+    jargon: [
+      [
+        'indirect_cbam',
+        'CBAM indirect (grid carbon)',
+        'CBAM epäsuora (verkon hiili)',
+        'CBAM indirekt (nätkol)',
+        'CBAM indirekt (Netz-CO2)',
+        'CBAM indirect (carbone du réseau)',
+      ],
+    ],
+    claim: T(
+      'Talos covers CBAM indirect (grid carbon) emissions and ETS aluminium scope. Grid carbon-intensity attribution remains a coverage gap.',
+      'Talos kattaa CBAM:n epäsuorat (verkko)päästöt ja ETS-alumiinin soveltamisalan. Verkon hiili-intensiteetin attribuutio on edelleen aukko.',
+      'Talos täcker CBAM indirekta (nät)utsläpp och ETS-aluminiumscope. Nätets kolintensitetsattribuering är fortfarande ett täckningsgap.',
+      'Talos deckt indirekte CBAM-(Netz-)Emissionen und den EHS-Aluminiumumfang ab. Netz-CO2-Intensitätszuordnung bleibt eine Lücke.',
+      'Talos couvre les émissions CBAM indirectes (réseau) et le périmètre aluminium ETS. L’attribution d’intensité carbone du réseau reste un écart.',
+      'compliance_agent',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'dws10.com/products/ind-talos.html'],
+    outreachUse: 'Lead with indirect CBAM / grid carbon; no invented smelters.',
+    roles: ['R07', 'R11', 'R02'],
+  },
+  {
+    id: 12,
+    slug: 'pulp-paper',
+    name: T(
+      'Pulp, Paper & Printing',
+      'Massa, paperi ja painatus',
+      'Massa, papper och tryck',
+      'Zellstoff, Papier und Druck',
+      'Pâte, papier et impression',
+    ),
+    captainHat: 'Pulp & Paper',
+    dedicatedAgent: null,
+    coverage: 'analyst-only',
+    regs: ['ETS / ETS2', 'CSRD', 'Fit for 55', 'ESPR'],
+    sku: [],
+    jargon: [
+      [
+        'biogenic',
+        'biogenic carbon accounting',
+        'biogeeninen hiililaskenta',
+        'biogen koldioxidredovisning',
+        'biogene Kohlenstoffbilanzierung',
+        'comptabilité carbone biogénique',
+      ],
+    ],
+    claim: T(
+      'Universal analyst only. Biogenic carbon accounting is a coverage gap.',
+      'Vain yleinen analyytikko. Biogeeninen hiililaskenta on aukko.',
+      'Endast universalanalytiker. Biogen koldioxidredovisning är ett täckningsgap.',
+      'Nur universeller Analyst. Biogene Kohlenstoffbilanzierung ist eine Lücke.',
+      'Analyste universel uniquement. La comptabilité carbone biogénique est un écart.',
+      'carbon_balance',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'INDUSTRIES.md'],
+    outreachUse: 'Analyst-only; do not invent mill customers.',
+    roles: ['R07', 'R11'],
+  },
+  {
+    id: 13,
+    slug: 'refining',
+    name: T(
+      'Petroleum Refining',
+      'Öljynjalostus',
+      'Petroleumraffinering',
+      'Erdölraffination',
+      'Raffinage pétrolier',
+    ),
+    captainHat: 'Petroleum Refining',
+    dedicatedAgent: null,
+    coverage: 'analyst-only',
+    regs: ['ETS / ETS2', 'CBAM', 'RED III', 'CSRD'],
+    sku: [],
+    jargon: [
+      [
+        'cwt',
+        'refinery CWT benchmark',
+        'jalostamon CWT-vertailuarvo',
+        'raffinaderi-CWT-riktmärke',
+        'Raffinerie-CWT-Benchmark',
+        'référence CWT raffinerie',
+      ],
+    ],
+    claim: T(
+      'Universal analyst only. Refinery CWT allocation and RED III renewable-fuel share are coverage gaps.',
+      'Vain yleinen analyytikko. Jalostamon CWT-allokaatio ja RED III -osuus ovat aukkoja.',
+      'Endast universalanalytiker. Raffinaderi-CWT-allokering och RED III-andel är täckningsgap.',
+      'Nur universeller Analyst. Raffinerie-CWT-Allokation und RED-III-Anteil sind Lücken.',
+      'Analyste universel uniquement. L’allocation CWT raffinerie et la part RED III sont des écarts.',
+      'none',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'INDUSTRIES.md'],
+    outreachUse: 'Analyst-only refining vocabulary; no invented refiners.',
+    roles: ['R07', 'R11', 'R04'],
+  },
+  {
+    id: 14,
+    slug: 'food-beverage',
+    name: T(
+      'Food & Beverage Processing',
+      'Elintarvikkeiden ja juomien jalostus',
+      'Livsmedels- och dryckesförädling',
+      'Lebensmittel- und Getränkeverarbeitung',
+      'Transformation alimentaire et boissons',
+    ),
+    captainHat: 'Food & Beverage',
+    dedicatedAgent: null,
+    coverage: 'analyst-only',
+    regs: ['ETS / ETS2', 'CSRD', 'Fit for 55'],
+    sku: [],
+    jargon: [
+      [
+        'fgas',
+        'F-gas phase-down',
+        'F-kaasujen vähennys',
+        'F-gasnedtrappning',
+        'F-Gas-Ausstieg',
+        'réduction des gaz fluorés',
+      ],
+    ],
+    claim: T(
+      'Universal analyst only. Scope 3 agricultural supply chain tracking is a coverage gap.',
+      'Vain yleinen analyytikko. Scope 3 -maatalousketjun seuranta on aukko.',
+      'Endast universalanalytiker. Scope 3-jordbrukskedja är ett täckningsgap.',
+      'Nur universeller Analyst. Scope-3-Landwirtschaftskette ist eine Lücke.',
+      'Analyste universel uniquement. Le suivi Scope 3 agricole est un écart.',
+      'none',
+    ),
+    sources: [
+      'src/agents/data/industry-registry.ts',
+      'artifacts/AGRICULTURE/ART-2026-001-agriculture-food-data-governance-ontology.md',
+    ],
+    outreachUse: 'Analyst-only; do not invent processor names.',
+    roles: ['R07', 'R08'],
+  },
+  {
+    id: 15,
+    slug: 'glass-ceramics',
+    name: T(
+      'Glass & Ceramics Production',
+      'Lasin ja keramiikan tuotanto',
+      'Glas- och keramikproduktion',
+      'Glas- und Keramikherstellung',
+      'Production de verre et de céramique',
+    ),
+    captainHat: 'Glass & Ceramics',
+    dedicatedAgent: null,
+    coverage: 'analyst-only',
+    regs: ['ETS / ETS2', 'CBAM', 'CSRD', 'Fit for 55'],
+    sku: [],
+    jargon: [
+      [
+        'cullet',
+        'cullet recycling',
+        'lasimurskeen kierrätys',
+        'glasåtervinning (cullet)',
+        'Scherbenrecycling',
+        'recyclage du calcin',
+      ],
+    ],
+    claim: T(
+      'Universal analyst only. Furnace-campaign emission modelling is a coverage gap.',
+      'Vain yleinen analyytikko. Uunikampanjan päästömallinnus on aukko.',
+      'Endast universalanalytiker. Ugnskampanjens utsläppsmodellering är ett täckningsgap.',
+      'Nur universeller Analyst. Ofenkampagnen-Emissionsmodellierung ist eine Lücke.',
+      'Analyste universel uniquement. La modélisation d’émissions de campagne de four est un écart.',
+      'none',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'INDUSTRIES.md'],
+    outreachUse: 'Analyst-only; no invented glass plants.',
+    roles: ['R07', 'R11'],
+  },
+  {
+    id: 16,
+    slug: 'mining',
+    name: T(
+      'Mining & Quarrying',
+      'Kaivostoiminta ja louhinta',
+      'Gruvdrift och stenbrott',
+      'Bergbau und Steinbruch',
+      'Mines et carrières',
+    ),
+    captainHat: 'Mining',
+    dedicatedAgent: null,
+    coverage: 'analyst-only',
+    regs: ['ETS / ETS2', 'CSRD', 'CRM Act'],
+    sku: [],
+    jargon: [
+      [
+        'crm_act',
+        'Critical Raw Materials Act',
+        'kriittisten raaka-aineiden asetus',
+        'förordningen om kritiska råvaror',
+        'Gesetz über kritische Rohstoffe',
+        'règlement matières premières critiques',
+      ],
+    ],
+    claim: T(
+      'Universal analyst only. CRM Act reporting and fugitive methane MRV are coverage gaps.',
+      'Vain yleinen analyytikko. CRM-asetuksen raportointi ja karkaaavan metaanin MRV ovat aukkoja.',
+      'Endast universalanalytiker. CRM-rapportering och flyktig metan-MRV är täckningsgap.',
+      'Nur universeller Analyst. CRM-Act-Berichterstattung und diffuse Methan-MRV sind Lücken.',
+      'Analyste universel uniquement. Le reporting CRM Act et le MRV méthane fugitif sont des écarts.',
+      'none',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'INDUSTRIES.md'],
+    outreachUse: 'Analyst-only CRM Act language; no invented mines.',
+    roles: ['R07', 'R15'],
+  },
+  {
+    id: 17,
+    slug: 'real-estate',
+    name: T('Real Estate', 'Kiinteistöt', 'Fastigheter', 'Immobilien', 'Immobilier'),
+    captainHat: 'Construction & Buildings (folded)',
+    dedicatedAgent: 'mars',
+    coverage: 'pantheon-folded',
+    regs: ['EPBD', 'EU Taxonomy', 'CSRD', 'SFDR'],
+    sku: [],
+    jargon: [
+      [
+        'crrem',
+        'CRREM 1.5°C pathways',
+        'CRREM 1,5 °C -polut',
+        'CRREM 1,5 °C-vägar',
+        'CRREM-1,5-°C-Pfade',
+        'trajectoires CRREM 1,5 °C',
+      ],
+    ],
+    claim: T(
+      'Mars folded: EPBD operational pathway and Taxonomy alignment. Portfolio CRREM sequencing is a coverage gap. Excluded from Aegis-only 21-industry claims.',
+      'Mars taitettuna: EPBD-toimintapolku ja taksonomian linjaus. Salkun CRREM-järjestys on aukko. Pois Aegis-only 21-toimialaväitteistä.',
+      'Mars vikt: EPBD-driftsväg och taxonomianpassning. Portfölj-CRREM-sekvensering är ett täckningsgap. Undantas från Aegis-only 21-branschpåståenden.',
+      'Mars gefaltet: EPBD-Betriebspfad und Taxonomie-Ausrichtung. Portfolio-CRREM-Sequenzierung ist eine Lücke. Aus Aegis-only-21-Branchen-Claims ausgeschlossen.',
+      'Mars replié : trajectoire opérationnelle EPBD et alignement taxonomie. Le séquençage CRREM de portefeuille est un écart. Exclu des revendications Aegis-only 21 industries.',
+      'carbon_balance',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'dws10.com/real-estate/index.html'],
+    outreachUse: 'Folded under construction hat; never use in Aegis 21-industry lists.',
+    roles: ['R07', 'R23', 'R12'],
+  },
+  {
+    id: 18,
+    slug: 'manufacturing',
+    name: T(
+      'Manufacturing (cross-sector)',
+      'Valmistus (toimialojen ylittävä)',
+      'Tillverkning (sektorsövergripande)',
+      'Fertigung (sektorübergreifend)',
+      'Fabrication (transsectorielle)',
+    ),
+    captainHat: 'platform-only',
+    dedicatedAgent: null,
+    coverage: 'analyst-only',
+    regs: ['ESPR', 'CSRD', 'EED', 'ETS / ETS2'],
+    sku: [],
+    jargon: [
+      [
+        'dpp',
+        'Digital Product Passport',
+        'digitaalinen tuotepassi',
+        'digitalt produktpass',
+        'digitaler Produktpass',
+        'passeport numérique de produit',
+      ],
+    ],
+    claim: T(
+      'Platform-only: DPP, plant-level energy + emissions, ESPR, CSRD. No dedicated manufacturing agent.',
+      'Vain alusta: DPP, laitostason energia + päästöt, ESPR, CSRD. Ei omistettua valmistusagenttia.',
+      'Endast plattform: DPP, anläggningsenergi + utsläpp, ESPR, CSRD. Ingen dedikerad tillverkningsagent.',
+      'Nur Plattform: DPP, anlagenbezogene Energie + Emissionen, ESPR, CSRD. Kein eigener Fertigungs-Agent.',
+      'Plateforme uniquement : DPP, énergie + émissions d’usine, ESPR, CSRD. Pas d’agent fabrication dédié.',
+      'none',
+    ),
+    sources: [
+      'src/agents/data/industry-registry.ts',
+      'sales-outreach/LETTER_PASI_RANNUS_VALMET_AUTOMOTIVE.md',
+    ],
+    outreachUse: 'Door R13 CIO: ESPR DPP. Named outreach files only.',
+    roles: ['R13', 'R07', 'R09'],
+  },
+  {
+    id: 19,
+    slug: 'healthcare',
+    name: T('Healthcare', 'Terveydenhuolto', 'Hälso- och sjukvård', 'Gesundheitswesen', 'Santé'),
+    captainHat: 'platform-only',
+    dedicatedAgent: null,
+    coverage: 'analyst-only',
+    regs: ['EHDS', 'MDR', 'CSRD', 'GDPR'],
+    sku: [],
+    jargon: [['ehds', 'EHDS', 'EHDS', 'EHDS', 'EHDS', 'EHDS']],
+    claim: T(
+      'Platform-only facility carbon / ESRS S1 / EHDS-aligned secondary data. Excluded from Aegis-only claims. No dedicated healthcare agent.',
+      'Vain alusta: kiinteistöhiili / ESRS S1 / EHDS-yhteensopiva toisiokäyttö. Pois Aegis-only-väitteistä. Ei omistettua sote-agenttia.',
+      'Endast plattform: anläggningskol / ESRS S1 / EHDS-anpassad sekundärdata. Undantas från Aegis-only. Ingen dedikerad vårdagent.',
+      'Nur Plattform: Standort-CO2 / ESRS S1 / EHDS-konforme Sekundärdaten. Aus Aegis-only ausgeschlossen. Kein eigener Healthcare-Agent.',
+      'Plateforme uniquement : carbone des sites / ESRS S1 / données secondaires alignées EHDS. Exclu des revendications Aegis-only. Pas d’agent santé dédié.',
+      'none',
+    ),
+    sources: [
+      'src/agents/data/industry-registry.ts',
+      'sales-outreach/PITCH_HUS_KARJALAINEN_20260510.md',
+      'sales-outreach/INTRO_ISTEKKI_OY_FI.md',
+    ],
+    outreachUse: 'Named public-sector health IT files only; never Aegis-21.',
+    roles: ['R05', 'R07', 'R13'],
+  },
+  {
+    id: 20,
+    slug: 'financial-services',
+    name: T(
+      'Financial Services',
+      'Rahoituspalvelut',
+      'Finansiella tjänster',
+      'Finanzdienstleistungen',
+      'Services financiers',
+    ),
+    captainHat: 'platform-only',
+    dedicatedAgent: null,
+    coverage: 'analyst-only',
+    regs: ['SFDR', 'EU Taxonomy', 'CRR3', 'CSRD'],
+    sku: [],
+    jargon: [
+      [
+        'pcaf',
+        'PCAF financed emissions',
+        'PCAF-rahoitetut päästöt',
+        'PCAF-finansierade utsläpp',
+        'PCAF-finanzierte Emissionen',
+        'émissions financées PCAF',
+      ],
+    ],
+    claim: T(
+      'Platform-only: financed-emissions accounting, PAI tables, Taxonomy KPIs. Excluded from Aegis-only claims. No dedicated FS agent.',
+      'Vain alusta: rahoitettujen päästöjen laskenta, PAI-taulukot, taksonomia-KPI:t. Pois Aegis-only-väitteistä.',
+      'Endast plattform: finansierade utsläpp, PAI-tabeller, taxonomi-KPI. Undantas från Aegis-only.',
+      'Nur Plattform: finanzierte Emissionen, PAI-Tabellen, Taxonomie-KPIs. Aus Aegis-only ausgeschlossen.',
+      'Plateforme uniquement : émissions financées, tableaux PAI, KPI taxonomie. Exclu des revendications Aegis-only.',
+      'none',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'INDUSTRIES.md'],
+    outreachUse: 'Door R23 CFO: SFDR financed emissions. No invented banks.',
+    roles: ['R23', 'R24', 'R05'],
+  },
+  {
+    id: 21,
+    slug: 'public-sector',
+    name: T(
+      'Public Sector',
+      'Julkinen sektori',
+      'Offentlig sektor',
+      'Öffentlicher Sektor',
+      'Secteur public',
+    ),
+    captainHat: 'platform-only',
+    dedicatedAgent: null,
+    coverage: 'analyst-only',
+    regs: ['GPP', 'NIS2', 'CSRD', 'GDPR'],
+    sku: [],
+    jargon: [
+      [
+        'gpp',
+        'Green Public Procurement',
+        'vihreä julkinen hankinta',
+        'grön offentlig upphandling',
+        'grüne öffentliche Beschaffung',
+        'commande publique écologique',
+      ],
+    ],
+    claim: T(
+      'Platform-only: sovereign on-prem AI, GPP, NIS2 dossiers. Public-sector sub-segments excluded from Aegis-only 21-industry claims.',
+      'Vain alusta: suvereeni on-prem-tekoäly, GPP, NIS2-aineistot. Julkisen sektorin alasegmentit pois Aegis-only 21:stä.',
+      'Endast plattform: suverän on-prem-AI, GPP, NIS2-dossier. Offentliga delsegment undantas från Aegis-only 21.',
+      'Nur Plattform: souveräne On-Prem-KI, GPP, NIS2-Dossiers. Teilsegmente des öffentlichen Sektors aus Aegis-only-21 ausgeschlossen.',
+      'Plateforme uniquement : IA on-prem souveraine, GPP, dossiers NIS2. Sous-segments publics exclus des 21 Aegis-only.',
+      'sovereignty',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'INDUSTRIES.md'],
+    outreachUse: 'Door R05 General Counsel: NIS2 + sovereign procurement.',
+    roles: ['R05', 'R13', 'R15'],
+  },
+  {
+    id: 22,
+    slug: 'shipbuilding',
+    name: T('Shipbuilding', 'Laivanrakennus', 'Skeppsbyggnad', 'Schiffbau', 'Construction navale'),
+    captainHat: 'Maritime Shipping (folded)',
+    dedicatedAgent: 'neptune',
+    coverage: 'pantheon-folded',
+    regs: ['EU Taxonomy', 'CSRD', 'CBAM', 'ESPR'],
+    sku: [],
+    jargon: [
+      ['vessel_lca', 'vessel LCA', 'aluksen LCA', 'fartygs-LCA', 'Schiffs-Ökobilanz', 'ACV navire'],
+    ],
+    claim: T(
+      'Neptune folded: vessel LCA and Taxonomy shipyard alignment. Cradle-to-gate vessel LCA with green-steel precursors is a coverage gap.',
+      'Neptune taitettuna: aluksen LCA ja taksonomian telakkalinjaus. Kehdosta portille -LCA vihreän teräksen esiasteilla on aukko.',
+      'Neptune vikt: fartygs-LCA och taxonomianpassning för varv. Cradle-to-gate fartygs-LCA med grönt stål är ett täckningsgap.',
+      'Neptune gefaltet: Schiffs-Ökobilanz und Taxonomie-Werftausrichtung. Cradle-to-Gate-Schiffs-LCA mit Grünstahl-Vorstufen ist eine Lücke.',
+      'Neptune replié : ACV navire et alignement taxonomie chantier. L’ACV berceau-à-porte avec précurseurs acier vert est un écart.',
+      'carbon_balance',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'dws10.com/shipbuilding/index.html'],
+    outreachUse: 'Folded under maritime hat; R12 FuelEU/ETS language.',
+    roles: ['R12', 'R20', 'R07'],
+  },
+  {
+    id: 23,
+    slug: 'multimodal-logistics',
+    name: T(
+      'Logistics (multimodal freight)',
+      'Logistiikka (monimuotorahti)',
+      'Logistik (multimodalt gods)',
+      'Logistik (multimodaler Güterverkehr)',
+      'Logistique (fret multimodal)',
+    ),
+    captainHat: 'Road Transport & Logistics (folded)',
+    dedicatedAgent: 'logistics',
+    coverage: 'pantheon-folded',
+    regs: ['ETS / ETS2', 'CSRD', 'Fit for 55'],
+    sku: [],
+    jargon: [
+      [
+        'iso14083',
+        'ISO 14083 / GLEC',
+        'ISO 14083 / GLEC',
+        'ISO 14083 / GLEC',
+        'ISO 14083 / GLEC',
+        'ISO 14083 / GLEC',
+      ],
+      [
+        'countemissions',
+        'CountEmissionsEU',
+        'CountEmissionsEU',
+        'CountEmissionsEU',
+        'CountEmissionsEU',
+        'CountEmissionsEU',
+      ],
+    ],
+    claim: T(
+      'Logistics agent (folded): CountEmissionsEU / ISO 14083 freight emissions. Shipment-level primary-data MRV is a coverage gap.',
+      'Logistics-agentti (taitettu): CountEmissionsEU / ISO 14083 -rahtipäästöt. Lähetyksen tason ensisijainen MRV on aukko.',
+      'Logistics-agent (vikt): CountEmissionsEU / ISO 14083-godsemissioner. Sändningsnivå primärdata-MRV är ett täckningsgap.',
+      'Logistics-Agent (gefaltet): CountEmissionsEU / ISO-14083-Güteremissionen. Sendungs-MRV mit Primärdaten ist eine Lücke.',
+      'Agent logistique (replié) : émissions fret CountEmissionsEU / ISO 14083. Le MRV primaire au niveau envoi est un écart.',
+      'compliance_agent',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'INDUSTRIES.md'],
+    outreachUse: 'Distinct from industry 7 road fleet; do not collapse the two ids.',
+    roles: ['R12', 'R07', 'R20'],
+  },
+  {
+    id: 24,
+    slug: 'data-centres',
+    name: T('Data Centres', 'Datakeskukset', 'Datacenter', 'Rechenzentren', 'Centres de données'),
+    captainHat: 'platform-only',
+    dedicatedAgent: null,
+    coverage: 'analyst-only',
+    regs: ['EED', 'CSRD', 'NIS2', 'EU Taxonomy'],
+    sku: [],
+    jargon: [
+      [
+        'pue',
+        'PUE/WUE telemetry',
+        'PUE/WUE-telemetria',
+        'PUE/WUE-telemetri',
+        'PUE/WUE-Telemetrie',
+        'télémétrie PUE/WUE',
+      ],
+      [
+        'annex_vii',
+        'EED Annex VII',
+        'EED liite VII',
+        'EED bilaga VII',
+        'EED Anhang VII',
+        'annexe VII DEE',
+      ],
+    ],
+    claim: T(
+      'Platform-only: PUE/WUE telemetry, Annex VII reporting, sovereign on-prem AI. No dedicated data-centre agent. Hourly CFE matching is a coverage gap.',
+      'Vain alusta: PUE/WUE-telemetria, liite VII -raportointi, suvereeni on-prem-tekoäly. Ei omistettua datakeskusagenttia.',
+      'Endast plattform: PUE/WUE-telemetri, bilaga VII-rapportering, suverän on-prem-AI. Ingen dedikerad datacenteragent.',
+      'Nur Plattform: PUE/WUE-Telemetrie, Anhang-VII-Bericht, souveräne On-Prem-KI. Kein eigener Rechenzentrums-Agent.',
+      'Plateforme uniquement : télémétrie PUE/WUE, reporting annexe VII, IA on-prem souveraine. Pas d’agent datacenter dédié.',
+      'sovereignty',
+    ),
+    sources: [
+      'src/agents/data/industry-registry.ts',
+      'dws6.com/dashboard/mission-control/seed-queue.json',
+    ],
+    outreachUse:
+      'Queue item Anna Gueorguieva (GreeniumDC) is intro-made partnership, not a customer win. Door R15 CISO.',
+    roles: ['R15', 'R13', 'R07'],
+  },
+  {
+    id: 25,
+    slug: 'rfnbo',
+    name: T(
+      'RFNBO / Green H2 & E-Fuels',
+      'RFNBO / vihreä vety ja sähköpolttoaineet',
+      'RFNBO / grön vätgas och e-bränslen',
+      'RFNBO / grüner H2 und E-Fuels',
+      'RFNBO / hydrogène vert et e-carburants',
+    ),
+    captainHat: 'Chemicals & Petrochemicals (folded)',
+    dedicatedAgent: 'prometheus',
+    coverage: 'pantheon-folded',
+    regs: ['RED III', 'ETS / ETS2', 'CSRD', 'CBAM'],
+    sku: ['IND-PROM'],
+    jargon: [
+      [
+        'additionality',
+        'additionality',
+        'lisäisyys',
+        'additionalitet',
+        'Additionalität',
+        'additionnalité',
+      ],
+      [
+        'hourly_matching',
+        'temporal/geographic correlation',
+        'ajallinen/maantieteellinen korrelaatio',
+        'tidsmässig/geografisk korrelation',
+        'zeitliche/geografische Korrelation',
+        'corrélation temporelle/géographique',
+      ],
+    ],
+    claim: T(
+      'Prometheus folded: RED III additionality and RFNBO certification. Hourly additionality proof is a coverage gap.',
+      'Prometheus taitettuna: RED III -lisäisyys ja RFNBO-sertifiointi. Tuntikohtainen lisäisyystodiste on aukko.',
+      'Prometheus vikt: RED III-additionalitet och RFNBO-certifiering. Timvis additionalitetsbevis är ett täckningsgap.',
+      'Prometheus gefaltet: RED-III-Additionalität und RFNBO-Zertifizierung. Stündlicher Additionalitätsnachweis ist eine Lücke.',
+      'Prometheus replié : additionnalité RED III et certification RFNBO. La preuve d’additionnalité horaire est un écart.',
+      'compliance_agent',
+    ),
+    sources: ['src/agents/data/industry-registry.ts', 'dws10.com/products/ind-prom.html'],
+    outreachUse:
+      'Folded under chemicals hat; keep RFNBO certification vs hourly proof distinction.',
+    roles: ['R03', 'R04', 'R07'],
+  },
+];
+
+function industryRecord(meta) {
+  const terms = {
+    name: { ...meta.name, ontologyId: meta.name.ontologyId || 'none' },
+    captainHat: T(
+      meta.captainHat,
+      meta.captainHat,
+      meta.captainHat,
+      meta.captainHat,
+      meta.captainHat,
+    ),
+    dedicatedAgent: T(
+      meta.dedicatedAgent ? String(meta.dedicatedAgent) : 'industry-analyst',
+      meta.dedicatedAgent ? String(meta.dedicatedAgent) : 'industry-analyst',
+      meta.dedicatedAgent ? String(meta.dedicatedAgent) : 'industry-analyst',
+      meta.dedicatedAgent ? String(meta.dedicatedAgent) : 'industry-analyst',
+      meta.dedicatedAgent ? String(meta.dedicatedAgent) : 'industry-analyst',
+    ),
+    lead_safe_claim: meta.claim,
+  };
+  meta.regs.forEach((r) => {
+    const key = r
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_|_$/g, '');
+    terms[`reg_${key}`] = T(r, r, r, r, r, 'compliance_agent');
+  });
+  meta.sku.forEach((s) => {
+    terms[`sku_${s.toLowerCase().replace(/-/g, '_')}`] = T(s, s, s, s, s, 'none');
+  });
+  meta.jargon.forEach(([k, en, fi, sv, de, fr]) => {
+    terms[k] = T(en, fi, sv, de, fr, 'none');
+  });
+  terms.aegis_in_scope = T(
+    AEGIS_EXCLUDE.has(meta.id) ? 'false' : 'true',
+    AEGIS_EXCLUDE.has(meta.id) ? 'false' : 'true',
+    AEGIS_EXCLUDE.has(meta.id) ? 'false' : 'true',
+    AEGIS_EXCLUDE.has(meta.id) ? 'false' : 'true',
+    AEGIS_EXCLUDE.has(meta.id) ? 'false' : 'true',
+    'none',
+    {
+      forbidden: AEGIS_EXCLUDE.has(meta.id)
+        ? { all: ['Aegis covers this industry as one of 21 without qualifier'] }
+        : {},
+    },
+  );
+  return {
+    id: meta.id,
+    slug: meta.slug,
+    name: meta.name.en,
+    captainHat: meta.captainHat,
+    dedicatedAgent: meta.dedicatedAgent,
+    coverage: meta.coverage,
+    aegisInScope: !AEGIS_EXCLUDE.has(meta.id),
+    roles: meta.roles,
+    terms,
+    sources: meta.sources,
+    outreachUse: meta.outreachUse,
+  };
+}
+
+const industries = {};
+for (const meta of INDUSTRY_META) {
+  industries[String(meta.id)] = industryRecord(meta);
+}
+
+const dict = {
+  version: '0.1',
+  generatedAt: '2026-09-18',
+  enIsMaster: true,
+  article50:
+    'Machine translations labelled until a named human reviews. Icon optional; label required.',
+  bannedTokens: {
+    sv: ['Souverän'],
+    all: ['Monolocalisation'],
+    sovereigntyMustNotUse: ['spårighet'],
+  },
+  wave3Proposal: {
+    liveThisPr: [8],
+    askHicNextThree: [8, 2, 24],
+    rationale:
+      '8 Construction has Mars+CONSTR-T2 pages and Mission Control NCC item; 2 Iron & Steel has the densest named outreach; 24 Data Centres has GreeniumDC intro-made. HIC must confirm which three go live vs stay dictionary-only.',
+  },
+  kyaJev: {
+    spec: 'docs/KYA_JEV_SPECIFICATION.md',
+    specVersion: '0.8',
+    primitive: 'src/agents/kya-jev.ts',
+    dictionaryAdvisory: 'src/agents/dictionary-kya-jev.ts',
+    role: 'advisory-only — never auto-locks terms, prices, or Wave 3 pages',
+    sku: 'KYA-JEV-001',
+  },
+  shared,
+  industries,
+};
+
+const out = path.join(ROOT, 'docs/localization/dws-dictionary.json');
+fs.writeFileSync(out, JSON.stringify(dict, null, 2) + '\n');
+console.log(
+  'wrote',
+  out,
+  'industries',
+  Object.keys(industries).length,
+  'shared',
+  Object.keys(shared).length,
+);

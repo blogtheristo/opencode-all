@@ -854,6 +854,7 @@ cd mcp-hub && pip install -r requirements.txt && python server.py
 - [ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md](ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md) - Design Audit Agent usage guide
 - [docs/Deputy-Agents-Architecture.md](docs/Deputy-Agents-Architecture.md) - DGX Managed Agents self-hosted architecture, referenced in §8
 - [docs/CLOUD_ENVIRONMENTS.md](docs/CLOUD_ENVIRONMENTS.md) - DGX Spark as primary compute (§3.2.2), referenced in §8
+- [NVIDIA SoL-Pi (harness-search paper, not DWS)](docs/field-notes/2026-09-19-nvidia-sol-pi-self-evolving-harness.md) — arXiv [2609.20519](https://arxiv.org/abs/2609.20519). Literature bookmark only; DWS does not run SoL-Pi.
 
 ---
 

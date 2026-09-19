@@ -459,6 +459,11 @@ export function modelFitsDepth(model: ModelOption, requiredContextTokens: number
  *    b. If cloud model: check API key availability
  * 3. Fall back to next model in tier, then to next tier up
  */
+/**
+ * Deterministic picker. kya-jev must not replace this — use
+ * `adviseModelRoute()` (`src/agents/model-route-kya-jev.ts`) for an advisory
+ * stay/escalate/demote hint after this returns.
+ */
 export function selectModel(
   agentName: string,
   options?: {
