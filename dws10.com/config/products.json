@@ -230,6 +230,49 @@
       "capacityCapabilities": ["Digital signature", "Workflow integration"],
       "capacityLimits": "Per-signature scope"
     },
+    "KYA-JEV-001": {
+      "id": "KYA-JEV-001",
+      "gtin": null,
+      "mpn": "KYA-JEV-2026",
+      "name": "kya-jev — KYA-Gated Typed Decisions (Early Access)",
+      "price": 99,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "description": "Add fast, typed decisions (choice / score / yes-no + confidence) to any DWS agent, gated on an already-issued KYA verdict and logged to the Article 12 audit trail. DGX/Groq/Anthropic-backed — no third-party API, no CLOUD Act exposure. Early Access: confidence is self-reported and not yet independently calibrated against DWS production data; do not use as the sole gate for an auto-execute or consequential decision until a calibration report is published.",
+      "features": [
+        "Choice / Score / Boolean typed-decision primitives",
+        "KYA runtime-verdict gate on every call — no decision without an authorized KYA session",
+        "Article 12 audit trail (kya_jev_calls table)",
+        "Runs on existing DWS model tiers (DGX Qwen, Groq, Claude) — no new vendor dependency"
+      ],
+      "priceNote": "€99/month, Early Access — calibration study in progress, see docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/KYA-JEV-001.png",
+      "detailsUrl": null,
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "preorder",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "add-on",
+      "buyPage": 1,
+      "buyPageOrder": 7,
+      "additionalImage": "/static/images/Firehorse_Store.jpg",
+      "capacityClass": "Early Access",
+      "capacityOptions": ["DGX Spark", "Groq", "Anthropic"],
+      "capacityCapabilities": [
+        "Typed decision inference",
+        "KYA-gated execution",
+        "Article 12 audit logging"
+      ],
+      "capacityLimits": "Confidence uncalibrated — advisory use only pending calibration report"
+    },
     "FH-CMS-001": {
       "id": "FH-CMS-001",
       "gtin": null,
