@@ -6785,6 +6785,44 @@
       "priceNote": "€249/mo (€49 platform + €200 managed hosting) + €799 one-time setup",
       "storeCategory": "subscription",
       "version": "1.0"
+    },
+    "LIFETIME-WEB-STARTER": {
+      "id": "LIFETIME-WEB-STARTER",
+      "mpn": "WEB-STARTER-2026",
+      "name": "Website Starter — Modern Business Site",
+      "price": 650,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Professional business website for new entrepreneurs. Modern design, mobile-optimized, SEO-ready. cari.fi-inspired template for quick setup and publishing. Perfect for showcasing your business online.",
+      "features": [
+        "Modern, responsive design",
+        "Mobile-optimized for all devices",
+        "SEO-ready and fast loading",
+        "Quick setup and publishing",
+        "cari.fi-inspired templates"
+      ],
+      "priceNote": "One-time setup",
+      "storeCategory": "web-services",
+      "version": "1.0"
+    },
+    "LIFETIME-WEBSTORE-MINI": {
+      "id": "LIFETIME-WEBSTORE-MINI",
+      "mpn": "WEBSTORE-MINI-2026",
+      "name": "Small Online Store with Price List",
+      "price": 350,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Compact e-commerce solution for small businesses. Includes online store setup, product catalog, and integrated price list. Ideal for entrepreneurs looking to start selling online.",
+      "features": [
+        "Online store setup with templates",
+        "Product catalog and price list",
+        "Payment processing ready",
+        "Mobile-optimized storefront",
+        "Basic inventory management"
+      ],
+      "priceNote": "One-time setup",
+      "storeCategory": "web-services",
+      "version": "1.0"
     }
   },
   "discontinuedProducts": {
