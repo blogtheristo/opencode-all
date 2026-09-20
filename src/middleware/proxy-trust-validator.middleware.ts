@@ -54,7 +54,7 @@ export function validateTrustSubnet(subnet: string): TrustSubnet {
 
   const prefix = parseInt(prefixStr, 10);
   if (Number.isNaN(prefix) || prefix < 0 || prefix > 128) {
-    result.invalidReason = `Invalid IPv6 prefix: ${prefixStr} (must be 0-128)`;
+    result.invalidReason = `Invalid IPv6 prefix: ${prefixStr} (prefix out of range: must be 0-128)`;
     return result;
   }
 
@@ -72,33 +72,25 @@ export function validateTrustSubnet(subnet: string): TrustSubnet {
       return result;
     }
 
-    // Calculate expected IPv6 prefix from IPv4 prefix
-    // IPv4-mapped IPv6 uses the first 96 bits as ::ffff:0:0/96
-    // IPv4 maps to the last 32 bits: ::ffff:a.b.c.d = ::ffff:<16-bit>:<16-bit>
-    // So IPv4 /24 (24 bits used) → ::ffff:.../120 (96 + 24)
-    const expectedIPv6Prefix = 96 + prefix;
-
     result.isIPv4MappedIPv6 = true;
-    result.ipv4Prefix = prefix;
     result.ipv6Prefix = prefix;
 
-    if (prefix > 32) {
-      result.invalidReason = `IPv4 prefix overflow: ${prefix} > 32`;
+    // Minimum useful IPv6 prefix for ::ffff:x.y.z.w is 96 (full ::ffff: prefix).
+    // An undersized prefix (e.g. /8) treats socket peer as hop 0 and trusts all IPv4.
+    if (prefix < 96) {
+      result.invalidReason = `IPv4-mapped IPv6 prefix too small: /${prefix} < /96`;
       return result;
     }
 
-    if (prefix !== 0 && prefix % 8 !== 0 && prefix % 16 !== 0) {
+    const ipv4Prefix = prefix - 96;
+    result.ipv4Prefix = ipv4Prefix;
+
+    if (ipv4Prefix !== 0 && ipv4Prefix % 8 !== 0 && ipv4Prefix % 16 !== 0) {
       // Warn on non-standard IPv4 prefixes, but allow them
       logger.warn('Unusual IPv4 prefix in trust subnet', {
         subnet,
-        ipv4Prefix: prefix,
+        ipv4Prefix,
       });
-    }
-
-    // SECURITY FIX: Reject if IPv6 prefix doesn't match expected IPv4-mapped value
-    if (prefix > 0 && expectedIPv6Prefix !== prefix) {
-      result.invalidReason = `IPv4-mapped IPv6 prefix mismatch: IPv6 /${prefix} but IPv4 /${prefix} requires IPv6 /${expectedIPv6Prefix}`;
-      return result;
     }
 
     result.isValid = true;
