@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fi" xml:lang="fi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-20-jev-kya-nemotron-distillation-plan</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-20-jev-kya-nemotron-distillation-plan</h1>
+</header>
+<hr />
+<p>VERSION AND AGENT HISTORY Document: Session Learning Outcome — Jev-KYA 4B Nemotron-4 Distillation Pipeline &amp; Proxy Trust Hardening Version: 1.0 Date: 2026-09-20 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy Owner: Lifetime Oy (Business ID: 0772407-9) Status: Active / Approved Agent: Antigravity (Google DeepMind), session feat/jev-kya-nemotron-distillation-plan Legal basis: EU AI Act Article 14 (Human-in-Command) &amp; Article 12 (Audit Logging); DWS Learning Standard; DWS Rule 14 (Cost Policy &amp; Sovereignty) ***</p>
+<h1 id="session-learning-outcome-jev-kya-4b-nemotron-4-distillation-proxy-trust-hardening">Session Learning Outcome: Jev-KYA 4B Nemotron-4 Distillation &amp; Proxy Trust Hardening</h1>
+<h2 id="executive-summary-context">1. Executive Summary &amp; Context</h2>
+<p>Tämä dokumentti tallentaa virallisen istunnon oppimistuloksen (Session Learning Outcome) ja arkkitehtuurisuunnitelman, joka yhdistää kaksi kriittistä virstanpylvästä DWS6-alustalla:</p>
+<ol type="1">
+<li><strong>Proxy-validaattorin tietoturvapäivitys (Proxy Trust Hardening):</strong> <code>proxy-addr</code>-kirjaston IPv4-mapped IPv6 -osoitteiden väärennöshaavoittuvuuden (IP spoofing) eliminointi ja luotettujen aliverkkojen validointi (<code>src/middleware/proxy-trust-validator.middleware.ts</code>, PR #2048 / commit <code>d11f9d3bc</code>).</li>
+<li><strong>Jev-KYA 4B -mallin tislausputki yhdellä DGX Spark -noodilla:</strong> Täydellinen, nelivaiheinen sekventiaalinen resurssi- ja suoritusmalli, jolla synteettisen KYA-aineiston tuotanto, laadunarviointi ja oppilasmallin koulutus toteutetaan paikallisesti Grace Blackwell (GB10) -laitteistolla 100 % suvereniteetilla ilman pilvikuluja.</li>
+</ol>
+<p>Lähestymistapa toteuttaa <strong>Vaihtoehdon 3</strong> (kattava ratkaisu: sekä valmis proxy-validaattorin kytkentä että DGX Spark -mallitislauksen resurssisuunnitelma dokumentoidaan viralliseksi oppimistulokseksi ja liitetään koodikantaan).</p>
+<hr />
+<h2 id="osa-i-proxy-validaattorin-päivitys-security-hardening">2. Osa I: Proxy-validaattorin päivitys (Security Hardening)</h2>
+<h3 id="haavoittuvuuden-tausta-ja-korjaus">2.1 Haavoittuvuuden tausta ja korjaus</h3>
+<p>DWS-alustan API-reitityksessä ja reunaliikenteessä käytettävä <code>proxy-addr</code>-kirjasto sisälsi riskin IP-osoitteen väärentämisestä <code>X-Forwarded-For</code>-otsikon kautta tietyissä aliverkkokonfiguraatioissa, joissa IPv4-kartoitettuja IPv6-osoitteita (IPv4-mapped IPv6, esim. <code>::ffff:10.0.0.0/8</code>) käsiteltiin virheellisellä etuliitepituudella täyden <code>/104</code>-etuliitteen sijasta.</p>
+<p>Tämä haavoittuvuus korjattiin toteuttamalla tiukka väliohjelmisto: - <strong>Tiedosto:</strong> <code>src/middleware/proxy-trust-validator.middleware.ts</code> - <strong>Testit:</strong> <code>src/__tests__/proxy-trust-validator.test.ts</code> (150 riviä kattavaa yksikkö- ja integraatiotestausta) - <strong>App-integraatio:</strong> <code>src/app.ts</code></p>
+<h3 id="suojatut-järjestelmäkerrokset">2.2 Suojatut järjestelmäkerrokset</h3>
+<ul>
+<li><strong>IP-pohjainen pääsynhallinta:</strong> Estetään luvattomat bypass-yritykset hallintapinnan ja KYA-validaattoreiden rajapinnoissa.</li>
+<li><strong>Pyyntöjen nopeusrajoitus (Rate Limiting):</strong> Estetään DoS- ja brute-force-hyökkäykset estämällä asiakasta naamioitumasta useiksi IP-osoitteiksi.</li>
+<li><strong>Geolokaatiotarkastukset:</strong> Varmistetaan maantieteellisen ja EU-suvereniteettialueen oikeellisuus.</li>
+<li><strong>Audit-lokitus (EU AI Act Art. 12):</strong> Firehorse- ja järjestelmälokeihin tallentuvat alkuperäiset asiakas-IP:t ovat luotettavia ja todistusvoimaisia.</li>
+</ul>
+<hr />
+<h2 id="osa-ii-jev-kya-4b-tislausputki-yhden-dgx-sparkin-resurssisuunnitelma">3. Osa II: Jev-KYA 4B Tislausputki — Yhden DGX Sparkin resurssisuunnitelma</h2>
+<h3 id="arkkitehtuurin-lähtökohdat">3.1 Arkkitehtuurin lähtökohdat</h3>
+<p>Käytössä on yksi <strong>DGX Spark</strong> -noodi (NVIDIA Grace Blackwell GB10 -arkkitehtuuri, 128 GB LPDDR5x yhdistetty muisti / Blackwell FP4/FP8 -tensorikiihdyttimet, 1 PFLOPS laskentateho).</p>
+<p>Koska käytössä on yksi fyysinen laite, putki (pipeline) on suunniteltava <strong>sekventiaaliseksi</strong>. Malleja ei ajeta samanaikaisesti rinnakkain, vaan VRAM-muisti ja Blackwellin FP8/FP4-kiihdyttimet allokoidaan jokaisessa vaiheessa kokonaan kyseisen vaiheen mallille ja tyhjennetään vaiheen päättyessä.</p>
+<h3 id="sekventiaalinen-suoritusputki-sequential-execution-pipeline">3.2 Sekventiaalinen suoritusputki (Sequential Execution Pipeline)</h3>
+<pre><code>┌──────────────────────────────────────────────────────────────────────────────────┐
+│                   JEV-KYA 4B TISLAUSPUTKI (DGX SPARK GB10)                       │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                  │
+│  [Vaihe 1: Datan generointi] ──(Nemotron-4 340B-Instruct FP8)──► Raaka data      │
+│  • Kesto: ~6–8 h                                                (100k+ skenaariot)│
+│  • VRAM: ~340 GB virtuaalinen/paloiteltu / FP8 batching                          │
+│  • Toimenpide: VRAM tyhjennys                                                   │
+│                                │                                                 │
+│                                ▼                                                 │
+│  [Vaihe 2: Karsinta &amp; kuratointi] ──(Nemotron-4 340B-Reward)───► Kultastandardi  │
+│  • Kesto: ~4–5 h                                                (Top 10–20 %,    │
+│  • Toiminta: LLM-as-a-Judge pisteytys (0–100)                    50k laatudataa) │
+│  • Toimenpide: Tallennus .jsonl + VRAM tyhjennys                                │
+│                                │                                                 │
+│                                ▼                                                 │
+│  [Vaihe 3: Oppilaan koulutus] ──(Llama-3.2-3B / 4B Base)───────► 4B Jev-KYA      │
+│  • Kesto: ~2–4 h                                                Huippumalli     │
+│  • Menetelmä: Full Parameter SFT &amp; Distillation BF16                            │
+│  • Rinnakkaistus: FSDP / Data Parallelism kaikille DGX-ytimille                  │
+│                                │                                                 │
+│                                ▼                                                 │
+│  [Vaihe 4: Kvantisointi &amp; Pakkaus] ────────────────────────────► Valmiit paketit │
+│  • Kesto: ~1 h                                                                   │
+│  • Win 11 / PC: GGUF / ONNX / TensorRT-LLM (~2.5 GB)                             │
+│  • Intel Mac (2017, 16 GB): GGUF / ONNX llama.cpp CPU (~2.5 GB)                  │
+│  • Paikalliset agentit: vLLM / TensorRT-LLM AWQ / FP8 (~22 ms)                  │
+│                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────┘</code></pre>
+<blockquote>
+<p><strong>Huomio Ollama-malleista tislauksen aikana:</strong><br />
+DGX Sparkilla käytössä olevat Ollama-mallit puretaan GPU-muistista (<code>sudo systemctl stop ollama</code> tai <code>ollama stop &lt;malli&gt;</code>) vaiheiden 1 ja 2 ajaksi, jotta koko 128 GB yhdistetty muisti, Blackwell-kiihdyttimet ja massiivinen KV-välimuisti vapautuvat sataprosenttisesti Nemotron-4 340B -opettaja- ja arvioijamallien käyttöön ilman OOM-riskiä.</p>
+</blockquote>
+<h4 id="vaihe-1-datan-generointi-teacher-inference-kesto-68-h">Vaihe 1: Datan generointi (Teacher Inference) — Kesto: ~6–8 h</h4>
+<ul>
+<li><strong>Malli:</strong> <code>nvidia/nemotron-4-340b-instruct</code></li>
+<li><strong>Kokoonpano:</strong> Ladataan opettajamalli DGX Sparkiin käyttäen vLLM- tai TensorRT-LLM -moottoria hyödyntäen Blackwellin natiivia FP8-tarkkuutta (VRAM ~340 GB virtuaalinen / paloiteltu tila).</li>
+<li><strong>Ajo:</strong> Ajetaan satojatuhansia synteettisiä KYA-skenaarioita (Mandate, Attestation, validointi, poikkeustilanteet, turvallisuusrajat).</li>
+<li><strong>Optimointi:</strong> Offline-eräajossa maksimoidaan <code>max_num_batched_tokens</code> ja hyödynnetään massiivista KV-välimuistia. DGX puskee synteettistä dataa levylle satojen tuhansien tokeneiden sekuntivauhdilla.</li>
+<li><strong>Puhdistus:</strong> Kun generointi on valmis, GPU:n VRAM tyhjennetään kokonaan.</li>
+</ul>
+<h4 id="vaihe-2-datan-karsinta-ja-kuratointi-reward-evaluation-kesto-45-h">Vaihe 2: Datan karsinta ja kuratointi (Reward Evaluation) — Kesto: ~4–5 h</h4>
+<ul>
+<li><strong>Malli:</strong> <code>nvidia/nemotron-4-340b-reward</code></li>
+<li><strong>Kokoonpano:</strong> Ladataan arvioijamalli VRAMiin.</li>
+<li><strong>Ajo:</strong> Syötetään Vaiheen 1 tuottamat KYA-päätökset (Prompt + Agentin vaste ja perusteluketju) Reward-mallille.</li>
+<li><strong>Suodatus:</strong> LLM-as-a-Judge pisteytys (asteikko 0–100). Hylätään kaikki paitsi täydelliset suoritukset (top 10–20 %), luoden virheetön ~50 000 laadukkaan päätöksen <code>.jsonl</code>-dataset, joka keskittyy tiukasti Jev-KYA-konformanssiin.</li>
+<li><strong>Puhdistus:</strong> Aineisto tallennetaan <code>.jsonl</code>-tiedostona levylle ja VRAM tyhjennetään.</li>
+</ul>
+<h4 id="vaihe-3-oppilaan-koulutus-4b-sft-distillation-kesto-24-h">Vaihe 3: Oppilaan koulutus (4B SFT &amp; Distillation) — Kesto: ~2–4 h</h4>
+<ul>
+<li><strong>Malli:</strong> 4B-pohjamalli (esim. <code>Llama-3.2-3B</code>).</li>
+<li><strong>Kokoonpano:</strong> Koulutus ajetaan täytenä hienosäätönä (<strong>Full Parameter Fine-Tuning</strong>, BF16) FSDP / Data Parallelism -menetelmällä kaikille DGX-ytimille.</li>
+<li><strong>Nopeus:</strong> Pienen mallin koulutus järeällä Blackwell-raudalla on äärimmäisen nopeaa — 2–3 epookin ajo kestää vain 2–4 tuntia.</li>
+</ul>
+<h4 id="vaihe-4-kvantisointi-ja-pakkaus-edge-laitteille-kesto-1-h">Vaihe 4: Kvantisointi ja pakkaus Edge-laitteille — Kesto: ~1 h</h4>
+<ul>
+<li><strong>Windows 11 / PC-reunalaitteet:</strong> GGUF / ONNX / TensorRT-LLM Windows-tuella (~2.5 GB).</li>
+<li><strong>Intel Mac (2017, 16 GB RAM):</strong> GGUF / ONNX -muoto <code>llama.cpp</code>:n kautta CPU-päättelyllä (~2.5 GB).</li>
+<li><strong>Paikalliset agentit / Teollisuus-GPU:t:</strong> vLLM / TensorRT-LLM AWQ / FP8 (~22 ms latenssi päätöstä kohti).</li>
+</ul>
+<hr />
+<h2 id="osa-iii-miksi-tämä-on-ylivoimainen-lähestymistapa">4. Osa III: Miksi tämä on ylivoimainen lähestymistapa?</h2>
+<h3 id="ei-kompromisseja-laadussa-domain-spesifi-älykkyys">4.1 Ei kompromisseja laadussa (Domain-spesifi älykkyys)</h3>
+<p>Tislaus siirtää Nemotron-4 340B -jättimallin päättelyrakenteen ja sääntölogiikan 4B-malliin. 4B-oppilasmalli omaksuu KYA-standardin, mandaattien validoinnin ja todistusketjujen laadinnan ilman tarvetta raahata mukanaan yleisen maailmantiedon (kuten taiteen, runouden tai yleishistorian) aiheuttamaa laskentapainolastia.</p>
+<h3 id="dws-rule-14-kustannuspolitiikka-ja-suvereniteetti-zero-marginal-cost">4.2 DWS Rule 14: Kustannuspolitiikka ja suvereniteetti (Zero Marginal Cost)</h3>
+<ul>
+<li><strong>100 % sisäinen data ja infrastruktuuri:</strong> Aineiston luonti, arvostelu ja koulutus tapahtuvat Espoossa sijaitsevalla paikallisella DGX Spark -noodilla. Yhtäkään tavua luottamuksellista sääntely- tai agenttilokia ei siirretä julkisiin pilvipalveluihin.</li>
+<li><strong>Kustannustehokkuus tuotannossa:</strong> Koko tislausputki vaatii alle 24 tuntia yhden koneen sähköä ja ajoaikaa (kertakustannus).</li>
+<li><strong>Nollakustannus inferenssissä:</strong> Kun malli on viety reunaan (Mac tai vLLM), miljoonat KYA-päätökset maksavat tasan <strong>0 euroa API-kuluina</strong>.</li>
+</ul>
+<hr />
+<h2 id="osa-iv-eu-ai-act-hallintavaatimukset">5. Osa IV: EU AI Act &amp; Hallintavaatimukset</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sääntelyvaatimus</th>
+<th>Toteutus Jev-KYA 4B -mallissa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Artikla 14 (Inhimillinen valvonta / HIC)</strong></td>
+<td>Deterministiset turvallisuusrajat (<code>SECURITY_CONSTANTS</code>), 72 tunnin inhimillinen portti ja 5 ms / 50 ms hätäpysäytys (Kill Switch).</td>
+</tr>
+<tr class="even">
+<td><strong>Artikla 12 (Lokitus ja jäljitettävyys)</strong></td>
+<td>Kaikki päätöstapahtumat tallennetaan Firehorse-arkkitehtuurin mukaisesti kryptografisesti allekirjoitettuna JSONL-virtana.</td>
+</tr>
+<tr class="odd">
+<td><strong>Artikla 50 (Tekoälyn läpinäkyvyys)</strong></td>
+<td>Mallin tuottamat KYA-todisteet sisältävät selkeät koneellisen alkuperän tunnisteet ja validointitiedot.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="päätöskysymys-ihmiselle-hic-decision-gate">6. Päätöskysymys ihmiselle (HIC Decision Gate)</h2>
+<blockquote>
+<p><strong>HIC Decision Question:</strong><br />
+Hyväksytäänkö tämä Jev-KYA 4B -mallin sekventiaalinen tislaussuunnitelma ja proxy-validaattorin tietoturvalukitus viralliseksi toteutusohjeeksi, ja voidaanko seuraavaksi luoda suoritettava batch-ajuri (<code>scripts/runners/kya-distill-runner.py</code>) DGX Spark -ympäristöön?</p>
+</blockquote>
+<hr />
+</body>
+</html>
