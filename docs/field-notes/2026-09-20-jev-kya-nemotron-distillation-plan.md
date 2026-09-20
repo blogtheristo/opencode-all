@@ -22,7 +22,8 @@ Tämä istunto tuotti kaksi merkittävää arkkitehtuuri- ja tietoturvatulosta D
      - **Vaihe 1:** Datan generointi opettajamallilla (`Nemotron-4-340B-Instruct` FP8, eräajo, VRAM tyhjennys, ~6–8 h).
      - **Vaihe 2:** Datan karsinta ja kuratointi arvioijamallilla (`Nemotron-4-340B-Reward`, LLM-as-a-Judge, top 10–20 % laatusuodatus, .jsonl-tallennus, VRAM tyhjennys, ~4–5 h).
      - **Vaihe 3:** Oppilaan koulutus (4B-pohjamalli, Full Parameter SFT & Distillation BF16, FSDP-rinnakkaistus, ~2–4 h).
-     - **Vaihe 4:** Kvantisointi ja pakkaus reunaan (Mac / Apple Silicon MLX INT4 ~2.5 GB sekä paikalliset agentti-GPU:t vLLM AWQ/FP8 ~22 ms latenssilla, ~1 h).
+     - **Vaihe 4:** Kvantisointi ja pakkaus reunalle (Windows 11 / PC GGUF/ONNX/TensorRT-LLM ~2.5 GB, Intel Mac 2017 16 GB RAM llama.cpp CPU ~2.5 GB, sekä paikalliset agentti-GPU:t vLLM AWQ/FP8 ~22 ms latenssilla, ~1 h).
+   - Huomio: DGX Sparkin Ollama-mallit tyhjennetään muistista vaiheiden 1 ja 2 ajaksi VRAMin ja KV-välimuistin maksimoimiseksi.
 
 Täydellinen arkkitehtuurikuvaus on tallennettu tiedostoon [docs/learning-outcomes/jev-kya-nemotron-distillation-plan.md](../learning-outcomes/jev-kya-nemotron-distillation-plan.md).
 

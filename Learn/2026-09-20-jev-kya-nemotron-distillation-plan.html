@@ -219,40 +219,42 @@ vertical-align: middle;
 │                                ▼                                                 │
 │  [Vaihe 4: Kvantisointi &amp; Pakkaus] ────────────────────────────► Valmiit paketit │
 │  • Kesto: ~1 h                                                                   │
-│  • Mac / Apple Silicon: MLX INT4 (~2.5 GB)                                       │
-│  • Paikalliset agentit: vLLM AWQ / FP8 (~22 ms latenssi)                         │
+│  • Win 11 / PC: GGUF / ONNX / TensorRT-LLM (~2.5 GB)                             │
+│  • Intel Mac (2017, 16 GB): GGUF / ONNX llama.cpp CPU (~2.5 GB)                  │
+│  • Paikalliset agentit: vLLM / TensorRT-LLM AWQ / FP8 (~22 ms)                  │
 │                                                                                  │
 └──────────────────────────────────────────────────────────────────────────────────┘</code></pre>
+<blockquote>
+<p><strong>Huomio Ollama-malleista tislauksen aikana:</strong><br />
+DGX Sparkilla käytössä olevat Ollama-mallit puretaan GPU-muistista (<code>sudo systemctl stop ollama</code> tai <code>ollama stop &lt;malli&gt;</code>) vaiheiden 1 ja 2 ajaksi, jotta koko 128 GB yhdistetty muisti, Blackwell-kiihdyttimet ja massiivinen KV-välimuisti vapautuvat sataprosenttisesti Nemotron-4 340B -opettaja- ja arvioijamallien käyttöön ilman OOM-riskiä.</p>
+</blockquote>
 <h4 id="vaihe-1-datan-generointi-teacher-inference-kesto-68-h">Vaihe 1: Datan generointi (Teacher Inference) — Kesto: ~6–8 h</h4>
 <ul>
 <li><strong>Malli:</strong> <code>nvidia/nemotron-4-340b-instruct</code></li>
-<li><strong>Konfiguraatio:</strong> Ladataan opettajamalli DGX Sparkiin käyttäen vLLM- tai TensorRT-LLM -moottoria hyödyntäen Blackwellin natiivia FP8-tarkkuutta.</li>
-<li><strong>Ajo:</strong> Ajetaan satojatuhansia synteettisiä KYA-skenaarioita (Mandate, Attestation, validointi, poikkeustilanteet, turvallisuusrajaukset).</li>
-<li><strong>Optimointi:</strong> Koska kyseessä on eräajo (offline batch processing) eikä reaaliaikainen vuorovaikutus, eräkoko säädetään maksimiin (<code>max_num_batched_tokens</code>). DGX puskee synteettistä dataa levylle satojen tuhansien tokeneiden sekuntivauhdilla hyödyntäen massiivista KV-välimuistia.</li>
-<li><strong>Puhdistus:</strong> Kun generointi on valmis, GPU:n VRAM tyhjennetään kokonaan (<code>torch.cuda.empty_cache()</code> / prosessin sulkeminen).</li>
+<li><strong>Kokoonpano:</strong> Ladataan opettajamalli DGX Sparkiin käyttäen vLLM- tai TensorRT-LLM -moottoria hyödyntäen Blackwellin natiivia FP8-tarkkuutta (VRAM ~340 GB virtuaalinen / paloiteltu tila).</li>
+<li><strong>Ajo:</strong> Ajetaan satojatuhansia synteettisiä KYA-skenaarioita (Mandate, Attestation, validointi, poikkeustilanteet, turvallisuusrajat).</li>
+<li><strong>Optimointi:</strong> Offline-eräajossa maksimoidaan <code>max_num_batched_tokens</code> ja hyödynnetään massiivista KV-välimuistia. DGX puskee synteettistä dataa levylle satojen tuhansien tokeneiden sekuntivauhdilla.</li>
+<li><strong>Puhdistus:</strong> Kun generointi on valmis, GPU:n VRAM tyhjennetään kokonaan.</li>
 </ul>
 <h4 id="vaihe-2-datan-karsinta-ja-kuratointi-reward-evaluation-kesto-45-h">Vaihe 2: Datan karsinta ja kuratointi (Reward Evaluation) — Kesto: ~4–5 h</h4>
 <ul>
 <li><strong>Malli:</strong> <code>nvidia/nemotron-4-340b-reward</code></li>
-<li><strong>Konfiguraatio:</strong> Ladataan DGX Sparkin muistiin arvioijamalli (Reward model).</li>
+<li><strong>Kokoonpano:</strong> Ladataan arvioijamalli VRAMiin.</li>
 <li><strong>Ajo:</strong> Syötetään Vaiheen 1 tuottamat KYA-päätökset (Prompt + Agentin vaste ja perusteluketju) Reward-mallille.</li>
-<li><strong>Suodatus:</strong> Malli antaa jokaiselle ratkaisulle laatupisteet (asteikko 0–100). Hylätään kaikki paitsi täydelliset suoritukset (esim. top 10–20 %). Tämä suodatus karsii synteettisen kohinan ja luo virheettömän opetusaineiston, joka keskittyy tiukasti vain Jev-KYA -konformanssiin.</li>
-<li><strong>Puhdistus:</strong> Aineisto tallennetaan validoituna <code>.jsonl</code>-tiedostona levylle, ja GPU:n VRAM vapautetaan seuraavaa vaihetta varten.</li>
+<li><strong>Suodatus:</strong> LLM-as-a-Judge pisteytys (asteikko 0–100). Hylätään kaikki paitsi täydelliset suoritukset (top 10–20 %), luoden virheetön ~50 000 laadukkaan päätöksen <code>.jsonl</code>-dataset, joka keskittyy tiukasti Jev-KYA-konformanssiin.</li>
+<li><strong>Puhdistus:</strong> Aineisto tallennetaan <code>.jsonl</code>-tiedostona levylle ja VRAM tyhjennetään.</li>
 </ul>
 <h4 id="vaihe-3-oppilaan-koulutus-4b-sft-distillation-kesto-24-h">Vaihe 3: Oppilaan koulutus (4B SFT &amp; Distillation) — Kesto: ~2–4 h</h4>
 <ul>
-<li><strong>Malli:</strong> 4B-pohjamalli (esimerkiksi <code>Llama-3.2-3B</code> tai vastaava moderni arkkitehtuuri).</li>
-<li><strong>Konfiguraatio:</strong> Ladataan 4B-malli DGX Sparkiin. Koska 4B-kokoluokan malli on erittäin kevyt suhteessa Blackwell-laitteiston kapasiteettiin (BF16-painot ja optimointitila vain ~8–10 GB), koulutus voidaan ajaa täytenä hienosäätönä (<strong>Full Parameter Fine-Tuning</strong>), ei ainoastaan rajoitettuna LoRA/QLoRA-adapterina.</li>
-<li><strong>Ajo:</strong> Koulutus jaetaan DGX Sparkin GPU-ytimille hyödyntäen Data Parallelism / FSDP -menetelmiä.</li>
-<li><strong>Nopeus:</strong> Pienen mallin koulutus järeällä laskintalla saavuttaa äärimmäisen korkean läpimenon. 2–3 epookin (epoch) ajaminen noin 50 000 kultastandardin KYA-näytteellä kestää vain 2–4 tuntia.</li>
+<li><strong>Malli:</strong> 4B-pohjamalli (esim. <code>Llama-3.2-3B</code>).</li>
+<li><strong>Kokoonpano:</strong> Koulutus ajetaan täytenä hienosäätönä (<strong>Full Parameter Fine-Tuning</strong>, BF16) FSDP / Data Parallelism -menetelmällä kaikille DGX-ytimille.</li>
+<li><strong>Nopeus:</strong> Pienen mallin koulutus järeällä Blackwell-raudalla on äärimmäisen nopeaa — 2–3 epookin ajo kestää vain 2–4 tuntia.</li>
 </ul>
 <h4 id="vaihe-4-kvantisointi-ja-pakkaus-edge-laitteille-kesto-1-h">Vaihe 4: Kvantisointi ja pakkaus Edge-laitteille — Kesto: ~1 h</h4>
 <ul>
-<li><strong>Päätepisteet ja formaatit:</strong>
-<ol type="1">
-<li><strong>Mac / Apple Silicon:</strong> Muunnetaan malli MLX-yhteensopivaan muotoon ja kvantisoidaan 4-bittiseksi (INT4). Tuloksena on noin 2.5 GB kokoinen itsenäinen mallitiedosto, joka toimii M-sarjan prosessoreilla minimaalisella muistijalanjäljellä.</li>
-<li><strong>Lokaalit Agentti-GPU:t / Teollisuusreuna:</strong> Exportataan malli vLLM- ja TensorRT-LLM -yhteensopivaan AWQ- tai FP8-muotoon, jolla saavutetaan reaaliaikainen ~22 ms latenssi päätöstä kohti.</li>
-</ol></li>
+<li><strong>Windows 11 / PC-reunalaitteet:</strong> GGUF / ONNX / TensorRT-LLM Windows-tuella (~2.5 GB).</li>
+<li><strong>Intel Mac (2017, 16 GB RAM):</strong> GGUF / ONNX -muoto <code>llama.cpp</code>:n kautta CPU-päättelyllä (~2.5 GB).</li>
+<li><strong>Paikalliset agentit / Teollisuus-GPU:t:</strong> vLLM / TensorRT-LLM AWQ / FP8 (~22 ms latenssi päätöstä kohti).</li>
 </ul>
 <hr />
 <h2 id="osa-iii-miksi-tämä-on-ylivoimainen-lähestymistapa">4. Osa III: Miksi tämä on ylivoimainen lähestymistapa?</h2>
