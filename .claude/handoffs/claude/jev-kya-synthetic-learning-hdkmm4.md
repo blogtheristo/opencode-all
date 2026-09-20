@@ -12,7 +12,7 @@ Two parallel discoveries this session:
 
 1. **Security Fix (Code):** Proxy Trust Validator middleware — validates IPv4-mapped IPv6 trust subnets, prevents IP spoofing. 27 tests ✅. Ready to integrate. **Deferred to Saito** for integration option (A/B/C).
 
-2. **Jev-KYA Synthetic Learning (Breakthrough):** Successfully distilled DeepSeek V4 Flash (157 GB) to 4B classifier. 20× smaller, 22 ms inference, outperforms teacher. **Ready for NVIDIA integration planning**.
+2. **Jev-KYA Synthetic Learning (Breakthrough):** Successfully distilled DeepSeek V4 Flash (157 GB) to 4B classifier. 20× smaller, 22 ms inference, outperforms teacher. **Execution plan finalized: 4-phase DGX Spark pipeline (13–18h sequential) ready for HIC approval**.
 
 ---
 
@@ -21,7 +21,12 @@ Two parallel discoveries this session:
 ### Field Notes
 
 - `docs/field-notes/2026-09-20-proxy-trust-validator-security-fix.md` — Detailed security analysis, integration options (A/B/C), trust subnet audit checklist
-- `docs/field-notes/2026-09-20-jev-kya-synthetic-learning-nvidia-integration.md` — Full 9-week NVIDIA integration plan (5 phases, 4.5 FTE, risk/mitigation)
+- `docs/field-notes/2026-09-20-jev-kya-synthetic-learning-nvidia-integration.md` — NVIDIA NeMo integration overview (5-phase, 9-week plan)
+- `docs/field-notes/2026-09-20-jev-kya-nemotron-distillation-dgx-execution-plan.md` — **FINAL EXECUTION PLAN**: 4-phase DGX Spark pipeline ready for approval. Phase 1: Teacher inference 6-8h, Phase 2: Reward curation 4-5h, Phase 3: SFT+Distillation 2-4h, Phase 4: Quantization 1h. Total 13–18h. Sequential architecture (single node). Deployment: Mac (MLX INT4, 2.5GB), agent GPUs (vLLM AWQ, 4GB).
+
+### Plan Export
+
+- `docs/plans/JEV-KYA-4B-NEMOTRON-DISTILLATION-PLAN.txt` — Clean text export for external sharing/Gemini input
 
 ### KB Articles (raw, pending compile when backend available)
 
@@ -50,24 +55,34 @@ Two parallel discoveries this session:
 
 **Action:** Once Saito decides, integration takes ~1 hour.
 
-### 2. Jev-KYA Synthetic Learning — NVIDIA Integration
+### 2. Jev-KYA Synthetic Learning — DGX Spark Execution
 
-**Status:** Breakthrough validated; full plan drafted; ready for HIC go/no-go.
+**Status:** ✅ **EXECUTION PLAN FINALIZED** — 4-phase DGX Spark pipeline ready for HIC approval.
 
 **What's Done:**
 
-- Distillation proof-of-concept (user's work: 157 GB → 4B, 22 ms, green metrics)
-- 9-week integration roadmap (5 phases, Phase 1 = 1-week architect assessment)
-- Risk/mitigation analysis, success metrics, resource estimate
+- Distillation proof-of-concept (user's work: 157 GB → 4B, 22 ms inference, outperforms teacher)
+- **Final execution plan:** 4-phase sequential pipeline (13–18h total on single DGX Spark node)
+  - Phase 1 (6–8h): Teacher inference — Nemotron-4-340B-Instruct generates 100K–200K synthetic KYA scenarios
+  - Phase 2 (4–5h): Reward curation — Filter to 50K high-quality examples (reward score ≥ 80)
+  - Phase 3 (2–4h): SFT + distillation — Train 4B student model (BF16 full parameter fine-tuning, 2–3 epochs)
+  - Phase 4 (1h): Quantization & deployment — Export to MLX/Mac (2.5GB INT4), vLLM/agent GPU (4GB AWQ)
+- Resource breakdown, risk mitigation, compliance checklist included
 
-**Go/No-Go Questions:**
+**Deployment Targets:**
 
-1. Proceed with full NVIDIA integration plan, or defer to after jev-kya calibration study finishes (2026-10)?
-2. Assign architect for Phase 1 (1-week proof-of-concept on NeMo + TensorRT)?
-3. Reserve DGX Spark resources (40–50 GPU-hours for Phase 3 tuning)?
-4. Pick synthetic label source: OpenAI (gpt-4), Claude Opus, or internal?
+- Mac: MLX INT4 format (~2.5 GB, 30–50 ms per token)
+- Agent GPUs: vLLM AWQ format (~4 GB, 8–15 ms per decision)
+- Optional edge: ONNX INT8 format (~1 GB)
 
-**Recommendation:** **Go.** Distillation is working; NVIDIA tools are proven. Phase 1 (1 week) is low-risk; gives us confidence on Phase 2 timeline before committing full resources.
+**HIC Approval Needed:**
+
+1. **Go/No-Go** on execution plan (approve or request modifications)?
+2. **Assign ML engineer** for Phase 1 setup (~1 FTE for 18h sequential execution)?
+3. **Schedule DGX allocation** (contiguous 18h window or multi-day phases)?
+4. **Confirm targets:** Reward threshold (≥80), accuracy parity (≥95% of teacher), quantization tolerance (≤2% accuracy drop)?
+
+**Recommendation:** ✅ **GO.** Plan is detailed, sequential (no resource contention), Rule 14 compliant (DGX-first, sovereign). Post-distillation inference cost = $0 at scale. Timeline realistic for assigned resources.
 
 ---
 
@@ -81,10 +96,10 @@ Two parallel discoveries this session:
 
 ### Jev-KYA Synthetic Learning
 
-- **Distillation:** 157 GB → 4B (20× size reduction)
-- **Inference:** 22 ms per decision (acceptable for KYA gates)
-- **Accuracy:** Outperforms teacher on quick-response classification
-- **Status:** Ready for calibration study + NVIDIA integration planning
+- **Distillation:** 157 GB → 4B (20× size reduction); 22 ms inference per decision
+- **Accuracy:** Outperforms teacher on quick-response classification tasks
+- **Execution Plan:** Finalized (4-phase DGX Spark pipeline, 13–18h sequential)
+- **Status:** ✅ Ready for HIC approval + ML engineer assignment + DGX resource scheduling
 
 ---
 
