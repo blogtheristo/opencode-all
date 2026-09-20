@@ -27,6 +27,26 @@
 
 ---
 
+## Completed ✅
+
+### Product Detail Pages
+
+- ✅ Created `/products/lifetime-web-starter.html` (650€)
+- ✅ Created `/products/lifetime-webstore-mini.html` (350€)
+- ✅ Added campaign discount (CAMPAIGN-A5-40, -40%) to both pages
+- ✅ Updated products.json with detailsUrl links
+- ✅ Added both products to seriousProductIds (now public on price-list)
+- ✅ Mirrored to landing-pages/ for dual-folder sync
+- ✅ Regenerated feeds (google-products.xml)
+
+### Public URLs (Live)
+
+- **WEB-STARTER:** `https://dws10.com/products/lifetime-web-starter.html`
+- **WEBSTORE-MINI:** `https://dws10.com/products/lifetime-webstore-mini.html`
+- **Price List:** `https://dws10.com/price-list/` (both products now visible)
+
+---
+
 ## Follow-up Opportunities
 
 ### 1. **Campaign Analytics Setup** (owner: HIC)
