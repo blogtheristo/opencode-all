@@ -429,7 +429,7 @@ export class SeoAuditAgent extends BaseAgent {
     output: SeoAuditOutput,
     context: AgentContext,
   ): Promise<SeoAuditOutput['kyaJevReview']> {
-    const client = this.getLLMClient();
+    const client = typeof this.getLLMClient === 'function' ? this.getLLMClient() : null;
     if (!client) return undefined;
 
     try {
