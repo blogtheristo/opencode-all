@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A5 Kampanja Kaksipuolinen - Lifetime Oy</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+    <style>
+      :root {
+        --gold: #d4a574;
+        --dark: #0f0f0f;
+        --card-bg: #1a1a1a;
+        --light-text: #f5f5f5;
+        --muted-text: #aaaaaa;
+        --border-color: #333333;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #1f1f1f;
+        color: var(--light-text);
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+
+      /* A5 Page Container (148 x 210 mm) */
+      .page {
+        width: 148mm;
+        height: 210mm;
+        background-color: var(--dark);
+        border: 1px solid var(--border-color);
+        padding: 14mm;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+      }
+
+      /* Typography */
+      h1 {
+        color: var(--gold);
+        font-size: 1.8em;
+        font-weight: 800;
+        line-height: 1.2;
+        margin: 0 0 6px 0;
+      }
+
+      h2 {
+        color: var(--gold);
+        font-size: 1.1em;
+        font-weight: 700;
+        margin: 10px 0 4px 0;
+        border-bottom: 1px solid rgba(212, 165, 116, 0.3);
+        padding-bottom: 4px;
+      }
+
+      p {
+        margin: 0 0 8px 0;
+        font-size: 0.85em;
+        line-height: 1.4;
+      }
+
+      .subtitle {
+        font-size: 0.9em;
+        font-weight: 600;
+        color: var(--light-text);
+        margin-bottom: 15px;
+      }
+
+      /* Front Page Pricing Cards */
+      .offer-card {
+        background: var(--card-bg);
+        border: 1px solid var(--gold);
+        border-radius: 8px;
+        padding: 12px 15px;
+        margin-bottom: 12px;
+      }
+
+      .product-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+      }
+
+      .product-title {
+        font-weight: 700;
+        font-size: 0.95em;
+      }
+
+      .product-code {
+        font-size: 0.75em;
+        color: var(--muted-text);
+      }
+
+      .product-price {
+        font-size: 1.3em;
+        font-weight: 800;
+        color: var(--gold);
+      }
+
+      .product-ovh {
+        font-size: 0.75em;
+        color: var(--muted-text);
+        text-decoration: line-through;
+      }
+
+      .code-badge {
+        background: var(--gold);
+        color: #000;
+        font-weight: 800;
+        font-size: 0.9em;
+        padding: 10px;
+        text-align: center;
+        border-radius: 6px;
+        letter-spacing: 0.5px;
+        margin: 15px 0;
+      }
+
+      .validity {
+        text-align: center;
+        font-size: 0.8em;
+        color: var(--muted-text);
+      }
+
+      .cta-btn {
+        background: var(--gold);
+        color: #000;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 0.95em;
+        padding: 12px;
+        text-align: center;
+        border-radius: 6px;
+        display: block;
+        margin-top: 15px;
+      }
+
+      .cta-btn:hover {
+        opacity: 0.9;
+      }
+
+      /* Back Page Grid & Lists */
+      ul {
+        margin: 4px 0 8px 0;
+        padding-left: 18px;
+        font-size: 0.8em;
+        color: #dddddd;
+      }
+
+      li {
+        margin-bottom: 3px;
+      }
+
+      .qr-section {
+        background: var(--card-bg);
+        border: 1px dashed var(--gold);
+        padding: 10px;
+        border-radius: 6px;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .qr-section code {
+        color: var(--gold);
+        font-weight: 600;
+        font-size: 0.8em;
+      }
+
+      .footer-text {
+        font-size: 0.7em;
+        color: var(--muted-text);
+        text-align: center;
+        border-top: 1px solid var(--border-color);
+        padding-top: 8px;
+        margin-top: 10px;
+      }
+
+      /* Print Specifications for A5 Two-Sided Output */
+      @media print {
+        body {
+          background: none;
+          padding: 0;
+          gap: 0;
+        }
+        .page {
+          border: none;
+          box-shadow: none;
+          border-radius: 0;
+          width: 148mm;
+          height: 210mm;
+          page-break-after: always;
+          break-after: page;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SIVU 1: ETUPUOLI -->
+    <div class="page">
+      <div>
+        <h1>Tempaise liiketoiminta nousuun.</h1>
+        <div class="subtitle">Modernit verkkosivut | Sähköposti | Verkkokauppa</div>
+
+        <div class="offer-card">
+          <h3
+            style="
+              color: var(--gold);
+              margin: 0 0 10px 0;
+              font-size: 0.9em;
+              text-transform: uppercase;
+            "
+          >
+            Kampanja-tarjous syyskuu 2026
+          </h3>
+
+          <div class="product-row">
+            <div>
+              <div class="product-title">WEBSTORE-MINI</div>
+              <div class="product-code">Pienet verkkokaupat</div>
+            </div>
+            <div style="text-align: right">
+              <div class="product-price">350 €</div>
+              <div class="product-ovh">OVH 490 €</div>
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid #333; margin: 8px 0" />
+
+          <div class="product-row">
+            <div>
+              <div class="product-title">WEB-STARTER</div>
+              <div class="product-code">Ammattimaiset verkkosivut</div>
+            </div>
+            <div style="text-align: right">
+              <div class="product-price">650 €</div>
+              <div class="product-ovh">OVH 910 €</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-badge">-40% KAMPANJA-ALENNUS</div>
+
+        <div class="validity">
+          Tarjous voimassa: <strong>31.10.2026 asti</strong><br />
+          <small>* Hintoihin lisätään ALV 25,5 %</small>
+        </div>
+      </div>
+
+      <div>
+        <a href="https://dws10.com/products/lifetime-web-starter.html" class="cta-btn"
+          >Tutustu tarjoukseen →</a
+        >
+      </div>
+    </div>
+
+    <!-- SIVU 2: KÄÄNTÖPUOLI -->
+    <div class="page">
+      <div>
+        <h2>🌐 Verkkosivut</h2>
+        <p>
+          Ammattimainen verkkonäkyvyys yrityksellesi. Modernit ja nopeat sivut, jotka muuttavat
+          vierailijat asiakkaiksi.
+        </p>
+        <ul>
+          <li>Mobiiliystävälliset web-sivut</li>
+          <li>SEO-optimoitu 1–3 kielelle (FI, SWE, EN)</li>
+          <li>Nopea lataus</li>
+          <li>Google Maps, WhatsApp, sähköposti, lomake</li>
+        </ul>
+
+        <h2>📧 Yritys-sähköposti</h2>
+        <p>
+          Ammattimaiset osoitteet yrityksesi nimellä. Luotettava sähköposti ja chat ml.
+          Gemini-tekoäly.
+        </p>
+        <ul>
+          <li>nimi@yritys.fi + 25 GB tallennustila</li>
+          <li>24/7 turvallinen käytettävyys</li>
+          <li>Optiona työnkulut ja liitteiden hallinta</li>
+        </ul>
+
+        <h2>🛒 Verkkokauppa</h2>
+        <p>
+          Myy tuotteesi verkossa helposti. Maksuvalmis kokonaisuus, varastonhallinta ja
+          asiakaspalvelu.
+        </p>
+        <ul>
+          <li>Tuotteiden ja hintalistojen hallinta</li>
+          <li>Valmiit maksuvaihtoehdot</li>
+        </ul>
+
+        <h2>🤝 Asiakastuki & 🔒 Turvallisuus</h2>
+        <p>Nopea tuki (WhatsApp, puhelin +358 400 319 010, sähköposti, lomake).</p>
+        <ul>
+          <li>SSL-salaus & päivittäiset varmuuskopiot</li>
+          <li>99,9 % palvelun saatavuus</li>
+        </ul>
+
+        <div class="qr-section">
+          <p style="margin: 0 0 4px 0; font-size: 0.8em; font-weight: 700">
+            Skannaa koodi ja aloita:
+          </p>
+          <code>dws10.com/products/lifetime-web-starter.html</code>
+        </div>
+      </div>
+
+      <div class="footer-text">
+        © 2026 Lifetime Oy | Korkealaatuiset verkkopalvelut yrityksellesi | dws10.com | Hintoihin
+        lisätään ALV 25,5 %
+      </div>
+    </div>
+  </body>
+</html>
