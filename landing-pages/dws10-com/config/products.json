@@ -6258,7 +6258,9 @@
       "LF-DGX-SPARK",
       "LF-IGX-ORIN",
       "LF-NVIDIA-INSTALL",
-      "aws-consultancy"
+      "aws-consultancy",
+      "LIFETIME-WEB-STARTER",
+      "LIFETIME-WEBSTORE-MINI"
     ],
     "independentProductIds": [
       "LF-ONTOLOGY-25",
@@ -6277,7 +6279,7 @@
         "path": "/price-list/",
         "classification": "serious and supporting",
         "productRule": "non-BLUE, non-archived products plus subscriptions",
-        "expectedProductCount": 68,
+        "expectedProductCount": 65,
         "includesSubscriptions": true
       },
       "lifetimeConsulting": {
