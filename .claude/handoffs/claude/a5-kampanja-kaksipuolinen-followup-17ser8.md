@@ -8,14 +8,16 @@
 
 ## Campaign State
 
-**Merged deliverables (PR #2052):**
+**Merged deliverables (PR #2052 + current branch):**
 
-- HTML campaign page: `/campaigns/a5-kampanja-kaksipuolinen.html` (live on main)
-- Print-ready 6-page A5 PDF (93% scale, two-sided)
+- HTML campaign page: `/campaigns/a5-kampanja-kaksipuolinen.html` ✅ (live in branch)
+  - Two-sided A5 flyer (print-optimized 148×210mm)
+  - Pre-reduced prices: €350 (WEBSTORE-MINI), €650 (WEB-STARTER)
+  - Dark theme with gold branding (#D4A574)
 - Campaign products verified in `products.json`:
-  - `LIFETIME-WEBSTORE-MINI` (350€, one-time)
-  - `LIFETIME-WEB-STARTER` (650€, one-time)
-- Promotional discount: `-40%` code `CAMPAIGN-A5-40`
+  - `LIFETIME-WEBSTORE-MINI` (350€ pre-reduced, one-time)
+  - `LIFETIME-WEB-STARTER` (650€ pre-reduced, one-time)
+- Discount strategy: **Pre-reduced pricing** (40% already included in displayed prices)
 - VAT: Finland 25.5%
 
 **Content verified:**
@@ -39,15 +41,26 @@
 - ✅ Mirrored to landing-pages/ for dual-folder sync
 - ✅ Regenerated feeds (google-products.xml)
 
-### Homepage Redesign (PR #2053 in progress)
+### Campaign Page & Homepage Integration (PR #2053 in progress)
+
+**Campaign Page:**
+
+- ✅ Created `/campaigns/a5-kampanja-kaksipuolinen.html` (print-optimized A5 flyer)
+  - Front: Pre-reduced pricing (€350, €650), -40% messaging, CTA
+  - Back: Service features (websites, email, e-commerce, support, security)
+  - Footer: Lifetime Oy branding, contact info
+- ✅ Dual-folder sync to `landing-pages/dws10-com/campaigns/`
+
+**Homepage Redesign:**
 
 - ✅ Updated `lifetime.fi/index.html` hero section
   - Headline: "Tempaise liiketoiminta nousuun" (campaign messaging)
   - Tagline: SME-focused on websites, e-commerce, email automation
-  - Stats: Pricing, campaign discount code, 72h go-live
+  - Stats: Pricing, campaign discount messaging, 72h go-live
   - CTAs: Campaign page + free consultation
 - ✅ Updated page meta tags (title, description, OG tags) for SME focus
 - ✅ Replaced "How Compliance Outcomes Get Delivered" with "How Your Business Gets Started"
+- ✅ Updated CTA links to point to `/campaigns/a5-kampanja-kaksipuolinen.html` (relative URLs)
 - ✅ Created PR #2053 for review
 
 ### Public URLs (Live)
