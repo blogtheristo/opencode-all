@@ -79,13 +79,20 @@ None. Branch is production-ready.
 3. Merge to main
 4. Monitor dws10.com product feed update (auto-deployed on merge)
 
+## Latest Changes (2026-09-20)
+
+- **Commit bfba9a7:** Replaced Side 2 with Lifetime services package pricing
+  - Removed cari.fi e-commerce mockup SVG
+  - Added pricing breakdown: Web 0€/kk, Yritys.fi 50€, Email 9€/kk, Store 0€/kk
+  - Annual billing model with CTA
+
 ## Handoff State
 
-- **Working tree:** Clean
-- **Staging:** All changes committed
+- **Working tree:** Clean (post-commit)
+- **Staging:** All changes committed and pushed
 - **Remote:** Pushed to `origin/claude/kampanja-a5-kaksipuolinen-iyqvn9`
-- **PR:** Open and ready for review
-- **Artifact:** https://claude.ai/artifact/AKDp6zda6GWrwGTxJPEGrR (A5 flyer preview)
+- **PR:** #2052 Open and ready for review (auto-updated with latest commits)
+- **Artifact:** https://claude.ai/artifact/QYzs5D9MMWna8a3ZU4ASzx v4 (A5 dual-sided flyer preview)
 
 ---
 
