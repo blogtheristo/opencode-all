@@ -1,0 +1,35 @@
+{
+  "version": "1.1",
+  "lastUpdated": "2026-09-18",
+  "sourceOfTruth": false,
+  "structuredMirror": true,
+  "humanReadableSource": "src/agents/model-selector.ts",
+  "owner": "risto.paarni@lifetime.fi",
+  "note": "Structured mirror of DWS_TRUTH_STANDARD.md §2 row 40. Machine-readable reflection of the deployed DGX Spark Ollama pair and LiteLLM-as-glue rule. If this file and OLLAMA_DEPLOYED_MODELS in src/agents/model-selector.ts disagree, the TypeScript constant wins. deprecatedDisplayPhrases are bare Ollama ids so lint-truth-claims.mjs FAILs a live public-layer claim that names the id without extra words.",
+  "deployedOllama": {
+    "deep": "nemotron-3-super",
+    "fast": "qwen3-coder:30b",
+    "enforcedBy": [
+      "src/agents/model-selector.ts OLLAMA_DEPLOYED_MODELS",
+      "scripts/daily/check-ollama-models.sh REQUIRED_MODELS",
+      "infrastructure/dgx-spark/deploy.sh",
+      "config/litellm-config.yaml"
+    ]
+  },
+  "litellm": {
+    "role": "glue",
+    "notABrain": true,
+    "config": "config/litellm-config.yaml",
+    "commercialAlias": "smart",
+    "noCloudFallbackAlias": "local-sovereign"
+  },
+  "approvedDisplayPhrases": ["nemotron-3-super", "qwen3-coder:30b", "LiteLLM is glue, not a Brain"],
+  "deprecatedDisplayPhrases": [
+    "llama3.3:70b",
+    "qwen2.5:7b",
+    "qwen2.5:72b",
+    "qwen2.5:32b",
+    "gpt-oss:120b",
+    "phi4"
+  ]
+}

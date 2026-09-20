@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.29
+Version: 3.30
 
 Sessions & Modifications:
 
+- Version: 3.30 | Tool: GitHub Copilot Coding Agent | Session: cursor/dgx-ollama-litellm-router-a455 | Date: 18.09.2026 | Changes: Merge resolution preserved LiteLLM router standards lock: Docker `OLLAMA_API_BASE` wiring (`host.docker.internal` in Linux compose), deployed Spark Ollama pair (`nemotron-3-super` + `qwen3-coder:30b`), and `FRONTIER-CLAUDE-OPUS` = `claude-opus-4-8`.
 - Version: 3.29 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark loginctl: this SSH is **130**; **129** is the other admin100 session; **c1** is gdm (leave it). `who` shows tmux(3006) on pts/0 since 17.09. Inspect tmux before `terminate-session 129` — that can kill tmux.
 - Version: 3.28 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark **GitHub CLI**. Official apt recipe **ran**; `gh` already **2.45.0-1ubuntu0.3+esm3** (Ubuntu ESM). cli.github.com did not replace it. Do not force-upgrade until `apt-cache policy gh`. GitHub flags 2.45.x community packages as broken (deprecated APIs).
 - Version: 3.27 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: How to log out Spark SSH sessions **#129/#130** after needrestart: `exit` each SSH (or `loginctl terminate-session` the other id), reconnect. Do not restart docker/gdm. Do not `terminate-user gdm`.

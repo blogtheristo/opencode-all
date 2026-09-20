@@ -9,6 +9,15 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- DGX local-first LiteLLM router (`config/litellm-config.yaml`) using only
+  `OLLAMA_DEPLOYED_MODELS` (`nemotron-3-super`, `qwen3-coder:30b`) and
+  `os.environ/*` keys. Aliases map the 2026-09-18 SIMPLE/MEDIUM/COMPLEX paste
+  onto `src/agents/model-selector.ts`. Field note:
+  `docs/field-notes/2026-09-18-dgx-ollama-litellm-router.md`.
+- DWS standards lock for that router: Truth Standard row 40 +
+  `config/truth/dgx-ollama-deployed-pair.json`; Model Standard v1.2 `FRONTIER-CLAUDE-OPUS`
+  = Claude Opus 4.8 / `claude-opus-4-8` + `local-sovereign`; Admin Manual v3.21
+  (`OLLAMA_API_BASE` + Docker `extra_hosts`); Standards Library v1.14; Standards Routing v1.1.
 - Win11 **WSL 2** recorded as updated (HIC 18.09.2026). Admin Manual v3.17 operator
   pin Microsoft stable **2.7.14**; Plan9 fix is KB5129195 after KB5124008.
   Field note: `docs/field-notes/2026-09-18-win11-wsl-updated.md`.

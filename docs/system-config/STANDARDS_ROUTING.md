@@ -33,6 +33,8 @@ source: CLAUDE.md (canonical)
 | sales outreach, role-by-stage matrix, enterprise funnel stage | `DWS_ROLES_REGISTRY.md` |
 | standards index / lookup / catalogue | `DWS_STANDARDS_LIBRARY.md` |
 | session outcome, field note, `Learn/` HTML, HIC decision point (EU AI Act Art. 14) | `DWS_LEARNING_STANDARD.md` |
+| Brain / LLM / Ollama / LiteLLM / model routing / which model runs on DGX Spark | `DWS_MODEL_STANDARD.md` + Truth Standard §2 row 40 |
+| HIC says “use DWS standard(s)” | Load **all** matched rows; always Truth + Roles |
 
 ## How to Apply
 

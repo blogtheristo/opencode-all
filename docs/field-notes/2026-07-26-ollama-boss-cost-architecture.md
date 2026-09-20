@@ -1,8 +1,9 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: Ollama-Boss Cost & Model Architecture — corrected after billing fact-check
-Version: 1.0
-Date: 2026-07-26
+Version: 1.1
+Date: 2026-09-18
+Prior: 1.0 (2026-07-26) — T0/T1/T2 table kept; deployed-model supersession banner added 2026-09-18.
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
 Status: Active
@@ -15,6 +16,8 @@ Purpose: Record the corrected cost/model architecture for the Ollama-boss
 
 # Field Note — Ollama-Boss Cost & Model Architecture (corrected)
 
+> **Supersession (2026-09-18).** T0/T1/T2 still holds. The models named in §2 (`qwen2.5:7b`, `qwen2.5:72b`) are **not** on the Spark. Deployed pair is `nemotron-3-super` + `qwen3-coder:30b`. Live LiteLLM yaml: `config/litellm-config.yaml`. Mapping field note: `docs/field-notes/2026-09-18-dgx-ollama-litellm-router.md`. This table is left as written (Rule 12).
+
 ## 1. Fact-check that changed the plan (verified via web, 2026-07-26)
 
 - **The June 15 2026 two-pool billing split was CANCELLED before it took effect.** There is **no separate $20/mo "programmatic pool"** on Pro. All Claude Code usage — interactive AND scripted/SDK/Actions — draws from the **normal subscription usage window**. (Sources: The New Stack, aicodex.to, DigitalApplied.)
@@ -26,16 +29,17 @@ Purpose: Record the corrected cost/model architecture for the Ollama-boss
 
 ## 2. The layered model architecture (DGX Spark GN-100: 128 GB unified, ~98 GB for models)
 
-| Tier | Handles | Model | Cost | Where |
-| --- | --- | --- | --- | --- |
-| **T0 workers (≈95% of calls)** | classification, triage, extraction, safety scoring — high volume | **qwen2.5:7b** (or llama3.1:8b) | €0/token | Ollama, GN-100 |
-| **T1 boss / orchestrator** | read worker outputs, synthesize, plan, route | **qwen2.5:72b** (or llama3.3:70b) | €0/token | Ollama, GN-100 |
-| **T2 hardest ≈5%** | novel architecture, subtle correctness/security, ambiguous product calls | **Opus 5 via API key** ($5/$25) *or* Sonnet 5 (Pro, interactive) | per-token, no cap | Anthropic API / Pro |
-| **T3 human routine coding** | mechanical KEEP_REVIEW fixes, rebases, edits | Cursor Pro's included cheaper model | Cursor Pro flat | Cursor on DGX |
+| Tier                           | Handles                                                                  | Model                                                            | Cost              | Where               |
+| ------------------------------ | ------------------------------------------------------------------------ | ---------------------------------------------------------------- | ----------------- | ------------------- |
+| **T0 workers (≈95% of calls)** | classification, triage, extraction, safety scoring — high volume         | **qwen2.5:7b** (or llama3.1:8b)                                  | €0/token          | Ollama, GN-100      |
+| **T1 boss / orchestrator**     | read worker outputs, synthesize, plan, route                             | **qwen2.5:72b** (or llama3.3:70b)                                | €0/token          | Ollama, GN-100      |
+| **T2 hardest ≈5%**             | novel architecture, subtle correctness/security, ambiguous product calls | **Opus 5 via API key** ($5/$25) _or_ Sonnet 5 (Pro, interactive) | per-token, no cap | Anthropic API / Pro |
+| **T3 human routine coding**    | mechanical KEEP_REVIEW fixes, rebases, edits                             | Cursor Pro's included cheaper model                              | Cursor Pro flat   | Cursor on DGX       |
 
 > **Correction (30.07.2026, external review).** The `€0/token` in the T0/T1 rows above means **no external per-token bill** — it does not mean free. Electricity, hardware amortisation, model serving, maintenance and finite throughput capacity remain part of the cost base. The table is left as written (Rule 12) but the figure must not be quoted as zero cost in any customer, investor or public document. Canonical wording: `PHD_FIREHORSE §14.45` Finding 5.
 
 ### Do we need two Ollama models? **Yes — one big boss + one small worker.**
+
 - The boss (72B) is wasted on trivial worker classification; the worker (7B) is too weak to orchestrate. Splitting them is exactly what `src/agents/model-selector.ts` already encodes (LITE = qwen2.5:7b; HEAVY = qwen 32B local).
 - Both fit resident on GN-100: 72B Q4 ≈ 40–48 GB + 7B ≈ 5 GB + KV/overhead ≪ 98 GB.
 - Throughput: 7B workers fast (≈50–80 tok/s) carry the 95% volume; the 72B boss is slower (≈10–15 tok/s single-stream on GB10) but called far less often. **Benchmark both before trusting these numbers.**
@@ -44,8 +48,9 @@ Purpose: Record the corrected cost/model architecture for the Ollama-boss
 ## 3. How Opus 5 actually gets called for the hardest 5%
 
 **Pro cannot call Opus in Claude Code.** Two clean options:
+
 - **(a) API key → Opus 5** ($5/$25 per-token, no ceiling): the boss escalates a genuinely hard call to the API. Cost/call ≈ 3000/1e6×5 + 800/1e6×25 = **$0.035** (lean estimate — real orchestration calls are fatter). At 20k invocations × 5% = 1,000 calls ≈ **$35/mo, uncapped**. **Recommended** — matches the 95%-offload design, pay only for the 5%.
-- **(b) Max subscription:** buys Opus-in-Claude-Code + 5×/20× window. Worth it **only** if a human wants Opus driving *interactive* boss sessions, or Pro's window keeps getting blown on interactive work.
+- **(b) Max subscription:** buys Opus-in-Claude-Code + 5×/20× window. Worth it **only** if a human wants Opus driving _interactive_ boss sessions, or Pro's window keeps getting blown on interactive work.
 
 **Verdict:** "Pro is enough" holds — but as **Pro (Sonnet, interactive HIC) + an API key (per-token Opus/Sonnet for the automated hard 5%)**, not via a non-existent $20 pool. Cursor Pro adds a cheap human coding lane so Pro's window is spent on judgment, not typing.
 

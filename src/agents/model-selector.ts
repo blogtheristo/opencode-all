@@ -1,6 +1,9 @@
 /**
  * Multi-Agent Model Selector — DWS IQ 6/7
  *
+ * Evidence: Tool=Cursor Cloud Agent Model=cursor-grok-4.6-high-fast Agent=Sales Outreach Date=2026-09-18
+ * Audit trail: git log -- src/agents/model-selector.ts
+ *
  * Dynamically selects the "leanest" model for each agent sub-task.
  * Avoids over-investing in model capability for routine queries.
  *
@@ -129,6 +132,51 @@ export const OLLAMA_DEPLOYED_MODELS = {
   /** Fast path — docker-compose `OLLAMA_MODEL_FAST` */
   fast: 'qwen3-coder:30b',
 } as const;
+
+/**
+ * LiteLLM `model_name` aliases in `config/litellm-config.yaml`, plus the
+ * SIMPLE / MEDIUM / COMPLEX / REASONING labels from the 2026-09-18 local-first
+ * router paste. These are names only. Selection stays in `selectModel()` and
+ * `src/factory/` (Rule 5 — do not call a second LLM to classify complexity).
+ *
+ * There is no 3B–8B classifier on the box. SIMPLE/MEDIUM both land on
+ * `qwen3-coder:30b` until HIC approves a new REQUIRED_MODELS pull.
+ */
+export const LITELLM_TIER_ALIASES = {
+  'local-fast': 'lite',
+  SIMPLE: 'lite',
+  lite: 'lite',
+  'local-strong': 'heavy',
+  MEDIUM: 'standard',
+  standard: 'standard',
+  smart: 'heavy',
+  COMPLEX: 'heavy',
+  REASONING: 'heavy',
+  heavy: 'heavy',
+  'claude-sonnet': 'heavy',
+  'claude-opus': 'heavy',
+  'local-sovereign': 'heavy',
+} as const satisfies Record<string, ModelTier>;
+
+/** Which deployed Ollama id a LiteLLM alias should hit when staying local. */
+export const LITELLM_LOCAL_MODEL: Record<
+  keyof typeof LITELLM_TIER_ALIASES,
+  (typeof OLLAMA_DEPLOYED_MODELS)[keyof typeof OLLAMA_DEPLOYED_MODELS]
+> = {
+  'local-fast': OLLAMA_DEPLOYED_MODELS.fast,
+  SIMPLE: OLLAMA_DEPLOYED_MODELS.fast,
+  lite: OLLAMA_DEPLOYED_MODELS.fast,
+  'local-strong': OLLAMA_DEPLOYED_MODELS.deep,
+  MEDIUM: OLLAMA_DEPLOYED_MODELS.fast,
+  standard: OLLAMA_DEPLOYED_MODELS.fast,
+  smart: OLLAMA_DEPLOYED_MODELS.deep,
+  COMPLEX: OLLAMA_DEPLOYED_MODELS.deep,
+  REASONING: OLLAMA_DEPLOYED_MODELS.deep,
+  heavy: OLLAMA_DEPLOYED_MODELS.deep,
+  'claude-sonnet': OLLAMA_DEPLOYED_MODELS.deep,
+  'claude-opus': OLLAMA_DEPLOYED_MODELS.deep,
+  'local-sovereign': OLLAMA_DEPLOYED_MODELS.deep,
+};
 
 // ============ MODEL CATALOG ============
 
@@ -589,9 +637,9 @@ export function selectModel(
   };
 }
 
-/** The forced-escalation model for `escalateToClaude()` — not part of the normal tier fallback chain. */
+/** Forced-escalation Brain: Model Standard `FRONTIER-CLAUDE-OPUS` / registry `claude-opus-4-8`. */
 const ESCALATION_MODEL: ModelOption = {
-  id: 'claude-opus-5',
+  id: 'claude-opus-4-8',
   provider: 'anthropic',
   diskGb: 0,
   ramGb: 0,
@@ -602,12 +650,15 @@ const ESCALATION_MODEL: ModelOption = {
 };
 
 /**
- * Force escalation to Claude Opus 5 via the metered Anthropic API key.
+ * Force escalation to Claude Opus 4.8 (`FRONTIER-CLAUDE-OPUS` / `claude-opus-4-8`)
+ * via the metered Anthropic API key.
  *
  * For the hardest ~5% of calls that a local HEAVY model (or the default
  * `claude-sonnet-5` cloud fallback in `MODEL_CATALOG.heavy`) is not trusted to
  * carry — an explicit, opt-in path, not part of the normal tier fallback chain.
  * Gated on `ANTHROPIC_API_KEY`; never routes to the Claude Pro subscription.
+ * Canonical id is `config/llm-registry.json` current Opus — not an unregistered
+ * `claude-opus-5`.
  *
  * Throws if `ANTHROPIC_API_KEY` is not set — callers should check
  * `isProviderAvailable('anthropic')` first if they want to fall back instead
