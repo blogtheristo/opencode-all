@@ -2,7 +2,7 @@
 
 **Branch:** `claude/a5-kampanja-kaksipuolinen-followup-17ser8`  
 **Date:** 2026-09-20  
-**Status:** ✅ Predecessor merged; campaign deliverables live in main
+**Status:** ✅ Follow-up PR #2053 open; homepage redesign + product pages complete
 
 ---
 
@@ -29,7 +29,7 @@
 
 ## Completed ✅
 
-### Product Detail Pages
+### Product Detail Pages (Merged in PR #2052)
 
 - ✅ Created `/products/lifetime-web-starter.html` (650€)
 - ✅ Created `/products/lifetime-webstore-mini.html` (350€)
@@ -38,6 +38,17 @@
 - ✅ Added both products to seriousProductIds (now public on price-list)
 - ✅ Mirrored to landing-pages/ for dual-folder sync
 - ✅ Regenerated feeds (google-products.xml)
+
+### Homepage Redesign (PR #2053 in progress)
+
+- ✅ Updated `lifetime.fi/index.html` hero section
+  - Headline: "Tempaise liiketoiminta nousuun" (campaign messaging)
+  - Tagline: SME-focused on websites, e-commerce, email automation
+  - Stats: Pricing, campaign discount code, 72h go-live
+  - CTAs: Campaign page + free consultation
+- ✅ Updated page meta tags (title, description, OG tags) for SME focus
+- ✅ Replaced "How Compliance Outcomes Get Delivered" with "How Your Business Gets Started"
+- ✅ Created PR #2053 for review
 
 ### Public URLs (Live)
 
@@ -55,12 +66,14 @@
 - Set up UTM parameters for `CAMPAIGN-A5-40` discount code
 - Monitor conversion rate from flyer → product purchase
 - **Action:** Register campaign in analytics (Google Analytics 4, Bitly tracking)
+- **Status:** ⏳ Pending HIC decision
 
 ### 2. **Print Distribution** (operational)
 
 - Physical print from PDF to DWS6 office / partner distributors
 - Mail/hand-distribution to target SME segment (e.g., local businesses in Espoo)
 - **Action:** Obtain print order, shipping logistics, distribution contact list
+- **Status:** ⏳ Pending operational approval
 
 ### 3. **Localization & A/B Variants** (design)
 
