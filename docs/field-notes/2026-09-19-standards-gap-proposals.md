@@ -47,6 +47,4 @@ Document Status:
 
 ## HIC
 
-P1 closed by HIC (retire `***`). P2–P7 stay PENDING_REVIEW.
-
-N/A — Drive / calendar. Learn/ not rendered this step (P6).
+P1 and Learn/ HTML (P6) closed. P2–P5, P7 stay PENDING_REVIEW. Drive/calendar N/A.
