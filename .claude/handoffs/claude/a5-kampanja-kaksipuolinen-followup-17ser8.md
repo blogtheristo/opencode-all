@@ -71,6 +71,54 @@
 
 ---
 
+## Critical Infrastructure — Pre-Deployment Checklist
+
+**Status:** ⏳ Awaiting HIC action on real-payment checkout testing (blocker)
+
+### 1. **Checkout Payment Testing** ⏳ BLOCKER
+
+**Rule:** "Testaisin sen oikealla maksulla ennen kuin etusivu vaihtuu, en sen jälkeen" (Test with real payment BEFORE homepage changes, not after)
+
+- Test both campaign products with real payments (Revolut, PayPal)
+- Validate end-to-end checkout flow (product → cart → payment → success)
+- Verify order confirmation emails sent, backend records created
+- **Test amounts:** €0.01 each (minimal cost, verifies integration works)
+- **Products:** WEBSTORE-MINI (€350), WEB-STARTER (€650)
+- **Action:** Follow checklist in `docs/field-notes/2026-09-20-campaign-checkout-testing.md`
+- **Status:** ⏳ Pending user action
+
+**Decision:** Once checkout testing passes, homepage deployment is unblocked.
+
+### 2. **DWS10 Role Clarity** ✅ IMPLEMENTED
+
+**Issue:** Main dws10.com pages mixing sales with background/trust material ("dual-language cargo boxes")
+
+**Solution:** Created dedicated About page to separate roles:
+
+- **New page:** `dws10.com/about/` (links in footer, navigation)
+  - Company mission, vision, platform overview
+  - Company history, core values, leadership
+  - Links to Trust Center + Compliance Hub for security/governance
+  - Keeps main sales pages focused on products
+- **Dual-folder sync:** `landing-pages/dws10-com/about/`
+- **Status:** ✅ Complete
+
+### 3. **301 Redirects Strategy** ✅ PREPARED
+
+**Rule:** "301-uudelleenohjaukset pitää tehdä samassa julkaisussa kuin poisto" (Redirects in same publication as removals)
+
+**Current deployment:** No removals, no redirects needed
+
+**Future preparation:** Framework in place
+
+- Document: `docs/field-notes/2026-09-20-redirect-strategy.md`
+- Cloudflare `_redirects` file syntax documented
+- Redirect mappings prepared if lifetime.fi scope changes
+- Implementation ready when content removal occurs
+- **Status:** ✅ Framework ready (no current action needed)
+
+---
+
 ## Follow-up Opportunities
 
 ### 1. **Campaign Analytics Setup** (owner: HIC)
