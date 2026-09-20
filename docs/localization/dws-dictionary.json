@@ -531,6 +531,149 @@
       "fr": "auto-déclaré, non calibré",
       "ontologyId": "none",
       "source": "docs/KYA_JEV_SPECIFICATION.md §7"
+    },
+    "thinkingbox": {
+      "en": "ThinkingBox",
+      "fi": "ThinkingBox",
+      "sv": "ThinkingBox",
+      "de": "ThinkingBox",
+      "fr": "ThinkingBox",
+      "ontologyId": "agent_auditing",
+      "machineTranslationReview": "n/a_product_name",
+      "article50": false,
+      "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
+    },
+    "mcp": {
+      "en": "Model Context Protocol",
+      "fi": "Model Context Protocol",
+      "sv": "Model Context Protocol",
+      "de": "Model Context Protocol",
+      "fr": "Model Context Protocol",
+      "ontologyId": "agent_communication",
+      "machineTranslationReview": "n/a_technical_acronym",
+      "article50": false,
+      "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
+    },
+    "process_isolation": {
+      "en": "process isolation",
+      "fi": "prosessin eristäminen",
+      "sv": "processisolering",
+      "de": "Prozessisolierung",
+      "fr": "isolation des processus",
+      "ontologyId": "agent_auditing",
+      "machineTranslationReview": "pending_named_human",
+      "article50": true,
+      "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
+    },
+    "stateful_workflows": {
+      "en": "stateful workflows",
+      "fi": "tilalliset työnkulut",
+      "sv": "tillståndsbaserade arbetsflöden",
+      "de": "zustandsbehaftete Arbeitsabläufe",
+      "fr": "flux de travail avec état",
+      "ontologyId": "agent_auditing",
+      "machineTranslationReview": "pending_named_human",
+      "article50": true,
+      "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
+    },
+    "side_effect_inspection": {
+      "en": "side effect inspection",
+      "fi": "sivuvaikutusten tarkastus",
+      "sv": "bieffektgranskning",
+      "de": "Überprüfung von Nebenwirkungen",
+      "fr": "inspection des effets secondaires",
+      "ontologyId": "agent_auditing",
+      "machineTranslationReview": "pending_named_human",
+      "article50": true,
+      "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
+    },
+    "confidence_drift": {
+      "en": "confidence drift",
+      "fi": "luottamuksen häviäminen",
+      "sv": "självförtroendet-drift",
+      "de": "Vertrauens-Drift",
+      "fr": "dérive de confiance",
+      "ontologyId": "agent_auditing",
+      "machineTranslationReview": "pending_named_human",
+      "article50": true,
+      "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
+    },
+    "dgx": {
+      "en": "DGX",
+      "fi": "DGX",
+      "sv": "DGX",
+      "de": "DGX",
+      "fr": "DGX",
+      "ontologyId": "infrastructure",
+      "machineTranslationReview": "n/a_acronym",
+      "article50": false,
+      "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
+    },
+    "aspire_telemetry": {
+      "en": "Aspire telemetry",
+      "fi": "Aspire-telemetria",
+      "sv": "Aspire-telemetri",
+      "de": "Aspire-Telemetrie",
+      "fr": "télémétrie Aspire",
+      "ontologyId": "observability",
+      "machineTranslationReview": "pending_named_human",
+      "article50": true,
+      "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
+    },
+    "opentelemetry": {
+      "en": "OpenTelemetry",
+      "fi": "OpenTelemetry",
+      "sv": "OpenTelemetry",
+      "de": "OpenTelemetry",
+      "fr": "OpenTelemetry",
+      "ontologyId": "observability",
+      "machineTranslationReview": "n/a_product_name",
+      "article50": false,
+      "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
+    },
+    "control_room": {
+      "en": "Control Room",
+      "fi": "Kontrollihuone",
+      "sv": "Kontrollrum",
+      "de": "Kontrollraum",
+      "fr": "Salle de contrôle",
+      "ontologyId": "observability",
+      "machineTranslationReview": "pending_named_human",
+      "article50": true,
+      "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
+    },
+    "digital_office": {
+      "en": "Digital Office",
+      "fi": "Digitaalinen toimisto",
+      "sv": "Digital kontor",
+      "de": "Digital Office",
+      "fr": "Bureau numérique",
+      "ontologyId": "observability",
+      "machineTranslationReview": "pending_named_human",
+      "article50": true,
+      "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
+    },
+    "situation_room": {
+      "en": "Situation Room",
+      "fi": "Tilannehuone",
+      "sv": "Situationsrum",
+      "de": "Situationsraum",
+      "fr": "Salle de situation",
+      "ontologyId": "observability",
+      "machineTranslationReview": "pending_named_human",
+      "article50": true,
+      "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
+    },
+    "dws_dashboard": {
+      "en": "DWS Dashboard",
+      "fi": "DWS Dashboard",
+      "sv": "DWS Dashboard",
+      "de": "DWS Dashboard",
+      "fr": "DWS Dashboard",
+      "ontologyId": "observability",
+      "machineTranslationReview": "n/a_product_name",
+      "article50": false,
+      "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
     }
   },
   "industries": {
