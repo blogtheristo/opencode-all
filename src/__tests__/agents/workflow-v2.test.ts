@@ -166,6 +166,33 @@ describe('b2b-growth-funnel example graph (campaign-level, feeds chapter one)', 
   });
 });
 
+describe('investor-outreach example graph (chapter two)', () => {
+  it('is structurally valid and gates SEND behind HIC_APPROVAL_GATE, mirroring chapter one', () => {
+    const investorGraph: ProceduralGraph = JSON.parse(
+      readFileSync(
+        new URL('../../agents/workflow-v2/examples/investor-outreach.graph.json', import.meta.url),
+        'utf-8',
+      ),
+    );
+
+    expect(() => validateGraph(investorGraph)).not.toThrow();
+
+    const sendNode = investorGraph.nodes.find((n) => n.id === 'SEND');
+    expect(sendNode).toBeDefined();
+    // Nothing may reach SEND except through the approval gate — same rule as chapter one.
+    for (const node of investorGraph.nodes) {
+      if (node.id === 'HIC_APPROVAL_GATE') continue;
+      expect(node.allowedNext).not.toContain('SEND');
+    }
+    expect(isTransitionAllowed(investorGraph, 'HIC_APPROVAL_GATE', 'SEND')).toBe(true);
+
+    // A follow-up send must re-enter the gate, never resend without fresh approval.
+    const awaitResponse = investorGraph.nodes.find((n) => n.id === 'AWAIT_RESPONSE');
+    expect(awaitResponse?.allowedNext).not.toContain('SEND');
+    expect(awaitResponse?.allowedNext).toContain('HIC_APPROVAL_GATE');
+  });
+});
+
 describe('runExecutorStep — HIC_APPROVAL_GATE code-level enforcement', () => {
   const gateGraph: ProceduralGraph = {
     name: 'gate-test-graph',
