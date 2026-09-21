@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 3.5
+version: 3.8
 created: 2026-02-07
-last_modified: 2026-07-31
+last_modified: 2026-09-19
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,10 +19,13 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.5
+Version: 3.8
 
 Sessions & Modifications:
 
+- Version: 3.8 | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §16.0.3 — advisor SECURITY DEFINER remediations are per-function (076). Catalog prosecdef loops forbidden. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 do not apply 088
+- Version: 3.7 | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §8.1 lists Katakri 2020 as documentation mapping (not a certificate). Provenance fields in Document Standard §2.6 / §27 satisfy the NIS2 Art. 21 document-control slice and Katakri hallinnollinen + tietojärjestelmät change-control families.
+- Version: 3.6 | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Added §16.0.2 (Supabase Auth leaked-password protection). Advisor lint `auth_leaked_password_protection` is dashboard-only. HIC approved enabling it 19.09.2026. Not SQL. 088 still not applied.
 - Version: 3.5 | Tool: Claude Code (Sonnet 5) | Session: claude/ai-pact-enforcement-transparency-gnnipk | Date: 31.07.2026 | Changes: Added §20 (Public Vulnerability Disclosure) — pointer to the new standalone `dws10.com/compliance/vulnerability-disclosure-policy/` page (adapted from the European Commission's public VDP, EC-institution-specific legal references dropped as inapplicable to a private company). Locked the SLA (48h ack, Critical 48h/High 7d/Medium 30d/Low next release) as the single source of truth, now cross-linked from `.well-known/security.txt`, `legal/index.html` §10, and `compliance/trust-center/index.html` rather than restated independently in each.
 - Version: 3.4 | Tool: Claude Code | Session: claude/add-supabase-table-grants-y0Ps6 | Date: 19.07.2026 | Changes: Added §16.0.1 (Data API Grants — Supabase May/Oct 2026 change). Every `CREATE TABLE public.*` must be paired with an explicit `GRANT` to `service_role` + `authenticated` (anon opt-in) — Supabase dropped the implicit Data API grants on 2026-05-30 for new projects and enforces the same on all existing projects on 2026-10-30. Backfill migration `supabase/migrations/075_public_schema_grants.sql` reopens the table-level door for the 88 existing public tables and sets `alter default privileges` so future migrations do not silently break the Data API. Standard block codified in `Firehorse/supabase-schema-templates.sql` (top of file).
 - Version: 3.3 | Tool: Claude Code (Sonnet 5) | Session: claude/aegis-dependency-security-g9xcfo | Date: 08.07.2026 | Changes: Continued live-vs-dead-code Dependabot triage. Raised live `cryptography` floor to `>=48.0.1` (2 files). Removed unused `python-jose` from `AgentFoundry`/`Firehorse/api` requirements (eliminated the unpatched `python-ecdsa` Minerva transitive). Relaxed `mcp-hub` `fastapi==0.115.12` → `>=0.115.12` to unstick Starlette from the vulnerable 0.46.2 (the hard pin capped `starlette<0.47.0`). Raised `lxml` floor `>=5.0.0` → `>=6.1.0` in `AgentFoundry`/`scripts/requirements-signals.txt` (XXE fix). Confirmed live copies of axios, vite, react-router, form-data, babel, undici, fast-uri, ws were already patched — vulnerable versions only in deleted `artifacts/` or `*_DEPRECATED/` trees.
@@ -568,27 +571,40 @@ Based on the AI Safety Report's findings on AI-assisted cyberattacks and agent m
 | MCP server ecosystem                         | Tool poisoning, shadowing attacks        | MCP Colors Framework, tool approval workflow        | Report: agent tool access is attack vector                           |
 | Training data providers                      | Data contamination, evaluation gap       | Verify data provenance, monitor for contamination   | Report: "data contamination affects evaluations"                     |
 
+### 7.5 Katakri 2020 and document/code provenance
+
+Katakri 2020 (Traficom) is the Finnish authority audit criteria set. This repo does **not** hold the official PDF and does **not** claim a passed Katakri audit.
+
+For **development and documentation**, map:
+
+- Hallinnollinen tietoturvallisuus → written, versioned procedures (`DWS_DOCUMENT_STANDARD.md`, this file).
+- Henkilöstöturvallisuus → HIC named on exceptions; agent session + tool on every change.
+- Tietojärjestelmäturvallisuus → git + `Code-Version` / document `Version:` + `Harness` + `Hic-Approved-Drift` (`none` or dated HIC id).
+
+NIS2 Art. 21(2)(a)(e)(f)(i) is the EU-law twin of that change-control slice. Silent drift is a finding. HIC-approved drift is a logged exception.
+
 ---
 
 ## 8. Security Standards Alignment Matrix
 
 ### 8.1 Standards DWS Follows
 
-| Standard               | Scope                              | Status                 | Certification Target                                                                                                                                                      | AI Safety Report Alignment                                         |
-| ---------------------- | ---------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| **ISO 27001**          | Information security management    | Gap assessment Q1 2026 | Q3 2026 (TÜV Rheinland)                                                                                                                                                   | Report validates need for formalized security management           |
-| **NIS2 Directive**     | Network and information security   | Active compliance      | N/A (directive, not certification)                                                                                                                                        | Report: AI-assisted cyberattacks require stronger network security |
-| **EU AI Act**          | AI system governance               | 80% ready              | August 2, 2026 (mandatory); **Omnibus may delay to Dec 2027** — timelines now tied to availability of harmonised standards/guidance (Nov 2025 proposal, trilogue ongoing) | Report is the scientific foundation informing the Act              |
-| **GDPR**               | Data protection                    | 95% ready              | Active (ongoing)                                                                                                                                                          | Report: data sovereignty and privacy are foundational              |
-| **Fit for 55**         | Climate compliance                 | 90% ready              | Ongoing targets                                                                                                                                                           | Report: AI infrastructure environmental costs are growing          |
-| **CSRD**               | Sustainability reporting           | 85% ready              | Active (ongoing)                                                                                                                                                          | Report: systemic risks include environmental costs                 |
-| **IEC 62443**          | Industrial control system security | Roadmap                | Q4 2026                                                                                                                                                                   | Report: autonomous agents in OT environments pose risks            |
-| **SOC 2 Type II**      | Service organization controls      | Roadmap                | Q4 2026 (Deloitte/EY)                                                                                                                                                     | Report: trust and transparency requirements                        |
-| **DORA**               | Digital operational resilience     | Roadmap                | If financial integration required                                                                                                                                         | Report: systemic financial risks from AI                           |
-| **ePrivacy Directive** | Electronic communications privacy  | Active                 | Ongoing                                                                                                                                                                   | Report: AI companion/tracking risks                                |
-| **ISO 14001**          | Environmental management           | Aligned                | N/A                                                                                                                                                                       | Report: environmental costs of AI                                  |
-| **ISO 19650**          | BIM information management         | Aligned                | N/A                                                                                                                                                                       | Report: data governance in construction                            |
-| **UNECE R155/R156**    | Vehicle cybersecurity              | Aware                  | If OEM partnership                                                                                                                                                        | Report: autonomous vehicle AI risks                                |
+| Standard               | Scope                                                            | Status                                    | Certification Target                                                                                                                                                      | AI Safety Report Alignment                                                      |
+| ---------------------- | ---------------------------------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| **ISO 27001**          | Information security management                                  | Gap assessment Q1 2026                    | Q3 2026 (TÜV Rheinland)                                                                                                                                                   | Report validates need for formalized security management                        |
+| **NIS2 Directive**     | Network and information security                                 | Active compliance                         | N/A (directive, not certification)                                                                                                                                        | Report: AI-assisted cyberattacks require stronger network security              |
+| **Katakri 2020**       | Finnish authority information-security audit criteria (Traficom) | Documentation mapping — **not certified** | N/A (national audit tool, not an ISO cert)                                                                                                                                | Change-control + accountability fields in `DWS_DOCUMENT_STANDARD.md` §2.6 / §27 |
+| **EU AI Act**          | AI system governance                                             | 80% ready                                 | August 2, 2026 (mandatory); **Omnibus may delay to Dec 2027** — timelines now tied to availability of harmonised standards/guidance (Nov 2025 proposal, trilogue ongoing) | Report is the scientific foundation informing the Act                           |
+| **GDPR**               | Data protection                                                  | 95% ready                                 | Active (ongoing)                                                                                                                                                          | Report: data sovereignty and privacy are foundational                           |
+| **Fit for 55**         | Climate compliance                                               | 90% ready                                 | Ongoing targets                                                                                                                                                           | Report: AI infrastructure environmental costs are growing                       |
+| **CSRD**               | Sustainability reporting                                         | 85% ready                                 | Active (ongoing)                                                                                                                                                          | Report: systemic risks include environmental costs                              |
+| **IEC 62443**          | Industrial control system security                               | Roadmap                                   | Q4 2026                                                                                                                                                                   | Report: autonomous agents in OT environments pose risks                         |
+| **SOC 2 Type II**      | Service organization controls                                    | Roadmap                                   | Q4 2026 (Deloitte/EY)                                                                                                                                                     | Report: trust and transparency requirements                                     |
+| **DORA**               | Digital operational resilience                                   | Roadmap                                   | If financial integration required                                                                                                                                         | Report: systemic financial risks from AI                                        |
+| **ePrivacy Directive** | Electronic communications privacy                                | Active                                    | Ongoing                                                                                                                                                                   | Report: AI companion/tracking risks                                             |
+| **ISO 14001**          | Environmental management                                         | Aligned                                   | N/A                                                                                                                                                                       | Report: environmental costs of AI                                               |
+| **ISO 19650**          | BIM information management                                       | Aligned                                   | N/A                                                                                                                                                                       | Report: data governance in construction                                         |
+| **UNECE R155/R156**    | Vehicle cybersecurity                                            | Aware                                     | If OEM partnership                                                                                                                                                        | Report: autonomous vehicle AI risks                                             |
 
 ### 8.2 OWASP Alignment
 
@@ -1494,6 +1510,20 @@ Reference copy at the top of `Firehorse/supabase-schema-templates.sql`.
 **Backfill.** `supabase/migrations/075_public_schema_grants.sql` grants CRUD on every existing public table to `service_role` + `authenticated`, plus per-table anon SELECT/INSERT for the surfaces whose RLS policies explicitly target `anon` (booking\_\* public reads, subscription_plans, file_index, captain_inquiries submissions, web_leads, playbook_leads). It also sets `alter default privileges in schema public` so a future migration that forgets the inline block still lands with the correct grants — a belt-and-suspenders safeguard against silent 42501s in production.
 
 **Anon posture.** Anon is deny-by-default at the GRANT layer: the standard block does not include `anon`. Add it only when an RLS policy already permits the action for `anon` or the `public` pseudo-role — never grant `anon` privileges the RLS layer does not corroborate.
+
+### 16.0.2 Supabase Auth — leaked-password protection (HIC 19.09.2026)
+
+Advisor lint `auth_leaked_password_protection` is an **Auth product setting**, not a migration. There is no SQL for it. Do not put breach-corpus checks into `supabase/migrations/`.
+
+**Required on every Supabase Auth project that accepts email sign-in:** Authentication → Providers → Email → enable **Leaked password protection**.
+
+**HIC** flips the toggle in Studio. Agents do not store Auth admin tokens in git. Confirm on the production project after change; record date in `docs/field-notes/2026-09-19-auth-leaked-password-protection.md`.
+
+### 16.0.3 Advisor SECURITY DEFINER remediations are per-function (076)
+
+Migration `076_revoke_anon_legacy_grants.sql` already states: a full PUBLIC/anon EXECUTE sweep on `prosecdef` functions needs a **per-function review**. A catalog loop over every `prosecdef` (as in unapplied `088`) is not an acceptable remediations unit.
+
+**Required:** one function or one policy family per reviewed hunk; in-repo caller map; HIC accept before apply. NIS2 Art. 21(2)(e); Katakri tietojärjestelmät change control.
 
 ### 16.1 API Key Management Security
 

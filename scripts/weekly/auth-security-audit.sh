@@ -52,4 +52,5 @@ fi
 npm audit --json 2>/dev/null | jq '.advisories | to_entries[] | select(.value.module_name | test("jwt|auth|session|passport|bcrypt|argon"))' \
   > "$REPORT_DIR/auth-deps-audit.json" 2>/dev/null || true
 
+echo "[auth-security-audit] CHECK Studio: Auth → Providers → Email → leaked-password protection ON (production). See docs/field-notes/2026-09-19-auth-leaked-password-protection.md"
 echo "[auth-security-audit] Done. Reports in $REPORT_DIR"

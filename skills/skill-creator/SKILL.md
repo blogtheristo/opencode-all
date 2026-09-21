@@ -67,8 +67,8 @@ writes-pages: []
 1. Write `skills/<name>/SKILL.md`.
 2. Add the skill row to `docs/DWS_SKILLS_GUIDE.md` Section 10 (Quick Reference)
    AND its track-specific section (3 = gstack, 4 = gbrain, 9 = discipline).
-3. Bump the `Version` line in `docs/DWS_SKILLS_GUIDE.md` (use `***` delimiters
-   in the `VERSION AND AGENT HISTORY` block, never `---`).
+3. Bump the `Version` line in `docs/DWS_SKILLS_GUIDE.md` (`---` delimiters
+   in the `VERSION AND AGENT HISTORY` block; do not convert leftover `***`).
 4. Append a line to `AGENTS.md` Quick Reference (Section 8).
 5. Run `node skills/skillpack-check/scripts/validate-index.mjs` — must exit 0.
 6. Stop. Do not commit; user reviews diff first.

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-19-supabase-advisor-security-warnings</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-19-supabase-advisor-security-warnings</h1>
+</header>
+<h1 id="supabase-database-linter-security-warnings">2026-09-19 — Supabase Database Linter SECURITY warnings</h1>
+<h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+<hr />
+<p>Version: 1.3 [Latest]</p>
+<p>Sessions &amp; Modifications:</p>
+<ul>
+<li>Version: 1.3 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC item 5 — leaked-password protection required (Studio). 088 still DO NOT APPLY.</li>
+<li>Version: 1.2 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC item 4 — caller map written (<code>2026-09-19-security-definer-caller-map.md</code>). 088 still DO NOT APPLY.</li>
+<li>Version: 1.1 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC refused to run 088 — agent lacked dws6 repo awareness. File marked DO NOT APPLY. Prior 1.0 [not latest].</li>
+<li>Version: 1.0 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: Advisor SECURITY dump field note; 088 not applied.</li>
+</ul>
+<p>Document Status:</p>
+<ul>
+<li>Created: 19.09.2026</li>
+<li>Last Modified: 19.09.2026</li>
+<li>Language: English</li>
+<li>Languages Available: English</li>
+<li>Publication Status: ACTIVE</li>
+</ul>
+<hr />
+<p><strong>Observed at:</strong> 2026-09-19T00:51:14.175Z (HIC paste) <strong>Branch:</strong> <code>cursor/supabase-advisor-warnings-3f7a</code> <strong>Status:</strong> HIC REFUSED 2026-09-19 — do not apply <code>088_190926_advisor_security_linter.sql</code>.</p>
+<p>HIC: agent is not aware of dws6 repository work enough. Accepted. 076 already said the Advisor 0028 sweep needs a <strong>per-function review</strong>, not a loop over every <code>prosecdef</code>. 088 skipped that.</p>
+<h2 id="what-the-advisor-reported">What the advisor reported</h2>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 10%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lint</th>
+<th>Count (approx)</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>function_search_path_mutable</code></td>
+<td>60 function OIDs</td>
+<td><code>search_path</code> not pinned; a hostile schema can hijack unqualified names inside SECURITY DEFINER</td>
+</tr>
+<tr class="even">
+<td><code>extension_in_public</code></td>
+<td><code>vector</code>, <code>citext</code></td>
+<td>Extensions live in the exposed API schema</td>
+</tr>
+<tr class="odd">
+<td><code>rls_policy_always_true</code></td>
+<td>12 policies</td>
+<td>INSERT/UPDATE/DELETE/ALL with <code>USING (true)</code> / <code>WITH CHECK (true)</code></td>
+</tr>
+<tr class="even">
+<td><code>anon_security_definer_function_executable</code></td>
+<td>19</td>
+<td>Anon can call owner-privileged RPCs</td>
+</tr>
+<tr class="odd">
+<td><code>authenticated_security_definer_function_executable</code></td>
+<td>19</td>
+<td>Signed-in users can call the same</td>
+</tr>
+<tr class="even">
+<td><code>auth_leaked_password_protection</code></td>
+<td>Auth setting</td>
+<td>HaveIBeenPwned check is off — <strong>dashboard only, no SQL</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Highest-risk RPCs in the dump: <code>mark_order_paid</code>, <code>confirm_order_deposit</code>, <code>create_b2b_order</code>, <code>issue_order_invoice</code>, <code>assign_external_user_role</code>, <code>increment_usage_counter</code>, <code>bump_project_version</code>.</p>
+<p>Service-role <code>ALL (true)</code> policies on <code>agent_sessions</code>, <code>agent_tasks</code>, <code>bim_metadata</code>, <code>opencode_sessions</code> were created without <code>TO service_role</code> (<code>roles: [&quot;-&quot;]</code>), so they applied to every role that holds table GRANT.</p>
+<p>Public-form <code>WITH CHECK (true)</code> on <code>web_leads</code>, <code>captain_inquiries</code>, <code>playbook_leads</code>, <code>blog_subscribers</code> is the intended anon insert path; the lint still flags the literal <code>true</code>. Authenticated UPDATE/DELETE on leads was also unrestricted.</p>
+<h2 id="studio-destructive-operations-banner">Studio “destructive operations” banner</h2>
+<p>Expected. The editor keyword-scans <code>REVOKE</code> and <code>ALTER EXTENSION</code>. 088 does <strong>not</strong> <code>DELETE</code>/<code>TRUNCATE</code> rows and does <strong>not</strong> <code>DROP TABLE</code>/<code>SCHEMA</code>/<code>FUNCTION</code>. Policies are <code>ALTER POLICY</code> in place.</p>
+<h2 id="what-088-does">What 088 does</h2>
+<ol type="1">
+<li><code>ALTER FUNCTION … SET search_path = pg_catalog, public</code> for every public function missing a pin.</li>
+<li>For every public SECURITY DEFINER function: <code>REVOKE EXECUTE</code> from <code>PUBLIC</code> and <code>anon</code>; <code>GRANT</code> to <code>service_role</code>. Authenticated EXECUTE is <strong>kept only</strong> for RLS helpers: <code>is_advisor</code>, <code>is_backoffice_admin</code>, <code>is_security_auditor</code>, <code>user_has_org_role</code>, <code>get_user_organizations</code>, <code>get_advisor_permissions</code>. Those six will still appear on lint 0029 until they move to a private schema.</li>
+<li><code>ALTER POLICY … TO service_role</code> on unrestricted ALL(true) policies (service_role already bypasses RLS).</li>
+<li>Anon INSERT checks require a plausible email (and name / industry_slug where those columns exist). Authenticated write on <code>web_leads</code> / <code>captain_inquiries</code> / <code>blog_subscribers</code> requires <code>is_backoffice_admin()</code>.</li>
+<li><code>ALTER EXTENSION vector/citext SET SCHEMA extensions</code> when they still sit in <code>public</code>.</li>
+</ol>
+<h2 id="not-in-sql">Not in SQL</h2>
+<p>Leaked-password protection: Auth → Providers → Email → enable “Leaked password protection”.</p>
+<h2 id="hic-decision-closed">HIC decision (closed)</h2>
+<p><strong>Refuse 088.</strong> Do not run it.</p>
+<p><strong>Caller map (HIC item 4, 19.09.2026):</strong> <code>docs/field-notes/2026-09-19-security-definer-caller-map.md</code>. Replacement SQL still not authorized — map is PENDING_REVIEW.</p>
+<p>Gaps this session did not have before writing 088 (now checked, still not enough to apply):</p>
+<table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Repo fact</th>
+<th>Why 088 was unsafe to guess</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>src/services/supabase.service.ts</code> uses <strong>service_role</strong></td>
+<td>Billing RPCs (<code>mark_order_paid</code>, <code>create_b2b_order</code>, …) would keep working <strong>if</strong> only that client calls them — not proven for dashboards</td>
+</tr>
+<tr class="even">
+<td><code>DWS_SECURITY_STANDARD.md</code> §16: <code>increment_usage_counter</code> is SECURITY DEFINER with a <strong>service_role caller guard</strong></td>
+<td>Blanket REVOKE is the wrong unit of change</td>
+</tr>
+<tr class="odd">
+<td>076: “full sweep needs a <strong>per-function review</strong>”</td>
+<td>088 did a <code>FOR f IN prosecdef</code> loop</td>
+</tr>
+<tr class="even">
+<td><code>web_leads</code> authenticated UPDATE is used as admin (070)</td>
+<td>Switching to <code>is_backoffice_admin()</code> can lock Mission Control if <code>organization_members</code> is empty</td>
+</tr>
+<tr class="odd">
+<td><code>vector</code> / <code>citext</code> columns (<code>playbook_leads.email</code>, memory search)</td>
+<td><code>ALTER EXTENSION SET SCHEMA</code> not traced against <code>hybrid_memory_search</code> / dashboard types</td>
+</tr>
+</tbody>
+</table>
+<p>Leaked-password Auth toggle: HIC approved enable 19.09.2026 — <code>docs/field-notes/2026-09-19-auth-leaked-password-protection.md</code>. Still not SQL / not 088.</p>
+<p>N/A — KB / Learn / Drive / calendar.</p>
+</body>
+</html>

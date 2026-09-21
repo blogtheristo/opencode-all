@@ -2,10 +2,21 @@
 
 ## DWS IQ 6 - Agent Architecture & Coordination
 
-**Version:** 1.1  
+**Version:** 1.4  
 **Created:** January 3, 2026  
 **Owner:** Lifetime Oy  
 **Status:** Active
+
+### DWS standards (mandatory — Cursor / Cloud / every agent)
+
+Do not treat this file or `CLAUDE.md` as a substitute for opening standards.
+
+1. Read `docs/system-config/STANDARDS_ROUTING.md`.
+2. Read `DWS_TRUTH_STANDARD.md` and `DWS_ROLES_REGISTRY.md`.
+3. Read every other matched standard.
+4. Reply: `Standards loaded: <paths>` or `N/A — <reason>`.
+
+Cursor injects `.cursor/rules/dws-standards-always.mdc` (`alwaysApply: true`). Executable source uses Document Standard §19.3, not a markdown history block.
 
 ---
 
@@ -62,15 +73,15 @@ DWS IQ 6 uses three categories of AI agents:
 
 ### Technology Stack
 
-| Layer                 | Technology                                                                 | Purpose                                 |
-| --------------------- | ---------------------------------------------------------------------------- | --------------------------------------- |
+| Layer                 | Technology                                                                | Purpose                                 |
+| --------------------- | ------------------------------------------------------------------------- | --------------------------------------- |
 | **Orchestration**     | MCP Hub (`mcp-hub-ts/`; legacy `mcp-hub/server.py` for Redis/BIM/sandbox) | Central coordination, workflow patterns |
-| **Fast Inference**    | Groq API (Llama 3.1 70B)                                                     | High-speed agent responses              |
-| **Complex Reasoning** | Claude Sonnet 4.5                                                            | Deep analysis, planning                 |
-| **Multi-Agent**       | LlamaStack                                                                   | Agent orchestration                     |
-| **Edge AI**           | NVIDIA Jetson                                                                | On-premise SiteSense agents             |
-| **Database**          | Supabase (PostgreSQL + pgvector)                                             | Data, embeddings, signals               |
-| **Notifications**     | Microsoft Teams (webhook), Slack (webhook), Email (SES)                      | Agent alerts                            |
+| **Fast Inference**    | Groq API (Llama 3.1 70B)                                                  | High-speed agent responses              |
+| **Complex Reasoning** | Claude Sonnet 4.5                                                         | Deep analysis, planning                 |
+| **Multi-Agent**       | LlamaStack                                                                | Agent orchestration                     |
+| **Edge AI**           | NVIDIA Jetson                                                             | On-premise SiteSense agents             |
+| **Database**          | Supabase (PostgreSQL + pgvector)                                          | Data, embeddings, signals               |
+| **Notifications**     | Microsoft Teams (webhook), Slack (webhook), Email (SES)                   | Agent alerts                            |
 
 ### MCP Hub Coordination Patterns
 
@@ -777,17 +788,17 @@ These are the pre-existing skills in `skills/`. See `docs/DWS_SKILLS_GUIDE.md` f
 
 ### File Locations
 
-| Resource                  | Path                                           |
-| ------------------------- | ---------------------------------------------- |
-| V1.0 Feature List         | `V1_FEATURE_LIST.md`                           |
-| Signal Registry           | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json` |
-| Coordinator Script        | `.workflows/agents/coordinator.cjs`            |
-| Coordinator Guide         | `.workflows/agents/ULTRA_AGENT_COORDINATOR.md` |
-| Design Audit Agent        | `.workflows/agents/DESIGN_AUDIT_AGENT.md`      |
-| Design Audit Admin Manual | `ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md`           |
-| Agent Guidelines          | `AI_AGENT_GUIDELINES.md`                       |
-| DWS Team Agents           | `CloudAgents/dws-team/README.md`               |
-| Customer Agent Configs    | `AgentFoundry/configs/templates/`              |
+| Resource                  | Path                                                                               |
+| ------------------------- | ---------------------------------------------------------------------------------- |
+| V1.0 Feature List         | `V1_FEATURE_LIST.md`                                                               |
+| Signal Registry           | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json`                                     |
+| Coordinator Script        | `.workflows/agents/coordinator.cjs`                                                |
+| Coordinator Guide         | `.workflows/agents/ULTRA_AGENT_COORDINATOR.md`                                     |
+| Design Audit Agent        | `.workflows/agents/DESIGN_AUDIT_AGENT.md`                                          |
+| Design Audit Admin Manual | `ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md`                                               |
+| Agent Guidelines          | `AI_AGENT_GUIDELINES.md`                                                           |
+| DWS Team Agents           | `CloudAgents/dws-team/README.md`                                                   |
+| Customer Agent Configs    | `AgentFoundry/configs/templates/`                                                  |
 | MCP Hub                   | `mcp-hub-ts/` (Cloud Run `mcp-hub-ts/cloudbuild.yaml`); Python `mcp-hub/` optional |
 
 ### Common Commands
@@ -860,6 +871,10 @@ cd mcp-hub && pip install -r requirements.txt && python server.py
 
 ## Cursor Cloud specific instructions
 
+### DWS standards (mandatory)
+
+Same as the block under the document header: Read `STANDARDS_ROUTING.md` + Truth + Roles + matches **before** writing files. `alwaysApply` rule: `.cursor/rules/dws-standards-always.mdc`.
+
 ### Services overview
 
 | Service         | Path                                      | Start command           | Port |
@@ -904,7 +919,7 @@ All real `// TODO` markers in `src/` are triaged in [`docs/backlog/CODE_TODO_LED
 
 ---
 
-**Document Version:** 1.3  
-**Last Updated:** September 13, 2026  
+**Document Version:** 1.4  
+**Last Updated:** September 19, 2026  
 **Status:** Active  
 **Next Review:** October 10, 2026

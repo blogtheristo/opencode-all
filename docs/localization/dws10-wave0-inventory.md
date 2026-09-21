@@ -1,5 +1,25 @@
 # Wave 0 — dws10.com public HTML inventory
 
+# VERSION AND AGENT HISTORY
+
+---
+
+Version: 1.0 [Latest]
+
+Sessions & Modifications:
+
+- Version: 1.0 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 18.09.2026 | Changes: Wave 0 inventory created by Cursor i18n session.
+
+Document Status:
+
+- Created: 18.09.2026
+- Last Modified: 18.09.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
+
+---
+
 Generated 2026-09-18. **No translation in this file.** Machine-readable twin: `dws10-wave0-inventory.json`.
 
 ## Counts

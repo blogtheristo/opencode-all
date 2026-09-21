@@ -1,4 +1,11 @@
 /**
+ * CODE VERSIONING NOTE
+ * Code-Version: 1.0.0
+ * Introduced-In: PR-2038
+ * Branch: cursor/sales-outreach-ted-grok-pack-a455
+ * Date: 2026-09-18
+ * Owner: DWS Platform / Cursor Agent
+ * Env-Schema: env-v1.0
  * Construction / TED sales-outreach leads — machine API (no Google login).
  *
  * POST /fetch         — ingest TED → construction_leads (X-Admin-Key)

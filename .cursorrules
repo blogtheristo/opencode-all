@@ -17,3 +17,4 @@ Before making any UI changes, you MUST consult these files:
 4. **Store Categories:** Products use `storeCategory` field in `config/products.json` (platform, ai-cloud, advisory, digital).
 5. **Touch Targets:** Minimum 48px on mobile (WCAG 2.2 AAA).
 6. **Security:** Never commit .env files, API keys, or Admin/ folder contents.
+7. **Standards:** Every turn — Read `docs/system-config/STANDARDS_ROUTING.md`, then `DWS_TRUTH_STANDARD.md` + `DWS_ROLES_REGISTRY.md` + every matched standard. Reply with `Standards loaded:`. See `.cursor/rules/dws-standards-always.mdc`.

@@ -1,4 +1,11 @@
 /**
+ * CODE VERSIONING NOTE
+ * Code-Version: 1.0.0
+ * Introduced-In: PR-2038
+ * Branch: cursor/sales-outreach-ted-grok-pack-a455
+ * Date: 2026-09-18
+ * Owner: DWS Platform / Cursor Agent
+ * Env-Schema: env-v1.0
  * TED CPV → canonical DWS industry (INDUSTRIES.md ids 1–25).
  *
  * Longest prefix wins. Search parents are the 8-digit division/group codes
