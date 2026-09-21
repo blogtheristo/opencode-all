@@ -4,6 +4,9 @@ Scope for the first procedural graph run on top of Workflow v2
 (`src/agents/workflow-v2/`, PR #2059), answering the goal-3 reframe
 ("create new sales") from `docs/field-notes/2026-09-21-gitex-ai-turkiye-google-cloud-3-goals.md`.
 
+Full chapter list (2–8) and the Mission Control / Admin dashboard placement
+decision: `docs/workflow-v2-chapters-roadmap.md`.
+
 ## What "chapter one" means here
 
 Chapter one is a scope boundary, not a chapter number in a document. It is
