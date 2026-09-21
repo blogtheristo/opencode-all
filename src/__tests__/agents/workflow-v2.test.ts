@@ -131,3 +131,29 @@ describe('sales-outreach example graph (chapter one)', () => {
     expect(isTransitionAllowed(salesGraph, 'HIC_APPROVAL_GATE', 'SEND')).toBe(true);
   });
 });
+
+describe('b2b-growth-funnel example graph (campaign-level, feeds chapter one)', () => {
+  it('is structurally valid and documents its handoff into sales-outreach.graph.json', () => {
+    const funnelGraph: ProceduralGraph = JSON.parse(
+      readFileSync(
+        new URL('../../agents/workflow-v2/examples/b2b-growth-funnel.graph.json', import.meta.url),
+        'utf-8',
+      ),
+    );
+
+    expect(() => validateGraph(funnelGraph)).not.toThrow();
+    expect(funnelGraph.startNode).toBe('START');
+
+    const stages = funnelGraph.nodes.map((n) => n.id);
+    expect(stages).toEqual(
+      expect.arrayContaining(['RESEARCH', 'STRATEGY', 'EXECUTION', 'CAPTURE_OPPORTUNITY']),
+    );
+
+    // Research -> Strategy -> Execution is the required backbone; execution
+    // is the only stage allowed to hand off into the per-prospect chapter.
+    expect(isTransitionAllowed(funnelGraph, 'RESEARCH', 'STRATEGY')).toBe(true);
+    expect(isTransitionAllowed(funnelGraph, 'STRATEGY', 'EXECUTION')).toBe(true);
+    const execution = funnelGraph.nodes.find((n) => n.id === 'EXECUTION');
+    expect(execution?.description).toContain('sales-outreach.graph.json');
+  });
+});
