@@ -4,10 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Cursor Grok 4.6 | Session: cursor/dgx-ollama-litellm-router-a455 | Date: 18.09.2026 | Changes: [Latest] `FRONTIER-CLAUDE-OPUS` is Claude Opus 4.8 (`claude-opus-4-8` in `config/llm-registry.json`). Paid LiteLLM alias `claude-opus` and `escalateToClaude()` **MUST** use that id — not an unregistered `claude-opus-5`.
+- Version: 1.1 | Tool: Cursor Grok 4.6 | Session: cursor/dgx-ollama-litellm-router-a455 | Date: 18.09.2026 | Changes: [not latest] §9 **No-Cloud-Fallback** now names the LiteLLM alias `local-sovereign` (Ollama hops only). EU-Sovereign × Defence / NemoClaw **MUST** use `local-sovereign` or talk to `:11434` directly — **MUST NOT** use `smart` (commercial local-first; may reach Groq/Claude). Related: `config/litellm-config.yaml`, Truth Standard §2 row 40.
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/model-performance-notes-4x3or | Date: 18.05.2026 | Changes: Initial creation. Promotes the model matrix from `docs/field-notes/2026-05-18-models-worth-building-on-3090-5090-dgx-spark.md` to a binding standard. Defines (a) the **Approved Model Slate** (9 models, 5 tiers), (b) the **Selection Rules** that map (Jurisdiction × Room × Sensitivity) to a tier, (c) the **(Jurisdiction × Room) Loadout Table** as the runtime decision rule, (d) per-Firehorse-use-case and per-industry-cluster bindings, (e) the **Approval & Evaluation Gate** that controls promotion/demotion of models in the slate, and (f) the **No-Cloud-Fallback Rule** for EU-sovereign workloads. Does not duplicate per-Surface Brain assignments — those live in `DWS_DEPLOYMENT_STANDARD.md` §3 and §6, which now selects from this catalog. Sources: field note 2026-05-18, `INDUSTRIES.md`, `Firehorse/Control/README.md`, `Firehorse/Situation/README.md`, `product-catalog/Firehorse/README.md`, `docs/field-notes/2026-04-16-jurisdiction-expansion-dws7.md`, `docs/field-notes/2026-05-15-nvfp4-pretraining-for-control-room-lwm.md`, `DWS_DEPLOYMENT_STANDARD.md` v1.4, `DWS_SOVEREIGNTY_STANDARD.md`.
 
 Session Links & References:
@@ -19,7 +21,7 @@ Session Links & References:
 Document Status:
 
 - Created: 18.05.2026
-- Last Modified: 18.05.2026
+- Last Modified: 18.09.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -29,10 +31,10 @@ Document Status:
 ***
 
 **Code Versioning Note**
-Code-Version: 1.0
+Code-Version: 1.2
 Introduced-In: PR-claude/model-performance-notes-4x3or
-Branch: claude/model-performance-notes-4x3or
-Date: 2026-05-18
+Branch: cursor/dgx-ollama-litellm-router-a455
+Date: 2026-09-18
 Owner: Risto Anton Päärni (Lifetime Oy, risto.paarni@lifetime.fi)
 Env-Schema: n/a (documentation standard; no runtime config)
 
@@ -113,7 +115,7 @@ The closed set of models DWS may use in production or recommend to partners as o
 | Slate ID | Model | Origin | Where it runs | Quant / Variant | Status |
 |----------|-------|--------|---------------|------------------|--------|
 | **FRONTIER-CLAUDE-SONNET** | Claude Sonnet 4.6 | US (Anthropic) | Anthropic API | n/a | ✅ Active |
-| **FRONTIER-CLAUDE-OPUS** | Claude Opus 4.7 | US (Anthropic) | Anthropic API | n/a | ✅ Active |
+| **FRONTIER-CLAUDE-OPUS** | Claude Opus 4.8 (`claude-opus-4-8`) | US (Anthropic) | Anthropic API | n/a | ✅ Active |
 | **SOVEREIGN-STEP-3.5** | StepFun Step-3.5 Flash 121B REAP | CN (StepFun) | DGX Spark | Q6 | ✅ Active (commercial only) |
 | **SOVEREIGN-NEMOTRON-SUPER** | NVIDIA Nemotron 3 Super (`nemotron_h_moe`, 123.6 B / 12.7 B-A) | US (NVIDIA) | DGX Spark | Q4_K_M | ✅ Active |
 | **SOVEREIGN-MISTRAL-SMALL** | Mistral-4-Small | EU (Mistral, FR) | DGX Spark / Veriton GN-100 | TBD | 📋 Adopted (pending bench) |
@@ -226,6 +228,8 @@ Bindings between the 5 industry clusters of `INDUSTRIES.md` (25 industries) and 
 - The Surface's deploy manifest **MUST** declare the Brain as `cloud_fallback: false` (per `DWS_DEPLOYMENT_STANDARD.md` §6 Brain declaration).
 - On failure, the Brain returns an explicit error to the agent. The agent surfaces the error to the user. **Do not retry against a cloud API.**
 - The OpenClaw runtime is the canonical example: per `DWS_DEPLOYMENT_STANDARD.md` v1.4, OpenClaw declares `nemotron-3-super` primary + `qwen3-coder:30b` fast, **no cloud fallback by design.**
+- LiteLLM (`config/litellm-config.yaml`) is **glue, not a Brain**. EU-Sovereign × Defence / NemoClaw **MUST** call `model_name: local-sovereign` (or talk to Ollama `:11434` directly). That alias hops only between `nemotron-3-super` and `qwen3-coder:30b`. **MUST NOT** use `smart` — `smart` MAY reach Groq/Claude. Canonical pair: `DWS_TRUTH_STANDARD.md` §2 row 40.
+- Paid Opus fallback (`escalateToClaude()` and LiteLLM alias `claude-opus`) **MUST** use Slate ID `FRONTIER-CLAUDE-OPUS` — API id `claude-opus-4-8` in `config/llm-registry.json`. Unregistered ids (`claude-opus-5`) **MUST NOT** be called.
 
 **Permitted cloud reach.**
 - Frontier APIs (`FRONTIER-CLAUDE-SONNET`, `FRONTIER-CLAUDE-OPUS`) **MAY** be used for Defence workloads **only when explicitly named in the Loadout Table cell**, never as a silent fallback.
@@ -293,3 +297,6 @@ These fields make Brain selection auditable. An EU regulator asking "why did thi
 - `docs/field-notes/2026-05-15-nvfp4-pretraining-for-control-room-lwm.md` — NVFP4 quantization for in-house brain
 - `docs/Ollama.md` — local inference plumbing
 - `infrastructure/dgx-spark/*` — Spark deployment recipes
+- `config/litellm-config.yaml` — optional OpenAI-compatible proxy; `local-sovereign` (no cloud) vs `smart` (commercial)
+- `config/llm-registry.json` — current API ids; paid Opus is `claude-opus-4-8` (`FRONTIER-CLAUDE-OPUS`)
+- `DWS_TRUTH_STANDARD.md` §2 row 40 — deployed Spark Ollama pair (`nemotron-3-super` + `qwen3-coder:30b`)

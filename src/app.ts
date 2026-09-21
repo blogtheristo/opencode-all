@@ -32,6 +32,7 @@ import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
 import adminSupportRoutes from './routes/admin-support.routes.js';
+import adminCostAuditRoutes from './routes/admin-cost-audit.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
@@ -90,6 +91,7 @@ import { validateEnv } from './middleware/env-validation.js';
 import { createMCPRouter } from './mcp/agent-server.js';
 import capTableRouter from './investor-reports/cap-table-routes.js';
 import { loadSecrets } from './config/secret-loader.js';
+import { createProxyTrustValidator } from './middleware/proxy-trust-validator.middleware.js';
 
 // ============ STUBS FOR MODULES EXCLUDED FROM BUILD ============
 // tsconfig.json excludes src/firehorse/** and src/integrations/** from
@@ -136,6 +138,20 @@ const PORT = process.env.PORT || (process.env.NODE_ENV === 'production' ? '8080'
 // ES Module path helpers
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// ============ PROXY TRUST VALIDATION ============
+// Validate trust subnet configuration early to catch IP spoofing misconfigurations.
+// IPv4-mapped IPv6 subnets must have correct prefix lengths to prevent all-IPv4 trust.
+// E.g., ::ffff:10.0.0.0/8 is INVALID; ::ffff:10.0.0.0/104 is valid (10.0.0.0/8).
+const trustProxy = process.env.TRUST_PROXY;
+if (trustProxy) {
+  const subnets = trustProxy.split(',').map((s) => s.trim());
+  app.use(createProxyTrustValidator(subnets));
+  app.set('trust proxy', trustProxy);
+} else {
+  // Default: trust single upstream proxy (Cloud Run, typical reverse proxy)
+  app.set('trust proxy', 1);
+}
 
 // ============ MIDDLEWARE ============
 
@@ -312,6 +328,9 @@ app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
 
 // Admin support chat channel (settings panel)
 app.use('/api/v1/admin/support', adminSupportRoutes);
+
+// Admin cost audit (mission control cost review dashboard)
+app.use('/api/admin', adminCostAuditRoutes);
 
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);

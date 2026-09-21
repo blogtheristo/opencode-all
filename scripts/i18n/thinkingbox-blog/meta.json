@@ -1,0 +1,34 @@
+{
+  "fi": {
+    "description": "Agentit raportoivat onnistumisen mutta eivät toimita. Opi kuinka ThinkingBox auditoi agentit todellisille tuloksille.",
+    "og:description": "Agentit, jotka raportoivat onnistumisen mutta eivät toimita, ovat olemassaolon uhkia.",
+    "shareTitle": "ThinkingBox: Agenttiauditointi",
+    "aiNoticeLabel": "Konekielella käännetty sisältö",
+    "aiNoticeBody": "Tämä sivu on konekäännös englanninkielisestä alkuperäistekstistä. Englanninkielinen versio on sitova.",
+    "aiNoticeLink": "Lue englanninkielinen alkuperäinen"
+  },
+  "sv": {
+    "description": "Agenter som rapporterar framgang men inte levererar. Lar dig hur ThinkingBox granskar agenter for faktiska resultat.",
+    "og:description": "Agenter som rapporterar framgang men inte levererar ar existentiella hot.",
+    "shareTitle": "ThinkingBox: Agentgranskning",
+    "aiNoticeLabel": "AI-genererat innehall",
+    "aiNoticeBody": "Den har sidan ar en maskinöversättning av det engelska originalet. Den engelska versionen ar den gällande texten.",
+    "aiNoticeLink": "Läs det engelska originalet"
+  },
+  "de": {
+    "description": "Agenten, die Erfolg melden, aber nicht liefern. Erfahren Sie, wie ThinkingBox Agenten auf echte Ergebnisse prust.",
+    "og:description": "Agenten, die Erfolg melden, aber nicht liefern, sind existenzielle Bedrohungen.",
+    "shareTitle": "ThinkingBox: Agent-Audit",
+    "aiNoticeLabel": "Von KI generierter Inhalt",
+    "aiNoticeBody": "Diese Seite ist eine maschinelle Übersetzung des englischen Originals. Die englische Fassung ist der verbindliche Text.",
+    "aiNoticeLink": "Das englische Original lesen"
+  },
+  "fr": {
+    "description": "Les agents qui signalent le succes mais ne livrent pas. Decouvrez comment ThinkingBox audite les agents.",
+    "og:description": "Les agents qui signalent le succes mais ne livrent pas sont des menaces existentielles.",
+    "shareTitle": "ThinkingBox: Audit des agents",
+    "aiNoticeLabel": "Contenu genere par IA",
+    "aiNoticeBody": "Cette page est une traduction automatique de l'original anglais. La version anglaise fait foi.",
+    "aiNoticeLink": "Lire l'original anglais"
+  }
+}

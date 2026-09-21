@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Small Online Store with Price List | Lifetime Store</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <style>
+      :root {
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+      }
+      body {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 880px;
+        margin: 40px auto;
+        background: rgba(30, 41, 59, 0.5);
+        padding: 40px;
+        border-radius: 10px;
+        border: 1px solid rgba(212, 168, 67, 0.18);
+        border-top: 3px solid var(--color-gold-light);
+        flex-grow: 1;
+      }
+      h1 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        margin-bottom: 6px;
+      }
+      .tagline {
+        color: #cbd5e1;
+        font-size: 1.05rem;
+        margin-bottom: 24px;
+      }
+      .price {
+        font-size: 2rem;
+        color: #4ade80;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+      .price-unit {
+        color: #94a3b8;
+        font-size: 0.95rem;
+        margin-bottom: 24px;
+      }
+      h2 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        color: var(--color-gold-light);
+        margin-top: 32px;
+        font-size: 1.25rem;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px 24px;
+        margin: 14px 0;
+      }
+      @media (max-width: 600px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .cta-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+      .page-version {
+        color: #64748b;
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        margin-top: 28px;
+        text-align: right;
+      }
+      a.buy-btn {
+        display: inline-block;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        color: #0f172a;
+        padding: 14px 26px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        box-shadow: 0 8px 24px rgba(184, 134, 11, 0.35);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      a.buy-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(184, 134, 11, 0.5);
+      }
+      a.alt-btn {
+        display: inline-block;
+        background: transparent;
+        color: #60a5fa;
+        border: 1px solid #60a5fa;
+        padding: 13px 24px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      a.back-link {
+        color: #94a3b8;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 20px;
+      }
+      .nav-header {
+        background: #1e293b;
+        padding: 20px;
+        border-bottom: 1px solid #334155;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+      .nav-links a {
+        color: #cbd5e1;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: #60a5fa;
+      }
+      .badge {
+        display: inline-block;
+        background: #1d4ed8;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        margin-bottom: 12px;
+        letter-spacing: 0.5px;
+      }
+      .note {
+        background: rgba(96, 165, 250, 0.1);
+        border-left: 3px solid #60a5fa;
+        padding: 14px 16px;
+        border-radius: 4px;
+        margin: 18px 0;
+        color: #cbd5e1;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-header">
+      <a href="../../" class="nav-brand">Lifetime Web Services</a>
+      <div class="nav-links">
+        <a href="../../">Home</a>
+        <a href="../../price-list/">Pricing</a>
+      </div>
+    </div>
+    <div class="container">
+      <a href="../" class="back-link">← Back to products</a>
+      <span class="badge">ONE-TIME SETUP</span>
+      <h1>Small Online Store with Price List</h1>
+      <p class="tagline">
+        Compact e-commerce solution for small businesses. Includes online store setup, product catalog, and integrated price list. Ideal for entrepreneurs looking to start selling online.
+      </p>
+      <div class="price">€350</div>
+      <div class="price-unit">One-time setup</div>
+
+      <h2>What You Get</h2>
+      <div class="grid">
+        <div>✅ Online store setup with templates</div>
+        <div>✅ Product catalog and price list</div>
+        <div>✅ Payment processing ready</div>
+        <div>✅ Mobile-optimized storefront</div>
+        <div>✅ Basic inventory management</div>
+        <div>✅ Quick deployment and support</div>
+      </div>
+
+      <h2>Perfect For</h2>
+      <ul>
+        <li><strong>Small retailers</strong starting e-commerce</li>
+        <li><strong>Service businesses</strong selling packages online</li>
+        <li><strong>Craftspeople</strong and artisans expanding reach</li>
+        <li><strong>Local shops</strong adding online sales channel</li>
+      </ul>
+
+      <h2>Key Features</h2>
+      <ul>
+        <li><strong>Product Catalog:</strong> Easy-to-manage product listings with images and descriptions</li>
+        <li><strong>Price List:</strong> Display prices clearly, organize by category</li>
+        <li><strong>Payment Ready:</strong> Integrated payment processing (Stripe, PayPal)</li>
+        <li><strong>Mobile Responsive:</strong> Works perfectly on phones, tablets, and desktops</li>
+        <li><strong>Inventory Basics:</strong> Track stock levels and manage orders</li>
+      </ul>
+
+      <div class="note">
+        No coding needed. We handle setup and deployment. You focus on products and customers. Full email, WhatsApp, and phone support included.
+      </div>
+
+      <h2>Getting Started</h2>
+      <ol>
+        <li><strong>Consultation (30 min):</strong> Discuss your product catalog and requirements</li>
+        <li><strong>Setup:</strong> We create and configure your online store</li>
+        <li><strong>Go live:</strong> Your store is ready to accept orders</li>
+        <li><strong>Support:</strong> Ongoing email, WhatsApp, phone, and form support</li>
+      </ol>
+
+      <div class="cta-row">
+        <a href="https://dws10.com/checkout/?product=LIFETIME-WEBSTORE-MINI" class="buy-btn">💳 Launch Your Store</a>
+        <a href="https://dws10.com/book" class="alt-btn">📅 Schedule a Demo</a>
+      </div>
+
+      <div style="background: rgba(16, 185, 129, 0.1); border: 2px solid #10b981; border-radius: 6px; padding: 16px; margin: 24px 0; color: #d1fae5;">
+        <p style="margin: 0 0 8px 0; font-weight: 600;">🎁 <strong>Campaign Discount Available</strong></p>
+        <p style="margin: 0; font-size: 0.95rem;">Use code <strong style="background: #10b981; padding: 2px 6px; border-radius: 3px; color: #0f172a;">CAMPAIGN-A5-40</strong> at checkout for <strong>40% off</strong> this product. Limited time offer from the A5 Two-Sided Campaign.</p>
+      </div>
+
+      <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 18px">
+        Part of Lifetime's web services. EU-sovereign, secure, and designed for entrepreneurs who want to sell online without complexity.
+      </p>
+      <p class="page-version">Small Online Store · product v1.0 · 2026-09-20</p>
+    </div>
+    <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem">
+      <p><strong>LIFETIME OY</strong> · Business ID 0772407-9 · VAT ID FI07724079</p>
+      <p>Laidunmaanraitti 2 A 25, 02330 Espoo · risto.paarni@lifetime.fi</p>
+      <p style="margin-top: 16px">
+        <strong>Compliance:</strong> GDPR, DSA, NIS2, and EU AI Act compliant operations.
+      </p>
+      <p style="margin-top: 20px">Copyright © 2026 Lifetime Oy. All rights reserved.</p>
+    </footer>
+    <script src="../shared-assets/nav/product-actions.js"></script>
+    <nav class="i18n-links" aria-label="Language" style="text-align:center;padding:18px 12px;font-size:0.85rem;opacity:0.75">
+      <a href="/products/lifetime-webstore-mini.en.html" hreflang="en" lang="en" style="margin:0 8px;color:inherit">🇬🇧 English</a>
+      <a href="/products/lifetime-webstore-mini.fi.html" hreflang="fi" lang="fi" style="margin:0 8px;color:inherit">🇫🇮 Suomeksi</a>
+      <a href="/products/lifetime-webstore-mini.sv.html" hreflang="sv" lang="sv" style="margin:0 8px;color:inherit">🇸🇪 Svenska</a>
+    </nav>
+  </body>
+</html>

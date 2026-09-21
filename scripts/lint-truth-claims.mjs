@@ -69,10 +69,14 @@ function takeVal(flag) {
 // render step: the same sentence passes as .md and fails as .html. Added
 // 2026-09-09 after exactly that -- 3 CI failures on the HTML of a field note
 // whose .md was already exempt.
+// docs/Deputy-Agents-Architecture.md is the taxonomy source (Truth row 19) that
+// still documents the Godagent→Industrial Specialist rename and keeps Docker
+// ids `dws-godagent*`. --changed scans whole files, so any LiteLLM/ops edit
+// otherwise FAILs 50+ historical body uses. Added 2026-09-18 (PR #2039).
 const EXCLUDE_RE =
   /(^|\/)(node_modules|\.git|backups|dist|\.next|coverage|docs\/field-notes|Learn)\//;
 const EXCLUDE_FILE_RE =
-  /(\/config\/[^/]+\.json$|DWS_TRUTH_STANDARD\.md$|LOCKED_DECISIONS\.md$|CLAUDE\.md$|INDUSTRIES\.md$|16-INDUSTRIES\.md$|STORE_PROFILE_DESCRIPTION\.md$|2026-07-05-groq-ross-dominant-game-recipe\.md$|_OLD\.|\.min\.)/;
+  /(\/config\/[^/]+\.json$|DWS_TRUTH_STANDARD\.md$|LOCKED_DECISIONS\.md$|CLAUDE\.md$|INDUSTRIES\.md$|16-INDUSTRIES\.md$|STORE_PROFILE_DESCRIPTION\.md$|2026-07-05-groq-ross-dominant-game-recipe\.md$|Deputy-Agents-Architecture\.md$|_OLD\.|\.min\.)/;
 const SCAN_EXT = new Set(['.md', '.html', '.htm', '.txt']);
 
 // ---- 1. Load ruleset from structured mirrors -----------------------------

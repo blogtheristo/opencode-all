@@ -1,0 +1,22 @@
+{
+  "id": "thinkingbox-blog",
+  "master": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html",
+  "masterLang": "en",
+  "stringsDir": "scripts/i18n/thinkingbox-blog",
+  "urlBase": "https://onelifetime.world/posts/",
+  "outDirs": [
+    "landing-pages/onelifetime-world/posts",
+    "posts"
+  ],
+  "files": {
+    "en": "thinkingbox-agent-audit.html",
+    "fi": "thinkingbox-agent-audit.fi.html",
+    "sv": "thinkingbox-agent-audit.sv.html",
+    "de": "thinkingbox-agent-audit.de.html",
+    "fr": "thinkingbox-agent-audit.fr.html"
+  },
+  "aiNotice": {
+    "langs": ["fi", "sv", "de", "fr"],
+    "after": "</header>"
+  }
+}

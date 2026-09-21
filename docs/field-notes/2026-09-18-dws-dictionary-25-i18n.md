@@ -8,7 +8,7 @@ date: 2026-09-18
 
 # VERSION AND AGENT HISTORY
 
-***
+---
 
 Version: 1.1 [Latest]
 
@@ -24,8 +24,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
-***
-
+---
 
 Wave 0 inventory, Wave 1–2 dictionary, Wave 3 Construction (Mars + CONSTR-T2) via `build-i18n-pages.cjs`, Wave 4 ONTOLOGY Appendix E pointer, Wave 5 lead packs (no send).
 

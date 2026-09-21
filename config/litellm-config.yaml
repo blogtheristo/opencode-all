@@ -1,0 +1,144 @@
+# LiteLLM router for DGX Spark / Acer Veriton GN-100.
+# Evidence: Tool=Cursor Cloud Agent Model=cursor-grok-4.6-high-fast Date=2026-09-18
+# Audit trail: git log -- config/litellm-config.yaml
+#
+# Local-first + paid fallback. One OpenAI-compatible endpoint (default :4000).
+# This file is the checked-in source of truth that docs/Deputy-Agents-Architecture.md
+# §5.6 previously only sketched (that sketch still names undeployed models).
+#
+# Ollama model ids MUST match OLLAMA_DEPLOYED_MODELS in src/agents/model-selector.ts
+# and REQUIRED_MODELS in scripts/daily/check-ollama-models.sh. Do not add a pull
+# here. Do not put API keys, DSNs, or tokens in this file — only os.environ/*.
+#
+# Routing of "is this call simple?" stays in src/agents/model-selector.ts and
+# src/factory/ (Rule 5 — do not use a second LLM as a classifier). LiteLLM
+# aliases + fallbacks are the glue; they are not a second policy engine.
+#
+# DWS_MODEL_STANDARD.md §9 No-Cloud-Fallback: EU-Sovereign × Defence / Aegis /
+# NemoClaw MUST use model_name local-sovereign (or talk to Ollama :11434
+# directly). local-* aliases hop only between the two deployed Ollama ids.
+# model_name smart is the commercial local-first path and MAY reach Groq/Claude.
+#
+# Run on the DGX only. Do not install Ollama or LiteLLM on Cursor Cloud VMs.
+# Pin the LiteLLM container digest before compose (do not use :main-latest;
+# March 2026 supply-chain incident — docs/field-notes/2026-04-11-arxiv-2604-08407-relevance.md).
+#
+# Every local alias reads OLLAMA_API_BASE (LiteLLM os.environ/*). Required.
+#   Host process:      OLLAMA_API_BASE=http://127.0.0.1:11434
+#   Docker on Spark:   OLLAMA_API_BASE=http://host.docker.internal:11434
+#                      plus extra_hosts: host.docker.internal:host-gateway
+#                      (Linux Docker; same pattern as infrastructure/dgx-spark/docker-compose.yml)
+# Paid Opus id is FRONTIER-CLAUDE-OPUS / config/llm-registry.json current: claude-opus-4-8.
+# Secrets (set in the environment / secret manager, never committed):
+#   ANTHROPIC_API_KEY, GROQ_API_KEY, LITELLM_MASTER_KEY, OLLAMA_API_BASE
+# Start: scripts/litellm-spark.sh (exits 1 if LITELLM_MASTER_KEY or OLLAMA_API_BASE unset).
+
+model_list:
+  # Fast local tier — docker-compose OLLAMA_MODEL_FAST
+  - model_name: local-fast
+    litellm_params:
+      model: ollama/qwen3-coder:30b
+      api_base: os.environ/OLLAMA_API_BASE
+    model_info:
+      mode: chat
+      metadata:
+        dws_tier: lite
+        role: local-fast
+
+  # Strong local tier — docker-compose OLLAMA_MODEL
+  - model_name: local-strong
+    litellm_params:
+      model: ollama/nemotron-3-super
+      api_base: os.environ/OLLAMA_API_BASE
+    model_info:
+      mode: chat
+      metadata:
+        dws_tier: heavy
+        role: local-strong
+
+  # Same ids as aliases so agents can call model="smart" / DWS tier names
+  - model_name: smart
+    litellm_params:
+      model: ollama/nemotron-3-super
+      api_base: os.environ/OLLAMA_API_BASE
+
+  - model_name: lite
+    litellm_params:
+      model: ollama/qwen3-coder:30b
+      api_base: os.environ/OLLAMA_API_BASE
+
+  - model_name: standard
+    litellm_params:
+      model: ollama/qwen3-coder:30b
+      api_base: os.environ/OLLAMA_API_BASE
+
+  - model_name: heavy
+    litellm_params:
+      model: ollama/nemotron-3-super
+      api_base: os.environ/OLLAMA_API_BASE
+
+  # EU-Sovereign × Defence / NemoClaw — no cloud fallback (Model Standard §9)
+  - model_name: local-sovereign
+    litellm_params:
+      model: ollama/nemotron-3-super
+      api_base: os.environ/OLLAMA_API_BASE
+    model_info:
+      metadata:
+        dws_tier: heavy
+        role: no-cloud-fallback
+        cloud_fallback: false
+
+  # Paid frontier — T2. Keys from the environment only.
+  - model_name: claude-sonnet
+    litellm_params:
+      model: anthropic/claude-sonnet-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+    model_info:
+      metadata:
+        dws_tier: heavy
+        role: paid-sonnet
+
+  - model_name: claude-opus
+    litellm_params:
+      model: anthropic/claude-opus-4-8
+      api_key: os.environ/ANTHROPIC_API_KEY
+    model_info:
+      metadata:
+        dws_tier: heavy
+        role: paid-t2
+
+  # Burst fallback matching docker-compose LLM_FALLBACK=groq
+  - model_name: groq-llama
+    litellm_params:
+      model: groq/llama-3.3-70b-versatile
+      api_key: os.environ/GROQ_API_KEY
+    model_info:
+      metadata:
+        dws_tier: standard
+        role: burst
+
+router_settings:
+  num_retries: 2
+  timeout: 120
+  allowed_fails: 3
+  fallbacks:
+    - local-fast: ["local-strong"]
+    - local-strong: ["local-fast"]
+    - lite: ["local-strong"]
+    - standard: ["local-strong"]
+    - heavy: ["local-fast"]
+    - local-sovereign: ["local-strong"]
+    - smart: ["local-strong", "groq-llama", "claude-sonnet"]
+    - groq-llama: ["claude-sonnet"]
+
+litellm_settings:
+  drop_params: true
+  set_verbose: false
+  success_callback: ["prometheus"]
+  failure_callback: ["prometheus"]
+
+general_settings:
+  # Empty/unset LITELLM_MASTER_KEY disables proxy auth. Start only via
+  # scripts/litellm-spark.sh (fail-closed). Bind 127.0.0.1; do not publish :4000 on 0.0.0.0.
+  master_key: os.environ/LITELLM_MASTER_KEY
+  allowed_ips: ["127.0.0.1", "::1"]

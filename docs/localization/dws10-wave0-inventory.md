@@ -2,7 +2,7 @@
 
 # VERSION AND AGENT HISTORY
 
-***
+---
 
 Version: 1.0 [Latest]
 
@@ -18,8 +18,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
-***
-
+---
 
 Generated 2026-09-18. **No translation in this file.** Machine-readable twin: `dws10-wave0-inventory.json`.
 

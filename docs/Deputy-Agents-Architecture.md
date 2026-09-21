@@ -9,13 +9,25 @@
 
 VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.6
 Created: 2026-03-15
-Updated: 2026-04-22
-Author: Claude Opus 4.6 (wonderful-gould session); Claude Opus 4.7 (rename-godagents-skilled-dXqBs)
+Updated: 2026-09-18
+Author: Claude Opus 4.6 (wonderful-gould session); Claude Opus 4.7 (rename-godagents-skilled-dXqBs); Cursor Grok 4.6 (cursor/dgx-ollama-litellm-router-a455)
 Reviewed by: Boardy (cranky review received 2026-03-15)
-Status: REVIEWED — Boardy feedback incorporated v1.2; DWS Skilled Taxonomy added v1.3
+Status: REVIEWED — Boardy feedback incorporated v1.2; DWS Skilled Taxonomy added v1.3; LiteLLM config checked in v1.4; Copilot review v1.6
 Introduced-In: claude/rename-godagents-skilled-dXqBs (v1.3 Terminology section)
+
+Changes v1.6 (2026-09-18):
+
+- Copilot remaining #2039: stripped the remaining copy-pasteable floating LiteLLM image from §5.6 and the compose fence. Docker Ollama is `OLLAMA_API_BASE` + `extra_hosts` `host.docker.internal:host-gateway`. No LiteLLM service is shipped.
+
+Changes v1.5 (2026-09-18):
+
+- Copilot on PR #2039: removed the copy-paste LiteLLM compose service and the Boardy-era inline yaml (undeployed ids). Operators use `config/litellm-config.yaml` + `OLLAMA_API_BASE`. §10.1 pull uses the deployed pair.
+
+Changes v1.4 (2026-09-18):
+
+- Checked in `config/litellm-config.yaml` (was TODO). Uses `OLLAMA_DEPLOYED_MODELS` (`nemotron-3-super` + `qwen3-coder:30b`) and `os.environ/*` keys only. The §5.6 inline sketch is historical; do not pull the models it names.
 
 Changes v1.3 (2026-04-22):
 
@@ -601,58 +613,11 @@ specialist-mallit (DeepSeek, Mistral, Gemma EU-hosted) ovat mahdollisia.
 
 ### 5.6 LiteLLM Routing Configuration
 
-LiteLLM toimii proxy-kerroksena, joka reitittaa pyynnot oikeaan malliin:
+**Shipped:** `config/litellm-config.yaml` (2026-09-18). Local ids are only `nemotron-3-super` and `qwen3-coder:30b`. Every local alias reads `OLLAMA_API_BASE` (`os.environ/OLLAMA_API_BASE`). Paid Opus is `anthropic/claude-opus-4-8` (`config/llm-registry.json`). EU-Sovereign × Defence uses `local-sovereign` (no cloud fallback).
 
-```yaml
-# config/litellm-config.yaml (Acer Veriton GN-100)
-# Boardy #2: Single primary model for all industries
-model_list:
-  # PRIMARY — Qwen 2.5 72B for ALL godagents (always loaded)
-  - model_name: "godagent/primary"
-    litellm_params:
-      model: "ollama/qwen2.5:72b"
-      api_base: "http://ollama:11434"
-    model_info:
-      metadata:
-        role: "primary"
-        always_loaded: true
+The Boardy-era inline yaml that lived here named undeployed models and is **removed** so it cannot be copied onto the Spark. Do not restore it.
 
-  # FALLBACK — Claude API (cloud, when local is down)
-  - model_name: "godagent/fallback"
-    litellm_params:
-      model: "anthropic/claude-haiku-4-5-20251001"
-      api_key: "os.environ/ANTHROPIC_API_KEY"
-
-  # ENTERPRISE OVERRIDES — only for paying Enterprise-tier tenants
-  # Uncomment per tenant contract:
-  # - model_name: "enterprise/ncc-construction"
-  #   litellm_params:
-  #     model: "ollama/deepseek-v3"
-  #     api_base: "http://ollama:11434"
-
-# Routing rules
-router_settings:
-  routing_strategy: "usage-based-routing-v2"
-  num_retries: 2
-  timeout: 120
-  allowed_fails: 3
-  fallbacks:
-    - "industry/*": ["fallback/claude"]
-
-# Langfuse logging — Article 12 audit trail
-litellm_settings:
-  success_callback: ["langfuse"]
-  failure_callback: ["langfuse"]
-  langfuse_public_key: "os.environ/LANGFUSE_PUBLIC_KEY"
-  langfuse_secret_key: "os.environ/LANGFUSE_SECRET_KEY"
-  langfuse_host: "os.environ/LANGFUSE_HOST"
-
-# Rate limiting per tenant
-general_settings:
-  master_key: "os.environ/LITELLM_MASTER_KEY"
-  max_budget: 100 # EUR per month
-  budget_duration: "30d"
-```
+This document does **not** ship a LiteLLM compose service. Pin a container **digest** before any Spark compose. Do **not** use a floating `:main-latest` tag (March 2026 supply-chain incident).
 
 ---
 
@@ -678,22 +643,12 @@ services:
             - capabilities: [gpu]
     restart: unless-stopped
 
-  # ── LiteLLM — Multi-model proxy + routing ─────────────────────
-  litellm:
-    image: ghcr.io/berriai/litellm:main-latest
-    container_name: dws-litellm
-    ports: ["4000:4000"]
-    environment:
-      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY}
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
-      - LANGFUSE_PUBLIC_KEY=${LANGFUSE_PUBLIC_KEY}
-      - LANGFUSE_SECRET_KEY=${LANGFUSE_SECRET_KEY}
-      - LANGFUSE_HOST=${LANGFUSE_HOST:-http://langfuse:3100}
-    volumes:
-      - ./config/litellm-config.yaml:/app/config.yaml:ro
-    command: ["--config", "/app/config.yaml"]
-    depends_on: [ollama]
-    restart: unless-stopped
+  # ── LiteLLM — NOT SHIPPED in this compose ─────────────────────
+  # Historical. Do not copy. Optional glue config is config/litellm-config.yaml.
+  # Do not add a floating :main-latest image (March 2026 supply-chain).
+  # If HIC later adds a Spark service: pin an image digest, set
+  # extra_hosts host.docker.internal:host-gateway,
+  # OLLAMA_API_BASE=http://host.docker.internal:11434, and mount the yaml.
 
   # ── Aiven PostgreSQL (lokaali) — Audit + metadata ─────────────
   aiven-pg:
@@ -1087,12 +1042,11 @@ cd /opt/dws6
 cp .env.godagent.example .env.godagent
 # Edit: LITELLM_MASTER_KEY, AIVEN_PG_PASSWORD, ANTHROPIC_API_KEY
 
-# Pull primary LLM model (Boardy #2: single model strategy)
+# Pull the deployed Spark pair only (Truth Standard §2 row 40)
 docker compose -f docker-compose.godagent.yml up -d ollama
-docker exec dws-ollama ollama pull qwen2.5:72b
-# Enterprise overrides (only if contracted):
-# docker exec dws-ollama ollama pull deepseek-v3    # NCC BIM
-# docker exec dws-ollama ollama pull gemma2:27b      # Healthcare EU-hosted
+docker exec dws-ollama ollama pull nemotron-3-super
+docker exec dws-ollama ollama pull qwen3-coder:30b
+# Do not pull undeployed paste ids — see DWS_TRUTH_STANDARD.md row 40.
 
 # Start full stack
 docker compose -f docker-compose.godagent.yml up -d
@@ -1249,7 +1203,7 @@ src/sandbox/
 └── file_access_control.py # Python ACL
 
 config/
-├── litellm-config.yaml    # LiteLLM routing config          TODO
+├── litellm-config.yaml    # LiteLLM routing config          SHIPPED 2026-09-18 (deployed models only)
 └── .env.godagent          # Environment template            TODO
 
 docker-compose.godagent.yml                                  TODO

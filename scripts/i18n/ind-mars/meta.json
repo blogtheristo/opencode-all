@@ -1,0 +1,44 @@
+{
+  "en": {
+    "description": "Industry-vertical specialisation add-on for construction. Sits on top of a T3 Function bundle. Never sold standalone. Vertical: construction T3 add-on only — requires base T3 bundle Blue/pilot — internal sign-off required before quoting",
+    "og:description": "Industry-vertical specialisation add-on for construction. Sits on top of a T3 Function bundle. Never sold standalone. Vertical: construction T3 add-on only — requires base T3 bundle Blue/pilot — internal sign-off required before quoting",
+    "og:title": "Mars — Construction industry pod",
+    "shareTitle": "Mars — Construction industry pod"
+  },
+  "fi": {
+    "description": "Toimialaverikaalin erikoistumislisäosa rakentamiseen. Istuu T3 Function -paketin päälle. Ei myydä yksin. T3-lisäosa vain — sisäinen hyväksyntä ennen tarjousta",
+    "og:description": "Toimialaverikaalin erikoistumislisäosa rakentamiseen. Istuu T3 Function -paketin päälle. Ei myydä yksin.",
+    "og:title": "Mars — Rakentamisen toimialapod",
+    "shareTitle": "Mars — Rakentamisen toimialapod",
+    "aiNoticeLabel": "Tekoälyn tuottama sisältö",
+    "aiNoticeBody": "Tämä sivu on konekäännös englanninkielisestä alkuperäisestä eikä sitä ole vielä tarkistanut nimetty ihminen. Englanninkielinen versio on lähdeteksti.",
+    "aiNoticeLink": "Lue englanninkielinen alkuperäinen"
+  },
+  "sv": {
+    "description": "Vertikal specialiseringstillägg för bygg. Ligger ovanpå ett T3 Function-paket. Säljs aldrig fristående. Endast T3-tillägg — intern sign-off före offert",
+    "og:description": "Vertikal specialiseringstillägg för bygg. Ligger ovanpå ett T3 Function-paket. Säljs aldrig fristående.",
+    "og:title": "Mars — branschpod för bygg",
+    "shareTitle": "Mars — branschpod för bygg",
+    "aiNoticeLabel": "AI-genererat innehåll",
+    "aiNoticeBody": "Den här sidan är en maskinöversättning av det engelska originalet och har inte granskats av en namngiven människa. Den engelska versionen är källtexten.",
+    "aiNoticeLink": "Läs det engelska originalet"
+  },
+  "de": {
+    "description": "Branchenspezifisches Spezialisierungs-Add-on für das Bauwesen. Sitzt auf einem T3-Function-Bündel. Wird nie allein verkauft. Nur T3-Add-on — interne Freigabe vor dem Angebot",
+    "og:description": "Branchenspezifisches Spezialisierungs-Add-on für das Bauwesen. Sitzt auf einem T3-Function-Bündel. Wird nie allein verkauft.",
+    "og:title": "Mars — Branchen-Pod Bau",
+    "shareTitle": "Mars — Branchen-Pod Bau",
+    "aiNoticeLabel": "Von künstlicher Intelligenz (KI) generierter Inhalt",
+    "aiNoticeBody": "Diese Seite ist eine maschinelle Übersetzung des englischen Originals und wurde noch nicht von einer namentlich genannten Person geprüft. Die englische Fassung ist der Quelltext.",
+    "aiNoticeLink": "Das englische Original lesen"
+  },
+  "fr": {
+    "description": "Add-on de spécialisation verticale pour la construction. S’ajoute à un lot T3 Function. Jamais vendu seul. Add-on T3 uniquement — validation interne avant devis",
+    "og:description": "Add-on de spécialisation verticale pour la construction. S’ajoute à un lot T3 Function. Jamais vendu seul.",
+    "og:title": "Mars — pod industrie construction",
+    "shareTitle": "Mars — pod industrie construction",
+    "aiNoticeLabel": "Contenu généré par intelligence artificielle (IA)",
+    "aiNoticeBody": "Cette page est une traduction automatique de l’original anglais et n’a pas encore été révisée par une personne nommée. La version anglaise est le texte source.",
+    "aiNoticeLink": "Lire l’original anglais"
+  }
+}

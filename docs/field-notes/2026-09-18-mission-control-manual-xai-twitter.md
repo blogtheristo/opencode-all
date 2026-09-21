@@ -1,3 +1,5 @@
+<!-- Evidence: Tool=Cursor Grok 4.6 Model=cursor-grok-4.6 Agent=Cursor Agent Date=2026-09-18 -->
+
 # Mission Control opens when signed in — operations stay manual; X @blogtheristo is the xAI account
 
 ## VERSION AND AGENT HISTORY

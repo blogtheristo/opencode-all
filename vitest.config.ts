@@ -15,6 +15,7 @@ export default defineConfig({
       '**/node_modules/**',
       '**/dist/**',
       '**/.claude/worktrees/**',
+      '**/.claude/archive/**',
       // Stale PR-snapshot worktrees checked into the repo. They carry their
       // own outdated tests/mocks and must not run as part of main CI.
       'artifacts/**',

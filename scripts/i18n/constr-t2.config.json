@@ -1,0 +1,20 @@
+{
+  "id": "constr-t2",
+  "master": "dws10.com/products/constr-t2.html",
+  "masterLang": "en",
+  "stringsDir": "scripts/i18n/constr-t2",
+  "outDirs": ["dws10.com/products", "landing-pages/dws10-com/products"],
+  "urlBase": "https://dws10.com/products/",
+  "files": {
+    "en": "constr-t2.html",
+    "fi": "constr-t2.fi.html",
+    "sv": "constr-t2.sv.html",
+    "de": "constr-t2.de.html",
+    "fr": "constr-t2.fr.html"
+  },
+  "aiNotice": {
+    "after": "<div class=\"container\">",
+    "langs": ["fi", "sv", "de", "fr"],
+    "_why": "EU AI Act Art. 50(4) — machine-translated catalog copy, no named human review yet."
+  }
+}

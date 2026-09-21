@@ -1,0 +1,39 @@
+name: Daily Cost Audit Sync to Supabase
+
+on:
+  schedule:
+    # Every day at 02:00 UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run cost audit sync
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npx ts-node scripts/cost-audit-sync-supabase.ts
+
+      - name: Verify sync
+        if: success()
+        run: echo "✅ Cost audit sync completed successfully"
+
+      - name: Notify on failure
+        if: failure()
+        run: echo "❌ Cost audit sync failed; check logs for details"
