@@ -1,0 +1,62 @@
+{
+  "name": "kya-incident-response-chapter-seven",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "Identify the session/agent under review (session ID). Grounded in `/kya status <session_id>` — trust score + identity binding for a session (.claude/commands/kya.md).",
+      "allowedNext": ["ASSESS_TRUST"]
+    },
+    {
+      "id": "ASSESS_TRUST",
+      "description": "Run `/kya status <session_id>` and read the Inference Jurisdiction Score (IJS), 0-100, computed at session start and re-evaluated on every provider switch. Route to the matching IJS tier.",
+      "allowedNext": ["SOVEREIGN", "COMPLIANT", "PARTIAL_REMEDIATION", "ESCALATE_C_LEVEL"]
+    },
+    {
+      "id": "SOVEREIGN",
+      "description": "IJS 90-100, Sovereign tier — fully EU-compliant, on-prem or EU-only inference (e.g. DGX Spark Espoo, IJS 100). KYA+I action: None. Terminal — no incident.",
+      "allowedNext": []
+    },
+    {
+      "id": "COMPLIANT",
+      "description": "IJS 70-89, Compliant tier — meets Art. 12 + GDPR for high-risk AI. KYA+I action: Minor gap remediation. Terminal — no incident, log the remediation note.",
+      "allowedNext": []
+    },
+    {
+      "id": "PARTIAL_REMEDIATION",
+      "description": "IJS 40-69, Partial tier — OK for limited-risk AI, not for high-risk. KYA+I action per the IJS table: disclose to customer, get written acceptance. Re-check trust after remediation, or park if acceptance is refused.",
+      "allowedNext": ["ASSESS_TRUST", "PARKED"]
+    },
+    {
+      "id": "ESCALATE_C_LEVEL",
+      "description": "IJS 0-39, Exposed tier — CLOUD Act exposure or no DPA, unacceptable for EU enterprise. KYA+I action: block or escalate to C-level. A confirmed active incident (TRUST_VIOLATION, POLICY_BREACH, CONTAINMENT_BREACH, or inference-jurisdiction reason codes) proceeds to a TC-4 Leash Snap; otherwise this is a blocked/parked terminal.",
+      "allowedNext": ["SNAP_DRY_RUN", "PARKED"]
+    },
+    {
+      "id": "SNAP_DRY_RUN",
+      "description": "Preview the TC-4 leash snap without executing: `/kya snap <session_id> --reason <CODE> --dry-run` — SAFE, use first. Per the skill's safety rule, do NOT run a real snap without a dry-run preview unless the situation is an active incident.",
+      "allowedNext": ["SNAP_CONFIRM", "PARKED"]
+    },
+    {
+      "id": "SNAP_CONFIRM",
+      "description": "Human confirmation step the skill doc requires before a real snap: confirm the session ID once more in plain text, and require the human to type the session ID back before running without --dry-run.",
+      "allowedNext": ["SNAP_EXECUTE"]
+    },
+    {
+      "id": "SNAP_EXECUTE",
+      "description": "DESTRUCTIVE. The real TC-4 Leash Snap: `/kya snap <session_id> --reason <CODE> [--force-cascade] --yes`. Chain termination with forensic dump, audit-logged server-side. Reachable ONLY via SNAP_DRY_RUN -> SNAP_CONFIRM, mirroring how HIC_APPROVAL_GATE -> SEND is the only path to SEND in sales-outreach.graph.json.",
+      "allowedNext": ["END"]
+    },
+    {
+      "id": "END",
+      "description": "Terminal — incident closed, forensic dump location recorded.",
+      "allowedNext": []
+    },
+    {
+      "id": "PARKED",
+      "description": "Terminal for this run, re-enterable later (e.g. customer acceptance pending, or Exposed-tier session blocked without an active-incident snap).",
+      "allowedNext": []
+    }
+  ]
+}

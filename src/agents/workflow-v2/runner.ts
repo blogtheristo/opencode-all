@@ -12,8 +12,9 @@
 import { randomUUID } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
+import { makeTypedDecision } from '../kya-jev.js';
 import type { LLMClient } from '../llm-client.js';
-import type { LLMMessage } from '../types.js';
+import type { AgentRuntimeContext, LLMMessage } from '../types.js';
 import {
   assertTransitionAllowed,
   computeApprovalHash,
@@ -43,11 +44,23 @@ export const DEFAULT_GATED_NODE_IDS = ['HIC_APPROVAL_GATE'];
  */
 export class ApprovalRequiredError extends Error {}
 
+/**
+ * Thrown by runExecutorStepTyped when kya-jev abstains (its own output failed
+ * validation twice) AND the current node has no ERROR_RECOVERY edge to fall
+ * back onto. Per the integration plan, an abstention with an ERROR_RECOVERY
+ * edge available is routed there instead of thrown — this error is only the
+ * remaining unhandled case, kept as a named error rather than a generic
+ * throw (Discipline rule #12, fail loud).
+ */
+export class TypedTransitionAbstainedError extends Error {}
+
 export interface StepResult {
   currentNode: string;
   assistantText: string;
   nextNode: string | null;
   done: boolean;
+  /** Set by runExecutorStepTyped: a summary of kya-jev's decision + per-option probabilities, for GraphTransition.note. */
+  note?: string;
 }
 
 export interface RunExecutorStepOptions {
@@ -110,6 +123,115 @@ export async function runExecutorStep(
     assistantText: response.content,
     nextNode,
     done: false,
+  };
+}
+
+/**
+ * Applies the HIC_APPROVAL_GATE code gate (same rule as runExecutorStep) to a
+ * candidate transition. Shared by both the free-text and typed step
+ * functions so the gate can never be bypassed by picking one path over the
+ * other.
+ */
+function enforceApprovalGate(
+  graph: ProceduralGraph,
+  currentNodeId: string,
+  nextNode: string,
+  draftText: string,
+  options?: RunExecutorStepOptions,
+): void {
+  const gatedNodeIds = options?.gatedNodeIds ?? DEFAULT_GATED_NODE_IDS;
+  if (!gatedNodeIds.includes(currentNodeId)) return;
+
+  const requiredHash = computeApprovalHash(graph.name, currentNodeId, nextNode, draftText);
+  const approved = (options?.approvedTransitions ?? []).some((t) => t.hash === requiredHash);
+  if (!approved) {
+    throw new ApprovalRequiredError(
+      `Transition "${currentNodeId}" -> "${nextNode}" requires a matching HIC ApprovalToken ` +
+        `for this exact draft (graph "${graph.name}") and none was provided.`,
+    );
+  }
+}
+
+/**
+ * Typed alternate to runExecutorStep (Phase 1, workflow-v2-jev-kya-integration-plan.md):
+ * instead of parsing a `<transition>` tag out of free prose, this asks
+ * kya-jev to make a typed 'choice' decision across the current node's
+ * `allowedNext` options. Requires a signed 'allowed' KYA verdict on
+ * `runtime` — kya-jev's own `requireKyaVerdict`/`verifyKyaVerdict` enforce
+ * that; this function does not re-implement or weaken that check.
+ *
+ * Everything downstream of getting a candidate `nextNode` — assertTransitionAllowed,
+ * the HIC_APPROVAL_GATE approval-hash gate — runs exactly as it does for
+ * runExecutorStep. This only changes how the candidate is produced.
+ */
+export async function runExecutorStepTyped(
+  client: LLMClient,
+  graph: ProceduralGraph,
+  currentNodeId: string,
+  userInput: string,
+  runtime: AgentRuntimeContext,
+  options?: RunExecutorStepOptions,
+): Promise<StepResult> {
+  validateGraph(graph);
+  const node = findNode(graph, currentNodeId);
+
+  if (isTerminalNode(node)) {
+    return {
+      currentNode: currentNodeId,
+      assistantText: userInput,
+      nextNode: null,
+      done: true,
+    };
+  }
+
+  const state = `${buildExecutorSystemPrompt(graph, currentNodeId)}\n\nUser input: ${userInput}`;
+  const result = await makeTypedDecision(
+    client,
+    {
+      state,
+      question: {
+        kind: 'choice',
+        prompt: `Choose the single next node to transition to from "${currentNodeId}", based on the user input and the node's Allowed Next Nodes.`,
+        options: node.allowedNext,
+      },
+    },
+    runtime,
+  );
+
+  const probabilitySummary = Object.entries(result.probabilities)
+    .map(([option, p]) => `${option}:${p.toFixed(2)}`)
+    .join(', ');
+  const note = `kya-jev typed transition — decision=${result.decision} confidence=${result.confidence.toFixed(2)} probabilities={${probabilitySummary}}`;
+
+  if (result.abstained) {
+    if (!node.allowedNext.includes('ERROR_RECOVERY')) {
+      throw new TypedTransitionAbstainedError(
+        `kya-jev abstained choosing a transition from node "${currentNodeId}" (invalid/unparseable ` +
+          `output after retries) and "${currentNodeId}" has no ERROR_RECOVERY edge to fall back onto.`,
+      );
+    }
+    const nextNode = 'ERROR_RECOVERY';
+    assertTransitionAllowed(graph, currentNodeId, nextNode);
+    enforceApprovalGate(graph, currentNodeId, nextNode, note, options);
+    return {
+      currentNode: currentNodeId,
+      assistantText: userInput,
+      nextNode,
+      done: false,
+      note,
+    };
+  }
+
+  const nextNode = result.decision;
+  assertTransitionAllowed(graph, currentNodeId, nextNode);
+  enforceApprovalGate(graph, currentNodeId, nextNode, note, options);
+
+  return {
+    currentNode: currentNodeId,
+    assistantText: userInput,
+    nextNode,
+    done: false,
+    note,
   };
 }
 
