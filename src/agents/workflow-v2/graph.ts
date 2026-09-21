@@ -5,9 +5,26 @@
  * Kept dependency-free so it can run in the executor loop, the refiner, and tests alike.
  */
 
+import { createHash } from 'node:crypto';
 import type { ProceduralGraph, ProceduralNode } from './types.js';
 
 export class GraphValidationError extends Error {}
+
+/**
+ * Deterministic SHA-256 binding a draft to the exact graph/edge it was
+ * approved for — so an approval can never be replayed against a different
+ * draft or a different edge (RED-zone outbound-email gate, Discipline #12).
+ */
+export function computeApprovalHash(
+  graphName: string,
+  fromNode: string,
+  toNode: string,
+  draftText: string,
+): string {
+  return createHash('sha256')
+    .update(`${graphName}\u0000${fromNode}\u0000${toNode}\u0000${draftText}`)
+    .digest('hex');
+}
 
 export function findNode(graph: ProceduralGraph, nodeId: string): ProceduralNode {
   const node = graph.nodes.find((n) => n.id === nodeId);

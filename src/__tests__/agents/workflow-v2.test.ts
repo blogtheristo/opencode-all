@@ -4,9 +4,11 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
+  ApprovalRequiredError,
   assertTransitionAllowed,
   buildExecutorSystemPrompt,
   buildRefinerPrompt,
+  computeApprovalHash,
   finalizeTrace,
   GraphValidationError,
   isTerminalNode,
@@ -14,8 +16,11 @@ import {
   newTrace,
   type ProceduralGraph,
   recordTransition,
+  runExecutorStep,
   validateGraph,
 } from '../../agents/workflow-v2/index.js';
+import type { LLMClient } from '../../agents/llm-client.js';
+import type { LLMResponse } from '../../agents/types.js';
 
 const graph: ProceduralGraph = {
   name: 'test-graph',
@@ -155,5 +160,86 @@ describe('b2b-growth-funnel example graph (campaign-level, feeds chapter one)', 
     expect(isTransitionAllowed(funnelGraph, 'STRATEGY', 'EXECUTION')).toBe(true);
     const execution = funnelGraph.nodes.find((n) => n.id === 'EXECUTION');
     expect(execution?.description).toContain('sales-outreach.graph.json');
+  });
+});
+
+describe('runExecutorStep — HIC_APPROVAL_GATE code-level enforcement', () => {
+  const gateGraph: ProceduralGraph = {
+    name: 'gate-test-graph',
+    version: 1,
+    startNode: 'HIC_APPROVAL_GATE',
+    nodes: [
+      { id: 'HIC_APPROVAL_GATE', description: 'await HIC approval', allowedNext: ['SEND'] },
+      { id: 'SEND', description: 'terminal', allowedNext: [] },
+    ],
+  };
+
+  const draftText = 'Draft to prospect@example.com: hello there.';
+
+  function fakeClient(content: string): LLMClient {
+    return {
+      chat: async (): Promise<LLMResponse> => ({
+        content,
+        model: 'fake-model',
+        inputTokens: 1,
+        outputTokens: 1,
+        stopReason: 'end_turn',
+      }),
+    } as unknown as LLMClient;
+  }
+
+  it('throws ApprovalRequiredError when no matching token is provided', async () => {
+    const client = fakeClient(`${draftText}\n<transition>SEND</transition>`);
+    await expect(
+      runExecutorStep(client, gateGraph, 'HIC_APPROVAL_GATE', 'send it'),
+    ).rejects.toThrow(ApprovalRequiredError);
+  });
+
+  it('proceeds when a correctly-computed matching token is provided', async () => {
+    const content = `${draftText}\n<transition>SEND</transition>`;
+    const client = fakeClient(content);
+    const hash = computeApprovalHash('gate-test-graph', 'HIC_APPROVAL_GATE', 'SEND', content);
+
+    const result = await runExecutorStep(client, gateGraph, 'HIC_APPROVAL_GATE', 'send it', {
+      approvedTransitions: [{ hash, approvedAt: new Date().toISOString() }],
+    });
+
+    expect(result.nextNode).toBe('SEND');
+    expect(result.done).toBe(false);
+  });
+
+  it('rejects a token computed for a different draft (hash binds to draft content)', async () => {
+    const actualContent = `${draftText}\n<transition>SEND</transition>`;
+    const client = fakeClient(actualContent);
+    const staleHash = computeApprovalHash(
+      'gate-test-graph',
+      'HIC_APPROVAL_GATE',
+      'SEND',
+      `A different draft entirely.\n<transition>SEND</transition>`,
+    );
+
+    await expect(
+      runExecutorStep(client, gateGraph, 'HIC_APPROVAL_GATE', 'send it', {
+        approvedTransitions: [{ hash: staleHash, approvedAt: new Date().toISOString() }],
+      }),
+    ).rejects.toThrow(ApprovalRequiredError);
+  });
+
+  it('does not require a token from a non-gated node (no regression)', async () => {
+    const ungatedGraph: ProceduralGraph = {
+      name: 'ungated-test-graph',
+      version: 1,
+      startNode: 'START',
+      nodes: [
+        { id: 'START', description: 'begin', allowedNext: ['END'] },
+        { id: 'END', description: 'terminal', allowedNext: [] },
+      ],
+    };
+    const client = fakeClient('moving on\n<transition>END</transition>');
+
+    const result = await runExecutorStep(client, ungatedGraph, 'START', 'go');
+
+    expect(result.nextNode).toBe('END');
+    expect(result.done).toBe(false);
   });
 });

@@ -43,7 +43,7 @@ enforces its edges (e.g. you cannot jump straight from `RESEARCH` to
 | RESEARCH                                                               | `src/outreach/types.ts` (Organization/Person shape)                                                            |
 | INTRO_REQUESTED / INTRO_MADE                                           | `investor-outreach` skill pattern generalized to customer/partner pipelines                                    |
 | DRAFT_OUTREACH                                                         | `src/outreach/prospect-email-templates.ts`, or a matching `sales-outreach/INTRO_*.md` / `LETTER_*.md` template |
-| HIC_APPROVAL_GATE                                                      | No backing code yet — this is the one new thing chapter one needs (see below)                                  |
+| HIC_APPROVAL_GATE                                                      | `src/agents/workflow-v2/runner.ts` (`ApprovalRequiredError`, `computeApprovalHash`) — implemented, see below   |
 | SEND                                                                   | Amazon SES (SMTP) — **not** the `/email` skill's Resend path (see Known Conflict)                              |
 | AWAIT_RESPONSE                                                         | `src/outreach/cadence.ts`, `scheduler.ts`, `reply-parser.ts`                                                   |
 | RESPONDED / MEETING_BOOKED / NEGOTIATION / CONVERTED / PASSED / PARKED | `OutreachStatus` values, `outreach_activities` table                                                           |
@@ -57,12 +57,28 @@ node descriptions say the executor must stop and show the draft — but a
 node description is a prompt-level instruction, and Discipline rule #12
 (fail loud) means chapter one should not trust the LLM alone to honor it.
 
-**Before chapter one runs against real prospects**, `runExecutorStep` (or a
-thin wrapper around it) needs a code-level check: refuse the
-`HIC_APPROVAL_GATE → SEND` transition unless the caller passes an explicit
-`approved: true` flag tied to that exact draft's hash. That's a small,
-scoped addition to `runner.ts` — not built yet, flagged here so chapter one
-isn't accidentally run without it.
+**Implemented.** `runExecutorStep()` in `src/agents/workflow-v2/runner.ts`
+now enforces this in code, not just in the prompt:
+
+- Any transition leaving a node whose id is in `gatedNodeIds` (default:
+  `DEFAULT_GATED_NODE_IDS = ['HIC_APPROVAL_GATE']` — general by node id, not
+  hardcoded to this one graph) requires an `approvedTransitions` array of
+  `ApprovalToken`s to be passed in.
+- Each `ApprovalToken` carries a SHA-256 `hash` (`computeApprovalHash` in
+  `graph.ts`) binding the approval to the exact `graphName` + `fromNode` +
+  `toNode` + draft text, plus an `approvedAt` ISO timestamp.
+- If no token in the list matches the hash of the draft the executor just
+  produced for this exact edge, `runExecutorStep` throws
+  `ApprovalRequiredError` and the transition does not happen — a rubber
+  stamp for the edge in general does not satisfy the gate, only a hash
+  computed over the actual draft text does.
+- A matching token lets the transition proceed normally.
+
+The existing `runExecutorStep(client, graph, currentNodeId, userInput)`
+signature is unchanged; the gate is an additional optional 5th parameter,
+so callers and tests that don't pass it are unaffected on ungated nodes.
+Tests: `src/__tests__/agents/workflow-v2.test.ts` ("runExecutorStep —
+HIC_APPROVAL_GATE code-level enforcement").
 
 ## Known conflict to resolve before SEND is wired up
 
@@ -76,13 +92,13 @@ until that skill doc is corrected.
 
 ## Not building yet
 
-- The `runner.ts` approval-hash gate above.
 - Bounce/deliverability handling code for `ERROR_RECOVERY`.
 - Wiring this graph into an actual CLI/skill entry point (same open question
   as Workflow v2 itself — see PR #2059's HIC decision question).
 
 ## HIC decision needed
 
-Build the approval-hash gate in `runner.ts` next (small, unblocks a real
-chapter-one run), or leave this as a design-only artifact until the broader
-Workflow v2 CLI question is answered first?
+The approval-hash gate is built. Remaining open question: wire this graph
+into an actual CLI/skill entry point that issues `ApprovalToken`s from a
+real HIC approval step (e.g. `/blog-draft`-style show-text-and-wait), or
+leave that wiring for the broader Workflow v2 CLI question (PR #2059)?

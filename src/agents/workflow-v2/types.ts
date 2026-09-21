@@ -36,6 +36,18 @@ export interface GraphTransition {
 
 export type RunOutcome = 'success' | 'failure' | 'in_progress';
 
+/**
+ * Proof that a specific draft, at a specific edge, was approved by the HIC.
+ * `hash` binds to the draft's exact text plus the graph/edge it applies to
+ * (see computeApprovalHash in graph.ts) — it is not a rubber stamp for the
+ * edge in general.
+ */
+export interface ApprovalToken {
+  hash: string;
+  /** ISO 8601 timestamp of when the HIC approved this draft. */
+  approvedAt: string;
+}
+
 export interface ExecutionTrace {
   graphName: string;
   graphVersion: number;
