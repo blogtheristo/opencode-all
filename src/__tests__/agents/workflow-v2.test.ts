@@ -1,6 +1,7 @@
 // Evidence: Tool=Claude Code 2.1 Model=claude-sonnet-5 Agent=claude Date=2026-09-21
 // Audit trail: git log -- src/__tests__/agents/workflow-v2.test.ts
 
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
   assertTransitionAllowed,
@@ -106,5 +107,27 @@ describe('buildRefinerPrompt', () => {
     expect(prompt).toContain('Outcome: Failure');
     expect(prompt).toContain('tool timed out twice');
     expect(prompt).toContain('<updated_graph>');
+  });
+});
+
+describe('sales-outreach example graph (chapter one)', () => {
+  it('is structurally valid and gates SEND behind HIC_APPROVAL_GATE', () => {
+    const salesGraph: ProceduralGraph = JSON.parse(
+      readFileSync(
+        new URL('../../agents/workflow-v2/examples/sales-outreach.graph.json', import.meta.url),
+        'utf-8',
+      ),
+    );
+
+    expect(() => validateGraph(salesGraph)).not.toThrow();
+
+    const sendNode = salesGraph.nodes.find((n) => n.id === 'SEND');
+    expect(sendNode).toBeDefined();
+    // Nothing may reach SEND except through the approval gate.
+    for (const node of salesGraph.nodes) {
+      if (node.id === 'HIC_APPROVAL_GATE') continue;
+      expect(node.allowedNext).not.toContain('SEND');
+    }
+    expect(isTransitionAllowed(salesGraph, 'HIC_APPROVAL_GATE', 'SEND')).toBe(true);
   });
 });
