@@ -1,0 +1,42 @@
+{
+  "name": "data-pipeline",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "Understand user request and identify required data.",
+      "allowedNext": ["FETCH_DATA", "CLARIFY_REQUIREMENTS"]
+    },
+    {
+      "id": "CLARIFY_REQUIREMENTS",
+      "description": "Ask the user for missing scope details before fetching anything.",
+      "allowedNext": ["FETCH_DATA"]
+    },
+    {
+      "id": "FETCH_DATA",
+      "description": "Use tools to pull necessary data.",
+      "allowedNext": ["PROCESS_DATA", "ERROR_RECOVERY"]
+    },
+    {
+      "id": "PROCESS_DATA",
+      "description": "Format and analyze the data.",
+      "allowedNext": ["GENERATE_OUTPUT", "FETCH_DATA"]
+    },
+    {
+      "id": "GENERATE_OUTPUT",
+      "description": "Create final deliverable.",
+      "allowedNext": ["END"]
+    },
+    {
+      "id": "ERROR_RECOVERY",
+      "description": "Diagnose tool failure and adjust parameters.",
+      "allowedNext": ["FETCH_DATA", "END"]
+    },
+    {
+      "id": "END",
+      "description": "Terminal node — task complete or abandoned.",
+      "allowedNext": []
+    }
+  ]
+}
