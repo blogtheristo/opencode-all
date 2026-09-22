@@ -3,6 +3,8 @@ Status: PENDING_REVIEW
 Date: 2026-09-22
 Branch: claude/dapr-dws-use-cases-049za6
 Author: Claude Sonnet 5
+Update 2026-09-22: HIC approved the §3 Phase 1 pub/sub pilot. Implemented —
+see "§3a Pilot: implemented" below.
 ---
 
 # Dapr Use Cases for DWS6/DWS7
@@ -207,7 +209,39 @@ environment before committing to it for anything higher-stakes (§1.4).
 
 ## HIC decision needed
 
-Approve the phased plan above — specifically: (a) go/no-go on the pub/sub
-pilot as scoped in Phase 1, and (b) DGX-local Redis (reuse the existing
-instance) or a separate instance for the pilot, to keep pilot traffic
-isolated from production rate-limiter/token-blacklist Redis usage.
+~~Approve the phased plan above~~ — **APPROVED 2026-09-22.** Phase 1
+implemented on this branch:
+
+## 3a. Pilot: implemented
+
+- `src/agents/event-bus.ts` — `emit()` additionally publishes to Dapr only
+  when `DAPR_PUBSUB_PILOT_ENABLED=true` and `event.type === 'agent.task_complete'`;
+  local dispatch is unconditional and independent of the sidecar (a
+  publish failure is logged and swallowed). Added `dispatchFromDapr()` so
+  events delivered back by the sidecar dispatch to local subscribers
+  without re-publishing (no loop).
+- `src/routes/dapr-pubsub.routes.ts` — `GET /dapr/subscribe` (declares the
+  one pilot topic) and `POST /dapr/events/agent-task-complete` (delivery
+  callback), mounted at `/dapr` in `src/app.ts`.
+- `dapr/components/pubsub.yaml.tpl` + `dapr/README.md` — Redis pub/sub
+  component template (render via `envsubst`, gitignored once rendered —
+  it holds a plaintext Redis password) and full run/rollback instructions.
+- Tests: `src/__tests__/event-bus-dapr-pilot.test.ts` (4 cases: flag off
+  by default, only the pilot event type touches Dapr, local dispatch
+  survives a down sidecar, no publish-loop via `dispatchFromDapr`) and
+  `src/__tests__/dapr-pubsub-routes.test.ts` (3 cases covering the
+  subscribe/deliver contract). 8/8 passing, `tsc --noEmit` clean on all
+  touched files.
+- **Default state remains off** (`DAPR_PUBSUB_PILOT_ENABLED` unset) — this
+  PR ships the capability, not a live pilot. Turning it on for a real
+  2-week window, and which Redis instance to point it at, is still an HIC
+  call — see `dapr/README.md` "Prerequisites" for the isolation
+  recommendation (separate instance/DB from the production rate-
+  limiter/token-blacklist Redis).
+
+## HIC action remaining
+
+1. Pick the pilot Redis (reuse existing instance/DB, or spin up a
+   short-lived separate one — `dapr/README.md` recommends separate).
+2. Say when to flip `DAPR_PUBSUB_PILOT_ENABLED=true` in a real environment
+   to start the 2-week observation window from §3.

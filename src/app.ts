@@ -40,6 +40,7 @@ import bookingRoutes from './routes/booking.routes.js';
 import supportRoutes from './routes/support.routes.js';
 import supportReviewRoutes from './routes/support-review.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
+import daprPubsubRoutes from './routes/dapr-pubsub.routes.js';
 import agentRoutes from './agents/routes.js';
 import nudgeRoutes from './routes/nudge.routes.js';
 import nudgeWebhookRoutes from './routes/nudge-webhook.routes.js';
@@ -385,6 +386,10 @@ app.use('/webhooks/nudge', nudgeWebhookRoutes);
 
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
+
+// Dapr pub/sub pilot — subscription callback, local sidecar only.
+// docs/field-notes/2026-09-22-dapr-use-cases-dws.md §3 Phase 1
+app.use('/dapr', daprPubsubRoutes);
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
