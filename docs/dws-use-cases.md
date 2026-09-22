@@ -205,6 +205,41 @@ backoffMs }`, and an overall `timeoutMs`. Its own top comment states the goal is
   need a Schedule (they're triggered by an event — a scheduled post's send time, a TED poll,
   a webhook — not a cron tick).
 
+## 9. Human-in-the-loop approval gates — Implemented (2026-09-24, new use case)
+
+- **Source:** HIC shared temporalio/ai-cookbook's `agents/human_in_the_loop_python`
+  example — a Signal handler + `wait_condition()` pattern for pausing an agent workflow
+  until a human approves or rejects, at zero compute cost while waiting.
+- **Current tech:** DWS6 already has several human-approval gates, all synchronous and
+  in-chat: the blog-draft-gate hook (Non-Negotiable Rule 13 — "show text, stop, ask" in
+  the same Claude Code turn), the Session Learning Outcome Rule's step 5 ("ask HIC one
+  real decision question"), and RED-zone thesis-structural-edit approval. None of these
+  produce a durable, queryable record independent of the chat session.
+- **Gaps:** If the session ends (context limit, disconnect, HIC steps away) before the
+  question is answered, the approval request has no independent existence — it has to be
+  re-asked from scratch next session. There is no "list of things pending my approval"
+  a HIC could check outside the specific chat that asked. No async, multi-day wait
+  support (a HIC traveling for a week has no way to approve later without a new
+  session re-deriving the same question).
+- **Proposed / shipped solution:** `src/temporal/workflows/human-approval.workflow.ts`
+  (`humanApprovalWorkflow`) — TypeScript port of the cookbook pattern: a
+  `defineSignal`/`setHandler` pair receives the decision, `condition()` pauses the
+  workflow (default 7-day timeout — DWS approvals are async human review, not the
+  cookbook's 5-minute live-agent demo default) until a decision arrives or it times out,
+  and a `defineQuery` exposes current state (`pending` / decided) for anyone to check
+  without waiting. `src/temporal/approvals.ts` has the client-side helpers
+  (`startApprovalRequest`, `sendApprovalDecision`, `getApprovalState`,
+  `awaitApprovalResult`); `scripts/temporal-send-approval.ts`
+  (`npm run temporal:approve -- <requestId> --approve --by "<name>"`) is the decision-
+  sender CLI, mirroring the cookbook's own approval-signal-sender script.
+- **Deliberately NOT wired into the blog-draft-gate hook or any other compliance-critical
+  RED-zone gate this session** — those are policy-enforced by Non-Negotiable Rule 13 and
+  a cutover needs its own review, same caution already applied to the Stripe webhook
+  route (#6). This ships the general-purpose building block only.
+- **4/4 unit tests passing** (`src/__tests__/temporal-human-approval.test.ts`) against a
+  mocked client — workflowId keying, signal/query wiring. Not run against a live server
+  (same caveat as every other use case — see Implementation status note above).
+
 ---
 
 ## Cross-cutting notes
