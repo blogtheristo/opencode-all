@@ -10,7 +10,7 @@ Version: 1.1 [Latest]
 Tool: Claude Code (Sonnet 5)
 Agent: Claude Code
 Date: 2026-09-24
-Changes: HIC approved `api.dws6.com`. Wired `window.DWS_API_BASE` in both
+Changes: HIC approved `backend.dws6.com`. Wired `window.DWS_API_BASE` in both
 dashboard backoffice HTML pages. V10 `VITE_API_URL` wiring not done this
 session — blocked by `.env*` file access policy, documented as manual step.
 
@@ -122,13 +122,13 @@ Reuse the existing pattern instead of standing up new infrastructure — there i
 exactly one tunnel with one ingress rule (`mcp-gateway`, per `docs/CLOUD_ENVIRONMENTS.md`
 §12.x). Add a **second** ingress rule to that same tunnel:
 
-1. **Hostname: `api.dws6.com`** — same domain as the frontend calling it (no CORS
+1. **Hostname: `backend.dws6.com`** — same domain as the frontend calling it (no CORS
    complications), doesn't collide with any existing subdomain found in this repo.
 2. **Cloudflare Zero Trust dashboard** (one-time, outside repo): add ingress rule
-   `api.dws6.com` → `http://dws-backend:8080` to the tunnel already carrying
+   `backend.dws6.com` → `http://dws-backend:8080` to the tunnel already carrying
    `mcp-gateway`'s traffic. No new `CLOUDFLARE_TUNNEL_TOKEN`, no new `cloudflare-tunnel`
    compose service — one tunnel, two ingress hostnames.
-3. **DNS:** CNAME `api.dws6.com` → the tunnel's `<tunnel-id>.cfargotunnel.com`, the same
+3. **DNS:** CNAME `backend.dws6.com` → the tunnel's `<tunnel-id>.cfargotunnel.com`, the same
    pattern as whatever record already exists for `mcp-gateway`'s hostname.
 4. **No new auth needed at the tunnel layer.** Unlike `mcp-gateway` (which needed
    `MCP_GATEWAY_API_KEY` because it had no other auth), `/api/v1/backoffice/*` already
@@ -139,29 +139,29 @@ exactly one tunnel with one ingress rule (`mcp-gateway`, per `docs/CLOUD_ENVIRON
    this change.
 5. **Code, ready the moment DNS resolves** (not done yet — waiting on steps 2-3):
    - `dws6.com/dashboard/backoffice/index.html` (+ mirror): inject
-     `window.DWS_API_BASE = "https://api.dws6.com";` before the module script.
-   - V10 build: set `VITE_API_URL=https://api.dws6.com` in its build env, rebuild,
+     `window.DWS_API_BASE = "https://backend.dws6.com";` before the module script.
+   - V10 build: set `VITE_API_URL=https://backend.dws6.com` in its build env, rebuild,
      republish.
 
 ## Approved (2026-09-24)
 
-HIC approved `api.dws6.com` as proposed. Code-side wiring status:
+HIC approved `backend.dws6.com` as proposed. Code-side wiring status:
 
 - **Done:** `dws6.com/dashboard/backoffice/index.html` (+ `landing-pages/dws6-com` mirror)
-  now sets `window.DWS_API_BASE = window.DWS_API_BASE || "https://api.dws6.com";` before
+  now sets `window.DWS_API_BASE = window.DWS_API_BASE || "https://backend.dws6.com";` before
   the Supabase client script loads. Falls back to same-origin relative calls if unset.
 - **Not done — session-blocked:** V10 React build's `VITE_API_URL`. This session hit a
   hard permission-policy block on reading/writing any `.env*` path (including
   `.env.example` templates) via both Bash and Read tools — consistent with the Secret
   Egress Rules philosophy but stricter than expected for a non-secret template. A local
-  build session must set `VITE_API_URL=https://api.dws6.com` in
+  build session must set `VITE_API_URL=https://backend.dws6.com` in
   `dws6.com/dashboard/firehorse/v10-react/.env` (and mirror) and rebuild/republish the
   committed output at `dws6.com/dashboard/firehorse/v10/`.
 
 ## Next Steps
 
 1. Whoever holds Cloudflare Zero Trust dashboard access adds the ingress rule
-   (`api.dws6.com` → `http://dws-backend:8080`) + DNS CNAME per steps 2-3 above — still
+   (`backend.dws6.com` → `http://dws-backend:8080`) + DNS CNAME per steps 2-3 above — still
    outside this repo/session's reach.
 2. A local session (with `.env*` access) sets V10's `VITE_API_URL` and republishes.
 3. Verify: log in on `dws6.com` → Back-Office page loads live stats/containers/users/audit

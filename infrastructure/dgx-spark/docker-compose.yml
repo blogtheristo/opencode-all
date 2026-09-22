@@ -308,7 +308,7 @@ services:
   # and friends) has no public ingress today — the dashboard frontend calls
   # relative /api/v1/... paths that only resolve against a host that
   # actually runs the Express backend, which Cloudflare Pages doesn't. To
-  # fix: add an ingress hostname (e.g. api.dws6.com) → http://dws-backend:8080
+  # fix: add an ingress hostname (e.g. backend.dws6.com) → http://dws-backend:8080
   # in this tunnel's Zero Trust config + a DNS CNAME, both outside this repo;
   # then set window.DWS_API_BASE (dashboard pages) / VITE_API_URL (V10 React
   # build) to that hostname. See
