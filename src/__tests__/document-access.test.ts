@@ -9,7 +9,10 @@ import {
 
 const FULL = 'admin@dws6.com';
 const FOUNDER = 'risto.paarni2024@lifetime.fi';
-const CUSTOMER_VIEW = 'admin@dws10.com';
+const CUSTOMER_ADMIN = 'admin@dws10.com';
+const END_USER = 'user@dws10.com';
+
+const ALL_CLASSES = ['public', 'user', 'customer', 'internal', 'confidential'];
 
 describe('document classification', () => {
   it('marks investor and cap-table material confidential', () => {
@@ -54,7 +57,7 @@ describe('document classification', () => {
 describe('entitlements', () => {
   it('grants both named administrators every class', () => {
     for (const email of [FULL, FOUNDER]) {
-      expect(grantsFor(email)).toEqual(['public', 'customer', 'internal', 'confidential']);
+      expect(grantsFor(email)).toEqual(ALL_CLASSES);
       expect(highestGrant(email)).toBe('confidential');
     }
   });
@@ -63,19 +66,37 @@ describe('entitlements', () => {
     expect(grantsFor('  Admin@DWS6.com ')).toContain('confidential');
   });
 
-  it('limits the DWS10 customer view to public and customer material', () => {
-    expect(grantsFor(CUSTOMER_VIEW)).toEqual(['public', 'customer']);
-    expect(highestGrant(CUSTOMER_VIEW)).toBe('customer');
+  it('limits the DWS10 customer administrator to customer level', () => {
+    expect(grantsFor(CUSTOMER_ADMIN)).toEqual(['public', 'user', 'customer']);
+    expect(highestGrant(CUSTOMER_ADMIN)).toBe('customer');
   });
 
-  it('lets the customer view open a whitepaper but not the cap table', () => {
-    expect(canOpen('Learn/2026-03-17-shufti-kya-whitepaper_v1.0.html', CUSTOMER_VIEW).allowed).toBe(
-      true,
-    );
+  it('limits the DWS10 end user to the user manual', () => {
+    expect(grantsFor(END_USER)).toEqual(['public', 'user']);
+    expect(highestGrant(END_USER)).toBe('user');
+  });
+
+  it('lets the customer administrator open a whitepaper but not the cap table', () => {
     expect(
-      canOpen('Learn/022c_LT_InvestorQA_CapTable_SAFE_IP_2026.html', CUSTOMER_VIEW).allowed,
+      canOpen('Learn/2026-03-17-shufti-kya-whitepaper_v1.0.html', CUSTOMER_ADMIN).allowed,
+    ).toBe(true);
+    expect(
+      canOpen('Learn/022c_LT_InvestorQA_CapTable_SAFE_IP_2026.html', CUSTOMER_ADMIN).allowed,
     ).toBe(false);
-    expect(canOpen('Learn/ADMIN_MANUAL.html', CUSTOMER_VIEW).allowed).toBe(false);
+    expect(canOpen('Learn/ADMIN_MANUAL.html', CUSTOMER_ADMIN).allowed).toBe(false);
+  });
+
+  // The whole point of splitting 'user' out of 'customer': the end user reads
+  // the manual, the customer admin also reads how to administer the platform.
+  it('separates the end user from the customer administrator', () => {
+    expect(classifyDocument('docs/USER_MANUAL.md').class).toBe('user');
+    expect(classifyDocument('Admin/CUSTOMER_ADMIN_MANUAL.md').class).toBe('customer');
+
+    expect(canOpen('docs/USER_MANUAL.md', END_USER).allowed).toBe(true);
+    expect(canOpen('Admin/CUSTOMER_ADMIN_MANUAL.md', END_USER).allowed).toBe(false);
+
+    expect(canOpen('docs/USER_MANUAL.md', CUSTOMER_ADMIN).allowed).toBe(true);
+    expect(canOpen('Admin/CUSTOMER_ADMIN_MANUAL.md', CUSTOMER_ADMIN).allowed).toBe(true);
   });
 
   it('lets the named administrators open the cap table', () => {

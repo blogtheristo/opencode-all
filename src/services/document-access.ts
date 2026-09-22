@@ -13,9 +13,10 @@ import { join, normalize } from 'node:path';
  * supplies the identity and writes the audit row.
  */
 
-export type DocumentClass = 'public' | 'customer' | 'internal' | 'confidential';
+export type DocumentClass = 'public' | 'user' | 'customer' | 'internal' | 'confidential';
 
-const CLASS_ORDER: DocumentClass[] = ['public', 'customer', 'internal', 'confidential'];
+/** Widening order — index is the class rank, used only for "highest grant held". */
+const CLASS_ORDER: DocumentClass[] = ['public', 'user', 'customer', 'internal', 'confidential'];
 
 interface PolicyRule {
   class: DocumentClass;

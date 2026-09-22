@@ -24,35 +24,49 @@
       "rank": 0,
       "description": "Publishable outside Lifetime Oy — whitepapers, public product material."
     },
-    "customer": {
+    "user": {
       "rank": 1,
-      "description": "Shared with a paying customer — user manuals, customer admin manuals, product guides."
+      "description": "End-user material — the user manual and how-to guides for operating the product."
+    },
+    "customer": {
+      "rank": 2,
+      "description": "Customer administrator material — customer admin manual, store admin manual, installation and configuration."
     },
     "internal": {
-      "rank": 2,
+      "rank": 3,
       "description": "Lifetime Oy staff — engineering and admin manuals, standards, theses, field notes."
     },
     "confidential": {
-      "rank": 3,
+      "rank": 4,
       "description": "Founder/board only — cap table, SAFE terms, diligence, board minutes, salary and time records."
     }
   },
 
+  "$principalComment": [
+    "Two full-access administrators, one customer-administrator view, one end-user",
+    "view. Grants are listed in full rather than implied by rank: a class is held",
+    "only when it is named, so widening one account never widens another."
+  ],
   "principals": [
     {
       "email": "admin@dws6.com",
-      "label": "DWS6 platform administrator",
-      "grants": ["public", "customer", "internal", "confidential"]
+      "label": "DWS6 platform administrator — full access",
+      "grants": ["public", "user", "customer", "internal", "confidential"]
     },
     {
       "email": "risto.paarni2024@lifetime.fi",
-      "label": "Risto Anton Päärni — Founder, CEO",
-      "grants": ["public", "customer", "internal", "confidential"]
+      "label": "Risto Anton Päärni — Founder, CEO — full access",
+      "grants": ["public", "user", "customer", "internal", "confidential"]
     },
     {
       "email": "admin@dws10.com",
-      "label": "DWS10 store administrator — customer view",
-      "grants": ["public", "customer"]
+      "label": "DWS10 customer administrator — customer admin view",
+      "grants": ["public", "user", "customer"]
+    },
+    {
+      "email": "user@dws10.com",
+      "label": "DWS10 end user — user manual only",
+      "grants": ["public", "user"]
     }
   ],
 
@@ -62,10 +76,10 @@
     "to founder-only material, so confidential is granted by name only."
   ],
   "roleGrants": {
-    "owner": ["public", "customer", "internal"],
-    "admin": ["public", "customer", "internal"],
-    "member": ["public", "customer"],
-    "viewer": ["public"]
+    "owner": ["public", "user", "customer", "internal"],
+    "admin": ["public", "user", "customer", "internal"],
+    "member": ["public", "user", "customer"],
+    "viewer": ["public", "user"]
   },
 
   "$rulesComment": [
@@ -114,11 +128,14 @@
       "patterns": ["whitepaper"]
     },
     {
+      "class": "user",
+      "why": "End-user material — how to operate the product. Narrowest grant above public.",
+      "patterns": ["user_manual", "user_guide", "kayttoohje", "käyttöohje", "getting_started"]
+    },
+    {
       "class": "customer",
-      "why": "Written for customers operating the platform.",
+      "why": "Customer administrator material — running and configuring the platform.",
       "patterns": [
-        "user_manual",
-        "user_guide",
         "customer_admin",
         "cust_admin",
         "store_admin_manual",
