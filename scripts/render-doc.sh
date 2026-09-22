@@ -91,4 +91,13 @@ fi
   --resource-path="$INPUT_DIR" \
   -o "${OUT_BASE}.docx"
 
+# --embed-resources inlines images but leaves link hrefs verbatim, so a doc that
+# links ../../../Admin/ADMIN_MANUAL.md from docs/metropolia/master-thesis/en/
+# keeps that path once rendered into Learn/ — three levels above the repo, dead
+# on arrival. Repointing here stops every render reintroducing the rot that
+# 24.09.2026 cleaned up (113 dead links across 29 pages).
+if [ -f "scripts/fix-learn-links.mjs" ] && command -v node >/dev/null 2>&1; then
+  node scripts/fix-learn-links.mjs --apply
+fi
+
 echo "Wrote ${OUT_BASE}.html and ${OUT_BASE}.docx (images embedded, no external file references)"
