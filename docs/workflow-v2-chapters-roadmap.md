@@ -21,17 +21,24 @@ decisions via the existing `kya-jev` primitive (`src/agents/kya-jev.ts`).
 | 6   | **Helpdesk Ticket Triage**       | `/helpdesk-triage` (resolve / reply / escalate / refund / upgrade-suggest)                              | Done — `helpdesk-triage.graph.json`. `SEND_REPLY` sits behind `HIC_APPROVAL_GATE` (the agent never sends email); low-confidence / refund / escalate route to a terminal `ESCALATED` state where a human owns the ticket, and a follow-up reply re-enters `TRIAGE` rather than resending on the prior approval. |
 | 7   | **KYA Incident Response**        | `/kya` (trust score, IJS, leash snap)                                                                   | Done — `kya-incident-response.graph.json`, built jointly with Phase 1 of `docs/workflow-v2-jev-kya-integration-plan.md`. `ASSESS_TRUST` routes on the IJS table (Sovereign/Compliant/Partial/Exposed); `SNAP_EXECUTE` (the real TC-4 leash snap) is reachable only via `SNAP_DRY_RUN -> SNAP_CONFIRM`, the same structural pattern as `HIC_APPROVAL_GATE -> SEND` in Chapter 1. |
 | 8   | **Case Coordination (Themis)**   | `/case-run`                                                                                             | Done — `case-coordination.graph.json`. Holds an open case across events via `AWAIT_NEXT_EVENT → DISPATCH_AGENTS` (re-entry, not restart), makes a partial agent set an explicit `AGENT_FAILURE` state instead of a silently short report, and gates HIGH-risk actions (`approval_required`) behind `HIC_APPROVAL_GATE → EXECUTE_ACTION`. |
+| 9   | **Learning Outcome (Learn gate)** | `DWS_LEARNING_STANDARD`, `.claude/hooks/session-stop.sh`                                                | Done — `learning-outcome.graph.json`. Reflexive: the only chapter whose subject is the agent's own session, not a customer domain. Its gate is a **completion** gate, not an approval gate — nothing outbound is authorized, but `SESSION_END` is unreachable until a field note or `Learn/` HTML dated today exists (hook check H3) or a recorded exemption is in place. Models all three escape hatches and notes that they differ in auditability: the env-var opt-out leaves no repo-side record and is the weakest. |
 
-**Status (2026-09-22):** all nine chapters (0–8) are shipped. The pattern
-generalized across five distinct domains without changing the engine: outreach
-(1, 2), assessment (3, 4), publishing (5), support (6), safety (7) and
-coordination (8).
+**Status (2026-09-22):** all ten chapters (0–9) are shipped. The pattern
+generalized across six distinct domains without changing the engine: outreach
+(1, 2), assessment (3, 4), publishing (5), support (6), safety (7),
+coordination (8) and the agent's own close-out process (9).
 
 Two findings worth keeping:
 
 - **Not every chapter needs a gate.** Chapters 3 and 4 are read-only assessments
   that issue no outbound action, so they carry no `HIC_APPROVAL_GATE`. Adding one
   would have been cargo-culting the pattern rather than applying it.
+- **Gates come in three shapes, not one.** *Approval* (chapters 1, 2, 5, 6, 8 —
+  a human authorizes an outbound action), *confirmation* (chapter 7 — a
+  destructive action is confirmed, not drafted-and-approved), and *completion*
+  (chapter 9 — nothing is authorized, but the work cannot be declared finished
+  until an artefact exists). Only the first shape is what `HIC_APPROVAL_GATE`
+  means; conflating the three would have produced a wrong graph for 7 and 9.
 - **The gate node id is the contract.** Chapters 1, 2, 5, 6 and 8 all reuse the
   literal node id `HIC_APPROVAL_GATE`, which `DEFAULT_GATED_NODE_IDS` in
   `runner.ts` already enforces in code — so each new chapter inherited runtime

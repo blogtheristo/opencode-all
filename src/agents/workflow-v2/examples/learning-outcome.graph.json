@@ -1,0 +1,77 @@
+{
+  "name": "learning-outcome-chapter-nine",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "A working session is ending. This chapter is reflexive — it models the agent's own close-out obligation under the DWS Learning Standard (EU AI Act Art. 14, human oversight), enforced at runtime by .claude/hooks/session-stop.sh. Unlike Chapters 1-8 it governs no customer-facing domain; the subject is the session itself.",
+      "allowedNext": ["CLASSIFY_SESSION"]
+    },
+    {
+      "id": "CLASSIFY_SESSION",
+      "description": "Hook check H4 — the conservative substantive classifier. A session counts as substantive if it touched src/, a .ts/.tsx/.js/.mjs/.cjs/.py/.sh file, a *STANDARD*.md, CLAUDE.md, AGENTS.md, a new agent, or a whitepaper. Dependency, lockfile, .env and .gitignore-only diffs are stripped out first, so a pure dep bump is not substantive. Deliberately conservative: it would rather let a borderline session through than trap a trivial one.",
+      "allowedNext": ["TRIVIAL_NO_CAPTURE", "UPDATE_KB", "RECORD_EXEMPTION"]
+    },
+    {
+      "id": "TRIVIAL_NO_CAPTURE",
+      "description": "Terminal — classifier found nothing substantive (dep bump, config-only, lockfile). No capture is required and none is faked. Producing a field note here would be noise, not oversight.",
+      "allowedNext": []
+    },
+    {
+      "id": "RECORD_EXEMPTION",
+      "description": "The session is substantive but genuinely needs no capture. Three hatches exist, and they are NOT equivalent in auditability: H2 ([skip-learning] / [trivial] / [no-learn] in the commit message) and the standard's own 'N/A — <reason>' line inside a dated field note both leave a durable record in the repo; H1 (DWS_SKIP_LEARNING_OUTCOME=1 in the environment) leaves none and is therefore the weakest — it satisfies the hook without telling any future reader why. Prefer a recorded hatch. An exemption still routes through LEARN_GATE; it does not skip it.",
+      "allowedNext": ["LEARN_GATE"]
+    },
+    {
+      "id": "UPDATE_KB",
+      "description": "Learning Standard step 1 — update the knowledge base (kb/raw/{articles,signals,repos,images}/), linking to the commits, PRs or docs the session produced.",
+      "allowedNext": ["WRITE_FIELD_NOTE"]
+    },
+    {
+      "id": "WRITE_FIELD_NOTE",
+      "description": "Step 2 — docs/field-notes/YYYY-MM-DD-<topic>.md: what happened, the insight, next steps, and any HIC decision needed. This is the artefact the hook actually looks for (H3), and the one a human reads. A summary of the diff is not a field note; the insight is the point.",
+      "allowedNext": ["RENDER_LEARN_HTML"]
+    },
+    {
+      "id": "RENDER_LEARN_HTML",
+      "description": "Step 3 — render to Learn/YYYY-MM-DD-<topic>.html via scripts/render-doc.sh. Self-contained HTML with Base64-embedded images per the Downloadable HTML Rule. Note the real dependency: the script needs pandoc, which is absent from fresh cloud containers and needs sudo to install — if it is unavailable, say so rather than reporting a render that did not happen.",
+      "allowedNext": ["EXPORT_DRIVE", "RENDER_UNAVAILABLE"]
+    },
+    {
+      "id": "RENDER_UNAVAILABLE",
+      "description": "pandoc (or another required tool) is unavailable in this environment. Fail loud per Discipline rule 12: render by an alternative route and say which was used, or record the step as 'N/A — <reason>'. Never claim scripts/render-doc.sh ran when it did not.",
+      "allowedNext": ["EXPORT_DRIVE"]
+    },
+    {
+      "id": "EXPORT_DRIVE",
+      "description": "Step 4 — export a copy to Google Drive. The repo stays source of truth; Drive holds a generated copy. Frequently 'N/A — Drive MCP not connected in this session', which is a legitimate recorded skip, not a silent omission.",
+      "allowedNext": ["ASK_HIC_DECISION"]
+    },
+    {
+      "id": "ASK_HIC_DECISION",
+      "description": "Step 5 — ask the HIC exactly one real, decision-shaped question: a choice they can actually make, with a recommendation and its tradeoff. 'Does this look good?' is not a decision question. For Claude Code this is a synchronous gate; OpenCode may queue it to the field note with Status: PENDING_REVIEW for async batch review.",
+      "allowedNext": ["CALENDAR_COMMITMENTS"]
+    },
+    {
+      "id": "CALENDAR_COMMITMENTS",
+      "description": "Step 6 — put every dated commitment in Google Calendar, including derived dates (a 3-month validity implies a follow-up date). 'N/A — no dated commitment arose' is a valid recorded outcome.",
+      "allowedNext": ["LEARN_GATE"]
+    },
+    {
+      "id": "LEARN_GATE",
+      "description": "The completion gate. Unlike Chapters 1/2/5/6/8 this is NOT an approval gate — nothing outbound is being authorized. It is a gate on finishing: the session may not be declared over until a field note OR a Learn/ HTML dated today exists (hook check H3), or a recorded exemption is in place. Verifies the artefacts are actually on disk and dated today; the hook checks `ls docs/field-notes/$TODAY-*.md` and `ls Learn/$TODAY-*.html`, so a note written under yesterday's date does not satisfy it.",
+      "allowedNext": ["SESSION_END", "CAPTURE_INCOMPLETE"]
+    },
+    {
+      "id": "CAPTURE_INCOMPLETE",
+      "description": "The gate found no dated artefact and no recorded exemption. Return to the steps and produce the minimum. Note the hook's H0 circuit breaker: it sets stop_hook_active and will not block a second time, so a session CAN exit without capture on a retry — which means honouring this node is the agent's responsibility, not something the hook can guarantee. A bypass is not permission.",
+      "allowedNext": ["UPDATE_KB", "RECORD_EXEMPTION"]
+    },
+    {
+      "id": "SESSION_END",
+      "description": "Terminal — reachable only through LEARN_GATE. The session is over and the HIC has a human-readable capture of what changed, or a recorded reason why none was needed.",
+      "allowedNext": []
+    }
+  ]
+}

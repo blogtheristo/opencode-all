@@ -526,6 +526,7 @@ const EXAMPLE_GRAPHS = [
   'helpdesk-triage.graph.json',
   'investor-outreach.graph.json',
   'kya-incident-response.graph.json',
+  'learning-outcome.graph.json',
   'sales-outreach.graph.json',
 ];
 
@@ -550,6 +551,10 @@ const GATED_ACTIONS = [
   { file: 'helpdesk-triage.graph.json', gate: 'HIC_APPROVAL_GATE', protected: 'SEND_REPLY' },
   { file: 'case-coordination.graph.json', gate: 'HIC_APPROVAL_GATE', protected: 'EXECUTE_ACTION' },
   { file: 'kya-incident-response.graph.json', gate: 'SNAP_CONFIRM', protected: 'SNAP_EXECUTE' },
+  // Chapter 9's gate is a *completion* gate, not an approval gate: nothing
+  // outbound is authorized, but the session may not be declared over until
+  // a dated capture artefact (or a recorded exemption) exists.
+  { file: 'learning-outcome.graph.json', gate: 'LEARN_GATE', protected: 'SESSION_END' },
 ];
 
 describe('gated actions are structurally unreachable except through their gate', () => {
@@ -644,5 +649,44 @@ describe('case-coordination example graph (chapter eight)', () => {
     const graph = loadExampleGraph('case-coordination.graph.json');
     expect(isTransitionAllowed(graph, 'DISPATCH_AGENTS', 'AGENT_FAILURE')).toBe(true);
     expect(isTransitionAllowed(graph, 'AGENT_FAILURE', 'DISPATCH_AGENTS')).toBe(true);
+  });
+});
+
+describe('learning-outcome example graph (chapter nine — the Learn gate)', () => {
+  it('routes both the capture path and the exemption path through the gate', () => {
+    const graph = loadExampleGraph('learning-outcome.graph.json');
+    // An exemption does not skip the gate — it is recorded and still passes through it.
+    expect(isTransitionAllowed(graph, 'RECORD_EXEMPTION', 'LEARN_GATE')).toBe(true);
+    expect(graph.nodes.find((n) => n.id === 'RECORD_EXEMPTION')?.allowedNext).not.toContain(
+      'SESSION_END',
+    );
+    // The full six-step capture path also terminates at the gate.
+    expect(isTransitionAllowed(graph, 'CALENDAR_COMMITMENTS', 'LEARN_GATE')).toBe(true);
+  });
+
+  it('keeps the Learning Standard six steps in order', () => {
+    const graph = loadExampleGraph('learning-outcome.graph.json');
+    const chain: Array<[string, string]> = [
+      ['UPDATE_KB', 'WRITE_FIELD_NOTE'],
+      ['WRITE_FIELD_NOTE', 'RENDER_LEARN_HTML'],
+      ['EXPORT_DRIVE', 'ASK_HIC_DECISION'],
+      ['ASK_HIC_DECISION', 'CALENDAR_COMMITMENTS'],
+    ];
+    for (const [from, to] of chain) {
+      expect(isTransitionAllowed(graph, from, to)).toBe(true);
+    }
+  });
+
+  it('lets a trivial session terminate without faking a capture', () => {
+    const graph = loadExampleGraph('learning-outcome.graph.json');
+    expect(isTransitionAllowed(graph, 'CLASSIFY_SESSION', 'TRIVIAL_NO_CAPTURE')).toBe(true);
+    expect(graph.nodes.find((n) => n.id === 'TRIVIAL_NO_CAPTURE')?.allowedNext).toEqual([]);
+  });
+
+  it('sends an incomplete capture back to the steps rather than to the end', () => {
+    const graph = loadExampleGraph('learning-outcome.graph.json');
+    const incomplete = graph.nodes.find((n) => n.id === 'CAPTURE_INCOMPLETE');
+    expect(incomplete?.allowedNext).toContain('UPDATE_KB');
+    expect(incomplete?.allowedNext).not.toContain('SESSION_END');
   });
 });
