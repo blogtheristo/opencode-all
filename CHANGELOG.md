@@ -9,6 +9,20 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Back-Office live-data API `/api/v1/backoffice/{stats,containers,users,audit-log}`
+  (`src/routes/backoffice.routes.ts`) with server-side admin check against
+  `organization_members` (active owner/admin); `dashboard/backoffice/` now renders
+  real counts, Docker containers, users and auth audit log instead of hardcoded
+  numbers. Admin manual `Admin/ADMIN_MANUAL_DWS6_COM.md` v1.2 §11.
+- V10 dashboard published as a committed build at `dws6.com/dashboard/firehorse/v10/`
+  (Cloudflare Pages runs no build step); hub "Open V10" points there.
+
+### Fixed
+
+- V10 asked for a new login: it now uses the shared dws6.com Supabase config and
+  session key (`dws6-auth-token`) instead of a placeholder project, and its router
+  honours the `/dashboard/firehorse/v10/` base path.
+
 - DGX local-first LiteLLM router (`config/litellm-config.yaml`) using only
   `OLLAMA_DEPLOYED_MODELS` (`nemotron-3-super`, `qwen3-coder:30b`) and
   `os.environ/*` keys. Aliases map the 2026-09-18 SIMPLE/MEDIUM/COMPLEX paste

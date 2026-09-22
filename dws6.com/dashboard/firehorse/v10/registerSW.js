@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/dashboard/firehorse/v10/sw.js', { scope: '/dashboard/firehorse/v10/' })})}
