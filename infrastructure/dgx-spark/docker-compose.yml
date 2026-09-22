@@ -302,16 +302,24 @@ services:
   # Opt-in via the "gateway" profile so it doesn't start on hosts that haven't
   # provisioned a tunnel yet.
   #
-  # One tunnel can carry multiple public hostnames, each mapped to a
-  # different internal service in the tunnel's own ingress config (no new
-  # compose service needed). dws-backend (src/routes/backoffice.routes.ts
-  # and friends) has no public ingress today — the dashboard frontend calls
-  # relative /api/v1/... paths that only resolve against a host that
-  # actually runs the Express backend, which Cloudflare Pages doesn't. To
-  # fix: add an ingress hostname (e.g. backend.dws6.com) → http://dws-backend:8080
-  # in this tunnel's Zero Trust config + a DNS CNAME, both outside this repo;
-  # then set window.DWS_API_BASE (dashboard pages) / VITE_API_URL (V10 React
-  # build) to that hostname. See
+  # NOTE: this compose service is NOT the tunnel that is actually running.
+  # It is gated behind the "gateway" profile and was never provisioned. The
+  # live tunnel is `dgx-heartbeat`, run by systemd on the DGX host with its
+  # ingress config in /etc/cloudflared/config.yml — see Admin/ADMIN_MANUAL.md
+  # ("DGX heartbeat / failover"). Because that daemon runs on the host and not
+  # on this Docker network, its ingress rules address services by published
+  # host port (http://localhost:8080), not by compose service name.
+  #
+  # dws-backend (src/routes/backoffice.routes.ts and friends) has no public
+  # ingress today — the dashboard frontend calls /api/v1/... paths that only
+  # resolve against a host actually running the Express backend, which
+  # Cloudflare Pages doesn't. To fix, add a hostname to the *live* tunnel per
+  # Admin/ADMIN_MANUAL.md → "Adding a new public hostname to the tunnel":
+  # `cloudflared tunnel route dns dgx-heartbeat backend.dws6.com`, then an
+  # ingress rule backend.dws6.com → http://localhost:8080 in
+  # /etc/cloudflared/config.yml, then restart the daemon. window.DWS_API_BASE
+  # (dashboard pages) is already set to that hostname; VITE_API_URL (V10 React
+  # build) still needs it. See
   # docs/field-notes/2026-09-24-backoffice-open-items-fixed.md.
   # ==========================================================================
   cloudflare-tunnel:
