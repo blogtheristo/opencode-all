@@ -277,6 +277,41 @@ Wire `outreach-full`'s Step 3 (approval + send) onto `humanApprovalWorkflow` +
 `startSendEmailJob` as the first real caller of both use cases #1 and #9? This is the
 one candidate in this audit with existing, un-wired external I/O today.
 
+## 11. Agentic loop durability (`BaseAgent.runLoop()`) — Implemented (2026-09-24)
+
+- **Source:** HIC shared temporalio/ai-cookbook's
+  `agents/agentic_loop_tool_call_claude_python` example — a Temporal Workflow holds an
+  observe-think-act loop, calling a Claude-API Activity and a tool-execution Activity
+  repeatedly until the LLM stops requesting tools.
+- **Current tech:** `BaseAgent.runLoop()` (`src/agents/base.agent.ts:89-258`) is the
+  same pattern already, in-process: a `for` loop (default `maxIterations: 10`) calling
+  `client.chat(messages, tools)` then `executeTools(toolCalls, context)`, breaking on
+  `stopReason === 'end_turn'`. Every DWS7-generation agent that calls `runLoop()` uses
+  this today.
+- **Gaps:** No durability — a process crash/restart on iteration 7 of 10 loses the
+  entire conversation and every LLM call already paid for (tokens spent, nothing to show
+  for it). No mid-loop visibility beyond grepping logs or the Supabase iteration-log
+  table after the fact; no way to inject a message mid-loop (a human correction, a
+  priority interrupt) without killing and restarting the whole run.
+- **Shipped:** `src/temporal/activities/agent-loop.activities.ts`
+  (`callAgentLLMActivity`, `executeAgentToolCallsActivity` — thin wraps around the
+  existing `createLLMClient`/`executeTools`, confirmed serializable: `AgentContext` and
+  the LLM/tool types in `src/agents/types.ts` carry no live handles, so no adaptation
+  was needed) + `src/temporal/workflows/agent-loop.workflow.ts` (`agentLoopWorkflow`,
+  a line-for-line port of `runLoop()`'s loop body) + `src/temporal/agent-loop.ts`
+  (`runAgentLoopWorkflow`, a drop-in-shaped client call). Tool list and `AgentContext`
+  are resolved by the caller and passed in as plain data — the Workflow itself never
+  imports `agents/tools.js` or `agents/llm-client.js` (real I/O, unsafe to pull into
+  Temporal's deterministic workflow sandbox), matching the cookbook's own design of
+  keeping tool resolution outside the loop.
+- **Deliberately NOT wired into `BaseAgent.runLoop()` this session** — every live agent
+  depends on `runLoop()` today; swapping its implementation is the same class of change
+  as the `outreach-full` cutover in §10, and needs its own review before touching a path
+  this central. This ships the durable building block only.
+- **4/4 unit tests passing** (`src/__tests__/temporal-agent-loop.test.ts`) against
+  mocked `llm-client`/`tools` modules. Not run against a live server (same caveat as
+  every other use case — see Implementation status note above).
+
 ---
 
 ## Cross-cutting notes

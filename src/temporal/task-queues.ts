@@ -12,6 +12,7 @@ export const TASK_QUEUES = {
   DOCUSIGN: 'dws-docusign',
   STRIPE: 'dws-stripe',
   APPROVALS: 'dws-approvals',
+  AGENT_LOOP: 'dws-agent-loop',
 } as const;
 
 export type TaskQueueName = (typeof TASK_QUEUES)[keyof typeof TASK_QUEUES];
