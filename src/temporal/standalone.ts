@@ -19,6 +19,8 @@ import type {
 import type { Duration } from '@temporalio/common/lib/time.js';
 import { getTemporalClient } from './client.js';
 
+export { ticketId } from './ticket-id.js';
+
 export interface SubmitStandaloneActivityInput<A extends unknown[]> {
   activity: string;
   taskQueue: string;

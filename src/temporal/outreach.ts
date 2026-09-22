@@ -4,6 +4,7 @@
  */
 import { getTemporalClient } from './client.js';
 import { TASK_QUEUES } from './task-queues.js';
+import { ticketId } from './ticket-id.js';
 import {
   outreachApprovalSendWorkflow,
   type OutreachApprovalSendWorkflowInput,
@@ -20,7 +21,7 @@ export async function startOutreachApprovalAndSend(
   const client = await getTemporalClient();
 
   const handle = await client.workflow.start(outreachApprovalSendWorkflow, {
-    workflowId: `outreach-send-${input.approvalRequestId}`,
+    workflowId: ticketId('outreach-send', input.approvalRequestId),
     taskQueue: TASK_QUEUES.OUTREACH,
     args: [input],
   });

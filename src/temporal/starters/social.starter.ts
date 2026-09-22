@@ -8,7 +8,7 @@
  * scheduled post joins the existing job instead of double-publishing.
  */
 import type { PublishSocialPostInput } from '../activities/social.activities.js';
-import { submitStandaloneActivity } from '../standalone.js';
+import { submitStandaloneActivity, ticketId } from '../standalone.js';
 import { TASK_QUEUES } from '../task-queues.js';
 
 export interface SocialPublishJobInput extends PublishSocialPostInput {
@@ -26,7 +26,7 @@ export async function startSocialPublishJob(
   return submitStandaloneActivity({
     activity: 'publishSocialPostActivity',
     taskQueue: TASK_QUEUES.SOCIAL,
-    id: `social-${input.post.id}`,
+    id: ticketId('social', input.post.id),
     args: [{ post: input.post, platform: input.platform }],
     startToCloseTimeout: '1 minute',
     startDelay,

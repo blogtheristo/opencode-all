@@ -4,6 +4,7 @@
  */
 import { getTemporalClient } from './client.js';
 import { TASK_QUEUES } from './task-queues.js';
+import { ticketId } from './ticket-id.js';
 import {
   agentLoopWorkflow,
   type AgentLoopWorkflowInput,
@@ -23,7 +24,7 @@ export async function runAgentLoopWorkflow(
   const { requestId, ...workflowInput } = input;
 
   return client.workflow.execute(agentLoopWorkflow, {
-    workflowId: `agent-loop-${requestId}`,
+    workflowId: ticketId('agent-loop', requestId),
     taskQueue: TASK_QUEUES.AGENT_LOOP,
     args: [workflowInput],
   });

@@ -52,7 +52,7 @@ describe('temporal/starters/email.starter', () => {
 
     expect(startMock).toHaveBeenCalledWith(
       'sendEmailActivity',
-      expect.objectContaining({ id: 'report-s1-2026-09', taskQueue: 'dws-email' }),
+      expect.objectContaining({ id: 'email-report-s1-2026-09', taskQueue: 'dws-email' }),
     );
   });
 });

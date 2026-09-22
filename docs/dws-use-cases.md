@@ -410,3 +410,68 @@ in sync with `llm-client.ts`'s existing multi-provider priority logic (Anthropic
 **If this changes:** revisit only if DWS6 ever needs an AI-SDK-specific capability
 `llm-client.ts` doesn't have (e.g. AI SDK's built-in structured-output/streaming
 ergonomics) — not for the durability property alone, which #11 already covers.
+
+## Addendum (2026-09-24): Multi-agent ADK cookbook example, mapped — and the named-ticket ID convention
+
+HIC shared a fourth cookbook example, `agents/multi_agent_adk_python` (Google ADK +
+Temporal): a Fleet Agent and a Customer Agent reason in parallel, a Dispatch Agent
+synthesizes their output and writes a structured decision. Every LLM call and every I/O
+tool call is a Temporal Activity; agent reasoning and orchestration stay in the Workflow.
+
+**Mapped, not ported.** This is Python/ADK-specific (no TypeScript ADK integration
+exists), but the *shape* — two agents in parallel, a third synthesizes — is not new to
+DWS6: `src/agents/workflows.ts`'s `WORKFLOW_REGISTRY` already has this exact pattern
+today, in the still-deferred use case #7 engine: `morning-intelligence`
+(`athena`+`hephaestus`+`iris` parallel → `atlas` synthesis) and `construction-full`
+(`sitesense`+`material-oracle`+`schedule-genius` parallel → unified assessment) are
+Fleet/Customer/Dispatch in DWS6's own vocabulary, via the `'parallel'` step type. The
+ADK recipe's Temporal mapping table (LLM call → Activity, tool call → Activity, agent
+reasoning → Workflow) is exactly what porting `WorkflowExecutor` to real Temporal
+Workflows (§7) would need to implement — `Promise.all()` over parallel `executeChild()`
+calls instead of ADK's `ParallelAgent`. Confirms §7's scope rather than changing it; no
+code built for this addendum — #7 stays deferred until its own scoped project, per every
+session so far.
+
+### Should Standalone Activities have named tickets?
+
+Yes — and auditing this against everything already shipped found one real inconsistency,
+now fixed. Temporal's own `ActivityOptions.id` doc says it directly: "It's recommended to
+use a meaningful business ID." Every Activity ID and Workflow ID across `src/temporal/`
+now goes through one helper, **`ticketId(domain, businessKey)`** in the new
+zero-dependency `src/temporal/ticket-id.ts` (`<domain>-<businessKey>`, e.g.
+`ted-2026-S-038-123456`, `approval-outreach-s1-123`):
+
+- **Human-readable in the Temporal UI** — an approver or on-call engineer reading job
+  history sees `outreach-send-outreach-s1-1727...` and knows what it is without opening
+  code, matching the human-in-the-loop use case (#9)'s whole point.
+- **Collision-safe across domains** — the one real bug this audit found:
+  `startSendEmailJob`'s `idempotencyKey` was used as the raw Activity ID with no
+  namespace prefix, unlike every other starter (social/ted/stripe all already prefixed).
+  A caller-chosen key like `"s1"` could collide with an unrelated job from a different
+  domain. Fixed: `src/temporal/starters/email.starter.ts` now wraps it in
+  `ticketId('email', idempotencyKey)`.
+- **Kept out of the Workflow sandbox correctly** — `ticket-id.ts` has zero imports (not
+  even from `standalone.ts`, which pulls in `@temporalio/client`'s real gRPC client).
+  Workflow files (`*.workflow.ts`) import `ticketId` directly from `ticket-id.js`, never
+  through `standalone.ts` or `approvals.ts` — those import the live client and would
+  break Temporal's deterministic workflow bundling if pulled into a Workflow. Audited
+  every `*.workflow.ts` file's imports while making this change; all clean.
+
+All existing IDs already followed the `<domain>-<key>` shape except email — table of
+every ID convention now in use:
+
+| Ticket prefix | Where | Example |
+|---|---|---|
+| `email-` | `startSendEmailJob` Activity ID | `email-report-s1-2026-09` |
+| `social-` | `startSocialPublishJob` Activity ID | `social-p123` |
+| `ted-` | `startTedNoticeIngestJob` Activity ID | `ted-2026-S-038-123456` |
+| `stripe-` | `startStripeEventJob` Activity ID | `stripe-evt_abc123` |
+| `approval-` | `humanApprovalWorkflow` Workflow ID | `approval-outreach-s1-1727...` |
+| `agent-loop-` | `agentLoopWorkflow` Workflow ID | `agent-loop-outreach-orchestrator-s1` |
+| `outreach-send-` | `outreachApprovalSendWorkflow` Workflow ID | `outreach-send-outreach-s1-1727...` |
+| `report-schedule-` | `reportScheduleWorkflow` child Workflow ID | `report-schedule-<scheduleId>-<next_run_at>` |
+
+**Known gap, not fixed this pass:** `docusignStatusPollWorkflow` (use case #5) has no
+client-side starter at all yet — unlike every other Workflow, nothing calls
+`client.workflow.start()` for it, so it has no ticket ID convention to audit. Flagging
+for whoever builds that starter to follow the same `ticketId('docusign', ...)` pattern.

@@ -9,6 +9,7 @@
 import { executeChild, proxyActivities } from '@temporalio/workflow';
 import type * as activities from '../activities/reports.activities.js';
 import { reportScheduleWorkflow } from './report-schedule.workflow.js';
+import { ticketId } from '../ticket-id.js';
 
 const { fetchDueReportSchedulesActivity } = proxyActivities<typeof activities>({
   startToCloseTimeout: '30 seconds',
@@ -27,7 +28,7 @@ export async function reportSchedulePollWorkflow(): Promise<ReportSchedulePollWo
   for (const schedule of due) {
     const result = await executeChild(reportScheduleWorkflow, {
       args: [{ schedule }],
-      workflowId: `report-schedule-${schedule.id}-${schedule.next_run_at}`,
+      workflowId: ticketId('report-schedule', `${schedule.id}-${schedule.next_run_at}`),
     });
     if (result.delivered) delivered += 1;
   }

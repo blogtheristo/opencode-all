@@ -8,14 +8,14 @@
  * already isolates each Standalone Activity's outcome from the others.
  */
 import type { TedNotice } from '../../construction-leads/types.js';
-import { submitStandaloneActivity } from '../standalone.js';
+import { submitStandaloneActivity, ticketId } from '../standalone.js';
 import { TASK_QUEUES } from '../task-queues.js';
 
 export async function startTedNoticeIngestJob(notice: TedNotice): Promise<{ activityId: string }> {
   return submitStandaloneActivity({
     activity: 'ingestTedNoticeActivity',
     taskQueue: TASK_QUEUES.TED,
-    id: `ted-${notice.ND}`,
+    id: ticketId('ted', notice.ND),
     args: [notice],
     startToCloseTimeout: '30 seconds',
     retry: { initialInterval: '5 seconds', maximumAttempts: 4 },

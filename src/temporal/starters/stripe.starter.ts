@@ -11,7 +11,7 @@
  * reviewed change.
  */
 import type { ProcessStripeEventInput } from '../activities/stripe.activities.js';
-import { submitStandaloneActivity } from '../standalone.js';
+import { submitStandaloneActivity, ticketId } from '../standalone.js';
 import { TASK_QUEUES } from '../task-queues.js';
 
 export async function startStripeEventJob(
@@ -20,7 +20,7 @@ export async function startStripeEventJob(
   return submitStandaloneActivity({
     activity: 'processStripeEventActivity',
     taskQueue: TASK_QUEUES.STRIPE,
-    id: `stripe-${input.eventId}`,
+    id: ticketId('stripe', input.eventId),
     args: [input],
     startToCloseTimeout: '30 seconds',
     retry: { initialInterval: '5 seconds', maximumAttempts: 5 },

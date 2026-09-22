@@ -12,6 +12,7 @@
 import { executeChild, proxyActivities } from '@temporalio/workflow';
 import type * as activities from '../activities/outreach.activities.js';
 import { humanApprovalWorkflow } from './human-approval.workflow.js';
+import { ticketId } from '../ticket-id.js';
 import type { AgentContext } from '../../agents/types.js';
 
 const { sendOutreachThreadActivity } = proxyActivities<typeof activities>({
@@ -48,7 +49,7 @@ export async function outreachApprovalSendWorkflow(
   input: OutreachApprovalSendWorkflowInput,
 ): Promise<OutreachApprovalSendWorkflowResult> {
   const approval = await executeChild(humanApprovalWorkflow, {
-    workflowId: `approval-${input.approvalRequestId}`,
+    workflowId: ticketId('approval', input.approvalRequestId),
     args: [
       {
         summary: `Send ${input.threadIds.length} outreach email(s) to ${input.toEmail} (requested by ${input.requestedBy})`,
