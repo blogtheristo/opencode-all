@@ -271,11 +271,33 @@ not candidates yet; they're the right _place_ to add a Standalone Activity the d
 subscriber is built, so flag this table for whoever wires those events next rather than
 letting them default to another synchronous, non-durable call.
 
-## HIC decision needed (workflow v2 audit)
+## Cutover (2026-09-24): `outreach-full` Step 3 wired onto the approval Workflow
 
-Wire `outreach-full`'s Step 3 (approval + send) onto `humanApprovalWorkflow` +
-`startSendEmailJob` as the first real caller of both use cases #1 and #9? This is the
-one candidate in this audit with existing, un-wired external I/O today.
+Done. `src/agents/outreach-orchestrator.agent.ts`'s Step 3 no longer trusts a
+caller-supplied `approvedBy` string — it now starts
+`outreachApprovalSendWorkflow` (`src/temporal/workflows/outreach-approval-send.workflow.ts`)
+via `startOutreachApprovalAndSend()` (`src/temporal/outreach.ts`), fire-and-forget
+(the orchestrator does not block on a human decision that can take days).
+
+- **`outreachApprovalSendWorkflow`** composes `humanApprovalWorkflow` (use case #9) as a
+  child Workflow — keyed `approval-${approvalRequestId}` so `npm run temporal:approve --
+<approvalRequestId> --approve --by "<name>"` finds it exactly as documented for #9 —
+  then, only on `approved`, sends each thread via **`sendOutreachThreadActivity`**
+  (`src/temporal/activities/outreach.activities.ts`), a thin wrap of the _existing_
+  `outreach-executor` agent through `agentRegistry.executeAgent()` — zero send logic
+  duplicated, only retry/durability added around the existing call.
+- **Response shape changed:** the orchestrator's `execute()` now returns
+  `{ pendingApproval: { approvalRequestId, workflowId } }` instead of a synchronous
+  `emailsSent` count — Step 3 starting no longer means Step 3 finished. The removed
+  `approvedBy`-only trust gate and `validateAutoSend()` helper are gone; `approvedBy` (if
+  passed) is now just a label for who requested the approval, not a bypass.
+- **Failure isolation:** if Temporal is unreachable (no live server yet — see
+  Implementation status note above), starting the approval Workflow throws, is caught,
+  and surfaces as `approvalStartError` in the response — Steps 1-2's leads/drafts are
+  still returned rather than the whole run failing.
+- **3/3 new unit tests passing** (`src/__tests__/temporal-outreach.test.ts`), full suite
+  still 1338/1338 passing after the change. Not run against a live server (same caveat
+  as every other use case).
 
 ## 11. Agentic loop durability (`BaseAgent.runLoop()`) — Implemented (2026-09-24)
 

@@ -9,3 +9,4 @@ export * from './reports.activities.js';
 export * from './docusign.activities.js';
 export * from './stripe.activities.js';
 export * from './agent-loop.activities.js';
+export * from './outreach.activities.js';

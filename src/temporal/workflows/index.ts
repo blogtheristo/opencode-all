@@ -10,3 +10,4 @@ export * from './report-schedule-poll.workflow.js';
 export * from './docusign-status-poll.workflow.js';
 export * from './human-approval.workflow.js';
 export * from './agent-loop.workflow.js';
+export * from './outreach-approval-send.workflow.js';
