@@ -475,3 +475,64 @@ every ID convention now in use:
 client-side starter at all yet — unlike every other Workflow, nothing calls
 `client.workflow.start()` for it, so it has no ticket ID convention to audit. Flagging
 for whoever builds that starter to follow the same `ticketId('docusign', ...)` pattern.
+
+## 12. Hard-rules content guardrail — Implemented (2026-09-24)
+
+- **Source:** HIC shared temporalio/ai-cookbook's `agents/guardrails_hard_rules_python`
+  — a post-LLM deterministic override: hard regex/pattern rules can escalate a soft
+  (LLM) classification to "block," never downgrade it, and always embed the original
+  decision so an override stays auditable rather than a silent drop.
+- **Current tech:** Outbound email content had no runtime content check at all — only
+  convention (CLAUDE.md's Secret Egress Rules and Sender Identity Rule) and human
+  review. `authorizeToolCall()` (`src/security/runtime-auth.ts`) is DWS6's existing
+  deterministic gate, but it classifies action class + blast radius (what kind of call,
+  how much impact) — a different concern from scanning the actual content of what's
+  about to be sent.
+- **Gaps:** Nothing stopped an agent-drafted email from containing a leaked credential
+  (API key, PEM block, JWT) or going out from a `noreply@` / non-allowlisted address —
+  both explicitly banned by CLAUDE.md Non-Negotiable Rules 3 and the Sender Identity
+  Rule, but enforced only by convention until now.
+- **Shipped:** `src/temporal/guardrails/hard-rules.ts` (`applyEmailHardRules`) — pure,
+  zero-dependency functions (secret-pattern regexes: AWS access keys, Stripe keys,
+  generic API-key assignments, PEM private-key blocks, JWT-shaped tokens, Bearer
+  tokens; sender-identity check against the two allowlisted outbound addresses from
+  CLAUDE.md). Wired directly into `sendEmailActivity`
+  (`src/temporal/activities/email.activities.ts`) — every email routed through Temporal
+  (use case #1) is checked before it reaches SES, throwing a non-retryable
+  `HardRuleBlocked` `ApplicationFailure` that lists every rule that fired (never a
+  silent drop). Same escalate-only-to-block shape as the cookbook: this only adds
+  `blocked` reasons on top of whatever the caller already decided — it never makes an
+  already-refused send go through.
+- **7/7 new unit tests passing** (`src/__tests__/temporal-guardrails.test.ts`) — clean
+  send, `noreply@` block, non-allowlisted sender block, four secret-pattern blocks
+  (fixtures built via string concatenation so the raw file doesn't itself contain a
+  literal secret shape — this repo's own secret-scan hook correctly flags that on
+  write). Full suite: 1347/1347 passing after wiring. Every existing caller (report
+  schedule, human-approval notification, and — once its planned cutover to
+  `startSendEmailJob` happens — outreach-executor) already uses an allowlisted `from`
+  address, so this should never fire against legitimate traffic; confirmed by grepping
+  every current `sendEmailActivity`/`sendEmail` call site's `from` value before shipping.
+- **Not extended to social publish or Stripe processing this pass** — the cookbook's
+  pattern is specifically a *content* guard; TED ingestion and Stripe event processing
+  don't draft free-text content the same way outbound email/social copy does. Social
+  publish (`publishSocialPostActivity`) is the natural next candidate if this proves
+  useful — flagging, not building, per scope discipline.
+
+### Addendum: Ziggy's Durable HITL Agents demo confirms use case #9's shape
+
+HIC's message also described `Ziggy's Durable HITL Agents` (Google ADK + LangGraph +
+Temporal, code-exchange demo) in detail — two bidirectional human/agent patterns:
+**human→agent** (a Signal changes work already in flight; the Workflow resumes via
+`wait_condition`) and **agent→human** (an agent's `ask_human` tool interrupts its own
+reasoning loop, durably waits for an answer Signal, and resumes with the answer as its
+next observation).
+
+This confirms, rather than adds to, what's already built: `humanApprovalWorkflow` (use
+case #9) is exactly the human→agent half — a Signal (`approvalDecisionSignal`) resumes a
+durably-waiting Workflow. The agent→human half (an agent mid-`agentLoopWorkflow` — use
+case #11 — asking a human a question and waiting for the answer as its next tool result)
+is not built: `agentLoopWorkflow` currently only calls Activities, with no `ask_human`
+tool wired to a Signal wait. That would be a natural, bounded extension of #11 — add one
+more tool the loop can call that internally does what `humanApprovalWorkflow` does
+(signal + `condition()` wait) and feeds the answer back into `messages` as the next
+`tool` role message. Flagging as a candidate next step, not built this session.

@@ -51,7 +51,7 @@ describe('temporal/activities/email.activities', () => {
 
     const { sendEmailActivity } = await import('../temporal/activities/email.activities.js');
     const result = await sendEmailActivity({
-      from: 'a@lifetime.fi',
+      from: 'risto.paarni@lifetime.fi',
       to: 'b@example.com',
       subject: 'hi',
       html: '<p>hi</p>',
@@ -70,7 +70,7 @@ describe('temporal/activities/email.activities', () => {
     const { sendEmailActivity } = await import('../temporal/activities/email.activities.js');
     await expect(
       sendEmailActivity({
-        from: 'a@lifetime.fi',
+        from: 'risto.paarni@lifetime.fi',
         to: 'b@example.com',
         subject: 'hi',
         html: '<p>hi</p>',
@@ -88,7 +88,7 @@ describe('temporal/activities/email.activities', () => {
     const { sendEmailActivity } = await import('../temporal/activities/email.activities.js');
     await expect(
       sendEmailActivity({
-        from: 'a@lifetime.fi',
+        from: 'risto.paarni@lifetime.fi',
         to: 'bad@example.com',
         subject: 'hi',
         html: '<p>hi</p>',
