@@ -240,6 +240,43 @@ backoffMs }`, and an overall `timeoutMs`. Its own top comment states the goal is
   mocked client — workflowId keying, signal/query wiring. Not run against a live server
   (same caveat as every other use case — see Implementation status note above).
 
+## 10. Agent Workflow v2 (`src/agents/workflows.ts`) — audit of steps needing Standalone Activities
+
+HIC asked, since Workflow v2 (the `WorkflowExecutor`/`WorkflowDefinition` engine — use
+case #7 above) is now live across sessions, which of its steps are actual candidates for
+Standalone Activities. This is research only — no code changed for this section; #7
+itself stays deferred (a full WorkflowExecutor→Temporal migration is still the
+second-phase project it always was). What follows is a step-by-step audit of the six
+workflows in `WORKFLOW_REGISTRY` (`src/agents/workflows.ts:177`).
+
+Every `'agent'` and `'parallel'` step calls an in-process LLM agent
+(`agentRegistry.executeAgent`) — not itself an external durable-job candidate; that's
+what Standalone Activities inside the _agent's own_ tool calls would cover (a much
+larger, separate audit). The candidates below are the steps that do or should perform
+external I/O with no retry/durability today:
+
+| Workflow                | Step                                                                                                                                                        | Type                                    | Why it's a candidate                                                                                                                                                                                                                                                                                                                                                       |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `outreach-full`         | Step 3 send (`outreach-executor`, called outside the declared `steps: []`, gated by `autoSend`/`approvedBy` strings — `outreach-orchestrator.agent.ts:181`) | plain `agentRegistry.executeAgent` call | The real email/LinkedIn send, with zero retry today. `approvedBy` is a caller-supplied string, not a durable approval record — this is exactly what use case #9's `humanApprovalWorkflow` should gate, and the send itself is exactly use case #1's `startSendEmailJob`. **Highest-value target of this audit** — both building blocks already exist, just not wired here. |
+| `compliance-assessment` | `notify-complete` (`emit-event`, `workflows.ts:101`)                                                                                                        | emit-event                              | Dead end today — grepped for subscribers, found none. Not yet a candidate; becomes one the moment a real subscriber (e.g. "email the compliance officer") is added — build that subscriber as a Standalone Activity from the start, not another `logger.info` no-op.                                                                                                       |
+| `construction-full`     | `notify-complete` (`workflows.ts:135`)                                                                                                                      | emit-event                              | Same as above — dead end, same recommendation if/when wired.                                                                                                                                                                                                                                                                                                               |
+| `morning-intelligence`  | `notify-briefing-ready` (`morning-intelligence.ts:39`)                                                                                                      | emit-event                              | Same dead-end pattern. This one has an obvious real target already built elsewhere: `scripts/send-morning-brief-v2.ts` sends the actual morning briefing email — worth checking whether that script and this workflow are two paths to the same outcome that should converge on one `startSendEmailJob` call.                                                              |
+| `content-pipeline`      | `notify-pipeline-ready` (`content-pipeline.ts:40`)                                                                                                          | emit-event                              | Same dead-end pattern.                                                                                                                                                                                                                                                                                                                                                     |
+| `seo-pipeline`          | _(none)_                                                                                                                                                    | —                                       | No emit-event or send step at all — ends at `content-strategy`, a pure agent step. Not a candidate.                                                                                                                                                                                                                                                                        |
+
+**Bottom line:** only one of the six workflows has a real, un-wired external action today
+(`outreach-full`'s Step 3 send) — that's the one worth cutting over first, and it would
+exercise both #1 and #9 together in one real caller. The four `emit-event` dead ends are
+not candidates yet; they're the right _place_ to add a Standalone Activity the day a real
+subscriber is built, so flag this table for whoever wires those events next rather than
+letting them default to another synchronous, non-durable call.
+
+## HIC decision needed (workflow v2 audit)
+
+Wire `outreach-full`'s Step 3 (approval + send) onto `humanApprovalWorkflow` +
+`startSendEmailJob` as the first real caller of both use cases #1 and #9? This is the
+one candidate in this audit with existing, un-wired external I/O today.
+
 ---
 
 ## Cross-cutting notes
