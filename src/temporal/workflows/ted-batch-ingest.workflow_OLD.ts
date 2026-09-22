@@ -1,4 +1,11 @@
 /**
+ * SUPERSEDED — kept as _OLD per CLAUDE.md Rule 6 (rename over delete), not
+ * wired into src/temporal/workflows/index.ts. Replaced by
+ * src/temporal/starters/ted.starter.ts: each notice is its own Standalone
+ * Activity job (Activity ID = notice number), so Temporal itself isolates
+ * one bad notice from the rest of the batch — no Workflow loop needed to
+ * get that isolation. See docs/dws-use-cases.md use case #2.
+ *
  * Temporal Workflow — TED Batch Ingest (Use case #2)
  *
  * Fans out one Activity per notice so a single malformed notice can't stall

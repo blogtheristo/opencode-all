@@ -1,4 +1,11 @@
 /**
+ * SUPERSEDED — kept as _OLD per CLAUDE.md Rule 6 (rename over delete), not
+ * wired into src/temporal/workflows/index.ts. Replaced by
+ * src/temporal/starters/social.starter.ts, which submits
+ * publishSocialPostActivity as a true Standalone Activity using its built-in
+ * `startDelay` — no wrapping Workflow needed just to `sleep`. See
+ * docs/dws-use-cases.md use case #3.
+ *
  * Temporal Workflow — Scheduled Social Post Publish (Use case #3, pilot)
  *
  * Thin wrapper around one standalone Activity: sleeps until the post's

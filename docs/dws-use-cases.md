@@ -25,6 +25,25 @@ step before any of this runs for real; see `src/temporal/client.ts` for the env 
 biggest-lift last): #3 → #4 → #1 → #2 → #6 → #5 → #8, with #7 deferred as originally
 scoped (see its section — no code changed there).
 
+## Revision (2026-09-23): Standalone Activities, not Workflow wrappers, for #1/#2/#3/#6
+
+HIC shared Temporal's Standalone Activities GA writeup, which clarified something this
+session's first pass got architecturally wrong: #3 (social publish) and #2 (TED
+ingestion) were built as thin Workflows whose only job was `sleep` or fan-out looping —
+exactly the case the article says doesn't need a Workflow. `client.activity.start()`'s
+own `startDelay` option replaces the sleep; submitting one Standalone Activity per TED
+notice, each keyed by its own Activity ID, replaces the fan-out loop (Temporal isolates
+each job's outcome from the others by construction, no Workflow loop needed for that).
+\#1 (email) and #6 (Stripe) were never wrapped in Workflows to begin with, so they only
+needed real starter functions instead of being called ad hoc.
+
+**Changed:** added `src/temporal/standalone.ts` (shared `client.activity.start`/`execute`
+helper) and `src/temporal/starters/{email,social,ted,stripe}.starter.ts`. Superseded
+`social-publish.workflow.ts` and `ted-batch-ingest.workflow.ts` renamed to `_OLD` (CLAUDE.md
+Rule 6 — rename over delete) and dropped from `workflows/index.ts`. #4 (report schedule)
+and #5 (DocuSign poll) are unchanged — both genuinely coordinate multiple steps/waits,
+which is exactly where the article says a Workflow remains the right tool.
+
 ---
 
 ## 1. Transactional email delivery (SES/Proton send) — Implemented (order 3/7)
@@ -42,9 +61,12 @@ scoped (see its section — no code changed there).
   (exponential backoff, max attempts, non-retryable-error classification for hard bounces).
   Drop the custom consumer-group/DLQ code; Temporal's activity history is the DLQ. Keep
   Redis only if sub-100ms enqueue latency is required elsewhere.
-- **Shipped:** `src/temporal/activities/email.activities.ts` (`sendEmailActivity`). Not
-  yet wired to replace `email-queue.service.ts` call sites — that's a follow-up cutover
-  once a live server exists to validate against; the Redis outbox keeps running until then.
+- **Shipped:** `src/temporal/activities/email.activities.ts` (`sendEmailActivity`) +
+  `src/temporal/starters/email.starter.ts` (`startSendEmailJob`, a true Standalone
+  Activity submit — no Workflow wrapper, since sending one email is one step). Caller
+  supplies a stable `idempotencyKey` that becomes the Activity ID. Not yet wired to
+  replace `email-queue.service.ts` call sites — that's a follow-up cutover once a live
+  server exists to validate against; the Redis outbox keeps running until then.
 
 ## 2. Sales/TED lead queue — Implemented (order 4/7)
 
@@ -59,8 +81,13 @@ scoped (see its section — no code changed there).
   short Workflow that fans out one Activity per notice, so a single bad notice doesn't kill
   the batch.
 - **Shipped:** `src/temporal/activities/ted.activities.ts` (`ingestTedNoticeActivity`) +
-  `src/temporal/workflows/ted-batch-ingest.workflow.ts` (`tedBatchIngestWorkflow`, fans out
-  one Activity per notice and collects per-notice failures without aborting the batch).
+  `src/temporal/starters/ted.starter.ts` (`startTedNoticeIngestJob` /
+  `startTedBatchIngestJobs`) — each notice is submitted as its own Standalone Activity,
+  Activity ID = the TED notice number, so a re-poll seeing the same notice again joins
+  the existing job instead of double-submitting; a bad notice's failure never touches the
+  others since there's no shared Workflow loop to fail through. Supersedes the earlier
+  `tedBatchIngestWorkflow` (now `ted-batch-ingest.workflow_OLD.ts`, unwired) — see the
+  2026-09-23 revision note above.
 
 ## 3. Social post scheduler — Implemented (order 1/7, pilot)
 
@@ -75,8 +102,12 @@ scoped (see its section — no code changed there).
   retry policy tuned to each platform's rate-limit semantics (longer backoff for 429s).
   This was the pilot already recommended in the initial field note — kept as candidate #1.
 - **Shipped:** `src/temporal/activities/social.activities.ts` (`publishSocialPostActivity`,
-  classifies platform errors retryable vs. non-retryable) + `src/temporal/workflows/social-publish.workflow.ts`
-  (`socialPublishWorkflow`, durable `sleep` until scheduled time, then publish).
+  classifies platform errors retryable vs. non-retryable) + `src/temporal/starters/social.starter.ts`
+  (`startSocialPublishJob`) — submits a Standalone Activity using `startDelay` for the
+  scheduled-time gap, Activity ID = `social-${post.id}`. Supersedes the earlier
+  `socialPublishWorkflow` (now `social-publish.workflow_OLD.ts`, unwired) — a Workflow
+  whose only job was `sleep` then call one Activity didn't need to be a Workflow; see the
+  2026-09-23 revision note above.
 
 ## 4. Firehorse report scheduler — Implemented (order 2/7)
 
@@ -125,12 +156,15 @@ scoped (see its section — no code changed there).
   Stripe event ID as the Activity/Workflow ID — Temporal's ID-based dedup makes Stripe's
   at-least-once redelivery safe by construction, replacing manual event-ID-seen checks.
 - **Shipped:** `src/temporal/activities/stripe.activities.ts` (`processStripeEventActivity`,
-  wraps the existing `billing.service` handlers). **Not wired into the live webhook route**
-  — that route is payment-critical and already does signature verification + an
-  idempotency-check middleware synchronously in the request cycle; rewiring it to
-  start a Workflow instead is a follow-up change requiring its own review, not a
-  same-session swap. The Activity exists so that follow-up only has to change the route,
-  not build the processing logic from scratch.
+  wraps the existing `billing.service` handlers) + `src/temporal/starters/stripe.starter.ts`
+  (`startStripeEventJob`, a Standalone Activity keyed by `stripe-${event.id}` —
+  Temporal's own idConflictPolicy/idReusePolicy reject a redelivered event that already
+  succeeded, which is the "stable update ID" dedup the article describes). **Not wired
+  into the live webhook route** — that route is payment-critical and already does
+  signature verification + an idempotency-check middleware synchronously in the request
+  cycle; rewiring it to call `startStripeEventJob` instead is a follow-up change
+  requiring its own review, not a same-session swap. The starter exists so that
+  follow-up only has to change the route, not build the processing logic from scratch.
 
 ## 7. Agent workflow engine (`WorkflowExecutor`) — Deferred, unchanged this session
 
@@ -186,11 +220,18 @@ backoffMs }`, and an overall `timeoutMs`. Its own top comment states the goal is
   deferred — no code changed there this session; it needs its own scoped project once the
   rest has run against a live server.
 - **How to run this for real:** stand up a self-hosted Temporal server on DGX Spark (not
-  Temporal Cloud — see sovereignty note above), point `TEMPORAL_ADDRESS` at it, run
-  `npm run temporal:worker` (starts one Worker polling all six task queues in
-  `src/temporal/task-queues.ts`), then `npm run temporal:schedules:setup` once to create the
-  report-schedule poll Schedule. None of this has been exercised against a live server in
-  this session — see the Implementation status note above.
+  Temporal Cloud — see sovereignty note above; wired in
+  `infrastructure/dgx-spark/docker-compose.yml`, see
+  `docs/field-notes/2026-09-23-temporal-dgx-spark-wiring-and-cost.md` for activation
+  steps), point `TEMPORAL_ADDRESS` at it, run `npm run temporal:worker` (starts one
+  Worker polling all six task queues in `src/temporal/task-queues.ts` — it registers
+  Activities for every use case and the two remaining Workflows, #4 and #5), then `npm
+run temporal:schedules:setup` once to create the report-schedule poll Schedule. Once
+  the Worker is confirmed connected, call the `src/temporal/starters/*` functions from
+  wherever each use case's job currently originates (e.g. `startSocialPublishJob` where
+  `social-scheduler/queue.ts` currently enqueues a draft) — none of that caller-side
+  wiring is done yet. None of this has been exercised against a live server in this
+  session — see the Implementation status note above.
 
 ## HIC decision needed
 
