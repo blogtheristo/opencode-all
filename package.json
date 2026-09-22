@@ -69,6 +69,7 @@
     "temporal:schedules:setup": "node --import tsx scripts/temporal-schedules-setup.ts",
     "temporal:dev-server": "bash scripts/temporal-dev-server.sh",
     "temporal:approve": "node --import tsx scripts/temporal-send-approval.ts",
+    "temporal:agent-question": "node --import tsx scripts/temporal-answer-agent-question.ts",
     "opencode:check": "node .claude/hooks/opencode-check.js",
     "opencode:status": "git -C opencode-all status --short 2>/dev/null || echo 'OpenCode not found'",
     "opencode:update": "cd opencode-all && git pull origin dev && cd - && echo '✅ OpenCode updated'"

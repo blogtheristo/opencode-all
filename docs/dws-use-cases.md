@@ -419,7 +419,7 @@ synthesizes their output and writes a structured decision. Every LLM call and ev
 tool call is a Temporal Activity; agent reasoning and orchestration stay in the Workflow.
 
 **Mapped, not ported.** This is Python/ADK-specific (no TypeScript ADK integration
-exists), but the *shape* — two agents in parallel, a third synthesizes — is not new to
+exists), but the _shape_ — two agents in parallel, a third synthesizes — is not new to
 DWS6: `src/agents/workflows.ts`'s `WORKFLOW_REGISTRY` already has this exact pattern
 today, in the still-deferred use case #7 engine: `morning-intelligence`
 (`athena`+`hephaestus`+`iris` parallel → `atlas` synthesis) and `construction-full`
@@ -460,15 +460,15 @@ zero-dependency `src/temporal/ticket-id.ts` (`<domain>-<businessKey>`, e.g.
 All existing IDs already followed the `<domain>-<key>` shape except email — table of
 every ID convention now in use:
 
-| Ticket prefix | Where | Example |
-|---|---|---|
-| `email-` | `startSendEmailJob` Activity ID | `email-report-s1-2026-09` |
-| `social-` | `startSocialPublishJob` Activity ID | `social-p123` |
-| `ted-` | `startTedNoticeIngestJob` Activity ID | `ted-2026-S-038-123456` |
-| `stripe-` | `startStripeEventJob` Activity ID | `stripe-evt_abc123` |
-| `approval-` | `humanApprovalWorkflow` Workflow ID | `approval-outreach-s1-1727...` |
-| `agent-loop-` | `agentLoopWorkflow` Workflow ID | `agent-loop-outreach-orchestrator-s1` |
-| `outreach-send-` | `outreachApprovalSendWorkflow` Workflow ID | `outreach-send-outreach-s1-1727...` |
+| Ticket prefix      | Where                                      | Example                                      |
+| ------------------ | ------------------------------------------ | -------------------------------------------- |
+| `email-`           | `startSendEmailJob` Activity ID            | `email-report-s1-2026-09`                    |
+| `social-`          | `startSocialPublishJob` Activity ID        | `social-p123`                                |
+| `ted-`             | `startTedNoticeIngestJob` Activity ID      | `ted-2026-S-038-123456`                      |
+| `stripe-`          | `startStripeEventJob` Activity ID          | `stripe-evt_abc123`                          |
+| `approval-`        | `humanApprovalWorkflow` Workflow ID        | `approval-outreach-s1-1727...`               |
+| `agent-loop-`      | `agentLoopWorkflow` Workflow ID            | `agent-loop-outreach-orchestrator-s1`        |
+| `outreach-send-`   | `outreachApprovalSendWorkflow` Workflow ID | `outreach-send-outreach-s1-1727...`          |
 | `report-schedule-` | `reportScheduleWorkflow` child Workflow ID | `report-schedule-<scheduleId>-<next_run_at>` |
 
 **Known gap, not fixed this pass:** `docusignStatusPollWorkflow` (use case #5) has no
@@ -513,7 +513,7 @@ for whoever builds that starter to follow the same `ticketId('docusign', ...)` p
   address, so this should never fire against legitimate traffic; confirmed by grepping
   every current `sendEmailActivity`/`sendEmail` call site's `from` value before shipping.
 - **Not extended to social publish or Stripe processing this pass** — the cookbook's
-  pattern is specifically a *content* guard; TED ingestion and Stripe event processing
+  pattern is specifically a _content_ guard; TED ingestion and Stripe event processing
   don't draft free-text content the same way outbound email/social copy does. Social
   publish (`publishSocialPostActivity`) is the natural next candidate if this proves
   useful — flagging, not building, per scope discipline.
@@ -527,12 +527,30 @@ Temporal, code-exchange demo) in detail — two bidirectional human/agent patter
 reasoning loop, durably waits for an answer Signal, and resumes with the answer as its
 next observation).
 
-This confirms, rather than adds to, what's already built: `humanApprovalWorkflow` (use
-case #9) is exactly the human→agent half — a Signal (`approvalDecisionSignal`) resumes a
-durably-waiting Workflow. The agent→human half (an agent mid-`agentLoopWorkflow` — use
-case #11 — asking a human a question and waiting for the answer as its next tool result)
-is not built: `agentLoopWorkflow` currently only calls Activities, with no `ask_human`
-tool wired to a Signal wait. That would be a natural, bounded extension of #11 — add one
-more tool the loop can call that internally does what `humanApprovalWorkflow` does
-(signal + `condition()` wait) and feeds the answer back into `messages` as the next
-`tool` role message. Flagging as a candidate next step, not built this session.
+`humanApprovalWorkflow` (use case #9) is exactly the human→agent half — a Signal
+(`approvalDecisionSignal`) resumes a durably-waiting Workflow. The agent→human half —
+**built in a same-session follow-up** — extends `agentLoopWorkflow` (use case #11) with
+an `ask_human` reserved tool name, intercepted inside the Workflow rather than dispatched
+to `executeAgentToolCallsActivity`: `defineSignal('answerHuman')` +
+`defineQuery('pendingQuestion')`, mirroring the demo's `answer_dispatch` signal +
+`pending_question` query exactly. When the LLM calls `ask_human`, the loop durably waits
+(`condition()`, default 24h timeout) and feeds the answer back into `messages` as that
+tool call's result — the agent's next observation, same as the demo's dispatch agent.
+
+- **Shipped:** `ASK_HUMAN_TOOL_NAME`/`ASK_HUMAN_TOOL_DEFINITION`, `answerHumanSignal`,
+  `pendingQuestionQuery` in `src/temporal/workflows/agent-loop.workflow.ts`; the tool is
+  auto-appended to whatever `tools` the caller passes unless `allowAskHuman: false`.
+  Client helpers `getPendingAgentQuestion`/`answerAgentQuestion` in
+  `src/temporal/agent-loop.ts`, reusing `agentLoopWorkflow`'s existing
+  `agent-loop-${requestId}` ticket ID — no new ID convention needed, the same
+  `ticketId('agent-loop', requestId)` handle a caller already has from starting the
+  loop. `scripts/temporal-answer-agent-question.ts`
+  (`npm run temporal:agent-question -- <requestId> [--answer "..."]`) — read-only when
+  no `--answer` is given (shows the pending question, if any), mirrors
+  `temporal-send-approval.ts`'s shape.
+- **2/2 new unit tests passing** (`src/__tests__/temporal-agent-ask-human.test.ts`)
+  against a mocked client — the in-workflow interception logic itself needs a live
+  Temporal Test Environment to exercise (unavailable in this sandbox, same caveat as
+  every other Workflow-level behavior this session). Full suite: 1349/1349 passing.
+- **Still NOT wired into `BaseAgent.runLoop()`** — same caution as #11 itself; this
+  extends the already-deferred cutover's target shape, doesn't change its status.

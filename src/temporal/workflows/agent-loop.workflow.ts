@@ -22,8 +22,24 @@
  * NOT wired into BaseAgent.runLoop() this session — every live agent calls
  * runLoop() today; a cutover needs its own review, same caution already
  * applied to the Stripe webhook route (#6) and outreach-full's send step.
+ *
+ * Agent-initiated human question (`ask_human`): the "agent→human" half of
+ * the pattern in Ziggy's Durable HITL Agents demo (ADK+LangGraph+Temporal;
+ * see docs/dws-use-cases.md's addendum on use case #9). `ask_human` is a
+ * reserved tool name intercepted *inside this Workflow*, not dispatched to
+ * executeAgentToolCallsActivity: the loop durably waits on a Signal
+ * (mirrors the demo's `answer_dispatch` signal), a Query exposes the
+ * pending question for external inspection (mirrors `pending_question`),
+ * and the answer is fed back into the conversation as the tool's result —
+ * the agent's next observation, exactly like the demo's dispatch agent.
  */
-import { proxyActivities } from '@temporalio/workflow';
+import {
+  condition,
+  defineQuery,
+  defineSignal,
+  proxyActivities,
+  setHandler,
+} from '@temporalio/workflow';
 import type * as activities from '../activities/agent-loop.activities.js';
 import type { AgentContext, LLMMessage, LLMResponse, ToolDefinition } from '../../agents/types.js';
 
@@ -31,6 +47,24 @@ const { callAgentLLMActivity, executeAgentToolCallsActivity } = proxyActivities<
   startToCloseTimeout: '2 minutes',
   retry: { initialInterval: '5 seconds', backoffCoefficient: 2, maximumAttempts: 3 },
 });
+
+export const ASK_HUMAN_TOOL_NAME = 'ask_human';
+
+const ASK_HUMAN_TOOL_DEFINITION: ToolDefinition = {
+  name: ASK_HUMAN_TOOL_NAME,
+  description:
+    'Ask the human operator a question when you need judgment, a missing fact, or explicit permission before continuing. Pauses durably until answered — use only when genuinely blocked, not for routine confirmations.',
+  parameters: {
+    type: 'object',
+    properties: { question: { type: 'string', description: 'The question to ask the human.' } },
+    required: ['question'],
+  },
+};
+
+export const answerHumanSignal = defineSignal<[string]>('answerHuman');
+export const pendingQuestionQuery = defineQuery<string | undefined>('pendingQuestion');
+
+const DEFAULT_ASK_HUMAN_TIMEOUT_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 export interface AgentLoopWorkflowInput {
   agentModel: string;
@@ -40,6 +74,10 @@ export interface AgentLoopWorkflowInput {
   tools: ToolDefinition[];
   context: AgentContext;
   maxIterations?: number;
+  /** Lets the agent call ask_human mid-loop (default: true). */
+  allowAskHuman?: boolean;
+  /** How long a single ask_human call waits before giving up — default 24h. */
+  askHumanTimeoutMs?: number;
 }
 
 export interface AgentLoopIterationRecord {
@@ -61,6 +99,29 @@ const DEFAULT_MAX_ITERATIONS = 10;
 export async function agentLoopWorkflow(
   input: AgentLoopWorkflowInput,
 ): Promise<AgentLoopWorkflowResult> {
+  const allowAskHuman = input.allowAskHuman !== false;
+  const askHumanTimeoutMs = input.askHumanTimeoutMs ?? DEFAULT_ASK_HUMAN_TIMEOUT_MS;
+
+  let currentQuestion: string | undefined;
+  let currentAnswer: string | undefined;
+
+  setHandler(answerHumanSignal, (answer) => {
+    currentAnswer = answer;
+  });
+  setHandler(pendingQuestionQuery, () => currentQuestion);
+
+  async function askHuman(question: string): Promise<string> {
+    currentQuestion = question;
+    currentAnswer = undefined;
+    const answered = await condition(() => currentAnswer !== undefined, askHumanTimeoutMs);
+    currentQuestion = undefined;
+    return answered && currentAnswer !== undefined
+      ? currentAnswer
+      : '(no answer received before timeout — proceed with your best judgment or stop)';
+  }
+
+  const tools = allowAskHuman ? [...input.tools, ASK_HUMAN_TOOL_DEFINITION] : input.tools;
+
   const messages: LLMMessage[] = [
     { role: 'system', content: input.systemPrompt },
     { role: 'user', content: input.userMessage },
@@ -79,7 +140,7 @@ export async function agentLoopWorkflow(
         agentModel: input.agentModel,
         orgId: input.orgId,
         messages,
-        tools: input.tools,
+        tools,
       });
     } catch {
       break;
@@ -102,13 +163,31 @@ export async function agentLoopWorkflow(
     const toolCalls = response.toolCalls;
     messages.push({ role: 'assistant', content: response.content || '', toolCalls });
 
-    const toolResults = await executeAgentToolCallsActivity({ toolCalls, context: input.context });
-    for (const result of toolResults) {
-      messages.push({
-        role: 'tool',
-        content: JSON.stringify(result.result),
-        toolCallId: result.toolCallId,
+    const askHumanCalls = toolCalls.filter((tc) => tc.name === ASK_HUMAN_TOOL_NAME);
+    const activityCalls = toolCalls.filter((tc) => tc.name !== ASK_HUMAN_TOOL_NAME);
+
+    // Sequential: the demo's dispatch agent asks one question at a time; a
+    // second ask_human before the first is answered would overwrite the
+    // pending-question Query state, which is the right behavior for "the
+    // agent is currently blocked on this one question."
+    for (const call of askHumanCalls) {
+      const question = (call.arguments as { question?: string }).question || '(no question given)';
+      const answer = await askHuman(question);
+      messages.push({ role: 'tool', content: JSON.stringify({ answer }), toolCallId: call.id });
+    }
+
+    if (activityCalls.length > 0) {
+      const toolResults = await executeAgentToolCallsActivity({
+        toolCalls: activityCalls,
+        context: input.context,
       });
+      for (const result of toolResults) {
+        messages.push({
+          role: 'tool',
+          content: JSON.stringify(result.result),
+          toolCallId: result.toolCallId,
+        });
+      }
     }
 
     iterations.push({
