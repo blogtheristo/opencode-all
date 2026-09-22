@@ -3,6 +3,8 @@
 
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { randomUUID } from 'node:crypto';
 import {
   ApprovalRequiredError,
   assertTransitionAllowed,
@@ -21,6 +23,7 @@ import {
   TypedTransitionAbstainedError,
   validateGraph,
 } from '../../agents/workflow-v2/index.js';
+import { runGraph } from '../../agents/workflow-v2/run.js';
 import type { LLMClient } from '../../agents/llm-client.js';
 import type { AgentRuntimeContext, LLMResponse } from '../../agents/types.js';
 import { issueKyaVerdict } from '../../security/runtime-auth.js';
@@ -688,5 +691,129 @@ describe('learning-outcome example graph (chapter nine — the Learn gate)', () 
     const incomplete = graph.nodes.find((n) => n.id === 'CAPTURE_INCOMPLETE');
     expect(incomplete?.allowedNext).toContain('UPDATE_KB');
     expect(incomplete?.allowedNext).not.toContain('SESSION_END');
+  });
+});
+
+// ── The runner entry point (src/agents/workflow-v2/run.ts) ──────────────────
+// These exercise runGraph with a scripted client, which drives the REAL
+// runExecutorStep path — so edge enforcement and the approval gate are under
+// test here as they behave in an actual run, not as isolated assertions.
+
+function scriptedClient(script: string[]): LLMClient {
+  let i = 0;
+  return {
+    async chat(): Promise<LLMResponse> {
+      const next = script[i++];
+      if (next === undefined) throw new Error('scripted run exhausted');
+      return {
+        content: `<transition>${next}</transition>`,
+        model: 'scripted',
+        inputTokens: 0,
+        outputTokens: 0,
+        stopReason: 'end_turn',
+      };
+    },
+  } as unknown as LLMClient;
+}
+
+describe('runGraph — the executable entry point', () => {
+  const tmpTrace = () =>
+    `${tmpdir()}/wf2-test-${randomUUID()}.json`;
+
+  it('walks chapter three end to end and records the full path', async () => {
+    const graph = loadExampleGraph('compliance-assessment.graph.json');
+    const trace = await runGraph(
+      graph,
+      scriptedClient([
+        'COLLECT_INPUTS',
+        'RUN_EMISSIONS_ANALYSIS',
+        'RUN_REGULATORY_CHECK',
+        'RUN_VIABILITY_ASSESSMENT',
+        'GENERATE_REPORT',
+        'END',
+      ]),
+      { input: 'test', maxSteps: 20, tracePath: tmpTrace() },
+    );
+
+    expect(trace.outcome).toBe('success');
+    expect(trace.transitions.map((t) => t.toNode)).toEqual([
+      'COLLECT_INPUTS',
+      'RUN_EMISSIONS_ANALYSIS',
+      'RUN_REGULATORY_CHECK',
+      'RUN_VIABILITY_ASSESSMENT',
+      'GENERATE_REPORT',
+      'END',
+    ]);
+  });
+
+  it('traverses the MISSING_DATA recovery branch the DAG cannot express', async () => {
+    const graph = loadExampleGraph('compliance-assessment.graph.json');
+    const trace = await runGraph(
+      graph,
+      scriptedClient([
+        'COLLECT_INPUTS',
+        'MISSING_DATA',
+        'COLLECT_INPUTS',
+        'RUN_EMISSIONS_ANALYSIS',
+        'RUN_REGULATORY_CHECK',
+        'RUN_VIABILITY_ASSESSMENT',
+        'GENERATE_REPORT',
+        'END',
+      ]),
+      { input: 'test', maxSteps: 20, tracePath: tmpTrace() },
+    );
+
+    expect(trace.outcome).toBe('success');
+    expect(trace.transitions.map((t) => t.toNode)).toContain('MISSING_DATA');
+  });
+
+  it('refuses an illegal transition during a real run', async () => {
+    const graph = loadExampleGraph('compliance-assessment.graph.json');
+    await expect(
+      runGraph(graph, scriptedClient(['GENERATE_REPORT']), {
+        input: 'test',
+        maxSteps: 20,
+        tracePath: tmpTrace(),
+      }),
+    ).rejects.toThrow(GraphValidationError);
+  });
+
+  it("blocks chapter one's outbound SEND in a real run without an approval token", async () => {
+    const graph = loadExampleGraph('sales-outreach.graph.json');
+    await expect(
+      runGraph(
+        graph,
+        scriptedClient(['RESEARCH', 'DRAFT_OUTREACH', 'HIC_APPROVAL_GATE', 'SEND']),
+        { input: 'test', maxSteps: 20, tracePath: tmpTrace() },
+      ),
+    ).rejects.toThrow(ApprovalRequiredError);
+  });
+
+  it('writes a failure trace rather than losing the run (fail loud)', async () => {
+    const graph = loadExampleGraph('sales-outreach.graph.json');
+    const tracePath = tmpTrace();
+    await expect(
+      runGraph(
+        graph,
+        scriptedClient(['RESEARCH', 'DRAFT_OUTREACH', 'HIC_APPROVAL_GATE', 'SEND']),
+        { input: 'test', maxSteps: 20, tracePath },
+      ),
+    ).rejects.toThrow();
+
+    const written = JSON.parse(readFileSync(tracePath, 'utf-8'));
+    expect(written.outcome).toBe('failure');
+    expect(written.errorContext).toContain('ApprovalToken');
+  });
+
+  it('bounds a runaway with the max-steps guard', async () => {
+    const graph = loadExampleGraph('compliance-assessment.graph.json');
+    const trace = await runGraph(
+      graph,
+      scriptedClient(['COLLECT_INPUTS', 'MISSING_DATA', 'COLLECT_INPUTS', 'MISSING_DATA']),
+      { input: 'test', maxSteps: 3, tracePath: tmpTrace() },
+    );
+
+    expect(trace.outcome).toBe('failure');
+    expect(trace.errorContext).toContain('max-steps');
   });
 });
