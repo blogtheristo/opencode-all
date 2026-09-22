@@ -6,7 +6,17 @@
 
 ---
 
-Version: 1.0
+Version: 1.1 [Latest]
+Tool: Claude Code (Sonnet 5)
+Agent: Claude Code
+Date: 2026-09-24
+Changes: HIC approved `api.dws6.com`. Wired `window.DWS_API_BASE` in both
+dashboard backoffice HTML pages. V10 `VITE_API_URL` wiring not done this
+session — blocked by `.env*` file access policy, documented as manual step.
+
+---
+
+Version: 1.0 [not latest]
 Tool: Claude Code (Sonnet 5)
 Agent: Claude Code
 Date: 2026-09-24
@@ -133,20 +143,34 @@ exactly one tunnel with one ingress rule (`mcp-gateway`, per `docs/CLOUD_ENVIRON
    - V10 build: set `VITE_API_URL=https://api.dws6.com` in its build env, rebuild,
      republish.
 
+## Approved (2026-09-24)
+
+HIC approved `api.dws6.com` as proposed. Code-side wiring status:
+
+- **Done:** `dws6.com/dashboard/backoffice/index.html` (+ `landing-pages/dws6-com` mirror)
+  now sets `window.DWS_API_BASE = window.DWS_API_BASE || "https://api.dws6.com";` before
+  the Supabase client script loads. Falls back to same-origin relative calls if unset.
+- **Not done — session-blocked:** V10 React build's `VITE_API_URL`. This session hit a
+  hard permission-policy block on reading/writing any `.env*` path (including
+  `.env.example` templates) via both Bash and Read tools — consistent with the Secret
+  Egress Rules philosophy but stricter than expected for a non-secret template. A local
+  build session must set `VITE_API_URL=https://api.dws6.com` in
+  `dws6.com/dashboard/firehorse/v10-react/.env` (and mirror) and rebuild/republish the
+  committed output at `dws6.com/dashboard/firehorse/v10/`.
+
 ## Next Steps
 
-1. HIC confirms or vetoes `api.dws6.com` as the hostname (default proposed above — flag
-   if a different naming convention should be used instead).
-2. Whoever holds Cloudflare Zero Trust dashboard access adds the ingress rule + DNS CNAME
-   per steps 2-3 above.
-3. A follow-up session makes the two one-line code changes in step 5 and republishes.
-4. Verify: log in on `dws6.com` → Back-Office page loads live stats/containers/users/audit
+1. Whoever holds Cloudflare Zero Trust dashboard access adds the ingress rule
+   (`api.dws6.com` → `http://dws-backend:8080`) + DNS CNAME per steps 2-3 above — still
+   outside this repo/session's reach.
+2. A local session (with `.env*` access) sets V10's `VITE_API_URL` and republishes.
+3. Verify: log in on `dws6.com` → Back-Office page loads live stats/containers/users/audit
    data (currently the two remaining unchecked boxes in PR #2072's own test plan).
 
 ## HIC decision needed
 
-Confirm `api.dws6.com` as the hostname for `dws-backend` (proposed above), or name a
-different one. Nothing else in steps 1-3 above can start until this is answered.
+None — hostname approved, tracked above. Remaining items are execution (dashboard access,
+local build), not decisions.
 
 ## N/A items (Rule 12)
 
