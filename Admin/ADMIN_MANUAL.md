@@ -1778,7 +1778,7 @@ sudo rm /usr/local/bin/cloudflared
 hash -r
 ```
 
-### Adding a new public hostname to the tunnel (future)
+### Adding a new public hostname to the tunnel
 
 If a second on-prem service needs public exposure via this tunnel:
 
@@ -1794,6 +1794,63 @@ cloudflared tunnel route dns dgx-heartbeat <new-subdomain>.dws6.com
 # 3. Restart the daemon
 sudo systemctl restart cloudflared
 ```
+
+**This tunnel is locally managed.** Its ingress config is the file above, and
+`cloudflared` runs as a **systemd service on the DGX host** — not in Docker. Two
+consequences that have already cost one session:
+
+1. **The Cloudflare dashboard cannot add routes to it.** Locally-managed tunnels expose no
+   "Public Hostname" / "Published application routes" tab in Zero Trust (Cloudflare One).
+   The dashboard shows the tunnel and its connections, but the config lives on the box.
+2. **Ingress rules address services by published host port, not by compose service name.**
+   `service: http://localhost:8080` works; `service: http://dws-backend:8080` does not —
+   the daemon is not on the `dws-network` Docker network. Check the compose file's
+   `ports:` mapping (e.g. `"8080:8080"`) to find the right host port.
+
+Note also that `infrastructure/dgx-spark/docker-compose.yml` defines a `cloudflare-tunnel`
+service. **It is not this tunnel.** It is gated behind the `gateway` compose profile and
+has never been provisioned. Its comments describe an intended `mcp-gateway` exposure, not
+deployed state. This section is the source of truth for tunnel state.
+
+#### Pending: `backend.dws6.com` → `dws-backend` (not yet applied)
+
+Approved by HIC 24.09.2026, blocked on DGX SSH. Exposes the Express backend so the
+Cloudflare-Pages-served Back-Office dashboard can reach `/api/v1/backoffice/*` — Pages
+serves static files only, so those calls currently 404 in production.
+
+```bash
+# Run on the DGX box. Confirm the container is up first:
+docker ps --filter name=dws-backend        # expect Up / healthy
+
+cloudflared tunnel route dns dgx-heartbeat backend.dws6.com
+
+# /etc/cloudflared/config.yml — add BEFORE the catch-all 404:
+#   - hostname: backend.dws6.com
+#     service: http://localhost:8080
+#   - service: http_status:404
+
+sudo systemctl restart cloudflared
+curl https://backend.dws6.com/health        # expect 200 — needs no auth
+```
+
+The frontend half is already committed: both copies of
+`dws6.com/dashboard/backoffice/index.html` set
+`window.DWS_API_BASE = "https://backend.dws6.com"`. The V10 React build still needs
+`VITE_API_URL=https://backend.dws6.com` set at build time and republishing.
+
+**Why `backend` and not `api`:** `api.dws6.com` is already a CNAME to
+`ghs.googlehosted.com`, left over from the retired `dws6run6` Cloud Run domain mapping
+(see `infrastructure/cloudrun/EXIT_CLOUDRUN_RUNBOOK.md`). It was not reused pending
+confirmation that the Google mapping is dead.
+
+**Security note:** no auth is added at the tunnel layer. `/api/v1/backoffice/*` already
+requires a Supabase Bearer token plus an `organization_members` owner/admin check on every
+route, so that group is safe to expose. Other routes on the same Express app that are
+currently unauthenticated would need their own review — pre-existing scope, but this
+change is what makes them publicly reachable.
+
+Cross-refs: `Admin/ADMIN_MANUAL_DWS6_COM.md` §11.2,
+`docs/field-notes/2026-09-24-backoffice-open-items-fixed.md`.
 
 ### Failure & rollback
 
