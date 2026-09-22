@@ -126,6 +126,28 @@ function parseSections(path) {
   return sections.map((s) => ({ ...s, body: s.body.join('\n') }));
 }
 
+/**
+ * Access class per file, from the same policy the API enforces
+ * (docs/access/document-access-policy.json), so a lookup can say what clearance
+ * a hit needs instead of implying everything is readable by everyone. Mirrors
+ * classifyDocument() in src/services/document-access.ts, including its
+ * default-deny: an unmatched path reads as confidential.
+ */
+function loadAccessRules() {
+  const policyPath = join(REPO, 'docs/access/document-access-policy.json');
+  if (!existsSync(policyPath)) return null;
+  const policy = JSON.parse(readFileSync(policyPath, 'utf8'));
+  return policy.rules.flatMap((rule) =>
+    rule.patterns.map((p) => ({ cls: rule.class, re: new RegExp(p, 'i') })),
+  );
+}
+
+function classifyPath(rules, relPath) {
+  if (!rules) return null;
+  const hit = rules.find((r) => r.re.test(relPath.replace(/\\/g, '/')));
+  return hit ? hit.cls : 'confidential';
+}
+
 /** Ontology vocabulary: CCP seed preferred terms + compiled wiki concept names. */
 function collectOntologyTerms() {
   const terms = new Set();
@@ -166,14 +188,16 @@ function headingKeys(heading) {
 
 function build() {
   const ontologyTerms = collectOntologyTerms();
+  const accessRules = loadAccessRules();
   const index = {};
   let sectionCount = 0;
 
   for (const path of collectSourceFiles()) {
     const rel = relative(REPO, path);
+    const access = classifyPath(accessRules, rel);
     for (const section of parseSections(path)) {
       sectionCount += 1;
-      const entry = { file: rel, heading: section.heading, line: section.line };
+      const entry = { file: rel, heading: section.heading, line: section.line, access };
       const bodyLower = section.body.toLowerCase();
       const headLower = section.heading.toLowerCase();
 
@@ -259,11 +283,15 @@ function lookup(term, asJson) {
   for (const h of hits.slice(0, 25)) {
     const tag = h.match === 'heading' ? '●' : '○';
     const via = h.via ? ` [via "${h.via}"]` : '';
-    console.log(`  ${tag} ${h.file}:${h.line}${via}`);
+    const acc = h.access ? ` {${h.access}}` : '';
+    console.log(`  ${tag} ${h.file}:${h.line}${via}${acc}`);
     console.log(`     ${h.heading}`);
   }
   if (hits.length > 25) console.log(`\n  … ${hits.length - 25} more (use --json for all)`);
   console.log('\n  ● heading match (section is about this)   ○ body mention');
+  console.log(
+    '  {class} = access class — who may open it (docs/access/document-access-policy.json)',
+  );
 }
 
 const [cmd, ...rest] = process.argv.slice(2);

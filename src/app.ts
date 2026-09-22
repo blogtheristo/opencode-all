@@ -36,6 +36,7 @@ import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes
 import adminSupportRoutes from './routes/admin-support.routes.js';
 import adminCostAuditRoutes from './routes/admin-cost-audit.routes.js';
 import backofficeRoutes from './routes/backoffice.routes.js';
+import docsRoutes from './routes/docs.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
@@ -339,6 +340,7 @@ app.use('/api/v1/admin/support', adminSupportRoutes);
 app.use('/api/admin', adminCostAuditRoutes);
 
 app.use('/api/v1/backoffice', backofficeRoutes);
+app.use('/api/v1/docs', docsRoutes);
 
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
