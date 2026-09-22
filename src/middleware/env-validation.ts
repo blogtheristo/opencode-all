@@ -30,6 +30,18 @@ const envSchema: EnvVar[] = [
   { name: 'GROQ_API_KEY', required: false, description: 'Groq API key (Climate Assistant)' },
   { name: 'ANTHROPIC_API_KEY', required: false, description: 'Anthropic API key' },
   { name: 'GOOGLE_GEMINI_API_KEY', required: false, description: 'Google Gemini API key' },
+  { name: 'BASETEN_API_KEY', required: false, description: 'Baseten API key (EU-resident cloud)' },
+  {
+    name: 'OLLAMA_BASE_URL',
+    required: false,
+    description: 'Self-hosted Ollama endpoint (Acer Veriton GN100 / DGX Spark), no API key needed',
+  },
+  {
+    name: 'VLLM_BASE_URL',
+    required: false,
+    description: 'Self-hosted vLLM endpoint (Acer Veriton GN100 / DGX Spark)',
+  },
+  { name: 'OPENAI_API_KEY', required: false, description: 'OpenAI-compatible API key (fallback)' },
 
   // Email (SES SMTP — Resend banned per security policy)
   { name: 'SMTP_HOST', required: false, description: 'Amazon SES SMTP host' },
@@ -110,14 +122,22 @@ export function validateEnv(): { valid: boolean; missing: string[]; warnings: st
     }
   }
 
+  // Must mirror the provider precedence in src/agents/llm-client.ts's
+  // resolveProvider() — a self-hosted Ollama/vLLM endpoint is a fully valid
+  // configuration and previously produced a false "no LLM provider" warning.
   const hasLlm = !!(
-    process.env.GROQ_API_KEY ||
     process.env.ANTHROPIC_API_KEY ||
-    process.env.GOOGLE_GEMINI_API_KEY
+    process.env.GROQ_API_KEY ||
+    process.env.GOOGLE_GEMINI_API_KEY ||
+    process.env.BASETEN_API_KEY ||
+    process.env.OLLAMA_BASE_URL ||
+    process.env.VLLM_BASE_URL ||
+    process.env.OPENAI_API_KEY
   );
   if (!hasLlm) {
     warnings.push(
-      'No LLM provider configured (GROQ_API_KEY, ANTHROPIC_API_KEY, or GOOGLE_GEMINI_API_KEY)',
+      'No LLM provider configured (ANTHROPIC_API_KEY, GROQ_API_KEY, GOOGLE_GEMINI_API_KEY, ' +
+        'BASETEN_API_KEY, OLLAMA_BASE_URL, VLLM_BASE_URL, or OPENAI_API_KEY)',
     );
   }
 
