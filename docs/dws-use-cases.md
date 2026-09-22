@@ -352,3 +352,39 @@ needs a separate scoping decision once #1–#6/#8 have proven out operationally.
 - KB update: N/A — code shipped but unexercised against live infra; will update `/kb` once
   a DGX Spark Temporal server exists and a first workflow has actually run.
 - Calendar entry: N/A — no dated commitment; depends on HIC's DGX Spark provisioning decision above.
+
+## Addendum (2026-09-24): Vercel AI SDK cookbook example evaluated, not adopted
+
+HIC pointed at a third cookbook example, `agents/ai_sdk_by_vercel_typescript`, alongside
+the observation that DWS6 already answers user questions via a local Ollama model. Worth
+recording what was checked and why nothing changed here.
+
+**What the example does:** wraps Vercel AI SDK's `generateText()` as a durable Temporal
+Activity automatically, via `@temporalio/ai-sdk`'s `temporalProvider` + `AiSdkPlugin`
+on the Worker — no manual `proxyActivities()` wrapping of the LLM call itself. Tools are
+defined with the AI SDK's `tool()` + Zod schemas. **The example itself is hardcoded to
+OpenAI's `gpt-4o-mini`** — it does not demonstrate Ollama or any local-model provider.
+
+**Checked against DWS6's actual setup:** `src/agents/llm-client.ts:105-116,236-248`
+already has first-class Ollama support (OpenAI-compatible endpoint at
+`OLLAMA_BASE_URL`/v1, model from `OLLAMA_DEPLOYED_MODELS`), and
+`infrastructure/dgx-spark/docker-compose.yml` sets `LLM_PRIMARY: ollama` on the backend
+— confirms the "user questions run on local Ollama" premise is already true in the
+running system, independent of anything built this session.
+
+**Why not adopted:** use case #11 (`agentLoopWorkflow`) already gives the same
+architectural benefit the cookbook example does — the LLM call as a durable Temporal
+Activity — by wrapping DWS6's own `createLLMClient()`, which already speaks Ollama.
+Pulling in `ai` + `@temporalio/ai-sdk` + `@ai-sdk/openai` (or a third-party Ollama AI-SDK
+provider) would stand up a second, parallel LLM-abstraction layer next to the one DWS6
+already has, purely to get a durability property #11 already delivers. That's the
+premature-abstraction case CLAUDE.md's Engineering Discipline Rule 2 (simplicity first)
+exists for — no new dependency, no new provider-config surface, no second thing to keep
+in sync with `llm-client.ts`'s existing multi-provider priority logic (Anthropic > Groq
+
+> Ollama > vLLM > OpenAI, per that file's own header comment; `LLM_PRIMARY=ollama` in
+> the DGX compose env overrides that default for the backend/cron services specifically).
+
+**If this changes:** revisit only if DWS6 ever needs an AI-SDK-specific capability
+`llm-client.ts` doesn't have (e.g. AI SDK's built-in structured-output/streaming
+ergonomics) — not for the durability property alone, which #11 already covers.
