@@ -1,0 +1,9 @@
+# Cloudflare Pages SPA fallback rules. Root-level file — Cloudflare Pages
+# only honors _redirects at the project root, not per-subfolder.
+#
+# V10 backoffice dashboard (React SPA, vite base: /dashboard/firehorse/v10/)
+# needs deep-link refresh (e.g. reloading /dashboard/firehorse/v10/users)
+# to serve index.html instead of 404ing, so the client-side router can take
+# over. Everything else on this site is static multi-page HTML and must not
+# be caught by a broader rule.
+/dashboard/firehorse/v10/*  /dashboard/firehorse/v10/index.html  200
