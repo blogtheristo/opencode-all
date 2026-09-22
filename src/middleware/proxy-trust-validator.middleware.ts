@@ -100,15 +100,6 @@ export function validateTrustSubnet(subnet: string): TrustSubnet {
   // Detect IPv4-mapped IPv6 in hex form: ::ffff:HHHH:HHHH
   const mappedHex = lower.match(/^::ffff:([0-9a-f]+):([0-9a-f]+)$/);
   if (mappedHex) {
-    const high = parseInt(mappedHex[1], 16);
-    const low = parseInt(mappedHex[2], 16);
-
-    // Reconstruct as IPv4
-    const a = (high >> 8) & 0xff;
-    const b = high & 0xff;
-    const c = (low >> 8) & 0xff;
-    const d = low & 0xff;
-
     result.isIPv4MappedIPv6 = true;
     result.ipv4Prefix = prefix;
     result.ipv6Prefix = prefix;
@@ -187,13 +178,15 @@ export function createProxyTrustValidator(trustSubnets?: string | string[]) {
       logger.error('Invalid trust subnet detected', {
         subnet,
         reason: validated.invalidReason,
-        impact: 'This subnet will be ignored by proxy-addr; IP-based access control may be bypassed',
+        impact:
+          'This subnet will be ignored by proxy-addr; IP-based access control may be bypassed',
       });
-    } else if (validated.isIPv4MappedIPv6 && validated.ipv4Prefix! > 0) {
+    } else if (validated.isIPv4MappedIPv6 && (validated.ipv4Prefix ?? 0) > 0) {
+      const ipv4Prefix = validated.ipv4Prefix ?? 0;
       logger.info('Validated IPv4-mapped IPv6 trust subnet', {
         subnet,
-        ipv4Prefix: validated.ipv4Prefix,
-        expectedIPv6Prefix: 96 + validated.ipv4Prefix,
+        ipv4Prefix,
+        expectedIPv6Prefix: 96 + ipv4Prefix,
       });
     }
   }
@@ -211,7 +204,7 @@ export function createProxyTrustValidator(trustSubnets?: string | string[]) {
 export function getTrustSubnetExplanation(validation: TrustSubnet): string {
   if (validation.isValid) {
     if (validation.isIPv4MappedIPv6) {
-      return `Valid IPv4-mapped IPv6: ${validation.original} (IPv4 /${validation.ipv4Prefix} → IPv6 /${96 + validation.ipv4Prefix!})`;
+      return `Valid IPv4-mapped IPv6: ${validation.original} (IPv4 /${validation.ipv4Prefix} → IPv6 /${96 + (validation.ipv4Prefix ?? 0)})`;
     }
     return `Valid trust subnet: ${validation.original}`;
   }
