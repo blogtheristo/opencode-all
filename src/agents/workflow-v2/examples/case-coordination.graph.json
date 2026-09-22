@@ -1,0 +1,72 @@
+{
+  "name": "case-coordination-chapter-eight",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "Parse the input: a UUID (existing case, GET /api/cases/:id) or a natural-language description (new ad-hoc case, build { type, title, context }). Matches `/case-run <caseId | case-description>`.",
+      "allowedNext": ["CLASSIFY_CASE"]
+    },
+    {
+      "id": "CLASSIFY_CASE",
+      "description": "Determine the case type — compliance | contract | erp-sync | sales — because Themis dispatches a different sub-agent set per type. This is the branch point the current inline call makes implicitly; the graph makes it an explicit, auditable state.",
+      "allowedNext": ["DISPATCH_AGENTS", "PARKED"]
+    },
+    {
+      "id": "DISPATCH_AGENTS",
+      "description": "Invoke Themis as Case Coordinator (cli: `run themis --input {action:'case-coordinate', caseId, type, context}`). Themis dispatches per type: compliance -> Themis + Auditor + ChronosAgent (deadlines); contract -> Themis + Auditor + proposal state check; erp-sync -> Themis + ERP sync status + QualityGate; sales -> Themis + lead state + SalesOutreach.",
+      "allowedNext": ["COLLECT_FINDINGS", "AGENT_FAILURE"]
+    },
+    {
+      "id": "AGENT_FAILURE",
+      "description": "One or more dispatched sub-agents failed or timed out. The long-horizon failure this chapter exists to catch: a partial agent set must not be reported as a complete case status. Retry the failed agent, or mark its track explicitly unavailable in the report — never silently omit it.",
+      "allowedNext": ["DISPATCH_AGENTS", "COLLECT_FINDINGS", "PARKED"]
+    },
+    {
+      "id": "COLLECT_FINDINGS",
+      "description": "Assemble each dispatched agent's finding: Themis summary, Auditor status, ChronosAgent deadline risk where applicable, plus any track marked unavailable by AGENT_FAILURE.",
+      "allowedNext": ["DEADLINE_RISK", "ASSESS_RISK_LEVEL"]
+    },
+    {
+      "id": "DEADLINE_RISK",
+      "description": "ChronosAgent flagged a deadline at risk. Surface it as its own state rather than a line in a summary — a missed regulatory deadline is the failure mode multi-deadline coordination exists to prevent.",
+      "allowedNext": ["ASSESS_RISK_LEVEL"]
+    },
+    {
+      "id": "ASSESS_RISK_LEVEL",
+      "description": "Determine whether any recommended next action is HIGH risk. The skill's documented rule: a HIGH-risk action raises approval_required, which blocks execution pending a human.",
+      "allowedNext": ["HIC_APPROVAL_GATE", "REPORT_STATUS"]
+    },
+    {
+      "id": "HIC_APPROVAL_GATE",
+      "description": "approval_required was raised on a HIGH-risk action. Surface the blocking action clearly and provide the approval call: PATCH /api/cases/:id/approve { action, approvedBy }. No HIGH-risk case action executes without it. Same structural gate as Chapters 1/2/5/6; the runner's DEFAULT_GATED_NODE_IDS covers this node id automatically.",
+      "allowedNext": ["EXECUTE_ACTION", "REPORT_STATUS"]
+    },
+    {
+      "id": "EXECUTE_ACTION",
+      "description": "Reachable only through HIC_APPROVAL_GATE. Carry out the approved HIGH-risk case action and record that the approval preceded it.",
+      "allowedNext": ["REPORT_STATUS", "AGENT_FAILURE"]
+    },
+    {
+      "id": "REPORT_STATUS",
+      "description": "Emit the unified case status: case ID/type/status/priority, deadline, agents dispatched with their findings, required approvals, and one clear recommended next step.",
+      "allowedNext": ["AWAIT_NEXT_EVENT", "END"]
+    },
+    {
+      "id": "AWAIT_NEXT_EVENT",
+      "description": "Case remains open across sessions — the multi-deadline, multi-agent state this chapter exists to hold outside chat memory. A new event (deadline approaching, sub-agent update, customer action) re-enters DISPATCH_AGENTS rather than restarting the case.",
+      "allowedNext": ["DISPATCH_AGENTS", "END", "PARKED"]
+    },
+    {
+      "id": "PARKED",
+      "description": "Terminal for this run — case deferred or withdrawn. Re-enterable; the case row survives.",
+      "allowedNext": []
+    },
+    {
+      "id": "END",
+      "description": "Terminal — case closed.",
+      "allowedNext": []
+    }
+  ]
+}

@@ -500,3 +500,149 @@ describe('kya-incident-response example graph (chapter seven)', () => {
     );
   });
 });
+
+// ── Chapters 3–8 ────────────────────────────────────────────────────────────
+// Chapters 3 and 4 are read-only assessments: they issue no outbound action, so
+// they deliberately carry no approval gate. Chapters 5, 6 and 8 each end in an
+// action a human must authorize, and reuse the same `HIC_APPROVAL_GATE` node id
+// that `DEFAULT_GATED_NODE_IDS` in runner.ts already enforces in code.
+
+function loadExampleGraph(fileName: string): ProceduralGraph {
+  return JSON.parse(
+    readFileSync(
+      new URL(`../../agents/workflow-v2/examples/${fileName}`, import.meta.url),
+      'utf-8',
+    ),
+  );
+}
+
+const EXAMPLE_GRAPHS = [
+  'b2b-growth-funnel.graph.json',
+  'case-coordination.graph.json',
+  'compliance-assessment.graph.json',
+  'construction-site-assessment.graph.json',
+  'content-publishing.graph.json',
+  'data-pipeline.graph.json',
+  'helpdesk-triage.graph.json',
+  'investor-outreach.graph.json',
+  'kya-incident-response.graph.json',
+  'sales-outreach.graph.json',
+];
+
+describe('every shipped example graph', () => {
+  it.each(EXAMPLE_GRAPHS)('%s is structurally valid', (fileName) => {
+    const graph = loadExampleGraph(fileName);
+    expect(() => validateGraph(graph)).not.toThrow();
+    expect(graph.nodes.some((n) => n.id === graph.startNode)).toBe(true);
+    // Every graph must be able to finish: at least one terminal node.
+    expect(graph.nodes.some((n) => n.allowedNext.length === 0)).toBe(true);
+  });
+});
+
+// Each entry: the graph, its gate node, and the single protected action that
+// must be unreachable except through that gate. Listed explicitly rather than
+// inferred — a gate's other successors are back-edges (e.g. "revise") that are
+// legitimately reachable from elsewhere, so only the protected action is exclusive.
+const GATED_ACTIONS = [
+  { file: 'sales-outreach.graph.json', gate: 'HIC_APPROVAL_GATE', protected: 'SEND' },
+  { file: 'investor-outreach.graph.json', gate: 'HIC_APPROVAL_GATE', protected: 'SEND' },
+  { file: 'content-publishing.graph.json', gate: 'HIC_APPROVAL_GATE', protected: 'PUBLISH' },
+  { file: 'helpdesk-triage.graph.json', gate: 'HIC_APPROVAL_GATE', protected: 'SEND_REPLY' },
+  { file: 'case-coordination.graph.json', gate: 'HIC_APPROVAL_GATE', protected: 'EXECUTE_ACTION' },
+  { file: 'kya-incident-response.graph.json', gate: 'SNAP_CONFIRM', protected: 'SNAP_EXECUTE' },
+];
+
+describe('gated actions are structurally unreachable except through their gate', () => {
+  it.each(GATED_ACTIONS)('$file: only $gate may reach $protected', ({ file, gate, protected: protectedNode }) => {
+    const graph = loadExampleGraph(file);
+    expect(graph.nodes.find((n) => n.id === protectedNode)).toBeDefined();
+    for (const node of graph.nodes) {
+      if (node.id === gate) continue;
+      expect(node.allowedNext).not.toContain(protectedNode);
+    }
+    expect(isTransitionAllowed(graph, gate, protectedNode)).toBe(true);
+  });
+});
+
+describe('compliance-assessment example graph (chapter three)', () => {
+  it('routes every pipeline stage to MISSING_DATA — the recovery the DAG lacks', () => {
+    const graph = loadExampleGraph('compliance-assessment.graph.json');
+    for (const stage of ['COLLECT_INPUTS', 'RUN_EMISSIONS_ANALYSIS', 'RUN_REGULATORY_CHECK', 'RUN_VIABILITY_ASSESSMENT']) {
+      expect(isTransitionAllowed(graph, stage, 'MISSING_DATA')).toBe(true);
+    }
+    // MISSING_DATA must lead back into the pipeline, not dead-end.
+    expect(isTransitionAllowed(graph, 'MISSING_DATA', 'COLLECT_INPUTS')).toBe(true);
+  });
+
+  it('keeps the emissions -> regulatory -> viability backbone', () => {
+    const graph = loadExampleGraph('compliance-assessment.graph.json');
+    expect(isTransitionAllowed(graph, 'RUN_EMISSIONS_ANALYSIS', 'RUN_REGULATORY_CHECK')).toBe(true);
+    expect(isTransitionAllowed(graph, 'RUN_REGULATORY_CHECK', 'RUN_VIABILITY_ASSESSMENT')).toBe(true);
+  });
+});
+
+describe('construction-site-assessment example graph (chapter four)', () => {
+  it('makes the safety -> schedule dependency explicit (the fan-out cannot express it)', () => {
+    const graph = loadExampleGraph('construction-site-assessment.graph.json');
+    expect(isTransitionAllowed(graph, 'ASSESS_SAFETY', 'ANALYSE_MATERIALS_CARBON')).toBe(true);
+    expect(isTransitionAllowed(graph, 'ANALYSE_MATERIALS_CARBON', 'CHECK_SCHEDULE')).toBe(true);
+    const schedule = graph.nodes.find((n) => n.id === 'CHECK_SCHEDULE');
+    expect(schedule?.description).toContain('capacity');
+  });
+
+  it('gives every measurement stage a stale-input recovery path', () => {
+    const graph = loadExampleGraph('construction-site-assessment.graph.json');
+    for (const stage of ['GATHER_SITE_CONDITIONS', 'ASSESS_SAFETY', 'ANALYSE_MATERIALS_CARBON', 'CHECK_SCHEDULE']) {
+      expect(isTransitionAllowed(graph, stage, 'STALE_INPUT_RECOVERY')).toBe(true);
+    }
+  });
+});
+
+describe('content-publishing example graph (chapter five)', () => {
+  it('sends every revision round back through the approval gate', () => {
+    const graph = loadExampleGraph('content-publishing.graph.json');
+    // REVISE must not reach PUBLISH directly; it returns to SHOW_TO_HIC,
+    // which is the only route back into the gate.
+    expect(isTransitionAllowed(graph, 'REVISE', 'SHOW_TO_HIC')).toBe(true);
+    expect(isTransitionAllowed(graph, 'SHOW_TO_HIC', 'HIC_APPROVAL_GATE')).toBe(true);
+    expect(graph.nodes.find((n) => n.id === 'REVISE')?.allowedNext).not.toContain('PUBLISH');
+  });
+
+  it('reopens the loop on a post-approval edit instead of republishing', () => {
+    const graph = loadExampleGraph('content-publishing.graph.json');
+    expect(isTransitionAllowed(graph, 'POST_APPROVAL_EDIT', 'DRAFT')).toBe(true);
+    expect(graph.nodes.find((n) => n.id === 'POST_APPROVAL_EDIT')?.allowedNext).not.toContain('PUBLISH');
+  });
+});
+
+describe('helpdesk-triage example graph (chapter six)', () => {
+  it('routes low-confidence / refund / escalate away from the reply path', () => {
+    const graph = loadExampleGraph('helpdesk-triage.graph.json');
+    expect(isTransitionAllowed(graph, 'CLASSIFY_ACTION', 'ESCALATED')).toBe(true);
+    // ESCALATED is terminal for the agent — a human owns the ticket from there.
+    expect(graph.nodes.find((n) => n.id === 'ESCALATED')?.allowedNext).toEqual([]);
+  });
+
+  it('makes a follow-up reply re-enter triage rather than resend on the prior approval', () => {
+    const graph = loadExampleGraph('helpdesk-triage.graph.json');
+    const awaitCustomer = graph.nodes.find((n) => n.id === 'AWAIT_CUSTOMER');
+    expect(awaitCustomer?.allowedNext).toContain('TRIAGE');
+    expect(awaitCustomer?.allowedNext).not.toContain('SEND_REPLY');
+  });
+});
+
+describe('case-coordination example graph (chapter eight)', () => {
+  it('holds an open case across events without restarting it', () => {
+    const graph = loadExampleGraph('case-coordination.graph.json');
+    expect(isTransitionAllowed(graph, 'REPORT_STATUS', 'AWAIT_NEXT_EVENT')).toBe(true);
+    expect(isTransitionAllowed(graph, 'AWAIT_NEXT_EVENT', 'DISPATCH_AGENTS')).toBe(true);
+    // Re-entry goes to DISPATCH_AGENTS, not back to START — the case is not restarted.
+    expect(graph.nodes.find((n) => n.id === 'AWAIT_NEXT_EVENT')?.allowedNext).not.toContain('START');
+  });
+
+  it('surfaces a partial agent set instead of reporting it as complete', () => {
+    const graph = loadExampleGraph('case-coordination.graph.json');
+    expect(isTransitionAllowed(graph, 'DISPATCH_AGENTS', 'AGENT_FAILURE')).toBe(true);
+    expect(isTransitionAllowed(graph, 'AGENT_FAILURE', 'DISPATCH_AGENTS')).toBe(true);
+  });
+});
