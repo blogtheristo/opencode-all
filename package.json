@@ -22,6 +22,7 @@
     "train:status": "bash scripts/deploy-acer-training.sh status",
     "train:smoke": "python3 -m pytest infrastructure/llm-training/tests -v",
     "diag:ses": "node --import tsx scripts/test-ses-smtp.ts",
+    "learn:archive-index": "node scripts/build-learn-archive-index.mjs",
     "learn:check-links": "node scripts/check-learn-links.mjs",
     "learn:fix-links": "node scripts/fix-learn-links.mjs",
     "ontology:index": "node scripts/ontology-admin-index.mjs build",
