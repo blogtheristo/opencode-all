@@ -68,10 +68,49 @@ pricing-page fetch returned `EGRESS_BLOCKED`). So:
    SSH `LocalForward` pattern already documented in `deploy.sh --ssh-config`).
 
 Nothing in `src/app.ts` or any live route calls into Temporal yet — the worker will sit
-idle (polling empty task queues) until a caller starts a Workflow/Activity execution.
-That caller-side wiring (e.g. swapping `social-scheduler`'s direct publish call for a
-`socialPublishWorkflow` start) is the next, separate change — not done this session,
-to keep this step scoped to "stand the server up and prove the worker connects."
+idle (polling empty task queues) until a caller starts a job. That caller-side wiring
+(e.g. swapping `social-scheduler`'s direct publish call for a
+`startSocialPublishJob()` call — see `src/temporal/starters/`, added in the 2026-09-23
+Standalone Activities revision) is the next, separate change — not done this session, to
+keep this step scoped to "stand the server up and prove the worker connects."
+
+## Local/CI testing vs. DGX Spark production — two different servers, on purpose
+
+HIC also shared the official Standalone Activities quickstart, which uses `temporal
+server start-dev` (the Temporal CLI's built-in dev server) instead of the
+`temporalio/auto-setup` + dedicated Postgres this note wires into DGX Spark. Both are
+correct — for different jobs:
+
+- **`temporal server start-dev`** (new: `npm run temporal:dev-server`, wraps
+  `scripts/temporal-dev-server.sh`) — for a developer's own machine or CI. Persists to a
+  local SQLite file by default (not pure in-memory), so a quick restart doesn't lose
+  history, but it's still not a durability guarantee anyone should depend on — there's no
+  replication, no backup, and the whole point of a Standalone Activity (a job record
+  that survives Worker crashes) means nothing if the _server itself_ also gets bounced
+  as a cost-saving measure. **Not verified in this session** — the Temporal CLI isn't
+  installed here and `temporal.download` is blocked by this sandbox's egress policy;
+  test it on a machine with real access.
+- **`temporalio/auto-setup` + `temporal-postgres`** (already wired into
+  `infrastructure/dgx-spark/docker-compose.yml`) — the durable target for anything DWS6
+  actually depends on. This is what makes the "job stays recorded through Worker
+  crashes/restarts" guarantee from the Standalone Activities article true at all: that
+  guarantee lives in the server's database, not the Worker.
+
+### The actual memory-saving pattern (corrected)
+
+The idea of running Temporal in a container "when needed and freeing memory when no
+workers are active" is right in spirit but points at the wrong container. **Scale
+`dws-temporal-worker` to zero when idle, not `temporal`/`temporal-postgres`.** The Worker
+is stateless — it just polls task queues — so stopping and restarting it costs nothing
+and loses nothing: any job submitted while it's down stays durably queued (that's
+literally the guarantee the article opens with — "the record persists... before making
+the Task available to a Worker"). The server + its Postgres, by contrast, already have a
+modest combined footprint (2G + 1G memory _limits_, well under half of what
+`dws-temporal-worker` alone reserves relative to the box's 128GB) — stopping _that_ to
+save memory would defeat the reason to use Temporal at all. If DGX Spark memory pressure
+ever becomes real, `docker compose stop dws-temporal-worker` (and `start` it again on
+demand, e.g. from the same `/cron` tooling that already manages other scheduled work) is
+the safe lever — not stopping the server.
 
 ## Costs
 
