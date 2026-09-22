@@ -235,3 +235,6 @@ scripts/i18n/products/_generated/
 # Workflow v2 local execution traces (persistTrace default dir) — runs are
 # machine-local artifacts; the durable store is the planned workflow_v2_runs table.
 .workflow-v2-runs/
+
+# Generated ontology pointer index — rebuild with `npm run ontology:index`
+docs/ontology/admin-term-index.json

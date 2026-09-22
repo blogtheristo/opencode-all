@@ -63,6 +63,33 @@ The 12 rules are canonical and apply to all agents. **Quick summary:**
 
 ---
 
+## Resolver — Ontology → Admin Documentation
+
+**Before asserting how any DWS system works, look up the term.** The ontology is bound to
+the admin documentation by a generated pointer index:
+
+```bash
+npm run ontology:lookup channel      # → Admin/*.md file:line + heading
+npm run ontology:index               # regenerate after editing Admin/ or ONTOLOGY.md
+```
+
+`●` means the section is _about_ that term; `○` means it mentions it. Read the `●` hits
+before describing infrastructure, integrations, or operational procedure. A hit is a
+pointer, not an answer — open the file.
+
+**Why this rule exists:** on 24.09.2026 an agent gave the HIC three rounds of confidently
+wrong Cloudflare Tunnel instructions, sourced from a compose-file comment describing an
+_intended_ deployment, while `Admin/ADMIN_MANUAL.md` carried the correct runbook the whole
+time. A comment describes what someone planned; the admin manuals describe what is
+running. `npm run ontology:lookup tunnel` would have found it on the first try.
+
+Index lives at `docs/ontology/admin-term-index.json` — generated and gitignored, built
+automatically on first lookup, so a cold checkout needs no setup. Terms come from
+`ONTOLOGY.md`'s CCP seed, `kb/wiki/concepts/`, and every heading under `Admin/`. It stores
+pointers only; `Admin/` stays source-of-truth.
+
+---
+
 ## Operational Rules (Detailed)
 
 ### Sender Identity

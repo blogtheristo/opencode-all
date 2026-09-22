@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.9 [Latest]
+Version: 1.10 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.9 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Additive §17 — product taxonomy: group tags (SME, DWS IQ, Firehorse), attribute tags (Hardware, Sovereign, Air-Gapped, Sovereign Cloud, US Sovereign Cloud, On-Prem, Gov Ready, Licence, Subscription, Installation, Pilot, Free, Training, Early Access) and product lifecycle states (HIC 25.09.2026). Dictionary gains `product_tag_*` keys.
+- Version: 1.10 [Latest] | Tool: Claude Code (Opus 5) | Session: claude/practical-meitner-k9bhnn (salvage of claude/backoffice-open-items, PR #2075 closed unmerged) | Date: 27.09.2026 (orig. 24.09.2026) | Changes: Additive **Appendix F** — binds ontology vocabulary to the admin documentation that operationally explains it. Appendices D/E answer what a term is called; F answers where it is documented. Adds `scripts/ontology-admin-index.mjs` (deterministic, no model per Rule 5) generating `docs/ontology/admin-term-index.json` from CCP seed terms + `kb/wiki/concepts/` + every heading under `Admin/`, plus `npm run ontology:index` / `ontology:lookup`. Pointers only — `Admin/` stays source-of-truth, nothing is copied. Paired with a new CLAUDE.md resolver rule obliging agents to look up a term before asserting how a system works; written after a session gave the HIC three rounds of wrong Cloudflare Tunnel instructions while the correct runbook sat unread in `Admin/ADMIN_MANUAL.md`.
+- Version: 1.9 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Additive §17 — product taxonomy: group tags (SME, DWS IQ, Firehorse), attribute tags (Hardware, Sovereign, Air-Gapped, Sovereign Cloud, US Sovereign Cloud, On-Prem, Gov Ready, Licence, Subscription, Installation, Pilot, Free, Training, Early Access) and product lifecycle states (HIC 25.09.2026). Dictionary gains `product_tag_*` keys.
 - Version: 1.8 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Additive §4.1 — LWM has two named layers: model base (TRUTH line 20) and state register and memory (IDV/TRS/PRV, KYA-S1 part 9, HIC 09.08.2026). Resolves the open term conflict in the draft `lifetime-world-model-ja-teollisuuden-prosessimallit`. Dictionary gains the KYA-S1 §16.6 table, LWM, process-model terms and domain taglines.
 - Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 18.09.2026 | Changes: Additive **Appendix E** pointer — `docs/localization/dws-dictionary.json` binds five-language termKeys to `ontologyId` (or explicit `none`) for later LF-ONTOLOGY-25 / LWM-ONT-SOVEREIGN builds. CCP Appendix D is unchanged. Prices stay in `dws10.com/config/products.json`.
 - Version: 1.6 | Tool: Claude Code (Opus 5) | Session: claude/kya-s1-blog-post-1-swb4k4 | Date: 09.08.2026 | Changes: Added §16 **KYA Ontology — Agent Governance Vocabulary**: the canonical vocabulary for the mandate layer the spatial/temporal/causal/entity ontologies do not cover — UNDER WHAT MANDATE an autonomous agent acted. Core concepts, the seven KYA-S1 control domains, the KYA-AL1/AL2/AL3 assurance levels (renamed from Bronze/Silver/Gold in KYA-S1 v1.4), runtime mechanisms (Lease Token, fail-closed, leash snap, capture-precedes-release, bounded attribution clock, TRS/TRS_req), process concepts (HIC, Single Pane of Glass, PRV-4, BPMN 2.0 engine, EUDI Wallet), and a five-language term table with Finnish as Ground Truth. Normative source is `Legal/KYA_S1.md` v1.5; §16 is descriptive and yields to it. Three translation errors in the supplied table were corrected and recorded in §16.7 rather than applied silently.
@@ -2037,5 +2038,38 @@ Every product ID, with its state and decision evidence, is in `docs/truth/PRODUC
 Five-language form: `product_tag_*` keys in `docs/localization/dws-dictionary.json`.
 
 ---
+
+---
+
+## Appendix F: Admin documentation bind (additive, 2026-09-24)
+
+Appendices D and E answer _what a term is called_. This one answers **where the term is
+operationally documented** — the binding an agent needs before it describes how a DWS
+system actually works.
+
+| Bind             | Path                                                      | Rule                                                                                   |
+| ---------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Pointer index    | `docs/ontology/admin-term-index.json`                     | Generated, gitignored (~1 MB, churns on every doc edit). Lookup builds it if absent.   |
+| Generator        | `scripts/ontology-admin-index.mjs`                        | Deterministic, no model (Rule 5). Scans headings, emits `file:line`.                   |
+| Lookup           | `npm run ontology:lookup <term>`                          | `●` = section is about the term, `○` = mentions it. A hit is a pointer; open the file. |
+| Agent obligation | `CLAUDE.md` → "Resolver — Ontology → Admin Documentation" | Look up the term before asserting how a system works.                                  |
+
+**Term sources.** CCP seed `preferred_term` values (Appendix D), `kb/wiki/concepts/*`
+names, and every heading under `Admin/` plus `ONTOLOGY.md` and `CLAUDE.md`.
+
+**Pointers, not copies.** The index stores file paths and line numbers only. `Admin/` is
+source-of-truth per CLAUDE.md; copying manual prose into an index would duplicate
+documents that change often and go stale without signalling it. This is the same reason
+the KB ingests into `kb/raw/` but the admin manuals are indexed in place.
+
+**Relationship to `/kb` and `/query`.** Those read the compiled wiki at `kb/wiki/`, whose
+sources live in `kb/raw/`. The admin manuals are deliberately not ingested there — this
+index is the admin-documentation lane, and the two are complementary: `/query` answers
+"what did we decide about X", `ontology:lookup` answers "where is X documented".
+
+**Known limit.** Matching is lexical, not semantic — a term is found where it is written.
+A concept documented only under a synonym will not surface until either the synonym is
+added to the CCP seed or the heading is renamed. Fail loud on a miss (Rule 12) rather than
+guessing; the lookup prints related terms when it finds nothing.
 
 **End of Document**
