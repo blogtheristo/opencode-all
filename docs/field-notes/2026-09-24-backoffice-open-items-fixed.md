@@ -106,20 +106,47 @@ items in this repo tend to resolve to a Cloudflare Zero Trust config step, not a
 change, because the whole DGX-first architecture keeps backend services off the public
 internet by default.
 
+## Proposed solution for the infra-blocked item
+
+Reuse the existing pattern instead of standing up new infrastructure — there is already
+exactly one tunnel with one ingress rule (`mcp-gateway`, per `docs/CLOUD_ENVIRONMENTS.md`
+§12.x). Add a **second** ingress rule to that same tunnel:
+
+1. **Hostname: `api.dws6.com`** — same domain as the frontend calling it (no CORS
+   complications), doesn't collide with any existing subdomain found in this repo.
+2. **Cloudflare Zero Trust dashboard** (one-time, outside repo): add ingress rule
+   `api.dws6.com` → `http://dws-backend:8080` to the tunnel already carrying
+   `mcp-gateway`'s traffic. No new `CLOUDFLARE_TUNNEL_TOKEN`, no new `cloudflare-tunnel`
+   compose service — one tunnel, two ingress hostnames.
+3. **DNS:** CNAME `api.dws6.com` → the tunnel's `<tunnel-id>.cfargotunnel.com`, the same
+   pattern as whatever record already exists for `mcp-gateway`'s hostname.
+4. **No new auth needed at the tunnel layer.** Unlike `mcp-gateway` (which needed
+   `MCP_GATEWAY_API_KEY` because it had no other auth), `/api/v1/backoffice/*` already
+   requires a Supabase Bearer token + `organization_members` check per-route — exposing
+   `dws-backend:8080` publicly is safe as-is for this route group. Other, currently
+   unauthenticated routes on the same Express app would need their own review before
+   relying on the tunnel alone for protection — pre-existing scope, not new risk from
+   this change.
+5. **Code, ready the moment DNS resolves** (not done yet — waiting on steps 2-3):
+   - `dws6.com/dashboard/backoffice/index.html` (+ mirror): inject
+     `window.DWS_API_BASE = "https://api.dws6.com";` before the module script.
+   - V10 build: set `VITE_API_URL=https://api.dws6.com` in its build env, rebuild,
+     republish.
+
 ## Next Steps
 
-1. HIC (or whoever holds Cloudflare Zero Trust dashboard access) adds an ingress hostname
-   for `dws-backend` to the existing tunnel and a matching DNS CNAME.
-2. Once that hostname exists, set `window.DWS_API_BASE` in
-   `dws6.com/dashboard/backoffice/index.html` (+ mirror) and `VITE_API_URL` in the V10
-   build env to that hostname, then republish.
-3. Verify: log in on `dws6.com` → Back-Office page loads live stats/containers/users/audit
+1. HIC confirms or vetoes `api.dws6.com` as the hostname (default proposed above — flag
+   if a different naming convention should be used instead).
+2. Whoever holds Cloudflare Zero Trust dashboard access adds the ingress rule + DNS CNAME
+   per steps 2-3 above.
+3. A follow-up session makes the two one-line code changes in step 5 and republishes.
+4. Verify: log in on `dws6.com` → Back-Office page loads live stats/containers/users/audit
    data (currently the two remaining unchecked boxes in PR #2072's own test plan).
 
 ## HIC decision needed
 
-What hostname should front `dws-backend` (e.g. `api.dws6.com`)? Needed before step 1/2 above
-can happen — no hostname was invented here.
+Confirm `api.dws6.com` as the hostname for `dws-backend` (proposed above), or name a
+different one. Nothing else in steps 1-3 above can start until this is answered.
 
 ## N/A items (Rule 12)
 
