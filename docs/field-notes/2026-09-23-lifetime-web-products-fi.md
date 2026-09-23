@@ -22,9 +22,13 @@ HIC request (2026-09-23): "Details" → "Tuotetiedot"; when FI is chosen in the 
 - Aegis: `aegis.fi.html` has `data-pa-lang="fi"`. `scripts/i18n/build-aegis-pages.cjs` now writes the same attribute on regeneration, so the change is not lost.
 - 57 products have a `.fi.html` page. Only these 3 are opted in so far.
 
-## Open issue (not changed)
+## Resolved: one discount only (HIC, 2026-09-23)
 
-The campaign prices are already reduced (€350 and €650; "OVH" €490 and €910). The product pages also say that code `CAMPAIGN-A5-40` gives a further 40 % off at checkout. Read together, this promises a double discount. The HIC must decide which one is true.
+HIC: "emme anna 2 alennusta" (we do not give two discounts). The checkout has no support for discount codes, so `CAMPAIGN-A5-40` could never have worked.
+
+- Product pages (EN + FI) no longer mention the code. They now say that the price already includes the 40 % campaign discount (regular price €910 / €490) and that no code is needed.
+- The flyer badge now reads "-40 % KAMPANJAHINTA · EI KOODIA TARVITA".
+- HIC: the offer is valid **until further notice** (toistaiseksi). The 31.10.2026 end date is removed everywhere. The offer will be reviewed if customer numbers grow.
 
 ## Learning outcome steps
 
