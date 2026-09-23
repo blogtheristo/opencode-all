@@ -70,8 +70,18 @@ Changes: [Latest] Initial learning-outcome note for 2026-09-23.
 - Blog drafts flagged by the stop hook (13 files in `docs/blog-drafts/`):
   parked, unchanged by this session — not this branch's scope.
 
-## HIC decision question
+## HIC decision
 
-Do you want the pilot flag on **before** the Diagrid call (live numbers,
-small risk on a non-production Redis) or **after** (safer, but the call is
-then a design conversation rather than a results conversation)?
+**DECIDED 2026-09-23 (HIC): flag ON before the Diagrid call.** The pilot
+runs its 2-week window on a non-production Redis first, so the call is a
+results conversation. Enablement is an operator action on DGX, not a code
+change — exact steps in `dapr/README.md` "Run the pilot locally"
+(`envsubst` render → `dapr run … --resources-path ./dapr/components/.rendered`
+with `DAPR_PUBSUB_PILOT_ENABLED=true`). Claude Code cannot reach that host;
+the HIC (or OpenCode on DGX) flips it. Window end = enable date + 14 days
+→ decision-gate field note.
+
+**Outbound reply to Mark Fussell:** text delivered in chat 2026-09-23;
+sending stays with the HIC — Claude Code has no Proton transport and
+`risto.paarni2024@lifetime.fi` must never be a From: (CLAUDE.md Sender
+Identity / DMARC).

@@ -45,6 +45,13 @@ default-off. Field note: `docs/field-notes/2026-09-22-dapr-use-cases-dws.md`.
 - Nothing else from the field note (service invocation, state, actors) is
   implemented — explicitly deferred pending concrete triggers.
 
+## HIC decisions 2026-09-23
+
+- Flag ON **before** the Diagrid call (HIC "1-3 do it"). Operator step on
+  DGX per `dapr/README.md`; not reachable from Claude Code.
+- PR #2066: merge on green (send_later check-in armed).
+- Mark Fussell reply: drafted, HIC sends from Proton.
+
 ## Next session
 
 If asked to "start the Dapr pilot" — that means setting
