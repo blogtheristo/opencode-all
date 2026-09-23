@@ -73,8 +73,8 @@ Grant-funded **personnel** are budgeted as fully-loaded Finnish salary cost (gro
 
 | Partner        | Type                           | Role                                                                                                                                                                 | Budget                             |
 | -------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| **LUT**        | Research university            | Quantum-safe / ZK research (WP2) + standardization (WP5) + Risto's PhD                                                                                               | €180K + co-supervised hire         |
-| **KTH TECoSA** | Research                       | Safety-argumentation & assurance (WP3) + testbed validation (WP4)                                                                                                    | €200K + €100K + co-supervised hire |
+| **LUT**        | Research university            | Quantum-safe / ZK research (WP2) + standardization (WP5) + IPR review (Innovation Services)                                                                          | €180K + co-supervised hire         |
+| **KTH TECoSA** | Research                       | Safety-argumentation & assurance (WP3) + testbed validation (WP4) + **Risto's doctoral route** (licentiate / industrial-postdoc, Prof. Törngren)                     | €200K + €100K + co-supervised hire |
 | **Metropolia** | University of Applied Sciences | Engineering-talent pipeline + teaching validation (advisory, YAMK interns, courses) — proven collaboration (Risto's **5/5** master's, supervised by Varteva/Räsänen) | ~€40K advisory + interns           |
 
 Each has a **different, non-overlapping** role — research depth (LUT), safety assurance (KTH), applied talent (Metropolia) — so three partners read as a coherent team, not padding.
@@ -82,7 +82,7 @@ Each has a **different, non-overlapping** role — research depth (LUT), safety 
 ## Honesty guardrails (do not overstate)
 
 - **Lifetime AB (SE):** **registered; bank account pending only an eIDAS login** (founder, 2026-07-17) → WP4 SE pilots realistic.
-- **KTH = active dialogue (in-play), not signed.** LUT = Risto's confirmed doctoral home (Prof. Kari Smolander). **Metropolia = proven collaboration** (Risto's 5/5 master's, supervisors Varteva/Räsänen) — role is advisory + talent, not core R&D. Step 1: "partners to be formalized"; **Step 2 requires LOIs** from all three. Cite the 5/5 grade only once final/awarded.
+- **KTH = Risto's doctoral route** (Prof. Martin Törngren, TECoSA — licentiate / industrial-postdoc per his 22.07.2026 reply); active dialogue, not signed. **LUT (Prof. Kari Smolander) = quantum-safe / ZK research + IPR review via Innovation Services — not Risto's doctoral home** (Smolander advised against a LUT doctorate on the September 2026 call; the doctoral route moved to KTH). **Metropolia = proven collaboration** (Risto's 5/5 master's, supervisors Varteva/Räsänen) — role is advisory + talent, not core R&D. Step 1: "partners to be formalized"; **Step 2 requires LOIs** from all three. Cite the 5/5 grade only once final/awarded.
 - Subcontract/lump-sum figures indicative — confirm eligibility before Step 2.
 
 ## Companions
