@@ -13,6 +13,10 @@
 .env
 .env.*
 .env.local
+
+# Dapr component YAML rendered from dapr/components/*.tpl (envsubst) —
+# briefly holds a plaintext Redis password on disk. See dapr/README.md.
+dapr/components/.rendered/
 .env.*.local
 .env.mcp
 env100326.mcp
