@@ -143,14 +143,23 @@
         margin-bottom: 10px;
       }
 
-      .person img {
+      .person-photo {
         width: 30mm;
         height: 30mm;
         border-radius: 50%;
-        object-fit: cover;
-        object-position: 60% 30%;
         border: 2px solid var(--gold);
+        overflow: hidden;
+        position: relative;
         flex-shrink: 0;
+      }
+
+      .person-photo img {
+        position: absolute;
+        width: 180%;
+        height: 180%;
+        left: -63%;
+        top: -24%;
+        object-fit: cover;
       }
 
       .person-name {
@@ -473,10 +482,12 @@
     <div class="page">
       <div>
         <div class="person">
-          <img
-            src="/static/images/Risto_Malta.png"
-            alt="Risto Anton Päärni, Lifetime Oy:n perustaja"
-          />
+          <div class="person-photo">
+            <img
+              src="/static/images/Risto_Malta.png"
+              alt="Risto Anton Päärni, Lifetime Oy:n perustaja"
+            />
+          </div>
           <div>
             <div class="person-name">Risto Anton Päärni</div>
             <div class="person-title">
