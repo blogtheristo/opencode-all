@@ -40,7 +40,7 @@ The repo already ships whitepapers. New WPs must extend or refresh these, not re
 Canonical inventory is the manifest in `scripts/bundle-whitepapers-for-llm.cjs`.
 
 - **European Sovereign Industrial Intelligence v1.1** — `Learn/sovereign-industrial-intelligence-whitepaper-v1.1.html` (v1.1 23.09.2026: DWS IQ 6 price is €4,999 one-time; v1.0 kept) (overlaps WP10)
-- **KYA Standard — IDV Provider Certification v1.0** — `Learn/KYA-IDV-CERT-Whitepaper-v1.1.html` (v1.1 23.09.2026: "KYA Specification", not "KYA Standard") + published at `dws10.com/kya-standard/whitepaper/` (mirror `landing-pages/dws10-com/`) (overlaps WP08)
+- **KYA Specification — IDV Provider Certification (whitepaper v1.1; specification KYA-IDV-CERT v1.0)** — `Learn/KYA-IDV-CERT-Whitepaper-v1.1.html` (v1.1 23.09.2026: terminology fix to "KYA Specification"; v1.0 file kept) + published at `dws10.com/kya-standard/whitepaper/` (mirror `landing-pages/dws10-com/`) (overlaps WP08)
 - **Shufti KYA whitepaper** — `docs/field-notes/2026-03-17-shufti-kya-whitepaper.md` + `Learn/2026-03-17-shufti-kya-whitepaper_v1.1.html` (v1.1 23.09.2026: same terminology fix)
 - **Bundling:** `node scripts/bundle-whitepapers-for-llm.cjs` concatenates the canonical inventory for LLM upload.
 

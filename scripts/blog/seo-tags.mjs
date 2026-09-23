@@ -24,7 +24,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const POST_DIRS = ['onelifetime.world/posts', 'landing-pages/onelifetime-world/posts'];
 const LANGS = ['en', 'fi', 'sv', 'de', 'fr'];
-const MAX_TAGS = 12;
+const MAX_TAGS = 20;
 const MAX_ARTICLE_TAGS = 8;
 
 const args = process.argv.slice(2);
@@ -205,8 +205,9 @@ function processFile(file) {
     out = d ? out.replace(descRe, `$1${tag}`) : out.replace(/<\/title>/i, `</title>${tag}`);
   }
 
-  // article:tag block — replaced wholesale between markers.
-  const tags = merged.slice(0, MAX_ARTICLE_TAGS);
+  // article:tag block — replaced wholesale between markers. Dictionary terms found in the post
+  // come first; hand-written keywords only fill the remaining slots.
+  const tags = mergeKeywords(found, existing).slice(0, MAX_ARTICLE_TAGS);
   out = out.replace(/\n[ \t]*<!-- seo-tags -->[\s\S]*?<!-- \/seo-tags -->/, '');
   const kwLine = out.match(/\n([ \t]*)<meta\s+name="keywords"[^>]*>/i);
   const ind = kwLine ? kwLine[1] : '    ';
@@ -218,9 +219,45 @@ function processFile(file) {
 
   // JSON-LD keywords on the Article object (single-line array; headline line is the anchor).
   const ldKw = JSON.stringify(merged);
-  if (/"@type"\s*:\s*"(Article|BlogPosting)"/.test(out)) {
+  if (!/"@type"\s*:\s*"(Article|BlogPosting)"/.test(out)) {
+    // No Article JSON-LD yet: create a minimal one from what the page already states.
+    const meta = (re) => decode((out.match(re) || [])[1] || '').trim();
+    const h1 = decode(
+      ((out.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i) || [])[1] || '').replace(/<[^>]+>/g, ''),
+    )
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (h1) {
+      const ld = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: h1,
+        keywords: merged,
+        inLanguage: L,
+      };
+      const desc = meta(/<meta\s+name="description"\s+content="([^"]*)"/i);
+      const author = meta(/<meta\s+name="author"\s+content="([^"]*)"/i);
+      const date =
+        meta(/<meta\s+property="article:published_time"\s+content="([^"]*)"/i) ||
+        meta(/<meta\s+name="date"\s+content="([^"]*)"/i);
+      const canonical = meta(/<link\s+rel="canonical"\s+href="([^"]*)"/i);
+      if (desc) ld.description = desc;
+      if (author) ld.author = { '@type': 'Person', name: author };
+      if (date) ld.datePublished = date;
+      if (canonical) ld.mainEntityOfPage = canonical;
+      ld.publisher = { '@type': 'Organization', name: 'OneLifetime.World' };
+      const json = JSON.stringify(ld).replace(/</g, '\\u003c');
+      out = out.replace(
+        /(\n?[ \t]*)<\/head>/i,
+        `\n    <script type="application/ld+json">${json}</script>$1</head>`,
+      );
+      report.ldCreated = true;
+    } else {
+      report.ldMissing = true;
+    }
+  } else {
     if (/"keywords"\s*:\s*\[[^\]]*\]/.test(out)) {
-      out = out.replace(/"keywords"\s*:\s*\[[^\]]*\]/, `"keywords": ${ldKw}`);
+      out = out.replace(/("keywords"\s*:\s*)\[[^\]]*\]/, (_, k) => k + ldKw);
     } else if (/"keywords"\s*:\s*"[^"]*"/.test(out)) {
       out = out.replace(/"keywords"\s*:\s*"[^"]*"/, `"keywords": ${ldKw}`);
     } else {
