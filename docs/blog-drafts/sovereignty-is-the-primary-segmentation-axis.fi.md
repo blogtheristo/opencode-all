@@ -15,7 +15,7 @@ Kenttämuistiinpano · 14. syyskuuta 2026 · Risto Anton Päärni · Espoo
 Lyhyt versio
 
 - Ensimmäinen leikkaus, jonka ostaja, SKU ja EU-tarjouskilpailu nyt tekevät, on lainkäyttö — juridinen emoyhtiö, CLOUD Act, kuka voi pakottaa datan.
-- Se leikkaus on ensisijainen. Se ei ole ainoa. Toimiala, hinta, kyvykkyys, kieli ja kuorman herkkyys ratkaisevat sen jälkeen.
+- Se leikkaus on ensisijainen. Se ei ole ainoa. Toimiala, hinta, kyvykkyys, kieli ja kuorman herkkyys ratkaisevat uutta palvelua ostettaessa.
 - EU-alue yhdysvaltalaisella emoyhtiöllä ei ole se leikkaus. DWS-altistuspiste ei ole EU:n SEAL-sertifikaatti.
 
 Suvereeniteetti on segmentointia. Paikallisesti.
