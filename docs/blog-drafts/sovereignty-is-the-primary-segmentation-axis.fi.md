@@ -28,7 +28,7 @@ Suvereeniteetti on ensisijainen segmentointiakseli — ei ainoa.
 
 ## Mitä ensimmäinen leikkaus oikeasti on
 
-Säännelty eurooppalainen ostaja ei aloita ominaisuuksista. Hän aloittaa juridisesta kysymyksestä: jos yhdysvaltalainen tuomioistuin kysyy, voidaanko tämä toimittaja pakottaa?
+Säännelty eurooppalainen ostaja ei aloita ominaisuuksista. Hän aloittaa juridisesta kysymyksestä: jos yhdysvaltalainen tuomioistuin kysyy, voidaanko tämä toimittaja pakottaa antamaan yrityksemme tiedot heidän käyttöönsä?
 
 Palvelimen sijainti ei vastaa. CLOUD Act seuraa emoyhtiötä, ei räkkiä. Siksi “EU-hostaus” AWS:llä, Azurella tai Googella on residenssitarina, ei suvereenisuustarina.
 
