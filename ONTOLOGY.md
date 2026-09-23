@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.8 [Latest]
 
 Sessions & Modifications:
 
+- Version: 1.8 [Latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Additive §4.1 — LWM has two named layers: model base (TRUTH line 20) and state register and memory (IDV/TRS/PRV, KYA-S1 part 9, HIC 09.08.2026). Resolves the open term conflict in the draft `lifetime-world-model-ja-teollisuuden-prosessimallit`. Dictionary gains the KYA-S1 §16.6 table, LWM, process-model terms and domain taglines.
 - Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 18.09.2026 | Changes: Additive **Appendix E** pointer — `docs/localization/dws-dictionary.json` binds five-language termKeys to `ontologyId` (or explicit `none`) for later LF-ONTOLOGY-25 / LWM-ONT-SOVEREIGN builds. CCP Appendix D is unchanged. Prices stay in `dws10.com/config/products.json`.
 - Version: 1.6 | Tool: Claude Code (Opus 5) | Session: claude/kya-s1-blog-post-1-swb4k4 | Date: 09.08.2026 | Changes: Added §16 **KYA Ontology — Agent Governance Vocabulary**: the canonical vocabulary for the mandate layer the spatial/temporal/causal/entity ontologies do not cover — UNDER WHAT MANDATE an autonomous agent acted. Core concepts, the seven KYA-S1 control domains, the KYA-AL1/AL2/AL3 assurance levels (renamed from Bronze/Silver/Gold in KYA-S1 v1.4), runtime mechanisms (Lease Token, fail-closed, leash snap, capture-precedes-release, bounded attribution clock, TRS/TRS_req), process concepts (HIC, Single Pane of Glass, PRV-4, BPMN 2.0 engine, EUDI Wallet), and a five-language term table with Finnish as Ground Truth. Normative source is `Legal/KYA_S1.md` v1.5; §16 is descriptive and yields to it. Three translation errors in the supplied table were corrected and recorded in §16.7 rather than applied silently.
 - Version: 1.5 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Data Lifecycle & Retention Ontology (HOW LONG)" subsection in §6 — every ontology node ingesting live data now carries an explicit per-node retention schema (node_owner, raw/summary/audit/rollup tiers, quarterly aggregation_review), closing the gap named by the Valtiovarainministeriö security-oriented information management guide (VM 2026:27 §4.4.2, aggregation effect / kasautumisvaikutus). Reference implementation: Control Room / Situation Room four-tier model (`docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`, `Admin/ADMIN_MANUAL.md`). Retention is a property of the node, not a platform-wide default.
@@ -248,6 +249,19 @@ LWM = (Spatial Map + Temporal Timeline + Causal Logic + Safety Constraints)
 | **Updates**   | Batch re-indexing | Continuous world model updates           |
 | **Conflicts** | Ignored           | Actively resolved                        |
 | **Safety**    | Query filtering   | Orchestration rules + safety constraints |
+
+### 4.1 Two layers of the LWM: model base and state register
+
+The term LWM covers two layers. They are named separately so that no text uses one meaning for the other.
+
+| Layer                             | What it is                                                                                                                                   | Canonical source                                                              |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| **LWM model base**                | Per-industry ontology + world model base, fine-tuned per enterprise (spatial, temporal, causal, safety — the equation above).                | `DWS_TRUTH_STANDARD.md` line 20; this section                                 |
+| **LWM state register and memory** | The live register of who acted, under which mandate, with what trust: agent identity (IDV), trust score (TRS) and decision provenance (PRV). | KYA-S1 series part 9 "Globaali tilarekisteri ja muisti" (HIC 09.08.2026); §16 |
+
+Relation: the model base answers **what the world is**; the state register answers **who changed it, with what authority**. A Skilled Agent reads both before acting. A BPMN gateway reads TRS from the state register to route a step to a Service Task (automatic) or a User Task (HIC sign-off); the HIC sign-off is written back as PRV-4.
+
+Five-language form: `lwm` and `lwm_state_register` in `docs/localization/dws-dictionary.json`.
 
 ---
 
