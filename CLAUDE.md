@@ -21,7 +21,7 @@ This file is loaded by:
 
 | Tool                      | Load Mechanism                                                                                                           | Reference                                                                        |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
-| **OpenCode**              | `opencode.json` line 3: `"instructions": ["CLAUDE.md"]`                                                                  | [opencode.json](opencode.json)                                                   |
+| **OpenCode**              | `opencode.json` line 4: `"instructions": ["CLAUDE.md"]`                                                                  | [opencode.json](opencode.json)                                                   |
 | **Claude Code**           | Hooks system via `session-start.sh`                                                                                      | [.claude/settings.json](.claude/settings.json)                                   |
 | **BaseAgent**             | Runtime environment + `AI_AGENT_GUIDELINES.md` §0                                                                        | [src/agents/BaseAgent.ts](src/agents/BaseAgent.ts) (reference)                   |
 | **MCP tools**             | Via agent context + session startup                                                                                      | [.mcp.json](.mcp.json)                                                           |
