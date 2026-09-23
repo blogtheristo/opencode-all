@@ -1194,16 +1194,26 @@
           var gov = pl.governance || {};
           var portfolio = data.commercialPortfolio || {};
           var seriousIds = portfolio.seriousProductIds;
-          if (!Array.isArray(seriousIds) || seriousIds.length !== 13) {
-            throw new Error("commercialPortfolio.seriousProductIds must contain exactly 13 IDs");
+          // Count drift is enforced in CI by scripts/validate-product-publication.mjs;
+          // the public page warns and renders what it can instead of going blank.
+          if (!Array.isArray(seriousIds)) seriousIds = [];
+          var expectedSerious = ((portfolio.surfaces || {}).buy || {}).expectedProductCount;
+          if (expectedSerious && seriousIds.length !== expectedSerious) {
+            console.warn(
+              "seriousProductIds has " +
+                seriousIds.length +
+                " IDs; surfaces.buy expects " +
+                expectedSerious,
+            );
           }
           var seriousLookup = {};
           seriousIds.forEach(function (id) {
             seriousLookup[id] = true;
           });
           var independentIds = portfolio.independentProductIds;
-          if (!Array.isArray(independentIds) || independentIds.length !== 2) {
-            throw new Error("commercialPortfolio.independentProductIds must contain exactly 2 IDs");
+          if (!Array.isArray(independentIds)) independentIds = [];
+          if (independentIds.length !== 2) {
+            console.warn("independentProductIds has " + independentIds.length + " IDs; expected 2");
           }
           independentLookup = {};
           independentIds.forEach(function (id) {
@@ -1224,13 +1234,16 @@
             });
           seriousIds.forEach(function (id) {
             var product = catalogProducts[id];
-            if (!product) throw new Error("Serious product missing: " + id);
+            if (!product) {
+              console.warn("Serious product missing: " + id);
+              return;
+            }
             if (
               product.deploymentColor === "blue" ||
               product.archived === true ||
               product.productType === "archived"
             ) {
-              throw new Error("Serious product is not public: " + id);
+              console.warn("Serious product is not public: " + id);
             }
           });
 
@@ -1312,13 +1325,16 @@
 
           independentIds.forEach(function (id) {
             var product = products[id];
-            if (!product) throw new Error("Independent product missing: " + id);
+            if (!product) {
+              console.warn("Independent product missing: " + id);
+              return;
+            }
             if (
               product.deploymentColor === "blue" ||
               product.archived === true ||
               product.productType === "archived"
             ) {
-              throw new Error("Independent product is not public: " + id);
+              console.warn("Independent product is not public: " + id);
             }
           });
 

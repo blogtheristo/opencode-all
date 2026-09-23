@@ -13,7 +13,8 @@ const NEXT_REVIEW = '2026-11-15';
 const CONSULTING_NEXT_REVIEW = '2026-11-30';
 const CONSULTING_EFFECTIVE = '2026-09-14';
 const EXPECTED_INDEPENDENT_IDS = ['LF-ONTOLOGY-25', 'LWM-ONT-SOVEREIGN'];
-const EXPECTED_SERIOUS_IDS = [
+// Serious products that carry a 1:1 Lifetime consulting package (LTF-CONSULT-001..013).
+const CONSULTING_MAPPED_IDS = [
   'DWS-EU-STARTER',
   'DWS-EU-PILOT',
   'DWS-AEGIS-PILOT-001',
@@ -28,7 +29,13 @@ const EXPECTED_SERIOUS_IDS = [
   'LF-NVIDIA-INSTALL',
   'aws-consultancy',
 ];
-const EXPECTED_PACKAGE_IDS = EXPECTED_SERIOUS_IDS.map(
+// HIC 2026-09-23: Lifetime web services join the Serious /buy/ portfolio (no consulting package).
+const EXPECTED_SERIOUS_IDS = [
+  ...CONSULTING_MAPPED_IDS,
+  'LIFETIME-WEB-STARTER',
+  'LIFETIME-WEBSTORE-MINI',
+];
+const EXPECTED_PACKAGE_IDS = CONSULTING_MAPPED_IDS.map(
   (_, index) => `LTF-CONSULT-${String(index + 1).padStart(3, '0')}`,
 );
 const PUBLICATION_FILES = [
@@ -95,11 +102,11 @@ const seriousSet = new Set(seriousIds);
 const supportingProducts = publicProducts.filter((product) => !seriousSet.has(product.id));
 const packages = consulting.packages || [];
 
-if (products.length !== 133)
-  addError(`Product accounting: expected 133 total, found ${products.length}`);
-if (publicProducts.length !== 68)
+if (products.length !== 136)
+  addError(`Product accounting: expected 136 total, found ${products.length}`);
+if (publicProducts.length !== 71)
   addError(
-    `Product accounting: expected 68 public non-BLUE non-archived, found ${publicProducts.length}`,
+    `Product accounting: expected 71 public non-BLUE non-archived, found ${publicProducts.length}`,
   );
 if (blue.length !== 65) addError(`Product accounting: expected 65 BLUE, found ${blue.length}`);
 if (overlap.length)
@@ -149,8 +156,10 @@ if (!sameArray(seriousIds, EXPECTED_SERIOUS_IDS)) {
     `Serious product IDs/order differ from the fixed mapping: ${JSON.stringify(seriousIds)}`,
   );
 }
-if (new Set(seriousIds).size !== 13)
-  addError(`Serious product IDs must be 13 unique IDs; found ${new Set(seriousIds).size}`);
+if (new Set(seriousIds).size !== EXPECTED_SERIOUS_IDS.length)
+  addError(
+    `Serious product IDs must be ${EXPECTED_SERIOUS_IDS.length} unique IDs; found ${new Set(seriousIds).size}`,
+  );
 for (const id of EXPECTED_SERIOUS_IDS) {
   const product = catalog.products?.[id];
   if (!product) addError(`[${id}] serious product missing from catalog`);
@@ -184,7 +193,7 @@ if (definitions.archive?.publicSalesEligible !== false || definitions.archive?.a
 const surfaces = portfolio.surfaces || {};
 const broadSurfaceValid =
   surfaces.priceList?.path === '/price-list/' &&
-  surfaces.priceList?.expectedProductCount === 68 &&
+  surfaces.priceList?.expectedProductCount === publicProducts.length &&
   surfaces.priceList?.includesSubscriptions === true &&
   surfaces.priceList?.productRule === 'non-BLUE, non-archived products plus subscriptions';
 const blueExceptionValid =
@@ -192,16 +201,16 @@ const blueExceptionValid =
   Boolean(definitions.blue?.activePublicationException);
 if (
   surfaces.buy?.path !== '/buy/' ||
-  surfaces.buy?.expectedProductCount !== 13 ||
+  surfaces.buy?.expectedProductCount !== EXPECTED_SERIOUS_IDS.length ||
   surfaces.buy?.productSource !== 'commercialPortfolio.seriousProductIds'
 ) {
   addError(
-    'commercialPortfolio.surfaces.buy must govern exactly 13 serious products from seriousProductIds',
+    `commercialPortfolio.surfaces.buy must govern exactly ${EXPECTED_SERIOUS_IDS.length} serious products from seriousProductIds`,
   );
 }
 if (!broadSurfaceValid) {
   addError(
-    'commercialPortfolio.surfaces.priceList must govern 68 public products plus subscriptions',
+    `commercialPortfolio.surfaces.priceList must govern ${publicProducts.length} public products plus subscriptions`,
   );
 }
 if (
@@ -254,7 +263,7 @@ if (
 if (
   !sameArray(
     packages.map((item) => item.supportedProductId),
-    EXPECTED_SERIOUS_IDS,
+    CONSULTING_MAPPED_IDS,
   )
 ) {
   addError(
