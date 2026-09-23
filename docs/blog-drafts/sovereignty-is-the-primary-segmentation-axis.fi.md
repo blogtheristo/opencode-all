@@ -1,4 +1,5 @@
-Status: DRAFT
+Status: APPROVED
+Approved_by: HIC (Risto Anton Päärni), 23.09.2026 — FI text incl. "karsinta". Later additions (EN glosses, Oxford citations, whitepaper reference) must be shown to the HIC before publishing.
 Slug: sovereignty-is-the-primary-segmentation-axis.fi
 Title: Suvereeniteetti on ensisijainen segmentointiakseli — ei ainoa
 Language: fi

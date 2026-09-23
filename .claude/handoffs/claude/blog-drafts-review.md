@@ -44,6 +44,8 @@ Document Status:
 - External sources that the text clearly refers to get Oxford notes-bibliography citations.
 - Language versions may differ from one another in sentence structure and terms, but the idea must not change (HIC 23.09.2026). This is the fourth rule for `DWS_LANGUAGE_STANDARD.md` §5.
   - Each language uses the sovereignty terms its own market uses, and the sentence may be built around that term (HIC 23.09.2026). Examples to verify before use: FR souveraineté numérique, « cloud de confiance », SecNumCloud (ANSSI); DE digitale Souveränität, C5 (BSI); FI digitaalinen suvereniteetti. The claim stays the same in every language.
+- **FI sovereignty text (item 2) APPROVED** with "karsinta" (HIC: "1. hyväksyn", 23.09.2026). Status set in the draft. Show any later additions (glosses, citations, whitepaper reference) before publishing.
+- **Whitepaper form storage: Supabase** (HIC: "2. supabase tallennus", 23.09.2026). Build the Pages Function + migration file; applying the migration stays RED (HIC).
 - The paragraph on EU data centres is approved ("minusta se on parempi").
 
 ## Open work (in order)
@@ -57,7 +59,7 @@ Document Status:
      - required GDPR consent linking to `/privacy-policy/`
      - honeypot
    - Wire the "Download (wire up)" buttons on `dws10.com/whitepapers/` to the form. Mirror everything to `landing-pages/dws10-com/`.
-   - **Conflict to settle with the HIC (Rule 7):**
+   - **HIC decided: store leads in Supabase.** Remaining conflict to flag (Rule 7):
      - Non-Negotiable Rule 4 allows email only through Amazon SES. The existing `dws10.com/functions/api/contact.js` uses the Cloudflare `send_email` binding.
      - `contact.js` also calls `EmailMessage` without `import { EmailMessage } from "cloudflare:email"`, which likely makes every send fail with 502. Verify, then fix.
    - Proposed design: a Pages Function stores the lead in a Supabase table `whitepaper_requests` via REST, with the service-role key set as a Pages env var.
@@ -88,8 +90,7 @@ Document Status:
      - Lifetime Fleet / physical AI → Compliant by Construction
    - Rebuild the approval Artifact https://claude.ai/artifact/8wFHwRp2gmMqLjhBqNthJy with the scratchpad builder, or regenerate the page from the drafts.
 4. **HIC approvals still needed:**
-   - FI sovereignty text (item 2).
-   - "leikkaus" → "karsinta" (proposal: "rajaus" keeps its sense of the gate/fence).
+   - FI sovereignty text and "karsinta": APPROVED 23.09.2026.
    - Items 6–10.
    - After FI approval, rewrite EN/SV/DE/FR from it; they do not yet contain the HIC edits.
 5. **Publish only approved posts** (Rule 13), per `docs/BLOG_STANDARD.md`: root + mirror, blog index, `scripts/inject-blog-nav.cjs`. Then run `node scripts/blog/seo-tags.mjs --write`.
@@ -106,6 +107,6 @@ Document Status:
 ```
 Continue branch work from .claude/handoffs/claude/blog-drafts-review.md (read it first, then CLAUDE.md standards routing).
 Start a fresh branch from main (claude/blog-refs-wp-form-<id>) since PR #2088 is merged.
-Do, in order: (1) add the 4 HIC language rules (versions may differ in sentence structure and terms but never in the idea — each language builds on its own market's sovereignty terms, e.g. FR souveraineté numérique / SecNumCloud; EN gloss in parentheses; whitepaper reference at post end via form; Oxford notes for clearly referenced external sources) to DWS_LANGUAGE_STANDARD.md §5; (2) build the whitepaper request form on dws10.com (+landing-pages mirror) — first settle the email-transport conflict (Non-Negotiable Rule 4 = SES only vs contact.js Cloudflare send_email; contact.js lacks the cloudflare:email import) by proposing Supabase-stored leads + migration file (GRANT+RLS), ask HIC before applying; (3) pass all 10 blog drafts on approval page https://claude.ai/artifact/8wFHwRp2gmMqLjhBqNthJy for EN glosses, Oxford citations (verified sources only, never invented URLs) and whitepaper references; republish the page; (4) get HIC approval on FI sovereignty text + "karsinta", then rewrite EN/SV/DE/FR from the FI; (5) publish only approved posts (Rule 13) and run scripts/blog/seo-tags.mjs --write.
+Do, in order: (1) add the 4 HIC language rules (versions may differ in sentence structure and terms but never in the idea — each language builds on its own market's sovereignty terms, e.g. FR souveraineté numérique / SecNumCloud; EN gloss in parentheses; whitepaper reference at post end via form; Oxford notes for clearly referenced external sources) to DWS_LANGUAGE_STANDARD.md §5; (2) build the whitepaper request form on dws10.com (+landing-pages mirror) — HIC chose Supabase storage: Pages Function + migration file (GRANT+RLS), HIC applies the migration; also flag contact.js (Cloudflare send_email vs SES-only Rule 4; missing cloudflare:email import); (3) pass all 10 blog drafts on approval page https://claude.ai/artifact/8wFHwRp2gmMqLjhBqNthJy for EN glosses, Oxford citations (verified sources only, never invented URLs) and whitepaper references; republish the page; (4) FI sovereignty text + "karsinta" are HIC-approved; rewrite EN/SV/DE/FR from the FI (same idea, own sentence structure and market terms); (5) publish only approved posts (Rule 13) and run scripts/blog/seo-tags.mjs --write.
 Reply to HIC in Finnish.
 ```
