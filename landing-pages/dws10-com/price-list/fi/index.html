@@ -1207,6 +1207,41 @@
             );
           }
           var seriousLookup = {};
+          // Products with a .fi.html detail page (products.json detailsUrl + file exists, 2026-09-23)
+          var FI_DETAIL_PRODUCTS = {
+            "DWS-AEGIS-001": true,
+            "DWS-CLIMATE-001": true,
+            "DWS-EU-PILOT": true,
+            "DWS-EU-STARTER": true,
+            "DWS-IQ-006": true,
+            "DWS-IQ-FREE-2026": true,
+            "DWS-SOVEREIGN-DB-001": true,
+            "DWS-US-PILOT": true,
+            "DWS-US-STARTER": true,
+            "FH-AUTO-001": true,
+            "FH-CMS-001": true,
+            "FH-OMNI-001": true,
+            "FH-RPT-001": true,
+            "FH-SIGN-001": true,
+            "LF-COMPLIANCE-AMBULANCE-001": true,
+            "LF-DGX-SPARK": true,
+            "LF-IGX-ORIN": true,
+            "LF-JETSON-AGX": true,
+            "LF-JETSON-NANO": true,
+            "LF-JETSON-NX": true,
+            "LF-NVIDIA-INSTALL": true,
+            "LF-SITROOM-001": true,
+            "LIFETIME-BUNDLE-2026": true,
+            "LIFETIME-WEB-STARTER": true,
+            "LIFETIME-WEBSTORE-MINI": true,
+            "ai-consulting-agentic": true,
+            "consulting-fit55": true,
+            "consulting-hourly": true,
+            "edge-node-gn100": true,
+            "professional-web-pages": true,
+            "sovereignty-cloud-consulting": true,
+          };
+          var PAGE_FI = document.documentElement.lang === "fi";
           seriousIds.forEach(function (id) {
             seriousLookup[id] = true;
           });
@@ -1415,26 +1450,34 @@
                   var rawDetails = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
                   var isMailto = rawDetails.indexOf("https://dws10.com/contact/") === 0;
                   var detailsHref = isMailto ? "" : rawDetails;
+                  var fiRow = PAGE_FI && FI_DETAIL_PRODUCTS[p.id] === true;
+                  var fiDetailsHref =
+                    fiRow && detailsHref ? detailsHref.replace(/\.html$/, ".fi.html") : "";
                   var pid = escapeHtml(p.id || "");
                   var pname = encodeURIComponent(p.name || p.id || "Product");
                   var cardBtn = seriousLookup[p.id]
                     ? '<a class="act-card" href="/buy/#product-' +
                       pid +
-                      '" title="Product card">Card</a>'
+                      '" title="Product card">' + (fiRow ? "Kortti" : "Card") + "</a>"
                     : "";
                   var detailBtn = detailsHref
                     ? '<a class="act-detail" href="' +
                       escapeHtml(detailsHref) +
-                      '" title="Full product details">Details</a>'
+                      '" title="Full product details">Details</a>' +
+                      (fiDetailsHref
+                        ? '<a class="act-detail" href="' +
+                          escapeHtml(fiDetailsHref) +
+                          '" title="Tuotetiedot suomeksi">Tuotetiedot</a>'
+                        : "")
                     : "";
                   var bookBtn =
                     '<a class="act-book" href="/book/?service=demo&amp;product=' +
                     pid +
-                    '" title="Book a meeting">Book&nbsp;Meeting</a>';
+                    '" title="Book a meeting">' + (fiRow ? "Varaa&nbsp;tapaaminen" : "Book&nbsp;Meeting") + "</a>";
                   var emailBtn =
-                    '<a class="act-email" href="https://dws10.com/contact/?subject=Enquiry%3A%20' +
+                    '<a class="act-email" href="https://dws10.com/contact/?subject=' + (fiRow ? "Tiedustelu%3A%20" : "Enquiry%3A%20") +
                     pname +
-                    '" title="Email sales">Email</a>';
+                    '" title="Email sales">' + (fiRow ? "Sähköposti" : "Email") + "</a>";
                   var btns =
                     '<div class="act-btns">' + cardBtn + detailBtn + bookBtn + emailBtn + "</div>";
                   var tierHtml = tierBadge(p.tier);
