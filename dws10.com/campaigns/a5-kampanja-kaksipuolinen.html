@@ -297,6 +297,63 @@
         margin-top: 10px;
       }
 
+      /* Screen-only: cari.fi-style sticky call bar + vCard */
+      .vcard-btn {
+        display: inline-block;
+        margin-top: 6px;
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-size: 0.8em;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .sticky-bar {
+        display: none;
+      }
+
+      @media screen and (max-width: 700px) {
+        body {
+          padding: 12px 12px 80px 12px;
+        }
+        .page {
+          width: 100%;
+          height: auto;
+          min-height: 0;
+        }
+        .sticky-bar {
+          display: flex;
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          gap: 8px;
+          padding: 10px 12px;
+          background: #0b0b0b;
+          border-top: 1px solid var(--border-color);
+          z-index: 10;
+        }
+        .sticky-bar a {
+          flex: 1;
+          text-align: center;
+          padding: 12px;
+          border-radius: 999px;
+          font-weight: 800;
+          text-decoration: none;
+          font-size: 0.95em;
+        }
+        .sticky-call {
+          background: var(--gold);
+          color: #000;
+        }
+        .sticky-wa {
+          background: #25d366;
+          color: #0b1f12;
+        }
+      }
+
       /* Print Specifications for A5 Two-Sided Output */
       @media print {
         body {
@@ -376,6 +433,7 @@
         >
         <div class="wa-number">+358 400 319 010</div>
         <div class="contact-line">Ensimmäinen keskustelu on maksuton ja sitoumukseton.</div>
+        <a class="vcard-btn" href="/static/risto-paarni.vcf" download>⤓ Tallenna yhteystiedot</a>
       </div>
     </div>
 
@@ -467,6 +525,12 @@
       <div class="footer-text">
         Risto Anton Päärni · Lifetime Oy · risto.paarni@lifetime.fi · +358 400 319 010 · dws10.com
       </div>
+    </div>
+    <div class="sticky-bar">
+      <a class="sticky-call" href="tel:+358400319010">📞 Soita</a>
+      <a class="sticky-wa" href="https://wa.me/358400319010" target="_blank" rel="noopener"
+        >💬 WhatsApp</a
+      >
     </div>
   </body>
 </html>
