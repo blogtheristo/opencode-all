@@ -74,6 +74,32 @@ const envSchema: EnvVar[] = [
   { name: 'NEMOCLAW_LOG_BASE_PATH', required: false, description: 'NemoClaw audit log base path' },
 
   {
+    name: 'LINKEDIN_ACCESS_TOKEN',
+    required: false,
+    description: 'LinkedIn OAuth access token (vault: linkedin-access-token)',
+  },
+  {
+    name: 'LINKEDIN_AUTHOR_URN',
+    required: false,
+    description: 'LinkedIn author URN urn:li:person:… or urn:li:organization:… (vault: linkedin-author-urn)',
+  },
+  {
+    name: 'LINKEDIN_ORGANIZATION_ID',
+    required: false,
+    description: 'Optional org id when LINKEDIN_AUTHOR_URN unset (vault: linkedin-organization-id)',
+  },
+  {
+    name: 'FACEBOOK_PAGE_TOKEN',
+    required: false,
+    description: 'Meta Graph API page token (vault: facebook-page-token)',
+  },
+  {
+    name: 'FACEBOOK_PAGE_ID',
+    required: false,
+    description: 'Meta Graph API page id (vault: facebook-page-id)',
+  },
+
+  {
     name: 'VAULT_PROVIDER',
     required: false,
     description: 'Vault provider: aiven (EU-sovereign) or gcp',

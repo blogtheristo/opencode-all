@@ -4,6 +4,9 @@
  * Posts: LinkedIn UGC API (`POST /v2/ugcPosts`) with `LINKEDIN_ACCESS_TOKEN` and
  * `LINKEDIN_AUTHOR_URN` (person or organization). Matches `social-scheduler/publisher.ts`.
  *
+ * Credentials come from process.env (host/.env) or the vault loader
+ * (`src/config/secret-loader.ts` SECRET_MAP → linkedin-access-token / linkedin-author-urn).
+ *
  * Uses `/v2/ugcPosts` (plain UTF-8 commentary) instead of `/rest/posts` little-text,
  * so Finnish/Swedish letters (ä ö å) and natural punctuation publish without truncation.
  *

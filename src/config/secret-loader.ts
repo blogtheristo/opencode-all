@@ -79,6 +79,13 @@ const SECRET_MAP: Record<string, string> = {
   NEMOCLAW_NGC_KEY: 'nemoclaw-ngc-key', // NIM/Nemotron pull token
 
   EXA_API_KEY: 'exa-api-key',
+
+  // Social publishing (Firehorse omnichannel + social-scheduler)
+  LINKEDIN_ACCESS_TOKEN: 'linkedin-access-token',
+  LINKEDIN_AUTHOR_URN: 'linkedin-author-urn',
+  LINKEDIN_ORGANIZATION_ID: 'linkedin-organization-id',
+  FACEBOOK_PAGE_TOKEN: 'facebook-page-token',
+  FACEBOOK_PAGE_ID: 'facebook-page-id',
 };
 
 async function loadFromAiven(connectionUrl: string): Promise<Record<string, string>> {

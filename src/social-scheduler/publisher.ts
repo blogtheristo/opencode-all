@@ -3,15 +3,16 @@
  *
  * Publishes approved posts to LinkedIn via the official REST API v2.
  *
- * Required env vars:
- *   LINKEDIN_ACCESS_TOKEN   — OAuth 2.0 access token (60-day lifetime)
- *   LINKEDIN_AUTHOR_URN     — "urn:li:person:<id>" or "urn:li:organization:<id>"
+ * Required env vars (or vault secrets via secret-loader SECRET_MAP):
+ *   LINKEDIN_ACCESS_TOKEN   — OAuth 2.0 access token (60-day lifetime) → linkedin-access-token
+ *   LINKEDIN_AUTHOR_URN     — "urn:li:person:<id>" or "urn:li:organization:<id>" → linkedin-author-urn
  *
  * How to get credentials:
  *   1. Create a LinkedIn Developer App at https://www.linkedin.com/developers/
  *   2. Request scopes: w_member_social (personal) or w_organization_social (company page)
- *   3. Complete OAuth 2.0 flow to get the access token
+ *   3. Complete OAuth 2.0 flow to get the access token (`npx tsx scripts/linkedin-oauth.ts`)
  *   4. Find your URN via GET https://api.linkedin.com/v2/userinfo
+ *   5. Prefer vault: provision-secrets-aiven.ts (or GCP Secret Manager), not laptop-only .env
  *
  * LinkedIn API docs:
  *   https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api
