@@ -1207,6 +1207,7 @@
             );
           }
           var seriousLookup = {};
+          // Products with a .fi.html detail page (products.json detailsUrl + file exists, 2026-09-23)
           var FI_DETAIL_PRODUCTS = {
             "DWS-AEGIS-001": true,
             "DWS-CLIMATE-001": true,
@@ -1240,6 +1241,7 @@
             "professional-web-pages": true,
             "sovereignty-cloud-consulting": true,
           };
+          var PAGE_FI = document.documentElement.lang === "fi";
           seriousIds.forEach(function (id) {
             seriousLookup[id] = true;
           });
@@ -1448,20 +1450,20 @@
                   var rawDetails = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
                   var isMailto = rawDetails.indexOf("https://dws10.com/contact/") === 0;
                   var detailsHref = isMailto ? "" : rawDetails;
-                  // Tuotteet, joilla on .fi.html-tuotesivu (products.json detailsUrl + tiedosto olemassa, 2026-09-23)
-                  var fiRow = FI_DETAIL_PRODUCTS[p.id] === true;
-                  var fiDetailsHref = fiRow && detailsHref ? detailsHref.replace(/\.html$/, ".fi.html") : "";
+                  var fiRow = PAGE_FI && FI_DETAIL_PRODUCTS[p.id] === true;
+                  var fiDetailsHref =
+                    fiRow && detailsHref ? detailsHref.replace(/\.html$/, ".fi.html") : "";
                   var pid = escapeHtml(p.id || "");
                   var pname = encodeURIComponent(p.name || p.id || "Product");
                   var cardBtn = seriousLookup[p.id]
                     ? '<a class="act-card" href="/buy/#product-' +
                       pid +
-                      '" title="Tuotekortti">' + (fiRow ? "Kortti" : "Card") + "</a>"
+                      '" title="Product card">' + (fiRow ? "Kortti" : "Card") + "</a>"
                     : "";
                   var detailBtn = detailsHref
                     ? '<a class="act-detail" href="' +
                       escapeHtml(detailsHref) +
-                      '" title="Product details (English)">Details</a>' +
+                      '" title="Full product details">Details</a>' +
                       (fiDetailsHref
                         ? '<a class="act-detail" href="' +
                           escapeHtml(fiDetailsHref) +
@@ -1471,11 +1473,11 @@
                   var bookBtn =
                     '<a class="act-book" href="/book/?service=demo&amp;product=' +
                     pid +
-                    '" title="Varaa tapaaminen">' + (fiRow ? "Varaa&nbsp;tapaaminen" : "Book&nbsp;Meeting") + "</a>";
+                    '" title="Book a meeting">' + (fiRow ? "Varaa&nbsp;tapaaminen" : "Book&nbsp;Meeting") + "</a>";
                   var emailBtn =
                     '<a class="act-email" href="https://dws10.com/contact/?subject=' + (fiRow ? "Tiedustelu%3A%20" : "Enquiry%3A%20") +
                     pname +
-                    '" title="Sähköposti myyntiin">' + (fiRow ? "Sähköposti" : "Email") + "</a>";
+                    '" title="Email sales">' + (fiRow ? "Sähköposti" : "Email") + "</a>";
                   var btns =
                     '<div class="act-btns">' + cardBtn + detailBtn + bookBtn + emailBtn + "</div>";
                   var tierHtml = tierBadge(p.tier);

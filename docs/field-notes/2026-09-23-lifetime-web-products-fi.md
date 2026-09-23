@@ -4,12 +4,13 @@
 
 ---
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/lifetime-web-products-fi | Date: 23.09.2026 | Changes: HIC approved "Details + Tuotetiedot" for all products with an FI page (31 price-list rows, 57 action-bar pages); one discount only; offer valid until further notice.
-- Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/lifetime-web-products-fi | Date: 23.09.2026 | Changes: FI detail pages for WEB-STARTER and WEBSTORE-MINI; FI price-list buttons; Aegis opt-in.
+- Version: 1.2 [Latest] | Tool: Claude Code | Session: claude/lifetime-web-products-fi | Date: 23.09.2026 | Changes: Review fixes (Copilot, PR #2083). FI price-list logic moved to the EN master and regenerated; data-pa-lang dropped (the bar follows `<html lang="fi">`); curated FI pages excluded from the machine-translation generator; required field-note elements added.
+- Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/lifetime-web-products-fi | Date: 23.09.2026 | Changes: HIC approved Details + Tuotetiedot for all products with an FI page; one discount only; offer valid until further notice; WhatsApp button on the flyer.
+- Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/lifetime-web-products-fi | Date: 23.09.2026 | Changes: FI detail pages for WEB-STARTER and WEBSTORE-MINI; FI price-list buttons.
 
 Document Status:
 
@@ -22,39 +23,40 @@ Document Status:
 
 ---
 
-## What happened
+- **Date:** 2026-09-23
+- **Author:** Claude Code for Risto Anton Päärni (HIC), risto.paarni@lifetime.fi
+- **Location:** Espoo, Finland (remote session)
+- **Context:** dws10.com product catalogue and FI price list; A5 two-sided campaign (LIFETIME-WEB-STARTER, LIFETIME-WEBSTORE-MINI); PR #2083
 
-HIC request (2026-09-23): "Details" → "Tuotetiedot"; when FI is chosen in the price list, the buttons and their targets follow the language. Scope: only the two new products (LIFETIME-WEB-STARTER, LIFETIME-WEBSTORE-MINI). Primary audience: Finnish SMEs.
+## Ontology Tags
 
-- New `dws10.com/products/lifetime-web-starter.fi.html` and `lifetime-webstore-mini.fi.html`, translated from the EN masters (same layout and CSS).
-- `price-list/fi/`: for these two rows only, buttons read Kortti | Tuotetiedot | Varaa tapaaminen | Sähköposti, and Tuotetiedot opens the `.fi.html` page. All other rows are unchanged (verified in a browser).
-- `shared-assets/nav/product-actions.js`: opt-in `<html data-pa-lang="fi">` switches the product action bar labels (Kortti … Hinnasto) and the Hinnasto target to `/price-list/fi/`. Only the two new FI pages opt in. The 57 other `.fi.html` pages keep the English bar until they opt in.
-- Campaign flyer CTA and the QR URL text now point to `lifetime-web-starter.fi.html`.
-- EN pages: fixed broken `</strong` tags, and fixed language links that pointed to `.en.html` and `.sv.html` pages that do not exist.
-- Mirrored to `landing-pages/dws10-com/`. The campaign mirror was stale compared with root commit 62fdb1f, so it was re-synced from root.
+- **Geography:** Europe > Finland
+- **Sector:** Professional_Services > Web_Services > SME_Websites_and_E-commerce
+- **Entities:** Lifetime Oy, dws10.com, LIFETIME-WEB-STARTER, LIFETIME-WEBSTORE-MINI, DWS-AEGIS-001, A5 campaign
 
-## Follow-up (same day, HIC): show both Details and Tuotetiedot, add Aegis
+## The Story
 
-- The FI price-list rows for LIFETIME-WEB-STARTER, LIFETIME-WEBSTORE-MINI and DWS-AEGIS-001 now show both **Details** (English page) and **Tuotetiedot** (`.fi.html`).
-- The action bar on opted-in FI detail pages shows **Details** (a link to the EN page) next to the active **Tuotetiedot**.
-- Aegis: `aegis.fi.html` has `data-pa-lang="fi"`. `scripts/i18n/build-aegis-pages.cjs` now writes the same attribute on regeneration, so the change is not lost.
-- 57 products have a `.fi.html` page. Only these 3 are opted in so far.
+1. The HIC stated that the first target group for both new web products is Finnish SMEs. The campaign flyer and the price list were still sending visitors to English detail pages.
+2. HIC requests, in order: rename "Details" to "Tuotetiedot"; make the buttons follow the language when FI is chosen in the price list; show both "Details" and "Tuotetiedot"; extend this to every product that has an FI page.
+3. Changes made:
+   - Hand-translated `lifetime-web-starter.fi.html` and `lifetime-webstore-mini.fi.html`.
+   - In the FI price list, all 31 products whose detail page has a `.fi.html` counterpart show Kortti | Details (EN) | Tuotetiedot (FI) | Varaa tapaaminen | Sähköposti. The logic lives in the EN master `price-list/index.html` and switches on only when `<html lang="fi">`. The FI/SV/DE/FR pages are regenerated with `scripts/generate-price-list-i18n.mjs`.
+   - `product-actions.js` follows `<html lang="fi">`. All 57 FI detail pages that load it show a Finnish bar with a Details link to the EN page.
+4. HIC pricing decision: "emme anna 2 alennusta" (we do not give two discounts). The campaign prices €350 and €650 already include the 40 % discount. Code `CAMPAIGN-A5-40` is removed everywhere; checkout never supported discount codes. The offer is "voimassa: toistaiseksi" (valid until further notice).
+5. The flyer's "Skannaa koodi" (scan the code) URL is replaced with a WhatsApp button, "Lifetime Oy Myynti" (+358 400 319 010).
+6. The review found that generators would overwrite hand edits. Fixes:
+   - The price-list change was moved into the generator's source page.
+   - The two curated masters are excluded from `scripts/i18n/products/build-all.cjs`.
+   - `data-pa-lang` is no longer used, so pages generated with plain `lang="fi"` keep the Finnish bar.
 
-## Extension (HIC, 2026-09-23): every product with an FI page
+## The Insight
 
-- FI price list: every product whose `detailsUrl` has a `.fi.html` counterpart (31 rows) shows **Details** (EN) and **Tuotetiedot** (FI), with Finnish labels on the other row buttons. The ID list is generated from `products.json` plus the files that exist. All 31 targets return HTTP 200 locally.
-- `product-actions.js` now follows `<html lang="fi">` (the explicit `data-pa-lang` still works), so all 57 FI detail pages that load the bar show the Finnish bar with a Details link to the EN page. All 57 EN counterparts exist. No per-page or generator edits were needed.
-- Not in scope: SV/DE/FR pages keep the English bar. The remaining non-FI rows in the FI price list keep English button labels.
+- Localised pages in this repo are mostly **generated**. A hand edit to a generated file is lost on the next run. Before editing any `*/fi/*` or `*.fi.html` file, check its generator (`generate-price-list-i18n.mjs`, `scripts/i18n/products/build-all.cjs`, `build-aegis-pages.cjs`).
+- Two stacked discounts on the same offer are a trust risk with SME buyers. Show one price, and state that no code is needed.
 
-## Resolved: one discount only (HIC, 2026-09-23)
+## Next Steps
 
-HIC: "emme anna 2 alennusta" (we do not give two discounts). The checkout has no support for discount codes, so `CAMPAIGN-A5-40` could never have worked.
-
-- Product pages (EN + FI) no longer mention the code. They now say that the price already includes the 40 % campaign discount (regular price €910 / €490) and that no code is needed.
-- The flyer badge now reads "-40 % KAMPANJAHINTA · EI KOODIA TARVITA".
-- HIC: the offer is valid **until further notice** (toistaiseksi). The 31.10.2026 end date is removed everywhere. The offer will be reviewed if customer numbers grow.
-
-## Learning outcome steps
-
-- Learn/ HTML: N/A — pandoc is not available in this cloud container.
-- Drive export and KB update: N/A — deferred to the HIC batch review.
+- [ ] HIC: real-payment checkout test of both campaign products (still the go-live blocker; `2026-09-20-campaign-checkout-testing.md`).
+- [ ] Optional: SV/DE/FR action bar and price-list labels (not requested).
+- [ ] Optional: inject product-page prices from `products.json`. EN and FI detail pages, including the machine-generated ones, still hard-code the price.
+- Learn/ HTML: N/A — pandoc is not available in this cloud container. KB update and Drive export: N/A — deferred to the HIC batch review.
