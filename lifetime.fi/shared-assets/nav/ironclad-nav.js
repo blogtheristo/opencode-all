@@ -75,7 +75,9 @@
           logoAlt: 'Lifetime Oy',
           title: 'Lifetime Oy',
         }
-      : hostname === 'onelifetime.world' || hostname === 'www.onelifetime.world'
+      : hostname === 'onelifetime.world' ||
+          hostname === 'www.onelifetime.world' ||
+          hostname.endsWith('.onelifetime-world.pages.dev')
         ? {
             logo: 'static/images/OneLifetime_Logo_Final.png',
             logoAlt: 'OneLifetime.World',
@@ -87,6 +89,10 @@
             title: 'Complex Workflow Specialists',
           };
   const onDws10 = hostname === 'dws10.com' || hostname === 'www.dws10.com';
+  const onOlw =
+    hostname === 'onelifetime.world' ||
+    hostname === 'www.onelifetime.world' ||
+    hostname.endsWith('.onelifetime-world.pages.dev');
   // Content base for shared pages that physically live on dws10.com.
   // On dws10.com → relative basePath. On lifetime.fi / onelifetime.world the nav
   // is embedded but those pages don't exist there, so point at the real dws10.com
@@ -102,6 +108,35 @@
   const LT = ltFi
     ? { home: 'Etusivu', web: 'Verkkopalvelut', price: 'Hinnasto', fleet: 'Lifetime Fleet', iq: 'DWS IQ (teollisuus-AI)', contact: '💬 WhatsApp · Myynti' }
     : { home: 'Home', web: 'Web services', price: 'Price list', fleet: 'Lifetime Fleet', iq: 'DWS IQ (industrial AI)', contact: '💬 WhatsApp · Sales' };
+  // onelifetime.world subpages mirror the OLW homepage header (HIC 23.09.2026).
+  const olwMenuHTML = `
+                <li class="ironclad-menu-item">
+                    <a href="#" class="ironclad-link">Solutions ▾</a>
+                    <ul class="ironclad-dropdown">
+                        <li><a href="https://lifetime.fi/" class="ironclad-primary">Auditointi</a></li>
+                        <li><a href="https://dws10.com/" class="ironclad-primary">DWS IQ 6</a></li>
+                        <li><a href="https://dws10.com/lifetime-fleet/" class="ironclad-primary">Lifetime Fleet</a></li>
+                    </ul>
+                </li>
+                <li class="ironclad-menu-item"><a href="/blog/" class="ironclad-link">📝 Blog</a></li>
+                <li class="ironclad-menu-item">
+                    <a href="#" class="ironclad-link">About Us ▾</a>
+                    <ul class="ironclad-dropdown">
+                        <li><a href="/blog/" class="ironclad-primary">Lifetime Scope Journal (LSJ)</a></li>
+                        <li><a href="/Partners/" class="ironclad-primary">Partner Consortium</a></li>
+                        <li><a href="/pledge/" class="ironclad-primary">🌍 Sustainability Pledge</a></li>
+                        <li><a href="https://dws10.com/careers/" class="ironclad-primary">Careers</a></li>
+                    </ul>
+                </li>
+                <li class="ironclad-menu-item">
+                    <a href="#" class="ironclad-link">Store ▾</a>
+                    <ul class="ironclad-dropdown">
+                        <li><a href="https://dws10.com/products/dwsiq-free.html" class="ironclad-primary">Start free (DWS IQ Free)</a></li>
+                        <li><a href="https://dws10.com/buy/" class="ironclad-primary">🛒 DWS IQ Store</a></li>
+                        <li><a href="https://dws10.com/buy/" class="ironclad-primary">🎬 Lifetime Studios</a></li>
+                        <li><a href="https://dws10.com/products/consulting.html" class="ironclad-primary">💼 Lifetime Consulting</a></li>
+                    </ul>
+                </li>`;
   const lifetimeMenuHTML = `
                 <li class="ironclad-menu-item"><a href="${ltFi ? '/fi/' : '/'}" class="ironclad-link">${LT.home}</a></li>
                 <li class="ironclad-menu-item"><a href="https://dws10.com/campaigns/a5-kampanja-kaksipuolinen.html" class="ironclad-link">${LT.web}</a></li>
@@ -537,7 +572,7 @@
                 <button class="ironclad-close" aria-label="Close menu">&times;</button>
             </div>
             <ul class="ironclad-menu">
-${onLifetime ? lifetimeMenuHTML : `
+${onLifetime ? lifetimeMenuHTML : onOlw ? olwMenuHTML : `
                 <!-- Home ▾ -->
                 <li class="ironclad-menu-item">
                     <a href="#" class="ironclad-link">Home ▾</a>
@@ -719,6 +754,9 @@ ${onLifetime ? lifetimeMenuHTML : `
 ${onLifetime ? `
                 <li class="ironclad-menu-item">
                     <a href="https://wa.me/358400319010" class="ironclad-cta-book" title="WhatsApp +358 400 319 010" target="_blank" rel="noopener">${LT.contact}</a>
+                </li>` : onOlw ? `
+                <li class="ironclad-menu-item">
+                    <a href="https://dws6.com/login/" class="ironclad-cta" title="Sign In">🔐 Sign In</a>
                 </li>` : `
                 <!-- Book Meeting CTA -->
                 <li class="ironclad-menu-item">
