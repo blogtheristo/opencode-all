@@ -42,6 +42,7 @@ Document Status:
 - When a translated term is unclear, add the English equivalent in parentheses, e.g. "ilmaeristetty (air-gapped)".
 - End each post with our whitepaper as a reference when it helps. The whitepaper is delivered through a form that collects contact details.
 - External sources that the text clearly refers to get Oxford notes-bibliography citations.
+- Language versions may differ from one another in sentence structure and terms, but the idea must not change (HIC 23.09.2026). This is the fourth rule for `DWS_LANGUAGE_STANDARD.md` §5.
 - The paragraph on EU data centres is approved ("minusta se on parempi").
 
 ## Open work (in order)
@@ -104,6 +105,6 @@ Document Status:
 ```
 Continue branch work from .claude/handoffs/claude/blog-drafts-review.md (read it first, then CLAUDE.md standards routing).
 Start a fresh branch from main (claude/blog-refs-wp-form-<id>) since PR #2088 is merged.
-Do, in order: (1) add the 3 HIC language rules (EN gloss in parentheses, whitepaper reference at post end via form, Oxford notes for clearly referenced external sources) to DWS_LANGUAGE_STANDARD.md §5; (2) build the whitepaper request form on dws10.com (+landing-pages mirror) — first settle the email-transport conflict (Non-Negotiable Rule 4 = SES only vs contact.js Cloudflare send_email; contact.js lacks the cloudflare:email import) by proposing Supabase-stored leads + migration file (GRANT+RLS), ask HIC before applying; (3) pass all 10 blog drafts on approval page https://claude.ai/artifact/8wFHwRp2gmMqLjhBqNthJy for EN glosses, Oxford citations (verified sources only, never invented URLs) and whitepaper references; republish the page; (4) get HIC approval on FI sovereignty text + "karsinta", then rewrite EN/SV/DE/FR from the FI; (5) publish only approved posts (Rule 13) and run scripts/blog/seo-tags.mjs --write.
+Do, in order: (1) add the 4 HIC language rules (versions may differ in sentence structure and terms but never in the idea; EN gloss in parentheses; whitepaper reference at post end via form; Oxford notes for clearly referenced external sources) to DWS_LANGUAGE_STANDARD.md §5; (2) build the whitepaper request form on dws10.com (+landing-pages mirror) — first settle the email-transport conflict (Non-Negotiable Rule 4 = SES only vs contact.js Cloudflare send_email; contact.js lacks the cloudflare:email import) by proposing Supabase-stored leads + migration file (GRANT+RLS), ask HIC before applying; (3) pass all 10 blog drafts on approval page https://claude.ai/artifact/8wFHwRp2gmMqLjhBqNthJy for EN glosses, Oxford citations (verified sources only, never invented URLs) and whitepaper references; republish the page; (4) get HIC approval on FI sovereignty text + "karsinta", then rewrite EN/SV/DE/FR from the FI; (5) publish only approved posts (Rule 13) and run scripts/blog/seo-tags.mjs --write.
 Reply to HIC in Finnish.
 ```
