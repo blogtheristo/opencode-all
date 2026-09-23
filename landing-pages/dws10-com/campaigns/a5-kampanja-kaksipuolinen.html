@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>A5 Kampanja Kaksipuolinen - Lifetime Oy</title>
+    <title>Tekoälyä ja automaatiota pienyrityksille - Risto Päärni, Lifetime Oy</title>
+    <meta
+      name="description"
+      content="Saat enemmän aikaa asiakkaillesi, vähemmän aikaa hallintoon. Risto Päärni auttaa pienyrityksiä verkkosivuissa, tekoälyn käyttöönotossa ja rutiinien automatisoinnissa. Kampanjahinnat 350 € ja 650 €."
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
@@ -42,7 +46,7 @@
         height: 210mm;
         background-color: var(--dark);
         border: 1px solid var(--border-color);
-        padding: 14mm;
+        padding: 12mm;
         position: relative;
         overflow: hidden;
         display: flex;
@@ -55,15 +59,15 @@
       /* Typography */
       h1 {
         color: var(--gold);
-        font-size: 1.8em;
+        font-size: 1.55em;
         font-weight: 800;
         line-height: 1.2;
-        margin: 0 0 6px 0;
+        margin: 0 0 4px 0;
       }
 
       h2 {
         color: var(--gold);
-        font-size: 1.1em;
+        font-size: 1.05em;
         font-weight: 700;
         margin: 10px 0 4px 0;
         border-bottom: 1px solid rgba(212, 165, 116, 0.3);
@@ -72,51 +76,113 @@
 
       p {
         margin: 0 0 8px 0;
-        font-size: 0.85em;
-        line-height: 1.4;
+        font-size: 0.82em;
+        line-height: 1.45;
       }
 
       .subtitle {
         font-size: 0.9em;
         font-weight: 600;
         color: var(--light-text);
-        margin-bottom: 15px;
+        margin-bottom: 10px;
       }
 
-      /* Front Page Pricing Cards */
+      /* Front page: person first */
+      .person {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .person img {
+        width: 30mm;
+        height: 30mm;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: 60% 30%;
+        border: 2px solid var(--gold);
+        flex-shrink: 0;
+      }
+
+      .person-name {
+        font-weight: 800;
+        font-size: 0.95em;
+        color: var(--light-text);
+      }
+
+      .person-title {
+        font-size: 0.78em;
+        color: var(--muted-text);
+        line-height: 1.35;
+      }
+
+      .quote {
+        font-style: italic;
+        color: #dddddd;
+        border-left: 3px solid var(--gold);
+        padding-left: 10px;
+        margin: 8px 0 10px 0;
+        font-size: 0.82em;
+        line-height: 1.45;
+      }
+
+      .help-list {
+        list-style: none;
+        margin: 4px 0 8px 0;
+        padding: 0;
+        font-size: 0.84em;
+        color: #eeeeee;
+      }
+
+      .help-list li {
+        margin-bottom: 4px;
+        padding-left: 1.4em;
+        position: relative;
+      }
+
+      .help-list li::before {
+        content: "✓";
+        color: var(--gold);
+        font-weight: 800;
+        position: absolute;
+        left: 0;
+      }
+
+      /* Back page: offer cards */
       .offer-card {
         background: var(--card-bg);
         border: 1px solid var(--gold);
         border-radius: 8px;
-        padding: 12px 15px;
-        margin-bottom: 12px;
+        padding: 10px 14px;
+        margin-bottom: 10px;
       }
 
       .product-row {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 6px;
+        margin-bottom: 4px;
       }
 
       .product-title {
         font-weight: 700;
-        font-size: 0.95em;
+        font-size: 0.92em;
       }
 
       .product-code {
-        font-size: 0.75em;
+        font-size: 0.74em;
         color: var(--muted-text);
       }
 
       .product-price {
-        font-size: 1.3em;
+        font-size: 1.25em;
         font-weight: 800;
         color: var(--gold);
       }
 
       .product-ovh {
-        font-size: 0.75em;
+        font-size: 0.74em;
         color: var(--muted-text);
         text-decoration: line-through;
       }
@@ -125,17 +191,17 @@
         background: var(--gold);
         color: #000;
         font-weight: 800;
-        font-size: 0.9em;
-        padding: 10px;
+        font-size: 0.85em;
+        padding: 8px;
         text-align: center;
         border-radius: 6px;
         letter-spacing: 0.5px;
-        margin: 15px 0;
+        margin: 10px 0 6px 0;
       }
 
       .validity {
         text-align: center;
-        font-size: 0.8em;
+        font-size: 0.76em;
         color: var(--muted-text);
       }
 
@@ -144,19 +210,18 @@
         color: #000;
         text-decoration: none;
         font-weight: 800;
-        font-size: 0.95em;
-        padding: 12px;
+        font-size: 0.92em;
+        padding: 11px;
         text-align: center;
         border-radius: 6px;
         display: block;
-        margin-top: 15px;
+        margin-top: 10px;
       }
 
       .cta-btn:hover {
         opacity: 0.9;
       }
 
-      /* Back Page Grid & Lists */
       ul {
         margin: 4px 0 8px 0;
         padding-left: 18px;
@@ -177,12 +242,6 @@
         margin-top: 10px;
       }
 
-      .qr-section code {
-        color: var(--gold);
-        font-weight: 600;
-        font-size: 0.8em;
-      }
-
       .wa-btn {
         display: inline-block;
         background: #25d366;
@@ -198,6 +257,12 @@
         color: var(--gold);
         font-weight: 700;
         font-size: 0.8em;
+        margin-top: 4px;
+      }
+
+      .contact-line {
+        font-size: 0.74em;
+        color: var(--muted-text);
         margin-top: 4px;
       }
 
@@ -230,122 +295,133 @@
     </style>
   </head>
   <body>
-    <!-- SIVU 1: ETUPUOLI -->
+    <!-- SIVU 1: ETUPUOLI — ihminen ja liiketoimintahyöty ensin -->
     <div class="page">
       <div>
-        <h1>Tempaise liiketoiminta nousuun.</h1>
-        <div class="subtitle">Modernit verkkosivut | Sähköposti | Verkkokauppa</div>
+        <div class="person">
+          <img
+            src="/static/images/Risto_Malta.png"
+            alt="Risto Anton Päärni, Lifetime Oy:n perustaja"
+          />
+          <div>
+            <div class="person-name">Risto Anton Päärni</div>
+            <div class="person-title">
+              Perustaja, Lifetime Oy<br />
+              Yli 20 vuotta digitalisaation, automaation ja tekoälyn parissa
+            </div>
+          </div>
+        </div>
+
+        <h1>Saat enemmän aikaa asiakkaillesi, vähemmän aikaa hallintoon.</h1>
+        <div class="subtitle">
+          Tekoälyä ja automaatiota pienyrityksille – selkeästi ja käytännönläheisesti.
+        </div>
+
+        <p>
+          Olen auttanut yrityksiä hyödyntämään digitalisaatiota, automaatiota ja tekoälyä yli 20
+          vuoden ajan. Tavoitteeni on tehdä uusista teknologioista selkeitä ja liiketoimintaa
+          tukevia myös pienille yrityksille ja aloittaville yrittäjille.
+        </p>
+
+        <h2>Voinko auttaa sinua?</h2>
+        <ul class="help-list">
+          <li>Verkkosivut, jotka tuovat asiakkaita</li>
+          <li>Tekoälyn käyttöönotto arjen työssä</li>
+          <li>Asiakashankinnan automatisointi</li>
+          <li>Tarjousten, laskujen ja raporttien automatisointi</li>
+          <li>Digitaalisen liiketoiminnan sparraus</li>
+        </ul>
+
+        <h2>Miksi juuri minä?</h2>
+        <p>
+          En ole vain ohjelmistokehittäjä tai konsultti. Olen ollut rakentamassa ratkaisuja sekä
+          suurille organisaatioille että pienille yrityksille, joten ymmärrän sekä teknologian että
+          liiketoiminnan näkökulman. Siksi ratkaisut suunnitellaan aina käytännön hyöty edellä.
+        </p>
+        <div class="quote">
+          Aloitetaan keskustelulla siitä, mikä sinun yrityksessäsi vie eniten aikaa. Sieltä löytyy
+          yleensä ensimmäinen ja helpoin parannus.
+        </div>
+      </div>
+
+      <div class="qr-section">
+        <a
+          class="wa-btn"
+          href="https://wa.me/358400319010?text=Hei%20Risto%2C%20haluaisin%20jutella%20yritykseni%20digitalisoinnista."
+          target="_blank"
+          rel="noopener"
+          >💬 Laita viesti WhatsAppilla – vastaan itse</a
+        >
+        <div class="wa-number">+358 400 319 010</div>
+        <div class="contact-line">Ensimmäinen keskustelu on maksuton ja sitoumukseton.</div>
+      </div>
+    </div>
+
+    <!-- SIVU 2: KÄÄNTÖPUOLI — konkreettinen tarjous ja mitä saat -->
+    <div class="page">
+      <div>
+        <h1 style="font-size: 1.35em">Kaksi valmista tapaa aloittaa.</h1>
+        <div class="subtitle">Kiinteä hinta, ei yllätyksiä. Sivut käytössä 72 tunnissa.</div>
 
         <div class="offer-card">
           <h3
             style="
               color: var(--gold);
-              margin: 0 0 10px 0;
-              font-size: 0.9em;
+              margin: 0 0 8px 0;
+              font-size: 0.85em;
               text-transform: uppercase;
             "
           >
-            Kampanja-tarjous syyskuu 2026
+            Kampanjatarjous syksy 2026
           </h3>
 
           <div class="product-row">
             <div>
-              <div class="product-title">WEBSTORE-MINI</div>
-              <div class="product-code">Pienet verkkokaupat</div>
-            </div>
-            <div style="text-align: right">
-              <div class="product-price">350 €</div>
-              <div class="product-ovh">OVH 490 €</div>
-            </div>
-          </div>
-
-          <hr style="border: 0; border-top: 1px solid #333; margin: 8px 0" />
-
-          <div class="product-row">
-            <div>
-              <div class="product-title">WEB-STARTER</div>
-              <div class="product-code">Ammattimaiset verkkosivut</div>
+              <div class="product-title">Verkkosivut yrityksellesi</div>
+              <div class="product-code">WEB-STARTER · ammattimaiset sivut 1–3 kielellä</div>
             </div>
             <div style="text-align: right">
               <div class="product-price">650 €</div>
               <div class="product-ovh">OVH 910 €</div>
             </div>
           </div>
+
+          <hr style="border: 0; border-top: 1px solid #333; margin: 6px 0" />
+
+          <div class="product-row">
+            <div>
+              <div class="product-title">Pieni verkkokauppa</div>
+              <div class="product-code">WEBSTORE-MINI · tuotteet, hinnasto ja maksut</div>
+            </div>
+            <div style="text-align: right">
+              <div class="product-price">350 €</div>
+              <div class="product-ovh">OVH 490 €</div>
+            </div>
+          </div>
         </div>
 
         <div class="code-badge">-40 % KAMPANJAHINTA · EI KOODIA TARVITA</div>
-
         <div class="validity">
-          Tarjous voimassa: <strong>toistaiseksi.</strong><br />
-          <small>* Hintoihin lisätään ALV 25,5 %</small>
+          Tarjous voimassa: <strong>toistaiseksi.</strong> Hintoihin lisätään ALV 25,5 %.
         </div>
-      </div>
 
-      <div>
+        <h2>Mitä saat</h2>
+        <ul>
+          <li>Mobiiliystävälliset sivut, jotka löytyvät Googlesta (FI, SV, EN)</li>
+          <li>Yhteydenotto yhdellä napilla: WhatsApp, puhelin, lomake, kartta</li>
+          <li>Yrityksen oma sähköposti nimi@yritys.fi, 25 GB tallennustila</li>
+          <li>Verkkokaupassa valmiit maksuvaihtoehdot ja tuotteiden hallinta</li>
+          <li>SSL-salaus, päivittäiset varmuuskopiot, 99,9 % saatavuus</li>
+          <li>Tuki suoraan minulta: WhatsApp, puhelin, sähköposti</li>
+        </ul>
+
         <a href="https://dws10.com/products/lifetime-web-starter.fi.html" class="cta-btn"
           >Tutustu tarjoukseen →</a
         >
       </div>
-    </div>
-
-    <!-- SIVU 2: KÄÄNTÖPUOLI -->
-    <div class="page">
-      <div>
-        <h2>🌐 Verkkosivut</h2>
-        <p>
-          Ammattimainen verkkonäkyvyys yrityksellesi. Modernit ja nopeat sivut, jotka muuttavat
-          vierailijat asiakkaiksi.
-        </p>
-        <ul>
-          <li>Mobiiliystävälliset web-sivut</li>
-          <li>SEO-optimoitu 1–3 kielelle (FI, SWE, EN)</li>
-          <li>Nopea lataus</li>
-          <li>Google Maps, WhatsApp, sähköposti, lomake</li>
-        </ul>
-
-        <h2>📧 Yritys-sähköposti</h2>
-        <p>
-          Ammattimaiset osoitteet yrityksesi nimellä. Luotettava sähköposti ja chat ml.
-          Gemini-tekoäly.
-        </p>
-        <ul>
-          <li>nimi@yritys.fi + 25 GB tallennustila</li>
-          <li>24/7 turvallinen käytettävyys</li>
-          <li>Optiona työnkulut ja liitteiden hallinta</li>
-        </ul>
-
-        <h2>🛒 Verkkokauppa</h2>
-        <p>
-          Myy tuotteesi verkossa helposti. Maksuvalmis kokonaisuus, varastonhallinta ja
-          asiakaspalvelu.
-        </p>
-        <ul>
-          <li>Tuotteiden ja hintalistojen hallinta</li>
-          <li>Valmiit maksuvaihtoehdot</li>
-        </ul>
-
-        <h2>🤝 Asiakastuki & 🔒 Turvallisuus</h2>
-        <p>Nopea tuki (WhatsApp, puhelin +358 400 319 010, sähköposti, lomake).</p>
-        <ul>
-          <li>SSL-salaus & päivittäiset varmuuskopiot</li>
-          <li>99,9 % palvelun saatavuus</li>
-        </ul>
-
-        <div class="qr-section">
-          <a
-            class="wa-btn"
-            href="https://wa.me/358400319010?text=Hei%2C%20olen%20kiinnostunut%20A5-kampanjan%20tarjouksesta."
-            target="_blank"
-            rel="noopener"
-            >💬 WhatsApp · Lifetime Oy Myynti</a
-          >
-          <div class="wa-number">+358 400 319 010</div>
-        </div>
-      </div>
 
       <div class="footer-text">
-        © 2026 Lifetime Oy | Korkealaatuiset verkkopalvelut yrityksellesi | dws10.com | Hintoihin
-        lisätään ALV 25,5 %
+        Risto Anton Päärni · Lifetime Oy · risto.paarni@lifetime.fi · +358 400 319 010 · dws10.com
       </div>
     </div>
   </body>
