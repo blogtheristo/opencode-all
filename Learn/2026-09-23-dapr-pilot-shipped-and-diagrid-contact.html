@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dapr pilot shipped; Diagrid contact — 2026-09-23</title><style>body{max-width:760px;margin:2rem auto;padding:0 1rem;font:16px/1.55 system-ui,sans-serif;color:#222}code{background:#f3f3f3;padding:.1em .3em;border-radius:3px}h1,h2{line-height:1.2}</style></head><body><hr>
+<h2>Status: PENDING_REVIEW
+Date: 2026-09-23
+Branch: claude/dapr-dws-use-cases-049za6
+PR: https://github.com/blogtheristo/dws6/pull/2066
+Author: Claude Fable 5.1 (Claude Code, standby runtime)</h2>
+<h1>Dapr pilot shipped; Diagrid co-founder contact</h1>
+<h2>What happened</h2>
+<ol>
+<li><strong>Dapr pub/sub pilot implemented and pushed</strong> (HIC approved 2026-09-22).
+Full technical capture is in the previous day's note — this note does
+not repeat it: <code>docs/field-notes/2026-09-22-dapr-use-cases-dws.md</code> §3a.
+Summary of the code surface, for the record:
+<ul>
+<li><code>src/agents/event-bus.ts</code> — feature-flagged publish of
+<code>agent.task_complete</code> to a local Dapr sidecar; local dispatch stays
+unconditional; <code>dispatchFromDapr()</code> prevents a publish loop.</li>
+<li><code>src/routes/dapr-pubsub.routes.ts</code> + <code>src/app.ts</code> — <code>/dapr/subscribe</code>
+and delivery callback.</li>
+<li><code>dapr/</code> — Redis component template + run/rollback README.</li>
+<li>8 new tests, all green. <code>DAPR_PUBSUB_PILOT_ENABLED</code> unset everywhere.</li>
+</ul>
+</li>
+<li><strong>Inbound from Mark Fussell</strong> (Dapr co-creator, Diagrid co-founder)
+after the Dapr University course. Reply drafted (chat, 2026-09-23);
+sending is RED — HIC sends from <code>risto.paarni@lifetime.fi</code>.</li>
+</ol>
+<h2>Insight</h2>
+<ul>
+<li>The pilot is a <strong>credibility asset for the Diagrid conversation only if
+it is switched on</strong>. A flag-off pilot is a code review; a two-week live
+window is a case study. Enable before the call.</li>
+<li>Two questions worth Mark's time were identified: (a) Dapr virtual actors
+as the lifecycle model for long-lived AI agents; (b) how far Dapr
+tracing/CloudEvents metadata can carry an EU AI Act Art. 12 evidence
+trail before DWS's own KYA hash chain has to take over.</li>
+</ul>
+<h2>Next steps</h2>
+<ul>
+<li>HIC: send the reply; pick pilot Redis (isolated instance recommended,
+<code>dapr/README.md</code>); flip <code>DAPR_PUBSUB_PILOT_ENABLED=true</code> to start the
+2-week window; book the Diagrid call after that.</li>
+<li>Decision gate at window end → follow-up field note.</li>
+</ul>
+<h2>Learning-outcome checklist</h2>
+<ul>
+<li>KB update: N/A — no new canonical concept; the 09-22 note is the KB
+source for Dapr-at-DWS until the pilot decision gate produces data.</li>
+<li>Drive export: N/A — repo is source-of-truth; no cloud session Drive
+write for a PENDING_REVIEW note (HIC batch-reviews at /retro).</li>
+<li>Calendar: N/A — no dated commitment yet; the 2-week window starts when
+the HIC flips the flag, and the call date depends on Mark's reply.</li>
+<li>Standards: N/A — pilot adds a feature-flagged optional path; no standard
+changed. If the decision gate passes, <code>DWS_ARCHITECTURE</code> docs get a
+Dapr section then, not now.</li>
+<li>Blog drafts flagged by the stop hook (13 files in <code>docs/blog-drafts/</code>):
+parked, unchanged by this session — not this branch's scope.</li>
+</ul>
+<h2>HIC decision question</h2>
+<p>Do you want the pilot flag on <strong>before</strong> the Diagrid call (live numbers,
+small risk on a non-production Redis) or <strong>after</strong> (safer, but the call is
+then a design conversation rather than a results conversation)?</p>
+</body></html>
