@@ -104,10 +104,17 @@
   const priceListHref = onDws10 ? `${basePath}price-list/` : 'https://dws10.com/price-list/';
 
   // lifetime.fi has its own compact menu (HIC 23.09.2026: the top bar is domain-specific).
+  // lifetime.fi compact menu: FI or EN, re-labelled on 'dws-lang-change' (updateLifetimeMenu).
+  const LT_TEXT = {
+    fi: { home: 'Etusivu', web: 'Verkkopalvelut', price: 'Hinnasto', fleet: 'Lifetime Fleet', iq: 'DWS IQ (teollisuus-AI)', contact: '💬 WhatsApp · Myynti' },
+    en: { home: 'Home', web: 'Web services', price: 'Price list', fleet: 'Lifetime Fleet', iq: 'DWS IQ (industrial AI)', contact: '💬 WhatsApp · Sales' },
+  };
+  const LT_HREF = {
+    fi: { home: '/fi/', price: 'https://dws10.com/price-list/fi/' },
+    en: { home: '/', price: 'https://dws10.com/price-list/' },
+  };
   const ltFi = ironcladCurrentLang === 'fi';
-  const LT = ltFi
-    ? { home: 'Etusivu', web: 'Verkkopalvelut', price: 'Hinnasto', fleet: 'Lifetime Fleet', iq: 'DWS IQ (teollisuus-AI)', contact: '💬 WhatsApp · Myynti' }
-    : { home: 'Home', web: 'Web services', price: 'Price list', fleet: 'Lifetime Fleet', iq: 'DWS IQ (industrial AI)', contact: '💬 WhatsApp · Sales' };
+  const LT = LT_TEXT[ltFi ? 'fi' : 'en'];
   // onelifetime.world subpages mirror the OLW homepage header (HIC 23.09.2026).
   const olwMenuHTML = `
                 <li class="ironclad-menu-item">
@@ -138,11 +145,11 @@
                     </ul>
                 </li>`;
   const lifetimeMenuHTML = `
-                <li class="ironclad-menu-item"><a href="${ltFi ? '/fi/' : '/'}" class="ironclad-link">${LT.home}</a></li>
-                <li class="ironclad-menu-item"><a href="https://dws10.com/campaigns/a5-kampanja-kaksipuolinen.html" class="ironclad-link">${LT.web}</a></li>
-                <li class="ironclad-menu-item"><a href="https://dws10.com/price-list/${ltFi ? 'fi/' : ''}" class="ironclad-link">${LT.price}</a></li>
-                <li class="ironclad-menu-item"><a href="https://dws10.com/lifetime-fleet/" class="ironclad-link">${LT.fleet}</a></li>
-                <li class="ironclad-menu-item"><a href="https://dws10.com/" class="ironclad-link">${LT.iq}</a></li>`;
+                <li class="ironclad-menu-item"><a href="${LT_HREF[ltFi ? 'fi' : 'en'].home}" class="ironclad-link" data-lt="home">${LT.home}</a></li>
+                <li class="ironclad-menu-item"><a href="https://dws10.com/campaigns/a5-kampanja-kaksipuolinen.html" class="ironclad-link" data-lt="web">${LT.web}</a></li>
+                <li class="ironclad-menu-item"><a href="${LT_HREF[ltFi ? 'fi' : 'en'].price}" class="ironclad-link" data-lt="price">${LT.price}</a></li>
+                <li class="ironclad-menu-item"><a href="https://dws10.com/lifetime-fleet/" class="ironclad-link" data-lt="fleet">${LT.fleet}</a></li>
+                <li class="ironclad-menu-item"><a href="https://dws10.com/" class="ironclad-link" data-lt="iq">${LT.iq}</a></li>`;
 
   // 5-language i18n translations for nav items (v5.0)
   var NAV_I18N = {
@@ -753,7 +760,7 @@ ${onLifetime ? lifetimeMenuHTML : onOlw ? olwMenuHTML : `
 
 ${onLifetime ? `
                 <li class="ironclad-menu-item">
-                    <a href="https://wa.me/358400319010" class="ironclad-cta-book" title="WhatsApp +358 400 319 010" target="_blank" rel="noopener">${LT.contact}</a>
+                    <a href="https://wa.me/358400319010" class="ironclad-cta-book" title="WhatsApp +358 400 319 010" target="_blank" rel="noopener" data-lt="contact">${LT.contact}</a>
                 </li>` : onOlw ? `
                 <li class="ironclad-menu-item">
                     <a href="https://dws6.com/login/" class="ironclad-cta" title="Sign In">🔐 Sign In</a>
@@ -1784,10 +1791,20 @@ ${onLifetime ? `
     tagNavElements();
     applyNavLang(localStorage.getItem('dws-lang') || 'en');
 
+    function updateLifetimeMenu(lang) {
+      var key = lang === 'fi' ? 'fi' : 'en';
+      document.querySelectorAll('[data-lt]').forEach(function (a) {
+        var k = a.getAttribute('data-lt');
+        if (LT_TEXT[key][k]) a.textContent = LT_TEXT[key][k];
+        if (LT_HREF[key][k]) a.setAttribute('href', LT_HREF[key][k]);
+      });
+    }
+
     window.addEventListener('dws-lang-change', function (e) {
       var lang = e.detail && e.detail.lang;
       if (!lang) return;
       applyNavLang(lang);
+      if (onLifetime) updateLifetimeMenu(lang);
       var codeEl = document.querySelector('.ironclad-lang-code');
       if (codeEl) codeEl.textContent = lang.toUpperCase();
       document.querySelectorAll('.ironclad-lang-option').forEach(function (b) {
