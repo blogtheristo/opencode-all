@@ -1,6 +1,7 @@
 ---
 title: "Sovereign Cloud vs. Your Own DGX: Where Should Your AI Actually Run?"
 status: DRAFT — for Google Drive review before publish
+prices_checked: 2026-09-23 against dws10.com/config/products.json (edge-node-gn100 8008, LF-DGX-SPARK 6109, LF-SITROOM-001 11598, LF-IGX-ORIN 11990, DWS-IQ-006 4999, DWS-AEGIS-001 59990; €999/mo Store/PRODUCT_AEGIS.md; €299/mo LF-NVIDIA-INSTALL description)
 author: Risto Anton Päärni, Founder & CEO, Lifetime Oy
 target: onelifetime.world/blog/ (HTML at publish time)
 date_drafted: 2026-07-16
@@ -65,7 +66,7 @@ It comes in two shapes.
 
 The fastest path to running industrial AI. DWS IQ 6 runs on **Scaleway**
 serverless containers in Paris and Amsterdam. Scaleway is French-owned (Iliad
-Group), so there is **zero CLOUD Act exposure**. Your database is EU-only
+Group), so no US parent company sits in the path for the CLOUD Act to reach. Your database is EU-only
 managed PostgreSQL with pgvector; EU AI Act Article 12 logging is built in.
 
 - **Capital cost:** none. You rent capacity.
@@ -119,9 +120,9 @@ The ladder scales with the workload:
 
 | Appliance                         | Role                                        | Indicative price |
 | --------------------------------- | ------------------------------------------- | ---------------- |
-| Control Room (Acer Veriton GN100) | Compliance brain, 1 node                    | €5,294           |
-| DGX Spark                         | NVIDIA-branded GB10, 405B-param models      | €5,994           |
-| Situation Room (2× bridged GN100) | Crisis ops, failover, dual-use              | €10,093          |
+| Control Room (Acer Veriton GN100) | Compliance brain, 1 node                    | €8,008           |
+| DGX Spark                         | NVIDIA-branded GB10, 405B-param models      | €6,109           |
+| Situation Room (2× bridged GN100) | Crisis ops, failover, dual-use              | €11,598          |
 | IGX Orin                          | ECC memory, 10-yr support — pharma, nuclear | €11,990          |
 
 Add **NVIDIA Model Install at €995/device** and the **Sovereign Model Updates
@@ -129,7 +130,7 @@ subscription at €299/month** (monthly NIMs, weekly security patches, daily
 hotfixes, 24/7 support, warranty), and you have a turnkey sovereign appliance —
 not a science project.
 
-- **Capital cost:** real. €5,294 to €11,990 per node, up front.
+- **Capital cost:** real. €6,109 to €11,990 per node, up front.
 - **Running cost:** €299/month for model updates, plus electricity and rack
   space. No metered inference bill.
 - **Scaling:** fixed to the nodes you installed. You grow by adding boxes.
@@ -161,14 +162,14 @@ security, the cooling, and the refresh cycle.
 
 | Dimension            | Sovereign Cloud (SaaS / Aegis)       | Own DGX (on-premise)         |
 | -------------------- | ------------------------------------ | ---------------------------- |
-| Capital outlay       | None — rent capacity                 | €5,294–€11,990 per node      |
+| Capital outlay       | None — rent capacity                 | €6,109–€11,990 per node      |
 | Running cost         | €4,999 setup · €999/mo (Aegis)       | €299/mo + power + space      |
 | Data residency       | EU cloud (Paris/Amsterdam/Helsinki)  | Never leaves your premises   |
 | Model ownership      | Platform-hosted (dedicated on Aegis) | You own 100% of the weights  |
 | Network dependency   | Needs EU-cloud connectivity          | Fully air-gap capable        |
 | Time to value        | ~30 days, provisioned for you        | Hardware lead time + install |
 | Scaling              | Elastic, scale-to-zero               | Fixed to installed nodes     |
-| CLOUD Act exposure   | Zero (EU-incorporated providers)     | Zero (no cloud at all)       |
+| CLOUD Act exposure   | No US parent (EU-incorporated)       | None (no cloud at all)       |
 | Price-shock exposure | Operator absorbs it                  | You own hardware refresh     |
 | Best economic fit    | Bursty / variable load, fast start   | Steady 24/7 high utilisation |
 

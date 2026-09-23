@@ -33,7 +33,7 @@ Tekoälyagentit jakautuvat kahteen päänäkökulmaan, joiden valvontatarve ja t
 
 ## 2. Hallintamalli (HIC): Copilot-ohjaus tuotuna DWS IQ -ympäristöön
 
-Jotta teollisuudessa saavutetaan sekä korkea automaatioaste että EU AI Actin vaatima _Human-in-Command_ (HIC) -valvonta, DWS IQ -agentteja hallitaan **GitHub Copilot -tyylisellä yhdellä Dashboardilla (Single Pane of Glass)**:
+Jotta teollisuudessa saavutetaan sekä korkea automaatioaste että EU AI Actin artiklan 14 vaatima ihmisen valvonta — DWS:n toteutuksessa _Human-in-Command_ (HIC) —, DWS IQ -agentteja hallitaan **GitHub Copilot -tyylisellä yhdellä Dashboardilla (Single Pane of Glass)**:
 
 - **Yksi käynnistysnäkymä (Dashboard):** Ihminen toimii prosessin johtajana. Hän käynnistää agenttitoiminnon työnkulun (_workflow_) yhdestä selkeästä näkymästä ja näkee prosessin tilanteen reaaliaikaisesti.
 - **DWS IQ Skilled Agents (Osaaja-agentit):** Dashboard reitittää ja valitsee työnkulun eri vaiheisiin tarkoitukseen erikoistuneet agentit (_Skilled Agents_) — esimerkiksi laadunvalvonta-, data-analyysi- tai logistiikka-agentin — aina kyseisen työvaiheen vaatimusten mukaisesti.

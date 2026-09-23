@@ -159,6 +159,7 @@ const QUOTE_PAIRS = [
   ["'", "'"],
   ['`', '`'],
   ['“', '”'], // curly double
+  ['”', '”'], // Finnish/Swedish double (same glyph both sides)
   ['‘', '’'], // curly single
   ['«', '»'], // guillemets
 ];

@@ -6,11 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.11
+Version: 4.12
 
 Sessions & Modifications:
 
-- Version: 4.11 [Latest] | Tool: Claude Code (Haiku 4.5) | Session: claude/cursor-dws-audit-zl8ts1 | Date: 19.09.2026 | Changes: Lockstep version bump 4.10 -> 4.11 per CLAUDE.md Thesis Rule. PR #2037 field note (2026-09-18): Mission Control login works when signed in; operations stay manual; X @blogtheristo linked to xAI risto.paarni@lifetime.fi. No master's-thesis content; recorded as lockstep-only per §1.4 master-vs-PhD scope rule.
+- Version: 4.12 [Latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Added §10.34 (Controlled vocabulary as a delivery layer: one dictionary drives translations and search tags). Dictionary gains the KYA-S1 table, LWM layers, process terms; `scripts/blog/seo-tags.mjs` tags 162 post files; 36 copied JSON-LD headlines fixed; 13 hand-edited dictionary keys ported into the generator. Lockstep 4.11->4.12.
+- Version: 4.11 [not latest] | Tool: Claude Code (Haiku 4.5) | Session: claude/cursor-dws-audit-zl8ts1 | Date: 19.09.2026 | Changes: Lockstep version bump 4.10 -> 4.11 per CLAUDE.md Thesis Rule. PR #2037 field note (2026-09-18): Mission Control login works when signed in; operations stay manual; X @blogtheristo linked to xAI risto.paarni@lifetime.fi. No master's-thesis content; recorded as lockstep-only per §1.4 master-vs-PhD scope rule.
 - Version: 4.10 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 names the hybrid split as the implementation of PhD Key Contribution #59 (sensitive on Aegis/Infra, remainder on Connect). Lockstep 4.09->4.10.
 - Version: 4.09 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 fence wording — SEAL is a Cloud III DPS gate, not a standalone certificate. Catalogue nearest-SEAL remains indicative; DWS four-tier score is not a Cloud III evaluation. Lockstep 4.08->4.09.
 - Version: 4.08 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Added §10.33 (Indicative SEAL naming on catalogue SKUs and the DWS-score / EU-SEAL fence). Implementation counterpart to PHD_FIREHORSE §14.53 / Key Contribution #58: dual-folder `products.json` feature lines, `docs/PRODUCT_TIERS.md`, `DWS_DEPLOYMENT_STANDARD.md` v1.7, public `/compliance/#seal-0-4` and `/legal/#seal-0-4` literacy, `/sovereignty-assessment/` fence that the DWS four-tier score is not an EU SEAL certificate. Same-day addendum: catalogue does not import AWS/Microsoft/Oracle/S3NS SKU claims as SEAL evidence (PhD §14.53.2 comparison). Scientific framing stays in the PhD. Lockstep 4.07->4.08.
@@ -3857,3 +3858,15 @@ On 14 September 2026 the product catalogue and tier tables began naming an **ind
 **Key finding (implementation of PhD #59).** Sensitive workloads on sovereign substrate; the rest on hyperscalers. That is the same split already shipped as Aegis/Infra vs Connect — one tenant, two runtimes; no new SKU (PhD §14.53.3). The classifier is `/sovereignty-assess` (DWS four-tier, not a Cloud III evaluation). The carbon/compliance ledger, dual-use, and Article 12 evidence stay on Aegis/Infra; Connect and Marketplace transact the remainder.
 
 _Implementation artefacts: `docs/PRODUCT_TIERS.md`, `DWS_DEPLOYMENT_STANDARD.md` v1.7, dual-folder `products.json`, dual-folder compliance/legal SEAL sections, `docs/field-notes/2026-09-14-sovereignty-is-the-primary-segmentation-axis.md`. Scientific framing: PHD_FIREHORSE §14.53._
+
+### 10.34 Controlled vocabulary as a delivery layer: one dictionary drives translations and search tags (2026-09-23)
+
+**Motivation.** The KYA-S1 vocabulary (seven control domains, assurance levels, runtime mechanisms) had an HIC-approved five-language table (Finnish as Ground Truth) in `ONTOLOGY.md` §16.6, but the machine-readable dictionary `docs/localization/dws-dictionary.json` did not carry it, and the published posts carried no search tags at all.
+
+**Implementation.** (1) The KYA-S1 table, the two named LWM layers (model base; state register and memory — `ONTOLOGY.md` §4.1), process-model terms (BPMN Service/User Task, ISA-95, SysML, VSM, SIPOC) and the three domain taglines were added to the generator `scripts/i18n/generate-dws-dictionary.cjs`. Terms that matter for search carry `seo: true`. (2) `scripts/blog/seo-tags.mjs` reads the dictionary and writes `keywords`, `article:tag` and JSON-LD `keywords` for each post from the terms the post actually uses, in the post's language, ranked by mention count and limited to one tag per KYA code. It is idempotent (a second run changes nothing) and has `--check` and `--json` modes. 162 of 191 post files (root + mirror) received tags.
+
+**Two defects the tooling surfaced.** (a) Regenerating the dictionary would have deleted 13 keys that existed only in the hand-edited JSON; they were ported into the generator with values unchanged. (b) 36 post files carried the JSON-LD headline and description of one earlier post ("KYA-S1 — One Signed Page…"), a template copy that search engines would show as the wrong headline. The script now replaces a headline or description that several posts share with each post's own `<h1>` and meta description.
+
+**The engineering rule this produced.** A generated artefact is regenerated and compared before it is edited; a difference that is not formatting is a lost hand edit and is moved into the generator first. Search tags are generated from the controlled vocabulary, never hand-written, so terminology, translation and search visibility change in one place.
+
+_Implementation artefacts: `scripts/i18n/generate-dws-dictionary.cjs`, `docs/localization/dws-dictionary.json`, `scripts/blog/seo-tags.mjs`, `ONTOLOGY.md` v1.8 §4.1, `docs/BLOG_STANDARD.md` §5, `docs/field-notes/2026-09-23-dictionary-seo-tags.md`._

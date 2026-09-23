@@ -23,19 +23,19 @@ Den korta versionen
 
 Suveränitet är segmentering. Lokalt.
 
-Vi skrev tidigare en svagare rubrik: suveränitet *är* segmenteringen. Vi skrev en sämre ingress: marknaden delas på en axel. Båda är fel på samma sätt. De plattar ut det första snittet till ett monopol.
+Vi skrev tidigare en svagare rubrik: suveränitet _är_ segmenteringen. Vi skrev en sämre ingress: ”marknaden delas på en axel”. Båda är fel på samma sätt. De plattar ut det första snittet till ett monopol.
 
 Meningen vi nu använder är längre eftersom stängslet bär last:
 
 Suveränitet är den primära segmenteringsaxeln — inte den enda.
-
-Ta bort tankstrecket så är du tillbaka i överdriften.
 
 ## Vad det första snittet faktiskt är
 
 En reglerad europeisk köpare börjar inte med funktioner. De börjar med en juridisk fråga: om en amerikansk domstol frågar, kan den här leverantören tvingas?
 
 Serverplatsen svarar inte. CLOUD Act följer moderbolaget, inte racket. Därför är “EU-hosting” på AWS, Azure eller Google en residensberättelse, inte en suveränitetsberättelse.
+
+Europeiska datacenter ger ändå verklig suveränitet, bara i ett annat lager. Data lagras och behandlas i EU, under GDPR. Vissa erbjudanden lägger till ett operativt lager: AWS European Sovereign Cloud (Brandenburg, sedan januari 2026) drivs av personal bosatt i EU och tyska juridiska personer, Microsofts EU Data Boundary håller behandlingen i EU, och hos S3NS driver franska Thales Googles teknik. I kommissionens Cloud III-upphandling fick S3NS SEAL-2 (datasuveränitet), upphandlingens miniminivå. AWS:s, Microsofts och Oracles suveräna moln finns inte på Cloud III-tilldelningslistan. Inget av dem tar bort moderbolagets jurisdiktion. Därför passar de bra för arbetslaster som inte är känsliga — och det är det mesta i de flesta företag — men inte för arbetslaster som måste stå emot ett utlämningskrav från en amerikansk domstol.
 
 Samma snitt syns i vår egen katalog. Aegis, Sovereign Infra och Connect är inte tre produkter. De är djup på en axel — hur långt arbetsbelastningen sitter från ett amerikanskt moderbolag.
 
@@ -53,7 +53,7 @@ Om vi låtsas att det första snittet är det enda säljer vi en slogan och miss
 
 ## Vad vi inte säger
 
-Vi säger inte att marknaden delas på en axel.
+Vi säger inte att ”marknaden delas på en axel”.
 
 Vi säger inte att en EU-region är suverän för att nålen sitter i Helsingfors.
 
