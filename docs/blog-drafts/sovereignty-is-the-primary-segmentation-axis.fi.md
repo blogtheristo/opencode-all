@@ -18,11 +18,11 @@ Lyhyt versio
 - Se leikkaus on ensisijainen. Se ei ole ainoa. Toimiala, hinta, kyvykkyys, kieli ja kuorman herkkyys ratkaisevat uutta palvelua ostettaessa.
 - EU-alue yhdysvaltalaisella emoyhtiöllä ei ole se leikkaus. DWS-altistuspiste ei ole EU:n SEAL-sertifikaatti.
 
-Suvereeniteetti on segmentointia. Paikallisesti.
+Suvereeniteetti on segmentointia. Mutta paikallisesti.
 
 Kirjoitimme aiemmin heikomman otsikon: suvereeniteetti *on* segmentointi. Kirjoitimme huonomman ingressin: markkina jakautuu yhdellä akselilla. Molemmat ovat väärin samalla tavalla. Ne litistävät ensimmäisen leikkauksen monopoliksi.
 
-Lause jonka nyt käytämme on pidempi, koska aita on kantava:
+Lause jonka nyt käytämme on pidempi, koska rajaus on kantava:
 
 Suvereeniteetti on ensisijainen segmentointiakseli — ei ainoa.
 
