@@ -1,5 +1,26 @@
 # A5 Campaign Deployment Complete — Infrastructure Live
 
+# VERSION AND AGENT HISTORY
+
+---
+
+Version: 1.0 [Latest]
+
+Sessions & Modifications:
+
+- Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/campaign-pdf-version | Date: 21.09.2026 | Changes: A5 campaign deployment checkpoint: lifetime.fi restored, dws10.com/about added, checkout-testing blocker recorded.
+
+Document Status:
+
+- Created: 21.09.2026
+- Last Modified: 21.09.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
+- Status: PENDING_REVIEW
+
+---
+
 **Date:** 2026-09-21  
 **Session:** claude-haiku-4-5 session continuation  
 **Branch:** main (fast-forward merge from claude/a5-kampanja-kaksipuolinen-followup-17ser8)  

@@ -1,5 +1,26 @@
 # A5 Campaign PDF Generation — Print-Ready Format
 
+# VERSION AND AGENT HISTORY
+
+---
+
+Version: 1.0 [Latest]
+
+Sessions & Modifications:
+
+- Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/campaign-pdf-version | Date: 23.09.2026 | Changes: PDF-optimised A5 flyer (text-first layout); later: one discount only, valid until further notice, WhatsApp button.
+
+Document Status:
+
+- Created: 23.09.2026
+- Last Modified: 23.09.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
+- Status: PENDING_REVIEW
+
+---
+
 **Date:** 2026-09-23  
 **Session:** claude-haiku-4-5  
 **Task:** Create PDF-optimized version of A5 kampanja-kaksipuolinen with text-first layout  
