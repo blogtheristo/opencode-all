@@ -23,7 +23,7 @@ Die Kurzfassung
 
 Souveränität ist Segmentierung. Lokal.
 
-Wir schrieben früher eine schwächere Überschrift: Souveränität *ist* die Segmentierung. Wir schrieben eine schlechtere Einleitung: der Markt teilt sich auf einer Achse. Beides ist auf dieselbe Weise falsch. Sie drücken den ersten Schnitt zu einem Monopol flach.
+Wir schrieben früher eine schwächere Überschrift: Souveränität _ist_ die Segmentierung. Wir schrieben eine schlechtere Einleitung: der Markt teilt sich auf einer Achse. Beides ist auf dieselbe Weise falsch. Sie drücken den ersten Schnitt zu einem Monopol flach.
 
 Der Satz, den wir jetzt verwenden, ist länger, weil der Zaun lasttragend ist:
 

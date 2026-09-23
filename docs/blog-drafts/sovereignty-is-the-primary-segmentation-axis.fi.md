@@ -20,7 +20,7 @@ Lyhyt versio
 
 Suvereeniteetti on segmentointia. Mutta paikallisesti.
 
-Kirjoitimme aiemmin heikomman otsikon: suvereeniteetti *on* segmentointi. Kirjoitimme huonomman ingressin: markkina jakautuu yhdellä akselilla. Molemmat ovat väärin samalla tavalla. Ne litistävät ensimmäisen leikkauksen monopoliksi.
+Kirjoitimme aiemmin heikomman otsikon: suvereeniteetti _on_ segmentointi. Kirjoitimme huonomman ingressin: ”markkina jakautuu yhdellä akselilla”. Molemmat ovat väärin samalla tavalla. Ne litistävät ensimmäisen leikkauksen monopoliksi.
 
 Lause jonka nyt käytämme on pidempi, koska rajaus on kantava:
 
@@ -30,7 +30,7 @@ Suvereeniteetti on ensisijainen segmentointiakseli — ei ainoa.
 
 Säännelty eurooppalainen ostaja ei aloita ominaisuuksista. Hän aloittaa juridisesta kysymyksestä: jos yhdysvaltalainen tuomioistuin kysyy, voidaanko tämä toimittaja pakottaa antamaan yrityksemme tiedot heidän käyttöönsä?
 
-Palvelimen sijainti ei ratkaise suvereeniteettia. CLOUD Act seuraa emoyhtiötä, ei räkkiä. Siksi “EU-hostaus” AWS:llä, Azurella tai Googella on residenssitarina, ei suvereenisuustarina.
+Palvelimen sijainti ei ratkaise suvereeniteettia. CLOUD Actin noudattaminen seuraa emoyhtiön kotipaikkaa, ei pilvikeskuksen sijaintia. Siksi “EU-hostaus” AWS:llä, Azurella tai Googella on residenssitarina, ei suvereenisuustarina.
 
 Sama leikkaus näkyy omassa katalogissamme. Aegis, Sovereign Infra ja Connect eivät ole kolme tuotetta. Ne ovat syvyyksiä yhdellä akselilla — kuinka kaukana kuorma on yhdysvaltalaisesta emoyhtiöstä.
 
@@ -48,7 +48,7 @@ Jos teeskentelemme että ensimmäinen leikkaus on ainoa, myymme iskulauseen ja o
 
 ## Mitä emme sano
 
-Emme sano, että markkina jakautuu yhdellä akselilla.
+Emme sano, että ”markkina jakautuu yhdellä akselilla”.
 
 Emme sano, että EU-alue on suvereeni siksi että nasta on Helsingissä.
 

@@ -23,7 +23,7 @@ La version courte
 
 La souveraineté est de la segmentation. Localement.
 
-Nous écrivions auparavant un titre plus faible : la souveraineté *est* la segmentation. Nous écrivions un chapô pire : le marché se coupe sur un seul axe. Les deux ont tort de la même manière. Ils aplatissent la première coupure en monopole.
+Nous écrivions auparavant un titre plus faible : la souveraineté _est_ la segmentation. Nous écrivions un chapô pire : le marché se coupe sur un seul axe. Les deux ont tort de la même manière. Ils aplatissent la première coupure en monopole.
 
 La phrase que nous utilisons maintenant est plus longue parce que la barrière porte la charge :
 

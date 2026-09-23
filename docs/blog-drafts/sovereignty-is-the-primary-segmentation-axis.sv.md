@@ -23,7 +23,7 @@ Den korta versionen
 
 Suveränitet är segmentering. Lokalt.
 
-Vi skrev tidigare en svagare rubrik: suveränitet *är* segmenteringen. Vi skrev en sämre ingress: marknaden delas på en axel. Båda är fel på samma sätt. De plattar ut det första snittet till ett monopol.
+Vi skrev tidigare en svagare rubrik: suveränitet _är_ segmenteringen. Vi skrev en sämre ingress: ”marknaden delas på en axel”. Båda är fel på samma sätt. De plattar ut det första snittet till ett monopol.
 
 Meningen vi nu använder är längre eftersom stängslet bär last:
 
@@ -51,7 +51,7 @@ Om vi låtsas att det första snittet är det enda säljer vi en slogan och miss
 
 ## Vad vi inte säger
 
-Vi säger inte att marknaden delas på en axel.
+Vi säger inte att ”marknaden delas på en axel”.
 
 Vi säger inte att en EU-region är suverän för att nålen sitter i Helsingfors.
 

@@ -1,5 +1,25 @@
 # Handoff — claude/blog-drafts-review
 
+# VERSION AND AGENT HISTORY
+
+---
+
+Version: 1.0 [Latest]
+
+Sessions & Modifications:
+
+- Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Initial handoff for the blog-drafts-review branch.
+
+Document Status:
+
+- Created: 23.09.2026
+- Last Modified: 23.09.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
+
+---
+
 **Date:** 2026-09-23 · **Runtime:** Claude Code (cloud) · **Status:** PR open, waiting on HIC blog approvals
 
 ## Done on this branch

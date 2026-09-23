@@ -20,7 +20,7 @@ The short version
 
 Sovereignty is segmentation. Locally.
 
-We used to write a weaker heading: sovereignty is *the* segmentation. We used a worse lede: the market splits on one axis. Both are wrong in the same way. They flatten a first cut into a monopoly.
+We used to write a weaker heading: sovereignty is _the_ segmentation. We used a worse lede: “the market splits on one axis”. Both are wrong in the same way. They flatten a first cut into a monopoly.
 
 The sentence we now use is longer because the fence is load-bearing:
 
@@ -48,7 +48,7 @@ If we pretend the first cut is the only cut, we sell a slogan and miss the order
 
 ## What we will not say
 
-We will not say the market splits on one axis.
+We will not say “the market splits on one axis”.
 
 We will not say an EU region is sovereign because the pin is in Helsinki.
 

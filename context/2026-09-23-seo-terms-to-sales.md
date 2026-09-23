@@ -1,5 +1,25 @@
 # SEO terms → sales: what moves revenue, what is hygiene
 
+# VERSION AND AGENT HISTORY
+
+---
+
+Version: 1.0 [Latest]
+
+Sessions & Modifications:
+
+- Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Initial SEO-to-sales rationale for HIC.
+
+Document Status:
+
+- Created: 23.09.2026
+- Last Modified: 23.09.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
+
+---
+
 Date: 2026-09-23 · Author: Claude Code (session claude/blog-drafts-review) · For: HIC (Risto Anton Päärni)
 Question (HIC 23.09.2026): "miten voisimme hyötyä paremmin SEO termeistä ja saada lisää myyntiä?"
 
