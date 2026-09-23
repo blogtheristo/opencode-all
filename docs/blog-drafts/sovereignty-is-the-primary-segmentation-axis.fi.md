@@ -32,6 +32,8 @@ Säännelty eurooppalainen ostaja ei aloita ominaisuuksista. Hän aloittaa jurid
 
 Palvelimen sijainti ei ratkaise suvereeniteettia. CLOUD Actin noudattaminen seuraa emoyhtiön kotipaikkaa, ei pilvikeskuksen sijaintia. Siksi “EU-hostaus” AWS:llä, Azurella tai Googella on residenssitarina, ei suvereenisuustarina.
 
+Eurooppalaiset datakeskukset tarjoavat silti todellista suvereeniteettia, vain eri kerroksessa. Data säilytetään ja käsitellään EU:ssa, ja siihen sovelletaan GDPR:ää. Osa palveluista lisää operatiivisen kerroksen: AWS European Sovereign Cloud (Brandenburg, tammikuusta 2026) toimii EU:ssa asuvan henkilöstön ja saksalaisten yhtiöiden varassa, Microsoftin EU Data Boundary pitää datan käsittelyn EU:ssa, ja S3NS:ssä ranskalainen Thales operoi Googlen teknologiaa. S3NS sai komission Cloud III -kilpailutuksessa SEAL-2-tason (datasuvereniteetti), joka oli kilpailutuksen vähimmäistaso. AWS:n, Microsoftin ja Oraclen suvereenit pilvet eivät ole Cloud III -palkittujen listalla. Mikään näistä ei poista emoyhtiön lainkäyttöä. Siksi ne sopivat hyvin kuormille, jotka eivät ole herkkiä — ja niitä on useimmissa yrityksissä suurin osa — mutta eivät kuormille, joiden täytyy kestää yhdysvaltalaisen tuomioistuimen luovutusvaatimus.
+
 Sama leikkaus näkyy omassa katalogissamme. Aegis, Sovereign Infra ja Connect eivät ole kolme tuotetta. Ne ovat syvyyksiä yhdellä akselilla — kuinka kaukana kuorma on yhdysvaltalaisesta emoyhtiöstä.
 
 Komission Cloud Sovereignty Framework tekee saman liikkeen eri sanoilla. SEAL on portti: jos kahdeksasta tavoitteesta yksikin jää alle minimin, tarjous putoaa. Cloud III:n lattia oli SEAL-2. Huhtikuun 2026 päätöksessä kolme konsortiota sai SEAL-3:n ja yksi SEAL-2:n. Kukaan ei saanut SEAL-4:ää. Syy on siruriippuvuus.

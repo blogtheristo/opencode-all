@@ -32,6 +32,8 @@ A regulated European buyer does not start with features. They start with a legal
 
 Server location does not answer it. The CLOUD Act follows the parent, not the rack. That is why “EU hosting” on AWS, Azure or Google is a residency story, not a sovereignty story.
 
+European data centres still provide real sovereignty, just at a different layer. Data is stored and processed in the EU, under the GDPR. Some offers add an operational layer: AWS European Sovereign Cloud (Brandenburg, since January 2026) runs on EU-resident staff and German legal entities, Microsoft's EU Data Boundary keeps processing in the EU, and at S3NS the French company Thales operates Google technology. In the Commission's Cloud III tender, S3NS was awarded SEAL-2 (data sovereignty), the tender's minimum. The sovereign clouds of AWS, Microsoft and Oracle are not on the Cloud III award list. None of them removes the parent's jurisdiction. That makes them a good fit for workloads that are not sensitive — which is most of what most companies run — and not for workloads that must withstand a disclosure order from a US court.
+
 The same cut appears inside our own catalogue. Aegis, Sovereign Infra and Connect are not three products. They are depths on one axis — how far the workload sits from a US parent.
 
 The Commission’s Cloud Sovereignty Framework makes the same move with different words. SEAL is a gate: miss the minimum on any of eight objectives and the offer is out. Cloud III’s floor was SEAL-2. The award in April 2026 put three consortia at SEAL-3 and one at SEAL-2. Nobody received SEAL-4. Chip dependence is why.

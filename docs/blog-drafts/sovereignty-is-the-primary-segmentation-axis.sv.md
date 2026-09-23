@@ -35,6 +35,8 @@ En reglerad europeisk köpare börjar inte med funktioner. De börjar med en jur
 
 Serverplatsen svarar inte. CLOUD Act följer moderbolaget, inte racket. Därför är “EU-hosting” på AWS, Azure eller Google en residensberättelse, inte en suveränitetsberättelse.
 
+Europeiska datacenter ger ändå verklig suveränitet, bara i ett annat lager. Data lagras och behandlas i EU, under GDPR. Vissa erbjudanden lägger till ett operativt lager: AWS European Sovereign Cloud (Brandenburg, sedan januari 2026) drivs av personal bosatt i EU och tyska juridiska personer, Microsofts EU Data Boundary håller behandlingen i EU, och hos S3NS driver franska Thales Googles teknik. I kommissionens Cloud III-upphandling fick S3NS SEAL-2 (datasuveränitet), upphandlingens miniminivå. AWS:s, Microsofts och Oracles suveräna moln finns inte på Cloud III-tilldelningslistan. Inget av dem tar bort moderbolagets jurisdiktion. Därför passar de bra för arbetslaster som inte är känsliga — och det är det mesta i de flesta företag — men inte för arbetslaster som måste stå emot ett utlämningskrav från en amerikansk domstol.
+
 Samma snitt syns i vår egen katalog. Aegis, Sovereign Infra och Connect är inte tre produkter. De är djup på en axel — hur långt arbetsbelastningen sitter från ett amerikanskt moderbolag.
 
 Kommissionens Cloud Sovereignty Framework gör samma rörelse med andra ord. SEAL är en grind: missa minimumet på något av åtta mål och anbudet åker ut. Cloud III:s golv var SEAL-2. Tilldelningen i april 2026 satte tre konsortier på SEAL-3 och ett på SEAL-2. Ingen fick SEAL-4. Orsaken är chipberoende.
