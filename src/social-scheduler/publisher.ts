@@ -18,6 +18,7 @@
  */
 
 import logger from '../utils/logger.js';
+import { normalizeLinkedInText } from '../utils/linkedin-text.js';
 import type { SocialPost } from './types.js';
 
 const LINKEDIN_API_BASE = 'https://api.linkedin.com';
@@ -71,12 +72,14 @@ export async function publishToLinkedIn(post: SocialPost): Promise<PublishResult
     return { success: false, error: 'LINKEDIN_AUTHOR_URN not set (e.g. urn:li:person:abc123)' };
   }
 
+  const commentary = normalizeLinkedInText(post.content);
+
   const body: LinkedInPostBody = {
     author: authorUrn,
     lifecycleState: 'PUBLISHED',
     specificContent: {
       'com.linkedin.ugc.ShareContent': {
-        shareCommentary: { text: post.content },
+        shareCommentary: { text: commentary },
         shareMediaCategory: 'NONE',
       },
     },
@@ -91,7 +94,8 @@ export async function publishToLinkedIn(post: SocialPost): Promise<PublishResult
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-Restli-Protocol-Version': '2.0.0',
       },
       body: JSON.stringify(body),
     });
