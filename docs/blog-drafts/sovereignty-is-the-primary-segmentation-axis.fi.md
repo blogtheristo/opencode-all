@@ -30,7 +30,7 @@ Suvereeniteetti on ensisijainen segmentointiakseli — ei ainoa.
 
 Säännelty eurooppalainen ostaja ei aloita ominaisuuksista. Hän aloittaa juridisesta kysymyksestä: jos yhdysvaltalainen tuomioistuin kysyy, voidaanko tämä toimittaja pakottaa antamaan yrityksemme tiedot heidän käyttöönsä?
 
-Palvelimen sijainti ei vastaa. CLOUD Act seuraa emoyhtiötä, ei räkkiä. Siksi “EU-hostaus” AWS:llä, Azurella tai Googella on residenssitarina, ei suvereenisuustarina.
+Palvelimen sijainti ei ratkaise suvereeniteettia. CLOUD Act seuraa emoyhtiötä, ei räkkiä. Siksi “EU-hostaus” AWS:llä, Azurella tai Googella on residenssitarina, ei suvereenisuustarina.
 
 Sama leikkaus näkyy omassa katalogissamme. Aegis, Sovereign Infra ja Connect eivät ole kolme tuotetta. Ne ovat syvyyksiä yhdellä akselilla — kuinka kaukana kuorma on yhdysvaltalaisesta emoyhtiöstä.
 
