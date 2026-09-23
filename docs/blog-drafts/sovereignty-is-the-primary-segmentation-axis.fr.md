@@ -23,19 +23,19 @@ La version courte
 
 La souveraineté est de la segmentation. Localement.
 
-Nous écrivions auparavant un titre plus faible : la souveraineté *est* la segmentation. Nous écrivions un chapô pire : le marché se coupe sur un seul axe. Les deux ont tort de la même manière. Ils aplatissent la première coupure en monopole.
+Nous écrivions auparavant un titre plus faible : la souveraineté _est_ la segmentation. Nous écrivions un chapô pire : le marché se coupe sur un seul axe. Les deux ont tort de la même manière. Ils aplatissent la première coupure en monopole.
 
 La phrase que nous utilisons maintenant est plus longue parce que la barrière porte la charge :
 
 La souveraineté est l'axe de segmentation principal — pas le seul.
-
-Retirez le tiret cadratin et vous revenez à la surinterprétation.
 
 ## Ce qu'est vraiment la première coupure
 
 Un acheteur européen régulé ne commence pas par les fonctions. Il commence par une question juridique : si un tribunal américain demande, ce fournisseur peut-il être contraint ?
 
 L'emplacement du serveur ne répond pas. Le CLOUD Act suit la maison mère, pas le rack. C'est pourquoi l'« hébergement UE » sur AWS, Azure ou Google est une histoire de résidence, pas de souveraineté.
+
+Les centres de données européens offrent pourtant une souveraineté réelle, mais à un autre niveau. Les données sont stockées et traitées dans l'UE, sous le RGPD. Certaines offres ajoutent un niveau opérationnel : l'AWS European Sovereign Cloud (Brandebourg, depuis janvier 2026) est exploité par du personnel résidant dans l'UE et des entités juridiques allemandes, l'EU Data Boundary de Microsoft maintient le traitement dans l'UE, et chez S3NS, l'entreprise française Thales exploite la technologie de Google. Dans l'appel d'offres Cloud III de la Commission, S3NS a obtenu SEAL-2 (souveraineté des données), le minimum de l'appel d'offres. Les clouds souverains d'AWS, de Microsoft et d'Oracle ne figurent pas sur la liste des attributaires Cloud III. Aucun ne supprime la juridiction de la maison mère. Ils conviennent donc bien aux charges de travail non sensibles — la plus grande partie dans la plupart des entreprises — mais pas à celles qui doivent résister à une injonction de divulgation d'un tribunal américain.
 
 La même coupure apparaît dans notre propre catalogue. Aegis, Sovereign Infra et Connect ne sont pas trois produits. Ce sont des profondeurs sur un axe — à quelle distance la charge se trouve d'une maison mère américaine.
 

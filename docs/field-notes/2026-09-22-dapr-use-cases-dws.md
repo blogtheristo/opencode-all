@@ -9,6 +9,32 @@ see "§3a Pilot: implemented" below.
 
 # Dapr Use Cases for DWS6/DWS7
 
+## VERSION AND AGENT HISTORY
+
+---
+
+Version: 1.2
+Tool: Claude Code
+Agent: Claude Fable 5.1 (standby runtime)
+Date: 2026-09-23
+Changes: [Latest] Added VERSION AND AGENT HISTORY block (Copilot review + Level 4 Standards check on PR #2066). No content change.
+
+Version: 1.1
+Tool: Claude Code
+Agent: Claude Sonnet 5
+Date: 2026-09-22
+Changes: [not latest] HIC approved §3 Phase 1; pilot implemented, §3a added. Mechanism/cost per use case, firm phased recommendation.
+
+Version: 1.0
+Tool: Claude Code
+Agent: Claude Sonnet 5
+Date: 2026-09-22
+Changes: [not latest] Initial use-case survey and pilot recommendation.
+
+---
+
+**Document Status:** PENDING_REVIEW · Last Modified: 2026-09-23 · Languages Available: EN · Harness: Claude Code (remote) · HIC-approved drift: none
+
 ## 0. What Dapr actually is, and why it's being considered here
 
 Dapr (Distributed Application Runtime, CNCF graduated) is not a framework

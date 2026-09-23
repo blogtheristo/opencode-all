@@ -1,0 +1,199 @@
+{
+  "meta": {
+    "version": "1.0",
+    "date": "2026-09-13",
+    "lang": "fr",
+    "page": "aegis-product"
+  },
+  "seo": {
+    "title": "",
+    "description": "",
+    "keywords": "",
+    "og_title": "",
+    "og_description": "",
+    "twitter_title": "",
+    "twitter_description": ""
+  },
+  "nav": {
+    "back_to_store": "",
+    "deployment_banner_title": "",
+    "eu_sovereign_cloud": "",
+    "dedicated_cloud_aegis": "",
+    "own_nvidia_dgx": "",
+    "deployment_banner_tagline": "",
+    "compare_deployments": ""
+  },
+  "hero": {
+    "h1": "",
+    "tagline": "",
+    "badge_1": "",
+    "badge_2": "",
+    "badge_3": "",
+    "intro": "",
+    "subtitle": "",
+    "cta_scoping_session": ""
+  },
+  "edip": {
+    "h2": "",
+    "intro": "",
+    "table_caption": "",
+    "table_rows": {
+      "eu_establishment": "",
+      "third_country_control": "",
+      "buy_european": "",
+      "defence_supply_chain": "",
+      "edip_compliance_stack": ""
+    }
+  },
+  "why_aegis": {
+    "h2": "",
+    "items": {
+      "sovereignty": "",
+      "single_tenant": "",
+      "dual_use_compliance": "",
+      "deterministic_factory": "",
+      "edip_aligned": ""
+    }
+  },
+  "financial_engine": {
+    "h2": "",
+    "p1": "",
+    "p2": ""
+  },
+  "sovereignty": {
+    "h2": "",
+    "intro": "",
+    "sovereignty_field_note": "",
+    "for_the_full_taxonomy": "",
+    "table_caption": "",
+    "table_rows": {
+      "data_sovereignty": "",
+      "technology_sovereignty": "",
+      "operational_sovereignty": "",
+      "jurisdiction_emphasis": "",
+      "quantum_resistant": ""
+    }
+  },
+  "technical_specs": {
+    "h2": "",
+    "items": {
+      "deployment_model": "",
+      "infrastructure": "",
+      "sovereignty": "",
+      "cloud_act_exposure": "",
+      "kubernetes": "",
+      "sla": "",
+      "database": "",
+      "cache_queue": "",
+      "gpu": "",
+      "egress": "",
+      "load_balancer": "",
+      "agent_isolation": "",
+      "ai_agents": "",
+      "cli_access": "",
+      "eu_ai_act": "",
+      "compliance": "",
+      "certifications_roadmap": "",
+      "security_audit": ""
+    }
+  },
+  "agents": {
+    "h2": "",
+    "table_header": "",
+    "items": {
+      "compliance_agent": "",
+      "sovereignty_monitor": "",
+      "argus_agent": "",
+      "sitesense_agent": "",
+      "material_oracle": "",
+      "operational_chronos": "",
+      "quality_gate": "",
+      "emissions_data_analyst": "",
+      "logistics_agent": "",
+      "construction_agent": "",
+      "kya_engine": "",
+      "article12_logger": "",
+      "cross_vertical_intel": "",
+      "gaia_agent": "",
+      "vulcan_agent": "",
+      "more_agents": ""
+    }
+  },
+  "target_market": {
+    "h2": "",
+    "items": {
+      "government": "",
+      "defence_industry": "",
+      "critical_infra": "",
+      "regulated_enterprise": "",
+      "geography": ""
+    }
+  },
+  "competitive": {
+    "h2": "",
+    "intro": "",
+    "table_header": "",
+    "competitors": {
+      "palantir": "",
+      "anduril": "",
+      "c3ai": "",
+      "big_four": ""
+    }
+  },
+  "signal_trace": {
+    "h2": "",
+    "subtitle": "",
+    "note": "",
+    "scenario": "",
+    "table_header": "",
+    "trace_stages": {
+      "trigger": "",
+      "upstream": "",
+      "midstream": "",
+      "downstream": "",
+      "regulatory": ""
+    }
+  },
+  "pricing": {
+    "h2": "",
+    "table_header": "",
+    "tiers": {
+      "standard": "",
+      "defence": "",
+      "sovereign": ""
+    }
+  },
+  "deployment_architecture": {
+    "h3": "",
+    "intro": "",
+    "h4_modes": "",
+    "mode_local": "",
+    "mode_cloud": "",
+    "mode_hybrid": "",
+    "h4_commercial": "",
+    "commercial_p1": "",
+    "commercial_p2": "",
+    "commercial_p3": "",
+    "supply_continuity": "",
+    "year1_cost": ""
+  },
+  "distribution": {
+    "h2": "",
+    "items": {
+      "ifs_cloud": "",
+      "sap_store": "",
+      "microsoft_appsource": "",
+      "define": "",
+      "direct_sales": ""
+    }
+  },
+  "cta_final": {
+    "button": ""
+  },
+  "page_version": "",
+  "ecosystem": {
+    "tag": "",
+    "h2": "",
+    "lead": ""
+  }
+}

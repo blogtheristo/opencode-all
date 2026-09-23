@@ -23,19 +23,19 @@ Die Kurzfassung
 
 Souveränität ist Segmentierung. Lokal.
 
-Wir schrieben früher eine schwächere Überschrift: Souveränität *ist* die Segmentierung. Wir schrieben eine schlechtere Einleitung: der Markt teilt sich auf einer Achse. Beides ist auf dieselbe Weise falsch. Sie drücken den ersten Schnitt zu einem Monopol flach.
+Wir schrieben früher eine schwächere Überschrift: Souveränität _ist_ die Segmentierung. Wir schrieben eine schlechtere Einleitung: der Markt teilt sich auf einer Achse. Beides ist auf dieselbe Weise falsch. Sie drücken den ersten Schnitt zu einem Monopol flach.
 
 Der Satz, den wir jetzt verwenden, ist länger, weil der Zaun lasttragend ist:
 
 Souveränität ist die primäre Segmentierungsachse — nicht die einzige.
-
-Streichen Sie den Gedankenstrich, und Sie sind wieder bei der Überzeichnung.
 
 ## Was der erste Schnitt tatsächlich ist
 
 Ein regulierter europäischer Käufer beginnt nicht mit Funktionen. Er beginnt mit einer Rechtsfrage: wenn ein US-Gericht fragt, kann dieser Anbieter gezwungen werden?
 
 Der Serverstandort antwortet nicht. Der CLOUD Act folgt dem Mutterunternehmen, nicht dem Rack. Deshalb ist „EU-Hosting“ auf AWS, Azure oder Google eine Residenzgeschichte, keine Souveränitätsgeschichte.
+
+Europäische Rechenzentren bieten dennoch echte Souveränität, nur auf einer anderen Ebene. Daten werden in der EU gespeichert und verarbeitet und unterliegen der DSGVO. Manche Angebote ergänzen eine operative Ebene: Die AWS European Sovereign Cloud (Brandenburg, seit Januar 2026) wird von in der EU ansässigem Personal und deutschen Gesellschaften betrieben, Microsofts EU Data Boundary hält die Verarbeitung in der EU, und bei S3NS betreibt das französische Unternehmen Thales Google-Technologie. In der Cloud-III-Ausschreibung der Kommission erhielt S3NS SEAL-2 (Datensouveränität), das Mindestniveau der Ausschreibung. Die souveränen Clouds von AWS, Microsoft und Oracle stehen nicht auf der Cloud-III-Zuschlagsliste. Keine davon beseitigt die Rechtshoheit des Mutterunternehmens. Deshalb passen sie gut für nicht sensible Arbeitslasten — und das ist in den meisten Unternehmen der größte Teil —, aber nicht für Arbeitslasten, die einer Herausgabeanordnung eines US-Gerichts standhalten müssen.
 
 Derselbe Schnitt erscheint in unserem eigenen Katalog. Aegis, Sovereign Infra und Connect sind keine drei Produkte. Sie sind Tiefen auf einer Achse — wie weit die Last von einem US-Mutterkonzern entfernt sitzt.
 

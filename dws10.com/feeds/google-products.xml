@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, designed to reduce CLOUD Act exposure. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>Sun, 20 Sep 2026 17:55:36 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 18:57:51 GMT</lastBuildDate>
     <g:feedVersion>2.0</g:feedVersion>
 
     <item>
@@ -1313,6 +1313,44 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>DWSIQ-ESS-SETUP-2026</g:mpn>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>LIFETIME-WEB-STARTER</g:id>
+      <g:title>Website Starter — Modern Business Site</g:title>
+      <g:description>Professional business website for new entrepreneurs. Modern design, mobile-optimized, SEO-ready. cari.fi-inspired template for quick setup and publishing. Perfect for showcasing your business online.</g:description>
+      <g:link>https://dws10.com//products/lifetime-web-starter.html</g:link>
+      <g:image_link></g:image_link>
+      <g:price>650.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>WEB-STARTER-2026</g:mpn>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>LIFETIME-WEBSTORE-MINI</g:id>
+      <g:title>Small Online Store with Price List</g:title>
+      <g:description>Compact e-commerce solution for small businesses. Includes online store setup, product catalog, and integrated price list. Ideal for entrepreneurs looking to start selling online.</g:description>
+      <g:link>https://dws10.com//products/lifetime-webstore-mini.html</g:link>
+      <g:image_link></g:image_link>
+      <g:price>350.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>WEBSTORE-MINI-2026</g:mpn>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>

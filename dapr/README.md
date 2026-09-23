@@ -1,5 +1,17 @@
 # Dapr Pub/Sub Pilot
 
+## VERSION AND AGENT HISTORY
+
+---
+
+Version: 1.0
+Tool: Claude Code
+Agent: Claude Sonnet 5
+Date: 2026-09-22
+Changes: [Latest] Initial run/rollback instructions for the pub/sub pilot.
+
+---
+
 Scope: **one event type** (`agent.task_complete`), **one building block**
 (pub/sub). Nothing else in `docs/field-notes/2026-09-22-dapr-use-cases-dws.md`
 (service invocation, state, actors) is implemented — do not extend this

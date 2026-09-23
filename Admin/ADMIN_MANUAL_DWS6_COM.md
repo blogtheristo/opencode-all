@@ -4,12 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Cursor AI | Session: Current | Date: 30.12.2025 | Changes: Initial creation - dws6.com deployment documentation
 - Version: 1.1 | Tool: Cursor AI (Claude Opus 4.5) | Session: 2026-01-08 | Date: 08.01.2026 | Changes: Updated hero text to "DWS 6 IQ Platform Administration Portal"; Added Public Cloud Version V1 branding; Documented portal vs login page distinction
+- Version: 1.2 | Tool: Claude Code 2.1.278 (anthropic/claude-opus-5) | Session: fix/dashboard-auth-wiring | Date: 22.09.2026 | Changes: Added §11 — Back-Office live-data API and server-side admin authorization (organization_members), V10 dashboard build/publish procedure (committed to dashboard/firehorse/v10/), DWS AB admin organization
 
 Session Links & References:
 
@@ -44,6 +45,8 @@ Document Status:
 7. [Supabase Backend Configuration](#7-supabase-backend-configuration)
 8. [Troubleshooting](#8-troubleshooting)
 9. [Monitoring & Analytics](#9-monitoring--analytics)
+10. [AI Agent Operational Guidelines](#10-ai-agent-operational-guidelines-claudemd)
+11. [Admin Dashboards: Back-Office API & V10](#11-admin-dashboards-back-office-api--v10)
 
 ---
 
@@ -1413,6 +1416,66 @@ In addition to Karpathy's 12 failure modes, DWS6 adds:
 **Versio:** 1.0  
 **Päivitetty:** 30. Joulukuuta 2025  
 **Seuraava päivitys:** Q1 2026
+
+---
+
+## 11. Admin Dashboards: Back-Office API & V10
+
+### 11.1 Who counts as an admin
+
+Admin access is decided server-side by the `organization_members` table: an **active** member with role **`owner`** or **`admin`** of any organization. This is the same rule as the SQL function `is_backoffice_admin()` (migration `011_fix_security_issues.sql`) that guards the Firehorse, customer and finance tables.
+
+The `role` in Supabase `user_metadata` (e.g. `backoffice_admin`) is **not** a security boundary — any signed-in user can edit their own `user_metadata` from the browser. Pages still read it to decide what UI to show, but data only comes from the server after the membership check.
+
+**Current admins (22.09.2026):** organization **DWS AB** (slug `dws-ab`) — `admin@dws10.com` and `risto.paarni2024@lifetime.fi`, both `owner` / `active`.
+
+**Add an admin** (Supabase SQL editor, project `kpucuwwfhuwurdxyjjtz`). A `user_profiles` row is required first (foreign key):
+
+```sql
+insert into public.user_profiles (id, email, status)
+select id, email, 'active' from auth.users where email = 'new.admin@example.com'
+on conflict (id) do nothing;
+
+insert into public.organization_members (organization_id, user_id, role, status)
+select o.id, u.id, 'admin', 'active'
+from public.organizations o, auth.users u
+where o.slug = 'dws-ab' and u.email = 'new.admin@example.com';
+```
+
+**Remove an admin:** `update public.organization_members set status = 'suspended' where user_id = '<uuid>';`
+
+### 11.2 Back-Office dashboard (`/dashboard/backoffice/`)
+
+The page sends the Supabase access token to the backend API `/api/v1/backoffice/*` (`src/routes/backoffice.routes.ts`). Every endpoint re-checks the membership rule above; non-admins get 403.
+
+| Endpoint                | Data source                                                                                                                |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `GET /stats`            | `user_profiles` counts (total, logged in last 7 days), `usage_events` rows today (UTC), `docker ps` counts, backend uptime |
+| `GET /containers`       | `docker ps -a` on the backend host                                                                                         |
+| `GET /users?limit=`     | newest `user_profiles` rows (max 200)                                                                                      |
+| `GET /audit-log?limit=` | newest `auth_audit_log` rows (max 200)                                                                                     |
+
+A card shows **—** when its source is unreachable — numbers are never invented. Container data only works where the backend can run Docker (DGX Spark); on Cloud Run the container cards show —.
+
+The page calls the API on the same origin unless `window.DWS_API_BASE` is set. Cloudflare Pages has no `/api` route, so on production the API host must be configured (open item).
+
+### 11.3 V10 dashboard (`/dashboard/firehorse/v10/`)
+
+- **Source:** `dashboard/firehorse/v10-react/` (Vite + React).
+- **Published build:** `dashboard/firehorse/v10/` — committed to git, because Cloudflare Pages runs no build command (§2.2). Serving the source folder directly produces a blank page.
+- **Login:** V10 imports `shared/config/supabase-config.js`, so it uses the same Supabase project and session key (`dws6-auth-token`) as the rest of dws6.com — an existing login carries over.
+
+**Rebuild after any V10 change** (then commit `v10/` together with the source change):
+
+```bash
+cd dws6.com/dashboard/firehorse/v10-react
+npm ci
+npm run build        # writes ../v10
+```
+
+Copy both folders to `landing-pages/dws6-com/dashboard/firehorse/` in the same commit (dual folder sync).
+
+**Known limitation:** refreshing the browser on a V10 sub-page (e.g. `/dashboard/firehorse/v10/login`) falls back to the site root, because there is no `_redirects` rewrite yet. Open V10 from its entry URL.
 
 ---
 

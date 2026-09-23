@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.30
+Version: 3.31
 
 Sessions & Modifications:
 
+- Version: 3.31 | Tool: Claude Code (Sonnet 5) | Session: (Temporal DGX deploy) | Date: 22.09.2026 | Changes: Deployed Temporal (PR #2068/#2070) on DGX Spark — `dws-temporal-postgres`/`dws-temporal` Healthy, `dws-temporal-worker` Started. Root-caused and fixed an unrelated pre-existing blocker: `dws-postgres` (v1.5.0) required `POSTGRES_PASSWORD`, never set, which failed `docker compose` interpolation for the _entire_ compose file. HIC-approved fresh `POSTGRES_PASSWORD` + `TEMPORAL_POSTGRES_PASSWORD` generated and documented in both `.env` files. Recorded a new Token & Credential Lifecycle decision: a planned Supabase `credentials_store` mirror (AES-256-GCM at rest, `CREDENTIALS_STORE_ENC_KEY` in `.env` only) scoped to outbound API/service credentials only, motivated by dev environments (e.g. Chromebook) with no local `.env`. Flagged `FACEBOOK_PAGE_TOKEN` in the Expiry register as possibly already past its noted 2026-08-20 expiry, unverified. Cross-refs: `docs/field-notes/2026-09-22-temporal-dgx-deploy-blocked-postgres-password.md`, `docs/dws-use-cases.md`.
 - Version: 3.30 | Tool: GitHub Copilot Coding Agent | Session: cursor/dgx-ollama-litellm-router-a455 | Date: 18.09.2026 | Changes: Merge resolution preserved LiteLLM router standards lock: Docker `OLLAMA_API_BASE` wiring (`host.docker.internal` in Linux compose), deployed Spark Ollama pair (`nemotron-3-super` + `qwen3-coder:30b`), and `FRONTIER-CLAUDE-OPUS` = `claude-opus-4-8`.
 - Version: 3.29 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark loginctl: this SSH is **130**; **129** is the other admin100 session; **c1** is gdm (leave it). `who` shows tmux(3006) on pts/0 since 17.09. Inspect tmux before `terminate-session 129` — that can kill tmux.
 - Version: 3.28 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark **GitHub CLI**. Official apt recipe **ran**; `gh` already **2.45.0-1ubuntu0.3+esm3** (Ubuntu ESM). cli.github.com did not replace it. Do not force-upgrade until `apt-cache policy gh`. GitHub flags 2.45.x community packages as broken (deprecated APIs).
@@ -313,16 +314,38 @@ Two rules follow, and they matter more than the checklist below:
 
 ### Storage tiers
 
-| Tier              | Store                                                                   | Used by                                                    |
-| ----------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------- |
-| Local development | `.env` (never committed; `.gitignore`-enforced)                         | developer machine, DGX Spark                               |
-| CI/CD             | GitHub repository secrets                                               | GitHub Actions workflows                                   |
-| Production        | Google Cloud Secret Manager (`europe-north1`, user-managed replication) | Cloud Run services — see `docs/CLOUD_ENVIRONMENTS.md` §4.5 |
+| Tier                          | Store                                                                                                                                                   | Used by                                                                                                                 |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Local development             | `.env` (never committed; `.gitignore`-enforced)                                                                                                         | developer machine, DGX Spark                                                                                            |
+| CI/CD                         | GitHub repository secrets                                                                                                                               | GitHub Actions workflows                                                                                                |
+| Production                    | Google Cloud Secret Manager (`europe-north1`, user-managed replication)                                                                                 | Cloud Run services — see `docs/CLOUD_ENVIRONMENTS.md` §4.5                                                              |
+| Cross-device mirror (planned) | Supabase `credentials_store` table — app-level AES-256-GCM ciphertext, decryption key `CREDENTIALS_STORE_ENC_KEY` lives only in `.env`, never in the DB | Any environment without a local `.env` (e.g. a Chromebook Claude Code session) that still needs to call an outbound API |
 
 **Backup: Proton Pass**, with full metadata (provider, owner, expiry, purpose, scope). This is a
 **new policy as of 2026-09-09** — prior to this the repo documented Proton Pass only as a product
 in the thesis material, never as the credential-of-record store. Existing tokens are not
 retroactively covered until someone does the pass.
+
+### Decision — Supabase credential mirror scope (HIC, 2026-09-22)
+
+Motivated by the DGX Spark Temporal rollout (below): some dev environments (e.g. a Chromebook
+session) have no local `.env` at all, so they cannot call outbound APIs today even when the
+credential exists on DGX Spark. Two scope questions were decided:
+
+1. **Encrypt at rest, not plaintext-in-RLS.** A leaked `service_role` key must not by itself
+   expose every credential — the table stores ciphertext, and only whoever also holds
+   `CREDENTIALS_STORE_ENC_KEY` (itself an `.env`-only secret, distributed once, out of band) can
+   decrypt. Rejected the simpler "plaintext + RLS locked to service_role" pattern used elsewhere
+   in this repo's Supabase tables, specifically because this table's blast radius (every mirrored
+   API key at once) is categorically larger than a normal data table's.
+2. **Mirror scope is outbound API/service credentials only** — Stripe, Meta, LinkedIn, DocuSign,
+   SES/Proton, GitHub, Cloudflare, Google, etc. Explicitly **not** mirrored: local-only settings
+   with no cross-device reason to exist off-host (DB pooler host/port, feature flags,
+   `CLAUDE_CODE_GIT_BASH_PATH`, and similar).
+
+Implementation (Temporal Activities/Workflow/Schedule, migration, dual-write to `.env` +
+Supabase) is tracked as a new Temporal use case in `docs/dws-use-cases.md` — **not yet built** as
+of this decision; this entry records the decision, not a completed rollout.
 
 ### Rotation protocol
 
@@ -341,9 +364,10 @@ retroactively covered until someone does the pass.
 
 ### Expiry register
 
-| Credential             | Scope                                                                              | Expires        | Notes                                                                        |
-| ---------------------- | ---------------------------------------------------------------------------------- | -------------- | ---------------------------------------------------------------------------- |
-| `CLOUDFLARE_API_TOKEN` | Zone → Cache Purge on dws10.com, dws6.com, lifetime.fi, onelifetime.world, cari.fi | **2027-07-01** | Renewed 2026-09-09, replacing a token expired 2026-08-01. Account API Token. |
+| Credential             | Scope                                                                              | Expires                             | Notes                                                                                                                                                                                                                                                                                          |
+| ---------------------- | ---------------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CLOUDFLARE_API_TOKEN` | Zone → Cache Purge on dws10.com, dws6.com, lifetime.fi, onelifetime.world, cari.fi | **2027-07-01**                      | Renewed 2026-09-09, replacing a token expired 2026-08-01. Account API Token.                                                                                                                                                                                                                   |
+| `FACEBOOK_PAGE_TOKEN`  | Meta Graph API — DWS IQ Store page publishing (App `2072010777010042`)             | **2026-08-20** (per `.env` comment) | **Flagged 2026-09-22, unresolved**: the recorded expiry is over a month before today. Not independently verified this session (would need Meta's `debug_token` endpoint). Treat as possibly already dead — same failure shape as the 2026-08-01 Cloudflare incident that created this section. |
 
 Add a row here whenever a credential with an expiry is minted. A credential whose expiry is not in
 this table is not being tracked, whatever the provider console says.
@@ -356,6 +380,9 @@ this table is not being tracked, whatever the provider console says.
 - `CLOUDFLARE_APII_TOKEN` — typo duplicate, dead, safe to delete.
 - No token carries **Account → Workers Scripts → Edit**, so `deploy-cloudflare-workflows.yml`
   cannot run until one is minted.
+- `FACEBOOK_PAGE_TOKEN` — expiry comment in `.env` (2026-08-20) is in the past as of 2026-09-22.
+  Not validated live this session. Needs a `debug_token` check against Meta's Graph API before
+  anything is built to auto-refresh it (the planned Temporal use case, see above).
 
 ### Compliance
 
@@ -416,6 +443,47 @@ Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no 
 - Migration status / runbook: `docs/migrations/2026-06-25-openclaw-to-nemoclaw.md`.
 
 ---
+
+## Temporal (DGX Spark self-hosted job/workflow durability)
+
+**Added 2026-09-22/23** (PR #2068, deployed PR #2070). Standalone-Activities-pattern durable
+job execution for DWS6 — see `docs/dws-use-cases.md` for the 12 use cases and
+`docs/field-notes/2026-09-22-temporal-use-cases.md` / `2026-09-23-temporal-dgx-spark-wiring-and-cost.md`
+for the design rationale.
+
+### Deployment status
+
+- **Live as of 2026-09-22**: `dws-temporal-postgres` and `dws-temporal` (both Healthy),
+  `dws-temporal-worker` (Started) — brought up via
+  `docker compose up -d temporal-postgres temporal dws-temporal-worker` from
+  `infrastructure/dgx-spark/`, compose v1.6.0.
+- **Deliberately separate Postgres.** `temporal-postgres` is its own instance, not
+  `dws-postgres` — a Temporal schema issue can never touch Tier 1 internal-ops data.
+- **Not yet done**: `npm run temporal:schedules:setup` (one-time hourly report-schedule
+  poll), the optional `temporal-ui` profile (port 8088), and wiring any live caller into the
+  new starters (`src/temporal/starters/`) — nothing currently submits jobs to the six task
+  queues, so the worker sits idle. See `docs/dws-use-cases.md` §"HIC decision needed" for
+  which caller goes live first (recommended: `outreach-full`, already wired end-to-end,
+  release gated by `npm run temporal:approve`).
+
+### Deployment blocker resolved: `POSTGRES_PASSWORD`
+
+The first deployment attempt (2026-09-22) failed for a reason unrelated to Temporal:
+`infrastructure/dgx-spark/docker-compose.yml` has required `dws-postgres` (added v1.5.0) to
+have `POSTGRES_PASSWORD` set since that version landed, and it never had been — so
+`docker compose` failed interpolating the _whole_ file, blocking every service, not just the
+new Temporal ones. `dws-postgres` had never actually been started on this host (no existing
+data volume). HIC generated and approved a fresh `POSTGRES_PASSWORD` on the spot; both it and
+`TEMPORAL_POSTGRES_PASSWORD` are now set in both `infrastructure/dgx-spark/.env` and root
+`.env`, each with a dated doc-comment above the line. Full account:
+`docs/field-notes/2026-09-22-temporal-dgx-deploy-blocked-postgres-password.md` (PR #2070).
+
+### Next Temporal use case — short-lived API key rotation (decided, not yet built)
+
+See the Supabase credential mirror decision under **Token & Credential Lifecycle
+Management** above — this is the Temporal use case that will populate/refresh that table
+(starting with `FACEBOOK_PAGE_TOKEN`, which the Expiry register above flags as possibly
+already past its noted expiry).
 
 ---
 
@@ -703,7 +771,6 @@ Simplest: type `exit` in **every** SSH window to this host (or close those windo
 ssh admin100@gn100-cb5d
 ```
 
-
 **Observed (HIC, 18.09.2026, this window is 130):**
 
 ```
@@ -783,7 +850,6 @@ If `dpkg` shows `docker.io` instead of `docker-ce`, stop and paste that output �
 Field note: `docs/field-notes/2026-09-18-spark-docker-29-2-1.md`.
 
 ---
-
 
 ### Spark GitHub CLI (operator)
 

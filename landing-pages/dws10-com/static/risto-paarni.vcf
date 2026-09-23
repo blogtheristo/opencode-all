@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Päärni;Risto Anton;;;
+FN:Risto Anton Päärni
+ORG:Lifetime Oy
+TITLE:Founder, CEO
+TEL;TYPE=CELL:+358400319010
+EMAIL;TYPE=WORK:risto.paarni@lifetime.fi
+ADR;TYPE=WORK:;;Laidunmaanraitti 2 A 25;Espoo;;02330;Finland
+URL:https://dws10.com
+END:VCARD

@@ -1,5 +1,23 @@
 # Handoff — claude/dapr-dws-use-cases-049za6
 
+## VERSION AND AGENT HISTORY
+
+---
+
+Version: 1.1
+Tool: Claude Code
+Agent: Claude Fable 5.1 (standby runtime)
+Date: 2026-09-23
+Changes: [Latest] Merged origin/main (CHANGELOG conflict resolved), standards headers added, PR #2066 driven to merge on HIC instruction.
+
+Version: 1.0
+Tool: Claude Code
+Agent: Claude Sonnet 5
+Date: 2026-09-22
+Changes: [not latest] Pilot implemented, default-off.
+
+---
+
 ## State
 
 Dapr pub/sub pilot (HIC-approved, §3 Phase 1) implemented and tested,

@@ -8,6 +8,20 @@ Author: Claude Fable 5.1 (Claude Code, standby runtime)
 
 # Dapr pilot shipped; Diagrid co-founder contact
 
+## VERSION AND AGENT HISTORY
+
+---
+
+Version: 1.0
+Tool: Claude Code
+Agent: Claude Fable 5.1 (standby runtime)
+Date: 2026-09-23
+Changes: [Latest] Initial learning-outcome note for 2026-09-23.
+
+---
+
+**Document Status:** PENDING_REVIEW · Last Modified: 2026-09-23 · Languages Available: EN · Harness: Claude Code (remote) · HIC-approved drift: none
+
 ## What happened
 
 1. **Dapr pub/sub pilot implemented and pushed** (HIC approved 2026-09-22).

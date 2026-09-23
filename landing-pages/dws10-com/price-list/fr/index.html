@@ -1194,16 +1194,61 @@
           var gov = pl.governance || {};
           var portfolio = data.commercialPortfolio || {};
           var seriousIds = portfolio.seriousProductIds;
-          if (!Array.isArray(seriousIds) || seriousIds.length !== 13) {
-            throw new Error("commercialPortfolio.seriousProductIds must contain exactly 13 IDs");
+          // Count drift is enforced in CI by scripts/validate-product-publication.mjs;
+          // the public page warns and renders what it can instead of going blank.
+          if (!Array.isArray(seriousIds)) seriousIds = [];
+          var expectedSerious = ((portfolio.surfaces || {}).buy || {}).expectedProductCount;
+          if (expectedSerious && seriousIds.length !== expectedSerious) {
+            console.warn(
+              "seriousProductIds has " +
+                seriousIds.length +
+                " IDs; surfaces.buy expects " +
+                expectedSerious,
+            );
           }
           var seriousLookup = {};
+          // Products with a .fi.html detail page (products.json detailsUrl + file exists, 2026-09-23)
+          var FI_DETAIL_PRODUCTS = {
+            "DWS-AEGIS-001": true,
+            "DWS-CLIMATE-001": true,
+            "DWS-EU-PILOT": true,
+            "DWS-EU-STARTER": true,
+            "DWS-IQ-006": true,
+            "DWS-IQ-FREE-2026": true,
+            "DWS-SOVEREIGN-DB-001": true,
+            "DWS-US-PILOT": true,
+            "DWS-US-STARTER": true,
+            "FH-AUTO-001": true,
+            "FH-CMS-001": true,
+            "FH-OMNI-001": true,
+            "FH-RPT-001": true,
+            "FH-SIGN-001": true,
+            "LF-COMPLIANCE-AMBULANCE-001": true,
+            "LF-DGX-SPARK": true,
+            "LF-IGX-ORIN": true,
+            "LF-JETSON-AGX": true,
+            "LF-JETSON-NANO": true,
+            "LF-JETSON-NX": true,
+            "LF-NVIDIA-INSTALL": true,
+            "LF-SITROOM-001": true,
+            "LIFETIME-BUNDLE-2026": true,
+            "LIFETIME-WEB-STARTER": true,
+            "LIFETIME-WEBSTORE-MINI": true,
+            "ai-consulting-agentic": true,
+            "consulting-fit55": true,
+            "consulting-hourly": true,
+            "edge-node-gn100": true,
+            "professional-web-pages": true,
+            "sovereignty-cloud-consulting": true,
+          };
+          var PAGE_FI = document.documentElement.lang === "fi";
           seriousIds.forEach(function (id) {
             seriousLookup[id] = true;
           });
           var independentIds = portfolio.independentProductIds;
-          if (!Array.isArray(independentIds) || independentIds.length !== 2) {
-            throw new Error("commercialPortfolio.independentProductIds must contain exactly 2 IDs");
+          if (!Array.isArray(independentIds)) independentIds = [];
+          if (independentIds.length !== 2) {
+            console.warn("independentProductIds has " + independentIds.length + " IDs; expected 2");
           }
           independentLookup = {};
           independentIds.forEach(function (id) {
@@ -1224,13 +1269,16 @@
             });
           seriousIds.forEach(function (id) {
             var product = catalogProducts[id];
-            if (!product) throw new Error("Serious product missing: " + id);
+            if (!product) {
+              console.warn("Serious product missing: " + id);
+              return;
+            }
             if (
               product.deploymentColor === "blue" ||
               product.archived === true ||
               product.productType === "archived"
             ) {
-              throw new Error("Serious product is not public: " + id);
+              console.warn("Serious product is not public: " + id);
             }
           });
 
@@ -1312,13 +1360,16 @@
 
           independentIds.forEach(function (id) {
             var product = products[id];
-            if (!product) throw new Error("Independent product missing: " + id);
+            if (!product) {
+              console.warn("Independent product missing: " + id);
+              return;
+            }
             if (
               product.deploymentColor === "blue" ||
               product.archived === true ||
               product.productType === "archived"
             ) {
-              throw new Error("Independent product is not public: " + id);
+              console.warn("Independent product is not public: " + id);
             }
           });
 
@@ -1399,26 +1450,34 @@
                   var rawDetails = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
                   var isMailto = rawDetails.indexOf("https://dws10.com/contact/") === 0;
                   var detailsHref = isMailto ? "" : rawDetails;
+                  var fiRow = PAGE_FI && FI_DETAIL_PRODUCTS[p.id] === true;
+                  var fiDetailsHref =
+                    fiRow && detailsHref ? detailsHref.replace(/\.html$/, ".fi.html") : "";
                   var pid = escapeHtml(p.id || "");
                   var pname = encodeURIComponent(p.name || p.id || "Product");
                   var cardBtn = seriousLookup[p.id]
                     ? '<a class="act-card" href="/buy/#product-' +
                       pid +
-                      '" title="Product card">Card</a>'
+                      '" title="Product card">' + (fiRow ? "Kortti" : "Card") + "</a>"
                     : "";
                   var detailBtn = detailsHref
                     ? '<a class="act-detail" href="' +
                       escapeHtml(detailsHref) +
-                      '" title="Full product details">Details</a>'
+                      '" title="Full product details">Details</a>' +
+                      (fiDetailsHref
+                        ? '<a class="act-detail" href="' +
+                          escapeHtml(fiDetailsHref) +
+                          '" title="Tuotetiedot suomeksi">Tuotetiedot</a>'
+                        : "")
                     : "";
                   var bookBtn =
                     '<a class="act-book" href="/book/?service=demo&amp;product=' +
                     pid +
-                    '" title="Book a meeting">Book&nbsp;Meeting</a>';
+                    '" title="Book a meeting">' + (fiRow ? "Varaa&nbsp;tapaaminen" : "Book&nbsp;Meeting") + "</a>";
                   var emailBtn =
-                    '<a class="act-email" href="https://dws10.com/contact/?subject=Enquiry%3A%20' +
+                    '<a class="act-email" href="https://dws10.com/contact/?subject=' + (fiRow ? "Tiedustelu%3A%20" : "Enquiry%3A%20") +
                     pname +
-                    '" title="Email sales">Email</a>';
+                    '" title="Email sales">' + (fiRow ? "Sähköposti" : "Email") + "</a>";
                   var btns =
                     '<div class="act-btns">' + cardBtn + detailBtn + bookBtn + emailBtn + "</div>";
                   var tierHtml = tierBadge(p.tier);
