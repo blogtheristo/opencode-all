@@ -1207,7 +1207,11 @@
             );
           }
           var seriousLookup = {};
-          var FI_DETAIL_PRODUCTS = { "LIFETIME-WEB-STARTER": true, "LIFETIME-WEBSTORE-MINI": true };
+          var FI_DETAIL_PRODUCTS = {
+            "LIFETIME-WEB-STARTER": true,
+            "LIFETIME-WEBSTORE-MINI": true,
+            "DWS-AEGIS-001": true,
+          };
           seriousIds.forEach(function (id) {
             seriousLookup[id] = true;
           });
@@ -1418,7 +1422,7 @@
                   var detailsHref = isMailto ? "" : rawDetails;
                   // Suomenkieliset tuotetiedot + painikkeet: vain tuotteille, joilla on .fi.html-sivu
                   var fiRow = FI_DETAIL_PRODUCTS[p.id] === true;
-                  if (fiRow && detailsHref) detailsHref = detailsHref.replace(/\.html$/, ".fi.html");
+                  var fiDetailsHref = fiRow && detailsHref ? detailsHref.replace(/\.html$/, ".fi.html") : "";
                   var pid = escapeHtml(p.id || "");
                   var pname = encodeURIComponent(p.name || p.id || "Product");
                   var cardBtn = seriousLookup[p.id]
@@ -1429,7 +1433,12 @@
                   var detailBtn = detailsHref
                     ? '<a class="act-detail" href="' +
                       escapeHtml(detailsHref) +
-                      '" title="Tuotetiedot">' + (fiRow ? "Tuotetiedot" : "Details") + "</a>"
+                      '" title="Product details (English)">Details</a>' +
+                      (fiDetailsHref
+                        ? '<a class="act-detail" href="' +
+                          escapeHtml(fiDetailsHref) +
+                          '" title="Tuotetiedot suomeksi">Tuotetiedot</a>'
+                        : "")
                     : "";
                   var bookBtn =
                     '<a class="act-book" href="/book/?service=demo&amp;product=' +

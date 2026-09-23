@@ -65,6 +65,11 @@
       '<a class="pa-card" href="' +
       cardHref +
       '" title="Product card on Store">' + L.card + '</a>' +
+      (PA_LANG !== 'en'
+        ? '<a class="pa-detail" href="' +
+          detailHref.replace('.' + PA_LANG + '.html', '.html') +
+          '" hreflang="en" title="Product details (English)">Details</a>'
+        : '') +
       '<span class="pa-detail pa-active" title="You are here — product detail page">' + L.details + '</span>' +
       '<a class="pa-book" href="/book/?service=demo&amp;product=' +
       encodeURIComponent(pid) +

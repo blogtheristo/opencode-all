@@ -15,6 +15,13 @@ HIC request (2026-09-23): "Details" → "Tuotetiedot"; when FI is chosen in the 
 - EN pages: fixed broken `</strong` tags, and fixed language links that pointed to `.en.html` and `.sv.html` pages that do not exist.
 - Mirrored to `landing-pages/dws10-com/`. The campaign mirror was stale compared with root commit 62fdb1f, so it was re-synced from root.
 
+## Follow-up (same day, HIC): show both Details and Tuotetiedot, add Aegis
+
+- The FI price-list rows for LIFETIME-WEB-STARTER, LIFETIME-WEBSTORE-MINI and DWS-AEGIS-001 now show both **Details** (English page) and **Tuotetiedot** (`.fi.html`).
+- The action bar on opted-in FI detail pages shows **Details** (a link to the EN page) next to the active **Tuotetiedot**.
+- Aegis: `aegis.fi.html` has `data-pa-lang="fi"`. `scripts/i18n/build-aegis-pages.cjs` now writes the same attribute on regeneration, so the change is not lost.
+- 57 products have a `.fi.html` page. Only these 3 are opted in so far.
+
 ## Open issue (not changed)
 
 The campaign prices are already reduced (€350 and €650; "OVH" €490 and €910). The product pages also say that code `CAMPAIGN-A5-40` gives a further 40 % off at checkout. Read together, this promises a double discount. The HIC must decide which one is true.
