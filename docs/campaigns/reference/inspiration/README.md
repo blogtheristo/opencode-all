@@ -1,6 +1,6 @@
 # Kampanjan inspiraatiokuvat (HIC 23.09.2026)
 
-Sisäinen referenssi. Ei yhtäkään julkiselle sivustolle sellaisenaan: kaikki neljä ovat kolmannen osapuolen tekijänoikeus- tai tavaramerkkimateriaalia, ja 04 sisältää kilpailevien yritysten nimet ja arvosanat.
+Kuvat 02–04 © Risto Anton Päärni (HIC 23.09.2026). Kuva 01 (Lincoln-mainos) ei ole omaa materiaalia: vain sisäinen referenssi, ei julkaista. Julkaistavat 50 % web-versiot: `dws10.com/static/images/campaign/`.
 
 | Kuva | Idea | Käyttö kampanjassa |
 | --- | --- | --- |

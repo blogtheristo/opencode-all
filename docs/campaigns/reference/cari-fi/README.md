@@ -1,6 +1,6 @@
 # cari.fi — referenssikuvat (HIC 23.09.2026)
 
-Carin Huoltopalvelu Tmi:n sivuston yksityiskohdat, joita käytetään mallina Lifetime Oy:n pienyrityskampanjassa (ihminen ja luottamus ensin). Sisäinen referenssi, ei julkaista.
+Carin Huoltopalvelu Tmi:n sivuston yksityiskohdat, © Risto Anton Päärni (sivuston tekijä). Malli Lifetime Oy:n pienyrityskampanjalle. Julkaistavat 50 % web-versiot: `dws10.com/static/images/campaign/ominaisuudet/`.
 
 | Kuva | Elementti | Miksi toimii pienyrittäjälle |
 | --- | --- | --- |
