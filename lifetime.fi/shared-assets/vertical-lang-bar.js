@@ -5,7 +5,7 @@
  * Owner: Lifetime Oy
  *
  * PAGE ELEMENT — not a menu/nav element.
- * Vertical 5-language showcase showing the "Agents. Loops. Workflows." milestone tagline.
+ * Vertical 5-language showcase showing the "Complex Workflow Specialists" tagline (HIC 23.09.2026).
  * Order: Suomi | Svenska | Deutsch | Français | English
  *
  * Usage: <script src="/shared-assets/vertical-lang-bar.js"></script>
@@ -28,35 +28,35 @@
       name: 'Suomi',
       flag: '🇫🇮',
       href: '/fi/',
-      text: 'Agentit. Silmukat. Työnkulut.',
+      text: 'Monimutkaisten työnkulkujen asiantuntijat',
     },
     {
       code: 'sv',
       name: 'Svenska',
       flag: '🇸🇪',
       href: '/sv/',
-      text: 'Agenter. Loopar. Arbetsflöden.',
+      text: 'Specialister på komplexa arbetsflöden',
     },
     {
       code: 'de',
       name: 'Deutsch',
       flag: '🇩🇪',
       href: '/de/',
-      text: 'Agenten. Schleifen. Workflows.',
+      text: 'Spezialisten für komplexe Workflows',
     },
     {
       code: 'fr',
       name: 'Français',
       flag: '🇫🇷',
       href: '/fr/',
-      text: 'Agents. Boucles. Flux de travail.',
+      text: 'Spécialistes des flux de travail complexes',
     },
     {
       code: 'en',
       name: 'English',
       flag: '🇬🇧',
       href: '/',
-      text: 'Agents. Loops. Workflows.',
+      text: 'Complex Workflow Specialists',
     },
   ];
 

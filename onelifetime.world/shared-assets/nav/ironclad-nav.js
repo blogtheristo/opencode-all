@@ -7,6 +7,7 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v4.3 — Compliance Hub ▸: added Vulnerability Disclosure Policy link (EU AI Act Art. 50 enforcement, 2 Aug 2026)
  * v4.2 — Solutions ▾: Industry Stack flyout (Industries Hub, DGX Spark, Situation Room, Control Room)
  * v4.1 — About ▾: removed dead "Team" link (no /team/ page exists on any site → 404)
  * v4.0 — Solutions ▾: Firehorse Production Engine added above Lifetime World Model V1
@@ -64,8 +65,11 @@
 
   // Domain-aware site configuration (v3.4)
   const hostname = window.location.hostname;
-  const siteConfig =
-    hostname === 'lifetime.fi' || hostname === 'www.lifetime.fi'
+  const onLifetime =
+    hostname === 'lifetime.fi' ||
+    hostname === 'www.lifetime.fi' ||
+    hostname.endsWith('.lifetime-fi.pages.dev');
+  const siteConfig = onLifetime
       ? {
           logo: 'static/images/LifetimeOy.png',
           logoAlt: 'Lifetime Oy',
@@ -80,7 +84,7 @@
         : {
             logo: 'DWS_IQ2026.png',
             logoAlt: 'DWS IQ Platform',
-            title: 'DWS IQ Platform Version 6',
+            title: 'Complex Workflow Specialists',
           };
   const onDws10 = hostname === 'dws10.com' || hostname === 'www.dws10.com';
   // Content base for shared pages that physically live on dws10.com.
@@ -92,6 +96,18 @@
     ? `${basePath}regulatory-notice/`
     : 'https://dws10.com/legal/';
   const priceListHref = onDws10 ? `${basePath}price-list/` : 'https://dws10.com/price-list/';
+
+  // lifetime.fi has its own compact menu (HIC 23.09.2026: the top bar is domain-specific).
+  const ltFi = ironcladCurrentLang === 'fi';
+  const LT = ltFi
+    ? { home: 'Etusivu', web: 'Verkkopalvelut', price: 'Hinnasto', fleet: 'Lifetime Fleet', iq: 'DWS IQ (teollisuus-AI)', contact: '💬 WhatsApp · Myynti' }
+    : { home: 'Home', web: 'Web services', price: 'Price list', fleet: 'Lifetime Fleet', iq: 'DWS IQ (industrial AI)', contact: '💬 WhatsApp · Sales' };
+  const lifetimeMenuHTML = `
+                <li class="ironclad-menu-item"><a href="${ltFi ? '/fi/' : '/'}" class="ironclad-link">${LT.home}</a></li>
+                <li class="ironclad-menu-item"><a href="https://dws10.com/campaigns/a5-kampanja-kaksipuolinen.html" class="ironclad-link">${LT.web}</a></li>
+                <li class="ironclad-menu-item"><a href="https://dws10.com/price-list/${ltFi ? 'fi/' : ''}" class="ironclad-link">${LT.price}</a></li>
+                <li class="ironclad-menu-item"><a href="https://dws10.com/lifetime-fleet/" class="ironclad-link">${LT.fleet}</a></li>
+                <li class="ironclad-menu-item"><a href="https://dws10.com/" class="ironclad-link">${LT.iq}</a></li>`;
 
   // 5-language i18n translations for nav items (v5.0)
   var NAV_I18N = {
@@ -119,34 +135,6 @@
     },
     careers: { fi: 'Rekrytointi', sv: 'Karriär', de: 'Karriere', fr: 'Carrières', en: 'Careers' },
     partners: { fi: 'Kumppanit', sv: 'Partners', de: 'Partner', fr: 'Partenaires', en: 'Partners' },
-    'industry-captains': {
-      fi: 'Toimialakapteenit',
-      sv: 'Branschkaptener',
-      de: 'Branchenkapitäne',
-      fr: 'Capitaines sectoriels',
-      en: 'Industry Captains',
-    },
-    'fleet-admiral': {
-      fi: 'Laivastoamiraali',
-      sv: 'Flottamiral',
-      de: 'Flottenadmiral',
-      fr: 'Amiral de flotte',
-      en: 'Fleet Admiral',
-    },
-    'fleet-admiral-icon': {
-      fi: '⚓ Laivastoamiraali',
-      sv: '⚓ Flottamiral',
-      de: '⚓ Flottenadmiral',
-      fr: '⚓ Amiral de flotte',
-      en: '⚓ Fleet Admiral',
-    },
-    'investor-relations': {
-      fi: 'Sijoittajasuhteet',
-      sv: 'Investerarrelationer',
-      de: 'Investor Relations',
-      fr: 'Relations investisseurs',
-      en: 'Investor Relations',
-    },
     'press-releases': {
       fi: 'Lehdistötiedotteet',
       sv: 'Pressmeddelanden',
@@ -223,6 +211,13 @@
       de: 'Dual-Use & Verteidigung (Aegis)',
       fr: 'Double usage & Défense (Aegis)',
       en: 'Dual-Use & Defence (Aegis)',
+    },
+    vdp: {
+      fi: 'Haavoittuvuuksien ilmoituskäytäntö',
+      sv: 'Policy för sårbarhetsrapportering',
+      de: 'Richtlinie zur Offenlegung von Sicherheitslücken',
+      fr: 'Politique de divulgation des vulnérabilités',
+      en: 'Vulnerability Disclosure Policy',
     },
     'interruption-calc': {
       fi: 'Keskeytyslaskuri',
@@ -360,13 +355,6 @@
       fr: 'Investisseur ▸',
       en: 'Investor ▸',
     },
-    'captain-seats': {
-      fi: 'Kapteenipaikat',
-      sv: 'Kaptenplatser',
-      de: 'Kapitänsplätze',
-      fr: 'Sièges de capitaine',
-      en: 'Industry Captain Seats',
-    },
     'regulatory-notice': {
       fi: 'Sääntelyilmoitus',
       sv: 'Regulatoriskt meddelande',
@@ -456,10 +444,6 @@
     'Company ▸': 'company',
     Careers: 'careers',
     Partners: 'partners',
-    'Industry Captains': 'industry-captains',
-    'Fleet Admiral': 'fleet-admiral',
-    '⚓ Fleet Admiral': 'fleet-admiral-icon',
-    'Investor Relations': 'investor-relations',
     'Press Releases': 'press-releases',
     'Legal Hub': 'legal-hub',
     'Solutions ▾': 'solutions-menu',
@@ -471,6 +455,7 @@
     'Compliance Hub': 'compliance',
     'Trust Center': 'trust-center',
     'Dual-Use & Defence (Aegis)': 'dual-use',
+    'Vulnerability Disclosure Policy': 'vdp',
     Keskeytyslaskuri: 'interruption-calc',
     'Integrations ▸': 'integrations-menu',
     'All Enterprise Integrations': 'all-integrations',
@@ -493,7 +478,6 @@
     'Partner Program': 'partner-program',
     '📅 Book Meeting': 'book-meeting',
     'Investor ▸': 'investor',
-    'Industry Captain Seats': 'captain-seats',
     'Regulatory Notice': 'regulatory-notice',
     'Lifetime Group ▸': 'lifetime-group',
     'DWS Roadmap': 'roadmap',
@@ -553,6 +537,7 @@
                 <button class="ironclad-close" aria-label="Close menu">&times;</button>
             </div>
             <ul class="ironclad-menu">
+${onLifetime ? lifetimeMenuHTML : `
                 <!-- Home ▾ -->
                 <li class="ironclad-menu-item">
                     <a href="#" class="ironclad-link">Home ▾</a>
@@ -569,10 +554,10 @@
                             <ul class="ironclad-submenu">
                                 <li><a href="${contentBase}careers/">Careers</a></li>
                                 <li><a href="${contentBase}partners/">Partners</a></li>
-                                <li><a href="${contentBase}captain/" style="color: #d4a843; font-weight: 600;">Industry Captains</a></li>
-                                <li><a href="${contentBase}fleet-admiral/" style="color: #d4a843; font-weight: 600;">Fleet Admiral</a></li>
+                                <li><a href="${contentBase}investor-centre/captain/" style="color: #d4a843; font-weight: 600;">Captain</a></li>
+                                <li><a href="${contentBase}investor-centre/admiral/" style="color: #d4a843; font-weight: 600;">Admiral</a></li>
                                 <li><a href="${contentBase}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
-                                <li><a href="${contentBase}investor-relations/">Investor Relations</a></li>
+                                <li><a href="${contentBase}investor-centre/">Investor Centre</a></li>
                                 <li><a href="${contentBase}press-releases/">Press Releases</a></li>
                                 <li class="ironclad-has-submenu">
                                     <a href="${contentBase}lifetime-fleet/" class="ironclad-primary">Lifetime Fleet ▸</a>
@@ -625,6 +610,7 @@
                             <ul class="ironclad-submenu">
                                 <li><a href="${contentBase}compliance/">Compliance Hub</a></li>
                                 <li><a href="${contentBase}compliance/trust-center/">Trust Center</a></li>
+                                <li><a href="${contentBase}compliance/vulnerability-disclosure-policy/">Vulnerability Disclosure Policy</a></li>
                                 <li><a href="${contentBase}dual-use/" style="color: #d4a843;">Dual-Use &amp; Defence (Aegis)</a></li>
                             </ul>
                         </li>
@@ -677,8 +663,7 @@
                     <a href="#" class="ironclad-link">About ▾</a>
                     <ul class="ironclad-dropdown">
                         <li><a href="https://onelifetime.world" target="_blank">Lifetime World</a></li>
-                        <li><a href="https://onelifetime.world/blog/" class="ironclad-primary">📰 LSJ Business Blog</a></li>
-                        <li><a href="${contentBase}team/">Team</a></li>
+                        <li><a href="https://onelifetime.world/blog/" target="_blank" class="ironclad-primary">📰 LSJ Business Blog</a></li>
                         <li><a href="${contentBase}careers/">Careers</a></li>
                         <li class="ironclad-has-submenu">
                             <a href="${contentBase}partners/" class="ironclad-primary">Partner Tiers ▸</a>
@@ -693,13 +678,13 @@
                         <li class="ironclad-separator"></li>
                         <!-- Investor section (Press Releases, Investor Relations, Series A, Investment Safety) -->
                         <li class="ironclad-has-submenu">
-                            <a href="${contentBase}investor-relations/" class="ironclad-primary">Investor ▸</a>
+                            <a href="${contentBase}investor-centre/" class="ironclad-primary">Investor ▸</a>
                             <ul class="ironclad-submenu">
-                                <li><a href="${contentBase}investor-relations/" class="ironclad-primary">Investor Relations</a></li>
+                                <li><a href="${contentBase}investor-centre/" class="ironclad-primary">Investor Centre</a></li>
                                 <li><a href="${contentBase}press-releases/" class="ironclad-primary">Press Releases</a></li>
                                 <li><a href="${contentBase}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
-                                <li><a href="${contentBase}fleet-admiral/" style="color: #ffd700; font-weight: 700;">⚓ Fleet Admiral</a></li>
-                                <li><a href="${contentBase}captain/" style="color: #d4a843; font-weight: 600;">Industry Captain Seats</a></li>
+                                <li><a href="${contentBase}investor-centre/admiral/" style="color: #ffd700; font-weight: 700;">⚓ Admiral</a></li>
+                                <li><a href="${contentBase}investor-centre/captain/" style="color: #d4a843; font-weight: 600;">Captain</a></li>
                                 <li><a href="${regulatoryNoticeHref}">Regulatory Notice</a></li>
                             </ul>
                         </li>
@@ -718,6 +703,7 @@
                     </ul>
                 </li>
 
+`}
                 <!-- Language Selector -->
                 <li class="ironclad-menu-item ironclad-lang-item">
                     <button class="ironclad-lang-toggle" aria-label="Select language" aria-expanded="false">
@@ -730,6 +716,10 @@
                     </ul>
                 </li>
 
+${onLifetime ? `
+                <li class="ironclad-menu-item">
+                    <a href="https://wa.me/358400319010" class="ironclad-cta-book" title="WhatsApp +358 400 319 010" target="_blank" rel="noopener">${LT.contact}</a>
+                </li>` : `
                 <!-- Book Meeting CTA -->
                 <li class="ironclad-menu-item">
                     <a href="https://dws10.com/book/?service=demo" class="ironclad-cta-book" title="Book a meeting — Demo or Consultation">📅 Book Meeting</a>
@@ -753,6 +743,7 @@
                         </svg>
                     </a>
                 </li>
+`}
             </ul>
         </nav>
     </div>

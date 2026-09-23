@@ -65,8 +65,11 @@
 
   // Domain-aware site configuration (v3.4)
   const hostname = window.location.hostname;
-  const siteConfig =
-    hostname === 'lifetime.fi' || hostname === 'www.lifetime.fi'
+  const onLifetime =
+    hostname === 'lifetime.fi' ||
+    hostname === 'www.lifetime.fi' ||
+    hostname.endsWith('.lifetime-fi.pages.dev');
+  const siteConfig = onLifetime
       ? {
           logo: 'static/images/LifetimeOy.png',
           logoAlt: 'Lifetime Oy',
@@ -81,7 +84,7 @@
         : {
             logo: 'DWS_IQ2026.png',
             logoAlt: 'DWS IQ Platform',
-            title: 'DWS IQ Platform Version 6',
+            title: 'Complex Workflow Specialists',
           };
   const onDws10 = hostname === 'dws10.com' || hostname === 'www.dws10.com';
   // Content base for shared pages that physically live on dws10.com.
@@ -93,6 +96,18 @@
     ? `${basePath}regulatory-notice/`
     : 'https://dws10.com/legal/';
   const priceListHref = onDws10 ? `${basePath}price-list/` : 'https://dws10.com/price-list/';
+
+  // lifetime.fi has its own compact menu (HIC 23.09.2026: the top bar is domain-specific).
+  const ltFi = ironcladCurrentLang === 'fi';
+  const LT = ltFi
+    ? { home: 'Etusivu', web: 'Verkkopalvelut', price: 'Hinnasto', fleet: 'Lifetime Fleet', iq: 'DWS IQ (teollisuus-AI)', contact: '💬 WhatsApp · Myynti' }
+    : { home: 'Home', web: 'Web services', price: 'Price list', fleet: 'Lifetime Fleet', iq: 'DWS IQ (industrial AI)', contact: '💬 WhatsApp · Sales' };
+  const lifetimeMenuHTML = `
+                <li class="ironclad-menu-item"><a href="${ltFi ? '/fi/' : '/'}" class="ironclad-link">${LT.home}</a></li>
+                <li class="ironclad-menu-item"><a href="https://dws10.com/campaigns/a5-kampanja-kaksipuolinen.html" class="ironclad-link">${LT.web}</a></li>
+                <li class="ironclad-menu-item"><a href="https://dws10.com/price-list/${ltFi ? 'fi/' : ''}" class="ironclad-link">${LT.price}</a></li>
+                <li class="ironclad-menu-item"><a href="https://dws10.com/lifetime-fleet/" class="ironclad-link">${LT.fleet}</a></li>
+                <li class="ironclad-menu-item"><a href="https://dws10.com/" class="ironclad-link">${LT.iq}</a></li>`;
 
   // 5-language i18n translations for nav items (v5.0)
   var NAV_I18N = {
@@ -522,6 +537,7 @@
                 <button class="ironclad-close" aria-label="Close menu">&times;</button>
             </div>
             <ul class="ironclad-menu">
+${onLifetime ? lifetimeMenuHTML : `
                 <!-- Home ▾ -->
                 <li class="ironclad-menu-item">
                     <a href="#" class="ironclad-link">Home ▾</a>
@@ -687,6 +703,7 @@
                     </ul>
                 </li>
 
+`}
                 <!-- Language Selector -->
                 <li class="ironclad-menu-item ironclad-lang-item">
                     <button class="ironclad-lang-toggle" aria-label="Select language" aria-expanded="false">
@@ -699,6 +716,10 @@
                     </ul>
                 </li>
 
+${onLifetime ? `
+                <li class="ironclad-menu-item">
+                    <a href="https://wa.me/358400319010" class="ironclad-cta-book" title="WhatsApp +358 400 319 010" target="_blank" rel="noopener">${LT.contact}</a>
+                </li>` : `
                 <!-- Book Meeting CTA -->
                 <li class="ironclad-menu-item">
                     <a href="https://dws10.com/book/?service=demo" class="ironclad-cta-book" title="Book a meeting — Demo or Consultation">📅 Book Meeting</a>
@@ -722,6 +743,7 @@
                         </svg>
                     </a>
                 </li>
+`}
             </ul>
         </nav>
     </div>
