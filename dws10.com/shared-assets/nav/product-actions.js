@@ -3,6 +3,7 @@
  * Injects a 6-button action bar on every product detail page.
  * Buttons: Card | Details (active) | Book Meeting | Email | Store | Price List
  * Auto-detects product from products.json by matching current URL filename.
+ * Opt-in localisation: <html data-pa-lang="fi"> switches labels and targets.
  */
 (function () {
   'use strict';
@@ -33,6 +34,15 @@
     '.pa-bar a,.pa-bar span{font-size:0.68rem;padding:3px 9px;}}',
   ].join('');
 
+  var PA_LANG = document.documentElement.getAttribute('data-pa-lang') || 'en';
+  var LABELS = {
+    en: { card: 'Card', details: 'Details', book: 'Book&nbsp;Meeting', email: 'Email',
+      store: 'Store', pricelist: 'Price&nbsp;List', enquiry: 'Enquiry: ', priceHref: '/price-list/' },
+    fi: { card: 'Kortti', details: 'Tuotetiedot', book: 'Varaa&nbsp;tapaaminen', email: 'Sähköposti',
+      store: 'Kauppa', pricelist: 'Hinnasto', enquiry: 'Tiedustelu: ', priceHref: '/price-list/fi/' },
+  };
+  var L = LABELS[PA_LANG] || LABELS.en;
+
   function injectStyle() {
     var s = document.createElement('style');
     s.textContent = STYLES;
@@ -42,7 +52,7 @@
   function buildBar(productId, productName) {
     var pid = productId || '';
     var pname = productName || document.title || 'Product';
-    var subject = encodeURIComponent('Enquiry: ' + pname);
+    var subject = encodeURIComponent(L.enquiry + pname);
     var cardHref = pid ? '/buy/#product-' + encodeURIComponent(pid) : '/buy/';
     var detailHref = window.location.pathname;
 
@@ -54,16 +64,16 @@
     bar.innerHTML =
       '<a class="pa-card" href="' +
       cardHref +
-      '" title="Product card on Store">Card</a>' +
-      '<span class="pa-detail pa-active" title="You are here — product detail page">Details</span>' +
+      '" title="Product card on Store">' + L.card + '</a>' +
+      '<span class="pa-detail pa-active" title="You are here — product detail page">' + L.details + '</span>' +
       '<a class="pa-book" href="/book/?service=demo&amp;product=' +
       encodeURIComponent(pid) +
-      '" title="Book a meeting">Book&nbsp;Meeting</a>' +
+      '" title="Book a meeting">' + L.book + '</a>' +
       '<a class="pa-email" href="https://dws10.com/contact/?subject=' +
       subject +
-      '" title="Email sales">Email</a>' +
-      '<a class="pa-store" href="/buy/" title="Browse the store">Store</a>' +
-      '<a class="pa-pricelist" href="/price-list/" title="Full price list">Price&nbsp;List</a>';
+      '" title="Email sales">' + L.email + '</a>' +
+      '<a class="pa-store" href="/buy/" title="Browse the store">' + L.store + '</a>' +
+      '<a class="pa-pricelist" href="' + L.priceHref + '" title="Full price list">' + L.pricelist + '</a>';
 
     return bar;
   }
@@ -81,7 +91,8 @@
 
   function currentFilename() {
     var path = window.location.pathname;
-    return path.replace(/\/$/, '').split('/').pop() || '';
+    var file = path.replace(/\/$/, '').split('/').pop() || '';
+    return PA_LANG !== 'en' ? file.replace('.' + PA_LANG + '.html', '.html') : file;
   }
 
   function findProduct(products) {

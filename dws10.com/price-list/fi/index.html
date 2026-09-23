@@ -1207,6 +1207,7 @@
             );
           }
           var seriousLookup = {};
+          var FI_DETAIL_PRODUCTS = { "LIFETIME-WEB-STARTER": true, "LIFETIME-WEBSTORE-MINI": true };
           seriousIds.forEach(function (id) {
             seriousLookup[id] = true;
           });
@@ -1415,26 +1416,29 @@
                   var rawDetails = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
                   var isMailto = rawDetails.indexOf("https://dws10.com/contact/") === 0;
                   var detailsHref = isMailto ? "" : rawDetails;
+                  // Suomenkieliset tuotetiedot + painikkeet: vain tuotteille, joilla on .fi.html-sivu
+                  var fiRow = FI_DETAIL_PRODUCTS[p.id] === true;
+                  if (fiRow && detailsHref) detailsHref = detailsHref.replace(/\.html$/, ".fi.html");
                   var pid = escapeHtml(p.id || "");
                   var pname = encodeURIComponent(p.name || p.id || "Product");
                   var cardBtn = seriousLookup[p.id]
                     ? '<a class="act-card" href="/buy/#product-' +
                       pid +
-                      '" title="Product card">Card</a>'
+                      '" title="Tuotekortti">' + (fiRow ? "Kortti" : "Card") + "</a>"
                     : "";
                   var detailBtn = detailsHref
                     ? '<a class="act-detail" href="' +
                       escapeHtml(detailsHref) +
-                      '" title="Full product details">Details</a>'
+                      '" title="Tuotetiedot">' + (fiRow ? "Tuotetiedot" : "Details") + "</a>"
                     : "";
                   var bookBtn =
                     '<a class="act-book" href="/book/?service=demo&amp;product=' +
                     pid +
-                    '" title="Book a meeting">Book&nbsp;Meeting</a>';
+                    '" title="Varaa tapaaminen">' + (fiRow ? "Varaa&nbsp;tapaaminen" : "Book&nbsp;Meeting") + "</a>";
                   var emailBtn =
-                    '<a class="act-email" href="https://dws10.com/contact/?subject=Enquiry%3A%20' +
+                    '<a class="act-email" href="https://dws10.com/contact/?subject=' + (fiRow ? "Tiedustelu%3A%20" : "Enquiry%3A%20") +
                     pname +
-                    '" title="Email sales">Email</a>';
+                    '" title="Sähköposti myyntiin">' + (fiRow ? "Sähköposti" : "Email") + "</a>";
                   var btns =
                     '<div class="act-btns">' + cardBtn + detailBtn + bookBtn + emailBtn + "</div>";
                   var tierHtml = tierBadge(p.tier);
