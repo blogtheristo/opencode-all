@@ -3,7 +3,7 @@
  * Injects a 6-button action bar on every product detail page.
  * Buttons: Card | Details (active) | Book Meeting | Email | Store | Price List
  * Auto-detects product from products.json by matching current URL filename.
- * Opt-in localisation: <html data-pa-lang="fi"> switches labels and targets.
+ * Localisation: <html lang="fi"> (or data-pa-lang) switches labels and targets.
  */
 (function () {
   'use strict';
@@ -34,7 +34,9 @@
     '.pa-bar a,.pa-bar span{font-size:0.68rem;padding:3px 9px;}}',
   ].join('');
 
-  var PA_LANG = document.documentElement.getAttribute('data-pa-lang') || 'en';
+  var PA_LANG =
+    document.documentElement.getAttribute('data-pa-lang') ||
+    (document.documentElement.lang === 'fi' ? 'fi' : 'en');
   var LABELS = {
     en: { card: 'Card', details: 'Details', book: 'Book&nbsp;Meeting', email: 'Email',
       store: 'Store', pricelist: 'Price&nbsp;List', enquiry: 'Enquiry: ', priceHref: '/price-list/' },

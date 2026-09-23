@@ -1208,9 +1208,37 @@
           }
           var seriousLookup = {};
           var FI_DETAIL_PRODUCTS = {
+            "DWS-AEGIS-001": true,
+            "DWS-CLIMATE-001": true,
+            "DWS-EU-PILOT": true,
+            "DWS-EU-STARTER": true,
+            "DWS-IQ-006": true,
+            "DWS-IQ-FREE-2026": true,
+            "DWS-SOVEREIGN-DB-001": true,
+            "DWS-US-PILOT": true,
+            "DWS-US-STARTER": true,
+            "FH-AUTO-001": true,
+            "FH-CMS-001": true,
+            "FH-OMNI-001": true,
+            "FH-RPT-001": true,
+            "FH-SIGN-001": true,
+            "LF-COMPLIANCE-AMBULANCE-001": true,
+            "LF-DGX-SPARK": true,
+            "LF-IGX-ORIN": true,
+            "LF-JETSON-AGX": true,
+            "LF-JETSON-NANO": true,
+            "LF-JETSON-NX": true,
+            "LF-NVIDIA-INSTALL": true,
+            "LF-SITROOM-001": true,
+            "LIFETIME-BUNDLE-2026": true,
             "LIFETIME-WEB-STARTER": true,
             "LIFETIME-WEBSTORE-MINI": true,
-            "DWS-AEGIS-001": true,
+            "ai-consulting-agentic": true,
+            "consulting-fit55": true,
+            "consulting-hourly": true,
+            "edge-node-gn100": true,
+            "professional-web-pages": true,
+            "sovereignty-cloud-consulting": true,
           };
           seriousIds.forEach(function (id) {
             seriousLookup[id] = true;
@@ -1420,7 +1448,7 @@
                   var rawDetails = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
                   var isMailto = rawDetails.indexOf("https://dws10.com/contact/") === 0;
                   var detailsHref = isMailto ? "" : rawDetails;
-                  // Suomenkieliset tuotetiedot + painikkeet: vain tuotteille, joilla on .fi.html-sivu
+                  // Tuotteet, joilla on .fi.html-tuotesivu (products.json detailsUrl + tiedosto olemassa, 2026-09-23)
                   var fiRow = FI_DETAIL_PRODUCTS[p.id] === true;
                   var fiDetailsHref = fiRow && detailsHref ? detailsHref.replace(/\.html$/, ".fi.html") : "";
                   var pid = escapeHtml(p.id || "");

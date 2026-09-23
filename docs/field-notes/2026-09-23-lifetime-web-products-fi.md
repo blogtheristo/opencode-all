@@ -1,8 +1,26 @@
-# Lifetime web products — Finnish detail pages and FI price-list buttons
+# 2026-09-23 — Lifetime web products: Finnish detail pages and FI price-list buttons
 
-**Date:** 2026-09-23
-**Branch:** `claude/lifetime-web-products-fi`
-**Status:** PENDING_REVIEW
+# VERSION AND AGENT HISTORY
+
+---
+
+Version: 1.1 [Latest]
+
+Sessions & Modifications:
+
+- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/lifetime-web-products-fi | Date: 23.09.2026 | Changes: HIC approved "Details + Tuotetiedot" for all products with an FI page (31 price-list rows, 57 action-bar pages); one discount only; offer valid until further notice.
+- Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/lifetime-web-products-fi | Date: 23.09.2026 | Changes: FI detail pages for WEB-STARTER and WEBSTORE-MINI; FI price-list buttons; Aegis opt-in.
+
+Document Status:
+
+- Created: 23.09.2026
+- Last Modified: 23.09.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
+- Status: PENDING_REVIEW
+
+---
 
 ## What happened
 
@@ -21,6 +39,12 @@ HIC request (2026-09-23): "Details" → "Tuotetiedot"; when FI is chosen in the 
 - The action bar on opted-in FI detail pages shows **Details** (a link to the EN page) next to the active **Tuotetiedot**.
 - Aegis: `aegis.fi.html` has `data-pa-lang="fi"`. `scripts/i18n/build-aegis-pages.cjs` now writes the same attribute on regeneration, so the change is not lost.
 - 57 products have a `.fi.html` page. Only these 3 are opted in so far.
+
+## Extension (HIC, 2026-09-23): every product with an FI page
+
+- FI price list: every product whose `detailsUrl` has a `.fi.html` counterpart (31 rows) shows **Details** (EN) and **Tuotetiedot** (FI), with Finnish labels on the other row buttons. The ID list is generated from `products.json` plus the files that exist. All 31 targets return HTTP 200 locally.
+- `product-actions.js` now follows `<html lang="fi">` (the explicit `data-pa-lang` still works), so all 57 FI detail pages that load the bar show the Finnish bar with a Details link to the EN page. All 57 EN counterparts exist. No per-page or generator edits were needed.
+- Not in scope: SV/DE/FR pages keep the English bar. The remaining non-FI rows in the FI price list keep English button labels.
 
 ## Resolved: one discount only (HIC, 2026-09-23)
 
