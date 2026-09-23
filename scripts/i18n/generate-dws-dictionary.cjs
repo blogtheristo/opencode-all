@@ -644,6 +644,27 @@ shared.tagline_olw = T(
   },
 );
 
+// SEO: terms that become article:tag / JSON-LD keywords on blog posts
+// (scripts/blog/seo-tags.mjs). KYA-S1 and process terms set seo: true where defined.
+for (const key of [
+  'eu_ai_act',
+  'kya',
+  'cld_act',
+  'data_sovereignty',
+  'sovereign_infrastructure',
+  'eu_sovereign_cloud',
+  'article_14',
+  'article_12',
+  'csrd',
+  'cbam',
+  'dws_iq',
+  'aegis',
+  'agent_isolation',
+  'dual_use',
+]) {
+  if (shared[key]) shared[key].seo = true;
+}
+
 const AEGIS_EXCLUDE = new Set([17, 19, 20, 21]);
 
 const INDUSTRY_META = [

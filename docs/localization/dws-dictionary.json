@@ -54,7 +54,8 @@
       "fr": "Aegis",
       "ontologyId": "none",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "defence": {
       "en": "Defence",
@@ -108,7 +109,8 @@
       "fr": "Double usage",
       "ontologyId": "none",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "dual_use_industries": {
       "en": "Dual-Use Industries",
@@ -128,7 +130,8 @@
       "fr": "CLOUD Act",
       "ontologyId": "none",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "eu_ai_act": {
       "en": "EU AI Act",
@@ -138,7 +141,8 @@
       "fr": "AI Act de l'UE",
       "ontologyId": "none",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "article_12": {
       "en": "Article 12",
@@ -148,17 +152,19 @@
       "fr": "Article 12",
       "ontologyId": "none",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "kya": {
       "en": "Know Your Agent",
-      "fi": "Tiedä agenttisi",
+      "fi": "Tunne agenttisi",
       "sv": "Känn din agent",
       "de": "Kenne deinen Agenten",
       "fr": "Connaissez votre agent",
       "ontologyId": "none",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "agent_isolation": {
       "en": "Agent Isolation",
@@ -168,7 +174,8 @@
       "fr": "Isolation de l'agent",
       "ontologyId": "none",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "kubernetes": {
       "en": "Kubernetes",
@@ -212,7 +219,8 @@
       "forbidden": {
         "sv": ["Souverän", "spårighet"],
         "all": ["Monolocalisation"]
-      }
+      },
+      "seo": true
     },
     "technology_sovereignty": {
       "en": "Technology Sovereignty",
@@ -260,7 +268,8 @@
       "fr": "Infrastructures souveraines",
       "ontologyId": "sovereignty",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "eu_regulated_industries": {
       "en": "EU-Regulated Industries",
@@ -290,7 +299,8 @@
       "fr": "DWS IQ",
       "ontologyId": "none",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "deployment_mode": {
       "en": "Deployment Mode",
@@ -330,7 +340,8 @@
       "fr": "Cloud souverain européen",
       "ontologyId": "sovereignty",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "pilot_program": {
       "en": "Pilot Program",
@@ -360,7 +371,8 @@
       "fr": "Article 14",
       "ontologyId": "none",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "article_50": {
       "en": "Article 50",
@@ -467,7 +479,8 @@
       "sv": "CSRD",
       "de": "CSRD",
       "fr": "CSRD",
-      "ontologyId": "compliance_agent"
+      "ontologyId": "compliance_agent",
+      "seo": true
     },
     "cbam": {
       "en": "CBAM",
@@ -475,7 +488,8 @@
       "sv": "CBAM",
       "de": "CBAM",
       "fr": "CBAM",
-      "ontologyId": "compliance_agent"
+      "ontologyId": "compliance_agent",
+      "seo": true
     },
     "ets": {
       "en": "EU ETS",
