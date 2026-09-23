@@ -29,8 +29,6 @@ La phrase que nous utilisons maintenant est plus longue parce que la barrière p
 
 La souveraineté est l'axe de segmentation principal — pas le seul.
 
-Retirez le tiret cadratin et vous revenez à la surinterprétation.
-
 ## Ce qu'est vraiment la première coupure
 
 Un acheteur européen régulé ne commence pas par les fonctions. Il commence par une question juridique : si un tribunal américain demande, ce fournisseur peut-il être contraint ?

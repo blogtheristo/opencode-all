@@ -26,8 +26,6 @@ The sentence we now use is longer because the fence is load-bearing:
 
 Sovereignty is the primary segmentation axis — not the only one.
 
-Drop the em dash and you are back to the overclaim.
-
 ## What the first cut actually is
 
 A regulated European buyer does not start with features. They start with a legal question: if a US court asks, can this vendor be compelled?

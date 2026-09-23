@@ -29,8 +29,6 @@ Der Satz, den wir jetzt verwenden, ist länger, weil der Zaun lasttragend ist:
 
 Souveränität ist die primäre Segmentierungsachse — nicht die einzige.
 
-Streichen Sie den Gedankenstrich, und Sie sind wieder bei der Überzeichnung.
-
 ## Was der erste Schnitt tatsächlich ist
 
 Ein regulierter europäischer Käufer beginnt nicht mit Funktionen. Er beginnt mit einer Rechtsfrage: wenn ein US-Gericht fragt, kann dieser Anbieter gezwungen werden?

@@ -26,8 +26,6 @@ Lause jonka nyt käytämme on pidempi, koska rajaus on kantava:
 
 Suvereeniteetti on ensisijainen segmentointiakseli — ei ainoa.
 
-Poista ajatusviiva, ja olet taas yliampumisessa.
-
 ## Mitä ensimmäinen leikkaus oikeasti on
 
 Säännelty eurooppalainen ostaja ei aloita ominaisuuksista. Hän aloittaa juridisesta kysymyksestä: jos yhdysvaltalainen tuomioistuin kysyy, voidaanko tämä toimittaja pakottaa?

@@ -29,8 +29,6 @@ Meningen vi nu använder är längre eftersom stängslet bär last:
 
 Suveränitet är den primära segmenteringsaxeln — inte den enda.
 
-Ta bort tankstrecket så är du tillbaka i överdriften.
-
 ## Vad det första snittet faktiskt är
 
 En reglerad europeisk köpare börjar inte med funktioner. De börjar med en juridisk fråga: om en amerikansk domstol frågar, kan den här leverantören tvingas?
