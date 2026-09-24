@@ -1,30 +1,72 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 1.3 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 1.4 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
-## 0. Strategia yhdessä lauseessa (HIC + Copilot 24.09.2026, lopullinen)
+## 0. Strategia (HIC + Copilot 24.09.2026, v1.4 lopullinen)
 
-> **Lifetime Scope Journal (onelifetime.world/blog) kertoo mitä maailma tarkoittaa. Lifetime.fi kertoo miltä parempi maailma näyttää. DWS10.com kertoo miten sinne päästään.**
+**Neljä kerrosta, ei kilpailua:**
 
-Lifetime.fi **ei ole markkinointikanava eikä liidigeneraattori. Se on brändi**: näkymä siihen, miltä parempi liiketoiminta näyttää. Hyöty on taktinen (DWS10), mahdollisuus on strateginen (Lifetime). One Lifetime on Lifetime Oy:n oma brändi; lifetime.fi kantaa sitä, Lifetime Scope Journal on sen business-blogi.
+| Kerros         | Sivusto                                         | Vastaa kysymykseen                                                                            | Sisältö                                                                                                                                                                              | Ei koskaan                                                                 |
+| -------------- | ----------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| **WHY**        | lifetime.fi                                     | Miksi tämä kaikki on tärkeää? Mihin maailma on menossa? Miten yritykset liittyvät muutokseen? | One Lifetime -ajattelu, kestävä kehitys, ilmastonmuutos, tulevaisuuden liiketoiminta, digitalisaation merkitys, tekoälyn vaikutukset, visio, lyhyet esseet, näkemykset, tiivistelmät | tuotteita, hinnastoja, verkkokauppaa, ominaisuuslistoja, konversiosuppiloa |
+| **UNDERSTAND** | onelifetime.world/blog (Lifetime Scope Journal) | Selitä tämä minulle yksityiskohtaisesti.                                                      | pitkät blogit, tutkimukset, käsitteet, sanastot, vertailut, tapaustutkimukset; viidellä kielellä                                                                                     | myyntiä, hintoja                                                           |
+| **HOW**        | dws10.com                                       | Miten tämä tehdään käytännössä?                                                               | palvelut, tuotteet, arkkitehtuurit, toimialaratkaisut, konsultointi                                                                                                                  | –                                                                          |
+| **BUY**        | dws10.com/buy                                   | Mitä voin ostaa juuri nyt?                                                                    | hankinta, hinnat, tarjoukset, kampanjat                                                                                                                                              | –                                                                          |
 
-**One Lifetime -brändin merkitys (HIC 24.09.2026):** kestävä kehitys, ilmastonmuutoksen peruuttaminen teknisin keinoin, elämän ainutkertaisuus, elämä ja elävä planeetta, jossa terve ihminen on tasapainossa luonnon kanssa. Siksi lifetime.fi:n "parempi yritys" tarkoittaa aina kahta asiaa yhtä aikaa: yritys, joka menestyy, ja yritys, joka ei kuluta ihmisiä eikä planeettaa. Velvoitteet (CSRD, CBAM, ETS) eivät ole lifetime.fi:llä lyhenteitä vaan osa tätä tasapainoa; niiden toteutus on DWS10:n asia.
+**One Lifetime -brändin merkitys (HIC):** elämän ainutkertaisuus, yksi planeetta, kestävä kehitys, ilmastonmuutoksen pysäyttäminen ja korjaaminen teknisin keinoin, teknologia ihmisen ja ympäristön hyväksi, tasapaino talouden, luonnon ja ihmisen välillä. Siksi lifetime.fi ei ole hyötysivu (v1.1–1.3 rooli oli liian pieni) vaan **koko ekosysteemin tarkoituksen, suunnan ja ymmärryksen yläkerros**. Etusivu kertoo tarinan.
 
-Järjestys: ensin sisältöstrategia, ei uutta ulkoasua. Ulkoasu seuraa sisältöä.
+**Raja WHY:n ja UNDERSTAND:in välillä (jotta ne eivät ala kilpailla):** lifetime.fi sanoo väitteen ja suunnan enintään n. 600 sanalla; Journal selittää saman 1 500–4 000 sanalla, lähteineen, viidellä kielellä. Jos lifetime.fi sanoo "tekoäly voi auttaa yrityksiä vähentämään resurssien hukkaa", Journalissa on teksti, joka näyttää miten. Jokainen lifetime.fi:n väite linkittää yhteen Journal-tekstiin.
 
-- **Lifetime Scope Journal = ymmärrä.** Blogi ei myy, blogi opettaa. Sekä liiketoimintatason kysymykset (miksi osa yrityksistä kasvaa nopeammin?) että termit (SEO, agentti, Copilot, MCP, CSRD, CBAM).
-- **Lifetime.fi = näe mahdollisuus.** "Millainen yritykseni voisi olla?" Ei tuotteita, palveluita, agentteja, alustoja, ominaisuuksia, hintoja, verkkokauppanostoja, eikä juuri sanaa "tekoäly".
-- **DWS10 = toteuta.** "Miten tämä tehdään?" Palvelut, tuotteet, verkkokauppa, tarjoukset, konsultointi, teollisuuden ratkaisut. Kaikki lupaukset "lisää liidejä / lisää yhteydenottoja / näkyvyys verkossa" kuuluvat tänne.
+**Palaute Copilotin malliin (Rule 7, ristiriidat auki):**
 
-## 1. Johtoajatus
+1. Hyväksyn WHY / UNDERSTAND / HOW / BUY -jaon. Se on ensimmäinen malli, joka vastaa sekä brändiä että liiketoimintarakennetta.
+2. `dws10.com/buy` on olemassa repossa; BUY-kerros ei vaadi uutta polkua, vaan sen, että kampanjat ja hinnat ohjataan sinne ja pois lifetime.fi:ltä.
+3. Riski: lifetime.fi on Lifetime Oy:n virallinen yritysdomain. Yhteystiedot, Y-tunnus ja henkilö säilyvät alatunnisteessa ja "Ihminen"-osiossa. Missio ilman kasvoja ja osoitetta ei herätä luottamusta suomalaisessa yrityspäättäjässä.
+4. Riski: toimialalinkit ("Rakentaminen, Energia, Logistiikka, Teollisuus, Verkkoliiketoiminta") eivät saa muuttua lifetime.fi:llä ratkaisulistoiksi. Lifetime.fi:llä yksi kappale per toimiala: mikä muuttuu ja miksi. Linkki vie dws10.com:iin (HOW).
+5. Riski: lifetime.fi:n nykyinen englanninkielinen sisältö (50 agenttia, arkkitehtuuri, SEAL) siirtyy dws10.com:iin HOW-kerrokseen, ei poistu. `_OLD`-nimeäminen, ei poistoa.
 
-| Sivusto                                         | Tehtävä              | Lukija                                                         | Sivu vastaa kysymykseen               |
-| ----------------------------------------------- | -------------------- | -------------------------------------------------------------- | ------------------------------------- |
-| Lifetime Scope Journal (onelifetime.world/blog) | **Ymmärrä**          | Kuka tahansa, jolta puuttuu ymmärrys                           | "Mitä tämä tarkoittaa?"               |
-| lifetime.fi (One Lifetime -brändi)              | **Näe mahdollisuus** | Suomalainen yrityspäättäjä                                     | "Millainen yritykseni voisi olla?"    |
-| dws10.com                                       | **Toteuta**          | Yritysasiakas, jolla on ratkaistava ongelma (pk ja teollisuus) | "Miten tämä tehdään, mitä se maksaa?" |
+## 1. Lifetime.fi:n uusi etusivu — tarina (FI master; sv/en/de/fr)
 
-Sääntö: lifetime.fi:llä **ei yhtään tuotenimeä, teknologiatermiä tai arkkitehtuurikuvaa**. Jokainen tekninen sana on linkki: selitys onelifetime.world-blogiin, ostaminen dws10.com-tuotesivulle.
+### 1.1 Avaus
+
+> **One Lifetime**
+> Meillä on yksi elämä ja yksi planeetta.
+> Yritykset, teknologia ja yhteiskunta muuttuvat nopeammin kuin koskaan aiemmin. Muutos ei kuitenkaan ole tavoite.
+> Tavoite on maailma, jossa ihmiset voivat hyvin, yritykset menestyvät ja luonnon kantokyky säilyy myös tuleville sukupolville.
+> Digitalisaatio, automaatio ja tekoäly ovat välineitä tämän tavoitteen saavuttamiseen.
+
+### 1.2 Mitä uskomme
+
+- Teknologian tulee palvella ihmistä.
+- Päätösten tulee perustua tietoon.
+- Resurssien hukkaa voidaan vähentää.
+- Yritykset voivat kasvaa kestävämmin.
+- Ilmastonmuutoksen vaikutuksia voidaan hillitä teknologian avulla.
+
+Jokainen uskomus linkittää yhteen Journal-tekstiin (UNDERSTAND).
+
+### 1.3 Mihin maailma on menossa (lyhyet esseet, 3–5 kpl, n. 400–600 sanaa)
+
+Työotsikot: _Yksi planeetta, yksi tilinpäätös_ · _Miksi tieto on uusi kantokyky_ · _Automaatio antaa ajan takaisin ihmisille_ · _Tekoäly ja asiantuntijatyön tulevaisuus_ · _Suomalainen yritys osana ratkaisua_. Nämä ovat lifetime.fi:n omaa sisältöä, eivät blogia: näkemys ja suunta, ei opetus.
+
+### 1.4 Miten tämä näkyy käytännössä (toimialat, yksi kappale kukin)
+
+Rakentaminen · Energia · Logistiikka · Teollisuus · Verkkoliiketoiminta. Mikä muuttuu ja miksi se on tärkeää. → "Katso toteutus" dws10.com (HOW).
+
+### 1.5 Kaksi ovea
+
+- **Haluatko ymmärtää enemmän?** → onelifetime.world/blog
+- **Haluatko toteuttaa muutoksen?** → dws10.com
+
+### 1.6 Ihminen
+
+Risto Anton Päärni, miksi One Lifetime on olemassa, kahdessa kappaleessa. Puhelin ja WhatsApp.
+
+### 1.7 Alatunniste
+
+Lifetime Oy · Y-tunnus 0772407-9 · Laidunmaanraitti 2 A 25, 02330 Espoo · risto.paarni@lifetime.fi · +358 400 319 010.
+
+**Hyväksymiskriteeri:** etusivulla nolla tuotenimeä, nolla hintaa, nolla ominaisuuslistaa, nolla arkkitehtuurikuvaa; jokainen väite linkittää Journaliin; jokainen toimiala linkittää dws10.com:iin; tarina luettavissa alusta loppuun ilman yhtään lyhennettä.
 
 ## 2. Nykytila (lifetime.fi/index.html, 2026-09-24)
 
@@ -45,7 +87,7 @@ Etusivun 361 tekstiriviä jakautuvat karkeasti: 80 % järjestelmä ja teknologia
 | Lifetime Consulting, 3 pilaria                              | dws10.com (konsultointi = palvelu); tulokset lifetime.fi §4.2 | Palvelu                                   |
 | Capability Ontology, 10 luokkaa                             | onelifetime.world                                             | Teknologia                                |
 
-## 4. Uusi lifetime.fi — sisältörakenne (FI master, käännökset sv/en/de/fr)
+## 4. [Korvattu §1:llä v1.4:ssä — säilytetty historiana] Aiempi sisältörakenne v1.3
 
 Lupaus: **Rakennetaan yrityksiä, jotka toimivat paremmin.** Taso: strateginen, aikaa kestävä. Sana "tekoäly" esiintyy etusivulla enintään kerran, hero-alaotsikossa keinona, ei tavoitteena.
 
@@ -141,12 +183,13 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 ## Version history
 
-| Version | Date       | Changes                                                                                                                                                                                                                                                                                                          |
-| ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1.3     | 2026-09-24 | One Lifetime -brändin merkitys kirjattu (kestävä kehitys, ilmastonmuutoksen kääntäminen teknisin keinoin, elämän ainutkertaisuus, ihminen tasapainossa luonnon kanssa); hero, §4.2, §4.3 ja teollisuusrivi päivitetty; blogiin 0.0                                                                               |
-| 1.2     | 2026-09-24 | Copilot-arvio omaksuttu: Lifetime on brändi, "näe mahdollisuus"; hero "One Lifetime — Rakennetaan yrityksiä, jotka toimivat paremmin"; taktiset liidilupaukset siirretty DWS10:een; uusi osio Tulevaisuuden yritys; toimialat vaikutuksina; blogi nimetty Lifetime Scope Journaliksi; liiketoimintatason sarja 0 |
-| 1.1     | 2026-09-24 | HIC/Copilot tarkennus: yhden lauseen strategia (§0), hero ja viisi tulosta, toimialataulukko, Tulospolku, hinnastot ja tuotelinkit pois lifetime.fi:ltä, Consulting siirtyy DWS10:een                                                                                                                            |
-| 1.0     | 2026-09-24 | Ensimmäinen ehdotus: kolmen sivuston työnjako, siirtotaulukko, blogin kattavuuskartta                                                                                                                                                                                                                            |
+| Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                         |
+| ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.4     | 2026-09-24 | Copilot BizChat -malli omaksuttu: WHY (lifetime.fi) / UNDERSTAND (Journal) / HOW (dws10.com) / BUY (dws10.com/buy); lifetime.fi = ekosysteemin tarkoituksen ja suunnan yläkerros, etusivu kertoo tarinan; WHY–UNDERSTAND-raja määritelty (≤600 vs 1 500–4 000 sanaa); arkkitehtuurisisältö siirtyy dws10.com:iin; §4 v1.3 säilytetty historiana |
+| 1.3     | 2026-09-24 | One Lifetime -brändin merkitys kirjattu (kestävä kehitys, ilmastonmuutoksen kääntäminen teknisin keinoin, elämän ainutkertaisuus, ihminen tasapainossa luonnon kanssa); hero, §4.2, §4.3 ja teollisuusrivi päivitetty; blogiin 0.0                                                                                                              |
+| 1.2     | 2026-09-24 | Copilot-arvio omaksuttu: Lifetime on brändi, "näe mahdollisuus"; hero "One Lifetime — Rakennetaan yrityksiä, jotka toimivat paremmin"; taktiset liidilupaukset siirretty DWS10:een; uusi osio Tulevaisuuden yritys; toimialat vaikutuksina; blogi nimetty Lifetime Scope Journaliksi; liiketoimintatason sarja 0                                |
+| 1.1     | 2026-09-24 | HIC/Copilot tarkennus: yhden lauseen strategia (§0), hero ja viisi tulosta, toimialataulukko, Tulospolku, hinnastot ja tuotelinkit pois lifetime.fi:ltä, Consulting siirtyy DWS10:een                                                                                                                                                           |
+| 1.0     | 2026-09-24 | Ensimmäinen ehdotus: kolmen sivuston työnjako, siirtotaulukko, blogin kattavuuskartta                                                                                                                                                                                                                                                           |
 
 ## 8. Blogitekstit, kampanjat ja näkyvyys (HIC 24.09.2026 lisäys)
 
