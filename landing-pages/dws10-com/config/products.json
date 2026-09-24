@@ -6229,9 +6229,9 @@
     }
   },
   "lastUpdated": "2026-09-24T00:00:00Z",
-  "priceVersion": "1.31",
+  "priceVersion": "1.32",
   "priceList": {
-    "version": "1.31",
+    "version": "1.32",
     "effectiveDate": "2026-09-24",
     "nextReviewDate": "2026-11-15",
     "stampQuarter": "2026.Q3",
@@ -6254,7 +6254,7 @@
     }
   },
   "commercialPortfolio": {
-    "version": "1.31",
+    "version": "1.32",
     "effectiveDate": "2026-09-24",
     "nextReviewDate": "2026-11-15",
     "definitions": {
@@ -6333,6 +6333,16 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.32",
+      "date": "2026-09-24",
+      "author": "claude/ontology-pilot-terms",
+      "changes": [
+        "LF-ONTOLOGY-PILOT terms: duration 3 months; 100% of the pilot fee credited against the first LF-ONTOLOGY-25 licence year when the licence agreement is signed within 90 days of the pilot's end. Price unchanged (\u20ac15,000\u2013\u20ac25,000 one-time, quoted).",
+        "LF-ONTOLOGY-25 pilot line and priceNote reference the pilot credit.",
+        "HIC approved 24.09.2026. Effective 2026-09-24; next review and validUntil stay 2026-11-15."
+      ]
+    },
     {
       "version": "1.31",
       "date": "2026-09-24",
@@ -6667,10 +6677,11 @@
       "type": "one-time",
       "priceUnit": "per-site",
       "startingPrice": true,
-      "priceBasis": "one-site pilot, quoted",
-      "description": "Time-boxed one-site pilot before the annual LF-ONTOLOGY-25 licence. The goal is not to sell the licence but to answer one question: do we understand your business well enough that the ontology creates lasting value for you? Identify core concepts, build a first ontology skeleton on the 25-industry pack, test it with the customer's own questions and use cases, and assess business value. Includes pilot-period usage rights for one named site. The annual licence and ongoing support are not included.",
+      "priceBasis": "one-site 3-month pilot, quoted",
+      "description": "Three-month one-site pilot before the annual LF-ONTOLOGY-25 licence. The goal is not to sell the licence but to answer one question: do we understand your business well enough that the ontology creates lasting value for you? Identify core concepts, build a first ontology skeleton on the 25-industry pack, test it with the customer's own questions and use cases, and assess business value. Includes pilot-period usage rights for one named site. 100% of the pilot fee is credited against the first LF-ONTOLOGY-25 licence year when the licence agreement is signed within 90 days of the pilot's end. The annual licence and ongoing support are not included.",
       "features": [
-        "Unit: one named site, one-time, quoted \u20ac15,000\u2013\u20ac25,000",
+        "Unit: one named site, 3 months, one-time, quoted \u20ac15,000\u2013\u20ac25,000",
+        "Credit: 100% of the pilot fee is credited against the first licence year of LF-ONTOLOGY-25 when the licence agreement is signed within 90 days of the pilot's end",
         "Identify the site's core concepts",
         "Build a first ontology skeleton on the 25-industry pack",
         "Test with the customer's own questions and use cases",
@@ -6678,8 +6689,8 @@
         "Next steps: LF-TRAIN-IND implementation, then the LF-ONTOLOGY-25 licence. The pilot can be skipped when the use case is already clear",
         "Not included: the annual licence and ongoing support"
       ],
-      "priceNote": "\u20ac15,000\u2013\u20ac25,000 one-time, quoted. One named site.",
-      "caption": "One-time pilot before the licence. Licence sold separately.",
+      "priceNote": "\u20ac15,000\u2013\u20ac25,000 one-time, quoted. One named site, 3 months. 100% credited against the first LF-ONTOLOGY-25 licence year if the licence is signed within 90 days of the pilot's end.",
+      "caption": "3-month pilot before the licence. Fee fully credited to the first licence year within 90 days.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -6694,7 +6705,7 @@
         "contentLanguage": "en"
       },
       "storeCategory": "ai-training",
-      "version": "1.31",
+      "version": "1.32",
       "buyPage": 1,
       "buyPageOrder": 19
     },
@@ -6735,11 +6746,11 @@
         "Growth: 2\u20135 named sites \u20ac60,000/year \u00b7 Enterprise: 6\u201320 named sites \u20ac120,000/year",
         "21+ named sites: from \u20ac200,000/year (enterprise agreement with named-site scope)",
         "Includes: ontology artefacts, version control, quarterly updates, documented usage rights for licensed sites only",
-        "Pilot before the licence: see LF-ONTOLOGY-PILOT",
+        "Pilot before the licence: see LF-ONTOLOGY-PILOT (3 months; fee 100% credited to the first licence year if signed within 90 days of the pilot's end)",
         "One-site launch: this licence \u20ac25,000/year + LF-TRAIN-IND remote configuration from \u20ac15,000 (first year from \u20ac40,000)",
         "Independent data product \u2014 configuration service and DWS IQ are optional, not bundled"
       ],
-      "priceNote": "Starter: 1 named site \u20ac25,000/year. 2\u20135 named sites \u20ac60,000/year. 6\u201320 named sites \u20ac120,000/year. 21+ named sites from \u20ac200,000/year (enterprise agreement with named-site scope). Pilot: LF-ONTOLOGY-PILOT.",
+      "priceNote": "Starter: 1 named site \u20ac25,000/year. 2\u20135 named sites \u20ac60,000/year. 6\u201320 named sites \u20ac120,000/year. 21+ named sites from \u20ac200,000/year (enterprise agreement with named-site scope). Pilot: LF-ONTOLOGY-PILOT (3 months, fee 100% credited to the first licence year within 90 days).",
       "caption": "Annual data-product licence. Not a one-time fee.",
       "revolutLink": null,
       "paypalPlanId": null,
@@ -6755,7 +6766,7 @@
         "contentLanguage": "en"
       },
       "storeCategory": "ai-training",
-      "version": "1.31",
+      "version": "1.32",
       "buyPage": 1,
       "buyPageOrder": 20
     },
