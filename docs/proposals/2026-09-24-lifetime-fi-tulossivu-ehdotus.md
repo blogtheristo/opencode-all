@@ -1,6 +1,6 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 1.5 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 1.6 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
 ## 0. Strategia (HIC + Copilot 24.09.2026, v1.4 lopullinen)
 
@@ -185,6 +185,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                         |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.6     | 2026-09-24 | Jalostusketju Workflow V2 -määrittelynä (`content-refinement-chain`, 10 askelta) ja Temporal-käyttötapauksena #13 (HIC-Signal-portti, Standalone Activity -julkaisut, per-kieli child workflow, Schedule); Meta-väite korjattu (Facebook-julkaisija on jo olemassa)                                                                             |
 | 1.5     | 2026-09-24 | Lopullinen roolimalli: onelifetime.world = akatemia (Journal, white paperit, research, seminaarit, esitykset, tapahtumat); jalostusketju ydinmekanismina, kaksi mallikierrosta; whitepapers/playbooks siirtyvät onelifetime.worldiin; jalostusrekisteri `docs/content-pipeline/chains.md`                                                       |
 | 1.4     | 2026-09-24 | Copilot BizChat -malli omaksuttu: WHY (lifetime.fi) / UNDERSTAND (Journal) / HOW (dws10.com) / BUY (dws10.com/buy); lifetime.fi = ekosysteemin tarkoituksen ja suunnan yläkerros, etusivu kertoo tarinan; WHY–UNDERSTAND-raja määritelty (≤600 vs 1 500–4 000 sanaa); arkkitehtuurisisältö siirtyy dws10.com:iin; §4 v1.3 säilytetty historiana |
 | 1.3     | 2026-09-24 | One Lifetime -brändin merkitys kirjattu (kestävä kehitys, ilmastonmuutoksen kääntäminen teknisin keinoin, elämän ainutkertaisuus, ihminen tasapainossa luonnon kanssa); hero, §4.2, §4.3 ja teollisuusrivi päivitetty; blogiin 0.0                                                                                                              |
@@ -301,7 +302,7 @@ Jokainen dws10.com-hubin substanssisivu tuottaa neljä johdannaista. Lähde pysy
 
 ### 10.4 Koneisto (olemassa, käyttöön)
 
-- **Some-jono:** `src/social-scheduler/` + `scripts/seed-post-queue.ts` + taulu `social_posts` (migraatio 030–037) + `scripts/linkedin-oauth.ts`. Nyt LinkedIn-kirjasto on 10 postausta; laajennetaan §10.3-nostoilla. Meta-kanava puuttuu koneistosta: lisättävä adapteri (Graph API, sivu + IG) samaan jonoon.
+- **Some-jono:** `src/social-scheduler/` + `scripts/seed-post-queue.ts` + taulu `social_posts` (migraatio 030–037) + `scripts/linkedin-oauth.ts`. Nyt LinkedIn-kirjasto on 10 postausta; laajennetaan §10.3-nostoilla. Meta: Facebook-sivujulkaisu on jo koneistossa (`src/social-scheduler/facebook-publisher.ts`, `publishSocialPostActivity` platform `facebook`); Instagram puuttuu. LinkedIn: OAuth + hyväksyntädigest olemassa (`approval-digest.ts`), julkaisuadapteri tarkistettava.
 - **Kampanjapostaukset:** `scripts/generate-campaign-post.ts`, `scripts/build-arvonluonnin-ajurit-post.mjs` (malli: yksi blogi → yksi postaus).
 - **Uutiskirje:** `/lsj-publish` kokoaa kuukauden Journal-tekstit LinkedIn-uutiskirjeeksi.
 - **Käännökset:** `/multilingual` (fi/sv/en/de/fr).
@@ -322,7 +323,7 @@ Yksi lähdesivu viikossa tuottaa 12 kuukaudessa n. 50 Journal-tekstiä × 5 kiel
 ### 10.6 HIC-päätökset (§10)
 
 1. Hyväksytäänkö "yksi lähde, neljä muotoa" -periaate ja viikkorytmi?
-2. Meta-adapteri some-jonoon: rakennetaanko (Graph API, tarvitsee Meta Business -tunnukset ympäristömuuttujina) vai jääkö Meta manuaaliseksi?
+2. Meta: Facebook-julkaisu on jo koneistossa (tarvitsee `FACEBOOK_PAGE_ID`/`TOKEN` ympäristömuuttujina). Lisätäänkö Instagram samaan adapteriin?
 3. Ensimmäinen lähdesivu: `compliance/` trust center (ehdotus) vai `investor-centre/` one-pager?
 
 ## 11. Lopullinen roolimalli ja jalostusketju (HIC + Copilot 24.09.2026, v1.5)
@@ -390,3 +391,47 @@ Jokainen ketju kirjataan yhdeksi riviksi jalostusrekisteriin (`docs/content-pipe
 3. Journal-luonnos _Miksi vaikutusdata on uusi talousdata?_ `/blog-draft`-portille.
 4. Some-jonoon 3 nostoa (2 LinkedIn, 1 Meta manuaalisesti) HIC:n hyväksyttäväksi.
 5. Whitepapers/playbooks-siirron inventaario onelifetime.worldiin (lista, ei vielä siirtoa).
+
+## 12. Jalostusketju Workflow V2 -prosessina ja Temporal-käyttötapauksena (HIC 24.09.2026, v1.6)
+
+Jalostusketju (§10–11) ei ole toimituskalenteri vaan **pitkäkestoinen, keskeytyvä prosessi**: yksi ketju elää päivistä viikkoihin, odottaa HIC:n päätöksiä, haarautuu viidelle kielelle ja päättyy ulkoisiin julkaisuihin. Se on täsmälleen se muoto, johon Workflow V2 (`src/agents/workflows.ts`, `WorkflowDefinition`/`WorkflowExecutor`) ja Temporal (`src/temporal/`, käyttötapaukset #1–#12 `docs/dws-use-cases.md`) on rakennettu.
+
+### 12.1 Workflow V2 -määrittely: `content-refinement-chain`
+
+Nykyinen `content-pipeline` (Iris → Apollo → emit-event) tuottaa briefin ja päättyy kuolleeseen `emit-event`-askeleeseen (käyttötapaus #10 totesi saman). Uusi määrittely vie ketjun loppuun asti:
+
+| #   | Step id              | Type                                            | Tekijä / aktiviteetti                                                                                                                                      | Tulos                           |
+| --- | -------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| 1   | `select-source`      | agent                                           | Iris: valitsee dws10.com-hubista lähdesivun jalostusrekisterin perusteella (mikä on jalostamatta)                                                          | lähde-URL, aihe, kohdetoimiala  |
+| 2   | `synthesize`         | parallel                                        | Apollo: johtopäätöslause lifetime.fi:lle (≤3 lausetta) · Athena: Journal-luonnos fi (1 500–4 000 sanaa) · Apollo: 2–4 some-nostoa                          | kolme luonnosta                 |
+| 3   | `guardrail`          | condition                                       | `applyEmailHardRules`-tyyppinen sisältötarkistus + `/truth-check` julkisille väitteille; hylkäys palauttaa askeleeseen 2, ei koskaan hiljaista pudotusta   | pass / block + syyt             |
+| 4   | `hic-approval`       | **Temporal child** `humanApprovalWorkflow` (#9) | HIC hyväksyy tai hylkää kolmen luonnoksen paketin; Signal, `condition()`-odotus, timeout 7 pv; artefaktilinkki hyväksymispyynnössä (Approval Request Rule) | approved / rejected / timed_out |
+| 5   | `publish-journal`    | Standalone Activity                             | git-commit `onelifetime.world/posts/fi/<slug>.html` + peili → Cloudflare Pages deploy; idempotentti slugilla                                               | URL                             |
+| 6   | `publish-conclusion` | Standalone Activity                             | lifetime.fi johtopäätöslause + linkki Journaliin (FI master + peili)                                                                                       | URL                             |
+| 7   | `enqueue-social`     | Standalone Activity                             | `enqueueDraft` → `social_posts`; julkaisu `publishSocialPostActivity` `startDelay`lla seuraavan viikon arkipäiville (#3)                                   | jono-ID:t                       |
+| 8   | `translate`          | parallel, per kieli child workflow              | sv, en, de, fr: `/multilingual` → oma `hic-approval`-lapsi per kieli (kevyempi: HIC hyväksyy käännöksen, ei sisältöä uudelleen) → `publish-journal`        | 4 URL:ää                        |
+| 9   | `event-hook`         | condition                                       | Jos ketjulla on seminaari/workshop (§11.2): luo Google Calendar -merkintä ja onelifetime.world/seminars-paikkamerkki                                       | tapahtuma-ID                    |
+| 10  | `register`           | Standalone Activity                             | rivi `docs/content-pipeline/chains.md` + tila per kieli; korvaa kuolleen `emit-event`in todellisella tilaajalla                                            | rekisteririvi                   |
+
+`timeoutMs` ei riitä: ketju kestää viikkoja. Siksi ketju ajetaan Temporal-workflow'na (kesto rajaton, tila kestävä), ja `WorkflowExecutor` säilyy vain askelten 1–3 paikallisajoon kehityksessä.
+
+### 12.2 Temporal-käyttötapaus #13: Content refinement chain
+
+- **Current tech:** `content-pipeline` (in-process, 10 min timeout, päättyy emit-eventiin); some-jono `social_posts` + `publishSocialPostActivity` (#3); `humanApprovalWorkflow` (#9); blog-draft-gate hook (chat-turn-sidonnainen, ei kestävä).
+- **Gaps:** HIC-hyväksyntä ei ole kestävä tietue vaan chat-portti; ei per-kieli-haaraa; ei jalostusrekisteriä; julkaisu on git push ilman uudelleenyritystä; ei viikkorytmin ajastusta; ei yhteyttä tapahtumiin.
+- **Proposed:** `contentRefinementChainWorkflow` (Temporal, pitkäkestoinen) + Temporal Schedule ma 08:00 EET (`ensureContentChainSchedule`, malli `ensureReportSchedulePoll` #4/#8), joka käynnistää askeleen 1. HIC:n Signal-komennot: `npm run temporal:approve -- <chainId> --approve --by "<nimi>"` (#9). Query palauttaa ketjun tilan per kieli HIC:lle (Artifact-tilanäkymä). Kaikki ulkoiset kirjoitukset Standalone Activityina omilla ID:illään (slug/kieli), Temporalin retry-politiikalla.
+- **Guardrails:** hard-rules (#12) laajennetaan julkaisusisältöön: ei hintoja lifetime.fi:lle/Journaliin (WHY/UNDERSTAND-sääntö), ei `noreply@`, ei salaisuuksia, `truth-check`-lista kielletyistä väitteistä. Escalate-only-to-block.
+- **RED-zone:** blogijulkaisu on Claude Codelle RED (Rule 13). Workflow ei kierrä porttia vaan **on** portti: askel 4 on se HIC-hyväksyntä, jonka hook nyt vaatii chatissa, mutta kestävänä ja auditoituna. Cutover blog-draft-gate → workflow vaatii oman HIC-päätöksen (sama varauma kuin #9:ssä).
+- **Ei vielä ajettavissa:** sandboxissa ei ole Temporal-palvelinta (`TEMPORAL_ADDRESS`); sama tila kuin #1–#12. DGX Spark -asennus on edellytys.
+
+### 12.3 Mitä tästä seuraa suunnitelmaan
+
+- §10.5 viikkorytmi = Temporal Schedule + yksi workflow-instanssi per lähdesivu. HIC:n torstai = Signal, ei kokous.
+- §11.2 rekisteri `chains.md` on workflow'n kirjoittama, ei käsin ylläpidetty.
+- §8.1 blogisarjat ja §8.2 kampanjat ovat ketjun syötteitä (askel 1:n prioriteettilista).
+
+### 12.4 HIC-päätökset (§12)
+
+1. Hyväksytäänkö `content-refinement-chain` Workflow V2 -määrittelynä ja Temporal-käyttötapauksena #13 (koodi vasta hyväksynnän jälkeen; ensin määrittely `src/agents/workflow/workflows/content-refinement-chain.ts` + workflow-luuranko + testit, ei live-ajoa)?
+2. Cutover: korvaako askel 4 blog-draft-gate-hookin Journal-julkaisuissa, kun Temporal on DGX:llä pystyssä?
+3. Instagram Facebook-adapterin rinnalle: kyllä / ei nyt.
