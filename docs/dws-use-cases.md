@@ -586,3 +586,49 @@ tool call's result — the agent's next observation, same as the demo's dispatch
   every other Workflow-level behavior this session). Full suite: 1349/1349 passing.
 - **Still NOT wired into `BaseAgent.runLoop()`** — same caution as #11 itself; this
   extends the already-deferred cutover's target shape, doesn't change its status.
+
+## 13. Cross-device credential mirror (Supabase `credentials_store`) — Proposed, not built
+
+- **Source:** Decision recorded by the DGX Spark deployment session in
+  `Admin/ADMIN_MANUAL.md` §"Decision — Supabase credential mirror scope (HIC, 2026-09-22)"
+  during PR #2070 (the same session that brought Temporal itself live on DGX Spark). That
+  entry states the implementation "is tracked as a new Temporal use case in
+  `docs/dws-use-cases.md`" — it wasn't actually added here until this entry. Recording it
+  now to close that gap between the two docs.
+- **Current tech:** Outbound API/service credentials (Stripe, Meta, LinkedIn, DocuSign,
+  SES/Proton, GitHub, Cloudflare, Google, etc.) live only in each environment's local
+  `.env`. Any environment without one — the ADMIN_MANUAL entry's example is a Chromebook
+  Claude Code session — cannot call an outbound API at all, even when the credential
+  already exists on DGX Spark.
+- **Gaps:** No cross-device path to a credential without manually copying `.env` contents
+  (itself a Secret Egress Rule risk — CLAUDE.md forbids reading secrets via Bash/`cat`, and
+  copying `.env` files by hand is exactly the failure mode that rule exists to prevent).
+- **Decision already made (not yet built):** a Supabase `credentials_store` table, **AES-256-GCM
+  ciphertext at rest** — not plaintext behind RLS, which is the pattern used elsewhere in
+  this repo's Supabase tables. Rejected specifically because this table's blast radius (every
+  mirrored API key at once, if the table itself leaked) is categorically larger than a normal
+  data table's. Decryption key `CREDENTIALS_STORE_ENC_KEY` lives only in `.env`, distributed
+  once out of band, never in the database. Mirror scope is **outbound API/service credentials
+  only** — explicitly excludes local-only settings with no cross-device reason to exist off-host
+  (DB pooler host/port, feature flags, `CLAUDE_CODE_GIT_BASH_PATH`, etc.).
+- **Why this belongs in `src/temporal/`, not a plain CRUD service:** the ADMIN_MANUAL entry
+  names "Temporal Activities/Workflow/Schedule, migration, dual-write to `.env` + Supabase" as
+  the implementation shape — i.e. writing/rotating a mirrored credential is itself a job with
+  the same durability needs as everything else in this document: a dual-write (local `.env` +
+  Supabase ciphertext) that must not partially fail silently, on a schedule (rotation), gated by
+  human approval for anything that touches a live credential. That's a Standalone Activity (the
+  write itself) plus a Schedule (periodic drift-check between `.env` and the mirror) plus
+  `humanApprovalWorkflow` (use case #9, already built) for any rotation that would invalidate a
+  credential currently in use elsewhere — not a speculative reuse, an actual fit for three
+  building blocks already shipped this session.
+- **Not built.** No Activity, Workflow, migration, or Supabase table exists yet — this is a
+  recorded decision awaiting its own scoped implementation session. Do not start it
+  speculatively; it touches secret handling directly, which CLAUDE.md's Secret Egress Rules and
+  Non-Negotiable Rule 1 make explicitly RED-zone-adjacent regardless of what builds it.
+
+## HIC decision needed (use case #13)
+
+Scope and schedule the `credentials_store` implementation as its own session — it touches
+secret handling directly (encryption key management, dual-write correctness, rotation
+approval flow) and deserves a dedicated review, not a fold-in to whatever picks up the next
+Temporal cutover.
