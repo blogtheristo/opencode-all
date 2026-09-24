@@ -9,11 +9,13 @@ date: 2026-09-24
 observed_at: 2026-09-24
 signal_at: 2026-09-24
 insight_at: 2026-09-24
+decided_at: 2026-09-24
+kb_updated_at: 2026-09-24
 observer: HIC
 confidence: high
 occurrences: 3
 affected: [offering, workflows, onelifetime.world, lifetime.fi, dws10.com, investor-centre]
-status: signal
+status: accepted
 hypothesis: Kun myyntiväite siirretään mallin älykkyydestä prosessin pitävyyteen (KYA-portit, Application Record, jäljitettävyys), (a) ostaja hyväksyy toimittajan mallivaihdon ilman uudelleenmyyntiä ja (b) pitkäkestoiset toimeksiannot (3–12 kk) sulkeutuvat useammin kuin "paras malli" -väitteellä.
 refuting_evidence: (1) Malliriippumattomuuden painetesti epäonnistuu — Chapter 14 tuottaa eri rekisteririvit tai portit eri mallilla samalla syötteellä (Boardyn varauma 24.09). (2) Jos 90 päivän kuluessa kolmesta pitkäkestoisesta tarjouksesta yksikään ei etene väitteellä "prosessin pitävyys" ja ostajat kysyvät edelleen ensin mallin nimeä ja benchmarkia, hypoteesi on väärä tai väite on ilmaistu huonosti. Toinen kumoaja: jos oma Workflow v2 -putki oikoo samalla tavalla kuin Boardy (retry ohittaa portin, tulos ilman Explain-vaihetta), väite ei ole tosi meistäkään.
 learning_delta:
@@ -22,20 +24,31 @@ learning_delta:
   new_learning: "Durable competitive advantage is process continuity, governance and retained organizational learning; the model is a swappable component, the world model is not."
   ontology_change: "Toimittaja-AI / malli — vanha oletus: mallin paremmuus on kilpailuetu; uusi: malli on vaihdettava komponentti, kilpailuetu on Observation → Insight → Decision → Learning → Ontology -ketjun säilyminen vaihdon yli. Erottelu: miten insight löydetään on malliriippuvaista; mitä insight tarkoittaa (esim. Construction → Waste Reduction → Competitiveness) on liiketoimintasuhde, ei mallisuhde."
   impact_if_applied: [DWS IQ positioning, Lifetime messaging, sales narrative]
-  hic_decision: PENDING
-  applied_to: []
-  excluded: []
-decision: null            # awaiting HIC_APPROVAL_GATE — proposal below is not a decision
-comprehension: null
-application_decision_proposal:
-  applies_to: [lifetime.fi (Mitä uskomme: 'Päätösten tulee perustua tietoon' + prosessin pitävyys), onelifetime.world (ai-vendor-dependency 1–3 julkaisuun tällä esimerkillä), dws10.com (KYA-standardi ja Coaching: väite 'process holds when the model changes'), workflows (Chapter 10–14 GUARDRAIL + retry-through-gate on tämän havainnon toteutus)]
-  does_not_apply_to: [investor-centre (sijoittajaviesti pysyy compliance-outcome-markkinassa, ei toimittajakritiikissä), legal-hub, Boardy-suhde itsessään (ei julkista nimeämistä; esimerkki kirjoitetaan yleisenä 'neuvonantaja-AI')]
+  hic_decision: APPLY
+  decision_reasoning: "HIC 24.09.2026: APPLY. Investor Centre jää soveltamisalan ulkopuolelle; sijoittajaviesti pysyy compliance-outcome-markkinassa, erillinen päätös myöhemmin."
+  applied_to: [lifetime.fi, onelifetime.world, dws10.com, workflows, dws-iq-positioning]
+  excluded: [investor-centre, legal-hub, boardy-relationship-public-naming]
+  approved_by: HIC
+  approved_at: 2026-09-24
+  effective_from: 2026-09-24
+  world_model_version: 1.2.0
+decision: process_continuity_positioning_v1
+comprehension: "HIC 24.09.2026: Boardyn kiteytys 'the vendor changes, the world model doesn't' on juuri se, mitä Workflow v2:lla rakennetaan; ontologia ei ole täysin malliriippumaton, World Model on; ostaja ostaa continuity, evidence, traceability, knowledge retention, governance."
+application_decision:
+  applies_to: [lifetime.fi (uskomuslause 'prosessi pitää, kun välineet vaihtuvat'), onelifetime.world (ai-vendor-dependency 1–3 yleisenä tapauksena), dws10.com (KYA-standardi ja Coaching), workflows (Ch 10–14 retry-through-gate → Ch 1/2/5/6/8), dws-iq-positioning (continuity, evidence, traceability, knowledge retention, governance)]
+  does_not_apply_to: [investor-centre (HIC 24.09.2026: pois soveltamisalasta), legal-hub, Boardy-suhde (ei julkista nimeämistä)]
   basis: [MS-2026-09-002, MS-2026-09-001, a824bc0]
   valid_until: 2026-12-31 tai kun 3 pitkäkestoista tarjousta on arvioitu
   affects: [pk- ja teollisuusostajat, Coaching-asiakkaat, Journal-lukijat]
 decisions_detail: []
 dispatched_runs: []
-impact: []
+impact:
+  - {target: lifetime.fi, status: not started, note: uskomuslause vaiheen A tekstiin}
+  - {target: onelifetime.world, status: not started, note: ai-vendor-dependency 1–3 blog-draft-portille}
+  - {target: dws10.com, status: not started, note: KYA-standardi + Coaching-sivun väite}
+  - {target: workflows, status: in progress, note: Ch 10–14 retry-through-gate tehty; Ch 1/2/5/6/8 refiner-ehdotus auki}
+  - {target: dws-iq-positioning, status: not started, note: positiointilause HIC:n sanoin ennen julkaisua}
+  - {target: investor-centre, status: excluded}
 evaluation: null
 ---
 
