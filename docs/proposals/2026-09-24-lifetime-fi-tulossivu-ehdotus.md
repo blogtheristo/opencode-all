@@ -1,6 +1,6 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 1.8 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 1.9 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
 ## 0. Strategia (HIC + Copilot 24.09.2026, v1.4 lopullinen)
 
@@ -57,7 +57,42 @@ Application Record ja temporal trail. Hero on siis sama asia kuin Workflow v2, s
 yhtään termiä. Ei tuote- eikä toimittajanimiä. Investor Centre ei sovella (HIC:n rajaus).
 Aiempi tunnetason versio ("Tekoäly voi oppia tämän…") siirretty some-luonnokseksi alle, ei heroksi.
 
+### 1.1c Hero C — ketjun säilyminen (HIC 24.09.2026, lähimpänä Workflow v2:n filosofiaa)
+
+> **One Lifetime**
+>
+> Mallit vaihtuvat.
+> Teknologia muuttuu.
+> Järjestelmät kehittyvät.
+>
+> Mutta havaintojen, oppimisen ja päätösten ketjun pitää säilyä.
+>
+> Tekoäly voi oppia.
+> Ihmiset voivat oppia.
+> Parhaat tulokset syntyvät, kun molemmat oppivat ja ymmärtävät, miksi päätökset tehdään.
+
+### 1.1d Brändilause (HIC 24.09.2026, tiivein)
+
+> **Tekoäly voi oppia. Vain ihminen voi kantaa vastuun päätöksestä.**
+
+Ehdotus käytöstä: brändilause (1.1d) heron ylärivinä tai sivun alatunnisteen mottona kaikilla
+kolmella sivustolla; Hero C (1.1c) lifetime.fi:n etusivun avauksena, koska se sanoo
+"malli vaihtuu, maailmanmalli ei" ilman termejä; Hero B (1.1b) "Mitä uskomme" -osion johdantona;
+Hero A (1.1) planeetta-osion (Tulevaisuuden yritys, §1.3) avauksena. Kaikki neljä ovat samaa
+Application Recordia LD-2026-09-002; HIC valitsee järjestyksen. Non-Negotiable Rule 12: kaikki
+neljä muotoilua säilytetään tässä sellaisenaan.
+
 Some-luonnos Chapter 11 -portille (LinkedIn, ei julkaistu):
+
+```
+Tekoäly voi oppia. Vain ihminen voi kantaa vastuun päätöksestä.
+
+Mallit vaihtuvat, teknologia muuttuu, järjestelmät kehittyvät.
+Havaintojen, oppimisen ja päätösten ketjun pitää säilyä.
+→ lifetime.fi
+```
+
+Aiempi some-luonnos (säilytetty):
 
 ```
 Tekoäly voi havaita muutoksen, analysoida vaihtoehtoja ja ehdottaa seuraavaa askelta.
@@ -217,6 +252,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                         |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.9     | 2026-09-24 | Hero C (ketjun säilyminen) ja brändilause "Tekoäly voi oppia. Vain ihminen voi kantaa vastuun päätöksestä."; käyttöehdotus A/B/C/D:lle; kaikki muotoilut säilytetty (Rule 12)                                                                                                                                                                   |
 | 1.8     | 2026-09-24 | Hero B lopullinen muotoilu HIC:ltä (havaitse / analysoi / ehdota → vastuu ihmisellä → jäljitettävyys vuosien päästä); tunnetason versio siirretty some-luonnokseksi                                                                                                                                                                             |
 | 1.7     | 2026-09-24 | Hero-ehdokas B päätösvallasta (LD-2026-09-002 APPLY, investor-centre poissuljettu); some-luonnos Ch 11 -portille; viittaus Workflow v2 Chapters 10–14 ja market-signals-rekisteriin (PR #2059)                                                                                                                                                  |
 | 1.6     | 2026-09-24 | Jalostusketju Workflow V2 -määrittelynä (`content-refinement-chain`, 10 askelta) ja Temporal-käyttötapauksena #13 (HIC-Signal-portti, Standalone Activity -julkaisut, per-kieli child workflow, Schedule); Meta-väite korjattu (Facebook-julkaisija on jo olemassa)                                                                             |
