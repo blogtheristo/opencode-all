@@ -61,8 +61,7 @@ jälkeä samalla, kun se kasvaa. Kasvu, joka ei kuluta ihmisiä eikä luontoa, o
 joka kestää seuraavan vuosikymmenen.
 
 Tästä seuraa yksi käytännön näkemys: yritykset tulevat johtamaan ympäristövaikutuksia yhtä
-tarkasti kuin talouttaan. Se, mikä
-tänään näyttää raportointivelvoitteelta, on huomenna tapa nähdä oma jälki ja tehdä siitä
+tarkasti kuin talouttaan. Se, mikä tänään näyttää raportointivelvoitteelta, on huomenna tapa nähdä oma jälki ja tehdä siitä
 kilpailukykyä. Yksi planeetta ei ole rajoite, joka estää kasvun. Se on kehys, joka kertoo,
 millainen kasvu on mahdollista.
 
@@ -76,9 +75,8 @@ yrityksellä on sen jälkeen parempi käsitys siitä, mitä se tekee ja miksi.
 Tämä erottelu ratkaisee monta asiaa. Se ratkaisee, mistä puhumme asiakkaalle: emme malleista,
 agenteista tai alustoista, vaan siitä, mikä hänen yrityksessään muuttuu. Se ratkaisee, miten
 suhtaudumme mallien vaihtumiseen: mallit vaihtuvat, teknologia muuttuu, järjestelmät kehittyvät,
-mutta havaintojen, oppimisen ja päätösten ketjun pitää säilyä. Jos yritys menettää
-havaintonsa, oppimisensa ja päätöstensä perustelut aina, kun väline vaihtuu, se ei omista
-omaa ymmärrystään. Jos ketju säilyy, väline voi vaihtua vaikka joka vuosi.
+mutta havaintojen, oppimisen ja päätösten ketjun pitää säilyä. Jos ketju säilyy, väline voi
+vaihtua vaikka joka vuosi.
 
 **Jos yritys menettää havaintonsa, oppimisensa ja päätöstensä perustelut aina, kun väline
 vaihtuu, se ei omista omaa ymmärrystään.**
