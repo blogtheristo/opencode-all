@@ -1,0 +1,82 @@
+{
+  "name": "seminar-event-chapter-thirteen",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "One event on the UNDERSTAND layer: seminar, workshop, roundtable or customer session (e.g. 'EU Sovereignty & AI Governance', 'Future of Corporate Reporting', Claude Code Coaching cohort Fridays over Teams). Started by Chapter 10 EVENT_HOOK with a Journal text as reading material, or directly by the HIC. The event is a sales event by effect but lives on onelifetime.world/seminars as knowledge, not on dws10.com/buy. State: this graph plus Google Calendar (Workspace) and the register row.",
+      "allowedNext": ["DEFINE_EVENT"]
+    },
+    {
+      "id": "DEFINE_EVENT",
+      "description": "Fix title, format (lecture / workshop / roundtable), language(s), date and time (EET), platform (Google Meet on Workspace by default; Teams when the customer requires), target audience by industry, reading material (Journal URLs), and the dws10.com product family the event relates to. Calendar the date and every derived date (invitation send, reminder, recording publish) via Google_Calendar.create_event — dated commitments are never left to memory.",
+      "allowedNext": ["PREPARE_MATERIALS"]
+    },
+    {
+      "id": "PREPARE_MATERIALS",
+      "description": "Produce the deck (Google Slides or Gamma; repo .md is master), the invitation text and the follow-up text. Materials follow the layer rule for their destination: the deck may show HOW-level detail; the invitation is WHY/UNDERSTAND language with no price list (pricing lives on dws10.com/buy and is linked, not pasted). Truth-check every public claim.",
+      "allowedNext": ["GUARDRAIL"]
+    },
+    {
+      "id": "GUARDRAIL",
+      "description": "Deterministic check on the invitation and follow-up: sender identity (Risto Anton Päärni, risto.paarni@lifetime.fi via Proton, +358 400 319 010), no noreply@, no secrets, no unverified figures, legal identifiers correct. Block routes back to PREPARE_MATERIALS with the rule list.",
+      "allowedNext": ["SHOW_TO_HIC", "PREPARE_MATERIALS"]
+    },
+    {
+      "id": "SHOW_TO_HIC",
+      "description": "One artefact: invitation text, recipient list source (Chapter 0/1/2 pipelines, customer list, LinkedIn event), deck link, dates. Stop and ask: approve sending, or what to change.",
+      "allowedNext": ["HIC_APPROVAL_GATE"]
+    },
+    {
+      "id": "HIC_APPROVAL_GATE",
+      "description": "Outbound email to real people is RED. The invitation goes out only on explicit HIC approval of THIS text to THIS list; approval binds to the text (ApprovalToken hash). Enforced by DEFAULT_GATED_NODE_IDS in runner.ts; the send itself runs through sendEmailActivity with hard-rules (docs/dws-use-cases.md #1, #12). No agent sends on its own.",
+      "allowedNext": ["SEND_INVITATIONS", "REVISE"]
+    },
+    {
+      "id": "REVISE",
+      "description": "Apply edits, re-emit the full package, return to GUARDRAIL. A cancelled event goes to CANCELLED with the reason and calendar entries removed.",
+      "allowedNext": ["GUARDRAIL", "CANCELLED"]
+    },
+    {
+      "id": "SEND_INVITATIONS",
+      "description": "Reachable only through HIC_APPROVAL_GATE. Send via the durable email path (one Standalone Activity per recipient, keyed by event + recipient, retries under Temporal policy) and publish the event page placeholder on onelifetime.world/events. Record sent/failed per recipient.",
+      "allowedNext": ["AWAIT_EVENT"]
+    },
+    {
+      "id": "AWAIT_EVENT",
+      "description": "Durable wait until the event date: registrations tracked, reminder sent from the calendared date (the reminder text was approved with the invitation; a changed reminder re-enters the gate). Re-entry node — every registration or question re-enters here, it does not restart the chain.",
+      "allowedNext": ["HOLD_EVENT", "CANCELLED"]
+    },
+    {
+      "id": "HOLD_EVENT",
+      "description": "Run the session; record it (Meet/Teams recording to Drive); capture questions asked — each unanswered or recurring question is a candidate Journal source for Chapter 10 SELECT_SOURCE.",
+      "allowedNext": ["PUBLISH_RECORDING"]
+    },
+    {
+      "id": "PUBLISH_RECORDING",
+      "description": "Publish recording link, summary and slides to onelifetime.world/seminars/<slug> (UNDERSTAND layer), with the three ecosystem links (lifetime.fi conclusion, Journal text, dws10.com product). Participants' names and recordings of them are personal data: publish only what consent covers; otherwise summary and slides only. Sync mirror.",
+      "allowedNext": ["FOLLOW_UP"]
+    },
+    {
+      "id": "FOLLOW_UP",
+      "description": "Per-participant follow-up is outbound email again: it was approved in SHOW_TO_HIC as a template, but any personalised change to the text beyond name and one sentence re-enters HIC_APPROVAL_GATE. Interested participants are handed to Chapter 1 (sales-outreach) or Chapter 2 (investor-outreach) at their capture node, never emailed offers directly from here.",
+      "allowedNext": ["REGISTER", "HIC_APPROVAL_GATE"]
+    },
+    {
+      "id": "REGISTER",
+      "description": "Register row: event, date, participants count, recording URL, questions harvested, handoffs made. Calendar the 3-month follow-up if any commitment was made.",
+      "allowedNext": ["END"]
+    },
+    {
+      "id": "CANCELLED",
+      "description": "Terminal. Calendar entries removed, registered participants informed with an approved cancellation text (goes through the same gate if it is new text), register row marked cancelled with reason.",
+      "allowedNext": []
+    },
+    {
+      "id": "END",
+      "description": "Terminal — event held, recording published, follow-ups handed off, register updated.",
+      "allowedNext": []
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "name": "content-publishing-chapter-five",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "Identify the post: slug, target site (onelifetime.world or dws10.com), language, and what the post is about. Matches `/blog-draft <slug> \"<what it is about>\"`. Reopening an existing draft re-enters at whatever stage it was left in.",
+      "allowedNext": ["DRAFT"]
+    },
+    {
+      "id": "DRAFT",
+      "description": "Step 1 of the /blog-draft loop. Write the COMPLETE post text to docs/blog-drafts/<slug>.md with the header block (Status: DRAFT, Slug, Title, Language, Target, Date) followed by every word that will appear on the page. Plain prose, no HTML. Not a summary, outline, or description of the post — the whole thing.",
+      "allowedNext": ["SHOW_TO_HIC"]
+    },
+    {
+      "id": "SHOW_TO_HIC",
+      "description": "Step 2. Output the ENTIRE draft in ONE fenced code block (the Deliverable Handoff Rule — a fenced block is the only thing with a copy button). One block, not several; no preamble to scroll past; never truncated. Then stop and ask one concrete question: approve as-is, or what to change. Do not proceed in the same turn.",
+      "allowedNext": ["HIC_APPROVAL_GATE"]
+    },
+    {
+      "id": "HIC_APPROVAL_GATE",
+      "description": "RED zone, Non-Negotiable Rule 13, absolute: no blog entry publishes until the HIC has read its full text and approved THAT post. Approval of a different post is not approval of this one, and a general 'go ahead' is not approval. Only an explicit HIC approval about this post permits setting `Status: APPROVED` in docs/blog-drafts/<slug>.md — never flip that line on their behalf. Enforced at runtime by .claude/hooks/blog-draft-gate.sh, which blocks Write/Edit on */posts/*.html without that exact line; but the rule binds even where the hook does not reach (generators, cron, unloaded hooks) — a bypass is not permission.",
+      "allowedNext": ["PUBLISH", "REVISE"]
+    },
+    {
+      "id": "REVISE",
+      "description": "Step 3. Take edits at whatever grain the HIC gives them — a sentence, a section, the whole angle. After each round re-emit the FULL text in one block, not a diff: they are reviewing the finished thing, not the change. Returns to SHOW_TO_HIC, so every revision round re-enters the approval gate rather than inheriting the prior round's approval.",
+      "allowedNext": ["SHOW_TO_HIC", "PARKED"]
+    },
+    {
+      "id": "PUBLISH",
+      "description": "Step 5, reachable only through HIC_APPROVAL_GATE. Build the HTML post, register it per docs/BLOG_STANDARD.md §3 / §3.1 (post registry, latestPosts, injector), sync the dual folder, and for multi-language posts follow §3.2 / §3.2.1 including the mandatory AI-content label on any machine-translated variant. Then tell the HIC the file path and live URL.",
+      "allowedNext": ["POST_APPROVAL_EDIT", "END"]
+    },
+    {
+      "id": "POST_APPROVAL_EDIT",
+      "description": "Any wording change after approval reopens the loop — one of the four documented failure modes this skill exists to kill ('HIC approved, wording changed after'). Routes back to DRAFT so the changed text is shown and approved again; it never re-enters PUBLISH directly.",
+      "allowedNext": ["DRAFT"]
+    },
+    {
+      "id": "PARKED",
+      "description": "Terminal for this run, but a `Status: DRAFT` file left in docs/blog-drafts/ is unfinished work, not a closed task — it must be surfaced when asked what is pending and at session end, never silently abandoned.",
+      "allowedNext": []
+    },
+    {
+      "id": "END",
+      "description": "Terminal — post published and its location reported to the HIC.",
+      "allowedNext": []
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "share": "disabled",
   "instructions": ["CLAUDE.md"],
   "shell": "bash",
   "model": "ollama-local/qwen3-coder:30b",
@@ -7,7 +8,7 @@
   "provider": {
     "ollama-local": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "Ollama Local (DGX Spark tunnel)",
+      "name": "Ollama Local (DGX Spark :11434; Win11 SSH tunnel overrides baseURL to :11435 in ~/.config/opencode/opencode.json)",
       "options": {
         "baseURL": "http://127.0.0.1:11434/v1"
       },
@@ -70,38 +71,45 @@
     },
     "read": {
       "*": "allow",
-      ".env": "allow",
-      ".env.example": "allow",
-      ".env.*": "deny",
+      ".env": "deny",
       "**/.env": "deny",
+      ".env.*": "deny",
       "**/.env.*": "deny",
-      "**/*secret*": "deny",
-      "**/*credentials*": "deny",
-      "**/*.pem": "deny",
-      "**/*.key": "deny",
-      "**/id_rsa*": "deny"
+      "*secret*": "deny",
+      "*credentials*": "deny",
+      "*.pem": "deny",
+      "*.key": "deny",
+      "*id_rsa*": "deny",
+      ".env.example": "allow",
+      "**/.env.example": "allow",
+      ".env.sample": "allow",
+      "**/.env.sample": "allow",
+      ".env.template": "allow",
+      "**/.env.template": "allow"
     },
     "edit": {
       "*": "allow",
       ".env": "deny",
-      ".env.*": "deny",
       "**/.env": "deny",
+      ".env.*": "deny",
       "**/.env.*": "deny",
-      "**/*secret*": "deny",
-      "**/*credentials*": "deny",
-      "**/*.pem": "deny",
-      "**/*.key": "deny"
+      "*secret*": "deny",
+      "*credentials*": "deny",
+      "*.pem": "deny",
+      "*.key": "deny",
+      "*id_rsa*": "deny",
+      ".env.example": "allow",
+      "**/.env.example": "allow",
+      ".env.sample": "allow",
+      "**/.env.sample": "allow",
+      ".env.template": "allow",
+      "**/.env.template": "allow",
+      ".claude/settings.json": "ask",
+      ".claude/hooks/*": "ask"
     },
-    "webfetch": "allow"
-  },
-  "cost-policy": {
-    "enabled": true,
-    "standard": "DWS_COST_POLICY_STANDARD.md",
-    "policy-start": "2026-09-20",
-    "free-credit-days": 21,
-    "compute-default": "dgx-local",
-    "sandbox-required": true,
-    "audit-log": ".claude/hooks/audit/cost-policy.log",
-    "description": "DGX-first agentic compute policy. Cloud agents blocked post-Day 21 (2026-10-12+). EU AI Act Art. 14 compliance."
+    "webfetch": "allow",
+    "external_directory": {
+      "*": "ask"
+    }
   }
 }

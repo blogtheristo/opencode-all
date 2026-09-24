@@ -1,0 +1,82 @@
+{
+  "name": "investor-outreach-chapter-two",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "Read the target investor match (a named firm/contact or a fresh match from mandate-fit scoring) and confirm this run is OutreachPipeline 'investor', not 'customer' — the only pipeline-level change from Chapter 1's sales-outreach.graph.json.",
+      "allowedNext": ["RESEARCH"]
+    },
+    {
+      "id": "RESEARCH",
+      "description": "Score mandate fit: ticket size, stage, focus (dual-use + industrial for DWS), exclusions, warm-path availability. Maps to the /investor-outreach skill's COLD/NEW status and the `add` action's required fields (name, firm, linkedin; recommended: role, ticket, stage, focus, warm, drawback, exclusions).",
+      "allowedNext": ["INTRO_REQUESTED", "DRAFT_OUTREACH", "PARKED"]
+    },
+    {
+      "id": "INTRO_REQUESTED",
+      "description": "A warm path exists (referrer, portfolio-company connection, conference). Request the intro before drafting cold copy — same warm-vs-cold split Chapter 1 uses for customers.",
+      "allowedNext": ["INTRO_MADE", "DRAFT_OUTREACH"]
+    },
+    {
+      "id": "INTRO_MADE",
+      "description": "Warm intro delivered. Draft references the intro context.",
+      "allowedNext": ["DRAFT_OUTREACH"]
+    },
+    {
+      "id": "DRAFT_OUTREACH",
+      "description": "Compose the outbound draft from the house INTRO_<NAME>_<FIRM>.md template (`/investor-outreach add`, canonical reference `INTRO_LAURA_RAGGL_ROI_VENTURES.md`) or a matching investor-outreach/ LETTER-style file. Sender identity and signature per CLAUDE.md Sender Identity rule. Transport MUST be Amazon SES per Non-Negotiable Rule 4 — never Resend, same conflict flagged in Chapter 1's scope doc.",
+      "allowedNext": ["HIC_APPROVAL_GATE"]
+    },
+    {
+      "id": "HIC_APPROVAL_GATE",
+      "description": "RED zone, non-negotiable: outbound investor communication is still outbound email/InMail and requires explicit human approval before send (Auto-Mode Trust Boundary — 'outbound email' is BLOCKED/human-required). Identical enforcement to Chapter 1: the executor must stop and surface the drafted copy verbatim; no auto-transition past this node under any circumstance.",
+      "allowedNext": ["SEND", "DRAFT_OUTREACH"]
+    },
+    {
+      "id": "SEND",
+      "description": "Send the approved draft via Amazon SES (SMTP) or LinkedIn InMail per the intro's chosen channel. Update the INTRO_*.md file's Status field to CONTACTED, matching the pattern already used across investor-outreach/INTRO_*.md files (e.g. \"CONTACTED — LinkedIn InMail sent <date>\").",
+      "allowedNext": ["AWAIT_RESPONSE", "ERROR_RECOVERY"]
+    },
+    {
+      "id": "AWAIT_RESPONSE",
+      "description": "Hold state pending reply. A follow-up send is a NEW draft and re-enters HIC_APPROVAL_GATE — never resends without fresh approval (same rule as Chapter 1's AWAIT_RESPONSE).",
+      "allowedNext": ["RESPONDED", "HIC_APPROVAL_GATE", "PARKED"]
+    },
+    {
+      "id": "RESPONDED",
+      "description": "Investor replied. Classify outcome (interested / needs reframing / declined / referred elsewhere). Maps to `/investor-outreach triage` re-ranking by current focus.",
+      "allowedNext": ["MEETING_BOOKED", "DRAFT_OUTREACH", "PASSED"]
+    },
+    {
+      "id": "MEETING_BOOKED",
+      "description": "Meeting or call scheduled. Handoff point to a human-led conversation — this graph does not model the meeting itself.",
+      "allowedNext": ["NEGOTIATION", "PASSED", "PARKED"]
+    },
+    {
+      "id": "NEGOTIATION",
+      "description": "SAFE round terms in discussion (ticket size, valuation cap, pro-rata, board/observer rights).",
+      "allowedNext": ["CONVERTED", "PASSED"]
+    },
+    {
+      "id": "CONVERTED",
+      "description": "Terminal — SAFE signed. Feeds the DWS IQ 6 SAFE round total.",
+      "allowedNext": []
+    },
+    {
+      "id": "PASSED",
+      "description": "Terminal — investor declined or mandate fit disqualified at this stage. Maps to a Status update recording the reason (mandate exclusion, stage mismatch, no capacity).",
+      "allowedNext": []
+    },
+    {
+      "id": "PARKED",
+      "description": "Terminal for this run, but re-enterable later (e.g. next fund cycle, mandate refresh). Matches the HOLD status pattern already used across investor-outreach/INTRO_*.md files.",
+      "allowedNext": []
+    },
+    {
+      "id": "ERROR_RECOVERY",
+      "description": "Send failed or bounced (wrong address, InMail limit hit). Diagnose and correct before retrying.",
+      "allowedNext": ["DRAFT_OUTREACH", "PARKED"]
+    }
+  ]
+}

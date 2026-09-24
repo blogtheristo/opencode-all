@@ -6,6 +6,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { getSupabaseClient } from '../config/supabase.js';
 import logger from '../utils/logger.js';
+import { buildPipelineView, loadRegistry } from '../agents/workflow-v2/pipeline.js';
 
 const execFileAsync = promisify(execFile);
 const router: Router = express.Router();
@@ -176,6 +177,20 @@ router.get('/audit-log', async (req: Request, res: Response) => {
     return;
   }
   res.json({ entries: data });
+});
+
+// Workflow v2 pipeline view — the HIC's control panel (docs/workflow-v2-chapters-roadmap.md
+// "Pipeline view"): what the market says → what we believe → what we changed → did it work.
+// First implementation reads the repo registry (docs/market-signals); the durable version
+// will read workflow_v2_runs. Read-only; decisions still go through the approval-hash gate.
+router.get('/pipeline', async (_req: Request, res: Response) => {
+  try {
+    const signals = await loadRegistry();
+    res.json(buildPipelineView(signals));
+  } catch (error) {
+    logger.error('Backoffice pipeline view failed', { error: String(error) });
+    res.status(500).json({ error: 'Pipeline view unavailable' });
+  }
 });
 
 export default router;

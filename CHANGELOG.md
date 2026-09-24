@@ -27,6 +27,15 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- OpenCode root `opencode.json` (closes #1832): the `read`/`edit` permission blocks
+  allowed reading the repo-root `.env`, denied `.env.example`, and left root-level
+  `*secret*`/`*credentials*`/`*.pem`/`*.key`/`id_rsa` readable (last-match-wins +
+  `**/` needs a slash). Rule sets rewritten and verified with OpenCode 1.18.32
+  `debug config --pure` plus a matcher harness; `share` disabled; `.claude/`
+  harness edits gated to `ask`; non-schema `cost-policy` block moved to
+  `config/cost-policy.json`. Field note
+  `docs/field-notes/2026-09-23-opencode-config-audit-issue-1832.md`.
+
 - V10 asked for a new login: it now uses the shared dws6.com Supabase config and
   session key (`dws6-auth-token`) instead of a placeholder project, and its router
   honours the `/dashboard/firehorse/v10/` base path.
