@@ -1,15 +1,16 @@
 {
   "_meta": {
-    "version": "1.3.0",
+    "version": "1.4.0",
     "date": "2026-09-24",
-    "purpose": "Active Ontology UX v2 — DISCOVER layer on dws10.com. Decision trap → recognise yourself → industry → diagnostic choices → uncertainty made visible → recommended path → solutions (products last). Spec: docs/specs/active-ontology-ux-v2.md. Learning deltas LD-2026-09-003/004/005 (HIC APPLY 24.09.2026). 1.1.0: Ownership stage (LD-2026-09-007, HIC APPLY 24.09.2026) — Observation → Meaning → Ownership → Decision → Action → Outcome; ownership is an ontological stage, not a UX feature. 1.2.0: four distinct things (problem ownership, decision rights, action responsibility, consequence accountability); action can be outsourced, accountability cannot; Ownership Verdict (\"not yours to solve — yours to transfer\"). 1.3.0: verdict-routed solutions — unclear or transferable ownership leads with Ownership Discovery (Captain Day) before any platform product; the catalogue becomes solution paths, not a product list.",
+    "purpose": "Active Ontology UX v2 — DISCOVER layer on dws10.com. Decision trap → recognise yourself → industry → diagnostic choices → uncertainty made visible → recommended path → solutions (products last). Spec: docs/specs/active-ontology-ux-v2.md. Learning deltas LD-2026-09-003/004/005 (HIC APPLY 24.09.2026). 1.1.0: Ownership stage (LD-2026-09-007, HIC APPLY 24.09.2026) — Observation → Meaning → Ownership → Decision → Action → Outcome; ownership is an ontological stage, not a UX feature. 1.2.0: four distinct things (problem ownership, decision rights, action responsibility, consequence accountability); action can be outsourced, accountability cannot; Ownership Verdict (\"not yours to solve — yours to transfer\"). 1.3.0: verdict-routed solutions — unclear or transferable ownership leads with Ownership Discovery (Captain Day) before any platform product; the catalogue becomes solution paths, not a product list. 1.4.0: evidence panel (\"show me, not trust me\") — similar cases, typical ownership patterns and next steps from stored observations; minimum 5 cases or the panel says it does not know yet.",
     "rules": [
       "Never chat-first.",
       "Never show products before the situation is understood.",
       "Every question says what it rules out.",
       "Prices only on /buy, never here.",
       "Observations are anonymised before storage.",
-      "Ownership before path: ask whether it is known who can make the problem move; never ask for names, only roles."
+      "Ownership before path: ask whether it is known who can make the problem move; never ask for names, only roles.",
+      "Show, do not claim: every number in the evidence panel comes from stored observations; below 5 cases the panel says so."
     ]
   },
   "prompt": {
@@ -45,7 +46,19 @@
       "continueOwn": "Jatka suositeltuun etenemiseen",
       "unknownRole": "Ei tiedossa",
       "verdictLabel": "Omistajuuslöydös",
-      "afterOwnership": "Kun omistajuus on selvä: polun ratkaisut"
+      "afterOwnership": "Kun omistajuus on selvä: polun ratkaisut",
+      "evidenceTitle": "Mitä ontologia tietää tästä tilanteesta",
+      "similarCases": "Samankaltaisia tapauksia",
+      "patternsLabel": "Tyypilliset omistajuusmallit (omistaja + päättäjä)",
+      "nextLabel": "Tyypilliset seuraavat askeleet",
+      "countersLabel": "DISCOVER-tulokset tähän mennessä",
+      "cObserved": "Havaitut ongelmat",
+      "cUnclear": "Omistajuus epäselvä",
+      "cDecision": "Päätöksentekijä tunnistettu",
+      "cPath": "Ratkaisupolku tunnistettu",
+      "notEnough": "Ontologia ei vielä tiedä tästä riittävästi: alle 5 tallennettua tapausta tälle toimialalle ja polulle. Vastauksesi on yksi niistä, joista tieto syntyy.",
+      "unavailable": "Evidenssipaneeli ei ole vielä käytössä tällä sivulla.",
+      "evidenceNote": "Luvut ovat anonymisoituja, tallennettuja DISCOVER-havaintoja, eivät arvioita."
     },
     "en": {
       "question": "Which decision is hard to make right now?",
@@ -79,7 +92,19 @@
       "continueOwn": "Continue to the recommended path",
       "unknownRole": "Not known",
       "verdictLabel": "Ownership finding",
-      "afterOwnership": "Once ownership is clear: the path’s solutions"
+      "afterOwnership": "Once ownership is clear: the path’s solutions",
+      "evidenceTitle": "What the ontology knows about this situation",
+      "similarCases": "Similar cases",
+      "patternsLabel": "Typical ownership patterns (owner + decision-maker)",
+      "nextLabel": "Typical next steps",
+      "countersLabel": "DISCOVER results so far",
+      "cObserved": "Problems observed",
+      "cUnclear": "Ownership unclear",
+      "cDecision": "Decision-maker identified",
+      "cPath": "Solution path identified",
+      "notEnough": "The ontology does not know enough about this yet: fewer than 5 stored cases for this industry and path. Your answer is one of those the knowledge is built from.",
+      "unavailable": "The evidence panel is not yet enabled on this page.",
+      "evidenceNote": "Figures are anonymised, stored DISCOVER observations, not estimates."
     }
   },
   "recognise": [

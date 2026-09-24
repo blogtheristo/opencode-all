@@ -52,6 +52,7 @@ dispatched_runs:
   - "TODO: Chapter 14 CLASSIFY lisää ownership_known + owner_roles signaaliin (PR #2059 mergen jälkeen)"
   - "DONE: Active Ontology 1.2.0 — neljä eri asiaa + Ownership Verdict (kierros 3)"
   - "DONE: Active Ontology 1.3.0 — verdict-reititetty ensimmäinen kauppa (Captain Day) ennen alustatuotteita (kierros 4)"
+  - "DONE: Active Ontology 1.4.0 — evidenssipaneeli show-me (migration 091 + /api/observations/summary) (kierros 5)"
   - "CANDIDATE: tuote 'Ownership Evidence' — selvitys, jonka tulos on omistajuuslöydös, ei tekninen ratkaisu (odottaa tuoteperhepäätöstä)"
   - "TODO: Journal-teksti 'Kaikki tietävät ongelman, kukaan ei omista sitä' (sarja 0, teksti 2; Rule 13)"
 impact:
@@ -120,6 +121,23 @@ on selvä"; `outsourced_accountability` → vastuuhuomautus ennen polun tuotteit
 tuotteet suoraan. `recommended_sku` tallentuu havaintoon, joten polkujen A–F toteutuma on
 mitattavissa. Polut C–F ohjautuvat jo diagnoosin syiden kautta; niiden erillinen verdict-reititys
 on seuraava askel, kun ensimmäiset 100 havaintoa näyttävät jakauman.
+
+## Kierros 5 (HIC 24.09.2026): "trust me" → "show me"
+
+Konsultti sanoo "jokainen asiakastyö tekee seuraavasta paremman"; asiakas ajattelee "niin sanoo
+jokainen konsultti". Active Ontology mahdollistaa ensimmäistä kertaa todistamisen: ei "olemme
+nähneet tämän ennen" vaan "näin organisaatiot yleensä ratkaisevat tämän". Tärkein assetti ei ole
+137 tuotetta eikä 256 polkua vaan todistetut omistajuuslöydökset + todistetut päätöspolut +
+todistetut seuraavat askeleet, näytettynä reaaliajassa: mitä ontologia tietää, mitä se ei tiedä,
+mitä pitäisi selvittää seuraavaksi.
+
+Tuotteeseen (Active Ontology 1.4.0): evidenssipaneeli omistajuus- ja ratkaisuvaiheessa —
+samankaltaisia tapauksia, tyypilliset omistajuusmallit (omistaja + päättäjä, %), tyypilliset
+seuraavat askeleet, DISCOVER-laskurit (havaitut ongelmat / omistajuus epäselvä / päättäjä
+tunnistettu / polku tunnistettu). Lähde: SQL-funktio `website_observation_summary` (migration
+091), Pages Function `GET /api/observations/summary` (5 min välimuisti). Totuussääntö: alle 5
+tapausta → paneeli sanoo "ontologia ei vielä tiedä tästä riittävästi", ei koskaan keksittyjä
+lukuja. Ilman ympäristömuuttujia paneeli ilmoittaa, ettei se ole käytössä.
 
 ## Kategoriamääritelmä (HIC 24.09.2026)
 

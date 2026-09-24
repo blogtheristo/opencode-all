@@ -393,7 +393,125 @@
       if (m.decision === m.owner && (!m.action || m.action === m.owner)) return 'aligned';
       return null;
     }
+    // Evidence panel — "show me, not trust me" (LD-2026-09-007 round 5). Aggregate counts from
+    // stored observations via /api/observations/summary. Never fabricates: below the minimum
+    // case count it says the ontology does not know yet.
+    var evidence = { key: null, data: null };
+    function roleName(id) {
+      var r = ((cfg.ownership || {}).roles || []).find(function (x) {
+        return x.id === id;
+      });
+      return r ? L(r) : id === '?' ? (lang === 'fi' ? 'ei tiedossa' : 'unknown') : id;
+    }
+    function skuName(sku) {
+      var all = [];
+      Object.keys(cfg.paths).forEach(function (k) {
+        all = all.concat(cfg.paths[k].solutions || []);
+      });
+      var vs = (cfg.ownership || {}).verdictSolutions || {};
+      Object.keys(vs).forEach(function (k) {
+        all = all.concat(vs[k].solutions || []);
+      });
+      var hit = all.find(function (x) {
+        return x.sku === sku;
+      });
+      return hit ? hit.name : sku;
+    }
+    function evidencePanel() {
+      var box = el('div', { class: 'ao-step ao-evidence' }, [
+        el('h3', { text: t('evidenceTitle') }),
+      ]);
+      var d = evidence.data;
+      if (!d) {
+        box.appendChild(el('p', { class: 'ao-hint', text: '…' }));
+        return box;
+      }
+      if (!d.available) {
+        box.appendChild(el('p', { class: 'ao-hint', text: t('unavailable') }));
+        return box;
+      }
+      if (!d.sufficient) {
+        box.appendChild(el('p', { text: t('notEnough') }));
+        return box;
+      }
+      box.appendChild(
+        el('p', { class: 'ao-kpi' }, [
+          el('b', { text: String(d.similar_cases) }),
+          document.createTextNode(' ' + t('similarCases')),
+        ]),
+      );
+      var total = (d.ownership_patterns || []).reduce(function (a, x) {
+        return a + x.count;
+      }, 0);
+      if (total) {
+        box.appendChild(el('h4', { text: t('patternsLabel') }));
+        d.ownership_patterns.forEach(function (x) {
+          var parts = x.pattern.split('+');
+          box.appendChild(
+            el('div', { class: 'ao-bar' }, [
+              el('b', { text: Math.round((x.count / total) * 100) + ' %' }),
+              el('div', {}, [
+                el('span', { style: 'width:' + Math.round((x.count / total) * 100) + '%' }),
+                el('small', { text: roleName(parts[0]) + ' + ' + roleName(parts[1]) }),
+              ]),
+            ]),
+          );
+        });
+      }
+      if ((d.next_steps || []).length) {
+        box.appendChild(el('h4', { text: t('nextLabel') }));
+        box.appendChild(
+          el(
+            'ol',
+            { class: 'ao-next' },
+            d.next_steps.map(function (x) {
+              return el('li', { text: skuName(x.sku) });
+            }),
+          ),
+        );
+      }
+      box.appendChild(el('h4', { text: t('countersLabel') }));
+      box.appendChild(
+        el(
+          'div',
+          { class: 'ao-counters' },
+          [
+            ['cObserved', d.problems_observed],
+            ['cUnclear', d.ownership_unclear],
+            ['cDecision', d.decision_maker_known],
+            ['cPath', d.path_identified],
+          ].map(function (c) {
+            return el('div', {}, [el('b', { text: String(c[1]) }), el('small', { text: t(c[0]) })]);
+          }),
+        ),
+      );
+      box.appendChild(el('p', { class: 'ao-hint', text: t('evidenceNote') }));
+      return box;
+    }
+    function loadEvidence(step) {
+      var key = (state.industry || '') + '|' + (state.pathKey || '');
+      if (evidence.key === key) return;
+      evidence.key = key;
+      evidence.data = null;
+      var q = [];
+      if (state.industry) q.push('industry=' + encodeURIComponent(state.industry));
+      if (state.pathKey) q.push('path=' + encodeURIComponent(state.pathKey));
+      fetch('/api/observations/summary?' + q.join('&'))
+        .then(function (r) {
+          return r.ok ? r.json() : { available: false };
+        })
+        .catch(function () {
+          return { available: false };
+        })
+        .then(function (d) {
+          if (evidence.key !== key) return;
+          evidence.data = d;
+          var old = root.querySelector('.ao-evidence');
+          if (old) old.replaceWith(evidencePanel());
+        });
+    }
     if (step === 'ownership') {
+      loadEvidence(step);
       // Ownership is an ontological stage (LD-2026-09-007): Observation → Meaning → Ownership →
       // Decision → Action → Outcome. Roles only, never names.
       var own = cfg.ownership || { dimensions: [], roles: [] };
@@ -469,6 +587,7 @@
         else mp.appendChild(el('p', { class: 'ao-hint', text: t('mappingFirst') }));
         root.appendChild(mp);
       }
+      root.appendChild(evidencePanel());
       if (state.ownership.known) {
         root.appendChild(
           el('div', { class: 'ao-row', style: 'margin-top:14px' }, [
@@ -598,6 +717,8 @@
         root.appendChild(el('h3', { class: 'ao-after', text: t('afterOwnership') }));
       } else root.appendChild(el('h2', { class: 'ao-q', text: t('solutionsLabel') }));
       root.appendChild(solutionCards(p3.solutions, recommended));
+      loadEvidence(step);
+      root.appendChild(evidencePanel());
       root.appendChild(
         el('div', { class: 'ao-row', style: 'margin-top:18px' }, [
           el('a', {
