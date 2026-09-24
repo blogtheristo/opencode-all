@@ -1,9 +1,9 @@
 ---
 signal_id: MS-2026-09-003
-reality: Ford S-Max 2.0 diesel, EGR-putki rikki. HIC etsi osaa: Googlaus → Aeromotors (ei varmuutta oikeasta osasta) → soitto Ford Store Konalaan → OEM-osanumero → yhteensopivuuksien selvitys → sama osa Mondeo/Galaxy/S-Max → Ovoko (käytetty 26 €) ja Ford Saksa löydetty → ostopäätös. Aeromotorsin uusi osa 92 € jäi ostamatta.
-observation: Asiakas ei etsinyt EGR-putkea vaan halusi auton takaisin liikenteeseen. Kaikki järjestelmät pakottivat asiakkaan asiantuntijaksi ennen ostoa; asiakas teki ontologisen päättelyn (tunnistus, yhteensopivuus, riski, vaihtoehdot) itse. Aeromotors ei hävinnyt hinnan vaan tiedon vuoksi; todellinen kilpailija oli asiakkaan käyttämä aika.
-signal: Kauppa ei ratkea halvimpaan hintaan vaan vähäisimpään epävarmuuteen; passiivinen katalogi siirtää ontologisen päättelyn asiakkaalle.
-insight: Agentic Commerce ei ole parempi verkkokauppa vaan järjestelmä, joka tekee asiakkaan puolesta sen ontologisen päättelyn, jonka asiakas nyt tekee itse. Passiivinen ontologia näyttää tuotteita; aktiivinen ontologia vastaa "mitä asiakas yrittää saada aikaan" ja johtaa ratkaisuun. Asiakas ei osta hakua, katalogia eikä ontologiaa; hän ostaa sen, ettei hänen tarvitse päätellä itse.
+reality: Ford S-Max 2.0 diesel. Oire: pakokaasua konetilaan; ECU ei hyväksy resetointia; EGR-arvo alueen ulkopuolella. Mahdollisia syitä: EGR-putki, EGR-tiiviste, pakosarja, vaihdettu EGR viallinen, turbon ja EGR-putken liitos, sähkövika, johtosarja. HIC etsi osaa: Googlaus → Aeromotors (ei varmuutta oikeasta osasta) → soitto Ford Store Konalaan → OEM-osanumero → yhteensopivuuksien selvitys → sama osa Mondeo/Galaxy/S-Max → Ovoko (käytetty 26 €) ja Ford Saksa löydetty → ostopäätös. Aeromotorsin uusi osa 92 € jäi ostamatta.
+observation: Asiakas ei ollut ostamassa EGR-putkea vaan hypoteesia: hän ei tiennyt osaa eikä edes sitä, mikä komponentti on rikki, ja halusi varmistua, että korjaa oikean ongelman. Verkkokauppa sanoi käytännössä 'tule takaisin kun tiedät vastauksen'. Kaikki järjestelmät pakottivat asiakkaan asiantuntijaksi ennen ostoa; asiakas teki ontologisen päättelyn (tunnistus, yhteensopivuus, riski, vaihtoehdot) itse. Aeromotors ei hävinnyt hinnan vaan tiedon vuoksi; todellinen kilpailija oli asiakkaan käyttämä aika.
+signal: Kauppa ei ratkea halvimpaan hintaan eikä saatavuuteen vaan vähäisimpään epävarmuuteen; kauppias, joka ei tee diagnostiikkaa, häviää diagnostiikkaan.
+insight: Asiakas ei halunnut ostaa EGR-putkea. Hän halusi varmistua siitä, että korjaa oikean ongelman. Agentic Commerce v2:n tärkein ominaisuus ei ole ostaminen vaan Diagnostic Compression: epävarmuuden poistaminen + tarpeen ymmärtäminen + päättely asiakkaan puolesta + ostaminen sivutuotteena. Aktiivinen ontologia lähtee oireesta, ei osasta: Observation → Candidate causes → Evidence → Likelihood → Repair paths → Required parts → Purchase options. Passiivinen ontologia näyttää tuotteita; aktiivinen ontologia vastaa "mitä asiakas yrittää saada aikaan" ja johtaa ratkaisuun. Asiakas ei osta hakua, katalogia eikä ontologiaa; hän ostaa sen, ettei hänen tarvitse päätellä itse.
 source: customer conversation
 date: 2026-09-24
 observed_at: 2026-09-24
@@ -19,9 +19,9 @@ hypothesis: Kun dws10.com:n katalogi (136 tuotetta) muutetaan passiivisesta hinn
 refuting_evidence: Jos 60 päivän kuluessa aktiivisen tarve-näkymän julkaisusta dws10.com:lla ostopolun keskeytykset (buy → checkout) eivät laske tai ostajat pyytävät edelleen ensin hinnastoa, hypoteesi on väärä tai näkymä ei ole aidosti aktiivinen. Toinen kumoaja: suositus osoittautuu väärin päätellyksi (väärä osa / väärä tuote) useammin kuin 1/20 tapauksessa.
 learning_delta:
   id: LD-2026-09-003
-  old_assumption: "Verkkokaupan tehtävä on näyttää tuotteet."
-  new_learning: "Verkkokaupan tehtävä on ymmärtää tarve ja johtaa asiakas ratkaisuun. Passiivinen ontologia → aktiivinen ontologia."
-  ontology_change: "Asiakas–tuote-suhde: vanha oletus 'asiakas valitsee tuotteen katalogista'; uusi 'asiakas ilmaisee tavoitteen; ontologia päättelee tilanteen, toimialan, riskit ja kolme vaihtoehtoa'. Lisätään käsitteet Tarve, Tavoite, Epävarmuus ja Ostosuositus; tuote on niiden seuraus, ei lähtökohta."
+  old_assumption: "Agentic Commerce = tuotesuositus. Verkkokaupan tehtävä on näyttää tuotteet."
+  new_learning: "Agentic Commerce = epävarmuuden poistaminen + tarpeen ymmärtäminen + päättely asiakkaan puolesta + ostaminen. Passiivinen ontologia → aktiivinen ontologia, joka lähtee oireesta eikä osasta."
+  ontology_change: "Lisätään käsitteet Oire, Ehdokassyy, Todennäköisyys, Korjauspolku ja Ostoskori-suositus (todennäköinen / mahdollinen / tarkistettava). Asiakas–tuote-suhde: vanha oletus 'asiakas valitsee tuotteen katalogista'; uusi 'asiakas ilmaisee tavoitteen; ontologia päättelee tilanteen, toimialan, riskit ja kolme vaihtoehtoa'. Lisätään käsitteet Tarve, Tavoite, Epävarmuus ja Ostosuositus; tuote on niiden seuraus, ei lähtökohta."
   hic_decision: PENDING
   applied_to: []
   excluded: []
@@ -67,7 +67,31 @@ Käytetty 26 € / 5 pv, kunto tuntematon. Suositus: uusi, koska 66 € sääst�
 uutta vaihtotyötä. Osta nyt." Asiakas olisi todennäköisesti maksanut 92 € enemmän mielellään
 kuin tunnin selvitystyön.
 
+## Tarkennus (HIC 24.09.2026): ostettiin hypoteesia, ei osaa
+
+Alkuperäinen ketju Tarve → Oikea osa → Osta oli liian yksinkertainen. Todellinen tilanne:
+
+```
+Oire: pakokaasua konetilaan
+→ Ehdokassyyt: EGR-putki · EGR-tiiviste · pakosarja · vaihdettu EGR viallinen
+  · turbon ja EGR-putken liitos · sähkövika · johtosarja
+→ Lisähavainto: ECU ei hyväksy resetointia, EGR-arvo alueen ulkopuolella
+→ Todennäköisyydet muuttuvat → tarvittavat osat muuttuvat → vasta sitten ostaminen
+```
+
+Aktiivinen ontologia olisi vastannut: "Havaitut oireet viittaavat useimmiten EGR-putkeen tai
+sen liitoksiin. Suosittelemme samalla vaihtamaan tiivisteen. Koska ECU ilmoittaa EGR-arvon
+olevan alueen ulkopuolella, tarkista myös johtosarja ja venttiilin sähköliitännät ennen
+lopullista osatilausta." Suositeltu ostoskori: ✓ EGR-putki ✓ EGR-tiiviste ✓ johtosarja
+? pakosarja (tarkistettava). Varaosakauppa A ei hävinnyt hintaan eikä saatavuuteen; se hävisi
+diagnostiikkaan. Jos se olisi tehnyt tämän työn, koko korjauspaketti olisi ostettu sieltä:
+"aikani on rahaa".
+
 ## DWS IQ -sovellus (sama ilmiö B2B:ssä)
+
+Asiakas ei halua ostaa Compliance Agentia. Asiakas haluaa varmistua, että ratkaisee oikean
+ongelman. Kun järjestelmä pienentää epävarmuuden riittävästi, ostopäätös syntyy helpommin kuin
+hinnastoa yksinkertaistamalla tai tuotteita poistamalla.
 
 Asiakas ei etsi CMP-T1:tä, DWS-EU-STARTERia tai Climate Intelligenceä. Hän kysyy: miten
 vähennän raportointiin kuluvaa aikaa, miten täytän NIS2:n, miten saan lisää liidejä, miten
