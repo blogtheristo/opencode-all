@@ -1,12 +1,14 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 1.2 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 1.3 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
 ## 0. Strategia yhdessä lauseessa (HIC + Copilot 24.09.2026, lopullinen)
 
 > **Lifetime Scope Journal (onelifetime.world/blog) kertoo mitä maailma tarkoittaa. Lifetime.fi kertoo miltä parempi maailma näyttää. DWS10.com kertoo miten sinne päästään.**
 
 Lifetime.fi **ei ole markkinointikanava eikä liidigeneraattori. Se on brändi**: näkymä siihen, miltä parempi liiketoiminta näyttää. Hyöty on taktinen (DWS10), mahdollisuus on strateginen (Lifetime). One Lifetime on Lifetime Oy:n oma brändi; lifetime.fi kantaa sitä, Lifetime Scope Journal on sen business-blogi.
+
+**One Lifetime -brändin merkitys (HIC 24.09.2026):** kestävä kehitys, ilmastonmuutoksen peruuttaminen teknisin keinoin, elämän ainutkertaisuus, elämä ja elävä planeetta, jossa terve ihminen on tasapainossa luonnon kanssa. Siksi lifetime.fi:n "parempi yritys" tarkoittaa aina kahta asiaa yhtä aikaa: yritys, joka menestyy, ja yritys, joka ei kuluta ihmisiä eikä planeettaa. Velvoitteet (CSRD, CBAM, ETS) eivät ole lifetime.fi:llä lyhenteitä vaan osa tätä tasapainoa; niiden toteutus on DWS10:n asia.
 
 Järjestys: ensin sisältöstrategia, ei uutta ulkoasua. Ulkoasu seuraa sisältöä.
 
@@ -50,9 +52,9 @@ Lupaus: **Rakennetaan yrityksiä, jotka toimivat paremmin.** Taso: strateginen, 
 ### 4.1 Hero
 
 > **One Lifetime**
-> **Rakennetaan yrityksiä, jotka toimivat paremmin.**
-> Digitalisaatio, automaatio ja tekoäly eivät ole tavoitteita. Tavoite on enemmän aikaa ihmisille, parempi päätöksenteko ja liiketoiminta, joka kasvaa kestävällä tavalla.
-> Lifetime kokoaa yhteen parhaat käytännöt, todelliset tulokset ja esimerkit siitä, miten suomalaiset yritykset kasvavat digitaalisesti.
+> **Rakennetaan yrityksiä, jotka toimivat paremmin – ihmisille ja planeetalle.**
+> Digitalisaatio, automaatio ja tekoäly eivät ole tavoitteita. Tavoite on enemmän aikaa ihmisille, parempi päätöksenteko ja liiketoiminta, joka kasvaa kuluttamatta sitä, mistä elämä riippuu.
+> Meillä on yksi elämä ja yksi elävä planeetta. Lifetime kokoaa yhteen parhaat käytännöt ja todelliset esimerkit siitä, miten suomalaiset yritykset kasvavat kestävästi.
 
 ### 4.2 Millainen yrityksesi voisi olla? (ei teknologiaa, ei taktisia lupauksia)
 
@@ -61,10 +63,11 @@ Lupaus: **Rakennetaan yrityksiä, jotka toimivat paremmin.** Taso: strateginen, 
 - **Päätökset syntyvät tiedosta, silloin kun niitä tarvitaan.**
 - **Tekee enemmän samalla henkilöstöllä.**
 - **Keskittyy liiketoimintaan ilman jatkuvaa epävarmuutta velvoitteista.**
+- **Kasvaa niin, että ihmiset ja luonto pysyvät tasapainossa – kasvu ei kuluta kumpaakaan.**
 
 ### 4.3 Tulevaisuuden yritys (uusi osio, Lifetimen ydin)
 
-Miltä näyttää yritys, joka löytyy verkosta, jonka tieto on hallinnassa, jonka prosessit toimivat, joka täyttää velvoitteensa ja joka hyödyntää automaatiota arjessa? Yksi kuvaava teksti (n. 150 sanaa), ei ominaisuuslistaa. Tämä on visio, jota Lifetime myy, ei yksittäisiä palveluita.
+Miltä näyttää yritys, joka löytyy verkosta, jonka tieto on hallinnassa, jonka prosessit toimivat, joka täyttää velvoitteensa, joka hyödyntää automaatiota arjessa – ja joka tekee tämän kaiken niin, että sen ihmiset voivat hyvin ja sen jälki planeetalla pienenee? Yksi kuvaava teksti (n. 150 sanaa), ei ominaisuuslistaa. Ilmastonmuutoksen kääntäminen on tekninen ja liiketoiminnallinen tehtävä, ja tulevaisuuden yritys on osa ratkaisua, ei ongelmaa. Tämä on visio, jota One Lifetime edustaa; yksittäiset palvelut ovat DWS10:ssä.
 
 ### 4.4 Toimialakohtaiset mahdollisuudet (strateginen taso; operatiiviset luvut DWS10:ssä)
 
@@ -140,6 +143,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                          |
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.3     | 2026-09-24 | One Lifetime -brändin merkitys kirjattu (kestävä kehitys, ilmastonmuutoksen kääntäminen teknisin keinoin, elämän ainutkertaisuus, ihminen tasapainossa luonnon kanssa); hero, §4.2, §4.3 ja teollisuusrivi päivitetty; blogiin 0.0                                                                               |
 | 1.2     | 2026-09-24 | Copilot-arvio omaksuttu: Lifetime on brändi, "näe mahdollisuus"; hero "One Lifetime — Rakennetaan yrityksiä, jotka toimivat paremmin"; taktiset liidilupaukset siirretty DWS10:een; uusi osio Tulevaisuuden yritys; toimialat vaikutuksina; blogi nimetty Lifetime Scope Journaliksi; liiketoimintatason sarja 0 |
 | 1.1     | 2026-09-24 | HIC/Copilot tarkennus: yhden lauseen strategia (§0), hero ja viisi tulosta, toimialataulukko, Tulospolku, hinnastot ja tuotelinkit pois lifetime.fi:ltä, Consulting siirtyy DWS10:een                                                                                                                            |
 | 1.0     | 2026-09-24 | Ensimmäinen ehdotus: kolmen sivuston työnjako, siirtotaulukko, blogin kattavuuskartta                                                                                                                                                                                                                            |
@@ -149,6 +153,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 ### 8.1 Blogitekstit — "blogi opettaa" (jokainen fi/sv/en/de/fr, julkaisu Rule 13 -portin kautta)
 
 Sarja 0 — Liiketoimintataso (kirjoitetaan ensin; lifetime.fi §4.2–4.3 linkittää näihin):
+0.0 Mitä One Lifetime tarkoittaa: yksi elämä, yksi planeetta, yritys osana ratkaisua
 0.1 Miksi osa yrityksistä kasvaa nopeammin kuin kilpailijat?
 0.2 Miksi digitalisaatiohankkeet epäonnistuvat?
 0.3 Mitä yrittäjän kannattaa automatisoida ensimmäisenä?
