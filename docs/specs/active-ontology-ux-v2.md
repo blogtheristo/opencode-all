@@ -61,6 +61,27 @@ Asiakas näkee: **Tavoite** tuotantoerien hiilijalanjälki todennettavaksi · **
 toteutusaika** 8 viikkoa · **Suositeltu aloitus** Climate Intelligence Starter · painikkeet
 **Varaa työpaja** / **Käynnistä arviointi**. Hinta näkyy vasta tässä (BUY-kerros).
 
+## Tarkennus (HIC 24.09.2026): tuote tulee lähes viimeisenä
+
+Kemira ei kysy "mikä tuote minun pitää ostaa" vaan "miksi emme tiedä tuotantoerien
+hiilijalanjälkeä". Ennen kuin siihen on vastattu, mitään tuotetta ei näytetä. Todellinen polku:
+
+```
+Tilanne → Mitä emme tiedä? → Miksi emme tiedä sitä? → Mikä epävarmuus estää päätöksen?
+→ Miten epävarmuus poistetaan? → Mitä pitää tehdä? → Mitä kannattaa hankkia?
+```
+
+Ihmiset eivät vihaa chattiä; he vihaavat huonoa chattiä, joka sanoo "kerro lisää" kunnes
+käyttäjä poistuu. Aktiivinen ontologia tekee päinvastoin: **"Tunnistan viisi mahdollista syytä.
+Näistä kaksi on todennäköisiä. Vastaa tähän yhteen kysymykseen, niin suljemme kolme pois."**
+Se ei tunnu chatilta; se tuntuu asiantuntijalta. Jokaisen kysymyksen pitää siis kertoa, mitä
+sen vastaus sulkee pois (vaihe 3: kysymyksen alla "sulkee pois: toimittajadata, laskentamalli").
+
+Learning Delta LD-2026-09-003:n lopullinen muoto: **vanha oletus: Agentic Commerce auttaa
+ostamaan. Uusi oppiminen: Agentic Commerce auttaa päättämään.** Ostaminen on seuraus. One
+Lifetime -kielellä: _turvallisuus syntyy silloin, kun epävarmuus vähenee riittävästi, jotta
+päätös voidaan tehdä luottavaisesti._
+
 ## Toteutusrajat
 
 - Sijainti: `dws10.com/` etusivun ensimmäinen ruutu ("Mikä kuvaa tilannettanne parhaiten?") ja
