@@ -33,6 +33,7 @@ import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
 import adminSupportRoutes from './routes/admin-support.routes.js';
 import adminCostAuditRoutes from './routes/admin-cost-audit.routes.js';
+import backofficeRoutes from './routes/backoffice.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
@@ -40,6 +41,7 @@ import bookingRoutes from './routes/booking.routes.js';
 import supportRoutes from './routes/support.routes.js';
 import supportReviewRoutes from './routes/support-review.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
+import daprPubsubRoutes from './routes/dapr-pubsub.routes.js';
 import agentRoutes from './agents/routes.js';
 import nudgeRoutes from './routes/nudge.routes.js';
 import nudgeWebhookRoutes from './routes/nudge-webhook.routes.js';
@@ -332,6 +334,8 @@ app.use('/api/v1/admin/support', adminSupportRoutes);
 // Admin cost audit (mission control cost review dashboard)
 app.use('/api/admin', adminCostAuditRoutes);
 
+app.use('/api/v1/backoffice', backofficeRoutes);
+
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
 
@@ -385,6 +389,10 @@ app.use('/webhooks/nudge', nudgeWebhookRoutes);
 
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
+
+// Dapr pub/sub pilot — subscription callback, local sidecar only.
+// docs/field-notes/2026-09-22-dapr-use-cases-dws.md §3 Phase 1
+app.use('/dapr', daprPubsubRoutes);
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);

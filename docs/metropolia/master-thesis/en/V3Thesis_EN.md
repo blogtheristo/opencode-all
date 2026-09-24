@@ -6,11 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.12
+Version: 4.13
 
 Sessions & Modifications:
 
-- Version: 4.12 [Latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Added §10.34 (Workflow v2 — Procedural Graphs: Explicit State Over Chat Memory). Implementation companion to PHD_FIREHORSE §14.54 / Key Contribution #60. Records src/agents/workflow-v2/ (PR #2059): executor/refiner engine, HIC_APPROVAL_GATE code-level approval-hash gate, two example graphs (sales-outreach.graph.json, b2b-growth-funnel.graph.json), 16 offline unit tests, and the cross-reference landed into DWS7_ROADMAP.md Phase 4.1 (PRs 138/144/145/146). Lockstep 4.11->4.12.
+- Version: 4.13 [Latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Added §10.35 (Workflow v2 — Procedural Graphs: Explicit State Over Chat Memory). Implementation companion to PHD_FIREHORSE §14.54 / Key Contribution #60. Records src/agents/workflow-v2/ (PR #2059): executor/refiner engine, HIC_APPROVAL_GATE code-level approval-hash gate, two example graphs (sales-outreach.graph.json, b2b-growth-funnel.graph.json), 16 offline unit tests, and the cross-reference landed into DWS7_ROADMAP.md Phase 4.1 (PRs 138/144/145/146). Lockstep 4.12->4.13.
+- Version: 4.12 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Added §10.34 (Controlled vocabulary as a delivery layer: one dictionary drives translations and search tags). Dictionary gains the KYA-S1 table, LWM layers, process terms; `scripts/blog/seo-tags.mjs` tags 162 post files; 36 copied JSON-LD headlines fixed; 13 hand-edited dictionary keys ported into the generator. Lockstep 4.11->4.12.
 - Version: 4.11 [not latest] | Tool: Claude Code (Haiku 4.5) | Session: claude/cursor-dws-audit-zl8ts1 | Date: 19.09.2026 | Changes: Lockstep version bump 4.10 -> 4.11 per CLAUDE.md Thesis Rule. PR #2037 field note (2026-09-18): Mission Control login works when signed in; operations stay manual; X @blogtheristo linked to xAI risto.paarni@lifetime.fi. No master's-thesis content; recorded as lockstep-only per §1.4 master-vs-PhD scope rule.
 - Version: 4.10 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 names the hybrid split as the implementation of PhD Key Contribution #59 (sensitive on Aegis/Infra, remainder on Connect). Lockstep 4.09->4.10.
 - Version: 4.09 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 fence wording — SEAL is a Cloud III DPS gate, not a standalone certificate. Catalogue nearest-SEAL remains indicative; DWS four-tier score is not a Cloud III evaluation. Lockstep 4.08->4.09.
@@ -3859,7 +3860,19 @@ On 14 September 2026 the product catalogue and tier tables began naming an **ind
 
 _Implementation artefacts: `docs/PRODUCT_TIERS.md`, `DWS_DEPLOYMENT_STANDARD.md` v1.7, dual-folder `products.json`, dual-folder compliance/legal SEAL sections, `docs/field-notes/2026-09-14-sovereignty-is-the-primary-segmentation-axis.md`. Scientific framing: PHD_FIREHORSE §14.53._
 
-### 10.34 Workflow v2 — Procedural Graphs: Explicit State Over Chat Memory (2026-09-21)
+### 10.34 Controlled vocabulary as a delivery layer: one dictionary drives translations and search tags (2026-09-23)
+
+**Motivation.** The KYA-S1 vocabulary (seven control domains, assurance levels, runtime mechanisms) had an HIC-approved five-language table (Finnish as Ground Truth) in `ONTOLOGY.md` §16.6, but the machine-readable dictionary `docs/localization/dws-dictionary.json` did not carry it, and the published posts carried no search tags at all.
+
+**Implementation.** (1) The KYA-S1 table, the two named LWM layers (model base; state register and memory — `ONTOLOGY.md` §4.1), process-model terms (BPMN Service/User Task, ISA-95, SysML, VSM, SIPOC) and the three domain taglines were added to the generator `scripts/i18n/generate-dws-dictionary.cjs`. Terms that matter for search carry `seo: true`. (2) `scripts/blog/seo-tags.mjs` reads the dictionary and writes `keywords`, `article:tag` and JSON-LD `keywords` for each post from the terms the post actually uses, in the post's language, ranked by mention count and limited to one tag per KYA code. It is idempotent (a second run changes nothing) and has `--check` and `--json` modes. 162 of 191 post files (root + mirror) received tags.
+
+**Two defects the tooling surfaced.** (a) Regenerating the dictionary would have deleted 13 keys that existed only in the hand-edited JSON; they were ported into the generator with values unchanged. (b) 36 post files carried the JSON-LD headline and description of one earlier post ("KYA-S1 — One Signed Page…"), a template copy that search engines would show as the wrong headline. The script now replaces a headline or description that several posts share with each post's own `<h1>` and meta description.
+
+**The engineering rule this produced.** A generated artefact is regenerated and compared before it is edited; a difference that is not formatting is a lost hand edit and is moved into the generator first. Search tags are generated from the controlled vocabulary, never hand-written, so terminology, translation and search visibility change in one place.
+
+_Implementation artefacts: `scripts/i18n/generate-dws-dictionary.cjs`, `docs/localization/dws-dictionary.json`, `scripts/blog/seo-tags.mjs`, `ONTOLOGY.md` v1.8 §4.1, `docs/BLOG_STANDARD.md` §5, `docs/field-notes/2026-09-23-dictionary-seo-tags.md`._
+
+### 10.35 Workflow v2 — Procedural Graphs: Explicit State Over Chat Memory (2026-09-21)
 
 **Companion.** PhD §14.54 (Key Contribution #60) holds the scientific and market-signal argument. This section records the **shipped implementation**.
 

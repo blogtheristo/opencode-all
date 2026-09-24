@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A5 Kampanja - PDF Versio</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+    <style>
+      :root {
+        --gold: #d4a574;
+        --dark: #0f0f0f;
+        --card-bg: #1a1a1a;
+        --light-text: #f5f5f5;
+        --muted-text: #aaaaaa;
+        --border-color: #333333;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      html,
+      body {
+        width: 148mm;
+        height: 210mm;
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: #1f1f1f;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      /* A5 Page (148 x 210 mm, no margins for PDF) */
+      .page {
+        width: 148mm;
+        height: 210mm;
+        background-color: var(--dark);
+        color: var(--light-text);
+        padding: 12mm;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+        position: relative;
+      }
+
+      .page-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .text-section {
+        flex: 0 0 auto;
+      }
+
+      .image-section {
+        flex: 1;
+        background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+        border: 1px dashed var(--border-color);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted-text);
+        font-size: 0.8em;
+        text-align: center;
+        padding: 20px;
+        margin-top: 10px;
+        min-height: 80mm;
+      }
+
+      /* Typography */
+      h1 {
+        color: var(--gold);
+        font-size: 1.6em;
+        font-weight: 800;
+        line-height: 1.2;
+        margin: 0 0 6px 0;
+      }
+
+      h2 {
+        color: var(--gold);
+        font-size: 0.95em;
+        font-weight: 700;
+        margin: 8px 0 3px 0;
+        border-bottom: 1px solid rgba(212, 165, 116, 0.3);
+        padding-bottom: 3px;
+      }
+
+      p {
+        margin: 0 0 6px 0;
+        font-size: 0.75em;
+        line-height: 1.3;
+      }
+
+      .subtitle {
+        font-size: 0.8em;
+        font-weight: 600;
+        color: var(--light-text);
+        margin-bottom: 10px;
+      }
+
+      /* Pricing Cards */
+      .offer-card {
+        background: var(--card-bg);
+        border: 1px solid var(--gold);
+        border-radius: 6px;
+        padding: 10px 12px;
+        margin-bottom: 8px;
+      }
+
+      .product-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+      }
+
+      .product-title {
+        font-weight: 700;
+        font-size: 0.85em;
+      }
+
+      .product-code {
+        font-size: 0.65em;
+        color: var(--muted-text);
+      }
+
+      .product-price {
+        font-size: 1.1em;
+        font-weight: 800;
+        color: var(--gold);
+      }
+
+      .product-ovh {
+        font-size: 0.65em;
+        color: var(--muted-text);
+        text-decoration: line-through;
+      }
+
+      .code-badge {
+        background: var(--gold);
+        color: #000;
+        font-weight: 800;
+        font-size: 0.8em;
+        padding: 8px;
+        text-align: center;
+        border-radius: 4px;
+        letter-spacing: 0.5px;
+        margin: 8px 0;
+      }
+
+      .validity {
+        text-align: center;
+        font-size: 0.7em;
+        color: var(--muted-text);
+      }
+
+      .cta-btn {
+        background: var(--gold);
+        color: #000;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 0.8em;
+        padding: 8px;
+        text-align: center;
+        border-radius: 4px;
+        display: block;
+        margin-top: 8px;
+      }
+
+      /* Lists */
+      ul {
+        margin: 2px 0 6px 0;
+        padding-left: 16px;
+        font-size: 0.7em;
+        color: #dddddd;
+      }
+
+      li {
+        margin-bottom: 2px;
+      }
+
+      .qr-section {
+        background: var(--card-bg);
+        border: 1px dashed var(--gold);
+        padding: 8px;
+        border-radius: 4px;
+        text-align: center;
+        margin-top: 8px;
+      }
+
+      .qr-section code {
+        color: var(--gold);
+        font-weight: 600;
+        font-size: 0.7em;
+        word-break: break-all;
+      }
+
+      .wa-btn {
+        display: inline-block;
+        background: #25d366;
+        color: #0b1f12;
+        font-weight: 800;
+        font-size: 0.85em;
+        padding: 8px 14px;
+        border-radius: 6px;
+        text-decoration: none;
+      }
+
+      .wa-number {
+        color: var(--gold);
+        font-weight: 700;
+        font-size: 0.8em;
+        margin-top: 4px;
+      }
+
+      .footer-text {
+        font-size: 0.6em;
+        color: var(--muted-text);
+        text-align: center;
+        border-top: 1px solid var(--border-color);
+        padding-top: 6px;
+        margin-top: 8px;
+      }
+
+      /* Front page specific */
+      .front-text {
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+
+      /* Back page specific */
+      .back-text {
+        font-size: 0.7em;
+      }
+
+      .back-text h2 {
+        font-size: 0.9em;
+        margin: 6px 0 2px 0;
+      }
+
+      .back-text p {
+        font-size: 0.7em;
+        margin: 0 0 3px 0;
+      }
+
+      .back-text ul {
+        margin: 2px 0 6px 0;
+        font-size: 0.65em;
+      }
+
+      /* Print Mode */
+      @media print {
+        html,
+        body {
+          width: 148mm;
+          height: 210mm;
+          margin: 0;
+          padding: 0;
+          background: white;
+        }
+
+        body {
+          background: none;
+        }
+
+        .page {
+          page-break-after: always;
+          break-after: page;
+          width: 148mm;
+          height: 210mm;
+          margin: 0;
+          padding: 12mm;
+          border: none;
+          box-shadow: none;
+        }
+      }
+
+      /* Web preview mode */
+      @media screen {
+        body {
+          gap: 20px;
+          padding: 20px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          background: #1f1f1f;
+        }
+
+        .page {
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+          border-radius: 8px;
+          border: 1px solid #333;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SIVU 1: ETUPUOLI - TEKSTI ENSIN, SITTEN KUVA -->
+    <div class="page">
+      <div class="page-content">
+        <div class="text-section front-text">
+          <h1>Tempaise liiketoiminta nousuun.</h1>
+          <div class="subtitle">Modernit verkkosivut | Sähköposti | Verkkokauppa</div>
+
+          <div class="offer-card">
+            <h3
+              style="
+                color: var(--gold);
+                margin: 0 0 8px 0;
+                font-size: 0.8em;
+                text-transform: uppercase;
+              "
+            >
+              Kampanja-tarjous syyskuu 2026
+            </h3>
+
+            <div class="product-row">
+              <div>
+                <div class="product-title">WEBSTORE-MINI</div>
+                <div class="product-code">Pienet verkkokaupat</div>
+              </div>
+              <div style="text-align: right">
+                <div class="product-price">350 €</div>
+                <div class="product-ovh">OVH 490 €</div>
+              </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #333; margin: 6px 0" />
+
+            <div class="product-row">
+              <div>
+                <div class="product-title">WEB-STARTER</div>
+                <div class="product-code">Ammattimaiset verkkosivut</div>
+              </div>
+              <div style="text-align: right">
+                <div class="product-price">650 €</div>
+                <div class="product-ovh">OVH 910 €</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="code-badge">-40 % KAMPANJAHINTA · EI KOODIA TARVITA</div>
+
+          <div class="validity">
+            Tarjous voimassa: <strong>toistaiseksi.</strong><br />
+            <small>* Hintoihin lisätään ALV 25,5 %</small>
+          </div>
+
+          <a href="https://dws10.com/products/lifetime-web-starter.fi.html" class="cta-btn"
+            >Tutustu tarjoukseen →</a
+          >
+        </div>
+
+        <div class="image-section">[Kampanja-kuva tai logo]</div>
+      </div>
+    </div>
+
+    <!-- SIVU 2: KÄÄNTÖPUOLI - TEKSTI ENSIN, SITTEN KUVA -->
+    <div class="page">
+      <div class="page-content">
+        <div class="text-section back-text">
+          <h2>🌐 Verkkosivut</h2>
+          <p>Ammattimainen verkkonäkyvyys yrityksellesi. Modernit ja nopeat sivut.</p>
+          <ul>
+            <li>Mobiiliystävälliset web-sivut</li>
+            <li>SEO-optimoitu 1–3 kielelle (FI, SWE, EN)</li>
+            <li>Nopea lataus</li>
+            <li>Google Maps, WhatsApp, sähköposti, lomake</li>
+          </ul>
+
+          <h2>📧 Yritys-sähköposti</h2>
+          <p>Ammattimaiset osoitteet yrityksesi nimellä + Gemini-tekoäly.</p>
+          <ul>
+            <li>nimi@yritys.fi + 25 GB tallennustila</li>
+            <li>24/7 turvallinen käytettävyys</li>
+            <li>Optiona työnkulut ja liitteiden hallinta</li>
+          </ul>
+
+          <h2>🛒 Verkkokauppa</h2>
+          <p>Myy tuotteesi verkossa. Maksuvalmis kokonaisuus.</p>
+          <ul>
+            <li>Tuotteiden ja hintalistojen hallinta</li>
+            <li>Valmiit maksuvaihtoehdot</li>
+          </ul>
+
+          <h2>🤝 Tuki & 🔒 Turvallisuus</h2>
+          <p>Nopea tuki (WhatsApp, puhelin +358 400 319 010).</p>
+          <ul>
+            <li>SSL-salaus & päivittäiset varmuuskopiot</li>
+            <li>99,9 % palvelun saatavuus</li>
+          </ul>
+
+          <div class="qr-section">
+          <a
+            class="wa-btn"
+            href="https://wa.me/358400319010?text=Hei%2C%20olen%20kiinnostunut%20A5-kampanjan%20tarjouksesta."
+            target="_blank"
+            rel="noopener"
+            >💬 WhatsApp · Lifetime Oy Myynti</a
+          >
+          <div class="wa-number">+358 400 319 010</div>
+        </div>
+        </div>
+
+        <div class="image-section">[Palvelukuvat]</div>
+
+        <div class="footer-text">
+          © 2026 Lifetime Oy | Korkealaatuiset verkkopalvelut yrityksellesi | dws10.com<br />
+          Hintoihin lisätään ALV 25,5 %
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

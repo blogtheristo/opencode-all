@@ -1,67 +1,416 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Back-Office Admin Dashboard</title>
-    <link rel="icon" href="https://dws10.com/DWS_IQ2026.png" type="image/png">
+    <link rel="icon" href="https://dws10.com/DWS_IQ2026.png" type="image/png" />
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f8fafc; color: #1e293b; }
-        .header { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); padding: 16px 20px; color: white; display: flex; justify-content: space-between; align-items: center; }
-        .header h1 { font-size: 1.25rem; }
-        .logout-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .welcome-card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
-        .dashboard-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .stat-value { font-size: 2rem; font-weight: 700; color: #ef4444; margin-bottom: 4px; }
-        .stat-label { font-size: 0.9rem; color: #64748b; }
-        .warning { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); padding: 12px; border-radius: 8px; color: #ef4444; margin-bottom: 20px; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background: #f8fafc;
+        color: #1e293b;
+      }
+      .header {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        padding: 16px 20px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .header h1 {
+        font-size: 1.25rem;
+      }
+      .header-actions {
+        display: flex;
+        gap: 8px;
+      }
+      .btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .welcome-card {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px;
+      }
+      .dashboard-card {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #ef4444;
+        margin-bottom: 4px;
+        font-variant-numeric: tabular-nums;
+      }
+      .stat-value.na {
+        color: #94a3b8;
+      }
+      .stat-label {
+        font-size: 0.9rem;
+        color: #64748b;
+      }
+      .warning {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        padding: 12px;
+        border-radius: 8px;
+        color: #ef4444;
+        margin-bottom: 20px;
+      }
+      .error {
+        display: none;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #b91c1c;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      .panel h3 {
+        margin-bottom: 12px;
+      }
+      .meta {
+        color: #64748b;
+        font-size: 0.8rem;
+        margin-top: 12px;
+      }
+      .table-wrap {
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.875rem;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 8px 10px;
+        border-bottom: 1px solid #e2e8f0;
+        white-space: nowrap;
+      }
+      th {
+        color: #64748b;
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .pill {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+      .pill.ok {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .pill.bad {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .pill.idle {
+        background: #f1f5f9;
+        color: #475569;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="header">
-        <h1>⚙️ Back-Office Admin</h1>
-        <button onclick="handleLogout()" class="logout-btn">Logout</button>
+      <h1>⚙️ Back-Office Admin</h1>
+      <div class="header-actions">
+        <button id="refreshBtn" class="btn">Refresh</button>
+        <button onclick="handleLogout()" class="btn">Logout</button>
+      </div>
     </div>
     <div class="container">
-        <div class="warning">
-            ⚠️ Internal use only - All actions are logged and audited
+      <div class="warning">⚠️ Internal use only - All actions are logged and audited</div>
+      <div id="errorBox" class="error"></div>
+      <div class="welcome-card">
+        <h2>Administrator Dashboard</h2>
+        <div id="userInfo">Loading...</div>
+      </div>
+      <div class="dashboard-grid">
+        <div class="dashboard-card">
+          <h3>Total Users</h3>
+          <div class="stat-value" id="statUsers">…</div>
+          <div class="stat-label" id="statUsersSub">user_profiles</div>
         </div>
-        <div class="welcome-card">
-            <h2>Administrator Dashboard</h2>
-            <div id="userInfo">Loading...</div>
+        <div class="dashboard-card">
+          <h3>Containers</h3>
+          <div class="stat-value" id="statContainers">…</div>
+          <div class="stat-label" id="statContainersSub">Running / total</div>
         </div>
-        <div class="dashboard-grid">
-            <div class="dashboard-card"><h3>Total Users</h3><div class="stat-value">1,456</div><div class="stat-label">All platforms</div></div>
-            <div class="dashboard-card"><h3>Containers</h3><div class="stat-value">12</div><div class="stat-label">Running</div></div>
-            <div class="dashboard-card"><h3>API Requests</h3><div class="stat-value">2.4M</div><div class="stat-label">Today</div></div>
-            <div class="dashboard-card"><h3>System Health</h3><div class="stat-value">99.8%</div><div class="stat-label">Uptime</div></div>
+        <div class="dashboard-card">
+          <h3>API Requests</h3>
+          <div class="stat-value" id="statApi">…</div>
+          <div class="stat-label">Today (UTC), usage_events</div>
         </div>
-        <div class="welcome-card" style="margin-top: 20px;">
-            <h3>Admin Tools</h3>
-            <p style="color: #64748b; margin-top: 8px;">User management, container monitoring, system logs, and configuration management coming soon.</p>
-            <p style="color: #64748b; margin-top: 8px;">
-                Docker containers from: <a href="../../docker-compose.mcp.yml" style="color: #ef4444;">docker-compose.mcp.yml</a>
-            </p>
+        <div class="dashboard-card">
+          <h3>System Health</h3>
+          <div class="stat-value" id="statHealth">…</div>
+          <div class="stat-label" id="statHealthSub">Unhealthy or restarting containers</div>
         </div>
+      </div>
+
+      <div class="welcome-card panel" style="margin-top: 20px">
+        <h3>Containers</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>State</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="containersBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="welcome-card panel">
+        <h3>Users (newest 50)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>MFA</th>
+                <th>Last login</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            <tbody id="usersBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="welcome-card panel">
+        <h3>Auth audit log (latest 25)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Action</th>
+                <th>Result</th>
+                <th>User ID</th>
+              </tr>
+            </thead>
+            <tbody id="auditBody"></tbody>
+          </table>
+        </div>
+        <p class="meta" id="generatedAt"></p>
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module">
-        import { getCurrentUser } from '../../shared/js/supabase-client.js';
-        import { logout, requireRole } from '../../shared/js/auth-handler.js';
-        
-        window.addEventListener('DOMContentLoaded', async () => {
-            await requireRole('backoffice_admin');
-            const user = await getCurrentUser();
-            if (user) document.getElementById('userInfo').textContent = `Logged in as: ${user.email} (Administrator)`;
+      import { getCurrentUser, getCurrentSession } from "../../shared/js/supabase-client.js";
+      import { logout, requireRole } from "../../shared/js/auth-handler.js";
+
+      // The role check below only hides the UI. The server re-checks organization_members on every call.
+      const API_BASE = window.DWS_API_BASE || "";
+      const $ = (id) => document.getElementById(id);
+      const fmtNum = (n) => (n === null || n === undefined ? "—" : n.toLocaleString("en-US"));
+      const fmtDate = (iso) => (iso ? new Date(iso).toLocaleString("en-GB") : "—");
+
+      function setStat(id, value) {
+        $(id).textContent = value;
+        $(id).classList.toggle("na", value === "—");
+      }
+
+      function showError(msg) {
+        $("errorBox").textContent = msg;
+        $("errorBox").style.display = msg ? "block" : "none";
+      }
+
+      function pill(text, kind) {
+        const s = document.createElement("span");
+        s.className = `pill ${kind}`;
+        s.textContent = text;
+        return s;
+      }
+
+      function fillTable(tbodyId, rows, emptyText, colCount) {
+        const tbody = $(tbodyId);
+        tbody.replaceChildren();
+        if (!rows.length) {
+          const tr = tbody.insertRow();
+          const td = tr.insertCell();
+          td.colSpan = colCount;
+          td.textContent = emptyText;
+          return;
+        }
+        for (const cells of rows) {
+          const tr = tbody.insertRow();
+          for (const cell of cells) {
+            const td = tr.insertCell();
+            if (cell instanceof Node) td.appendChild(cell);
+            else td.textContent = cell ?? "—";
+          }
+        }
+      }
+
+      async function api(path, token) {
+        const res = await fetch(`${API_BASE}/api/v1/backoffice${path}`, {
+          headers: { Authorization: `Bearer ${token}` },
         });
-        
-        window.handleLogout = async function() {
-            await logout();
-            window.location.href = '/login/backoffice/';
-        };
+        if (res.status === 401 || res.status === 403)
+          throw new Error(
+            "Not authorized: your account is not an active owner/admin in organization_members.",
+          );
+        if (!res.ok) throw new Error(`${path} failed (HTTP ${res.status})`);
+        return res.json();
+      }
+
+      async function load() {
+        showError("");
+        const session = await getCurrentSession();
+        if (!session) {
+          window.location.href = "/login/backoffice/";
+          return;
+        }
+        const token = session.access_token;
+
+        const [stats, containers, users, audit] = await Promise.allSettled([
+          api("/stats", token),
+          api("/containers", token),
+          api("/users", token),
+          api("/audit-log", token),
+        ]);
+        const errors = [stats, containers, users, audit]
+          .filter((r) => r.status === "rejected")
+          .map((r) => r.reason.message);
+        showError([...new Set(errors)].join(" · "));
+
+        if (stats.status === "fulfilled") {
+          const s = stats.value;
+          setStat("statUsers", fmtNum(s.users.total));
+          $("statUsersSub").textContent = `${fmtNum(s.users.active7d)} logged in last 7 days`;
+          setStat("statApi", fmtNum(s.apiRequestsToday));
+          if (s.containers) {
+            setStat("statContainers", `${s.containers.running} / ${s.containers.total}`);
+            setStat(
+              "statHealth",
+              s.containers.unhealthy === 0
+                ? "OK"
+                : `${s.containers.unhealthy} issue${s.containers.unhealthy > 1 ? "s" : ""}`,
+            );
+          } else {
+            setStat("statContainers", "—");
+            $("statContainersSub").textContent = "Docker not reachable from backend";
+            setStat("statHealth", "—");
+          }
+          $("statHealthSub").textContent =
+            `Unhealthy or restarting containers · backend up ${Math.round(s.backendUptimeSeconds / 3600)}h`;
+          $("generatedAt").textContent = `Data generated ${fmtDate(s.generatedAt)}`;
+        } else {
+          ["statUsers", "statContainers", "statApi", "statHealth"].forEach((id) =>
+            setStat(id, "—"),
+          );
+        }
+
+        if (containers.status === "fulfilled") {
+          fillTable(
+            "containersBody",
+            containers.value.containers.map((c) => [
+              c.name,
+              c.image,
+              pill(
+                c.state,
+                c.state === "running" && c.health !== "unhealthy"
+                  ? "ok"
+                  : c.state === "exited"
+                    ? "idle"
+                    : "bad",
+              ),
+              c.status,
+            ]),
+            "No containers",
+            4,
+          );
+        } else fillTable("containersBody", [], "Unavailable", 4);
+
+        if (users.status === "fulfilled") {
+          fillTable(
+            "usersBody",
+            users.value.users.map((u) => [
+              u.email,
+              [u.first_name, u.last_name].filter(Boolean).join(" ") || "—",
+              pill(u.status, u.status === "active" ? "ok" : "idle"),
+              u.mfa_enabled ? "Yes" : "No",
+              fmtDate(u.last_login_at),
+              fmtDate(u.created_at),
+            ]),
+            "No users",
+            6,
+          );
+        } else fillTable("usersBody", [], "Unavailable", 6);
+
+        if (audit.status === "fulfilled") {
+          fillTable(
+            "auditBody",
+            audit.value.entries.map((e) => [
+              fmtDate(e.created_at),
+              e.action,
+              pill(e.success ? "ok" : "failed", e.success ? "ok" : "bad"),
+              e.user_id,
+            ]),
+            "No entries",
+            4,
+          );
+        } else fillTable("auditBody", [], "Unavailable", 4);
+      }
+
+      window.addEventListener("DOMContentLoaded", async () => {
+        if (!(await requireRole("backoffice_admin"))) return;
+        const user = await getCurrentUser();
+        if (user) $("userInfo").textContent = `Logged in as: ${user.email} (Administrator)`;
+        $("refreshBtn").addEventListener("click", load);
+        load();
+      });
+
+      window.handleLogout = async function () {
+        await logout();
+        window.location.href = "/login/backoffice/";
+      };
     </script>
-</body>
+  </body>
 </html>

@@ -36,6 +36,16 @@ interface Subscription {
 
 // ============ EVENT BUS IMPLEMENTATION ============
 
+// ============ DAPR PUB/SUB PILOT ============
+// Field note: docs/field-notes/2026-09-22-dapr-use-cases-dws.md §3 Phase 1.
+// Scoped to a single event type so a rollback is "unset the env var" —
+// no other event type ever touches Dapr.
+const DAPR_PUBSUB_PILOT_ENABLED = process.env.DAPR_PUBSUB_PILOT_ENABLED === 'true';
+const DAPR_PILOT_EVENT_TYPE = 'agent.task_complete';
+const DAPR_HTTP_PORT = process.env.DAPR_HTTP_PORT || '3500';
+const DAPR_PUBSUB_NAME = process.env.DAPR_PUBSUB_NAME || 'dws-pubsub';
+const DAPR_PUBSUB_TOPIC = process.env.DAPR_PUBSUB_TOPIC || DAPR_PILOT_EVENT_TYPE;
+
 class EventBus {
   private subscriptions: Subscription[] = [];
   private eventLog: DWSEvent[] = [];
@@ -61,11 +71,37 @@ class EventBus {
   }
 
   /**
-   * Emit an event. Dispatches to all matching subscribers.
+   * Emit an event. Dispatches to all local matching subscribers, and — for
+   * the Dapr pilot event type only, when the pilot flag is on — also
+   * publishes it to the Dapr pub/sub sidecar for durable, cross-process
+   * delivery. See DAPR_PUBSUB_PILOT_ENABLED above.
    * Non-blocking: subscriber errors are logged but don't propagate.
    */
   async emit(event: DWSEvent): Promise<void> {
-    // Log the event
+    this.logEvent(event);
+    await this.dispatchLocal(event);
+
+    // Persist to Redis Streams if available (legacy best-effort log, unrelated to Dapr)
+    await this.persistToRedis(event);
+
+    if (DAPR_PUBSUB_PILOT_ENABLED && event.type === DAPR_PILOT_EVENT_TYPE) {
+      await this.publishToDapr(event);
+    }
+  }
+
+  /**
+   * Dispatch an event to local subscribers only — no re-publish to Dapr.
+   * Used by emit() for events originated in this process, and by the Dapr
+   * subscription webhook (src/routes/dapr-pubsub.routes.ts) for events
+   * delivered back by the sidecar, so a round-trip through Dapr can never
+   * loop.
+   */
+  async dispatchFromDapr(event: DWSEvent): Promise<void> {
+    this.logEvent(event);
+    await this.dispatchLocal(event);
+  }
+
+  private logEvent(event: DWSEvent): void {
     this.eventLog.push(event);
     if (this.eventLog.length > this.maxLogSize) {
       this.eventLog = this.eventLog.slice(-this.maxLogSize);
@@ -76,7 +112,9 @@ class EventBus {
       source: event.source,
       priority: event.priority,
     });
+  }
 
+  private async dispatchLocal(event: DWSEvent): Promise<void> {
     // Find matching subscribers
     const matching = this.subscriptions.filter((s) => this.matchPattern(s.pattern, event.type));
 
@@ -96,9 +134,28 @@ class EventBus {
 
     // Wait for all dispatches but don't fail if any do
     await Promise.allSettled(dispatches);
+  }
 
-    // Persist to Redis Streams if available
-    await this.persistToRedis(event);
+  /**
+   * Publish to the Dapr pub/sub building block (best-effort — a failure
+   * here must never break local dispatch, which already happened above).
+   * https://docs.dapr.io/reference/api/pubsub_api/
+   */
+  private async publishToDapr(event: DWSEvent): Promise<void> {
+    try {
+      const url = `http://localhost:${DAPR_HTTP_PORT}/v1.0/publish/${DAPR_PUBSUB_NAME}/${DAPR_PUBSUB_TOPIC}`;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(event),
+      });
+      if (!res.ok) {
+        logger.warn('Dapr publish failed', { status: res.status, eventType: event.type });
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      logger.warn('Dapr publish unreachable (sidecar down?)', { error: msg });
+    }
   }
 
   /** Get recent events, optionally filtered by type pattern */

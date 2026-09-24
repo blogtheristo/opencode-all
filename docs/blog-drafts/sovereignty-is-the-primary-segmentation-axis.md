@@ -20,19 +20,19 @@ The short version
 
 Sovereignty is segmentation. Locally.
 
-We used to write a weaker heading: sovereignty is *the* segmentation. We used a worse lede: the market splits on one axis. Both are wrong in the same way. They flatten a first cut into a monopoly.
+We used to write a weaker heading: sovereignty is _the_ segmentation. We used a worse lede: “the market splits on one axis”. Both are wrong in the same way. They flatten a first cut into a monopoly.
 
 The sentence we now use is longer because the fence is load-bearing:
 
 Sovereignty is the primary segmentation axis — not the only one.
-
-Drop the em dash and you are back to the overclaim.
 
 ## What the first cut actually is
 
 A regulated European buyer does not start with features. They start with a legal question: if a US court asks, can this vendor be compelled?
 
 Server location does not answer it. The CLOUD Act follows the parent, not the rack. That is why “EU hosting” on AWS, Azure or Google is a residency story, not a sovereignty story.
+
+European data centres still provide real sovereignty, just at a different layer. Data is stored and processed in the EU, under the GDPR. Some offers add an operational layer: AWS European Sovereign Cloud (Brandenburg, since January 2026) runs on EU-resident staff and German legal entities, Microsoft's EU Data Boundary keeps processing in the EU, and at S3NS the French company Thales operates Google technology. In the Commission's Cloud III tender, S3NS was awarded SEAL-2 (data sovereignty), the tender's minimum. The sovereign clouds of AWS, Microsoft and Oracle are not on the Cloud III award list. None of them removes the parent's jurisdiction. That makes them a good fit for workloads that are not sensitive — which is most of what most companies run — and not for workloads that must withstand a disclosure order from a US court.
 
 The same cut appears inside our own catalogue. Aegis, Sovereign Infra and Connect are not three products. They are depths on one axis — how far the workload sits from a US parent.
 
@@ -50,7 +50,7 @@ If we pretend the first cut is the only cut, we sell a slogan and miss the order
 
 ## What we will not say
 
-We will not say the market splits on one axis.
+We will not say “the market splits on one axis”.
 
 We will not say an EU region is sovereign because the pin is in Helsinki.
 

@@ -6,10 +6,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.12
+Version: 4.13
 Sessions & Modifications:
 
-- Version: 4.12 [Latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Lisätty §10.34 (Workflow v2 — Menettelylliset graafit: eksplisiittinen tila keskustelumuistin sijaan). Toteutusvastine tohtorityön §14.54:lle / Avainkontribuutio #60:lle. Kirjaa src/agents/workflow-v2/ (PR #2059): suorittaja/jalostaja-moottori, HIC_APPROVAL_GATE-koodiportti, kaksi esimerkkigraafia (sales-outreach.graph.json, b2b-growth-funnel.graph.json), 16 offline-yksikkötestiä, sekä ristiviittaus DWS7_ROADMAP.md:n vaiheeseen 4.1 (PR:t 138/144/145/146). Lukkoaskel 4.11->4.12.
+- Version: 4.13 [Latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Lisätty §10.35 (Workflow v2 — Menettelylliset graafit: eksplisiittinen tila keskustelumuistin sijaan). Toteutusvastine tohtorityön §14.54:lle / Avainkontribuutio #60:lle. Kirjaa src/agents/workflow-v2/ (PR #2059): suorittaja/jalostaja-moottori, HIC_APPROVAL_GATE-koodiportti, kaksi esimerkkigraafia (sales-outreach.graph.json, b2b-growth-funnel.graph.json), 16 offline-yksikkötestiä, sekä ristiviittaus DWS7_ROADMAP.md:n vaiheeseen 4.1 (PR:t 138/144/145/146). Lukkoaskel 4.12->4.13.
+- Version: 4.12 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Lisätty §10.34 (Hallittu sanasto toimituskerroksena: yksi sanakirja ohjaa käännökset ja hakutagit). Sanakirjaan KYA-S1-taulukko, LWM-kerrokset, prosessitermit; `scripts/blog/seo-tags.mjs` tagittaa 162 kirjoitustiedostoa; 36 kopioitua JSON-LD-otsikkoa korjattu; 13 käsin muokattua sanakirja-avainta siirretty generaattoriin. Lukkoaskel 4.11->4.12.
 - Version: 4.11 [not latest] | Tool: Claude Code (Haiku 4.5) | Session: claude/cursor-dws-audit-zl8ts1 | Date: 19.09.2026 | Changes: Lukkoaskel-versio-nosto 4.10 -> 4.11 CLAUDE.md:n Thesis-säännön mukaan. PR #2037 kenttämuistio (2026-09-18): Mission Control avautuu kun käyttäjä on kirjautunut; toiminta on manuaalista; X @blogtheristo linkitetty xAI:iin risto.paarni@lifetime.fi. Ei maisterityön sisältöä; kirjattu vain lukkoaskel-merkintänä §1.4 master-vs-PhD-skooppisäännön mukaan.
 - Version: 4.10 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 nimeää hybridijaon tohtorityön avainkontribuutio #59:n toteutukseksi (herkkä Aegis/Infraan, muu Connectiin). Lukkoaskel 4.09->4.10.
 - Version: 4.09 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 kielilukko — SEAL on Cloud III DPS -portti, ei anottava sertifikaatti. Katalogin lähin SEAL pysyy suuntaa-antavana; DWS:n nelitaso ei ole Cloud III -arvio. Lukkoaskel 4.08->4.09.
@@ -3698,7 +3699,19 @@ _Toteutusartefaktit: `docs/LIFETIME_STUDIOS_ADMIN.md`, `docs/BLOG_STANDARD.md` �
 
 _Toteutusartefaktit: `docs/PRODUCT_TIERS.md`, `DWS_DEPLOYMENT_STANDARD.md` v1.7, dual-folder `products.json`, dual-folder compliance/legal SEAL-osiot, `docs/field-notes/2026-09-14-sovereignty-is-the-primary-segmentation-axis.md`. Tieteellinen kehystys: PHD_FIREHORSE §14.53._
 
-### 10.34 Workflow v2 — Menettelylliset graafit: eksplisiittinen tila keskustelumuistin sijaan (21.9.2026)
+### 10.34 Hallittu sanasto toimituskerroksena: yksi sanakirja ohjaa käännökset ja hakutagit (23.09.2026)
+
+**Lähtötilanne.** KYA-S1-sanastolla (seitsemän kontrollialuetta, varmuustasot, ajonaikaiset mekanismit) oli HIC:n hyväksymä viiden kielen taulukko (suomi Ground Truth) `ONTOLOGY.md`:n kohdassa §16.6, mutta koneluettava sanakirja `docs/localization/dws-dictionary.json` ei sisältänyt sitä, eikä julkaistuissa kirjoituksissa ollut hakutageja lainkaan.
+
+**Toteutus.** (1) KYA-S1-taulukko, LWM:n kaksi nimettyä kerrosta (mallipohja; tilarekisteri ja muisti — `ONTOLOGY.md` §4.1), prosessimallitermit (BPMN Service/User Task, ISA-95, SysML, VSM, SIPOC) ja kolmen domainin iskulauseet lisättiin generaattoriin `scripts/i18n/generate-dws-dictionary.cjs`. Haun kannalta tärkeät termit on merkitty `seo: true`. (2) `scripts/blog/seo-tags.mjs` lukee sanakirjan ja kirjoittaa jokaiselle kirjoitukselle `keywords`-, `article:tag`- ja JSON-LD `keywords` -kentät niistä termeistä, joita kirjoitus oikeasti käyttää, kirjoituksen kielellä, mainintamäärän mukaan järjestettynä ja yksi tagi KYA-koodia kohden. Ajo on idempotentti (toinen ajo ei muuta mitään), ja siinä on `--check`- ja `--json`-tilat. 191 kirjoitustiedostosta (juuri + peili) 162 sai tagit.
+
+**Kaksi työkalun paljastamaa virhettä.** (a) Sanakirjan uudelleengenerointi olisi poistanut 13 avainta, jotka olivat vain käsin muokatussa JSONissa; ne siirrettiin generaattoriin arvot muuttamatta. (b) 36 kirjoitustiedostossa oli yhden aiemman kirjoituksen ("KYA-S1 — One Signed Page…") JSON-LD-otsikko ja -kuvaus. Tämä pohjan kopio näkyisi hakukoneissa vääränä otsikkona. Skripti korvaa nyt useamman kirjoituksen jakaman otsikon tai kuvauksen kirjoituksen omalla `<h1>`-otsikolla ja meta-kuvauksella.
+
+**Tästä syntynyt insinöörisääntö.** Generoitu artefakti generoidaan uudelleen ja verrataan ennen muokkausta; muu kuin muotoiluero on kadonnut käsimuokkaus, joka siirretään ensin generaattoriin. Hakutagit generoidaan hallitusta sanastosta, niitä ei kirjoiteta käsin, joten termistö, käännös ja hakunäkyvyys muuttuvat yhdessä paikassa.
+
+_Toteutusartefaktit: `scripts/i18n/generate-dws-dictionary.cjs`, `docs/localization/dws-dictionary.json`, `scripts/blog/seo-tags.mjs`, `ONTOLOGY.md` v1.8 §4.1, `docs/BLOG_STANDARD.md` §5, `docs/field-notes/2026-09-23-dictionary-seo-tags.md`._
+
+### 10.35 Workflow v2 — Menettelylliset graafit: eksplisiittinen tila keskustelumuistin sijaan (21.9.2026)
 
 **Vastine.** Tohtorityön §14.54 (Avainkontribuutio #60) sisältää tieteellisen ja markkinasignaaliargumentin. Tämä osio kirjaa **toimitetun toteutuksen**.
 

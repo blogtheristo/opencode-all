@@ -5,7 +5,7 @@
  * Owner: Lifetime Oy
  *
  * PAGE ELEMENT — not a menu/nav element.
- * Vertical 5-language showcase showing the "Agents. Loops. Workflows." milestone tagline.
+ * Vertical 5-language showcase showing the lifetime.fi tagline "Digitaalisten tuotteiden erikoisliike" (HIC 23.09.2026).
  * Order: Suomi | Svenska | Deutsch | Français | English
  *
  * Usage: <script src="/shared-assets/vertical-lang-bar.js"></script>
@@ -28,35 +28,35 @@
       name: 'Suomi',
       flag: '🇫🇮',
       href: '/fi/',
-      text: 'Agentit. Silmukat. Työnkulut.',
+      text: 'Digitaalisten tuotteiden erikoisliike',
     },
     {
       code: 'sv',
       name: 'Svenska',
       flag: '🇸🇪',
       href: '/sv/',
-      text: 'Agenter. Loopar. Arbetsflöden.',
+      text: 'Specialbutik för digitala produkter',
     },
     {
       code: 'de',
       name: 'Deutsch',
       flag: '🇩🇪',
       href: '/de/',
-      text: 'Agenten. Schleifen. Workflows.',
+      text: 'Fachgeschäft für digitale Produkte',
     },
     {
       code: 'fr',
       name: 'Français',
       flag: '🇫🇷',
       href: '/fr/',
-      text: 'Agents. Boucles. Flux de travail.',
+      text: 'Boutique spécialisée en produits numériques',
     },
     {
       code: 'en',
       name: 'English',
       flag: '🇬🇧',
       href: '/',
-      text: 'Agents. Loops. Workflows.',
+      text: 'Specialist store for digital products',
     },
   ];
 
