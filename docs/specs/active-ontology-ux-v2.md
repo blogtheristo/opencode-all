@@ -27,6 +27,15 @@ Valinta muistetaan (localStorage + URL-parametri `?industry=`), jotta paluukävi
 uudestaan ja jotta kampanjalinkit voivat esivalita toimialan. Toimialavalinta on samalla
 ensimmäinen CAPTURE-havainto Chapter 14:lle: mitkä toimialat tulevat, mihin tilanteisiin.
 
+### 0b. Observation Intake — vapaa kenttä on anturi, ei haku (MS-2026-09-005)
+
+Toimialavalinnan rinnalla yksi vapaa kenttä: **"Mikä päätös on tällä hetkellä vaikea tehdä?"**
+Enter ei näytä hakutuloksia eikä tuotteita. Se (1) kirjaa havainnon `{text, industry, page,
+source: website}`, (2) antaa ontologian luokitella (topics, confidence) ja (3) vastaa
+"Ymmärsinkö oikein? … Mikä näistä kuvaa parhaiten?" → vaihe 1:n valintoihin. Kerättävät kentät
+per käynti: `query · industry · page · ontology_guess · recommended_path · selected_path ·
+result`. Vapaateksti anonymisoidaan ennen tallennusta. Chapter 14 alkaa siis etusivulta.
+
 ### 1. Tilanteen tunnistus (yksi kysymys, valinnat, toimialakohtaiset)
 
 > Mikä kuvaa tilannettanne parhaiten?
