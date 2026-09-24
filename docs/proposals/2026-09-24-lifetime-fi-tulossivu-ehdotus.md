@@ -1,26 +1,26 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 1.1 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 1.2 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
-## 0. Yhden lauseen sisältöstrategia (HIC 24.09.2026)
+## 0. Strategia yhdessä lauseessa (HIC + Copilot 24.09.2026, lopullinen)
 
-> Lifetime.fi ei kerro mitä myymme eikä miten teknologia toimii. Lifetime.fi kertoo mitä hyötyä suomalainen yritys saa, kun digitalisaatio, automaatio ja tekoäly onnistuvat.
+> **Lifetime Scope Journal (onelifetime.world/blog) kertoo mitä maailma tarkoittaa. Lifetime.fi kertoo miltä parempi maailma näyttää. DWS10.com kertoo miten sinne päästään.**
+
+Lifetime.fi **ei ole markkinointikanava eikä liidigeneraattori. Se on brändi**: näkymä siihen, miltä parempi liiketoiminta näyttää. Hyöty on taktinen (DWS10), mahdollisuus on strateginen (Lifetime). One Lifetime on Lifetime Oy:n oma brändi; lifetime.fi kantaa sitä, Lifetime Scope Journal on sen business-blogi.
 
 Järjestys: ensin sisältöstrategia, ei uutta ulkoasua. Ulkoasu seuraa sisältöä.
 
-- **OneLifetime = tieto ja ymmärrys.** Blogi ei myy, blogi opettaa. "Mikä on SEO / AI-agentti / Copilot / MCP / CSRD / CBAM? Miten verkkokauppa toimii? Miten hakukonenäkyvyys syntyy?"
-- **DWS10 = ratkaisut ja ostaminen.** Palvelut, tuotteet, verkkokauppa, tarjoukset, konsultointi, toteutus, teollisuuden ratkaisut.
-- **Lifetime = liiketoiminnan tulokset ja vaikutukset.** Näyttää, mitä onnistuneelle yritykselle tapahtuu.
-
-Lifetime.fi:n etusivulta poistetaan kokonaan: Product, Platform, Solution Catalogue, Agent Portfolio, arkkitehtuurikuvat, tekniset kehykset, DWS IQ -ominaisuuslistat, **hinnastot ja verkkokauppanostot**. Ne kuuluvat DWS10:een tai blogiin.
+- **Lifetime Scope Journal = ymmärrä.** Blogi ei myy, blogi opettaa. Sekä liiketoimintatason kysymykset (miksi osa yrityksistä kasvaa nopeammin?) että termit (SEO, agentti, Copilot, MCP, CSRD, CBAM).
+- **Lifetime.fi = näe mahdollisuus.** "Millainen yritykseni voisi olla?" Ei tuotteita, palveluita, agentteja, alustoja, ominaisuuksia, hintoja, verkkokauppanostoja, eikä juuri sanaa "tekoäly".
+- **DWS10 = toteuta.** "Miten tämä tehdään?" Palvelut, tuotteet, verkkokauppa, tarjoukset, konsultointi, teollisuuden ratkaisut. Kaikki lupaukset "lisää liidejä / lisää yhteydenottoja / näkyvyys verkossa" kuuluvat tänne.
 
 ## 1. Johtoajatus
 
-| Sivusto                | Tehtävä             | Lukija                                                   | Sivu vastaa kysymykseen                             |
-| ---------------------- | ------------------- | -------------------------------------------------------- | --------------------------------------------------- |
-| onelifetime.world/blog | **Ymmärrä**         | Kuka tahansa, jolta puuttuu ymmärrys                     | "Mitä tämä tarkoittaa ja miksi?"                    |
-| lifetime.fi            | **Näe hyödyt**      | Suomalainen yritysasiakas, joka haluaa tuloksia verkosta | "Mitä minun liiketoiminnalleni tapahtuu?"           |
-| dws10.com              | **Toteuta ja osta** | Yritysasiakas, jolla on teollisuuden ongelma             | "Mitä ostan, mitä se maksaa, miten se toimitetaan?" |
+| Sivusto                                         | Tehtävä              | Lukija                                                         | Sivu vastaa kysymykseen               |
+| ----------------------------------------------- | -------------------- | -------------------------------------------------------------- | ------------------------------------- |
+| Lifetime Scope Journal (onelifetime.world/blog) | **Ymmärrä**          | Kuka tahansa, jolta puuttuu ymmärrys                           | "Mitä tämä tarkoittaa?"               |
+| lifetime.fi (One Lifetime -brändi)              | **Näe mahdollisuus** | Suomalainen yrityspäättäjä                                     | "Millainen yritykseni voisi olla?"    |
+| dws10.com                                       | **Toteuta**          | Yritysasiakas, jolla on ratkaistava ongelma (pk ja teollisuus) | "Miten tämä tehdään, mitä se maksaa?" |
 
 Sääntö: lifetime.fi:llä **ei yhtään tuotenimeä, teknologiatermiä tai arkkitehtuurikuvaa**. Jokainen tekninen sana on linkki: selitys onelifetime.world-blogiin, ostaminen dws10.com-tuotesivulle.
 
@@ -45,75 +45,75 @@ Etusivun 361 tekstiriviä jakautuvat karkeasti: 80 % järjestelmä ja teknologia
 
 ## 4. Uusi lifetime.fi — sisältörakenne (FI master, käännökset sv/en/de/fr)
 
-Lupaus (valitaan yksi): **Yritys, joka toimii paremmin.** · Enemmän asiakkaita. Vähemmän hukkatyötä. · Tuloksia digitaalisesta liiketoiminnasta.
+Lupaus: **Rakennetaan yrityksiä, jotka toimivat paremmin.** Taso: strateginen, aikaa kestävä. Sana "tekoäly" esiintyy etusivulla enintään kerran, hero-alaotsikossa keinona, ei tavoitteena.
 
 ### 4.1 Hero
 
-> **Liiketoiminnan tulokset eivät synny sattumalta.**
-> Verkkonäkyvyys, automaatio, tekoäly ja oikein rakennetut prosessit voivat tehdä pienestä yrityksestä kilpailukykyisemmän kuin koskaan ennen.
+> **One Lifetime**
+> **Rakennetaan yrityksiä, jotka toimivat paremmin.**
+> Digitalisaatio, automaatio ja tekoäly eivät ole tavoitteita. Tavoite on enemmän aikaa ihmisille, parempi päätöksenteko ja liiketoiminta, joka kasvaa kestävällä tavalla.
 > Lifetime kokoaa yhteen parhaat käytännöt, todelliset tulokset ja esimerkit siitä, miten suomalaiset yritykset kasvavat digitaalisesti.
 
-### 4.2 Mitä yritykselle tapahtuu? (ei teknologiaa, vain tuloksia)
+### 4.2 Millainen yrityksesi voisi olla? (ei teknologiaa, ei taktisia lupauksia)
 
-- **Lisää yhteydenottoja** – yritys löytyy helpommin verkosta.
-- **Lisää myyntimahdollisuuksia** – asiakkaat löytävät palvelut silloin kun niitä tarvitsevat.
-- **Vähemmän manuaalista työtä** – toistuvat työvaiheet automatisoidaan.
-- **Nopeampi päätöksenteko** – tieto löytyy silloin kun sitä tarvitaan.
-- **Parempi kilpailukyky** – yritys pystyy tekemään enemmän samalla henkilöstöllä.
+- **Kasvaa riippumatta siitä, missä asiakkaat ovat.**
+- **Ihmiset käyttävät aikansa asiakkaisiin, eivät järjestelmiin.**
+- **Päätökset syntyvät tiedosta, silloin kun niitä tarvitaan.**
+- **Tekee enemmän samalla henkilöstöllä.**
+- **Keskittyy liiketoimintaan ilman jatkuvaa epävarmuutta velvoitteista.**
 
-### 4.3 Toimialakohtaiset tulokset (ei tuotteita, ei ominaisuuksia)
+### 4.3 Tulevaisuuden yritys (uusi osio, Lifetimen ydin)
 
-| Toimiala             | Tulokset                                                                     |
-| -------------------- | ---------------------------------------------------------------------------- |
-| Rakentaminen         | nopeampi raportointi · parempi dokumentaatio · tehokkaampi projektinhallinta |
-| Verkkokauppa         | enemmän kävijöitä · parempi näkyvyys · tehokkaampi sisällöntuotanto          |
-| Kuljetus             | parempi käyttöaste · parempi näkyvyys dataan · vähemmän hallinnollista työtä |
-| Asiantuntijapalvelut | enemmän liidejä · parempi löydettävyys · automatisoidut rutiinit             |
+Miltä näyttää yritys, joka löytyy verkosta, jonka tieto on hallinnassa, jonka prosessit toimivat, joka täyttää velvoitteensa ja joka hyödyntää automaatiota arjessa? Yksi kuvaava teksti (n. 150 sanaa), ei ominaisuuslistaa. Tämä on visio, jota Lifetime myy, ei yksittäisiä palveluita.
 
-Myöhemmin: teollisuus (raportointivelvoitteet hoidettu ja todistettu) samalla kaavalla, ilman lyhenteitä.
+### 4.4 Toimialakohtaiset mahdollisuudet (strateginen taso; operatiiviset luvut DWS10:ssä)
 
-### 4.4 Esimerkit todellisista tuloksista
+| Toimiala             | Miltä parempi näyttää                                                                                                  |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Rakentaminen         | Projektit etenevät nopeammin, dokumentaatio pysyy ajan tasalla, johto näkee tilanteen ilman ylimääräistä raportointia. |
+| Verkkokauppa         | Kauppa löytyy, sisältö syntyy vaivatta, aika menee valikoimaan ja asiakkaisiin.                                        |
+| Kuljetus             | Kalusto on käytössä, tieto kulkee, hallinto ei kasva liikevaihdon mukana.                                              |
+| Asiantuntijapalvelut | Asiantuntijat tekevät asiantuntijatyötä; löydettävyys ja rutiinit hoituvat taustalla.                                  |
+| Teollisuus           | Velvoitteet ovat hoidettu ja todistettavissa; johto keskittyy tuotantoon, ei raportointiin.                            |
 
-Nimettömät, HIC:n vahvistamat luvut (esim. työmaaraportointi 8 h → 30 min/vko). Ei julkaista vahvistamattomia.
+Jokaisen rivin alla: **Lue toteutus →** dws10.com (siellä 8 h → 30 min -tason luvut, tuotteet ja hinnat).
 
-### 4.5 Tulospolku — sivuston tärkein elementti
+### 4.5 Esimerkit
 
-Ekosysteemin logiikka: Ymmärrä (onelifetime.world) → Toteuta (DWS10) → Saavuta tulokset (lifetime.fi).
-Käyttäjän polku etusivulla, tässä järjestyksessä:
+Nimettömät, HIC:n vahvistamat, kirjoitettu vaikutuksena (kuten §4.4), ei mittarina. Mittarit DWS10:n case-sivulla.
 
-1. **Tavoite** → lifetime.fi (tämä sivu: mitä haluat yrityksellesi tapahtuvan)
-2. **Miten tämä toimii?** → onelifetime.world (selitys, ei myyntiä)
-3. **Toteutus** → DWS10 (ratkaisut ja ostaminen)
+### 4.6 Tulospolku — sivuston tärkein elementti
 
-Asiakasta kiinnostaa ensin hyöty, sitten ymmärrys, vasta sitten toteutus. Linkit DWS10:een ovat yleisiä ("Katso toteutus"), eivät tuote- tai hintanostoja.
+Käyttäjän näkökulma, tässä järjestyksessä: **Tavoite** (lifetime.fi) → **Miten tämä toimii?** (Lifetime Scope Journal) → **Toteutus** (dws10.com). Ekosysteemin sisäinen logiikka on käänteinen (Ymmärrä → Toteuta → Saavuta), mutta asiakasta kiinnostaa ensin mahdollisuus. Linkit DWS10:een ovat yleisiä ("Katso toteutus"), eivät tuote- tai hintanostoja.
 
-### 4.6 Ihminen
+### 4.7 Ihminen
 
-Lyhyt esittely Ristosta ja 20 vuoden kokemuksesta, suora puhelinnumero ja WhatsApp. Ei alustaa, ei tiimikaaviota.
+Risto ja 20 vuoden kokemus kahdessa kappaleessa, suora puhelin ja WhatsApp. Ei alustaa, ei tiimikaaviota, ei titteliluetteloa.
 
-### 4.7 Alatunniste
+### 4.8 Alatunniste
 
 Lifetime Oy · Y-tunnus 0772407-9 · Laidunmaanraitti 2 A 25, 02330 Espoo · risto.paarni@lifetime.fi · +358 400 319 010.
 
-## 5. onelifetime.world/blog — kattavuuskartta
+## 5. Lifetime Scope Journal (onelifetime.world/blog) — kattavuuskartta
 
 Periaate: jokaiselle lifetime.fi:ltä ja dws10.com:lta poistetulle termille on selittävä teksti **viidellä kielellä (fi, sv, en, de, fr)**. Nykytila: `posts/fi` 24, `posts/sv` 0 html, `posts/de` 1, `posts/fr` 1 md-luonnos. Aukko on suuri sv/de/fr-puolella.
 
-| Ymmärryksen puute                               | Blogiteksti (työotsikko)                | Tila                                          |
-| ----------------------------------------------- | --------------------------------------- | --------------------------------------------- |
-| Mikä on SEO, miten hakukonenäkyvyys syntyy      | 2 perustekstiä                          | uusi                                          |
-| Mikä on AI-agentti, Microsoft Copilot, MCP      | 3 perustekstiä                          | osittain (agent-classes-copilot-vs-dws-iq.fi) |
-| Miten verkkokauppa toimii                       | 1 perusteksti                           | uusi                                          |
-| Mikä on "tulos" tekoälyltä                      | Miksi ostamme tuloksia, emme työkaluja  | uusi                                          |
-| Miten tulos syntyy ja todistetaan               | Näet datan, päättelyn ja johtopäätöksen | uusi (nyk. hero 1–4)                          |
-| Agentti, silmukka, työnkulku                    | Sarja 3 osaa selkokielellä              | osittain (agents-loops-workflows)             |
-| Suvereniteetti, CLOUD Act, SEAL                 | Sovereignty-sarja                       | on fi/en/sv/de/fr-luonnokset (blog-drafts)    |
-| Toimittajariippuvuus                            | ai-vendor-dependency 1–3                | luonnoksina, julkaisematta                    |
-| KYA, agenttien hallinta                         | kya-s1-one-signed-page                  | luonnos fi/en                                 |
-| CSRD, CBAM, ETS, NIS2 – mitä minulta odotetaan  | 4 lyhyttä selitystä                     | uusi                                          |
-| Miksi pienyritys hyötyy samasta kuin suuryritys | 70/30-periaate                          | uusi                                          |
-| Keskeytyksen hinta                              | Keskeytyslaskuri selitettynä            | osittain (laskuri)                            |
-| Arkkitehtuuri (Brain·Memory·Body·Hands)         | Neljä kerrosta arjen kielellä           | uusi                                          |
+| Ymmärryksen puute                                         | Blogiteksti (työotsikko)                                                                                                                                                                                                                                    | Tila                                          |
+| --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| **Liiketoimintataso (kirjoitetaan ensin, näitä haetaan)** | Miksi osa yrityksistä kasvaa nopeammin kuin kilpailijat? · Miksi digitalisaatiohankkeet epäonnistuvat? · Mitä yrittäjän kannattaa automatisoida ensimmäisenä? · Miten tekoäly muuttaa asiantuntijatyötä? · Miksi näkyvyys verkossa ratkaisee kilpailukyvyn? | uusi, 5 tekstiä                               |
+| Mikä on SEO, miten hakukonenäkyvyys syntyy                | 2 perustekstiä                                                                                                                                                                                                                                              | uusi                                          |
+| Mikä on AI-agentti, Microsoft Copilot, MCP                | 3 perustekstiä                                                                                                                                                                                                                                              | osittain (agent-classes-copilot-vs-dws-iq.fi) |
+| Miten verkkokauppa toimii                                 | 1 perusteksti                                                                                                                                                                                                                                               | uusi                                          |
+| Mikä on "tulos" tekoälyltä                                | Miksi ostamme tuloksia, emme työkaluja                                                                                                                                                                                                                      | uusi                                          |
+| Miten tulos syntyy ja todistetaan                         | Näet datan, päättelyn ja johtopäätöksen                                                                                                                                                                                                                     | uusi (nyk. hero 1–4)                          |
+| Agentti, silmukka, työnkulku                              | Sarja 3 osaa selkokielellä                                                                                                                                                                                                                                  | osittain (agents-loops-workflows)             |
+| Suvereniteetti, CLOUD Act, SEAL                           | Sovereignty-sarja                                                                                                                                                                                                                                           | on fi/en/sv/de/fr-luonnokset (blog-drafts)    |
+| Toimittajariippuvuus                                      | ai-vendor-dependency 1–3                                                                                                                                                                                                                                    | luonnoksina, julkaisematta                    |
+| KYA, agenttien hallinta                                   | kya-s1-one-signed-page                                                                                                                                                                                                                                      | luonnos fi/en                                 |
+| CSRD, CBAM, ETS, NIS2 – mitä minulta odotetaan            | 4 lyhyttä selitystä                                                                                                                                                                                                                                         | uusi                                          |
+| Miksi pienyritys hyötyy samasta kuin suuryritys           | 70/30-periaate                                                                                                                                                                                                                                              | uusi                                          |
+| Keskeytyksen hinta                                        | Keskeytyslaskuri selitettynä                                                                                                                                                                                                                                | osittain (laskuri)                            |
+| Arkkitehtuuri (Brain·Memory·Body·Hands)                   | Neljä kerrosta arjen kielellä                                                                                                                                                                                                                               | uusi                                          |
 
 Toteutusjärjestys: 1) julkaise 12 parkissa olevaa blog-draftia HIC-hyväksynnällä (Rule 13), 2) kirjoita 6 uutta fi-tekstiä, 3) käännä kaikki sv/en/de/fr `/multilingual`-skillillä, 4) linkitä lifetime.fi:n jokainen tekninen viittaus näihin.
 
@@ -127,26 +127,35 @@ Toteutusjärjestys: 1) julkaise 12 parkissa olevaa blog-draftia HIC-hyväksynnä
 | D     | Blogi: julkaisu + 6 uutta + käännökset                                                           | 3–4 sessiota, HIC-portti per teksti |
 | E     | Mittaus: yhteydenotot lifetime.fi → WhatsApp/puhelin/lomake, `truth-check` julkisille väitteille | jatkuva                             |
 
-Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hintaa, nolla lyhennettä, nolla arkkitehtuurikuvaa; jokainen osio nimeää asiakkaan tuloksen; Tulospolku näkyvissä; kaikki numerot HIC:n vahvistamia (`truth-check`).
+Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hintaa, nolla lyhennettä, nolla arkkitehtuurikuvaa, ei liidilupauksia ("lisää yhteydenottoja") ja sana "tekoäly" enintään kerran; jokainen osio kuvaa mahdollisuuden, ei mittaria; Tulospolku ja Tulevaisuuden yritys näkyvissä; kaikki väitteet HIC:n vahvistamia (`truth-check`).
 
 ## 7. HIC-päätökset
 
-1. Lupaus §4: "Yritys, joka toimii paremmin." vai "Enemmän asiakkaita. Vähemmän hukkatyötä."?
-2. Vahvista §4.4 esimerkkiluvut tai anna oikeat (ei julkaista vahvistamattomia).
+1. Hyväksytäänkö §0 strategia ja §4 rakenne lopullisena sisältöstrategiana?
+2. Vahvista toimialaesimerkit §4.4 vaikutuksina; operatiiviset luvut (8 h → 30 min) julkaistaan vain DWS10:ssä ja vain vahvistettuina.
 3. Aloitetaanko vaihe A (lifetime.fi/fi/index.html sisältö §4, nykyinen ulkoasu säilyy) heti tällä haaralla?
+4. Aloitetaanko blogisarja 0 (5 liiketoimintatason tekstiä) `/blog-draft`-portin kautta ennen termisarjaa?
 
 ## Version history
 
-| Version | Date       | Changes                                                                                                                                                                               |
-| ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1.1     | 2026-09-24 | HIC/Copilot tarkennus: yhden lauseen strategia (§0), hero ja viisi tulosta, toimialataulukko, Tulospolku, hinnastot ja tuotelinkit pois lifetime.fi:ltä, Consulting siirtyy DWS10:een |
-| 1.0     | 2026-09-24 | Ensimmäinen ehdotus: kolmen sivuston työnjako, siirtotaulukko, blogin kattavuuskartta                                                                                                 |
+| Version | Date       | Changes                                                                                                                                                                                                                                                                                                          |
+| ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.2     | 2026-09-24 | Copilot-arvio omaksuttu: Lifetime on brändi, "näe mahdollisuus"; hero "One Lifetime — Rakennetaan yrityksiä, jotka toimivat paremmin"; taktiset liidilupaukset siirretty DWS10:een; uusi osio Tulevaisuuden yritys; toimialat vaikutuksina; blogi nimetty Lifetime Scope Journaliksi; liiketoimintatason sarja 0 |
+| 1.1     | 2026-09-24 | HIC/Copilot tarkennus: yhden lauseen strategia (§0), hero ja viisi tulosta, toimialataulukko, Tulospolku, hinnastot ja tuotelinkit pois lifetime.fi:ltä, Consulting siirtyy DWS10:een                                                                                                                            |
+| 1.0     | 2026-09-24 | Ensimmäinen ehdotus: kolmen sivuston työnjako, siirtotaulukko, blogin kattavuuskartta                                                                                                                                                                                                                            |
 
 ## 8. Blogitekstit, kampanjat ja näkyvyys (HIC 24.09.2026 lisäys)
 
 ### 8.1 Blogitekstit — "blogi opettaa" (jokainen fi/sv/en/de/fr, julkaisu Rule 13 -portin kautta)
 
-Sarja A — Perusteet pienyrittäjälle (kirjoitetaan ensin; lifetime.fi §4.2 linkittää näihin):
+Sarja 0 — Liiketoimintataso (kirjoitetaan ensin; lifetime.fi §4.2–4.3 linkittää näihin):
+0.1 Miksi osa yrityksistä kasvaa nopeammin kuin kilpailijat?
+0.2 Miksi digitalisaatiohankkeet epäonnistuvat?
+0.3 Mitä yrittäjän kannattaa automatisoida ensimmäisenä?
+0.4 Miten tekoäly muuttaa asiantuntijatyötä?
+0.5 Miksi näkyvyys verkossa ratkaisee kilpailukyvyn?
+
+Sarja A — Perusteet (termit; MCP, KYA, CBAM vasta tämän jälkeen):
 
 1. Mikä on SEO ja miksi yritykseni ei löydy Googlesta
 2. Miten hakukonenäkyvyys syntyy: Google-yritysprofiili, sivut, arvostelut
@@ -165,7 +174,7 @@ Muoto: jokaisen tekstin lopussa kolme linkkiä samassa järjestyksessä: _Mitä 
 
 ### 8.2 Tuotteita tukevat kampanjat (dws10.com myy; lifetime.fi näyttää tuloksen; blogi selittää)
 
-| Kampanja                               | Tuote (dws10.com)                                                  | Lifetime.fi-tulos                  | Blogitekstit (§8.1) | Kanava                                                     |
+| Kampanja                               | Tuote (dws10.com)                                                  | Lifetime.fi-mahdollisuus (§4.2)    | Blogitekstit (§8.1) | Kanava                                                     |
 | -------------------------------------- | ------------------------------------------------------------------ | ---------------------------------- | ------------------- | ---------------------------------------------------------- |
 | Syksy 2026 A5 (olemassa)               | WEB-STARTER 650 €, WEBSTORE-MINI 350 €                             | Lisää yhteydenottoja; verkkokauppa | 1, 2, 3             | Printti Espoo/Kirkkonummi, WhatsApp, Google-profiili       |
 | "Illat takaisin"                       | Automaatio-startti (tarjous/lasku/raportti) – tuotteistus puuttuu  | Vähemmän manuaalista työtä         | 7, 8                | LinkedIn FI, sähköposti nykyasiakkaille, A5-kääntöpuoli v2 |
@@ -174,7 +183,7 @@ Muoto: jokaisen tekstin lopussa kolme linkkiä samassa järjestyksessä: _Mitä 
 | Velvoitteet hoidettu                   | Climate Intelligence / compliance-pilotti (`ais-outcome-pilot.fi`) | Teollisuus: velvoitteet todistettu | 9–12                | Regulatory radar -sähköpostit, Hilma-seuranta, LinkedIn    |
 | Claude Code Coaching                   | Coaching-sivut                                                     | Tiimisi osaa itse                  | 4, 6                | LinkedIn, Teams-kohortit pe                                |
 
-Jokaisella kampanjalla: yksi UTM-parametrisoitu laskeutumissivu dws10.com:lla, yksi tuloslause lifetime.fi:llä, vähintään kaksi blogitekstiä, mittari = yhteydenotot (WhatsApp/puhelin/lomake) per kanava.
+Jokaisella kampanjalla: yksi UTM-parametrisoitu laskeutumissivu dws10.com:lla, lifetime.fi:llä vain §4.2-tason mahdollisuus ilman kampanjanostoa, vähintään kaksi blogitekstiä, mittari = yhteydenotot (WhatsApp/puhelin/lomake) per kanava.
 
 ### 8.3 Näkyvyys
 
