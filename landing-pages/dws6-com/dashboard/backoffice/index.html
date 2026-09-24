@@ -246,7 +246,15 @@
       import { logout, requireRole } from "../../shared/js/auth-handler.js";
 
       // The role check below only hides the UI. The server re-checks organization_members on every call.
-      const API_BASE = window.DWS_API_BASE || "";
+      // The dashboard is served from dws6.com (Cloudflare Pages); the backend API is a
+      // separate host. A same-origin "/api/..." call hits the Pages SPA fallback and
+      // returns HTML, so the base must be explicit.
+      const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", ""]);
+      const API_BASE =
+        window.DWS_API_BASE ||
+        (LOCAL_HOSTS.has(window.location.hostname)
+          ? "http://localhost:3001"
+          : "https://api.dws6.com");
       const $ = (id) => document.getElementById(id);
       const fmtNum = (n) => (n === null || n === undefined ? "—" : n.toLocaleString("en-US"));
       const fmtDate = (iso) => (iso ? new Date(iso).toLocaleString("en-GB") : "—");
@@ -297,6 +305,11 @@
             "Not authorized: your account is not an active owner/admin in organization_members.",
           );
         if (!res.ok) throw new Error(`${path} failed (HTTP ${res.status})`);
+        const contentType = res.headers.get("content-type") || "";
+        if (!contentType.includes("application/json"))
+          throw new Error(
+            `${path} returned ${contentType || "no content-type"} instead of JSON — API host ${API_BASE} is not serving the backoffice API.`,
+          );
         return res.json();
       }
 
