@@ -18,7 +18,10 @@ hypothesis: Kun myyntiväite siirretään mallin älykkyydestä prosessin pitäv
 refuting_evidence: (1) Malliriippumattomuuden painetesti epäonnistuu — Chapter 14 tuottaa eri rekisteririvit tai portit eri mallilla samalla syötteellä (Boardyn varauma 24.09). (2) Jos 90 päivän kuluessa kolmesta pitkäkestoisesta tarjouksesta yksikään ei etene väitteellä "prosessin pitävyys" ja ostajat kysyvät edelleen ensin mallin nimeä ja benchmarkia, hypoteesi on väärä tai väite on ilmaistu huonosti. Toinen kumoaja: jos oma Workflow v2 -putki oikoo samalla tavalla kuin Boardy (retry ohittaa portin, tulos ilman Explain-vaihetta), väite ei ole tosi meistäkään.
 learning_delta:
   id: LD-2026-09-002
-  ontology_change: "Toimittaja-AI / malli — vanha oletus: mallin paremmuus on kilpailuetu; uusi: malli on vaihdettava komponentti, kilpailuetu on Observation → Insight → Decision → Learning → Ontology -ketjun säilyminen vaihdon yli."
+  old_assumption: "AI competence is a sustainable sales argument."
+  new_learning: "Durable competitive advantage is process continuity, governance and retained organizational learning; the model is a swappable component, the world model is not."
+  ontology_change: "Toimittaja-AI / malli — vanha oletus: mallin paremmuus on kilpailuetu; uusi: malli on vaihdettava komponentti, kilpailuetu on Observation → Insight → Decision → Learning → Ontology -ketjun säilyminen vaihdon yli. Erottelu: miten insight löydetään on malliriippuvaista; mitä insight tarkoittaa (esim. Construction → Waste Reduction → Competitiveness) on liiketoimintasuhde, ei mallisuhde."
+  impact_if_applied: [DWS IQ positioning, Lifetime messaging, sales narrative]
   hic_decision: PENDING
   applied_to: []
   excluded: []
@@ -83,6 +86,23 @@ identiteettiväite murtuu ensimmäisessä toimittajavaihdossa. → Painetesti en
 ostajalle (Kemira / Outokumpu): vaihda malli (esim. Claude → DGX Spark Ollama /ollama-spark)
 Chapter 14:n CAPTURE→INSIGHT-askelissa samalla syötteellä ja vertaa, säilyvätkö rekisteririvit,
 portit ja Application Record identtisinä. Ostajavalinta on HIC:n päätös, ei tämän rekisterin.
+
+**HIC:n tarkennus Boardyn varaumaan (24.09.2026):** ontologia ei koskaan ole täysin
+malliriippumaton, mutta World Model voi olla. Observation → Signal → Insight → Decision → Outcome
+on toimintamalli, ei LLM-riippuvuus; Construction → Waste Reduction → Competitiveness on
+liiketoimintasuhde. Malli vaikuttaa siihen, _miten insight löydetään_, ei siihen, _mitä insight
+tarkoittaa_. Painetesti kohdistetaan siis löytämiseen (sama syöte, eri malli → sama rekisteririvi
+ja sama Application Record), ei merkitykseen.
+
+**Kemira vai Outokumpu:** Workflow v2:n näkökulmasta ensimmäinen kysymys ei ole yrityksen nimi
+vaan _kumpi kärsii enemmän knowledge continuity -ongelmasta_. Tuote ei enää kuulosta
+AI-ratkaisulta vaan Organizational Learning System + Governance Layer + Decision Continuity
+-ratkaisulta, ja se on suurempi markkina kuin "AI agent framework". Ostaja ostaa continuity,
+evidence, traceability, knowledge retention, governance — ei model accessia.
+
+**Mitä tämä LD ei saa tehdä ilman porttia:** muuttaa DWS IQ:n virallista positiointia. AI voi
+oppia tämän, Boardy voi sanoa sen, Claude voi analysoida sen; vain HIC päättää
+APPLY_LEARNING_GATE:ssa, tuleeko siitä positiointi.
 
 ## STRATEGIC_INSIGHT
 
