@@ -9,12 +9,14 @@ date: 2026-09-24
 observed_at: 2026-09-24
 signal_at: 2026-09-24
 insight_at: 2026-09-24
+decided_at: 2026-09-24
+kb_updated_at: 2026-09-24
 observer: HIC
 confidence: high
 occurrences: 2
 evidence: {cases: 1, related: [MS-2026-09-003], hic_statement: "oire tarkoittaa keskustelua; ihmiset vihaavat chättiä ellei se ole todella hyvin toteutettu"}
 affected: [dws10.com, dws10.com/buy, onelifetime.world, workflows]
-status: signal
+status: accepted
 hypothesis: Valintapolku (tilanne → tärkein tavoite → 3 vaihtoehtoa → suositus) tuottaa dws10.com:lla enemmän yhteydenottoja ja ostoja kuin chat-widget tai lisäartikkelit samalla liikenteellä.
 refuting_evidence: A/B 60 pv: jos chat-first tai artikkelilinkitys tuottaa vähintään yhtä paljon ostopolun etenemisiä kuin valintapolku, hypoteesi on väärä. Jos valintapolun keskeytys ensimmäisessä kysymyksessä ylittää 50 %, polku on huonosti muotoiltu, ei periaate väärä.
 learning_delta:
@@ -22,13 +24,30 @@ learning_delta:
   old_assumption: "Asiakas tarvitsee enemmän tietoa. Agentic Commerce = AI-chat."
   new_learning: "Asiakas tarvitsee vähemmän epävarmuutta. Agentic Commerce = tarpeen tunnistaminen ja epävarmuuden poistaminen käyttöliittymästä riippumatta."
   ontology_change: "Erotetaan käsitteet Tieto ja Päätösvarmuus; ostopolun mittari on päätösvarmuuden kasvu, ei luetun sisällön määrä. Aktiivinen ontologia = päättelykerros; käyttöliittymä (valintapolku, haku, suosittelija, chat) on sen esitysmuoto."
-  hic_decision: PENDING
-  applied_to: []
-  excluded: []
-decision: null
-comprehension: null
-dispatched_runs: []
-impact: []
+  hic_decision: APPLY
+  decision_reasoning: "HIC 24.09.2026: APPLY. Asiakas tarvitsee vähemmän epävarmuutta, ei enemmän tietoa; ei chat-first. Koskee dws10.com-toteutusta, blogistrategiaa (sarjat eivät ole ostamisen esteen ratkaisu) ja Chapter 10:n tuotelinkkiaskelia."
+  applied_to: [dws10.com, dws10.com/buy, onelifetime.world, workflows]
+  excluded: [lifetime.fi, investor-centre]
+  approved_by: HIC
+  approved_at: 2026-09-24
+  effective_from: 2026-09-24
+  world_model_version: 1.4.0
+decision: ld_2026_09_004_apply
+comprehension: "HIC 24.09.2026: hyväksytty yhdessä LD-003:n kanssa; kaikki kolme kuuluvat samaan dws10.com-toteutukseen (Aktiivinen Ontologia UX v2)."
+application_decision:
+  applies_to: [dws10.com, dws10.com/buy, onelifetime.world, workflows]
+  does_not_apply_to: [lifetime.fi, investor-centre]
+  basis: [MS-2026-09-003, MS-2026-09-004, MS-2026-09-005]
+  valid_until: 2026-12-31 tai UX v2:n 60 pv arviointi
+  affects: [dws10.com-kävijät ja -ostajat]
+dispatched_runs:
+  - docs/specs/active-ontology-ux-v2.md
+  - dws10.com Active Ontology UX v2 -toteutus (tämä haara)
+impact:
+  - {target: dws10.com, status: in progress, note: UX v2 -toteutus}
+  - {target: dws10.com/buy, status: in progress}
+  - {target: lifetime.fi, status: excluded}
+  - {target: investor-centre, status: excluded}
 evaluation: null
 ---
 
