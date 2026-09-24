@@ -1,6 +1,6 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 2.6 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 2.7 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
 ## 0. Strategia (HIC + Copilot 24.09.2026, v1.4 lopullinen)
 
@@ -278,6 +278,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                         |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2.7     | 2026-09-24 | §15.1 terävöitetty kolmirivinen ketju heroon; compliance-periaate (ei otsikossa/tuotteessa/viestissä) kirjattu                                                                                                                                                                                                                                  |
 | 2.6     | 2026-09-24 | §15.1 HIC:n positiointipäätös 'Tilannetietoisuudesta kilpailukykyyn' sovellettu dws10.com fi/en heroihin ja DISCOVER-yläotsikkoon; aiemmat herot kommentteina                                                                                                                                                                                   |
 | 2.5     | 2026-09-24 | §15 DWS IQ:n ydinlause 'Kun haluat johtaa epävarmuuden ymmärrykseksi' ja tuoteperhe Discover/Understand/Decide/Execute/Learn (ehdotus); UX v2 kytketty dws10.com etusivulle ja /buy:hin                                                                                                                                                         |
 | 2.4     | 2026-09-24 | §14 avausrivi (epävarmuuden vähentäminen, ei suositusjärjestelmä); kysymys ensin, toimiala arvataan ja vahvistetaan; blogi #72 julkaistu; LD-006 APPLY                                                                                                                                                                                          |
@@ -666,7 +667,19 @@ organisaatioita muuttamaan havainnot päätöksiksi ja päätökset mitattaviksi
 > päätöksentekoa ja kehittämään muutoskykyä. Näin syntyy kilpailukyky, joka kestää muuttuvat
 > markkinat, teknologiat ja toimintaympäristöt.
 
-Sovellettu 24.09.2026: dws10.com/fi hero (sanatarkasti), dws10.com root hero (englanninkielinen
+**Terävöitetty muoto (HIC 24.09.2026, sovellettu heroon):**
+
+> **DWS IQ**
+> Tilannetietoisuus mahdollistaa johtamisen.
+> Johtaminen mahdollistaa muutoskyvyn.
+> Muutoskyky rakentaa kilpailukyvyn.
+
+**Compliance-periaate:** compliance on mukana samassa asemassa kuin talous, riskit, asiakkaat,
+tuotanto ja henkilöstö — osana tilannetietoisuutta. Ei otsikossa, ei tuotteessa, ei
+markkinointiviestissä. DWS IQ on johtamisjärjestelmä, ei compliance-tuote. Pidempi kappale
+(yllä) jää Journalin ja myyntimateriaalin selittäväksi tekstiksi.
+
+Sovellettu 24.09.2026: dws10.com/fi hero (H1 + kolmirivinen ketju), dws10.com root hero (englanninkielinen
 vastine "From situational awareness to competitiveness"), DISCOVER-lohkon yläotsikko. Aiemmat
 hero-tekstit säilytetty kommentteina sivuilla (Rule 12). "Kun haluat johtaa epävarmuuden
 ymmärrykseksi" jää §15:n ydinlauseeksi sisäiseen käyttöön ja Journaliin. Tuoteperheen nimet
