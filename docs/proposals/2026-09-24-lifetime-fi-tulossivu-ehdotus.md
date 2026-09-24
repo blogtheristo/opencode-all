@@ -1,6 +1,6 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 1.9 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 2.0 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
 ## 0. Strategia (HIC + Copilot 24.09.2026, v1.4 lopullinen)
 
@@ -75,7 +75,33 @@ Aiempi tunnetason versio ("Tekoäly voi oppia tämän…") siirretty some-luonno
 
 > **Tekoäly voi oppia. Vain ihminen voi kantaa vastuun päätöksestä.**
 
-Ehdotus käytöstä: brändilause (1.1d) heron ylärivinä tai sivun alatunnisteen mottona kaikilla
+### 1.1e Hero D — ymmärtävä ihminen (HIC + Copilot 24.09.2026; lopullinen ehdokas)
+
+> **One Lifetime**
+>
+> Tekoäly oppii.
+> Ymmärtävä ihminen kantaa vastuun päätöksestä.
+>
+> Rakennamme järjestelmiä, joissa havainnot, oppiminen, päätökset ja vaikutukset ovat
+> jäljitettävissä myös vuosien päästä.
+>
+> Teknologia muuttuu. Mallit vaihtuvat. Vastuu säilyy ihmisellä.
+
+Miksi sana _ymmärtävä_ ratkaisee: "ihminen päättää" pätee keneen tahansa; Workflow v2:ssa HIC ei
+ole hyväksyjä vaan ymmärtäjä. Päätös on aidosti HIC:n vasta, kun HIC ymmärtää mitä havaittiin,
+mitä tekoäly oppi, mikä evidenssi tukee oppimista, mitä vaihtoehtoja oli ja mitä seurauksia
+soveltamisesta syntyy. Lause ei romantisoi ihmistä eikä demonisoi tekoälyä. Se on ajaton: malli
+vaihtuu, periaate ei.
+
+Lause kartoitettuna Workflow v2:een: Observation → AI havaitsee · Signal → AI tunnistaa mallin ·
+Insight → AI ehdottaa johtopäätöstä · Learning → AI oppii · JEV/KYA → ihminen ymmärtää mitä
+opittiin · Decision → ihminen päättää soveltamisesta · Action → järjestelmä toteuttaa · Outcome →
+maailma muuttuu.
+
+JEV/KYA-periaatteeksi: **Tekoäly oppii. Ymmärtävä ihminen päättää, mitä opitulla tiedolla
+tehdään.** (kirjattu myös `docs/workflow-v2-jev-kya-integration-plan.md`).
+
+Ehdotus käytöstä (päivitetty v2.0): Hero D (1.1e) lifetime.fi:n etusivun avauksena; brändilause (1.1d) alatunnisteen mottona kaikilla kolmella sivustolla; Hero C (1.1c) "Mihin maailma on menossa" -osion johdantona; Hero B (1.1b) "Mitä uskomme" -johdantona; Hero A (1.1) "Tulevaisuuden yritys" -avauksena. Aiempi ehdotus säilytetty: brändilause (1.1d) heron ylärivinä tai sivun alatunnisteen mottona kaikilla
 kolmella sivustolla; Hero C (1.1c) lifetime.fi:n etusivun avauksena, koska se sanoo
 "malli vaihtuu, maailmanmalli ei" ilman termejä; Hero B (1.1b) "Mitä uskomme" -osion johdantona;
 Hero A (1.1) planeetta-osion (Tulevaisuuden yritys, §1.3) avauksena. Kaikki neljä ovat samaa
@@ -252,6 +278,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                         |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2.0     | 2026-09-24 | Hero D "Tekoäly oppii. Ymmärtävä ihminen kantaa vastuun päätöksestä." lopulliseksi etusivun avaukseksi; kartoitus Workflow v2:n vaiheisiin; JEV/KYA-periaate; käyttöjärjestys A–D päivitetty                                                                                                                                                    |
 | 1.9     | 2026-09-24 | Hero C (ketjun säilyminen) ja brändilause "Tekoäly voi oppia. Vain ihminen voi kantaa vastuun päätöksestä."; käyttöehdotus A/B/C/D:lle; kaikki muotoilut säilytetty (Rule 12)                                                                                                                                                                   |
 | 1.8     | 2026-09-24 | Hero B lopullinen muotoilu HIC:ltä (havaitse / analysoi / ehdota → vastuu ihmisellä → jäljitettävyys vuosien päästä); tunnetason versio siirretty some-luonnokseksi                                                                                                                                                                             |
 | 1.7     | 2026-09-24 | Hero-ehdokas B päätösvallasta (LD-2026-09-002 APPLY, investor-centre poissuljettu); some-luonnos Ch 11 -portille; viittaus Workflow v2 Chapters 10–14 ja market-signals-rekisteriin (PR #2059)                                                                                                                                                  |
