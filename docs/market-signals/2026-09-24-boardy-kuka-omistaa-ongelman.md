@@ -51,6 +51,7 @@ dispatched_runs:
   - "DONE: migration 090_240926_website_observations_ownership.sql (additive; ajo RED)"
   - "TODO: Chapter 14 CLASSIFY lisää ownership_known + owner_roles signaaliin (PR #2059 mergen jälkeen)"
   - "DONE: Active Ontology 1.2.0 — neljä eri asiaa + Ownership Verdict (kierros 3)"
+  - "DONE: Active Ontology 1.3.0 — verdict-reititetty ensimmäinen kauppa (Captain Day) ennen alustatuotteita (kierros 4)"
   - "CANDIDATE: tuote 'Ownership Evidence' — selvitys, jonka tulos on omistajuuslöydös, ei tekninen ratkaisu (odottaa tuoteperhepäätöstä)"
   - "TODO: Journal-teksti 'Kaikki tietävät ongelman, kukaan ei omista sitä' (sarja 0, teksti 2; Rule 13)"
 impact:
@@ -95,6 +96,30 @@ toimintavastuu, seurausvastuu, data); rooli "ulkoinen kumppani" sallittu vain to
 Ownership Verdict näytetään DISCOVERissa: `discovery` / `transfer` / `outsourced_accountability`
 / `aligned`, ja tallennetaan havaintoon. Tämä on ensimmäinen DISCOVER-tulos, josta asiakas voi
 olla valmis maksamaan ilman teknistä ratkaisua → tuotekandidaatti "Ownership Evidence".
+
+## Kierros 4 (HIC 24.09.2026): 137 tuotetta → 137 ratkaisupolkua
+
+Perinteinen myynti: Ongelma → DWS IQ → Kauppa. DISCOVER: Ongelma → Omistajuus → Päätös → useita
+etenemispolkuja. Kemira: havainto "erätason hiilijalanjälkeä ei tunneta"; löydös "ongelma ei ole
+laskenta vaan datan omistajuus" (Production data, Digitalisation integraatiot, Sustainability
+raportti, COO päätös). Polut: A omistajuus epäselvä → Captain Day (1200 €, ei alustaa); B
+omistajuus löytyi → Climate Intelligence; C integraatio → DWS IQ Starter / integraatiosprintti;
+D compliance → Compliance Agent / CSRD / gap; E osaaminen → AI Literacy Bridge / coaching /
+Captain Day; F näkyvyys → SEO Audit / Website Starter / Firehorse.
+
+DISCOVER ei myy DWS IQ:ta eikä tuotetta vaan vastauksen: mikä on ongelma, kuka omistaa sen,
+kenellä on päätösvalta, mikä on seuraava järkevä askel. Asiakas saattaa ostaa ensimmäisenä
+vastauksen kysymykseen "kuuluuko tämän ratkaiseminen minulle vai jollekin toiselle". DWS IQ ei ole
+tuote vaan mekanismi, joka yhdistää ongelman, omistajuuden ja oikean ratkaisupolun; siksi suuri
+katalogi on etu.
+
+Tuotteeseen (Active Ontology 1.3.0): omistajuuslöydös ohjaa ratkaisusivun. `discovery` ja
+`transfer` → ensimmäinen kauppa Captain Day (sku `ai-consultant-day`, olemassa products.jsonissa)
+otsikolla Ownership Discovery / Ownership Evidence, alustatuotteet vasta sen alla "kun omistajuus
+on selvä"; `outsourced_accountability` → vastuuhuomautus ennen polun tuotteita; `aligned` → polun
+tuotteet suoraan. `recommended_sku` tallentuu havaintoon, joten polkujen A–F toteutuma on
+mitattavissa. Polut C–F ohjautuvat jo diagnoosin syiden kautta; niiden erillinen verdict-reititys
+on seuraava askel, kun ensimmäiset 100 havaintoa näyttävät jakauman.
 
 ## Kategoriamääritelmä (HIC 24.09.2026)
 

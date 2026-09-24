@@ -555,40 +555,49 @@
       root.appendChild(succ);
       return;
     }
+    // Solution cards. Products last; the catalogue is a set of solution paths, not a list.
+    function solutionCards(list, recommended) {
+      return el(
+        'div',
+        { class: 'ao-sol' },
+        list.map(function (s) {
+          return el('div', {}, [
+            el('span', {
+              class: 'tag',
+              text: s.start ? (lang === 'fi' ? 'Suositeltu aloitus' : 'Recommended start') : '',
+            }),
+            el('h4', { text: s.name }),
+            el('p', { text: t('whyRec') + ': ' + L(s.why) }),
+            el('a', {
+              href: '/buy/#' + encodeURIComponent(s.sku),
+              style: 'display:inline-block;margin-top:8px;color:#fbbf24',
+              text: lang === 'fi' ? 'Katso ja hanki →' : 'See and acquire →',
+              onclick: function () {
+                send('selected', { selected_sku: s.sku, recommended_sku: recommended });
+              },
+            }),
+          ]);
+        }),
+      );
+    }
     if (step === 'solutions') {
       var p3 = cfg.paths[state.pathKey];
-      root.appendChild(el('h2', { class: 'ao-q', text: t('solutionsLabel') }));
-      root.appendChild(
-        el(
-          'div',
-          { class: 'ao-sol' },
-          p3.solutions.map(function (s) {
-            return el('div', {}, [
-              el('span', {
-                class: 'tag',
-                text: s.start ? (lang === 'fi' ? 'Suositeltu aloitus' : 'Recommended start') : '',
-              }),
-              el('h4', { text: s.name }),
-              el('p', { text: t('whyRec') + ': ' + L(s.why) }),
-              el('a', {
-                href: '/buy/#' + encodeURIComponent(s.sku),
-                style: 'display:inline-block;margin-top:8px;color:#fbbf24',
-                text: lang === 'fi' ? 'Katso ja hanki →' : 'See and acquire →',
-                onclick: function () {
-                  send('selected', {
-                    selected_sku: s.sku,
-                    recommended_sku: (
-                      p3.solutions.find(function (x) {
-                        return x.start;
-                      }) || p3.solutions[0]
-                    ).sku,
-                  });
-                },
-              }),
-            ]);
-          }),
-        ),
-      );
+      var pathRec = (
+        p3.solutions.find(function (x) {
+          return x.start;
+        }) || p3.solutions[0]
+      ).sku;
+      // Verdict-routed first purchase (LD-2026-09-007 round 4): unclear or transferable
+      // ownership leads with Ownership Discovery / Evidence before any platform product.
+      var vs = ((cfg.ownership || {}).verdictSolutions || {})[state.ownership.verdict];
+      var recommended = vs && vs.solutions.length ? vs.solutions[0].sku : pathRec;
+      if (vs) {
+        root.appendChild(el('h2', { class: 'ao-q', text: L(vs.heading) }));
+        root.appendChild(el('p', { class: 'ao-hint', text: L(vs.note) }));
+        if (vs.solutions.length) root.appendChild(solutionCards(vs.solutions, recommended));
+        root.appendChild(el('h3', { class: 'ao-after', text: t('afterOwnership') }));
+      } else root.appendChild(el('h2', { class: 'ao-q', text: t('solutionsLabel') }));
+      root.appendChild(solutionCards(p3.solutions, recommended));
       root.appendChild(
         el('div', { class: 'ao-row', style: 'margin-top:18px' }, [
           el('a', {
