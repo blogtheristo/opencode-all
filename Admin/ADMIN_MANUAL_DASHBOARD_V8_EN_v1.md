@@ -1,30 +1,35 @@
 # Admin Manual: V8 Dashboard Management
 
 ---
+
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - V8 Dashboard admin manual
+
+- Version: 1.1 | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Added §11 Workflow v2 — Procedural Graph Audit Trail (Planned). Spec-only section documenting the HIC placement decision (2026-09-21): Workflow v2 (src/agents/workflow-v2/, PR #2059) graph run history surfaces here as the read-only audit-after view, with Mission Control handling the separate act-now approval queue. Notes the open dependency — ExecutionTrace persistence needs to move from local JSON to a Supabase workflow_v2_runs table before this view has a data source. Decision record: docs/workflow-v2-chapters-roadmap.md §Placement.
+- Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - V8 Dashboard admin manual
 
 Session Links & References:
-  - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/pull/77
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md
+
+- Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/pull/77
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md
 
 Document Status:
-  - Created: 30.12.2025
-  - Last Modified: 30.12.2025
-  - Language: English
-  - Languages Available: English
-  - Publication Status: ✅ ACTIVE
+
+- Created: 30.12.2025
+- Last Modified: 21.09.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ✅ ACTIVE
 
 ---
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Purpose:** Administration and management guide for V8 Dashboard  
 **Audience:** System Administrators, DevOps Engineers  
-**Updated:** 30.12.2025
+**Updated:** 21.09.2026
 
 ---
 
@@ -40,6 +45,7 @@ Document Status:
 8. [Security](#8-security)
 9. [Backup and Recovery](#9-backup-and-recovery)
 10. [Performance Optimization](#10-performance-optimization)
+11. [Workflow v2 — Procedural Graph Audit Trail (Planned)](#11-workflow-v2--procedural-graph-audit-trail-planned)
 
 ---
 
@@ -50,6 +56,7 @@ Document Status:
 The V8 Dashboard is a mobile-first construction project management interface with real-time Supabase PostgreSQL integration. It provides portfolio management, project tracking, and alert monitoring capabilities.
 
 **Key Features**:
+
 - Real-time data from Supabase PostgreSQL
 - Mobile-first responsive design
 - Portfolio metrics calculation
@@ -87,6 +94,7 @@ PostgreSQL Database
 ### 2.1 Client Requirements
 
 **Supported Browsers**:
+
 - Chrome 120+
 - Firefox 121+
 - Safari 17+
@@ -94,6 +102,7 @@ PostgreSQL Database
 - Opera 106+
 
 **Minimum Device Specifications**:
+
 - Screen: 320px width minimum
 - RAM: 2GB
 - Network: 3G or better
@@ -101,11 +110,13 @@ PostgreSQL Database
 ### 2.2 Server Requirements
 
 **Hosting**:
+
 - Platform: Cloudflare Pages
 - CDN: Cloudflare CDN
 - SSL: Automatic (Cloudflare)
 
 **Database**:
+
 - Provider: Supabase
 - Database: PostgreSQL 15
 - Plan: Free Tier (50K MAU, 500MB DB)
@@ -113,6 +124,7 @@ PostgreSQL Database
 ### 2.3 Dependencies
 
 **External Libraries**:
+
 - Supabase JS Client: 2.39.0
 - Font Awesome: 6.4.0
 - Google Fonts (Inter): Latest
@@ -135,8 +147,8 @@ cd dws6/dws6.com/dashboard/firehorse/v8/
 Edit `main.js` with your Supabase credentials:
 
 ```javascript
-const SUPABASE_URL = 'https://your-project.supabase.co';
-const SUPABASE_ANON_KEY = 'your-anon-key';
+const SUPABASE_URL = "https://your-project.supabase.co";
+const SUPABASE_ANON_KEY = "your-anon-key";
 ```
 
 #### Step 3: Start Local Server
@@ -166,6 +178,7 @@ Open browser: `http://localhost:8000`
    - Select `dws6` repository
 
 2. **Configure Build**:
+
    ```
    Build command: (none - static site)
    Build output directory: dws6.com/dashboard/firehorse/v8
@@ -179,21 +192,24 @@ Open browser: `http://localhost:8000`
 #### Option 2: Manual Deployment
 
 1. **Build Files**:
+
    ```bash
    # No build step required - static files
    ```
 
 2. **Upload to Server**:
+
    ```bash
    rsync -avz dws6.com/dashboard/firehorse/v8/ user@server:/var/www/html/dashboard/v8/
    ```
 
 3. **Configure Web Server** (Nginx example):
+
    ```nginx
    server {
        listen 443 ssl http2;
        server_name dws6.com;
-       
+
        location /dashboard/firehorse/v8/ {
            root /var/www/html;
            index index.html;
@@ -212,8 +228,8 @@ Open browser: `http://localhost:8000`
 
 ```javascript
 // Supabase Configuration
-const SUPABASE_URL = 'https://kpucuwwfhuwurdxyjjtz.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
+const SUPABASE_URL = "https://kpucuwwfhuwurdxyjjtz.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
 ```
 
 **Configuration Steps**:
@@ -224,9 +240,10 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
    - Copy Project URL and anon/public key
 
 2. **Update Configuration**:
+
    ```javascript
-   const SUPABASE_URL = 'YOUR_PROJECT_URL';
-   const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+   const SUPABASE_URL = "YOUR_PROJECT_URL";
+   const SUPABASE_ANON_KEY = "YOUR_ANON_KEY";
    ```
 
 3. **Commit Changes**:
@@ -241,22 +258,24 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
 **File**: `scripts/dws-bundle.js`
 
 **State Configuration** (lines 3-10):
+
 ```javascript
 const state = {
-  apiBase: 'https://api.dwsiq.example.com',  // Legacy API (not used in V8)
-  token: localStorage.getItem('dws_token') || null,
-  cacheTtlMs: { 
-    portfolio: 300000,  // 5 minutes
-    alerts: 120000,     // 2 minutes
-    projects: 600000    // 10 minutes
+  apiBase: "https://api.dwsiq.example.com", // Legacy API (not used in V8)
+  token: localStorage.getItem("dws_token") || null,
+  cacheTtlMs: {
+    portfolio: 300000, // 5 minutes
+    alerts: 120000, // 2 minutes
+    projects: 600000, // 10 minutes
   },
   websocket: null,
   lastFetch: {},
-  isOnline: navigator.onLine
+  isOnline: navigator.onLine,
 };
 ```
 
 **Customization Options**:
+
 - `cacheTtlMs`: Adjust cache duration per data type
 - `apiBase`: Legacy API endpoint (not used with Supabase)
 - `token`: Authentication token storage
@@ -264,11 +283,13 @@ const state = {
 ### 4.3 UI Configuration
 
 **Logo**: `assets/ncc-logo.png`
+
 - Replace with your company logo
 - Recommended size: 55x55px
 - Format: PNG with transparency
 
 **Colors**: Edit `index.html` CSS (lines 10-445)
+
 ```css
 /* Primary colors */
 --primary: #1e293b;
@@ -352,9 +373,9 @@ INSERT INTO alerts (project_name, message, age_hours, type, severity) VALUES
 #### Update Project Status
 
 ```sql
-UPDATE projects 
-SET percent_complete = 65, 
-    spi = 0.96, 
+UPDATE projects
+SET percent_complete = 65,
+    spi = 0.96,
     cpi = 0.97,
     updated_at = NOW()
 WHERE name = 'HQ Expansion';
@@ -363,7 +384,7 @@ WHERE name = 'HQ Expansion';
 #### Resolve Alert
 
 ```sql
-UPDATE alerts 
+UPDATE alerts
 SET resolved_at = NOW(),
     resolved_by = 'admin@dws-iq.com'
 WHERE id = 'alert-uuid-here';
@@ -372,7 +393,7 @@ WHERE id = 'alert-uuid-here';
 #### Clean Old Resolved Alerts
 
 ```sql
-DELETE FROM alerts 
+DELETE FROM alerts
 WHERE resolved_at < NOW() - INTERVAL '30 days';
 ```
 
@@ -387,6 +408,7 @@ WHERE resolved_at < NOW() - INTERVAL '30 days';
 **URL**: `https://dws6.com/dashboard/firehorse/v8/`
 
 **Expected Response**:
+
 - HTTP 200 OK
 - Page loads within 3 seconds
 - No console errors
@@ -397,6 +419,7 @@ WHERE resolved_at < NOW() - INTERVAL '30 days';
 **URL**: `https://kpucuwwfhuwurdxyjjtz.supabase.co/rest/v1/`
 
 **Expected Response**:
+
 - HTTP 200 OK
 - JSON response
 - Authentication header accepted
@@ -405,13 +428,13 @@ WHERE resolved_at < NOW() - INTERVAL '30 days';
 
 **Key Metrics to Monitor**:
 
-| Metric | Target | Critical Threshold |
-|--------|--------|-------------------|
-| Page Load Time | < 3s | > 5s |
-| Database Query Time | < 500ms | > 2s |
-| Error Rate | < 1% | > 5% |
-| Uptime | > 99.5% | < 99% |
-| Active Users | - | Monitor trends |
+| Metric              | Target  | Critical Threshold |
+| ------------------- | ------- | ------------------ |
+| Page Load Time      | < 3s    | > 5s               |
+| Database Query Time | < 500ms | > 2s               |
+| Error Rate          | < 1%    | > 5%               |
+| Uptime              | > 99.5% | < 99%              |
+| Active Users        | -       | Monitor trends     |
 
 ### 6.3 Log Monitoring
 
@@ -429,6 +452,7 @@ Error loading projects: [error details]
 ```
 
 **Supabase Logs**:
+
 - Access via Supabase Dashboard → Logs
 - Monitor query performance
 - Check error rates
@@ -437,17 +461,20 @@ Error loading projects: [error details]
 ### 6.4 Maintenance Schedule
 
 **Daily**:
+
 - ✅ Check dashboard accessibility
 - ✅ Review error logs
 - ✅ Monitor performance metrics
 
 **Weekly**:
+
 - ✅ Review database performance
 - ✅ Check disk usage
 - ✅ Update dependencies (if needed)
 - ✅ Review security alerts
 
 **Monthly**:
+
 - ✅ Database optimization (VACUUM, ANALYZE)
 - ✅ Clean old data
 - ✅ Review access logs
@@ -462,6 +489,7 @@ Error loading projects: [error details]
 #### Issue 1: Dashboard Not Loading
 
 **Symptoms**:
+
 - Blank page
 - "Failed to load" error
 - Infinite loading
@@ -469,18 +497,21 @@ Error loading projects: [error details]
 **Solutions**:
 
 1. **Check Browser Console**:
+
    ```
    F12 → Console tab
    Look for JavaScript errors
    ```
 
 2. **Clear Browser Cache**:
+
    ```
    Ctrl+Shift+R (Windows)
    Cmd+Shift+R (Mac)
    ```
 
 3. **Verify CDN Access**:
+
    ```bash
    curl -I https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0
    ```
@@ -491,6 +522,7 @@ Error loading projects: [error details]
 #### Issue 2: No Data Displayed
 
 **Symptoms**:
+
 - Projects list empty
 - Alerts not showing
 - Portfolio metrics show "--"
@@ -502,6 +534,7 @@ Error loading projects: [error details]
    - Verify "DB: ✓ Connected"
 
 2. **Verify Database Has Data**:
+
    ```sql
    SELECT COUNT(*) FROM projects;
    SELECT COUNT(*) FROM alerts;
@@ -520,6 +553,7 @@ Error loading projects: [error details]
 #### Issue 3: Slow Performance
 
 **Symptoms**:
+
 - Page loads slowly (> 5s)
 - Database queries timeout
 - UI feels sluggish
@@ -527,16 +561,18 @@ Error loading projects: [error details]
 **Solutions**:
 
 1. **Check Network Speed**:
+
    ```bash
    # Test download speed
    curl -o /dev/null https://dws6.com/dashboard/firehorse/v8/
    ```
 
 2. **Optimize Database Queries**:
+
    ```sql
    -- Add missing indexes
    CREATE INDEX IF NOT EXISTS idx_projects_created_at ON projects(created_at DESC);
-   
+
    -- Analyze query performance
    EXPLAIN ANALYZE SELECT * FROM projects ORDER BY created_at DESC LIMIT 10;
    ```
@@ -551,12 +587,12 @@ Error loading projects: [error details]
 
 ### 7.2 Error Messages
 
-| Error Message | Cause | Solution |
-|--------------|-------|----------|
-| "Supabase initialization failed" | Invalid credentials or network issue | Check credentials, verify network |
-| "Failed to load projects" | Database query error | Check database schema, verify RLS policies |
-| "Database connection timeout" | Network latency or Supabase down | Check Supabase status, retry connection |
-| "No token" in debug panel | Authentication not implemented | Normal for V8 (auth coming in future) |
+| Error Message                    | Cause                                | Solution                                   |
+| -------------------------------- | ------------------------------------ | ------------------------------------------ |
+| "Supabase initialization failed" | Invalid credentials or network issue | Check credentials, verify network          |
+| "Failed to load projects"        | Database query error                 | Check database schema, verify RLS policies |
+| "Database connection timeout"    | Network latency or Supabase down     | Check Supabase status, retry connection    |
+| "No token" in debug panel        | Authentication not implemented       | Normal for V8 (auth coming in future)      |
 
 ---
 
@@ -565,6 +601,7 @@ Error loading projects: [error details]
 ### 8.1 Security Best Practices
 
 **✅ Implemented**:
+
 - HTTPS only (TLS 1.3)
 - Row Level Security (RLS) in Supabase
 - Input validation
@@ -572,6 +609,7 @@ Error loading projects: [error details]
 - XSS protection (Content Security Policy)
 
 **🚧 To Implement**:
+
 - Authentication (Supabase Auth)
 - Authorization (role-based access)
 - Rate limiting
@@ -591,18 +629,20 @@ CREATE POLICY "Allow public read" ON projects FOR SELECT USING (true);
 CREATE POLICY "Allow public read" ON alerts FOR SELECT USING (true);
 
 -- Restrict write access (future)
-CREATE POLICY "Allow authenticated write" ON projects 
+CREATE POLICY "Allow authenticated write" ON projects
   FOR INSERT WITH CHECK (auth.role() = 'authenticated');
 ```
 
 #### API Key Management
 
 **Anon Key**:
+
 - Public key for read-only access
 - Safe to expose in client code
 - Limited by RLS policies
 
 **Service Role Key**:
+
 - Full database access
 - NEVER expose in client code
 - Use only in server-side code
@@ -610,6 +650,7 @@ CREATE POLICY "Allow authenticated write" ON projects
 ### 8.3 Security Monitoring
 
 **Monitor For**:
+
 - Unusual query patterns
 - High error rates
 - Failed authentication attempts
@@ -617,6 +658,7 @@ CREATE POLICY "Allow authenticated write" ON projects
 - Large data exports
 
 **Tools**:
+
 - Supabase Dashboard → Logs
 - Cloudflare Analytics
 - Browser DevTools Network tab
@@ -630,10 +672,12 @@ CREATE POLICY "Allow authenticated write" ON projects
 #### Automatic Backups (Supabase)
 
 **Free Tier**:
+
 - Daily backups (retained for 7 days)
 - Point-in-time recovery not available
 
 **Pro Tier** (if upgraded):
+
 - Daily backups (retained for 30 days)
 - Point-in-time recovery (7 days)
 
@@ -659,6 +703,7 @@ pg_dump -h db.kpucuwwfhuwurdxyjjtz.supabase.co \
 ### 9.2 Code Backup
 
 **Git Repository**:
+
 ```bash
 # Backup to GitHub
 git add .
@@ -671,6 +716,7 @@ git push origin v8-backup-$(date +%Y%m%d)
 ```
 
 **Local Backup**:
+
 ```bash
 # Create archive
 tar -czf v8-dashboard-backup-$(date +%Y%m%d).tar.gz \
@@ -736,6 +782,7 @@ VACUUM ANALYZE alerts;
 #### Connection Pooling
 
 Supabase automatically handles connection pooling:
+
 - Default: 15 connections (Free Tier)
 - Max: Configurable in Supabase settings
 
@@ -744,6 +791,7 @@ Supabase automatically handles connection pooling:
 #### CDN Optimization
 
 **Cloudflare Settings**:
+
 - ✅ Auto Minify: HTML, CSS, JS
 - ✅ Brotli Compression
 - ✅ HTTP/2 & HTTP/3
@@ -766,14 +814,68 @@ npx imagemin assets/*.png --out-dir=assets/optimized
 ### 10.3 Caching Strategy
 
 **Browser Caching** (Cloudflare):
+
 ```
 Cache-Control: public, max-age=31536000, immutable
 ```
 
 **Application Caching** (V7 Bundle):
+
 - Portfolio: 5 minutes
 - Alerts: 2 minutes
 - Projects: 10 minutes
+
+---
+
+## 11. Workflow v2 — Procedural Graph Audit Trail (Planned)
+
+**Status:** Spec only — not yet implemented. Documented here ahead of build per
+the HIC placement decision (2026-09-21): Workflow v2 graph runs must surface
+on the Admin dashboard as the "audit-after" view, with Mission Control
+(`dws6.com/dashboard/mission-control/`) handling the separate "act-now"
+approval queue. Full decision record: `docs/workflow-v2-chapters-roadmap.md`
+§Placement.
+
+### 11.1 What this view is for
+
+`src/agents/workflow-v2/` (PR #2059) runs long-horizon agent tasks as an
+explicit graph (a "Procedural Graph") instead of relying on chat memory.
+Every run produces an `ExecutionTrace` — graph name/version, run ID, every
+node-to-node transition with a timestamp and optional note, and a final
+outcome (success/failure/in_progress). Today `persistTrace()` /
+`loadTrace()` (`src/agents/workflow-v2/runner.ts`) read/write this as local
+JSON. This admin section will surface that trace history once it is
+promoted to a database table.
+
+### 11.2 Data source (not yet built)
+
+Per the placement decision, `ExecutionTrace` persistence should move from
+local JSON files to a Supabase table (working name: `workflow_v2_runs`),
+following the same grant/RLS pattern already used for `outreach_threads`
+(see §5 Database Management above): `GRANT` to `service_role` +
+`authenticated`, `ENABLE ROW LEVEL SECURITY`, `anon` only where a policy
+explicitly needs it. Until that table exists, this section of the dashboard
+has no live data source and should not be built as a UI stub.
+
+### 11.3 Planned view
+
+- **Run list**: graph name, run ID, outcome, started/finished timestamps,
+  filterable by graph (Chapter 0 `b2b-growth-funnel`, Chapter 1
+  `sales-outreach`, future chapters per `docs/workflow-v2-chapters-roadmap.md`).
+- **Run detail**: full transition sequence (the `START -> ... -> END` path),
+  any `HIC_APPROVAL_GATE` decisions with their approval timestamp
+  (`ApprovalToken.approvedAt`, `src/agents/workflow-v2/types.ts`) — audit
+  evidence that the RED-zone outbound-email gate was actually honored for
+  that run, not just that the graph JSON claims to enforce it.
+- **Refiner history**: which graph edits the Refiner role proposed after a
+  run, and whether the HIC accepted them (ties into the Learning Standard's
+  `PENDING_REVIEW` pattern used elsewhere in this repo's field notes).
+
+### 11.4 Explicitly out of scope for this admin view
+
+Approving or rejecting a paused `HIC_APPROVAL_GATE` run — that action lives
+on Mission Control, not here. This view is read-only audit history; it
+never issues an `ApprovalToken`.
 
 ---
 
@@ -785,6 +887,6 @@ Cache-Control: public, max-age=31536000, immutable
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: 30. December 2025  
+**Document Version**: 1.1  
+**Last Updated**: 21. September 2026  
 **Next Review**: Q2 2026

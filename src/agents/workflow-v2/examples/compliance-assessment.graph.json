@@ -1,0 +1,57 @@
+{
+  "name": "compliance-assessment-chapter-three",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "Scope the assessment: which customer/project, which industry (steel, cement, chemicals, construction, energy), and which regulations are in scope (ets, cbam, csrd, fit-for-55, eu-ai-act). Matches the `/compliance-check` input contract.",
+      "allowedNext": ["COLLECT_INPUTS"]
+    },
+    {
+      "id": "COLLECT_INPUTS",
+      "description": "Gather the agent's required inputs: annualEmissions, importValue, and the currentMeasures booleans (carbonReporting, emissionsMonitoring, supplyChainDueDiligence, aiSystemLogging). This is the node the existing multi-agent DAG has no explicit state for — inputs are assumed present today.",
+      "allowedNext": ["RUN_EMISSIONS_ANALYSIS", "MISSING_DATA", "PARKED"]
+    },
+    {
+      "id": "MISSING_DATA",
+      "description": "One or more required inputs is absent, stale, or implausible. This is the recovery path the `/workflow compliance-assessment` DAG does not model: decide whether to pull the value from a connected ERP/IoT source, ask the customer, or proceed on a flagged default. A default used here MUST be recorded so the final report can disclose it — never silently substituted.",
+      "allowedNext": ["COLLECT_INPUTS", "PARKED"]
+    },
+    {
+      "id": "RUN_EMISSIONS_ANALYSIS",
+      "description": "First stage of the existing pipeline: emissions analysis. Produces the activity/verified emissions baseline the regulatory stage scores against.",
+      "allowedNext": ["RUN_REGULATORY_CHECK", "MISSING_DATA"]
+    },
+    {
+      "id": "RUN_REGULATORY_CHECK",
+      "description": "Second stage: score current measures against each in-scope regulation's thresholds via `/compliance-check` (cli: `run compliance --input`). Produces per-regulation gaps and deadline urgency.",
+      "allowedNext": ["RUN_VIABILITY_ASSESSMENT", "MISSING_DATA", "LOW_SCORE_ESCALATION"]
+    },
+    {
+      "id": "LOW_SCORE_ESCALATION",
+      "description": "Compliance score below 50% — the `/compliance-check` skill's own documented threshold for escalating to the full assessment workflow. Flag deadline-critical gaps before continuing; a sub-50 score is a finding in its own right, not just a lower number.",
+      "allowedNext": ["RUN_VIABILITY_ASSESSMENT", "PARKED"]
+    },
+    {
+      "id": "RUN_VIABILITY_ASSESSMENT",
+      "description": "Third stage: viability — can the identified gaps realistically be closed before their deadlines, at what cost. Completes the emissions -> regulatory -> viability pipeline.",
+      "allowedNext": ["GENERATE_REPORT", "MISSING_DATA"]
+    },
+    {
+      "id": "GENERATE_REPORT",
+      "description": "Assemble the assessment: per-regulation gaps, deadline urgency, recommendations, and an explicit list of any flagged defaults used (from MISSING_DATA). Read-only deliverable — this graph produces an assessment, it does not file anything with a regulator, so no RED-zone gate applies here.",
+      "allowedNext": ["END"]
+    },
+    {
+      "id": "PARKED",
+      "description": "Terminal for this run — assessment abandoned (inputs unobtainable, customer deprioritized, or scope withdrawn). Re-enterable on the next cycle.",
+      "allowedNext": []
+    },
+    {
+      "id": "END",
+      "description": "Terminal — assessment delivered. Feeds the MGD/CRC north-star (/mgd-report) as governed decisions.",
+      "allowedNext": []
+    }
+  ]
+}

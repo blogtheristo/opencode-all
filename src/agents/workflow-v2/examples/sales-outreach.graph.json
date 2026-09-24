@@ -1,0 +1,82 @@
+{
+  "name": "sales-outreach-chapter-one",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "Read the target segment/list (sales-outreach/*.md prospecting docs, TED leads pack, or a named account) and confirm which OutreachPipeline this run is: customer, partner, or investor.",
+      "allowedNext": ["RESEARCH"]
+    },
+    {
+      "id": "RESEARCH",
+      "description": "Enrich the org + person record (outreach_orgs, persons tables via src/outreach/types.ts). Pull domain, industry, size, LinkedIn. Maps to OutreachStatus 'researched'.",
+      "allowedNext": ["INTRO_REQUESTED", "DRAFT_OUTREACH", "PARKED"]
+    },
+    {
+      "id": "INTRO_REQUESTED",
+      "description": "A warm path exists (referral, conference, existing relationship) — request the intro before drafting cold copy. Maps to OutreachStatus 'intro_requested'.",
+      "allowedNext": ["INTRO_MADE", "DRAFT_OUTREACH"]
+    },
+    {
+      "id": "INTRO_MADE",
+      "description": "Warm intro delivered by the connector. Draft references the intro context. Maps to OutreachStatus 'intro_made'.",
+      "allowedNext": ["DRAFT_OUTREACH"]
+    },
+    {
+      "id": "DRAFT_OUTREACH",
+      "description": "Compose the outbound draft using src/outreach/prospect-email-templates.ts or the matching sales-outreach/ template (INTRO_*.md, LETTER_*.md, PITCH_*.md). Sender identity and signature per CLAUDE.md Sender Identity rule. Transport MUST be Amazon SES per Non-Negotiable Rule 4 — never Resend, regardless of what /email or other skill docs currently say.",
+      "allowedNext": ["HIC_APPROVAL_GATE"]
+    },
+    {
+      "id": "HIC_APPROVAL_GATE",
+      "description": "RED zone, non-negotiable: outbound email requires explicit human approval before send (Auto-Mode Trust Boundary — 'outbound email' is BLOCKED/human-required). The executor MUST stop here and surface the drafted copy verbatim; it may only continue once the run state carries an explicit HIC approval for this exact draft. No auto-transition past this node is permitted under any circumstance.",
+      "allowedNext": ["SEND", "DRAFT_OUTREACH"]
+    },
+    {
+      "id": "SEND",
+      "description": "Send the approved draft via Amazon SES (SMTP). Record the activity (outreach_activities). Maps to OutreachStatus 'contacted'.",
+      "allowedNext": ["AWAIT_RESPONSE", "ERROR_RECOVERY"]
+    },
+    {
+      "id": "AWAIT_RESPONSE",
+      "description": "Hold state; cadence scheduler (src/outreach/cadence.ts, scheduler.ts) governs follow-up timing. Inbound replies parsed by src/outreach/reply-parser.ts. A follow-up send is a NEW draft and re-enters HIC_APPROVAL_GATE — it never resends without fresh approval.",
+      "allowedNext": ["RESPONDED", "HIC_APPROVAL_GATE", "PARKED"]
+    },
+    {
+      "id": "RESPONDED",
+      "description": "Prospect replied. Classify outcome (positive/neutral/negative/no_response/bounced). Maps to OutreachStatus 'responded'.",
+      "allowedNext": ["MEETING_BOOKED", "DRAFT_OUTREACH", "PASSED"]
+    },
+    {
+      "id": "MEETING_BOOKED",
+      "description": "Meeting scheduled. Maps to OutreachStatus 'meeting_booked'. Handoff point to a human-led sales conversation — this graph does not model the meeting itself.",
+      "allowedNext": ["NEGOTIATION", "PASSED"]
+    },
+    {
+      "id": "NEGOTIATION",
+      "description": "Commercial terms in discussion (pricing, pilot scope, procurement). Maps to OutreachStatus 'in_negotiation'.",
+      "allowedNext": ["CONVERTED", "PASSED"]
+    },
+    {
+      "id": "CONVERTED",
+      "description": "Terminal — deal closed. Maps to OutreachStatus 'converted'. Feeds the MGD/CRC north-star (/mgd-report).",
+      "allowedNext": []
+    },
+    {
+      "id": "PASSED",
+      "description": "Terminal — prospect declined or disqualified at this stage. Maps to OutreachStatus 'passed'.",
+      "allowedNext": []
+    },
+    {
+      "id": "PARKED",
+      "description": "Terminal for this run, but re-enterable later (e.g. quarterly re-check). Maps to OutreachStatus 'parked'.",
+      "allowedNext": []
+    },
+    {
+      "id": "ERROR_RECOVERY",
+      "description": "Send failed or bounced (deliverability issue, wrong address). Diagnose and correct before retrying.",
+      "allowedNext": ["DRAFT_OUTREACH", "PARKED"]
+    }
+  ]
+}

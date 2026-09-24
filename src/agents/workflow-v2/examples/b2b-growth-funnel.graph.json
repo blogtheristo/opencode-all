@@ -1,0 +1,42 @@
+{
+  "name": "b2b-growth-funnel",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "Campaign-level graph, one level above sales-outreach.graph.json (which runs one prospect thread). This node scopes which market segment or account list the funnel targets this cycle.",
+      "allowedNext": ["RESEARCH"]
+    },
+    {
+      "id": "RESEARCH",
+      "description": "Define the Ideal Customer Profile (ICP) and decision makers for this cycle. Ground it in real signal, not assumption: sales-outreach/ prospecting docs, TED_CONSTRUCTION_LEADS_PACK, regulatory-radar customer scoring, hilma-watch tender matches.",
+      "allowedNext": ["STRATEGY", "PARKED"]
+    },
+    {
+      "id": "STRATEGY",
+      "description": "Choose the channel(s) to deliver content against the ICP: social content + social selling (LinkedIn via /lsj-publish), direct outreach (per-prospect via sales-outreach.graph.json), or event-led (conference/GITEX-style). Output is a channel plan, not content itself.",
+      "allowedNext": ["EXECUTION", "RESEARCH"]
+    },
+    {
+      "id": "EXECUTION",
+      "description": "Sales-engagement-as-a-service: produce content, deliver it on the chosen channel(s), and capture opportunities. Content production for social routes through /blog-draft or /lsj-publish (both RED-gated on HIC approval before publish, per Non-Negotiable Rule 13). Direct-outreach opportunities route into sales-outreach.graph.json per prospect, entering at its START node — this is the handoff point between the campaign-level graph and the per-prospect graph.",
+      "allowedNext": ["CAPTURE_OPPORTUNITY", "STRATEGY"]
+    },
+    {
+      "id": "CAPTURE_OPPORTUNITY",
+      "description": "An opportunity surfaced (inbound reply, meeting request, content engagement worth following up). Hands off to sales-outreach.graph.json (per-prospect chapter) for that specific contact; this campaign-level graph does not model the per-prospect thread itself.",
+      "allowedNext": ["EXECUTION", "END"]
+    },
+    {
+      "id": "PARKED",
+      "description": "Terminal for this cycle — ICP/segment deprioritized, revisit next planning cycle.",
+      "allowedNext": []
+    },
+    {
+      "id": "END",
+      "description": "Terminal — cycle complete. Feeds the MGD/CRC north-star (/mgd-report) via whichever per-prospect threads it spawned.",
+      "allowedNext": []
+    }
+  ]
+}

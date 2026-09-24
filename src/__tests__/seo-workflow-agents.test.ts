@@ -139,6 +139,22 @@ describe('SeoAudit Agent', () => {
   });
 
   it('should audit site pages for deploy check', async () => {
+    // Hermetic: the agent fetches the live site with 5–10 s per-request timeouts, which
+    // exceeds the 5 s test timeout on a slow runner. Stub fetch so the test checks the
+    // audit logic, not dws10.com's availability.
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        text: async () =>
+          '<html><head><title>DWS IQ</title><meta name="description" content="Industrial AI"></head>' +
+          '<body><header><nav>Nav</nav></header><main><h1>DWS IQ</h1><section><p>Content</p>' +
+          '<a href="/buy">Buy</a></section></main><footer>Footer</footer></body></html>',
+        json: async () => ({}),
+        headers: new Headers({ 'content-type': 'text/html' }),
+      } as Response),
+    );
     const result = await agent.execute(ctx, {
       site: {
         baseUrl: 'https://dws10.com',

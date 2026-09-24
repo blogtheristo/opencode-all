@@ -1,0 +1,72 @@
+{
+  "name": "translation-fanout-chapter-twelve",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "One published Finnish source text (Journal post, lifetime.fi conclusion, or dws10.com page) is to exist in the other four ecosystem languages: sv, en, de, fr (/multilingual skill; existing folders onelifetime.world/posts/{fi,sv,de,fr}, lifetime.fi/{fi,sv,de,fr}). One run of this graph is ONE language; the parent (Chapter 10 FAN_OUT_TRANSLATIONS) starts four runs. Order of priority when capacity is limited: sv first, then en, de, fr.",
+      "allowedNext": ["CHECK_EXISTING"]
+    },
+    {
+      "id": "CHECK_EXISTING",
+      "description": "Look up the target-language file and the register row. If a translation exists and its source hash matches the current Finnish text, nothing to do. If the source changed after the translation was made, the translation is stale and must be redone — record which paragraphs changed.",
+      "allowedNext": ["TRANSLATE", "UP_TO_DATE"]
+    },
+    {
+      "id": "UP_TO_DATE",
+      "description": "Terminal. Translation current; register row confirmed.",
+      "allowedNext": []
+    },
+    {
+      "id": "TRANSLATE",
+      "description": "Translate the full text, preserving structure, links (retargeted to the same-language page where one exists, else to the Finnish/English page), and every eloquent formulation — quotes, mottos, passages (Non-Negotiable Rule 12, DWS_DOCUMENT_STANDARD §21) are translated, never dropped. Terminology from the DWS skilled-terminology model; never introduce deprecated wording. Add the mandatory AI-content label required by docs/BLOG_STANDARD.md §3.2.1 on any machine-translated variant.",
+      "allowedNext": ["GUARDRAIL"]
+    },
+    {
+      "id": "GUARDRAIL",
+      "description": "Deterministic check: same number of sections and links as source; no new numbers or claims introduced by translation; sender identity and legal identifiers unchanged (Päärni with umlauts, Y-tunnus 0772407-9); AI-content label present. Block routes back to TRANSLATE with the diff.",
+      "allowedNext": ["SHOW_TO_HIC", "TRANSLATE"]
+    },
+    {
+      "id": "SHOW_TO_HIC",
+      "description": "Lighter review than the content gate: the HIC approved the content in Finnish already. Show source and translation side by side in one artefact, highlight terminology choices and any sentence the translator flagged as uncertain. Ask: approve this translation, or which sentences to change.",
+      "allowedNext": ["HIC_APPROVAL_GATE"]
+    },
+    {
+      "id": "HIC_APPROVAL_GATE",
+      "description": "A translated blog post is still a blog post under Rule 13 — publish only after the HIC has approved THIS language version. Approval binds to the translated text (ApprovalToken hash); enforced by DEFAULT_GATED_NODE_IDS in runner.ts and, for Journal files, by blog-draft-gate.sh. Approval of the Finnish original is not approval of the Swedish text.",
+      "allowedNext": ["PUBLISH", "REVISE"]
+    },
+    {
+      "id": "REVISE",
+      "description": "Apply the HIC's sentence-level corrections, add them to the terminology memory so the same choice is made next time, re-emit the full translation and return to GUARDRAIL.",
+      "allowedNext": ["GUARDRAIL", "PARKED"]
+    },
+    {
+      "id": "PUBLISH",
+      "description": "Reachable only through HIC_APPROVAL_GATE. Write the target-language file in the correct language folder, register it (post registry, hreflang links on all language versions of the page, sitemap), sync the landing-pages mirror in the same commit. Idempotent on slug + language.",
+      "allowedNext": ["REGISTER", "PUBLISH_FAILED"]
+    },
+    {
+      "id": "PUBLISH_FAILED",
+      "description": "Mechanical failure (build, mirror, hreflang injector). Fix and re-enter through HIC_APPROVAL_GATE with the same approved translation (token still binds); a text change goes to REVISE.",
+      "allowedNext": ["HIC_APPROVAL_GATE", "REVISE"]
+    },
+    {
+      "id": "REGISTER",
+      "description": "Update the Chapter 10 register row: language, URL, source hash, date. When all four languages are registered the row shows the text as fully available across the ecosystem.",
+      "allowedNext": ["END"]
+    },
+    {
+      "id": "PARKED",
+      "description": "Terminal. Translation draft kept with Status: DRAFT and the reason; surfaced when asked what is pending.",
+      "allowedNext": []
+    },
+    {
+      "id": "END",
+      "description": "Terminal — this language published and registered.",
+      "allowedNext": []
+    }
+  ]
+}
