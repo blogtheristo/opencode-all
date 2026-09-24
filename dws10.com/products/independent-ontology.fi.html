@@ -18,6 +18,16 @@
       content="Independent Ontology on lisensoitava organisaation ymmärryskerros: käsitteet, niiden väliset suhteet ja yhteinen ymmärrys säilyvät yli järjestelmä-, toimittaja- ja teknologiasukupolvien."
     />
     <link rel="canonical" href="https://dws10.com/products/independent-ontology.fi.html" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://dws10.com/products/independent-ontology.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://dws10.com/products/independent-ontology.fi.html"
+    />
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
     <link rel="stylesheet" href="../static/css/style.css" />
     <style>
@@ -59,6 +69,29 @@
         font-size: 1.6rem;
         font-weight: 700;
         margin: 0.75rem 0 0.25rem;
+      }
+      .io-step {
+        margin-top: 1.75rem;
+        padding: 1.25rem 1.5rem;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        border-radius: 8px;
+      }
+      .io-step h3 {
+        margin: 0.25rem 0 0;
+      }
+      .io-step-no,
+      .io-sku {
+        margin: 0;
+        opacity: 0.8;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .io-page blockquote {
+        margin: 1rem 0;
+        padding-left: 1rem;
+        border-left: 3px solid #22d3ee;
+        font-weight: 600;
       }
       .io-cta {
         display: inline-block;
@@ -174,42 +207,159 @@
         <p>Oppiminen mahdollistaa kasvun.</p>
       </div>
 
-      <section class="io-price" aria-labelledby="io-price-title">
-        <h2 id="io-price-title" style="margin-top: 0">Independent Ontology</h2>
-        <p class="official">European Industry Ontology (25 Industries)</p>
-        <p class="amount" id="io-price">
-          <a href="/price-list/fi/">Katso hinta hinnastosta</a>
-        </p>
-        <p id="io-price-basis">Skaalautuvat lisenssitasot suuremmille kokonaisuuksille.</p>
+      <section class="io-path" aria-labelledby="io-path-title">
+        <h2 id="io-path-title">Ostopolku yritysasiakkaalle</h2>
         <p>
+          Asiakkaan ei tarvitse hypätä suoraan vuosilisenssiin. Eteneminen tapahtuu vaiheittain.
+        </p>
+
+        <div class="io-step">
+          <p class="io-step-no">1. Todista arvo</p>
+          <h3>Independent Ontology Pilot, yksi toimipaikka</h3>
+          <p class="io-sku">LF-ONTOLOGY-PILOT</p>
+          <p class="amount" data-price="LF-ONTOLOGY-PILOT" data-suffix=" (kertaluonteinen tarjous)">
+            <a href="/price-list/fi/">Katso hinta hinnastosta</a>
+          </p>
+          <p>
+            Pilotin tavoitteena ei ole myydä lisenssiä. Pilotin tavoitteena on vastata yhteen
+            kysymykseen:
+          </p>
+          <blockquote>
+            Ymmärrämmekö liiketoimintaanne riittävän hyvin, että ontologiasta syntyy teille pysyvää
+            arvoa?
+          </blockquote>
+          <p>Pilotissa:</p>
+          <ul>
+            <li>tunnistetaan keskeiset käsitteet</li>
+            <li>rakennetaan ensimmäinen ontologiarunko 25 toimialan ontologiapaketin pohjalta</li>
+            <li>testataan asiakkaan omilla kysymyksillä ja käyttötapauksilla</li>
+            <li>arvioidaan liiketoimintahyöty</li>
+          </ul>
+        </div>
+
+        <div class="io-step">
+          <p class="io-step-no">2. Organisoi käyttöönotto</p>
+          <h3>Ontology Implementation and Organisation</h3>
+          <p class="io-sku">LF-TRAIN-IND</p>
+          <p class="amount" data-price="LF-TRAIN-IND" data-suffix=" / toimipaikka">
+            <a href="/price-list/fi/">Katso hinta hinnastosta</a>
+          </p>
+          <p>Kun pilotin arvo on todistettu:</p>
+          <ul>
+            <li>nykytila kartoitetaan</li>
+            <li>käsitteistö yhtenäistetään</li>
+            <li>omistajuuksia tarkennetaan</li>
+            <li>ontologia viedään osaksi toimintaa</li>
+          </ul>
+          <p>Tämä on muutosjohtamista ja organisointia, ei lisenssi.</p>
+          <p>Pilotin voi ohittaa, jos ontologian käyttötapaus on jo valmiiksi selkeä.</p>
+        </div>
+
+        <div class="io-step io-price">
+          <p class="io-step-no">3. Ota lisenssi käyttöön</p>
+          <h3>Independent Ontology</h3>
+          <p class="official">European Industry Ontology (25 Industries) · LF-ONTOLOGY-25</p>
+          <p
+            class="amount"
+            data-price="LF-ONTOLOGY-25"
+            data-suffix=" / vuosi / nimetty toimipaikka"
+          >
+            <a href="/price-list/fi/">Katso hinta hinnastosta</a>
+          </p>
+          <p>Sisältää:</p>
+          <ul>
+            <li>25 toimialan ontologiapaketin</li>
+            <li>käsitteet ja niiden väliset suhteet</li>
+            <li>versionhallinnan</li>
+            <li>päivitykset</li>
+          </ul>
+          <p>Tavoite: säilyttää yhteinen ymmärrys teknologian muuttuessa.</p>
+        </div>
+
+        <div class="io-step">
+          <p class="io-step-no">4. Laajenna</p>
+          <p>
+            Kun käyttö laajenee useisiin toimipaikkoihin, lisenssi skaalautuu toimipaikkojen määrän
+            mukaan:
+          </p>
+          <ul id="io-tiers">
+            <li><a href="/price-list/fi/">Lisenssitasot hinnastossa</a></li>
+          </ul>
+        </div>
+
+        <h2>Miksi tämä toimii?</h2>
+        <p>Koska asiakkaan ei tarvitse ensin uskoa ontologiaan.</p>
+        <p>Asiakkaan tarvitsee uskoa vain tähän:</p>
+        <blockquote>
+          "Meillä on liiketoimintakriittistä ymmärrystä, jota emme halua menettää."
+        </blockquote>
+        <p class="beat">Pilotti vastaa siihen.</p>
+        <p class="beat">Käyttöönotto rakentaa sen.</p>
+        <p class="beat">Lisenssi ylläpitää sitä.</p>
+
+        <p style="margin-top: 2rem">
           <strong
             >Rakenna ymmärryksen jatkuvuutta ennen kuin siitä tulee kilpailuetu jollekin
             toiselle.</strong
           >
         </p>
-        <a class="io-cta" href="https://dws10.com/contact/?subject=LF-ONTOLOGY-25"
-          >Ota yhteyttä &rarr;</a
+        <a class="io-cta" href="https://dws10.com/contact/?subject=LF-ONTOLOGY-PILOT"
+          >Aloita pilotilla &rarr;</a
         >
       </section>
     </main>
+    <nav
+      class="i18n-links"
+      aria-label="Language"
+      style="text-align: center; padding: 18px 12px; font-size: 0.85rem; opacity: 0.75"
+    >
+      <a href="/products/independent-ontology.html" hreflang="en" lang="en" style="color: inherit"
+        >🇬🇧 In English</a
+      >
+    </nav>
     <script>
-      // Price comes only from the catalogue (source of truth); the link above is the fallback.
+      // Prices come only from the catalogue (source of truth); price-list links are the fallback.
       (async function () {
         try {
           const response = await fetch("../config/products.json");
           if (!response.ok) return;
           const data = await response.json();
-          const product = data.subscriptions && data.subscriptions["LF-ONTOLOGY-25"];
-          if (!product || typeof product.price !== "number") return;
-          const amount = new Intl.NumberFormat("fi-FI", {
+          const catalogue = Object.assign({}, data.products || {}, data.subscriptions || {});
+          const eur = new Intl.NumberFormat("fi-FI", {
             style: "currency",
-            currency: product.currency || "EUR",
+            currency: "EUR",
             maximumFractionDigits: 0,
-          }).format(product.price);
-          document.getElementById("io-price").textContent =
-            amount + " / vuosi / nimetty toimipaikka";
+          });
+          document.querySelectorAll("[data-price]").forEach(function (el) {
+            const product = catalogue[el.dataset.price];
+            if (!product || typeof product.price !== "number") return;
+            let text = eur.format(product.price);
+            if (typeof product.priceMax === "number") {
+              text =
+                eur.format(product.price).replace(/\s*€$/, "") + "–" + eur.format(product.priceMax);
+            } else if (product.startingPrice) {
+              text = "alkaen " + text;
+            }
+            el.textContent = text + (el.dataset.suffix || "");
+          });
+          const licence = catalogue["LF-ONTOLOGY-25"];
+          if (licence && Array.isArray(licence.tiers) && licence.tiers.length) {
+            const list = document.getElementById("io-tiers");
+            list.textContent = "";
+            licence.tiers.forEach(function (tier) {
+              const li = document.createElement("li");
+              const sites = tier.sites === "1" ? "1 toimipaikka" : tier.sites + " toimipaikkaa";
+              li.textContent =
+                sites +
+                ": " +
+                (tier.startingPrice ? "alkaen " : "") +
+                eur.format(tier.price) +
+                " / vuosi";
+              list.appendChild(li);
+            });
+          }
         } catch (error) {
-          // Keep the price-list link.
+          // Keep the price-list links.
         }
       })();
     </script>

@@ -6228,14 +6228,14 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-09-15T00:00:00Z",
-  "priceVersion": "1.30",
+  "lastUpdated": "2026-09-24T00:00:00Z",
+  "priceVersion": "1.31",
   "priceList": {
-    "version": "1.30",
-    "effectiveDate": "2026-09-15",
+    "version": "1.31",
+    "effectiveDate": "2026-09-24",
     "nextReviewDate": "2026-11-15",
     "stampQuarter": "2026.Q3",
-    "stampDate": "2026-09-15",
+    "stampDate": "2026-09-24",
     "validUntil": "2026-11-15",
     "policy": {
       "currency": "EUR",
@@ -6254,8 +6254,8 @@
     }
   },
   "commercialPortfolio": {
-    "version": "1.30",
-    "effectiveDate": "2026-09-15",
+    "version": "1.31",
+    "effectiveDate": "2026-09-24",
     "nextReviewDate": "2026-11-15",
     "definitions": {
       "serious": {
@@ -6333,6 +6333,17 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.31",
+      "date": "2026-09-24",
+      "author": "claude/independent-ontology-page",
+      "changes": [
+        "LF-TRAIN-IND renamed Ontology Implementation and Organisation (site configuration). Scope line added (current-state mapping, concept workshops, ownership mapping, first ontology skeleton, deployment). Prices unchanged.",
+        "Added LF-ONTOLOGY-PILOT, Independent Ontology Pilot, one site: one-time \u20ac15,000\u2013\u20ac25,000, quoted, one named site, before the annual LF-ONTOLOGY-25 licence. Supporting class (same as LF-TRAIN-IND), not Independent.",
+        "LF-ONTOLOGY-25: pilot line now points to LF-ONTOLOGY-PILOT. Site tiers added as structured data (1 site \u20ac25,000; 2\u20135 \u20ac60,000; 6\u201320 \u20ac120,000; 21+ from \u20ac200,000 per year). No tier SKUs; prices unchanged.",
+        "HIC approved 24.09.2026. Effective 2026-09-24; next review and validUntil stay 2026-11-15."
+      ]
+    },
     {
       "version": "1.30",
       "date": "2026-09-15",
@@ -6645,6 +6656,48 @@
       "storeCategory": "subscription",
       "version": "1.2"
     },
+    "LF-ONTOLOGY-PILOT": {
+      "id": "LF-ONTOLOGY-PILOT",
+      "gtin": null,
+      "mpn": "LF-ONTOLOGY-PILOT-2026",
+      "name": "Independent Ontology Pilot, one site",
+      "price": 15000,
+      "priceMax": 25000,
+      "currency": "EUR",
+      "type": "one-time",
+      "priceUnit": "per-site",
+      "startingPrice": true,
+      "priceBasis": "one-site pilot, quoted",
+      "description": "Time-boxed one-site pilot before the annual LF-ONTOLOGY-25 licence. The goal is not to sell the licence but to answer one question: do we understand your business well enough that the ontology creates lasting value for you? Identify core concepts, build a first ontology skeleton on the 25-industry pack, test it with the customer's own questions and use cases, and assess business value. Includes pilot-period usage rights for one named site. The annual licence and ongoing support are not included.",
+      "features": [
+        "Unit: one named site, one-time, quoted \u20ac15,000\u2013\u20ac25,000",
+        "Identify the site's core concepts",
+        "Build a first ontology skeleton on the 25-industry pack",
+        "Test with the customer's own questions and use cases",
+        "Assess business value and fit for wider use",
+        "Next steps: LF-TRAIN-IND implementation, then the LF-ONTOLOGY-25 licence. The pilot can be skipped when the use case is already clear",
+        "Not included: the annual licence and ongoing support"
+      ],
+      "priceNote": "\u20ac15,000\u2013\u20ac25,000 one-time, quoted. One named site.",
+      "caption": "One-time pilot before the licence. Licence sold separately.",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "https://dws10.com/contact/?subject=LF-ONTOLOGY-PILOT",
+      "featured": true,
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "ai-training",
+      "version": "1.31",
+      "buyPage": 1,
+      "buyPageOrder": 19
+    },
     "LF-ONTOLOGY-25": {
       "id": "LF-ONTOLOGY-25",
       "gtin": null,
@@ -6657,22 +6710,41 @@
       "billingPeriod": "yearly",
       "startingPrice": false,
       "priceBasis": "per licensed site-year",
+      "tiers": [
+        {
+          "sites": "1",
+          "price": 25000
+        },
+        {
+          "sites": "2\u20135",
+          "price": 60000
+        },
+        {
+          "sites": "6\u201320",
+          "price": 120000
+        },
+        {
+          "sites": "21+",
+          "price": 200000,
+          "startingPrice": true
+        }
+      ],
       "description": "Standalone annual licence for a maintained 25-industry ontology pack: artefacts, versioned updates, and usage rights at named sites. DWS IQ is one possible runtime, not a required dependency. A site is one factory or operating location named in the order. This is a coverage and knowledge product \u2014 it does not grant rights to operate at 5,000 customer companies. Internal modelling uses 200 enterprise contexts per industry (25 \u00d7 200 = 5,000 contexts) as knowledge scope only.",
       "features": [
         "Licence unit: named sites / year (Starter: 1 named site \u20ac25,000/year)",
         "Growth: 2\u20135 named sites \u20ac60,000/year \u00b7 Enterprise: 6\u201320 named sites \u20ac120,000/year",
         "21+ named sites: from \u20ac200,000/year (enterprise agreement with named-site scope)",
         "Includes: ontology artefacts, version control, quarterly updates, documented usage rights for licensed sites only",
-        "Optional first-year one-site pilot licence: \u20ac15,000\u2013\u20ac25,000 (quote)",
+        "Pilot before the licence: see LF-ONTOLOGY-PILOT",
         "One-site launch: this licence \u20ac25,000/year + LF-TRAIN-IND remote configuration from \u20ac15,000 (first year from \u20ac40,000)",
         "Independent data product \u2014 configuration service and DWS IQ are optional, not bundled"
       ],
-      "priceNote": "Starter: 1 named site \u20ac25,000/year. 2\u20135 named sites \u20ac60,000/year. 6\u201320 named sites \u20ac120,000/year. 21+ named sites from \u20ac200,000/year (enterprise agreement with named-site scope). First-year one-site pilot \u20ac15,000\u2013\u20ac25,000 on request.",
+      "priceNote": "Starter: 1 named site \u20ac25,000/year. 2\u20135 named sites \u20ac60,000/year. 6\u201320 named sites \u20ac120,000/year. 21+ named sites from \u20ac200,000/year (enterprise agreement with named-site scope). Pilot: LF-ONTOLOGY-PILOT.",
       "caption": "Annual data-product licence. Not a one-time fee.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
-      "detailsUrl": "https://dws10.com/contact/?subject=LF-ONTOLOGY-25",
+      "detailsUrl": "https://dws10.com/products/independent-ontology.html",
       "featured": true,
       "google": {
         "productCategory": "Software > Business & Productivity Software",
@@ -6683,7 +6755,7 @@
         "contentLanguage": "en"
       },
       "storeCategory": "ai-training",
-      "version": "1.30",
+      "version": "1.31",
       "buyPage": 1,
       "buyPageOrder": 20
     },
@@ -6691,15 +6763,16 @@
       "id": "LF-TRAIN-IND",
       "gtin": null,
       "mpn": "LF-TRAIN-IND-2026",
-      "name": "Sovereign Training and Site Configuration",
+      "name": "Ontology Implementation and Organisation (site configuration)",
       "price": 15000,
       "currency": "EUR",
       "type": "one-time",
       "priceUnit": "per-site",
       "startingPrice": true,
       "priceBasis": "per site implementation project",
-      "description": "Optional one-time service: workshops, per-site configuration, validation, and acceptance evidence so the customer can run the ontology (and, if they choose, a sovereign model stack) at a named factory or site. Sold separately from LF-ONTOLOGY-25 \u2014 the ontology licence can be purchased without this service. Complex multi-system plants remain quote-only.",
+      "description": "Optional one-time service, sold separately from the LF-ONTOLOGY-25 licence: current-state mapping, concept workshops, ownership mapping, a first ontology skeleton, per-site configuration, validation and acceptance evidence at a named factory or site (and, if the customer chooses, a sovereign model stack). The licence can be purchased without this service. Complex multi-system plants remain quote-only.",
       "features": [
+        "Scope: current-state mapping, concept workshops, ownership mapping, first ontology skeleton, deployment",
         "Unit: one named site / factory implementation project (not an enterprise-wide licence)",
         "Remote configuration from \u20ac15,000 per site (workshops, config, validation, acceptance evidence)",
         "On-site configuration from \u20ac25,000 per site plus travel and expenses",
@@ -6724,7 +6797,7 @@
         "contentLanguage": "en"
       },
       "storeCategory": "ai-training",
-      "version": "1.30",
+      "version": "1.31",
       "buyPage": 1,
       "buyPageOrder": 21
     },

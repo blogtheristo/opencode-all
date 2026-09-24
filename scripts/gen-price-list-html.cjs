@@ -45,7 +45,12 @@ const LAYER_ORDER = ['solutions', 'data', 'services', 'hardware'];
 function commercialLayer(p, independentIds) {
   const id = p.id || '';
   if (independentIds.has(id)) return 'data';
-  if (p.storeCategory === 'advisory' || id === 'LF-TRAIN-IND' || id === 'aws-consultancy') {
+  if (
+    p.storeCategory === 'advisory' ||
+    id === 'LF-TRAIN-IND' ||
+    id === 'LF-ONTOLOGY-PILOT' ||
+    id === 'aws-consultancy'
+  ) {
     return 'services';
   }
   if (
@@ -145,7 +150,9 @@ function renderProductsTable(list) {
             ? '<span class="poa">Free / POA</span>'
             : p.price == null || !Number.isFinite(Number(p.price))
               ? '<span class="poa">Quote</span>'
-              : (p.startingPrice === true ? 'from ' : '') + eur(p.price);
+              : Number.isFinite(Number(p.priceMax)) && Number(p.priceMax) > Number(p.price)
+                ? eur(p.price) + '–' + eur(p.priceMax)
+                : (p.startingPrice === true ? 'from ' : '') + eur(p.price);
         const note = p.priceNote ? `<div class="note">${esc(p.priceNote)}</div>` : '';
         const caption = p.caption ? `<div class="caption">${esc(p.caption)}</div>` : '';
         return (
