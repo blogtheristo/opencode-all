@@ -1,41 +1,73 @@
 # INTRO_SISU_DEFENCE_C4IMOBILITY
 
 ***
+
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (claude-opus-4-7) | Session: claude/sisu-defence-sales-outreach-dksO3 | Date: 25.05.2026 | Changes: Initial creation — sales outreach case for Oy Sisu Auto Ab / Sisu Defence following the Karjaa C4IMobility LOI trigger.
+
+- Version: 1.0 | Tool: Claude Code (claude-opus-4-7) | Session: claude/sisu-defence-sales-outreach-dksO3 | Date: 25.05.2026 | Changes: Initial creation — sales outreach case for Oy Sisu Auto Ab / Sisu Defence following the Karjaa C4IMobility LOI trigger.
+- Version: 1.1 | Tool: Claude Code (claude-sonnet-5) | Session: claude/sisu-case-sales-route-bon1fh | Date: 19.08.2026 | Changes: Explicit relationship to the Aegis sales package (`sales-package-v1.0/`) — this file is the account-specific route to Sisu, not a merged general offer document. Replaced the "full governance spine on day one" wedge framing with a single narrow first paid offer (30 or 90-day defence-factory workflow validation) per HIC decision 19.08.2026. Added source-and-validation-status caveats on account figures, the LOI, the Tesi stake, and the KYA/TC-4 claims — none are to leave this file for external use until sourced.
 
 Document Status:
-  - Created: 25.05.2026
-  - Last Modified: 25.05.2026
-  - Language: English
-  - Languages Available: English
-  - Publication Status: ACTIVE
+
+- Created: 25.05.2026
+- Last Modified: 19.08.2026
+- Language: English
+- Languages Available: English
+- Publication Status: DRAFT — account figures, LOI, and regulatory signals below are UNSOURCED beyond the WebSearch pass noted in "Source list"; do not use externally until each claim is verified against a primary source.
 
 ***
+
+## Relationship to the Aegis sales package
+
+This file is **not** the Aegis sales package and must not be merged into one general document with it.
+
+- **Aegis sales package** (`sales-package-v1.0/`, `Store/PRODUCT_AEGIS*.md`) = the product's general offer system: what Aegis is, who it suits, the demo / 30-day free evaluation / 90-day paid deeper demo / pilot / production path, pilot deliverables, acceptance criteria, pricing, SOW, DPA, order form. It applies across dual-use, factory, and critical-infrastructure accounts.
+- **This file (Sisu Auto / Sisu Defence case)** = one tightly verticalized account plan sitting on top of the Aegis package: why Sisu, why now (the Häkkänen / Karjaa LOI trigger), the buying-centre map and three doors in, the Sisu-specific wedge, and a seven-stage funnel with an advance condition at each stage.
+
+The Sisu case is the account-specific route into the Aegis offer — it explains how Aegis gets sold to Sisu, to whom, and what event opens the conversation. The Aegis package defines what gets delivered and on what terms. Keep the two documents separate; this file references the Aegis package, it does not restate or replace it.
+
+## First offer — narrow paid validation, not the full governance spine
+
+This account plan previously implied opening with the full governance spine (KYA identity + TC-4 Leash Snap + sovereign-NVIDIA + 24/7 EU support) as a single day-one ask. That is too broad for a first sale — Sisu has extensive account intelligence here but no single bounded, purchasable first offer. Corrected per HIC decision 19.08.2026:
+
+- **First commercial ask: one 30-day free evaluation or 90-day paid validation** (per the standard Aegis path in `sales-package-v1.0/aegis-demo-pilot-path.md`), scoped narrowly to:
+  - **one limited defence-factory workflow** (a single C4IMobility deliverable or GTP variant step, not the program) — scope confirmed with the customer at intake per `sales-package-v1.0/aegis-customer-orientation.md` §3;
+  - **KYA operator identity** on that one workflow's AI-mediated actions;
+  - **a kill-switch primitive** scoped to that workflow (see validation-status note below — this is a validation target, not yet a claimed production capability);
+  - **a local evidence log** (Article 12-style audit trail) for that workflow only, staying inside the customer's approved data boundary.
+- **Only after that validation is accepted** does the conversation move to the broader Aegis production proposal — sovereign-NVIDIA compute lane, FISE multi-jurisdictional handling, and expansion across the GTP variant tree. Do not open with the full spine; it is the expansion motion (funnel stage 6 below), not the first ask.
+
+### Validation-status note on KYA and TC-4
+
+Describe **KYA cryptographic operator identity** and **TC-4 Leash Snap** to Sisu as **validation targets for the pilot scope above**, not as delivered production capabilities, unless a specific deployed instance can be cited with evidence (see `AGENTS.md` / KYA agent inventory). Do not present either as already proven in a defence-production environment.
+
+---
 
 ## Trigger event (why this file exists)
 
 Minister of Defence **Antti Häkkänen** visited **Oy Sisu Auto Ab** at its Karjaa headquarters. At the visit, **key defence and research leaders signed a Letter of Intent** to launch the new **C4IMobility** cooperation program. Public English-language coverage of the program name is still thin at time of writing — that is the outreach window. By the time the program has a press kit, the governance vendor list is closed.
 
-The name itself is a sales bookmark. **C4I + Mobility** =  command, control, communications, computers, intelligence fused into a moving platform. That is precisely where EU AI Act Annex III, NIS2, sovereign-data, and KYA-style cryptographic operator identity stop being slideware and start being acceptance criteria.
+The name itself is a sales bookmark. **C4I + Mobility** = command, control, communications, computers, intelligence fused into a moving platform. That is precisely where EU AI Act Annex III, NIS2, sovereign-data, and KYA-style cryptographic operator identity stop being slideware and start being acceptance criteria.
 
 ## Who — account profile
 
-| Field | Value |
-|---|---|
-| Company | Oy Sisu Auto Ab (Sisu Auto) — defence subsidiary trades as **Sisu Defence** |
-| Country / HQ | Finland — Karjaa (Raseborg), southern Finland. Lifetime Oy is in Espoo (~90 min by road). |
-| Ownership | Timo Korhonen ~68.1% majority; **Tesi (Finnish Industry Investment) 24.4%** as of summer 2024 follow-on. Tesi has publicly flagged a possible IPO in a few years. |
-| Customers (defence) | Finnish Defence Forces (FDF Logistics Command), Swedish FMV. **FISE** Finnish-Swedish defence cooperation framework signed Jan 2024; Norway and Denmark have joined on the C4I / optronics side. |
-| Product line | Sisu GTP 4×4 family — troop transport, **C2 / command-and-control**, air defence, medevac, CBRN reconnaissance, single-cab transport. |
-| Order book | ~500 vehicles, ~**€400M** total (latest framework update, Nov 2025). >95% military. >90% for export. |
-| 2024 financials | Revenue **€50.2M** (+60% YoY). EBIT **€11.1M** (22% margin). 2025 forecast ~€80M revenue, ~100 vehicles. |
-| Growth target | Double to €100M near-term; **€500M by early 2030s**. Production capacity to **triple** within two years. |
-| Manufacturing partner | **Valmet Automotive** — cooperation agreement to begin co-production of military vehicles + components (announced at Karjaa). |
+**Status: UNSOURCED for external use.** Figures below (order book, revenue, ownership %, LOI) came from a single WebSearch pass at initial drafting (see "Source list") and have not been re-verified against a primary source (Sisu Auto annual filing, Tesi portfolio page, official Defmin release). Re-verify each figure before it appears in any customer-facing letter, deck, or public reference.
+
+| Field                      | Value                                                                                                                                                                                                                                                                       |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Company                    | Oy Sisu Auto Ab (Sisu Auto) — defence subsidiary trades as **Sisu Defence**                                                                                                                                                                                                 |
+| Country / HQ               | Finland — Karjaa (Raseborg), southern Finland. Lifetime Oy is in Espoo (~90 min by road).                                                                                                                                                                                   |
+| Ownership                  | Timo Korhonen ~68.1% majority; **Tesi (Finnish Industry Investment) 24.4%** as of summer 2024 follow-on. Tesi has publicly flagged a possible IPO in a few years.                                                                                                           |
+| Customers (defence)        | Finnish Defence Forces (FDF Logistics Command), Swedish FMV. **FISE** Finnish-Swedish defence cooperation framework signed Jan 2024; Norway and Denmark have joined on the C4I / optronics side.                                                                            |
+| Product line               | Sisu GTP 4×4 family — troop transport, **C2 / command-and-control**, air defence, medevac, CBRN reconnaissance, single-cab transport.                                                                                                                                       |
+| Order book                 | ~500 vehicles, ~**€400M** total (latest framework update, Nov 2025). >95% military. >90% for export.                                                                                                                                                                        |
+| 2024 financials            | Revenue **€50.2M** (+60% YoY). EBIT **€11.1M** (22% margin). 2025 forecast ~€80M revenue, ~100 vehicles.                                                                                                                                                                    |
+| Growth target              | Double to €100M near-term; **€500M by early 2030s**. Production capacity to **triple** within two years.                                                                                                                                                                    |
+| Manufacturing partner      | **Valmet Automotive** — cooperation agreement to begin co-production of military vehicles + components (announced at Karjaa).                                                                                                                                               |
 | Tech partners in ecosystem | **Bittium** (vehicle radios, SDR, tactical comms), **Nokia** (military 4G/5G), **Patria** (adjacency), **Insta**, **Saab Finland**, **VTT**, Aalto / Tampere / Jyväskylä universities — all members of the **Digital Defence Ecosystem (DDE)** coordinated by XD Solutions. |
 
 ## Sales funnel facts (top-of-funnel signal stack)
@@ -81,44 +113,44 @@ Door order matches our highest-confidence read of "who has the strongest reason 
 
 ### Strategic sponsors — open the door
 
-| Role | What they win | Win they create for the rest of Sisu |
-|---|---|---|
-| **CEO / Managing Director (Sisu Auto)** | C4IMobility delivers on schedule with a defensible governance spine. €500M-by-2030 narrative gets an "EU sovereign AI" anchor that resonates in Brussels and on a pre-IPO roadshow. | Board confidence; Tesi reporting clarity; cross-program leverage for every future GTP variant. |
-| **CTO / Head of Engineering (Sisu Defence)** | C4IMobility integration risk drops: standardized cryptographic identity on every AI-mediated action plus a kill-switch primitive ready to integrate with FDF C5 Agency systems. | Engineering closes faster against FDF acceptance criteria; reduces re-certification work per variant. |
-| **Head of Programs — C4IMobility lead** | Day-one Article 12 audit log, day-one Annex III alignment, day-one KYA identity layer. Program governance is solved before the first prototype. | CTO and CEO see program risk drop; FDF customer sees a credible sovereign-AI story; partners (Bittium, Patria, Valmet, VTT) plug into one identity plane. |
+| Role                                         | What they win                                                                                                                                                                       | Win they create for the rest of Sisu                                                                                                                      |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CEO / Managing Director (Sisu Auto)**      | C4IMobility delivers on schedule with a defensible governance spine. €500M-by-2030 narrative gets an "EU sovereign AI" anchor that resonates in Brussels and on a pre-IPO roadshow. | Board confidence; Tesi reporting clarity; cross-program leverage for every future GTP variant.                                                            |
+| **CTO / Head of Engineering (Sisu Defence)** | C4IMobility integration risk drops: standardized cryptographic identity on every AI-mediated action plus a kill-switch primitive ready to integrate with FDF C5 Agency systems.     | Engineering closes faster against FDF acceptance criteria; reduces re-certification work per variant.                                                     |
+| **Head of Programs — C4IMobility lead**      | Day-one Article 12 audit log, day-one Annex III alignment, day-one KYA identity layer. Program governance is solved before the first prototype.                                     | CTO and CEO see program risk drop; FDF customer sees a credible sovereign-AI story; partners (Bittium, Patria, Valmet, VTT) plug into one identity plane. |
 
 ### Operational owners — run the workflow
 
-| Role | What they win | Win they create for the rest of Sisu |
-|---|---|---|
-| **VP Operations / Plant Director (Karjaa)** | Production-line + supplier-chain NIS2 obligations met with a single attested platform. Capacity tripling done without tripling audit surface. | CTO inherits clean operational telemetry; Procurement inherits supplier-side governance hooks. |
-| **VP Programs — FDF / FMV / FISE accounts** | Cross-border (FI/SE/NO/DK) C4I data-handling clauses pre-met. Customer security questionnaires answered with one URL. | Sales engineering shortens tender cycles; CFO sees less reserve held against compliance variance. |
-| **Head of Quality / Certification (Sisu Defence)** | Article 12 audit log replays + KYA-signed change history map cleanly onto FDF and AQAP-2110 acceptance evidence. | Engineering avoids late-stage certification rework; CTO gets one evidence stack, many destinations. |
+| Role                                               | What they win                                                                                                                                 | Win they create for the rest of Sisu                                                                |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| **VP Operations / Plant Director (Karjaa)**        | Production-line + supplier-chain NIS2 obligations met with a single attested platform. Capacity tripling done without tripling audit surface. | CTO inherits clean operational telemetry; Procurement inherits supplier-side governance hooks.      |
+| **VP Programs — FDF / FMV / FISE accounts**        | Cross-border (FI/SE/NO/DK) C4I data-handling clauses pre-met. Customer security questionnaires answered with one URL.                         | Sales engineering shortens tender cycles; CFO sees less reserve held against compliance variance.   |
+| **Head of Quality / Certification (Sisu Defence)** | Article 12 audit log replays + KYA-signed change history map cleanly onto FDF and AQAP-2110 acceptance evidence.                              | Engineering avoids late-stage certification rework; CTO gets one evidence stack, many destinations. |
 
 ### Tech approvers — clear the stack
 
-| Role | What they win | Win they create for the rest of Sisu |
-|---|---|---|
-| **CIO / Head of IT** | Vendor consolidation across in-vehicle compute, depot compute, and disclosure tooling. One identity layer (KYA) for human operators *and* AI agents. | CISO inherits a smaller attack surface; Procurement runs fewer parallel TPRM cycles. |
-| **CISO / Head of InfoSec** | NIS2 supplier-chain compliance, US Cloud Act perimeter removed from C2 data plane, every AI-mediated action signed and replayable. | CIO consolidates; Legal/IR see audit-ready evidence; FDF security sponsor signs off. |
-| **Head of R&D / Innovation (Sisu + VTT liaison)** | Sovereign-NVIDIA compute lane that VTT, Aalto, Tampere, and Jyväskylä researchers can use without re-papering their EU-AI-Act risk classifications each project. | C4IMobility consortium velocity goes up; research data stays in EU jurisdiction. |
+| Role                                              | What they win                                                                                                                                                    | Win they create for the rest of Sisu                                                 |
+| ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| **CIO / Head of IT**                              | Vendor consolidation across in-vehicle compute, depot compute, and disclosure tooling. One identity layer (KYA) for human operators _and_ AI agents.             | CISO inherits a smaller attack surface; Procurement runs fewer parallel TPRM cycles. |
+| **CISO / Head of InfoSec**                        | NIS2 supplier-chain compliance, US Cloud Act perimeter removed from C2 data plane, every AI-mediated action signed and replayable.                               | CIO consolidates; Legal/IR see audit-ready evidence; FDF security sponsor signs off. |
+| **Head of R&D / Innovation (Sisu + VTT liaison)** | Sovereign-NVIDIA compute lane that VTT, Aalto, Tampere, and Jyväskylä researchers can use without re-papering their EU-AI-Act risk classifications each project. | C4IMobility consortium velocity goes up; research data stays in EU jurisdiction.     |
 
 ### Commercial drivers — prove the value
 
-| Role | What they win | Win they create for the rest of Sisu |
-|---|---|---|
-| **CFO** | Compliance reserve cost falls; pre-IPO governance posture strengthens; Article 12 / NIS2 audit costs amortize across the whole vehicle fleet, not per program. | CEO/Tesi see a clean financial line on governance; board sees lower compliance-variance risk. |
-| **Head of Sales / Export** | Cross-Nordic and beyond-Nordic tender wins on customers explicitly demanding sovereign-AI attestation. Single URL response to security and AI-governance questionnaires. | CRO conversion lifts; CEO sees the export % of the 90% order-book mix defended structurally. |
-| **Head of Communications / Brand** | "C4IMobility — sovereign by construction" becomes a press, Messe, and Defence Industry Europe headline that survives scrutiny. | CEO/IR get an analyst-day-grade narrative for the IPO window. |
+| Role                               | What they win                                                                                                                                                            | Win they create for the rest of Sisu                                                          |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
+| **CFO**                            | Compliance reserve cost falls; pre-IPO governance posture strengthens; Article 12 / NIS2 audit costs amortize across the whole vehicle fleet, not per program.           | CEO/Tesi see a clean financial line on governance; board sees lower compliance-variance risk. |
+| **Head of Sales / Export**         | Cross-Nordic and beyond-Nordic tender wins on customers explicitly demanding sovereign-AI attestation. Single URL response to security and AI-governance questionnaires. | CRO conversion lifts; CEO sees the export % of the 90% order-book mix defended structurally.  |
+| **Head of Communications / Brand** | "C4IMobility — sovereign by construction" becomes a press, Messe, and Defence Industry Europe headline that survives scrutiny.                                           | CEO/IR get an analyst-day-grade narrative for the IPO window.                                 |
 
 ### External / consortium counterparties (parallel motion, not pre-conditions)
 
-| Role | Where they matter |
-|---|---|
-| **FDF C5 Agency** | Operational customer for C4I/C5 capabilities; sets the cryptographic identity / Article 12 logging bar. |
-| **VTT (research counterparty)** | C4IMobility research lane + 2026–2030 FDF agreement. Sovereign-compute lane is a force multiplier for them. |
+| Role                                            | Where they matter                                                                                                       |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **FDF C5 Agency**                               | Operational customer for C4I/C5 capabilities; sets the cryptographic identity / Article 12 logging bar.                 |
+| **VTT (research counterparty)**                 | C4IMobility research lane + 2026–2030 FDF agreement. Sovereign-compute lane is a force multiplier for them.             |
 | **Bittium, Patria, Insta, Saab Finland, Nokia** | Digital Defence Ecosystem partners; KYA + sovereign-NVIDIA becomes the cross-vendor identity plane they currently lack. |
-| **Tesi** | Major shareholder; pre-IPO governance posture is a board-room topic. |
+| **Tesi**                                        | Major shareholder; pre-IPO governance posture is a board-room topic.                                                    |
 
 ## Three doors into Sisu (in order)
 
@@ -141,16 +173,16 @@ Each of these is independent. Two of them inside 9 months would already justify 
 
 ## Funnel stage map (what "in the funnel" means at each step)
 
-| Stage | Definition | Trigger to advance | Owner |
-|---|---|---|---|
-| **0. Trigger** | C4IMobility LOI signed at Karjaa visit. | Confirmed via public hashtag stream (#Sisuauto #DefenceTech #Finland) and Defmin press cycle. | Captured — this file. |
-| **1. Cold intro sent** | LinkedIn connect to Head of Programs (door #1) with one-line wedge. | Send within 5 business days of trigger. | Risto (Lifetime Oy). |
-| **2. Reply + 20-min discovery booked** | Either accepted connect + reply, or fallback letter via Sisu Defence corporate channel. | Sisu confirms a meeting slot at Karjaa or Espoo. | Risto + Sisu door #1. |
-| **3. Discovery call held** | 20–30 min. Walk the C4IMobility governance gap; show a KYA-signed action ledger demo. | Sisu requests a second meeting with CTO or CISO. | Risto + Sisu door #1 (+ optional door #2/#3). |
-| **4. Three-party motion proposed** | CTO + Head of Programs + CISO in one room. KYA + sovereign-NVIDIA + 24/7 Lifetime EU support presented as one stack. | Sisu agrees to a paid pilot scope (one GTP C2 variant). | Risto + Lifetime Oy delivery. |
-| **5. Pilot signed** | One-program pilot — KYA identity layer + Article 12 audit log on one C4IMobility deliverable. | Procurement issues PO; pilot kickoff scheduled. | Lifetime Oy ops + Sisu programs. |
-| **6. Expansion** | KYA + sovereign-NVIDIA extended across the GTP variant tree and into FISE multi-jurisdictional handling. | Tesi / board signoff on governance posture. | Risto + Sisu CFO. |
-| **7. Reference** | Public reference (sector-pattern phrasing; Sisu not named without consent) feeding adjacent EU defence accounts (Patria, Insta, Saab Finland, BAE Hägglunds, Kongsberg, Nammo). | Sisu signs off on sector-pattern reference text. | Risto + Sisu comms. |
+| Stage                                  | Definition                                                                                                                                                                      | Trigger to advance                                                                            | Owner                                         |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| **0. Trigger**                         | C4IMobility LOI signed at Karjaa visit.                                                                                                                                         | Confirmed via public hashtag stream (#Sisuauto #DefenceTech #Finland) and Defmin press cycle. | Captured — this file.                         |
+| **1. Cold intro sent**                 | LinkedIn connect to Head of Programs (door #1) with one-line wedge.                                                                                                             | Send within 5 business days of trigger.                                                       | Risto (Lifetime Oy).                          |
+| **2. Reply + 20-min discovery booked** | Either accepted connect + reply, or fallback letter via Sisu Defence corporate channel.                                                                                         | Sisu confirms a meeting slot at Karjaa or Espoo.                                              | Risto + Sisu door #1.                         |
+| **3. Discovery call held**             | 20–30 min. Walk the C4IMobility governance gap; show a KYA-signed action ledger demo.                                                                                           | Sisu requests a second meeting with CTO or CISO.                                              | Risto + Sisu door #1 (+ optional door #2/#3). |
+| **4. Three-party motion proposed**     | CTO + Head of Programs + CISO in one room. KYA + sovereign-NVIDIA + 24/7 Lifetime EU support presented as one stack.                                                            | Sisu agrees to a paid pilot scope (one GTP C2 variant).                                       | Risto + Lifetime Oy delivery.                 |
+| **5. Pilot signed**                    | One-program pilot — KYA identity layer + Article 12 audit log on one C4IMobility deliverable.                                                                                   | Procurement issues PO; pilot kickoff scheduled.                                               | Lifetime Oy ops + Sisu programs.              |
+| **6. Expansion**                       | KYA + sovereign-NVIDIA extended across the GTP variant tree and into FISE multi-jurisdictional handling.                                                                        | Tesi / board signoff on governance posture.                                                   | Risto + Sisu CFO.                             |
+| **7. Reference**                       | Public reference (sector-pattern phrasing; Sisu not named without consent) feeding adjacent EU defence accounts (Patria, Insta, Saab Finland, BAE Hägglunds, Kongsberg, Nammo). | Sisu signs off on sector-pattern reference text.                                              | Risto + Sisu comms.                           |
 
 ## The one-line headline (buyer-facing)
 
