@@ -35,6 +35,17 @@ a confidence number that can be logged to the `ExecutionTrace`."
 
 ## Principle — three deltas, one decision (HIC + Copilot, 2026-09-24)
 
+> **Tekoäly oppii. Ymmärtävä ihminen päättää, mitä opitulla tiedolla tehdään.**
+> _(AI learns. An understanding human decides what is done with what was learned.)_
+
+The word _understanding_ is the contract: the HIC is not an approver but a comprehender. A
+decision is the HIC's only when the HIC understands what was observed, what the AI learned,
+which evidence supports it, which alternatives existed and what applying it will cause. Mapped
+onto Workflow v2: Observation → AI observes · Signal → AI recognises the pattern · Insight → AI
+proposes the conclusion · Learning → AI learns · JEV/KYA → the human understands what was
+learned · Decision → the human decides on application · Action → the system executes · Outcome
+→ the world changes. Vendors and models change; the principle does not.
+
 > **AI learning does not change the system. An HIC-approved Application Decision changes the
 > system.** Every learning taken into use is traceable: what was learned, who understood it,
 > who approved it, how it was applied, to what, on what basis, up to which version, and what
