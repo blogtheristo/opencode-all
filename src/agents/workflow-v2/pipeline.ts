@@ -118,7 +118,7 @@ function inlineMap(raw: string): Record<string, string> {
   keys.forEach((k, i) => {
     const start = (k.index ?? 0) + k[0].length;
     const end = i + 1 < keys.length ? (keys[i + 1].index ?? body.length) : body.length;
-    out[k[1]] = String(scalar(body.slice(start, end)) ?? '');
+    out[k[1]] = String(scalar(body.slice(start, end).replace(/,\s*$/, '')) ?? '');
   });
   return out;
 }
