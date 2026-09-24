@@ -14,7 +14,7 @@ source: docs/market-signals/2026-09-24-ford-smax-egr-aktiivinen-ontologia.md
 
 **Old assumption.** Agentic Commerce = product recommendation. A store's job is to show products.
 
-**New learning.** Agentic Commerce = removing uncertainty + understanding the need + reasoning on
+**New learning.** The customer does not need more information; the customer needs less uncertainty. Agentic Commerce is need recognition and uncertainty removal regardless of interface — not an AI chat. The active ontology is a reasoning layer that may surface as a choice path, a diagnostic tree, search, a recommender, a store, an expert or a chat; people dislike chat unless it is excellent, so default to a diagnostic choice path ("which best describes your situation?" → "what matters most?" → three options). Agentic Commerce = removing uncertainty + understanding the need + reasoning on
 the customer's behalf + purchase as a by-product. A passive ontology shows products; an active
 ontology starts from the symptom and answers "what is the customer trying to achieve".
 

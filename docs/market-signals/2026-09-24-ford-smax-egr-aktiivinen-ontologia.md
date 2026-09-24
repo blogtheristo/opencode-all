@@ -22,7 +22,7 @@ refuting_evidence: Jos 60 päivän kuluessa aktiivisen tarve-näkymän julkaisus
 learning_delta:
   id: LD-2026-09-003
   old_assumption: "Agentic Commerce = tuotesuositus. Verkkokaupan tehtävä on näyttää tuotteet."
-  new_learning: "Agentic Commerce = epävarmuuden poistaminen + tarpeen ymmärtäminen + päättely asiakkaan puolesta + ostaminen. Passiivinen ontologia → aktiivinen ontologia, joka lähtee oireesta eikä osasta."
+  new_learning: "Asiakas ei tarvitse enemmän tietoa vaan vähemmän epävarmuutta. Agentic Commerce = tarpeen tunnistaminen ja epävarmuuden poistaminen riippumatta käyttöliittymästä; ei AI-chat. Aktiivinen ontologia on päättelykerros, joka voi näkyä kyselynä, diagnostiikkapuuna, hakuna, suosittelijana, verkkokauppana, asiantuntijana tai chatina. Passiivinen ontologia → aktiivinen ontologia, joka lähtee oireesta eikä osasta."
   ontology_change: "Lisätään käsitteet Oire, Ehdokassyy, Todennäköisyys, Korjauspolku ja Ostoskori-suositus (todennäköinen / mahdollinen / tarkistettava). Asiakas–tuote-suhde: vanha oletus 'asiakas valitsee tuotteen katalogista'; uusi 'asiakas ilmaisee tavoitteen; ontologia päättelee tilanteen, toimialan, riskit ja kolme vaihtoehtoa'. Lisätään käsitteet Tarve, Tavoite, Epävarmuus ja Ostosuositus; tuote on niiden seuraus, ei lähtökohta."
   hic_decision: APPLY
   decision_reasoning: "HIC 24.09.2026: APPLY. Kauppa ratkeaa vähäisimpään epävarmuuteen; dws10.com:n katalogista tehdään aktiivinen tarve-näkymä, tuotteita ei poisteta. lifetime.fi (WHY) ja Investor Centre eivät sovella."
@@ -42,7 +42,7 @@ application_decision:
   affects: [dws10.com-ostajat pk ja teollisuus, Agentic Commerce -asiakkaat]
 dispatched_runs: []
 impact:
-  - {target: dws10.com, status: not started, note: tarve-näkymä 'Mitä yrität saada aikaan?' → 3 vaihtoehtoa; katalogi taustalle}
+  - {target: dws10.com, status: not started, note: tarve-näkymä valintapolkuna (ei chat) 'Mikä kuvaa tilannettasi parhaiten?' → 'Mikä on tärkeintä?' → 3 vaihtoehtoa; katalogi taustalle}
   - {target: dws10.com/buy, status: not started, note: suositus ja perustelu ennen hintaa; ostoskori-suositus todennäköinen/mahdollinen/tarkistettava}
   - {target: offering, status: not started, note: Agentic Commerce 365 -positiointi 'vähäisin epävarmuus'}
   - {target: workflows, status: not started, note: Chapter 0/1 funnel tarve ennen tuotetta; refiner-ehdotus}
@@ -100,6 +100,38 @@ lopullista osatilausta." Suositeltu ostoskori: ✓ EGR-putki ✓ EGR-tiiviste �
 ? pakosarja (tarkistettava). Varaosakauppa A ei hävinnyt hintaan eikä saatavuuteen; se hävisi
 diagnostiikkaan. Jos se olisi tehnyt tämän työn, koko korjauspaketti olisi ostettu sieltä:
 "aikani on rahaa".
+
+## Tarkennus 2 (HIC + Copilot 24.09.2026): oire tarkoittaa keskustelua, ja ihmiset vihaavat chattiä
+
+Asiakas ei osta tuotetta, kun hän ymmärtää tuotteen. Asiakas ostaa, kun hän ymmärtää ongelmansa
+riittävän hyvin tehdäkseen päätöksen. Aktiivisen ontologian tehtävä ei ole opettaa kaikkea vaan
+lyhentää matkaa: En tiedä → Ymmärrän riittävästi → Uskallan päättää → Ostan.
+
+Käyttöliittymä ei ole chat, ellei chat ole todella hyvin toteutettu. Todellinen käyttäytyminen
+on: oire → turhautuminen → 10 välilehteä → Google → YouTube → foorumi → puhelu asiantuntijalle →
+vastaus → osto. Aktiivinen ontologia näyttää diagnostiikkapolulta, ei keskustelulta:
+
+```
+Mikä ongelma sinulla on?     ○ Pakokaasun haju ○ Vikavalo ○ Tehon puute ○ Katsastusvika
+Milloin se esiintyy?         ○ Kylmänä ○ Lämpimänä ○ Kiihtyessä ○ Tyhjäkäynnillä
+Onko vikakoodi?              ○ Kyllä ○ Ei
+```
+
+DWS IQ:ssa sama: ei "Kerro liiketoimintaongelmasi" vaan
+
+```
+Mikä kuvaa tilannettasi parhaiten?
+○ Raportointiin menee liikaa aikaa ○ Tarjouksia tehdään käsin ○ NIS2 huolestuttaa
+○ Asiakastieto on hajallaan ○ Verkkonäkyvyys ei riitä ○ Copilot ei riitä
+Mikä on tärkeintä?
+○ Säästää aikaa ○ Kasvaa ○ Vähentää riskiä ○ Täyttää velvoitteet
+```
+
+Asiakas ei koe olevansa keskustelussa. Hän kokee saavansa apua. Chat kysyy "kerro ongelmastasi";
+aktiivinen ontologia kysyy "auta minua tunnistamaan tilanteesi". Vastaus blogilla "Mikä on
+NIS2?" ei poista ostamisen estettä; asiakas tarvitsee tilanteen ymmärtämisen → vaihtoehdot →
+vaikutukset → suosituksen → ostopolun. Tässä blogi, ontologia, agentit ja commerce ovat sama
+putki.
 
 ## DWS IQ -sovellus (sama ilmiö B2B:ssä)
 
