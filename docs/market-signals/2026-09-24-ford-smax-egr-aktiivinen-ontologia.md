@@ -40,9 +40,10 @@ application_decision:
   basis: [MS-2026-09-003, products.json v1.30 (136 tuotetta), Agentic Commerce 365 (AC365-T3)]
   valid_until: 2026-12-31 tai ensimmäisen aktiivisen tarve-näkymän 60 pv arviointi
   affects: [dws10.com-ostajat pk ja teollisuus, Agentic Commerce -asiakkaat]
-dispatched_runs: []
+dispatched_runs:
+  - docs/specs/active-ontology-ux-v2.md (UX-spesifikaatio, Kemira-case; toteutus dws10.com seuraava)
 impact:
-  - {target: dws10.com, status: not started, note: tarve-näkymä valintapolkuna (ei chat) 'Mikä kuvaa tilannettasi parhaiten?' → 'Mikä on tärkeintä?' → 3 vaihtoehtoa; katalogi taustalle}
+  - {target: dws10.com, status: in progress, note: spec docs/specs/active-ontology-ux-v2.md; tarve-näkymä valintapolkuna (ei chat) 'Mikä kuvaa tilannettasi parhaiten?' → 'Mikä on tärkeintä?' → 3 vaihtoehtoa; katalogi taustalle}
   - {target: dws10.com/buy, status: not started, note: suositus ja perustelu ennen hintaa; ostoskori-suositus todennäköinen/mahdollinen/tarkistettava}
   - {target: offering, status: proposal, note: ei HIC:n applied_to-listalla 24.09; Agentic Commerce 365 -positiointi vaatii erillisen päätöksen}
   - {target: workflows, status: proposal, note: ei applied_to-listalla; Chapter 0/1 funnel tarve ennen tuotetta refiner-ehdotuksena}
