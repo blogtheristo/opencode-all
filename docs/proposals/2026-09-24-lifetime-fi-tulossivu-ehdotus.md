@@ -1,6 +1,6 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 1.7 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 1.8 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
 ## 0. Strategia (HIC + Copilot 24.09.2026, v1.4 lopullinen)
 
@@ -35,27 +35,35 @@
 > Tavoite on maailma, jossa ihmiset voivat hyvin, yritykset menestyvät ja luonnon kantokyky säilyy myös tuleville sukupolville.
 > Digitalisaatio, automaatio ja tekoäly ovat välineitä tämän tavoitteen saavuttamiseen.
 
-### 1.1b Hero-ehdokas B (HIC 24.09.2026, sovellettu oppiminen LD-2026-09-002)
+### 1.1b Hero B — päätösvalta (HIC 24.09.2026, lopullinen muotoilu; korvaa tunnetason version)
 
-> **Tekoäly voi oppia tämän. Neuvonantaja voi sanoa tämän. Analyytikko voi analysoida tämän.**
-> **Mutta vasta ihminen voi päättää.**
-> Sinulle kuuluu se juridinen ja liiketoiminnallinen päätös. Me rakennamme järjestelmän, jossa
-> havainto, oppiminen ja päätös säilyvät, vaikka mallit ja toimittajat vaihtuvat.
+> **One Lifetime**
+>
+> Tekoäly voi havaita muutoksen.
+> Tekoäly voi analysoida vaihtoehtoja.
+> Tekoäly voi ehdottaa seuraavaa askelta.
+>
+> Mutta vastuu päätöksestä kuuluu ihmiselle.
+>
+> Teknologia auttaa ymmärtämään maailmaa paremmin.
+> Ihmiset päättävät, mitä maailmassa tehdään.
+>
+> Siksi rakennamme järjestelmiä, joissa oppiminen, päätöksenteko ja vaikutukset ovat
+> jäljitettävissä myös vuosien päästä.
 
-Perustelu: Application Record LD-2026-09-002 (APPLY, world model 1.2.0): asiakas ostaa
-jatkuvuutta, evidenssiä, jäljitettävyyttä, tiedon säilymistä ja hallintaa, ei mallin käyttöä.
-Hero A (§1.1) puhuu planeetasta ja ihmisestä; Hero B puhuu päätösvallasta. Molemmat ovat
-WHY-kerroksen lauseita; HIC valitsee tai yhdistää. Julkisessa versiossa ei tuote- eikä
-toimittajanimiä (Copilot, Boardy, Claude jäävät pois; "DWS IQ" mainitaan vain "Katso toteutus"
--linkin takana). Investor Centre ei sovella tätä (HIC:n rajaus).
+Perustelu: Application Record LD-2026-09-002 (APPLY, world model 1.2.0). Kolme ensimmäistä riviä
+ovat Chapter 14:n Observation → Insight → Hypothesis; neljäs on APPLY_LEARNING_GATE; viimeinen on
+Application Record ja temporal trail. Hero on siis sama asia kuin Workflow v2, sanottuna ilman
+yhtään termiä. Ei tuote- eikä toimittajanimiä. Investor Centre ei sovella (HIC:n rajaus).
+Aiempi tunnetason versio ("Tekoäly voi oppia tämän…") siirretty some-luonnokseksi alle, ei heroksi.
 
-Some-luonnos Chapter 11 -portille (LinkedIn, ei julkaistu; nimimaininnat HIC:n harkinnassa):
+Some-luonnos Chapter 11 -portille (LinkedIn, ei julkaistu):
 
 ```
-Tekoäly voi oppia tämän. Neuvonantaja voi sanoa tämän. Analyytikko voi analysoida tämän.
-Mutta vasta ihminen voi päättää: "Muutetaanko tästä yrityksen virallinen suunta?"
-Se on juridinen ja liiketoiminnallinen päätös, ja se kuuluu sinulle.
-Mallit vaihtuvat. Maailmanmallisi ei saa vaihtua niiden mukana.
+Tekoäly voi havaita muutoksen, analysoida vaihtoehtoja ja ehdottaa seuraavaa askelta.
+Vastuu päätöksestä kuuluu ihmiselle.
+Siksi rakennamme järjestelmiä, joissa oppiminen, päätös ja vaikutus ovat jäljitettävissä
+vielä vuosien päästä. Mallit vaihtuvat; maailmanmallisi ei saa vaihtua niiden mukana.
 → lifetime.fi
 ```
 
@@ -209,6 +217,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                         |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.8     | 2026-09-24 | Hero B lopullinen muotoilu HIC:ltä (havaitse / analysoi / ehdota → vastuu ihmisellä → jäljitettävyys vuosien päästä); tunnetason versio siirretty some-luonnokseksi                                                                                                                                                                             |
 | 1.7     | 2026-09-24 | Hero-ehdokas B päätösvallasta (LD-2026-09-002 APPLY, investor-centre poissuljettu); some-luonnos Ch 11 -portille; viittaus Workflow v2 Chapters 10–14 ja market-signals-rekisteriin (PR #2059)                                                                                                                                                  |
 | 1.6     | 2026-09-24 | Jalostusketju Workflow V2 -määrittelynä (`content-refinement-chain`, 10 askelta) ja Temporal-käyttötapauksena #13 (HIC-Signal-portti, Standalone Activity -julkaisut, per-kieli child workflow, Schedule); Meta-väite korjattu (Facebook-julkaisija on jo olemassa)                                                                             |
 | 1.5     | 2026-09-24 | Lopullinen roolimalli: onelifetime.world = akatemia (Journal, white paperit, research, seminaarit, esitykset, tapahtumat); jalostusketju ydinmekanismina, kaksi mallikierrosta; whitepapers/playbooks siirtyvät onelifetime.worldiin; jalostusrekisteri `docs/content-pipeline/chains.md`                                                       |
