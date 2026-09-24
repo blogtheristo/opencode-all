@@ -1,8 +1,19 @@
-# Session Handoff: Admin Dashboard & Auth Fixes
+# Session Handoff: main
+
+## Active workstreams (updated 2026-09-23)
+
+| Workstream                 | State                                                                                                                   | Handoff                                                                |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| A5 campaign (web products) | Live on main (#2083, #2082). Go-live blocker: real-payment checkout test (HIC)                                          | `.claude/handoffs/claude/a5-kampanja-kaksipuolinen-followup-17ser8.md` |
+| Admin dashboard & auth     | PR #2012 was **closed without merge** on 2026-09-13; later admin work landed in #2072 (897359d). Verify before resuming | This file, section below                                               |
+
+---
+
+# Admin Dashboard & Auth Fixes (2026-09-13, historical)
 
 **Date:** 2026-09-13  
 **Branch:** fix/admin-dashboard-routing  
-**Status:** ✅ AUTH FIXES COMPLETE | PR #2012 Ready for Review & Merge
+**Status:** PR #2012 closed without merge (13.09.2026). Content below is the state at that time.
 
 ---
 
@@ -27,29 +38,9 @@
 
 ---
 
-## Next Session Prompt
+## Next Session Prompt — OBSOLETE (do not execute)
 
-**Objective:** Complete admin dashboard rollout and merge PR #2012
-
-### Immediate Actions (Next Session)
-
-1. **Test admin access end-to-end:**
-   - Login as admin@dws6.com at `/login/dws-iq/`
-   - Verify redirect to `/dashboard/` (Hub, not dws-iq)
-   - Test Mission Control access
-   - Test Control Room access
-   - Test Situation Room access
-   - Verify User Management Console opens
-
-2. **Review PR #2012:**
-   - Check commits are on branch
-   - Review all auth changes
-   - Verify landing-pages sync (should auto-update from dws6.com/)
-
-3. **Merge when ready:**
-   - PR #2012 = 3 commits (admin routing + fixes + OAuth fixes + docs)
-   - Merge to main after approval
-   - Cloudflare Pages auto-publishes to dws6.com
+The 2026-09-13 plan was to test admin access and then review and merge PR #2012. It no longer applies: #2012 was **closed without merge** on 2026-09-13 (11 commits, 17 files), and later admin work landed in #2072 (897359d). Before resuming admin work, read #2072 and the current `dws6.com/dashboard/` code. Do not reopen or merge #2012.
 
 ### Backend Integration (Deferred)
 
@@ -73,9 +64,9 @@ These require backend API work — planned for next phase:
 
 ## PR Status
 
-**PR #2012:** https://github.com/blogtheristo/dws6/pull/2012
+**PR #2012:** https://github.com/blogtheristo/dws6/pull/2012 — **closed without merge** (13.09.2026; 11 commits, 17 files). The list below is the 13.09 plan, kept for reference only.
 
-**3 Commits:**
+**3 Commits (as planned on 13.09):**
 
 1. Route admin@dws6.com to Dashboard Hub
 2. Add User Management Console MVP
