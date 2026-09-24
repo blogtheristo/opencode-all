@@ -1,6 +1,6 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 2.7 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 2.8 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
 ## 0. Strategia (HIC + Copilot 24.09.2026, v1.4 lopullinen)
 
@@ -278,6 +278,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                         |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2.8     | 2026-09-24 | §15.2 omistajuusporras ja hero v3 -ehdotus (MS-007, PENDING)                                                                                                                                                                                                                                                                                    |
 | 2.7     | 2026-09-24 | §15.1 terävöitetty kolmirivinen ketju heroon; compliance-periaate (ei otsikossa/tuotteessa/viestissä) kirjattu                                                                                                                                                                                                                                  |
 | 2.6     | 2026-09-24 | §15.1 HIC:n positiointipäätös 'Tilannetietoisuudesta kilpailukykyyn' sovellettu dws10.com fi/en heroihin ja DISCOVER-yläotsikkoon; aiemmat herot kommentteina                                                                                                                                                                                   |
 | 2.5     | 2026-09-24 | §15 DWS IQ:n ydinlause 'Kun haluat johtaa epävarmuuden ymmärrykseksi' ja tuoteperhe Discover/Understand/Decide/Execute/Learn (ehdotus); UX v2 kytketty dws10.com etusivulle ja /buy:hin                                                                                                                                                         |
@@ -684,6 +685,28 @@ vastine "From situational awareness to competitiveness"), DISCOVER-lohkon yläot
 hero-tekstit säilytetty kommentteina sivuilla (Rule 12). "Kun haluat johtaa epävarmuuden
 ymmärrykseksi" jää §15:n ydinlauseeksi sisäiseen käyttöön ja Journaliin. Tuoteperheen nimet
 (Discover/Understand/Decide/Execute/Learn) odottavat edelleen erillistä päätöstä.
+
+### 15.2 Ehdotus 24.09.2026 — omistajuusporras (MS-2026-09-007, odottaa APPLY)
+
+Boardyn kysymys "Kuka omistaa ongelman?" ja Kemira-case (Sustainability käyttäjä, Production
+data, Digitalisation järjestelmät, COO päätösoikeus, CFO budjetti) tuottavat ketjuun kaksi
+porrasta lisää:
+
+> Tilannetietoisuus → Ymmärrys → Omistajuus → Johtaminen → Muutoskyky → Kilpailukyky
+
+Koska ilman omistajaa ei ole päätöstä, ja ilman päätöstä ei ole muutosta. DWS IQ on tällöin
+organisaation päätösoikeuksien ja vastuiden kartta, ei dashboard. Ehdotettu hero v3:
+
+> **DWS IQ — Organisaation ymmärrysjärjestelmä.**
+> Menestyvät organisaatiot eivät voita siksi, että niillä on enemmän dataa. Ne voittavat siksi,
+> että ne tunnistavat aikaisemmin mitä tapahtuu, ymmärtävät mitä se tarkoittaa ja tietävät
+> kenellä on vastuu toimia.
+> DWS IQ rakentaa evidenssiin perustuvaa tilannetietoisuutta ja muuttaa havainnot
+> ymmärrykseksi, ymmärryksen omistajuudeksi ja omistajuuden päätöksiksi.
+> Näin syntyy muutoskykyä. Ja muutoskyvystä kilpailukykyä.
+
+Tuotevaikutus: Active Ontologian diagnoosiin omistajuuskysymys roolitasolla (ei nimiä) →
+`ownership_map` havaintoon. Rekisteri: `docs/market-signals/2026-09-24-boardy-kuka-omistaa-ongelman.md`.
 
 **Tila (ennen 15.1):** positiointi on Application Decision (LD-2026-09-002 applies_to kattaa dws-iq-positioning,
 mutta tämä sanamuoto on uusi). Toteutettu 24.09.2026 vain DISCOVER-lohkon yläotsikkona dws10.com:n
