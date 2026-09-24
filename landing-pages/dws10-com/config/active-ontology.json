@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "version": "1.1.0",
+    "version": "1.2.0",
     "date": "2026-09-24",
-    "purpose": "Active Ontology UX v2 — DISCOVER layer on dws10.com. Decision trap → recognise yourself → industry → diagnostic choices → uncertainty made visible → recommended path → solutions (products last). Spec: docs/specs/active-ontology-ux-v2.md. Learning deltas LD-2026-09-003/004/005 (HIC APPLY 24.09.2026). 1.1.0: Ownership stage (LD-2026-09-007, HIC APPLY 24.09.2026) — Observation → Meaning → Ownership → Decision → Action → Outcome; ownership is an ontological stage, not a UX feature.",
+    "purpose": "Active Ontology UX v2 — DISCOVER layer on dws10.com. Decision trap → recognise yourself → industry → diagnostic choices → uncertainty made visible → recommended path → solutions (products last). Spec: docs/specs/active-ontology-ux-v2.md. Learning deltas LD-2026-09-003/004/005 (HIC APPLY 24.09.2026). 1.1.0: Ownership stage (LD-2026-09-007, HIC APPLY 24.09.2026) — Observation → Meaning → Ownership → Decision → Action → Outcome; ownership is an ontological stage, not a UX feature. 1.2.0: four distinct things (problem ownership, decision rights, action responsibility, consequence accountability); action can be outsourced, accountability cannot; Ownership Verdict (\"not yours to solve — yours to transfer\").",
     "rules": [
       "Never chat-first.",
       "Never show products before the situation is understood.",
@@ -43,7 +43,8 @@
       "discoveryText": "Kaikki tietävät ongelman, kukaan ei omista sitä — tämä on tavallisin syy, miksi tunnettu ongelma ei liiku. Selvitämme ensin, kuka kärsii, kuka voi päättää, kuka omistaa budjetin, kuka tuottaa datan ja kuka vastaa lopputuloksesta.",
       "mappingFirst": "Ensimmäinen työvaihe: päätöskartoitus",
       "continueOwn": "Jatka suositeltuun etenemiseen",
-      "unknownRole": "Ei tiedossa"
+      "unknownRole": "Ei tiedossa",
+      "verdictLabel": "Omistajuuslöydös"
     },
     "en": {
       "question": "Which decision is hard to make right now?",
@@ -75,7 +76,8 @@
       "discoveryText": "Everyone knows the problem, nobody owns it — the most common reason a known problem does not move. We first establish who suffers, who can decide, who owns the budget, who produces the data and who owns the outcome.",
       "mappingFirst": "First work stage: Decision Mapping",
       "continueOwn": "Continue to the recommended path",
-      "unknownRole": "Not known"
+      "unknownRole": "Not known",
+      "verdictLabel": "Ownership finding"
     }
   },
   "recognise": [
@@ -1070,24 +1072,31 @@
         "en": "Who suffers from the problem?"
       },
       {
-        "id": "decision",
-        "fi": "Kuka voi tehdä päätöksen?",
-        "en": "Who can make the decision?"
+        "id": "owner",
+        "fi": "Kuka omistaa ongelman tänään?",
+        "en": "Who owns the problem today?"
       },
       {
-        "id": "budget",
-        "fi": "Kuka omistaa budjetin?",
-        "en": "Who owns the budget?"
+        "id": "decision",
+        "fi": "Kenellä on päätösoikeus (ml. investointi)?",
+        "en": "Who holds the decision rights (incl. investment)?"
+      },
+      {
+        "id": "action",
+        "fi": "Kenellä on toimintavastuu? (voi olla ulkoinen)",
+        "en": "Who has the action responsibility? (may be external)",
+        "allowExternal": true
+      },
+      {
+        "id": "accountability",
+        "fi": "Kuka kantaa seuraukset, kun kysytään \"miten tämä laskettiin\"?",
+        "en": "Who bears the consequences when asked \"how was this calculated\"?",
+        "internalOnly": true
       },
       {
         "id": "data",
         "fi": "Kuka tuottaa datan?",
         "en": "Who produces the data?"
-      },
-      {
-        "id": "outcome",
-        "fi": "Kuka vastaa lopputuloksesta?",
-        "en": "Who owns the outcome?"
       }
     ],
     "roles": [
@@ -1132,10 +1141,34 @@
         "en": "Board"
       },
       {
+        "id": "external",
+        "fi": "Ulkoinen kumppani / konsultti",
+        "en": "External partner / consultant",
+        "externalOnly": true
+      },
+      {
         "id": "unknown",
         "fi": "Ei tiedossa",
         "en": "Not known"
       }
-    ]
+    ],
+    "verdicts": {
+      "discovery": {
+        "fi": "Ensimmäinen työvaihe: omistajuuden selvitys. Ongelma on tiedossa, omistaja ei — se on jo löydös.",
+        "en": "First work stage: Ownership Discovery. The problem is known, the owner is not — that is already a finding."
+      },
+      "transfer": {
+        "fi": "Tämä ei ole sinun ongelmasi ratkaista. Tämä on sinun ongelmasi siirtää oikealle omistajalle: ongelma koskee sinua, mutta päätösoikeus tai data on toisaalla.",
+        "en": "This is not your problem to solve. It is your problem to transfer to the right owner: it affects you, but the decision rights or the data sit elsewhere."
+      },
+      "outsourced_accountability": {
+        "fi": "Toiminta on ulkoistettavissa, seurausvastuu ei. Kun regulaattori, hallitus tai asiakas kysyy, vastaus jää talon sisälle.",
+        "en": "Action can be outsourced; accountability cannot. When the regulator, the board or a customer asks, the answer stays in-house."
+      },
+      "aligned": {
+        "fi": "Omistajuus, päätösoikeus ja toimintavastuu ovat samalla roolilla. Ensimmäinen työvaihe: päätöskartoitus ja toimenpide.",
+        "en": "Ownership, decision rights and action responsibility sit with one role. First work stage: Decision Mapping and action."
+      }
+    }
   }
 }

@@ -23,7 +23,8 @@ function json(body, status) {
 function str(v, max) {
   return typeof v === 'string' ? v.trim().slice(0, max) : null;
 }
-const OWN_DIMS = new Set(['impact', 'decision', 'budget', 'data', 'outcome']);
+const OWN_DIMS = new Set(['impact', 'owner', 'decision', 'action', 'accountability', 'data']);
+const OWN_VERDICTS = new Set(['discovery', 'transfer', 'outsourced_accountability', 'aligned']);
 const OWN_ROLES = new Set([
   'ceo',
   'coo',
@@ -33,6 +34,7 @@ const OWN_ROLES = new Set([
   'quality',
   'bu',
   'board',
+  'external',
   'unknown',
 ]);
 // Ownership stage (LD-2026-09-007): roles only, whitelisted; anything else is dropped.

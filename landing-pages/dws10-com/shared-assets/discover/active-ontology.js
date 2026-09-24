@@ -377,6 +377,22 @@
       root.appendChild(qs);
       return;
     }
+    // Ownership Verdict (LD-2026-09-007, HIC round 3): four distinct things — problem ownership,
+    // decision rights, action responsibility, consequence accountability. Action can be
+    // outsourced; accountability cannot. Sometimes the most valuable answer is "not yours to
+    // solve — yours to transfer to the right owner".
+    function verdict() {
+      var o = state.ownership,
+        m = o.map;
+      if (o.known === 'no') return 'discovery';
+      if (m.action === 'external' && m.accountability && m.accountability !== 'unknown')
+        return 'outsourced_accountability';
+      if (!m.owner || !m.decision) return null;
+      if (m.owner !== 'unknown' && (m.decision !== m.owner || (m.data && m.data !== m.owner)))
+        return 'transfer';
+      if (m.decision === m.owner && (!m.action || m.action === m.owner)) return 'aligned';
+      return null;
+    }
     if (step === 'ownership') {
       // Ownership is an ontological stage (LD-2026-09-007): Observation → Meaning → Ownership →
       // Decision → Action → Outcome. Roles only, never names.
@@ -421,22 +437,36 @@
               el(
                 'div',
                 { class: 'ao-chips' },
-                own.roles.map(function (r) {
-                  return el('button', {
-                    class: 'ao-chip ao-chip-sm',
-                    'aria-pressed': String(state.ownership.map[d.id] === r.id),
-                    text: L(r),
-                    onclick: function () {
-                      state.ownership.map[d.id] = r.id;
-                      render('ownership');
-                    },
-                  });
-                }),
+                own.roles
+                  .filter(function (r) {
+                    if (r.externalOnly && !d.allowExternal) return false;
+                    if (d.internalOnly && r.externalOnly) return false;
+                    return true;
+                  })
+                  .map(function (r) {
+                    return el('button', {
+                      class: 'ao-chip ao-chip-sm',
+                      'aria-pressed': String(state.ownership.map[d.id] === r.id),
+                      text: L(r),
+                      onclick: function () {
+                        state.ownership.map[d.id] = r.id;
+                        render('ownership');
+                      },
+                    });
+                  }),
               ),
             ]),
           );
         });
-        mp.appendChild(el('p', { class: 'ao-hint', text: t('mappingFirst') }));
+        var v = verdict();
+        if (v)
+          mp.appendChild(
+            el('div', { class: 'ao-verdict' }, [
+              el('h4', { text: t('verdictLabel') }),
+              el('p', { text: L((own.verdicts || {})[v]) }),
+            ]),
+          );
+        else mp.appendChild(el('p', { class: 'ao-hint', text: t('mappingFirst') }));
         root.appendChild(mp);
       }
       if (state.ownership.known) {
@@ -446,6 +476,7 @@
               class: 'ao-btn',
               text: t('continueOwn'),
               onclick: function () {
+                state.ownership.verdict = verdict();
                 send('ownership');
                 send('path_shown');
                 render('path');

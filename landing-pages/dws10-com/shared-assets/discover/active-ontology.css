@@ -36,3 +36,6 @@
 .ao-hint{opacity:.8;font-size:.95em;margin:4px 0 10px}
 .ao-chip-sm{font-size:.85em;padding:4px 10px}
 .ao-discovery{border-left:3px solid #FFD166;padding-left:14px}
+.ao-verdict{margin-top:12px;padding:12px 14px;border-left:3px solid #FFD166;background:rgba(255,209,102,.08)}
+.ao-verdict h4{margin:0 0 6px;font-size:.85em;letter-spacing:.04em;text-transform:uppercase;opacity:.8}
+.ao-verdict p{margin:0}

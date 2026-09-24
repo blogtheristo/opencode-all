@@ -50,6 +50,8 @@ dispatched_runs:
   - "DONE: Active Ontology 1.1.0 ownership-vaihe diagnose → ownership → path: 'Onko tiedossa, kuka voi saada tämän liikkeelle?' → Ei = Ownership Discovery, Kyllä/Osittain = Decision Mapping (5 ulottuvuutta × roolit, ei nimiä) → ownership_map (config/active-ontology.json, shared-assets/discover/active-ontology.js, functions/api/observations.js)"
   - "DONE: migration 090_240926_website_observations_ownership.sql (additive; ajo RED)"
   - "TODO: Chapter 14 CLASSIFY lisää ownership_known + owner_roles signaaliin (PR #2059 mergen jälkeen)"
+  - "DONE: Active Ontology 1.2.0 — neljä eri asiaa + Ownership Verdict (kierros 3)"
+  - "CANDIDATE: tuote 'Ownership Evidence' — selvitys, jonka tulos on omistajuuslöydös, ei tekninen ratkaisu (odottaa tuoteperhepäätöstä)"
   - "TODO: Journal-teksti 'Kaikki tietävät ongelman, kukaan ei omista sitä' (sarja 0, teksti 2; Rule 13)"
 impact:
   - { target: positioning, status: accepted, note: kuusiporrasketju }
@@ -73,13 +75,34 @@ evaluation: null
 ERP kertoo mitä tapahtui. BI kertoo mitä data näyttää. DWS IQ vastaa: mitä tämä tarkoittaa,
 kenen pitäisi välittää, kenellä on päätösoikeus ja mitä seuraavaksi pitäisi tehdä.
 
+## Kierros 3 (HIC 24.09.2026): neljä eri asiaa ja omistajuuslöydös
+
+| Asia                | Ulkoistettavissa | Esimerkki (Kemira)                                                                              |
+| ------------------- | ---------------- | ----------------------------------------------------------------------------------------------- |
+| Ongelman omistajuus | osittain         | Sustainability kokee ongelman                                                                   |
+| Päätösoikeus        | ei               | COO / CFO (investointi)                                                                         |
+| Toimintavastuu      | kyllä            | DWS IQ, konsultti tai kumppani selvittää ja mallintaa                                           |
+| Seurausvastuu       | ei               | Kun regulaattori, hallitus tai asiakas kysyy "miten tämä laskettiin", vastaus jää talon sisälle |
+
+Insight: organisaatiot eivät aina osta ratkaisua ongelmaan. Joskus ne ostavat evidenssin siitä,
+kuka ongelman omistaa. Suuri osa yritysten "ratkaisemattomista ongelmista" ei ole teknisiä
+ongelmia vaan omistajuusongelmia. Arvokkain vastaus voi olla: _"Tämä ei ole sinun ongelmasi
+ratkaista. Tämä on sinun ongelmasi siirtää oikealle omistajalle."_ Se vähentää epävarmuutta
+välittömästi ja vapauttaa johdon niihin asioihin, jotka kuuluvat sen pöydälle.
+
+Tuotteeseen (Active Ontology 1.2.0): kuusi ulottuvuutta (kärsii, omistaa, päätösoikeus,
+toimintavastuu, seurausvastuu, data); rooli "ulkoinen kumppani" sallittu vain toimintavastuuseen;
+Ownership Verdict näytetään DISCOVERissa: `discovery` / `transfer` / `outsourced_accountability`
+/ `aligned`, ja tallennetaan havaintoon. Tämä on ensimmäinen DISCOVER-tulos, josta asiakas voi
+olla valmis maksamaan ilman teknistä ratkaisua → tuotekandidaatti "Ownership Evidence".
+
 ## Kategoriamääritelmä (HIC 24.09.2026)
 
-| Järjestelmä | Vastaa kysymykseen                                                                                |
-| ----------- | ------------------------------------------------------------------------------------------------- |
-| ERP         | Mitä tapahtui.                                                                                    |
-| BI          | Mitä data näyttää.                                                                                |
-| DWS IQ      | Mitä tämä tarkoittaa. Ketä tämä koskee. Kenellä on oikeus toimia. Mitä pitäisi tehdä seuraavaksi. |
+| Järjestelmä | Vastaa kysymykseen                                                                                                                                                                                        |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ERP         | Mitä tapahtui.                                                                                                                                                                                            |
+| BI          | Mitä data näyttää.                                                                                                                                                                                        |
+| DWS IQ      | Mitä tämä tarkoittaa. Ketä tämä koskee. Kenellä on päätösvalta. Kenellä on toimintavastuu. Kuka kantaa seuraukset. Mitä seuraavaksi — ja miten ongelma yhdistetään päättäjään, joka saa muutoksen aikaan. |
 
 Kemira: "Emme tiedä tuotantoerien hiilijalanjälkeä" ei ole vielä hyödyllinen. Ongelma → Vaikutus →
 Omistaja → Päätösoikeus → Toimenpide on hyödyllinen, koska vasta silloin syntyy toiminta.
