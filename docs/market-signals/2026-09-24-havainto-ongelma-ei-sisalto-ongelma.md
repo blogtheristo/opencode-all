@@ -9,6 +9,8 @@ date: 2026-09-24
 observed_at: 2026-09-24
 signal_at: 2026-09-24
 insight_at: 2026-09-24
+decided_at: 2026-09-24
+kb_updated_at: 2026-09-24
 observer: Claude Code (Supabase read-only queries) + HIC
 confidence: high
 occurrences: 1
@@ -27,7 +29,7 @@ evidence:
     orders: 0,
   }
 affected: [dws10.com, dws10.com/buy, workflows, data-pipeline]
-status: signal
+status: accepted
 hypothesis: "Kun Observation Intake on dws10.com:n etusivulla 30 päivää, kertyy vähintään 300 luokiteltavaa havaintoa toimialoittain, ja niistä syntyy ensimmäinen HIC:n hyväksymä Learning Delta, joka muuttaa tarjontaa tai sisältöä. Samalla construction-lead-putki (scripts/daily/construction-leads.sh → construction_leads/ted_leads) korjataan kirjoittamaan tietokantaan, ja market_signals-taulu luodaan DWS_MARKET_RESEARCH_STANDARD §4.3:n mukaan."
 refuting_evidence: "Jos 30 päivässä kertyy alle 50 havaintoa, sensori on väärin sijoitettu tai muotoiltu (ei periaate väärä). Jos construction_leads pysyy tyhjänä korjauksen jälkeen, DGX-cron ei aja tai TED-API estää."
 learning_delta:
@@ -35,14 +37,38 @@ learning_delta:
   old_assumption: "Meillä on data-analytiikka (Cloudflare, Merchant, Supabase), joten meillä on havaintoja."
   new_learning: "Liikenne- ja tapahtumadata ei ole havaintoja. Havainto = data + konteksti + merkitys, ja se syntyy vasta kun kävijä kertoo tilanteensa tai järjestelmä kirjaa, mitä hän yritti saada aikaan. Verkkosivusto on muutettava julkaisukoneesta sensoriksi."
   ontology_change: "Erotetaan käsitteet Liikenne (Reality) ja Havainto (Observation); jokaisella datalähteellä on 'vastaa miksi?' -attribuutti (Cloudflare: ei; Merchant: osittain; Observation Intake: kyllä)."
-  hic_decision: PENDING
-  applied_to: []
-  excluded: []
-decision: null
-comprehension: null
+  hic_decision: APPLY
+  decision_reasoning: "HIC 24.09.2026: APPLY, ei PARTIAL, ei DEFER. Reality/Traffic/Content/Products ✅, Observation/Signals/Learning ❌. Todellinen ongelma ei ole sisältö, SEO, tuotteet tai kampanjat vaan: emme kuule mitä asiakkaat yrittävät tehdä. Hyväksytty kokonaisuutena: construction lead intake, market signals, observation intake, Agentic Commerce discovery. Tärkein havainto: ainoat aidot asiakashavainnot ovat varauslomakkeiden vapaatekstikentissä (3 kpl) — ensimmäiset raakamuotoiset Observation-entiteetit; analysoidaan kuten market signalit."
+  applied_to: [dws10.com, dws10.com/buy, data-pipeline, workflows]
+  excluded: [lifetime.fi, investor-centre]
+  approved_by: HIC
+  approved_at: 2026-09-24
+  effective_from: 2026-09-24
+  world_model_version: 1.6.0
+decision: observation_first_v1
+comprehension: "HIC 24.09.2026: taulukko paljasti enemmän kuin odotin; Active Ontology = Uncertainty Reduction System, ei Recommendation System."
+application_decision:
+  applies_to: [dws10.com, dws10.com/buy, data-pipeline, workflows]
+  does_not_apply_to: [lifetime.fi, investor-centre]
+  basis: [MS-2026-09-006 Supabase-evidenssi, MS-003, MS-004, MS-005]
+  valid_until: 2026-12-31 tai 30 pv Observation Intaken julkaisusta
+  affects: [dws10.com-kävijät, DGX-cron (construction-leads), Admin pipeline view]
 dispatched_runs:
   - docs/specs/active-ontology-ux-v2.md (§0b Observation Intake)
-impact: []
+  - dws10.com Active Ontology UX v2 + functions/api/observations.js + migration 089_website_observations (PR #2091)
+  - TODO: construction-leads.sh → construction_leads/ted_leads kirjoitus (DGX-cron tarkistus)
+  - TODO: market_signals-migraatio (DWS_MARKET_RESEARCH_STANDARD §4.3) tiedostona; ajo RED
+  - TODO: booking_reservations.customer_notes → Chapter 14 CAPTURE (3 aitoa havaintoa)
+impact:
+  - { target: dws10.com, status: in progress, note: Observation Intake + UX v2 }
+  - {
+      target: data-pipeline,
+      status: not started,
+      note: construction-leads → DB; market_signals-migraatio,
+    }
+  - { target: workflows, status: not started, note: Chapter 14 CAPTURE bookings + intake }
+  - { target: lifetime.fi, status: excluded }
+  - { target: investor-centre, status: excluded }
 evaluation: null
 ---
 
