@@ -55,7 +55,7 @@ application_decision:
   affects: [dws10.com-kävijät, DGX-cron (construction-leads), Admin pipeline view]
 dispatched_runs:
   - docs/specs/active-ontology-ux-v2.md (§0b Observation Intake)
-  - dws10.com Active Ontology UX v2 + functions/api/observations.js + migration 089_website_observations (PR #2091)
+  - dws10.com Active Ontology UX v2 + functions/api/observations.js + migration 089_240926_website_observations (PR #2091)
   - TODO: construction-leads.sh → construction_leads/ted_leads kirjoitus (DGX-cron tarkistus)
   - TODO: market_signals-migraatio (DWS_MARKET_RESEARCH_STANDARD §4.3) tiedostona; ajo RED
   - TODO: booking_reservations.customer_notes → Chapter 14 CAPTURE (3 aitoa havaintoa)
