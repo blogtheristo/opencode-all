@@ -51,6 +51,7 @@ export interface MarketSignal {
   comprehension?: string;
   /** The only object that changes system behaviour (jev-kya plan, 'three deltas, one decision'). */
   applicationDecision?: ApplicationDecision;
+  learningDelta?: LearningDelta;
   evaluation?: string | null;
   /** Temporal trail: when each rung was reached (ISO dates). */
   timeline: Partial<Record<TimelineKey, string>>;
@@ -63,6 +64,20 @@ export interface ApplicationDecision {
   basis: string[];
   valid_until?: string;
   affects: string[];
+}
+
+/** The Application Record of a Learning Delta (jev-kya plan): the object that changes what the system knows. */
+export interface LearningDelta {
+  id: string;
+  ontology_change?: string;
+  hic_decision?: 'APPLY' | 'PARTIAL_APPLY' | 'REJECT' | 'DEFER' | 'PENDING' | string;
+  decision_reasoning?: string;
+  applied_to: string[];
+  excluded: string[];
+  approved_by?: string;
+  approved_at?: string;
+  effective_from?: string;
+  world_model_version?: string;
 }
 
 export type TimelineKey =
@@ -95,6 +110,8 @@ export interface PipelineView {
     contentUpdates: number;
     offerUpdates: number;
     evaluated: number;
+    learningsApplied: number;
+    learningsPending: number;
   };
   observations: MarketSignal[];
   activeSignals: MarketSignal[];
@@ -133,6 +150,12 @@ function inlineMap(raw: string): Record<string, string> {
   });
   return out;
 }
+
+const NESTED_MAP_KEYS = new Set([
+  'application_decision',
+  'application_decision_proposal',
+  'learning_delta',
+]);
 
 /** Parses the registry front matter subset. Exported for tests. */
 export function parseFrontMatter(text: string): Record<string, unknown> {
@@ -175,7 +198,7 @@ export function parseFrontMatter(text: string): Record<string, unknown> {
     if (idx < 0 || /^\s/.test(line)) continue;
     const key = line.slice(0, idx).trim();
     const rest = line.slice(idx + 1).trim();
-    if (rest === '' && key === 'application_decision') {
+    if (rest === '' && NESTED_MAP_KEYS.has(key)) {
       out[key] = {};
       mapKey = key;
     } else if (rest === '') {
@@ -216,6 +239,7 @@ export function parseSignalFile(file: string, text: string): MarketSignal {
       .map((r) => ({ target: r.target ?? '', status: r.status ?? 'not started', note: r.note })),
     comprehension: str('comprehension'),
     applicationDecision: parseApplicationDecision(fm.application_decision),
+    learningDelta: parseLearningDelta(fm.learning_delta),
     evaluation:
       fm.evaluation === null || fm.evaluation === undefined ? null : String(fm.evaluation),
     timeline: Object.fromEntries(
@@ -239,6 +263,25 @@ function parseApplicationDecision(raw: unknown): ApplicationDecision | undefined
   };
 }
 
+function parseLearningDelta(raw: unknown): LearningDelta | undefined {
+  if (typeof raw !== 'object' || raw === null) return undefined;
+  const r = raw as Record<string, unknown>;
+  const list = (k: string) => (Array.isArray(r[k]) ? (r[k] as string[]) : []);
+  const str = (k: string) => (r[k] === undefined || r[k] === null ? undefined : String(r[k]));
+  return {
+    id: str('id') ?? 'LD-unassigned',
+    ontology_change: str('ontology_change'),
+    hic_decision: str('hic_decision') ?? 'PENDING',
+    decision_reasoning: str('decision_reasoning'),
+    applied_to: list('applied_to'),
+    excluded: list('excluded'),
+    approved_by: str('approved_by'),
+    approved_at: str('approved_at'),
+    effective_from: str('effective_from'),
+    world_model_version: str('world_model_version'),
+  };
+}
+
 /** Pure aggregation — the six blocks of the control panel plus header counters. */
 export function buildPipelineView(signals: MarketSignal[], now = new Date()): PipelineView {
   const by = (...s: string[]) => signals.filter((x) => s.includes(x.status));
@@ -257,6 +300,12 @@ export function buildPipelineView(signals: MarketSignal[], now = new Date()): Pi
       contentUpdates: doneTargets(CONTENT_TARGETS),
       offerUpdates: doneTargets(OFFER_TARGETS),
       evaluated: signals.filter((s) => s.evaluation).length,
+      learningsApplied: signals.filter((s) =>
+        ['APPLY', 'PARTIAL_APPLY'].includes(s.learningDelta?.hic_decision ?? ''),
+      ).length,
+      learningsPending: signals.filter(
+        (s) => s.learningDelta && ['PENDING', 'DEFER'].includes(s.learningDelta.hic_decision ?? ''),
+      ).length,
     },
     observations: by('observed', 'signal'),
     activeSignals: signals

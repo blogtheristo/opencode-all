@@ -899,8 +899,12 @@ describe('observation-market-signal-intake example graph (chapter fourteen)', ()
     expect(isTransitionAllowed(graph, 'FORMULATE_SIGNAL', 'STRATEGIC_INSIGHT')).toBe(true);
     expect(isTransitionAllowed(graph, 'FORMULATE_SIGNAL', 'HYPOTHESIZE')).toBe(false);
     expect(isTransitionAllowed(graph, 'AWAIT_OUTCOMES', 'AWAIT_OUTCOMES')).toBe(true);
-    expect(isTransitionAllowed(graph, 'EVALUATE', 'KB_UPDATE')).toBe(true);
-    expect(isTransitionAllowed(graph, 'KB_UPDATE', 'LEARN')).toBe(true);
+    expect(isTransitionAllowed(graph, 'EVALUATE', 'LEARNING_DELTA')).toBe(true);
+    expect(isTransitionAllowed(graph, 'LEARNING_DELTA', 'JEV_KYA_REVIEW')).toBe(true);
+    expect(isTransitionAllowed(graph, 'JEV_KYA_REVIEW', 'APPLY_LEARNING_GATE')).toBe(true);
+    // AI learning never reaches the world model without the application decision.
+    expect(isTransitionAllowed(graph, 'LEARNING_DELTA', 'WORLD_MODEL_UPDATE')).toBe(false);
+    expect(isTransitionAllowed(graph, 'JEV_KYA_REVIEW', 'WORLD_MODEL_UPDATE')).toBe(false);
     expect(graph.nodes.find((n) => n.id === 'DISPATCH_IMPACTS')?.description).toContain(
       'content-refinement-chain',
     );

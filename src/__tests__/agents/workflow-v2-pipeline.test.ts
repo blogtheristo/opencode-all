@@ -98,5 +98,8 @@ describe('docs/market-signals registry', () => {
     expect(first?.timeline.observed_at).toBe('2026-09-23');
     expect(first?.timeline.decided_at).toBe('2026-09-24');
     expect(first?.applicationDecision?.does_not_apply_to).toContain('investor-centre');
+    expect(first?.learningDelta?.id).toBe('LD-2026-09-001');
+    expect(first?.learningDelta?.hic_decision).toBe('APPLY');
+    expect(first?.learningDelta?.world_model_version).toBe('1.1.0');
   });
 });

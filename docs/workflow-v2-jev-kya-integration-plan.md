@@ -65,6 +65,29 @@ outcomes, and _Partial Apply_ is the normal one — it is what `applies_to` /
 `application_decision` block plus the ApprovalToken hash; `Operational Change` is the set
 of dispatched child runs, and nothing else may change the system.
 
+### JEV/KYA roles in the decision (Chapter 14 nodes `LEARNING_DELTA → JEV_KYA_REVIEW → APPLY_LEARNING_GATE → WORLD_MODEL_UPDATE`)
+
+| Role                              | Asks                                                                                                                                                                          | Produces                                                                                                                                                  |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **JEV** (what the system learned) | What did the AI learn? On what evidence? What changes in the ontology? Which version does it belong to?                                                                       | Learning Delta `LD-…` with `ontology_change`, evidence, proposed `world_model_version`                                                                    |
+| **KYA** (know your AI)            | Does the HIC understand what was learned? Does the HIC accept it? In which contexts may it be used? Where must it not be used? Which provider/jurisdiction produced it (IJS)? | Comprehension Delta in the HIC's words + signed typed verdict bound to the LD                                                                             |
+| **HIC** (Application Decision)    | APPLY / PARTIAL_APPLY / REJECT / DEFER                                                                                                                                        | Application Record: `hic_decision`, `decision_reasoning`, `applied_to`, `excluded`, `approved_by`, `approved_at`, `effective_from`, `world_model_version` |
+| **World model**                   | —                                                                                                                                                                             | Change applied only within `applied_to`; excluded contexts technically unable to read it                                                                  |
+
+JEV/KYA sits in the **Decision** layer, not in Observation, Insight or Learning. Two gates in
+one chapter, two decisions: `HIC_APPROVAL_GATE` (act on impacts) and `APPLY_LEARNING_GATE`
+(change what the system knows); `DEFAULT_GATED_NODE_IDS` enforces both. Three version lines
+that need never coincide: AI Learning Version (Ontology vX), HIC Decision Version (Applied
+Learning Set vY), Operational Version (Workflow vZ). The failure this prevents is not "the AI
+decided to use only Rust"; it is "the AI learned Rust is optimal, the HIC never knew, agents
+began to prefer it, procurement followed, solutions changed, and nobody can explain why". At
+that point governance is already lost. Hence the Lifetime World Model principle: _learning does
+not change the world; the decision to apply learning changes the world — and that decision is
+the HIC's, technically and legally._ In agentic commerce (procurement, tenders, supplier
+selection, campaign and budget changes) the chain must answer afterwards: what was observed,
+what was learned, what the HIC understood, what the HIC decided, how it was applied, what
+followed.
+
 Only the third object changes system behaviour, and it can be shown afterwards. This is
 closer to decision law than to a technical audit trail; it is the level EU AI governance
 (Art. 12–14) and agentic commerce (who authorised this agent to act, on what, until when)

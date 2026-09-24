@@ -81,3 +81,15 @@ workflow, when the impact showed. That is the pipe's transparency. The next step
 registry is not another dashboard: it is Ontology KB receiving validated insights automatically
 (Chapter 14 `KB_UPDATE`) so the world model changes from them and the next observation is made
 against the updated model.
+
+## Two gates, three version lines (HIC + Copilot 24.09.2026)
+
+`HIC_APPROVAL_GATE` authorises an **action** on a signal's impacts. `APPLY_LEARNING_GATE`
+authorises applying a **learning** to the world model. "AI learned" ≠ "insight validated" ≠
+"HIC decided to apply". The Application Record (`learning_delta` block) answers afterwards:
+what the AI learned, on what evidence, who understood it, who approved it, when, applied where,
+excluded where, in which world-model version, with what effects. Three version lines that need
+never coincide: **AI Learning Version** (ontology), **HIC Decision Version** (applied learning
+set), **Operational Version** (what customers see). This is what makes agentic commerce
+defensible: a purchase, tender or campaign change traces back to a decided learning, never to a
+preference agents drifted into and nobody can explain.

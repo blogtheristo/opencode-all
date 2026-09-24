@@ -32,6 +32,17 @@ application_decision:
   basis: [MS-2026-09-001 evidence, Copilot-audit 24.09.2026]
   valid_until: strategia v1.6 -> vaihe A julkaisu + 60 pv arviointi
   affects: [suomalaiset yrityspäättäjät, Journal-lukijat, some-seuraajat]
+learning_delta:
+  id: LD-2026-09-001
+  ontology_change: "Asiakas (pk/teollisuus) — vanha oletus: ostaa ratkaisun ja ominaisuudet; uusi: ostaa ensin merkityksen ja maailmankuvan, sitten toteutuksen. Kerrosmalli WHY/UNDERSTAND/HOW/BUY lisätään ontologiaan sisällön attribuuttina."
+  hic_decision: APPLY
+  decision_reasoning: "Evidenssi: asiakaskeskustelu 23.09 + riippumaton Copilot-audit 24.09 päätyivät samaan; kampanjasivun 'kalpeus' selittyy kerrosvirheellä, ei sisällön puutteella."
+  applied_to: [lifetime.fi, onelifetime.world, dws10.com, linkedin, meta, workflows]
+  excluded: [investor-centre, legal-hub, a5-kampanjasivu]
+  approved_by: HIC
+  approved_at: 2026-09-24
+  effective_from: 2026-09-24
+  world_model_version: 1.1.0
 decisions_detail:
   - lifetime.fi -> synteesi, missio, johtopäätökset (WHY); ei tuotteita, hintoja, lyhenteitä
   - onelifetime.world -> Lifetime Scope Journal, white paperit, seminaarit (UNDERSTAND)

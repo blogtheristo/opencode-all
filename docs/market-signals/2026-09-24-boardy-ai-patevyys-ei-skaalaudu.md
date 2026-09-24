@@ -2,20 +2,26 @@
 signal_id: MS-2026-09-002
 reality: HIC on käyttänyt Boardy.ai:ta sivutoimisena neuvonantajana; 6 kk sitten Boardy tuotti ylivoimaisia SQL-määrittelyjä, joihin Clauden mallit eivät taipuneet. Tänään HIC ei vie Workflow v2 -ajattelua Boardyyn.
 observation: Boardy ei kykene johtamaan näin laajaa asiakokonaisuutta sivutoimisesti niin, että tulos olisi vielä 20 % parempi. Se alkaa oikoa; tekee liian nopeita ja lyhyitä reittejä, jotka tuhoavat pipelinen alkupään HIC-toiveet. "Tulos vain ja ulos" on destruktiivista.
-signal: Pitkäkestoisessa kokonaisuudessa myydään prosessin pitävyyttä, ei mallin hetkellistä älykkyyttä.
-insight: Lifetime Oy:n myytävä pätevyys ei ole "paras malli" vaan porttien, jäljitettävyyden ja HIC-päätösten ketju, joka pitää myös silloin kun malli vaihtuu tai oikoo. Mallin paremmuus on kuukausien mittainen etu; prosessin pitävyys on vuosien mittainen.
+signal: Mallin hetkellinen kyvykkyys vaihtuu nopeammin kuin asiakkaan prosessit ja liiketoimintatarpeet.
+insight: Kilpailuetu ei ole yksittäinen AI-malli vaan kyky säilyttää havainto, päätös ja oppiminen mallien vaihtuessa. Myyntimuoto: pitkäkestoisessa kokonaisuudessa myydään prosessin pitävyyttä, ei mallin hetkellistä älykkyyttä.
 source: customer conversation
 date: 2026-09-24
 observed_at: 2026-09-24
 signal_at: 2026-09-24
 insight_at: 2026-09-24
 observer: HIC
-confidence: medium
-occurrences: 2
+confidence: high
+occurrences: 3
 affected: [offering, workflows, onelifetime.world, lifetime.fi, dws10.com, investor-centre]
 status: signal
 hypothesis: Kun myyntiväite siirretään mallin älykkyydestä prosessin pitävyyteen (KYA-portit, Application Record, jäljitettävyys), (a) ostaja hyväksyy toimittajan mallivaihdon ilman uudelleenmyyntiä ja (b) pitkäkestoiset toimeksiannot (3–12 kk) sulkeutuvat useammin kuin "paras malli" -väitteellä.
-refuting_evidence: Jos 90 päivän kuluessa kolmesta pitkäkestoisesta tarjouksesta yksikään ei etene väitteellä "prosessin pitävyys" ja ostajat kysyvät edelleen ensin mallin nimeä ja benchmarkia, hypoteesi on väärä tai väite on ilmaistu huonosti. Toinen kumoaja: jos oma Workflow v2 -putki oikoo samalla tavalla kuin Boardy (retry ohittaa portin, tulos ilman Explain-vaihetta), väite ei ole tosi meistäkään.
+refuting_evidence: (1) Malliriippumattomuuden painetesti epäonnistuu — Chapter 14 tuottaa eri rekisteririvit tai portit eri mallilla samalla syötteellä (Boardyn varauma 24.09). (2) Jos 90 päivän kuluessa kolmesta pitkäkestoisesta tarjouksesta yksikään ei etene väitteellä "prosessin pitävyys" ja ostajat kysyvät edelleen ensin mallin nimeä ja benchmarkia, hypoteesi on väärä tai väite on ilmaistu huonosti. Toinen kumoaja: jos oma Workflow v2 -putki oikoo samalla tavalla kuin Boardy (retry ohittaa portin, tulos ilman Explain-vaihetta), väite ei ole tosi meistäkään.
+learning_delta:
+  id: LD-2026-09-002
+  ontology_change: "Toimittaja-AI / malli — vanha oletus: mallin paremmuus on kilpailuetu; uusi: malli on vaihdettava komponentti, kilpailuetu on Observation → Insight → Decision → Learning → Ontology -ketjun säilyminen vaihdon yli."
+  hic_decision: PENDING
+  applied_to: []
+  excluded: []
 decision: null            # awaiting HIC_APPROVAL_GATE — proposal below is not a decision
 comprehension: null
 application_decision_proposal:
@@ -53,14 +59,36 @@ juuri se vika, jota HIC*APPROVAL_GATE, GUARDRAIL ja "retry palaa porttiin" estä
 on niiden peruste; (3) \_ymmärrys* – Journal-teksti toimittajariippuvuudesta (ai-vendor-dependency
 1–3, luonnoksina) saa tästä konkreettisen esimerkin.
 
-## FORMULATE_SIGNAL (HIC hyväksyi 24.09.2026)
+## FORMULATE_SIGNAL
 
-"Pitkäkestoisessa kokonaisuudessa myydään prosessin pitävyyttä, ei mallin hetkellistä
-älykkyyttä."
+HIC hyväksyi ensin lauseen "Pitkäkestoisessa kokonaisuudessa myydään prosessin pitävyyttä, ei
+mallin hetkellistä älykkyyttä"; Copilot huomautti samassa kierroksessa, että se on jo lähes
+Strategic Insight. Otettu käyttöön jako: signaali havaintotasolla, myyntilause insightin
+muotona.
+
+**Signaali:** Mallin hetkellinen kyvykkyys vaihtuu nopeammin kuin asiakkaan prosessit ja
+liiketoimintatarpeet.
+
+## Kolmas esiintymä (24.09.2026 klo 6.11, Boardy itse)
+
+Boardy vahvisti insightin omin sanoin: "the vendor changes, the world model doesn't" ja
+"the governance layer is the product — what a customer is buying isn't model access, it's
+continuity and evidence that outlives whichever model is current. That's a product, not a
+project." Sama työkalu, jonka oikominen synnytti havainnon, hyväksyy johtopäätöksen. Kirjattu
+esiintymäksi 3, confidence → high.
+
+**Boardyn varauma (otetaan kumoavaksi testiksi):** ketju pitää vain, jos ontologia on aidosti
+malliriippumaton. Jos yksikin askel nojaa hiljaisesti tietyn mallin käyttäytymiseen,
+identiteettiväite murtuu ensimmäisessä toimittajavaihdossa. → Painetesti ennen kuin väite viedään
+ostajalle (Kemira / Outokumpu): vaihda malli (esim. Claude → DGX Spark Ollama /ollama-spark)
+Chapter 14:n CAPTURE→INSIGHT-askelissa samalla syötteellä ja vertaa, säilyvätkö rekisteririvit,
+portit ja Application Record identtisinä. Ostajavalinta on HIC:n päätös, ei tämän rekisterin.
 
 ## STRATEGIC_INSIGHT
 
-Lifetime Oy:n myytävä pätevyys ei ole "paras malli". Se on porttien, jäljitettävyyden ja
+**Kilpailuetu ei ole yksittäinen AI-malli vaan kyky säilyttää havainto, päätös ja oppiminen
+mallien vaihtuessa.** Mallitoimittaja vaihtuu; maailmanmalli ei. Lifetime Oy:n myytävä pätevyys
+ei ole "paras malli". Se on porttien, jäljitettävyyden ja
 HIC-päätösten ketju, joka pitää silloinkin, kun malli vaihtuu tai oikoo. Mallin paremmuus on
 kuukausien etu (Boardy > Claude SQL:ssä 6 kk sitten, ei enää); prosessin pitävyys on vuosien
 etu. Tämä on sama asia, jonka KYA/JEV sanoo governance-kielellä: Learn → Explain → Understand →

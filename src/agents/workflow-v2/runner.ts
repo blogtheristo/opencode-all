@@ -34,7 +34,14 @@ import type {
 const TRANSITION_RE = /<transition>\s*([A-Za-z0-9_]+)\s*<\/transition>/;
 
 /** Node ids that always require a matching ApprovalToken before their outbound edge fires. */
-export const DEFAULT_GATED_NODE_IDS = ['HIC_APPROVAL_GATE'];
+/**
+ * Two gate ids, two decisions (docs/workflow-v2-jev-kya-integration-plan.md, "three deltas"):
+ *  - HIC_APPROVAL_GATE  — authorises an outbound ACTION (send, publish, dispatch impacts).
+ *  - APPLY_LEARNING_GATE — authorises applying a LEARNING to the world model (Application
+ *    Decision: APPLY / PARTIAL_APPLY / REJECT / DEFER). AI learning never changes the system;
+ *    a token issued at this gate does.
+ */
+export const DEFAULT_GATED_NODE_IDS = ['HIC_APPROVAL_GATE', 'APPLY_LEARNING_GATE'];
 
 /**
  * Thrown when a transition leaves a gated node (e.g. HIC_APPROVAL_GATE) with no
