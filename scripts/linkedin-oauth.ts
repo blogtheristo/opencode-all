@@ -275,11 +275,18 @@ Waiting for callback on http://localhost:${PORT}/linkedin/callback
 Profile:  ${userInfo.name}${userInfo.email ? ` (${userInfo.email})` : ''}
 Expires:  ~${expiresStr} (60 days from now)
 
-Copy these into your .env file:
+Copy these into your .env file (or provision into the vault):
 ─────────────────────────────────────────────────────
 LINKEDIN_ACCESS_TOKEN=${token}
 LINKEDIN_AUTHOR_URN=${personUrn}
 ─────────────────────────────────────────────────────
+
+Vault (recommended — secret-loader / CREDENTIAL_BROKERING):
+  1. Put the lines above in .env
+  2. npx tsx scripts/provision-secrets-aiven.ts   # or create GCP secrets
+     linkedin-access-token / linkedin-author-urn
+  3. Ensure VAULT_PROVIDER=aiven|gcp so boot loads them without a laptop .env
+  4. Agents that need LinkedIn use broker scope "linkedin" (never the raw token)
 
 ${WITH_ORG ? `
 To post as a company page instead, replace LINKEDIN_AUTHOR_URN with:

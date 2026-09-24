@@ -3,21 +3,23 @@
  *
  * Publishes approved posts to LinkedIn via the official REST API v2.
  *
- * Required env vars:
- *   LINKEDIN_ACCESS_TOKEN   — OAuth 2.0 access token (60-day lifetime)
- *   LINKEDIN_AUTHOR_URN     — "urn:li:person:<id>" or "urn:li:organization:<id>"
+ * Required env vars (or vault secrets via secret-loader SECRET_MAP):
+ *   LINKEDIN_ACCESS_TOKEN   — OAuth 2.0 access token (60-day lifetime) → linkedin-access-token
+ *   LINKEDIN_AUTHOR_URN     — "urn:li:person:<id>" or "urn:li:organization:<id>" → linkedin-author-urn
  *
  * How to get credentials:
  *   1. Create a LinkedIn Developer App at https://www.linkedin.com/developers/
  *   2. Request scopes: w_member_social (personal) or w_organization_social (company page)
- *   3. Complete OAuth 2.0 flow to get the access token
+ *   3. Complete OAuth 2.0 flow to get the access token (`npx tsx scripts/linkedin-oauth.ts`)
  *   4. Find your URN via GET https://api.linkedin.com/v2/userinfo
+ *   5. Prefer vault: provision-secrets-aiven.ts (or GCP Secret Manager), not laptop-only .env
  *
  * LinkedIn API docs:
  *   https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api
  */
 
 import logger from '../utils/logger.js';
+import { normalizeLinkedInText } from '../utils/linkedin-text.js';
 import type { SocialPost } from './types.js';
 
 const LINKEDIN_API_BASE = 'https://api.linkedin.com';
@@ -71,12 +73,14 @@ export async function publishToLinkedIn(post: SocialPost): Promise<PublishResult
     return { success: false, error: 'LINKEDIN_AUTHOR_URN not set (e.g. urn:li:person:abc123)' };
   }
 
+  const commentary = normalizeLinkedInText(post.content);
+
   const body: LinkedInPostBody = {
     author: authorUrn,
     lifecycleState: 'PUBLISHED',
     specificContent: {
       'com.linkedin.ugc.ShareContent': {
-        shareCommentary: { text: post.content },
+        shareCommentary: { text: commentary },
         shareMediaCategory: 'NONE',
       },
     },
@@ -91,7 +95,8 @@ export async function publishToLinkedIn(post: SocialPost): Promise<PublishResult
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
+        'X-Restli-Protocol-Version': '2.0.0',
       },
       body: JSON.stringify(body),
     });

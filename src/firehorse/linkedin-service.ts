@@ -1,22 +1,30 @@
 /**
  * Firehorse Omnichannel — LinkedIn Service
  *
- * Posts: LinkedIn Posts API (`POST /rest/posts`) with `LINKEDIN_ACCESS_TOKEN` and
+ * Posts: LinkedIn UGC API (`POST /v2/ugcPosts`) with `LINKEDIN_ACCESS_TOKEN` and
  * `LINKEDIN_AUTHOR_URN` (person or organization). Matches `social-scheduler/publisher.ts`.
+ *
+ * Credentials come from process.env (host/.env) or the vault loader
+ * (`src/config/secret-loader.ts` SECRET_MAP → linkedin-access-token / linkedin-author-urn).
+ *
+ * Uses `/v2/ugcPosts` (plain UTF-8 commentary) instead of `/rest/posts` little-text,
+ * so Finnish/Swedish letters (ä ö å) and natural punctuation publish without truncation.
  *
  * DMs: LinkedIn Messaging API is restricted to Marketing Developer Platform partners.
  * `send()` records intent and returns a queued id — a human sends from their inbox.
  *
- * Code-Version: 2.2.0
- * Branch: claude/fix-linkedin-channel-QK460 (merged with main)
- * Date: 2026-05-14
- * Owner: Claude Code (Opus 4.6)
+ * Code-Version: 2.3.0
+ * Date: 2026-09-23
  */
 
 import logger from '../utils/logger.js';
+import { normalizeLinkedInText } from '../utils/linkedin-text.js';
 
 /** Cap outbound LinkedIn REST calls so omnichannel loops cannot hang indefinitely */
 const LINKEDIN_POST_TIMEOUT_MS = 45_000;
+const LINKEDIN_API_BASE = 'https://api.linkedin.com';
+/** Verified working for w_member_social; plain text (Unicode), not little-text. */
+const LINKEDIN_POST_ENDPOINT = '/v2/ugcPosts';
 
 // ============================================================================
 // TYPES
@@ -111,9 +119,9 @@ class LinkedInService {
    */
   async sharePost(payload: LinkedInSharePayload): Promise<LinkedInShareResult> {
     const { text, url, content_id } = payload;
-    let commentary = text;
-    if (url && !text.includes(url)) {
-      commentary = `${text}\n\n${url}`;
+    let commentary = normalizeLinkedInText(text);
+    if (url && !commentary.includes(url)) {
+      commentary = `${commentary}\n\n${url}`;
     }
 
     const author = this.resolveAuthorUrn();
@@ -136,29 +144,30 @@ class LinkedInService {
       return { success: true, dry_run: true };
     }
 
+    // Same payload shape as social-scheduler/publisher.ts (ugcPosts = plain UTF-8).
     const body = {
       author,
-      commentary,
-      visibility: 'PUBLIC' as const,
-      distribution: {
-        feedDistribution: 'MAIN_FEED' as const,
-        targetEntities: [] as unknown[],
-        thirdPartyDistributionChannels: [] as unknown[],
-      },
       lifecycleState: 'PUBLISHED' as const,
-      isReshareDisabledByAuthor: false,
+      specificContent: {
+        'com.linkedin.ugc.ShareContent': {
+          shareCommentary: { text: commentary },
+          shareMediaCategory: 'NONE' as const,
+        },
+      },
+      visibility: {
+        'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC' as const,
+      },
     };
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), LINKEDIN_POST_TIMEOUT_MS);
     try {
-      const response = await fetch('https://api.linkedin.com/rest/posts', {
+      const response = await fetch(`${LINKEDIN_API_BASE}${LINKEDIN_POST_ENDPOINT}`, {
         method: 'POST',
         signal: controller.signal,
         headers: {
           Authorization: `Bearer ${this.accessToken}`,
-          'Content-Type': 'application/json',
-          'LinkedIn-Version': '202401',
+          'Content-Type': 'application/json; charset=utf-8',
           'X-Restli-Protocol-Version': '2.0.0',
         },
         body: JSON.stringify(body),
@@ -178,7 +187,8 @@ class LinkedInService {
         };
       }
 
-      const postId = response.headers.get('x-restli-id') || undefined;
+      const data = (await response.json()) as { id?: string };
+      const postId = data.id || response.headers.get('x-restli-id') || undefined;
 
       logger.info('LinkedIn: post shared successfully', {
         content_id,
