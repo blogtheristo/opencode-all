@@ -7,6 +7,7 @@ site: onelifetime.world
 series: "Sarja 0 — Liiketoimintataso, teksti 1"
 author: Risto Anton Päärni
 date: 2026-09-24
+revision: 2 (Copilot review 24.09.2026, HIC forwarded: tighten opening, one company example, "johtaa ympäristövaikutuksia", technology section moved up, active-ontology seed, final line)
 Status: DRAFT
 source: HIC-päätös v2.0 (24.09.2026), docs/proposals/2026-09-24-lifetime-fi-tulossivu-ehdotus.md §0, §13; market-signals MS-2026-09-001…004; HIC:n lisäohje "älä kirjoita teknologia-artikkelia, kirjoita maailmanmalli"
 ---
@@ -21,23 +22,21 @@ Tuo lause on One Lifetimen ydin, mutta se ei selitä nimeä. Nimi tulee kauempaa
 tekoälystä. Se tulee siitä, että meillä on yksi elämä ja yksi elävä planeetta, ja että
 kaikki, mitä yritykset, teknologia ja yhteiskunta tekevät, tapahtuu tämän yhden elämän ja
 tämän yhden planeetan sisällä. Tämä teksti vastaa neljään kysymykseen: miksi yksi elämä,
-miksi yksi planeetta, miksi yritys on osa ratkaisua ja miksi teknologia on väline. Se ei ole
+miksi yksi planeetta, miksi teknologia on väline ja miksi yritys on osa ratkaisua. Se ei ole
 teknologia-artikkeli. Se on maailmanmalli, jonka varaan päätökset tehdään.
 
 ## Miksi yksi elämä?
 
-Ihmisellä on yksi elämä. Se on ainutkertainen, eikä sitä voi varmuuskopioida, palauttaa
-edelliseen versioon tai siirtää toiselle alustalle. Tämä kuulostaa itsestäänselvältä, mutta
-liike-elämässä siitä seuraa jotain, mitä harvoin sanotaan ääneen: aika, jonka ihminen käyttää
-työhön, on osa hänen elämäänsä, ei sen ulkopuolella. Ilta, joka kuluu laskujen kirjoittamiseen
-tai osanumeroiden metsästämiseen, on ilta, joka on poissa jostain muusta. Ei ole olemassa
+Ihmisellä on yksi elämä. Siksi aika ei ole resurssi muiden joukossa. Aika, jonka ihminen
+käyttää työhön, on osa hänen elämäänsä. Ilta, joka kuluu laskujen kirjoittamiseen tai
+osanumeroiden metsästämiseen, on ilta, joka on poissa jostain muusta. Ei ole olemassa
 neutraalia työtuntia.
 
 Siksi One Lifetime ei mittaa ensin tehokkuutta vaan sitä, mihin ihmisen aika menee. Kun
 yritys automatisoi toistuvan työn, tulos ei ole ensisijaisesti kustannussäästö. Tulos on,
 että ihminen saa aikaa takaisin siihen, missä hän on korvaamaton: asiakkaaseen, harkintaan
-ja vastuuseen. Tämä on ensimmäinen syy, miksi sanomme yksi elämä. Se on muistutus siitä, että
-jokaisen järjestelmän lopullinen käyttäjä on ihminen, jolla on rajallinen määrä iltoja.
+ja vastuuseen. Jokaisen järjestelmän lopullinen käyttäjä on ihminen, jolla on rajallinen
+määrä iltoja.
 
 Toinen syy liittyy päätöksiin. Yhden elämän aikana ihminen tekee rajallisen määrän merkittäviä
 päätöksiä. Hyvä päätös ei ole se, joka on tehty eniten tiedon kanssa, vaan se, joka on tehty
@@ -61,34 +60,11 @@ raportteina. Kun tämä tieto on hallinnassa, yritys voi ohjata toimintaansa koh
 jälkeä samalla, kun se kasvaa. Kasvu, joka ei kuluta ihmisiä eikä luontoa, on ainoa kasvu,
 joka kestää seuraavan vuosikymmenen.
 
-Tästä seuraa yksi käytännön näkemys: yritykset tulevat mittaamaan ympäristövaikutuksiaan
-yhtä tarkasti kuin taloudellista tulostaan. Vaikutusdata on uutta talousdataa. Se, mikä
+Tästä seuraa yksi käytännön näkemys: yritykset tulevat johtamaan ympäristövaikutuksia yhtä
+tarkasti kuin talouttaan. Se, mikä
 tänään näyttää raportointivelvoitteelta, on huomenna tapa nähdä oma jälki ja tehdä siitä
 kilpailukykyä. Yksi planeetta ei ole rajoite, joka estää kasvun. Se on kehys, joka kertoo,
 millainen kasvu on mahdollista.
-
-## Miksi yritys on osa ratkaisua?
-
-On helppoa ajatella yrityksiä ongelman aiheuttajina. Ne kuluttavat energiaa, tuottavat
-päästöjä ja kilpailevat resursseista. Mutta samat yritykset ovat ainoa rakenne, joka pystyy
-muuttamaan teollisen mittakaavan toimintaa teollisessa mittakaavassa. Valtio säätää,
-kansalainen valitsee, tutkija ymmärtää, mutta yritys toteuttaa. Rakennusyhtiö päättää, kuinka
-paljon materiaalia menee hukkaan. Energiayhtiö päättää, miten tuotanto ohjataan. Logistiikkayhtiö
-päättää, ajaako kalusto tyhjänä. Verkkokauppa päättää, kuinka paljon asiakkaan aikaa kuluu
-ennen ostopäätöstä.
-
-Siksi One Lifetime sanoo: tulevaisuuden yritys on osa ratkaisua, ei ongelmaa. Tämä ei ole
-toivomus vaan havainto siitä, missä vipuvarsi on. Yritys, joka löytyy verkosta, jonka tieto on
-hallinnassa, jonka prosessit toimivat, joka täyttää velvoitteensa ja joka hyödyntää
-automaatiota arjessaan, tekee samalla kolme asiaa: se menestyy, se ei kuluta ihmisiään loppuun
-ja sen jälki planeetalla pienenee. Nämä eivät ole kolme erillistä tavoitetta, joista pitäisi
-valita. Ne ovat saman hyvin johdetun yrityksen kolme puolta.
-
-Suomalaisella yrityksellä on tässä erityinen paikka. Pienessä maassa luottamus on
-infrastruktuuria. Sopimukset pitävät, viranomainen vastaa, tieto on saatavilla. Sellainen maa
-voi näyttää, miltä vastuullinen ja kilpailukykyinen digitalisaatio näyttää, kun se tehdään
-ihmisen ja luonnon ehdoilla eikä niitä vastaan. Tämä on kolmas syy: yritys on osa ratkaisua,
-koska ratkaisua ei ole olemassa ilman yrityksiä.
 
 ## Miksi teknologia on väline?
 
@@ -104,6 +80,9 @@ mutta havaintojen, oppimisen ja päätösten ketjun pitää säilyä. Jos yritys
 havaintonsa, oppimisensa ja päätöstensä perustelut aina, kun väline vaihtuu, se ei omista
 omaa ymmärrystään. Jos ketju säilyy, väline voi vaihtua vaikka joka vuosi.
 
+**Jos yritys menettää havaintonsa, oppimisensa ja päätöstensä perustelut aina, kun väline
+vaihtuu, se ei omista omaa ymmärrystään.**
+
 Ja se ratkaisee, mitä asiakas oikeastaan ostaa. Asiakas ei osta tekoälyä, agenttia eikä
 teknologiaa. Asiakas ostaa turvallisuuden tunteen, joka perustuu faktoihin ja evidenssiin: hän
 haluaa säilyttää ja kehittää ymmärrystä, varmistaa jatkuvuuden, säilyttää kilpailukykynsä ja
@@ -112,15 +91,45 @@ päätöksenteon ketjun. Turvallisuuden tunne ei synny lupauksista. Se syntyy fa
 kestävät aikaa. Jatkuvuus luo turvallisuuden. Ymmärrys luo kilpailukyvyn. Oppiminen
 mahdollistaa kasvun.
 
+Tästä seuraa myös, mitä hyvältä teknologialta pitää vaatia. Asiakas ei halua ymmärtää
+kaikkea. Hän haluaa ymmärtää oman tilanteensa riittävän hyvin tehdäkseen turvallisen
+päätöksen. Hyvä teknologia ei lisää tietoa loputtomasti. Hyvä teknologia vähentää
+epävarmuutta niin paljon, että ihminen voi tehdä päätöksen luottavaisesti.
+
+## Miksi yritys on osa ratkaisua?
+
+On helppoa ajatella yrityksiä ongelman aiheuttajina. Ne kuluttavat energiaa, tuottavat
+päästöjä ja kilpailevat resursseista. Mutta samat yritykset ovat ainoa rakenne, joka pystyy
+muuttamaan teollisen mittakaavan toimintaa teollisessa mittakaavassa. Valtio säätää,
+kansalainen valitsee, tutkija ymmärtää, mutta yritys toteuttaa. Rakennusyhtiö päättää, kuinka
+paljon materiaalia menee hukkaan. Energiayhtiö päättää, miten tuotanto ohjataan. Logistiikkayhtiö
+päättää, ajaako kalusto tyhjänä. Verkkokauppa päättää, kuinka paljon asiakkaan aikaa kuluu
+ennen ostopäätöstä. Kun rakennusyritys vähentää materiaalihukkaa viidellä prosentilla, se
+parantaa samalla kannattavuuttaan ja pienentää ympäristövaikutustaan. Sama päätös, kaksi
+tulosta.
+
+Siksi One Lifetime sanoo: tulevaisuuden yritys on osa ratkaisua, ei ongelmaa. Tämä ei ole
+toivomus vaan havainto siitä, missä vipuvarsi on. Yritys, joka löytyy verkosta, jonka tieto on
+hallinnassa, jonka prosessit toimivat, joka täyttää velvoitteensa ja joka hyödyntää
+automaatiota arjessaan, tekee samalla kolme asiaa: se menestyy, se ei kuluta ihmisiään loppuun
+ja sen jälki planeetalla pienenee. Nämä eivät ole kolme erillistä tavoitetta, joista pitäisi
+valita. Ne ovat saman hyvin johdetun yrityksen kolme puolta.
+
+Suomalaisella yrityksellä on tässä erityinen paikka. Pienessä maassa luottamus on
+infrastruktuuria. Sopimukset pitävät, viranomainen vastaa, tieto on saatavilla. Sellainen maa
+voi näyttää, miltä vastuullinen ja kilpailukykyinen digitalisaatio näyttää, kun se tehdään
+ihmisen ja luonnon ehdoilla eikä niitä vastaan. Tämä on kolmas syy: yritys on osa ratkaisua,
+koska ratkaisua ei ole olemassa ilman yrityksiä.
+
 ## Mitä tästä seuraa
 
 One Lifetime on siis neljä lausetta, jotka pitävät yhtä aikaa.
 
 Meillä on yksi elämä, joten ihmisen aika ja ihmisen vastuu ovat mittareita, eivät kuluja.
 Meillä on yksi planeetta, joten kasvu arvioidaan kantokyvyn sisällä, ei sen ulkopuolella.
-Yritys on osa ratkaisua, koska se on rakenne, joka toteuttaa muutoksen mittakaavassa.
 Teknologia on väline, joten sitä arvioidaan sen mukaan, mitä se ihmiselle ja yritykselle
 jättää jälkeensä, ei sen mukaan, kuinka uutta se on.
+Yritys on osa ratkaisua, koska se on rakenne, joka toteuttaa muutoksen mittakaavassa.
 
 Tekoäly voi oppia. Ihmiset voivat oppia. Parhaat tulokset syntyvät, kun molemmat oppivat ja
 ymmärtävät, miksi päätökset tehdään. Siksi rakennamme järjestelmiä, joissa havainnot,
@@ -131,6 +140,8 @@ Tämä on One Lifetime. Seuraavat tekstit tässä sarjassa kysyvät, miksi osa y
 nopeammin kuin kilpailijansa, miksi digitalisaatiohankkeet epäonnistuvat, mitä yrittäjän
 kannattaa automatisoida ensimmäisenä, miten tekoäly muuttaa asiantuntijatyötä ja miksi
 näkyvyys verkossa ratkaisee kilpailukyvyn. Jokainen niistä on tämän maailmanmallin sovellus.
+
+Tekoäly oppii. Ymmärtävä ihminen kantaa vastuun päätöksestä.
 
 ---
 
