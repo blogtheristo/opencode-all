@@ -1,6 +1,6 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 1.4 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 1.5 · **Date:** 2026-09-24 · **Status:** PROPOSAL — HIC review · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
 ## 0. Strategia (HIC + Copilot 24.09.2026, v1.4 lopullinen)
 
@@ -185,6 +185,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                         |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.5     | 2026-09-24 | Lopullinen roolimalli: onelifetime.world = akatemia (Journal, white paperit, research, seminaarit, esitykset, tapahtumat); jalostusketju ydinmekanismina, kaksi mallikierrosta; whitepapers/playbooks siirtyvät onelifetime.worldiin; jalostusrekisteri `docs/content-pipeline/chains.md`                                                       |
 | 1.4     | 2026-09-24 | Copilot BizChat -malli omaksuttu: WHY (lifetime.fi) / UNDERSTAND (Journal) / HOW (dws10.com) / BUY (dws10.com/buy); lifetime.fi = ekosysteemin tarkoituksen ja suunnan yläkerros, etusivu kertoo tarinan; WHY–UNDERSTAND-raja määritelty (≤600 vs 1 500–4 000 sanaa); arkkitehtuurisisältö siirtyy dws10.com:iin; §4 v1.3 säilytetty historiana |
 | 1.3     | 2026-09-24 | One Lifetime -brändin merkitys kirjattu (kestävä kehitys, ilmastonmuutoksen kääntäminen teknisin keinoin, elämän ainutkertaisuus, ihminen tasapainossa luonnon kanssa); hero, §4.2, §4.3 ja teollisuusrivi päivitetty; blogiin 0.0                                                                                                              |
 | 1.2     | 2026-09-24 | Copilot-arvio omaksuttu: Lifetime on brändi, "näe mahdollisuus"; hero "One Lifetime — Rakennetaan yrityksiä, jotka toimivat paremmin"; taktiset liidilupaukset siirretty DWS10:een; uusi osio Tulevaisuuden yritys; toimialat vaikutuksina; blogi nimetty Lifetime Scope Journaliksi; liiketoimintatason sarja 0                                |
@@ -323,3 +324,69 @@ Yksi lähdesivu viikossa tuottaa 12 kuukaudessa n. 50 Journal-tekstiä × 5 kiel
 1. Hyväksytäänkö "yksi lähde, neljä muotoa" -periaate ja viikkorytmi?
 2. Meta-adapteri some-jonoon: rakennetaanko (Graph API, tarvitsee Meta Business -tunnukset ympäristömuuttujina) vai jääkö Meta manuaaliseksi?
 3. Ensimmäinen lähdesivu: `compliance/` trust center (ehdotus) vai `investor-centre/` one-pager?
+
+## 11. Lopullinen roolimalli ja jalostusketju (HIC + Copilot 24.09.2026, v1.5)
+
+### 11.1 Kokonaisuus
+
+```
+                    One Lifetime
+
+                     lifetime.fi
+                  Missio · Suunta
+               Synteesi · Johtopäätökset
+                           ↓
+                onelifetime.world
+          Journal · White Papers · Seminars
+      Research · Presentations · Deep Learning
+                           ↓
+                     dws10.com
+         Solutions · Operations · Delivery
+     Compliance · Industry · Products · Hubs
+                           ↓
+                  dws10.com/buy
+                     Acquisition
+```
+
+| Sivusto           | Rooli                                                                                                                                                                                                                             | Sanoo                                                                                                                                                                          |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| lifetime.fi       | Missio, synteesi, johtopäätökset, maailman suunta                                                                                                                                                                                 | "Tässä on mitä olemme oppineet. Tässä on mihin maailma on menossa. Tässä on mitä One Lifetime tarkoittaa." Esim. _Miksi CSRD, tekoäly ja energiatransitio ovat samaa ilmiötä?_ |
+| onelifetime.world | Akatemia, ei blogi: Journal (lyhyet artikkelit), white paperit (pitkät analyysit), research notes, seminaaritallenteet, esitysmateriaalit, Lifetime Scope Journal, myyntitapahtumat (workshopit, roundtablet, asiakastilaisuudet) | "Selitä tämä minulle yksityiskohtaisesti."                                                                                                                                     |
+| dws10.com         | Faktat, ratkaisut, compliance, tuotteet, toteutus; hubit (Legal, Compliance, Partner, Investor, Customer) pysyvät hakemistomuodossa                                                                                               | "Näin tämä tehdään."                                                                                                                                                           |
+| dws10.com/buy     | Hankinta ja käyttöönotto                                                                                                                                                                                                          | "Tämän voit ostaa nyt."                                                                                                                                                        |
+
+**Ydinhavainto:** ongelma ei ole sisällön puute vaan **jalostusketjun puute**. DWS10 tuottaa tiedon; Lifetime tuottaa siitä merkityksen; OneLifetime syvällisen ymmärryksen; LinkedIn ja Meta keskustelun. Nyt tieto jää DWS10:n hakemistoihin (Hakemisto → Dokumentaatio → Prosessi → Vaatimus) sen sijaan että jatkaisi matkaa (Johtopäätös → Tarina → Merkitys). Siksi kampanjasivu tuntui kalpealta.
+
+### 11.2 Jalostusketju, kaksi mallikierrosta
+
+**Ketju 1 — suvereniteetti**
+DWS10 Legal Hub: CLOUD Act, DPA, alihankkijat
+→ lifetime.fi: _Digitaalinen suvereniteetti voi muodostua seuraavan vuosikymmenen kilpailueduksi._
+→ onelifetime.world white paper: _Digitaalinen suvereniteetti Euroopassa 2026–2035_ (pohja: sovereignty-sarja, 5 kieltä luonnoksina)
+→ LinkedIn: _Kolme syytä miksi datan sijainti ei enää riitä._
+→ Seminaari: _EU Sovereignty & AI Governance_ (tallenne onelifetime.worldiin)
+→ DWS10-tuote: Sovereign AI Deployment (DWS-EU-STARTER/PILOT, AIS-EU-SOV-OC, LF-DGX-SPARK)
+
+**Ketju 2 — vaikutusdata**
+DWS10 Compliance Hub: CSRD
+→ lifetime.fi: _Yritykset tulevat mittaamaan ympäristövaikutuksia yhtä tarkasti kuin taloudellista suorituskykyä._
+→ onelifetime.world Journal: _Miksi vaikutusdata on uusi talousdata?_
+→ LinkedIn: _Tuloskortti ei enää sisällä pelkkää rahaa._
+→ Workshop: _Future of Corporate Reporting_
+→ DWS10-tuote: Compliance Agent (CMP-T1), Climate Intelligence, Climate Reporting Starter Bundle
+
+Jokainen ketju kirjataan yhdeksi riviksi jalostusrekisteriin (`docs/content-pipeline/chains.md`, perustetaan vaiheessa A): lähde, johtopäätös, syvä teksti, some, tapahtuma, tuote, tila per kieli. Rekisteri on HIC:n näkymä siihen, mikä tieto on jalostettu ja mikä makaa hakemistossa.
+
+### 11.3 Mitä siirtyy onelifetime.worldiin
+
+- `dws10.com/whitepapers/` ja `dws10.com/playbooks/` (12 kohdetta) → onelifetime.world (UNDERSTAND). dws10.com:iin jää linkki tuotesivulta. Siirto `_OLD`-nimeämisellä, ei poistolla.
+- onelifetime.worldiin uudet osiot: `whitepapers/`, `research/`, `seminars/`, `presentations/`, `events/` (workshopit, roundtablet). Nykyiset `posts/` (24 fi), `case-studies/`, `pantheon/`, `dws-ontology/` pysyvät.
+- Seminaari- ja workshoptallenteet: Google Meet/Teams → Drive → onelifetime.world/seminars (linkki + tiivistelmä + slidet). Myyntitapahtumat ovat UNDERSTAND-kerroksen osa, eivät BUY:n.
+
+### 11.4 Ensimmäinen viikko (vaihe A, kun HIC hyväksyy)
+
+1. `docs/content-pipeline/chains.md` + kaksi ketjua §11.2 kirjattuina.
+2. lifetime.fi/fi etusivun tarina §1 nykyisessä ulkoasussa; kaksi ensimmäistä johtopäätöslausetta linkkeineen.
+3. Journal-luonnos _Miksi vaikutusdata on uusi talousdata?_ `/blog-draft`-portille.
+4. Some-jonoon 3 nostoa (2 LinkedIn, 1 Meta manuaalisesti) HIC:n hyväksyttäväksi.
+5. Whitepapers/playbooks-siirron inventaario onelifetime.worldiin (lista, ei vielä siirtoa).
