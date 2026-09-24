@@ -5,7 +5,7 @@ learning_delta: LD-2026-09-003
 world_model_version: 1.3.0
 hic_decision: APPLY
 approved_at: 2026-09-24
-applies_to: [dws10.com, dws10.com/buy, offering, workflows, onelifetime.world]
+applies_to: [dws10.com, dws10.com/buy]
 excluded: [lifetime.fi, investor-centre]
 source: docs/market-signals/2026-09-24-ford-smax-egr-aktiivinen-ontologia.md
 ---
@@ -33,8 +33,7 @@ concepts: Symptom, Candidate cause, Likelihood, Repair path, Recommended basket
 - dws10.com and /buy: ask what the customer is trying to achieve; return three relevant options
   with the reasoning and risk before the price; keep the rest of the 136-product catalogue in the
   background. Do not delete products; make the view intelligent.
-- Sales narrative: "the sale is decided by the least uncertainty, not the lowest price".
-- Funnel chapters (0/1): need before product.
+- Out of scope until a separate HIC decision: offering positioning, funnel chapters, Journal text (recorded as proposals in the registry).
 - **Excluded:** lifetime.fi (WHY layer shows no products) and Investor Centre. Merchants in the
   case are never named publicly.
 
