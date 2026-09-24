@@ -23,6 +23,7 @@
       ruledOut: {},
       success: '',
       pathKey: null,
+      ownership: { known: null, map: {} },
     };
   var params = new URLSearchParams(location.search);
   try {
@@ -106,6 +107,7 @@
         path: state.pathKey,
         answers: state.answers,
         success: anonymise(state.success),
+        ownership: state.ownership,
       },
       extra || {},
     );
@@ -367,13 +369,91 @@
             class: 'ao-btn',
             text: lang === 'fi' ? 'Näytä suositeltu eteneminen' : 'Show the recommended path',
             onclick: function () {
-              send('path_shown');
-              render('path');
+              render('ownership');
             },
           }),
         ]),
       );
       root.appendChild(qs);
+      return;
+    }
+    if (step === 'ownership') {
+      // Ownership is an ontological stage (LD-2026-09-007): Observation → Meaning → Ownership →
+      // Decision → Action → Outcome. Roles only, never names.
+      var own = cfg.ownership || { dimensions: [], roles: [] };
+      root.appendChild(el('h2', { class: 'ao-q', text: t('ownershipQ') }));
+      root.appendChild(el('p', { class: 'ao-hint', text: t('ownershipHint') }));
+      var kn = el('div', { class: 'ao-step' }, [
+        el(
+          'div',
+          { class: 'ao-chips' },
+          [
+            ['yes', 'ownYes'],
+            ['partly', 'ownPartly'],
+            ['no', 'ownNo'],
+          ].map(function (o) {
+            return el('button', {
+              class: 'ao-chip',
+              'aria-pressed': String(state.ownership.known === o[0]),
+              text: t(o[1]),
+              onclick: function () {
+                state.ownership.known = o[0];
+                render('ownership');
+              },
+            });
+          }),
+        ),
+      ]);
+      root.appendChild(kn);
+      if (state.ownership.known === 'no') {
+        root.appendChild(
+          el('div', { class: 'ao-step ao-discovery' }, [
+            el('h3', { text: t('discoveryLabel') }),
+            el('p', { text: t('discoveryText') }),
+          ]),
+        );
+      } else if (state.ownership.known) {
+        var mp = el('div', { class: 'ao-step' }, [el('h3', { text: t('mappingLabel') })]);
+        own.dimensions.forEach(function (d) {
+          mp.appendChild(
+            el('div', { class: 'ao-yn' }, [
+              el('div', {}, [document.createTextNode(L(d))]),
+              el(
+                'div',
+                { class: 'ao-chips' },
+                own.roles.map(function (r) {
+                  return el('button', {
+                    class: 'ao-chip ao-chip-sm',
+                    'aria-pressed': String(state.ownership.map[d.id] === r.id),
+                    text: L(r),
+                    onclick: function () {
+                      state.ownership.map[d.id] = r.id;
+                      render('ownership');
+                    },
+                  });
+                }),
+              ),
+            ]),
+          );
+        });
+        mp.appendChild(el('p', { class: 'ao-hint', text: t('mappingFirst') }));
+        root.appendChild(mp);
+      }
+      if (state.ownership.known) {
+        root.appendChild(
+          el('div', { class: 'ao-row', style: 'margin-top:14px' }, [
+            el('button', {
+              class: 'ao-btn',
+              text: t('continueOwn'),
+              onclick: function () {
+                send('ownership');
+                send('path_shown');
+                render('path');
+              },
+            }),
+          ]),
+        );
+      }
       return;
     }
     if (step === 'path') {

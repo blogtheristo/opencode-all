@@ -31,3 +31,8 @@
 .ao-summary div{padding:12px;border-radius:10px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)}
 .ao-summary small{color:#94a3b8;display:block}
 .ao-thanks{color:#94a3b8;font-size:.85rem;text-align:center;margin-top:12px}
+
+/* Ownership stage (LD-2026-09-007) */
+.ao-hint{opacity:.8;font-size:.95em;margin:4px 0 10px}
+.ao-chip-sm{font-size:.85em;padding:4px 10px}
+.ao-discovery{border-left:3px solid #FFD166;padding-left:14px}

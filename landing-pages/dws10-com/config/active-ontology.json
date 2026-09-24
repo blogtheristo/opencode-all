@@ -1,14 +1,15 @@
 {
   "_meta": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "date": "2026-09-24",
-    "purpose": "Active Ontology UX v2 — DISCOVER layer on dws10.com. Decision trap → recognise yourself → industry → diagnostic choices → uncertainty made visible → recommended path → solutions (products last). Spec: docs/specs/active-ontology-ux-v2.md. Learning deltas LD-2026-09-003/004/005 (HIC APPLY 24.09.2026).",
+    "purpose": "Active Ontology UX v2 — DISCOVER layer on dws10.com. Decision trap → recognise yourself → industry → diagnostic choices → uncertainty made visible → recommended path → solutions (products last). Spec: docs/specs/active-ontology-ux-v2.md. Learning deltas LD-2026-09-003/004/005 (HIC APPLY 24.09.2026). 1.1.0: Ownership stage (LD-2026-09-007, HIC APPLY 24.09.2026) — Observation → Meaning → Ownership → Decision → Action → Outcome; ownership is an ontological stage, not a UX feature.",
     "rules": [
       "Never chat-first.",
       "Never show products before the situation is understood.",
       "Every question says what it rules out.",
       "Prices only on /buy, never here.",
-      "Observations are anonymised before storage."
+      "Observations are anonymised before storage.",
+      "Ownership before path: ask whether it is known who can make the problem move; never ask for names, only roles."
     ]
   },
   "prompt": {
@@ -31,7 +32,18 @@
       "cta2": "Käynnistä arviointi",
       "skip": "Ohita",
       "thanks": "Kiitos. Tämä auttaa meitä ymmärtämään, mitä yritykset yrittävät saada aikaan.",
-      "otherIndustry": "Muu / en löydä omaani"
+      "otherIndustry": "Muu / en löydä omaani",
+      "ownershipQ": "Onko tiedossa, kuka voi saada tämän liikkeelle?",
+      "ownershipHint": "Ongelman tunteminen ei vielä riitä. Muutos syntyy, kun ongelma, päättäjä, toimintaoikeus ja ajoitus yhdistetään.",
+      "ownYes": "Kyllä",
+      "ownPartly": "Osittain",
+      "ownNo": "Ei",
+      "mappingLabel": "Päätöskartta — kenellä on mikäkin oikeus? (roolit, ei nimiä)",
+      "discoveryLabel": "Ensimmäinen työvaihe: omistajuuden selvitys",
+      "discoveryText": "Kaikki tietävät ongelman, kukaan ei omista sitä — tämä on tavallisin syy, miksi tunnettu ongelma ei liiku. Selvitämme ensin, kuka kärsii, kuka voi päättää, kuka omistaa budjetin, kuka tuottaa datan ja kuka vastaa lopputuloksesta.",
+      "mappingFirst": "Ensimmäinen työvaihe: päätöskartoitus",
+      "continueOwn": "Jatka suositeltuun etenemiseen",
+      "unknownRole": "Ei tiedossa"
     },
     "en": {
       "question": "Which decision is hard to make right now?",
@@ -52,7 +64,18 @@
       "cta2": "Start an assessment",
       "skip": "Skip",
       "thanks": "Thank you. This helps us understand what companies are trying to achieve.",
-      "otherIndustry": "Other / not listed"
+      "otherIndustry": "Other / not listed",
+      "ownershipQ": "Is it known who can make this problem move?",
+      "ownershipHint": "Knowing the problem is not enough. Change happens when the problem, the decision-maker, the right to act and the timing are connected.",
+      "ownYes": "Yes",
+      "ownPartly": "Partly",
+      "ownNo": "No",
+      "mappingLabel": "Decision map — who holds which right? (roles, not names)",
+      "discoveryLabel": "First work stage: Ownership Discovery",
+      "discoveryText": "Everyone knows the problem, nobody owns it — the most common reason a known problem does not move. We first establish who suffers, who can decide, who owns the budget, who produces the data and who owns the outcome.",
+      "mappingFirst": "First work stage: Decision Mapping",
+      "continueOwn": "Continue to the recommended path",
+      "unknownRole": "Not known"
     }
   },
   "recognise": [
@@ -187,26 +210,106 @@
       "keywords": ["verkkokaupp", "verkkosiv", "palvelu", "asiantuntija", "online", "shop"],
       "featured": true
     },
-    { "id": "steel", "fi": "Teräs", "en": "Iron & steel" },
-    { "id": "cement", "fi": "Sementti ja kalkki", "en": "Cement & lime" },
-    { "id": "aviation", "fi": "Ilmailu", "en": "Aviation" },
-    { "id": "maritime", "fi": "Merenkulku", "en": "Maritime shipping" },
-    { "id": "agriculture", "fi": "Maatalous", "en": "Agriculture & livestock" },
-    { "id": "waste", "fi": "Jäte ja kierrätys", "en": "Waste & recycling" },
-    { "id": "aluminium", "fi": "Alumiini", "en": "Aluminium" },
-    { "id": "pulp-paper", "fi": "Metsäteollisuus", "en": "Pulp, paper & printing" },
-    { "id": "refining", "fi": "Öljynjalostus", "en": "Petroleum refining" },
-    { "id": "food", "fi": "Elintarvike", "en": "Food & beverage" },
-    { "id": "glass", "fi": "Lasi ja keramiikka", "en": "Glass & ceramics" },
-    { "id": "mining", "fi": "Kaivos", "en": "Mining & quarrying" },
-    { "id": "real-estate", "fi": "Kiinteistöt", "en": "Real estate" },
-    { "id": "manufacturing", "fi": "Valmistava teollisuus", "en": "Manufacturing (cross-sector)" },
-    { "id": "healthcare", "fi": "Terveydenhuolto", "en": "Healthcare" },
-    { "id": "financial", "fi": "Rahoitusala", "en": "Financial services" },
-    { "id": "public", "fi": "Julkinen sektori", "en": "Public sector" },
-    { "id": "shipbuilding", "fi": "Laivanrakennus", "en": "Shipbuilding" },
-    { "id": "data-centres", "fi": "Datakeskukset", "en": "Data centres" },
-    { "id": "hydrogen", "fi": "Vety ja e-polttoaineet", "en": "Green H2 & e-fuels" }
+    {
+      "id": "steel",
+      "fi": "Teräs",
+      "en": "Iron & steel"
+    },
+    {
+      "id": "cement",
+      "fi": "Sementti ja kalkki",
+      "en": "Cement & lime"
+    },
+    {
+      "id": "aviation",
+      "fi": "Ilmailu",
+      "en": "Aviation"
+    },
+    {
+      "id": "maritime",
+      "fi": "Merenkulku",
+      "en": "Maritime shipping"
+    },
+    {
+      "id": "agriculture",
+      "fi": "Maatalous",
+      "en": "Agriculture & livestock"
+    },
+    {
+      "id": "waste",
+      "fi": "Jäte ja kierrätys",
+      "en": "Waste & recycling"
+    },
+    {
+      "id": "aluminium",
+      "fi": "Alumiini",
+      "en": "Aluminium"
+    },
+    {
+      "id": "pulp-paper",
+      "fi": "Metsäteollisuus",
+      "en": "Pulp, paper & printing"
+    },
+    {
+      "id": "refining",
+      "fi": "Öljynjalostus",
+      "en": "Petroleum refining"
+    },
+    {
+      "id": "food",
+      "fi": "Elintarvike",
+      "en": "Food & beverage"
+    },
+    {
+      "id": "glass",
+      "fi": "Lasi ja keramiikka",
+      "en": "Glass & ceramics"
+    },
+    {
+      "id": "mining",
+      "fi": "Kaivos",
+      "en": "Mining & quarrying"
+    },
+    {
+      "id": "real-estate",
+      "fi": "Kiinteistöt",
+      "en": "Real estate"
+    },
+    {
+      "id": "manufacturing",
+      "fi": "Valmistava teollisuus",
+      "en": "Manufacturing (cross-sector)"
+    },
+    {
+      "id": "healthcare",
+      "fi": "Terveydenhuolto",
+      "en": "Healthcare"
+    },
+    {
+      "id": "financial",
+      "fi": "Rahoitusala",
+      "en": "Financial services"
+    },
+    {
+      "id": "public",
+      "fi": "Julkinen sektori",
+      "en": "Public sector"
+    },
+    {
+      "id": "shipbuilding",
+      "fi": "Laivanrakennus",
+      "en": "Shipbuilding"
+    },
+    {
+      "id": "data-centres",
+      "fi": "Datakeskukset",
+      "en": "Data centres"
+    },
+    {
+      "id": "hydrogen",
+      "fi": "Vety ja e-polttoaineet",
+      "en": "Green H2 & e-fuels"
+    }
   ],
   "paths": {
     "chemicals:carbon": {
@@ -332,7 +435,10 @@
       ]
     },
     "construction:reporting": {
-      "situation": { "fi": "Raportointi vie liikaa aikaa", "en": "Reporting takes too much time" },
+      "situation": {
+        "fi": "Raportointi vie liikaa aikaa",
+        "en": "Reporting takes too much time"
+      },
       "causes": [
         {
           "id": "manual-collection",
@@ -703,7 +809,10 @@
       ]
     },
     "*:nis2": {
-      "situation": { "fi": "NIS2 huolestuttaa", "en": "NIS2 worries us" },
+      "situation": {
+        "fi": "NIS2 huolestuttaa",
+        "en": "NIS2 worries us"
+      },
       "causes": [
         {
           "id": "scope-unknown",
@@ -849,7 +958,10 @@
           "Measure hours saved per week"
         ]
       },
-      "goal": { "fi": "5–10 tuntia viikossa takaisin", "en": "5–10 hours a week back" },
+      "goal": {
+        "fi": "5–10 tuntia viikossa takaisin",
+        "en": "5–10 hours a week back"
+      },
       "weeks": 4,
       "solutions": [
         {
@@ -872,7 +984,10 @@
       ]
     },
     "*:strategy": {
-      "situation": { "fi": "Emme tiedä, mistä aloittaa", "en": "We don't know where to start" },
+      "situation": {
+        "fi": "Emme tiedä, mistä aloittaa",
+        "en": "We don't know where to start"
+      },
       "causes": [
         {
           "id": "too-many-options",
@@ -946,5 +1061,81 @@
         }
       ]
     }
+  },
+  "ownership": {
+    "dimensions": [
+      {
+        "id": "impact",
+        "fi": "Kuka kärsii ongelmasta?",
+        "en": "Who suffers from the problem?"
+      },
+      {
+        "id": "decision",
+        "fi": "Kuka voi tehdä päätöksen?",
+        "en": "Who can make the decision?"
+      },
+      {
+        "id": "budget",
+        "fi": "Kuka omistaa budjetin?",
+        "en": "Who owns the budget?"
+      },
+      {
+        "id": "data",
+        "fi": "Kuka tuottaa datan?",
+        "en": "Who produces the data?"
+      },
+      {
+        "id": "outcome",
+        "fi": "Kuka vastaa lopputuloksesta?",
+        "en": "Who owns the outcome?"
+      }
+    ],
+    "roles": [
+      {
+        "id": "ceo",
+        "fi": "Toimitusjohtaja",
+        "en": "CEO"
+      },
+      {
+        "id": "coo",
+        "fi": "COO / tuotantojohtaja",
+        "en": "COO / production"
+      },
+      {
+        "id": "cfo",
+        "fi": "CFO / talous",
+        "en": "CFO / finance"
+      },
+      {
+        "id": "sustainability",
+        "fi": "Kestävyys / ESG",
+        "en": "Sustainability / ESG"
+      },
+      {
+        "id": "digital",
+        "fi": "Digitalisaatio / IT",
+        "en": "Digitalisation / IT"
+      },
+      {
+        "id": "quality",
+        "fi": "Laatu / HSE",
+        "en": "Quality / HSE"
+      },
+      {
+        "id": "bu",
+        "fi": "Liiketoimintayksikkö",
+        "en": "Business unit"
+      },
+      {
+        "id": "board",
+        "fi": "Hallitus",
+        "en": "Board"
+      },
+      {
+        "id": "unknown",
+        "fi": "Ei tiedossa",
+        "en": "Not known"
+      }
+    ]
   }
 }

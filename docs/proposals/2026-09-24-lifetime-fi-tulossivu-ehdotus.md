@@ -1,6 +1,6 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 2.9 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 3.0 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
 ## 0. Strategia (HIC + Copilot 24.09.2026, v1.4 lopullinen)
 
@@ -278,6 +278,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                         |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 3.0     | 2026-09-24 | §15.2 LD-007 APPLY: omistajuusvaihe tuotemalliin (Active Ontology 1.1.0, migration 090); hero/positiointi poissuljettu                                                                                                                                                                                                                          |
 | 2.9     | 2026-09-24 | §15.2 ketju tarkennettu Havainto→Ymmärrys→Vastuu→Toiminta→Vaikutus; kategoriamääritelmä; kilpailukykylause v2                                                                                                                                                                                                                                   |
 | 2.8     | 2026-09-24 | §15.2 omistajuusporras ja hero v3 -ehdotus (MS-007, PENDING)                                                                                                                                                                                                                                                                                    |
 | 2.7     | 2026-09-24 | §15.1 terävöitetty kolmirivinen ketju heroon; compliance-periaate (ei otsikossa/tuotteessa/viestissä) kirjattu                                                                                                                                                                                                                                  |
@@ -687,7 +688,17 @@ hero-tekstit säilytetty kommentteina sivuilla (Rule 12). "Kun haluat johtaa ep�
 ymmärrykseksi" jää §15:n ydinlauseeksi sisäiseen käyttöön ja Journaliin. Tuoteperheen nimet
 (Discover/Understand/Decide/Execute/Learn) odottavat edelleen erillistä päätöstä.
 
-### 15.2 Ehdotus 24.09.2026 — omistajuusporras (MS-2026-09-007, odottaa APPLY)
+### 15.2 HIC APPLY 24.09.2026 — omistajuus ontologisena vaiheena (LD-2026-09-007)
+
+**Päätös:** APPLY tuotemalliin ja DISCOVER-diagnostiikkaan. Hero, positiointi ja
+markkinointiotsikot ennallaan: päätösoikeuksien kartta on poliittinen väite, jota ei myydä vaan
+se löydetään. Ensimmäinen kysymys on "Onko omistajuus tiedossa?" (ei → Ownership Discovery,
+kyllä → Decision Mapping). Toteutus: Active Ontology 1.1.0, migration 090. Kilpailukyvyn
+määritelmä (HIC): _Menestyvät organisaatiot tunnistavat muutokset aikaisemmin, ymmärtävät niiden
+vaikutukset nopeammin, yhdistävät ongelmat oikeisiin päättäjiin nopeammin ja toimivat ennen
+kilpailijoitaan._
+
+**Alkuperäinen ehdotus (säilytetty):**
 
 Boardyn kysymys "Kuka omistaa ongelman?" ja Kemira-case (Sustainability käyttäjä, Production
 data, Digitalisation järjestelmät, COO päätösoikeus, CFO budjetti) tuottavat ketjuun kaksi

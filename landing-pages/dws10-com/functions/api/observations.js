@@ -8,6 +8,7 @@ const EVENTS = new Set([
   'recognise',
   'industry',
   'answer',
+  'ownership',
   'path_shown',
   'success',
   'selected',
@@ -21,6 +22,27 @@ function json(body, status) {
 }
 function str(v, max) {
   return typeof v === 'string' ? v.trim().slice(0, max) : null;
+}
+const OWN_DIMS = new Set(['impact', 'decision', 'budget', 'data', 'outcome']);
+const OWN_ROLES = new Set([
+  'ceo',
+  'coo',
+  'cfo',
+  'sustainability',
+  'digital',
+  'quality',
+  'bu',
+  'board',
+  'unknown',
+]);
+// Ownership stage (LD-2026-09-007): roles only, whitelisted; anything else is dropped.
+function ownership(o) {
+  if (!o || typeof o !== 'object') return null;
+  const known = ['yes', 'partly', 'no'].includes(o.known) ? o.known : null;
+  const map = {};
+  if (o.map && typeof o.map === 'object')
+    for (const [k, v] of Object.entries(o.map)) if (OWN_DIMS.has(k) && OWN_ROLES.has(v)) map[k] = v;
+  return known ? { known, map } : null;
 }
 function anonymise(s) {
   return s
@@ -62,6 +84,7 @@ export async function onRequestPost(context) {
     recommended_sku: str(input.recommended_sku, 64),
     selected_sku: str(input.selected_sku, 64),
     result: str(input.result, 64),
+    ownership_map: ownership(input.ownership),
     question_id: str(input.question, 64),
     answer: str(input.answer, 8),
     source: 'website',

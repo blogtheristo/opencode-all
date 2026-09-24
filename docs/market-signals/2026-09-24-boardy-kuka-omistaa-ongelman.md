@@ -20,7 +20,7 @@ evidence:
     proposed_chain_steps: 6,
   }
 affected: [dws10.com, dws10.com/buy, active-ontology, positioning, workflows]
-status: proposed
+status: accepted
 hypothesis: "Kun Active Ontologian diagnoosi tuottaa havainnon lisäksi omistajuuskartan (roolit × kärsii/päättää/budjetti/data/vastuu), kävijä osaa viedä asian oikealle henkilölle ja myyntikeskustelu alkaa päätöksentekijästä eikä käyttäjästä. Mittari: konsultaatiovarauksissa päätösoikeudellinen rooli (COO/CFO/BU-johtaja) ≥ 30 % 90 päivässä."
 refuting_evidence: "Jos kävijät eivät osaa tai halua nimetä rooleja (tyhjät omistajuuskentät > 70 %), omistajuuskartta kuuluu myyntikeskusteluun, ei itsepalveluun."
 learning_delta:
@@ -28,32 +28,34 @@ learning_delta:
   old_assumption: "Ketju Tilannetietoisuus → Johtaminen → Muutoskyky → Kilpailukyky riittää; havainto johtaa suoraan päätökseen."
   new_learning: "Havainnon ja vaikutuksen välissä on kolme porrasta: ymmärrys (mitä tämä tarkoittaa), vastuu (ketä koskee, kenellä on oikeus toimia) ja toiminta (mitä seuraavaksi). Tuote, joka pysähtyy havaintoon, on dashboard; tuote, joka yhdistää ongelman päättäjään, toimintaoikeuteen ja ajoitukseen, on johtamisjärjestelmä. Kategoriamääritelmä: organisaation ymmärrysjärjestelmä, jonka tehtävä on yhdistää havainto, vastuu ja toiminta yhdeksi jatkuvaksi ketjuksi."
   ontology_change: "Observation-entiteettiin lisätään ownership_map: { suffers, decides, budget, data, accountable } roolitasolla (ei henkilöitä, ei PII). Active Ontology -polkuihin (config/active-ontology.json) lisätään roolit per polku."
-  hic_decision: PENDING
-  decision_reasoning: null
-  applied_to: []
-  excluded: []
-  approved_by: null
-  approved_at: null
-  effective_from: null
-  world_model_version: 1.7.0-proposed
-decision: null
+  hic_decision: APPLY
+  decision_reasoning: "HIC 24.09.2026: APPLY kokonaisuutena — mutta ei heroon. Omistajuus ei ole copy-muutos eikä UX-ominaisuus vaan DWS IQ:n ydinkyvykkyys ja ontologinen vaihe: Observation → Meaning → Ownership → Decision → Action → Outcome. Boardyn 'who owns the problem?' korjataan muotoon 'who can make the problem move?': Owner ≠ Decision Rights ≠ Budget ≠ Data Owner ≠ Impact Owner; tehtävä ei ole löytää yhtä omistajaa vaan yhdistää Problem → Impact → Decision Rights → Action Rights → Outcome Ownership samaan malliin. Ensimmäinen kysymys ei ole 'kuka omistaa' vaan 'onko omistajuus tiedossa': ei → Ownership Discovery, kyllä → Decision Mapping. 'Päätösoikeuksien kartta' on poliittinen väite, joten sitä ei myydä, se löydetään diagnostiikassa (ongelma ei ole data, raportointi eikä järjestelmä vaan epäselvä omistajuus). Kategoria: ERP = mitä tapahtui; BI = mitä data näyttää; DWS IQ = mitä tämä tarkoittaa, ketä tämä koskee, kenellä on päätösvalta, mitä seuraavaksi pitäisi tehdä — ja miten ongelma yhdistetään päättäjään, joka kykenee saamaan muutoksen aikaan. Kilpailukyvyn määritelmä: Menestyvät organisaatiot tunnistavat muutokset aikaisemmin, ymmärtävät niiden vaikutukset nopeammin, yhdistävät ongelmat oikeisiin päättäjiin nopeammin ja toimivat ennen kilpailijoitaan. Ei datasta, ei dashboardista, ei compliance-raportista, vaan nopeammasta oppimisesta ja toiminnasta. Hero pysyy ('Tilannetietoisuudesta kilpailukykyyn.' + kolmirivinen ketju); hero muuttuu vasta jos oppiminen kestää aikaa. Kemira-vastaus Boardylle: emme vielä tiedä, ja juuri se on löydös — tehtävä on ensin selvittää, kuka voi saada ongelman liikkumaan."
+  applied_to:
+    [active-ontology, dws10.com DISCOVER-diagnostiikka, data-pipeline, workflows, strategy, journal]
+  excluded: [dws10.com hero, positiointi, markkinointiotsikot, lifetime.fi, investor-centre]
+  approved_by: HIC
+  approved_at: 2026-09-24
+  effective_from: 2026-09-24
+  world_model_version: 1.7.0
+decision: ownership_stage_v1
 comprehension: "HIC 24.09.2026: 'Tässä kohtaa Active Ontology muuttuu teoriasta tuotteeksi.' Boardyn ERP/BI-kategoriahuoli katoaa, kun DWS IQ vastaa: mitä tämä tarkoittaa, kenen pitäisi välittää, kenellä on päätösoikeus, mitä seuraavaksi."
 application_decision:
-  applies_to: []
-  does_not_apply_to: []
+  applies_to: [active-ontology, dws10.com DISCOVER, data-pipeline, workflows, strategy, journal]
+  does_not_apply_to: [dws10.com hero, positiointi, lifetime.fi, investor-centre]
   basis: [MS-2026-09-002, MS-2026-09-004, MS-2026-09-006, Kemira-case]
-  valid_until: null
+  valid_until: 2026-12-31 tai kun 100 omistajuusvastausta on kertynyt
   affects: [dws10.com hero, DISCOVER-diagnoosi, website_observations-skeema, Chapter 14 CLASSIFY]
 dispatched_runs:
-  - "PROPOSED: dws10.com hero v3 (organisaation ymmärrysjärjestelmä; ketju Havainto → Ymmärrys → Vastuu → Toiminta → Vaikutus; kilpailukykylause v2) — odottaa APPLY"
-  - "PROPOSED: Active Ontology diagnose-vaiheeseen omistajuuskysymys 'Kenellä tämä on pöydällä?' (roolivalinta, ei nimiä) → ownership_map"
-  - "PROPOSED: migration 090 website_observations.ownership_map jsonb (additive)"
-  - "PROPOSED: Chapter 14 CLASSIFY lisää owner_role-kentän signaaliin"
+  - "EXCLUDED (HIC): hero v3 — hero ja positiointi ennallaan"
+  - "DONE: Active Ontology 1.1.0 ownership-vaihe diagnose → ownership → path: 'Onko tiedossa, kuka voi saada tämän liikkeelle?' → Ei = Ownership Discovery, Kyllä/Osittain = Decision Mapping (5 ulottuvuutta × roolit, ei nimiä) → ownership_map (config/active-ontology.json, shared-assets/discover/active-ontology.js, functions/api/observations.js)"
+  - "DONE: migration 090_240926_website_observations_ownership.sql (additive; ajo RED)"
+  - "TODO: Chapter 14 CLASSIFY lisää ownership_known + owner_roles signaaliin (PR #2059 mergen jälkeen)"
+  - "TODO: Journal-teksti 'Kaikki tietävät ongelman, kukaan ei omista sitä' (sarja 0, teksti 2; Rule 13)"
 impact:
-  - { target: positioning, status: proposed, note: kuusiporrasketju }
-  - { target: dws10.com, status: proposed, note: hero v3 + omistajuuskysymys }
-  - { target: active-ontology, status: proposed, note: ownership_map per polku }
-  - { target: workflows, status: proposed, note: Chapter 14 owner_role }
+  - { target: positioning, status: accepted, note: kuusiporrasketju }
+  - { target: dws10.com, status: accepted, note: hero v3 + omistajuuskysymys }
+  - { target: active-ontology, status: accepted, note: ownership_map per polku }
+  - { target: workflows, status: accepted, note: Chapter 14 owner_role }
 evaluation: null
 ---
 
@@ -94,6 +96,5 @@ Sama ketju kolmessa kerroksessa (yksi objekti, kolme nimeä):
 
 ## Seuraava solmu
 
-SHOW_TO_HIC → HIC_APPROVAL_GATE → APPLY_LEARNING_GATE (LD-007). Kysymys HIC:lle: APPLY
-kokonaisuutena (positiointi + tuote), PARTIAL (vain tuote: omistajuuskysymys diagnoosiin, hero
-ennallaan) vai DEFER.
+APPLY_LEARNING_GATE läpäisty 24.09.2026 (APPLY, hero ja positiointi poissuljettu). Seuraava:
+Chapter 14 CLASSIFY ownership-kentät; Journal-teksti; evaluointi kun 100 omistajuusvastausta.
