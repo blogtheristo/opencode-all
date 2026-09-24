@@ -1,0 +1,43 @@
+---
+title: "MS-2026-09-003 — Passive → active ontology: customers buy a hypothesis, not a part"
+signal_id: MS-2026-09-003
+learning_delta: LD-2026-09-003
+world_model_version: 1.3.0
+hic_decision: APPLY
+approved_at: 2026-09-24
+applies_to: [dws10.com, dws10.com/buy, offering, workflows, onelifetime.world]
+excluded: [lifetime.fi, investor-centre]
+source: docs/market-signals/2026-09-24-ford-smax-egr-aktiivinen-ontologia.md
+---
+
+# Applied learning (world model 1.3.0)
+
+**Old assumption.** Agentic Commerce = product recommendation. A store's job is to show products.
+
+**New learning.** Agentic Commerce = removing uncertainty + understanding the need + reasoning on
+the customer's behalf + purchase as a by-product. A passive ontology shows products; an active
+ontology starts from the symptom and answers "what is the customer trying to achieve".
+
+**Chain the system must run for the customer**
+`Observation → Candidate causes → Evidence → Likelihood → Repair paths → Required parts → Purchase options`
+(B2B: `Need → Situation → Industry → Goal → Risks → 3 relevant options → Purchase path`).
+
+**Evidence.** One documented case (24.09.2026): symptom-first repair, nine manual steps, a
+92 € new-part sale lost by the merchant not on price or availability but on diagnostics; the
+customer would have bought the whole repair kit had the reasoning been done for them. New
+concepts: Symptom, Candidate cause, Likelihood, Repair path, Recommended basket
+(likely / possible / to-check).
+
+**How agents must use this.**
+
+- dws10.com and /buy: ask what the customer is trying to achieve; return three relevant options
+  with the reasoning and risk before the price; keep the rest of the 136-product catalogue in the
+  background. Do not delete products; make the view intelligent.
+- Sales narrative: "the sale is decided by the least uncertainty, not the lowest price".
+- Funnel chapters (0/1): need before product.
+- **Excluded:** lifetime.fi (WHY layer shows no products) and Investor Centre. Merchants in the
+  case are never named publicly.
+
+**Open refuting test.** 60 days after the first active need-view ships on dws10.com: buy→checkout
+drop-off must fall and wrong-recommendation rate stay under 1/20; otherwise the view is not
+genuinely active.

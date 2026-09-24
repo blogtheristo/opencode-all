@@ -9,12 +9,14 @@ date: 2026-09-24
 observed_at: 2026-09-24
 signal_at: 2026-09-24
 insight_at: 2026-09-24
+decided_at: 2026-09-24
+kb_updated_at: 2026-09-24
 observer: HIC
 confidence: high
 occurrences: 1
 evidence: {cases: 1, lost_sale_eur: 92, alternative_used_eur: 26, manual_steps: 9, models_sharing_part: 3}
 affected: [dws10.com, dws10.com/buy, offering, workflows, onelifetime.world]
-status: signal
+status: accepted
 hypothesis: Kun dws10.com:n katalogi (136 tuotetta) muutetaan passiivisesta hinnastosta aktiiviseksi ontologiaksi (tarve → tilanne → toimiala → tavoite → riskit → 3 relevanttia vaihtoehtoa → ostopolku), ostopolun keskeytykset vähenevät ja keskikauppa nousee, koska kauppa ratkeaa epävarmuuden vähenemiseen eikä hintaan. Tuotteita ei tarvitse poistaa; näkymästä tehdään älykäs.
 refuting_evidence: Jos 60 päivän kuluessa aktiivisen tarve-näkymän julkaisusta dws10.com:lla ostopolun keskeytykset (buy → checkout) eivät laske tai ostajat pyytävät edelleen ensin hinnastoa, hypoteesi on väärä tai näkymä ei ole aidosti aktiivinen. Toinen kumoaja: suositus osoittautuu väärin päätellyksi (väärä osa / väärä tuote) useammin kuin 1/20 tapauksessa.
 learning_delta:
@@ -22,19 +24,31 @@ learning_delta:
   old_assumption: "Agentic Commerce = tuotesuositus. Verkkokaupan tehtävä on näyttää tuotteet."
   new_learning: "Agentic Commerce = epävarmuuden poistaminen + tarpeen ymmärtäminen + päättely asiakkaan puolesta + ostaminen. Passiivinen ontologia → aktiivinen ontologia, joka lähtee oireesta eikä osasta."
   ontology_change: "Lisätään käsitteet Oire, Ehdokassyy, Todennäköisyys, Korjauspolku ja Ostoskori-suositus (todennäköinen / mahdollinen / tarkistettava). Asiakas–tuote-suhde: vanha oletus 'asiakas valitsee tuotteen katalogista'; uusi 'asiakas ilmaisee tavoitteen; ontologia päättelee tilanteen, toimialan, riskit ja kolme vaihtoehtoa'. Lisätään käsitteet Tarve, Tavoite, Epävarmuus ja Ostosuositus; tuote on niiden seuraus, ei lähtökohta."
-  hic_decision: PENDING
-  applied_to: []
-  excluded: []
-decision: null
-comprehension: null
-application_decision_proposal:
+  hic_decision: APPLY
+  decision_reasoning: "HIC 24.09.2026: APPLY. Kauppa ratkeaa vähäisimpään epävarmuuteen; dws10.com:n katalogista tehdään aktiivinen tarve-näkymä, tuotteita ei poisteta. lifetime.fi (WHY) ja Investor Centre eivät sovella."
+  applied_to: [dws10.com, dws10.com/buy, offering, workflows, onelifetime.world]
+  excluded: [lifetime.fi, investor-centre, merchant-public-naming]
+  approved_by: HIC
+  approved_at: 2026-09-24
+  effective_from: 2026-09-24
+  world_model_version: 1.3.0
+decision: active_ontology_buy_layer_v1
+comprehension: "HIC 24.09.2026: en ollut ostamassa osaa vaan hypoteesia; kauppias hävisi diagnostiikkaan; sama pätee DWS IQ:iin — asiakas haluaa varmistua, että ratkaisee oikean ongelman."
+application_decision:
   applies_to: [dws10.com (tarve-näkymä: 'Miten vähennän raportointia / täytän NIS2:n / saan lisää liidejä / automatisoin tarjoukset' → 3 vaihtoehtoa), dws10.com/buy (suositus + perustelu ennen hintaa), offering (Agentic Commerce 365 -positiointi: 'vähäisin epävarmuus, ei halvin hinta'), workflows (Chapter 0/1 funnel: tarve ennen tuotetta), onelifetime.world (Journal-teksti 'Passiivisesta aktiiviseen ontologiaan' Ford S-Max -esimerkillä)]
   does_not_apply_to: [lifetime.fi (WHY-kerros ei näytä tuotteita), investor-centre (erillinen päätös), Aeromotors/Ovoko julkinen nimeäminen (esimerkki kirjoitetaan 'varaosakauppa A / käytettyjen osien alusta B')]
   basis: [MS-2026-09-003, products.json v1.30 (136 tuotetta), Agentic Commerce 365 (AC365-T3)]
   valid_until: 2026-12-31 tai ensimmäisen aktiivisen tarve-näkymän 60 pv arviointi
   affects: [dws10.com-ostajat pk ja teollisuus, Agentic Commerce -asiakkaat]
 dispatched_runs: []
-impact: []
+impact:
+  - {target: dws10.com, status: not started, note: tarve-näkymä 'Mitä yrität saada aikaan?' → 3 vaihtoehtoa; katalogi taustalle}
+  - {target: dws10.com/buy, status: not started, note: suositus ja perustelu ennen hintaa; ostoskori-suositus todennäköinen/mahdollinen/tarkistettava}
+  - {target: offering, status: not started, note: Agentic Commerce 365 -positiointi 'vähäisin epävarmuus'}
+  - {target: workflows, status: not started, note: Chapter 0/1 funnel tarve ennen tuotetta; refiner-ehdotus}
+  - {target: onelifetime.world, status: not started, note: Journal 'Passiivisesta aktiiviseen ontologiaan' anonymisoidulla esimerkillä}
+  - {target: lifetime.fi, status: excluded}
+  - {target: investor-centre, status: excluded}
 evaluation: null
 ---
 
