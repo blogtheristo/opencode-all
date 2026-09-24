@@ -4,9 +4,9 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const ROOT = resolve(process.cwd());
-const CATALOG_VERSION = '1.30';
+const CATALOG_VERSION = '1.31';
 const CONSULTING_VERSION = '1.33';
-const EFFECTIVE = '2026-09-15';
+const EFFECTIVE = '2026-09-24';
 const BUY_EFFECTIVE = '2026-08-30';
 const LIFETIME_PAGE_EFFECTIVE = '2026-08-30';
 const NEXT_REVIEW = '2026-11-15';
