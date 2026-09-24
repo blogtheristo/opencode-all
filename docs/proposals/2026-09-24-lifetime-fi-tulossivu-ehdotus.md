@@ -141,3 +141,55 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 | ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1.1     | 2026-09-24 | HIC/Copilot tarkennus: yhden lauseen strategia (§0), hero ja viisi tulosta, toimialataulukko, Tulospolku, hinnastot ja tuotelinkit pois lifetime.fi:ltä, Consulting siirtyy DWS10:een |
 | 1.0     | 2026-09-24 | Ensimmäinen ehdotus: kolmen sivuston työnjako, siirtotaulukko, blogin kattavuuskartta                                                                                                 |
+
+## 8. Blogitekstit, kampanjat ja näkyvyys (HIC 24.09.2026 lisäys)
+
+### 8.1 Blogitekstit — "blogi opettaa" (jokainen fi/sv/en/de/fr, julkaisu Rule 13 -portin kautta)
+
+Sarja A — Perusteet pienyrittäjälle (kirjoitetaan ensin; lifetime.fi §4.2 linkittää näihin):
+
+1. Mikä on SEO ja miksi yritykseni ei löydy Googlesta
+2. Miten hakukonenäkyvyys syntyy: Google-yritysprofiili, sivut, arvostelut
+3. Miten verkkokauppa toimii: tuote, kori, maksu, toimitus, kuitti
+4. Mikä on tekoälyagentti – ja mikä se ei ole
+5. Mikä on Microsoft Copilot, mitä se tekee ja mitä ei (pohja: `agent-classes-copilot-vs-dws-iq.fi.md`)
+6. Mikä on MCP: miten tekoäly käyttää yrityksen omia järjestelmiä
+7. Mitä automaatio tarkoittaa käytännössä: tarjous, lasku, raportti
+8. Mitä 5–10 tuntia viikossa oikeasti tarkoittaa yrittäjälle (laskuesimerkki)
+
+Sarja B — Velvoitteet selkokielellä (dws10.com teollisuusasiakkaalle): 9. Mikä on CSRD ja koskeeko se minua 10. Mikä on CBAM ja kenen pitää raportoida 11. Mikä on päästökauppa (ETS) yrityksen näkökulmasta 12. Mikä on NIS2 ja mitä se vaatii toimitusketjulta
+
+Sarja C — Parkissa olevat luonnokset julkaisuun (12 kpl `docs/blog-drafts/`): ai-vendor-dependency 1–3, sovereignty-sarja (en/fi/sv/de/fr), kya-s1 (en/fi), hic-hallintamalli, lifetime-world-model, teollisuuden-prosessikuvaustavat. Jokainen näytetään HIC:lle yhtenä koodilohkona ennen julkaisua.
+
+Muoto: jokaisen tekstin lopussa kolme linkkiä samassa järjestyksessä: _Mitä tästä seuraa yritykselle_ → lifetime.fi · _Miten toteutetaan_ → dws10.com · _Seuraava selitys_ → blogi. Ei hintoja, ei tarjouksia blogissa.
+
+### 8.2 Tuotteita tukevat kampanjat (dws10.com myy; lifetime.fi näyttää tuloksen; blogi selittää)
+
+| Kampanja                               | Tuote (dws10.com)                                                  | Lifetime.fi-tulos                  | Blogitekstit (§8.1) | Kanava                                                     |
+| -------------------------------------- | ------------------------------------------------------------------ | ---------------------------------- | ------------------- | ---------------------------------------------------------- |
+| Syksy 2026 A5 (olemassa)               | WEB-STARTER 650 €, WEBSTORE-MINI 350 €                             | Lisää yhteydenottoja; verkkokauppa | 1, 2, 3             | Printti Espoo/Kirkkonummi, WhatsApp, Google-profiili       |
+| "Illat takaisin"                       | Automaatio-startti (tarjous/lasku/raportti) – tuotteistus puuttuu  | Vähemmän manuaalista työtä         | 7, 8                | LinkedIn FI, sähköposti nykyasiakkaille, A5-kääntöpuoli v2 |
+| Rakentaminen: raportointi 8 h → 30 min | SiteSense / raportointiautomaatio                                  | Toimialataulukko §4.3              | 7, 4                | Rakennuslehti-tyyppiset kanavat, LinkedIn, suora outreach  |
+| Copilot vai agentti?                   | AI-konsultointipäivä (`ai-consultant-day.fi`)                      | Nopeampi päätöksenteko             | 4, 5, 6             | LinkedIn, LSJ-uutiskirje                                   |
+| Velvoitteet hoidettu                   | Climate Intelligence / compliance-pilotti (`ais-outcome-pilot.fi`) | Teollisuus: velvoitteet todistettu | 9–12                | Regulatory radar -sähköpostit, Hilma-seuranta, LinkedIn    |
+| Claude Code Coaching                   | Coaching-sivut                                                     | Tiimisi osaa itse                  | 4, 6                | LinkedIn, Teams-kohortit pe                                |
+
+Jokaisella kampanjalla: yksi UTM-parametrisoitu laskeutumissivu dws10.com:lla, yksi tuloslause lifetime.fi:llä, vähintään kaksi blogitekstiä, mittari = yhteydenotot (WhatsApp/puhelin/lomake) per kanava.
+
+### 8.3 Näkyvyys
+
+1. **Google-yritysprofiili Lifetime Oy, Espoo** – kuvat, palvelut, arvostelupyyntö jokaisen toimituksen jälkeen. Sama kortti, jota A5-kampanja lupaa asiakkaalle.
+2. **Sisäinen linkitys kolmen sivuston välillä** joka sivulla Tulospolku-järjestyksessä (lifetime → onelifetime → dws10). Tämä on halvin SEO-toimi ja tekee ekosysteemin Googlelle luettavaksi.
+3. **LinkedIn**: 2 postausta/vko, jokainen = yksi blogiteksti + yksi tuloslause. LSJ-uutiskirje kuukausittain (`/lsj-publish`).
+4. **Viisi kieltä**: `hreflang` kaikille kolmelle sivustolle; sv ensin (Ruotsi + suomenruotsalaiset), sitten en/de/fr. `/multilingual`-skilli.
+5. **Suora outreach** (Proton, risto.paarni@lifetime.fi): toimialoittain §4.3, viesti = tulos + linkki lifetime.fi, ei tuotelistaa. Outreach-agentit tekevät listat, HIC lähettää.
+6. **Mittaus**: yhteydenotot per sivusto ja kanava viikoittain; `truth-check` kaikille julkaistuille väitteille.
+
+### 8.4 Ensimmäiset 30 päivää
+
+| Viikko | Toimi                                                                                                 |
+| ------ | ----------------------------------------------------------------------------------------------------- |
+| 1      | lifetime.fi/fi sisältö §4 (vaihe A); blogit 1–3 fi luonnoksina HIC:lle; Google-yritysprofiili kuntoon |
+| 2      | Julkaisu 1–3 + käännökset sv/en; A5-kampanja linkittää blogiin; LinkedIn alkaa                        |
+| 3      | "Illat takaisin" -tuotteistus dws10.com:iin; blogit 4–8 fi; sovereignty-sarja julkaisuun              |
+| 4      | de/fr-käännökset; toimialaoutreach rakentaminen + asiantuntijapalvelut; ensimmäinen mittausraportti   |
