@@ -1,6 +1,8 @@
 {
+  "_note": "Archival metadata moved out of opencode.json (not an OpenCode schema key). Enforcement and the authoritative POLICY_START / FREE_CREDIT_DAYS values live in .claude/hooks/cost-policy-gate.sh; keep both in sync when the policy changes.",
+  "enforced_by": ".claude/hooks/cost-policy-gate.sh",
   "enabled": true,
-  "standard": "DWS_COST_POLICY_STANDARD.md",
+  "standard": "docs/DWS_COST_POLICY_STANDARD.md",
   "policy-start": "2026-09-20",
   "free-credit-days": 21,
   "compute-default": "dgx-local",

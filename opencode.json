@@ -100,6 +100,10 @@
       "*id_rsa*": "deny",
       ".env.example": "allow",
       "**/.env.example": "allow",
+      ".env.sample": "allow",
+      "**/.env.sample": "allow",
+      ".env.template": "allow",
+      "**/.env.template": "allow",
       ".claude/settings.json": "ask",
       ".claude/hooks/*": "ask"
     },

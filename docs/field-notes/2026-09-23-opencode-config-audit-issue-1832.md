@@ -1,10 +1,43 @@
-# OpenCode Root Config Audit — Closing Issue #1832
+# 2026-09-23 — OpenCode root config audit: closing issue #1832
 
-Status: PENDING_REVIEW
-Date: 2026-09-23
-Author: Claude Code (cloud session, hot standby)
-Closes: https://github.com/blogtheristo/dws6/issues/1832
-Follow-up to: PR #1831, `docs/field-notes/2026-08-13-opencode-dgx-runtime-alignment.md`
+# VERSION AND AGENT HISTORY
+
+---
+
+Version: 1.1 [Latest]
+
+Sessions & Modifications:
+
+- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/affectionate-hypatia-3dpubh | Date: 24.09.2026 | Changes: Review fixes (Copilot, PR #2089): edit allows for `.env.sample` / `.env.template`; `config/cost-policy.json` path corrected and marked archival with pointer to the enforcing hook; required field-note elements added.
+- Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/affectionate-hypatia-3dpubh | Date: 23.09.2026 | Changes: Initial audit of the 11 defects in #1832 against `main`; permission rule sets rewritten and verified with OpenCode 1.18.32.
+
+Document Status:
+
+- Created: 23.09.2026
+- Last Modified: 24.09.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
+- Status: PENDING_REVIEW
+
+---
+
+- **Date:** 2026-09-23
+- **Author:** Claude Code for Risto Anton Päärni (HIC), risto.paarni@lifetime.fi
+- **Location:** Espoo, Finland (cloud session, hot standby)
+- **Context:** Issue #1832 (audit of PR #1831), root `opencode.json`, OpenCode + DGX Spark primary runtime; PR #2089
+
+## Ontology Tags
+
+- **Geography:** Europe > Finland
+- **Sector:** Software > Developer_Tooling > Agent_Runtime_Configuration
+- **Entities:** OpenCode 1.18.32, DGX Spark, Claude Code, `opencode.json`, Secret Egress Rules, EU AI Act Art. 14
+
+## The Story
+
+1. Issue #1832 listed 11 defects in the OpenCode config shipped by PR #1831 and supplied a corrected root file. Since then `main` gained a root `opencode.json` that fixed most of them, but the issue stayed open and nobody had re-run the audit against the runtime.
+2. This session installed the current OpenCode release, ran its own config loader against the repository, and reproduced its permission matcher to test what the rules actually do rather than what they read like.
+3. Two defects survived in a new form: the repo-root `.env` was readable and root-level secret files were unguarded, and a non-schema `cost-policy` block was being dropped silently. Both are fixed in PR #2089; the details follow.
 
 ## Method
 
@@ -86,6 +119,17 @@ the most common secret file in the repository.
   Win11 global config, not the project file.
 - Learn/ HTML render: N/A — audit note, no customer-facing artifact.
 - Drive export: N/A — repo is source of truth; nothing HIC needs outside git.
+
+## The Insight
+
+- OpenCode permission rules are last-match-wins and `**/` needs a slash. A deny list that reads correctly can still allow the one file that matters. Verify rule sets with the matcher, not by eye.
+- A config key the loader ignores is worse than an error: it looks enforced and is not. Anything policy-shaped that is not a schema key belongs in `docs/` or a hook.
+
+## Next Steps
+
+- [ ] HIC: decide on the deny breadth question below.
+- [ ] HIC: run `opencode debug config --pure` on the DGX Spark after merge.
+- [ ] Consider having `.claude/hooks/cost-policy-gate.sh` read `config/cost-policy.json` so the two cannot drift.
 
 ## HIC decision
 
