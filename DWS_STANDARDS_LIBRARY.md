@@ -4,10 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.19
+Version: 1.22
 
 Sessions & Modifications:
 
+- Version: 1.22 | Tool: Claude Code (Sonnet 5) | Session: claude/sync-motion-integration-jjkky9 | Date: 21.09.2026 | Changes: `DWS_CONTRACT_STANDARD.md` bumped to v0.2 — added §4.4 Settlement Rail (Agentic Commerce, Stripe, Revolut), linking partner revenue-share payouts to DWS's existing production Revolut/Stripe hybrid and gating agent-initiated purchases behind KYA + Capacity Class per §6. §7 registry row updated.
+- Version: 1.21 | Tool: Claude Code (Sonnet 5) | Session: claude/sync-motion-integration-jjkky9 | Date: 21.09.2026 | Changes: HIC approved `DWS_CONTRACT_STANDARD.md` v0.1 — Publication Status moved DRAFT → ACTIVE. §7 registry row updated accordingly. §12 Legal Review of the standard's structure is separate from Legal Review of any specific agreement drafted from it — the latter remains a required, still-open gate per Category Schedule/MPA and is not cleared by this approval.
+- Version: 1.20 | Tool: Claude Code (Sonnet 5) | Session: claude/sync-motion-integration-jjkky9 | Date: 21.09.2026 | Changes: Registered `DWS_CONTRACT_STANDARD.md` v0.1 in §7 Related Documents — new root-level standard defining the canonical eight-part skeleton for any DWS IQ partner agreement (parties/contribution, customer-facing delivery structure, revenue flow & license terms, technical interface & support boundary, KYA & Capacity Class responsibilities, audit trail ownership, Partner Captain accountability, termination & existing-installation continuity). Generalizes `docs/plans/THEMIS_PARTNER_AGREEMENT_V0.md` (OT/hardware category) into a reusable pattern for any partner category. DRAFT, not legally reviewed.
 - Version: 1.19 | Tool: Cursor Grok 4.6 | Session: cursor/dgx-ollama-litellm-router-a455 | Date: 20.09.2026 | Changes: Merged origin/main into PR #2039. Kept main `kya-jev` registry 1.14–1.18 and PR #2039 Model Selection pointers: `DWS_MODEL_STANDARD.md` v1.2 `FRONTIER-CLAUDE-OPUS` (`claude-opus-4-8`), LiteLLM glue (`local-sovereign` vs `smart`), Truth Standard §2 row 40 deployed Spark Ollama pair.
 - Version: 1.18 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: Pointed §3.2 `kya-jev` row at spec v0.8 — HIC chose model-routing advisory consumer.
 - Version: 1.17 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: Pointed §3.2 `kya-jev` row at spec v0.7 — HIC chose lead-scoring advisory consumer.
@@ -41,7 +44,7 @@ Session Links & References:
 Document Status:
 
 - Created: 19.04.2026
-- Last Modified: 20.09.2026
+- Last Modified: 21.09.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -220,6 +223,7 @@ When an agent (or human) needs to determine which standards apply to a given pro
 - `DWS_TRUTH_STANDARD.md` — **Sibling meta-standard.** Where `DWS_STANDARDS_LIBRARY.md` registers _external_ standards (EU regulations, ISO, IETF), `DWS_TRUTH_STANDARD.md` registers _internal_ canonical files (which file owns the industries count, which owns product prices, which owns KYA scoring, etc.). Founded 2026-05-25 after the industry-count propagation incident, in which a superseded figure of 16 lived in 58 files because no index of canonical files existed. Consult both when investigating a question. **§2I / row 41** owns Environment Version Parity (Win11 vs Spark shared-role pins; `config/truth/dev-environment-pins.json`; `npm run env:pins`).
 - `DWS_ENGINEERING_STANDARD.md` — **DDM-v1.** Policy layer for autonomous agent development on the opencode-all Living Engine runtime: versioned instruction packs, bounded 48-hour cycles, seven audit gates, NEEDS-HUMAN boundaries, and the cycle review loop that produces each next policy version.
 - `DWS_ROLES_REGISTRY.md` — Canonical 25-role enterprise taxonomy + 5 buying-journey stages (Sponsors / Owners / Approvers / Drivers / Sign-off). Extracted from the Outokumpu case (2026-05-18). Source for every standard's optional Roles & Responsibilities chapter (template piloted in `DWS_TRUTH_STANDARD.md` §9) and every per-customer outreach wedge matrix. Roles referenced by R-ID (R01–R25).
+- `DWS_CONTRACT_STANDARD.md` — Canonical eight-part skeleton for any DWS IQ partner agreement (hardware, OT/data connectivity, or SaaS). Defines the Contract Family layering (Partner Note → this standard → Category Schedule → MPA → Product Schedule), the mandatory Verified/DWS-Estimate/DWS-Proposed tagging rule for commercial claims, and generalizes `docs/plans/THEMIS_PARTNER_AGREEMENT_V0.md`'s Partner Captain, support-boundary, and exit-rule patterns beyond the OT/hardware category. §4.4 (v0.2) grounds partner revenue-share payouts in DWS's existing production Revolut Pay + Stripe Invoice hybrid (`Admin/ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`) and separately gates any agent-initiated purchase (Stripe Agentic Commerce Protocol referenced, not yet integrated) behind KYA identity + a commerce-authorized Capacity Class. v0.2, HIC-approved 21.09.2026 (Publication Status: ACTIVE) — §12 Legal Review remains a separate, still-open gate per specific Category Schedule/MPA, not cleared by this approval.
 - `docs/DWS_STANDARDS_ROADMAP.md` — Gap analysis + Q1-Q4 2026 roadmap
 - `DWS_DOCUMENT_STANDARD.md` — How to write/version this document
 - `DWS_SECURITY_STANDARD.md` — Security control implementation
