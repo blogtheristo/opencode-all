@@ -362,6 +362,38 @@ run temporal:schedules:setup` once to create the report-schedule poll Schedule. 
   wiring is done yet. None of this has been exercised against a live server in this
   session — see the Implementation status note above.
 
+## 13. Content refinement chain (lifetime.fi / onelifetime.world / social) — Proposed (2026-09-24, research only)
+
+- **Source:** HIC content-strategy session 24.09.2026; full design in
+  `docs/proposals/2026-09-24-lifetime-fi-tulossivu-ehdotus.md` §10–§12.
+- **Current tech:** `content-pipeline` Workflow v2 (Iris → Apollo → dead `emit-event`, 10 min
+  timeout); social queue `social_posts` + `publishSocialPostActivity` (#3);
+  `humanApprovalWorkflow` (#9); blog-draft-gate hook (chat-turn bound, not durable).
+- **Gaps:** the refinement chain (dws10 hub page → lifetime.fi conclusion → Journal deep
+  text → LinkedIn/Meta → seminar → product) lives days to weeks, waits on HIC decisions,
+  fans out to five languages and ends in external publishes — none of that is durable
+  today. HIC approval is a chat gate with no record; publishes are bare git pushes with no
+  retry; there is no per-language branch and no register of what has been refined.
+- **Proposed solution:** `contentRefinementChainWorkflow` (long-running Temporal Workflow,
+  one instance per source page) started by a weekly Temporal Schedule (Mon 08:00 EET,
+  same shape as `ensureReportSchedulePoll`). Steps: select-source → synthesize (parallel
+  drafts: conclusion, Journal fi, social) → guardrail (#12 hard rules extended with
+  "no prices on WHY/UNDERSTAND layers", `truth-check` banned claims) → **child
+  `humanApprovalWorkflow`** (#9, Signal + `condition()`, 7-day timeout, artefact link in
+  the request) → Standalone Activities keyed by slug/language: publish-journal (commit +
+  mirror → Cloudflare Pages), publish-conclusion (lifetime.fi), enqueue-social
+  (`enqueueDraft`, `startDelay` per weekday) → per-language child workflows sv/en/de/fr
+  (translate → lighter approval → publish) → event-hook (Calendar + seminars placeholder)
+  → register row in `docs/content-pipeline/chains.md` (the real subscriber that replaces
+  the dead `emit-event`). Query exposes per-language state for an HIC status Artifact.
+- **RED-zone note:** blog publishing is RED for Claude Code (Rule 13). The workflow does not
+  bypass the gate; step 4 _is_ the gate, made durable and audited. Cutover from the
+  blog-draft-gate hook to this workflow needs its own HIC decision, same caveat as #9.
+- **Status:** design only, no code. Same live-server caveat as #1–#12 (`TEMPORAL_ADDRESS`
+  unset in this sandbox). Implementation order if approved: definition
+  `src/agents/workflow/workflows/content-refinement-chain.ts` → Temporal workflow skeleton
+  - unit tests → Schedule → cutover decision.
+
 ## HIC decision needed
 
 Approve standing up a self-hosted Temporal server on DGX Spark so this code can actually

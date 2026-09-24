@@ -1,0 +1,642 @@
+{
+  "_meta": {
+    "purpose": "One Lifetime front page (WHY layer) — single content source for lifetime.fi/{,fi,sv,de,fr}/index.html. Built by scripts/build-lifetime-fi-front.mjs. HIC decision v2.0 (24.09.2026): docs/proposals/2026-09-24-lifetime-fi-tulossivu-ehdotus.md §13.",
+    "master": "fi",
+    "translationNote": "en/sv/de/fr are translations of the Finnish master; reviewed by HIC before publish (Rule 13 does not apply to site pages, but truth-lint does)."
+  },
+  "fi": {
+    "lang": "fi",
+    "path": "/fi/",
+    "langName": "Suomi",
+    "title": "One Lifetime — Tekoäly oppii. Ymmärtävä ihminen kantaa vastuun päätöksestä.",
+    "description": "Tekoäly oppii. Ymmärtävä ihminen kantaa vastuun päätöksestä. Rakennamme järjestelmiä, joissa havainnot, oppiminen, päätökset ja vaikutukset ovat jäljitettävissä myös vuosien päästä. Lifetime Oy, Espoo.",
+    "ogDescription": "Teknologia muuttuu. Mallit vaihtuvat. Vastuu säilyy ihmisellä. Miksi tämä on tärkeää, mihin maailma on menossa ja miten suomalaiset yritykset liittyvät muutokseen.",
+    "nav": {
+      "beliefs": "Mitä uskomme",
+      "directions": "Mihin maailma on menossa",
+      "industries": "Toimialat",
+      "person": "Ihminen",
+      "understand": "Ymmärrä",
+      "implement": "Toteuta"
+    },
+    "overline": "One Lifetime — Lifetime Oy, Espoo",
+    "h1a": "Tekoäly oppii.",
+    "h1b": "Ymmärtävä ihminen kantaa vastuun päätöksestä.",
+    "tagline1": "Rakennamme järjestelmiä, joissa havainnot, oppiminen, päätökset ja vaikutukset ovat jäljitettävissä myös vuosien päästä.",
+    "tagline1strong": "Teknologia muuttuu. Mallit vaihtuvat. Vastuu säilyy ihmisellä.",
+    "triad": "Jatkuvuus luo turvallisuuden. Ymmärrys luo kilpailukyvyn. Oppiminen mahdollistaa kasvun.",
+    "claim": "Turvallisuuden tunne ei synny lupauksista. Se syntyy faktoista, jotka kestävät aikaa. Asiakas ostaa turvallisuuden tunteen, joka perustuu faktoihin ja evidenssiin: hän haluaa säilyttää ja kehittää ymmärrystä, varmistaa jatkuvuuden, säilyttää kilpailukykynsä ja kasvattaa liiketoimintaansa ilman, että teknologian muutos katkaisee oppimisen tai päätöksenteon ketjun.",
+    "cta1": "Mitä uskomme",
+    "cta2": "Haluatko ymmärtää enemmän?",
+    "beliefsLabel": "Mitä uskomme",
+    "beliefsTitle": "Tekoäly voi havaita muutoksen, analysoida vaihtoehtoja ja ehdottaa seuraavaa askelta. Mutta vastuu päätöksestä kuuluu ihmiselle.",
+    "beliefsLead": "Teknologia auttaa ymmärtämään maailmaa paremmin. Ihmiset päättävät, mitä maailmassa tehdään. Kilpailukyky ei synny yhdestä teknologiasta. Se syntyy kyvystä oppia, säilyttää ymmärrys ja tehdä parempia päätöksiä vuodesta toiseen. Jokainen alla oleva uskomus on myös lupaus siitä, miten työskentelemme.",
+    "beliefLink": "Lue miksi →",
+    "beliefs": [
+      [
+        "Teknologian tulee palvella ihmistä.",
+        "Väline on hyvä vain, jos ihmisellä on sen jälkeen enemmän aikaa asiakkaille, perheelle ja ajattelulle."
+      ],
+      [
+        "Päätösten tulee perustua tietoon.",
+        "Ja tiedon pitää olla nähtävissä: mitä havaittiin, mitä opittiin, kuka päätti ja millä perusteella."
+      ],
+      [
+        "Resurssien hukkaa voidaan vähentää.",
+        "Aikaa, materiaalia, energiaa. Hukan näkeminen on ensimmäinen askel; sen poistaminen on liiketoimintaa."
+      ],
+      [
+        "Yritykset voivat kasvaa kestävämmin.",
+        "Kasvu, joka ei kuluta ihmisiä eikä luontoa, on ainoa kasvu, joka kestää seuraavan vuosikymmenen."
+      ],
+      [
+        "Ilmastonmuutoksen vaikutuksia voidaan hillitä teknologian avulla.",
+        "Meillä on yksi elämä ja yksi elävä planeetta. Tulevaisuuden yritys on osa ratkaisua, ei ongelmaa."
+      ]
+    ],
+    "directionsLabel": "Mihin maailma on menossa",
+    "directionsTitle": "Mallit vaihtuvat. Teknologia muuttuu. Järjestelmät kehittyvät. Mutta havaintojen, oppimisen ja päätösten ketjun pitää säilyä.",
+    "directionsLead": "Tekoäly voi oppia. Ihmiset voivat oppia. Parhaat tulokset syntyvät, kun molemmat oppivat ja ymmärtävät, miksi päätökset tehdään. Viisi suuntaa, joita seuraamme ja joista kirjoitamme.",
+    "directions": [
+      [
+        "Yksi planeetta, yksi tilinpäätös",
+        "Yritykset alkavat mitata ympäristövaikutuksiaan yhtä tarkasti kuin taloudellista tulostaan. Vaikutusdata on uutta talousdataa."
+      ],
+      [
+        "Tieto on uusi kantokyky",
+        "Yritys, jonka tieto on hallinnassa ja jonka päätökset voi jäljittää, kestää muutoksia, joissa muut menettävät suuntansa."
+      ],
+      [
+        "Automaatio antaa ajan takaisin ihmisille",
+        "Toistuvat työvaiheet katoavat työpäivästä. Ihmisille jää se, missä ihminen on korvaamaton: asiakas, harkinta, vastuu."
+      ],
+      [
+        "Tekoäly ja asiantuntijatyön tulevaisuus",
+        "Asiantuntijan arvo siirtyy vastausten tuottamisesta niiden ymmärtämiseen ja niistä vastaamiseen."
+      ],
+      [
+        "Suomalainen yritys osana ratkaisua",
+        "Pieni maa, jossa luottamus on infrastruktuuria, voi näyttää, miltä vastuullinen ja kilpailukykyinen digitalisaatio näyttää."
+      ]
+    ],
+    "industriesLabel": "Miten tämä näkyy käytännössä",
+    "industriesTitle": "Mikä muuttuu ja miksi se on tärkeää.",
+    "industryLink": "Katso toteutus →",
+    "industries": [
+      [
+        "Rakentaminen",
+        "Projektit etenevät nopeammin, dokumentaatio pysyy ajan tasalla ja johto näkee tilanteen ilman ylimääräistä raportointia. Rakennusala ei osta raportointia; se ostaa vähemmän hukkaa.",
+        "https://dws10.com/construction/"
+      ],
+      [
+        "Energia",
+        "Energian tuotanto ja käyttö tulevat näkyviksi päätöksinä, eivät jälkikäteisinä raportteina. Siirtymä on liiketoimintaa, ei velvoite.",
+        "https://dws10.com/energy/"
+      ],
+      [
+        "Logistiikka",
+        "Kalusto on käytössä, tieto kulkee ja hallinto ei kasva liikevaihdon mukana.",
+        "https://dws10.com/logistics/"
+      ],
+      [
+        "Teollisuus",
+        "Päästöt ja velvoitteet ovat tiedossa ja todistettavissa. Johto ohjaa tuotantoa kohti pienempää jälkeä, ei raportointia varten.",
+        "https://dws10.com/manufacturing/"
+      ],
+      [
+        "Verkkoliiketoiminta",
+        "Yritys löytyy, kun asiakas etsii. Sisältö syntyy vaivatta, ja aika menee asiakkaisiin, ei järjestelmiin.",
+        "https://dws10.com/"
+      ]
+    ],
+    "doorsLabel": "Kaksi ovea",
+    "doorsTitle": "Ymmärrä ensin. Toteuta sitten.",
+    "door1Title": "Haluatko ymmärtää enemmän?",
+    "door1Text": "Lifetime Scope Journal selittää yksityiskohtaisesti sen, minkä tämä sivu sanoo lyhyesti: käsitteet, tutkimukset, tapaustutkimukset ja seminaarit viidellä kielellä.",
+    "door2Title": "Haluatko toteuttaa muutoksen?",
+    "door2Text": "Ratkaisut, toimialakohtainen toteutus ja hankinta ovat omalla sivustollaan. Siellä puhutaan siitä, miten tämä tehdään käytännössä ja mitä se maksaa.",
+    "personLabel": "Ihminen",
+    "person1": "Olen työskennellyt yli kaksikymmentä vuotta sekä suuryritysten että pienten yritysten kanssa ja nähnyt, miten samat teknologiat voidaan tuoda käytännöllisesti myös pienempien yritysten käyttöön. Tavoitteeni ei ole myydä teknologiaa vaan ratkaista liiketoiminnan ongelmia niin, että ratkaisu kestää myös silloin, kun välineet vaihtuvat.",
+    "person2": "One Lifetime on olemassa siksi, että meillä on yksi elämä ja yksi elävä planeetta. Uskon, että terve ihminen voi olla tasapainossa luonnon kanssa myös digitaalisessa taloudessa, ja että vastuu siitä, mitä opitulla tiedolla tehdään, kuuluu aina ihmiselle.",
+    "brandLine": "Tekoäly voi oppia. Vain ihminen voi kantaa vastuun päätöksestä.",
+    "footerDoors": "Kaksi ovea",
+    "footerUnderstand": "Ymmärrä — Lifetime Scope Journal",
+    "footerImplement": "Toteuta — ratkaisut ja hankinta",
+    "footerLegal": "Oikeudellinen",
+    "terms": "Käyttöehdot",
+    "privacy": "Tietosuojakäytäntö",
+    "legalHub": "Oikeudellinen keskus",
+    "role": "Founder, CEO · Lifetime Oy",
+    "vat": "ALV",
+    "businessId": "Y-tunnus",
+    "country": "Suomi"
+  },
+  "en": {
+    "lang": "en",
+    "path": "/",
+    "langName": "English",
+    "title": "One Lifetime — AI learns. An understanding human bears responsibility for the decision.",
+    "description": "AI learns. An understanding human bears responsibility for the decision. We build systems in which observations, learning, decisions and their effects remain traceable years later. Lifetime Oy, Espoo, Finland.",
+    "ogDescription": "Technology changes. Models change. Responsibility stays with people. Why this matters, where the world is heading and how companies take part in the change.",
+    "nav": {
+      "beliefs": "What we believe",
+      "directions": "Where the world is heading",
+      "industries": "Industries",
+      "person": "The person",
+      "understand": "Understand",
+      "implement": "Implement"
+    },
+    "overline": "One Lifetime — Lifetime Oy, Espoo, Finland",
+    "h1a": "AI learns.",
+    "h1b": "An understanding human bears responsibility for the decision.",
+    "tagline1": "We build systems in which observations, learning, decisions and their effects remain traceable years later.",
+    "tagline1strong": "Technology changes. Models change. Responsibility stays with people.",
+    "triad": "Continuity creates security. Understanding creates competitiveness. Learning enables growth.",
+    "claim": "A sense of security does not come from promises. It comes from facts that stand the test of time. What a customer buys is a sense of security grounded in facts and evidence: to retain and develop understanding, to secure continuity, to stay competitive and to grow the business without a change of technology breaking the chain of learning or decision-making.",
+    "cta1": "What we believe",
+    "cta2": "Want to understand more?",
+    "beliefsLabel": "What we believe",
+    "beliefsTitle": "AI can observe change, analyse options and propose the next step. But responsibility for the decision belongs to people.",
+    "beliefsLead": "Technology helps us understand the world better. People decide what is done in the world. Competitiveness does not come from a single technology. It comes from the ability to learn, retain understanding and make better decisions year after year. Each belief below is also a promise about how we work.",
+    "beliefLink": "Read why →",
+    "beliefs": [
+      [
+        "Technology must serve people.",
+        "A tool is only good if, afterwards, people have more time for customers, family and thinking."
+      ],
+      [
+        "Decisions must rest on knowledge.",
+        "And the knowledge must be visible: what was observed, what was learned, who decided and on what grounds."
+      ],
+      [
+        "Waste of resources can be reduced.",
+        "Time, material, energy. Seeing waste is the first step; removing it is business."
+      ],
+      [
+        "Companies can grow more sustainably.",
+        "Growth that does not consume people or nature is the only growth that will last the next decade."
+      ],
+      [
+        "The effects of climate change can be curbed with technology.",
+        "We have one life and one living planet. The company of the future is part of the solution, not the problem."
+      ]
+    ],
+    "directionsLabel": "Where the world is heading",
+    "directionsTitle": "Models change. Technology changes. Systems evolve. But the chain of observation, learning and decision must endure.",
+    "directionsLead": "AI can learn. People can learn. The best results come when both learn and understand why decisions are made. Five directions we follow and write about.",
+    "directions": [
+      [
+        "One planet, one set of accounts",
+        "Companies are beginning to measure their environmental impact as precisely as their financial result. Impact data is the new financial data."
+      ],
+      [
+        "Knowledge is the new carrying capacity",
+        "A company whose knowledge is under control and whose decisions can be traced withstands changes in which others lose their bearings."
+      ],
+      [
+        "Automation gives time back to people",
+        "Repetitive steps disappear from the working day. People keep what only people can do: the customer, judgement, responsibility."
+      ],
+      [
+        "AI and the future of expert work",
+        "The expert's value shifts from producing answers to understanding them and answering for them."
+      ],
+      [
+        "The Finnish company as part of the solution",
+        "A small country where trust is infrastructure can show what responsible and competitive digitalisation looks like."
+      ]
+    ],
+    "industriesLabel": "How this shows in practice",
+    "industriesTitle": "What changes and why it matters.",
+    "industryLink": "See how it is done →",
+    "industries": [
+      [
+        "Construction",
+        "Projects move faster, documentation stays current and management sees the situation without extra reporting. Construction does not buy reporting; it buys less waste.",
+        "https://dws10.com/construction/"
+      ],
+      [
+        "Energy",
+        "Production and use of energy become visible as decisions, not as after-the-fact reports. The transition is business, not an obligation.",
+        "https://dws10.com/energy/"
+      ],
+      [
+        "Logistics",
+        "Fleet in use, information flowing, and administration that does not grow with revenue.",
+        "https://dws10.com/logistics/"
+      ],
+      [
+        "Industry",
+        "Emissions and obligations are known and provable. Management steers production toward a smaller footprint, not toward reporting.",
+        "https://dws10.com/manufacturing/"
+      ],
+      [
+        "Online business",
+        "The company is found when the customer searches. Content comes easily, and time goes to customers, not systems.",
+        "https://dws10.com/"
+      ]
+    ],
+    "doorsLabel": "Two doors",
+    "doorsTitle": "Understand first. Then implement.",
+    "door1Title": "Want to understand more?",
+    "door1Text": "Lifetime Scope Journal explains in detail what this page says briefly: concepts, research, case studies and seminars in five languages.",
+    "door2Title": "Want to implement the change?",
+    "door2Text": "Solutions, industry-specific implementation and procurement live on their own site. That is where we talk about how this is done in practice and what it costs.",
+    "personLabel": "The person",
+    "person1": "I have worked for more than twenty years with both large corporations and small companies, and seen how the same technologies can be brought, practically, into the hands of smaller businesses. My aim is not to sell technology but to solve business problems so that the solution holds even when the tools change.",
+    "person2": "One Lifetime exists because we have one life and one living planet. I believe a healthy person can live in balance with nature in a digital economy too, and that responsibility for what is done with what has been learned always belongs to a human being.",
+    "brandLine": "AI can learn. Only a human can bear responsibility for the decision.",
+    "footerDoors": "Two doors",
+    "footerUnderstand": "Understand — Lifetime Scope Journal",
+    "footerImplement": "Implement — solutions and procurement",
+    "footerLegal": "Legal",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "legalHub": "Legal Hub",
+    "role": "Founder, CEO · Lifetime Oy",
+    "vat": "VAT",
+    "businessId": "Business ID",
+    "country": "Finland"
+  },
+  "sv": {
+    "lang": "sv",
+    "path": "/sv/",
+    "langName": "Svenska",
+    "title": "One Lifetime — AI lär sig. En förstående människa bär ansvaret för beslutet.",
+    "description": "AI lär sig. En förstående människa bär ansvaret för beslutet. Vi bygger system där observationer, lärande, beslut och effekter går att spåra även flera år senare. Lifetime Oy, Esbo, Finland.",
+    "ogDescription": "Tekniken förändras. Modellerna byts ut. Ansvaret stannar hos människan. Varför detta är viktigt, vart världen är på väg och hur företag blir en del av förändringen.",
+    "nav": {
+      "beliefs": "Vad vi tror på",
+      "directions": "Vart världen är på väg",
+      "industries": "Branscher",
+      "person": "Människan",
+      "understand": "Förstå",
+      "implement": "Genomför"
+    },
+    "overline": "One Lifetime — Lifetime Oy, Esbo, Finland",
+    "h1a": "AI lär sig.",
+    "h1b": "En förstående människa bär ansvaret för beslutet.",
+    "tagline1": "Vi bygger system där observationer, lärande, beslut och effekter går att spåra även flera år senare.",
+    "tagline1strong": "Tekniken förändras. Modellerna byts ut. Ansvaret stannar hos människan.",
+    "triad": "Kontinuitet skapar trygghet. Förståelse skapar konkurrenskraft. Lärande möjliggör tillväxt.",
+    "claim": "Trygghet uppstår inte ur löften. Den uppstår ur fakta som håller över tid. Kunden köper en känsla av trygghet som vilar på fakta och evidens: att bevara och utveckla förståelsen, säkra kontinuiteten, behålla konkurrenskraften och växa utan att ett teknikskifte bryter kedjan av lärande och beslut.",
+    "cta1": "Vad vi tror på",
+    "cta2": "Vill du förstå mer?",
+    "beliefsLabel": "Vad vi tror på",
+    "beliefsTitle": "AI kan upptäcka förändring, analysera alternativ och föreslå nästa steg. Men ansvaret för beslutet tillhör människan.",
+    "beliefsLead": "Tekniken hjälper oss att förstå världen bättre. Människor bestämmer vad som görs i världen. Konkurrenskraft kommer inte ur en enskild teknik. Den kommer ur förmågan att lära, bevara förståelse och fatta bättre beslut år efter år. Varje övertygelse nedan är också ett löfte om hur vi arbetar.",
+    "beliefLink": "Läs varför →",
+    "beliefs": [
+      [
+        "Tekniken ska tjäna människan.",
+        "Ett verktyg är bara bra om människan efteråt har mer tid för kunder, familj och eftertanke."
+      ],
+      [
+        "Beslut ska bygga på kunskap.",
+        "Och kunskapen måste vara synlig: vad som observerades, vad som lärdes, vem som beslutade och på vilka grunder."
+      ],
+      [
+        "Resursslöseri kan minskas.",
+        "Tid, material, energi. Att se slöseriet är första steget; att ta bort det är affärer."
+      ],
+      [
+        "Företag kan växa mer hållbart.",
+        "Tillväxt som inte förbrukar människor eller natur är den enda tillväxt som håller det kommande decenniet."
+      ],
+      [
+        "Klimatförändringens effekter kan dämpas med teknik.",
+        "Vi har ett liv och en levande planet. Framtidens företag är en del av lösningen, inte av problemet."
+      ]
+    ],
+    "directionsLabel": "Vart världen är på väg",
+    "directionsTitle": "Modellerna byts ut. Tekniken förändras. Systemen utvecklas. Men kedjan av observationer, lärande och beslut måste bestå.",
+    "directionsLead": "AI kan lära sig. Människor kan lära sig. De bästa resultaten uppstår när båda lär sig och förstår varför besluten fattas. Fem riktningar vi följer och skriver om.",
+    "directions": [
+      [
+        "En planet, ett bokslut",
+        "Företag börjar mäta sin miljöpåverkan lika noggrant som sitt ekonomiska resultat. Effektdata är den nya ekonomidatan."
+      ],
+      [
+        "Kunskap är den nya bärkraften",
+        "Ett företag vars kunskap är under kontroll och vars beslut går att spåra klarar förändringar där andra tappar riktningen."
+      ],
+      [
+        "Automation ger tiden tillbaka till människan",
+        "Repetitiva moment försvinner ur arbetsdagen. Kvar blir det bara människan kan: kunden, omdömet, ansvaret."
+      ],
+      [
+        "AI och expertarbetets framtid",
+        "Expertens värde flyttas från att producera svar till att förstå dem och stå för dem."
+      ],
+      [
+        "Det finländska företaget som del av lösningen",
+        "Ett litet land där förtroende är infrastruktur kan visa hur ansvarsfull och konkurrenskraftig digitalisering ser ut."
+      ]
+    ],
+    "industriesLabel": "Hur detta syns i praktiken",
+    "industriesTitle": "Vad som förändras och varför det spelar roll.",
+    "industryLink": "Se genomförandet →",
+    "industries": [
+      [
+        "Byggbranschen",
+        "Projekten går snabbare, dokumentationen hålls aktuell och ledningen ser läget utan extra rapportering. Byggbranschen köper inte rapportering; den köper mindre slöseri.",
+        "https://dws10.com/construction/"
+      ],
+      [
+        "Energi",
+        "Produktion och användning av energi blir synliga som beslut, inte som rapporter i efterhand. Omställningen är affärer, inte en skyldighet.",
+        "https://dws10.com/energy/"
+      ],
+      [
+        "Logistik",
+        "Fordonen används, informationen flödar och administrationen växer inte i takt med omsättningen.",
+        "https://dws10.com/logistics/"
+      ],
+      [
+        "Industri",
+        "Utsläpp och skyldigheter är kända och kan bevisas. Ledningen styr produktionen mot ett mindre avtryck, inte mot rapportering.",
+        "https://dws10.com/manufacturing/"
+      ],
+      [
+        "Digital affärsverksamhet",
+        "Företaget hittas när kunden söker. Innehåll skapas utan besvär, och tiden går till kunder, inte till system.",
+        "https://dws10.com/"
+      ]
+    ],
+    "doorsLabel": "Två dörrar",
+    "doorsTitle": "Förstå först. Genomför sedan.",
+    "door1Title": "Vill du förstå mer?",
+    "door1Text": "Lifetime Scope Journal förklarar i detalj det som den här sidan säger kort: begrepp, forskning, fallstudier och seminarier på fem språk.",
+    "door2Title": "Vill du genomföra förändringen?",
+    "door2Text": "Lösningar, branschspecifikt genomförande och upphandling finns på en egen webbplats. Där talar vi om hur detta görs i praktiken och vad det kostar.",
+    "personLabel": "Människan",
+    "person1": "Jag har i över tjugo år arbetat med både storföretag och små företag och sett hur samma teknik kan föras in praktiskt även i mindre företag. Mitt mål är inte att sälja teknik utan att lösa affärsproblem så att lösningen håller även när verktygen byts ut.",
+    "person2": "One Lifetime finns för att vi har ett liv och en levande planet. Jag tror att en frisk människa kan leva i balans med naturen också i en digital ekonomi, och att ansvaret för vad som görs med det inlärda alltid tillhör en människa.",
+    "brandLine": "AI kan lära sig. Bara en människa kan bära ansvaret för beslutet.",
+    "footerDoors": "Två dörrar",
+    "footerUnderstand": "Förstå — Lifetime Scope Journal",
+    "footerImplement": "Genomför — lösningar och upphandling",
+    "footerLegal": "Juridik",
+    "terms": "Användarvillkor",
+    "privacy": "Integritetspolicy",
+    "legalHub": "Juridiskt centrum",
+    "role": "Founder, CEO · Lifetime Oy",
+    "vat": "Moms",
+    "businessId": "FO-nummer",
+    "country": "Finland"
+  },
+  "de": {
+    "lang": "de",
+    "path": "/de/",
+    "langName": "Deutsch",
+    "title": "One Lifetime — KI lernt. Ein verstehender Mensch trägt die Verantwortung für die Entscheidung.",
+    "description": "KI lernt. Ein verstehender Mensch trägt die Verantwortung für die Entscheidung. Wir bauen Systeme, in denen Beobachtungen, Lernen, Entscheidungen und Wirkungen auch Jahre später nachvollziehbar bleiben. Lifetime Oy, Espoo, Finnland.",
+    "ogDescription": "Technologie ändert sich. Modelle wechseln. Die Verantwortung bleibt beim Menschen. Warum das wichtig ist, wohin die Welt geht und wie Unternehmen Teil des Wandels werden.",
+    "nav": {
+      "beliefs": "Woran wir glauben",
+      "directions": "Wohin die Welt geht",
+      "industries": "Branchen",
+      "person": "Der Mensch",
+      "understand": "Verstehen",
+      "implement": "Umsetzen"
+    },
+    "overline": "One Lifetime — Lifetime Oy, Espoo, Finnland",
+    "h1a": "KI lernt.",
+    "h1b": "Ein verstehender Mensch trägt die Verantwortung für die Entscheidung.",
+    "tagline1": "Wir bauen Systeme, in denen Beobachtungen, Lernen, Entscheidungen und Wirkungen auch Jahre später nachvollziehbar bleiben.",
+    "tagline1strong": "Technologie ändert sich. Modelle wechseln. Die Verantwortung bleibt beim Menschen.",
+    "triad": "Kontinuität schafft Sicherheit. Verständnis schafft Wettbewerbsfähigkeit. Lernen ermöglicht Wachstum.",
+    "claim": "Ein Gefühl von Sicherheit entsteht nicht aus Versprechen. Es entsteht aus Fakten, die der Zeit standhalten. Der Kunde kauft ein Gefühl von Sicherheit, das auf Fakten und Evidenz beruht: Verständnis bewahren und weiterentwickeln, Kontinuität sichern, wettbewerbsfähig bleiben und wachsen, ohne dass ein Technologiewechsel die Kette von Lernen und Entscheidung unterbricht.",
+    "cta1": "Woran wir glauben",
+    "cta2": "Möchten Sie mehr verstehen?",
+    "beliefsLabel": "Woran wir glauben",
+    "beliefsTitle": "KI kann Veränderung erkennen, Optionen analysieren und den nächsten Schritt vorschlagen. Aber die Verantwortung für die Entscheidung gehört dem Menschen.",
+    "beliefsLead": "Technologie hilft, die Welt besser zu verstehen. Menschen entscheiden, was in der Welt getan wird. Wettbewerbsfähigkeit entsteht nicht aus einer einzelnen Technologie. Sie entsteht aus der Fähigkeit zu lernen, Verständnis zu bewahren und Jahr für Jahr bessere Entscheidungen zu treffen. Jede Überzeugung unten ist zugleich ein Versprechen, wie wir arbeiten.",
+    "beliefLink": "Warum →",
+    "beliefs": [
+      [
+        "Technologie muss dem Menschen dienen.",
+        "Ein Werkzeug ist nur gut, wenn der Mensch danach mehr Zeit für Kunden, Familie und Nachdenken hat."
+      ],
+      [
+        "Entscheidungen müssen auf Wissen beruhen.",
+        "Und das Wissen muss sichtbar sein: was beobachtet, was gelernt, wer entschieden hat und auf welcher Grundlage."
+      ],
+      [
+        "Ressourcenverschwendung lässt sich verringern.",
+        "Zeit, Material, Energie. Verschwendung zu sehen ist der erste Schritt; sie zu beseitigen ist Geschäft."
+      ],
+      [
+        "Unternehmen können nachhaltiger wachsen.",
+        "Wachstum, das weder Menschen noch Natur verbraucht, ist das einzige Wachstum, das das nächste Jahrzehnt übersteht."
+      ],
+      [
+        "Die Folgen des Klimawandels lassen sich mit Technologie eindämmen.",
+        "Wir haben ein Leben und einen lebendigen Planeten. Das Unternehmen der Zukunft ist Teil der Lösung, nicht des Problems."
+      ]
+    ],
+    "directionsLabel": "Wohin die Welt geht",
+    "directionsTitle": "Modelle wechseln. Technologie ändert sich. Systeme entwickeln sich weiter. Aber die Kette aus Beobachtung, Lernen und Entscheidung muss bestehen bleiben.",
+    "directionsLead": "KI kann lernen. Menschen können lernen. Die besten Ergebnisse entstehen, wenn beide lernen und verstehen, warum Entscheidungen getroffen werden. Fünf Richtungen, die wir verfolgen und über die wir schreiben.",
+    "directions": [
+      [
+        "Ein Planet, eine Bilanz",
+        "Unternehmen beginnen, ihre Umweltwirkung so genau zu messen wie ihr finanzielles Ergebnis. Wirkungsdaten sind die neuen Finanzdaten."
+      ],
+      [
+        "Wissen ist die neue Tragfähigkeit",
+        "Ein Unternehmen, dessen Wissen unter Kontrolle ist und dessen Entscheidungen nachvollziehbar sind, übersteht Veränderungen, in denen andere die Orientierung verlieren."
+      ],
+      [
+        "Automatisierung gibt dem Menschen Zeit zurück",
+        "Wiederkehrende Arbeitsschritte verschwinden aus dem Arbeitstag. Dem Menschen bleibt, worin er unersetzlich ist: Kunde, Urteil, Verantwortung."
+      ],
+      [
+        "KI und die Zukunft der Expertenarbeit",
+        "Der Wert des Experten verschiebt sich vom Erzeugen der Antworten zu ihrem Verstehen und Verantworten."
+      ],
+      [
+        "Das finnische Unternehmen als Teil der Lösung",
+        "Ein kleines Land, in dem Vertrauen Infrastruktur ist, kann zeigen, wie verantwortungsvolle und wettbewerbsfähige Digitalisierung aussieht."
+      ]
+    ],
+    "industriesLabel": "Wie sich das in der Praxis zeigt",
+    "industriesTitle": "Was sich ändert und warum es wichtig ist.",
+    "industryLink": "Umsetzung ansehen →",
+    "industries": [
+      [
+        "Bauwirtschaft",
+        "Projekte kommen schneller voran, die Dokumentation bleibt aktuell, und die Führung sieht die Lage ohne zusätzliches Reporting. Die Bauwirtschaft kauft kein Reporting; sie kauft weniger Verschwendung.",
+        "https://dws10.com/construction/"
+      ],
+      [
+        "Energie",
+        "Erzeugung und Nutzung von Energie werden als Entscheidungen sichtbar, nicht als nachträgliche Berichte. Die Wende ist Geschäft, keine Pflicht.",
+        "https://dws10.com/energy/"
+      ],
+      [
+        "Logistik",
+        "Die Flotte ist im Einsatz, Informationen fließen, und die Verwaltung wächst nicht mit dem Umsatz.",
+        "https://dws10.com/logistics/"
+      ],
+      [
+        "Industrie",
+        "Emissionen und Pflichten sind bekannt und nachweisbar. Die Führung steuert die Produktion zu einem kleineren Fußabdruck, nicht zum Reporting.",
+        "https://dws10.com/manufacturing/"
+      ],
+      [
+        "Digitales Geschäft",
+        "Das Unternehmen wird gefunden, wenn der Kunde sucht. Inhalte entstehen mühelos, und die Zeit geht an Kunden, nicht an Systeme.",
+        "https://dws10.com/"
+      ]
+    ],
+    "doorsLabel": "Zwei Türen",
+    "doorsTitle": "Erst verstehen. Dann umsetzen.",
+    "door1Title": "Möchten Sie mehr verstehen?",
+    "door1Text": "Das Lifetime Scope Journal erklärt ausführlich, was diese Seite kurz sagt: Begriffe, Forschung, Fallstudien und Seminare in fünf Sprachen.",
+    "door2Title": "Möchten Sie den Wandel umsetzen?",
+    "door2Text": "Lösungen, branchenspezifische Umsetzung und Beschaffung haben ihre eigene Website. Dort geht es darum, wie das in der Praxis gemacht wird und was es kostet.",
+    "personLabel": "Der Mensch",
+    "person1": "Ich habe über zwanzig Jahre mit Großunternehmen und kleinen Firmen gearbeitet und gesehen, wie dieselben Technologien praktisch auch kleineren Unternehmen zugänglich gemacht werden können. Mein Ziel ist nicht, Technologie zu verkaufen, sondern Geschäftsprobleme so zu lösen, dass die Lösung auch dann hält, wenn die Werkzeuge wechseln.",
+    "person2": "One Lifetime gibt es, weil wir ein Leben und einen lebendigen Planeten haben. Ich glaube, dass ein gesunder Mensch auch in einer digitalen Wirtschaft im Gleichgewicht mit der Natur leben kann, und dass die Verantwortung dafür, was mit dem Gelernten geschieht, immer beim Menschen liegt.",
+    "brandLine": "KI kann lernen. Nur ein Mensch kann die Verantwortung für die Entscheidung tragen.",
+    "footerDoors": "Zwei Türen",
+    "footerUnderstand": "Verstehen — Lifetime Scope Journal",
+    "footerImplement": "Umsetzen — Lösungen und Beschaffung",
+    "footerLegal": "Rechtliches",
+    "terms": "Nutzungsbedingungen",
+    "privacy": "Datenschutzerklärung",
+    "legalHub": "Rechtszentrum",
+    "role": "Founder, CEO · Lifetime Oy",
+    "vat": "USt-IdNr.",
+    "businessId": "Handelsregister-Nr.",
+    "country": "Finnland"
+  },
+  "fr": {
+    "lang": "fr",
+    "path": "/fr/",
+    "langName": "Français",
+    "title": "One Lifetime — L'IA apprend. Un humain qui comprend porte la responsabilité de la décision.",
+    "description": "L'IA apprend. Un humain qui comprend porte la responsabilité de la décision. Nous construisons des systèmes où les observations, l'apprentissage, les décisions et leurs effets restent traçables des années plus tard. Lifetime Oy, Espoo, Finlande.",
+    "ogDescription": "La technologie change. Les modèles changent. La responsabilité reste humaine. Pourquoi c'est important, où va le monde et comment les entreprises prennent part au changement.",
+    "nav": {
+      "beliefs": "Ce que nous croyons",
+      "directions": "Où va le monde",
+      "industries": "Secteurs",
+      "person": "La personne",
+      "understand": "Comprendre",
+      "implement": "Mettre en œuvre"
+    },
+    "overline": "One Lifetime — Lifetime Oy, Espoo, Finlande",
+    "h1a": "L'IA apprend.",
+    "h1b": "Un humain qui comprend porte la responsabilité de la décision.",
+    "tagline1": "Nous construisons des systèmes où les observations, l'apprentissage, les décisions et leurs effets restent traçables des années plus tard.",
+    "tagline1strong": "La technologie change. Les modèles changent. La responsabilité reste humaine.",
+    "triad": "La continuité crée la sécurité. La compréhension crée la compétitivité. L'apprentissage permet la croissance.",
+    "claim": "Le sentiment de sécurité ne naît pas des promesses. Il naît de faits qui résistent au temps. Le client achète un sentiment de sécurité fondé sur des faits et des preuves : préserver et développer la compréhension, assurer la continuité, rester compétitif et faire croître son activité sans qu'un changement de technologie ne rompe la chaîne de l'apprentissage et de la décision.",
+    "cta1": "Ce que nous croyons",
+    "cta2": "Vous voulez comprendre davantage ?",
+    "beliefsLabel": "Ce que nous croyons",
+    "beliefsTitle": "L'IA peut percevoir le changement, analyser les options et proposer la prochaine étape. Mais la responsabilité de la décision appartient à l'humain.",
+    "beliefsLead": "La technologie aide à mieux comprendre le monde. Les humains décident de ce qui est fait dans le monde. La compétitivité ne vient pas d'une seule technologie. Elle vient de la capacité d'apprendre, de préserver la compréhension et de prendre de meilleures décisions année après année. Chaque conviction ci-dessous est aussi une promesse sur notre façon de travailler.",
+    "beliefLink": "Lire pourquoi →",
+    "beliefs": [
+      [
+        "La technologie doit servir l'humain.",
+        "Un outil n'est bon que si, ensuite, les gens ont plus de temps pour les clients, la famille et la réflexion."
+      ],
+      [
+        "Les décisions doivent reposer sur la connaissance.",
+        "Et la connaissance doit être visible : ce qui a été observé, ce qui a été appris, qui a décidé et sur quelle base."
+      ],
+      [
+        "Le gaspillage des ressources peut être réduit.",
+        "Temps, matière, énergie. Voir le gaspillage est le premier pas ; le supprimer, c'est du business."
+      ],
+      [
+        "Les entreprises peuvent croître plus durablement.",
+        "Une croissance qui n'épuise ni les gens ni la nature est la seule qui tiendra la prochaine décennie."
+      ],
+      [
+        "Les effets du changement climatique peuvent être freinés grâce à la technologie.",
+        "Nous avons une seule vie et une seule planète vivante. L'entreprise de demain fait partie de la solution, pas du problème."
+      ]
+    ],
+    "directionsLabel": "Où va le monde",
+    "directionsTitle": "Les modèles changent. La technologie change. Les systèmes évoluent. Mais la chaîne des observations, de l'apprentissage et des décisions doit perdurer.",
+    "directionsLead": "L'IA peut apprendre. Les humains peuvent apprendre. Les meilleurs résultats naissent quand les deux apprennent et comprennent pourquoi les décisions sont prises. Cinq directions que nous suivons et sur lesquelles nous écrivons.",
+    "directions": [
+      [
+        "Une planète, un bilan",
+        "Les entreprises commencent à mesurer leur impact environnemental aussi précisément que leur résultat financier. Les données d'impact sont les nouvelles données financières."
+      ],
+      [
+        "La connaissance est la nouvelle capacité de charge",
+        "Une entreprise dont la connaissance est maîtrisée et dont les décisions sont traçables résiste aux changements où d'autres perdent le cap."
+      ],
+      [
+        "L'automatisation rend du temps aux gens",
+        "Les tâches répétitives disparaissent de la journée de travail. Il reste aux humains ce qu'eux seuls peuvent faire : le client, le jugement, la responsabilité."
+      ],
+      [
+        "L'IA et l'avenir du travail d'expert",
+        "La valeur de l'expert passe de la production des réponses à leur compréhension et à la responsabilité qu'il en assume."
+      ],
+      [
+        "L'entreprise finlandaise comme partie de la solution",
+        "Un petit pays où la confiance est une infrastructure peut montrer à quoi ressemble une numérisation responsable et compétitive."
+      ]
+    ],
+    "industriesLabel": "Comment cela se voit en pratique",
+    "industriesTitle": "Ce qui change et pourquoi c'est important.",
+    "industryLink": "Voir la mise en œuvre →",
+    "industries": [
+      [
+        "Construction",
+        "Les projets avancent plus vite, la documentation reste à jour et la direction voit la situation sans reporting supplémentaire. La construction n'achète pas du reporting ; elle achète moins de gaspillage.",
+        "https://dws10.com/construction/"
+      ],
+      [
+        "Énergie",
+        "La production et l'usage de l'énergie deviennent visibles comme des décisions, non comme des rapports a posteriori. La transition est une affaire, pas une obligation.",
+        "https://dws10.com/energy/"
+      ],
+      [
+        "Logistique",
+        "La flotte est utilisée, l'information circule et l'administration ne grandit pas avec le chiffre d'affaires.",
+        "https://dws10.com/logistics/"
+      ],
+      [
+        "Industrie",
+        "Les émissions et les obligations sont connues et prouvables. La direction pilote la production vers une empreinte plus faible, pas vers le reporting.",
+        "https://dws10.com/manufacturing/"
+      ],
+      [
+        "Activité en ligne",
+        "L'entreprise est trouvée quand le client cherche. Le contenu se crée sans effort, et le temps va aux clients, pas aux systèmes.",
+        "https://dws10.com/"
+      ]
+    ],
+    "doorsLabel": "Deux portes",
+    "doorsTitle": "Comprendre d'abord. Mettre en œuvre ensuite.",
+    "door1Title": "Vous voulez comprendre davantage ?",
+    "door1Text": "Le Lifetime Scope Journal explique en détail ce que cette page dit brièvement : concepts, recherches, études de cas et séminaires en cinq langues.",
+    "door2Title": "Vous voulez mettre en œuvre le changement ?",
+    "door2Text": "Les solutions, la mise en œuvre par secteur et l'achat ont leur propre site. C'est là que l'on parle de la façon de faire en pratique et de ce que cela coûte.",
+    "personLabel": "La personne",
+    "person1": "J'ai travaillé plus de vingt ans avec de grands groupes comme avec de petites entreprises, et vu comment les mêmes technologies peuvent être mises, concrètement, à la portée des plus petites. Mon but n'est pas de vendre de la technologie, mais de résoudre des problèmes d'entreprise de façon que la solution tienne même quand les outils changent.",
+    "person2": "One Lifetime existe parce que nous avons une seule vie et une seule planète vivante. Je crois qu'une personne en bonne santé peut vivre en équilibre avec la nature aussi dans une économie numérique, et que la responsabilité de ce que l'on fait de ce qui a été appris appartient toujours à un être humain.",
+    "brandLine": "L'IA peut apprendre. Seul un humain peut porter la responsabilité de la décision.",
+    "footerDoors": "Deux portes",
+    "footerUnderstand": "Comprendre — Lifetime Scope Journal",
+    "footerImplement": "Mettre en œuvre — solutions et achat",
+    "footerLegal": "Mentions légales",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "legalHub": "Centre juridique",
+    "role": "Founder, CEO · Lifetime Oy",
+    "vat": "TVA",
+    "businessId": "N° d'entreprise",
+    "country": "Finlande"
+  }
+}

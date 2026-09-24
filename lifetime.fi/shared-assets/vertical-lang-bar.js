@@ -1,11 +1,11 @@
 /**
- * lifetime.fi Vertical Language Bar v1.0
+ * lifetime.fi Vertical Language Bar v1.1
  * Introduced-In: claude/lifetime-agents-loops-workflows-t3448v (2026-06-20)
  * Code-Version: 1.0
  * Owner: Lifetime Oy
  *
  * PAGE ELEMENT — not a menu/nav element.
- * Vertical 5-language showcase showing the lifetime.fi tagline "Digitaalisten tuotteiden erikoisliike" (HIC 23.09.2026).
+ * Vertical 5-language showcase showing the One Lifetime brand line (HIC decision v2.0, 24.09.2026; previously the tagline "Digitaalisten tuotteiden erikoisliike", HIC 23.09.2026).
  * Order: Suomi | Svenska | Deutsch | Français | English
  *
  * Usage: <script src="/shared-assets/vertical-lang-bar.js"></script>
@@ -28,35 +28,35 @@
       name: 'Suomi',
       flag: '🇫🇮',
       href: '/fi/',
-      text: 'Digitaalisten tuotteiden erikoisliike',
+      text: 'Tekoäly voi oppia. Vain ihminen voi kantaa vastuun päätöksestä.',
     },
     {
       code: 'sv',
       name: 'Svenska',
       flag: '🇸🇪',
       href: '/sv/',
-      text: 'Specialbutik för digitala produkter',
+      text: 'AI kan lära sig. Bara en människa kan bära ansvaret för beslutet.',
     },
     {
       code: 'de',
       name: 'Deutsch',
       flag: '🇩🇪',
       href: '/de/',
-      text: 'Fachgeschäft für digitale Produkte',
+      text: 'KI kann lernen. Nur ein Mensch kann die Verantwortung für die Entscheidung tragen.',
     },
     {
       code: 'fr',
       name: 'Français',
       flag: '🇫🇷',
       href: '/fr/',
-      text: 'Boutique spécialisée en produits numériques',
+      text: 'L’IA peut apprendre. Seul un humain peut porter la responsabilité de la décision.',
     },
     {
       code: 'en',
       name: 'English',
       flag: '🇬🇧',
       href: '/',
-      text: 'Specialist store for digital products',
+      text: 'AI can learn. Only a human can bear responsibility for the decision.',
     },
   ];
 
