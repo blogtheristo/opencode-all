@@ -1,15 +1,11 @@
 # Handoff — claude/loving-einstein-fkjj4b
 
-**Task:** Content strategy for the One Lifetime ecosystem (lifetime.fi / onelifetime.world / dws10.com / dws10.com/buy). No site files changed yet.
+**Task:** One Lifetime content strategy (lifetime.fi WHY / onelifetime.world UNDERSTAND / dws10.com HOW / dws10.com/buy BUY) + Workflow v2 Chapters 10–14 (done on sibling branch).
 
 **State (2026-09-24):**
-- `docs/proposals/2026-09-24-lifetime-fi-tulossivu-ehdotus.md` v1.5 — final role model (WHY / UNDERSTAND / HOW / BUY), refinement chain, product mapping (§9), content pipeline (§10), academy scope for onelifetime.world (§11). PR #2091.
-- Campaign page `dws10.com/campaigns/a5-kampanja-kaksipuolinen.html` untouched by HIC decision (veto 24.09.2026).
-- Field note: `docs/field-notes/2026-09-24-kampanjasivu-henkilokohtaistaminen-hic-veto.md`.
+- This branch: `docs/proposals/2026-09-24-lifetime-fi-tulossivu-ehdotus.md` v1.7 (PR #2091). Hero A (planet/people) and Hero B (human decides, from LD-2026-09-002). Campaign page untouched (HIC veto).
+- Sibling branch `claude/workflow-v2-procedural-graphs-k2324l` (PR #2059, worktree /home/user/dws6-wf2): Chapters 10–14, `docs/market-signals/` (MS-001 APPLY wm 1.1.0; MS-002 APPLY wm 1.2.0, investor-centre excluded), `APPLY_LEARNING_GATE`, pipeline view `GET /api/v1/backoffice/pipeline`, KB page `kb/wiki/signals/MS-2026-09-002-process-continuity.md`. 82 tests, tsc/eslint clean.
 
-**Next (waiting on HIC):**
-1. Approve v1.5 → phase A: `docs/content-pipeline/chains.md`, lifetime.fi/fi story (§1) in current layout, first Journal draft via `/blog-draft`, 3 social posts to queue.
-2. Decide Meta adapter (Graph API) vs manual.
-3. Decide price for "Automaatio-startti pk-yritykselle" SKU.
+**Next (HIC):** choose Hero A/B; phase A lifetime.fi/fi text; blog series 0 via /blog-draft; first Chapter 14 run on the weekly construction-lead package; model-independence pressure test via /ollama-spark; Kemira vs Outokumpu = which suffers more from knowledge-continuity pain.
 
-**Blockers:** none technical. Blog publish and outbound are RED for Claude Code.
+**Blockers:** none technical. Blog publish, outbound email RED.
