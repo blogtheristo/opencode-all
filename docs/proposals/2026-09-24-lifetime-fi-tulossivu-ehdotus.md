@@ -1,6 +1,6 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 2.2 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 2.3 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
 ## 0. Strategia (HIC + Copilot 24.09.2026, v1.4 lopullinen)
 
@@ -278,6 +278,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                         |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2.3     | 2026-09-24 | §14 Active Ontology & Agentic Commerce (DISCOVER-kerros): virallinen Learning Delta 'asiakas yrittää tehdä päätöksen', ei chat-first, toimiala ensin, yksi sisäänmeno 'Mikä päätös on tällä hetkellä vaikea tehdä?'; Observation Capture mittaukseen ennen yhteydenottoja; datalähdetaulukko (Cloudflare, Merchant Center, Observation Intake)  |
 | 2.2     | 2026-09-24 | Vaihe A2 ja käännökset tehty: oma WHY-nav, kielipalkki v1.1, viisikielinen generaattori yhdestä sisältölähteestä, peili samassa ajossa                                                                                                                                                                                                          |
 | 2.1     | 2026-09-24 | HIC-päätös v2.0 kirjattu (§13, APPROVE ehdollisesti); vaihe A toteutettu lifetime.fi/fi + peili; asiakasväite päätöksen 5 sanamuodossa heroon; DWS IQ -positiointilause; shared-assets-nav avoimena                                                                                                                                             |
 | 2.0     | 2026-09-24 | Hero D "Tekoäly oppii. Ymmärtävä ihminen kantaa vastuun päätöksestä." lopulliseksi etusivun avaukseksi; kartoitus Workflow v2:n vaiheisiin; JEV/KYA-periaate; käyttöjärjestys A–D päivitetty                                                                                                                                                    |
@@ -341,7 +342,8 @@ Jokaisella kampanjalla: yksi UTM-parametrisoitu laskeutumissivu dws10.com:lla, l
 3. **LinkedIn**: 2 postausta/vko, jokainen = yksi blogiteksti + yksi tuloslause. LSJ-uutiskirje kuukausittain (`/lsj-publish`).
 4. **Viisi kieltä**: `hreflang` kaikille kolmelle sivustolle; sv ensin (Ruotsi + suomenruotsalaiset), sitten en/de/fr. `/multilingual`-skilli.
 5. **Suora outreach** (Proton, risto.paarni@lifetime.fi): toimialoittain §4.3, viesti = tulos + linkki lifetime.fi, ei tuotelistaa. Outreach-agentit tekevät listat, HIC lähettää.
-6. **Mittaus**: yhteydenotot per sivusto ja kanava viikoittain; `truth-check` kaikille julkaistuille väitteille.
+6. **Observation Capture ennen mittausta (v2.3):** dws10.com:n etusivun ja /buy:n yksi kysymys "Mikä päätös on tällä hetkellä vaikea tehdä?" + toimialavalinta on ensisijainen mittari. Se kertoo _miksi_ kävijä tuli, kun Cloudflare kertoo vain _kuinka monta_ tuli. Tavoite: 100 000 kävijää → "12 000 näkyvyysongelmaa, 4 000 CSRD-ongelmaa, 2 000 hiilijalanjälkiongelmaa, 1 500 NIS2-ongelmaa, 800 automaatio-ongelmaa" (tavoiteluokitus, ei mitattu). Jokainen vastaus on Chapter 14 CAPTURE -havainto.
+7. **Mittaus**: yhteydenotot per sivusto ja kanava viikoittain; `truth-check` kaikille julkaistuille väitteille. Yhteydenotto on myöhäinen mittari; Observation Capture on aikainen.
 
 ### 8.4 Ensimmäiset 30 päivää
 
@@ -560,3 +562,66 @@ Nykyinen `content-pipeline` (Iris → Apollo → emit-event) tuottaa briefin ja 
 - **Tehty (A2 + C, 24.09.2026):** oma WHY-tason navigaatio (`.ol-nav`) korvaa jaetun tuotevalikon ja -alatunnisteen etusivuilla; kielipalkki v1.1 näyttää brändilauseen viidellä kielellä; etusivu generoidaan yhdestä sisältölähteestä `lifetime.fi/config/front-page.i18n.json` (fi master) skriptillä `scripts/build-lifetime-fi-front.mjs` kaikille kielille en/fi/sv/de/fr + peili; `--check` valvoo tuoreutta; hreflang ×5 + x-default, Organization JSON-LD. Vanhat en/sv/de/fr arkistoitu `docs/site-archive/`.
 - **Aiemmin avoin (nyt suljettu):** jaetut `shared-assets`-komponentit (`ironclad-nav.js`, `ironclad-footer.js`, `vertical-lang-bar.js`) tuovat sivulle edelleen tuotevalikot, "Complex Workflow Specialists" -tunnuksen ja "Digitaalisten tuotteiden erikoisliike" -kielipalkin. Ne ovat kaikkien sivustojen yhteisiä; lifetime.fi tarvitsee oman WHY-tason navigaation ja kielipalkin tekstin. Ehdotus: vaihe A2 ennen käännöksiä.
 - Käännökset en/sv/de/fr (vaihe C) ja Journal-sarja 0 (päätös 7) seuraavat.
+
+## 14. Active Ontology & Agentic Commerce — DISCOVER-kerros (v2.3, HIC + Copilot 24.09.2026)
+
+**Perusajatus: asiakas ei aloita tuotteesta. Asiakas aloittaa tilanteesta.** Kerrosmalliin tulee
+yksi kerros lisää UNDERSTAND:in ja HOW:n väliin:
+
+```
+WHY (lifetime.fi) → UNDERSTAND (Journal) → DISCOVER (active ontology, dws10.com etusivu)
+→ HOW (dws10.com ratkaisut) → BUY (dws10.com/buy)
+```
+
+### 14.1 Virallinen Learning Delta
+
+|                    |                                                                                                                                                                                                                                                                              |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Vanha oletus       | Asiakas etsii tuotetta. Verkkokaupan tehtävä on näyttää tuotteet. Agentic Commerce = tuotesuositus / AI-chat.                                                                                                                                                                |
+| Uusi oppiminen     | Asiakas yrittää tehdä päätöksen. Agentic Commerce auttaa päättämään; ostaminen on seuraus. Active Ontology = epävarmuuden vähentäminen, ei tuotesuositus.                                                                                                                    |
+| Evidenssi          | Ford S-Max EGR -tapaus (MS-2026-09-003: ostettiin hypoteesia, ei osaa; kauppias hävisi diagnostiikkaan), Kemira-tapaus (tuotantoerien hiilijalanjälki; tuote tulee lähes viimeisenä), MS-004 (asiakas hakee päätöstä, ei tietoa), MS-005 (hakukenttä on Observation Sensor). |
+| Application Record | LD-2026-09-003 APPLY (wm 1.3.0), LD-004 APPLY (1.4.0), LD-005 APPLY (1.5.0); scope dws10.com ja dws10.com/buy; ei lifetime.fi, ei Investor Centre.                                                                                                                           |
+
+Tämä on suurempi strateginen havainto kuin yksikään hero, kampanja tai blogisarja: se muuttaa
+DWS10:n, dws10.com/buy:n ja Agentic Commerce -ajattelun perustan.
+
+### 14.2 Periaatteet
+
+1. **Active Ontology ei ole chat-first.** Tilanne → Valinnat → Hypoteesi → Suositus, ei "Kerro
+   ongelmastasi…". Chat voi olla yksi käyttöliittymä myöhemmin; ontologia on päättelykerros.
+2. **Toimiala ensin.** 25 toimialaa; kävijä valitsee omansa ennen mitään muuta.
+3. **Yksi sisäänmeno.** dws10.com:n etusivulle näkyvä kysymys **"Mikä päätös on tällä hetkellä
+   vaikea tehdä?"** yhdistää Ford-, Kemira-, NIS2-, näkyvyys- ja automaatiotapaukset yhdeksi
+   oveksi. Se on samalla Observation Intake (Chapter 14 alkaa etusivulta).
+4. **Tuote tulee lähes viimeisenä.** Tilanne → mitä emme tiedä → miksi → mikä epävarmuus estää
+   päätöksen → miten se poistetaan → mitä pitää tehdä → mitä kannattaa hankkia. Ratkaisut
+   näytetään vasta, kun ongelma on ymmärretty, ja jokaisen kohdalla "miksi tätä suositellaan".
+5. **Asiantuntija, ei chatbot.** "Tunnistan viisi mahdollista syytä, kaksi todennäköistä. Vastaa
+   tähän yhteen kysymykseen, niin suljemme kolme pois." Jokainen kysymys kertoo, mitä se sulkee pois.
+6. **Mitään ei poisteta.** 136 tuotetta pysyvät; näkymästä tehdään älykäs.
+7. **Asiakas opettaa ontologiaa.** Kerätään query · industry · page · ontology_guess ·
+   recommended_path · selected_path · result (anonymisoituna). Suositellun ja valitun ero on
+   ontologian virhesignaali.
+
+### 14.3 Toteutus
+
+Spesifikaatio: `docs/specs/active-ontology-ux-v2.md` (PR #2059). Ensimmäinen versio ei ole agentti
+eikä chat vaan toimialavalinta + yksi kenttä + valintapolku viidelle toimialalle (rakentaminen,
+energia, kemia, logistiikka, verkkoliiketoiminta), data `dws10.com/config/active-ontology.json`,
+havainnot `POST /api/v1/observations` → `market_signals` (signal_type website_observation).
+Mittarit: kentän käyttöaste vs. haku, buy→checkout-keskeytys, väärä suositus < 1/20, ensimmäisen
+kysymyksen keskeytys < 50 %.
+
+### 14.4 Datalähteet ja niiden arvo Active Ontologialle
+
+| Lähde                              | Kertoo                                                          | Ei kerro                   | Käyttö                                                                                                                                                                                                                                  |
+| ---------------------------------- | --------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cloudflare Analytics               | kuinka monta tuli: sivut, maat, refererit, botit, 404, polut    | mitä kävijä yritti tehdä   | Reality-rivi Control Roomiin; entry/exit-sivut kertovat, mihin Observation Intake sijoitetaan                                                                                                                                           |
+| Google Merchant Center (0 kauppaa) | mitkä tuotteet saivat näyttöjä ja klikkejä, millä hakutermeillä | miksi klikannut ei ostanut | Havainto, ei epäonnistuminen: "74 klikkasi, kukaan ei ostanut" → hypoteesit: tuote / hinta / luottamus / ongelma ei ratkaistu / asiakas ei ymmärtänyt mihin tuote liittyy. HIC:n hypoteesi: ontologia puuttuu, ei tuotteet ole huonoja. |
+| dws10.com sisältö- ja tuotedata    | 136 tuotetta, hubit                                             | tilanne                    | Active Ontologyn tarjontapuoli                                                                                                                                                                                                          |
+| **Observation Intake (uusi)**      | miksi tuli, mitä yritti ratkaista, toimiala                     | –                          | Chapter 14 CAPTURE; ainoa lähde, joka vastaa "miksi"                                                                                                                                                                                    |
+
+Tila 24.09.2026: Cloudflare- ja Merchant Center -tunnuksia ei ole tässä ympäristössä
+(`CLOUDFLARE_API_TOKEN`, GMC-tunnukset puuttuvat); luvut haetaan DGX/HIC-ympäristöstä tai HIC
+liittää raportin. Hakuohje HIC:lle (Cloudflare): Top URLs, Entry pages, Exit pages, Referrers,
+Search queries, Countries, Top paths; (Merchant): näytöt, klikit, hakutermit, per tuote.
