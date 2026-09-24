@@ -1,53 +1,55 @@
 # Branch Handoff: claude/jev-kya-synthetic-learning-hdkmm4
 
-**Session:** 2026-09-20 | Claude Haiku 4.5  
-**Status:** CHECKPOINT — ready for integration decisions  
-**Next Owner:** HIC (Risto) → Architect (Phase 1 lead)
+**Session:** 2026-09-20 → 2026-09-21 | Claude Sonnet 5 (continued from Claude Haiku 4.5)
+**Status:** ✅ MERGED (PR #2049 → `main`, commit `cc07de6`) — branch restarted from `main` for next checkpoint
+**Next Owner:** HIC (Risto) → Architect (Phase 1 lead) / Saito (proxy validator)
 
 ---
 
 ## Summary
 
-Two parallel discoveries this session:
+PR #2049 ("Session Learning Outcome: Jev-KYA Synthetic Learning + Proxy Validator Security Fix") is merged to `main`. This handoff restarts the branch from latest `main` per merged-PR protocol and carries forward the two still-open HIC decisions — merging the docs did not constitute approval of the DGX execution plan or the proxy validator integration point.
 
-1. **Security Fix (Code):** Proxy Trust Validator middleware — validates IPv4-mapped IPv6 trust subnets, prevents IP spoofing. 27 tests ✅. Ready to integrate. **Deferred to Saito** for integration option (A/B/C).
+Two parallel discoveries carried forward:
 
-2. **Jev-KYA Synthetic Learning (Breakthrough):** Successfully distilled DeepSeek V4 Flash (157 GB) to 4B classifier. 20× smaller, 22 ms inference, outperforms teacher. **Execution plan finalized: 4-phase DGX Spark pipeline (13–18h sequential) ready for HIC approval**.
+1. **Security Fix (Code):** Proxy Trust Validator middleware — validates IPv4-mapped IPv6 trust subnets, prevents IP spoofing. 27 tests ✅, merged. **Still deferred to Saito** for integration point (A/B/C) — code exists but is not wired into the middleware stack yet.
+
+2. **Jev-KYA Synthetic Learning (Breakthrough):** Distilled DeepSeek V4 Flash (157 GB) → 4B classifier. 20× smaller, 22 ms inference, outperforms teacher. Execution plan (4-phase DGX Spark pipeline, 13–18h sequential) is merged and documented. **Still awaiting HIC go/no-go** — no DGX time has been scheduled or spent.
+
+3. **Architecture clarification (2026-09-21, HIC/Risto):** ThinkingBox (pre-deployment eval, 507 test cases in isolated MCP environments, verifies side effects) and Jev-KYA 4B distillation (production-time KYA decision inference) are **complementary, not competing**. Flow: agent tested in ThinkingBox-Bench → promoted to DGX production using Jev-KYA 4B for real-time decisions → DWS Dashboard/Aspire telemetry monitors for confidence drift → feeds back to eval loop. No changes needed to the ThinkingBox article; Jev-KYA reinforces the same DGX-first/sovereignty strategy.
 
 ---
 
-## Artifacts Created
+## Artifacts (merged to main via PR #2049)
 
 ### Field Notes
 
-- `docs/field-notes/2026-09-20-proxy-trust-validator-security-fix.md` — Detailed security analysis, integration options (A/B/C), trust subnet audit checklist
-- `docs/field-notes/2026-09-20-jev-kya-synthetic-learning-nvidia-integration.md` — NVIDIA NeMo integration overview (5-phase, 9-week plan)
-- `docs/field-notes/2026-09-20-jev-kya-nemotron-distillation-dgx-execution-plan.md` — **FINAL EXECUTION PLAN**: 4-phase DGX Spark pipeline ready for approval. Phase 1: Teacher inference 6-8h, Phase 2: Reward curation 4-5h, Phase 3: SFT+Distillation 2-4h, Phase 4: Quantization 1h. Total 13–18h. Sequential architecture (single node). Deployment: Mac (MLX INT4, 2.5GB), agent GPUs (vLLM AWQ, 4GB).
+- `docs/field-notes/2026-09-20-proxy-trust-validator-security-fix.md`
+- `docs/field-notes/2026-09-20-jev-kya-synthetic-learning-nvidia-integration.md`
+- `docs/field-notes/2026-09-20-jev-kya-nemotron-distillation-dgx-execution-plan.md` — final 4-phase execution plan
 
 ### Plan Export
 
-- `docs/plans/JEV-KYA-4B-NEMOTRON-DISTILLATION-PLAN.txt` — Clean text export for external sharing/Gemini input
+- `docs/plans/JEV-KYA-4B-NEMOTRON-DISTILLATION-PLAN.txt` — plain-text export for external sharing (Gemini, stakeholders)
 
 ### KB Articles (raw, pending compile when backend available)
 
 - `kb/raw/articles/2026-09-20-proxy-trust-validator-security.md`
 - `kb/raw/articles/2026-09-20-jev-kya-synthetic-learning-nvidia.md`
 
-### Code (Committed / Staged)
+### Code (merged)
 
-- ✅ `src/middleware/proxy-trust-validator.middleware.ts` (228 lines, validation + logging)
-- ✅ `src/__tests__/proxy-trust-validator.test.ts` (150 lines, 27/27 tests passing)
-- ✅ `src/app.ts` (import added, ready to integrate)
+- ✅ `src/middleware/proxy-trust-validator.middleware.ts` (228 lines)
+- ✅ `src/__tests__/proxy-trust-validator.test.ts` (150 lines, 27/27 passing)
+- ✅ `src/app.ts` (import present; **not yet wired into middleware stack** — integration point still pending)
 
 ---
 
-## Decisions Pending (HIC)
+## Decisions Pending (HIC) — unchanged by the merge
 
 ### 1. Proxy Trust Validator — Integration Point
 
-**Status:** Code ready; deferred to **Saito** for architecture decision.
-
-**Options:**
+**Status:** Code merged; still deferred to **Saito** for architecture decision.
 
 - **A (Recommended):** Add to Express middleware stack immediately after helmet/cors
 - **B:** Separate startup module (logging only, non-blocking)
@@ -57,85 +59,34 @@ Two parallel discoveries this session:
 
 ### 2. Jev-KYA Synthetic Learning — DGX Spark Execution
 
-**Status:** ✅ **EXECUTION PLAN FINALIZED** — 4-phase DGX Spark pipeline ready for HIC approval.
+**Status:** Plan merged and finalized; **execution has not started**. No DGX hours consumed, no ML engineer assigned yet.
 
-**What's Done:**
+**HIC Approval Still Needed:**
 
-- Distillation proof-of-concept (user's work: 157 GB → 4B, 22 ms inference, outperforms teacher)
-- **Final execution plan:** 4-phase sequential pipeline (13–18h total on single DGX Spark node)
-  - Phase 1 (6–8h): Teacher inference — Nemotron-4-340B-Instruct generates 100K–200K synthetic KYA scenarios
-  - Phase 2 (4–5h): Reward curation — Filter to 50K high-quality examples (reward score ≥ 80)
-  - Phase 3 (2–4h): SFT + distillation — Train 4B student model (BF16 full parameter fine-tuning, 2–3 epochs)
-  - Phase 4 (1h): Quantization & deployment — Export to MLX/Mac (2.5GB INT4), vLLM/agent GPU (4GB AWQ)
-- Resource breakdown, risk mitigation, compliance checklist included
-
-**Deployment Targets:**
-
-- Mac: MLX INT4 format (~2.5 GB, 30–50 ms per token)
-- Agent GPUs: vLLM AWQ format (~4 GB, 8–15 ms per decision)
-- Optional edge: ONNX INT8 format (~1 GB)
-
-**HIC Approval Needed:**
-
-1. **Go/No-Go** on execution plan (approve or request modifications)?
+1. **Go/No-Go** on execution plan?
 2. **Assign ML engineer** for Phase 1 setup (~1 FTE for 18h sequential execution)?
 3. **Schedule DGX allocation** (contiguous 18h window or multi-day phases)?
 4. **Confirm targets:** Reward threshold (≥80), accuracy parity (≥95% of teacher), quantization tolerance (≤2% accuracy drop)?
 
-**Recommendation:** ✅ **GO.** Plan is detailed, sequential (no resource contention), Rule 14 compliant (DGX-first, sovereign). Post-distillation inference cost = $0 at scale. Timeline realistic for assigned resources.
-
----
-
-## Code Status
-
-### Proxy Trust Validator
-
-- **Tests:** 27/27 passing (includes security case: rejects undersized IPv4-mapped prefixes)
-- **Coverage:** 100% branch coverage on validation logic
-- **Integration:** Import ready in `src/app.ts`; middleware creation ready; integration point pending
-
-### Jev-KYA Synthetic Learning
-
-- **Distillation:** 157 GB → 4B (20× size reduction); 22 ms inference per decision
-- **Accuracy:** Outperforms teacher on quick-response classification tasks
-- **Execution Plan:** Finalized (4-phase DGX Spark pipeline, 13–18h sequential)
-- **Status:** ✅ Ready for HIC approval + ML engineer assignment + DGX resource scheduling
+**Recommendation:** ✅ **GO.** Plan is detailed, sequential (no resource contention), Rule 14 compliant (DGX-first, sovereign). Post-distillation inference cost = $0 at scale.
 
 ---
 
 ## Next Steps (Ordered by Dependency)
 
-### Immediate (This Week)
-
-1. **Saito decision:** Proxy validator integration point (A/B/C)?
-   - Once decided → 1 FTE engineer integrates + tests in staging (1 hour)
-
-2. **HIC decision:** Jev-KYA NVIDIA integration go/no-go?
-   - If go → assign architect for Phase 1 (1 week)
-   - If defer → note target date for revisit (e.g., 2026-10-20)
-
-### Week 1 (If Go on NVIDIA)
-
-3. **Architect Phase 1:** Assess NVIDIA options
-   - NeMo Synthetic Data feasibility
-   - TensorRT-LLM proof-of-concept (load distilled model, measure latency improvement)
-   - Document findings + architecture decision
-
-### Week 2–3 (Phase 2 prep)
-
-4. **Prepare synthetic training data pipeline**
-   - Define jev-kya decision archetypes (10 scenarios)
-   - Create 100-example seed set with teacher labels
-   - Set up NVIDIA NeMo pipeline
+1. **Saito decision:** Proxy validator integration point (A/B/C)? → 1 hour to integrate once decided.
+2. **HIC decision:** Jev-KYA DGX execution go/no-go, ML engineer assignment, DGX scheduling window.
+3. **If go:** kick off Phase 1 (teacher inference, 6–8h) per `docs/field-notes/2026-09-20-jev-kya-nemotron-distillation-dgx-execution-plan.md`.
+4. **Deferred (awaiting backend):** KB compile from `kb/raw/articles/`, Drive export, `Learn/` HTML render (pandoc unavailable in this environment).
 
 ---
 
-## Blockers / Risks
+## Blockers / Risks (unchanged)
 
 | Item                                              | Risk                                   | Mitigation                             | Owner               |
 | ------------------------------------------------- | -------------------------------------- | -------------------------------------- | ------------------- |
 | Proxy validator integration point undefined       | Low (code works, just needs placement) | Saito decision this week               | Saito               |
-| DGX Spark allocation for Phase 3 not confirmed    | Medium (may delay tuning 2+ weeks)     | Confirm capacity; reserve now if going | Architect (Phase 1) |
+| DGX Spark allocation for Phase 1 not confirmed    | Medium (may delay start indefinitely)  | Confirm capacity; reserve now if going | Architect (Phase 1) |
 | NVIDIA TensorRT-LLM API version compatibility     | Low (track releases, test in CI)       | Pin versions; test before deployment   | Engineering         |
 | Synthetic label cost (10K examples @ gpt-4 rates) | Medium ($5–10K)                        | Budget approval + cost tracking        | Finance / HIC       |
 
@@ -143,38 +94,25 @@ Two parallel discoveries this session:
 
 ## Standards Compliance
 
-✅ **DWS Engineering Discipline:**
-
-- Rule 1: Assumptions stated (IPv4-mapped IPv6 vulnerability, jev-kya latency bottleneck)
-- Rule 3: Surgical changes (proxy validator only; no unrelated refactors)
-- Rule 9: Tests verify intent (27 tests, security case explicit)
-- Rule 10: Checkpoint (this file)
-- Rule 12: Fail loud (field notes are detailed; decisions are explicit)
-
-✅ **Session Learning Outcome (EU AI Act Art. 14):**
-
-- Field note created (2 documents)
-- KB articles written (2 articles)
-- Clear HIC decision points (2 major decisions)
-- No unresolved blocker for session exit
+✅ **DWS Engineering Discipline:** Rules 1, 3, 9, 10, 12 satisfied per original session (see PR #2049 body).
+✅ **Session Learning Outcome (EU AI Act Art. 14):** Field notes + KB articles merged; HIC decision points explicit; no unresolved blocker for session exit.
 
 ---
 
 ## References
 
+- **Merged PR:** https://github.com/blogtheristo/dws6/pull/2049 (merge commit `cc07de6`)
 - **Proxy validator:** `docs/field-notes/2026-09-20-proxy-trust-validator-security-fix.md`
-- **Jev-KYA plan:** `docs/field-notes/2026-09-20-jev-kya-synthetic-learning-nvidia-integration.md`
+- **Jev-KYA plan:** `docs/field-notes/2026-09-20-jev-kya-nemotron-distillation-dgx-execution-plan.md`
 - **Current jev-kya:** `src/agents/kya-jev.ts`
 - **Calibration baseline:** `docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md`
-- **Xerial LEO reference:** https://xerial.org/leo/ (user's distillation tool reference)
 
 ---
 
 ## Session Metadata
 
-- **Branch:** `claude/jev-kya-synthetic-learning-hdkmm4`
-- **Started:** 2026-09-20
-- **Model:** Claude Haiku 4.5
+- **Branch:** `claude/jev-kya-synthetic-learning-hdkmm4` (restarted from `main` after PR #2049 merge, per CLAUDE.md merged-branch protocol)
+- **Started:** 2026-09-20 | **Checkpoint:** 2026-09-21
+- **Model:** Claude Sonnet 5 (session continued from Claude Haiku 4.5)
 - **Session ID:** 01CzKbTGr8xwxCWdnnSZSMDz
-- **Mode:** YELLOW (auto + logged) for code changes; blog drafts remain RED (8 drafts parked, awaiting HIC approval per Rule 13)
-- **Token budget:** Session well within 30K limit; checkpoint at ~15M total tokens remaining
+- **Mode:** YELLOW (auto + logged) for code/docs; blog drafts remain RED
