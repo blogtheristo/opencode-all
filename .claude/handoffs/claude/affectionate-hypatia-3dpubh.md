@@ -2,7 +2,7 @@
 
 **Task:** Audit issue #1832 (11 OpenCode config defects from PR #1831) against current `main`; fix what remains.
 
-**State:** DONE — committed and pushed. PR opened against `main`, closes #1832.
+**State:** DONE — PR #2089 opened against `main`, closes #1832. HIC asked "review and merge" (24.09.2026); Copilot's 4 findings fixed in 9cfa24c and threads resolved; merge pending green gates.
 
 **What changed**
 - `opencode.json`: `read`/`edit` rule sets rewritten (root `.env` was readable, `.env.example` was denied, root-level secret files unguarded); `share: disabled`; `.claude/` harness edits → `ask`; `external_directory` → ask; provider display name corrected; non-schema `cost-policy` moved to `config/cost-policy.json`.
