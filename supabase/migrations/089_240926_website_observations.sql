@@ -5,7 +5,7 @@
 -- Date: 2026-09-24
 -- Owner: DWS Platform / AI Agent
 -- Evidence: Tool=Claude Code Agent=claude Date=2026-09-24
--- Audit trail: git log -- supabase/migrations/089_website_observations.sql
+-- Audit trail: git log -- supabase/migrations/089_240926_website_observations.sql
 -- ============================================================================
 -- website_observations — Chapter 14 CAPTURE from the website (Observation Intake).
 -- One row per event of the Active Ontology UX v2 path on dws10.com: the decision
