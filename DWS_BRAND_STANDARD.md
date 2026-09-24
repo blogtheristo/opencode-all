@@ -1,6 +1,6 @@
 # DWS Gamma Brand Standard v3.13
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -46,7 +46,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
----
+***
 
 **Effective Date:** February 2026
 **Scope:** All DWS landing pages (dws10.com, dws6.com, onelifetime.world, lifetime.fi)
@@ -818,15 +818,16 @@ For products and pages related to EU data sovereignty compliance.
 
 **Badge types:**
 
-| Badge                      | Color                    | CSS Class                           | Usage                          |
-| -------------------------- | ------------------------ | ----------------------------------- | ------------------------------ |
-| EU Data Residency          | `#10b981` (green)        | `.sovereignty-badge.eu-data`        | Data stays in EU               |
-| GAIA-X Aligned             | `#2563eb` (blue)         | `.sovereignty-badge.gaia-x`         | GAIA-X Level 3 compliant       |
-| NIS2 Ready                 | `#8b5cf6` (purple)       | `.sovereignty-badge.nis2`           | NIS2 Directive compliant       |
-| EU AI Act                  | `#f59e0b` (amber)        | `.sovereignty-badge.eu-ai-act`      | EU AI Act Article 12 compliant |
-| CLOUD Act Free             | `#ef4444` (red accent)   | `.sovereignty-badge.cloud-act-free` | No US CLOUD Act exposure       |
-| NVIDIA Connect ISV Partner | `#76b900` (NVIDIA green) | `.sovereignty-badge.nvidia-isv`     | NVIDIA Connect ISV certified   |
-| Red Hat Technology Partner | `#ee0000` (Red Hat red)  | `.sovereignty-badge.redhat`         | Red Hat AgentOps ecosystem     |
+| Badge                      | Color                    | CSS Class                           | Usage                                |
+| -------------------------- | ------------------------ | ----------------------------------- | ------------------------------------ |
+| EU Data Residency          | `#10b981` (green)        | `.sovereignty-badge.eu-data`        | Data stays in EU                     |
+| GAIA-X Aligned             | `#2563eb` (blue)         | `.sovereignty-badge.gaia-x`         | GAIA-X Level 3 compliant             |
+| NIS2 Ready                 | `#8b5cf6` (purple)       | `.sovereignty-badge.nis2`           | NIS2 Directive compliant             |
+| EU AI Act                  | `#f59e0b` (amber)        | `.sovereignty-badge.eu-ai-act`      | EU AI Act Article 12 compliant       |
+| CLOUD Act Free             | `#ef4444` (red accent)   | `.sovereignty-badge.cloud-act-free` | No US CLOUD Act exposure             |
+| NVIDIA Connect ISV Partner | `#76b900` (NVIDIA green) | `.sovereignty-badge.nvidia-isv`     | NVIDIA Connect ISV certified         |
+| Red Hat Technology Partner | `#ee0000` (Red Hat red)  | `.sovereignty-badge.redhat`         | Red Hat AgentOps ecosystem           |
+| Microsoft ISV Partner      | `#0067b8` (Microsoft blue) | `.sovereignty-badge.microsoft-isv` | Microsoft ISV / M365 Agents Toolkit |
 
 **Badge CSS:**
 
@@ -874,6 +875,11 @@ For products and pages related to EU data sovereignty compliance.
   background: rgba(238, 0, 0, 0.15);
   color: #ee0000;
   border: 1px solid rgba(238, 0, 0, 0.3);
+}
+.sovereignty-badge.microsoft-isv {
+  background: rgba(0, 103, 184, 0.15);
+  color: #2b9bf4;
+  border: 1px solid rgba(0, 103, 184, 0.3);
 }
 ```
 
@@ -925,6 +931,31 @@ For products and pages related to EU data sovereignty compliance.
 - [x] Landing pages synced (dual folder rule)
 - [ ] Red Hat logo asset added to shared-assets/logos/
 - [ ] OpenShift AI integration documented in architecture docs
+
+### 11.3 Microsoft ISV Partner Badge
+
+**Status:** Confirmed (2026-06-07). Held under the **Lifetime Oy** Microsoft Entra tenant (directory `lifetimeoy1624259183583`, primary domain `lifetime.fi`). Independently verifiable via the Microsoft ISV / Cloud Partner program for the Lifetime Oy tenant.
+
+**Colors:** Microsoft Blue `#0067b8`, lightened text `#2b9bf4` (for dark backgrounds), White `#ffffff`.
+
+**Context:** Lifetime Oy is an approved Microsoft ISV (Independent Software Vendor). Membership backs the `m365-consultancy` store product (MPN `M365-ATK-2026`), which delivers Declarative Agents and Custom Engine Agents for Microsoft 365 Copilot, Teams conversational agents, and Office Add-ins via the Microsoft 365 Agents Toolkit (ATK) — the evolution of Teams Toolkit. ISV membership unlocks Microsoft Partner Network resources, co-sell via Microsoft marketplace / AppSource, technical pre-sales support, and a dev/test tenant with preconfigured M365 permissions.
+
+**Usage rules:**
+
+- Display on the `m365-consultancy` product page, partner/ecosystem sections, and M365-related agent pages.
+- Correct term is **"Microsoft ISV Partner"** — never claim "Microsoft certified" or "Microsoft Gold Partner".
+- The legal entity is **Lifetime Oy** (Legal Identity Rule); do not credit the program to "DWS OU" or any other entity.
+- Reference the Microsoft 365 Agents Toolkit (ATK) when describing M365 agent delivery.
+
+**Implementation checklist (2026-06-07):**
+
+- [x] Microsoft ISV application confirmed (Lifetime Oy Entra tenant `lifetimeoy1624259183583`, `lifetime.fi`)
+- [x] Badge added to §11 Sovereignty Badge System table + `.sovereignty-badge.microsoft-isv` CSS class
+- [x] Field note status updated to Approved (`docs/field-notes/2026-05-10-microsoft-isv-program-application.md`)
+- [x] `m365-consultancy` product badge confirmed as "Microsoft ISV Partner" (root + landing-pages mirror in sync)
+- [ ] Microsoft Partner / AppSource verification URL added once listing is live
+- [ ] Firehorse Suite AppSource listing explored
+- [ ] Microsoft logo asset added to shared-assets/logos/
 
 ---
 
