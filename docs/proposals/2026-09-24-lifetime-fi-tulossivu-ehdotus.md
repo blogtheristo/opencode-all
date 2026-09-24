@@ -1,6 +1,6 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 2.8 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 2.9 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
 ## 0. Strategia (HIC + Copilot 24.09.2026, v1.4 lopullinen)
 
@@ -278,6 +278,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                         |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2.9     | 2026-09-24 | §15.2 ketju tarkennettu Havainto→Ymmärrys→Vastuu→Toiminta→Vaikutus; kategoriamääritelmä; kilpailukykylause v2                                                                                                                                                                                                                                   |
 | 2.8     | 2026-09-24 | §15.2 omistajuusporras ja hero v3 -ehdotus (MS-007, PENDING)                                                                                                                                                                                                                                                                                    |
 | 2.7     | 2026-09-24 | §15.1 terävöitetty kolmirivinen ketju heroon; compliance-periaate (ei otsikossa/tuotteessa/viestissä) kirjattu                                                                                                                                                                                                                                  |
 | 2.6     | 2026-09-24 | §15.1 HIC:n positiointipäätös 'Tilannetietoisuudesta kilpailukykyyn' sovellettu dws10.com fi/en heroihin ja DISCOVER-yläotsikkoon; aiemmat herot kommentteina                                                                                                                                                                                   |
@@ -692,9 +693,14 @@ Boardyn kysymys "Kuka omistaa ongelman?" ja Kemira-case (Sustainability käyttä
 data, Digitalisation järjestelmät, COO päätösoikeus, CFO budjetti) tuottavat ketjuun kaksi
 porrasta lisää:
 
-> Tilannetietoisuus → Ymmärrys → Omistajuus → Johtaminen → Muutoskyky → Kilpailukyky
+> Havainto → Ymmärrys → Vastuu → Toiminta → Vaikutus
 
-Koska ilman omistajaa ei ole päätöstä, ja ilman päätöstä ei ole muutosta. DWS IQ on tällöin
+(HIC:n 2. kierros korvasi kuusiporrasketjun tällä.) Tietää ei ole passiivinen tila: arvo syntyy,
+kun ongelma, päättäjä, toimintaoikeus ja ajoitus yhdistetään. Ketju on sama kuin Chapter 14:n
+Observation → Insight → Decision → Action → Outcome, eli markkinointi lupaa täsmälleen sen, minkä
+työnkulku tekee. Kilpailukykylause v2: "Menestyvät organisaatiot eivät voita siksi, että niillä on
+enemmän tietoa. Ne voittavat siksi, että ne yhdistävät ongelmat oikeisiin päättäjiin nopeammin ja
+toimivat ennen kilpailijoitaan." Koska ilman omistajaa ei ole päätöstä, ja ilman päätöstä ei ole muutosta. DWS IQ on tällöin
 organisaation päätösoikeuksien ja vastuiden kartta, ei dashboard. Ehdotettu hero v3:
 
 > **DWS IQ — Organisaation ymmärrysjärjestelmä.**

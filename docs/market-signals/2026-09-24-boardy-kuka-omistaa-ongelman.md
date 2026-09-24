@@ -3,7 +3,7 @@ signal_id: MS-2026-09-007
 reality: "Kemira-case (HIC 24.09.2026): havainto 'Emme tiedä tuotantoerien hiilijalanjälkeä.' Sustainability on käyttäjä, Production omistaa datan, Digitalisation omistaa järjestelmät, COO:lla on päätösoikeus, CFO:lla investointihyväksyntä. Ostoprosessi pysähtyy, koska yksikään heistä ei omista ongelmaa kokonaan."
 observation: "Boardy kysyi: 'Kuka omistaa ongelman?' Useimmat järjestelmät (ERP: mitä tapahtui; BI: mitä data näyttää) pysähtyvät havaintoon. Ongelman omistaja ei ole aina näkyvissä; 'yksi ongelma' on todellisuudessa organisaatiokartta."
 signal: "Lähes kaikki isot ongelmat ovat lopulta tunnettu ongelma + epäselvä omistajuus. Ilman omistajaa ei ole päätöstä; ilman päätöstä ei ole muutosta."
-insight: "DWS IQ ei rakenna vain organisaation ymmärrysjärjestelmää vaan tarkemmin organisaation päätösoikeuksien ja vastuiden karttaa. Active Ontologian diagnoosivaiheeseen kuuluu omistajuusketju: Kuka kärsii? → Kuka voi päättää? → Kuka omistaa budjetin? → Kuka tuottaa datan? → Kuka vastaa lopputuloksesta? Positiointiketjuun tulee kaksi uutta porrasta: Tilannetietoisuus → Ymmärrys → Omistajuus → Johtaminen → Muutoskyky → Kilpailukyky."
+insight: "DWS IQ ei rakenna vain organisaation ymmärrysjärjestelmää vaan tarkemmin organisaation päätösoikeuksien ja vastuiden karttaa. Active Ontologian diagnoosivaiheeseen kuuluu omistajuusketju: Kuka kärsii? → Kuka voi päättää? → Kuka omistaa budjetin? → Kuka tuottaa datan? → Kuka vastaa lopputuloksesta? Tarkennus (HIC 24.09.2026, 2. kierros): tietää ei ole passiivinen tila; arvo syntyy, kun ongelma + päättäjä + toimintaoikeus + ajoitus yhdistetään. Johtamisketju: Havainto → Ymmärrys → Vastuu → Toiminta → Vaikutus. Tämä on sama objekti kuin Chapter 14:n jalostusketju (Observation → Insight → Decision → Action → Outcome): markkinointiketju ja työnkulkuketju ovat yksi ja sama."
 source: HIC + Boardy
 date: 2026-09-24
 observed_at: 2026-09-24
@@ -26,7 +26,7 @@ refuting_evidence: "Jos kävijät eivät osaa tai halua nimetä rooleja (tyhjät
 learning_delta:
   id: LD-2026-09-007
   old_assumption: "Ketju Tilannetietoisuus → Johtaminen → Muutoskyky → Kilpailukyky riittää; havainto johtaa suoraan päätökseen."
-  new_learning: "Havainnon ja päätöksen välissä on kaksi porrasta: ymmärrys (mitä tämä tarkoittaa) ja omistajuus (kenellä on vastuu ja päätösoikeus). Tuote, joka pysähtyy havaintoon, on dashboard; tuote, joka nimeää omistajan, on johtamisjärjestelmä."
+  new_learning: "Havainnon ja vaikutuksen välissä on kolme porrasta: ymmärrys (mitä tämä tarkoittaa), vastuu (ketä koskee, kenellä on oikeus toimia) ja toiminta (mitä seuraavaksi). Tuote, joka pysähtyy havaintoon, on dashboard; tuote, joka yhdistää ongelman päättäjään, toimintaoikeuteen ja ajoitukseen, on johtamisjärjestelmä. Kategoriamääritelmä: organisaation ymmärrysjärjestelmä, jonka tehtävä on yhdistää havainto, vastuu ja toiminta yhdeksi jatkuvaksi ketjuksi."
   ontology_change: "Observation-entiteettiin lisätään ownership_map: { suffers, decides, budget, data, accountable } roolitasolla (ei henkilöitä, ei PII). Active Ontology -polkuihin (config/active-ontology.json) lisätään roolit per polku."
   hic_decision: PENDING
   decision_reasoning: null
@@ -45,7 +45,7 @@ application_decision:
   valid_until: null
   affects: [dws10.com hero, DISCOVER-diagnoosi, website_observations-skeema, Chapter 14 CLASSIFY]
 dispatched_runs:
-  - "PROPOSED: dws10.com hero v3 (organisaation ymmärrysjärjestelmä, kuusiporrasketju) — odottaa APPLY"
+  - "PROPOSED: dws10.com hero v3 (organisaation ymmärrysjärjestelmä; ketju Havainto → Ymmärrys → Vastuu → Toiminta → Vaikutus; kilpailukykylause v2) — odottaa APPLY"
   - "PROPOSED: Active Ontology diagnose-vaiheeseen omistajuuskysymys 'Kenellä tämä on pöydällä?' (roolivalinta, ei nimiä) → ownership_map"
   - "PROPOSED: migration 090 website_observations.ownership_map jsonb (additive)"
   - "PROPOSED: Chapter 14 CLASSIFY lisää owner_role-kentän signaaliin"
@@ -70,6 +70,27 @@ evaluation: null
 
 ERP kertoo mitä tapahtui. BI kertoo mitä data näyttää. DWS IQ vastaa: mitä tämä tarkoittaa,
 kenen pitäisi välittää, kenellä on päätösoikeus ja mitä seuraavaksi pitäisi tehdä.
+
+## Kategoriamääritelmä (HIC 24.09.2026)
+
+| Järjestelmä | Vastaa kysymykseen                                                                                |
+| ----------- | ------------------------------------------------------------------------------------------------- |
+| ERP         | Mitä tapahtui.                                                                                    |
+| BI          | Mitä data näyttää.                                                                                |
+| DWS IQ      | Mitä tämä tarkoittaa. Ketä tämä koskee. Kenellä on oikeus toimia. Mitä pitäisi tehdä seuraavaksi. |
+
+Kemira: "Emme tiedä tuotantoerien hiilijalanjälkeä" ei ole vielä hyödyllinen. Ongelma → Vaikutus →
+Omistaja → Päätösoikeus → Toimenpide on hyödyllinen, koska vasta silloin syntyy toiminta.
+
+> Menestyvät organisaatiot eivät voita siksi, että niillä on enemmän tietoa. Ne voittavat siksi,
+> että ne yhdistävät ongelmat oikeisiin päättäjiin nopeammin ja toimivat ennen kilpailijoitaan.
+
+Sama ketju kolmessa kerroksessa (yksi objekti, kolme nimeä):
+
+| Markkinointi | Havainto    | Ymmärrys | Vastuu                  | Toiminta   | Vaikutus |
+| ------------ | ----------- | -------- | ----------------------- | ---------- | -------- |
+| Chapter 14   | Observation | Insight  | Decision                | Action     | Outcome  |
+| Kemira       | Ongelma     | Vaikutus | Omistaja + päätösoikeus | Toimenpide | Tulos    |
 
 ## Seuraava solmu
 
