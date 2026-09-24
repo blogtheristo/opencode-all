@@ -1,6 +1,6 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 2.4 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 2.5 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
 ## 0. Strategia (HIC + Copilot 24.09.2026, v1.4 lopullinen)
 
@@ -278,6 +278,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                         |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2.5 | 2026-09-24 | §15 DWS IQ:n ydinlause 'Kun haluat johtaa epävarmuuden ymmärrykseksi' ja tuoteperhe Discover/Understand/Decide/Execute/Learn (ehdotus); UX v2 kytketty dws10.com etusivulle ja /buy:hin |
 | 2.4     | 2026-09-24 | §14 avausrivi (epävarmuuden vähentäminen, ei suositusjärjestelmä); kysymys ensin, toimiala arvataan ja vahvistetaan; blogi #72 julkaistu; LD-006 APPLY                                                                                                                                                                                          |
 | 2.3     | 2026-09-24 | §14 Active Ontology & Agentic Commerce (DISCOVER-kerros): virallinen Learning Delta 'asiakas yrittää tehdä päätöksen', ei chat-first, toimiala ensin, yksi sisäänmeno 'Mikä päätös on tällä hetkellä vaikea tehdä?'; Observation Capture mittaukseen ennen yhteydenottoja; datalähdetaulukko (Cloudflare, Merchant Center, Observation Intake)  |
 | 2.2     | 2026-09-24 | Vaihe A2 ja käännökset tehty: oma WHY-nav, kielipalkki v1.1, viisikielinen generaattori yhdestä sisältölähteestä, peili samassa ajossa                                                                                                                                                                                                          |
@@ -628,3 +629,36 @@ Tila 24.09.2026: Cloudflare- ja Merchant Center -tunnuksia ei ole tässä ympär
 (`CLOUDFLARE_API_TOKEN`, GMC-tunnukset puuttuvat); luvut haetaan DGX/HIC-ympäristöstä tai HIC
 liittää raportin. Hakuohje HIC:lle (Cloudflare): Top URLs, Entry pages, Exit pages, Referrers,
 Search queries, Countries, Top paths; (Merchant): näytöt, klikit, hakutermit, per tuote.
+
+
+## 15. DWS IQ:n ydinlause ja tuoteperhe (HIC 24.09.2026, ehdotus positioinniksi)
+
+**Ydinlause:** *Kun haluat johtaa epävarmuuden ymmärrykseksi.* Ei "AI Agents", ei "Compliance
+Outcomes", ei "Sovereign AI".
+
+**Määritelmä:** DWS IQ auttaa organisaatioita muuttamaan epävarmuuden ymmärrykseksi, ymmärryksen
+päätöksiksi ja päätökset mitattaviksi tuloksiksi. Workflow v2 -kielellä Observation → Signal →
+Insight → Decision → Action → Outcome; ihmisen kielellä En tiedä → Ymmärrän → Päätän → Toimin.
+
+| Tuote | Kysymys | Sisältö |
+| --- | --- | --- |
+| **DWS IQ Discover** | Mitä ongelmaa yritämme oikeasti ratkaista? | Aktiivinen ontologia, Observation Capture, Market Signals, Discovery |
+| **DWS IQ Understand** | Miksi tämä tapahtuu? | Evidence, analyysi, juurisyyt, World Model |
+| **DWS IQ Decide** | Mikä on järkevin seuraava askel? | JEV, KYA, HIC, Decision Support |
+| **DWS IQ Execute** | Miten muutos toteutetaan? | Automation, Workflow, agentit, prosessit |
+| **DWS IQ Learn** | Mitä opimme? | Learning Delta, Ontology KB, World Model Update |
+
+Yksi kuva: Epävarmuus → Havainto → Ymmärrys → Päätös → Toiminta → Oppiminen. Kerrokset:
+lifetime.fi puhuu seurauksesta ("Turvallisuuden tunne syntyy faktoista, jotka kestävät aikaa");
+Journal selittää, miksi epävarmuus syntyy ja miten sitä vähennetään; dws10.com näyttää, miten
+epävarmuus muutetaan ymmärrykseksi; dws10.com/buy näyttää, miten tämä otetaan käyttöön.
+
+**Ehdotettu dws10.com-hero:** "DWS IQ — Kun haluat johtaa epävarmuuden ymmärrykseksi. Ymmärrys
+ilman toimintaa ei muuta mitään. Toiminta ilman ymmärrystä lisää riskiä. DWS IQ auttaa
+organisaatioita muuttamaan havainnot päätöksiksi ja päätökset mitattaviksi tuloksiksi."
+
+**Tila:** positiointi on Application Decision (LD-2026-09-002 applies_to kattaa dws-iq-positioning,
+mutta tämä sanamuoto on uusi). Toteutettu 24.09.2026 vain DISCOVER-lohkon yläotsikkona dws10.com:n
+etusivulla ja /buy:ssa; heron pääotsikko ja tuoteperheen nimet (Discover/Understand/Decide/
+Execute/Learn) odottavat HIC:n erillistä päätöstä, koska ne muuttavat 136 tuotteen ryhmittelyä ja
+products.json-rakennetta.

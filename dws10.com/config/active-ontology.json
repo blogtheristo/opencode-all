@@ -1,0 +1,950 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "date": "2026-09-24",
+    "purpose": "Active Ontology UX v2 — DISCOVER layer on dws10.com. Decision trap → recognise yourself → industry → diagnostic choices → uncertainty made visible → recommended path → solutions (products last). Spec: docs/specs/active-ontology-ux-v2.md. Learning deltas LD-2026-09-003/004/005 (HIC APPLY 24.09.2026).",
+    "rules": [
+      "Never chat-first.",
+      "Never show products before the situation is understood.",
+      "Every question says what it rules out.",
+      "Prices only on /buy, never here.",
+      "Observations are anonymised before storage."
+    ]
+  },
+  "prompt": {
+    "fi": {
+      "question": "Mikä päätös on tällä hetkellä vaikea tehdä?",
+      "placeholder": "Kirjoita yhdellä lauseella, mitä yrität saada aikaan.",
+      "submit": "Jatka",
+      "recognise": "Tai tunnista itsesi:",
+      "industryQ": "Millä toimialalla toimitte?",
+      "confirmQ": "Ymmärsinkö oikein? Vaikuttaa siltä, että ongelma liittyy:",
+      "whichBest": "Mikä näistä kuvaa parhaiten tilannettanne?",
+      "successQ": "Vuoden päästä: mikä olisi muuttunut?",
+      "successPh": "Esim. tiedämme jokaisen tuotantoerän hiilijalanjäljen.",
+      "whyLabel": "Miksi ette vielä tiedä tätä?",
+      "pathLabel": "Suositeltu eteneminen",
+      "solutionsLabel": "Ratkaisut tilanteeseenne",
+      "whyRec": "Miksi tätä suositellaan",
+      "rulesOut": "sulkee pois",
+      "cta1": "Varaa työpaja",
+      "cta2": "Käynnistä arviointi",
+      "skip": "Ohita",
+      "thanks": "Kiitos. Tämä auttaa meitä ymmärtämään, mitä yritykset yrittävät saada aikaan.",
+      "otherIndustry": "Muu / en löydä omaani"
+    },
+    "en": {
+      "question": "Which decision is hard to make right now?",
+      "placeholder": "In one sentence, what are you trying to achieve?",
+      "submit": "Continue",
+      "recognise": "Or recognise yourself:",
+      "industryQ": "Which industry are you in?",
+      "confirmQ": "Did I understand correctly? The problem seems to involve:",
+      "whichBest": "Which of these best describes your situation?",
+      "successQ": "A year from now: what would have changed?",
+      "successPh": "E.g. we know the carbon footprint of every production batch.",
+      "whyLabel": "Why don't you know this yet?",
+      "pathLabel": "Recommended path",
+      "solutionsLabel": "Solutions for your situation",
+      "whyRec": "Why this is recommended",
+      "rulesOut": "rules out",
+      "cta1": "Book a workshop",
+      "cta2": "Start an assessment",
+      "skip": "Skip",
+      "thanks": "Thank you. This helps us understand what companies are trying to achieve.",
+      "otherIndustry": "Other / not listed"
+    }
+  },
+  "recognise": [
+    {
+      "id": "reporting-time",
+      "fi": "Raportointi vie liikaa aikaa",
+      "en": "Reporting takes too much time",
+      "topics": ["reporting", "automation"]
+    },
+    {
+      "id": "data-trust",
+      "fi": "Emme luota dataamme",
+      "en": "We don't trust our data",
+      "topics": ["data", "carbon"]
+    },
+    {
+      "id": "visibility",
+      "fi": "Näkyvyys ei riitä",
+      "en": "We're not visible enough",
+      "topics": ["visibility", "growth"]
+    },
+    {
+      "id": "nis2",
+      "fi": "NIS2 huolestuttaa",
+      "en": "NIS2 worries us",
+      "topics": ["nis2", "compliance"]
+    },
+    {
+      "id": "automation-stalled",
+      "fi": "Automaatio ei etene",
+      "en": "Automation isn't progressing",
+      "topics": ["automation"]
+    },
+    {
+      "id": "where-to-start",
+      "fi": "Emme tiedä, mistä aloittaa",
+      "en": "We don't know where to start",
+      "topics": ["strategy"]
+    }
+  ],
+  "topics": {
+    "carbon": {
+      "fi": "hiilijalanjälkeen",
+      "en": "carbon footprint",
+      "keywords": ["hiilijalanj", "päästö", "co2", "carbon", "emission", "lca", "erä", "batch"]
+    },
+    "reporting": {
+      "fi": "raportointiin",
+      "en": "reporting",
+      "keywords": ["raportoi", "report", "csrd", "esrs", "cbam", "ets", "kestävyysraport"]
+    },
+    "nis2": {
+      "fi": "kyberturvaan ja NIS2-velvoitteisiin",
+      "en": "cyber security and NIS2 obligations",
+      "keywords": ["nis2", "kyber", "cyber", "tietoturva", "security"]
+    },
+    "data": {
+      "fi": "tiedon hajanaisuuteen",
+      "en": "scattered or untrusted data",
+      "keywords": ["data", "tieto", "hajalla", "excel", "järjestelm", "erp", "mes", "luota"]
+    },
+    "automation": {
+      "fi": "käsityönä tehtäviin rutiineihin",
+      "en": "manual routines",
+      "keywords": ["automa", "tarjou", "lasku", "käsin", "manuaal", "rutiini", "quote", "invoice"]
+    },
+    "visibility": {
+      "fi": "löydettävyyteen ja asiakashankintaan",
+      "en": "visibility and customer acquisition",
+      "keywords": [
+        "näkyvyy",
+        "liidi",
+        "lead",
+        "google",
+        "hakukone",
+        "seo",
+        "asiakkaita",
+        "verkkosivu",
+        "verkkokauppa",
+        "myynti"
+      ]
+    },
+    "growth": {
+      "fi": "kasvuun ilman lisähenkilöstöä",
+      "en": "growth without more headcount",
+      "keywords": ["kasva", "grow", "henkilöst", "skaalau"]
+    },
+    "compliance": {
+      "fi": "velvoitteiden täyttämiseen",
+      "en": "meeting obligations",
+      "keywords": ["velvoit", "compliance", "vaatimus", "regul", "asetus", "direktiivi"]
+    },
+    "strategy": {
+      "fi": "siihen, mistä aloittaa",
+      "en": "where to start",
+      "keywords": ["mistä aloit", "where to start", "strategia", "copilot ei riitä"]
+    }
+  },
+  "industries": [
+    {
+      "id": "construction",
+      "fi": "Rakentaminen",
+      "en": "Construction & buildings",
+      "keywords": ["rakenn", "työmaa", "urakk", "construction", "site"],
+      "featured": true
+    },
+    {
+      "id": "energy",
+      "fi": "Energia",
+      "en": "Power & heat",
+      "keywords": ["energia", "sähkö", "lämpö", "energy", "power"],
+      "featured": true
+    },
+    {
+      "id": "chemicals",
+      "fi": "Kemia",
+      "en": "Chemicals & petrochemicals",
+      "keywords": ["kemia", "kemik", "chemical", "prosessiteollisuus"],
+      "featured": true
+    },
+    {
+      "id": "logistics",
+      "fi": "Logistiikka",
+      "en": "Road transport & logistics",
+      "keywords": ["logisti", "kuljetu", "rahti", "kalusto", "transport", "fleet"],
+      "featured": true
+    },
+    {
+      "id": "online-business",
+      "fi": "Verkkoliiketoiminta ja palvelut",
+      "en": "Online business & services",
+      "keywords": ["verkkokaupp", "verkkosiv", "palvelu", "asiantuntija", "online", "shop"],
+      "featured": true
+    },
+    { "id": "steel", "fi": "Teräs", "en": "Iron & steel" },
+    { "id": "cement", "fi": "Sementti ja kalkki", "en": "Cement & lime" },
+    { "id": "aviation", "fi": "Ilmailu", "en": "Aviation" },
+    { "id": "maritime", "fi": "Merenkulku", "en": "Maritime shipping" },
+    { "id": "agriculture", "fi": "Maatalous", "en": "Agriculture & livestock" },
+    { "id": "waste", "fi": "Jäte ja kierrätys", "en": "Waste & recycling" },
+    { "id": "aluminium", "fi": "Alumiini", "en": "Aluminium" },
+    { "id": "pulp-paper", "fi": "Metsäteollisuus", "en": "Pulp, paper & printing" },
+    { "id": "refining", "fi": "Öljynjalostus", "en": "Petroleum refining" },
+    { "id": "food", "fi": "Elintarvike", "en": "Food & beverage" },
+    { "id": "glass", "fi": "Lasi ja keramiikka", "en": "Glass & ceramics" },
+    { "id": "mining", "fi": "Kaivos", "en": "Mining & quarrying" },
+    { "id": "real-estate", "fi": "Kiinteistöt", "en": "Real estate" },
+    { "id": "manufacturing", "fi": "Valmistava teollisuus", "en": "Manufacturing (cross-sector)" },
+    { "id": "healthcare", "fi": "Terveydenhuolto", "en": "Healthcare" },
+    { "id": "financial", "fi": "Rahoitusala", "en": "Financial services" },
+    { "id": "public", "fi": "Julkinen sektori", "en": "Public sector" },
+    { "id": "shipbuilding", "fi": "Laivanrakennus", "en": "Shipbuilding" },
+    { "id": "data-centres", "fi": "Datakeskukset", "en": "Data centres" },
+    { "id": "hydrogen", "fi": "Vety ja e-polttoaineet", "en": "Green H2 & e-fuels" }
+  ],
+  "paths": {
+    "chemicals:carbon": {
+      "situation": {
+        "fi": "Emme tiedä tuotantoerien hiilijalanjälkeä",
+        "en": "We don't know the carbon footprint of production batches"
+      },
+      "causes": [
+        {
+          "id": "energy-not-linked",
+          "fi": "Tuotantodata ei yhdisty energiaan",
+          "en": "Production data is not linked to energy",
+          "prior": 0.43
+        },
+        {
+          "id": "material-missing",
+          "fi": "Materiaalidataa puuttuu",
+          "en": "Material data is missing",
+          "prior": 0.28
+        },
+        {
+          "id": "supplier-missing",
+          "fi": "Toimittajien päästötiedot puuttuvat",
+          "en": "Supplier emission data is missing",
+          "prior": 0.15
+        },
+        {
+          "id": "no-model",
+          "fi": "Laskentamalli puuttuu",
+          "en": "No calculation model",
+          "prior": 0.09
+        },
+        {
+          "id": "wrong-place",
+          "fi": "Raportointi on väärässä paikassa",
+          "en": "Reporting sits in the wrong place",
+          "prior": 0.05
+        }
+      ],
+      "questions": [
+        {
+          "id": "batch-id",
+          "fi": "Voidaanko yksittäinen erä tunnistaa järjestelmistänne?",
+          "en": "Can a single batch be identified in your systems?",
+          "yesRulesOut": ["wrong-place"],
+          "noBoosts": ["energy-not-linked", "no-model"]
+        },
+        {
+          "id": "material-data",
+          "fi": "Onko materiaalitiedot saatavilla erätasolla?",
+          "en": "Is material data available per batch?",
+          "yesRulesOut": ["material-missing"],
+          "noBoosts": ["material-missing"]
+        },
+        {
+          "id": "energy-link",
+          "fi": "Onko energiankulutus yhdistettävissä erään?",
+          "en": "Can energy consumption be attributed to a batch?",
+          "yesRulesOut": ["energy-not-linked"],
+          "noBoosts": ["energy-not-linked"]
+        },
+        {
+          "id": "model",
+          "fi": "Onko päästölaskentamalli määritelty?",
+          "en": "Is an emission calculation model defined?",
+          "yesRulesOut": ["no-model"],
+          "noBoosts": ["no-model"]
+        }
+      ],
+      "path": {
+        "fi": [
+          "Yhdistä MES-data ja energia",
+          "Määritä erätason hiilijalanjälkimalli",
+          "Täydennä puuttuvat toimittajatiedot",
+          "Automatisoi laskenta"
+        ],
+        "en": [
+          "Link MES data and energy",
+          "Define a batch-level footprint model",
+          "Complete missing supplier data",
+          "Automate the calculation"
+        ]
+      },
+      "goal": {
+        "fi": "Tuotantoerien hiilijalanjälki todennettavaksi",
+        "en": "Batch carbon footprint made verifiable"
+      },
+      "weeks": 8,
+      "solutions": [
+        {
+          "sku": "DWS-CLIMATE-001",
+          "name": "Climate Intelligence",
+          "why": {
+            "fi": "Laskee erätason hiilijalanjäljen ja tuottaa tarkastettavan tuloksen.",
+            "en": "Computes batch-level footprint with an auditable result."
+          },
+          "start": true
+        },
+        {
+          "sku": "ED-T1",
+          "name": "Emissions Data",
+          "why": {
+            "fi": "Tuo energian ja päästökertoimet erätason laskentaan.",
+            "en": "Brings energy and emission factors into batch calculation."
+          }
+        },
+        {
+          "sku": "MO-T1",
+          "name": "Material Oracle",
+          "why": {
+            "fi": "Täydentää materiaalidatan ja toimittajien päästötiedot.",
+            "en": "Completes material and supplier emission data."
+          }
+        },
+        {
+          "sku": "CMP-T1",
+          "name": "Compliance Agent",
+          "why": {
+            "fi": "Kytkee tuloksen CSRD/CBAM-raportointiin oikeassa paikassa.",
+            "en": "Connects the result to CSRD/CBAM reporting in the right place."
+          }
+        }
+      ]
+    },
+    "construction:reporting": {
+      "situation": { "fi": "Raportointi vie liikaa aikaa", "en": "Reporting takes too much time" },
+      "causes": [
+        {
+          "id": "manual-collection",
+          "fi": "Tiedot kerätään käsin työmailta",
+          "en": "Data is collected manually from sites",
+          "prior": 0.4
+        },
+        {
+          "id": "systems-split",
+          "fi": "Tieto on hajallaan useissa järjestelmissä",
+          "en": "Data is split across systems",
+          "prior": 0.3
+        },
+        {
+          "id": "no-template",
+          "fi": "Raporttipohja ja vaatimus eivät kohtaa",
+          "en": "Template and requirement don't match",
+          "prior": 0.2
+        },
+        {
+          "id": "people",
+          "fi": "Raportointi on yhden henkilön varassa",
+          "en": "Reporting depends on one person",
+          "prior": 0.1
+        }
+      ],
+      "questions": [
+        {
+          "id": "digital-site",
+          "fi": "Kirjataanko työmaatiedot digitaalisesti (ei paperi/WhatsApp)?",
+          "en": "Is site data recorded digitally (not paper/WhatsApp)?",
+          "yesRulesOut": ["manual-collection"],
+          "noBoosts": ["manual-collection"]
+        },
+        {
+          "id": "one-source",
+          "fi": "Onko yksi paikka, josta raportin tiedot haetaan?",
+          "en": "Is there one place the report data comes from?",
+          "yesRulesOut": ["systems-split"],
+          "noBoosts": ["systems-split"]
+        },
+        {
+          "id": "known-req",
+          "fi": "Tiedättekö tarkalleen, mitä raportin vastaanottaja vaatii?",
+          "en": "Do you know exactly what the recipient requires?",
+          "yesRulesOut": ["no-template"],
+          "noBoosts": ["no-template"]
+        }
+      ],
+      "path": {
+        "fi": [
+          "Yhdistä työmaakirjaukset yhteen lähteeseen",
+          "Määritä raporttipohja vaatimuksen mukaan",
+          "Automatisoi kooste ja jakelu",
+          "Mittaa: 8 h → 30 min"
+        ],
+        "en": [
+          "Bring site records into one source",
+          "Define the template to the requirement",
+          "Automate compilation and distribution",
+          "Measure: 8 h → 30 min"
+        ]
+      },
+      "goal": {
+        "fi": "Viikkoraportointi 8 tunnista 30 minuuttiin",
+        "en": "Weekly reporting from 8 hours to 30 minutes"
+      },
+      "weeks": 6,
+      "solutions": [
+        {
+          "sku": "SS-T1",
+          "name": "SiteSense",
+          "why": {
+            "fi": "Kerää työmaan tilanteen ja turvallisuuden ilman käsin raportointia.",
+            "en": "Captures site status and safety without manual reporting."
+          },
+          "start": true
+        },
+        {
+          "sku": "FH-RPT-001",
+          "name": "DWS IQ Report",
+          "why": {
+            "fi": "Tuottaa koosteen suoraan lähdetiedosta vaatimuksen muotoon.",
+            "en": "Compiles the report from source data into the required form."
+          }
+        },
+        {
+          "sku": "SG-T1",
+          "name": "Schedule Genius",
+          "why": {
+            "fi": "Pitää aikataulun ja poikkeamat samassa näkymässä.",
+            "en": "Keeps schedule and deviations in one view."
+          }
+        }
+      ]
+    },
+    "energy:reporting": {
+      "situation": {
+        "fi": "Päästö- ja velvoiteraportointi on jälkikäteistä",
+        "en": "Emission and obligation reporting is after the fact"
+      },
+      "causes": [
+        {
+          "id": "no-live-data",
+          "fi": "Tuotanto- ja päästödata ei ole reaaliaikaista",
+          "en": "Production and emission data are not live",
+          "prior": 0.45
+        },
+        {
+          "id": "ets-cbam-split",
+          "fi": "ETS, CBAM ja CSRD tehdään erillään",
+          "en": "ETS, CBAM and CSRD are done separately",
+          "prior": 0.35
+        },
+        {
+          "id": "no-owner",
+          "fi": "Kenelläkään ei ole kokonaisvastuuta",
+          "en": "No one owns the whole",
+          "prior": 0.2
+        }
+      ],
+      "questions": [
+        {
+          "id": "live",
+          "fi": "Näettekö päästöt päivä- tai tuntitasolla?",
+          "en": "Do you see emissions at day or hour level?",
+          "yesRulesOut": ["no-live-data"],
+          "noBoosts": ["no-live-data"]
+        },
+        {
+          "id": "one-pipeline",
+          "fi": "Tuleeko ETS-, CBAM- ja CSRD-luvut samasta laskennasta?",
+          "en": "Do ETS, CBAM and CSRD figures come from one calculation?",
+          "yesRulesOut": ["ets-cbam-split"],
+          "noBoosts": ["ets-cbam-split"]
+        }
+      ],
+      "path": {
+        "fi": [
+          "Yhdistä tuotanto- ja päästödata yhteen laskentaan",
+          "Johda ETS, CBAM ja CSRD samasta lähteestä",
+          "Ohjaa tuotantoa päästötiedolla, ei raportin takia"
+        ],
+        "en": [
+          "Unify production and emission data in one calculation",
+          "Derive ETS, CBAM and CSRD from one source",
+          "Steer production with emission data, not for the report"
+        ]
+      },
+      "goal": {
+        "fi": "Päästöt näkyvät päätöksinä, eivät raportteina",
+        "en": "Emissions visible as decisions, not reports"
+      },
+      "weeks": 10,
+      "solutions": [
+        {
+          "sku": "DWS-CLIMATE-001",
+          "name": "Climate Intelligence",
+          "why": {
+            "fi": "Yksi laskenta ETS:lle, CBAM:lle ja CSRD:lle.",
+            "en": "One calculation for ETS, CBAM and CSRD."
+          },
+          "start": true
+        },
+        {
+          "sku": "IND-HELIOS",
+          "name": "Helios (energia)",
+          "why": {
+            "fi": "Energiatoimialan säännöt ja kertoimet valmiina.",
+            "en": "Energy-sector rules and factors ready."
+          }
+        },
+        {
+          "sku": "ED-T1",
+          "name": "Emissions Data",
+          "why": {
+            "fi": "Reaaliaikainen päästödata laskennan pohjaksi.",
+            "en": "Live emission data as the base."
+          }
+        }
+      ]
+    },
+    "logistics:automation": {
+      "situation": {
+        "fi": "Hallinto kasvaa liikevaihdon mukana",
+        "en": "Administration grows with revenue"
+      },
+      "causes": [
+        {
+          "id": "manual-dispatch",
+          "fi": "Ajojärjestely ja dokumentit tehdään käsin",
+          "en": "Dispatch and documents are manual",
+          "prior": 0.4
+        },
+        {
+          "id": "fleet-blind",
+          "fi": "Kaluston käyttöaste ei ole näkyvissä",
+          "en": "Fleet utilisation is not visible",
+          "prior": 0.35
+        },
+        {
+          "id": "customer-data",
+          "fi": "Asiakastieto on hajallaan",
+          "en": "Customer data is scattered",
+          "prior": 0.25
+        }
+      ],
+      "questions": [
+        {
+          "id": "util",
+          "fi": "Tiedättekö kaluston käyttöasteen viikoittain?",
+          "en": "Do you know fleet utilisation weekly?",
+          "yesRulesOut": ["fleet-blind"],
+          "noBoosts": ["fleet-blind"]
+        },
+        {
+          "id": "docs",
+          "fi": "Syntyvätkö rahtikirjat ja laskut automaattisesti?",
+          "en": "Are consignment notes and invoices generated automatically?",
+          "yesRulesOut": ["manual-dispatch"],
+          "noBoosts": ["manual-dispatch"]
+        }
+      ],
+      "path": {
+        "fi": [
+          "Tee käyttöaste näkyväksi",
+          "Automatisoi rahtikirjat ja laskutus",
+          "Yhdistä asiakastieto yhteen paikkaan"
+        ],
+        "en": [
+          "Make utilisation visible",
+          "Automate consignment notes and invoicing",
+          "Bring customer data into one place"
+        ]
+      },
+      "goal": {
+        "fi": "Hallinto ei kasva liikevaihdon mukana",
+        "en": "Administration stops growing with revenue"
+      },
+      "weeks": 6,
+      "solutions": [
+        {
+          "sku": "LOG-T1",
+          "name": "Logistics",
+          "why": {
+            "fi": "Käyttöaste ja poikkeamat yhdessä näkymässä.",
+            "en": "Utilisation and deviations in one view."
+          },
+          "start": true
+        },
+        {
+          "sku": "FH-AUTO-001",
+          "name": "Firehorse Amplify",
+          "why": {
+            "fi": "Automatisoi rahtikirjat, laskut ja dokumentit.",
+            "en": "Automates consignment notes, invoices and documents."
+          }
+        },
+        {
+          "sku": "IND-NEPTUN",
+          "name": "Neptune (kuljetus)",
+          "why": {
+            "fi": "Toimialan säännöt ja päästölaskenta valmiina.",
+            "en": "Sector rules and emission calculation ready."
+          }
+        }
+      ]
+    },
+    "online-business:visibility": {
+      "situation": {
+        "fi": "Yritys ei löydy, kun asiakas etsii",
+        "en": "The company isn't found when the customer searches"
+      },
+      "causes": [
+        {
+          "id": "no-site",
+          "fi": "Verkkosivut eivät vastaa hakuihin",
+          "en": "The website doesn't answer searches",
+          "prior": 0.4
+        },
+        {
+          "id": "no-profile",
+          "fi": "Google-yritysprofiili puuttuu tai on vajaa",
+          "en": "Google Business Profile missing or thin",
+          "prior": 0.3
+        },
+        {
+          "id": "no-content",
+          "fi": "Sisältöä ei synny",
+          "en": "No content gets made",
+          "prior": 0.2
+        },
+        {
+          "id": "no-followup",
+          "fi": "Yhteydenotot hukkuvat",
+          "en": "Enquiries get lost",
+          "prior": 0.1
+        }
+      ],
+      "questions": [
+        {
+          "id": "profile",
+          "fi": "Onko Google-yritysprofiili olemassa ja ajan tasalla?",
+          "en": "Is the Google Business Profile complete and current?",
+          "yesRulesOut": ["no-profile"],
+          "noBoosts": ["no-profile"]
+        },
+        {
+          "id": "ranks",
+          "fi": "Löytyykö yrityksenne paikkakunnan hauilla ensimmäiseltä sivulta?",
+          "en": "Do you appear on page one for local searches?",
+          "yesRulesOut": ["no-site"],
+          "noBoosts": ["no-site"]
+        },
+        {
+          "id": "reply",
+          "fi": "Vastataanko yhteydenottoihin saman päivän aikana?",
+          "en": "Are enquiries answered the same day?",
+          "yesRulesOut": ["no-followup"],
+          "noBoosts": ["no-followup"]
+        }
+      ],
+      "path": {
+        "fi": [
+          "Sivut, jotka vastaavat asiakkaan hakuun",
+          "Google-yritysprofiili kuntoon",
+          "Sisältö, joka syntyy ilman iltatöitä",
+          "Yhteydenotto yhdellä napilla"
+        ],
+        "en": [
+          "Pages that answer the customer's search",
+          "Google Business Profile in order",
+          "Content without evening work",
+          "One-tap contact"
+        ]
+      },
+      "goal": {
+        "fi": "Yhteydenotot tulevat puhelimeesi, eivät hukkaan",
+        "en": "Enquiries reach your phone, not the void"
+      },
+      "weeks": 3,
+      "solutions": [
+        {
+          "sku": "LIFETIME-WEB-STARTER",
+          "name": "Website Starter",
+          "why": {
+            "fi": "Sivut, jotka löytyvät ja tuovat yhteydenottoja.",
+            "en": "A site that is found and brings enquiries."
+          },
+          "start": true
+        },
+        {
+          "sku": "SEO-T1",
+          "name": "SEO Audit",
+          "why": {
+            "fi": "Näyttää, miksi ette löydy ja mitä korjata ensin.",
+            "en": "Shows why you're not found and what to fix first."
+          }
+        },
+        {
+          "sku": "LIFETIME-WEBSTORE-MINI",
+          "name": "Webstore Mini",
+          "why": {
+            "fi": "Tuotteet, hinnasto ja maksut, kun kauppa on tavoite.",
+            "en": "Products, price list and payments when a store is the goal."
+          }
+        }
+      ]
+    },
+    "*:nis2": {
+      "situation": { "fi": "NIS2 huolestuttaa", "en": "NIS2 worries us" },
+      "causes": [
+        {
+          "id": "scope-unknown",
+          "fi": "Ei tiedetä, koskeeko NIS2 meitä ja missä laajuudessa",
+          "en": "Unclear whether and how NIS2 applies",
+          "prior": 0.4
+        },
+        {
+          "id": "supply-chain",
+          "fi": "Toimitusketjun vaatimukset tulevat asiakkailta",
+          "en": "Requirements arrive via customers' supply chains",
+          "prior": 0.3
+        },
+        {
+          "id": "no-evidence",
+          "fi": "Käytännöt on, mutta todisteita ei",
+          "en": "Practices exist, evidence doesn't",
+          "prior": 0.3
+        }
+      ],
+      "questions": [
+        {
+          "id": "classified",
+          "fi": "Onko yrityksenne luokiteltu keskeiseksi tai tärkeäksi toimijaksi?",
+          "en": "Has your company been classified essential or important?",
+          "yesRulesOut": ["scope-unknown"],
+          "noBoosts": ["scope-unknown"]
+        },
+        {
+          "id": "asked",
+          "fi": "Onko asiakas pyytänyt teiltä NIS2-vakuutusta?",
+          "en": "Has a customer asked you for NIS2 assurance?",
+          "yesRulesOut": [],
+          "noBoosts": ["scope-unknown"]
+        },
+        {
+          "id": "evidence",
+          "fi": "Voitteko näyttää tarkastajalle, miten riskit hallitaan?",
+          "en": "Can you show an auditor how risks are managed?",
+          "yesRulesOut": ["no-evidence"],
+          "noBoosts": ["no-evidence"]
+        }
+      ],
+      "path": {
+        "fi": [
+          "Selvitä soveltamisala",
+          "Kartoita toimitusketjun vaatimukset",
+          "Rakenna todisteketju käytännöistä",
+          "Pidä se ajan tasalla ilman käsityötä"
+        ],
+        "en": [
+          "Establish scope",
+          "Map supply-chain requirements",
+          "Build the evidence chain",
+          "Keep it current without manual work"
+        ]
+      },
+      "goal": {
+        "fi": "Velvoitteet hoidettu ja todistettavissa",
+        "en": "Obligations met and provable"
+      },
+      "weeks": 8,
+      "solutions": [
+        {
+          "sku": "CMP-OC-STD",
+          "name": "Gap-analyysi (CSRD/CBAM/AI Act)",
+          "why": {
+            "fi": "Kertoo soveltamisalan ja puutteet ennen kuin ostatte mitään.",
+            "en": "Tells you scope and gaps before you buy anything."
+          },
+          "start": true
+        },
+        {
+          "sku": "SOV-T1",
+          "name": "Sovereignty Monitor",
+          "why": {
+            "fi": "Seuraa datan sijaintia ja toimittajaketjua jatkuvasti.",
+            "en": "Continuously tracks data location and the supplier chain."
+          }
+        },
+        {
+          "sku": "CMP-T1",
+          "name": "Compliance Agent",
+          "why": {
+            "fi": "Ylläpitää todisteketjun ajan tasalla.",
+            "en": "Keeps the evidence chain current."
+          }
+        }
+      ]
+    },
+    "*:automation": {
+      "situation": {
+        "fi": "Tarjouksiin, laskuihin ja raportteihin menee iltoja",
+        "en": "Quotes, invoices and reports eat evenings"
+      },
+      "causes": [
+        {
+          "id": "copy-paste",
+          "fi": "Sama tieto syötetään moneen paikkaan",
+          "en": "The same data is typed into several places",
+          "prior": 0.45
+        },
+        {
+          "id": "no-templates",
+          "fi": "Tarjouspohjat eivät ole yhtenäisiä",
+          "en": "Quote templates are not consistent",
+          "prior": 0.3
+        },
+        {
+          "id": "tools-mismatch",
+          "fi": "Copilot tai vastaava ei riitä, koska tieto ei ole sen ulottuvilla",
+          "en": "Copilot-type tools fall short because the data isn't reachable",
+          "prior": 0.25
+        }
+      ],
+      "questions": [
+        {
+          "id": "double-entry",
+          "fi": "Syötetäänkö asiakastieto useampaan kuin yhteen järjestelmään?",
+          "en": "Is customer data entered into more than one system?",
+          "yesRulesOut": [],
+          "noBoosts": ["no-templates"]
+        },
+        {
+          "id": "template",
+          "fi": "Onko tarjouksille yksi hyväksytty pohja?",
+          "en": "Is there one approved quote template?",
+          "yesRulesOut": ["no-templates"],
+          "noBoosts": ["no-templates"]
+        }
+      ],
+      "path": {
+        "fi": [
+          "Yksi lähde asiakastiedolle",
+          "Tarjous- ja laskupohjat, jotka täyttyvät itse",
+          "Rutiinit pois illoista",
+          "Mittaa säästetyt tunnit viikossa"
+        ],
+        "en": [
+          "One source for customer data",
+          "Quote and invoice templates that fill themselves",
+          "Routines out of the evenings",
+          "Measure hours saved per week"
+        ]
+      },
+      "goal": { "fi": "5–10 tuntia viikossa takaisin", "en": "5–10 hours a week back" },
+      "weeks": 4,
+      "solutions": [
+        {
+          "sku": "ai-consultant-day",
+          "name": "Captain Day",
+          "why": {
+            "fi": "Yksi päivä: mitä kannattaa automatisoida ensin ja millä.",
+            "en": "One day: what to automate first and how."
+          },
+          "start": true
+        },
+        {
+          "sku": "FH-AUTO-001",
+          "name": "Firehorse Amplify",
+          "why": {
+            "fi": "Automatisoi tarjoukset, laskut ja dokumentit.",
+            "en": "Automates quotes, invoices and documents."
+          }
+        }
+      ]
+    },
+    "*:strategy": {
+      "situation": { "fi": "Emme tiedä, mistä aloittaa", "en": "We don't know where to start" },
+      "causes": [
+        {
+          "id": "too-many-options",
+          "fi": "Vaihtoehtoja on liikaa ja ne kuulostavat samalta",
+          "en": "Too many options that sound alike",
+          "prior": 0.5
+        },
+        {
+          "id": "no-owner",
+          "fi": "Kukaan ei omista digitalisaatiota",
+          "en": "No one owns digitalisation",
+          "prior": 0.3
+        },
+        {
+          "id": "past-failure",
+          "fi": "Edellinen hanke epäonnistui",
+          "en": "The last project failed",
+          "prior": 0.2
+        }
+      ],
+      "questions": [
+        {
+          "id": "owner",
+          "fi": "Onko yksi nimetty henkilö, joka päättää?",
+          "en": "Is there one named person who decides?",
+          "yesRulesOut": ["no-owner"],
+          "noBoosts": ["no-owner"]
+        },
+        {
+          "id": "pain",
+          "fi": "Tiedättekö, mikä vie eniten aikaa juuri nyt?",
+          "en": "Do you know what takes the most time right now?",
+          "yesRulesOut": ["too-many-options"],
+          "noBoosts": ["too-many-options"]
+        }
+      ],
+      "path": {
+        "fi": [
+          "Nimeä se, mikä vie eniten aikaa",
+          "Yksi pieni muutos, joka näkyy kuukaudessa",
+          "Mittaa ja päätä seuraava"
+        ],
+        "en": [
+          "Name what takes the most time",
+          "One small change visible within a month",
+          "Measure and decide the next"
+        ]
+      },
+      "goal": {
+        "fi": "Ensimmäinen näkyvä muutos kuukaudessa",
+        "en": "First visible change within a month"
+      },
+      "weeks": 4,
+      "solutions": [
+        {
+          "sku": "ai-consultant-day",
+          "name": "Captain Day",
+          "why": {
+            "fi": "Päivässä selviää, mistä aloittaa.",
+            "en": "In a day you know where to start."
+          },
+          "start": true
+        },
+        {
+          "sku": "claude-code-coaching-lecture",
+          "name": "Coaching, 1 päivä",
+          "why": {
+            "fi": "Tiimi oppii itse käyttämään välineitä.",
+            "en": "The team learns to use the tools itself."
+          }
+        }
+      ]
+    }
+  }
+}
