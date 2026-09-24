@@ -6340,7 +6340,7 @@
       "changes": [
         "LF-ONTOLOGY-PILOT terms: duration 3 months; 100% of the pilot fee credited against the first LF-ONTOLOGY-25 licence year when the licence agreement is signed within 90 days of the pilot's end. Price unchanged (\u20ac15,000\u2013\u20ac25,000 one-time, quoted).",
         "LF-ONTOLOGY-25 pilot line and priceNote reference the pilot credit.",
-        "LF-ONTOLOGY-PILOT deliverables and success measure: shared concept model, first ontology, value verification, value assessment and recommendation; decision continue / extend / stop, all acceptable.",
+        "LF-ONTOLOGY-PILOT purpose and success criteria: succeeds if at least one of three tracks is achieved (business understanding; ownership and responsibilities; compliance and governance). End results: ontology skeleton, concept model, documented relations, value assessment, recommendation. Continue / extend / stop are all acceptable.",
         "HIC approved 24.09.2026. Effective 2026-09-24; next review and validUntil stay 2026-11-15."
       ]
     },
@@ -6679,18 +6679,19 @@
       "priceUnit": "per-site",
       "startingPrice": true,
       "priceBasis": "one-site 3-month pilot, quoted",
-      "description": "Three-month one-site pilot before the annual LF-ONTOLOGY-25 licence. The goal is not to sell the licence but to answer one question: do we understand your business well enough that the ontology creates measurable, lasting value for you? Deliverables: a shared concept model, a first ontology in the customer's environment, verification of at least one important question the ontology answers better than the current way of working, and a value assessment with a recommendation. Continue, extend or stop are all acceptable outcomes. Includes pilot-period usage rights for one named site. 100% of the pilot fee is credited against the first LF-ONTOLOGY-25 licence year when the licence agreement is signed within 90 days of the pilot's end. The annual licence and ongoing support are not included.",
+      "description": "Three-month one-site pilot before the annual LF-ONTOLOGY-25 licence. Purpose: verify that the customer's business, responsibilities, concepts or compliance requirements can be modelled in a way that creates lasting value. The pilot succeeds if at least one of three tracks is achieved: understanding the business, making ownership and responsibilities visible, or compliance and governance. Includes pilot-period usage rights for one named site. 100% of the pilot fee is credited against the first LF-ONTOLOGY-25 licence year when the licence agreement is signed within 90 days of the pilot's end. The annual licence and ongoing support are not included.",
       "features": [
         "Unit: one named site, 3 months, one-time, quoted \u20ac15,000\u2013\u20ac25,000",
         "Credit: 100% of the pilot fee is credited against the first licence year of LF-ONTOLOGY-25 when the licence agreement is signed within 90 days of the pilot's end",
-        "Deliverable 1, shared concept model: core business concepts, their relations and a shared vocabulary",
-        "Deliverable 2, first ontology in the customer's environment: skeleton, concepts, relations and first use cases, built on the 25-industry pack",
-        "Deliverable 3, value verification: at least one important question the ontology helps answer better than the current way of working",
-        "Deliverable 4: assessment of business value and a recommendation on next steps",
-        "Key measure: business-relevant understanding that was not visible before, not the volume of data or concepts modelled",
+        "Purpose: verify that the customer's business, responsibilities, concepts or compliance requirements can be modelled in a way that creates lasting value. The pilot tests us, not the customer",
+        "Succeeds if at least one track is achieved; the customer chooses which matters most",
+        "Track 1, understanding the business: shared concept model, unified terminology, dependencies made visible",
+        "Track 2, ownership and responsibilities: ownership map, chains of responsibility, decision-relevant concepts",
+        "Track 3, compliance and governance: regulation-related concepts, traceability of requirements, identified owners, shared compliance vocabulary",
+        "At the end: first ontology skeleton, shared concept model, documented relations, assessment of business or compliance value, recommendation",
         "Decision at the end: continue to the licence, extend the pilot, or stop. All three are acceptable outcomes",
-        "Not promised: automatic learning or ready-made decision tracking. The pilot shows whether an ontology-based approach fits the business",
         "Next steps: LF-TRAIN-IND implementation, then the LF-ONTOLOGY-25 licence. The pilot can be skipped when the use case is already clear",
+        "Not promised: automatic learning or ready-made decision tracking",
         "Not included: the annual licence and ongoing support"
       ],
       "priceNote": "\u20ac15,000\u2013\u20ac25,000 one-time, quoted. One named site, 3 months. 100% credited against the first LF-ONTOLOGY-25 licence year if the licence is signed within 90 days of the pilot's end.",
