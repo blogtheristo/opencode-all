@@ -97,5 +97,6 @@ describe('docs/market-signals registry', () => {
     expect(first?.impact.map((r) => r.target)).toContain('lifetime.fi');
     expect(first?.timeline.observed_at).toBe('2026-09-23');
     expect(first?.timeline.decided_at).toBe('2026-09-24');
+    expect(first?.applicationDecision?.does_not_apply_to).toContain('investor-centre');
   });
 });

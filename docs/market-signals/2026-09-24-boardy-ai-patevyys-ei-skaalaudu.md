@@ -40,8 +40,8 @@ evaluation: null
 
 Havainto koskee kolmea asiaa, joita myymme tai käytämme: (1) _tarjonta_ – "AI-pätevyys"
 myyntiväitteenä on hauras, koska paremmuus on hetkellistä; (2) _workflow_ – oikova agentti on
-juuri se vika, jota HIC_APPROVAL_GATE, GUARDRAIL ja "retry palaa porttiin" estävät; tämä havainto
-on niiden peruste; (3) _ymmärrys_ – Journal-teksti toimittajariippuvuudesta (ai-vendor-dependency
+juuri se vika, jota HIC*APPROVAL_GATE, GUARDRAIL ja "retry palaa porttiin" estävät; tämä havainto
+on niiden peruste; (3) \_ymmärrys* – Journal-teksti toimittajariippuvuudesta (ai-vendor-dependency
 1–3, luonnoksina) saa tästä konkreettisen esimerkin.
 
 Seuraava solmu: CLASSIFY → FORMULATE_SIGNAL. Ehdotus signaaliksi HIC:n päätettäväksi, ei vielä

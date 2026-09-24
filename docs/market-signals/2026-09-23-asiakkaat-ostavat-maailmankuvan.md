@@ -24,6 +24,14 @@ evidence:
   }
 hypothesis: lifetime.fi:n pitää olla synteesi ja suunta (WHY), ei ratkaisusivu; tuotteet, hinnat ja arkkitehtuuri kuuluvat dws10.com:iin ja selitykset onelifetime.worldiin. Kun kerrokset ovat puhtaat, yhteydenotot alkavat WHY-kerroksesta eivätkä kampanjasivulta.
 refuting_evidence: Jos 60 päivää lifetime.fi-tarinan julkaisusta yhteydenotoista alle 20 % viittaa lifetime.fi:n sisältöön (WhatsApp/puhelin/lomake, kysytään lähde) ja Journal-tekstien lukuaika ei ylitä 3 min, hypoteesi on väärä tai toteutus riittämätön. Arviointipäivä kirjataan, kun vaihe A julkaistaan.
+comprehension: HIC 24.09.2026 — ilmiö on aito; sama havainto toistui Copilot-auditissa; kampanjasivun ongelma ei ollut sisältö vaan kerros.
+application_decision:
+  applies_to: [lifetime.fi, onelifetime.world, dws10.com, linkedin, meta]
+  does_not_apply_to:
+    [dws10.com/campaigns/a5-kampanja-kaksipuolinen (HIC-veto), investor-centre, legal-hub]
+  basis: [MS-2026-09-001 evidence, Copilot-audit 24.09.2026]
+  valid_until: strategia v1.6 -> vaihe A julkaisu + 60 pv arviointi
+  affects: [suomalaiset yrityspäättäjät, Journal-lukijat, some-seuraajat]
 decisions_detail:
   - lifetime.fi -> synteesi, missio, johtopäätökset (WHY); ei tuotteita, hintoja, lyhenteitä
   - onelifetime.world -> Lifetime Scope Journal, white paperit, seminaarit (UNDERSTAND)

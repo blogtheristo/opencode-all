@@ -48,10 +48,21 @@ export interface MarketSignal {
   affected: string[];
   status: SignalStatus | string;
   impact: ImpactRow[];
+  comprehension?: string;
+  /** The only object that changes system behaviour (jev-kya plan, 'three deltas, one decision'). */
+  applicationDecision?: ApplicationDecision;
   evaluation?: string | null;
   /** Temporal trail: when each rung was reached (ISO dates). */
   timeline: Partial<Record<TimelineKey, string>>;
   file: string;
+}
+
+export interface ApplicationDecision {
+  applies_to: string[];
+  does_not_apply_to: string[];
+  basis: string[];
+  valid_until?: string;
+  affects: string[];
 }
 
 export type TimelineKey =
@@ -132,15 +143,28 @@ export function parseFrontMatter(text: string): Record<string, unknown> {
   const lines: string[] = [];
   for (const raw of m[1].split('\n')) {
     const prev = lines[lines.length - 1];
-    if (prev !== undefined && prev.split('{').length > prev.split('}').length) {
+    const open = (t: string, a: string, b: string) => t.split(a).length > t.split(b).length;
+    const valueOnNextLine = prev !== undefined && /:\s*$/.test(prev) && /^\s*[[{]/.test(raw);
+    if (prev !== undefined && (open(prev, '{', '}') || open(prev, '[', ']') || valueOnNextLine)) {
       lines[lines.length - 1] = `${prev} ${raw.trim()}`;
     } else {
       lines.push(raw);
     }
   }
   let listKey: string | null = null;
+  let mapKey: string | null = null;
   for (const line of lines) {
     if (!line.trim() || line.trimStart().startsWith('#')) continue;
+    if (mapKey && /^\s+[A-Za-z_][\w.-]*:/.test(line)) {
+      const i2 = line.indexOf(':');
+      const k2 = line.slice(0, i2).trim();
+      const v2 = line.slice(i2 + 1).trim();
+      (out[mapKey] as Record<string, unknown>)[k2] = v2.startsWith('[')
+        ? inlineList(v2)
+        : scalar(v2);
+      continue;
+    }
+    mapKey = null;
     if (listKey && /^\s+-\s/.test(line)) {
       const item = line.replace(/^\s+-\s/, '').trim();
       (out[listKey] as unknown[]).push(item.startsWith('{') ? inlineMap(item) : scalar(item));
@@ -151,7 +175,10 @@ export function parseFrontMatter(text: string): Record<string, unknown> {
     if (idx < 0 || /^\s/.test(line)) continue;
     const key = line.slice(0, idx).trim();
     const rest = line.slice(idx + 1).trim();
-    if (rest === '') {
+    if (rest === '' && key === 'application_decision') {
+      out[key] = {};
+      mapKey = key;
+    } else if (rest === '') {
       out[key] = [];
       listKey = key;
     } else if (rest.startsWith('[')) {
@@ -187,12 +214,28 @@ export function parseSignalFile(file: string, text: string): MarketSignal {
     impact: impactRaw
       .filter((r): r is Record<string, string> => typeof r === 'object' && r !== null)
       .map((r) => ({ target: r.target ?? '', status: r.status ?? 'not started', note: r.note })),
+    comprehension: str('comprehension'),
+    applicationDecision: parseApplicationDecision(fm.application_decision),
     evaluation:
       fm.evaluation === null || fm.evaluation === undefined ? null : String(fm.evaluation),
     timeline: Object.fromEntries(
       TIMELINE_KEYS.filter((k) => str(k) !== undefined).map((k) => [k, str(k) as string]),
     ),
     file,
+  };
+}
+
+function parseApplicationDecision(raw: unknown): ApplicationDecision | undefined {
+  if (typeof raw !== 'object' || raw === null) return undefined;
+  const r = raw as Record<string, unknown>;
+  const list = (k: string) => (Array.isArray(r[k]) ? (r[k] as string[]) : []);
+  return {
+    applies_to: list('applies_to'),
+    does_not_apply_to: list('does_not_apply_to'),
+    basis: list('basis'),
+    valid_until:
+      r.valid_until === undefined || r.valid_until === null ? undefined : String(r.valid_until),
+    affects: list('affects'),
   };
 }
 

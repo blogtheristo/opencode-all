@@ -33,6 +33,48 @@ into the transition step turns "the LLM said `<transition>SEND</transition>`"
 into "a KYA-authorized typed choice, scored across every legal option, with
 a confidence number that can be logged to the `ExecutionTrace`."
 
+## Principle — three deltas, one decision (HIC + Copilot, 2026-09-24)
+
+> **AI learning does not change the system. An HIC-approved Application Decision changes the
+> system.** Every learning taken into use is traceable: what was learned, who understood it,
+> who approved it, how it was applied, to what, on what basis, up to which version, and what
+> effects followed.
+
+JEV/KYA is therefore not only a governance or approval model. It forces the chain
+`Learn → Explain → Understand → Approve → Apply` where a "result only, and out" agent would
+run `Learn → Apply` and lose the HIC in between (the Boardy observation, `MS-2026-09-002`).
+Three separately versioned, separately traceable objects:
+
+| Object                   | Question it answers                                                                                                  | Produced at (Chapter 14)                 | Example                                                                                                                                                                                    |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Learning Delta**       | What did the AI learn? How does it change the world model?                                                           | `STRATEGIC_INSIGHT`, `EVALUATE`          | Construction responds to competitiveness better than to compliance language. Changes nothing yet.                                                                                          |
+| **Comprehension Delta**  | What did the HIC understand of that learning? Did the HIC see the change?                                            | `SHOW_TO_HIC` (recorded at the gate)     | The phenomenon looks real: 17 leads, 8 conversations, 3 offers. Changes nothing yet.                                                                                                       |
+| **Application Decision** | Did the HIC decide to take it into use? For what use? On what basis? Up to which version? Whom do the effects reach? | `HIC_APPROVAL_GATE` → `DISPATCH_IMPACTS` | Accepted. Apply to: lifetime.fi, LinkedIn, DWS10 construction solutions. Do not apply to: Investor Centre, Legal Hub. Basis: MS-2026-09-00x evidence. Valid until: role model v1.6 review. |
+
+The operative chain, as the HIC stated it (24.09.2026):
+
+```
+AI Learning → Learning Delta → JEV Review (Know Your AI) → HIC Decision
+(Apply / Reject / Partial Apply) → Application Record → Operational Change
+```
+
+`JEV Review` is the kya-jev typed verdict on the Learning Delta (is this learning
+admissible, from which provider, under which jurisdiction); `HIC Decision` has three
+outcomes, and _Partial Apply_ is the normal one — it is what `applies_to` /
+`does_not_apply_to` encode; `Application Record` is the registry file's
+`application_decision` block plus the ApprovalToken hash; `Operational Change` is the set
+of dispatched child runs, and nothing else may change the system.
+
+Only the third object changes system behaviour, and it can be shown afterwards. This is
+closer to decision law than to a technical audit trail; it is the level EU AI governance
+(Art. 12–14) and agentic commerce (who authorised this agent to act, on what, until when)
+require. The registry file carries all three: `insight`/`evidence` (Learning Delta),
+`comprehension` (what the HIC saw, in their words, plus the artefact link), and
+`application_decision` with `applies_to`, `does_not_apply_to`, `basis`, `valid_until`,
+`affects` (Application Decision). A typed kya-jev transition out of `HIC_APPROVAL_GATE`
+carries the Application Decision as its typed payload, so the signed verdict and the human
+decision are one record.
+
 ## Phase 1 — Typed transitions (structural, no behavior change)
 
 Add an alternate transition-decision path in `runner.ts` alongside the
