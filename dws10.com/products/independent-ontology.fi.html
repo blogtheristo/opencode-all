@@ -76,6 +76,9 @@
         border: 1px solid rgba(148, 163, 184, 0.35);
         border-radius: 8px;
       }
+      .io-step h4 {
+        margin: 1.25rem 0 0;
+      }
       .io-step h3 {
         margin: 0.25rem 0 0;
       }
@@ -207,6 +210,37 @@
         <p>Oppiminen mahdollistaa kasvun.</p>
       </div>
 
+      <h2>Suvereniteettiperiaate</h2>
+      <blockquote>
+        Organisaatio omistaa ontologiansa, käsitteensä, suhteensa ja tietopääomansa riippumatta
+        toimittajasta, teknologiasta tai infrastruktuurista.
+      </blockquote>
+      <p>
+        Te omistatte oman mallinne: käsitteet, suhteet ja datan, jotka rakennetaan teidän
+        organisaatiollenne. 25 toimialan pohjapaketti ja sen päivitykset ovat lisensoituja.
+        Lisenssin päättyessä oma mallinne jää teille.
+      </p>
+      <p>Independent Ontology voidaan toimittaa:</p>
+      <ul>
+        <li>omaan ympäristöönne</li>
+        <li>hallitsemaanne pilveen</li>
+        <li>yksityiseen ympäristöön</li>
+        <li>täysin air-gapped-ympäristöön</li>
+        <li>ilman jatkuvaa yhteyttä Lifetimen palveluihin</li>
+      </ul>
+      <p>
+        Ette osta SaaS-palvelua, vaan oman ymmärrysomaisuuden. Sitä voidaan säilyttää omassa
+        tietokeskuksessa, suljetussa verkossa, viranomais- tai puolustusympäristössä ja kriittisessä
+        infrastruktuurissa ilman ulkoisia riippuvuuksia.
+      </p>
+      <h3>Laitteisto</h3>
+      <p>
+        Ontologia itsessään ei vaadi DGX:ää eikä muuta erityislaitteistoa: se toimitetaan
+        versioituina artefakteina. Jos haluatte ajaa suljetussa ympäristössä myös oman
+        tekoälymallipinon, se toimitetaan erikseen NVIDIA-laitteistolla, esimerkiksi DGX Spark, Acer
+        Veriton GN100 tai teollisuusympäristöihin IGX Orin. Laitteistot ja on-prem-paketti
+        (LWM-ONT-SOVEREIGN) löytyvät <a href="/price-list/fi/">hinnastosta</a>.
+      </p>
       <section class="io-path" aria-labelledby="io-path-title">
         <h2 id="io-path-title">Ostopolku yritysasiakkaalle</h2>
         <p>
@@ -216,25 +250,99 @@
         <div class="io-step">
           <p class="io-step-no">1. Todista arvo</p>
           <h3>Independent Ontology Pilot, yksi toimipaikka</h3>
-          <p class="io-sku">LF-ONTOLOGY-PILOT</p>
+          <p class="io-sku">LF-ONTOLOGY-PILOT · Kesto 3 kuukautta</p>
           <p class="amount" data-price="LF-ONTOLOGY-PILOT" data-suffix=" (kertaluonteinen tarjous)">
             <a href="/price-list/fi/">Katso hinta hinnastosta</a>
           </p>
+          <p>Pilotti testaa meitä, ei teitä eikä teknologiaa.</p>
           <p>
-            Pilotin tavoitteena ei ole myydä lisenssiä. Pilotin tavoitteena on vastata yhteen
-            kysymykseen:
+            <strong
+              >Pilotti onnistuu, jos vähintään yksi seuraavista kolmesta tavoitteesta saavutetaan
+              teidän hyväksymänänne.</strong
+            >
+            Jokaisella tavoitteella on mitattavat kriteerit.
+          </p>
+
+          <h4>A. Liiketoiminnan ymmärtäminen</h4>
+          <p>
+            Pystymme mallintamaan liiketoimintanne tavalla, jonka nimetyt vastuuhenkilönne
+            hyväksyvät.
+          </p>
+          <ul>
+            <li>vähintään 50 ydinkäsitettä tunnistettu ja dokumentoitu</li>
+            <li>vähintään 100 käsitteiden välistä suhdetta mallinnettu</li>
+            <li>vähintään 3 avainhenkilöänne arvioi mallin kuvaavan liiketoimintaa oikein</li>
+            <li>vähintään 80 % arvioiduista käsitteistä ja suhteista arvioidaan oikeiksi</li>
+          </ul>
+          <blockquote>
+            Tunnistammeko liiketoiminnan keskeiset käsitteet ja niiden suhteet oikein?
+          </blockquote>
+
+          <h4>B. Omistajuudet ja vastuut</h4>
+          <p>
+            Pystymme tunnistamaan liiketoiminnan kannalta merkittävät omistajuudet ja
+            vastuurakenteet.
+          </p>
+          <ul>
+            <li>vähintään 20 keskeistä kohdetta tai prosessia kartoitettu</li>
+            <li>vähintään 90 %:lle kohteista tunnistettu vastuullinen omistaja</li>
+            <li>
+              jokaisesta kartoitetusta kohteesta dokumentoitu, onko omistajuus selvä vai epäselvä,
+              ja epäselvät nimetty
+            </li>
+            <li>hyväksytte omistajuuskartan</li>
+          </ul>
+          <blockquote>Ymmärrämmekö, kuka omistaa mitä ja miksi?</blockquote>
+
+          <h4>C. Compliance ja hallittavuus</h4>
+          <p>Pystymme muodostamaan compliance-ympäristöstänne johdonmukaisen mallin.</p>
+          <ul>
+            <li>vähintään yksi sääntelyalue mallinnettu</li>
+            <li>vähintään yksi vastuuketju dokumentoitu päästä päähän</li>
+            <li>
+              vähintään yksi auditoinnissa tai raportoinnissa tarvittava käsitekartta tuotettu
+            </li>
+            <li>hyväksytte mallin jatkokehityksen pohjaksi</li>
+          </ul>
+          <blockquote>
+            Ymmärrämmekö compliance-vaatimukset riittävän hyvin, että niitä voidaan hallita
+            systemaattisesti?
+          </blockquote>
+
+          <p>Pilotin päättyessä toimitamme:</p>
+          <ul>
+            <li>ensimmäisen ontologiarungon</li>
+            <li>dokumentoidun käsitemallin</li>
+            <li>suhdekartan</li>
+            <li>omistajuuskartan (jos sovellettavissa)</li>
+            <li>compliance-kartan (jos sovellettavissa)</li>
+            <li>suosituksen jatkosta</li>
+          </ul>
+
+          <p>
+            <strong>Jatkopäätös (go / no-go):</strong> tuottaako ontologia teille riittävästi arvoa,
+            jotta lisenssi ja käyttöönotto ovat perusteltuja?
+          </p>
+          <ul>
+            <li><strong>GO:</strong> käyttöönotto (LF-TRAIN-IND) ja lisenssi (LF-ONTOLOGY-25)</li>
+            <li><strong>HOLD:</strong> laajennettu pilotti</li>
+            <li><strong>NO-GO:</strong> pilotti päättyy</li>
+          </ul>
+          <p>
+            Kaikki kolme ovat hyväksyttäviä lopputuloksia. Ratkaisevaa ei lopulta ole käsitteiden
+            tai suhteiden määrä, vaan tämä:
           </p>
           <blockquote>
-            Ymmärrämmekö liiketoimintaanne riittävän hyvin, että ontologiasta syntyy teille pysyvää
-            arvoa?
+            Hyväksyttekö, että ontologia kuvaa liiketoimintaanne, vastuitanne tai
+            compliance-ympäristöänne riittävän tarkasti, jotta sillä on liiketoiminnallista arvoa?
           </blockquote>
-          <p>Pilotissa:</p>
-          <ul>
-            <li>tunnistetaan keskeiset käsitteet</li>
-            <li>rakennetaan ensimmäinen ontologiarunko 25 toimialan ontologiapaketin pohjalta</li>
-            <li>testataan asiakkaan omilla kysymyksillä ja käyttötapauksilla</li>
-            <li>arvioidaan liiketoimintahyöty</li>
-          </ul>
+          <p>Pilotti ei lupaa automaattista oppimista eikä valmista päätöksenteon seurantaa.</p>
+          <p>
+            <strong>Hyvitys:</strong> pilotin maksu hyvitetään 100 % ensimmäisen vuoden
+            LF-ONTOLOGY-lisenssistä, jos lisenssisopimus tehdään 90 päivän kuluessa pilotin
+            päättymisestä. Maksu kohdistuu joko pilottiin tai lisenssin ensimmäiseen vuoteen, ei
+            molempiin.
+          </p>
         </div>
 
         <div class="io-step">
