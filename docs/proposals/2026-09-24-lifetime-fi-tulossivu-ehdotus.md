@@ -266,3 +266,60 @@ Tämä taulukko kytkee lifetime.fi:n WHY-tarinan toimialat (§1.4) oikeisiin HOW
 | Osaaminen (poikkileikkaava)         | EU AI Act Art. 4 -lukutaito, agenttinen ohjelmistokehitys    | Claude Code Coaching (lecture 1 900 €, workshop 4 500 €, 3 pv 5 900 €, projekti 7 500 €), AI Koulutus 3 pv, Captain Day, AI Literacy Bridge (LAND-AIL)                                                      | claude-code-coaching-lecture 1 900 €, ai-consultant-day 1 200 €                                       |
 
 Havainto kampanjaan "Illat takaisin" (§8.2): pk-automaatiolle (tarjous/lasku/raportti) ei ole omaa SKU:ta. Lähimmät: Firehorse Amplify (FH-AUTO-001, 4 950 €) on liian raskas, Captain Day (1 200 €) on päivä ilman jatkuvuutta. Ehdotus: uusi tuote "Automaatio-startti pk-yritykselle" WEB-STARTERin hintaluokkaan (HIC päättää hinnan; lisätään `products.json`-lähteeseen ja peiliin samassa commitissa).
+
+## 10. Sisältövirta: dws10.com-hubien ymmärrys ylös lifetime.fi:hin, syvälle Journaliin, ulos someen (HIC 24.09.2026)
+
+### 10.1 Havainto
+
+dws10.com sisältää paljon ymmärrystä hakemistomuodossa (95 ylätason osiota): `compliance/` (7 sivua, ~7 000 sanaa, trust center, 4 kieltä), `legal/` + `legal-hub/` (~10 000 sanaa, DPA, alihankkijat), `investor-centre/` (5 sivua, ~5 500 sanaa, one-pager, Captain/Admiral), `partners/` + `aegis-partners/` + `connect-partners/` + `sovereign-infra-partners/` (~7 700 sanaa), lisäksi `whitepapers/`, `playbooks/`, `scenarios/`, `world-model/`, `roadmap/`, `press-releases/`, `kya-standard/`, `sovereignty/`. Customer centre puuttuu erillisenä hakemistona; asiakassisältö on `testimonials/`, `get-started/`, `free-audit/`, `industries/`.
+
+Ongelma ei ole sisällön puute vaan **virran puute**: johtopäätökset eivät nouse lifetime.fi:hin (WHY), syvät tekstit eivät virtaa Journaliin (UNDERSTAND) eivätkä LinkedIniin ja Metaan.
+
+### 10.2 Periaate: yksi lähde, neljä muotoa
+
+Jokainen dws10.com-hubin substanssisivu tuottaa neljä johdannaista. Lähde pysyy dws10.com:ssa (HOW); johdannaiset eivät kopioi vaan tiivistävät, syventävät tai jakelevat.
+
+| Muoto           | Kohde                                   | Pituus                      | Sisältö                                                                           | Portti                                               |
+| --------------- | --------------------------------------- | --------------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| **Johtopäätös** | lifetime.fi (WHY)                       | 1–3 lausetta + linkki       | Mitä tämä tarkoittaa maailmalle ja suomalaiselle yritykselle                      | HIC hyväksyy tekstin (julkinen väite, `truth-check`) |
+| **Syvä teksti** | Lifetime Scope Journal (UNDERSTAND)     | 1 500–4 000 sanaa, 5 kieltä | Miksi ja miten, lähteineen; hubin sisältö esseemuodossa, ei hakemistona           | Rule 13: `/blog-draft` → HIC → julkaisu              |
+| **Some-nosto**  | LinkedIn (yritys + Risto), Meta (FB/IG) | 80–150 sanaa + kuva 4K      | Yksi väite, yksi todiste, yksi linkki (Journal tai lifetime.fi, ei koskaan hinta) | HIC hyväksyy jonon viikoittain                       |
+| **Lähde**       | dws10.com hub (HOW)                     | säilyy                      | Hakemistomuoto on oikea täällä: se palvelee ostajaa, juristia, sijoittajaa        | –                                                    |
+
+### 10.3 Ensimmäinen erä: hubi → johdannaiset
+
+| dws10.com-lähde                                          | lifetime.fi-johtopäätös (WHY)                                   | Journal-teksti (UNDERSTAND)                                                                                    | Some-nosto                   |
+| -------------------------------------------------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| `compliance/` + trust center                             | "Velvoitteet eivät ole raportointia vaan tapa nähdä oma jälki." | Mitä CSRD, CBAM, ETS ja NIS2 pyytävät yritykseltä oikeasti (sarja B)                                           | 4 nostoa, yksi per asetus    |
+| `legal/` DPA + sub-processors                            | "Tieto, joka pysyy Euroopassa, on osa yrityksen kantokykyä."    | Miksi tietojen sijainti ratkaisee: CLOUD Act selkokielellä (sovereignty-sarja, luonnokset 5 kielellä valmiina) | 2 nostoa                     |
+| `investor-centre/` one-pager                             | "Yksi planeetta on myös sijoitusteesi."                         | Miksi compliance-outcome on markkina eikä kuluerä (50 000 yritystä 2028)                                       | 2 nostoa, investor-kohdennus |
+| `partners/` (4 hubia)                                    | "Kukaan ei ratkaise tätä yksin."                                | Ekosysteemi: NVIDIA, sovereign infra, Connect; mitä kumppanuus tarkoittaa asiakkaalle                          | 2 nostoa                     |
+| `whitepapers/`, `playbooks/`, `scenarios/` (12 kohdetta) | Yksi esseeotsikko per whitepaper §1.3-esseisiin                 | Whitepaper → Journal-essee (lyhennetty, lähde linkitetty)                                                      | 1 nosto per whitepaper       |
+| `world-model/`, `kya-standard/`                          | "Päätösten tulee perustua tietoon" -uskomuksen todiste          | Mitä maailmanmalli on ja miksi yritys tarvitsee oman (luonnos `lifetime-world-model-*` valmiina)               | 2 nostoa                     |
+| `testimonials/`, `industries/`                           | Toimialakappaleet §1.4                                          | Tapaustutkimukset vaikutuksina + luvut                                                                         | 1 nosto per toimiala         |
+
+### 10.4 Koneisto (olemassa, käyttöön)
+
+- **Some-jono:** `src/social-scheduler/` + `scripts/seed-post-queue.ts` + taulu `social_posts` (migraatio 030–037) + `scripts/linkedin-oauth.ts`. Nyt LinkedIn-kirjasto on 10 postausta; laajennetaan §10.3-nostoilla. Meta-kanava puuttuu koneistosta: lisättävä adapteri (Graph API, sivu + IG) samaan jonoon.
+- **Kampanjapostaukset:** `scripts/generate-campaign-post.ts`, `scripts/build-arvonluonnin-ajurit-post.mjs` (malli: yksi blogi → yksi postaus).
+- **Uutiskirje:** `/lsj-publish` kokoaa kuukauden Journal-tekstit LinkedIn-uutiskirjeeksi.
+- **Käännökset:** `/multilingual` (fi/sv/en/de/fr).
+- **Väitteiden tarkistus:** `/truth-check` kaikille lifetime.fi- ja some-teksteille ennen julkaisua.
+
+### 10.5 Rytmi
+
+| Viikonpäivä            | Toimi                                                                                                     | Tekijä                         |
+| ---------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| Ma                     | Valitaan viikon lähdesivu dws10.com:sta (§10.3 järjestys)                                                 | agentti ehdottaa, HIC valitsee |
+| Ti–Ke                  | Journal-teksti fi luonnokseksi `/blog-draft`; johtopäätöslause lifetime.fi:lle                            | agentti                        |
+| To                     | HIC lukee ja hyväksyy (blogi + lause + 2–4 some-nostoa)                                                   | HIC                            |
+| Pe                     | Julkaisu: Journal fi, lifetime.fi-lause, some-jonoon seuraavalle viikolle; käännökset sv/en käynnistetään | agentti                        |
+| Kuukauden viimeinen pe | `/lsj-publish` uutiskirje; de/fr-käännökset erässä                                                        | agentti + HIC                  |
+
+Yksi lähdesivu viikossa tuottaa 12 kuukaudessa n. 50 Journal-tekstiä × 5 kieltä, 50 lifetime.fi-johtopäätöstä ja 150 some-nostoa. Kaikki HIC:n portin läpi, ei automaattijulkaisua.
+
+### 10.6 HIC-päätökset (§10)
+
+1. Hyväksytäänkö "yksi lähde, neljä muotoa" -periaate ja viikkorytmi?
+2. Meta-adapteri some-jonoon: rakennetaanko (Graph API, tarvitsee Meta Business -tunnukset ympäristömuuttujina) vai jääkö Meta manuaaliseksi?
+3. Ensimmäinen lähdesivu: `compliance/` trust center (ehdotus) vai `investor-centre/` one-pager?
