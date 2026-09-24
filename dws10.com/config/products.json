@@ -6341,6 +6341,7 @@
         "LF-ONTOLOGY-PILOT terms: duration 3 months; 100% of the pilot fee credited against the first LF-ONTOLOGY-25 licence year when the licence agreement is signed within 90 days of the pilot's end. Price unchanged (\u20ac15,000\u2013\u20ac25,000 one-time, quoted).",
         "LF-ONTOLOGY-25 pilot line and priceNote reference the pilot credit.",
         "LF-ONTOLOGY-PILOT binary success criteria: succeeds if at least one of goals A (business, 50 concepts / 100 relations / 3 reviewers / 80% acceptance), B (ownership, 20 objects / 90% owners / ambiguities / map accepted) or C (compliance, regulatory area / end-to-end responsibility chain / audit concept map / model accepted) is achieved and customer-accepted. Go / hold / no-go decision.",
+        "LF-ONTOLOGY-25 sovereignty principle: customer owns its own model; base pack and updates licensed; own model stays after the licence ends; delivery into customer, private or air-gapped environments without continuous connection; no special hardware for the ontology itself.",
         "HIC approved 24.09.2026. Effective 2026-09-24; next review and validUntil stay 2026-11-15."
       ]
     },
@@ -6684,8 +6685,8 @@
         "Unit: one named site, 3 months, one-time, quoted \u20ac15,000\u2013\u20ac25,000",
         "Credit: 100% of the pilot fee is credited against the first licence year of LF-ONTOLOGY-25 when the licence agreement is signed within 90 days of the pilot's end",
         "Succeeds if at least one of three goals is achieved and accepted by the customer. The pilot tests us, not the customer",
-        "Goal A, understanding the business: at least 50 core concepts and 100 relations modelled; at least 3 customer key people assess the model as correct; acceptance rating at least 80%",
-        "Goal B, ownership and responsibilities: at least 20 key objects or processes mapped; responsible owner identified for at least 90%; at least 5 ownership ambiguities identified or documented that there are none; customer accepts the ownership map",
+        "Goal A, understanding the business: at least 50 core concepts and 100 relations modelled; at least 3 customer key people review the model; at least 80% of the reviewed concepts and relations assessed as correct",
+        "Goal B, ownership and responsibilities: at least 20 key objects or processes mapped; responsible owner identified for at least 90%; for every mapped object, documented whether ownership is clear or unclear, with the unclear ones named; customer accepts the ownership map",
         "Goal C, compliance and governance: at least one regulatory area modelled; at least one chain of responsibility documented end to end; at least one audit or reporting concept map produced; customer accepts the model as a basis for further development",
         "Deliverables: first ontology skeleton, documented concept model, relationship map, ownership map and compliance map where applicable, recommendation",
         "Go / no-go: GO leads to LF-TRAIN-IND and LF-ONTOLOGY-25; HOLD to an extended pilot; NO-GO ends the pilot. All three are acceptable outcomes",
@@ -6751,7 +6752,9 @@
         "Includes: ontology artefacts, version control, quarterly updates, documented usage rights for licensed sites only",
         "Pilot before the licence: see LF-ONTOLOGY-PILOT (3 months; fee 100% credited to the first licence year if signed within 90 days of the pilot's end)",
         "One-site launch: this licence \u20ac25,000/year + LF-TRAIN-IND remote configuration from \u20ac15,000 (first year from \u20ac40,000)",
-        "Independent data product \u2014 configuration service and DWS IQ are optional, not bundled"
+        "Independent data product \u2014 configuration service and DWS IQ are optional, not bundled",
+        "Sovereignty: the customer owns its own model (concepts, relations and data built for it); the 25-industry base pack and its updates are licensed; the customer's own model stays with the customer when the licence ends",
+        "Delivery: customer environment, customer-controlled cloud, private or fully air-gapped environment; no continuous connection to Lifetime services required; the ontology itself needs no DGX or special hardware (optional AI model stack on NVIDIA hardware sold separately)"
       ],
       "priceNote": "Starter: 1 named site \u20ac25,000/year. 2\u20135 named sites \u20ac60,000/year. 6\u201320 named sites \u20ac120,000/year. 21+ named sites from \u20ac200,000/year (enterprise agreement with named-site scope). Pilot: LF-ONTOLOGY-PILOT (3 months, fee 100% credited to the first licence year within 90 days).",
       "caption": "Annual data-product licence. Not a one-time fee.",
