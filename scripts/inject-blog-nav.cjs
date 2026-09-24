@@ -334,6 +334,11 @@ const posts = [
     title: 'KYA-S1 Sanasto — KYA (Know Your Agent): Käsitteistö ja sanasto',
     date: '9 Aug 2026',
   },
+  {
+    file: 'mita-one-lifetime-tarkoittaa.fi.html',
+    title: 'Mitä One Lifetime tarkoittaa? — Yksi elämä, yksi planeetta, yritys osana ratkaisua ja teknologia välineenä',
+    date: '24 Sep 2026',
+  },
 ];
 
 // Three featured products

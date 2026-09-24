@@ -1,6 +1,6 @@
 # Ehdotus: lifetime.fi puhuu tuloksista — kolmen sivuston työnjako
 
-**Version:** 2.3 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
+**Version:** 2.4 · **Date:** 2026-09-24 · **Status:** APPROVED (HIC-päätös v2.0, ehdollinen; ks. §13) · **Author:** Claude Code (v1.1 tarkennus HIC + Copilot 24.09.2026)
 
 ## 0. Strategia (HIC + Copilot 24.09.2026, v1.4 lopullinen)
 
@@ -278,6 +278,7 @@ Hyväksymiskriteeri lifetime.fi:lle: koko etusivulla nolla tuotenimeä, nolla hi
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                         |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2.4     | 2026-09-24 | §14 avausrivi (epävarmuuden vähentäminen, ei suositusjärjestelmä); kysymys ensin, toimiala arvataan ja vahvistetaan; blogi #72 julkaistu; LD-006 APPLY                                                                                                                                                                                          |
 | 2.3     | 2026-09-24 | §14 Active Ontology & Agentic Commerce (DISCOVER-kerros): virallinen Learning Delta 'asiakas yrittää tehdä päätöksen', ei chat-first, toimiala ensin, yksi sisäänmeno 'Mikä päätös on tällä hetkellä vaikea tehdä?'; Observation Capture mittaukseen ennen yhteydenottoja; datalähdetaulukko (Cloudflare, Merchant Center, Observation Intake)  |
 | 2.2     | 2026-09-24 | Vaihe A2 ja käännökset tehty: oma WHY-nav, kielipalkki v1.1, viisikielinen generaattori yhdestä sisältölähteestä, peili samassa ajossa                                                                                                                                                                                                          |
 | 2.1     | 2026-09-24 | HIC-päätös v2.0 kirjattu (§13, APPROVE ehdollisesti); vaihe A toteutettu lifetime.fi/fi + peili; asiakasväite päätöksen 5 sanamuodossa heroon; DWS IQ -positiointilause; shared-assets-nav avoimena                                                                                                                                             |
@@ -565,6 +566,8 @@ Nykyinen `content-pipeline` (Iris → Apollo → emit-event) tuottaa briefin ja 
 
 ## 14. Active Ontology & Agentic Commerce — DISCOVER-kerros (v2.3, HIC + Copilot 24.09.2026)
 
+**Aktiivisen ontologian tehtävä ei ole kertoa asiakkaalle mitä tiedämme. Sen tehtävä on vähentää asiakkaan epävarmuutta niin paljon, että hän voi tehdä päätöksen luottavaisesti.** Active Ontology on Uncertainty Reduction System, ei Recommendation System.
+
 **Perusajatus: asiakas ei aloita tuotteesta. Asiakas aloittaa tilanteesta.** Kerrosmalliin tulee
 yksi kerros lisää UNDERSTAND:in ja HOW:n väliin:
 
@@ -589,7 +592,7 @@ DWS10:n, dws10.com/buy:n ja Agentic Commerce -ajattelun perustan.
 
 1. **Active Ontology ei ole chat-first.** Tilanne → Valinnat → Hypoteesi → Suositus, ei "Kerro
    ongelmastasi…". Chat voi olla yksi käyttöliittymä myöhemmin; ontologia on päättelykerros.
-2. **Toimiala ensin.** 25 toimialaa; kävijä valitsee omansa ennen mitään muuta.
+2. **Kysymys ensin, toimiala toisena (HIC 24.09.2026).** Ensimmäinen näkymä on kysymys, ei toimialavalinta. Ontologia arvaa toimialan tekstistä; jos varmuus jää matalaksi, kysytään "Ymmärsinkö oikein? ○ Teollisuus ○ Rakentaminen ○ Energia ○ Logistiikka ○ Muu". 25 toimialaa ovat valittavissa, mutta valinta tuntuu vahvistukselta, ei lomakkeelta.
 3. **Yksi sisäänmeno.** dws10.com:n etusivulle näkyvä kysymys **"Mikä päätös on tällä hetkellä
    vaikea tehdä?"** yhdistää Ford-, Kemira-, NIS2-, näkyvyys- ja automaatiotapaukset yhdeksi
    oveksi. Se on samalla Observation Intake (Chapter 14 alkaa etusivulta).

@@ -7,8 +7,11 @@ site: onelifetime.world
 series: "Sarja 0 — Liiketoimintataso, teksti 1"
 author: Risto Anton Päärni
 date: 2026-09-24
+approved_by: HIC
+approved_at: 2026-09-24
+published: onelifetime.world/posts/mita-one-lifetime-tarkoittaa.fi.html
 revision: 2 (Copilot review 24.09.2026, HIC forwarded: tighten opening, one company example, "johtaa ympäristövaikutuksia", technology section moved up, active-ontology seed, final line)
-Status: DRAFT
+Status: APPROVED
 source: HIC-päätös v2.0 (24.09.2026), docs/proposals/2026-09-24-lifetime-fi-tulossivu-ehdotus.md §0, §13; market-signals MS-2026-09-001…004; HIC:n lisäohje "älä kirjoita teknologia-artikkelia, kirjoita maailmanmalli"
 ---
 
