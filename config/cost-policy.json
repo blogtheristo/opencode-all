@@ -1,0 +1,12 @@
+{
+  "_note": "Archival metadata moved out of opencode.json (not an OpenCode schema key). Enforcement and the authoritative POLICY_START / FREE_CREDIT_DAYS values live in .claude/hooks/cost-policy-gate.sh; keep both in sync when the policy changes.",
+  "enforced_by": ".claude/hooks/cost-policy-gate.sh",
+  "enabled": true,
+  "standard": "docs/DWS_COST_POLICY_STANDARD.md",
+  "policy-start": "2026-09-20",
+  "free-credit-days": 21,
+  "compute-default": "dgx-local",
+  "sandbox-required": true,
+  "audit-log": ".claude/hooks/audit/cost-policy.log",
+  "description": "DGX-first agentic compute policy. Cloud agents blocked post-Day 21 (2026-10-12+). EU AI Act Art. 14 compliance."
+}
