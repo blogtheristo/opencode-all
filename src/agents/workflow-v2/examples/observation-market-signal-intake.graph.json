@@ -1,0 +1,102 @@
+{
+  "name": "observation-and-market-signal-intake-chapter-fourteen",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "Stage 0 → 1: Reality → Observation. The ladder is a loop, not a line (HIC 24.09.2026): Reality → Observation → Market Signal → Insight → Decision → Action → Outcome → Evidence → Ontology/KB update → Learning → Improved Observation. The last arrow is the point: once 'construction buys competitiveness, not compliance' is in the ontology/KB, the NEXT construction lead is assessed against that knowledge automatically, instead of the HIC re-deriving it. Four rungs that are not the same: REALITY (a customer looks at the campaign page), OBSERVATION (HIC: the customer reacted to the ecosystem's way of thinking, not to the campaign's features), MARKET SIGNAL (the generalised statement: 'a worldview sells better than a product description'), STRATEGIC INSIGHT (the sentence that changes what we say and sell: 'lifetime.fi must be synthesis, not a solutions page'). The HIC must see at a glance: WHAT DOES THE MARKET SAY → WHAT DO WE BELIEVE → WHAT DID WE CHANGE → DID IT WORK; every signal must be traceable to its impact (content, product, revenue) — a signal that cannot be clicked through to impact is still hidden in the HIC's head. Until now the HIC has been the system's only sense organ — observing, contextualising, prioritising, analysing impact and changing workflows by hand, bypassing the Claude v1 workflows. This chapter makes that path explicit and traceable so it can later be shared with agents. Automated regulation/incident signals already land in Supabase market_signals (DWS_MARKET_RESEARCH_STANDARD §4.3); this chapter is the missing path for observed, qualitative reality. Observers are not only the HIC: automated observers already exist and must enter here too — the daily construction lead package (scripts/daily/construction-leads.sh → TED → Supabase → Morning Brief V2 §8), regulation/incident signals (scripts/weekly/collect-regulatory-signals.sh → market_signals), Hilma tender watch (/hilma-watch), the weekly market-research run (scripts/weekly/market-research.sh), and seminar/social comments. Today those packages are read and dropped; HIC 24.09.2026: 'I get a fine construction lead market signal package weekly but nothing connects it to Observation or shows it in the Admin dashboard.' Every automated package is one CAPTURE entry per week with observer: agent, so it becomes visible in the pipeline view and can be classified, generalised and acted on like a human observation.",
+      "allowedNext": ["CAPTURE"]
+    },
+    {
+      "id": "CAPTURE",
+      "description": "Stage 1: Observation. Write the raw observation the moment it is made, in the observer's words and WITHOUT generalising it yet: docs/market-signals/YYYY-MM-DD-<slug>.md with signal_id MS-YYYY-MM-NNN and front matter reality (what happened), observation (what the observer noticed), source, date, observer, confidence, status: observed. Mirror to market_signals with signal_type 'hic_observation' when reachable; the repo file is the source of truth. Capturing costs one minute and must never wait for analysis. Automated observers write the same file shape with observer: <script or agent name> and a link to the package (Morning Brief section, market_signals query, Hilma result); one file per package per week, not per lead — the individual leads stay in their tables, the observation is what the package as a whole says about the market. Before writing, read the ontology/KB signal pages (kb/wiki/signals/, ONTOLOGY.md market-signal section) so the observation is written AGAINST current knowledge: 'confirms MS-2026-09-001 (occurrence 3)', 'contradicts …', or 'new'. This is the Improved Observation step — the loop closing on the next lead.",
+      "allowedNext": ["CLASSIFY"]
+    },
+    {
+      "id": "CLASSIFY",
+      "description": "Stage 2: Information. Is this observation new, a repeat, or noise? Repeat: add an occurrence to the existing signal file (three independent observations raise confidence one step). Noise: status: dismissed with reason, file kept. New: continue to formulate the market signal.",
+      "allowedNext": ["FORMULATE_SIGNAL", "DUPLICATE_OR_NOISE"]
+    },
+    {
+      "id": "DUPLICATE_OR_NOISE",
+      "description": "Terminal. Registry updated (occurrence added or status: dismissed). Dismissed signals stay searchable — a dismissed signal that recurs is itself a signal.",
+      "allowedNext": []
+    },
+    {
+      "id": "FORMULATE_SIGNAL",
+      "description": "Stage 2 → 3: Information → Knowledge. Turn the observation into a MARKET SIGNAL: one generalised, quotable sentence that would hold for other customers too (observation 'this customer reacted to the way of thinking' → signal 'a worldview sells better than a product description'). Record it as `signal:` in the file and set status: signal. Then link it to what we already know: which registered signals, theses, whitepapers or hub pages it confirms, contradicts or extends. A signal that generalises nothing goes back to CLASSIFY as a one-off.",
+      "allowedNext": ["STRATEGIC_INSIGHT"]
+    },
+    {
+      "id": "STRATEGIC_INSIGHT",
+      "description": "Stage 4 → 5: Understanding → Insight. The layer that was missing: turn the market signal into ONE strategic sentence that changes what we say and sell. Example: Reality '17 construction leads' → Observation 'they talk about documentation' → Market signal 'demand for documentation automation is growing' → Strategic insight 'construction companies do not buy reporting; they buy less waste'. Only this last sentence changes lifetime.fi's message, DWS10's offering, campaigns and products. Record it as `insight:` with `evidence:` counts behind it (leads, conversations, offers, campaign results). An insight that would change nothing is not an insight: back to FORMULATE_SIGNAL.",
+      "allowedNext": ["HYPOTHESIZE", "FORMULATE_SIGNAL"]
+    },
+    {
+      "id": "HYPOTHESIZE",
+      "description": "Stage 5 → 6: Insight → Decision proposal. From the strategic insight, Write one falsifiable hypothesis the signal implies about what we say, sell or do (e.g. signal 'customers buy meaning, not agent architecture' → hypothesis 'lifetime.fi should be synthesis, not a solutions page'), and the evidence that would confirm or refute it (a metric, a next conversation, a Journal text's response). Then enumerate impacts per domain: content (which lifetime.fi conclusions, Journal texts, social series change), product (which products.json entries, bundles, prices, or a missing SKU), workflow (which chapter graph or skill assumed the old model). A hypothesis with no impact is a note, not a signal: send it back to CLASSIFY as noise.",
+      "allowedNext": ["GUARDRAIL"]
+    },
+    {
+      "id": "GUARDRAIL",
+      "description": "Deterministic check on the hypothesis package: no customer PII or confidential deal terms in the registry file (names of private individuals, prices quoted in confidence); source is stated; impact list names concrete files or SKUs, not 'everything'. Block routes back to HYPOTHESIZE with the rule list.",
+      "allowedNext": ["SHOW_TO_HIC", "HYPOTHESIZE"]
+    },
+    {
+      "id": "SHOW_TO_HIC",
+      "description": "One artefact: signal, hypothesis, refuting evidence, impact table by domain with the concrete edits proposed. Ask one decision-shaped question: accept the hypothesis and its impacts, accept the signal but defer, or reject. This is the moment the HIC currently does in their head; the graph makes it a recorded decision. Surface: the Admin dashboard pipeline view (docs/workflow-v2-chapters-roadmap.md 'Pipeline view'), where the HIC sees every signal by status and every chain by current node, and acts (accept / defer / reject / reprioritise) from inside the pipe rather than from chat.",
+      "allowedNext": ["HIC_APPROVAL_GATE"]
+    },
+    {
+      "id": "HIC_APPROVAL_GATE",
+      "description": "Stage 6: Decision (human). A signal changes what the company says and sells, so the impact set is an HIC decision, bound to the exact hypothesis text via ApprovalToken hash (an edited hypothesis re-enters the gate). Enforced by DEFAULT_GATED_NODE_IDS in runner.ts. Accepted → status: accepted with `decision:` (a named decision, e.g. roolimalli_v1_5) and the `affected:` list in the registry file (e.g. 'lifetime -> synteesi; blog -> syvä ymmärrys; dws10 -> toteutus'). Deferred → status: deferred with a review date calendared. Rejected → status: rejected with reason.",
+      "allowedNext": ["DISPATCH_IMPACTS", "REVISE", "DEFERRED"]
+    },
+    {
+      "id": "REVISE",
+      "description": "Refine the hypothesis or impact list per the HIC's edits, re-emit the full package, return to GUARDRAIL.",
+      "allowedNext": ["GUARDRAIL", "DEFERRED"]
+    },
+    {
+      "id": "DEFERRED",
+      "description": "Terminal for this run. Signal stays status: deferred with a calendared review date (Google_Calendar.create_event) and reappears in the weekly signal scan (signal-detector skill) until decided. Never silently dropped.",
+      "allowedNext": []
+    },
+    {
+      "id": "DISPATCH_IMPACTS",
+      "description": "Stage 7: Action. Reachable only through HIC_APPROVAL_GATE. Start one child run per accepted impact and record their run ids in the registry file: content impacts → Chapter 10 (content-refinement-chain) SELECT_SOURCE with the signal as the source; product impacts → a products.json change proposal (single source of truth, root + landing-pages mirror in the same commit; price changes remain an HIC decision inside that run); workflow impacts → REFINE_WORKFLOWS below. The signal must not be considered handled until every dispatched run has a status. Each dispatched impact is written to `impact:` as {target, status} (lifetime.fi / Journal / LinkedIn / Meta / dws10.com / buy → not started | in progress | done) so the dashboard's Impact column is the registry, not a report about it.",
+      "allowedNext": ["REFINE_WORKFLOWS", "AWAIT_OUTCOMES"]
+    },
+    {
+      "id": "REFINE_WORKFLOWS",
+      "description": "Stage 7: Action on the system itself. For each workflow impact, hand the signal to the Refiner role (src/agents/workflow-v2/prompts.ts buildRefinerPrompt): which node descriptions, skills or CLAUDE.md rules encoded the old assumption, and the proposed edit (graph version bump). Example from this session: content-publishing and campaign workflows assumed 'produce a product page'; the accepted signal changes SYNTHESIZE in Chapter 10 to produce synthesis first. Refiner edits are proposals in a PR, never silent runtime changes.",
+      "allowedNext": ["AWAIT_OUTCOMES"]
+    },
+    {
+      "id": "AWAIT_OUTCOMES",
+      "description": "Stage 8: Outcome. When every dispatched run is done, set status: implemented — the registry records impact, not just signals, otherwise it becomes another archive that changes nothing. Durable wait (days to weeks) while child runs complete. Re-entry node: each child completion or new occurrence of the same signal re-enters here. When the refuting-evidence date from HYPOTHESIZE arrives, move on regardless of child status.",
+      "allowedNext": ["EVALUATE", "AWAIT_OUTCOMES"]
+    },
+    {
+      "id": "EVALUATE",
+      "description": "Stage 9: Evidence. Compare what happened with the hypothesis using the evidence defined in HYPOTHESIZE (contacts, replies, seminar questions, sales, a metric). Write the result into the registry file: confirmed / refuted / inconclusive, with the numbers or quotes. A refuted hypothesis is as valuable as a confirmed one and stays in the registry.",
+      "allowedNext": ["KB_UPDATE"]
+    },
+    {
+      "id": "KB_UPDATE",
+      "description": "Stage: Evidence → Ontology/KB update. Write the validated insight into the knowledge layer the agents actually read: a kb/wiki/signals/<signal_id>.md page (via /kb ingest) and, when the insight changes a concept or its relations, a proposal to ONTOLOGY.md (PR, HIC approves). From this point every agent that evaluates a lead, drafts content or scores a tender reads the insight as knowledge, not as a note in a registry: 'Rakennusala ostaa kilpailukykyä, ei compliancea' becomes a scoring dimension for the next construction lead and a wording rule for the next Journal text.",
+      "allowedNext": ["LEARN"]
+    },
+    {
+      "id": "LEARN",
+      "description": "Stage 10: Learning. Close the loop the way Chapter 9 requires: field note (docs/field-notes/), Learn/ HTML render, and — if the evaluation changes a standing rule — a proposal to the relevant standard or graph. Update the registry file status: closed. Signals whose hypotheses were confirmed feed the next SELECT_SOURCE priorities in Chapter 10; refuted ones feed the Refiner. The loop's output is an Improved Observation: the next CAPTURE reads the KB page written in KB_UPDATE.",
+      "allowedNext": ["END"]
+    },
+    {
+      "id": "END",
+      "description": "Terminal — signal captured, decided, acted on, evaluated and learned from; registry file carries the whole trail.",
+      "allowedNext": []
+    }
+  ]
+}

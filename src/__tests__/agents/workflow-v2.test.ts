@@ -531,6 +531,11 @@ const EXAMPLE_GRAPHS = [
   'kya-incident-response.graph.json',
   'learning-outcome.graph.json',
   'sales-outreach.graph.json',
+  'content-refinement-chain.graph.json',
+  'social-distribution.graph.json',
+  'translation-fanout.graph.json',
+  'seminar-event.graph.json',
+  'observation-market-signal-intake.graph.json',
 ];
 
 describe('every shipped example graph', () => {
@@ -558,24 +563,50 @@ const GATED_ACTIONS = [
   // outbound is authorized, but the session may not be declared over until
   // a dated capture artefact (or a recorded exemption) exists.
   { file: 'learning-outcome.graph.json', gate: 'LEARN_GATE', protected: 'SESSION_END' },
+  // Chapters 10–13: the One Lifetime content refinement chain and its three
+  // child chapters. Each ends in an outbound publication or send, so each
+  // reuses the literal HIC_APPROVAL_GATE id and inherits runtime enforcement.
+  {
+    file: 'content-refinement-chain.graph.json',
+    gate: 'HIC_APPROVAL_GATE',
+    protected: 'PUBLISH_JOURNAL',
+  },
+  { file: 'social-distribution.graph.json', gate: 'HIC_APPROVAL_GATE', protected: 'SCHEDULE' },
+  { file: 'translation-fanout.graph.json', gate: 'HIC_APPROVAL_GATE', protected: 'PUBLISH' },
+  { file: 'seminar-event.graph.json', gate: 'HIC_APPROVAL_GATE', protected: 'SEND_INVITATIONS' },
+  // Chapter 14: a market signal may change what the company says and sells;
+  // dispatching its impacts is an HIC decision.
+  {
+    file: 'observation-market-signal-intake.graph.json',
+    gate: 'HIC_APPROVAL_GATE',
+    protected: 'DISPATCH_IMPACTS',
+  },
 ];
 
 describe('gated actions are structurally unreachable except through their gate', () => {
-  it.each(GATED_ACTIONS)('$file: only $gate may reach $protected', ({ file, gate, protected: protectedNode }) => {
-    const graph = loadExampleGraph(file);
-    expect(graph.nodes.find((n) => n.id === protectedNode)).toBeDefined();
-    for (const node of graph.nodes) {
-      if (node.id === gate) continue;
-      expect(node.allowedNext).not.toContain(protectedNode);
-    }
-    expect(isTransitionAllowed(graph, gate, protectedNode)).toBe(true);
-  });
+  it.each(GATED_ACTIONS)(
+    '$file: only $gate may reach $protected',
+    ({ file, gate, protected: protectedNode }) => {
+      const graph = loadExampleGraph(file);
+      expect(graph.nodes.find((n) => n.id === protectedNode)).toBeDefined();
+      for (const node of graph.nodes) {
+        if (node.id === gate) continue;
+        expect(node.allowedNext).not.toContain(protectedNode);
+      }
+      expect(isTransitionAllowed(graph, gate, protectedNode)).toBe(true);
+    },
+  );
 });
 
 describe('compliance-assessment example graph (chapter three)', () => {
   it('routes every pipeline stage to MISSING_DATA — the recovery the DAG lacks', () => {
     const graph = loadExampleGraph('compliance-assessment.graph.json');
-    for (const stage of ['COLLECT_INPUTS', 'RUN_EMISSIONS_ANALYSIS', 'RUN_REGULATORY_CHECK', 'RUN_VIABILITY_ASSESSMENT']) {
+    for (const stage of [
+      'COLLECT_INPUTS',
+      'RUN_EMISSIONS_ANALYSIS',
+      'RUN_REGULATORY_CHECK',
+      'RUN_VIABILITY_ASSESSMENT',
+    ]) {
       expect(isTransitionAllowed(graph, stage, 'MISSING_DATA')).toBe(true);
     }
     // MISSING_DATA must lead back into the pipeline, not dead-end.
@@ -585,7 +616,9 @@ describe('compliance-assessment example graph (chapter three)', () => {
   it('keeps the emissions -> regulatory -> viability backbone', () => {
     const graph = loadExampleGraph('compliance-assessment.graph.json');
     expect(isTransitionAllowed(graph, 'RUN_EMISSIONS_ANALYSIS', 'RUN_REGULATORY_CHECK')).toBe(true);
-    expect(isTransitionAllowed(graph, 'RUN_REGULATORY_CHECK', 'RUN_VIABILITY_ASSESSMENT')).toBe(true);
+    expect(isTransitionAllowed(graph, 'RUN_REGULATORY_CHECK', 'RUN_VIABILITY_ASSESSMENT')).toBe(
+      true,
+    );
   });
 });
 
@@ -600,7 +633,12 @@ describe('construction-site-assessment example graph (chapter four)', () => {
 
   it('gives every measurement stage a stale-input recovery path', () => {
     const graph = loadExampleGraph('construction-site-assessment.graph.json');
-    for (const stage of ['GATHER_SITE_CONDITIONS', 'ASSESS_SAFETY', 'ANALYSE_MATERIALS_CARBON', 'CHECK_SCHEDULE']) {
+    for (const stage of [
+      'GATHER_SITE_CONDITIONS',
+      'ASSESS_SAFETY',
+      'ANALYSE_MATERIALS_CARBON',
+      'CHECK_SCHEDULE',
+    ]) {
       expect(isTransitionAllowed(graph, stage, 'STALE_INPUT_RECOVERY')).toBe(true);
     }
   });
@@ -619,7 +657,9 @@ describe('content-publishing example graph (chapter five)', () => {
   it('reopens the loop on a post-approval edit instead of republishing', () => {
     const graph = loadExampleGraph('content-publishing.graph.json');
     expect(isTransitionAllowed(graph, 'POST_APPROVAL_EDIT', 'DRAFT')).toBe(true);
-    expect(graph.nodes.find((n) => n.id === 'POST_APPROVAL_EDIT')?.allowedNext).not.toContain('PUBLISH');
+    expect(graph.nodes.find((n) => n.id === 'POST_APPROVAL_EDIT')?.allowedNext).not.toContain(
+      'PUBLISH',
+    );
   });
 });
 
@@ -645,7 +685,9 @@ describe('case-coordination example graph (chapter eight)', () => {
     expect(isTransitionAllowed(graph, 'REPORT_STATUS', 'AWAIT_NEXT_EVENT')).toBe(true);
     expect(isTransitionAllowed(graph, 'AWAIT_NEXT_EVENT', 'DISPATCH_AGENTS')).toBe(true);
     // Re-entry goes to DISPATCH_AGENTS, not back to START — the case is not restarted.
-    expect(graph.nodes.find((n) => n.id === 'AWAIT_NEXT_EVENT')?.allowedNext).not.toContain('START');
+    expect(graph.nodes.find((n) => n.id === 'AWAIT_NEXT_EVENT')?.allowedNext).not.toContain(
+      'START',
+    );
   });
 
   it('surfaces a partial agent set instead of reporting it as complete', () => {
@@ -717,8 +759,7 @@ function scriptedClient(script: string[]): LLMClient {
 }
 
 describe('runGraph — the executable entry point', () => {
-  const tmpTrace = () =>
-    `${tmpdir()}/wf2-test-${randomUUID()}.json`;
+  const tmpTrace = () => `${tmpdir()}/wf2-test-${randomUUID()}.json`;
 
   it('walks chapter three end to end and records the full path', async () => {
     const graph = loadExampleGraph('compliance-assessment.graph.json');
@@ -781,11 +822,11 @@ describe('runGraph — the executable entry point', () => {
   it("blocks chapter one's outbound SEND in a real run without an approval token", async () => {
     const graph = loadExampleGraph('sales-outreach.graph.json');
     await expect(
-      runGraph(
-        graph,
-        scriptedClient(['RESEARCH', 'DRAFT_OUTREACH', 'HIC_APPROVAL_GATE', 'SEND']),
-        { input: 'test', maxSteps: 20, tracePath: tmpTrace() },
-      ),
+      runGraph(graph, scriptedClient(['RESEARCH', 'DRAFT_OUTREACH', 'HIC_APPROVAL_GATE', 'SEND']), {
+        input: 'test',
+        maxSteps: 20,
+        tracePath: tmpTrace(),
+      }),
     ).rejects.toThrow(ApprovalRequiredError);
   });
 
@@ -793,11 +834,11 @@ describe('runGraph — the executable entry point', () => {
     const graph = loadExampleGraph('sales-outreach.graph.json');
     const tracePath = tmpTrace();
     await expect(
-      runGraph(
-        graph,
-        scriptedClient(['RESEARCH', 'DRAFT_OUTREACH', 'HIC_APPROVAL_GATE', 'SEND']),
-        { input: 'test', maxSteps: 20, tracePath },
-      ),
+      runGraph(graph, scriptedClient(['RESEARCH', 'DRAFT_OUTREACH', 'HIC_APPROVAL_GATE', 'SEND']), {
+        input: 'test',
+        maxSteps: 20,
+        tracePath,
+      }),
     ).rejects.toThrow();
 
     const written = JSON.parse(readFileSync(tracePath, 'utf-8'));
@@ -815,5 +856,53 @@ describe('runGraph — the executable entry point', () => {
 
     expect(trace.outcome).toBe('failure');
     expect(trace.errorContext).toContain('max-steps');
+  });
+});
+
+describe('content-refinement-chain example graph (chapter ten)', () => {
+  it('hands off to chapters 11, 12 and 13 by file name and closes the loop at a product', () => {
+    const graph = loadExampleGraph('content-refinement-chain.graph.json');
+    const byId = (id: string) => graph.nodes.find((n) => n.id === id);
+    expect(byId('ENQUEUE_SOCIAL')?.description).toContain('social-distribution.graph.json');
+    expect(byId('FAN_OUT_TRANSLATIONS')?.description).toContain('translation-fanout.graph.json');
+    expect(byId('EVENT_HOOK')?.description).toContain('seminar-event.graph.json');
+    // WHY layer stays clean: the conclusion publish must precede social/translation and
+    // the product link goes on dws10.com, never lifetime.fi.
+    expect(isTransitionAllowed(graph, 'PUBLISH_JOURNAL', 'PUBLISH_CONCLUSION')).toBe(true);
+    expect(byId('LINK_PRODUCT')?.description).toContain('dws10.com');
+  });
+
+  it('every revision round re-enters the guardrail, never the gate directly', () => {
+    const graph = loadExampleGraph('content-refinement-chain.graph.json');
+    expect(isTransitionAllowed(graph, 'REVISE', 'GUARDRAIL')).toBe(true);
+    expect(isTransitionAllowed(graph, 'REVISE', 'HIC_APPROVAL_GATE')).toBe(false);
+    expect(isTransitionAllowed(graph, 'REVISE', 'PUBLISH_JOURNAL')).toBe(false);
+  });
+});
+
+describe('seminar-event example graph (chapter thirteen)', () => {
+  it('holds the event across time via AWAIT_EVENT re-entry and routes personalised follow-up back through the gate', () => {
+    const graph = loadExampleGraph('seminar-event.graph.json');
+    expect(isTransitionAllowed(graph, 'SEND_INVITATIONS', 'AWAIT_EVENT')).toBe(true);
+    expect(isTransitionAllowed(graph, 'FOLLOW_UP', 'HIC_APPROVAL_GATE')).toBe(true);
+    expect(isTransitionAllowed(graph, 'FOLLOW_UP', 'SEND_INVITATIONS')).toBe(false);
+  });
+});
+
+describe('observation-market-signal-intake example graph (chapter fourteen)', () => {
+  it('captures before it interprets, and closes the loop through evidence and learning', () => {
+    const graph = loadExampleGraph('observation-market-signal-intake.graph.json');
+    expect(isTransitionAllowed(graph, 'START', 'CAPTURE')).toBe(true);
+    expect(isTransitionAllowed(graph, 'START', 'HYPOTHESIZE')).toBe(false);
+    expect(isTransitionAllowed(graph, 'CLASSIFY', 'FORMULATE_SIGNAL')).toBe(true);
+    expect(isTransitionAllowed(graph, 'CLASSIFY', 'HYPOTHESIZE')).toBe(false);
+    expect(isTransitionAllowed(graph, 'FORMULATE_SIGNAL', 'STRATEGIC_INSIGHT')).toBe(true);
+    expect(isTransitionAllowed(graph, 'FORMULATE_SIGNAL', 'HYPOTHESIZE')).toBe(false);
+    expect(isTransitionAllowed(graph, 'AWAIT_OUTCOMES', 'AWAIT_OUTCOMES')).toBe(true);
+    expect(isTransitionAllowed(graph, 'EVALUATE', 'KB_UPDATE')).toBe(true);
+    expect(isTransitionAllowed(graph, 'KB_UPDATE', 'LEARN')).toBe(true);
+    expect(graph.nodes.find((n) => n.id === 'DISPATCH_IMPACTS')?.description).toContain(
+      'content-refinement-chain',
+    );
   });
 });
