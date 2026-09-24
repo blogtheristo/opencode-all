@@ -13,7 +13,21 @@ yksi käyttöliittymä myöhemmin; oletus on valintapolku.
 
 ## Case: Kemira ei tiedä tuotantoerien hiilijalanjälkeä
 
-### 1. Tilanteen tunnistus (yksi kysymys, valinnat)
+### 0. Toimiala ensin (HIC 24.09.2026)
+
+Palvelemme 25 toimialaa. Kävijä valitsee toimialansa heti sivulle tullessaan, ennen mitään
+muuta; vasta sen jälkeen aktiivinen ontologia voidaan tehdä hänelle. Toimiala määrää
+tilannevaihtoehdot, juurisyyt ja priorit, kysymykset, suositussäännöt ja tuoteperheen
+(`src/agents/data/industry-registry.ts`, 20 erikoistunutta + 5 alustatason toimialaa).
+
+> Millä toimialalla toimitte?
+> [25 toimialaa ruudukkona; 5 yleisintä ensin; "en löydä omaani" → poikkileikkaava polku]
+
+Valinta muistetaan (localStorage + URL-parametri `?industry=`), jotta paluukävijä ei valitse
+uudestaan ja jotta kampanjalinkit voivat esivalita toimialan. Toimialavalinta on samalla
+ensimmäinen CAPTURE-havainto Chapter 14:lle: mitkä toimialat tulevat, mihin tilanteisiin.
+
+### 1. Tilanteen tunnistus (yksi kysymys, valinnat, toimialakohtaiset)
 
 > Mikä kuvaa tilannettanne parhaiten?
 > ○ Emme tiedä tuotantoerien hiilijalanjälkeä · ○ CSRD-data on hajallaan · ○ Toimittajien
@@ -86,8 +100,11 @@ päätös voidaan tehdä luottavaisesti._
 
 - Sijainti: `dws10.com/` etusivun ensimmäinen ruutu ("Mikä kuvaa tilannettanne parhaiten?") ja
   `dws10.com/buy/` ennen hinnastoa. Peili samassa commitissa.
-- Data: tilannevaihtoehdot, juurisyyt, priorit, kysymykset ja suositussäännöt yhdessä
-  JSON-lähteessä (`dws10.com/config/active-ontology.json`), tuotteet `products.json`-SKU:ina.
+- Data: toimiala → tilannevaihtoehdot → juurisyyt, priorit, kysymykset ja suositussäännöt
+  yhdessä JSON-lähteessä (`dws10.com/config/active-ontology.json`, avaimena industry-registryn
+  id), tuotteet `products.json`-SKU:ina. Ensimmäinen erä: rakentaminen, energia, kemia
+  (Kemira-case), logistiikka, verkkoliiketoiminta; muut 20 toimialaa poikkileikkaavalla
+  oletuspolulla kunnes omat säännöt on kirjoitettu.
   Ei kovakoodattuja hintoja.
 - Jokainen läpikäyty polku kirjataan Chapter 14 CAPTURE-havainnoksi (observer: agent):
   valitut tilanteet ja kyllä/ei-vastaukset ovat markkinasignaalia; ei PII:tä.
