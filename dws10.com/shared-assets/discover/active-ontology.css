@@ -49,3 +49,4 @@
 .ao-counters div{padding:10px;border:1px solid rgba(255,255,255,.12);border-radius:8px}
 .ao-counters b{display:block;font-size:1.4em}
 .ao-counters small{opacity:.8}
+.ao-btn-secondary{background:transparent;border:1px solid #FFD166;color:#FFD166}

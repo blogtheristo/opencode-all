@@ -28,7 +28,8 @@ WITH scope AS (
          MAX(ownership_map::text) FILTER (WHERE event = 'ownership')::jsonb AS ownership,
          MAX(recommended_sku) FILTER (WHERE event = 'selected')     AS recommended_sku,
          BOOL_OR(event = 'query')                                   AS observed,
-         BOOL_OR(event = 'path_shown')                              AS path_found
+         BOOL_OR(event = 'path_shown')                              AS path_found,
+         BOOL_OR(event = 'result' AND result = 'transferred_to_owner') AS transferred
   FROM public.website_observations
   GROUP BY observation_id
 ), cases AS (
@@ -54,6 +55,7 @@ SELECT jsonb_build_object(
   'ownership_unclear',     (SELECT COUNT(*) FROM cases WHERE ownership->>'known' = 'no'),
   'decision_maker_known',  (SELECT COUNT(*) FROM cases WHERE ownership->'map'->>'decision' IS NOT NULL AND ownership->'map'->>'decision' <> 'unknown'),
   'path_identified',       (SELECT COUNT(*) FROM cases WHERE path_found),
+  'transferred_to_owner',  (SELECT COUNT(*) FROM cases WHERE transferred),
   'ownership_patterns', CASE WHEN (SELECT total FROM n) >= p_min
       THEN COALESCE((SELECT jsonb_agg(jsonb_build_object('pattern', pattern, 'count', c)) FROM patterns), '[]'::jsonb) ELSE '[]'::jsonb END,
   'next_steps', CASE WHEN (SELECT total FROM n) >= p_min

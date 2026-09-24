@@ -713,6 +713,21 @@
       if (vs) {
         root.appendChild(el('h2', { class: 'ao-q', text: L(vs.heading) }));
         root.appendChild(el('p', { class: 'ao-hint', text: L(vs.note) }));
+        if (state.ownership.verdict === 'transfer') {
+          // Success without a sale (HIC round 6): the next right decision may be "take it to
+          // the right owner". Recorded as result=transferred_to_owner.
+          var tr = el('div', { class: 'ao-row' }, [
+            el('button', {
+              class: 'ao-btn ao-btn-secondary',
+              text: t('transferCta'),
+              onclick: function (ev) {
+                send('result', { result: 'transferred_to_owner' });
+                ev.target.replaceWith(el('p', { class: 'ao-hint', text: t('transferDone') }));
+              },
+            }),
+          ]);
+          root.appendChild(tr);
+        }
         if (vs.solutions.length) root.appendChild(solutionCards(vs.solutions, recommended));
         root.appendChild(el('h3', { class: 'ao-after', text: t('afterOwnership') }));
       } else root.appendChild(el('h2', { class: 'ao-q', text: t('solutionsLabel') }));

@@ -53,6 +53,7 @@ dispatched_runs:
   - "DONE: Active Ontology 1.2.0 — neljä eri asiaa + Ownership Verdict (kierros 3)"
   - "DONE: Active Ontology 1.3.0 — verdict-reititetty ensimmäinen kauppa (Captain Day) ennen alustatuotteita (kierros 4)"
   - "DONE: Active Ontology 1.4.0 — evidenssipaneeli show-me (migration 091 + /api/observations/summary) (kierros 5)"
+  - "DONE: 1.4.1 — tulos transferred_to_owner (onnistuminen ilman kauppaa) (kierros 6)"
   - "CANDIDATE: tuote 'Ownership Evidence' — selvitys, jonka tulos on omistajuuslöydös, ei tekninen ratkaisu (odottaa tuoteperhepäätöstä)"
   - "TODO: Journal-teksti 'Kaikki tietävät ongelman, kukaan ei omista sitä' (sarja 0, teksti 2; Rule 13)"
 impact:
@@ -138,6 +139,24 @@ tunnistettu / polku tunnistettu). Lähde: SQL-funktio `website_observation_summa
 091), Pages Function `GET /api/observations/summary` (5 min välimuisti). Totuussääntö: alle 5
 tapausta → paneeli sanoo "ontologia ei vielä tiedä tästä riittävästi", ei koskaan keksittyjä
 lukuja. Ilman ympäristömuuttujia paneeli ilmoittaa, ettei se ole käytössä.
+
+## Kierros 6 (HIC 24.09.2026): DISCOVER optimoi seuraavan oikean päätöksen, ei myyntiä
+
+> DISCOVER ei optimoi tuotteiden myyntiä. DISCOVER optimoi seuraavan oikean päätöksen
+> löytämistä. Tuotteet ovat vain päätöksen mahdollisia seurauksia. Jos asiakkaan seuraava oikea
+> päätös on "vie asia COO:lle", Active Ontology onnistui — vaikka kauppaa ei syntyisi.
+
+Vanha maailma: Ongelma → Analyysi → Tuote. Uusi: Ongelma → Omistajuuslöydös → Seuraava järkevä
+askel → Mahdolliset ratkaisupolut. Asiakkaan kokemus: "nämä eivät yritä myydä minulle tuotetta,
+nämä auttavat ymmärtämään mitä pitäisi tehdä seuraavaksi." Ensimmäinen mekanismi, joka kerää
+omistajuuslöydöksiä systemaattisesti: Observation → Ownership Finding → Recommended SKU →
+Accepted SKU → Outcome. Kun tapauksia on sata, jakauma (esim. Captain Day / Starter / Climate
+Intelligence / konsultointi / muut) ei ole enää myyntiputki vaan päätöspuu. HIC: 1.3.0 on
+ensimmäinen versio, jossa DWS IQ:n runko muodostuu tuotteiden ympärille eikä toisinpäin.
+
+Tuotteeseen (1.4.1): `transfer`-löydöksessä painike "Vien asian oikealle omistajalle" kirjaa
+tuloksen `transferred_to_owner` — Active Ontologyn onnistuminen ilman kauppaa on nyt mitattava
+tapahtuma, ja se lasketaan DISCOVER-laskureihin päätöksenä.
 
 ## Kategoriamääritelmä (HIC 24.09.2026)
 

@@ -85,7 +85,7 @@ export async function onRequestPost(context) {
         : null,
     recommended_sku: str(input.recommended_sku, 64),
     selected_sku: str(input.selected_sku, 64),
-    result: str(input.result, 64),
+    result: str(input.result, 64), // e.g. workshop_clicked | assessment_clicked | transferred_to_owner
     ownership_map: ownership(input.ownership),
     question_id: str(input.question, 64),
     answer: str(input.answer, 8),
