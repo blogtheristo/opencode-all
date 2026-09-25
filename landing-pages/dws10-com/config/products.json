@@ -1,6 +1,7 @@
 {
   "products": {
     "DWS-IQ-006": {
+      "tags": ["DWS IQ"],
       "id": "DWS-IQ-006",
       "gtin": null,
       "mpn": "DWSIQ-V6-2026",
@@ -47,6 +48,7 @@
       "capacityLimits": "Agent count depends on deployment option and workload"
     },
     "FH-AUTO-001": {
+      "tags": ["Firehorse"],
       "id": "FH-AUTO-001",
       "gtin": null,
       "mpn": "FH-AUTO-2026",
@@ -89,6 +91,7 @@
       "capacityLimits": "Per-template scope"
     },
     "LIFETIME-BUNDLE-2026": {
+      "tags": ["DWS IQ"],
       "id": "LIFETIME-BUNDLE-2026",
       "gtin": null,
       "mpn": "CLM-BUNDLE-2026",
@@ -130,6 +133,7 @@
       "capacityLimits": "Per-bundle scope"
     },
     "FH-OMNI-001": {
+      "tags": ["Firehorse"],
       "id": "FH-OMNI-001",
       "gtin": null,
       "mpn": "FH-OMNI-2026",
@@ -173,6 +177,7 @@
       "capacityLimits": "Per-contract scope"
     },
     "FH-RPT-001": {
+      "tags": ["DWS IQ"],
       "id": "FH-RPT-001",
       "gtin": null,
       "mpn": "FH-REPORT-2026",
@@ -216,6 +221,7 @@
       "capacityLimits": "Per-template scope"
     },
     "FH-SIGN-001": {
+      "tags": ["Firehorse"],
       "id": "FH-SIGN-001",
       "gtin": null,
       "mpn": "FH-SIGNED-REPORTS-2026",
@@ -259,6 +265,7 @@
       "capacityLimits": "Per-signature scope"
     },
     "KYA-JEV-001": {
+      "tags": ["DWS IQ"],
       "id": "KYA-JEV-001",
       "gtin": null,
       "mpn": "KYA-JEV-2026",
@@ -306,6 +313,7 @@
       "capacityLimits": "Confidence uncalibrated \u2014 advisory use only pending calibration report"
     },
     "FH-CMS-001": {
+      "tags": ["Firehorse"],
       "id": "FH-CMS-001",
       "gtin": null,
       "mpn": "FH-CMS-2026",
@@ -456,6 +464,7 @@
       "partnerProduct": true
     },
     "conversational-agent": {
+      "tags": ["Firehorse"],
       "id": "conversational-agent",
       "gtin": null,
       "mpn": "CONV-AGENT-2026",
@@ -686,6 +695,7 @@
       "partnerProduct": true
     },
     "firehorse-flow": {
+      "tags": ["Firehorse"],
       "id": "firehorse-flow",
       "gtin": null,
       "mpn": "FH-FLOW-2026",
@@ -729,6 +739,7 @@
       "partnerProduct": true
     },
     "omnichannel-multimodal": {
+      "tags": ["Firehorse"],
       "id": "omnichannel-multimodal",
       "gtin": null,
       "mpn": "FH-OMNI-MM-2026",
@@ -801,6 +812,7 @@
       "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "firehorse-data-services": {
+      "tags": ["Firehorse"],
       "id": "firehorse-data-services",
       "gtin": null,
       "mpn": "FH-DATA-2026",
@@ -2354,6 +2366,7 @@
       "partnerProduct": true
     },
     "DWS-SOVEREIGN-DB-001": {
+      "tags": ["DWS IQ"],
       "id": "DWS-SOVEREIGN-DB-001",
       "gtin": null,
       "mpn": "SOVEREIGN-DB-2026",
@@ -2430,6 +2443,7 @@
       "buyPageOrder": 10
     },
     "DWS-US-STARTER": {
+      "tags": ["DWS IQ"],
       "id": "DWS-US-STARTER",
       "gtin": null,
       "mpn": "DWS-US-STARTER-2026",
@@ -2475,6 +2489,7 @@
       "capacityLimits": "Single concurrent workflow"
     },
     "DWS-US-PILOT": {
+      "tags": ["DWS IQ"],
       "id": "DWS-US-PILOT",
       "gtin": null,
       "mpn": "DWS-US-PILOT-2026",
@@ -2520,6 +2535,7 @@
       "capacityLimits": "Standard support"
     },
     "DWS-EU-STARTER": {
+      "tags": ["DWS IQ"],
       "id": "DWS-EU-STARTER",
       "gtin": null,
       "mpn": "DWS-EU-STARTER-2026",
@@ -2567,6 +2583,7 @@
       "capacityLimits": "Single concurrent workflow"
     },
     "DWS-EU-PILOT": {
+      "tags": ["DWS IQ"],
       "id": "DWS-EU-PILOT",
       "gtin": null,
       "mpn": "DWS-EU-PILOT-2026",
@@ -2613,6 +2630,7 @@
       "capacityLimits": "Standard support"
     },
     "DWS-CLIMATE-001": {
+      "tags": ["DWS IQ"],
       "id": "DWS-CLIMATE-001",
       "gtin": null,
       "mpn": "DWS-CLIMATE-2026",
@@ -2657,6 +2675,7 @@
       "capacityLimits": "Per-contract scope"
     },
     "DWS-AEGIS-001": {
+      "tags": ["DWS IQ"],
       "id": "DWS-AEGIS-001",
       "gtin": null,
       "mpn": "DWS-AEGIS-2026",
@@ -2704,6 +2723,7 @@
       "capacityLimits": "UpCloud SLA 99.9%/99.999%"
     },
     "DWS-AEGIS-PILOT-001": {
+      "tags": ["DWS IQ"],
       "id": "DWS-AEGIS-PILOT-001",
       "gtin": null,
       "mpn": "DWS-AEGIS-PILOT-2026",
@@ -2784,6 +2804,7 @@
       "partnerProduct": true
     },
     "DWS-AEGIS-IMPL-001": {
+      "tags": ["DWS IQ"],
       "id": "DWS-AEGIS-IMPL-001",
       "gtin": null,
       "mpn": "DWS-AEGIS-IMPL-2026",
@@ -6023,6 +6044,7 @@
       "partnerProduct": true
     },
     "DWS-IQ-FREE-2026": {
+      "tags": ["DWS IQ"],
       "id": "DWS-IQ-FREE-2026",
       "gtin": null,
       "mpn": "DWSIQ-FREE-2026",
@@ -6133,6 +6155,7 @@
       "partnerProduct": true
     },
     "DWS-IQ-ESS-SETUP": {
+      "tags": ["DWS IQ"],
       "id": "DWS-IQ-ESS-SETUP",
       "mpn": "DWSIQ-ESS-SETUP-2026",
       "name": "DWS IQ Essentials \u2014 Setup",
@@ -6298,7 +6321,7 @@
         "primarySurface": "/buy/"
       },
       "supporting": {
-        "description": "Every other non-BLUE, non-archived, non-independent product. Supporting products remain publicly available on the broad DWS /price-list/ surface but are not part of the primary 13-product /buy/ portfolio.",
+        "description": "Every other non-BLUE, non-archived, non-independent product. These products remain publicly available on the broad DWS /price-list/ surface but are not part of the primary 13-product /buy/ portfolio. Internal residual class only: the price list shows no \"Supporting\" tag (HIC 25.09.2026).",
         "publicSalesEligible": true,
         "primarySurface": "/price-list/"
       },
@@ -6318,6 +6341,10 @@
         "publicSalesEligible": true,
         "primarySurface": "/price-list/",
         "tag": "SME"
+      },
+      "productGroups": {
+        "description": "Price-list product groups, in this order, each with its own soft background colour (HIC 25.09.2026): SME campaign products (tag \"SME\"), DWS IQ platform (tag \"DWS IQ\"), Firehorse agents (tag \"Firehorse\"), independent data products (independentProductIds), services, consulting and training (storeCategory advisory or ai-cloud), hardware and infrastructure (storeCategory hardware and LF- infra SKUs).",
+        "tags": ["SME", "DWS IQ", "Firehorse"]
       },
       "archive": {
         "description": "Retired records identified by archived true or productType \"archived\". Archived records are inactive and excluded from every public sales surface.",
@@ -6382,6 +6409,7 @@
         "professional-web-pages (Kotisivut pk-yritykselle, \u20ac750) archived: superseded by LIFETIME-WEB-STARTER at the A5 campaign price \u20ac650 (VAT 0 %), suggested retail price \u20ac1,084 (HIC 25.09.2026). Detail pages are kept, not deleted.",
         "LIFETIME-WEB-STARTER and LIFETIME-WEBSTORE-MINI: Finnish caption (captionFi) shown on the FI price list.",
         "LIFETIME-IT-TUKI-10H added (HIC 25.09.2026): IT-support hour bank 10 h \u00d7 \u20ac75/h = \u20ac750 (VAT 0 %) \u2014 computer renewal, software updates, business applications, information security, training. Tag SME; third product in the SME campaign section and on the A5 flyer.",
+        "Price-list product groups (HIC 25.09.2026): tags \"DWS IQ\" (18 offers) and \"Firehorse\" (9 offers) added; six themed groups (SME, DWS IQ, Firehorse, data products, services, hardware and infrastructure), each with a soft background colour. The \"Supporting\" badge is dropped from the price list.",
         "SME campaign products tagged SME render in their own first section; commercialPortfolio.smeCampaignProductIds.",
         "Public price-list count 71 -> 70 -> 71 (\u20ac750 web package archived, IT hour bank added)."
       ]
@@ -6663,6 +6691,7 @@
   ],
   "subscriptions": {
     "DWS-IQ-SUB-001": {
+      "tags": ["DWS IQ"],
       "id": "DWS-IQ-SUB-001",
       "mpn": "DWSIQ-SUB-2026",
       "name": "DWS IQ Monthly Subscription",
@@ -6682,6 +6711,7 @@
       "version": "1.0"
     },
     "FH-SUB-001": {
+      "tags": ["Firehorse"],
       "id": "FH-SUB-001",
       "mpn": "FH-SUB-2026",
       "name": "Firehorse Monthly Subscription",
@@ -7491,6 +7521,7 @@
       "buyPageOrder": 44
     },
     "DWS-IQ-ESS-SUB-SELF": {
+      "tags": ["DWS IQ"],
       "id": "DWS-IQ-ESS-SUB-SELF",
       "mpn": "DWSIQ-ESS-SELF-2026",
       "name": "DWS IQ Essentials \u2014 Self-Hosted",
@@ -7512,6 +7543,7 @@
       "version": "1.0"
     },
     "DWS-IQ-ESS-SUB-MANAGED": {
+      "tags": ["DWS IQ"],
       "id": "DWS-IQ-ESS-SUB-MANAGED",
       "mpn": "DWSIQ-ESS-MGD-2026",
       "name": "DWS IQ Essentials \u2014 Managed",

@@ -25,6 +25,28 @@ const OUT_JSON = path.join(ROOT, 'config/truth/product-registry.json');
 const isArchived = (p) => p?.archived === true || p?.productType === 'archived';
 const isBlue = (p) => p?.deploymentColor === 'blue';
 
+// Price-list product group — same rules as commercialLayer() in dws10.com/price-list/index.html.
+function productGroup(id, p, independent) {
+  const tags = Array.isArray(p.tags) ? p.tags : [];
+  if (tags.includes('SME')) return 'SME';
+  if (tags.includes('DWS IQ')) return 'DWS IQ';
+  if (tags.includes('Firehorse')) return 'Firehorse';
+  if (independent.has(id)) return 'Data';
+  if (
+    p.storeCategory === 'advisory' ||
+    p.storeCategory === 'ai-cloud' ||
+    id === 'LF-TRAIN-IND' ||
+    id === 'LF-ONTOLOGY-PILOT'
+  )
+    return 'Services';
+  if (
+    p.storeCategory === 'hardware' ||
+    /^(LF-K8S|LF-DOCA|LF-NIM|LF-GOV|LF-IPC|LF-FIPS|LF-CINCOZE|LF-SOV)/.test(id)
+  )
+    return 'Hardware';
+  return 'Other';
+}
+
 export function buildRegistry(catalog) {
   const products = catalog.products || {};
   const subs = catalog.subscriptions || {};
@@ -55,9 +77,7 @@ export function buildRegistry(catalog) {
         ? 'independent'
         : serious.has(id)
           ? 'serious'
-          : status === 'public'
-            ? 'supporting'
-            : '—';
+          : '—';
     rows.push({
       id,
       source: 'products',
@@ -65,6 +85,7 @@ export function buildRegistry(catalog) {
       price: p.price ?? null,
       status,
       class: cls,
+      group: onPriceList ? productGroup(id, p, independent) : '—',
       onPriceList,
       reason,
     });
@@ -79,6 +100,7 @@ export function buildRegistry(catalog) {
       price: s.price ?? null,
       status: archived ? 'archived' : 'subscription',
       class: independent.has(id) ? 'independent' : archived ? '—' : 'subscription',
+      group: archived ? '—' : productGroup(id, s, independent),
       onPriceList: !archived,
       reason: archived ? 'archived subscription record' : '',
     });
@@ -91,6 +113,7 @@ export function buildRegistry(catalog) {
       price: p.price ?? null,
       status: 'discontinued',
       class: '—',
+      group: '—',
       onPriceList: false,
       reason: 'discontinued',
     });
@@ -113,6 +136,12 @@ export function buildRegistry(catalog) {
     discontinued: count((r) => r.status === 'discontinued'),
     smeCampaign: count((r) => r.class === 'sme-campaign'),
     serious: count((r) => r.class === 'serious' || r.class === 'sme-campaign'),
+    groups: Object.fromEntries(
+      ['SME', 'DWS IQ', 'Firehorse', 'Data', 'Services', 'Hardware', 'Other'].map((g) => [
+        g,
+        count((r) => r.onPriceList && r.group === g),
+      ]),
+    ),
     expectedPriceListProducts: cp.surfaces?.priceList?.expectedProductCount ?? null,
   };
   summary.reconciles =
@@ -157,7 +186,7 @@ export function renderMarkdown({ summary: s, rows }) {
     `| **On the public price list** | **${s.onPriceList}** |`,
     `| — public products (non-BLUE, non-archived) | ${s.publicProducts} |`,
     `| — active subscriptions | ${s.activeSubscriptions} |`,
-    `| — of which SME campaign products (own section) | ${s.smeCampaign} |`,
+    ...Object.entries(s.groups).map(([g, n]) => `| — price-list group ${g} | ${n} |`),
     `| Not on the price list: BLUE (internal / pilot) | ${s.blue} |`,
     `| Not on the price list: archived | ${s.archived} |`,
     `| Not on the price list: discontinued | ${s.discontinued} |`,
@@ -165,11 +194,11 @@ export function renderMarkdown({ summary: s, rows }) {
     '',
     '## Every ID',
     '',
-    '| # | ID | Name | Price | Status | Class | On price list | Why not |',
-    '| --- | --- | --- | --- | --- | --- | --- | --- |',
+    '| # | ID | Name | Price | Status | Class | Group | On price list | Why not |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- |',
     ...rows.map(
       (r, i) =>
-        `| ${i + 1} | \`${cell(r.id)}\` | ${cell(r.name)} | ${eur(r.price)} | ${r.status} | ${r.class} | ${r.onPriceList ? 'yes' : 'no'} | ${cell(r.reason)} |`,
+        `| ${i + 1} | \`${cell(r.id)}\` | ${cell(r.name)} | ${eur(r.price)} | ${r.status} | ${r.class} | ${r.group} | ${r.onPriceList ? 'yes' : 'no'} | ${cell(r.reason)} |`,
     ),
     '',
   ];

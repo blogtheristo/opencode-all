@@ -12,6 +12,15 @@
   "discontinued": 2,
   "smeCampaign": 3,
   "serious": 16,
+  "groups": {
+    "SME": 3,
+    "DWS IQ": 18,
+    "Firehorse": 9,
+    "Data": 2,
+    "Services": 20,
+    "Hardware": 28,
+    "Other": 0
+  },
   "expectedPriceListProducts": 71,
   "reconciles": true
 }

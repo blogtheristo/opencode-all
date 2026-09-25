@@ -441,12 +441,16 @@ if (
 if (
   !priceListPage.includes('portfolio-badge') ||
   !priceListPage.includes('Serious') ||
-  !priceListPage.includes('Supporting') ||
   !priceListPage.includes('Independent')
 ) {
-  addError(
-    'dws10.com/price-list/index.html must visibly classify public offers as Serious, Independent, or Supporting',
-  );
+  addError('dws10.com/price-list/index.html must visibly badge Serious and Independent offers');
+}
+// Product groups (HIC 25.09.2026): each group tag renders its own themed section.
+for (const tag of definitions.productGroups?.tags || []) {
+  if (!priceListPage.includes(`"${tag}"`))
+    addError(`dws10.com/price-list/index.html does not group products tagged "${tag}"`);
+  if (!publicProducts.some((product) => (product.tags || []).includes(tag)))
+    addError(`Product group tag "${tag}" has no public product`);
 }
 if (priceListPage.includes('Retired (not for sale)'))
   addError('dws10.com/price-list/index.html still renders archived records');
@@ -488,7 +492,8 @@ console.log(`  Publication version: ${catalog.priceVersion || 'missing'}`);
   for (const id of sme) {
     const prod = catalog.products?.[id];
     if (!prod) addError(`[${id}] SME campaign product missing from catalogue`);
-    else if (!Array.isArray(prod.tags) || !prod.tags.includes('SME')) addError(`[${id}] SME campaign product lacks tag "SME"`);
+    else if (!Array.isArray(prod.tags) || !prod.tags.includes('SME'))
+      addError(`[${id}] SME campaign product lacks tag "SME"`);
   }
 }
 

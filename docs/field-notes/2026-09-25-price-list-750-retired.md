@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.2 [Latest]
+Version: 1.3 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.2 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: IT-support hour bank added as third SME campaign product; A5 flyers; lifetime.fi buy links fixed.
+- Version: 1.3 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product groups (tags DWS IQ and Firehorse), themed colours, Supporting tag dropped.
+- Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: IT-support hour bank added as third SME campaign product; A5 flyers; lifetime.fi buy links fixed.
 - Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product registry (TRUTH row 42) and SME campaign section.
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Initial note — €750 "Kotisivut pk-yritykselle" archived, FI campaign caption, catalogue 1.33 (PR #2107); PR #2085 merge-conflict resolution recorded.
 
@@ -60,6 +61,26 @@ Document Status:
    - Counts are now 155 IDs, with 80 on the list (71 public products + 9 subscriptions).
    - Both A5 flyers now have a third row. Both sides still measure 794/794 px.
    - On `lifetime.fi/atk-tuki-pk-yrityksille/`, the two buy buttons linked to the archived web package. They now open a WhatsApp order with the message prefilled.
+
+8. **Product groups (HIC: "Tee tag Firehorse … ryhmä DWS IQ … lempeä taustaväri"; "Luovumme tag Supporting").**
+   - The count check confirms 137 `products` records, 155 IDs in total and 80 offers on the price list.
+   - New tags: `DWS IQ` on 18 offers and `Firehorse` on 9.
+     - `FH-RPT-001` is named "DWS IQ Report", so it goes under DWS IQ.
+     - `conversational-agent` goes under Firehorse as a customer-conversation agent.
+     - `firehorse-coach` (EU AI Act literacy training) stays under services.
+   - The price list has six groups, each with a soft background colour and an accent border:
+
+     | Group                             | Offers | Colour   |
+     | --------------------------------- | ------ | -------- |
+     | SME                               | 3      | sand     |
+     | DWS IQ                            | 18     | blue     |
+     | Firehorse                         | 9      | coral    |
+     | Data products                     | 2      | teal     |
+     | Services, consulting and training | 20     | lavender |
+     | Hardware and infrastructure       | 28     | slate    |
+
+   - The "Supporting" badge is gone. Only Serious and Independent offers are badged.
+   - The registry has a Group column and per-group counts. The validator checks that each group tag has a public product and is rendered.
 
 ## The Insight
 

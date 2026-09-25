@@ -324,11 +324,6 @@
         border: 1px solid rgba(212, 168, 67, 0.55);
         background: rgba(212, 168, 67, 0.12);
       }
-      .portfolio-badge.supporting {
-        color: #bfdbfe;
-        border: 1px solid rgba(96, 165, 250, 0.45);
-        background: rgba(59, 130, 246, 0.1);
-      }
       .portfolio-badge.independent {
         color: #a7f3d0;
         border: 1px solid rgba(52, 211, 153, 0.5);
@@ -338,6 +333,41 @@
       /* Category block */
       .cat-block {
         margin-bottom: 40px;
+        padding: 18px 18px 20px;
+        border-radius: 14px;
+        border-left: 4px solid var(--grp-accent, #60a5fa);
+        background: var(--grp-bg, transparent);
+      }
+      /* Product group themes: soft background + accent per group */
+      .cat-block .price-table {
+        background: transparent;
+      }
+      .cat-block .price-table thead th {
+        background: rgba(15, 23, 42, 0.35);
+      }
+      .cat-block.grp-sme {
+        --grp-bg: rgba(251, 191, 36, 0.1);
+        --grp-accent: #fcd34d;
+      }
+      .cat-block.grp-dwsiq {
+        --grp-bg: rgba(96, 165, 250, 0.11);
+        --grp-accent: #93c5fd;
+      }
+      .cat-block.grp-firehorse {
+        --grp-bg: rgba(251, 146, 60, 0.1);
+        --grp-accent: #fdba74;
+      }
+      .cat-block.grp-data {
+        --grp-bg: rgba(45, 212, 191, 0.1);
+        --grp-accent: #5eead4;
+      }
+      .cat-block.grp-services {
+        --grp-bg: rgba(167, 139, 250, 0.11);
+        --grp-accent: #c4b5fd;
+      }
+      .cat-block.grp-hardware {
+        --grp-bg: rgba(148, 163, 184, 0.1);
+        --grp-accent: #cbd5e1;
       }
       .cat-heading {
         display: flex;
@@ -494,6 +524,12 @@
 
       /* Print */
       @media print {
+        .cat-block.grp-sme { --grp-bg: #fef9ec; --grp-accent: #f59e0b; }
+        .cat-block.grp-dwsiq { --grp-bg: #eff6ff; --grp-accent: #3b82f6; }
+        .cat-block.grp-firehorse { --grp-bg: #fff4ed; --grp-accent: #f97316; }
+        .cat-block.grp-data { --grp-bg: #effcf9; --grp-accent: #14b8a6; }
+        .cat-block.grp-services { --grp-bg: #f5f3ff; --grp-accent: #8b5cf6; }
+        .cat-block.grp-hardware { --grp-bg: #f8fafc; --grp-accent: #64748b; }
         body {
           background: #fff;
           color: #111;
@@ -1067,38 +1103,52 @@
       (function () {
         "use strict";
 
-        var LAYER_LABELS = {
-          sme:
-            document.documentElement.lang === "fi"
-              ? "Pk-yritysten kampanjatuotteet"
-              : "SME campaign products",
-          solutions: "1. Customer solutions",
-          data: "2. Independent data products",
-          services: "3. Services and implementation",
-          hardware: "4. Hardware and infra SKUs",
-        };
-        var LAYER_ORDER = ["sme", "solutions", "data", "services", "hardware"];
+        // Product groups (HIC 25.09.2026): each group is a tag or a catalogue class and
+        // has its own soft background colour (.cat-block.grp-<key>).
+        var PAGE_LANG_FI = document.documentElement.lang === "fi";
+        var LAYER_LABELS = PAGE_LANG_FI
+          ? {
+              sme: "Pk-yritysten kampanjatuotteet",
+              dwsiq: "DWS IQ -alusta",
+              firehorse: "Firehorse-agentit",
+              data: "Itsenäiset datatuotteet",
+              services: "Palvelut, konsultointi ja koulutus",
+              hardware: "Laitteet ja infrastruktuuri",
+              other: "Muut tuotteet",
+            }
+          : {
+              sme: "SME campaign products",
+              dwsiq: "DWS IQ platform",
+              firehorse: "Firehorse agents",
+              data: "Independent data products",
+              services: "Services, consulting and training",
+              hardware: "Hardware and infrastructure",
+              other: "Other products",
+            };
+        var LAYER_ORDER = ["sme", "dwsiq", "firehorse", "data", "services", "hardware", "other"];
         var independentLookup = {};
         function commercialLayer(p) {
           var id = p.id || "";
-          // SME campaign products get their own section (HIC 25.09.2026).
-          if (Array.isArray(p.tags) && p.tags.indexOf("SME") !== -1) return "sme";
+          var tags = Array.isArray(p.tags) ? p.tags : [];
+          if (tags.indexOf("SME") !== -1) return "sme";
+          if (tags.indexOf("DWS IQ") !== -1) return "dwsiq";
+          if (tags.indexOf("Firehorse") !== -1) return "firehorse";
           if (independentLookup[id]) return "data";
           if (
             p.storeCategory === "advisory" ||
+            p.storeCategory === "ai-cloud" ||
             id === "LF-TRAIN-IND" ||
-            id === "LF-ONTOLOGY-PILOT" ||
-            id === "aws-consultancy"
+            id === "LF-ONTOLOGY-PILOT"
           ) {
             return "services";
           }
           if (
             p.storeCategory === "hardware" ||
-            /^(LF-K8S|LF-DOCA|LF-NIM|LF-GOV|LF-IPC|LF-FIPS|LF-CINCOZE)/.test(id)
+            /^(LF-K8S|LF-DOCA|LF-NIM|LF-GOV|LF-IPC|LF-FIPS|LF-CINCOZE|LF-SOV)/.test(id)
           ) {
             return "hardware";
           }
-          return "solutions";
+          return "other";
         }
         var TIER_COLOR = {
           T0: "#94a3b8",
@@ -1445,7 +1495,7 @@
             });
 
             var block = document.createElement("section");
-            block.className = "cat-block";
+            block.className = "cat-block grp-" + cat;
             block.innerHTML =
               '<div class="cat-heading">' +
               "<h2>" +
@@ -1463,11 +1513,12 @@
               "</tr></thead><tbody>" +
               list
                 .map(function (p) {
+                  // No "Supporting" tag (HIC 25.09.2026): only Serious and Independent are badged.
                   var portfolioClass = seriousLookup[p.id]
                     ? "Serious"
                     : independentLookup[p.id]
                       ? "Independent"
-                      : "Supporting";
+                      : "";
                   var priceVal = p.price;
                   var priceCell;
                   if (priceVal === 0) {
@@ -1534,11 +1585,15 @@
                     '<td class="col-id" data-label="ID">' +
                     escapeHtml(p.id || "") +
                     "</td>" +
-                    '<td data-label="Class"><span class="portfolio-badge ' +
-                    portfolioClass.toLowerCase() +
-                    '">' +
-                    portfolioClass +
-                    "</span></td>" +
+                    '<td data-label="Class">' +
+                    (portfolioClass
+                      ? '<span class="portfolio-badge ' +
+                        portfolioClass.toLowerCase() +
+                        '">' +
+                        portfolioClass +
+                        "</span>"
+                      : "") +
+                    "</td>" +
                     '<td class="col-name" data-label="Product">' +
                     tierHtml +
                     escapeHtml(p.name || "") +
@@ -1572,7 +1627,7 @@
             countEl.innerHTML =
               "This public list shows <strong>" +
               rendered +
-              "</strong> active offers (Serious, Independent, or Supporting). BLUE and archived SKUs are omitted. The count is taken from the rows below, not a frozen headline.";
+              "</strong> active offers in six product groups. Serious and Independent offers are badged. BLUE and archived SKUs are omitted. The count is taken from the rows below, not a frozen headline.";
           }
         }
 

@@ -34,35 +34,40 @@ const OUT_DIRS = [
   path.join(BASE, 'landing-pages/dws10-com/price-list/versions'),
 ];
 
+// Product groups (HIC 25.09.2026): tag or catalogue class, each with a soft theme colour.
 const LAYER_LABELS = {
   sme: 'SME campaign products',
-  solutions: '1. Customer solutions',
-  data: '2. Independent data products',
-  services: '3. Services and implementation',
-  hardware: '4. Hardware and infra SKUs',
+  dwsiq: 'DWS IQ platform',
+  firehorse: 'Firehorse agents',
+  data: 'Independent data products',
+  services: 'Services, consulting and training',
+  hardware: 'Hardware and infrastructure',
+  other: 'Other products',
 };
-const LAYER_ORDER = ['sme', 'solutions', 'data', 'services', 'hardware'];
+const LAYER_ORDER = ['sme', 'dwsiq', 'firehorse', 'data', 'services', 'hardware', 'other'];
 
 function commercialLayer(p, independentIds) {
   const id = p.id || '';
-  // SME campaign products get their own section (HIC 25.09.2026).
-  if (Array.isArray(p.tags) && p.tags.includes('SME')) return 'sme';
+  const tags = Array.isArray(p.tags) ? p.tags : [];
+  if (tags.includes('SME')) return 'sme';
+  if (tags.includes('DWS IQ')) return 'dwsiq';
+  if (tags.includes('Firehorse')) return 'firehorse';
   if (independentIds.has(id)) return 'data';
   if (
     p.storeCategory === 'advisory' ||
+    p.storeCategory === 'ai-cloud' ||
     id === 'LF-TRAIN-IND' ||
-    id === 'LF-ONTOLOGY-PILOT' ||
-    id === 'aws-consultancy'
+    id === 'LF-ONTOLOGY-PILOT'
   ) {
     return 'services';
   }
   if (
     p.storeCategory === 'hardware' ||
-    /^(LF-K8S|LF-DOCA|LF-NIM|LF-GOV|LF-IPC|LF-FIPS|LF-CINCOZE)/.test(id)
+    /^(LF-K8S|LF-DOCA|LF-NIM|LF-GOV|LF-IPC|LF-FIPS|LF-CINCOZE|LF-SOV)/.test(id)
   ) {
     return 'hardware';
   }
-  return 'solutions';
+  return 'other';
 }
 
 // Per-category buyer notes rendered under the category table. Trusted constants —
@@ -235,12 +240,12 @@ function build(data) {
   const catsHtml = orderedCats
     .map(
       (c) =>
-        `<section class="cat"><h2>${esc(LAYER_LABELS[c] || c)} <small>(${buckets[c].length})</small></h2>${renderProductsTable(buckets[c])}${c === 'hardware' && CATEGORY_NOTES.hardware ? `<div class="notice">${CATEGORY_NOTES.hardware}</div>` : ''}</section>`,
+        `<section class="cat grp-${c}"><h2>${esc(LAYER_LABELS[c] || c)} <small>(${buckets[c].length})</small></h2>${renderProductsTable(buckets[c])}${c === 'hardware' && CATEGORY_NOTES.hardware ? `<div class="notice">${CATEGORY_NOTES.hardware}</div>` : ''}</section>`,
     )
     .join('\n');
 
   const renderedCount = orderedCats.reduce((n, c) => n + buckets[c].length, 0);
-  const countHtml = `<div class="notice">This snapshot lists <strong>${renderedCount}</strong> active public offers (Serious, Independent, or Supporting). BLUE and archived SKUs are omitted. Count is derived from the tables below.</div>`;
+  const countHtml = `<div class="notice">This snapshot lists <strong>${renderedCount}</strong> active public offers in six product groups. BLUE and archived SKUs are omitted. Count is derived from the tables below.</div>`;
   const subsHtml = '';
 
   const genStamp = new Date().toISOString();
@@ -266,10 +271,16 @@ h1{font-size:1.8rem;border-bottom:3px solid #fbbf24;padding-bottom:8px;margin-bo
 .meta-grid label{display:block;color:#64748b;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
 .meta-grid strong{color:#0f172a;font-size:.95rem}
 .notice{background:#fffbeb;border-left:4px solid #fbbf24;padding:12px 16px;margin-bottom:24px;font-size:.9rem}
-.cat{margin-bottom:32px;page-break-inside:avoid}
+.cat{margin-bottom:32px;page-break-inside:avoid;padding:14px 16px;border-radius:10px;border-left:4px solid #94a3b8}
+.grp-sme{background:#fef9ec;border-left-color:#f59e0b}
+.grp-dwsiq{background:#eff6ff;border-left-color:#3b82f6}
+.grp-firehorse{background:#fff4ed;border-left-color:#f97316}
+.grp-data{background:#effcf9;border-left-color:#14b8a6}
+.grp-services{background:#f5f3ff;border-left-color:#8b5cf6}
+.grp-hardware{background:#f8fafc;border-left-color:#64748b}
 h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:6px;margin-bottom:12px;font-size:1.15rem}
 h2 small{color:#64748b;font-weight:400;font-size:.85rem}
-.pl-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.pl-table{width:100%;border-collapse:collapse;font-size:.88rem;background:#fff}
 .pl-table th{background:#1e3a5f;color:#fff;text-align:left;padding:9px 12px;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em}
 .pl-table td{border-bottom:1px solid #e2e8f0;padding:10px 12px;vertical-align:top}
 .pl-table td.id,.pl-table td.sku{font-family:ui-monospace,Consolas,monospace;color:#555;font-size:.8rem;white-space:nowrap}
