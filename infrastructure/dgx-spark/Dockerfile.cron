@@ -17,7 +17,11 @@ ENV HOME=/home/dws
 
 # Copy package files and install
 COPY package.json package-lock.json ./
-RUN npm install --omit=dev --ignore-scripts && npm cache clean --force
+# tsx is a devDependency, but cron jobs run `node --import tsx` / `npx tsx` —
+# install it into the image so jobs don't fail with ERR_MODULE_NOT_FOUND.
+RUN npm install --omit=dev --ignore-scripts \
+ && npm install --no-save --ignore-scripts tsx@^4.21.0 \
+ && npm cache clean --force
 
 # Copy source and scripts
 COPY src/ ./src/

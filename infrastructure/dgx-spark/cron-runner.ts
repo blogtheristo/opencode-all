@@ -70,12 +70,15 @@ const jobs: CronJob[] = [
     command: { executable: 'bash', args: ['scripts/db-daily-backup.sh'] },
     enabled: false,
   },
+  // DISABLED 2026-09-25: autonomous blog generation bypasses the HIC approval
+  // gate (CLAUDE.md Rule 13) and calls the cloud Anthropic API, whose SDK is
+  // not a declared dependency. Re-enable only through the /blog-draft flow.
   {
     name: 'campaign-daily-posts',
     schedule: '0 3 * * *',
     workflow: 'campaign-daily-posts.yml',
     command: { executable: 'npx', args: ['tsx', 'scripts/generate-campaign-post.ts'] },
-    enabled: true,
+    enabled: false,
   },
   {
     // Runs 30 min before the morning brief so the brief sees the post-park state.
@@ -150,12 +153,14 @@ const jobs: CronJob[] = [
     },
     enabled: true,
   },
+  // DISABLED 2026-09-25: scripts/send-regulation-digest.ts was removed when the
+  // regulation digest was folded into Morning Brief V2 (ff4b5e261).
   {
     name: 'regulation-monitor',
     schedule: '30 3 * * 1-5',
     workflow: 'regulation-monitor.yml',
     command: { executable: 'npx', args: ['tsx', 'scripts/send-regulation-digest.ts'] },
-    enabled: true,
+    enabled: false,
   },
   // daily-claude-backup: GHA-only (backs up .claude sessions to git commit)
   // daily-backup: GHA-only (creates git archive of intellectual assets)
