@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.5 [Latest]
+Version: 1.6 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.5 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Captions on all public offers; attribute tags; long price notes split.
+- Version: 1.6 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Tags in ontology, dictionary and KB; firehorse-mobile planned; Supabase migration and loader.
+- Version: 1.5 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Captions on all public offers; attribute tags; long price notes split.
 - Version: 1.4 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product lifecycle registry (TRUTH row 43).
 - Version: 1.3 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product groups (tags DWS IQ and Firehorse), themed colours, Supporting tag dropped.
 - Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: IT-support hour bank added as third SME campaign product; A5 flyers; lifetime.fi buy links fixed.
@@ -113,6 +114,18 @@ Document Status:
     - Tags render as chips. The validator only accepts tags from `definitions.productTags.allowed`.
     - Price notes over 180 characters show their first sentence, with the rest under a "Terms" toggle, split at ALL-CAPS headings. Three offers have one: Aegis Pilot, Aegis Implementation and the Ontology licence.
     - The captions are in English only; FI captions (`captionFi`) are not yet written.
+
+11. **Tags in the ontology, dictionary and KB; lifecycle in Supabase.**
+    - HIC: "Add tags to ontology and kb and dictionary"; "1. Anna linkit tutkin 2. On tulossa 3. Tee".
+    - ONTOLOGY v1.9 adds §17: group tags, attribute tags and lifecycle states.
+    - The dictionary adds seven `product_tag_*` keys in five languages. SV, DE and FR are pending named human review.
+    - New KB concept page: `kb/wiki/concepts/product-taxonomy.md`.
+    - `firehorse-mobile` is recorded as planned in the ledger (HIC: "On tulossa"). The lifecycle now has 1 planned ID and 9 page-only IDs.
+    - Migration `092_250926_product_lifecycle.sql`:
+      - Two tables. GRANT is given to authenticated and service_role, RLS is on, and there is no read policy, because the data includes internal BLUE records.
+      - Tested on a local PostgreSQL 16: it applies twice without error, and all 183 IDs and 252 evidence rows load within the constraints.
+      - Applying it to production is a HIC step.
+    - Loader: `scripts/truth/product-lifecycle-to-supabase.mjs`. It is a dry run by default; `--apply` upserts over REST.
 
 ## The Insight
 

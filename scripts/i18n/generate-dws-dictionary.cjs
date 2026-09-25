@@ -644,6 +644,78 @@ shared.tagline_olw = T(
   },
 );
 
+// Product tags (HIC 25.09.2026). productTag = the exact tag value in
+// dws10.com/config/products.json; kind = group (names a price-list section) or attribute
+// (chip next to the product name). ONTOLOGY.md §17. FI is Ground Truth; unclear FI terms
+// carry the English term in parentheses (HIC 23.09.2026).
+const PRODUCT_TAG_SRC = 'ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags';
+shared.product_tag_sme = T('SME', 'Pk-yritys', 'Små och medelstora företag', 'KMU', 'PME', 'none', {
+  productTag: 'SME',
+  kind: 'group',
+  source: PRODUCT_TAG_SRC,
+});
+shared.product_tag_dws_iq = T('DWS IQ', 'DWS IQ', 'DWS IQ', 'DWS IQ', 'DWS IQ', 'none', {
+  productTag: 'DWS IQ',
+  kind: 'group',
+  brand: true,
+  source: PRODUCT_TAG_SRC,
+});
+shared.product_tag_firehorse = T(
+  'Firehorse',
+  'Firehorse',
+  'Firehorse',
+  'Firehorse',
+  'Firehorse',
+  'none',
+  { productTag: 'Firehorse', kind: 'group', brand: true, source: PRODUCT_TAG_SRC },
+);
+shared.product_tag_hardware = T(
+  'Hardware',
+  'Laitteisto',
+  'Hårdvara',
+  'Hardware',
+  'Matériel',
+  'none',
+  { productTag: 'Hardware', kind: 'attribute', source: PRODUCT_TAG_SRC },
+);
+shared.product_tag_sovereign = T(
+  'Sovereign',
+  'Suvereeni',
+  'Suverän',
+  'Souverän',
+  'Souverain',
+  'sovereignty',
+  { productTag: 'Sovereign', kind: 'attribute', source: PRODUCT_TAG_SRC, seo: true },
+);
+shared.product_tag_air_gapped = T(
+  'Air-Gapped',
+  'Ilmaeristetty (air-gapped)',
+  'Fysiskt isolerad (air-gapped)',
+  'Physisch isoliert (Air-Gapped)',
+  'Isolé physiquement (air gap)',
+  'sovereignty',
+  { productTag: 'Air-Gapped', kind: 'attribute', source: PRODUCT_TAG_SRC, seo: true },
+);
+shared.product_tag_sovereign_cloud = T(
+  'Sovereign Cloud',
+  'Suvereeni pilvi',
+  'Suveränt moln',
+  'Souveräne Cloud',
+  'Cloud souverain',
+  'sovereignty',
+  {
+    productTag: 'Sovereign Cloud',
+    kind: 'attribute',
+    source: PRODUCT_TAG_SRC,
+    seo: true,
+    note: 'Not on the DWS IQ US Cloud offers (DWS-US-STARTER, DWS-US-PILOT): they run on US infrastructure.',
+  },
+);
+for (const key of Object.keys(shared).filter((k) => k.startsWith('product_tag_'))) {
+  if (!shared[key].machineTranslationReview)
+    shared[key].machineTranslationReview = 'pending_named_human';
+}
+
 // SEO: terms that become article:tag / JSON-LD keywords on blog posts
 // (scripts/blog/seo-tags.mjs). KYA-S1 and process terms set seo: true where defined.
 for (const key of [

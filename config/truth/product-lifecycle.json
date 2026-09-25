@@ -5,8 +5,8 @@
     "totalIds": 183,
     "catalogueIds": 155,
     "byState": {
-      "planned": 0,
-      "page-only": 10,
+      "planned": 1,
+      "page-only": 9,
       "internal": 65,
       "published": 80,
       "archived": 8,
@@ -14,9 +14,29 @@
       "removed": 18
     },
     "withoutEvidence": 0,
-    "hicDecisions": 4
+    "hicDecisions": 5
   },
   "rows": [
+    {
+      "id": "firehorse-mobile",
+      "name": "Firehorse Mobile",
+      "state": "planned",
+      "stateSource": "ledger 2026-09-25",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/firehorse-mobile.html",
+          "text": "public page, no catalogue ID"
+        },
+        {
+          "kind": "decision",
+          "date": "2026-09-25",
+          "ref": "PR #2107",
+          "text": "planned — HIC (Risto Anton Päärni): On tulossa"
+        }
+      ]
+    },
     {
       "id": "dws-iq5",
       "name": "",
@@ -56,20 +76,6 @@
           "date": "",
           "ref": "dws10.com/products/firehorse-automation_RETIRED.html",
           "text": "page file carries the _RETIRED suffix"
-        }
-      ]
-    },
-    {
-      "id": "firehorse-mobile",
-      "name": "",
-      "state": "page-only",
-      "stateSource": "dws10.com/products/firehorse-mobile.html",
-      "evidence": [
-        {
-          "kind": "page",
-          "date": "",
-          "ref": "dws10.com/products/firehorse-mobile.html",
-          "text": "public page, no catalogue ID"
         }
       ]
     },

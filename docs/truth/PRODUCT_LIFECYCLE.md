@@ -23,8 +23,8 @@ Document Status:
 
 | State | Meaning | IDs |
 | --- | --- | --- |
-| planned | Decided or planned; no catalogue record yet | 0 |
-| page-only | Public product page exists but no catalogue ID (drift; needs a decision) | 10 |
+| planned | Decided or planned; no catalogue record yet | 1 |
+| page-only | Public product page exists but no catalogue ID (drift; needs a decision) | 9 |
 | internal | Catalogue record, BLUE: internal or pilot, not on the public price list | 65 |
 | published | Catalogue record, public: on the price list | 80 |
 | archived | Retired: catalogue record kept, archived, not sold | 8 |
@@ -32,7 +32,7 @@ Document Status:
 | removed | Retired: was in the catalogue, record deleted (evidence from git history) | 18 |
 | **All** | Every ID ever in the catalogue, planned, or with a public page | **183** |
 
-Catalogue IDs today: 155. HIC decisions in the ledger: 4. IDs without any evidence: 0.
+Catalogue IDs today: 155. HIC decisions in the ledger: 5. IDs without any evidence: 0.
 
 Evidence kinds: **decision** = HIC decision from the ledger (quote + date); **git** = commit that changed the state in the catalogue (first-parent history); **catalogue** = archive/discontinue fields in the record; **page** = public product page with no catalogue ID.
 
@@ -40,10 +40,10 @@ Evidence kinds: **decision** = HIC decision from the ledger (quote + date); **gi
 
 | # | ID | Name | State | State source | Evidence (oldest first) |
 | --- | --- | --- | --- | --- | --- |
-| 1 | `dws-iq5` |  | page-only | dws10.com/products/dws-iq5.html | page `dws10.com/products/dws-iq5.html` public page, no catalogue ID |
-| 2 | `energy-industry` |  | page-only | dws10.com/products/energy-industry.html | page `dws10.com/products/energy-industry.html` public page, no catalogue ID |
-| 3 | `firehorse-automation_RETIRED` |  | page-only | dws10.com/products/firehorse-automation_RETIRED.html | page `dws10.com/products/firehorse-automation_RETIRED.html` page file carries the _RETIRED suffix |
-| 4 | `firehorse-mobile` |  | page-only | dws10.com/products/firehorse-mobile.html | page `dws10.com/products/firehorse-mobile.html` public page, no catalogue ID |
+| 1 | `firehorse-mobile` | Firehorse Mobile | planned | ledger 2026-09-25 | page `dws10.com/products/firehorse-mobile.html` public page, no catalogue ID<br>decision 2026-09-25 `PR #2107` planned — HIC (Risto Anton Päärni): On tulossa |
+| 2 | `dws-iq5` |  | page-only | dws10.com/products/dws-iq5.html | page `dws10.com/products/dws-iq5.html` public page, no catalogue ID |
+| 3 | `energy-industry` |  | page-only | dws10.com/products/energy-industry.html | page `dws10.com/products/energy-industry.html` public page, no catalogue ID |
+| 4 | `firehorse-automation_RETIRED` |  | page-only | dws10.com/products/firehorse-automation_RETIRED.html | page `dws10.com/products/firehorse-automation_RETIRED.html` page file carries the _RETIRED suffix |
 | 5 | `firehorse-signed-reports` |  | page-only | dws10.com/products/firehorse-signed-reports.html | page `dws10.com/products/firehorse-signed-reports.html` public page, no catalogue ID |
 | 6 | `firehorse-starter-v2` |  | page-only | dws10.com/products/firehorse-starter-v2.html | page `dws10.com/products/firehorse-starter-v2.html` public page, no catalogue ID |
 | 7 | `firehorse-subscription` |  | page-only | dws10.com/products/firehorse-subscription.html | page `dws10.com/products/firehorse-subscription.html` public page, no catalogue ID |

@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.8 [Latest]
+Version: 1.9 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.8 [Latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Additive §4.1 — LWM has two named layers: model base (TRUTH line 20) and state register and memory (IDV/TRS/PRV, KYA-S1 part 9, HIC 09.08.2026). Resolves the open term conflict in the draft `lifetime-world-model-ja-teollisuuden-prosessimallit`. Dictionary gains the KYA-S1 §16.6 table, LWM, process-model terms and domain taglines.
+- Version: 1.9 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Additive §17 — product taxonomy: group tags (SME, DWS IQ, Firehorse), attribute tags (Hardware, Sovereign, Air-Gapped, Sovereign Cloud) and product lifecycle states (HIC 25.09.2026). Dictionary gains `product_tag_*` keys.
+- Version: 1.8 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Additive §4.1 — LWM has two named layers: model base (TRUTH line 20) and state register and memory (IDV/TRS/PRV, KYA-S1 part 9, HIC 09.08.2026). Resolves the open term conflict in the draft `lifetime-world-model-ja-teollisuuden-prosessimallit`. Dictionary gains the KYA-S1 §16.6 table, LWM, process-model terms and domain taglines.
 - Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 18.09.2026 | Changes: Additive **Appendix E** pointer — `docs/localization/dws-dictionary.json` binds five-language termKeys to `ontologyId` (or explicit `none`) for later LF-ONTOLOGY-25 / LWM-ONT-SOVEREIGN builds. CCP Appendix D is unchanged. Prices stay in `dws10.com/config/products.json`.
 - Version: 1.6 | Tool: Claude Code (Opus 5) | Session: claude/kya-s1-blog-post-1-swb4k4 | Date: 09.08.2026 | Changes: Added §16 **KYA Ontology — Agent Governance Vocabulary**: the canonical vocabulary for the mandate layer the spatial/temporal/causal/entity ontologies do not cover — UNDER WHAT MANDATE an autonomous agent acted. Core concepts, the seven KYA-S1 control domains, the KYA-AL1/AL2/AL3 assurance levels (renamed from Bronze/Silver/Gold in KYA-S1 v1.4), runtime mechanisms (Lease Token, fail-closed, leash snap, capture-precedes-release, bounded attribution clock, TRS/TRS_req), process concepts (HIC, Single Pane of Glass, PRV-4, BPMN 2.0 engine, EUDI Wallet), and a five-language term table with Finnish as Ground Truth. Normative source is `Legal/KYA_S1.md` v1.5; §16 is descriptive and yields to it. Three translation errors in the supplied table were corrected and recorded in §16.7 rather than applied silently.
 - Version: 1.5 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Data Lifecycle & Retention Ontology (HOW LONG)" subsection in §6 — every ontology node ingesting live data now carries an explicit per-node retention schema (node_owner, raw/summary/audit/rollup tiers, quarterly aggregation_review), closing the gap named by the Valtiovarainministeriö security-oriented information management guide (VM 2026:27 §4.4.2, aggregation effect / kasautumisvaikutus). Reference implementation: Control Room / Situation Room four-tier model (`docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`, `Admin/ADMIN_MANUAL.md`). Retention is a property of the node, not a platform-wide default.
@@ -26,7 +27,7 @@ Session Links & References:
 Document Status:
 
 - Created: 21.01.2026
-- Last Modified: 09.08.2026
+- Last Modified: 25.09.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -1983,5 +1984,48 @@ Pointer only — do not treat this appendix as a price or industry-count source.
 | kya-jev advisory                   | `src/agents/dictionary-kya-jev.ts`      | Signed KYA `allowed` verdict required. Output is not a glossary lock. Confidence is `self-reported-uncalibrated` (`docs/KYA_JEV_SPECIFICATION.md` §7). |
 
 Industry slug aliases used when `scope_type=industry` in Appendix D: `construction` → industry 8, steel aliases → industry 2. New industry CCP rows are added only when a preferred term actually differs.
+
+## 17. Product Taxonomy — groups, attribute tags and lifecycle states (v1.9)
+
+The product catalogue (`dws10.com/config/products.json`) uses one tag vocabulary, so the price list, the product registry (TRUTH row 42), the lifecycle registry (TRUTH row 43), the dictionary and outreach all say the same thing about a product (HIC 25.09.2026).
+
+### 17.1 Group tags — which section a product is listed in
+
+| Tag         | Meaning                                                             | Price-list section (FI)                               |
+| ----------- | ------------------------------------------------------------------- | ----------------------------------------------------- |
+| `SME`       | Campaign product for Finnish SMEs (web, webstore, IT-support hours) | SME campaign products (Pk-yritysten kampanjatuotteet) |
+| `DWS IQ`    | Offer of the DWS IQ platform family, including Aegis                | DWS IQ platform (DWS IQ -alusta)                      |
+| `Firehorse` | Firehorse agent products and the Firehorse subscription             | Firehorse agents (Firehorse-agentit)                  |
+
+Offers without a group tag are grouped by catalogue class: independent data products (`independentProductIds`), services, consulting and training (`storeCategory` advisory or ai-cloud), hardware and infrastructure (`storeCategory` hardware and LF- infrastructure SKUs). There is no "Supporting" tag; it is only an internal residual class.
+
+### 17.2 Attribute tags — what a product is
+
+| Tag               | Meaning                                                                                                           | Carried by                                       |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `Hardware`        | A physical device Lifetime Oy supplies                                                                            | 11 hardware products (not installation services) |
+| `Sovereign`       | Runs under the customer's or an EU jurisdiction, outside the reach of a non-EU parent company (§16, TRUTH row 39) | Hardware products; DWS IQ Aegis offers           |
+| `Air-Gapped`      | Can run with no network connection to outside systems (FI: ilmaeristetty (air-gapped))                            | Hardware products; DWS IQ Aegis offers           |
+| `Sovereign Cloud` | Hosted on EU sovereign cloud infrastructure                                                                       | DWS IQ offers, except the two US Cloud offers    |
+
+Order on hardware products is fixed: `Hardware`, `Sovereign`, `Air-Gapped`. A tag is a claim about the product: `Sovereign Cloud` is never put on an offer that runs on US infrastructure (DWS-US-STARTER, DWS-US-PILOT). The allowed list is `definitions.productTags.allowed`; the publication validator rejects any other tag.
+
+### 17.3 Lifecycle states — where a product ID is in its life
+
+| State          | Meaning                                                        |
+| -------------- | -------------------------------------------------------------- |
+| `planned`      | Decided or planned by the HIC; no catalogue record yet         |
+| `page-only`    | Public product page exists but no catalogue ID (drift)         |
+| `internal`     | Catalogue record, BLUE: internal or pilot                      |
+| `published`    | Catalogue record, public: on the price list                    |
+| `archived`     | Retired: record kept, archived, not sold                       |
+| `discontinued` | Retired: moved to `discontinuedProducts`                       |
+| `removed`      | Retired: record deleted from the catalogue (evidence from git) |
+
+Every product ID, with its state and decision evidence, is in `docs/truth/PRODUCT_LIFECYCLE.md`; HIC decisions go into the append-only ledger `config/truth/product-lifecycle-ledger.json`.
+
+Five-language form: `product_tag_*` keys in `docs/localization/dws-dictionary.json`.
+
+---
 
 **End of Document**

@@ -34,6 +34,16 @@
       "decidedBy": "HIC (Risto Anton Päärni)",
       "quote": "Tuntipankki on 3. Tuote sisältäen; tietokoneiden uusiminen, ohjelmistojen päivitykset, yrityssovellutukset, tietoturva, koulutus. Lisää se sivulle 3. A5 kampanjaan ja liitä. Tag SMEs.",
       "ref": "PR #2107"
+    },
+    {
+      "id": "firehorse-mobile",
+      "name": "Firehorse Mobile",
+      "state": "planned",
+      "date": "2026-09-25",
+      "decidedBy": "HIC (Risto Anton Päärni)",
+      "quote": "On tulossa",
+      "note": "Answer to: is firehorse-mobile a coming product? The public page dws10.com/products/firehorse-mobile.html already says coming soon. It gets a catalogue record when the HIC sets its price.",
+      "ref": "PR #2107"
     }
   ]
 }

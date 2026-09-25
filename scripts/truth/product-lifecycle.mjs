@@ -237,7 +237,9 @@ export function buildLifecycle(catalog, ledger, history) {
       text: `${d.state} — ${d.decidedBy}: ${d.quote || d.note || ''}`.trim(),
     });
     if (!r.name && d.name) r.name = d.name;
-    if (!r.state) {
+    // The catalogue decides the state of a catalogue ID. For an ID with no catalogue record
+    // (planned, page-only, removed) the latest HIC decision decides it.
+    if (!cat[d.id]) {
       r.state = d.state;
       r.stateSource = `ledger ${d.date}`;
     }
