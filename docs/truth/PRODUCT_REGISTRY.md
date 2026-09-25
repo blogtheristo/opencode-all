@@ -22,18 +22,18 @@ Document Status:
 
 | Measure | Count |
 | --- | --- |
-| All catalogue IDs (products + subscription-only + discontinued) | 154 |
-| — records in `products` | 136 |
+| All catalogue IDs (products + subscription-only + discontinued) | 155 |
+| — records in `products` | 137 |
 | — subscription-only records | 16 |
 | — discontinued records | 2 |
-| **On the public price list** | **79** |
-| — public products (non-BLUE, non-archived) | 70 |
+| **On the public price list** | **80** |
+| — public products (non-BLUE, non-archived) | 71 |
 | — active subscriptions | 9 |
-| — of which SME campaign products (own section) | 2 |
+| — of which SME campaign products (own section) | 3 |
 | Not on the price list: BLUE (internal / pilot) | 65 |
 | Not on the price list: archived | 8 |
 | Not on the price list: discontinued | 2 |
-| Reconciles (on list + BLUE + archived + discontinued = all; public = expected 70) | yes |
+| Reconciles (on list + BLUE + archived + discontinued = all; public = expected 71) | yes |
 
 ## Every ID
 
@@ -105,91 +105,92 @@ Document Status:
 | 64 | `LF-NVIDIA-INSTALL` | NVIDIA Model Installation + Full Service | €995 | public | serious | yes |  |
 | 65 | `LF-SITROOM-001` | Situation Room — Two Sovereign AI Nodes | €11,598 | public | serious | yes |  |
 | 66 | `LIFETIME-BUNDLE-2026` | Climate Reporting Starter Bundle | €6,500 | public | serious | yes |  |
-| 67 | `LIFETIME-WEB-STARTER` | Website Starter — Modern Business Site | €650 | public | sme-campaign | yes |  |
-| 68 | `LIFETIME-WEBSTORE-MINI` | Small Online Store with Price List | €350 | public | sme-campaign | yes |  |
-| 69 | `omnichannel-multimodal` | Firehorse Omnichannel & Multimodal AI Assistant | €699 | public | supporting | yes |  |
-| 70 | `sovereignty-cloud-consulting` | Sovereignty Cloud Consulting – European Cloud Migration | €1,500 | public | supporting | yes |  |
-| 71 | `DWS-IQ-ESS-SUB-MANAGED` | DWS IQ Essentials — Managed | €249 | subscription | subscription | yes |  |
-| 72 | `DWS-IQ-ESS-SUB-SELF` | DWS IQ Essentials — Self-Hosted | €49 | subscription | subscription | yes |  |
-| 73 | `DWS-IQ-SUB-001` | DWS IQ Monthly Subscription | €499 | subscription | subscription | yes |  |
-| 74 | `FH-SUB-001` | Firehorse Monthly Subscription | €499 | subscription | subscription | yes |  |
-| 75 | `LF-ONTOLOGY-25` | European Industry Ontology, 25 industries | €25,000 | subscription | independent | yes |  |
-| 76 | `LF-ONTOLOGY-PILOT` | Independent Ontology Pilot, one site | €15,000 | subscription | subscription | yes |  |
-| 77 | `LF-SOV-MODEL-SUB` | Sovereign Model Updates Subscription | €299 | subscription | subscription | yes |  |
-| 78 | `LF-TRAIN-IND` | Ontology Implementation and Organisation (site configuration) | €15,000 | subscription | subscription | yes |  |
-| 79 | `LWM-ONT-SOVEREIGN` | European Industry Ontology — Sovereign on-prem pack | €49,990 | subscription | independent | yes |  |
-| 80 | `AC365-T3` | Agentic Commerce 365 Skilled Agents | €6,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 81 | `CMP-OC-ENT` | Outcome — CSRD/CBAM/AI Act gap (Enterprise) | €2,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 82 | `CMP-OC-STD` | Outcome — CSRD/CBAM/AI Act gap (Standard) | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 83 | `CMP-T0` | Compliance Agent — Pilot (60 days) | €1 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 84 | `CMP-T1` | Compliance Agent — Starter | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 85 | `CMP-T2` | Compliance Agent — Pro | €2,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 86 | `CONSTR-T2` | Construction Agent — Pro (bundle) | €3,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 87 | `CONSTR-T3` | Construction Ops Pod | €8,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 88 | `CS-T1` | Competitor Surveillance — Starter | €899 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 89 | `CS-T2` | Competitor Surveillance — Pro | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 90 | `CSAT-T1` | Customer Sat — Starter | €599 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 91 | `CSAT-T2` | Customer Sat — Pro | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 92 | `DW-T1` | Deepwiki Extractor — Starter | €599 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 93 | `DW-T2` | Deepwiki Extractor — Pro | €799 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 94 | `DWS365-CMP-T3` | DWS 365 Compliance Agents | €5,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 95 | `ED-T1` | Emissions Data — Starter | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 96 | `ED-T2` | Emissions Data — Pro | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 97 | `ESG-T3` | ESG Function-as-a-Service | €6,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 98 | `FH-SKILL-T3` | Firehorse Skilled Agents | €5,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 99 | `GTM-T3` | Go-to-Market Pod | €3,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 100 | `HSE-T3` | HSE Function-as-a-Service | €4,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 101 | `IND-BESS` | BESS — Battery storage industry pod | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 102 | `IND-CERES` | Ceres — Agri / Circular industry pod | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 103 | `IND-GAIA` | Gaia — Cement industry pod | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 104 | `IND-HELIOS` | Helios — Energy industry pod | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 105 | `IND-MARS` | Mars — Construction industry pod | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 106 | `IND-NEPTUN` | Neptune — Maritime industry pod | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 107 | `IND-PROM` | Prometheus — Hydrogen industry pod | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 108 | `IND-TALOS` | Talos — Aluminium industry pod | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 109 | `IND-VULCAN` | Vulcan — Steel industry pod | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 110 | `LAND-AIL` | AI Literacy Bridge | €34,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 111 | `LAND-CSRD` | CSRD Reporting Accelerator | €89,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 112 | `LAND-EUAI` | EU AI Act Compliance Sprint | €39,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 113 | `LAND-GTM` | Go-to-Market Sprint | €49,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 114 | `LAND-HSE` | Site Safety Bootcamp | €29,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 115 | `LAND-LCA` | Carbon Reporting Sprint | €49,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 116 | `LAND-OPS` | Construction Ops Pilot | €109,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 117 | `LAND-SOV` | Sovereignty & NIS2 Sprint | €69,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 118 | `LAND-WF` | Full Workforce Onboarding | €249,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 119 | `LF-T1` | Lead Feedback — Starter | €599 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 120 | `LF-T2` | Lead Feedback — Pro | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 121 | `LOG-T1` | Logistics — Starter | €1,299 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 122 | `LOG-T2` | Logistics — Pro | €1,799 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 123 | `MO-OC-ENT` | Outcome — LCA report (Enterprise) | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 124 | `MO-OC-STD` | Outcome — LCA report (Standard) | €499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 125 | `MO-T0` | Material Oracle — Pilot (60 days, 1 project) | €1 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 126 | `MO-T1` | Material Oracle — Starter | €1,299 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 127 | `MO-T2` | Material Oracle — Pro | €1,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 128 | `QG-T1` | Quality Gate — Starter | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 129 | `QG-T2` | Quality Gate — Pro | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 130 | `SEO-T1` | SEO Audit — Starter | €599 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 131 | `SEO-T2` | SEO Audit — Pro | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 132 | `SG-T1` | Schedule Genius — Starter | €1,299 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 133 | `SG-T2` | Schedule Genius — Pro | €1,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 134 | `SOV-T1` | Sovereignty Monitor — Starter | €1,299 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 135 | `SOV-T2` | Sovereignty Monitor — Pro | €1,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 136 | `SOV-T3` | Sovereignty & Compliance Pack | €5,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 137 | `SS-OC-ENT` | Outcome — Site safety assessment (Enterprise) | €99 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 138 | `SS-OC-STD` | Outcome — Site safety assessment (Standard) | €49 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 139 | `SS-T0` | SiteSense — Pilot (30 days, 1 site) | €1 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 140 | `SS-T1` | SiteSense — Starter | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 141 | `SS-T2` | SiteSense — Pro | €2,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 142 | `VIA-T1` | Viability — Starter | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 143 | `VIA-T2` | Viability — Pro | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 144 | `WF-T4` | Full Skilled Workforce | €19,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
-| 145 | `LF-CINCOZE-DA1200` | Cincoze DA-1200 — GPU-Accelerated Edge Controller | €1,850 | archived | — | no | archived subscription record |
-| 146 | `LF-DOCA-NETWORK` | DOCA Network + Storage Services — OVS-DOCA + HBN + SNAP | €2,000 | archived | — | no | archived subscription record |
-| 147 | `LF-GOV-AIRGAP` | Government Ready — Air-Gap Bundle (per release) | €1,500 | archived | — | no | archived subscription record |
-| 148 | `LF-IPC-409` | iPCMax IPC-409 — Fanless DIN-Rail Gateway | €345 | archived | — | no | archived subscription record |
-| 149 | `LF-IPC-P68` | iPCMax IPC-P68 — Rugged Edge Controller | €680 | archived | — | no | archived subscription record |
-| 150 | `LWM-ONT-IND` | LWM Industry Ontology — Single Vertical | €2,990 | archived | — | no | archived subscription record |
-| 151 | `LWM-ONT-SUITE` | LWM Ontology Suite — All 25 Industries | €14,990 | archived | — | no | archived subscription record |
-| 152 | `professional-web-pages` | Kotisivut pk-yritykselle | €750 | archived | — | no | archived; superseded by LIFETIME-WEB-STARTER |
-| 153 | `LAND-THEMIS` | Themis Coordinator Workshop | €29,990 | discontinued | — | no | discontinued |
-| 154 | `TH-T2` | Themis Coordinator — Pro | €2,499 | discontinued | — | no | discontinued |
+| 67 | `LIFETIME-IT-TUKI-10H` | IT Support Hour Bank for SMEs — 10 h | €750 | public | sme-campaign | yes |  |
+| 68 | `LIFETIME-WEB-STARTER` | Website Starter — Modern Business Site | €650 | public | sme-campaign | yes |  |
+| 69 | `LIFETIME-WEBSTORE-MINI` | Small Online Store with Price List | €350 | public | sme-campaign | yes |  |
+| 70 | `omnichannel-multimodal` | Firehorse Omnichannel & Multimodal AI Assistant | €699 | public | supporting | yes |  |
+| 71 | `sovereignty-cloud-consulting` | Sovereignty Cloud Consulting – European Cloud Migration | €1,500 | public | supporting | yes |  |
+| 72 | `DWS-IQ-ESS-SUB-MANAGED` | DWS IQ Essentials — Managed | €249 | subscription | subscription | yes |  |
+| 73 | `DWS-IQ-ESS-SUB-SELF` | DWS IQ Essentials — Self-Hosted | €49 | subscription | subscription | yes |  |
+| 74 | `DWS-IQ-SUB-001` | DWS IQ Monthly Subscription | €499 | subscription | subscription | yes |  |
+| 75 | `FH-SUB-001` | Firehorse Monthly Subscription | €499 | subscription | subscription | yes |  |
+| 76 | `LF-ONTOLOGY-25` | European Industry Ontology, 25 industries | €25,000 | subscription | independent | yes |  |
+| 77 | `LF-ONTOLOGY-PILOT` | Independent Ontology Pilot, one site | €15,000 | subscription | subscription | yes |  |
+| 78 | `LF-SOV-MODEL-SUB` | Sovereign Model Updates Subscription | €299 | subscription | subscription | yes |  |
+| 79 | `LF-TRAIN-IND` | Ontology Implementation and Organisation (site configuration) | €15,000 | subscription | subscription | yes |  |
+| 80 | `LWM-ONT-SOVEREIGN` | European Industry Ontology — Sovereign on-prem pack | €49,990 | subscription | independent | yes |  |
+| 81 | `AC365-T3` | Agentic Commerce 365 Skilled Agents | €6,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 82 | `CMP-OC-ENT` | Outcome — CSRD/CBAM/AI Act gap (Enterprise) | €2,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 83 | `CMP-OC-STD` | Outcome — CSRD/CBAM/AI Act gap (Standard) | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 84 | `CMP-T0` | Compliance Agent — Pilot (60 days) | €1 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 85 | `CMP-T1` | Compliance Agent — Starter | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 86 | `CMP-T2` | Compliance Agent — Pro | €2,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 87 | `CONSTR-T2` | Construction Agent — Pro (bundle) | €3,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 88 | `CONSTR-T3` | Construction Ops Pod | €8,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 89 | `CS-T1` | Competitor Surveillance — Starter | €899 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 90 | `CS-T2` | Competitor Surveillance — Pro | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 91 | `CSAT-T1` | Customer Sat — Starter | €599 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 92 | `CSAT-T2` | Customer Sat — Pro | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 93 | `DW-T1` | Deepwiki Extractor — Starter | €599 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 94 | `DW-T2` | Deepwiki Extractor — Pro | €799 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 95 | `DWS365-CMP-T3` | DWS 365 Compliance Agents | €5,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 96 | `ED-T1` | Emissions Data — Starter | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 97 | `ED-T2` | Emissions Data — Pro | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 98 | `ESG-T3` | ESG Function-as-a-Service | €6,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 99 | `FH-SKILL-T3` | Firehorse Skilled Agents | €5,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 100 | `GTM-T3` | Go-to-Market Pod | €3,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 101 | `HSE-T3` | HSE Function-as-a-Service | €4,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 102 | `IND-BESS` | BESS — Battery storage industry pod | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 103 | `IND-CERES` | Ceres — Agri / Circular industry pod | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 104 | `IND-GAIA` | Gaia — Cement industry pod | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 105 | `IND-HELIOS` | Helios — Energy industry pod | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 106 | `IND-MARS` | Mars — Construction industry pod | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 107 | `IND-NEPTUN` | Neptune — Maritime industry pod | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 108 | `IND-PROM` | Prometheus — Hydrogen industry pod | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 109 | `IND-TALOS` | Talos — Aluminium industry pod | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 110 | `IND-VULCAN` | Vulcan — Steel industry pod | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 111 | `LAND-AIL` | AI Literacy Bridge | €34,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 112 | `LAND-CSRD` | CSRD Reporting Accelerator | €89,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 113 | `LAND-EUAI` | EU AI Act Compliance Sprint | €39,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 114 | `LAND-GTM` | Go-to-Market Sprint | €49,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 115 | `LAND-HSE` | Site Safety Bootcamp | €29,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 116 | `LAND-LCA` | Carbon Reporting Sprint | €49,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 117 | `LAND-OPS` | Construction Ops Pilot | €109,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 118 | `LAND-SOV` | Sovereignty & NIS2 Sprint | €69,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 119 | `LAND-WF` | Full Workforce Onboarding | €249,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 120 | `LF-T1` | Lead Feedback — Starter | €599 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 121 | `LF-T2` | Lead Feedback — Pro | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 122 | `LOG-T1` | Logistics — Starter | €1,299 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 123 | `LOG-T2` | Logistics — Pro | €1,799 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 124 | `MO-OC-ENT` | Outcome — LCA report (Enterprise) | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 125 | `MO-OC-STD` | Outcome — LCA report (Standard) | €499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 126 | `MO-T0` | Material Oracle — Pilot (60 days, 1 project) | €1 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 127 | `MO-T1` | Material Oracle — Starter | €1,299 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 128 | `MO-T2` | Material Oracle — Pro | €1,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 129 | `QG-T1` | Quality Gate — Starter | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 130 | `QG-T2` | Quality Gate — Pro | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 131 | `SEO-T1` | SEO Audit — Starter | €599 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 132 | `SEO-T2` | SEO Audit — Pro | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 133 | `SG-T1` | Schedule Genius — Starter | €1,299 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 134 | `SG-T2` | Schedule Genius — Pro | €1,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 135 | `SOV-T1` | Sovereignty Monitor — Starter | €1,299 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 136 | `SOV-T2` | Sovereignty Monitor — Pro | €1,999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 137 | `SOV-T3` | Sovereignty & Compliance Pack | €5,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 138 | `SS-OC-ENT` | Outcome — Site safety assessment (Enterprise) | €99 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 139 | `SS-OC-STD` | Outcome — Site safety assessment (Standard) | €49 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 140 | `SS-T0` | SiteSense — Pilot (30 days, 1 site) | €1 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 141 | `SS-T1` | SiteSense — Starter | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 142 | `SS-T2` | SiteSense — Pro | €2,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 143 | `VIA-T1` | Viability — Starter | €999 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 144 | `VIA-T2` | Viability — Pro | €1,499 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 145 | `WF-T4` | Full Skilled Workforce | €19,990 | blue | — | no | BLUE: internal or pilot record, needs internal sign-off before quoting |
+| 146 | `LF-CINCOZE-DA1200` | Cincoze DA-1200 — GPU-Accelerated Edge Controller | €1,850 | archived | — | no | archived subscription record |
+| 147 | `LF-DOCA-NETWORK` | DOCA Network + Storage Services — OVS-DOCA + HBN + SNAP | €2,000 | archived | — | no | archived subscription record |
+| 148 | `LF-GOV-AIRGAP` | Government Ready — Air-Gap Bundle (per release) | €1,500 | archived | — | no | archived subscription record |
+| 149 | `LF-IPC-409` | iPCMax IPC-409 — Fanless DIN-Rail Gateway | €345 | archived | — | no | archived subscription record |
+| 150 | `LF-IPC-P68` | iPCMax IPC-P68 — Rugged Edge Controller | €680 | archived | — | no | archived subscription record |
+| 151 | `LWM-ONT-IND` | LWM Industry Ontology — Single Vertical | €2,990 | archived | — | no | archived subscription record |
+| 152 | `LWM-ONT-SUITE` | LWM Ontology Suite — All 25 Industries | €14,990 | archived | — | no | archived subscription record |
+| 153 | `professional-web-pages` | Kotisivut pk-yritykselle | €750 | archived | — | no | archived; superseded by LIFETIME-WEB-STARTER |
+| 154 | `LAND-THEMIS` | Themis Coordinator Workshop | €29,990 | discontinued | — | no | discontinued |
+| 155 | `TH-T2` | Themis Coordinator — Pro | €2,499 | discontinued | — | no | discontinued |

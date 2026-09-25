@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product registry (TRUTH row 42) and SME campaign section.
+- Version: 1.2 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: IT-support hour bank added as third SME campaign product; A5 flyers; lifetime.fi buy links fixed.
+- Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product registry (TRUTH row 42) and SME campaign section.
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Initial note — €750 "Kotisivut pk-yritykselle" archived, FI campaign caption, catalogue 1.33 (PR #2107); PR #2085 merge-conflict resolution recorded.
 
 Document Status:
@@ -54,6 +55,12 @@ Document Status:
    - `validate-product-publication.mjs` fails when the registry is stale or the counts do not reconcile.
 6. **SME section.** Campaign products carry tag `SME` and render first on the price list: "Pk-yritysten kampanjatuotteet" on the FI page, "SME campaign products" on the others.
 
+7. **IT-support hour bank (HIC: "Tuntipankki on 3. tuote").**
+   - New catalogue record `LIFETIME-IT-TUKI-10H`: 10 h × €75 = €750, VAT 0 %, covering computer renewal, software updates, business applications, information security and training. It is tagged `SME` and appears in the SME section of the price list.
+   - Counts are now 155 IDs, with 80 on the list (71 public products + 9 subscriptions).
+   - Both A5 flyers now have a third row. Both sides still measure 794/794 px.
+   - On `lifetime.fi/atk-tuki-pk-yrityksille/`, the two buy buttons linked to the archived web package. They now open a WhatsApp order with the message prefilled.
+
 ## The Insight
 
 A price can be right in one product record and still be wrong on the price list, because an older duplicate record for the same offer was still public. When an offer is repriced, search the catalogue for every record that sells the same thing, not only the record being edited.
@@ -66,12 +73,12 @@ A price can be right in one product record and still be wrong on the price list,
 | 2   | Field note            | This file                                                                                                                        |
 | 3   | HTML to `Learn/`      | N/A — `scripts/render-doc.sh` renders on DGX over SSH, which this cloud session cannot reach.                                    |
 | 4   | Drive export          | N/A — the repo is the source of truth; no Drive write requested.                                                                 |
-| 5   | HIC decision question | Asked in chat: IT-support hour bank on lifetime.fi — own product in the catalogue, or buy button to WhatsApp contact?            |
+| 5   | HIC decision question | Answered by HIC: own product, in the SME section. Open: the 65 BLUE records.                                                     |
 | 6   | Calendar              | N/A — no dated commitments.                                                                                                      |
 
 ## Next Steps
 
 - HIC merges PR #2107.
 - HIC decision: the 65 BLUE records — publish, keep internal, or archive? The registry lists each one.
-- `lifetime.fi/atk-tuki-pk-yrityksille/` sells the IT-support hour bank (10 h × 75 € = 750 €), but its buy buttons link to `products/professional-web-pages.html`, which is the web package. This is the wrong product. HIC to decide the fix.
+- The IT-support hour bank has no card checkout. Orders go through WhatsApp until a `/buy/` flow is built for it.
 - Blog drafts are parked until the HIC approves them. The approval page is https://claude.ai/artifact/8wFHwRp2gmMqLjhBqNthJy; the FI sovereignty text is approved, and the rest wait.

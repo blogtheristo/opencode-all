@@ -6194,6 +6194,29 @@
       "storeCategory": "web-services",
       "version": "1.0",
       "detailsUrl": "/products/lifetime-webstore-mini.html"
+    },
+    "LIFETIME-IT-TUKI-10H": {
+      "id": "LIFETIME-IT-TUKI-10H",
+      "mpn": "IT-TUKI-10H-2026",
+      "name": "IT Support Hour Bank for SMEs \u2014 10 h",
+      "price": 750,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "IT support for small and medium-sized businesses from one number: a 10-hour bank at \u20ac75/h. Senior Finnish-speaking specialist, no subcontracting. Espoo and the Helsinki region.",
+      "features": [
+        "Computer renewal",
+        "Software updates",
+        "Business applications",
+        "Information security",
+        "Training"
+      ],
+      "priceNote": "10 h \u00d7 \u20ac75/h, VAT 0 %",
+      "caption": "SME hour bank: computer renewal, software updates, business applications, information security, training",
+      "captionFi": "Tuntipankki: tietokoneiden uusiminen, ohjelmistojen p\u00e4ivitykset, yrityssovellukset, tietoturva, koulutus",
+      "tags": ["SME"],
+      "storeCategory": "it-support",
+      "version": "1.0",
+      "detailsUrl": "https://lifetime.fi/atk-tuki-pk-yrityksille/"
     }
   },
   "settings": {
@@ -6291,7 +6314,7 @@
         "activePublicationException": "BLUE records are active internal offers, not publicly saleable catalog products."
       },
       "smeCampaign": {
-        "description": "Campaign products for Finnish SMEs, tagged \"SME\". Rendered in their own section at the top of /price-list/ (HIC 25.09.2026). They stay in seriousProductIds for /buy/.",
+        "description": "Campaign products for Finnish SMEs, tagged \"SME\". Rendered in their own section at the top of /price-list/ (HIC 25.09.2026). Web Starter and Webstore Mini also stay in seriousProductIds for /buy/; the IT-support hour bank (LIFETIME-IT-TUKI-10H) is sold via lifetime.fi and WhatsApp.",
         "publicSalesEligible": true,
         "primarySurface": "/price-list/",
         "tag": "SME"
@@ -6319,7 +6342,7 @@
       "LIFETIME-WEB-STARTER",
       "LIFETIME-WEBSTORE-MINI"
     ],
-    "smeCampaignProductIds": ["LIFETIME-WEB-STARTER", "LIFETIME-WEBSTORE-MINI"],
+    "smeCampaignProductIds": ["LIFETIME-WEB-STARTER", "LIFETIME-WEBSTORE-MINI", "LIFETIME-IT-TUKI-10H"],
     "independentProductIds": [
       "LF-ONTOLOGY-25",
       "LWM-ONT-SOVEREIGN"
@@ -6337,7 +6360,7 @@
         "path": "/price-list/",
         "classification": "serious and supporting",
         "productRule": "non-BLUE, non-archived products plus subscriptions",
-        "expectedProductCount": 70,
+        "expectedProductCount": 71,
         "includesSubscriptions": true
       },
       "lifetimeConsulting": {
@@ -6358,7 +6381,9 @@
       "changes": [
         "professional-web-pages (Kotisivut pk-yritykselle, \u20ac750) archived: superseded by LIFETIME-WEB-STARTER at the A5 campaign price \u20ac650 (VAT 0 %), suggested retail price \u20ac1,084 (HIC 25.09.2026). Detail pages are kept, not deleted.",
         "LIFETIME-WEB-STARTER and LIFETIME-WEBSTORE-MINI: Finnish caption (captionFi) shown on the FI price list.",
-        "Public price-list count 71 -> 70."
+        "LIFETIME-IT-TUKI-10H added (HIC 25.09.2026): IT-support hour bank 10 h \u00d7 \u20ac75/h = \u20ac750 (VAT 0 %) \u2014 computer renewal, software updates, business applications, information security, training. Tag SME; third product in the SME campaign section and on the A5 flyer.",
+        "SME campaign products tagged SME render in their own first section; commercialPortfolio.smeCampaignProductIds.",
+        "Public price-list count 71 -> 70 -> 71 (\u20ac750 web package archived, IT hour bank added)."
       ]
     },
     {

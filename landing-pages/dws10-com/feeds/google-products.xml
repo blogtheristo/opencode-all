@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, designed to reduce CLOUD Act exposure. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>Fri, 25 Sep 2026 02:32:05 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 25 Sep 2026 02:35:53 GMT</lastBuildDate>
     <g:feedVersion>2.0</g:feedVersion>
 
     <item>
@@ -1331,6 +1331,25 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>WEBSTORE-MINI-2026</g:mpn>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>LIFETIME-IT-TUKI-10H</g:id>
+      <g:title>IT Support Hour Bank for SMEs — 10 h</g:title>
+      <g:description>IT support for small and medium-sized businesses from one number: a 10-hour bank at €75/h. Senior Finnish-speaking specialist, no subcontracting. Espoo and the Helsinki region.</g:description>
+      <g:link>https://dws10.com/https://lifetime.fi/atk-tuki-pk-yrityksille/</g:link>
+      <g:image_link></g:image_link>
+      <g:price>750.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>IT-TUKI-10H-2026</g:mpn>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
