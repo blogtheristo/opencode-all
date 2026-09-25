@@ -4,9 +4,9 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const ROOT = resolve(process.cwd());
-const CATALOG_VERSION = '1.32';
+const CATALOG_VERSION = '1.33';
 const CONSULTING_VERSION = '1.33';
-const EFFECTIVE = '2026-09-24';
+const EFFECTIVE = '2026-09-25';
 const BUY_EFFECTIVE = '2026-08-30';
 const LIFETIME_PAGE_EFFECTIVE = '2026-08-30';
 const NEXT_REVIEW = '2026-11-15';
@@ -104,9 +104,9 @@ const packages = consulting.packages || [];
 
 if (products.length !== 136)
   addError(`Product accounting: expected 136 total, found ${products.length}`);
-if (publicProducts.length !== 71)
+if (publicProducts.length !== 70)
   addError(
-    `Product accounting: expected 71 public non-BLUE non-archived, found ${publicProducts.length}`,
+    `Product accounting: expected 70 public non-BLUE non-archived, found ${publicProducts.length}`,
   );
 if (blue.length !== 65) addError(`Product accounting: expected 65 BLUE, found ${blue.length}`);
 if (overlap.length)

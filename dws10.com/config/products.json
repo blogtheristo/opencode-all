@@ -767,6 +767,11 @@
       "gtin": null,
       "mpn": "ATK-APU-PK-2026",
       "name": "Kotisivut pk-yritykselle",
+      "archived": true,
+      "productType": "archived",
+      "archivedDate": "2026-09-25",
+      "archivedReason": "Superseded by LIFETIME-WEB-STARTER: A5 campaign price \u20ac650 (VAT 0 %), suggested retail price \u20ac1,084 (HIC 25.09.2026). The \u20ac750 package price is retired.",
+      "supersededBy": "LIFETIME-WEB-STARTER",
       "price": 750,
       "currency": "EUR",
       "type": "package",
@@ -6161,6 +6166,7 @@
       ],
       "priceNote": "One-time setup",
       "caption": "A5 campaign price: \u221240 % vs. suggested retail price €1,084 (VAT 0 %)",
+      "captionFi": "A5-kampanjahinta: \u221240 % ohjev\u00e4hitt\u00e4ishinnasta 1\u00a0084 \u20ac (ALV 0 %)",
       "storeCategory": "web-services",
       "version": "1.0",
       "detailsUrl": "/products/lifetime-web-starter.html"
@@ -6182,6 +6188,7 @@
       ],
       "priceNote": "One-time setup",
       "caption": "A5 campaign price: \u221240 % vs. suggested retail price €584 (VAT 0 %)",
+      "captionFi": "A5-kampanjahinta: \u221240 % ohjev\u00e4hitt\u00e4ishinnasta 584 \u20ac (ALV 0 %)",
       "storeCategory": "web-services",
       "version": "1.0",
       "detailsUrl": "/products/lifetime-webstore-mini.html"
@@ -6230,14 +6237,14 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-09-24T00:00:00Z",
-  "priceVersion": "1.32",
+  "lastUpdated": "2026-09-25T00:00:00Z",
+  "priceVersion": "1.33",
   "priceList": {
-    "version": "1.32",
-    "effectiveDate": "2026-09-24",
+    "version": "1.33",
+    "effectiveDate": "2026-09-25",
     "nextReviewDate": "2026-11-15",
     "stampQuarter": "2026.Q3",
-    "stampDate": "2026-09-24",
+    "stampDate": "2026-09-25",
     "validUntil": "2026-11-15",
     "policy": {
       "currency": "EUR",
@@ -6256,8 +6263,8 @@
     }
   },
   "commercialPortfolio": {
-    "version": "1.32",
-    "effectiveDate": "2026-09-24",
+    "version": "1.33",
+    "effectiveDate": "2026-09-25",
     "nextReviewDate": "2026-11-15",
     "definitions": {
       "serious": {
@@ -6321,7 +6328,7 @@
         "path": "/price-list/",
         "classification": "serious and supporting",
         "productRule": "non-BLUE, non-archived products plus subscriptions",
-        "expectedProductCount": 71,
+        "expectedProductCount": 70,
         "includesSubscriptions": true
       },
       "lifetimeConsulting": {
@@ -6335,6 +6342,16 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.33",
+      "date": "2026-09-25",
+      "author": "claude/price-list-a5-campaign",
+      "changes": [
+        "professional-web-pages (Kotisivut pk-yritykselle, \u20ac750) archived: superseded by LIFETIME-WEB-STARTER at the A5 campaign price \u20ac650 (VAT 0 %), suggested retail price \u20ac1,084 (HIC 25.09.2026). Detail pages are kept, not deleted.",
+        "LIFETIME-WEB-STARTER and LIFETIME-WEBSTORE-MINI: Finnish caption (captionFi) shown on the FI price list.",
+        "Public price-list count 71 -> 70."
+      ]
+    },
     {
       "version": "1.32",
       "date": "2026-09-24",
