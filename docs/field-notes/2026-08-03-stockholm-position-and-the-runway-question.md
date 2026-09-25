@@ -1,9 +1,11 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: HIC Learning Outcome — Stockholm position confirmed, Uber-as-runway tested and rejected, coaching revenue identified as the actual runway
-Version: 1.8
+Version: 1.10
 Date: 2026-08-03
 Change 1.0 → 1.1: HIC correction — FOB-319 already produces daily income in Helsinki, so the Swedish licence lead time opens no zero-income gap. The v1.0 claim "do not start with the taxi licence" is superseded and retained in §5 rather than rewritten (Rule 12). Sequence reordered accordingly; Swedish public-sector target list added as §5a.
+Change 1.9 → 1.10: §5e refined — the accelerator mechanism (HIC + Boardy). TECoSA hypothesis sharpened from meeting point to deep-tech commercialisation accelerator: selection, programme and cadence on top of place and throughput; output is a proven, safe, buyable solution, not a pitch deck. LUT split sharpened accordingly (LUT defines the industrial problem, TECoSA accelerates validation and commercialisation). The accelerator framing is the sayable-aloud version; Jumbo/Aviapolis stay internal.
+Change 1.8 → 1.9: Added §5e — the internal strategy reading of TECoSA (never shown to KTH): the friendly-trap mechanism named, the Jumbo (commercialisation meeting point) and Aviapolis (fast-throughput launch platform) mechanisms, and the LUT–KTH division of labour anchored on LUT System Earth 2030, which resolves the §5d doctoral-home flag without touching thesis canon — LUT keeps the founder doctorate, KTH gets the company researcher path.
 Change 1.7 → 1.8: HIC supplied the two actual drivers for Lifetime AB — KTH (Kungliga Tekniska Högskolan) and Vinnova, not the auditor and consultancy the agent had guessed from the abbreviations. This inverts §5d: Vinnova requires the coordinating party to be a Swedish legal person, and foreign actors without a Swedish filial cannot receive funding at all. It is the first item in the session that Lifetime Oy structurally cannot do and Lifetime AB can. Flags the LUT-vs-KTH doctoral-home question against the Thesis Rule.
 Change 1.6 → 1.7: HIC instruction — trafikansvarig reminder moved 31.08 → 15.10.2026, since the August date reminded of a step that cannot be taken until the capacity proof exists. The reminder is now gated on whether the 17.08 outreach produced deals, and carries both routes with prices so the decision can be made from the reminder itself.
 Change 1.5 → 1.6: HIC correction — the consultant trafikansvarig route was NOT rejected. v1.5 recorded an agent recommendation as an HIC decision, and the companion coaching document repeated it as fact. Both corrected. §5b now keeps both routes open, states the cost case and the execution-risk case separately, and labels the recommendation as a recommendation.
@@ -187,6 +189,33 @@ Note also the co-funding floor: on planning grants the Vinnova contribution is c
 **Consequence for the 2026-08-10 decision.** The AB is no longer a positioning gesture with no near-term function. It is the precondition for an entire funding channel that the Finnish company cannot enter. That does not make the cash arithmetic in §5c wrong — registration still consumes nearly the whole cash position — but it changes what the money buys from *optionality* to *access*.
 
 **Flag, not a blocker — the doctoral home.** `CLAUDE.md`'s Thesis Rule names `docs/PHD_FIREHORSE_EN.md` / `_FI.md` as the **LUT** track. If KTH becomes the doctoral home, that is a canon change touching all four thesis files and their lockstep versioning. Raised here so it is decided deliberately rather than discovered later. Not actioned in this session.
+
+## 5e. What TECoSA is to us — internal strategy reading (HIC + Boardy, 2026-08-03)
+
+**Never shown to KTH in this form.** This is the map we read Martin's answers against, not content for the thread.
+
+**The friendly trap, named.** Martin's opening does not only ask for a research topic — it invites Lifetime to propose what TECoSA could mean for KTH and industry next. A partner who walks in as "the use case" pays the co-funding, surrenders the environment, and is realised as an acknowledgements line. The outgoing packet already defends three edges (fleet access priced, background IP named, data bounded before instrumentation); this section is the offensive read.
+
+**Hypothesis: TECoSA is not a research centre but a *meeting point for commercialising trustworthy edge and autonomy systems*.**
+
+- **The Jumbo mechanism** — research, testbeds, industrial pilots, safety argumentation, funding and first customers in one place. The ~19 industrial partners are anchor tenants; membership is the cheapest access ever offered to Swedish industrial decision-makers with exactly the problem DWS IQ sells. Measured in encounters, not publications. Said aloud to an academic partner, this is poison; held internally, it is the business case.
+- **The Aviapolis mechanism** — fast throughput: idea → validated technology → international deployment, without years of academic parking. TECoSA's runway is three tracks in one place: the Vinnova rail, academic legitimacy on assurance claims (a KTH stamp no consultant can sell), and the Stockholm ecosystem the AB lands into. **Launch through it; do not move into it.** Lifetime is an operator using the platform for take-off, not a research organisation.
+
+**The LUT–KTH division of labour** (resolves §5d's doctoral-home flag without touching thesis canon). LUT's **System Earth 2030** strategy — planetary resources, business and society, digital revolution, energy transition (`https://www.lut.fi/en/about-us/introducing-university/strategy`) — asks *why* the change is necessary for society and industry. TECoSA asks *how* trustworthy edge AI is proven in practice. Companies take it to market.
+
+| | LUT (doctoral home, unchanged) | KTH / TECoSA |
+|---|---|---|
+| Question | *Why the transition is necessary* — systems thinking, business, societal impact | *How it is proven safe* — assurance, safety–performance, validation |
+| Instrument | PHD Firehorse (the founder's own doctorate) | industridoktorand / postdoc (employed by the AB — **not necessarily the founder**) |
+| Company mirror | Lifetime Oy — IP, Finland, EIC | Lifetime AB — Vinnova, Nordic |
+
+The two-university structure mirrors the Oy/AB split one to one, and it dissolves the trap at the personal level: the founder does not have to be the person on KTH's bench.
+
+**Refinement (HIC + Boardy, same day): the accelerator mechanism.** The mall gives place, the launch platform gives throughput — the accelerator adds what both lack: **selection, a programme, and cadence.** The sharpened hypothesis is TECoSA as a **deep-tech commercialisation accelerator** for trustworthy edge and autonomy systems: research groups and companies are *selected*, given an industrial problem, a testbed, safety argumentation, mentors, a funding path and a first pilot. Not a startup accelerator whose output is a pitch deck and the next round — one whose output is a **proven, safe, buyable solution**. The commercialisation centre is the permanent platform; the accelerator is its fast-forward mechanism.
+
+This also sharpens the LUT split: **LUT anchors research, societal impact and the *definition of the industrial problem*; TECoSA accelerates technical validation and commercialisation.** DWS/KYA is one early practical test case of the model — never the model's justification.
+
+**Posture toward Martin:** the hypothesis is presented as a question, never as a finished truth — *does he see TECoSA's future role as a combination of research centre and deep-tech accelerator?* His answer to that one question reveals more about the real construction on offer than all six structural questions combined. The Jumbo/Aviapolis metaphors stay internal; the accelerator framing is the version that can be said aloud, because "deep-tech commercialisation accelerator" is a category an academic director can adopt without it reading as customer-acquisition strategy.
 
 ## 6. Dated commitments
 
