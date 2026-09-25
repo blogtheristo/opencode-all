@@ -1,0 +1,2186 @@
+{
+  "scannedThrough": "15ef624e8",
+  "commitsScanned": 93,
+  "commitsSkipped": 3,
+  "ids": {
+    "dwsiq-v6": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d095d7ba3",
+          "date": "2026-01-09",
+          "subject": "Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "state": "removed",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "DWS IQ Platform v6"
+    },
+    "firehorse-auto": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d095d7ba3",
+          "date": "2026-01-09",
+          "subject": "Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "state": "removed",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "Firehorse Automation"
+    },
+    "climate-bundle": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d095d7ba3",
+          "date": "2026-01-09",
+          "subject": "Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "state": "removed",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "Climate Reporting Bundle"
+    },
+    "firehorse-omni": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d095d7ba3",
+          "date": "2026-01-09",
+          "subject": "Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "state": "removed",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "Firehorse Omnichannel Next"
+    },
+    "firehorse-report": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d095d7ba3",
+          "date": "2026-01-09",
+          "subject": "Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "state": "removed",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "Firehorse Report - Fit for 55 Template & Dashboard"
+    },
+    "expert-services": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d095d7ba3",
+          "date": "2026-01-09",
+          "subject": "Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "state": "archived",
+          "commit": "b8bb0f615",
+          "date": "2026-05-10",
+          "subject": "Merge pull request #1269 from blogtheristo/claude/dynamic-deployment-pricing-LExxQ"
+        },
+        {
+          "state": "removed",
+          "commit": "fe39be381",
+          "date": "2026-06-16",
+          "subject": "Merge branch 'main' of https://github.com/blogtheristo/dws6"
+        }
+      ],
+      "name": "Workshop 3 Days - Expert Advisory & Implementation _OLD"
+    },
+    "consulting-hourly": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d095d7ba3",
+          "date": "2026-01-09",
+          "subject": "Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        }
+      ],
+      "name": "Senior Compliance Specialist — Retainer + Outcomes"
+    },
+    "expert-advisory": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d095d7ba3",
+          "date": "2026-01-09",
+          "subject": "Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "state": "removed",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "Expert Advisory & Implementation"
+    },
+    "consulting-fit55": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d095d7ba3",
+          "date": "2026-01-09",
+          "subject": "Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        }
+      ],
+      "name": "Consulting Fit for 55 Specialist"
+    },
+    "DWS-IQ-006": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "Lifetime DWS IQ Platform (Version 6)"
+    },
+    "DWS-IQ-005": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "removed",
+          "commit": "4b4d53223",
+          "date": "2026-02-07",
+          "subject": "Merge pull request #390 from blogtheristo/claude/fix-product-prices-btcOs"
+        }
+      ],
+      "name": "Lifetime DWS IQ Platform (Version 5)"
+    },
+    "FH-AUTO-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "Firehorse Amplify"
+    },
+    "LIFETIME-BUNDLE-2026": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "Climate Reporting Starter Bundle"
+    },
+    "FH-OMNI-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "Firehorse Omnichannel Next"
+    },
+    "FH-RPT-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "DWS IQ Report"
+    },
+    "FH-CMS-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "Firehorse Content Management"
+    },
+    "LIFETIME-EXP-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "archived",
+          "commit": "818d921c1",
+          "date": "2026-04-17",
+          "subject": "Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)"
+        },
+        {
+          "state": "published",
+          "commit": "120be5329",
+          "date": "2026-05-06",
+          "subject": "Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        },
+        {
+          "state": "archived",
+          "commit": "b8bb0f615",
+          "date": "2026-05-10",
+          "subject": "Merge pull request #1269 from blogtheristo/claude/dynamic-deployment-pricing-LExxQ"
+        },
+        {
+          "state": "removed",
+          "commit": "fe39be381",
+          "date": "2026-06-16",
+          "subject": "Merge branch 'main' of https://github.com/blogtheristo/dws6"
+        }
+      ],
+      "name": "Expert Advisory & Implementation _OLD"
+    },
+    "aws-consultancy": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "EU-Sovereign AI Engineering & Cloud Consultancy"
+    },
+    "conversational-agent": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "archived",
+          "commit": "818d921c1",
+          "date": "2026-04-17",
+          "subject": "Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)"
+        },
+        {
+          "state": "published",
+          "commit": "120be5329",
+          "date": "2026-05-06",
+          "subject": "Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ],
+      "name": "EU-Hosted Conversational Agent"
+    },
+    "m365-consultancy": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "removed",
+          "commit": "9fdcc10e4",
+          "date": "2026-08-05",
+          "subject": "Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
+        }
+      ],
+      "name": "Microsoft 365 Agent Consultancy"
+    },
+    "powerapps-consultancy": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "removed",
+          "commit": "4b4d53223",
+          "date": "2026-02-07",
+          "subject": "Merge pull request #390 from blogtheristo/claude/fix-product-prices-btcOs"
+        }
+      ],
+      "name": "Microsoft AI Studio M365 Power Platform Azure"
+    },
+    "ai-agent-engineering": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "AI & Agent Engineering — Outcome-Backed Hourly"
+    },
+    "lean-project": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "archived",
+          "commit": "818d921c1",
+          "date": "2026-04-17",
+          "subject": "Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)"
+        },
+        {
+          "state": "published",
+          "commit": "120be5329",
+          "date": "2026-05-06",
+          "subject": "Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ],
+      "name": "EU AI Project Accelerator (Fixed Price)"
+    },
+    "ai-consultant-day": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "Captain Day — One-Day AI Outcome"
+    },
+    "business-mentor-30": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "Claude Code AI Coaching — 30 Hours"
+    },
+    "firehorse-coach": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "EU AI Act Literacy Training"
+    },
+    "firehorse-flow": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "archived",
+          "commit": "818d921c1",
+          "date": "2026-04-17",
+          "subject": "Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)"
+        },
+        {
+          "state": "published",
+          "commit": "120be5329",
+          "date": "2026-05-06",
+          "subject": "Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ],
+      "name": "AI Customer Agent"
+    },
+    "omnichannel-multimodal": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "removed",
+          "commit": "1bd048430",
+          "date": "2026-04-16",
+          "subject": "Claude/plan product scope h6 ym i (#1063)"
+        },
+        {
+          "state": "published",
+          "commit": "120be5329",
+          "date": "2026-05-06",
+          "subject": "Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ],
+      "name": "Firehorse Omnichannel & Multimodal AI Assistant"
+    },
+    "professional-web-pages": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "archived",
+          "commit": "bb2226422",
+          "date": "2026-09-25",
+          "subject": "fix(dws10): price list 1.33 — retire old €750 web package; FI campaign caption"
+        }
+      ],
+      "name": "Kotisivut pk-yritykselle"
+    },
+    "secure-email-proton": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "removed",
+          "commit": "9fdcc10e4",
+          "date": "2026-08-05",
+          "subject": "Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
+        }
+      ],
+      "name": "Protonmail Secure Email & Domains Implementation"
+    },
+    "firehorse-data-services": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ],
+      "name": "Firehorse Data Services"
+    },
+    "agentti-sanasto": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "removed",
+          "commit": "ed84f40d8",
+          "date": "2026-04-04",
+          "subject": "Merge pull request #968 from blogtheristo/claude/improve-supermarket-messaging-9KoZV"
+        },
+        {
+          "state": "published",
+          "commit": "120be5329",
+          "date": "2026-05-06",
+          "subject": "Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        },
+        {
+          "state": "removed",
+          "commit": "af873b4c8",
+          "date": "2026-07-04",
+          "subject": "Merge pull request #1546 from blogtheristo/claude/sanasto-cybersecurity-terms-az3tby"
+        }
+      ],
+      "name": "Agentti Sanasto Englanti-Suomi"
+    },
+    "devops-lead": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "archived",
+          "commit": "818d921c1",
+          "date": "2026-04-17",
+          "subject": "Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)"
+        },
+        {
+          "state": "published",
+          "commit": "120be5329",
+          "date": "2026-05-06",
+          "subject": "Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ],
+      "name": "Assessment"
+    },
+    "digital-design-gold": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "removed",
+          "commit": "9fdcc10e4",
+          "date": "2026-08-05",
+          "subject": "Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
+        }
+      ],
+      "name": "Digital Design Gold"
+    },
+    "cloud-ready-teams": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "removed",
+          "commit": "9fdcc10e4",
+          "date": "2026-08-05",
+          "subject": "Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
+        }
+      ],
+      "name": "EU On-Demand AI & Cloud Engineers (Sovereign)"
+    },
+    "ai-koulutus-3d": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "d0335d10a",
+          "date": "2026-01-28",
+          "subject": "Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "state": "archived",
+          "commit": "818d921c1",
+          "date": "2026-04-17",
+          "subject": "Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)"
+        },
+        {
+          "state": "published",
+          "commit": "120be5329",
+          "date": "2026-05-06",
+          "subject": "Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ],
+      "name": "AI Koulutus 3 Days Programme"
+    },
+    "ai-consulting-agentic": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "ec93cb52a",
+          "date": "2026-02-06",
+          "subject": "Merge pull request #376 from blogtheristo/claude/add-ai-consulting-guidance-pDsPu"
+        }
+      ],
+      "name": "Agentic Software Development for EU Teams"
+    },
+    "sovereignty-cloud-consulting": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "ec93cb52a",
+          "date": "2026-02-06",
+          "subject": "Merge pull request #376 from blogtheristo/claude/add-ai-consulting-guidance-pDsPu"
+        }
+      ],
+      "name": "Sovereignty Cloud Consulting – European Cloud Migration"
+    },
+    "edge-node-gn100": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e41b5a0ac",
+          "date": "2026-03-04",
+          "subject": "Merge branch 'main' of https://github.com/blogtheristo/dws6"
+        }
+      ],
+      "name": "Control Room — Acer Veriton GN100"
+    },
+    "DWS-SOVEREIGN-DB-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "dc6da1608",
+          "date": "2026-03-13",
+          "subject": "Merge pull request #777 from blogtheristo/claude/sovereignty-assessment-cli-tnUyf"
+        }
+      ],
+      "name": "Sovereign Database — EU Data Sovereignty for PostgreSQL"
+    },
+    "FH-SIGN-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "995900866",
+          "date": "2026-03-21",
+          "subject": "Merge pull request #860 from blogtheristo/claude/verify-nda-signatures-rdgOj"
+        }
+      ],
+      "name": "Firehorse Signed Reports"
+    },
+    "DWS-US-STARTER": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "3566101af",
+          "date": "2026-03-22",
+          "subject": "Merge pull request #865 from blogtheristo/claude/pricing-us-cloud-starter-cIxHZ"
+        }
+      ],
+      "name": "DWS IQ — US Cloud Starter"
+    },
+    "DWS-US-PILOT": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "3566101af",
+          "date": "2026-03-22",
+          "subject": "Merge pull request #865 from blogtheristo/claude/pricing-us-cloud-starter-cIxHZ"
+        }
+      ],
+      "name": "DWS IQ — US Cloud Pilot"
+    },
+    "DWS-EU-STARTER": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "3566101af",
+          "date": "2026-03-22",
+          "subject": "Merge pull request #865 from blogtheristo/claude/pricing-us-cloud-starter-cIxHZ"
+        }
+      ],
+      "name": "DWS IQ — EU Sovereign Starter"
+    },
+    "DWS-EU-PILOT": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "3566101af",
+          "date": "2026-03-22",
+          "subject": "Merge pull request #865 from blogtheristo/claude/pricing-us-cloud-starter-cIxHZ"
+        }
+      ],
+      "name": "DWS IQ — EU Sovereign Pilot"
+    },
+    "DWS-CLIMATE-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "61912ff2f",
+          "date": "2026-03-25",
+          "subject": "Merge pull request #895 from blogtheristo/claude/add-define-application-guide-gS1du"
+        }
+      ],
+      "name": "DWS IQ Climate Intelligence"
+    },
+    "DWS-AEGIS-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "61912ff2f",
+          "date": "2026-03-25",
+          "subject": "Merge pull request #895 from blogtheristo/claude/add-define-application-guide-gS1du"
+        }
+      ],
+      "name": "DWS IQ Aegis"
+    },
+    "DWS-THEMIS-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "095ef3fa1",
+          "date": "2026-04-28",
+          "subject": "fix: restore iron-clad nav + price list, sweep 74 unresolved merge conflicts (#1215)"
+        },
+        {
+          "state": "removed",
+          "commit": "120be5329",
+          "date": "2026-05-06",
+          "subject": "Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ],
+      "name": "DWS IQ Themis — The Aegis Control Plane"
+    },
+    "FH-FPE-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "095ef3fa1",
+          "date": "2026-04-28",
+          "subject": "fix: restore iron-clad nav + price list, sweep 74 unresolved merge conflicts (#1215)"
+        },
+        {
+          "state": "removed",
+          "commit": "120be5329",
+          "date": "2026-05-06",
+          "subject": "Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ],
+      "name": "Firehorse FPE Continuity Pack — Construction Edition"
+    },
+    "DWS-IQ-SUB-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "b8bb0f615",
+          "date": "2026-05-10",
+          "subject": "Merge pull request #1269 from blogtheristo/claude/dynamic-deployment-pricing-LExxQ"
+        }
+      ],
+      "name": "DWS IQ Monthly Subscription"
+    },
+    "FH-SUB-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "b8bb0f615",
+          "date": "2026-05-10",
+          "subject": "Merge pull request #1269 from blogtheristo/claude/dynamic-deployment-pricing-LExxQ"
+        }
+      ],
+      "name": "Firehorse Monthly Subscription"
+    },
+    "CMP-T0": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Compliance Agent — Pilot (60 days)"
+    },
+    "CMP-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Compliance Agent — Starter"
+    },
+    "CMP-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Compliance Agent — Pro"
+    },
+    "CMP-OC-STD": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Outcome — CSRD/CBAM/AI Act gap (Standard)"
+    },
+    "CMP-OC-ENT": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Outcome — CSRD/CBAM/AI Act gap (Enterprise)"
+    },
+    "SS-T0": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "SiteSense — Pilot (30 days, 1 site)"
+    },
+    "SS-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "SiteSense — Starter"
+    },
+    "SS-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "SiteSense — Pro"
+    },
+    "SS-OC-STD": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Outcome — Site safety assessment (Standard)"
+    },
+    "SS-OC-ENT": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Outcome — Site safety assessment (Enterprise)"
+    },
+    "MO-T0": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Material Oracle — Pilot (60 days, 1 project)"
+    },
+    "MO-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Material Oracle — Starter"
+    },
+    "MO-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Material Oracle — Pro"
+    },
+    "MO-OC-STD": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Outcome — LCA report (Standard)"
+    },
+    "MO-OC-ENT": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Outcome — LCA report (Enterprise)"
+    },
+    "ED-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Emissions Data — Starter"
+    },
+    "ED-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Emissions Data — Pro"
+    },
+    "SG-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Schedule Genius — Starter"
+    },
+    "SG-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Schedule Genius — Pro"
+    },
+    "CONSTR-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Construction Agent — Pro (bundle)"
+    },
+    "LOG-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Logistics — Starter"
+    },
+    "LOG-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Logistics — Pro"
+    },
+    "SOV-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Sovereignty Monitor — Starter"
+    },
+    "SOV-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Sovereignty Monitor — Pro"
+    },
+    "QG-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Quality Gate — Starter"
+    },
+    "QG-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Quality Gate — Pro"
+    },
+    "CSAT-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Customer Sat — Starter"
+    },
+    "CSAT-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Customer Sat — Pro"
+    },
+    "LF-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Lead Feedback — Starter"
+    },
+    "LF-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Lead Feedback — Pro"
+    },
+    "CS-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Competitor Surveillance — Starter"
+    },
+    "CS-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Competitor Surveillance — Pro"
+    },
+    "SEO-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "SEO Audit — Starter"
+    },
+    "SEO-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "SEO Audit — Pro"
+    },
+    "DW-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Deepwiki Extractor — Starter"
+    },
+    "DW-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Deepwiki Extractor — Pro"
+    },
+    "VIA-T1": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Viability — Starter"
+    },
+    "VIA-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Viability — Pro"
+    },
+    "TH-T2": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        },
+        {
+          "state": "discontinued",
+          "commit": "ee8629e29",
+          "date": "2026-09-04",
+          "subject": "Claude/noux sales rooms setup wu73bq (#1826)"
+        }
+      ],
+      "name": "Themis Coordinator — Pro"
+    },
+    "ESG-T3": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "ESG Function-as-a-Service"
+    },
+    "HSE-T3": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "HSE Function-as-a-Service"
+    },
+    "CONSTR-T3": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Construction Ops Pod"
+    },
+    "SOV-T3": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Sovereignty & Compliance Pack"
+    },
+    "GTM-T3": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Go-to-Market Pod"
+    },
+    "WF-T4": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Full Skilled Workforce"
+    },
+    "IND-MARS": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Mars — Construction industry pod"
+    },
+    "IND-HELIOS": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Helios — Energy industry pod"
+    },
+    "IND-VULCAN": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Vulcan — Steel industry pod"
+    },
+    "IND-TALOS": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Talos — Aluminium industry pod"
+    },
+    "IND-GAIA": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Gaia — Cement industry pod"
+    },
+    "IND-CERES": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Ceres — Agri / Circular industry pod"
+    },
+    "IND-NEPTUN": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Neptune — Maritime industry pod"
+    },
+    "IND-PROM": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Prometheus — Hydrogen industry pod"
+    },
+    "IND-BESS": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "BESS — Battery storage industry pod"
+    },
+    "LAND-AIL": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "AI Literacy Bridge"
+    },
+    "LAND-EUAI": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "EU AI Act Compliance Sprint"
+    },
+    "LAND-HSE": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Site Safety Bootcamp"
+    },
+    "LAND-CSRD": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "CSRD Reporting Accelerator"
+    },
+    "LAND-LCA": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Carbon Reporting Sprint"
+    },
+    "LAND-SOV": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Sovereignty & NIS2 Sprint"
+    },
+    "LAND-OPS": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Construction Ops Pilot"
+    },
+    "LAND-GTM": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Go-to-Market Sprint"
+    },
+    "LAND-THEMIS": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        },
+        {
+          "state": "discontinued",
+          "commit": "ee8629e29",
+          "date": "2026-09-04",
+          "subject": "Claude/noux sales rooms setup wu73bq (#1826)"
+        }
+      ],
+      "name": "Themis Coordinator Workshop"
+    },
+    "LAND-WF": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Full Workforce Onboarding"
+    },
+    "DWS365-CMP-T3": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "DWS 365 Compliance Agents"
+    },
+    "FH-SKILL-T3": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Firehorse Skilled Agents"
+    },
+    "AC365-T3": {
+      "events": [
+        {
+          "state": "internal",
+          "commit": "e75b66204",
+          "date": "2026-05-14",
+          "subject": "feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ],
+      "name": "Agentic Commerce 365 Skilled Agents"
+    },
+    "LF-SOV-MODEL-SUB": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "c8eb7e873",
+          "date": "2026-05-17",
+          "subject": "Merge pull request #1339 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ],
+      "name": "Sovereign Model Updates Subscription"
+    },
+    "LF-SITROOM-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "c8eb7e873",
+          "date": "2026-05-17",
+          "subject": "Merge pull request #1339 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ],
+      "name": "Situation Room — Two Sovereign AI Nodes"
+    },
+    "LF-NVIDIA-INSTALL": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "c8eb7e873",
+          "date": "2026-05-17",
+          "subject": "Merge pull request #1339 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ],
+      "name": "NVIDIA Model Installation + Full Service"
+    },
+    "LF-JETSON-NANO": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "70dbf087e",
+          "date": "2026-05-17",
+          "subject": "Merge pull request #1342 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ],
+      "name": "Jetson Sensor Node — Orin Nano Super + Install & Service"
+    },
+    "LF-JETSON-AGX": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "70dbf087e",
+          "date": "2026-05-17",
+          "subject": "Merge pull request #1342 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ],
+      "name": "Jetson Sensor Concentrator — AGX Orin 64GB + Install & Service"
+    },
+    "LF-DGX-SPARK": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "63a58e9ab",
+          "date": "2026-05-17",
+          "subject": "Merge pull request #1343 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ],
+      "name": "DGX Spark — NVIDIA-Branded Sovereign Edge AI"
+    },
+    "LF-JETSON-NX": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "63a58e9ab",
+          "date": "2026-05-17",
+          "subject": "Merge pull request #1343 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ],
+      "name": "Jetson Sensor Mid — Orin NX 16 GB + Install & Service"
+    },
+    "LF-IGX-ORIN": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "63a58e9ab",
+          "date": "2026-05-17",
+          "subject": "Merge pull request #1343 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ],
+      "name": "IGX Orin — Industrial / Medical Sovereign Edge AI"
+    },
+    "AIS-EU-SOV-OC": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "fe39be381",
+          "date": "2026-06-16",
+          "subject": "Merge branch 'main' of https://github.com/blogtheristo/dws6"
+        }
+      ],
+      "name": "EU-Sovereign AI Migration — Per Workload"
+    },
+    "AIS-OUTCOME-PILOT": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "fe39be381",
+          "date": "2026-06-16",
+          "subject": "Merge branch 'main' of https://github.com/blogtheristo/dws6"
+        }
+      ],
+      "name": "Outcome-Priced Applied-AI Pilot (6 weeks)"
+    },
+    "FLEET-VIP-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "fe39be381",
+          "date": "2026-06-16",
+          "subject": "Merge branch 'main' of https://github.com/blogtheristo/dws6"
+        },
+        {
+          "state": "removed",
+          "commit": "9fdcc10e4",
+          "date": "2026-08-05",
+          "subject": "Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
+        }
+      ],
+      "name": "Lifetime VIP AI Services"
+    },
+    "LF-ONTOLOGY-25": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "c73fdd870",
+          "date": "2026-06-22",
+          "subject": "feat: Sovereign Industrial Intelligence pivot — LWM Ontology V1, whitepaper, Outokumpu case, Architecture of Command (#1481)"
+        }
+      ],
+      "name": "European Industry Ontology, 25 industries"
+    },
+    "LF-TRAIN-IND": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "c73fdd870",
+          "date": "2026-06-22",
+          "subject": "feat: Sovereign Industrial Intelligence pivot — LWM Ontology V1, whitepaper, Outokumpu case, Architecture of Command (#1481)"
+        }
+      ],
+      "name": "Ontology Implementation and Organisation (site configuration)"
+    },
+    "LWM-ONT-IND": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "c73fdd870",
+          "date": "2026-06-22",
+          "subject": "feat: Sovereign Industrial Intelligence pivot — LWM Ontology V1, whitepaper, Outokumpu case, Architecture of Command (#1481)"
+        },
+        {
+          "state": "archived",
+          "commit": "160cb4ef9",
+          "date": "2026-09-15",
+          "subject": "feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ],
+      "name": "LWM Industry Ontology — Single Vertical"
+    },
+    "LWM-ONT-SUITE": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "c73fdd870",
+          "date": "2026-06-22",
+          "subject": "feat: Sovereign Industrial Intelligence pivot — LWM Ontology V1, whitepaper, Outokumpu case, Architecture of Command (#1481)"
+        },
+        {
+          "state": "archived",
+          "commit": "160cb4ef9",
+          "date": "2026-09-15",
+          "subject": "feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ],
+      "name": "LWM Ontology Suite — All 25 Industries"
+    },
+    "LWM-ONT-SOVEREIGN": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "c73fdd870",
+          "date": "2026-06-22",
+          "subject": "feat: Sovereign Industrial Intelligence pivot — LWM Ontology V1, whitepaper, Outokumpu case, Architecture of Command (#1481)"
+        }
+      ],
+      "name": "European Industry Ontology — Sovereign on-prem pack"
+    },
+    "claude-code-coaching-3day": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "ef79ba37a",
+          "date": "2026-06-25",
+          "subject": "Merge pull request #1499 from blogtheristo/claude/code-coaching-curriculum-0g3bpp"
+        }
+      ],
+      "name": "Claude Code Coaching — Lecture + Workshop (3 Days)"
+    },
+    "claude-code-coaching-lecture": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "ef79ba37a",
+          "date": "2026-06-25",
+          "subject": "Merge pull request #1499 from blogtheristo/claude/code-coaching-curriculum-0g3bpp"
+        }
+      ],
+      "name": "Claude Code Coaching — 1-Day Lecture"
+    },
+    "claude-code-coaching-workshop": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "ef79ba37a",
+          "date": "2026-06-25",
+          "subject": "Merge pull request #1499 from blogtheristo/claude/code-coaching-curriculum-0g3bpp"
+        }
+      ],
+      "name": "Claude Code Coaching — 2-Day Workshop"
+    },
+    "claude-code-coaching-project": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "ef79ba37a",
+          "date": "2026-06-25",
+          "subject": "Merge pull request #1499 from blogtheristo/claude/code-coaching-curriculum-0g3bpp"
+        }
+      ],
+      "name": "Claude Code Coaching — Client Project Work"
+    },
+    "LF-COMPLIANCE-AMBULANCE-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "afbe962d3",
+          "date": "2026-07-06",
+          "subject": "Careers lifetime links (#1577)"
+        }
+      ],
+      "name": "DWS IQ Compliance Ambulance — Mobile Office (NVIDIA Thor Edge)"
+    },
+    "DWS-IQ-FREE-2026": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "c104591d7",
+          "date": "2026-07-06",
+          "subject": "Improve sales strategy (#1607)"
+        }
+      ],
+      "name": "DWS IQ Free — 1 project, CSRD-ready"
+    },
+    "DWS-AEGIS-PILOT-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "0a2b9c96c",
+          "date": "2026-07-31",
+          "subject": "merge: enterprise AI harness — Aegis pilot re-spec, Learning Standard step 6, local-model drift fix"
+        }
+      ],
+      "name": "DWS IQ Aegis Pilot (3 months)"
+    },
+    "DWS-AEGIS-IMPL-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "0a2b9c96c",
+          "date": "2026-07-31",
+          "subject": "merge: enterprise AI harness — Aegis pilot re-spec, Learning Standard step 6, local-model drift fix"
+        }
+      ],
+      "name": "DWS IQ Aegis Implementation Programme (3 phases)"
+    },
+    "LF-K8S-T1": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "Kubernetes Orchestration — Single-Node k3s (Tier 1)"
+    },
+    "LF-K8S-T2": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "Kubernetes Orchestration — HA Cluster k3s (Tier 2)"
+    },
+    "LF-K8S-T3": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "Kubernetes Orchestration — Gov Ready RKE2 (Tier 3)"
+    },
+    "LF-K8S-T4": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "Kubernetes Orchestration — Full Infra Stack (Tier 4)"
+    },
+    "LF-DOCA-ESSENTIAL": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "DOCA Microservices — Essential Package"
+    },
+    "LF-DOCA-SECURITY": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "DOCA Microservices — Security & Compliance Package"
+    },
+    "LF-DOCA-NETWORK-STORAGE": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "DOCA Microservices — Networking & Storage Acceleration Package"
+    },
+    "LF-GOV-READY-SETUP": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "Government Ready Cluster Setup"
+    },
+    "LF-GOV-READY-ANNUAL": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "Government Ready Annual Maintenance"
+    },
+    "LF-GOV-AIRGAP-BUNDLE": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "Air-Gapped Gov Ready Image Bundle"
+    },
+    "LF-FIPS-VALIDATION": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "FIPS 140-3 Validation Service"
+    },
+    "LF-NIM-STARTER": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "NIM Microservices — Starter Profile"
+    },
+    "LF-NIM-RETRIEVAL": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "NIM Microservices — Retrieval & Embedding Profile"
+    },
+    "LF-NIM-CODE": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "NIM Microservices — Code Generation Profile"
+    },
+    "LF-NIM-BIOLOGY": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "NIM Microservices — Biology & Genomics Profile"
+    },
+    "LF-IPCMAX-IPC409": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "iPCMax IPC-409 — Compact Fanless Sensor Gateway"
+    },
+    "LF-IPCMAX-IPCP68": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "iPCMax IPC-P68 — Vision Gateway with PoE"
+    },
+    "LF-IPCMAX-CINCOZE-DA1200": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "e76e93583",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ],
+      "name": "Cincoze DA-1200 — Rugged Expandable Edge Computer"
+    },
+    "LF-DOCA-NETWORK": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "f82b0b5d9",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1942 from blogtheristo/feat/lifetime-positioning-research"
+        },
+        {
+          "state": "archived",
+          "commit": "160cb4ef9",
+          "date": "2026-09-15",
+          "subject": "feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ],
+      "name": "DOCA Network + Storage Services — OVS-DOCA + HBN + SNAP"
+    },
+    "LF-GOV-AIRGAP": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "f82b0b5d9",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1942 from blogtheristo/feat/lifetime-positioning-research"
+        },
+        {
+          "state": "archived",
+          "commit": "160cb4ef9",
+          "date": "2026-09-15",
+          "subject": "feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ],
+      "name": "Government Ready — Air-Gap Bundle (per release)"
+    },
+    "LF-IPC-409": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "f82b0b5d9",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1942 from blogtheristo/feat/lifetime-positioning-research"
+        },
+        {
+          "state": "archived",
+          "commit": "160cb4ef9",
+          "date": "2026-09-15",
+          "subject": "feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ],
+      "name": "iPCMax IPC-409 — Fanless DIN-Rail Gateway"
+    },
+    "LF-IPC-P68": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "f82b0b5d9",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1942 from blogtheristo/feat/lifetime-positioning-research"
+        },
+        {
+          "state": "archived",
+          "commit": "160cb4ef9",
+          "date": "2026-09-15",
+          "subject": "feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ],
+      "name": "iPCMax IPC-P68 — Rugged Edge Controller"
+    },
+    "LF-CINCOZE-DA1200": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "f82b0b5d9",
+          "date": "2026-08-30",
+          "subject": "Merge pull request #1942 from blogtheristo/feat/lifetime-positioning-research"
+        },
+        {
+          "state": "archived",
+          "commit": "160cb4ef9",
+          "date": "2026-09-15",
+          "subject": "feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ],
+      "name": "Cincoze DA-1200 — GPU-Accelerated Edge Controller"
+    },
+    "DWS-IQ-ESS-SUB-SELF": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "ee8629e29",
+          "date": "2026-09-04",
+          "subject": "Claude/noux sales rooms setup wu73bq (#1826)"
+        }
+      ],
+      "name": "DWS IQ Essentials — Self-Hosted"
+    },
+    "DWS-IQ-ESS-SUB-MANAGED": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "ee8629e29",
+          "date": "2026-09-04",
+          "subject": "Claude/noux sales rooms setup wu73bq (#1826)"
+        }
+      ],
+      "name": "DWS IQ Essentials — Managed"
+    },
+    "DWS-IQ-ESS-SETUP": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "ee8629e29",
+          "date": "2026-09-04",
+          "subject": "Claude/noux sales rooms setup wu73bq (#1826)"
+        }
+      ],
+      "name": "DWS IQ Essentials — Setup"
+    },
+    "KYA-JEV-001": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "edaf0a8b2",
+          "date": "2026-09-19",
+          "subject": "Merge pull request #2043 from blogtheristo/claude/agents-md-support-eyody6"
+        }
+      ],
+      "name": "kya-jev — KYA-Gated Typed Decisions (Early Access)"
+    },
+    "LIFETIME-WEB-STARTER": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "8dbdc7b52",
+          "date": "2026-09-20",
+          "subject": "Merge: A5 campaign flyer — final approved version"
+        }
+      ],
+      "name": "Website Starter — Modern Business Site"
+    },
+    "LIFETIME-WEBSTORE-MINI": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "8dbdc7b52",
+          "date": "2026-09-20",
+          "subject": "Merge: A5 campaign flyer — final approved version"
+        }
+      ],
+      "name": "Small Online Store with Price List"
+    },
+    "LF-ONTOLOGY-PILOT": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "f2c5f2f1f",
+          "date": "2026-09-24",
+          "subject": "Merge pull request #2094 from blogtheristo/claude/independent-ontology-page"
+        }
+      ],
+      "name": "Independent Ontology Pilot, one site"
+    },
+    "LIFETIME-IT-TUKI-10H": {
+      "events": [
+        {
+          "state": "published",
+          "commit": "2b5b08f75",
+          "date": "2026-09-25",
+          "subject": "feat(sme): IT-support hour bank as third SME campaign product"
+        }
+      ],
+      "name": "IT Support Hour Bank for SMEs — 10 h"
+    }
+  }
+}

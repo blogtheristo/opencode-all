@@ -3,6 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { buildRegistry, renderMarkdown } from './truth/product-registry.mjs';
+import { buildLifecycle, renderMarkdown as renderLifecycle } from './truth/product-lifecycle.mjs';
 
 const ROOT = resolve(process.cwd());
 const CATALOG_VERSION = '1.33';
@@ -495,6 +496,26 @@ console.log(`  Publication version: ${catalog.priceVersion || 'missing'}`);
     else if (!Array.isArray(prod.tags) || !prod.tags.includes('SME'))
       addError(`[${id}] SME campaign product lacks tag "SME"`);
   }
+}
+
+// Product lifecycle registry (DWS_TRUTH_STANDARD.md row 43): every ID ever in the catalogue,
+// planned, or with a public page has a lifecycle state and evidence; committed file is current.
+{
+  const readJson = (rel, fallback) => {
+    const f = resolve(ROOT, rel);
+    return existsSync(f) ? JSON.parse(readFileSync(f, 'utf8')) : fallback;
+  };
+  const life = buildLifecycle(
+    catalog,
+    readJson('config/truth/product-lifecycle-ledger.json', { decisions: [] }),
+    readJson('config/truth/product-id-history.json', null),
+  );
+  const lifePath = resolve(ROOT, 'docs/truth/PRODUCT_LIFECYCLE.md');
+  const current = existsSync(lifePath) ? readFileSync(lifePath, 'utf8') : '';
+  if (current !== renderLifecycle(life))
+    addError('Product lifecycle registry is stale: run node scripts/truth/product-lifecycle.mjs');
+  const noState = life.rows.filter((r) => !r.state).map((r) => r.id);
+  if (noState.length) addError(`Product lifecycle: IDs without state: ${noState.join(', ')}`);
 }
 
 if (errors.length) {

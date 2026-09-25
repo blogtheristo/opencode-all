@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.3 [Latest]
+Version: 1.4 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.3 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product groups (tags DWS IQ and Firehorse), themed colours, Supporting tag dropped.
+- Version: 1.4 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product lifecycle registry (TRUTH row 43).
+- Version: 1.3 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product groups (tags DWS IQ and Firehorse), themed colours, Supporting tag dropped.
 - Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: IT-support hour bank added as third SME campaign product; A5 flyers; lifetime.fi buy links fixed.
 - Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product registry (TRUTH row 42) and SME campaign section.
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Initial note — €750 "Kotisivut pk-yritykselle" archived, FI campaign caption, catalogue 1.33 (PR #2107); PR #2085 merge-conflict resolution recorded.
@@ -81,6 +82,22 @@ Document Status:
 
    - The "Supporting" badge is gone. Only Serious and Independent offers are badged.
    - The registry has a Group column and per-group counts. The validator checks that each group tag has a public product and is rendered.
+
+9. **Product lifecycle registry (HIC: "IDs has to be on truth registry with retired to future unpublished products … with decision evidence … own md and later supabase db").**
+   - `docs/truth/PRODUCT_LIFECYCLE.md` lists 183 IDs. The generator is `scripts/truth/product-lifecycle.mjs` (TRUTH row 43).
+     - 155 are in the catalogue.
+     - 18 were removed from the catalogue; the evidence comes from 93 first-parent commits.
+     - 10 are public product pages with no catalogue ID.
+   - Each ID has a state (planned, page-only, internal, published, archived, discontinued or removed) and its evidence:
+     - HIC decisions from the append-only ledger `config/truth/product-lifecycle-ledger.json`
+     - the git commits that changed its state
+     - archive and discontinue fields
+     - page files
+   - The ledger holds only the four HIC decisions of 25.09.2026. No planned product was invented; planned rows start when the HIC decides one.
+   - Drift found:
+     - Six removed IDs still have live public pages: cloud-ready-teams, expert-advisory, expert-services, LIFETIME-EXP-001, m365-consultancy and secure-email-proton.
+     - Ten pages have no catalogue ID, among them firehorse-mobile ("coming soon") and themis.
+   - Supabase is next. `config/truth/product-lifecycle.json` is already shaped as rows plus evidence (tables `product_lifecycle` and `product_lifecycle_evidence`). Applying the migration is a HIC step.
 
 ## The Insight
 

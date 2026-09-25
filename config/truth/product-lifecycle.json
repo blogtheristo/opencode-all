@@ -1,0 +1,2991 @@
+{
+  "summary": {
+    "catalogVersion": "1.33",
+    "gitScannedThrough": "15ef624e8",
+    "totalIds": 183,
+    "catalogueIds": 155,
+    "byState": {
+      "planned": 0,
+      "page-only": 10,
+      "internal": 65,
+      "published": 80,
+      "archived": 8,
+      "discontinued": 2,
+      "removed": 18
+    },
+    "withoutEvidence": 0,
+    "hicDecisions": 4
+  },
+  "rows": [
+    {
+      "id": "dws-iq5",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/dws-iq5.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/dws-iq5.html",
+          "text": "public page, no catalogue ID"
+        }
+      ]
+    },
+    {
+      "id": "energy-industry",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/energy-industry.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/energy-industry.html",
+          "text": "public page, no catalogue ID"
+        }
+      ]
+    },
+    {
+      "id": "firehorse-automation_RETIRED",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/firehorse-automation_RETIRED.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/firehorse-automation_RETIRED.html",
+          "text": "page file carries the _RETIRED suffix"
+        }
+      ]
+    },
+    {
+      "id": "firehorse-mobile",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/firehorse-mobile.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/firehorse-mobile.html",
+          "text": "public page, no catalogue ID"
+        }
+      ]
+    },
+    {
+      "id": "firehorse-signed-reports",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/firehorse-signed-reports.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/firehorse-signed-reports.html",
+          "text": "public page, no catalogue ID"
+        }
+      ]
+    },
+    {
+      "id": "firehorse-starter-v2",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/firehorse-starter-v2.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/firehorse-starter-v2.html",
+          "text": "public page, no catalogue ID"
+        }
+      ]
+    },
+    {
+      "id": "firehorse-subscription",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/firehorse-subscription.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/firehorse-subscription.html",
+          "text": "public page, no catalogue ID"
+        }
+      ]
+    },
+    {
+      "id": "lifetime-vip-ai-services_RETIRED",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/lifetime-vip-ai-services_RETIRED.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/lifetime-vip-ai-services_RETIRED.html",
+          "text": "page file carries the _RETIRED suffix"
+        }
+      ]
+    },
+    {
+      "id": "PRODUCT-THEMIS",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/PRODUCT-THEMIS.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/PRODUCT-THEMIS.html",
+          "text": "public page, no catalogue ID"
+        }
+      ]
+    },
+    {
+      "id": "themis",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/themis.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/themis.html",
+          "text": "public page, no catalogue ID"
+        }
+      ]
+    },
+    {
+      "id": "AC365-T3",
+      "name": "Agentic Commerce 365 Skilled Agents",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "CMP-OC-ENT",
+      "name": "Outcome — CSRD/CBAM/AI Act gap (Enterprise)",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "CMP-OC-STD",
+      "name": "Outcome — CSRD/CBAM/AI Act gap (Standard)",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "CMP-T0",
+      "name": "Compliance Agent — Pilot (60 days)",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "CMP-T1",
+      "name": "Compliance Agent — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "CMP-T2",
+      "name": "Compliance Agent — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "CONSTR-T2",
+      "name": "Construction Agent — Pro (bundle)",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "CONSTR-T3",
+      "name": "Construction Ops Pod",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "CS-T1",
+      "name": "Competitor Surveillance — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "CS-T2",
+      "name": "Competitor Surveillance — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "CSAT-T1",
+      "name": "Customer Sat — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "CSAT-T2",
+      "name": "Customer Sat — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "DW-T1",
+      "name": "Deepwiki Extractor — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "DW-T2",
+      "name": "Deepwiki Extractor — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "DWS365-CMP-T3",
+      "name": "DWS 365 Compliance Agents",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "ED-T1",
+      "name": "Emissions Data — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "ED-T2",
+      "name": "Emissions Data — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "ESG-T3",
+      "name": "ESG Function-as-a-Service",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "FH-SKILL-T3",
+      "name": "Firehorse Skilled Agents",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "GTM-T3",
+      "name": "Go-to-Market Pod",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "HSE-T3",
+      "name": "HSE Function-as-a-Service",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "IND-BESS",
+      "name": "BESS — Battery storage industry pod",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "IND-CERES",
+      "name": "Ceres — Agri / Circular industry pod",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "IND-GAIA",
+      "name": "Gaia — Cement industry pod",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "IND-HELIOS",
+      "name": "Helios — Energy industry pod",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "IND-MARS",
+      "name": "Mars — Construction industry pod",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "IND-NEPTUN",
+      "name": "Neptune — Maritime industry pod",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "IND-PROM",
+      "name": "Prometheus — Hydrogen industry pod",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "IND-TALOS",
+      "name": "Talos — Aluminium industry pod",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "IND-VULCAN",
+      "name": "Vulcan — Steel industry pod",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "LAND-AIL",
+      "name": "AI Literacy Bridge",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "LAND-CSRD",
+      "name": "CSRD Reporting Accelerator",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "LAND-EUAI",
+      "name": "EU AI Act Compliance Sprint",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "LAND-GTM",
+      "name": "Go-to-Market Sprint",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "LAND-HSE",
+      "name": "Site Safety Bootcamp",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "LAND-LCA",
+      "name": "Carbon Reporting Sprint",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "LAND-OPS",
+      "name": "Construction Ops Pilot",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "LAND-SOV",
+      "name": "Sovereignty & NIS2 Sprint",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "LAND-WF",
+      "name": "Full Workforce Onboarding",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "LF-T1",
+      "name": "Lead Feedback — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "LF-T2",
+      "name": "Lead Feedback — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "LOG-T1",
+      "name": "Logistics — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "LOG-T2",
+      "name": "Logistics — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "MO-OC-ENT",
+      "name": "Outcome — LCA report (Enterprise)",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "MO-OC-STD",
+      "name": "Outcome — LCA report (Standard)",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "MO-T0",
+      "name": "Material Oracle — Pilot (60 days, 1 project)",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "MO-T1",
+      "name": "Material Oracle — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "MO-T2",
+      "name": "Material Oracle — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "QG-T1",
+      "name": "Quality Gate — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "QG-T2",
+      "name": "Quality Gate — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "SEO-T1",
+      "name": "SEO Audit — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "SEO-T2",
+      "name": "SEO Audit — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "SG-T1",
+      "name": "Schedule Genius — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "SG-T2",
+      "name": "Schedule Genius — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "SOV-T1",
+      "name": "Sovereignty Monitor — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "SOV-T2",
+      "name": "Sovereignty Monitor — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "SOV-T3",
+      "name": "Sovereignty & Compliance Pack",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "SS-OC-ENT",
+      "name": "Outcome — Site safety assessment (Enterprise)",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "SS-OC-STD",
+      "name": "Outcome — Site safety assessment (Standard)",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "SS-T0",
+      "name": "SiteSense — Pilot (30 days, 1 site)",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "SS-T1",
+      "name": "SiteSense — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "SS-T2",
+      "name": "SiteSense — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "VIA-T1",
+      "name": "Viability — Starter",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "VIA-T2",
+      "name": "Viability — Pro",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "WF-T4",
+      "name": "Full Skilled Workforce",
+      "state": "internal",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        }
+      ]
+    },
+    {
+      "id": "ai-agent-engineering",
+      "name": "AI & Agent Engineering — Outcome-Backed Hourly",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "ai-consultant-day",
+      "name": "Captain Day — One-Day AI Outcome",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "ai-consulting-agentic",
+      "name": "Agentic Software Development for EU Teams",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-02-06",
+          "ref": "ec93cb52a",
+          "text": "published: Merge pull request #376 from blogtheristo/claude/add-ai-consulting-guidance-pDsPu"
+        }
+      ]
+    },
+    {
+      "id": "ai-koulutus-3d",
+      "name": "AI Koulutus 3 Days Programme",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-04-17",
+          "ref": "818d921c1",
+          "text": "archived: Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-06",
+          "ref": "120be5329",
+          "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ]
+    },
+    {
+      "id": "AIS-EU-SOV-OC",
+      "name": "EU-Sovereign AI Migration — Per Workload",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-06-16",
+          "ref": "fe39be381",
+          "text": "published: Merge branch 'main' of https://github.com/blogtheristo/dws6"
+        }
+      ]
+    },
+    {
+      "id": "AIS-OUTCOME-PILOT",
+      "name": "Outcome-Priced Applied-AI Pilot (6 weeks)",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-06-16",
+          "ref": "fe39be381",
+          "text": "published: Merge branch 'main' of https://github.com/blogtheristo/dws6"
+        }
+      ]
+    },
+    {
+      "id": "aws-consultancy",
+      "name": "EU-Sovereign AI Engineering & Cloud Consultancy",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "business-mentor-30",
+      "name": "Claude Code AI Coaching — 30 Hours",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "claude-code-coaching-3day",
+      "name": "Claude Code Coaching — Lecture + Workshop (3 Days)",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-06-25",
+          "ref": "ef79ba37a",
+          "text": "published: Merge pull request #1499 from blogtheristo/claude/code-coaching-curriculum-0g3bpp"
+        }
+      ]
+    },
+    {
+      "id": "claude-code-coaching-lecture",
+      "name": "Claude Code Coaching — 1-Day Lecture",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-06-25",
+          "ref": "ef79ba37a",
+          "text": "published: Merge pull request #1499 from blogtheristo/claude/code-coaching-curriculum-0g3bpp"
+        }
+      ]
+    },
+    {
+      "id": "claude-code-coaching-project",
+      "name": "Claude Code Coaching — Client Project Work",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-06-25",
+          "ref": "ef79ba37a",
+          "text": "published: Merge pull request #1499 from blogtheristo/claude/code-coaching-curriculum-0g3bpp"
+        }
+      ]
+    },
+    {
+      "id": "claude-code-coaching-workshop",
+      "name": "Claude Code Coaching — 2-Day Workshop",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-06-25",
+          "ref": "ef79ba37a",
+          "text": "published: Merge pull request #1499 from blogtheristo/claude/code-coaching-curriculum-0g3bpp"
+        }
+      ]
+    },
+    {
+      "id": "consulting-fit55",
+      "name": "Consulting Fit for 55 Specialist",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-09",
+          "ref": "d095d7ba3",
+          "text": "published: Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        }
+      ]
+    },
+    {
+      "id": "consulting-hourly",
+      "name": "Senior Compliance Specialist — Retainer + Outcomes",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-09",
+          "ref": "d095d7ba3",
+          "text": "published: Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        }
+      ]
+    },
+    {
+      "id": "conversational-agent",
+      "name": "EU-Hosted Conversational Agent",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-04-17",
+          "ref": "818d921c1",
+          "text": "archived: Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-06",
+          "ref": "120be5329",
+          "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ]
+    },
+    {
+      "id": "devops-lead",
+      "name": "Assessment",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-04-17",
+          "ref": "818d921c1",
+          "text": "archived: Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-06",
+          "ref": "120be5329",
+          "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ]
+    },
+    {
+      "id": "DWS-AEGIS-001",
+      "name": "DWS IQ Aegis",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-03-25",
+          "ref": "61912ff2f",
+          "text": "published: Merge pull request #895 from blogtheristo/claude/add-define-application-guide-gS1du"
+        }
+      ]
+    },
+    {
+      "id": "DWS-AEGIS-IMPL-001",
+      "name": "DWS IQ Aegis Implementation Programme (3 phases)",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-07-31",
+          "ref": "0a2b9c96c",
+          "text": "published: merge: enterprise AI harness — Aegis pilot re-spec, Learning Standard step 6, local-model drift fix"
+        }
+      ]
+    },
+    {
+      "id": "DWS-AEGIS-PILOT-001",
+      "name": "DWS IQ Aegis Pilot (3 months)",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-07-31",
+          "ref": "0a2b9c96c",
+          "text": "published: merge: enterprise AI harness — Aegis pilot re-spec, Learning Standard step 6, local-model drift fix"
+        }
+      ]
+    },
+    {
+      "id": "DWS-CLIMATE-001",
+      "name": "DWS IQ Climate Intelligence",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-03-25",
+          "ref": "61912ff2f",
+          "text": "published: Merge pull request #895 from blogtheristo/claude/add-define-application-guide-gS1du"
+        }
+      ]
+    },
+    {
+      "id": "DWS-EU-PILOT",
+      "name": "DWS IQ — EU Sovereign Pilot",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-03-22",
+          "ref": "3566101af",
+          "text": "published: Merge pull request #865 from blogtheristo/claude/pricing-us-cloud-starter-cIxHZ"
+        }
+      ]
+    },
+    {
+      "id": "DWS-EU-STARTER",
+      "name": "DWS IQ — EU Sovereign Starter",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-03-22",
+          "ref": "3566101af",
+          "text": "published: Merge pull request #865 from blogtheristo/claude/pricing-us-cloud-starter-cIxHZ"
+        }
+      ]
+    },
+    {
+      "id": "DWS-IQ-006",
+      "name": "Lifetime DWS IQ Platform (Version 6)",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "DWS-IQ-ESS-SETUP",
+      "name": "DWS IQ Essentials — Setup",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-09-04",
+          "ref": "ee8629e29",
+          "text": "published: Claude/noux sales rooms setup wu73bq (#1826)"
+        }
+      ]
+    },
+    {
+      "id": "DWS-IQ-ESS-SUB-MANAGED",
+      "name": "DWS IQ Essentials — Managed",
+      "state": "published",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-09-04",
+          "ref": "ee8629e29",
+          "text": "published: Claude/noux sales rooms setup wu73bq (#1826)"
+        }
+      ]
+    },
+    {
+      "id": "DWS-IQ-ESS-SUB-SELF",
+      "name": "DWS IQ Essentials — Self-Hosted",
+      "state": "published",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-09-04",
+          "ref": "ee8629e29",
+          "text": "published: Claude/noux sales rooms setup wu73bq (#1826)"
+        }
+      ]
+    },
+    {
+      "id": "DWS-IQ-FREE-2026",
+      "name": "DWS IQ Free — 1 project, CSRD-ready",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-07-06",
+          "ref": "c104591d7",
+          "text": "published: Improve sales strategy (#1607)"
+        }
+      ]
+    },
+    {
+      "id": "DWS-IQ-SUB-001",
+      "name": "DWS IQ Monthly Subscription",
+      "state": "published",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-10",
+          "ref": "b8bb0f615",
+          "text": "published: Merge pull request #1269 from blogtheristo/claude/dynamic-deployment-pricing-LExxQ"
+        }
+      ]
+    },
+    {
+      "id": "DWS-SOVEREIGN-DB-001",
+      "name": "Sovereign Database — EU Data Sovereignty for PostgreSQL",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-03-13",
+          "ref": "dc6da1608",
+          "text": "published: Merge pull request #777 from blogtheristo/claude/sovereignty-assessment-cli-tnUyf"
+        }
+      ]
+    },
+    {
+      "id": "DWS-US-PILOT",
+      "name": "DWS IQ — US Cloud Pilot",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-03-22",
+          "ref": "3566101af",
+          "text": "published: Merge pull request #865 from blogtheristo/claude/pricing-us-cloud-starter-cIxHZ"
+        }
+      ]
+    },
+    {
+      "id": "DWS-US-STARTER",
+      "name": "DWS IQ — US Cloud Starter",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-03-22",
+          "ref": "3566101af",
+          "text": "published: Merge pull request #865 from blogtheristo/claude/pricing-us-cloud-starter-cIxHZ"
+        }
+      ]
+    },
+    {
+      "id": "edge-node-gn100",
+      "name": "Control Room — Acer Veriton GN100",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-03-04",
+          "ref": "e41b5a0ac",
+          "text": "published: Merge branch 'main' of https://github.com/blogtheristo/dws6"
+        }
+      ]
+    },
+    {
+      "id": "FH-AUTO-001",
+      "name": "Firehorse Amplify",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "FH-CMS-001",
+      "name": "Firehorse Content Management",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "FH-OMNI-001",
+      "name": "Firehorse Omnichannel Next",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "FH-RPT-001",
+      "name": "DWS IQ Report",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "FH-SIGN-001",
+      "name": "Firehorse Signed Reports",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-03-21",
+          "ref": "995900866",
+          "text": "published: Merge pull request #860 from blogtheristo/claude/verify-nda-signatures-rdgOj"
+        }
+      ]
+    },
+    {
+      "id": "FH-SUB-001",
+      "name": "Firehorse Monthly Subscription",
+      "state": "published",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-10",
+          "ref": "b8bb0f615",
+          "text": "published: Merge pull request #1269 from blogtheristo/claude/dynamic-deployment-pricing-LExxQ"
+        }
+      ]
+    },
+    {
+      "id": "firehorse-coach",
+      "name": "EU AI Act Literacy Training",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "firehorse-data-services",
+      "name": "Firehorse Data Services",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "firehorse-flow",
+      "name": "AI Customer Agent",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-04-17",
+          "ref": "818d921c1",
+          "text": "archived: Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-06",
+          "ref": "120be5329",
+          "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ]
+    },
+    {
+      "id": "KYA-JEV-001",
+      "name": "kya-jev — KYA-Gated Typed Decisions (Early Access)",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-09-19",
+          "ref": "edaf0a8b2",
+          "text": "published: Merge pull request #2043 from blogtheristo/claude/agents-md-support-eyody6"
+        }
+      ]
+    },
+    {
+      "id": "lean-project",
+      "name": "EU AI Project Accelerator (Fixed Price)",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-04-17",
+          "ref": "818d921c1",
+          "text": "archived: Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-06",
+          "ref": "120be5329",
+          "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ]
+    },
+    {
+      "id": "LF-COMPLIANCE-AMBULANCE-001",
+      "name": "DWS IQ Compliance Ambulance — Mobile Office (NVIDIA Thor Edge)",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-07-06",
+          "ref": "afbe962d3",
+          "text": "published: Careers lifetime links (#1577)"
+        }
+      ]
+    },
+    {
+      "id": "LF-DGX-SPARK",
+      "name": "DGX Spark — NVIDIA-Branded Sovereign Edge AI",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-17",
+          "ref": "63a58e9ab",
+          "text": "published: Merge pull request #1343 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ]
+    },
+    {
+      "id": "LF-DOCA-ESSENTIAL",
+      "name": "DOCA Microservices — Essential Package",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-DOCA-NETWORK-STORAGE",
+      "name": "DOCA Microservices — Networking & Storage Acceleration Package",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-DOCA-SECURITY",
+      "name": "DOCA Microservices — Security & Compliance Package",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-FIPS-VALIDATION",
+      "name": "FIPS 140-3 Validation Service",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-GOV-AIRGAP-BUNDLE",
+      "name": "Air-Gapped Gov Ready Image Bundle",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-GOV-READY-ANNUAL",
+      "name": "Government Ready Annual Maintenance",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-GOV-READY-SETUP",
+      "name": "Government Ready Cluster Setup",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-IGX-ORIN",
+      "name": "IGX Orin — Industrial / Medical Sovereign Edge AI",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-17",
+          "ref": "63a58e9ab",
+          "text": "published: Merge pull request #1343 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ]
+    },
+    {
+      "id": "LF-IPCMAX-CINCOZE-DA1200",
+      "name": "Cincoze DA-1200 — Rugged Expandable Edge Computer",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-IPCMAX-IPC409",
+      "name": "iPCMax IPC-409 — Compact Fanless Sensor Gateway",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-IPCMAX-IPCP68",
+      "name": "iPCMax IPC-P68 — Vision Gateway with PoE",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-JETSON-AGX",
+      "name": "Jetson Sensor Concentrator — AGX Orin 64GB + Install & Service",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-17",
+          "ref": "70dbf087e",
+          "text": "published: Merge pull request #1342 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ]
+    },
+    {
+      "id": "LF-JETSON-NANO",
+      "name": "Jetson Sensor Node — Orin Nano Super + Install & Service",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-17",
+          "ref": "70dbf087e",
+          "text": "published: Merge pull request #1342 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ]
+    },
+    {
+      "id": "LF-JETSON-NX",
+      "name": "Jetson Sensor Mid — Orin NX 16 GB + Install & Service",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-17",
+          "ref": "63a58e9ab",
+          "text": "published: Merge pull request #1343 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ]
+    },
+    {
+      "id": "LF-K8S-T1",
+      "name": "Kubernetes Orchestration — Single-Node k3s (Tier 1)",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-K8S-T2",
+      "name": "Kubernetes Orchestration — HA Cluster k3s (Tier 2)",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-K8S-T3",
+      "name": "Kubernetes Orchestration — Gov Ready RKE2 (Tier 3)",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-K8S-T4",
+      "name": "Kubernetes Orchestration — Full Infra Stack (Tier 4)",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-NIM-BIOLOGY",
+      "name": "NIM Microservices — Biology & Genomics Profile",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-NIM-CODE",
+      "name": "NIM Microservices — Code Generation Profile",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-NIM-RETRIEVAL",
+      "name": "NIM Microservices — Retrieval & Embedding Profile",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-NIM-STARTER",
+      "name": "NIM Microservices — Starter Profile",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "e76e93583",
+          "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
+        }
+      ]
+    },
+    {
+      "id": "LF-NVIDIA-INSTALL",
+      "name": "NVIDIA Model Installation + Full Service",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-17",
+          "ref": "c8eb7e873",
+          "text": "published: Merge pull request #1339 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ]
+    },
+    {
+      "id": "LF-ONTOLOGY-25",
+      "name": "European Industry Ontology, 25 industries",
+      "state": "published",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-06-22",
+          "ref": "c73fdd870",
+          "text": "published: feat: Sovereign Industrial Intelligence pivot — LWM Ontology V1, whitepaper, Outokumpu case, Architecture of Command (#1481)"
+        }
+      ]
+    },
+    {
+      "id": "LF-ONTOLOGY-PILOT",
+      "name": "Independent Ontology Pilot, one site",
+      "state": "published",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-09-24",
+          "ref": "f2c5f2f1f",
+          "text": "published: Merge pull request #2094 from blogtheristo/claude/independent-ontology-page"
+        }
+      ]
+    },
+    {
+      "id": "LF-SITROOM-001",
+      "name": "Situation Room — Two Sovereign AI Nodes",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-17",
+          "ref": "c8eb7e873",
+          "text": "published: Merge pull request #1339 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ]
+    },
+    {
+      "id": "LF-SOV-MODEL-SUB",
+      "name": "Sovereign Model Updates Subscription",
+      "state": "published",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-05-17",
+          "ref": "c8eb7e873",
+          "text": "published: Merge pull request #1339 from blogtheristo/claude/add-hardware-products-MY7X7"
+        }
+      ]
+    },
+    {
+      "id": "LF-TRAIN-IND",
+      "name": "Ontology Implementation and Organisation (site configuration)",
+      "state": "published",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-06-22",
+          "ref": "c73fdd870",
+          "text": "published: feat: Sovereign Industrial Intelligence pivot — LWM Ontology V1, whitepaper, Outokumpu case, Architecture of Command (#1481)"
+        }
+      ]
+    },
+    {
+      "id": "LIFETIME-BUNDLE-2026",
+      "name": "Climate Reporting Starter Bundle",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "LIFETIME-IT-TUKI-10H",
+      "name": "IT Support Hour Bank for SMEs — 10 h",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-09-25",
+          "ref": "2b5b08f75",
+          "text": "published: feat(sme): IT-support hour bank as third SME campaign product"
+        },
+        {
+          "kind": "decision",
+          "date": "2026-09-25",
+          "ref": "PR #2107",
+          "text": "published — HIC (Risto Anton Päärni): Tuntipankki on 3. Tuote sisältäen; tietokoneiden uusiminen, ohjelmistojen päivitykset, yrityssovellutukset, tietoturva, koulutus. Lisää se sivulle 3. A5 kampanjaan ja liitä. Tag SMEs."
+        }
+      ]
+    },
+    {
+      "id": "LIFETIME-WEB-STARTER",
+      "name": "Website Starter — Modern Business Site",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-09-20",
+          "ref": "8dbdc7b52",
+          "text": "published: Merge: A5 campaign flyer — final approved version"
+        },
+        {
+          "kind": "decision",
+          "date": "2026-09-25",
+          "ref": "PR #2107",
+          "text": "published — HIC (Risto Anton Päärni): Create product tag SMEs should have campaign products. Keep them own section on price-list"
+        }
+      ]
+    },
+    {
+      "id": "LIFETIME-WEBSTORE-MINI",
+      "name": "Small Online Store with Price List",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-09-20",
+          "ref": "8dbdc7b52",
+          "text": "published: Merge: A5 campaign flyer — final approved version"
+        },
+        {
+          "kind": "decision",
+          "date": "2026-09-25",
+          "ref": "PR #2107",
+          "text": "published — HIC (Risto Anton Päärni): Create product tag SMEs should have campaign products. Keep them own section on price-list"
+        }
+      ]
+    },
+    {
+      "id": "LWM-ONT-SOVEREIGN",
+      "name": "European Industry Ontology — Sovereign on-prem pack",
+      "state": "published",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-06-22",
+          "ref": "c73fdd870",
+          "text": "published: feat: Sovereign Industrial Intelligence pivot — LWM Ontology V1, whitepaper, Outokumpu case, Architecture of Command (#1481)"
+        }
+      ]
+    },
+    {
+      "id": "omnichannel-multimodal",
+      "name": "Firehorse Omnichannel & Multimodal AI Assistant",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-04-16",
+          "ref": "1bd048430",
+          "text": "removed: Claude/plan product scope h6 ym i (#1063)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-06",
+          "ref": "120be5329",
+          "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ]
+    },
+    {
+      "id": "sovereignty-cloud-consulting",
+      "name": "Sovereignty Cloud Consulting – European Cloud Migration",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-02-06",
+          "ref": "ec93cb52a",
+          "text": "published: Merge pull request #376 from blogtheristo/claude/add-ai-consulting-guidance-pDsPu"
+        }
+      ]
+    },
+    {
+      "id": "LF-CINCOZE-DA1200",
+      "name": "Cincoze DA-1200 — GPU-Accelerated Edge Controller",
+      "state": "archived",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "catalogue",
+          "date": "",
+          "ref": "dws10.com/config/products.json",
+          "text": "archivedReason: Duplicate of LF-IPCMAX-CINCOZE-DA1200. One public Cincoze DA-1200 offer."
+        },
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "f82b0b5d9",
+          "text": "published: Merge pull request #1942 from blogtheristo/feat/lifetime-positioning-research"
+        },
+        {
+          "kind": "git",
+          "date": "2026-09-15",
+          "ref": "160cb4ef9",
+          "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ]
+    },
+    {
+      "id": "LF-DOCA-NETWORK",
+      "name": "DOCA Network + Storage Services — OVS-DOCA + HBN + SNAP",
+      "state": "archived",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "catalogue",
+          "date": "",
+          "ref": "dws10.com/config/products.json",
+          "text": "archivedReason: Duplicate of LF-DOCA-NETWORK-STORAGE. One public DOCA network/storage offer."
+        },
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "f82b0b5d9",
+          "text": "published: Merge pull request #1942 from blogtheristo/feat/lifetime-positioning-research"
+        },
+        {
+          "kind": "git",
+          "date": "2026-09-15",
+          "ref": "160cb4ef9",
+          "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ]
+    },
+    {
+      "id": "LF-GOV-AIRGAP",
+      "name": "Government Ready — Air-Gap Bundle (per release)",
+      "state": "archived",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "catalogue",
+          "date": "",
+          "ref": "dws10.com/config/products.json",
+          "text": "archivedReason: Duplicate of LF-GOV-AIRGAP-BUNDLE. One public air-gap offer."
+        },
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "f82b0b5d9",
+          "text": "published: Merge pull request #1942 from blogtheristo/feat/lifetime-positioning-research"
+        },
+        {
+          "kind": "git",
+          "date": "2026-09-15",
+          "ref": "160cb4ef9",
+          "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ]
+    },
+    {
+      "id": "LF-IPC-409",
+      "name": "iPCMax IPC-409 — Fanless DIN-Rail Gateway",
+      "state": "archived",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "catalogue",
+          "date": "",
+          "ref": "dws10.com/config/products.json",
+          "text": "archivedReason: Duplicate of LF-IPCMAX-IPC409. One public IPC-409 offer."
+        },
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "f82b0b5d9",
+          "text": "published: Merge pull request #1942 from blogtheristo/feat/lifetime-positioning-research"
+        },
+        {
+          "kind": "git",
+          "date": "2026-09-15",
+          "ref": "160cb4ef9",
+          "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ]
+    },
+    {
+      "id": "LF-IPC-P68",
+      "name": "iPCMax IPC-P68 — Rugged Edge Controller",
+      "state": "archived",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "catalogue",
+          "date": "",
+          "ref": "dws10.com/config/products.json",
+          "text": "archivedReason: Duplicate of LF-IPCMAX-IPCP68. One public IPC-P68 offer."
+        },
+        {
+          "kind": "git",
+          "date": "2026-08-30",
+          "ref": "f82b0b5d9",
+          "text": "published: Merge pull request #1942 from blogtheristo/feat/lifetime-positioning-research"
+        },
+        {
+          "kind": "git",
+          "date": "2026-09-15",
+          "ref": "160cb4ef9",
+          "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ]
+    },
+    {
+      "id": "LWM-ONT-IND",
+      "name": "LWM Industry Ontology — Single Vertical",
+      "state": "archived",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "catalogue",
+          "date": "",
+          "ref": "dws10.com/config/products.json",
+          "text": "archivedReason: Public list uses LF-ONTOLOGY-25 as the independent 25-industry annual licence. Single-vertical quotes remain via sales."
+        },
+        {
+          "kind": "git",
+          "date": "2026-06-22",
+          "ref": "c73fdd870",
+          "text": "published: feat: Sovereign Industrial Intelligence pivot — LWM Ontology V1, whitepaper, Outokumpu case, Architecture of Command (#1481)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-09-15",
+          "ref": "160cb4ef9",
+          "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ]
+    },
+    {
+      "id": "LWM-ONT-SUITE",
+      "name": "LWM Ontology Suite — All 25 Industries",
+      "state": "archived",
+      "stateSource": "catalogue subscriptions",
+      "evidence": [
+        {
+          "kind": "catalogue",
+          "date": "",
+          "ref": "dws10.com/config/products.json",
+          "text": "archivedReason: Public list uses LF-ONTOLOGY-25 as the independent 25-industry annual licence. On-prem pack remains LWM-ONT-SOVEREIGN."
+        },
+        {
+          "kind": "git",
+          "date": "2026-06-22",
+          "ref": "c73fdd870",
+          "text": "published: feat: Sovereign Industrial Intelligence pivot — LWM Ontology V1, whitepaper, Outokumpu case, Architecture of Command (#1481)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-09-15",
+          "ref": "160cb4ef9",
+          "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
+        }
+      ]
+    },
+    {
+      "id": "professional-web-pages",
+      "name": "Kotisivut pk-yritykselle",
+      "state": "archived",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "catalogue",
+          "date": "2026-09-25",
+          "ref": "dws10.com/config/products.json",
+          "text": "archivedDate 2026-09-25; archivedReason: Superseded by LIFETIME-WEB-STARTER: A5 campaign price €650 (VAT 0 %), suggested retail price €1,084 (HIC 25.09.2026). The €750 package price is retired.; supersededBy LIFETIME-WEB-STARTER"
+        },
+        {
+          "kind": "git",
+          "date": "2026-09-25",
+          "ref": "bb2226422",
+          "text": "archived: fix(dws10): price list 1.33 — retire old €750 web package; FI campaign caption"
+        },
+        {
+          "kind": "decision",
+          "date": "2026-09-25",
+          "ref": "PR #2107",
+          "text": "archived — HIC (Risto Anton Päärni): On price list has old price 750€. Now we have ohjevähittäishinta and campaign price 650€ alv 0"
+        }
+      ]
+    },
+    {
+      "id": "LAND-THEMIS",
+      "name": "Themis Coordinator Workshop",
+      "state": "discontinued",
+      "stateSource": "catalogue discontinuedProducts",
+      "evidence": [
+        {
+          "kind": "catalogue",
+          "date": "",
+          "ref": "dws10.com/config/products.json",
+          "text": "discontinuedReason: Themis is the internal control-plane engine, not a customer-facing brand. Customers buy DWS IQ Essentials / Pro / Enterprise. HIC decision 30.08.2026; source: docs/field-notes/2026-08-30-dws-iq-essentials-positioning.md"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-09-04",
+          "ref": "ee8629e29",
+          "text": "discontinued: Claude/noux sales rooms setup wu73bq (#1826)"
+        }
+      ]
+    },
+    {
+      "id": "TH-T2",
+      "name": "Themis Coordinator — Pro",
+      "state": "discontinued",
+      "stateSource": "catalogue discontinuedProducts",
+      "evidence": [
+        {
+          "kind": "catalogue",
+          "date": "",
+          "ref": "dws10.com/config/products.json",
+          "text": "discontinuedReason: Themis is the internal control-plane engine, not a customer-facing brand. Customers buy DWS IQ Essentials / Pro / Enterprise. HIC decision 30.08.2026; source: docs/field-notes/2026-08-30-dws-iq-essentials-positioning.md"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-14",
+          "ref": "e75b66204",
+          "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-09-04",
+          "ref": "ee8629e29",
+          "text": "discontinued: Claude/noux sales rooms setup wu73bq (#1826)"
+        }
+      ]
+    },
+    {
+      "id": "agentti-sanasto",
+      "name": "Agentti Sanasto Englanti-Suomi",
+      "state": "removed",
+      "stateSource": "git af873b4c8",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/agentti-sanasto_RETIRED.html",
+          "text": "page file carries the _RETIRED suffix"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-04-04",
+          "ref": "ed84f40d8",
+          "text": "removed: Merge pull request #968 from blogtheristo/claude/improve-supermarket-messaging-9KoZV"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-06",
+          "ref": "120be5329",
+          "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        },
+        {
+          "kind": "git",
+          "date": "2026-07-04",
+          "ref": "af873b4c8",
+          "text": "removed: Merge pull request #1546 from blogtheristo/claude/sanasto-cybersecurity-terms-az3tby"
+        }
+      ]
+    },
+    {
+      "id": "climate-bundle",
+      "name": "Climate Reporting Bundle",
+      "state": "removed",
+      "stateSource": "git d0335d10a",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-09",
+          "ref": "d095d7ba3",
+          "text": "published: Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "removed: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "cloud-ready-teams",
+      "name": "EU On-Demand AI & Cloud Engineers (Sovereign)",
+      "state": "removed",
+      "stateSource": "git 9fdcc10e4",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/cloud-ready-teams.html",
+          "text": "public page still live although the ID left the catalogue (drift)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-08-05",
+          "ref": "9fdcc10e4",
+          "text": "removed: Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
+        }
+      ]
+    },
+    {
+      "id": "digital-design-gold",
+      "name": "Digital Design Gold",
+      "state": "removed",
+      "stateSource": "git 9fdcc10e4",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/digital-design-gold_RETIRED.html",
+          "text": "page file carries the _RETIRED suffix"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-08-05",
+          "ref": "9fdcc10e4",
+          "text": "removed: Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
+        }
+      ]
+    },
+    {
+      "id": "DWS-IQ-005",
+      "name": "Lifetime DWS IQ Platform (Version 5)",
+      "state": "removed",
+      "stateSource": "git 4b4d53223",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-02-07",
+          "ref": "4b4d53223",
+          "text": "removed: Merge pull request #390 from blogtheristo/claude/fix-product-prices-btcOs"
+        }
+      ]
+    },
+    {
+      "id": "DWS-THEMIS-001",
+      "name": "DWS IQ Themis — The Aegis Control Plane",
+      "state": "removed",
+      "stateSource": "git 120be5329",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-04-28",
+          "ref": "095ef3fa1",
+          "text": "published: fix: restore iron-clad nav + price list, sweep 74 unresolved merge conflicts (#1215)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-06",
+          "ref": "120be5329",
+          "text": "removed: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ]
+    },
+    {
+      "id": "dwsiq-v6",
+      "name": "DWS IQ Platform v6",
+      "state": "removed",
+      "stateSource": "git d0335d10a",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-09",
+          "ref": "d095d7ba3",
+          "text": "published: Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "removed: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "expert-advisory",
+      "name": "Expert Advisory & Implementation",
+      "state": "removed",
+      "stateSource": "git d0335d10a",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/expert-advisory.html",
+          "text": "public page still live although the ID left the catalogue (drift)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-09",
+          "ref": "d095d7ba3",
+          "text": "published: Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "removed: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "expert-services",
+      "name": "Workshop 3 Days - Expert Advisory & Implementation _OLD",
+      "state": "removed",
+      "stateSource": "git fe39be381",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/expert-services.html",
+          "text": "public page still live although the ID left the catalogue (drift)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-09",
+          "ref": "d095d7ba3",
+          "text": "published: Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-10",
+          "ref": "b8bb0f615",
+          "text": "archived: Merge pull request #1269 from blogtheristo/claude/dynamic-deployment-pricing-LExxQ"
+        },
+        {
+          "kind": "git",
+          "date": "2026-06-16",
+          "ref": "fe39be381",
+          "text": "removed: Merge branch 'main' of https://github.com/blogtheristo/dws6"
+        }
+      ]
+    },
+    {
+      "id": "FH-FPE-001",
+      "name": "Firehorse FPE Continuity Pack — Construction Edition",
+      "state": "removed",
+      "stateSource": "git 120be5329",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-04-28",
+          "ref": "095ef3fa1",
+          "text": "published: fix: restore iron-clad nav + price list, sweep 74 unresolved merge conflicts (#1215)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-06",
+          "ref": "120be5329",
+          "text": "removed: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        }
+      ]
+    },
+    {
+      "id": "firehorse-auto",
+      "name": "Firehorse Automation",
+      "state": "removed",
+      "stateSource": "git d0335d10a",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-09",
+          "ref": "d095d7ba3",
+          "text": "published: Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "removed: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "firehorse-omni",
+      "name": "Firehorse Omnichannel Next",
+      "state": "removed",
+      "stateSource": "git d0335d10a",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-09",
+          "ref": "d095d7ba3",
+          "text": "published: Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "removed: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "firehorse-report",
+      "name": "Firehorse Report - Fit for 55 Template & Dashboard",
+      "state": "removed",
+      "stateSource": "git d0335d10a",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-09",
+          "ref": "d095d7ba3",
+          "text": "published: Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "removed: Merge pull request #294 from blogtheristo/frosty-jennings"
+        }
+      ]
+    },
+    {
+      "id": "FLEET-VIP-001",
+      "name": "Lifetime VIP AI Services",
+      "state": "removed",
+      "stateSource": "git 9fdcc10e4",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-06-16",
+          "ref": "fe39be381",
+          "text": "published: Merge branch 'main' of https://github.com/blogtheristo/dws6"
+        },
+        {
+          "kind": "git",
+          "date": "2026-08-05",
+          "ref": "9fdcc10e4",
+          "text": "removed: Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
+        }
+      ]
+    },
+    {
+      "id": "LIFETIME-EXP-001",
+      "name": "Expert Advisory & Implementation _OLD",
+      "state": "removed",
+      "stateSource": "git fe39be381",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/lifetime-exp-001.html",
+          "text": "public page still live although the ID left the catalogue (drift)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-04-17",
+          "ref": "818d921c1",
+          "text": "archived: Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-06",
+          "ref": "120be5329",
+          "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
+        },
+        {
+          "kind": "git",
+          "date": "2026-05-10",
+          "ref": "b8bb0f615",
+          "text": "archived: Merge pull request #1269 from blogtheristo/claude/dynamic-deployment-pricing-LExxQ"
+        },
+        {
+          "kind": "git",
+          "date": "2026-06-16",
+          "ref": "fe39be381",
+          "text": "removed: Merge branch 'main' of https://github.com/blogtheristo/dws6"
+        }
+      ]
+    },
+    {
+      "id": "m365-consultancy",
+      "name": "Microsoft 365 Agent Consultancy",
+      "state": "removed",
+      "stateSource": "git 9fdcc10e4",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/m365-consultancy.html",
+          "text": "public page still live although the ID left the catalogue (drift)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-08-05",
+          "ref": "9fdcc10e4",
+          "text": "removed: Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
+        }
+      ]
+    },
+    {
+      "id": "powerapps-consultancy",
+      "name": "Microsoft AI Studio M365 Power Platform Azure",
+      "state": "removed",
+      "stateSource": "git 4b4d53223",
+      "evidence": [
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-02-07",
+          "ref": "4b4d53223",
+          "text": "removed: Merge pull request #390 from blogtheristo/claude/fix-product-prices-btcOs"
+        }
+      ]
+    },
+    {
+      "id": "secure-email-proton",
+      "name": "Protonmail Secure Email & Domains Implementation",
+      "state": "removed",
+      "stateSource": "git 9fdcc10e4",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/secure-email-proton.html",
+          "text": "public page still live although the ID left the catalogue (drift)"
+        },
+        {
+          "kind": "git",
+          "date": "2026-01-28",
+          "ref": "d0335d10a",
+          "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
+        },
+        {
+          "kind": "git",
+          "date": "2026-08-05",
+          "ref": "9fdcc10e4",
+          "text": "removed: Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
+        }
+      ]
+    }
+  ]
+}
