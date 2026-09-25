@@ -1,6 +1,6 @@
 # Aktiivinen Ontologia UX v2 — dws10.com tarve-näkymä
 
-**Version:** 1.0 · **Date:** 2026-09-24 · **Status:** SPEC (dispatched run of LD-2026-09-003, HIC APPLY; scope dws10.com + dws10.com/buy) · **Source:** HIC + Copilot 24.09.2026; `docs/market-signals/2026-09-24-ford-smax-egr-aktiivinen-ontologia.md`, `…-asiakas-hakee-paatosta-ei-tietoa.md`
+**Version:** 1.1 · **Date:** 2026-09-24 (1.1: Chapter 14 CAPTURE → Decision Journey bridge, migration 093) · **Status:** SPEC (dispatched run of LD-2026-09-003, HIC APPLY; scope dws10.com + dws10.com/buy) · **Source:** HIC + Copilot 24.09.2026; `docs/market-signals/2026-09-24-ford-smax-egr-aktiivinen-ontologia.md`, `…-asiakas-hakee-paatosta-ei-tietoa.md`
 
 ## Periaate
 
@@ -117,6 +117,12 @@ päätös voidaan tehdä luottavaisesti._
   Ei kovakoodattuja hintoja.
 - Jokainen läpikäyty polku kirjataan Chapter 14 CAPTURE-havainnoksi (observer: agent):
   valitut tilanteet ja kyllä/ei-vastaukset ovat markkinasignaalia; ei PII:tä.
+- Chapter 14 CAPTURE → Decision Journey (HIC 24.09.2026): anonyymi havainto ei koskaan kirjaudu
+  suoraan muuttumattomaan `decision_journey_event`-lokiin. Kun organisaatio on tunnistettu,
+  `decision_journey_import_discover()` (migraatio `095_240926_decision_journey_discover_bridge.sql`)
+  tuo polun: havainto → omistajuushypoteesi → siirtosuositus → `PATH_TRANSFERRED`; omistajan
+  kuittaus kirjataan evidenssin kanssa (`decision_journey_record_owner_response()`). Perusta:
+  `094_240926_decision_journey.sql`. Spesifikaatio: `docs/plans/2026-09-24-decision-journey-outcome-evidence.md` §9.3–9.4.
 - Mittari (LD-003 refuting test): buy→checkout-keskeytys laskee 60 päivässä; väärä suositus
   < 1/20; ensimmäisen kysymyksen keskeytys < 50 %.
 - Ei sovelleta lifetime.fi:llä eikä Investor Centressä (HIC).

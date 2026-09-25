@@ -44,7 +44,10 @@ function ownership(o) {
   const map = {};
   if (o.map && typeof o.map === 'object')
     for (const [k, v] of Object.entries(o.map)) if (OWN_DIMS.has(k) && OWN_ROLES.has(v)) map[k] = v;
-  return known ? { known, map } : null;
+  // Verdict is stored so the Decision Journey bridge (migration 093) can show
+  // "transfer recommended" as evidence; only whitelisted values are kept.
+  const verdict = OWN_VERDICTS.has(o.verdict) ? o.verdict : null;
+  return known ? { known, map, verdict } : null;
 }
 function anonymise(s) {
   return s

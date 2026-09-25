@@ -54,6 +54,7 @@ dispatched_runs:
   - "DONE: Active Ontology 1.3.0 — verdict-reititetty ensimmäinen kauppa (Captain Day) ennen alustatuotteita (kierros 4)"
   - "DONE: Active Ontology 1.4.0 — evidenssipaneeli show-me (migration 091 + /api/observations/summary) (kierros 5)"
   - "DONE: 1.4.1 — tulos transferred_to_owner (onnistuminen ilman kauppaa) (kierros 6)"
+  - "DONE (PR #2093, HIC 24.09.2026): migraatioketju 089–091 website_observations (DISCOVER) → 094_240926_decision_journey.sql (Decision Journey Foundation) → 095_240926_decision_journey_discover_bridge.sql (DISCOVER → Decision Journey -silta). Tunnistetun organisaation polku tuodaan: havainto → omistajuushypoteesi → siirtosuositus → PATH_TRANSFERRED; omistajan kuittaus evidenssiviitteellä (OWNER_ACKNOWLEDGED). Anonyymi DISCOVER ei koskaan kirjoita muuttumattomaan lokiin. Tiedostot; ajo RED."
   - "CANDIDATE: tuote 'Ownership Evidence' — selvitys, jonka tulos on omistajuuslöydös, ei tekninen ratkaisu (odottaa tuoteperhepäätöstä)"
   - "TODO: Journal-teksti 'Kaikki tietävät ongelman, kukaan ei omista sitä' (sarja 0, teksti 2; Rule 13)"
 impact:

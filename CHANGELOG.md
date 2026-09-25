@@ -9,6 +9,30 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- **Active Ontology 1.5 — technical acceptance (HIC, 24.09.2026).** The
+  Decision Flight Recorder, Decision Traceability and the DISCOVER → Decision
+  Journey bridge were validated on a clean database. Migrations 089 → 093 were
+  applied to a new empty PostgreSQL 16 database, then:
+  - Foundation `supabase/migrations/094_240926_decision_journey.sql`: 32/32 checks
+    pass. Covered: append-only log, hash chain, source-aware evidence strength,
+    learning-confidence cap, ontology-update gate, system-only `PATH_ABANDONED`.
+  - Bridge `supabase/migrations/095_240926_decision_journey_discover_bridge.sql`:
+    20/20 checks pass. `OBSERVATION_RECORDED → OWNERSHIP_HYPOTHESIS_CREATED →
+PATH_RECOMMENDED → PATH_TRANSFERRED → OWNER_ACKNOWLEDGED` land under one
+    `journey_id`. Every event's `evidence_refs` resolve back to the DISCOVER
+    observation.
+  - An anonymous DISCOVER visit never creates an immutable journey. A journey
+    is created only once the organisation is identified, an ownership finding
+    exists and a recommendation or transfer exists. Unknown verdicts are
+    dropped at intake and at the bridge.
+  - Helpdesk shadow mode (`src/decision-journey/`, off by default): the agent
+    proposes and a human decides; `helpdesk_shadow_agreement` tracks
+    `would_have_executed_wrongly`.
+  - Not applied to Supabase yet; applying migrations is a HIC (RED-zone) step.
+    Next goal: the first real Ownership Transfer from an external organisation
+    (M1), not a new feature. Spec:
+    `docs/plans/2026-09-24-decision-journey-outcome-evidence.md` §9.5–9.6.
+
 - Dapr pub/sub pilot (default OFF, `DAPR_PUBSUB_PILOT_ENABLED=true` to
   enable): `src/agents/event-bus.ts` optionally publishes the
   `agent.task_complete` event type to a local Dapr sidecar for durable,
