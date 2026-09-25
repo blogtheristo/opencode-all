@@ -94,6 +94,18 @@
       "multiple": 3.0,
       "probability": 0.25,
       "basis": "Kubernetes, NIM, DOCA, Gov Ready service and subscription SKUs on edge sites."
+    },
+    "agents365": {
+      "capture": 0.001,
+      "multiple": 6.0,
+      "probability": 0.2,
+      "basis": "DWS 365 skilled-agent tiers and industry pods (BLUE): recurring software, overlapping tiers per buyer."
+    },
+    "land": {
+      "capture": 0.001,
+      "multiple": 1.5,
+      "probability": 0.3,
+      "basis": "LAND outcome bundles (BLUE): fixed-price delivery with a software component."
     }
   },
   "defaults": {
@@ -101,22 +113,54 @@
     "replacementCycleYears": 3
   },
   "rules": [
-    { "match": { "tag": "SME" }, "family": "sme", "segment": "FI_SME", "fit": 0.1, "cycle": 5 },
     {
-      "match": { "ids": ["LIFETIME-IT-TUKI-10H"] },
+      "match": {
+        "idPrefix": "LAND-"
+      },
+      "family": "land",
+      "segment": "EU_MIDLARGE",
+      "fit": 0.01,
+      "cycle": 1
+    },
+    {
+      "match": {
+        "blue": true,
+        "storeCategory": "platform"
+      },
+      "family": "agents365",
+      "segment": "EU_MIDLARGE",
+      "fit": 0.01
+    },
+    {
+      "match": {
+        "tag": "SME"
+      },
+      "family": "sme",
+      "segment": "FI_SME",
+      "fit": 0.1,
+      "cycle": 5
+    },
+    {
+      "match": {
+        "ids": ["LIFETIME-IT-TUKI-10H"]
+      },
       "family": "sme",
       "segment": "FI_SME",
       "fit": 0.05,
       "cycle": 1
     },
     {
-      "match": { "idPrefix": "DWS-AEGIS" },
+      "match": {
+        "idPrefix": "DWS-AEGIS"
+      },
       "family": "aegis",
       "segment": "EU_REGULATED",
       "fit": 0.3
     },
     {
-      "match": { "ids": ["DWS-US-STARTER", "DWS-US-PILOT"] },
+      "match": {
+        "ids": ["DWS-US-STARTER", "DWS-US-PILOT"]
+      },
       "family": "dwsiq",
       "segment": "EU_MIDLARGE",
       "fit": 0.02
@@ -136,39 +180,77 @@
       "segment": "EU_CSRD_LARGE",
       "fit": 0.5
     },
-    { "match": { "tag": "DWS IQ" }, "family": "dwsiq", "segment": "EU_INDUSTRIAL", "fit": 0.2 },
     {
-      "match": { "tag": "Firehorse" },
+      "match": {
+        "tag": "DWS IQ"
+      },
+      "family": "dwsiq",
+      "segment": "EU_INDUSTRIAL",
+      "fit": 0.2
+    },
+    {
+      "match": {
+        "tag": "Firehorse"
+      },
       "family": "firehorse",
       "segment": "EU_MIDLARGE",
       "fit": 0.1
     },
-    { "match": { "independent": true }, "family": "data", "segment": "EU_INDUSTRIAL", "fit": 0.2 },
     {
-      "match": { "ids": ["LF-ONTOLOGY-PILOT", "LF-TRAIN-IND"] },
+      "match": {
+        "independent": true
+      },
+      "family": "data",
+      "segment": "EU_INDUSTRIAL",
+      "fit": 0.2
+    },
+    {
+      "match": {
+        "ids": ["LF-ONTOLOGY-PILOT", "LF-TRAIN-IND"]
+      },
       "family": "data",
       "segment": "EU_INDUSTRIAL",
       "fit": 0.1,
       "cycle": 1
     },
     {
-      "match": { "tag": "Hardware" },
+      "match": {
+        "tag": "Hardware"
+      },
       "family": "hardware",
       "segment": "EU_EDGE_SITES",
       "fit": 0.1,
       "cycle": 4
     },
-    { "match": { "tag": "Gov Ready" }, "family": "infra", "segment": "EU_REGULATED", "fit": 0.3 },
-    { "match": { "idPrefix": "LF-" }, "family": "infra", "segment": "EU_EDGE_SITES", "fit": 0.05 },
     {
-      "match": { "tag": "Training" },
+      "match": {
+        "tag": "Gov Ready"
+      },
+      "family": "infra",
+      "segment": "EU_REGULATED",
+      "fit": 0.3
+    },
+    {
+      "match": {
+        "idPrefix": "LF-"
+      },
+      "family": "infra",
+      "segment": "EU_EDGE_SITES",
+      "fit": 0.05
+    },
+    {
+      "match": {
+        "tag": "Training"
+      },
       "family": "services",
       "segment": "EU_MIDLARGE",
       "fit": 0.1,
       "cycle": 1
     },
     {
-      "match": { "any": true },
+      "match": {
+        "any": true
+      },
       "family": "services",
       "segment": "EU_MIDLARGE",
       "fit": 0.05,
@@ -208,5 +290,10 @@
         "ref": "docs/010825_310726/tuotekehitysmenot/F_Dual_Version_Activation_Package.md"
       }
     ]
-  }
+  },
+  "unpublished": {
+    "probabilityFactor": 0.5,
+    "basis": "Unpublished offers (BLUE internal or pilot records, and planned products) are part of the valuation (HIC 25.09.2026: \"Myös julkaisemattomat tuotteet ovat osa valuation\"). They are not on sale yet, so their family probability is halved and they are reported as a separate subtotal. Planned products without a price have no TAM until the HIC prices them."
+  },
+  "plannedIds": ["firehorse-mobile"]
 }

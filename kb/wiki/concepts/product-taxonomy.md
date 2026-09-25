@@ -36,7 +36,7 @@ Offers without a group tag are grouped by catalogue class: data products, servic
 - **Air-Gapped** (FI: ilmaeristetty (air-gapped)): can run with no outside network connection. It is on the hardware products and the 3 Aegis offers.
 - **Sovereign Cloud**: hosted on EU sovereign cloud infrastructure. It is on 13 DWS IQ offers. The two US Cloud offers do not carry it.
 - **US Sovereign Cloud**: US-hosted, under US jurisdiction. It is on the two US offers and is never combined with Sovereign Cloud.
-- **On-Prem** (10), **Gov Ready** (6), **Licence** (2: LF-ONTOLOGY-25, LWM-ONT-SOVEREIGN), **Subscription** (25: every recurring offer and only those), **Installation** (5), **Pilot** (5), **Free** (1), **Training** (6), **Early Access** (1: KYA-JEV-001).
+- **On-Prem** (10), **Gov Ready** (6), **Licence** (3: LF-ONTOLOGY-25, LWM-ONT-SOVEREIGN, DWS-AEGIS-001; Aegis has the ontology structure: pilot, licence, implementation, maintenance subscription), **Subscription** (25: every recurring offer and only those), **Installation** (5), **Pilot** (5), **Free** (1), **Training** (6), **Early Access** (1: KYA-JEV-001).
 
 Hardware products always carry, in this order: Hardware, Sovereign, Air-Gapped. On every record, tags follow the order of the allowed list.
 

@@ -106,11 +106,11 @@ const seriousSet = new Set(seriousIds);
 const supportingProducts = publicProducts.filter((product) => !seriousSet.has(product.id));
 const packages = consulting.packages || [];
 
-if (products.length !== 137)
-  addError(`Product accounting: expected 137 total, found ${products.length}`);
-if (publicProducts.length !== 71)
+if (products.length !== 138)
+  addError(`Product accounting: expected 138 total, found ${products.length}`);
+if (publicProducts.length !== 72)
   addError(
-    `Product accounting: expected 71 public non-BLUE non-archived, found ${publicProducts.length}`,
+    `Product accounting: expected 72 public non-BLUE non-archived, found ${publicProducts.length}`,
   );
 if (blue.length !== 65) addError(`Product accounting: expected 65 BLUE, found ${blue.length}`);
 if (overlap.length)

@@ -2829,13 +2829,13 @@
       "capacityLimits": "Per-contract scope"
     },
     "DWS-AEGIS-001": {
-      "tags": ["DWS IQ", "Sovereign", "Air-Gapped"],
+      "tags": ["DWS IQ", "Sovereign", "Air-Gapped", "Licence"],
       "id": "DWS-AEGIS-001",
       "gtin": null,
       "mpn": "DWS-AEGIS-2026",
       "name": "DWS IQ Aegis",
-      "caption": "Single-tenant sovereign AI platform on Finnish infrastructure, with an air-gapped tier.",
-      "captionFi": "Yhden asiakkaan suvereeni teko\u00e4lyalusta suomalaisella infrastruktuurilla, my\u00f6s ilmaeristetty (air-gapped) taso.",
+      "caption": "Licence for a single-tenant sovereign AI platform on Finnish infrastructure, with an air-gapped tier.",
+      "captionFi": "Lisenssi: yhden asiakkaan suvereeni teko\u00e4lyalusta suomalaisella infrastruktuurilla, my\u00f6s ilmaeristetty (air-gapped) taso.",
       "price": 59990,
       "currency": "EUR",
       "type": "one-time",
@@ -2846,7 +2846,7 @@
         "Dual-use compliance \u2014 CER, CRM Act, KRITIS, NIS2, EU AI Act, CBAM, ETS",
         "Indicative nearest SEAL-3 (Digital Resilience) \u2014 not a Commission certificate"
       ],
-      "priceNote": "From \u20ac59,990 onboarding + one-time integration. Monthly subscription: Standard \u20ac999/mo | Defence \u20ac1,999/mo | Sovereign \u20ac4,999/mo",
+      "priceNote": "\u20ac59,990 one-time licence + one-time integration. Maintenance subscription DWS-AEGIS-SUB-001: Standard \u20ac999/mo | Defence \u20ac1,999/mo | Sovereign \u20ac4,999/mo. Pilot: DWS-AEGIS-PILOT-001. Implementation: DWS-AEGIS-IMPL-001.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/products/DWS-AEGIS-001.png",
@@ -2884,23 +2884,23 @@
       "gtin": null,
       "mpn": "DWS-AEGIS-PILOT-2026",
       "name": "DWS IQ Aegis Pilot (3 months)",
-      "caption": "Three-month pilot of one Aegis workflow on your own hardware; fee credited to onboarding.",
-      "captionFi": "Kolmen kuukauden pilotti yhdest\u00e4 Aegis-ty\u00f6nkulusta omalla laitteistollanne; maksu hyvitet\u00e4\u00e4n k\u00e4ytt\u00f6\u00f6notossa.",
+      "caption": "Three-month pilot of one Aegis workflow on your own hardware; fee credited to the licence.",
+      "captionFi": "Kolmen kuukauden pilotti yhdest\u00e4 Aegis-ty\u00f6nkulusta omalla laitteistollanne; maksu hyvitet\u00e4\u00e4n lisenssin hinnasta.",
       "price": 19990,
       "currency": "EUR",
       "type": "one-time",
       "priceUnit": "per-3-months",
-      "description": "A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of Aegis onboarding \u2014 not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window \u2014 (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at \u20ac19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
+      "description": "A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of an Aegis deployment \u2014 not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window \u2014 (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at \u20ac19,990, applies only against the Aegis licence, and lapses if the customer does not proceed within 6 months.",
       "features": [
         "3-month scoped engagement \u2014 fixed price, fixed end date, one site and one control-room workflow",
         "Runs on existing customer hardware or a compact edge appliance; no DGX procurement required",
         "Proves the five control-room requirements: local execution and evidence, local identity/logs/kill authority, no network dependency for the core outcome, cloud optional, specified graceful degradation",
         "Binary acceptance KPI \u2014 uplink severed: workflow completes, Article 12 record still written locally, operator can still stop an agent. All three, or the pilot reports a negative result",
         "Deployment-mode recommendation (Local/Edge, Hybrid or EU-Sovereign Cloud) with production hardware sizing",
-        "Credited in full against Aegis onboarding within 6 months; credit capped at \u20ac19,990 and excludes LWM integration, hardware, multi-site rollout and custom integrations",
+        "Credited in full against the Aegis licence within 6 months; credit capped at \u20ac19,990 and excludes LWM integration, hardware, multi-site rollout and custom integrations",
         "Indicative nearest SEAL-3 (Digital Resilience) \u2014 not a Commission certificate"
       ],
-      "priceNote": "\u20ac19,990 fixed, 3 months. Credited in full against the \u20ac59,990 Aegis onboarding if you proceed within 6 months (net cost to production unchanged at \u20ac59,990). INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window \u2014 (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at \u20ac19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
+      "priceNote": "\u20ac19,990 fixed, 3 months. Credited in full against the \u20ac59,990 Aegis licence if you proceed within 6 months (net cost to production unchanged at \u20ac59,990). INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window \u2014 (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at \u20ac19,990, applies only against the Aegis licence, and lapses if the customer does not proceed within 6 months.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/products/DWS-AEGIS-PILOT-001.png",
@@ -2939,7 +2939,7 @@
         "Multi-site rollout, and any industry vertical beyond the one piloted",
         "Custom ERP, BIM or SCADA integrations",
         "The DWS-AEGIS-IMPL-001 Implementation Programme (EUR 45,000, additive and not credited)",
-        "Credit is capped at EUR 19,990, applies only against Aegis onboarding (EUR 59,990 baseline), and lapses if the customer does not proceed within 6 months"
+        "Credit is capped at EUR 19,990, applies only against the Aegis licence (EUR 59,990), and lapses if the customer does not proceed within 6 months"
       ],
       "phases": [
         "Phase 0 \u2014 Scoping and baseline (weeks 0-2, no charge): site, workflow and deployment mode locked; every workflow step classified core (must survive an outage) or non-core; degradation and reconciliation spec drafted; the isolation method for the acceptance test selected from the ranked ladder and recorded with its validity note (enforced above the stack, egress verified to fail); the three acceptance conditions written in the customer's own operational language; outage window dated",
@@ -2972,16 +2972,16 @@
       "price": 45000,
       "currency": "EUR",
       "type": "one-time",
-      "description": "A three-phase implementation engagement delivered alongside DWS IQ Aegis. Phase 1 Audit (2 weeks, \u20ac5,000): current state to gap analysis. Phase 2 Agent-in-production (6 weeks, \u20ac15,000): one skilled agent live and EU-compliant. Phase 3 LWM integration (8 weeks, \u20ac25,000): world-model integration so operational knowledge accumulates. ADDITIVE to Aegis onboarding and licence \u2014 this programme is NOT credited against onboarding, because Phase 3 is integration work that onboarding does not include.",
+      "description": "A three-phase implementation engagement delivered alongside DWS IQ Aegis. Phase 1 Audit (2 weeks, \u20ac5,000): current state to gap analysis. Phase 2 Agent-in-production (6 weeks, \u20ac15,000): one skilled agent live and EU-compliant. Phase 3 LWM integration (8 weeks, \u20ac25,000): world-model integration so operational knowledge accumulates. ADDITIVE to the Aegis licence and maintenance subscription \u2014 this programme is NOT credited against the licence, because Phase 3 is integration work that the licence does not include.",
       "features": [
         "Phase 1 \u2014 Audit, 2 weeks, \u20ac5,000: current state to gap analysis",
         "Phase 2 \u2014 Agent-in-production, 6 weeks, \u20ac15,000: one skilled agent live and EU-compliant",
         "Phase 3 \u2014 LWM integration, 8 weeks, \u20ac25,000: world-model integration, operational knowledge accumulates",
-        "Additive to Aegis onboarding and licence \u2014 not credited",
+        "Additive to the Aegis licence and maintenance subscription \u2014 not credited",
         "Scoped per engagement; phases can be taken in sequence or individually",
         "Indicative nearest SEAL-3 (Digital Resilience) \u2014 not a Commission certificate"
       ],
-      "priceNote": "\u20ac45,000 for all three phases (Audit \u20ac5,000 + Agent-in-production \u20ac15,000 + LWM integration \u20ac25,000). ADDITIVE to Aegis onboarding (\u20ac59,990) and licence \u2014 NOT credited against them. Phase 3 is integration work outside onboarding scope.",
+      "priceNote": "\u20ac45,000 for all three phases (Audit \u20ac5,000 + Agent-in-production \u20ac15,000 + LWM integration \u20ac25,000). ADDITIVE to the Aegis licence (\u20ac59,990) and maintenance subscription \u2014 NOT credited against them. Phase 3 is integration work outside the licence scope.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/products/DWS-AEGIS-IMPL-001.png",
@@ -3014,8 +3014,42 @@
         "Phase 2 Agent-in-production",
         "Phase 3 LWM integration"
       ],
-      "capacityLimits": "ADDITIVE to Aegis onboarding",
+      "capacityLimits": "ADDITIVE to the Aegis licence",
       "partnerProduct": true
+    },
+    "DWS-AEGIS-SUB-001": {
+      "tags": ["DWS IQ", "Sovereign", "Air-Gapped", "Subscription"],
+      "id": "DWS-AEGIS-SUB-001",
+      "gtin": null,
+      "mpn": "DWS-AEGIS-SUB-2026",
+      "name": "DWS IQ Aegis \u2014 Maintenance Subscription",
+      "caption": "Monthly maintenance for an Aegis licence: updates, security patches, support and operations.",
+      "captionFi": "Aegis-lisenssin kuukausiyll\u00e4pito: p\u00e4ivitykset, tietoturvapaikat, tuki ja operointi.",
+      "price": 999,
+      "currency": "EUR",
+      "type": "subscription",
+      "billingPeriod": "monthly",
+      "description": "Maintenance subscription for a DWS IQ Aegis licence (DWS-AEGIS-001), one per licensed deployment. Tier follows the licensed Aegis tier: Standard, Defence (GPU + SAR) or Sovereign (air-gapped). Same structure as the ontology product: pilot, licence, implementation, maintenance. Available September 2026.",
+      "features": [
+        "Required with every Aegis licence; tier follows the licensed tier",
+        "Platform updates and security patches on the single-tenant deployment",
+        "Support and operations for Standard, Defence and Sovereign (air-gapped) tiers"
+      ],
+      "priceNote": "Standard \u20ac999/mo | Defence \u20ac1,999/mo | Sovereign \u20ac4,999/mo. Requires DWS-AEGIS-001 licence.",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/DWS-AEGIS-001.png",
+      "detailsUrl": "../products/aegis.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "preorder",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform"
     },
     "CMP-T0": {
       "id": "CMP-T0",
@@ -6516,7 +6550,7 @@
         "tags": ["SME", "DWS IQ", "Firehorse"]
       },
       "productTags": {
-        "description": "Tags on catalogue records (HIC 25.09.2026; ONTOLOGY.md \u00a717). Group tags SME, DWS IQ, Firehorse name the price-list section. Attribute tags render as chips, always in the order of the allowed list. Hardware products carry Hardware, Sovereign, Air-Gapped. DWS IQ Aegis carries Sovereign and Air-Gapped. Other DWS IQ offers carry Sovereign Cloud; the two US offers (DWS-US-STARTER, DWS-US-PILOT) carry US Sovereign Cloud instead (US-hosted, US jurisdiction). Subscription is on every recurring offer (type subscription or monthly, or billingPeriod monthly or yearly) and only there. Licence: LF-ONTOLOGY-25 and LWM-ONT-SOVEREIGN. Installation: the IT-support hour bank, LF-NVIDIA-INSTALL and the Jetson install packages. Every public offer has a one-line caption (EN) and captionFi (FI).",
+        "description": "Tags on catalogue records (HIC 25.09.2026; ONTOLOGY.md \u00a717). Group tags SME, DWS IQ, Firehorse name the price-list section. Attribute tags render as chips, always in the order of the allowed list. Hardware products carry Hardware, Sovereign, Air-Gapped. DWS IQ Aegis carries Sovereign and Air-Gapped. Other DWS IQ offers carry Sovereign Cloud; the two US offers (DWS-US-STARTER, DWS-US-PILOT) carry US Sovereign Cloud instead (US-hosted, US jurisdiction). Subscription is on every recurring offer (type subscription or monthly, or billingPeriod monthly or yearly) and only there. Licence: LF-ONTOLOGY-25, LWM-ONT-SOVEREIGN and DWS-AEGIS-001 (Aegis follows the ontology structure: pilot, licence, implementation, maintenance subscription DWS-AEGIS-SUB-001). Installation: the IT-support hour bank, LF-NVIDIA-INSTALL and the Jetson install packages. Every public offer has a one-line caption (EN) and captionFi (FI).",
         "allowed": ["SME", "DWS IQ", "Firehorse", "Hardware", "Sovereign", "Air-Gapped", "Sovereign Cloud", "US Sovereign Cloud", "On-Prem", "Gov Ready", "Licence", "Subscription", "Installation", "Pilot", "Free", "Training", "Early Access"]
       },
       "archive": {
@@ -6560,7 +6594,7 @@
         "path": "/price-list/",
         "classification": "serious and supporting",
         "productRule": "non-BLUE, non-archived products plus subscriptions",
-        "expectedProductCount": 71,
+        "expectedProductCount": 72,
         "includesSubscriptions": true
       },
       "lifetimeConsulting": {
@@ -6584,6 +6618,7 @@
         "LIFETIME-IT-TUKI-10H added (HIC 25.09.2026): IT-support hour bank 10 h \u00d7 \u20ac75/h = \u20ac750 (VAT 0 %) \u2014 computer renewal, software updates, business applications, information security, training. Tag SME; third product in the SME campaign section and on the A5 flyer.",
         "One-line captions on all 80 public offers (71 added). Attribute tags: Hardware + Sovereign + Air-Gapped on 11 hardware products; Sovereign + Air-Gapped on the 3 Aegis offers; Sovereign Cloud on 13 other DWS IQ offers (not the US Cloud offers). Long price notes break into paragraphs under a Terms toggle (HIC 25.09.2026).",
         "Full tag set (HIC 25.09.2026: \"Kaikki tagit talteen\"): US Sovereign Cloud (2), On-Prem (10), Gov Ready (6), Licence (2), Subscription (25), Installation (5), Pilot (5), Free (1), Training (6), Early Access (1); Air-Gapped also on LF-GOV-AIRGAP-BUNDLE, Sovereign also on LWM-ONT-SOVEREIGN and LF-SOV-MODEL-SUB. Finnish captions (captionFi) on all 80 public offers; IT-support hour bank caption now in English.",
+        "DWS IQ Aegis restructured like the ontology product (HIC 25.09.2026): DWS-AEGIS-001 is the \u20ac59,990 one-time licence (tag Licence; was called onboarding); new DWS-AEGIS-SUB-001 maintenance subscription Standard \u20ac999/mo | Defence \u20ac1,999/mo | Sovereign \u20ac4,999/mo (prices unchanged, moved from the licence price note); pilot DWS-AEGIS-PILOT-001 and implementation DWS-AEGIS-IMPL-001 credit and scope wording now refer to the licence. Public offers 71 -> 72.",
         "Price-list product groups (HIC 25.09.2026): tags \"DWS IQ\" (18 offers) and \"Firehorse\" (9 offers) added; six themed groups (SME, DWS IQ, Firehorse, data products, services, hardware and infrastructure), each with a soft background colour. The \"Supporting\" badge is dropped from the price list.",
         "SME campaign products tagged SME render in their own first section; commercialPortfolio.smeCampaignProductIds.",
         "Public price-list count 71 -> 70 -> 71 (\u20ac750 web package archived, IT hour bank added)."

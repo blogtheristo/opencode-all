@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.0 [Latest]
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: First per-product TAM and valuation, with a cost-approach value for the repository as a product-development environment (HIC 25.09.2026).
+- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Unpublished (BLUE) products valued too (HIC: "Myös julkaisemattomat tuotteet ovat osa valuation"); Aegis restructured as licence + maintenance subscription.
+- Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: First per-product TAM and valuation, with a cost-approach value for the repository as a product-development environment (HIC 25.09.2026).
 
 Document Status:
 
@@ -24,10 +25,14 @@ Document Status:
 
 | Measure                                                                    | Low        | Central    | High       |
 | -------------------------------------------------------------------------- | ---------- | ---------- | ---------- |
-| A. Products: risk-adjusted present value of the 80 public offers           | €0.32M     | €0.64M     | €1.28M     |
+| A1. Published products: risk-adjusted present value (81 offers)            | €0.34M     | €0.68M     | €1.35M     |
+| A2. Unpublished products (65 BLUE offers, probability halved)              | €0.07M     | €0.14M     | €0.28M     |
+| A. All products                                                            | €0.41M     | €0.82M     | €1.63M     |
 | B. Repository as product-development environment: AI-assisted rebuild cost | €1.41M     | €1.88M     | €2.35M     |
-| **A + B: products and development environment**                            | **€1.73M** | **€2.52M** | **€3.63M** |
+| **A + B: products and development environment**                            | **€1.82M** | **€2.70M** | **€3.98M** |
 | Ceiling: traditional-team rebuild cost of the code (basic COCOMO)          |            | €7.04M     |            |
+
+Firehorse Mobile is recorded as planned but has no price yet, so it has no TAM or value.
 
 Reference points:
 
@@ -46,9 +51,9 @@ The per-offer table and every assumption are in `docs/truth/PRODUCT_VALUATION.md
    A buyer would pay to avoid rebuilding this, even before any product earns revenue.
 
 2. **Product value is low because revenue evidence is thin, not because the markets are small.**
-   - The sum of product TAMs is €1.43B per year. Year-5 obtainable revenue in the central case is €2.23M.
+   - The sum of TAMs is €1.44B per year for published offers and €2.53B per year including unpublished ones. Year-5 obtainable revenue in the central case is €2.23M.
    - The present value is small because every family carries a probability of 0.2–0.6 of reaching that revenue. Only two paid pilots (€59,900) and ~€7k/month of services revenue are verified (`docs/TRACTION_CANONICAL.md`), and a 30 % discount rate applies over five years.
-3. **Against the 2021 figure.** €3.8M (2021) measured the DWS platform alone, with a comparables method. The new central estimate of €2.52M uses a different method: cost of the environment plus risk-adjusted product income. The high case (€3.63M) is at the 2021 level. The methods differ, so the numbers are not a like-for-like fall or rise.
+3. **Against the 2021 figure.** €3.8M (2021) measured the DWS platform alone, with a comparables method. The new central estimate of €2.70M uses a different method: cost of the environment plus risk-adjusted product income. The high case (€3.98M) is above the 2021 level. The methods differ, so the numbers are not a like-for-like fall or rise.
 4. **What moves the number most.**
    - Each verified paying customer raises the probability for its family.
    - Aegis revenue after GA (September 2026) moves the largest single family.
@@ -65,16 +70,18 @@ The per-offer table and every assumption are in `docs/truth/PRODUCT_VALUATION.md
 - Present value = year-5 revenue × revenue multiple × probability ÷ 1.3⁵.
 - The low and high cases halve and double the capture shares.
 
-| Family    | Offers | Year-5 capture | Multiple | Probability |
-| --------- | ------ | -------------- | -------- | ----------- |
-| SME       | 3      | 0.30 %         | 1×       | 0.6         |
-| DWS IQ    | 15     | 0.20 %         | 6×       | 0.25        |
-| Aegis     | 3      | 1.00 %         | 6×       | 0.2         |
-| Firehorse | 9      | 0.10 %         | 4×       | 0.2         |
-| Data      | 4      | 0.30 %         | 6×       | 0.2         |
-| Services  | 18     | 0.05 %         | 1×       | 0.5         |
-| Hardware  | 11     | 0.10 %         | 0.5×     | 0.4         |
-| Infra     | 17     | 0.10 %         | 3×       | 0.25        |
+| Family              | Offers | Year-5 capture | Multiple | Probability |
+| ------------------- | ------ | -------------- | -------- | ----------- |
+| SME                 | 3      | 0.30 %         | 1×       | 0.6         |
+| DWS IQ              | 15     | 0.20 %         | 6×       | 0.25        |
+| Aegis               | 4      | 1.00 %         | 6×       | 0.2         |
+| Firehorse           | 9      | 0.10 %         | 4×       | 0.2         |
+| Data                | 4      | 0.30 %         | 6×       | 0.2         |
+| Services            | 18     | 0.05 %         | 1×       | 0.5         |
+| Hardware            | 11     | 0.10 %         | 0.5×     | 0.4         |
+| Infra               | 17     | 0.10 %         | 3×       | 0.25        |
+| Agents 365 (BLUE)   | 56     | 0.10 %         | 6×       | 0.2 × 0.5   |
+| LAND bundles (BLUE) | 9      | 0.10 %         | 1.5×     | 0.3 × 0.5   |
 
 **Segments**
 
@@ -95,7 +102,7 @@ The per-offer table and every assumption are in `docs/truth/PRODUCT_VALUATION.md
 
 ## 4. Limits
 
-- **The product TAMs overlap.** A pilot, a starter tier and the subscription sell to the same buyer, so the €1.43B sum is not the company's TAM.
+- **The product TAMs overlap.** A pilot, a starter tier and the subscription sell to the same buyer, so the summed TAMs are not the company's TAM.
 - **The data-room TAM is not used.** `docs/investor/data-room-2026Q2/TAM_REFRAMED.md` gives a €60–90B labour pool. It rests on "~50k EU undertakings in CSRD scope", a pre-Omnibus figure that DWS_TRUTH_STANDARD.md marks false. It should be revised before anyone uses it again.
-- **Aegis's €59,990 has two names.** The R&D file (`F_Liite3_Aktivoitavat_Tuotteet.md`) calls it a one-time licence fee with €999/month maintenance; the catalogue calls it onboarding. The HIC decides which is correct; the model values it the same way either way.
+- **Aegis follows the ontology structure (HIC 25.09.2026).** €59,990 is the one-time licence (DWS-AEGIS-001). The new DWS-AEGIS-SUB-001 is the maintenance subscription: Standard €999, Defence €1,999 or Sovereign €4,999 per month. There is also a pilot and an implementation programme. This matches `F_Liite3_Aktivoitavat_Tuotteet.md`.
 - **Five figures are model assumptions:** the multiples, probabilities, capture shares, the €8,000 monthly cost and the AI productivity factor. Each is one line in the model file and can be challenged there.

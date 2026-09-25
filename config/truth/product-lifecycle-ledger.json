@@ -44,6 +44,25 @@
       "quote": "On tulossa",
       "note": "Answer to: is firehorse-mobile a coming product? The public page dws10.com/products/firehorse-mobile.html already says coming soon. It gets a catalogue record when the HIC sets its price.",
       "ref": "PR #2107"
+    },
+    {
+      "id": "DWS-AEGIS-001",
+      "state": "published",
+      "date": "2026-09-25",
+      "decidedBy": "HIC (Risto Anton Päärni)",
+      "quote": "Minusta siinä pitäisi olla license ja tuoterakenne kuten ontology tuotteessa. Se vastaa ontology tuotetta käyttöönotossa mutta siinä on myös ylläpito subscription.",
+      "note": "The €59,990 is the one-time Aegis licence (tag Licence), no longer called onboarding.",
+      "ref": "PR #2107"
+    },
+    {
+      "id": "DWS-AEGIS-SUB-001",
+      "name": "DWS IQ Aegis — Maintenance Subscription",
+      "state": "published",
+      "date": "2026-09-25",
+      "decidedBy": "HIC (Risto Anton Päärni)",
+      "quote": "Minusta siinä pitäisi olla license ja tuoterakenne kuten ontology tuotteessa. Se vastaa ontology tuotetta käyttöönotossa mutta siinä on myös ylläpito subscription.",
+      "note": "New maintenance subscription; prices moved unchanged from the Aegis licence price note (Standard €999/mo, Defence €1,999/mo, Sovereign €4,999/mo).",
+      "ref": "PR #2107"
     }
   ]
 }

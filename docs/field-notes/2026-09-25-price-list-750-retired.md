@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.8 [Latest]
+Version: 1.9 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.8 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Count trend 1.20–1.33, deletion audit, frozen price-list versions, product versions, valuation.
+- Version: 1.9 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Aegis licence structure; unpublished products valued.
+- Version: 1.8 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Count trend 1.20–1.33, deletion audit, frozen price-list versions, product versions, valuation.
 - Version: 1.7 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Full tag set, Finnish captions.
 - Version: 1.6 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Tags in ontology, dictionary and KB; firehorse-mobile planned; Supabase migration and loader.
 - Version: 1.5 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Captions on all public offers; attribute tags; long price notes split.
@@ -200,6 +201,16 @@ Document Status:
       | Total                             | €1.73M | €2.52M  | €3.63M |
       - The traditional rebuild ceiling is €7.04M.
       - The TAM per offer is also a column in the product registry.
+
+14. **Aegis restructured like the ontology product; unpublished products in the valuation.**
+    - HIC: "license ja tuoterakenne kuten ontology tuotteessa … myös ylläpito subscription"; "Myös julkaisemattomat tuotteet ovat osa valuation".
+    - DWS-AEGIS-001 is now the €59,990 one-time licence, tagged Licence. The pilot and implementation records now credit against, and are scoped to, the licence.
+    - New DWS-AEGIS-SUB-001 maintenance subscription: Standard €999, Defence €1,999, Sovereign €4,999 per month. The prices moved unchanged from the licence price note.
+    - Public offers went from 71 to 72; the price list has 81 rows and the registry 156 IDs.
+    - The valuation now includes the 65 BLUE offers at half probability: products €0.82M, and €2.70M with the environment (range €1.82M–€3.98M).
+    - The ontology products do not need a new subscription:
+      - LF-ONTOLOGY-25 is an annual licence that already includes quarterly updates.
+      - LWM-ONT-SOVEREIGN has €9,990/year updates inside its price note; a separate SKU for it is an open HIC question.
 
 ## The Insight
 

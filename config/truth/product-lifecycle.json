@@ -2,19 +2,19 @@
   "summary": {
     "catalogVersion": "1.33",
     "gitScannedThrough": "4f0ae8e93",
-    "totalIds": 183,
-    "catalogueIds": 155,
+    "totalIds": 184,
+    "catalogueIds": 156,
     "byState": {
       "planned": 1,
       "page-only": 9,
       "internal": 65,
-      "published": 80,
+      "published": 81,
       "archived": 8,
       "discontinued": 2,
       "removed": 18
     },
     "withoutEvidence": 0,
-    "hicDecisions": 5
+    "hicDecisions": 7
   },
   "rows": [
     {
@@ -1860,6 +1860,12 @@
           "date": "2026-03-25",
           "ref": "61912ff2f",
           "text": "published: Merge pull request #895 from blogtheristo/claude/add-define-application-guide-gS1du"
+        },
+        {
+          "kind": "decision",
+          "date": "2026-09-25",
+          "ref": "PR #2107",
+          "text": "published — HIC (Risto Anton Päärni): Minusta siinä pitäisi olla license ja tuoterakenne kuten ontology tuotteessa. Se vastaa ontology tuotetta käyttöönotossa mutta siinä on myös ylläpito subscription."
         }
       ],
       "recordVersion": 19,
@@ -1907,6 +1913,23 @@
       "recordLastCommit": "4f0ae8e93",
       "page": "dws10.com/products/dws-aegis-pilot-001.html",
       "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
+    },
+    {
+      "id": "DWS-AEGIS-SUB-001",
+      "name": "DWS IQ Aegis — Maintenance Subscription",
+      "state": "published",
+      "stateSource": "catalogue products",
+      "evidence": [
+        {
+          "kind": "decision",
+          "date": "2026-09-25",
+          "ref": "PR #2107",
+          "text": "published — HIC (Risto Anton Päärni): Minusta siinä pitäisi olla license ja tuoterakenne kuten ontology tuotteessa. Se vastaa ontology tuotetta käyttöönotossa mutta siinä on myös ylläpito subscription."
+        }
+      ],
+      "page": "dws10.com/products/aegis.html",
+      "pageVersions": 33,
       "pageLastChanged": "2026-09-21"
     },
     {

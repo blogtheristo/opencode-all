@@ -312,13 +312,13 @@
       "snapshot": "price-list-v1.33.html",
       "origin": "original",
       "frozen": false,
-      "sha256": "845e55f5e21d273013bb9a0ab4bbed11da1deacaea8057b0358e5558eb494013",
+      "sha256": "69ca962d7fd098f99025797343cf20aa7f14d578bdb6c7589c794982c536fe20",
       "lastMainCommit": "4f0ae8e93",
       "lastMainDate": "2026-09-25",
-      "productRecords": 137,
+      "productRecords": 138,
       "subscriptionRecords": 26,
-      "publicProducts": 71,
-      "onPriceList": 80
+      "publicProducts": 72,
+      "onPriceList": 81
     }
   ]
 }

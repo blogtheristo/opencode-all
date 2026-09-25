@@ -1,11 +1,11 @@
 {
   "catalogVersion": "1.33",
-  "totalIds": 155,
-  "productsRecords": 137,
+  "totalIds": 156,
+  "productsRecords": 138,
   "subscriptionOnlyRecords": 16,
   "discontinuedRecords": 2,
-  "onPriceList": 80,
-  "publicProducts": 71,
+  "onPriceList": 81,
+  "publicProducts": 72,
   "activeSubscriptions": 9,
   "blue": 65,
   "archived": 8,
@@ -14,13 +14,13 @@
   "serious": 16,
   "groups": {
     "SME": 3,
-    "DWS IQ": 18,
+    "DWS IQ": 19,
     "Firehorse": 9,
     "Data": 2,
     "Services": 20,
     "Hardware": 28,
     "Other": 0
   },
-  "expectedPriceListProducts": 71,
+  "expectedPriceListProducts": 72,
   "reconciles": true
 }

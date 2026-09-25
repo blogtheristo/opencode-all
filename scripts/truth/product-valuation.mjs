@@ -25,6 +25,7 @@ function ruleFor(id, p, model, independent) {
   const tags = p.tags || [];
   return model.rules.find(
     ({ match: m }) =>
+      (m.blue && p.deploymentColor === 'blue' && p.storeCategory === m.storeCategory) ||
       m.any ||
       (m.ids && m.ids.includes(id)) ||
       (m.tag && tags.includes(m.tag)) ||
@@ -61,18 +62,24 @@ export function buildValuation(catalog, model) {
   const d = model.defaults;
   const disc = Math.pow(1 + model.method.discountRate, 5);
   const rows = [];
+  // Unpublished offers are valued too (HIC 25.09.2026), at a reduced probability; retired ones
+  // (archived, discontinued) are not.
+  const retired = (p) => p.archived || p.productType === 'archived';
   for (const [id, p] of Object.entries(products)) {
-    if (!pub(p)) continue;
+    if (retired(p)) continue;
+    const published = pub(p);
     const rule = ruleFor(id, p, model, independent);
     const seg = model.segments[rule.segment];
     const fam = model.families[rule.family];
     const av = annualValue(p, rule, d);
     const tam = av.value === null ? null : seg.buyers * rule.fit * av.value;
     const som = tam === null ? null : tam * fam.capture;
-    const pv = (k) => (som === null ? null : (som * k * fam.multiple * fam.probability) / disc);
+    const prob = fam.probability * (published ? 1 : model.unpublished.probabilityFactor);
+    const pv = (k) => (som === null ? null : (som * k * fam.multiple * prob) / disc);
     rows.push({
       id,
       name: p.name || '',
+      published,
       family: rule.family,
       segment: rule.segment,
       segmentStatus: seg.status,
@@ -113,13 +120,21 @@ export function buildValuation(catalog, model) {
     rdLedgerEur: R.rdLedgerEur,
     capitalisedEur: R.capitalisedEur,
   };
+  const totals = (f) => ({
+    offers: rows.filter(f).length,
+    tamEurPerYear: sum('tamEurPerYear', f),
+    somYear5Eur: sum('somYear5Eur', f),
+    valueLowEur: sum('valueLowEur', f),
+    valueCentralEur: sum('valueCentralEur', f),
+    valueHighEur: sum('valueHighEur', f),
+  });
+  // Planned products (lifecycle ledger) have no catalogue record or price yet: listed, not valued.
+  const planned = (model.plannedIds || []).filter((id) => !products[id]);
   const products_ = {
-    tamEurPerYear: sum('tamEurPerYear'),
-    somYear5Eur: sum('somYear5Eur'),
-    valueLowEur: sum('valueLowEur'),
-    valueCentralEur: sum('valueCentralEur'),
-    valueHighEur: sum('valueHighEur'),
-    unpriced: rows.filter((r) => r.tamEurPerYear === null).map((r) => r.id),
+    ...totals(() => true),
+    published: totals((r) => r.published),
+    unpublished: totals((r) => !r.published),
+    unpriced: [...rows.filter((r) => r.tamEurPerYear === null).map((r) => r.id), ...planned],
   };
   return {
     asOf: model.asOf,
@@ -178,13 +193,17 @@ export function renderMarkdown(v, model) {
     '',
     '| Measure | Low | Central | High |',
     '| --- | --- | --- | --- |',
-    `| Products: present value (${v.rows.length} public offers) | ${eur(P.valueLowEur)} | ${eur(P.valueCentralEur)} | ${eur(P.valueHighEur)} |`,
+    `| Published products: present value (${P.published.offers} offers) | ${eur(P.published.valueLowEur)} | ${eur(P.published.valueCentralEur)} | ${eur(P.published.valueHighEur)} |`,
+    `| Unpublished products: present value (${P.unpublished.offers} BLUE offers, probability × ${model.unpublished.probabilityFactor}) | ${eur(P.unpublished.valueLowEur)} | ${eur(P.unpublished.valueCentralEur)} | ${eur(P.unpublished.valueHighEur)} |`,
+    `| **All products** (${P.offers} offers) | ${eur(P.valueLowEur)} | ${eur(P.valueCentralEur)} | ${eur(P.valueHighEur)} |`,
     `| Repository as product-development environment: AI-assisted rebuild cost | ${eur(R.rebuildAiLowEur)} | — | ${eur(R.rebuildAiHighEur)} |`,
     `| Repository: traditional rebuild cost (basic COCOMO, ${R.codeKsloc} KSLOC, ${R.cocomoPersonMonths} person-months) | — | ${eur(R.rebuildTraditionalEur)} | — |`,
     '',
     `Sum of product TAMs: ${eur(P.tamEurPerYear)} per year. Year-5 obtainable revenue (SOM): ${eur(P.somYear5Eur)}. Documented R&D (hours ledger 2018–09/2025): ${eur(R.rdLedgerEur)}; capitalised on the balance sheet: ${eur(R.capitalisedEur)}.`,
     '',
-    `Unpriced offers (price on application, no TAM): ${P.unpriced.join(', ') || 'none'}.`,
+    `Unpublished products are valued at ${model.unpublished.probabilityFactor} × their family probability: ${model.unpublished.basis}`,
+    '',
+    `Unpriced or planned (no TAM yet): ${P.unpriced.join(', ') || 'none'}.`,
     '',
     '## Method',
     '',
@@ -205,13 +224,13 @@ export function renderMarkdown(v, model) {
     '| --- | --- | --- | --- | --- | --- | --- |',
     ...famRows,
     '',
-    '## Every public offer',
+    '## Every offer (published and unpublished)',
     '',
-    '| # | ID | Family | Segment | Buyers × fit | Annual value / buyer | TAM / yr | SOM yr 5 | Value low | Value central | Value high |',
-    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |',
+    '| # | ID | Published | Family | Segment | Buyers × fit | Annual value / buyer | TAM / yr | SOM yr 5 | Value low | Value central | Value high |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |',
     ...v.rows.map(
       (r, i) =>
-        `| ${i + 1} | \`${r.id}\` | ${r.family} | ${r.segment}${r.segmentStatus === 'estimate' ? '*' : ''} | ${Math.round(r.buyers * r.fit).toLocaleString('en-GB')} | ${eur(r.annualValuePerBuyer)} (${r.annualValueBasis}) | ${eur(r.tamEurPerYear)} | ${eur(r.somYear5Eur)} | ${eur(r.valueLowEur)} | ${eur(r.valueCentralEur)} | ${eur(r.valueHighEur)} |`,
+        `| ${i + 1} | \`${r.id}\` | ${r.published ? 'yes' : 'no (BLUE)'} | ${r.family} | ${r.segment}${r.segmentStatus === 'estimate' ? '*' : ''} | ${Math.round(r.buyers * r.fit).toLocaleString('en-GB')} | ${eur(r.annualValuePerBuyer)} (${r.annualValueBasis}) | ${eur(r.tamEurPerYear)} | ${eur(r.somYear5Eur)} | ${eur(r.valueLowEur)} | ${eur(r.valueCentralEur)} | ${eur(r.valueHighEur)} |`,
     ),
     '',
     '\\* segment size is a model estimate to verify.',
