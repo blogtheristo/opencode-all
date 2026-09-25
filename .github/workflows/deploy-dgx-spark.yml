@@ -20,18 +20,15 @@ on:
   push:
     branches: [main]
     paths-ignore:
-      - 'docs/**'
-      - 'Learn/**'
-      - 'landing-pages/**'
-      - 'onelifetime.world/**'
-      - 'investor-outreach/**'
-      - 'sales-outreach/**'
-  workflow_dispatch:
-    inputs:
-      force_rebuild:
-        description: 'Force full rebuild (docker compose build --no-cache)'
-        type: boolean
-        default: false
+      - "docs/**"
+      - "Learn/**"
+      - "landing-pages/**"
+      - "onelifetime.world/**"
+      - "investor-outreach/**"
+      - "sales-outreach/**"
+  workflow_dispatch: {}
+  # Builds are always --no-cache (see the build step), so there is no
+  # force_rebuild toggle — every deploy is a clean rebuild by design.
 
 concurrency:
   group: dgx-spark-deploy
@@ -102,15 +99,16 @@ jobs:
       - name: Build and deploy Docker services
         if: steps.ssh_test.outputs.reachable == 'true'
         run: |
-          BUILD_FLAG=""
-          if [ "${{ inputs.force_rebuild }}" = "true" ]; then
-            BUILD_FLAG="--no-cache"
-          fi
-
+          # Always --no-cache. `git reset --hard` (step above) updates the host
+          # files, but Docker can still reuse a cached COPY layer and ship STALE
+          # app code — the "stale container trap" documented in the Rebuild
+          # Playbook (docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md).
+          # --pull also refreshes node:22-slim so host security updates land in
+          # the image. --force-recreate guarantees the new image is what runs.
           ssh dgx-spark "
             cd /home/admin100/dws6/infrastructure/dgx-spark
-            docker compose build --pull ${BUILD_FLAG} 2>&1 | tail -20
-            docker compose up -d
+            docker compose build --pull --no-cache 2>&1
+            docker compose up -d --force-recreate
             echo ''
             docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
           "

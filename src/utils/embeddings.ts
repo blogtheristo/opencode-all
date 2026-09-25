@@ -44,17 +44,54 @@ export function getConfiguredProvider(): EmbeddingProvider {
 }
 
 /**
+ * Dimension the DB pgvector columns are declared with (VECTOR(1536) across
+ * supabase/migrations — memory_audit_log, hybrid_memory_search, etc.).
+ *
+ * This is the guard's reference point: OpenAI text-embedding-3-small emits
+ * 1536-dim, but Ollama nomic-embed-text emits 768-dim. Flipping
+ * EMBEDDING_PROVIDER=dgx-spark without migrating the columns would push
+ * 768-dim vectors at a VECTOR(1536) column — pgvector then errors at
+ * insert/query time, far from the config change that caused it. The guard
+ * catches the mismatch at the seam and degrades (returns null) instead.
+ *
+ * Override with EMBEDDING_DIMENSIONS once the columns are migrated for a
+ * sovereign/offline deployment so the guard tracks the new schema.
+ */
+export function getExpectedDimensions(): number {
+  const raw = process.env.EMBEDDING_DIMENSIONS;
+  if (!raw) return 1536;
+  const n = Number.parseInt(raw, 10);
+  return Number.isInteger(n) && n > 0 ? n : 1536;
+}
+
+/**
  * Generate an embedding using the configured provider.
  * Returns `null` on any failure (caller should degrade, not throw).
+ *
+ * Enforces the dimension guard: a vector whose length does not match the
+ * DB column dimension (EMBEDDING_DIMENSIONS, default 1536) is rejected so a
+ * wrong-dimension vector can never reach pgvector.
  */
 export async function generateEmbedding(text: string): Promise<EmbeddingResult | null> {
   const trimmed = text.slice(0, MAX_INPUT_CHARS);
   const provider = getConfiguredProvider();
 
-  if (provider === 'dgx-spark') {
-    return embedDgxSpark(trimmed);
+  const result =
+    provider === 'dgx-spark' ? await embedDgxSpark(trimmed) : await embedOpenAI(trimmed);
+  if (result === null) return null;
+
+  const expected = getExpectedDimensions();
+  if (result.dimensions !== expected) {
+    logger.error('embeddings: dimension mismatch — refusing to emit vector', {
+      provider: result.provider,
+      model: result.model,
+      got: result.dimensions,
+      expected,
+      hint: `Provider '${result.provider}' (${result.model}) returned ${result.dimensions}-dim but the DB columns are VECTOR(${expected}). Either revert EMBEDDING_PROVIDER, migrate the pgvector columns to ${result.dimensions}-dim, or set EMBEDDING_DIMENSIONS to match the migrated schema.`,
+    });
+    return null;
   }
-  return embedOpenAI(trimmed);
+  return result;
 }
 
 // ============ Providers ============
@@ -169,15 +206,12 @@ export async function preflightEmbeddings(): Promise<PreflightResult> {
       ok: probe !== null,
       detail: probe ? `${probe.dimensions}-dim` : 'no response',
     });
-    return {
+    return finalizeProbe(
       provider,
-      ok: probe !== null,
       checks,
-      ...(probe ? { dimensions: probe.dimensions } : {}),
-      ...(probe
-        ? {}
-        : { hint: 'OpenAI returned no embedding — check API key validity and quota.' }),
-    };
+      probe,
+      'OpenAI returned no embedding — check API key validity and quota.',
+    );
   }
 
   // dgx-spark — we run three checks so the hint is precise.
@@ -243,15 +277,47 @@ export async function preflightEmbeddings(): Promise<PreflightResult> {
     ok: probe !== null,
     detail: probe ? `${probe.dimensions}-dim` : 'no vector returned',
   });
+  return finalizeProbe(
+    provider,
+    checks,
+    probe,
+    `Round-trip embedding failed even though model is loaded. Check ${ollamaUrl}/api/embeddings on ${sshHost} directly.`,
+  );
+}
+
+/**
+ * Fold a provider probe into a PreflightResult, applying the dimension guard.
+ * A reachable provider that returns the wrong dimension count is NOT ok —
+ * this is the early warning that prevents flipping EMBEDDING_PROVIDER into a
+ * pgvector dimension mismatch in production.
+ */
+function finalizeProbe(
+  provider: EmbeddingProvider,
+  checks: PreflightResult['checks'],
+  probe: EmbeddingResult | null,
+  unreachableHint: string,
+): PreflightResult {
+  if (probe === null) {
+    return { provider, ok: false, checks, hint: unreachableHint };
+  }
+  const expected = getExpectedDimensions();
+  const dimsOk = probe.dimensions === expected;
+  checks.push({
+    name: `dimensions match DB schema (${expected})`,
+    ok: dimsOk,
+    detail: dimsOk
+      ? `${probe.dimensions}-dim`
+      : `got ${probe.dimensions}-dim, expected ${expected}`,
+  });
   return {
     provider,
-    ok: probe !== null,
+    ok: dimsOk,
     checks,
-    ...(probe ? { dimensions: probe.dimensions } : {}),
-    ...(probe
+    dimensions: probe.dimensions,
+    ...(dimsOk
       ? {}
       : {
-          hint: `Round-trip embedding failed even though model is loaded. Check ${ollamaUrl}/api/embeddings on ${sshHost} directly.`,
+          hint: `Provider returns ${probe.dimensions}-dim but DB columns are VECTOR(${expected}). Migrate the pgvector columns to ${probe.dimensions}-dim and set EMBEDDING_DIMENSIONS=${probe.dimensions}, or keep the current provider.`,
         }),
   };
 }
