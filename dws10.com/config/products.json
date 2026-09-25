@@ -1,10 +1,13 @@
 {
   "products": {
     "DWS-IQ-006": {
+      "tags": ["DWS IQ", "Sovereign Cloud"],
       "id": "DWS-IQ-006",
       "gtin": null,
       "mpn": "DWSIQ-V6-2026",
       "name": "Lifetime DWS IQ Platform (Version 6)",
+      "caption": "Orchestration platform that turns Fit for 55, CSRD and EPBD obligations into audit-ready outcomes with governed agents.",
+      "captionFi": "Orkestrointialusta, joka muuttaa Fit for 55-, CSRD- ja EPBD-velvoitteet auditointikelpoisiksi tuloksiksi hallituilla agenteilla.",
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
@@ -47,10 +50,13 @@
       "capacityLimits": "Agent count depends on deployment option and workload"
     },
     "FH-AUTO-001": {
+      "tags": ["Firehorse"],
       "id": "FH-AUTO-001",
       "gtin": null,
       "mpn": "FH-AUTO-2026",
       "name": "Firehorse Amplify",
+      "caption": "Event-driven workflows that capture ESG data from your systems with a complete audit trail.",
+      "captionFi": "Tapahtumaohjatut ty\u00f6nkulut ker\u00e4\u00e4v\u00e4t ESG-datan suoraan j\u00e4rjestelmist\u00e4nne t\u00e4ydellisell\u00e4 kirjausketjulla.",
       "price": 4950,
       "currency": "EUR",
       "type": "one-time",
@@ -89,10 +95,13 @@
       "capacityLimits": "Per-template scope"
     },
     "LIFETIME-BUNDLE-2026": {
+      "tags": ["DWS IQ", "Sovereign Cloud"],
       "id": "LIFETIME-BUNDLE-2026",
       "gtin": null,
       "mpn": "CLM-BUNDLE-2026",
       "name": "Climate Reporting Starter Bundle",
+      "caption": "DWS IQ base platform, Firehorse Report module and a kickoff workshop for a first CSRD report.",
+      "captionFi": "DWS IQ -perusalusta, Firehorse Report -moduuli ja aloitusty\u00f6paja ensimm\u00e4iseen CSRD-raporttiin.",
       "price": 6500,
       "currency": "EUR",
       "type": "one-time",
@@ -130,10 +139,13 @@
       "capacityLimits": "Per-bundle scope"
     },
     "FH-OMNI-001": {
+      "tags": ["Firehorse"],
       "id": "FH-OMNI-001",
       "gtin": null,
       "mpn": "FH-OMNI-2026",
       "name": "Firehorse Omnichannel Next",
+      "caption": "AI marketing engine that checks every claim against the EU AI Act and the Green Claims Directive.",
+      "captionFi": "Teko\u00e4lypohjainen markkinointi, joka tarkistaa jokaisen v\u00e4itteen EU:n teko\u00e4lys\u00e4\u00e4d\u00f6st\u00e4 ja viherv\u00e4itedirektiivi\u00e4 vasten.",
       "price": 499,
       "currency": "EUR",
       "type": "one-time",
@@ -173,10 +185,13 @@
       "capacityLimits": "Per-contract scope"
     },
     "FH-RPT-001": {
+      "tags": ["DWS IQ", "Sovereign Cloud"],
       "id": "FH-RPT-001",
       "gtin": null,
       "mpn": "FH-REPORT-2026",
       "name": "DWS IQ Report",
+      "caption": "Automated Fit for 55 report template with SAP integration and 4-week validation.",
+      "captionFi": "Automatisoitu Fit for 55 -raporttipohja SAP-integraatiolla ja nelj\u00e4n viikon validoinnilla.",
       "price": 1999,
       "currency": "EUR",
       "type": "one-time",
@@ -216,10 +231,13 @@
       "capacityLimits": "Per-template scope"
     },
     "FH-SIGN-001": {
+      "tags": ["Firehorse", "Subscription"],
       "id": "FH-SIGN-001",
       "gtin": null,
       "mpn": "FH-SIGNED-REPORTS-2026",
       "name": "Firehorse Signed Reports",
+      "caption": "DocuSign eSignatures on Firehorse reports: author, reviewer and auditor sign in sequence.",
+      "captionFi": "DocuSign-s\u00e4hk\u00f6allekirjoitukset Firehorse-raportteihin: laatija, tarkastaja ja tilintarkastaja allekirjoittavat j\u00e4rjestyksess\u00e4.",
       "price": 199,
       "currency": "EUR",
       "type": "subscription",
@@ -259,10 +277,13 @@
       "capacityLimits": "Per-signature scope"
     },
     "KYA-JEV-001": {
+      "tags": ["DWS IQ", "Sovereign Cloud", "Subscription", "Early Access"],
       "id": "KYA-JEV-001",
       "gtin": null,
       "mpn": "KYA-JEV-2026",
       "name": "kya-jev \u2014 KYA-Gated Typed Decisions (Early Access)",
+      "caption": "Typed decisions (choice, score, yes/no) for DWS agents, gated on a KYA verdict and logged for Article 12.",
+      "captionFi": "Tyypitetyt p\u00e4\u00e4t\u00f6kset (valinta, pisteytys, kyll\u00e4/ei) DWS-agenteille KYA-p\u00e4\u00e4t\u00f6ksen j\u00e4lkeen, kirjattuna artiklan 12 lokiin.",
       "price": 99,
       "currency": "EUR",
       "type": "subscription",
@@ -306,10 +327,13 @@
       "capacityLimits": "Confidence uncalibrated \u2014 advisory use only pending calibration report"
     },
     "FH-CMS-001": {
+      "tags": ["Firehorse"],
       "id": "FH-CMS-001",
       "gtin": null,
       "mpn": "FH-CMS-2026",
       "name": "Firehorse Content Management",
+      "caption": "Evidence vault: auto-tagged compliance documents, certificate expiry alerts and semantic search.",
+      "captionFi": "N\u00e4ytt\u00f6arkisto: vaatimustenmukaisuusasiakirjat tagitetaan automaattisesti, sertifikaattien vanheneminen h\u00e4lytt\u00e4\u00e4 ja haku l\u00f6yt\u00e4\u00e4 sis\u00e4ll\u00f6n.",
       "price": 2999,
       "currency": "EUR",
       "type": "one-time",
@@ -353,6 +377,8 @@
       "gtin": null,
       "mpn": "CONSULT-HR-2026",
       "name": "Senior Compliance Specialist \u2014 Retainer + Outcomes",
+      "caption": "Senior compliance specialist on retainer, hours mapped to agreed outcomes.",
+      "captionFi": "Vaatimustenmukaisuuden asiantuntija kuukausisopimuksella, tunnit sidottu sovittuihin tuloksiin.",
       "price": 250,
       "currency": "EUR",
       "type": "hourly",
@@ -382,10 +408,13 @@
       "buyPageOrder": 26
     },
     "consulting-fit55": {
+      "tags": ["Subscription"],
       "id": "consulting-fit55",
       "gtin": null,
       "mpn": "CONSULT-FIT55-2026",
       "name": "Consulting Fit for 55 Specialist",
+      "caption": "Monthly co-working with the architect of DWS IQ on Fit for 55, reporting and strategy.",
+      "captionFi": "Kuukausittainen yhteisty\u00f6 DWS IQ:n arkkitehdin kanssa: Fit for 55, raportointi ja strategia.",
       "price": 3000,
       "currency": "EUR",
       "type": "monthly",
@@ -418,6 +447,8 @@
       "gtin": null,
       "mpn": "AWS-CONSULT-2026",
       "name": "EU-Sovereign AI Engineering & Cloud Consultancy",
+      "caption": "25 hours of senior architect time deploying AI models on EU-sovereign cloud or your own DGX Spark.",
+      "captionFi": "25 tuntia p\u00e4\u00e4arkkitehdin ty\u00f6t\u00e4 teko\u00e4lymallien k\u00e4ytt\u00f6\u00f6nottoon EU-suvereenissa pilvess\u00e4 tai omalla DGX Sparkilla.",
       "price": 3750,
       "currency": "EUR",
       "type": "one-time",
@@ -456,10 +487,13 @@
       "partnerProduct": true
     },
     "conversational-agent": {
+      "tags": ["Firehorse"],
       "id": "conversational-agent",
       "gtin": null,
       "mpn": "CONV-AGENT-2026",
       "name": "EU-Hosted Conversational Agent",
+      "caption": "AI agent on Teams, WhatsApp, Zoom or webhook with EU hosting and your choice of model.",
+      "captionFi": "Teko\u00e4lyagentti Teamsiin, WhatsAppiin, Zoomiin tai webhookiin EU-hostauksella ja valitsemallanne mallilla.",
       "price": 3500,
       "currency": "EUR",
       "type": "one-time",
@@ -503,6 +537,8 @@
       "gtin": null,
       "mpn": "AI-AGENT-2026",
       "name": "AI & Agent Engineering \u2014 Outcome-Backed Hourly",
+      "caption": "Senior AI engineer on demand, billed against delivered outcomes.",
+      "captionFi": "Kokenut teko\u00e4lyinsin\u00f6\u00f6ri tarpeen mukaan, laskutus toimitettujen tulosten perusteella.",
       "price": 200,
       "currency": "EUR",
       "type": "hourly",
@@ -546,6 +582,8 @@
       "gtin": null,
       "mpn": "FH-LEAN-2026",
       "name": "EU AI Project Accelerator (Fixed Price)",
+      "caption": "Fixed-price AI project delivery with sovereign deployment and Kanban roadmap.",
+      "captionFi": "Kiinte\u00e4hintainen teko\u00e4lyprojekti suvereenilla k\u00e4ytt\u00f6\u00f6notolla, Kanban-taululla ja tiekartalla.",
       "price": 4960,
       "currency": "EUR",
       "type": "one-time",
@@ -580,6 +618,8 @@
       "gtin": null,
       "mpn": "AI-DAY-2026",
       "name": "Captain Day \u2014 One-Day AI Outcome",
+      "caption": "One day with a senior consultant; you leave with a working artefact.",
+      "captionFi": "P\u00e4iv\u00e4 kokeneen konsultin kanssa; l\u00e4hdette mukananne toimiva tuotos.",
       "price": 1200,
       "currency": "EUR",
       "type": "one-time",
@@ -619,10 +659,13 @@
       "partnerProduct": true
     },
     "business-mentor-30": {
+      "tags": ["Training"],
       "id": "business-mentor-30",
       "gtin": null,
       "mpn": "MENTOR-30-2026",
       "name": "Claude Code AI Coaching \u2014 30 Hours",
+      "caption": "30 hours of Claude Code coaching in 4\u20138 hour sessions over 12 months.",
+      "captionFi": "30 tuntia Claude Code -valmennusta 4\u20138 tunnin jaksoissa 12 kuukauden aikana.",
       "price": 4960,
       "currency": "EUR",
       "type": "one-time",
@@ -652,10 +695,13 @@
       "partnerProduct": true
     },
     "firehorse-coach": {
+      "tags": ["Training"],
       "id": "firehorse-coach",
       "gtin": null,
       "mpn": "FH-COACH-2026",
       "name": "EU AI Act Literacy Training",
+      "caption": "AI literacy training for leadership and teams (EU AI Act Article 4), with a free 3-hour readiness workshop.",
+      "captionFi": "Teko\u00e4lylukutaidon koulutus johdolle ja tiimeille (EU:n teko\u00e4lys\u00e4\u00e4d\u00f6s, artikla 4) sek\u00e4 maksuton kolmen tunnin valmiusty\u00f6paja.",
       "price": 499,
       "currency": "EUR",
       "type": "one-time",
@@ -686,10 +732,13 @@
       "partnerProduct": true
     },
     "firehorse-flow": {
+      "tags": ["Firehorse"],
       "id": "firehorse-flow",
       "gtin": null,
       "mpn": "FH-FLOW-2026",
       "name": "AI Customer Agent",
+      "caption": "Customer-service agent that optimises each interaction; setup and first results within 2 weeks.",
+      "captionFi": "Asiakaspalveluagentti, joka parantaa jokaista asiakaskohtaamista; k\u00e4ytt\u00f6\u00f6n ja ensimm\u00e4iset tulokset kahdessa viikossa.",
       "price": 499,
       "currency": "EUR",
       "type": "one-time",
@@ -729,10 +778,13 @@
       "partnerProduct": true
     },
     "omnichannel-multimodal": {
+      "tags": ["Firehorse", "Subscription"],
       "id": "omnichannel-multimodal",
       "gtin": null,
       "mpn": "FH-OMNI-MM-2026",
       "name": "Firehorse Omnichannel & Multimodal AI Assistant",
+      "caption": "Campaign management across marketing channels with daily measurement and optimisation.",
+      "captionFi": "Kampanjoiden hallinta kaikissa markkinointikanavissa p\u00e4ivitt\u00e4isell\u00e4 mittauksella ja optimoinnilla.",
       "price": 699,
       "currency": "EUR",
       "type": "monthly",
@@ -767,6 +819,11 @@
       "gtin": null,
       "mpn": "ATK-APU-PK-2026",
       "name": "Kotisivut pk-yritykselle",
+      "archived": true,
+      "productType": "archived",
+      "archivedDate": "2026-09-25",
+      "archivedReason": "Superseded by LIFETIME-WEB-STARTER: A5 campaign price \u20ac650 (VAT 0 %), suggested retail price \u20ac1,084 (HIC 25.09.2026). The \u20ac750 package price is retired.",
+      "supersededBy": "LIFETIME-WEB-STARTER",
       "price": 750,
       "currency": "EUR",
       "type": "package",
@@ -796,10 +853,13 @@
       "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "firehorse-data-services": {
+      "tags": ["Firehorse"],
       "id": "firehorse-data-services",
       "gtin": null,
       "mpn": "FH-DATA-2026",
       "name": "Firehorse Data Services",
+      "caption": "Data products, brokerage strategy and enrichment that turn operational data into revenue.",
+      "captionFi": "Datatuotteet, datan v\u00e4litysstrategia ja rikastus, jotka tekev\u00e4t operatiivisesta datasta tuloa.",
       "price": 899,
       "currency": "EUR",
       "type": "one-time",
@@ -843,6 +903,8 @@
       "gtin": null,
       "mpn": "DEVOPS-LEAD-2026",
       "name": "Assessment",
+      "caption": "Two-week factory AI-readiness assessment with ROI projection and a go/no-go decision.",
+      "captionFi": "Kahden viikon arvio tehtaan teko\u00e4lyvalmiudesta: ROI-ennuste ja jatka/lopeta-p\u00e4\u00e4t\u00f6s.",
       "price": 2500,
       "currency": "EUR",
       "type": "one-time",
@@ -882,10 +944,13 @@
       "partnerProduct": true
     },
     "ai-koulutus-3d": {
+      "tags": ["Training"],
       "id": "ai-koulutus-3d",
       "gtin": null,
       "mpn": "AI-KOULUTUS-3D-2026",
       "name": "AI Koulutus 3 Days Programme",
+      "caption": "Three-day in-house AI programme: strategy, hands-on implementation and tool adoption.",
+      "captionFi": "Kolmen p\u00e4iv\u00e4n AI-koulutus talon sis\u00e4ll\u00e4: strategia, k\u00e4yt\u00e4nn\u00f6n toteutus ja ty\u00f6kalujen k\u00e4ytt\u00f6\u00f6notto.",
       "price": 6250,
       "currency": "EUR",
       "type": "one-time",
@@ -916,10 +981,13 @@
       "partnerProduct": true
     },
     "claude-code-coaching-3day": {
+      "tags": ["Training"],
       "id": "claude-code-coaching-3day",
       "gtin": null,
       "mpn": "CC-COACH-3DAY-2026",
       "name": "Claude Code Coaching \u2014 Lecture + Workshop (3 Days)",
+      "caption": "1-day foundations lecture plus 2-day hands-on Claude Code workshop.",
+      "captionFi": "Yhden p\u00e4iv\u00e4n perusluento ja kahden p\u00e4iv\u00e4n k\u00e4yt\u00e4nn\u00f6n Claude Code -ty\u00f6paja.",
       "price": 5900,
       "currency": "EUR",
       "type": "one-time",
@@ -949,10 +1017,13 @@
       "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "claude-code-coaching-lecture": {
+      "tags": ["Training"],
       "id": "claude-code-coaching-lecture",
       "gtin": null,
       "mpn": "CC-COACH-LEC-2026",
       "name": "Claude Code Coaching \u2014 1-Day Lecture",
+      "caption": "One-day lecture on agentic engineering with Claude Code for leaders and engineers.",
+      "captionFi": "Yhden p\u00e4iv\u00e4n luento agenttipohjaisesta ohjelmistokehityksest\u00e4 Claude Codella johdolle ja kehitt\u00e4jille.",
       "price": 1900,
       "currency": "EUR",
       "type": "one-time",
@@ -982,10 +1053,13 @@
       "additionalImage": "/static/images/Firehorse_Store.jpg"
     },
     "claude-code-coaching-workshop": {
+      "tags": ["Training"],
       "id": "claude-code-coaching-workshop",
       "gtin": null,
       "mpn": "CC-COACH-WS-2026",
       "name": "Claude Code Coaching \u2014 2-Day Workshop",
+      "caption": "Two-day workshop making Claude Code productive on your own repository.",
+      "captionFi": "Kahden p\u00e4iv\u00e4n ty\u00f6paja, jossa Claude Code otetaan tuottavaan k\u00e4ytt\u00f6\u00f6n omassa koodivarastossanne.",
       "price": 4500,
       "currency": "EUR",
       "type": "one-time",
@@ -1019,6 +1093,8 @@
       "gtin": null,
       "mpn": "CC-COACH-PROJ-2026",
       "name": "Claude Code Coaching \u2014 Client Project Work",
+      "caption": "Senior engineers deliver a real backlog item with Claude Code alongside your team.",
+      "captionFi": "Kokeneet kehitt\u00e4j\u00e4t toteuttavat oikean kehitysteht\u00e4v\u00e4n Claude Codella tiiminne rinnalla.",
       "price": 7500,
       "currency": "EUR",
       "type": "one-time",
@@ -1052,6 +1128,8 @@
       "gtin": null,
       "mpn": "AI-CONSULT-2026",
       "name": "Agentic Software Development for EU Teams",
+      "caption": "Industry-specific compliance workflows built with Claude Code and deployed inside the EU.",
+      "captionFi": "Toimialakohtaiset vaatimustenmukaisuuden ty\u00f6nkulut Claude Codella, k\u00e4ytt\u00f6\u00f6notto EU:n sis\u00e4ll\u00e4.",
       "price": 2500,
       "currency": "EUR",
       "type": "one-time",
@@ -1089,11 +1167,13 @@
       "capacityLimits": "Per-engagement scope"
     },
     "edge-node-gn100": {
+      "tags": ["Hardware", "Sovereign", "Air-Gapped"],
       "id": "edge-node-gn100",
       "gtin": null,
       "mpn": "LF-CTRLROOM-GN100-2026",
       "name": "Control Room \u2014 Acer Veriton GN100",
       "caption": "Single sovereign AI node \u2014 the command brain that lives in your building. Runs DWS IQ Control Room on NVIDIA edge.",
+      "captionFi": "Yksi suvereeni teko\u00e4lysolmu omassa rakennuksessanne. Ajaa DWS IQ Control Roomia NVIDIA-reunalaitteella.",
       "price": 8008,
       "currency": "EUR",
       "type": "one-time",
@@ -1134,11 +1214,13 @@
       "capacityLimits": "Single-node"
     },
     "LF-SITROOM-001": {
+      "tags": ["Hardware", "Sovereign", "Air-Gapped"],
       "id": "LF-SITROOM-001",
       "gtin": null,
       "mpn": "LF-SITROOM-GN100-2026",
       "name": "Situation Room \u2014 Two Sovereign AI Nodes",
       "caption": "Two GN100 nodes bridged \u2014 when one screen isn't enough. Runs DWS IQ Control Room & Situation Room on NVIDIA edge.",
+      "captionFi": "Kaksi yhdistetty\u00e4 GN100-solmua. Ajaa DWS IQ Control Roomia ja Situation Roomia NVIDIA-reunalaitteilla.",
       "price": 11598,
       "currency": "EUR",
       "type": "one-time",
@@ -1179,11 +1261,13 @@
       "capacityLimits": "2x hardware required"
     },
     "LF-COMPLIANCE-AMBULANCE-001": {
+      "tags": ["Hardware", "Sovereign", "Air-Gapped"],
       "id": "LF-COMPLIANCE-AMBULANCE-001",
       "gtin": null,
       "mpn": "LF-CMPL-AMBULANCE-2026",
       "name": "DWS IQ Compliance Ambulance \u2014 Mobile Office (NVIDIA Thor Edge)",
       "caption": "The third room, on wheels. DWS IQ Control Room & Situation Room in a vehicle \u2014 energy-optimized NVIDIA Thor edge, built to your industry.",
+      "captionFi": "Control Room ja Situation Room ajoneuvossa: energiatehokas NVIDIA Thor -reunalaite, r\u00e4\u00e4t\u00e4l\u00f6ity toimialallenne.",
       "price": 1,
       "currency": "EUR",
       "type": "one-time",
@@ -1226,10 +1310,13 @@
       "capacityLimits": "Per-incident scope"
     },
     "LF-NVIDIA-INSTALL": {
+      "tags": ["Installation"],
       "id": "LF-NVIDIA-INSTALL",
       "gtin": null,
       "mpn": "LF-NVIDIA-INSTALL-2026",
       "name": "NVIDIA Model Installation + Full Service",
+      "caption": "Installation of the NVIDIA model stack on your device, with training, support and warranty service.",
+      "captionFi": "NVIDIA-mallipinon asennus laitteeseenne sek\u00e4 koulutus, tuki ja takuuhuolto.",
       "price": 995,
       "currency": "EUR",
       "type": "one-time",
@@ -1269,10 +1356,13 @@
       "capacityLimits": "Per-device"
     },
     "LF-JETSON-NANO": {
+      "tags": ["Hardware", "Sovereign", "Air-Gapped", "Installation"],
       "id": "LF-JETSON-NANO",
       "gtin": null,
       "mpn": "LF-JETSON-NANO-2026",
       "name": "Jetson Sensor Node \u2014 Orin Nano Super + Install & Service",
+      "caption": "Compact edge sensor node (Jetson Orin Nano Super, 67 TOPS), installed and serviced.",
+      "captionFi": "Pieni reunasensorisolmu (Jetson Orin Nano Super, 67 TOPS), asennettuna ja huollettuna.",
       "price": 764,
       "currency": "EUR",
       "type": "one-time",
@@ -1312,10 +1402,13 @@
       "capacityLimits": "Limited compute"
     },
     "LF-JETSON-AGX": {
+      "tags": ["Hardware", "Sovereign", "Air-Gapped", "Installation"],
       "id": "LF-JETSON-AGX",
       "gtin": null,
       "mpn": "LF-JETSON-AGX-2026",
       "name": "Jetson Sensor Concentrator \u2014 AGX Orin 64GB + Install & Service",
+      "caption": "Multi-sensor edge concentrator (Jetson AGX Orin 64 GB, 275 TOPS), installed and serviced.",
+      "captionFi": "Usean sensorin reunakeskitin (Jetson AGX Orin 64 Gt, 275 TOPS), asennettuna ja huollettuna.",
       "price": 2694,
       "currency": "EUR",
       "type": "one-time",
@@ -1355,10 +1448,13 @@
       "capacityLimits": "64GB RAM"
     },
     "LF-DGX-SPARK": {
+      "tags": ["Hardware", "Sovereign", "Air-Gapped"],
       "id": "LF-DGX-SPARK",
       "gtin": null,
       "mpn": "LF-DGX-SPARK-2026",
       "name": "DGX Spark \u2014 NVIDIA-Branded Sovereign Edge AI",
+      "caption": "NVIDIA DGX Spark desktop AI workstation (GB10, 128 GB); hardware only.",
+      "captionFi": "NVIDIA DGX Spark -ty\u00f6asema teko\u00e4lylle (GB10, 128 Gt); pelkk\u00e4 laite.",
       "price": 6109,
       "currency": "EUR",
       "type": "one-time",
@@ -1399,10 +1495,13 @@
       "capacityLimits": "Single-node"
     },
     "LF-JETSON-NX": {
+      "tags": ["Hardware", "Sovereign", "Air-Gapped", "Installation"],
       "id": "LF-JETSON-NX",
       "gtin": null,
       "mpn": "LF-JETSON-NX-2026",
       "name": "Jetson Sensor Mid \u2014 Orin NX 16 GB + Install & Service",
+      "caption": "Mid-tier edge sensor node (Jetson Orin NX 16 GB, 100 TOPS), installed and serviced.",
+      "captionFi": "Keskitason reunasensorisolmu (Jetson Orin NX 16 Gt, 100 TOPS), asennettuna ja huollettuna.",
       "price": 1990,
       "currency": "EUR",
       "type": "one-time",
@@ -1442,10 +1541,13 @@
       "capacityLimits": "8GB RAM"
     },
     "LF-IGX-ORIN": {
+      "tags": ["Hardware", "Sovereign", "Air-Gapped"],
       "id": "LF-IGX-ORIN",
       "gtin": null,
       "mpn": "LF-IGX-ORIN-2026",
       "name": "IGX Orin \u2014 Industrial / Medical Sovereign Edge AI",
+      "caption": "Industrial and medical-grade edge AI (IGX Orin) with ECC memory and support to 2033; hardware only.",
+      "captionFi": "Teollisuus- ja l\u00e4\u00e4kint\u00e4luokan reunateko\u00e4ly (IGX Orin), ECC-muisti ja tuki vuoteen 2033; pelkk\u00e4 laite.",
       "price": 11990,
       "currency": "EUR",
       "type": "one-time",
@@ -1486,10 +1588,13 @@
       "capacityLimits": "Industrial grade"
     },
     "LF-K8S-T1": {
+      "tags": ["On-Prem"],
       "id": "LF-K8S-T1",
       "gtin": null,
       "mpn": "LF-K8S-T1-2026",
       "name": "Kubernetes Orchestration \u2014 Single-Node k3s (Tier 1)",
+      "caption": "Single-node k3s with GPU and NIM operators on one DGX Spark or Control Room node.",
+      "captionFi": "Yhden solmun k3s GPU- ja NIM-operaattoreineen yhdelle DGX Spark- tai Control Room -solmulle.",
       "price": 1500,
       "currency": "EUR",
       "type": "one-time",
@@ -1530,10 +1635,13 @@
       "partnerProduct": true
     },
     "LF-K8S-T2": {
+      "tags": ["On-Prem"],
       "id": "LF-K8S-T2",
       "gtin": null,
       "mpn": "LF-K8S-T2-2026",
       "name": "Kubernetes Orchestration \u2014 HA Cluster k3s (Tier 2)",
+      "caption": "Three-node high-availability k3s cluster with storage, load balancing and GPU operators.",
+      "captionFi": "Kolmen solmun vikasietoinen k3s-klusteri tallennuksella, kuormantasauksella ja GPU-operaattoreilla.",
       "price": 4500,
       "currency": "EUR",
       "type": "one-time",
@@ -1576,10 +1684,13 @@
       "partnerProduct": true
     },
     "LF-K8S-T3": {
+      "tags": ["On-Prem", "Gov Ready"],
       "id": "LF-K8S-T3",
       "gtin": null,
       "mpn": "LF-K8S-T3-2026",
       "name": "Kubernetes Orchestration \u2014 Gov Ready RKE2 (Tier 3)",
+      "caption": "Government-ready RKE2 cluster with FIPS 140-3 crypto and STIG-hardened nodes.",
+      "captionFi": "Viranomaisvalmis RKE2-klusteri: FIPS 140-3 -salaus ja STIG-koventaminen.",
       "price": 7500,
       "currency": "EUR",
       "type": "one-time",
@@ -1623,10 +1734,13 @@
       "partnerProduct": true
     },
     "LF-K8S-T4": {
+      "tags": ["On-Prem"],
       "id": "LF-K8S-T4",
       "gtin": null,
       "mpn": "LF-K8S-T4-2026",
       "name": "Kubernetes Orchestration \u2014 Full Infra Stack (Tier 4)",
+      "caption": "Full NVIDIA AI Enterprise infrastructure stack with BlueField-3 DPUs for multi-tenant AI factories.",
+      "captionFi": "T\u00e4ysi NVIDIA AI Enterprise -infrapino BlueField-3-DPU:illa monen asiakkaan teko\u00e4lytehtaisiin.",
       "price": 12000,
       "currency": "EUR",
       "type": "one-time",
@@ -1668,10 +1782,13 @@
       "partnerProduct": true
     },
     "LF-DOCA-ESSENTIAL": {
+      "tags": ["Subscription"],
       "id": "LF-DOCA-ESSENTIAL",
       "gtin": null,
       "mpn": "LF-DOCA-ESS-2026",
       "name": "DOCA Microservices \u2014 Essential Package",
+      "caption": "Essential BlueField DPU services: telemetry, time sync and firmware management.",
+      "captionFi": "BlueField-DPU:n peruspalvelut: telemetria, aikasynkronointi ja laiteohjelmiston hallinta.",
       "price": 500,
       "currency": "EUR",
       "type": "subscription",
@@ -1715,10 +1832,13 @@
       "partnerProduct": true
     },
     "LF-DOCA-SECURITY": {
+      "tags": ["Gov Ready", "Subscription"],
       "id": "LF-DOCA-SECURITY",
       "gtin": null,
       "mpn": "LF-DOCA-SEC-2026",
       "name": "DOCA Microservices \u2014 Security & Compliance Package",
+      "caption": "DPU security services: deep packet inspection, anomaly detection and audit packet capture.",
+      "captionFi": "DPU:n tietoturvapalvelut: syv\u00e4 pakettitarkastus, poikkeamien tunnistus ja pakettikaappaus auditointiin.",
       "price": 1000,
       "currency": "EUR",
       "type": "subscription",
@@ -1763,10 +1883,13 @@
       "partnerProduct": true
     },
     "LF-DOCA-NETWORK-STORAGE": {
+      "tags": ["Subscription"],
       "id": "LF-DOCA-NETWORK-STORAGE",
       "gtin": null,
       "mpn": "LF-DOCA-NETSTOR-2026",
       "name": "DOCA Microservices \u2014 Networking & Storage Acceleration Package",
+      "caption": "DPU networking and storage acceleration: BGP routing, NVMe-oF and vSwitch offload.",
+      "captionFi": "DPU:n verkko- ja tallennuskiihdytys: BGP-reititys, NVMe-oF ja virtuaalikytkimen kuormanpurku.",
       "price": 2000,
       "currency": "EUR",
       "type": "subscription",
@@ -1811,10 +1934,13 @@
       "partnerProduct": true
     },
     "LF-GOV-READY-SETUP": {
+      "tags": ["Gov Ready"],
       "id": "LF-GOV-READY-SETUP",
       "gtin": null,
       "mpn": "LF-GOV-SETUP-2026",
       "name": "Government Ready Cluster Setup",
+      "caption": "Deploy and validate a government-ready cluster with STIG, FIPS and SBOM evidence.",
+      "captionFi": "Viranomaisvalmiin klusterin k\u00e4ytt\u00f6\u00f6notto ja validointi STIG-, FIPS- ja SBOM-n\u00e4yt\u00f6ll\u00e4.",
       "price": 7500,
       "currency": "EUR",
       "type": "one-time",
@@ -1860,10 +1986,13 @@
       "partnerProduct": true
     },
     "LF-GOV-READY-ANNUAL": {
+      "tags": ["Gov Ready", "Subscription"],
       "id": "LF-GOV-READY-ANNUAL",
       "gtin": null,
       "mpn": "LF-GOV-ANNUAL-2026",
       "name": "Government Ready Annual Maintenance",
+      "caption": "Yearly upkeep of a government-ready cluster: rescans, validation and audit evidence.",
+      "captionFi": "Viranomaisvalmiin klusterin vuosiyll\u00e4pito: uudelleenskannaukset, validointi ja auditointin\u00e4ytt\u00f6.",
       "price": 3000,
       "currency": "EUR",
       "type": "subscription",
@@ -1908,10 +2037,13 @@
       "partnerProduct": true
     },
     "LF-GOV-AIRGAP-BUNDLE": {
+      "tags": ["Air-Gapped", "Gov Ready"],
       "id": "LF-GOV-AIRGAP-BUNDLE",
       "gtin": null,
       "mpn": "LF-GOV-AIRGAP-2026",
       "name": "Air-Gapped Gov Ready Image Bundle",
+      "caption": "Offline image and Helm bundle for installing a government-ready cluster without network access.",
+      "captionFi": "Offline-paketti (kuvat ja Helm-kaaviot) viranomaisvalmiin klusterin asennukseen ilman verkkoyhteytt\u00e4.",
       "price": 1500,
       "currency": "EUR",
       "type": "one-time",
@@ -1955,10 +2087,13 @@
       "partnerProduct": true
     },
     "LF-FIPS-VALIDATION": {
+      "tags": ["Gov Ready"],
       "id": "LF-FIPS-VALIDATION",
       "gtin": null,
       "mpn": "LF-FIPS-VAL-2026",
       "name": "FIPS 140-3 Validation Service",
+      "caption": "FIPS 140-3 module verification, crypto policy and signed attestation for auditors.",
+      "captionFi": "FIPS 140-3 -moduulien varmennus, salauspolitiikka ja allekirjoitettu vakuutus auditoijille.",
       "price": 2000,
       "currency": "EUR",
       "type": "one-time",
@@ -2001,10 +2136,13 @@
       "partnerProduct": true
     },
     "LF-NIM-STARTER": {
+      "tags": ["On-Prem", "Subscription"],
       "id": "LF-NIM-STARTER",
       "gtin": null,
       "mpn": "LF-NIM-STARTER-2026",
       "name": "NIM Microservices \u2014 Starter Profile",
+      "caption": "Core NVIDIA inference microservices (Nemotron, Llama) with model caching.",
+      "captionFi": "NVIDIA:n perusinferenssipalvelut (Nemotron, Llama) malliv\u00e4limuistilla.",
       "price": 500,
       "currency": "EUR",
       "type": "subscription",
@@ -2048,10 +2186,13 @@
       "partnerProduct": true
     },
     "LF-NIM-RETRIEVAL": {
+      "tags": ["On-Prem", "Subscription"],
       "id": "LF-NIM-RETRIEVAL",
       "gtin": null,
       "mpn": "LF-NIM-RET-2026",
       "name": "NIM Microservices \u2014 Retrieval & Embedding Profile",
+      "caption": "Embedding and OCR microservices for retrieval (RAG); add-on to the starter profile.",
+      "captionFi": "Upotus- ja OCR-palvelut hakuun (RAG); lis\u00e4osa perusprofiiliin.",
       "price": 500,
       "currency": "EUR",
       "type": "subscription",
@@ -2095,10 +2236,13 @@
       "partnerProduct": true
     },
     "LF-NIM-CODE": {
+      "tags": ["On-Prem", "Subscription"],
       "id": "LF-NIM-CODE",
       "gtin": null,
       "mpn": "LF-NIM-CODE-2026",
       "name": "NIM Microservices \u2014 Code Generation Profile",
+      "caption": "Code-generation microservices (StarCoder2, CodeLlama); add-on to the starter profile.",
+      "captionFi": "Koodin generoinnin palvelut (StarCoder2, CodeLlama); lis\u00e4osa perusprofiiliin.",
       "price": 500,
       "currency": "EUR",
       "type": "subscription",
@@ -2141,10 +2285,13 @@
       "partnerProduct": true
     },
     "LF-NIM-BIOLOGY": {
+      "tags": ["On-Prem", "Subscription"],
       "id": "LF-NIM-BIOLOGY",
       "gtin": null,
       "mpn": "LF-NIM-BIO-2026",
       "name": "NIM Microservices \u2014 Biology & Genomics Profile",
+      "caption": "Life-science microservices (Evo2, DiffDock); needs a high-memory configuration.",
+      "captionFi": "Biotieteiden palvelut (Evo2, DiffDock); vaatii suuren muistin kokoonpanon.",
       "price": 2000,
       "currency": "EUR",
       "type": "subscription",
@@ -2187,10 +2334,13 @@
       "partnerProduct": true
     },
     "LF-IPCMAX-IPC409": {
+      "tags": ["Hardware", "Sovereign", "Air-Gapped"],
       "id": "LF-IPCMAX-IPC409",
       "gtin": null,
       "mpn": "LF-IPCMAX-IPC409-2026",
       "name": "iPCMax IPC-409 \u2014 Compact Fanless Sensor Gateway",
+      "caption": "Fanless DIN-rail sensor gateway for Modbus/MQTT, local stock in Finland.",
+      "captionFi": "Tuuletinton DIN-kiskoon asennettava sensoriyhdysk\u00e4yt\u00e4v\u00e4 Modbus/MQTT-liikenteelle, varastossa Suomessa.",
       "price": 345,
       "currency": "EUR",
       "type": "one-time",
@@ -2240,10 +2390,13 @@
       "partnerProduct": true
     },
     "LF-IPCMAX-IPCP68": {
+      "tags": ["Hardware", "Sovereign", "Air-Gapped"],
       "id": "LF-IPCMAX-IPCP68",
       "gtin": null,
       "mpn": "LF-IPCMAX-IPCP68-2026",
       "name": "iPCMax IPC-P68 \u2014 Vision Gateway with PoE",
+      "caption": "Fanless vision gateway with PoE+ ports for machine-vision cameras.",
+      "captionFi": "Tuuletinton konen\u00e4k\u00f6yhdysk\u00e4yt\u00e4v\u00e4 PoE+-porteilla konen\u00e4k\u00f6kameroille.",
       "price": 680,
       "currency": "EUR",
       "type": "one-time",
@@ -2295,10 +2448,13 @@
       "partnerProduct": true
     },
     "LF-IPCMAX-CINCOZE-DA1200": {
+      "tags": ["Hardware", "Sovereign", "Air-Gapped"],
       "id": "LF-IPCMAX-CINCOZE-DA1200",
       "gtin": null,
       "mpn": "LF-IPCMAX-CINCOZE-DA1200-2026",
       "name": "Cincoze DA-1200 \u2014 Rugged Expandable Edge Computer",
+      "caption": "Rugged edge computer for \u221240 \u00b0C to 70 \u00b0C with modular industrial I/O.",
+      "captionFi": "Kest\u00e4v\u00e4 reunatietokone \u221240\u202670 \u00b0C:n olosuhteisiin, modulaariset teollisuusliit\u00e4nn\u00e4t.",
       "price": 1850,
       "currency": "EUR",
       "type": "one-time",
@@ -2349,10 +2505,13 @@
       "partnerProduct": true
     },
     "DWS-SOVEREIGN-DB-001": {
+      "tags": ["DWS IQ", "Sovereign Cloud"],
       "id": "DWS-SOVEREIGN-DB-001",
       "gtin": null,
       "mpn": "SOVEREIGN-DB-2026",
       "name": "Sovereign Database \u2014 EU Data Sovereignty for PostgreSQL",
+      "caption": "EU-hosted, EU-owned PostgreSQL with sovereignty monitoring and compliance scoring.",
+      "captionFi": "EU:ssa hostattu ja eurooppalaisomisteinen PostgreSQL, suvereniteetin seuranta ja vaatimustenmukaisuuden pisteytys.",
       "price": 499,
       "currency": "EUR",
       "type": "one-time",
@@ -2393,10 +2552,13 @@
       "capacityLimits": "Per-tier storage"
     },
     "sovereignty-cloud-consulting": {
+      "tags": ["Subscription"],
       "id": "sovereignty-cloud-consulting",
       "gtin": null,
       "mpn": "SOVEREIGN-CLOUD-2026",
       "name": "Sovereignty Cloud Consulting \u2013 European Cloud Migration",
+      "caption": "Migration from US-hosted services to European infrastructure, with DPA and NIS2 work.",
+      "captionFi": "Siirto yhdysvaltalaisista palveluista eurooppalaiseen infrastruktuuriin, DPA- ja NIS2-ty\u00f6 mukana.",
       "price": 1500,
       "currency": "EUR",
       "type": "monthly",
@@ -2425,10 +2587,13 @@
       "buyPageOrder": 10
     },
     "DWS-US-STARTER": {
+      "tags": ["DWS IQ", "US Sovereign Cloud", "Subscription"],
       "id": "DWS-US-STARTER",
       "gtin": null,
       "mpn": "DWS-US-STARTER-2026",
       "name": "DWS IQ \u2014 US Cloud Starter",
+      "caption": "DWS IQ on US cloud (Supabase + Cloudflare): compliance agents and CSRD dashboard, 1 seat.",
+      "captionFi": "DWS IQ Yhdysvaltain pilvess\u00e4 (Supabase + Cloudflare): vaatimustenmukaisuusagentit ja CSRD-n\u00e4kym\u00e4, 1 k\u00e4ytt\u00e4j\u00e4.",
       "price": 299,
       "currency": "EUR",
       "type": "monthly",
@@ -2470,10 +2635,13 @@
       "capacityLimits": "Single concurrent workflow"
     },
     "DWS-US-PILOT": {
+      "tags": ["DWS IQ", "US Sovereign Cloud", "Subscription", "Pilot"],
       "id": "DWS-US-PILOT",
       "gtin": null,
       "mpn": "DWS-US-PILOT-2026",
       "name": "DWS IQ \u2014 US Cloud Pilot",
+      "caption": "Four-week DWS IQ evaluation on US cloud with the Firehorse agent suite, 5 seats.",
+      "captionFi": "Nelj\u00e4n viikon DWS IQ -arviointi Yhdysvaltain pilvess\u00e4 Firehorse-agenteilla, 5 k\u00e4ytt\u00e4j\u00e4\u00e4.",
       "price": 799,
       "currency": "EUR",
       "type": "monthly",
@@ -2515,10 +2683,13 @@
       "capacityLimits": "Standard support"
     },
     "DWS-EU-STARTER": {
+      "tags": ["DWS IQ", "Sovereign Cloud", "Subscription"],
       "id": "DWS-EU-STARTER",
       "gtin": null,
       "mpn": "DWS-EU-STARTER-2026",
       "name": "DWS IQ \u2014 EU Sovereign Starter",
+      "caption": "DWS IQ on EU infrastructure: compliance agents, CSRD dashboard and sovereignty monitoring.",
+      "captionFi": "DWS IQ EU-infrastruktuurilla: vaatimustenmukaisuusagentit, CSRD-n\u00e4kym\u00e4 ja suvereniteetin seuranta.",
       "price": 499,
       "currency": "EUR",
       "type": "monthly",
@@ -2562,10 +2733,13 @@
       "capacityLimits": "Single concurrent workflow"
     },
     "DWS-EU-PILOT": {
+      "tags": ["DWS IQ", "Sovereign Cloud", "Subscription", "Pilot"],
       "id": "DWS-EU-PILOT",
       "gtin": null,
       "mpn": "DWS-EU-PILOT-2026",
       "name": "DWS IQ \u2014 EU Sovereign Pilot",
+      "caption": "Full DWS IQ evaluation on EU infrastructure with Article 12 logging and NIS2 dashboard, 5 seats.",
+      "captionFi": "T\u00e4ysi DWS IQ -arviointi EU-infrastruktuurilla, artiklan 12 lokitus ja NIS2-n\u00e4kym\u00e4, 5 k\u00e4ytt\u00e4j\u00e4\u00e4.",
       "price": 1499,
       "currency": "EUR",
       "type": "monthly",
@@ -2608,10 +2782,13 @@
       "capacityLimits": "Standard support"
     },
     "DWS-CLIMATE-001": {
+      "tags": ["DWS IQ", "Sovereign Cloud", "Subscription"],
       "id": "DWS-CLIMATE-001",
       "gtin": null,
       "mpn": "DWS-CLIMATE-2026",
       "name": "DWS IQ Climate Intelligence",
+      "caption": "Climate-compliance module: ETS, CBAM and CSRD obligations as factory-floor execution.",
+      "captionFi": "Ilmastomoduuli: ETS-, CBAM- ja CSRD-velvoitteet tehtaan lattiatason toiminnaksi.",
       "price": 2999,
       "currency": "EUR",
       "type": "monthly",
@@ -2652,10 +2829,13 @@
       "capacityLimits": "Per-contract scope"
     },
     "DWS-AEGIS-001": {
+      "tags": ["DWS IQ", "Sovereign", "Air-Gapped", "Licence"],
       "id": "DWS-AEGIS-001",
       "gtin": null,
       "mpn": "DWS-AEGIS-2026",
       "name": "DWS IQ Aegis",
+      "caption": "Licence for a single-tenant sovereign AI platform on Finnish infrastructure, with an air-gapped tier.",
+      "captionFi": "Lisenssi: yhden asiakkaan suvereeni teko\u00e4lyalusta suomalaisella infrastruktuurilla, my\u00f6s ilmaeristetty (air-gapped) taso.",
       "price": 59990,
       "currency": "EUR",
       "type": "one-time",
@@ -2666,7 +2846,7 @@
         "Dual-use compliance \u2014 CER, CRM Act, KRITIS, NIS2, EU AI Act, CBAM, ETS",
         "Indicative nearest SEAL-3 (Digital Resilience) \u2014 not a Commission certificate"
       ],
-      "priceNote": "From \u20ac59,990 onboarding + one-time integration. Monthly subscription: Standard \u20ac999/mo | Defence \u20ac1,999/mo | Sovereign \u20ac4,999/mo",
+      "priceNote": "\u20ac59,990 one-time licence + one-time integration. Maintenance subscription DWS-AEGIS-SUB-001: Standard \u20ac999/mo | Defence \u20ac1,999/mo | Sovereign \u20ac4,999/mo. Pilot: DWS-AEGIS-PILOT-001. Implementation: DWS-AEGIS-IMPL-001.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/products/DWS-AEGIS-001.png",
@@ -2699,25 +2879,28 @@
       "capacityLimits": "UpCloud SLA 99.9%/99.999%"
     },
     "DWS-AEGIS-PILOT-001": {
+      "tags": ["DWS IQ", "Sovereign", "Air-Gapped", "Pilot"],
       "id": "DWS-AEGIS-PILOT-001",
       "gtin": null,
       "mpn": "DWS-AEGIS-PILOT-2026",
       "name": "DWS IQ Aegis Pilot (3 months)",
+      "caption": "Three-month pilot of one Aegis workflow on your own hardware; fee credited to the licence.",
+      "captionFi": "Kolmen kuukauden pilotti yhdest\u00e4 Aegis-ty\u00f6nkulusta omalla laitteistollanne; maksu hyvitet\u00e4\u00e4n lisenssin hinnasta.",
       "price": 19990,
       "currency": "EUR",
       "type": "one-time",
       "priceUnit": "per-3-months",
-      "description": "A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of Aegis onboarding \u2014 not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window \u2014 (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at \u20ac19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
+      "description": "A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of an Aegis deployment \u2014 not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window \u2014 (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at \u20ac19,990, applies only against the Aegis licence, and lapses if the customer does not proceed within 6 months.",
       "features": [
         "3-month scoped engagement \u2014 fixed price, fixed end date, one site and one control-room workflow",
         "Runs on existing customer hardware or a compact edge appliance; no DGX procurement required",
         "Proves the five control-room requirements: local execution and evidence, local identity/logs/kill authority, no network dependency for the core outcome, cloud optional, specified graceful degradation",
         "Binary acceptance KPI \u2014 uplink severed: workflow completes, Article 12 record still written locally, operator can still stop an agent. All three, or the pilot reports a negative result",
         "Deployment-mode recommendation (Local/Edge, Hybrid or EU-Sovereign Cloud) with production hardware sizing",
-        "Credited in full against Aegis onboarding within 6 months; credit capped at \u20ac19,990 and excludes LWM integration, hardware, multi-site rollout and custom integrations",
+        "Credited in full against the Aegis licence within 6 months; credit capped at \u20ac19,990 and excludes LWM integration, hardware, multi-site rollout and custom integrations",
         "Indicative nearest SEAL-3 (Digital Resilience) \u2014 not a Commission certificate"
       ],
-      "priceNote": "\u20ac19,990 fixed, 3 months. Credited in full against the \u20ac59,990 Aegis onboarding if you proceed within 6 months (net cost to production unchanged at \u20ac59,990). INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window \u2014 (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at \u20ac19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.",
+      "priceNote": "\u20ac19,990 fixed, 3 months. Credited in full against the \u20ac59,990 Aegis licence if you proceed within 6 months (net cost to production unchanged at \u20ac59,990). INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window \u2014 (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at \u20ac19,990, applies only against the Aegis licence, and lapses if the customer does not proceed within 6 months.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/products/DWS-AEGIS-PILOT-001.png",
@@ -2756,7 +2939,7 @@
         "Multi-site rollout, and any industry vertical beyond the one piloted",
         "Custom ERP, BIM or SCADA integrations",
         "The DWS-AEGIS-IMPL-001 Implementation Programme (EUR 45,000, additive and not credited)",
-        "Credit is capped at EUR 19,990, applies only against Aegis onboarding (EUR 59,990 baseline), and lapses if the customer does not proceed within 6 months"
+        "Credit is capped at EUR 19,990, applies only against the Aegis licence (EUR 59,990), and lapses if the customer does not proceed within 6 months"
       ],
       "phases": [
         "Phase 0 \u2014 Scoping and baseline (weeks 0-2, no charge): site, workflow and deployment mode locked; every workflow step classified core (must survive an outage) or non-core; degradation and reconciliation spec drafted; the isolation method for the acceptance test selected from the ranked ladder and recorded with its validity note (enforced above the stack, egress verified to fail); the three acceptance conditions written in the customer's own operational language; outage window dated",
@@ -2779,23 +2962,26 @@
       "partnerProduct": true
     },
     "DWS-AEGIS-IMPL-001": {
+      "tags": ["DWS IQ", "Sovereign", "Air-Gapped"],
       "id": "DWS-AEGIS-IMPL-001",
       "gtin": null,
       "mpn": "DWS-AEGIS-IMPL-2026",
       "name": "DWS IQ Aegis Implementation Programme (3 phases)",
+      "caption": "Three-phase implementation alongside Aegis: audit, agent in production, world-model integration.",
+      "captionFi": "Kolmivaiheinen toteutus Aegiksen rinnalla: auditointi, agentti tuotannossa, maailmamallin integraatio.",
       "price": 45000,
       "currency": "EUR",
       "type": "one-time",
-      "description": "A three-phase implementation engagement delivered alongside DWS IQ Aegis. Phase 1 Audit (2 weeks, \u20ac5,000): current state to gap analysis. Phase 2 Agent-in-production (6 weeks, \u20ac15,000): one skilled agent live and EU-compliant. Phase 3 LWM integration (8 weeks, \u20ac25,000): world-model integration so operational knowledge accumulates. ADDITIVE to Aegis onboarding and licence \u2014 this programme is NOT credited against onboarding, because Phase 3 is integration work that onboarding does not include.",
+      "description": "A three-phase implementation engagement delivered alongside DWS IQ Aegis. Phase 1 Audit (2 weeks, \u20ac5,000): current state to gap analysis. Phase 2 Agent-in-production (6 weeks, \u20ac15,000): one skilled agent live and EU-compliant. Phase 3 LWM integration (8 weeks, \u20ac25,000): world-model integration so operational knowledge accumulates. ADDITIVE to the Aegis licence and maintenance subscription \u2014 this programme is NOT credited against the licence, because Phase 3 is integration work that the licence does not include.",
       "features": [
         "Phase 1 \u2014 Audit, 2 weeks, \u20ac5,000: current state to gap analysis",
         "Phase 2 \u2014 Agent-in-production, 6 weeks, \u20ac15,000: one skilled agent live and EU-compliant",
         "Phase 3 \u2014 LWM integration, 8 weeks, \u20ac25,000: world-model integration, operational knowledge accumulates",
-        "Additive to Aegis onboarding and licence \u2014 not credited",
+        "Additive to the Aegis licence and maintenance subscription \u2014 not credited",
         "Scoped per engagement; phases can be taken in sequence or individually",
         "Indicative nearest SEAL-3 (Digital Resilience) \u2014 not a Commission certificate"
       ],
-      "priceNote": "\u20ac45,000 for all three phases (Audit \u20ac5,000 + Agent-in-production \u20ac15,000 + LWM integration \u20ac25,000). ADDITIVE to Aegis onboarding (\u20ac59,990) and licence \u2014 NOT credited against them. Phase 3 is integration work outside onboarding scope.",
+      "priceNote": "\u20ac45,000 for all three phases (Audit \u20ac5,000 + Agent-in-production \u20ac15,000 + LWM integration \u20ac25,000). ADDITIVE to the Aegis licence (\u20ac59,990) and maintenance subscription \u2014 NOT credited against them. Phase 3 is integration work outside the licence scope.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/products/DWS-AEGIS-IMPL-001.png",
@@ -2828,8 +3014,42 @@
         "Phase 2 Agent-in-production",
         "Phase 3 LWM integration"
       ],
-      "capacityLimits": "ADDITIVE to Aegis onboarding",
+      "capacityLimits": "ADDITIVE to the Aegis licence",
       "partnerProduct": true
+    },
+    "DWS-AEGIS-SUB-001": {
+      "tags": ["DWS IQ", "Sovereign", "Air-Gapped", "Subscription"],
+      "id": "DWS-AEGIS-SUB-001",
+      "gtin": null,
+      "mpn": "DWS-AEGIS-SUB-2026",
+      "name": "DWS IQ Aegis \u2014 Maintenance Subscription",
+      "caption": "Monthly maintenance for an Aegis licence: updates, security patches, support and operations.",
+      "captionFi": "Aegis-lisenssin kuukausiyll\u00e4pito: p\u00e4ivitykset, tietoturvapaikat, tuki ja operointi.",
+      "price": 999,
+      "currency": "EUR",
+      "type": "subscription",
+      "billingPeriod": "monthly",
+      "description": "Maintenance subscription for a DWS IQ Aegis licence (DWS-AEGIS-001), one per licensed deployment. Tier follows the licensed Aegis tier: Standard, Defence (GPU + SAR) or Sovereign (air-gapped). Same structure as the ontology product: pilot, licence, implementation, maintenance. Available September 2026.",
+      "features": [
+        "Required with every Aegis licence; tier follows the licensed tier",
+        "Platform updates and security patches on the single-tenant deployment",
+        "Support and operations for Standard, Defence and Sovereign (air-gapped) tiers"
+      ],
+      "priceNote": "Standard \u20ac999/mo | Defence \u20ac1,999/mo | Sovereign \u20ac4,999/mo. Requires DWS-AEGIS-001 licence.",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/products/DWS-AEGIS-001.png",
+      "detailsUrl": "../products/aegis.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "preorder",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform"
     },
     "CMP-T0": {
       "id": "CMP-T0",
@@ -6018,10 +6238,13 @@
       "partnerProduct": true
     },
     "DWS-IQ-FREE-2026": {
+      "tags": ["DWS IQ", "Sovereign Cloud", "Subscription", "Free"],
       "id": "DWS-IQ-FREE-2026",
       "gtin": null,
       "mpn": "DWSIQ-FREE-2026",
       "name": "DWS IQ Free \u2014 1 project, CSRD-ready",
+      "caption": "One CSRD project free: up to 50 ESG line items, 1 seat, no credit card.",
+      "captionFi": "Yksi CSRD-projekti maksutta: enint\u00e4\u00e4n 50 ESG-rivi\u00e4, 1 k\u00e4ytt\u00e4j\u00e4, ei luottokorttia.",
       "price": 1,
       "currency": "EUR",
       "type": "subscription",
@@ -6066,6 +6289,8 @@
       "gtin": null,
       "mpn": "AIS-EU-SOV-2026",
       "name": "EU-Sovereign AI Migration \u2014 Per Workload",
+      "caption": "Fixed-price move of one AI workload from a US-controlled model stack to EU-sovereign models.",
+      "captionFi": "Kiinte\u00e4hintainen siirto: yksi teko\u00e4lyty\u00f6kuorma yhdysvaltalaisesta mallipinosta EU-suvereeneihin malleihin.",
       "price": 4990,
       "currency": "EUR",
       "type": "metered",
@@ -6095,10 +6320,13 @@
       "partnerProduct": true
     },
     "AIS-OUTCOME-PILOT": {
+      "tags": ["Pilot"],
       "id": "AIS-OUTCOME-PILOT",
       "gtin": null,
       "mpn": "AIS-OUTCOME-2026",
       "name": "Outcome-Priced Applied-AI Pilot (6 weeks)",
+      "caption": "Six-week fixed-price AI pilot, refunded if the named KPI does not move.",
+      "captionFi": "Kuuden viikon kiinte\u00e4hintainen teko\u00e4lypilotti; rahat takaisin, jos nimetty KPI ei liiku.",
       "price": 9990,
       "currency": "EUR",
       "type": "one-time",
@@ -6128,9 +6356,12 @@
       "partnerProduct": true
     },
     "DWS-IQ-ESS-SETUP": {
+      "tags": ["DWS IQ", "Sovereign Cloud"],
       "id": "DWS-IQ-ESS-SETUP",
       "mpn": "DWSIQ-ESS-SETUP-2026",
       "name": "DWS IQ Essentials \u2014 Setup",
+      "caption": "One-time Essentials onboarding: install, connectors and a first tested safe update.",
+      "captionFi": "Essentialsin kertaluonteinen k\u00e4ytt\u00f6\u00f6notto: asennus, liittimet ja ensimm\u00e4inen testattu turvallinen p\u00e4ivitys.",
       "price": 799,
       "currency": "EUR",
       "type": "one-time",
@@ -6161,6 +6392,8 @@
       ],
       "priceNote": "One-time setup",
       "caption": "A5 campaign price: \u221240 % vs. suggested retail price €1,084 (VAT 0 %)",
+      "captionFi": "A5-kampanjahinta: \u221240 % ohjev\u00e4hitt\u00e4ishinnasta 1\u00a0084 \u20ac (ALV 0 %)",
+      "tags": ["SME"],
       "storeCategory": "web-services",
       "version": "1.0",
       "detailsUrl": "/products/lifetime-web-starter.html"
@@ -6182,9 +6415,34 @@
       ],
       "priceNote": "One-time setup",
       "caption": "A5 campaign price: \u221240 % vs. suggested retail price €584 (VAT 0 %)",
+      "captionFi": "A5-kampanjahinta: \u221240 % ohjev\u00e4hitt\u00e4ishinnasta 584 \u20ac (ALV 0 %)",
+      "tags": ["SME"],
       "storeCategory": "web-services",
       "version": "1.0",
       "detailsUrl": "/products/lifetime-webstore-mini.html"
+    },
+    "LIFETIME-IT-TUKI-10H": {
+      "id": "LIFETIME-IT-TUKI-10H",
+      "mpn": "IT-TUKI-10H-2026",
+      "name": "IT Support Hour Bank for SMEs \u2014 10 h",
+      "price": 750,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "IT support for small and medium-sized businesses from one number: a 10-hour bank at \u20ac75/h. Senior Finnish-speaking specialist, no subcontracting. Espoo and the Helsinki region.",
+      "features": [
+        "Computer renewal",
+        "Software updates",
+        "Business applications",
+        "Information security",
+        "Training"
+      ],
+      "priceNote": "10 h \u00d7 \u20ac75/h, VAT 0 %",
+      "caption": "Hour bank: computer renewal, software updates, business applications, information security, training",
+      "captionFi": "Tuntipankki: tietokoneiden uusiminen, ohjelmistojen p\u00e4ivitykset, yrityssovellukset, tietoturva, koulutus",
+      "tags": ["SME", "Installation"],
+      "storeCategory": "it-support",
+      "version": "1.0",
+      "detailsUrl": "https://lifetime.fi/atk-tuki-pk-yrityksille/"
     }
   },
   "settings": {
@@ -6230,14 +6488,14 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-09-24T00:00:00Z",
-  "priceVersion": "1.32",
+  "lastUpdated": "2026-09-25T00:00:00Z",
+  "priceVersion": "1.33",
   "priceList": {
-    "version": "1.32",
-    "effectiveDate": "2026-09-24",
+    "version": "1.33",
+    "effectiveDate": "2026-09-25",
     "nextReviewDate": "2026-11-15",
     "stampQuarter": "2026.Q3",
-    "stampDate": "2026-09-24",
+    "stampDate": "2026-09-25",
     "validUntil": "2026-11-15",
     "policy": {
       "currency": "EUR",
@@ -6256,8 +6514,8 @@
     }
   },
   "commercialPortfolio": {
-    "version": "1.32",
-    "effectiveDate": "2026-09-24",
+    "version": "1.33",
+    "effectiveDate": "2026-09-25",
     "nextReviewDate": "2026-11-15",
     "definitions": {
       "serious": {
@@ -6266,7 +6524,7 @@
         "primarySurface": "/buy/"
       },
       "supporting": {
-        "description": "Every other non-BLUE, non-archived, non-independent product. Supporting products remain publicly available on the broad DWS /price-list/ surface but are not part of the primary 13-product /buy/ portfolio.",
+        "description": "Every other non-BLUE, non-archived, non-independent product. These products remain publicly available on the broad DWS /price-list/ surface but are not part of the primary 13-product /buy/ portfolio. Internal residual class only: the price list shows no \"Supporting\" tag (HIC 25.09.2026).",
         "publicSalesEligible": true,
         "primarySurface": "/price-list/"
       },
@@ -6280,6 +6538,20 @@
         "description": "Internal, experimental or pilot catalog records identified by deploymentColor \"blue\". BLUE records require internal sign-off and are excluded from every public sales surface.",
         "publicSalesEligible": false,
         "activePublicationException": "BLUE records are active internal offers, not publicly saleable catalog products."
+      },
+      "smeCampaign": {
+        "description": "Campaign products for Finnish SMEs, tagged \"SME\". Rendered in their own section at the top of /price-list/ (HIC 25.09.2026). Web Starter and Webstore Mini also stay in seriousProductIds for /buy/; the IT-support hour bank (LIFETIME-IT-TUKI-10H) is sold via lifetime.fi and WhatsApp.",
+        "publicSalesEligible": true,
+        "primarySurface": "/price-list/",
+        "tag": "SME"
+      },
+      "productGroups": {
+        "description": "Price-list product groups, in this order, each with its own soft background colour (HIC 25.09.2026): SME campaign products (tag \"SME\"), DWS IQ platform (tag \"DWS IQ\"), Firehorse agents (tag \"Firehorse\"), independent data products (independentProductIds), services, consulting and training (storeCategory advisory or ai-cloud), hardware and infrastructure (storeCategory hardware and LF- infra SKUs).",
+        "tags": ["SME", "DWS IQ", "Firehorse"]
+      },
+      "productTags": {
+        "description": "Tags on catalogue records (HIC 25.09.2026; ONTOLOGY.md \u00a717). Group tags SME, DWS IQ, Firehorse name the price-list section. Attribute tags render as chips, always in the order of the allowed list. Hardware products carry Hardware, Sovereign, Air-Gapped. DWS IQ Aegis carries Sovereign and Air-Gapped. Other DWS IQ offers carry Sovereign Cloud; the two US offers (DWS-US-STARTER, DWS-US-PILOT) carry US Sovereign Cloud instead (US-hosted, US jurisdiction). Subscription is on every recurring offer (type subscription or monthly, or billingPeriod monthly or yearly) and only there. Licence: LF-ONTOLOGY-25, LWM-ONT-SOVEREIGN and DWS-AEGIS-001 (Aegis follows the ontology structure: pilot, licence, implementation, maintenance subscription DWS-AEGIS-SUB-001). Installation: the IT-support hour bank, LF-NVIDIA-INSTALL and the Jetson install packages. Every public offer has a one-line caption (EN) and captionFi (FI).",
+        "allowed": ["SME", "DWS IQ", "Firehorse", "Hardware", "Sovereign", "Air-Gapped", "Sovereign Cloud", "US Sovereign Cloud", "On-Prem", "Gov Ready", "Licence", "Subscription", "Installation", "Pilot", "Free", "Training", "Early Access"]
       },
       "archive": {
         "description": "Retired records identified by archived true or productType \"archived\". Archived records are inactive and excluded from every public sales surface.",
@@ -6304,6 +6576,7 @@
       "LIFETIME-WEB-STARTER",
       "LIFETIME-WEBSTORE-MINI"
     ],
+    "smeCampaignProductIds": ["LIFETIME-WEB-STARTER", "LIFETIME-WEBSTORE-MINI", "LIFETIME-IT-TUKI-10H"],
     "independentProductIds": [
       "LF-ONTOLOGY-25",
       "LWM-ONT-SOVEREIGN"
@@ -6321,7 +6594,7 @@
         "path": "/price-list/",
         "classification": "serious and supporting",
         "productRule": "non-BLUE, non-archived products plus subscriptions",
-        "expectedProductCount": 71,
+        "expectedProductCount": 72,
         "includesSubscriptions": true
       },
       "lifetimeConsulting": {
@@ -6335,6 +6608,22 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.33",
+      "date": "2026-09-25",
+      "author": "claude/price-list-a5-campaign",
+      "changes": [
+        "professional-web-pages (Kotisivut pk-yritykselle, \u20ac750) archived: superseded by LIFETIME-WEB-STARTER at the A5 campaign price \u20ac650 (VAT 0 %), suggested retail price \u20ac1,084 (HIC 25.09.2026). Detail pages are kept, not deleted.",
+        "LIFETIME-WEB-STARTER and LIFETIME-WEBSTORE-MINI: Finnish caption (captionFi) shown on the FI price list.",
+        "LIFETIME-IT-TUKI-10H added (HIC 25.09.2026): IT-support hour bank 10 h \u00d7 \u20ac75/h = \u20ac750 (VAT 0 %) \u2014 computer renewal, software updates, business applications, information security, training. Tag SME; third product in the SME campaign section and on the A5 flyer.",
+        "One-line captions on all 80 public offers (71 added). Attribute tags: Hardware + Sovereign + Air-Gapped on 11 hardware products; Sovereign + Air-Gapped on the 3 Aegis offers; Sovereign Cloud on 13 other DWS IQ offers (not the US Cloud offers). Long price notes break into paragraphs under a Terms toggle (HIC 25.09.2026).",
+        "Full tag set (HIC 25.09.2026: \"Kaikki tagit talteen\"): US Sovereign Cloud (2), On-Prem (10), Gov Ready (6), Licence (2), Subscription (25), Installation (5), Pilot (5), Free (1), Training (6), Early Access (1); Air-Gapped also on LF-GOV-AIRGAP-BUNDLE, Sovereign also on LWM-ONT-SOVEREIGN and LF-SOV-MODEL-SUB. Finnish captions (captionFi) on all 80 public offers; IT-support hour bank caption now in English.",
+        "DWS IQ Aegis restructured like the ontology product (HIC 25.09.2026): DWS-AEGIS-001 is the \u20ac59,990 one-time licence (tag Licence; was called onboarding); new DWS-AEGIS-SUB-001 maintenance subscription Standard \u20ac999/mo | Defence \u20ac1,999/mo | Sovereign \u20ac4,999/mo (prices unchanged, moved from the licence price note); pilot DWS-AEGIS-PILOT-001 and implementation DWS-AEGIS-IMPL-001 credit and scope wording now refer to the licence. Public offers 71 -> 72.",
+        "Price-list product groups (HIC 25.09.2026): tags \"DWS IQ\" (18 offers) and \"Firehorse\" (9 offers) added; six themed groups (SME, DWS IQ, Firehorse, data products, services, hardware and infrastructure), each with a soft background colour. The \"Supporting\" badge is dropped from the price list.",
+        "SME campaign products tagged SME render in their own first section; commercialPortfolio.smeCampaignProductIds.",
+        "Public price-list count 71 -> 70 -> 71 (\u20ac750 web package archived, IT hour bank added)."
+      ]
+    },
     {
       "version": "1.32",
       "date": "2026-09-24",
@@ -6612,9 +6901,12 @@
   ],
   "subscriptions": {
     "DWS-IQ-SUB-001": {
+      "tags": ["DWS IQ", "Sovereign Cloud", "Subscription"],
       "id": "DWS-IQ-SUB-001",
       "mpn": "DWSIQ-SUB-2026",
       "name": "DWS IQ Monthly Subscription",
+      "caption": "Required monthly subscription on all DWS IQ contracts: support SLA and a named contact.",
+      "captionFi": "Pakollinen kuukausitilaus kaikissa DWS IQ -sopimuksissa: tukipalvelutaso ja nimetty yhteyshenkil\u00f6.",
       "price": 499,
       "currency": "EUR",
       "type": "subscription",
@@ -6631,9 +6923,12 @@
       "version": "1.0"
     },
     "FH-SUB-001": {
+      "tags": ["Firehorse", "Subscription"],
       "id": "FH-SUB-001",
       "mpn": "FH-SUB-2026",
       "name": "Firehorse Monthly Subscription",
+      "caption": "Required monthly subscription for all Firehorse products: support SLA and service relationship.",
+      "captionFi": "Pakollinen kuukausitilaus kaikille Firehorse-tuotteille: tukipalvelutaso ja asiakassuhde.",
       "price": 499,
       "currency": "EUR",
       "type": "subscription",
@@ -6650,9 +6945,12 @@
       "version": "1.0"
     },
     "LF-SOV-MODEL-SUB": {
+      "tags": ["Sovereign", "Subscription"],
       "id": "LF-SOV-MODEL-SUB",
       "mpn": "LF-SOV-MODEL-SUB-2026",
       "name": "Sovereign Model Updates Subscription",
+      "caption": "Monthly NVIDIA model refreshes and security patches for your device, with 24/7 support.",
+      "captionFi": "NVIDIA-mallien kuukausip\u00e4ivitykset ja tietoturvapaikat laitteeseenne, tuki 24/7.",
       "price": 299,
       "currency": "EUR",
       "type": "subscription",
@@ -6671,6 +6969,7 @@
       "version": "1.2"
     },
     "LF-ONTOLOGY-PILOT": {
+      "tags": ["Pilot"],
       "id": "LF-ONTOLOGY-PILOT",
       "gtin": null,
       "mpn": "LF-ONTOLOGY-PILOT-2026",
@@ -6697,6 +6996,7 @@
       ],
       "priceNote": "\u20ac15,000\u2013\u20ac25,000 one-time, quoted. One named site, 3 months. 100% credited against the first LF-ONTOLOGY-25 licence year if the licence is signed within 90 days of the pilot's end.",
       "caption": "3-month pilot before the licence. Fee fully credited to the first licence year within 90 days.",
+      "captionFi": "Kolmen kuukauden pilotti ennen lisenssi\u00e4. Maksu hyvitet\u00e4\u00e4n kokonaan ensimm\u00e4isen lisenssivuoden hinnasta 90 p\u00e4iv\u00e4n sis\u00e4ll\u00e4.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -6716,6 +7016,7 @@
       "buyPageOrder": 19
     },
     "LF-ONTOLOGY-25": {
+      "tags": ["Licence", "Subscription"],
       "id": "LF-ONTOLOGY-25",
       "gtin": null,
       "mpn": "LF-ONTOLOGY-25-2026",
@@ -6760,6 +7061,7 @@
       ],
       "priceNote": "Starter: 1 named site \u20ac25,000/year. 2\u20135 named sites \u20ac60,000/year. 6\u201320 named sites \u20ac120,000/year. 21+ named sites from \u20ac200,000/year (enterprise agreement with named-site scope). Pilot: LF-ONTOLOGY-PILOT (3 months, fee 100% credited to the first licence year within 90 days).",
       "caption": "Annual data-product licence. Not a one-time fee.",
+      "captionFi": "Vuosilisenssi datatuotteeseen. Ei kertamaksu.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -6802,6 +7104,7 @@
       ],
       "priceNote": "From \u20ac15,000 per site (remote). On-site from \u20ac25,000/site + expenses. Complex plants \u20ac50k\u2013\u20ac75k/site quote. Support \u20ac2k\u2013\u20ac5k/month/site sold separately.",
       "caption": "One-time implementation per site. Ontology licence sold separately.",
+      "captionFi": "Kertaluonteinen k\u00e4ytt\u00f6\u00f6notto toimipaikkaa kohden. Ontologialisenssi myyd\u00e4\u00e4n erikseen.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -6895,10 +7198,13 @@
       "buyPageOrder": 23
     },
     "LWM-ONT-SOVEREIGN": {
+      "tags": ["Sovereign", "On-Prem", "Licence"],
       "id": "LWM-ONT-SOVEREIGN",
       "gtin": null,
       "mpn": "LWM-ONT-SOV-2026",
       "name": "European Industry Ontology \u2014 Sovereign on-prem pack",
+      "caption": "On-prem industry ontology pack on your NVIDIA hardware, with 12 months of updates.",
+      "captionFi": "Toimialaontologia omille NVIDIA-laitteillenne (on-prem), p\u00e4ivitykset 12 kuukauden ajan.",
       "price": 49990,
       "currency": "EUR",
       "type": "one-time",
@@ -7440,9 +7746,12 @@
       "buyPageOrder": 44
     },
     "DWS-IQ-ESS-SUB-SELF": {
+      "tags": ["DWS IQ", "Sovereign Cloud", "On-Prem", "Subscription"],
       "id": "DWS-IQ-ESS-SUB-SELF",
       "mpn": "DWSIQ-ESS-SELF-2026",
       "name": "DWS IQ Essentials \u2014 Self-Hosted",
+      "caption": "Essentials on your own infrastructure: orchestration, inventory, evidence and safe updates.",
+      "captionFi": "Essentials omalla infrastruktuurillanne: orkestrointi, inventaario, n\u00e4ytt\u00f6ketju ja turvalliset p\u00e4ivitykset.",
       "price": 49,
       "currency": "EUR",
       "type": "subscription",
@@ -7461,9 +7770,12 @@
       "version": "1.0"
     },
     "DWS-IQ-ESS-SUB-MANAGED": {
+      "tags": ["DWS IQ", "Sovereign Cloud", "Subscription"],
       "id": "DWS-IQ-ESS-SUB-MANAGED",
       "mpn": "DWSIQ-ESS-MGD-2026",
       "name": "DWS IQ Essentials \u2014 Managed",
+      "caption": "Essentials on Lifetime-managed EU hosting; we run database, backups, patches and uptime.",
+      "captionFi": "Essentials Lifetimen yll\u00e4pit\u00e4m\u00e4ll\u00e4 EU-hostauksella; hoidamme tietokannan, varmuuskopiot, p\u00e4ivitykset ja k\u00e4ytett\u00e4vyyden.",
       "price": 249,
       "currency": "EUR",
       "type": "subscription",
