@@ -383,16 +383,60 @@ ${renderVat(pl.vatReference)}
 `;
 }
 
+// Released snapshots are evidence and never change (HIC 25.09.2026: "Price-list versiot ovat
+// tärkeitä evidenssiä joten ne pitää aina säästää"). config/truth/price-list-versions.json lists
+// every frozen snapshot with its sha256; this script refuses to overwrite one, and
+// validate-product-publication.mjs checks that each exists unchanged in both folders.
+const MANIFEST = path.join(BASE, 'config/truth/price-list-versions.json');
+function frozenVersions() {
+  if (!fs.existsSync(MANIFEST)) return new Set();
+  const m = JSON.parse(fs.readFileSync(MANIFEST, 'utf8'));
+  return new Set((m.versions || []).filter((v) => v.frozen).map((v) => v.version));
+}
+
+// --from-commit <sha>: rebuild a snapshot that was never saved, from the catalogue as it was at
+// that commit. Writes only when no snapshot exists for that version, and labels the page as a
+// reconstruction.
+function catalogueAt(sha) {
+  const { execFileSync } = require('child_process');
+  return execFileSync('git', ['show', `${sha}:dws10.com/config/products.json`], {
+    cwd: BASE,
+    encoding: 'utf8',
+    maxBuffer: 256 * 1024 * 1024,
+  });
+}
+
 function main() {
-  const raw = fs.readFileSync(SRC_JSON, 'utf8');
+  const i = process.argv.indexOf('--from-commit');
+  const fromCommit = i > -1 ? process.argv[i + 1] : null;
+  const raw = fromCommit ? catalogueAt(fromCommit) : fs.readFileSync(SRC_JSON, 'utf8');
   const data = JSON.parse(raw);
-  const version = (data.priceList && data.priceList.version) || 'unversioned';
+  const j = process.argv.indexOf('--as-version');
+  const version =
+    (fromCommit && j > -1 && process.argv[j + 1]) ||
+    (data.priceList && data.priceList.version) ||
+    data.priceVersion ||
+    'unversioned';
   const filename = `price-list-v${version}.html`;
-  const html = build(data);
+  let html = build(data);
+  if (fromCommit) {
+    html = html.replace(
+      '<body>',
+      `<body>\n<div class="notice"><strong>Reconstructed snapshot.</strong> No snapshot was saved when catalogue ${esc(version)} was current. This page was rebuilt on ${new Date().toISOString().slice(0, 10)} from dws10.com/config/products.json at commit ${esc(fromCommit)} with the current generator; layout and grouping are today's, prices and products are that version's.</div>`,
+    );
+  }
+  const frozen = frozenVersions();
 
   OUT_DIRS.forEach((dir) => {
     fs.mkdirSync(dir, { recursive: true });
     const out = path.join(dir, filename);
+    if (fs.existsSync(out) && (fromCommit || frozen.has(version))) {
+      console.error(
+        `[gen-price-list] REFUSED — ${path.relative(BASE, out)} is a saved snapshot (frozen evidence); not overwritten`,
+      );
+      process.exitCode = 1;
+      return;
+    }
     fs.writeFileSync(out, html, 'utf8');
     console.log(`[gen-price-list] wrote ${path.relative(BASE, out)} (${html.length} bytes)`);
   });

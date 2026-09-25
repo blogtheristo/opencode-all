@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.7 [Latest]
+Version: 1.8 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.7 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Full tag set, Finnish captions.
+- Version: 1.8 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Count trend 1.20–1.33, deletion audit, frozen price-list versions, product versions, valuation.
+- Version: 1.7 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Full tag set, Finnish captions.
 - Version: 1.6 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Tags in ontology, dictionary and KB; firehorse-mobile planned; Supabase migration and loader.
 - Version: 1.5 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Captions on all public offers; attribute tags; long price notes split.
 - Version: 1.4 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product lifecycle registry (TRUTH row 43).
@@ -154,6 +155,51 @@ Document Status:
       - the Subscription tag matches the price type
       - every public offer has a captionFi
     - Open question: the Aegis implementation record says "Aegis onboarding and licence", but DWS-AEGIS-001 has no licence price of its own. Aegis is not tagged Licence yet.
+
+13. **Count trend, deletion audit, versions and valuation.**
+    - HIC: "versio 1.31 oli hetken rikki … tarkista julkisten tuotteiden määrän kehitys 1.20 → 1.33 ja tutki ettei mitään ole tuhottu …"
+    - **Trend on main** (public products / on the list):
+
+      | Version | Public | On list |
+      | ------- | ------ | ------- |
+      | 1.20    | 47     | 50      |
+      | 1.21    | 47     | 55      |
+      | 1.22    | 52     | 60      |
+      | 1.23    | 49     | 57      |
+      | 1.25    | 49     | 57      |
+      | 1.27    | 67     | 75      |
+      | 1.28    | 67     | 80      |
+      | 1.29    | 68     | 83      |
+      | 1.30    | 71     | 79      |
+      | 1.31    | 71     | 80      |
+      | 1.32    | 71     | 80      |
+      | 1.33    | 71     | 80      |
+
+    - **Every drop is a decision:**
+      - #1546 retired agentti-sanasto.
+      - #1797 retired five SKUs (HIC correction).
+      - 1.33 archived the €750 package.
+      - The 116 ↔ 134 swings in the all-branch log come from parallel branches before merge.
+    - **The 1.30/1.31 break** (#2080): the Serious list grew from 13 to 15, but the pages expected exactly 13, so /price-list/ and /buy/ showed only an error. It was fixed the same day with a CI count gate.
+    - **Repository wipe:** commit 197daefdb ("baseline", 24.08.2026) deleted all 6,798 files and reached main through #1888. #1890 restored it; the restored tree has the same file list, and one file differed by 6 lines.
+    - **Other deletions on main since May:** of the 90 pre-wipe files missing today:
+      - 72 moved to `Learn/Arkisto`.
+      - The rest are renames to `_DEPRECATED`, `.disabled` or `_OLD`, generated `supabase/.temp` files, and `_middleware.js`, which was deliberately reverted after causing 504 errors.
+    - **One real loss:** `Admin/KUBERNETES_OPERATIONS_MANUAL.md` (598 lines) was dropped by merge #1961 and is still referenced. It is restored from 84dbfc4bf^1.
+    - **Price-list versions** (TRUTH row 44):
+      - 24 versions. 10 original snapshots; 13 reconstructed from git and labelled as such on the page.
+      - 1.14 never had a catalogue state, and 1.26 was never issued.
+      - Released snapshots are frozen by sha256. The generator refuses to overwrite them, and the validator fails if one is missing or changed; both were tested.
+    - **Product versions:** every product row in the lifecycle registry has a record version vN (up to v25) and a page-version count. Migration 092 carries these columns. It is still unapplied and was re-tested locally.
+    - **Valuation** (TRUTH row 45): `docs/valuation/2026-09-25-product-and-repo-valuation.md`.
+
+      | Measure                           | Low    | Central | High   |
+      | --------------------------------- | ------ | ------- | ------ |
+      | Products                          | €0.32M | €0.64M  | €1.28M |
+      | Environment (AI-assisted rebuild) | €1.41M | —       | €2.35M |
+      | Total                             | €1.73M | €2.52M  | €3.63M |
+      - The traditional rebuild ceiling is €7.04M.
+      - The TAM per offer is also a column in the product registry.
 
 ## The Insight
 

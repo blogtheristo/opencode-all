@@ -16,6 +16,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildValuation } from './product-valuation.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const CATALOG = path.join(ROOT, 'dws10.com/config/products.json');
@@ -47,7 +48,16 @@ function productGroup(id, p, independent) {
   return 'Other';
 }
 
+// TAM per product (HIC 25.09.2026) from the valuation model: config/truth/product-valuation-model.json.
+function tamById(catalog) {
+  const f = path.join(ROOT, 'config/truth/product-valuation-model.json');
+  if (!fs.existsSync(f)) return {};
+  const v = buildValuation(catalog, JSON.parse(fs.readFileSync(f, 'utf8')));
+  return Object.fromEntries(v.rows.map((r) => [r.id, r.tamEurPerYear]));
+}
+
 export function buildRegistry(catalog) {
+  const tam = tamById(catalog);
   const products = catalog.products || {};
   const subs = catalog.subscriptions || {};
   const discontinued = catalog.discontinuedProducts || {};
@@ -118,6 +128,7 @@ export function buildRegistry(catalog) {
       reason: 'discontinued',
     });
   }
+  for (const r of rows) r.tam = tam[r.id] ?? null;
   const order = { public: 0, subscription: 1, blue: 2, archived: 3, discontinued: 4 };
   rows.sort((a, b) => order[a.status] - order[b.status] || a.id.localeCompare(b.id));
 
@@ -192,13 +203,15 @@ export function renderMarkdown({ summary: s, rows }) {
     `| Not on the price list: discontinued | ${s.discontinued} |`,
     `| Reconciles (on list + BLUE + archived + discontinued = all; public = expected ${s.expectedPriceListProducts}) | ${s.reconciles ? 'yes' : '**NO**'} |`,
     '',
+    'TAM / yr is a model estimate per public offer (`config/truth/product-valuation-model.json`); method, segments and value per offer: `docs/truth/PRODUCT_VALUATION.md` (TRUTH row 45).',
+    '',
     '## Every ID',
     '',
-    '| # | ID | Name | Price | Status | Class | Group | On price list | Why not |',
-    '| --- | --- | --- | --- | --- | --- | --- | --- | --- |',
+    '| # | ID | Name | Price | Status | Class | Group | On price list | TAM / yr (model) | Why not |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |',
     ...rows.map(
       (r, i) =>
-        `| ${i + 1} | \`${cell(r.id)}\` | ${cell(r.name)} | ${eur(r.price)} | ${r.status} | ${r.class} | ${r.group} | ${r.onPriceList ? 'yes' : 'no'} | ${cell(r.reason)} |`,
+        `| ${i + 1} | \`${cell(r.id)}\` | ${cell(r.name)} | ${eur(r.price)} | ${r.status} | ${r.class} | ${r.group} | ${r.onPriceList ? 'yes' : 'no'} | ${r.tam == null ? '—' : `€${(r.tam / 1e6).toFixed(2)}M`} | ${cell(r.reason)} |`,
     ),
     '',
   ];

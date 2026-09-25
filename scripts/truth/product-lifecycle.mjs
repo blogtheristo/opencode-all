@@ -25,6 +25,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -95,6 +96,7 @@ function scanGit() {
     .filter(Boolean);
   const ids = {};
   let prev = {};
+  let prevHash = {};
   let skipped = 0;
   for (const line of log) {
     const [sha, date, ...rest] = line.split('\t');
@@ -124,12 +126,62 @@ function scanGit() {
         date,
         subject: subject.slice(0, 160),
       });
+    // Record versions (HIC 25.09.2026: "tuoteversiot kaikista osistaan versioituna"): every change
+    // to any field of a product's catalogue record on main is a new numbered version.
+    const hashes = {};
+    for (const [id, v] of Object.entries(states)) {
+      hashes[id] = crypto
+        .createHash('sha256')
+        .update(JSON.stringify(v.rec))
+        .digest('hex')
+        .slice(0, 12);
+      if (prevHash[id] !== hashes[id]) {
+        const rec = (ids[id] ||= { events: [] });
+        (rec.versions ||= []).push({
+          v: rec.versions.length + 1,
+          commit: sha.slice(0, 9),
+          date,
+          hash: hashes[id],
+        });
+      }
+    }
+    prevHash = hashes;
     for (const [id, state] of Object.entries(now)) if (prev[id] !== state) ev(id, state);
     for (const id of Object.keys(prev)) if (!(id in now)) ev(id, 'removed');
     prev = now;
   }
+  // Product page versions: commits on main touching each dws10.com/products page (all languages).
+  const pages = {};
+  let cur = null;
+  for (const line of git([
+    'log',
+    '--first-parent',
+    '--format=@@%h %ad',
+    '--date=short',
+    '--name-only',
+    'HEAD',
+    '--',
+    'dws10.com/products',
+  ]).split('\n')) {
+    if (line.startsWith('@@')) {
+      const [c, d] = line.slice(2).split(' ');
+      cur = { c, d, seen: new Set() };
+      continue;
+    }
+    const m = line.match(/^dws10\.com\/products\/(.+?)(?:[.-](?:fi|sv|de|fr))?\.html$/);
+    if (!m || !cur || cur.seen.has(m[1])) continue;
+    cur.seen.add(m[1]);
+    const pg = (pages[m[1]] ||= { commits: 0, lastCommit: cur.c, lastDate: cur.d });
+    pg.commits++;
+  }
   const head = git(['rev-parse', '--short=9', 'HEAD']).trim();
-  const out = { scannedThrough: head, commitsScanned: log.length, commitsSkipped: skipped, ids };
+  const out = {
+    scannedThrough: head,
+    commitsScanned: log.length,
+    commitsSkipped: skipped,
+    ids,
+    pages,
+  };
   fs.mkdirSync(path.dirname(HISTORY), { recursive: true });
   fs.writeFileSync(HISTORY, JSON.stringify(out, null, 2) + '\n');
   console.log(
@@ -200,6 +252,12 @@ export function buildLifecycle(catalog, ledger, history) {
         text: `${e.state}: ${e.subject}`,
       });
     if (!r.name && h.name) r.name = h.name;
+    if (h.versions?.length) {
+      const last = h.versions[h.versions.length - 1];
+      r.recordVersion = last.v;
+      r.recordLastChanged = last.date;
+      r.recordLastCommit = last.commit;
+    }
     if (!r.state) {
       const last = h.events[h.events.length - 1];
       r.state = 'removed';
@@ -247,6 +305,18 @@ export function buildLifecycle(catalog, ledger, history) {
   for (const r of rows.values())
     r.evidence.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
 
+  // Page versions: commits on main touching the product's page (all languages).
+  const pages = history?.pages || {};
+  for (const r of rows.values()) {
+    const rec = cat[r.id]?.rec || {};
+    const fromUrl = String(rec.detailsUrl || '').match(/products\/([^/]+?)\.html/)?.[1];
+    const slug = [fromUrl, r.id, r.id.toLowerCase()].find((x) => x && pages[x]);
+    if (slug) {
+      r.page = `dws10.com/products/${slug}.html`;
+      r.pageVersions = pages[slug].commits;
+      r.pageLastChanged = pages[slug].lastDate;
+    }
+  }
   const list = [...rows.values()].sort(
     (a, b) =>
       STATE_ORDER.indexOf(a.state) - STATE_ORDER.indexOf(b.state) || a.id.localeCompare(b.id),
@@ -303,15 +373,17 @@ export function renderMarkdown({ summary: s, rows }) {
     '',
     `Catalogue IDs today: ${s.catalogueIds}. HIC decisions in the ledger: ${s.hicDecisions}. IDs without any evidence: ${s.withoutEvidence}.`,
     '',
+    'Record version: vN = the Nth distinct content of the catalogue record on main (any field: price, caption, tags, features, page link); the full list with commits is in `config/truth/product-id-history.json`. Page versions: commits on main that changed the product page in any language.',
+    '',
     'Evidence kinds: **decision** = HIC decision from the ledger (quote + date); **git** = commit that changed the state in the catalogue (first-parent history); **catalogue** = archive/discontinue fields in the record; **page** = public product page with no catalogue ID.',
     '',
     '## Every ID',
     '',
-    '| # | ID | Name | State | State source | Evidence (oldest first) |',
-    '| --- | --- | --- | --- | --- | --- |',
+    '| # | ID | Name | State | State source | Record version | Page versions | Evidence (oldest first) |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- |',
     ...rows.map(
       (r, i) =>
-        `| ${i + 1} | \`${cell(r.id)}\` | ${cell(r.name)} | ${r.state} | ${cell(r.stateSource)} | ${r.evidence
+        `| ${i + 1} | \`${cell(r.id)}\` | ${cell(r.name)} | ${r.state} | ${cell(r.stateSource)} | ${r.recordVersion ? `v${r.recordVersion} (${r.recordLastChanged} \`${r.recordLastCommit}\`)` : '—'} | ${r.pageVersions ? `${r.pageVersions} (${r.pageLastChanged})` : '—'} | ${r.evidence
           .map((e) =>
             `${e.kind} ${e.date || ''} ${e.ref ? `\`${cell(e.ref)}\`` : ''} ${cell(e.text)}`
               .replace(/\s+/g, ' ')

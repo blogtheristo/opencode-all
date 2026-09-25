@@ -1,7 +1,7 @@
 {
   "summary": {
     "catalogVersion": "1.33",
-    "gitScannedThrough": "15ef624e8",
+    "gitScannedThrough": "4f0ae8e93",
     "totalIds": 183,
     "catalogueIds": 155,
     "byState": {
@@ -35,7 +35,10 @@
           "ref": "PR #2107",
           "text": "planned — HIC (Risto Anton Päärni): On tulossa"
         }
-      ]
+      ],
+      "page": "dws10.com/products/firehorse-mobile.html",
+      "pageVersions": 15,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "dws-iq5",
@@ -49,7 +52,10 @@
           "ref": "dws10.com/products/dws-iq5.html",
           "text": "public page, no catalogue ID"
         }
-      ]
+      ],
+      "page": "dws10.com/products/dws-iq5.html",
+      "pageVersions": 17,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "energy-industry",
@@ -63,7 +69,10 @@
           "ref": "dws10.com/products/energy-industry.html",
           "text": "public page, no catalogue ID"
         }
-      ]
+      ],
+      "page": "dws10.com/products/energy-industry.html",
+      "pageVersions": 12,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "firehorse-automation_RETIRED",
@@ -77,7 +86,10 @@
           "ref": "dws10.com/products/firehorse-automation_RETIRED.html",
           "text": "page file carries the _RETIRED suffix"
         }
-      ]
+      ],
+      "page": "dws10.com/products/firehorse-automation_RETIRED.html",
+      "pageVersions": 4,
+      "pageLastChanged": "2026-08-24"
     },
     {
       "id": "firehorse-signed-reports",
@@ -91,7 +103,10 @@
           "ref": "dws10.com/products/firehorse-signed-reports.html",
           "text": "public page, no catalogue ID"
         }
-      ]
+      ],
+      "page": "dws10.com/products/firehorse-signed-reports.html",
+      "pageVersions": 14,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "firehorse-starter-v2",
@@ -105,7 +120,10 @@
           "ref": "dws10.com/products/firehorse-starter-v2.html",
           "text": "public page, no catalogue ID"
         }
-      ]
+      ],
+      "page": "dws10.com/products/firehorse-starter-v2.html",
+      "pageVersions": 14,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "firehorse-subscription",
@@ -119,7 +137,10 @@
           "ref": "dws10.com/products/firehorse-subscription.html",
           "text": "public page, no catalogue ID"
         }
-      ]
+      ],
+      "page": "dws10.com/products/firehorse-subscription.html",
+      "pageVersions": 5,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "lifetime-vip-ai-services_RETIRED",
@@ -133,7 +154,10 @@
           "ref": "dws10.com/products/lifetime-vip-ai-services_RETIRED.html",
           "text": "page file carries the _RETIRED suffix"
         }
-      ]
+      ],
+      "page": "dws10.com/products/lifetime-vip-ai-services_RETIRED.html",
+      "pageVersions": 5,
+      "pageLastChanged": "2026-08-24"
     },
     {
       "id": "PRODUCT-THEMIS",
@@ -147,7 +171,10 @@
           "ref": "dws10.com/products/PRODUCT-THEMIS.html",
           "text": "public page, no catalogue ID"
         }
-      ]
+      ],
+      "page": "dws10.com/products/PRODUCT-THEMIS.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "themis",
@@ -161,7 +188,10 @@
           "ref": "dws10.com/products/themis.html",
           "text": "public page, no catalogue ID"
         }
-      ]
+      ],
+      "page": "dws10.com/products/themis.html",
+      "pageVersions": 16,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "AC365-T3",
@@ -175,7 +205,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ac365-t3.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "CMP-OC-ENT",
@@ -189,7 +225,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/cmp-oc-ent.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "CMP-OC-STD",
@@ -203,7 +245,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/cmp-oc-std.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "CMP-T0",
@@ -217,7 +265,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/cmp-t0.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "CMP-T1",
@@ -231,7 +285,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/cmp-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "CMP-T2",
@@ -245,7 +305,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/cmp-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "CONSTR-T2",
@@ -259,7 +325,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/constr-t2.html",
+      "pageVersions": 4,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "CONSTR-T3",
@@ -273,7 +345,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/constr-t3.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "CS-T1",
@@ -287,7 +365,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/cs-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "CS-T2",
@@ -301,7 +385,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/cs-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "CSAT-T1",
@@ -315,7 +405,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/csat-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "CSAT-T2",
@@ -329,7 +425,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/csat-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DW-T1",
@@ -343,7 +445,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/dw-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DW-T2",
@@ -357,7 +465,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/dw-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DWS365-CMP-T3",
@@ -371,7 +485,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/dws365-cmp-t3.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "ED-T1",
@@ -385,7 +505,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ed-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "ED-T2",
@@ -399,7 +525,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ed-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "ESG-T3",
@@ -413,7 +545,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/esg-t3.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "FH-SKILL-T3",
@@ -427,7 +565,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/fh-skill-t3.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "GTM-T3",
@@ -441,7 +585,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/gtm-t3.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "HSE-T3",
@@ -455,7 +605,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/hse-t3.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "IND-BESS",
@@ -469,7 +625,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ind-bess.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "IND-CERES",
@@ -483,7 +645,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ind-ceres.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "IND-GAIA",
@@ -497,7 +665,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ind-gaia.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "IND-HELIOS",
@@ -511,7 +685,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ind-helios.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "IND-MARS",
@@ -525,7 +705,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ind-mars.html",
+      "pageVersions": 4,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "IND-NEPTUN",
@@ -539,7 +725,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ind-neptun.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "IND-PROM",
@@ -553,7 +745,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ind-prom.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "IND-TALOS",
@@ -567,7 +765,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ind-talos.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "IND-VULCAN",
@@ -581,7 +785,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ind-vulcan.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LAND-AIL",
@@ -595,7 +805,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 3,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/land-ail.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LAND-CSRD",
@@ -609,7 +825,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/land-csrd.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LAND-EUAI",
@@ -623,7 +845,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/land-euai.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LAND-GTM",
@@ -637,7 +865,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 3,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/land-gtm.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LAND-HSE",
@@ -651,7 +885,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 3,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/land-hse.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LAND-LCA",
@@ -665,7 +905,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 3,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/land-lca.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LAND-OPS",
@@ -679,7 +925,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 3,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/land-ops.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LAND-SOV",
@@ -693,7 +945,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/land-sov.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LAND-WF",
@@ -707,7 +965,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 3,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/land-wf.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-T1",
@@ -721,7 +985,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/lf-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-T2",
@@ -735,7 +1005,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/lf-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LOG-T1",
@@ -749,7 +1025,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/log-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LOG-T2",
@@ -763,7 +1045,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/log-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "MO-OC-ENT",
@@ -777,7 +1065,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/mo-oc-ent.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "MO-OC-STD",
@@ -791,7 +1085,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/mo-oc-std.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "MO-T0",
@@ -805,7 +1105,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/mo-t0.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "MO-T1",
@@ -819,7 +1125,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/mo-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "MO-T2",
@@ -833,7 +1145,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/mo-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "QG-T1",
@@ -847,7 +1165,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/qg-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "QG-T2",
@@ -861,7 +1185,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/qg-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "SEO-T1",
@@ -875,7 +1205,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/seo-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "SEO-T2",
@@ -889,7 +1225,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/seo-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "SG-T1",
@@ -903,7 +1245,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/sg-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "SG-T2",
@@ -917,7 +1265,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/sg-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "SOV-T1",
@@ -931,7 +1285,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/sov-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "SOV-T2",
@@ -945,7 +1305,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/sov-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "SOV-T3",
@@ -959,7 +1325,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/sov-t3.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "SS-OC-ENT",
@@ -973,7 +1345,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ss-oc-ent.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "SS-OC-STD",
@@ -987,7 +1365,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ss-oc-std.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "SS-T0",
@@ -1001,7 +1385,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ss-t0.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "SS-T1",
@@ -1015,7 +1405,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ss-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "SS-T2",
@@ -1029,7 +1425,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/ss-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "VIA-T1",
@@ -1043,7 +1445,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/via-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "VIA-T2",
@@ -1057,7 +1465,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/via-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "WF-T4",
@@ -1071,7 +1485,13 @@
           "ref": "e75b66204",
           "text": "internal: feat: implement labor-anchored product catalog (T0-T4, Blue/pilot) (#1305)"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-08-31",
+      "recordLastCommit": "7c73be22a",
+      "page": "dws10.com/products/wf-t4.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "ai-agent-engineering",
@@ -1085,7 +1505,13 @@
           "ref": "d0335d10a",
           "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 20,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/ai-agent-engineering.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "ai-consultant-day",
@@ -1099,7 +1525,13 @@
           "ref": "d0335d10a",
           "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 17,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/ai-consultant-day.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "ai-consulting-agentic",
@@ -1113,7 +1545,13 @@
           "ref": "ec93cb52a",
           "text": "published: Merge pull request #376 from blogtheristo/claude/add-ai-consulting-guidance-pDsPu"
         }
-      ]
+      ],
+      "recordVersion": 14,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/ai-consulting.html",
+      "pageVersions": 15,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "ai-koulutus-3d",
@@ -1139,7 +1577,13 @@
           "ref": "120be5329",
           "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
         }
-      ]
+      ],
+      "recordVersion": 15,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/ai-koulutus-3d.html",
+      "pageVersions": 8,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "AIS-EU-SOV-OC",
@@ -1153,7 +1597,13 @@
           "ref": "fe39be381",
           "text": "published: Merge branch 'main' of https://github.com/blogtheristo/dws6"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/ais-eu-sov-oc.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "AIS-OUTCOME-PILOT",
@@ -1167,7 +1617,13 @@
           "ref": "fe39be381",
           "text": "published: Merge branch 'main' of https://github.com/blogtheristo/dws6"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/ais-outcome-pilot.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "aws-consultancy",
@@ -1181,7 +1637,13 @@
           "ref": "d0335d10a",
           "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 19,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/aws-consultancy.html",
+      "pageVersions": 14,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "business-mentor-30",
@@ -1195,7 +1657,13 @@
           "ref": "d0335d10a",
           "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 15,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/business-mentor-30.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "claude-code-coaching-3day",
@@ -1209,7 +1677,13 @@
           "ref": "ef79ba37a",
           "text": "published: Merge pull request #1499 from blogtheristo/claude/code-coaching-curriculum-0g3bpp"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/claude-code-coaching.html",
+      "pageVersions": 6,
+      "pageLastChanged": "2026-09-14"
     },
     {
       "id": "claude-code-coaching-lecture",
@@ -1223,7 +1697,13 @@
           "ref": "ef79ba37a",
           "text": "published: Merge pull request #1499 from blogtheristo/claude/code-coaching-curriculum-0g3bpp"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/claude-code-coaching.html",
+      "pageVersions": 6,
+      "pageLastChanged": "2026-09-14"
     },
     {
       "id": "claude-code-coaching-project",
@@ -1237,7 +1717,13 @@
           "ref": "ef79ba37a",
           "text": "published: Merge pull request #1499 from blogtheristo/claude/code-coaching-curriculum-0g3bpp"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/claude-code-coaching.html",
+      "pageVersions": 6,
+      "pageLastChanged": "2026-09-14"
     },
     {
       "id": "claude-code-coaching-workshop",
@@ -1251,7 +1737,13 @@
           "ref": "ef79ba37a",
           "text": "published: Merge pull request #1499 from blogtheristo/claude/code-coaching-curriculum-0g3bpp"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/claude-code-coaching.html",
+      "pageVersions": 6,
+      "pageLastChanged": "2026-09-14"
     },
     {
       "id": "consulting-fit55",
@@ -1265,7 +1757,13 @@
           "ref": "d095d7ba3",
           "text": "published: Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
         }
-      ]
+      ],
+      "recordVersion": 19,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/consulting-fit55.html",
+      "pageVersions": 16,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "consulting-hourly",
@@ -1279,7 +1777,13 @@
           "ref": "d095d7ba3",
           "text": "published: Merge pull request #132 from blogtheristo/feature/payment-integration-dws10"
         }
-      ]
+      ],
+      "recordVersion": 22,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/consulting.html",
+      "pageVersions": 16,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "conversational-agent",
@@ -1305,7 +1809,13 @@
           "ref": "120be5329",
           "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
         }
-      ]
+      ],
+      "recordVersion": 22,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/conversational-agent.html",
+      "pageVersions": 10,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "devops-lead",
@@ -1331,7 +1841,13 @@
           "ref": "120be5329",
           "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
         }
-      ]
+      ],
+      "recordVersion": 16,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/devops-lead.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DWS-AEGIS-001",
@@ -1345,7 +1861,13 @@
           "ref": "61912ff2f",
           "text": "published: Merge pull request #895 from blogtheristo/claude/add-define-application-guide-gS1du"
         }
-      ]
+      ],
+      "recordVersion": 19,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/aegis.html",
+      "pageVersions": 33,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DWS-AEGIS-IMPL-001",
@@ -1359,7 +1881,13 @@
           "ref": "0a2b9c96c",
           "text": "published: merge: enterprise AI harness — Aegis pilot re-spec, Learning Standard step 6, local-model drift fix"
         }
-      ]
+      ],
+      "recordVersion": 9,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/dws-aegis-impl-001.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DWS-AEGIS-PILOT-001",
@@ -1373,7 +1901,13 @@
           "ref": "0a2b9c96c",
           "text": "published: merge: enterprise AI harness — Aegis pilot re-spec, Learning Standard step 6, local-model drift fix"
         }
-      ]
+      ],
+      "recordVersion": 10,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/dws-aegis-pilot-001.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DWS-CLIMATE-001",
@@ -1387,7 +1921,13 @@
           "ref": "61912ff2f",
           "text": "published: Merge pull request #895 from blogtheristo/claude/add-define-application-guide-gS1du"
         }
-      ]
+      ],
+      "recordVersion": 19,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/climate-intelligence.html",
+      "pageVersions": 18,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DWS-EU-PILOT",
@@ -1401,7 +1941,13 @@
           "ref": "3566101af",
           "text": "published: Merge pull request #865 from blogtheristo/claude/pricing-us-cloud-starter-cIxHZ"
         }
-      ]
+      ],
+      "recordVersion": 20,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/cloud-pricing.html",
+      "pageVersions": 23,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DWS-EU-STARTER",
@@ -1415,7 +1961,13 @@
           "ref": "3566101af",
           "text": "published: Merge pull request #865 from blogtheristo/claude/pricing-us-cloud-starter-cIxHZ"
         }
-      ]
+      ],
+      "recordVersion": 20,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/cloud-pricing.html",
+      "pageVersions": 23,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DWS-IQ-006",
@@ -1429,7 +1981,13 @@
           "ref": "d0335d10a",
           "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 25,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/dwsiq.html",
+      "pageVersions": 24,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DWS-IQ-ESS-SETUP",
@@ -1443,7 +2001,13 @@
           "ref": "ee8629e29",
           "text": "published: Claude/noux sales rooms setup wu73bq (#1826)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/dws-iq-ess-setup.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DWS-IQ-ESS-SUB-MANAGED",
@@ -1457,7 +2021,10 @@
           "ref": "ee8629e29",
           "text": "published: Claude/noux sales rooms setup wu73bq (#1826)"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93"
     },
     {
       "id": "DWS-IQ-ESS-SUB-SELF",
@@ -1471,7 +2038,10 @@
           "ref": "ee8629e29",
           "text": "published: Claude/noux sales rooms setup wu73bq (#1826)"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93"
     },
     {
       "id": "DWS-IQ-FREE-2026",
@@ -1485,7 +2055,13 @@
           "ref": "c104591d7",
           "text": "published: Improve sales strategy (#1607)"
         }
-      ]
+      ],
+      "recordVersion": 7,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/dwsiq-free.html",
+      "pageVersions": 5,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DWS-IQ-SUB-001",
@@ -1499,7 +2075,10 @@
           "ref": "b8bb0f615",
           "text": "published: Merge pull request #1269 from blogtheristo/claude/dynamic-deployment-pricing-LExxQ"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93"
     },
     {
       "id": "DWS-SOVEREIGN-DB-001",
@@ -1513,7 +2092,13 @@
           "ref": "dc6da1608",
           "text": "published: Merge pull request #777 from blogtheristo/claude/sovereignty-assessment-cli-tnUyf"
         }
-      ]
+      ],
+      "recordVersion": 15,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/sovereign-database.html",
+      "pageVersions": 18,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DWS-US-PILOT",
@@ -1527,7 +2112,13 @@
           "ref": "3566101af",
           "text": "published: Merge pull request #865 from blogtheristo/claude/pricing-us-cloud-starter-cIxHZ"
         }
-      ]
+      ],
+      "recordVersion": 16,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/cloud-pricing.html",
+      "pageVersions": 23,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "DWS-US-STARTER",
@@ -1541,7 +2132,13 @@
           "ref": "3566101af",
           "text": "published: Merge pull request #865 from blogtheristo/claude/pricing-us-cloud-starter-cIxHZ"
         }
-      ]
+      ],
+      "recordVersion": 16,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/cloud-pricing.html",
+      "pageVersions": 23,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "edge-node-gn100",
@@ -1555,7 +2152,13 @@
           "ref": "e41b5a0ac",
           "text": "published: Merge branch 'main' of https://github.com/blogtheristo/dws6"
         }
-      ]
+      ],
+      "recordVersion": 17,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/edge-node-gn100.html",
+      "pageVersions": 21,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "FH-AUTO-001",
@@ -1569,7 +2172,13 @@
           "ref": "d0335d10a",
           "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 17,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/firehorse-amplify.html",
+      "pageVersions": 13,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "FH-CMS-001",
@@ -1583,7 +2192,13 @@
           "ref": "d0335d10a",
           "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 19,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/firehorse-content-management.html",
+      "pageVersions": 20,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "FH-OMNI-001",
@@ -1597,7 +2212,13 @@
           "ref": "d0335d10a",
           "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 19,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/firehorse-omnichannel.html",
+      "pageVersions": 21,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "FH-RPT-001",
@@ -1611,7 +2232,13 @@
           "ref": "d0335d10a",
           "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 19,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/firehorse-reports.html",
+      "pageVersions": 23,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "FH-SIGN-001",
@@ -1625,7 +2252,13 @@
           "ref": "995900866",
           "text": "published: Merge pull request #860 from blogtheristo/claude/verify-nda-signatures-rdgOj"
         }
-      ]
+      ],
+      "recordVersion": 15,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/firehorse-reports.html",
+      "pageVersions": 23,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "FH-SUB-001",
@@ -1639,7 +2272,10 @@
           "ref": "b8bb0f615",
           "text": "published: Merge pull request #1269 from blogtheristo/claude/dynamic-deployment-pricing-LExxQ"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93"
     },
     {
       "id": "firehorse-coach",
@@ -1653,7 +2289,13 @@
           "ref": "d0335d10a",
           "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 18,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/firehorse-coach.html",
+      "pageVersions": 14,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "firehorse-data-services",
@@ -1667,7 +2309,13 @@
           "ref": "d0335d10a",
           "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 17,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/firehorse-data-services.html",
+      "pageVersions": 16,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "firehorse-flow",
@@ -1693,7 +2341,13 @@
           "ref": "120be5329",
           "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
         }
-      ]
+      ],
+      "recordVersion": 16,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/firehorse-flow.html",
+      "pageVersions": 14,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "KYA-JEV-001",
@@ -1707,7 +2361,10 @@
           "ref": "edaf0a8b2",
           "text": "published: Merge pull request #2043 from blogtheristo/claude/agents-md-support-eyody6"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93"
     },
     {
       "id": "lean-project",
@@ -1733,7 +2390,13 @@
           "ref": "120be5329",
           "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
         }
-      ]
+      ],
+      "recordVersion": 16,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lean-project.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-COMPLIANCE-AMBULANCE-001",
@@ -1747,7 +2410,13 @@
           "ref": "afbe962d3",
           "text": "published: Careers lifetime links (#1577)"
         }
-      ]
+      ],
+      "recordVersion": 6,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/dws-iq-compliance-ambulance.html",
+      "pageVersions": 6,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-DGX-SPARK",
@@ -1761,7 +2430,13 @@
           "ref": "63a58e9ab",
           "text": "published: Merge pull request #1343 from blogtheristo/claude/add-hardware-products-MY7X7"
         }
-      ]
+      ],
+      "recordVersion": 10,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/dgx-spark.html",
+      "pageVersions": 12,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-DOCA-ESSENTIAL",
@@ -1775,7 +2450,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-doca-essential.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-DOCA-NETWORK-STORAGE",
@@ -1789,7 +2470,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-doca-network-storage.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-DOCA-SECURITY",
@@ -1803,7 +2490,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-doca-security.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-FIPS-VALIDATION",
@@ -1817,7 +2510,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-fips-validation.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-GOV-AIRGAP-BUNDLE",
@@ -1831,7 +2530,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-gov-airgap-bundle.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-GOV-READY-ANNUAL",
@@ -1845,7 +2550,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-gov-ready-annual.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-GOV-READY-SETUP",
@@ -1859,7 +2570,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-gov-ready-setup.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-IGX-ORIN",
@@ -1873,7 +2590,13 @@
           "ref": "63a58e9ab",
           "text": "published: Merge pull request #1343 from blogtheristo/claude/add-hardware-products-MY7X7"
         }
-      ]
+      ],
+      "recordVersion": 9,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/igx-orin.html",
+      "pageVersions": 11,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-IPCMAX-CINCOZE-DA1200",
@@ -1887,7 +2610,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-ipcmax-cincoze-da1200.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-IPCMAX-IPC409",
@@ -1901,7 +2630,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-ipcmax-ipc409.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-IPCMAX-IPCP68",
@@ -1915,7 +2650,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-ipcmax-ipcp68.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-JETSON-AGX",
@@ -1929,7 +2670,13 @@
           "ref": "70dbf087e",
           "text": "published: Merge pull request #1342 from blogtheristo/claude/add-hardware-products-MY7X7"
         }
-      ]
+      ],
+      "recordVersion": 8,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/jetson-sensor.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-JETSON-NANO",
@@ -1943,7 +2690,13 @@
           "ref": "70dbf087e",
           "text": "published: Merge pull request #1342 from blogtheristo/claude/add-hardware-products-MY7X7"
         }
-      ]
+      ],
+      "recordVersion": 7,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/jetson-sensor.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-JETSON-NX",
@@ -1957,7 +2710,13 @@
           "ref": "63a58e9ab",
           "text": "published: Merge pull request #1343 from blogtheristo/claude/add-hardware-products-MY7X7"
         }
-      ]
+      ],
+      "recordVersion": 7,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/jetson-sensor.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-K8S-T1",
@@ -1971,7 +2730,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-k8s-t1.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-K8S-T2",
@@ -1985,7 +2750,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-k8s-t2.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-K8S-T3",
@@ -1999,7 +2770,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-k8s-t3.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-K8S-T4",
@@ -2013,7 +2790,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-k8s-t4.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-NIM-BIOLOGY",
@@ -2027,7 +2810,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-nim-biology.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-NIM-CODE",
@@ -2041,7 +2830,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-nim-code.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-NIM-RETRIEVAL",
@@ -2055,7 +2850,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-nim-retrieval.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-NIM-STARTER",
@@ -2069,7 +2870,13 @@
           "ref": "e76e93583",
           "text": "published: Merge pull request #1931 from blogtheristo/feat/operationalize-infra7-plans"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lf-nim-starter.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-NVIDIA-INSTALL",
@@ -2083,7 +2890,13 @@
           "ref": "c8eb7e873",
           "text": "published: Merge pull request #1339 from blogtheristo/claude/add-hardware-products-MY7X7"
         }
-      ]
+      ],
+      "recordVersion": 8,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/nvidia-model-install.html",
+      "pageVersions": 12,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-ONTOLOGY-25",
@@ -2097,7 +2910,13 @@
           "ref": "c73fdd870",
           "text": "published: feat: Sovereign Industrial Intelligence pivot — LWM Ontology V1, whitepaper, Outokumpu case, Architecture of Command (#1481)"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/independent-ontology.html",
+      "pageVersions": 2,
+      "pageLastChanged": "2026-09-24"
     },
     {
       "id": "LF-ONTOLOGY-PILOT",
@@ -2111,7 +2930,10 @@
           "ref": "f2c5f2f1f",
           "text": "published: Merge pull request #2094 from blogtheristo/claude/independent-ontology-page"
         }
-      ]
+      ],
+      "recordVersion": 3,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93"
     },
     {
       "id": "LF-SITROOM-001",
@@ -2125,7 +2947,13 @@
           "ref": "c8eb7e873",
           "text": "published: Merge pull request #1339 from blogtheristo/claude/add-hardware-products-MY7X7"
         }
-      ]
+      ],
+      "recordVersion": 11,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/situation-room.html",
+      "pageVersions": 17,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-SOV-MODEL-SUB",
@@ -2139,7 +2967,10 @@
           "ref": "c8eb7e873",
           "text": "published: Merge pull request #1339 from blogtheristo/claude/add-hardware-products-MY7X7"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93"
     },
     {
       "id": "LF-TRAIN-IND",
@@ -2153,7 +2984,10 @@
           "ref": "c73fdd870",
           "text": "published: feat: Sovereign Industrial Intelligence pivot — LWM Ontology V1, whitepaper, Outokumpu case, Architecture of Command (#1481)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93"
     },
     {
       "id": "LIFETIME-BUNDLE-2026",
@@ -2167,7 +3001,13 @@
           "ref": "d0335d10a",
           "text": "published: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 15,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/bundle.html",
+      "pageVersions": 13,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LIFETIME-IT-TUKI-10H",
@@ -2187,7 +3027,10 @@
           "ref": "PR #2107",
           "text": "published — HIC (Risto Anton Päärni): Tuntipankki on 3. Tuote sisältäen; tietokoneiden uusiminen, ohjelmistojen päivitykset, yrityssovellutukset, tietoturva, koulutus. Lisää se sivulle 3. A5 kampanjaan ja liitä. Tag SMEs."
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93"
     },
     {
       "id": "LIFETIME-WEB-STARTER",
@@ -2207,7 +3050,13 @@
           "ref": "PR #2107",
           "text": "published — HIC (Risto Anton Päärni): Create product tag SMEs should have campaign products. Keep them own section on price-list"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "2b30fec76",
+      "page": "dws10.com/products/lifetime-web-starter.html",
+      "pageVersions": 4,
+      "pageLastChanged": "2026-09-25"
     },
     {
       "id": "LIFETIME-WEBSTORE-MINI",
@@ -2227,7 +3076,13 @@
           "ref": "PR #2107",
           "text": "published — HIC (Risto Anton Päärni): Create product tag SMEs should have campaign products. Keep them own section on price-list"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "2b30fec76",
+      "page": "dws10.com/products/lifetime-webstore-mini.html",
+      "pageVersions": 4,
+      "pageLastChanged": "2026-09-25"
     },
     {
       "id": "LWM-ONT-SOVEREIGN",
@@ -2241,7 +3096,13 @@
           "ref": "c73fdd870",
           "text": "published: feat: Sovereign Industrial Intelligence pivot — LWM Ontology V1, whitepaper, Outokumpu case, Architecture of Command (#1481)"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/lwm-ontology.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "omnichannel-multimodal",
@@ -2267,7 +3128,13 @@
           "ref": "120be5329",
           "text": "published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
         }
-      ]
+      ],
+      "recordVersion": 14,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/omnichannel-multimodal.html",
+      "pageVersions": 8,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "sovereignty-cloud-consulting",
@@ -2281,7 +3148,13 @@
           "ref": "ec93cb52a",
           "text": "published: Merge pull request #376 from blogtheristo/claude/add-ai-consulting-guidance-pDsPu"
         }
-      ]
+      ],
+      "recordVersion": 16,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "4f0ae8e93",
+      "page": "dws10.com/products/sovereignty-cloud-consulting.html",
+      "pageVersions": 19,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-CINCOZE-DA1200",
@@ -2307,7 +3180,13 @@
           "ref": "160cb4ef9",
           "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-09-15",
+      "recordLastCommit": "160cb4ef9",
+      "page": "dws10.com/products/dwsiq.html",
+      "pageVersions": 24,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-DOCA-NETWORK",
@@ -2333,7 +3212,13 @@
           "ref": "160cb4ef9",
           "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-09-15",
+      "recordLastCommit": "160cb4ef9",
+      "page": "dws10.com/products/dwsiq.html",
+      "pageVersions": 24,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-GOV-AIRGAP",
@@ -2359,7 +3244,13 @@
           "ref": "160cb4ef9",
           "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-09-15",
+      "recordLastCommit": "160cb4ef9",
+      "page": "dws10.com/products/dwsiq.html",
+      "pageVersions": 24,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-IPC-409",
@@ -2385,7 +3276,13 @@
           "ref": "160cb4ef9",
           "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-09-15",
+      "recordLastCommit": "160cb4ef9",
+      "page": "dws10.com/products/dwsiq.html",
+      "pageVersions": 24,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LF-IPC-P68",
@@ -2411,7 +3308,13 @@
           "ref": "160cb4ef9",
           "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-09-15",
+      "recordLastCommit": "160cb4ef9",
+      "page": "dws10.com/products/dwsiq.html",
+      "pageVersions": 24,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LWM-ONT-IND",
@@ -2437,7 +3340,13 @@
           "ref": "160cb4ef9",
           "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-09-15",
+      "recordLastCommit": "160cb4ef9",
+      "page": "dws10.com/products/lwm-ontology.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LWM-ONT-SUITE",
@@ -2463,7 +3372,13 @@
           "ref": "160cb4ef9",
           "text": "archived: feat: price-list 1.30 buyability and ontology pricing (#2025)"
         }
-      ]
+      ],
+      "recordVersion": 3,
+      "recordLastChanged": "2026-09-15",
+      "recordLastCommit": "160cb4ef9",
+      "page": "dws10.com/products/lwm-ontology.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "professional-web-pages",
@@ -2495,7 +3410,13 @@
           "ref": "PR #2107",
           "text": "archived — HIC (Risto Anton Päärni): On price list has old price 750€. Now we have ohjevähittäishinta and campaign price 650€ alv 0"
         }
-      ]
+      ],
+      "recordVersion": 15,
+      "recordLastChanged": "2026-09-25",
+      "recordLastCommit": "bb2226422",
+      "page": "dws10.com/products/professional-web-pages.html",
+      "pageVersions": 11,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "LAND-THEMIS",
@@ -2521,7 +3442,10 @@
           "ref": "ee8629e29",
           "text": "discontinued: Claude/noux sales rooms setup wu73bq (#1826)"
         }
-      ]
+      ],
+      "recordVersion": 4,
+      "recordLastChanged": "2026-09-04",
+      "recordLastCommit": "ee8629e29"
     },
     {
       "id": "TH-T2",
@@ -2547,7 +3471,10 @@
           "ref": "ee8629e29",
           "text": "discontinued: Claude/noux sales rooms setup wu73bq (#1826)"
         }
-      ]
+      ],
+      "recordVersion": 5,
+      "recordLastChanged": "2026-09-04",
+      "recordLastCommit": "ee8629e29"
     },
     {
       "id": "agentti-sanasto",
@@ -2585,7 +3512,13 @@
           "ref": "af873b4c8",
           "text": "removed: Merge pull request #1546 from blogtheristo/claude/sanasto-cybersecurity-terms-az3tby"
         }
-      ]
+      ],
+      "recordVersion": 7,
+      "recordLastChanged": "2026-05-11",
+      "recordLastCommit": "317be46e2",
+      "page": "dws10.com/products/agentti-sanasto.html",
+      "pageVersions": 1,
+      "pageLastChanged": "2026-03-12"
     },
     {
       "id": "climate-bundle",
@@ -2605,7 +3538,10 @@
           "ref": "d0335d10a",
           "text": "removed: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-01-15",
+      "recordLastCommit": "685f54c5a"
     },
     {
       "id": "cloud-ready-teams",
@@ -2631,7 +3567,13 @@
           "ref": "9fdcc10e4",
           "text": "removed: Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
         }
-      ]
+      ],
+      "recordVersion": 13,
+      "recordLastChanged": "2026-07-05",
+      "recordLastCommit": "c911ab2dd",
+      "page": "dws10.com/products/cloud-ready-teams.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "digital-design-gold",
@@ -2657,7 +3599,13 @@
           "ref": "9fdcc10e4",
           "text": "removed: Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
         }
-      ]
+      ],
+      "recordVersion": 10,
+      "recordLastChanged": "2026-05-11",
+      "recordLastCommit": "317be46e2",
+      "page": "dws10.com/products/digital-design-gold.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-06-29"
     },
     {
       "id": "DWS-IQ-005",
@@ -2677,7 +3625,10 @@
           "ref": "4b4d53223",
           "text": "removed: Merge pull request #390 from blogtheristo/claude/fix-product-prices-btcOs"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-02-06",
+      "recordLastCommit": "ec93cb52a"
     },
     {
       "id": "DWS-THEMIS-001",
@@ -2697,7 +3648,10 @@
           "ref": "120be5329",
           "text": "removed: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
         }
-      ]
+      ],
+      "recordVersion": 1,
+      "recordLastChanged": "2026-04-28",
+      "recordLastCommit": "095ef3fa1"
     },
     {
       "id": "dwsiq-v6",
@@ -2717,7 +3671,10 @@
           "ref": "d0335d10a",
           "text": "removed: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-01-15",
+      "recordLastCommit": "685f54c5a"
     },
     {
       "id": "expert-advisory",
@@ -2743,7 +3700,13 @@
           "ref": "d0335d10a",
           "text": "removed: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-01-15",
+      "recordLastCommit": "685f54c5a",
+      "page": "dws10.com/products/expert-advisory.html",
+      "pageVersions": 14,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "expert-services",
@@ -2775,7 +3738,13 @@
           "ref": "fe39be381",
           "text": "removed: Merge branch 'main' of https://github.com/blogtheristo/dws6"
         }
-      ]
+      ],
+      "recordVersion": 13,
+      "recordLastChanged": "2026-05-10",
+      "recordLastCommit": "b8bb0f615",
+      "page": "dws10.com/products/expert-services.html",
+      "pageVersions": 18,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "FH-FPE-001",
@@ -2795,7 +3764,10 @@
           "ref": "120be5329",
           "text": "removed: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q"
         }
-      ]
+      ],
+      "recordVersion": 1,
+      "recordLastChanged": "2026-04-28",
+      "recordLastCommit": "095ef3fa1"
     },
     {
       "id": "firehorse-auto",
@@ -2815,7 +3787,10 @@
           "ref": "d0335d10a",
           "text": "removed: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-01-15",
+      "recordLastCommit": "685f54c5a"
     },
     {
       "id": "firehorse-omni",
@@ -2835,7 +3810,10 @@
           "ref": "d0335d10a",
           "text": "removed: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-01-15",
+      "recordLastCommit": "685f54c5a"
     },
     {
       "id": "firehorse-report",
@@ -2855,7 +3833,10 @@
           "ref": "d0335d10a",
           "text": "removed: Merge pull request #294 from blogtheristo/frosty-jennings"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-01-15",
+      "recordLastCommit": "685f54c5a"
     },
     {
       "id": "FLEET-VIP-001",
@@ -2875,7 +3856,10 @@
           "ref": "9fdcc10e4",
           "text": "removed: Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
         }
-      ]
+      ],
+      "recordVersion": 1,
+      "recordLastChanged": "2026-06-16",
+      "recordLastCommit": "fe39be381"
     },
     {
       "id": "LIFETIME-EXP-001",
@@ -2919,7 +3903,13 @@
           "ref": "fe39be381",
           "text": "removed: Merge branch 'main' of https://github.com/blogtheristo/dws6"
         }
-      ]
+      ],
+      "recordVersion": 12,
+      "recordLastChanged": "2026-05-21",
+      "recordLastCommit": "95d609cba",
+      "page": "dws10.com/products/lifetime-exp-001.html",
+      "pageVersions": 9,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "m365-consultancy",
@@ -2945,7 +3935,13 @@
           "ref": "9fdcc10e4",
           "text": "removed: Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
         }
-      ]
+      ],
+      "recordVersion": 11,
+      "recordLastChanged": "2026-05-11",
+      "recordLastCommit": "317be46e2",
+      "page": "dws10.com/products/m365-consultancy.html",
+      "pageVersions": 14,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "powerapps-consultancy",
@@ -2965,7 +3961,10 @@
           "ref": "4b4d53223",
           "text": "removed: Merge pull request #390 from blogtheristo/claude/fix-product-prices-btcOs"
         }
-      ]
+      ],
+      "recordVersion": 2,
+      "recordLastChanged": "2026-02-06",
+      "recordLastCommit": "ec93cb52a"
     },
     {
       "id": "secure-email-proton",
@@ -2991,7 +3990,13 @@
           "ref": "9fdcc10e4",
           "text": "removed: Retire 5 SKUs; reposition professional-web-pages & business-mentor-30 (#1797)"
         }
-      ]
+      ],
+      "recordVersion": 10,
+      "recordLastChanged": "2026-05-11",
+      "recordLastCommit": "317be46e2",
+      "page": "dws10.com/products/secure-email-proton.html",
+      "pageVersions": 14,
+      "pageLastChanged": "2026-09-21"
     }
   ]
 }

@@ -4,6 +4,8 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { buildRegistry, renderMarkdown } from './truth/product-registry.mjs';
 import { buildLifecycle, renderMarkdown as renderLifecycle } from './truth/product-lifecycle.mjs';
+import { checkPriceListVersions } from './truth/price-list-versions.mjs';
+import { buildValuation, renderMarkdown as renderValuation } from './truth/product-valuation.mjs';
 
 const ROOT = resolve(process.cwd());
 const CATALOG_VERSION = '1.33';
@@ -537,6 +539,21 @@ console.log(`  Publication version: ${catalog.priceVersion || 'missing'}`);
     else if (!Array.isArray(prod.tags) || !prod.tags.includes('SME'))
       addError(`[${id}] SME campaign product lacks tag "SME"`);
   }
+}
+
+// Price-list versions (DWS_TRUTH_STANDARD.md row 44): every frozen snapshot exists unchanged in
+// both folders; the current version has a snapshot (HIC 25.09.2026: versions are evidence).
+for (const problem of checkPriceListVersions()) addError(`Price-list versions: ${problem}`);
+
+// Product valuation (DWS_TRUTH_STANDARD.md row 45): generated file matches catalogue + model.
+{
+  const model = JSON.parse(
+    readFileSync(resolve(ROOT, 'config/truth/product-valuation-model.json'), 'utf8'),
+  );
+  const valPath = resolve(ROOT, 'docs/truth/PRODUCT_VALUATION.md');
+  const current = existsSync(valPath) ? readFileSync(valPath, 'utf8') : '';
+  if (current !== renderValuation(buildValuation(catalog, model), model))
+    addError('Product valuation is stale: run node scripts/truth/product-valuation.mjs');
 }
 
 // Product lifecycle registry (DWS_TRUTH_STANDARD.md row 43): every ID ever in the catalogue,

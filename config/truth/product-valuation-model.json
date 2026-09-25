@@ -1,0 +1,212 @@
+{
+  "description": "Assumptions for the per-product TAM and valuation model (HIC 25.09.2026: \"Arvioi truth registry TAM kullekin tuotteelle ja tee sitten valuaatio kullekin tuotteelle\"). Rendered by scripts/truth/product-valuation.mjs into docs/truth/PRODUCT_VALUATION.md. Every number here is either sourced in the repo (status sourced, with the file) or a model estimate to verify before any investor use (status estimate). Change a number here, never in the generated file.",
+  "asOf": "2026-09-25",
+  "method": {
+    "tam": "Bottom-up per product: buyers in the product's segment x fit (share of the segment the product is for) x annual value per buyer. Annual value: recurring price x 12 (monthly) or x 1 (yearly); hourly price x hoursPerYear; one-time price / replacementCycleYears.",
+    "som": "Year-5 obtainable revenue = TAM x the product family's year-5 capture share.",
+    "value": "Present value = year-5 revenue x family revenue multiple x family probability of reaching it / (1 + discountRate)^5. Low and high cases halve and double the capture share.",
+    "discountRate": 0.3,
+    "discountRateBasis": "Venture hurdle rate for a pre-revenue software company (common 30-50 % range; lower bound used because two paid pilots exist, docs/TRACTION_CANONICAL.md)."
+  },
+  "segments": {
+    "FI_SME": {
+      "buyers": 290000,
+      "label": "Finnish enterprises outside primary production (micro and small dominate)",
+      "status": "estimate",
+      "basis": "Order of magnitude of the Statistics Finland business register; verify the current count before use."
+    },
+    "EU_CSRD_LARGE": {
+      "buyers": 5000,
+      "label": "EU companies in CSRD scope after Omnibus I (>1,000 employees and >EUR 450M turnover)",
+      "status": "sourced",
+      "basis": "DWS_TRUTH_STANDARD.md regulatory-scope row 2026-06-29: fewer than 5,000 large companies."
+    },
+    "EU_INDUSTRIAL": {
+      "buyers": 20000,
+      "label": "EU manufacturing, energy and process-industry enterprises with 250+ employees",
+      "status": "estimate",
+      "basis": "Order of magnitude of Eurostat structural business statistics; verify."
+    },
+    "EU_EDGE_SITES": {
+      "buyers": 60000,
+      "label": "Industrial sites of EU_INDUSTRIAL enterprises that can host edge AI (about 3 sites per enterprise)",
+      "status": "estimate",
+      "basis": "EU_INDUSTRIAL x 3 sites; verify."
+    },
+    "EU_MIDLARGE": {
+      "buyers": 50000,
+      "label": "EU enterprises with 250+ employees, all sectors",
+      "status": "estimate",
+      "basis": "Order of magnitude of Eurostat enterprise-size statistics; verify."
+    },
+    "EU_REGULATED": {
+      "buyers": 3000,
+      "label": "EU defence, public-sector and critical-infrastructure bodies that need sovereign or air-gapped AI",
+      "status": "estimate",
+      "basis": "Model estimate; verify against NIS2 essential-entity and EDIP participant counts."
+    }
+  },
+  "families": {
+    "sme": {
+      "capture": 0.003,
+      "multiple": 1.0,
+      "probability": 0.6,
+      "basis": "Campaign live in Finland; services-type margin, so revenue multiple 1x."
+    },
+    "dwsiq": {
+      "capture": 0.002,
+      "multiple": 6.0,
+      "probability": 0.25,
+      "basis": "Recurring software; 6x revenue is a mid multiple for private B2B SaaS; pre-revenue apart from two pilots."
+    },
+    "aegis": {
+      "capture": 0.01,
+      "multiple": 6.0,
+      "probability": 0.2,
+      "basis": "Small named segment, higher capture; preorder, GA September 2026, pre-revenue (docs/TRACTION_CANONICAL.md)."
+    },
+    "firehorse": {
+      "capture": 0.001,
+      "multiple": 4.0,
+      "probability": 0.2,
+      "basis": "Agent products, mixed one-time and recurring."
+    },
+    "data": {
+      "capture": 0.003,
+      "multiple": 6.0,
+      "probability": 0.2,
+      "basis": "Licensed data products (ontology); software-like margin."
+    },
+    "services": {
+      "capture": 0.0005,
+      "multiple": 1.0,
+      "probability": 0.5,
+      "basis": "Consulting and training; founder-capacity bound."
+    },
+    "hardware": {
+      "capture": 0.001,
+      "multiple": 0.5,
+      "probability": 0.4,
+      "basis": "Resale with installation; value is margin, not revenue."
+    },
+    "infra": {
+      "capture": 0.001,
+      "multiple": 3.0,
+      "probability": 0.25,
+      "basis": "Kubernetes, NIM, DOCA, Gov Ready service and subscription SKUs on edge sites."
+    }
+  },
+  "defaults": {
+    "hoursPerYear": 100,
+    "replacementCycleYears": 3
+  },
+  "rules": [
+    { "match": { "tag": "SME" }, "family": "sme", "segment": "FI_SME", "fit": 0.1, "cycle": 5 },
+    {
+      "match": { "ids": ["LIFETIME-IT-TUKI-10H"] },
+      "family": "sme",
+      "segment": "FI_SME",
+      "fit": 0.05,
+      "cycle": 1
+    },
+    {
+      "match": { "idPrefix": "DWS-AEGIS" },
+      "family": "aegis",
+      "segment": "EU_REGULATED",
+      "fit": 0.3
+    },
+    {
+      "match": { "ids": ["DWS-US-STARTER", "DWS-US-PILOT"] },
+      "family": "dwsiq",
+      "segment": "EU_MIDLARGE",
+      "fit": 0.02
+    },
+    {
+      "match": {
+        "ids": [
+          "LIFETIME-BUNDLE-2026",
+          "FH-RPT-001",
+          "DWS-IQ-FREE-2026",
+          "DWS-CLIMATE-001",
+          "DWS-EU-STARTER",
+          "DWS-EU-PILOT"
+        ]
+      },
+      "family": "dwsiq",
+      "segment": "EU_CSRD_LARGE",
+      "fit": 0.5
+    },
+    { "match": { "tag": "DWS IQ" }, "family": "dwsiq", "segment": "EU_INDUSTRIAL", "fit": 0.2 },
+    {
+      "match": { "tag": "Firehorse" },
+      "family": "firehorse",
+      "segment": "EU_MIDLARGE",
+      "fit": 0.1
+    },
+    { "match": { "independent": true }, "family": "data", "segment": "EU_INDUSTRIAL", "fit": 0.2 },
+    {
+      "match": { "ids": ["LF-ONTOLOGY-PILOT", "LF-TRAIN-IND"] },
+      "family": "data",
+      "segment": "EU_INDUSTRIAL",
+      "fit": 0.1,
+      "cycle": 1
+    },
+    {
+      "match": { "tag": "Hardware" },
+      "family": "hardware",
+      "segment": "EU_EDGE_SITES",
+      "fit": 0.1,
+      "cycle": 4
+    },
+    { "match": { "tag": "Gov Ready" }, "family": "infra", "segment": "EU_REGULATED", "fit": 0.3 },
+    { "match": { "idPrefix": "LF-" }, "family": "infra", "segment": "EU_EDGE_SITES", "fit": 0.05 },
+    {
+      "match": { "tag": "Training" },
+      "family": "services",
+      "segment": "EU_MIDLARGE",
+      "fit": 0.1,
+      "cycle": 1
+    },
+    {
+      "match": { "any": true },
+      "family": "services",
+      "segment": "EU_MIDLARGE",
+      "fit": 0.05,
+      "cycle": 1
+    }
+  ],
+  "repo": {
+    "asOf": "2026-09-25",
+    "codeSloc": 276658,
+    "docsNonBlankLines": 418629,
+    "commitsSince20251222": 7244,
+    "skills": 47,
+    "standards": 24,
+    "migrations": 87,
+    "productPages": 851,
+    "rdLedgerEur": 778081,
+    "rdLedgerHours": 8684,
+    "rdLedgerSource": "docs/010825_310726/tuotekehitysmenot/F_Liite_Tuntikirjaukset.md (2018 to 09/2025)",
+    "capitalisedEur": 594000,
+    "capitalisedSource": "same file, account 1030 Kehittamismenot, entries 1 and 2",
+    "loadedCostPerPersonMonthEur": 8000,
+    "loadedCostBasis": "Estimate for a senior software engineer in Finland including employer costs; verify.",
+    "aiProductivityFactorLow": 3,
+    "aiProductivityFactorHigh": 5,
+    "aiProductivityBasis": "Model assumption: an AI-assisted team rebuilds 3-5x faster than COCOMO's traditional-team baseline; verify against the repo's own commit throughput.",
+    "priorValuations": [
+      {
+        "valueEur": 3800000,
+        "year": 2021,
+        "source": "Gust, independent; DWS platform value only (HIC 25.09.2026)",
+        "ref": "docs/010825_310726/tuotekehitysmenot/F_Dual_Version_Activation_Package.md"
+      },
+      {
+        "valueUsd": 6000000,
+        "year": 2022,
+        "source": "Monaco Fondry, independent",
+        "ref": "docs/010825_310726/tuotekehitysmenot/F_Dual_Version_Activation_Package.md"
+      }
+    ]
+  }
+}

@@ -26,6 +26,11 @@ CREATE TABLE IF NOT EXISTS public.product_lifecycle (
                     'planned', 'page-only', 'internal', 'published',
                     'archived', 'discontinued', 'removed')),
   state_source    TEXT NOT NULL DEFAULT '',
+  record_version  INT,          -- vN: Nth distinct catalogue-record content on main
+  record_last_changed DATE,
+  record_last_commit  TEXT,
+  page            TEXT,         -- dws10.com/products/<slug>.html
+  page_versions   INT,          -- commits on main that changed the page (all languages)
   catalog_version TEXT,
   loaded_at       TIMESTAMPTZ NOT NULL DEFAULT now()
 );

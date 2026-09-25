@@ -29,6 +29,11 @@ export function toTableRows({ summary, rows }) {
     name: r.name || '',
     state: r.state,
     state_source: r.stateSource || '',
+    record_version: r.recordVersion ?? null,
+    record_last_changed: r.recordLastChanged || null,
+    record_last_commit: r.recordLastCommit || null,
+    page: r.page || null,
+    page_versions: r.pageVersions ?? null,
     catalog_version: summary.catalogVersion || null,
   }));
   const evidence = rows.flatMap((r) =>
