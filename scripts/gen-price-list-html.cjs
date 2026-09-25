@@ -46,6 +46,19 @@ const LAYER_LABELS = {
 };
 const LAYER_ORDER = ['sme', 'dwsiq', 'firehorse', 'data', 'services', 'hardware', 'other'];
 
+// Group tags name the section; attribute tags (Hardware, Sovereign, Air-Gapped, Sovereign Cloud)
+// render as chips next to the product name.
+const GROUP_TAGS = ['SME', 'DWS IQ', 'Firehorse'];
+
+// Long price notes run as one paragraph in the catalogue; break them at sentence ends that start
+// an ALL-CAPS heading (INCLUDED:, ACCEPTANCE KPI, …) so they read as paragraphs.
+function splitNote(t) {
+  return String(t)
+    .split(/(?<=[.)])\s+(?=[A-Z][A-Z ]{3,}[:(])/)
+    .map((x) => x.trim())
+    .filter(Boolean);
+}
+
 function commercialLayer(p, independentIds) {
   const id = p.id || '';
   const tags = Array.isArray(p.tags) ? p.tags : [];
@@ -161,12 +174,20 @@ function renderProductsTable(list) {
               : Number.isFinite(Number(p.priceMax)) && Number(p.priceMax) > Number(p.price)
                 ? eur(p.price) + '–' + eur(p.priceMax)
                 : (p.startingPrice === true ? 'from ' : '') + eur(p.price);
-        const note = p.priceNote ? `<div class="note">${esc(p.priceNote)}</div>` : '';
+        const note = p.priceNote
+          ? splitNote(p.priceNote)
+              .map((t) => `<div class="note">${esc(t)}</div>`)
+              .join('')
+          : '';
+        const tagChips = (p.tags || [])
+          .filter((t) => !GROUP_TAGS.includes(t))
+          .map((t) => `<span class="tag">${esc(t)}</span>`)
+          .join(' ');
         const caption = p.caption ? `<div class="caption">${esc(p.caption)}</div>` : '';
         return (
           '<tr>' +
           `<td class="id">${esc(p.id)}</td>` +
-          `<td class="name">${esc(p.name)}${caption}${note}</td>` +
+          `<td class="name">${esc(p.name)}${tagChips ? ` ${tagChips}` : ''}${caption}${note}</td>` +
           `<td class="price">${priceCell}</td>` +
           `<td class="unit">${esc(unitLabel(p))}</td>` +
           `<td class="sku">${esc(p.mpn || p.sku || '—')}</td>` +
@@ -281,6 +302,7 @@ h1{font-size:1.8rem;border-bottom:3px solid #fbbf24;padding-bottom:8px;margin-bo
 h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:6px;margin-bottom:12px;font-size:1.15rem}
 h2 small{color:#64748b;font-weight:400;font-size:.85rem}
 .pl-table{width:100%;border-collapse:collapse;font-size:.88rem;background:#fff}
+.tag{display:inline-block;font-size:.66rem;font-weight:700;padding:1px 7px;border-radius:999px;border:1px solid #94a3b8;color:#334155;background:#f1f5f9;margin-left:2px;vertical-align:middle}
 .pl-table th{background:#1e3a5f;color:#fff;text-align:left;padding:9px 12px;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em}
 .pl-table td{border-bottom:1px solid #e2e8f0;padding:10px 12px;vertical-align:top}
 .pl-table td.id,.pl-table td.sku{font-family:ui-monospace,Consolas,monospace;color:#555;font-size:.8rem;white-space:nowrap}

@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.4 [Latest]
+Version: 1.5 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.4 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product lifecycle registry (TRUTH row 43).
+- Version: 1.5 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Captions on all public offers; attribute tags; long price notes split.
+- Version: 1.4 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product lifecycle registry (TRUTH row 43).
 - Version: 1.3 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product groups (tags DWS IQ and Firehorse), themed colours, Supporting tag dropped.
 - Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: IT-support hour bank added as third SME campaign product; A5 flyers; lifetime.fi buy links fixed.
 - Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product registry (TRUTH row 42) and SME campaign section.
@@ -98,6 +99,20 @@ Document Status:
      - Six removed IDs still have live public pages: cloud-ready-teams, expert-advisory, expert-services, LIFETIME-EXP-001, m365-consultancy and secure-email-proton.
      - Ten pages have no catalogue ID, among them firehorse-mobile ("coming soon") and themis.
    - Supabase is next. `config/truth/product-lifecycle.json` is already shaped as rows plus evidence (tables `product_lifecycle` and `product_lifecycle_evidence`). Applying the migration is a HIC step.
+
+10. **Captions and attribute tags.**
+    - HIC: "Kaikkiin tuotteisiin selite kenttään kuvaus"; "Tag them Hardware … Sovereign … Air-Gapped. Aegis as well … DWS IQ is tag Sovereign Cloud".
+    - 71 of the 80 public offers had no one-line caption. Each got one, written from the product's own catalogue description; the longest is 119 characters. The validator now requires a caption of at most 160 characters.
+    - The caption colour was dark navy on the dark screen background. It is now light on screen and navy in print.
+    - Tags:
+      - Hardware, Sovereign and Air-Gapped on the 11 hardware products.
+      - Sovereign and Air-Gapped on the 3 Aegis offers.
+      - Sovereign Cloud on 13 other DWS IQ offers.
+    - Not tagged Sovereign Cloud: DWS-US-STARTER and DWS-US-PILOT, because they run on US infrastructure (Supabase + Cloudflare).
+    - Not tagged Hardware: LF-NVIDIA-INSTALL, which is an installation service.
+    - Tags render as chips. The validator only accepts tags from `definitions.productTags.allowed`.
+    - Price notes over 180 characters show their first sentence, with the rest under a "Terms" toggle, split at ALL-CAPS headings. Three offers have one: Aegis Pilot, Aegis Implementation and the Ontology licence.
+    - The captions are in English only; FI captions (`captionFi`) are not yet written.
 
 ## The Insight
 

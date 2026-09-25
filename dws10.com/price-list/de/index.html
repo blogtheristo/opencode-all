@@ -338,6 +338,56 @@
         border-left: 4px solid var(--grp-accent, #60a5fa);
         background: var(--grp-bg, transparent);
       }
+      .pl-caption {
+        display: block;
+        color: #e2e8f0;
+        font-style: italic;
+        margin: 3px 0;
+      }
+      /* Attribute tag chips and collapsible long price notes */
+      .pl-tags {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-left: 6px;
+        vertical-align: middle;
+      }
+      .pl-tag {
+        font-size: 0.64rem;
+        font-weight: 700;
+        padding: 1px 7px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        color: #cbd5e1;
+        background: rgba(148, 163, 184, 0.12);
+      }
+      .pl-tag-sovereign {
+        color: #a7f3d0;
+        border-color: rgba(52, 211, 153, 0.5);
+        background: rgba(16, 185, 129, 0.12);
+      }
+      .pl-tag-sovereign-cloud {
+        color: #bae6fd;
+        border-color: rgba(56, 189, 248, 0.5);
+        background: rgba(14, 165, 233, 0.12);
+      }
+      .pl-tag-air-gapped {
+        color: #ddd6fe;
+        border-color: rgba(167, 139, 250, 0.5);
+        background: rgba(139, 92, 246, 0.12);
+      }
+      .pl-terms {
+        margin-top: 4px;
+        font-size: 0.78rem;
+        color: #94a3b8;
+      }
+      .pl-terms summary {
+        cursor: pointer;
+        color: #93c5fd;
+      }
+      .pl-terms p {
+        margin: 6px 0 0;
+      }
       /* Product group themes: soft background + accent per group */
       .cat-block .price-table {
         background: transparent;
@@ -524,6 +574,8 @@
 
       /* Print */
       @media print {
+        .pl-caption { color: #1e3a5f; }
+        .pl-tag { color: #334155; background: #f1f5f9; border-color: #94a3b8; }
         .cat-block.grp-sme { --grp-bg: #fef9ec; --grp-accent: #f59e0b; }
         .cat-block.grp-dwsiq { --grp-bg: #eff6ff; --grp-accent: #3b82f6; }
         .cat-block.grp-firehorse { --grp-bg: #fff4ed; --grp-accent: #f97316; }
@@ -1109,6 +1161,34 @@
               other: "Other products",
             };
         var LAYER_ORDER = ["sme", "dwsiq", "firehorse", "data", "services", "hardware", "other"];
+        // Group tags name the section; attribute tags (Hardware, Sovereign, Air-Gapped,
+        // Sovereign Cloud) render as chips next to the product name.
+        var GROUP_TAGS = ["SME", "DWS IQ", "Firehorse"];
+        // Long price notes are one paragraph in the catalogue: show the first sentence and put
+        // the rest in a collapsible block, broken at ALL-CAPS headings (INCLUDED:, …).
+        function formatNote(text) {
+          var t = String(text);
+          if (t.length <= 180) return "<small>" + escapeHtml(t) + "</small>";
+          var m = t.match(/^(.+?[.)])\s+(?=[A-Z€0-9])/);
+          var head = m ? m[1] : t.slice(0, 180);
+          var rest = m ? t.slice(m[0].length) : t.slice(180);
+          var paras = rest
+            .split(/(?<=[.)])\s+(?=[A-Z][A-Z ]{3,}[:(])/)
+            .map(function (x) {
+              return "<p>" + escapeHtml(x.trim()) + "</p>";
+            })
+            .join("");
+          return (
+            "<small>" +
+            escapeHtml(head) +
+            "</small>" +
+            '<details class="pl-terms"><summary>' +
+            (PAGE_LANG_FI ? "Ehdot" : "Terms") +
+            "</summary>" +
+            paras +
+            "</details>"
+          );
+        }
         var independentLookup = {};
         function commercialLayer(p) {
           var id = p.id || "";
@@ -1520,10 +1600,24 @@
                   } else {
                     priceCell = (p.startingPrice === true ? "from " : "") + eur(Number(priceVal));
                   }
-                  var note = p.priceNote ? "<small>" + escapeHtml(p.priceNote) + "</small>" : "";
+                  var note = p.priceNote ? formatNote(p.priceNote) : "";
+                  var tagChips = (Array.isArray(p.tags) ? p.tags : [])
+                    .filter(function (t) {
+                      return GROUP_TAGS.indexOf(t) === -1;
+                    })
+                    .map(function (t) {
+                      return (
+                        '<span class="pl-tag pl-tag-' +
+                        t.toLowerCase().replace(/[^a-z]+/g, "-") +
+                        '">' +
+                        escapeHtml(t) +
+                        "</span>"
+                      );
+                    })
+                    .join("");
                   var captionText = (PAGE_FI && p.captionFi) || p.caption;
                   var caption = captionText
-                    ? '<small class="pl-caption" style="display:block;color:#1e3a5f;font-style:italic;margin:3px 0;">' +
+                    ? '<small class="pl-caption">' +
                       escapeHtml(captionText) +
                       "</small>"
                     : "";
@@ -1580,6 +1674,7 @@
                     '<td class="col-name" data-label="Product">' +
                     tierHtml +
                     escapeHtml(p.name || "") +
+                    (tagChips ? '<span class="pl-tags">' + tagChips + "</span>" : "") +
                     caption +
                     note +
                     anchor +

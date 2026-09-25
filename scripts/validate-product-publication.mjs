@@ -446,6 +446,17 @@ if (
 ) {
   addError('dws10.com/price-list/index.html must visibly badge Serious and Independent offers');
 }
+// Every public offer has a one-line caption; tags come from the allowed list (HIC 25.09.2026).
+{
+  const allowedTags = new Set(definitions.productTags?.allowed || []);
+  for (const product of publicProducts) {
+    if (!product.caption) addError(`[${product.id}] public offer has no one-line caption`);
+    else if (product.caption.length > 160)
+      addError(`[${product.id}] caption longer than 160 characters (one line)`);
+    for (const tag of product.tags || [])
+      if (!allowedTags.has(tag)) addError(`[${product.id}] unknown tag "${tag}"`);
+  }
+}
 // Product groups (HIC 25.09.2026): each group tag renders its own themed section.
 for (const tag of definitions.productGroups?.tags || []) {
   if (!priceListPage.includes(`"${tag}"`))
