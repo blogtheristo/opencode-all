@@ -13,10 +13,10 @@ Branch: claude/add-define-application-guide-gS1du
 
 Finland's defence innovation ecosystem includes two key entry points for startups and SMEs:
 
-| Entity | Location | Type | Coordinator |
-|--------|----------|------|-------------|
-| **DEFINE Accelerator** | Riihimäki (nationwide) | 3-month startup accelerator | Redstone VC + City of Riihimäki |
-| **Defence Tech Hub** | Espoo (Otaniemi) | Membership-based innovation hub | Enter Espoo |
+| Entity                 | Location               | Type                            | Coordinator                     |
+| ---------------------- | ---------------------- | ------------------------------- | ------------------------------- |
+| **DEFINE Accelerator** | Riihimäki (nationwide) | 3-month startup accelerator     | Redstone VC + City of Riihimäki |
+| **Defence Tech Hub**   | Espoo (Otaniemi)       | Membership-based innovation hub | Enter Espoo                     |
 
 Both signed a collaboration agreement in October 2025 — member companies can access each other's resources. The **NATO DIANA Accelerator** site in Espoo (opened January 2026) adds a third layer to Finland's defence innovation infrastructure.
 
@@ -49,10 +49,10 @@ Both signed a collaboration agreement in October 2025 — member companies can a
 
 ### Timeline
 
-| Batch | Application Deadline | Program Period |
-|-------|---------------------|----------------|
-| Spring 2026 | March 2, 2026 (closed) | March–June 2026 |
-| Autumn 2026 | Expected April–May 2026 | TBD |
+| Batch       | Application Deadline                                                                                                                                                                                                  | Program Period                                                                     |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Spring 2026 | March 2, 2026 (closed)                                                                                                                                                                                                | March–June 2026 (kicked off 19.03.2026, ran to ~mid-June — confirmed)              |
+| Autumn 2026 | **Unconfirmed** — this row predates the Spring 2026 cohort and was never verified. No autumn-2026 cohort was found on a 05.08.2026 verification pass; see `docs/lut/fi-defence-accelerators-research-2026-08.md` §1.1 | TBD — check `definefinland.fi/en/accelerator/` directly before relying on this row |
 
 ### Key People
 
@@ -99,10 +99,10 @@ Finland opened a NATO DIANA (Defence Innovation Accelerator for the North Atlant
 
 ### Two Platform Products
 
-| Product | SKU | Target | Price |
-|---------|-----|--------|-------|
-| **DWS IQ Climate Intelligence** | DWS-CLIMATE-001 | CSRD-obligated industrials (50,000+ in EU) | €2,999/mo |
-| **DWS IQ Aegis** | DWS-AEGIS-001 | Defence contractors, dual-use, NATO enterprises | €4,999/mo |
+| Product                         | SKU             | Target                                          | Price     |
+| ------------------------------- | --------------- | ----------------------------------------------- | --------- |
+| **DWS IQ Climate Intelligence** | DWS-CLIMATE-001 | CSRD-obligated industrials (50,000+ in EU)      | €2,999/mo |
+| **DWS IQ Aegis**                | DWS-AEGIS-001   | Defence contractors, dual-use, NATO enterprises | €4,999/mo |
 
 **DWS IQ Aegis** is the defence-specific product for DEFINE/Defence Tech Hub application. Named after Athena's shield — it packages sovereignty monitoring, orbital intelligence (ICEYE SAR), agent governance (KYA), and EU AI Act compliance into a hardened platform.
 
@@ -131,4 +131,4 @@ IFS, Visma, SAP, Microsoft Dynamics, Monitor ERP, Jeeves — all are priority ch
 
 ---
 
-*Document maintained by Lifetime Oy. Last updated 2026-03-25.*
+_Document maintained by Lifetime Oy. Last updated 2026-03-25._

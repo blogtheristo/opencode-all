@@ -1,9 +1,10 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: HIC Learning Outcome — Stockholm position confirmed, Uber-as-runway tested and rejected, coaching revenue identified as the actual runway
-Version: 1.10
-Date: 2026-08-03
+Version: 1.11
+Date: 2026-09-25
 Change 1.0 → 1.1: HIC correction — FOB-319 already produces daily income in Helsinki, so the Swedish licence lead time opens no zero-income gap. The v1.0 claim "do not start with the taxi licence" is superseded and retained in §5 rather than rewritten (Rule 12). Sequence reordered accordingly; Swedish public-sector target list added as §5a.
+Change 1.10 → 1.11 (from #1807, logged 2026-08-05 as a parallel 1.8 → 1.9): HIC corrected a premature "just choose KTH" framing of the §5d doctoral-home flag and gave the correct 5-step process (scope a 2-3 page topic brief → find a willing supervisor → their programme reviews it → agree funding/employment/company role/IPR → only then apply). Process recorded at `docs/phd/PHD_DOCTORAL_HOME_DECISION_PROCESS_2026-08.md`; step 1 drafted at `docs/gtm/TECOSA_TORNGREN_RESEARCH_TOPIC_BRIEF_2026-08.md` and `docs/gtm/TECOSA_TORNGREN_CONCEPT_NOTE_2026-08.md`, built from the already-locked RQ1/RQ4/RQ5 — no change to the lock. Neither KTH nor LUT is decided. LUT-fairness point added: Smolander's retirement alone does not disqualify LUT if LUT names a continuing main supervisor; without one, LUT is not a safe 4-year anchor either — an open question for the LUT thread, not yet asked.
 Change 1.9 → 1.10: §5e refined — the accelerator mechanism (HIC + Boardy). TECoSA hypothesis sharpened from meeting point to deep-tech commercialisation accelerator: selection, programme and cadence on top of place and throughput; output is a proven, safe, buyable solution, not a pitch deck. LUT split sharpened accordingly (LUT defines the industrial problem, TECoSA accelerates validation and commercialisation). The accelerator framing is the sayable-aloud version; Jumbo/Aviapolis stay internal.
 Change 1.8 → 1.9: Added §5e — the internal strategy reading of TECoSA (never shown to KTH): the friendly-trap mechanism named, the Jumbo (commercialisation meeting point) and Aviapolis (fast-throughput launch platform) mechanisms, and the LUT–KTH division of labour anchored on LUT System Earth 2030, which resolves the §5d doctoral-home flag without touching thesis canon — LUT keeps the founder doctorate, KTH gets the company researcher path.
 Change 1.7 → 1.8: HIC supplied the two actual drivers for Lifetime AB — KTH (Kungliga Tekniska Högskolan) and Vinnova, not the auditor and consultancy the agent had guessed from the abbreviations. This inverts §5d: Vinnova requires the coordinating party to be a Swedish legal person, and foreign actors without a Swedish filial cannot receive funding at all. It is the first item in the session that Lifetime Oy structurally cannot do and Lifetime AB can. Flags the LUT-vs-KTH doctoral-home question against the Thesis Rule.
@@ -34,30 +35,30 @@ The location decision stands: **Lifetime AB / Stockholm**. What changed is the m
 
 ## 2. Six-step Learning Standard record
 
-| #   | Step                         | State                                                                                                                                                                              |
-| --- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #   | Step                         | State                                                                                                                                                                                               |
+| --- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1   | Update knowledge base        | ⏸️ Deferred — this is founder-level structure and personal-finance reasoning, not DWS product canon. Recorded here rather than pushed into `kb/`, where it would pollute customer-facing retrieval. |
-| 2   | Field note                   | ✅ This document                                                                                                                                                                   |
-| 3   | Learn/ HTML render           | ⏸️ N/A — `Learn/` is a published surface. This memo contains founder location and income reasoning that is deliberately internal.                                                  |
-| 4   | Export to Drive              | ⏸️ N/A — same reason as step 3. Repo remains source-of-truth; no export was made, so no drift.                                                                                     |
-| 5   | HIC decision-shaped question | ✅ §7                                                                                                                                                                              |
-| 6   | Calendar dated commitments   | ✅ §6 — one derived date (taxiförarlegitimation lead time) and one acting date (coaching outreach).                                                                                 |
+| 2   | Field note                   | ✅ This document                                                                                                                                                                                    |
+| 3   | Learn/ HTML render           | ⏸️ N/A — `Learn/` is a published surface. This memo contains founder location and income reasoning that is deliberately internal.                                                                   |
+| 4   | Export to Drive              | ⏸️ N/A — same reason as step 3. Repo remains source-of-truth; no export was made, so no drift.                                                                                                      |
+| 5   | HIC decision-shaped question | ✅ §7                                                                                                                                                                                               |
+| 6   | Calendar dated commitments   | ✅ §6 — one derived date (taxiförarlegitimation lead time) and one acting date (coaching outreach).                                                                                                 |
 
 ## 3. The three cities, tested and closed
 
 Each city was scored on two axes the session kept conflating and finally separated: **net monthly surplus** (does it pay?) and **access to capital at DWS's actual stage** (does it fund the company, or only the founder?).
 
-| City                          | Net surplus /mo    | Capital access at this stage                                                     | Verdict                                       |
-| ----------------------------- | ------------------ | -------------------------------------------------------------------------------- | --------------------------------------------- |
-| **Fuengirola** (VTC fleet)    | **−450 … +50 €**   | none — retirees and coastline                                                    | Closed. Loses money and reaches no one.       |
-| **Geneva / French side**      | **+1 400–1 700 €** | family offices, UN, standards bodies — wrong *type* and wrong *stage* of capital | Closed as a move. Retained as a signal venue. |
-| **Paris**                     | ~0 €               | largest EU VC pool                                                               | Earns nothing; rent consumes the whole margin.|
-| **Stockholm**                 | **+600–1 000 €**   | Nordic VC — **and Lifetime AB already lives here**                               | **Confirmed.**                                |
-| **Helsinki**                  | +300–700 €         | Business Finland, EIC national path, Slush                                       | Retained: zero-move option, no residency break.|
+| City                       | Net surplus /mo    | Capital access at this stage                                                     | Verdict                                         |
+| -------------------------- | ------------------ | -------------------------------------------------------------------------------- | ----------------------------------------------- |
+| **Fuengirola** (VTC fleet) | **−450 … +50 €**   | none — retirees and coastline                                                    | Closed. Loses money and reaches no one.         |
+| **Geneva / French side**   | **+1 400–1 700 €** | family offices, UN, standards bodies — wrong _type_ and wrong _stage_ of capital | Closed as a move. Retained as a signal venue.   |
+| **Paris**                  | ~0 €               | largest EU VC pool                                                               | Earns nothing; rent consumes the whole margin.  |
+| **Stockholm**              | **+600–1 000 €**   | Nordic VC — **and Lifetime AB already lives here**                               | **Confirmed.**                                  |
+| **Helsinki**               | +300–700 €         | Business Finland, EIC national path, Slush                                       | Retained: zero-move option, no residency break. |
 
-Geneva produced the session's most seductive number and its most misleading one. A €220 airport fare and a legally binding CHF 24.59/h cantonal wage floor make it the best-paying option on the board by a wide margin — but it pays the *founder*, not the *company*. Its capital is private banking and philanthropy, which does not write pre-seed cheques into a Finnish deep-tech company.
+Geneva produced the session's most seductive number and its most misleading one. A €220 airport fare and a legally binding CHF 24.59/h cantonal wage floor make it the best-paying option on the board by a wide margin — but it pays the _founder_, not the _company_. Its capital is private banking and philanthropy, which does not write pre-seed cheques into a Finnish deep-tech company.
 
-**Stockholm wins on the only criterion that mattered:** it is the one city where earned income does not run *parallel* to the strategy but *inside* it, because the AB structure is already the plan there.
+**Stockholm wins on the only criterion that mattered:** it is the one city where earned income does not run _parallel_ to the strategy but _inside_ it, because the AB structure is already the plan there.
 
 ## 4. The finding worth keeping
 
@@ -65,16 +66,16 @@ Geneva produced the session's most seductive number and its most misleading one.
 
 Forty hours a week behind a wheel yields at best ~1 500 €/month. That is **≈ 9 €/hour** of founder time. Set against what the repository already sells:
 
-| Product (`docs/coaching/ESITE_JULKISHALLINTO_FI.md`) | Price (VAT 0 %) | Equivalent months of driving surplus |
-| ---------------------------------------------------- | --------------- | ------------------------------------ |
-| 1-day lecture, ~6 h                                   | **1 900 €**     | ~2–3 months                          |
-| 2-day workshop                                        | **4 500 €**     | ~5–7 months                          |
-| 3-day programme *(most recommended)*                  | **5 900 €**     | ~6–10 months                         |
-| 2–6 week engagement                                   | **from 7 500 €**| ~12 months                           |
+| Product (`docs/coaching/ESITE_JULKISHALLINTO_FI.md`) | Price (VAT 0 %)  | Equivalent months of driving surplus |
+| ---------------------------------------------------- | ---------------- | ------------------------------------ |
+| 1-day lecture, ~6 h                                  | **1 900 €**      | ~2–3 months                          |
+| 2-day workshop                                       | **4 500 €**      | ~5–7 months                          |
+| 3-day programme _(most recommended)_                 | **5 900 €**      | ~6–10 months                         |
+| 2–6 week engagement                                  | **from 7 500 €** | ~12 months                           |
 
 A six-hour lecture is **≈ 317 €/hour**. The ratio against driving is **~35×**, and the material is already written, already priced, already in Finnish, already aimed at a public-sector buyer that exists today.
 
-**Qualifier added in v1.1:** this compares the use of *founder hours*, not the existence of vehicle income. FOB-319 producing daily in Helsinki is an operating asset and is not what this section argues against. What it argues against is the founder personally spending 40 h/week at ~9 €/h when the same hours sell at ~317 €/h.
+**Qualifier added in v1.1:** this compares the use of _founder hours_, not the existence of vehicle income. FOB-319 producing daily in Helsinki is an operating asset and is not what this section argues against. What it argues against is the founder personally spending 40 h/week at ~9 €/h when the same hours sell at ~317 €/h.
 
 The second half is what closes the loop: **driving income is invisible to a cap table.** It is not revenue, it does not appear in a data room, and a founder driving full-time reads to an investor as a product nobody bought. Two signed 5 900 € deliveries read as the opposite — and they are the single strongest argument the AB round can carry. Cash and access to cash come from the same act.
 
@@ -82,28 +83,28 @@ The second half is what closes the loop: **driving income is invisible to a cap 
 
 **HIC correction, 2026-08-03 — the premise under v1.0 was wrong.** FOB-319 already produces income in Helsinki every day. There is therefore **no zero-income gap** to protect against, and the licence process costs nothing but calendar time while existing income continues.
 
-> **Superseded (v1.0), retained per Rule 12:** *"Do not start with the taxi licence. It opens a three-month zero-income hole at precisely the moment money is the stated problem."* This assumed no operating income asset existed. It did. The conclusion is reversed; the reasoning is kept so the correction is legible rather than silently erased.
+> **Superseded (v1.0), retained per Rule 12:** _"Do not start with the taxi licence. It opens a three-month zero-income hole at precisely the moment money is the stated problem."_ This assumed no operating income asset existed. It did. The conclusion is reversed; the reasoning is kept so the correction is legible rather than silently erased.
 
-1. **Register Lifetime AB** — this is now step one, not a later structural step, because the operator licence is issued to a *company* and cannot be applied for before the AB exists (§5b).
+1. **Register Lifetime AB** — this is now step one, not a later structural step, because the operator licence is issued to a _company_ and cannot be applied for before the AB exists (§5b).
 2. **`taxitrafiktillstånd` application follows registration** — the binding constraint on the whole Stockholm move. It runs while Helsinki income continues uninterrupted, so early start costs nothing and late start costs months.
 3. **Public-sector outreach runs in parallel** — Sweden (§5a) and Finland. Zero production cost, the material exists, and neither depends on any licence or on the AB.
 4. **Structure unchanged** — Lifetime Oy stays in Finland with the IP, Finnish customers, the EIC path **and its operating taxi licence**. Lifetime AB remains the Nordic financing and university structure. Only the funding source moved: from the wheel to the invoice.
 
 ## 5b. The Swedish licence chain — corrected
 
-**v1.1 named the wrong licence.** `taxiförarlegitimation` is the *driver's* permit. What Lifetime AB needs, and what the Finnish document in hand is the equivalent of, is **`taxitrafiktillstånd`** — the company-level operator licence under Taxitrafiklag (2012:211). Both are eventually required; only the second gates the business.
+**v1.1 named the wrong licence.** `taxiförarlegitimation` is the _driver's_ permit. What Lifetime AB needs, and what the Finnish document in hand is the equivalent of, is **`taxitrafiktillstånd`** — the company-level operator licence under Taxitrafiklag (2012:211). Both are eventually required; only the second gates the business.
 
 **Asset in hand (HIC, 2026-08-03):** Traficom **taksiliikennelupa 00010089**, holder Lifetime Oy (0772407-9), valid **24.10.2024 – 24.10.2034**. Ten years of runway on the Finnish side, already operating via FOB-319.
 
 **The chain, in dependency order:**
 
-| # | Step | Cost | Time | Note |
-| - | ---- | ---- | ---- | ---- |
-| 1 | **Lifetime AB registered** (Bolagsverket via verksamt.se) | €2 225 (25 000 SEK) share capital + €170 (1 900 SEK) fee + €22 (250 SEK) verklig huvudman | **1–3 weeks** | Beneficial owner must be filed within 4 weeks of registration. |
-| 2 | **`trafikansvarig` with approved `yrkeskunnande`** | exam fees | **the real bottleneck** | Four `delprov` covering legal rules, business and financial management, technical norms, and road safety. Taken in Swedish. A consultant can serve as trafikansvarig instead — that is the fast path. |
-| 3 | **Financial capacity proof** | **€8 900 (100 000 SEK)** first vehicle, **+€4 450 (50 000 SEK)** each additional | — | **On top of** the share capital. Minimum tied capital for one car is therefore **~€11 100 (125 000 SEK)**. |
-| 4 | **`taxitrafiktillstånd` application** (Transportstyrelsen) | — | **8–12 weeks** with complete documentation | Assessed on yrkeskunnande, ekonomiska förhållanden and gott anseende. |
-| 5 | **`taxiförarlegitimation`** for whoever drives | — | runs in parallel | Driver-level, not company-level. |
+| #   | Step                                                       | Cost                                                                                      | Time                                       | Note                                                                                                                                                                                                  |
+| --- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Lifetime AB registered** (Bolagsverket via verksamt.se)  | €2 225 (25 000 SEK) share capital + €170 (1 900 SEK) fee + €22 (250 SEK) verklig huvudman | **1–3 weeks**                              | Beneficial owner must be filed within 4 weeks of registration.                                                                                                                                        |
+| 2   | **`trafikansvarig` with approved `yrkeskunnande`**         | exam fees                                                                                 | **the real bottleneck**                    | Four `delprov` covering legal rules, business and financial management, technical norms, and road safety. Taken in Swedish. A consultant can serve as trafikansvarig instead — that is the fast path. |
+| 3   | **Financial capacity proof**                               | **€8 900 (100 000 SEK)** first vehicle, **+€4 450 (50 000 SEK)** each additional          | —                                          | **On top of** the share capital. Minimum tied capital for one car is therefore **~€11 100 (125 000 SEK)**.                                                                                            |
+| 4   | **`taxitrafiktillstånd` application** (Transportstyrelsen) | —                                                                                         | **8–12 weeks** with complete documentation | Assessed on yrkeskunnande, ekonomiska förhållanden and gott anseende.                                                                                                                                 |
+| 5   | **`taxiförarlegitimation`** for whoever drives             | —                                                                                         | runs in parallel                           | Driver-level, not company-level.                                                                                                                                                                      |
 
 **Revised total: ~4–5 months, not 2–3.** The v1.1 date of 2026-11-03 was built on the wrong licence and is too optimistic; realistic clearance is **January–February 2027** if step 1 starts now.
 
@@ -111,19 +112,19 @@ The second half is what closes the loop: **driving income is invisible to a cap 
 
 Hiring an external trafikansvarig is explicitly lawful provided the person meets the requirements. Both routes were priced:
 
-| Route | Cost | Note |
-| ----- | ---- | ---- |
-| **Consultant — Trafikexperten** | **€250/mo** (2 800 SEK) from | recurring |
-| **Consultant — Yrkestrafik.se / Ekonomico** | **€259/mo** (2 900 SEK) first vehicle | falls per additional vehicle (2 500 / 2 000 / 1 500 / 1 000 SEK) |
-| **Consultant — Svenska Yrkestrafikgruppen** | **€357/mo** (4 000 SEK) + **€71** (800 SEK) per vehicle, **€179** (2 000 SEK) setup | ≈ €429/mo for one car |
-| **Own exam — course, Taxikurs.nu** | **€124 one-off** (1 390 SEK incl. VAT) | |
-| **Own exam — course, alternative** | **€267 one-off** (2 995 SEK incl. VAT) | |
-| Trafikverket exam fee | `unverified` | booked and paid separately |
-| Transportstyrelsen application fee | `unverified` — "a few thousand SEK" | confirm current fee |
+| Route                                       | Cost                                                                                | Note                                                             |
+| ------------------------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **Consultant — Trafikexperten**             | **€250/mo** (2 800 SEK) from                                                        | recurring                                                        |
+| **Consultant — Yrkestrafik.se / Ekonomico** | **€259/mo** (2 900 SEK) first vehicle                                               | falls per additional vehicle (2 500 / 2 000 / 1 500 / 1 000 SEK) |
+| **Consultant — Svenska Yrkestrafikgruppen** | **€357/mo** (4 000 SEK) + **€71** (800 SEK) per vehicle, **€179** (2 000 SEK) setup | ≈ €429/mo for one car                                            |
+| **Own exam — course, Taxikurs.nu**          | **€124 one-off** (1 390 SEK incl. VAT)                                              |                                                                  |
+| **Own exam — course, alternative**          | **€267 one-off** (2 995 SEK incl. VAT)                                              |                                                                  |
+| Trafikverket exam fee                       | `unverified`                                                                        | booked and paid separately                                       |
+| Transportstyrelsen application fee          | `unverified` — "a few thousand SEK"                                                 | confirm current fee                                              |
 
 **Over twelve months: €3 100–5 300 (consultant) against ~€300 one-off (own exam).** A factor of 10–17.
 
-**Both routes stay open — this is an HIC decision, not a settled one.** An earlier draft of this section recommended the own exam and a companion document then recorded that recommendation as if the HIC had *rejected* the consultant. The HIC had not. Corrected 2026-08-03; the agent recommendation is kept below, clearly labelled as a recommendation.
+**Both routes stay open — this is an HIC decision, not a settled one.** An earlier draft of this section recommended the own exam and a companion document then recorded that recommendation as if the HIC had _rejected_ the consultant. The HIC had not. Corrected 2026-08-03; the agent recommendation is kept below, clearly labelled as a recommendation.
 
 **What the money says:** €3 100–5 300 over twelve months (consultant) against ~€300 one-off (own exam). On cost alone the own exam wins by a factor of 10–17, and the €124 course is less than one month of any consultant.
 
@@ -153,13 +154,13 @@ The wedge is therefore identical to the Finnish one — an Article 4 literacy re
 
 **Available: ~€2 500, not ~€11 000** (HIC, 2026-08-03). The v1.2 chain in §5b assumed the latter. At ~11,2 SEK/EUR that is roughly €2 500 (28 000 SEK), and it splits the plan cleanly in two:
 
-| Item | Cost | Funded? |
-| ---- | ---- | ------- |
-| AB share capital | €2 225 (25 000 SEK) | ✅ |
-| Bolagsverket registration (verksamt.se) | €170 (1 900 SEK) | ✅ |
-| Verklig huvudman filing | €22 (250 SEK) | ✅ |
-| **AB total** | **€2 425 (27 150 SEK)** | ✅ **— with about €75 left over** |
-| Financial-capacity proof, first vehicle | **€8 900 (100 000 SEK)** | ❌ **unfunded** |
+| Item                                    | Cost                     | Funded?                           |
+| --------------------------------------- | ------------------------ | --------------------------------- |
+| AB share capital                        | €2 225 (25 000 SEK)      | ✅                                |
+| Bolagsverket registration (verksamt.se) | €170 (1 900 SEK)         | ✅                                |
+| Verklig huvudman filing                 | €22 (250 SEK)            | ✅                                |
+| **AB total**                            | **€2 425 (27 150 SEK)**  | ✅ **— with about €75 left over** |
+| Financial-capacity proof, first vehicle | **€8 900 (100 000 SEK)** | ❌ **unfunded**                   |
 
 **Two consequences, and the second is the important one.**
 
@@ -176,17 +177,17 @@ The wedge is therefore identical to the Finnish one — an Article 4 literacy re
 The session spent most of its length testing the AB against the wrong two drivers. Both were examined and both are genuinely non-urgent:
 
 - **The Swedish taxi licence** needs the AB, but the application is blocked by an unfunded €8 900 (100 000 SEK) capacity proof. Founding the AB first accelerates nothing while that gate is shut.
-- **EIC** does not need the AB at all. The applicant is a *single* company established in an EU or associated country, and Lifetime Oy already qualifies. Applying via a subsidiary is possible but adds a burden (a credible European business strategy), not a shortcut.
+- **EIC** does not need the AB at all. The applicant is a _single_ company established in an EU or associated country, and Lifetime Oy already qualifies. Applying via a subsidiary is possible but adds a burden (a credible European business strategy), not a shortcut.
 
 **The real drivers are Vinnova and KTH, and they invert the conclusion.**
 
-**Vinnova is a hard eligibility wall, not a preference.** The coordinating party must be **a Swedish legal person conducting operations in Sweden**. Foreign actors without a registered `filial` or `driftställe` in Sweden **may participate as project partners but cannot receive funding from Vinnova.** Lifetime Oy therefore cannot be paid by Vinnova in any structure. This is the first thing in the entire session that Lifetime Oy structurally *cannot* do and Lifetime AB *can* — every other blocked item has been blocked by money, not by legal form.
+**Vinnova is a hard eligibility wall, not a preference.** The coordinating party must be **a Swedish legal person conducting operations in Sweden**. Foreign actors without a registered `filial` or `driftställe` in Sweden **may participate as project partners but cannot receive funding from Vinnova.** Lifetime Oy therefore cannot be paid by Vinnova in any structure. This is the first thing in the entire session that Lifetime Oy structurally _cannot_ do and Lifetime AB _can_ — every other blocked item has been blocked by money, not by legal form.
 
 Note also the co-funding floor: on planning grants the Vinnova contribution is capped at 80 % of eligible costs, so **≥20 % own financing** is required. Vinnova money is matched money, not free money.
 
-**KTH supplies the vehicle.** An `industridoktorand` is a doctoral student **employed outside KTH** — in industry — and enrolled at KTH for at least 50 % of full time, financed by some combination of the employing company, public or private research funding, and centre-based programmes. The natural employer in that construction is Lifetime AB. This is also where the HIC's earlier note — *"jos pääsen tohtoriohjelmaan apurahamahdollisuus"* — connects: the grant possibility and the AB are the same structure viewed from two ends.
+**KTH supplies the vehicle.** An `industridoktorand` is a doctoral student **employed outside KTH** — in industry — and enrolled at KTH for at least 50 % of full time, financed by some combination of the employing company, public or private research funding, and centre-based programmes. The natural employer in that construction is Lifetime AB. This is also where the HIC's earlier note — _"jos pääsen tohtoriohjelmaan apurahamahdollisuus"_ — connects: the grant possibility and the AB are the same structure viewed from two ends.
 
-**Consequence for the 2026-08-10 decision.** The AB is no longer a positioning gesture with no near-term function. It is the precondition for an entire funding channel that the Finnish company cannot enter. That does not make the cash arithmetic in §5c wrong — registration still consumes nearly the whole cash position — but it changes what the money buys from *optionality* to *access*.
+**Consequence for the 2026-08-10 decision.** The AB is no longer a positioning gesture with no near-term function. It is the precondition for an entire funding channel that the Finnish company cannot enter. That does not make the cash arithmetic in §5c wrong — registration still consumes nearly the whole cash position — but it changes what the money buys from _optionality_ to _access_.
 
 **Flag, not a blocker — the doctoral home.** `CLAUDE.md`'s Thesis Rule names `docs/PHD_FIREHORSE_EN.md` / `_FI.md` as the **LUT** track. If KTH becomes the doctoral home, that is a canon change touching all four thesis files and their lockstep versioning. Raised here so it is decided deliberately rather than discovered later. Not actioned in this session.
 
@@ -219,19 +220,19 @@ This also sharpens the LUT split: **LUT anchors research, societal impact and th
 
 ## 6. Dated commitments
 
-| Date        | Item                                                                                      | Consequence if missed                                                                       |
-| ----------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| 2026-08-10  | **Lifetime AB registration filed** via verksamt.se (funds already on account)               | Everything downstream waits. The operator licence cannot even be applied for until the AB exists. |
-| 2026-08-17  | Swedish + Finnish public-sector coaching outreach sent (SV translation done first)          | The fastest euro available stays unearned another month. Independent of the AB and the licence.  |
-| ~~2026-08-31~~ **2026-10-15** | **`trafikansvarig` route decided** — own `yrkeskunnande` exam, or a rented trafikansvarig | Moved forward on HIC instruction, 2026-08-03. The August date reminded of something that could not yet be done: trafikansvarig is the *third* step, and nothing can be filed until the €8 900 (100 000 SEK) capacity proof exists. October gives the 17.08 outreach time to produce deals first. The reminder now opens with a gate — no deals, move it again and spend nothing on this chain. |
-| 2026-09-07  | Derived: AB registered (1–3 weeks) → **`taxitrafiktillstånd` application filed**             | Each week of delay here moves clearance one week into 2027.                                      |
-| 2027-01-15  | Derived: `taxitrafiktillstånd` expected to clear (8–12 weeks from a complete application)    | Stockholm move becomes executable. If not cleared, the AB timing question in §7 reopens.          |
+| Date                          | Item                                                                                      | Consequence if missed                                                                                                                                                                                                                                                                                                                                                                          |
+| ----------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-08-10                    | **Lifetime AB registration filed** via verksamt.se (funds already on account)             | Everything downstream waits. The operator licence cannot even be applied for until the AB exists.                                                                                                                                                                                                                                                                                              |
+| 2026-08-17                    | Swedish + Finnish public-sector coaching outreach sent (SV translation done first)        | The fastest euro available stays unearned another month. Independent of the AB and the licence.                                                                                                                                                                                                                                                                                                |
+| ~~2026-08-31~~ **2026-10-15** | **`trafikansvarig` route decided** — own `yrkeskunnande` exam, or a rented trafikansvarig | Moved forward on HIC instruction, 2026-08-03. The August date reminded of something that could not yet be done: trafikansvarig is the _third_ step, and nothing can be filed until the €8 900 (100 000 SEK) capacity proof exists. October gives the 17.08 outreach time to produce deals first. The reminder now opens with a gate — no deals, move it again and spend nothing on this chain. |
+| 2026-09-07                    | Derived: AB registered (1–3 weeks) → **`taxitrafiktillstånd` application filed**          | Each week of delay here moves clearance one week into 2027.                                                                                                                                                                                                                                                                                                                                    |
+| 2027-01-15                    | Derived: `taxitrafiktillstånd` expected to clear (8–12 weeks from a complete application) | Stockholm move becomes executable. If not cleared, the AB timing question in §7 reopens.                                                                                                                                                                                                                                                                                                       |
 
 ## 7. HIC question
 
 **If the public-sector coaching outreach produces a signed delivery within six weeks, does the Stockholm move still happen on schedule — or does revenue in Finland make the AB structure a 2027 step rather than a 2026 one?**
 
-The location decision is made and is not being reopened. What is genuinely undecided is its *timing*, and revenue is the variable that moves it. Answering this before outreach lands is better than answering it afterwards under pressure.
+The location decision is made and is not being reopened. What is genuinely undecided is its _timing_, and revenue is the variable that moves it. Answering this before outreach lands is better than answering it afterwards under pressure.
 
 ## 8. What was deliberately not done
 
