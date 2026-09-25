@@ -35,15 +35,18 @@ const OUT_DIRS = [
 ];
 
 const LAYER_LABELS = {
+  sme: 'SME campaign products',
   solutions: '1. Customer solutions',
   data: '2. Independent data products',
   services: '3. Services and implementation',
   hardware: '4. Hardware and infra SKUs',
 };
-const LAYER_ORDER = ['solutions', 'data', 'services', 'hardware'];
+const LAYER_ORDER = ['sme', 'solutions', 'data', 'services', 'hardware'];
 
 function commercialLayer(p, independentIds) {
   const id = p.id || '';
+  // SME campaign products get their own section (HIC 25.09.2026).
+  if (Array.isArray(p.tags) && p.tags.includes('SME')) return 'sme';
   if (independentIds.has(id)) return 'data';
   if (
     p.storeCategory === 'advisory' ||

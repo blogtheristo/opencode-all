@@ -6167,6 +6167,7 @@
       "priceNote": "One-time setup",
       "caption": "A5 campaign price: \u221240 % vs. suggested retail price €1,084 (VAT 0 %)",
       "captionFi": "A5-kampanjahinta: \u221240 % ohjev\u00e4hitt\u00e4ishinnasta 1\u00a0084 \u20ac (ALV 0 %)",
+      "tags": ["SME"],
       "storeCategory": "web-services",
       "version": "1.0",
       "detailsUrl": "/products/lifetime-web-starter.html"
@@ -6189,6 +6190,7 @@
       "priceNote": "One-time setup",
       "caption": "A5 campaign price: \u221240 % vs. suggested retail price €584 (VAT 0 %)",
       "captionFi": "A5-kampanjahinta: \u221240 % ohjev\u00e4hitt\u00e4ishinnasta 584 \u20ac (ALV 0 %)",
+      "tags": ["SME"],
       "storeCategory": "web-services",
       "version": "1.0",
       "detailsUrl": "/products/lifetime-webstore-mini.html"
@@ -6288,6 +6290,12 @@
         "publicSalesEligible": false,
         "activePublicationException": "BLUE records are active internal offers, not publicly saleable catalog products."
       },
+      "smeCampaign": {
+        "description": "Campaign products for Finnish SMEs, tagged \"SME\". Rendered in their own section at the top of /price-list/ (HIC 25.09.2026). They stay in seriousProductIds for /buy/.",
+        "publicSalesEligible": true,
+        "primarySurface": "/price-list/",
+        "tag": "SME"
+      },
       "archive": {
         "description": "Retired records identified by archived true or productType \"archived\". Archived records are inactive and excluded from every public sales surface.",
         "publicSalesEligible": false,
@@ -6311,6 +6319,7 @@
       "LIFETIME-WEB-STARTER",
       "LIFETIME-WEBSTORE-MINI"
     ],
+    "smeCampaignProductIds": ["LIFETIME-WEB-STARTER", "LIFETIME-WEBSTORE-MINI"],
     "independentProductIds": [
       "LF-ONTOLOGY-25",
       "LWM-ONT-SOVEREIGN"

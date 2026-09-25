@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.0 [Latest]
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Initial note — €750 "Kotisivut pk-yritykselle" archived, FI campaign caption, catalogue 1.33 (PR #2107); PR #2085 merge-conflict resolution recorded.
+- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product registry (TRUTH row 42) and SME campaign section.
+- Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Initial note — €750 "Kotisivut pk-yritykselle" archived, FI campaign caption, catalogue 1.33 (PR #2107); PR #2085 merge-conflict resolution recorded.
 
 Document Status:
 
@@ -45,6 +46,14 @@ Document Status:
    - The validator now expects 70 public products (was 71) and the 1.33 version pins.
    - Everything is mirrored to `landing-pages/`.
 
+5. **Product registry (HIC: "write every product to truth standard").**
+   - The catalogue has 154 IDs: 136 `products`, 16 subscription-only records and 2 discontinued records.
+   - The price list shows 79: 70 public products and 9 active subscriptions.
+   - The gap is 65 BLUE (internal or pilot), 8 archived and 2 discontinued records.
+   - `scripts/truth/product-registry.mjs` writes every ID with its status to `docs/truth/PRODUCT_REGISTRY.md` (TRUTH row 42).
+   - `validate-product-publication.mjs` fails when the registry is stale or the counts do not reconcile.
+6. **SME section.** Campaign products carry tag `SME` and render first on the price list: "Pk-yritysten kampanjatuotteet" on the FI page, "SME campaign products" on the others.
+
 ## The Insight
 
 A price can be right in one product record and still be wrong on the price list, because an older duplicate record for the same offer was still public. When an offer is repriced, search the catalogue for every record that sells the same thing, not only the record being edited.
@@ -63,5 +72,6 @@ A price can be right in one product record and still be wrong on the price list,
 ## Next Steps
 
 - HIC merges PR #2107.
+- HIC decision: the 65 BLUE records — publish, keep internal, or archive? The registry lists each one.
 - `lifetime.fi/atk-tuki-pk-yrityksille/` sells the IT-support hour bank (10 h × 75 € = 750 €), but its buy buttons link to `products/professional-web-pages.html`, which is the web package. This is the wrong product. HIC to decide the fix.
 - Blog drafts are parked until the HIC approves them. The approval page is https://claude.ai/artifact/8wFHwRp2gmMqLjhBqNthJy; the FI sovereignty text is approved, and the rest wait.

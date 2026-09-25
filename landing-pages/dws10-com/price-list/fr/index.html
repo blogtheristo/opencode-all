@@ -1051,15 +1051,21 @@
         "use strict";
 
         var LAYER_LABELS = {
+          sme:
+            document.documentElement.lang === "fi"
+              ? "Pk-yritysten kampanjatuotteet"
+              : "SME campaign products",
           solutions: "1. Customer solutions",
           data: "2. Independent data products",
           services: "3. Services and implementation",
           hardware: "4. Hardware and infra SKUs",
         };
-        var LAYER_ORDER = ["solutions", "data", "services", "hardware"];
+        var LAYER_ORDER = ["sme", "solutions", "data", "services", "hardware"];
         var independentLookup = {};
         function commercialLayer(p) {
           var id = p.id || "";
+          // SME campaign products get their own section (HIC 25.09.2026).
+          if (Array.isArray(p.tags) && p.tags.indexOf("SME") !== -1) return "sme";
           if (independentLookup[id]) return "data";
           if (
             p.storeCategory === "advisory" ||

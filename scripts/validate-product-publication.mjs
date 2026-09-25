@@ -2,6 +2,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { buildRegistry, renderMarkdown } from './truth/product-registry.mjs';
 
 const ROOT = resolve(process.cwd());
 const CATALOG_VERSION = '1.33';
@@ -472,6 +473,24 @@ console.log(`  Archived: ${archived.length}`);
 console.log(`  Subscriptions on broad price list: ${subscriptions.length}`);
 console.log(`  Consulting packages: ${packages.length}`);
 console.log(`  Publication version: ${catalog.priceVersion || 'missing'}`);
+
+// Product registry (DWS_TRUTH_STANDARD.md row 42): every catalogue ID accounted for, counts reconcile,
+// committed registry matches the catalogue.
+{
+  const reg = buildRegistry(catalog);
+  if (!reg.summary.reconciles) addError('Product registry: counts do not reconcile');
+  const regPath = resolve(ROOT, 'docs/truth/PRODUCT_REGISTRY.md');
+  const current = existsSync(regPath) ? readFileSync(regPath, 'utf8') : '';
+  if (current !== renderMarkdown(reg)) {
+    addError('Product registry is stale: run node scripts/truth/product-registry.mjs');
+  }
+  const sme = catalog.commercialPortfolio?.smeCampaignProductIds || [];
+  for (const id of sme) {
+    const prod = catalog.products?.[id];
+    if (!prod) addError(`[${id}] SME campaign product missing from catalogue`);
+    else if (!Array.isArray(prod.tags) || !prod.tags.includes('SME')) addError(`[${id}] SME campaign product lacks tag "SME"`);
+  }
+}
 
 if (errors.length) {
   console.error(`[validate-product-publication] FAIL — ${errors.length} violation(s)`);
