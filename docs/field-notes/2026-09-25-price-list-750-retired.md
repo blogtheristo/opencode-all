@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.6 [Latest]
+Version: 1.7 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.6 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Tags in ontology, dictionary and KB; firehorse-mobile planned; Supabase migration and loader.
+- Version: 1.7 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Full tag set, Finnish captions.
+- Version: 1.6 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Tags in ontology, dictionary and KB; firehorse-mobile planned; Supabase migration and loader.
 - Version: 1.5 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Captions on all public offers; attribute tags; long price notes split.
 - Version: 1.4 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product lifecycle registry (TRUTH row 43).
 - Version: 1.3 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Product groups (tags DWS IQ and Firehorse), themed colours, Supporting tag dropped.
@@ -126,6 +127,33 @@ Document Status:
       - Tested on a local PostgreSQL 16: it applies twice without error, and all 183 IDs and 252 evidence rows load within the constraints.
       - Applying it to production is a HIC step.
     - Loader: `scripts/truth/product-lifecycle-to-supabase.mjs`. It is a dry run by default; `--apply` upserts over REST.
+
+12. **Full tag set and Finnish captions** (HIC: "US Sovereign Cloud tagi"; "Kirjoita"; "Subscription tag … licence tag … Tag installation … Kaikki tagit talteen").
+    - There are 17 allowed tags; the counts are:
+
+      | Tag                | Offers | Tag          | Offers |
+      | ------------------ | ------ | ------------ | ------ |
+      | US Sovereign Cloud | 2      | Installation | 5      |
+      | Subscription       | 25     | Pilot        | 5      |
+      | Licence            | 2      | Free         | 1      |
+      | On-Prem            | 10     | Training     | 6      |
+      | Gov Ready          | 6      | Early Access | 1      |
+
+    - Tag details:
+      - US Sovereign Cloud is on the US offers, and never together with Sovereign Cloud.
+      - Subscription is derived from the price type: a recurring price gets it, nothing else does.
+      - Licence is on LF-ONTOLOGY-25 (annual) and LWM-ONT-SOVEREIGN (perpetual artefact licence).
+      - Installation is on the IT-support hour bank, LF-NVIDIA-INSTALL and the three Jetson install packages.
+      - Air-Gapped is also on LF-GOV-AIRGAP-BUNDLE. Sovereign is also on LWM-ONT-SOVEREIGN and LF-SOV-MODEL-SUB.
+    - Finnish captions (`captionFi`) are on all 80 offers, and the FI price list shows them.
+    - The IT-support hour bank's EN caption was in Finnish; it is now in English.
+    - The FI page shows tag chips in Finnish, using the dictionary's `product_tag_*` fi values; the validator checks that the two match.
+    - The validator also enforces:
+      - tag order
+      - Sovereign Cloud and US Sovereign Cloud are never on the same record
+      - the Subscription tag matches the price type
+      - every public offer has a captionFi
+    - Open question: the Aegis implementation record says "Aegis onboarding and licence", but DWS-AEGIS-001 has no licence price of its own. Aegis is not tagged Licence yet.
 
 ## The Insight
 

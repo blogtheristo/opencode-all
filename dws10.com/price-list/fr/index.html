@@ -376,6 +376,26 @@
         border-color: rgba(167, 139, 250, 0.5);
         background: rgba(139, 92, 246, 0.12);
       }
+      .pl-tag-us-sovereign-cloud {
+        color: #fde68a;
+        border-color: rgba(251, 191, 36, 0.5);
+        background: rgba(245, 158, 11, 0.12);
+      }
+      .pl-tag-on-prem {
+        color: #99f6e4;
+        border-color: rgba(45, 212, 191, 0.5);
+        background: rgba(20, 184, 166, 0.12);
+      }
+      .pl-tag-gov-ready {
+        color: #fecdd3;
+        border-color: rgba(251, 113, 133, 0.5);
+        background: rgba(244, 63, 94, 0.12);
+      }
+      .pl-tag-early-access {
+        color: #fed7aa;
+        border-color: rgba(251, 146, 60, 0.5);
+        background: rgba(249, 115, 22, 0.12);
+      }
       .pl-terms {
         margin-top: 4px;
         font-size: 0.78rem;
@@ -1164,6 +1184,24 @@
         // Group tags name the section; attribute tags (Hardware, Sovereign, Air-Gapped,
         // Sovereign Cloud) render as chips next to the product name.
         var GROUP_TAGS = ["SME", "DWS IQ", "Firehorse"];
+        // FI chip labels = product_tag_* fi values in docs/localization/dws-dictionary.json
+        // (validate-product-publication checks they match).
+        var TAG_FI = {
+          "Hardware": "Laitteisto",
+          "Sovereign": "Suvereeni",
+          "Air-Gapped": "Ilmaeristetty (air-gapped)",
+          "Sovereign Cloud": "Suvereeni pilvi",
+          "US Sovereign Cloud": "Yhdysvaltain suvereeni pilvi",
+          "On-Prem": "Omissa tiloissa (on-prem)",
+          "Gov Ready": "Viranomaisvalmis (Gov Ready)",
+          "Licence": "Lisenssi",
+          "Subscription": "Tilaus",
+          "Installation": "Asennus",
+          "Pilot": "Pilotti",
+          "Free": "Maksuton",
+          "Training": "Koulutus",
+          "Early Access": "Varhainen käyttö (early access)",
+        };
         // Long price notes are one paragraph in the catalogue: show the first sentence and put
         // the rest in a collapsible block, broken at ALL-CAPS headings (INCLUDED:, …).
         function formatNote(text) {
@@ -1610,7 +1648,7 @@
                         '<span class="pl-tag pl-tag-' +
                         t.toLowerCase().replace(/[^a-z]+/g, "-") +
                         '">' +
-                        escapeHtml(t) +
+                        escapeHtml((PAGE_LANG_FI && TAG_FI[t]) || t) +
                         "</span>"
                       );
                     })

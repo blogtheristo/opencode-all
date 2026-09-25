@@ -455,6 +455,36 @@ if (
       addError(`[${product.id}] caption longer than 160 characters (one line)`);
     for (const tag of product.tags || [])
       if (!allowedTags.has(tag)) addError(`[${product.id}] unknown tag "${tag}"`);
+    if (!product.captionFi)
+      addError(`[${product.id}] public offer has no Finnish caption (captionFi)`);
+    const tags = product.tags || [];
+    const order = [...allowedTags];
+    if (tags.map((t) => order.indexOf(t)).some((v, i, arr) => i > 0 && v < arr[i - 1]))
+      addError(`[${product.id}] tags not in the order of definitions.productTags.allowed`);
+    if (tags.includes('Sovereign Cloud') && tags.includes('US Sovereign Cloud'))
+      addError(`[${product.id}] cannot be both Sovereign Cloud and US Sovereign Cloud`);
+    const recurring =
+      ['subscription', 'monthly'].includes(product.type) ||
+      ['monthly', 'yearly'].includes(product.billingPeriod);
+    if (recurring !== tags.includes('Subscription'))
+      addError(
+        `[${product.id}] Subscription tag must match a recurring offer (type/billingPeriod)`,
+      );
+  }
+}
+// FI chip labels on the price list must equal the dictionary's product_tag_* fi values.
+{
+  const dict = JSON.parse(
+    readFileSync(resolve(ROOT, 'docs/localization/dws-dictionary.json'), 'utf8'),
+  ).shared;
+  for (const term of Object.values(dict)) {
+    if (!term.productTag || term.kind !== 'attribute') continue;
+    if (!priceListPage.includes(`${JSON.stringify(term.productTag)}: ${JSON.stringify(term.fi)}`))
+      addError(`price-list TAG_FI label for "${term.productTag}" differs from the dictionary`);
+    if (!(definitions.productTags?.allowed || []).includes(term.productTag))
+      addError(
+        `dictionary product tag "${term.productTag}" is not in definitions.productTags.allowed`,
+      );
   }
 }
 // Product groups (HIC 25.09.2026): each group tag renders its own themed section.
