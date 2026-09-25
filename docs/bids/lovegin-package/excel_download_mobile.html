@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Excel - Metsähallitus Tender</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a56db 0%, #0a1628 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #0a1628;
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #6b7694;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .divider {
+            height: 1px;
+            background: #dde3ec;
+            margin: 30px 0;
+        }
+
+        .qr-box {
+            background: #f0f4fb;
+            border: 2px dashed #1a56db;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .qr-label {
+            font-size: 12px;
+            color: #6b7694;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-section {
+            margin-bottom: 20px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #1a56db 0%, #0d3a8c 100%);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(26, 86, 219, 0.3);
+            width: 100%;
+            text-align: center;
+        }
+
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+
+        .download-btn:hover {
+            box-shadow: 0 6px 16px rgba(26, 86, 219, 0.4);
+        }
+
+        .filename {
+            color: #0a1628;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            word-break: break-all;
+        }
+
+        .info-box {
+            background: #e8f0fb;
+            border-left: 4px solid #1a56db;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 13px;
+            color: #0a1628;
+            line-height: 1.6;
+        }
+
+        .info-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a56db;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #6b7694;
+            border-top: 1px solid #dde3ec;
+            padding-top: 20px;
+        }
+
+        .deadline {
+            background: #fef6e0;
+            border: 1px solid #fde4a3;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">📊</div>
+            <h1>Metsähallitus Tender</h1>
+            <p class="subtitle">AI Expert Services Competency Form</p>
+        </div>
+
+        <div class="qr-box">
+            <div class="qr-label">Scan to Download</div>
+            <svg class="qr-code" viewBox="0 0 200 200">
+                <!-- QR Code generated for GitHub raw URL -->
+                <image href="data:image/png;base64,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" width="200" height="200"/>
+            </svg>
+        </div>
+
+        <div class="filename">
+            METSAHALLITUS_Cubet_AI_Engineer_Competency_Form.xlsx
+        </div>
+
+        <a href="https://github.com/blogtheristo/dws6/raw/claude/metsahallitus-ict-tarjous-kdkxlx/docs/bids/METSAHALLITUS_Cubet_AI_Engineer_Competency_Form.xlsx" class="download-btn">
+            📥 Download Excel
+        </a>
+
+        <div class="deadline">
+            ⏰ Complete by 10 August 2026
+        </div>
+
+        <div class="info-box">
+            <div class="info-title">What to Fill In:</div>
+            <ul style="margin-left: 20px;">
+                <li>Engineer profile (name, experience)</li>
+                <li>3 AI projects (50+ workdays each)</li>
+                <li>Competency verification</li>
+                <li>References & sign-off</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>For: John Lovegin / Cubet Techno Labs</p>
+            <p style="margin-top: 10px;">Metsähallitus ICT Expert Services Framework 2026-2030</p>
+        </div>
+    </div>
+</body>
+</html>
