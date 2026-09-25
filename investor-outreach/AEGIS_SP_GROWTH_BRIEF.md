@@ -53,7 +53,7 @@ Q1/2026 at EUR 29,950 each (EUR 59,900 booked).
    supply-chain data on US-owned platforms (CLOUD Act exposure). The dominant
    alternatives — Palantir, C3.ai — are all US-headquartered. Aegis is 100%
    Finnish-owned, hosted on Finnish infrastructure (UpCloud, Tesi-backed,
-   PiTuKri-audited), which means Aegis is eligible for exactly the contracts
+   PiTuKri v1.1 self-assessed, independent audit planned), which means Aegis is eligible for exactly the contracts
    the US stack is disqualified from. Shrinking competitive set, growing
    mandate: that is market access by construction.
 

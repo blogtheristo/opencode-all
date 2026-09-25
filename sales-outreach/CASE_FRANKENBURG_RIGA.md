@@ -42,7 +42,7 @@ That profile — a rapidly scaling EU defence prime, building a _replicable mult
 Frankenburg is not only a missile manufacturer — it is a **dual-use critical-manufacturing base** whose supply chain is a national- and EU-resilience asset. The same EU gap that DWS IQ Aegis was built to close applies directly:
 
 - **No European sovereign baseline.** A defence prime that adopts US-owned data infrastructure inherits CLOUD Act exposure, an EU AI Act Article 12 gap, and no agent-governance layer (`partners-outreach/EU_SOVEREIGN_C2_DATA_LAYER_BRIEF.md`). Aegis is the EU-sovereign counterpart — single-tenant, EU-only deployment, **zero CLOUD Act exposure**.
-- **Buy-European credibility.** Aegis is positioned as **EDIP Article 9 eligible** (EU establishment, no third-country control), three-pillar sovereign (data / technology / operational), and PiTuKri-audited — the exact procurement posture an EU-funded defence programme with Commission-level visibility must defend.
+- **Buy-European credibility.** Aegis is positioned as **EDIP Article 9 eligible** (EU establishment, no third-country control), three-pillar sovereign (data / technology / operational), and PiTuKri v1.1 self-assessed (independent audit planned) — the exact procurement posture an EU-funded defence programme with Commission-level visibility must defend.
 - **Scale is the thesis.** Frankenburg's value is the _FieldFoundry pattern_ — a production system replicated across Latvia, Estonia, the UK and Poland. A data + agent-governance layer that is itself replicable per site, sovereign per jurisdiction, and compliant by construction is the natural companion to that pattern.
 
 ## 4. Business model & economics

@@ -30,7 +30,7 @@ Owner: risto.paarni@lifetime.fi
 | **ArgusAgent**         | ICEYE SAR -satelliittidata: tiedustelu, infrastruktuurin valvonta, muutostunnistus                                |
 | **SovereigntyMonitor** | Puolustustiedon datasuvereenius, CLOUD Act -altistumisen pisteytys, NIS2                                          |
 | **Article12Logger**    | Puolustusluokiteltu AI-päätösten auditointiketju                                                                  |
-| **KYA Engine**         | Agenttien hallinta, kill-switch sub-5 ms (laivasto alle 50 ms)                                                    |
+| **KYA Engine**         | Agenttien hallinta, kill-switch (suunnittelutavoite alle 5 ms / laivasto alle 50 ms; mittausraportti työn alla)                                                    |
 | **ComplianceAgent**    | Vientivalvonta + puolustushankintojen hiilijalanjälki                                                             |
 | **SiteSenseAgent**     | Puolustusrakentamisen ja -logistiikan turvallisuus                                                                |
 | **Lifetime Fleet IoT** | Kenttäoperaatioiden tilannekuva, kaluston seuranta, huoltovarmuuslogistiikka (NVIDIA Jetson + Acer Veriton GN100) |
@@ -44,7 +44,7 @@ Owner: risto.paarni@lifetime.fi
 
 ## Sertifiointipolku
 
-PiTuKri-auditointi tehty · ISO 27001 (Q3 2026) · SOC 2 Type II (Q4 2026).
+PiTuKri v1.1 -itsearviointi tehty (81 %, 42/52 kriteeriä; ulkopuolinen auditointi suunnitteilla) · ISO 27001 tavoite Q3 2026 · SOC 2 Type II tavoite Q4 2026.
 
 ---
 

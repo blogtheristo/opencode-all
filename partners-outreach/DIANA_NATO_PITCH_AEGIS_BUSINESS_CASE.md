@@ -38,7 +38,7 @@ DIANA accelerates deep tech that strengthens Alliance defence, security and resi
 **DWS IQ Aegis** — a single-tenant, EU-sovereign AI platform for dual-use and critical manufacturing. Finland-hosted (UpCloud, Helsinki), **zero CLOUD Act exposure**, EU AI Act **Article 12** audit trails on every AI decision, **Know-Your-Agent** identity + MicroVM isolation + kill authority, across 21 EU-regulated industries including dual-use critical raw materials.
 
 - **Pricing:** from **€59,990** onboarding + **€999/mo**, three tiers (Standard / Defence / Sovereign) — **~13× cheaper than Palantir's Year-1 floor** (€59,990 vs ~€920,000).
-- **Posture:** **EDIP Article 9 eligible** (EU establishment, no third-country control), three-pillar sovereign (data / technology / operational), PiTuKri-audited (Traficom NCSC-FI, 52 criteria).
+- **Posture:** **EDIP Article 9 eligible** (EU establishment, no third-country control), three-pillar sovereign (data / technology / operational), PiTuKri v1.1 self-assessed against all 52 Traficom NCSC-FI criteria (81 % met/partially met; independent audit planned).
 
 ## 3. The business case — a live NATO-shaped customer
 
@@ -66,7 +66,7 @@ _Governance note: a NIF director walls off his Frankenburg buying decision from 
 
 - **EDIP Article 9 eligible** — Buy-European stack, no third-country control.
 - **Three-pillar sovereignty** — data, technology, and operational sovereignty all full-EU.
-- **PiTuKri audited** — Traficom NCSC-FI cloud security criteria v1.1 (52 criteria).
+- **PiTuKri v1.1 self-assessment completed** — all 52 Traficom NCSC-FI criteria mapped, 81 % met or partially met; independent audit planned.
 - **ISR-native** — ArgusAgent ingests ICEYE-compatible SAR; overlaps the Finnish Defence Tech Hub (ICEYE, IQM, Kuva Space, Varjo).
 - **DEFINE / DIANA ecosystem** — Lifetime Oy is inside the Finnish defence-innovation infrastructure (DEFINE participant; DIANA-eligible).
 

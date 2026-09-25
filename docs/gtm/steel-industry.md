@@ -124,7 +124,7 @@ Not a simulation. Not a slide. Physical hardware, air-gapped, running now.
 **What it demonstrates:**
 - Real-time CBAM monitoring at 50-tonne threshold crossing
 - Leash-aware autoresearch: 35% uplift measured (Baseline + 35%)
-- Behavioral guardrail enforcement: sub-5ms VMM layer
+- Behavioral guardrail enforcement at the VMM layer (sub-5 ms design target)
 - ATS scoring with real-time trust degradation from violations
 - Firehorse forensic telemetry: TPM-sealed, EU AI Act Art. 12 compliant
 

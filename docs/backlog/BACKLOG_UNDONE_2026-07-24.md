@@ -81,6 +81,22 @@ Priority key: **P0** = correctness/production risk or a signed/legal action; **P
 
 **Scope note:** this was a 15-minute targeted scan for Monday-gating legal/IP/investor items, not the full multi-session learning backlog (deferred to Tuesday). It reads committed work products + the Boardy pack; it cannot see sessions whose only trace was an uncommitted transcript.
 
+## G. Evidence & claim-provability (opened 03.08.2026, session `claude/patria-sales-outreach-iyvb7o`)
+
+Opened while preparing the Patria / Kimmo Kakko conversation — the recipient is a **KATAKRI chief auditor**, which turned "what do we claim" into "what can we prove in the room". Register: `docs/TODISTUSVELVOLLISUUS.md`. Requirement index: `docs/KATAKRI_2020_VAATIMUSHAKEMISTO.md`.
+
+| # | Item | Why it matters | Prio |
+| - | ---- | -------------- | ---- |
+| G1 | **Commission an independent PiTuKri or KATAKRI assessment.** `Admin/PITUKRI_AUDIT_REPORT.md` is a **self-assessment produced by an AI session** (30.03.2026), 81 % (42/52), 7 criteria not met. Every security claim currently carries a "self-assessed" qualifier in front of an assessor. | The claim "PiTuKri tehty" is in live outreach material and does not survive an auditor's first question. RED-zone: needs budget + a supplier. | P0 |
+| G2 | **Order the 2026 penetration test.** Newest is Q4/2025 — the self-assessment names this as a critical gap itself. | "Testattu" is unsayable until it exists; it is also a standing DD question. | P0 |
+| G3 | **Measure kill-switch latency and publish the method.** The source line reads *"Kill-switch latency target <5 ms"* — a target. No method, environment, repeatable run or result set exists. | "Alle 5 ms" appears in the Aegis one-pager, the DIANA pitch and investor material as if it were measured. | P0 |
+| G4 | **Write the Article 12 log retention policy.** Log structure exists; retention, immutability and export are not documented. Compounds with **B10** (the evidence chain is deployed but has 0 rows). | "Todistettavissa vuoden päästä" is the whole product claim, and it is currently undocumented. KATAKRI control: **I-10**. | P1 |
+| G5 | **Produce a current subprocessor list.** Needed before "ei US-riippuvuutta" is said without a caveat. | Sovereignty is the core differentiator; the list is the proof. | P1 |
+| G6 | **Create a production-level EU dual-use (2021/821) classification record** — classification, reasoning, author, timestamp. Today the capability is a concept, not an artifact. | It is pitched as one of three wedge elements to a defence prime. | P1 |
+| ~~G7~~ | **DONE 03.08.2026** (session `claude/patria-sales-outreach-iyvb7o`): 12 files corrected — PiTuKri wording to "v1.1 self-assessment, 81 %, independent audit in procurement" and kill-switch numbers to "design target" across sales-outreach (4), partners-outreach (2), investor-outreach (4), docs/gtm (2) + DEFENCE_STARTUP_FUND_APPLICATION + PITCH_DECK. `docs/sales/MODULE_4_DEFENCE_INSERT.md` already said "auditable" — honest, untouched. Original: **Sweep live material against the register.** `sales-outreach/AEGIS_DEFENCE_VALUE_ONEPAGER_FI.md`, `partners-outreach/DIANA_NATO_PITCH_AEGIS_BUSINESS_CASE.md`, `investor-outreach/INVESTOR_MEMO_AEGIS.md`, `docs/sales/MODULE_4_DEFENCE_INSERT.md` and others repeat G1/G3 claims verbatim. Agent-doable on request. | One corrected register does not fix documents already written from the old wording. | P1 |
+| G8 | **Verify three index entries** in `docs/KATAKRI_2020_VAATIMUSHAKEMISTO.md` — F-05 *Hallinnollinen alue*, F-06 *Turva-alue*, F-08 *Tietoaineistoturvallisuus*. Extracted from the PDF's running section headings rather than the glyph-encoded requirement headings, so they are the least certain rows in an otherwise machine-extracted table. HIC: deferred, 03.08.2026. | The index exists so no document guesses a code; three rows should not be the exception. | P3 |
+| G9 | **Decide the T-13 seam** — an agent receives rights as a system (**I-06 k. 3**, **I-07**) but its need-to-know derives from a person (**I-06 k. 2**, **T-13**), and no control names that person. Kimmo's answer, if we get one, is the input. | This is the actual KATAKRI gap for non-human actors, and the product question behind it. | P2 |
+
 ## Method & caveats
 
 - **Sources:** the 27 per-branch handoff files under `.claude/handoffs/claude/` + the `HANDOFF.md` cross-branch history log. These are the git-committed working memory of prior ephemeral cloud sessions.
