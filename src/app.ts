@@ -48,7 +48,6 @@ import nudgeWebhookRoutes from './routes/nudge-webhook.routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import hilRoutes from './routes/hil.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
-// import grokConsentRoutes from './routes/grok-consent.routes.js'; // TODO: restore when grok-consent is available
 import paymentRoutes from './routes/payment.routes.js';
 import b2bPaymentRoutes from './routes/b2b-payment.routes.js';
 import stripeWebhookRoutes from './routes/stripe-webhook.routes.js';
@@ -502,8 +501,6 @@ app.use('/api/v1/erp', erpRoutes);
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
 
-// Grok Consent — GDPR + EU AI Act Article 12 sovereignty dashboard
-// app.use('/api/grok-consent', grokConsentRoutes); // TODO: restore when grok-consent is available
 
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);
