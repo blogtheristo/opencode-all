@@ -1,7 +1,7 @@
-/**
- * Mission Control — shared queue + Hand to Grok / Take as HIC
- * Evidence: Tool=Cursor Agent Date=2026-09-13
- */
+// Evidence: Tool=Claude Code Model=claude-opus-5 Agent=sales-outreach Date=2026-09-22
+// Audit trail: git log -- dws6.com/dashboard/mission-control/mission-control.js
+// Mission Control — shared queue + Hand to Grok / Take as HIC
+// Prior authorship: Tool=Cursor Agent Date=2026-09-13 (original page; model not recorded)
 
 export const ALLOWED_EMAIL = 'risto.paarni2024@lifetime.fi';
 export const STORAGE_KEY = 'dws_mission_control_v1';
@@ -184,9 +184,58 @@ export async function fetchTedLeads(supabase) {
   }
 }
 
+/**
+ * Finnish public procurement (Hilma). Rows land via skills/hilma-watch sync-to-supabase.mjs,
+ * run from a host that can reach hankintailmoitukset.fi. Empty table => empty lane; never invent rows.
+ */
+export async function fetchHilmaTenders(supabase) {
+  if (!supabase) return [];
+  try {
+    const { data, error } = await supabase
+      .from('hilma_tenders')
+      .select(
+        'id,title,buyer_name,notice_url,relevance_score,deadline_date,published_date,status,keyword_hits,cpv_hits',
+      )
+      .not('status', 'in', '("passed","won","lost")')
+      .order('relevance_score', { ascending: false })
+      .limit(25);
+    if (error || !data?.length) return [];
+    const now = Date.now();
+    return data.map((row) => {
+      const deadline = row.deadline_date ? new Date(row.deadline_date) : null;
+      // Days to deadline drives priority: a tender you notice after the deadline is worthless.
+      const days = deadline ? Math.ceil((deadline.getTime() - now) / 86400000) : null;
+      const score = Number(row.relevance_score) || 0;
+      return {
+        id: `hilma:${row.id}`,
+        centre: 'sales',
+        title: row.buyer_name || row.title || row.id,
+        status: row.status || 'new',
+        nextAction: deadline
+          ? `${row.title} — deadline ${deadline.toLocaleDateString('en-GB')}${days !== null ? ` (${days}d)` : ''}`
+          : row.title,
+        nouxRoom: CENTRES.sales.noux,
+        repoPath: CENTRES.sales.repo,
+        noDemoEnv: true,
+        // Closing inside a week, or a strong profile match, outranks the standing queue.
+        priority: (days !== null && days <= 7) || score >= 60 ? 1 : score >= 40 ? 2 : 3,
+        source: 'hilma',
+        hilmaUrl: row.notice_url,
+        relevanceScore: score,
+        deadlineDate: row.deadline_date,
+        keywordHits: row.keyword_hits || [],
+        cpvHits: row.cpv_hits || [],
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
 export async function buildQueue(supabase) {
   const live = await fetchLiveThreads(supabase);
   const ted = await fetchTedLeads(supabase);
+  const hilma = await fetchHilmaTenders(supabase);
   const seed = live.length ? [] : await loadSeedQueue();
   const manual = getManualItems();
   const liveAsItems = getLiveInputs()
@@ -204,7 +253,7 @@ export async function buildQueue(supabase) {
       source: 'grok-x-daily',
       fullText: x.text,
     }));
-  const all = [...liveAsItems, ...manual, ...ted, ...live, ...seed];
+  const all = [...liveAsItems, ...manual, ...hilma, ...ted, ...live, ...seed];
   return all
     .map((item) => {
       const ov = getOverlay(item.id);
@@ -219,6 +268,22 @@ export function safeTedHref(url) {
     const parsed = new URL(String(url || ''));
     if (parsed.protocol !== 'https:') return '';
     if (parsed.hostname !== 'ted.europa.eu' && parsed.hostname !== 'www.ted.europa.eu') return '';
+    return parsed.href;
+  } catch {
+    return '';
+  }
+}
+
+/** Only https://www.hankintailmoitukset.fi links — never other hosts. */
+export function safeHilmaHref(url) {
+  try {
+    const parsed = new URL(String(url || ''));
+    if (parsed.protocol !== 'https:') return '';
+    if (
+      parsed.hostname !== 'hankintailmoitukset.fi' &&
+      parsed.hostname !== 'www.hankintailmoitukset.fi'
+    )
+      return '';
     return parsed.href;
   } catch {
     return '';
@@ -265,6 +330,8 @@ MISSION
   Status: ${item.status}
   Next action: ${item.nextAction}
 ${safeTedHref(item.tedUrl) ? `  TED notice: ${safeTedHref(item.tedUrl)}` : ''}
+${safeHilmaHref(item.hilmaUrl) ? `  Hilma notice: ${safeHilmaHref(item.hilmaUrl)}` : ''}
+${item.source === 'hilma' ? `  Fit score: ${item.relevanceScore}/100 (keywords: ${(item.keywordHits || []).join(', ') || 'none'}; CPV: ${(item.cpvHits || []).join(', ') || 'none'})` : ''}
   Demo env: ${item.noDemoEnv ? 'NONE — provision or schedule demo before close' : 'n/a'}
 ${liveNote ? `\nLIVE GROK/X NOTE (today):\n${liveNote}\n` : ''}
 RULES
@@ -302,6 +369,7 @@ repo_path: ${JSON.stringify(item.repoPath || centre.repo || '')}
 noux: ${JSON.stringify(item.nouxRoom || centre.noux || '')}
 next_action: ${JSON.stringify(item.nextAction || '')}
 ted_url: ${JSON.stringify(safeTedHref(item.tedUrl) || '')}
+hilma_url: ${JSON.stringify(safeHilmaHref(item.hilmaUrl) || '')}
 reason: "EU/PII hard gate — raw threads must stay on OpenCode local/EU"
 hic_approved: true
 note: "HIC clicked Open in OpenCode in Mission Control. Do not commit raw PII."
