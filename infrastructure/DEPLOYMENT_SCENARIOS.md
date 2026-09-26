@@ -15,17 +15,17 @@ just where the compute sits.
 
 ## The three scenarios
 
-|                    | **S1 · EU-Sovereign Cloud**                               | **S2 · Sovereign DGX (on-prem)** ← NEW                               | **S3 · Hybrid**                               |
-| ------------------ | --------------------------------------------------------- | -------------------------------------------------------------------- | --------------------------------------------- |
-| **Compute**        | Scaleway Serverless Containers (fr-par)                   | Customer/Lifetime NVIDIA DGX, `docker compose`                       | DGX at the edge + Scaleway for burst          |
-| **Deploy path**    | `.github/workflows/deploy-scaleway.yml`                   | `.github/workflows/deploy-dgx-spark.yml`                             | both (they already both run on merge to main) |
-| **Database**       | Supabase Cloud **(US-incorporated ⚠)** or Aiven (Finnish) | **Self-hosted Supabase on the DGX** (open-source)                    | Aiven / self-hosted per workload              |
-| **Ingress**        | Scaleway public HTTPS (frontends already call it)         | Cloudflare Tunnel **(US transit ⚠)** or EU reverse proxy + static IP | per side                                      |
-| **Data residency** | EU cloud (Paris/Amsterdam)                                | Never leaves your premises                                           | mixed                                         |
-| **Model weights**  | Platform-hosted                                           | You own 100%                                                         | mixed                                         |
-| **Uptime**         | Datacenter SLA                                            | Single box — office/residential power+ISP                            | DGX + cloud failover                          |
-| **CLOUD Act**      | Zero **iff** DB is Aiven, not Supabase Cloud              | Zero **iff** DB + ingress are sovereign                              | per side                                      |
-| **Best for**       | EU/UK-regulated SaaS, fast start, elastic                 | Aegis / classified / air-gap-mandated / weight ownership             | steel/defence edge + elastic reporting        |
+|                    | **S1 · EU-Sovereign Cloud**                               | **S2 · Sovereign DGX (on-prem)** ← NEW                               | **S3 · Hybrid**                        |
+| ------------------ | --------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------- |
+| **Compute**        | Scaleway Serverless Containers (fr-par)                   | Customer/Lifetime NVIDIA DGX, `docker compose`                       | DGX at the edge + Scaleway for burst   |
+| **Deploy path**    | `deploy-scaleway.yml.disabled` (re-enable per customer)   | `infrastructure/dgx-spark/day-runner.sh` (pull, every 5 min)         | per side                               |
+| **Database**       | Supabase Cloud **(US-incorporated ⚠)** or Aiven (Finnish) | **Self-hosted Supabase on the DGX** (open-source)                    | Aiven / self-hosted per workload       |
+| **Ingress**        | Scaleway public HTTPS (frontends already call it)         | Cloudflare Tunnel **(US transit ⚠)** or EU reverse proxy + static IP | per side                               |
+| **Data residency** | EU cloud (Paris/Amsterdam)                                | Never leaves your premises                                           | mixed                                  |
+| **Model weights**  | Platform-hosted                                           | You own 100%                                                         | mixed                                  |
+| **Uptime**         | Datacenter SLA                                            | Single box — office/residential power+ISP                            | DGX + cloud failover                   |
+| **CLOUD Act**      | Zero **iff** DB is Aiven, not Supabase Cloud              | Zero **iff** DB + ingress are sovereign                              | per side                               |
+| **Best for**       | EU/UK-regulated SaaS, fast start, elastic                 | Aegis / classified / air-gap-mandated / weight ownership             | steel/defence edge + elastic reporting |
 
 > **⚠ The two things that quietly void "full sovereignty":**
 >
@@ -42,9 +42,11 @@ just where the compute sits.
 
 **Already built (this is not greenfield):**
 
-- `deploy-dgx-spark.yml` — auto-deploys on every merge to main: SSH → pull →
-  `docker compose build/up` → health-check backend (8080) + cron (8081) +
-  heartbeat (9999).
+- `infrastructure/dgx-spark/day-runner.sh` — pull-based deploy every 5 min:
+  fetch main → rebuild (no cache) when app or Docker files changed since the
+  last healthy deploy → health-check backend (8080). The push-based
+  `deploy-dgx-spark.yml` is disabled: a GitHub-hosted runner cannot reach the
+  DGX LAN address, so it skipped every step and still reported success.
 - `infrastructure/dgx-spark/docker-compose.yml` — backend, cron runner,
   heartbeat, Redis, MCP gateway, NemoClaw, **Cloudflare Tunnel** for ingress.
 - `infrastructure/dgx-spark/first-boot.sh` — one-time host provisioning.
@@ -80,13 +82,14 @@ air-gapped with no public ingress (single-tenant Aegis on customer premises).
 
 - **S1 (cloud only):** ensure `SCW_*` secrets are set; `deploy-scaleway.yml`
   ships to fr-par on merge. (Frontends already call the scw.cloud URL.)
-- **S2 (DGX only):** set `DGX_SPARK_*` secrets; `deploy-dgx-spark.yml` ships to
-  the DGX on merge. To make the DGX the _public_ backend, repoint the frontends'
+- **S2 (DGX only):** `day-runner.sh` ships to the DGX within 5 min of a merge. To make the DGX the _public_ backend, repoint the frontends'
   API base URL from the scw.cloud endpoint to the DGX's tunnel/EU-proxy hostname.
   For full sovereignty, first stand up self-hosted Supabase on the DGX (above).
-- **S3 (hybrid — current default):** both workflows run on merge; Scaleway serves
-  public traffic, DGX runs sovereign inference + on-prem/failover. No change
-  needed — this is what main does today.
+- **S3 (hybrid):** DGX serves, Scaleway kept for burst/failover. Needs
+  `deploy-scaleway.yml` re-enabled.
+
+**Lifetime's own production (HIC 26.09.2026): S2 on DGX Spark.** Scaleway was
+retired for cost. Customer-facing S1 remains an offer; it is not our runtime.
 
 ## Decision rule
 

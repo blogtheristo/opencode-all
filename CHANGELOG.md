@@ -7,6 +7,18 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- **Production backend moves from Scaleway to DGX Spark (HIC, 26.09.2026: cost).**
+  `infrastructure/dgx-spark/day-runner.sh` now rebuilds (no cache) when app or
+  Docker files changed since the last healthy deploy, then health-checks the
+  backend and logs `DEPLOY OK` / `DEPLOY FAILED`. Before, a `src/` change kept
+  running on a stale image. `deploy-scaleway.yml` (failing at registry push) and
+  `deploy-dgx-spark.yml` (green without deploying: the GitHub-hosted runner
+  cannot reach the DGX) are renamed to `.disabled`. Frontend URL switch and
+  Scaleway teardown follow once `api.dws6.com` is on the tunnel. See
+  `docs/field-notes/2026-09-26-hic-out-of-the-routine-path.md` §7.
+
 ### Added
 
 - **Active Ontology 1.5 — technical acceptance (HIC, 24.09.2026).** The

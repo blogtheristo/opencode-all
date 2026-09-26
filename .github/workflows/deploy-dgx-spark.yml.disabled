@@ -1,3 +1,9 @@
+# DISABLED 26.09.2026. This workflow reported success without deploying:
+# a GitHub-hosted runner cannot reach the DGX LAN address, so the SSH test
+# failed and every deploy step was skipped (e.g. run 36109040823).
+# The self-hosted runner has no Docker socket by design, so deploy is
+# pull-based instead: infrastructure/dgx-spark/day-runner.sh (every 5 min).
+# See docs/field-notes/2026-09-26-hic-out-of-the-routine-path.md §7.
 # Auto-Deploy to DGX Spark — runs on every merge to main
 #
 # NO HUMAN ACTION REQUIRED. This workflow:

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Evidence: Tool=Claude Code 2.1.283 Model=anthropic/undisclosed-by-runtime-policy Agent=dgx-deploy-fix Date=2026-09-26
+# Audit trail: git log -- infrastructure/dgx-spark/day-runner.sh
 # ============================================================================
 # DWS Day Runner — Self-Healing Automation Loop
 #
@@ -133,16 +135,55 @@ fi
 # ---------------------------------------------------------------------------
 cd "$INFRA_DIR"
 
-if [ "$CHANGES" = true ]; then
-  # Check if any Docker-related files changed
-  if git diff --name-only "$BEFORE" "$AFTER" | grep -qE 'Dockerfile|docker-compose|infrastructure/dgx-spark/'; then
-    log "Docker files changed — rebuilding..."
-    docker compose build --pull 2>&1 | tail -10
-    docker compose up -d 2>&1 | tail -5
-  else
-    # Just ensure containers are running
-    docker compose up -d 2>&1 | tail -3
+# Rebuild decision is made against the last SUCCESSFULLY deployed commit, not
+# the previous HEAD: a failed build must not be forgotten on the next pull.
+# App code (src/, public/, config/, deps) triggers a rebuild too — previously
+# only Docker files did, so src/ changes kept running on a stale image.
+# DGX is the production backend (HIC 26.09.2026: Scaleway retired on cost).
+DEPLOYED_FILE="${REPO_DIR}/logs/last-deployed-sha"
+FAILED_FILE="${REPO_DIR}/logs/last-failed-deploy-sha"
+HEAD_SHA=$(git rev-parse HEAD)
+# No record yet (first run after this change) → rebuild once to clear any stale image.
+DEPLOYED_SHA=$(cat "$DEPLOYED_FILE" 2>/dev/null || echo "none")
+FAILED_SHA=$(cat "$FAILED_FILE" 2>/dev/null || echo "")
+REBUILD_PATHS='^(src/|public/|config/|package(-lock)?\.json|tsconfig\.json|infrastructure/dgx-spark/)|Dockerfile|docker-compose'
+
+NEED_REBUILD=false
+if [ "$HEAD_SHA" != "$DEPLOYED_SHA" ] && [ "$HEAD_SHA" != "$FAILED_SHA" ]; then
+  if ! git cat-file -e "${DEPLOYED_SHA}^{commit}" 2>/dev/null \
+    || grep -qE "$REBUILD_PATHS" <<< "$(git diff --name-only "$DEPLOYED_SHA" "$HEAD_SHA")"; then
+    # (here-string, not a pipe: with pipefail, grep -q closing early can SIGPIPE git diff)
+    NEED_REBUILD=true
   fi
+fi
+
+if [ "$NEED_REBUILD" = true ]; then
+  log "App or Docker files changed since ${DEPLOYED_SHA:0:8} — rebuilding ${HEAD_SHA:0:8} (no cache)..."
+  # Build first: a failed build leaves the running containers untouched.
+  # pipefail (set above) makes a failed build fail this pipeline.
+  if docker compose build --pull --no-cache 2>&1 | tail -10; then
+    docker compose up -d --force-recreate 2>&1 | tail -5
+    HEALTHY=false
+    for _ in $(seq 1 24); do
+      if curl -sf http://localhost:8080/health >/dev/null 2>&1; then HEALTHY=true; break; fi
+      sleep 5
+    done
+    if [ "$HEALTHY" = true ]; then
+      echo "$HEAD_SHA" > "$DEPLOYED_FILE"
+      rm -f "$FAILED_FILE"
+      log "DEPLOY OK — backend healthy on ${HEAD_SHA:0:8}"
+    else
+      echo "$HEAD_SHA" > "$FAILED_FILE"
+      log "DEPLOY FAILED — backend not healthy after 120s on ${HEAD_SHA:0:8} (not retried until next commit)"
+    fi
+  else
+    echo "$HEAD_SHA" > "$FAILED_FILE"
+    log "DEPLOY FAILED — docker compose build failed on ${HEAD_SHA:0:8}; previous containers still running"
+  fi
+elif [ "$CHANGES" = true ]; then
+  # Docs-only change — just ensure containers are running
+  docker compose up -d 2>&1 | tail -3
+  if [ "$HEAD_SHA" != "$FAILED_SHA" ]; then echo "$HEAD_SHA" > "$DEPLOYED_FILE"; fi
 else
   # No code changes — just ensure containers are up and healthy
   UNHEALTHY=$(docker ps --filter "health=unhealthy" --format "{{.Names}}" 2>/dev/null || true)

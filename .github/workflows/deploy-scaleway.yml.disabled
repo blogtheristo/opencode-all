@@ -1,3 +1,8 @@
+# DISABLED 26.09.2026 (HIC: Scaleway is expensive — use DGX).
+# Production backend now runs on DGX Spark, deployed pull-based by
+# infrastructure/dgx-spark/day-runner.sh (rebuild on src/ changes + health check).
+# Runs 317-321 had failed at the registry push (insufficient_scope) anyway.
+# See docs/field-notes/2026-09-26-hic-out-of-the-routine-path.md §7.
 name: Deploy to Scaleway Serverless Containers
 
 # ============================================================================
