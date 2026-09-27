@@ -33,6 +33,7 @@
     "funding:rss": "node --import tsx scripts/eu-funding-rss.ts",
     "revolut:generate-links": "node --import tsx scripts/generate-revolut-links.ts",
     "diag:supabase-rest": "tsx scripts/test-supabase-rest.ts",
+    "preflight:product-orders": "tsx scripts/preflight-product-orders.ts",
     "vault:push": "tsx scripts/provision-secrets-aiven.ts",
     "vault:push:dry": "tsx scripts/provision-secrets-aiven.ts --dry-run",
     "db:push": "bash scripts/db_push.sh",

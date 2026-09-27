@@ -1,0 +1,197 @@
+{
+  "$comment": "HIC 27.09.2026: catalogue-wide managed delivery contract templates, one per implementation chapter (docs/plans/PRODUCT_PRODUCTION_READINESS_PROGRAM.md). Shared, factual, chapter-level templates — never 138 independent claims. Managed human delivery is the stated fallback for every chapter; no chapter claims unattended automation. Consumed by scripts/truth/apply-product-delivery-contracts.mjs.",
+  "acknowledgementSla": "1 business day",
+  "contactRoute": "https://dws10.com/contact/",
+  "owner": "Lifetime Oy",
+  "chapters": {
+    "Chapter 1": {
+      "team": "Lifetime Oy — SME Web & IT Services Team",
+      "deliveryMode": "Managed human delivery: scoped, built and handed over by a named delivery engineer; no unattended automation claimed.",
+      "acceptanceCondition": "Buyer receives the agreed deliverable (site, store or support hours) matching the order scope, on the agreed delivery date.",
+      "requiredOutcomes": [
+        "Deliverable matches the scoped order (pages, store, or support hours) confirmed in writing",
+        "Buyer sign-off recorded before the engagement is marked complete"
+      ],
+      "exclusions": [
+        "Content, imagery or copy not supplied by the buyer within the agreed intake window",
+        "Ongoing hosting, maintenance or content updates beyond the scoped engagement",
+        "Third-party licence or subscription costs (domains, plugins, apps)"
+      ]
+    },
+    "Chapter 2": {
+      "team": "Lifetime Oy — Consulting, Engineering & Training Team",
+      "deliveryMode": "Managed human delivery: a named consultant or trainer delivers the engagement in person or remotely; no unattended automation claimed.",
+      "acceptanceCondition": "Buyer receives the agreed session, workshop or engagement deliverable and confirms it matches the scoped agenda.",
+      "requiredOutcomes": [
+        "Scheduled session or engagement delivered within the agreed window",
+        "Deliverable (report, code, training material or transcript) handed over and buyer-acknowledged"
+      ],
+      "exclusions": [
+        "Work beyond the agreed hours, days or scope without a separate order",
+        "Travel costs outside Finland/EU unless separately quoted",
+        "Implementation of recommendations beyond the engagement itself"
+      ]
+    },
+    "Chapter 3": {
+      "team": "Lifetime Oy — DWS IQ Platform Team",
+      "deliveryMode": "Managed cloud or on-premise provisioning by the platform team; human-verified activation. No unattended automation claimed for first deployment.",
+      "acceptanceCondition": "Buyer can log in to a provisioned DWS IQ tenant matching the ordered tier, with the documented agent/user limits active.",
+      "requiredOutcomes": [
+        "Tenant or deployment provisioned and reachable within the delivery window",
+        "Documented tier limits (agents, users, capacity class) verified active",
+        "Buyer receives onboarding confirmation"
+      ],
+      "exclusions": [
+        "Custom connectors or integrations beyond the documented tier",
+        "Data migration from a prior system unless separately quoted",
+        "Usage beyond the documented capacity limits for the ordered tier"
+      ]
+    },
+    "Chapter 4": {
+      "team": "Lifetime Oy — Aegis & KYA Team",
+      "deliveryMode": "Managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.",
+      "acceptanceCondition": "The ordered Aegis/KYA scope is deployed, its audit logging is verified writing locally, and an operator can invoke kill authority.",
+      "requiredOutcomes": [
+        "Deployment reaches the ordered scope (pilot, implementation phase, or subscription entitlement)",
+        "Article 12 audit logging verified writing locally",
+        "Operator kill authority verified functional"
+      ],
+      "exclusions": [
+        "Hardware procurement (quoted and delivered separately)",
+        "Scope beyond the single ordered site/workflow unless separately ordered",
+        "Integrations with systems not named in the order"
+      ]
+    },
+    "Chapter 5": {
+      "team": "Lifetime Oy — Firehorse Applications Team",
+      "deliveryMode": "Managed SaaS tenant activation with human-verified configuration; no unattended automation claimed for first activation.",
+      "acceptanceCondition": "Buyer's Firehorse tenant is active with the ordered module enabled and a first workflow run completed successfully.",
+      "requiredOutcomes": [
+        "Firehorse tenant/module active within the delivery window",
+        "First workflow run completed and buyer-visible",
+        "Buyer receives activation confirmation and access credentials"
+      ],
+      "exclusions": [
+        "Source-system integrations not named in the order",
+        "Historical data backfill beyond the documented onboarding scope",
+        "Custom report templates beyond the ordered package"
+      ]
+    },
+    "Chapter 6": {
+      "team": "Lifetime Oy — Sovereign Hardware & Edge Team",
+      "deliveryMode": "Managed hardware fulfilment: procurement, shipping and (where ordered) on-site installation by a named engineer.",
+      "acceptanceCondition": "Buyer receives the ordered hardware in working condition, powered on and passing a basic functional check.",
+      "requiredOutcomes": [
+        "Hardware shipped and received within the quoted lead time",
+        "Unit powers on and passes a basic functional check",
+        "Installation (where ordered) completed and signed off"
+      ],
+      "exclusions": [
+        "Software/NIM/Kubernetes stack licensing beyond the hardware itself",
+        "Site preparation (power, network, rack space) not supplied by the buyer",
+        "Extended warranty or on-site support beyond the standard manufacturer term"
+      ]
+    },
+    "Chapter 7": {
+      "team": "Lifetime Oy — Kubernetes, DOCA & NIM Team",
+      "deliveryMode": "Managed cluster/service provisioning by a named engineer on buyer-supplied or Lifetime-supplied hardware; human-verified before handover.",
+      "acceptanceCondition": "The ordered cluster tier or service is provisioned, reachable, and passes the documented capability check for that tier.",
+      "requiredOutcomes": [
+        "Cluster or service provisioned within the delivery window",
+        "Documented tier capabilities (operators, hardening, DPU services) verified active",
+        "Buyer receives access and a handover note"
+      ],
+      "exclusions": [
+        "Underlying compute hardware unless separately ordered",
+        "NVIDIA AI Enterprise or third-party subscriptions billed separately",
+        "Multi-cluster or multi-site scope beyond the ordered tier"
+      ]
+    },
+    "Chapter 8": {
+      "team": "Lifetime Oy — Compliance, Safety & Materials Agents Team",
+      "deliveryMode": "Managed agent activation: a named engineer configures and activates the ordered agent tier; human review of first output before buyer handover.",
+      "acceptanceCondition": "The ordered agent tier is active, has processed at least one buyer-supplied case, and a human has reviewed the output before handover.",
+      "requiredOutcomes": [
+        "Agent tier activated within the delivery window",
+        "First buyer case processed and reviewed by a named engineer",
+        "Buyer receives the reviewed output and an activation confirmation"
+      ],
+      "exclusions": [
+        "Source-system integrations not named in the order",
+        "Coverage of regulations or jurisdictions outside the documented scope",
+        "Fully unattended operation — outputs are human-reviewed before delivery in this managed-delivery phase"
+      ]
+    },
+    "Chapter 9": {
+      "team": "Lifetime Oy — Operations & Assurance Agents Team",
+      "deliveryMode": "Managed agent activation: a named engineer configures and activates the ordered agent; human review of first output before buyer handover.",
+      "acceptanceCondition": "The ordered agent is active, has processed at least one buyer-supplied case, and a human has reviewed the output before handover.",
+      "requiredOutcomes": [
+        "Agent activated within the delivery window",
+        "First buyer case processed and reviewed by a named engineer",
+        "Buyer receives the reviewed output and an activation confirmation"
+      ],
+      "exclusions": [
+        "Source-system integrations not named in the order",
+        "Fully unattended operation — outputs are human-reviewed before delivery in this managed-delivery phase"
+      ]
+    },
+    "Chapter 10": {
+      "team": "Lifetime Oy — Growth, Knowledge & Viability Agents Team",
+      "deliveryMode": "Managed agent activation: a named engineer configures and activates the ordered agent; human review of first output before buyer handover.",
+      "acceptanceCondition": "The ordered agent is active, has processed at least one buyer-supplied case, and a human has reviewed the output before handover.",
+      "requiredOutcomes": [
+        "Agent activated within the delivery window",
+        "First buyer case processed and reviewed by a named engineer",
+        "Buyer receives the reviewed output and an activation confirmation"
+      ],
+      "exclusions": [
+        "Source-system integrations not named in the order",
+        "Fully unattended operation — outputs are human-reviewed before delivery in this managed-delivery phase"
+      ]
+    },
+    "Chapter 11": {
+      "team": "Lifetime Oy — Function & Channel Bundles Team",
+      "deliveryMode": "Managed bundle composition: a named engineer activates each required component agent and verifies the bundle's aggregate scope before handover.",
+      "acceptanceCondition": "Every component agent required by the bundle is active and the bundle's documented aggregate scope is verified by a named engineer.",
+      "requiredOutcomes": [
+        "All required component agents active within the delivery window",
+        "Aggregate bundle scope verified against its documented composition",
+        "Buyer receives a bundle activation confirmation"
+      ],
+      "exclusions": [
+        "Any component agent not part of the documented bundle composition",
+        "Fully unattended operation — the bundle is human-verified before delivery in this managed-delivery phase"
+      ]
+    },
+    "Chapter 12": {
+      "team": "Lifetime Oy — Industry Pods Team",
+      "deliveryMode": "Managed industry-pod onboarding: a named engineer configures the pod's shared agents against buyer industry data and verifies one witnessed outcome before handover.",
+      "acceptanceCondition": "The industry pod is onboarded, configured against buyer data, and one witnessed outcome scenario has been completed and reviewed.",
+      "requiredOutcomes": [
+        "Pod onboarded and configured within the delivery window",
+        "One witnessed outcome scenario completed and reviewed by a named engineer",
+        "Buyer receives the reviewed outcome and an onboarding confirmation"
+      ],
+      "exclusions": [
+        "Coverage of industry scenarios not named in the order",
+        "Fully unattended operation — outputs are human-reviewed before delivery in this managed-delivery phase"
+      ]
+    },
+    "Chapter 13": {
+      "team": "Lifetime Oy — Land-and-Expand Programmes Team",
+      "deliveryMode": "Managed advisory programme: a named programme lead runs the weekly-gated engagement; human review at every gate before proceeding.",
+      "acceptanceCondition": "The programme reaches its first weekly gate with buyer-reviewed inputs and a documented go/no-go decision.",
+      "requiredOutcomes": [
+        "Programme kicked off within the delivery window",
+        "First weekly gate reached with a documented go/no-go decision",
+        "Buyer receives the gate review and next-step recommendation"
+      ],
+      "exclusions": [
+        "Scope beyond the named programme's documented weekly gates",
+        "Implementation work outside the programme's own chapter (wrapped, not duplicated)"
+      ]
+    }
+  },
+  "acceptanceRule": "All listed required outcomes must be met. Delivery follows the chapter managed-delivery process described in fulfilment.deliveryMode; unattended automation is not claimed unless documented separately for this SKU."
+}

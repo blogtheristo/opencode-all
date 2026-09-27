@@ -167,6 +167,7 @@
         </div>
     </div>
 
+    <script src="/checkout/durable-order-intake.js"></script>
     <script>
         // Configuration - loaded from products.json
         const API_BASE = 'https://api.lifetime.fi/v1/payments';
@@ -179,78 +180,42 @@
         let selectedPayment = 'revolut';
         let currentProduct = null;
 
-        // Trusted payment provider domains for redirect validation
-        const TRUSTED_PAYMENT_DOMAINS = [
-            'revolut.com',
-            'revolut.me',
-            'checkout.revolut.com',  // Revolut Merchant Checkout
-            'b2b.revolut.com',
-            'sandbox.revolut.com',
-            'sandbox-checkout.revolut.com',
-            'paypal.com',
-            'www.paypal.com',
-            'sandbox.paypal.com',
-            'lifetime.fi',
-            'api.lifetime.fi',
-            'dws10.com'
-        ];
+        // Payment redirects are restricted to these provider domains and their subdomains.
+        const TRUSTED_PAYMENT_DOMAINS = ['revolut.com', 'revolut.me', 'paypal.com'];
+
+        function getTrustedPaymentUrl(url) {
+            try {
+                const parsedUrl = new URL(url);
+                if (parsedUrl.protocol !== 'https:') return null;
+                const hostname = parsedUrl.hostname.toLowerCase();
+                const isTrusted = TRUSTED_PAYMENT_DOMAINS.some(domain =>
+                    hostname === domain || hostname.endsWith('.' + domain)
+                );
+                return isTrusted ? parsedUrl : null;
+            } catch (error) {
+                return null;
+            }
+        }
 
         /**
-         * Validates and performs a safe redirect to trusted payment provider domains.
-         * Returns true if redirect was performed, false if URL was blocked.
+         * Validates and performs a safe redirect to a trusted payment provider.
          * @param {string} url - The URL to redirect to
          * @returns {boolean} - Whether redirect was performed
          */
         function safeRedirect(url) {
-            // Trusted payment provider domains - hardcoded for security
-            const trustedDomains = [
-                'revolut.com',
-                'revolut.me',
-                'checkout.revolut.com',      // Revolut Merchant Checkout
-                'sandbox-checkout.revolut.com',
-                'b2b.revolut.com',
-                'sandbox.revolut.com',
-                'paypal.com',
-                'www.paypal.com',
-                'sandbox.paypal.com'
-            ];
-
-            try {
-                const parsedUrl = new URL(url);
-                const hostname = parsedUrl.hostname.toLowerCase();
-                
-                // Validate against trusted domains only
-                const isTrusted = trustedDomains.some(domain => 
-                    hostname === domain || hostname.endsWith('.' + domain)
-                );
-
-                if (isTrusted) {
-                    // Safe to redirect - domain is in whitelist
-                    window.location.href = url;
-                    return true;
-                } else {
-                    console.error('Redirect blocked: untrusted URL domain', hostname);
-                    showError('Unable to redirect to payment provider. Please contact support.');
-                    return false;
-                }
-            } catch (e) {
-                console.error('Invalid URL for redirect:', e);
-                showError('Invalid payment URL. Please try again.');
+            const paymentUrl = getTrustedPaymentUrl(url);
+            if (!paymentUrl) {
+                console.error('Redirect blocked: invalid or untrusted payment URL');
+                showError('Unable to redirect to payment provider. Please contact support.');
                 return false;
             }
+
+            window.location.href = paymentUrl.href;
+            return true;
         }
 
-        // Legacy function for backward compatibility
         function isValidPaymentUrl(url) {
-            try {
-                const parsedUrl = new URL(url);
-                const hostname = parsedUrl.hostname.toLowerCase();
-                return TRUSTED_PAYMENT_DOMAINS.some(domain => 
-                    hostname === domain || hostname.endsWith('.' + domain)
-                );
-            } catch (e) {
-                return false;
-            }
+            return getTrustedPaymentUrl(url) !== null;
         }
 
         // Initialize checkout
@@ -378,7 +343,7 @@
 
         async function processPayment() {
             hideError();
-            
+
             const customerData = validateForm();
             if (!customerData) return;
 
@@ -387,7 +352,6 @@
             btn.innerHTML = '<span class="loading-spinner"></span> Processing...';
 
             try {
-                // Store order info for tracking
                 const orderData = {
                     product: currentProduct,
                     customer: customerData,
@@ -397,66 +361,68 @@
                 };
                 sessionStorage.setItem('pending_order', JSON.stringify(orderData));
 
-                // Try API first, fallback to direct payment links
+                let paymentUrl = null;
                 try {
-                    const response = await fetch(`${API_BASE}/checkout`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            product_id: currentProduct.id,
-                            product_name: currentProduct.name,
-                            amount: currentProduct.price,
-                            currency: 'EUR',
-                            customer_email: customerData.email,
-                            customer_name: `${customerData.firstName} ${customerData.lastName}`,
-                            company: customerData.company,
-                            country: customerData.country,
-                            payment_provider: selectedPayment
-                        })
-                    });
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        // Validate payment URL is from trusted domains
-                        const paymentUrl = data.payment_url;
-                        if (isValidPaymentUrl(paymentUrl)) {
-                            safeRedirect(paymentUrl);
-                            return;
-                        } else {
-                            console.error('Invalid payment URL received from API');
-                        }
+                    const checkout = await window.DwsCheckoutIntake.requestJson(
+                        `${API_BASE}/checkout`,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Idempotency-Key': orderData.orderId
+                            },
+                            body: JSON.stringify({
+                                product_id: currentProduct.id,
+                                customer_email: customerData.email,
+                                customer_name: `${customerData.firstName} ${customerData.lastName}`,
+                                company: customerData.company,
+                                country: customerData.country,
+                                payment_provider: selectedPayment
+                            })
+                        },
+                        10000
+                    );
+                    if (
+                        typeof checkout.order_intent_id !== 'string' ||
+                        checkout.order_intent_id.length === 0 ||
+                        !isValidPaymentUrl(checkout.payment_url)
+                    ) {
+                        throw new Error('Checkout API returned an invalid response');
                     }
+                    paymentUrl = checkout.payment_url;
                 } catch (apiError) {
-                    console.log('API not available, using direct payment links');
+                    console.warn('Managed checkout unavailable; preparing direct payment fallback.', apiError);
                 }
 
-                // Fallback: Use direct payment links (hardcoded trusted domains)
-                sendOrderNotification(orderData);
-                
-                if (selectedPayment === 'revolut') {
-                    // Check if product has a dedicated Revolut Checkout link (from config or session)
+                if (!paymentUrl && selectedPayment === 'revolut') {
                     if (currentProduct.revolutLink) {
-                        // Use pre-configured Revolut Checkout link (professional checkout)
-                        safeRedirect(currentProduct.revolutLink);
+                        paymentUrl = currentProduct.revolutLink;
                     } else {
-                        // Fallback to Revolut.me link with amount
-                        const sanitizedPrice = parseInt(currentProduct.price, 10);
-                        if (isNaN(sanitizedPrice) || sanitizedPrice <= 0) {
-                            throw new Error('Invalid price');
+                        const sanitizedPrice = Number(currentProduct.price);
+                        if (!Number.isFinite(sanitizedPrice) || sanitizedPrice <= 0) {
+                            throw new Error('This product does not have a payable checkout amount.');
                         }
-                        // Safe: URL constructed from constant + validated integer
-                        safeRedirect(`${REVOLUT_FALLBACK_LINK}/${sanitizedPrice}EUR`);
+                        paymentUrl = `${REVOLUT_FALLBACK_LINK.replace(/\/$/, '')}/${sanitizedPrice}EUR`;
                     }
-                } else {
-                    // PayPal direct payment - uses hardcoded paypal.com domain
-                    const paypalUrl = createPayPalLink(currentProduct.price, currentProduct.name, customerData.email);
-                    // Safe: createPayPalLink only uses paypal.com domain
-                    safeRedirect(paypalUrl);
+                } else if (!paymentUrl) {
+                    const payableAmount = Number(currentProduct.price);
+                    if (!Number.isFinite(payableAmount) || payableAmount <= 0) {
+                        throw new Error('This product does not have a payable checkout amount.');
+                    }
+                    paymentUrl = createPayPalLink(payableAmount, currentProduct.name, customerData.email);
                 }
 
+                if (!isValidPaymentUrl(paymentUrl)) {
+                    throw new Error('No trusted payment destination is available.');
+                }
+
+                const durableIntent = await sendOrderNotification(orderData);
+                orderData.orderIntentId = durableIntent.order_intent_id;
+                sessionStorage.setItem('pending_order', JSON.stringify(orderData));
+                safeRedirect(paymentUrl);
             } catch (error) {
-                console.error('Payment error:', error);
-                showError('Unable to process payment. Please try again or contact support@lifetime.fi');
+                console.error('Payment stopped before navigation:', error);
+                showError('Payment was not started because we could not safely record your order. Please retry or contact support@lifetime.fi.');
                 btn.disabled = false;
                 btn.textContent = `Pay €${currentProduct.price.toLocaleString()} Now`;
             }
@@ -479,19 +445,12 @@
         }
 
         async function sendOrderNotification(orderData) {
-            // Send order notification to backend/email
-            try {
-                await fetch('https://api.lifetime.fi/v1/orders/notify', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(orderData)
-                });
-            } catch (e) {
-                // Notification failed, but payment continues
-                console.log('Order notification queued');
-            }
-
-            // No mailto fallback: notifications must use API POST only.
+            return window.DwsCheckoutIntake.persistDurableOrderIntake({
+                endpoint: 'https://api.lifetime.fi/v1/orders/notify',
+                orderData,
+                idempotencyKey: orderData.orderId,
+                timeoutMs: 10000
+            });
         }
     </script>
 </body>
