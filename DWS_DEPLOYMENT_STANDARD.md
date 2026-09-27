@@ -4,10 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.9 [Latest]
 
 Sessions & Modifications:
 
+- Version: 1.9 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: Records Phase 2 bridge enforcement as code-only, leaves mirrored schema migrations unapplied, and gates runtime rollout and Phase 3 on live evidence.
+- Version: 1.8 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: NemoClaw runtime bearer key is required by the bridge; server-side validation must be verified before production.
 - Version: 1.7 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Tier table gains an **Indicative SEAL** column (Connect C = 0/1, Sovereign Infra = 2 on EU-owned stack, Aegis = 3; SEAL-4 closed). Fence: not a Commission certificate.
 - Version: 1.6 | Tool: Claude Code (Sonnet 5) | Session: claude/partner-outreach-dayna-tda0d1 | Date: 31.07.2026 | Changes: Added **USA (Arizona, Texas)** to the Non-EU Tier (Connect) Sales/Regulatory Jurisdiction set, per Risto's explicit sign-off — this is the RED-zone gate this standard itself requires ("A release that changes its Sales Jurisdiction scope ... is RED-zone"). Trigger: the Dayna Blackwell US Industrial Captain deal (`partners-outreach/LETTER_DAYNA_BLACKWELL_BLACKWELL_SYSTEMS.md`, `docs/field-notes/2026-07-31-dayna-us-industrial-captain-jurisdiction-plan.md`). Regulatory anchor for USA is not yet defined (§11.2, same open-question shape as UAE/Singapore) — the company's "regulation drives demand" thesis (CSRD/CBAM/ETS/EU AI Act) has no direct US federal analogue, flagged as a real product-market-fit gap in the linked plan, not just a documentation gap. Added USA: USD / en-US to Locale & Currency. §11.2 open-question list updated to include USA alongside UAE/Singapore.
 - Version: 1.5 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Renamed the "OpenClaw (local agent runtime)" Surface to "NemoClaw (local agent runtime, OpenShell-sandboxed)" in the per-Surface Brain table (OpenClaw → NemoClaw migration). Added the **NemoClaw Runtime (per Surface)** entity to the Deployment Ontology: one runtime with a per-Surface deployment profile (Control Room / Situation Room / Mobile Command-Situation Room) — NOT separate builds/capabilities per room; differences (model set, KYA ATS/allowed-skills, egress, node count) are config overlays. Documented the NemoClaw secret schema (`nemoclaw-ngc-key` pull-time, `nemoclaw-api-key` local runtime token; endpoint is config not a secret; external tool keys only if enabled) — identical schema across Surfaces, values per box. Local inference needs no per-call key.
@@ -150,11 +152,13 @@ NemoClaw — NVIDIA's OpenShell-sandboxed agent runtime — is the local autonom
 | Secret                        | Required        | When used        | Notes                                                                                                                       |
 | ----------------------------- | --------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `nemoclaw-ngc-key`            | Yes             | Provision / pull | NVIDIA NGC token to pull & license NIM microservices + Nemotron. Not used per inference.                                    |
-| `nemoclaw-api-key`            | Recommended     | Runtime          | Local bearer token so only the KYA-governed bridge can call the NemoClaw RPC endpoint on the box. Generated per deployment. |
+| `nemoclaw-api-key`            | Yes             | Runtime          | Required bearer token. The bridge refuses dispatch without it; the RPC server must validate it before production rollout. Generate per deployment. |
 | `NEMOCLAW_ENDPOINT`           | No (config)     | Runtime          | Internal URL — **config, not a secret**. Plain env var.                                                                     |
 | external tool keys (e.g. Exa) | Only if enabled | Runtime          | Per-skill; **disabled** for air-gapped Situation Room / Mobile profiles.                                                    |
 
 Local model inference itself needs **no per-call key** — that is the sovereignty property (no cloud round-trip, no token meter). Secret _values_ differ per box; the _schema_ above is identical across all three Surfaces.
+
+**Phase 2 status (PR #2175, code only).** The bridge now requires a short-lived Themis verdict bound to the provided operator, tenant, agent, session, skill, and parameter scope, a configured bearer credential, and an available Article 12 sink; each allowed invocation consumes a unique authorization ID. The issuer still accepts identity fields from its caller, so authenticated-principal wiring is unverified. The Supabase and DGX migrations are committed but unapplied. This does not prove runtime-side token validation or live OpenShell isolation. Promotion requires a pinned image/SBOM, adversarial host/network/process isolation probes, a selected read-only Athena pilot, full audit traces, and a verified rollback. Keep Phase 3 partner workflows and reversible writes deferred until those exit gates are met and separately approved.
 
 ### Industry
 
