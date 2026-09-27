@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Evidence: Tool=OpenCode 1.18.21 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-24
+# Evidence: Tool=Claude Code Model=anthropic Agent=opencode-worktree-per-window Date=2026-09-27
 # Audit trail: git log -- scripts/opencode-open-all.sh
 set -euo pipefail
 
@@ -302,6 +302,30 @@ if $DRY_RUN; then
   exit 0
 fi
 
+# One git worktree per opencode window (WORKTREE_POLICY.md). Windows used to
+# all `cd "$REPO"`, so parallel sessions shared one index — the 2026-08-22
+# staged-index race. Each window now gets ~/.opencode-worktrees/<repo>/session-<name>,
+# created once by scripts/new-opencode-worktree.sh and reused on later runs.
+# OPENCODE_ALL_SHARED=1 restores the old shared-checkout behaviour.
+window_dir() { # <window name> -> prints worktree path, non-zero on failure
+  local slug path
+  slug=$(printf '%s' "$1" | tr -c 'A-Za-z0-9._-' '-' | tr -s '-' | cut -c1-48)
+  slug="session-${slug#-}"; slug="${slug%-}"
+  path="$HOME/.opencode-worktrees/$(basename "$REPO")/$slug"
+  if [[ ! -d "$path" ]]; then
+    bash "$REPO/scripts/new-opencode-worktree.sh" "$slug" main --no-install >&2 || return 1
+  fi
+  # Share the primary checkout's dependencies instead of 8 parallel npm installs.
+  # .gitignore's `**/node_modules/` does not match a symlink, so exclude it locally.
+  if [[ -d "$REPO/node_modules" && ! -e "$path/node_modules" ]]; then
+    ln -s "$REPO/node_modules" "$path/node_modules"
+    local exclude
+    exclude="$(git -C "$REPO" rev-parse --git-common-dir)/info/exclude"
+    grep -qx '/node_modules' "$exclude" 2>/dev/null || echo '/node_modules' >> "$exclude"
+  fi
+  printf '%s\n' "$path"
+}
+
 tmux kill-session -t "$TMUX_NAME" 2>/dev/null || true
 tmux new-session -d -s "$TMUX_NAME" -x 200 -y 50 bash
 
@@ -309,10 +333,19 @@ n=0
 while IFS=$'\t' read -r kind target name _updated; do
   n=$((n+1))
   wscript="$TMP/win_$n.sh"
+  # Claude Code resolves --resume from the cwd it was started in, so claude
+  # windows stay in $REPO; opencode windows each get their own worktree.
+  wdir="$REPO"
+  if [[ "$kind" != clauderesume && "${OPENCODE_ALL_SHARED:-0}" != 1 ]]; then
+    if ! wdir=$(window_dir "$name"); then
+      echo "opencode-all: WARN could not create a worktree for '$name' — window skipped (never falls back to the shared checkout)" >&2
+      continue
+    fi
+  fi
   case "$kind" in
     resume)
       cat > "$wscript" <<EOF
-cd "$REPO"
+cd "$wdir"
 echo "[resuming $target${AUTO:+ — auto-approve}]"
 exec opencode $AUTO_FLAG -s "$target"
 EOF
@@ -326,7 +359,7 @@ EOF
       ;;
     handoff)
       cat > "$wscript" <<EOF
-cd "$REPO"
+cd "$wdir"
 echo "[post-merge handoff: $target]"
 exec opencode run $AUTO_FLAG -i --title "$name" "\$(cat "$target")"
 EOF
