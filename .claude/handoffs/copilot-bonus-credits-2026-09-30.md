@@ -1,10 +1,11 @@
 # Copilot Work Order — Bonus-Credit Burn to 30.09.2026
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: HIC decision — use the $210 credit in full; persistent work lands on DGX (`DWS_COST_POLICY_STANDARD.md` v1.1). Budget confirmed from GitHub billing page; Lane D added.
+- Version: 1.2 [Latest] | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: Added §5 Execution log (Lane A run, verified against PRs and main); #2139, which carried Copilot's own log, was closed unmerged.
+- Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: HIC decision — use the $210 credit in full; persistent work lands on DGX (`DWS_COST_POLICY_STANDARD.md` v1.1). Budget confirmed from GitHub billing page; Lane D added.
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: Initial work order. HIC moved use cases 1–3 to GitHub Copilot (GPT-5.6), budget 21,000 bonus credits, deadline 30.09.2026 23:59 UTC.
 
 ---
@@ -85,3 +86,25 @@ Review fixes on Lane A–C PRs. Spend nothing new from reserve after 30.09 18:00
 ## 4. Audit
 
 Log each Copilot PR number against its lane in this file. Per `DWS_COST_POLICY_STANDARD.md`, cloud-agent use in the window needs this trail. After 30.09, verify every claimed PR exists (`git log`, PR list) — earlier Copilot summaries contained fabricated PR numbers (see `.claude/handoffs/` audit note).
+
+## 5. Execution log
+
+Verified by Claude Code on 27.09.2026 against the PR list, PR comments and `git log origin/main`. Copilot session 1 ran GitHub Copilot CLI 1.0.88 with `openai/gpt-5.6-sol` (provenance headers), under an 18,000-token cap. Credit use is not visible from the repo; read it from the GitHub billing page.
+
+| Item              | PR                                                      | Status                      | Tests                                           | Note                                                                                                                                                                                                     |
+| ----------------- | ------------------------------------------------------- | --------------------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A1                | [#2138](https://github.com/blogtheristo/dws6/pull/2138) | merged `f3f5669`            | green locally (9/9 backoffice tests, typecheck) | `GET /api/v1/backoffice/me`; five dashboard gates use it; `landing-pages/dws6-com/` mirrored. CI `test`/`lint` skipped: no runner picks up jobs. Claude Code resolved a conflict with #2137 (`ffb2d63`). |
+| A2                | [#2138](https://github.com/blogtheristo/dws6/pull/2138) | merged `f3f5669`            | green locally                                   | Non-member, admin member, spoofed `user_metadata.role` cases.                                                                                                                                            |
+| A3                | #2016, #2035, #2075                                     | commented                   | n/a                                             | "Superseded by #2138" confirmed on #2016. PRs left open.                                                                                                                                                 |
+| — (outside order) | [#2137](https://github.com/blogtheristo/dws6/pull/2137) | merged `3c84001`            | not run in CI                                   | Old 1–3 list: KYA tests + `CLAUDE.md` path fix. Its misplaced version row was corrected in #2142.                                                                                                        |
+| — (outside order) | [#2135](https://github.com/blogtheristo/dws6/pull/2135) | merged `a77fb28`            | not run in CI                                   | Weekly public truth drift audit (issue #1846). Its GHA schedule was removed in #2145 (Persistence Rule); DGX runs it weekly.                                                                             |
+| —                 | [#2139](https://github.com/blogtheristo/dws6/pull/2139) | closed unmerged             | n/a                                             | Copilot's own execution log; replaced by this section.                                                                                                                                                   |
+| —                 | [#2141](https://github.com/blogtheristo/dws6/pull/2141) | closed, superseded by #2145 | n/a                                             | Duplicate drift-audit implementation.                                                                                                                                                                    |
+
+**Not reached in session 1:** B1–B9, C1–C2, D1–D2, and the back-office admin scoping fix (in progress in a separate Copilot session).
+
+**Findings for the next session:**
+
+- Commits were signed `Unit Fixture <dev@lifetime.fi>` from a repo-local git config left by the 2026-08-25 fixture leak. Fixed on DGX 27.09; rule in `CLAUDE.md` v1.5 (Tool Git Identity).
+- Model choice: Luna for Lane B, Terra for C and D, Sol only for security/database work (GPT-5.6 Sol $5/$30, Terra $2.50/$15, Luna $1/$6 per million input/output tokens).
+- Repo CI does not run tests right now (`detect-runner` gets no runner). Run `npm test` locally before every push.
