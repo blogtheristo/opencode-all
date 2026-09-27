@@ -15,3 +15,5 @@ python-dotenv>=1.2.2  # >=1.2.2: set_key symlink-overwrite fix
 
 # Google Secret Manager (optional — used when running on Cloud Run)
 google-cloud-secret-manager>=2.22.0
+
+cryptography>=48.0.1

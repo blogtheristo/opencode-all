@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "^3.0.18",
-    "@ai-sdk/react": "^3.0.51",
+    "@ai-sdk/anthropic": "^3.0.89",
+    "@ai-sdk/react": "^3.0.216",
     "@fontsource/ibm-plex-mono": "^5.3.0",
     "@fontsource/ibm-plex-sans": "^5.3.0",
     "@radix-ui/react-alert-dialog": "^1.1.23",
@@ -20,7 +20,7 @@
     "@radix-ui/react-tabs": "^1.1.21",
     "@supabase/supabase-js": "^2.91.0",
     "@tailwindcss/postcss": "^4.1.18",
-    "ai": "^6.0.44",
+    "ai": "^6.0.214",
     "clsx": "^2.1.1",
     "lucide-react": "^1.33.0",
     "motion": "^13.1.1",
