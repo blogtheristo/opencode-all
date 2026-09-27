@@ -1,6 +1,6 @@
 ---
 title: Internal organization boundary for back-office authorization
-version: 1.1
+version: 1.2
 date: 2026-09-27
 author: GitHub Copilot CLI
 language: EN
@@ -49,12 +49,29 @@ Post-deploy verification against production found two active owners of `DWS AB`,
 
 Tenant role and platform role are separate authorities. An organization owner may administer that tenant, but only a server-designated internal organization may confer DWS platform administration. The internal marker must therefore remain database-controlled and must be enforced consistently in both RLS and the service-role-backed API, because either layer alone leaves a bypass surface.
 
+## The Verification Run
+
+Running the suite for the first time on 2026-09-27 (throwaway `supabase/postgres:17.6.1.167`, migrations 007 → 011 → 096) surfaced three things. The migration itself was not at fault in any of them.
+
+**1. The suite double-inserted `user_profiles` (real defect, fixed).** Migration 007 installs an `auth.users` trigger, `handle_new_user()`, which creates the matching `public.user_profiles` row automatically. The suite then inserted it again and aborted on the primary key. Fixed with `ON CONFLICT (id) DO NOTHING`, which keeps the statement meaningful on a database without that trigger.
+
+**2. The `authenticated` UPDATE assertion could never reach the trigger (real defect, fixed).** Migration 007 defines self-referential RLS on `organization_members` — a policy *on* `organization_members` whose `USING` clause selects *from* `organization_members`. An `authenticated` UPDATE of `public.organizations` evaluates the "Org admins can update their organization" policy, which subqueries `organization_members` and raises `infinite recursion detected in policy for relation "organization_members"` before the 096 trigger is ever consulted.
+
+This is a **pre-existing defect in migration 007, independent of this work.** It has gone unnoticed because every server path reaches these tables as `service_role`, which has its own non-recursive `USING (true)` policy, so the application never evaluates the recursive branch.
+
+The security property still holds — an `authenticated` owner cannot set `is_internal` — but it holds via RLS failure rather than via the guard the test was written to prove. The assertion now runs as a role that bypasses RLS, which isolates the trigger and is the stronger claim: the guard is `current_user <> 'service_role'`, so passing proves even a superuser cannot set the column. A fourth assertion was added for the positive case, that `service_role` can.
+
+**3. `auth.users` lacked `email_confirmed_at` (environment artifact, not a defect).** The Supabase Postgres image ships the pre-gotrue-migration `auth.users` skeleton, which has `confirmed_at` but not `email_confirmed_at`; real projects gain the column from a later gotrue migration. The column was added to the scratch database to match production before applying 007.
+
+The pre-existing `organization_members` recursion is **not fixed here** — it is out of scope for this change and touching it would alter tenant-visibility semantics across every consumer of those policies. It is recorded as Next Steps item 5.
+
 ## Next Steps
 
 1. ~~Monitor the back-office dashboard and RLS-dependent internal surfaces after PR #2143 deploys the matching API rule.~~ Done 2026-09-27: deployed on DGX Spark and verified (see The Story).
-2. Run `supabase/tests/096_internal_organization_backoffice_verification.sql` against a throwaway database after migration 096.
+2. ~~Run `supabase/tests/096_internal_organization_backoffice_verification.sql` against a throwaway database after migration 096.~~ Done 2026-09-27: run against a throwaway `supabase/postgres:17.6.1.167` container with migrations 007 → 011 → 096 applied. All four assertions pass, exit 0. Two defects in the suite itself were found and fixed in the process — see The Verification Run.
 3. **Q1 (two-way door) — DECIDED 2026-09-27 by HIC: DWS supports several internal organizations.** The marker is therefore a set membership test, not a singleton. Both enforcement points already satisfy this: `is_backoffice_admin()` uses an `EXISTS` join over every organization with `is_internal = true`, and `loadBackofficeAccess` filters memberships to all internal organizations and returns their names as a list. No code change is required. The "exactly one `DWS AB`" condition in migration 096 governs only the one-time bootstrap of the first internal organization and must not be read as a schema invariant. Additional internal organizations are flagged by `service_role` at any time.
 4. Restore GitHub Actions billing so `Deploy DGX Spark`, `Tree Gate`, `DoD Gate`, `pr-security-check` and `truth-lint` run again; until then, deploys and gates are manual on DGX.
+5. **Pre-existing, unfixed:** migration 007's `organization_members` RLS policies are self-referential and raise `infinite recursion detected in policy` for the `authenticated` role. Not triggered in production because server paths use `service_role`. Needs its own scoped change — rewriting the policies to avoid self-reference (for example via a `SECURITY DEFINER` membership helper) — with a review of every consumer of tenant visibility.
 
 ## HIC Learning Outcome
 
@@ -67,5 +84,5 @@ Tenant role and platform role are separate authorities. An organization owner ma
 
 ---
 
-Version 1.1 · 2026-09-27
+Version 1.2 · 2026-09-27
 Copyright © 2026 Lifetime Oy. Internal.
