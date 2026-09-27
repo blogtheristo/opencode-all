@@ -1,0 +1,4114 @@
+{
+  "summary": {
+    "catalogVersion": "1.33",
+    "totalProducts": 138,
+    "withOpenIssues": 138,
+    "fullyClosed": 0,
+    "totalOpenIssues": 185,
+    "openIssuesByCategory": {
+      "capacity-evidence": 47,
+      "automation-depth": 138
+    }
+  },
+  "entries": [
+    {
+      "id": "AC365-T3",
+      "name": "Agentic Commerce 365 Skilled Agents",
+      "chapter": "Chapter 11",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €6499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=AC365-T3 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/ac365-t3.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-AC365-T3-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for AC365-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-AC365-T3-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for AC365-T3 (today: managed bundle composition) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-AC365-T3"
+    },
+    {
+      "id": "ai-agent-engineering",
+      "name": "AI & Agent Engineering — Outcome-Backed Hourly",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €200 EUR (hourly)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=ai-agent-engineering (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/ai-agent-engineering.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-ai-agent-engineering-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for ai-agent-engineering (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-ai-agent-engineering"
+    },
+    {
+      "id": "ai-consultant-day",
+      "name": "Captain Day — One-Day AI Outcome",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1200 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=ai-consultant-day (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Core",
+          "Detail page: ../products/ai-consultant-day.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-ai-consultant-day-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for ai-consultant-day (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-ai-consultant-day"
+    },
+    {
+      "id": "ai-consulting-agentic",
+      "name": "Agentic Software Development for EU Teams",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €2500 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=ai-consulting-agentic (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/ai-consulting-agentic.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-ai-consulting-agentic-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for ai-consulting-agentic (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-ai-consulting-agentic"
+    },
+    {
+      "id": "ai-koulutus-3d",
+      "name": "AI Koulutus 3 Days Programme",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €6250 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=ai-koulutus-3d (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/ai-koulutus-3d.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-ai-koulutus-3d-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for ai-koulutus-3d (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-ai-koulutus-3d"
+    },
+    {
+      "id": "AIS-EU-SOV-OC",
+      "name": "EU-Sovereign AI Migration — Per Workload",
+      "chapter": "Chapter 3",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €4990 EUR (metered)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=AIS-EU-SOV-OC (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/ais-eu-sov-oc.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-AIS-EU-SOV-OC-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for AIS-EU-SOV-OC (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-AIS-EU-SOV-OC"
+    },
+    {
+      "id": "AIS-OUTCOME-PILOT",
+      "name": "Outcome-Priced Applied-AI Pilot (6 weeks)",
+      "chapter": "Chapter 3",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €9990 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=AIS-OUTCOME-PILOT (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/ais-outcome-pilot.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-AIS-OUTCOME-PILOT-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for AIS-OUTCOME-PILOT (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-AIS-OUTCOME-PILOT"
+    },
+    {
+      "id": "aws-consultancy",
+      "name": "EU-Sovereign AI Engineering & Cloud Consultancy",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €3750 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=aws-consultancy (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/aws-consultancy.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-aws-consultancy-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for aws-consultancy (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-aws-consultancy"
+    },
+    {
+      "id": "business-mentor-30",
+      "name": "Claude Code AI Coaching — 30 Hours",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €4960 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=business-mentor-30 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/business-mentor-30.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-business-mentor-30-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for business-mentor-30 (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-business-mentor-30"
+    },
+    {
+      "id": "claude-code-coaching-3day",
+      "name": "Claude Code Coaching — Lecture + Workshop (3 Days)",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €5900 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=claude-code-coaching-3day (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/claude-code-coaching-3day.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-claude-code-coaching-3day-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for claude-code-coaching-3day (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-claude-code-coaching-3day"
+    },
+    {
+      "id": "claude-code-coaching-lecture",
+      "name": "Claude Code Coaching — 1-Day Lecture",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1900 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=claude-code-coaching-lecture (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/claude-code-coaching-lecture.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-claude-code-coaching-lecture-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for claude-code-coaching-lecture (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-claude-code-coaching-lecture"
+    },
+    {
+      "id": "claude-code-coaching-project",
+      "name": "Claude Code Coaching — Client Project Work",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €7500 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=claude-code-coaching-project (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/claude-code-coaching-project.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-claude-code-coaching-project-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for claude-code-coaching-project (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-claude-code-coaching-project"
+    },
+    {
+      "id": "claude-code-coaching-workshop",
+      "name": "Claude Code Coaching — 2-Day Workshop",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €4500 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=claude-code-coaching-workshop (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/claude-code-coaching-workshop.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-claude-code-coaching-workshop-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for claude-code-coaching-workshop (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-claude-code-coaching-workshop"
+    },
+    {
+      "id": "CMP-OC-ENT",
+      "name": "Outcome — CSRD/CBAM/AI Act gap (Enterprise)",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €2499 EUR (metered, per-outcome)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=CMP-OC-ENT (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/cmp-oc-ent.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-CMP-OC-ENT-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for CMP-OC-ENT (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-CMP-OC-ENT"
+    },
+    {
+      "id": "CMP-OC-STD",
+      "name": "Outcome — CSRD/CBAM/AI Act gap (Standard)",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €999 EUR (metered, per-outcome)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=CMP-OC-STD (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/cmp-oc-std.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-CMP-OC-STD-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for CMP-OC-STD (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-CMP-OC-STD"
+    },
+    {
+      "id": "CMP-T0",
+      "name": "Compliance Agent — Pilot (60 days)",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=CMP-T0 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/cmp-t0.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-CMP-T0-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for CMP-T0 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-CMP-T0-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for CMP-T0 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-CMP-T0"
+    },
+    {
+      "id": "CMP-T1",
+      "name": "Compliance Agent — Starter",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=CMP-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/cmp-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-CMP-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for CMP-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-CMP-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for CMP-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-CMP-T1"
+    },
+    {
+      "id": "CMP-T2",
+      "name": "Compliance Agent — Pro",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €2999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=CMP-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/cmp-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-CMP-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for CMP-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-CMP-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for CMP-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-CMP-T2"
+    },
+    {
+      "id": "CONSTR-T2",
+      "name": "Construction Agent — Pro (bundle)",
+      "chapter": "Chapter 9",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €3999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=CONSTR-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/constr-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-CONSTR-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for CONSTR-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-CONSTR-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for CONSTR-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-CONSTR-T2"
+    },
+    {
+      "id": "CONSTR-T3",
+      "name": "Construction Ops Pod",
+      "chapter": "Chapter 11",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €8499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=CONSTR-T3 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/constr-t3.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-CONSTR-T3-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for CONSTR-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-CONSTR-T3-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for CONSTR-T3 (today: managed bundle composition) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-CONSTR-T3"
+    },
+    {
+      "id": "consulting-fit55",
+      "name": "Consulting Fit for 55 Specialist",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €3000 EUR (monthly)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=consulting-fit55 (self-serve-dedicated)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/consulting-fit55.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-consulting-fit55-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for consulting-fit55 (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-consulting-fit55"
+    },
+    {
+      "id": "consulting-hourly",
+      "name": "Senior Compliance Specialist — Retainer + Outcomes",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €250 EUR (hourly)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=consulting-hourly (self-serve-dedicated)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/consulting-hourly.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-consulting-hourly-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for consulting-hourly (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-consulting-hourly"
+    },
+    {
+      "id": "conversational-agent",
+      "name": "EU-Hosted Conversational Agent",
+      "chapter": "Chapter 5",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €3500 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=conversational-agent (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/conversational-agent.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-conversational-agent-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for conversational-agent (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-conversational-agent"
+    },
+    {
+      "id": "CS-T1",
+      "name": "Competitor Surveillance — Starter",
+      "chapter": "Chapter 10",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €899 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=CS-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/cs-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-CS-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for CS-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-CS-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for CS-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-CS-T1"
+    },
+    {
+      "id": "CS-T2",
+      "name": "Competitor Surveillance — Pro",
+      "chapter": "Chapter 10",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=CS-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/cs-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-CS-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for CS-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-CS-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for CS-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-CS-T2"
+    },
+    {
+      "id": "CSAT-T1",
+      "name": "Customer Sat — Starter",
+      "chapter": "Chapter 10",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €599 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=CSAT-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/csat-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-CSAT-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for CSAT-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-CSAT-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for CSAT-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-CSAT-T1"
+    },
+    {
+      "id": "CSAT-T2",
+      "name": "Customer Sat — Pro",
+      "chapter": "Chapter 10",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=CSAT-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/csat-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-CSAT-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for CSAT-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-CSAT-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for CSAT-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-CSAT-T2"
+    },
+    {
+      "id": "devops-lead",
+      "name": "Assessment",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €2500 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=devops-lead (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/devops-lead.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-devops-lead-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for devops-lead (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-devops-lead"
+    },
+    {
+      "id": "DW-T1",
+      "name": "Deepwiki Extractor — Starter",
+      "chapter": "Chapter 10",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €599 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DW-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/dw-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DW-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for DW-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-DW-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DW-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DW-T1"
+    },
+    {
+      "id": "DW-T2",
+      "name": "Deepwiki Extractor — Pro",
+      "chapter": "Chapter 10",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €799 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DW-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/dw-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DW-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for DW-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-DW-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DW-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DW-T2"
+    },
+    {
+      "id": "DWS-AEGIS-001",
+      "name": "DWS IQ Aegis",
+      "chapter": "Chapter 4",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €59990 EUR (one-time)",
+          "4 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS-AEGIS-001 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/dws-aegis-001.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS-AEGIS-001-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS-AEGIS-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS-AEGIS-001"
+    },
+    {
+      "id": "DWS-AEGIS-IMPL-001",
+      "name": "DWS IQ Aegis Implementation Programme (3 phases)",
+      "chapter": "Chapter 4",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €45000 EUR (one-time)",
+          "6 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS-AEGIS-IMPL-001 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/dws-aegis-impl-001.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS-AEGIS-IMPL-001-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS-AEGIS-IMPL-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS-AEGIS-IMPL-001"
+    },
+    {
+      "id": "DWS-AEGIS-PILOT-001",
+      "name": "DWS IQ Aegis Pilot (3 months)",
+      "chapter": "Chapter 4",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €19990 EUR (one-time, per-3-months)",
+          "7 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS-AEGIS-PILOT-001 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/dws-aegis-pilot-001.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS-AEGIS-PILOT-001-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS-AEGIS-PILOT-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS-AEGIS-PILOT-001"
+    },
+    {
+      "id": "DWS-AEGIS-SUB-001",
+      "name": "DWS IQ Aegis — Maintenance Subscription",
+      "chapter": "Chapter 4",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €999 EUR (subscription)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS-AEGIS-SUB-001 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/aegis.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS-AEGIS-SUB-001-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for DWS-AEGIS-SUB-001 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-DWS-AEGIS-SUB-001-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS-AEGIS-SUB-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS-AEGIS-SUB-001"
+    },
+    {
+      "id": "DWS-CLIMATE-001",
+      "name": "DWS IQ Climate Intelligence",
+      "chapter": "Chapter 3",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €2999 EUR (monthly)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS-CLIMATE-001 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/climate-intelligence.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS-CLIMATE-001-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS-CLIMATE-001 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS-CLIMATE-001"
+    },
+    {
+      "id": "DWS-EU-PILOT",
+      "name": "DWS IQ — EU Sovereign Pilot",
+      "chapter": "Chapter 3",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1499 EUR (monthly)",
+          "4 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS-EU-PILOT (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/dws-eu-pilot.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS-EU-PILOT-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS-EU-PILOT (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS-EU-PILOT"
+    },
+    {
+      "id": "DWS-EU-STARTER",
+      "name": "DWS IQ — EU Sovereign Starter",
+      "chapter": "Chapter 3",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €499 EUR (monthly, per-month)",
+          "4 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS-EU-STARTER (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Core",
+          "Detail page: ../products/dws-eu-starter.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS-EU-STARTER-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS-EU-STARTER (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS-EU-STARTER"
+    },
+    {
+      "id": "DWS-IQ-006",
+      "name": "Lifetime DWS IQ Platform (Version 6)",
+      "chapter": "Chapter 3",
+      "currentVersion": "6",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €4999 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS-IQ-006 (self-serve-dedicated)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/dws-iq-006.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS-IQ-006-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS-IQ-006 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS-IQ-006"
+    },
+    {
+      "id": "DWS-IQ-ESS-SETUP",
+      "name": "DWS IQ Essentials — Setup",
+      "chapter": "Chapter 3",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €799 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS-IQ-ESS-SETUP (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/dws-iq-ess-setup.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS-IQ-ESS-SETUP-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for DWS-IQ-ESS-SETUP in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-DWS-IQ-ESS-SETUP-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS-IQ-ESS-SETUP (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS-IQ-ESS-SETUP"
+    },
+    {
+      "id": "DWS-IQ-FREE-2026",
+      "name": "DWS IQ Free — 1 project, CSRD-ready",
+      "chapter": "Chapter 3",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1 EUR (subscription)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS-IQ-FREE-2026 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Core",
+          "Detail page: ../products/dwsiq-free.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS-IQ-FREE-2026-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS-IQ-FREE-2026 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS-IQ-FREE-2026"
+    },
+    {
+      "id": "DWS-SOVEREIGN-DB-001",
+      "name": "Sovereign Database — EU Data Sovereignty for PostgreSQL",
+      "chapter": "Chapter 3",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €499 EUR (one-time)",
+          "4 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS-SOVEREIGN-DB-001 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/sovereign-database.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS-SOVEREIGN-DB-001-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS-SOVEREIGN-DB-001 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS-SOVEREIGN-DB-001"
+    },
+    {
+      "id": "DWS-US-PILOT",
+      "name": "DWS IQ — US Cloud Pilot",
+      "chapter": "Chapter 3",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €799 EUR (monthly)",
+          "4 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS-US-PILOT (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/dws-us-pilot.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS-US-PILOT-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS-US-PILOT (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS-US-PILOT"
+    },
+    {
+      "id": "DWS-US-STARTER",
+      "name": "DWS IQ — US Cloud Starter",
+      "chapter": "Chapter 3",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €299 EUR (monthly)",
+          "4 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS-US-STARTER (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Core",
+          "Detail page: ../products/dws-us-starter.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS-US-STARTER-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS-US-STARTER (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS-US-STARTER"
+    },
+    {
+      "id": "DWS365-CMP-T3",
+      "name": "DWS 365 Compliance Agents",
+      "chapter": "Chapter 11",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €5999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=DWS365-CMP-T3 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/dws365-cmp-t3.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-DWS365-CMP-T3-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for DWS365-CMP-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-DWS365-CMP-T3-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for DWS365-CMP-T3 (today: managed bundle composition) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-DWS365-CMP-T3"
+    },
+    {
+      "id": "ED-T1",
+      "name": "Emissions Data — Starter",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=ED-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/ed-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-ED-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for ED-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-ED-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for ED-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-ED-T1"
+    },
+    {
+      "id": "ED-T2",
+      "name": "Emissions Data — Pro",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=ED-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/ed-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-ED-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for ED-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-ED-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for ED-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-ED-T2"
+    },
+    {
+      "id": "edge-node-gn100",
+      "name": "Control Room — Acer Veriton GN100",
+      "chapter": "Chapter 6",
+      "currentVersion": "2.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €8008 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=edge-node-gn100 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/edge-node-gn100.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-edge-node-gn100-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for edge-node-gn100 (today: managed hardware fulfilment) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-edge-node-gn100"
+    },
+    {
+      "id": "ESG-T3",
+      "name": "ESG Function-as-a-Service",
+      "chapter": "Chapter 11",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €6999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=ESG-T3 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/esg-t3.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-ESG-T3-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for ESG-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-ESG-T3-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for ESG-T3 (today: managed bundle composition) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-ESG-T3"
+    },
+    {
+      "id": "FH-AUTO-001",
+      "name": "Firehorse Amplify",
+      "chapter": "Chapter 5",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €4950 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=FH-AUTO-001 (self-serve-dedicated)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/fh-auto-001.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-FH-AUTO-001-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for FH-AUTO-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-FH-AUTO-001"
+    },
+    {
+      "id": "FH-CMS-001",
+      "name": "Firehorse Content Management",
+      "chapter": "Chapter 5",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €2999 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=FH-CMS-001 (self-serve-dedicated)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/fh-cms-001.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-FH-CMS-001-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for FH-CMS-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-FH-CMS-001"
+    },
+    {
+      "id": "FH-OMNI-001",
+      "name": "Firehorse Omnichannel Next",
+      "chapter": "Chapter 5",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €499 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=FH-OMNI-001 (self-serve-dedicated)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/fh-omni-001.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-FH-OMNI-001-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for FH-OMNI-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-FH-OMNI-001"
+    },
+    {
+      "id": "FH-RPT-001",
+      "name": "DWS IQ Report",
+      "chapter": "Chapter 5",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1999 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=FH-RPT-001 (self-serve-dedicated)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/fh-rpt-001.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-FH-RPT-001-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for FH-RPT-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-FH-RPT-001"
+    },
+    {
+      "id": "FH-SIGN-001",
+      "name": "Firehorse Signed Reports",
+      "chapter": "Chapter 5",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €199 EUR (subscription, per-year)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=FH-SIGN-001 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/firehorse-signed-reports.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-FH-SIGN-001-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for FH-SIGN-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-FH-SIGN-001"
+    },
+    {
+      "id": "FH-SKILL-T3",
+      "name": "Firehorse Skilled Agents",
+      "chapter": "Chapter 11",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €5499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=FH-SKILL-T3 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/fh-skill-t3.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-FH-SKILL-T3-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for FH-SKILL-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-FH-SKILL-T3-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for FH-SKILL-T3 (today: managed bundle composition) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-FH-SKILL-T3"
+    },
+    {
+      "id": "firehorse-coach",
+      "name": "EU AI Act Literacy Training",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €499 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=firehorse-coach (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/firehorse-coach.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-firehorse-coach-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for firehorse-coach (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-firehorse-coach"
+    },
+    {
+      "id": "firehorse-data-services",
+      "name": "Firehorse Data Services",
+      "chapter": "Chapter 5",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €899 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=firehorse-data-services (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/firehorse-data-services.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-firehorse-data-services-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for firehorse-data-services (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-firehorse-data-services"
+    },
+    {
+      "id": "firehorse-flow",
+      "name": "AI Customer Agent",
+      "chapter": "Chapter 5",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €499 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=firehorse-flow (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/firehorse-flow.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-firehorse-flow-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for firehorse-flow (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-firehorse-flow"
+    },
+    {
+      "id": "GTM-T3",
+      "name": "Go-to-Market Pod",
+      "chapter": "Chapter 11",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €3999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=GTM-T3 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/gtm-t3.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-GTM-T3-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for GTM-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-GTM-T3-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for GTM-T3 (today: managed bundle composition) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-GTM-T3"
+    },
+    {
+      "id": "HSE-T3",
+      "name": "HSE Function-as-a-Service",
+      "chapter": "Chapter 11",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €4999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=HSE-T3 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/hse-t3.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-HSE-T3-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for HSE-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-HSE-T3-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for HSE-T3 (today: managed bundle composition) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-HSE-T3"
+    },
+    {
+      "id": "IND-BESS",
+      "name": "BESS — Battery storage industry pod",
+      "chapter": "Chapter 12",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=IND-BESS (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/ind-bess.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-IND-BESS-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for IND-BESS (today: managed industry-pod onboarding) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-IND-BESS"
+    },
+    {
+      "id": "IND-CERES",
+      "name": "Ceres — Agri / Circular industry pod",
+      "chapter": "Chapter 12",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=IND-CERES (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/ind-ceres.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-IND-CERES-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for IND-CERES (today: managed industry-pod onboarding) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-IND-CERES"
+    },
+    {
+      "id": "IND-GAIA",
+      "name": "Gaia — Cement industry pod",
+      "chapter": "Chapter 12",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=IND-GAIA (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/ind-gaia.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-IND-GAIA-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for IND-GAIA (today: managed industry-pod onboarding) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-IND-GAIA"
+    },
+    {
+      "id": "IND-HELIOS",
+      "name": "Helios — Energy industry pod",
+      "chapter": "Chapter 12",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=IND-HELIOS (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/ind-helios.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-IND-HELIOS-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for IND-HELIOS (today: managed industry-pod onboarding) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-IND-HELIOS"
+    },
+    {
+      "id": "IND-MARS",
+      "name": "Mars — Construction industry pod",
+      "chapter": "Chapter 12",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=IND-MARS (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/ind-mars.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-IND-MARS-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for IND-MARS (today: managed industry-pod onboarding) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-IND-MARS"
+    },
+    {
+      "id": "IND-NEPTUN",
+      "name": "Neptune — Maritime industry pod",
+      "chapter": "Chapter 12",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=IND-NEPTUN (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/ind-neptun.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-IND-NEPTUN-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for IND-NEPTUN (today: managed industry-pod onboarding) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-IND-NEPTUN"
+    },
+    {
+      "id": "IND-PROM",
+      "name": "Prometheus — Hydrogen industry pod",
+      "chapter": "Chapter 12",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=IND-PROM (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/ind-prom.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-IND-PROM-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for IND-PROM (today: managed industry-pod onboarding) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-IND-PROM"
+    },
+    {
+      "id": "IND-TALOS",
+      "name": "Talos — Aluminium industry pod",
+      "chapter": "Chapter 12",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=IND-TALOS (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/ind-talos.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-IND-TALOS-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for IND-TALOS (today: managed industry-pod onboarding) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-IND-TALOS"
+    },
+    {
+      "id": "IND-VULCAN",
+      "name": "Vulcan — Steel industry pod",
+      "chapter": "Chapter 12",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=IND-VULCAN (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/ind-vulcan.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-IND-VULCAN-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for IND-VULCAN (today: managed industry-pod onboarding) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-IND-VULCAN"
+    },
+    {
+      "id": "KYA-JEV-001",
+      "name": "kya-jev — KYA-Gated Typed Decisions (Early Access)",
+      "chapter": "Chapter 4",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €99 EUR (subscription, per-month)",
+          "4 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=KYA-JEV-001 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Early Access",
+          "Detail page: ../products/kya-jev-001.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-KYA-JEV-001-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for KYA-JEV-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-KYA-JEV-001"
+    },
+    {
+      "id": "LAND-AIL",
+      "name": "AI Literacy Bridge",
+      "chapter": "Chapter 13",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €34990 EUR (bundle, per-year)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LAND-AIL (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/land-ail.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LAND-AIL-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LAND-AIL (today: managed advisory programme) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LAND-AIL"
+    },
+    {
+      "id": "LAND-CSRD",
+      "name": "CSRD Reporting Accelerator",
+      "chapter": "Chapter 13",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €89990 EUR (bundle, per-year)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LAND-CSRD (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/land-csrd.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LAND-CSRD-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LAND-CSRD (today: managed advisory programme) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LAND-CSRD"
+    },
+    {
+      "id": "LAND-EUAI",
+      "name": "EU AI Act Compliance Sprint",
+      "chapter": "Chapter 13",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €39990 EUR (bundle, per-year)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LAND-EUAI (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/land-euai.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LAND-EUAI-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LAND-EUAI (today: managed advisory programme) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LAND-EUAI"
+    },
+    {
+      "id": "LAND-GTM",
+      "name": "Go-to-Market Sprint",
+      "chapter": "Chapter 13",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €49990 EUR (bundle, per-year)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LAND-GTM (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/land-gtm.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LAND-GTM-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LAND-GTM (today: managed advisory programme) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LAND-GTM"
+    },
+    {
+      "id": "LAND-HSE",
+      "name": "Site Safety Bootcamp",
+      "chapter": "Chapter 13",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €29990 EUR (bundle, per-year)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LAND-HSE (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/land-hse.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LAND-HSE-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LAND-HSE (today: managed advisory programme) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LAND-HSE"
+    },
+    {
+      "id": "LAND-LCA",
+      "name": "Carbon Reporting Sprint",
+      "chapter": "Chapter 13",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €49990 EUR (bundle, per-year)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LAND-LCA (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/land-lca.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LAND-LCA-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LAND-LCA (today: managed advisory programme) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LAND-LCA"
+    },
+    {
+      "id": "LAND-OPS",
+      "name": "Construction Ops Pilot",
+      "chapter": "Chapter 13",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €109990 EUR (bundle, per-year)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LAND-OPS (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/land-ops.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LAND-OPS-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LAND-OPS (today: managed advisory programme) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LAND-OPS"
+    },
+    {
+      "id": "LAND-SOV",
+      "name": "Sovereignty & NIS2 Sprint",
+      "chapter": "Chapter 13",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €69990 EUR (bundle, per-year)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LAND-SOV (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/land-sov.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LAND-SOV-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LAND-SOV (today: managed advisory programme) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LAND-SOV"
+    },
+    {
+      "id": "LAND-WF",
+      "name": "Full Workforce Onboarding",
+      "chapter": "Chapter 13",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €249990 EUR (bundle, per-year)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LAND-WF (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/land-wf.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LAND-WF-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LAND-WF (today: managed advisory programme) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LAND-WF"
+    },
+    {
+      "id": "lean-project",
+      "name": "EU AI Project Accelerator (Fixed Price)",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €4960 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=lean-project (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/lean-project.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-lean-project-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for lean-project (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-lean-project"
+    },
+    {
+      "id": "LF-COMPLIANCE-AMBULANCE-001",
+      "name": "DWS IQ Compliance Ambulance — Mobile Office (NVIDIA Thor Edge)",
+      "chapter": "Chapter 6",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1 EUR (one-time)",
+          "6 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-COMPLIANCE-AMBULANCE-001 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/dws-iq-compliance-ambulance.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-COMPLIANCE-AMBULANCE-001-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-COMPLIANCE-AMBULANCE-001 (today: managed hardware fulfilment) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-COMPLIANCE-AMBULANCE-001"
+    },
+    {
+      "id": "LF-DGX-SPARK",
+      "name": "DGX Spark — NVIDIA-Branded Sovereign Edge AI",
+      "chapter": "Chapter 6",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €6109 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-DGX-SPARK (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/dgx-spark.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-DGX-SPARK-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-DGX-SPARK (today: managed hardware fulfilment) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-DGX-SPARK"
+    },
+    {
+      "id": "LF-DOCA-ESSENTIAL",
+      "name": "DOCA Microservices — Essential Package",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €500 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-DOCA-ESSENTIAL (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/lf-doca-essential.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-DOCA-ESSENTIAL-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-DOCA-ESSENTIAL (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-DOCA-ESSENTIAL"
+    },
+    {
+      "id": "LF-DOCA-NETWORK-STORAGE",
+      "name": "DOCA Microservices — Networking & Storage Acceleration Package",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €2000 EUR (subscription, per-month)",
+          "4 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-DOCA-NETWORK-STORAGE (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/lf-doca-network-storage.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-DOCA-NETWORK-STORAGE-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-DOCA-NETWORK-STORAGE (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-DOCA-NETWORK-STORAGE"
+    },
+    {
+      "id": "LF-DOCA-SECURITY",
+      "name": "DOCA Microservices — Security & Compliance Package",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1000 EUR (subscription, per-month)",
+          "4 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-DOCA-SECURITY (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/lf-doca-security.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-DOCA-SECURITY-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-DOCA-SECURITY (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-DOCA-SECURITY"
+    },
+    {
+      "id": "LF-FIPS-VALIDATION",
+      "name": "FIPS 140-3 Validation Service",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €2000 EUR (one-time)",
+          "4 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-FIPS-VALIDATION (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/lf-fips-validation.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-FIPS-VALIDATION-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-FIPS-VALIDATION (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-FIPS-VALIDATION"
+    },
+    {
+      "id": "LF-GOV-AIRGAP-BUNDLE",
+      "name": "Air-Gapped Gov Ready Image Bundle",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1500 EUR (one-time)",
+          "5 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-GOV-AIRGAP-BUNDLE (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Sovereign",
+          "Detail page: ../products/lf-gov-airgap-bundle.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-GOV-AIRGAP-BUNDLE-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-GOV-AIRGAP-BUNDLE (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-GOV-AIRGAP-BUNDLE"
+    },
+    {
+      "id": "LF-GOV-READY-ANNUAL",
+      "name": "Government Ready Annual Maintenance",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €3000 EUR (subscription, per-year)",
+          "5 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-GOV-READY-ANNUAL (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/lf-gov-ready-annual.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-GOV-READY-ANNUAL-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-GOV-READY-ANNUAL (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-GOV-READY-ANNUAL"
+    },
+    {
+      "id": "LF-GOV-READY-SETUP",
+      "name": "Government Ready Cluster Setup",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €7500 EUR (one-time)",
+          "7 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-GOV-READY-SETUP (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/lf-gov-ready-setup.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-GOV-READY-SETUP-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-GOV-READY-SETUP (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-GOV-READY-SETUP"
+    },
+    {
+      "id": "LF-IGX-ORIN",
+      "name": "IGX Orin — Industrial / Medical Sovereign Edge AI",
+      "chapter": "Chapter 6",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €11990 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-IGX-ORIN (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/igx-orin.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-IGX-ORIN-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-IGX-ORIN (today: managed hardware fulfilment) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-IGX-ORIN"
+    },
+    {
+      "id": "LF-IPCMAX-CINCOZE-DA1200",
+      "name": "Cincoze DA-1200 — Rugged Expandable Edge Computer",
+      "chapter": "Chapter 6",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1850 EUR (one-time)",
+          "5 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-IPCMAX-CINCOZE-DA1200 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/lf-ipcmax-cincoze-da1200.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-IPCMAX-CINCOZE-DA1200-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-IPCMAX-CINCOZE-DA1200 (today: managed hardware fulfilment) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-IPCMAX-CINCOZE-DA1200"
+    },
+    {
+      "id": "LF-IPCMAX-IPC409",
+      "name": "iPCMax IPC-409 — Compact Fanless Sensor Gateway",
+      "chapter": "Chapter 6",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €345 EUR (one-time)",
+          "5 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-IPCMAX-IPC409 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Core",
+          "Detail page: ../products/lf-ipcmax-ipc409.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-IPCMAX-IPC409-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-IPCMAX-IPC409 (today: managed hardware fulfilment) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-IPCMAX-IPC409"
+    },
+    {
+      "id": "LF-IPCMAX-IPCP68",
+      "name": "iPCMax IPC-P68 — Vision Gateway with PoE",
+      "chapter": "Chapter 6",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €680 EUR (one-time)",
+          "5 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-IPCMAX-IPCP68 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/lf-ipcmax-ipcp68.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-IPCMAX-IPCP68-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-IPCMAX-IPCP68 (today: managed hardware fulfilment) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-IPCMAX-IPCP68"
+    },
+    {
+      "id": "LF-JETSON-AGX",
+      "name": "Jetson Sensor Concentrator — AGX Orin 64GB + Install & Service",
+      "chapter": "Chapter 6",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €2694 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-JETSON-AGX (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/lf-jetson-agx.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-JETSON-AGX-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-JETSON-AGX (today: managed hardware fulfilment) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-JETSON-AGX"
+    },
+    {
+      "id": "LF-JETSON-NANO",
+      "name": "Jetson Sensor Node — Orin Nano Super + Install & Service",
+      "chapter": "Chapter 6",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €764 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-JETSON-NANO (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Core",
+          "Detail page: ../products/lf-jetson-nano.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-JETSON-NANO-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-JETSON-NANO (today: managed hardware fulfilment) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-JETSON-NANO"
+    },
+    {
+      "id": "LF-JETSON-NX",
+      "name": "Jetson Sensor Mid — Orin NX 16 GB + Install & Service",
+      "chapter": "Chapter 6",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1990 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-JETSON-NX (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Core",
+          "Detail page: ../products/lf-jetson-nx.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-JETSON-NX-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-JETSON-NX (today: managed hardware fulfilment) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-JETSON-NX"
+    },
+    {
+      "id": "LF-K8S-T1",
+      "name": "Kubernetes Orchestration — Single-Node k3s (Tier 1)",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1500 EUR (one-time)",
+          "5 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-K8S-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Core",
+          "Detail page: ../products/lf-k8s-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-K8S-T1-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-K8S-T1 (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-K8S-T1"
+    },
+    {
+      "id": "LF-K8S-T2",
+      "name": "Kubernetes Orchestration — HA Cluster k3s (Tier 2)",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €4500 EUR (one-time)",
+          "7 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-K8S-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/lf-k8s-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-K8S-T2-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-K8S-T2 (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-K8S-T2"
+    },
+    {
+      "id": "LF-K8S-T3",
+      "name": "Kubernetes Orchestration — Gov Ready RKE2 (Tier 3)",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €7500 EUR (one-time)",
+          "8 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-K8S-T3 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/lf-k8s-t3.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-K8S-T3-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-K8S-T3 (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-K8S-T3"
+    },
+    {
+      "id": "LF-K8S-T4",
+      "name": "Kubernetes Orchestration — Full Infra Stack (Tier 4)",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €12000 EUR (one-time)",
+          "7 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-K8S-T4 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Sovereign",
+          "Detail page: ../products/lf-k8s-t4.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-K8S-T4-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-K8S-T4 (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-K8S-T4"
+    },
+    {
+      "id": "LF-NIM-BIOLOGY",
+      "name": "NIM Microservices — Biology & Genomics Profile",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €2000 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-NIM-BIOLOGY (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/lf-nim-biology.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-NIM-BIOLOGY-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-NIM-BIOLOGY (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-NIM-BIOLOGY"
+    },
+    {
+      "id": "LF-NIM-CODE",
+      "name": "NIM Microservices — Code Generation Profile",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €500 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-NIM-CODE (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/lf-nim-code.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-NIM-CODE-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-NIM-CODE (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-NIM-CODE"
+    },
+    {
+      "id": "LF-NIM-RETRIEVAL",
+      "name": "NIM Microservices — Retrieval & Embedding Profile",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €500 EUR (subscription, per-month)",
+          "4 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-NIM-RETRIEVAL (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/lf-nim-retrieval.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-NIM-RETRIEVAL-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-NIM-RETRIEVAL (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-NIM-RETRIEVAL"
+    },
+    {
+      "id": "LF-NIM-STARTER",
+      "name": "NIM Microservices — Starter Profile",
+      "chapter": "Chapter 7",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €500 EUR (subscription, per-month)",
+          "4 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-NIM-STARTER (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Core",
+          "Detail page: ../products/lf-nim-starter.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-NIM-STARTER-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-NIM-STARTER (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-NIM-STARTER"
+    },
+    {
+      "id": "LF-NVIDIA-INSTALL",
+      "name": "NVIDIA Model Installation + Full Service",
+      "chapter": "Chapter 6",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €995 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-NVIDIA-INSTALL (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/nvidia-model-install.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-NVIDIA-INSTALL-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-NVIDIA-INSTALL (today: managed hardware fulfilment) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-NVIDIA-INSTALL"
+    },
+    {
+      "id": "LF-SITROOM-001",
+      "name": "Situation Room — Two Sovereign AI Nodes",
+      "chapter": "Chapter 6",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €11598 EUR (one-time)",
+          "4 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-SITROOM-001 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/situation-room.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-SITROOM-001-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-SITROOM-001 (today: managed hardware fulfilment) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-SITROOM-001"
+    },
+    {
+      "id": "LF-T1",
+      "name": "Lead Feedback — Starter",
+      "chapter": "Chapter 10",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €599 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/lf-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for LF-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-LF-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-T1"
+    },
+    {
+      "id": "LF-T2",
+      "name": "Lead Feedback — Pro",
+      "chapter": "Chapter 10",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LF-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/lf-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LF-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for LF-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-LF-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LF-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LF-T2"
+    },
+    {
+      "id": "LIFETIME-BUNDLE-2026",
+      "name": "Climate Reporting Starter Bundle",
+      "chapter": "Chapter 3",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €6500 EUR (one-time)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LIFETIME-BUNDLE-2026 (self-serve-dedicated)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/lifetime-bundle-2026.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LIFETIME-BUNDLE-2026-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LIFETIME-BUNDLE-2026 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LIFETIME-BUNDLE-2026"
+    },
+    {
+      "id": "LIFETIME-IT-TUKI-10H",
+      "name": "IT Support Hour Bank for SMEs — 10 h",
+      "chapter": "Chapter 1",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €750 EUR (one-time)",
+          "5 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LIFETIME-IT-TUKI-10H (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — SME Web & IT Services Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/lifetime-it-tuki-10h.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LIFETIME-IT-TUKI-10H-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for LIFETIME-IT-TUKI-10H in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-LIFETIME-IT-TUKI-10H-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LIFETIME-IT-TUKI-10H (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LIFETIME-IT-TUKI-10H"
+    },
+    {
+      "id": "LIFETIME-WEB-STARTER",
+      "name": "Website Starter — Modern Business Site",
+      "chapter": "Chapter 1",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €650 EUR (one-time)",
+          "5 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LIFETIME-WEB-STARTER (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — SME Web & IT Services Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/lifetime-web-starter.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LIFETIME-WEB-STARTER-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for LIFETIME-WEB-STARTER in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-LIFETIME-WEB-STARTER-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LIFETIME-WEB-STARTER (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LIFETIME-WEB-STARTER"
+    },
+    {
+      "id": "LIFETIME-WEBSTORE-MINI",
+      "name": "Small Online Store with Price List",
+      "chapter": "Chapter 1",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €350 EUR (one-time)",
+          "5 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LIFETIME-WEBSTORE-MINI (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — SME Web & IT Services Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/lifetime-webstore-mini.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LIFETIME-WEBSTORE-MINI-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for LIFETIME-WEBSTORE-MINI in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-LIFETIME-WEBSTORE-MINI-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LIFETIME-WEBSTORE-MINI (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LIFETIME-WEBSTORE-MINI"
+    },
+    {
+      "id": "LOG-T1",
+      "name": "Logistics — Starter",
+      "chapter": "Chapter 9",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1299 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LOG-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/log-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LOG-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for LOG-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-LOG-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LOG-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LOG-T1"
+    },
+    {
+      "id": "LOG-T2",
+      "name": "Logistics — Pro",
+      "chapter": "Chapter 9",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1799 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=LOG-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/log-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-LOG-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for LOG-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-LOG-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for LOG-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-LOG-T2"
+    },
+    {
+      "id": "MO-OC-ENT",
+      "name": "Outcome — LCA report (Enterprise)",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €999 EUR (metered, per-outcome)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=MO-OC-ENT (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/mo-oc-ent.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-MO-OC-ENT-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for MO-OC-ENT (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-MO-OC-ENT"
+    },
+    {
+      "id": "MO-OC-STD",
+      "name": "Outcome — LCA report (Standard)",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €499 EUR (metered, per-outcome)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=MO-OC-STD (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/mo-oc-std.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-MO-OC-STD-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for MO-OC-STD (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-MO-OC-STD"
+    },
+    {
+      "id": "MO-T0",
+      "name": "Material Oracle — Pilot (60 days, 1 project)",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=MO-T0 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/mo-t0.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-MO-T0-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for MO-T0 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-MO-T0-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for MO-T0 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-MO-T0"
+    },
+    {
+      "id": "MO-T1",
+      "name": "Material Oracle — Starter",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1299 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=MO-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/mo-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-MO-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for MO-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-MO-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for MO-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-MO-T1"
+    },
+    {
+      "id": "MO-T2",
+      "name": "Material Oracle — Pro",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=MO-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/mo-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-MO-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for MO-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-MO-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for MO-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-MO-T2"
+    },
+    {
+      "id": "omnichannel-multimodal",
+      "name": "Firehorse Omnichannel & Multimodal AI Assistant",
+      "chapter": "Chapter 5",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €699 EUR (monthly)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=omnichannel-multimodal (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/omnichannel-multimodal.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-omnichannel-multimodal-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for omnichannel-multimodal (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-omnichannel-multimodal"
+    },
+    {
+      "id": "professional-web-pages",
+      "name": "Kotisivut pk-yritykselle",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "archived",
+      "versionBuckets": {
+        "current": [
+          "Priced: €750 EUR (package)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=professional-web-pages (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
+          "Detail page: ../products/professional-web-pages.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-professional-web-pages-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for professional-web-pages (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-professional-web-pages"
+    },
+    {
+      "id": "QG-T1",
+      "name": "Quality Gate — Starter",
+      "chapter": "Chapter 9",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=QG-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/qg-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-QG-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for QG-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-QG-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for QG-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-QG-T1"
+    },
+    {
+      "id": "QG-T2",
+      "name": "Quality Gate — Pro",
+      "chapter": "Chapter 9",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=QG-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/qg-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-QG-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for QG-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-QG-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for QG-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-QG-T2"
+    },
+    {
+      "id": "SEO-T1",
+      "name": "SEO Audit — Starter",
+      "chapter": "Chapter 10",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €599 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=SEO-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/seo-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-SEO-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for SEO-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-SEO-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for SEO-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-SEO-T1"
+    },
+    {
+      "id": "SEO-T2",
+      "name": "SEO Audit — Pro",
+      "chapter": "Chapter 10",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=SEO-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/seo-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-SEO-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for SEO-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-SEO-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for SEO-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-SEO-T2"
+    },
+    {
+      "id": "SG-T1",
+      "name": "Schedule Genius — Starter",
+      "chapter": "Chapter 9",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1299 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=SG-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/sg-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-SG-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for SG-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-SG-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for SG-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-SG-T1"
+    },
+    {
+      "id": "SG-T2",
+      "name": "Schedule Genius — Pro",
+      "chapter": "Chapter 9",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=SG-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/sg-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-SG-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for SG-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-SG-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for SG-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-SG-T2"
+    },
+    {
+      "id": "SOV-T1",
+      "name": "Sovereignty Monitor — Starter",
+      "chapter": "Chapter 9",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1299 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=SOV-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/sov-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-SOV-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for SOV-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-SOV-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for SOV-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-SOV-T1"
+    },
+    {
+      "id": "SOV-T2",
+      "name": "Sovereignty Monitor — Pro",
+      "chapter": "Chapter 9",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=SOV-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/sov-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-SOV-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for SOV-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-SOV-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for SOV-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-SOV-T2"
+    },
+    {
+      "id": "SOV-T3",
+      "name": "Sovereignty & Compliance Pack",
+      "chapter": "Chapter 11",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €5499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=SOV-T3 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/sov-t3.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-SOV-T3-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for SOV-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-SOV-T3-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for SOV-T3 (today: managed bundle composition) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-SOV-T3"
+    },
+    {
+      "id": "sovereignty-cloud-consulting",
+      "name": "Sovereignty Cloud Consulting – European Cloud Migration",
+      "chapter": "Chapter 2",
+      "currentVersion": "1.0",
+      "lifecycle": "public",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1500 EUR (monthly)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=sovereignty-cloud-consulting (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/sovereignty-cloud-consulting.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-sovereignty-cloud-consulting-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for sovereignty-cloud-consulting in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-sovereignty-cloud-consulting-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for sovereignty-cloud-consulting (today: managed human delivery) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-sovereignty-cloud-consulting"
+    },
+    {
+      "id": "SS-OC-ENT",
+      "name": "Outcome — Site safety assessment (Enterprise)",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €99 EUR (metered, per-site-per-day)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=SS-OC-ENT (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Enterprise",
+          "Detail page: ../products/ss-oc-ent.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-SS-OC-ENT-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for SS-OC-ENT (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-SS-OC-ENT"
+    },
+    {
+      "id": "SS-OC-STD",
+      "name": "Outcome — Site safety assessment (Standard)",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €49 EUR (metered, per-site-per-day)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=SS-OC-STD (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Capacity class: Production",
+          "Detail page: ../products/ss-oc-std.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-SS-OC-STD-01",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for SS-OC-STD (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-SS-OC-STD"
+    },
+    {
+      "id": "SS-T0",
+      "name": "SiteSense — Pilot (30 days, 1 site)",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=SS-T0 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/ss-t0.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-SS-T0-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for SS-T0 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-SS-T0-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for SS-T0 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-SS-T0"
+    },
+    {
+      "id": "SS-T1",
+      "name": "SiteSense — Starter",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=SS-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/ss-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-SS-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for SS-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-SS-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for SS-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-SS-T1"
+    },
+    {
+      "id": "SS-T2",
+      "name": "SiteSense — Pro",
+      "chapter": "Chapter 8",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €2499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=SS-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/ss-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-SS-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for SS-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-SS-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for SS-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-SS-T2"
+    },
+    {
+      "id": "VIA-T1",
+      "name": "Viability — Starter",
+      "chapter": "Chapter 10",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €999 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=VIA-T1 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/via-t1.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-VIA-T1-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for VIA-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-VIA-T1-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for VIA-T1 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-VIA-T1"
+    },
+    {
+      "id": "VIA-T2",
+      "name": "Viability — Pro",
+      "chapter": "Chapter 10",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €1499 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=VIA-T2 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/via-t2.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-VIA-T2-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for VIA-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-VIA-T2-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for VIA-T2 (today: managed agent activation) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-VIA-T2"
+    },
+    {
+      "id": "WF-T4",
+      "name": "Full Skilled Workforce",
+      "chapter": "Chapter 11",
+      "currentVersion": "1.0",
+      "lifecycle": "blue",
+      "versionBuckets": {
+        "current": [
+          "Priced: €19990 EUR (subscription, per-month)",
+          "3 documented feature(s)",
+          "Managed delivery contract in force — checkout: /checkout/?product=WF-T4 (self-serve-fallback)",
+          "Binary acceptance KPI defined",
+          "Contractual exclusions defined",
+          "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
+          "Detail page: ../products/wf-t4.html"
+        ],
+        "next": [
+          {
+            "issueId": "PRB-WF-T4-01",
+            "category": "capacity-evidence",
+            "versionBucket": "next",
+            "title": "Document a capacity profile for WF-T4 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
+          },
+          {
+            "issueId": "PRB-WF-T4-02",
+            "category": "automation-depth",
+            "versionBucket": "next",
+            "title": "Evaluate automating part of the managed-delivery process for WF-T4 (today: managed bundle composition) once volume justifies it."
+          }
+        ]
+      },
+      "backlogRef": "RB-WF-T4"
+    }
+  ]
+}

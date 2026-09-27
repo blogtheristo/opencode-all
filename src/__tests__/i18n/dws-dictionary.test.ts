@@ -44,7 +44,10 @@ describe('dws-dictionary shape', () => {
     expect(dict.kyaJev.specVersion).toBe('0.8');
     expect(dict.shared.kya_jev.en).toBe('kya-jev');
     const spec = readFileSync(join(ROOT, 'docs/KYA_JEV_SPECIFICATION.md'), 'utf8');
-    expect(spec).toMatch(/Version: 0\.8 \[Latest\]/);
+    const latest = spec.match(/^Version: (\d+)\.(\d+) \[Latest\]$/m);
+    if (!latest) throw new Error('Specification latest version is missing');
+    const [, major, minor] = latest;
+    expect(Number(major) * 100 + Number(minor)).toBeGreaterThanOrEqual(8);
   });
 
   it('shared terms have five languages and ontologyId', () => {

@@ -1,13 +1,27 @@
-// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=lane-c-coverage Date=2026-09-27
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=copilot Date=2026-09-27
 // Audit trail: git log -- src/__tests__/payment-routes.test.ts
 import crypto from 'crypto';
 import express from 'express';
 import request from 'supertest';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-const authMocks = vi.hoisted(() => ({ verifyAccessToken: vi.fn() }));
+const authMocks = vi.hoisted(() => ({
+  verifyAccessToken: vi.fn(),
+  createIntent: vi.fn(),
+  attachPayment: vi.fn(),
+  queueReview: vi.fn(),
+  schemaReady: vi.fn(),
+}));
+vi.mock('../services/product-order-readiness.service.js', () => ({
+  isProductOrderSchemaReady: authMocks.schemaReady,
+}));
 vi.mock('../services/auth.service.js', () => ({
   default: { verifyAccessToken: authMocks.verifyAccessToken },
+}));
+vi.mock('../services/product-order.service.js', () => ({
+  createProductOrderIntent: authMocks.createIntent,
+  attachProductOrderPayment: authMocks.attachPayment,
+  queuePendingExternalPaymentReview: authMocks.queueReview,
 }));
 
 process.env.PAYMENT_API_URL = 'https://payments.example';
@@ -22,8 +36,18 @@ function makeApp() {
 }
 
 describe('payment routes', () => {
-  beforeEach(() => authMocks.verifyAccessToken.mockReset());
-  afterEach(() => vi.unstubAllGlobals());
+  beforeEach(() => {
+    authMocks.verifyAccessToken.mockReset();
+    authMocks.createIntent.mockReset();
+    authMocks.attachPayment.mockReset();
+    authMocks.queueReview.mockReset();
+    authMocks.schemaReady.mockReset();
+    authMocks.schemaReady.mockResolvedValue(true);
+  });
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    vi.unstubAllEnvs();
+  });
 
   it('rejects subscription requests without a bearer token', async () => {
     const response = await request(makeApp()).post('/api/v1/payments/subscribe').send({
@@ -110,5 +134,75 @@ describe('payment routes', () => {
       'https://payments.example/v1/payments/webhook',
       expect.objectContaining({ method: 'POST' }),
     );
+  });
+
+  it('returns the authoritative product price and ignores client price and name', async () => {
+    vi.stubEnv('REVOLUT_SECRET_KEY', '');
+    authMocks.createIntent.mockResolvedValue({
+      intent: {
+        id: 'intent-1',
+        created: true,
+        product_id: 'DWS-IQ-006',
+        product_name: 'Lifetime DWS IQ Platform (Version 6)',
+        unit_amount_cents: 499900,
+        currency: 'EUR',
+        checkout_url: null,
+      },
+      product: {
+        id: 'DWS-IQ-006',
+        name: 'Lifetime DWS IQ Platform (Version 6)',
+        price: 4999,
+        currency: 'EUR',
+        revolutLink: 'https://checkout.revolut.com/pay/trusted',
+      },
+    });
+    authMocks.attachPayment.mockResolvedValue(undefined);
+    authMocks.queueReview.mockResolvedValue({
+      id: 'intent-1',
+      payment_status: 'pending',
+      fulfilment_status: 'pending',
+      payment_review_notification_status: 'sent',
+    });
+
+    const response = await request(makeApp())
+      .post('/api/v1/payments/checkout')
+      .set('Idempotency-Key', 'checkout-test-1')
+      .send({
+        product_id: 'DWS-IQ-006',
+        product_name: 'Fake cheap product',
+        amount: 1,
+        currency: 'EUR',
+        customer_email: 'buyer@example.com',
+        customer_name: 'Buyer Example',
+        country: 'FI',
+        payment_provider: 'revolut',
+      });
+
+    expect(response.status).toBe(201);
+    expect(response.body).toMatchObject({
+      product_name: 'Lifetime DWS IQ Platform (Version 6)',
+      amount: 4999,
+      payment_url: 'https://checkout.revolut.com/pay/trusted',
+    });
+    expect(authMocks.createIntent).toHaveBeenCalledWith(
+      expect.objectContaining({ productId: 'DWS-IQ-006', idempotencyKey: 'checkout-test-1' }),
+    );
+    expect(authMocks.queueReview).toHaveBeenCalledWith('intent-1', 'intent-1');
+  });
+
+  it('fails checkout closed when migration 099 is not ready', async () => {
+    authMocks.schemaReady.mockResolvedValue(false);
+
+    const response = await request(makeApp()).post('/api/v1/payments/checkout').send({
+      product_id: 'DWS-IQ-006',
+      customer_email: 'buyer@example.com',
+      customer_name: 'Buyer Example',
+      country: 'FI',
+      payment_provider: 'revolut',
+    });
+
+    expect(response.status).toBe(503);
+    expect(response.body.error).toBe('PRODUCT_ORDER_SCHEMA_NOT_READY');
+    expect(authMocks.createIntent).not.toHaveBeenCalled();
   });
 });

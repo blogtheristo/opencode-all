@@ -35,7 +35,7 @@ concurrency:
 jobs:
   validate:
     runs-on: [self-hosted, dgx-spark]
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
@@ -45,11 +45,11 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Install tsx
-        run: npm i -g tsx@4
+      - name: Install project dependencies
+        run: npm ci
 
       - name: Run validator
-        run: tsx scripts/validate-pricing.ts
+        run: npm exec -- tsx scripts/validate-pricing.ts
 
       # Product counts, Serious/Independent IDs, consulting mapping and dual-folder
       # mirrors. A count change must update this validator in the same PR.

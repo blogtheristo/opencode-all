@@ -33,6 +33,7 @@
     "funding:rss": "node --import tsx scripts/eu-funding-rss.ts",
     "revolut:generate-links": "node --import tsx scripts/generate-revolut-links.ts",
     "diag:supabase-rest": "tsx scripts/test-supabase-rest.ts",
+    "preflight:product-orders": "tsx scripts/preflight-product-orders.ts",
     "vault:push": "tsx scripts/provision-secrets-aiven.ts",
     "vault:push:dry": "tsx scripts/provision-secrets-aiven.ts --dry-run",
     "db:push": "bash scripts/db_push.sh",
@@ -72,10 +73,11 @@
     "temporal:agent-question": "node --import tsx scripts/temporal-answer-agent-question.ts",
     "opencode:check": "node .claude/hooks/opencode-check.js",
     "opencode:status": "git -C opencode-all status --short 2>/dev/null || echo 'OpenCode not found'",
-    "opencode:update": "cd opencode-all && git pull origin dev && cd - && echo '✅ OpenCode updated'",
+    "opencode:update": "bash scripts/update-opencode-all.sh",
     "diag:nemoclaw": "node scripts/verify-nemoclaw-runtime.mjs",
     "build:learning-hub": "node scripts/build-learning-hub.mjs",
     "validate:learning-hub": "node scripts/build-learning-hub.mjs --validate"
+
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
