@@ -1,4 +1,4 @@
-// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-6-sol Agent=copilot Date=2026-09-27
 // Audit trail: git log -- src/__tests__/product-order-migration.test.ts
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
@@ -8,7 +8,18 @@ const migration = readFileSync(
   'utf8',
 );
 
+const repair = readFileSync(
+  new URL('../../supabase/migrations/100_270926_product_order_idempotency_conflict.sql', import.meta.url),
+  'utf8',
+);
+
 describe('product order fulfilment migration', () => {
+  it('repairs the ambiguous PL/pgSQL conflict target without widening execution grants', () => {
+    expect(repair).toContain('ON CONFLICT ON CONSTRAINT product_order_intents_idempotency_key_key');
+    expect(repair).not.toContain('ON CONFLICT (idempotency_key)');
+    expect(repair).toContain('REVOKE ALL ON FUNCTION public.create_product_order_intent');
+    expect(repair).toContain('TO service_role');
+  });
   it('creates durable exact-SKU jobs and a deduplicated event outbox', () => {
     expect(migration).toContain('CREATE TABLE public.product_order_intents');
     expect(migration).toContain('CREATE TABLE public.product_fulfilment_jobs');
