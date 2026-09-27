@@ -3,6 +3,7 @@
 
 import express, { type NextFunction, type Request, type Response, type Router } from 'express';
 import { existsSync, readFileSync, statSync } from 'node:fs';
+import { relative, sep } from 'node:path';
 import { getSupabaseClient } from '../config/supabase.js';
 import logger from '../utils/logger.js';
 import {
@@ -154,10 +155,12 @@ router.get('/open', async (req: IdentifiedRequest, res: Response) => {
     return;
   }
 
-  const { allowed, class: docClass } = canOpen(requested, email, role);
+  // Classify the path that will be read, not the raw query string.
+  const docPath = relative(REPO_ROOT, full).split(sep).join('/');
+  const { allowed, class: docClass } = canOpen(docPath, email, role);
 
   if (!allowed) {
-    await recordOpen(req, requested, docClass, false);
+    await recordOpen(req, docPath, docClass, false);
     res.status(403).json({ error: 'Forbidden', class: docClass });
     return;
   }
@@ -167,10 +170,12 @@ router.get('/open', async (req: IdentifiedRequest, res: Response) => {
     return;
   }
 
-  await recordOpen(req, requested, docClass, true);
+  await recordOpen(req, docPath, docClass, true);
 
   const isHtml = full.toLowerCase().endsWith('.html');
   res.type(isHtml ? 'text/html' : 'text/markdown');
+  // Rendered documents are content, not app code: no scripts, opaque origin.
+  if (isHtml) res.setHeader('Content-Security-Policy', 'sandbox');
   res.setHeader('X-Document-Class', docClass);
   res.send(readFileSync(full, 'utf8'));
 });

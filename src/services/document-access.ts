@@ -2,7 +2,7 @@
 // Audit trail: git log -- src/services/document-access.ts
 
 import { readFileSync } from 'node:fs';
-import { join, normalize } from 'node:path';
+import { join, posix } from 'node:path';
 
 /**
  * Decides which documents a signed-in user may open, from
@@ -118,11 +118,14 @@ export function resolveDocumentPath(repoRoot: string, requested: string): string
   const cleaned = requested.replace(/\\/g, '/').replace(/^\/+/, '');
   if (/^[a-z]:/i.test(cleaned)) return null;
 
-  const allowedRoots = ['Learn/', 'Admin/', 'docs/'];
-  if (!allowedRoots.some((r) => cleaned.toLowerCase().startsWith(r.toLowerCase()))) return null;
+  // Refuse any path that normalisation would change ('..', '.', '//'): the
+  // root check and the classification must both see the path that is read.
+  // Checking the root before normalising let 'Learn/../.env' through.
+  const normalised = posix.normalize(cleaned);
+  if (normalised !== cleaned) return null;
 
-  const normalised = normalize(cleaned);
-  if (normalised.startsWith('..') || normalised.includes(`..${'/'}`)) return null;
+  const allowedRoots = ['Learn/', 'Admin/', 'docs/'];
+  if (!allowedRoots.some((r) => normalised.toLowerCase().startsWith(r.toLowerCase()))) return null;
 
   const full = join(repoRoot, normalised);
   if (!full.startsWith(join(repoRoot) + '/')) return null;

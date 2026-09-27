@@ -135,6 +135,15 @@ describe('path resolution', () => {
     expect(resolveDocumentPath(ROOT, 'Learn/../../.env')).toBeNull();
   });
 
+  it('refuses traversal that lands back inside the repo', () => {
+    // One level up normalises to '.env' — the root check must see that, not 'Learn/…'.
+    expect(resolveDocumentPath(ROOT, 'Learn/../.env')).toBeNull();
+    expect(resolveDocumentPath(ROOT, 'Learn/foo/../../secret.env')).toBeNull();
+    // Hopping between allowed roots would read Admin/ under Learn/'s class.
+    expect(resolveDocumentPath(ROOT, 'Learn/x/../../Admin/ADMIN_MANUAL.md')).toBeNull();
+    expect(resolveDocumentPath(ROOT, 'Learn/./start.html')).toBeNull();
+  });
+
   it('refuses roots that were never opened up', () => {
     expect(resolveDocumentPath(ROOT, '.env')).toBeNull();
     expect(resolveDocumentPath(ROOT, 'src/config/supabase.ts')).toBeNull();
