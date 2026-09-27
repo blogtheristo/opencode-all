@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.31
+Version: 3.32
 
 Sessions & Modifications:
 
+- Version: 3.32 | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: New section "Operations log — 27.09.2026": Copilot $210 credit work order and model routing; server-owned back-office access (#2138) scoped to the internal org (#2143, migration 096 applied); migration 097 closed live `contracts_lifecycle`/`orders` RLS gaps (#2147, applied); migration-history divergence (never `supabase db push`); DGX Persistence Rule and three jobs moved to DGX (#2144, #2145); Tool Git Identity rule (`CLAUDE.md` v1.5) and the `Unit Fixture` repo-local identity fix; CI test runner outage.
 - Version: 3.31 | Tool: Claude Code (Sonnet 5) | Session: (Temporal DGX deploy) | Date: 22.09.2026 | Changes: Deployed Temporal (PR #2068/#2070) on DGX Spark — `dws-temporal-postgres`/`dws-temporal` Healthy, `dws-temporal-worker` Started. Root-caused and fixed an unrelated pre-existing blocker: `dws-postgres` (v1.5.0) required `POSTGRES_PASSWORD`, never set, which failed `docker compose` interpolation for the _entire_ compose file. HIC-approved fresh `POSTGRES_PASSWORD` + `TEMPORAL_POSTGRES_PASSWORD` generated and documented in both `.env` files. Recorded a new Token & Credential Lifecycle decision: a planned Supabase `credentials_store` mirror (AES-256-GCM at rest, `CREDENTIALS_STORE_ENC_KEY` in `.env` only) scoped to outbound API/service credentials only, motivated by dev environments (e.g. Chromebook) with no local `.env`. Flagged `FACEBOOK_PAGE_TOKEN` in the Expiry register as possibly already past its noted 2026-08-20 expiry, unverified. Cross-refs: `docs/field-notes/2026-09-22-temporal-dgx-deploy-blocked-postgres-password.md`, `docs/dws-use-cases.md`.
 - Version: 3.30 | Tool: GitHub Copilot Coding Agent | Session: cursor/dgx-ollama-litellm-router-a455 | Date: 18.09.2026 | Changes: Merge resolution preserved LiteLLM router standards lock: Docker `OLLAMA_API_BASE` wiring (`host.docker.internal` in Linux compose), deployed Spark Ollama pair (`nemotron-3-super` + `qwen3-coder:30b`), and `FRONTIER-CLAUDE-OPUS` = `claude-opus-4-8`.
 - Version: 3.29 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark loginctl: this SSH is **130**; **129** is the other admin100 session; **c1** is gdm (leave it). `who` shows tmux(3006) on pts/0 since 17.09. Inspect tmux before `terminate-session 129` — that can kill tmux.
@@ -210,14 +211,15 @@ If `gbrain doctor` reports resolver or trigger issues in DWS6, normalize the aff
 19. [AI Agent Policy](#ai-agent-policy)
 20. [Deployment Procedures](#deployment-procedures)
 21. [Session History](#session-history)
-22. [Maintenance Plan (Complete)](#maintenance-plan-complete)
-23. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
-24. [Code Review Process](#code-review-process)
-25. [Maintenance Tasks](#maintenance-tasks)
-26. [Git Workflow](#git-workflow)
-27. [Sensitive Data Protection](#sensitive-data-protection)
-28. [Emergency Procedures](#emergency-procedures)
-29. [Training](#training)
+22. [Operations log — 27.09.2026](#operations-log--27092026) ⭐ **NEW in v3.32**
+23. [Maintenance Plan (Complete)](#maintenance-plan-complete)
+24. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
+25. [Code Review Process](#code-review-process)
+26. [Maintenance Tasks](#maintenance-tasks)
+27. [Git Workflow](#git-workflow)
+28. [Sensitive Data Protection](#sensitive-data-protection)
+29. [Emergency Procedures](#emergency-procedures)
+30. [Training](#training)
 
 ---
 
@@ -389,6 +391,58 @@ this table is not being tracked, whatever the provider console says.
 Expiry tracking and rotation evidence support EU AI Act **Article 12** traceability: an auditor
 asking "who could act on this system, with what scope, between which dates" needs the register
 above, not a provider console screenshot.
+
+---
+
+## Operations log — 27.09.2026
+
+What changed in production and in the rules on 27.09.2026. Each line names the evidence.
+
+### Access control (production)
+
+| Change                                                                                                                                         | Evidence                           | State                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------ |
+| Dashboard pages check admin rights on the server (`GET /api/v1/backoffice/me`), not the user-editable `user_metadata.role`                     | PR #2138, `f3f5669`                | Live on merge (Cloudflare Pages)                                   |
+| Back-office admin = owner/admin of an organization with `organizations.is_internal = true` (DWS AB), in the API and in `is_backoffice_admin()` | PR #2143, `e421737`; migration 096 | Applied to production on HIC instruction                           |
+| `contracts_lifecycle`: dropped `authenticated read all` (every signed-in user could read every contract)                                       | PR #2147, `f0b5c7a`; migration 097 | Applied 27.09 by Copilot on DGX; verified read-only by Claude Code |
+| `orders`: dropped PUBLIC insert/update policies; users keep SELECT on their own rows; writes are service-role only (backend)                   | PR #2147; migration 097            | Applied and verified                                               |
+
+Verified state after 097 (read-only query, 27.09.2026): `contracts_lifecycle` has only `service_role full access`; `orders` has only `orders_user_view` (SELECT, authenticated); `authenticated` holds SELECT, REFERENCES, TRIGGER on both tables (no INSERT/UPDATE/DELETE); history has versions `096` and `097`.
+
+Open: `authenticated` still holds `REFERENCES` and `TRIGGER` on both tables. Not reachable through the Data API; revoke in a later migration for tidiness.
+
+### Supabase migration history — never `supabase db push`
+
+Repository and production history have diverged. Production `083` and `084` are different migrations than repository `083_smart_factory_sales` and `084_contracts_lifecycle`; many production versions are timestamps; `080_external_user_auth_roles` ran as `20260913104017`. `supabase db push` would try to re-run migrations production already has.
+
+Until the history is reconciled:
+
+1. Apply one new migration file at a time with `psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f <file>` (or the SQL editor).
+2. Run a read-only preflight and postflight of `pg_policies` / grants.
+3. Record the version with `supabase migration repair --status applied <version>` (history only, runs no SQL).
+4. Editing an already-applied migration file never changes production. Fix production with a new forward migration.
+
+Next free migration number: 098. Applying migrations stays RED (HIC).
+
+### Cost and compute
+
+- **Copilot credit:** $210 promotional credit (21,000 AI credits, 1 credit = $0.01), expires 30.09.2026 23:59 UTC / 01.10.2026. HIC decision: use it in full, no paid overage. Used by 27.09.2026: $33.66 of $210 (GitHub billing page, HIC screenshot) — $176.34 left. Work order and execution log: `.claude/handoffs/copilot-bonus-credits-2026-09-30.md`.
+- **Model routing for Copilot:** GPT-5.6 Luna for mechanical PR updates, Terra for code with behaviour, Sol only for security/database work (Sol $5/$30, Terra $2.50/$15, Luna $1/$6 per million input/output tokens).
+- **Persistence Rule** (`docs/DWS_COST_POLICY_STANDARD.md` v1.1): cloud agents deliver one-off output; anything recurring runs on DGX.
+- **Moved to DGX (GHA `schedule:` removed, manual dispatch kept):** `public-truth-drift-audit` (#2145), `cost-audit-sync`, `dora-weekly`, `flake-detector` (#2144). Register: `Cron-works.md`.
+
+### Git identity on DGX
+
+- The 2026-08-25 test-fixture leak left `user.name = Unit Fixture` / `dev@lifetime.fi` in the DGX checkout's repo-local config; 118+ commits on main carry it. Removed 27.09 with `git config --local --unset user.name` / `user.email`. History is not rewritten.
+- **Tool Git Identity Rule** (`CLAUDE.md` v1.5): tools commit as `Risto Anton Päärni (<tool>) <<tool>@lifetime.fi>`; human commits as `risto.paarni@lifetime.fi`. Set per tool at launch through `GIT_AUTHOR_*` / `GIT_COMMITTER_*` (wrapper in `~/.bashrc` on DGX). Check: `git log -1 --format='%an <%ae>'`; `git config --local --get user.name` must print nothing.
+
+### CI
+
+- GitHub-hosted runners are not picking up jobs: `detect-runner` fails in about one second and `test`/`lint` are skipped on every PR (seen on `main`, run 920). The DGX-only runner change (commit `3913cc1eb`, PR #2125) queues until the DGX runner takes jobs. Until fixed, run `npm run build && npm test` locally before every push. Known env-only failures: four `scripts/__tests__/*tree-gate*` files.
+
+### Pull requests closed out on 27.09.2026
+
+Merged: #2133, #2137, #2138, #2142, #2143, #2144, #2145, #2146, #2147. Closed unmerged: #2139 (log replaced by #2146), #2141 (superseded by #2145).
 
 ---
 
