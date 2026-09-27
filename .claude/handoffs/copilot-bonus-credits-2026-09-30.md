@@ -3,11 +3,12 @@
 
 # Copilot Work Order — Bonus-Credit Burn to 30.09.2026
 
-Version: 1.11 [Latest]
+Version: 1.12 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.11 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/four-session-takeover | Date: 27.09.2026 | Changes: Completed the Session 3–4 takeover, resolved four actionable Session 5 findings, recorded the HIC local-only Kimi decision, migrated Session 4 CI/schedules to DGX, completed C2–C4 testing, and merged PRs #2160–#2171.
+- Version: 1.12 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/pr2156-closeout | Date: 27.09.2026 | Changes: Audited and merged #2156 Phase 1, hardened its read-only verifier, and preserved the separate Phase 2 deployment gates. | Harness: GitHub Copilot CLI + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.11 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/four-session-takeover | Date: 27.09.2026 | Changes: Completed the Session 3–4 takeover, resolved four actionable Session 5 findings, recorded the HIC local-only Kimi decision, migrated Session 4 CI/schedules to DGX, completed C2–C4 testing, and merged PRs #2160–#2171.
 - Version: 1.10 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: docs/session5-audit-20260927 | Date: 27.09.2026 | Changes: Session 5 reviewer audit; merged approved documentation PRs #2150, #2153, and #2155, held #2156, and recorded five follow-up findings in previously merged work.
 - Version: 1.9 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/copilot-post-merge-log | Date: 27.09.2026 | Changes: Verified external merges of #2148 and #2152, updated Lane C status, and reran focused tests on merged main.
 - Version: 1.8 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/copilot-bonus-log-b1-b4 | Date: 27.09.2026 | Changes: Recorded completed Lane C coverage measurement and tests.
@@ -162,6 +163,8 @@ Verified by Claude Code on 27.09.2026 against the PR list, PR comments and `git 
 | OpenClaw plan           | [#2156](https://github.com/blogtheristo/dws6/pull/2156)                                                                                                                                                                                                                                     | held                                                         | Still requires explicit owner confirmation that OpenClaw Phase 1 is complete; no runtime adoption was merged.                                                                                                                                               |
 
 Reviewer verification used exact PR heads plus clean synthetic merge trees. The remediation merge tree passed 167 test files / 1,726 tests, and the complete Session 4 merge tree passed 172 test files / 1,757 tests; both had four skipped files and 33 skipped tests. TypeScript, targeted tests, migration filename validation, shell syntax, Prettier/evidence checks, mirror checks, and relevant truth/schedule checks passed. GitHub-hosted checks remain billing-blocked; push-time local CI passed for the merged heads.
+
+**Later #2156 decision (27.09.2026):** The prior "held" rows record the earlier review state, not the current PR state. After the owner's request to continue, the Phase 1 architecture, proposed profiles, read-only diagnostics and regression tests were audited, hardened, and merged as `776fd03ec89d31a8e44e5db0b4752ad16cb528c0` (reviewed head `ca925d341dd025c00c50c9f030055e3260691da6`). The full local suite passed 1,767 tests across 173 files; the verifier still reports six baseline findings and `liveVerified: false`. No production runtime, image, secrets, routes or traffic changed. Phase 2 requires an approved pinned vendor image, real OpenShell isolation/egress and auth enforcement, signed tenant-bound KYA, fail-closed audit, and a chosen read-only Athena pilot before deployment or promotion; see `docs/architecture/openclaw-nemoclaw-adoption.md`.
 
 **Not reached in session 1:** B1–B9, C1–C2. D1–D2 are in #2144 and the admin-scoping fix is merged as #2143.
 

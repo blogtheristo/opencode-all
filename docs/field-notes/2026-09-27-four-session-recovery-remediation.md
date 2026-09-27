@@ -7,11 +7,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0 [Latest]
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Model: GPT-5.6 Sol | Session: copilot/four-session-takeover | Date: 27.09.2026 | Changes: Recovered four interrupted terminal sessions, independently audited their deliverables, fixed verified defects, completed the blocked Session 3–4 scope, and recorded merged evidence. | Harness: GitHub Copilot CLI + CLAUDE.md + matched DWS standards | HIC-approved-drift: Kimi is local-only and must never use a cloud provider.
+- Version: 1.1 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Model: Auto | Session: copilot/pr2156-closeout | Date: 27.09.2026 | Changes: Recorded subsequent Phase 1 OpenClaw PR merge and separated it from Phase 2 runtime promotion. | Harness: GitHub Copilot CLI + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.0 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Model: GPT-5.6 Sol | Session: copilot/four-session-takeover | Date: 27.09.2026 | Changes: Recovered four interrupted terminal sessions, independently audited their deliverables, fixed verified defects, completed the blocked Session 3–4 scope, and recorded merged evidence. | Harness: GitHub Copilot CLI + CLAUDE.md + matched DWS standards | HIC-approved-drift: Kimi is local-only and must never use a cloud provider.
 
 Document Status:
 
@@ -62,7 +63,7 @@ Session 3 targets were reconciled against current GitHub state. Completed work s
 
 - Configure the dws10.com Pages `CONTACT_RATE_LIMITER` binding at five requests per 60 seconds before deploying the fail-closed contact handler.
 - Keep migration 098 unapplied until an operator reviews duplicate evidence and explicitly approves application.
-- PR #2156 remains held until the owner confirms OpenClaw Phase 1 is complete.
+- PR #2156 Phase 1 subsequently merged as `776fd03ec89d31a8e44e5db0b4752ad16cb528c0` after owner direction to continue; its proposed profiles and read-only verifier do not deploy or enforce OpenShell. Phase 2 needs pinned images, proven isolation and auth, signed tenant-bound KYA, fail-closed audit, and a selected read-only Athena pilot before promotion.
 - Keep Kimi local-only; do not add a cloud Kimi catalog entry.
 
 ## Learning outcome
@@ -71,4 +72,4 @@ Recovery is not completion. A resumed agent can reproduce a green local result w
 
 ---
 
-Version 1.0 | 27.09.2026 | © 2026 Lifetime Oy | INTERNAL
+Version 1.1 | 27.09.2026 | © 2026 Lifetime Oy | INTERNAL
