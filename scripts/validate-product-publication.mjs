@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-6-sol Agent=copilot Date=2026-09-27
+// Evidence: Tool=Claude Code Model=anthropic Agent=pr-ci-main-ref-fallback Date=2026-09-27
 // Audit trail: git log -- scripts/validate-product-publication.mjs
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
@@ -320,18 +320,23 @@ if (packageIds.size !== 13 || mappedProductIds.size !== 13) {
     `Consulting mapping must be one-to-one: package IDs=${packageIds.size}, supported product IDs=${mappedProductIds.size}`,
   );
 }
-try {
-  // PR checkouts in CI have no local `main` branch; fall back to origin/main.
-  const mainRef = ['main', 'origin/main'].find((ref) => {
+// PR CI checks out a depth-1 merge ref with no local `main` or `origin/main`, so resolve the
+// base catalog from the first ref that exists, fetching origin/main once if neither does.
+function mainCatalogJson() {
+  const path = 'dws10.com/config/products.json';
+  for (const ref of ['main', 'origin/main']) {
     try {
-      gitOutput(['rev-parse', '--verify', '--quiet', `${ref}^{commit}`]);
-      return true;
+      return gitOutput(['show', `${ref}:${path}`]);
     } catch {
-      return false;
+      // try the next ref
     }
-  });
-  if (!mainRef) throw new Error('neither main nor origin/main is available in this checkout');
-  const mainCatalog = JSON.parse(gitOutput(['show', `${mainRef}:dws10.com/config/products.json`]));
+  }
+  gitOutput(['fetch', '--quiet', '--depth=1', 'origin', 'main']);
+  return gitOutput(['show', `FETCH_HEAD:${path}`]);
+}
+
+try {
+  const mainCatalog = JSON.parse(mainCatalogJson());
   const currentIds = new Set(products.map((product) => product.id));
   const lostIds = Object.values(mainCatalog.products || {})
     .map((product) => product.id)

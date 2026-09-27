@@ -40,10 +40,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # validate-product-publication.mjs compares product IDs against main.
-      - name: Fetch main for product ID comparison
-        run: git fetch --no-tags --depth=1 origin main:refs/remotes/origin/main
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
