@@ -1,0 +1,4 @@
+# Handoff — claude/jev-mem-performance-635cn7
+
+- 2026-09-26 | Jev-Mem (arXiv 2609.23986, UT Dallas, MIT repo libingzheren/Jev-Mem) evaluated vs `src/agents/memory.service.ts`. Field note `docs/field-notes/2026-09-26-jev-mem-agentic-memory-evaluation.md` + Learn HTML. Recommendation: PILOT (1-day DGX LoCoMo reproduction with local model), borrow temporal/causal edges + cheap recall gate, do not adopt external controller on Sovereign path. Corrected 6.6× (vs fastest competitor) vs 8.9× (vs MAGMA). Paper PDF not read — arxiv egress blocked. Open: HIC Q1 (highest Q number on branch: Q1).
+- 2026-09-26 | v1.1: full paper read via HF connector (hf://papers/2609.23986/paper.md). Corrected build-time baseline (1 044 s fastest competitor, not MAGMA 1 404 s). Added baseline deltas per category and method gaps (LoCoMo only, no ablation). Q1 still open.

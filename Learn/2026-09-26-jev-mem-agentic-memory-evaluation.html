@@ -1,0 +1,549 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>2026-09-26-jev-mem-agentic-memory-evaluation</title>
+    <style>
+      html {
+        color: #1a1a1a;
+        background-color: #fdfdfd;
+      }
+      body {
+        margin: 0 auto;
+        max-width: 36em;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        hyphens: auto;
+        overflow-wrap: break-word;
+        text-rendering: optimizeLegibility;
+        font-kerning: normal;
+      }
+      @media (max-width: 600px) {
+        body {
+          font-size: 0.9em;
+          padding: 12px;
+        }
+        h1 {
+          font-size: 1.8em;
+        }
+      }
+      @media print {
+        html {
+          background-color: white;
+        }
+        body {
+          background-color: transparent;
+          color: black;
+          font-size: 12pt;
+        }
+        p,
+        h2,
+        h3 {
+          orphans: 3;
+          widows: 3;
+        }
+        h2,
+        h3,
+        h4 {
+          page-break-after: avoid;
+        }
+      }
+      p {
+        margin: 1em 0;
+      }
+      a {
+        color: #1a1a1a;
+      }
+      a:visited {
+        color: #1a1a1a;
+      }
+      img {
+        max-width: 100%;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-top: 1.4em;
+      }
+      h5,
+      h6 {
+        font-size: 1em;
+        font-style: italic;
+      }
+      h6 {
+        font-weight: normal;
+      }
+      ol,
+      ul {
+        padding-left: 1.7em;
+        margin-top: 1em;
+      }
+      li > ol,
+      li > ul {
+        margin-top: 0;
+      }
+      blockquote {
+        margin: 1em 0 1em 1.7em;
+        padding-left: 1em;
+        border-left: 2px solid #e6e6e6;
+        color: #606060;
+      }
+      code {
+        font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;
+        font-size: 85%;
+        margin: 0;
+        hyphens: manual;
+      }
+      pre {
+        margin: 1em 0;
+        overflow: auto;
+      }
+      pre code {
+        padding: 0;
+        overflow: visible;
+        overflow-wrap: normal;
+      }
+      .sourceCode {
+        background-color: transparent;
+        overflow: visible;
+      }
+      hr {
+        background-color: #1a1a1a;
+        border: none;
+        height: 1px;
+        margin: 1em 0;
+      }
+      table {
+        margin: 1em 0;
+        border-collapse: collapse;
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+        font-variant-numeric: lining-nums tabular-nums;
+      }
+      table caption {
+        margin-bottom: 0.75em;
+      }
+      tbody {
+        margin-top: 0.5em;
+        border-top: 1px solid #1a1a1a;
+        border-bottom: 1px solid #1a1a1a;
+      }
+      th {
+        border-top: 1px solid #1a1a1a;
+        padding: 0.25em 0.5em 0.25em 0.5em;
+      }
+      td {
+        padding: 0.125em 0.5em 0.25em 0.5em;
+      }
+      header {
+        margin-bottom: 4em;
+        text-align: center;
+      }
+      #TOC li {
+        list-style: none;
+      }
+      #TOC ul {
+        padding-left: 1.3em;
+      }
+      #TOC > ul {
+        padding-left: 0;
+      }
+      #TOC a:not(:hover) {
+        text-decoration: none;
+      }
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      div.columns {
+        display: flex;
+        gap: min(4vw, 1.5em);
+      }
+      div.column {
+        flex: auto;
+        overflow-x: auto;
+      }
+      div.hanging-indent {
+        margin-left: 1.5em;
+        text-indent: -1.5em;
+      }
+
+      ul.task-list[class] {
+        list-style: none;
+      }
+      ul.task-list li input[type="checkbox"] {
+        font-size: inherit;
+        width: 0.8em;
+        margin: 0 0.8em 0.2em -1.6em;
+        vertical-align: middle;
+      }
+      .display.math {
+        display: block;
+        text-align: center;
+        margin: 0.5rem auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header id="title-block-header">
+      <h1 class="title">2026-09-26-jev-mem-agentic-memory-evaluation</h1>
+    </header>
+    <h1 id="jev-mem-system-one-controlled-agentic-memory-evaluation-for-dws-memory-plane">
+      Jev-Mem — System-One-Controlled Agentic Memory: Evaluation for DWS Memory Plane
+    </h1>
+    <p>
+      Status: PENDING_REVIEW Date: 2026-09-26 Author: Claude Code (standby runtime), session
+      <code>claude/jev-mem-performance-635cn7</code> Standards loaded:
+      <code>docs/system-config/STANDARDS_ROUTING.md</code>, <code>DWS_LEARNING_STANDARD.md</code>,
+      <code>DWS_TRUTH_STANDARD.md</code> (memory rows), <code>DWS_ROLES_REGISTRY.md</code> (R03/R04)
+      Tags: memory, agent-architecture, benchmark, LoCoMo, Jev, pgvector, competitive-intelligence
+    </p>
+    <h2 id="source">1. Source</h2>
+    <table>
+      <colgroup>
+        <col style="width: 70%" />
+        <col style="width: 29%" />
+      </colgroup>
+      <thead>
+        <tr class="header">
+          <th>Item</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd">
+          <td>Paper</td>
+          <td>
+            <em>Jev-Mem: System-One-Controlled Agentic Memory for Efficient AI Agents</em>, arXiv
+            2609.23986v1. Dongming Jiang, Yi Li, Bingzhe Li (corresponding), Dept. of Computer
+            Science, University of Texas at Dallas
+          </td>
+        </tr>
+        <tr class="even">
+          <td>Code</td>
+          <td>
+            <code>github.com/libingzheren/Jev-Mem</code>: MIT, Python 3.11, offline demo without API
+            keys
+          </td>
+        </tr>
+        <tr class="odd">
+          <td>HIC pointer</td>
+          <td>
+            academy.dair.ai/papers/jev-mem-system-one-controlled-agentic-memory-for-efficient-ai-agents-2609.23986
+            (HIC, 2026-09-26)
+          </td>
+        </tr>
+        <tr class="even">
+          <td>Verification</td>
+          <td>
+            v1.1: full paper text read via Hugging Face connector
+            (<code>hf://papers/2609.23986/paper.md</code>, arXiv HTML mirror). Repo README read
+            directly. academy.dair.ai, arxiv.org, huggingface.co web, aiweekly.co are
+            <code>EGRESS_BLOCKED</code> from this sandbox. Tables 1–2 are images in the HTML;
+            per-category and baseline figures below are from the paper’s prose (§4.2–4.3), not the
+            table cells.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h2 id="what-it-is">2. What it is</h2>
+    <p>Two-speed memory architecture, System-One / System-Two:</p>
+    <ul>
+      <li>
+        <strong>System-One control plane.</strong> A typed controller J(S, Q): structured state S
+        plus a batch of explicit decision questions Q. It returns probabilities for independent
+        propositions or a distribution over fixed alternatives. No free-form text is generated and
+        parsed. Decisions on the same state are batched into one call. The same interface drives the
+        write path (memory typing, relation construction) and the read path (query routing,
+        retrieval budget, graph traversal, candidate scoring, adaptive stopping). The repo
+        implements it as Jev decisions (default <code>jev-latest</code>) plus deterministic code
+        (graph limits, validation, timestamp ordering); no model training.
+      </li>
+      <li>
+        <strong>Memory plane.</strong> Shared canonical nodes with
+        <strong>four typed edge sets: semantic, temporal, causal, entity</strong>. Several typed
+        edges may join the same pair. Vector and lexical indexes are entry points into the same node
+        set. Embeddings: MiniLM (repo).
+      </li>
+      <li>
+        <strong>System-Two plane.</strong> The answer LLM (GPT-4o-mini in all experiments), called
+        only for complex reasoning and answer synthesis on the assembled evidence.
+      </li>
+    </ul>
+    <p>
+      The core idea (§2.2): most memory-control operations are “semantic but not generative”. They
+      output labels, probabilities or scores, so running them through token-by-token LLM generation
+      is wasted cost on the critical path. This is the same principle as request-level model
+      cascades and speculative decoding, applied per memory decision.
+    </p>
+    <h2 id="reported-results-locomo-gpt-4o-mini-llm-as-judge">
+      3. Reported results (LoCoMo, GPT-4o-mini, LLM-as-Judge)
+    </h2>
+    <p>
+      Baselines: Full Context, A-MEM, Nemori, MemoryOS, MAGMA (same answer model where applicable).
+    </p>
+    <table>
+      <colgroup>
+        <col style="width: 25%" />
+        <col style="width: 8%" />
+        <col style="width: 39%" />
+        <col style="width: 26%" />
+      </colgroup>
+      <thead>
+        <tr class="header">
+          <th>Metric</th>
+          <th>Jev-Mem</th>
+          <th>Best baseline</th>
+          <th>Delta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd">
+          <td>Overall</td>
+          <td>0.777</td>
+          <td>0.700</td>
+          <td>+11.0 % relative ✔</td>
+        </tr>
+        <tr class="even">
+          <td>Multi-hop</td>
+          <td>0.625</td>
+          <td>0.569</td>
+          <td>+9.8 % ✔</td>
+        </tr>
+        <tr class="odd">
+          <td>Open-domain</td>
+          <td>0.610</td>
+          <td>0.517</td>
+          <td>+18.0 % ✔</td>
+        </tr>
+        <tr class="even">
+          <td>Adversarial</td>
+          <td>0.962</td>
+          <td>0.742</td>
+          <td>+29.6 % ✔</td>
+        </tr>
+        <tr class="odd">
+          <td>Single-hop</td>
+          <td>0.797</td>
+          <td>not stated in prose</td>
+          <td>best</td>
+        </tr>
+        <tr class="even">
+          <td>Temporal</td>
+          <td>0.650</td>
+          <td>0.650</td>
+          <td>tie</td>
+        </tr>
+        <tr class="odd">
+          <td>Memory construction</td>
+          <td>158 s</td>
+          <td>1 044 s (fastest competitor)</td>
+          <td>−84.9 %, 6.6× ✔</td>
+        </tr>
+        <tr class="even">
+          <td>Avg query latency</td>
+          <td>0.93 s</td>
+          <td>1.47 s (fastest memory baseline)</td>
+          <td>−36.7 % ✔</td>
+        </tr>
+        <tr class="odd">
+          <td>vs Full Context</td>
+          <td>0.93 s</td>
+          <td>1.74 s</td>
+          <td>−46.6 % ✔</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Outliers named in the paper: A-MEM and MemoryOS build times &gt; 3 000 s; MemoryOS query
+      latency 32.68 s.
+    </p>
+    <p>✔ = arithmetic re-checked against the stated figures.</p>
+    <p>
+      <strong>Correction to v1.0:</strong> v1.0 stated MAGMA build time 1 404 s and “8.9× vs MAGMA”.
+      That came from a summarised README fetch and is wrong. The paper gives 1 044 s for the fastest
+      competing system and does not name it in prose. Removed.
+    </p>
+    <p>
+      <strong>Paper vs repo drift:</strong> the repo README reports slightly different per-category
+      scores (multi-hop 0.623, temporal 0.637, open-domain 0.618, single-hop 0.802). Overall 0.777
+      matches. Likely a different run; the paper figures are used here.
+    </p>
+    <h2 id="critical-reading-method">4. Critical reading (method)</h2>
+    <ol type="1">
+      <li>
+        <strong>Gains are real but uneven.</strong> The largest gain is adversarial (+29.6 %,
+        distractor rejection). That is the category where an explicit evidence-sufficiency check is
+        expected to help most. Multi-hop +9.8 % and open-domain +18.0 % are meaningful. Temporal is
+        only a tie, even though the system adds dedicated temporal edges. Absolute multi-hop and
+        open-domain scores (≈0.61–0.63) are still low for enterprise use.
+      </li>
+      <li>
+        <strong>One benchmark only.</strong> §4.1 says “two widely used benchmarks” but describes
+        and reports LoCoMo only. No LongMemEval result. This is an internal inconsistency in v1 of
+        the paper.
+      </li>
+      <li>
+        <strong>One answer model only.</strong> GPT-4o-mini is used for everything. Transfer to
+        other backbones (our DGX-hosted models) is untested.
+      </li>
+      <li>
+        <strong>No ablation, no variance.</strong> The retrieved text has no ablation of the four
+        edge types or of adaptive stopping, no run-to-run variance and no token-cost figure. We
+        cannot tell which component produces the gain.
+      </li>
+      <li>
+        <strong>No limitations section.</strong> The paper goes from §4 straight to the conclusion.
+      </li>
+      <li>
+        <strong>The judge is a soft metric.</strong> LLM-as-Judge (Zheng et al., 2023) depends on
+        the judge model and prompt. The judge model is not named in the retrieved text. Comparisons
+        across papers are only valid with the same judge.
+      </li>
+      <li>
+        <strong>Sovereignty.</strong> The default stack is US-hosted GPT-4o-mini plus an external
+        <code>jev-latest</code> controller. For DWS EU/Sovereign tiers this is an Inference
+        Jurisdiction (IJS) issue. Both are swappable (OpenAI-compatible interface), but the
+        published latency does not transfer until a local controller is measured.
+      </li>
+    </ol>
+    <h2 id="fit-against-dws-memory-plane">5. Fit against DWS memory plane</h2>
+    <p>
+      Current: <code>src/agents/memory.service.ts</code> (v1.0.0, 1 144 lines) — pgvector + pg_trgm
+      hybrid recall, temporal superseding for contradictions, entity–relation profile facts
+      (<code>memory.types.ts:166-175</code>), decay, duplicate consolidation, LRU recall cache. 5
+      production call sites.
+    </p>
+    <table>
+      <colgroup>
+        <col style="width: 28%" />
+        <col style="width: 30%" />
+        <col style="width: 41%" />
+      </colgroup>
+      <thead>
+        <tr class="header">
+          <th>Jev-Mem element</th>
+          <th>DWS today</th>
+          <th>Gap</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd">
+          <td>Semantic view</td>
+          <td>pgvector similarity</td>
+          <td>none</td>
+        </tr>
+        <tr class="even">
+          <td>Temporal view</td>
+          <td>supersede-by-time only</td>
+          <td>no temporal edges between memories</td>
+        </tr>
+        <tr class="odd">
+          <td>Causal view</td>
+          <td>—</td>
+          <td><strong>missing</strong></td>
+        </tr>
+        <tr class="even">
+          <td>Entity view</td>
+          <td>profile facts (entity/relation/value)</td>
+          <td>partial; not a traversable graph</td>
+        </tr>
+        <tr class="odd">
+          <td>Cheap controller before LLM</td>
+          <td>fixed similarity threshold (0.5)</td>
+          <td><strong>missing</strong> — no routing/evidence-sufficiency step</td>
+        </tr>
+        <tr class="even">
+          <td>One LLM call on assembled evidence</td>
+          <td>caller-dependent</td>
+          <td>not enforced</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      The architecture matches DWS’s own Discipline Rule 5 (“model for judgement calls only”) and
+      the Brain-Memory-Body-Hands split. It is a published, benchmarked argument for a design we
+      already hold as a principle.
+    </p>
+    <h2 id="recommendation">6. Recommendation</h2>
+    <p><strong>PILOT, do not adopt.</strong> Borrow the pattern, not the dependency.</p>
+    <ol type="1">
+      <li>
+        <strong>Reproduce first (1 day, DGX, GREEN).</strong> Clone the MIT repo onto DGX Spark, run
+        the offline demo, then LoCoMo with a <strong>local</strong> answer model and a local
+        controller in place of GPT-4o-mini / <code>jev-latest</code>. Accept only if overall ≥ 0.72
+        and multi-hop ≥ 0.60 on our stack. Gate rationale: 0.72 is above the best baseline (0.700)
+        and 0.60 is above the best multi-hop baseline (0.569). Add one ablation the paper lacks:
+        causal + temporal edges off vs on. This converts a paper claim into a DWS measured fact and
+        shows which part we should actually build.
+      </li>
+      <li>
+        <strong>If it reproduces — extend <code>memory.service.ts</code>, don’t replace it.</strong>
+        Add (a) typed <code>temporal</code> and <code>causal</code> edge tables beside the existing
+        pgvector store (one migration file, RLS + grants per standard; application is RED/HIC), (b)
+        a cheap router/evidence-sufficiency gate in <code>recall()</code> before the answer model.
+        Keeps Postgres, RLS and the Aegis audit chain intact.
+      </li>
+      <li>
+        <strong>Build our own LoCoMo-style eval</strong> into <code>src/evals/</code> so every
+        memory change carries a number. Ties into token-capital (private evals as owned capability).
+      </li>
+      <li><strong>Do not</strong> add an external controller API to the Sovereign tier path.</li>
+    </ol>
+    <p>
+      <strong>Commercial use (sales / investor):</strong> usable as third-party evidence that “fast
+      controller + single LLM call” beats “LLM on every memory op” on both quality and latency.
+      Claim only after step 1 reproduces on our hardware — until then cite as “published result, UT
+      Dallas, arXiv 2609.23986”, never as DWS performance.
+    </p>
+    <h2 id="learning-outcome-steps">7. Learning outcome steps</h2>
+    <ul>
+      <li>
+        Step 1 (KB): N/A — <code>/kb</code> ingest deferred until reproduction result exists; a
+        paper claim should not enter KB as fact.
+      </li>
+      <li>Step 2 (field note): this file.</li>
+      <li>
+        Step 3 (Learn/ HTML): <code>Learn/2026-09-26-jev-mem-agentic-memory-evaluation.html</code>.
+      </li>
+      <li>
+        Step 4 (Drive export): N/A — no Drive write performed this session; repo is source of truth.
+      </li>
+      <li>Step 5 (HIC question): <strong>Q1</strong> below.</li>
+      <li>Step 6 (Calendar): N/A — no dated commitment made; reproduction date is HIC’s to set.</li>
+    </ul>
+    <h2 id="hic-decision">8. HIC decision</h2>
+    <p>
+      <strong>Q1.</strong> Approve a 1-day DGX reproduction of Jev-Mem on LoCoMo with a local model
+      (step 6.1), with the go/no-go gate overall ≥ 0.72 and multi-hop ≥ 0.60 — yes / no / change
+      gate?
+    </p>
+    <hr />
+    <h2 id="version-and-agent-history">VERSION AND AGENT HISTORY</h2>
+    <ul>
+      <li>
+        Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/jev-mem-performance-635cn7 |
+        Date: 26.09.2026 | Changes: Read full paper via HF connector. Added authors, baselines,
+        per-category baseline deltas, full-context latency. Corrected v1.0 MAGMA build-time error (1
+        404 s / 8.9× removed; paper: 1 044 s fastest competitor, 6.6×). Added method gaps:
+        LoCoMo-only despite “two benchmarks”, no ablation/variance/limitations, temporal tie.
+        Recorded paper-vs-README score drift.
+      </li>
+      <li>
+        Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/jev-mem-performance-635cn7 |
+        Date: 26.09.2026 | Changes: Initial evaluation of Jev-Mem (arXiv 2609.23986) against
+        <code>memory.service.ts</code>; pilot recommendation; Q1.
+      </li>
+    </ul>
+  </body>
+</html>
