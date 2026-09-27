@@ -210,12 +210,12 @@ Claude Code → opens PR → Claude sanity check → Gemini HIL review → @copi
 
 ### Copilot Coding Agent Setup (`copilot-setup-steps.yml`)
 
-**Location:** `.github/copilot-setup-steps.yml`
+**Location:** `.github/workflows/copilot-setup-steps.yml`
 
 Defines environment setup for GitHub Copilot coding agent:
-- Installs Node.js dependencies (`npm install`)
-- Installs Python linting tools (ruff, bandit, safety)
+- Uses Node.js 24 and installs lockfile-pinned dependencies (`npm ci`)
 - Builds TypeScript (`npm run build`)
+- Runs on GitHub-hosted Ubuntu x64; DGX arm64 is not a supported Copilot cloud-agent runner
 
 This enables Copilot to autonomously implement fixes when tagged in PR comments.
 
