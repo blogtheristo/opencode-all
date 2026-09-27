@@ -1,13 +1,13 @@
 ---
 title: CLAUDE.md — Operational Rules for AI Agents
-version: 1.4
+version: 1.5
 status: Active
 last_updated: 2026-09-27
 applies_to:
   ["Claude Code", "OpenCode", "BaseAgent", "MCP tools", "Cursor", "Cursor Cloud", "all agents"]
 language: en
 schema: DWS_DOCUMENT_STANDARD
-changes_in_this_version: "Corrected the DWS Cost Policy Standard path to docs/DWS_COST_POLICY_STANDARD.md"
+changes_in_this_version: "HIC 27.09.2026: Tool Git Identity rule (<tool>@lifetime.fi); moved misplaced 1.4 row to Version History"
 source_control_url: "https://github.com/blogtheristo/dws6/blob/main/CLAUDE.md"
 ---
 
@@ -232,6 +232,17 @@ When gated on HIC approval (Rule 13 blogs, document rewrites, customer-facing ar
 - **Thesis files:** require `--force-thesis` override for structural edits.
 - **Checker:** `scripts/evidence-audit.mjs <paths…>` before commit.
 
+### Tool Git Identity Rule
+
+Every commit shows which tool made it (HIC 27.09.2026). Git author and committer:
+
+- **Name:** `Risto Anton Päärni (<tool>)` · **Email:** `<tool>@lifetime.fi` — `<tool>` is `copilot`, `opencode`, `cursor`, `claude`, …
+- **Human commits** (no tool): `Risto Anton Päärni <risto.paarni@lifetime.fi>`, the global git config.
+- **Mechanism:** set `GIT_AUTHOR_*` / `GIT_COMMITTER_*` when the tool starts (shell wrapper in `~/.bashrc` on DGX), never a repo-local `user.name` / `user.email`. A repo-local identity overrides everyone; the 2026-08-25 test-fixture leak signed 118+ commits as `Unit Fixture <dev@lifetime.fi>` this way.
+- **Cloud agents** that set their own identity (Claude Code on the web: `noreply@anthropic.com`) keep it; the tool is still identifiable.
+- **Check:** `git log -1 --format='%an <%ae>'` after the first commit of a session. `git config --local --get user.name` must print nothing.
+- Never rewrite history to fix past authorship.
+
 ---
 
 ### Secret Egress Rules
@@ -397,7 +408,6 @@ For new taxonomy-facing copy, use the DWS skilled terminology model from canonic
 
 | File                                         | Purpose                                                  | Tools                                        | Status      |
 | -------------------------------------------- | -------------------------------------------------------- | -------------------------------------------- | ----------- |
-| 1.4     | 2026-09-27 | Corrected the DWS Cost Policy Standard reference to its canonical `docs/` path. | GitHub Copilot CLI |
 | **CLAUDE.md** (this file)                    | Canonical operational rules                              | OpenCode, Claude Code, BaseAgent, all agents | Active      |
 | **opencode.json**                            | OpenCode runtime config + instructions reference         | OpenCode primary                             | Active      |
 | **.claude/settings.json**                    | Claude Code settings, hooks, permissions                 | Claude Code standby                          | Active      |
@@ -429,9 +439,11 @@ Use these for full detail when needed:
 
 ## Version History
 
-| Version | Date       | Changes                                                                                                                                                                                            | Author      |
-| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| 1.3     | 2026-09-19 | HIC: retire `***` / Pandoc-from-markdown PDF. VAH uses `---`. HIC prints PDF from HTML.                                                                                                            | Cursor      |
-| 1.2     | 2026-09-19 | Cursor/Cloud: standards resolver is mandatory file Reads; `dws-standards-always.mdc` is the harness Cursor actually injects                                                                        | Cursor      |
-| 1.1     | 2026-09-07 | Extracted long specs (Discipline, Standards Routing) to separate indexed files; added multi-tool acknowledgment and system file ecosystem cross-references; added DWS Document Standard versioning | Claude Code |
-| 1.0     | Prior      | Original consolidated rules file                                                                                                                                                                   | HIC         |
+| Version | Date       | Changes                                                                                                                                                                                            | Author             |
+| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| 1.5     | 2026-09-27 | HIC: Tool Git Identity rule — `<tool>@lifetime.fi`, set per tool at launch; no repo-local identity. Moved misplaced 1.4 row here.                                                                  | Claude Code        |
+| 1.4     | 2026-09-27 | Corrected the DWS Cost Policy Standard reference to its canonical `docs/` path.                                                                                                                    | GitHub Copilot CLI |
+| 1.3     | 2026-09-19 | HIC: retire `***` / Pandoc-from-markdown PDF. VAH uses `---`. HIC prints PDF from HTML.                                                                                                            | Cursor             |
+| 1.2     | 2026-09-19 | Cursor/Cloud: standards resolver is mandatory file Reads; `dws-standards-always.mdc` is the harness Cursor actually injects                                                                        | Cursor             |
+| 1.1     | 2026-09-07 | Extracted long specs (Discipline, Standards Routing) to separate indexed files; added multi-tool acknowledgment and system file ecosystem cross-references; added DWS Document Standard versioning | Claude Code        |
+| 1.0     | Prior      | Original consolidated rules file                                                                                                                                                                   | HIC                |
