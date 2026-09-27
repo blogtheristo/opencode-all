@@ -1,10 +1,11 @@
 # Copilot Work Order — Bonus-Credit Burn to 30.09.2026
 
-Version: 1.2 [Latest]
+Version: 1.3 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.2 [Latest] | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: Added §5 Execution log (Lane A run, verified against PRs and main); #2139, which carried Copilot's own log, was closed unmerged.
+- Version: 1.3 [Latest] | Tool: Claude Code | Session: opencode/lane-d-dgx-persistence | Date: 27.09.2026 | Changes: Merged main into #2144; kept the §5 log and added rows D1–D2 (#2144) and the admin-scoping fix (#2143). Folds in the Lane D entry: "Completed Lane D inventory and migrated the top three scheduled workflows to DGX-primary execution" (GitHub Copilot CLI 1.0.88).
+- Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: Added §5 Execution log (Lane A run, verified against PRs and main); #2139, which carried Copilot's own log, was closed unmerged.
 - Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: HIC decision — use the $210 credit in full; persistent work lands on DGX (`DWS_COST_POLICY_STANDARD.md` v1.1). Budget confirmed from GitHub billing page; Lane D added.
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: Initial work order. HIC moved use cases 1–3 to GitHub Copilot (GPT-5.6), budget 21,000 bonus credits, deadline 30.09.2026 23:59 UTC.
 
@@ -100,8 +101,11 @@ Verified by Claude Code on 27.09.2026 against the PR list, PR comments and `git 
 | — (outside order) | [#2135](https://github.com/blogtheristo/dws6/pull/2135) | merged `a77fb28`            | not run in CI                                   | Weekly public truth drift audit (issue #1846). Its GHA schedule was removed in #2145 (Persistence Rule); DGX runs it weekly.                                                                             |
 | —                 | [#2139](https://github.com/blogtheristo/dws6/pull/2139) | closed unmerged             | n/a                                             | Copilot's own execution log; replaced by this section.                                                                                                                                                   |
 | —                 | [#2141](https://github.com/blogtheristo/dws6/pull/2141) | closed, superseded by #2145 | n/a                                             | Duplicate drift-audit implementation.                                                                                                                                                                    |
+| D1                | [#2144](https://github.com/blogtheristo/dws6/pull/2144) | open                        | n/a                                             | Inventory of scheduled workflows: `docs/field-notes/2026-09-30-cloud-to-dgx-persistence-inventory.md`.                                                                                                   |
+| D2                | [#2144](https://github.com/blogtheristo/dws6/pull/2144) | open                        | not run in CI                                   | `cost-audit-sync`, `dora-weekly`, `flake-detector`: GHA `schedule:` removed, DGX scripts in `scripts/{daily,weekly}/`, workflows manual-dispatch only.                                                   |
+| Admin scope       | [#2143](https://github.com/blogtheristo/dws6/pull/2143) | merged `e421737`            | green locally (11/11 backoffice tests)          | Back-office admin limited to `organizations.is_internal`; migration 096 applied to production on HIC instruction.                                                                                        |
 
-**Not reached in session 1:** B1–B9, C1–C2, D1–D2, and the back-office admin scoping fix (in progress in a separate Copilot session).
+**Not reached in session 1:** B1–B9, C1–C2. D1–D2 are in #2144 and the admin-scoping fix is merged as #2143.
 
 **Findings for the next session:**
 

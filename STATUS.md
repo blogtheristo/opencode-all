@@ -19,7 +19,7 @@
 | Local CI hook    | ACTIVE — vitest + gitleaks + npm audit + ruff on push |
 | CI gates         | test-on-pr.yml: tsc + vitest + eslint + secret scan; DGX→GHA runner failover |
 | Test tiers       | `test:unit` (fast gate) / `test:integration` (`tests/integration/`) / `test:coverage` (v8, thresholds 60/50/55/60) |
-| Flake detection  | Weekly flake-detector.yml: suite ×3 shuffled |
+| Flake detection  | DGX weekly `flake-detector.sh`: suite x3 shuffled; GHA manual failover |
 
 ## Recent changes
 

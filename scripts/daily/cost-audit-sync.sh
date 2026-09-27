@@ -1,23 +1,33 @@
 #!/bin/bash
 # Cost Audit Log Sync to Supabase (Daily)
-# Evidence: Tool=Claude Code 1.0 Model=claude-haiku-4-5-20251001 Agent=cost-audit-persistence Date=2026-09-19
+# Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=lane-d-dgx-persistence Date=2026-09-27
 # Audit trail: git log -- scripts/daily/cost-audit-sync.sh
 
 set -euo pipefail
 
-# Load Supabase credentials from .env
-if [ -f .env ]; then
-  export $(grep -v '^#' .env | xargs)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+cd "$REPO_ROOT"
+
+if [ "${DWS_DRY_RUN:-false}" = "true" ]; then
+  npx tsx --version
+  echo "Dry run complete; cost audit sync was not sent"
+  exit 0
 fi
 
-# Validate credentials
+if [ -f .env ]; then
+  set -a
+  source .env
+  set +a
+fi
+
 if [ -z "${SUPABASE_URL:-}" ] || [ -z "${SUPABASE_SERVICE_ROLE_KEY:-}" ]; then
-  echo "❌ Error: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY required in .env"
+  echo "Error: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required"
   exit 1
 fi
 
-# Run the sync script (requires npx and TypeScript support)
-echo "🔄 Syncing cost audit log to Supabase..."
-npx ts-node scripts/cost-audit-sync-supabase.ts
+echo "Syncing cost audit log to Supabase..."
+npx tsx scripts/cost-audit-sync-supabase.ts
 
-echo "✅ Daily cost audit sync complete"
+echo "Daily cost audit sync complete"
