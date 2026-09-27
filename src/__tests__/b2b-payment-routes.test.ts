@@ -1,4 +1,4 @@
-// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=lane-c-coverage Date=2026-09-27
+// Evidence: Tool=Claude Code Model=anthropic/claude-opus-5-5 Agent=claude-code Date=2026-09-27
 // Audit trail: git log -- src/__tests__/b2b-payment-routes.test.ts
 import express, { type NextFunction, type Request, type Response } from 'express';
 import request from 'supertest';
@@ -117,4 +117,18 @@ describe('B2B payment routes', () => {
     expect(response.body).toEqual({ success: true });
     expect(mocks.rpc).not.toHaveBeenCalled();
   });
+
+  it.each(['invoice.payment_succeeded', 'invoice.marked_uncollectible'])(
+    'rejects unsigned Stripe %s events without touching orders',
+    async (type) => {
+      const response = await request(makeApp())
+        .post('/api/v1/b2b/webhook')
+        .send({ type, invoice_id: 'in_known_to_customer' });
+
+      expect(response.status).toBe(410);
+      expect(mocks.from).not.toHaveBeenCalled();
+      expect(mocks.rpc).not.toHaveBeenCalled();
+      expect(mocks.sendConfirmation).not.toHaveBeenCalled();
+    },
+  );
 });
