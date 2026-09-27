@@ -1,10 +1,10 @@
 ---
 title: Internal organization boundary for back-office authorization
-version: 1.0
+version: 1.1
 date: 2026-09-27
 author: GitHub Copilot CLI
 language: EN
-status: PENDING_REVIEW
+status: ACTIVE
 category: security
 tags: [authorization, rls, supabase, multi-tenancy, backoffice]
 ---
@@ -39,7 +39,11 @@ Migration 096 introduces `organizations.is_internal boolean NOT NULL DEFAULT fal
 
 The Express middleware and `/me` endpoint now share one lookup and calculate access only from active memberships in internal organizations. Tests cover both required outcomes: an external-organization owner receives `isAdmin: false` and is denied protected routes, while an internal-organization owner receives `isAdmin: true`.
 
-On HIC instruction, migration 096 was applied to production through Supabase CLI on 2026-09-27. The production apply used fatal preflight and postflight checks for exactly one `DWS AB` row, completed successfully, and the remote migration history was aligned to repository version `096`.
+On HIC instruction, migration 096 was applied to production through Supabase CLI on 2026-09-27. The production apply used fatal preflight and postflight checks for exactly one `DWS AB` row, completed successfully, and the remote migration history was aligned to repository version `096`. PR #2143 merged to `main` the same day.
+
+Because GitHub Actions is billing-blocked, the matching API rule was deployed on DGX Spark directly rather than through the `Deploy DGX Spark` workflow. That surfaced a second defect: `infrastructure/dgx-spark/Dockerfile.backend` installs dependencies with `--omit=dev` but starts the service with `npx tsx src/app.ts`, and `tsx` is a devDependency. The previously running container predated the change, so the fault only appears on a fresh build: `npx` tries to fetch `tsx` at start-up as the non-root `dws` user, which has no writable HOME, and the container crash-loops on `EACCES`. The Dockerfile now installs `tsx` explicitly at the version `package.json` declares.
+
+Post-deploy verification against production found two active owners of `DWS AB`, who retain back-office access, and one active owner of `NCC Suomi Oy`, who is now correctly denied. That external owner held cross-tenant DWS back-office administration in production before migration 096 — the escalation was live, not merely prospective.
 
 ## The Insight
 
@@ -47,9 +51,10 @@ Tenant role and platform role are separate authorities. An organization owner ma
 
 ## Next Steps
 
-1. Monitor the back-office dashboard and RLS-dependent internal surfaces after PR #2143 deploys the matching API rule.
+1. ~~Monitor the back-office dashboard and RLS-dependent internal surfaces after PR #2143 deploys the matching API rule.~~ Done 2026-09-27: deployed on DGX Spark and verified (see The Story).
 2. Run `supabase/tests/096_internal_organization_backoffice_verification.sql` against a throwaway database after migration 096.
-3. **Q1 (two-way door, RECOMMEND: one internal organization):** Should DWS keep exactly one internal organization as an operational invariant, or explicitly support multiple internal organizations later? Status: PENDING_REVIEW.
+3. **Q1 (two-way door) — DECIDED 2026-09-27 by HIC: DWS supports several internal organizations.** The marker is therefore a set membership test, not a singleton. Both enforcement points already satisfy this: `is_backoffice_admin()` uses an `EXISTS` join over every organization with `is_internal = true`, and `loadBackofficeAccess` filters memberships to all internal organizations and returns their names as a list. No code change is required. The "exactly one `DWS AB`" condition in migration 096 governs only the one-time bootstrap of the first internal organization and must not be read as a schema invariant. Additional internal organizations are flagged by `service_role` at any time.
+4. Restore GitHub Actions billing so `Deploy DGX Spark`, `Tree Gate`, `DoD Gate`, `pr-security-check` and `truth-lint` run again; until then, deploys and gates are manual on DGX.
 
 ## HIC Learning Outcome
 
@@ -57,10 +62,10 @@ Tenant role and platform role are separate authorities. An organization owner ma
 - **Step 2 — Field note:** Complete in this document.
 - **Step 3 — Learn HTML:** Rendered to `Learn/2026-09-27-internal-organization-backoffice-boundary.html`.
 - **Step 4 — Drive export:** N/A — no Google Drive tool is available in this runtime.
-- **Step 5 — HIC decision:** Q1 is queued above with `Status: PENDING_REVIEW`.
+- **Step 5 — HIC decision:** Q1 answered by the HIC on 2026-09-27 — DWS supports several internal organizations. Recorded in Next Steps item 3.
 - **Step 6 — Calendar:** N/A — the change introduces no dated commitment; production apply is event-driven and HIC-controlled.
 
 ---
 
-Version 1.0 · 2026-09-27
+Version 1.1 · 2026-09-27
 Copyright © 2026 Lifetime Oy. Internal.

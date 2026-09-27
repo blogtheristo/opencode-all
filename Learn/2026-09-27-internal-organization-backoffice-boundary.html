@@ -195,14 +195,17 @@ vertical-align: middle;
 <p>Back-office authorization was based on active <code>owner</code> or <code>admin</code> membership in any organization. That rule was shared by the PostgreSQL <code>is_backoffice_admin()</code> RLS helper, the Express <code>requireBackofficeAdmin</code> middleware, and the dashboard bootstrap endpoint <code>GET /api/v1/backoffice/me</code>. External customer onboarding therefore turned each customer organization owner into a cross-tenant DWS back-office administrator.</p>
 <p>Migration 096 introduces <code>organizations.is_internal boolean NOT NULL DEFAULT false</code>, marks the production organization named <code>DWS AB</code> during the same transaction when exactly one matching row exists, and guards future marker changes so only the PostgreSQL <code>service_role</code> can make them. The migration also replaces <code>is_backoffice_admin()</code> with an internal-organization join while retaining <code>SECURITY DEFINER</code> and pinning <code>search_path = public</code>.</p>
 <p>The Express middleware and <code>/me</code> endpoint now share one lookup and calculate access only from active memberships in internal organizations. Tests cover both required outcomes: an external-organization owner receives <code>isAdmin: false</code> and is denied protected routes, while an internal-organization owner receives <code>isAdmin: true</code>.</p>
-<p>On HIC instruction, migration 096 was applied to production through Supabase CLI on 2026-09-27. The production apply used fatal preflight and postflight checks for exactly one <code>DWS AB</code> row, completed successfully, and the remote migration history was aligned to repository version <code>096</code>.</p>
+<p>On HIC instruction, migration 096 was applied to production through Supabase CLI on 2026-09-27. The production apply used fatal preflight and postflight checks for exactly one <code>DWS AB</code> row, completed successfully, and the remote migration history was aligned to repository version <code>096</code>. PR #2143 merged to <code>main</code> the same day.</p>
+<p>Because GitHub Actions is billing-blocked, the matching API rule was deployed on DGX Spark directly rather than through the <code>Deploy DGX Spark</code> workflow. That surfaced a second defect: <code>infrastructure/dgx-spark/Dockerfile.backend</code> installs dependencies with <code>--omit=dev</code> but starts the service with <code>npx tsx src/app.ts</code>, and <code>tsx</code> is a devDependency. The previously running container predated the change, so the fault only appears on a fresh build: <code>npx</code> tries to fetch <code>tsx</code> at start-up as the non-root <code>dws</code> user, which has no writable HOME, and the container crash-loops on <code>EACCES</code>. The Dockerfile now installs <code>tsx</code> explicitly at the version <code>package.json</code> declares.</p>
+<p>Post-deploy verification against production found two active owners of <code>DWS AB</code>, who retain back-office access, and one active owner of <code>NCC Suomi Oy</code>, who is now correctly denied. That external owner held cross-tenant DWS back-office administration in production before migration 096 — the escalation was live, not merely prospective.</p>
 <h2 id="the-insight">The Insight</h2>
 <p>Tenant role and platform role are separate authorities. An organization owner may administer that tenant, but only a server-designated internal organization may confer DWS platform administration. The internal marker must therefore remain database-controlled and must be enforced consistently in both RLS and the service-role-backed API, because either layer alone leaves a bypass surface.</p>
 <h2 id="next-steps">Next Steps</h2>
 <ol type="1">
-<li>Monitor the back-office dashboard and RLS-dependent internal surfaces after PR #2143 deploys the matching API rule.</li>
+<li><del>Monitor the back-office dashboard and RLS-dependent internal surfaces after PR #2143 deploys the matching API rule.</del> Done 2026-09-27: deployed on DGX Spark and verified (see The Story).</li>
 <li>Run <code>supabase/tests/096_internal_organization_backoffice_verification.sql</code> against a throwaway database after migration 096.</li>
-<li><strong>Q1 (two-way door, RECOMMEND: one internal organization):</strong> Should DWS keep exactly one internal organization as an operational invariant, or explicitly support multiple internal organizations later? Status: PENDING_REVIEW.</li>
+<li><strong>Q1 (two-way door) — DECIDED 2026-09-27 by HIC: DWS supports several internal organizations.</strong> The marker is therefore a set membership test, not a singleton. Both enforcement points already satisfy this: <code>is_backoffice_admin()</code> uses an <code>EXISTS</code> join over every organization with <code>is_internal = true</code>, and <code>loadBackofficeAccess</code> filters memberships to all internal organizations and returns their names as a list. No code change is required. The “exactly one <code>DWS AB</code>” condition in migration 096 governs only the one-time bootstrap of the first internal organization and must not be read as a schema invariant. Additional internal organizations are flagged by <code>service_role</code> at any time.</li>
+<li>Restore GitHub Actions billing so <code>Deploy DGX Spark</code>, <code>Tree Gate</code>, <code>DoD Gate</code>, <code>pr-security-check</code> and <code>truth-lint</code> run again; until then, deploys and gates are manual on DGX.</li>
 </ol>
 <h2 id="hic-learning-outcome">HIC Learning Outcome</h2>
 <ul>
@@ -210,10 +213,10 @@ vertical-align: middle;
 <li><strong>Step 2 — Field note:</strong> Complete in this document.</li>
 <li><strong>Step 3 — Learn HTML:</strong> Rendered to <code>Learn/2026-09-27-internal-organization-backoffice-boundary.html</code>.</li>
 <li><strong>Step 4 — Drive export:</strong> N/A — no Google Drive tool is available in this runtime.</li>
-<li><strong>Step 5 — HIC decision:</strong> Q1 is queued above with <code>Status: PENDING_REVIEW</code>.</li>
+<li><strong>Step 5 — HIC decision:</strong> Q1 answered by the HIC on 2026-09-27 — DWS supports several internal organizations. Recorded in Next Steps item 3.</li>
 <li><strong>Step 6 — Calendar:</strong> N/A — the change introduces no dated commitment; production apply is event-driven and HIC-controlled.</li>
 </ul>
 <hr />
-<p>Version 1.0 · 2026-09-27 Copyright © 2026 Lifetime Oy. Internal.</p>
+<p>Version 1.1 · 2026-09-27 Copyright © 2026 Lifetime Oy. Internal.</p>
 </body>
 </html>
