@@ -2133,8 +2133,8 @@ HIC-locked 14.09.2026. This is how DWS cuts the market and the SKU ladder — no
 
 **Do not:**
 
-- Say “The market splits on one axis” / “Markkina jakautuu yhdellä akselilla” / “Marknaden delas på en axel.”
-- Claim sovereignty is the only segmentation.
+- Say “The market splits on one axis” / “Markkina jakautuu yhdellä akselilla” / “Marknaden delas på en axel”.
+- Claim “sovereignty is the only segmentation”.
 - Present a DWS score or Aegis / Sovereign Infra / Connect depth as an EU SEAL certificate.
 - Treat an EU region on a US parent as the sovereign cut.
 
