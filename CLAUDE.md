@@ -63,6 +63,33 @@ The 12 rules are canonical and apply to all agents. **Quick summary:**
 
 ---
 
+## Resolver — Ontology → Admin Documentation
+
+**Before asserting how any DWS system works, look up the term.** The ontology is bound to
+the admin documentation by a generated pointer index:
+
+```bash
+npm run ontology:lookup channel      # → Admin/*.md file:line + heading
+npm run ontology:index               # regenerate after editing Admin/ or ONTOLOGY.md
+```
+
+`●` means the section is _about_ that term; `○` means it mentions it. Read the `●` hits
+before describing infrastructure, integrations, or operational procedure. A hit is a
+pointer, not an answer — open the file.
+
+**Why this rule exists:** on 24.09.2026 an agent gave the HIC three rounds of confidently
+wrong Cloudflare Tunnel instructions, sourced from a compose-file comment describing an
+_intended_ deployment, while `Admin/ADMIN_MANUAL.md` carried the correct runbook the whole
+time. A comment describes what someone planned; the admin manuals describe what is
+running. `npm run ontology:lookup tunnel` would have found it on the first try.
+
+Index lives at `docs/ontology/admin-term-index.json` — generated and gitignored, built
+automatically on first lookup, so a cold checkout needs no setup. Terms come from
+`ONTOLOGY.md`'s CCP seed, `kb/wiki/concepts/`, and every heading under `Admin/`. It stores
+pointers only; `Admin/` stays source-of-truth.
+
+---
+
 ## Operational Rules (Detailed)
 
 ### Sender Identity
@@ -459,12 +486,13 @@ Use these for full detail when needed:
 
 ## Version History
 
-| Version | Date       | Changes                                                                                                                                                                                            | Author             |
-| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| 1.6     | 2026-09-27 | HIC: Market Signal → Sales Pipeline Rule — commercially relevant signals go to PhD §14.x and `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, star-scored 1–5.                                        | Claude Code        |
-| 1.5     | 2026-09-27 | HIC: Tool Git Identity rule — `<tool>@lifetime.fi`, set per tool at launch; no repo-local identity. Moved misplaced 1.4 row here.                                                                  | Claude Code        |
-| 1.4     | 2026-09-27 | Corrected the DWS Cost Policy Standard reference to its canonical `docs/` path.                                                                                                                    | GitHub Copilot CLI |
-| 1.3     | 2026-09-19 | HIC: retire `***` / Pandoc-from-markdown PDF. VAH uses `---`. HIC prints PDF from HTML.                                                                                                            | Cursor             |
-| 1.2     | 2026-09-19 | Cursor/Cloud: standards resolver is mandatory file Reads; `dws-standards-always.mdc` is the harness Cursor actually injects                                                                        | Cursor             |
-| 1.1     | 2026-09-07 | Extracted long specs (Discipline, Standards Routing) to separate indexed files; added multi-tool acknowledgment and system file ecosystem cross-references; added DWS Document Standard versioning | Claude Code        |
-| 1.0     | Prior      | Original consolidated rules file                                                                                                                                                                   | HIC                |
+| Version | Date       | Changes                                                                                                                                                                                                           | Author             |
+| ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| 1.7     | 2026-09-27 | Resolver — Ontology → Admin Documentation: look up a term (`npm run ontology:lookup`) before asserting how a system works. Salvaged from closed PR #2075 (written 24.09.2026); pending HIC approval at PR review. | Claude Code        |
+| 1.6     | 2026-09-27 | HIC: Market Signal → Sales Pipeline Rule — commercially relevant signals go to PhD §14.x and `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, star-scored 1–5.                                                       | Claude Code        |
+| 1.5     | 2026-09-27 | HIC: Tool Git Identity rule — `<tool>@lifetime.fi`, set per tool at launch; no repo-local identity. Moved misplaced 1.4 row here.                                                                                 | Claude Code        |
+| 1.4     | 2026-09-27 | Corrected the DWS Cost Policy Standard reference to its canonical `docs/` path.                                                                                                                                   | GitHub Copilot CLI |
+| 1.3     | 2026-09-19 | HIC: retire `***` / Pandoc-from-markdown PDF. VAH uses `---`. HIC prints PDF from HTML.                                                                                                                           | Cursor             |
+| 1.2     | 2026-09-19 | Cursor/Cloud: standards resolver is mandatory file Reads; `dws-standards-always.mdc` is the harness Cursor actually injects                                                                                       | Cursor             |
+| 1.1     | 2026-09-07 | Extracted long specs (Discipline, Standards Routing) to separate indexed files; added multi-tool acknowledgment and system file ecosystem cross-references; added DWS Document Standard versioning                | Claude Code        |
+| 1.0     | Prior      | Original consolidated rules file                                                                                                                                                                                  | HIC                |

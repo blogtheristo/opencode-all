@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.39 [Latest]
+Version: 3.40 [Latest]
 
 Sessions & Modifications:
 
-- Version: 3.39 [Latest] | Tool: Claude Code (Opus 5.5) | Session: claude/kya-jev-audit-implementation-plan | Date: 27.09.2026 | Changes: Added `kya-jev` typed-decision operations section (signing secret per environment + rotation, the five consumers and which ones log, calibration run, public `kya-decide` package). Operations log: migration 087 (`kya_jev_calls`) applied via SQL editor and ledger repaired with `supabase migration repair --status applied 087`.
+- Version: 3.40 [Latest] | Tool: Claude Code (Opus 5) | Session: claude/practical-meitner-k9bhnn (salvage of claude/backoffice-open-items, PR #2075 closed unmerged) | Date: 27.09.2026 (orig. 24.09.2026) | Changes: Hardened the Cloudflare Tunnel section after a session gave the HIC three rounds of wrong dashboard instructions. Made explicit that `dgx-heartbeat` is **locally managed** (`/etc/cloudflared/config.yml`, `cloudflared` as a host systemd service) so the Cloudflare dashboard exposes no hostname tab for it, and that ingress rules must use published host ports (`http://localhost:8080`) not compose service names (`http://dws-backend:8080`) — the daemon is not on the Docker network. Flagged that the `cloudflare-tunnel` service in `infrastructure/dgx-spark/docker-compose.yml` is profile-gated, never provisioned, and its `mcp-gateway` comments describe intent not deployed state; this manual is the source of truth for tunnel state. Added a concrete pending runbook for `backend.dws6.com` → `localhost:8080` (HIC-approved, blocked on DGX SSH), including why `api.dws6.com` was not reused (live CNAME to `ghs.googlehosted.com` from the retired `dws6run6` Cloud Run mapping). Cross-refs: `Admin/ADMIN_MANUAL_DWS6_COM.md` §11.2 (v1.4), `docs/field-notes/2026-09-24-backoffice-open-items-fixed.md` (v1.2).
+- Version: 3.39 [not latest] | Tool: Claude Code (Opus 5.5) | Session: claude/kya-jev-audit-implementation-plan | Date: 27.09.2026 | Changes: Added `kya-jev` typed-decision operations section (signing secret per environment + rotation, the five consumers and which ones log, calibration run, public `kya-decide` package). Operations log: migration 087 (`kya_jev_calls`) applied via SQL editor and ledger repaired with `supabase migration repair --status applied 087`.
 - Version: 3.38 [not latest] | Tool: GitHub Copilot CLI 1.0.88 (gpt-5.6-sol) | Session: copilot/role-learning-hub-0ee942b3 | Date: 27.09.2026 | Changes: Added role-based Learning Hub distribution runbook: declarative audience manifest, deterministic offline pack build/validation, checksum-verifying Windows per-user installer, and authenticated v10 dashboard discovery. Audience roles are separate from canonical R-IDs; repository documents remain source of truth. | Harness: GitHub Copilot CLI + CLAUDE.md | HIC-approved-drift: none
 - Version: 3.37 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/nemoclaw-phase2-closeout | Date: 27.09.2026 | Changes: Recorded PR #2175 merge and clarified the merged code is not a live runtime deployment.
 - Version: 3.36 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: Recorded Phase 2 Themis-to-NemoClaw bridge controls, unapplied audit migrations, live rollout gates, and the Phase 3 hold.
@@ -1778,7 +1779,7 @@ sudo rm /usr/local/bin/cloudflared
 hash -r
 ```
 
-### Adding a new public hostname to the tunnel (future)
+### Adding a new public hostname to the tunnel
 
 If a second on-prem service needs public exposure via this tunnel:
 
@@ -1794,6 +1795,63 @@ cloudflared tunnel route dns dgx-heartbeat <new-subdomain>.dws6.com
 # 3. Restart the daemon
 sudo systemctl restart cloudflared
 ```
+
+**This tunnel is locally managed.** Its ingress config is the file above, and
+`cloudflared` runs as a **systemd service on the DGX host** — not in Docker. Two
+consequences that have already cost one session:
+
+1. **The Cloudflare dashboard cannot add routes to it.** Locally-managed tunnels expose no
+   "Public Hostname" / "Published application routes" tab in Zero Trust (Cloudflare One).
+   The dashboard shows the tunnel and its connections, but the config lives on the box.
+2. **Ingress rules address services by published host port, not by compose service name.**
+   `service: http://localhost:8080` works; `service: http://dws-backend:8080` does not —
+   the daemon is not on the `dws-network` Docker network. Check the compose file's
+   `ports:` mapping (e.g. `"8080:8080"`) to find the right host port.
+
+Note also that `infrastructure/dgx-spark/docker-compose.yml` defines a `cloudflare-tunnel`
+service. **It is not this tunnel.** It is gated behind the `gateway` compose profile and
+has never been provisioned. Its comments describe an intended `mcp-gateway` exposure, not
+deployed state. This section is the source of truth for tunnel state.
+
+#### Pending: `backend.dws6.com` → `dws-backend` (not yet applied)
+
+Approved by HIC 24.09.2026, blocked on DGX SSH. Exposes the Express backend so the
+Cloudflare-Pages-served Back-Office dashboard can reach `/api/v1/backoffice/*` — Pages
+serves static files only, so those calls currently 404 in production.
+
+```bash
+# Run on the DGX box. Confirm the container is up first:
+docker ps --filter name=dws-backend        # expect Up / healthy
+
+cloudflared tunnel route dns dgx-heartbeat backend.dws6.com
+
+# /etc/cloudflared/config.yml — add BEFORE the catch-all 404:
+#   - hostname: backend.dws6.com
+#     service: http://localhost:8080
+#   - service: http_status:404
+
+sudo systemctl restart cloudflared
+curl https://backend.dws6.com/health        # expect 200 — needs no auth
+```
+
+The frontend half is already committed: both copies of
+`dws6.com/dashboard/backoffice/index.html` set
+`window.DWS_API_BASE = "https://backend.dws6.com"`. The V10 React build still needs
+`VITE_API_URL=https://backend.dws6.com` set at build time and republishing.
+
+**Why `backend` and not `api`:** `api.dws6.com` is already a CNAME to
+`ghs.googlehosted.com`, left over from the retired `dws6run6` Cloud Run domain mapping
+(see `infrastructure/cloudrun/EXIT_CLOUDRUN_RUNBOOK.md`). It was not reused pending
+confirmation that the Google mapping is dead.
+
+**Security note:** no auth is added at the tunnel layer. `/api/v1/backoffice/*` already
+requires a Supabase Bearer token plus an `organization_members` owner/admin check on every
+route, so that group is safe to expose. Other routes on the same Express app that are
+currently unauthenticated would need their own review — pre-existing scope, but this
+change is what makes them publicly reachable.
+
+Cross-refs: `Admin/ADMIN_MANUAL_DWS6_COM.md` §11.2,
+`docs/field-notes/2026-09-24-backoffice-open-items-fixed.md`.
 
 ### Failure & rollback
 

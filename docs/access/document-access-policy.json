@@ -1,0 +1,177 @@
+{
+  "$comment": [
+    "Source of truth for who may open which document. Consumed by",
+    "src/services/document-access.ts (enforcement), scripts/ontology-admin-index.mjs",
+    "(so a lookup can say what access a hit needs), and the KB.",
+    "",
+    "ENFORCEMENT IS SERVER-SIDE ONLY. dws6.com is Cloudflare Pages with no _headers",
+    "and no Pages Functions, so its login is client-side and every file under it is",
+    "fetchable by URL. Learn/ holds the cap table, board minutes and salary data.",
+    "Never copy Learn/ under dws6.com/ and never treat a frontend check as the gate;",
+    "the gate is GET /api/v1/docs/* on dws-backend, which verifies a Supabase bearer",
+    "token before it streams a byte.",
+    "",
+    "Rules are ordered and first match wins. A document matching no rule is",
+    "'confidential', so a new file is withheld until someone classifies it rather",
+    "than leaking by default."
+  ],
+
+  "version": "1.0",
+  "updated": "2026-09-24",
+
+  "classes": {
+    "public": {
+      "rank": 0,
+      "description": "Publishable outside Lifetime Oy — whitepapers, public product material."
+    },
+    "user": {
+      "rank": 1,
+      "description": "End-user material — the user manual and how-to guides for operating the product."
+    },
+    "customer": {
+      "rank": 2,
+      "description": "Customer administrator material — customer admin manual, store admin manual, installation and configuration."
+    },
+    "internal": {
+      "rank": 3,
+      "description": "Lifetime Oy staff — engineering and admin manuals, standards, theses, field notes."
+    },
+    "confidential": {
+      "rank": 4,
+      "description": "Founder/board only — cap table, SAFE terms, diligence, board minutes, salary and time records."
+    }
+  },
+
+  "$principalComment": [
+    "Two full-access administrators, one customer-administrator view, one end-user",
+    "view. Grants are listed in full rather than implied by rank: a class is held",
+    "only when it is named, so widening one account never widens another."
+  ],
+  "principals": [
+    {
+      "email": "admin@dws6.com",
+      "label": "DWS6 platform administrator — full access",
+      "grants": ["public", "user", "customer", "internal", "confidential"]
+    },
+    {
+      "email": "risto.paarni2024@lifetime.fi",
+      "label": "Risto Anton Päärni — Founder, CEO — full access",
+      "grants": ["public", "user", "customer", "internal", "confidential"]
+    },
+    {
+      "email": "admin@dws10.com",
+      "label": "DWS10 customer administrator — customer admin view",
+      "grants": ["public", "user", "customer"]
+    },
+    {
+      "email": "user@dws10.com",
+      "label": "DWS10 end user — user manual only",
+      "grants": ["public", "user"]
+    }
+  ],
+
+  "$roleComment": [
+    "Fallback for any authenticated user not named above, by organization_members.role",
+    "(migration 007). Deliberately narrow: an org owner is not automatically entitled",
+    "to founder-only material, so confidential is granted by name only."
+  ],
+  "roleGrants": {
+    "owner": ["public", "user", "customer", "internal"],
+    "admin": ["public", "user", "customer", "internal"],
+    "member": ["public", "user", "customer"],
+    "viewer": ["public", "user"]
+  },
+
+  "$rulesComment": [
+    "Matched against the repo-relative path, case-insensitively, in order.",
+    "Patterns are JS regular expressions."
+  ],
+  "rules": [
+    {
+      "class": "confidential",
+      "why": "Cap table, SAFE terms, diligence, pre-term-sheet and investor Q&A.",
+      "patterns": [
+        "diligence",
+        "captable",
+        "cap_table",
+        "pretermsheet",
+        "safe_ip",
+        "investorqa",
+        "investor_memo",
+        "investor_hook",
+        "myyjan_paketti",
+        "trust_dossier"
+      ]
+    },
+    {
+      "class": "confidential",
+      "why": "Board minutes, salary comparison, time and invoicing records (Finnish financial appendices).",
+      "patterns": [
+        "^learn/f_liite",
+        "poytakirja",
+        "pöytäkirja",
+        "palkkavertailu",
+        "tuntikirjau",
+        "kaanteislaskutus",
+        "käänteislaskutus",
+        "taksilaskutus"
+      ]
+    },
+    {
+      "class": "confidential",
+      "why": "Live bid material — pricing and customer-specific commercial terms.",
+      "patterns": ["^bids/", "^sales-outreach/"]
+    },
+    {
+      "class": "public",
+      "why": "Whitepapers are written for external publication.",
+      "patterns": ["whitepaper"]
+    },
+    {
+      "class": "user",
+      "why": "End-user material — how to operate the product. Narrowest grant above public.",
+      "patterns": ["user_manual", "user_guide", "kayttoohje", "käyttöohje", "getting_started"]
+    },
+    {
+      "class": "customer",
+      "why": "Customer administrator material — running and configuring the platform.",
+      "patterns": [
+        "customer_admin",
+        "cust_admin",
+        "store_admin_manual",
+        "installation_manual",
+        "dws_skills_guide"
+      ]
+    },
+    {
+      "class": "internal",
+      "why": "Engineering and operations material for Lifetime Oy staff.",
+      "patterns": [
+        "^learn/admin_manual",
+        "^admin/",
+        "_standard",
+        "^learn/claude",
+        "roadmap",
+        "^docs/field-notes/",
+        "thesis",
+        "phd_firehorse",
+        "tutkimussuunnitelma",
+        "oppimispaivakirja",
+        "oppimispäiväkirja"
+      ]
+    }
+  ],
+
+  "audit": {
+    "$comment": [
+      "Document opens land in auth_audit_log (migration 007), which already carries",
+      "user_id, action, resource_type, details, ip_address, user_agent and success.",
+      "resource_id is a uuid column and a document path is not a uuid, so the path",
+      "goes in details. Denials are logged too — a refused read is the event worth",
+      "having."
+    ],
+    "table": "auth_audit_log",
+    "action": "document.open",
+    "resourceType": "document"
+  }
+}

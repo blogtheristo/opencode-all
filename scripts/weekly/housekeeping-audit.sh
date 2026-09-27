@@ -76,6 +76,23 @@ else
     echo "" >> "$REPORT"
     echo "**Stale HTMLs (>30 days old):** $STALE files may need regeneration." >> "$REPORT"
   fi
+
+  # Counting files says nothing about whether they still link to each other.
+  # Theses move into Learn/Arkisto/ on version bump and the hub pages keep
+  # pointing at the old path — invisible until someone clicks (24.09.2026: 8
+  # dead links on start.html while this audit reported the folder healthy).
+  echo "" >> "$REPORT"
+  if LINK_OUT="$(node scripts/check-learn-links.mjs 2>&1)"; then
+    echo "**Hub page links:** OK — $LINK_OUT" >> "$REPORT"
+  else
+    {
+      echo "**Hub page links:** FAIL — dead links on Learn/ entry pages."
+      echo ""
+      echo '```'
+      echo "$LINK_OUT"
+      echo '```'
+    } >> "$REPORT"
+  fi
 fi
 
 # ─── CHECK 3: Branch hygiene ────────────────────────────────────────────────
