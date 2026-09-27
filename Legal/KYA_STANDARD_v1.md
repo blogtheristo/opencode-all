@@ -1,13 +1,14 @@
-# KYA Standard v1.12 — Know Your Agent: Agent Self-Optimization Governance for Enterprise Agent Swarms
+# KYA Standard v2.0 — Know Your Agent: Agent Self-Optimization Governance for Enterprise Agent Swarms
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.12
+Version: 2.0
 
 Sessions & Modifications:
 
+- Version: 2.0 | Tool: Claude Code | Session: claude/kya-v2-attestation-signing-6e5703 | Date: 22.07.2026 | Changes: **KYA §14 agentic-commerce schema FROZEN at v2.0** — the milestone reserved in the v1.9.1 note (freeze after the mandate-events migration + end-to-end exercise). The freeze condition is met: migration 074/079 live in prod, and the §14.7 attestation is now implemented end-to-end — EdDSA signing (`signVerifiedDoneAttestation`/`verifyVerifiedDoneAttestation`, Node-native Ed25519, `src/identity/attestation-signing.ts`), persistence + proof_status transitions (`VerifiedDoneAttestationStore`, `src/identity/attestation-store.ts`), the §14.5 evidence-chain writer (`MandateEventLogger`, `src/identity/mandate-event-logger.ts`), and the issuance orchestration (`attestMandateExecution`, `src/identity/attestation-issuance.ts`); 47 passing tests. The §14.2.1 / §14.3 / §14.7 "illustrative until v2.0" notes are now **frozen to the TS shapes** (the interfaces + Zod validator are normative; buyer materials still quote semantics, not field names). §14.7.1 updated from "target design" to implemented. Signing key remains a runtime secret; per-agent key delegation stays deferred to v2.1.
 - Version: 1.12 | Tool: Claude Code (Opus 5) | Session: claude/agent-use-cases-comparison-h7vl25 | Date: 07.08.2026 | Changes: §3.1 ATS-kaava sovitettu kanoniin (P0-2/P0-3). Additiivinen `+ A×0.15` oli yha voimassa taman dokumentin maaritelmana, vaikka sisardokumentit `KYA_SECURITY_v1.2.md` §3.1 ja `KYA_OPTIMIZATION_v1.4.md` §3.1 olivat molemmat todenneet additiivisen muodon score-inflaatiovektoriksi ja korvanneet sen. Korvattu multiplikatiivisella `ATS_Final = ATS_Base × (1 + A)`, A ∈ [0, 0.25], A = 0 kun V > 0. Lisatty §3.1.1 hard killit (manifest-allekirjoitus/TTL, IDV-tila/TTL) jotka edeltavat kaavaa eivatka nay siina, ja §3.1.2 superseded-muotoilut sailytettyna Rule 12:n mukaisesti (additiivinen A×0.15, A×0.18, seka epatarkka 'A×0.25' -sanamuoto). Selvennetty etta 0.25 on A:n KATTO multiplikatiivisessa muodossa, ei kerroin. §3.2:een kirjattu ratkaisematon range overflow (ATS_Final voi olla 1.25) paattamatta sita. Todettu etta koodi laskee ATS_Base:n vain ja etta se on tarkoituksellista. Lisaksi korjattu otsikon versiotunniste v1.5 -> v1.12 vastaamaan Version-kenttaa (osittainen B9/P2-3; §14 ja §14.7 omat tunnisteet yha sovittamatta).
 - Version: 1.11 | Tool: Claude Code | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 22.07.2026 | Changes: Added §14.7.1 Signing & Key Custody (v2.0 target design), per Boardy review — fixes the signing model v2.0 implements without yet implementing it: Ed25519 (EdDSA) hardware-backed keys (EUDI Wallet / EU eID convergence; compact for A2A + Article 12 payloads), JWS-enveloped VC first with Data-Integrity only on counterparty demand; `did:web` DNS-rooted issuer identity (no ledger, resolvable institutional anchoring for auditors); key custody by tier (Aegis Defence on-prem DGX Spark holds everything; Standard/Sovereign in UpCloud UKS HSM with admin-gated rotation; never a shared/foreign cloud KMS); one issuer key per tenant at v2.0, root-CA → per-agent delegation deferred to v2.1; tenant-controlled rotation with no DWS escrow (DWS holds only the root CA, counter-signing tenant DID-doc updates for cross-tenant verification continuity). Also: migration 079 APPLIED + verified live in production this session. Invariant restated: the private signing key never leaves the tenant's jurisdiction.
 - Version: 1.10 | Tool: Claude Code | Session: claude/kya-mandate-evidence-migration-mq7hnp | Date: 22.07.2026 | Changes: Added §14.7 Verified-Done Attestation — the terminal link of the §14.4 trust chain (verified human → signed manifest → signed mandate → verified-done attestation): once a mandate executes, KYA issues a W3C Verifiable Credential attesting completion under governance, so a counterparty can check the outcome instead of trusting it blind. Deny-by-default and HIC binding carry through (no attestation for a denied/anonymous mandate); issuance is a `mandate.attest` event on the §14.5 evidence chain plus a stored credential; revocation is a status transition, not a deletion. Schema landed toward the v2.0 freeze: TS interfaces (`VerifiedDoneAttestation`/`AttestationInput`, `src/identity/types.ts`) + stub issuer `issueVerifiedDoneAttestation()` (`src/identity/ats-engine.ts`, 6 tests in `src/__tests__/verified-done-attestation.test.ts`) + storage (`supabase/migrations/079_kya_verified_done_attestation.sql` — `kya_verified_done_attestations` + `mandate.attest` event type extending the live 074 chain). Signing (Ed25519 / Data Integrity) deferred to the v2.0 key-management decision; credentials mint unsigned. Migration 074 (§14.5 evidence chain) confirmed live in production (dws6, eu-west-1) this session.
@@ -1040,7 +1041,7 @@ Following the nanochat methodology, DWS IQ can deploy optimization agents to tun
 
 ---
 
-## 14. Agentic Commerce Mandate Gating (AP2 / UCP / ACP) — v1.11
+## 14. Agentic Commerce Mandate Gating (AP2 / UCP / ACP) — v2.0
 
 KYA v1.7 and earlier governed what an agent may **do**; it said nothing about what an agent may **spend**. That gap closed externally in H1 2026: the payment industry shipped the wire formats for agent transactions, and none of them decide whether a given agent should be trusted to transact. KYA supplies that decision. This section is protocol-neutral by design — KYA gates mandates on all three rails.
 
@@ -1096,7 +1097,7 @@ Everything else is tenant-settable: ceilings, currencies, merchant categories, a
 
 Profile changes are policy events: logged to the §14.5 evidence chain, signed by the tenant's HIC, and applied only to sessions started after the change (no retroactive loosening of a live session's gates).
 
-> **Schema stability:** the JSON above is **illustrative until KYA v2.0** — quote the policy semantics (tighten-only rule, immovable floors), not the field names. The executable validator (`tenantGatingProfileSchema`, `src/identity/ats-engine.ts`) is the normative shape at any point in time.
+> **Schema stability:** **frozen at KYA v2.0.** The executable validator (`tenantGatingProfileSchema`, `src/identity/ats-engine.ts`) is the normative shape; the JSON above illustrates it. Buyer-facing materials still quote the policy semantics (tighten-only rule, immovable floors), not the field names.
 
 ### 14.3 Capability Manifest v1.3 — `spend_authority` Extension
 
@@ -1120,7 +1121,7 @@ The Capability Manifest (§9.1) gains a spend-authority block. Absent block = ze
 
 `hic` binds spend authority to the verified human (Pillar 1 / L1 identity attribution) who is accountable for it — no anonymous spend authority, ever.
 
-> **Schema stability:** the JSON above is **illustrative until KYA v2.0** — buyer-facing materials quote the commitments (deny-by-default, HIC binding, ceilings), not the field names, which may track AP2's VC vocabulary as FIDO moves it toward 1.0.
+> **Schema stability:** **frozen at KYA v2.0.** The `SpendAuthority` interface (`src/identity/types.ts`) is the normative shape; the JSON above illustrates it. Buyer-facing materials still quote the commitments (deny-by-default, HIC binding, ceilings), not the field names.
 
 ### 14.4 Manifests as W3C Verifiable Credentials
 
@@ -1167,13 +1168,13 @@ Issuing an attestation is itself a mandate lifecycle event: it is recorded as a 
 }
 ```
 
-> **Schema stability:** the JSON above is **illustrative until KYA v2.0** — quote the commitments (portable proof-of-completion, deny-by-default and HIC binding carried through, revocation-not-deletion), not the field names, which may track AP2's VC vocabulary as FIDO moves it toward 1.0. The normative shapes are the `VerifiedDoneAttestation` / `AttestationInput` interfaces (`src/identity/types.ts`) and the issuer `issueVerifiedDoneAttestation()` (`src/identity/ats-engine.ts`, tests in `src/__tests__/verified-done-attestation.test.ts`); the storage shape is `kya_verified_done_attestations` + the `mandate.attest` event type (`supabase/migrations/079_kya_verified_done_attestation.sql`).
+> **Schema stability:** **frozen at KYA v2.0.** The normative shapes are the `VerifiedDoneAttestation` / `AttestationInput` / `IssuedAttestation` interfaces (`src/identity/types.ts`); the issuer `issueVerifiedDoneAttestation()` (`src/identity/ats-engine.ts`) and signer `signVerifiedDoneAttestation()` / `verifyVerifiedDoneAttestation()` (`src/identity/attestation-signing.ts`); the store `VerifiedDoneAttestationStore` (`src/identity/attestation-store.ts`); and the storage shape `kya_verified_done_attestations` + the `mandate.attest` event type (`supabase/migrations/079_kya_verified_done_attestation.sql`, live). The JSON above illustrates the credential. Buyer-facing materials still quote the commitments (portable proof-of-completion, deny-by-default and HIC binding carried through, revocation-not-deletion), not the field names.
 
-### 14.7.1 Signing & Key Custody (v2.0 target design)
+### 14.7.1 Signing & Key Custody
 
-§14.7 mints attestations **unsigned** today. This subsection fixes the signing and key-custody model **v2.0 implements**, chosen so a credential never asks a counterparty to trust infrastructure outside the tenant's jurisdiction — the invariant the whole standard rests on: **the private signing key never leaves the tenant's jurisdiction; DWS holds only the root CA for cross-tenant verification.**
+This subsection fixes the signing and key-custody model, chosen so a credential never asks a counterparty to trust infrastructure outside the tenant's jurisdiction — the invariant the whole standard rests on: **the private signing key never leaves the tenant's jurisdiction; DWS holds only the root CA for cross-tenant verification.** As of v2.0 the **signing path is implemented** (`signVerifiedDoneAttestation()` / `verifyVerifiedDoneAttestation()`, `src/identity/attestation-signing.ts`, Node-native Ed25519); a credential mints unsigned when no issuer key is configured and is signed once a key is supplied at runtime (`loadIssuerSignerFromEnv`) — the key itself is a deployment secret, never in code.
 
-**Signature suite — Ed25519 (EdDSA), hardware-backed.** The issuer key lives in a hardware key store and never leaves it. Ed25519 is where the EUDI Wallet and EU member-state eID schemes are converging; it keeps the proof compact for agent-to-agent payloads and for every Article 12 log entry, and it avoids RSA's size overhead at logging scale. First securing format is a JWS-enveloped VC (EdDSA); a Data Integrity proof (`eddsa-rdfc-2022`) is added only if an AP2/FIDO counterparty requires it (no RDF canonicalization on spec).
+**Signature suite — Ed25519 (EdDSA), hardware-backed.** The issuer key lives in a hardware key store and never leaves it. Ed25519 is where the EUDI Wallet and EU member-state eID schemes are converging; it keeps the proof compact for agent-to-agent payloads and for every Article 12 log entry, and it avoids RSA's size overhead at logging scale. The securing format is a JWS-enveloped VC (EdDSA detached JWS, `JsonWebSignature2020`); a Data Integrity proof (`eddsa-rdfc-2022`) is added only if an AP2/FIDO counterparty requires it (no RDF canonicalization on spec).
 
 **Issuer identity — `did:web`, DNS-rooted.** Each issuer is a `did:web` resolved from a `.well-known` endpoint on a domain the issuer controls — DNS-rooted authority with no public ledger or external registry, so resolution stays inside the sovereignty boundary. This gives an auditor or regulator a resolvable, institutionally-anchored answer to "who issued this," which `did:key` cannot.
 

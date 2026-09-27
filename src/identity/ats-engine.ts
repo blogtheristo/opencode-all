@@ -390,6 +390,9 @@ const VERIFIED_DONE_CONTEXTS = [
 /** Credential types for a KYA Verified-Done credential. */
 const VERIFIED_DONE_TYPES = ['VerifiableCredential', 'KYAVerifiedDoneCredential'];
 
+/** URN prefix for the credentialSubject id — `${prefix}<mandate_vc_id>` (§14.5 key). */
+export const MANDATE_SUBJECT_URN_PREFIX = 'urn:kya:mandate:';
+
 /**
  * Issues a Verified-Done Attestation for an executed mandate (KYA §14.7).
  *
@@ -431,7 +434,7 @@ export function issueVerifiedDoneAttestation(input: AttestationInput): IssuedAtt
     issuer: input.issuer,
     validFrom: input.issuedAt,
     credentialSubject: {
-      id: `urn:kya:mandate:${input.mandateVcId}`,
+      id: `${MANDATE_SUBJECT_URN_PREFIX}${input.mandateVcId}`,
       sessionId: input.sessionId,
       subagentId: input.subagentId,
       hic: input.hic,
