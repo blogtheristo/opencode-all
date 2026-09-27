@@ -237,15 +237,19 @@ export async function loginWithGoogle(role = null, redirectPath = null) {
       sessionStorage.setItem('pending_oauth_role', role);
     }
 
-    // Auto-assign role to external domain users (lifetime.fi, dws10.com, gmail.com)
-    const user = client.auth.getUser();
-    if (user && user.data?.user?.email) {
-      const email = user.data.user.email;
+    // Auto-assign role to allowed external users
+    const { data: { user } } = await client.auth.getUser();
+    if (user?.email) {
+      const email = user.email;
       const emailDomain = email.split('@')[1];
-      const ALLOWED_EXTERNAL_DOMAINS = ['lifetime.fi', 'dws10.com', 'gmail.com'];
+      const ALLOWED_EXTERNAL_EMAILS = [
+        'risto.paarni2024@lifetime.fi',
+        'admin2026@dws10.com',
+        'ristopaarni@gmail.com',
+      ];
 
-      if (ALLOWED_EXTERNAL_DOMAINS.includes(emailDomain)) {
-        const assignedRole = role || 'dws_iq_standard';
+      if (ALLOWED_EXTERNAL_EMAILS.includes(email)) {
+        const assignedRole = 'dws_iq_standard';
         try {
           await client.auth.updateUser({
             data: {

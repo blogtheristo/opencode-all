@@ -238,9 +238,10 @@ export async function loginWithGoogle(role = null, redirectPath = null) {
     }
 
     // Auto-assign role to allowed external users
-    const user = client.auth.getUser();
-    if (user && user.data?.user?.email) {
-      const email = user.data.user.email;
+    const { data: { user } } = await client.auth.getUser();
+    if (user?.email) {
+      const email = user.email;
+      const emailDomain = email.split('@')[1];
       const ALLOWED_EXTERNAL_EMAILS = [
         'risto.paarni2024@lifetime.fi',
         'admin2026@dws10.com',
@@ -248,7 +249,7 @@ export async function loginWithGoogle(role = null, redirectPath = null) {
       ];
 
       if (ALLOWED_EXTERNAL_EMAILS.includes(email)) {
-        const assignedRole = role || 'dws_iq_standard';
+        const assignedRole = 'dws_iq_standard';
         try {
           await client.auth.updateUser({
             data: {
