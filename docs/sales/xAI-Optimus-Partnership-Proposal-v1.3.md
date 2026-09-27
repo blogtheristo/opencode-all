@@ -3,13 +3,14 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Cursor AI / Claude Opus 4.6 | Session: claude/xai-optimus-partner | Date: 27.02.2026 | Changes: Initial draft — xAI Optimus strategic partnership proposal. Sections 1–4: Founder traction, Sovereign Brain, 4-Partner Industrial Stack (Acer, NVIDIA, Siemens, ABB), and Grok as Industrial Conductor ask.
   - Version: 1.1 | Tool: Cursor AI / Claude Opus 4.6 | Session: claude/xai-optimus-partner | Date: 27.02.2026 | Changes: Added Section 5 (Deployment Sovereignty — Hybrid BYO agentic platform) and Section 6 (Human Command Roles: Fleet Admiral, Industry Captain, Navigator). Grok and Optimus explicitly excluded from command hierarchy.
   - Version: 1.2 | Tool: Cursor AI / Claude Opus 4.6 | Session: claude/xai-optimus-partner | Date: 27.02.2026 | Changes: Added Section 7 (Data Sovereignty & EU AI Act — Annex III categories, Art. 14 human oversight requirement, Art. 12 logging) and Section 8 (Risk: EU AI Act conformity assessment timeline for Optimus V3, mitigation via software-first Grok deployment).
   - Version: 1.3 | Tool: Claude Code (Copilot) | Session: copilot/sub-pr-660-again | Date: 27.02.2026 | Changes: Updated for strict legal compliance language throughout. Removed sales fluff. Section 1: currency formatting standardized (€500k → 500 000 €), Kela description clarified to "Finnish senior transport service". Section 5: BYO agentic platform emphasis strengthened. Section 10: Next Step language made timeless ("at your earliest convenience"). Section 4 and closing footer: Grok positioned explicitly as viability/conductor layer, not foundational dependency.
+  - Version: 1.4 | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-claims-wording | Date: 27.09.2026 | Changes: ABB claims aligned to HIC decision 27.09.2026 — ABB is the facility layer (KNX/BACnet, building HVAC + EV) in validation, not a live integration. See docs/plans/abb/ABB_MATERIALS_AUDIT_2026-09-27.md.
 
 Session Links & References:
   - Cursor AI / Claude Opus 4.6 (original): https://github.com/blogtheristo/dws6/commits/copilot/sub-pr-660-again
@@ -18,7 +19,7 @@ Session Links & References:
 
 Document Status:
   - Created: 27.02.2026
-  - Last Modified: 27.02.2026 (v1.3)
+  - Last Modified: 27.09.2026 (v1.4)
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -79,14 +80,14 @@ DWS IQ 6 is a live, revenue-generating product. It serves as the Brain for indus
 | Acer | The Skull (Hardware) | GN-100 Mini Workstations. Industrial-grade, NVIDIA-powered edge nodes at partner rates |
 | NVIDIA | The Neurons (Compute) | Jetson Orin / Grace Blackwell. Raw AI power driving the DWS IQ Prediction Engine at the Edge |
 | Siemens | The Nervous System (Data) | Xcelerator Integration. Direct telemetry from PLCs → turned into World Model logic |
-| ABB | The Metabolism (Energy) | ABB Ability™. Real-time power grid & energy-mass monitoring for automated Fit for 55 reporting |
+| ABB | The Metabolism (Energy) | Facility layer — KNX/BACnet building HVAC and EV charging energy data for Fit for 55 reporting (validation planned) |
 
 ## 4. The Partnership Ask: Grok as the Industrial Conductor
 
 We invite xAI to integrate Grok as the optional Master Conductor Layer. In this 4-Partner View, Grok becomes the high-level reasoning interface that synthesizes data from the entire stack:
 
 - **Grok + Siemens:** Reasoning through machine anomalies, production bottlenecks
-- **Grok + ABB:** Decision-making on energy-mass optimization, carbon-credit harvesting
+- **Grok + ABB:** Energy optimisation decisions on building HVAC and EV load, once ABB validation passes
 - **Grok + NVIDIA/Acer:** Orchestrating the 8-node redundant cluster for mission-critical reliability
 - **Grok + Optimus:** Translating DWS IQ Brain "Predictions" into physical "Actions" for the Tesla Hands
 

@@ -3,14 +3,15 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code | Date: 08.03.2026 | Changes: Initial outreach brief — positioning DWS IQ as Article 12 compliance accelerator for robot OEMs targeting EU industrial deployment. Targets: Tesla/xAI, Boston Dynamics, Agility Robotics, Figure, Universal Robots, ABB.
+  - Version: 1.1 | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-claims-wording | Date: 27.09.2026 | Changes: ABB claims aligned to HIC decision 27.09.2026 — ABB is the facility layer (KNX/BACnet, building HVAC + EV) in validation, not a live integration. See docs/plans/abb/ABB_MATERIALS_AUDIT_2026-09-27.md.
 
 Document Status:
   - Created: 08.03.2026
-  - Last Modified: 08.03.2026
+  - Last Modified: 27.09.2026
   - Language: English
   - Publication Status: INTERNAL — Sales Use Only
   - Document Type: Sales Outreach Brief
@@ -114,7 +115,7 @@ This will come up in every serious DD conversation. Prepared responses:
 
 3. **Finland is a feature, not a bug.** EU data residency from a non-CLOUD Act country. Finnish GDPR enforcement (Tietosuojavaltuutetun toimisto) is among the most rigorous in the EU. Customers get sovereignty by default.
 
-4. **Small ≠ unproven.** 16 AI agents operational. GN-100 hardware running in production. 4-partner stack (Acer, NVIDIA, Siemens, ABB) already integrated. The compliance layer is live — not a pitch deck.
+4. **Small ≠ unproven.** 16 AI agents operational. GN-100 hardware running in production. Acer, NVIDIA and Siemens stack integrated; ABB facility layer in validation. The compliance layer is live — not a pitch deck.
 
 5. **Proof point:** Offer a 30-day technical evaluation with the customer's own use case on DWS-hosted GN-100. Results speak louder than headcount.
 

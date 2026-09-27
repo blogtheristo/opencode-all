@@ -4,23 +4,24 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 3.0
+Version: 3.1
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dws-iq-partnership-proposal-v8LJT | Date: 27.02.2026 | Changes: Initial creation
   - Version: 2.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dws-iq-partnership-proposal-v8LJT | Date: 27.02.2026 | Changes: DWS7 roadmap, Grok-as-conductor-of-16-LLMs, EU friction map, Hands partnership requirements, open robot ecosystem
   - Version: 3.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dws-iq-partnership-proposal-v8LJT | Date: 27.02.2026 | Changes: Definitive synthesis of V1.3 (human-authored: 4-partner industrial stack, BYO everything, Fleet Admiral role, strict EU AI Act legal language, honest risk + mitigation) + V2 (technical Hands requirements, EU friction map, 16-LLM conductor architecture, open robot ecosystem, DWS7 timeline)
+  - Version: 3.1 | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-claims-wording | Date: 27.09.2026 | Changes: ABB claims aligned to HIC decision 27.09.2026 — ABB is the facility layer (KNX/BACnet, building HVAC + EV) in validation, not a live integration. See docs/plans/abb/ABB_MATERIALS_AUDIT_2026-09-27.md.
 
 Document Status:
   - Created: 27.02.2026
-  - Last Modified: 27.02.2026
+  - Last Modified: 27.09.2026
   - Language: English
   - Classification: CONFIDENTIAL — Partner Distribution Only
   - Publication Status: ACTIVE
 
 ***
 
-**Version:** 3.0
+**Version:** 3.1
 **Effective Date:** 2026-02-27
 **Status:** Active — Send-Ready
 **Classification:** CONFIDENTIAL — Partner Distribution Only
@@ -94,14 +95,14 @@ DWS IQ 6 is already embedded in a four-partner hardware and data ecosystem. Grok
 | **Acer** | The Skull (Hardware) | GN-100 Mini Workstations — industrial-grade NVIDIA-powered edge nodes, partner pricing |
 | **NVIDIA** | The Neurons (Compute) | Jetson Orin / Grace Blackwell — raw AI power driving the DWS IQ Prediction Engine at the edge |
 | **Siemens** | The Nervous System (Data) | Xcelerator integration — direct telemetry from PLCs → Lifetime World Model logic |
-| **ABB** | The Metabolism (Energy) | ABB Ability™ — real-time power grid & energy-mass monitoring for automated Fit for 55 reporting |
+| **ABB** | The Metabolism (Energy) | Facility layer — KNX/BACnet building HVAC and EV charging energy data for Fit for 55 reporting (validation planned) |
 
 **Where Grok fits:** Grok becomes the high-level reasoning interface that synthesizes across the entire stack:
 
 | Grok + | Value |
 |--------|-------|
 | **Siemens** | Reasoning through machine anomalies, production bottlenecks, predictive maintenance |
-| **ABB** | Decision-making on energy-mass optimization, carbon-credit harvesting |
+| **ABB** | Energy optimisation decisions on building HVAC and EV load, once ABB validation passes |
 | **NVIDIA/Acer** | Orchestrating the 8–16 node redundant cluster for mission-critical reliability |
 | **Optimus V3** | Translating DWS IQ Brain "Predictions" into physical "Actions" — the Hands |
 
@@ -218,7 +219,7 @@ Zero code rewrite. Zero downtime. Full audit log created automatically. All 27 E
 **What DWS IQ provides:**
 - Pre-built EU regulatory compliance layer (Fit for 55, ETS, CBAM, CSRD, EU AI Act)
 - 25+-industry vertical coverage already operational
-- 4-partner hardware stack live (Acer + NVIDIA + Siemens + ABB)
+- Hardware stack live (Acer + NVIDIA + Siemens); ABB facility layer (KNX/BACnet) in validation
 - Finnish sovereign trust anchor (NATO member, EU founding digital trust zone)
 - Iceye SAR integration (Finnish all-weather satellite data — EU unique situational awareness)
 - Direct access to Industry Captains — decision-makers with €50 000 SAFE investment capacity per seat
@@ -396,7 +397,7 @@ Full 8–16 node Captain's Bridge cluster: funded by incoming role purchases + V
 I am available for a **private 30-minute alignment call next week** to demonstrate DWS IQ 7 running live on the Acer GN-100.
 
 I will show:
-- The 4-partner view (Acer + NVIDIA + Siemens + ABB) operational
+- The Acer + NVIDIA + Siemens view operational, with ABB shown as reference architecture (validation in progress)
 - Grok 4-agent debate running locally across the 16 industry LLMs
 - Iceye SAR → carbon dashboard live feed
 - Optimus V3 simulation (Phase 2 physical layer preview)
