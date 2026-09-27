@@ -2,7 +2,8 @@
 
 ## VERSION AND AGENT HISTORY
 
-- Version: 1.1 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-materials-audit | Date: 2026-09-27 | Changes: Audit per `ABB_MATERIALS_AUDIT_2026-09-27.md`. Added DWS header. "15% energy saving target" changed to a hypothesis to measure. "5-second latency" replaced with measure-and-report. EPBD cited as Directive (EU) 2024/1275. free@home path via SAP, interface to verify. Control writes KYA-gated. Tied to the pack's single Fit for 55 workflow (§9).
+- Version: 1.2 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-interfaces | Date: 2026-09-27 | Changes: free@home SAP interface confirmed from vendor docs: local REST + WebSocket API (SysAP firmware ≥ 2.6.0, basic auth, enabled under free@home Settings → Local API); no native MQTT. Sources: free@home: ABB Developer Portal (developer.eu.mybuildings.abb.com/fah_local); Näpsä: ABB product page (new.abb.com/low-voltage/fi/…/napsa-smart-ev-ulkomittauskeskus).
+- Version: 1.1 [not latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-materials-audit | Date: 2026-09-27 | Changes: Audit per `ABB_MATERIALS_AUDIT_2026-09-27.md`. Added DWS header. "15% energy saving target" changed to a hypothesis to measure. "5-second latency" replaced with measure-and-report. EPBD cited as Directive (EU) 2024/1275. free@home path via SAP, interface to verify. Control writes KYA-gated. Tied to the pack's single Fit for 55 workflow (§9).
 - Version: 1.0 [not latest] | Tool: unknown | Agent: unknown | Date: 2026-08-30 | Changes: Initial draft at repo root, commit `d6485bb3b` (never merged to main). Restored verbatim in `de22eca7f`.
 
 ---
@@ -43,7 +44,7 @@ This document sets the requirements for HVAC energy optimisation with ABB device
 
 - Setpoint recommendations from occupancy, outside temperature and schedule (night-setback first).
 - Writes to AC/S1.1.1 or KNX only with a KYA-signed intent and an HIC-approved policy.
-- free@home devices reached through the System Access Point; its interface is to be verified before use.
+- free@home devices reached through the System Access Point local REST + WebSocket API (firmware ≥ 2.6.0), bridged to MQTT by DWS.
 
 ### 3.4 Compliance evidence
 

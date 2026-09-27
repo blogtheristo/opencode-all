@@ -2,7 +2,8 @@
 
 ## VERSION AND AGENT HISTORY
 
-- Version: 1.1 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-materials-audit | Date: 2026-09-27 | Changes: Audit per `ABB_MATERIALS_AUDIT_2026-09-27.md`. Added DWS header. Aligned with canonical validation pack §3. free@home SAP no longer listed as KNX/IP (E5). Näpsä protocol marked unverified (E3). Status changed from "Validation" to "Candidate — not tested". Kept KNX weather station as candidate (dropped in pack).
+- Version: 1.2 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-interfaces | Date: 2026-09-27 | Changes: free@home SAP interface confirmed from vendor docs: local REST + WebSocket API (SysAP firmware ≥ 2.6.0, basic auth, enabled under free@home Settings → Local API); no native MQTT. Näpsä confirmed from vendor docs: Näpsä Smart-EV ulkomittauskeskus (outdoor metering centre) with EV3 energy meter, MID, Modbus RTU (RS485); not BACnet. Sources: free@home: ABB Developer Portal (developer.eu.mybuildings.abb.com/fah_local); Näpsä: ABB product page (new.abb.com/low-voltage/fi/…/napsa-smart-ev-ulkomittauskeskus).
+- Version: 1.1 [not latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-materials-audit | Date: 2026-09-27 | Changes: Audit per `ABB_MATERIALS_AUDIT_2026-09-27.md`. Added DWS header. Aligned with canonical validation pack §3. free@home SAP no longer listed as KNX/IP (E5). Näpsä protocol marked unverified (E3). Status changed from "Validation" to "Candidate — not tested". Kept KNX weather station as candidate (dropped in pack).
 - Version: 1.0 [not latest] | Tool: unknown | Agent: unknown | Date: 2026-08-30 | Changes: Initial draft at repo root, commit `d6485bb3b` (never merged to main). Restored verbatim in `de22eca7f`.
 
 ---
@@ -35,26 +36,26 @@ This document lists the ABB devices that are **candidates** for the first DWS IQ
 
 ## 3. EV charging devices
 
-- Näpsä Smart-EV distribution centre — distribution and metering
+- Näpsä Smart-EV ulkomittauskeskus (outdoor metering centre) — metering via built-in EV3 energy meter (three-phase 65 A, MID, Modbus RTU over RS485)
 - ICP DAS power meter via iPCMax gateway (IPC-409 / Cincoze DA-1200) — meter bridge per iPCMax pack
 
-Individual Näpsä charger status and charging sessions are **out of scope** until the distribution-centre path passes.
+Individual Näpsä charger status and charging sessions are **out of scope** until the metering path passes. Charging limits are set in ABB's mobile app; a machine interface for them is not documented.
 
 ## 4. Gateway devices
 
-- ABB free@home System Access Point (Wireless SAP 3.0) — gateway into the free@home system. **The local interface (MQTT or other API) must be verified before any claim.**
+- ABB free@home System Access Point (Wireless SAP 3.0) — gateway into the free@home system. Local REST + WebSocket API (firmware ≥ 2.6.0, basic auth, enable "Local API" in free@home settings). No native MQTT — DWS runs its own bridge.
 
 ## 5. Protocol support matrix
 
-| Device                      | Interface to DWS                                         | Status                  | Notes                                 |
-| --------------------------- | -------------------------------------------------------- | ----------------------- | ------------------------------------- |
-| Saga / Tacteo               | KNX TP → KNX IP Router                                   | Candidate — not tested  | Presence, temperature, setpoint       |
-| KNX presence / temperature  | KNX TP → KNX IP Router                                   | Candidate — not tested  | Occupancy detection, room temperature |
-| KNX weather station         | KNX TP → KNX IP Router                                   | Candidate — not in pack | Outside temperature for night-setback |
-| ABB AC/S1.1.1               | BACnet/IP (UDP 47808)                                    | Candidate — not tested  | HVAC control; firmware to pin in lab  |
-| free@home SAP               | **To verify** (pack assumes MQTT)                        | Candidate — not tested  | free@home is its own system, not KNX  |
-| Näpsä Smart-EV distribution | **To verify** (pack: Modbus or BACnet via iPCMax → MQTT) | Candidate — not tested  | Distribution metering                 |
-| ICP DAS power meter         | Modbus → iPCMax → MQTT/gRPC                              | Candidate — not tested  | As per iPCMax pack                    |
+| Device                     | Interface to DWS                               | Status                  | Notes                                 |
+| -------------------------- | ---------------------------------------------- | ----------------------- | ------------------------------------- |
+| Saga / Tacteo              | KNX TP → KNX IP Router                         | Candidate — not tested  | Presence, temperature, setpoint       |
+| KNX presence / temperature | KNX TP → KNX IP Router                         | Candidate — not tested  | Occupancy detection, room temperature |
+| KNX weather station        | KNX TP → KNX IP Router                         | Candidate — not in pack | Outside temperature for night-setback |
+| ABB AC/S1.1.1              | BACnet/IP (UDP 47808)                          | Candidate — not tested  | HVAC control; firmware to pin in lab  |
+| free@home SAP              | Local REST + WebSocket API → DWS bridge → MQTT | Candidate — not tested  | free@home is its own system, not KNX  |
+| Näpsä Smart-EV metering    | EV3 meter Modbus RTU (RS485) → iPCMax → MQTT   | Candidate — not tested  | Distribution metering                 |
+| ICP DAS power meter        | Modbus → iPCMax → MQTT/gRPC                    | Candidate — not tested  | As per iPCMax pack                    |
 
 ## 6. Integration requirements
 

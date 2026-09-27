@@ -1,6 +1,6 @@
 # ABB Electrification / Asennustuotteet — Narrow Validation Pack (HVAC + EV)
 
-**Version:** 0.1 — Reference architecture validation scope (not a broad integration claim)  
+**Version:** 0.2 (2026-09-27: free@home and Näpsä interfaces corrected from vendor docs — see `docs/plans/abb/`) — Reference architecture validation scope (not a broad integration claim)  
 **Date:** 2026-08-30  
 **Owner:** Platform Team — Lifetime Oy  
 **Branch:** `claude/ipcmax-arch-audit-30aug` (infra7 operationalization)  
@@ -41,7 +41,7 @@ Industrial OT                          Building OT
 | #   | Workflow                                                        | ABB surface under test                                                                                                                                   | Why first                                                                          |
 | --- | --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | 1   | **HVAC energy optimisation** (facility energy management wedge) | ABB AC/S1.1.1 KNX BACnet/IP heating-cooling controller + Saga/Tacteo sensor/actuator via KNX IP Router + free@home System Access Point (SAP) MQTT bridge | Direct Fit for 55 evidence (EPBD + CSRD ESRS E1-5/E1-6); largest controllable load |
-| 2   | **EV charging & distribution**                                  | ABB Näpsä Smart-EV distribution centre + ICP DAS / iPCMax power-meter aggregation via Modbus → MQTT → DGX Spark                                          | Concrete metered-load workflow; ties to PUE/energy metering already in iPCMax tier |
+| 2   | **EV charging & distribution**                                  | ABB Näpsä Smart-EV ulkomittauskeskus (EV3 meter) + ICP DAS / iPCMax power-meter aggregation via Modbus → MQTT → DGX Spark                                          | Concrete metered-load workflow; ties to PUE/energy metering already in iPCMax tier |
 
 Out of scope for this pack: full Saga/Tacteo catalogue, free@home Matter extension, MISTRAL/ZX800 ancillaries, broad low-voltage catalogue.
 
@@ -64,14 +64,14 @@ Each objective produces a **measured artifact**, not prose:
 
 ## 3. Supported devices (this pack — expand only after pass)
 
-| Device                                                   | Role                                       | Datasource                                | Firmware / variant to pin          |
-| -------------------------------------------------------- | ------------------------------------------ | ----------------------------------------- | ---------------------------------- |
-| ABB AC/S1.1.1                                            | KNX → BACnet/IP heating-cooling controller | KNX bus + BACnet/IP                       | Record exact FW seen in lab        |
-| KNX IP Router (ABB)                                      | KNX IP gateway                             | KNX IP                                    |                                    |
-| Saga / Tacteo sensor/actuator (minimal set)              | Presence + temperature + setpoint UI       | KNX                                       | One Tacteo + one Saga variant only |
-| free@home System Access Point                            | MQTT bridge                                | free@home → MQTT                          | Wireless SAP 3.0                   |
-| Näpsä Smart-EV distribution centre                       | Distribution + metering                    | Modbus/BACnet → via iPCMax gateway → MQTT |                                    |
-| ICP DAS power meter (via iPCMax IPC-409/Cincoze DA-1200) | Meter bridge                               | Modbus → MQTT/gRPC                        | As per iPCMax pack                 |
+| Device                                                   | Role                                       | Datasource                         | Firmware / variant to pin          |
+| -------------------------------------------------------- | ------------------------------------------ | ---------------------------------- | ---------------------------------- |
+| ABB AC/S1.1.1                                            | KNX → BACnet/IP heating-cooling controller | KNX bus + BACnet/IP                | Record exact FW seen in lab        |
+| KNX IP Router (ABB)                                      | KNX IP gateway                             | KNX IP                             |                                    |
+| Saga / Tacteo sensor/actuator (minimal set)              | Presence + temperature + setpoint UI       | KNX                                | One Tacteo + one Saga variant only |
+| free@home System Access Point                            | Gateway (local REST + WebSocket API)       | SysAP API → DWS bridge → MQTT      | Wireless SAP 3.0                   |
+| Näpsä Smart-EV ulkomittauskeskus (EV3 meter)             | Metering                                   | Modbus RTU (RS485) → iPCMax → MQTT |                                    |
+| ICP DAS power meter (via iPCMax IPC-409/Cincoze DA-1200) | Meter bridge                               | Modbus → MQTT/gRPC                 | As per iPCMax pack                 |
 
 Anything not in this table is **explicitly unsupported** in this validation — add via backlog (CONNECTOR_UPGRADE_BACKLOG OT-003 wave).
 
@@ -83,7 +83,7 @@ Anything not in this table is **explicitly unsupported** in this validation — 
 
 - KNX group-address → DWS canonical point (e.g. `HVAC.zone.temperature`, `HVAC.zone.occupancy`, `HVAC.controller.setpoint`)
 - BACnet objects (AI/AV/BV for AC/S1.1.1) → same canonical model
-- free@home MQTT topic → canonical
+- free@home SysAP local API (via DWS MQTT bridge) → canonical
 - Verdict recorded per address/object: mapped / dropped / flagged (with reason).
 
 ### 4.2 Command authority
@@ -114,7 +114,7 @@ Anything not in this table is **explicitly unsupported** in this validation — 
 | Hop                          | Protocol                             | Transport       | Security                   | Direction    |
 | ---------------------------- | ------------------------------------ | --------------- | -------------------------- | ------------ |
 | KNX device → IP Router / SAP | KNX TP / RF                          | KNX IP          | KNX Secure where available | N → router   |
-| Router/SAP → iPCMax gateway  | KNX IP / free@home MQTT              | TCP/IP          | TLS + PSK where applicable | → gateway    |
+| Router/SAP → iPCMax gateway  | KNX IP / SysAP REST + WebSocket      | TCP/IP          | TLS + PSK where applicable | → gateway    |
 | iPCMax → DGX Spark           | MQTT-over-TLS / OPC UA PubSub / gRPC | TSN-capable L2  | mTLS + KYA                 | → cluster    |
 | AC/S1.1.1 → DGX Spark        | BACnet/IP                            | UDP 47808 / TCP | BBMD + ACL                 | → cluster    |
 | DGX Spark → Supabase/Aspire  | HTTPS / OTel                         | TCP/IP          | mTLS / JWT                 | → governance |
@@ -140,7 +140,7 @@ All records retain `rawRef` → raw frame/payload hash for lineage. Derived Fit 
 | Boundary                                                | DWS IQ responsibility                        | Partner / customer responsibility                            |
 | ------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------ |
 | KNX RF/TP + KNX Secure keys                             | Consume + log; never exfiltrate keys         | Key provisioning, physical bus security                      |
-| free@home SAP → MQTT                                    | TLS termination, KYA-gated writes            | SAP firmware, MQTT ACL on SAP                                |
+| free@home SysAP local API → DWS bridge                  | Bridge, TLS, KYA-gated writes                | SysAP firmware ≥ 2.6.0, Local API user and password          |
 | BACnet/IP (AC/S1.1.1)                                   | BBMD ACL, read/write gating, audit           | BACnet device hardening, network segmentation                |
 | iPCMax gateway (IPC-409/P68/DA-1200, ICP DAS)           | Protocol translation, buffering, mTLS to DGX | Gateway OS/Secure Boot (§1.1 in iPCMax eval), power, thermal |
 | DGX Spark cluster (K3s + GPU/NIM/Network/DPU operators) | Operator lifecycle, attestation, audit log   | Physical, NVAIE subscription, power/UPS                      |
@@ -150,14 +150,14 @@ All records retain `rawRef` → raw frame/payload hash for lineage. Derived Fit 
 
 ## 8. Failure modes (initial catalog — extend with lab findings)
 
-| Failure                    | Detection               | Safe state                                         | Operator signal            | Evidence                |
-| -------------------------- | ----------------------- | -------------------------------------------------- | -------------------------- | ----------------------- |
-| KNX bus loss               | Heartbeat timeout       | Hold last setpoint; no new writes                  | Dashboard degraded + alert | OTel span error + audit |
-| IP partition (gateway↔DGX) | MQTT LWT / health probe | Buffer on gateway (bounded); drop oldest with mark | Degraded ingest            | Gap annotation          |
-| AC/S1.1.1 unreachable      | BACnet timeout          | No HVAC write; retain                              | Alert                      | Timeout event           |
-| SAP offline                | MQTT disconnect         | No free@home writes                                | Alert                      | Disconnect event        |
-| Näpsä meter out-of-range   | Validation rule         | Quarantine reading; use last-good + flag           | Data-quality flag          | Quarantine + lineage    |
-| DGX pod eviction           | K8s readiness           | Queue on gateway; replay on recovery               | Cluster alert              | Pod event               |
+| Failure                    | Detection                | Safe state                                         | Operator signal            | Evidence                |
+| -------------------------- | ------------------------ | -------------------------------------------------- | -------------------------- | ----------------------- |
+| KNX bus loss               | Heartbeat timeout        | Hold last setpoint; no new writes                  | Dashboard degraded + alert | OTel span error + audit |
+| IP partition (gateway↔DGX) | MQTT LWT / health probe  | Buffer on gateway (bounded); drop oldest with mark | Degraded ingest            | Gap annotation          |
+| AC/S1.1.1 unreachable      | BACnet timeout           | No HVAC write; retain                              | Alert                      | Timeout event           |
+| SAP offline                | API/WebSocket disconnect | No free@home writes                                | Alert                      | Disconnect event        |
+| Näpsä meter out-of-range   | Validation rule          | Quarantine reading; use last-good + flag           | Data-quality flag          | Quarantine + lineage    |
+| DGX pod eviction           | K8s readiness            | Queue on gateway; replay on recovery               | Cluster alert              | Pod event               |
 
 ---
 

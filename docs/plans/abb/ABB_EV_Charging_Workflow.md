@@ -2,7 +2,8 @@
 
 ## VERSION AND AGENT HISTORY
 
-- Version: 1.1 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-materials-audit | Date: 2026-09-27 | Changes: Audit per `ABB_MATERIALS_AUDIT_2026-09-27.md`. Added DWS header. Removed CBAM (E4: EV chargers are not a CBAM good). Näpsä path changed from direct BACnet/IP to gateway, marked unverified (E3). "2-second latency" replaced with measure-and-report. Scope narrowed to distribution-centre metering first, per pack §2.3. Control writes KYA-gated.
+- Version: 1.2 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-interfaces | Date: 2026-09-27 | Changes: Näpsä confirmed from vendor docs: Näpsä Smart-EV ulkomittauskeskus (outdoor metering centre) with EV3 energy meter, MID, Modbus RTU (RS485); not BACnet. Peak-shave control path marked open (limits set in ABB mobile app). Sources: free@home: ABB Developer Portal (developer.eu.mybuildings.abb.com/fah_local); Näpsä: ABB product page (new.abb.com/low-voltage/fi/…/napsa-smart-ev-ulkomittauskeskus).
+- Version: 1.1 [not latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-materials-audit | Date: 2026-09-27 | Changes: Audit per `ABB_MATERIALS_AUDIT_2026-09-27.md`. Added DWS header. Removed CBAM (E4: EV chargers are not a CBAM good). Näpsä path changed from direct BACnet/IP to gateway, marked unverified (E3). "2-second latency" replaced with measure-and-report. Scope narrowed to distribution-centre metering first, per pack §2.3. Control writes KYA-gated.
 - Version: 1.0 [not latest] | Tool: unknown | Agent: unknown | Date: 2026-08-30 | Changes: Initial draft at repo root, commit `d6485bb3b` (never merged to main). Restored verbatim in `de22eca7f`.
 
 ---
@@ -16,7 +17,7 @@
 
 ## 1. Overview
 
-This document sets the requirements for EV charging and distribution metering with the ABB Näpsä Smart-EV distribution centre in DWS IQ. It is validation workflow 2 in the pack and the EV half of the exit-gate workflow: "HVAC night-setback + EV peak-shave". The first step is metering; charger control comes after metering passes.
+This document sets the requirements for EV charging and distribution metering with the ABB Näpsä Smart-EV ulkomittauskeskus (outdoor metering centre) in DWS IQ. It is validation workflow 2 in the pack and the EV half of the exit-gate workflow: "HVAC night-setback + EV peak-shave". The first step is metering; charger control comes after metering passes.
 
 ## 2. Objectives
 
@@ -29,7 +30,7 @@ This document sets the requirements for EV charging and distribution metering wi
 
 ### 3.1 Telemetry ingestion
 
-- Näpsä Smart-EV distribution centre metering through the iPCMax gateway to MQTT. **The Näpsä interface (Modbus or BACnet) is to be verified in the lab.**
+- Näpsä Smart-EV ulkomittauskeskus metering: built-in EV3 energy meter (MID) over Modbus RTU (RS485) → iPCMax gateway → MQTT. The register map is taken from the lab device.
 - ICP DAS power meter via Modbus → iPCMax → MQTT/gRPC.
 - Grid import tracked through the same metering path.
 
@@ -67,4 +68,4 @@ This document sets the requirements for EV charging and distribution metering wi
 
 ## 6. Decision rationale
 
-CBAM was removed because it applies to imports of listed goods, not to EV chargers. The Näpsä protocol stays open until the lab confirms it, so that the connector (backlog OT-003) is built against the real interface.
+CBAM was removed because it applies to imports of listed goods, not to EV chargers. The Näpsä meter interface is Modbus RTU per ABB's product page; charger-limit control has no documented machine interface (ABB mobile app only), so peak-shave control stays to be designed, and the connector (backlog OT-003) is built against the real interface.

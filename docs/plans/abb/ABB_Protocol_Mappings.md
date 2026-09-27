@@ -2,7 +2,8 @@
 
 ## VERSION AND AGENT HISTORY
 
-- Version: 1.1 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-materials-audit | Date: 2026-09-27 | Changes: Audit per `ABB_MATERIALS_AUDIT_2026-09-27.md`. Added DWS header. Corrected KNX datapoint types (E1). BACnet setpoint moved from Analog Input to Analog Value (E2). Näpsä moved off direct BACnet/IP to gateway path, marked unverified (E3). Removed "switch to backup protocol" (E6). Replaced invented latency/reliability targets with measure-and-report (pack §4.3). DWS mapping names aligned to pack canonical points.
+- Version: 1.2 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-interfaces | Date: 2026-09-27 | Changes: free@home SAP interface confirmed from vendor docs: local REST + WebSocket API (SysAP firmware ≥ 2.6.0, basic auth, enabled under free@home Settings → Local API); no native MQTT. Näpsä confirmed from vendor docs: Näpsä Smart-EV ulkomittauskeskus (outdoor metering centre) with EV3 energy meter, MID, Modbus RTU (RS485); not BACnet. Added §3.3 free@home row. Sources: free@home: ABB Developer Portal (developer.eu.mybuildings.abb.com/fah_local); Näpsä: ABB product page (new.abb.com/low-voltage/fi/…/napsa-smart-ev-ulkomittauskeskus).
+- Version: 1.1 [not latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-materials-audit | Date: 2026-09-27 | Changes: Audit per `ABB_MATERIALS_AUDIT_2026-09-27.md`. Added DWS header. Corrected KNX datapoint types (E1). BACnet setpoint moved from Analog Input to Analog Value (E2). Näpsä moved off direct BACnet/IP to gateway path, marked unverified (E3). Removed "switch to backup protocol" (E6). Replaced invented latency/reliability targets with measure-and-report (pack §4.3). DWS mapping names aligned to pack canonical points.
 - Version: 1.0 [not latest] | Tool: unknown | Agent: unknown | Date: 2026-08-30 | Changes: Initial draft at repo root, commit `d6485bb3b` (never merged to main). Restored verbatim in `de22eca7f`.
 
 ---
@@ -61,14 +62,20 @@ Object instance numbers come from the AC/S1.1.1 BACnet configuration in lab capt
 
 ### 3.2 Energy and EV (via gateway)
 
-| Device                      | Path to DWS                                      | DWS canonical record | Fields                       | Status          |
-| --------------------------- | ------------------------------------------------ | -------------------- | ---------------------------- | --------------- |
-| Näpsä Smart-EV distribution | **To verify** — Modbus or BACnet → iPCMax → MQTT | `EnergyState`        | `kWh`, `power_W`             | Unverified      |
-| ICP DAS power meter         | Modbus → iPCMax → MQTT/gRPC                      | `EnergyState`        | `kWh`, `power_W`             | Per iPCMax pack |
-| HVAC energy meter           | To choose at lab setup                           | `EnergyState`        | `kWh`, `power_W`             | Not chosen      |
-| Charger (if in scope later) | To verify                                        | `ChargerState`       | `state`, `kW`, `kWh_session` | Out of scope    |
+| Device                      | Path to DWS                        | DWS canonical record | Fields                       | Status                                     |
+| --------------------------- | ---------------------------------- | -------------------- | ---------------------------- | ------------------------------------------ |
+| Näpsä Smart-EV EV3 meter    | Modbus RTU (RS485) → iPCMax → MQTT | `EnergyState`        | `kWh`, `power_W`             | Interface confirmed; register map from lab |
+| ICP DAS power meter         | Modbus → iPCMax → MQTT/gRPC        | `EnergyState`        | `kWh`, `power_W`             | Per iPCMax pack                            |
+| HVAC energy meter           | To choose at lab setup             | `EnergyState`        | `kWh`, `power_W`             | Not chosen                                 |
+| Charger (if in scope later) | To verify                          | `ChargerState`       | `state`, `kW`, `kWh_session` | Out of scope                               |
 
-### 3.3 Data format
+### 3.3 free@home (via System Access Point)
+
+| Source          | Interface                                     | Path to DWS                   | Notes                                                                 |
+| --------------- | --------------------------------------------- | ----------------------------- | --------------------------------------------------------------------- |
+| free@home SysAP | Local REST + WebSocket API (firmware ≥ 2.6.0) | DWS bridge → MQTT → canonical | Basic auth; test calls at `http://<SysAP-IP>/swagger`; no native MQTT |
+
+### 3.4 Data format
 
 - Standard units: °C, kW, kWh, W.
 - Timestamps on every measurement; BACnet status flags carried as data-quality indicators.

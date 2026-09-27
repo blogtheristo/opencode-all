@@ -2,7 +2,8 @@
 
 ## VERSION AND AGENT HISTORY
 
-- Version: 1.1 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-materials-audit | Date: 2026-09-27 | Changes: Audit per `ABB_MATERIALS_AUDIT_2026-09-27.md`. Added DWS header. Removed CBAM (E4). Replaced invented targets (>95 % accuracy, 99.5 % uptime, <5 s, 100 % success) with measure-and-report. Team roles mapped to actual owners (HIC + agents). Six-week timeline marked as estimate. Deliverables tied to the pack's HIC sign-off checklist.
+- Version: 1.2 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-interfaces | Date: 2026-09-27 | Changes: free@home SAP interface confirmed from vendor docs: local REST + WebSocket API (SysAP firmware ≥ 2.6.0, basic auth, enabled under free@home Settings → Local API); no native MQTT. Näpsä confirmed from vendor docs: Näpsä Smart-EV ulkomittauskeskus (outdoor metering centre) with EV3 energy meter, MID, Modbus RTU (RS485); not BACnet. Sources: free@home: ABB Developer Portal (developer.eu.mybuildings.abb.com/fah_local); Näpsä: ABB product page (new.abb.com/low-voltage/fi/…/napsa-smart-ev-ulkomittauskeskus).
+- Version: 1.1 [not latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-materials-audit | Date: 2026-09-27 | Changes: Audit per `ABB_MATERIALS_AUDIT_2026-09-27.md`. Added DWS header. Removed CBAM (E4). Replaced invented targets (>95 % accuracy, 99.5 % uptime, <5 s, 100 % success) with measure-and-report. Team roles mapped to actual owners (HIC + agents). Six-week timeline marked as estimate. Deliverables tied to the pack's HIC sign-off checklist.
 - Version: 1.0 [not latest] | Tool: unknown | Agent: unknown | Date: 2026-08-30 | Changes: Initial draft at repo root, commit `d6485bb3b` (never merged to main). Restored verbatim in `de22eca7f`.
 
 ---
@@ -31,10 +32,10 @@ This plan sets out how to validate ABB Electrification / Asennustuotteet devices
 
 ### Phase 1 — Lab setup
 
-- Procure the minimum set: AC/S1.1.1, KNX IP Router, one Saga and one Tacteo, free@home SAP, Näpsä distribution centre, ICP DAS meter.
+- Procure the minimum set: AC/S1.1.1, KNX IP Router, one Saga and one Tacteo, free@home SAP, Näpsä Smart-EV ulkomittauskeskus, ICP DAS meter.
 - Set up the iPCMax gateway and DGX Spark ingest.
 - Record firmware of every device.
-- Verify the free@home SAP interface and the Näpsä interface.
+- Enable the free@home SysAP Local API (firmware ≥ 2.6.0) and read the Näpsä EV3 meter Modbus register map. Interfaces confirmed from vendor docs 27.09.2026; lab confirms values.
 
 ### Phase 2 — HVAC
 
