@@ -114,6 +114,40 @@ export async function isAuthenticated() {
 const PRIVILEGED_ROLES = new Set(['backoffice_admin', 'hub_admin']);
 
 /**
+ * Read dashboard authorization from the server-owned organization membership table.
+ * @returns {Promise<{isAdmin: boolean, orgs: string[]}>}
+ */
+export async function getBackofficeAccess() {
+  const session = await getCurrentSession();
+  if (!session?.access_token) throw new Error('No authenticated session');
+
+  const localHosts = new Set(['localhost', '127.0.0.1', '']);
+  const apiBase =
+    window.DWS_API_BASE ||
+    (localHosts.has(window.location.hostname) ? 'http://localhost:3001' : 'https://api.dws6.com');
+  const response = await fetch(`${apiBase}/api/v1/backoffice/me`, {
+    headers: { Authorization: `Bearer ${session.access_token}` },
+  });
+  if (!response.ok) throw new Error(`Dashboard access check failed (HTTP ${response.status})`);
+
+  const access = await response.json();
+  if (
+    typeof access?.isAdmin !== 'boolean' ||
+    !Array.isArray(access?.orgs) ||
+    !access.orgs.every((org) => typeof org === 'string')
+  ) {
+    throw new Error('Dashboard access response is invalid');
+  }
+  return access;
+}
+
+export function hasBackofficeSection(access, sectionName) {
+  if (access.isAdmin) return true;
+  const expected = String(sectionName).trim().toLocaleLowerCase();
+  return access.orgs.some((org) => org.trim().toLocaleLowerCase() === expected);
+}
+
+/**
  * Resolve a role without accepting a user-editable privileged claim.
  * Supabase users can update user_metadata themselves; app_metadata and active
  * organization membership are server-controlled. Non-privileged legacy roles remain compatible.

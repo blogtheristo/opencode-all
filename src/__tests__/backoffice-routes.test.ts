@@ -3,8 +3,19 @@ import request from 'supertest';
 import express, { type Express } from 'express';
 
 const state = vi.hoisted(() => ({
-  user: { id: 'u1', email: 'a@x.fi' } as { id: string; email: string } | null,
-  membership: { user_id: 'u1' } as { user_id: string } | null,
+  user: { id: 'u1', email: 'a@x.fi', user_metadata: {} } as {
+    id: string;
+    email: string;
+    user_metadata: { role?: string };
+  } | null,
+  memberships: [
+    { user_id: 'u1', role: 'admin', organizations: { name: 'Control Room' } },
+  ] as Array<{
+    user_id: string;
+    role: string;
+    organizations: { name: string };
+  }>,
+  membershipError: null as Error | null,
 }));
 
 vi.mock('../utils/logger.js', () => ({
@@ -30,7 +41,7 @@ vi.mock('../config/supabase.js', () => {
   const chain = (result: unknown) => {
     const q: Record<string, unknown> = {};
     for (const m of ['select', 'eq', 'neq', 'gte', 'in', 'order', 'limit']) q[m] = () => q;
-    q.maybeSingle = async () => ({ data: state.membership, error: null });
+    q.maybeSingle = async () => ({ data: state.memberships[0] ?? null, error: state.membershipError });
     q.then = (resolve: (v: unknown) => void) => resolve(result);
     return q;
   };
@@ -42,7 +53,7 @@ vi.mock('../config/supabase.js', () => {
           error: state.user ? null : new Error('bad'),
         }),
       },
-      from: () => chain({ count: 7, data: [], error: null }),
+      from: (table: string) => chain(table === 'organization_members' ? { data: state.memberships, error: state.membershipError } : { count: 7, data: [], error: null }),
     }),
   };
 });
@@ -57,8 +68,9 @@ function buildApp(): Express {
 
 describe('backoffice routes', () => {
   beforeEach(() => {
-    state.user = { id: 'u1', email: 'a@x.fi' };
-    state.membership = { user_id: 'u1' };
+    state.user = { id: 'u1', email: 'a@x.fi', user_metadata: {} };
+    state.memberships = [{ user_id: 'u1', role: 'admin', organizations: { name: 'Control Room' } }];
+    state.membershipError = null;
   });
 
   it('rejects requests without a bearer token', async () => {
@@ -75,11 +87,39 @@ describe('backoffice routes', () => {
   });
 
   it('rejects users who are not active org owner/admin even if metadata claims backoffice_admin', async () => {
-    state.membership = null;
+    state.memberships = [];
     const res = await request(buildApp())
       .get('/api/v1/backoffice/stats')
       .set('Authorization', 'Bearer x');
     expect(res.status).toBe(403);
+  });
+
+  it('/me returns false and no organizations for a non-member', async () => {
+    state.memberships = [];
+    const res = await request(buildApp()).get('/api/v1/backoffice/me').set('Authorization', 'Bearer good');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ isAdmin: false, orgs: [] });
+  });
+
+  it('/me returns admin status and active organization names for a member', async () => {
+    const res = await request(buildApp()).get('/api/v1/backoffice/me').set('Authorization', 'Bearer good');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ isAdmin: true, orgs: ['Control Room'] });
+  });
+
+  it('/me ignores a spoofed user_metadata role without a membership', async () => {
+    state.user = { id: 'u1', email: 'a@x.fi', user_metadata: { role: 'backoffice_admin' } };
+    state.memberships = [];
+    const res = await request(buildApp()).get('/api/v1/backoffice/me').set('Authorization', 'Bearer good');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ isAdmin: false, orgs: [] });
+  });
+
+  it('/me returns section memberships without granting admin', async () => {
+    state.memberships = [{ user_id: 'u1', role: 'member', organizations: { name: 'Situation Room' } }];
+    const res = await request(buildApp()).get('/api/v1/backoffice/me').set('Authorization', 'Bearer good');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ isAdmin: false, orgs: ['Situation Room'] });
   });
 
   it('returns real counts and container health for admins', async () => {

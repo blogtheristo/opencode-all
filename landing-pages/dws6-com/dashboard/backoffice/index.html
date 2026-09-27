@@ -242,8 +242,8 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module">
-      import { getCurrentUser, getCurrentSession } from "../../shared/js/supabase-client.js";
-      import { logout, requireRole } from "../../shared/js/auth-handler.js";
+      import { getBackofficeAccess, getCurrentUser, getCurrentSession } from "../../shared/js/supabase-client.js";
+      import { logout, requireAuth } from "../../shared/js/auth-handler.js";
 
       // The role check below only hides the UI. The server re-checks organization_members on every call.
       // The dashboard is served from dws6.com (Cloudflare Pages); the backend API is a
@@ -413,9 +413,19 @@
       }
 
       window.addEventListener("DOMContentLoaded", async () => {
-        if (!(await requireRole("backoffice_admin"))) return;
-        const user = await getCurrentUser();
-        if (user) $("userInfo").textContent = `Logged in as: ${user.email} (Administrator)`;
+        const user = await requireAuth("/login/backoffice/");
+        if (!user) return;
+        try {
+          const access = await getBackofficeAccess();
+          if (!access.isAdmin) {
+            window.location.href = "/unauthorized.html";
+            return;
+          }
+        } catch (error) {
+          showError(error.message);
+          return;
+        }
+        $("userInfo").textContent = `Logged in as: ${user.email} (Administrator)`;
         $("refreshBtn").addEventListener("click", load);
         load();
       });
