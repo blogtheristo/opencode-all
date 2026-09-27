@@ -11,10 +11,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.13
+Version: 4.14
 Sessions & Modifications:
 
-- Version: 4.13 [Latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Lisätty §14.54 (Menettelylliset graafit ulkoisena muistina: yhtenevän löydön markkinasignaali) + Avainkontribuutio #60. Ulkoinen lähde: Google Cloudin LinkedIn-julkaisu, GITEX AI Türkiye, 21.9.2026. Vahvistava lähde: DWS:n oma aiemmin olemassa ollut DWS7_ROADMAP.md vaihe 4.1 (PR:t 138/146), kirjoitettu riippumattomasti kuukausia ennen kuin tämä signaali huomattiin. Täydentää Avainkontribuutio #56:ta (generointi/verifiointi-eriytyminen) kya-jev-tyypitetyn päätöskerroksen kautta. Vastine maisterityössä: V3Thesis §10.35. Lukkoaskel 4.12->4.13.
+- Version: 4.14 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-target-q4-2026 | Date: 27.09.2026 | Changes: HIC 27.09.2026: ABB-integraation tavoite Q3 2026 → Q4 2026 (§14.8, liite H.5). ABB:n nykyinen laajuus: kiinteistökerros (KNX/BACnet, rakennuksen LVI + sähköautojen lataus) validoinnissa — docs/plans/abb/.
+- Version: 4.13 [not latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Lisätty §14.54 (Menettelylliset graafit ulkoisena muistina: yhtenevän löydön markkinasignaali) + Avainkontribuutio #60. Ulkoinen lähde: Google Cloudin LinkedIn-julkaisu, GITEX AI Türkiye, 21.9.2026. Vahvistava lähde: DWS:n oma aiemmin olemassa ollut DWS7_ROADMAP.md vaihe 4.1 (PR:t 138/146), kirjoitettu riippumattomasti kuukausia ennen kuin tämä signaali huomattiin. Täydentää Avainkontribuutio #56:ta (generointi/verifiointi-eriytyminen) kya-jev-tyypitetyn päätöskerroksen kautta. Vastine maisterityössä: V3Thesis §10.35. Lukkoaskel 4.12->4.13.
 - Version: 4.12 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Lukkoaskel-versionnosto 4.11 -> 4.12 CLAUDE.md:n Thesis-säännön mukaan. Maisterityön §10.34 (hallittu sanasto ohjaa käännökset ja hakutagit) on toteutusnäyttöä; tohtorityön sisältöä ei lisätty.
 - Version: 4.11 [not latest] | Tool: Claude Code (Haiku 4.5) | Session: claude/cursor-dws-audit-zl8ts1 | Date: 19.09.2026 | Changes: Lukkoaskel-versio-nosto 4.10 -> 4.11 CLAUDE.md:n Thesis-säännön mukaan. PR #2037 kenttämuistio (2026-09-18): Mission Control avautuu kun käyttäjä on kirjautunut; toiminta on manuaalista; X @blogtheristo linkitetty xAI:iin risto.paarni@lifetime.fi. Ei tohtorisuonnitelman sisältöä; kirjattu vain lukkoaskel-merkintänä §1.4 master-vs-PhD-skooppisäännön mukaan.
 - Version: 4.10 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Deloitte/DIHK-hybridi nostettu **Avainkontribuutio #59**:ksi — herkkä kuorma suvereenille substraatille, muu hyperscalerille. HIC nimesi tämän keskeiseksi löydökseksi (14.09.2026). §14.53.3 seuraus säilytetty ja nimetty löydökseksi; ei uutta SKU:ta. Kumppani maisterityö §10.33. Lukkoaskel 4.09->4.10.
@@ -1529,7 +1530,7 @@ _Dokumentoitu: 27.02.2026 | Lähde: docs/DWS6_TO_DWS7_UPDATE.md v1.1_
 | -------- | ---------------------------------------------------------- | --------------------------- |
 | NVIDIA   | Aivot (laskenta) + Kädet (Jetson-reuna) + Keho (Omniverse) | Inception Q2 2026           |
 | Siemens  | Kädet (MindSphere IoT) + Keho (digitaalinen kaksonen)      | Xcelerator Q2 2026          |
-| ABB      | Kädet (automaatio, robotiikka, sähköverkot)                | Q3 2026                     |
+| ABB      | Kädet (automaatio, robotiikka, sähköverkot)                | Q4 2026                     |
 | xAI      | Aivot (Grok reaaliaikainen markkinaälykkyys)               | Aktiivinen tuotanto         |
 | Mistral  | Aivot/Muisti (EU-suvereeni tekoälyinferenssi)              | Suunniteltu Q3 2026         |
 | Red Hat  | Keho (AgentOps BYOA, OpenShift AI, hybridipilvi-infra)     | Aktiivinen (maaliskuu 2026) |
@@ -3359,7 +3360,7 @@ BYO määrittelee, miten ulkoiset agentit — miltä tahansa kumppanilta tai asi
 | -------------------- | ---------------------------------------------------------- | --------------------------------------------------- | ------------------------- |
 | NVIDIA               | Aivot (laskenta) + Kädet (Jetson-reuna) + Keho (Omniverse) | Laskentasubstraatti KYA-hallituille agenteille      | Inception-tavoite Q2 2026 |
 | Siemens              | Kädet (MindSphere IoT) + Keho (digitaalinen kaksonen)      | Teollinen IoT-data KYA:n suoritusaikavalvontaan     | Xcelerator Q2 2026        |
-| ABB                  | Kädet (automaatio, robotiikka, sähköverkko)                | Fyysinen toteutuskerros KYA-hallinnan alla          | Q3 2026                   |
+| ABB                  | Kädet (automaatio, robotiikka, sähköverkko)                | Fyysinen toteutuskerros KYA-hallinnan alla          | Q4 2026                   |
 | xAI                  | Aivot (Grok-reaaliaikatiedustelu)                          | Reaaliaikaiset signaalit multi-LLM-reitittimelle    | Tuotannossa               |
 | Mistral              | Aivot/Muisti (EU-suvereeni tekoälypäättely)                | EU-suvereeni malli vaatimustenmukaisuustyökuormille | Suunniteltu Q3 2026       |
 | Shufti Pro           | L1/L5 (henkilöidentiteetti + jatkuva riski)                | Identiteettiverifiointi KYA-luottamuskehykselle     | PoC Q1 2026               |

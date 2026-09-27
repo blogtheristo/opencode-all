@@ -11,10 +11,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.13
+Version: 4.14
 Sessions & Modifications:
 
-- Version: 4.13 [Latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Added §14.54 (Procedural Graphs as External Memory: A Convergent-Discovery Market Signal) + Key Contribution #60. External source: Google Cloud LinkedIn post, GITEX AI Türkiye, 2026-09-21. Corroborating source: DWS's own pre-existing DWS7_ROADMAP.md Phase 4.1 (PRs 138/146), authored independently months before this signal was noticed. Composes with Key Contribution #56 (generation/verification decoupling) via the kya-jev typed-decision layer. Companion master's: V3Thesis §10.35. Lockstep 4.12->4.13.
+- Version: 4.14 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-target-q4-2026 | Date: 27.09.2026 | Changes: HIC 27.09.2026: ABB integration target Q3 2026 → Q4 2026 (§14.8, Appendix H.5). Current ABB scope: facility layer (KNX/BACnet, building HVAC + EV) in validation — docs/plans/abb/.
+- Version: 4.13 [not latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Added §14.54 (Procedural Graphs as External Memory: A Convergent-Discovery Market Signal) + Key Contribution #60. External source: Google Cloud LinkedIn post, GITEX AI Türkiye, 2026-09-21. Corroborating source: DWS's own pre-existing DWS7_ROADMAP.md Phase 4.1 (PRs 138/146), authored independently months before this signal was noticed. Composes with Key Contribution #56 (generation/verification decoupling) via the kya-jev typed-decision layer. Companion master's: V3Thesis §10.35. Lockstep 4.12->4.13.
 - Version: 4.12 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Lockstep version bump 4.11 -> 4.12 per CLAUDE.md Thesis Rule. Master's §10.34 (controlled vocabulary drives translations and search tags) is implementation evidence; no PhD-scope content added.
 - Version: 4.11 [not latest] | Tool: Claude Code (Haiku 4.5) | Session: claude/cursor-dws-audit-zl8ts1 | Date: 19.09.2026 | Changes: Lockstep version bump 4.10 -> 4.11 per CLAUDE.md Thesis Rule. PR #2037 field note (2026-09-18): Mission Control login works when signed in; operations stay manual; X @blogtheristo linked to xAI risto.paarni@lifetime.fi. No PhD-scope content; recorded as lockstep-only per §1.4 master-vs-PhD scope rule.
 - Version: 4.10 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Elevated the Deloitte/DIHK hybrid to **Key Contribution #59** — sensitive workloads on sovereign substrate, the rest on hyperscalers. HIC named this the central finding (14.09.2026). §14.53.3 corollary kept and restated as the key finding; no new SKU. Companion master's §10.33. Lockstep 4.09->4.10.
@@ -1513,7 +1514,7 @@ DWS7 has formalized a 5-partner ecosystem for the Brain-Memory-Body-Hands archit
 | ------- | -------------------------------------------------------- | ------------------------ |
 | NVIDIA  | Brain (compute) + Hands (Jetson edge) + Body (Omniverse) | Inception target Q2 2026 |
 | Siemens | Hands (MindSphere IoT) + Body (digital twin)             | Xcelerator Q2 2026       |
-| ABB     | Hands (automation, robotics, power grid)                 | Q3 2026                  |
+| ABB     | Hands (automation, robotics, power grid)                 | Q4 2026                  |
 | xAI     | Brain (Grok real-time market intelligence)               | Active production        |
 | Mistral | Brain/Memory (EU-sovereign AI inference)                 | Planned Q3 2026          |
 | Red Hat | Body (AgentOps BYOA, OpenShift AI, hybrid cloud infra)   | Active (March 2026)      |
@@ -3359,7 +3360,7 @@ The 5-partner ecosystem maps to the DWS architecture layers:
 | ------------------- | -------------------------------------------------------- | ---------------------------------------------- | ------------------------ |
 | NVIDIA              | Brain (compute) + Hands (Jetson edge) + Body (Omniverse) | Compute substrate for KYA-governed agents      | Inception target Q2 2026 |
 | Siemens             | Hands (MindSphere IoT) + Body (digital twin)             | Industrial IoT data for KYA runtime monitoring | Xcelerator Q2 2026       |
-| ABB                 | Hands (automation, robotics, power grid)                 | Physical execution layer under KYA governance  | Q3 2026                  |
+| ABB                 | Hands (automation, robotics, power grid)                 | Physical execution layer under KYA governance  | Q4 2026                  |
 | xAI                 | Brain (Grok real-time market intelligence)               | Real-time signals for multi-LLM router         | Active production        |
 | Mistral             | Brain/Memory (EU-sovereign AI inference)                 | EU-sovereign model for compliance workloads    | Planned Q3 2026          |
 | Shufti Pro          | L1/L5 (Human Identity + Continuous Risk)                 | Identity verification for KYA trust framework  | PoC Q1 2026              |

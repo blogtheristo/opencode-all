@@ -6,11 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.13
+Version: 4.14
 
 Sessions & Modifications:
 
-- Version: 4.13 [Latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Added §10.35 (Workflow v2 — Procedural Graphs: Explicit State Over Chat Memory). Implementation companion to PHD_FIREHORSE §14.54 / Key Contribution #60. Records src/agents/workflow-v2/ (PR #2059): executor/refiner engine, HIC_APPROVAL_GATE code-level approval-hash gate, two example graphs (sales-outreach.graph.json, b2b-growth-funnel.graph.json), 16 offline unit tests, and the cross-reference landed into DWS7_ROADMAP.md Phase 4.1 (PRs 138/144/145/146). Lockstep 4.12->4.13.
+- Version: 4.14 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-target-q4-2026 | Date: 27.09.2026 | Changes: HIC 27.09.2026: ABB integration target Q3 2026 → Q4 2026 (§10.12). Current ABB scope: facility layer (KNX/BACnet, building HVAC + EV) in validation — docs/plans/abb/.
+- Version: 4.13 [not latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Added §10.35 (Workflow v2 — Procedural Graphs: Explicit State Over Chat Memory). Implementation companion to PHD_FIREHORSE §14.54 / Key Contribution #60. Records src/agents/workflow-v2/ (PR #2059): executor/refiner engine, HIC_APPROVAL_GATE code-level approval-hash gate, two example graphs (sales-outreach.graph.json, b2b-growth-funnel.graph.json), 16 offline unit tests, and the cross-reference landed into DWS7_ROADMAP.md Phase 4.1 (PRs 138/144/145/146). Lockstep 4.12->4.13.
 - Version: 4.12 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Added §10.34 (Controlled vocabulary as a delivery layer: one dictionary drives translations and search tags). Dictionary gains the KYA-S1 table, LWM layers, process terms; `scripts/blog/seo-tags.mjs` tags 162 post files; 36 copied JSON-LD headlines fixed; 13 hand-edited dictionary keys ported into the generator. Lockstep 4.11->4.12.
 - Version: 4.11 [not latest] | Tool: Claude Code (Haiku 4.5) | Session: claude/cursor-dws-audit-zl8ts1 | Date: 19.09.2026 | Changes: Lockstep version bump 4.10 -> 4.11 per CLAUDE.md Thesis Rule. PR #2037 field note (2026-09-18): Mission Control login works when signed in; operations stay manual; X @blogtheristo linked to xAI risto.paarni@lifetime.fi. No master's-thesis content; recorded as lockstep-only per §1.4 master-vs-PhD scope rule.
 - Version: 4.10 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 names the hybrid split as the implementation of PhD Key Contribution #59 (sensitive on Aegis/Infra, remainder on Connect). Lockstep 4.09->4.10.
@@ -2096,7 +2097,7 @@ DWS7 builds a multi-partner ecosystem spanning industrial automation (NVIDIA, Si
 | ----------- | ------------------------------------------------------------------------------------ | -------------------------------- |
 | **NVIDIA**  | GPU compute (Brain), Jetson edge (Hands), Omniverse digital twins (Body)             | Inception program target Q2 2026 |
 | **Siemens** | MindSphere IoT (Hands), digital twin composer (Body), Xcelerator marketplace         | Developer access Q2 2026         |
-| **ABB**     | Industrial automation + robotics (Hands), power grid management                      | Integration target Q3 2026       |
+| **ABB**     | Industrial automation + robotics (Hands), power grid management                      | Integration target Q4 2026       |
 | **xAI**     | Real-time market intelligence via Grok, X/Twitter signal discovery (Brain)           | Active (production)              |
 | **Mistral** | EU-sovereign AI inference, multilingual compliance generation (Brain/Memory)         | Planned Q3 2026                  |
 | **Red Hat** | AgentOps BYOA platform (Body), OpenShift AI for agent deployment, hybrid cloud infra | Active (March 2026)              |

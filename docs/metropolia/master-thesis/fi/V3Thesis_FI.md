@@ -6,10 +6,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.13
+Version: 4.14
 Sessions & Modifications:
 
-- Version: 4.13 [Latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Lisätty §10.35 (Workflow v2 — Menettelylliset graafit: eksplisiittinen tila keskustelumuistin sijaan). Toteutusvastine tohtorityön §14.54:lle / Avainkontribuutio #60:lle. Kirjaa src/agents/workflow-v2/ (PR #2059): suorittaja/jalostaja-moottori, HIC_APPROVAL_GATE-koodiportti, kaksi esimerkkigraafia (sales-outreach.graph.json, b2b-growth-funnel.graph.json), 16 offline-yksikkötestiä, sekä ristiviittaus DWS7_ROADMAP.md:n vaiheeseen 4.1 (PR:t 138/144/145/146). Lukkoaskel 4.12->4.13.
+- Version: 4.14 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-target-q4-2026 | Date: 27.09.2026 | Changes: HIC 27.09.2026: ABB-integraation tavoite Q3 2026 → Q4 2026 (§10.12). ABB:n nykyinen laajuus: kiinteistökerros (KNX/BACnet, rakennuksen LVI + sähköautojen lataus) validoinnissa — docs/plans/abb/.
+- Version: 4.13 [not latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Lisätty §10.35 (Workflow v2 — Menettelylliset graafit: eksplisiittinen tila keskustelumuistin sijaan). Toteutusvastine tohtorityön §14.54:lle / Avainkontribuutio #60:lle. Kirjaa src/agents/workflow-v2/ (PR #2059): suorittaja/jalostaja-moottori, HIC_APPROVAL_GATE-koodiportti, kaksi esimerkkigraafia (sales-outreach.graph.json, b2b-growth-funnel.graph.json), 16 offline-yksikkötestiä, sekä ristiviittaus DWS7_ROADMAP.md:n vaiheeseen 4.1 (PR:t 138/144/145/146). Lukkoaskel 4.12->4.13.
 - Version: 4.12 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Lisätty §10.34 (Hallittu sanasto toimituskerroksena: yksi sanakirja ohjaa käännökset ja hakutagit). Sanakirjaan KYA-S1-taulukko, LWM-kerrokset, prosessitermit; `scripts/blog/seo-tags.mjs` tagittaa 162 kirjoitustiedostoa; 36 kopioitua JSON-LD-otsikkoa korjattu; 13 käsin muokattua sanakirja-avainta siirretty generaattoriin. Lukkoaskel 4.11->4.12.
 - Version: 4.11 [not latest] | Tool: Claude Code (Haiku 4.5) | Session: claude/cursor-dws-audit-zl8ts1 | Date: 19.09.2026 | Changes: Lukkoaskel-versio-nosto 4.10 -> 4.11 CLAUDE.md:n Thesis-säännön mukaan. PR #2037 kenttämuistio (2026-09-18): Mission Control avautuu kun käyttäjä on kirjautunut; toiminta on manuaalista; X @blogtheristo linkitetty xAI:iin risto.paarni@lifetime.fi. Ei maisterityön sisältöä; kirjattu vain lukkoaskel-merkintänä §1.4 master-vs-PhD-skooppisäännön mukaan.
 - Version: 4.10 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 nimeää hybridijaon tohtorityön avainkontribuutio #59:n toteutukseksi (herkkä Aegis/Infraan, muu Connectiin). Lukkoaskel 4.09->4.10.
@@ -2066,7 +2067,7 @@ DWS7 rakentaa monipuolisen kumppaniekosysteemin kattaen teollisuusautomaation (N
 | ----------- | ------------------------------------------------------------------------------------------ | --------------------------- |
 | **NVIDIA**  | GPU-laskenta (Aivot), Jetson-reuna (Kädet), Omniverse-digitaalinen kaksonen (Keho)         | Inception-ohjelma Q2 2026   |
 | **Siemens** | MindSphere IoT (Kädet), digitaalinen kaksonen (Keho), Xcelerator-markkinapaikka            | Developer-pääsy Q2 2026     |
-| **ABB**     | Teollisuusautomaatio + robotiikka (Kädet), sähkönjakeluverkkojen hallinta                  | Integraatiotavoite Q3 2026  |
+| **ABB**     | Teollisuusautomaatio + robotiikka (Kädet), sähkönjakeluverkkojen hallinta                  | Integraatiotavoite Q4 2026  |
 | **xAI**     | Reaaliaikainen markkinaälykkyys Grok, X/Twitter-signaalihavaitseminen (Aivot)              | Aktiivinen (tuotanto)       |
 | **Mistral** | EU-suvereeni tekoälyinferenssi, monikielinen vaatimustenmukaisuusgenerointi (Aivot/Muisti) | Suunniteltu Q3 2026         |
 | **Red Hat** | AgentOps BYOA -alusta (Keho), OpenShift AI agenttien käyttöönottoon, hybridipilvi-infra    | Aktiivinen (maaliskuu 2026) |
