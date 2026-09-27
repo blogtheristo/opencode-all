@@ -170,7 +170,7 @@
     <script src="/checkout/durable-order-intake.js"></script>
     <script>
         // Configuration - loaded from products.json
-        const API_BASE = 'https://api.lifetime.fi/v1/payments';
+        const API_BASE = 'https://product-api.dws6.com/v1/payments';
         let PAYPAL_EMAIL = 'risto.anton@lifetime.fi';
         let REVOLUT_FALLBACK_LINK = 'https://revolut.me/lifetimeoy';
         
@@ -446,7 +446,7 @@
 
         async function sendOrderNotification(orderData) {
             return window.DwsCheckoutIntake.persistDurableOrderIntake({
-                endpoint: 'https://api.lifetime.fi/v1/orders/notify',
+                endpoint: 'https://product-api.dws6.com/v1/orders/notify',
                 orderData,
                 idempotencyKey: orderData.orderId,
                 timeoutMs: 10000

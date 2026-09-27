@@ -18,7 +18,7 @@ Version: 1.1
 
 Sessions & Modifications:
 
-- Version: 1.1 | Tool: GitHub Copilot CLI 1.0.88 (openai/gpt-6-sol) | Session: opencode/product-readiness-portfolio | Date: 27.09.2026 | Changes: Recorded migration 099, DGX backend cutover, and remaining public ingress and payment-provider gates. | Harness: GitHub Copilot CLI + CLAUDE.md + AGENTS.md | HIC-approved-drift: none
+- Version: 1.1 | Tool: GitHub Copilot CLI 1.0.88 (openai/gpt-6-sol) | Session: opencode/product-readiness-portfolio | Date: 27.09.2026 | Changes: Recorded migration 099, verified DGX public ingress, and remaining payment-provider gates. | Harness: GitHub Copilot CLI + CLAUDE.md + AGENTS.md | HIC-approved-drift: none
 
 Document Status:
 
@@ -38,9 +38,9 @@ Prevent checkout from taking a Revolut, PayPal, or Stripe payment before the exa
 
 Migration 099 is applied and registered in the target Supabase database. `npm run preflight:product-orders` passes. Lifetime production moved to DGX Spark on 26 September; the Scaleway deployment workflow is retired (`.disabled`). The DGX backend image must include `dws10.com/config/products.json` for server-side SKU pricing.
 
-The DGX backend has been deployed locally and returns HTTP 200 with `{"status":"ready"}` on `http://127.0.0.1:8080/v1/orders/readiness`. **This is not public readiness.** `api.lifetime.fi` has no DNS record, `api.dws6.com` still serves the old backend (readiness 404), and the DGX Cloudflare tunnel only routes `heartbeat.dws6.com`. The configured Stripe key returned `api_key_expired` on a read-only webhook-endpoint lookup. Do not publish checkout until the real public hostname, payment verification, and a staging-only order test work.
+The DGX backend now responds publicly at `https://product-api.dws6.com/v1/orders/readiness` with HTTP 200 and `{"status":"ready"}`. The dedicated `dws-orders` tunnel is enabled as the persistent `dws-product-api-tunnel.service` systemd user unit (with user lingering enabled); it does not modify the heartbeat tunnel or `api.dws6.com`. CORS admits `https://dws10.com`, and a public checkout request with an unknown SKU returns 404 `UNKNOWN_SKU` without creating an order. Both checkout mirrors now point to `product-api.dws6.com`. **Do not publish checkout yet:** the configured Stripe key returned `api_key_expired` on a read-only webhook-endpoint lookup, payment-provider callbacks must be checked, and a staging-only order test must pass. `api.lifetime.fi` remains NXDOMAIN; it is not used by this checkout.
 
-Two DNS aliases (`api.lifetime.fi.dws6.com` and `orders.dws6.com`) were created while testing the tunnel. Both currently match its 404 catch-all; an authorised DNS operator must remove or deliberately configure them. Neither is a production API.
+Three unused DNS aliases (`api.lifetime.fi.dws6.com`, `orders.dws6.com`, and `checkout-api.dws6.com`) were created while testing the tunnel. They still route to the heartbeat tunnel's 404 catch-all (the first also has a TLS hostname mismatch); an authorised Cloudflare DNS operator must remove them. The only intended new public API hostname is `product-api.dws6.com`.
 
 ## Required rollout order
 
