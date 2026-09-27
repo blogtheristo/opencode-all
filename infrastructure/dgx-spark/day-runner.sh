@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Evidence: Tool=Claude Code 2.1.283 Model=anthropic/undisclosed-by-runtime-policy Agent=dgx-deploy-fix Date=2026-09-26
+# Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=undisclosed-by-runtime-policy Agent=copilot Date=2026-09-27
 # Audit trail: git log -- infrastructure/dgx-spark/day-runner.sh
 # ============================================================================
 # DWS Day Runner — Self-Healing Automation Loop
@@ -26,10 +26,11 @@
 
 set -euo pipefail
 
-REPO_DIR="/home/admin100/dws6"
+REPO_DIR="${DWS_REPO_DIR:-/home/admin100/dws6}"
 INFRA_DIR="${REPO_DIR}/infrastructure/dgx-spark"
 STATE_FILE="${REPO_DIR}/logs/day-runner-state.json"
 LOG_PREFIX="[DAY-RUNNER $(date -u +%H:%M)]"
+SCRIPT_FAILURES=0
 
 cd "$REPO_DIR"
 mkdir -p logs scripts/daily scripts/hourly scripts/weekly scripts/on-deploy
@@ -70,13 +71,43 @@ mark_run() {
 run_script() {
   local script="$1"
   local name
+  local status
   name=$(basename "$script")
   log "Running: $script"
 
   if [[ "$script" == *.ts ]]; then
-    npx tsx "$script" 2>&1 | tail -20 || log "FAILED: $name"
+    if npx tsx "$script" 2>&1 | tail -20; then
+      return 0
+    else
+      status=$?
+    fi
   elif [[ "$script" == *.sh ]]; then
-    bash "$script" 2>&1 | tail -20 || log "FAILED: $name"
+    if bash "$script" 2>&1 | tail -20; then
+      return 0
+    else
+      status=$?
+    fi
+  else
+    status=126
+  fi
+
+  log "FAILED: $name (exit $status)"
+  return "$status"
+}
+
+record_script_failure() {
+  SCRIPT_FAILURES=$((SCRIPT_FAILURES + 1))
+}
+
+run_scheduled_script() {
+  local script="$1"
+  local key="$2"
+  local period="$3"
+
+  if run_script "$script"; then
+    mark_run "$key" "$period"
+  else
+    record_script_failure
   fi
 }
 
@@ -206,7 +237,9 @@ CURRENT_HOUR=$(date -u +%H)
 if [ "$CHANGES" = true ]; then
   for script in scripts/on-deploy/*.{ts,sh}; do
     [ -f "$script" ] || continue
-    run_script "$script"
+    if ! run_script "$script"; then
+      record_script_failure
+    fi
   done
 fi
 
@@ -216,8 +249,7 @@ if [ "$CURRENT_HOUR" = "06" ] || [ "$CURRENT_HOUR" = "03" ] || [ "$CURRENT_HOUR"
     [ -f "$script" ] || continue
     name=$(basename "$script")
     if [ "$(last_run "daily:$name")" != "$TODAY" ]; then
-      run_script "$script"
-      mark_run "daily:$name" "$TODAY"
+      run_scheduled_script "$script" "daily:$name" "$TODAY"
     fi
   done
 fi
@@ -230,8 +262,7 @@ if [ "$DAY_OF_WEEK" = "7" ] && { [ "$CURRENT_HOUR" = "04" ] || [ "$CURRENT_HOUR"
     [ -f "$script" ] || continue
     name=$(basename "$script")
     if [ "$(last_run "weekly:$name")" != "$THIS_WEEK" ]; then
-      run_script "$script"
-      mark_run "weekly:$name" "$THIS_WEEK"
+      run_scheduled_script "$script" "weekly:$name" "$THIS_WEEK"
     fi
   done
 fi
@@ -241,8 +272,7 @@ for script in scripts/hourly/*.{ts,sh}; do
   [ -f "$script" ] || continue
   name=$(basename "$script")
   if [ "$(last_run "hourly:$name")" != "$THIS_HOUR" ]; then
-    run_script "$script"
-    mark_run "hourly:$name" "$THIS_HOUR"
+    run_scheduled_script "$script" "hourly:$name" "$THIS_HOUR"
   fi
 done
 
@@ -251,4 +281,8 @@ done
 # ---------------------------------------------------------------------------
 CONTAINERS=$(docker ps --format "{{.Names}}:{{.Status}}" 2>/dev/null | tr '\n' ' ')
 log "Containers: ${CONTAINERS:-none}"
+if [ "$SCRIPT_FAILURES" -gt 0 ]; then
+  log "Done with $SCRIPT_FAILURES failed script(s); failed scheduled jobs remain eligible for retry."
+  exit 1
+fi
 log "Done."
