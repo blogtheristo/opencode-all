@@ -51,9 +51,9 @@ Use Case ja tavoite -->  Workflow V2 muodostaa  -->   Active Ontology rajaa    -
 HIC määrittää raamit      vaiheet ja agenttiroolit      objektit ja toiminnot          KYA tallentaa auditointijäljen
 ```
 
-- **Inception (Aloitus):** Ihminen määrittelee tavoitteen ja raamit Dashboardilla (HIC-aloitus).
-- **Elaboration (Tarkennus):** Järjestelmä valitsee prosessiin tarvittavat _DWS IQ Skilled Agents_ -roolit ja esittää prosessikaavion käyttäjälle.
-- **Construction (Toteutus):** Agentit suorittavat työvaiheet itsenäisesti. Kriittisissä RUP-tarkastuspisteissä (_Gateways_) järjestelmä pyytää ihmisen kuittauksen ennen seuraavaan vaiheeseen siirtymistä.
-- **Transition (Luovutus):** Lopputulos todennetaan, ja KYA-S1-spesifikaation mukainen päätöksentekojälki tallennetaan automaattisesti myöhempää tarkastelua varten.
+- **Inception (Aloitus):** Ihminen kirjaa liiketoiminnan käyttötapauksen (Use Case), sen tavoitteen ja raamit Dashboardilla (HIC-aloitus).
+- **Elaboration (Tarkennus):** Workflow V2 muodostaa käyttötapauksesta vaiheet ja valitsee niihin tarvittavat _DWS IQ Skilled Agents_ -roolit; prosessikaavio esitetään ihmiselle ennen käynnistystä.
+- **Construction (Toteutus):** Agentit suorittavat työvaiheet Active Ontologyn rajoissa — vain sallituilla toiminnoilla sallittuihin liiketoimintaobjekteihin. Kriittisissä tarkastuspisteissä (_Gateways_) järjestelmä pyytää ihmisen kuittauksen ennen seuraavaan vaiheeseen siirtymistä.
+- **Transition (Luovutus):** Ihminen hyväksyy lopputuloksen, ja KYA-S1-spesifikaation mukainen päätöksentekojälki tallennetaan automaattisesti myöhempää tarkastelua varten.
 
 > **Yhteenveto:** Tuomalla GitHub Copilotin tuttu ja turvallinen ohjausmalli DWS IQ -tausta-agenteille ja kuvaamalla työnkulut teollisuuden rakastamilla RUP-prosessikaavioilla, tekoälyn johtamisvelvoite muuttuu lakitekstistä kirkkaaksi, käytännölliseksi ja skaalautuvaksi kilpailueduksi.
