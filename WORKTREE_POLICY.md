@@ -26,6 +26,7 @@ Index races like this will recur as long as agents commit from the shared checko
 1. **Agents NEVER commit from the primary checkout.** The primary checkout is reserved
    for human review, merges, and repo-level administration.
 2. **Every agent task gets its own worktree**, created with:
+
    ```bash
    scripts/new-opencode-worktree.sh <task-name> [base-branch] [--launch]
    ```
@@ -35,6 +36,7 @@ Index races like this will recur as long as agents commit from the shared checko
    - Branch: `opencode/<task-name>`, cut from `origin/main`
    - venv symlinked; `.env`, `.env.local`, `.mcp.json` copied; `.opencode` settings
      copied (session state/memory intentionally NOT copied); npm install run
+
 3. **One task = one worktree = one branch = one PR.**
 4. **Commit only what you staged in your own worktree.** Never use `-a`/`.` blindly;
    verify `git status` before every commit.
@@ -92,7 +94,10 @@ cherry-pick` executed from the primary checkout (`git-dir == git-common-dir`).
   (`~/.opencode-worktrees/dws6/<task>`, branch `opencode/<task>`, `node_modules`
   linked via `--link-deps`). The guard above only blocks git commands; without this,
   parallel windows still edit the same files. Install once on the DGX:
-  `echo 'source ~/dws6/scripts/shell/opencode-worktree.bash' >> ~/.bashrc`.
+  `bash ~/dws6/scripts/shell/install-opencode-worktree.sh && exec bash` — idempotent;
+  exits 1 unless a fresh shell resolves `opencode` to the wrapper (`type -t opencode`
+  → `function`). The wrapper drops any `opencode` alias (it would shadow the function)
+  and rewrites a project-path argument pointing at the primary checkout to the worktree.
   `-s`/`-c` resumes stay in place (with a warning); `OPENCODE_SHARED=1` opts out.
   `scripts/opencode-open-all.sh` gives each window a worktree the same way.
 - **Soft:** this document + AGENTS.md pointer; session-start guidance tells agents
