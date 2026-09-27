@@ -10,14 +10,15 @@ import {
 import { resolveUserRole as resolveMirrorRole } from '../../landing-pages/dws6-com/shared/js/supabase-client.js';
 
 const resolvers = [resolvePrimaryRole, resolveMirrorRole];
+const protectedRoles = ['mcp_admin', 'enterprise_client', 'investor_lobby', 'store_viewer'];
 
 describe.each(resolvers)('dashboard privileged role resolution', (resolveUserRole) => {
-  it('accepts a server-controlled Mission Control role', () => {
-    expect(resolveUserRole({ app_metadata: { role: 'hub_admin' } })).toBe('hub_admin');
+  it.each(protectedRoles)('accepts server-controlled role %s', (role) => {
+    expect(resolveUserRole({ app_metadata: { role } })).toBe(role);
   });
 
-  it('rejects a user-editable Back-Office role without a trusted membership', () => {
-    expect(resolveUserRole({ user_metadata: { role: 'backoffice_admin' } })).toBeNull();
+  it.each(protectedRoles)('rejects user-editable protected role %s', (role) => {
+    expect(resolveUserRole({ user_metadata: { role } })).toBeNull();
   });
 
   it('accepts Back-Office access only after the server-controlled membership check', () => {
@@ -30,11 +31,11 @@ describe.each(resolvers)('dashboard privileged role resolution', (resolveUserRol
     expect(resolveUserRole({ user_metadata: { role: 'hub_admin' } })).toBeNull();
   });
 
-  it('keeps non-privileged legacy roles compatible', () => {
+  it('keeps only the enumerated non-privileged onboarding role compatible', () => {
     expect(resolveUserRole({ user_metadata: { role: 'community_user' } })).toBe('community_user');
+    expect(resolveUserRole({ user_metadata: { role: 'unknown_role' } })).toBeNull();
   });
 });
-
 
 describe('Back-Office membership lookup', () => {
   it('resolves a legacy Back-Office claim only after an active admin membership lookup', async () => {

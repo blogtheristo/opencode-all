@@ -1,3 +1,6 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- landing-pages/dws6-com/shared/js/auth-handler.js
+
 /**
  * Authentication Handler for DWS6.com Multi-Login Platform
  *
@@ -20,10 +23,9 @@ import { sanitizeNextPath } from './auth-next.js';
  * Login with email and password
  * @param {string} email - User email
  * @param {string} password - User password
- * @param {string} role - User role to assign
  * @returns {Promise<Object>} Result object {success, user, session, requiresMfa, error}
  */
-export async function login(email, password, role = null) {
+export async function login(email, password) {
   const client = getSupabaseClient();
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
@@ -65,16 +67,11 @@ export async function login(email, password, role = null) {
       }
     }
 
-    // Update role if provided and user doesn't have one
-    if (role && data.user && (!data.user.user_metadata || !data.user.user_metadata.role)) {
-      await updateUserRole(data.user.id, role);
-    }
-
     // Update last login timestamp
     await updateLastLogin(data.user.id);
 
     // Log successful login
-    await logAuthEvent('login_success', { email, role: role || data.user?.user_metadata?.role });
+    await logAuthEvent('login_success', { email, role: await getUserRole() });
 
     console.log('Login successful:', data.user.email);
     return { success: true, user: data.user, session: data.session };
@@ -88,11 +85,10 @@ export async function login(email, password, role = null) {
  * Register new user with email and password
  * @param {string} email - User email
  * @param {string} password - User password
- * @param {string} role - User role
  * @param {Object} metadata - Additional user metadata
  * @returns {Promise<Object>} Result object {success, user, error}
  */
-export async function register(email, password, role, metadata = {}) {
+export async function register(email, password, metadata = {}) {
   const client = getSupabaseClient();
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
@@ -113,7 +109,6 @@ export async function register(email, password, role, metadata = {}) {
       options: {
         emailRedirectTo: redirectUrl,
         data: {
-          role: role,
           first_name: metadata.firstName || '',
           last_name: metadata.lastName || '',
           permissions: metadata.permissions || ['read'],
@@ -131,7 +126,7 @@ export async function register(email, password, role, metadata = {}) {
     }
 
     // Log successful registration
-    await logAuthEvent('register_success', { email, role });
+    await logAuthEvent('register_success', { email });
 
     console.log('Registration successful:', data.user.email);
     return {
@@ -200,10 +195,10 @@ export function getPasswordStrength(password) {
 
 /**
  * Login with Google OAuth
- * @param {string} role - User role to assign after login
+ * @param {string} requestedRole - Untrusted portal hint used only to choose the OAuth return page
  * @returns {Promise<Object>} Result object {success, error}
  */
-export async function loginWithGoogle(role = null, redirectPath = null) {
+export async function loginWithGoogle(requestedRole = null, redirectPath = null) {
   const client = getSupabaseClient();
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
@@ -212,7 +207,9 @@ export async function loginWithGoogle(role = null, redirectPath = null) {
   try {
     const redirectUrl =
       sanitizeNextPath(redirectPath) ||
-      (role ? supabaseConfig.redirectUrls[role] : '/dashboard/index.html');
+      (requestedRole
+        ? supabaseConfig.redirectUrls[requestedRole] || '/dashboard/index.html'
+        : '/dashboard/index.html');
     const fullRedirectUrl = `${window.location.origin}${redirectUrl}`;
 
     const { data, error } = await client.auth.signInWithOAuth({
@@ -232,39 +229,6 @@ export async function loginWithGoogle(role = null, redirectPath = null) {
       return { success: false, error: error.message };
     }
 
-    // Store the role in session storage for after redirect
-    if (role) {
-      sessionStorage.setItem('pending_oauth_role', role);
-    }
-
-    // Auto-assign role to allowed external users
-    const { data: { user } } = await client.auth.getUser();
-    if (user?.email) {
-      const email = user.email;
-      const emailDomain = email.split('@')[1];
-      const ALLOWED_EXTERNAL_EMAILS = [
-        'risto.paarni2024@lifetime.fi',
-        'admin2026@dws10.com',
-        'ristopaarni@gmail.com',
-      ];
-
-      if (ALLOWED_EXTERNAL_EMAILS.includes(email)) {
-        const assignedRole = 'dws_iq_standard';
-        try {
-          await client.auth.updateUser({
-            data: {
-              role: assignedRole,
-              organization: emailDomain,
-              external_user: true,
-            },
-          });
-          console.log(`✅ Auto-assigned role '${assignedRole}' to external user ${email}`);
-        } catch (roleErr) {
-          console.warn(`⚠️ Could not auto-assign role: ${roleErr.message}`);
-        }
-      }
-    }
-
     console.log('Redirecting to Google login...');
     return { success: true, data };
   } catch (error) {
@@ -275,17 +239,19 @@ export async function loginWithGoogle(role = null, redirectPath = null) {
 
 /**
  * Login with Microsoft OAuth (Azure AD)
- * @param {string} role - User role to assign after login
+ * @param {string} requestedRole - Untrusted portal hint used only to choose the OAuth return page
  * @returns {Promise<Object>} Result object {success, error}
  */
-export async function loginWithMicrosoft(role = null) {
+export async function loginWithMicrosoft(requestedRole = null) {
   const client = getSupabaseClient();
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };
   }
 
   try {
-    const redirectUrl = role ? supabaseConfig.redirectUrls[role] : '/dashboard/index.html';
+    const redirectUrl = requestedRole
+      ? supabaseConfig.redirectUrls[requestedRole] || '/dashboard/index.html'
+      : '/dashboard/index.html';
     const fullRedirectUrl = `${window.location.origin}${redirectUrl}`;
 
     const { data, error } = await client.auth.signInWithOAuth({
@@ -301,11 +267,6 @@ export async function loginWithMicrosoft(role = null) {
       return { success: false, error: error.message };
     }
 
-    // Store the role in session storage for after redirect
-    if (role) {
-      sessionStorage.setItem('pending_oauth_role', role);
-    }
-
     console.log('Redirecting to Microsoft login...');
     return { success: true, data };
   } catch (error) {
@@ -316,7 +277,7 @@ export async function loginWithMicrosoft(role = null) {
 
 /**
  * Handle OAuth callback - call this on dashboard/redirect pages
- * Assigns pending role to user after OAuth redirect
+ * Resolves the role from server-owned metadata after OAuth redirect
  * @returns {Promise<Object>} Result object {success, user, role}
  */
 export async function handleOAuthCallback() {
@@ -336,12 +297,9 @@ export async function handleOAuthCallback() {
       return { success: false, error: error?.message || 'No session found' };
     }
 
-    // Check for pending role assignment
-    const pendingRole = sessionStorage.getItem('pending_oauth_role');
-    if (pendingRole) {
-      await updateUserRole(session.user.id, pendingRole);
-      sessionStorage.removeItem('pending_oauth_role');
-    }
+    // Remove stale values created by older clients without ever trusting them.
+    sessionStorage.removeItem('pending_oauth_role');
+    const trustedRole = await getUserRole();
 
     // Update last login
     await updateLastLogin(session.user.id);
@@ -349,13 +307,13 @@ export async function handleOAuthCallback() {
     // Log OAuth login
     await logAuthEvent('oauth_login_success', {
       provider: session.user.app_metadata?.provider,
-      role: pendingRole || session.user.user_metadata?.role,
+      role: trustedRole,
     });
 
     return {
       success: true,
       user: session.user,
-      role: pendingRole || session.user.user_metadata?.role,
+      role: trustedRole,
     };
   } catch (error) {
     console.error('OAuth callback error:', error);
@@ -555,13 +513,20 @@ export async function verifyEmailToken() {
 // USER ROLE & PROFILE MANAGEMENT
 // ============================================================
 
+const SELF_ASSIGNABLE_ROLES = new Set(['community_user']);
+
 /**
- * Update user role in metadata
+ * Set the single non-privileged onboarding role in user-editable metadata.
+ * Protected application roles must be provisioned in app_metadata or server-owned membership.
  * @param {string} userId - User ID
  * @param {string} role - New role
  * @returns {Promise<Object>} Result object {success, error}
  */
 export async function updateUserRole(userId, role) {
+  if (!SELF_ASSIGNABLE_ROLES.has(role)) {
+    return { success: false, error: 'Role must be assigned by the server' };
+  }
+
   const client = getSupabaseClient();
   if (!client) {
     return { success: false, error: 'Supabase client not initialized' };

@@ -111,7 +111,7 @@ export async function isAuthenticated() {
   return session !== null;
 }
 
-const PRIVILEGED_ROLES = new Set(['backoffice_admin', 'hub_admin']);
+const SELF_ASSIGNABLE_USER_METADATA_ROLES = new Set(['community_user']);
 
 /**
  * Read dashboard authorization from the server-owned organization membership table.
@@ -150,7 +150,8 @@ export function hasBackofficeSection(access, sectionName) {
 /**
  * Resolve a role without accepting a user-editable privileged claim.
  * Supabase users can update user_metadata themselves; app_metadata and active
- * organization membership are server-controlled. Non-privileged legacy roles remain compatible.
+ * organization membership are server-controlled. Only the explicitly non-privileged
+ * community onboarding role remains compatible in user_metadata.
  * @param {Object|null} user - Supabase user
  * @param {boolean} hasBackofficeAccess - Result of the server-controlled is_backoffice_admin() check
  * @returns {string|null} Trusted role or null
@@ -164,9 +165,7 @@ export function resolveUserRole(user, hasBackofficeAccess = false) {
     return hasBackofficeAccess ? 'backoffice_admin' : null;
   }
   if (typeof appRole === 'string' && appRole) return appRole;
-  if (typeof userRole !== 'string' || !userRole || PRIVILEGED_ROLES.has(userRole)) return null;
-
-  return userRole;
+  return SELF_ASSIGNABLE_USER_METADATA_ROLES.has(userRole) ? userRole : null;
 }
 
 /**
