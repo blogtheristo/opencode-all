@@ -1,0 +1,87 @@
+# Copilot Work Order — Bonus-Credit Burn to 30.09.2026
+
+Version: 1.1 [Latest]
+
+Sessions & Modifications:
+
+- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: HIC decision — use the $210 credit in full; persistent work lands on DGX (`DWS_COST_POLICY_STANDARD.md` v1.1). Budget confirmed from GitHub billing page; Lane D added.
+- Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: Initial work order. HIC moved use cases 1–3 to GitHub Copilot (GPT-5.6), budget 21,000 bonus credits, deadline 30.09.2026 23:59 UTC.
+
+---
+
+## 0. Scope and budget
+
+- **Executor:** GitHub Copilot coding agent, model GPT-5.6 (HIC choice, 27.09.2026). Model name not verified by this session.
+- **Budget:** $210.00 Copilot promotional credit = 21,000 AI credits (1 credit = $0.01). GitHub billing page, HIC screenshot 27.09.2026: $0 of it applied so far. HIC decision: use all of it. Per-request cost of GPT-5.6 is not known here; the split below is by share. Stop each lane when its share is spent; stop all work at $210 (no paid overage).
+- **Deadline:** 30.09.2026 23:59 UTC (email) / 01.10.2026 (billing page). Plan to the earlier one. Unused credit is lost.
+- **Persistence Rule:** Copilot delivers one-off output only. Anything that must keep running (cron, agent, service, state store, recurring pipeline) is delivered as DGX-deployable code — DGX cron, DGX runner or DGX service — never as a GitHub Actions schedule or cloud runtime.
+- **Output rule:** One PR per work item, base `main`, never auto-merge. HIC or Claude Code reviews and merges.
+- **Out of bounds for Copilot (RED):** applying Supabase migrations, merging anything that edits `dws10.com/config/products.json` (prices go live on merge), publishing or merging blog posts (Rule 13), sending any outreach, touching secrets or `.env*`, force-push.
+
+## 1. Corrections to the 26.09 proposal (checked 27.09)
+
+- #2064 and #2002 are no longer open → removed from lane 1.
+- KYA tool-call gate and attestation stub already have tests (`src/__tests__/tools-kya-verdict.test.ts`, `src/__tests__/verified-done-attestation.test.ts`) → lane 3 retargeted to the open KYA PRs.
+- The `user_metadata.role` gap already has three open PRs (#2016, #2035, #2075) → lane 2 is consolidate-and-finish, not a new fix.
+
+## 2. Work list
+
+### Lane A — Security: server-owned dashboard roles (35 % ≈ 7,350 credits) — do first
+
+| #   | Item                                                                                                                                                                                                                                                                                                                                                       | Done when                                                                                                 |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| A1  | Consolidate #2016, #2035, #2075 into one PR from fresh `main`: page gates in `dws6.com/dashboard/{backoffice,control-room,situation-room}/`, `admin/backoffice/`, `dashboard/index.html` use `GET /api/v1/backoffice/me` (server check on `organization_members`) instead of `user_metadata.role`. Mirror to `landing-pages/dws6-com/` in the same commit. | No `user_metadata.role` read in any gate (`grep` clean); case-insensitive section match; `npm test` green |
+| A2  | Add tests for `/api/v1/backoffice/me`: non-member → `isAdmin:false`, member → `true`, spoofed `user_metadata.role` → `false`.                                                                                                                                                                                                                              | Tests fail on old code, pass on new                                                                       |
+| A3  | Close #2016, #2035, #2075 as superseded, linking A1.                                                                                                                                                                                                                                                                                                       | Old PRs closed with pointer                                                                               |
+
+### Lane B — PR backlog drain (40 % ≈ 8,400 credits)
+
+Source: `.claude/handoffs/pr-backlog-2026-09-25.md`. Merge `main` into each branch (no rebase), fix, push, leave for review.
+
+| #   | PR(s)                                                                              | Work                                                                                      | Done when                                                       |
+| --- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| B1  | #2131, #2130                                                                       | ABB claims wording + docs: run `scripts/lint-truth-claims.mjs`                            | Truth-lint + CI green                                           |
+| B2  | #2129, #2127, #2126, #2124, #2123, #2057                                           | Field notes: resolve conflicts, format with Prettier                                      | CI green, mergeable                                             |
+| B3  | #2125                                                                              | Jev field notes + `/browse` step-advisor pilot: code review + tests                       | `npm test` green                                                |
+| B4  | #2113, #2112                                                                       | Dependency security batches: verify pins, run tests                                       | CI green, no new advisories                                     |
+| B5  | #2109                                                                              | AGENTS.md auto-sync: regenerate from `main`                                               | Mergeable                                                       |
+| B6  | #1993                                                                              | KYA-S1 conformance baseline: bring up to `main`, keep the three corrected assertions      | Tests green                                                     |
+| B7  | #1716                                                                              | KYA v2.0 attestation signing: bring up to `main`, confirm migration number free after 091 | Tests green; migration file only, not applied                   |
+| B8  | #2009                                                                              | External auth + migration 080: renumber to next free, standard GRANT + RLS block          | `filename` + soak checks green; not applied                     |
+| B9  | #1762, #1836                                                                       | Model routing (`src/agents/llm-client.ts`, `opencode.json`): resolve conflicts            | Typecheck + tests green                                         |
+| B10 | #2022, #2021, #1829                                                                | Site PRs (Aegis 5-lang, i18n, contact form): conflicts + dual-folder sync                 | Root and `landing-pages/` identical; no `.md` in public folders |
+| B11 | #2004, #2034, #1990, #1769, #1782, #1759, #1498, #1549, #1837, #1830, #1828, #1819 | Docs/draft PRs: bring up to `main` or report "stale — recommend close" in a PR comment    | Each PR has green CI or a close recommendation                  |
+
+### Lane C — Test coverage (15 % ≈ 3,150 credits)
+
+| #   | Item                                                                                                                | Done when                                                                  |
+| --- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| C1  | Coverage report for `src/` (`npm test -- --coverage`); list the 10 least-covered files on security or billing paths | Report committed to `docs/field-notes/2026-09-30-copilot-coverage-gaps.md` |
+| C2  | Add tests for the top 3 files from C1                                                                               | Tests merged-ready, green                                                  |
+
+### Priority switch (decided 27.09.2026)
+
+If less than $100 of the credit is spent by 29.09 at 18:00 UTC, run Lane D before the remaining Lane B items. Lane A always goes first. Reasons: Lane D stops recurring GitHub Actions cost, while Lane B can move to OpenCode on DGX at no cloud cost. See `docs/field-notes/2026-09-27-copilot-credit-dgx-persistence.md` §5.
+
+### Lane D — Move persistent cloud work to DGX (from reserve if A–C finish early)
+
+| #   | Item                                                                                                                                                                                                                                    | Done when                                                                              |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| D1  | Inventory every scheduled GitHub Actions workflow (`on: schedule`) and bot PR generator (e.g. the AGENTS.md auto-sync behind #2109); list each with its DGX target (DGX cron path under `scripts/{daily,weekly,hourly}/` or DGX runner) | Table committed to `docs/field-notes/2026-09-30-cloud-to-dgx-persistence-inventory.md` |
+| D2  | For the top 3 by run count, write the DGX cron entry + script and switch the workflow to `workflow_dispatch` only                                                                                                                       | Scripts run locally; workflow no longer scheduled                                      |
+
+### Reserve (10 % ≈ 2,100 credits)
+
+Review fixes on Lane A–C PRs. Spend nothing new from reserve after 30.09 18:00 UTC.
+
+## 3. HIC-only items (not for Copilot)
+
+- #2096, #2054, #2122 — `products.json` pricing: HIC approves before merge.
+- #2086 — lifetime.fi homepage proposal: marked "do not merge yet".
+- #2121, #1810, #1495 — blog/journal content: Rule 13 approval.
+- #1643, #2060 — sales/GTM positioning: HIC decision.
+- Applying migrations from B7, B8: RED.
+
+## 4. Audit
+
+Log each Copilot PR number against its lane in this file. Per `DWS_COST_POLICY_STANDARD.md`, cloud-agent use in the window needs this trail. After 30.09, verify every claimed PR exists (`git log`, PR list) — earlier Copilot summaries contained fabricated PR numbers (see `.claude/handoffs/` audit note).
