@@ -1,13 +1,13 @@
 ---
 title: CLAUDE.md — Operational Rules for AI Agents
-version: 1.5
+version: 1.6
 status: Active
 last_updated: 2026-09-27
 applies_to:
   ["Claude Code", "OpenCode", "BaseAgent", "MCP tools", "Cursor", "Cursor Cloud", "all agents"]
 language: en
 schema: DWS_DOCUMENT_STANDARD
-changes_in_this_version: "HIC 27.09.2026: Tool Git Identity rule (<tool>@lifetime.fi); moved misplaced 1.4 row to Version History"
+changes_in_this_version: "HIC 27.09.2026: Market Signal → Sales Pipeline Rule (dual-route signals to PhD §14.x and docs/sales/SALES_OPPORTUNITIES_PIPELINE.md, 1–5 star score)"
 source_control_url: "https://github.com/blogtheristo/dws6/blob/main/CLAUDE.md"
 ---
 
@@ -41,6 +41,7 @@ Ship reliable outcomes fast, but never past security, compliance, or source-of-t
 - **OpenCode Permissions:** YELLOW zone for blog publishing, thesis edits, migration application, learning outcome deferral. See [OpenCode Permission Elevation](#opencode-permission-elevation-yellow-zone).
 - **Non-Negotiable Rules:** 13 rules governing secrets, git, identity, destructive actions. See below.
 - **Session Learning Outcome:** HIC oversight required. See [Session Learning Outcome Rule](#session-learning-outcome-rule-eu-ai-act-art-14).
+- **Market Signal Routing:** Commercially-relevant signals dual-route to PhD thesis §14.x AND `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, star-scored 1–5. See [Market Signal → Sales Pipeline Rule](#market-signal--sales-pipeline-rule).
 
 ## Engineering Discipline — The 12 Rules
 
@@ -311,6 +312,25 @@ Skipped steps → `N/A — <reason>` in field note (Rule 12, Fail Loud).
 
 ---
 
+### Market Signal → Sales Pipeline Rule
+
+**Every market signal is dual-routed, not thesis-only.** A signal (conference session, competitor move, regulatory shift, industry report) that is scientifically noteworthy AND has commercial bearing on a DWS IQ product must be logged in **both** places in the same pass — never PhD-only by default.
+
+1. **Score at intake.** Every signal gets a 1–5 star **Sales Opportunity Score**: does it name a buyer pain, a budget line, a buyer persona/segment, or a competitive wedge for an existing DWS IQ product (Firehorse, KYA+I, LWM, token/human/edge-control-room capital, Ops Manager)? No product tie → 0 stars, PhD-only, skip sales routing.
+2. **Dual-route ≥1 star.** Any signal scoring 1★ or higher gets:
+   - **PhD thesis** — `docs/PHD_FIREHORSE_EN/FI.md` §14.x market-signal section (Additive/GREEN, four-file lockstep per Thesis Rule), scientific framing, no sprint detail.
+   - **Sales pipeline** — one row in `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md` (or successor CRM handoff per `docs/SEO_CRM_HANDOFF_SCHEMA.md`): star score, target product, buyer segment, next outreach action.
+3. **Star scale:**
+   - ★☆☆☆☆ — thematic adjacency only, no near-term buyer.
+   - ★★☆☆☆ — plausible segment fit, no named account/trigger event.
+   - ★★★☆☆ — clear buyer persona + budget line, no active trigger.
+   - ★★★★☆ — active trigger event (deadline, incident, competitor loss) naming a segment we can reach this quarter.
+   - ★★★★★ — named account or warm channel + trigger event + product fit confirmed — ready for `/investor-outreach`-style pipeline entry or direct outbound this week.
+4. **No thesis-only parking for commercial signals.** A signal filed to PhD §14.x with an unscored or skipped sales pass is a Rule 12 (Fail Loud) violation — mark `Sales Score: N/A — <reason>` explicitly if genuinely non-commercial (e.g., pure regulatory-philosophy signal).
+5. **Review cadence:** sales pipeline file reviewed at the same cadence as `/retro` and PhD thesis lockstep updates — not a separate process.
+
+---
+
 ### Legal Identity Rule
 
 **Lifetime Oy legal identifiers:**
@@ -441,6 +461,7 @@ Use these for full detail when needed:
 
 | Version | Date       | Changes                                                                                                                                                                                            | Author             |
 | ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| 1.6     | 2026-09-27 | HIC: Market Signal → Sales Pipeline Rule — commercially relevant signals go to PhD §14.x and `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, star-scored 1–5.                                        | Claude Code        |
 | 1.5     | 2026-09-27 | HIC: Tool Git Identity rule — `<tool>@lifetime.fi`, set per tool at launch; no repo-local identity. Moved misplaced 1.4 row here.                                                                  | Claude Code        |
 | 1.4     | 2026-09-27 | Corrected the DWS Cost Policy Standard reference to its canonical `docs/` path.                                                                                                                    | GitHub Copilot CLI |
 | 1.3     | 2026-09-19 | HIC: retire `***` / Pandoc-from-markdown PDF. VAH uses `---`. HIC prints PDF from HTML.                                                                                                            | Cursor             |
