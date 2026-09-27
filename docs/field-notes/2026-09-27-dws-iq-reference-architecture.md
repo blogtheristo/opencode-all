@@ -11,7 +11,7 @@ Version: 1.0 [Latest]
 
 - Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/focused-ritchie-rou192 | Date: 27.09.2026 | Changes: Initial field note.
 
-Status: PENDING_REVIEW
+Status: DECIDED (HIC 27.09.2026)
 
 ---
 
@@ -36,3 +36,11 @@ Which P1 goes first: the Inference Jurisdiction Score (fastest, backs existing s
 - Drive export: N/A — draft until HIC review.
 - Calendar: N/A — no dated commitment made.
 - Market-signal routing: Sales Score N/A — this is an internal architecture benchmark, not a market event; no buyer, trigger or account named.
+
+## HIC decisions (27.09.2026)
+
+1. First P1: Inference Jurisdiction Score.
+2. Ops Manager: add to catalogue — registered as `ops-manager` (planned) in the lifecycle ledger.
+3. Public sites stay on Brand §2.1 Nordic Industrial; Gold Standard for internal and investor visuals.
+4. Watch PR `blogtheristo/dws6#2178`: yes.
+5. cari.fi is read-only for DWS work: copy its settings, never edit it (Brand §2.2).

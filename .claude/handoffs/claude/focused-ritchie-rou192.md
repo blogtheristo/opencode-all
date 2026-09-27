@@ -18,9 +18,9 @@
 ## State
 
 - **Done:** `docs/architecture/DWS_IQ_REFERENCE_ARCHITECTURE.md` (source) + `dws-iq-reference-architecture.html` (Gold Standard view); `DWS_BRAND_STANDARD.md` v3.14 §2.2 Gold Standard (cari.fi `public/index.html` @ dd2a144 + IBM Plex); `STANDARDS_ROUTING.md` v1.8 trigger row; field note `docs/field-notes/2026-09-27-dws-iq-reference-architecture.md`.
-- **Open HIC decisions:** P1 order (IJS vs typed ontology runtime first); Ops Manager catalogue conflict; whether public sites migrate from §2.1 Nordic to §2.2 Gold.
+- **HIC decisions 27.09.2026:** IJS first; Ops Manager added as planned (lifecycle ledger); public sites stay Nordic; cari.fi read-only.
 
 ## Next steps
 
-1. HIC picks the first P1 item; open a branch for it.
+1. Build the Inference Jurisdiction Score (`GET /api/v1/kya/inference/:sessionId`) on its own branch.
 2. Add superseded-by pointer to `docs/architecture/00-MASTER-BLUEPRINT.md` once HIC approves this draft.

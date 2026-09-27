@@ -63,6 +63,16 @@
       "quote": "Minusta siinä pitäisi olla license ja tuoterakenne kuten ontology tuotteessa. Se vastaa ontology tuotetta käyttöönotossa mutta siinä on myös ylläpito subscription.",
       "note": "New maintenance subscription; prices moved unchanged from the Aegis licence price note (Standard €999/mo, Defence €1,999/mo, Sovereign €4,999/mo).",
       "ref": "PR #2107"
+    },
+    {
+      "id": "ops-manager",
+      "name": "DWS IQ Ops Manager",
+      "state": "planned",
+      "date": "2026-09-27",
+      "decidedBy": "HIC (Risto Anton Päärni)",
+      "quote": "Add to catalogue",
+      "note": "Answer to: Ops Manager is named as a DWS IQ product in the CLAUDE.md Market Signal rule but had no catalogue ID (thesis concept, PHD_FIREHORSE §14.16.5 Ops Manager V0 buyer lock). Registered as planned; it gets a products.json record and public page when the HIC sets its price.",
+      "ref": "blogtheristo/dws6#2178"
     }
   ]
 }

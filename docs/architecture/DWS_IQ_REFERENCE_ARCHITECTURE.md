@@ -7,11 +7,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0 [Latest]
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/focused-ritchie-rou192 | Date: 27.09.2026 | Changes: Initial 12-layer reference architecture for the DWS IQ platform, benchmarked against the Palantir AIP architecture overview supplied by the HIC. Repository-evidence maturity per layer, two DWS-specific layers, ranked update proposals, surfaced conflicts. Visual view: `dws-iq-reference-architecture.html` (Gold Standard, DWS_BRAND_STANDARD.md §2.2). | Harness: Claude Code + CLAUDE.md + STANDARDS_ROUTING.md | HIC-approved-drift: none
+- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/focused-ritchie-rou192 | Date: 27.09.2026 | Changes: Recorded HIC decisions 27.09.2026 — IJS is the first P1; Ops Manager registered as planned in the product lifecycle ledger (conflict 1 resolved); public sites stay on Brand §2.1 Nordic. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.0 | Tool: Claude Code | Session: claude/focused-ritchie-rou192 | Date: 27.09.2026 | Changes: Initial 12-layer reference architecture for the DWS IQ platform, benchmarked against the Palantir AIP architecture overview supplied by the HIC. Repository-evidence maturity per layer, two DWS-specific layers, ranked update proposals, surfaced conflicts. Visual view: `dws-iq-reference-architecture.html` (Gold Standard, DWS_BRAND_STANDARD.md §2.2). | Harness: Claude Code + CLAUDE.md + STANDARDS_ROUTING.md | HIC-approved-drift: none
 
 Document Status:
 
@@ -106,7 +107,13 @@ flowchart TB
 | P3  | 3     | Connector catalogue                                   | One MCP manifest per `src/integrations` connector, listed in MCP Hub                                               | R08 CIO                     |
 | P3  | docs  | Supersede `00-MASTER-BLUEPRINT.md` (v1.0, 2026-01-18) | Add superseded-by pointer to this file; keep original text                                                         | Investors · engineers       |
 
-## 6. Conflicts surfaced (Rule 7)
+## 6. HIC decisions (27.09.2026)
 
-1. **Ops Manager** — CLAUDE.md Market Signal rule lists it as a DWS IQ product; the product registry does not carry it (thesis concept only, `PHD_FIREHORSE` §14.16.5). HIC decides: add to catalogue or drop from the rule.
+1. **First P1: Inference Jurisdiction Score.** Typed ontology runtime and Decision Flight Recorder follow.
+2. **Ops Manager: add to catalogue.** Registered as `ops-manager` (planned) in `config/truth/product-lifecycle-ledger.json`; gets a `products.json` record and public page when the HIC sets its price.
+3. **Public sites stay on Brand §2.1 Nordic Industrial.** Gold Standard (§2.2) is for internal and investor visuals.
+
+## 7. Conflicts surfaced (Rule 7)
+
+1. **Ops Manager** — CLAUDE.md Market Signal rule lists it as a DWS IQ product; the product registry does not carry it (thesis concept only, `PHD_FIREHORSE` §14.16.5). **Resolved 27.09.2026:** added as planned (§6).
 2. **Delimiter rule** — `docs/DWS_DOCUMENT_STANDARD.md` §4.1 says `***`; CLAUDE.md (HIC 19.09.2026) says `---`. This file follows CLAUDE.md.
