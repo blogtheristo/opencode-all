@@ -41,14 +41,15 @@ This is where Cloudflare Pages will deploy from (auto-synced by GitHub Action).
 
 **On the "Configure your deployment" page:**
 
-| Setting | Value |
-|---------|-------|
-| **Production branch** | `main` |
-| **Build command** | (leave empty) |
+| Setting                    | Value                    |
+| -------------------------- | ------------------------ |
+| **Production branch**      | `main`                   |
+| **Build command**          | (leave empty)            |
 | **Build output directory** | `landing-pages/dws6-com` |
-| **Node version** | 18 |
+| **Node version**           | 18                       |
 
 **Environment Variables** (optional for now):
+
 ```
 SUPABASE_URL=https://kpucuwwfhuwurdxyjjtz.supabase.co
 SUPABASE_ANON_KEY=sb_publishable_mZtEHU2k4WolHxePGF6g3w_tdkMCWRh
@@ -103,15 +104,17 @@ For automatic cache purging when you deploy:
 2. Click **New repository secret**
 3. Add these secrets:
 
-| Secret Name | Value |
-|------------|-------|
-| `CLOUDFLARE_ZONE_ID` | Your dws6.com Zone ID (from Cloudflare) |
+| Secret Name            | Value                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------ |
+| `CLOUDFLARE_ZONE_ID`   | Your dws6.com Zone ID (from Cloudflare)                                              |
 | `CLOUDFLARE_API_TOKEN` | Your Cloudflare API token (create in https://dash.cloudflare.com/profile/api-tokens) |
 
 To find Zone ID:
+
 - Cloudflare Dashboard → Your domain → Copy "Zone ID" from right sidebar
 
 To create API token:
+
 - Cloudflare Dashboard → Profile → API Tokens → Create Token
 - Template: "Edit Cloudflare Workers"
 - Add permission: "Cache Purge"
@@ -122,6 +125,7 @@ To create API token:
 
 1. **Make a test edit** in `dws6.com/dashboard/v9/index.html` (add a comment or change a color)
 2. **Commit and push:**
+
    ```bash
    git add dws6.com/
    git commit -m "test: test deployment workflow"
@@ -135,6 +139,30 @@ To create API token:
    - Cloudflare Pages will auto-deploy immediately after
 
 4. **Verify at:** https://dws6.com/dashboard/v9/
+
+---
+
+## dws10.com Contact Form Bindings
+
+The `dws10.com` Pages project requires these production bindings for
+`/functions/api/contact.js`:
+
+| Binding                | Type                 | Required configuration                          |
+| ---------------------- | -------------------- | ----------------------------------------------- |
+| `CONTACT_EMAIL`        | Email Service        | Authorized sender for the `CONTACT_FROM` domain |
+| `CONTACT_FROM`         | Environment variable | Verified sender address                         |
+| `CONTACT_TO`           | Environment variable | Optional; defaults to the operational mailbox   |
+| `CONTACT_RATE_LIMITER` | Rate Limiting        | Simple limit of 5 requests per 60 seconds       |
+
+Use a Cloudflare Rate Limiting binding, not KV. The binding's `limit({ key })`
+operation avoids the non-atomic read/modify/write race of a KV counter. The
+handler deliberately returns `503` when the binding or Cloudflare client IP is
+missing, or when the limiter errors; production submissions must never bypass
+abuse controls because of incomplete configuration.
+
+Configure the same bindings for Preview when testing a preview deployment.
+After configuration, verify one allowed request, a `429` response after the
+limit, and a `503` response when the binding is temporarily removed.
 
 ---
 
@@ -190,18 +218,22 @@ User flow on dws6.com:
 ## Troubleshooting
 
 ### Domain shows "404 Not Found"
+
 - **Issue:** DNS not propagated yet
 - **Fix:** Wait 24-48 hours, then hard refresh (Ctrl+Shift+R)
 
 ### Cloudflare Pages shows "No builds"
+
 - **Issue:** Build directory wrong
 - **Fix:** Make sure it's set to `landing-pages/dws6-com`
 
 ### Changes not appearing
+
 - **Issue:** GitHub Action didn't run
 - **Fix:** Check Actions tab → see if workflow has errors
 
 ### Supabase auth not working
+
 - **Issue:** CORS or redirect URLs incorrect
 - **Fix:** Check Supabase project settings → Auth → URLs
 
