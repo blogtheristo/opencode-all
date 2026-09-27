@@ -46,9 +46,9 @@ session assuming a draft is already agreed.
 | Item                         | Tier                | Note                                                                                                                  |
 | ---------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | Decision Flight Recorder     | 2 → 1 (in progress) | See entry below — event-first `decision_journey` shipped in `#2092`; check completeness before calling Tier 1 closed. |
-| Air-gapped Sovereign Runtime | 3                   | Architecture draft only. No repo artifact found.                                                                      |
-| Connector Marketplace        | 3 → 2               | HIC 27.09.2026: implement, after the Inference Jurisdiction Score. See entry below.                                   |
-| DGX Runtime Bundle           | 3                   | Architecture draft only. No repo artifact found.                                                                      |
+| Air-gapped Sovereign Runtime | 3 → 2               | Roadmap-approved (HIC, 27.09.2026). Not built; no repo artifact yet.                                                  |
+| Connector Marketplace        | 3                   | Draft only (HIC, 27.09.2026). Not on the roadmap. Internal ERP connectors exist; no marketplace or registry.          |
+| DGX Runtime Bundle           | 3 → 2               | Roadmap-approved (HIC, 27.09.2026). Not built; no repo artifact yet.                                                  |
 
 ## Entries
 
@@ -101,7 +101,8 @@ Deployment target for a future release; would need its own catalogue SKU and
 provisioning path once scoped.
 
 Päätös:
-Backlog
+Backlog — moved to Tier 2, approved to the roadmap (HIC, 27.09.2026). No
+implementation before M1 unless the HIC decides otherwise.
 ```
 
 ### Connector Marketplace
@@ -112,18 +113,18 @@ A marketplace where third parties register connectors (data sources, MCP servers
 agent tools) against the DWS IQ platform, discoverable and installable by customers.
 
 Repossa:
-Ei toteutettu. `mcp-hub/` and `mcp-servers/` exist as internal orchestration, not a
-customer-facing marketplace or registry.
+Ei toteutettu as a marketplace. ERP connectors (SAP, IFS, Dynamics 365, Visma, Jeeves,
+Monitor) live inside the app in `src/integrations/erp/` and depend on Supabase.
+`mcp-hub/` and `mcp-servers/` are internal orchestration. No public registry, third-party
+submission path, review gate, or listing UI.
 
 Mahdollinen täydennys:
 Would need a public registry schema, a review/approval gate, and a listing UI —
 none scoped yet.
 
 Päätös:
-Backlog → Toteutetaan (HIC, 27.09.2026: "Tier 3 implementation is needed" — Connector
-Marketplace chosen; ordered after the Inference Jurisdiction Score). Tier 3 → 2. First step
-per `docs/architecture/DWS_IQ_REFERENCE_ARCHITECTURE.md` §5: one MCP manifest per
-`src/integrations` connector, listed in the MCP Hub, before any public listing UI.
+Ei muutosta — stays Tier 3, architecture draft only (HIC, 27.09.2026). Not on the
+roadmap; no requirement created. Supersedes the earlier "Backlog" entry in this log.
 ```
 
 ### DGX Runtime Bundle
@@ -144,7 +145,8 @@ Would need packaging, a licence/support model, and a catalogue SKU distinct from
 internal cost-policy usage.
 
 Päätös:
-Backlog
+Backlog — moved to Tier 2, approved to the roadmap (HIC, 27.09.2026). No
+implementation before M1 unless the HIC decides otherwise.
 ```
 
 ## Maintenance

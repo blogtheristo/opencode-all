@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "packVersion": "2026.09.27",
+  "releaseDate": "2026-09-27",
+  "title": "DWS6 Learning Hub",
+  "audienceRoles": ["admin", "investor", "partner", "customer"],
+  "documents": [
+    {"id":"admin-manual","title":"DWS IQ Platform Admin Manual","summary":"Platform operations, maintenance, and role-pack procedures.","source":"Admin/ADMIN_MANUAL.md","requiredText":"Role-based Learning Hub distribution","output":"docs/admin-manual.html","roles":["admin"]},
+    {"id":"learning-standard","title":"DWS Learning Standard","summary":"Human-in-command learning outcomes and oversight practices.","source":"Learn/DWS_LEARNING_STANDARD_v1.7.html","output":"docs/dws-learning-standard.html","roles":["admin"]},
+    {"id":"security-standard","title":"DWS Security Standard","summary":"Internal security controls and implementation requirements.","source":"Learn/DWS_SECURITY_STANDARD_v3.8.html","output":"docs/dws-security-standard.html","roles":["admin"]},
+    {"id":"document-standard","title":"DWS Document Standard","summary":"Document governance, provenance, and source-of-truth rules.","source":"Learn/DWS_DOCUMENT_STANDARD_v2.22.html","output":"docs/dws-document-standard.html","roles":["admin"]},
+    {"id":"investor-memo","title":"DWS IQ Investor Memorandum","summary":"Investor overview of the DWS IQ opportunity and operating model.","source":"Learn/INVESTOR_MEMO_v4.0.html","output":"docs/investor-memorandum.html","roles":["investor"]},
+    {"id":"partner-addendum","title":"KYA Partner Addendum","summary":"Partner-facing KYA responsibilities and integration terms.","source":"Learn/KYA_PARTNER_ADDENDUM_v1.0.html","output":"docs/kya-partner-addendum.html","roles":["partner"]},
+    {"id":"security-compliance","title":"Enterprise Security & Compliance","summary":"Customer and partner overview of the DWS security posture.","source":"Learn/SECURITY_COMPLIANCE.html","output":"docs/security-compliance.html","roles":["partner","customer"]},
+    {"id":"sovereign-intelligence","title":"Sovereign Industrial Intelligence","summary":"Overview of sovereign industrial intelligence outcomes and delivery.","source":"Learn/sovereign-industrial-intelligence-whitepaper-v1.0.html","output":"docs/sovereign-industrial-intelligence.html","roles":["investor","partner","customer"]}
+  ]
+}

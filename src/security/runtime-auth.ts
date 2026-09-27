@@ -1,4 +1,4 @@
-// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=gpt-6-luna Agent=OpenClaw-Phase2 Date=2026-09-27
+// Evidence: Tool=Claude Code 2.1.283 Model=anthropic/claude-opus-5-5 Agent=claude-code-web Date=2026-09-27
 // Audit trail: git log -- src/security/runtime-auth.ts
 /**
  * Runtime Tool-Call Authorization
@@ -37,6 +37,10 @@ import { createHmac, randomUUID, timingSafeEqual } from 'node:crypto';
 import logger from '../utils/logger.js';
 import type { RuntimeKYAVerdict, ToolCall } from '../agents/types.js';
 import { digestOf } from './canonical-digest.js';
+import { isVerifiedThemisPrincipal, type ThemisPrincipal } from './themis-principal.js';
+
+/** Gate name the NemoClaw bridge accepts; signable only by issueThemisBridgeVerdict(). */
+export const THEMIS_BRIDGE_GATE = 'themis-policy-gate';
 
 export type ActionClass = 'READ' | 'WRITE' | 'EXTERNAL' | 'IRREVERSIBLE';
 
@@ -516,6 +520,18 @@ export function issueKyaVerdict(input: {
   scope?: RuntimeKYAVerdict['scope'];
   expiresAt?: string;
 }): RuntimeKYAVerdict {
+  if (input.gate === THEMIS_BRIDGE_GATE) {
+    // Reserved: only issueThemisBridgeVerdict() may sign for the bridge gate,
+    // so bridge identity always comes from a verified ThemisPrincipal.
+    logger.error('issueKyaVerdict: gate is reserved for issueThemisBridgeVerdict — not signing', {
+      gate: input.gate,
+    });
+    return { ...input, issuedAt: new Date().toISOString() };
+  }
+  return signKyaVerdict(input);
+}
+
+function signKyaVerdict(input: Parameters<typeof issueKyaVerdict>[0]): RuntimeKYAVerdict {
   const secret = signingSecret();
   const issuedAt = new Date().toISOString();
   if (!secret) {
@@ -536,20 +552,28 @@ export function issueKyaVerdict(input: {
 
 /**
  * Apply the existing DWS per-tool authorization envelope, then issue a
- * request-bound ticket for the NemoClaw bridge. Actor and tenant identifiers
- * must come from authenticated runtime context, never harness parameters.
+ * request-bound ticket for the NemoClaw bridge. Operator, tenant and agent
+ * come only from a ThemisPrincipal minted by resolveThemisPrincipal() from
+ * verified credentials; a look-alike object or a tenant mismatch throws.
  */
 export function issueThemisBridgeVerdict(input: {
   call: ToolCall;
   context: AuthorizationContext;
-  callerAgentId: string;
-  operatorId: string;
+  principal: ThemisPrincipal;
   trustScore: number;
   policyVersion: string;
 }): RuntimeKYAVerdict {
+  if (!isVerifiedThemisPrincipal(input.principal)) {
+    throw new Error(
+      'issueThemisBridgeVerdict: principal was not resolved from verified credentials',
+    );
+  }
+  if (input.context.orgId !== input.principal.orgId) {
+    throw new Error(
+      "issueThemisBridgeVerdict: context tenant does not match the operator's tenant",
+    );
+  }
   if (
-    !input.callerAgentId.trim() ||
-    !input.operatorId.trim() ||
     !input.context.orgId.trim() ||
     !input.context.sessionId.trim() ||
     !input.policyVersion.trim() ||
@@ -564,14 +588,14 @@ export function issueThemisBridgeVerdict(input: {
 
   const authorization = authorizeToolCall(input.call, input.context);
   const issuedAtMs = Date.now();
-  return issueKyaVerdict({
+  return signKyaVerdict({
     decision: authorization.decision === 'allow' ? 'allowed' : 'denied',
     trustScore: input.trustScore,
     policyVersion: input.policyVersion,
-    gate: 'themis-policy-gate',
+    gate: THEMIS_BRIDGE_GATE,
     scope: {
-      agentId: input.callerAgentId,
-      operatorId: input.operatorId,
+      agentId: input.principal.agentId,
+      operatorId: input.principal.operatorId,
       orgId: input.context.orgId,
       sessionId: input.context.sessionId,
       capability: input.call.name,
