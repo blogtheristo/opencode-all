@@ -1,14 +1,14 @@
 # kya-jev Specification
 
-<!-- prettier-ignore -->
-***
+---
 
 # VERSION AND AGENT HISTORY
 
-Version: 0.9 [Latest]
+Version: 0.10 [Latest]
 
 Sessions & Modifications:
 
+- Version: 0.10 | Tool: Claude Code (Opus 5.5) | Session: claude/kya-jev-audit-implementation-plan | Date: 27.09.2026 | Changes: **Migration 087 applied to production and verified by HIC** (PostgreSQL 17.6): 16 columns, forced RLS, both `_v087_3` policies, five indexes, grants, expected table comment. It had been applied via SQL editor, so `supabase_migrations.schema_migrations` lacked the row; replaying would fail because `CREATE POLICY` is not idempotent. HIC repaired the ledger with `supabase migration repair --status applied 087` (SQL not re-executed); ledger now shows `087 | kya_jev_calls | 9 statements`. **Correction to v0.9 F3:** v0.9 converted this spec's and the 2026-09-26 field note's `---` delimiters to `***`, citing a delimiter rule that CLAUDE.md v1.3 (HIC 19.09.2026) had already retired — VAH blocks use `---`. Reverted both files to `---`; F3 now records only the ACTIVE/PENDING_REVIEW status fix.
 - Version: 0.9 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-jev-audit-implementation-plan | Date: 27.09.2026 | Changes: Full re-audit after a 9-day gap in which both PR #2043 and PR #2044 merged to `main` (confirmed via `pull_request_read`, not assumed — §8's "not treated as merged" note in v0.6-0.8 was stale) and a fifth consumer, `src/agents/browse-step-kya-jev.ts` (`adviseBrowseStep()`, PR #2125, merged 27.09.2026), shipped without a spec update. New findings: (1) **F1 — Fail, real gap:** 3 of 5 consumers (`dictionary-kya-jev.ts`, `model-route-kya-jev.ts`, `browse-step-kya-jev.ts`) call `makeTypedDecision()` with zero Article-12 audit logging — only `seo-audit` and `outreach-lead-finder` (lead-score) call `logKyaJevCall()`. A primitive whose entire justification is Article-12 auditability is producing untracked decisions on 3/5 paths. (2) **F2 — architectural risk, not yet built:** `docs/field-notes/2026-09-26-jev-dws-use-cases.md` idea #1 proposes using a kya-jev decision to pre-filter `authorizeToolCall()` itself — this would make kya-jev's own KYA-verdict dependency circular with the gate that issues KYA verdicts, reproducing the exact "signer and approver can't be the same party" problem A2 fixed, one layer up. Recorded as a guardrail, not implemented. (3) Migration 087 still unapplied to production (RED, confirmed no application record found). (4) `blogtheristo/KYAv2` still not created (repo search returned 0 results). §2 scope, §4 findings (new F section), §7 guardrails, and §8 execution order all updated; §9 (Implementation Plan) added.
 - Version: 0.8 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: HIC chose **model routing** as the third advisory consumer (not compliance classify). `adviseModelRoute()` (`src/agents/model-route-kya-jev.ts`) — choice stay/escalate/demote; `actionable: false`. `selectModel()` stays deterministic and is not rewritten by the hint. TypeSafe map: Model routing / Harness Engineering.
 - Version: 0.7 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: HIC chose **lead scoring** as the next advisory queue (not helpdesk). Added `adviseLeadScore()` (`src/agents/lead-score-kya-jev.ts`) — `score` levels discard/watch/call; `actionable: false`; does not change `fitScore` or upsert `outreach_orgs`. Wired try/catch on `outreach-lead-finder` top lead only (same isolation as seo-audit). TypeSafe map bind: Lead generation. No vendor Jev. [not latest]
@@ -28,13 +28,12 @@ Session Links & References:
 Document Status:
 
 - Created: 18.09.2026
-- Last Modified: 27.09.2026 (v0.9)
+- Last Modified: 27.09.2026 (v0.10)
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE — internal specification
 
-<!-- prettier-ignore -->
-***
+---
 
 ## 1. Summary
 
@@ -112,7 +111,7 @@ Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe 
 | --- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
 | F1  | Fail                           | 3 of 5 consumers produce a `kya-jev` decision with **no Article-12 audit row**: `dictionary-kya-jev.ts`, `model-route-kya-jev.ts`, and `browse-step-kya-jev.ts` never call `logKyaJevCall()` (confirmed by grep — zero matches). Only `seo-audit.agent.ts` and `outreach-lead-finder.agent.ts` (lead-score) log. The entire premise of this primitive is Article-12 traceability (§1); three consumers currently produce untracked decisions. Not a security hole (KYA gate itself still holds) but a real gap against this document's own stated purpose.                                                                                                                                                               | `src/agents/dictionary-kya-jev.ts`; `src/agents/model-route-kya-jev.ts`; `src/agents/browse-step-kya-jev.ts`          |
 | F2  | Needs-Human                    | **Architectural risk, not yet built — must stay unbuilt as proposed.** `docs/field-notes/2026-09-26-jev-dws-use-cases.md` use case #1 proposes a `kya-jev` decision as a fast pre-filter in front of `authorizeToolCall()` (the KYA tool-call gate) itself. `kya-jev` calls require a signed KYA verdict that only `authorizeToolCall()`'s runtime can issue; using `kya-jev`'s own output to pre-gate that same runtime's authorization decision closes the loop the A2 fix was built to break (§4A2) — the authorizer would be advised by a primitive that cannot run without the authorizer's own signature. Recorded as a standing guardrail (§7), not implemented; the field note itself is still `PENDING_REVIEW`. | `docs/field-notes/2026-09-26-jev-dws-use-cases.md` (use case 1); `src/security/runtime-auth.ts` (`authorizeToolCall`) |
-| F3  | Fail → **Closed this session** | The 2026-09-26 field note's own header used `---` delimiters instead of the required `***` (CLAUDE.md Markdown Delimiter Rule) and carried a self-contradiction (`Publication Status: ACTIVE` next to `Status: PENDING_REVIEW`). Fixed this session.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | `docs/field-notes/2026-09-26-jev-dws-use-cases.md`                                                                    |
+| F3  | Fail → **Closed this session** | The 2026-09-26 field note carried a self-contradiction (`Publication Status: ACTIVE` next to `Status: PENDING_REVIEW`). Fixed: `Publication Status: DRAFT`. (v0.9 also wrongly changed its delimiters to `***`; reverted in v0.10 — CLAUDE.md v1.3 requires `---`.)                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | `docs/field-notes/2026-09-26-jev-dws-use-cases.md`                                                                    |
 
 ## 5. Needs-Human Items (open, not blocking this version)
 
@@ -141,13 +140,13 @@ Also never without HIC (this session, cited):
 
 ## 8. Merge & Migration History (superseded — kept for the record)
 
-The v0.5–0.8 drafts of this section warned "PR #2043 is not merged" and ordered D3 before merge before migration, written while both PRs were still open. **Both merged within the same session window** (#2043 at 2026-09-19T00:06:52Z, #2044 at 2026-09-19T00:53:45Z) without the coordination problem those drafts warned about — verified this session: `dws10.com/config/products.json` has exactly one `KYA-JEV-001` entry, not a duplicate. D3 (standards registration) is closed. **Migration `087_kya_jev_calls.sql` is still unapplied to production** — confirmed no application record exists anywhere in field notes, `DWS_STANDARDS_LIBRARY.md`, or CI. It remains RED (human-only, per this session's trust boundary) and is the actual next infrastructure step — see §9 Phase 0.
+The v0.5–0.8 drafts of this section warned "PR #2043 is not merged" and ordered D3 before merge before migration, written while both PRs were still open. **Both merged within the same session window** (#2043 at 2026-09-19T00:06:52Z, #2044 at 2026-09-19T00:53:45Z) without the coordination problem those drafts warned about — verified this session: `dws10.com/config/products.json` has exactly one `KYA-JEV-001` entry, not a duplicate. D3 (standards registration) is closed. **Migration `087_kya_jev_calls.sql` is applied to production (27.09.2026, HIC)** — structure verified (16 columns, forced RLS, two `_v087_3` policies, five indexes, grants, comment) and the migration ledger repaired with `supabase migration repair --status applied 087`. Future `supabase migration up` will not replay it.
 
 ## 9. Implementation Plan (this session, 2026-09-27)
 
 **Phase 0 — infrastructure catch-up (blocked on humans, not code):**
 
-1. Apply `supabase/migrations/087_kya_jev_calls.sql` to production (RED zone — SQL editor, per PR #2044's own note: paste the `087.2`/`087.3` script body, Enable RLS = yes).
+1. ~~Apply migration 087~~ — **done 27.09.2026** (HIC, SQL editor; ledger repaired via `supabase migration repair --status applied 087`). Lesson: a migration applied through the SQL editor must be followed by a ledger repair, or the next CLI run replays it and fails on non-idempotent `CREATE POLICY`.
 2. Create `blogtheristo/KYAv2` (repo-creation 403 persists 9 days later — this needs a human with broader GitHub App permissions, not a retry).
 
 **Phase 1 — close F1 (audit-logging gap), code, this branch:**
