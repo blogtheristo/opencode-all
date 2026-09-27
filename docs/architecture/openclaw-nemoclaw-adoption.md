@@ -7,9 +7,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
+
+- Version: 1.2 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/nemoclaw-phase2-closeout | Date: 27.09.2026 | Changes: Recorded the code-only merge of PR #2175 and retained authenticated-identity, runtime-authentication, and OpenShell rollout gates. | Harness: Copilot CLI + DWS standards | HIC-approved-drift: none
 
 - Version: 1.1 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Model: Auto | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: Bound NemoClaw invocations to Themis per-tool authorization, signed tenant/operator/session/request scope, API authentication and single-use Article 12 audit. Added committed-only schema migrations and test gates; no runtime deployed. | Harness: Copilot CLI + DWS standards | HIC-approved-drift: none
 - Version: 1.0 | Tool: GitHub Copilot CLI 1.0.88 | Model: Auto | Session: opencode/openclaw-control-plane-plan | Date: 27.09.2026 | Changes: Initial evidence-based adoption decision, phase gates and static runtime inventory. | Harness: Copilot CLI + DWS standards resolver | HIC-approved-drift: none

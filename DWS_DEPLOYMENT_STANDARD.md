@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.9 [Latest]
+Version: 1.10 [Latest]
 
 Sessions & Modifications:
 
+- Version: 1.10 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/nemoclaw-phase2-closeout | Date: 27.09.2026 | Changes: Records PR #2175 merge as code-only; deployment and Phase 3 remain gated on live evidence.
 - Version: 1.9 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: Records Phase 2 bridge enforcement as code-only, leaves mirrored schema migrations unapplied, and gates runtime rollout and Phase 3 on live evidence.
 - Version: 1.8 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: NemoClaw runtime bearer key is required by the bridge; server-side validation must be verified before production.
 - Version: 1.7 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Tier table gains an **Indicative SEAL** column (Connect C = 0/1, Sovereign Infra = 2 on EU-owned stack, Aegis = 3; SEAL-4 closed). Fence: not a Commission certificate.
@@ -158,7 +159,7 @@ NemoClaw — NVIDIA's OpenShell-sandboxed agent runtime — is the local autonom
 
 Local model inference itself needs **no per-call key** — that is the sovereignty property (no cloud round-trip, no token meter). Secret _values_ differ per box; the _schema_ above is identical across all three Surfaces.
 
-**Phase 2 status (PR #2175, code only).** The bridge now requires a short-lived Themis verdict bound to the provided operator, tenant, agent, session, skill, and parameter scope, a configured bearer credential, and an available Article 12 sink; each allowed invocation consumes a unique authorization ID. The issuer still accepts identity fields from its caller, so authenticated-principal wiring is unverified. The Supabase and DGX migrations are committed but unapplied. This does not prove runtime-side token validation or live OpenShell isolation. Promotion requires a pinned image/SBOM, adversarial host/network/process isolation probes, a selected read-only Athena pilot, full audit traces, and a verified rollback. Keep Phase 3 partner workflows and reversible writes deferred until those exit gates are met and separately approved.
+**Phase 2 status (PR #2175 merged, code only).** The bridge now requires a short-lived Themis verdict bound to the provided operator, tenant, agent, session, skill, and parameter scope, a configured bearer credential, and an available Article 12 sink; each allowed invocation consumes a unique authorization ID. The issuer still accepts identity fields from its caller, so authenticated-principal wiring is unverified. The Supabase and DGX migrations are committed but unapplied. This does not prove runtime-side token validation or live OpenShell isolation. Promotion requires a pinned image/SBOM, adversarial host/network/process isolation probes, a selected read-only Athena pilot, full audit traces, and a verified rollback. Keep Phase 3 partner workflows and reversible writes deferred until those exit gates are met and separately approved.
 
 ### Industry
 

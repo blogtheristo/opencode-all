@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.36 [Latest]
+Version: 3.37 [Latest]
 
 Sessions & Modifications:
 
+- Version: 3.37 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/nemoclaw-phase2-closeout | Date: 27.09.2026 | Changes: Recorded PR #2175 merge and clarified the merged code is not a live runtime deployment.
 - Version: 3.36 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: Recorded Phase 2 Themis-to-NemoClaw bridge controls, unapplied audit migrations, live rollout gates, and the Phase 3 hold.
 - Version: 3.35 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: NemoClaw runtime bearer key is required by the bridge; server-side validation must be verified before production.
 - Version: 3.34 | Tool: GitHub Copilot CLI 1.0.88 | Session: session4-d3-dgx-pr-gates | Date: 27.09.2026 | Changes: Moved the remaining listed PR gates to the DGX self-hosted runner, removed housekeeping's hosted failover path, documented the ARM64 review, and reduced the hosted-only CI list to the unchanged monthly DAST ZAP workflow.
@@ -477,7 +478,7 @@ NemoClaw is NVIDIA's open agent blueprint — the **OpenShell** secure runtime +
 
 ### Phase 2 control-plane status — 27 September 2026
 
-PR #2175 adds the code-level Themis authorization boundary: a short-lived signed verdict scoped to the operator, tenant, agent, session, skill, and parameters; a required runtime bearer credential; fail-closed Article 12 logging; and a single-use authorization ID. The issuer still accepts identity fields from its caller; authenticated-principal wiring has not been verified. The PR is open; this is not evidence that the DGX runtime enforces the token or that OpenShell isolation is live.
+PR #2175 merged as `5d506e5a19d3be0228457d1079abf88b181a6ce0` adds the code-level Themis authorization boundary: a short-lived signed verdict scoped to the operator, tenant, agent, session, skill, and parameters; a required runtime bearer credential; fail-closed Article 12 logging; and a single-use authorization ID. The issuer still accepts identity fields from its caller; authenticated-principal wiring has not been verified. This code merge is not evidence that the DGX runtime enforces the token or that OpenShell isolation is live.
 
 The paired Supabase and DGX audit migrations are committed but **not applied**. Do not deploy, provision runtime secrets, change traffic, or apply migrations as part of this code phase. Before any rollout, verify server-side bearer validation, pin the runtime image and SBOM, prove host/network/process isolation with adversarial probes, select and pass a read-only Athena pilot, and verify traces plus rollback. Phase 3 partner workflows and reversible writes remain deferred until those gates are met and separately approved.
 
