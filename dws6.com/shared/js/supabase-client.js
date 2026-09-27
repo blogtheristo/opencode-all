@@ -1,3 +1,6 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- dws6.com/shared/js/supabase-client.js
+
 /**
  * Supabase Client Initialization
  *
@@ -108,15 +111,52 @@ export async function isAuthenticated() {
   return session !== null;
 }
 
+const PRIVILEGED_ROLES = new Set(['backoffice_admin', 'hub_admin']);
+
 /**
- * Get user role from metadata
+ * Resolve a role without accepting a user-editable privileged claim.
+ * Supabase users can update user_metadata themselves; app_metadata and active
+ * organization membership are server-controlled. Non-privileged legacy roles remain compatible.
+ * @param {Object|null} user - Supabase user
+ * @param {boolean} hasBackofficeAccess - Result of the server-controlled is_backoffice_admin() check
+ * @returns {string|null} Trusted role or null
+ */
+export function resolveUserRole(user, hasBackofficeAccess = false) {
+  if (!user) return null;
+
+  const appRole = user.app_metadata?.role;
+  const userRole = user.user_metadata?.role;
+  if (appRole === 'backoffice_admin' || userRole === 'backoffice_admin') {
+    return hasBackofficeAccess ? 'backoffice_admin' : null;
+  }
+  if (typeof appRole === 'string' && appRole) return appRole;
+  if (typeof userRole !== 'string' || !userRole || PRIVILEGED_ROLES.has(userRole)) return null;
+
+  return userRole;
+}
+
+/**
+ * Get the current user's effective role.
  * @returns {Promise<string|null>} User role or null
  */
 export async function getUserRole() {
   const user = await getCurrentUser();
-  if (!user || !user.user_metadata) return null;
+  const resolvedRole = resolveUserRole(user);
+  const claimedBackofficeRole =
+    user?.app_metadata?.role === 'backoffice_admin' ||
+    user?.user_metadata?.role === 'backoffice_admin';
+  if (resolvedRole || !claimedBackofficeRole) return resolvedRole;
 
-  return user.user_metadata.role || null;
+  const client = getSupabaseClient();
+  if (!client) return null;
+
+  const { data, error } = await client.rpc('is_backoffice_admin');
+  if (error) {
+    console.error('Error verifying Back-Office role:', error.message);
+    return null;
+  }
+
+  return resolveUserRole(user, data === true);
 }
 
 /**

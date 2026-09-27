@@ -1,13 +1,13 @@
 ---
 title: CLAUDE.md — Operational Rules for AI Agents
-version: 1.3
+version: 1.4
 status: Active
-last_updated: 2026-09-19
+last_updated: 2026-09-27
 applies_to:
   ["Claude Code", "OpenCode", "BaseAgent", "MCP tools", "Cursor", "Cursor Cloud", "all agents"]
 language: en
 schema: DWS_DOCUMENT_STANDARD
-changes_in_this_version: "HIC 19.09.2026: retire *** Pandoc delimiter; HIC makes PDFs from HTML"
+changes_in_this_version: "Corrected the DWS Cost Policy Standard path to docs/DWS_COST_POLICY_STANDARD.md"
 source_control_url: "https://github.com/blogtheristo/dws6/blob/main/CLAUDE.md"
 ---
 
@@ -147,7 +147,7 @@ OpenCode operates with elevated permissions beyond Claude Code. These items move
 11. **`gcloud` uses CMD syntax only** — `^` continuation, never backtick. `.ps1` scripts invoke via `powershell -ExecutionPolicy Bypass -File .\script.ps1` from CMD.
 12. **Never lose eloquent formulations.** Preserve philosophical passages, quotes, mottos, wisdom in rewrites. See `DWS_DOCUMENT_STANDARD.md` §21.
 13. **Blog publishing:** Claude Code requires HIC approval (show text, stop, ask). OpenCode publishes via YELLOW zone. All posts: `/blog-draft` to `docs/blog-drafts/<slug>.md` → HIC approval before publish.
-14. **Cost governance — DGX-first agentic compute:** All AI agent workloads (Cursor, Grok, Claude Code, OpenCode) must default to DGX (local sandbox). Cloud agents are secondary and require documented justification. Free-credit window: 2026-09-20 through 2026-10-11 (21 days); after 2026-10-12, cloud agents are blocked. Full audit trail required. See `DWS_COST_POLICY_STANDARD.md`.
+14. **Cost governance — DGX-first agentic compute:** All AI agent workloads (Cursor, Grok, Claude Code, OpenCode) must default to DGX (local sandbox). Cloud agents are secondary and require documented justification. Free-credit window: 2026-09-20 through 2026-10-11 (21 days); after 2026-10-12, cloud agents are blocked. Full audit trail required. See `docs/DWS_COST_POLICY_STANDARD.md`.
 
 ---
 
@@ -397,6 +397,7 @@ For new taxonomy-facing copy, use the DWS skilled terminology model from canonic
 
 | File                                         | Purpose                                                  | Tools                                        | Status      |
 | -------------------------------------------- | -------------------------------------------------------- | -------------------------------------------- | ----------- |
+| 1.4     | 2026-09-27 | Corrected the DWS Cost Policy Standard reference to its canonical `docs/` path. | GitHub Copilot CLI |
 | **CLAUDE.md** (this file)                    | Canonical operational rules                              | OpenCode, Claude Code, BaseAgent, all agents | Active      |
 | **opencode.json**                            | OpenCode runtime config + instructions reference         | OpenCode primary                             | Active      |
 | **.claude/settings.json**                    | Claude Code settings, hooks, permissions                 | Claude Code standby                          | Active      |

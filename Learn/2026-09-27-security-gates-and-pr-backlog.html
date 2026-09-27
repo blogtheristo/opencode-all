@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-27-security-gates-and-pr-backlog</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-27-security-gates-and-pr-backlog</h1>
+</header>
+<h1 id="security-gates-and-pr-backlog-closure-2026-09-27">Security gates and PR backlog closure — 2026-09-27</h1>
+<hr />
+<h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.0 [Latest]</p>
+<p>Sessions &amp; Modifications:</p>
+<ul>
+<li>Version: 1.0 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Model: openai/gpt-5.6-sol | Session: fix/security-gates-tests-20260927 | Date: 27.09.2026 | Changes: Recorded PR disposition, privileged browser-role hardening, and KYA/migration test coverage. | Harness: GitHub Copilot CLI + CLAUDE.md + AGENTS.md + matched DWS standards | HIC-approved-drift: none</li>
+</ul>
+<p>Document Status:</p>
+<ul>
+<li>Created: 27.09.2026</li>
+<li>Last Modified: 27.09.2026</li>
+<li>Language: English</li>
+<li>Languages Available: English</li>
+<li>Publication Status: PENDING_REVIEW</li>
+<li>Classification: INTERNAL</li>
+</ul>
+<hr />
+<h2 id="context">Context</h2>
+<ul>
+<li><strong>Project:</strong> DWS IQ 6</li>
+<li><strong>System:</strong> Back-Office dashboard authorization, KYA runtime tool gate, Supabase migration 079</li>
+<li><strong>Location:</strong> Finland / EU-hosted platform</li>
+<li><strong>Requested deadline:</strong> Before 30.09.2026; completed and verified on 27.09.2026</li>
+</ul>
+<h2 id="ontology-tags">Ontology Tags</h2>
+<ul>
+<li><strong>Geography:</strong> EU &gt; Finland</li>
+<li><strong>Sector:</strong> Enterprise_Software &gt; Security_and_Compliance</li>
+<li><strong>Entities:</strong> DWS-IQ6, Supabase Auth, KYA, GitHub pull requests</li>
+<li><strong>Temporal Context:</strong> 2026-Q3</li>
+<li><strong>Confidence:</strong> High</li>
+</ul>
+<h2 id="the-story">The Story</h2>
+<p>The open-PR list was stale. PR #2002 had already merged with its required CI checks successful. PR #2064 had been closed because its content was reapplied in #2105; #2105 merged with the audit, Definition of Done, Tree Gate, truth-lint, and deployment checks successful.</p>
+<p>The browser role helper still returned <code>user.user_metadata.role</code>. Supabase users can edit that metadata, so a user could present <code>backoffice_admin</code> or <code>hub_admin</code> to client-side gates. The server-side Back-Office API already rejected that claim and independently required an active <code>organization_members</code> owner/admin row, so protected data was not exposed through that API. The browser gate was still misleading and unsafe as a control.</p>
+<p>The shared role resolver now accepts <code>hub_admin</code> only from server-controlled <code>app_metadata</code>. A legacy <code>backoffice_admin</code> claim is accepted only after the browser confirms an active <code>organization_members</code> owner/admin row, matching the Back-Office API and RLS source of truth. Non-privileged legacy roles continue to resolve from <code>user_metadata</code>, avoiding an unrelated migration of all dashboard roles. Root and landing-page copies are synchronized. Tests cover both copies and reject unverified Back-Office and Mission Control claims.</p>
+<p>KYA tests now prove that handlers are not invoked when runtime authorization requires approval or denies a call above the blast-radius ceiling. Migration 079 now has a static contract suite covering the <code>mandate.attest</code> lifecycle value, unsigned signing stub, RLS, service-role-only writes, and append-only DELETE/TRUNCATE revocations.</p>
+<p>The standards router and <code>CLAUDE.md</code> now point to the existing <code>docs/DWS_COST_POLICY_STANDARD.md</code> path.</p>
+<h2 id="the-insight">The Insight</h2>
+<p>A client-side role check is navigation UX, not authorization. Privileged claims must be issued by a server-controlled source, and every sensitive API/RLS path must continue enforcing authorization independently. Security tests must verify non-execution, not merely an error-shaped response: a blocked tool handler being called would still be a breach.</p>
+<h2 id="verification">Verification</h2>
+<ul>
+<li>Focused security tests: 5 files, 27 tests passed.</li>
+<li>Full Vitest suite with inherited Git config variables removed: 154 files passed, 4 skipped; 1,591 tests passed, 33 skipped.</li>
+<li>TypeScript build: passed.</li>
+<li>ESLint: 0 errors; 16 existing warnings.</li>
+<li>Evidence audit: 5 executable files compliant.</li>
+<li>Root/landing role helpers: functionally identical except for their audit-path header.</li>
+</ul>
+<h2 id="next-steps">Next Steps</h2>
+<p><strong>Q1 (two-way door; RECOMMEND: yes):</strong> Should the remaining non-privileged dashboard roles also move from legacy <code>user_metadata</code> to server-controlled <code>app_metadata</code> in a separate migration and rollout, after confirming current user provisioning?</p>
+<h2 id="learning-outcome-steps">Learning-outcome steps</h2>
+<ul>
+<li>Step 1 — KB: N/A — no new domain fact; this implements existing Supabase authorization and KYA controls already represented in the KB.</li>
+<li>Step 2 — Field note: this document.</li>
+<li>Step 3 — Learn HTML: generated as <code>Learn/2026-09-27-security-gates-and-pr-backlog.html</code>.</li>
+<li>Step 4 — Drive export: N/A — no Google Drive tool is available in this session.</li>
+<li>Step 5 — HIC decision: Q1 above, queued as <code>PENDING_REVIEW</code>.</li>
+<li>Step 6 — Calendar: N/A — the only dated commitment was the 30.09.2026 completion request, completed on 27.09.2026; no future action date remains.</li>
+</ul>
+<hr />
+<p>Version 1.0 | 27.09.2026 | © 2026 Lifetime Oy | INTERNAL</p>
+</body>
+</html>
