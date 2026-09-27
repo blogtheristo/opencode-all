@@ -44,3 +44,5 @@ Which P1 goes first: the Inference Jurisdiction Score (fastest, backs existing s
 3. Public sites stay on Brand §2.1 Nordic Industrial; Gold Standard for internal and investor visuals.
 4. Watch PR `blogtheristo/dws6#2178`: yes.
 5. cari.fi is read-only for DWS work: copy its settings, never edit it (Brand §2.2).
+6. Tier 3 conflict resolved: #2187 stands (Air-gapped Runtime + DGX Runtime Bundle → Tier 2; Connector Marketplace stays Tier 3 draft).
+7. Blog §3 (`hic-hallintamalli-ja-dws-iq-agentit.md`): HIC `agree` on the Use Case → Workflow V2 → Active Ontology wording; applied, post stays DRAFT pending full-text approval.

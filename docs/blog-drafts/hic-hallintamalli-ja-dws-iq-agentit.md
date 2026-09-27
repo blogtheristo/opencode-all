@@ -43,12 +43,12 @@ Jotta teollisuudessa saavutetaan sekä korkea automaatioaste että EU AI Actin a
 
 ## 3. Teollisuuden prosessikuvaukset: RUP-metodologian soveltaminen
 
-Agenttiyhteistyöstä tehdään teollisuudessa ennakoitavaa ja hyväksyttyä mallintamalla työnkulut vakiintuneella **RUP-metodologialla (Rational Unified Process)** ja UML-aktiviteettikaavioilla:
+Agenttiyhteistyöstä tehdään teollisuudessa ennakoitavaa ja hyväksyttyä yhdistämällä liiketoiminnan käyttötapaukset (Use Cases), niitä toteuttava Workflow V2 sekä Active Ontology — liiketoimintaobjektit, niiden väliset suhteet, säännöt ja sallitut toiminnot. RUP-metodologia ja UML-aktiviteettikaaviot kuvaavat tämän kokonaisuuden hallittuna elinkaarena:
 
 ```
-[Inception]               [Elaboration]              [Construction]             [Transition]
-Ihminen käynnistää ---->  Dashboard reitittää  ----> DWS IQ Skilled Agents  ----> Luovutus & KYA-
-työnkulun Dashboardilta   sopivat IQ-agentit         suorittavat vaiheet        auditointijälki
+[Inception]              [Elaboration]                 [Construction]                 [Transition]
+Use Case ja tavoite -->  Workflow V2 muodostaa  -->   Active Ontology rajaa    -->   HIC hyväksyy tuloksen
+HIC määrittää raamit      vaiheet ja agenttiroolit      objektit ja toiminnot          KYA tallentaa auditointijäljen
 ```
 
 - **Inception (Aloitus):** Ihminen määrittelee tavoitteen ja raamit Dashboardilla (HIC-aloitus).

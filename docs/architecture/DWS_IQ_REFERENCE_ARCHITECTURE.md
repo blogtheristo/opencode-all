@@ -11,7 +11,7 @@ Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.2 [Latest] | Tool: Claude Code | Session: claude/focused-ritchie-rou192 | Date: 27.09.2026 | Changes: IJS implemented (`GET /api/v1/kya/inference/:sessionId`, `src/identity/inference-jurisdiction.ts`, `dws kya inference`); HIC chose Connector Marketplace as the next Tier 3 item; superseded by the later #2187 record (Connector Marketplace stays Tier 3; Air-gapped Runtime and DGX Runtime Bundle → Tier 2) — pending HIC confirmation. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.2 [Latest] | Tool: Claude Code | Session: claude/focused-ritchie-rou192 | Date: 27.09.2026 | Changes: IJS implemented (`GET /api/v1/kya/inference/:sessionId`, `src/identity/inference-jurisdiction.ts`, `dws kya inference`); HIC chose Connector Marketplace as the next Tier 3 item; superseded by the later #2187 record (Connector Marketplace stays Tier 3; Air-gapped Runtime and DGX Runtime Bundle → Tier 2) — HIC confirmed #2187 on 27.09.2026. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
 - Version: 1.1 | Tool: Claude Code | Session: claude/focused-ritchie-rou192 | Date: 27.09.2026 | Changes: Recorded HIC decisions 27.09.2026 — IJS is the first P1; Ops Manager registered as planned in the product lifecycle ledger (conflict 1 resolved); public sites stay on Brand §2.1 Nordic. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
 - Version: 1.0 | Tool: Claude Code | Session: claude/focused-ritchie-rou192 | Date: 27.09.2026 | Changes: Initial 12-layer reference architecture for the DWS IQ platform, benchmarked against the Palantir AIP architecture overview supplied by the HIC. Repository-evidence maturity per layer, two DWS-specific layers, ranked update proposals, surfaced conflicts. Visual view: `dws-iq-reference-architecture.html` (Gold Standard, DWS_BRAND_STANDARD.md §2.2). | Harness: Claude Code + CLAUDE.md + STANDARDS_ROUTING.md | HIC-approved-drift: none
 
@@ -112,7 +112,8 @@ flowchart TB
 
 1. **First P1: Inference Jurisdiction Score.** Typed ontology runtime and Decision Flight Recorder follow.
 2. **Ops Manager: add to catalogue.** Registered as `ops-manager` (planned) in `config/truth/product-lifecycle-ledger.json`; gets a `products.json` record and public page when the HIC sets its price.
-3. **Public sites stay on Brand §2.1 Nordic Industrial.** Gold Standard (§2.2) is for internal and investor visuals.
+3. **Tier 3 (confirmed 27.09.2026): #2187 stands.** Air-gapped Sovereign Runtime and DGX Runtime Bundle → Tier 2 (roadmap); Connector Marketplace stays a Tier 3 draft.
+4. **Public sites stay on Brand §2.1 Nordic Industrial.** Gold Standard (§2.2) is for internal and investor visuals.
 
 ## 7. Conflicts surfaced (Rule 7)
 
