@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ABB_MATERIALS_AUDIT_2026-09-27</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">ABB_MATERIALS_AUDIT_2026-09-27</h1>
+</header>
+<h1 id="abb-materials-audit-five-recovered-files-vs.-all-abb-material-in-the-repository">ABB Materials Audit — five recovered files vs. all ABB material in the repository</h1>
+<h2 id="version-and-agent-history">VERSION AND AGENT HISTORY</h2>
+<ul>
+<li>Version: 1.1 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: abb-materials-audit | Date: 2026-09-27 | Changes: Recorded HIC decisions (27.09.2026): S2 + S3 canonical; public-site and outbound claim fixes approved (separate PR); five files restored to <code>docs/plans/abb/</code> and updated to v1.1 instead of <code>_OLD/</code>. Appendices keep the original v1.0 text for comparison.</li>
+<li>Version: 1.0 [not latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Agent: session-audit | Date: 2026-09-27 | Changes: Initial audit. Recovered the five root <code>ABB_*.md</code> files from commit <code>d6485bb3b</code>, audited them for technical accuracy, compared against every ABB source in the repo, flagged claim conflicts. Five files reproduced verbatim in Appendices A–E.</li>
+</ul>
+<hr />
+<p><strong>Status:</strong> HIC decisions recorded 27.09.2026 (§5). No files deleted. <strong>Scope:</strong> ABB / Asennustuotteet material in the <code>dws6</code> repo as of <code>origin/main</code> 2026-09-27, plus commit <code>d6485bb3b</code>.</p>
+<hr />
+<h2 id="where-the-five-files-went">1. Where the five files went</h2>
+<table>
+<colgroup>
+<col style="width: 70%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fact</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The five files were <strong>added</strong> once and <strong>never deleted</strong> in git history</td>
+<td><code>git log --all --diff-filter=AD</code> returns only the add in <code>d6485bb3b</code></td>
+</tr>
+<tr class="even">
+<td>Added 2026-08-30 19:44 +0300 at repo root, inside an unrelated commit “feat: thesis lockstep bump 4.05 + buy page EU Gov Ready section”</td>
+<td><code>git show -s d6485bb3b</code></td>
+</tr>
+<tr class="odd">
+<td>Left the working tree at 19:50:41 on <code>git checkout</code> from <code>blogtheristo-patch-2</code> → <code>claude/ipcmax-arch-audit-30aug</code> (git removes tracked files the target branch lacks)</td>
+<td><code>git reflog</code></td>
+</tr>
+<tr class="even">
+<td><code>d6485bb3b</code> never reached <code>main</code>; PRs #1937/#1938 merged earlier heads</td>
+<td><code>git merge-base --is-ancestor d6485bb3b origin/main</code> → no</td>
+</tr>
+<tr class="odd">
+<td>Still retrievable on branches <code>blogtheristo-patch-2</code> and <code>claude/ipcmax-arch-audit-30aug</code></td>
+<td><code>git branch -a --contains d6485bb3b</code></td>
+</tr>
+<tr class="even">
+<td>Same day, PR #1940 landed <code>docs/plans/ABB_KNX_BACNET_VALIDATION_PACK_2026-08-30.md</code> covering the same five topics</td>
+<td><code>git log --diff-filter=A</code> on the pack</td>
+</tr>
+</tbody>
+</table>
+<p><strong>No <code>rm</code> was involved.</strong> Restore is additive: <code>git show d6485bb3b:&lt;file&gt;</code>.</p>
+<hr />
+<h2 id="abb-material-inventory">2. ABB material inventory</h2>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 33%" />
+<col style="width: 4%" />
+<col style="width: 48%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Source</th>
+<th>Date</th>
+<th>ABB framing</th>
+<th>Role today</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S1</td>
+<td>Five recovered files (Appendices A–E)</td>
+<td>2026-08-30</td>
+<td>Building automation: KNX/BACnet, HVAC + Näpsä EV</td>
+<td><strong>Superseded draft</strong> — not on main</td>
+</tr>
+<tr class="even">
+<td>S2</td>
+<td><code>docs/plans/ABB_KNX_BACNET_VALIDATION_PACK_2026-08-30.md</code> (PR #1940)</td>
+<td>2026-08-30</td>
+<td>Narrow validation pack, HVAC + EV, “no broad integration claim”</td>
+<td><strong>Canonical</strong> ABB technical scope</td>
+</tr>
+<tr class="odd">
+<td>S3</td>
+<td><code>docs/plans/HARDWARE_PARTNER_EVALUATION_MULTI_VENDOR.md</code> §Vendor 4</td>
+<td>2026-08-30</td>
+<td>“Niche facility partner”, Finnish distributor, not industrial rugged</td>
+<td>Canonical partner scoring</td>
+</tr>
+<tr class="even">
+<td>S4</td>
+<td><code>docs/plans/CONNECTOR_UPGRADE_BACKLOG.md</code> OT-003</td>
+<td>2026-08-30</td>
+<td><code>AbbKnxConnector</code> — all checkboxes open</td>
+<td>Backlog</td>
+</tr>
+<tr class="odd">
+<td>S5</td>
+<td><code>docs/plans/THEMIS_CONTROL_PLANE_IMPACT.md</code></td>
+<td>2026-08-30</td>
+<td><code>KNXHandler(bacnet_ip=True, free_at_home=True)</code> pseudocode</td>
+<td>Design sketch</td>
+</tr>
+<tr class="even">
+<td>S6</td>
+<td><code>docs/DWS6_TO_DWS7_UPDATE.md</code> §11.3</td>
+<td>2026-02-27</td>
+<td>“Strategic partner”, ABB Ability, drives/motors/robotics, heavy-industry ETS, “Integration target Q3 2026”</td>
+<td><strong>Older, broader framing</strong></td>
+</tr>
+<tr class="odd">
+<td>S7</td>
+<td><code>V3Thesis_EN.md</code> §10.12.3 / FI; <code>PHD_FIREHORSE_EN.md</code> §14.8, App. H / FI</td>
+<td>2026-03 → 09</td>
+<td>Same as S6; PhD L1569: “Strategic partnerships established (NVIDIA, Siemens, ABB)”</td>
+<td>Thesis</td>
+</tr>
+<tr class="even">
+<td>S8</td>
+<td><code>docs/XAI_PARTNERSHIP_PROPOSAL_V3.md</code>, <code>docs/sales/xAI-Optimus-Partnership-Proposal-v1.3.md</code></td>
+<td>2026-09-10</td>
+<td>“ABB — The Metabolism (Energy)”; “4-partner hardware stack live (Acer + NVIDIA + Siemens + ABB)” (XAI_PARTNERSHIP_PROPOSAL_V3.md L221)</td>
+<td>Sales</td>
+</tr>
+<tr class="odd">
+<td>S9</td>
+<td><code>docs/sales-outreach-robot-oem-partnership.md</code></td>
+<td>2026-03-08</td>
+<td>“4-partner stack (Acer, NVIDIA, Siemens, ABB) already integrated”</td>
+<td>Sales</td>
+</tr>
+<tr class="even">
+<td>S10</td>
+<td><code>docs/investor/INVESTOR_ONE_PAGER.md</code></td>
+<td>2026-08-30</td>
+<td>“ABB/Asennustuotteet — Listed — Facility layer”; “Partner Evaluation Complete”</td>
+<td>Investor</td>
+</tr>
+<tr class="odd">
+<td>S11</td>
+<td>Public: <code>dws10.com/enterprise-integrations/</code>, <code>dws10.com/lifetime-fleet/</code>, <code>.../optimus-v3/</code></td>
+<td>live</td>
+<td>“Seamlessly connect … ABB”; “ABB Ability energy API. Real-time power grid monitoring”</td>
+<td><strong>Public claims</strong></td>
+</tr>
+<tr class="even">
+<td>S12</td>
+<td><code>supabase/migrations/080_ontology_enterprises.sql</code></td>
+<td>2026-08-24</td>
+<td>ABB (CH) as ontology enterprise row</td>
+<td>Data only</td>
+</tr>
+</tbody>
+</table>
+<p>Code check: no ABB, KNX or BACnet connector exists in <code>src/</code>, <code>mcp-hub/</code>, <code>mcp-servers/</code> or <code>Firehorse/</code> (<code>git grep -i &#39;AbbKnx\|KNXHandler\|bacnet&#39;</code> → no code hits).</p>
+<hr />
+<h2 id="audit-of-the-five-files-s1">3. Audit of the five files (S1)</h2>
+<h3 id="technical-errors">3.1 Technical errors</h3>
+<table>
+<colgroup>
+<col style="width: 0%" />
+<col style="width: 12%" />
+<col style="width: 41%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>File</th>
+<th>Finding</th>
+<th>Correct / safer statement</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>E1</td>
+<td>Protocol Mappings</td>
+<td>KNX datapoint types wrong. DPT <strong>1.001</strong> = Switch, <strong>1.002</strong> = Boolean, <strong>1.003</strong> = Enable, <strong>1.010</strong> = Start/Stop, <strong>1.015</strong> = Reset — none is temperature or setpoint</td>
+<td>Temperature and setpoint = DPT <strong>9.001</strong> (2-byte float °C); occupancy = DPT <strong>1.018</strong>; HVAC mode = DPT <strong>20.102</strong></td>
+</tr>
+<tr class="even">
+<td>E2</td>
+<td>Protocol Mappings</td>
+<td>AC/S1.1.1 setpoint mapped to BACnet <strong>Analog Input</strong></td>
+<td>Analog Input is a read-only sensor object; a writable setpoint is normally an <strong>Analog Value</strong> (S2 §4.1 already lists AI/AV/BV)</td>
+</tr>
+<tr class="odd">
+<td>E3</td>
+<td>EV Workflow, Supported Devices, Protocol Mappings</td>
+<td>Näpsä EV chargers and panel shown on <strong>BACnet/IP</strong> directly</td>
+<td>S2 routes Näpsä via <strong>Modbus → iPCMax gateway → MQTT</strong>. Protocol is unverified until lab capture — do not state it</td>
+</tr>
+<tr class="even">
+<td>E4</td>
+<td>EV Workflow, Validation Plan</td>
+<td>“CBAM import calculations for EV charging infrastructure”</td>
+<td>CBAM covers imports of listed goods (cement, iron/steel, aluminium, fertilisers, hydrogen, electricity). EV chargers are not a CBAM good. Remove</td>
+</tr>
+<tr class="odd">
+<td>E5</td>
+<td>Supported Devices</td>
+<td>free@home System Access Point listed as <strong>KNX/IP</strong></td>
+<td>free@home is ABB’s own system; the SAP is a gateway, not a KNX/IP device. S2/S3 call it an “MQTT bridge” — <strong>verify the SAP’s actual local API before any claim</strong> (also applies to S2/S3)</td>
+</tr>
+<tr class="even">
+<td>E6</td>
+<td>Validation Plan</td>
+<td>“Protocol Failure → switch to backup protocol, automatic recovery”</td>
+<td>No backup protocol exists for a single BACnet or KNX device. S2 §8 uses “hold last setpoint, no new writes” — keep that</td>
+</tr>
+</tbody>
+</table>
+<h3 id="unsourced-numbers">3.2 Unsourced numbers</h3>
+<table>
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 17%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Number</th>
+<th>Where</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>15 % HVAC energy saving</td>
+<td>HVAC Workflow; also S3 Pilot C</td>
+<td>No source, no baseline. Remove or mark “hypothesis to measure”</td>
+</tr>
+<tr class="even">
+<td>2 s EV latency, 5 s HVAC latency, 1 s response, 30 s recovery</td>
+<td>HVAC, EV, Protocol Mappings</td>
+<td>Invented targets. S2 §4.3 says “characterize, don’t promise”</td>
+</tr>
+<tr class="odd">
+<td>99.5 % uptime, &gt;95 % accuracy, &gt;99 % command success, 100 % integration success</td>
+<td>Validation Plan, Protocol Mappings</td>
+<td>No SLA basis</td>
+</tr>
+<tr class="even">
+<td>6-week timeline, 5 team roles</td>
+<td>Validation Plan</td>
+<td>PHD_FIREHORSE_EN.md L3376 describes “a one-person startup”; roles are unstaffed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-s1-has-that-s2-does-not">3.3 What S1 has that S2 does not</h3>
+<ul>
+<li>Team-role list and 6-week phase plan (Validation Plan) — useful only if re-sized to real capacity.</li>
+<li>Error-handling table with retry/backoff (Protocol Mappings) — S2 §8 is stronger on safe states but has no retry policy.</li>
+<li>Explicit KNX weather station device — S2 §3 dropped it; S3 pilot proposal keeps it.</li>
+</ul>
+<p>Everything else in S1 is covered more precisely in S2 (supported devices §3, protocol hops §5, canonical model §6, security §7, failure modes §8, the single Fit for 55 workflow §9).</p>
+<p><strong>Verdict on S1:</strong> superseded by S2. Restored and corrected as v1.1 companions to S2 (HIC, 27.09.2026).</p>
+<hr />
+<h2 id="conflicts-across-abb-material">4. Conflicts across ABB material</h2>
+<table>
+<colgroup>
+<col style="width: 0%" />
+<col style="width: 72%" />
+<col style="width: 5%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Conflict</th>
+<th>Sources</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C1</td>
+<td><strong>Two different ABBs.</strong> S6/S7/S8 describe ABB Group (Ability, drives, robotics, heavy-industry ETS, “strategic partner”). S2/S3 describe ABB Electrification via Finnish distributor Asennustuotteet (KNX, free@home, Näpsä) as a “niche facility partner”</td>
+<td>S6, S7 vs S2, S3</td>
+<td>Thesis and proposals claim a relationship the Aug-30 evaluation narrowed</td>
+</tr>
+<tr class="even">
+<td>C2</td>
+<td><strong>“Integrated / live / established” vs. no code.</strong> “4-partner stack … already integrated” (S9), “4-partner hardware stack live” (S8), “Strategic partnerships established” (S7 PhD) — but OT-003 is all open and no connector code exists</td>
+<td>S7, S8, S9 vs S2, S4</td>
+<td>Outbound claims not backed by repo evidence</td>
+</tr>
+<tr class="odd">
+<td>C3</td>
+<td><strong>“Seamlessly” on public site</strong> vs. S2 language guardrail “Do not claim ‘seamless’ … until each boundary has passed §4 tests”</td>
+<td>S11 vs S2</td>
+<td>Live public copy breaks the guardrail</td>
+</tr>
+<tr class="even">
+<td>C4</td>
+<td><strong>“ABB Ability energy API. Real-time power grid monitoring”</strong> on <code>dws10.com/lifetime-fleet/</code></td>
+<td>S11 vs S4</td>
+<td>Describes a working integration that does not exist in code</td>
+</tr>
+<tr class="odd">
+<td>C5</td>
+<td><strong>“Integration target Q3 2026”</strong> — Q3 2026 ends 2026-09-30; S2 lab capture (§11.1) not started</td>
+<td>S6, S7</td>
+<td>Date is about to lapse</td>
+</tr>
+<tr class="even">
+<td>C6</td>
+<td><strong>Near-duplicate:</strong> S6 thesis/PhD text is copy of <code>DWS6_TO_DWS7_UPDATE.md</code> §11.3</td>
+<td>S6, S7</td>
+<td>Fix in one place drifts from the others</td>
+</tr>
+</tbody>
+</table>
+<p>No evidence found in the repo of a signed ABB or Asennustuotteet agreement. If one exists outside the repo, C2 changes.</p>
+<hr />
+<h2 id="recommendations-and-hic-decisions">5. Recommendations and HIC decisions</h2>
+<p>HIC, 27.09.2026: items 1, 3, 4 approved; item 7 changed to restore-and-update. Items 2, 5, 6 open.</p>
+<ol type="1">
+<li><strong>Canonical ABB scope = S2 + S3.</strong> Treat S6 §11.3 framing as historical.</li>
+<li><strong>Fix S2/S3 carry-overs</strong> of S1 errors: verify free@home SAP API (E5); mark 15 % as hypothesis (S3 Pilot C); confirm Näpsä protocol at lab capture (E3).</li>
+<li><strong>Public copy (S11):</strong> remove “Seamlessly” and change the “ABB Ability energy API” card to “reference architecture — validation in progress” per S2 §11.4. Run <code>/truth-check</code> on those pages.</li>
+<li><strong>Outbound claims (S8, S9):</strong> change “integrated/live” to “evaluated, pilot planned”.</li>
+<li><strong>Theses (S7):</strong> additive correction note on current ABB status (GREEN); rewriting §10.12.3 or PhD L1569 is structural (RED for Claude Code).</li>
+<li><strong>Q3 2026 date (C5):</strong> move or drop.</li>
+<li><strong>S1 files:</strong> restored to <code>docs/plans/abb/</code> and corrected to v1.1 (errors E1–E6 fixed, unsourced numbers turned into things to measure). Original text in Appendices A–E.</li>
+</ol>
+<hr />
+<h2 id="appendices-recovered-files-verbatim-from-commit-d6485bb3b">Appendices — recovered files, verbatim from commit <code>d6485bb3b</code></h2>
+<p>Headings inside each appendix are shifted two levels down; the text is otherwise unchanged.</p>
+<hr />
+<h2 id="appendix-a-abb_supported_devices.md">Appendix A — <code>ABB_Supported_Devices.md</code></h2>
+<h3 id="abb-supported-devices-for-dws-iq-6-integration">ABB Supported Devices for DWS IQ 6 Integration</h3>
+<h4 id="overview">Overview</h4>
+<p>This document catalogs the ABB devices that will be supported in the initial validation of the DWS IQ 6 integration, focusing on HVAC energy optimization and EV charging workflows.</p>
+<h4 id="hvac-devices">HVAC Devices</h4>
+<h5 id="knx-based-devices">KNX-Based Devices</h5>
+<ul>
+<li>SAGA Touch Panels (Tacteo interface)</li>
+<li>KNX weather stations</li>
+<li>KNX presence sensors</li>
+<li>KNX temperature sensors</li>
+<li>KNX BACnet/IP HVAC controllers</li>
+</ul>
+<h5 id="bacnetip-devices">BACnet/IP Devices</h5>
+<ul>
+<li>ABB AC/S1.1.1 KNX BACnet/IP Heating/Cooling units</li>
+<li>KNX IP routers and gateways</li>
+<li>BACnet/IP HVAC controllers</li>
+<li>Energy meters for HVAC systems</li>
+</ul>
+<h4 id="ev-charging-devices">EV Charging Devices</h4>
+<h5 id="näpsä-ev-infrastructure">Näpsä EV Infrastructure</h5>
+<ul>
+<li>Näpsä Smart-EV distribution centers</li>
+<li>Näpsä EV charging stations</li>
+<li>Distribution panel power meters</li>
+<li>EV charging status monitors</li>
+</ul>
+<h5 id="related-devices">Related Devices</h5>
+<ul>
+<li>ABB free@home System Access Point (for integration)</li>
+<li>KNX/IP routers for EV infrastructure</li>
+<li>BACnet/IP communication modules</li>
+</ul>
+<h4 id="protocol-support-matrix">Protocol Support Matrix</h4>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 10%" />
+<col style="width: 15%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Device Category</th>
+<th>Protocol</th>
+<th>Support Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SAGA Touch Panels</td>
+<td>KNX IP</td>
+<td>Validation</td>
+<td>User interface and sensor integration</td>
+</tr>
+<tr class="even">
+<td>KNX Weather Stations</td>
+<td>KNX IP</td>
+<td>Validation</td>
+<td>Environmental data</td>
+</tr>
+<tr class="odd">
+<td>KNX Presence Sensors</td>
+<td>KNX IP</td>
+<td>Validation</td>
+<td>Occupancy detection</td>
+</tr>
+<tr class="even">
+<td>ABB AC/S1.1.1 Controllers</td>
+<td>BACnet/IP</td>
+<td>Validation</td>
+<td>HVAC control</td>
+</tr>
+<tr class="odd">
+<td>Näpsä EV Distribution</td>
+<td>BACnet/IP</td>
+<td>Validation</td>
+<td>Power metering</td>
+</tr>
+<tr class="even">
+<td>Näpsä EV Chargers</td>
+<td>BACnet/IP</td>
+<td>Validation</td>
+<td>Charging status</td>
+</tr>
+<tr class="odd">
+<td>free@home System Access Point</td>
+<td>KNX/IP</td>
+<td>Validation</td>
+<td>Integration gateway</td>
+</tr>
+</tbody>
+</table>
+<h4 id="integration-requirements">Integration Requirements</h4>
+<h5 id="telemetry-ingestion">Telemetry Ingestion</h5>
+<ul>
+<li>Real-time data collection from all devices</li>
+<li>Protocol translation between KNX/BACnet/IP and DWS IQ 6</li>
+<li>Data formatting for edge processing</li>
+<li>Error handling and recovery mechanisms</li>
+</ul>
+<h5 id="control-capabilities">Control Capabilities</h5>
+<ul>
+<li>Setpoint adjustments through KNX/BACnet/IP</li>
+<li>Command authority enforcement</li>
+<li>Safe failure behavior implementation</li>
+<li>Evidence capture for compliance</li>
+</ul>
+<h4 id="validation-status">Validation Status</h4>
+<ul>
+<li>All devices listed above are in validation scope</li>
+<li>Initial integration testing to be completed</li>
+<li>Device-specific documentation to be updated during validation</li>
+<li>Operational readiness assessment to be completed</li>
+</ul>
+<hr />
+<h2 id="appendix-b-abb_protocol_mappings.md">Appendix B — <code>ABB_Protocol_Mappings.md</code></h2>
+<h3 id="abb-knxbacnet-protocol-mappings">ABB KNX/BACnet Protocol Mappings</h3>
+<h4 id="overview-1">Overview</h4>
+<p>This document defines the protocol mappings required for integrating ABB devices with the DWS IQ 6 platform, focusing on KNX and BACnet/IP protocols for HVAC and EV charging workflows.</p>
+<h4 id="knx-protocol-mappings">KNX Protocol Mappings</h4>
+<h5 id="device-categories-and-mappings">Device Categories and Mappings</h5>
+<h6 id="hvac-sensors">HVAC Sensors</h6>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 15%" />
+<col style="width: 18%" />
+<col style="width: 8%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ABB Device</th>
+<th>KNX Datapoint</th>
+<th>DWS IQ 6 Mapping</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>KNX Temperature Sensor</td>
+<td>1.001</td>
+<td>HVAC_Temperature</td>
+<td>°C</td>
+<td>Room temperature measurement</td>
+</tr>
+<tr class="even">
+<td>KNX Presence Sensor</td>
+<td>1.002</td>
+<td>HVAC_Presence</td>
+<td>Bool</td>
+<td>Occupancy detection</td>
+</tr>
+<tr class="odd">
+<td>KNX Weather Station</td>
+<td>1.003</td>
+<td>HVAC_Weather</td>
+<td>°C/rel%</td>
+<td>Environmental conditions</td>
+</tr>
+</tbody>
+</table>
+<h6 id="control-devices">Control Devices</h6>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 18%" />
+<col style="width: 22%" />
+<col style="width: 5%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ABB Device</th>
+<th>KNX Datapoint</th>
+<th>DWS IQ 6 Mapping</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SAGA Touch Panel</td>
+<td>1.010</td>
+<td>HVAC_Setpoint</td>
+<td>°C</td>
+<td>Thermostat setpoint</td>
+</tr>
+<tr class="even">
+<td>KNX HVAC Controller</td>
+<td>1.015</td>
+<td>HVAC_Control</td>
+<td>Bool</td>
+<td>HVAC system on/off</td>
+</tr>
+</tbody>
+</table>
+<h5 id="data-format-specifications">Data Format Specifications</h5>
+<ul>
+<li>All KNX data points in structured format</li>
+<li>Temperature with 0.1°C resolution</li>
+<li>Boolean values for on/off states</li>
+<li>Timestamps for all telemetry data</li>
+<li>Error handling for invalid data</li>
+</ul>
+<h4 id="bacnetip-protocol-mappings">BACnet/IP Protocol Mappings</h4>
+<h5 id="hvac-devices-1">HVAC Devices</h5>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 16%" />
+<col style="width: 15%" />
+<col style="width: 18%" />
+<col style="width: 4%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ABB Device</th>
+<th>BACnet Object</th>
+<th>BACnet Property</th>
+<th>DWS IQ 6 Mapping</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ABB AC/S1.1.1 Controller</td>
+<td>Analog Input</td>
+<td>Present Value</td>
+<td>HVAC_Temp_Setpoint</td>
+<td>°C</td>
+<td>Thermostat setpoint</td>
+</tr>
+<tr class="even">
+<td>HVAC System</td>
+<td>MultiState Value</td>
+<td>Present Value</td>
+<td>HVAC_Mode</td>
+<td>Enum</td>
+<td>HVAC operating mode</td>
+</tr>
+<tr class="odd">
+<td>Energy Meter</td>
+<td>Analog Value</td>
+<td>Present Value</td>
+<td>HVAC_Energy</td>
+<td>kWh</td>
+<td>Energy consumption</td>
+</tr>
+</tbody>
+</table>
+<h5 id="ev-charging-devices-1">EV Charging Devices</h5>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 15%" />
+<col style="width: 18%" />
+<col style="width: 20%" />
+<col style="width: 4%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ABB Device</th>
+<th>BACnet Object</th>
+<th>BACnet Property</th>
+<th>DWS IQ 6 Mapping</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Näpsä EV Charger</td>
+<td>Analog Input</td>
+<td>Present Value</td>
+<td>EV_Charging_Power</td>
+<td>kW</td>
+<td>Charging power</td>
+</tr>
+<tr class="even">
+<td>Distribution Panel</td>
+<td>Analog Value</td>
+<td>Present Value</td>
+<td>EV_Load</td>
+<td>kW</td>
+<td>Panel load</td>
+</tr>
+<tr class="odd">
+<td>EV Status Monitor</td>
+<td>Binary Input</td>
+<td>Present Value</td>
+<td>EV_Status</td>
+<td>Bool</td>
+<td>Charging status</td>
+</tr>
+</tbody>
+</table>
+<h5 id="data-format-specifications-1">Data Format Specifications</h5>
+<ul>
+<li>BACnet object properties as structured data</li>
+<li>All values with standard units (kW, °C, kWh)</li>
+<li>Timestamps for all measurements</li>
+<li>Error conditions mapped to defined status codes</li>
+<li>Quality of data indicators for reliability</li>
+</ul>
+<h4 id="integration-layer-specifications">Integration Layer Specifications</h4>
+<h5 id="telemetry-ingestion-1">Telemetry Ingestion</h5>
+<ul>
+<li>Real-time data ingestion from KNX/BACnet devices</li>
+<li>Protocol translation layer for format conversion</li>
+<li>Data validation and error handling</li>
+<li>Timestamp standardization across protocols</li>
+<li>Quality metrics collection</li>
+</ul>
+<h5 id="control-commands">Control Commands</h5>
+<ul>
+<li>Command translation from DWS IQ 6 to KNX/BACnet</li>
+<li>Authority validation and enforcement</li>
+<li>Safe failure behavior implementation</li>
+<li>Audit trail generation for all commands</li>
+</ul>
+<h5 id="error-handling">Error Handling</h5>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 32%" />
+<col style="width: 19%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error Type</th>
+<th>Handling</th>
+<th>Recovery</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Communication Timeout</td>
+<td>Retry with exponential backoff</td>
+<td>Notify operator</td>
+<td>Temporary loss of data</td>
+</tr>
+<tr class="even">
+<td>Data Format Error</td>
+<td>Log and flag</td>
+<td>Manual review</td>
+<td>Inaccurate data</td>
+</tr>
+<tr class="odd">
+<td>Protocol Failure</td>
+<td>Switch to backup protocol</td>
+<td>Automatic recovery</td>
+<td>Service disruption</td>
+</tr>
+<tr class="even">
+<td>Security Violation</td>
+<td>Block command</td>
+<td>Alert operator</td>
+<td>Compliance risk</td>
+</tr>
+</tbody>
+</table>
+<h4 id="performance-metrics">Performance Metrics</h4>
+<h5 id="latency-targets">Latency Targets</h5>
+<ul>
+<li>Data ingestion: &lt;5 seconds</li>
+<li>Command execution: &lt;2 seconds</li>
+<li>System response time: &lt;1 second</li>
+<li>Error recovery: &lt;30 seconds</li>
+</ul>
+<h5 id="reliability-metrics">Reliability Metrics</h5>
+<ul>
+<li>System uptime: &gt;99.5%</li>
+<li>Data accuracy: &gt;95%</li>
+<li>Command success rate: &gt;99%</li>
+<li>Error recovery rate: &gt;99%</li>
+</ul>
+<h4 id="validation-requirements">Validation Requirements</h4>
+<ul>
+<li>End-to-end protocol testing in controlled environment</li>
+<li>Latency measurements for data ingestion and command execution</li>
+<li>Error handling validation</li>
+<li>Security boundary enforcement</li>
+<li>Compliance evidence generation capabilities</li>
+</ul>
+<hr />
+<h2 id="appendix-c-abb_hvac_energy_optimization_workflow.md">Appendix C — <code>ABB_HVAC_Energy_Optimization_Workflow.md</code></h2>
+<h3 id="abb-hvac-energy-optimization-workflow-requirements">ABB HVAC Energy Optimization Workflow Requirements</h3>
+<h4 id="overview-2">Overview</h4>
+<p>This document outlines the requirements for implementing HVAC energy optimization using ABB integration within DWS IQ 6 platform, focusing on KNX/BACnet telemetry ingestion and energy state mapping.</p>
+<h4 id="workflow-objectives">Workflow Objectives</h4>
+<ul>
+<li>Real-time monitoring of HVAC system energy consumption</li>
+<li>Automated optimization of HVAC operations based on building occupancy and environmental data</li>
+<li>Integration with existing Fit for 55 compliance reporting</li>
+<li>Support for EU AI Act Article 12 audit trail requirements</li>
+</ul>
+<h4 id="key-requirements">Key Requirements</h4>
+<h5 id="telemetry-ingestion-2">1. Telemetry Ingestion</h5>
+<ul>
+<li>KNX IP protocol support for building automation</li>
+<li>BACnet/IP integration for HVAC controllers</li>
+<li>Real-time data collection from:
+<ul>
+<li>Temperature sensors (KNX)</li>
+<li>Occupancy sensors (KNX)</li>
+<li>HVAC system status (BACnet)</li>
+<li>Energy meters (BACnet)</li>
+</ul></li>
+</ul>
+<h5 id="energy-state-mapping">2. Energy State Mapping</h5>
+<ul>
+<li>Energy consumption tracking per HVAC zone</li>
+<li>Occupancy-based optimization algorithms</li>
+<li>Historical trend analysis for compliance reporting</li>
+<li>Integration with EPBD 2024 energy performance requirements</li>
+</ul>
+<h5 id="control-capabilities-1">3. Control Capabilities</h5>
+<ul>
+<li>Setpoint adjustment based on occupancy and weather forecasts</li>
+<li>Scheduled optimization based on building usage patterns</li>
+<li>Integration with existing ABB free@home system</li>
+</ul>
+<h5 id="compliance-requirements">4. Compliance Requirements</h5>
+<ul>
+<li>EPBD 2024 energy class calculations</li>
+<li>CSRD ESRS E1-5 and E1-6 disclosures</li>
+<li>Integration with EU Taxonomy alignment for real estate activities</li>
+<li>Audit trail generation for Article 12 compliance</li>
+</ul>
+<h4 id="success-criteria">Success Criteria</h4>
+<ul>
+<li>Real-time energy consumption data within 5-second latency</li>
+<li>Successful optimization implementation with 15% energy saving target</li>
+<li>Fully documented compliance evidence for regulatory submissions</li>
+<li>Safe failure recovery mechanisms in place</li>
+<li>Integration with DGX Spark edge processing capabilities</li>
+</ul>
+<h4 id="validation-metrics">Validation Metrics</h4>
+<ul>
+<li>Data accuracy of HVAC telemetry</li>
+<li>Optimization effectiveness (energy savings)</li>
+<li>System reliability (uptime)</li>
+<li>Compliance reporting accuracy</li>
+</ul>
+<hr />
+<h2 id="appendix-d-abb_ev_charging_workflow.md">Appendix D — <code>ABB_EV_Charging_Workflow.md</code></h2>
+<h3 id="abb-ev-charging-workflow-requirements">ABB EV Charging Workflow Requirements</h3>
+<h4 id="overview-3">Overview</h4>
+<p>This document outlines the requirements for implementing EV charging monitoring and management using ABB integration within DWS IQ 6 platform, focusing on Näpsä EV and distribution panel data integration.</p>
+<h4 id="workflow-objectives-1">Workflow Objectives</h4>
+<ul>
+<li>Real-time monitoring of EV charging infrastructure</li>
+<li>Integration with building energy management systems</li>
+<li>Support for Fit for 55 compliance reporting</li>
+<li>Integration with CBAM border adjustment calculations</li>
+</ul>
+<h4 id="key-requirements-1">Key Requirements</h4>
+<h5 id="telemetry-ingestion-3">1. Telemetry Ingestion</h5>
+<ul>
+<li>Näpsä EV charger status monitoring (BACnet/IP)</li>
+<li>Distribution panel power metering (BACnet/IP)</li>
+<li>Charging session data from EV infrastructure</li>
+<li>Grid power consumption tracking</li>
+</ul>
+<h5 id="energy-state-mapping-1">2. Energy State Mapping</h5>
+<ul>
+<li>EV charging power consumption tracking</li>
+<li>Distribution panel load balancing</li>
+<li>Grid energy import/export monitoring</li>
+<li>Integration with building energy consumption data</li>
+</ul>
+<h5 id="control-capabilities-2">3. Control Capabilities</h5>
+<ul>
+<li>Load balancing across multiple charging stations</li>
+<li>Integration with building energy management</li>
+<li>Peak demand optimization</li>
+<li>Integration with existing ABB free@home system</li>
+</ul>
+<h5 id="compliance-requirements-1">4. Compliance Requirements</h5>
+<ul>
+<li>CBAM import calculations for EV charging infrastructure</li>
+<li>Energy consumption tracking for EPBD 2024 reporting</li>
+<li>Integration with CSRD E1-6 disclosures</li>
+<li>EU Taxonomy alignment for energy infrastructure</li>
+<li>Article 12 audit trail requirements</li>
+</ul>
+<h4 id="success-criteria-1">Success Criteria</h4>
+<ul>
+<li>Real-time EV charging data within 2-second latency</li>
+<li>Successful integration with building energy management systems</li>
+<li>Accurate energy consumption tracking for compliance reporting</li>
+<li>Safe failure recovery mechanisms in place</li>
+<li>Integration with DGX Spark edge processing capabilities</li>
+</ul>
+<h4 id="validation-metrics-1">Validation Metrics</h4>
+<ul>
+<li>Data accuracy of EV charging telemetry</li>
+<li>Integration success rate with building systems</li>
+<li>Compliance reporting accuracy</li>
+<li>System reliability (uptime)</li>
+<li>Energy optimization effectiveness</li>
+</ul>
+<hr />
+<h2 id="appendix-e-abb_integration_validation_plan.md">Appendix E — <code>ABB_Integration_Validation_Plan.md</code></h2>
+<h3 id="abb-integration-validation-plan">ABB Integration Validation Plan</h3>
+<h4 id="overview-4">Overview</h4>
+<p>This document defines the validation approach for ABB Electrification / Asennustuotteet integration, focusing on HVAC energy optimization and EV charging workflows as the initial proof points.</p>
+<h4 id="validation-scope">Validation Scope</h4>
+<ul>
+<li>HVAC energy optimization workflow</li>
+<li>EV charging management workflow</li>
+<li>KNX/BACnet telemetry ingestion</li>
+<li>DGX Spark edge processing integration</li>
+<li>Evidence capture across all boundaries</li>
+</ul>
+<h4 id="validation-phases">Validation Phases</h4>
+<h5 id="phase-1-environment-setup">Phase 1: Environment Setup</h5>
+<ul>
+<li>Establish test environment with ABB devices (KNX, BACnet)</li>
+<li>Configure DGX Spark edge processing</li>
+<li>Set up telemetry collection infrastructure</li>
+<li>Define test parameters and success criteria</li>
+</ul>
+<h5 id="phase-2-hvac-energy-optimization-validation">Phase 2: HVAC Energy Optimization Validation</h5>
+<ul>
+<li>Test KNX/BACnet telemetry ingestion</li>
+<li>Validate energy state mapping</li>
+<li>Implement and test optimization algorithms</li>
+<li>Verify compliance evidence generation</li>
+<li>Document latency and accuracy metrics</li>
+</ul>
+<h5 id="phase-3-ev-charging-validation">Phase 3: EV Charging Validation</h5>
+<ul>
+<li>Test Näpsä EV charger data ingestion</li>
+<li>Validate distribution panel integration</li>
+<li>Implement and test charging management</li>
+<li>Verify compliance evidence generation</li>
+<li>Document latency and accuracy metrics</li>
+</ul>
+<h5 id="phase-4-integration-testing">Phase 4: Integration Testing</h5>
+<ul>
+<li>Cross-workflow integration testing</li>
+<li>Command authority and failure behavior validation</li>
+<li>Evidence capture across boundaries</li>
+<li>Security responsibility verification</li>
+</ul>
+<h4 id="key-validation-elements">Key Validation Elements</h4>
+<h5 id="telemetry-ingestion-4">1. Telemetry Ingestion</h5>
+<ul>
+<li>KNX IP protocol support</li>
+<li>BACnet/IP integration</li>
+<li>Data format validation</li>
+<li>Latency measurements (target: &lt;5 seconds)</li>
+</ul>
+<h5 id="energy-state-mapping-2">2. Energy State Mapping</h5>
+<ul>
+<li>HVAC system energy consumption tracking</li>
+<li>EV charging power monitoring</li>
+<li>Integration with building energy data</li>
+<li>Historical trend analysis</li>
+</ul>
+<h5 id="control-capabilities-3">3. Control Capabilities</h5>
+<ul>
+<li>Setpoint adjustment validation</li>
+<li>Load balancing tests</li>
+<li>Safety boundary enforcement</li>
+<li>Failure recovery mechanisms</li>
+</ul>
+<h5 id="compliance-evidence">4. Compliance Evidence</h5>
+<ul>
+<li>Article 12 audit trail generation</li>
+<li>EPBD 2024 reporting support</li>
+<li>CSRD ESRS E1-5/E1-6 integration</li>
+<li>CBAM import calculation support</li>
+</ul>
+<h5 id="performance-metrics-1">5. Performance Metrics</h5>
+<ul>
+<li>Data accuracy (target: &gt;95%)</li>
+<li>System reliability (target: 99.5% uptime)</li>
+<li>Processing latency (target: &lt;5 seconds)</li>
+<li>Integration success rate (target: 100%)</li>
+</ul>
+<h4 id="deliverables">Deliverables</h4>
+<ul>
+<li>Supported ABB devices list</li>
+<li>Protocol mappings documentation</li>
+<li>Latency limits specification</li>
+<li>Failure modes catalog</li>
+<li>Security responsibility definitions</li>
+<li>One demonstrated Fit for 55 workflow (HVAC or EV charging)</li>
+<li>Validation report with success criteria met</li>
+<li>Integration readiness assessment</li>
+</ul>
+<h4 id="team-roles">Team Roles</h4>
+<ul>
+<li>Integration Engineer: ABB device setup and configuration</li>
+<li>Edge Computing Specialist: DGX Spark processing validation</li>
+<li>Compliance Specialist: Fit for 55 workflow implementation</li>
+<li>Quality Assurance: Testing and validation</li>
+<li>Security Engineer: Boundary enforcement and evidence capture</li>
+</ul>
+<h4 id="timeline">Timeline</h4>
+<ul>
+<li>Phase 1: Environment setup (1 week)</li>
+<li>Phase 2: HVAC validation (2 weeks)</li>
+<li>Phase 3: EV validation (2 weeks)</li>
+<li>Phase 4: Integration testing (1 week)</li>
+<li>Total: 6 weeks</li>
+</ul>
+</body>
+</html>
