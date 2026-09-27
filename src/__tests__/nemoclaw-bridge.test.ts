@@ -1,4 +1,4 @@
-// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=gpt-6-luna Agent=OpenClaw-Phase2 Date=2026-09-27
+// Evidence: Tool=Claude Code 2.1.283 Model=anthropic/claude-opus-5-5 Agent=claude-code-web Date=2026-09-27
 // Audit trail: git log -- src/__tests__/nemoclaw-bridge.test.ts
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { randomUUID } from 'node:crypto';
@@ -53,7 +53,7 @@ describe('NemoClawBridge.fromEnv', () => {
 
     const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
     const { digestOf } = await import('../security/canonical-digest.js');
-    const { issueKyaVerdict } = await import('../security/runtime-auth.js');
+    const { signThemisVerdictForTest } = await import('./helpers/themis-verdict.js');
     const auditSink = {
       logInvocation: vi.fn(async () => ({ traceId: 'trace-1' })),
       logResult: vi.fn(async () => undefined),
@@ -78,11 +78,9 @@ describe('NemoClawBridge.fromEnv', () => {
       operatorId: 'operator-1',
       orgId: 'tenant-1',
       kyaSessionId: 'kya-1',
-      kyaVerdict: issueKyaVerdict({
-        decision: 'allowed',
+      kyaVerdict: signThemisVerdictForTest({
         trustScore: 90,
         policyVersion: 'themis-v1',
-        gate: 'themis-policy-gate',
         scope: {
           agentId: 'agent-1',
           operatorId: 'operator-1',

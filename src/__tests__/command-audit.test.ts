@@ -1,4 +1,4 @@
-// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=gpt-6-luna Agent=OpenClaw-Phase2 Date=2026-09-27
+// Evidence: Tool=Claude Code 2.1.283 Model=anthropic/claude-opus-5-5 Agent=claude-code-web Date=2026-09-27
 // Audit trail: git log -- src/__tests__/command-audit.test.ts
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { randomUUID } from 'node:crypto';
@@ -43,8 +43,8 @@ async function signedRequest(
     expiresAt?: string;
   } = {},
 ): Promise<BridgeRequest> {
-  const [{ issueKyaVerdict }, { digestOf }] = await Promise.all([
-    import('../security/runtime-auth.js'),
+  const [{ signThemisVerdictForTest }, { digestOf }] = await Promise.all([
+    import('./helpers/themis-verdict.js'),
     import('../security/canonical-digest.js'),
   ]);
   const method = options.method ?? 'search-docs';
@@ -57,11 +57,9 @@ async function signedRequest(
     operatorId: 'operator-1',
     orgId: options.orgId ?? 'tenant-1',
     kyaSessionId: 'kya-1',
-    kyaVerdict: issueKyaVerdict({
-      decision: 'allowed',
+    kyaVerdict: signThemisVerdictForTest({
       trustScore: 90,
       policyVersion: 'themis-policy-v1',
-      gate: 'themis-policy-gate',
       scope: {
         agentId: 'agent-1',
         operatorId: 'operator-1',

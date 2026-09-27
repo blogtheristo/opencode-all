@@ -4,13 +4,15 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.37 [Latest]
+Version: 3.39 [Latest]
 
 Sessions & Modifications:
 
-- Version: 3.37 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/nemoclaw-phase2-closeout | Date: 27.09.2026 | Changes: Recorded PR #2175 merge and clarified the merged code is not a live runtime deployment.
-- Version: 3.36 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: Recorded Phase 2 Themis-to-NemoClaw bridge controls, unapplied audit migrations, live rollout gates, and the Phase 3 hold.
-- Version: 3.35 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: NemoClaw runtime bearer key is required by the bridge; server-side validation must be verified before production.
+- Version: 3.39 [Latest] | Tool: Claude Code (Opus 5.5) | Session: claude/kya-jev-audit-implementation-plan | Date: 27.09.2026 | Changes: Added `kya-jev` typed-decision operations section (signing secret per environment + rotation, the five consumers and which ones log, calibration run, public `kya-decide` package). Operations log: migration 087 (`kya_jev_calls`) applied via SQL editor and ledger repaired with `supabase migration repair --status applied 087`.
+- Version: 3.38 [not latest] | Tool: GitHub Copilot CLI 1.0.88 (gpt-5.6-sol) | Session: copilot/role-learning-hub-0ee942b3 | Date: 27.09.2026 | Changes: Added role-based Learning Hub distribution runbook: declarative audience manifest, deterministic offline pack build/validation, checksum-verifying Windows per-user installer, and authenticated v10 dashboard discovery. Audience roles are separate from canonical R-IDs; repository documents remain source of truth. | Harness: GitHub Copilot CLI + CLAUDE.md | HIC-approved-drift: none
+- Version: 3.37 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/nemoclaw-phase2-closeout | Date: 27.09.2026 | Changes: Recorded PR #2175 merge and clarified the merged code is not a live runtime deployment.
+- Version: 3.36 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: Recorded Phase 2 Themis-to-NemoClaw bridge controls, unapplied audit migrations, live rollout gates, and the Phase 3 hold.
+- Version: 3.35 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: NemoClaw runtime bearer key is required by the bridge; server-side validation must be verified before production.
 - Version: 3.34 | Tool: GitHub Copilot CLI 1.0.88 | Session: session4-d3-dgx-pr-gates | Date: 27.09.2026 | Changes: Moved the remaining listed PR gates to the DGX self-hosted runner, removed housekeeping's hosted failover path, documented the ARM64 review, and reduced the hosted-only CI list to the unchanged monthly DAST ZAP workflow.
 - Version: 3.33 | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: Operations log CI subsection: cause confirmed as GitHub Actions billing (jobs not started, account-wide); HIC decision — CI moves to the DGX self-hosted runner, hosted billing not restored; listed hosted-only PR workflows still blocked and the local gates to run meanwhile.
 - Version: 3.32 | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: New section "Operations log — 27.09.2026": Copilot $210 credit work order and model routing; server-owned back-office access (#2138) scoped to the internal org (#2143, migration 096 applied); migration 097 closed live `contracts_lifecycle`/`orders` RLS gaps (#2147, applied); migration-history divergence (never `supabase db push`); DGX Persistence Rule and three jobs moved to DGX (#2144, #2145); Tool Git Identity rule (`CLAUDE.md` v1.5) and the `Unit Fixture` repo-local identity fix; CI test runner outage.
@@ -191,6 +193,7 @@ If `gbrain doctor` reports resolver or trigger issues in DWS6, normalize the aff
 
 1. [Admin Manuals Index](#admin-manuals-index) ⭐ **NEW in v1.8**
 2. [Installation Manual](#installation-manual-link)
+   - [Role-based Learning Hub distribution](#role-based-learning-hub-distribution) ⭐ **NEW in v3.38**
 3. [Google Cloud Run CI Identity Runbook (gcr-skill)](#google-cloud-run-ci-identity-runbook-gcr-skill)
 4. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
    - [Two dev environments — Win11 and DGX Spark](#two-dev-environments--win11-and-dgx-spark) ⭐ **NEW in v3.16**
@@ -217,6 +220,7 @@ If `gbrain doctor` reports resolver or trigger issues in DWS6, normalize the aff
 20. [Deployment Procedures](#deployment-procedures)
 21. [Session History](#session-history)
 22. [Operations log — 27.09.2026](#operations-log--27092026) ⭐ **NEW in v3.32**
+   - [kya-jev typed decisions (KYA-gated)](#kya-jev-typed-decisions-kya-gated) ⭐ **NEW in v3.39**
 23. [Maintenance Plan (Complete)](#maintenance-plan-complete)
 24. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
 25. [Code Review Process](#code-review-process)
@@ -293,6 +297,59 @@ All admin manuals across the DWS6 repository, organized by domain.
 | **opencode-all (Living Engine)** | [`opencode-all/ADMIN_MANUAL.md`](../opencode-all/ADMIN_MANUAL.md)                   | Batch queue, ACP worker, tmux launcher, DGX deployment — **canonical runbook for large-work execution**                                                                                                                                                                                                                               |
 | **Worktree policy**              | [`WORKTREE_POLICY.md`](../WORKTREE_POLICY.md)                                       | Agent isolation — one task = one worktree = one PR; agents never commit from primary checkout                                                                                                                                                                                                                                         |
 | **4P Capital Classes**           | [`DWS_BRAND_STANDARD.md` §23](../DWS_BRAND_STANDARD.md)                             | Canonical company capital model: Prompt / People / Plant / Perception. Registered as DWS_TRUTH_STANDARD.md §2 row 25. Use in investor, sales, and editorial copy. **Future skill:** `4p-diligence` — score an acquisition target on 4P; CLI path + JSON output + skill registration pending HIL approval (Agent Productization Rule). |
+
+---
+
+## Role-based Learning Hub distribution
+
+Repository documents remain the source of truth. The Learning Hub builder creates physically separate, offline distribution directories for the audience roles `admin`, `investor`, `partner`, and `customer`. These audience labels are distribution categories and are not canonical `R01`–`R25` enterprise role IDs from `DWS_ROLES_REGISTRY.md`.
+
+### Audience boundary
+
+`config/learning-hub/role-documents.json` is the allowlist. A document appears only in packs whose `roles` array names that audience. Do not add secrets, PII, customer-confidential material, credential-bearing runbooks, or unapproved drafts. The dashboard role is discovery UX only; it is not an authorization boundary. Physical pack separation is the distribution control.
+
+Unknown or missing `Supabase user.user_metadata.role` values fail closed to `customer`. Known values are exactly `admin`, `investor`, `partner`, and `customer`.
+
+### Build and validate
+
+```powershell
+Set-Location <path-to-dws6>
+npm run validate:learning-hub
+npm run build:learning-hub
+```
+
+Outputs are written to `dist/learning-hub/<version>/<role>/`. Each directory contains only that role's allowlisted HTML/assets plus `index.html`, `manifest.json`, `VERSION.json`, `checksums.sha256`, and `Install.ps1`. Links to another repository document are rewritten to an in-pack relative link when that document is authorized; unavailable repository-local links are disabled. Required remote scripts, styles, fonts, frames, or media fail the build. Ordinary HTTPS citations remain links and are not required for offline rendering.
+
+Build one role when preparing a specific handoff:
+
+```powershell
+node .\scripts\build-learning-hub.mjs --role partner
+```
+
+### Install or update on Windows 11
+
+Deliver the complete role directory; the recipient does not need a repository checkout. From inside the delivered directory:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\Install.ps1
+```
+
+The command changes policy for that process only; it does not weaken the machine-wide policy. The installer verifies every listed SHA-256 checksum before writing, installs without administrator rights under `%LOCALAPPDATA%\Lifetime Oy\DWS6 Learning Hub\<role>\<version>`, and updates the current user's Start Menu shortcut only after a successful staged install. Versions install side-by-side. If replacement of the same version fails, the prior directory is restored.
+
+### Dashboard discovery
+
+Authenticated v10 dashboard users open **Documentation** from the profile or mobile navigation menu. The page validates `user_metadata.role`, displays the active audience role, and lists only that role's documents. Document links are enabled only when `VITE_LEARNING_HUB_BASE_URL` names an approved published location. Without it, the dashboard shows the catalogue and directs users to the installed pack instead of creating broken or unprotected links. The dashboard does not grant access to repository documents.
+
+Do not publish all four directories under one unrestricted static path. External packs may be published independently after review. Admin packs require an authenticated distribution channel or must remain separately delivered offline.
+
+### Updating a pack
+
+1. Update the repository source document first.
+2. Update the allowlist only after confirming the audience boundary.
+3. Increment `packVersion` and `releaseDate`.
+4. Run validation, focused tests, and the build.
+5. Distribute the complete new role directory; do not merge files across roles.
+6. Keep prior installed versions until the new pack passes checksum verification and opens correctly.
 
 ---
 
@@ -411,6 +468,7 @@ What changed in production and in the rules on 27.09.2026. Each line names the e
 | Back-office admin = owner/admin of an organization with `organizations.is_internal = true` (DWS AB), in the API and in `is_backoffice_admin()` | PR #2143, `e421737`; migration 096 | Applied to production on HIC instruction                           |
 | `contracts_lifecycle`: dropped `authenticated read all` (every signed-in user could read every contract)                                       | PR #2147, `f0b5c7a`; migration 097 | Applied 27.09 by Copilot on DGX; verified read-only by Claude Code |
 | `orders`: dropped PUBLIC insert/update policies; users keep SELECT on their own rows; writes are service-role only (backend)                   | PR #2147; migration 097            | Applied and verified                                               |
+| `kya_jev_calls` created (Article 12 audit trail for `kya-jev` decisions): 16 columns, forced RLS, `service_role` + own-org `authenticated` policies, no `anon` | PR #2044; migration 087 | Applied 27.09 by HIC (SQL editor); verified on PostgreSQL 17.6; history recorded with `supabase migration repair --status applied 087` |
 
 Verified state after 097 (read-only query, 27.09.2026): `contracts_lifecycle` has only `service_role full access`; `orders` has only `orders_user_view` (SELECT, authenticated); `authenticated` holds SELECT, REFERENCES, TRIGGER on both tables (no INSERT/UPDATE/DELETE); history has versions `096` and `097`.
 
@@ -454,6 +512,34 @@ Next free migration number: 098. Applying migrations stays RED (HIC).
 ### Pull requests closed out on 27.09.2026
 
 Merged: #2133, #2137, #2138, #2142, #2143, #2144, #2145, #2146, #2147. Closed unmerged: #2139 (log replaced by #2146), #2141 (superseded by #2145).
+
+---
+
+## kya-jev typed decisions (KYA-gated)
+
+`kya-jev` (`src/agents/kya-jev.ts`) returns a typed choice / score / yes-no decision with the model's self-reported confidence. It runs only with a **signed** KYA verdict. Full spec: `docs/KYA_JEV_SPECIFICATION.md`. Registry: `DWS_STANDARDS_LIBRARY.md` §3.2.
+
+**Signing secret** (`src/security/runtime-auth.ts`):
+
+1. `KYA_VERDICT_SIGNING_SECRET` must differ between staging and production. Generate each independently (`openssl rand -hex 32`); store only in that environment's secret manager.
+2. Without the secret, every `kya-jev` call is refused (fails closed). A known test value with `NODE_ENV=production` throws.
+3. Rotation: set `KYA_VERDICT_SIGNING_SECRET_PREVIOUS` = old value, `KYA_VERDICT_SIGNING_SECRET` = new value, deploy; after one clean deploy cycle remove `_PREVIOUS`. Rotate quarterly and at once on suspected compromise. Record each rotation in the spec's version history.
+
+**Consumers and audit logging** (spec §4F):
+
+| Consumer | File | Writes `kya_jev_calls` | Wired to a live flow |
+| --- | --- | --- | --- |
+| SEO audit review | `src/agents/seo/seo-audit.agent.ts` | Yes | Yes (advisory only; `deployGate` unchanged) |
+| Lead score | `src/agents/lead-score-kya-jev.ts` via `outreach-lead-finder` | Yes | Yes (top lead only) |
+| Dictionary term | `src/agents/dictionary-kya-jev.ts` | **No** | No |
+| Model route | `src/agents/model-route-kya-jev.ts` | **No** | No |
+| Browse step | `src/agents/browse-step-kya-jev.ts` | **No** | No (pilot) |
+
+Before wiring any of the last three into a live flow, add a `logKyaJevCall()` at that call site. Never let a `kya-jev` hint pre-filter `authorizeToolCall()` (spec §7).
+
+**Calibration:** confidence is uncalibrated. When `kya_jev_calls` has rows, export a sample, add a human-checked `correct` field to each, then run `node scripts/calibrate-kya-jev.mjs --input <file>`. Until then the product `KYA-JEV-001` (€99/month) stays Early Access / preorder.
+
+**Public package:** the standalone version is `kya-decide` in the private repo `blogtheristo/blogtheristo-KYAv2` (MIT; requires a verdict verifier). Keep it private until HIC approves publishing.
 
 ---
 
@@ -4325,6 +4411,7 @@ claude --version
 
 | Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID                           |
 | ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| 3.38    | Sep 27, 2026 | Added role-based offline documentation packs, checksum-verifying Windows installer, and v10 dashboard discovery procedure. Repository sources remain canonical; unknown dashboard roles fall back to customer. | copilot/role-learning-hub-0ee942b3 |
 | 3.3     | Jun 19, 2026 | Full 12 Engineering Discipline Rules table (replaces incomplete Karpathy 1-6) in AI Agent Operational Guidelines, cross-linked to CLAUDE.md / AI_AGENT_GUIDELINES.md §0 / hook enforcement map; added Recent Session Artifacts digest.                                                                                                                         | karpathy-12-rules-u47rx1             |
 | 2.5     | May 10, 2026 | Node.js workspace setup section: dual `npm ci` at repository root and `src/cloudflare/` for backend vs Cloudflare agent workers; PowerShell-first examples; worktree and cloud-agent note; TOC renumbered.                                                                                                                                                     | cursor-admin-node-workspace-20260510 |
 | 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy                                |

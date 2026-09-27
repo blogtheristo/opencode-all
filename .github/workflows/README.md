@@ -216,6 +216,7 @@ Defines environment setup for GitHub Copilot coding agent:
 - Uses Node.js 24 and installs lockfile-pinned dependencies (`npm ci`)
 - Builds TypeScript (`npm run build`)
 - Runs on GitHub-hosted Ubuntu x64; DGX arm64 is not a supported Copilot cloud-agent runner
+- Manual workflow validation only: GitHub-hosted runners are unavailable for this repository right now; cloud-agent execution remains blocked until an Ubuntu x64 runner is available
 
 This enables Copilot to autonomously implement fixes when tagged in PR comments.
 
