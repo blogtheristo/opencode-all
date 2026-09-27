@@ -183,6 +183,7 @@ models/*.pkl
 
 # Counterfactual fairness pilot — generated evidence (regenerate via npm run fairness:pilot)
 reports/fairness-pilot/
+reports/test-fairness/
 
 # --- SNYK/SECURITY SCAN OUTPUT (auto-generated, not source) ---
 snyk.sarif
