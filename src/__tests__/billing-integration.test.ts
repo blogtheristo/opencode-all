@@ -31,6 +31,86 @@ async function readJson(response: Response): Promise<Record<string, unknown>> {
 describe('billing integration worker', () => {
   beforeEach(() => vi.restoreAllMocks());
 
+  it.each([
+    'https://dws10.com',
+    'https://www.dws10.com',
+    'https://dws6.com',
+    'https://www.dws6.com',
+    'https://onelifetime.world',
+    'https://www.onelifetime.world',
+    'https://lifetime.fi',
+    'https://www.lifetime.fi',
+  ])('echoes allowed production origin %s', async (origin) => {
+    const response = await worker.fetch(
+      new Request('https://billing.test/pricing', { headers: { Origin: origin } }),
+      makeEnv(),
+      context,
+    );
+
+    expect(response.headers.get('access-control-allow-origin')).toBe(origin);
+    expect(response.headers.get('vary')).toBe('Origin');
+  });
+
+  it('allows localhost only under the explicit development environment', async () => {
+    const requestFor = () =>
+      new Request('https://billing.test/pricing', {
+        headers: { Origin: 'http://localhost:5173' },
+      });
+    const production = await worker.fetch(requestFor(), makeEnv(), context);
+    const shorthandDev = await worker.fetch(requestFor(), makeEnv({ ENVIRONMENT: 'dev' }), context);
+    const development = await worker.fetch(
+      requestFor(),
+      makeEnv({ ENVIRONMENT: 'development' }),
+      context,
+    );
+
+    expect(production.headers.get('access-control-allow-origin')).toBeNull();
+    expect(shorthandDev.headers.get('access-control-allow-origin')).toBeNull();
+    expect(development.headers.get('access-control-allow-origin')).toBe('http://localhost:5173');
+  });
+
+  it('permits allowed preflight and rejects disallowed non-GET requests without ACAO', async () => {
+    const allowed = await worker.fetch(
+      new Request('https://billing.test/sync/tenant-1', {
+        method: 'OPTIONS',
+        headers: { Origin: 'https://dws6.com' },
+      }),
+      makeEnv(),
+      context,
+    );
+    expect(allowed.status).toBe(200);
+    expect(allowed.headers.get('access-control-allow-origin')).toBe('https://dws6.com');
+    expect(allowed.headers.get('access-control-allow-methods')).toContain('POST');
+
+    for (const method of ['OPTIONS', 'POST']) {
+      const blocked = await worker.fetch(
+        new Request('https://billing.test/sync/tenant-1', {
+          method,
+          headers: { Origin: 'https://evil.example' },
+        }),
+        makeEnv(),
+        context,
+      );
+      expect(blocked.status).toBe(403);
+      expect(blocked.headers.get('access-control-allow-origin')).toBeNull();
+      expect(blocked.headers.get('vary')).toBe('Origin');
+    }
+  });
+
+  it('serves disallowed-origin GET requests without ACAO', async () => {
+    const response = await worker.fetch(
+      new Request('https://billing.test/pricing', {
+        headers: { Origin: 'https://evil.example' },
+      }),
+      makeEnv(),
+      context,
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('access-control-allow-origin')).toBeNull();
+    expect(response.headers.get('vary')).toBe('Origin');
+  });
+
   it('serves health, pricing, preflight, and not-found responses', async () => {
     const env = makeEnv();
     const health = await worker.fetch(new Request('https://billing.test/health'), env, context);
