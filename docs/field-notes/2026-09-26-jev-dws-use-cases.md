@@ -1,13 +1,15 @@
 # Jev (TypeSafe AI) — DWS IQ use-case recommendations
 
----
+<!-- prettier-ignore -->
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-jev-audit-implementation-plan | Date: 27.09.2026 | Changes: Fixed `---` → `***` header delimiters (CLAUDE.md Markdown Delimiter Rule) and resolved the self-contradicting status (`Publication Status: ACTIVE` next to `Status: PENDING_REVIEW`) — this is a research note still awaiting HIC review, so `Publication Status` is corrected to `DRAFT`; `Status: PENDING_REVIEW` stands as the actual state. Flagged as `docs/KYA_JEV_SPECIFICATION.md` v0.9 §4F3. No content changes to the use-case analysis itself.
 - Version: 1.1 | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/b3-2125 | Date: 27.09.2026 | Changes: Added DWS Document Standard metadata during PR #2125 review.
 - Version: 1.0 | Tool: Claude Code 2.1.283 | Session: claude/jev-api-tools-iu40re | Date: 26.09.2026 | Changes: Initial research note.
 
@@ -17,10 +19,11 @@ Document Status:
 - Last Modified: 27.09.2026
 - Language: Finnish
 - Languages Available: Finnish
-- Publication Status: ACTIVE
+- Publication Status: DRAFT
 - Status: PENDING_REVIEW
 
----
+<!-- prettier-ignore -->
+***
 
 - **Date:** 2026-09-26
 - **Author:** Risto Anton Päärni

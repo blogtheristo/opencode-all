@@ -5,10 +5,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 0.8 [Latest]
+Version: 0.9 [Latest]
 
 Sessions & Modifications:
 
+- Version: 0.9 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-jev-audit-implementation-plan | Date: 27.09.2026 | Changes: Full re-audit after a 9-day gap in which both PR #2043 and PR #2044 merged to `main` (confirmed via `pull_request_read`, not assumed — §8's "not treated as merged" note in v0.6-0.8 was stale) and a fifth consumer, `src/agents/browse-step-kya-jev.ts` (`adviseBrowseStep()`, PR #2125, merged 27.09.2026), shipped without a spec update. New findings: (1) **F1 — Fail, real gap:** 3 of 5 consumers (`dictionary-kya-jev.ts`, `model-route-kya-jev.ts`, `browse-step-kya-jev.ts`) call `makeTypedDecision()` with zero Article-12 audit logging — only `seo-audit` and `outreach-lead-finder` (lead-score) call `logKyaJevCall()`. A primitive whose entire justification is Article-12 auditability is producing untracked decisions on 3/5 paths. (2) **F2 — architectural risk, not yet built:** `docs/field-notes/2026-09-26-jev-dws-use-cases.md` idea #1 proposes using a kya-jev decision to pre-filter `authorizeToolCall()` itself — this would make kya-jev's own KYA-verdict dependency circular with the gate that issues KYA verdicts, reproducing the exact "signer and approver can't be the same party" problem A2 fixed, one layer up. Recorded as a guardrail, not implemented. (3) Migration 087 still unapplied to production (RED, confirmed no application record found). (4) `blogtheristo/KYAv2` still not created (repo search returned 0 results). §2 scope, §4 findings (new F section), §7 guardrails, and §8 execution order all updated; §9 (Implementation Plan) added.
 - Version: 0.8 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: HIC chose **model routing** as the third advisory consumer (not compliance classify). `adviseModelRoute()` (`src/agents/model-route-kya-jev.ts`) — choice stay/escalate/demote; `actionable: false`. `selectModel()` stays deterministic and is not rewritten by the hint. TypeSafe map: Model routing / Harness Engineering.
 - Version: 0.7 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: HIC chose **lead scoring** as the next advisory queue (not helpdesk). Added `adviseLeadScore()` (`src/agents/lead-score-kya-jev.ts`) — `score` levels discard/watch/call; `actionable: false`; does not change `fitScore` or upsert `outreach_orgs`. Wired try/catch on `outreach-lead-finder` top lead only (same isolation as seo-audit). TypeSafe map bind: Lead generation. No vendor Jev. [not latest]
 - Version: 0.6 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: Evidence from the dictionary session (no price/calibration invention; 0.5 history left intact). (1) Additive consumer `adviseDictionaryTerm()` — signed KYA required; `actionable: false`; unit tests with test signing secret only — no live LLM call, no production secret. (2) Fail-closed at the advisory API (throws; unlike seo-audit `try/catch`) — recorded as §4 E3. (3) Wave 3 live trio and glossary locks remain HIC; proposed 8/2/24, live this PR = industry 8 only. (4) `docs/localization/dws-dictionary.json` `kyaJev.specVersion` synced to 0.6. (5) SKU `KYA-JEV-001` still EUR 99/mo Early Access, `detailsUrl: null` (re-read `dws10.com/config/products.json`). (6) Merge vehicle: this tree is on PR #2044 as well as #2043 — do not treat #2043 as merged; 087 still RED/unapplied. Merged v0.5 into the dictionary branch after Claude session exhausted. [not latest]
@@ -22,12 +23,12 @@ Session Links & References:
 
 - Claude Code (claude/agents-md-support-eyody6): https://github.com/blogtheristo/dws6
 - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/KYA_JEV_SPECIFICATION.md
-- Related: `docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md`, PR #2043, PR #2044, `blogtheristo/KYAv2` (staged, not yet published)
+- Related: `docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md`, `docs/field-notes/2026-09-26-jev-dws-use-cases.md`, PR #2043 (merged), PR #2044 (merged), PR #2125 (merged), `blogtheristo/KYAv2` (staged, not yet published)
 
 Document Status:
 
 - Created: 18.09.2026
-- Last Modified: 19.09.2026 (v0.8)
+- Last Modified: 27.09.2026 (v0.9)
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE — internal specification
@@ -50,15 +51,18 @@ Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe 
 - **Dictionary advisory:** `src/agents/dictionary-kya-jev.ts` — `adviseDictionaryTerm()`, advisory-only; does not write `dws-dictionary.json`.
 - **Lead-score advisory:** `src/agents/lead-score-kya-jev.ts` — `adviseLeadScore()`; HIC 19.09.2026 next queue after seo-audit + dictionary. `outreach-lead-finder` may attach `metadata.kyaJevLeadReview`; scoring/upsert stay the existing path.
 - **Model-route advisory:** `src/agents/model-route-kya-jev.ts` — `adviseModelRoute()`; HIC 19.09.2026 third consumer. Does not replace `selectModel()` (`src/agents/model-selector.ts`). NVIDIA SoL-Pi (arXiv:2609.20519) is a _harness-search_ paper, not a reason to auto-mutate `kya-jev`.
-- **Audit trail:** `supabase/migrations/087_kya_jev_calls.sql` + `BaseAgent.logKyaJevCall()`.
+- **Browse-step advisory:** `src/agents/browse-step-kya-jev.ts` — `adviseBrowseStep()` (PR #2125, merged 27.09.2026). Picks the next `/browse` node to act on from `dws browse snapshot` output, or returns `done`/`stuck`; typing text stays with the caller's LLM. `actionable: false`. **Not yet wired into a live `/browse` loop** (pilot function only, per the PR's own test plan) and **does not call `logKyaJevCall()`** — see §4F1.
+- **Audit trail:** `supabase/migrations/087_kya_jev_calls.sql` + `BaseAgent.logKyaJevCall()`. Wired for `seo-audit` and `outreach-lead-finder` (lead-score) only — see §4F1.
 - **Calibration tooling:** `scripts/calibrate-kya-jev.mjs` (real ECE harness; no fabricated results — no labeled dataset exists yet).
 - **Commercial listing:** `KYA-JEV-001`, EUR 99/month, Early Access, `dws10.com/config/products.json` (+ landing-pages mirror).
 - **Public release candidate:** `blogtheristo/KYAv2` (staged locally; repo creation blocked at the tool-access layer — not yet pushed).
 
 ## 3. Boardy Audit — Overall Recommendations
 
-- **PR #2043 (dws6): MERGE-WITH-CONDITIONS.** Condition: add the missing `products/kya-jev.html` route, or set product visibility to unlinked, to prevent a 404 storefront error. **Status: closed this session** — `KYA-JEV-001.detailsUrl` set to `null` in both `dws10.com/config/products.json` and `landing-pages/dws10-com/config/products.json`; the storefront's existing fallback (`product.detailsUrl || "../products/"`, `dws10.com/buy/index.html:1894`) routes to the products index instead of a dead link.
-- **blogtheristo/KYAv2 (Public Release): PUBLISH.** Clean isolation verified — no internal dependencies, secrets, or policy leaks present. Still blocked on repo creation permissions (see §6).
+- **PR #2043 (dws6): MERGED** (2026-09-19T00:06:52Z, merged by `cursor[bot]`) — confirmed via `pull_request_read`, not assumed. The MERGE-WITH-CONDITIONS condition (D2, storefront 404) was closed before merge.
+- **PR #2044 (dws6): MERGED** (2026-09-19T00:53:45Z, merged by `cursor[bot]`) — carried v0.5 forward plus dictionary/lead-score/model-route consumers. Its own body confirms #2043 merged first; no evidence of a double-apply on `products.json` (single `KYA-JEV-001` entry, verified this session).
+- **PR #2125 (dws6): MERGED** (2026-09-27T06:08:22Z) — added the browse-step consumer. Not audited by Boardy; audited here (§4F).
+- **blogtheristo/KYAv2 (Public Release): still PUBLISH, still blocked.** Repo search this session confirms `blogtheristo/KYAv2` does not exist — the 403-on-create blocker from §6 is unresolved 9 days later; this is the longest-standing open item in this document.
 
 ## 4. Audit Findings
 
@@ -102,6 +106,14 @@ Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe 
 | E2  | Pass    | Migration 087 is strictly additive (`CREATE TABLE IF NOT EXISTS`) and poses zero risk to existing production tables.                                                                                                                                                                                                                                     | `supabase/migrations/087_kya_jev_calls.sql:1`                                           |
 | E3  | Pass    | Dictionary consumer is fail-closed at the function boundary: `adviseDictionaryTerm()` does not wrap `makeTypedDecision()` in try/catch; missing/unsigned/forged KYA throws (same A2 gate). That is not a deploy-gate (no HTML write). seo-audit still isolates via try/catch so `deployGate` stays deterministic. No live advisory was run this session. | `src/agents/dictionary-kya-jev.ts`; `src/__tests__/i18n/dws-dictionary-kya-jev.test.ts` |
 
+### F. Audit Coverage (new this session — no prior Boardy pass covered these consumers)
+
+| #   | Verdict                        | Finding                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Reference                                                                                                             |
+| --- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| F1  | Fail                           | 3 of 5 consumers produce a `kya-jev` decision with **no Article-12 audit row**: `dictionary-kya-jev.ts`, `model-route-kya-jev.ts`, and `browse-step-kya-jev.ts` never call `logKyaJevCall()` (confirmed by grep — zero matches). Only `seo-audit.agent.ts` and `outreach-lead-finder.agent.ts` (lead-score) log. The entire premise of this primitive is Article-12 traceability (§1); three consumers currently produce untracked decisions. Not a security hole (KYA gate itself still holds) but a real gap against this document's own stated purpose.                                                                                                                                                               | `src/agents/dictionary-kya-jev.ts`; `src/agents/model-route-kya-jev.ts`; `src/agents/browse-step-kya-jev.ts`          |
+| F2  | Needs-Human                    | **Architectural risk, not yet built — must stay unbuilt as proposed.** `docs/field-notes/2026-09-26-jev-dws-use-cases.md` use case #1 proposes a `kya-jev` decision as a fast pre-filter in front of `authorizeToolCall()` (the KYA tool-call gate) itself. `kya-jev` calls require a signed KYA verdict that only `authorizeToolCall()`'s runtime can issue; using `kya-jev`'s own output to pre-gate that same runtime's authorization decision closes the loop the A2 fix was built to break (§4A2) — the authorizer would be advised by a primitive that cannot run without the authorizer's own signature. Recorded as a standing guardrail (§7), not implemented; the field note itself is still `PENDING_REVIEW`. | `docs/field-notes/2026-09-26-jev-dws-use-cases.md` (use case 1); `src/security/runtime-auth.ts` (`authorizeToolCall`) |
+| F3  | Fail → **Closed this session** | The 2026-09-26 field note's own header used `---` delimiters instead of the required `***` (CLAUDE.md Markdown Delimiter Rule) and carried a self-contradiction (`Publication Status: ACTIVE` next to `Status: PENDING_REVIEW`). Fixed this session.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | `docs/field-notes/2026-09-26-jev-dws-use-cases.md`                                                                    |
+
 ## 5. Needs-Human Items (open, not blocking this version)
 
 **A2 closed this session (see §4A) — was the only genuinely severe finding.** HIC's framing: a verdict a caller can construct itself proves nothing, same as a document where signer and approver are the same party. Now enforced by signature, not by convention.
@@ -110,6 +122,8 @@ Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe 
 
 1. **B2/D1 (combined) — verified, not an open gap.** Checked both surfaces directly: `dws10.com/buy/index.html` intentionally hides price on the product card by design (`.product-price { hidden }`, comment: "enterprise products lead with value, not price") and instead renders `product.description` on the card — which already contains the Early Access / uncalibrated-confidence caveat text (`dws10.com/config/products.json:118`), so the card never shows a bare, caveat-free claim. `dws10.com/price-list/index.html:1409` is the one surface that _does_ show the price directly, and it renders `p.priceNote` in the same table cell as the price (`dws10.com/price-list/index.html:1410`) — the €99/month + "Early Access — calibration study in progress" note pair together there. **Remaining step:** visually confirm this on the live/preview site once deployed (this session could not render the page); if the pairing doesn't actually appear together on screen, that is now a real regression to fix, not a design question.
 2. **D3 — closed this session.** Registered in `DWS_STANDARDS_LIBRARY.md` §3.2 Process/Quality, same pattern as the `DDM-v1` row (owner HIC, status 🎯 Early Access pending calibration study). Registered **before** migration 087 is applied to production, per HIC: registering it after the fact would leave a real, unaudited gap between what's running and what's catalogued — exactly the kind of inconsistency an audit is supposed to catch.
+3. **F1 — audit-logging gap, needs implementation (see §9 Phase 1).** Not fixed this session (scoped to the audit + plan; §9 schedules the fix).
+4. **F2 — architectural guardrail, needs an explicit HIC no before anyone builds it.** No code exists yet; the risk is that a future session implements use case #1 without re-deriving this reasoning. Confirm this guardrail stands (or get an explicit design that avoids the circularity) before `authorizeToolCall()` is ever wired to consume a `kya-jev` hint.
 
 ## 6. Outstanding Blocker (tooling, not audit)
 
@@ -123,19 +137,32 @@ Also never without HIC (this session, cited):
 
 - **Glossary lock.** `adviseDictionaryTerm()` must not persist `result.decision` into `dws-dictionary.json` or i18n strings.
 - **Wave 3 live pages.** Industry go-live is HIC-only. Harvest density proposed 8 / 2 / 24; this PR may ship industry 8 (Mars + CONSTR-T2) only until HIC confirms the trio. kya-jev `wave3_live` choice is advisory, uncalibrated, and not a page-publish gate.
+- **No `kya-jev` pre-filter in front of `authorizeToolCall()` (§4F2).** Not built, and must not be built as literally proposed in `docs/field-notes/2026-09-26-jev-dws-use-cases.md` use case #1 — it would make the KYA gate advise itself. If this direction is pursued, it needs its own design (e.g. a completely separate signing root, or restricting the pre-filter to a narrower non-authorization signal) reviewed before any code is written, not a straight implementation of the field note's idea.
 
-## 8. Execution & Backlog Order (corrected, HIC 2026-09-18)
+## 8. Merge & Migration History (superseded — kept for the record)
 
-**Do now, in this order:**
+The v0.5–0.8 drafts of this section warned "PR #2043 is not merged" and ordered D3 before merge before migration, written while both PRs were still open. **Both merged within the same session window** (#2043 at 2026-09-19T00:06:52Z, #2044 at 2026-09-19T00:53:45Z) without the coordination problem those drafts warned about — verified this session: `dws10.com/config/products.json` has exactly one `KYA-JEV-001` entry, not a duplicate. D3 (standards registration) is closed. **Migration `087_kya_jev_calls.sql` is still unapplied to production** — confirmed no application record exists anywhere in field notes, `DWS_STANDARDS_LIBRARY.md`, or CI. It remains RED (human-only, per this session's trust boundary) and is the actual next infrastructure step — see §9 Phase 0.
 
-1. **D3 — done.** `kya-jev` registered in `DWS_STANDARDS_LIBRARY.md` §3.2 (v0.5 row; library pointer bumped to v0.6 in the same session as this spec body).
-2. **Merge one kya-jev vehicle into `main`.** PR #2043 is still the original kya-jev PR and is **not** treated as merged. After the Claude session exhausted, v0.5 was merged into `cursor/dws10-i18n-25-dictionary-c0ce` (PR #2044). Landing both PRs without coordination can double-apply `products.json` / feed edits. Pick one merge path; do not apply 087 from a branch that is not yet on `main`.
-3. **Apply migration `087_kya_jev_calls.sql`** to production Supabase only after that merge (RED until then).
+## 9. Implementation Plan (this session, 2026-09-27)
 
-Reordered from an earlier draft that had the migration before the registry entry — per HIC, a production component with no standards-registry entry is the inconsistency an audit catches, so registration must land first.
+**Phase 0 — infrastructure catch-up (blocked on humans, not code):**
 
-**Backlog, in priority order:**
+1. Apply `supabase/migrations/087_kya_jev_calls.sql` to production (RED zone — SQL editor, per PR #2044's own note: paste the `087.2`/`087.3` script body, Enable RLS = yes).
+2. Create `blogtheristo/KYAv2` (repo-creation 403 persists 9 days later — this needs a human with broader GitHub App permissions, not a retry).
 
-- **P0 — already closed, not open backlog:** A2 (KYA-context hardening / signed verdicts) shipped in v0.3 of this document, before this reordering was requested. An external review quoted this session still carried it as an open P0 — that review was reading v0.2. Restated here so the record is unambiguous: **A2 is done**, not pending.
-- **P1 — `blogtheristo/KYAv2` public repo.** Blocked on a human creating the empty GitHub repo (§6); package is staged and ready to push the moment it exists.
-- **P2 — B2/D1 live visual confirmation.** Already verified correct by code inspection (§5, item 1); only a live-site screenshot/check remains, and billing stays `preorder` regardless until the calibration study runs.
+**Phase 1 — close F1 (audit-logging gap), code, this branch:**
+
+3. Give `dictionary-kya-jev.ts`, `model-route-kya-jev.ts`, and `browse-step-kya-jev.ts` the same audit path `seo-audit`/`lead-score` already have. These are standalone functions, not `BaseAgent` subclasses, so `logKyaJevCall()` (a `BaseAgent` method) isn't directly reachable from them — the fix is a caller-side contract, not a change to the primitive: whichever agent eventually calls each `advise*()` function must log the result the same way `outreach-lead-finder.agent.ts` does, and that call site must exist before any of the three ships a live (non-test) invocation. Concretely: add one `logKyaJevCall()` call at each real call site once one exists (dictionary and model-route currently have none — see Phase 2 item 6; browse-step's call site is the `/browse` wiring in Phase 2 item 5).
+4. Add a lint/test guard: a small check (extend `scripts/evidence-audit.mjs` or a new `scripts/check-kya-jev-audit-coverage.mjs`) that fails CI if a new `advise*Kya*Jev()`-style export is added without a corresponding `logKyaJevCall()` call reachable from it — turns F1 from "found once" into "can't regress silently."
+
+**Phase 2 — finish what's half-wired:**
+
+5. Wire `adviseBrowseStep()` into an actual `/browse` loop (PR #2125's own stated next step) so it produces real decisions instead of only test fixtures; add the audit-log call from Phase 1 item 3 at that same call site.
+6. Confirm whether `dictionary-kya-jev.ts` and `model-route-kya-jev.ts` have real call sites yet (this session did not find one for either) — if not, either wire them into their target flows (dictionary tooling, `selectModel()` callers) or mark them explicitly as unwired pilots in §2, matching browse-step's framing, so the spec doesn't imply live usage that isn't happening.
+
+**Phase 3 — the actual calibration study (still the real gate on everything commercial):**
+
+7. Once migration 087 is applied and at least seo-audit/lead-score are producing real `kya_jev_calls` rows, pull a sample and get human-verified `correct` labels for each.
+8. Run `node scripts/calibrate-kya-jev.mjs --input <labeled-file>` for a real ECE number — the first one this primitive has ever had. Until this runs, every "Early Access" / `preorder` / uncalibrated-confidence caveat in this document stays exactly as strict as it is today.
+
+**Explicitly out of scope for this plan:** implementing field note use case #1 (§4F2, §7) — that needs its own design review, not a phase in this plan.
