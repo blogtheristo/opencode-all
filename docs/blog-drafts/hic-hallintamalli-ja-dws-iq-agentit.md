@@ -43,17 +43,17 @@ Jotta teollisuudessa saavutetaan sekä korkea automaatioaste että EU AI Actin a
 
 ## 3. Teollisuuden prosessikuvaukset: RUP-metodologian soveltaminen
 
-Agenttiyhteistyöstä tehdään teollisuudessa ennakoitavaa ja hyväksyttyä mallintamalla työnkulut vakiintuneella **RUP-metodologialla (Rational Unified Process)** ja UML-aktiviteettikaavioilla:
+Agenttiyhteistyöstä tehdään teollisuudessa ennakoitavaa ja hyväksyttyä yhdistämällä liiketoiminnan käyttötapaukset (Use Cases), niitä toteuttava Workflow V2 sekä Active Ontology — liiketoimintaobjektit, niiden väliset suhteet, säännöt ja sallitut toiminnot. RUP-metodologia ja UML-aktiviteettikaaviot kuvaavat tämän kokonaisuuden hallittuna elinkaarena:
 
 ```
-[Inception]               [Elaboration]              [Construction]             [Transition]
-Ihminen käynnistää ---->  Dashboard reitittää  ----> DWS IQ Skilled Agents  ----> Luovutus & KYA-
-työnkulun Dashboardilta   sopivat IQ-agentit         suorittavat vaiheet        auditointijälki
+[Inception]              [Elaboration]                 [Construction]                 [Transition]
+Use Case ja tavoite -->  Workflow V2 muodostaa  -->   Active Ontology rajaa    -->   HIC hyväksyy tuloksen
+HIC määrittää raamit      vaiheet ja agenttiroolit      objektit ja toiminnot          KYA tallentaa auditointijäljen
 ```
 
-- **Inception (Aloitus):** Ihminen määrittelee tavoitteen ja raamit Dashboardilla (HIC-aloitus).
-- **Elaboration (Tarkennus):** Järjestelmä valitsee prosessiin tarvittavat _DWS IQ Skilled Agents_ -roolit ja esittää prosessikaavion käyttäjälle.
-- **Construction (Toteutus):** Agentit suorittavat työvaiheet itsenäisesti. Kriittisissä RUP-tarkastuspisteissä (_Gateways_) järjestelmä pyytää ihmisen kuittauksen ennen seuraavaan vaiheeseen siirtymistä.
-- **Transition (Luovutus):** Lopputulos todennetaan, ja KYA-S1-spesifikaation mukainen päätöksentekojälki tallennetaan automaattisesti myöhempää tarkastelua varten.
+- **Inception (Aloitus):** Ihminen kirjaa liiketoiminnan käyttötapauksen (Use Case), sen tavoitteen ja raamit Dashboardilla (HIC-aloitus).
+- **Elaboration (Tarkennus):** Workflow V2 muodostaa käyttötapauksesta vaiheet ja valitsee niihin tarvittavat _DWS IQ Skilled Agents_ -roolit; prosessikaavio esitetään ihmiselle ennen käynnistystä.
+- **Construction (Toteutus):** Agentit suorittavat työvaiheet Active Ontologyn rajoissa — vain sallituilla toiminnoilla sallittuihin liiketoimintaobjekteihin. Kriittisissä tarkastuspisteissä (_Gateways_) järjestelmä pyytää ihmisen kuittauksen ennen seuraavaan vaiheeseen siirtymistä.
+- **Transition (Luovutus):** Ihminen hyväksyy lopputuloksen, ja KYA-S1-spesifikaation mukainen päätöksentekojälki tallennetaan automaattisesti myöhempää tarkastelua varten.
 
 > **Yhteenveto:** Tuomalla GitHub Copilotin tuttu ja turvallinen ohjausmalli DWS IQ -tausta-agenteille ja kuvaamalla työnkulut teollisuuden rakastamilla RUP-prosessikaavioilla, tekoälyn johtamisvelvoite muuttuu lakitekstistä kirkkaaksi, käytännölliseksi ja skaalautuvaksi kilpailueduksi.

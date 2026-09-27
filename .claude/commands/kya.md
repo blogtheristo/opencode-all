@@ -1,7 +1,7 @@
 ---
 name: kya
-version: 2.0
-date: 2026-05-07
+version: 2.1
+date: 2026-09-27
 description: 'KYA+I runtime safety controls for agent sessions and inference jurisdiction. Check trust score, IJS, provider chain, or trigger a TC-4 leash snap. Use when user says "kya status", "trust score", "leash snap", "kill the agent", "IJS score", or "inference jurisdiction".'
 ---
 
@@ -20,13 +20,13 @@ still route here.
 
 ## Subcommands
 
-| Form                                                           | What it does                                                                             |
-| -------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `/kya status <session_id>`                                     | Trust score + identity binding for a session                                             |
-| `/kya inference <session_id>`                                  | ⚠️ **Planned — not yet implemented.** Will provide IJS, provider chain, CLOUD Act flags. |
-| `/kya snap <session_id> --reason <CODE>`                       | TC-4 Leash Snap — chain termination with forensic dump. DESTRUCTIVE.                     |
-| `/kya snap <session_id> --reason <CODE> --force-cascade --yes` | Cascade termination to all child agents, skip confirmation                               |
-| `/kya snap <session_id> --reason <CODE> --dry-run`             | Preview termination payload without executing — SAFE, use first                          |
+| Form                                                           | What it does                                                                         |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `/kya status <session_id>`                                     | Trust score + identity binding for a session                                         |
+| `/kya inference <session_id>`                                  | IJS 0–100, tier, provider chain, CLOUD Act flag, unavailable evidence sources — SAFE |
+| `/kya snap <session_id> --reason <CODE>`                       | TC-4 Leash Snap — chain termination with forensic dump. DESTRUCTIVE.                 |
+| `/kya snap <session_id> --reason <CODE> --force-cascade --yes` | Cascade termination to all child agents, skip confirmation                           |
+| `/kya snap <session_id> --reason <CODE> --dry-run`             | Preview termination payload without executing — SAFE, use first                      |
 
 ## Steps
 
@@ -37,17 +37,17 @@ still route here.
    - Require the user to type the session ID back before running without `--dry-run`
 3. Run the CLI:
    - Status: `cd cli && npx tsx src/cli.ts kya status <sessionId>`
-   - Inference: **not yet available** — `kya inference` is not yet implemented in the CLI; inform the user and suggest using `/kya status` instead.
+   - Inference: `cd cli && npx tsx src/cli.ts kya inference <sessionId>`
    - Dry-run snap: `cd cli && npx tsx src/cli.ts kya snap <sessionId> --reason <CODE> --dry-run`
    - Real snap: `cd cli && npx tsx src/cli.ts kya snap <sessionId> --reason <CODE> [--force-cascade] --yes`
 4. Report the result:
    - For `status`: trust score, identity binding, last verification, active policies
-   - For `inference`: inform the user this subcommand is not yet available
+   - For `inference`: IJS + tier + action, the provider chain (weakest first), `cloudActExposed`, `fallbackMayLeaveEu`, `unresolvedModels`, and any `evidence.unavailable` source. Tier `NO_EVIDENCE` means no calls were recorded — say so; never report it as Sovereign.
    - For `snap`: `agentsTerminated`, `durationMs`, reason, forensic dump location
 
 ## Inference Jurisdiction Score (IJS)
 
-IJS is 0-100, computed at session start and re-evaluated on every provider switch.
+IJS is 0-100. Implemented (v2.1) as an on-demand score: `src/identity/inference-jurisdiction.ts`. Session IJS = the **lowest** provider IJS across every recorded model call (`kya_jev_calls`, `token_usage_events`) — one US call exposes the session. LiteLLM aliases whose fallback can leave the EU (`smart`, `groq-llama`) score at their worst hop. Unresolvable models score 0. Push re-evaluation on every provider switch is not yet wired.
 
 | IJS    | Tier      | EU AI Act posture                                    | KYA+I action                                 |
 | ------ | --------- | ---------------------------------------------------- | -------------------------------------------- |
@@ -88,19 +88,22 @@ IJS is 0-100, computed at session start and re-evaluated on every provider switc
 
 ## DWS inference stack (IJS by provider)
 
-| Provider                     | Zone    | IJS | Notes                                   |
-| ---------------------------- | ------- | --- | --------------------------------------- |
-| Scaleway `fr-par` / `nl-ams` | EU      | 95  | Primary; DPA auto-bound; no retention   |
-| On-prem DGX Spark (Espoo)    | ON_PREM | 100 | Sovereign; own hardware; zero CLOUD Act |
-| NVIDIA NIM EU region         | EU/US   | 55  | US parent offsets EU DC — Partial tier  |
-| Groq (api.groq.com)          | US      | 12  | CLOUD Act exposed; dev/demo only        |
-| OpenAI / Azure OpenAI        | US      | 10  | Blocked for EU customer data            |
+| Provider                     | Zone    | IJS | Notes                                     |
+| ---------------------------- | ------- | --- | ----------------------------------------- |
+| Scaleway `fr-par` / `nl-ams` | EU      | 95  | Primary; DPA auto-bound; no retention     |
+| On-prem DGX Spark (Espoo)    | ON_PREM | 100 | Sovereign; own hardware; zero CLOUD Act   |
+| NVIDIA NIM EU region         | EU/US   | 55  | US parent offsets EU DC — Partial tier    |
+| Groq (api.groq.com)          | US      | 12  | CLOUD Act exposed; dev/demo only          |
+| OpenAI / Azure OpenAI        | US      | 10  | Blocked for EU customer data              |
+| Anthropic (Claude API)       | US      | 15  | US ceiling; DPA-bound (Model Standard T1) |
+| Google (Gemini) / Baseten    | US      | 10  | Not listed before; lowest listed US value |
+| Unresolvable model           | UNKNOWN | 0   | Jurisdiction unproven — never guessed     |
 
 ## Backend
 
 - Implemented: `POST /api/v1/kya/snap` → `terminateChain()` in `src/identity/kya-engine.ts`
 - Planned/future: `GET /api/v1/kya/status/:sessionId`
-- Planned/future: `GET /api/v1/kya/inference/:sessionId` → intended to return an `inference` block with IJS once the route is added
+- Implemented: `GET /api/v1/kya/inference/:sessionId` → `src/routes/kya-inference.routes.ts` (same admin auth as snap)
 - Auth: `Bearer $DWS_API_TOKEN` or `x-admin-key: $ADMIN_API_KEY` (timing-safe)
 - Webhooks: Shufti Pro → `/api/v1/kya/*` (`src/routes/kya-webhook.routes.ts`)
 - Planned/future: Art. 12 inference log archival to Scaleway Object Storage WORM (`dws-iq-aegis` project) once the log writer is implemented

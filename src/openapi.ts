@@ -1466,6 +1466,32 @@ const spec = {
         },
       },
     },
+    '/api/v1/kya/inference/{sessionId}': {
+      get: {
+        tags: ['KYA'],
+        summary: 'KYA+I Inference Jurisdiction Score (IJS) for an agent session',
+        description:
+          'Scores where the session inference ran: 0-100, weakest link across every recorded model call (kya_jev_calls, token_usage_events). Returns tier (SOVEREIGN / COMPLIANT / PARTIAL / EXPOSED / NO_EVIDENCE), provider chain, CLOUD Act flag, and which evidence sources were unavailable.',
+        operationId: 'kyaInference',
+        security: [{ adminKey: [] }],
+        parameters: [
+          {
+            name: 'sessionId',
+            in: 'path',
+            required: true,
+            schema: { type: 'string', pattern: '^[A-Za-z0-9._:-]{1,200}$' },
+          },
+        ],
+        responses: {
+          '200': {
+            description: 'Inference jurisdiction scored (tier NO_EVIDENCE when no calls recorded)',
+          },
+          '400': { description: 'Malformed sessionId' },
+          '401': { description: 'Unauthorized' },
+          '500': { description: 'Scoring failed' },
+        },
+      },
+    },
 
     // -------------------------------------------------------------------------
     // INVESTOR REPORTS — cap-table metrics, MRR/ARR, runway, report generation

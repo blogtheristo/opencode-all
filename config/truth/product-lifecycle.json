@@ -2,10 +2,10 @@
   "summary": {
     "catalogVersion": "1.33",
     "gitScannedThrough": "4f0ae8e93",
-    "totalIds": 193,
+    "totalIds": 194,
     "catalogueIds": 156,
     "byState": {
-      "planned": 1,
+      "planned": 2,
       "page-only": 18,
       "internal": 65,
       "published": 81,
@@ -14,7 +14,7 @@
       "removed": 18
     },
     "withoutEvidence": 0,
-    "hicDecisions": 7
+    "hicDecisions": 8
   },
   "rows": [
     {
@@ -39,6 +39,20 @@
       "page": "dws10.com/products/firehorse-mobile.html",
       "pageVersions": 15,
       "pageLastChanged": "2026-09-21"
+    },
+    {
+      "id": "ops-manager",
+      "name": "DWS IQ Ops Manager",
+      "state": "planned",
+      "stateSource": "ledger 2026-09-27",
+      "evidence": [
+        {
+          "kind": "decision",
+          "date": "2026-09-27",
+          "ref": "blogtheristo/dws6#2178",
+          "text": "planned — HIC (Risto Anton Päärni): Add to catalogue"
+        }
+      ]
     },
     {
       "id": "ai-consulting",

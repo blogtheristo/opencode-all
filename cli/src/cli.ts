@@ -1848,6 +1848,11 @@ async function cmdKyaStatus(sessionId: string): Promise<void> {
   output(result);
 }
 
+async function cmdKyaInference(sessionId: string): Promise<void> {
+  const result = await api(`/api/v1/kya/inference/${encodeURIComponent(sessionId)}`);
+  output(result);
+}
+
 // ============ SUBCOMMAND HELP ============
 
 const SUBCOMMAND_HELP: Record<string, string> = {
@@ -2204,6 +2209,7 @@ GETTING STARTED:
 KYA (Know Your Agent):
   dws kya snap <session_id> --reason <code>  Trigger a Leash Snap (TC-4 termination)
   dws kya status <session_id>                Check KYA trust score for a session
+  dws kya inference <session_id>             Inference Jurisdiction Score (IJS) + provider chain
 
 DEMO:
   dws demo snap [--iterations N]             Firehorse Snap kill-latency benchmark
@@ -3122,10 +3128,14 @@ async function main(): Promise<void> {
           const kyaStatusId = positional[1];
           if (!kyaStatusId) error('No session ID specified.', 'dws kya status <session_id>');
           await cmdKyaStatus(kyaStatusId);
+        } else if (subcommand === 'inference') {
+          const kyaInferenceId = positional[1];
+          if (!kyaInferenceId) error('No session ID specified.', 'dws kya inference <session_id>');
+          await cmdKyaInference(kyaInferenceId);
         } else {
           error(
             'Unknown kya subcommand.',
-            'dws kya snap <session_id> --reason <code>\n  dws kya status <session_id>',
+            'dws kya snap <session_id> --reason <code>\n  dws kya status <session_id>\n  dws kya inference <session_id>',
           );
         }
         break;
