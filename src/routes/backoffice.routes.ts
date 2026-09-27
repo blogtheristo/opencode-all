@@ -21,7 +21,10 @@ export interface ContainerInfo {
 
 interface OrganizationMembershipRow {
   role: string;
-  organizations: { name: string | null } | Array<{ name: string | null }> | null;
+  organizations:
+    | { name: string | null; is_internal: boolean }
+    | Array<{ name: string | null; is_internal: boolean }>
+    | null;
 }
 
 interface BackofficeAccess {
@@ -29,13 +32,18 @@ interface BackofficeAccess {
   orgs: string[];
 }
 
-function organizationNames(row: OrganizationMembershipRow): string[] {
-  const organizations = Array.isArray(row.organizations)
+function organizationsForMembership(
+  row: OrganizationMembershipRow,
+): Array<{ name: string | null; is_internal: boolean }> {
+  return Array.isArray(row.organizations)
     ? row.organizations
     : row.organizations
       ? [row.organizations]
       : [];
-  return organizations
+}
+
+function organizationNames(row: OrganizationMembershipRow): string[] {
+  return organizationsForMembership(row)
     .map((organization) => organization.name?.trim())
     .filter((name): name is string => Boolean(name));
 }
@@ -46,25 +54,28 @@ async function loadBackofficeAccess(
 ): Promise<{ access: BackofficeAccess | null; error: Error | null }> {
   const { data, error } = await database
     .from('organization_members')
-    .select('role, organizations(name)')
+    .select('role, organizations!inner(name, is_internal)')
     .eq('user_id', userId)
     .eq('status', 'active');
 
   if (error) return { access: null, error: new Error(error.message) };
 
   const memberships = (data ?? []) as OrganizationMembershipRow[];
+  const internalMemberships = memberships.filter((membership) =>
+    organizationsForMembership(membership).some((organization) => organization.is_internal),
+  );
   return {
     access: {
-      isAdmin: memberships.some((membership) =>
+      isAdmin: internalMemberships.some((membership) =>
         ['owner', 'admin'].includes(membership.role.toLowerCase()),
       ),
-      orgs: [...new Set(memberships.flatMap(organizationNames))],
+      orgs: [...new Set(internalMemberships.flatMap(organizationNames))],
     },
     error: null,
   };
 }
 
-// Same rule as SQL is_backoffice_admin() (migration 011): trust organization_members, never user_metadata.
+// Same rule as SQL is_backoffice_admin(): trust internal organization membership, never user_metadata.
 async function requireBackofficeAdmin(req: Request, res: Response, next: NextFunction) {
   const db = getSupabaseClient();
   if (!db) {
@@ -85,21 +96,14 @@ async function requireBackofficeAdmin(req: Request, res: Response, next: NextFun
     return;
   }
 
-  const { data: membership, error } = await db
-    .from('organization_members')
-    .select('user_id')
-    .eq('user_id', userData.user.id)
-    .in('role', ['owner', 'admin'])
-    .eq('status', 'active')
-    .limit(1)
-    .maybeSingle();
+  const { access, error } = await loadBackofficeAccess(db, userData.user.id);
 
   if (error) {
     logger.error('Backoffice admin check failed', { error: error.message });
     res.status(500).json({ error: 'Failed to verify admin role' });
     return;
   }
-  if (!membership) {
+  if (!access?.isAdmin) {
     logger.warn('Backoffice access denied', { userId: userData.user.id });
     res.status(403).json({ error: 'Forbidden' });
     return;

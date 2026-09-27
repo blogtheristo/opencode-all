@@ -9,11 +9,15 @@ const state = vi.hoisted(() => ({
     user_metadata: { role?: string };
   } | null,
   memberships: [
-    { user_id: 'u1', role: 'admin', organizations: { name: 'Control Room' } },
+    {
+      user_id: 'u1',
+      role: 'admin',
+      organizations: { name: 'Control Room', is_internal: true },
+    },
   ] as Array<{
     user_id: string;
     role: string;
-    organizations: { name: string };
+    organizations: { name: string; is_internal: boolean };
   }>,
   membershipError: null as Error | null,
 }));
@@ -41,7 +45,10 @@ vi.mock('../config/supabase.js', () => {
   const chain = (result: unknown) => {
     const q: Record<string, unknown> = {};
     for (const m of ['select', 'eq', 'neq', 'gte', 'in', 'order', 'limit']) q[m] = () => q;
-    q.maybeSingle = async () => ({ data: state.memberships[0] ?? null, error: state.membershipError });
+    q.maybeSingle = async () => ({
+      data: state.memberships[0] ?? null,
+      error: state.membershipError,
+    });
     q.then = (resolve: (v: unknown) => void) => resolve(result);
     return q;
   };
@@ -53,7 +60,12 @@ vi.mock('../config/supabase.js', () => {
           error: state.user ? null : new Error('bad'),
         }),
       },
-      from: (table: string) => chain(table === 'organization_members' ? { data: state.memberships, error: state.membershipError } : { count: 7, data: [], error: null }),
+      from: (table: string) =>
+        chain(
+          table === 'organization_members'
+            ? { data: state.memberships, error: state.membershipError }
+            : { count: 7, data: [], error: null },
+        ),
     }),
   };
 });
@@ -69,7 +81,13 @@ function buildApp(): Express {
 describe('backoffice routes', () => {
   beforeEach(() => {
     state.user = { id: 'u1', email: 'a@x.fi', user_metadata: {} };
-    state.memberships = [{ user_id: 'u1', role: 'admin', organizations: { name: 'Control Room' } }];
+    state.memberships = [
+      {
+        user_id: 'u1',
+        role: 'admin',
+        organizations: { name: 'Control Room', is_internal: true },
+      },
+    ];
     state.membershipError = null;
   });
 
@@ -96,30 +114,80 @@ describe('backoffice routes', () => {
 
   it('/me returns false and no organizations for a non-member', async () => {
     state.memberships = [];
-    const res = await request(buildApp()).get('/api/v1/backoffice/me').set('Authorization', 'Bearer good');
+    const res = await request(buildApp())
+      .get('/api/v1/backoffice/me')
+      .set('Authorization', 'Bearer good');
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ isAdmin: false, orgs: [] });
   });
 
-  it('/me returns admin status and active organization names for a member', async () => {
-    const res = await request(buildApp()).get('/api/v1/backoffice/me').set('Authorization', 'Bearer good');
+  it('/me returns isAdmin false for an owner of a non-internal organization', async () => {
+    state.memberships = [
+      {
+        user_id: 'u1',
+        role: 'owner',
+        organizations: { name: 'Customer Oy', is_internal: false },
+      },
+    ];
+    const res = await request(buildApp())
+      .get('/api/v1/backoffice/me')
+      .set('Authorization', 'Bearer test-token');
     expect(res.status).toBe(200);
-    expect(res.body).toEqual({ isAdmin: true, orgs: ['Control Room'] });
+    expect(res.body).toEqual({ isAdmin: false, orgs: [] });
+  });
+
+  it('/me returns isAdmin true for an owner of the internal organization', async () => {
+    state.memberships = [
+      {
+        user_id: 'u1',
+        role: 'owner',
+        organizations: { name: 'DWS AB', is_internal: true },
+      },
+    ];
+    const res = await request(buildApp())
+      .get('/api/v1/backoffice/me')
+      .set('Authorization', 'Bearer test-token');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ isAdmin: true, orgs: ['DWS AB'] });
   });
 
   it('/me ignores a spoofed user_metadata role without a membership', async () => {
     state.user = { id: 'u1', email: 'a@x.fi', user_metadata: { role: 'backoffice_admin' } };
     state.memberships = [];
-    const res = await request(buildApp()).get('/api/v1/backoffice/me').set('Authorization', 'Bearer good');
+    const res = await request(buildApp())
+      .get('/api/v1/backoffice/me')
+      .set('Authorization', 'Bearer good');
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ isAdmin: false, orgs: [] });
   });
 
   it('/me returns section memberships without granting admin', async () => {
-    state.memberships = [{ user_id: 'u1', role: 'member', organizations: { name: 'Situation Room' } }];
-    const res = await request(buildApp()).get('/api/v1/backoffice/me').set('Authorization', 'Bearer good');
+    state.memberships = [
+      {
+        user_id: 'u1',
+        role: 'member',
+        organizations: { name: 'Situation Room', is_internal: true },
+      },
+    ];
+    const res = await request(buildApp())
+      .get('/api/v1/backoffice/me')
+      .set('Authorization', 'Bearer good');
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ isAdmin: false, orgs: ['Situation Room'] });
+  });
+
+  it('rejects an owner of a non-internal organization from protected routes', async () => {
+    state.memberships = [
+      {
+        user_id: 'u1',
+        role: 'owner',
+        organizations: { name: 'Customer Oy', is_internal: false },
+      },
+    ];
+    const res = await request(buildApp())
+      .get('/api/v1/backoffice/stats')
+      .set('Authorization', 'Bearer test-token');
+    expect(res.status).toBe(403);
   });
 
   it('returns real counts and container health for admins', async () => {

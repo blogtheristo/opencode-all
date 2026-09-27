@@ -5,7 +5,7 @@
 > v1.5 changes (backlog drain 26.09.2026): #2093's decision journey pair renumbered
 > 092/093 → **094/095** because `main` took 092 (`092_250926_product_lifecycle.sql`)
 > and 093 (`093_250926_hilma_tenders.sql`, #2077) first. Apply order: 089 → 091, 092,
-> 093, then 094 → 095. Next free number: **096**.
+> 093, then 094 → 096. Next free number: **097**.
 >
 > v1.4 changes (HIC decision 24.09.2026, PR #2093): registered 089–093 with unique
 > numbers, none applied yet (RED zone, human applies):
@@ -13,7 +13,9 @@
 > `091_…_summary` (website*observations chain, PR #2091),
 > `094_240926_decision_journey.sql` (Decision Journey Foundation — append-only,
 > hash-chained `decision_journey_event`), `095_240926_decision_journey_discover_bridge.sql`
-> (DISCOVER → Decision Journey bridge, M1 scope). The decision journey file was
+> (DISCOVER → Decision Journey bridge, M1 scope), and
+> `096_270926_internal_organization_backoffice.sql` (server-controlled internal
+> organization marker and tenant-safe back-office authorization; verification: `supabase/tests/096_internal_organization_backoffice_verification.sql`). The decision journey file was
 > merged under the website number and renumbered before any apply, so §4.5 holds:
 > one number = one file. Next free number: **094** (superseded by v1.5). Verification suites:
 > `supabase/tests/094*_`and`supabase/tests/095\__` (apply 089 → 095 first).
