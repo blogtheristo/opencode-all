@@ -1,0 +1,62 @@
+{
+  "name": "construction-site-assessment-chapter-four",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "Scope the assessment: which site, which date/shift, and whether all three tracks are in scope (safety, materials carbon, schedule) or only some. Matches the `/workflow construction-full` fan-out shape.",
+      "allowedNext": ["GATHER_SITE_CONDITIONS"]
+    },
+    {
+      "id": "GATHER_SITE_CONDITIONS",
+      "description": "Collect the SiteSense inputs: temperature, humidity, windSpeed, workerCount, recentIncidents (`/site-safety` input contract). Wind and weather readings are the inputs most likely to be stale — check the reading's timestamp, not just its presence.",
+      "allowedNext": ["ASSESS_SAFETY", "STALE_INPUT_RECOVERY"]
+    },
+    {
+      "id": "STALE_INPUT_RECOVERY",
+      "description": "A required reading is missing, stale, or out of plausible range. This is the path the current parallel fan-out has no state for: re-poll the sensor, fall back to the nearest weather station, or mark that track degraded. A degraded track must be labelled degraded in the final report — a safety score computed from a stale wind reading is worse than no score.",
+      "allowedNext": ["GATHER_SITE_CONDITIONS", "ASSESS_SAFETY", "PARKED"]
+    },
+    {
+      "id": "ASSESS_SAFETY",
+      "description": "Run SiteSense (`/site-safety`, cli: `run sitesense --input`). Produces safety score 0-100, weather risk level, worker capacity adjustment, and EN 13001 crane operation warnings.",
+      "allowedNext": ["CRITICAL_SAFETY_FLAG", "ANALYSE_MATERIALS_CARBON", "STALE_INPUT_RECOVERY"]
+    },
+    {
+      "id": "CRITICAL_SAFETY_FLAG",
+      "description": "Safety score below 60 — the `/site-safety` skill's own documented critical threshold, which calls for flagging and immediate suggested actions. Surface this before any other track's findings: a crane-risk warning must not be buried under a carbon table.",
+      "allowedNext": ["ANALYSE_MATERIALS_CARBON", "GENERATE_REPORT"]
+    },
+    {
+      "id": "ANALYSE_MATERIALS_CARBON",
+      "description": "Run Material Oracle (`/carbon-analysis`, cli: `run material-oracle --input`) for embodied carbon per EN 15978 across stages A1-A3, A4, A5, B, C, D. Produces total kgCO2e, per-stage breakdown, and low-carbon alternatives.",
+      "allowedNext": ["CHECK_SCHEDULE", "CARBON_BUDGET_EXCEEDED", "STALE_INPUT_RECOVERY"]
+    },
+    {
+      "id": "CARBON_BUDGET_EXCEEDED",
+      "description": "Total embodied carbon exceeds the project's budget — the `/carbon-analysis` skill's documented trigger for suggesting material substitutions. Record the substitution options rather than silently reporting the overage.",
+      "allowedNext": ["CHECK_SCHEDULE", "GENERATE_REPORT"]
+    },
+    {
+      "id": "CHECK_SCHEDULE",
+      "description": "Schedule-genius track: does the safety-adjusted worker capacity (from ASSESS_SAFETY) still meet the programme, and do any material substitutions (from CARBON_BUDGET_EXCEEDED) change lead times? This is the cross-track dependency the parallel fan-out cannot express today — it runs all three at once and merges, so a capacity cut never reaches the schedule.",
+      "allowedNext": ["GENERATE_REPORT", "STALE_INPUT_RECOVERY"]
+    },
+    {
+      "id": "GENERATE_REPORT",
+      "description": "Unified report: safety score + crane warnings, embodied carbon + alternatives, schedule impact, and an explicit list of any degraded tracks (from STALE_INPUT_RECOVERY). Read-only deliverable — no site instruction is issued by this graph, so no RED-zone gate applies.",
+      "allowedNext": ["END"]
+    },
+    {
+      "id": "PARKED",
+      "description": "Terminal for this run — assessment abandoned (site inaccessible, sensors down, shift cancelled). Re-enterable next shift.",
+      "allowedNext": []
+    },
+    {
+      "id": "END",
+      "description": "Terminal — assessment delivered.",
+      "allowedNext": []
+    }
+  ]
+}

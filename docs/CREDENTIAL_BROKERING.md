@@ -48,7 +48,12 @@ Maps a scope id to:
 - the env var that holds the upstream credential (`credentialEnv`)
 - how to attach the credential (`injectAuth`)
 
-Bundled providers: `anthropic`, `openrouter`, `groq`, `telegram`, `gmail`.
+Bundled providers: `anthropic`, `openrouter`, `groq`, `telegram`, `gmail`, `linkedin`.
+
+Social publish credentials (`LINKEDIN_ACCESS_TOKEN`, `LINKEDIN_AUTHOR_URN`,
+`FACEBOOK_PAGE_TOKEN`, …) are also listed in `SECRET_MAP` so the vault loader
+fills them at boot. Agents must use broker scope `linkedin` (path allowlist:
+`/v2/ugcPosts`, `/v2/userinfo`, `/rest/posts`) — never the raw token.
 
 ### 3. Capability tokens — `src/broker/capability-tokens.ts`
 

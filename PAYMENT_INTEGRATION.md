@@ -1,4 +1,5 @@
 # DWS IQ Platform - Payment Integration Strategy
+
 ## Revolut Business + PayPal Business
 
 **Document Version:** 1.1
@@ -14,13 +15,15 @@
 This Payment Integration plan is **APPROVED** for the V1.0 release.
 
 ### Payment Providers for V1.0:
-| Provider | Status | Priority |
-|----------|--------|----------|
-| **Revolut Business** | ✅ Confirmed | Primary (EU customers) |
-| **PayPal Business** | ✅ Confirmed | Secondary (Global customers) |
-| **Google Pay** | 🔄 Evaluate | Add if integration is straightforward |
+
+| Provider             | Status       | Priority                              |
+| -------------------- | ------------ | ------------------------------------- |
+| **Revolut Business** | ✅ Confirmed | Primary (EU customers)                |
+| **PayPal Business**  | ✅ Confirmed | Secondary (Global customers)          |
+| **Google Pay**       | 🔄 Evaluate  | Add if integration is straightforward |
 
 ### Google Pay Consideration:
+
 - Will evaluate Google Pay integration complexity during implementation
 - If easily integrated with existing Revolut/PayPal flow → Include in V1.0
 - If requires significant additional work → Defer to V1.1
@@ -30,10 +33,12 @@ This Payment Integration plan is **APPROVED** for the V1.0 release.
 ## 🏦 Existing Payment Infrastructure
 
 You already have:
+
 - ✅ **Revolut Business** (EU-focused, low fees)
 - ✅ **PayPal Business** (Global reach, buyer trust)
 
 This is a **strategic advantage** that saves you:
+
 - €500-1,000 setup costs (Stripe account)
 - 2-3 weeks integration time
 - Payment processor comparison research
@@ -76,12 +81,13 @@ This is a **strategic advantage** that saves you:
 
 ### Why Dual Provider?
 
-| Provider | Best For | Fees | Advantages |
-|----------|----------|------|------------|
-| **Revolut Business** | EU/EEA customers | 0.8% + €0.20 (cards), 0% (SEPA) | Low cost, instant SEPA, EUR native |
-| **PayPal Business** | Global customers | 2.9% + €0.35 | Buyer protection, global trust, 200+ countries |
+| Provider             | Best For         | Fees                            | Advantages                                     |
+| -------------------- | ---------------- | ------------------------------- | ---------------------------------------------- |
+| **Revolut Business** | EU/EEA customers | 0.8% + €0.20 (cards), 0% (SEPA) | Low cost, instant SEPA, EUR native             |
+| **PayPal Business**  | Global customers | 2.9% + €0.35                    | Buyer protection, global trust, 200+ countries |
 
 **Strategy:**
+
 - **Default to Revolut** for EU customers (Turner Construction, etc.)
 - **Fallback to PayPal** for non-EU or customers who prefer PayPal
 
@@ -91,11 +97,11 @@ This is a **strategic advantage** that saves you:
 
 ### Subscription Plans
 
-| Plan | Price | Agent Calls | Edge Devices | Support | Payment Methods |
-|------|-------|-------------|--------------|---------|----------------|
-| **Free** | €0/mo | 100/month | 0 | Community | N/A |
-| **Pro** | €499/mo | 10,000/month | 5 | Email | Revolut, PayPal |
-| **Enterprise** | €2,499/mo | Unlimited | 50+ | Dedicated Slack | Revolut, PayPal, Invoice |
+| Plan           | Price     | Agent Calls  | Edge Devices | Support            | Payment Methods          |
+| -------------- | --------- | ------------ | ------------ | ------------------ | ------------------------ |
+| **Free**       | €0/mo     | 100/month    | 0            | Community          | N/A                      |
+| **Pro**        | €499/mo   | 10,000/month | 5            | Email              | Revolut, PayPal          |
+| **Enterprise** | €2,499/mo | Unlimited    | 50+          | Dedicated WhatsApp | Revolut, PayPal, Invoice |
 
 ### Turner Construction Pilot (Custom)
 
@@ -113,22 +119,20 @@ This is a **strategic advantage** that saves you:
 
 ```typescript
 // backend/services/payments/revolut.ts
-import axios from 'axios'
+import axios from "axios";
 
-const REVOLUT_API_URL = 'https://b2b.revolut.com/api/1.0'
-const REVOLUT_API_KEY = process.env.REVOLUT_API_KEY
+const REVOLUT_API_URL = "https://b2b.revolut.com/api/1.0";
+const REVOLUT_API_KEY = process.env.REVOLUT_API_KEY;
 
 interface RevolutPaymentRequest {
-  amount: number
-  currency: 'EUR' | 'USD'
-  customer_email: string
-  description: string
-  redirect_url: string
+  amount: number;
+  currency: "EUR" | "USD";
+  customer_email: string;
+  description: string;
+  redirect_url: string;
 }
 
-export async function createRevolutPaymentLink(
-  req: RevolutPaymentRequest
-): Promise<string> {
+export async function createRevolutPaymentLink(req: RevolutPaymentRequest): Promise<string> {
   const response = await axios.post(
     `${REVOLUT_API_URL}/payment-requests`,
     {
@@ -136,38 +140,38 @@ export async function createRevolutPaymentLink(
       currency: req.currency,
       recipient_email: req.customer_email,
       description: req.description,
-      redirect_url: req.redirect_url
+      redirect_url: req.redirect_url,
     },
     {
       headers: {
-        'Authorization': `Bearer ${REVOLUT_API_KEY}`,
-        'Content-Type': 'application/json'
-      }
-    }
-  )
+        Authorization: `Bearer ${REVOLUT_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+    },
+  );
 
-  return response.data.payment_link
+  return response.data.payment_link;
 }
 
 // Webhook handler for Revolut
 export async function handleRevolutWebhook(payload: any) {
-  const { event_type, payment } = payload
+  const { event_type, payment } = payload;
 
-  if (event_type === 'payment.completed') {
+  if (event_type === "payment.completed") {
     // Update Supabase: user subscription activated
     await supabase
-      .from('users')
+      .from("users")
       .update({
-        subscription_tier: 'pro',
-        subscription_status: 'active',
-        subscription_expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
+        subscription_tier: "pro",
+        subscription_status: "active",
+        subscription_expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
       })
-      .eq('email', payment.customer_email)
+      .eq("email", payment.customer_email);
 
-    console.log(`✅ Revolut payment completed: ${payment.id}`)
+    console.log(`✅ Revolut payment completed: ${payment.id}`);
   }
 
-  return { status: 'ok' }
+  return { status: "ok" };
 }
 ```
 
@@ -177,96 +181,97 @@ export async function handleRevolutWebhook(payload: any) {
 
 ```typescript
 // backend/services/payments/paypal.ts
-import axios from 'axios'
+import axios from "axios";
 
-const PAYPAL_API_URL = process.env.NODE_ENV === 'production'
-  ? 'https://api-m.paypal.com'
-  : 'https://api-m.sandbox.paypal.com'
+const PAYPAL_API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://api-m.paypal.com"
+    : "https://api-m.sandbox.paypal.com";
 
-const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID
-const PAYPAL_SECRET = process.env.PAYPAL_SECRET
+const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
+const PAYPAL_SECRET = process.env.PAYPAL_SECRET;
 
 async function getPayPalAccessToken(): Promise<string> {
-  const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_SECRET}`).toString('base64')
+  const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_SECRET}`).toString("base64");
 
   const response = await axios.post(
     `${PAYPAL_API_URL}/v1/oauth2/token`,
-    'grant_type=client_credentials',
+    "grant_type=client_credentials",
     {
       headers: {
-        'Authorization': `Basic ${auth}`,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    }
-  )
+        Authorization: `Basic ${auth}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    },
+  );
 
-  return response.data.access_token
+  return response.data.access_token;
 }
 
 export async function createPayPalSubscription(
   plan_id: string,
-  user_email: string
+  user_email: string,
 ): Promise<string> {
-  const accessToken = await getPayPalAccessToken()
+  const accessToken = await getPayPalAccessToken();
 
   const response = await axios.post(
     `${PAYPAL_API_URL}/v1/billing/subscriptions`,
     {
       plan_id: plan_id, // 'dwsiq-pro-monthly'
       subscriber: {
-        email_address: user_email
+        email_address: user_email,
       },
       application_context: {
-        brand_name: 'DWS IQ Platform',
-        user_action: 'SUBSCRIBE_NOW',
-        return_url: 'https://app.lifetime.fi/subscribe/success',
-        cancel_url: 'https://app.lifetime.fi/subscribe/cancel'
-      }
+        brand_name: "DWS IQ Platform",
+        user_action: "SUBSCRIBE_NOW",
+        return_url: "https://app.lifetime.fi/subscribe/success",
+        cancel_url: "https://app.lifetime.fi/subscribe/cancel",
+      },
     },
     {
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json'
-      }
-    }
-  )
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    },
+  );
 
   // Return approval URL for user to complete subscription
-  return response.data.links.find((link: any) => link.rel === 'approve').href
+  return response.data.links.find((link: any) => link.rel === "approve").href;
 }
 
 // Webhook handler for PayPal
 export async function handlePayPalWebhook(payload: any) {
-  const { event_type, resource } = payload
+  const { event_type, resource } = payload;
 
-  if (event_type === 'BILLING.SUBSCRIPTION.ACTIVATED') {
+  if (event_type === "BILLING.SUBSCRIPTION.ACTIVATED") {
     // Update Supabase
     await supabase
-      .from('users')
+      .from("users")
       .update({
-        subscription_tier: 'pro',
-        subscription_status: 'active',
-        paypal_subscription_id: resource.id
+        subscription_tier: "pro",
+        subscription_status: "active",
+        paypal_subscription_id: resource.id,
       })
-      .eq('email', resource.subscriber.email_address)
+      .eq("email", resource.subscriber.email_address);
 
-    console.log(`✅ PayPal subscription activated: ${resource.id}`)
+    console.log(`✅ PayPal subscription activated: ${resource.id}`);
   }
 
-  if (event_type === 'BILLING.SUBSCRIPTION.CANCELLED') {
+  if (event_type === "BILLING.SUBSCRIPTION.CANCELLED") {
     // Downgrade to free tier
     await supabase
-      .from('users')
+      .from("users")
       .update({
-        subscription_tier: 'free',
-        subscription_status: 'cancelled'
+        subscription_tier: "free",
+        subscription_status: "cancelled",
       })
-      .eq('paypal_subscription_id', resource.id)
+      .eq("paypal_subscription_id", resource.id);
 
-    console.log(`⚠️  PayPal subscription cancelled: ${resource.id}`)
+    console.log(`⚠️  PayPal subscription cancelled: ${resource.id}`);
   }
 
-  return { status: 'ok' }
+  return { status: "ok" };
 }
 ```
 
@@ -381,7 +386,7 @@ export default function SubscribePage() {
 
   const plans = {
     pro: { price: 499, features: ['10K agent calls/month', '5 edge devices', 'Email support'] },
-    enterprise: { price: 2499, features: ['Unlimited calls', '50+ edge devices', 'Dedicated Slack'] }
+    enterprise: { price: 2499, features: ['Unlimited calls', '50+ edge devices', 'Dedicated WhatsApp'] }
   }
 
   const handleSubscribe = async () => {
@@ -486,22 +491,22 @@ export default function SubscribePage() {
 
 ### Revolut Business Fees (EU Customers)
 
-| Payment Type | Fee | Example (€499 plan) | Net Revenue |
-|--------------|-----|---------------------|-------------|
-| SEPA Transfer | 0% | €0 | €499 |
-| Debit Card (EU) | 0.8% + €0.20 | €4.19 | €494.81 |
-| Credit Card (EU) | 1.2% + €0.20 | €6.19 | €492.81 |
-| International Card | 2.8% + €0.20 | €14.17 | €484.83 |
+| Payment Type       | Fee          | Example (€499 plan) | Net Revenue |
+| ------------------ | ------------ | ------------------- | ----------- |
+| SEPA Transfer      | 0%           | €0                  | €499        |
+| Debit Card (EU)    | 0.8% + €0.20 | €4.19               | €494.81     |
+| Credit Card (EU)   | 1.2% + €0.20 | €6.19               | €492.81     |
+| International Card | 2.8% + €0.20 | €14.17              | €484.83     |
 
 **Average Fee:** ~1.5% (€7.49 per €499 transaction)
 
 ### PayPal Business Fees (Global)
 
-| Payment Type | Fee | Example (€499 plan) | Net Revenue |
-|--------------|-----|---------------------|-------------|
-| PayPal Balance | 2.9% + €0.35 | €14.82 | €484.18 |
-| Card (any) | 2.9% + €0.35 | €14.82 | €484.18 |
-| International | 3.9% + €0.35 | €19.81 | €479.19 |
+| Payment Type   | Fee          | Example (€499 plan) | Net Revenue |
+| -------------- | ------------ | ------------------- | ----------- |
+| PayPal Balance | 2.9% + €0.35 | €14.82              | €484.18     |
+| Card (any)     | 2.9% + €0.35 | €14.82              | €484.18     |
+| International  | 3.9% + €0.35 | €19.81              | €479.19     |
 
 **Average Fee:** ~3.2% (€15.82 per €499 transaction)
 
@@ -511,6 +516,7 @@ export default function SubscribePage() {
 - **Use PayPal for non-EU** → Global reach worth the extra fee
 
 **Annual Savings (20 EU customers):**
+
 - 20 customers × €499/mo × 12 months = €119,760 revenue
 - Revolut fees: €1,797 (1.5%)
 - PayPal fees: €3,832 (3.2%)
@@ -523,6 +529,7 @@ export default function SubscribePage() {
 ### Week 1: Payment Infrastructure Setup
 
 **Day 1-2: Revolut Business Configuration**
+
 ```bash
 # Generate Revolut API keys
 # 1. Log into Revolut Business portal
@@ -533,6 +540,7 @@ export default function SubscribePage() {
 ```
 
 **Day 3-4: PayPal Business Configuration**
+
 ```bash
 # Setup PayPal Developer Account
 # 1. Log into https://developer.paypal.com
@@ -543,6 +551,7 @@ export default function SubscribePage() {
 ```
 
 **Day 5: Test Payments**
+
 ```bash
 # Revolut Sandbox Testing
 curl -X POST https://sandbox.revolut.com/api/1.0/payment-requests \
@@ -594,19 +603,19 @@ PAYPAL_PLAN_ID_ENTERPRISE=P-...
 
 ### Monthly Recurring Revenue (MRR) Targets
 
-| Month | Target Customers | Avg Plan | MRR | Payment Mix |
-|-------|------------------|----------|-----|-------------|
-| **M3** | 1 (Turner) | Enterprise | €2,499 | Revolut invoice |
-| **M6** | 5 | Mixed | €7,495 | 80% Revolut, 20% PayPal |
-| **M12** | 20 | Mixed | €29,980 | 70% Revolut, 30% PayPal |
+| Month   | Target Customers | Avg Plan   | MRR     | Payment Mix             |
+| ------- | ---------------- | ---------- | ------- | ----------------------- |
+| **M3**  | 1 (Turner)       | Enterprise | €2,499  | Revolut invoice         |
+| **M6**  | 5                | Mixed      | €7,495  | 80% Revolut, 20% PayPal |
+| **M12** | 20               | Mixed      | €29,980 | 70% Revolut, 30% PayPal |
 
 ### Payment Processing Costs
 
 | Month | Revenue | Revolut Fees (1.5%) | PayPal Fees (3.2%) | Total Fees | Net Revenue |
-|-------|---------|---------------------|-------------------|-----------|-------------|
-| M3 | €2,499 | €37 | €0 | €37 | €2,462 |
-| M6 | €7,495 | €90 | €48 | €138 | €7,357 |
-| M12 | €29,980 | €315 | €288 | €603 | €29,377 |
+| ----- | ------- | ------------------- | ------------------ | ---------- | ----------- |
+| M3    | €2,499  | €37                 | €0                 | €37        | €2,462      |
+| M6    | €7,495  | €90                 | €48                | €138       | €7,357      |
+| M12   | €29,980 | €315                | €288               | €603       | €29,377     |
 
 **Annual Payment Processing Cost:** ~2% (€603 on €29,980 revenue)
 
@@ -617,11 +626,13 @@ PAYPAL_PLAN_ID_ENTERPRISE=P-...
 ### PCI DSS Compliance
 
 **Good news:** You don't need PCI DSS compliance because:
+
 - ✅ Revolut handles all card data (you never touch it)
 - ✅ PayPal handles all card data (you never touch it)
 - ✅ You only receive webhook notifications (no sensitive data)
 
 **Your responsibility:**
+
 - Secure webhook endpoints (HTTPS only)
 - Verify webhook signatures (prevent spoofing)
 - Store subscription IDs securely (Supabase RLS)
@@ -659,6 +670,7 @@ PAYPAL_PLAN_ID_ENTERPRISE=P-...
 **Ready to proceed?**
 
 I can create:
+
 1. **Complete payment integration code** (FastAPI + Next.js)
 2. **Webhook handler boilerplate** (Revolut + PayPal)
 3. **Subscription page UI** (ready to deploy)

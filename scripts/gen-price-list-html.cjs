@@ -34,27 +34,53 @@ const OUT_DIRS = [
   path.join(BASE, 'landing-pages/dws10-com/price-list/versions'),
 ];
 
+// Product groups (HIC 25.09.2026): tag or catalogue class, each with a soft theme colour.
 const LAYER_LABELS = {
-  solutions: '1. Customer solutions',
-  data: '2. Independent data products',
-  services: '3. Services and implementation',
-  hardware: '4. Hardware and infra SKUs',
+  sme: 'SME campaign products',
+  dwsiq: 'DWS IQ platform',
+  firehorse: 'Firehorse agents',
+  data: 'Independent data products',
+  services: 'Services, consulting and training',
+  hardware: 'Hardware and infrastructure',
+  other: 'Other products',
 };
-const LAYER_ORDER = ['solutions', 'data', 'services', 'hardware'];
+const LAYER_ORDER = ['sme', 'dwsiq', 'firehorse', 'data', 'services', 'hardware', 'other'];
+
+// Group tags name the section; attribute tags (Hardware, Sovereign, Air-Gapped, Sovereign Cloud)
+// render as chips next to the product name.
+const GROUP_TAGS = ['SME', 'DWS IQ', 'Firehorse'];
+
+// Long price notes run as one paragraph in the catalogue; break them at sentence ends that start
+// an ALL-CAPS heading (INCLUDED:, ACCEPTANCE KPI, …) so they read as paragraphs.
+function splitNote(t) {
+  return String(t)
+    .split(/(?<=[.)])\s+(?=[A-Z][A-Z ]{3,}[:(])/)
+    .map((x) => x.trim())
+    .filter(Boolean);
+}
 
 function commercialLayer(p, independentIds) {
   const id = p.id || '';
+  const tags = Array.isArray(p.tags) ? p.tags : [];
+  if (tags.includes('SME')) return 'sme';
+  if (tags.includes('DWS IQ')) return 'dwsiq';
+  if (tags.includes('Firehorse')) return 'firehorse';
   if (independentIds.has(id)) return 'data';
-  if (p.storeCategory === 'advisory' || id === 'LF-TRAIN-IND' || id === 'aws-consultancy') {
+  if (
+    p.storeCategory === 'advisory' ||
+    p.storeCategory === 'ai-cloud' ||
+    id === 'LF-TRAIN-IND' ||
+    id === 'LF-ONTOLOGY-PILOT'
+  ) {
     return 'services';
   }
   if (
     p.storeCategory === 'hardware' ||
-    /^(LF-K8S|LF-DOCA|LF-NIM|LF-GOV|LF-IPC|LF-FIPS|LF-CINCOZE)/.test(id)
+    /^(LF-K8S|LF-DOCA|LF-NIM|LF-GOV|LF-IPC|LF-FIPS|LF-CINCOZE|LF-SOV)/.test(id)
   ) {
     return 'hardware';
   }
-  return 'solutions';
+  return 'other';
 }
 
 // Per-category buyer notes rendered under the category table. Trusted constants —
@@ -145,13 +171,23 @@ function renderProductsTable(list) {
             ? '<span class="poa">Free / POA</span>'
             : p.price == null || !Number.isFinite(Number(p.price))
               ? '<span class="poa">Quote</span>'
-              : (p.startingPrice === true ? 'from ' : '') + eur(p.price);
-        const note = p.priceNote ? `<div class="note">${esc(p.priceNote)}</div>` : '';
+              : Number.isFinite(Number(p.priceMax)) && Number(p.priceMax) > Number(p.price)
+                ? eur(p.price) + '–' + eur(p.priceMax)
+                : (p.startingPrice === true ? 'from ' : '') + eur(p.price);
+        const note = p.priceNote
+          ? splitNote(p.priceNote)
+              .map((t) => `<div class="note">${esc(t)}</div>`)
+              .join('')
+          : '';
+        const tagChips = (p.tags || [])
+          .filter((t) => !GROUP_TAGS.includes(t))
+          .map((t) => `<span class="tag">${esc(t)}</span>`)
+          .join(' ');
         const caption = p.caption ? `<div class="caption">${esc(p.caption)}</div>` : '';
         return (
           '<tr>' +
           `<td class="id">${esc(p.id)}</td>` +
-          `<td class="name">${esc(p.name)}${caption}${note}</td>` +
+          `<td class="name">${esc(p.name)}${tagChips ? ` ${tagChips}` : ''}${caption}${note}</td>` +
           `<td class="price">${priceCell}</td>` +
           `<td class="unit">${esc(unitLabel(p))}</td>` +
           `<td class="sku">${esc(p.mpn || p.sku || '—')}</td>` +
@@ -225,12 +261,12 @@ function build(data) {
   const catsHtml = orderedCats
     .map(
       (c) =>
-        `<section class="cat"><h2>${esc(LAYER_LABELS[c] || c)} <small>(${buckets[c].length})</small></h2>${renderProductsTable(buckets[c])}${c === 'hardware' && CATEGORY_NOTES.hardware ? `<div class="notice">${CATEGORY_NOTES.hardware}</div>` : ''}</section>`,
+        `<section class="cat grp-${c}"><h2>${esc(LAYER_LABELS[c] || c)} <small>(${buckets[c].length})</small></h2>${renderProductsTable(buckets[c])}${c === 'hardware' && CATEGORY_NOTES.hardware ? `<div class="notice">${CATEGORY_NOTES.hardware}</div>` : ''}</section>`,
     )
     .join('\n');
 
   const renderedCount = orderedCats.reduce((n, c) => n + buckets[c].length, 0);
-  const countHtml = `<div class="notice">This snapshot lists <strong>${renderedCount}</strong> active public offers (Serious, Independent, or Supporting). BLUE and archived SKUs are omitted. Count is derived from the tables below.</div>`;
+  const countHtml = `<div class="notice">This snapshot lists <strong>${renderedCount}</strong> active public offers in six product groups. BLUE and archived SKUs are omitted. Count is derived from the tables below.</div>`;
   const subsHtml = '';
 
   const genStamp = new Date().toISOString();
@@ -256,10 +292,17 @@ h1{font-size:1.8rem;border-bottom:3px solid #fbbf24;padding-bottom:8px;margin-bo
 .meta-grid label{display:block;color:#64748b;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
 .meta-grid strong{color:#0f172a;font-size:.95rem}
 .notice{background:#fffbeb;border-left:4px solid #fbbf24;padding:12px 16px;margin-bottom:24px;font-size:.9rem}
-.cat{margin-bottom:32px;page-break-inside:avoid}
+.cat{margin-bottom:32px;page-break-inside:avoid;padding:14px 16px;border-radius:10px;border-left:4px solid #94a3b8}
+.grp-sme{background:#fef9ec;border-left-color:#f59e0b}
+.grp-dwsiq{background:#eff6ff;border-left-color:#3b82f6}
+.grp-firehorse{background:#fff4ed;border-left-color:#f97316}
+.grp-data{background:#effcf9;border-left-color:#14b8a6}
+.grp-services{background:#f5f3ff;border-left-color:#8b5cf6}
+.grp-hardware{background:#f8fafc;border-left-color:#64748b}
 h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:6px;margin-bottom:12px;font-size:1.15rem}
 h2 small{color:#64748b;font-weight:400;font-size:.85rem}
-.pl-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.pl-table{width:100%;border-collapse:collapse;font-size:.88rem;background:#fff}
+.tag{display:inline-block;font-size:.66rem;font-weight:700;padding:1px 7px;border-radius:999px;border:1px solid #94a3b8;color:#334155;background:#f1f5f9;margin-left:2px;vertical-align:middle}
 .pl-table th{background:#1e3a5f;color:#fff;text-align:left;padding:9px 12px;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em}
 .pl-table td{border-bottom:1px solid #e2e8f0;padding:10px 12px;vertical-align:top}
 .pl-table td.id,.pl-table td.sku{font-family:ui-monospace,Consolas,monospace;color:#555;font-size:.8rem;white-space:nowrap}
@@ -340,16 +383,60 @@ ${renderVat(pl.vatReference)}
 `;
 }
 
+// Released snapshots are evidence and never change (HIC 25.09.2026: "Price-list versiot ovat
+// tärkeitä evidenssiä joten ne pitää aina säästää"). config/truth/price-list-versions.json lists
+// every frozen snapshot with its sha256; this script refuses to overwrite one, and
+// validate-product-publication.mjs checks that each exists unchanged in both folders.
+const MANIFEST = path.join(BASE, 'config/truth/price-list-versions.json');
+function frozenVersions() {
+  if (!fs.existsSync(MANIFEST)) return new Set();
+  const m = JSON.parse(fs.readFileSync(MANIFEST, 'utf8'));
+  return new Set((m.versions || []).filter((v) => v.frozen).map((v) => v.version));
+}
+
+// --from-commit <sha>: rebuild a snapshot that was never saved, from the catalogue as it was at
+// that commit. Writes only when no snapshot exists for that version, and labels the page as a
+// reconstruction.
+function catalogueAt(sha) {
+  const { execFileSync } = require('child_process');
+  return execFileSync('git', ['show', `${sha}:dws10.com/config/products.json`], {
+    cwd: BASE,
+    encoding: 'utf8',
+    maxBuffer: 256 * 1024 * 1024,
+  });
+}
+
 function main() {
-  const raw = fs.readFileSync(SRC_JSON, 'utf8');
+  const i = process.argv.indexOf('--from-commit');
+  const fromCommit = i > -1 ? process.argv[i + 1] : null;
+  const raw = fromCommit ? catalogueAt(fromCommit) : fs.readFileSync(SRC_JSON, 'utf8');
   const data = JSON.parse(raw);
-  const version = (data.priceList && data.priceList.version) || 'unversioned';
+  const j = process.argv.indexOf('--as-version');
+  const version =
+    (fromCommit && j > -1 && process.argv[j + 1]) ||
+    (data.priceList && data.priceList.version) ||
+    data.priceVersion ||
+    'unversioned';
   const filename = `price-list-v${version}.html`;
-  const html = build(data);
+  let html = build(data);
+  if (fromCommit) {
+    html = html.replace(
+      '<body>',
+      `<body>\n<div class="notice"><strong>Reconstructed snapshot.</strong> No snapshot was saved when catalogue ${esc(version)} was current. This page was rebuilt on ${new Date().toISOString().slice(0, 10)} from dws10.com/config/products.json at commit ${esc(fromCommit)} with the current generator; layout and grouping are today's, prices and products are that version's.</div>`,
+    );
+  }
+  const frozen = frozenVersions();
 
   OUT_DIRS.forEach((dir) => {
     fs.mkdirSync(dir, { recursive: true });
     const out = path.join(dir, filename);
+    if (fs.existsSync(out) && (fromCommit || frozen.has(version))) {
+      console.error(
+        `[gen-price-list] REFUSED — ${path.relative(BASE, out)} is a saved snapshot (frozen evidence); not overwritten`,
+      );
+      process.exitCode = 1;
+      return;
+    }
     fs.writeFileSync(out, html, 'utf8');
     console.log(`[gen-price-list] wrote ${path.relative(BASE, out)} (${html.length} bytes)`);
   });

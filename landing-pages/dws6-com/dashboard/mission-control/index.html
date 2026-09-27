@@ -238,21 +238,46 @@
     <script src="/shared-assets/nav/ironclad-nav.js"></script>
     <div class="wrap">
       <header>
-        <h1>Mission Control</h1>
-        <p class="lede" id="authLine">Checking access…</p>
-        <div class="stats" id="stats" hidden>
-          <span><strong id="overdueCount">0</strong> overdue / open items</span>
-          <span>Nothing closes until you pick Hand to Grok or Take as HIC</span>
-          <span class="muted"
-            >Hand to Grok = anonymized/redacted only; raw threads → OpenCode local (EU)</span
+        <div style="display: flex; justify-content: space-between; align-items: flex-start">
+          <div>
+            <h1>Mission Control</h1>
+            <p class="lede" id="authLine">Checking access…</p>
+            <div class="stats" id="stats" hidden>
+              <span><strong id="overdueCount">0</strong> overdue / open items</span>
+              <span>Nothing closes until you pick Hand to Grok or Take as HIC</span>
+              <span class="muted"
+                >Hand to Grok = anonymized/redacted only; raw threads → OpenCode local (EU)</span
+              >
+              <span id="dataSource" class="muted"></span>
+            </div>
+          </div>
+          <a
+            href="/dashboard/learn/"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 6px;
+              color: var(--accent);
+              text-decoration: none;
+              padding: 10px 14px;
+              border: 1px solid var(--line);
+              white-space: nowrap;
+              margin-top: 8px;
+            "
           >
-          <span id="dataSource" class="muted"></span>
+            <span>📅</span> Today's Deadlines
+          </a>
         </div>
       </header>
 
       <section class="live" aria-label="Grok X daily input">
-        <label for="livePaste">Paste today’s Grok / X daily (not synced to Supabase yet)</label>
-        <textarea id="livePaste" placeholder="Paste live market note from Grok on X…"></textarea>
+        <label for="livePaste"
+          >Optional Grok / X note (Hilma + TED tender leads auto-load when signed in)</label
+        >
+        <textarea
+          id="livePaste"
+          placeholder="Paste a live market note from Grok on X if you want it on a centre…"
+        ></textarea>
         <div class="row">
           <select id="liveCentre" aria-label="Assign to centre">
             <option value="investor">Investor</option>
@@ -318,7 +343,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module">
-      import { getCurrentUser, getUserRole, getSupabaseClient } from "../../shared/js/supabase-client.js?v=20260917-mc-session";
+      import {
+        getCurrentUser,
+        getUserRole,
+        getSupabaseClient,
+      } from "../../shared/js/supabase-client.js?v=20260917-mc-session";
       import { handleOAuthCallback } from "../../shared/js/auth-handler.js?v=20260917-mc-session";
       import {
         CENTRES,
@@ -332,7 +361,9 @@
         addManualItem,
         setOverlay,
         getLiveInputs,
-      } from "./mission-control.js?v=20260917-mc-session";
+        safeTedHref,
+        safeHilmaHref,
+      } from "./mission-control.js?v=20260922-hilma-lane";
 
       let lastDownloadName = "mission-control-grok-overflow.md";
       let lastDownloadBody = "";
@@ -350,9 +381,13 @@
 
       const supabase = getSupabaseClient();
       let queue = await buildQueue(supabase);
-      const hasLive = queue.some((i) => i.source === "supabase");
-      document.getElementById("dataSource").textContent = hasLive
-        ? "Source: Supabase outreach_threads"
+      const hasThreads = queue.some((i) => i.source === "supabase");
+      const hasTed = queue.some((i) => i.source === "ted");
+      const sourceBits = [];
+      if (hasThreads) sourceBits.push("outreach_threads");
+      if (hasTed) sourceBits.push("TED leads (all industries)");
+      document.getElementById("dataSource").textContent = sourceBits.length
+        ? `Source: ${sourceBits.join(" + ")}`
         : "Source: Brief V2 seed (2026-08-24) + local";
 
       function render() {
@@ -380,6 +415,8 @@
               </h3>
               <div class="meta">${escapeHtml(item.status)} · ${escapeHtml(item.id)} · ${escapeHtml(item.source || "")}</div>
               <div class="meta">${escapeHtml(item.nextAction || "")}</div>
+              ${safeTedHref(item.tedUrl) ? `<div class="meta"><a href="${escapeAttr(safeTedHref(item.tedUrl))}" target="_blank" rel="noopener noreferrer">TED notice</a></div>` : ""}
+              ${safeHilmaHref(item.hilmaUrl) ? `<div class="meta"><a href="${escapeAttr(safeHilmaHref(item.hilmaUrl))}" target="_blank" rel="noopener noreferrer">Hilma notice</a>${item.relevanceScore != null ? ` · fit ${escapeHtml(item.relevanceScore)}/100` : ""}</div>` : ""}
               <div class="row">
                 <button type="button" class="btn btn-primary" data-grok="${escapeAttr(item.id)}">Hand to Grok</button>
                 <button type="button" class="btn" data-opencode="${escapeAttr(item.id)}">Open in OpenCode</button>

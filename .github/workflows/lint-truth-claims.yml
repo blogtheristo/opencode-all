@@ -1,3 +1,5 @@
+# Evidence: Tool=Claude Code 2.1.282 Model=anthropic/claude-opus-5-5 Agent=claude-code Date=2026-09-25
+# Audit trail: git log -- .github/workflows/lint-truth-claims.yml
 name: Truth-claims Lint
 
 # DWS Truth Standard §8 — PR-time drift gate.
@@ -15,12 +17,16 @@ on:
       - "**/*.txt"
   workflow_dispatch: {}
 
+concurrency:
+  group: truth-lint-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
 jobs:
   truth-lint:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]  # GHA cost (HIC 2026-09-25)
     steps:
       - uses: actions/checkout@v4
         with:

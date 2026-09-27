@@ -9,12 +9,14 @@
 ## Problem Statement
 
 **Current Situation:**
+
 - GitHub shows "workflow run failed" message
 - Manual investigation required
 - No automated debugging
 - Time wasted on repetitive fixes
 
 **Desired Solution:**
+
 - Automatic failure detection
 - AI-powered root cause analysis
 - Automated fix proposals
@@ -398,14 +400,14 @@ The trigger should:
 
 ## Notification Setup
 
-### Slack Notifications
+### WhatsApp / Webhook Notifications
 
 **Copy this to Copilot:**
 
 ```
-@workspace Set up Slack notifications for workflow failures.
+@workspace Set up WhatsApp or generic webhook notifications for workflow failures.
 
-When workflow fails, send Slack message with:
+When workflow fails, send a notification with:
 - Workflow name
 - Failure time
 - Error summary
@@ -414,11 +416,11 @@ When workflow fails, send Slack message with:
 - Quick actions (Trigger fix agent, View logs, Acknowledge)
 
 Create:
-- Slack webhook integration
+- NOTIFY_WEBHOOK_URL or WhatsApp Business Cloud API integration
 - Message formatter
 - Button actions handler
 
-Save to: .workflows/agents/slack-notifier.js
+Save to: .workflows/agents/webhook-notifier.js
 
 Message format:
 🚨 **Workflow Failed**
@@ -527,6 +529,7 @@ Save to: .workflows/dashboard/
 ## Quick Reference Commands
 
 ### Check Workflow Status
+
 ```bash
 # Today's failures
 node .workflows/agents/audit-agent.js --today
@@ -539,6 +542,7 @@ node .workflows/agents/audit-agent.js --workflow sync-site-content
 ```
 
 ### Trigger Fix Agent
+
 ```bash
 # Latest failure
 node .workflows/agents/fix-agent.js --latest
@@ -548,6 +552,7 @@ node .workflows/agents/fix-agent.js --audit audit-20251226-0930
 ```
 
 ### Manual Audit
+
 ```bash
 # Audit specific run
 node .workflows/agents/audit-agent.js --run-id 12345678
@@ -565,7 +570,8 @@ node .workflows/agents/audit-agent.js --run-id 12345678 --verbose
 GITHUB_TOKEN=ghp_xxxxxxxxxxxxx
 GITHUB_OWNER=blogtheristo
 GITHUB_REPO=dws6
-SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxx
+NOTIFY_WEBHOOK_URL=https://ntfy.sh/your-topic
+WHATSAPP_DEFAULT_RECIPIENT=+358401234567
 CLAUDE_API_KEY=sk-ant-xxxxxxxxxxxxx
 SMTP_HOST=smtp.gmail.com
 SMTP_USER=notifications@dws.com

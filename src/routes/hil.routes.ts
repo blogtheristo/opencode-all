@@ -74,7 +74,7 @@ router.get('/done/:token', async (req: Request, res: Response): Promise<void> =>
  * POST /api/hil/escalate
  *   Programmatic HIL escalation endpoint for agents.
  *   When an agent's confidence < 80%, it can call this to create an
- *   escalation record and notify a human via email (Slack planned).
+ *   escalation record and notify a human via email, webhook, or WhatsApp.
  *
  *   Body: { agentName, reason, confidence, context, channel?, recipient? }
  */

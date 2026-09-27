@@ -982,7 +982,19 @@ export class MemoryService {
       const data = (await response.json()) as {
         data: Array<{ embedding: number[] }>;
       };
-      return data.data[0].embedding;
+      const vector = data.data[0].embedding;
+      // Dimension guard: the memory pgvector columns are VECTOR(1536). Never
+      // let a wrong-dimension vector reach the DB (it would fail at insert/
+      // query time, or silently poison cosine search). Degrade to null.
+      const expected = Number.parseInt(process.env.EMBEDDING_DIMENSIONS || '1536', 10) || 1536;
+      if (vector.length !== expected) {
+        logger.error('Embedding dimension mismatch — skipping embedding', {
+          got: vector.length,
+          expected,
+        });
+        return null;
+      }
+      return vector;
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       logger.warn('Failed to generate embedding', { error: msg });

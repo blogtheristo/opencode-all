@@ -105,7 +105,7 @@ function checkNoMdInPublicPaths() {
 function checkNoHardcodedSecrets() {
   const secretPatterns = [
     { pattern: /sk-[a-zA-Z0-9]{20,}/, name: 'API secret key (sk-)' },
-    { pattern: /ghp_[a-zA-Z0-9]{20,}/, name: 'GitHub personal token (ghp_)' },
+    { pattern: /gh[pousr]_[A-Za-z0-9_]{20,}/, name: 'GitHub token (ghp_/gho_/ghu_/ghs_/ghr_; ghs_ may be ~520 chars)' },
     { pattern: /ghu_[a-zA-Z0-9]{20,}/, name: 'GitHub user token (ghu_)' },
     { pattern: /xoxb-[a-zA-Z0-9-]{20,}/, name: 'Slack bot token (xoxb-)' },
     { pattern: /AKIA[A-Z0-9]{12,}/, name: 'AWS access key (AKIA)' },

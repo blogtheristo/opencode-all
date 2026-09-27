@@ -1,164 +1,170 @@
 #!/usr/bin/env bash
+# Evidence: Tool=Claude Code (cloud) Agent=runner-hardening Date=2026-09-23
+# Audit trail: git log -- infrastructure/dgx-spark/setup-github-runner.sh
 # ============================================================================
-# DGX Spark — GitHub Actions Self-Hosted Runner Setup
+# DGX Spark — Hardened, Ephemeral GitHub Actions Runner Setup (v2)
 #
-# Installs and registers the GitHub Actions runner on DGX Spark so PR
-# checks (test, lint, audit, security, auto-fix) run locally on the
-# 20-core ARM64 machine instead of GitHub-hosted ubuntu-latest.
+# Replaces the v1 runner (setup-github-runner_OLD.sh), which ran PR jobs as
+# admin100 with access to ~/dws6/.env, SSH keys, Docker and sudo.
 #
-# Prerequisites:
-#   - first-boot.sh already run
-#   - gh CLI authenticated, or a registration token passed as $1
+# v2 model:
+#   - Dedicated system user `gh-runner`: no sudo, no docker group, no login.
+#   - Ephemeral: one job per JIT registration, all state wiped between jobs.
+#   - Long-lived PAT stays root-only (/etc/gh-runner/pat); jobs never see it.
+#   - Runner binaries root-owned and read-only to jobs.
+#   - systemd sandbox: read-only host, /home + /root hidden, no Docker socket,
+#     no new privileges, namespaces/syscalls restricted, CPU/RAM capped.
 #
-# Usage:
-#   # With gh CLI (auto-generates token):
-#   bash infrastructure/dgx-spark/setup-github-runner.sh
+# Why: CVE-2026-80521 and earlier 2026 kernel escapes. See
+#   docs/field-notes/2026-09-23-preloop-gha-to-dgx-evaluation.md §5a.
+# Limits: this does NOT fix the kernel. A kernel exploit from a job still
+#   reaches root. Patch the kernel as soon as Ubuntu ships the fix.
 #
-#   # With explicit token:
-#   bash infrastructure/dgx-spark/setup-github-runner.sh AARCXTE...
+# Prerequisite (HIC, once): fine-grained PAT scoped to blogtheristo/dws6 only,
+#   permission "Administration: Read and write". Store it:
+#     sudo install -d -m 0700 /etc/gh-runner
+#     sudo sh -c 'umask 077; cat > /etc/gh-runner/pat'   # paste, Ctrl-D
 #
-# Code-Version: 1.0.0
-# Date: 2026-05-22
+# Usage (on DGX Spark):
+#   sudo bash infrastructure/dgx-spark/setup-github-runner.sh
+#
+# Rollback:
+#   sudo systemctl disable --now github-runner runner-health
+#   mv /home/admin100/actions-runner_OLD /home/admin100/actions-runner
+#   sudo -u admin100 bash infrastructure/dgx-spark/setup-github-runner_OLD.sh
+#
+# Code-Version: 2.0.0
+# Date: 2026-09-23
 # Owner: Lifetime Oy
 # ============================================================================
 
 set -euo pipefail
 
-RUNNER_USER="admin100"
-RUNNER_DIR="/home/${RUNNER_USER}/actions-runner"
-RUNNER_VERSION="2.325.0"
+RUNNER_VERSION="${RUNNER_VERSION:-2.325.0}"
 REPO="blogtheristo/dws6"
-RUNNER_NAME="dgx-spark"
 LABELS="self-hosted,arm64,dgx-spark,ubuntu-24.04"
+RUNNER_GROUP_ID=1
+RUN_USER="gh-runner"
+BASE="/srv/gh-runner"
+RUNNER_DIR="${BASE}/runner"
+LIB_DIR="/usr/local/lib/gh-runner"
+CONF_DIR="/etc/gh-runner"
+PAT_FILE="${CONF_DIR}/pat"
+OLD_USER="admin100"
+OLD_DIR="/home/${OLD_USER}/actions-runner"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SRC="${SCRIPT_DIR}/gh-runner"
 
-if [ "$(whoami)" != "$RUNNER_USER" ]; then
-  echo "ERROR: This script must be run as ${RUNNER_USER}, not $(whoami)."
-  echo "The systemd user service and working directory are bound to ${RUNNER_USER}."
-  echo "Run:  sudo -u ${RUNNER_USER} bash $0 $*"
-  exit 1
-fi
-
-G='\033[0;32m'
-Y='\033[1;33m'
-N='\033[0m'
+G='\033[0;32m'; Y='\033[1;33m'; R='\033[0;31m'; N='\033[0m'
 log()  { echo -e "${G}[RUNNER]${N} $*"; }
 warn() { echo -e "${Y}[RUNNER]${N} $*"; }
+die()  { echo -e "${R}[RUNNER] FATAL:${N} $*" >&2; exit 1; }
 
-# Get registration token
-TOKEN="${1:-}"
-if [ -z "$TOKEN" ]; then
-  if command -v gh &>/dev/null; then
-    log "Generating registration token via gh CLI..."
-    TOKEN=$(gh api -X POST "repos/${REPO}/actions/runners/registration-token" --jq '.token')
-  else
-    echo "Usage: $0 <REGISTRATION_TOKEN>"
-    echo "Get token: gh api -X POST repos/${REPO}/actions/runners/registration-token --jq '.token'"
-    exit 1
+gh_api() { # method path  — PAT passed via fd, never on the command line
+  curl -fsS -X "$1" \
+    -H @<(printf 'Authorization: Bearer %s\n' "$(cat "$PAT_FILE")") \
+    -H 'Accept: application/vnd.github+json' \
+    -H 'X-GitHub-Api-Version: 2022-11-28' \
+    "https://api.github.com/$2"
+}
+
+# --- 1. Preflight ------------------------------------------------------------
+[ "$(id -u)" -eq 0 ] || die "run as root: sudo bash $0"
+[ "$(uname -m)" = "aarch64" ] || die "expected aarch64 (DGX Spark), got $(uname -m)"
+[ -f "$PAT_FILE" ] || die "missing $PAT_FILE (see Prerequisite in header)"
+[ "$(stat -c '%U:%a' "$PAT_FILE")" = "root:600" ] || die "$PAT_FILE must be root:600"
+for f in gh-runner-jitconfig.sh gh-runner-start.sh gh-runner-cleanup.sh \
+         github-runner.service runner-health.service; do
+  [ -f "${SRC}/$f" ] || die "missing ${SRC}/$f"
+done
+
+log "Installing host tools jobs rely on (jq, git, curl, netcat)..."
+apt-get install -y --no-install-recommends jq git curl ncat >/dev/null
+
+log "Checking PAT scope..."
+gh_api GET "repos/${REPO}/actions/runners" >/dev/null \
+  || die "PAT cannot list runners on ${REPO} (needs Administration: Read and write)"
+
+log "Kernel: $(uname -r) — the sandbox does not replace a kernel patch."
+
+# --- 2. Dedicated user -------------------------------------------------------
+if ! id "$RUN_USER" &>/dev/null; then
+  log "Creating system user ${RUN_USER}..."
+  useradd --system --home-dir "${BASE}/home" --no-create-home \
+    --shell /usr/sbin/nologin "$RUN_USER"
+fi
+for grp in sudo adm docker lxd admin100; do
+  if id -nG "$RUN_USER" | tr ' ' '\n' | grep -qx "$grp"; then
+    die "${RUN_USER} is in group '${grp}' — remove it: gpasswd -d ${RUN_USER} ${grp}"
   fi
-fi
+done
 
-# Download and extract runner
-mkdir -p "$RUNNER_DIR"
-cd "$RUNNER_DIR"
+# --- 3. Runner binaries (checksum-verified, root-owned) ----------------------
+TARBALL="actions-runner-linux-arm64-${RUNNER_VERSION}.tar.gz"
+log "Fetching checksum for runner v${RUNNER_VERSION}..."
+expected=$(curl -fsS "https://api.github.com/repos/actions/runner/releases/tags/v${RUNNER_VERSION}" \
+  | jq -r '.body' \
+  | sed -n 's/.*<!-- BEGIN SHA linux-arm64 -->\([0-9a-f]\{64\}\)<!-- END SHA linux-arm64 -->.*/\1/p' \
+  | head -1)
+[ -n "$expected" ] || die "could not read linux-arm64 SHA256 from release notes"
 
-if [ ! -f "run.sh" ]; then
-  log "Downloading runner v${RUNNER_VERSION} (ARM64)..."
-  curl -sL "https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-arm64-${RUNNER_VERSION}.tar.gz" -o runner.tar.gz
-  tar xzf runner.tar.gz
-  rm runner.tar.gz
-else
-  log "Runner already extracted"
-fi
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+curl -fsSL "https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/${TARBALL}" \
+  -o "${tmp}/${TARBALL}"
+echo "${expected}  ${tmp}/${TARBALL}" | sha256sum -c --quiet - || die "SHA256 mismatch"
 
-# Configure
-log "Configuring runner..."
-./config.sh --url "https://github.com/${REPO}" \
-  --token "$TOKEN" \
-  --name "$RUNNER_NAME" \
-  --labels "$LABELS" \
-  --work _work \
-  --replace \
-  --unattended
+log "Installing runner into ${RUNNER_DIR} (root-owned, read-only to jobs)..."
+rm -rf "$RUNNER_DIR"
+install -d -o root -g root -m 0755 "$BASE" "$RUNNER_DIR"
+tar xzf "${tmp}/${TARBALL}" -C "$RUNNER_DIR"
+( cd "$RUNNER_DIR" && env -i PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    HOME="${BASE}/home" ./env.sh >/dev/null )
+chown -R root:root "$RUNNER_DIR"
+chmod -R go-w "$RUNNER_DIR"
+install -d -o "$RUN_USER" -g "$RUN_USER" -m 0700 \
+  "${RUNNER_DIR}/_work" "${RUNNER_DIR}/_diag" "${BASE}/home"
 
-# Install as user-level systemd service (no sudo required)
-SYSTEMD_DIR="/home/${RUNNER_USER}/.config/systemd/user"
-log "Installing systemd service..."
-mkdir -p "$SYSTEMD_DIR"
+# --- 4. Config + helpers -----------------------------------------------------
+install -d -o root -g root -m 0700 "$CONF_DIR"
+cat > "${CONF_DIR}/runner.env" <<EOF
+REPO=${REPO}
+RUNNER_LABELS=${LABELS}
+RUNNER_GROUP_ID=${RUNNER_GROUP_ID}
+EOF
+chmod 0600 "${CONF_DIR}/runner.env"
 
-cat > "${SYSTEMD_DIR}/github-runner.service" << UNIT
-[Unit]
-Description=GitHub Actions Self-Hosted Runner (DGX Spark)
-After=network-online.target
-Wants=network-online.target
+install -d -o root -g root -m 0755 "$LIB_DIR"
+install -o root -g root -m 0755 "${SRC}/gh-runner-jitconfig.sh" "${SRC}/gh-runner-start.sh" \
+  "${SRC}/gh-runner-cleanup.sh" "${SCRIPT_DIR}/runner-health.sh" "$LIB_DIR/"
 
-[Service]
-Type=simple
-WorkingDirectory=${RUNNER_DIR}
-ExecStart=${RUNNER_DIR}/run.sh
-Restart=always
-RestartSec=5
-KillSignal=SIGTERM
-TimeoutStopSec=5min
-
-[Install]
-WantedBy=default.target
-UNIT
-
-loginctl enable-linger "$RUNNER_USER" 2>/dev/null || true
-
-# Install runner-health companion service (HTTP health probe on :9800)
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-HEALTH_SCRIPT="${SCRIPT_DIR}/runner-health.sh"
-
-if [ -f "$HEALTH_SCRIPT" ]; then
-  log "Installing runner-health companion service..."
-
-  if ! command -v nc &>/dev/null; then
-    warn "netcat (nc) not found — installing ncat..."
-    sudo apt-get install -y ncat 2>/dev/null || warn "Could not install ncat — runner-health may not work"
+# --- 5. Retire the v1 runner (admin100) --------------------------------------
+if [ -d "$OLD_DIR" ]; then
+  log "Retiring v1 runner in ${OLD_DIR}..."
+  systemctl --user -M "${OLD_USER}@" disable --now github-runner.service runner-health.service 2>/dev/null \
+    || warn "could not stop v1 user services (already stopped?)"
+  if [ -f "${OLD_DIR}/.runner" ]; then
+    rm_token=$(gh_api POST "repos/${REPO}/actions/runners/remove-token" | jq -r '.token')
+    ( cd "$OLD_DIR" && sudo -u "$OLD_USER" ./config.sh remove --token "$rm_token" ) \
+      || warn "v1 deregistration failed — remove runner 'dgx-spark' in GitHub Settings → Actions → Runners"
   fi
-
-  cp "$HEALTH_SCRIPT" "$RUNNER_DIR/runner-health.sh"
-  chmod +x "$RUNNER_DIR/runner-health.sh"
-
-  cat > "${SYSTEMD_DIR}/runner-health.service" << UNIT
-[Unit]
-Description=GitHub Actions Runner Health Probe (DGX Spark)
-After=github-runner.service
-BindsTo=github-runner.service
-
-[Service]
-Type=simple
-WorkingDirectory=${RUNNER_DIR}
-ExecStart=${RUNNER_DIR}/runner-health.sh
-Restart=always
-RestartSec=5
-
-[Install]
-WantedBy=default.target
-UNIT
-else
-  warn "runner-health.sh not found at ${HEALTH_SCRIPT} — skipping health probe"
+  mv "$OLD_DIR" "${OLD_DIR}_OLD"
+  log "v1 runner kept for rollback at ${OLD_DIR}_OLD"
 fi
 
-systemctl --user daemon-reload
-systemctl --user enable github-runner.service
-systemctl --user start github-runner.service
+# --- 6. systemd --------------------------------------------------------------
+install -o root -g root -m 0644 "${SRC}/github-runner.service" "${SRC}/runner-health.service" \
+  /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now runner-health.service
+systemctl enable --now github-runner.service
 
-# Start health probe if installed
-if [ -f "${SYSTEMD_DIR}/runner-health.service" ]; then
-  systemctl --user enable runner-health.service
-  systemctl --user start runner-health.service
-fi
-
-sleep 2
-systemctl --user status github-runner.service --no-pager || true
-systemctl --user status runner-health.service --no-pager 2>/dev/null || true
-
+sleep 5
+systemctl status github-runner.service --no-pager || true
 log ""
-log "=== Runner Setup Complete ==="
-log "Name:   $RUNNER_NAME"
-log "Labels: $LABELS"
-log "Status: systemctl --user status github-runner.service"
-log "Health: systemctl --user status runner-health.service"
-log "Logs:   journalctl --user -u github-runner -f"
+log "=== Hardened runner installed ==="
+log "Labels:  ${LABELS} (workflows unchanged)"
+log "Status:  systemctl status github-runner runner-health"
+log "Logs:    journalctl -u github-runner -f"
+log "Audit:   systemd-analyze security github-runner.service"
+log "Verify:  re-run one PR check per workflow on [self-hosted, dgx-spark]"

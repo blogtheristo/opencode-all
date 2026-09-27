@@ -21,6 +21,9 @@ const SKIP = new Set([
   'claude-code-coaching-sv.html',
   'claude-code-coaching-de.html',
   'claude-code-coaching-fr.html',
+  // Hand-translated FI pages (HIC 2026-09-23); machine output would overwrite them.
+  'lifetime-web-starter.html',
+  'lifetime-webstore-mini.html',
 ]);
 
 function listMasters() {

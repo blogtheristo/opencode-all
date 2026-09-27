@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DWS6 Learning Hub — HIC Navigation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0c1222;
+        --panel: #141c2e;
+        --line: #2a3548;
+        --text: #e8eef7;
+        --muted: #8b9bb4;
+        --accent: #7dd3c0;
+        --warn: #e8a87c;
+        --success: #7dd3c0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        background: linear-gradient(135deg, #0c1222 0%, #1a2740 100%);
+        color: var(--text);
+        min-height: 100vh;
+        padding: 20px;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      header {
+        margin-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 20px;
+      }
+      h1 {
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 0 8px;
+        letter-spacing: -0.02em;
+      }
+      .meta {
+        display: flex;
+        gap: 16px;
+        font-size: 0.9rem;
+        color: var(--muted);
+        margin: 8px 0;
+        flex-wrap: wrap;
+      }
+      .meta span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .meta strong {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .tagline {
+        font-size: 1.1rem;
+        color: var(--text);
+        margin: 12px 0 0;
+        line-height: 1.5;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 20px;
+        margin-bottom: 32px;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        padding: 20px;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card h2 {
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin: 0 0 8px;
+        color: var(--accent);
+      }
+
+      .card .subtitle {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-bottom: 12px;
+      }
+
+      .card .desc {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: var(--text);
+        margin-bottom: 12px;
+        flex: 1;
+      }
+
+      .card .learn {
+        font-size: 0.85rem;
+        padding: 8px 0;
+        margin: 8px 0;
+        border-top: 1px solid var(--line);
+        color: var(--accent);
+      }
+
+      .card .improve {
+        font-size: 0.85rem;
+        color: var(--warn);
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .link-btn {
+        display: inline-block;
+        padding: 6px 12px;
+        background: rgba(125, 211, 192, 0.1);
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.8rem;
+        border-radius: 2px;
+        transition: all 0.2s;
+      }
+
+      .link-btn:hover {
+        background: rgba(125, 211, 192, 0.2);
+      }
+
+      .section {
+        margin-bottom: 32px;
+      }
+
+      .section h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0 0 16px;
+        color: var(--accent);
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 8px;
+      }
+
+      .doc-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .doc-item {
+        padding: 12px;
+        background: rgba(20, 28, 46, 0.5);
+        border-left: 2px solid var(--accent);
+        border-radius: 2px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .doc-item .name {
+        font-weight: 500;
+      }
+
+      .doc-item .version {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        background: var(--line);
+        color: var(--muted);
+        font-size: 0.75rem;
+        border-radius: 2px;
+        margin-right: 8px;
+      }
+
+      .badge.latest {
+        background: rgba(125, 211, 192, 0.2);
+        color: var(--accent);
+      }
+
+      footer {
+        margin-top: 48px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>DWS6 Learning Hub</h1>
+        <div class="meta">
+          <span><strong>Version:</strong> 1.0</span>
+          <span><strong>Date:</strong> 2026-09-19</span>
+          <span><strong>Status:</strong> [Latest]</span>
+          <span><strong>Agent:</strong> Claude Code (Haiku 4.5)</span>
+        </div>
+        <p class="tagline">
+          Curated entry points for the HIC to navigate thesis research, operational standards, and
+          strategic signals across the Firehorse operating model.
+        </p>
+      </header>
+
+      <div class="grid">
+        <div class="card">
+          <h2>Master's Thesis</h2>
+          <div class="subtitle">Product & Implementation Evidence</div>
+          <div class="desc">
+            V3Thesis_EN (4.11) — Engineering-focused documentation of Firehorse product
+            manufacturing operating model, architecture decisions, and implementation evidence.
+          </div>
+          <div class="learn">📖 Learn: Product architecture spanning hybrid AI-edge deployment</div>
+          <div class="improve">⚡ Improve: Add quantitative deployment metrics (uptime, latency, cost/tx)</div>
+          <div class="links">
+            <a href="./V3Thesis_EN_v4.11.html" class="link-btn">English v4.11</a>
+            <a href="./V3Thesis_FI_v4.11.html" class="link-btn">Suomi v4.11</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Doctoral Programme</h2>
+          <div class="subtitle">Scientific Framing & Market Signals</div>
+          <div class="desc">
+            PHD_FIREHORSE_EN (4.11) — 3–7 year horizon research into AI-native operations, sovereign
+            compute, and marketplace positioning. Market signals, regulatory pipeline, and Key
+            Contributions.
+          </div>
+          <div class="learn">📖 Learn: Market dynamics and scientific rationale for design choices</div>
+          <div class="improve">⚡ Improve: Quantify first-person data moat (training sample velocity)</div>
+          <div class="links">
+            <a href="./PHD_FIREHORSE_EN_v4.11.html" class="link-btn">English v4.11</a>
+            <a href="./PHD_FIREHORSE_FI_v4.11.html" class="link-btn">Suomi v4.11</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Cost Governance</h2>
+          <div class="subtitle">DGX-First Agentic Compute Policy</div>
+          <div class="desc">
+            DWS_COST_POLICY_STANDARD.md — Policy enforcement across Cursor, Grok, Claude Code, and
+            OpenCode. Free-credit window (21 days), DGX mandate post-Day 21, audit trail, and
+            workload discovery.
+          </div>
+          <div class="learn">📖 Learn: Cost cliff avoidance and compute optimization strategy</div>
+          <div class="improve">⚡ Improve: Automate DGX workload routing for token-heavy tasks</div>
+          <div class="links">
+            <a
+              href="https://github.com/blogtheristo/dws6/blob/claude/cursor-dws-audit-zl8ts1/docs/DWS_COST_POLICY_STANDARD.md"
+              class="link-btn"
+              >Policy (GitHub)</a
+            >
+            <a
+              href="https://github.com/blogtheristo/dws6/blob/claude/cursor-dws-audit-zl8ts1/scripts/dgx-workload-queue.sh"
+              class="link-btn"
+              >Sandbox Queue</a
+            >
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Evidence Header Standard</h2>
+          <div class="subtitle">EU AI Act Art. 12–14 Compliance</div>
+          <div class="desc">
+            EVIDENCE_HEADER_STANDARD.md — Standardized provenance headers for all file types. Tool,
+            Model, Agent, Date in normalized syntax per file type (TS/JS, Python, SQL, Markdown,
+            HTML, YAML, Bash).
+          </div>
+          <div class="learn">📖 Learn: Transparency requirements and audit trail mechanization</div>
+          <div class="improve">⚡ Improve: Enforce headers on 2,000+ files (currently 1.5% compliant)</div>
+          <div class="links">
+            <a
+              href="https://github.com/blogtheristo/dws6/blob/claude/cursor-dws-audit-zl8ts1/docs/EVIDENCE_HEADER_STANDARD.md"
+              class="link-btn"
+              >Standard</a
+            >
+            <a
+              href="https://github.com/blogtheristo/dws6/blob/claude/cursor-dws-audit-zl8ts1/scripts/evidence-audit.mjs"
+              class="link-btn"
+              >Audit</a
+            >
+            <a
+              href="https://github.com/blogtheristo/dws6/blob/claude/cursor-dws-audit-zl8ts1/scripts/evidence-fix.mjs"
+              class="link-btn"
+              >Auto-Fix</a
+            >
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Session Learning Outcome</h2>
+          <div class="subtitle">EU AI Act Art. 14 Enforcement</div>
+          <div class="desc">
+            Six-step mandatory checklist for all cursor sessions: KB update, field note, Learn/
+            HTML render, Drive export, HIC decision, calendar commitments. Integrated into PR
+            template.
+          </div>
+          <div class="learn">📖 Learn: Structured handoff and oversight practices</div>
+          <div class="improve">⚡ Improve: Automate KB linking and field note templating</div>
+          <div class="links">
+            <a
+              href="https://github.com/blogtheristo/dws6/blob/claude/cursor-dws-audit-zl8ts1/.github/pull_request_template.md"
+              class="link-btn"
+              >PR Template</a
+            >
+            <a
+              href="https://github.com/blogtheristo/dws6/tree/claude/cursor-dws-audit-zl8ts1/docs/field-notes"
+              class="link-btn"
+              >Field Notes</a
+            >
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Mission Control Dashboard</h2>
+          <div class="subtitle">Operations Cost Visibility</div>
+          <div class="desc">
+            Cost audit review for HIC. Real-time chart (7-day DGX vs. Cloud), CSV export, role-based
+            access (admin@dws6.com, risto.paarni2024@lifetime.fi, admin@dws10.com).
+          </div>
+          <div class="learn">📖 Learn: Compute allocation and cost optimization at a glance</div>
+          <div class="improve">⚡ Improve: Connect to Supabase for persistent cost tracking</div>
+          <div class="links">
+            <a href="../../landing-pages/dws6-com/dashboard/mission-control/index.html" class="link-btn"
+              >Dashboard</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Latest Cursor Session Outputs (2026-09-19)</h3>
+        <div class="doc-list">
+          <div class="doc-item">
+            <div>
+              <span class="badge latest">v4.11</span>
+              <span class="name">Thesis VERSION lockstep</span>
+            </div>
+            <div class="version">All 4 thesis files synchronized</div>
+          </div>
+          <div class="doc-item">
+            <div>
+              <span class="badge">Policy</span>
+              <span class="name">DWS_COST_POLICY_STANDARD.md</span>
+            </div>
+            <div class="version">DGX-first mandate, 21-day window, audit trail</div>
+          </div>
+          <div class="doc-item">
+            <div>
+              <span class="badge">Standards</span>
+              <span class="name">EVIDENCE_HEADER_STANDARD.md</span>
+            </div>
+            <div class="version">Comprehensive provenance spec for all file types</div>
+          </div>
+          <div class="doc-item">
+            <div>
+              <span class="badge">Script</span>
+              <span class="name">dgx-workload-queue.sh</span>
+            </div>
+            <div class="version">Token-heavy task routing to DGX (translation, batch ops)</div>
+          </div>
+          <div class="doc-item">
+            <div>
+              <span class="badge">Infrastructure</span>
+              <span class="name">Mission Control Cost Review</span>
+            </div>
+            <div class="version">Dashboard + API endpoints for cost audit visualization</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Quick Navigation</h3>
+        <div class="doc-list">
+          <div class="doc-item">
+            <a href="https://github.com/blogtheristo/dws6" class="name">GitHub Repository</a>
+            <div class="version">blogtheristo/dws6</div>
+          </div>
+          <div class="doc-item">
+            <a href="https://github.com/blogtheristo/dws6/tree/claude/cursor-dws-audit-zl8ts1"
+              class="name"
+              >Audit Branch</a
+            >
+            <div class="version">claude/cursor-dws-audit-zl8ts1</div>
+          </div>
+          <div class="doc-item">
+            <a href="./index.html" class="name">Learn/ Directory Index</a>
+            <div class="version">All rendered documents (170+ files)</div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <p>
+          <strong>Version 1.0 [Latest]</strong> · Tool: Claude Code 1.0 · Model: claude-haiku-4.5 ·
+          Agent: learning-hub-curator · Date: 2026-09-19
+        </p>
+        <p style="margin: 8px 0 0;">
+          HIC navigation hub for Lifetime Oy doctoral programme, product thesis, and operational
+          standards. All links point to canonical sources or rendered Learn/ exports.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

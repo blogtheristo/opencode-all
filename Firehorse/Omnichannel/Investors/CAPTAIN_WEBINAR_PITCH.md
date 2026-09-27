@@ -64,7 +64,7 @@
    - "This is what arrives at 6 AM every day. No login required. No dashboard to check."
 4. **Cost comparison:** EUR 15-50/month infrastructure vs. EUR 150-500k/year consultant + manual reporting
 
-**Key message:** "The platform runs on less than your team's monthly Slack bill. The intelligence it produces replaces a 3-person compliance team's quarterly output."
+**Key message:** "The platform runs on less than a typical monthly SaaS chat bill. The intelligence it produces replaces a 3-person compliance team's quarterly output."
 
 **Transition:** "Now, who builds this for your specific industry?"
 

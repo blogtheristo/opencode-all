@@ -1,9 +1,10 @@
+// Evidence: Tool=Claude Code Model=anthropic/claude-opus-5-5 Agent=claude-code Date=2026-09-27
+// Audit trail: git log -- src/routes/b2b-payment.routes.ts
 import { type NextFunction, type Request, type Response, Router } from 'express';
 import { supabase } from '../services/supabase.service.js';
 import { requireAuth } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';
 import Stripe from 'stripe';
-import { sendPaymentConfirmationEmail } from '../services/billing.service.js';
 
 const router = Router();
 let stripeClient: Stripe | null = null;
@@ -333,77 +334,35 @@ router.post(
 );
 
 /**
- * POST /api/v1/payments/webhook
- * Handle Revolut + Stripe webhooks
+ * POST /api/v1/b2b/webhook
+ *
+ * Unsigned endpoint: it must never change billing state. Stripe invoice events
+ * (invoice.payment_succeeded, invoice.marked_uncollectible) are accepted only
+ * at the signed /webhooks/stripe route (stripe-webhook.routes.ts), which checks
+ * the Stripe HMAC signature, timestamp and idempotency. Before 27.09.2026 this
+ * route marked an order paid for any caller who knew its stripe_invoice_id.
  */
-router.post('/webhook', async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { type, payment_id, invoice_id } = req.body;
+const STRIPE_INVOICE_EVENTS = new Set([
+  'invoice.payment_succeeded',
+  'invoice.marked_uncollectible',
+]);
 
-    logger.info('Payment webhook received', { type, payment_id, invoice_id });
+router.post('/webhook', (req: Request, res: Response) => {
+  const { type, payment_id } = (req.body ?? {}) as { type?: unknown; payment_id?: unknown };
 
-    if (type === 'payment.success' && payment_id) {
-      // Handle Revolut payment success (already handled in confirm-deposit endpoint)
-      logger.info('Revolut payment success acknowledged', { payment_id });
-    } else if (type === 'invoice.payment_succeeded' && invoice_id) {
-      // Handle Stripe invoice payment
-      const { data: order, error: orderError } = await supabase
-        .from('orders')
-        .select('*')
-        .eq('stripe_invoice_id', invoice_id)
-        .single();
-
-      if (orderError) {
-        logger.warn('Order not found for Stripe invoice', { invoice_id });
-        return res.status(404).json({ error: 'Order not found' });
-      }
-
-      // Mark order as paid
-      const { error: updateError } = await supabase.rpc('mark_order_paid', {
-        p_order_id: order.id,
-      });
-
-      if (updateError) {
-        logger.error('Failed to mark order paid', { error: updateError, orderId: order.id });
-        return res.status(500).json({ error: 'Failed to mark order paid' });
-      }
-
-      logger.info('Order marked as paid', { orderId: order.id, invoiceId: invoice_id });
-
-      await sendPaymentConfirmationEmail(order);
-    } else if (type === 'invoice.marked_uncollectible' && invoice_id) {
-      // Handle Stripe invoice failure
-      const { data: order } = await supabase
-        .from('orders')
-        .select('*')
-        .eq('stripe_invoice_id', invoice_id)
-        .single();
-
-      if (order) {
-        logger.warn('Stripe invoice marked uncollectible', {
-          orderId: order.id,
-          invoiceId: invoice_id,
-        });
-        // TODO: Notify admin, send customer reminder email
-        try {
-          // This would use sendEmail and notification services
-          logger.info('Admin notification + customer reminder placeholder (not implemented)', {
-            order_id: order.id,
-            invoice_id: invoice_id,
-          });
-        } catch (error) {
-          logger.error('Failed to notify admin and remind customer', {
-            error,
-            order_id: order.id,
-          });
-        }
-      }
-    }
-
-    return res.json({ success: true });
-  } catch (err) {
-    return next(err);
+  if (typeof type === 'string' && STRIPE_INVOICE_EVENTS.has(type)) {
+    logger.warn('Rejected unsigned Stripe invoice event on /api/v1/b2b/webhook', { type });
+    return res.status(410).json({
+      error: 'Stripe invoice events are accepted only at the signed /webhooks/stripe endpoint.',
+    });
   }
+
+  if (type === 'payment.success' && typeof payment_id === 'string') {
+    // Revolut payment success is handled by the confirm-deposit endpoint; acknowledge only.
+    logger.info('Revolut payment success acknowledged', { payment_id });
+  }
+
+  return res.json({ success: true });
 });
 
 export default router;

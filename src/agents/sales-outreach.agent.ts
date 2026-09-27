@@ -17,7 +17,7 @@
  *   senderName:        Sales rep name
  *   senderCompany:     "Lifetime Oy" or "DWS"
  *   emailStyle:        "professional" | "cold" | "consultative"
- *   maxCompanies:      Number of companies to target (1-10)
+ *   maxCompanies:      Number of companies to target (1-25; all-industry defaults to 25)
  * }
  *
  * Output: List of target companies with contacts, research insights, and draft emails
@@ -92,12 +92,206 @@ const BUYER_PERSONAS = [
   'CTO / Head of Digital (AI/automation)',
 ];
 
+/**
+ * One public EU company per canonical industry (INDUSTRIES.md 1–25).
+ * Names/sites from public registries — not a send list, not invented tenders.
+ */
+const ALL_INDUSTRY_SEED_COMPANIES: TargetCompany[] = [
+  {
+    name: 'Fortum',
+    website: 'fortum.com',
+    whyFit: 'Nordic power & heat, ETS generation, RED III / CSRD',
+    industry: 'Power & Heat Generation',
+  },
+  {
+    name: 'SSAB',
+    website: 'ssab.com',
+    whyFit: 'Steel, EU ETS + CBAM, fossil-free steel transition',
+    industry: 'Iron & Steel Production',
+  },
+  {
+    name: 'Heidelberg Materials',
+    website: 'heidelbergmaterials.com',
+    whyFit: 'Cement/lime, ETS top emitter, CBAM, CCUS',
+    industry: 'Cement & Lime Production',
+  },
+  {
+    name: 'Kemira',
+    website: 'kemira.com',
+    whyFit: 'Chemicals, ETS process emissions, CSRD',
+    industry: 'Chemicals & Petrochemicals',
+  },
+  {
+    name: 'Finnair',
+    website: 'finnair.com',
+    whyFit: 'Aviation ETS, ReFuelEU SAF blending',
+    industry: 'Aviation',
+  },
+  {
+    name: 'A.P. Moller-Maersk',
+    website: 'maersk.com',
+    whyFit: 'Maritime ETS, FuelEU Maritime intensity',
+    industry: 'Maritime Shipping',
+  },
+  {
+    name: 'Posti Group',
+    website: 'posti.com',
+    whyFit: 'Road logistics, ETS2 fleet, CSRD Scope 3',
+    industry: 'Road Transport & Logistics',
+  },
+  {
+    name: 'NCC',
+    website: 'ncc.com',
+    whyFit: 'Nordic construction, EN 15978 / EPBD / CSRD',
+    industry: 'Construction & Buildings',
+  },
+  {
+    name: 'Valio',
+    website: 'valio.com',
+    whyFit: 'Agriculture/livestock supply chain, ESR / CSRD FLAG',
+    industry: 'Agriculture & Livestock',
+  },
+  {
+    name: 'Lassila & Tikanoja',
+    website: 'lt.fi',
+    whyFit: 'Waste & recycling, WtE methane / circular metrics',
+    industry: 'Waste Management & Recycling',
+  },
+  {
+    name: 'Norsk Hydro',
+    website: 'hydro.com',
+    whyFit: 'Aluminium smelting, CBAM indirect electricity',
+    industry: 'Aluminium Production',
+  },
+  {
+    name: 'UPM-Kymmene',
+    website: 'upm.com',
+    whyFit: 'Pulp & paper, ETS mill, LULUCF / CSRD',
+    industry: 'Pulp, Paper & Printing',
+  },
+  {
+    name: 'Neste',
+    website: 'neste.com',
+    whyFit: 'Petroleum refining + renewable fuels, ETS / RED III',
+    industry: 'Petroleum Refining',
+  },
+  {
+    name: 'Fazer',
+    website: 'fazer.com',
+    whyFit: 'Food processing, Scope 3 agriculture, CSRD',
+    industry: 'Food & Beverage Processing',
+  },
+  {
+    name: 'Saint-Gobain',
+    website: 'saint-gobain.com',
+    whyFit: 'Glass & ceramics, ETS furnaces, CBAM materials',
+    industry: 'Glass & Ceramics Production',
+  },
+  {
+    name: 'Boliden',
+    website: 'boliden.com',
+    whyFit: 'Mining & quarrying, CRM Act / CSRD',
+    industry: 'Mining & Quarrying',
+  },
+  {
+    name: 'Kojamo',
+    website: 'kojamo.fi',
+    whyFit: 'Residential real estate, EPBD / Taxonomy portfolios',
+    industry: 'Real Estate',
+  },
+  {
+    name: 'Valmet',
+    website: 'valmet.com',
+    whyFit: 'Cross-sector manufacturing, ESPR / energy systems',
+    industry: 'Manufacturing (cross-sector)',
+  },
+  {
+    name: 'Terveystalo',
+    website: 'terveystalo.com',
+    whyFit: 'Healthcare facilities, CSRD / ESRS S1',
+    industry: 'Healthcare',
+  },
+  {
+    name: 'Nordea',
+    website: 'nordea.com',
+    whyFit: 'Financial services, SFDR / PCAF financed emissions',
+    industry: 'Financial Services',
+  },
+  {
+    name: 'Hansel',
+    website: 'hansel.fi',
+    whyFit: 'Finnish central purchasing, GPP / public-sector tenders',
+    industry: 'Public Sector',
+  },
+  {
+    name: 'Meyer Turku',
+    website: 'meyerturku.fi',
+    whyFit: 'Shipbuilding, vessel LCA / FuelEU build-phase',
+    industry: 'Shipbuilding',
+  },
+  {
+    name: 'VR Group',
+    website: 'vrgroup.fi',
+    whyFit: 'Multimodal freight, CountEmissionsEU / ISO 14083',
+    industry: 'Logistics (multimodal freight)',
+  },
+  {
+    name: 'Equinix',
+    website: 'equinix.com',
+    whyFit: 'Data centres, EED Annex VII PUE/WUE reporting',
+    industry: 'Data Centres',
+  },
+  {
+    name: 'P2X Solutions',
+    website: 'p2x.fi',
+    whyFit: 'RFNBO / green hydrogen, RED III additionality',
+    industry: 'RFNBO / Green H2 & E-Fuels',
+  },
+];
+
+function wantsAllIndustries(description: string): boolean {
+  const d = description.toLowerCase();
+  return (
+    d.includes('all 25') ||
+    d.includes('25 eu') ||
+    d.includes('all industries') ||
+    d.includes('kaikki') ||
+    d.includes('kaikilta toimial') ||
+    d.includes('every industry')
+  );
+}
+
+function pickSeedCompanies(input: SalesOutreachInput): TargetCompany[] {
+  const desc = input.targetDescription.toLowerCase();
+  if (wantsAllIndustries(input.targetDescription)) {
+    const seen = new Set<string>();
+    const diverse: TargetCompany[] = [];
+    for (const c of ALL_INDUSTRY_SEED_COMPANIES) {
+      if (seen.has(c.industry)) continue;
+      seen.add(c.industry);
+      diverse.push(c);
+      if (diverse.length >= input.maxCompanies) break;
+    }
+    return diverse;
+  }
+
+  const ranked = ALL_INDUSTRY_SEED_COMPANIES.map((c) => ({
+    ...c,
+    relevance: [c.industry.toLowerCase(), c.whyFit.toLowerCase(), c.name.toLowerCase()].filter(
+      (s) => desc.includes(s) || s.includes(desc.split(' ')[0] || ''),
+    ).length,
+  })).sort((a, b) => b.relevance - a.relevance);
+  return ranked.slice(0, input.maxCompanies);
+}
+
 /** DWS product value propositions */
 const VALUE_PROPS: Record<string, string> = {
-  'dws-iq6': 'AI-powered climate compliance automation covering ETS, CBAM, CSRD across 16 EU industries',
+  'dws-iq6':
+    'AI-powered climate compliance automation covering ETS, CBAM, CSRD across 25 EU-regulated industries',
   'firehorse-reports': 'Automated sustainability reporting with EN 15978 lifecycle assessment',
-  'firehorse-automation': 'Workflow automation for emissions monitoring, MRV, and regulatory submissions',
-  'sitesense': 'Edge AI for construction site monitoring - safety scoring and weather risk analysis',
+  'firehorse-automation':
+    'Workflow automation for emissions monitoring, MRV, and regulatory submissions',
+  sitesense: 'Edge AI for construction site monitoring - safety scoring and weather risk analysis',
   'material-oracle': 'Carbon footprint analysis with low-carbon material alternatives',
 };
 
@@ -122,10 +316,7 @@ export class SalesOutreachAgent extends BaseAgent {
     });
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
 
     await this.logExecution({
@@ -227,7 +418,10 @@ export class SalesOutreachAgent extends BaseAgent {
         result: { error: errorMessage },
         confidence: 0,
         reasoning: `Outreach pipeline failed: ${errorMessage}`,
-        recommendations: ['Verify target description is specific enough', 'Try reducing maxCompanies'],
+        recommendations: [
+          'Verify target description is specific enough',
+          'Try reducing maxCompanies',
+        ],
         metadata: { durationMs, model: this.config.model },
       };
     }
@@ -237,16 +431,18 @@ export class SalesOutreachAgent extends BaseAgent {
 
   private validateInput(input: Record<string, unknown>): SalesOutreachInput {
     const fallbackTargetDescription = this.buildFallbackTargetDescription(input);
-    const targetDescription = this.getTrimmedString(input.targetDescription) || fallbackTargetDescription;
+    const targetDescription =
+      this.getTrimmedString(input.targetDescription) || fallbackTargetDescription;
     if (!targetDescription || targetDescription.length < 10) {
       throw new Error('targetDescription must be a descriptive string (min 10 chars)');
     }
 
-    const offering = this.getTrimmedString(input.offering)
-      || this.getTrimmedString(this.getPrimaryProspect(input)?.offering)
-      || this.getTrimmedString(this.getPrimaryProspect(input)?.product)
-      || this.getTrimmedString(this.getPrimaryProspect(input)?.productName)
-      || 'dws-iq6';
+    const offering =
+      this.getTrimmedString(input.offering) ||
+      this.getTrimmedString(this.getPrimaryProspect(input)?.offering) ||
+      this.getTrimmedString(this.getPrimaryProspect(input)?.product) ||
+      this.getTrimmedString(this.getPrimaryProspect(input)?.productName) ||
+      'dws-iq6';
     if (offering.length < 5) {
       throw new Error('offering must describe the product/service (min 5 chars)');
     }
@@ -255,12 +451,19 @@ export class SalesOutreachAgent extends BaseAgent {
     const style = styles.includes(input.emailStyle as string)
       ? (input.emailStyle as 'professional' | 'cold' | 'consultative')
       : 'professional';
-    const rawMaxCompanies = typeof input.maxCompanies === 'number' && Number.isFinite(input.maxCompanies)
-      ? input.maxCompanies
-      : 5;
-    const maxCompanies = Math.max(1, Math.min(10, Math.round(rawMaxCompanies)));
-    const senderName = (typeof input.senderName === 'string' ? input.senderName.trim() : '') || 'DWS Sales Team';
-    const senderCompany = (typeof input.senderCompany === 'string' ? input.senderCompany.trim() : '') || 'Lifetime Oy';
+    const allIndustries = wantsAllIndustries(targetDescription);
+    const rawMaxCompanies =
+      typeof input.maxCompanies === 'number' && Number.isFinite(input.maxCompanies)
+        ? input.maxCompanies
+        : allIndustries
+          ? 25
+          : 5;
+    const cap = allIndustries ? 25 : 10;
+    const maxCompanies = Math.max(1, Math.min(cap, Math.round(rawMaxCompanies)));
+    const senderName =
+      (typeof input.senderName === 'string' ? input.senderName.trim() : '') || 'DWS Sales Team';
+    const senderCompany =
+      (typeof input.senderCompany === 'string' ? input.senderCompany.trim() : '') || 'Lifetime Oy';
     const seedCompanies = this.extractSeedCompanies(input, maxCompanies);
 
     return {
@@ -286,7 +489,7 @@ export class SalesOutreachAgent extends BaseAgent {
       `Product: ${input.offering}`,
       ``,
       `Return ONLY valid JSON: {"companies": [{"name", "website", "whyFit", "industry"}]}`,
-      `Focus on EU-based companies in industries affected by ETS, CSRD, CBAM, or Fit for 55.`,
+      `Focus on EU-based companies across all 25 DWS EU-regulated industries (Fit for 55 / ETS / CSRD / CBAM).`,
     ].join('\n');
 
     const result = await this.callLLM(prompt);
@@ -394,7 +597,8 @@ export class SalesOutreachAgent extends BaseAgent {
     const uniqueCompanies = [...new Set(contacts.map((c) => c.company))];
     return uniqueCompanies.map((company) => {
       const companyInsights = insights.find((i) => i.company === company);
-      const insight = companyInsights?.insights[0] || 'EU climate compliance requirements are intensifying';
+      const insight =
+        companyInsights?.insights[0] || 'EU climate compliance requirements are intensifying';
       return {
         company,
         contact: contacts.find((c) => c.company === company)?.fullName || 'Sustainability Team',
@@ -418,37 +622,7 @@ export class SalesOutreachAgent extends BaseAgent {
   }
 
   private generatePlaceholderCompanies(input: SalesOutreachInput): TargetCompany[] {
-    // Curated list of real EU companies in DWS target sectors (public info, no secrets)
-    // Source: DWS market research, public company registries, EU ETS/CSRD scope
-    const TARGET_COMPANIES: TargetCompany[] = [
-      { name: 'NCC', website: 'ncc.com', whyFit: 'Nordic construction, CSRD reporting entity, EN 15978 carbon tracking needed', industry: 'construction' },
-      { name: 'YIT', website: 'yitgroup.com', whyFit: 'Finnish construction, ETS-exposed material procurement, CSRD mandatory 2025', industry: 'construction' },
-      { name: 'SRV Group', website: 'srv.fi', whyFit: 'Finnish construction, project-level carbon reporting needed for EU Taxonomy', industry: 'construction' },
-      { name: 'Skanska', website: 'skanska.com', whyFit: 'Nordic construction leader, Science-based targets, CSRD scope', industry: 'construction' },
-      { name: 'SSAB', website: 'ssab.com', whyFit: 'Steel manufacturer, EU ETS installation, CBAM-covered sector, fossil-free steel transition', industry: 'steel' },
-      { name: 'Outokumpu', website: 'outokumpu.com', whyFit: 'Stainless steel, EU ETS + CBAM exposure, Scope 1+2 reporting', industry: 'steel' },
-      { name: 'UPM-Kymmene', website: 'upm.com', whyFit: 'Forest/paper industry, EU ETS installation, biodiversity reporting under CSRD', industry: 'manufacturing' },
-      { name: 'Stora Enso', website: 'storaenso.com', whyFit: 'Packaging/forest products, EU ETS + CSRD double materiality assessment', industry: 'manufacturing' },
-      { name: 'Wärtsilä', website: 'wartsila.com', whyFit: 'Marine/energy engines, EU ETS maritime + Fit for 55 FuelEU Maritime', industry: 'energy' },
-      { name: 'Neste', website: 'neste.com', whyFit: 'Renewable fuels, EU ETS refinery, CSRD pioneer, CBAM feedstock imports', industry: 'energy' },
-      { name: 'Posti Group', website: 'posti.com', whyFit: 'Finnish logistics, fleet emissions reporting, Scope 3 transport for CSRD', industry: 'logistics' },
-      { name: 'DB Schenker', website: 'dbschenker.com', whyFit: 'EU logistics, GLEC Framework reporting, Scope 3 Category 4/9', industry: 'logistics' },
-      { name: 'PORR AG', website: 'porr-group.com', whyFit: 'Austrian construction, CSRD reporting entity, cross-border CBAM materials', industry: 'construction' },
-      { name: 'Heidelberg Materials', website: 'heidelbergmaterials.com', whyFit: 'Cement/concrete, EU ETS top emitter, CBAM-covered, carbon capture investments', industry: 'cement' },
-      { name: 'Holcim', website: 'holcim.com', whyFit: 'Global cement, EU ETS + CBAM, Science-based targets approved', industry: 'cement' },
-    ];
-
-    // Filter by relevance to target description
-    const desc = input.targetDescription.toLowerCase();
-    const sorted = TARGET_COMPANIES
-      .map(c => ({
-        ...c,
-        relevance: [c.industry, c.whyFit.toLowerCase(), c.name.toLowerCase()]
-          .filter(s => desc.includes(s) || s.includes(desc.split(' ')[0])).length,
-      }))
-      .sort((a, b) => b.relevance - a.relevance);
-
-    return sorted.slice(0, input.maxCompanies);
+    return pickSeedCompanies(input);
   }
 
   private calculateConfidence(companyCount: number, input: SalesOutreachInput): number {
@@ -465,13 +639,17 @@ export class SalesOutreachAgent extends BaseAgent {
   }
 
   private getPrimaryProspect(input: Record<string, unknown>): Record<string, unknown> | null {
-    if (typeof input.prospect === 'object' && input.prospect !== null && !Array.isArray(input.prospect)) {
+    if (
+      typeof input.prospect === 'object' &&
+      input.prospect !== null &&
+      !Array.isArray(input.prospect)
+    ) {
       return input.prospect as Record<string, unknown>;
     }
     if (
-      typeof input.prospectData === 'object'
-      && input.prospectData !== null
-      && !Array.isArray(input.prospectData)
+      typeof input.prospectData === 'object' &&
+      input.prospectData !== null &&
+      !Array.isArray(input.prospectData)
     ) {
       return input.prospectData as Record<string, unknown>;
     }
@@ -480,8 +658,9 @@ export class SalesOutreachAgent extends BaseAgent {
 
   private buildFallbackTargetDescription(input: Record<string, unknown>): string {
     const primaryProspect = this.getPrimaryProspect(input);
-    const prospectName = this.getTrimmedString(primaryProspect?.companyName)
-      || this.getTrimmedString(primaryProspect?.name);
+    const prospectName =
+      this.getTrimmedString(primaryProspect?.companyName) ||
+      this.getTrimmedString(primaryProspect?.name);
     const industry = this.getTrimmedString(input.industry);
     const targetRole = this.getTrimmedString(input.targetRole);
     const regulatoryTrigger = this.getTrimmedString(input.regulatoryTrigger);
@@ -521,7 +700,8 @@ export class SalesOutreachAgent extends BaseAgent {
   }
 
   private mapProspectToCompany(prospect: Record<string, unknown>): TargetCompany | null {
-    const name = this.getTrimmedString(prospect.companyName) || this.getTrimmedString(prospect.name);
+    const name =
+      this.getTrimmedString(prospect.companyName) || this.getTrimmedString(prospect.name);
     if (!name) {
       return null;
     }
@@ -530,10 +710,10 @@ export class SalesOutreachAgent extends BaseAgent {
       name,
       website: this.getTrimmedString(prospect.website) || '[research needed]',
       whyFit:
-        this.getTrimmedString(prospect.whyFit)
-        || this.getTrimmedString(prospect.reason)
-        || this.getTrimmedString(prospect.painPoint)
-        || 'Matched from workflow prospect input',
+        this.getTrimmedString(prospect.whyFit) ||
+        this.getTrimmedString(prospect.reason) ||
+        this.getTrimmedString(prospect.painPoint) ||
+        'Matched from workflow prospect input',
       industry: this.getTrimmedString(prospect.industry) || 'EU-regulated industry',
     };
   }

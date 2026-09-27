@@ -1,0 +1,141 @@
+# kya-jev Specification
+
+<!-- prettier-ignore -->
+***
+
+# VERSION AND AGENT HISTORY
+
+Version: 0.8 [Latest]
+
+Sessions & Modifications:
+
+- Version: 0.8 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: HIC chose **model routing** as the third advisory consumer (not compliance classify). `adviseModelRoute()` (`src/agents/model-route-kya-jev.ts`) — choice stay/escalate/demote; `actionable: false`. `selectModel()` stays deterministic and is not rewritten by the hint. TypeSafe map: Model routing / Harness Engineering.
+- Version: 0.7 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: HIC chose **lead scoring** as the next advisory queue (not helpdesk). Added `adviseLeadScore()` (`src/agents/lead-score-kya-jev.ts`) — `score` levels discard/watch/call; `actionable: false`; does not change `fitScore` or upsert `outreach_orgs`. Wired try/catch on `outreach-lead-finder` top lead only (same isolation as seo-audit). TypeSafe map bind: Lead generation. No vendor Jev. [not latest]
+- Version: 0.6 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 19.09.2026 | Changes: Evidence from the dictionary session (no price/calibration invention; 0.5 history left intact). (1) Additive consumer `adviseDictionaryTerm()` — signed KYA required; `actionable: false`; unit tests with test signing secret only — no live LLM call, no production secret. (2) Fail-closed at the advisory API (throws; unlike seo-audit `try/catch`) — recorded as §4 E3. (3) Wave 3 live trio and glossary locks remain HIC; proposed 8/2/24, live this PR = industry 8 only. (4) `docs/localization/dws-dictionary.json` `kyaJev.specVersion` synced to 0.6. (5) SKU `KYA-JEV-001` still EUR 99/mo Early Access, `detailsUrl: null` (re-read `dws10.com/config/products.json`). (6) Merge vehicle: this tree is on PR #2044 as well as #2043 — do not treat #2043 as merged; 087 still RED/unapplied. Merged v0.5 into the dictionary branch after Claude session exhausted. [not latest]
+- Version: 0.5 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) flagged a gap the A2 fix left open: a technically-sound signing gate is worthless if `KYA_VERDICT_SIGNING_SECRET` is shared across staging/production or its rotation is undocumented — "the gate is fine but key management isn't." Added: (1) `KYA_VERDICT_SIGNING_SECRET_PREVIOUS` support in `verifyKyaVerdict()` for zero-downtime rotation (accepts a verdict signed under either the current or previous secret during a rotation window); (2) `assertNotPlaceholderInProd()` — `issueKyaVerdict()` now throws if a known test/placeholder secret is used with `NODE_ENV=production`, catching the "copy-pasted staging env into production" mistake; (3) a documented rotation procedure (staging/production must use distinct, independently-generated secrets; zero-downtime rotation steps; quarterly cadence + immediate rotation on suspected compromise; each rotation recorded in this document's version history) as a code comment directly above `issueKyaVerdict()` in `src/security/runtime-auth.ts`. 6 new tests (rotation window accept/reject/expire, placeholder guard in prod vs. non-prod); 18/18 total passing, `tsc` clean. [not latest]
+- Version: 0.4 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: Registered `kya-jev` in `DWS_STANDARDS_LIBRARY.md` §3.2 (D3, closed) **before** production migration 087 is applied, per HIC (Finnish): a component running in production without a standards-registry entry is exactly the audit inconsistency that gets caught later. Added §8 (Execution & Backlog Order) recording the corrected sequence: D3 → PR #2043 merge → apply migration 087; backlog P0 is the storefront/commercial visual check (B2/D1), not A2. **Correction to an external review relayed this session:** a Boardy-style re-review (quoted by HIC) still listed A2 ("KYA-context hardening") as an open P0 backlog item — that review was working from v0.2. A2 was already closed in v0.3 (signed verdicts, `issueKyaVerdict()`/`verifyKyaVerdict()`, 13/13 tests passing) two turns before this one; this version states that plainly so the record doesn't imply a still-open critical gap that in fact shipped.
+- Version: 0.3 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) identified A2 as the one genuinely severe finding — a caller-constructible `{decision:'allowed'}` verdict makes the KYA gate decorative ("signer and approver are the same party proves nothing"), and flagged D1/B2 as the same problem from two directions (an uncalibrated price shown without its caveat on the storefront card, not just in JSON, invites after-the-fact complaint). **A2 fixed this session**: `RuntimeKYAVerdict` now carries an HMAC-SHA256 `sig` + `issuedAt`, signed only by the new `issueKyaVerdict()` (`src/security/runtime-auth.ts`) using `KYA_VERDICT_SIGNING_SECRET`; `kya-jev`'s `requireKyaVerdict()` now calls `verifyKyaVerdict()` and rejects unsigned, tampered, or wrong-secret verdicts, and fails closed (rejects everything) when no secret is configured at all. 5 new tests added (`runtime-auth-kya-verdict.test.ts`) plus 4 rewritten `kya-jev.test.ts` cases proving the forged-verdict and tampered-verdict paths are actually rejected, not just documented as a risk. D1/B2 remain open (Needs-Human) pending a storefront-card-copy check, not a code fix.
+- Version: 0.2 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: HIC (Finnish) flagged that §1's earlier claim "not difficult to deliver as engineering" (made in chat, not this document) was an unsupported opinion. Added a grounded paragraph to §1 citing the two pre-existing components that made the build low-effort — KYA-gating (`authorizeToolCall()`, `src/security/runtime-auth.ts:271`) and Article-12 audit logging (`agent_executions`, extended by `087_kya_jev_calls.sql` + `BaseAgent.logKyaJevCall()`) — turning the claim into cited evidence.
+- Version: 0.1 | Tool: Claude Code (Sonnet 5) | Session: claude/agents-md-support-eyody6 | Date: 18.09.2026 | Changes: Initial creation. Codifies kya-jev (KYA-gated typed decision primitive) as a specification, incorporating the Boardy audit (A1–E2) requested against PR #2043 and the public `blogtheristo/KYAv2` release candidate. Records the audit's Overall Recommendations (MERGE-WITH-CONDITIONS on PR #2043; PUBLISH on KYAv2) and closes the one blocking condition (D2) by setting `KYA-JEV-001.detailsUrl` to `null` in `dws10.com/config/products.json` and its landing-pages mirror, so the storefront falls back to the products index instead of 404ing on a non-existent `products/kya-jev.html`.
+
+Session Links & References:
+
+- Claude Code (claude/agents-md-support-eyody6): https://github.com/blogtheristo/dws6
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/KYA_JEV_SPECIFICATION.md
+- Related: `docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md`, PR #2043, PR #2044, `blogtheristo/KYAv2` (staged, not yet published)
+
+Document Status:
+
+- Created: 18.09.2026
+- Last Modified: 19.09.2026 (v0.8)
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE — internal specification
+
+<!-- prettier-ignore -->
+***
+
+## 1. Summary
+
+`kya-jev` is a KYA-gated typed decision primitive: given application state and a typed question (`choice` / `score` / `boolean`), it returns a typed decision plus self-reported probabilities and confidence. It differs from a bare structured-output wrapper in one load-bearing way — every call requires an already-issued `allowed` verdict from the caller's own KYA runtime-authorization gate; there is no code path to a decision without one.
+
+Origin: built as a sovereign, DGX/Groq/Anthropic-backed alternative to TypeSafe AI's "Jev" model, after independent verification (`docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md`) found Jev is US-hosted and CLOUD Act-exposed.
+
+**Why this was not a difficult build (evidence, not opinion):** the two components that make `kya-jev` a governed primitive rather than a bare structured-output wrapper already existed on the DWS agent platform before this work started — KYA-gating (`authorizeToolCall()`, `src/security/runtime-auth.ts:271`) and Article-12 audit logging (`agent_executions`, extended this session by `087_kya_jev_calls.sql` + `BaseAgent.logKyaJevCall()`). The new work was `makeTypedDecision()` itself (`src/agents/kya-jev.ts`) sitting on top of that existing infrastructure, not building the governance layer from zero.
+
+## 2. Scope
+
+- **Primitive:** `src/agents/kya-jev.ts` — `makeTypedDecision()`.
+- **Pilot integration:** `src/agents/seo/seo-audit.agent.ts` — `reviewWithKyaJev()`, advisory-only; `deployGate` remains fully deterministic.
+- **Dictionary advisory:** `src/agents/dictionary-kya-jev.ts` — `adviseDictionaryTerm()`, advisory-only; does not write `dws-dictionary.json`.
+- **Lead-score advisory:** `src/agents/lead-score-kya-jev.ts` — `adviseLeadScore()`; HIC 19.09.2026 next queue after seo-audit + dictionary. `outreach-lead-finder` may attach `metadata.kyaJevLeadReview`; scoring/upsert stay the existing path.
+- **Model-route advisory:** `src/agents/model-route-kya-jev.ts` — `adviseModelRoute()`; HIC 19.09.2026 third consumer. Does not replace `selectModel()` (`src/agents/model-selector.ts`). NVIDIA SoL-Pi (arXiv:2609.20519) is a _harness-search_ paper, not a reason to auto-mutate `kya-jev`.
+- **Audit trail:** `supabase/migrations/087_kya_jev_calls.sql` + `BaseAgent.logKyaJevCall()`.
+- **Calibration tooling:** `scripts/calibrate-kya-jev.mjs` (real ECE harness; no fabricated results — no labeled dataset exists yet).
+- **Commercial listing:** `KYA-JEV-001`, EUR 99/month, Early Access, `dws10.com/config/products.json` (+ landing-pages mirror).
+- **Public release candidate:** `blogtheristo/KYAv2` (staged locally; repo creation blocked at the tool-access layer — not yet pushed).
+
+## 3. Boardy Audit — Overall Recommendations
+
+- **PR #2043 (dws6): MERGE-WITH-CONDITIONS.** Condition: add the missing `products/kya-jev.html` route, or set product visibility to unlinked, to prevent a 404 storefront error. **Status: closed this session** — `KYA-JEV-001.detailsUrl` set to `null` in both `dws10.com/config/products.json` and `landing-pages/dws10-com/config/products.json`; the storefront's existing fallback (`product.detailsUrl || "../products/"`, `dws10.com/buy/index.html:1894`) routes to the products index instead of a dead link.
+- **blogtheristo/KYAv2 (Public Release): PUBLISH.** Clean isolation verified — no internal dependencies, secrets, or policy leaks present. Still blocked on repo creation permissions (see §6).
+
+## 4. Audit Findings
+
+### A. Governance / KYA Integrity
+
+| #   | Verdict           | Finding                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Reference                                                                                                                        |
+| --- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| A1  | Pass              | `requireKyaVerdict()` strictly checks runtime context and rejects any verdict other than `'allowed'`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `src/agents/kya-jev.ts:42`                                                                                                       |
+| A2  | Fail → **Closed** | A caller could pass arbitrary context — `{decision:'allowed'}` verified as authorization on its own shape, making the gate decorative (signer and approver were the same party). Fixed: `RuntimeKYAVerdict` now requires an HMAC-SHA256 `sig`, produced only by `issueKyaVerdict()` and checked by `verifyKyaVerdict()`; unsigned, tampered, or wrong-secret verdicts are rejected, and no secret configured fails closed. **Key-management follow-up also closed (v0.5):** `KYA_VERDICT_SIGNING_SECRET_PREVIOUS` enables zero-downtime rotation; `assertNotPlaceholderInProd()` refuses a known test secret when `NODE_ENV=production`; rotation procedure (distinct staging/production secrets, quarterly cadence, compromise-triggered rotation, each rotation logged in this document) documented as a code comment above `issueKyaVerdict()`. | `src/security/runtime-auth.ts` (`issueKyaVerdict`, `verifyKyaVerdict`, `assertNotPlaceholderInProd`); `src/agents/kya-jev.ts:56` |
+| A3  | Pass              | KYAv2 exposes only generic TypeScript interfaces, keeping proprietary DWS policy engines and authorization flows completely offline.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `blogtheristo/KYAv2:src/index.ts`                                                                                                |
+
+### B. Calibration / Truthfulness
+
+| #   | Verdict     | Finding                                                                                                             | Reference                                                        |
+| --- | ----------- | ------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| B1  | Pass        | Output types, loggers, product JSON, and documentation consistently tag confidence as `self-reported-uncalibrated`. | `src/agents/kya-jev.ts:15`; `dws10.com/config/products.json:112` |
+| B2  | Needs-Human | Early Access listing must explicitly note that confidence metrics are uncalibrated pending human dataset labeling.  | `dws10.com/config/products.json:118`                             |
+| B3  | Pass        | ECE arithmetic in `calibrate-kya-jev.mjs` handles zero-division and single-value degenerate inputs safely.          | `scripts/calibrate-kya-jev.mjs:34`                               |
+
+### C. Security / Disclosure Risk
+
+| #   | Verdict | Finding                                                                                                                      | Reference                         |
+| --- | ------- | ---------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| C1  | Pass    | Staged public repository contains zero internal `@dws/*` imports, database schemas, or API credentials.                      | `blogtheristo/KYAv2:package.json` |
+| C2  | Pass    | MIT license applies to the primitive interface, while commercial value resides in hosted runtime management (`KYA-JEV-001`). | `blogtheristo/KYAv2:LICENSE`      |
+| C3  | Pass    | Exposing the KYA naming convention reveals generic agent-safety terminology without disclosing backend gate logic.           | `blogtheristo/KYAv2:README.md`    |
+
+### D. Product / Commercial Integrity
+
+| #   | Verdict                        | Finding                                                                                                                                                                                                    | Reference                            |
+| --- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| D1  | Needs-Human                    | EUR 99/month pricing is defensible as a preorder reservation, but commercial activation must remain gated until calibration benchmarks complete.                                                           | `dws10.com/config/products.json:120` |
+| D2  | Fail → **Closed this session** | Storefront would throw a 404 because `products/kya-jev.html` is missing; page must be created or URL unlinked before merging. Fixed via `detailsUrl: null`.                                                | `dws10.com/config/products.json:105` |
+| D3  | Fail → **Closed**              | Required standard registration in `DWS_STANDARDS_LIBRARY.md` before promotion to official product tier. Fixed: registered in §3.2 (Process/Quality, v1.15), before migration 087 is applied to production. | `DWS_STANDARDS_LIBRARY.md` §3.2      |
+
+### E. Scope / Blast Radius
+
+| #   | Verdict | Finding                                                                                                                                                                                                                                                                                                                                                  | Reference                                                                               |
+| --- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| E1  | Pass    | `reviewWithKyaJev()` is fully isolated inside a try/catch block, populating advisory metadata without blocking `deployGate`.                                                                                                                                                                                                                             | `src/agents/seo/seo-audit.agent.ts:142`                                                 |
+| E2  | Pass    | Migration 087 is strictly additive (`CREATE TABLE IF NOT EXISTS`) and poses zero risk to existing production tables.                                                                                                                                                                                                                                     | `supabase/migrations/087_kya_jev_calls.sql:1`                                           |
+| E3  | Pass    | Dictionary consumer is fail-closed at the function boundary: `adviseDictionaryTerm()` does not wrap `makeTypedDecision()` in try/catch; missing/unsigned/forged KYA throws (same A2 gate). That is not a deploy-gate (no HTML write). seo-audit still isolates via try/catch so `deployGate` stays deterministic. No live advisory was run this session. | `src/agents/dictionary-kya-jev.ts`; `src/__tests__/i18n/dws-dictionary-kya-jev.test.ts` |
+
+## 5. Needs-Human Items (open, not blocking this version)
+
+**A2 closed this session (see §4A) — was the only genuinely severe finding.** HIC's framing: a verdict a caller can construct itself proves nothing, same as a document where signer and approver are the same party. Now enforced by signature, not by convention.
+
+**B2 and D1 are one problem seen from two directions**, per HIC: €99/month as a preorder reservation is fine, but only if the uncalibrated-confidence caveat is visible wherever the price is — not just in the JSON `description` a human never reads on the storefront card. Showing the price without the caveat on the card is exactly the gap that generates a complaint after the fact.
+
+1. **B2/D1 (combined) — verified, not an open gap.** Checked both surfaces directly: `dws10.com/buy/index.html` intentionally hides price on the product card by design (`.product-price { hidden }`, comment: "enterprise products lead with value, not price") and instead renders `product.description` on the card — which already contains the Early Access / uncalibrated-confidence caveat text (`dws10.com/config/products.json:118`), so the card never shows a bare, caveat-free claim. `dws10.com/price-list/index.html:1409` is the one surface that _does_ show the price directly, and it renders `p.priceNote` in the same table cell as the price (`dws10.com/price-list/index.html:1410`) — the €99/month + "Early Access — calibration study in progress" note pair together there. **Remaining step:** visually confirm this on the live/preview site once deployed (this session could not render the page); if the pairing doesn't actually appear together on screen, that is now a real regression to fix, not a design question.
+2. **D3 — closed this session.** Registered in `DWS_STANDARDS_LIBRARY.md` §3.2 Process/Quality, same pattern as the `DDM-v1` row (owner HIC, status 🎯 Early Access pending calibration study). Registered **before** migration 087 is applied to production, per HIC: registering it after the fact would leave a real, unaudited gap between what's running and what's catalogued — exactly the kind of inconsistency an audit is supposed to catch.
+
+## 6. Outstanding Blocker (tooling, not audit)
+
+Publishing `blogtheristo/KYAv2` requires creating a new GitHub repository; this session's GitHub integration returns `403 Resource not accessible by integration` on repo creation. The package is staged and verified (tests passing, `tsc` clean, MIT-licensed, no DWS-internal imports) — pending a human creating the empty repo so it can be pushed.
+
+## 7. Never Without Further Approval
+
+Unchanged from the field note and this specification's audit: no auto-execute or consequential (financial, compliance, customer-facing) action may be gated on `kya-jev`'s self-reported confidence alone until a real calibration study runs against a human-labeled DWS dataset.
+
+Also never without HIC (this session, cited):
+
+- **Glossary lock.** `adviseDictionaryTerm()` must not persist `result.decision` into `dws-dictionary.json` or i18n strings.
+- **Wave 3 live pages.** Industry go-live is HIC-only. Harvest density proposed 8 / 2 / 24; this PR may ship industry 8 (Mars + CONSTR-T2) only until HIC confirms the trio. kya-jev `wave3_live` choice is advisory, uncalibrated, and not a page-publish gate.
+
+## 8. Execution & Backlog Order (corrected, HIC 2026-09-18)
+
+**Do now, in this order:**
+
+1. **D3 — done.** `kya-jev` registered in `DWS_STANDARDS_LIBRARY.md` §3.2 (v0.5 row; library pointer bumped to v0.6 in the same session as this spec body).
+2. **Merge one kya-jev vehicle into `main`.** PR #2043 is still the original kya-jev PR and is **not** treated as merged. After the Claude session exhausted, v0.5 was merged into `cursor/dws10-i18n-25-dictionary-c0ce` (PR #2044). Landing both PRs without coordination can double-apply `products.json` / feed edits. Pick one merge path; do not apply 087 from a branch that is not yet on `main`.
+3. **Apply migration `087_kya_jev_calls.sql`** to production Supabase only after that merge (RED until then).
+
+Reordered from an earlier draft that had the migration before the registry entry — per HIC, a production component with no standards-registry entry is the inconsistency an audit catches, so registration must land first.
+
+**Backlog, in priority order:**
+
+- **P0 — already closed, not open backlog:** A2 (KYA-context hardening / signed verdicts) shipped in v0.3 of this document, before this reordering was requested. An external review quoted this session still carried it as an open P0 — that review was reading v0.2. Restated here so the record is unambiguous: **A2 is done**, not pending.
+- **P1 — `blogtheristo/KYAv2` public repo.** Blocked on a human creating the empty GitHub repo (§6); package is staged and ready to push the moment it exists.
+- **P2 — B2/D1 live visual confirmation.** Already verified correct by code inspection (§5, item 1); only a live-site screenshot/check remains, and billing stays `preorder` regardless until the calibration study runs.

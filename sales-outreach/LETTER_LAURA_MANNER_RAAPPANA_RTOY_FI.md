@@ -47,7 +47,7 @@ Konkretisoimme tämän mitattaviksi käyttötapauksiksi. DWS IQ Aegis tuottaa au
 - **ArgusAgent** — ICEYE SAR -satelliittidatan analyysi (tiedustelu, muutostunnistus, toimitusketjun näkyvyys), integraatio DEFINE-ohjelman kautta.
 - **SovereigntyMonitor** — CLOUD Act -altistumisen pisteytys ja NIS2-yhteensopivuus; vastaus siihen, miksi Palantir/C3.ai eivät ole EU-suvereeneja.
 - **Article12Logger** — EU AI Act -artikla 12:n mukainen auditointiketju jokaisesta AI-päätöksestä.
-- **KYA Engine** — agenttien hallintamallistandardi (trust scoring; sub-5 ms kill-switch per agentti, alle 50 ms koko laivastolle) — ainoa laatuaan markkinalla.
+- **KYA Engine** — agenttien hallintamallistandardi (trust scoring; kill-switchin suunnittelutavoite alle 5 ms per agentti, alle 50 ms koko laivastolle) — ainoa laatuaan markkinalla.
 - **ComplianceAgent + SiteSenseAgent** — kaksoiskäyttöasetus 2021/821 ja ilmastosääntely yhdestä järjestelmästä; puolustusrakentamisen ja -logistiikan turvallisuus.
 - **Lifetime Fleet IoT** — NVIDIA Jetson Orin Nano + Acer Veriton GN100 reunalaskentana kentällä: kenttäoperaatioiden tilannekuva, kaluston seuranta, huoltovarmuuslogistiikka.
 

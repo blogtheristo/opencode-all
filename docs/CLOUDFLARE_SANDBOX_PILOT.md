@@ -14,11 +14,11 @@ DWS IQ Cloudflare Sandbox provides enterprise customers with isolated, secure AI
 
 ### Target Customers
 
-| Customer Type | Industry | Key Use Case | Tier |
-|--------------|----------|--------------|------|
-| **Tier 1 Construction** | Construction | Carbon compliance (EPBD, CSRD) | Enterprise |
-| **Manufacturing SME** | Manufacturing | Quality control + emissions | Professional |
-| **Infrastructure** | Energy/Utilities | Regulatory reporting | Enterprise |
+| Customer Type           | Industry         | Key Use Case                   | Tier         |
+| ----------------------- | ---------------- | ------------------------------ | ------------ |
+| **Tier 1 Construction** | Construction     | Carbon compliance (EPBD, CSRD) | Enterprise   |
+| **Manufacturing SME**   | Manufacturing    | Quality control + emissions    | Professional |
+| **Infrastructure**      | Energy/Utilities | Regulatory reporting           | Enterprise   |
 
 ### Pilot Timeline
 
@@ -36,6 +36,7 @@ Week 7-8:   Review & Optimization
 ### Customer 1: Vinci Construction (Example)
 
 **Company Profile:**
+
 - Revenue: €74B
 - Employees: 280,000
 - HQ: Paris, France
@@ -64,12 +65,7 @@ DWS IQ Sandbox Solution:
   "tenantName": "Vinci Construction SA",
   "tier": "enterprise",
   "customSystemPrompt": "You are a carbon compliance specialist for Vinci Construction. Focus on EN 15978 lifecycle stages A1-A3, A4, A5 for embodied carbon in concrete and steel structures. Apply Vinci's internal carbon reduction targets...",
-  "enabledTools": [
-    "carbon_calculate",
-    "compliance_check",
-    "generate_report",
-    "supplier_assess"
-  ],
+  "enabledTools": ["carbon_calculate", "compliance_check", "generate_report", "supplier_assess"],
   "mcpServers": [
     {
       "name": "vinci-bim",
@@ -82,6 +78,7 @@ DWS IQ Sandbox Solution:
 ```
 
 **Expected ROI:**
+
 - €50,000/year saved on manual compliance workflows
 - 80% reduction in report generation time
 - Zero audit findings on carbon reporting
@@ -91,6 +88,7 @@ DWS IQ Sandbox Solution:
 ### Customer 2: Bouygues Construction (Example)
 
 **Company Profile:**
+
 - Revenue: €37B
 - Employees: 190,000
 - HQ: Paris, France
@@ -119,11 +117,7 @@ DWS IQ Sandbox Solution:
   "tenantName": "Bouygues Construction",
   "tier": "enterprise",
   "customSystemPrompt": "You are a supply chain sustainability analyst for Bouygues Construction. Evaluate suppliers based on carbon intensity, certifications (ISO 14001, EcoVadis), and decarbonization commitments...",
-  "enabledTools": [
-    "supplier_assess",
-    "carbon_calculate",
-    "compliance_check"
-  ],
+  "enabledTools": ["supplier_assess", "carbon_calculate", "compliance_check"],
   "webhookUrl": "https://procurement.bouygues.com/webhooks/dws-iq"
 }
 ```
@@ -133,6 +127,7 @@ DWS IQ Sandbox Solution:
 ### Customer 3: Manufacturing SME (Example: Nordic Steel Fabricator)
 
 **Company Profile:**
+
 - Revenue: €50M
 - Employees: 200
 - HQ: Finland
@@ -161,11 +156,7 @@ DWS IQ Sandbox Solution:
   "tenantName": "Nordic Steel Fabrication Oy",
   "tier": "professional",
   "customSystemPrompt": "You are a sustainability officer for a Finnish steel fabrication SME. Focus on Scope 1 (natural gas) and Scope 2 (electricity) emissions. Apply Finnish grid emission factors...",
-  "enabledTools": [
-    "carbon_calculate",
-    "compliance_check",
-    "generate_report"
-  ]
+  "enabledTools": ["carbon_calculate", "compliance_check", "generate_report"]
 }
 ```
 
@@ -176,6 +167,7 @@ DWS IQ Sandbox Solution:
 ### Step 1: Account Setup (Day 1-2)
 
 1. **Create Tenant Configuration**
+
    ```bash
    curl -X POST https://sandbox.dws10.com/admin/tenants \
      -H "Content-Type: application/json" \
@@ -240,6 +232,7 @@ DWS IQ Sandbox Solution:
    - Collect feedback
 
 2. **Usage Monitoring**
+
    ```bash
    curl https://billing.dws10.com/usage/customer-slug?start=2026-01-01&end=2026-01-31
    ```
@@ -272,21 +265,21 @@ DWS IQ Sandbox Solution:
 
 ### Technical Metrics
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| **Uptime** | 99.9% | Cloudflare status |
-| **Response Latency** | <2s p95 | Analytics Engine |
-| **Tool Success Rate** | >95% | Error tracking |
-| **Data Isolation** | 100% | Security audit |
+| Metric                | Target  | Measurement       |
+| --------------------- | ------- | ----------------- |
+| **Uptime**            | 99.9%   | Cloudflare status |
+| **Response Latency**  | <2s p95 | Analytics Engine  |
+| **Tool Success Rate** | >95%    | Error tracking    |
+| **Data Isolation**    | 100%    | Security audit    |
 
 ### Business Metrics
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| **Report Generation Time** | -80% | Customer feedback |
-| **Compliance Accuracy** | 100% | Audit results |
-| **User Adoption** | >70% active | Usage logs |
-| **NPS Score** | >40 | Survey |
+| Metric                     | Target      | Measurement       |
+| -------------------------- | ----------- | ----------------- |
+| **Report Generation Time** | -80%        | Customer feedback |
+| **Compliance Accuracy**    | 100%        | Audit results     |
+| **User Adoption**          | >70% active | Usage logs        |
+| **NPS Score**              | >40         | Survey            |
 
 ---
 
@@ -294,12 +287,12 @@ DWS IQ Sandbox Solution:
 
 ### Pilot Discount (First 2 Months)
 
-| Tier | Regular Price | Pilot Price | Included Tokens |
-|------|--------------|-------------|-----------------|
-| **Professional** | €2,000/month | €1,000/month | 10M |
-| **Enterprise** | €5,000/month | €2,500/month | 100M |
+| Tier             | Regular Price | Pilot Price  | Included Tokens |
+| ---------------- | ------------- | ------------ | --------------- |
+| **Professional** | €2,000/month  | €1,000/month | 10M             |
+| **Enterprise**   | €5,000/month  | €2,500/month | 100M            |
 
-*50% discount during pilot period. Standard pricing after month 2.*
+_50% discount during pilot period. Standard pricing after month 2._
 
 ### Success-Based Conversion
 
@@ -319,7 +312,7 @@ DWS IQ Sandbox Solution:
 
 ### Support Channels
 
-- **Slack/Teams**: Dedicated channel for pilot customers
+- **WhatsApp / webhook**: Dedicated channel for pilot customers
 - **Email**: pilot-support@lifetime.fi
 - **Phone**: +358 9 xxx xxxx (EU business hours)
 
@@ -336,19 +329,19 @@ DWS IQ Sandbox Solution:
 
 ### Technical Risks
 
-| Risk | Mitigation |
-|------|------------|
+| Risk                          | Mitigation                                      |
+| ----------------------------- | ----------------------------------------------- |
 | **Sandbox Isolation Failure** | V8 isolate + VM-level isolation; security audit |
-| **Data Leakage** | End-to-end encryption; EU-only routing |
-| **Service Outage** | Docker fallback; multi-region Cloudflare |
-| **API Rate Limits** | Graceful degradation; queue system |
+| **Data Leakage**              | End-to-end encryption; EU-only routing          |
+| **Service Outage**            | Docker fallback; multi-region Cloudflare        |
+| **API Rate Limits**           | Graceful degradation; queue system              |
 
 ### Business Risks
 
-| Risk | Mitigation |
-|------|------------|
-| **Slow Adoption** | Hands-on training; champion user program |
-| **ROI Not Achieved** | Weekly reviews; early course correction |
+| Risk                 | Mitigation                               |
+| -------------------- | ---------------------------------------- |
+| **Slow Adoption**    | Hands-on training; champion user program |
+| **ROI Not Achieved** | Weekly reviews; early course correction  |
 | **Competitor Entry** | Long-term contracts; unique integrations |
 
 ---
@@ -379,7 +372,7 @@ DWS IQ Sandbox Solution:
 
 - **Email**: pilot@lifetime.fi
 - **Phone**: +358 9 xxx xxxx
-- **Slack**: #dws-iq-pilots
+- **WhatsApp / webhook**: DWS IQ pilots
 
 **Lifetime Oy**
 Risto Anton Päärni, CEO
@@ -387,6 +380,6 @@ risto@lifetime.fi
 
 ---
 
-*Document Version: 1.0*
-*Last Updated: January 2026*
-*Status: Ready for Customer Outreach*
+_Document Version: 1.0_
+_Last Updated: January 2026_
+_Status: Ready for Customer Outreach_

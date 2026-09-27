@@ -4,16 +4,16 @@
 
 ## VERSION AND AGENT HISTORY
 
-| Field          | Value                                                                                                     |
-| -------------- | --------------------------------------------------------------------------------------------------------- |
-| Version        | 1.0                                                                                                       |
-| Date           | 2026-07-17                                                                                                |
-| Author         | Lifetime Oy                                                                                               |
-| Owner          | risto-001                                                                                                 |
-| Status         | **REPLIED 2026-07-17** — John will send the written confirmation; confirmation text + photo still pending |
-| Classification | Internal                                                                                                  |
-| Branch         | claude/dl-18-7-delivery-7m1hnj                                                                            |
-| Context        | EIC Accelerator Step 1 (CONTINUOUS deadline 17.12.2026) — team/partner evidence                           |
+| Field          | Value                                                                                                          |
+| -------------- | -------------------------------------------------------------------------------------------------------------- |
+| Version        | 1.0                                                                                                            |
+| Date           | 2026-07-17                                                                                                     |
+| Author         | Lifetime Oy                                                                                                    |
+| Owner          | risto-001                                                                                                      |
+| Status         | **CONFIRMED 2026-08-05** — written confirmation received and team photo added (`dws10.com/partners/cubet.jpg`) |
+| Classification | Internal                                                                                                       |
+| Branch         | claude/dl-18-7-delivery-7m1hnj                                                                                 |
+| Context        | EIC Accelerator Step 1 (CONTINUOUS deadline 17.12.2026) — team/partner evidence                                |
 
 ---
 
@@ -84,12 +84,33 @@ Risto Anton Päärni
 Founder, CEO · Lifetime Oy
 risto.paarni@lifetime.fi · +358 400 319 010
 
+## Written confirmation — RECEIVED 2026-08-05
+
+**From:** Lovegin John (Cubet Techno Labs)
+
+> Hello Risto,
+>
+> Good morning.
+>
+> As per the discussions I confirm that Cubet Techno Labs is engaged as a contracted delivery partner for Lifetime Oy's DWS IQ platform, providing engineering resources under NDA.
+>
+> Please find a photo of our team for your reference.
+>
+> ---
+>
+> Regards,
+>
+> Lovegin John.
+
+**Photo:** received and committed — `dws10.com/partners/cubet.jpg` (commit `ec685eb`, already on `main` and this branch).
+
+**Read:** this is the citable confirmation artifact for the EIC Accelerator Step 1 team/partner evidence — verbatim text matches the wording Risto proposed in the 2026-07-17 request letter above.
+
 ## Follow-up tracking
 
 - [x] Reply received 2026-07-17 — John agreed to send the written confirmation.
 - [x] Roles follow-up letter + pitch deck sent 2026-07-17 (confirmed) — scope: non-core EU-controlled delivery (~2 FTE).
-- [ ] **Team-photo follow-up** — short one-liner drafted (below), to send now / with his reply: asks for a delivery-team group photo (visualises the ~20-engineer bench on the deck). The roles letter omitted it; the first letter asked for "a photo of yourself or the team".
-- [ ] **Written confirmation email received** — paste verbatim here when it arrives (this is the citable artifact for the application).
-- [ ] Photo received (partnership deck slide).
-- [ ] **Ask (in reply thread / nudge): a group photo of the ~20-engineer delivery team** — visually substantiates the "standing bench of 20" claim on the deck. (Not in the original email; add when he replies.)
-- [ ] If no reply by ~2026-07-28, send a short polite nudge (continuous deadline 17.12.2026 — earlier still preferred for the deck slide, but no batch pressure).
+- [x] **Written confirmation email received** — pasted verbatim above (2026-08-05); citable artifact for the application.
+- [x] Photo received (partnership deck slide) — `dws10.com/partners/cubet.jpg`.
+- [ ] **Team-photo follow-up (group/bench photo)** — the received photo is the team reference photo; a dedicated ~20-engineer bench group photo (to visually substantiate the "standing bench of 20" claim) has not been separately requested/received — nudge if the deck needs it.
+- [ ] If no further reply needed by ~2026-07-28 this item is moot (confirmation + photo now in hand); close out.

@@ -19,7 +19,7 @@ const SESSIONS_DIR = '.workflows/sessions';
 const STATE_FILE = join(SESSIONS_DIR, 'coordinator-state.json');
 const LOCKS_DIR = join(SESSIONS_DIR, 'locks');
 
-const PLATFORMS = ['claude-code', 'opencode', 'cursor'];
+const PLATFORMS = ['claude-code', 'opencode', 'cursor', 'copilot', 'antigravity'];
 const SESSION_STATES = ['RECOVERED', 'CLAIMED', 'PROCESSING', 'PAUSED', 'COMPLETED', 'ARCHIVED'];
 
 function initializeState() {

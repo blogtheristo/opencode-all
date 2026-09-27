@@ -99,13 +99,7 @@ export interface ConstructionLead {
 }
 
 export type ConstructionLeadStatus =
-  | 'new'
-  | 'reviewed'
-  | 'qualified'
-  | 'outreach_started'
-  | 'contacted'
-  | 'passed'
-  | 'won';
+  'new' | 'reviewed' | 'qualified' | 'outreach_started' | 'contacted' | 'passed' | 'won';
 
 /** Database row for construction_leads table */
 export interface ConstructionLeadRow extends ConstructionLead {
@@ -167,9 +161,20 @@ export interface ConstructionLeadNew {
   relevance_score: number;
 }
 
+/** Row fields needed to build a Mission Control Sales TED item */
+export interface StoredSalesLeadRow {
+  id: string;
+  title: string | null;
+  buyer_name: string | null;
+  country_code: string | null;
+  cpv_code: string | null;
+  ted_url: string | null;
+  raw_data: Record<string, unknown> | null;
+}
+
 /** TED API query configuration */
 export interface TedQueryConfig {
-  /** CPV codes to search (default: 45000000 for construction) */
+  /** CPV codes to search (default: all 25-industry parent codes) */
   cpvCodes: string[];
   /** Country codes to filter (ISO 3166-1 alpha-2) */
   countryCodes: string[];
@@ -177,4 +182,9 @@ export interface TedQueryConfig {
   lookbackDays: number;
   /** Max results per query */
   maxResults: number;
+  /**
+   * Restrict to works (NC=1). Default false — services and supplies are
+   * required for non-construction industries (healthcare, finance, IT).
+   */
+  worksOnly?: boolean;
 }

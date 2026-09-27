@@ -2,10 +2,21 @@
 
 ## DWS IQ 6 - Agent Architecture & Coordination
 
-**Version:** 1.1  
+**Version:** 1.4  
 **Created:** January 3, 2026  
 **Owner:** Lifetime Oy  
 **Status:** Active
+
+### DWS standards (mandatory — Cursor / Cloud / every agent)
+
+Do not treat this file or `CLAUDE.md` as a substitute for opening standards.
+
+1. Read `docs/system-config/STANDARDS_ROUTING.md`.
+2. Read `DWS_TRUTH_STANDARD.md` and `DWS_ROLES_REGISTRY.md`.
+3. Read every other matched standard.
+4. Reply: `Standards loaded: <paths>` or `N/A — <reason>`.
+
+Cursor injects `.cursor/rules/dws-standards-always.mdc` (`alwaysApply: true`). Executable source uses Document Standard §19.3, not a markdown history block.
 
 ---
 
@@ -62,15 +73,15 @@ DWS IQ 6 uses three categories of AI agents:
 
 ### Technology Stack
 
-| Layer                 | Technology                                                                 | Purpose                                 |
-| --------------------- | ---------------------------------------------------------------------------- | --------------------------------------- |
+| Layer                 | Technology                                                                | Purpose                                 |
+| --------------------- | ------------------------------------------------------------------------- | --------------------------------------- |
 | **Orchestration**     | MCP Hub (`mcp-hub-ts/`; legacy `mcp-hub/server.py` for Redis/BIM/sandbox) | Central coordination, workflow patterns |
-| **Fast Inference**    | Groq API (Llama 3.1 70B)                                                     | High-speed agent responses              |
-| **Complex Reasoning** | Claude Sonnet 4.5                                                            | Deep analysis, planning                 |
-| **Multi-Agent**       | LlamaStack                                                                   | Agent orchestration                     |
-| **Edge AI**           | NVIDIA Jetson                                                                | On-premise SiteSense agents             |
-| **Database**          | Supabase (PostgreSQL + pgvector)                                             | Data, embeddings, signals               |
-| **Notifications**     | Microsoft Teams (webhook), Slack (webhook), Email (SES)                      | Agent alerts                            |
+| **Fast Inference**    | Groq API (Llama 3.1 70B)                                                  | High-speed agent responses              |
+| **Complex Reasoning** | Claude Sonnet 4.5                                                         | Deep analysis, planning                 |
+| **Multi-Agent**       | LlamaStack                                                                | Agent orchestration                     |
+| **Edge AI**           | NVIDIA Jetson                                                             | On-premise SiteSense agents             |
+| **Database**          | Supabase (PostgreSQL + pgvector)                                          | Data, embeddings, signals               |
+| **Notifications**     | Microsoft Teams (webhook), Slack (webhook), Email (SES)                   | Agent alerts                            |
 
 ### MCP Hub Coordination Patterns
 
@@ -556,49 +567,82 @@ Code-backed agents (one `*.agent.ts` per row). This table is verified against
 the filesystem by `scripts/verify-agents-md.mjs` — keep it in sync when adding
 or removing an agent.
 
-| Agent                      | Role                                              | Implementation                                                                                                                                                                                                                                                                                                      | Default model |
-| -------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `agora`                    | Collective intelligence / multi-agent consensus   |
-| `argus`                    | Geospatial SAR signal intelligence (orbital)      |
-| `auditor`                  | Audit trail + explainability (XAI)                |
-| `cassandra`                | Predictive analytics + recommendations            |
-| `chronos`                  | Regulatory deadline & scheduling intelligence     |
-| `compliance`               | EU regulatory compliance (Fit for 55, CBAM, CSRD) |
-| `compliance-researcher`    | Regulatory research & deadline tracking           |
-| `construction`             | Construction project compliance orchestrator      |
-| `customer-sat`             | Customer satisfaction & churn analysis            |
-| `daedalus`                 | Tool composition + MCP bridge                     |
-| `deepwiki-extractor`       | Code extraction from GitHub repositories          |
-| `designer`                 | Design-to-code bridge                             |
-| `emissions-data-analyst`   | Natural-language queries on emissions data        |
-| `kb`                       | Knowledge base compile / query                    |
-| `logistics`                | Fleet & supply-chain compliance orchestrator      |
-| `material-oracle`          | Carbon footprint & procurement (LCA)              |
-| `minerva`                  | Knowledge transfer + explainability               |
-| `mnemosyne`                | Long-term memory oracle                           |
-| `panacea`                  | Self-improving / adaptive optimization            |
-| `quality-gate`             | Quality-gate / QA verification                    |
-| `hic-content-audit`        | HicContentAuditAgent                              | Binary pre-publication audit against the DWS Content Production Standard — 13 checklist points, Approved/To be corrected, requires a named HIC approver                                                                                                                                                             | Llama 3.3 70B |
-| `version-audit`            | VersionAuditAgent                                 | Audits DWS IQ 6 component versions, agent configurations, and ensures compliance                                                                                                                                                                                                                                    | Llama 3.3 70B |
-| `industry-analyst`         | IndustryAnalystAgent                              | Universal 25-industry analyst — regulatory exposure, emission profile, and decarbonization levers for any EU-regulated industry; fills the coverage gap for the 12 industries without a dedicated agent                                                                                                             | Llama 3.3 70B |
-| `outreach-executor`        | OutreachExecutorAgent                             | Delivers approved outreach threads via email (Amazon SES) or queues LinkedIn drafts for human delivery. Requires explicit human approval (approvedBy) before sending.                                                                                                                                               | Llama 3.3 70B |
-| `outreach-improver`        | OutreachImproverAgent                             | Outer loop of the DWS outreach self-improvement system. Analyzes outreach_threads outcomes from Supabase and proposes specific SKILL.md diffs to improve response rates over time.                                                                                                                                  | Llama 3.3 70B |
-| `outreach-lead-finder`     | OutreachLeadFinderAgent                           | Finds and scores high-intent EU enterprise leads matching an ICP. Upserts results to Supabase outreach_orgs. Powered by DGX Spark Ollama.                                                                                                                                                                           | Llama 3.3 70B |
-| `outreach-message-crafter` | OutreachMessageCrafterAgent                       | Crafts personalized email + LinkedIn message drafts for B2B leads using DWS brand voice and DGX Spark Ollama. Stores drafts to Supabase outreach_threads.                                                                                                                                                           | Llama 3.3 70B |
-| `outreach-orchestrator`    | OutreachOrchestratorAgent                         | Full outreach pipeline: find high-intent leads → craft personalized messages → queue for review. Step 3 (send) requires explicit human approval.                                                                                                                                                                    | Llama 3.3 70B |
-| `sales-manager-newsletter` | SalesManagerNewsletterAgent                       | Synthesizes market_signals (regulation) + news-to-signal.sh incident data into the sales-manager.md Story → Key Takeaway → Sales Opportunity format. Refuses to generate below minStories; sales targets constrained to EU_TARGET_UNIVERSE (no invented company names). Read-only — Stage 3 script writes the file. | Llama 3.3 70B |
-| `smart-factory`            | SmartFactoryAgent                                 | Smart Factory for Sales: matches any-size product catalog against sourced prospects, runs rate-capped multi-channel outreach (email / WhatsApp Cloud API; LinkedIn + Facebook human-in-the-loop), and books calls into booking_reservations. Backed by `src/smart-factory/` (migration 083).                        | Llama 3.3 70B |
-| `aegis`                    | AegisAgent                                        | Vulnerability & patch governance — triages dependency and code-scan findings                                                                                                                                                                                                                                        | Llama 3.3 70B |
-| `helpdesk`                 | HelpdeskAgent                                     | Support ticket triage agent. Reads ticket + customer plan + prior tickets + policy KB,                                                                                                                                                                                                                              | Llama 3.3 70B |
-| `vesta`                    | VestaAgent                                        | Business-critical systems registry — queryable form of docs/BUSINESS_CRITICAL_SYSTEMS.md.                                                                                                                                                                                                                           | Llama 3.3 70B |
-| `sales-outreach`           | B2B lead research & personalized outreach         |
-| `schedule-genius`          | Timeline & critical-path optimization             |
-| `sitesense`                | Site monitoring & safety analysis                 |
-| `sovereignty-monitor`      | Database sovereignty assessment                   |
-| `synthetic-data`           | CBAM synthetic-data pipeline                      |
-| `themis`                   | Legal intelligence + case coordinator             |
-| `viability`                | Unit economics & carbon-credit valuation          |
-| `vision-oracle`            | Vision language model / image analysis            |
+| Agent                       | Role                                                                                                                                                                                                                                                                                                                | Implementation                 | Default model               |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | --------------------------- |
+| `aegis`                     | Vulnerability & patch governance — triages dependency and code-scan findings                                                                                                                                                                                                                                        | `AegisAgent`                   | `llama-3.3-70b-versatile`   |
+| `agora`                     | Collective intelligence / multi-agent consensus                                                                                                                                                                                                                                                                     | `AgoraAgent`                   | `claude-sonnet-5`           |
+| `argus`                     | Geospatial SAR signal intelligence (orbital)                                                                                                                                                                                                                                                                        | `ArgusAgent`                   | `claude-sonnet-5`           |
+| `auditor`                   | Audit trail + explainability (XAI)                                                                                                                                                                                                                                                                                  | `AuditorAgent`                 | `llama-3.3-70b-versatile`   |
+| `cassandra`                 | Predictive analytics + recommendations                                                                                                                                                                                                                                                                              | `CassandraAgent`               | `llama-3.3-70b-versatile`   |
+| `chronos`                   | Regulatory deadline & scheduling intelligence                                                                                                                                                                                                                                                                       | `ChronosAgent`                 | `llama-3.3-70b-versatile`   |
+| `compliance`                | EU regulatory compliance (Fit for 55, CBAM, CSRD)                                                                                                                                                                                                                                                                   | `ComplianceAgent`              | `llama-3.3-70b-versatile`   |
+| `compliance-researcher`     | Regulatory research & deadline tracking                                                                                                                                                                                                                                                                             | `ComplianceResearcherAgent`    | `llama-3.1-70b-versatile`   |
+| `construction`              | Construction project compliance orchestrator                                                                                                                                                                                                                                                                        | `ConstructionAgent`            | `llama-3.1-70b-versatile`   |
+| `customer-sat`              | Customer satisfaction & churn analysis                                                                                                                                                                                                                                                                              | `CustomerSatAgent`             | `llama-3.3-70b-versatile`   |
+| `daedalus`                  | Tool composition + MCP bridge                                                                                                                                                                                                                                                                                       | `DaedalusAgent`                | `llama-3.3-70b-versatile`   |
+| `deepwiki-extractor`        | Code extraction from GitHub repositories                                                                                                                                                                                                                                                                            | `DeepWikiExtractorAgent`       | `llama-3.1-70b-versatile`   |
+| `designer`                  | Design-to-code bridge                                                                                                                                                                                                                                                                                               | `DesignerAgent`                | `claude-sonnet-5`           |
+| `emissions-data-analyst`    | Natural-language queries on emissions data                                                                                                                                                                                                                                                                          | `EmissionsDataAnalystAgent`    | `llama-3.1-70b-versatile`   |
+| `helpdesk`                  | Support ticket triage agent. Reads ticket + customer plan + prior tickets + policy KB, then drafts a reply and recommends an action (resolve / reply / escalate / refund / plan-upgrade-suggest). Never sends email — humans approve via the reviewer endpoints.                                                    | `HelpdeskAgent`                | `claude-sonnet-4-6`         |
+| `hic-content-audit`         | Binary pre-publication audit against the DWS Content Production Standard — 13 checklist points, Approved/To be corrected, requires a named HIC approver                                                                                                                                                             | `HicContentAuditAgent`         | `claude-haiku-4-5-20251001` |
+| `industry-analyst`          | Universal 25-industry analyst — regulatory exposure, emission profile, and decarbonization levers for any EU-regulated industry; fills the coverage gap for the 12 industries without a dedicated agent                                                                                                             | `IndustryAnalystAgent`         | `claude-haiku-4-5-20251001` |
+| `kb`                        | Knowledge base compile / query                                                                                                                                                                                                                                                                                      | `KBAgent`                      | `claude-sonnet-5`           |
+| `logistics`                 | Fleet & supply-chain compliance orchestrator                                                                                                                                                                                                                                                                        | `LogisticsAgent`               | `llama-3.1-70b-versatile`   |
+| `material-oracle`           | Carbon footprint & procurement (LCA)                                                                                                                                                                                                                                                                                | `MaterialOracleAgent`          | `llama-3.3-70b-versatile`   |
+| `minerva`                   | Knowledge transfer + explainability                                                                                                                                                                                                                                                                                 | `MinervaAgent`                 | `llama-3.3-70b-versatile`   |
+| `mnemosyne`                 | Long-term memory oracle                                                                                                                                                                                                                                                                                             | `MnemosyneAgent`               | `llama-3.3-70b-versatile`   |
+| `outreach-executor`         | Delivers approved outreach threads via email (Amazon SES) or queues LinkedIn drafts for human delivery. Requires explicit human approval (approvedBy) before sending.                                                                                                                                               | `OutreachExecutorAgent`        | `placeholder`               |
+| `outreach-improver`         | Outer loop of the DWS outreach self-improvement system. Analyzes outreach_threads outcomes from Supabase and proposes specific SKILL.md diffs to improve response rates over time.                                                                                                                                  | `OutreachImproverAgent`        | `llama3.3:70b`              |
+| `outreach-lead-finder`      | Finds and scores high-intent EU enterprise leads matching an ICP. Upserts results to Supabase outreach_orgs. Powered by DGX Spark Ollama.                                                                                                                                                                           | `OutreachLeadFinderAgent`      | `llama3.3:70b`              |
+| `outreach-message-crafter`  | Crafts personalized email + LinkedIn message drafts for B2B leads using DWS brand voice and DGX Spark Ollama. Stores drafts to Supabase outreach_threads.                                                                                                                                                           | `OutreachMessageCrafterAgent`  | `llama3.3:70b`              |
+| `outreach-orchestrator`     | Full outreach pipeline: find high-intent leads → craft personalized messages → queue for review. Step 3 (send) requires explicit human approval.                                                                                                                                                                    | `OutreachOrchestratorAgent`    | `placeholder`               |
+| `panacea`                   | Self-improving / adaptive optimization                                                                                                                                                                                                                                                                              | `PanaceaAgent`                 | `llama-3.3-70b-versatile`   |
+| `quality-gate`              | Quality-gate / QA verification                                                                                                                                                                                                                                                                                      | `QualityGateAgent`             | `llama-3.3-70b-versatile`   |
+| `sales-manager-newsletter`  | Synthesizes market_signals (regulation) + news-to-signal.sh incident data into the sales-manager.md Story → Key Takeaway → Sales Opportunity format. Refuses to generate below minStories; sales targets constrained to EU_TARGET_UNIVERSE (no invented company names). Read-only — Stage 3 script writes the file. | `SalesManagerNewsletterAgent`  | `llama3.3:70b`              |
+| `sales-outreach`            | B2B lead research & personalized outreach                                                                                                                                                                                                                                                                           | `SalesOutreachAgent`           | `llama-3.3-70b-versatile`   |
+| `schedule-genius`           | Timeline & critical-path optimization                                                                                                                                                                                                                                                                               | `ScheduleGeniusAgent`          | `llama-3.3-70b-versatile`   |
+| `sitesense`                 | Site monitoring & safety analysis                                                                                                                                                                                                                                                                                   | `SiteSenseAgent`               | `llama-3.3-70b-versatile`   |
+| `smart-factory`             | Smart Factory for Sales: matches any-size product catalog against sourced prospects, runs rate-capped multi-channel outreach (email / WhatsApp Cloud API; LinkedIn + Facebook human-in-the-loop), and books calls into booking_reservations. Backed by `src/smart-factory/` (migration 083).                        | `SmartFactoryAgent`            | `llama3.3:70b`              |
+| `sovereignty-monitor`       | Database sovereignty assessment                                                                                                                                                                                                                                                                                     | `SovereigntyMonitorAgent`      | `llama-3.3-70b-versatile`   |
+| `synthetic-data`            | CBAM synthetic-data pipeline                                                                                                                                                                                                                                                                                        | `SyntheticDataAgent`           | `deterministic`             |
+| `themis`                    | Legal intelligence + case coordinator                                                                                                                                                                                                                                                                               | `ThemisAgent`                  | `claude-sonnet-5`           |
+| `version-audit`             | Audits DWS IQ 6 component versions, agent configurations, and ensures compliance                                                                                                                                                                                                                                    | `VersionAuditAgent`            | `llama-3.3-70b-versatile`   |
+| `vesta`                     | Business-critical systems registry — queryable form of docs/BUSINESS_CRITICAL_SYSTEMS.md.                                                                                                                                                                                                                           | `VestaAgent`                   | `llama-3.3-70b-versatile`   |
+| `viability`                 | Unit economics & carbon-credit valuation                                                                                                                                                                                                                                                                            | `ViabilityAgent`               | `llama-3.3-70b-versatile`   |
+| `vision-oracle`             | Vision language model / image analysis                                                                                                                                                                                                                                                                              | `VisionOracleAgent`            | `claude-opus-4-7`           |
+| `vuln-patch-sla-triage`     | Vulnerability & patch governance — triages dependency and code-scan findings                                                                                                                                                                                                                                        | `VulnPatchSlaTriageAgent`      | `llama-3.3-70b-versatile`   |
+| `ai-scoping`                | Assesses customer compliance needs and recommends the right DWS IQ product axis for engagement scoping                                                                                                                                                                                                              | `AIScopingConsultantAgent`     | `llama-3.3-70b-versatile`   |
+| `apollo`                    | Content & Outreach Intelligence — B2B content strategy, sales outreach sequencing, and SEO for Climate IQ regulatory buyers                                                                                                                                                                                         | `ApolloAgent`                  | `claude-haiku-4-5-20251001` |
+| `athena`                    | Compliance Intelligence — deadline-first EU regulatory assessment (ETS, CBAM, CSRD, Fit for 55, EU AI Act) for Climate IQ                                                                                                                                                                                           | `AthenaAgent`                  | `claude-haiku-4-5-20251001` |
+| `atlas`                     | Compile multi-agent findings into an executive briefing ranked by urgency                                                                                                                                                                                                                                           | `AtlasAgent`                   | `claude-haiku-4-5-20251001` |
+| `bess`                      | Battery Energy Storage System Compliance Specialist — Q-System dispatch → compliance cost, EU Taxonomy 4.10, CSRD lifecycle disclosure                                                                                                                                                                              | `BESSAgent`                    | `claude-haiku-4-5-20251001` |
+| `ceres`                     | Agriculture & Fertilizers Industry Specialist — CBAM fertilizers, N2O emissions, CSRD farm-to-gate Scope 3 for Climate IQ                                                                                                                                                                                           | `CeresAgent`                   | `claude-haiku-4-5-20251001` |
+| `checker`                   | Grades Maker output against the loop exit condition. Returns structured findings that feed back to the Maker as the next instruction.                                                                                                                                                                               | `CheckerAgent`                 | `claude-haiku-4-5-20251001` |
+| `competitor-surveillance`   | Monitors competitor websites for content changes, new pages, pricing shifts, and backlink growth. Generates content gap alerts when competitors cover topics we do not.                                                                                                                                             | `CompetitorSurveillanceAgent`  | `llama-3.3-70b-versatile`   |
+| `compliance-specialist`     | Deep regulatory expertise in CBAM, CSRD, ETS, NIS2, CER, and EU AI Act with DWS IQ automation mapping                                                                                                                                                                                                               | `ComplianceSpecialistAgent`    | `llama-3.3-70b-versatile`   |
+| `content-brief`             | Generates structured content briefs and first drafts using keyword data, competitor analysis, and LWM regulatory domain knowledge. Ensures every piece references specific EU regulation articles and uses industry-specific terminology.                                                                           | `ContentBriefAgent`            | `llama-3.3-70b-versatile`   |
+| `devops-engineer`           | Manages CI/CD, Kubernetes, UpCloud Helsinki infrastructure, and security for DWS IQ deployments                                                                                                                                                                                                                     | `DevOpsEngineerAgent`          | `llama-3.3-70b-versatile`   |
+| `dws-deployment-engineer`   | Plans and executes DWS IQ deployment with ERP integration for SAP, IFS, Visma, and Monitor systems                                                                                                                                                                                                                  | `DWSDeploymentEngineerAgent`   | `llama-3.3-70b-versatile`   |
+| `edge-ai-engineer`          | Deploys DWS IQ Aegis on NVIDIA Jetson, DGX Spark, and Acer Veriton edge hardware in air-gapped environments                                                                                                                                                                                                         | `EdgeAIEngineerAgent`          | `llama-3.3-70b-versatile`   |
+| `enterprise-model-engineer` | Builds and trains the Lifetime World Model (LWM) ontology for enterprise-specific AI knowledge                                                                                                                                                                                                                      | `EnterpriseModelEngineerAgent` | `llama-3.3-70b-versatile`   |
+| `gaia`                      | Cement, Lime & Earth Materials Industry Specialist — CBAM cement, ETS clinker/lime benchmarks, dual-use critical raw material assessment, clinker substitution pathways for Climate IQ                                                                                                                              | `GaiaAgent`                    | `claude-haiku-4-5-20251001` |
+| `genai-solution-architect`  | Designs enterprise GenAI architecture with Claude Code, KYA management, and multi-agent orchestration                                                                                                                                                                                                               | `GenAISolutionArchitectAgent`  | `llama-3.3-70b-versatile`   |
+| `helios`                    | Energy & Renewables Industry Specialist — Fit for 55, RED III, ETS exposure, EU Taxonomy alignment for Climate IQ                                                                                                                                                                                                   | `HeliosAgent`                  | `claude-haiku-4-5-20251001` |
+| `hephaestus`                | Field & Site Intelligence — parallel assessment of site safety, material carbon, and schedule risk for Climate IQ                                                                                                                                                                                                   | `HephaestusAgent`              | `claude-haiku-4-5-20251001` |
+| `iris`                      | Research & Market Intelligence — competitor surveillance, regulatory extraction, and SEO keyword analysis for Climate IQ                                                                                                                                                                                            | `IrisAgent`                    | `claude-haiku-4-5-20251001` |
+| `juno`                      | Chemical & pharmaceutical industry specialist — CBAM fertilisers/hydrogen, REACH substance compliance, CLP classification, ESRS E1–E4 disclosure, and EU ETS benchmark gap analysis for ammonia, nitric acid, and bulk chemicals.                                                                                   | `JunoAgent`                    | `llama-3.3-70b-versatile`   |
+| `keyword-intent`            | Classifies search queries into TOFU/MOFU/BOFU funnel stages, identifies quick-win keywords (rank 8-15), and produces a prioritized keyword queue aligned to DWS ICP.                                                                                                                                                | `KeywordIntentAgent`           | `llama-3.3-70b-versatile`   |
+| `lead-feedback`             | Reads closed-won CRM records, extracts buyer language patterns and pain points, and feeds keyword suggestions and score adjustments back to the Keyword Intent Agent. Closes the SEO-to-sales loop.                                                                                                                 | `LeadFeedbackAgent`            | `llama-3.3-70b-versatile`   |
+| `mars`                      | Construction & Buildings Industry Specialist — EPBD recast, whole-life carbon (EN 15978), EU Taxonomy buildings criteria for Climate IQ                                                                                                                                                                             | `MarsAgent`                    | `claude-haiku-4-5-20251001` |
+| `mercury`                   | Logistics & Operations Intelligence — supply chain optimization, schedule risk, and quality gate assessment for Climate IQ                                                                                                                                                                                          | `MercuryAgent`                 | `claude-haiku-4-5-20251001` |
+| `mercury-trade`             | Trade intelligence + CBAM import analytics — calculates CBAM certificate liability, compares supplier carbon intensity across origin countries, ranks suppliers by embedded carbon cost, and flags import risk. Covers all 7 CBAM Annex I sectors.                                                                  | `MercuryTradeAgent`            | `llama-3.3-70b-versatile`   |
+| `neptune`                   | Maritime & Shipping Industry Specialist — EU ETS shipping inclusion, FuelEU Maritime, MRV reporting obligations for Climate IQ                                                                                                                                                                                      | `NeptuneAgent`                 | `claude-haiku-4-5-20251001` |
+| `project-manager`           | Coordinates multi-role DWS IQ consulting projects with JIRA workflows, scheduling, and customer documentation                                                                                                                                                                                                       | `ProjectManagerAgent`          | `llama-3.3-70b-versatile`   |
+| `prometheus`                | Hydrogen & Energy Transition Specialist — RFNBO/RED III compliance, additionality, green H2 certification for Climate IQ                                                                                                                                                                                            | `PrometheusAgent`              | `claude-haiku-4-5-20251001` |
+| `seo-audit`                 | Crawls DWS sites on deploy to check Core Web Vitals, canonical tags, schema markup, and meta tags. Blocks deployment when critical SEO issues are found.                                                                                                                                                            | `SeoAuditAgent`                | `llama-3.3-70b-versatile`   |
+| `talos`                     | Aluminium Industry Specialist — CBAM indirect emissions, Hall-Héroult electrolysis, grid carbon intensity, ETS benchmark gap for Climate IQ                                                                                                                                                                         | `TalosAgent`                   | `claude-haiku-4-5-20251001` |
+| `vulcan`                    | Steel & Metals Industry Specialist — ETS Phase 4, CBAM carbon declarations, blast furnace vs. EAF pathway analysis for Climate IQ                                                                                                                                                                                   | `VulcanAgent`                  | `claude-haiku-4-5-20251001` |
+| `world-model-loop`          | Lifetime World Model V1 reference loop for control rooms: perception → simulation → HIL-gated action proposal → reward learning. Reference architecture, not a live deploy path.                                                                                                                                    | `WorldModelLoopAgent`          | `llama-3.3-70b-versatile`   |
 
 ### Documentation Standards
 
@@ -746,17 +790,17 @@ These are the pre-existing skills in `skills/`. See `docs/DWS_SKILLS_GUIDE.md` f
 
 ### File Locations
 
-| Resource                  | Path                                           |
-| ------------------------- | ---------------------------------------------- |
-| V1.0 Feature List         | `V1_FEATURE_LIST.md`                           |
-| Signal Registry           | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json` |
-| Coordinator Script        | `.workflows/agents/coordinator.cjs`            |
-| Coordinator Guide         | `.workflows/agents/ULTRA_AGENT_COORDINATOR.md` |
-| Design Audit Agent        | `.workflows/agents/DESIGN_AUDIT_AGENT.md`      |
-| Design Audit Admin Manual | `ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md`           |
-| Agent Guidelines          | `AI_AGENT_GUIDELINES.md`                       |
-| DWS Team Agents           | `CloudAgents/dws-team/README.md`               |
-| Customer Agent Configs    | `AgentFoundry/configs/templates/`              |
+| Resource                  | Path                                                                               |
+| ------------------------- | ---------------------------------------------------------------------------------- |
+| V1.0 Feature List         | `V1_FEATURE_LIST.md`                                                               |
+| Signal Registry           | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json`                                     |
+| Coordinator Script        | `.workflows/agents/coordinator.cjs`                                                |
+| Coordinator Guide         | `.workflows/agents/ULTRA_AGENT_COORDINATOR.md`                                     |
+| Design Audit Agent        | `.workflows/agents/DESIGN_AUDIT_AGENT.md`                                          |
+| Design Audit Admin Manual | `ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md`                                               |
+| Agent Guidelines          | `AI_AGENT_GUIDELINES.md`                                                           |
+| DWS Team Agents           | `CloudAgents/dws-team/README.md`                                                   |
+| Customer Agent Configs    | `AgentFoundry/configs/templates/`                                                  |
 | MCP Hub                   | `mcp-hub-ts/` (Cloud Run `mcp-hub-ts/cloudbuild.yaml`); Python `mcp-hub/` optional |
 
 ### Common Commands
@@ -823,16 +867,26 @@ cd mcp-hub && pip install -r requirements.txt && python server.py
 - [ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md](ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md) - Design Audit Agent usage guide
 - [docs/Deputy-Agents-Architecture.md](docs/Deputy-Agents-Architecture.md) - DGX Managed Agents self-hosted architecture, referenced in §8
 - [docs/CLOUD_ENVIRONMENTS.md](docs/CLOUD_ENVIRONMENTS.md) - DGX Spark as primary compute (§3.2.2), referenced in §8
+- [NVIDIA SoL-Pi (harness-search paper, not DWS)](docs/field-notes/2026-09-19-nvidia-sol-pi-self-evolving-harness.md) — arXiv [2609.20519](https://arxiv.org/abs/2609.20519). Literature bookmark only; DWS does not run SoL-Pi.
 
 ---
 
 ## Cursor IDE & agent instructions (Win11 + Cloud)
 
+
 **Production routing (v3.16):** Cursor on Win11 is for **planning, review, and small scoped edits**. Large work (3+ files, i18n, translations) → plan first, then **OpenCode agents on DGX** with free/Ollama models. On session start: read handoffs + opencode-all queue; see `.cursor/rules/dws-claude-pipeline-parity.mdc`.
+
+
+### DWS standards (mandatory)
+
+Same as the block under the document header: Read `STANDARDS_ROUTING.md` + Truth + Roles + matches **before** writing files. `alwaysApply` rule: `.cursor/rules/dws-standards-always.mdc`.
+
+
 
 ### Services overview (local / Cloud dev sandbox)
 
 | Service         | Path                                      | Start command           | Port |
+
 | --------------- | ----------------------------------------- | ----------------------- | ---- |
 | Express Backend | `/workspace`                              | See startup notes below | 3001 |
 | React Dashboard | `dws6.com/dashboard/firehorse/v10-react/` | `npm run dev`           | 5173 |
@@ -875,6 +929,9 @@ All real `// TODO` markers in `src/` are triaged in [`docs/backlog/CODE_TODO_LED
 ---
 
 **Document Version:** 1.4  
-**Last Updated:** September 17, 2026  
+
+
+**Last Updated:** September 27, 2026  
+
 **Status:** Active  
 **Next Review:** October 10, 2026

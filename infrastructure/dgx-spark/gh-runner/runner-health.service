@@ -1,0 +1,27 @@
+# Evidence: Tool=Claude Code (cloud) Agent=runner-hardening Date=2026-09-23
+# Audit trail: git log -- infrastructure/dgx-spark/gh-runner/runner-health.service
+#
+# Health probe on :9800 for the hardened runner (Code-Version 2.0.0).
+# Runs as a throwaway dynamic user; only needs to see the Runner.Listener
+# process and bind an unprivileged port.
+
+[Unit]
+Description=GitHub Actions Runner Health Probe (DGX Spark)
+After=github-runner.service
+
+[Service]
+Type=simple
+DynamicUser=yes
+ExecStart=/usr/local/lib/gh-runner/runner-health.sh
+Restart=always
+RestartSec=5
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+CapabilityBoundingSet=
+RestrictNamespaces=yes
+
+[Install]
+WantedBy=multi-user.target

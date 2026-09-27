@@ -4,10 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.9 [Latest]
 
 Sessions & Modifications:
 
+- Version: 1.9 [Latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Additive §17 — product taxonomy: group tags (SME, DWS IQ, Firehorse), attribute tags (Hardware, Sovereign, Air-Gapped, Sovereign Cloud, US Sovereign Cloud, On-Prem, Gov Ready, Licence, Subscription, Installation, Pilot, Free, Training, Early Access) and product lifecycle states (HIC 25.09.2026). Dictionary gains `product_tag_*` keys.
+- Version: 1.8 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Additive §4.1 — LWM has two named layers: model base (TRUTH line 20) and state register and memory (IDV/TRS/PRV, KYA-S1 part 9, HIC 09.08.2026). Resolves the open term conflict in the draft `lifetime-world-model-ja-teollisuuden-prosessimallit`. Dictionary gains the KYA-S1 §16.6 table, LWM, process-model terms and domain taglines.
+- Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 18.09.2026 | Changes: Additive **Appendix E** pointer — `docs/localization/dws-dictionary.json` binds five-language termKeys to `ontologyId` (or explicit `none`) for later LF-ONTOLOGY-25 / LWM-ONT-SOVEREIGN builds. CCP Appendix D is unchanged. Prices stay in `dws10.com/config/products.json`.
 - Version: 1.6 | Tool: Claude Code (Opus 5) | Session: claude/kya-s1-blog-post-1-swb4k4 | Date: 09.08.2026 | Changes: Added §16 **KYA Ontology — Agent Governance Vocabulary**: the canonical vocabulary for the mandate layer the spatial/temporal/causal/entity ontologies do not cover — UNDER WHAT MANDATE an autonomous agent acted. Core concepts, the seven KYA-S1 control domains, the KYA-AL1/AL2/AL3 assurance levels (renamed from Bronze/Silver/Gold in KYA-S1 v1.4), runtime mechanisms (Lease Token, fail-closed, leash snap, capture-precedes-release, bounded attribution clock, TRS/TRS_req), process concepts (HIC, Single Pane of Glass, PRV-4, BPMN 2.0 engine, EUDI Wallet), and a five-language term table with Finnish as Ground Truth. Normative source is `Legal/KYA_S1.md` v1.5; §16 is descriptive and yields to it. Three translation errors in the supplied table were corrected and recorded in §16.7 rather than applied silently.
 - Version: 1.5 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Data Lifecycle & Retention Ontology (HOW LONG)" subsection in §6 — every ontology node ingesting live data now carries an explicit per-node retention schema (node_owner, raw/summary/audit/rollup tiers, quarterly aggregation_review), closing the gap named by the Valtiovarainministeriö security-oriented information management guide (VM 2026:27 §4.4.2, aggregation effect / kasautumisvaikutus). Reference implementation: Control Room / Situation Room four-tier model (`docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`, `Admin/ADMIN_MANUAL.md`). Retention is a property of the node, not a platform-wide default.
 - Version: 1.4 | Tool: Claude Code (claude-sonnet-4-6) | Session: claude/knowledge-catalog-research-J207A | Date: 04.05.2026 | Changes: Added §15 "GC-KC Reference Architecture — What Industrial Ontology Runtime Looks Like". Maps Google Cloud Knowledge Catalog three pillars (Aggregation, Enrichment, Search) to DWS ontology tiers. Adds DWSDataProduct as a named concept. Connector decision documented (export adapter only). Updates §14 lags table: Knowledge Catalog Runtime gap now tracked.
@@ -24,7 +27,7 @@ Session Links & References:
 Document Status:
 
 - Created: 21.01.2026
-- Last Modified: 09.08.2026
+- Last Modified: 25.09.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -247,6 +250,19 @@ LWM = (Spatial Map + Temporal Timeline + Causal Logic + Safety Constraints)
 | **Updates**   | Batch re-indexing | Continuous world model updates           |
 | **Conflicts** | Ignored           | Actively resolved                        |
 | **Safety**    | Query filtering   | Orchestration rules + safety constraints |
+
+### 4.1 Two layers of the LWM: model base and state register
+
+The term LWM covers two layers. They are named separately so that no text uses one meaning for the other.
+
+| Layer                             | What it is                                                                                                                                   | Canonical source                                                              |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| **LWM model base**                | Per-industry ontology + world model base, fine-tuned per enterprise (spatial, temporal, causal, safety — the equation above).                | `DWS_TRUTH_STANDARD.md` line 20; this section                                 |
+| **LWM state register and memory** | The live register of who acted, under which mandate, with what trust: agent identity (IDV), trust score (TRS) and decision provenance (PRV). | KYA-S1 series part 9 "Globaali tilarekisteri ja muisti" (HIC 09.08.2026); §16 |
+
+Relation: the model base answers **what the world is**; the state register answers **who changed it, with what authority**. A Skilled Agent reads both before acting. A BPMN gateway reads TRS from the state register to route a step to a Service Task (automatic) or a User Task (HIC sign-off); the HIC sign-off is written back as PRV-4.
+
+Five-language form: `lwm` and `lwm_state_register` in `docs/localization/dws-dictionary.json`.
 
 ---
 
@@ -1860,25 +1876,25 @@ languages are translations of it.
 
 ### 16.2 The seven control domains
 
-| Control | Name | What it governs |
-| --- | --- | --- |
-| **IDV** | Identity Verification | Binds every agent session, tool request and decision to a cryptographically verified human (IDV-1..4). |
-| **REG** | Capability Registration | The capability manifest and live registry: permitted tools, API endpoints and execution limits, declared before activation (REG-1..2). |
-| **BHM** | Behavioral Modeling | Runtime behavioural monitoring against a baseline; detects prompt injection, tool poisoning and deviant execution paths. |
-| **TC4** | Chain Termination | The emergency brake: atomic elimination of an agent chain (leash snap) and invalidation of every active authorization token. |
-| **FLT** | Fault Attribution | A signed classification of the fault's cause within 72 hours of incident close (FLT-4). |
-| **TRS** | Trust Score & Authorization | Computes the runtime trust level and issues atomic execution grants. |
-| **PRV** | Provenance & Audit Trail | Decision replay: the decision chain, model state and the human's sign-off (PRV-4) in immutable history (PRV-2). |
+| Control | Name                        | What it governs                                                                                                                        |
+| ------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| **IDV** | Identity Verification       | Binds every agent session, tool request and decision to a cryptographically verified human (IDV-1..4).                                 |
+| **REG** | Capability Registration     | The capability manifest and live registry: permitted tools, API endpoints and execution limits, declared before activation (REG-1..2). |
+| **BHM** | Behavioral Modeling         | Runtime behavioural monitoring against a baseline; detects prompt injection, tool poisoning and deviant execution paths.               |
+| **TC4** | Chain Termination           | The emergency brake: atomic elimination of an agent chain (leash snap) and invalidation of every active authorization token.           |
+| **FLT** | Fault Attribution           | A signed classification of the fault's cause within 72 hours of incident close (FLT-4).                                                |
+| **TRS** | Trust Score & Authorization | Computes the runtime trust level and issues atomic execution grants.                                                                   |
+| **PRV** | Provenance & Audit Trail    | Decision replay: the decision chain, model state and the human's sign-off (PRV-4) in immutable history (PRV-2).                        |
 
 ### 16.3 Assurance levels (KYA-AL)
 
 Renamed from Bronze / Silver / Gold in KYA-S1 v1.4 (HIC decision, 09.08.2026). Thresholds unchanged.
 
-| Level | Audit cadence | Required evidence depth | SLA (IDV & TC4) | PRV replay availability |
-| --- | --- | --- | --- | --- |
-| **KYA-AL1** (Standard) | Annual | Third-party audit in ≥1 domain + signed telemetry | ≤ 15 minutes | 30 days |
-| **KYA-AL2** (Enhanced) | Quarterly | Audit across IDV and BHM + 12 months signed telemetry | ≤ 5 minutes | 7 days |
-| **KYA-AL3** (Critical) | Continuous, real time | External assessor across all 7 domains + signed SLA | ≤ 60 seconds | 24 hours |
+| Level                  | Audit cadence         | Required evidence depth                               | SLA (IDV & TC4) | PRV replay availability |
+| ---------------------- | --------------------- | ----------------------------------------------------- | --------------- | ----------------------- |
+| **KYA-AL1** (Standard) | Annual                | Third-party audit in ≥1 domain + signed telemetry     | ≤ 15 minutes    | 30 days                 |
+| **KYA-AL2** (Enhanced) | Quarterly             | Audit across IDV and BHM + 12 months signed telemetry | ≤ 5 minutes     | 7 days                  |
+| **KYA-AL3** (Critical) | Continuous, real time | External assessor across all 7 domains + signed SLA   | ≤ 60 seconds    | 24 hours                |
 
 ### 16.4 Runtime mechanisms
 
@@ -1887,10 +1903,10 @@ Renamed from Bronze / Silver / Gold in KYA-S1 v1.4 (HIC decision, 09.08.2026). T
   which is what closes the race-condition and double-charge windows.
 - **Fail-Closed (TRS-5)** — if the trust engine does not answer within its bounded timeout (e.g.
   > 500 ms) or returns an error, the action never proceeds autonomously; it routes to a human
-  (User Task / HIC Dashboard) or halts.
+  > (User Task / HIC Dashboard) or halts.
 - **Leash Snap (TC4)** — atomic severing of an execution chain: stops a multi-agent run and
   invalidates every active Lease Token at once.
-- **Capture Precedes Release (TC4-5)** — forensic state is committed *before* terminated resources
+- **Capture Precedes Release (TC4-5)** — forensic state is committed _before_ terminated resources
   are freed. Without it, a terminated chain leaves FLT with no substrate to attribute against.
 - **Bounded Attribution Clock (FLT-4)** — a binding classification of the fault within 72 hours of
   incident close, into five categories: model fault, application-logic fault, integration fault,
@@ -1918,41 +1934,107 @@ Renamed from Bronze / Silver / Gold in KYA-S1 v1.4 (HIC decision, 09.08.2026). T
 
 FI is Ground Truth; EN, SV, DE and FR are translations of it.
 
-| Term / code | Suomi (FI) — Ground Truth | English (EN) | Svenska (SV) | Deutsch (DE) | Français (FR) |
-| --- | --- | --- | --- | --- | --- |
-| **KYA** | Agentin tunnistaminen | Know Your Agent | Känn din agent | Kenne deinen Agenten | Connaissez votre agent |
-| **KYA-S1 Specification** | KYA-S1-turvallisuusspesifikaatio | KYA-S1 Security Specification | KYA-S1 Säkerhetsspecifikation | KYA-S1 Sicherheitsspezifikation | Spécification de sécurité KYA-S1 |
-| **Evidence Meta-Rule (§3)** | Näyttömetasääntö (§3) | Evidence Meta-Rule (§3) | Bevis-metaregel (§3) | Evidenz-Metaregel (§3) | Méta-règle de preuve (§3) |
-| **Agentic Commerce** | Autonominen agenttikaupankäynti | Agentic Commerce | Agentisk handel | Agenten-Handel | Commerce agentique |
-| **IDV** | Todennettu ihmisjohtajan sidos | Verified Human Principal Binding | Verifierad mänsklig huvudmannakoppling | Verifizierte menschliche Hauptverbindung | Liaison d'agent à un responsable humain vérifié |
-| **REG** | Kyvykkyysmanifesti ja rekisteri | Capability Manifest & Registry | Kapacitetsmanifest och register | Fähigkeitsmanifest & Register | Manifeste et registre des capacités |
-| **BHM** | Ajonaikainen käyttäytymisen valvonta | Runtime Behavioral Modeling | Beteendemodellering vid körning | Laufzeit-Verhaltensmodellierung | Modélisation comportementale en temps réel |
-| **TC4** | Ketjun keskeytys / hätäjarru | Chain Termination / Leash Snap | Kedjeavslutning / nödbroms | Kettenabbruch / Notbremse | Terminaison de chaîne / frein d'urgence |
-| **FLT** | Aikarajoitettu virheattribuutio | Bounded Fault Attribution | Tidsbegränsad felattribuering | Zeitbegrenzte Fehlerattribuierung | Attribution limitée des fautes |
-| **TRS** | Luottamuspiste ja valtuutus | Trust Score & Authorization | Förtroendepoäng och auktorisering | Vertrauenswert & Autorisierung | Score de confiance et autorisation |
-| **PRV** | Päätösten toistettavuus ja auditointijälki | Decision Provenance & Audit Trail | Beslutsursprung och granskningskedja | Entscheidungsherkunft & Prüfpfad | Provenance de la décision et piste d'audit |
-| **KYA-AL1** | Vakiotaso | Standard Assurance | Standardgaranti | Standard-Garantie | Assurance standard |
-| **KYA-AL2** | Laajennettu taso | Enhanced Assurance | Förhöjd garanti | Erweiterte Garantie | Assurance renforcée |
-| **KYA-AL3** | Kriittinen taso | Critical Assurance | Kritisk garanti | Kritische Garantie | Assurance critique |
-| **Lease Token (TRS-4)** | Kertakäyttöinen valtuutusavain | Atomic Single-Use Lease Token | Atomisk tidsbegränsad nyttjanderätts-token | Atomares Einmal-Autorisierungs-Token | Jeton de bail atomique à usage unique |
-| **Fail-Closed (TRS-5)** | Pakkosuojaus vikatilanteessa | Fail-Closed Protection | Säker vid fel (fail-closed) | Fehlersichere Sperre (fail-closed) | Verrouillage en cas de défaillance |
-| **Leash Snap (TC4)** | Hätäjarru | Leash Snap Emergency Stop | Nödbroms | Notbremse | Frein d'urgence |
-| **Capture Precedes Release (TC4-5)** | Tallennus ennen resursseista luopumista | Capture Precedes Release | Lagring före frigörande | Erfassung vor Freigabe | Capture avant libération des ressources |
-| **Bounded Attribution Clock (FLT-4)** | Aikarajoitettu virheattribuutio (72 h) | Bounded Attribution Clock (72 h) | Tidsbegränsad felattribuering (72 h) | Zeitbegrenzte Fehlerattribuierung (72 h) | Horloge d'attribution limitée (72 h) |
-| **HIC** | Ihmisen johtamisvalta | Human-in-Command | Mänsklig ledningsrätt | Menschliche Führung | Commandement humain |
-| **Single Pane of Glass** | Yhtenäinen valvomonäkymä | Single Pane of Glass HIC Dashboard | Enhetlig kontrollvy | Zentrales Kontrollpanel | Panneau de contrôle unique |
-| **Human Decision Provenance (PRV-4)** | Ihmispäätöksen alkuperä ja kuittaus | Human Decision Provenance | Mänskligt beslutsursprung | Menschliche Entscheidungsherkunft | Provenance de la décision humaine |
-| **EUDI Wallet / eIDAS 2.0** | EU:n digitaalinen lompakko / eIDAS 2.0 | European Digital Identity Wallet / eIDAS 2.0 | EU:s digitala plånbok / eIDAS 2.0 | Digitale EU-Brieftasche / eIDAS 2.0 | Portefeuille d'identité numérique de l'UE / eIDAS 2.0 |
+| Term / code                           | Suomi (FI) — Ground Truth                  | English (EN)                                 | Svenska (SV)                               | Deutsch (DE)                             | Français (FR)                                         |
+| ------------------------------------- | ------------------------------------------ | -------------------------------------------- | ------------------------------------------ | ---------------------------------------- | ----------------------------------------------------- |
+| **KYA**                               | Agentin tunnistaminen                      | Know Your Agent                              | Känn din agent                             | Kenne deinen Agenten                     | Connaissez votre agent                                |
+| **KYA-S1 Specification**              | KYA-S1-turvallisuusspesifikaatio           | KYA-S1 Security Specification                | KYA-S1 Säkerhetsspecifikation              | KYA-S1 Sicherheitsspezifikation          | Spécification de sécurité KYA-S1                      |
+| **Evidence Meta-Rule (§3)**           | Näyttömetasääntö (§3)                      | Evidence Meta-Rule (§3)                      | Bevis-metaregel (§3)                       | Evidenz-Metaregel (§3)                   | Méta-règle de preuve (§3)                             |
+| **Agentic Commerce**                  | Autonominen agenttikaupankäynti            | Agentic Commerce                             | Agentisk handel                            | Agenten-Handel                           | Commerce agentique                                    |
+| **IDV**                               | Todennettu ihmisjohtajan sidos             | Verified Human Principal Binding             | Verifierad mänsklig huvudmannakoppling     | Verifizierte menschliche Hauptverbindung | Liaison d'agent à un responsable humain vérifié       |
+| **REG**                               | Kyvykkyysmanifesti ja rekisteri            | Capability Manifest & Registry               | Kapacitetsmanifest och register            | Fähigkeitsmanifest & Register            | Manifeste et registre des capacités                   |
+| **BHM**                               | Ajonaikainen käyttäytymisen valvonta       | Runtime Behavioral Modeling                  | Beteendemodellering vid körning            | Laufzeit-Verhaltensmodellierung          | Modélisation comportementale en temps réel            |
+| **TC4**                               | Ketjun keskeytys / hätäjarru               | Chain Termination / Leash Snap               | Kedjeavslutning / nödbroms                 | Kettenabbruch / Notbremse                | Terminaison de chaîne / frein d'urgence               |
+| **FLT**                               | Aikarajoitettu virheattribuutio            | Bounded Fault Attribution                    | Tidsbegränsad felattribuering              | Zeitbegrenzte Fehlerattribuierung        | Attribution limitée des fautes                        |
+| **TRS**                               | Luottamuspiste ja valtuutus                | Trust Score & Authorization                  | Förtroendepoäng och auktorisering          | Vertrauenswert & Autorisierung           | Score de confiance et autorisation                    |
+| **PRV**                               | Päätösten toistettavuus ja auditointijälki | Decision Provenance & Audit Trail            | Beslutsursprung och granskningskedja       | Entscheidungsherkunft & Prüfpfad         | Provenance de la décision et piste d'audit            |
+| **KYA-AL1**                           | Vakiotaso                                  | Standard Assurance                           | Standardgaranti                            | Standard-Garantie                        | Assurance standard                                    |
+| **KYA-AL2**                           | Laajennettu taso                           | Enhanced Assurance                           | Förhöjd garanti                            | Erweiterte Garantie                      | Assurance renforcée                                   |
+| **KYA-AL3**                           | Kriittinen taso                            | Critical Assurance                           | Kritisk garanti                            | Kritische Garantie                       | Assurance critique                                    |
+| **Lease Token (TRS-4)**               | Kertakäyttöinen valtuutusavain             | Atomic Single-Use Lease Token                | Atomisk tidsbegränsad nyttjanderätts-token | Atomares Einmal-Autorisierungs-Token     | Jeton de bail atomique à usage unique                 |
+| **Fail-Closed (TRS-5)**               | Pakkosuojaus vikatilanteessa               | Fail-Closed Protection                       | Säker vid fel (fail-closed)                | Fehlersichere Sperre (fail-closed)       | Verrouillage en cas de défaillance                    |
+| **Leash Snap (TC4)**                  | Hätäjarru                                  | Leash Snap Emergency Stop                    | Nödbroms                                   | Notbremse                                | Frein d'urgence                                       |
+| **Capture Precedes Release (TC4-5)**  | Tallennus ennen resursseista luopumista    | Capture Precedes Release                     | Lagring före frigörande                    | Erfassung vor Freigabe                   | Capture avant libération des ressources               |
+| **Bounded Attribution Clock (FLT-4)** | Aikarajoitettu virheattribuutio (72 h)     | Bounded Attribution Clock (72 h)             | Tidsbegränsad felattribuering (72 h)       | Zeitbegrenzte Fehlerattribuierung (72 h) | Horloge d'attribution limitée (72 h)                  |
+| **HIC**                               | Ihmisen johtamisvalta                      | Human-in-Command                             | Mänsklig ledningsrätt                      | Menschliche Führung                      | Commandement humain                                   |
+| **Single Pane of Glass**              | Yhtenäinen valvomonäkymä                   | Single Pane of Glass HIC Dashboard           | Enhetlig kontrollvy                        | Zentrales Kontrollpanel                  | Panneau de contrôle unique                            |
+| **Human Decision Provenance (PRV-4)** | Ihmispäätöksen alkuperä ja kuittaus        | Human Decision Provenance                    | Mänskligt beslutsursprung                  | Menschliche Entscheidungsherkunft        | Provenance de la décision humaine                     |
+| **EUDI Wallet / eIDAS 2.0**           | EU:n digitaalinen lompakko / eIDAS 2.0     | European Digital Identity Wallet / eIDAS 2.0 | EU:s digitala plånbok / eIDAS 2.0          | Digitale EU-Brieftasche / eIDAS 2.0      | Portefeuille d'identité numérique de l'UE / eIDAS 2.0 |
 
 ### 16.7 Two corrections made while importing this vocabulary
 
 Recorded rather than silently applied, per Rule 12:
 
-1. **"Beteendemodellering i speltid" (SV, BHM)** was a mistranslation — *speltid* is playing time in
-   a game or a film's running time, not software runtime. Corrected to *vid körning*.
+1. **"Beteendemodellering i speltid" (SV, BHM)** was a mistranslation — _speltid_ is playing time in
+   a game or a film's running time, not software runtime. Corrected to _vid körning_.
 2. **"Termination de chaîne" (FR, TC4)** is not a French word in this sense. Corrected to
-   *terminaison de chaîne*. Also **"Vertrauenspunkt" (DE, TRS)** reads as a physical point of trust;
-   corrected to *Vertrauenswert* (trust value/score).
+   _terminaison de chaîne_. Also **"Vertrauenspunkt" (DE, TRS)** reads as a physical point of trust;
+   corrected to _Vertrauenswert_ (trust value/score).
+
+---
+
+## Appendix E: DWS Dictionary bind (additive, 2026-09-18)
+
+Pointer only — do not treat this appendix as a price or industry-count source.
+
+| Bind                               | Path                                    | Rule                                                                                                                                                   |
+| ---------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Five-language dictionary           | `docs/localization/dws-dictionary.json` | EN master. Each `termKey` has `ontologyId` or `"none"`. Shared terms are not copied per industry unless the industry sense differs.                    |
+| CCP preferred / forbidden          | Appendix D (`concept_context_policy`)   | Per-industry preferred term + forbidden list remains here. Dictionary `forbidden` arrays are outreach/i18n guards, not a silent rewrite of Appendix D. |
+| LF-ONTOLOGY-25 / LWM-ONT-SOVEREIGN | later builds                            | Copy must stay consistent with `dws10.com/config/products.json` prices and `INDUSTRIES.md` (25 platform / Aegis 21).                                   |
+| kya-jev advisory                   | `src/agents/dictionary-kya-jev.ts`      | Signed KYA `allowed` verdict required. Output is not a glossary lock. Confidence is `self-reported-uncalibrated` (`docs/KYA_JEV_SPECIFICATION.md` §7). |
+
+Industry slug aliases used when `scope_type=industry` in Appendix D: `construction` → industry 8, steel aliases → industry 2. New industry CCP rows are added only when a preferred term actually differs.
+
+## 17. Product Taxonomy — groups, attribute tags and lifecycle states (v1.9)
+
+The product catalogue (`dws10.com/config/products.json`) uses one tag vocabulary, so the price list, the product registry (TRUTH row 42), the lifecycle registry (TRUTH row 43), the dictionary and outreach all say the same thing about a product (HIC 25.09.2026).
+
+### 17.1 Group tags — which section a product is listed in
+
+| Tag         | Meaning                                                             | Price-list section (FI)                               |
+| ----------- | ------------------------------------------------------------------- | ----------------------------------------------------- |
+| `SME`       | Campaign product for Finnish SMEs (web, webstore, IT-support hours) | SME campaign products (Pk-yritysten kampanjatuotteet) |
+| `DWS IQ`    | Offer of the DWS IQ platform family, including Aegis                | DWS IQ platform (DWS IQ -alusta)                      |
+| `Firehorse` | Firehorse agent products and the Firehorse subscription             | Firehorse agents (Firehorse-agentit)                  |
+
+Offers without a group tag are grouped by catalogue class: independent data products (`independentProductIds`), services, consulting and training (`storeCategory` advisory or ai-cloud), hardware and infrastructure (`storeCategory` hardware and LF- infrastructure SKUs). There is no "Supporting" tag; it is only an internal residual class.
+
+### 17.2 Attribute tags — what a product is
+
+| Tag                  | Meaning                                                                                                                 | Carried by                                                                                                                        |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `Hardware`           | A physical device Lifetime Oy supplies                                                                                  | 11 hardware products (not installation services)                                                                                  |
+| `Sovereign`          | Runs under the customer's or an EU jurisdiction, outside the reach of a non-EU parent company (§16, TRUTH row 39)       | Hardware products; DWS IQ Aegis offers                                                                                            |
+| `Air-Gapped`         | Can run with no network connection to outside systems (FI: ilmaeristetty (air-gapped))                                  | Hardware products; DWS IQ Aegis offers                                                                                            |
+| `Sovereign Cloud`    | Hosted on EU sovereign cloud infrastructure                                                                             | DWS IQ offers, except the two US offers                                                                                           |
+| `US Sovereign Cloud` | Hosted in the US under US jurisdiction; sovereign for a US buyer, not EU sovereignty (HIC 25.09.2026)                   | DWS-US-STARTER, DWS-US-PILOT                                                                                                      |
+| `On-Prem`            | Runs on the customer's own hardware or site; not necessarily air-gapped                                                 | Kubernetes tiers, NIM profiles, Essentials self-hosted, LWM-ONT-SOVEREIGN                                                         |
+| `Gov Ready`          | Meets government and defence hardening (FIPS 140-3, STIG)                                                               | LF-K8S-T3, Gov Ready setup and maintenance, air-gapped bundle, FIPS validation, DOCA security                                     |
+| `Licence`            | Right to use an artefact, not a service or a device                                                                     | LF-ONTOLOGY-25 (annual), LWM-ONT-SOVEREIGN (perpetual), DWS-AEGIS-001 (one-time; with maintenance subscription DWS-AEGIS-SUB-001) |
+| `Subscription`       | Recurring charge: type subscription or monthly, or billingPeriod monthly or yearly — on every such offer and only there | 25 offers                                                                                                                         |
+| `Installation`       | Includes on-site or remote installation work                                                                            | IT-support hour bank, LF-NVIDIA-INSTALL, Jetson install packages                                                                  |
+| `Pilot`              | Time-boxed entry offer before the full product                                                                          | Aegis, EU and US pilots, ontology pilot, outcome pilot                                                                            |
+| `Free`               | No charge within stated caps                                                                                            | DWS-IQ-FREE-2026                                                                                                                  |
+| `Training`           | Teaching people, incl. EU AI Act Article 4 AI literacy                                                                  | Claude Code coaching, AI Koulutus, EU AI Act literacy training                                                                    |
+| `Early Access`       | Released before its quality evidence is complete; not for sole use in consequential decisions                           | KYA-JEV-001                                                                                                                       |
+
+Order on hardware products is fixed: `Hardware`, `Sovereign`, `Air-Gapped`. On every record, tags follow the order of `definitions.productTags.allowed`. A tag is a claim about the product: `Sovereign Cloud` is never put on an offer that runs on US infrastructure; those carry `US Sovereign Cloud`, and a record never carries both. The publication validator rejects any tag outside the allowed list, tags out of order, and a `Subscription` tag that does not match a recurring price.
+
+### 17.3 Lifecycle states — where a product ID is in its life
+
+| State          | Meaning                                                        |
+| -------------- | -------------------------------------------------------------- |
+| `planned`      | Decided or planned by the HIC; no catalogue record yet         |
+| `page-only`    | Public product page exists but no catalogue ID (drift)         |
+| `internal`     | Catalogue record, BLUE: internal or pilot                      |
+| `published`    | Catalogue record, public: on the price list                    |
+| `archived`     | Retired: record kept, archived, not sold                       |
+| `discontinued` | Retired: moved to `discontinuedProducts`                       |
+| `removed`      | Retired: record deleted from the catalogue (evidence from git) |
+
+Every product ID, with its state and decision evidence, is in `docs/truth/PRODUCT_LIFECYCLE.md`; HIC decisions go into the append-only ledger `config/truth/product-lifecycle-ledger.json`.
+
+Five-language form: `product_tag_*` keys in `docs/localization/dws-dictionary.json`.
 
 ---
 

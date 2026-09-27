@@ -10,11 +10,21 @@ on:
       - 'scripts/validate-pricing.ts'
       - 'scripts/validate-pricing.ps1'
       - 'scripts/load-labor-catalog.py'
+      - 'scripts/validate-product-publication.mjs'
+      - 'dws10.com/buy/**'
+      - 'dws10.com/price-list/**'
+      - 'landing-pages/dws10-com/buy/**'
+      - 'landing-pages/dws10-com/price-list/**'
+      - 'lifetime.fi/config/consulting-packages.json'
+      - 'lifetime.fi/price-list/**'
+      - 'landing-pages/lifetime-fi/config/consulting-packages.json'
+      - 'landing-pages/lifetime-fi/price-list/**'
   push:
     branches: [main]
     paths:
       - 'dws10.com/config/products.json'
       - 'landing-pages/dws10-com/config/products.json'
+      - 'scripts/validate-product-publication.mjs'
 
 concurrency:
   group: validate-pricing-${{ github.ref }}
@@ -38,3 +48,10 @@ jobs:
 
       - name: Run validator
         run: tsx scripts/validate-pricing.ts
+
+      # Product counts, Serious/Independent IDs, consulting mapping and dual-folder
+      # mirrors. A count change must update this validator in the same PR.
+      - name: Validate product publication
+        run: |
+          git show-ref --verify --quiet refs/heads/main || git branch main origin/main
+          node scripts/validate-product-publication.mjs

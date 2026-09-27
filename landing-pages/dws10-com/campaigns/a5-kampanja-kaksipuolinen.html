@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tekoälyä ja automaatiota pienyrityksille - Risto Päärni, Lifetime Oy</title>
+    <meta
+      name="description"
+      content="Saat enemmän aikaa asiakkaillesi, vähemmän aikaa hallintoon. Risto Päärni auttaa pienyrityksiä verkkosivuissa, tekoälyn käyttöönotossa ja rutiinien automatisoinnissa. Kampanjahinnat 350 € ja 650 €."
+    />
+    <link rel="canonical" href="https://dws10.com/campaigns/a5-kampanja-kaksipuolinen" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fi_FI" />
+    <meta
+      property="og:title"
+      content="Tekoälyä ja automaatiota pienyrityksille – Risto Päärni, Lifetime Oy"
+    />
+    <meta
+      property="og:description"
+      content="Verkkosivut jotka löytyvät Googlesta, tekoäly arjen työhön ja rutiinien automatisointi. Kampanjahinnat 350 € ja 650 €."
+    />
+    <meta property="og:image" content="https://dws10.com/static/images/Risto_Malta.png" />
+    <meta property="og:url" content="https://dws10.com/campaigns/a5-kampanja-kaksipuolinen" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Lifetime Oy",
+        "url": "https://dws10.com",
+        "telephone": "+358400319010",
+        "email": "risto.paarni@lifetime.fi",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Laidunmaanraitti 2 A 25",
+          "postalCode": "02330",
+          "addressLocality": "Espoo",
+          "addressCountry": "FI"
+        },
+        "founder": { "@type": "Person", "name": "Risto Anton Päärni" },
+        "areaServed": ["Espoo", "Kirkkonummi", "Helsinki", "Uusimaa"],
+        "makesOffer": [
+          {
+            "@type": "Offer",
+            "name": "WEB-STARTER – verkkosivut yrityksellesi",
+            "price": "650",
+            "priceCurrency": "EUR",
+            "url": "https://dws10.com/products/lifetime-web-starter.fi.html"
+          },
+          {
+            "@type": "Offer",
+            "name": "WEBSTORE-MINI – pieni verkkokauppa",
+            "price": "350",
+            "priceCurrency": "EUR",
+            "url": "https://dws10.com/products/lifetime-webstore-mini.fi.html"
+          }
+        ]
+      }
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    />
+    <style>
+      :root {
+        --gold: #d4a574;
+        --dark: #0f0f0f;
+        --card-bg: #1a1a1a;
+        --light-text: #f5f5f5;
+        --muted-text: #aaaaaa;
+        --border-color: #333333;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #1f1f1f;
+        color: var(--light-text);
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+
+      /* A5 Page Container (148 x 210 mm) */
+      .page {
+        width: 148mm;
+        height: 210mm;
+        background-color: var(--dark);
+        border: 1px solid var(--border-color);
+        padding: 10mm;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+      }
+
+      /* Typography */
+      h1 {
+        color: var(--gold);
+        font-size: 1.55em;
+        font-weight: 800;
+        line-height: 1.2;
+        margin: 0 0 4px 0;
+      }
+
+      h2 {
+        color: var(--gold);
+        font-size: 1.05em;
+        font-weight: 700;
+        margin: 7px 0 3px 0;
+        border-bottom: 1px solid rgba(212, 165, 116, 0.3);
+        padding-bottom: 4px;
+      }
+
+      p {
+        margin: 0 0 6px 0;
+        font-size: 0.8em;
+        line-height: 1.4;
+      }
+
+      .subtitle {
+        font-size: 0.9em;
+        font-weight: 600;
+        color: var(--light-text);
+        margin-bottom: 10px;
+      }
+
+      /* Front page: person first */
+      .person {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .person-photo {
+        width: 30mm;
+        height: 30mm;
+        border-radius: 50%;
+        border: 2px solid var(--gold);
+        overflow: hidden;
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .person-photo img {
+        position: absolute;
+        width: 180%;
+        height: 180%;
+        left: -63%;
+        top: -24%;
+        object-fit: cover;
+      }
+
+      .person-name {
+        font-weight: 800;
+        font-size: 0.95em;
+        color: var(--light-text);
+      }
+
+      .person-title {
+        font-size: 0.78em;
+        color: var(--muted-text);
+        line-height: 1.35;
+      }
+
+      .quote {
+        font-style: italic;
+        color: #dddddd;
+        border-left: 3px solid var(--gold);
+        padding-left: 10px;
+        margin: 8px 0 10px 0;
+        font-size: 0.82em;
+        line-height: 1.45;
+      }
+
+      .help-list {
+        list-style: none;
+        margin: 4px 0 8px 0;
+        padding: 0;
+        font-size: 0.84em;
+        color: #eeeeee;
+      }
+
+      .help-list li {
+        margin-bottom: 4px;
+        padding-left: 1.4em;
+        position: relative;
+      }
+
+      .help-list li::before {
+        content: "✓";
+        color: var(--gold);
+        font-weight: 800;
+        position: absolute;
+        left: 0;
+      }
+
+      /* Back page: offer cards */
+      .offer-card {
+        background: var(--card-bg);
+        border: 1px solid var(--gold);
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin-bottom: 10px;
+      }
+
+      .product-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+      }
+
+      .product-title {
+        font-weight: 700;
+        font-size: 0.92em;
+      }
+
+      .product-code {
+        font-size: 0.74em;
+        color: var(--muted-text);
+      }
+
+      .product-price {
+        font-size: 1.25em;
+        font-weight: 800;
+        color: var(--gold);
+      }
+
+      .product-ovh {
+        font-size: 0.74em;
+        color: var(--muted-text);
+        text-decoration: line-through;
+      }
+
+      .code-badge {
+        background: var(--gold);
+        color: #000;
+        font-weight: 800;
+        font-size: 0.85em;
+        padding: 8px;
+        text-align: center;
+        border-radius: 6px;
+        letter-spacing: 0.5px;
+        margin: 10px 0 6px 0;
+      }
+
+      .validity {
+        text-align: center;
+        font-size: 0.76em;
+        color: var(--muted-text);
+      }
+
+      .cta-btn {
+        background: var(--gold);
+        color: #000;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 0.92em;
+        padding: 11px;
+        text-align: center;
+        border-radius: 6px;
+        display: block;
+        margin-top: 10px;
+      }
+
+      .cta-btn:hover {
+        opacity: 0.9;
+      }
+
+      ul {
+        margin: 4px 0 8px 0;
+        padding-left: 18px;
+        font-size: 0.8em;
+        color: #dddddd;
+      }
+
+      li {
+        margin-bottom: 3px;
+      }
+
+      .qr-section {
+        background: var(--card-bg);
+        border: 1px dashed var(--gold);
+        padding: 10px;
+        border-radius: 6px;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .wa-btn {
+        display: inline-block;
+        background: #25d366;
+        color: #0b1f12;
+        font-weight: 800;
+        font-size: 0.85em;
+        padding: 8px 14px;
+        border-radius: 6px;
+        text-decoration: none;
+      }
+
+      .wa-number {
+        color: var(--gold);
+        font-weight: 700;
+        font-size: 0.8em;
+        margin-top: 4px;
+      }
+
+      .contact-line {
+        font-size: 0.74em;
+        color: var(--muted-text);
+        margin-top: 4px;
+      }
+
+      /* Google search-result mockup: "Näin asiakkaasi löytää sinut" */
+      .serp {
+        background: #ffffff;
+        color: #202124;
+        border-radius: 8px;
+        padding: 10px 12px;
+        margin: 6px 0 4px 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .serp-q {
+        border: 1px solid #dfe1e5;
+        border-radius: 999px;
+        padding: 5px 12px;
+        font-size: 0.78em;
+        color: #202124;
+        margin-bottom: 8px;
+      }
+
+      .serp-title {
+        color: #1a0dab;
+        font-weight: 700;
+        font-size: 0.86em;
+      }
+
+      .serp-meta {
+        font-size: 0.74em;
+        color: #4d5156;
+        margin-top: 2px;
+      }
+
+      .serp-stars {
+        color: #fbbc04;
+      }
+
+      .serp-open {
+        color: #188038;
+        font-weight: 600;
+      }
+
+      .serp-actions {
+        font-size: 0.72em;
+        color: #1a73e8;
+        font-weight: 700;
+        margin-top: 4px;
+      }
+
+      .img-strip {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+        margin: 8px 0 2px 0;
+      }
+
+      .img-strip img {
+        width: 100%;
+        height: 16mm;
+        object-fit: cover;
+        border-radius: 4px;
+        border: 1px solid var(--border-color);
+      }
+
+      .img-caption {
+        font-size: 0.68em;
+        color: var(--muted-text);
+        text-align: center;
+        margin-bottom: 4px;
+      }
+
+      .footer-text {
+        font-size: 0.7em;
+        color: var(--muted-text);
+        text-align: center;
+        border-top: 1px solid var(--border-color);
+        padding-top: 8px;
+        margin-top: 10px;
+      }
+
+      /* Screen-only: cari.fi-style sticky call bar + vCard */
+      .vcard-btn {
+        display: inline-block;
+        margin-top: 6px;
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-size: 0.8em;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .sticky-bar {
+        display: none;
+      }
+
+      @media screen and (max-width: 700px) {
+        body {
+          padding: 12px 12px 80px 12px;
+        }
+        .page {
+          width: 100%;
+          height: auto;
+          min-height: 0;
+        }
+        .sticky-bar {
+          display: flex;
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          gap: 8px;
+          padding: 10px 12px;
+          background: #0b0b0b;
+          border-top: 1px solid var(--border-color);
+          z-index: 10;
+        }
+        .sticky-bar a {
+          flex: 1;
+          text-align: center;
+          padding: 12px;
+          border-radius: 999px;
+          font-weight: 800;
+          text-decoration: none;
+          font-size: 0.95em;
+        }
+        .sticky-call {
+          background: var(--gold);
+          color: #000;
+        }
+        .sticky-wa {
+          background: #25d366;
+          color: #0b1f12;
+        }
+      }
+
+      /* Print Specifications for A5 Two-Sided Output */
+      @media print {
+        body {
+          background: none;
+          padding: 0;
+          gap: 0;
+        }
+        .page {
+          border: none;
+          box-shadow: none;
+          border-radius: 0;
+          width: 148mm;
+          height: 210mm;
+          page-break-after: always;
+          break-after: page;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SIVU 1: ETUPUOLI — ihminen ja liiketoimintahyöty ensin -->
+    <div class="page">
+      <div>
+        <div class="person">
+          <div class="person-photo">
+            <img
+              src="/static/images/Risto_Malta.png"
+              alt="Risto Anton Päärni, Lifetime Oy:n perustaja"
+            />
+          </div>
+          <div>
+            <div class="person-name">Risto Anton Päärni</div>
+            <div class="person-title">
+              Perustaja, Lifetime Oy<br />
+              Yli 20 vuotta digitalisaation, automaation ja tekoälyn parissa
+            </div>
+          </div>
+        </div>
+
+        <h1>Saat enemmän aikaa asiakkaillesi, vähemmän aikaa hallintoon.</h1>
+        <div class="subtitle">
+          Tekoälyä ja automaatiota pienyrityksille – selkeästi ja käytännönläheisesti.
+        </div>
+
+        <p>
+          Olen auttanut yrityksiä hyödyntämään digitalisaatiota, automaatiota ja tekoälyä yli 20
+          vuoden ajan. Tavoitteeni on tehdä uusista teknologioista selkeitä ja liiketoimintaa
+          tukevia myös pienille yrityksille ja aloittaville yrittäjille.
+        </p>
+
+        <h2>Voinko auttaa sinua?</h2>
+        <ul class="help-list">
+          <li>Verkkosivut, jotka tuovat asiakkaita</li>
+          <li>Näkyvyys Googlessa: hakukoneoptimointi ja Google-yritysprofiili</li>
+          <li>Tekoälyn käyttöönotto arjen työssä</li>
+          <li>Asiakashankinnan automatisointi</li>
+          <li>Tarjousten, laskujen ja raporttien automatisointi</li>
+          <li>Digitaalisen liiketoiminnan sparraus</li>
+        </ul>
+
+        <h2>Miksi juuri minä?</h2>
+        <p>
+          En ole vain ohjelmistokehittäjä tai konsultti. Olen ollut rakentamassa ratkaisuja sekä
+          suurille organisaatioille että pienille yrityksille, joten ymmärrän sekä teknologian että
+          liiketoiminnan näkökulman. Siksi ratkaisut suunnitellaan aina käytännön hyöty edellä.
+        </p>
+        <div class="quote">
+          Aloitetaan keskustelulla siitä, mikä sinun yrityksessäsi vie eniten aikaa. Sieltä löytyy
+          yleensä ensimmäinen ja helpoin parannus.
+        </div>
+      </div>
+
+      <div class="qr-section">
+        <a
+          class="wa-btn"
+          href="https://wa.me/358400319010?text=Hei%20Risto%2C%20haluaisin%20jutella%20yritykseni%20digitalisoinnista."
+          target="_blank"
+          rel="noopener"
+          >💬 Laita viesti WhatsAppilla – vastaan itse</a
+        >
+        <div class="wa-number">+358 400 319 010</div>
+        <div class="contact-line">Ensimmäinen keskustelu on maksuton ja sitoumukseton. Myös jälleenmyyjille.</div>
+        <a class="vcard-btn" href="/static/risto-paarni.vcf" download>⤓ Tallenna yhteystiedot</a>
+      </div>
+    </div>
+
+    <!-- SIVU 2: KÄÄNTÖPUOLI — konkreettinen tarjous ja mitä saat -->
+    <div class="page">
+      <div>
+        <h1 style="font-size: 1.35em">Kolme valmista tapaa aloittaa.</h1>
+        <div class="subtitle">Kiinteä hinta, ei yllätyksiä. Sivut käytössä 72 tunnissa.</div>
+
+        <div class="offer-card">
+          <h3
+            style="
+              color: var(--gold);
+              margin: 0 0 8px 0;
+              font-size: 0.85em;
+              text-transform: uppercase;
+            "
+          >
+            Kampanjatarjous syksy 2026
+          </h3>
+
+          <div class="product-row">
+            <div>
+              <div class="product-title">Verkkosivut yrityksellesi</div>
+              <div class="product-code">WEB-STARTER · ammattimaiset sivut 1–3 kielellä</div>
+            </div>
+            <div style="text-align: right">
+              <div class="product-price">650 €</div>
+              <div class="product-ovh">OVH 1&nbsp;084 € (ALV 0 %)</div>
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid #333; margin: 6px 0" />
+
+          <div class="product-row">
+            <div>
+              <div class="product-title">Pieni verkkokauppa</div>
+              <div class="product-code">WEBSTORE-MINI · tuotteet, hinnasto ja maksut</div>
+            </div>
+            <div style="text-align: right">
+              <div class="product-price">350 €</div>
+              <div class="product-ovh">OVH 584 € (ALV 0 %)</div>
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid #333; margin: 6px 0" />
+
+          <div class="product-row">
+            <div>
+              <div class="product-title">IT-tuki pk-yritykselle</div>
+              <div class="product-code">IT-TUKI · tuntipankki 10 h</div>
+            </div>
+            <div style="text-align: right">
+              <div class="product-price">750 €</div>
+              <div class="product-ovh">10 h × 75 €/h (ALV 0 %)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-badge">-40 % VERKKOSIVUISTA · EI KOODIA TARVITA</div>
+        <div class="validity">
+          Tarjous voimassa: <strong>toistaiseksi.</strong> ALV 25,5 % lisätään. Verkkotunnus laskutetaan erikseen.
+        </div>
+
+        <h2>Näin asiakkaasi löytää sinut</h2>
+        <div class="serp">
+          <div class="serp-q">🔍 verkkosivut pienyritykselle espoo</div>
+          <div class="serp-title">Lifetime Oy – Verkkosivut ja tekoäly pienyrityksille</div>
+          <div class="serp-meta">
+            <span class="serp-stars">★★★★★</span> 5,0 · Digitoimisto · Espoo ·
+            <span class="serp-open">Avoinna</span> · Vastaa WhatsAppissa
+          </div>
+        </div>
+
+        <div class="img-strip">
+          <img
+            src="/static/images/campaign/kuvitus/kallax-hylly.jpg"
+            alt="Tuote hyllyssä, kuvitus"
+          />
+          <img
+            src="/static/images/campaign/kuvitus/nissafors-vaunu-hedelmat.jpg"
+            alt="Tuote käytössä, kuvitus"
+          />
+          <img
+            src="/static/images/campaign/ominaisuudet/tallenna-yhteystiedot-kortti.jpg"
+            alt="Tallenna yhteystiedot -kortti"
+          />
+          <img
+            src="/static/images/campaign/ominaisuudet/soita-whatsapp-palkki.jpg"
+            alt="Soita ja WhatsApp -painikkeet"
+          />
+        </div>
+
+        <h2>Mitä saat</h2>
+        <ul>
+          <li>Mobiiliystävälliset sivut, hakukoneoptimoitu 1–3 kielelle (FI, SV, EN)</li>
+          <li>Google-yritysprofiili; yhteydenotto napilla: WhatsApp, puhelin, kartta</li>
+          <li>Yrityksen oma sähköposti nimi@yritys.fi (Google Workspace 9 €/kk)</li>
+          <li>Verkkokaupassa maksut valmiina; SSL, päivittäiset varmuuskopiot</li>
+          <li>IT-tuki: koneiden uusiminen, päivitykset, sovellukset, tietoturva, koulutus</li>
+        </ul>
+
+        <a href="https://dws10.com/products/lifetime-web-starter.fi.html" class="cta-btn"
+          >Tutustu tarjoukseen →</a
+        >
+      </div>
+
+      <div class="footer-text">
+        Risto Anton Päärni · Lifetime Oy · Y-tunnus 0772407-9 · Laidunmaanraitti 2 A 25, 02330 Espoo
+        · risto.paarni@lifetime.fi · +358 400 319 010 · dws10.com
+      </div>
+    </div>
+    <div class="sticky-bar">
+      <a class="sticky-call" href="tel:+358400319010">📞 Soita</a>
+      <a class="sticky-wa" href="https://wa.me/358400319010" target="_blank" rel="noopener"
+        >💬 WhatsApp</a
+      >
+    </div>
+  </body>
+</html>

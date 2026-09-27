@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: Covering email to Prof. Martin Törngren (KTH / TECoSA)
-Version: 1.0
+Version: 1.1
 Date: 03.08.2026
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -70,6 +70,24 @@ risto.paarni@lifetime.fi · +358 400 319 010
 ```
 
 ---
+
+## The accelerator question — approved wording (HIC, 03.08.2026)
+
+Final text after two HIC edits (*"company candidates" → "startups, spinouts, and research teams"*; *"their safety is validated" → "their safety case is developed and tested"*). Placement: after question 6 in the email, or as the spoken opening of a call — HIC decides at send time.
+
+```
+Could TECoSA's future role be a combination of a research centre and an accelerator? Not a
+generic startup accelerator, but a deep-tech accelerator for trustworthy edge AI: promising
+startups, spinouts, and research teams are selected, matched with industrial use cases, their
+safety case is developed and tested, and the best solutions are taken to a pilot and to first
+customers. The commercialisation centre would be the permanent platform; the accelerator its
+fast-forward mechanism — from research to a proven, safe, buyable solution, rather than to a
+pitch deck and the next funding round.
+
+DWS IQ and our KYA engine would be one early practical test case of this idea — not the
+justification for the whole model. I am not claiming this is finished thinking; I would
+genuinely like to hear whether you see the same possibility.
+```
 
 ## Standing constraint on this thread
 

@@ -1,0 +1,20 @@
+{
+  "id": "ind-mars",
+  "master": "dws10.com/products/ind-mars.html",
+  "masterLang": "en",
+  "stringsDir": "scripts/i18n/ind-mars",
+  "outDirs": ["dws10.com/products", "landing-pages/dws10-com/products"],
+  "urlBase": "https://dws10.com/products/",
+  "files": {
+    "en": "ind-mars.html",
+    "fi": "ind-mars.fi.html",
+    "sv": "ind-mars.sv.html",
+    "de": "ind-mars.de.html",
+    "fr": "ind-mars.fr.html"
+  },
+  "aiNotice": {
+    "after": "<div class=\"container\">",
+    "langs": ["fi", "sv", "de", "fr"],
+    "_why": "EU AI Act Art. 50(4) — machine-translated catalog copy, no named human review yet."
+  }
+}

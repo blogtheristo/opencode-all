@@ -38,6 +38,7 @@ import {
   getJurisdictionContext,
 } from '../compliance/construction-compliance.js';
 import { generateTimeline, getTrackedRegulations } from '../compliance/regulatory-timeline.js';
+import { type AuditQueryClient, fetchComplianceProof } from '../compliance/audit-proof.js';
 import logger from '../utils/logger.js';
 
 const router = Router();
@@ -304,6 +305,68 @@ router.get(
 );
 
 /**
+ * GET /api/v1/compliance/proof
+ * Queryable compliance state, not a log dump: reads the hash-chained
+ * command_audit_log + kya_mandate_events tables and the (unchained,
+ * platform-wide) article12_audit_log residency declarations for a time
+ * window and returns a signed proof certificate — access decisions,
+ * mandate-gating violations, EU residency declaration, and hash-chain
+ * integrity — that an auditor can act on instantly instead of grepping logs.
+ */
+const ProofQuerySchema = z.object({
+  from: z.coerce.date().optional(),
+  to: z.coerce.date().optional(),
+});
+
+router.get(
+  '/proof',
+  authenticateToken,
+  validate({ query: ProofQuerySchema }),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // Service-role client bypasses RLS: without an org scope the proof
+      // would aggregate every tenant's audit rows. Refuse instead.
+      const orgId = (req.user?.organization_id as string | undefined) ?? null;
+      if (!orgId) {
+        res.status(403).json({ error: 'Organization membership required' });
+        return;
+      }
+      const query = req.query as unknown as { from?: Date; to?: Date };
+      const to = query.to ?? new Date();
+      const from = query.from ?? new Date(to.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+      const { createClient } = await import('@supabase/supabase-js');
+      const supabase = createClient(
+        process.env.SUPABASE_URL || '',
+        process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '',
+      );
+
+      // Cast to the module's minimal query-builder interface — matching the
+      // full supabase-js generic surface here blows past TS's instantiation
+      // depth limit (TS2589) without adding any real type safety.
+      const certificate = await fetchComplianceProof(supabase as unknown as AuditQueryClient, {
+        orgId,
+        from: from.toISOString(),
+        to: to.toISOString(),
+      });
+
+      logger.info('Compliance proof certificate generated', {
+        orgId,
+        from: certificate.window.from,
+        to: certificate.window.to,
+        chainIntact:
+          certificate.chainIntegrity.commandLog.intact &&
+          certificate.chainIntegrity.kyaMandateEvents.intact,
+      });
+
+      res.status(200).json(certificate);
+    } catch (err) {
+      next(err);
+    }
+  },
+);
+
+/**
  * POST /api/v1/compliance/extract
  * Extract compliance data from ESG report text.
  * Returns structured ESRS data points + scoring input ready for /assess.
@@ -406,8 +469,17 @@ const LedgerSchema = AssessmentSchema.extend({
 const CostEstimateSchema = z.object({
   annualEmissions: z.number().min(0).max(10_000_000).default(0),
   importQuantity: z.number().min(0).max(10_000_000).default(0),
-  sector: z.string().min(1).max(64).regex(/^[a-z-]+$/).default('manufacturing'),
-  originCountry: z.string().length(2).regex(/^[A-Z]{2}$/).default('CN'),
+  sector: z
+    .string()
+    .min(1)
+    .max(64)
+    .regex(/^[a-z-]+$/)
+    .default('manufacturing'),
+  originCountry: z
+    .string()
+    .length(2)
+    .regex(/^[A-Z]{2}$/)
+    .default('CN'),
   freeAllocation: z.number().min(0).max(10_000_000).default(0),
 });
 
@@ -470,34 +542,38 @@ router.post(
  * Estimate ETS + CBAM compliance costs for a given scenario.
  * Quick calculation without full assessment — useful for onboarding and sales.
  */
-router.post('/cost-estimate', validate({ body: CostEstimateSchema }), (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { annualEmissions, importQuantity, sector, originCountry, freeAllocation } = req.body;
+router.post(
+  '/cost-estimate',
+  validate({ body: CostEstimateSchema }),
+  (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { annualEmissions, importQuantity, sector, originCountry, freeAllocation } = req.body;
 
-    const ets = estimateETSCost(annualEmissions, freeAllocation);
-    const cbam = estimateCBAMCost(importQuantity, sector, originCountry);
+      const ets = estimateETSCost(annualEmissions, freeAllocation);
+      const cbam = estimateCBAMCost(importQuantity, sector, originCountry);
 
-    res.json({
-      ets: {
-        surrenderObligation: ets.surrenderObligation,
-        estimatedCost: ets.estimatedCost,
-        carbonPrice: ETS_CARBON_PRICE_EUR,
-        unit: 'EUR',
-      },
-      cbam: {
-        covered: cbam.covered,
-        embeddedEmissions: cbam.embeddedEmissions,
-        estimatedCost: cbam.estimatedCost,
-        certificatePrice: CBAM_CERTIFICATE_PRICE_EUR,
-        unit: 'EUR',
-      },
-      totalEstimatedCost: Math.round((ets.estimatedCost + cbam.estimatedCost) * 100) / 100,
-      note: 'Estimates use EU default emission factors. Actual costs depend on verified data.',
-    });
-  } catch (err) {
-    next(err);
-  }
-});
+      res.json({
+        ets: {
+          surrenderObligation: ets.surrenderObligation,
+          estimatedCost: ets.estimatedCost,
+          carbonPrice: ETS_CARBON_PRICE_EUR,
+          unit: 'EUR',
+        },
+        cbam: {
+          covered: cbam.covered,
+          embeddedEmissions: cbam.embeddedEmissions,
+          estimatedCost: cbam.estimatedCost,
+          certificatePrice: CBAM_CERTIFICATE_PRICE_EUR,
+          unit: 'EUR',
+        },
+        totalEstimatedCost: Math.round((ets.estimatedCost + cbam.estimatedCost) * 100) / 100,
+        note: 'Estimates use EU default emission factors. Actual costs depend on verified data.',
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+);
 
 // ============ CONSTRUCTION COMPLIANCE (EN 15978) ============
 

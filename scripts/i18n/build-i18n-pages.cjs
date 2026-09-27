@@ -212,6 +212,39 @@ function langSwitcher(cfg, lang) {
   return `    <nav class="i18n-links" aria-label="Language" style="text-align:center;padding:18px 12px;font-size:0.85rem;opacity:0.75">\n${links}\n    </nav>\n`;
 }
 
+/** Document Standard §2.1 generated-i18n — HTML comment only. Never markdown VAH. */
+const PROVENANCE_MARK = 'DWS_DOC_PROVENANCE generated-i18n';
+
+function provenanceComment(cfg, lang, filename) {
+  const masterFile = path.basename(cfg.master || '');
+  return `<!--
+  ${PROVENANCE_MARK}
+  Standard: DWS_DOCUMENT_STANDARD.md §2.1
+  lang: ${lang}
+  file: ${filename}
+  master: ${masterFile}
+  builder: scripts/i18n/build-i18n-pages.cjs
+  date: 19.09.2026
+  session: cursor/supabase-advisor-warnings-3f7a
+  Note: public HTML — markdown VERSION AND AGENT HISTORY is forbidden (CLAUDE.md Rule 5).
+-->
+`;
+}
+
+function injectProvenance(html, cfg, lang) {
+  const filename = cfg.files[lang];
+  if (html.includes(PROVENANCE_MARK)) {
+    return html.replace(
+      /<!--\s*\n?\s*DWS_DOC_PROVENANCE generated-i18n[\s\S]*?-->\n?/,
+      provenanceComment(cfg, lang, filename),
+    );
+  }
+  if (/^<!doctype html>/i.test(html)) {
+    return html.replace(/^(<!doctype html>\s*)/i, `$1${provenanceComment(cfg, lang, filename)}`);
+  }
+  return provenanceComment(cfg, lang, filename) + html;
+}
+
 function retarget(html, cfg, lang, meta) {
   let out = normalize(html);
   const url = urlFor(cfg, lang);
@@ -303,7 +336,10 @@ function main() {
   builds.forEach(([lang, body, rawTail]) => {
     // retarget last, on the whole document: the language switcher goes before </body>,
     // which lives in the tail.
-    const html = retarget(body + retargetTail(rawTail, cfg, lang, shareTitles), cfg, lang, meta);
+    let html = retarget(body + retargetTail(rawTail, cfg, lang, shareTitles), cfg, lang, meta);
+    if (lang !== cfg.masterLang) {
+      html = injectProvenance(html, cfg, lang);
+    }
     cfg.outDirs.forEach((dir) => {
       const abs = path.join(BASE, dir);
       fs.mkdirSync(abs, { recursive: true });

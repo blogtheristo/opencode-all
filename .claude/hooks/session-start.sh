@@ -91,6 +91,14 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
   echo "WARNING: On main branch. Create a feature branch before making changes."
 fi
 
+# Check cost policy compliance (DGX-first, free-credit window, audit log)
+bash "$(dirname "$0")/cost-policy-gate.sh" 2>&1 || true
+
+# Create field-note template for cursor branches (Session Learning Outcome Rule)
+if [ "$BRANCH" != "unknown" ]; then
+  bash "$(dirname "$0")/cursor-branch-created.sh" "$BRANCH" 2>/dev/null || true
+fi
+
 # Surface this branch's handoff file (git-committed memory that survives
 # ephemeral cloud containers). Per-branch under .claude/handoffs/<branch>.md
 # so concurrent branches never clobber or misread each other's state — see

@@ -26,6 +26,7 @@ import { getSupabaseClient } from '../config/supabase.js';
 import logger from '../utils/logger.js';
 import type { AgentContext, AgentResponse } from './types.js';
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { recordShadowRecommendation } from '../decision-journey/helpdesk-shadow.js';
 
 type Recommendation = 'resolve' | 'reply' | 'escalate' | 'refund' | 'plan-upgrade-suggest';
 
@@ -44,6 +45,7 @@ interface TicketRow {
   subject: string | null;
   body: string;
   status: string;
+  created_at: string | null;
 }
 
 interface CustomerSnapshot {
@@ -156,6 +158,20 @@ Output shape:
 
     await this.persistTriage(supabase, ticket, triage, escalationId);
 
+    // P1 shadow mode: record the agent's decision; a human still executes.
+    // No-op unless DECISION_JOURNEY_SHADOW=1; failures are logged, never thrown.
+    await recordShadowRecommendation(supabase, {
+      ticketId: ticket.id,
+      ticketSource: ticket.source,
+      ticketCreatedAt: ticket.created_at,
+      customerId: ticket.customer_id,
+      action: triage.recommendedAction,
+      intent: triage.intent,
+      confidence: triage.confidence,
+      citedPolicySources: triage.citedPolicySources,
+      sessionId: context.sessionId,
+    });
+
     return {
       agentName: this.config.name,
       result: { ...triage, ticketId: ticket.id, escalationId },
@@ -180,7 +196,7 @@ Output shape:
   private async loadTicket(supabase: SupabaseClient, ticketId: string): Promise<TicketRow | null> {
     const { data, error } = await supabase
       .from('support_tickets')
-      .select('id, source, customer_id, user_id, from_addr, subject, body, status')
+      .select('id, source, customer_id, user_id, from_addr, subject, body, status, created_at')
       .eq('id', ticketId)
       .limit(1);
     if (error || !data || data.length === 0) {

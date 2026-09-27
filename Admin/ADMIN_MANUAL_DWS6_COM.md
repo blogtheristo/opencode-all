@@ -1,24 +1,29 @@
 # 👨‍💼 ADMIN MANUAL: dws6.com Deployment & Management
 
 ---
+
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Cursor AI | Session: Current | Date: 30.12.2025 | Changes: Initial creation - dws6.com deployment documentation
-  - Version: 1.1 | Tool: Cursor AI (Claude Opus 4.5) | Session: 2026-01-08 | Date: 08.01.2026 | Changes: Updated hero text to "DWS 6 IQ Platform Administration Portal"; Added Public Cloud Version V1 branding; Documented portal vs login page distinction
+
+- Version: 1.0 | Tool: Cursor AI | Session: Current | Date: 30.12.2025 | Changes: Initial creation - dws6.com deployment documentation
+- Version: 1.1 | Tool: Cursor AI (Claude Opus 4.5) | Session: 2026-01-08 | Date: 08.01.2026 | Changes: Updated hero text to "DWS 6 IQ Platform Administration Portal"; Added Public Cloud Version V1 branding; Documented portal vs login page distinction
+- Version: 1.2 | Tool: Claude Code 2.1.278 (anthropic/claude-opus-5) | Session: fix/dashboard-auth-wiring | Date: 22.09.2026 | Changes: Added §11 — Back-Office live-data API and server-side admin authorization (organization_members), V10 dashboard build/publish procedure (committed to dashboard/firehorse/v10/), DWS AB admin organization
 
 Session Links & References:
-  - Cursor AI (Current): https://github.com/blogtheristo/dws6/commits/main
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_DWS6_COM.md
+
+- Cursor AI (Current): https://github.com/blogtheristo/dws6/commits/main
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_DWS6_COM.md
 
 Document Status:
-  - Created: 30.12.2025
-  - Last Modified: 08.01.2026
-  - Language: Finnish & English (bilingual)
-  - Languages Available: Suomi, English
-  - Publication Status: ✅ ACTIVE
+
+- Created: 30.12.2025
+- Last Modified: 08.01.2026
+- Language: Finnish & English (bilingual)
+- Languages Available: Suomi, English
+- Publication Status: ✅ ACTIVE
 
 ---
 
@@ -40,6 +45,8 @@ Document Status:
 7. [Supabase Backend Configuration](#7-supabase-backend-configuration)
 8. [Troubleshooting](#8-troubleshooting)
 9. [Monitoring & Analytics](#9-monitoring--analytics)
+10. [AI Agent Operational Guidelines](#10-ai-agent-operational-guidelines-claudemd)
+11. [Admin Dashboards: Back-Office API & V10](#11-admin-dashboards-back-office-api--v10)
 
 ---
 
@@ -83,14 +90,14 @@ Document Status:
 
 ### Components / Komponentit
 
-| Komponentti | Teknologia | Tarkoitus |
-|-----------|-----------|-----------|
-| Frontend | HTML5/CSS3/JavaScript | Static website |
-| Hosting | Cloudflare Pages | Global CDN deployment |
-| Domain | dws6.com | Custom domain |
-| SSL/TLS | Cloudflare SSL | Automatic HTTPS |
-| Repository | GitHub (dws6) | Source control |
-| Build | Static | No build process needed |
+| Komponentti | Teknologia            | Tarkoitus               |
+| ----------- | --------------------- | ----------------------- |
+| Frontend    | HTML5/CSS3/JavaScript | Static website          |
+| Hosting     | Cloudflare Pages      | Global CDN deployment   |
+| Domain      | dws6.com              | Custom domain           |
+| SSL/TLS     | Cloudflare SSL        | Automatic HTTPS         |
+| Repository  | GitHub (dws6)         | Source control          |
+| Build       | Static                | No build process needed |
 
 ### Site Structure / Sivuston rakenne
 
@@ -120,19 +127,21 @@ Total: 86 files deployed
 #### Context / Konteksti
 
 The dws6.com domain serves as the central authentication and administration hub for the DWS IQ 6 ecosystem. A clear distinction was needed between:
+
 1. **Administration Portal** (https://dws6.com) - For system administrators
 2. **User Login Portal** (https://dws6.com/login) - For end users
 
 #### Decision / Päätös
 
-| URL | Purpose | Target Audience | Branding |
-|-----|---------|-----------------|----------|
-| `https://dws6.com` | Administration Portal | System Administrators, DevOps, IT Operations | **DWS 6 IQ Platform Administration Portal** |
-| `https://dws6.com/login` | User Login | End Users, Customers, Project Managers | Multi-service login (11 services) |
+| URL                      | Purpose               | Target Audience                              | Branding                                    |
+| ------------------------ | --------------------- | -------------------------------------------- | ------------------------------------------- |
+| `https://dws6.com`       | Administration Portal | System Administrators, DevOps, IT Operations | **DWS 6 IQ Platform Administration Portal** |
+| `https://dws6.com/login` | User Login            | End Users, Customers, Project Managers       | Multi-service login (11 services)           |
 
 #### Hero Text Changes / Otsikkotekstin muutokset
 
 **Before (December 2025):**
+
 ```
 Title: "Welcome to DWS6.com"
 Subtitle: "The DWS6 Secure Authentication Service (SAS)"
@@ -140,6 +149,7 @@ Badge: "Secure Authentication Service"
 ```
 
 **After (January 8, 2026):**
+
 ```
 Title: "DWS 6 IQ Platform Administration Portal"
 Subtitle: "Enterprise-Grade Construction Intelligence & ESG Compliance Management"
@@ -158,6 +168,7 @@ Services: "Secure Access Control · Real-Time Portfolio Analytics · CSRD/Fit fo
 #### Implementation / Toteutus
 
 Files modified:
+
 - `dws6.com/index.html` - Production landing page
 - `landing-pages/dws6-com/index.html` - Source landing page
 
@@ -175,6 +186,7 @@ Files modified:
 ### 2.1 Initial Project Creation / Projektin luominen
 
 **Prerequisites / Edellytykset:**
+
 - Cloudflare account
 - GitHub repository access (dws6)
 - Domain registered (dws6.com)
@@ -211,7 +223,8 @@ preview_branches: []
 build_command: ""
 build_output: dws6.com
 root_directory: /
-node_version: null  # Not needed for static site
+node_version: null # Not needed for static site
+
 
 # Environment Variables (if needed)
 # None required for static deployment
@@ -416,16 +429,16 @@ git push origin feature/new-page
 
 ### 5.1 Page Inventory / Sivuluettelo
 
-| Page | Path | Purpose | Status |
-|------|------|---------|--------|
-| Landing | `/` | Main landing page | ✅ Live |
-| Login Portal | `/login/` | 11 service login | ✅ Live |
-| V7 Dashboard | `/dashboard/v7/` | OK Computer Dashboard | ✅ Live |
-| V8 Dashboard | `/dashboard/v8/` | Enhanced Dashboard | ✅ Live |
-| V9 Dashboard | `/dashboard/v9/` | Final Dashboard | ✅ Live |
-| Lifetime Fleet | `/lifetime-fleet/` | Fleet showcase | ✅ Live |
-| Progress Report | `/progress-report/` | Weekly reports | ✅ Live |
-| CSRD | `/csrd/` | Sustainability reporting | ✅ Live |
+| Page            | Path                | Purpose                  | Status  |
+| --------------- | ------------------- | ------------------------ | ------- |
+| Landing         | `/`                 | Main landing page        | ✅ Live |
+| Login Portal    | `/login/`           | 11 service login         | ✅ Live |
+| V7 Dashboard    | `/dashboard/v7/`    | OK Computer Dashboard    | ✅ Live |
+| V8 Dashboard    | `/dashboard/v8/`    | Enhanced Dashboard       | ✅ Live |
+| V9 Dashboard    | `/dashboard/v9/`    | Final Dashboard          | ✅ Live |
+| Lifetime Fleet  | `/lifetime-fleet/`  | Fleet showcase           | ✅ Live |
+| Progress Report | `/progress-report/` | Weekly reports           | ✅ Live |
+| CSRD            | `/csrd/`            | Sustainability reporting | ✅ Live |
 
 ### 5.2 Navigation Menu / Navigointivalikko
 
@@ -501,7 +514,7 @@ cat > dws6.com/new-page/index.html << 'EOF'
         <a href="/dashboard/v9/">Dashboard</a>
         <a href="/new-page/">New Page</a>
     </nav>
-    
+
     <!-- Page content -->
     <main>
         <h1>New Page</h1>
@@ -571,6 +584,7 @@ git push origin main
 **Cause:** Custom domain not added to Cloudflare Pages project
 
 **Solution:**
+
 ```bash
 # 1. Go to Cloudflare Pages
 https://dash.cloudflare.com/pages
@@ -732,7 +746,7 @@ sudo systemd-resolve --flush-caches
 
 # Alert channels:
 # - Email
-# - Slack
+# - WhatsApp / webhook
 # - SMS (optional)
 ```
 
@@ -821,14 +835,14 @@ Supabase provides the backend database and authentication infrastructure for the
 
 #### Current Migrations / Nykyiset Migraatiot
 
-| # | Migration | Purpose / Tarkoitus |
-|---|-----------|---------------------|
-| 001 | `mcp_agent_context.sql` | MCP Agent context management / Agenttienhallinta |
-| 002 | `firehorse_pilot.sql` | Firehorse pilot program / Pilottiohjelma |
-| 003 | `firehorse_linkedin_dm_templates.sql` | LinkedIn DM templates / LinkedIn-viestimallit |
-| 004 | `firehorse_porr_templates.sql` | PORR templates / PORR-raportit |
-| 005 | `firehorse_linkedin_workflow.sql` | LinkedIn workflow / LinkedIn-työnkulku |
-| 006 | `investor_reporting_financial_data.sql` | Investor reporting / Sijoittajaraportointi |
+| #   | Migration                               | Purpose / Tarkoitus                              |
+| --- | --------------------------------------- | ------------------------------------------------ |
+| 001 | `mcp_agent_context.sql`                 | MCP Agent context management / Agenttienhallinta |
+| 002 | `firehorse_pilot.sql`                   | Firehorse pilot program / Pilottiohjelma         |
+| 003 | `firehorse_linkedin_dm_templates.sql`   | LinkedIn DM templates / LinkedIn-viestimallit    |
+| 004 | `firehorse_porr_templates.sql`          | PORR templates / PORR-raportit                   |
+| 005 | `firehorse_linkedin_workflow.sql`       | LinkedIn workflow / LinkedIn-työnkulku           |
+| 006 | `investor_reporting_financial_data.sql` | Investor reporting / Sijoittajaraportointi       |
 
 #### Database Tables / Tietokantataulut
 
@@ -855,23 +869,25 @@ Supabase provides the backend database and authentication infrastructure for the
 #### Dashboard Access / Hallintapaneeli
 
 **Main Dashboard:**
+
 ```
 https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz
 ```
 
 **Quick Links / Pikalinkit:**
 
-| Resource | URL |
-|----------|-----|
-| Database Tables | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/database/tables |
-| SQL Editor | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/sql/new |
-| API Settings | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/settings/api |
-| Logs | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/logs/explorer |
-| Backups | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/settings/database |
+| Resource        | URL                                                                           |
+| --------------- | ----------------------------------------------------------------------------- |
+| Database Tables | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/database/tables   |
+| SQL Editor      | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/sql/new           |
+| API Settings    | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/settings/api      |
+| Logs            | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/logs/explorer     |
+| Backups         | https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz/settings/database |
 
 #### API Configuration / API-asetukset
 
 **Project URL:**
+
 ```
 https://kpucuwwfhuwurdxyjjtz.supabase.co
 ```
@@ -887,6 +903,7 @@ SUPABASE_SERVICE_ROLE_KEY=[Get from API Settings - KEEP SECRET!]
 ```
 
 **⚠️ Security Warning / Turvallisuusvaroitus:**
+
 - `SUPABASE_ANON_KEY`: Safe for client-side / Turvallinen asiakaspuolella
 - `SUPABASE_SERVICE_ROLE_KEY`: Server-side ONLY / VAIN palvelinpuolella
 
@@ -895,18 +912,15 @@ SUPABASE_SERVICE_ROLE_KEY=[Get from API Settings - KEEP SECRET!]
 #### JavaScript/TypeScript Client
 
 ```javascript
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = 'https://kpucuwwfhuwurdxyjjtz.supabase.co'
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY
+const supabaseUrl = "https://kpucuwwfhuwurdxyjjtz.supabase.co";
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Example query
-const { data, error } = await supabase
-  .from('your_table')
-  .select('*')
-  .limit(10)
+const { data, error } = await supabase.from("your_table").select("*").limit(10);
 ```
 
 #### Direct PostgreSQL Connection
@@ -924,18 +938,21 @@ psql "postgresql://postgres:[password]@db.kpucuwwfhuwurdxyjjtz.supabase.co:5432/
 #### Row Level Security (RLS)
 
 **Check RLS Status:**
+
 ```sql
-SELECT schemaname, tablename, rowsecurity 
-FROM pg_tables 
+SELECT schemaname, tablename, rowsecurity
+FROM pg_tables
 WHERE schemaname = 'public';
 ```
 
 **Enable RLS:**
+
 ```sql
 ALTER TABLE your_table_name ENABLE ROW LEVEL SECURITY;
 ```
 
 **Create Policy:**
+
 ```sql
 CREATE POLICY "Users can view their own data"
 ON your_table_name
@@ -946,6 +963,7 @@ USING (auth.uid() = user_id);
 #### Best Practices / Parhaat Käytännöt
 
 ✅ **DO / TEE:**
+
 - ✅ Enable RLS on all tables / Ota RLS käyttöön kaikissa tauluissa
 - ✅ Use environment variables / Käytä ympäristömuuttujia
 - ✅ Keep service_role key server-side / Pidä service_role-avain palvelimella
@@ -953,6 +971,7 @@ USING (auth.uid() = user_id);
 - ✅ Enable 2FA on Supabase account / Ota 2FA käyttöön
 
 ❌ **DON'T / ÄLÄ:**
+
 - ❌ Commit API keys to Git / Tallenna API-avaimia Gitiin
 - ❌ Expose service_role key to clients / Paljasta service_role-avainta asiakkaille
 - ❌ Disable RLS without reason / Poista RLS:ää käytöstä ilman syytä
@@ -987,13 +1006,13 @@ psql "postgresql://..." < backup_20251230.sql
 
 Monitor these metrics in the Supabase dashboard:
 
-| Metric | Location | Alert Threshold |
-|--------|----------|-----------------|
-| Database Size | Settings > Database | > 80% of plan limit |
-| API Requests | Home > Usage | > 90% of plan limit |
-| Active Connections | Database > Connections | > 50 connections |
-| Query Performance | Logs > Query Performance | > 1000ms |
-| Error Rate | Logs > Error Logs | > 1% of requests |
+| Metric             | Location                 | Alert Threshold     |
+| ------------------ | ------------------------ | ------------------- |
+| Database Size      | Settings > Database      | > 80% of plan limit |
+| API Requests       | Home > Usage             | > 90% of plan limit |
+| Active Connections | Database > Connections   | > 50 connections    |
+| Query Performance  | Logs > Query Performance | > 1000ms            |
+| Error Rate         | Logs > Error Logs        | > 1% of requests    |
 
 #### Health Check / Terveystarkistus
 
@@ -1010,6 +1029,7 @@ curl https://kpucuwwfhuwurdxyjjtz.supabase.co/rest/v1/
 #### Current Setup / Nykyinen Rakenne
 
 **One Project for All:**
+
 - ✅ Single source of truth
 - ✅ Shared authentication
 - ✅ Easier to manage
@@ -1111,6 +1131,7 @@ Consider separate projects ONLY if:
 #### Common Issues / Yleiset Ongelmat
 
 **Connection Timeout:**
+
 ```bash
 # Test connection
 curl https://kpucuwwfhuwurdxyjjtz.supabase.co/rest/v1/
@@ -1120,6 +1141,7 @@ nslookup kpucuwwfhuwurdxyjjtz.supabase.co
 ```
 
 **RLS Blocking Queries:**
+
 ```sql
 -- Check policies
 SELECT * FROM pg_policies WHERE tablename = 'your_table';
@@ -1129,6 +1151,7 @@ ALTER TABLE your_table DISABLE ROW LEVEL SECURITY;
 ```
 
 **Migration Errors:**
+
 ```bash
 # Check migration status
 supabase migration list
@@ -1142,21 +1165,25 @@ supabase migration repair --status applied
 #### High Priority / Korkea Prioriteetti
 
 **Stripe Sync Engine** (✅ Recommended)
+
 - Automatically sync Stripe data to Postgres
 - Real-time revenue and subscription tracking
 - Essential for financial reporting
 
 **Cron** (✅ Recommended)
+
 - Schedule recurring jobs in Postgres
 - Daily reports, backups, cleanup tasks
 - No external cron service needed
 
 **Database Webhooks** (✅ Recommended)
+
 - Real-time notifications on data changes
-- Slack alerts, email notifications
+- WhatsApp / webhook alerts, email notifications
 - Dashboard updates
 
 **Queues** (✅ Recommended)
+
 - Background job processing
 - Report generation, email sending
 - LinkedIn automation (Firehorse)
@@ -1182,16 +1209,19 @@ See the main troubleshooting guide: `DWS6_DEPLOYMENT_TROUBLESHOOTING.md`
 **Quick Fixes:**
 
 **Error 522 (Connection Timeout):**
+
 - Verify custom domain is added in Cloudflare Pages project
 - Check DNS records point to correct Pages project
 - Wait 5-10 minutes for DNS propagation
 
 **Output Directory Not Found:**
+
 - Verify `landing-pages/dws6-com/` exists in repository
 - Check GitHub Actions sync workflow has run
 - Manually trigger workflow if needed
 
 **Build Failures:**
+
 - Check build logs in Cloudflare Pages dashboard
 - Verify `wrangler.toml` configuration
 - Ensure all required files are in repository
@@ -1199,18 +1229,21 @@ See the main troubleshooting guide: `DWS6_DEPLOYMENT_TROUBLESHOOTING.md`
 ### 8.2 Supabase Issues / Supabase-ongelmat
 
 **Connection Timeout:**
+
 ```bash
 # Test connection
 curl https://kpucuwwfhuwurdxyjjtz.supabase.co/rest/v1/
 ```
 
 **RLS Blocking Queries:**
+
 ```sql
 -- Check policies
 SELECT * FROM pg_policies WHERE tablename = 'your_table';
 ```
 
 **Migration Errors:**
+
 ```bash
 # Check status
 supabase migration list
@@ -1225,6 +1258,7 @@ supabase migration list
 Access analytics at: https://dash.cloudflare.com/pages
 
 **Key Metrics / Keskeiset Mittarit:**
+
 - Page views / Sivulataukset
 - Unique visitors / Yksilölliset vierailijat
 - Bandwidth usage / Kaistankäyttö
@@ -1235,16 +1269,17 @@ Access analytics at: https://dash.cloudflare.com/pages
 
 Monitor these metrics regularly:
 
-| Metric | Target | Alert Threshold |
-|--------|--------|-----------------|
-| Page Load Time | < 2s | > 3s |
-| Time to Interactive | < 3s | > 5s |
-| Uptime | 99.9% | < 99% |
-| Error Rate | < 0.1% | > 1% |
+| Metric              | Target | Alert Threshold |
+| ------------------- | ------ | --------------- |
+| Page Load Time      | < 2s   | > 3s            |
+| Time to Interactive | < 3s   | > 5s            |
+| Uptime              | 99.9%  | < 99%           |
+| Error Rate          | < 0.1% | > 1%            |
 
 ### 9.3 Checklists / Tarkistuslistat
 
 #### Daily Checklist / Päivittäinen tarkistuslista
+
 - [ ] Site is accessible (https://dws6.com)
 - [ ] SSL certificate is valid
 - [ ] No 4xx/5xx errors in logs
@@ -1252,6 +1287,7 @@ Monitor these metrics regularly:
 - [ ] Supabase health check passes
 
 #### Weekly Checklist / Viikottainen tarkistuslista
+
 - [ ] Review Cloudflare analytics
 - [ ] Check performance metrics
 - [ ] Review security events
@@ -1261,6 +1297,7 @@ Monitor these metrics regularly:
 - [ ] Review API usage metrics
 
 #### Monthly Checklist / Kuukausittainen tarkistuslista
+
 - [ ] Review and optimize assets
 - [ ] Update content as needed
 - [ ] Check SSL certificate expiry (auto-renewed)
@@ -1275,6 +1312,7 @@ Monitor these metrics regularly:
 ## 📞 Tuki ja Dokumentaatio / Support & Documentation
 
 ### Links / Linkit
+
 - **Live Site:** https://dws6.com
 - **Cloudflare Dashboard:** https://dash.cloudflare.com/pages
 - **Supabase Dashboard:** https://supabase.com/dashboard/project/kpucuwwfhuwurdxyjjtz
@@ -1282,6 +1320,7 @@ Monitor these metrics regularly:
 - **V9 Documentation:** `/dws6.com/V9_FINAL_COMPLETION.md`
 
 ### Related Documentation / Liittyvä dokumentaatio
+
 - **Admin Manual - Authentication:** `ADMIN_MANUAL_AUTHENTICATION.md`
 - **Site Quality Standards:** `SITE_QUALITY_STANDARDS.md`
 - **AI Agent Guidelines:** `CLAUDE.md` (Karpathy Principles)
@@ -1307,18 +1346,19 @@ Your code will be watched—write accordingly."
 
 ### 10.3 Critical Behaviors / Kriittiset Käyttäytymiset
 
-| # | Behavior | Description |
-|---|----------|-------------|
-| 1 | **Assumption Surfacing** | State assumptions explicitly before implementing non-trivial code |
-| 2 | **Confusion Management** | STOP when confused; ask clarifying questions |
-| 3 | **Push Back When Warranted** | Point out problems directly; don't be a yes-machine |
-| 4 | **Simplicity Enforcement** | Actively resist overcomplication |
-| 5 | **Scope Discipline** | Touch only what you're asked to touch |
-| 6 | **Dead Code Hygiene** | Ask before removing unused code |
+| #   | Behavior                     | Description                                                       |
+| --- | ---------------------------- | ----------------------------------------------------------------- |
+| 1   | **Assumption Surfacing**     | State assumptions explicitly before implementing non-trivial code |
+| 2   | **Confusion Management**     | STOP when confused; ask clarifying questions                      |
+| 3   | **Push Back When Warranted** | Point out problems directly; don't be a yes-machine               |
+| 4   | **Simplicity Enforcement**   | Actively resist overcomplication                                  |
+| 5   | **Scope Discipline**         | Touch only what you're asked to touch                             |
+| 6   | **Dead Code Hygiene**        | Ask before removing unused code                                   |
 
 ### 10.4 Required Templates / Vaaditut Mallit
 
 **Before implementation:**
+
 ```
 ASSUMPTIONS I'M MAKING:
 1. [assumption]
@@ -1327,6 +1367,7 @@ ASSUMPTIONS I'M MAKING:
 ```
 
 **After modification:**
+
 ```
 CHANGES MADE:
 - [file]: [what changed and why]
@@ -1342,27 +1383,30 @@ POTENTIAL CONCERNS:
 
 In addition to Karpathy's 12 failure modes, DWS6 adds:
 
-| # | Failure Mode | Prevention |
-|---|-------------|------------|
-| 13 | Not using DWS document standard | Check `docs/` folder conventions |
-| 14 | Deleting files without asking | Always ask for explicit approval |
-| 15 | Using new environment without .gitignore/.env check | Verify security setup first |
+| #   | Failure Mode                                        | Prevention                       |
+| --- | --------------------------------------------------- | -------------------------------- |
+| 13  | Not using DWS document standard                     | Check `docs/` folder conventions |
+| 14  | Deleting files without asking                       | Always ask for explicit approval |
+| 15  | Using new environment without .gitignore/.env check | Verify security setup first      |
 
 ### 10.6 For Administrators / Ylläpitäjille
 
 **When onboarding new AI tools:**
+
 1. Ensure `CLAUDE.md` is in repository root
 2. Verify the tool reads and respects the guidelines
 3. Monitor for failure mode patterns
 4. Update guidelines as new patterns emerge
 
 **When reviewing AI-generated code:**
+
 - Check that assumptions were surfaced
 - Verify scope discipline was maintained
 - Confirm no unauthorized deletions
 - Validate security requirements met
 
 ### Contacts / Yhteystiedot
+
 - **Technical Support:** support@dws-iq.com
 - **Emergency:** ops@dws-iq.com
 - **Cloudflare Support:** https://support.cloudflare.com
@@ -1372,6 +1416,66 @@ In addition to Karpathy's 12 failure modes, DWS6 adds:
 **Versio:** 1.0  
 **Päivitetty:** 30. Joulukuuta 2025  
 **Seuraava päivitys:** Q1 2026
+
+---
+
+## 11. Admin Dashboards: Back-Office API & V10
+
+### 11.1 Who counts as an admin
+
+Admin access is decided server-side by the `organization_members` table: an **active** member with role **`owner`** or **`admin`** of any organization. This is the same rule as the SQL function `is_backoffice_admin()` (migration `011_fix_security_issues.sql`) that guards the Firehorse, customer and finance tables.
+
+The `role` in Supabase `user_metadata` (e.g. `backoffice_admin`) is **not** a security boundary — any signed-in user can edit their own `user_metadata` from the browser. Pages still read it to decide what UI to show, but data only comes from the server after the membership check.
+
+**Current admins (22.09.2026):** organization **DWS AB** (slug `dws-ab`) — `admin@dws10.com` and `risto.paarni2024@lifetime.fi`, both `owner` / `active`.
+
+**Add an admin** (Supabase SQL editor, project `kpucuwwfhuwurdxyjjtz`). A `user_profiles` row is required first (foreign key):
+
+```sql
+insert into public.user_profiles (id, email, status)
+select id, email, 'active' from auth.users where email = 'new.admin@example.com'
+on conflict (id) do nothing;
+
+insert into public.organization_members (organization_id, user_id, role, status)
+select o.id, u.id, 'admin', 'active'
+from public.organizations o, auth.users u
+where o.slug = 'dws-ab' and u.email = 'new.admin@example.com';
+```
+
+**Remove an admin:** `update public.organization_members set status = 'suspended' where user_id = '<uuid>';`
+
+### 11.2 Back-Office dashboard (`/dashboard/backoffice/`)
+
+The page sends the Supabase access token to the backend API `/api/v1/backoffice/*` (`src/routes/backoffice.routes.ts`). Every endpoint re-checks the membership rule above; non-admins get 403.
+
+| Endpoint                | Data source                                                                                                                |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `GET /stats`            | `user_profiles` counts (total, logged in last 7 days), `usage_events` rows today (UTC), `docker ps` counts, backend uptime |
+| `GET /containers`       | `docker ps -a` on the backend host                                                                                         |
+| `GET /users?limit=`     | newest `user_profiles` rows (max 200)                                                                                      |
+| `GET /audit-log?limit=` | newest `auth_audit_log` rows (max 200)                                                                                     |
+
+A card shows **—** when its source is unreachable — numbers are never invented. Container data only works where the backend can run Docker (DGX Spark); on Cloud Run the container cards show —.
+
+The page calls the API on the same origin unless `window.DWS_API_BASE` is set. Cloudflare Pages has no `/api` route, so on production the API host must be configured (open item).
+
+### 11.3 V10 dashboard (`/dashboard/firehorse/v10/`)
+
+- **Source:** `dashboard/firehorse/v10-react/` (Vite + React).
+- **Published build:** `dashboard/firehorse/v10/` — committed to git, because Cloudflare Pages runs no build command (§2.2). Serving the source folder directly produces a blank page.
+- **Login:** V10 imports `shared/config/supabase-config.js`, so it uses the same Supabase project and session key (`dws6-auth-token`) as the rest of dws6.com — an existing login carries over.
+
+**Rebuild after any V10 change** (then commit `v10/` together with the source change):
+
+```bash
+cd dws6.com/dashboard/firehorse/v10-react
+npm ci
+npm run build        # writes ../v10
+```
+
+Copy both folders to `landing-pages/dws6-com/dashboard/firehorse/` in the same commit (dual folder sync).
+
+**Known limitation:** refreshing the browser on a V10 sub-page (e.g. `/dashboard/firehorse/v10/login`) falls back to the site root, because there is no `_redirects` rewrite yet. Open V10 from its entry URL.
 
 ---
 
@@ -1433,4 +1537,3 @@ Pro Plan ($20/month):
 - Build time: 30 minutes max
 - All other features unlimited
 ```
-

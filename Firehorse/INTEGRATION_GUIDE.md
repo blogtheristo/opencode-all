@@ -7,16 +7,19 @@ This guide explains how to integrate your existing DWS6 assets with the Firehors
 ## Current Assets
 
 ### 1. Investor Relations Page
+
 - **Location**: `dws10.com/investor-relations/index.html`
 - **Purpose**: Central hub for investor information
 - **Integration**: Link from cold emails, track visits
 
 ### 2. Supabase Database
+
 - **Purpose**: Contact management and campaign tracking
 - **Tables**: `investor_contacts`, `campaign_logs`
 - **Integration**: Primary data source for all campaigns
 
 ### 3. Cold Email System
+
 - **Capacity**: 20 outbound emails/day
 - **Integration**: Automated through Firehorse/Automation
 
@@ -117,10 +120,10 @@ SEND_TIMEZONE=Europe/Helsinki
 TRACKING_DOMAIN=dws10.com
 INVESTOR_PAGE_URL=https://dws10.com/investor-relations/
 
-# Alerts (optional: one or both)
+# Alerts (optional)
 ALERT_EMAIL=team@dws10.com
-SLACK_WEBHOOK=your-slack-incoming-webhook-url
 TEAMS_WEBHOOK=your-teams-incoming-webhook-url
+NOTIFY_WEBHOOK_URL=your-generic-notify-webhook-url
 ```
 
 ### Step 3: Update Investor Relations Page
@@ -134,59 +137,59 @@ Add tracking and integration to your investor-relations page:
 <script>
   // Track page visits from campaigns
   const urlParams = new URLSearchParams(window.location.search);
-  const campaignId = urlParams.get('campaign');
-  const investorId = urlParams.get('investor');
-  
+  const campaignId = urlParams.get("campaign");
+  const investorId = urlParams.get("investor");
+
   if (campaignId && investorId) {
     // Log visit to Supabase
-    fetch('https://your-project.supabase.co/rest/v1/campaign_logs', {
-      method: 'PATCH',
+    fetch("https://your-project.supabase.co/rest/v1/campaign_logs", {
+      method: "PATCH",
       headers: {
-        'apikey': 'your-anon-key',
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
+        apikey: "your-anon-key",
+        "Content-Type": "application/json",
+        Prefer: "return=minimal",
       },
       body: JSON.stringify({
         id: campaignId,
         clicked: true,
-        clicked_at: new Date().toISOString()
-      })
+        clicked_at: new Date().toISOString(),
+      }),
     });
   }
 </script>
 
 <!-- Add contact form integration -->
 <form id="investor-contact-form">
-  <input type="text" name="name" placeholder="Name" required>
-  <input type="email" name="email" placeholder="Email" required>
-  <input type="text" name="company" placeholder="Company">
+  <input type="text" name="name" placeholder="Name" required />
+  <input type="email" name="email" placeholder="Email" required />
+  <input type="text" name="company" placeholder="Company" />
   <textarea name="message" placeholder="Message"></textarea>
   <button type="submit">Get in Touch</button>
 </form>
 
 <script>
-  document.getElementById('investor-contact-form').addEventListener('submit', async (e) => {
+  document.getElementById("investor-contact-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    
+
     // Save to Supabase
-    await fetch('https://your-project.supabase.co/rest/v1/investor_contacts', {
-      method: 'POST',
+    await fetch("https://your-project.supabase.co/rest/v1/investor_contacts", {
+      method: "POST",
       headers: {
-        'apikey': 'your-anon-key',
-        'Content-Type': 'application/json'
+        apikey: "your-anon-key",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: formData.get('name'),
-        email: formData.get('email'),
-        company: formData.get('company'),
-        notes: formData.get('message'),
-        source: 'website',
-        status: 'inbound'
-      })
+        name: formData.get("name"),
+        email: formData.get("email"),
+        company: formData.get("company"),
+        notes: formData.get("message"),
+        source: "website",
+        status: "inbound",
+      }),
     });
-    
-    alert('Thank you! We\'ll be in touch soon.');
+
+    alert("Thank you! We'll be in touch soon.");
     e.target.reset();
   });
 </script>
@@ -197,36 +200,48 @@ Add tracking and integration to your investor-relations page:
 Store templates in `Firehorse/ContentMS/email-templates/`:
 
 **cold-investor-intro-v1.html**
+
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-  <p>Hi {{first_name}},</p>
-  
-  <p>I noticed your focus on {{investment_focus}} investments and thought you might be interested in what we're building at DWS6.</p>
-  
-  <p>We're developing [brief value proposition - 2-3 sentences about your product/service].</p>
-  
-  <p>Would you be open to a brief call next week to explore if there's a fit?</p>
-  
-  <p>You can learn more about us here: <a href="https://dws10.com/investor-relations/?campaign={{campaign_id}}&investor={{investor_id}}">DWS6 Investor Relations</a></p>
-  
-  <p>Best regards,<br>
-  {{sender_name}}<br>
-  {{sender_title}}<br>
-  DWS6</p>
-  
-  <hr style="margin-top: 30px; border: none; border-top: 1px solid #ddd;">
-  <p style="font-size: 11px; color: #666;">
-    DWS6<br>
-    [Your Address]<br>
-    <a href="{{unsubscribe_link}}">Unsubscribe</a>
-  </p>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+    <p>Hi {{first_name}},</p>
+
+    <p>
+      I noticed your focus on {{investment_focus}} investments and thought you might be interested
+      in what we're building at DWS6.
+    </p>
+
+    <p>We're developing [brief value proposition - 2-3 sentences about your product/service].</p>
+
+    <p>Would you be open to a brief call next week to explore if there's a fit?</p>
+
+    <p>
+      You can learn more about us here:
+      <a
+        href="https://dws10.com/investor-relations/?campaign={{campaign_id}}&investor={{investor_id}}"
+        >DWS6 Investor Relations</a
+      >
+    </p>
+
+    <p>
+      Best regards,<br />
+      {{sender_name}}<br />
+      {{sender_title}}<br />
+      DWS6
+    </p>
+
+    <hr style="margin-top: 30px; border: none; border-top: 1px solid #ddd;" />
+    <p style="font-size: 11px; color: #666;">
+      DWS6<br />
+      [Your Address]<br />
+      <a href="{{unsubscribe_link}}">Unsubscribe</a>
+    </p>
+  </body>
 </html>
 ```
 
@@ -235,53 +250,51 @@ Store templates in `Firehorse/ContentMS/email-templates/`:
 Create campaign automation script in `Firehorse/Automation/campaigns/`:
 
 **investor-daily-outreach.js**
-```javascript
-require('dotenv').config();
-const { createClient } = require('@supabase/supabase-js');
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
-);
+```javascript
+require("dotenv").config();
+const { createClient } = require("@supabase/supabase-js");
+
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 async function runDailyCampaign() {
-  console.log('Starting daily investor outreach campaign...');
-  
+  console.log("Starting daily investor outreach campaign...");
+
   // 1. Get eligible contacts
   const { data: contacts, error } = await supabase
-    .from('investor_contacts')
-    .select('*')
-    .in('status', ['new', 'follow_up'])
+    .from("investor_contacts")
+    .select("*")
+    .in("status", ["new", "follow_up"])
     .or(`last_contacted.is.null,last_contacted.lt.${getSevenDaysAgo()}`)
-    .order('priority', { ascending: false })
+    .order("priority", { ascending: false })
     .limit(parseInt(process.env.DAILY_LIMIT));
-  
+
   if (error) {
-    console.error('Error fetching contacts:', error);
+    console.error("Error fetching contacts:", error);
     return;
   }
-  
+
   console.log(`Found ${contacts.length} eligible contacts`);
-  
+
   // 2. Send emails
   for (const contact of contacts) {
     try {
       // Send email (implement with your email service)
       await sendEmail(contact);
-      
+
       // Log campaign
       await logCampaign(contact);
-      
+
       // Update contact
       await updateContact(contact);
-      
+
       console.log(`✓ Sent to ${contact.email}`);
     } catch (err) {
       console.error(`✗ Failed for ${contact.email}:`, err);
     }
   }
-  
-  console.log('Campaign complete!');
+
+  console.log("Campaign complete!");
 }
 
 function getSevenDaysAgo() {
@@ -296,22 +309,22 @@ async function sendEmail(contact) {
 }
 
 async function logCampaign(contact) {
-  await supabase.from('campaign_logs').insert({
-    campaign_date: new Date().toISOString().split('T')[0],
+  await supabase.from("campaign_logs").insert({
+    campaign_date: new Date().toISOString().split("T")[0],
     investor_id: contact.id,
-    sent_at: new Date().toISOString()
+    sent_at: new Date().toISOString(),
   });
 }
 
 async function updateContact(contact) {
   await supabase
-    .from('investor_contacts')
+    .from("investor_contacts")
     .update({
       last_contacted: new Date().toISOString(),
       emails_sent: (contact.emails_sent || 0) + 1,
-      status: 'contacted'
+      status: "contacted",
     })
-    .eq('id', contact.id);
+    .eq("id", contact.id);
 }
 
 // Run if called directly
@@ -325,6 +338,7 @@ module.exports = { runDailyCampaign };
 ### Step 6: Schedule Daily Campaigns
 
 **Option A: Cron (Linux/Mac)**
+
 ```bash
 # Edit crontab
 crontab -e
@@ -334,6 +348,7 @@ crontab -e
 ```
 
 **Option B: Windows Task Scheduler**
+
 1. Open Task Scheduler
 2. Create Basic Task
 3. Name: "Firehorse Daily Investor Outreach"
@@ -351,31 +366,29 @@ Deploy to Google Cloud Functions, AWS Lambda, or Vercel Cron Jobs
 Create daily report script in `Firehorse/Report/`:
 
 **daily-report.js**
+
 ```javascript
-const { createClient } = require('@supabase/supabase-js');
+const { createClient } = require("@supabase/supabase-js");
 
 async function generateDailyReport() {
-  const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_KEY
-  );
-  
-  const today = new Date().toISOString().split('T')[0];
-  
+  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
+  const today = new Date().toISOString().split("T")[0];
+
   // Get today's campaigns
   const { data: campaigns } = await supabase
-    .from('campaign_logs')
-    .select('*')
-    .eq('campaign_date', today);
-  
+    .from("campaign_logs")
+    .select("*")
+    .eq("campaign_date", today);
+
   const metrics = {
     sent: campaigns.length,
-    delivered: campaigns.filter(c => c.delivered).length,
-    opened: campaigns.filter(c => c.opened).length,
-    clicked: campaigns.filter(c => c.clicked).length,
-    replied: campaigns.filter(c => c.replied).length
+    delivered: campaigns.filter((c) => c.delivered).length,
+    opened: campaigns.filter((c) => c.opened).length,
+    clicked: campaigns.filter((c) => c.clicked).length,
+    replied: campaigns.filter((c) => c.replied).length,
   };
-  
+
   console.log(`
 📊 Daily Campaign Report - ${today}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -397,21 +410,25 @@ generateDailyReport().catch(console.error);
 ## Testing the Integration
 
 ### 1. Test Database Connection
+
 ```bash
 cd Firehorse/Automation
 node -e "require('dotenv').config(); console.log(process.env.SUPABASE_URL)"
 ```
 
 ### 2. Test Email Sending
+
 ```bash
 node campaigns/investor-daily-outreach.js --test --limit 1
 ```
 
 ### 3. Test Tracking
+
 Visit: `https://dws10.com/investor-relations/?campaign=test&investor=test`
 Check browser console and Supabase logs
 
 ### 4. Test Reporting
+
 ```bash
 cd Firehorse/Report
 node daily-report.js

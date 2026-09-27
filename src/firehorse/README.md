@@ -22,25 +22,25 @@ New → Cold_1_Sent → Cold_1_Opened → Engaged → Meeting_Booked
 
 ## Triggers
 
-| Trigger | Kuvaus |
-|---------|--------|
-| `t_new_day` | Kerran päivässä 08:00 |
-| `t_email_open` | Email avattu |
-| `t_link_click` | Linkki klikattu |
-| `t_reply` | Email-vastaus saapunut |
-| `t_meeting_booked` | Tapaaminen varattu |
+| Trigger                    | Kuvaus                                     |
+| -------------------------- | ------------------------------------------ |
+| `t_new_day`                | Kerran päivässä 08:00                      |
+| `t_email_open`             | Email avattu                               |
+| `t_link_click`             | Linkki klikattu                            |
+| `t_reply`                  | Email-vastaus saapunut                     |
+| `t_meeting_booked`         | Tapaaminen varattu                         |
 | `t_cold1_no_engagement_3d` | Ei engagementtia 3 päivää Cold 1:n jälkeen |
 | `t_cold2_no_engagement_5d` | Ei engagementtia 5 päivää Cold 2:n jälkeen |
 
 ## Actions
 
-| Action | Kuvaus |
-|--------|--------|
-| `a_send_email(template_id, lead_id)` | Lähetä email |
+| Action                                     | Kuvaus                               |
+| ------------------------------------------ | ------------------------------------ |
+| `a_send_email(template_id, lead_id)`       | Lähetä email                         |
 | `a_send_linkedin_dm(template_id, lead_id)` | Lähetä LinkedIn DM (tulevaisuudessa) |
-| `a_change_state(new_state, lead_id)` | Vaihda lead-tilaa |
-| `a_log_event(event_type, lead_id)` | Kirjaa tapahtuma |
-| `a_create_task(owner, type, lead_id)` | Luo task myyjälle |
+| `a_change_state(new_state, lead_id)`       | Vaihda lead-tilaa                    |
+| `a_log_event(event_type, lead_id)`         | Kirjaa tapahtuma                     |
+| `a_create_task(owner, type, lead_id)`      | Luo task myyjälle                    |
 
 ## Tietokanta
 
@@ -122,13 +122,13 @@ supabase migration up
 
 ```typescript
 // src/app.ts
-import { initFirehorsePilot, firehorseRoutes } from './firehorse';
+import { initFirehorsePilot, firehorseRoutes } from "./firehorse";
 
 // Initialize
 initFirehorsePilot();
 
 // Mount routes
-app.use('/firehorse', firehorseRoutes);
+app.use("/firehorse", firehorseRoutes);
 ```
 
 ### 5. Konfiguroi email service
@@ -145,13 +145,13 @@ Scheduler käynnistyy automaattisesti kun kutsut `initFirehorsePilot()`.
 ### Manuaalinen ajastus
 
 ```typescript
-import { scheduler } from './firehorse';
+import { scheduler } from "./firehorse";
 
 // Aja yksittäinen job
-await scheduler.runManually('daily');
-await scheduler.runManually('cold2');
-await scheduler.runManually('cold3');
-await scheduler.runManually('all');
+await scheduler.runManually("daily");
+await scheduler.runManually("cold2");
+await scheduler.runManually("cold3");
+await scheduler.runManually("all");
 ```
 
 ## Testing
@@ -208,7 +208,7 @@ src/firehorse/
 
 - [ ] LinkedIn DM automaatio
 - [ ] AI-powered reply intent analysis (OpenAI/Anthropic)
-- [ ] Slack notifications taskeihin
+- [ ] WhatsApp / webhook notifications taskeihin
 - [ ] Dashboard lead-tilastoille
 - [ ] A/B testing email templateille
 - [ ] Multi-channel tracking (email + LinkedIn + puhelu)

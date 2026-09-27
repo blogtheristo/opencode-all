@@ -1,0 +1,744 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>2026-09-26-ag-ui-protocol-dws6-fit</title>
+    <style>
+      html {
+        color: #1a1a1a;
+        background-color: #fdfdfd;
+      }
+      body {
+        margin: 0 auto;
+        max-width: 36em;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        hyphens: auto;
+        overflow-wrap: break-word;
+        text-rendering: optimizeLegibility;
+        font-kerning: normal;
+      }
+      @media (max-width: 600px) {
+        body {
+          font-size: 0.9em;
+          padding: 12px;
+        }
+        h1 {
+          font-size: 1.8em;
+        }
+      }
+      @media print {
+        html {
+          background-color: white;
+        }
+        body {
+          background-color: transparent;
+          color: black;
+          font-size: 12pt;
+        }
+        p,
+        h2,
+        h3 {
+          orphans: 3;
+          widows: 3;
+        }
+        h2,
+        h3,
+        h4 {
+          page-break-after: avoid;
+        }
+      }
+      p {
+        margin: 1em 0;
+      }
+      a {
+        color: #1a1a1a;
+      }
+      a:visited {
+        color: #1a1a1a;
+      }
+      img {
+        max-width: 100%;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-top: 1.4em;
+      }
+      h5,
+      h6 {
+        font-size: 1em;
+        font-style: italic;
+      }
+      h6 {
+        font-weight: normal;
+      }
+      ol,
+      ul {
+        padding-left: 1.7em;
+        margin-top: 1em;
+      }
+      li > ol,
+      li > ul {
+        margin-top: 0;
+      }
+      blockquote {
+        margin: 1em 0 1em 1.7em;
+        padding-left: 1em;
+        border-left: 2px solid #e6e6e6;
+        color: #606060;
+      }
+      code {
+        font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;
+        font-size: 85%;
+        margin: 0;
+        hyphens: manual;
+      }
+      pre {
+        margin: 1em 0;
+        overflow: auto;
+      }
+      pre code {
+        padding: 0;
+        overflow: visible;
+        overflow-wrap: normal;
+      }
+      .sourceCode {
+        background-color: transparent;
+        overflow: visible;
+      }
+      hr {
+        background-color: #1a1a1a;
+        border: none;
+        height: 1px;
+        margin: 1em 0;
+      }
+      table {
+        margin: 1em 0;
+        border-collapse: collapse;
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+        font-variant-numeric: lining-nums tabular-nums;
+      }
+      table caption {
+        margin-bottom: 0.75em;
+      }
+      tbody {
+        margin-top: 0.5em;
+        border-top: 1px solid #1a1a1a;
+        border-bottom: 1px solid #1a1a1a;
+      }
+      th {
+        border-top: 1px solid #1a1a1a;
+        padding: 0.25em 0.5em 0.25em 0.5em;
+      }
+      td {
+        padding: 0.125em 0.5em 0.25em 0.5em;
+      }
+      header {
+        margin-bottom: 4em;
+        text-align: center;
+      }
+      #TOC li {
+        list-style: none;
+      }
+      #TOC ul {
+        padding-left: 1.3em;
+      }
+      #TOC > ul {
+        padding-left: 0;
+      }
+      #TOC a:not(:hover) {
+        text-decoration: none;
+      }
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      div.columns {
+        display: flex;
+        gap: min(4vw, 1.5em);
+      }
+      div.column {
+        flex: auto;
+        overflow-x: auto;
+      }
+      div.hanging-indent {
+        margin-left: 1.5em;
+        text-indent: -1.5em;
+      }
+
+      ul.task-list[class] {
+        list-style: none;
+      }
+      ul.task-list li input[type="checkbox"] {
+        font-size: inherit;
+        width: 0.8em;
+        margin: 0 0.8em 0.2em -1.6em;
+        vertical-align: middle;
+      }
+      .display.math {
+        display: block;
+        text-align: center;
+        margin: 0.5rem auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header id="title-block-header">
+      <h1 class="title">2026-09-26-ag-ui-protocol-dws6-fit</h1>
+    </header>
+    <h1 id="ag-ui-1.0-agent-to-user-protocol-fit-for-dws6-2026-09-26">
+      AG-UI 1.0 — agent-to-user protocol fit for DWS6 — 2026-09-26
+    </h1>
+    <h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+    <hr />
+    <p>Version: 1.0 [Latest]</p>
+    <p>Sessions &amp; Modifications:</p>
+    <ul>
+      <li>
+        Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/agui-protocol-dws6-jjojli |
+        Date: 26.09.2026 | Changes: Initial note — AG-UI 1.0 state, DWS6 gap map, adoption design,
+        decision Q1.
+      </li>
+    </ul>
+    <p>Document Status:</p>
+    <ul>
+      <li>Created: 26.09.2026</li>
+      <li>Last Modified: 26.09.2026</li>
+      <li>Language: English</li>
+      <li>Languages Available: English</li>
+      <li>Publication Status: ACTIVE</li>
+      <li>Status: PENDING_REVIEW</li>
+    </ul>
+    <hr />
+    <ul>
+      <li><strong>Date:</strong> 2026-09-26</li>
+      <li><strong>Author:</strong> Claude Code, on behalf of Lifetime Oy</li>
+      <li><strong>Location:</strong> DWS6 repository, cloud session</li>
+      <li>
+        <strong>Context:</strong> HIC 26.09.2026: “AGUI protocol into dws6. Field note + decision”,
+        plus the Microsoft .NET blog link
+        <code>https://devblogs.microsoft.com/dotnet/ag-ui-dotnet-sdk/</code>.
+      </li>
+    </ul>
+    <p>
+      Standards loaded: <code>docs/system-config/STANDARDS_ROUTING.md</code>,
+      <code>DWS_TRUTH_STANDARD.md</code>, <code>DWS_ROLES_REGISTRY.md</code>,
+      <code>DWS_LEARNING_STANDARD.md</code> (§4, §10), <code>DWS_SECURITY_STANDARD.md</code> (grep:
+      prompt injection, SSE), <code>AI_AGENT_GUIDELINES.md</code> (grep: streaming/events),
+      <code>docs/field-notes/README.md</code>.
+    </p>
+    <h2 id="ontology-tags">Ontology Tags</h2>
+    <ul>
+      <li><strong>Geography:</strong> Global (protocol); Europe &gt; Finland (DWS deployment)</li>
+      <li><strong>Sector:</strong> AI agent platforms &gt; Agent-user interface protocols</li>
+      <li>
+        <strong>Entities:</strong> AG-UI, CopilotKit, Microsoft Agent Framework, Google ADK, AWS
+        Strands, Amazon Bedrock AgentCore, MCP, A2A, A2UI, MCP Apps, DWS IQ 6, Firehorse V10
+        dashboard
+      </li>
+      <li>
+        <strong>Systems:</strong> <code>src/agents/base.agent.ts</code>,
+        <code>src/agents/routes.ts</code>, <code>src/mcp/agent-server.ts</code>,
+        <code>dws6.com/dashboard/firehorse/v10-react/</code>,
+        <code>src/security/runtime-auth.ts</code>,
+        <code>src/temporal/workflows/human-approval.workflow.ts</code>
+      </li>
+      <li><strong>Temporal Context:</strong> 2026-Q3 (AG-UI 1.0 released 2026-09-17)</li>
+      <li>
+        <strong>Confidence:</strong> High on versions and the DWS6 code map (read directly). Medium
+        on adoption claims (from the upstream README; integration maturity not tested).
+      </li>
+    </ul>
+    <h2 id="the-story">The Story</h2>
+    <ol type="1">
+      <li>
+        <strong>AG-UI reached 1.0 nine days ago.</strong>
+        <ul>
+          <li>
+            A single release on 2026-09-17 took the TypeScript, Python and .NET SDKs to 1.0.0.
+          </li>
+          <li>
+            1.0 adds a normative spec in RFC 2119 language, one JSON Schema that generates every
+            SDK, and a conformance harness.
+          </li>
+          <li>Pre-1.0 compatibility shims expire on 2027-09-17.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Microsoft now ships and consumes a first-party .NET SDK.</strong>
+        <ul>
+          <li>
+            There are five NuGet packages: <code>AGUI.Abstractions</code>,
+            <code>AGUI.Formatting</code>, <code>AGUI.Protobuf</code>, <code>AGUI.Client</code> and
+            <code>AGUI.Server</code>.
+          </li>
+          <li>
+            Microsoft Agent Framework has replaced its own internal implementation with these
+            packages. <code>MapAGUI</code> is renamed <code>MapAGUIServer</code>, and the wire
+            format is unchanged.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>What AG-UI is.</strong>
+        <ul>
+          <li>
+            The client sends one HTTP POST containing
+            <code>RunAgentInput</code> (<code>threadId</code>, <code>runId</code>,
+            <code>messages</code>, <code>state</code>, <code>tools</code>, <code>context</code>,
+            <code>forwardedProps</code>, <code>resume</code>).
+          </li>
+          <li>
+            The server answers with an ordered event stream, either SSE or length-prefixed protobuf.
+            The event types are:
+            <ul>
+              <li>lifecycle and steps;</li>
+              <li>text messages, streamed token by token;</li>
+              <li>tool calls;</li>
+              <li>state snapshots and JSON-Patch (RFC 6902) deltas;</li>
+              <li>reasoning;</li>
+              <li>subagents;</li>
+              <li>activity;</li>
+              <li>raw and custom events.</li>
+            </ul>
+          </li>
+          <li>
+            Human-in-the-loop works as an interrupt:
+            <ul>
+              <li>
+                The run ends with <code>RUN_FINISHED</code> carrying
+                <code>outcome.type = &quot;interrupt&quot;</code> and a JSON Schema for the answer.
+              </li>
+              <li>The client resumes by starting a new run with <code>resume[]</code>.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>Where it sits among the other protocols.</strong>
+        <ul>
+          <li>
+            MCP connects an agent to tools and data. A2A connects agents to each other. AG-UI
+            connects an agent to the user’s interface.
+          </li>
+          <li>
+            A2UI, MCP-UI and MCP Apps define generative-UI payloads, and AG-UI is the channel that
+            carries them. The three protocols complement each other rather than compete.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>DWS6 today.</strong>
+        <ul>
+          <li>
+            <strong>Agents return a single JSON response at the end.</strong> Nothing streams.
+            <ul>
+              <li>
+                <code>BaseAgent.execute()</code> returns one
+                <code>Promise&lt;AgentResponse&gt;</code>
+                (<code>src/agents/base.agent.ts:73</code>).
+              </li>
+              <li>
+                <code>runLoop()</code> (<code>:89</code>) collects every iteration and returns them
+                only when the loop ends. There is no per-step callback.
+              </li>
+              <li>
+                <code>POST /api/agents/:name/chat</code> (<code>src/agents/routes.ts:276</code>)
+                returns <code>{reply, confidence, agentName}</code> as plain JSON.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong
+              >The V10 React dashboard calls agents with plain <code>fetch</code> and refreshes on
+              30–60 s timers.</strong
+            >
+            <ul>
+              <li>Callers: <code>AgentChat.tsx:95</code>, <code>QuickActions.tsx:89</code>.</li>
+              <li>
+                There is no <code>EventSource</code> or WebSocket client anywhere in
+                <code>v10-react/src</code>.
+              </li>
+              <li>
+                <code>ai@^6</code> and <code>@ai-sdk/react</code> are in
+                <code>package.json</code> but nothing imports them.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Three SSE endpoints exist, but none streams a single agent run.</strong>
+            <ul>
+              <li>The event-bus firehose at <code>src/mcp/agent-server.ts:917</code>.</li>
+              <li>The activity stream at <code>src/routes/activity.routes.ts:183</code>.</li>
+              <li>The Cloudflare MCP gateway at <code>src/cloudflare/mcp-gateway.ts</code>.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Human approval is asynchronous, outside the agent loop.</strong>
+            <ul>
+              <li>
+                It runs through Temporal
+                (<code>src/temporal/workflows/human-approval.workflow.ts</code>), token links
+                (<code>src/routes/hil.routes.ts</code>) and a review queue that polls every 60 s.
+              </li>
+              <li>A run cannot pause for approval and then resume.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Every tool call already passes a policy check and a trace.</strong>
+            <ul>
+              <li>
+                Each call goes through
+                <code>authorizeToolCall()</code> (<code>src/security/runtime-auth.ts:284</code>) and
+                is wrapped in
+                <code>withToolSpan()</code> (<code>src/observability/tracing.ts:226</code>).
+              </li>
+              <li>Neither the check nor the trace reaches the user’s screen.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>The codebase does not use AG-UI or the A2A protocol.</strong>
+            <ul>
+              <li>
+                The <code>agui</code> string match in
+                <code>Firehorse/mobile-app/package-lock.json</code> is inside a sha512 hash.
+              </li>
+              <li>
+                “A2A-style discovery” in <code>src/agents/index.ts:132</code> is capability lookup,
+                not the A2A protocol.
+              </li>
+              <li>There is no <code>/.well-known/agent.json</code>.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ol>
+    <h2 id="the-insight">The Insight</h2>
+    <ol type="1">
+      <li>
+        <strong>The gap is real and it affects buyers.</strong>
+        <ul>
+          <li>
+            A DWS agent run is invisible until it finishes. The user sees a spinner, then a block of
+            text.
+          </li>
+          <li>
+            The KYA verdict on each tool call, which is the governance story we sell to CISO / Head
+            of InfoSec (R15/R16), never reaches the screen.
+          </li>
+          <li>
+            AG-UI’s <code>TOOL_CALL_*</code>, <code>STEP_*</code> and <code>CUSTOM</code> events are
+            the standard way to show it live.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>The interrupt pattern matches DWS HIC practice.</strong>
+        <ul>
+          <li>
+            The run stops with a typed question and resumes only on an explicit human answer,
+            validated against a JSON Schema.
+          </li>
+          <li>
+            In code, this is EU AI Act Art. 14 oversight: a stoppable run with an answer shape the
+            machine can check.
+          </li>
+          <li>It can sit in front of the existing Temporal approval flow without replacing it.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>It is self-hostable and has no runtime dependency on a vendor.</strong>
+        <ul>
+          <li>The protocol is HTTP POST plus SSE, and the SDKs are MIT-licensed.</li>
+          <li>Nothing in the protocol requires CopilotKit Cloud or any hosted service.</li>
+          <li>
+            That fits the Aegis / sovereignty positioning. An EU customer runs it inside their own
+            boundary.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>Governance is the one real risk.</strong>
+        <ul>
+          <li>
+            CopilotKit, a single US startup, still steers the protocol. The repo has no foundation
+            and no governance file.
+          </li>
+          <li>MCP and A2A are under the Linux Foundation; AG-UI is not.</li>
+          <li>
+            Mitigation: depend only on <code>@ag-ui/core</code> and
+            <code>@ag-ui/encoder</code> (types plus the encoder), pin 1.0.x, and keep the DWS event
+            producer behind one adapter file. If the protocol stalls, the adapter is the only thing
+            to replace.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>Security: the protocol leaves enforcement to us.</strong>
+        <ul>
+          <li>
+            Treat everything the client sends as untrusted input: <code>RunAgentInput.state</code>,
+            <code>tools</code>, <code>forwardedProps</code> (untyped) and <code>messages</code>.
+          </li>
+          <li>
+            Validate all of it with Zod before it reaches <code>runLoop</code> (Non-Negotiable Rule
+            8, Security Coding Rules).
+          </li>
+          <li>
+            Keep secrets out of <code>state</code>, because state round-trips through the browser on
+            every run.
+          </li>
+          <li>
+            Put auth in Express middleware: the existing <code>authenticateToken</code> plus org
+            scoping.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>Why AG-UI rather than the Vercel AI SDK stream.</strong> The V10 dashboard already
+        lists the Vercel AI SDK, so its data stream is the obvious alternative. It is a library
+        format, not a protocol:
+        <ul>
+          <li>It has no interrupt or resume semantics.</li>
+          <li>It has no state-delta contract.</li>
+          <li>It is not a server-side standard in Microsoft, Google or AWS agent stacks.</li>
+          <li>
+            AG-UI lists Vercel AI SDK integrations, so the dashboard need not rewrite its React
+            layer to adopt AG-UI.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>The sales and investor angle, stated honestly.</strong>
+        <ul>
+          <li>
+            “DWS agents speak AG-UI” means any AG-UI client can drive a DWS agent. That includes
+            Microsoft Agent Framework front-ends, CopilotKit UIs and AgentCore-style hosts.
+          </li>
+          <li>
+            That is interoperability evidence for R13 CIO (vendor consolidation) and a credible line
+            for investors.
+          </li>
+          <li>
+            Claim it only after the endpoint passes the upstream conformance harness. Until then it
+            is “in progress”, not a feature (Truth Standard).
+          </li>
+        </ul>
+      </li>
+    </ol>
+    <h3 id="proposed-design-not-implemented-awaiting-q1">
+      Proposed design (not implemented; awaiting Q1)
+    </h3>
+    <table>
+      <colgroup>
+        <col style="width: 1%" />
+        <col style="width: 76%" />
+        <col style="width: 18%" />
+        <col style="width: 3%" />
+      </colgroup>
+      <thead>
+        <tr class="header">
+          <th>#</th>
+          <th>Change</th>
+          <th>Files</th>
+          <th>Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd">
+          <td>1</td>
+          <td>
+            Optional <code>onEvent?(e)</code> hook on <code>runLoop</code> to emit step start/end,
+            text, tool-call start/args/result, and the KYA verdict (as <code>CUSTOM</code>
+            <code>dws.kya.verdict</code>). Default no-op, so existing callers do not change.
+          </td>
+          <td><code>src/agents/base.agent.ts</code></td>
+          <td>~40 lines</td>
+        </tr>
+        <tr class="even">
+          <td>2</td>
+          <td>
+            Adapter mapping DWS loop events to AG-UI 1.0 events via <code>@ag-ui/core</code> types
+            plus <code>@ag-ui/encoder</code>
+          </td>
+          <td><code>src/agents/agui/adapter.ts</code> (new)</td>
+          <td>~120 lines</td>
+        </tr>
+        <tr class="odd">
+          <td>3</td>
+          <td>
+            <code>POST /api/agents/:name/agui</code> (SSE). Zod-validated
+            <code>RunAgentInput</code>, <code>authenticateToken</code>, org scoping, timeout
+            exemption as for the existing SSE route. Additive: <code>/chat</code> and
+            <code>/execute</code> stay.
+          </td>
+          <td><code>src/agents/routes.ts</code></td>
+          <td>~60 lines</td>
+        </tr>
+        <tr class="even">
+          <td>4</td>
+          <td>
+            Interrupt bridge: a tool gated <code>requireApproval</code> ends the run with
+            <code>outcome: interrupt</code> and records it in the Temporal approval workflow;
+            <code>resume[]</code> signals the workflow.
+          </td>
+          <td><code>src/temporal/approvals.ts</code>, adapter</td>
+          <td>Phase 2</td>
+        </tr>
+        <tr class="odd">
+          <td>5</td>
+          <td>
+            V10 <code>AgentChat.tsx</code> uses <code>@ag-ui/client</code>
+            <code>HttpAgent</code> behind a feature flag; <code>/chat</code> stays as fallback
+          </td>
+          <td><code>dws6.com/dashboard/firehorse/v10-react/</code> + mirror</td>
+          <td>~80 lines</td>
+        </tr>
+        <tr class="even">
+          <td>6</td>
+          <td>
+            Tests: event-order contract (RUN_STARTED first, exactly one terminal event), Zod
+            rejection of bad input, org isolation, and the upstream conformance harness
+          </td>
+          <td><code>src/agents/agui/*.test.ts</code></td>
+          <td>~150 lines</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Phase 1 is rows 1–3 plus 6: one agent, one endpoint, SSE only. Protobuf, WebSocket, A2UI
+      generative UI and an A2A agent card are out of scope.
+    </p>
+    <h3 id="provenance-dws_learning_standard-10.4">Provenance (DWS_LEARNING_STANDARD §10.4)</h3>
+    <p><strong>Verified this session:</strong></p>
+    <ul>
+      <li>
+        <strong>Versions and licence.</strong> Read from the npm registry, the PyPI JSON API and the
+        NuGet v3 registration API:
+        <ul>
+          <li><code>@ag-ui/core</code> 1.0.0, published 2026-09-17T18:27Z, MIT.</li>
+          <li><code>ag-ui-protocol</code> (PyPI) 1.0.0, published 2026-09-17T18:31Z.</li>
+          <li><code>AGUI.Server</code> 1.0.0, published 2026-09-17T18:47Z, MIT.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>.NET target frameworks.</strong> <code>AGUI.Server</code> targets net8.0, net9.0 and
+        net10.0.
+      </li>
+      <li>
+        <strong
+          >Event enum, <code>RunAgentInput</code> shape, interrupt semantics, transports and
+          security clauses.</strong
+        >
+        Read from a clone of
+        <code>github.com/ag-ui-protocol/ag-ui</code> (<code>docs/spec/1.0</code>,
+        <code>sdks/typescript/packages/core/src/generated/</code>).
+      </li>
+      <li>
+        <strong>DWS6 code map.</strong> Every <code>file:line</code> above was read in this repo.
+      </li>
+    </ul>
+    <p><strong>Propagated (not independently checked):</strong></p>
+    <ul>
+      <li>
+        <strong>The Microsoft devblog itself.</strong>
+        <ul>
+          <li>The network proxy blocked both devblogs.microsoft.com and copilotkit.ai.</li>
+          <li>
+            The five package names and the <code>MapAGUI</code>→<code>MapAGUIServer</code> rename
+            come from search-result summaries.
+          </li>
+          <li>
+            The “.NET Framework 4.7.2” support claim <strong>conflicts</strong> with the verified
+            NuGet target frameworks (net8/9/10 only, no netstandard). Treat it as false until the
+            package shows a netstandard2.0 build.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>Amazon Bedrock AgentCore native AG-UI support</strong> (March 2026, 14 regions).
+      </li>
+      <li>
+        <strong>Integration maturity.</strong> The upstream README lists these integrations as
+        “supported”; none was tested here.
+      </li>
+      <li><strong>CopilotKit funding ($27M).</strong></li>
+      <li>
+        <strong>“No foundation home”.</strong> The repo has no governance file (verified); the claim
+        itself is a secondary source.
+      </li>
+    </ul>
+    <h2 id="next-steps">Next Steps</h2>
+    <h3 id="hic-decision-branch-scoped-counter-starts-here-q1">
+      HIC decision (branch-scoped counter starts here: Q1)
+    </h3>
+    <pre><code>Q1. Adopt AG-UI 1.0 as the DWS6 agent-to-UI wire protocol, starting with a Phase-1 SSE endpoint?
+    Options:       A) Phase 1 now: additive POST /api/agents/:name/agui behind a flag, one agent
+                      (AgentChat in V10), pinned @ag-ui/core + @ag-ui/encoder 1.0.x, behind one adapter file.
+                   B) Wait until AG-UI moves to a neutral foundation (LF / Agentic AI Foundation); keep JSON + polling.
+                   C) Use the Vercel AI SDK data stream already listed in the V10 dashboard (no protocol, no interrupts).
+    (RECOMMEND:    A. The gap (invisible runs, invisible KYA verdicts) is real today. The protocol is MIT and
+                   self-hosted. Microsoft, Google and AWS agent stacks already emit it. The adapter isolates the
+                   governance risk. Confidence: medium-high.)
+    Reversibility: two-way door. Additive route + feature flag; delete the adapter and the flag to undo.
+                   The ONE-WAY part is the public claim &quot;DWS agents speak AG-UI&quot;. Hold it until the conformance
+                   harness passes (cooling gap, §10.3.1).
+    Unblocks:      live streaming in V10 chat; KYA verdicts visible per tool call; later the interrupt bridge
+                   onto Temporal approvals; an interoperability line for CIO/CISO decks.
+    Cost of delay: V10 keeps 30–60 s polling and a spinner; each new agent built on single-response execute()
+                   adds retrofit work.
+    Rests on:      verified: versions, licence, spec text, DWS6 code map. Propagated: MS devblog details,
+                   AgentCore support, integration maturity, governance status.</code></pre>
+    <h3 id="after-the-answer">After the answer</h3>
+    <ul>
+      <li>
+        <strong>If A:</strong>
+        <ul>
+          <li>Implement Phase 1 on this branch: rows 1–3 and 6 of the design table.</li>
+          <li>
+            Run <code>npm run build</code>, <code>npm test</code> and the upstream conformance
+            harness.
+          </li>
+          <li>Open a PR.</li>
+          <li>Truth-check any AG-UI claim before it reaches <code>dws10.com</code>.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>If B:</strong> Add a quarterly watch item on AG-UI governance and change nothing in
+        code.
+      </li>
+      <li>
+        <strong>If C:</strong> Record why interrupts were dropped, and keep the Temporal flow as the
+        only approval path.
+      </li>
+    </ul>
+    <h3 id="learning-outcome-steps-dws_learning_standard-4">
+      Learning-outcome steps (DWS_LEARNING_STANDARD §4)
+    </h3>
+    <ul>
+      <li>Step 1 KB: <code>kb/raw/signals/2026-09-26-ag-ui-1-0-protocol.md</code>.</li>
+      <li>Step 2 field note: this file.</li>
+      <li>Step 3 Learn HTML: <code>Learn/2026-09-26-ag-ui-protocol-dws6-fit.html</code>.</li>
+      <li>
+        Step 4 Drive export: see the session reply; if not done, the reason is recorded there.
+      </li>
+      <li>Step 5: Q1 above.</li>
+      <li>
+        Step 6 calendar: N/A. The session produced no DWS-owned dated commitment. The upstream shim
+        expiry (2027-09-17) only matters if DWS adopts a pre-1.0 SDK, and the design pins 1.0.x.
+      </li>
+    </ul>
+  </body>
+</html>

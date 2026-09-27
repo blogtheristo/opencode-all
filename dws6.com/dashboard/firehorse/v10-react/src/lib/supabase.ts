@@ -4,19 +4,14 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
+import { supabaseConfig } from '../../../../../shared/config/supabase-config.js';
 
-// Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env (see repo .env.example).
-// Non-secret fallbacks only so the app builds; replace via env for any real project.
-const supabaseUrl =
-  import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co';
-const supabaseAnonKey =
-  import.meta.env.VITE_SUPABASE_ANON_KEY || 'configure-vite-supabase-anon-key';
+// Shares project + storageKey with the rest of dws6.com so an existing login carries over.
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || supabaseConfig.url;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || supabaseConfig.anonKey;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-  },
+  auth: supabaseConfig.auth,
   realtime: {
     params: {
       eventsPerSecond: 10,
@@ -28,9 +23,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
  * Fetch portfolio metrics
  */
 export async function fetchPortfolioMetrics() {
-  const { data: projects, error } = await supabase
-    .from('projects')
-    .select('*');
+  const { data: projects, error } = await supabase.from('projects').select('*');
 
   if (error) {
     console.error('Error fetching projects:', error);
@@ -55,14 +48,13 @@ export async function fetchPortfolioMetrics() {
   const avg_cpi = projects.reduce((sum, p) => sum + (p.cpi || 0), 0) / total_projects;
   const total_carbon_saved = projects.reduce((sum, p) => sum + (p.carbon_footprint || 0), 0);
 
-  const projects_green = projects.filter(p => p.status === 'green').length;
-  const projects_amber = projects.filter(p => p.status === 'amber').length;
-  const projects_red = projects.filter(p => p.status === 'red').length;
+  const projects_green = projects.filter((p) => p.status === 'green').length;
+  const projects_amber = projects.filter((p) => p.status === 'amber').length;
+  const projects_red = projects.filter((p) => p.status === 'red').length;
 
   // Calculate compliance rate from project statuses (green = compliant)
-  const compliance_rate = total_projects > 0
-    ? Math.round((projects_green / total_projects) * 100)
-    : 0;
+  const compliance_rate =
+    total_projects > 0 ? Math.round((projects_green / total_projects) * 100) : 0;
 
   return {
     total_projects,
@@ -118,10 +110,7 @@ export async function fetchAlerts() {
 export function subscribeToProjects(callback: (payload: unknown) => void) {
   return supabase
     .channel('projects_channel')
-    .on('postgres_changes',
-      { event: '*', schema: 'public', table: 'projects' },
-      callback
-    )
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'projects' }, callback)
     .subscribe();
 }
 
@@ -131,10 +120,7 @@ export function subscribeToProjects(callback: (payload: unknown) => void) {
 export function subscribeToAlerts(callback: (payload: unknown) => void) {
   return supabase
     .channel('alerts_channel')
-    .on('postgres_changes',
-      { event: '*', schema: 'public', table: 'alerts' },
-      callback
-    )
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'alerts' }, callback)
     .subscribe();
 }
 
@@ -292,16 +278,16 @@ export async function fetchInsightsData() {
   // Calculate actual status distribution if we have projects
   let statusDistribution = demoData.statusDistribution;
   if (projects && projects.length > 0) {
-    const green = projects.filter(p => p.status === 'green').length;
-    const amber = projects.filter(p => p.status === 'amber').length;
-    const red = projects.filter(p => p.status === 'red').length;
+    const green = projects.filter((p) => p.status === 'green').length;
+    const amber = projects.filter((p) => p.status === 'amber').length;
+    const red = projects.filter((p) => p.status === 'red').length;
     const total = projects.length;
 
     statusDistribution = calculateStatusDistribution(green, amber, red, total);
   }
 
   // Get top carbon projects
-  const topCarbonProjects = (projects || []).slice(0, 5).map(p => ({
+  const topCarbonProjects = (projects || []).slice(0, 5).map((p) => ({
     id: p.id,
     name: p.name,
     status: p.status as 'green' | 'amber' | 'red',
@@ -326,7 +312,7 @@ export async function fetchInsightsData() {
     performanceTrends: demoData.performanceTrends,
     statusDistribution,
     topCarbonProjects,
-    riskAlerts: (alerts || []).map(a => ({
+    riskAlerts: (alerts || []).map((a) => ({
       id: a.id,
       type: a.type as 'compliance' | 'carbon' | 'schedule' | 'cost',
       severity: a.severity as 'high' | 'medium' | 'low',

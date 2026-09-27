@@ -18,6 +18,7 @@ Before making any UI changes, you MUST consult these files:
 5. **Touch Targets:** Minimum 48px on mobile (WCAG 2.2 AAA).
 6. **Security:** Never commit .env files, API keys, or Admin/ folder contents.
 
+
 ## Dev environments & multi-agent production (ADMIN_MANUAL v3.16)
 
 **Two checkouts, shared session layer:** Win11 = **Cursor + VS Code** (`F:\...\dws6`); DGX = **Cursor CLI + Copilot CLI** (`/home/admin100/dws6`). Before git advice, read `.claude/handoffs/`, `.workflows/opencode-all/queue.jsonl`, and `git worktree list`.
@@ -27,3 +28,6 @@ Before making any UI changes, you MUST consult these files:
 **Win11 Cursor role:** Plan, review, small edits, PR prep. **Never** `git reset --hard` or blind `git pull` on diverged DGX `main`.
 
 **Full runbook:** `Admin/ADMIN_MANUAL.md` → *Two dev environments*, *Large work*, *Model economics*. **Session checklist:** `.cursor/rules/dws-claude-pipeline-parity.mdc`.
+
+7. **Standards:** Every turn — Read `docs/system-config/STANDARDS_ROUTING.md`, then `DWS_TRUTH_STANDARD.md` + `DWS_ROLES_REGISTRY.md` + every matched standard. Reply with `Standards loaded:`. See `.cursor/rules/dws-standards-always.mdc`.
+

@@ -22,6 +22,7 @@ import logger from '../utils/logger.js';
 import { getSupabaseClient } from '../config/supabase.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
 import { sendEmail } from '../utils/send-email.js';
+import { recordHumanDecision } from '../decision-journey/helpdesk-shadow.js';
 
 const router = Router();
 
@@ -147,6 +148,13 @@ router.post(
       payload: { usedAgentDraft: !replyText, auditId: result.auditId ?? null },
     });
 
+    await recordHumanDecision(supabase, {
+      ticketId: ticket.id,
+      humanAction: 'reply',
+      evidenceRef: `email_audit:${result.auditId ?? ticket.id}`,
+      usedAgentDraft: !replyText,
+    });
+
     await supabase
       .from('support_tickets')
       .update({ status: 'awaiting_customer' })
@@ -229,6 +237,12 @@ router.post(
       payload: { reason, escalationId },
     });
 
+    await recordHumanDecision(supabase, {
+      ticketId: ticket.id,
+      humanAction: 'escalate',
+      evidenceRef: `hil_escalations:${escalationId}`,
+    });
+
     res.status(201).json({ ok: true, ticketId: ticket.id, escalationId });
   },
 );
@@ -271,6 +285,12 @@ router.post(
       actor_id: reviewerId,
       event_type: 'resolved',
       payload: { note: note ?? null },
+    });
+
+    await recordHumanDecision(supabase, {
+      ticketId: ticket.id,
+      humanAction: 'resolve',
+      evidenceRef: `support_tickets:${ticket.id}:resolved`,
     });
 
     res.json({ ok: true, ticketId: ticket.id });

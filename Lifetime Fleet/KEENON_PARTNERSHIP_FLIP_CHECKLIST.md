@@ -8,8 +8,11 @@ Related files:
 - Live public page (in development): `dws10.com/lifetime-fleet/keenon/index.html`
   (+ mirror `landing-pages/dws10-com/lifetime-fleet/keenon/index.html`)
 - Flip-ready page (authorized): `Lifetime Fleet/keenon-partner-page-AUTHORIZED-DRAFT.html`
-- Outreach: `sales-outreach/LETTER_ANDREA_LI_KEENON_DISTRIBUTOR.md`
+- Cold outreach (pre-meeting): `sales-outreach/LETTER_ANDREA_LI_KEENON_DISTRIBUTOR.md`
 - Brief: `sales-outreach/KEENON_FLEET_FIT_BRIEF.md`
+- **Meeting record (Jul 2026):** `docs/partnerships/keenon-meeting-record-2026-07.md`
+- **Post-meeting reply (draft):** `sales-outreach/LETTER_ANDREA_LI_KEENON_POST_MEETING_2026-07.md`
+- **Technical questions to pre-sales:** `sales-outreach/KEENON_TECHNICAL_QUESTIONS_2026-07.md`
 
 ## On signature — one commit
 
@@ -32,34 +35,30 @@ public page keeps its visible "in development / subject to agreement" note.
 
 ---
 
-## No reply yet — next actions
+## State: intro meeting held (July 2026) — next actions
 
-The initial enquiry (via Ace Jing, European Division A) went unanswered — the
-LinkedIn connection was still **pending ("Odottaa")**, so a DM could not be
-delivered. We now have the right owner: **Andrea Li — Senior Sales Manager,
-Nordic Region**. Re-aim at her and work the reachable channels:
+We connected with **Andrea Li — Senior Sales Manager, Nordic Region** and held an
+intro meeting. Andrea shared the KEENON decks (company, senior living, cleaning,
+retail, Q1 cases) and asked us to (1) say which models we want to test, (2) send
+our sensor / API questions **in writing** for her pre-sales team, and (3) book a
+technical follow-up. Full record: `docs/partnerships/keenon-meeting-record-2026-07.md`.
 
-1. **LinkedIn to Andrea Li** — she owns the Nordic region. She shows as
-   3rd-degree, so send a connection request carrying Message 1, or an InMail.
-   (See `sales-outreach/LETTER_ANDREA_LI_KEENON_DISTRIBUTOR.md`.)
-2. **Keenon Nordic/EU distributor intake form / email** — send the email version
-   from the letter (verify Andrea's address first). Independent of any accept.
-3. **Escalation:** Ace Jing (European Division A) as a fallback or CC once a
-   thread opens.
-4. **Bump after 7 business days** — short nudge below.
+Live thread is on **`risto.paarni2024@lifetime.fi`** (partner sales outreach).
 
-### Follow-up nudge (LinkedIn or email, after ~1 week of silence)
+1. **Human review + send** the post-meeting reply
+   (`sales-outreach/LETTER_ANDREA_LI_KEENON_POST_MEETING_2026-07.md`) via SES SMTP,
+   attaching the technical questions
+   (`sales-outreach/KEENON_TECHNICAL_QUESTIONS_2026-07.md`). Outbound email is
+   RED-zone — a human sends it.
+2. **Technical follow-up call** with Andrea + KEENON pre-sales to walk the answers.
+3. On answers, scope **eval/loan units** (C40, T10, W3) + Nordic exclusivity and
+   distributor/operating-partner terms.
+4. **MNDA** if KEENON needs it to release SDK / interface specs
+   (`Partners/NDA_TEMPLATE_EU_2026.md`).
+5. **Escalation:** Ace Jing (European Division A) as CC/fallback if the thread stalls.
 
-> Hi Andrea — following up on my note about Lifetime Fleet becoming Keenon's
-> Nordic distributor and operating partner. We're scoping our H2 robot-fleet
-> rollout now and want Keenon in it as the hardware line. Even 15 minutes to
-> scope Nordic distributor terms would help. Thanks — Risto
+### Follow-up nudge (if no reply in ~5 business days)
 
-### If still no reply after the bump
-
-- Escalate to Ace Jing (European Division A), or Keenon's general EU/partnerships
-  contact.
-- Check for a Keenon distributor application form on keenonrobotics.com and
-  submit the brief through it.
-- Consider a warm intro: the Ace Jing profile showed shared connections
-  (Mikael, Anri + 4 others) — ask one for an intro into Keenon.
+> Hi Andrea — following up on my note with our model shortlist and the written
+> questions for your pre-sales team. Happy to take the technical call whenever
+> suits — I can offer two slots next week if that's easier. Thanks — Risto

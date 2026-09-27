@@ -1,0 +1,97 @@
+{
+  "name": "content-refinement-chain-chapter-ten",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "Refinement ladder (HIC 24.09.2026): Observation → Information → Knowledge → Understanding → Insight → Decision → Action → Outcome → Evidence → Learning. dws10.com hubs hold Observation–Knowledge; this chain produces Understanding (Journal), Insight (lifetime.fi conclusion), invites Decision (HIC gate) and Action (product link), and records Evidence (register) for Learning (Chapter 9 + refiner). One refinement chain begins from ONE source page on dws10.com (HOW layer: Legal Hub, Compliance Hub, Investor Centre, Partner hubs, whitepapers, playbooks, testimonials). The chain's job is to carry that knowledge up and out through the One Lifetime ecosystem: lifetime.fi (WHY — mission, synthesis, conclusions), onelifetime.world (UNDERSTAND — Journal, white papers, research, seminars), LinkedIn/Meta (conversation), and back to a dws10.com product (BUY). Design: docs/proposals/2026-09-24-lifetime-fi-tulossivu-ehdotus.md §10–§12. A chain lives days to weeks; state is this graph, not chat history.",
+      "allowedNext": ["SELECT_SOURCE"]
+    },
+    {
+      "id": "SELECT_SOURCE",
+      "description": "Stage: Observation → Information. Pick the source page from the refinement register (docs/content-pipeline/chains.md): prefer knowledge that is still sitting in directory form and has never been refined. Record source URL, topic, target industry (Rakentaminen / Energia / Logistiikka / Teollisuus / Verkkoliiketoiminta / cross-cutting) and the dws10.com product family the chain should end at (products.json SKU). If the register shows this source already has a live chain, re-enter that chain instead of starting a duplicate.",
+      "allowedNext": ["SYNTHESIZE", "ALREADY_REFINED"]
+    },
+    {
+      "id": "ALREADY_REFINED",
+      "description": "Terminal. The source is already refined on every layer and language; nothing to do. Record the check in the register so the next SELECT_SOURCE skips it.",
+      "allowedNext": []
+    },
+    {
+      "id": "SYNTHESIZE",
+      "description": "Stage: Knowledge → Understanding → Insight. Produce three drafts from the one source, each in its layer's voice. (1) CONCLUSION for lifetime.fi: at most three sentences, no product names, no prices, no abbreviations, no 'more leads' promises — what this means for the world and for a Finnish company (e.g. 'Digitaalinen suvereniteetti voi muodostua seuraavan vuosikymmenen kilpailueduksi'). (2) DEEP TEXT for onelifetime.world Journal in Finnish, 1 500–4 000 words with sources — the 'explain this to me in detail' answer to the conclusion. (3) SOCIAL set: 2–4 posts of 80–150 words, one claim + one proof + one link (to Journal or lifetime.fi, never to a price). Write all three to docs/content-pipeline/<chain-slug>/ as plain text.",
+      "allowedNext": ["GUARDRAIL"]
+    },
+    {
+      "id": "GUARDRAIL",
+      "description": "Stage: Evidence check before Decision. Deterministic content check before any human sees the package, escalate-only-to-block (same shape as src/temporal/guardrails/hard-rules.ts): secrets/credentials patterns; sender identity; layer rule — no prices or SKUs on WHY/UNDERSTAND drafts; /truth-check against the canonical truth registry for deprecated or unverified public claims; sender name spelled Päärni. A block lists every rule that fired and routes back to SYNTHESIZE; it is never a silent drop.",
+      "allowedNext": ["SHOW_TO_HIC", "SYNTHESIZE"]
+    },
+    {
+      "id": "SHOW_TO_HIC",
+      "description": "Hand the HIC ONE inspectable artefact containing all three drafts (Approval Request Rule: a live Artifact link for review; a fenced block only if the HIC asks for copy-paste). Then stop and ask one concrete question: approve the package, or what to change. Do not proceed in the same turn.",
+      "allowedNext": ["HIC_APPROVAL_GATE"]
+    },
+    {
+      "id": "HIC_APPROVAL_GATE",
+      "description": "Stage: Decision (human). RED zone. The Journal text is a blog post under Non-Negotiable Rule 13 (no publish until the HIC has read the full text and approved THIS post); the conclusion and social posts are public claims under the truth registry. Approval binds to the exact draft text via ApprovalToken hash (computeApprovalHash) — a changed word re-enters the gate. A general 'go ahead' is not approval. Enforced at runtime by DEFAULT_GATED_NODE_IDS in runner.ts and, for the Journal file, by .claude/hooks/blog-draft-gate.sh; the rule binds even where a hook does not reach.",
+      "allowedNext": ["PUBLISH_JOURNAL", "REVISE"]
+    },
+    {
+      "id": "REVISE",
+      "description": "Take edits at whatever grain the HIC gives them (a sentence, the angle, one of the three drafts). Re-emit the FULL package, not a diff, and return to GUARDRAIL so every revision round is re-checked and re-approved rather than inheriting the prior approval. A chain the HIC does not want proceeds to PARKED.",
+      "allowedNext": ["GUARDRAIL", "PARKED"]
+    },
+    {
+      "id": "PUBLISH_JOURNAL",
+      "description": "Stage: Action (Understanding published). Reachable only through HIC_APPROVAL_GATE. Publish the Finnish deep text to onelifetime.world/posts/fi/<slug>.html per docs/BLOG_STANDARD.md §3 (registry, latestPosts, injector), sync the landing-pages mirror in the same commit, and end the post with the three ecosystem links in fixed order: 'Mitä tästä seuraa' → lifetime.fi, 'Miten toteutetaan' → dws10.com, 'Seuraava selitys' → Journal. Idempotent on slug: a re-run must not create a second post. Record the live URL.",
+      "allowedNext": ["PUBLISH_CONCLUSION", "PUBLISH_FAILED"]
+    },
+    {
+      "id": "PUBLISH_CONCLUSION",
+      "description": "Stage: Action (Insight published). Place the approved conclusion on lifetime.fi (FI master + mirror) in the section it belongs to (Mitä uskomme / Mihin maailma on menossa / toimiala), linking to the Journal URL from PUBLISH_JOURNAL. lifetime.fi must remain free of product names, prices and abbreviations after this edit — re-run the layer rule on the resulting page, not just the fragment.",
+      "allowedNext": ["ENQUEUE_SOCIAL", "PUBLISH_FAILED"]
+    },
+    {
+      "id": "ENQUEUE_SOCIAL",
+      "description": "Hand the approved social set to Chapter 11 (social-distribution.graph.json) — one run per post, staggered over the following weekdays via the social_posts queue (src/social-scheduler/queue.ts). This node does not publish anything itself; Chapter 11 owns the per-platform gate and retry. Record the queue ids.",
+      "allowedNext": ["FAN_OUT_TRANSLATIONS"]
+    },
+    {
+      "id": "FAN_OUT_TRANSLATIONS",
+      "description": "Start Chapter 12 (translation-fanout.graph.json) for the Journal text: sv, en, de, fr — one child run per language, each with its own lighter approval (the HIC approves the translation, not the content again) and the mandatory AI-content label per BLOG_STANDARD §3.2.1. The parent chain does not wait for translations to finish; it records the child run ids and continues.",
+      "allowedNext": ["EVENT_HOOK"]
+    },
+    {
+      "id": "EVENT_HOOK",
+      "description": "If the chain has an event in its plan (seminar, workshop, roundtable — e.g. 'EU Sovereignty & AI Governance', 'Future of Corporate Reporting'), start Chapter 13 (seminar-event.graph.json) with the Journal URL as its reading material and record the child run id. If no event is planned, pass through.",
+      "allowedNext": ["LINK_PRODUCT"]
+    },
+    {
+      "id": "LINK_PRODUCT",
+      "description": "Stage: Action → Outcome (path to purchase). Close the loop to BUY: on the dws10.com product page(s) chosen in SELECT_SOURCE, add a 'Lue tausta' link to the Journal text, so the reader who arrived from HOW/BUY can go up to UNDERSTAND. Never the other direction on lifetime.fi (WHY carries no product links). Sync mirror.",
+      "allowedNext": ["REGISTER"]
+    },
+    {
+      "id": "REGISTER",
+      "description": "Stage: Evidence → Learning. Write one row to docs/content-pipeline/chains.md: source, conclusion (URL), Journal (URL per language, with child-run status for pending translations), social queue ids, event id, product link, dates. This register is the HIC's view of what knowledge has been refined and what still sits in a dws10.com directory; it replaces the dead 'emit-event' step of the old content-pipeline workflow with a real subscriber.",
+      "allowedNext": ["END"]
+    },
+    {
+      "id": "PUBLISH_FAILED",
+      "description": "A publish step failed (build, mirror sync, deploy). Fix the mechanical failure and re-enter through HIC_APPROVAL_GATE: the existing ApprovalToken still binds to the same draft text, so the gate passes without a new human round — but the publish is never reachable except through the gate, so a retry cannot become a bypass. If the failure requires changing text, go to REVISE. Record the error context for the refiner.",
+      "allowedNext": ["HIC_APPROVAL_GATE", "REVISE"]
+    },
+    {
+      "id": "PARKED",
+      "description": "Terminal for this run. Drafts stay under docs/content-pipeline/<chain-slug>/ with Status: DRAFT; they are unfinished work, must be surfaced when asked what is pending, never silently abandoned. The register records the chain as parked with the reason.",
+      "allowedNext": []
+    },
+    {
+      "id": "END",
+      "description": "Terminal — Finnish chain complete on all four layers; translations, social posts and any event continue in their own child chapters and report into the same register row.",
+      "allowedNext": []
+    }
+  ]
+}

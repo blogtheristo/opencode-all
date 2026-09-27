@@ -26,6 +26,7 @@ export enum LeadCountry {
   NO = 'NO',
   DK = 'DK',
   DE = 'DE',
+  FR = 'FR',
 }
 
 export enum EventType {

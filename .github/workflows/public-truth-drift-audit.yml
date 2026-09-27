@@ -1,0 +1,39 @@
+# Evidence: Tool=Claude Code Model=anthropic/claude-opus-5-5 Agent=claude-code Date=2026-09-27
+# Audit trail: git log -- .github/workflows/public-truth-drift-audit.yml
+name: Public truth drift audit
+
+# Manual fallback only. The weekly run is DGX cron (scripts/weekly/), per the
+# Persistence Rule in docs/DWS_COST_POLICY_STANDARD.md v1.1.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  failover-check:
+    runs-on: ubuntu-latest
+    outputs:
+      dgx_alive: ${{ steps.heartbeat.outputs.dgx_alive }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check DGX Spark heartbeat
+        id: heartbeat
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
+  audit:
+    needs: failover-check
+    if: needs.failover-check.outputs.dgx_alive != 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Run public truth drift audit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/weekly/public-truth-drift-audit.sh

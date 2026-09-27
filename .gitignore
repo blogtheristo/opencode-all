@@ -13,6 +13,10 @@
 .env
 .env.*
 .env.local
+
+# Dapr component YAML rendered from dapr/components/*.tpl (envsubst) —
+# briefly holds a plaintext Redis password on disk. See dapr/README.md.
+dapr/components/.rendered/
 .env.*.local
 .env.mcp
 env100326.mcp
@@ -179,6 +183,7 @@ models/*.pkl
 
 # Counterfactual fairness pilot — generated evidence (regenerate via npm run fairness:pilot)
 reports/fairness-pilot/
+reports/test-fairness/
 
 # --- SNYK/SECURITY SCAN OUTPUT (auto-generated, not source) ---
 snyk.sarif
@@ -225,3 +230,8 @@ infrastructure/dgx-spark/.otlp-common.env
 
 # Product i18n string dumps (regenerate via scripts/i18n/products/build-all.cjs)
 scripts/i18n/products/_generated/
+.sandbox/
+
+# Workflow v2 local execution traces (persistTrace default dir) — runs are
+# machine-local artifacts; the durable store is the planned workflow_v2_runs table.
+.workflow-v2-runs/

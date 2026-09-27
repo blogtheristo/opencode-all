@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-27-agentops-101-gap-analysis</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-27-agentops-101-gap-analysis</h1>
+</header>
+<h1 id="agentops-101-vs.-dws-engineering-discipline-and-kyai">AgentOps 101 vs. DWS Engineering Discipline and KYA+I</h1>
+<hr />
+<h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.0</p>
+<p>Sessions &amp; Modifications:</p>
+<ul>
+<li>Version: 1.0 | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/fix-selected-issues-2099-2058-1847-1846-1833 | Date: 27.09.2026 | Changes: Initial gap analysis for issue #2058 using NVIDIA’s official SB61080 abstract and current DWS controls. | Harness: GitHub Copilot CLI + CLAUDE.md + AGENTS.md | HIC-approved-drift: none</li>
+</ul>
+<p>Session Links &amp; References:</p>
+<ul>
+<li>NVIDIA GTC SB61080: https://www.nvidia.com/de-de/gtc/session-catalog/sessions/gtceu26-sb61080/</li>
+<li>Issue: https://github.com/blogtheristo/dws6/issues/2058</li>
+</ul>
+<p>Document Status:</p>
+<ul>
+<li>Created: 27.09.2026</li>
+<li>Last Modified: 27.09.2026</li>
+<li>Language: English</li>
+<li>Languages Available: English</li>
+<li>Publication Status: ACTIVE</li>
+<li>Status: PENDING_REVIEW</li>
+</ul>
+<hr />
+<ul>
+<li><strong>Date:</strong> 2026-09-27</li>
+<li><strong>Author:</strong> GitHub Copilot CLI, on behalf of Lifetime Oy</li>
+<li><strong>Location:</strong> DWS6 repository, isolated local worktree</li>
+<li><strong>Context:</strong> Issue #2058; comparison of NVIDIA GTC Europe session SB61080 with <code>docs/system-config/DISCIPLINE.md</code>, KYA+I, and the Agent Productization Rule</li>
+</ul>
+<h2 id="ontology-tags">Ontology Tags</h2>
+<ul>
+<li><strong>Geography:</strong> Europe</li>
+<li><strong>Sector:</strong> Software &gt; Agent Operations</li>
+<li><strong>Entities:</strong> NVIDIA GTC, SB61080, AgentOps, KYA+I, DWS Engineering Discipline, ThinkingBox</li>
+<li><strong>Systems:</strong> <code>docs/system-config/DISCIPLINE.md</code>, <code>.claude/commands/kya.md</code>, <code>CLAUDE.md</code>, <code>skills/manifest.json</code></li>
+<li><strong>Temporal Context:</strong> 2026-Q3</li>
+<li><strong>Confidence:</strong> Medium-high. NVIDIA’s official abstract and session metadata were available; the full recording or slides were not.</li>
+</ul>
+<h2 id="the-story">The Story</h2>
+<p>NVIDIA describes SB61080, “AgentOps 101: MLOps Discipline for Agentic Systems,” as a beginner technical overview of why agents fail differently from conventional models, which MLOps practices transfer, and how evaluation, observability, guardrails, and a maturity checklist move multi-step systems from prototype to production. Speakers are Michael Balint and William Benton.</p>
+<p>The source available for this analysis is the official abstract and takeaways, not the full talk. The comparison therefore evaluates the practices NVIDIA explicitly names; it does not attribute detailed controls, thresholds, or architecture claims that are absent from the abstract.</p>
+<h2 id="side-by-side-gap-analysis">Side-by-Side Gap Analysis</h2>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 35%" />
+<col style="width: 24%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>SB61080 practice</th>
+<th>DWS equivalent</th>
+<th>Assessment</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Treat agentic systems as operationally different from predictive models</td>
+<td>Discipline Rule 5 separates model judgment from deterministic routing; Rule 12 requires loud failures; KYA governs identity, permissions, and termination</td>
+<td>Already covered in principle</td>
+<td>Keep. DWS is more explicit about deterministic control boundaries.</td>
+</tr>
+<tr class="even">
+<td>Evaluate multi-step agent behavior</td>
+<td>Discipline Rule 9 requires intent-verifying tests; ThinkingBox validates tool side effects and stateful workflows</td>
+<td>Covered operationally, weakly linked from the 12 Rules</td>
+<td>Add a cross-reference in future guidance, not a thirteenth rule.</td>
+</tr>
+<tr class="odd">
+<td>Observe execution across the full agent path</td>
+<td>KYA Article 12 evidence, <code>agent_executions</code>, Aspire telemetry, and provider/runtime metadata</td>
+<td>Covered, but fragmented</td>
+<td>Consolidate these into one production-readiness checklist.</td>
+</tr>
+<tr class="even">
+<td>Apply guardrails around agent actions</td>
+<td>KYA trust score, capability manifests, sandbox isolation, TC-4 Leash Snap, Discipline Rules 3 and 12</td>
+<td>Already covered</td>
+<td>No policy change. DWS is stronger than the abstract-level requirement.</td>
+</tr>
+<tr class="odd">
+<td>Use a maturity checklist from prototype to reliable production</td>
+<td>Productization requires CLI, JSON, MCP, skill registration, and documentation</td>
+<td><strong>Gap:</strong> discoverability is defined, operational readiness is not one explicit gate</td>
+<td>Adopt a small AgentOps Production Readiness Gate.</td>
+</tr>
+<tr class="even">
+<td>Establish clear operational ownership for “self-owned” agents</td>
+<td>Agent configs carry technical metadata and budgets</td>
+<td><strong>Gap:</strong> no mandatory named owner, SLO, rollback/runbook, or retirement trigger in the Productization Rule</td>
+<td>Extend the Productization Rule by proposal, after HIC review.</td>
+</tr>
+<tr class="odd">
+<td>Track runtime/provider changes as production changes</td>
+<td>KYA+I defines IJS and provider-chain re-evaluation</td>
+<td><strong>Partial gap:</strong> <code>/kya inference</code> and provider-chain reporting are still marked planned</td>
+<td>Track as implementation backlog; do not claim this is enforced until the command and evidence path exist.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="proposed-changes-not-applied">Proposed Changes — Not Applied</h2>
+<p>The following wording is proposed for HIC review. It is intentionally not merged into <code>CLAUDE.md</code> or <code>DISCIPLINE.md</code>.</p>
+<h3 id="proposal-a-extend-discipline-rule-4">Proposal A — extend Discipline Rule 4</h3>
+<blockquote>
+<p>For an agentic system, the done-condition includes a multi-step outcome evaluation, trace coverage for tool calls and side effects, exercised guardrails, and a tested rollback path.</p>
+</blockquote>
+<h3 id="proposal-b-extend-the-agent-productization-rule">Proposal B — extend the Agent Productization Rule</h3>
+<blockquote>
+<p>A production agent must declare an accountable owner, service objective, observable health signal, incident/runbook path, rollback or disable mechanism, and retirement trigger in addition to CLI, JSON, MCP, and skill-manifest exposure.</p>
+</blockquote>
+<h3 id="proposal-c-close-the-kyai-implementationdocumentation-gap">Proposal C — close the KYA+I implementation/documentation gap</h3>
+<p>Create a separate implementation issue for <code>/kya inference</code> that returns the provider chain, IJS, jurisdiction changes, and evidence timestamp. Until that ships, documentation must continue to label the capability planned.</p>
+<h2 id="the-insight">The Insight</h2>
+<p>DWS does not lack guardrails. Its genuine gap is that mature controls exist in separate places—discipline, KYA, ThinkingBox, runtime telemetry, and productization—but no single gate proves that a production agent has passed all of them and has an accountable operator. SB61080 adds value by making that lifecycle explicit, not by replacing DWS rules.</p>
+<h2 id="learning-outcome-status">Learning Outcome Status</h2>
+<ol type="1">
+<li><strong>KB:</strong> N/A — this field note is the repository source for a one-session external-session comparison; no raw source file or full recording was supplied for ingestion.</li>
+<li><strong>Field note:</strong> Complete.</li>
+<li><strong>Learn HTML:</strong> Generated from this note.</li>
+<li><strong>Drive export:</strong> N/A — no Drive tool is available in this session.</li>
+<li><strong>HIC decision:</strong> Pending below.</li>
+<li><strong>Calendar:</strong> N/A — no dated commitment was created.</li>
+</ol>
+<h2 id="next-steps">Next Steps</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>HIC Q1 (two-way door): approve, revise, or reject Proposals A and B. <strong>Recommendation: approve both as one compact AgentOps Production Readiness Gate, without adding a thirteenth discipline rule.</strong></label></li>
+<li><label><input type="checkbox"></input>If approved, edit <code>CLAUDE.md</code> and <code>docs/system-config/DISCIPLINE.md</code> in a dedicated standards change.</label></li>
+<li><label><input type="checkbox"></input>Open a separate implementation issue for the planned <code>/kya inference</code> provider-chain evidence path.</label></li>
+</ul>
+<hr />
+<p>Version 1.0 · 27.09.2026 Copyright © 2026 Lifetime Oy Classification: INTERNAL</p>
+</body>
+</html>

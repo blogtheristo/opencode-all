@@ -63,6 +63,14 @@ export const PROVIDERS: Record<string, ProviderSpec> = {
     credentialEnv: 'GMAIL_ACCESS_TOKEN',
     injectAuth: { kind: 'header', name: 'Authorization', valuePrefix: 'Bearer ' },
   },
+  linkedin: {
+    id: 'linkedin',
+    upstreamBaseUrl: 'https://api.linkedin.com',
+    credentialEnv: 'LINKEDIN_ACCESS_TOKEN',
+    injectAuth: { kind: 'header', name: 'Authorization', valuePrefix: 'Bearer ' },
+    // Publish + token check only — no open proxy to the rest of LinkedIn's API.
+    allowedPathPattern: /^\/(v2\/ugcPosts|v2\/userinfo|rest\/posts)(\/|$|\?)/,
+  },
 };
 
 /** Look up a provider by id (scope). Returns undefined if not registered. */

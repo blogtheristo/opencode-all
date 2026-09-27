@@ -4,20 +4,31 @@
  * Chains the 3 specialist agents in sequence:
  *   Step 1: outreach-lead-finder   — find + score + upsert leads
  *   Step 2: outreach-message-crafter — craft personalized email + LinkedIn drafts
- *   Step 3: outreach-executor      — deliver (gated by human approval)
+ *   Step 3: outreach-executor      — deliver, gated by a durable human approval
  *
- * autoSend defaults to false — Step 3 is only run when autoSend=true AND
- * approvedBy is provided. Without both, the orchestrator stops at Step 2
- * and returns drafts for human review.
+ * autoSend defaults to false — Step 3 only starts when autoSend=true AND
+ * toEmail is set. Starting Step 3 does NOT send anything by itself: it
+ * kicks off a durable Temporal Workflow (outreachApprovalSendWorkflow,
+ * src/temporal/workflows/outreach-approval-send.workflow.ts) that waits for
+ * a real human decision via `npm run temporal:approve` before sending —
+ * replacing a prior version of this file where a caller-supplied
+ * `approvedBy` string alone triggered the send with no independent record
+ * (see docs/dws-use-cases.md §10 for why this was changed). Without
+ * autoSend+toEmail, the orchestrator stops at Step 2 and returns drafts for
+ * human review, same as before.
  *
  * Also registers the OUTREACH_FULL_WORKFLOW for use with the WorkflowExecutor.
  *
  * Input:  { icp, industry, roleId, region, regulatoryTrigger, offering,
  *           maxLeads, emailStyle, linkedinDraft, autoSend, approvedBy,
  *           toEmail, toName }
- * Output: combined results from all steps run
+ *   approvedBy (optional): if set, used as the approval-request's
+ *   `requestedBy` label — it no longer bypasses the approval gate.
+ * Output: combined results from Steps 1-2, plus a `pendingApproval`
+ *   { approvalRequestId, workflowId } when Step 3 was started.
  *
- * Tier: 2 (produces outbound communication — auto-send blocked without approvedBy)
+ * Tier: 2 (produces outbound communication — send is gated by a durable
+ * human approval Workflow, not a caller-supplied field)
  */
 
 import logger from '../utils/logger.js';
@@ -170,44 +181,59 @@ export class OutreachOrchestratorAgent extends BaseAgent {
         .map((r) => (r.result as { threadId?: string }).threadId)
         .filter(Boolean);
 
-      // ── Step 3: Execute (only if autoSend=true AND approvedBy is set) ──
-      const executeResults: AgentResponse[] = [];
-      if (validated.autoSend && validated.approvedBy && validated.toEmail) {
-        logger.info('Outreach orchestrator: Step 3 — execute (autoSend=true)', {
-          approvedBy: validated.approvedBy,
-        });
-        for (const threadId of threadIds) {
-          if (!threadId) continue;
-          const execResult = await agentRegistry.executeAgent('outreach-executor', context, {
-            threadId,
+      // ── Step 3: Approval + Execute (only if autoSend=true AND toEmail set) ──
+      // Previously gated by a caller-supplied `approvedBy` string with no
+      // independent record — any caller could self-approve. Now starts a
+      // durable Temporal Workflow (humanApprovalWorkflow, composed inside
+      // outreachApprovalSendWorkflow) that waits for a real human decision
+      // via `npm run temporal:approve`, then sends. See
+      // docs/dws-use-cases.md §10 for why this cutover was made.
+      let pendingApproval: { approvalRequestId: string; workflowId: string } | undefined;
+      let approvalStartError: string | undefined;
+
+      if (validated.autoSend && validated.toEmail && threadIds.length > 0) {
+        const approvalRequestId = `outreach-${context.sessionId}-${Date.now()}`;
+        try {
+          const { startOutreachApprovalAndSend } = await import('../temporal/outreach.js');
+          const started = await startOutreachApprovalAndSend({
+            approvalRequestId,
+            threadIds: threadIds.filter((id): id is string => Boolean(id)),
             toEmail: validated.toEmail,
             toName: validated.toName || 'Sustainability Team',
             channel: 'email',
-            approvedBy: validated.approvedBy,
+            requestedBy: validated.approvedBy || context.userId,
+            context,
           });
-          executeResults.push(execResult);
+          pendingApproval = started;
+          logger.info('Outreach orchestrator: Step 3 — approval workflow started', {
+            approvalRequestId,
+            workflowId: started.workflowId,
+          });
+        } catch (err) {
+          // Temporal unreachable (e.g. server not yet deployed) must not lose
+          // Steps 1-2's results — degrade to "drafts ready, Step 3 not started"
+          // rather than throwing and discarding the whole run.
+          approvalStartError = err instanceof Error ? err.message : String(err);
+          logger.error('Outreach orchestrator: Step 3 — failed to start approval workflow', {
+            error: approvalStartError,
+          });
         }
-      } else if (validated.autoSend && !validated.approvedBy) {
-        logger.warn(
-          'Outreach orchestrator: autoSend=true but approvedBy missing — skipping Step 3 (Tier 2 gate)',
-        );
       }
 
       const summary = {
         leadsFound: leads.length,
         draftsCrafted: craftResults.length,
         threadIds,
-        emailsSent: executeResults.filter((r) => r.result.ok === true).length,
-        autoSendSkipped: validated.autoSend && !validated.approvedBy,
+        pendingApproval,
+        approvalStartError,
         step1: step1Result.result,
         step2: craftResults.map((r) => ({ threadId: r.result.threadId, confidence: r.confidence })),
-        step3: executeResults.map((r) => ({ ok: r.result.ok, detail: r.result.detail })),
       };
 
       const response = this.buildResponse(
-        validateAutoSend(validated)
-          ? `Pipeline complete: ${summary.leadsFound} leads → ${summary.draftsCrafted} drafts → ${summary.emailsSent} sent`
-          : `Drafts ready: ${summary.draftsCrafted} personalized messages for ${summary.leadsFound} leads. Run outreach-executor with approvedBy to send.`,
+        pendingApproval
+          ? `Pipeline complete: ${summary.leadsFound} leads → ${summary.draftsCrafted} drafts → awaiting approval (${pendingApproval.approvalRequestId}). Run: npm run temporal:approve -- ${pendingApproval.approvalRequestId} --approve --by "<name>"`
+          : `Drafts ready: ${summary.draftsCrafted} personalized messages for ${summary.leadsFound} leads. Set autoSend=true and toEmail to start the approval workflow.`,
         summary,
         startTime,
         Math.min(0.95, (step1Result.confidence + (craftResults[0]?.confidence || 0.7)) / 2),
@@ -313,15 +339,11 @@ export class OutreachOrchestratorAgent extends BaseAgent {
       reasoning,
       recommendations: [
         'Review drafts in Supabase outreach_threads before sending',
-        'Set approvedBy + toEmail to trigger Step 3 (email delivery)',
+        'Set autoSend=true + toEmail to start the approval workflow (Step 3)',
+        'Approve or reject with: npm run temporal:approve -- <approvalRequestId> --approve --by "<name>"',
         'Monitor replies in outreach_threads (status: responded → meeting_booked)',
       ],
       metadata: { durationMs: Date.now() - startTime, model: this.config.model },
     };
   }
-}
-
-/** Check if autoSend would have been triggered */
-function validateAutoSend(input: OrchestratorInput): boolean {
-  return input.autoSend && !!input.approvedBy && !!input.toEmail;
 }

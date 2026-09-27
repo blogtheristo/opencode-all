@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="alternate" hreflang="en" href="https://dws10.com/products/lifetime-web-starter.html" />
+    <link rel="alternate" hreflang="fi" href="https://dws10.com/products/lifetime-web-starter.fi.html" />
+    <title>Verkkosivut yritykselle — Web Starter | Lifetime</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <style>
+      :root {
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+      }
+      body {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 880px;
+        margin: 40px auto;
+        background: rgba(30, 41, 59, 0.5);
+        padding: 40px;
+        border-radius: 10px;
+        border: 1px solid rgba(212, 168, 67, 0.18);
+        border-top: 3px solid var(--color-gold-light);
+        flex-grow: 1;
+      }
+      h1 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        margin-bottom: 6px;
+      }
+      .tagline {
+        color: #cbd5e1;
+        font-size: 1.05rem;
+        margin-bottom: 24px;
+      }
+      .price {
+        font-size: 2rem;
+        color: #4ade80;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+      .price-unit {
+        color: #94a3b8;
+        font-size: 0.95rem;
+        margin-bottom: 24px;
+      }
+      h2 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        color: var(--color-gold-light);
+        margin-top: 32px;
+        font-size: 1.25rem;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px 24px;
+        margin: 14px 0;
+      }
+      @media (max-width: 600px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .cta-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+      .page-version {
+        color: #64748b;
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        margin-top: 28px;
+        text-align: right;
+      }
+      a.buy-btn {
+        display: inline-block;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        color: #0f172a;
+        padding: 14px 26px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        box-shadow: 0 8px 24px rgba(184, 134, 11, 0.35);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      a.buy-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(184, 134, 11, 0.5);
+      }
+      a.alt-btn {
+        display: inline-block;
+        background: transparent;
+        color: #60a5fa;
+        border: 1px solid #60a5fa;
+        padding: 13px 24px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      a.back-link {
+        color: #94a3b8;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 20px;
+      }
+      .nav-header {
+        background: #1e293b;
+        padding: 20px;
+        border-bottom: 1px solid #334155;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+      .nav-links a {
+        color: #cbd5e1;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: #60a5fa;
+      }
+      .badge {
+        display: inline-block;
+        background: #1d4ed8;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        margin-bottom: 12px;
+        letter-spacing: 0.5px;
+      }
+      .note {
+        background: rgba(96, 165, 250, 0.1);
+        border-left: 3px solid #60a5fa;
+        padding: 14px 16px;
+        border-radius: 4px;
+        margin: 18px 0;
+        color: #cbd5e1;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-header">
+      <a href="../../" class="nav-brand">Lifetime Web Services</a>
+      <div class="nav-links">
+        <a href="../../">Etusivu</a>
+        <a href="../../price-list/fi/">Hinnasto</a>
+      </div>
+    </div>
+    <div class="container">
+      <a href="../" class="back-link">← Takaisin tuotteisiin</a>
+      <span class="badge">KERTAMAKSU</span>
+      <h1>Web Starter — modernit yrityksen verkkosivut</h1>
+      <p class="tagline">
+        Ammattimaiset verkkosivut yrittäjälle. Moderni ulkoasu, mobiilioptimoitu ja hakukoneystävällinen. Tuo yrityksesi näkyviin verkossa.
+      </p>
+      <div class="price">650 €</div>
+      <div class="price-unit">Kertamaksu, ALV 0 % (ALV 25,5 % lisätään kassalla)</div>
+
+      <h2>Mitä saat</h2>
+      <div class="grid">
+        <div>✅ Moderni, responsiivinen ulkoasu</div>
+        <div>✅ Mobiilioptimoitu kaikille laitteille</div>
+        <div>✅ Hakukoneoptimoitu ja nopea</div>
+        <div>✅ Nopea käyttöönotto ja julkaisu</div>
+        <div>✅ Valmiit, selkeät sivupohjat</div>
+        <div>✅ Ammattimainen ilme vähällä vaivalla</div>
+      </div>
+
+      <h2>Sopii erityisesti</h2>
+      <ul>
+        <li><strong>Pienyritykset</strong>, jotka haluavat näkyvyyttä verkossa</li>
+        <li><strong>Palveluyritykset</strong>, jotka esittelevät osaamistaan</li>
+        <li><strong>Yrittäjät</strong>, jotka rakentavat luottamusta verkossa</li>
+        <li><strong>Paikalliset yritykset</strong>, jotka haluavat tulla löydetyiksi</li>
+      </ul>
+
+      <div class="note">
+        Me hoidamme suunnittelun ja julkaisun — sinä keskityt liiketoimintaasi. Sivusi julkaistaan valmiina ja ammattimaisina ilman teknistä vaivaa.
+      </div>
+
+      <h2>Näin se toimii</h2>
+      <ol>
+        <li><strong>Aloituspuhelu (30 min):</strong> Kerro meille yrityksestäsi</li>
+        <li><strong>Sivupohjan käyttöönotto:</strong> Määritämme ja muokkaamme sivusi</li>
+        <li><strong>Julkaisu:</strong> Verkkosivusi julkaistaan</li>
+        <li><strong>Tuki:</strong> Sähköposti-, WhatsApp- ja puhelintuki sisältyy</li>
+      </ol>
+
+      <div class="cta-row">
+        <a href="https://dws10.com/checkout/?product=LIFETIME-WEB-STARTER" class="buy-btn">💳 Aloita nyt</a>
+        <a href="https://dws10.com/book" class="alt-btn">📅 Varaa maksuton konsultaatio</a>
+      </div>
+
+      <div style="background: rgba(16, 185, 129, 0.1); border: 2px solid #10b981; border-radius: 6px; padding: 16px; margin: 24px 0; color: #d1fae5;">
+        <p style="margin: 0 0 8px 0; font-weight: 600;">🏷️ <strong>A5-kampanjahinta</strong></p>
+        <p style="margin: 0; font-size: 0.95rem;">Kampanjahinta on 40&nbsp;% alle ohjevähittäishinnan 1&nbsp;084 € (ALV 0&nbsp;%). Alennuskoodia ei tarvita. Tarjous voimassa: toistaiseksi. Verkkotunnus (domain) rekisteröidään ja laskutetaan erikseen. Yrityssähköposti: Google Workspace Starter 9&nbsp;€/kk.</p>
+      </div>
+
+      <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 18px">
+        Osa Lifetimen verkkopalveluja. EU-suvereeni ja turvallinen — tehty yrityksille, jotka haluavat menestyä verkossa ilman monimutkaisuutta.
+      </p>
+      <p style="color: #cbd5e1; font-size: 0.9rem; margin-top: 18px"><strong>Myös jälleenmyyjille.</strong> Ota yhteyttä myyntiin: <a href="https://wa.me/358400319010?text=Hei%2C%20olen%20kiinnostunut%20j%C3%A4lleenmyynnist%C3%A4." style="color: #25d366">WhatsApp +358 400 319 010</a></p>
+      <p class="page-version">Web Starter · tuote v1.0 · 2026-09-23</p>
+    </div>
+    <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem">
+      <p><strong>LIFETIME OY</strong> · Y-tunnus 0772407-9 · ALV-tunnus FI07724079</p>
+      <p>Laidunmaanraitti 2 A 25, 02330 Espoo · risto.paarni@lifetime.fi</p>
+      <p style="margin-top: 16px">
+        <strong>Vaatimustenmukaisuus:</strong> Toiminta GDPR:n, DSA:n, NIS2:n ja EU:n tekoälyasetuksen mukaisesti.
+      </p>
+      <p style="margin-top: 20px">Copyright © 2026 Lifetime Oy. Kaikki oikeudet pidätetään.</p>
+    </footer>
+    <script src="../shared-assets/nav/product-actions.js"></script>
+    <nav class="i18n-links" aria-label="Language" style="text-align:center;padding:18px 12px;font-size:0.85rem;opacity:0.75">
+      <a href="/products/lifetime-web-starter.html" hreflang="en" lang="en" style="margin:0 8px;color:inherit">🇬🇧 English</a>
+      <a href="/products/lifetime-web-starter.fi.html" hreflang="fi" lang="fi" style="margin:0 8px;color:inherit">🇫🇮 Suomeksi</a>
+    </nav>
+  </body>
+</html>

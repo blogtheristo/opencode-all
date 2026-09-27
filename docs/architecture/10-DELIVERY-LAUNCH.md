@@ -32,39 +32,39 @@ DWS IQ 6 "One Brain, Eight Industries" is an AI orchestration platform designed 
 
 ### 1.2 Key Deliverables
 
-| Deliverable | Status | Hours |
-|-------------|--------|-------|
-| Phase 00: Master Blueprint | ✅ Complete | 8 |
-| Phase 01: Agent Discovery | ✅ Complete | 16 |
-| Phase 02: Cognitive Architecture | ✅ Complete | 24 |
-| Phase 03: Orchestration Layer | ✅ Complete | 24 |
-| Phase 04: Tool Architecture | ✅ Complete | 32 |
-| Phase 05: Grounding & Memory | ✅ Complete | 24 |
-| Phase 06: Prompt Engineering | ✅ Complete | 16 |
-| Phase 07: Implementation | ✅ Complete | 120 |
-| Phase 08: Testing | ✅ Complete | 60 |
-| Phase 09: Production Deployment | ✅ Complete | 40 |
-| Phase 10: Delivery & Launch | 🔄 In Progress | 16 |
-| **Total** | | **380 hours** |
+| Deliverable                      | Status         | Hours         |
+| -------------------------------- | -------------- | ------------- |
+| Phase 00: Master Blueprint       | ✅ Complete    | 8             |
+| Phase 01: Agent Discovery        | ✅ Complete    | 16            |
+| Phase 02: Cognitive Architecture | ✅ Complete    | 24            |
+| Phase 03: Orchestration Layer    | ✅ Complete    | 24            |
+| Phase 04: Tool Architecture      | ✅ Complete    | 32            |
+| Phase 05: Grounding & Memory     | ✅ Complete    | 24            |
+| Phase 06: Prompt Engineering     | ✅ Complete    | 16            |
+| Phase 07: Implementation         | ✅ Complete    | 120           |
+| Phase 08: Testing                | ✅ Complete    | 60            |
+| Phase 09: Production Deployment  | ✅ Complete    | 40            |
+| Phase 10: Delivery & Launch      | 🔄 In Progress | 16            |
+| **Total**                        |                | **380 hours** |
 
 ### 1.3 Investment Summary
 
-| Category | One-Time | Monthly | Annual |
-|----------|----------|---------|--------|
-| Development (380 hrs × €75) | €28,500 | - | - |
-| Infrastructure | - | €392 | €4,704 |
-| API Usage (Claude + embeddings) | - | €187 | €2,244 |
-| Testing & CI/CD | - | €105 | €1,260 |
-| **Total** | **€28,500** | **€684** | **€8,208** |
+| Category                        | One-Time    | Monthly  | Annual     |
+| ------------------------------- | ----------- | -------- | ---------- |
+| Development (380 hrs × €75)     | €28,500     | -        | -          |
+| Infrastructure                  | -           | €392     | €4,704     |
+| API Usage (Claude + embeddings) | -           | €187     | €2,244     |
+| Testing & CI/CD                 | -           | €105     | €1,260     |
+| **Total**                       | **€28,500** | **€684** | **€8,208** |
 
 ### 1.4 ROI Projection
 
-| Metric | Year 1 | Year 2 | Year 3 |
-|--------|--------|--------|--------|
-| Revenue (10 customers × €7K MRR) | €84,000 | €252,000 | €504,000 |
-| Operating Costs | €36,708 | €45,000 | €60,000 |
-| **Gross Margin** | **€47,292** | **€207,000** | **€444,000** |
-| **ROI** | **166%** | **460%** | **740%** |
+| Metric                           | Year 1      | Year 2       | Year 3       |
+| -------------------------------- | ----------- | ------------ | ------------ |
+| Revenue (10 customers × €7K MRR) | €84,000     | €252,000     | €504,000     |
+| Operating Costs                  | €36,708     | €45,000      | €60,000      |
+| **Gross Margin**                 | **€47,292** | **€207,000** | **€444,000** |
+| **ROI**                          | **166%**    | **460%**     | **740%**     |
 
 ---
 
@@ -114,23 +114,23 @@ DWS IQ 6 "One Brain, Eight Industries" is an AI orchestration platform designed 
 
 ### 2.2 Milestone Gates
 
-| Gate | Date | Criteria | Owner |
-|------|------|----------|-------|
-| **M1: Foundation** | Week 2 | CI/CD green, Supabase live, base agent tests pass | Tech Lead |
-| **M2: MVP** | Week 4 | Logistics + Construction agents functional, 80% test coverage | Tech Lead |
-| **M3: Integration** | Week 6 | Full orchestration working, approval flow complete | Tech Lead |
-| **M4: Production** | Week 8 | Deployed to GCP, security audit passed, monitoring live | DevOps |
-| **M5: Pilot Start** | Week 9 | NCC & T2H onboarded, first production requests | Product |
-| **M6: GA** | Week 12 | Pilot success criteria met, documentation complete | CEO |
+| Gate                | Date    | Criteria                                                      | Owner     |
+| ------------------- | ------- | ------------------------------------------------------------- | --------- |
+| **M1: Foundation**  | Week 2  | CI/CD green, Supabase live, base agent tests pass             | Tech Lead |
+| **M2: MVP**         | Week 4  | Logistics + Construction agents functional, 80% test coverage | Tech Lead |
+| **M3: Integration** | Week 6  | Full orchestration working, approval flow complete            | Tech Lead |
+| **M4: Production**  | Week 8  | Deployed to GCP, security audit passed, monitoring live       | DevOps    |
+| **M5: Pilot Start** | Week 9  | NCC & T2H onboarded, first production requests                | Product   |
+| **M6: GA**          | Week 12 | Pilot success criteria met, documentation complete            | CEO       |
 
 ### 2.3 Resource Allocation
 
-| Role | Hours/Week | Cost/Week | Total (12 weeks) |
-|------|------------|-----------|------------------|
-| Senior Developer (Risto) | 30 | €2,250 | €27,000 |
-| Contract DevOps | 10 | €1,000 | €12,000 |
-| Part-time QA | 5 | €375 | €4,500 |
-| **Total** | **45** | **€3,625** | **€43,500** |
+| Role                     | Hours/Week | Cost/Week  | Total (12 weeks) |
+| ------------------------ | ---------- | ---------- | ---------------- |
+| Senior Developer (Risto) | 30         | €2,250     | €27,000          |
+| Contract DevOps          | 10         | €1,000     | €12,000          |
+| Part-time QA             | 5          | €375       | €4,500           |
+| **Total**                | **45**     | **€3,625** | **€43,500**      |
 
 **Note:** Contract resources can be scaled down after Week 8 (production deployment).
 
@@ -323,6 +323,7 @@ HOURLY_COST_LIMIT_EUR=50
 ## Pre-Deployment Checklist
 
 ### Code Quality
+
 - [ ] All unit tests passing (≥80% coverage)
 - [ ] All integration tests passing
 - [ ] All reasoning tests passing (≥90% accuracy)
@@ -330,6 +331,7 @@ HOURLY_COST_LIMIT_EUR=50
 - [ ] Code review approved by 2+ reviewers
 
 ### Infrastructure
+
 - [ ] GCP project created with billing enabled
 - [ ] Service accounts created with minimal permissions
 - [ ] Secrets stored in Secret Manager
@@ -337,6 +339,7 @@ HOURLY_COST_LIMIT_EUR=50
 - [ ] Cloud Armor WAF rules deployed
 
 ### Database
+
 - [ ] Supabase project created (eu-central-1)
 - [ ] All migrations applied
 - [ ] Row-level security policies enabled
@@ -344,18 +347,21 @@ HOURLY_COST_LIMIT_EUR=50
 - [ ] Connection pooling enabled
 
 ### Monitoring
+
 - [ ] OpenTelemetry exporters configured
 - [ ] Dashboard deployed
 - [ ] Alerting policies active
 - [ ] Log retention set (30 days standard, 7 years audit)
 
 ### Documentation
+
 - [ ] API documentation generated (OpenAPI)
 - [ ] Runbooks reviewed
 - [ ] Incident response contacts updated
 - [ ] Customer onboarding docs ready
 
 ### Sign-off
+
 - [ ] Tech Lead approval: _______________ Date: ___
 - [ ] DevOps approval: _______________ Date: ___
 - [ ] Product approval: _______________ Date: ___
@@ -392,45 +398,47 @@ HOURLY_COST_LIMIT_EUR=50
 
 #### 4.1.2 Success Criteria
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| Tilaajavastuu check automation rate | ≥90% | Manual vs automated checks |
-| Average verification time | <2 minutes | From request to result |
-| False positive rate | <5% | Manual review of flagged items |
-| User satisfaction (NPS) | ≥40 | Post-pilot survey |
-| System uptime | ≥99.5% | Monitoring data |
+| Metric                              | Target     | Measurement                    |
+| ----------------------------------- | ---------- | ------------------------------ |
+| Tilaajavastuu check automation rate | ≥90%       | Manual vs automated checks     |
+| Average verification time           | <2 minutes | From request to result         |
+| False positive rate                 | <5%        | Manual review of flagged items |
+| User satisfaction (NPS)             | ≥40        | Post-pilot survey              |
+| System uptime                       | ≥99.5%     | Monitoring data                |
 
 #### 4.1.3 Pilot Schedule
 
-| Week | Activities | Deliverables |
-|------|------------|--------------|
-| 1 | Kickoff, system access, training | Signed pilot agreement |
-| 2-3 | Tilaajavastuu integration, testing | 10 real verifications |
-| 4-5 | Safety incident processing | 5 incident reports processed |
-| 6-7 | Document processing, refinement | 20 documents analyzed |
-| 8 | Evaluation, feedback session | Pilot report, commercial proposal |
+| Week | Activities                         | Deliverables                      |
+| ---- | ---------------------------------- | --------------------------------- |
+| 1    | Kickoff, system access, training   | Signed pilot agreement            |
+| 2-3  | Tilaajavastuu integration, testing | 10 real verifications             |
+| 4-5  | Safety incident processing         | 5 incident reports processed      |
+| 6-7  | Document processing, refinement    | 20 documents analyzed             |
+| 8    | Evaluation, feedback session       | Pilot report, commercial proposal |
 
 #### 4.1.4 Resource Requirements
 
 **From NCC:**
+
 - Pilot coordinator (4 hrs/week)
 - 3-5 test users (site managers, procurement)
 - API access to existing systems (if applicable)
 - Sample documents for testing
 
 **From Lifetime Consulting:**
+
 - Technical support (8 hrs/week)
 - Weekly status calls (1 hr)
 - On-site training session (4 hrs)
 
 #### 4.1.5 Pricing Proposal
 
-| Phase | Duration | Price | Notes |
-|-------|----------|-------|-------|
-| Pilot | 8 weeks | €0 | Free pilot, investment in partnership |
-| Setup | Post-pilot | €15,000 | Integration, customization |
-| Monthly subscription | Ongoing | €3,500/month | Up to 500 verifications |
-| Per verification (overage) | - | €5/check | Above 500/month |
+| Phase                      | Duration   | Price        | Notes                                 |
+| -------------------------- | ---------- | ------------ | ------------------------------------- |
+| Pilot                      | 8 weeks    | €0           | Free pilot, investment in partnership |
+| Setup                      | Post-pilot | €15,000      | Integration, customization            |
+| Monthly subscription       | Ongoing    | €3,500/month | Up to 500 verifications               |
+| Per verification (overage) | -          | €5/check     | Above 500/month                       |
 
 **Year 1 Value:** €57,000 (setup + 12 months)
 
@@ -461,21 +469,21 @@ HOURLY_COST_LIMIT_EUR=50
 
 #### 4.2.2 Success Criteria
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| Qualification verification automation | ≥85% | Manual vs automated |
-| Timesheet reconciliation accuracy | ≥98% | Matched vs total entries |
-| Hours saved per week | ≥10 hrs | Admin time tracking |
-| User satisfaction (NPS) | ≥35 | Post-pilot survey |
+| Metric                                | Target  | Measurement              |
+| ------------------------------------- | ------- | ------------------------ |
+| Qualification verification automation | ≥85%    | Manual vs automated      |
+| Timesheet reconciliation accuracy     | ≥98%    | Matched vs total entries |
+| Hours saved per week                  | ≥10 hrs | Admin time tracking      |
+| User satisfaction (NPS)               | ≥35     | Post-pilot survey        |
 
 #### 4.2.3 Pricing Proposal
 
-| Phase | Duration | Price | Notes |
-|-------|----------|-------|-------|
-| Pilot | 6 weeks | €0 | Free pilot |
-| Setup | Post-pilot | €10,000 | Integration, training |
-| Monthly subscription | Ongoing | €2,500/month | Up to 200 workers |
-| Per worker (overage) | - | €10/worker/month | Above 200 |
+| Phase                | Duration   | Price            | Notes                 |
+| -------------------- | ---------- | ---------------- | --------------------- |
+| Pilot                | 6 weeks    | €0               | Free pilot            |
+| Setup                | Post-pilot | €10,000          | Integration, training |
+| Monthly subscription | Ongoing    | €2,500/month     | Up to 200 workers     |
+| Per worker (overage) | -          | €10/worker/month | Above 200             |
 
 **Year 1 Value:** €40,000 (setup + 12 months)
 
@@ -487,20 +495,20 @@ HOURLY_COST_LIMIT_EUR=50
 
 #### 4.3.1 Upgrade Path
 
-| Feature | Current | DWS IQ 6 | Value Add |
-|---------|---------|----------|-----------|
-| Route optimization | Basic | AI-powered with traffic prediction | 15% efficiency gain |
-| Driver matching | Manual | Automated with constraints | 20% faster dispatch |
-| Compliance checks | Periodic | Real-time continuous | Risk reduction |
-| Reporting | Standard | AI-generated insights | Decision support |
+| Feature            | Current  | DWS IQ 6                           | Value Add           |
+| ------------------ | -------- | ---------------------------------- | ------------------- |
+| Route optimization | Basic    | AI-powered with traffic prediction | 15% efficiency gain |
+| Driver matching    | Manual   | Automated with constraints         | 20% faster dispatch |
+| Compliance checks  | Periodic | Real-time continuous               | Risk reduction      |
+| Reporting          | Standard | AI-generated insights              | Decision support    |
 
 #### 4.3.2 Pricing Adjustment
 
-| Customer Tier | Current MRR | Proposed MRR | Increase |
-|---------------|-------------|--------------|----------|
-| Enterprise (Uber) | €3,500 | €5,000 | +43% |
-| Growth (Bolt) | €2,500 | €3,500 | +40% |
-| Standard (others) | €1,000 | €1,500 | +50% |
+| Customer Tier     | Current MRR | Proposed MRR | Increase |
+| ----------------- | ----------- | ------------ | -------- |
+| Enterprise (Uber) | €3,500      | €5,000       | +43%     |
+| Growth (Bolt)     | €2,500      | €3,500       | +40%     |
+| Standard (others) | €1,000      | €1,500       | +50%     |
 
 **Projected MRR after upgrade:** €10,000 (+43%)
 
@@ -515,24 +523,28 @@ HOURLY_COST_LIMIT_EUR=50
 **Materials:** Admin Guide, video recordings
 
 #### Module 1: System Architecture (1 hour)
+
 - DWS IQ 6 component overview
 - Agent types and responsibilities
 - MCP server ecosystem
 - Data flow and security boundaries
 
 #### Module 2: Configuration & Management (1.5 hours)
+
 - Environment setup and configuration
 - User management and permissions (Tier 1/2/3)
 - Feature flag management
 - Cost control and limits
 
 #### Module 3: Monitoring & Troubleshooting (1 hour)
+
 - Dashboard walkthrough
 - Alert interpretation
 - Common issues and solutions
 - Escalation procedures
 
 #### Module 4: Security & Compliance (0.5 hours)
+
 - Data protection (GDPR)
 - Access audit logs
 - Incident reporting (NIS2)
@@ -545,24 +557,28 @@ HOURLY_COST_LIMIT_EUR=50
 **Materials:** User Guide, quick reference cards
 
 #### Module 1: Getting Started (30 minutes)
+
 - Accessing the system
 - Interface overview
 - Basic query patterns
 - Understanding agent responses
 
 #### Module 2: Common Workflows (45 minutes)
+
 - Compliance verification requests
 - Document analysis tasks
 - Report generation
 - Approval workflows
 
 #### Module 3: Best Practices (30 minutes)
+
 - Effective prompting techniques
 - When to use which agent
 - Handling errors and retries
 - Providing feedback
 
 #### Module 4: Hands-on Practice (15 minutes)
+
 - Guided exercises with real scenarios
 - Q&A session
 
@@ -605,12 +621,13 @@ HOURLY_COST_LIMIT_EUR=50
 
 ### 6.1 Operations Runbook
 
-```markdown
+````markdown
 # DWS IQ 6 Operations Runbook
 
 ## Daily Operations
 
 ### Morning Checklist (08:00 EET)
+
 1. Check monitoring dashboard for overnight alerts
 2. Review error rate trends (should be <1%)
 3. Verify all MCP servers healthy
@@ -618,6 +635,7 @@ HOURLY_COST_LIMIT_EUR=50
 5. Review cost dashboard (daily burn rate)
 
 ### Evening Checklist (17:00 EET)
+
 1. Clear or escalate pending approvals >4 hours old
 2. Archive completed conversations
 3. Review customer feedback/tickets
@@ -626,13 +644,15 @@ HOURLY_COST_LIMIT_EUR=50
 ## Incident Response
 
 ### Severity Classification
+
 - **SEV1 (Critical):** System down, data loss risk → 15 min response
 - **SEV2 (High):** Major feature broken, customer impacted → 30 min response
 - **SEV3 (Medium):** Minor feature issue, workaround exists → 2 hr response
 - **SEV4 (Low):** Enhancement request, cosmetic issue → 24 hr response
 
 ### SEV1 Procedure
-1. Acknowledge in #incidents Slack channel
+
+1. Acknowledge via WhatsApp / ops webhook
 2. Check Cloud Run service status: `gcloud run services describe agent-service`
 3. Check dependencies: Supabase, MCP servers, Claude API
 4. If system-wide: Execute rollback: `./scripts/rollback.sh`
@@ -642,6 +662,7 @@ HOURLY_COST_LIMIT_EUR=50
 ### Common Issues
 
 #### High Error Rate (>5%)
+
 1. Check Cloud Logging for error patterns
 2. Verify MCP server health: `curl https://[mcp-url]/health`
 3. Check Supabase connection pool
@@ -649,13 +670,15 @@ HOURLY_COST_LIMIT_EUR=50
 5. If persistent: Scale up instances or circuit break
 
 #### High Latency (P95 >10s)
+
 1. Check agent iteration counts (should be <5)
 2. Review tool call latencies
 3. Check Supabase query performance
 4. Consider enabling caching for repeated queries
 
 #### Approval Queue Backlog
-1. Alert approvers via Slack/email
+
+1. Alert approvers via WhatsApp / webhook / email
 2. Check if approver accounts are active
 3. Consider auto-escalation rules
 4. Review if tier classification is too strict
@@ -663,6 +686,7 @@ HOURLY_COST_LIMIT_EUR=50
 ## Scaling Procedures
 
 ### Scale Up (Expected Load Increase)
+
 ```bash
 # Increase max instances
 gcloud run services update agent-service \
@@ -674,8 +698,10 @@ gcloud run services update logistics-mcp \
   --max-instances=50 \
   --region=europe-north1
 ```
+````
 
 ### Scale Down (Cost Optimization)
+
 ```bash
 # Reduce during off-hours
 gcloud run services update agent-service \
@@ -687,6 +713,7 @@ gcloud run services update agent-service \
 ## Maintenance Windows
 
 ### Scheduled Maintenance
+
 - **When:** Sundays 02:00-04:00 EET
 - **Notification:** 72 hours advance via email
 - **Procedure:**
@@ -698,10 +725,12 @@ gcloud run services update agent-service \
   6. Disable maintenance mode
 
 ### Emergency Maintenance
+
 - Requires CEO or CTO approval
 - Customer notification within 15 minutes
 - Maximum duration: 2 hours
-```
+
+````
 
 ### 6.2 API Documentation
 
@@ -817,17 +846,17 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-```
+````
 
 ### 6.3 Contact Matrix
 
-| Role | Name | Email | Phone | Escalation |
-|------|------|-------|-------|------------|
-| CEO / Product Owner | Risto | risto@lifetime.fi | +358-xxx | Final escalation |
-| Tech Lead | Risto | tech@lifetime.fi | +358-xxx | Technical issues |
-| DevOps (Contract) | TBD | devops@lifetime.fi | - | Infrastructure |
-| Customer Success | TBD | success@dws6.fi | - | Customer issues |
-| On-Call | Rotating | oncall@dws6.fi | PagerDuty | After hours |
+| Role                | Name     | Email              | Phone     | Escalation       |
+| ------------------- | -------- | ------------------ | --------- | ---------------- |
+| CEO / Product Owner | Risto    | risto@lifetime.fi  | +358-xxx  | Final escalation |
+| Tech Lead           | Risto    | tech@lifetime.fi   | +358-xxx  | Technical issues |
+| DevOps (Contract)   | TBD      | devops@lifetime.fi | -         | Infrastructure   |
+| Customer Success    | TBD      | success@dws6.fi    | -         | Customer issues  |
+| On-Call             | Rotating | oncall@dws6.fi     | PagerDuty | After hours      |
 
 ---
 
@@ -867,30 +896,30 @@ Q4 2026: SCALE
 
 ### 7.2 Feature Backlog (Prioritized)
 
-| Priority | Feature | Effort | Value | Target |
-|----------|---------|--------|-------|--------|
-| P0 | Production GA | 12 weeks | Critical | Q1 |
-| P0 | NCC pilot success | 8 weeks | €57K ARR | Q1 |
-| P0 | T2H pilot success | 6 weeks | €40K ARR | Q1 |
-| P1 | Energy industry agent | 4 weeks | €100K+ market | Q2 |
-| P1 | Swedish language | 2 weeks | Nordic expansion | Q2 |
-| P1 | Salesforce connector | 3 weeks | Enterprise sales | Q2 |
-| P2 | Mobile app | 6 weeks | User convenience | Q2 |
-| P2 | Analytics dashboard | 4 weeks | Upsell opportunity | Q3 |
-| P2 | Voice interface | 6 weeks | Differentiation | Q3 |
-| P3 | Partner API | 4 weeks | Ecosystem | Q4 |
-| P3 | ISO 27001 | 8 weeks | Enterprise requirement | Q4 |
+| Priority | Feature               | Effort   | Value                  | Target |
+| -------- | --------------------- | -------- | ---------------------- | ------ |
+| P0       | Production GA         | 12 weeks | Critical               | Q1     |
+| P0       | NCC pilot success     | 8 weeks  | €57K ARR               | Q1     |
+| P0       | T2H pilot success     | 6 weeks  | €40K ARR               | Q1     |
+| P1       | Energy industry agent | 4 weeks  | €100K+ market          | Q2     |
+| P1       | Swedish language      | 2 weeks  | Nordic expansion       | Q2     |
+| P1       | Salesforce connector  | 3 weeks  | Enterprise sales       | Q2     |
+| P2       | Mobile app            | 6 weeks  | User convenience       | Q2     |
+| P2       | Analytics dashboard   | 4 weeks  | Upsell opportunity     | Q3     |
+| P2       | Voice interface       | 6 weeks  | Differentiation        | Q3     |
+| P3       | Partner API           | 4 weeks  | Ecosystem              | Q4     |
+| P3       | ISO 27001             | 8 weeks  | Enterprise requirement | Q4     |
 
 ### 7.3 Technical Debt Backlog
 
-| Item | Impact | Effort | Priority |
-|------|--------|--------|----------|
-| Replace sync Supabase calls with async | Performance | 2 days | High |
-| Add request deduplication | Cost reduction | 1 day | High |
-| Implement connection pooling | Scalability | 1 day | Medium |
-| Add circuit breaker for Claude API | Reliability | 2 days | Medium |
-| Migrate to LangGraph 0.3 (when stable) | Features | 3 days | Low |
-| Add GraphQL API option | Developer experience | 1 week | Low |
+| Item                                   | Impact               | Effort | Priority |
+| -------------------------------------- | -------------------- | ------ | -------- |
+| Replace sync Supabase calls with async | Performance          | 2 days | High     |
+| Add request deduplication              | Cost reduction       | 1 day  | High     |
+| Implement connection pooling           | Scalability          | 1 day  | Medium   |
+| Add circuit breaker for Claude API     | Reliability          | 2 days | Medium   |
+| Migrate to LangGraph 0.3 (when stable) | Features             | 3 days | Low      |
+| Add GraphQL API option                 | Developer experience | 1 week | Low      |
 
 ---
 
@@ -898,35 +927,35 @@ Q4 2026: SCALE
 
 ### 8.1 Business Metrics
 
-| Metric | Q1 Target | Q2 Target | Q4 Target |
-|--------|-----------|-----------|-----------|
-| MRR | €15,000 | €35,000 | €70,000 |
-| Customers | 5 | 12 | 25 |
-| NPS | 40 | 50 | 60 |
-| Churn rate | <5% | <5% | <3% |
-| CAC | €5,000 | €4,000 | €3,000 |
-| LTV | €50,000 | €60,000 | €80,000 |
+| Metric     | Q1 Target | Q2 Target | Q4 Target |
+| ---------- | --------- | --------- | --------- |
+| MRR        | €15,000   | €35,000   | €70,000   |
+| Customers  | 5         | 12        | 25        |
+| NPS        | 40        | 50        | 60        |
+| Churn rate | <5%       | <5%       | <3%       |
+| CAC        | €5,000    | €4,000    | €3,000    |
+| LTV        | €50,000   | €60,000   | €80,000   |
 
 ### 8.2 Technical Metrics
 
-| Metric | Target | Alert Threshold |
-|--------|--------|-----------------|
-| Uptime | ≥99.9% | <99.5% |
-| P95 Latency | ≤3s | >5s |
-| Error rate | <1% | >3% |
-| Task completion rate | ≥95% | <90% |
-| Tool selection accuracy | ≥90% | <85% |
-| Cost per request | ≤€0.04 | >€0.06 |
+| Metric                  | Target | Alert Threshold |
+| ----------------------- | ------ | --------------- |
+| Uptime                  | ≥99.9% | <99.5%          |
+| P95 Latency             | ≤3s    | >5s             |
+| Error rate              | <1%    | >3%             |
+| Task completion rate    | ≥95%   | <90%            |
+| Tool selection accuracy | ≥90%   | <85%            |
+| Cost per request        | ≤€0.04 | >€0.06          |
 
 ### 8.3 Compliance Metrics
 
-| Metric | Target | Audit Requirement |
-|--------|--------|-------------------|
-| GDPR subject access requests | <48hr response | Yes |
-| GDPR deletion requests | <72hr completion | Yes |
-| NIS2 incident notification | <24hr | Yes |
-| Audit log retention | 7 years | Yes |
-| Security vulnerability patches | <48hr critical | Yes |
+| Metric                         | Target           | Audit Requirement |
+| ------------------------------ | ---------------- | ----------------- |
+| GDPR subject access requests   | <48hr response   | Yes               |
+| GDPR deletion requests         | <72hr completion | Yes               |
+| NIS2 incident notification     | <24hr            | Yes               |
+| Audit log retention            | 7 years          | Yes               |
+| Security vulnerability patches | <48hr critical   | Yes               |
 
 ---
 
@@ -934,15 +963,15 @@ Q4 2026: SCALE
 
 ### 9.1 Risk Register
 
-| Risk | Probability | Impact | Mitigation | Owner |
-|------|-------------|--------|------------|-------|
-| Claude API price increase | Medium | High | Budget buffer, Groq fallback | CEO |
-| Key person dependency (Risto) | High | Critical | Documentation, knowledge transfer | CEO |
-| Pilot customer churn | Low | High | Weekly check-ins, success criteria | Product |
-| Security breach | Low | Critical | Pen testing, WAF, audit logs | Tech Lead |
-| Regulatory change (EU AI Act) | Medium | Medium | Compliance monitoring agent | Compliance |
-| Competitor enters market | Medium | Medium | Feature velocity, customer lock-in | CEO |
-| Cloud provider outage | Low | High | Multi-region DR plan (Q3) | DevOps |
+| Risk                          | Probability | Impact   | Mitigation                         | Owner      |
+| ----------------------------- | ----------- | -------- | ---------------------------------- | ---------- |
+| Claude API price increase     | Medium      | High     | Budget buffer, Groq fallback       | CEO        |
+| Key person dependency (Risto) | High        | Critical | Documentation, knowledge transfer  | CEO        |
+| Pilot customer churn          | Low         | High     | Weekly check-ins, success criteria | Product    |
+| Security breach               | Low         | Critical | Pen testing, WAF, audit logs       | Tech Lead  |
+| Regulatory change (EU AI Act) | Medium      | Medium   | Compliance monitoring agent        | Compliance |
+| Competitor enters market      | Medium      | Medium   | Feature velocity, customer lock-in | CEO        |
+| Cloud provider outage         | Low         | High     | Multi-region DR plan (Q3)          | DevOps     |
 
 ### 9.2 Contingency Plans
 
@@ -951,6 +980,7 @@ Q4 2026: SCALE
 **Trigger:** Claude API errors >50% for >5 minutes
 
 **Response:**
+
 1. Activate circuit breaker
 2. Route to Groq/Llama fallback (reduced capability)
 3. Notify customers of degraded mode
@@ -958,6 +988,7 @@ Q4 2026: SCALE
 5. Monitor Anthropic status page
 
 **Fallback Capabilities:**
+
 - Basic query classification: ✅
 - Simple tool selection: ✅
 - Complex reasoning: ❌
@@ -968,6 +999,7 @@ Q4 2026: SCALE
 **Trigger:** Database connection failures >30 seconds
 
 **Response:**
+
 1. Activate read-only mode (cache responses)
 2. Queue write operations
 3. Notify customers
@@ -976,12 +1008,12 @@ Q4 2026: SCALE
 
 ### 9.3 Business Continuity
 
-| Scenario | RTO | RPO | Procedure |
-|----------|-----|-----|-----------|
-| Single service failure | 5 min | 0 | Auto-restart, health checks |
-| Regional outage | 4 hr | 1 hr | Failover to europe-west1 |
-| Data corruption | 24 hr | 24 hr | Restore from backup |
-| Security incident | 1 hr | 0 | Isolate, investigate, notify |
+| Scenario               | RTO   | RPO   | Procedure                    |
+| ---------------------- | ----- | ----- | ---------------------------- |
+| Single service failure | 5 min | 0     | Auto-restart, health checks  |
+| Regional outage        | 4 hr  | 1 hr  | Failover to europe-west1     |
+| Data corruption        | 24 hr | 24 hr | Restore from backup          |
+| Security incident      | 1 hr  | 0     | Isolate, investigate, notify |
 
 ---
 
@@ -989,58 +1021,59 @@ Q4 2026: SCALE
 
 ### 10.1 Revenue Model
 
-| Revenue Stream | Unit Price | Q1 Units | Q1 Revenue |
-|----------------|------------|----------|------------|
-| Monthly subscription (Tier 1) | €1,500/mo | 3 | €13,500 |
-| Monthly subscription (Tier 2) | €3,500/mo | 2 | €21,000 |
-| Monthly subscription (Tier 3) | €5,000/mo | 1 | €15,000 |
-| Setup fees | €10-15K | 3 | €35,000 |
-| Usage overage | Variable | - | €5,000 |
-| **Q1 Total** | | | **€89,500** |
+| Revenue Stream                | Unit Price | Q1 Units | Q1 Revenue  |
+| ----------------------------- | ---------- | -------- | ----------- |
+| Monthly subscription (Tier 1) | €1,500/mo  | 3        | €13,500     |
+| Monthly subscription (Tier 2) | €3,500/mo  | 2        | €21,000     |
+| Monthly subscription (Tier 3) | €5,000/mo  | 1        | €15,000     |
+| Setup fees                    | €10-15K    | 3        | €35,000     |
+| Usage overage                 | Variable   | -        | €5,000      |
+| **Q1 Total**                  |            |          | **€89,500** |
 
 ### 10.2 Cost Structure
 
-| Category | Monthly | Q1 Total | % of Revenue |
-|----------|---------|----------|--------------|
-| Infrastructure (GCP) | €400 | €1,200 | 1.3% |
-| Claude API | €200 | €600 | 0.7% |
-| Supabase | €34 | €102 | 0.1% |
-| Contract labor | €1,000 | €12,000 | 13.4% |
-| Marketing | €500 | €1,500 | 1.7% |
-| Legal/Compliance | €200 | €600 | 0.7% |
-| **Q1 Total OPEX** | | **€16,002** | **17.9%** |
+| Category             | Monthly | Q1 Total    | % of Revenue |
+| -------------------- | ------- | ----------- | ------------ |
+| Infrastructure (GCP) | €400    | €1,200      | 1.3%         |
+| Claude API           | €200    | €600        | 0.7%         |
+| Supabase             | €34     | €102        | 0.1%         |
+| Contract labor       | €1,000  | €12,000     | 13.4%        |
+| Marketing            | €500    | €1,500      | 1.7%         |
+| Legal/Compliance     | €200    | €600        | 0.7%         |
+| **Q1 Total OPEX**    |         | **€16,002** | **17.9%**    |
 
 ### 10.3 Runway Analysis
 
 **Current Position:**
+
 - Cash: €150,000 (SAFE round)
 - Monthly burn: €5,000 (pre-revenue operations)
 - Current runway: 30 months
 
 **Post-Launch Projection:**
 
-| Month | Revenue | Expenses | Net | Cash Balance |
-|-------|---------|----------|-----|--------------|
-| Mar 2026 | €7,000 | €8,000 | -€1,000 | €149,000 |
-| Apr 2026 | €12,000 | €10,000 | €2,000 | €151,000 |
-| May 2026 | €18,000 | €12,000 | €6,000 | €157,000 |
-| Jun 2026 | €25,000 | €15,000 | €10,000 | €167,000 |
-| Jul 2026 | €32,000 | €18,000 | €14,000 | €181,000 |
-| Aug 2026 | €40,000 | €20,000 | €20,000 | €201,000 |
+| Month    | Revenue | Expenses | Net     | Cash Balance |
+| -------- | ------- | -------- | ------- | ------------ |
+| Mar 2026 | €7,000  | €8,000   | -€1,000 | €149,000     |
+| Apr 2026 | €12,000 | €10,000  | €2,000  | €151,000     |
+| May 2026 | €18,000 | €12,000  | €6,000  | €157,000     |
+| Jun 2026 | €25,000 | €15,000  | €10,000 | €167,000     |
+| Jul 2026 | €32,000 | €18,000  | €14,000 | €181,000     |
+| Aug 2026 | €40,000 | €20,000  | €20,000 | €201,000     |
 
 **Break-even:** Month 4 (April 2026)  
 **Cash positive trajectory:** Month 3 onwards
 
 ### 10.4 Unit Economics
 
-| Metric | Current | Target (12mo) |
-|--------|---------|---------------|
-| Average contract value (ACV) | €36,000 | €48,000 |
-| Customer acquisition cost (CAC) | €5,000 | €4,000 |
-| Gross margin | 75% | 80% |
-| LTV | €90,000 | €120,000 |
-| LTV:CAC ratio | 18:1 | 30:1 |
-| Payback period | 2 months | 1.5 months |
+| Metric                          | Current  | Target (12mo) |
+| ------------------------------- | -------- | ------------- |
+| Average contract value (ACV)    | €36,000  | €48,000       |
+| Customer acquisition cost (CAC) | €5,000   | €4,000        |
+| Gross margin                    | 75%      | 80%           |
+| LTV                             | €90,000  | €120,000      |
+| LTV:CAC ratio                   | 18:1     | 30:1          |
+| Payback period                  | 2 months | 1.5 months    |
 
 ### 10.5 Investment for Ecosummit 2026
 
@@ -1048,14 +1081,15 @@ Q4 2026: SCALE
 **Valuation:** €5M pre-money (€3.8M + traction premium)  
 **Use of Funds:**
 
-| Category | Amount | Purpose |
-|----------|--------|---------|
-| Engineering | €250,000 | 2 senior hires for 12 months |
+| Category          | Amount   | Purpose                           |
+| ----------------- | -------- | --------------------------------- |
+| Engineering       | €250,000 | 2 senior hires for 12 months      |
 | Sales & Marketing | €150,000 | Nordic expansion, events, content |
-| Operations | €50,000 | Legal, compliance, infrastructure |
-| Reserve | €50,000 | Contingency buffer |
+| Operations        | €50,000  | Legal, compliance, infrastructure |
+| Reserve           | €50,000  | Contingency buffer                |
 
 **Milestones for Next Round:**
+
 1. €70K MRR (10x current)
 2. 26 paying customers
 3. Successful Nordic expansion
@@ -1085,7 +1119,7 @@ And: [Customer Name] ("Customer")
    - Dedicated support contact
    - Weekly status meetings
    - Issue resolution within 24 hours
-   
+
    Customer:
    - Designated pilot coordinator
    - Timely feedback (within 48 hours)
@@ -1183,10 +1217,10 @@ Customer: _______________ Date: ___
 
 ## Document History
 
-| Version | Date | Author | Changes |
-|---------|------|--------|---------|
-| 1.0 | 2026-01-19 | Risto | Initial release |
+| Version | Date       | Author | Changes         |
+| ------- | ---------- | ------ | --------------- |
+| 1.0     | 2026-01-19 | Risto  | Initial release |
 
 ---
 
-*This document completes the DWS IQ 6 Agent Architecture Blueprint (Phases 00-10).*
+_This document completes the DWS IQ 6 Agent Architecture Blueprint (Phases 00-10)._

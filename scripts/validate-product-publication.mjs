@@ -2,18 +2,23 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { buildRegistry, renderMarkdown } from './truth/product-registry.mjs';
+import { buildLifecycle, renderMarkdown as renderLifecycle } from './truth/product-lifecycle.mjs';
+import { checkPriceListVersions } from './truth/price-list-versions.mjs';
+import { buildValuation, renderMarkdown as renderValuation } from './truth/product-valuation.mjs';
 
 const ROOT = resolve(process.cwd());
-const CATALOG_VERSION = '1.30';
+const CATALOG_VERSION = '1.33';
 const CONSULTING_VERSION = '1.33';
-const EFFECTIVE = '2026-09-15';
+const EFFECTIVE = '2026-09-25';
 const BUY_EFFECTIVE = '2026-08-30';
 const LIFETIME_PAGE_EFFECTIVE = '2026-08-30';
 const NEXT_REVIEW = '2026-11-15';
 const CONSULTING_NEXT_REVIEW = '2026-11-30';
 const CONSULTING_EFFECTIVE = '2026-09-14';
 const EXPECTED_INDEPENDENT_IDS = ['LF-ONTOLOGY-25', 'LWM-ONT-SOVEREIGN'];
-const EXPECTED_SERIOUS_IDS = [
+// Serious products that carry a 1:1 Lifetime consulting package (LTF-CONSULT-001..013).
+const CONSULTING_MAPPED_IDS = [
   'DWS-EU-STARTER',
   'DWS-EU-PILOT',
   'DWS-AEGIS-PILOT-001',
@@ -28,7 +33,13 @@ const EXPECTED_SERIOUS_IDS = [
   'LF-NVIDIA-INSTALL',
   'aws-consultancy',
 ];
-const EXPECTED_PACKAGE_IDS = EXPECTED_SERIOUS_IDS.map(
+// HIC 2026-09-23: Lifetime web services join the Serious /buy/ portfolio (no consulting package).
+const EXPECTED_SERIOUS_IDS = [
+  ...CONSULTING_MAPPED_IDS,
+  'LIFETIME-WEB-STARTER',
+  'LIFETIME-WEBSTORE-MINI',
+];
+const EXPECTED_PACKAGE_IDS = CONSULTING_MAPPED_IDS.map(
   (_, index) => `LTF-CONSULT-${String(index + 1).padStart(3, '0')}`,
 );
 const PUBLICATION_FILES = [
@@ -95,11 +106,11 @@ const seriousSet = new Set(seriousIds);
 const supportingProducts = publicProducts.filter((product) => !seriousSet.has(product.id));
 const packages = consulting.packages || [];
 
-if (products.length !== 133)
-  addError(`Product accounting: expected 133 total, found ${products.length}`);
-if (publicProducts.length !== 68)
+if (products.length !== 138)
+  addError(`Product accounting: expected 138 total, found ${products.length}`);
+if (publicProducts.length !== 72)
   addError(
-    `Product accounting: expected 68 public non-BLUE non-archived, found ${publicProducts.length}`,
+    `Product accounting: expected 72 public non-BLUE non-archived, found ${publicProducts.length}`,
   );
 if (blue.length !== 65) addError(`Product accounting: expected 65 BLUE, found ${blue.length}`);
 if (overlap.length)
@@ -149,8 +160,10 @@ if (!sameArray(seriousIds, EXPECTED_SERIOUS_IDS)) {
     `Serious product IDs/order differ from the fixed mapping: ${JSON.stringify(seriousIds)}`,
   );
 }
-if (new Set(seriousIds).size !== 13)
-  addError(`Serious product IDs must be 13 unique IDs; found ${new Set(seriousIds).size}`);
+if (new Set(seriousIds).size !== EXPECTED_SERIOUS_IDS.length)
+  addError(
+    `Serious product IDs must be ${EXPECTED_SERIOUS_IDS.length} unique IDs; found ${new Set(seriousIds).size}`,
+  );
 for (const id of EXPECTED_SERIOUS_IDS) {
   const product = catalog.products?.[id];
   if (!product) addError(`[${id}] serious product missing from catalog`);
@@ -184,7 +197,7 @@ if (definitions.archive?.publicSalesEligible !== false || definitions.archive?.a
 const surfaces = portfolio.surfaces || {};
 const broadSurfaceValid =
   surfaces.priceList?.path === '/price-list/' &&
-  surfaces.priceList?.expectedProductCount === 68 &&
+  surfaces.priceList?.expectedProductCount === publicProducts.length &&
   surfaces.priceList?.includesSubscriptions === true &&
   surfaces.priceList?.productRule === 'non-BLUE, non-archived products plus subscriptions';
 const blueExceptionValid =
@@ -192,16 +205,16 @@ const blueExceptionValid =
   Boolean(definitions.blue?.activePublicationException);
 if (
   surfaces.buy?.path !== '/buy/' ||
-  surfaces.buy?.expectedProductCount !== 13 ||
+  surfaces.buy?.expectedProductCount !== EXPECTED_SERIOUS_IDS.length ||
   surfaces.buy?.productSource !== 'commercialPortfolio.seriousProductIds'
 ) {
   addError(
-    'commercialPortfolio.surfaces.buy must govern exactly 13 serious products from seriousProductIds',
+    `commercialPortfolio.surfaces.buy must govern exactly ${EXPECTED_SERIOUS_IDS.length} serious products from seriousProductIds`,
   );
 }
 if (!broadSurfaceValid) {
   addError(
-    'commercialPortfolio.surfaces.priceList must govern 68 public products plus subscriptions',
+    `commercialPortfolio.surfaces.priceList must govern ${publicProducts.length} public products plus subscriptions`,
   );
 }
 if (
@@ -254,7 +267,7 @@ if (
 if (
   !sameArray(
     packages.map((item) => item.supportedProductId),
-    EXPECTED_SERIOUS_IDS,
+    CONSULTING_MAPPED_IDS,
   )
 ) {
   addError(
@@ -431,12 +444,57 @@ if (
 if (
   !priceListPage.includes('portfolio-badge') ||
   !priceListPage.includes('Serious') ||
-  !priceListPage.includes('Supporting') ||
   !priceListPage.includes('Independent')
 ) {
-  addError(
-    'dws10.com/price-list/index.html must visibly classify public offers as Serious, Independent, or Supporting',
-  );
+  addError('dws10.com/price-list/index.html must visibly badge Serious and Independent offers');
+}
+// Every public offer has a one-line caption; tags come from the allowed list (HIC 25.09.2026).
+{
+  const allowedTags = new Set(definitions.productTags?.allowed || []);
+  for (const product of publicProducts) {
+    if (!product.caption) addError(`[${product.id}] public offer has no one-line caption`);
+    else if (product.caption.length > 160)
+      addError(`[${product.id}] caption longer than 160 characters (one line)`);
+    for (const tag of product.tags || [])
+      if (!allowedTags.has(tag)) addError(`[${product.id}] unknown tag "${tag}"`);
+    if (!product.captionFi)
+      addError(`[${product.id}] public offer has no Finnish caption (captionFi)`);
+    const tags = product.tags || [];
+    const order = [...allowedTags];
+    if (tags.map((t) => order.indexOf(t)).some((v, i, arr) => i > 0 && v < arr[i - 1]))
+      addError(`[${product.id}] tags not in the order of definitions.productTags.allowed`);
+    if (tags.includes('Sovereign Cloud') && tags.includes('US Sovereign Cloud'))
+      addError(`[${product.id}] cannot be both Sovereign Cloud and US Sovereign Cloud`);
+    const recurring =
+      ['subscription', 'monthly'].includes(product.type) ||
+      ['monthly', 'yearly'].includes(product.billingPeriod);
+    if (recurring !== tags.includes('Subscription'))
+      addError(
+        `[${product.id}] Subscription tag must match a recurring offer (type/billingPeriod)`,
+      );
+  }
+}
+// FI chip labels on the price list must equal the dictionary's product_tag_* fi values.
+{
+  const dict = JSON.parse(
+    readFileSync(resolve(ROOT, 'docs/localization/dws-dictionary.json'), 'utf8'),
+  ).shared;
+  for (const term of Object.values(dict)) {
+    if (!term.productTag || term.kind !== 'attribute') continue;
+    if (!priceListPage.includes(`${JSON.stringify(term.productTag)}: ${JSON.stringify(term.fi)}`))
+      addError(`price-list TAG_FI label for "${term.productTag}" differs from the dictionary`);
+    if (!(definitions.productTags?.allowed || []).includes(term.productTag))
+      addError(
+        `dictionary product tag "${term.productTag}" is not in definitions.productTags.allowed`,
+      );
+  }
+}
+// Product groups (HIC 25.09.2026): each group tag renders its own themed section.
+for (const tag of definitions.productGroups?.tags || []) {
+  if (!priceListPage.includes(`"${tag}"`))
+    addError(`dws10.com/price-list/index.html does not group products tagged "${tag}"`);
+  if (!publicProducts.some((product) => (product.tags || []).includes(tag)))
+    addError(`Product group tag "${tag}" has no public product`);
 }
 if (priceListPage.includes('Retired (not for sale)'))
   addError('dws10.com/price-list/index.html still renders archived records');
@@ -463,6 +521,60 @@ console.log(`  Archived: ${archived.length}`);
 console.log(`  Subscriptions on broad price list: ${subscriptions.length}`);
 console.log(`  Consulting packages: ${packages.length}`);
 console.log(`  Publication version: ${catalog.priceVersion || 'missing'}`);
+
+// Product registry (DWS_TRUTH_STANDARD.md row 42): every catalogue ID accounted for, counts reconcile,
+// committed registry matches the catalogue.
+{
+  const reg = buildRegistry(catalog);
+  if (!reg.summary.reconciles) addError('Product registry: counts do not reconcile');
+  const regPath = resolve(ROOT, 'docs/truth/PRODUCT_REGISTRY.md');
+  const current = existsSync(regPath) ? readFileSync(regPath, 'utf8') : '';
+  if (current !== renderMarkdown(reg)) {
+    addError('Product registry is stale: run node scripts/truth/product-registry.mjs');
+  }
+  const sme = catalog.commercialPortfolio?.smeCampaignProductIds || [];
+  for (const id of sme) {
+    const prod = catalog.products?.[id];
+    if (!prod) addError(`[${id}] SME campaign product missing from catalogue`);
+    else if (!Array.isArray(prod.tags) || !prod.tags.includes('SME'))
+      addError(`[${id}] SME campaign product lacks tag "SME"`);
+  }
+}
+
+// Price-list versions (DWS_TRUTH_STANDARD.md row 44): every frozen snapshot exists unchanged in
+// both folders; the current version has a snapshot (HIC 25.09.2026: versions are evidence).
+for (const problem of checkPriceListVersions()) addError(`Price-list versions: ${problem}`);
+
+// Product valuation (DWS_TRUTH_STANDARD.md row 45): generated file matches catalogue + model.
+{
+  const model = JSON.parse(
+    readFileSync(resolve(ROOT, 'config/truth/product-valuation-model.json'), 'utf8'),
+  );
+  const valPath = resolve(ROOT, 'docs/truth/PRODUCT_VALUATION.md');
+  const current = existsSync(valPath) ? readFileSync(valPath, 'utf8') : '';
+  if (current !== renderValuation(buildValuation(catalog, model), model))
+    addError('Product valuation is stale: run node scripts/truth/product-valuation.mjs');
+}
+
+// Product lifecycle registry (DWS_TRUTH_STANDARD.md row 43): every ID ever in the catalogue,
+// planned, or with a public page has a lifecycle state and evidence; committed file is current.
+{
+  const readJson = (rel, fallback) => {
+    const f = resolve(ROOT, rel);
+    return existsSync(f) ? JSON.parse(readFileSync(f, 'utf8')) : fallback;
+  };
+  const life = buildLifecycle(
+    catalog,
+    readJson('config/truth/product-lifecycle-ledger.json', { decisions: [] }),
+    readJson('config/truth/product-id-history.json', null),
+  );
+  const lifePath = resolve(ROOT, 'docs/truth/PRODUCT_LIFECYCLE.md');
+  const current = existsSync(lifePath) ? readFileSync(lifePath, 'utf8') : '';
+  if (current !== renderLifecycle(life))
+    addError('Product lifecycle registry is stale: run node scripts/truth/product-lifecycle.mjs');
+  const noState = life.rows.filter((r) => !r.state).map((r) => r.id);
+  if (noState.length) addError(`Product lifecycle: IDs without state: ${noState.join(', ')}`);
+}
 
 if (errors.length) {
   console.error(`[validate-product-publication] FAIL — ${errors.length} violation(s)`);

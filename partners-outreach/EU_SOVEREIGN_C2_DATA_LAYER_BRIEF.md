@@ -40,7 +40,7 @@ supply chains — the European counterpart to the NGC2 pattern.
 
 - **EDIP Article 9 eligible** — EU establishment, no third-country control, Buy-European stack.
 - **Three-pillar sovereignty** — data, technology, and operational sovereignty all full-EU (J1).
-- **PiTuKri audited** — Traficom NCSC-FI cloud security criteria v1.1 (52 criteria).
+- **PiTuKri v1.1 self-assessment completed** — all 52 Traficom NCSC-FI criteria mapped, 81 % met or partially met; independent audit planned.
 - **EU-only deployment** — single-tenant, no shared tenancy, no US cloud.
 
 ## The ask

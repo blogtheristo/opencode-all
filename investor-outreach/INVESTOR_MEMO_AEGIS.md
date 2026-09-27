@@ -149,7 +149,7 @@ No existing platform — Palantir, Anduril, C3.ai, or Big 4 consulting — provi
 | **Cross-Vertical Intelligence** | Single-vertical | Hardware/sensors | Single-vertical | **21 industries, one ledger**                                     |
 | **Carbon/CBAM Compliance**      | None            | None             | None            | **Native (ETS, CBAM, CSRD)**                                      |
 | **Dual-Use Export Control**     | Partial         | Partial          | None            | **Reg. 2021/821 native**                                          |
-| **EU Certification Roadmap**    | None announced  | None announced   | None announced  | **ISO 27001 (Q3 2026), SOC 2 Type II (Q4 2026), PiTuKri audited** |
+| **EU Certification Roadmap**    | None announced  | None announced   | None announced  | **ISO 27001 target Q3 2026, SOC 2 Type II target Q4 2026, PiTuKri v1.1 self-assessed (81 %)** |
 | **Year 1 Cost**                 | ~EUR 920K+      | Custom (high)    | ~EUR 300K+      | **EUR 72K**                                                       |
 | **5-Year TCO**                  | ~EUR 4.6M       | Custom           | ~EUR 1.5M       | **EUR 120K**                                                      |
 
@@ -167,7 +167,7 @@ No existing platform — Palantir, Anduril, C3.ai, or Big 4 consulting — provi
 | **Staff Access**       | EU-only personnel                                                                                                             |
 | **ISO 27001**          | Q3 2026                                                                                                                       |
 | **SOC 2 Type II**      | Q4 2026                                                                                                                       |
-| **PiTuKri**            | Audited — Traficom NCSC-FI cloud security criteria v1.1, 52 criteria (transitioning to national criteria library autumn 2026) |
+| **PiTuKri**            | Self-assessment completed — Traficom NCSC-FI cloud security criteria v1.1, all 52 criteria mapped, 81 % met/partially met; independent audit planned (framework transitioning to national criteria library autumn 2026) |
 | **CISPE**              | Member                                                                                                                        |
 | **Compliance**         | GDPR, NIS2, EU AI Act, CER Directive, EU CRM Act, KRITIS, dual-use export control (Reg. 2021/821)                             |
 | **SLA**                | 99.999% (UpCloud infrastructure)                                                                                              |

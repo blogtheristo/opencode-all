@@ -9,6 +9,105 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- **Production backend moves from Scaleway to DGX Spark (HIC, 26.09.2026: cost).**
+  `infrastructure/dgx-spark/day-runner.sh` now rebuilds (no cache) when app or
+  Docker files changed since the last healthy deploy, then health-checks the
+  backend and logs `DEPLOY OK` / `DEPLOY FAILED`. Before, a `src/` change kept
+  running on a stale image. `deploy-scaleway.yml` (failing at registry push) and
+  `deploy-dgx-spark.yml` (green without deploying: the GitHub-hosted runner
+  cannot reach the DGX) are renamed to `.disabled`. Frontend URL switch and
+  Scaleway teardown follow once `api.dws6.com` is on the tunnel. See
+  `docs/field-notes/2026-09-26-hic-out-of-the-routine-path.md` §7.
+
+### Added
+
+- **Active Ontology 1.5 — technical acceptance (HIC, 24.09.2026).** The
+  Decision Flight Recorder, Decision Traceability and the DISCOVER → Decision
+  Journey bridge were validated on a clean database. Migrations 089 → 093 were
+  applied to a new empty PostgreSQL 16 database, then:
+  - Foundation `supabase/migrations/094_240926_decision_journey.sql`: 32/32 checks
+    pass. Covered: append-only log, hash chain, source-aware evidence strength,
+    learning-confidence cap, ontology-update gate, system-only `PATH_ABANDONED`.
+  - Bridge `supabase/migrations/095_240926_decision_journey_discover_bridge.sql`:
+    20/20 checks pass. `OBSERVATION_RECORDED → OWNERSHIP_HYPOTHESIS_CREATED →
+PATH_RECOMMENDED → PATH_TRANSFERRED → OWNER_ACKNOWLEDGED` land under one
+    `journey_id`. Every event's `evidence_refs` resolve back to the DISCOVER
+    observation.
+  - An anonymous DISCOVER visit never creates an immutable journey. A journey
+    is created only once the organisation is identified, an ownership finding
+    exists and a recommendation or transfer exists. Unknown verdicts are
+    dropped at intake and at the bridge.
+  - Helpdesk shadow mode (`src/decision-journey/`, off by default): the agent
+    proposes and a human decides; `helpdesk_shadow_agreement` tracks
+    `would_have_executed_wrongly`.
+  - Not applied to Supabase yet; applying migrations is a HIC (RED-zone) step.
+    Next goal: the first real Ownership Transfer from an external organisation
+    (M1), not a new feature. Spec:
+    `docs/plans/2026-09-24-decision-journey-outcome-evidence.md` §9.5–9.6.
+
+- Dapr pub/sub pilot (default OFF, `DAPR_PUBSUB_PILOT_ENABLED=true` to
+  enable): `src/agents/event-bus.ts` optionally publishes the
+  `agent.task_complete` event type to a local Dapr sidecar for durable,
+  cross-process delivery, alongside its existing in-memory local dispatch.
+  Delivery callback at `src/routes/dapr-pubsub.routes.ts` (`/dapr/*`).
+  Redis pub/sub component template + run instructions: `dapr/README.md`.
+  Scope, rationale, and phased go/no-go plan:
+  `docs/field-notes/2026-09-22-dapr-use-cases-dws.md`.
+- Back-Office live-data API `/api/v1/backoffice/{stats,containers,users,audit-log}`
+  (`src/routes/backoffice.routes.ts`) with server-side admin check against
+  `organization_members` (active owner/admin); `dashboard/backoffice/` now renders
+  real counts, Docker containers, users and auth audit log instead of hardcoded
+  numbers. Admin manual `Admin/ADMIN_MANUAL_DWS6_COM.md` v1.2 §11.
+- V10 dashboard published as a committed build at `dws6.com/dashboard/firehorse/v10/`
+  (Cloudflare Pages runs no build step); hub "Open V10" points there.
+
+### Fixed
+
+- OpenCode root `opencode.json` (closes #1832): the `read`/`edit` permission blocks
+  allowed reading the repo-root `.env`, denied `.env.example`, and left root-level
+  `*secret*`/`*credentials*`/`*.pem`/`*.key`/`id_rsa` readable (last-match-wins +
+  `**/` needs a slash). Rule sets rewritten and verified with OpenCode 1.18.32
+  `debug config --pure` plus a matcher harness; `share` disabled; `.claude/`
+  harness edits gated to `ask`; non-schema `cost-policy` block moved to
+  `config/cost-policy.json`. Field note
+  `docs/field-notes/2026-09-23-opencode-config-audit-issue-1832.md`.
+
+- V10 asked for a new login: it now uses the shared dws6.com Supabase config and
+  session key (`dws6-auth-token`) instead of a placeholder project, and its router
+  honours the `/dashboard/firehorse/v10/` base path.
+
+  > > > > > > > origin/main
+
+- DGX local-first LiteLLM router (`config/litellm-config.yaml`) using only
+  `OLLAMA_DEPLOYED_MODELS` (`nemotron-3-super`, `qwen3-coder:30b`) and
+  `os.environ/*` keys. Aliases map the 2026-09-18 SIMPLE/MEDIUM/COMPLEX paste
+  onto `src/agents/model-selector.ts`. Field note:
+  `docs/field-notes/2026-09-18-dgx-ollama-litellm-router.md`.
+- DWS standards lock for that router: Truth Standard row 40 +
+  `config/truth/dgx-ollama-deployed-pair.json`; Model Standard v1.2 `FRONTIER-CLAUDE-OPUS`
+  = Claude Opus 4.8 / `claude-opus-4-8` + `local-sovereign`; Admin Manual v3.21
+  (`OLLAMA_API_BASE` + Docker `extra_hosts`); Standards Library v1.14; Standards Routing v1.1.
+- Win11 **WSL 2** recorded as updated (HIC 18.09.2026). Admin Manual v3.17 operator
+  pin Microsoft stable **2.7.14**; Plan9 fix is KB5129195 after KB5124008.
+  Field note: `docs/field-notes/2026-09-18-win11-wsl-updated.md`.
+- Win11 **Aspire CLI 13.5.4** (HIC `aspire update`, stable). Admin v3.18. Spark
+  `aspire-dashboard` image stays **13.4.2**. Field note:
+  `docs/field-notes/2026-09-18-win11-aspire-cli-13-5-4.md`.
+- Spark **Docker Engine client 29.2.1** (`a5c7197`, HIC `docker --version` on
+  `gn100-cb5d`). Admin v3.19. Bare `docker update` is not an Engine upgrade.
+  Field note: `docs/field-notes/2026-09-18-spark-docker-29-2-1.md`.
+- Spark **aspire-dashboard** host pull recipe at pin **13.4.2** (HIC). Compose image already 13.4.2 on main; Admin v3.20. Did not bump to 13.5.4.
+- Win11 **Docker client 29.8.0** (`88096ef`, HIC PowerShell `docker --version`). Split from Spark **29.2.1**. Docker MCP stays retired. Admin v3.21. Field note: `docs/field-notes/2026-09-18-win11-docker-29-8-0.md`.
+- Spark Docker **Engine upgrade** bash recipe (`apt-get install --only-upgrade docker-ce`). Not `docker update`. Admin v3.22.
+- **Environment Version Parity** (`DWS_TRUTH_STANDARD.md` v5.3 row 41 / §2I). Shared-role tools must match across Win11 and Spark. Docker client pin **29.8.0**; Spark **29.2.1** is open drift. Pin file `config/truth/dev-environment-pins.json`; check `npm run env:pins` / `env:pins:strict`. Field note: `docs/field-notes/2026-09-18-environment-version-parity.md`. Admin v3.23.
+- Spark docker-ce apt **ran** (HIC `gn100-cb5d` 18.09.2026). Observed **29.6.2** (`dfc4efb`, NVIDIA noble/arm64 candidate `5:29.6.2-1~ubuntu.24.04~noble`), not Win11 **29.8.0**. Shared target remains 29.8.0; pin status stays `open-drift`. `docker compose ps` still interpolates `POSTGRES_PASSWORD` without `.env` — use `docker ps`. Truth v5.4. Admin v3.25. Q7 pending.
+- Spark needrestart after docker-ce apt listed outdated **user sessions** (admin100 sshd #129/#130, admin100 and gdm systemd user managers). Not Docker containers. Log out SSH and reconnect. Do not restart docker/gdm. Admin v3.26.
+- Spark SSH leftover how-to: `exit` sessions #129/#130 (or `loginctl terminate-session` the other id) and reconnect. Do not restart docker/gdm. Admin v3.27.
+- Spark **GitHub CLI**: official apt recipe ran; already **2.45.0-1ubuntu0.3+esm3** (Ubuntu ESM). cli.github.com did not replace it. Admin v3.28. Field note: `docs/field-notes/2026-09-18-spark-gh-2-45-0.md`.
+- Spark loginctl: this SSH is **130**; **129** may own tmux(3006) from 17.09. Inspect tmux before `terminate-session 129`. Leave gdm **c1**. Admin v3.29.
+
+### Changed
+
 - **Code-quality hardening (2026-08-22):**
   - Logging hygiene: all 186 stray `console.*` calls in `src/` replaced with
     the pino logger (`src/utils/logger.ts`). Intentional exceptions:

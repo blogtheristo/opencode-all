@@ -4,10 +4,26 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.16
+Version: 3.32
 
 Sessions & Modifications:
 
+- Version: 3.32 | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: New section "Operations log — 27.09.2026": Copilot $210 credit work order and model routing; server-owned back-office access (#2138) scoped to the internal org (#2143, migration 096 applied); migration 097 closed live `contracts_lifecycle`/`orders` RLS gaps (#2147, applied); migration-history divergence (never `supabase db push`); DGX Persistence Rule and three jobs moved to DGX (#2144, #2145); Tool Git Identity rule (`CLAUDE.md` v1.5) and the `Unit Fixture` repo-local identity fix; CI test runner outage.
+- Version: 3.31 | Tool: Claude Code (Sonnet 5) | Session: (Temporal DGX deploy) | Date: 22.09.2026 | Changes: Deployed Temporal (PR #2068/#2070) on DGX Spark — `dws-temporal-postgres`/`dws-temporal` Healthy, `dws-temporal-worker` Started. Root-caused and fixed an unrelated pre-existing blocker: `dws-postgres` (v1.5.0) required `POSTGRES_PASSWORD`, never set, which failed `docker compose` interpolation for the _entire_ compose file. HIC-approved fresh `POSTGRES_PASSWORD` + `TEMPORAL_POSTGRES_PASSWORD` generated and documented in both `.env` files. Recorded a new Token & Credential Lifecycle decision: a planned Supabase `credentials_store` mirror (AES-256-GCM at rest, `CREDENTIALS_STORE_ENC_KEY` in `.env` only) scoped to outbound API/service credentials only, motivated by dev environments (e.g. Chromebook) with no local `.env`. Flagged `FACEBOOK_PAGE_TOKEN` in the Expiry register as possibly already past its noted 2026-08-20 expiry, unverified. Cross-refs: `docs/field-notes/2026-09-22-temporal-dgx-deploy-blocked-postgres-password.md`, `docs/dws-use-cases.md`.
+- Version: 3.30 | Tool: GitHub Copilot Coding Agent | Session: cursor/dgx-ollama-litellm-router-a455 | Date: 18.09.2026 | Changes: Merge resolution preserved LiteLLM router standards lock: Docker `OLLAMA_API_BASE` wiring (`host.docker.internal` in Linux compose), deployed Spark Ollama pair (`nemotron-3-super` + `qwen3-coder:30b`), and `FRONTIER-CLAUDE-OPUS` = `claude-opus-4-8`.
+- Version: 3.29 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark loginctl: this SSH is **130**; **129** is the other admin100 session; **c1** is gdm (leave it). `who` shows tmux(3006) on pts/0 since 17.09. Inspect tmux before `terminate-session 129` — that can kill tmux.
+- Version: 3.28 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark **GitHub CLI**. Official apt recipe **ran**; `gh` already **2.45.0-1ubuntu0.3+esm3** (Ubuntu ESM). cli.github.com did not replace it. Do not force-upgrade until `apt-cache policy gh`. GitHub flags 2.45.x community packages as broken (deprecated APIs).
+- Version: 3.27 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: How to log out Spark SSH sessions **#129/#130** after needrestart: `exit` each SSH (or `loginctl terminate-session` the other id), reconnect. Do not restart docker/gdm. Do not `terminate-user gdm`.
+- Version: 3.26 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: needrestart **did** flag outdated **user sessions** after docker-ce apt: admin100 sshd #129/#130, admin100 systemd user manager, gdm systemd user manager. Not Docker containers. Log out SSH and reconnect. Do not restart docker/gdm for this. Earlier “no user sessions” line was incomplete.
+- Version: 3.25 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark docker-ce apt **ran**. `docker --version` **29.6.2** (`dfc4efb`). NVIDIA noble/arm64 candidate was 29.6.2, not Win11 **29.8.0**. Compose `ps` still needs `.env`. Do not add download.docker.com. Q7: keep 29.8.0 as target.
+- Version: 3.24 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark docker-ce apt recipe ends with `docker ps`, not `docker compose ps` (compose interpolates `POSTGRES_PASSWORD` without `.env`).
+- Version: 3.23 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: **Environment Version Parity** (`DWS_TRUTH_STANDARD.md` §2I / row 41). Shared-role Docker client pin is **29.8.0** on Win11 and Spark. Spark **29.2.1** is open drift (apt recipe), not a standing split. Aspire CLI vs dashboard stays a role split. Running Spark aspire-dashboard confirmed **13.4.2** /health 200; compose pull needs `.env` or `docker pull` the image. Check: `npm run env:pins`.
+- Version: 3.22 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark Docker **Engine upgrade recipe** (`apt-get install --only-upgrade docker-ce…`). Not `docker update`. Not Win11 29.8.0. Daemon restart expected. This Cloud agent cannot SSH.
+- Version: 3.21 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **Docker client 29.8.0** (`88096ef`) from HIC PowerShell `docker --version` on `F:\2026\Repos2026\dws6`. Split from Spark **29.2.1**. Client on PATH is not a Docker MCP restore (retired 26.03.2026). Product (Desktop vs CE) not in this paste.
+- Version: 3.20 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: HIC “update Spark dashboard image at 13.4.2”. Compose `image:` is already `mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2` (main and this branch). Added Spark pull recipe. This Cloud agent cannot SSH to `gn100-cb5d`. Did **not** bump to 13.5.4.
+- Version: 3.19 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark **Docker Engine client 29.2.1** (`a5c7197`) from HIC SSH `admin100@gn100-cb5d` `docker --version`. Bare `docker update` is not an Engine upgrade (it needs a container). Does not restore Docker Desktop / Docker MCP. Does not bump compose images. Aspire yaml comment already aligned to dashboard **13.4.2** (v3.18 “comment still says 13.4.6” is stale).
+- Version: 3.18 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **Aspire CLI 13.5.4** (stable channel, `C:\Users\risto\.aspire\bin\aspire.exe`, commit `9c1b401`). `aspire update` found no AppHost — expected. Does **not** bump DGX `aspire-dashboard` image (compose pin is **13.4.2**). Admin previously said dashboard 13.4.6; that tag is not the compose image on this branch.
+- Version: 3.17 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Win11 **WSL 2** recorded as updated (HIC). Pin Microsoft stable **2.7.14** (github.com/microsoft/WSL, 11.09.2026). Operator: `wsl --update` then `wsl --version`. Plan9 share break after KB5124008 is fixed by KB5129195. Does not restore Docker Desktop / Docker MCP (retired 26.03.2026). WSL is not DGX Ollama.
 - Version: 3.16 | Tool: Cursor Agent | Session: docs/admin-dev-env-opencode-policy | Date: 17.09.2026 | Changes: **Two dev environments — Win11 and DGX Spark** (Win11: Cursor + VS Code IDEs; DGX: Cursor CLI + GitHub Copilot CLI; shared session layer; git sync rules). **Large work policy** — plan first, execute via OpenCode agents on DGX (worktree + batch queue). **Model economics** — route translations and bulk i18n through OpenCode FREE models or local Ollama to save paid API tokens. Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2, `WORKTREE_POLICY.md`, `opencode-all/ADMIN_MANUAL.md`, `docs/handovers/HIC_MORNING_ROUTINE.md`.
 - Version: 3.15 | Tool: Claude Code (Haiku 4.5) | Session: claude/system-refactor-comprehensive-2026-09-07 | Date: 07.09.2026 | Changes: Comprehensive system files refactor — extracted CLAUDE.md specs to `docs/system-config/` (DISCIPLINE.md, STANDARDS_ROUTING.md, SYSTEM_FILES_INDEX.md) with DWS_DOCUMENT_STANDARD versioning; documented multi-tool ecosystem (OpenCode primary + Claude Code standby); identified and documented 3 sync gaps (dws-agents-local intentional disable, permission syntax mismatch, missing bash denies); permitted OpenCode `.env` read on DGX (commit `ff408fa13`) with asymmetric permissions per tool role; archived prior CLAUDE.md v1.0 to field-notes. Cross-refs: `CLAUDE.md` v1.1, `docs/system-config/SYSTEM_FILES_INDEX.md`, `docs/field-notes/CLAUDE.md.archive-2026-09-07.md`, `docs/field-notes/2026-09-07-claude-md-sharpening.md`, permission audit `3758d6a8d`.
 
@@ -58,7 +74,7 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 06.07.2026
+- Last Modified: 18.09.2026
 - Version: 4.0
 - Language: English
 - Languages Available: English
@@ -173,6 +189,10 @@ If `gbrain doctor` reports resolver or trigger issues in DWS6, normalize the aff
 3. [Google Cloud Run CI Identity Runbook (gcr-skill)](#google-cloud-run-ci-identity-runbook-gcr-skill)
 4. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
    - [Two dev environments — Win11 and DGX Spark](#two-dev-environments--win11-and-dgx-spark) ⭐ **NEW in v3.16**
+   - [Win11 WSL](#win11-wsl-operator) ⭐ **NEW in v3.17**
+   - [Win11 Aspire CLI](#win11-aspire-cli-operator) ⭐ **NEW in v3.18**
+   - [Win11 Docker](#win11-docker-operator) ⭐ **NEW in v3.21**
+   - [Spark Docker Engine](#spark-docker-engine-operator) ⭐ **NEW in v3.19**
    - [Large work — plan first, OpenCode execution](#large-work--plan-first-opencode-execution) ⭐ **NEW in v3.16**
 5. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
 6. [DGX Spark Cron Failover Wrap](#dgx-spark-cron-failover-wrap) ⭐ **NEW**
@@ -191,14 +211,15 @@ If `gbrain doctor` reports resolver or trigger issues in DWS6, normalize the aff
 19. [AI Agent Policy](#ai-agent-policy)
 20. [Deployment Procedures](#deployment-procedures)
 21. [Session History](#session-history)
-22. [Maintenance Plan (Complete)](#maintenance-plan-complete)
-23. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
-24. [Code Review Process](#code-review-process)
-25. [Maintenance Tasks](#maintenance-tasks)
-26. [Git Workflow](#git-workflow)
-27. [Sensitive Data Protection](#sensitive-data-protection)
-28. [Emergency Procedures](#emergency-procedures)
-29. [Training](#training)
+22. [Operations log — 27.09.2026](#operations-log--27092026) ⭐ **NEW in v3.32**
+23. [Maintenance Plan (Complete)](#maintenance-plan-complete)
+24. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
+25. [Code Review Process](#code-review-process)
+26. [Maintenance Tasks](#maintenance-tasks)
+27. [Git Workflow](#git-workflow)
+28. [Sensitive Data Protection](#sensitive-data-protection)
+29. [Emergency Procedures](#emergency-procedures)
+30. [Training](#training)
 
 ---
 
@@ -255,18 +276,18 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Related Documentation
 
-| Document                  | Location                                                                            | Description                                                                                                                                                                                                                                                                                                                           |
-| ------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **CLAUDE.md**             | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles)                                                                                                                                                                                                                                                                                    |
-| **DPA Agreement**         | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                                                                                                                                                                                                                                                                                                        |
-| **MCP Configuration**     | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                                                                                                                                                                                                                                                                                                   |
-| **Security Compliance**   | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status                                                                                                                                                                                                                                                                                              |
-| **Security Glossary**     | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                                                                                                                                                                                                                                                                                                   |
-| **Playwright Capability** | [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md)                                       | `dws browse` + MCP `dws_browse_*` — JS-rendered fetch, screenshot, snapshot                                                                                                                                                                                                                                                           |
-| **Agent Second Brain**    | [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md)                       | DGX Spark embeddings, KB inbox watcher, `dws kb preflight`                                                                                                                                                                                                                                                                            |
-| **opencode-all (Living Engine)** | [`opencode-all/ADMIN_MANUAL.md`](../opencode-all/ADMIN_MANUAL.md)             | Batch queue, ACP worker, tmux launcher, DGX deployment — **canonical runbook for large-work execution**                                                                                                                                                                                                                               |
-| **Worktree policy**       | [`WORKTREE_POLICY.md`](../WORKTREE_POLICY.md)                                       | Agent isolation — one task = one worktree = one PR; agents never commit from primary checkout                                                                                                                                                                                                                                         |
-| **4P Capital Classes**    | [`DWS_BRAND_STANDARD.md` §23](../DWS_BRAND_STANDARD.md)                             | Canonical company capital model: Prompt / People / Plant / Perception. Registered as DWS_TRUTH_STANDARD.md §2 row 25. Use in investor, sales, and editorial copy. **Future skill:** `4p-diligence` — score an acquisition target on 4P; CLI path + JSON output + skill registration pending HIL approval (Agent Productization Rule). |
+| Document                         | Location                                                                            | Description                                                                                                                                                                                                                                                                                                                           |
+| -------------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CLAUDE.md**                    | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles)                                                                                                                                                                                                                                                                                    |
+| **DPA Agreement**                | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                                                                                                                                                                                                                                                                                                        |
+| **MCP Configuration**            | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                                                                                                                                                                                                                                                                                                   |
+| **Security Compliance**          | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status                                                                                                                                                                                                                                                                                              |
+| **Security Glossary**            | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                                                                                                                                                                                                                                                                                                   |
+| **Playwright Capability**        | [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md)                                       | `dws browse` + MCP `dws_browse_*` — JS-rendered fetch, screenshot, snapshot                                                                                                                                                                                                                                                           |
+| **Agent Second Brain**           | [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md)                       | DGX Spark embeddings, KB inbox watcher, `dws kb preflight`                                                                                                                                                                                                                                                                            |
+| **opencode-all (Living Engine)** | [`opencode-all/ADMIN_MANUAL.md`](../opencode-all/ADMIN_MANUAL.md)                   | Batch queue, ACP worker, tmux launcher, DGX deployment — **canonical runbook for large-work execution**                                                                                                                                                                                                                               |
+| **Worktree policy**              | [`WORKTREE_POLICY.md`](../WORKTREE_POLICY.md)                                       | Agent isolation — one task = one worktree = one PR; agents never commit from primary checkout                                                                                                                                                                                                                                         |
+| **4P Capital Classes**           | [`DWS_BRAND_STANDARD.md` §23](../DWS_BRAND_STANDARD.md)                             | Canonical company capital model: Prompt / People / Plant / Perception. Registered as DWS_TRUTH_STANDARD.md §2 row 25. Use in investor, sales, and editorial copy. **Future skill:** `4p-diligence` — score an acquisition target on 4P; CLI path + JSON output + skill registration pending HIL approval (Agent Productization Rule). |
 
 ---
 
@@ -288,44 +309,67 @@ Two rules follow, and they matter more than the checklist below:
 
 1. **A configured name is not a configured value.** `CLOUDFLARE_ACCOUNT_ID` existed in the GitHub
    secret list while holding an empty string — it read as done and did nothing. Test for a
-   *usable* credential, never for a *present* variable name.
+   _usable_ credential, never for a _present_ variable name.
 2. **Prove the failing case before trusting the passing one.** When wiring a credential into a
    pipeline, first make it fail on purpose and confirm the job goes red. Every fault found on
    2026-09-09 would have been caught on day one by that single test.
 
 ### Storage tiers
 
-| Tier | Store | Used by |
-| --- | --- | --- |
-| Local development | `.env` (never committed; `.gitignore`-enforced) | developer machine, DGX Spark |
-| CI/CD | GitHub repository secrets | GitHub Actions workflows |
-| Production | Google Cloud Secret Manager (`europe-north1`, user-managed replication) | Cloud Run services — see `docs/CLOUD_ENVIRONMENTS.md` §4.5 |
+| Tier                          | Store                                                                                                                                                   | Used by                                                                                                                 |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Local development             | `.env` (never committed; `.gitignore`-enforced)                                                                                                         | developer machine, DGX Spark                                                                                            |
+| CI/CD                         | GitHub repository secrets                                                                                                                               | GitHub Actions workflows                                                                                                |
+| Production                    | Google Cloud Secret Manager (`europe-north1`, user-managed replication)                                                                                 | Cloud Run services — see `docs/CLOUD_ENVIRONMENTS.md` §4.5                                                              |
+| Cross-device mirror (planned) | Supabase `credentials_store` table — app-level AES-256-GCM ciphertext, decryption key `CREDENTIALS_STORE_ENC_KEY` lives only in `.env`, never in the DB | Any environment without a local `.env` (e.g. a Chromebook Claude Code session) that still needs to call an outbound API |
 
 **Backup: Proton Pass**, with full metadata (provider, owner, expiry, purpose, scope). This is a
 **new policy as of 2026-09-09** — prior to this the repo documented Proton Pass only as a product
 in the thesis material, never as the credential-of-record store. Existing tokens are not
 retroactively covered until someone does the pass.
 
+### Decision — Supabase credential mirror scope (HIC, 2026-09-22)
+
+Motivated by the DGX Spark Temporal rollout (below): some dev environments (e.g. a Chromebook
+session) have no local `.env` at all, so they cannot call outbound APIs today even when the
+credential exists on DGX Spark. Two scope questions were decided:
+
+1. **Encrypt at rest, not plaintext-in-RLS.** A leaked `service_role` key must not by itself
+   expose every credential — the table stores ciphertext, and only whoever also holds
+   `CREDENTIALS_STORE_ENC_KEY` (itself an `.env`-only secret, distributed once, out of band) can
+   decrypt. Rejected the simpler "plaintext + RLS locked to service_role" pattern used elsewhere
+   in this repo's Supabase tables, specifically because this table's blast radius (every mirrored
+   API key at once) is categorically larger than a normal data table's.
+2. **Mirror scope is outbound API/service credentials only** — Stripe, Meta, LinkedIn, DocuSign,
+   SES/Proton, GitHub, Cloudflare, Google, etc. Explicitly **not** mirrored: local-only settings
+   with no cross-device reason to exist off-host (DB pooler host/port, feature flags,
+   `CLAUDE_CODE_GIT_BASH_PATH`, and similar).
+
+Implementation (Temporal Activities/Workflow/Schedule, migration, dual-write to `.env` +
+Supabase) is tracked as a new Temporal use case in `docs/dws-use-cases.md` — **not yet built** as
+of this decision; this entry records the decision, not a completed rollout.
+
 ### Rotation protocol
 
 1. **Generate** in the provider console with the **narrowest scope that works**. For Cloudflare
-   prefer *Account* API Tokens over *User* tokens — a user token dies with the user account, which
+   prefer _Account_ API Tokens over _User_ tokens — a user token dies with the user account, which
    for a one-founder company is a single point of failure for the whole deploy pipeline.
 2. **Record** provider, owner, purpose, scope, and expiry as `YYYY-MM-DD`.
 3. **Store** in the tier(s) above that actually consume it. Do not widen an existing token to cover
    a new use: mint a separate one, so a leak of either does not hand over the other.
 4. **Back up** to Proton Pass with the metadata from step 2.
 5. **Validate against the live API before deployment** — not by checking the variable is set.
-6. **Deploy**, then confirm the consuming job goes green *and* that it would go red without the
+6. **Deploy**, then confirm the consuming job goes green _and_ that it would go red without the
    credential.
 7. **Calendar the renewal** ~2 weeks before expiry. An expired token is now loud, but loud is still
    an outage.
 
 ### Expiry register
 
-| Credential | Scope | Expires | Notes |
-| --- | --- | --- | --- |
-| `CLOUDFLARE_API_TOKEN` | Zone → Cache Purge on dws10.com, dws6.com, lifetime.fi, onelifetime.world, cari.fi | **2027-07-01** | Renewed 2026-09-09, replacing a token expired 2026-08-01. Account API Token. |
+| Credential             | Scope                                                                              | Expires                             | Notes                                                                                                                                                                                                                                                                                          |
+| ---------------------- | ---------------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CLOUDFLARE_API_TOKEN` | Zone → Cache Purge on dws10.com, dws6.com, lifetime.fi, onelifetime.world, cari.fi | **2027-07-01**                      | Renewed 2026-09-09, replacing a token expired 2026-08-01. Account API Token.                                                                                                                                                                                                                   |
+| `FACEBOOK_PAGE_TOKEN`  | Meta Graph API — DWS IQ Store page publishing (App `2072010777010042`)             | **2026-08-20** (per `.env` comment) | **Flagged 2026-09-22, unresolved**: the recorded expiry is over a month before today. Not independently verified this session (would need Meta's `debug_token` endpoint). Treat as possibly already dead — same failure shape as the 2026-08-01 Cloudflare incident that created this section. |
 
 Add a row here whenever a credential with an expiry is minted. A credential whose expiry is not in
 this table is not being tracked, whatever the provider console says.
@@ -338,12 +382,67 @@ this table is not being tracked, whatever the provider console says.
 - `CLOUDFLARE_APII_TOKEN` — typo duplicate, dead, safe to delete.
 - No token carries **Account → Workers Scripts → Edit**, so `deploy-cloudflare-workflows.yml`
   cannot run until one is minted.
+- `FACEBOOK_PAGE_TOKEN` — expiry comment in `.env` (2026-08-20) is in the past as of 2026-09-22.
+  Not validated live this session. Needs a `debug_token` check against Meta's Graph API before
+  anything is built to auto-refresh it (the planned Temporal use case, see above).
 
 ### Compliance
 
 Expiry tracking and rotation evidence support EU AI Act **Article 12** traceability: an auditor
 asking "who could act on this system, with what scope, between which dates" needs the register
 above, not a provider console screenshot.
+
+---
+
+## Operations log — 27.09.2026
+
+What changed in production and in the rules on 27.09.2026. Each line names the evidence.
+
+### Access control (production)
+
+| Change                                                                                                                                         | Evidence                           | State                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------ |
+| Dashboard pages check admin rights on the server (`GET /api/v1/backoffice/me`), not the user-editable `user_metadata.role`                     | PR #2138, `f3f5669`                | Live on merge (Cloudflare Pages)                                   |
+| Back-office admin = owner/admin of an organization with `organizations.is_internal = true` (DWS AB), in the API and in `is_backoffice_admin()` | PR #2143, `e421737`; migration 096 | Applied to production on HIC instruction                           |
+| `contracts_lifecycle`: dropped `authenticated read all` (every signed-in user could read every contract)                                       | PR #2147, `f0b5c7a`; migration 097 | Applied 27.09 by Copilot on DGX; verified read-only by Claude Code |
+| `orders`: dropped PUBLIC insert/update policies; users keep SELECT on their own rows; writes are service-role only (backend)                   | PR #2147; migration 097            | Applied and verified                                               |
+
+Verified state after 097 (read-only query, 27.09.2026): `contracts_lifecycle` has only `service_role full access`; `orders` has only `orders_user_view` (SELECT, authenticated); `authenticated` holds SELECT, REFERENCES, TRIGGER on both tables (no INSERT/UPDATE/DELETE); history has versions `096` and `097`.
+
+Open: `authenticated` still holds `REFERENCES` and `TRIGGER` on both tables. Not reachable through the Data API; revoke in a later migration for tidiness.
+
+### Supabase migration history — never `supabase db push`
+
+Repository and production history have diverged. Production `083` and `084` are different migrations than repository `083_smart_factory_sales` and `084_contracts_lifecycle`; many production versions are timestamps; `080_external_user_auth_roles` ran as `20260913104017`. `supabase db push` would try to re-run migrations production already has.
+
+Until the history is reconciled:
+
+1. Apply one new migration file at a time with `psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f <file>` (or the SQL editor).
+2. Run a read-only preflight and postflight of `pg_policies` / grants.
+3. Record the version with `supabase migration repair --status applied <version>` (history only, runs no SQL).
+4. Editing an already-applied migration file never changes production. Fix production with a new forward migration.
+
+Next free migration number: 098. Applying migrations stays RED (HIC).
+
+### Cost and compute
+
+- **Copilot credit:** $210 promotional credit (21,000 AI credits, 1 credit = $0.01), expires 30.09.2026 23:59 UTC / 01.10.2026. HIC decision: use it in full, no paid overage. Used by 27.09.2026: $33.66 of $210 (GitHub billing page, HIC screenshot) — $176.34 left. Work order and execution log: `.claude/handoffs/copilot-bonus-credits-2026-09-30.md`.
+- **Model routing for Copilot:** GPT-5.6 Luna for mechanical PR updates, Terra for code with behaviour, Sol only for security/database work (Sol $5/$30, Terra $2.50/$15, Luna $1/$6 per million input/output tokens).
+- **Persistence Rule** (`docs/DWS_COST_POLICY_STANDARD.md` v1.1): cloud agents deliver one-off output; anything recurring runs on DGX.
+- **Moved to DGX (GHA `schedule:` removed, manual dispatch kept):** `public-truth-drift-audit` (#2145), `cost-audit-sync`, `dora-weekly`, `flake-detector` (#2144). Register: `Cron-works.md`.
+
+### Git identity on DGX
+
+- The 2026-08-25 test-fixture leak left `user.name = Unit Fixture` / `dev@lifetime.fi` in the DGX checkout's repo-local config; 118+ commits on main carry it. Removed 27.09 with `git config --local --unset user.name` / `user.email`. History is not rewritten.
+- **Tool Git Identity Rule** (`CLAUDE.md` v1.5): tools commit as `Risto Anton Päärni (<tool>) <<tool>@lifetime.fi>`; human commits as `risto.paarni@lifetime.fi`. Set per tool at launch through `GIT_AUTHOR_*` / `GIT_COMMITTER_*` (wrapper in `~/.bashrc` on DGX). Check: `git log -1 --format='%an <%ae>'`; `git config --local --get user.name` must print nothing.
+
+### CI
+
+- GitHub-hosted runners are not picking up jobs: `detect-runner` fails in about one second and `test`/`lint` are skipped on every PR (seen on `main`, run 920). The DGX-only runner change (commit `3913cc1eb`, PR #2125) queues until the DGX runner takes jobs. Until fixed, run `npm run build && npm test` locally before every push. Known env-only failures: four `scripts/__tests__/*tree-gate*` files.
+
+### Pull requests closed out on 27.09.2026
+
+Merged: #2133, #2137, #2138, #2142, #2143, #2144, #2145, #2146, #2147. Closed unmerged: #2139 (log replaced by #2146), #2141 (superseded by #2145).
 
 ---
 
@@ -399,45 +498,115 @@ Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no 
 
 ---
 
+## Temporal (DGX Spark self-hosted job/workflow durability)
+
+**Added 2026-09-22/23** (PR #2068, deployed PR #2070). Standalone-Activities-pattern durable
+job execution for DWS6 — see `docs/dws-use-cases.md` for the 12 use cases and
+`docs/field-notes/2026-09-22-temporal-use-cases.md` / `2026-09-23-temporal-dgx-spark-wiring-and-cost.md`
+for the design rationale.
+
+### Deployment status
+
+- **Live as of 2026-09-22**: `dws-temporal-postgres` and `dws-temporal` (both Healthy),
+  `dws-temporal-worker` (Started) — brought up via
+  `docker compose up -d temporal-postgres temporal dws-temporal-worker` from
+  `infrastructure/dgx-spark/`, compose v1.6.0.
+- **Deliberately separate Postgres.** `temporal-postgres` is its own instance, not
+  `dws-postgres` — a Temporal schema issue can never touch Tier 1 internal-ops data.
+- **Not yet done**: `npm run temporal:schedules:setup` (one-time hourly report-schedule
+  poll), the optional `temporal-ui` profile (port 8088), and wiring any live caller into the
+  new starters (`src/temporal/starters/`) — nothing currently submits jobs to the six task
+  queues, so the worker sits idle. See `docs/dws-use-cases.md` §"HIC decision needed" for
+  which caller goes live first (recommended: `outreach-full`, already wired end-to-end,
+  release gated by `npm run temporal:approve`).
+
+### Deployment blocker resolved: `POSTGRES_PASSWORD`
+
+The first deployment attempt (2026-09-22) failed for a reason unrelated to Temporal:
+`infrastructure/dgx-spark/docker-compose.yml` has required `dws-postgres` (added v1.5.0) to
+have `POSTGRES_PASSWORD` set since that version landed, and it never had been — so
+`docker compose` failed interpolating the _whole_ file, blocking every service, not just the
+new Temporal ones. `dws-postgres` had never actually been started on this host (no existing
+data volume). HIC generated and approved a fresh `POSTGRES_PASSWORD` on the spot; both it and
+`TEMPORAL_POSTGRES_PASSWORD` are now set in both `infrastructure/dgx-spark/.env` and root
+`.env`, each with a dated doc-comment above the line. Full account:
+`docs/field-notes/2026-09-22-temporal-dgx-deploy-blocked-postgres-password.md` (PR #2070).
+
+### Next Temporal use case — short-lived API key rotation (decided, not yet built)
+
+See the Supabase credential mirror decision under **Token & Credential Lifecycle
+Management** above — this is the Temporal use case that will populate/refresh that table
+(starting with `FACEBOOK_PAGE_TOKEN`, which the Expiry register above flags as possibly
+already past its noted expiry).
+
 ---
 
 ## Two dev environments — Win11 and DGX Spark
 
-Lifetime Oy maintains **two independent git checkouts** of `dws6` and **one shared session-management layer**. Do not treat either checkout as a throwaway mirror of the other.
+Lifetime Oy maintains **two independent git checkouts** of `dws6` and **one shared session-management layer**. Do not treat either checkout as a throwaway mirror of the other. **Shared-role tools must match versions** (`DWS_TRUTH_STANDARD.md` §2I): Docker client **target 29.8.0**. Spark observed **29.6.2** (NVIDIA ARM64 repo max after apt 18.09.2026). WSL / Aspire CLI / aspire-dashboard / Ollama stay role-split. Check: `npm run env:pins`.
 
 ### Win11 (developer workstation)
 
-| Item | Value |
-| ---- | ----- |
-| **Typical path** | `F:\2026\Repos2026\dws6` (machine-specific) |
-| **IDEs (two)** | **Cursor** and **Visual Studio Code** — separate GUIs, same repo clone |
-| **Role** | Plan authoring, PR review, small edits, HIC approval gates |
-| **Agent compute** | **Not** for large implementation — convert to a plan and queue **OpenCode agents on DGX** (see *Large work* below) |
+| Item              | Value                                                                                                                                                                               |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Typical path**  | `F:\2026\Repos2026\dws6` (machine-specific)                                                                                                                                         |
+| **IDEs (two)**    | **Cursor** and **Visual Studio Code** — separate GUIs, same repo clone                                                                                                              |
+| **Linux layer**   | **WSL 2** — HIC updated 18.09.2026. Microsoft stable pin **2.7.14** (see _Win11 WSL_)                                                                                               |
+| **Aspire CLI**    | **13.5.4** stable at `C:\Users\risto\.aspire\bin\aspire.exe` (see _Win11 Aspire CLI_). Not an AppHost. Does not bump the Spark dashboard image.                                     |
+| **Docker client** | **Shared pin 29.8.0** (`88096ef`) — HIC `docker --version` in PowerShell 18.09.2026 (see _Win11 Docker_). Spark must match (`DWS_TRUTH_STANDARD.md` §2I). Not a Docker MCP restore. |
+| **Role**          | Plan authoring, PR review, small edits, HIC approval gates                                                                                                                          |
+| **Agent compute** | **Not** for large implementation — convert to a plan and queue **OpenCode agents on DGX** (see _Large work_ below)                                                                  |
 
 ### DGX Spark (Acer Veriton GN100)
 
-| Item | Value |
-| ---- | ----- |
-| **Path** | `/home/admin100/dws6` |
-| **Agent CLIs (two)** | **Cursor CLI** and **GitHub Copilot CLI** |
-| **Inference** | Local **Ollama** (`11434`) — Qwen, Nemotron, and other open weights; zero marginal API token cost |
-| **Also on box** | Docker compose stack, DGX cron, **`opencode-all`** batch orchestration (`scripts/opencode-open-all.sh`) |
+| Item                 | Value                                                                                                                                                                                                              |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Path**             | `/home/admin100/dws6`                                                                                                                                                                                              |
+| **Agent CLIs (two)** | **Cursor CLI** and **GitHub Copilot CLI**                                                                                                                                                                          |
+| **Inference**        | Local **Ollama** (`11434`) — Qwen, Nemotron, and other open weights; zero marginal API token cost                                                                                                                  |
+| **Also on box**      | Docker compose stack, DGX cron, **`opencode-all`** batch orchestration (`scripts/opencode-open-all.sh`)                                                                                                            |
+| **Docker Engine**    | **Target 29.8.0.** Observed **29.6.2** (`dfc4efb`, deb `5:29.6.2-1~ubuntu.24.04~noble`) after HIC apt 18.09.2026. NVIDIA ARM64 repo cap — not Win11 29.8.0. Not Docker Desktop. `docker update` is not an upgrade. |
 
 ### Shared session management (both environments)
 
 All harnesses read/write the same session stores before assuming what another session did:
 
-| Store | Path |
-| ----- | ---- |
-| Branch handoffs | `.claude/handoffs/<branch>.md` |
-| Saved session cards | `.opencode/sessions/*.md` |
-| Batch queue | `.workflows/opencode-all/queue.jsonl` |
-| Worktrees | `git worktree list` (includes `.worktrees/opencode-all/ses_*`) |
-| Operator status (DGX) | `scripts/opencode-open-all.sh --status` |
+| Store                 | Path                                                           |
+| --------------------- | -------------------------------------------------------------- |
+| Branch handoffs       | `.claude/handoffs/<branch>.md`                                 |
+| Saved session cards   | `.opencode/sessions/*.md`                                      |
+| Batch queue           | `.workflows/opencode-all/queue.jsonl`                          |
+| Worktrees             | `git worktree list` (includes `.worktrees/opencode-all/ses_*`) |
+| Operator status (DGX) | `scripts/opencode-open-all.sh --status`                        |
 
 **Git sync (operator):** Before `git reset --hard` or `git pull` on DGX, run `git log origin/main..main --oneline`. If commits list, branch and push first — DGX sessions produce real commits. Never `git pull origin main` when `main` has diverged; use `git fetch`, inspect, rescue to a feature branch. Push to `main` triggers `deploy-dgx-spark.yml`, which runs `git reset --hard origin/main` on `/home/admin100/dws6`.
 
 Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2, `docs/field-notes/2026-08-14-dws-multi-model-workflow-architecture.md`.
+
+### Win11 WSL (operator)
+
+**Status (HIC, 18.09.2026):** WSL updated on the Win11 workstation. This supersedes `docs/field-notes/2026-03-26-post-incident-cli-first-migration.md` (“WSL — confirmed not installed”).
+
+**Pin:** Microsoft WSL **2.7.14** is the current _stable_ release as of 18.09.2026 ([microsoft/WSL 2.7.14](https://github.com/microsoft/WSL/releases/tag/2.7.14), published 11.09.2026). This Cloud agent cannot run `wsl --version` on Win11 — confirm on the box. Do **not** pin a 2.9.x pre-release.
+
+**PowerShell (primary on Windows 11):**
+
+```powershell
+wsl --update
+wsl --shutdown
+wsl --version
+wsl --status
+```
+
+**Operator rules:**
+
+1. WSL is the Win11 Linux layer for bash scripts that need Linux. It is **not** DGX Spark and **not** a place to `ollama pull` undeployed models. Large work still queues to OpenCode on DGX.
+2. The git clone stays on NTFS (`F:\2026\Repos2026\dws6`). Do not move the clone into `\\wsl.localhost` without a HIC decision.
+3. A `docker --version` on Win11 (18.09.2026: **29.8.0**) is the **shared Docker target** (`DWS_TRUTH_STANDARD.md` §2I), not a Docker MCP restore. Docker MCP stayed retired 26.03.2026. Spark apt ran the same day and printed **29.6.2** — NVIDIA noble/arm64 candidate, not 29.8.0. Do not reinstall Docker Desktop. Do not add `download.docker.com` on GN100.
+4. Windows 11 **KB5124008** (8.09.2026) can leave Plan9 host-folder shares unmounted (`/mnt/f` empty; “no Plan9 drive shares were mounted”). Microsoft fixed this in out-of-band **KB5129195** (14.09.2026). If `/mnt/f` is missing after the WSL update, install KB5129195 via Windows Update, then `wsl --shutdown`.
+5. After `wsl --update`, restart the distro (`wsl --shutdown`) before assuming PATH, mounts, or `gh` still work.
+
+Field note: `docs/field-notes/2026-09-18-win11-wsl-updated.md`.
 
 ---
 
@@ -447,26 +616,26 @@ Cross-ref: `docs/CLOUD_ENVIRONMENTS.md` §3.2.2, `docs/field-notes/2026-08-14-dw
 
 ### What counts as large
 
-| Signal | Examples |
-| ------ | -------- |
-| **Scope** | 3+ files, multiple subsystems, dual-folder sync, thesis four-file update, Supabase migration |
-| **Duration** | Expected agent runtime **> ~1 hour** or overnight batch |
-| **Risk** | RED/YELLOW zone per `CLAUDE.md` (deploy, migration, public copy, Store sync) |
-| **Isolation** | Needs its own branch, worktree, and PR |
+| Signal           | Examples                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------ |
+| **Scope**        | 3+ files, multiple subsystems, dual-folder sync, thesis four-file update, Supabase migration     |
+| **Duration**     | Expected agent runtime **> ~1 hour** or overnight batch                                          |
+| **Risk**         | RED/YELLOW zone per `CLAUDE.md` (deploy, migration, public copy, Store sync)                     |
+| **Isolation**    | Needs its own branch, worktree, and PR                                                           |
 | **Bulk content** | Translations (FI/SV/DE/FR), multi-page HTML i18n, dual-folder sync at scale, hreflang generation |
 
 **Small work (any harness OK):** single-file fix, typo, reading/reviewing a handoff, drafting a plan, HIC approval on an artifact.
 
-**Canonical large-work examples:** Aegis/product 5-language pages, blog SV/DE/FR drafts, `landing-pages/` mirror updates — plan → OpenCode on DGX with **free or Ollama models** (see *Model economics* below), not Win11 paid cloud agents.
+**Canonical large-work examples:** Aegis/product 5-language pages, blog SV/DE/FR drafts, `landing-pages/` mirror updates — plan → OpenCode on DGX with **free or Ollama models** (see _Model economics_ below), not Win11 paid cloud agents.
 
 ### Plan artifact (required before execution)
 
 Write the plan to **one** of:
 
-| Location | When |
-| -------- | ---- |
-| `docs/plans/YYYY-MM-DD-<slug>.md` | Durable, multi-session, or architectural work |
-| `.claude/handoffs/<task>.md` | Branch-scoped session handoff (include plan in *Next steps* / TODO list) |
+| Location                          | When                                                                     |
+| --------------------------------- | ------------------------------------------------------------------------ |
+| `docs/plans/YYYY-MM-DD-<slug>.md` | Durable, multi-session, or architectural work                            |
+| `.claude/handoffs/<task>.md`      | Branch-scoped session handoff (include plan in _Next steps_ / TODO list) |
 
 Minimum plan contents: **goal**, **file/path scope**, **acceptance criteria**, **trust zone** (GREEN/YELLOW/RED), **base branch**. Structural or RED items stop for HIC approval in plan mode before OpenCode starts (per `CLAUDE.md` Approval Request Rule).
 
@@ -476,16 +645,16 @@ Minimum plan contents: **goal**, **file/path scope**, **acceptance criteria**, *
 Plan (Win11 or DGX) → HIC gate if RED/YELLOW → worktree → OpenCode agent → handoff → Win11 review → PR
 ```
 
-| Step | Action | Command / path |
-| ---- | ------ | -------------- |
-| 1 | Isolated worktree + branch | `scripts/new-opencode-worktree.sh <task-name> [base-branch] --launch` |
-| 2 | OpenCode session in worktree | Attach plan as first prompt; follow `WORKTREE_POLICY.md` (never commit from primary checkout) |
-| 3 | Batch queue (parallel / overnight) | `node scripts/opencode-batch-worker.mjs enqueue` then `run --batch N --loop` |
-| 4 | Monitor | `scripts/opencode-open-all.sh --status` / `--watch` |
-| 5 | Handoff output | `.claude/handoffs/opencode-batch/` (worker guarantees a file even on partial completion) |
-| 6 | Human review | Win11 **Cursor** or **VS Code** → `gh pr create` |
+| Step | Action                             | Command / path                                                                                |
+| ---- | ---------------------------------- | --------------------------------------------------------------------------------------------- |
+| 1    | Isolated worktree + branch         | `scripts/new-opencode-worktree.sh <task-name> [base-branch] --launch`                         |
+| 2    | OpenCode session in worktree       | Attach plan as first prompt; follow `WORKTREE_POLICY.md` (never commit from primary checkout) |
+| 3    | Batch queue (parallel / overnight) | `node scripts/opencode-batch-worker.mjs enqueue` then `run --batch N --loop`                  |
+| 4    | Monitor                            | `scripts/opencode-open-all.sh --status` / `--watch`                                           |
+| 5    | Handoff output                     | `.claude/handoffs/opencode-batch/` (worker guarantees a file even on partial completion)      |
+| 6    | Human review                       | Win11 **Cursor** or **VS Code** → `gh pr create`                                              |
 
-**Forbidden for large work:** implementing directly on DGX `/home/admin100/dws6` primary checkout; Win11 cloud-agent VMs for multi-file implementation; `git pull` on diverged `main` before rescuing local commits (see *Two dev environments*).
+**Forbidden for large work:** implementing directly on DGX `/home/admin100/dws6` primary checkout; Win11 cloud-agent VMs for multi-file implementation; `git pull` on diverged `main` before rescuing local commits (see _Two dev environments_).
 
 Cross-ref: `opencode-all/ADMIN_MANUAL.md`, `docs/field-notes/2026-08-24-opencode-all-living-engine.md`, `docs/handovers/HIC_MORNING_ROUTINE.md` (morning queue ritual).
 
@@ -493,29 +662,29 @@ Cross-ref: `opencode-all/ADMIN_MANUAL.md`, `docs/field-notes/2026-08-24-opencode
 
 ## OpenCode and batch runtime (DGX Spark)
 
-**Large implementation runs here.** **Cursor CLI** and **Copilot CLI** on DGX are for **interactive, small-scope** work (debugging, plan drafting, quick reads) — when scope grows, stop and follow *Large work* above. **OpenCode** (`opencode.json`, `opencode-all` submodule, batch worker) is the **mandatory execution path** for planned multi-file work: isolated worktrees, queue in `.workflows/opencode-all/`, local Ollama inference. Claude Code on DGX remains hot standby.
+**Large implementation runs here.** **Cursor CLI** and **Copilot CLI** on DGX are for **interactive, small-scope** work (debugging, plan drafting, quick reads) — when scope grows, stop and follow _Large work_ above. **OpenCode** (`opencode.json`, `opencode-all` submodule, batch worker) is the **mandatory execution path** for planned multi-file work: isolated worktrees, queue in `.workflows/opencode-all/`, local Ollama inference. Claude Code on DGX remains hot standby.
 
 ### Runtime and model roles (DGX)
 
-| Role | Runtime | Operational rule |
-| ---- | ------- | ---------------- |
-| **Large / multi-file work (mandatory)** | OpenCode + `opencode-all` | Plan first; worktree via `new-opencode-worktree.sh`; queue via batch worker |
-| Interactive small scope | Cursor CLI, Copilot CLI → Ollama | Escalate to OpenCode when scope crosses *Large work* thresholds |
-| Hot standby | Claude Code | Failover when OpenCode/Ollama unavailable or Claude tooling required |
+| Role                                    | Runtime                          | Operational rule                                                            |
+| --------------------------------------- | -------------------------------- | --------------------------------------------------------------------------- |
+| **Large / multi-file work (mandatory)** | OpenCode + `opencode-all`        | Plan first; worktree via `new-opencode-worktree.sh`; queue via batch worker |
+| Interactive small scope                 | Cursor CLI, Copilot CLI → Ollama | Escalate to OpenCode when scope crosses _Large work_ thresholds             |
+| Hot standby                             | Claude Code                      | Failover when OpenCode/Ollama unavailable or Claude tooling required        |
 
 ### Model economics — free inference for bulk work
 
 OpenCode on DGX can run **large tasks at zero purchased-token cost**. Use this deliberately to preserve paid API budget (Claude, Copilot, Cursor cloud agents on Win11) for review, RED-zone reasoning, and short interactive work.
 
-| Tier | Model source | Marginal cost | Route here for |
-| ---- | ------------ | ------------- | -------------- |
-| **1 — Local sovereign** | Ollama on DGX (`opencode.json` default: `qwen3-coder:30b`, also `nemotron-3-super`) | €0 (owned hardware) | Coding agents, refactors, batch worker default fallback |
-| **2 — OpenCode FREE** | OpenCode-hosted free models (`opencode/*`, e.g. `x-preview-f-free`, `mimo-v2.5-free`) | €0 API tokens | **Translations**, multi-file HTML i18n, overnight opencode-all batches, high-volume content generation |
-| **3 — Paid cloud** | Claude API, Copilot/Cursor cloud, Groq metered | Per-token | HIC review, architecture, RED zone, short interactive when local models insufficient |
+| Tier                    | Model source                                                                          | Marginal cost       | Route here for                                                                                         |
+| ----------------------- | ------------------------------------------------------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------ |
+| **1 — Local sovereign** | Ollama on DGX (`opencode.json` default: `qwen3-coder:30b`, also `nemotron-3-super`)   | €0 (owned hardware) | Coding agents, refactors, batch worker default fallback                                                |
+| **2 — OpenCode FREE**   | OpenCode-hosted free models (`opencode/*`, e.g. `x-preview-f-free`, `mimo-v2.5-free`) | €0 API tokens       | **Translations**, multi-file HTML i18n, overnight opencode-all batches, high-volume content generation |
+| **3 — Paid cloud**      | Claude API, Copilot/Cursor cloud, Groq metered                                        | Per-token           | HIC review, architecture, RED zone, short interactive when local models insufficient                   |
 
 **Operator rules:**
 
-1. **Translations and 5-lang surfaces** → always queue as *Large work* on DGX OpenCode with tier **1 or 2** — never Win11 cloud-agent VMs for bulk i18n.
+1. **Translations and 5-lang surfaces** → always queue as _Large work_ on DGX OpenCode with tier **1 or 2** — never Win11 cloud-agent VMs for bulk i18n.
 2. **Verify available free models** on DGX before batch runs: `opencode models list` (catalog changes; Rule 12 — fail loud if auth/model errors).
 3. **Fallback ladder:** OpenCode FREE unavailable → switch session/batch to Ollama `qwen3-coder:30b` → then Claude Code hot standby for the single blocked step only.
 4. **Batch worker** (`scripts/opencode-batch-worker.mjs`) runs via OpenCode ACP; model is session-selected — attach plan + preferred model in the worktree session prompt or OpenCode config before `enqueue` / `run`.
@@ -546,7 +715,9 @@ The DGX heartbeat on `9999` and Ollama on `11434` do not substitute for the disa
 
 ## Aspire Dashboard Observability (DGX Spark)
 
-The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — currently `13.4.6`, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
+The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **version-pinned** — compose image **`13.4.2`**, never `:latest`) is the OTel aggregator for the DGX Spark compose stack. Dashboard-only install: no AppHost, no .NET toolchain on the device. It is a **dev/operator visualization tool**, not long-term storage — telemetry lives in container memory and is lost on restart (the durable record is the Supabase `tool_telemetry` table, migration 066, cross-referenced by `trace_id`/`span_id`).
+
+**Role split (not an environment split):** Win11 Aspire **CLI** is **13.5.4** (HIC `aspire update`, channel `stable`). The Spark **dashboard image** stays **13.4.2** in `infrastructure/dgx-spark/docker-compose.yml`. A CLI update is not a compose bump. Admin previously said the dashboard was `13.4.6`; compose `image:` and the yaml comment on this branch are **13.4.2**. HIC 18.09.2026: running container `docker inspect` = `mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2`, `/health` **200**. `docker compose pull/up` failed interpolating `POSTGRES_PASSWORD` (compose parses the whole file). Use `docker pull` of the image when `.env` is not loaded.
 
 ### The three ports (do not mix them up)
 
@@ -564,9 +735,199 @@ The standalone Aspire Dashboard (`mcr.microsoft.com/dotnet/aspire-dashboard`, **
 - **Enable/disable per service:** telemetry is opt-in via `OTEL_EXPORTER_OTLP_ENDPOINT` (unset = no-op, nothing leaves the host). Service names via `OTEL_SERVICE_NAME`.
 - **GenAI message-content capture is OFF** by design — `withLLMSpan` records metadata only (model, tokens, finish reason), never prompt/completion bodies. Turning content capture on is a **data-protection decision (human, RED-zone equivalent)** — customer text would enter dashboard memory. Do not enable without explicit CEO sign-off.
 - **Auth posture:** frontend and OTLP run `Unsecured` — acceptable only while port 18888 is LAN-only on the DGX host. If the host ever gets a routable interface or a tunnel exposes 18888, switch to `BrowserToken` (frontend) and `ApiKey` (OTLP) per the aspire.dev dashboard configuration reference.
-- **Version bumps:** treat the dashboard like any pinned image — bump deliberately, check the aspire.dev release notes (OTLP defaults, auth env var names have changed across majors), never float on `:latest`.
+- **Version bumps:** treat the dashboard like any pinned image — bump deliberately, check the aspire.dev release notes (OTLP defaults, auth env var names have changed across majors), never float on `:latest`. Do **not** bump `aspire-dashboard` because Win11 `aspire update` moved the CLI.
+
+**Update running image to 13.4.2 (HIC, 18.09.2026).** Compose on `main` already has `image: mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2`. `docker update` is not this. Cursor Cloud cannot SSH. On `gn100-cb5d` as `admin100`:
+
+```bash
+cd /home/admin100/dws6/infrastructure/dgx-spark
+grep 'image: mcr.microsoft.com/dotnet/aspire-dashboard' docker-compose.yml
+# must print :13.4.2 — if it prints :13.4.6 or :13.3.5, fetch origin/main first (deploy clone uses git reset --hard)
+# Image-only pull does not interpolate compose .env (POSTGRES_PASSWORD):
+docker pull mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2
+# Recreate parses the whole compose file — load .env first if present:
+set -a
+[ -f .env ] && . ./.env
+set +a
+docker compose up -d --no-deps aspire-dashboard
+docker inspect -f '{{.Config.Image}}' aspire-dashboard
+curl -sS -o /dev/null -w '%{http_code}\n' http://127.0.0.1:18888/health
+```
+
+Expect inspect `...:13.4.2` and health `200`. Do not pull `:latest` or `:13.5.4`. HIC 18.09.2026: compose `pull`/`up` without `.env` failed on `POSTGRES_PASSWORD`; `docker inspect` of the already-running container was already **13.4.2** and health **200**.
+
+### Win11 Aspire CLI (operator)
+
+**Status (HIC, 18.09.2026):** From `F:\2026\Repos2026\dws6`:
+
+```
+aspire update
+No Aspire AppHost project found. Would you like to update the Aspire CLI instead? [y/N]: y
+Select the channel to update to: stable
+Updated to version: 13.5.4+9c1b401dd67746739044f68959cbf4d3d7af93a6
+```
+
+**Pin:** Aspire CLI **13.5.4** at `C:\Users\risto\.aspire\bin\aspire.exe`. Matches NuGet `Aspire.Cli.*` 13.5.4 (15.09.2026) and GitHub commit `9c1b401dd67746739044f68959cbf4d3d7af93a6`.
+
+**Why no AppHost is correct.** DWS IQ 6 on Spark is **dashboard-only** (option 1, `docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md`). There is no AppHost in this repo. `aspire update` offering a CLI-only update is the expected path. Do **not** run `aspire init` here without a Model/Deployment-standard §10-style gate.
+
+**Do not:** install the CLI on Cursor Cloud; `ollama pull` via Aspire; restore Docker Desktop; bump `mcr.microsoft.com/dotnet/aspire-dashboard` in the same change as a Win11 CLI update.
+
+Field note: `docs/field-notes/2026-09-18-win11-aspire-cli-13-5-4.md`.
+
+### Win11 Docker (operator)
+
+**Status (HIC, 18.09.2026):** From `F:\2026\Repos2026\dws6` PowerShell:
+
+```
+docker --version
+Docker version 29.8.0, build 88096ef
+```
+
+**Shared pin:** Docker **client 29.8.0** (`88096ef`) on Win11 **and** Spark (`DWS_TRUTH_STANDARD.md` §2I). Matches docker/cli 29.8.0 (Engine release notes 03.09.2026; Alpine CLI GitCommit `88096ef00576baf72a9cb45caa45c0544c40e0a7`). This paste does not include `docker version` (client vs server) or `Get-Command docker` (Desktop vs CE vs WSL shim).
+
+**Open drift:** Spark apt ran 18.09.2026. Observed **29.6.2** (`dfc4efb`). NVIDIA `noble-updates/common` arm64 candidate was `5:29.6.2-1~ubuntu.24.04~noble`, not 29.8.0. `npm run env:pins:strict` still exits 1. Do not treat this as permission to bump `aspire-dashboard`.
+
+**Docker MCP stays retired (26.03.2026).** A client on the Win11 PATH is not Docker Desktop restored and is not Docker MCP restored.
+
+**Do not:** install Docker on Cursor Cloud; run Spark compose from Win11 against the GN100 socket; use `docker update` as an upgrade.
+
+Field note: `docs/field-notes/2026-09-18-win11-docker-29-8-0.md`.
+
+### Spark Docker Engine (operator)
+
+**Status (HIC, 18.09.2026):** SSH session on Acer Veriton GN100 (`gn100-cb5d`, user `admin100`, from `192.168.101.104`):
+
+```
+admin100@gn100-cb5d:~$ docker --version
+Docker version 29.2.1, build a5c7197
+admin100@gn100-cb5d:~$ docker update
+docker: 'docker update' requires at least 1 argument
+
+Usage:  docker update [OPTIONS] CONTAINER [CONTAINER...]
+```
+
+**Shared target:** Docker **client 29.8.0** on Spark (same as Win11). **Observed after apt (18.09.2026):** **29.6.2** (`dfc4efb`, `docker-ce` `5:29.6.2-1~ubuntu.24.04~noble`). Compose plugin **v5.2.0**, containerd **2.2.5**, buildx **0.35.0**. `systemctl is-active docker` → `active`. `needrestart` reported **no containers** and (in the first scan) no services. A later/fuller scan listed **user sessions** still on old binaries: `admin100` sshd sessions **#129** (`sshd[1062639]`) and **#130** (`sshd[1063661]`); `admin100` user manager `systemd[2254]`; `gdm` user manager `systemd[3709]`. No qemu VM guests. This is SSH/desktop user-manager, **not** Docker. Log out those SSH sessions and reconnect. Do **not** `systemctl restart docker` and do **not** restart `gdm` for this. The earlier Admin line “no user sessions” was incomplete relative to this paste.
+
+**How to log out SSH sessions #129 and #130 (do not restart docker or gdm).** `#129` / `#130` are `loginctl` session ids for the two `admin100` SSH logins that ran apt (`sshd[1062639]`, `sshd[1063661]`). They are not container ids. Closing those SSH terminals is enough. New SSH after that uses a new sshd with the upgraded libraries.
+
+On `gn100-cb5d` as `admin100`:
+
+```bash
+loginctl list-sessions
+echo "this session: ${XDG_SESSION_ID:-unset}"
+who
+```
+
+Simplest: type `exit` in **every** SSH window to this host (or close those windows), then from Win11 open one new SSH:
+
+```powershell
+ssh admin100@gn100-cb5d
+```
+
+**Observed (HIC, 18.09.2026, this window is 130):**
+
+```
+SESSION  UID USER     SEAT  TTY  STATE  IDLE SINCE
+    129 1000 admin100 -     -    active no   -
+    130 1000 admin100 -     -    active no   -
+     c1  126 gdm      seat0 tty1 active yes  14h ago
+this session: 130
+admin100 pts/0        2026-09-17 20:22 (tmux(3006).%0)
+admin100 pts/1        2026-09-18 10:14 (192.168.101.104)
+```
+
+**c1** is gdm on the console — do not terminate it. **130** is this SSH from `192.168.101.104` — do not terminate it while you are in it. **129** is the other admin100 session. `pts/0` is **tmux pid 3006** started 17.09.2026; `terminate-session 129` can kill that tmux server and every pane in it.
+
+Inspect first:
+
+```bash
+loginctl session-status 129 | sed -n '1,40p'
+tmux ls
+tmux list-clients
+```
+
+If tmux has nothing you need to keep:
+
+```bash
+loginctl terminate-session 129
+```
+
+Stay in 130. Do not `terminate-session 130`. Do not `terminate-session c1`. Then when ready, `exit` this window and from Win11 `ssh admin100@gn100-cb5d`. If tmux still matters, copy anything needed out of it **before** terminating 129; attaching from 130 does not move the tmux server out of 129's logind session.
+
+If one session is leftover with no window, terminate the **other** id, not this one. Example if `echo $XDG_SESSION_ID` prints `130`:
+
+```bash
+loginctl terminate-session 129
+exit
+```
+
+Then reconnect. Verify old PIDs are gone:
+
+```bash
+echo "this session: $XDG_SESSION_ID"
+loginctl list-sessions
+ps -p 1062639,1063661 -o pid,cmd || true
+sudo systemctl is-active docker
+```
+
+`XDG_SESSION_ID` should no longer be 129 or 130. `ps` should print nothing for those PIDs. docker stays `active`.
+
+**Do not:** `sudo systemctl restart docker`; `sudo systemctl restart gdm`; `loginctl terminate-user gdm`; `loginctl terminate-user admin100` (drops every admin100 login, including a local console); `sudo reboot` for this; `sudo kill` those sshd PIDs unless `terminate-session` failed. `systemctl restart ssh` does **not** replace already-running session sshd processes.
+
+`docker compose ps` failed interpolating `POSTGRES_PASSWORD` (and WARN on unset `CLOUDFLARE_TUNNEL_TOKEN`) — use `docker ps`, not compose, unless `.env` is loaded. Do **not** re-run apt. Do **not** add `https://download.docker.com` on GN100 (NVIDIA baseos already owns docker-ce).
+
+**Before apt (historical):** 29.2.1 (`a5c7197`). `docker --version` is the CLI string.
+
+**`docker update` is not an Engine upgrade.** It changes resource limits on a _running named container_. Bare `docker update` is expected to fail. To refresh the **Aspire dashboard image to 13.4.2**, use the _Update running image_ recipe under Aspire Dashboard above (`docker compose pull aspire-dashboard`). To refresh **all** compose images: `docker compose pull` then `up -d` (push to `main` already does this via `deploy-dgx-spark.yml`).
+
+**Upgrade Engine on Spark (RAN 18.09.2026).** GN100 docker-ce comes from NVIDIA baseos (`repo.download.nvidia.com/baseos/ubuntu/noble/arm64`), not a leftover `get.docker.com` pin. Apt moved **29.2.1 → 29.6.2**. Shared target remains Win11 **29.8.0**. Do not run this again unless NVIDIA publishes a newer candidate. Cursor Cloud cannot SSH. Recipe kept for the next box:
+
+```bash
+docker --version
+dpkg -l docker-ce docker-ce-cli docker-compose-plugin 2>/dev/null | awk 'NR==1 || /^ii/'
+sudo apt-get update
+apt-cache policy docker-ce | sed -n '1,12p'
+sudo apt-get install --only-upgrade -y \
+  docker-ce docker-ce-cli containerd.io \
+  docker-buildx-plugin docker-compose-plugin
+sudo systemctl is-active docker
+docker --version
+docker compose version
+docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Image}}'
+```
+
+If `dpkg` shows `docker.io` instead of `docker-ce`, stop and paste that output — do not mix Ubuntu universe Docker with Docker CE. Do **not** re-run `curl https://get.docker.com | sh`. Do not pull `:latest` compose images as part of this. **This host already printed 29.6.2.** Do not `apt autoremove` the leftover nvidia kernel packages unless HIC asks. Q7: keep 29.8.0 as target until NVIDIA ships it on ARM64, or retarget the pin.
+
+**Do not:** treat needrestart user-session lines as permission to bounce Docker or `gdm`; treat this paste as a compose image bump; restore Docker Desktop / Docker MCP on Win11 (retired 26.03.2026); install Docker on Cursor Cloud; run `docker update` on live DWS containers without a named resource change.
+
+Field note: `docs/field-notes/2026-09-18-spark-docker-29-2-1.md`.
 
 ---
+
+### Spark GitHub CLI (operator)
+
+**Status (HIC, 18.09.2026):** On `gn100-cb5d` as `admin100` in `~/dws6/infrastructure/dgx-spark`, HIC ran the GitHub-published apt install (curl keyring → `/usr/share/keyrings/githubcli-archive-keyring.gpg`, 4528 bytes, then `sudo apt update` && `sudo apt install gh -y`).
+
+Result: **`gh is already the newest version (2.45.0-1ubuntu0.3+esm3)`**. 0 upgraded, 0 newly installed. That package is **Ubuntu ESM** (`+esm3`), not a GitHub-published `cli.github.com` build.
+
+`https://cli.github.com/packages` was already in this host's apt (Hit during the same-day docker-ce upgrade). Rewriting the keyring may still have been useful: GitHub rotated the Linux repo PGP key on **5.09.2026**. Current GitHub install docs put the keyring at `/etc/apt/keyrings/githubcli-archive-keyring.gpg` and use `wget`; this paste used the older `/usr/share/keyrings/` + `curl` + `dd` path.
+
+GitHub CLI maintainers (Nov 2025, `cli/cli` Linux install docs): community **2.45.x / 2.46.x** is **broken** (deprecated GitHub APIs). Spark is on that generation until `apt-cache policy gh` shows why the GitHub repo did not win.
+
+Do **not** `apt install --reinstall gh` or pin a GitHub version until this paste:
+
+```bash
+gh --version
+apt-cache policy gh
+dpkg -l gh | awk 'NR==1 || /^ii/'
+cat /etc/apt/sources.list.d/github-cli.list
+ls -l /usr/share/keyrings/githubcli-archive-keyring.gpg /etc/apt/keyrings/githubcli-archive-keyring.gpg 2>/dev/null
+```
+
+**Do not:** treat this as a Docker/Aspire bump; remove Ubuntu ESM; `apt remove gh`; install a second `gh` via snap/brew on GN100; add more apt sources without the policy paste.
+
+Field note: `docs/field-notes/2026-09-18-spark-gh-2-45-0.md`.
 
 ## DWS Factory Router (model escalation runbook)
 

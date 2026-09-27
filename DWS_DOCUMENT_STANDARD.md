@@ -4,11 +4,18 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.15
+Version: 2.22 [Latest]
 
 Sessions & Modifications:
 
-- Version: 2.15 | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 10.08.2026 | Changes: Merged origin/main (v2.13, which itself merged this branch's v2.12 base and added §25/§26) into this branch. Both sides had independently bumped past v2.12: this branch added §4.7 (Exported/Shared Deliverable Naming) at v2.13-2.14; main added §25 (Universal Document Footer) and §26 (Repository-First, Then Export) at v2.13. No section-number collision — main's new sections (25, 26) sit after this branch's existing §24, and §4.7 is a subsection under §4, so both merged cleanly with no content loss. Only the VERSION AND AGENT HISTORY block itself conflicted (both sides claimed "2.13"); resolved by keeping both change entries below and bumping to 2.15.
+- Version: 2.22 [Latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: HIC — retire `***` Pandoc delimiter. Agents do not PDF-from-markdown. HIC prints PDF from HTML. VAH uses `---`. Do not convert leftover `***`. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 retire *** / no agent PDF-from-md
+- Version: 2.21 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §27.3 — gaps require a proposed standards update, not only N/A. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 do not apply 088
+- Version: 2.20 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §2.6 / §19 / §27 — every artefact names Version, Harness, and HIC-approved-drift (`none` or dated exception). Maps NIS2 Art. 21(2)(a)(e)(f)(i) and Katakri 2020 hallinnollinen + tietojärjestelmät change control. | Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md | HIC-approved-drift: HIC-2026-09-19 do not apply 088
+- Version: 2.19 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §2.1 generated-i18n — public product language siblings (`*.fi.html` / `.sv` / `.de` / `.fr`) carry an HTML-comment provenance block (`DWS_DOC_PROVENANCE generated-i18n`). Markdown VERSION AND AGENT HISTORY is forbidden on public HTML (Rule 5). Builder + stamp script. HIC approved 19.09.2026.
+- Version: 2.18 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §4.5 CI — PR-added `supabase/migrations/` filenames must match `NNN_DDMMYY_name.sql`. Existing names grandfathered. HIC approved this gate 19.09.2026. Does not apply migrations.
+- Version: 2.17 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §1 Scope lists TypeScript/JavaScript (`.ts`, `.tsx`, `.js`, `.jsx`) and Python (`.py`) the same way as `.sql`: in scope; provenance is §19.3 `CODE VERSIONING NOTE`; do not paste the §2 markdown history block into executable source. Triggered by a Cursor-session audit (last 7 days) that found §19.3 templates without a scope line.
+- Version: 2.16 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/supabase-advisor-warnings-3f7a | Date: 19.09.2026 | Changes: §1 Scope now includes SQL (`.sql`). Naming stays §4.5; provenance is the §19.3 `CODE VERSIONING NOTE` comment block — not the §2 markdown `VERSION AND AGENT HISTORY` header (invalid as SQL). §2.1 and §25.2 state the SQL exception. Triggered by migration `088` failing a scope check because §1 listed only `.md` / workflows / PDFs. Prior 2.15 marked [not latest].
+- Version: 2.15 [not latest] | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 10.08.2026 | Changes: Merged origin/main (v2.13, which itself merged this branch's v2.12 base and added §25/§26) into this branch. Both sides had independently bumped past v2.12: this branch added §4.7 (Exported/Shared Deliverable Naming) at v2.13-2.14; main added §25 (Universal Document Footer) and §26 (Repository-First, Then Export) at v2.13. No section-number collision — main's new sections (25, 26) sit after this branch's existing §24, and §4.7 is a subsection under §4, so both merged cleanly with no content loss. Only the VERSION AND AGENT HISTORY block itself conflicted (both sides claimed "2.13"); resolved by keeping both change entries below and bumping to 2.15.
 - Version: 2.14 | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 23.07.2026 | Changes: Refined §4.7 — the exported-deliverable prefix is now the **full version number** (`2.0_`, `1.0_`, `1.9.1_`) rather than `V<MAJOR>_`, so minor bumps stay distinguishable in short-name lists. Founder compact shorthand (`1.91_kya`) recorded as an accepted equivalent. Match rule tightened to full `MAJOR.MINOR[.PATCH]`.
 - Version: 2.13a | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 22.07.2026 | Changes: Added §4.7 Exported / Shared Deliverable Naming — Version-First Prefix. Codifies that deliverables exported or shared outside the repo (Google Drive docs, PDFs, presentation exports) carry a leading `V<MAJOR>_` prefix so the version stays visible in short-name lists that truncate the tail (Drive, mobile, file pickers), while in-repo files keep the §4.6 `_vN` suffix. Prefix major must equal the header `Version:` major (same match rule as §4.6). Requested by the founder after the LUT/PhD Drive set grew past a screen.
 - Version: 2.13b | Tool: Claude Code (claude-opus-4-8) | Session: claude/investor-letter-richard-wurl-5bwfa5 | Date: 24.07.2026 | Changes: Merged origin/main (v2.12). Added §25 (Universal Document Footer — mandatory: version · date · © Lifetime Oy all-rights-reserved · Business Confidentiality clause at the bottom of every document; footer version lockstep with the §2 header) and §26 (Repository-First, Then Export — anti-drift: an export with no repository source-of-truth is a drift incident; repo .md, plus .csv for financial models, is the master; §26.4 requires cloud export TITLES to lead with the version number for Drive manageability). Authored as §23/§24 on this branch pre-merge; renumbered to §25/§26 because main already holds §22 (Multimodal), §23 (Whitepaper), §24 (Correspondence Preservation). Internal cross-references repointed to main's §23 Whitepaper. No content lost from either side; ToC updated.
@@ -21,7 +28,7 @@ Sessions & Modifications:
 - Version: 2.11 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: HIC löysi kaksi itse-ristiriitaa. (1) Tämän dokumentin oma yläotsikko käytti `---`-erotinta rivillä 3, vaikka §2.1 määrää `***`:n pandoc-yhteensopivuuden vuoksi — korjattu. (2) §20.6:n oma Layout-mallipohja (koodilohko) käytti `---`-erottimia kaikissa kolmessa kohdassa — sama virhe periytyi jokaiseen §20.6-mallia noudattavaan dokumenttiin (mm. CV_ORK160826, korjattu samassa istunnossa) — korjattu `***`:ksi. **Juurisyy löytyi:** `.claude/settings.json`:n PostToolUse-koukku (matcher `Write\|Edit`) ajaa Prettier'n `--write`-tilassa jokaisen Edit/Write-työkalukutsun jälkeen KOKO tiedostolle, ei vain muutetulle osalle — Prettier normalisoi oletusarvoisesti kaikki markdown-thematic-break-merkinnät (`***`, `___`) muotoon `---`. Tämä tarkoittaa, että `***`-sääntö ei voi koskaan pysyä voimassa suoralla Edit/Write-työkalukutsulla riippumatta siitä mitä tiedostoon kirjoitetaan — jokainen aiempi yritys korjata tämä on hiljaisesti peruuntunut seuraavassa Edit-kutsussa. Ei `.prettierrc`/`.prettierignore`-tiedostoa löytynyt, joten Prettier ajaa oletusasetuksin. Väliaikainen kiertotapa: tee `***`-korjaus Bash/sed-komennolla VIIMEISENÄ askeleena ennen committia (Bash ei laukaise tätä koukkua). Pysyvä korjaus (esim. `.prettierignore`-poikkeus VERSION-lohkoa sisältäville dokumenteille, tai koukun `proseWrap`/custom-parserin muokkaus) on vielä tekemättä — merkitty avoimeksi seuraavalle istunnolle.
 - Version: 2.10 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: Added §4.6 Exemption 2 (heavily cross-referenced living standards may keep an un-versioned filename instead of embedding `_vX`). Triggered by renaming `docs/KONSULTIN_KASIKIRJA_2026.md` → `docs/KONSULTOINNIN_KASIKIRJA_2026.md` (name-spelling fix, not a version bump) — the file has ~20 repo-wide cross-references, so embedding a version tag per the §4.6 default would force a rename-plus-reference-update ripple on every future edit; HIC chose to exempt it and keep `Version:` inside the file as the single source of truth for revision tracking.
 - Version: 2.9 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 14.07.2026 | Changes: Added `FINAL` to the §2.3 Publication Status Values table — a customer-facing deliverable (§20.6 scope) that is complete, corrected, and ready to send/submit uses `FINAL` in place of `ACTIVE`, since ACTIVE implies an internally-maintained lifecycle document, not a one-shot external artifact. Triggered by `bids/ORK160826/CV_ORK160826_v172.md` (→ v173 this session) which had carried `Publication Status: DRAFT` for 172 versions despite being an actively-submitted bid CV, and had never actually complied with the already-existing §20.6 rule (version block was still on page 1, not the last page) across 8+ prior editing sessions. §20.6 itself required no new text — the gap was non-compliance, not a missing rule; applying it to the CV file happens in the same commit as this entry.
-- Version: 2.8 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 13.07.2026 | Changes: Added §4.6 (Filename Version Tag Must Match the Header Version) — a filename's embedded version number must equal the document's own `Version:` header at all times; renaming happens in the same commit as the version bump, not deferred. Triggered by `bids/ORK160826/CV_ORK160826_v165.md` drifting to internal Version: 170 across 5 edit sessions without ever being renamed. Exempts deliberately-frozen archival snapshots (e.g. `CV/CV_Risto_Paarni_155.md`). Applied immediately: renamed `CV_ORK160826_v165.{md,html,docx}` → `CV_ORK160826_v170.{md,html,docx}` in the same commit as this rule.
+- Version: 2.8 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 13.07.2026 | Changes: Added §4.6 (Filename Version Tag Must Match the Header Version) — a filename's embedded version number must equal the document's own `Version:` header at all times; renaming happens in the same commit as the version bump, not deferred. Triggered by `bids/ORK160826/CV_ORK160826_v165.md` drifting to internal Version: 170 across 5 edit sessions without ever being renamed. Exempts deliberately-frozen archival snapshots (e.g. `CV/CV_Risto_Päärni_155.md`). Applied immediately: renamed `CV_ORK160826_v165.{md,html,docx}` → `CV_ORK160826_v170.{md,html,docx}` in the same commit as this rule.
 - Version: 2.7 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: Merged origin/main (v2.5, session claude/jasenko-hadzic-outreach-ici0e7) into this branch's v2.6. Both branches had independently added a new "§22" section since diverging — this branch's §22 (Multimodal Document Assets) and main's §22 (Whitepaper Standard, defined 24.06.2026 by session claude/nvidia-halos-robotics-suqayg, entry below). Resolved by renumbering main's Whitepaper Standard section (and its §22.1–22.3 subsections, and all internal §22.x cross-references within it) to §23 — this branch's Multimodal Document Assets keeps §22 as originally numbered. No content lost from either side; only section numbers changed on the Whitepaper Standard side. Updated ToC accordingly.
 - Version: 2.6 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: §22.4 updated — `scripts/render-doc.sh` now passes `--resource-path` so relative image paths resolve against the source .md's own directory (fixes a real bug: pandoc was resolving them against the caller's cwd instead, silently dropping the image). Documented the permanent pandoc install path: `infrastructure/dgx-spark/first-boot.sh` (step 3a) installs it once on the DGX Spark box so it survives across sessions, distinct from the ephemeral cloud-session `apt-get install` fallback. First real-world use: `bids/ORK160826/CV_ORK160826_v165.md` v170 — first image reference in 170 versions, rendered to `.html`/`.docx` with the photo embedded.
 - Version: 2.5 | Tool: Claude Code (Sonnet 5) | Session: claude/cv-senior-ai-engineer-msjheo | Date: 12.07.2026 | Changes: Added §22 (Multimodal Document Assets) — canonical asset locations (images/fonts/evidence PDFs), Markdown image reference convention, the Base64-embed rule for downloadable HTML/DOCX (formalizes CLAUDE.md's "Downloadable HTML Rule" here as canonical, via new `scripts/render-doc.sh` pandoc wrapper), video/audio handling (poster-frame + external link, never inline data URI), personnel photo quality bar, and the "never drop silently — HIC decision + shared Drive link" fallback rule for artifacts that can't be embedded. Triggered by discovering `bids/ORK160826/CV_ORK160826_v165.md` had zero image references across 168 versions despite a canonical photo already existing in-repo, and that the existing CV-facing photo (`CV/risto70.png`) has an unprofessional background unsuitable for procurement documents. Added §22 to ToC.
@@ -55,7 +62,7 @@ Session Links & References:
 Document Status:
 
 - Created: 30.12.2025
-- Last Modified: 17.07.2026
+- Last Modified: 19.09.2026
 - Language: English & Finnish (bilingual)
 - Languages Available: English, Suomi
 - Publication Status: ACTIVE
@@ -90,6 +97,7 @@ Document Status:
 24. [Correspondence Preservation](#24-correspondence-preservation) ⭐ NEW
 25. [Universal Document Footer (mandatory)](#25-universal-document-footer-mandatory) ⭐ NEW
 26. [Repository-First, Then Export (anti-drift)](#26-repository-first-then-export-anti-drift) ⭐ NEW
+27. [Audit provenance — harness, version, HIC-approved drift (NIS2 / Katakri)](#27-audit-provenance--harness-version-hic-approved-drift-nis2--katakri) ⭐ NEW
 
 ---
 
@@ -113,6 +121,12 @@ Applies to:
 - Technical specifications
 - Master thesis documents
 - PDF documents (`.pdf`)
+- SQL migrations and hand-written DDL (`.sql`) — including `supabase/migrations/*.sql` and any other repo `.sql`. Filename: §4.5. Provenance: §19.3 `CODE VERSIONING NOTE` as SQL comments. Do **not** paste the §2 markdown `VERSION AND AGENT HISTORY` block into `.sql` (not valid SQL).
+- TypeScript / JavaScript source (`.ts`, `.tsx`, `.js`, `.jsx`) — provenance: §19.3 block comment. Do **not** paste the §2 markdown history block into source.
+- Python source (`.py`) — provenance: §19.3 docstring or `#` comment. Do **not** paste the §2 markdown history block into source.
+- Generated public HTML language siblings (`dws10.com/products/*.{fi,sv,de,fr}.html` and `landing-pages/dws10-com/products/` mirror) — provenance: §2.1 **generated-i18n** HTML comment. Do **not** paste the §2 markdown history block (CLAUDE.md Non-Negotiable Rule 5). English masters stay hand-authored; they are not auto-stamped.
+
+Soveltuu myös SQL-, TypeScript- ja Python-tiedostoihin: jäljitettävyys §19.3-kommenttina — ei markdown-otsikkolohkoa.
 
 **Does NOT apply to:**
 
@@ -133,13 +147,13 @@ Applies to:
 
 ### 2.1 Required Header Block
 
-**ALL documents MUST include this header block at the top:**
+**ALL narrative documents (`.md` and other prose listed in §1) MUST include this header block at the top.**
 
-> **IMPORTANT: Pandoc Compatibility.** Use `***` (not `---`) as delimiters around
-> the VERSION AND AGENT HISTORY block. Pandoc interprets `---` as YAML front matter,
-> which causes parse errors because the history block isn't valid YAML.
-> Both `***` and `---` render as horizontal rules in markdown, but only `---` triggers
-> YAML parsing.
+**Executable-source exception:** `.sql`, `.ts`, `.tsx`, `.js`, `.jsx`, and `.py` are in §1 scope but **must not** use this markdown block. They use the §19.3 `CODE VERSIONING NOTE` in language-appropriate comments. SQL filenames also follow §4.5. A markdown `VERSION AND AGENT HISTORY` block inside executable source is a Rule 12 violation.
+
+**Generated-i18n HTML exception (HIC 19.09.2026):** Machine-built public language siblings (`*.fi.html`, `*.sv.html`, `*.de.html`, `*.fr.html` under the product trees above) **must not** use this markdown block. Immediately after `<!doctype html>` they carry an HTML comment whose first line is `DWS_DOC_PROVENANCE generated-i18n` (lang, file, master, builder, date, session). Visible store UI must not show the changelog. Emitter: `scripts/i18n/build-i18n-pages.cjs`. One-shot stamp: `scripts/i18n/stamp-generated-html-provenance.mjs`. Dual-folder in the same commit.
+
+> **HIC 19.09.2026 — `***` delimiter retired.** Agents do **not** produce PDF from markdown. HIC makes PDFs from **HTML** (`Learn/` / `scripts/render-doc.sh` / browser print) when needed. VERSION AND AGENT HISTORY uses `---` (Prettier-stable). Existing `***` in old files is leftover, not a defect. Do not spend tokens converting `---` ↔ `***`.
 
 ```markdown
 # [Document Title]
@@ -152,7 +166,7 @@ Version: X.Y
 
 Sessions & Modifications:
 
-- Version: X.Y | Tool: [Tool Name] | Session: [Session ID] | Date: DD.MM.YYYY | Changes: [Description]
+- Version: X.Y | Tool: [Tool Name] | Session: [Session ID] | Date: DD.MM.YYYY | Changes: [Description] | Harness: [runtime + instruction files] | HIC-approved-drift: none
 
 Session Links & References:
 
@@ -172,19 +186,21 @@ Document Status:
 
 ### 2.2 Header Components
 
-| Component               | Required       | Description               | Example                                     |
-| ----------------------- | -------------- | ------------------------- | ------------------------------------------- |
-| **Version**             | ✅ Yes         | Semantic version (X.Y)    | `1.0`, `1.1`, `2.0`                         |
-| **Tool**                | ✅ Yes         | AI tool or author         | `Cursor AI`, `Claude Code`, `Manual`        |
-| **Session**             | ✅ Yes         | Unique session identifier | `2025-12-30`, `QVvDX`, `IjtD0`              |
-| **Date**                | ✅ Yes         | Date of modification      | `30.12.2025`                                |
-| **Changes**             | ✅ Yes         | Brief description         | `Initial creation`, `Added workflow naming` |
-| **Session Links**       | ⚠️ Recommended | GitHub commit links       | URL to commits                              |
-| **Created**             | ✅ Yes         | Document creation date    | `30.12.2025`                                |
-| **Last Modified**       | ✅ Yes         | Last modification date    | `30.12.2025`                                |
-| **Language**            | ✅ Yes         | Primary language          | `English`, `Finnish`, `Bilingual`           |
-| **Languages Available** | ✅ Yes         | All available languages   | `English, Suomi`                            |
-| **Publication Status**  | ✅ Yes         | Document status           | `ACTIVE`, `DRAFT`, `OUTDATED`, `ARCHIVED`   |
+| Component               | Required       | Description                                        | Example                                                             |
+| ----------------------- | -------------- | -------------------------------------------------- | ------------------------------------------------------------------- |
+| **Version**             | ✅ Yes         | Semantic version (X.Y)                             | `1.0`, `1.1`, `2.0`                                                 |
+| **Tool**                | ✅ Yes         | AI tool or author                                  | `Cursor AI`, `Claude Code`, `Manual`                                |
+| **Session**             | ✅ Yes         | Unique session identifier                          | `2025-12-30`, `QVvDX`, `IjtD0`                                      |
+| **Date**                | ✅ Yes         | Date of modification                               | `30.12.2025`                                                        |
+| **Changes**             | ✅ Yes         | Brief description                                  | `Initial creation`, `Added workflow naming`                         |
+| **Session Links**       | ⚠️ Recommended | GitHub commit links                                | URL to commits                                                      |
+| **Created**             | ✅ Yes         | Document creation date                             | `30.12.2025`                                                        |
+| **Last Modified**       | ✅ Yes         | Last modification date                             | `30.12.2025`                                                        |
+| **Language**            | ✅ Yes         | Primary language                                   | `English`, `Finnish`, `Bilingual`                                   |
+| **Languages Available** | ✅ Yes         | All available languages                            | `English, Suomi`                                                    |
+| **Publication Status**  | ✅ Yes         | Document status                                    | `ACTIVE`, `DRAFT`, `OUTDATED`, `ARCHIVED`                           |
+| **Harness**             | ✅ Yes         | Runtime + instruction set that produced the change | `Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md` |
+| **HIC-approved-drift**  | ✅ Yes         | Named exception, or `none`                         | `none` or `HIC-2026-09-19: 088 not applied`                         |
 
 ### 2.3 Publication Status Values
 
@@ -222,7 +238,7 @@ DRAFT → ACTIVE → OUTDATED → ARCHIVED
 
 When a document is superseded or no longer maintained, mark it as OUTDATED **before** archiving.
 
-**Step 1:** Add this block immediately after the document title (before `***`):
+**Step 1:** Add this block immediately after the document title (before the first `---`):
 
 ```markdown
 > **STATUS: OUTDATED** — This document is no longer maintained.
@@ -260,6 +276,25 @@ docs/archive/
 - Add a session entry to the version history recording the archive action
 
 ---
+
+### 2.6 Harness and HIC-approved drift (required)
+
+Every new VERSION AND AGENT HISTORY line and every §19.3 note MUST name:
+
+1. **Harness** — the runtime that executed the work **and** the instruction files it was bound to. Examples:
+   - `Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md`
+   - `OpenCode + opencode.json + CLAUDE.md`
+   - `Claude Code + .claude/settings.json + CLAUDE.md`
+   - `Manual / HIC` (human typed; still version the file)
+     Dumping `CLAUDE.md` into chat is not a harness. The always-on Cursor rule is: **Read** `STANDARDS_ROUTING.md` and matched standards.
+
+2. **HIC-approved-drift** — either `none` or a single explicit exception:
+   `HIC-YYYY-MM-DD: <what was allowed to deviate> — <why> — <ticket/PR>`.
+   Silent deviation from a DWS standard is a Rule 12 failure. Approved drift is still drift: keep the original requirement visible and point at the exception. Example from this branch: `HIC-2026-09-19: do not apply 088_190926_advisor_security_linter.sql — agent lacked repo caller map`.
+
+Markdown history lines append `| Harness: … | HIC-approved-drift: none`.
+
+**Why (binding, not style):** NIS2 Art. 21(2)(a)(e)(f)(i) and Katakri 2020 administrative + information-system families require reconstructable change control — who/what produced the artefact, under which procedure, and which named exception applied. See §27.
 
 ## 3. Workflow Naming Standard
 
@@ -393,7 +428,7 @@ deploy_production_v1.js
 
 ### 4.5 SQL Migration Files (Supabase / Postgres)
 
-Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
+Used for `supabase/migrations/*.sql` and any hand-written DDL migrations. Binding because `.sql` is in §1 scope — not an informal convention.
 
 **Format:**
 
@@ -425,6 +460,7 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
   - The **name** must be descriptive enough to understand purpose at a glance.
 - Always use `_` (underscore) as separator; avoid spaces and mixed separators.
 - When renumbering or adding late migrations (e.g. `036_*`), keep the original date to preserve historical traceability.
+- **CI (HIC 19.09.2026):** New or renamed files on a PR vs the merge-base must match this format. Names already on the base are grandfathered. Gate: `scripts/check-migration-filenames.mjs` / `.github/workflows/migration-filename.yml`. The gate does **not** apply SQL.
 
 ### 4.4 Prohibited Naming Patterns
 
@@ -448,7 +484,7 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
 2. Grep the repo for the old filename before renaming (`grep -rl "<old-filename>" .`) and update any exact-path references found, same as any other rename.
 3. Record the rename itself as a line item in that commit's VERSION AND AGENT HISTORY entry, not silently.
 
-**Exemption 1 — frozen archival snapshots:** point-in-time **archival snapshots** that are deliberately never edited again (e.g. `CV/CV_Risto_Paarni_155.md`, `CV/CV_Risto_Paarni_156.md` — frozen copies taken at a specific moment for historical reference) are exempt — their filename version is a creation-time snapshot label, not a live-synced tag, precisely because the file itself is frozen and cannot drift. This rule applies only to **actively-edited working documents** whose filename carries a version number.
+**Exemption 1 — frozen archival snapshots:** point-in-time **archival snapshots** that are deliberately never edited again (e.g. `CV/CV_Risto_Päärni_155.md`, `CV/CV_Risto_Päärni_156.md` — frozen copies taken at a specific moment for historical reference) are exempt — their filename version is a creation-time snapshot label, not a live-synced tag, precisely because the file itself is frozen and cannot drift. This rule applies only to **actively-edited working documents** whose filename carries a version number.
 
 **Exemption 2 — heavily cross-referenced living standards:** a document that is (a) revised frequently and (b) cross-referenced by exact filename from many other files may keep an **un-versioned filename** (no `_vX` tag at all) instead of embedding a version tag, if embedding one would force a rename-plus-reference-update ripple across the repo on every single edit. Example: `docs/KONSULTOINNIN_KASIKIRJA_2026.md` — ~20 cross-references repo-wide (Admin Manual, thesis/PhD chapters, whitepapers, `.claude/commands/dialog.md`, public site pages under `onelifetime.world/` and its `landing-pages/` mirror) as of 14.07.2026. Contrast with a bid CV, which typically has 0–1 cross-references and so pays the §4.6 rename cost cheaply. When in doubt, count real cross-references before deciding: few → embed the version (§4.6 default); many → this exemption, keep the base name stable and let `Version:` inside the file be the single source of truth for "which revision is this."
 
@@ -666,9 +702,9 @@ Usage: python script_name.py [args]
 
 ### 8.1 Purpose / Tarkoitus
 
-Establishes standardized procedures for creating professional PDF documents from markdown sources, ensuring consistent quality and file size optimization.
+Establishes how PDFs are produced when HIC needs one: render HTML first (`Learn/` / `scripts/render-doc.sh` / §18), then HIC prints to PDF. Agents do **not** generate PDF from markdown. The retired `***` Pandoc delimiter is not used.
 
-Määrittää standardoidut menettelyt ammattimaisten PDF-dokumenttien luomiseksi markdown-lähteistä, varmistaen johdonmukaisen laadun ja tiedostokoon optimoinnin.
+Määrittää PDF-tuotannon: ensin HTML, sitten HIC tulostaa PDF:n. Agentit eivät tee PDF:ää markdownista.
 
 ### 8.2 File Size Requirements
 
@@ -741,9 +777,7 @@ pandoc "input.md" -o "output.pdf" --pdf-engine=wkhtmltopdf --toc -f markdown-yam
 pandoc "input.md" -o "output.pdf" --pdf-engine=xelatex --toc -f markdown-yaml_metadata_block+smart
 ```
 
-> **WARNING:** Do NOT use `pdflatex` - it cannot handle Unicode emoji.
-> Do NOT use `---` delimiters in document headers - pandoc treats them as YAML.
-> Use `***` delimiters instead (see Section 2.1).
+> **HIC 19.09.2026:** Do not run these PDF-from-markdown commands in agent sessions. Render HTML (`scripts/render-doc.sh` / §18). HIC creates the PDF from that HTML when a PDF is required.
 
 ### 8.4 HTML Styling Standard (DWS Brand)
 
@@ -2208,6 +2242,8 @@ Every Code Versioning Note MUST contain:
 - `Date` (`YYYY-MM-DD`)
 - `Owner` (team or tool)
 - `Env-Schema` (e.g. `env-v1.0`) if runtime config is required
+- `Harness` — which agent runtime and instruction set produced the change (see §2.6 / §27)
+- `Hic-Approved-Drift` — `none` or a dated HIC exception id (never silent)
 
 ### 19.3 Syntax-Safe Templates (CRITICAL)
 
@@ -2225,6 +2261,8 @@ Use language-appropriate comment syntax. Never insert markdown prose directly in
  * Date: 2026-03-13
  * Owner: DWS Platform / AI Agent
  * Env-Schema: env-v1.0
+ * Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md
+ * Hic-Approved-Drift: none
  */
 ```
 
@@ -2240,10 +2278,12 @@ Commit: abc1234
 Date: 2026-03-13
 Owner: DWS Platform / AI Agent
 Env-Schema: env-v1.0
+Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md
+Hic-Approved-Drift: none
 """
 ```
 
-**SQL migrations (`.sql`):**
+**SQL (`.sql`), TypeScript/JavaScript, and Python — mandatory for new and rewritten files in §1 scope:**
 
 ```sql
 -- CODE VERSIONING NOTE
@@ -2254,6 +2294,8 @@ Env-Schema: env-v1.0
 -- Date: 2026-03-13
 -- Owner: DWS Platform / AI Agent
 -- Env-Schema: env-v1.0
+-- Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md
+-- Hic-Approved-Drift: none
 ```
 
 **Shell / YAML / Dockerfile:**
@@ -2267,6 +2309,8 @@ Env-Schema: env-v1.0
 # Date: 2026-03-13
 # Owner: DWS Platform / AI Agent
 # Env-Schema: env-v1.0
+# Harness: Cursor Cloud + .cursor/rules/dws-standards-always.mdc + CLAUDE.md
+# Hic-Approved-Drift: none
 ```
 
 ### 19.4 Increment Rules for `Code-Version`
@@ -2295,6 +2339,8 @@ Before merging code PRs:
 - [ ] New/rewritten files include Code Versioning Note
 - [ ] `Introduced-In` references current PR number (e.g., `PR-699`)
 - [ ] `Code-Version` increment is justified by change scope
+- [ ] `Harness` names runtime + instruction files (not “remembered CLAUDE.md”)
+- [ ] `Hic-Approved-Drift` is `none` or a dated HIC exception (never omitted)
 - [ ] If config changed: `.env.example` updated and `ENV_SCHEMA_VERSION` bumped
 - [ ] No secrets/keys included in version notes
 
@@ -2311,6 +2357,10 @@ rg "Introduced-In:\\s*PR-699"
 
 # All files using env schema lineage
 rg "Env-Schema:\\s*env-v"
+
+# Harness / approved-drift (NIS2 / Katakri change-control fields)
+rg "Harness:"
+rg "Hic-Approved-Drift:"
 ```
 
 ---
@@ -2482,7 +2532,7 @@ Document Status:
 ---
 ```
 
-> **Remember:** Use `***` not `---` for pandoc compatibility.
+> **HIC 19.09.2026:** `---` delimiters. No agent PDF-from-markdown.
 
 ### Workflow Naming Template
 
@@ -2529,7 +2579,7 @@ A whitepaper references a **subject version** (the standard or product it descri
 1. **Visible revision line** near the title or in the footer:
    `Document revision v1.1 · Last updated 25 Jun 2026`
 2. **VERSION AND AGENT HISTORY provenance block:**
-   - **Markdown-sourced** whitepapers: the standard `***`-delimited block per §2 / Appendix B.
+   - **Markdown-sourced** whitepapers: the standard `---`-delimited block per §2 / Appendix B.
    - **HTML-only** whitepapers (public-site pages — `.md` is forbidden in public folders per CLAUDE.md Non-Negotiable Rule 5): embed the history as an `<!-- VERSION AND AGENT HISTORY ... -->` HTML comment immediately after `<head>`, plus the visible revision line in §20.2(1).
 
 ### 20.3 Increment rule (per §5 table)
@@ -2825,7 +2875,7 @@ Every document produced in this repository — internal or external, narrative o
 ### 25.1 Canonical footer block
 
 ```
-***
+---
 
 **Document version:** vX.Y · **Date:** DD.MM.YYYY · **Owner:** Lifetime Oy
 © <year> Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
@@ -2838,7 +2888,8 @@ Every document produced in this repository — internal or external, narrative o
 - **Public documents** replace the confidentiality clause with a short public-license/attribution line, but still carry version, date, and copyright.
 - **Customer-facing documents (§20.6)** already move the version block + copyright to the end — this footer _is_ that block; do not duplicate it at the top for those docs.
 - **Whitepapers (§23.1)** carry the per-page printed footer defined there; §25 is the Markdown-source equivalent and both must agree on classification.
-- **Delimiter:** the footer opens with `***` (never `---`) per the Markdown Delimiter Rule.
+- **Delimiter:** `---` (HIC 19.09.2026). The retired `***` rule is not enforced.
+- **Executable-source exception:** `.sql` / `.ts` / `.py` do not use this Markdown footer. Put version + date + copyright in a trailing language comment, or omit confidentiality on public repo source. Version must match `Code-Version` in the §19.3 note.
 
 ## 26. Repository-First, Then Export (anti-drift)
 
@@ -2873,3 +2924,54 @@ Exported cloud documents (Google Docs/Drive, Gamma, shared PDFs) **must lead the
 - The leading version must equal the repo master's current version; bump it on every re-export.
 - If a document will exceed 9 minor versions, **zero-pad the minor** (`V1.03`) so lexical sort stays correct. Same idea as the whitepaper pipeline's zero-padded `NN_` prefix (§23.2).
 - When the connector cannot rename/update-in-place (e.g. Google Drive), a re-export makes a new file — **link every superseded file for manual deletion (§20.7)** so stale versions don't accumulate.
+
+---
+
+## 27. Audit provenance — harness, version, HIC-approved drift (NIS2 / Katakri)
+
+Documentation and source provenance are **security controls**, not house style. An auditor must reconstruct: which version is current, which agent/runtime produced a change, which instruction set bound that runtime, and whether HIC authorized a deviation.
+
+### 27.1 NIS2 Directive (EU) 2022/2555
+
+Mapped from `DWS_SECURITY_STANDARD.md` §7.2 (this table is the **document-control** slice only):
+
+| Article       | Requirement (paraphrase)                                  | What this standard requires on every artefact                                           |
+| ------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Art. 21(2)(a) | Policies on risk analysis and information-system security | Versioned standards + `Harness` so the policy set in force is named                     |
+| Art. 21(2)(e) | Security in acquisition, development and maintenance      | `Code-Version` / document `Version:` + git commit + PR (`Introduced-In`)                |
+| Art. 21(2)(f) | Assessing effectiveness of risk-management measures       | Reconstruct which harness produced a failing change; `Standards loaded:` on HIC replies |
+| Art. 21(2)(i) | Human resources security and access control               | Tool + session + HIC exception id — accountability of the operator and the agent        |
+| Art. 23       | Incident reporting                                        | Field notes keep the same header so an incident file names harness and drift            |
+
+Art. 12–14 of the EU AI Act (logging, transparency, human oversight) are the same shape: do not hide the producer or the override.
+
+### 27.2 Katakri 2020 (Traficom / national security audit criteria)
+
+Katakri is Finland’s authority audit tool for information security. Official PDF is **not** stored in this repo (fail loud). Mapping uses the published 2020 family names, not a certificate claim:
+
+| Family (2020)                    | Relevance here                                                                   |
+| -------------------------------- | -------------------------------------------------------------------------------- |
+| Hallinnollinen tietoturvallisuus | Written procedure for how documents/code are versioned and who may approve drift |
+| Henkilöstöturvallisuus           | Identify the human (HIC) and the delegated agent/session                         |
+| Tietojärjestelmäturvallisuus     | Change control, logging, configuration/version identity of system artefacts      |
+
+**Rules:** (1) Every change has a version. (2) Every change names its harness. (3) Drift without a HIC line is non-compliant. (4) Do not claim “Katakri certified” from these fields alone.
+
+Cross-ref: `DWS_SECURITY_STANDARD.md` §7–§8 (NIS2 + alignment matrix, including Katakri).
+
+### 27.3 Gaps — propose the standard, do not only N/A
+
+When work shows a DWS standard is **silent, contradictory, or missing** a control that NIS2 Art. 21, Katakri 2020 families, or EU AI Act Art. 12–14 require:
+
+1. Name the gap in the field note (`Gap:` + which file/section).
+2. Draft the missing wording (short). Do not invent Katakri criterion-IDs or prices.
+3. Land the draft in the standard in the same PR **or** mark `Status: PENDING_REVIEW` if HIC/RED-zone is required.
+4. `HIC-approved-drift` only after HIC names the exception.
+
+Routing: `docs/system-config/STANDARDS_ROUTING.md` How to Apply step 4.
+
+---
+
+**Document version:** v2.22 · **Date:** 19.09.2026 · **Owner:** Lifetime Oy
+© 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
+**Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.

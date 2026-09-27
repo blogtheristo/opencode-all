@@ -1,0 +1,228 @@
+<!doctype html>
+<!--
+  ThinkingBox: Auditing Agents Where They Matter
+  Code-Version: 1.0
+  Branch: claude/thinkingbox-agent-audit-bgp3nt
+  Date: 2026-09-19
+  Owner: Lifetime Oy
+  Languages: en (canonical), fi, sv, de, fr
+  Related:
+    - docs/blog-drafts/thinkingbox.md
+    - github.com/blogtheristo/dws-thinkingbox
+-->
+<html lang="sv">
+  <head>
+    <meta property="article:class" content="1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ThinkingBox: Granskning av agenter där det spelar roll — Lifetime Scope Journal</title>
+    <meta
+      name="description"
+      content="Agenter som rapporterar framgang men inte levererar. Lar dig hur ThinkingBox granskar agenter for faktiska resultat."
+    />
+    <meta name="author" content="Risto Anton Päärni" />
+    <meta name="date" content="2026-09-19" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      property="og:title"
+      content="ThinkingBox: Auditing Agents Where They Matter"
+    />
+    <meta
+      property="og:description"
+      content="Agenter som rapporterar framgang men inte levererar ar existentiella hot."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="sv_SE" />
+    <meta property="og:locale:alternate" content="fi_FI" />
+    <meta property="og:locale:alternate" content="sv_SE" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/thinkingbox-agent-audit.sv.html"
+    />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="article:published_time" content="2026-09-19" />
+    <meta property="article:author" content="Risto Anton Päärni" />
+    <meta property="article:section" content="Engineering" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="ThinkingBox: Auditing Agents Where They Matter"
+    />
+    <meta
+      name="twitter:description"
+      content="Audit agents for outcomes, not hallucinations. Process isolation. Real workflows. DGX-first cost governance."
+    />
+    <link
+      rel="canonical"
+      href="https://onelifetime.world/posts/thinkingbox-agent-audit.sv.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://onelifetime.world/posts/thinkingbox-agent-audit.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://onelifetime.world/posts/thinkingbox-agent-audit.fi.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://onelifetime.world/posts/thinkingbox-agent-audit.sv.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fr"
+      href="https://onelifetime.world/posts/thinkingbox-agent-audit.fr.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://onelifetime.world/posts/thinkingbox-agent-audit.de.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://onelifetime.world/posts/thinkingbox-agent-audit.html"
+    />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; }
+      body { max-width: 720px; margin: 0 auto; padding: 40px 20px; color: #1a1a1a; background: #fafafa; }
+      header { margin-bottom: 60px; text-align: center; }
+      h1 { font-size: 2.2em; margin: 20px 0; line-height: 1.2; }
+      .meta { color: #666; font-size: 0.9em; margin: 20px 0; }
+      h2 { font-size: 1.5em; margin: 40px 0 20px; border-top: 3px solid #0ea5e9; padding-top: 20px; }
+      h3 { font-size: 1.1em; margin: 30px 0 15px; }
+      p { margin-bottom: 16px; }
+      li { margin-left: 20px; margin-bottom: 10px; }
+      ul, ol { margin-bottom: 20px; }
+      code { background: #f1f5f9; padding: 2px 6px; border-radius: 3px; font-family: "Courier New", monospace; }
+      blockquote { border-left: 4px solid #0ea5e9; padding-left: 16px; margin: 20px 0; color: #555; font-style: italic; }
+      a { color: #0284c7; text-decoration: underline; }
+      a:visited { color: #0369a1; }
+      .footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 0.9em; color: #666; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>ThinkingBox: Granskning av agenter där det spelar roll</h1>
+      <div class="meta">
+        <div>Risto Anton Päärni — 2026-09-19</div>
+      </div>
+    </header>
+        <aside class="ai-notice" role="note" aria-label="AI-genererat innehall" style="margin:0 0 1.75rem;padding:0.85rem 1.1rem;border-left:3px solid #94a3b8;background:rgba(30,41,59,0.55);color:#cbd5e1;font-size:0.85rem;line-height:1.6">
+          <strong style="color:#f1f5f9">AI-genererat innehall</strong> &middot; Den har sidan ar en maskinöversättning av det engelska originalet. Den engelska versionen ar den gällande texten.
+            <a href="/posts/thinkingbox-agent-audit.html" hreflang="en" lang="en" style="color:#22d3ee;text-decoration:underline">Läs det engelska originalet &rarr;</a>
+        </aside>
+
+
+    <main>
+      <h2>Det tysta feltproblem</h2>
+      <p>Dina agenter körs. Transkriptionen ser bra ut. Användaren säger "tack". Sedan kontrollerar du databasen, API-loggarna, bieffekterna—och ingenting hänt. Agenten hallucinererade framgång.</p>
+      <p>Detta är gapet mellan <em>säga</em> att du gjorde något och <em>gör</em> det. Eval-ramverk mäter transkriptionskvalitet. De mäter inte resultat.</p>
+      <p>För revenue engines—utgående kampanjer, leadberikning, riktadanpassning, attribuering—stilla fel är inte kantfall. De är existentiella. En agent som rapporterar "kampanj distribuerad" när ingenting skickades, och din GTM förlorar trovärdighet med en kund. En lead-berikning-agent som hallucinererar nya kontaktfält, och ditt säljteam jagar spöken.</p>
+      <p>Microsoft byggde ThinkingBox för att lösa exakt detta problem. Vid Lifetime har vi forkat arkivet, anpassat det för revenue engines och paketerat det med DGX-integration och 507 affärsdomänbenchmarks.</p>
+
+      <h2>Vad ThinkingBox gör</h2>
+      <p>ThinkingBox kör agenter i isolerade, tillståndsbaserade verktygsmiljöer via MCP (Model Context Protocol) servrar. Varje konversation spawnar isolerade verktygsprocesser med stdio-transport—för att säkerställa att varje testfall körs i en ren, reproducerbar sandlåda.</p>
+      <p>Arkitekturen inspekterar tre saker som transkriptions-only evalueringar missar:</p>
+      <h3>Tillståndsbaserade arbetsflöden</h3>
+      <p>Verklig verktygsvändning är tillståndsbaserad—skapa en resurs, uppdatera den, fråga resultatet. De flesta evalueringar kör enkelvänds samtal. ThinkingBox låter agenter köra fleravångs arbetsflöden (ring API:t, kontrollera svaret, försök igen eller anpassa) och inspekterar vad verktygen faktiskt ändrade.</p>
+      <h3>Simulerade användare</h3>
+      <p>Agenter frågar ofta förtydligande frågor. ThinkingBox simulerar användarresponser (via LLM eller prompt-driven) och verifierar att agentens slutgiltiga svar matchar specifikationen. Enkelvänds evalueringar missar detta helt.</p>
+      <h3>Bieffektgranskning</h3>
+      <p>Den verkliga signalen är inte "agenten sa att det fungerade". Det är "databasen visar förändringen", "API:t returnerade framgång" eller "filen skapades". ThinkingBox inspekterar tillståndet före och efter, flaggar hallucineringar där agenten hävdade framgång men verktygen visar misslyckande.</p>
+
+      <h2>ThinkingBox-Bench: 507 riktiga arbetsflöden</h2>
+      <p>Vi levererar ThinkingBox-Bench med 507 körbara uppgifter över fem affärsdomäner:</p>
+      <ul>
+        <li><strong>Utgående & GTM:</strong> Kampanjdistribution, leadpoäng, publikrefinement</li>
+        <li><strong>Databerikning:</strong> Kontaktsökning, attributextraktion, datakvalitetskontroller</li>
+        <li><strong>Attribuering & Analytics:</strong> Händelsekorrelation, trattanalys, kohortdefinition</li>
+        <li><strong>Innehål & Kunskap:</strong> Dokumentbehandling, semantisk sökning, kunskapsbasuppdateringar</li>
+        <li><strong>Integration & Orkestrering:</strong> API-handöveringar, systemöverordnad synkronisering, felåterställning</li>
+      </ul>
+      <p>Varje uppgift innehåller syntetiska poster, förväntade resultat och förbyggda MCP-servrar. Du kör din agent mot den och får pass/fail på faktiska bieffekter—inte transkriptionssentiment.</p>
+
+      <h2>DGX-First-arkitektur</h2>
+      <p>ThinkingBox integreras med DGX, den lokala sandlådan för agentkalkyl. Enligt DWS kostnadsadministration är alla AI-agentarbetsbelastningar som standard lokala—molnagenter är sekundära och kräver dokumenterad motivering.</p>
+      <p>Detta betyder:</p>
+      <ul>
+        <li><strong>Utveckling & Staging:</strong> Kör ThinkingBox-Bench lokalt på DGX via MCP-processisolering. Snabb iteration, noll molnfakturering för processspawning, helt isolerad från produktionsdata.</li>
+        <li><strong>Före distribution:</strong> Varje agentarbetsflöde kör hela bänken före befordring. Inga överraskningar i produktion.</li>
+        <li><strong>Kostnadsadministration:</strong> Varje ThinkingBox-Bench-uppgift är en processpawning + LLM-samtal. Körning av 507 uppgifter × 20 iterationer i molnet är dyrt. Lokal körning betyder att processspawning är gratis—endast LLM-slutledning faktureras. Efter 12 oktober 2026 blockeras molnagenter under gratis kreditneddragning. ThinkingBox-on-DGX säkrar din eval-slinga framåt.</li>
+      </ul>
+
+      <h2>För grundare och lag</h2>
+      <p>Om du bygger agentsystem:</p>
+      <ul>
+        <li><strong>Investerare frågar:</strong> "Hur vet du att dina agenter fungerar?" En grön ThinkingBox-Bench-körning är svaret. Det är revisionsspårbart, reproducerbart och mäter resultat—inte hallucineringar.</li>
+        <li><strong>Ditt lag behöver självförtroende:</strong> En agent som misslyckas tyst kostar mer än en dag av eval-infrastruktur. ThinkingBox fångar det före distribution.</li>
+        <li><strong>Revenue engines är binära:</strong> Din berikning-agent berikade antingen leaden eller så gjorde den det inte. Din utgående agent distribuerade antingen kampanjen eller log den om det. ThinkingBox gör den signalen tydlig.</li>
+      </ul>
+
+      <h2>Komma igång</h2>
+      <p>DWS-ThinkingBox är vår gaffel av Microsoft ThinkingBox-ramverket, anpassat för revenue engines:</p>
+      <ul>
+        <li><strong>Lifetime-gaffel:</strong> github.com/blogtheristo/dws-thinkingbox — MCP-sessionsproxy, agent/användare/domare-slinga, 507 benchmarks, DGX-löparkonfiguration</li>
+        <li><strong>Upstream-ramverk:</strong> github.com/microsoft/thinkingbox — evalueringsutrustningen och processisoleringslagret</li>
+      </ul>
+      <p>Integrations arbetsflöde:</p>
+      <ol>
+        <li>Klona gaffeln tillsammans med din agentinfrastruktur.</li>
+        <li>Definiera verktygsmockar som MCP-servrar (Python-underprocess eller HTTP).</li>
+        <li>Skriv scenarier och testfall i YAML.</li>
+        <li>Kör <code>tb infer</code> mot ThinkingBox-Bench med din agent.</li>
+        <li>Varje test spawnar isolerade verktygsprocesser, kör agenten, samlar spår och verifierar resultat.</li>
+        <li>Använd benchresultat som CI-grindar och investerarvänd granskningsspår.</li>
+      </ol>
+      <p>Transkriptionen är vad användare ser. ThinkingBox är vad som faktiskt hände.</p>
+
+      <h2>Från Eval till produktion: Den fullständiga bilden</h2>
+      <p>ThinkingBox validerar agenter före distribution. När den väl är live övervakar DWS Dashboard dem i produktion—med full observerbarhet som drivs av Aspire.</p>
+      <h3>Operativ pipeline</h3>
+      <ol>
+        <li><strong>ThinkingBox-Bench:</strong> Pass/fail på 507 uppgifter. Noll tysta fel.</li>
+        <li><strong>Distribuera:</strong> Skicka verifierade agenter till produktion på DGX.</li>
+        <li><strong>DWS Dashboard:</strong> Realtidsövervakning av agenter över tre dedikerade vyer:</li>
+      </ol>
+      <ul>
+        <li><strong>Digital kontor:</strong> Visuell agentkonstationstatus.</li>
+        <li><strong>Kontrollrum:</strong> NOC-stiligt rutnät som spårar CPU, minne, uppgiftsprogression och kostnad per begäran.</li>
+        <li><strong>Situationsrum:</strong> Verkställande varningar och självförtroendet-drift tidslinje.</li>
+      </ul>
+      <p><strong>Aspire-telemetri:</strong> Valfri distribuerad spårning som matar kontrollrummet med:</p>
+      <ul>
+        <li>Agentbeslutspsår (modellingångar, verktygsamtal, utgångar).</li>
+        <li>Verktygslatens och felfrekvens.</li>
+        <li>Token-användning och kostnadsspårning per agent.</li>
+        <li>MCP-serverhälsa och prestandamätvärden.</li>
+        <li>End-to-end arbetsflödespsår över multi-agentöverföringar.</li>
+      </ul>
+
+      <h3>Verkligt exempel: Kontrollrumövervakning i stor skala</h3>
+      <p>Föreställ dig att distribuera 50 agenter, och en börjar hallucinerare subtilt på tisdagar. Utan spår spenderar ditt lag 6 timmar debugging blind. Med Aspire matning kontrollrummet:</p>
+      <ul>
+        <li>Självförtroendet-drift-detektorn flaggar anomalin på 2 minuter.</li>
+        <li>Detaljerade agentspår visar exakt vilka verktygsamtal som avvek.</li>
+        <li>Du lokaliserar modelltemperaturen eller ledtextstöten ansvarig för driften.</li>
+        <li>Återställning eller kodfix tar 15 minuter istället för en hel dag.</li>
+      </ul>
+
+      <div class="footer">
+        <p>Byggd av Lifetime-teamet. Frågor? Nå oss på risto.paarni@lifetime.fi.</p>
+      </div>
+    </main>
+    <nav class="i18n-links" aria-label="Language" style="text-align:center;padding:18px 12px;font-size:0.85rem;opacity:0.75">
+      <a href="/posts/thinkingbox-agent-audit.html" hreflang="en" lang="en" style="margin:0 8px;color:inherit">🇬🇧 In English</a>
+      <a href="/posts/thinkingbox-agent-audit.fi.html" hreflang="fi" lang="fi" style="margin:0 8px;color:inherit">🇫🇮 Suomeksi</a>
+      <a href="/posts/thinkingbox-agent-audit.de.html" hreflang="de" lang="de" style="margin:0 8px;color:inherit">🇩🇪 Deutsch</a>
+      <a href="/posts/thinkingbox-agent-audit.fr.html" hreflang="fr" lang="fr" style="margin:0 8px;color:inherit">🇫🇷 Français</a>
+    </nav>
+
+    </body>
+</html>

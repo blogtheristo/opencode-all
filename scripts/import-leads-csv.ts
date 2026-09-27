@@ -37,7 +37,7 @@ interface CSVLead {
   last_name: string;
   company: string;
   title: string;
-  country: 'FI' | 'SE' | 'NO' | 'DK' | 'DE';
+  country: 'FI' | 'SE' | 'NO' | 'DK' | 'DE' | 'FR';
   linkedin_url?: string;
   segment?: string;
   notes?: string;
@@ -75,9 +75,11 @@ async function importLeadsFromCSV(csvFilePath: string): Promise<void> {
       }
 
       // Validate country
-      const validCountries = ['FI', 'SE', 'NO', 'DK', 'DE'];
+      const validCountries = ['FI', 'SE', 'NO', 'DK', 'DE', 'FR'];
       if (!validCountries.includes(record.country)) {
-        throw new Error(`Invalid country: ${record.country}. Must be one of: ${validCountries.join(', ')}`);
+        throw new Error(
+          `Invalid country: ${record.country}. Must be one of: ${validCountries.join(', ')}`,
+        );
       }
 
       // Validate email format

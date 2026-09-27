@@ -1,12 +1,13 @@
 ---
 title: CLAUDE.md — Operational Rules for AI Agents
-version: 1.1
+version: 1.6
 status: Active
-last_updated: 2026-09-07
-applies_to: ["Claude Code", "OpenCode", "BaseAgent", "MCP tools", "all agents"]
+last_updated: 2026-09-27
+applies_to:
+  ["Claude Code", "OpenCode", "BaseAgent", "MCP tools", "Cursor", "Cursor Cloud", "all agents"]
 language: en
 schema: DWS_DOCUMENT_STANDARD
-changes_in_this_version: "Extracted long specs (Discipline, Standards Routing) to separate indexed files; added multi-tool acknowledgment and system file ecosystem cross-references"
+changes_in_this_version: "HIC 27.09.2026: Market Signal → Sales Pipeline Rule (dual-route signals to PhD §14.x and docs/sales/SALES_OPPORTUNITIES_PIPELINE.md, 1–5 star score)"
 source_control_url: "https://github.com/blogtheristo/dws6/blob/main/CLAUDE.md"
 ---
 
@@ -18,12 +19,13 @@ source_control_url: "https://github.com/blogtheristo/dws6/blob/main/CLAUDE.md"
 
 This file is loaded by:
 
-| Tool            | Load Mechanism                                          | Reference                                                      |
-| --------------- | ------------------------------------------------------- | -------------------------------------------------------------- |
-| **OpenCode**    | `opencode.json` line 3: `"instructions": ["CLAUDE.md"]` | [opencode.json](opencode.json)                                 |
-| **Claude Code** | Hooks system via `session-start.sh`                     | [.claude/settings.json](.claude/settings.json)                 |
-| **BaseAgent**   | Runtime environment + `AI_AGENT_GUIDELINES.md` §0       | [src/agents/BaseAgent.ts](src/agents/BaseAgent.ts) (reference) |
-| **MCP tools**   | Via agent context + session startup                     | [.mcp.json](.mcp.json)                                         |
+| Tool                      | Load Mechanism                                                                                                           | Reference                                                                        |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
+| **OpenCode**              | `opencode.json` line 4: `"instructions": ["CLAUDE.md"]`                                                                  | [opencode.json](opencode.json)                                                   |
+| **Claude Code**           | Hooks system via `session-start.sh`                                                                                      | [.claude/settings.json](.claude/settings.json)                                   |
+| **BaseAgent**             | Runtime environment + `AI_AGENT_GUIDELINES.md` §0                                                                        | [src/agents/BaseAgent.ts](src/agents/BaseAgent.ts) (reference)                   |
+| **MCP tools**             | Via agent context + session startup                                                                                      | [.mcp.json](.mcp.json)                                                           |
+| **Cursor / Cursor Cloud** | `alwaysApply` rules + `AGENTS.md` + this file. Resolver **must** be executed as file Reads, not recalled from this dump. | [.cursor/rules/dws-standards-always.mdc](.cursor/rules/dws-standards-always.mdc) |
 
 **Related system files:** See [System Files Index](#system-files-index) below.
 
@@ -35,10 +37,11 @@ Ship reliable outcomes fast, but never past security, compliance, or source-of-t
 
 - **Sender Identity:** Risto Anton Päärni, Founder/CEO, Lifetime Oy. Email: `risto.paarni@lifetime.fi` (Proton outbound). Phone: +358 400 319 010. See [Legal Identity Rule](#legal-identity-rule).
 - **Engineering Discipline:** 12 rules for all agents. **Detailed:** `docs/system-config/DISCIPLINE.md` (separate file).
-- **Standards Routing:** Match tasks to standards triggers; load all matched. **Detailed:** `docs/system-config/STANDARDS_ROUTING.md` (separate file).
+- **Standards Routing:** Match tasks to standards triggers; **Read** all matched files (never “I already know CLAUDE.md”). **Detailed:** `docs/system-config/STANDARDS_ROUTING.md`. Cursor: `.cursor/rules/dws-standards-always.mdc` (`alwaysApply: true`).
 - **OpenCode Permissions:** YELLOW zone for blog publishing, thesis edits, migration application, learning outcome deferral. See [OpenCode Permission Elevation](#opencode-permission-elevation-yellow-zone).
 - **Non-Negotiable Rules:** 13 rules governing secrets, git, identity, destructive actions. See below.
 - **Session Learning Outcome:** HIC oversight required. See [Session Learning Outcome Rule](#session-learning-outcome-rule-eu-ai-act-art-14).
+- **Market Signal Routing:** Commercially-relevant signals dual-route to PhD thesis §14.x AND `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, star-scored 1–5. See [Market Signal → Sales Pipeline Rule](#market-signal--sales-pipeline-rule).
 
 ## Engineering Discipline — The 12 Rules
 
@@ -54,7 +57,9 @@ The 12 rules are canonical and apply to all agents. **Quick summary:**
 
 **Full routing table:** `docs/system-config/STANDARDS_ROUTING.md`
 
-**Quick rule:** Task fires multiple triggers → load all matched standards. Always start with `DWS_TRUTH_STANDARD.md` and `DWS_ROLES_REGISTRY.md`.
+**Quick rule:** Task fires multiple triggers → **Read** all matched standards. Always start with `DWS_TRUTH_STANDARD.md` and `DWS_ROLES_REGISTRY.md`. Having this file in context does **not** count as loading those standards.
+
+**Cursor / Cloud Agent:** First tool calls of a task that writes files are Reads of `STANDARDS_ROUTING.md` + Truth + Roles + every match. HIC line: `Standards loaded: <paths>`. Skip → `N/A — <reason>` (Rule 12).
 
 ---
 
@@ -143,6 +148,7 @@ OpenCode operates with elevated permissions beyond Claude Code. These items move
 11. **`gcloud` uses CMD syntax only** — `^` continuation, never backtick. `.ps1` scripts invoke via `powershell -ExecutionPolicy Bypass -File .\script.ps1` from CMD.
 12. **Never lose eloquent formulations.** Preserve philosophical passages, quotes, mottos, wisdom in rewrites. See `DWS_DOCUMENT_STANDARD.md` §21.
 13. **Blog publishing:** Claude Code requires HIC approval (show text, stop, ask). OpenCode publishes via YELLOW zone. All posts: `/blog-draft` to `docs/blog-drafts/<slug>.md` → HIC approval before publish.
+14. **Cost governance — DGX-first agentic compute:** All AI agent workloads (Cursor, Grok, Claude Code, OpenCode) must default to DGX (local sandbox). Cloud agents are secondary and require documented justification. Free-credit window: 2026-09-20 through 2026-10-11 (21 days); after 2026-10-12, cloud agents are blocked. Full audit trail required. See `docs/DWS_COST_POLICY_STANDARD.md`.
 
 ---
 
@@ -154,7 +160,7 @@ OpenCode operates with elevated permissions beyond Claude Code. These items move
 
 **Store content:** `Store/*.md` uses YAML frontmatter. No DWS Document Standard header blocks.
 
-**Markdown delimiters:** `VERSION AND AGENT HISTORY` blocks use `***`, not `---` (Pandoc compatibility).
+**Markdown delimiters:** `VERSION AND AGENT HISTORY` uses `---` (Prettier-stable). HIC 19.09.2026 retired `***` / Pandoc-from-markdown PDF. HIC makes PDFs from HTML when needed.
 
 **Supabase table grants:** Every `CREATE TABLE public.*` needs `GRANT` to `service_role` + `authenticated` + `ENABLE ROW LEVEL SECURITY`. Copy standard block from `Firehorse/supabase-schema-templates.sql`. Grant `anon` only where an RLS policy targets it.
 
@@ -227,6 +233,17 @@ When gated on HIC approval (Rule 13 blogs, document rewrites, customer-facing ar
 - **Thesis files:** require `--force-thesis` override for structural edits.
 - **Checker:** `scripts/evidence-audit.mjs <paths…>` before commit.
 
+### Tool Git Identity Rule
+
+Every commit shows which tool made it (HIC 27.09.2026). Git author and committer:
+
+- **Name:** `Risto Anton Päärni (<tool>)` · **Email:** `<tool>@lifetime.fi` — `<tool>` is `copilot`, `opencode`, `cursor`, `claude`, …
+- **Human commits** (no tool): `Risto Anton Päärni <risto.paarni@lifetime.fi>`, the global git config.
+- **Mechanism:** set `GIT_AUTHOR_*` / `GIT_COMMITTER_*` when the tool starts (shell wrapper in `~/.bashrc` on DGX), never a repo-local `user.name` / `user.email`. A repo-local identity overrides everyone; the 2026-08-25 test-fixture leak signed 118+ commits as `Unit Fixture <dev@lifetime.fi>` this way.
+- **Cloud agents** that set their own identity (Claude Code on the web: `noreply@anthropic.com`) keep it; the tool is still identifiable.
+- **Check:** `git log -1 --format='%an <%ae>'` after the first commit of a session. `git config --local --get user.name` must print nothing.
+- Never rewrite history to fix past authorship.
+
 ---
 
 ### Secret Egress Rules
@@ -292,6 +309,25 @@ Repeating judgment work becomes a skill:
 Skipped steps → `N/A — <reason>` in field note (Rule 12, Fail Loud).
 
 **OpenCode async timing:** HIC reviews queued outcomes at `/retro`, `/learn`, or on-demand weekly. OpenCode continues; no per-session sync gate.
+
+---
+
+### Market Signal → Sales Pipeline Rule
+
+**Every market signal is dual-routed, not thesis-only.** A signal (conference session, competitor move, regulatory shift, industry report) that is scientifically noteworthy AND has commercial bearing on a DWS IQ product must be logged in **both** places in the same pass — never PhD-only by default.
+
+1. **Score at intake.** Every signal gets a 1–5 star **Sales Opportunity Score**: does it name a buyer pain, a budget line, a buyer persona/segment, or a competitive wedge for an existing DWS IQ product (Firehorse, KYA+I, LWM, token/human/edge-control-room capital, Ops Manager)? No product tie → 0 stars, PhD-only, skip sales routing.
+2. **Dual-route ≥1 star.** Any signal scoring 1★ or higher gets:
+   - **PhD thesis** — `docs/PHD_FIREHORSE_EN/FI.md` §14.x market-signal section (Additive/GREEN, four-file lockstep per Thesis Rule), scientific framing, no sprint detail.
+   - **Sales pipeline** — one row in `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md` (or successor CRM handoff per `docs/SEO_CRM_HANDOFF_SCHEMA.md`): star score, target product, buyer segment, next outreach action.
+3. **Star scale:**
+   - ★☆☆☆☆ — thematic adjacency only, no near-term buyer.
+   - ★★☆☆☆ — plausible segment fit, no named account/trigger event.
+   - ★★★☆☆ — clear buyer persona + budget line, no active trigger.
+   - ★★★★☆ — active trigger event (deadline, incident, competitor loss) naming a segment we can reach this quarter.
+   - ★★★★★ — named account or warm channel + trigger event + product fit confirmed — ready for `/investor-outreach`-style pipeline entry or direct outbound this week.
+4. **No thesis-only parking for commercial signals.** A signal filed to PhD §14.x with an unscored or skipped sales pass is a Rule 12 (Fail Loud) violation — mark `Sales Score: N/A — <reason>` explicitly if genuinely non-commercial (e.g., pure regulatory-philosophy signal).
+5. **Review cadence:** sales pipeline file reviewed at the same cadence as `/retro` and PhD thesis lockstep updates — not a separate process.
 
 ---
 
@@ -390,18 +426,19 @@ For new taxonomy-facing copy, use the DWS skilled terminology model from canonic
 
 **This file is part of a multi-tool configuration ecosystem. Related files:**
 
-| File                                         | Purpose                                           | Tools                                        | Status      |
-| -------------------------------------------- | ------------------------------------------------- | -------------------------------------------- | ----------- |
-| **CLAUDE.md** (this file)                    | Canonical operational rules                       | OpenCode, Claude Code, BaseAgent, all agents | Active      |
-| **opencode.json**                            | OpenCode runtime config + instructions reference  | OpenCode primary                             | Active      |
-| **.claude/settings.json**                    | Claude Code settings, hooks, permissions          | Claude Code standby                          | Active      |
-| **.claude/settings.local.json**              | Local user overrides                              | Claude Code local development                | Active      |
-| **.mcp.json**                                | MCP server configuration                          | Claude Code, OpenCode, agents                | Active      |
-| **docs/system-config/DISCIPLINE.md**         | Engineering Discipline — The 12 Rules (extracted) | All agents                                   | Active      |
-| **docs/system-config/STANDARDS_ROUTING.md**  | Standards Resolver task routing (extracted)       | All agents                                   | Active      |
-| **docs/system-config/SYSTEM_FILES_INDEX.md** | Master system file ecosystem documentation        | Maintainers                                  | Active      |
-| **.claude/hooks/README.md**                  | Hook system documentation                         | Claude Code hooks                            | Reference   |
-| **.claude/handoffs/<branch>.md**             | Per-branch session handoff state                  | OpenCode ↔ Claude Code failover              | Per-session |
+| File                                         | Purpose                                                  | Tools                                        | Status      |
+| -------------------------------------------- | -------------------------------------------------------- | -------------------------------------------- | ----------- |
+| **CLAUDE.md** (this file)                    | Canonical operational rules                              | OpenCode, Claude Code, BaseAgent, all agents | Active      |
+| **opencode.json**                            | OpenCode runtime config + instructions reference         | OpenCode primary                             | Active      |
+| **.claude/settings.json**                    | Claude Code settings, hooks, permissions                 | Claude Code standby                          | Active      |
+| **.claude/settings.local.json**              | Local user overrides                                     | Claude Code local development                | Active      |
+| **.mcp.json**                                | MCP server configuration                                 | Claude Code, OpenCode, agents                | Active      |
+| **docs/system-config/DISCIPLINE.md**         | Engineering Discipline — The 12 Rules (extracted)        | All agents                                   | Active      |
+| **docs/system-config/STANDARDS_ROUTING.md**  | Standards Resolver task routing (extracted)              | All agents                                   | Active      |
+| **docs/system-config/SYSTEM_FILES_INDEX.md** | Master system file ecosystem documentation               | Maintainers                                  | Active      |
+| **.claude/hooks/README.md**                  | Hook system documentation                                | Claude Code hooks                            | Reference   |
+| **.claude/handoffs/<branch>.md**             | Per-branch session handoff state                         | OpenCode ↔ Claude Code failover              | Per-session |
+| **.cursor/rules/dws-standards-always.mdc**   | Cursor always-on standards resolver (Read, don't recall) | Cursor, Cursor Cloud                         | Active      |
 
 **Versioning:** All system files follow `DWS_DOCUMENT_STANDARD` versioning (see header of this file). Check version fields when updating configuration across tools.
 
@@ -422,7 +459,12 @@ Use these for full detail when needed:
 
 ## Version History
 
-| Version | Date       | Changes                                                                                                                                                                                            | Author      |
-| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| 1.1     | 2026-09-07 | Extracted long specs (Discipline, Standards Routing) to separate indexed files; added multi-tool acknowledgment and system file ecosystem cross-references; added DWS Document Standard versioning | Claude Code |
-| 1.0     | Prior      | Original consolidated rules file                                                                                                                                                                   | HIC         |
+| Version | Date       | Changes                                                                                                                                                                                            | Author             |
+| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| 1.6     | 2026-09-27 | HIC: Market Signal → Sales Pipeline Rule — commercially relevant signals go to PhD §14.x and `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, star-scored 1–5.                                        | Claude Code        |
+| 1.5     | 2026-09-27 | HIC: Tool Git Identity rule — `<tool>@lifetime.fi`, set per tool at launch; no repo-local identity. Moved misplaced 1.4 row here.                                                                  | Claude Code        |
+| 1.4     | 2026-09-27 | Corrected the DWS Cost Policy Standard reference to its canonical `docs/` path.                                                                                                                    | GitHub Copilot CLI |
+| 1.3     | 2026-09-19 | HIC: retire `***` / Pandoc-from-markdown PDF. VAH uses `---`. HIC prints PDF from HTML.                                                                                                            | Cursor             |
+| 1.2     | 2026-09-19 | Cursor/Cloud: standards resolver is mandatory file Reads; `dws-standards-always.mdc` is the harness Cursor actually injects                                                                        | Cursor             |
+| 1.1     | 2026-09-07 | Extracted long specs (Discipline, Standards Routing) to separate indexed files; added multi-tool acknowledgment and system file ecosystem cross-references; added DWS Document Standard versioning | Claude Code        |
+| 1.0     | Prior      | Original consolidated rules file                                                                                                                                                                   | HIC                |

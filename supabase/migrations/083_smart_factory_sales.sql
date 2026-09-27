@@ -1,4 +1,6 @@
 -- Migration 083: Smart Factory for Sales
+-- Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=Copilot Date=2026-09-27
+-- Audit trail: git log -- supabase/migrations/083_smart_factory_sales.sql
 -- Firehorse Omnichannel — automated prospect matching, multi-channel outreach
 -- (email / WhatsApp / LinkedIn / Facebook) and call booking against a customer
 -- product catalog of ANY size.
@@ -193,5 +195,14 @@ ALTER TABLE smart_factory_campaigns ENABLE ROW LEVEL SECURITY;
 ALTER TABLE smart_factory_prospects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE smart_factory_messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE smart_factory_daily_send ENABLE ROW LEVEL SECURITY;
+
+-- Explicit table grants; absent authenticated policies keep all rows
+-- service-only through RLS.
+GRANT SELECT, INSERT, UPDATE, DELETE ON
+  smart_factory_campaigns,
+  smart_factory_prospects,
+  smart_factory_messages,
+  smart_factory_daily_send
+  TO authenticated, service_role;
 
 COMMIT;

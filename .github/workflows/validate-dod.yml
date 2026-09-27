@@ -1,14 +1,19 @@
+# Evidence: Tool=Claude Code 2.1.282 Model=anthropic/claude-opus-5-5 Agent=claude-code Date=2026-09-25
+# Audit trail: git log -- .github/workflows/validate-dod.yml
 name: Definition of Done Validation
 
 on:
+  # push-to-main trigger removed (HIC 2026-09-25): it re-ran what the PR already gated.
   pull_request:
     branches: [main]
-  push:
-    branches: [main]
+
+concurrency:
+  group: dod-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   dod-check:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]
     name: DoD Gate
     steps:
       - uses: actions/checkout@v4

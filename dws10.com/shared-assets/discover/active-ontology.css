@@ -1,0 +1,52 @@
+/* Active Ontology UX v2 — DISCOVER layer (dws10.com). Spec: docs/specs/active-ontology-ux-v2.md */
+.ao{max-width:900px;margin:0 auto;padding:56px 20px;color:#e2e8f0;font-family:"IBM Plex Sans",system-ui,sans-serif}
+.ao *{box-sizing:border-box}
+.ao-q{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin:0 0 14px;color:#f8fafc;text-align:center}
+.ao-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.ao-input{flex:1 1 520px;font:inherit;font-size:1.05rem;padding:14px 16px;border-radius:10px;border:1px solid rgba(148,163,184,.35);background:rgba(15,23,42,.6);color:#f8fafc}
+.ao-input::placeholder{color:#94a3b8}
+.ao-btn{font:inherit;font-weight:700;padding:14px 22px;border-radius:10px;border:0;cursor:pointer;background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f172a}
+.ao-btn.alt{background:transparent;color:#e2e8f0;border:1px solid rgba(148,163,184,.4)}
+.ao-sub{color:#94a3b8;text-align:center;margin:18px 0 10px;font-size:.95rem}
+.ao-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.ao-card{font:inherit;text-align:left;padding:14px 16px;border-radius:10px;border:1px solid rgba(148,163,184,.25);background:rgba(30,41,59,.6);color:#e2e8f0;cursor:pointer}
+.ao-card:hover,.ao-card[aria-pressed="true"]{border-color:#f59e0b;background:rgba(245,158,11,.1)}
+.ao-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.ao-chip{font:inherit;font-size:.9rem;padding:8px 12px;border-radius:999px;border:1px solid rgba(148,163,184,.35);background:transparent;color:#e2e8f0;cursor:pointer}
+.ao-chip[aria-pressed="true"]{border-color:#f59e0b;color:#fbbf24}
+.ao-step{margin-top:22px;padding:22px;border-radius:14px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.18)}
+.ao-step h3{margin:0 0 12px;font-size:1.15rem;color:#f8fafc}
+.ao-yn{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(148,163,184,.12)}
+.ao-yn small{display:block;color:#94a3b8}
+.ao-bar{display:grid;grid-template-columns:56px 1fr;gap:10px;align-items:center;margin:8px 0}
+.ao-bar b{color:#fbbf24;text-align:right}
+.ao-bar span{display:block;height:10px;border-radius:5px;background:linear-gradient(90deg,#f59e0b,#d97706)}
+.ao-path{margin:0;padding-left:20px;color:#e2e8f0}
+.ao-sol{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.ao-sol div{padding:14px;border-radius:10px;border:1px solid rgba(148,163,184,.25);background:rgba(30,41,59,.6)}
+.ao-sol .tag{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:#fbbf24}
+.ao-sol h4{margin:4px 0 6px;color:#f8fafc}
+.ao-sol p{margin:0;color:#cbd5e1;font-size:.92rem}
+.ao-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:10px 0 16px}
+.ao-summary div{padding:12px;border-radius:10px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25)}
+.ao-summary small{color:#94a3b8;display:block}
+.ao-thanks{color:#94a3b8;font-size:.85rem;text-align:center;margin-top:12px}
+
+/* Ownership stage (LD-2026-09-007) */
+.ao-hint{opacity:.8;font-size:.95em;margin:4px 0 10px}
+.ao-chip-sm{font-size:.85em;padding:4px 10px}
+.ao-discovery{border-left:3px solid #FFD166;padding-left:14px}
+.ao-verdict{margin-top:12px;padding:12px 14px;border-left:3px solid #FFD166;background:rgba(255,209,102,.08)}
+.ao-verdict h4{margin:0 0 6px;font-size:.85em;letter-spacing:.04em;text-transform:uppercase;opacity:.8}
+.ao-verdict p{margin:0}
+.ao-after{margin:22px 0 8px;opacity:.85;font-size:1em}
+.ao-evidence{border-top:1px solid rgba(255,255,255,.12);margin-top:18px;padding-top:14px}
+.ao-evidence h4{margin:14px 0 6px;font-size:.85em;letter-spacing:.04em;text-transform:uppercase;opacity:.8}
+.ao-kpi{font-size:1.1em;margin:0}
+.ao-kpi b{font-size:1.6em;margin-right:4px}
+.ao-next{margin:0;padding-left:20px}
+.ao-counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.ao-counters div{padding:10px;border:1px solid rgba(255,255,255,.12);border-radius:8px}
+.ao-counters b{display:block;font-size:1.4em}
+.ao-counters small{opacity:.8}
+.ao-btn-secondary{background:transparent;border:1px solid #FFD166;color:#FFD166}

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Standards Resolver v1.6</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Standards Resolver v1.6</h1>
+</header>
+<h1 id="standards-resolver-multi-standard-task-routing">Standards Resolver — Multi-Standard Task Routing</h1>
+<p><strong>Operational rule:</strong> When a task fires multiple standard triggers, load all matched standards. A task that adds a new agent + ships a blog post fires 4 triggers and must load 4 standards.</p>
+<p><strong>Always load first (meta-standards consulted before any task):</strong></p>
+<ul>
+<li><code>DWS_TRUTH_STANDARD.md</code> — Canonical file registry for any DWS fact (price, role, score, framework).</li>
+<li><code>DWS_ROLES_REGISTRY.md</code> — 25-role taxonomy + buying stages; reference by R-ID (R01–R25).</li>
+</ul>
+<h2 id="task-to-standards-routing-table">Task-to-Standards Routing Table</h2>
+<table>
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>If the task touches…</th>
+<th>Load</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>auth, RLS, secrets, JWT, API endpoints, user input validation, OWASP, KYA / sandbox / MicroVM, NIS2, GDPR, EU AI Act, prompt injection</td>
+<td><code>DWS_SECURITY_STANDARD.md</code></td>
+</tr>
+<tr class="even">
+<td>document header, <code>VERSION AND AGENT HISTORY</code> block, document version bump, language pair lockstep, naming convention, document rewrite/restructure, formulation preservation, harness / HIC-approved-drift, NIS2 or Katakri audit provenance</td>
+<td><code>DWS_DOCUMENT_STANDARD.md</code> §2.6 / §27 + <code>DWS_SECURITY_STANDARD.md</code> §7</td>
+</tr>
+<tr class="odd">
+<td>brand identity, logo, color palette, copy tone, hero text, landing page voice, marketing surface, deprecated terminology</td>
+<td><code>DWS_BRAND_STANDARD.md</code></td>
+</tr>
+<tr class="even">
+<td>market sizing, TAM / SAM / SOM, competitor analysis, investor narrative, customer segmentation</td>
+<td><code>DWS_MARKET_RESEARCH_STANDARD.md</code></td>
+</tr>
+<tr class="odd">
+<td>site QA, image quality / format / weight, copy quality, dual-folder mirror checks, deploy-readiness checklist</td>
+<td><code>SITE_QUALITY_STANDARDS.md</code></td>
+</tr>
+<tr class="even">
+<td>adding / removing / renaming a slash command or <code>skills/&lt;name&gt;/SKILL.md</code>; updating discipline gates; skill manifest</td>
+<td><code>docs/DWS_SKILLS_GUIDE.md</code></td>
+</tr>
+<tr class="odd">
+<td>blog post on <code>onelifetime.world/blog/</code>, <code>dws10.com/blog/</code>, editorial cadence, LSJ — <strong>always run <code>/blog-draft</code>; HIC approval before publishing is Non-Negotiable Rule 13</strong></td>
+<td><code>docs/BLOG_STANDARD.md</code> (§3.3 draft gate)</td>
+</tr>
+<tr class="even">
+<td>BaseAgent class, new agent in <code>src/agents/</code>, autonomy tier, cost budget, agent execution logging, bacterial-code extraction</td>
+<td><code>AI_AGENT_GUIDELINES.md</code></td>
+</tr>
+<tr class="odd">
+<td>agent topology, signal dependencies (READY / COMPLETE / ERROR / BLOCKED), agent-XX numbering, what unlocks what</td>
+<td><code>AGENTS.md</code></td>
+</tr>
+<tr class="even">
+<td>asserting an industry count, product price, captain hat, KYA tier, role name, or canonical fact</td>
+<td><code>DWS_TRUTH_STANDARD.md</code> (routes to the canonical source)</td>
+</tr>
+<tr class="odd">
+<td>Win11 vs Spark versions, <code>docker --version</code> pins, WSL vs DGX, Aspire CLI vs dashboard image, environment version parity</td>
+<td><code>DWS_TRUTH_STANDARD.md</code> §2I + <code>config/truth/dev-environment-pins.json</code> (<code>npm run env:pins</code>)</td>
+</tr>
+<tr class="even">
+<td>sales outreach, role-by-stage matrix, enterprise funnel stage</td>
+<td><code>DWS_ROLES_REGISTRY.md</code></td>
+</tr>
+<tr class="odd">
+<td>standards index / lookup / catalogue</td>
+<td><code>DWS_STANDARDS_LIBRARY.md</code></td>
+</tr>
+<tr class="even">
+<td>session outcome, field note, <code>Learn/</code> HTML, HIC decision point (EU AI Act Art. 14)</td>
+<td><code>DWS_LEARNING_STANDARD.md</code></td>
+</tr>
+<tr class="odd">
+<td>new file under <code>supabase/migrations/</code></td>
+<td><code>DWS_DOCUMENT_STANDARD.md</code> §4.5 — filename <code>NNN_DDMMYY_name.sql</code> (CI; do not apply SQL)</td>
+</tr>
+<tr class="even">
+<td>generated public HTML language siblings (<code>*.fi.html</code> / <code>.sv</code> / <code>.de</code> / <code>.fr</code> under <code>dws10.com/products/</code> and the landing-pages mirror)</td>
+<td><code>DWS_DOCUMENT_STANDARD.md</code> §2.1 generated-i18n HTML comment — never markdown VAH</td>
+</tr>
+<tr class="odd">
+<td>PDF export, Pandoc delimiter, <code>***</code> vs <code>---</code></td>
+<td><code>DWS_DOCUMENT_STANDARD.md</code> §2.1 / §8 — <code>---</code> only; HIC prints PDF from HTML; do not convert leftover <code>***</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-to-apply">How to Apply</h2>
+<ol type="1">
+<li><strong>Match the task</strong> to one or more triggers in the table above.</li>
+<li><strong>Load all matched standards</strong> (not just the “most relevant”) — <strong>Read the files</strong>. Recalling <code>CLAUDE.md</code> does not count.</li>
+<li><strong>If no match:</strong> Ask the user. When the user says “Use DWS standard,” apply all matched standards and update impacted docs in the same commit.</li>
+<li><strong>If a standard is silent, contradictory, or missing a control the task needs:</strong> do not stop at <code>N/A</code>. <strong>Propose a standards update</strong> in the same effort: (a) field note with the gap, the article/family it maps to if NIS2/Katakri/AI Act, and draft wording; (b) apply the draft only in the matched standard files HIC already uses — or leave it as <code>Status: PENDING_REVIEW</code> if it would invent a fact, a Katakri criterion-ID, or a RED-zone change. Silent gaps are Rule 12.</li>
+</ol>
+<p><strong>Cursor / Cursor Cloud:</strong> <code>.cursor/rules/dws-standards-always.mdc</code> is <code>alwaysApply: true</code>. <strong>HIC approved 19.09.2026</strong> (thin rule + migration-filename CI). First writes of a task require the Reads above plus <code>Standards loaded:</code> on the HIC reply.</p>
+<h2 id="multi-standard-example">Multi-Standard Example</h2>
+<p>Task: “Add a new agent that touches user input + ship a blog post”</p>
+<p><strong>Fires triggers:</strong></p>
+<ul>
+<li>User input validation → <code>DWS_SECURITY_STANDARD.md</code></li>
+<li>New agent in <code>src/agents/</code> → <code>AI_AGENT_GUIDELINES.md</code></li>
+<li>Blog post publishing → <code>docs/BLOG_STANDARD.md</code></li>
+<li>Document structure (if agent has versioning) → <code>DWS_DOCUMENT_STANDARD.md</code></li>
+</ul>
+<p><strong>Load all 4.</strong> Apply in same commit. Update impacted standards/docs.</p>
+</body>
+</html>

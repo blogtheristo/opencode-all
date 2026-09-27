@@ -3,11 +3,12 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dws6-dws7-update-doc-I2Cgk | Date: 22.02.2026 | Changes: Initial creation — comprehensive DWS6→DWS7 update document covering architecture, migration path, compliance engine, and deployment evolution
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/dws6-dws7-update-doc-I2Cgk | Date: 27.02.2026 | Changes: Expanded Section 11 from NVIDIA+Siemens to full 5-partner ecosystem (NVIDIA, Siemens, ABB, xAI, Mistral), added multi-LLM router architecture, ABB Ability integration, EU-sovereign AI strategy with Mistral
+  - Version: 1.2 | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-target-q4-2026 | Date: 27.09.2026 | Changes: HIC 27.09.2026: ABB target Q3 2026 → Q4 2026 (§11 table); §11.3 timeline shifted one quarter to stay consistent. Current ABB scope: docs/plans/abb/.
 
 Session Links & References:
   - Claude Code (claude/dws6-dws7-update-doc-I2Cgk): https://github.com/blogtheristo/dws6/commits/claude/dws6-dws7-update-doc-I2Cgk
@@ -583,7 +584,7 @@ DWS7 builds a multi-partner ecosystem spanning industrial automation (NVIDIA, Si
 |---------|-------------|-------|--------|
 | **NVIDIA** | GPU compute, edge AI (Jetson), digital twins (Omniverse) | Brain + Hands | Inception program target (Q2 2026) |
 | **Siemens** | Industrial IoT (MindSphere), digital twins, marketplace | Body + Hands | Xcelerator developer access (Q2 2026) |
-| **ABB** | Industrial automation, robotics, power & grid management | Hands | Integration target (Q3 2026) |
+| **ABB** | Industrial automation, robotics, power & grid management | Hands | Integration target (Q4 2026) |
 | **xAI** | Real-time market intelligence (Grok), X/Twitter data discovery | Brain + Memory | Active integration (production) |
 | **Mistral** | EU-sovereign AI inference, multilingual compliance generation | Brain + Memory | Planned (Q3 2026) |
 
@@ -664,10 +665,10 @@ ABB Ability Platform                    DWS7
 
 | Milestone | Period | Deliverable |
 |-----------|--------|-------------|
-| API exploration | Q3 2026 | ABB Ability API access, data format mapping |
-| Pilot connector | Q4 2026 | Energy Manager → DWS7 data pipeline (1 customer site) |
-| Production | Q1 2027 | Multi-site deployment, ABB Marketplace listing |
-| Scale | Q2 2027+ | Cross-sell to ABB installed base across 25+ verticals |
+| API exploration | Q4 2026 | ABB Ability API access, data format mapping |
+| Pilot connector | Q1 2027 | Energy Manager → DWS7 data pipeline (1 customer site) |
+| Production | Q2 2027 | Multi-site deployment, ABB Marketplace listing |
+| Scale | Q3 2027+ | Cross-sell to ABB installed base across 25+ verticals |
 
 **Market Opportunity:** ABB's 105,000+ industrial customers in Europe represent the largest addressable market for DWS7's IoT-to-compliance pipeline. Steel, cement, and chemicals verticals overlap directly with EU ETS Phase 4 regulated installations.
 

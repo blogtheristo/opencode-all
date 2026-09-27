@@ -14,6 +14,7 @@
 import { BaseAgent } from '../base.agent.js';
 import type { AgentContext, AgentResponse } from '../types.js';
 import type { SeoAuditInput, SeoAuditOutput } from './types.js';
+import { makeTypedDecision } from '../kya-jev.js';
 
 interface PageAuditResult {
   url: string;
@@ -83,6 +84,7 @@ export class SeoAuditAgent extends BaseAgent {
 
     try {
       const output = await this.runAudit(typedInput);
+      output.kyaJevReview = await this.reviewWithKyaJev(output, context);
       const durationMs = Date.now() - startTime;
 
       const response: AgentResponse = {
@@ -242,15 +244,30 @@ export class SeoAuditAgent extends BaseAgent {
 
       // Analyze CTA signals
       const ctaScore = this.calculateCtaScore(pageResult.ctaSignals);
-      const totalCtas = pageResult.ctaSignals.buttons.length + pageResult.ctaSignals.links.length + pageResult.ctaSignals.forms;
+      const totalCtas =
+        pageResult.ctaSignals.buttons.length +
+        pageResult.ctaSignals.links.length +
+        pageResult.ctaSignals.forms;
       ctaAnalysis.push({
         url: fullUrl,
         ctaCount: totalCtas,
         primaryCta: {
           present: totalCtas > 0,
-          text: pageResult.ctaSignals.buttons[0]?.text || pageResult.ctaSignals.links[0]?.text || (pageResult.ctaSignals.forms > 0 ? 'contact form' : null),
-          position: (pageResult.ctaSignals.buttons[0]?.position || pageResult.ctaSignals.links[0]?.position || 'none') as 'header' | 'hero' | 'mid-content' | 'footer' | 'none',
-          type: pageResult.ctaSignals.buttons.length > 0 ? 'button' : pageResult.ctaSignals.links.length > 0 ? 'link' : pageResult.ctaSignals.forms > 0 ? 'form' : 'none',
+          text:
+            pageResult.ctaSignals.buttons[0]?.text ||
+            pageResult.ctaSignals.links[0]?.text ||
+            (pageResult.ctaSignals.forms > 0 ? 'contact form' : null),
+          position: (pageResult.ctaSignals.buttons[0]?.position ||
+            pageResult.ctaSignals.links[0]?.position ||
+            'none') as 'header' | 'hero' | 'mid-content' | 'footer' | 'none',
+          type:
+            pageResult.ctaSignals.buttons.length > 0
+              ? 'button'
+              : pageResult.ctaSignals.links.length > 0
+                ? 'link'
+                : pageResult.ctaSignals.forms > 0
+                  ? 'form'
+                  : 'none',
         },
         ctaDensity: pageResult.wordCount > 0 ? totalCtas / (pageResult.wordCount / 100) : 0,
         score: ctaScore,
@@ -294,7 +311,10 @@ export class SeoAuditAgent extends BaseAgent {
       }
 
       // Analyze link architecture
-      const discoveryScore = this.calculateDiscoveryScore(pageResult.linkMetrics, pageResult.internalLinks);
+      const discoveryScore = this.calculateDiscoveryScore(
+        pageResult.linkMetrics,
+        pageResult.internalLinks,
+      );
       linkArchitecture.push({
         url: fullUrl,
         internalLinkCount: pageResult.linkMetrics.internalCount,
@@ -384,7 +404,77 @@ export class SeoAuditAgent extends BaseAgent {
       };
     }
 
-    return { healthScore, coreWebVitals, issues, schemaMarkup, ctaAnalysis, schemaValidation, linkArchitecture, interactionPerformance, deployGate, delta };
+    return {
+      healthScore,
+      coreWebVitals,
+      issues,
+      schemaMarkup,
+      ctaAnalysis,
+      schemaValidation,
+      linkArchitecture,
+      interactionPerformance,
+      deployGate,
+      delta,
+    };
+  }
+
+  /**
+   * kya-jev pilot integration (docs/field-notes/2026-09-18-jev-typed-decision-layer-signal.md).
+   * Advisory-only: classifies review priority for a human/downstream reader.
+   * Never touches `deployGate`, which stays fully deterministic. Silently
+   * skipped (returns undefined) when no LLM client or KYA verdict is
+   * available — this agent's deploy-gate behavior is unchanged either way.
+   */
+  private async reviewWithKyaJev(
+    output: SeoAuditOutput,
+    context: AgentContext,
+  ): Promise<SeoAuditOutput['kyaJevReview']> {
+    const client = typeof this.getLLMClient === 'function' ? this.getLLMClient() : null;
+    if (!client) return undefined;
+
+    try {
+      const criticalCount = output.issues.filter((i) => i.severity === 'critical').length;
+      const warningCount = output.issues.filter((i) => i.severity === 'warning').length;
+      const state = `healthScore=${output.healthScore}, criticalIssues=${criticalCount}, warningIssues=${warningCount}, deployGatePass=${output.deployGate.pass}, sampleIssues=${JSON.stringify(output.issues.slice(0, 10).map((i) => i.type))}`;
+
+      const result = await makeTypedDecision(
+        client,
+        {
+          state,
+          question: {
+            kind: 'score',
+            prompt:
+              'Given this SEO audit summary, how urgently should a human review the full report (independent of the automated deploy gate)?',
+            levels: ['none', 'low', 'medium', 'high'],
+          },
+        },
+        context.agentRuntime,
+      );
+
+      await this.logKyaJevCall(context, {
+        questionKind: 'score',
+        questionPrompt: 'seo-audit review-priority triage',
+        decision: result.decision,
+        probabilities: result.probabilities,
+        confidence: result.confidence,
+        calibration: result.calibration,
+        abstained: result.abstained,
+        model: client.model,
+      });
+
+      return {
+        reviewPriority: result.abstained
+          ? 'none'
+          : (result.decision as 'none' | 'low' | 'medium' | 'high'),
+        confidence: result.confidence,
+        calibration: result.calibration,
+        abstained: result.abstained,
+      };
+    } catch {
+      // No KYA verdict, or the model call failed — advisory feature, never
+      // block or fail the audit over it.
+      return undefined;
+    }
   }
 
   private async discoverPages(_baseUrl: string, sitemapUrl?: string): Promise<string[]> {
@@ -518,7 +608,7 @@ export class SeoAuditAgent extends BaseAgent {
             'cumulative-layout-shift'?: { numericValue?: number };
             'server-response-time'?: { numericValue?: number };
             'total-blocking-time'?: { numericValue?: number };
-            'interactive'?: { numericValue?: number };
+            interactive?: { numericValue?: number };
           };
         };
       };
@@ -543,7 +633,11 @@ export class SeoAuditAgent extends BaseAgent {
     }
   }
 
-  private analyzeCtaSignals(html: string): { buttons: Array<{ text: string; position: string }>; links: Array<{ text: string; position: string }>; forms: number } {
+  private analyzeCtaSignals(html: string): {
+    buttons: Array<{ text: string; position: string }>;
+    links: Array<{ text: string; position: string }>;
+    forms: number;
+  } {
     const buttons: Array<{ text: string; position: string }> = [];
     const links: Array<{ text: string; position: string }> = [];
     let forms = 0;
@@ -559,13 +653,31 @@ export class SeoAuditAgent extends BaseAgent {
     }
 
     // Detect CTA links (links with common CTA classes/text)
-    const ctaPatterns = ['cta', 'btn', 'button', 'signup', 'register', 'demo', 'contact', 'buy', 'purchase', 'get-started', 'try', 'free'];
+    const ctaPatterns = [
+      'cta',
+      'btn',
+      'button',
+      'signup',
+      'register',
+      'demo',
+      'contact',
+      'buy',
+      'purchase',
+      'get-started',
+      'try',
+      'free',
+    ];
     const linkRegex = /<a[^>]*href=["'][^"']+["'][^>]*>(.*?)<\/a>/gi;
     let linkMatch: RegExpExecArray | null;
     while ((linkMatch = linkRegex.exec(html)) !== null) {
       const text = linkMatch[1].replace(/<[^>]+>/g, '').trim();
       const fullTag = linkMatch[0].toLowerCase();
-      if (text && ctaPatterns.some(pattern => fullTag.includes(pattern) || text.toLowerCase().includes(pattern))) {
+      if (
+        text &&
+        ctaPatterns.some(
+          (pattern) => fullTag.includes(pattern) || text.toLowerCase().includes(pattern),
+        )
+      ) {
         links.push({ text, position: this.detectElementPosition(html, linkMatch.index) });
       }
     }
@@ -583,8 +695,20 @@ export class SeoAuditAgent extends BaseAgent {
     const openElements: Array<{ name: string; attributes: string }> = [];
     const tagRegex = /<\/?([a-z][\w:-]*)\b([^>]*)>/gi;
     const voidElements = new Set([
-      'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link',
-      'meta', 'param', 'source', 'track', 'wbr',
+      'area',
+      'base',
+      'br',
+      'col',
+      'embed',
+      'hr',
+      'img',
+      'input',
+      'link',
+      'meta',
+      'param',
+      'source',
+      'track',
+      'wbr',
     ]);
     let tagMatch: RegExpExecArray | null;
 
@@ -602,7 +726,11 @@ export class SeoAuditAgent extends BaseAgent {
     if (openElements.some((element) => element.name === 'header')) {
       return 'header';
     }
-    if (openElements.some((element) => /(?:class|id)\s*=\s*["'][^"']*(?:hero|banner)[^"']*["']/i.test(element.attributes))) {
+    if (
+      openElements.some((element) =>
+        /(?:class|id)\s*=\s*["'][^"']*(?:hero|banner)[^"']*["']/i.test(element.attributes),
+      )
+    ) {
       return 'hero';
     }
     if (openElements.some((element) => element.name === 'footer')) {
@@ -611,7 +739,10 @@ export class SeoAuditAgent extends BaseAgent {
     return 'mid-content';
   }
 
-  private analyzeSchemaDetails(html: string, schemas: string[]): {
+  private analyzeSchemaDetails(
+    html: string,
+    schemas: string[],
+  ): {
     types: string[];
     hasLocalBusiness: boolean;
     hasOrganization: boolean;
@@ -620,10 +751,10 @@ export class SeoAuditAgent extends BaseAgent {
     requiredProperties: string[];
     missingProperties: string[];
   } {
-    const hasLocalBusiness = schemas.some(s => s.toLowerCase().includes('localbusiness'));
-    const hasOrganization = schemas.some(s => s.toLowerCase().includes('organization'));
-    const hasWebSite = schemas.some(s => s.toLowerCase().includes('website'));
-    const hasProduct = schemas.some(s => s.toLowerCase().includes('product'));
+    const hasLocalBusiness = schemas.some((s) => s.toLowerCase().includes('localbusiness'));
+    const hasOrganization = schemas.some((s) => s.toLowerCase().includes('organization'));
+    const hasWebSite = schemas.some((s) => s.toLowerCase().includes('website'));
+    const hasProduct = schemas.some((s) => s.toLowerCase().includes('product'));
 
     // Extract actual JSON-LD blocks for property validation
     const jsonLdObjects = this.extractJsonLdBlocks(html);
@@ -690,7 +821,10 @@ export class SeoAuditAgent extends BaseAgent {
     return blocks;
   }
 
-  private analyzeLinkMetrics(html: string, internalLinks: string[]): {
+  private analyzeLinkMetrics(
+    html: string,
+    internalLinks: string[],
+  ): {
     internalCount: number;
     externalCount: number;
   } {
@@ -704,7 +838,11 @@ export class SeoAuditAgent extends BaseAgent {
     return { internalCount, externalCount };
   }
 
-  private calculateCtaScore(ctaSignals: { buttons: Array<{ text: string; position: string }>; links: Array<{ text: string; position: string }>; forms: number }): number {
+  private calculateCtaScore(ctaSignals: {
+    buttons: Array<{ text: string; position: string }>;
+    links: Array<{ text: string; position: string }>;
+    forms: number;
+  }): number {
     let score = 0;
 
     // Points for having CTAs
@@ -714,9 +852,9 @@ export class SeoAuditAgent extends BaseAgent {
 
     // Points for CTA placement
     const allCtas = [...ctaSignals.buttons, ...ctaSignals.links];
-    const hasHeroCta = allCtas.some(cta => cta.position === 'hero');
-    const hasHeaderCta = allCtas.some(cta => cta.position === 'header');
-    
+    const hasHeroCta = allCtas.some((cta) => cta.position === 'hero');
+    const hasHeaderCta = allCtas.some((cta) => cta.position === 'header');
+
     if (hasHeroCta) score += 25;
     if (hasHeaderCta) score += 15;
 
@@ -750,7 +888,10 @@ export class SeoAuditAgent extends BaseAgent {
     };
   }
 
-  private calculateDiscoveryScore(linkMetrics: { internalCount: number; externalCount: number }, internalLinks: string[]): number {
+  private calculateDiscoveryScore(
+    linkMetrics: { internalCount: number; externalCount: number },
+    internalLinks: string[],
+  ): number {
     let score = 0;
 
     // Points for internal links (verifiable from page HTML)
@@ -763,20 +904,24 @@ export class SeoAuditAgent extends BaseAgent {
     else if (linkMetrics.externalCount >= 1) score += 5;
 
     // Points for link diversity (unique path segments)
-    const uniquePaths = new Set(internalLinks.map(link => {
-      const url = new URL(link, 'https://dws10.com');
-      return url.pathname.split('/')[1] || '/';
-    }));
+    const uniquePaths = new Set(
+      internalLinks.map((link) => {
+        const url = new URL(link, 'https://dws10.com');
+        return url.pathname.split('/')[1] || '/';
+      }),
+    );
     if (uniquePaths.size >= 3) score += 25;
     else if (uniquePaths.size >= 2) score += 15;
 
     // Points for having links from different sections
-    const sections = new Set(internalLinks.map(link => {
-      if (link.includes('/products/')) return 'products';
-      if (link.includes('/compliance/')) return 'compliance';
-      if (link.includes('/investor-centre/')) return 'investor';
-      return 'other';
-    }));
+    const sections = new Set(
+      internalLinks.map((link) => {
+        if (link.includes('/products/')) return 'products';
+        if (link.includes('/compliance/')) return 'compliance';
+        if (link.includes('/investor-centre/')) return 'investor';
+        return 'other';
+      }),
+    );
     if (sections.size >= 3) score += 20;
     else if (sections.size >= 2) score += 10;
 

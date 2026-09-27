@@ -32,6 +32,8 @@ import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
 import adminSupportRoutes from './routes/admin-support.routes.js';
+import adminCostAuditRoutes from './routes/admin-cost-audit.routes.js';
+import backofficeRoutes from './routes/backoffice.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
@@ -39,13 +41,13 @@ import bookingRoutes from './routes/booking.routes.js';
 import supportRoutes from './routes/support.routes.js';
 import supportReviewRoutes from './routes/support-review.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
+import daprPubsubRoutes from './routes/dapr-pubsub.routes.js';
 import agentRoutes from './agents/routes.js';
 import nudgeRoutes from './routes/nudge.routes.js';
 import nudgeWebhookRoutes from './routes/nudge-webhook.routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import hilRoutes from './routes/hil.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
-// import grokConsentRoutes from './routes/grok-consent.routes.js'; // TODO: restore when grok-consent is available
 import paymentRoutes from './routes/payment.routes.js';
 import b2bPaymentRoutes from './routes/b2b-payment.routes.js';
 import stripeWebhookRoutes from './routes/stripe-webhook.routes.js';
@@ -73,11 +75,12 @@ import {
 import roleTrackingRoutes from './routes/role-tracking.routes.js';
 import gapsRoutes from './routes/gaps.routes.js';
 import agentsRoutes from './routes/agents.routes.js';
+import constructionLeadsRoutes from './routes/construction-leads.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
-import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
+import { constructionLeadsScheduler } from './construction-leads/index.js';
 import { memoryScheduler } from './agents/memory.scheduler.js';
 import { signalPoller } from './agents/signal-poller.js';
 import { inboundTicketScheduler } from './services/inbound-ticket.service.js';
@@ -89,6 +92,7 @@ import { validateEnv } from './middleware/env-validation.js';
 import { createMCPRouter } from './mcp/agent-server.js';
 import capTableRouter from './investor-reports/cap-table-routes.js';
 import { loadSecrets } from './config/secret-loader.js';
+import { createProxyTrustValidator } from './middleware/proxy-trust-validator.middleware.js';
 
 // ============ STUBS FOR MODULES EXCLUDED FROM BUILD ============
 // tsconfig.json excludes src/firehorse/** and src/integrations/** from
@@ -135,6 +139,20 @@ const PORT = process.env.PORT || (process.env.NODE_ENV === 'production' ? '8080'
 // ES Module path helpers
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// ============ PROXY TRUST VALIDATION ============
+// Validate trust subnet configuration early to catch IP spoofing misconfigurations.
+// IPv4-mapped IPv6 subnets must have correct prefix lengths to prevent all-IPv4 trust.
+// E.g., ::ffff:10.0.0.0/8 is INVALID; ::ffff:10.0.0.0/104 is valid (10.0.0.0/8).
+const trustProxy = process.env.TRUST_PROXY;
+if (trustProxy) {
+  const subnets = trustProxy.split(',').map((s) => s.trim());
+  app.use(createProxyTrustValidator(subnets));
+  app.set('trust proxy', trustProxy);
+} else {
+  // Default: trust single upstream proxy (Cloud Run, typical reverse proxy)
+  app.set('trust proxy', 1);
+}
 
 // ============ MIDDLEWARE ============
 
@@ -312,6 +330,11 @@ app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
 // Admin support chat channel (settings panel)
 app.use('/api/v1/admin/support', adminSupportRoutes);
 
+// Admin cost audit (mission control cost review dashboard)
+app.use('/api/admin', adminCostAuditRoutes);
+
+app.use('/api/v1/backoffice', backofficeRoutes);
+
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
 
@@ -366,6 +389,10 @@ app.use('/webhooks/nudge', nudgeWebhookRoutes);
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
 
+// Dapr pub/sub pilot — subscription callback, local sidecar only.
+// docs/field-notes/2026-09-22-dapr-use-cases-dws.md §3 Phase 1
+app.use('/dapr', daprPubsubRoutes);
+
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
 app.use('/api/v1/booking', bookingRoutes);
@@ -397,6 +424,7 @@ app.use('/api/erp/track', erpTrackingRoutes);
 app.use('/api/roles/track', roleTrackingRoutes);
 app.use('/api/v1/gaps', gapsRoutes);
 app.use('/api/v1/agents', agentsRoutes);
+app.use('/api/v1/construction-leads', constructionLeadsRoutes);
 
 const getHeaderValue = (value: string | string[] | undefined): string | undefined =>
   Array.isArray(value) ? value[0] : value;
@@ -473,8 +501,6 @@ app.use('/api/v1/erp', erpRoutes);
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
 
-// Grok Consent — GDPR + EU AI Act Article 12 sovereignty dashboard
-// app.use('/api/grok-consent', grokConsentRoutes); // TODO: restore when grok-consent is available
 
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);
@@ -524,30 +550,6 @@ app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) =>
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Manual morning briefing failed', { error: msg });
     res.status(500).json({ error: 'Failed to send briefing', message: msg });
-  }
-});
-
-// Construction leads manual trigger (secured by admin key)
-app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response) => {
-  const adminKey = process.env.ADMIN_API_KEY;
-  const provided = getHeaderValue(req.headers['x-admin-key']);
-
-  if (!adminKey) {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
-  if (!isAuthorizedAdminKey(provided, adminKey)) {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
-
-  try {
-    const result = await fetchAndProcessLeads();
-    res.json({ status: 'complete', timestamp: new Date().toISOString(), ...result });
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : 'Unknown error';
-    logger.error('Manual construction leads fetch failed', { error: msg });
-    res.status(500).json({ error: 'Failed to fetch construction leads', message: msg });
   }
 });
 

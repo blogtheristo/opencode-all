@@ -1154,6 +1154,7 @@
       }
     </style>
     <!-- Google Merchant Center: feed-only integration (widget removed — injected duplicate mobile store UI in Brave/Chrome) -->
+      <link rel="stylesheet" href="/shared-assets/discover/active-ontology.css" />
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
@@ -1210,6 +1211,12 @@
       </div>
     </section>
 
+    <!-- DISCOVER before price list — reasoning first, products last (LD-2026-09-003) -->
+    <section id="discover" style="background: rgba(15, 23, 42, 0.65);">
+      <p style="text-align:center;margin:0;padding:36px 20px 0;font-size:0.8rem;letter-spacing:0.14em;text-transform:uppercase;color:#fbbf24;">DWS IQ &mdash; From situational awareness to competitiveness &middot; Tilannetietoisuudesta kilpailukykyyn</p>
+      <div id="dws-discover" data-lang="en"></div>
+    </section>
+    <script src="/shared-assets/discover/active-ontology.js" defer></script>
     <main class="container" id="products">
       <!-- Firehorse Journey Chain -->
       <div class="journey-chain" role="navigation" aria-label="Firehorse product journey">
@@ -1273,7 +1280,7 @@
       <div class="store-identity">
         <div class="store-identity-icon">&#127978;</div>
         <div class="store-identity-content">
-          <h2 class="store-identity-title">13 Serious DWS IQ Products</h2>
+          <h2 class="store-identity-title">15 Serious Products</h2>
           <p class="store-identity-subtitle">
             The fixed primary commercial portfolio for EU-sovereign intelligence, compliance and edge deployment.
             <span class="catalog-version" id="catalogVersion">Catalog version 1.25 · Effective 2026-08-18</span>
@@ -1561,7 +1568,7 @@
       <!-- Pagination 1/3 -->
       <nav class="pagination-bar" aria-label="Store pagination">
         <span class="label">Page</span>
-        <span class="is-current" aria-current="page">1 / 3 &mdash; 13 serious products</span>
+        <span class="is-current" aria-current="page">1 / 3 &mdash; 15 serious products</span>
         <a href="./page2/">2 / 3 &mdash; Advisory &amp; Delivery &rarr;</a>
         <a href="./page3/">3 / 3 &mdash; Cloud &amp; AI Skills Specialists Consulting &rarr;</a>
       </nav>
@@ -1781,7 +1788,7 @@
           document.getElementById("catalogVersion").textContent =
             "Catalog unavailable — no products rendered";
           document.getElementById("productGrid").innerHTML =
-            '<p style="color:#fecaca">Could not load the governed 13-product portfolio.</p>';
+            '<p style="color:#fecaca">Could not load the governed serious-product portfolio.</p>';
         }
       }
 
@@ -1789,14 +1796,20 @@
       // The primary /buy/ surface renders only the governed serious-product IDs.
       function getSeriousProducts() {
         const ids = COMMERCIAL_PORTFOLIO.seriousProductIds;
-        if (!Array.isArray(ids) || ids.length !== 13) {
-          throw new Error("commercialPortfolio.seriousProductIds must contain exactly 13 IDs");
+        // Count drift is enforced in CI by scripts/validate-product-publication.mjs;
+        // the public page warns and renders what it can instead of going blank.
+        if (!Array.isArray(ids)) {
+          throw new Error("commercialPortfolio.seriousProductIds is missing");
+        }
+        const expected = ((COMMERCIAL_PORTFOLIO.surfaces || {}).buy || {}).expectedProductCount;
+        if (expected && ids.length !== expected) {
+          console.warn("seriousProductIds has " + ids.length + " IDs; surfaces.buy expects " + expected);
         }
         const missing = ids.filter((id) => !PRODUCTS[id]);
         if (missing.length) {
-          throw new Error("Serious products missing from catalog: " + missing.join(", "));
+          console.warn("Serious products missing from catalog: " + missing.join(", "));
         }
-        return ids.map((id) => PRODUCTS[id]);
+        return ids.filter((id) => PRODUCTS[id]).map((id) => PRODUCTS[id]);
       }
 
       function renderProducts() {

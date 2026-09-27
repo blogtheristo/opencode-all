@@ -17,6 +17,7 @@ import {
   cosineSimilarity,
   generateEmbedding,
   getConfiguredProvider,
+  getExpectedDimensions,
   preflightEmbeddings,
 } from '../utils/embeddings.js';
 
@@ -27,6 +28,7 @@ beforeEach(() => {
   process.env = { ...originalEnv };
   delete process.env.EMBEDDING_PROVIDER;
   delete process.env.OPENAI_API_KEY;
+  delete process.env.EMBEDDING_DIMENSIONS;
 });
 
 afterEach(() => {
@@ -93,6 +95,54 @@ describe('generateEmbedding (openai)', () => {
 
     await generateEmbedding('x'.repeat(20000));
     expect(receivedLen).toBe(8000);
+  });
+});
+
+describe('dimension guard', () => {
+  const okFetch = (vec: number[]) =>
+    vi.fn(
+      async () => new Response(JSON.stringify({ data: [{ embedding: vec }] }), { status: 200 }),
+    ) as unknown as typeof fetch;
+
+  it('getExpectedDimensions defaults to 1536', () => {
+    expect(getExpectedDimensions()).toBe(1536);
+  });
+
+  it('getExpectedDimensions honors a valid EMBEDDING_DIMENSIONS override', () => {
+    process.env.EMBEDDING_DIMENSIONS = '768';
+    expect(getExpectedDimensions()).toBe(768);
+  });
+
+  it('ignores a non-numeric EMBEDDING_DIMENSIONS and falls back to 1536', () => {
+    process.env.EMBEDDING_DIMENSIONS = 'banana';
+    expect(getExpectedDimensions()).toBe(1536);
+  });
+
+  it('rejects a vector whose dimension does not match the DB schema', async () => {
+    process.env.OPENAI_API_KEY = 'sk-test';
+    // 768-dim (nomic-embed-text shape) against the default 1536 schema.
+    globalThis.fetch = okFetch(new Array(768).fill(0.1));
+    const result = await generateEmbedding('hello world');
+    expect(result).toBeNull();
+  });
+
+  it('accepts a matching non-default dimension when EMBEDDING_DIMENSIONS is set', async () => {
+    process.env.OPENAI_API_KEY = 'sk-test';
+    process.env.EMBEDDING_DIMENSIONS = '768';
+    globalThis.fetch = okFetch(new Array(768).fill(0.1));
+    const result = await generateEmbedding('hello world');
+    expect(result).not.toBeNull();
+    expect(result!.dimensions).toBe(768);
+  });
+
+  it('preflight flags a reachable provider that returns the wrong dimension', async () => {
+    process.env.OPENAI_API_KEY = 'sk-test';
+    globalThis.fetch = okFetch(new Array(768).fill(0.1));
+    const result = await preflightEmbeddings();
+    expect(result.ok).toBe(false);
+    expect(result.dimensions).toBe(768);
+    expect(result.hint).toMatch(/VECTOR\(1536\)|migrate/i);
+    expect(result.checks.some((c) => /dimensions match/i.test(c.name) && !c.ok)).toBe(true);
   });
 });
 

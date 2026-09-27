@@ -6,11 +6,15 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.10
+Version: 4.14
 
 Sessions & Modifications:
 
-- Version: 4.10 [Latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 names the hybrid split as the implementation of PhD Key Contribution #59 (sensitive on Aegis/Infra, remainder on Connect). Lockstep 4.09->4.10.
+- Version: 4.14 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-target-q4-2026 | Date: 27.09.2026 | Changes: HIC 27.09.2026: ABB integration target Q3 2026 → Q4 2026 (§10.12). Current ABB scope: facility layer (KNX/BACnet, building HVAC + EV) in validation — docs/plans/abb/.
+- Version: 4.13 [not latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Added §10.35 (Workflow v2 — Procedural Graphs: Explicit State Over Chat Memory). Implementation companion to PHD_FIREHORSE §14.54 / Key Contribution #60. Records src/agents/workflow-v2/ (PR #2059): executor/refiner engine, HIC_APPROVAL_GATE code-level approval-hash gate, two example graphs (sales-outreach.graph.json, b2b-growth-funnel.graph.json), 16 offline unit tests, and the cross-reference landed into DWS7_ROADMAP.md Phase 4.1 (PRs 138/144/145/146). Lockstep 4.12->4.13.
+- Version: 4.12 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Added §10.34 (Controlled vocabulary as a delivery layer: one dictionary drives translations and search tags). Dictionary gains the KYA-S1 table, LWM layers, process terms; `scripts/blog/seo-tags.mjs` tags 162 post files; 36 copied JSON-LD headlines fixed; 13 hand-edited dictionary keys ported into the generator. Lockstep 4.11->4.12.
+- Version: 4.11 [not latest] | Tool: Claude Code (Haiku 4.5) | Session: claude/cursor-dws-audit-zl8ts1 | Date: 19.09.2026 | Changes: Lockstep version bump 4.10 -> 4.11 per CLAUDE.md Thesis Rule. PR #2037 field note (2026-09-18): Mission Control login works when signed in; operations stay manual; X @blogtheristo linked to xAI risto.paarni@lifetime.fi. No master's-thesis content; recorded as lockstep-only per §1.4 master-vs-PhD scope rule.
+- Version: 4.10 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 names the hybrid split as the implementation of PhD Key Contribution #59 (sensitive on Aegis/Infra, remainder on Connect). Lockstep 4.09->4.10.
 - Version: 4.09 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §10.33 fence wording — SEAL is a Cloud III DPS gate, not a standalone certificate. Catalogue nearest-SEAL remains indicative; DWS four-tier score is not a Cloud III evaluation. Lockstep 4.08->4.09.
 - Version: 4.08 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Added §10.33 (Indicative SEAL naming on catalogue SKUs and the DWS-score / EU-SEAL fence). Implementation counterpart to PHD_FIREHORSE §14.53 / Key Contribution #58: dual-folder `products.json` feature lines, `docs/PRODUCT_TIERS.md`, `DWS_DEPLOYMENT_STANDARD.md` v1.7, public `/compliance/#seal-0-4` and `/legal/#seal-0-4` literacy, `/sovereignty-assessment/` fence that the DWS four-tier score is not an EU SEAL certificate. Same-day addendum: catalogue does not import AWS/Microsoft/Oracle/S3NS SKU claims as SEAL evidence (PhD §14.53.2 comparison). Scientific framing stays in the PhD. Lockstep 4.07->4.08.
 - Version: 4.07 [not latest] | Tool: Claude Code (Sonnet 5) | Session: claude/nis2-dws-compliance-wordings-qjidyn | Date: 11.09.2026 | Changes: **Lockstep version bump 4.06 -> 4.07 across all 4 thesis files per the CLAUDE.md Thesis Rule.** No new master's-thesis content added — this session's substantive work was market/scientific-signal (PHD_FIREHORSE_EN/FI §14.52, IDC NIS2 readiness-gap survey, Key Contribution #57) plus a routine Compliance Hub content update (`dws10.com/compliance/index.html` NIS2 card copy, v3.6, synced to `landing-pages/dws10-com/compliance/index.html`); recorded here as a lockstep-only entry per the §1.4 master-vs-PhD scope rule. Lockstep 4.06->4.07.
@@ -2093,7 +2097,7 @@ DWS7 builds a multi-partner ecosystem spanning industrial automation (NVIDIA, Si
 | ----------- | ------------------------------------------------------------------------------------ | -------------------------------- |
 | **NVIDIA**  | GPU compute (Brain), Jetson edge (Hands), Omniverse digital twins (Body)             | Inception program target Q2 2026 |
 | **Siemens** | MindSphere IoT (Hands), digital twin composer (Body), Xcelerator marketplace         | Developer access Q2 2026         |
-| **ABB**     | Industrial automation + robotics (Hands), power grid management                      | Integration target Q3 2026       |
+| **ABB**     | Industrial automation + robotics (Hands), power grid management                      | Integration target Q4 2026       |
 | **xAI**     | Real-time market intelligence via Grok, X/Twitter signal discovery (Brain)           | Active (production)              |
 | **Mistral** | EU-sovereign AI inference, multilingual compliance generation (Brain/Memory)         | Planned Q3 2026                  |
 | **Red Hat** | AgentOps BYOA platform (Body), OpenShift AI for agent deployment, hybrid cloud infra | Active (March 2026)              |
@@ -3856,3 +3860,34 @@ On 14 September 2026 the product catalogue and tier tables began naming an **ind
 **Key finding (implementation of PhD #59).** Sensitive workloads on sovereign substrate; the rest on hyperscalers. That is the same split already shipped as Aegis/Infra vs Connect — one tenant, two runtimes; no new SKU (PhD §14.53.3). The classifier is `/sovereignty-assess` (DWS four-tier, not a Cloud III evaluation). The carbon/compliance ledger, dual-use, and Article 12 evidence stay on Aegis/Infra; Connect and Marketplace transact the remainder.
 
 _Implementation artefacts: `docs/PRODUCT_TIERS.md`, `DWS_DEPLOYMENT_STANDARD.md` v1.7, dual-folder `products.json`, dual-folder compliance/legal SEAL sections, `docs/field-notes/2026-09-14-sovereignty-is-the-primary-segmentation-axis.md`. Scientific framing: PHD_FIREHORSE §14.53._
+
+### 10.34 Controlled vocabulary as a delivery layer: one dictionary drives translations and search tags (2026-09-23)
+
+**Motivation.** The KYA-S1 vocabulary (seven control domains, assurance levels, runtime mechanisms) had an HIC-approved five-language table (Finnish as Ground Truth) in `ONTOLOGY.md` §16.6, but the machine-readable dictionary `docs/localization/dws-dictionary.json` did not carry it, and the published posts carried no search tags at all.
+
+**Implementation.** (1) The KYA-S1 table, the two named LWM layers (model base; state register and memory — `ONTOLOGY.md` §4.1), process-model terms (BPMN Service/User Task, ISA-95, SysML, VSM, SIPOC) and the three domain taglines were added to the generator `scripts/i18n/generate-dws-dictionary.cjs`. Terms that matter for search carry `seo: true`. (2) `scripts/blog/seo-tags.mjs` reads the dictionary and writes `keywords`, `article:tag` and JSON-LD `keywords` for each post from the terms the post actually uses, in the post's language, ranked by mention count and limited to one tag per KYA code. It is idempotent (a second run changes nothing) and has `--check` and `--json` modes. 162 of 191 post files (root + mirror) received tags.
+
+**Two defects the tooling surfaced.** (a) Regenerating the dictionary would have deleted 13 keys that existed only in the hand-edited JSON; they were ported into the generator with values unchanged. (b) 36 post files carried the JSON-LD headline and description of one earlier post ("KYA-S1 — One Signed Page…"), a template copy that search engines would show as the wrong headline. The script now replaces a headline or description that several posts share with each post's own `<h1>` and meta description.
+
+**The engineering rule this produced.** A generated artefact is regenerated and compared before it is edited; a difference that is not formatting is a lost hand edit and is moved into the generator first. Search tags are generated from the controlled vocabulary, never hand-written, so terminology, translation and search visibility change in one place.
+
+_Implementation artefacts: `scripts/i18n/generate-dws-dictionary.cjs`, `docs/localization/dws-dictionary.json`, `scripts/blog/seo-tags.mjs`, `ONTOLOGY.md` v1.8 §4.1, `docs/BLOG_STANDARD.md` §5, `docs/field-notes/2026-09-23-dictionary-seo-tags.md`._
+
+### 10.35 Workflow v2 — Procedural Graphs: Explicit State Over Chat Memory (2026-09-21)
+
+**Companion.** PhD §14.54 (Key Contribution #60) holds the scientific and market-signal argument. This section records the **shipped implementation**.
+
+On 21 September 2026, `src/agents/workflow-v2/` (PR #2059) implemented the "Procedural Graphs" pattern for long-horizon agent tasks: workflow state tracked in an explicit, externally-persisted graph instead of relying on the LLM's conversational memory. Two roles: an Executor restricted to transitions declared in the current node's `allowedNext` list (a runtime `GraphValidationError` on any other attempt, not a prompt-level convention), and a Refiner that reads a completed run's `ExecutionTrace` offline and proposes graph edits for future runs.
+
+**What shipped.**
+
+- `types.ts`, `graph.ts`, `prompts.ts`, `runner.ts`, `index.ts` — the graph validator, transition-legality checker, system-prompt builders for both roles, and a state manager that checkpoints the trace to disk after every step.
+- `ApprovalToken` / `computeApprovalHash` / `ApprovalRequiredError` (`graph.ts`, `runner.ts`) — a code-level gate, not a prompted instruction, binding a SHA-256 hash of the exact draft text plus graph/edge to a human's approval before any transition leaves a node flagged in `gatedNodeIds` (default: `HIC_APPROVAL_GATE`). Built specifically because CLAUDE.md's RED-zone rule on outbound email must not depend on the LLM choosing to honor a prompt.
+- Two example graphs: `sales-outreach.graph.json` ("Chapter 1," 15 nodes mapped 1:1 onto the pre-existing `OutreachStatus` enum in `src/outreach/types.ts` — no new schema invented) and `b2b-growth-funnel.graph.json` ("Chapter 0," a Research → Strategy → Execution campaign-level graph that hands individual opportunities to Chapter 1's per-prospect graph at an explicit seam).
+- 16 unit tests (`src/__tests__/agents/workflow-v2.test.ts`), all deterministic and offline — no live LLM calls in the test suite, matching the existing project convention of not depending on network access for CI-run correctness.
+
+**Convergence with the pre-existing roadmap.** `DWS7_ROADMAP.md` Phase 4.1 had already, independently, scoped the same problem (PR 138: durable resumable multi-agent workflows; PR 146: human-in-the-loop approval workflow) before this work began. The roadmap was updated in return (v1.7.1 → 1.7.2) to cross-reference what shipped against what was planned — PR 138/144/145/146 now each note where Workflow v2 already delivers or is directly reusable, so future Phase 4.1 work starts from the shipped pattern instead of from zero. See PhD §14.54.1 for why this convergence, not the shipped code alone, is the scientific point of interest.
+
+**What was not built in this pass.** A full multi-graph fan-out runtime, wiring the graphs into an executable CLI/skill entry point, and the Mission Control / Admin dashboard surfaces scoped for approval-queue and audit-trail views (`docs/workflow-v2-chapters-roadmap.md` §Placement) remain open — flagged explicitly rather than silently deferred (Discipline rule #12).
+
+_Implementation artefacts: `src/agents/workflow-v2/` (PR #2059), `docs/workflow-v2-sales-outreach-chapter-one.md`, `docs/workflow-v2-chapters-roadmap.md`, `docs/workflow-v2-jev-kya-integration-plan.md`. Scientific framing: PHD_FIREHORSE §14.54._

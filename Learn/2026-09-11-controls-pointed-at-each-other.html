@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-11-controls-pointed-at-each-other</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-11-controls-pointed-at-each-other</h1>
+</header>
+<h1 id="field-note-two-controls-pointed-at-each-other-and-a-document-that-guessed">Field Note — Two Controls Pointed At Each Other, and a Document That Guessed</h1>
+<p><strong>Date:</strong> 2026-09-11 <strong>Branches:</strong> <code>claude/agents-md-sync-via-pr</code> (PR #1999), <code>claude/agents-md-table-columns</code> (PR #2001) <strong>Trigger:</strong> A red check on <code>main</code> immediately after #1997 merged. HIC: <em>“1. Open new pr”</em>, then <em>“2. Do it”</em>.</p>
+<p>Third note in a run: <code>2026-09-09-controls-that-reported-success-while-doing-nothing.md</code> diagnosed five such controls, <code>2026-09-10-tree-gate-and-dod-gate-repaired.md</code> repaired two. This one is what the repair <strong>uncovered</strong>.</p>
+<hr />
+<h2 id="clearing-four-false-alarms-revealed-a-real-one">1. Clearing four false alarms revealed a real one</h2>
+<p>#1997 fixed four workflows that had never parsed, and so failed instantly on every push to every branch. The moment those four stopped shouting, a fifth failure became visible:</p>
+<pre><code>remote: - Changes must be made through a pull request.
+! [remote rejected] main -&gt; main (push declined due to repository rule violations)</code></pre>
+<p><code>AGENTS.md Auto-Sync</code> was written to commit straight to <code>main</code>. <code>main</code> has required a pull request since the protection added after the #1888 wipe. <strong>Two correct mechanisms, pointed at each other</strong> — and the workflow loses, silently, every run.</p>
+<p>This is the cost of noisy CI stated precisely. The failure was not hidden; it was on every push to <code>main</code> for weeks. It was <em>indistinguishable from the four that meant nothing</em>. Removing noise is not cosmetic work — it is what makes signal legible again.</p>
+<h2 id="the-sync-had-real-work-queued-behind-it">2. The sync had real work queued behind it</h2>
+<p>Not a dormant workflow failing harmlessly. Running the script against <code>main</code> today:</p>
+<pre><code>+ | `vuln-patch-sla-triage` | Vulnerability &amp; patch governance … |</code></pre>
+<p>An agent that has been in <code>src/agents/</code> and absent from <code>AGENTS.md</code> for as long as the sync has been failing. The drift the control existed to prevent had been accumulating behind the control’s own failure.</p>
+<p><strong>Fix (#1999):</strong> it proposes instead of applying — commits to a bot-owned <code>chore/agents-md-sync</code> branch and opens, or updates, one standing PR. <code>main</code> is never pushed to.</p>
+<h2 id="the-symptom-i-reported-was-not-the-defect">3. The symptom I reported was not the defect</h2>
+<p>I flagged the agent table as “ragged”: 28 rows with two columns, 15 with four, under a four-column header. Worth a tidy-up, I said. Looking properly, the raggedness was the least of it — three bugs in <code>scripts/sync-agents-md.mjs</code>:</p>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 36%" />
+<col style="width: 61%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Bug</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>columns inverted against the header</td>
+<td>15 rows showed a CLASS NAME under “Role”</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>/(sovereignty-monitor\|quality-gate\|viability)/</code> as “table end”</td>
+<td>alternation returns the EARLIEST match; <code>quality-gate</code> is mid-table, so every new agent was inserted mid-table</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>let model = &#39;Llama 3.3 70B&#39;</code> — never read from source</td>
+<td><strong>the table asserted a model for every agent that was mostly wrong</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Bug 3 is the one that matters. The agents declare nine different models:</p>
+<pre><code>llama-3.3-70b-versatile  20     claude-haiku-4-5-20251001  2
+claude-sonnet-5           5     placeholder                2
+llama-3.1-70b-versatile   5     claude-sonnet-4-6          1
+llama3.3:70b              5     deterministic              1
+                                claude-opus-4-7            1</code></pre>
+<p><strong>Five agents run Claude Sonnet 5 and the canonical inventory said Llama.</strong> Two are <code>placeholder</code>, one is <code>deterministic</code> — facts an agent inventory exists to surface, erased by a uniform claim. Anything reasoning about which model governs which agent was reading a fabrication.</p>
+<p>A hardcoded default is a lie with a plausible shape. <code>_unknown_</code> would have been honest and would have been noticed.</p>
+<h2 id="the-rule-worth-keeping">4. The rule worth keeping</h2>
+<p>The 09-09 note ended: <em>a configured name is not a configured value.</em> The 09-10 note added: <em>a broken control hides its own defect count.</em> Today’s:</p>
+<p><strong>A generated document is only as true as its generator, and a hardcoded fallback inside a generator is indistinguishable from a fact.</strong> The table had no marker saying “this column is a guess”. It rendered identically to the three columns that were real. Nothing in the document could tell a reader which was which — and I only found it because I went looking for a cosmetic column-count problem.</p>
+<p>Corollary, learned the hard way twice this week: <strong>the symptom I can see is a lower bound on the defect.</strong> “Ragged table” → three bugs, one of them a false factual claim. “Gate is broken” → six faults. Budget the investigation for more than the report describes.</p>
+<h2 id="mistakes-of-mine-for-the-record">5. Mistakes of mine, for the record</h2>
+<ul>
+<li>I described the table issue to the HIC as a cosmetic “tidy-up”. It was a correctness bug in the canonical agent inventory. I had looked at the rendering, not the generator.</li>
+<li>Earlier the same day, <code>git add -A</code> swept 1,167 lines of generated test artifacts into a PR — then into a <strong>second</strong> PR minutes after fixing the first, because that branch predated the <code>.gitignore</code> rule. Copilot caught the first; nothing caught the second but me, late.</li>
+<li>My own workflow-indentation fix broke the Python inside a <code>run:</code> block. <code>bash -n</code> passed throughout: <strong>validating the outer language says nothing about the language nested inside it.</strong></li>
+</ul>
+<h2 id="hic-learning-outcome">6. HIC Learning Outcome</h2>
+<ol type="1">
+<li><strong>KB</strong> — N/A: CI and document-generation defects; the durable record is this note plus #1999 and #2001 with their verification output.</li>
+<li><strong>Field note</strong> — this file.</li>
+<li><strong><code>Learn/</code> HTML</strong> — rendered alongside.</li>
+<li><strong>Drive export</strong> — N/A: repo is source-of-truth (<code>DWS_TRUTH_STANDARD</code> §2E); internal engineering record, no external audience.</li>
+<li><strong>Decision question</strong> — below.</li>
+<li><strong>Calendar</strong> — no dated commitment arises from either change.</li>
+</ol>
+<h3 id="the-decision">The decision</h3>
+<p><strong><code>AGENTS.md</code> asserts a “Default model” per agent. Should it?</strong></p>
+<p>#2001 makes the column truthful by reading the declared <code>model:</code> from each agent’s source. But that makes the document a second copy of a fact that already lives in code — and copies drift; that is the whole reason this note exists. Three options:</p>
+<ol type="1">
+<li><strong>Keep the column, generated</strong> (what #2001 does). Truthful today, and the sync keeps it so — provided the sync runs, which is what #1999 restores.</li>
+<li><strong>Drop the column.</strong> The model belongs to the code; the inventory names agents and roles. Nothing to drift.</li>
+<li><strong>Keep it, but register it.</strong> Add the agent→model mapping to <code>config/truth/</code> so <code>lint-truth-claims.mjs</code> fails on drift, the way the investor seat tiers now do.</li>
+</ol>
+<p>My recommendation is <strong>3</strong>, because it is the only one where a wrong model in a document is <em>caught</em> rather than <em>hoped against</em> — and this week has produced three separate cases of a control that was never going to catch anything. But 2 is defensible and cheaper, and the honest argument for it is that the best way to stop a copy drifting is not to keep one.</p>
+<hr />
+<h2 id="addendum-2026-09-13-the-corollary-held-twice-over">7. Addendum, 2026-09-13 — the corollary held, twice over</h2>
+<p>§4 above closed with: <em>the symptom I can see is a lower bound on the defect.</em> I wrote that about a “ragged table” turning out to be three bugs. Re-verifying the same PR two days later, against a <code>main</code> that had moved 26 commits:</p>
+<p><code>src/agents/</code> holds <strong>75</strong> <code>*.agent.ts</code> files. 32 of them live in <code>workflow/</code>, <code>workflow/industry/</code>, <code>consultant/</code>, <code>seo/</code>, <code>world-model/</code> and <code>loop-engineering/</code>. Both the generator and <code>scripts/verify-agents-md.mjs</code> walked the directory with a flat <code>readdirSync</code>, so both saw <strong>43</strong>.</p>
+<pre><code>node scripts/verify-agents-md.mjs --section agent-list
+  before: Grade F, 42/77 passed, 32 failures   (after the traversal fix)
+  after:  Grade A, 74/74 passed, 0 failures    (after the 32 rows were written)</code></pre>
+<p>The 32 included the entire industry pantheon — Helios, Vulcan, Gaia, Juno, Neptune, Mars, Ceres, Talos, Prometheus — which §5 of the same document names in prose. The document contradicted itself and nothing noticed, because:</p>
+<p><strong>The §7 table says “verified against the filesystem by <code>scripts/verify-agents-md.mjs</code>”. The verifier could not see 43% of the filesystem it named.</strong> Not a control that failed; a control whose <em>scope</em> was wrong, which is worse — it passed, loudly and repeatedly, while being blind.</p>
+<p>This is a fourth distinct shape of the same week’s failure, and the first one where a document’s own claim of verification was the false statement:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Note</th>
+<th>Shape</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>09-09</td>
+<td>a configured name is not a configured value</td>
+</tr>
+<tr class="even">
+<td>09-10</td>
+<td>a broken control hides its own defect count</td>
+</tr>
+<tr class="odd">
+<td>09-11</td>
+<td>a hardcoded fallback is indistinguishable from a fact</td>
+</tr>
+<tr class="even">
+<td>09-13</td>
+<td><strong>a control can pass correctly over the wrong scope</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Three smaller faults surfaced in the same pass — descriptions truncated at the first string literal (so <code>juno</code> read as a sentence ending in a dangling comma, and <code>helpdesk</code> had already shipped that way in the 09-11 commit); the verifier’s row regex unanchored, so it read the Default model cell as an agent name and reported <code>placeholder</code> and <code>deterministic</code> as undocumented agents; and no pipe-escaping, so one <code>|</code> in a description would break its row.</p>
+<p>Traversal now lives in <code>scripts/lib/agent-files.mjs</code>, shared. The defect was two copies of one traversal drifting from the directory they describe — a third copy would reintroduce it. The regression test measures the tree with <code>git ls-files</code> rather than a second <code>readdirSync</code>, so it cannot agree with the code by sharing its bug.</p>
+<p><strong>What I would do differently:</strong> on 09-11 I verified the generator’s <em>output</em> against the table and stopped. I never asked what the generator’s <em>input</em> was. “Does it write the right thing?” and “does it look at the right things?” are two questions, and I had only answered the first.</p>
+<p><strong>Cost side, for the HIC’s decision below:</strong> AGENTS.md is now 906 lines against a ≤150 target. The 32 rows are facts the document was missing. They are also 32 more rows.</p>
+<p><strong>Status: PENDING_REVIEW</strong></p>
+</body>
+</html>

@@ -2,12 +2,23 @@
 # Hardware: Acer Veriton GN100 (NVIDIA Grace Blackwell GB10, 128GB, ARM64)
 # Failover: GitHub Actions mirrors all cron schedules
 #
-# Code-Version: 1.5.0
-# Introduced-In: claude/aegis-release-readiness-audit
-# Branch: claude/aegis-release-readiness-audit
-# Date: 2026-08-19
+# Code-Version: 1.6.0
+# Introduced-In: claude/temporal-use-cases-pmanuo
+# Branch: claude/temporal-use-cases-pmanuo
+# Date: 2026-09-23
 # Owner: Lifetime Oy
-# Change: v1.5.0 — Actually added the dws-postgres SERVICE BLOCK (postgres:16-
+# Change: v1.6.0 — Added dws-temporal (temporalio/auto-setup server, its own
+#         dedicated temporal-postgres — kept separate from dws-postgres so a
+#         Temporal schema issue can never touch Tier 1 internal-ops data) and
+#         dws-temporal-worker (src/temporal/worker.ts, six task queues; see
+#         docs/dws-use-cases.md for the use cases it serves). Both are
+#         internal-network-only — no host port — except in the optional
+#         "temporal-ui" profile, which exposes the Temporal Web UI on 8088
+#         for HIC-visible workflow inspection. Self-hosted per Rule 14
+#         (DGX-first) and the sovereignty note in docs/dws-use-cases.md — not
+#         Temporal Cloud. Nothing yet points production traffic at this
+#         server; see the cost/rollout field note for the activation plan.
+# Prior (1.5.0) — Actually added the dws-postgres SERVICE BLOCK (postgres:16-
 #         alpine, ./migrations mounted read-only at
 #         /docker-entrypoint-initdb.d, dws-postgres-data volume, no host port).
 #         v1.4.0's changelog entry below claimed this was already done and
@@ -363,6 +374,143 @@ services:
       retries: 5
 
   # ==========================================================================
+  # Temporal Postgres — dedicated store for the Temporal server's own
+  # workflow/visibility schema. Kept separate from dws-postgres on purpose:
+  # Temporal's auto-setup migration runs with elevated schema privileges on
+  # first boot, and a bad Temporal upgrade must never be able to touch Tier 1
+  # internal-ops data (agent memory, audit chains). No host port — reachable
+  # only from dws-temporal over dws-network.
+  # ==========================================================================
+  temporal-postgres:
+    image: postgres:16-alpine
+    container_name: dws-temporal-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: temporal
+      POSTGRES_PASSWORD: ${TEMPORAL_POSTGRES_PASSWORD:?TEMPORAL_POSTGRES_PASSWORD must be set in .env — see .env.example}
+      POSTGRES_DB: temporal
+    volumes:
+      - temporal-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U temporal -d temporal"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 256M
+
+  # ==========================================================================
+  # Temporal Server (auto-setup image — applies its own schema to
+  # temporal-postgres on first boot, no manual migration file needed).
+  # Backs use cases #1-#6, #8 in docs/dws-use-cases.md. No host port — the
+  # worker and any future API callers reach it over dws-network at
+  # temporal:7233; see .env.example for TEMPORAL_ADDRESS.
+  # ==========================================================================
+  temporal:
+    image: temporalio/auto-setup:1.25.2
+    container_name: dws-temporal
+    restart: unless-stopped
+    environment:
+      DB: postgres12
+      DB_PORT: 5432
+      POSTGRES_USER: temporal
+      POSTGRES_PWD: ${TEMPORAL_POSTGRES_PASSWORD:?TEMPORAL_POSTGRES_PASSWORD must be set in .env — see .env.example}
+      POSTGRES_SEEDS: temporal-postgres
+    depends_on:
+      temporal-postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "tctl", "--address", "temporal:7233", "cluster", "health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 512M
+
+  # ==========================================================================
+  # Temporal Web UI — HIC-visible workflow/activity inspection (retries,
+  # errors, history). Opt-in via the "temporal-ui" profile so it doesn't
+  # start on hosts that haven't decided to expose it yet: docker compose
+  # --profile temporal-ui up -d
+  # ==========================================================================
+  temporal-ui:
+    image: temporalio/ui:2.34.0
+    container_name: dws-temporal-ui
+    restart: unless-stopped
+    ports:
+      - "8088:8080"
+    environment:
+      TEMPORAL_ADDRESS: temporal:7233
+      TEMPORAL_CORS_ORIGINS: http://localhost:8088
+    depends_on:
+      temporal:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    profiles:
+      - temporal-ui
+
+  # ==========================================================================
+  # Temporal Worker — src/temporal/worker.ts, polls all six domain task
+  # queues (src/temporal/task-queues.ts). See docs/dws-use-cases.md for what
+  # each queue does and does not yet do (Stripe webhook activity is shipped
+  # but not wired into the live payment route — see use case #6).
+  # ==========================================================================
+  dws-temporal-worker:
+    build:
+      context: ../../
+      dockerfile: infrastructure/dgx-spark/Dockerfile.temporal-worker
+      platforms:
+        - linux/arm64
+    container_name: dws-temporal-worker
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      TEMPORAL_ADDRESS: temporal:7233
+      TEMPORAL_NAMESPACE: default
+      OTEL_SERVICE_NAME: dws-temporal-worker
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://aspire-dashboard:18890
+      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
+    depends_on:
+      temporal:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 256M
+
+  # ==========================================================================
   # NemoClaw — Local autonomous agent runtime (OpenShell-sandboxed)
   # EU-sovereign agent surface: no network egress; Brain wired to Nemotron 3 Super
   # via Ollama on the host. See DWS_DEPLOYMENT_STANDARD.md and field note
@@ -450,7 +598,8 @@ services:
       - "host.docker.internal:host-gateway"
 
   # ==========================================================================
-  # Aspire Dashboard 13.4.6 — Distributed traces, metrics, logs (OTel aggregator)
+  # Aspire Dashboard 13.4.2 — Distributed traces, metrics, logs (OTel aggregator)
+  # image: pin is 13.4.2 (this comment previously said 13.4.6). Win11 CLI 13.5.4 is not this image.
   # Dashboard-only install — no AppHost or .NET toolchain required.
   # Three distinct endpoints (aspire.dev dashboard configuration reference):
   #   UI:        http://dgx-spark:18888          (browser)
@@ -609,7 +758,17 @@ services:
       - /home/admin100/.config/opencode:/root/.config/opencode
       - /home/admin100/.opencode:/root/.opencode
     working_dir: /repo
-    command: ["node", "scripts/opencode-batch-worker.mjs", "run", "--loop", "--batch", "3", "--timeout", "25"]
+    command:
+      [
+        "node",
+        "scripts/opencode-batch-worker.mjs",
+        "run",
+        "--loop",
+        "--batch",
+        "3",
+        "--timeout",
+        "25",
+      ]
     logging:
       driver: "json-file"
       options:
@@ -626,6 +785,7 @@ volumes:
   nemoclaw-logs:
   state-snapshots:
   dws-postgres-data:
+  temporal-postgres-data:
 
 networks:
   default:

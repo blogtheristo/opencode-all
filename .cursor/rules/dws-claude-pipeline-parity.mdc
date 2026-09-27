@@ -5,7 +5,9 @@ alwaysApply: true
 
 # DWS6 — Cursor parity with Claude Code pipeline
 
-Source of truth for hook logic: `.claude/hooks/session-start.sh` and `.claude/hooks/session-stop.sh`. This rule does not run automatically like bash hooks; **apply it explicitly** when the user starts or ends a session (or when they say "session checklist").
+Source of truth for hook logic: `.claude/hooks/session-start.sh` and `.claude/hooks/session-stop.sh`. Session start/stop checklists do not run automatically like bash hooks — apply them at chat start/end.
+
+**Standards are not optional and are not “session start only.”** Every Cursor turn must follow `.cursor/rules/dws-standards-always.mdc` (Read `STANDARDS_ROUTING.md` + matched standards). Remembering `CLAUDE.md` is not a substitute for those Reads.
 
 ## Trust boundaries (Auto-Mode)
 

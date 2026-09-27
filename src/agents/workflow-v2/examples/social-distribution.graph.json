@@ -1,0 +1,67 @@
+{
+  "name": "social-distribution-chapter-eleven",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "One approved social post (from Chapter 10 ENQUEUE_SOCIAL, /lsj-publish, or the post library in src/social-scheduler/post-library.ts) is to be distributed on one or more platforms: LinkedIn (company page + Risto), Facebook page (src/social-scheduler/facebook-publisher.ts), X (x-publisher.ts). Instagram is not yet in the machinery. The post carries one claim, one proof and one link to Journal or lifetime.fi — never to a price. State lives in the social_posts table (queue.ts) and this graph.",
+      "allowedNext": ["ADAPT_PER_PLATFORM"]
+    },
+    {
+      "id": "ADAPT_PER_PLATFORM",
+      "description": "Produce the platform variants from the approved text: length, hashtags, image (4K per PNG Export Rule), link placement, language. Adaptation may shorten or reformat but may not add claims, numbers or names that the approved text does not contain — anything new sends the post back through the HIC gate instead of inheriting approval.",
+      "allowedNext": ["GUARDRAIL"]
+    },
+    {
+      "id": "GUARDRAIL",
+      "description": "Deterministic check per variant: no secrets, no prices/SKUs when the link target is a WHY/UNDERSTAND page, /truth-check on public claims, correct sender identity (Risto Anton Päärni, Lifetime Oy). Escalate-only-to-block; a block routes back to ADAPT_PER_PLATFORM with the rule list.",
+      "allowedNext": ["SHOW_TO_HIC", "ADAPT_PER_PLATFORM"]
+    },
+    {
+      "id": "SHOW_TO_HIC",
+      "description": "Weekly digest, not per-post interruption: approval-digest.ts already emails the pending queue. Show every variant for the coming week in one artefact with the planned day and platform. Stop and ask: approve the week, or which posts to change or drop.",
+      "allowedNext": ["HIC_APPROVAL_GATE"]
+    },
+    {
+      "id": "HIC_APPROVAL_GATE",
+      "description": "Outbound publication in the company's name. Approval binds to the exact variant text and platform (ApprovalToken hash); an edited variant re-enters the gate. Enforced at runtime by DEFAULT_GATED_NODE_IDS in runner.ts. A general 'post whatever you like this week' is not approval of any specific variant.",
+      "allowedNext": ["SCHEDULE", "REVISE"]
+    },
+    {
+      "id": "REVISE",
+      "description": "Apply the HIC's edits to the named variants, re-emit the full week in one artefact, and return to GUARDRAIL. Dropped posts go to PARKED with the reason.",
+      "allowedNext": ["GUARDRAIL", "PARKED"]
+    },
+    {
+      "id": "SCHEDULE",
+      "description": "Reachable only through HIC_APPROVAL_GATE. Insert each approved variant into social_posts with status scheduled and its scheduled_at (one per weekday, working hours EET). The actual publish is a Temporal Standalone Activity (publishSocialPostActivity, docs/dws-use-cases.md #3) started with startDelay to the scheduled time, keyed by post id + platform so a re-run cannot double-post.",
+      "allowedNext": ["PUBLISH"]
+    },
+    {
+      "id": "PUBLISH",
+      "description": "At the scheduled time the Activity publishes and writes back postId / postUrl via updatePostStatus. Transient failures retry under Temporal's policy; non-retryable failures (revoked token, permission, duplicate) route to PUBLISH_FAILED. LinkedIn: if the API adapter is not configured, the variant is delivered to the HIC as a ready-to-paste block instead and marked manual — never silently skipped.",
+      "allowedNext": ["MEASURE", "PUBLISH_FAILED"]
+    },
+    {
+      "id": "PUBLISH_FAILED",
+      "description": "Record the platform error and the post id. Configuration errors (missing FACEBOOK_PAGE_ID/TOKEN, LinkedIn OAuth expired) are HIC actions, not retries: list what the human must supply. After the fix, re-enter through HIC_APPROVAL_GATE with the same approved variant — the token still binds, so no new review, but SCHEDULE stays reachable only via the gate.",
+      "allowedNext": ["HIC_APPROVAL_GATE", "PARKED"]
+    },
+    {
+      "id": "MEASURE",
+      "description": "Stage: Outcome → Evidence → Learning. After 7 days collect reach, reactions, comments and link clicks per variant (UTM per chain) and write them to the Chapter 10 register row and to the weekly measurement report. Comments that ask a question become candidate sources for a new Journal text — hand them to Chapter 10 SELECT_SOURCE as signals.",
+      "allowedNext": ["END"]
+    },
+    {
+      "id": "PARKED",
+      "description": "Terminal. The variant stays in social_posts as draft with the drop reason; surfaced in the next weekly digest, never deleted.",
+      "allowedNext": []
+    },
+    {
+      "id": "END",
+      "description": "Terminal — published on every requested platform and measured.",
+      "allowedNext": []
+    }
+  ]
+}

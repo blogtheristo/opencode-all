@@ -1,0 +1,400 @@
+================================================================================
+JEV-KYA 4B NEMOTRON DISTILLATION PLAN
+Single DGX Spark Node Execution
+================================================================================
+
+PROJECT: Distill Nemotron-4-340B into 4B Jev-KYA classifier
+HARDWARE: Single DGX Spark (NVIDIA Grace Blackwell GB10)
+DURATION: 13–18 hours (sequential pipeline)
+COST: DGX Spark electricity + time; zero cloud inference post-distillation
+COMPLIANCE: Rule 14 (DWS Cost Policy & Sovereignty), EU AI Act Art. 12
+
+================================================================================
+PHASE 1: TEACHER INFERENCE (Synthetic Data Generation)
+================================================================================
+
+Duration: 6–8 hours
+GPU Memory: ~340 GB (Nemotron-4-340B-Instruct in FP8 + KV cache)
+Throughput: Hundreds of thousands tokens/second
+
+OBJECTIVE:
+Generate 100K–200K synthetic KYA scenarios across 10 archetypes:
+  1. Mandate verdicts (allow/deny/escalate)
+  2. Attestation validation (pass/fail/audit)
+  3. Risk scoring (high/medium/low)
+  4. Model routing (A vs. B vs. C)
+  5. Access control (self-serve / require-approval / block)
+  6. Confidence calibration (trigger audit if < 0.8)
+  7. Concurrency limits (scale down / normal / aggressive)
+  8. Latency compliance (within SLA / degraded / alert)
+  9. Rate limiting (allow / queue / reject)
+  10. Anomaly detection (benign / suspicious / malicious)
+
+CONFIGURATION:
+  • Load Nemotron-4-340B-Instruct (NVIDIA Instruct-tuned version)
+  • Use vLLM or TensorRT-LLM for serving
+  • Leverage Blackwell FP8 native support: 340GB → 170GB in FP8
+  • Remaining GPU VRAM reserved for massive KV cache
+  • Batch mode: set max_num_batched_tokens to maximum
+
+EXECUTION:
+  1. Configure teacher inference pipeline
+  2. Generate synthetic (Prompt, Decision, Confidence) triplets
+  3. Stream output to disk as .jsonl (one example per line)
+  4. Log generation statistics: total examples, token count, archetypes distribution
+
+OUTPUT:
+  • File: synthetic-kya-phase1.jsonl (~150K examples)
+  • Format: {"prompt": "...", "decision": "...", "confidence": 0.XX}
+  • Size: ~500 GB on disk (reduced to 50K after Phase 2)
+
+TEARDOWN:
+  • Clear GPU VRAM
+  • Verify .jsonl file integrity
+
+================================================================================
+PHASE 2: REWARD EVALUATION & CURATION
+================================================================================
+
+Duration: 4–5 hours
+GPU Memory: ~340 GB (Nemotron-4-340B-Reward in FP8 + KV cache)
+Purpose: Filter synthetic data to retain only high-quality examples
+
+OBJECTIVE:
+Assign quality scores (0–100) to each synthetic example and filter to top 10–20%
+
+CONFIGURATION:
+  • Load Nemotron-4-340B-Reward (NVIDIA reward model)
+  • Same FP8 + KV cache strategy as Phase 1
+
+EXECUTION:
+  1. Load Phase 1 synthetic dataset (.jsonl)
+  2. For each (Prompt, Decision) pair:
+     a. Call reward model: score = reward_model(prompt + decision)
+     b. Log score
+  3. Filter: Keep examples with score ≥ 80 (top 10–20%)
+  4. Output filtered dataset
+
+QUALITY CHECKS:
+  • Reward score distribution: Log mean, median, std dev
+  • Domain purity: Spot-check 100 examples; verify Jev-KYA relevance
+  • Curation ratio: If > 50% rejected, investigate noise in Phase 1
+
+OUTPUT:
+  • File: kya-sft-training-data.jsonl (~50K curated examples)
+  • Format: {"prompt": "...", "decision": "...", "confidence": 0.XX, "reward_score": 0.XX}
+  • Size: ~150 GB on disk (reduced proportionally)
+
+TEARDOWN:
+  • Clear GPU VRAM
+  • Save curated dataset to persistent storage
+
+================================================================================
+PHASE 3: STUDENT MODEL TRAINING (SFT + Distillation)
+================================================================================
+
+Duration: 2–4 hours
+GPU Memory: 8–10 GB (4B model in BF16 + optimizer state)
+Purpose: Transfer teacher's Jev-KYA capability to 4B student model
+
+OBJECTIVE:
+Train 4B student on curated 50K examples using Supervised Fine-Tuning + KL divergence distillation
+
+CONFIGURATION:
+  • Load 4B base model (e.g., Llama-3.2-3B or similar)
+  • Full Parameter Fine-Tuning (no LoRA; VRAM abundant)
+  • Precision: BF16 (8–10 GB model + optimizer state)
+  • Data parallelism: FSDP across DGX GPU cores
+
+EXECUTION:
+  1. Split curated dataset: 45K train, 5K validation
+  2. Training loop (2–3 epochs):
+     a. SFT loss: Cross-entropy on curated labels
+     b. Distillation loss: KL divergence between 4B logits and 340B teacher logits
+        (Teacher runs zero-shot on same inputs; no retraining needed)
+     c. Combined loss: 0.7 * SFT_loss + 0.3 * KL_loss
+  3. Hyperparameters:
+     • Learning rate: 2e-5
+     • Batch size: 32 (adjust for GPU memory)
+     • Early stopping: on validation loss (patience=3 epochs)
+  4. Monitor: training loss, validation loss, accuracy on held-out KYA types
+  5. Save best checkpoint
+
+TRAINING SPEED NOTES:
+  • Small model (4B) on large DGX → extremely fast
+  • Expected: 2–4 hours for 2–3 epochs on 50K examples
+  • Per-epoch time: ~1 hour
+
+VALIDATION TARGETS:
+  • Validation accuracy: ≥ 95% of teacher's accuracy (on same examples)
+  • Validation loss: Monotonic decrease or plateau (no divergence)
+  • Calibration: ECE < 0.10 (measured post-training)
+
+OUTPUT:
+  • File: jev-kya-4b-sft-distilled.pt (trained weights in BF16)
+  • Size: 8 GB
+  • Validation report: accuracy, loss curves, calibration metrics
+
+TEARDOWN:
+  • Save trained weights
+  • Log validation report
+
+================================================================================
+PHASE 4: QUANTIZATION & EDGE DEPLOYMENT
+================================================================================
+
+Duration: 1 hour
+Purpose: Convert BF16 model to quantized formats for deployment targets
+
+OBJECTIVE:
+Export trained 4B model into 3 deployable formats
+
+TARGET A: Mac (Apple Silicon)
+  • Format: MLX (compatible with Llama.cpp, Ollama)
+  • Quantization: INT4 with group quantization
+  • Size: ~2.5 GB
+  • Inference: mlx-lm or Ollama on Mac
+  • Expected latency: 30–50 ms per token (acceptable for async gates)
+
+TARGET B: Local Agent GPUs (DGX / cloud GPU)
+  • Format: vLLM-compatible
+  • Quantization: AWQ (Activation-aware Weight Quantization) or FP8
+  • Size: ~4 GB (AWQ) or 4 GB (FP8)
+  • Inference: vLLM server
+  • Expected latency: 8–15 ms per decision (confirmed in prior work)
+
+TARGET C: Edge Systems (Optional)
+  • Format: ONNX
+  • Quantization: INT8
+  • Size: ~1 GB
+  • Target: Jetson devices, embedded systems
+  • Expected latency: 30–100 ms (device-dependent)
+
+EXECUTION:
+  1. Export to MLX:
+     python export_mlx.py --model ./trained-4b --quantization int4 --output ./jev-kya-4b-mac
+  2. Export to vLLM:
+     python export_vllm.py --model ./trained-4b --quantization awq --output ./jev-kya-4b-vllm
+  3. (Optional) Export to ONNX:
+     python export_onnx.py --model ./trained-4b --quantization int8 --output ./jev-kya-4b-onnx
+
+VALIDATION:
+  1. Verify file sizes (MLX ~2.5GB, vLLM ~4GB, ONNX ~1GB)
+  2. Load each quantized model; verify inference works
+  3. Benchmark latency on target hardware:
+     • Mac: Time 1000 decisions on M3 Max (measure p50, p95, p99)
+     • Agent GPU: Time 1000 decisions on DGX (measure with vLLM)
+  4. Compare accuracy vs. BF16 original:
+     • Target: ≥ 98% (INT4 may sacrifice 1–2%)
+     • If ≥ 95%, acceptable; log caveat
+     • If < 95%, investigate; retry with FP8
+
+OUTPUT:
+  • MLX quantized: jev-kya-4b-mac/ (~2.5 GB)
+  • vLLM quantized: jev-kya-4b-vllm/ (~4 GB)
+  • Optional ONNX: jev-kya-4b-onnx/ (~1 GB)
+  • Benchmark report: latency, accuracy, deployment readiness
+
+TEARDOWN:
+  • Commit quantized models to repo
+  • Document deployment instructions for each target
+
+================================================================================
+RESOURCE BREAKDOWN
+================================================================================
+
+COMPUTE (DGX Spark):
+  Phase 1 (Teacher Inference): 6–8 hours
+  Phase 2 (Reward Curation): 4–5 hours
+  Phase 3 (SFT + Distillation): 2–4 hours
+  Phase 4 (Quantization): 1 hour
+  ────────────────────────────────────
+  TOTAL: 13–18 hours
+
+PERSONNEL (1 ML Engineer):
+  Setup + monitoring: ~8 hours
+  Validation & troubleshooting: ~4 hours
+
+STORAGE (temporary):
+  Phase 1 output: ~500 GB (cleared after Phase 2)
+  Phase 2 output: ~150 GB (cleared after Phase 3)
+  Phase 3 output: ~8 GB (kept; final model)
+  Phase 4 output: ~7.5 GB total (3 quantized formats)
+
+COST (post-distillation):
+  Zero for inference at scale (no API calls, no cloud compute)
+
+================================================================================
+TIMELINE & MILESTONES
+================================================================================
+
+WEEK 1, DAY 1 (8 hours):
+  • Hour 0–1: DGX setup, model staging
+  • Hour 1–9: Phase 1 teacher inference (6–8h)
+  • Hour 9–14: Phase 2 reward curation (4–5h)
+  • Milestone: curated-kya-sft-training-data.jsonl ready
+
+WEEK 1, DAY 2 (4 hours):
+  • Hour 0–4: Phase 3 SFT + distillation training (2–4h)
+  • Hour 4–5: Phase 4 quantization & export (1h)
+  • Milestone: 3 deployment formats ready
+
+VALIDATION & TESTING (ongoing during execution):
+  • Phase 1: Log synthetic data distribution; spot-check examples
+  • Phase 2: Reward score analysis; domain purity check
+  • Phase 3: Validation loss convergence; accuracy parity vs. teacher
+  • Phase 4: Latency benchmarks on Mac & agent GPU; accuracy drop assessment
+
+DEPLOYMENT READINESS (end of Phase 4):
+  ✓ Trained weights saved
+  ✓ Quantized models exported & verified
+  ✓ Latency benchmarks documented
+  ✓ Accuracy parity confirmed (≥ 95% of teacher)
+  ✓ Integration code ready (DistilledKyaDecider class)
+
+================================================================================
+RISK MITIGATION
+================================================================================
+
+RISK: Phase 1 synthetic data is noisy or off-domain
+MITIGATION: Phase 2 reward model filters; spot-check 100 examples manually
+
+RISK: Training diverges in Phase 3
+MITIGATION: Early stopping on validation loss; conservative LR; proven loss formula
+
+RISK: Quantized model accuracy drops > 5%
+MITIGATION: Use lossless AWQ if INT4 shows drops; validate before deployment
+
+RISK: DGX memory pressure during Phase 1
+MITIGATION: Monitor VRAM; reduce batch size if needed; pipeline is flexible
+
+RISK: Training data leakage (overfitting)
+MITIGATION: Hold out 10% for validation; calibration study (ECE) post-training
+
+================================================================================
+SUCCESS METRICS
+================================================================================
+
+PHASE 1:
+  ✓ Synthetic dataset generated: 100K–200K examples
+  ✓ Examples span all 10 KYA archetypes
+  ✓ Logged to disk: synthetic-kya-phase1.jsonl
+
+PHASE 2:
+  ✓ Curated dataset: 50K+ examples (top 10–20% by reward)
+  ✓ Domain purity: > 95% of spot-checked examples are Jev-KYA-relevant
+  ✓ Reward score distribution: mean ≥ 80, std dev < 15
+
+PHASE 3:
+  ✓ Training converges: validation loss plateaus or decreases
+  ✓ Accuracy parity: 4B model achieves ≥ 95% of teacher's accuracy
+  ✓ No NaNs or divergence during training
+
+PHASE 4:
+  ✓ Quantized models load without error
+  ✓ Inference works on target hardware (Mac, agent GPU)
+  ✓ Latency: < 25 ms per decision (agent GPU), < 50 ms per token (Mac)
+  ✓ Accuracy drop: ≤ 2% from BF16 original
+
+================================================================================
+DEPLOYMENT INTEGRATION
+================================================================================
+
+POST-PHASE 4 WORK (parallel track):
+
+1. Update src/agents/kya-jev.ts:
+   class DistilledKyaDecider {
+     async makeTypedDecision(req: TypedDecisionRequest): Promise<TypedDecisionResult> {
+       // Load 4B quantized model on startup
+       // Run local inference
+       // Return TypedDecisionResult (same interface as LLM version)
+     }
+   }
+
+2. Add feature flag:
+   KYA_USE_DISTILLED_MODEL=true|false (default: false during ramp-up)
+
+3. Add model choice to AgentRuntimeContext:
+   model: 'claude-opus' | 'nemotron-4b-distilled' | 'auto'
+   // 'auto' = use distilled if latency acceptable, else fallback to claude-opus
+
+4. Staged rollout:
+   Week 1: Staging (10% traffic to distilled model)
+   Week 2: Canary (50% traffic; monitor accuracy, latency, cost)
+   Week 3+: Production (100% rollout; claude-opus remains as fallback)
+
+5. Monitoring:
+   • Track latency (target < 25 ms p99)
+   • Track accuracy (target ≥ 98% of claude-opus baseline)
+   • Track cost per 1K decisions (target ≤ $0.01, vs. $0.20 for claude-opus)
+
+================================================================================
+COMPLIANCE & STANDARDS
+================================================================================
+
+✓ RULE 14 (DWS Cost Policy & Sovereignty):
+  • DGX-first: All computation on internal DGX Spark
+  • Sovereign: Zero data egress; all processing on-premise
+  • Cost-transparent: Post-distillation, inference cost = $0
+
+✓ DWS ENGINEERING DISCIPLINE:
+  • Rule 1: Assumptions stated (sequential pipeline, Blackwell FP8 support)
+  • Rule 4: Goal-driven (target: 4B model, < 25 ms latency, ≥ 98% teacher accuracy)
+  • Rule 10: Checkpoint at each phase (validation gates)
+
+✓ EU AI ACT ART. 12 (TRANSPARENCY):
+  • Training data: Synthetic (teacher-labeled, curated by reward model)
+  • Model: Distilled from Nemotron-4-340B via SFT + KL divergence
+  • Evaluation: Calibration study (ECE measurement) pre-deployment
+
+================================================================================
+APPROVAL CHECKLIST (HIC Decision)
+================================================================================
+
+PHASE 1: TECHNICAL PLAN
+  ☐ Plan reviewed & approved
+  ☐ DGX allocation confirmed (18-hour contiguous or multi-day phases?)
+  ☐ ML engineer assigned (1 FTE for 18-hour execution)
+
+PHASE 2: EXECUTION
+  ☐ Synthetic data validation approach approved
+  ☐ Reward model curation confidence threshold set (default: ≥ 80)
+  ☐ Human review scope defined (spot-check only vs. full review)
+
+PHASE 3: TRAINING
+  ☐ Distillation hyperparameters approved
+  ☐ Early stopping criteria approved
+  ☐ Accuracy parity target confirmed (≥ 95% of teacher)
+
+PHASE 4: DEPLOYMENT
+  ☐ Quantization targets approved (MLX/Mac, vLLM/agent GPU, optional ONNX)
+  ☐ Latency targets confirmed (< 25 ms agent GPU, < 50 ms Mac)
+  ☐ Accuracy drop tolerance approved (≤ 2% from BF16)
+
+OVERALL:
+  ☐ Risk mitigation plan acceptable
+  ☐ Timeline realistic for assigned resources
+  ☐ Success metrics defined and measurable
+  ☐ Integration plan (DistilledKyaDecider, feature flags, staged rollout) approved
+
+================================================================================
+NEXT STEPS (HIC)
+================================================================================
+
+1. REVIEW this plan
+2. APPROVE execution or REQUEST modifications
+3. ASSIGN ML engineer for Phase 1 setup
+4. SCHEDULE DGX allocation (contiguous 18h window, or phased over 2 days)
+5. CONFIRM: Reward curation threshold, accuracy targets, quantization targets
+6. SET target deployment date (e.g., 1 week post-approval)
+
+================================================================================
+END OF PLAN
+================================================================================
+
+Date: 2026-09-20
+Session: claude/jev-kya-synthetic-learning-hdkmm4
+Status: READY FOR HIC APPROVAL
+Hardware: Single DGX Spark (NVIDIA Grace Blackwell GB10)
+Estimated Timeline: 13–18 hours execution + 1–2 weeks integration
+Post-Distillation Cost: $0 for inference at unlimited scale

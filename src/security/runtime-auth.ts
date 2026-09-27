@@ -31,8 +31,9 @@
  * dispatch and short-circuits on `require_approval` or `deny`.
  */
 
+import { createHmac, timingSafeEqual } from 'node:crypto';
 import logger from '../utils/logger.js';
-import type { ToolCall } from '../agents/types.js';
+import type { RuntimeKYAVerdict, ToolCall } from '../agents/types.js';
 
 export type ActionClass = 'READ' | 'WRITE' | 'EXTERNAL' | 'IRREVERSIBLE';
 
@@ -174,7 +175,10 @@ function registerBuiltinPolicies(): void {
   registerToolPolicy('file_read_restricted', { actionClass: 'READ' });
   registerToolPolicy('memory_search', { actionClass: 'READ' });
   registerToolPolicy('memory_get', { actionClass: 'READ' });
-  registerToolPolicy('agent_call', { actionClass: 'READ', rationale: 'delegation — child agent gated separately' });
+  registerToolPolicy('agent_call', {
+    actionClass: 'READ',
+    rationale: 'delegation — child agent gated separately',
+  });
 
   // EXTERNAL — fetches untrusted content, no direct state change
   registerToolPolicy('web_fetch', { actionClass: 'EXTERNAL' });
@@ -200,7 +204,10 @@ function registerBuiltinPolicies(): void {
   registerToolPolicy('email_draft', { actionClass: 'WRITE' });
 
   // IRREVERSIBLE — destructive or externally visible
-  registerToolPolicy('database_drop', { actionClass: 'IRREVERSIBLE', rationale: 'DROP TABLE/DATABASE' });
+  registerToolPolicy('database_drop', {
+    actionClass: 'IRREVERSIBLE',
+    rationale: 'DROP TABLE/DATABASE',
+  });
   registerToolPolicy('database_truncate', { actionClass: 'IRREVERSIBLE' });
   registerToolPolicy('database_delete', {
     actionClass: 'IRREVERSIBLE',
@@ -224,8 +231,14 @@ function registerBuiltinPolicies(): void {
   });
   registerToolPolicy('user_create', { actionClass: 'IRREVERSIBLE' });
   registerToolPolicy('permission_grant', { actionClass: 'IRREVERSIBLE' });
-  registerToolPolicy('system_command', { actionClass: 'IRREVERSIBLE', rationale: 'arbitrary shell — always HIL' });
-  registerToolPolicy('backup_delete', { actionClass: 'IRREVERSIBLE', rationale: 'PocketOS scenario — never autonomous' });
+  registerToolPolicy('system_command', {
+    actionClass: 'IRREVERSIBLE',
+    rationale: 'arbitrary shell — always HIL',
+  });
+  registerToolPolicy('backup_delete', {
+    actionClass: 'IRREVERSIBLE',
+    rationale: 'PocketOS scenario — never autonomous',
+  });
 }
 
 registerBuiltinPolicies();
@@ -298,10 +311,7 @@ export function authorizeToolCall(
     return result;
   }
 
-  if (
-    policy.actionClass === 'IRREVERSIBLE' ||
-    blastRadius > envelope.maxAutonomous
-  ) {
+  if (policy.actionClass === 'IRREVERSIBLE' || blastRadius > envelope.maxAutonomous) {
     const result: AuthorizationResult = {
       decision: 'require_approval',
       actionClass: policy.actionClass,
@@ -370,4 +380,166 @@ function auditDecision(
   } else {
     logger.info(event, msg);
   }
+}
+
+// ============================================================================
+// Signed KYA verdicts — kya-jev A2 hardening (docs/KYA_JEV_SPECIFICATION.md)
+//
+// A RuntimeKYAVerdict is only trustworthy if the caller cannot construct one
+// itself: an issuer and a verifier that trust the same plain object are the
+// same party, which proves nothing (the "signer and approver can't be the
+// same entity" problem). issueKyaVerdict() is the ONLY function that should
+// produce a valid verdict; verifyKyaVerdict() is what kya-jev actually gates
+// on. Without KYA_VERDICT_SIGNING_SECRET configured, no verdict can be
+// signed or verified — kya-jev fails closed, not open.
+// ============================================================================
+
+function signingSecret(): string | null {
+  return process.env.KYA_VERDICT_SIGNING_SECRET || null;
+}
+
+/**
+ * Grace-period secret for rotation: verifyKyaVerdict() also accepts a
+ * verdict signed under this secret. Set it to the OLD value of
+ * KYA_VERDICT_SIGNING_SECRET during a rotation window, then remove it once
+ * every in-flight verdict issued under the old secret has expired — see
+ * "Secret rotation procedure" below. Never used for issuing, only verifying.
+ */
+function previousSigningSecret(): string | null {
+  return process.env.KYA_VERDICT_SIGNING_SECRET_PREVIOUS || null;
+}
+
+/**
+ * Guard against the most common signing-secret mistake: reusing the same
+ * value across environments. If NODE_ENV/DEPLOY_ENV is set, the secret must
+ * not equal a well-known placeholder/example value, and staging vs.
+ * production must not share a secret when both are inspectable from the
+ * same process (defense in depth; the real control is that each
+ * environment's secret manager holds a distinct value — this only catches
+ * the case where someone copy-pasted one env file into another).
+ */
+const KNOWN_PLACEHOLDER_SECRETS = new Set([
+  'test-signing-secret-do-not-use-in-prod',
+  'change-me',
+  'changeme',
+  'secret',
+  'test-secret-a',
+  'test-secret-b',
+]);
+
+function assertNotPlaceholderInProd(secret: string): void {
+  const env = (process.env.NODE_ENV || process.env.DEPLOY_ENV || '').toLowerCase();
+  if (env === 'production' && KNOWN_PLACEHOLDER_SECRETS.has(secret)) {
+    throw new Error(
+      'KYA_VERDICT_SIGNING_SECRET is set to a known test/placeholder value in a production environment. ' +
+        'Staging and production must use distinct, generated secrets — see "Secret rotation procedure" in ' +
+        'src/security/runtime-auth.ts and docs/KYA_JEV_SPECIFICATION.md.',
+    );
+  }
+}
+
+/*
+ * Secret rotation procedure (KYA_VERDICT_SIGNING_SECRET)
+ * ────────────────────────────────────────────────────────────────────────
+ * 1. Staging and production MUST use distinct values, generated independently
+ *    (e.g. `openssl rand -hex 32`), stored only in each environment's secret
+ *    manager — never committed, never shared across environments (Rule 1/2,
+ *    CLAUDE.md Non-Negotiable Rules).
+ * 2. Verdicts are short-lived by design (issued and consumed within a single
+ *    call, not persisted for reuse), so rotation does not require
+ *    invalidating stored data — only in-flight calls during the rotation
+ *    window are at risk of a transient verification failure.
+ * 3. Zero-downtime rotation:
+ *      a. Generate the new secret.
+ *      b. Set KYA_VERDICT_SIGNING_SECRET_PREVIOUS = <old value>,
+ *         KYA_VERDICT_SIGNING_SECRET = <new value>, deploy.
+ *         verifyKyaVerdict() accepts verdicts signed under either secret
+ *         during this window, so in-flight calls issued just before the
+ *         rotation still verify.
+ *      c. After one full deploy cycle with no verification failures
+ *         attributable to the old secret (check logs for
+ *         "kya-jev: KYA verdict failed signature verification"), remove
+ *         KYA_VERDICT_SIGNING_SECRET_PREVIOUS.
+ * 4. Cadence: rotate on a fixed schedule (recommended: quarterly) and
+ *    immediately on suspected compromise. Record each rotation's date and
+ *    reason in docs/KYA_JEV_SPECIFICATION.md's version history — a secret
+ *    rotation with no record is itself an audit gap.
+ * 5. Ownership: Security team owns the secret value and rotation cadence;
+ *    HIC approves emergency (compromise-triggered) rotations.
+ */
+
+function verdictPayload(
+  v: Pick<RuntimeKYAVerdict, 'decision' | 'trustScore' | 'policyVersion' | 'gate' | 'issuedAt'>,
+): string {
+  return JSON.stringify({
+    decision: v.decision,
+    trustScore: v.trustScore ?? null,
+    policyVersion: v.policyVersion ?? null,
+    gate: v.gate ?? null,
+    issuedAt: v.issuedAt ?? null,
+  });
+}
+
+/**
+ * Issue a signed KYA verdict. Call this from the actual KYA runtime gate
+ * only — never from an agent, a tool handler, or anything a caller controls.
+ */
+export function issueKyaVerdict(input: {
+  decision: 'allowed' | 'denied';
+  trustScore?: number;
+  policyVersion?: string;
+  gate?: string;
+}): RuntimeKYAVerdict {
+  const secret = signingSecret();
+  const issuedAt = new Date().toISOString();
+  if (!secret) {
+    logger.error('issueKyaVerdict: KYA_VERDICT_SIGNING_SECRET not configured — cannot sign', {
+      gate: input.gate,
+    });
+    // Fail closed: an unsigned verdict verifies as false everywhere, so this
+    // is safe to return rather than throw (issuance is not the security
+    // boundary — verification is).
+    return { ...input, issuedAt };
+  }
+  assertNotPlaceholderInProd(secret);
+  const sig = createHmac('sha256', secret)
+    .update(verdictPayload({ ...input, issuedAt }))
+    .digest('hex');
+  return { ...input, issuedAt, sig };
+}
+
+function signatureMatches(verdict: RuntimeKYAVerdict, secret: string): boolean {
+  if (!verdict.sig) return false;
+  const expected = createHmac('sha256', secret).update(verdictPayload(verdict)).digest('hex');
+  const expectedBuf = Buffer.from(expected, 'hex');
+  const actualBuf = Buffer.from(verdict.sig, 'hex');
+  if (expectedBuf.length !== actualBuf.length) return false;
+  return timingSafeEqual(expectedBuf, actualBuf);
+}
+
+/**
+ * Verify a KYA verdict's signature. Returns false for any verdict that
+ * wasn't produced by issueKyaVerdict() with the current (or, during a
+ * rotation window, the previous — KYA_VERDICT_SIGNING_SECRET_PREVIOUS)
+ * signing secret — including a hand-constructed `{ decision: 'allowed' }`
+ * object, a verdict with a tampered field, or one signed under an unrelated
+ * secret. See "Secret rotation procedure" above `issueKyaVerdict()`.
+ */
+export function verifyKyaVerdict(verdict: RuntimeKYAVerdict | undefined): boolean {
+  if (!verdict) return false;
+  const secret = signingSecret();
+  if (!secret) return false; // fail closed — see issueKyaVerdict()
+  if (!verdict.sig) return false;
+
+  if (signatureMatches(verdict, secret)) return true;
+
+  const previous = previousSigningSecret();
+  if (previous && signatureMatches(verdict, previous)) {
+    logger.warn(
+      'verifyKyaVerdict: verdict verified under KYA_VERDICT_SIGNING_SECRET_PREVIOUS — rotation window still open',
+      { gate: verdict.gate },
+    );
+    return true;
+  }
+  return false;
 }

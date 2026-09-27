@@ -3,6 +3,7 @@
  * Used to narrow construction tenders to DWS-relevant procurement language.
  */
 
+import { cpvToIndustry } from '../agents/data/industry-cpv.js';
 import type { TedNotice } from './types.js';
 
 /** Default keywords — broad enough to avoid an empty pipeline; tune via TED_COMPLIANCE_EXTRA. */
@@ -64,10 +65,13 @@ export function matchComplianceKeywords(notice: TedNotice): string[] {
 
 /**
  * strict: at least one compliance keyword required.
+ * mapped (default): keyword hit OR CPV maps to one of the 25 industries.
  * off: always true (keywords still recorded when present).
  */
 export function passesComplianceFilter(notice: TedNotice): boolean {
-  const mode = (process.env.TED_COMPLIANCE_FILTER || 'strict').toLowerCase();
+  const mode = (process.env.TED_COMPLIANCE_FILTER || 'mapped').toLowerCase();
   if (mode === 'off') return true;
-  return matchComplianceKeywords(notice).length > 0;
+  if (matchComplianceKeywords(notice).length > 0) return true;
+  if (mode === 'strict') return false;
+  return Boolean(cpvToIndustry(notice.CPV));
 }

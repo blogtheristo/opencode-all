@@ -1,0 +1,202 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-09-27",
+  "sourceOfTruth": false,
+  "structuredMirror": true,
+  "humanReadableSource": "DWS_TRUTH_STANDARD.md row 46",
+  "owner": "risto.paarni@lifetime.fi",
+  "note": "Machine-readable inputs for the weekly public truth, technology, and partner drift audit. Human-readable canonical sources win on conflict.",
+  "canonicalChecks": [
+    {
+      "id": "kya-s1",
+      "path": "DWS_STANDARDS_LIBRARY.md",
+      "requiredText": [],
+      "requiredLineIncludes": [
+        [
+          "| **KYA-S1**",
+          "v1.5 (09.08.2026)",
+          "KYA-AL1",
+          "KYA-AL2",
+          "KYA-AL3"
+        ]
+      ]
+    },
+    {
+      "id": "kya-runtime",
+      "path": "Legal/KYA_STANDARD_v1.md",
+      "requiredText": [],
+      "expectedVersion": "1.12"
+    },
+    {
+      "id": "kya-security",
+      "path": "Legal/KYA_SECURITY_v1.2.md",
+      "requiredText": [],
+      "expectedVersion": "1.9"
+    },
+    {
+      "id": "kya-optimization",
+      "path": "Legal/KYA_OPTIMIZATION_v1.4.md",
+      "requiredText": [],
+      "expectedVersion": "1.10"
+    },
+    {
+      "id": "legal-identity",
+      "path": "CLAUDE.md",
+      "requiredText": [
+        "Lifetime Oy",
+        "0772407-9",
+        "FI07724079",
+        "Risto Anton Päärni"
+      ]
+    },
+    {
+      "id": "traction",
+      "path": "docs/TRACTION_CANONICAL.md",
+      "requiredText": [
+        "THE CANONICAL BLOCK",
+        "25 EU-regulated industries",
+        "Aegis dual-use tier covers **21**"
+      ]
+    },
+    {
+      "id": "production-runtime",
+      "path": ".github/copilot-instructions.md",
+      "requiredText": [
+        "Primary production deployment (DGX Spark",
+        "Scaleway retired 26.09.2026"
+      ]
+    },
+    {
+      "id": "a2a-protocol",
+      "path": "docs/DWS_SKILLS_GUIDE.md",
+      "requiredText": [
+        "**A2A v1.0**",
+        "Agent Cards at `/.well-known/agent-card.json` (endpoint on roadmap)"
+      ]
+    },
+    {
+      "id": "python-runtime",
+      "path": "pyproject.toml",
+      "requiredText": [
+        "requires-python = \">=3.11\"",
+        "target-version = \"py311\""
+      ]
+    },
+    {
+      "id": "aspire-runtime",
+      "path": "infrastructure/dgx-spark/docker-compose.yml",
+      "requiredText": [
+        "Aspire Dashboard 13.4.2",
+        "image: mcr.microsoft.com/dotnet/aspire-dashboard:13.4.2"
+      ]
+    }
+  ],
+  "jsonChecks": [
+    {
+      "id": "industry-counts",
+      "path": "dws10.com/config/industries.json",
+      "expect": {
+        "summary.industriesServedTotal": 25,
+        "summary.aegisProductIndustryCount": 21
+      }
+    },
+    {
+      "id": "backend-runtime",
+      "path": "package.json",
+      "expect": {
+        "engines.node": ">=24.17.0"
+      }
+    },
+    {
+      "id": "typescript-runtime",
+      "path": "package-lock.json",
+      "expect": {
+        "packages.node_modules/typescript.version": "5.9.3"
+      }
+    },
+    {
+      "id": "dashboard-runtime",
+      "path": "dws6.com/dashboard/firehorse/v10-react/package.json",
+      "expect": {
+        "dependencies.react": "^19.3.0",
+        "devDependencies.typescript": "~5.9.3"
+      }
+    },
+    {
+      "id": "aspire-pins",
+      "path": "config/truth/dev-environment-pins.json",
+      "expect": {
+        "splitPins.aspireCli.pin": "13.5.4",
+        "splitPins.aspireDashboard.pin": "13.4.2"
+      }
+    }
+  ],
+  "mirrorPairs": [
+    [
+      "dws10.com",
+      "landing-pages/dws10-com"
+    ],
+    [
+      "dws6.com",
+      "landing-pages/dws6-com"
+    ],
+    [
+      "onelifetime.world",
+      "landing-pages/onelifetime-world"
+    ],
+    [
+      "lifetime.fi",
+      "landing-pages/lifetime-fi"
+    ]
+  ],
+  "partnerEvidence": [
+    {
+      "name": "NVIDIA",
+      "status": "ecosystem membership",
+      "evidencePath": "docs/field-notes/2026-03-08-nvidia-connect-isv-approved.md",
+      "requiredText": [
+        "officially approved",
+        "NVIDIA Connect ISV Partner"
+      ]
+    },
+    {
+      "name": "Supabase",
+      "status": "infrastructure provider",
+      "evidencePath": "DWS_SECURITY_STANDARD.md",
+      "requiredText": [
+        "Supabase `dws6-production` (EU, europe-north1)"
+      ]
+    },
+    {
+      "name": "Proton",
+      "status": "outbound email provider",
+      "evidencePath": "CLAUDE.md",
+      "requiredText": [
+        "**Email (outbound: Proton only):**",
+        "DNS authorizes Proton"
+      ]
+    },
+    {
+      "name": "Cubet Techno Labs",
+      "status": "contracted engineering partner under NDA",
+      "evidencePath": "DWS_TRUTH_STANDARD.md",
+      "requiredText": [
+        "partner **Cubet Techno Labs (Kochi)**"
+      ]
+    },
+    {
+      "name": "Scaleway",
+      "status": "retired production runtime provider",
+      "evidencePath": "docs/field-notes/2026-09-26-hic-out-of-the-routine-path.md",
+      "requiredText": [
+        "Scaleway retired for cost."
+      ]
+    }
+  ],
+  "validators": [
+    {
+      "id": "pricing-publication",
+      "script": "scripts/validate-product-publication.mjs"
+    }
+  ]
+}

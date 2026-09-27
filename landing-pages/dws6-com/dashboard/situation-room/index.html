@@ -38,7 +38,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script type="module">
-    import { getCurrentUser, getUserRole } from '../../shared/js/supabase-client.js';
+    import { getBackofficeAccess, getCurrentUser, hasBackofficeSection } from '../../shared/js/supabase-client.js';
     import { handleOAuthCallback } from '../../shared/js/auth-handler.js';
 
     await handleOAuthCallback();
@@ -46,11 +46,16 @@
     if (!user) {
       window.location.href = '/login/';
     } else {
-      const role = await getUserRole();
-      if (!['situation_room', 'backoffice_admin'].includes(role || '')) {
+      try {
+        const access = await getBackofficeAccess();
+        if (!hasBackofficeSection(access, 'Situation Room')) {
+          window.location.href = '/dashboard/index.html';
+        } else {
+          document.getElementById('roleLine').textContent = 'Authorized operator';
+        }
+      } catch (error) {
+        console.error('Situation Room access check failed:', error);
         window.location.href = '/dashboard/index.html';
-      } else {
-        document.getElementById('roleLine').textContent = `Role: ${role}`;
       }
     }
   </script>
