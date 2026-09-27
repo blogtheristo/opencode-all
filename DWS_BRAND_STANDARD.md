@@ -318,6 +318,7 @@ Added to `ironclad-footer.js` v1.2. Displays Finnish flag SVG + "Built in Finlan
 **Trigger:** when the HIC says **"gold standard"** (or "brand gold standard"), use this section. It means the cari.fi colours, exactly as live in production, set in IBM Plex type. It is not the retired `digital-design-gold` product palette and not the §2.1 Nordic Industrial palette.
 **Decided:** HIC, 27.09.2026.
 **Colour source (canonical):** `blogtheristo/cari` → `public/index.html` `:root` block, commit `dd2a144` (2026-08-05). If cari.fi changes, cari is right and this table follows in the same commit.
+**cari.fi is read-only for DWS work (HIC 27.09.2026).** Copy its settings into DWS; never edit, fix, restyle or open PRs against `blogtheristo/cari` or cari.fi from a DWS task, even when a value there looks wrong. Report a suspected issue to the HIC instead.
 **Typography source:** §2.1 IBM Plex stack (replaces cari.fi's `system-ui` stack).
 
 ### Colour Tokens (exact cari.fi values)
