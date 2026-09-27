@@ -1,14 +1,19 @@
+<!-- Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=lane-c-coverage Date=2026-09-27 -->
+<!-- Audit trail: git log -- docs/field-notes/2026-09-30-copilot-coverage-gaps.md -->
+
 # Copilot coverage gaps — security and billing
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Model: openai/gpt-5.6-sol | Session: opencode/lane-c-coverage | Date: 27.09.2026 | Changes: Measured `src/` coverage, ranked the ten lowest-covered security and billing files, and added tests for the top three. | Harness: GitHub Copilot CLI + CLAUDE.md + AGENTS.md + matched DWS standards | HIC-approved-drift: none
+- Version: 1.2 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Model: openai/gpt-5.6-sol | Session: lane-c-coverage | Date: 27.09.2026 | Changes: Rebased the final coverage report onto the merged C2 and C3 work, reran the complete suite, and replaced isolated-branch measurements with combined results. | Harness: GitHub Copilot CLI + CLAUDE.md + AGENTS.md + matched DWS standards | HIC-approved-drift: none
+- Version: 1.1 | Tool: GitHub Copilot CLI 1.0.88 | Model: openai/gpt-5.6-sol | Session: lane-c-coverage | Date: 27.09.2026 | Changes: Reran repository coverage and added authentication-boundary coverage for the admin cost-audit routes. | Harness: GitHub Copilot CLI + CLAUDE.md + AGENTS.md + matched DWS standards | HIC-approved-drift: none
+- Version: 1.0 | Tool: GitHub Copilot CLI 1.0.88 | Model: openai/gpt-5.6-sol | Session: opencode/lane-c-coverage | Date: 27.09.2026 | Changes: Measured `src/` coverage, ranked the ten lowest-covered security and billing files, and added tests for the top three. | Harness: GitHub Copilot CLI + CLAUDE.md + AGENTS.md + matched DWS standards | HIC-approved-drift: none
 
 Document Status:
 
@@ -58,31 +63,42 @@ Before the new tests, `src/` coverage was 32.81% statements, 26.96% branches, 36
 
 Three new suites add 18 behavior tests. They cover the Cloudflare billing worker's public routing, usage aggregation, unsigned-webhook rejection, missing-billing failures, and scheduled error isolation; the payment proxy's authentication, validation, verified-identity forwarding, and HMAC webhook path; and the B2B routes' authentication boundary, profile creation/listing, ownership filter, and no-op event behavior.
 
-After the tests, coverage increased to 33.50% statements, 27.48% branches, 37.40% functions, and 33.75% lines. The three target files reached:
+Lane C2–C4 adds 31 behavior tests across the billing worker and five C3 targets. The final admin suite proves that all three cost-audit endpoints reject unauthenticated callers before reading audit data. After rebasing onto the merged C2 and C3 changes, the complete rerun measured 35.17% statements, 29.03% branches, 39.26% functions, and 35.47% lines. The original ten targets measured:
 
-| File                                    | Lines covered after |    Change |
-| --------------------------------------- | ------------------: | --------: |
-| `src/cloudflare/billing-integration.ts` |     40.21% (74/184) | +40.21 pp |
-| `src/routes/payment.routes.ts`          |     43.75% (63/144) | +43.75 pp |
-| `src/routes/b2b-payment.routes.ts`      |     33.85% (43/127) | +33.85 pp |
+| File                                         | Lines covered after |    Change |
+| -------------------------------------------- | ------------------: | --------: |
+| `src/cloudflare/billing-integration.ts`      |     43.58% (85/195) | +43.58 pp |
+| `src/routes/payment.routes.ts`               |     43.75% (63/144) | +43.75 pp |
+| `src/routes/b2b-payment.routes.ts`           |     39.09% (43/110) | +39.09 pp |
+| `src/routes/stripe-webhook.routes.ts`        |     24.59% (30/122) | +24.59 pp |
+| `src/services/billing.service.ts`            |      46.80% (44/94) | +46.80 pp |
+| `src/autoresearch/kya-tuner.ts`              |        0.00% (0/76) |  +0.00 pp |
+| `src/identity/kya-engine.ts`                 |      65.15% (43/66) | +65.15 pp |
+| `src/services/redis-rate-limiter.service.ts` |        0.00% (0/63) |  +0.00 pp |
+| `src/middleware/rate-limiter.middleware.ts`  |     100.00% (59/59) |   +100 pp |
+| `src/routes/admin-cost-audit.routes.ts`      |       10.16% (6/59) | +10.16 pp |
+
+The billing-worker denominator increased from 184 to 195 executable lines because the C2 allowlist implementation replaced wildcard CORS. The B2B denominator is now 110 executable lines under the current coverage instrumentation.
 
 The repository-wide coverage thresholds remain unmet: 60% statements, 50% branches, 55% functions, and 60% lines. This is existing debt, not a failure introduced by the new tests.
 
 ## The Insight
 
-Percentage-only ranking hides risk. Sorting equal-zero files by uncovered executable lines surfaced the billing worker and payment routes first, which added 180 covered lines in one bounded change. The tests also made two architectural risks visible without silently changing production behavior: the B2B webhook accepts events without an endpoint-local signature check, and the Cloudflare billing worker exposes broad CORS headers. Both require an explicit integration decision because changing them can break deployed webhook or browser clients.
+Percentage-only ranking hides risk. Sorting equal-zero files by uncovered executable lines surfaced the billing worker and payment routes first. The combined lane now covers 373 executable lines across the ten ranked targets, including complete line coverage of the in-memory rate limiter. C2 also closed the billing worker's wildcard-CORS risk with an explicit production allowlist. The remaining architectural risk is that the B2B webhook accepts events without an endpoint-local signature check; changing that behavior requires an explicit integration decision because it can break deployed webhook callers.
 
 ## Verification
 
-- New focused suites: 3 files, 18 tests passed.
-- TypeScript build: passed before the final full coverage rerun.
-- Full coverage run excluding one pre-existing flaky Aegis suite: 157 files passed, four skipped; 1,615 tests passed, 33 skipped.
-- Final coverage: 33.50% statements, 27.48% branches, 37.40% functions, 33.75% lines.
+- Lane C2–C4 additions: 31 behavior tests across six target suites.
+- Admin-focused suite: three tests passed.
+- TypeScript typecheck: passed.
+- Full Vitest run: 172 files passed, four skipped; 1,757 tests passed, 33 skipped.
+- Full coverage run completed all test files and exited non-zero only because the repository-wide thresholds remain unmet.
+- Final coverage: 35.17% statements (9,648/27,430), 29.03% branches (5,455/18,785), 39.26% functions (1,666/4,243), and 35.47% lines (9,109/25,675).
 - Generated report: `coverage/coverage-summary.json` (local ignored artifact, not committed).
 
 ## Next Steps
 
-**Q1 (two-way door; RECOMMEND: yes):** Should the next security slice add endpoint-local signature verification to `/api/v1/b2b/webhook` and replace wildcard CORS in the Cloudflare billing worker with an explicit production-origin allowlist, with compatibility tests for deployed callers?
+**Q1 (two-way door; RECOMMEND: yes):** Should the next security slice add endpoint-local signature verification to `/api/v1/b2b/webhook`, with compatibility tests for deployed callers?
 
 ## Learning-outcome steps
 
@@ -95,4 +111,4 @@ Percentage-only ranking hides risk. Sorting equal-zero files by uncovered execut
 
 ---
 
-Version 1.0 | 27.09.2026 | © 2026 Lifetime Oy | INTERNAL
+Version 1.2 | 27.09.2026 | © 2026 Lifetime Oy | INTERNAL
