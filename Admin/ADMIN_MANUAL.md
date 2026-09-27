@@ -4,10 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.34
+Version: 3.37 [Latest]
 
 Sessions & Modifications:
 
+- Version: 3.37 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/nemoclaw-phase2-closeout | Date: 27.09.2026 | Changes: Recorded PR #2175 merge and clarified the merged code is not a live runtime deployment.
+- Version: 3.36 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: Recorded Phase 2 Themis-to-NemoClaw bridge controls, unapplied audit migrations, live rollout gates, and the Phase 3 hold.
+- Version: 3.35 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: NemoClaw runtime bearer key is required by the bridge; server-side validation must be verified before production.
 - Version: 3.34 | Tool: GitHub Copilot CLI 1.0.88 | Session: session4-d3-dgx-pr-gates | Date: 27.09.2026 | Changes: Moved the remaining listed PR gates to the DGX self-hosted runner, removed housekeeping's hosted failover path, documented the ARM64 review, and reduced the hosted-only CI list to the unchanged monthly DAST ZAP workflow.
 - Version: 3.33 | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: Operations log CI subsection: cause confirmed as GitHub Actions billing (jobs not started, account-wide); HIC decision — CI moves to the DGX self-hosted runner, hosted billing not restored; listed hosted-only PR workflows still blocked and the local gates to run meanwhile.
 - Version: 3.32 | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: New section "Operations log — 27.09.2026": Copilot $210 credit work order and model routing; server-owned back-office access (#2138) scoped to the internal org (#2143, migration 096 applied); migration 097 closed live `contracts_lifecycle`/`orders` RLS gaps (#2147, applied); migration-history divergence (never `supabase db push`); DGX Persistence Rule and three jobs moved to DGX (#2144, #2145); Tool Git Identity rule (`CLAUDE.md` v1.5) and the `Unit Fixture` repo-local identity fix; CI test runner outage.
@@ -473,6 +476,12 @@ This section links the **full maintenance plan** in one place:
 
 NemoClaw is NVIDIA's open agent blueprint — the **OpenShell** secure runtime + a choice of harness (**OpenClaw** or **Hermes**) + a model router + NVIDIA NeMo libraries — running as the local autonomous-agent surface on customer-owned hardware (DGX Spark / Acer Veriton GN100). OpenShell governs how each agent accesses files, networks and tools (policy-based security at every layer). It runs inside the KYA-governed sandbox; the DWS bridge (`src/mcp/nemoclaw-bridge.ts`) talks to it locally and logs every call to the Article-12 trail. Full canonical detail: `DWS_DEPLOYMENT_STANDARD.md` → "NemoClaw Runtime (per Surface)".
 
+### Phase 2 control-plane status — 27 September 2026
+
+PR #2175 merged as `5d506e5a19d3be0228457d1079abf88b181a6ce0` adds the code-level Themis authorization boundary: a short-lived signed verdict scoped to the operator, tenant, agent, session, skill, and parameters; a required runtime bearer credential; fail-closed Article 12 logging; and a single-use authorization ID. The issuer still accepts identity fields from its caller; authenticated-principal wiring has not been verified. This code merge is not evidence that the DGX runtime enforces the token or that OpenShell isolation is live.
+
+The paired Supabase and DGX audit migrations are committed but **not applied**. Do not deploy, provision runtime secrets, change traffic, or apply migrations as part of this code phase. Before any rollout, verify server-side bearer validation, pin the runtime image and SBOM, prove host/network/process isolation with adversarial probes, select and pass a read-only Athena pilot, and verify traces plus rollback. Phase 3 partner workflows and reversible writes remain deferred until those gates are met and separately approved.
+
 ### One runtime, per-room profile
 
 Do **not** stand up separate NemoClaw builds per room. The same runtime + bridge + sandbox + KYA governance deploys everywhere; only a config overlay differs:
@@ -492,7 +501,7 @@ NemoClaw is local-first and needs the fewest secrets. Set these in the secret ma
 | Secret                   | Required    | When      | Purpose                                                                                         |
 | ------------------------ | ----------- | --------- | ----------------------------------------------------------------------------------------------- |
 | `nemoclaw-ngc-key`       | Yes         | provision | NVIDIA NGC token to pull/license NIM microservices + Nemotron. Pull-time only.                  |
-| `nemoclaw-api-key`       | Recommended | runtime   | Local bearer token so only the KYA bridge can call the NemoClaw RPC endpoint. Generate per box. |
+| `nemoclaw-api-key`       | Yes         | runtime   | Required bearer token. The bridge refuses dispatch without it; the RPC server must validate it before production rollout. Generate per box. |
 | `NEMOCLAW_ENDPOINT`      | No (config) | runtime   | Internal URL — plain env var, **not** a secret. Default `http://127.0.0.1:3100`.                |
 | Exa / external tool keys | If enabled  | runtime   | Per-skill; **disabled** on air-gapped Situation Room / Mobile profiles.                         |
 

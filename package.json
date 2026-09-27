@@ -73,7 +73,8 @@
     "temporal:agent-question": "node --import tsx scripts/temporal-answer-agent-question.ts",
     "opencode:check": "node .claude/hooks/opencode-check.js",
     "opencode:status": "git -C opencode-all status --short 2>/dev/null || echo 'OpenCode not found'",
-    "opencode:update": "cd opencode-all && git pull origin dev && cd - && echo '✅ OpenCode updated'"
+    "opencode:update": "cd opencode-all && git pull origin dev && cd - && echo '✅ OpenCode updated'",
+    "diag:nemoclaw": "node scripts/verify-nemoclaw-runtime.mjs"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",

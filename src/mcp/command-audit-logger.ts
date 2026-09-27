@@ -1,3 +1,5 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=gpt-6-luna Agent=OpenClaw-Phase2 Date=2026-09-27
+// Audit trail: git log -- src/mcp/command-audit-logger.ts
 /**
  * Command Audit Logger — EU AI Act Article 12 command-execution trail
  *
@@ -18,11 +20,13 @@
  * manifest. The prev_hash/event_hash chain is computed in-DB (trigger), not here.
  */
 
-import { createHash, randomUUID } from 'node:crypto';
+import { randomUUID } from 'node:crypto';
 import { type Pool } from 'pg';
 import { type PIIType, scrubObject } from '../agents/pii-scrubber.js';
 import { getInternalDbPool } from '../config/internal-db.js';
+import { digestOf } from '../security/canonical-digest.js';
 import logger from '../utils/logger.js';
+export { digestOf } from '../security/canonical-digest.js';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -38,6 +42,8 @@ export interface CommandInvocation {
   operatorId?: string | null;
   orgId?: string | null;
   kyaSessionId?: string | null;
+  /** Signed, single-use KYA authorization ID; NULL for legacy non-harness events. */
+  authorizationId?: string | null;
   /** Command / skill name being invoked */
   skill: string;
   /** Raw params — scrubbed + hashed here, never stored raw */
@@ -77,32 +83,6 @@ export interface CommandAuditSink {
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-/**
- * Canonical serialization: object keys sorted recursively, and every value
- * JSON-encoded (never bypassed) so types don't collide. Two semantically-equal
- * inputs always produce the same string; `1` and `'1'` produce different ones.
- */
-function canonicalize(value: unknown): string {
-  if (value === null || typeof value !== 'object') {
-    // JSON.stringify(undefined) === undefined → normalise to 'null'
-    return JSON.stringify(value) ?? 'null';
-  }
-  if (Array.isArray(value)) {
-    return `[${value.map(canonicalize).join(',')}]`;
-  }
-  const obj = value as Record<string, unknown>;
-  const body = Object.keys(obj)
-    .sort()
-    .map((k) => `${JSON.stringify(k)}:${canonicalize(obj[k])}`)
-    .join(',');
-  return `{${body}}`;
-}
-
-/** SHA-256 hex digest of any value (canonical, order- and type-stable). Used for lineage. */
-export function digestOf(value: unknown): string {
-  return createHash('sha256').update(canonicalize(value)).digest('hex');
-}
-
 // ─── Internal Postgres implementation ───────────────────────────────────────
 
 export class CommandAuditLogger implements CommandAuditSink {
@@ -139,39 +119,48 @@ export class CommandAuditLogger implements CommandAuditSink {
     const { scrubbed, manifest } = scrubObject(entry.params);
 
     try {
-      await this.pool.query(
-        `INSERT INTO command_audit_log (
+      const columns = `INSERT INTO command_audit_log (
            event_type, bridge, trace_id, agent_id, operator_id, org_id,
            kya_session_id, skill, caller_ats, minimum_ats, input_digest,
            decision, denied_reason, pii_types_found, pii_replacement_count,
-           model_version, risk_classification
+           model_version, risk_classification`;
+      const values = [
+        'command.invoke',
+        entry.bridge,
+        traceId,
+        entry.agentId,
+        entry.operatorId ?? null,
+        entry.orgId ?? null,
+        entry.kyaSessionId ?? null,
+        entry.skill,
+        entry.callerAts ?? null,
+        entry.minimumAts ?? null,
+        digestOf(scrubbed),
+        entry.decision,
+        entry.deniedReason ?? null,
+        manifest.typesFound as PIIType[],
+        manifest.replacementCount,
+        entry.modelVersion ?? null,
+        entry.riskClassification ?? 'high',
+      ];
+      if (entry.authorizationId) {
+        await this.pool.query(
+          `${columns}, authorization_id
+           ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)`,
+          [...values, entry.authorizationId],
+        );
+      } else {
+        await this.pool.query(
+          `${columns}
          ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)`,
-        [
-          'command.invoke',
-          entry.bridge,
-          traceId,
-          entry.agentId,
-          entry.operatorId ?? null,
-          entry.orgId ?? null,
-          entry.kyaSessionId ?? null,
-          entry.skill,
-          entry.callerAts ?? null,
-          entry.minimumAts ?? null,
-          digestOf(scrubbed),
-          entry.decision,
-          entry.deniedReason ?? null,
-          manifest.typesFound as PIIType[],
-          manifest.replacementCount,
-          entry.modelVersion ?? null,
-          entry.riskClassification ?? 'high',
-        ],
-      );
+          values,
+        );
+      }
     } catch (err) {
       // Fail-closed: surface to the caller so the command is blocked.
-      throw new Error(
-        `CommandAuditLogger.logInvocation failed: ${(err as Error).message}`,
-        { cause: err },
-      );
+      throw new Error(`CommandAuditLogger.logInvocation failed: ${(err as Error).message}`, {
+        cause: err,
+      });
     }
     return { traceId };
   }
