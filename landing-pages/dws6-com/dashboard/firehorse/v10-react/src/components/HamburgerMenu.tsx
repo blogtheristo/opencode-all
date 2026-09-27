@@ -1,3 +1,5 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- dws6.com/dashboard/firehorse/v10-react/src/components/HamburgerMenu.tsx
 /**
  * HamburgerMenu Component
  * Mobile-first slide-out navigation for the DWS IQ logged-in dashboard.
@@ -207,6 +209,16 @@ export function HamburgerMenu({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
             System Health
+          </button>
+
+          <button
+            className={navItem(false)}
+            onClick={() => { onNavigate?.('documentation'); close(); }}
+          >
+            <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 006.5 22H20V5H6.5A2.5 2.5 0 004 7.5v12z" />
+            </svg>
+            Documentation
           </button>
 
           <div className="border-t border-border pt-2 mt-2">

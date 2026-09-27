@@ -1,3 +1,5 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- dws6.com/dashboard/firehorse/v10-react/src/components/ProfileMenu.tsx
 /**
  * ProfileMenu Component
  * User avatar with dropdown for logged-in dashboard navigation.
@@ -109,6 +111,16 @@ export function ProfileMenu({ user, onSignOut, onNavigate }: ProfileMenuProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
               </svg>
               Agent Monitor
+            </button>
+            <button
+              role="menuitem"
+              className={menuItem}
+              onClick={() => handleNav('documentation')}
+            >
+              <svg className="w-4 h-4 text-fg-muted shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 006.5 22H20V5H6.5A2.5 2.5 0 004 7.5v12z" />
+              </svg>
+              Documentation
             </button>
             <button
               role="menuitem"
