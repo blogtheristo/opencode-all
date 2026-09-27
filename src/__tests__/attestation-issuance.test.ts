@@ -1,6 +1,9 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- src/__tests__/attestation-issuance.test.ts
+
 import { describe, expect, it, vi } from 'vitest';
 
-import { generateIssuerKeyPair, type AttestationSigner } from '../identity/attestation-signing.js';
+import { type AttestationSigner, generateIssuerKeyPair } from '../identity/attestation-signing.js';
 import { attestMandateExecution } from '../identity/attestation-issuance.js';
 import type { AttestationInput, MandateGateDecision } from '../identity/types.js';
 
@@ -39,14 +42,22 @@ function makeSigner(): AttestationSigner {
 }
 
 function makeDeps(signer?: AttestationSigner | null) {
-  const store = { persist: vi.fn(async () => ({ id: 'att-1' })) };
-  const events = { log: vi.fn(async () => ({ id: 'evt-1' })) };
-  return { deps: { store, events, signer }, store, events };
+  const store = {
+    persist: vi.fn(async () => ({ id: 'att-1' })),
+    persistWithEvent: vi.fn(async (attestation) => ({
+      attestationId: 'att-1',
+      eventId: 'evt-1',
+      attestation,
+    })),
+    sign: vi.fn(async () => undefined),
+    revoke: vi.fn(async () => undefined),
+  };
+  return { deps: { store, signer }, store };
 }
 
 describe('attestMandateExecution — orchestration (§14.7 / §14.5)', () => {
-  it('signs, persists, then logs a mandate.attest event when a signer is configured', async () => {
-    const { deps, store, events } = makeDeps(makeSigner());
+  it('signs and atomically persists a credential with its mandate.attest event', async () => {
+    const { deps, store } = makeDeps(makeSigner());
 
     const result = await attestMandateExecution(deps, makeInput(), { orgId: 'org-1' });
 
@@ -54,13 +65,10 @@ describe('attestMandateExecution — orchestration (§14.7 / §14.5)', () => {
     expect(result.attestationId).toBe('att-1');
     expect(result.eventId).toBe('evt-1');
 
-    // persisted the signed credential
-    expect(store.persist).toHaveBeenCalledOnce();
-    expect(store.persist.mock.calls[0][0].proofStatus).toBe('signed');
-
-    // logged the evidence event with the right shape
-    expect(events.log).toHaveBeenCalledOnce();
-    const logged = events.log.mock.calls[0][0];
+    expect(store.persist).not.toHaveBeenCalled();
+    expect(store.persistWithEvent).toHaveBeenCalledOnce();
+    const [persisted, logged] = store.persistWithEvent.mock.calls[0];
+    expect(persisted.proofStatus).toBe('signed');
     expect(logged.eventType).toBe('mandate.attest');
     expect(logged.gateDecision).toBe('allowed');
     expect(logged.sessionId).toBe('session-1');
@@ -69,24 +77,21 @@ describe('attestMandateExecution — orchestration (§14.7 / §14.5)', () => {
     expect(logged.kyaScoreAtSign).toBe(0.95);
   });
 
-  it('persists BEFORE logging the evidence event (event never points at an unstored credential)', async () => {
-    const order: string[] = [];
+  it('uses one atomic write so an event failure cannot leave an orphan credential', async () => {
     const store = {
-      persist: vi.fn(async () => {
-        order.push('persist');
-        return { id: 'att-1' };
+      persist: vi.fn(async () => ({ id: 'unexpected' })),
+      persistWithEvent: vi.fn(async () => {
+        throw new Error('event insert failed; transaction rolled back');
       }),
-    };
-    const events = {
-      log: vi.fn(async () => {
-        order.push('log');
-        return { id: 'evt-1' };
-      }),
+      sign: vi.fn(async () => undefined),
+      revoke: vi.fn(async () => undefined),
     };
 
-    await attestMandateExecution({ store, events, signer: makeSigner() }, makeInput());
-
-    expect(order).toEqual(['persist', 'log']);
+    await expect(
+      attestMandateExecution({ store, signer: makeSigner() }, makeInput()),
+    ).rejects.toThrow(/transaction rolled back/);
+    expect(store.persistWithEvent).toHaveBeenCalledOnce();
+    expect(store.persist).not.toHaveBeenCalled();
   });
 
   it('mints an unsigned credential when no signer is configured', async () => {
@@ -96,11 +101,32 @@ describe('attestMandateExecution — orchestration (§14.7 / §14.5)', () => {
 
     expect(result.attestation.proofStatus).toBe('unsigned');
     expect(result.attestation.credential.proof).toBeUndefined();
-    expect(store.persist).toHaveBeenCalledOnce();
+    expect(store.persistWithEvent).toHaveBeenCalledOnce();
+    expect(store.persist).not.toHaveBeenCalled();
+  });
+
+  it('returns the same ids on an idempotent retry', async () => {
+    const { deps, store } = makeDeps(makeSigner());
+    store.persistWithEvent.mockImplementation(async (attestation) => ({
+      attestationId: 'att-1',
+      eventId: 'evt-1',
+      attestation: { ...attestation, proofStatus: 'revoked' },
+    }));
+
+    const first = await attestMandateExecution(deps, makeInput());
+    const retry = await attestMandateExecution(deps, makeInput());
+
+    expect(first.attestationId).toBe('att-1');
+    expect(first.eventId).toBe('evt-1');
+    expect(retry.attestationId).toBe(first.attestationId);
+    expect(retry.eventId).toBe(first.eventId);
+    expect(retry.attestation.proofStatus).toBe('revoked');
+    expect(store.persistWithEvent).toHaveBeenCalledTimes(2);
+    expect(store.persist).not.toHaveBeenCalled();
   });
 
   it('attests nothing for a denied mandate — deny-by-default carries through', async () => {
-    const { deps, store, events } = makeDeps(makeSigner());
+    const { deps, store } = makeDeps(makeSigner());
     const denied = makeInput({
       gateDecision: {
         allowed: false,
@@ -113,6 +139,6 @@ describe('attestMandateExecution — orchestration (§14.7 / §14.5)', () => {
 
     await expect(attestMandateExecution(deps, denied)).rejects.toThrow(/did not allow/);
     expect(store.persist).not.toHaveBeenCalled();
-    expect(events.log).not.toHaveBeenCalled();
+    expect(store.persistWithEvent).not.toHaveBeenCalled();
   });
 });

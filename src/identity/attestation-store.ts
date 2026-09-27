@@ -1,3 +1,6 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- src/identity/attestation-store.ts
+
 /**
  * KYA §14.7 — Verified-Done Attestation store & proof_status transitions.
  *
@@ -20,11 +23,13 @@ import { type SupabaseClient } from '@supabase/supabase-js';
 
 import { getSupabaseClient } from '../config/supabase.js';
 import logger from '../utils/logger.js';
-import { signVerifiedDoneAttestation, type AttestationSigner } from './attestation-signing.js';
+import { type AttestationSigner, signVerifiedDoneAttestation } from './attestation-signing.js';
 import { MANDATE_SUBJECT_URN_PREFIX } from './ats-engine.js';
+import { type MandateEvent, toMandateEventRow } from './mandate-event-logger.js';
 import type { IssuedAttestation, VerifiedDoneAttestation } from './types.js';
 
 const TABLE = 'kya_verified_done_attestations';
+const ISSUE_RPC = 'issue_verified_done_attestation';
 
 /** The persistence contract callers depend on; tests inject a fake. */
 export interface VerifiedDoneAttestationSink {
@@ -34,6 +39,15 @@ export interface VerifiedDoneAttestationSink {
   sign(id: string, signer: AttestationSigner): Promise<void>;
   /** Transition a row to revoked (never deletes). */
   revoke(id: string): Promise<void>;
+}
+
+/** Atomic issuance contract used by attestMandateExecution. */
+export interface AtomicVerifiedDoneAttestationSink extends VerifiedDoneAttestationSink {
+  /** Persist the credential and its mandate.attest event in one DB transaction. */
+  persistWithEvent(
+    issued: IssuedAttestation,
+    event: MandateEvent,
+  ): Promise<{ attestationId: string; eventId: string; attestation: IssuedAttestation }>;
 }
 
 /** Recover the bare mandate_vc_id from the credentialSubject urn (§14.5 key). */
@@ -67,7 +81,7 @@ function toRow(issued: IssuedAttestation): Record<string, unknown> {
   };
 }
 
-export class VerifiedDoneAttestationStore implements VerifiedDoneAttestationSink {
+export class VerifiedDoneAttestationStore implements AtomicVerifiedDoneAttestationSink {
   private supabase: SupabaseClient;
 
   constructor(supabase?: SupabaseClient) {
@@ -101,45 +115,84 @@ export class VerifiedDoneAttestationStore implements VerifiedDoneAttestationSink
     return { id: (data as { id: string }).id };
   }
 
+  async persistWithEvent(
+    issued: IssuedAttestation,
+    event: MandateEvent,
+  ): Promise<{ attestationId: string; eventId: string; attestation: IssuedAttestation }> {
+    const { data, error } = await this.supabase
+      .rpc(ISSUE_RPC, {
+        p_attestation: toRow(issued),
+        p_event: toMandateEventRow(event),
+      })
+      .single();
+    if (error) {
+      throw new Error(`VerifiedDoneAttestationStore.persistWithEvent failed: ${error.message}`);
+    }
+    if (!data) {
+      throw new Error('VerifiedDoneAttestationStore.persistWithEvent failed: RPC returned no row');
+    }
+    const row = data as {
+      attestation_id: string;
+      event_id: string;
+      credential: VerifiedDoneAttestation;
+      proof_status: IssuedAttestation['proofStatus'];
+    };
+    return {
+      attestationId: row.attestation_id,
+      eventId: row.event_id,
+      attestation: { credential: row.credential, proofStatus: row.proof_status },
+    };
+  }
+
   async sign(id: string, signer: AttestationSigner): Promise<void> {
     const { data, error } = await this.supabase
       .from(TABLE)
-      .select('credential, proof_status')
+      .select('credential')
       .eq('id', id)
+      .eq('proof_status', 'unsigned')
       .single();
     if (error) {
       throw new Error(`VerifiedDoneAttestationStore.sign: load failed: ${error.message}`);
     }
-    const row = data as { credential: VerifiedDoneAttestation; proof_status: string };
-    // Only an unsigned row may transition to signed — signing a revoked or
-    // already-signed credential is a caller error, surfaced loudly (Rule 12).
-    if (row.proof_status !== 'unsigned') {
-      throw new Error(
-        `VerifiedDoneAttestationStore.sign: cannot sign a '${row.proof_status}' attestation (KYA §14.7)`,
-      );
-    }
+    const row = data as { credential: VerifiedDoneAttestation };
 
     const signed = signVerifiedDoneAttestation(
       { credential: row.credential, proofStatus: 'unsigned' },
       signer,
     );
 
-    const { error: updateError } = await this.supabase
+    const { data: updated, error: updateError } = await this.supabase
       .from(TABLE)
       .update({ credential: signed.credential, proof_status: 'signed' })
-      .eq('id', id);
+      .eq('id', id)
+      .eq('proof_status', 'unsigned')
+      .select('id')
+      .maybeSingle();
     if (updateError) {
       throw new Error(`VerifiedDoneAttestationStore.sign: update failed: ${updateError.message}`);
+    }
+    if (!updated) {
+      throw new Error(
+        'VerifiedDoneAttestationStore.sign: no unsigned attestation transitioned to signed',
+      );
     }
   }
 
   async revoke(id: string): Promise<void> {
-    const { error } = await this.supabase
+    const { data, error } = await this.supabase
       .from(TABLE)
       .update({ proof_status: 'revoked' })
-      .eq('id', id);
+      .eq('id', id)
+      .in('proof_status', ['unsigned', 'signed'])
+      .select('id')
+      .maybeSingle();
     if (error) {
       throw new Error(`VerifiedDoneAttestationStore.revoke failed: ${error.message}`);
+    }
+    if (!data) {
+      throw new Error(
+        'VerifiedDoneAttestationStore.revoke: no unsigned or signed attestation transitioned to revoked',
+      );
     }
     logger.info('Verified-done attestation revoked', { id });
   }

@@ -1,3 +1,6 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- src/identity/mandate-event-logger.ts
+
 /**
  * KYA §14.5 — Mandate evidence-chain writer.
  *
@@ -24,11 +27,7 @@ import type { MandateType, PermissionLevel, ProtocolRail } from './types.js';
 const TABLE = 'kya_mandate_events';
 
 export type MandateEventType =
-  | 'mandate.issue'
-  | 'mandate.present'
-  | 'mandate.execute'
-  | 'mandate.revoke'
-  | 'mandate.attest';
+  'mandate.issue' | 'mandate.present' | 'mandate.execute' | 'mandate.revoke' | 'mandate.attest';
 
 /** A single mandate lifecycle event to append to the evidence chain (§14.5). */
 export interface MandateEvent {
@@ -61,7 +60,7 @@ export interface MandateEventSink {
 }
 
 /** Map an event onto the table columns. prev_hash/event_hash are trigger-set — omitted. */
-function toRow(event: MandateEvent): Record<string, unknown> {
+export function toMandateEventRow(event: MandateEvent): Record<string, unknown> {
   return {
     event_type: event.eventType,
     session_id: event.sessionId,
@@ -109,7 +108,7 @@ export class MandateEventLogger implements MandateEventSink {
   async log(event: MandateEvent): Promise<{ id: string }> {
     const { data, error } = await this.supabase
       .from(TABLE)
-      .insert(toRow(event))
+      .insert(toMandateEventRow(event))
       .select('id')
       .single();
     if (error) {
