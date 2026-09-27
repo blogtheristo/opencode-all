@@ -34,6 +34,23 @@ if [ -d ".githooks" ] && [ "$(git config --get core.hooksPath 2>/dev/null || tru
   echo "[session-start] Installed core.hooksPath=.githooks (local CI: gitleaks, npm-audit, vitest on push)"
 fi
 
+# Cloud sessions have no gitleaks, so local CI's secret scan exited 2 and
+# blocked every push. Install the pinned release, checksum-verified.
+if [ "${CLAUDE_CODE_REMOTE:-}" = "true" ] && ! command -v gitleaks >/dev/null 2>&1; then
+  GL_VER="8.28.0"
+  GL_SHA="a65b5253807a68ac0cafa4414031fd740aeb55f54fb7e55f386acb52e6a840eb"
+  GL_TMP="$(mktemp -d)"
+  if curl -sSfL -o "$GL_TMP/gl.tgz" "https://github.com/gitleaks/gitleaks/releases/download/v${GL_VER}/gitleaks_${GL_VER}_linux_x64.tar.gz" \
+    && echo "$GL_SHA  $GL_TMP/gl.tgz" | sha256sum -c --quiet - \
+    && tar -xzf "$GL_TMP/gl.tgz" -C "$GL_TMP" gitleaks \
+    && mkdir -p "$HOME/.local/bin" && install -m 0755 "$GL_TMP/gitleaks" "$HOME/.local/bin/gitleaks"; then
+    echo "[session-start] Installed gitleaks ${GL_VER} (checksum verified)"
+  else
+    echo "[session-start] WARNING: gitleaks install failed — local CI secret scan will block pushes" >&2
+  fi
+  rm -rf "$GL_TMP"
+fi
+
 # Check if budget env var is set
 if [ -n "${CLAUDE_AUTO_MODE_BUDGET:-}" ]; then
   echo "Token budget for this session: $CLAUDE_AUTO_MODE_BUDGET"

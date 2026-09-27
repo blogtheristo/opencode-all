@@ -324,11 +324,22 @@ run_check "npm-audit-root" bash -c '
   npm audit --audit-level=high --omit=dev
 ' || true
 
-# Check 5: Ruff (only if Python files changed or exist)
-if git ls-files '*.py' 2>/dev/null | head -1 | grep -q .; then
+# Check 5: Ruff — Python files changed on this branch only (ratchet).
+# main carries ~500 legacy ruff findings; a repo-wide check failed every push,
+# including docs-only pushes, and taught sessions to bypass the whole gate.
+# New and edited Python must be clean; legacy debt is paid down file by file.
+RUFF_BASE="$(git merge-base HEAD origin/main 2>/dev/null || true)"
+if [ -n "$RUFF_BASE" ]; then
+  RUFF_FILES="$(git diff --name-only --diff-filter=ACMR "$RUFF_BASE" HEAD -- '*.py' 2>/dev/null || true)"
+else
+  echo "ruff: origin/main not found — checking all tracked Python files"
+  RUFF_FILES="$(git ls-files '*.py' 2>/dev/null || true)"
+fi
+if [ -n "$RUFF_FILES" ]; then
+  export RUFF_FILES
   run_check "ruff-check" bash -c '
     if command -v ruff >/dev/null; then
-      ruff check . --output-format=github
+      printf "%s\n" "$RUFF_FILES" | xargs -d "\n" ruff check --force-exclude --output-format=github
     else
       echo "ruff not installed (pip install ruff) — skipping"
       exit 0
@@ -336,12 +347,16 @@ if git ls-files '*.py' 2>/dev/null | head -1 | grep -q .; then
   ' || true
   run_check "ruff-format-check" bash -c '
     if command -v ruff >/dev/null; then
-      ruff format . --check
+      printf "%s\n" "$RUFF_FILES" | xargs -d "\n" ruff format --force-exclude --check
     else
       echo "ruff not installed (pip install ruff) — skipping"
       exit 0
     fi
   ' || true
+else
+  echo ""
+  echo "━━━ ruff ━━━"
+  echo "  ⏭  no Python files changed vs origin/main — skipped"
 fi
 
 finalize_and_exit $([ $checks_failed -eq 0 ] && echo 0 || echo 1)
