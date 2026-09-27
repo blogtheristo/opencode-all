@@ -37,6 +37,8 @@ same dual-registration and is flagged inline below but not yet resolved.
 | `backup-sites.sh`                          | 02:00                                                       | Site asset backup                                                                                                                                                                                                                                                                                                                                                                                                                                       | `daily-site-backup.yml`                                                                                                                                                    |
 | `price-list-quarterly-gate.sh`             | daily (gate)                                                | Quarterly price list stamp (runs only on Q1 dates)                                                                                                                                                                                                                                                                                                                                                                                                      | `quarterly-price-list.yml`                                                                                                                                                 |
 | `security-policy-review-quarterly-gate.sh` | daily (gate)                                                | Every 3 months (Jan/Apr/Jul/Oct 1): opens NIS2 Art. 20 johdon katselmus issue → PiTuKri re-audit + `/dialog` policy review. Idempotent per quarter.                                                                                                                                                                                                                                                                                                     | none (DGX primary; run `/dialog` manually as failover)                                                                                                                     |
+| `google-oauth-keepalive-monthly-gate.sh`   | daily (runs on day 1 monthly)                               | Refreshes the dws6run6 Google OAuth token without persisting or printing the access token. Requires the three Google OAuth variables in the DGX runtime environment.                                                                                                                                                                                                                                                                                    | `google-oauth-keepalive.yml` (manual recovery)                                                                                                                             |
+| `mgd-game-recheck-quarterly-gate.sh`       | daily (runs Jan/Apr/Jul/Oct 1)                              | Produces the quarterly MGD dominant-game re-check artifact for the `/retro` → `/learn` loop.                                                                                                                                                                                                                                                                                                                                                            | `quarterly-mgd-recheck.yml` (manual recovery)                                                                                                                              |
 | ~~`morning-emails.sh`~~                    | ~~04:00~~                                                   | **Archived 2026-08-20** to `scripts/_archive/daily-morning-emails_OLD.sh` — was an unconditional duplicate of `cron-runner.ts`'s `morning-brief-v2`/`weekly-report`/`campaign-newsletter` jobs (same underlying scripts, same or equivalent schedules), causing 2 emails per send. `cron-runner.ts` is now the sole DGX-primary trigger; see the header note above.                                                                                     | —                                                                                                                                                                          |
 | `cbam-price-fetch.sh`                      | —                                                           | CBAM carbon price fetch                                                                                                                                                                                                                                                                                                                                                                                                                                 | —                                                                                                                                                                          |
 | `update-fx-rates.sh`                       | —                                                           | FX rate update                                                                                                                                                                                                                                                                                                                                                                                                                                          | —                                                                                                                                                                          |
@@ -141,43 +143,46 @@ unchanged on GitHub-hosted Ubuntu because its ZAP Docker path is the documented 
 
 ### Scheduled but Stays on GHA
 
-| Workflow                     | Schedule                         | Reason                                                                              |
-| ---------------------------- | -------------------------------- | ----------------------------------------------------------------------------------- |
-| `dast-zap-scan.yml`          | 1st of month 03:00               | Needs Docker-in-Docker (ZAP container)                                              |
-| `google-oauth-keepalive.yml` | 1st of month 06:00               | GitHub-hosted token refresh; DGX migration deferred by the Lane D run-count ranking |
-| `quarterly-mgd-recheck.yml`  | Jan/Apr/Jul/Oct 1st at 06:00 UTC | DGX-primary quarterly gate with heartbeat-gated GitHub Actions failover             |
+| Workflow            | Schedule           | Reason                                 |
+| ------------------- | ------------------ | -------------------------------------- |
+| `dast-zap-scan.yml` | 1st of month 03:00 | Needs Docker-in-Docker (ZAP container) |
+
+`dast-zap-scan.yml` is the only active GitHub Actions `schedule:`. Its monthly
+schedule and workflow contents are unchanged.
 
 ### Descheduled (workflow_dispatch only)
 
 These workflows had their `schedule:` removed. They remain available for manual failover via `gh workflow run`.
 
-| Workflow                              | Removed    | DGX Script                                   |
-| ------------------------------------- | ---------- | -------------------------------------------- |
-| `public-truth-drift-audit.yml`        | 2026-09-27 | `scripts/weekly/public-truth-drift-audit.sh` |
-| `daily-mvp-audit.yml`                 | 2026-05-25 | `scripts/daily/mvp-audit.sh`                 |
-| `ted-pipeline.yml`                    | 2026-05-25 | `scripts/daily/ted-pipeline.sh`              |
-| `ted-followup.yml`                    | 2026-05-25 | `scripts/daily/ted-followup.sh`              |
-| `ted-learning-weekly.yml`             | 2026-05-25 | `scripts/weekly/ted-learning.sh`             |
-| `housekeeping-weekly.yml`             | 2026-05-25 | `scripts/weekly/housekeeping-audit.sh`       |
-| `golden-principle-scan.yml`           | 2026-05-25 | cron-runner.ts                               |
-| `agents-md-freshness.yml`             | 2026-05-25 | `scripts/weekly/agents-md-freshness.sh`      |
-| `security-audit-enhanced.yml`         | 2026-05-25 | `scripts/weekly/security-audit.sh`           |
-| `roadmap-weekly-tracker.yml`          | 2026-05-25 | `scripts/weekly/roadmap-tracker.sh`          |
-| `security-scan-weekly.yml`            | 2026-05-25 | `scripts/weekly/security-audit.sh`           |
-| `security-scan-biweekly.yml`          | 2026-05-25 | `scripts/weekly/security-audit.sh`           |
-| `biweekly-auth-security-audit.yml`    | 2026-05-25 | `scripts/weekly/auth-security-audit.sh`      |
-| `monthly-security-audit-enhanced.yml` | 2026-05-25 | `scripts/weekly/security-audit.sh`           |
-| `quarterly-price-list.yml`            | 2026-05-25 | `scripts/daily/price-list-quarterly-gate.sh` |
-| `construction-leads.yml`              | 2026-04-08 | `scripts/daily/construction-leads.sh`        |
-| `campaign-daily-posts.yml`            | 2026-04-08 | `scripts/daily/generate-campaign-post.sh`    |
-| `daily-db-backup.yml`                 | 2026-04-08 | `scripts/daily/db-backup.sh`                 |
-| `daily-site-backup.yml`               | 2026-04-08 | `scripts/daily/backup-sites.sh`              |
-| `daily-backup.yml`                    | 2026-04-08 | redundant (git-tracked files)                |
-| `daily-claude-backup.yml`             | 2026-04-08 | redundant (local worktrees)                  |
-| `market-research-weekly.yml`          | 2026-04-08 | `scripts/weekly/market-research.sh`          |
-| `cost-audit-sync.yml`                 | 2026-09-27 | `scripts/daily/cost-audit-sync.sh`           |
-| `flake-detector.yml`                  | 2026-09-27 | `scripts/weekly/flake-detector.sh`           |
-| `dora-weekly.yml`                     | 2026-09-27 | `scripts/weekly/dora-dashboard.sh`           |
+| Workflow                              | Removed    | DGX Script                                             |
+| ------------------------------------- | ---------- | ------------------------------------------------------ |
+| `public-truth-drift-audit.yml`        | 2026-09-27 | `scripts/weekly/public-truth-drift-audit.sh`           |
+| `daily-mvp-audit.yml`                 | 2026-05-25 | `scripts/daily/mvp-audit.sh`                           |
+| `ted-pipeline.yml`                    | 2026-05-25 | `scripts/daily/ted-pipeline.sh`                        |
+| `ted-followup.yml`                    | 2026-05-25 | `scripts/daily/ted-followup.sh`                        |
+| `ted-learning-weekly.yml`             | 2026-05-25 | `scripts/weekly/ted-learning.sh`                       |
+| `housekeeping-weekly.yml`             | 2026-05-25 | `scripts/weekly/housekeeping-audit.sh`                 |
+| `golden-principle-scan.yml`           | 2026-05-25 | cron-runner.ts                                         |
+| `agents-md-freshness.yml`             | 2026-05-25 | `scripts/weekly/agents-md-freshness.sh`                |
+| `security-audit-enhanced.yml`         | 2026-05-25 | `scripts/weekly/security-audit.sh`                     |
+| `roadmap-weekly-tracker.yml`          | 2026-05-25 | `scripts/weekly/roadmap-tracker.sh`                    |
+| `security-scan-weekly.yml`            | 2026-05-25 | `scripts/weekly/security-audit.sh`                     |
+| `security-scan-biweekly.yml`          | 2026-05-25 | `scripts/weekly/security-audit.sh`                     |
+| `biweekly-auth-security-audit.yml`    | 2026-05-25 | `scripts/weekly/auth-security-audit.sh`                |
+| `monthly-security-audit-enhanced.yml` | 2026-05-25 | `scripts/weekly/security-audit.sh`                     |
+| `quarterly-price-list.yml`            | 2026-05-25 | `scripts/daily/price-list-quarterly-gate.sh`           |
+| `construction-leads.yml`              | 2026-04-08 | `scripts/daily/construction-leads.sh`                  |
+| `campaign-daily-posts.yml`            | 2026-04-08 | `scripts/daily/generate-campaign-post.sh`              |
+| `daily-db-backup.yml`                 | 2026-04-08 | `scripts/daily/db-backup.sh`                           |
+| `daily-site-backup.yml`               | 2026-04-08 | `scripts/daily/backup-sites.sh`                        |
+| `daily-backup.yml`                    | 2026-04-08 | redundant (git-tracked files)                          |
+| `daily-claude-backup.yml`             | 2026-04-08 | redundant (local worktrees)                            |
+| `market-research-weekly.yml`          | 2026-04-08 | `scripts/weekly/market-research.sh`                    |
+| `cost-audit-sync.yml`                 | 2026-09-27 | `scripts/daily/cost-audit-sync.sh`                     |
+| `flake-detector.yml`                  | 2026-09-27 | `scripts/weekly/flake-detector.sh`                     |
+| `dora-weekly.yml`                     | 2026-09-27 | `scripts/weekly/dora-dashboard.sh`                     |
+| `google-oauth-keepalive.yml`          | 2026-09-27 | `scripts/daily/google-oauth-keepalive-monthly-gate.sh` |
+| `quarterly-mgd-recheck.yml`           | 2026-09-27 | `scripts/daily/mgd-game-recheck-quarterly-gate.sh`     |
 
 ### Scheduled but Stays on GHA (GHA-primary, DGX-failover)
 

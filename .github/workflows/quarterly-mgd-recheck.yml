@@ -1,3 +1,5 @@
+# Evidence: Tool=GitHub-Copilot-CLI-1.0.88 Model=openai/gpt-5.6-terra Agent=copilot Date=2026-09-27
+# Audit trail: git log -- .github/workflows/quarterly-mgd-recheck.yml
 name: Quarterly MGD Game Re-check
 
 # ============================================================================
@@ -7,17 +9,14 @@ name: Quarterly MGD Game Re-check
 #
 # PRIMARY runtime is DGX Spark via scripts/daily/mgd-game-recheck-quarterly-gate.sh
 # (auto-discovered day-runner — scripts/daily/README.md). This workflow is the
-# FAILOVER per CLAUDE.md Script Automation Rule. Both call the SAME gate script,
-# which self-gates to quarter-start and is idempotent, so a double-run is a no-op.
+# MANUAL FAILOVER per CLAUDE.md Script Automation Rule. The scheduled trigger was
+# removed because the DGX daily gate is the sole automatic scheduler.
 #
 # Produces data only. It does NOT send email (RED-zone) and does NOT apply any
 # migration. The gate script records a schema gap rather than proxying a number.
 # ============================================================================
 
 on:
-  schedule:
-    # Quarterly, 06:00 UTC on the 1st of Jan / Apr / Jul / Oct.
-    - cron: "0 6 1 1,4,7,10 *"
   workflow_dispatch:
 
 permissions:
