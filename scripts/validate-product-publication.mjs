@@ -321,7 +321,17 @@ if (packageIds.size !== 13 || mappedProductIds.size !== 13) {
   );
 }
 try {
-  const mainCatalog = JSON.parse(gitOutput(['show', 'main:dws10.com/config/products.json']));
+  // PR checkouts in CI have no local `main` branch; fall back to origin/main.
+  const mainRef = ['main', 'origin/main'].find((ref) => {
+    try {
+      gitOutput(['rev-parse', '--verify', '--quiet', `${ref}^{commit}`]);
+      return true;
+    } catch {
+      return false;
+    }
+  });
+  if (!mainRef) throw new Error('neither main nor origin/main is available in this checkout');
+  const mainCatalog = JSON.parse(gitOutput(['show', `${mainRef}:dws10.com/config/products.json`]));
   const currentIds = new Set(products.map((product) => product.id));
   const lostIds = Object.values(mainCatalog.products || {})
     .map((product) => product.id)
