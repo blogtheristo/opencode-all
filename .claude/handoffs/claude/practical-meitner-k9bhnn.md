@@ -9,6 +9,7 @@
 - HIC decision board (all 47 open sessions): https://claude.ai/artifact/1EvraKLCqCGy8hhgTGRwwR
 - Not pushed (other sessions' branches): merge of main into `claude/pilot-structure-alignment` (#2096) with regenerated google feed — redo with `git merge origin/main` + `node scripts/generate-google-feed.cjs` + copy to landing-pages mirror.
 - Committed 80e765ce5 (HIC approved 27.09.2026): ruff ratchet in `scripts/local-ci.sh` + checksum-verified gitleaks install in `.claude/hooks/session-start.sh`. MiMo/AGUI sessions can now push.
+- 27.09 21:38 UTC: #2182 head 968dec4 — all 14 CI checks green (incl. fix for validate-product-publication missing `main` ref in PR checkouts), clean vs main c553ffa, no review threads. Waiting on HIC review.
 - #2182 watched by session_014YC4FWxYaV7bQHw2wLEKB4 (PR activity subscription + hourly check-in).
 
 ## Next
