@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.32
+Version: 3.33
 
 Sessions & Modifications:
 
+- Version: 3.33 | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: Operations log CI subsection: cause confirmed as GitHub Actions billing (jobs not started, account-wide); HIC decision — CI moves to the DGX self-hosted runner, hosted billing not restored; listed hosted-only PR workflows still blocked and the local gates to run meanwhile.
 - Version: 3.32 | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: New section "Operations log — 27.09.2026": Copilot $210 credit work order and model routing; server-owned back-office access (#2138) scoped to the internal org (#2143, migration 096 applied); migration 097 closed live `contracts_lifecycle`/`orders` RLS gaps (#2147, applied); migration-history divergence (never `supabase db push`); DGX Persistence Rule and three jobs moved to DGX (#2144, #2145); Tool Git Identity rule (`CLAUDE.md` v1.5) and the `Unit Fixture` repo-local identity fix; CI test runner outage.
 - Version: 3.31 | Tool: Claude Code (Sonnet 5) | Session: (Temporal DGX deploy) | Date: 22.09.2026 | Changes: Deployed Temporal (PR #2068/#2070) on DGX Spark — `dws-temporal-postgres`/`dws-temporal` Healthy, `dws-temporal-worker` Started. Root-caused and fixed an unrelated pre-existing blocker: `dws-postgres` (v1.5.0) required `POSTGRES_PASSWORD`, never set, which failed `docker compose` interpolation for the _entire_ compose file. HIC-approved fresh `POSTGRES_PASSWORD` + `TEMPORAL_POSTGRES_PASSWORD` generated and documented in both `.env` files. Recorded a new Token & Credential Lifecycle decision: a planned Supabase `credentials_store` mirror (AES-256-GCM at rest, `CREDENTIALS_STORE_ENC_KEY` in `.env` only) scoped to outbound API/service credentials only, motivated by dev environments (e.g. Chromebook) with no local `.env`. Flagged `FACEBOOK_PAGE_TOKEN` in the Expiry register as possibly already past its noted 2026-08-20 expiry, unverified. Cross-refs: `docs/field-notes/2026-09-22-temporal-dgx-deploy-blocked-postgres-password.md`, `docs/dws-use-cases.md`.
 - Version: 3.30 | Tool: GitHub Copilot Coding Agent | Session: cursor/dgx-ollama-litellm-router-a455 | Date: 18.09.2026 | Changes: Merge resolution preserved LiteLLM router standards lock: Docker `OLLAMA_API_BASE` wiring (`host.docker.internal` in Linux compose), deployed Spark Ollama pair (`nemotron-3-super` + `qwen3-coder:30b`), and `FRONTIER-CLAUDE-OPUS` = `claude-opus-4-8`.
@@ -438,7 +439,11 @@ Next free migration number: 098. Applying migrations stays RED (HIC).
 
 ### CI
 
-- GitHub-hosted runners are not picking up jobs: `detect-runner` fails in about one second and `test`/`lint` are skipped on every PR (seen on `main`, run 920). The DGX-only runner change (commit `3913cc1eb`, PR #2125) queues until the DGX runner takes jobs. Until fixed, run `npm run build && npm test` locally before every push. Known env-only failures: four `scripts/__tests__/*tree-gate*` files.
+- **Cause (confirmed 27.09.2026):** GitHub Actions billing. Hosted jobs are not started: "The job was not started because recent account payments have failed or your spending limit needs to be increased". Account-wide; seen on `main` (run 920) and every PR. `detect-runner` fails in about one second because no runner is ever assigned, so `test`/`lint` are skipped.
+- **HIC decision (27.09.2026): CI runs on DGX.** The GitHub-hosted billing is not being restored; PR gates move to the self-hosted `[self-hosted, dgx-spark]` runner (self-hosted minutes are not billed). `test-on-pr.yml` is already DGX-only (#2125, commit `3913cc1eb`); its jobs queue until the DGX runner takes them.
+- **Still hosted-only (blocked until moved):** `migration-filename.yml`, `supabase-anon-soak.yml`, `validate-pricing.yml`, `verify-skills.yml`, `skill-budget-ci.yml`, `image-guardian.yml`, `housekeeping-weekly.yml`, `dast-zap-scan.yml`. Workflows that already reference the DGX runner: `ci-audit-verify`, `claude-auto-fix`, `lint-truth-claims`, `pr-auto-merge`, `security-check-pr`, `test-on-pr`, `validate-dod`; any of their jobs still on `ubuntu-latest` (for example a heartbeat `detect-runner` job) are blocked too.
+- **Until the DGX runner takes jobs:** run the gates locally before every push — `npm run build && npm test`, `node scripts/check-migration-filenames.mjs`, `node scripts/lint-truth-claims.mjs`, `scripts/evidence-audit.mjs`. Known env-only failures: four `scripts/__tests__/*tree-gate*` files. State in each PR which local gates ran.
+- **Open (DGX):** register the runner with labels `self-hosted, dgx-spark` and confirm it picks up a queued `test-on-pr` job; then move the hosted-only PR workflows above.
 
 ### Pull requests closed out on 27.09.2026
 
