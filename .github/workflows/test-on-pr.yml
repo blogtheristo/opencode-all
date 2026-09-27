@@ -1,3 +1,5 @@
+# Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=pr-2125-review Date=2026-09-27
+# Audit trail: git log -- .github/workflows/test-on-pr.yml
 # Test Automation Workflow
 # Runs tests on every pull request and push to main
 # Part of the self-improving agent loop: ensures agents and services don't regress
@@ -28,22 +30,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # DGX Spark primary; fall back to GitHub-hosted when the box/runner is
-  # offline so CI never silently stops gating PRs.
-  detect-runner:
-    runs-on: ubuntu-latest
-    outputs:
-      runs-on: ${{ steps.failover.outputs.dgx_alive == 'true' && '["self-hosted", "dgx-spark"]' || '["ubuntu-latest"]' }}
-    steps:
-      - uses: actions/checkout@v4
-      - id: failover
-        uses: ./.github/actions/dgx-failover-check
-        with:
-          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
-
+  # DGX-only (HIC 2026-09-27): GitHub-hosted runners are not picking up jobs,
+  # so there is no hosted fallback. If DGX is offline, test/lint stay queued.
   test:
-    needs: detect-runner
-    runs-on: ${{ fromJSON(needs.detect-runner.outputs.runs-on) }}
+    runs-on: [self-hosted, dgx-spark]
     timeout-minutes: 10
 
     steps:
@@ -53,8 +43,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
-          cache: 'npm'
+          node-version: "24"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -78,8 +68,7 @@ jobs:
           retention-days: 7
 
   lint-check:
-    needs: detect-runner
-    runs-on: ${{ fromJSON(needs.detect-runner.outputs.runs-on) }}
+    runs-on: [self-hosted, dgx-spark]
     timeout-minutes: 5
 
     steps:
@@ -89,8 +78,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
-          cache: 'npm'
+          node-version: "24"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
