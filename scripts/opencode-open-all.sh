@@ -313,15 +313,8 @@ window_dir() { # <window name> -> prints worktree path, non-zero on failure
   slug="session-${slug#-}"; slug="${slug%-}"
   path="$HOME/.opencode-worktrees/$(basename "$REPO")/$slug"
   if [[ ! -d "$path" ]]; then
-    bash "$REPO/scripts/new-opencode-worktree.sh" "$slug" main --no-install >&2 || return 1
-  fi
-  # Share the primary checkout's dependencies instead of 8 parallel npm installs.
-  # .gitignore's `**/node_modules/` does not match a symlink, so exclude it locally.
-  if [[ -d "$REPO/node_modules" && ! -e "$path/node_modules" ]]; then
-    ln -s "$REPO/node_modules" "$path/node_modules"
-    local exclude
-    exclude="$(git -C "$REPO" rev-parse --git-common-dir)/info/exclude"
-    grep -qx '/node_modules' "$exclude" 2>/dev/null || echo '/node_modules' >> "$exclude"
+    # --link-deps shares node_modules instead of 8 parallel npm installs.
+    bash "$REPO/scripts/new-opencode-worktree.sh" "$slug" main --link-deps >&2 || return 1
   fi
   printf '%s\n' "$path"
 }

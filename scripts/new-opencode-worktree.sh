@@ -12,7 +12,7 @@
 # Mirrors scripts/new-claude-worktree.sh conventions.
 #
 # Usage:
-#   ./new-opencode-worktree.sh <task-name> [base-branch] [--launch] [--no-install]
+#   ./new-opencode-worktree.sh <task-name> [base-branch] [--launch] [--no-install] [--link-deps]
 #   OPENCODE_TASK=fix-auth ./new-opencode-worktree.sh
 #
 # Examples:
@@ -30,12 +30,14 @@ TASK_NAME="${OPENCODE_TASK:-}"
 BASE_BRANCH="main"
 LAUNCH=false
 NO_INSTALL=false
+LINK_DEPS=false
 
 POSITIONALS=()
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --launch)     LAUNCH=true; shift ;;
         --no-install) NO_INSTALL=true; shift ;;
+        --link-deps)  LINK_DEPS=true; NO_INSTALL=true; shift ;;
         -*)           log_error "Unknown flag: $1"; exit 1 ;;
         *)            POSITIONALS+=("$1"); shift ;;
     esac
@@ -45,7 +47,7 @@ done
 [[ ${#POSITIONALS[@]} -ge 2 ]] && BASE_BRANCH="${POSITIONALS[1]}"
 
 if [[ -z "$TASK_NAME" ]]; then
-    echo "Usage: $0 <task-name> [base-branch] [--launch] [--no-install]"
+    echo "Usage: $0 <task-name> [base-branch] [--launch] [--no-install] [--link-deps]"
     echo "   or: OPENCODE_TASK=<name> $0"
     exit 1
 fi
@@ -117,6 +119,16 @@ if [[ -d "$MAIN_REPO/.opencode" ]]; then
     # Copy settings, never session state / memory (per-agent)
     find "$MAIN_REPO/.opencode" -maxdepth 1 -name "*.json*" -exec cp {} "$NEW_WORKTREE/.opencode/" \;
     log_info "Copied: .opencode settings (not session state)"
+fi
+
+# --link-deps: share the primary checkout's node_modules instead of installing.
+# .gitignore's `**/node_modules/` does not match a symlink, so exclude it via
+# the shared .git/info/exclude or `git add -A` would commit the link.
+if [[ "$LINK_DEPS" == true && -d "$MAIN_REPO/node_modules" && ! -e "$NEW_WORKTREE/node_modules" ]]; then
+    ln -s "$MAIN_REPO/node_modules" "$NEW_WORKTREE/node_modules"
+    EXCLUDE_FILE="$(git -C "$MAIN_REPO" rev-parse --git-common-dir)/info/exclude"
+    grep -qx '/node_modules' "$EXCLUDE_FILE" 2>/dev/null || echo '/node_modules' >> "$EXCLUDE_FILE"
+    log_info "Linked node_modules -> $MAIN_REPO/node_modules"
 fi
 
 # ============================================================================
