@@ -1,13 +1,14 @@
-# DWS Gamma Brand Standard v3.13
+# DWS Gamma Brand Standard v3.14
 
 ***
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.13
+Version: 3.14
 
 Sessions & Modifications:
 
+- Version: 3.14 | Tool: Claude Code | Session: claude/focused-ritchie-rou192 | Date: 27.09.2026 | Changes: Added §2.2 DWS Gold Standard — HIC 27.09.2026: "when HIC says gold standard" means the cari.fi palette exactly as in production (blogtheristo/cari `public/index.html`, commit dd2a144) plus IBM Plex typography. Dark-only token set, gold usage rules, trigger phrase registered in STANDARDS_ROUTING.md.
 - Version: 3.13 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Locked IT/business offer line (FI): Aegis/Infra split by contract, risk and jurisdiction; Connect produces KYA-compliant signed auditable outcomes. SEAL value line remains CIO-layer.
 - Version: 3.12 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Boardy audit — lifetime.fi commercial core is the compliance outcome (Aegis/infra for sensitive; hyperscaler per contract/jurisdiction; DWS IQ Connect signed outcomes from both). Public CLOUD Act-zero fenced to Aegis/EU-only path. Coaching: hybrid finding is not the second sentence unless it explains the participant’s problem; keep the EU-sovereign perimeter promise.
 - Version: 3.11 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §22 Use-in — lifetime.fi consulting (five-language homepages + Starter package) carries the locked pair plus the operational consulting lede (sensitive on sovereign, rest on hyperscaler). Not a headline replacement.
@@ -64,6 +65,7 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 | 0   | Store Identity & Product Data             | Store pages                                  |
 | 1   | Store Category Navigation                 | Store buy/ pages                             |
 | 2   | Dark Theme Tokens                         | All pages                                    |
+| 2.2 | DWS Gold Standard (cari.fi + IBM Plex)    | When HIC says "gold standard"                |
 | 3   | Product Card Component                    | Store pages                                  |
 | 4   | Store Category Taxonomy                   | products.json                                |
 | 5   | Iron Clad Navigation (v3.0)               | **All pages**                                |
@@ -308,6 +310,57 @@ All pages include `hreflang` alternate links for SEO.
 ### "Built in Finland" Footer Badge
 
 Added to `ironclad-footer.js` v1.2. Displays Finnish flag SVG + "Built in Finland · EU Sovereign AI · Finnish Jurisdiction" above the footer columns on every page.
+
+---
+
+## 2.2 DWS Gold Standard (v3.14)
+
+**Trigger:** when the HIC says **"gold standard"** (or "brand gold standard"), use this section. It means the cari.fi colours, exactly as live in production, set in IBM Plex type. It is not the retired `digital-design-gold` product palette and not the §2.1 Nordic Industrial palette.
+**Decided:** HIC, 27.09.2026.
+**Colour source (canonical):** `blogtheristo/cari` → `public/index.html` `:root` block, commit `dd2a144` (2026-08-05). If cari.fi changes, cari is right and this table follows in the same commit.
+**Typography source:** §2.1 IBM Plex stack (replaces cari.fi's `system-ui` stack).
+
+### Colour Tokens (exact cari.fi values)
+
+| Token              | Value                       | Usage                                                         |
+| ------------------ | --------------------------- | ------------------------------------------------------------- |
+| `--gs-bg`          | `#0a0a0b`                   | Page background (near-black)                                  |
+| `--gs-bg-2`        | `#121214`                   | Alternate section / panel background                          |
+| `--gs-card`        | `#161619`                   | Cards, blocks                                                 |
+| `--gs-line`        | `rgba(255, 255, 255, 0.12)` | Hairlines, card borders                                       |
+| `--gs-line-strong` | `rgba(255, 255, 255, 0.22)` | Ghost-button and emphasised borders                           |
+| `--gs-text`        | `#f4f5f7`                   | Body and heading text                                         |
+| `--gs-muted`       | `#a2abb8`                   | Secondary text, labels                                        |
+| `--gs-gold`        | `#f0a92b`                   | The one accent: eyebrows, primary button, icons, focus ring   |
+| `--gs-gold-dark`   | `#cf8f1e`                   | Gold hover / pressed                                          |
+| `--gs-on-gold`     | `#0a0a0b`                   | Text on gold fills (never white on gold)                      |
+| `--gs-radius`      | `14px`                      | Cards and panels; buttons and pills use `999px`               |
+| `--gs-tr`          | `200ms cubic-bezier(0.4, 0, 0.2, 1)` | All hover/focus transitions                          |
+
+cari.fi also defines `--wa: #25d366` (WhatsApp button). It is a channel colour, not a brand colour. Do not use it outside a WhatsApp CTA.
+
+### Typography
+
+| Role     | Font                    | Weight   | Notes                                                        |
+| -------- | ----------------------- | -------- | ------------------------------------------------------------ |
+| Headings | IBM Plex Sans Condensed | 600, 700 | `line-height: 1.15`, `letter-spacing: -0.02em` (cari.fi)     |
+| Body     | IBM Plex Sans           | 400–700  | `line-height: 1.65`; 17px on marketing pages, 15px on dense documents |
+| Labels / code / data | IBM Plex Mono | 400, 500 | Eyebrows: uppercase, `letter-spacing: 0.09em`, gold, 600 |
+
+Fallback stack for every face: `system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` (the cari.fi stack).
+
+### Usage rules
+
+- **Dark only.** Gold Standard is a single dark look; do not invert it into a light theme. Set `color-scheme: dark` and an explicit `background` on `body`.
+- **One accent.** Gold is the only accent hue. Status colours (success, warning, critical) are semantic and are not a second accent.
+- **Hero glow.** The cari.fi signature is a soft gold radial glow on the hero: `radial-gradient(60% 80% at 85% 0%, rgba(240,169,43,.16) 0, transparent 60%)`. Use once per page.
+- **Buttons.** Primary = gold fill, `--gs-on-gold` text, pill radius; ghost = transparent with `--gs-line-strong` border that turns gold on hover.
+- **Motion.** Scroll reveal via `shared-assets/motion/reveal.js` (already adapted from cari.fi), with its no-JS backstop.
+- **Contrast.** Gold `#f0a92b` on `#0a0a0b` passes WCAG AA for text; gold on `#161619` cards is fine for text 14px+ bold. Never set gold text on a light background.
+
+### Where it applies
+
+Internal architecture pages, investor-facing visuals and artefacts the HIC flags as "gold standard". Public dws10.com / onelifetime.world / lifetime.fi pages keep §2.1 Nordic Industrial until the HIC decides to migrate them.
 
 ---
 
@@ -2544,6 +2597,7 @@ Never introduce new positioning lines in a deck without documenting them in §22
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v3.14   | 2026-09-27 | Added: §2.2 DWS Gold Standard — cari.fi palette exactly as live (blogtheristo/cari public/index.html, dd2a144) + IBM Plex typography; trigger phrase "gold standard" (HIC 27.09.2026). |
 | v3.13   | 2026-09-14 | Locked lifetime.fi consulting value line EN/FI (indicative nearest SEAL; not a Commission evaluation); customer sets minimum; KYA Connect outcomes; market stats stay thesis/field note. |
 | v3.12   | 2026-09-14 | Boardy: lifetime.fi commercial core = compliance outcome + Connect signed results from both paths; CLOUD Act-zero fenced to Aegis/EU-only; coaching second-sentence rule for the hybrid finding. |
 | v3.10   | 2026-09-14 | Added: §22 Sovereignty as the Primary Segmentation Axis — HIC-locked EN/FI pair plus SV/DE/FR Language Standard translations; fence on monopoly-axis / fake-SEAL / US-parent-EU-region claims. Canonical: Truth Standard row 39.                                                                                                                                                                                                                                                     |

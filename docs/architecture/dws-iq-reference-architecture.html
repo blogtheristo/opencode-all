@@ -1,0 +1,1064 @@
+<title>DWS IQ Reference Architecture</title>
+<!-- Evidence: Tool=Claude Code Model=anthropic Agent=reference-architecture Date=2026-09-27 -->
+<!-- Audit trail: git log -- docs/architecture/dws-iq-reference-architecture.html -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+/>
+<style>
+  /* DWS Gold Standard (DWS_BRAND_STANDARD.md §2.2) — cari.fi palette + IBM Plex. Dark-only by design. */
+  :root {
+    --gs-bg: #0a0a0b; --gs-bg-2: #121214; --gs-card: #161619;
+    --gs-gold: #f0a92b; --gs-gold-dark: #cf8f1e;
+    --gs-text: #f4f5f7; --gs-muted: #a2abb8;
+    --gs-line: rgba(255, 255, 255, 0.12); --gs-line-strong: rgba(255, 255, 255, 0.22);
+
+    --bg: var(--gs-bg); --surface: var(--gs-bg-2); --surface-2: var(--gs-card); --band: #1b1a17;
+    --ink: var(--gs-text); --ink-2: var(--gs-muted);
+    --line: var(--gs-line); --line-strong: var(--gs-line-strong);
+    --accent: var(--gs-gold); --accent-ink: #0a0a0b;
+    --tag: rgba(240, 169, 43, 0.12); --tag-ink: var(--gs-gold);
+    --live: #7ed69a; --live-bg: rgba(126, 214, 154, 0.12);
+    --partial: var(--gs-gold); --partial-bg: rgba(240, 169, 43, 0.14);
+    --planned: var(--gs-muted); --planned-bg: rgba(162, 171, 184, 0.14);
+    --crit: #ff8a70; --red: #e2571e; --yellow: var(--gs-gold);
+    --dws: rgba(240, 169, 43, 0.07); --dws-line: rgba(240, 169, 43, 0.45);
+    color-scheme: dark;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font:
+      15px/1.55 "IBM Plex Sans",
+      system-ui,
+      -apple-system,
+      "Segoe UI",
+      sans-serif;
+    padding-inline: 16px;
+    padding-block: 24px 56px;
+    background:
+      radial-gradient(60% 40% at 85% 0%, rgba(240, 169, 43, 0.14) 0, transparent 60%),
+      var(--bg);
+  }
+  .wrap {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+    text-wrap: balance;
+    margin: 0;
+    line-height: 1.15;
+  }
+  h1 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  p {
+    margin: 0;
+  }
+  .mono {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--gs-gold);
+  }
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px 24px;
+    align-items: end;
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 18px;
+  }
+  header .lede {
+    grid-column: 1/-1;
+    max-width: 78ch;
+    color: var(--ink-2);
+  }
+  .meta {
+    text-align: right;
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font:
+      600 11px/1 "IBM Plex Mono",
+      ui-monospace,
+      monospace;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 4px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .chip.live {
+    color: var(--live);
+    background: var(--live-bg);
+  }
+  .chip.partial {
+    color: var(--partial);
+    background: var(--partial-bg);
+  }
+  .chip.planned {
+    color: var(--planned);
+    background: var(--planned-bg);
+  }
+  .chip.dws {
+    color: var(--ink);
+    background: var(--dws);
+    outline: 1px solid var(--dws-line);
+  }
+  .bmhh {
+    display: inline-block;
+    font:
+      600 10px/1 "IBM Plex Mono",
+      ui-monospace,
+      monospace;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--tag-ink);
+    background: var(--tag);
+    padding: 3px 6px;
+    border-radius: 2px;
+  }
+
+  /* diagram */
+  .diagram-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 14px;
+  }
+  .diagram {
+    min-width: 1080px;
+    padding: 20px;
+    display: grid;
+    gap: 14px;
+    grid-template-columns: 1.05fr 1.25fr 1.05fr;
+    grid-template-areas:
+      "consumers consumers consumers"
+      "context ontology compute"
+      "gov gov gov"
+      "left agents ops"
+      "left obs llm";
+  }
+  .blk {
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+  }
+  .blk.dwsx {
+    background: var(--dws);
+    border-color: var(--dws-line);
+  }
+  .blk-h {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    justify-content: space-between;
+  }
+  .blk-h .t {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .num {
+    flex: none;
+    font:
+      600 11px/1 "IBM Plex Mono",
+      ui-monospace,
+      monospace;
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-radius: 10px;
+    padding: 4px 7px;
+    min-width: 22px;
+    text-align: center;
+  }
+  .blk h3 {
+    text-transform: uppercase;
+  }
+  .sub {
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+  .items {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  .it {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 6px 8px;
+    font-size: 12.5px;
+    line-height: 1.35;
+  }
+  .it b {
+    display: block;
+    font-weight: 600;
+    font-size: 12.5px;
+  }
+  .it span {
+    color: var(--ink-2);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10.5px;
+    word-break: break-word;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .gap {
+    font-size: 12px;
+    color: var(--crit);
+    border-top: 1px dashed var(--line-strong);
+    padding-top: 6px;
+  }
+  .gap::before {
+    content: "Gap · ";
+    font-weight: 600;
+  }
+
+  .a-consumers {
+    grid-area: consumers;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 14px;
+    align-items: stretch;
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+  .a-consumers .blk {
+    background: var(--band);
+  }
+  .stages {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .stage {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  .stage b {
+    display: block;
+    font-size: 12px;
+  }
+  .stage span {
+    color: var(--ink-2);
+    font-size: 11px;
+  }
+  .flow {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font:
+      600 11px/1.3 "IBM Plex Mono",
+      ui-monospace,
+      monospace;
+    color: var(--ink-2);
+    text-align: center;
+    gap: 4px;
+  }
+  .flow .arr {
+    font-size: 18px;
+    color: var(--accent);
+  }
+  .a-context {
+    grid-area: context;
+  }
+  .a-ontology {
+    grid-area: ontology;
+    border: 2px solid var(--accent);
+  }
+  .a-compute {
+    grid-area: compute;
+  }
+  .a-gov {
+    grid-area: gov;
+    background: var(--band);
+    border-color: var(--line-strong);
+  }
+  .gov-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+  }
+  .a-left {
+    grid-area: left;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+  .a-agents {
+    grid-area: agents;
+    border: 2px solid var(--accent);
+  }
+  .a-ops {
+    grid-area: ops;
+  }
+  .a-obs {
+    grid-area: obs;
+  }
+  .a-llm {
+    grid-area: llm;
+  }
+  .tier {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 10px;
+    font-size: 12px;
+  }
+  .tier .k {
+    font:
+      600 11px/1.4 "IBM Plex Mono",
+      ui-monospace,
+      monospace;
+    color: var(--accent);
+  }
+  .core {
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    padding: 8px 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    text-align: center;
+    font-size: 12px;
+  }
+  .core .c-t {
+    grid-column: 1/-1;
+    font-weight: 700;
+    font-family: "IBM Plex Sans Condensed", sans-serif;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: 13px;
+  }
+  .core div span {
+    display: block;
+    color: var(--ink-2);
+    font-size: 11px;
+  }
+
+  /* sections */
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface);
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 860px;
+    font-size: 13px;
+  }
+  th,
+  td {
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    font:
+      600 11px/1.3 "IBM Plex Mono",
+      ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-2);
+    background: var(--surface-2);
+  }
+  tr:last-child td {
+    border-bottom: 0;
+  }
+  td.n {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .prio {
+    font:
+      700 11px/1 "IBM Plex Mono",
+      ui-monospace,
+      monospace;
+    padding: 4px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .p1 {
+    background: var(--red);
+    color: #fff;
+  }
+  .p2 {
+    background: var(--yellow);
+    color: #0a0a0b;
+  }
+  .p3 {
+    background: var(--planned-bg);
+    color: var(--planned);
+  }
+  ul.tight {
+    margin: 0;
+    padding-left: 18px;
+    display: grid;
+    gap: 4px;
+  }
+  .note {
+    font-size: 13px;
+    color: var(--ink-2);
+    max-width: 90ch;
+  }
+  footer {
+    font-size: 12px;
+    color: var(--ink-2);
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    justify-content: space-between;
+  }
+  @media (max-width: 760px) {
+    header {
+      grid-template-columns: 1fr;
+    }
+    .meta {
+      text-align: left;
+    }
+    .two {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Lifetime Oy · DWS IQ Industrial Intelligence · Internal · Gold Standard</div>
+      <h1>DWS IQ Reference Architecture</h1>
+    </div>
+    <div class="meta mono">v1.0 · 27.09.2026<br />Status: DRAFT for HIC review</div>
+    <p class="lede">
+      We amplify human intelligence in regulated industries. This page maps the DWS IQ platform onto
+      the 12-layer enterprise AI reference model, adds the two layers that are specific to DWS
+      (sovereignty and the physical plant), and marks each block with its repository maturity.
+      Maturity is a repository inventory, not a deployment attestation.
+    </p>
+    <div class="legend">
+      <span class="chip live">Live</span> code in repo, tested
+      <span class="chip partial">Partial</span> code exists, gaps named
+      <span class="chip planned">Planned</span> spec or draft only
+      <span class="chip dws">DWS layer</span> beyond the reference model
+      <span class="bmhh">Brain</span><span class="bmhh">Memory</span><span class="bmhh">Body</span
+      ><span class="bmhh">Hands</span> DWS runtime role
+    </div>
+  </header>
+
+  <div class="diagram-scroll" role="figure" aria-label="DWS IQ layered architecture diagram">
+    <div class="diagram">
+      <!-- Consumers -->
+      <div class="a-consumers">
+        <div class="blk">
+          <div class="blk-h">
+            <div class="t"><h3>Humans in command</h3></div>
+            <span class="chip live">Live</span>
+          </div>
+          <p class="sub">
+            25 enterprise roles (R01–R25) in 5 buying stages · DWS_ROLES_REGISTRY.md
+          </p>
+          <div class="stages">
+            <div class="stage"><b>1 Open the door</b><span>CTO · IP Dir · GC</span></div>
+            <div class="stage"><b>2 Run the workflow</b><span>CSO · Plant · Ops Dir</span></div>
+            <div class="stage"><b>3 Clear the stack</b><span>CIO · CISO</span></div>
+            <div class="stage"><b>4 Prove the value</b><span>CRO · CPO</span></div>
+            <div class="stage"><b>5 Sign the deal</b><span>CEO · CFO · Board</span></div>
+          </div>
+        </div>
+        <div class="flow"><span class="arr">⇄</span>HIC gate<br />Art. 14</div>
+        <div class="blk">
+          <div class="blk-h">
+            <div class="t"><h3>Agents &amp; automations</h3></div>
+            <span class="chip live">Live</span>
+          </div>
+          <p class="sub">
+            Deputy agents act; humans approve. Output is a signed, auditable outcome.
+          </p>
+          <div class="items">
+            <div class="it"><b>Registered agents</b><span>AGENTS.md · AGENT_ROSTER.json</span></div>
+            <div class="it"><b>Skills (slash + agent)</b><span>skills/manifest.json</span></div>
+            <div class="it">
+              <b>Harnesses</b><span>OpenCode · Claude Code · Cursor · OpenClaw*</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Context -->
+      <div class="blk a-context">
+        <div class="blk-h">
+          <div class="t">
+            <span class="num">3</span>
+            <h3>Context engineering</h3>
+          </div>
+          <span class="chip partial">Partial</span>
+        </div>
+        <div class="tags"><span class="bmhh">Memory</span></div>
+        <div class="items">
+          <div class="it">
+            <b>Contextual data</b><span>Supabase · 93 migrations · pgvector semantic_memories</span>
+          </div>
+          <div class="it">
+            <b>Knowledge base</b><span>kb/raw → kb/wiki · /kb · kb-watch-inbox</span>
+          </div>
+          <div class="it">
+            <b>Connectors</b><span>src/integrations: erp, esg, ec3, iceye, docusign, trade</span>
+          </div>
+          <div class="it">
+            <b>Signals</b><span>signal-poller.ts · hilma-watch · regulatory-radar</span>
+          </div>
+          <div class="it">
+            <b>Edge streams</b><span>Jetson Orin · Cosmos edge · Lifetime Fleet</span>
+          </div>
+        </div>
+        <p class="gap">Connector Marketplace is Tier 3 (draft only).</p>
+      </div>
+
+      <!-- 4-5 Ontology -->
+      <div class="blk a-ontology">
+        <div class="blk-h">
+          <div class="t">
+            <span class="num">4</span>
+            <h3>Lifetime World Model · Ontology</h3>
+          </div>
+          <span class="chip partial">Partial</span>
+        </div>
+        <div class="tags"><span class="bmhh">Memory</span><span class="bmhh">Brain</span></div>
+        <div class="core">
+          <div class="c-t">Governed ontology · human + AI decision model</div>
+          <div><b>Semantic</b><span>ONTOLOGY.md v1.9 · ontology/enterprises</span></div>
+          <div><b>Kinetic</b><span>world-model simulator · state-vector</span></div>
+          <div><b>Evidential</b><span>Decision Flight Recorder · KYA vocabulary §16</span></div>
+        </div>
+        <div class="items">
+          <div class="it">
+            <b>Tool services (MCP Hub)</b
+            ><span>mcp-hub · mcp-servers · src/mcp/agent-server.ts</span>
+          </div>
+          <div class="it">
+            <b>Graph + memory</b><span>graph.service.ts · memory.service.ts</span>
+          </div>
+          <div class="it">
+            <b>Industry LWM bases</b><span>per-industry ontology → per-enterprise fine-tune</span>
+          </div>
+        </div>
+        <p class="gap">
+          Ontology is mostly documentation; no typed object / link / action runtime yet.
+          Per-industry LWM fine-tunes not built.
+        </p>
+      </div>
+
+      <!-- 5 Compute -->
+      <div class="blk a-compute">
+        <div class="blk-h">
+          <div class="t">
+            <span class="num">5</span>
+            <h3>Vector, compute &amp; plant</h3>
+          </div>
+          <span class="chip partial">Partial</span>
+        </div>
+        <div class="tags">
+          <span class="bmhh">Body</span><span class="chip dws">DWS layer</span>
+        </div>
+        <div class="items">
+          <div class="it"><b>Vector</b><span>pgvector · Supabase EU</span></div>
+          <div class="it"><b>Sovereign compute</b><span>DGX Spark · Veriton GN-100</span></div>
+          <div class="it"><b>Cloud burst</b><span>Cloud Run · Cloudflare Workers</span></div>
+          <div class="it">
+            <b>Plant Capital</b><span>Control Room (now) + Situation Room (trend)</span>
+          </div>
+          <div class="it"><b>Durable workflows</b><span>Temporal: agent-loop, schedules</span></div>
+        </div>
+        <p class="gap">Air-gapped runtime and DGX runtime bundle are Tier 3.</p>
+      </div>
+
+      <!-- 6 Governance -->
+      <div class="blk a-gov">
+        <div class="blk-h">
+          <div class="t">
+            <span class="num">6</span>
+            <h3>Security &amp; governance · KYA+I and Themis</h3>
+          </div>
+          <span class="chip live">Live</span>
+        </div>
+        <div class="tags"><span class="bmhh">Brain</span></div>
+        <div class="gov-row">
+          <div class="it">
+            <b>Know Your Agent</b><span>identity/kya-engine.ts · trust score</span>
+          </div>
+          <div class="it">
+            <b>Per-tool authorization</b><span>themis.agent.ts v2.0 · authorizeToolCall</span>
+          </div>
+          <div class="it"><b>Leash snap TC-4</b><span>kill switch in kya-engine</span></div>
+          <div class="it"><b>Approvals (HIC)</b><span>temporal/approvals.ts</span></div>
+          <div class="it"><b>Tenant isolation</b><span>RLS · runtime-auth.ts</span></div>
+          <div class="it"><b>Evidence headers</b><span>evidence-stamp · Art. 12–14</span></div>
+        </div>
+        <p class="gap">
+          Inference Jurisdiction Score (/kya inference) not implemented. No scenario branching for
+          agent changes. Aegis air-gap not demonstrated.
+        </p>
+      </div>
+
+      <!-- Left column 11, 9, 10, 12 -->
+      <div class="a-left">
+        <div class="blk">
+          <div class="blk-h">
+            <div class="t">
+              <span class="num">11</span>
+              <h3>Package, release, deploy</h3>
+            </div>
+            <span class="chip partial">Partial</span>
+          </div>
+          <div class="items">
+            <div class="it"><b>Sites</b><span>Cloudflare Pages · dual-folder sync</span></div>
+            <div class="it"><b>Catalogue</b><span>products.json · Store/ · 156 IDs</span></div>
+            <div class="it"><b>Skills</b><span>skills/manifest.json · verify-skills</span></div>
+          </div>
+          <p class="gap">
+            Cloud Run, DGX and staging deploy workflows are disabled; tenant update lanes are spec
+            only.
+          </p>
+        </div>
+        <div class="blk">
+          <div class="blk-h">
+            <div class="t">
+              <span class="num">9</span>
+              <h3>Development environments</h3>
+            </div>
+            <span class="chip live">Live</span>
+          </div>
+          <div class="items">
+            <div class="it"><b>Primary</b><span>OpenCode on DGX · Ollama</span></div>
+            <div class="it"><b>Standby</b><span>Claude Code · Cursor · Copilot CLI</span></div>
+            <div class="it"><b>Parity</b><span>Truth §2I env pins · tmux</span></div>
+          </div>
+        </div>
+        <div class="blk">
+          <div class="blk-h">
+            <div class="t">
+              <span class="num">10</span>
+              <h3>Human + AI applications</h3>
+            </div>
+            <span class="chip partial">Partial</span>
+          </div>
+          <div class="items">
+            <div class="it"><b>Control Room</b><span>dws6.com/dashboard/control-room</span></div>
+            <div class="it"><b>Situation Room</b><span>Firehorse V10 · mobile screen</span></div>
+            <div class="it"><b>Mission Control</b><span>dashboard/mission-control</span></div>
+          </div>
+        </div>
+        <div class="blk">
+          <div class="blk-h">
+            <div class="t">
+              <span class="num">12</span>
+              <h3>Enterprise outcomes · products</h3>
+            </div>
+            <span class="chip partial">Partial</span>
+          </div>
+          <div class="tags"><span class="bmhh">Body</span></div>
+          <div class="items">
+            <div class="it"><b>Firehorse</b><span>signed reports · workflow engine</span></div>
+            <div class="it"><b>Climate Intelligence</b><span>ETS · CBAM · CSRD</span></div>
+            <div class="it"><b>DWS IQ Aegis</b><span>Standard · Defence · Sovereign</span></div>
+            <div class="it"><b>KYA+I · LWM Suite</b><span>Early Access · ontology suite</span></div>
+            <div class="it"><b>MGD / CRC</b><span>mgd-metrics.service.ts</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 Agents -->
+      <div class="blk a-agents">
+        <div class="blk-h">
+          <div class="t">
+            <span class="num">7</span>
+            <h3>Agent lifecycle · Agent Foundry</h3>
+          </div>
+          <span class="chip live">Live</span>
+        </div>
+        <div class="tags"><span class="bmhh">Brain</span><span class="bmhh">Hands</span></div>
+        <div class="items">
+          <div class="it"><b>Build</b><span>base.agent.ts · AGENTS.md generator</span></div>
+          <div class="it">
+            <b>Orchestrate</b><span>workflow-v2 graph runner · Temporal agent-loop</span>
+          </div>
+          <div class="it"><b>Swarm patterns</b><span>6 patterns · /swarm skill</span></div>
+          <div class="it"><b>Evaluate</b><span>src/evals: eval-runner, drift-detector</span></div>
+          <div class="it"><b>Self-improve</b><span>autoresearch · kya-tuner</span></div>
+          <div class="it"><b>Harness bridge</b><span>nemoclaw-bridge.ts (code only)</span></div>
+        </div>
+        <p class="gap">
+          Swarm is a skill, not a runtime. No eval dashboard or eval-gated promotion.
+        </p>
+      </div>
+
+      <!-- 8 Ops -->
+      <div class="blk a-ops">
+        <div class="blk-h">
+          <div class="t">
+            <span class="num">8</span>
+            <h3>Operational automation · Cron-works</h3>
+          </div>
+          <span class="chip live">Live</span>
+        </div>
+        <div class="tags"><span class="bmhh">Body</span></div>
+        <div class="items">
+          <div class="it">
+            <b>Scheduled</b><span>DGX cron-runner · day-runner · ~40 daily jobs</span>
+          </div>
+          <div class="it">
+            <b>Event-driven</b><span>stripe / email / kya / nudge webhooks</span>
+          </div>
+          <div class="it"><b>API-driven</b><span>/api/v1 · Temporal schedules</span></div>
+          <div class="it"><b>Failover</b><span>Claude Routines → GHA (manual)</span></div>
+        </div>
+      </div>
+
+      <!-- 2 Obs -->
+      <div class="blk a-obs">
+        <div class="blk-h">
+          <div class="t">
+            <span class="num">2</span>
+            <h3>End-to-end observability · Article 12</h3>
+          </div>
+          <span class="chip partial">Partial</span>
+        </div>
+        <div class="tags"><span class="bmhh">Body</span></div>
+        <div class="items">
+          <div class="it"><b>Traces</b><span>otel.ts · withToolSpan</span></div>
+          <div class="it"><b>Decision log</b><span>article12-logger · agent-logger</span></div>
+          <div class="it"><b>CI audit</b><span>.ci-audit/runs · ci-audit-verify</span></div>
+          <div class="it"><b>Metrics</b><span>Prometheus · Grafana · Aspire (dev)</span></div>
+        </div>
+        <p class="gap">No single production trace store or lineage view.</p>
+      </div>
+
+      <!-- 1 LLM -->
+      <div class="blk a-llm">
+        <div class="blk-h">
+          <div class="t">
+            <span class="num">1</span>
+            <h3>Sovereign model access</h3>
+          </div>
+          <span class="chip partial">Partial</span>
+        </div>
+        <div class="tags">
+          <span class="bmhh">Brain</span><span class="chip dws">DWS layer</span>
+        </div>
+        <div class="tier">
+          <span class="k">T1</span><span>Frontier API · Claude Sonnet / Opus</span>
+          <span class="k">T2</span
+          ><span>Sovereign reasoning · Nemotron Super, Step-3.5 on DGX</span>
+          <span class="k">T3</span><span>In-house brain · Lifetime World Model V1</span>
+          <span class="k">T4</span><span>Edge multimodal · Nemotron Nano Omni</span>
+          <span class="k">T5</span><span>Partner laptop · 24 GB GPU</span>
+        </div>
+        <div class="items">
+          <div class="it"><b>Router</b><span>LiteLLM aliases · model-selector.ts</span></div>
+          <div class="it"><b>Moderation</b><span>pii-scrubber.ts · rate limiter</span></div>
+          <div class="it">
+            <b>Jurisdiction × room</b><span>Model Standard §6 loadout · §9 no-cloud-fallback</span>
+          </div>
+        </div>
+        <p class="gap">
+          No unified gateway with per-tenant usage metering; model catalogue split across
+          llm-registry.json and the Model Standard.
+        </p>
+      </div>
+    </div>
+  </div>
+  <p class="note">
+    * OpenClaw / NemoClaw is adopted as an interchangeable harness, not the control plane; PR #2175
+    merged code only, no production caller (docs/architecture/openclaw-nemoclaw-adoption.md v1.2).
+    Numbering follows the 12-layer reference model so the comparison below lines up one to one.
+  </p>
+
+  <section>
+    <h2>Where DWS differs from the reference model</h2>
+    <div class="two">
+      <div class="card">
+        <h3>DWS adds</h3>
+        <ul class="tight">
+          <li>
+            <b>Jurisdiction as a routing input.</b> Every model call is chosen by sovereignty tier
+            (T1–T5) and room, with a no-cloud-fallback rule for Defence. The reference model treats
+            hosting as a vendor list.
+          </li>
+          <li>
+            <b>Plant as a layer.</b> Control Room and Situation Room run at a site or in a fleet
+            vehicle, so Plant Capital and Perception Capital sit inside the architecture.
+          </li>
+          <li>
+            <b>Agent identity before agent action.</b> KYA+I scores each agent and Themis signs each
+            tool call. Leash snap stops a session.
+          </li>
+          <li>
+            <b>Outcome metric.</b> Monthly Governed Decisions (MGD) and Customer-Retained Capital
+            (CRC) measure what the stack delivers.
+          </li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>The reference model has, DWS lacks</h3>
+        <ul class="tight">
+          <li>
+            <b>Typed ontology runtime.</b> Objects, links and actions as executable, permissioned
+            types. DWS has the vocabulary in ONTOLOGY.md, not the runtime.
+          </li>
+          <li>
+            <b>System-wide branching.</b> Test an agent or ontology change on a branch of live data
+            before promotion.
+          </li>
+          <li>
+            <b>One model gateway and catalogue.</b> Single entry for enablement, usage tracking and
+            rate limits per tenant.
+          </li>
+          <li>
+            <b>Evaluation suites as a release gate.</b> DWS has eval runners but no gate or
+            dashboard.
+          </li>
+          <li>
+            <b>Release channels per tenant.</b> DWS update lanes are specified, deploy workflows
+            disabled.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Proposed updates</h2>
+    <p class="note">
+      Ranked by sales impact and by how far each gap weakens a claim we already make in public copy.
+      Each item names the layer, the first concrete step and the buyer role it unblocks.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Priority</th>
+            <th>Layer</th>
+            <th>Update</th>
+            <th>First step</th>
+            <th>Unblocks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="prio p1">P1</span></td>
+            <td class="n">1 · 6</td>
+            <td>
+              <b>Ship the Inference Jurisdiction Score.</b> Sovereignty is our primary segmentation
+              axis; the per-session proof is not implemented.
+            </td>
+            <td>
+              Implement <span class="mono">GET /api/v1/kya/inference/:sessionId</span> from LiteLLM
+              provider chain + model-selector tier; return IJS and CLOUD Act flags.
+            </td>
+            <td>R08 CIO · R15 CISO</td>
+          </tr>
+          <tr>
+            <td><span class="prio p1">P1</span></td>
+            <td class="n">4</td>
+            <td>
+              <b>Typed ontology runtime (minimum viable).</b> "The governed ontology is the product"
+              needs executable types behind it.
+            </td>
+            <td>
+              One migration: ontology_object_types, ontology_links, ontology_action_types, each
+              action bound to a Themis KYA scope. Start with one industry (Steel or Construction).
+            </td>
+            <td>R11 Plant Director · R12 Ops Director</td>
+          </tr>
+          <tr>
+            <td><span class="prio p1">P1</span></td>
+            <td class="n">2</td>
+            <td>
+              <b>Decision Flight Recorder as the single trace store.</b> Join otel spans, Article 12
+              log and KYA verdicts on one decision ID.
+            </td>
+            <td>
+              Finish Tier 2→1 of decision-journey/emitter.ts; add a read view in Mission Control.
+            </td>
+            <td>R15 CISO · auditors</td>
+          </tr>
+          <tr>
+            <td><span class="prio p2">P2</span></td>
+            <td class="n">1</td>
+            <td>
+              <b>One model gateway and catalogue.</b> Merge llm-registry.json into the Model
+              Standard slate IDs; meter usage per tenant in LiteLLM.
+            </td>
+            <td>
+              Generate the catalogue from DWS_MODEL_STANDARD.md §3 via a truth script; fail CI on
+              drift.
+            </td>
+            <td>R09 CFO (cost) · R08 CIO</td>
+          </tr>
+          <tr>
+            <td><span class="prio p2">P2</span></td>
+            <td class="n">7</td>
+            <td>
+              <b>Eval-gated agent promotion.</b> No agent moves up an autonomy tier without a
+              passing eval run.
+            </td>
+            <td>
+              Wire src/evals eval-runner into CI for changed agents; publish results to .ci-audit.
+            </td>
+            <td>R15 CISO · EU AI Act Art. 15</td>
+          </tr>
+          <tr>
+            <td><span class="prio p2">P2</span></td>
+            <td class="n">6</td>
+            <td>
+              <b>Scenario branching.</b> Run a proposed agent or rule change on a copy of tenant
+              state before release.
+            </td>
+            <td>Use Supabase branching + world-model simulator for a dry-run diff report.</td>
+            <td>R12 Ops Director</td>
+          </tr>
+          <tr>
+            <td><span class="prio p3">P3</span></td>
+            <td class="n">11</td>
+            <td><b>Re-enable deploy lanes with tenant release channels.</b></td>
+            <td>
+              Re-enable deploy-staging first; define stable / early-access channels in
+              DWS_DEPLOYMENT_STANDARD.md.
+            </td>
+            <td>Delivery</td>
+          </tr>
+          <tr>
+            <td><span class="prio p3">P3</span></td>
+            <td class="n">3</td>
+            <td>
+              <b>Connector catalogue.</b> Expose src/integrations as MCP tools with a manifest,
+              before building a marketplace.
+            </td>
+            <td>One manifest file per connector, listed in the MCP Hub.</td>
+            <td>R08 CIO</td>
+          </tr>
+          <tr>
+            <td><span class="prio p3">P3</span></td>
+            <td class="n">docs</td>
+            <td>
+              <b>Retire the January blueprint.</b> docs/architecture/00-MASTER-BLUEPRINT.md (v1.0,
+              2026-01-18) still describes LangGraph and a €7K MRR baseline.
+            </td>
+            <td>Add a superseded-by pointer to this architecture; keep the original text.</td>
+            <td>Investors · new engineers</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Conflicts surfaced</h2>
+    <div class="card">
+      <ul class="tight">
+        <li>
+          <b>Ops Manager.</b> CLAUDE.md lists it as a DWS IQ product in the Market Signal rule; the
+          product registry does not carry it (thesis concept only, PHD_FIREHORSE §14.16.5). Decide:
+          add to catalogue or drop from the rule.
+        </li>
+        <li>
+          <b>Delimiter rule.</b> docs/DWS_DOCUMENT_STANDARD.md §4.1 still says
+          <span class="mono">***</span>; CLAUDE.md (HIC 19.09.2026) says
+          <span class="mono">---</span>. This document follows CLAUDE.md.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <span
+      >Source: docs/architecture/DWS_IQ_REFERENCE_ARCHITECTURE.md · branch
+      claude/focused-ritchie-rou192</span
+    >
+    <span>Lifetime Oy · Business ID 0772407-9 · Espoo, Finland</span>
+  </footer>
+</div>
