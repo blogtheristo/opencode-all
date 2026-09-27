@@ -1,10 +1,11 @@
 # Copilot Work Order — Bonus-Credit Burn to 30.09.2026
 
-Version: 1.9 [Latest]
+Version: 1.10 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.9 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/copilot-post-merge-log | Date: 27.09.2026 | Changes: Verified external merges of #2148 and #2152, updated Lane C status, and reran focused tests on merged main.
+- Version: 1.10 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: docs/session5-audit-20260927 | Date: 27.09.2026 | Changes: Session 5 reviewer audit; merged approved documentation PRs #2150, #2153, and #2155, held #2156, and recorded five follow-up findings in previously merged work.
+- Version: 1.9 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/copilot-post-merge-log | Date: 27.09.2026 | Changes: Verified external merges of #2148 and #2152, updated Lane C status, and reran focused tests on merged main.
 - Version: 1.8 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/copilot-bonus-log-b1-b4 | Date: 27.09.2026 | Changes: Recorded completed Lane C coverage measurement and tests.
 - Version: 1.7 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/copilot-bonus-log-b1-b4 | Date: 27.09.2026 | Changes: Recorded completed Lane B11 stale-PR triage.
 - Version: 1.6 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/copilot-bonus-log-b1-b4 | Date: 27.09.2026 | Changes: Recorded completed Lane B10 site-PR reconciliation.
@@ -124,6 +125,21 @@ Verified by Claude Code on 27.09.2026 against the PR list, PR comments and `git 
 | C2                | [#2152](https://github.com/blogtheristo/dws6/pull/2152) | merged `4a889b5` | green locally + post-merge | Added 18 tests for the top three files; target line coverage rose from 0% to 40.21%, 43.75%, and 33.85%. Full local pre-push CI and 18/18 tests on merged `main` passed. |
 | Post-session HIC merges | [#2148](https://github.com/blogtheristo/dws6/pull/2148), [#1829](https://github.com/blogtheristo/dws6/pull/1829), [#1762](https://github.com/blogtheristo/dws6/pull/1762), [#2152](https://github.com/blogtheristo/dws6/pull/2152) | merged externally | post-merge tests green | These PRs were merged after the prior status check. Lane C files and log are present on current `main`; the three focused suites passed 18/18 on merged `main`, and `npm run build` passed. No Copilot auto-merge was used. |
 | Admin scope       | [#2143](https://github.com/blogtheristo/dws6/pull/2143) | merged `e421737`            | green locally (11/11 backoffice tests)          | Back-office admin limited to `organizations.is_internal`; migration 096 applied to production on HIC instruction.                                                                                        |
+
+### Session 5 audit — 27.09.2026
+
+| PR | Merged (SHA) / held / needs-HIC / stale | Evidence | Note |
+| --- | --- | --- | --- |
+| [#2155](https://github.com/blogtheristo/dws6/pull/2155) | merged `b82f0bb` | Tested head `6ceb5cb`; clean merge tree; TypeScript clean; 164/164 test files and 1,687/1,687 tests passed | Documentation-only reconciliation. This audit supersedes its incomplete status summary: #1836 was also merged, and B2–B10 entries that still say `updated` are historical pre-merge states. |
+| [#2153](https://github.com/blogtheristo/dws6/pull/2153) | merged `082af79` | Tested head `4407842`; clean merge tree; TypeScript clean; 164/164 test files and 1,687/1,687 tests passed; truth lint 0 fail / 0 warn | Draft ABB audit preserved for HIC review; no runtime or public-site changes. |
+| [#2150](https://github.com/blogtheristo/dws6/pull/2150) | merged `31382e3` | Tested head `e400de3`; clean merge tree; TypeScript clean; 164/164 test files and 1,687/1,687 tests passed | Admin-only record of the Actions billing outage and DGX CI decision. |
+| [#2156](https://github.com/blogtheristo/dws6/pull/2156) | held | Owner hold in Session 5 handover; head `04c1259` unchanged | Do not merge until the owner confirms OpenClaw Phase 1 is complete. |
+| [#2009](https://github.com/blogtheristo/dws6/pull/2009) | needs-HIC | `dws6.com/shared/js/auth-handler.js:339-343,564-573`; `dws6.com/shared/js/supabase-client.js:161-169`; `dws6.com/login/index.html:639-641` | **High:** OAuth callback copies a URL/session-storage role into editable user metadata; roles outside the two-name privileged blocklist remain client-authorizable. Follow-up must move every protected role to server-owned entitlement data. |
+| [#2144](https://github.com/blogtheristo/dws6/pull/2144) | needs-HIC | `infrastructure/dgx-spark/day-runner.sh:70-80,213-245` | **High:** `run_script` logs failures but returns success, and callers always write completion markers. Failed daily/weekly/hourly jobs can be suppressed until the next period. |
+| [#1716](https://github.com/blogtheristo/dws6/pull/1716) | needs-HIC | `src/identity/attestation-issuance.ts:60-77`; `src/identity/attestation-store.ts:104-140`; migration 079 has a non-unique session/mandate index | **Medium:** credential/event persistence is non-atomic, and concurrent signing can overwrite revocation. Follow-up requires transactional/idempotent issuance and conditional state transitions. |
+| [#1762](https://github.com/blogtheristo/dws6/pull/1762) | needs-HIC | `src/agents/model-selector.ts:335-402` | **Medium:** the heavy-tier catalog has no Baseten Kimi K3 entry, so endpoint resolution alone cannot select the model as the PR claimed. |
+| [#1829](https://github.com/blogtheristo/dws6/pull/1829) | needs-HIC | `dws10.com/functions/api/contact.js:19-25` | **Medium:** Cloudflare KV read-then-write rate limiting is non-atomic and eventually consistent, so concurrent requests can exceed the advertised limit. |
+| Session 4 Lane C/D | held | Session transcript at 27.09.2026 07:56 UTC | No PR was produced; the resumed session remained blocked before implementation. |
 
 **Not reached in session 1:** B1–B9, C1–C2. D1–D2 are in #2144 and the admin-scoping fix is merged as #2143.
 
