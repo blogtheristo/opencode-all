@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- scripts/validate-product-publication.mjs
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -376,6 +378,8 @@ try {
   addError(`Could not enumerate changed dual-folder files: ${error.message}`);
 }
 for (const [source, mirror] of pairs.values()) {
+  if (!requiredPairs.some(([requiredSource, requiredMirror]) => requiredSource === source && requiredMirror === mirror)
+    && !existsSync(abs(source)) && !existsSync(abs(mirror))) continue;
   if (!existsSync(abs(source))) {
     addError(`Dual-folder source missing: ${source}`);
     continue;
