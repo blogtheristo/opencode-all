@@ -77,6 +77,7 @@ import gapsRoutes from './routes/gaps.routes.js';
 import agentsRoutes from './routes/agents.routes.js';
 import constructionLeadsRoutes from './routes/construction-leads.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
+import kyaInferenceRoutes from './routes/kya-inference.routes.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
@@ -488,6 +489,9 @@ app.post('/api/v1/kya/snap', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Snap execution failed', message: msg });
   }
 });
+
+// KYA+I Inference Jurisdiction Score (GET /api/v1/kya/inference/:sessionId)
+app.use('/api/v1/kya/inference', kyaInferenceRoutes);
 
 // BIM Pipeline (construction carbon compliance)
 app.use('/api/bim', bimRoutes);

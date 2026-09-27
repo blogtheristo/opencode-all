@@ -47,7 +47,7 @@ session assuming a draft is already agreed.
 | ---------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | Decision Flight Recorder     | 2 → 1 (in progress) | See entry below — event-first `decision_journey` shipped in `#2092`; check completeness before calling Tier 1 closed. |
 | Air-gapped Sovereign Runtime | 3                   | Architecture draft only. No repo artifact found.                                                                      |
-| Connector Marketplace        | 3                   | Architecture draft only. No repo artifact found.                                                                      |
+| Connector Marketplace        | 3 → 2               | HIC 27.09.2026: implement, after the Inference Jurisdiction Score. See entry below.                                   |
 | DGX Runtime Bundle           | 3                   | Architecture draft only. No repo artifact found.                                                                      |
 
 ## Entries
@@ -120,7 +120,10 @@ Would need a public registry schema, a review/approval gate, and a listing UI �
 none scoped yet.
 
 Päätös:
-Backlog
+Backlog → Toteutetaan (HIC, 27.09.2026: "Tier 3 implementation is needed" — Connector
+Marketplace chosen; ordered after the Inference Jurisdiction Score). Tier 3 → 2. First step
+per `docs/architecture/DWS_IQ_REFERENCE_ARCHITECTURE.md` §5: one MCP manifest per
+`src/integrations` connector, listed in the MCP Hub, before any public listing UI.
 ```
 
 ### DGX Runtime Bundle

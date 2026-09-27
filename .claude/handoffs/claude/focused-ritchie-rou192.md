@@ -22,5 +22,6 @@
 
 ## Next steps
 
-1. Build the Inference Jurisdiction Score (`GET /api/v1/kya/inference/:sessionId`) on its own branch.
-2. Add superseded-by pointer to `docs/architecture/00-MASTER-BLUEPRINT.md` once HIC approves this draft.
+1. IJS shipped on this branch (`src/identity/inference-jurisdiction.ts`, `src/routes/kya-inference.routes.ts`, `dws kya inference`, 34 tests). Open: push re-score on provider switch; `/api/v1/kya/status` route that `dws kya status` calls does not exist.
+2. Next (HIC 27.09.2026): Connector Marketplace, Tier 3 → 2 — start with one MCP manifest per `src/integrations` connector.
+3. Add superseded-by pointer to `docs/architecture/00-MASTER-BLUEPRINT.md` once HIC approves this draft.

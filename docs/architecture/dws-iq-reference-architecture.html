@@ -512,7 +512,7 @@
       <div class="eyebrow">Lifetime Oy · DWS IQ Industrial Intelligence · Internal · Gold Standard</div>
       <h1>DWS IQ Reference Architecture</h1>
     </div>
-    <div class="meta mono">v1.1 · 27.09.2026<br />Status: DRAFT · HIC decisions 27.09.2026: IJS first, public sites stay Nordic</div>
+    <div class="meta mono">v1.2 · 27.09.2026<br />Status: DRAFT · HIC decisions 27.09.2026: IJS first, public sites stay Nordic</div>
     <p class="lede">
       We amplify human intelligence in regulated industries. This page maps the DWS IQ platform onto
       the 12-layer enterprise AI reference model, adds the two layers that are specific to DWS
@@ -679,7 +679,7 @@
           <div class="it"><b>Evidence headers</b><span>evidence-stamp · Art. 12–14</span></div>
         </div>
         <p class="gap">
-          Inference Jurisdiction Score (/kya inference) not implemented. No scenario branching for
+          Inference Jurisdiction Score is on demand only; no re-score on provider switch. No scenario branching for
           agent changes. Aegis air-gap not demonstrated.
         </p>
       </div>
@@ -929,11 +929,12 @@
         </thead>
         <tbody>
           <tr>
-            <td><span class="prio p1">P1</span></td>
+            <td><span class="chip live">Done</span></td>
             <td class="n">1 · 6</td>
             <td>
-              <b>Ship the Inference Jurisdiction Score.</b> Sovereignty is our primary segmentation
-              axis; the per-session proof is not implemented.
+              <b>Ship the Inference Jurisdiction Score.</b> Shipped 27.09.2026:
+              <span class="mono">GET /api/v1/kya/inference/:sessionId</span> and
+              <span class="mono">dws kya inference</span>. Weakest-link score over every recorded call.
             </td>
             <td>
               Implement <span class="mono">GET /api/v1/kya/inference/:sessionId</span> from LiteLLM
@@ -1012,11 +1013,11 @@
             <td>Delivery</td>
           </tr>
           <tr>
-            <td><span class="prio p3">P3</span></td>
+            <td><span class="prio p2">Next</span></td>
             <td class="n">3</td>
             <td>
-              <b>Connector catalogue.</b> Expose src/integrations as MCP tools with a manifest,
-              before building a marketplace.
+              <b>Connector Marketplace (HIC: Tier 3 → 2).</b> Expose src/integrations as MCP tools
+              with a manifest, before building a public listing.
             </td>
             <td>One manifest file per connector, listed in the MCP Hub.</td>
             <td>R08 CIO</td>
