@@ -1,3 +1,5 @@
+# Evidence: Tool=GitHub-Copilot-CLI-1.0.88 Model=openai/gpt-5.6-luna Agent=copilot Date=2026-09-27
+# Audit trail: git log -- .github/workflows/verify-skills.yml
 name: Skill Verification Gate
 
 on:
@@ -13,7 +15,7 @@ on:
 
 jobs:
   verify-skills:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]
     name: Skill Surface Verification
     steps:
       - uses: actions/checkout@v4

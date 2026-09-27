@@ -100,7 +100,21 @@ same dual-registration and is flagged inline below but not yet resolved.
 
 ## GitHub Actions — Retained Workflows
 
-### PR/Push-Triggered (must stay on GHA)
+### PR/Push-Triggered (DGX self-hosted runner)
+
+PR gates run on `[self-hosted, dgx-spark]`; they remain GitHub Actions workflows for
+event orchestration but consume no GitHub-hosted runner minutes. The migrated gate set is:
+`migration-filename.yml`, `supabase-anon-soak.yml`, `validate-pricing.yml`,
+`verify-skills.yml`, `skill-budget-ci.yml`, `image-guardian.yml`,
+`housekeeping-weekly.yml`, `ci-audit-verify.yml`, `lint-truth-claims.yml`,
+`security-check-pr.yml`, `validate-dod.yml`, `pr-auto-merge.yml`, and
+`claude-auto-fix.yml`. Hosted-runner detection/fallback jobs are intentionally absent.
+
+ARM64 review (DGX Spark): the workflows use shell/Python/Node commands and actions with
+Linux ARM64 support (`actions/checkout`, `actions/setup-node`, `actions/setup-python`,
+`actions/github-script`, `actions/upload-artifact`, and `supabase/setup-cli`). No
+x86-only action or binary was found in this migrated set. `dast-zap-scan.yml` remains
+unchanged on GitHub-hosted Ubuntu because its ZAP Docker path is the documented exception.
 
 | Workflow                      | Trigger                        | Purpose                       |
 | ----------------------------- | ------------------------------ | ----------------------------- |
@@ -123,7 +137,7 @@ same dual-registration and is flagged inline below but not yet resolved.
 | `no-delete-branch-guard.yml`  | branch delete event            | Prevent branch deletion       |
 | `pr-auto-merge.yml`           | check_suite/PR labeled         | Auto-merge approved PRs       |
 | `ruff-auto-fix.yml`           | workflow_dispatch              | Python lint auto-fix          |
-| `dast-zap-scan.yml`           | PR main (src/\*\*) + monthly   | OWASP ZAP scan (needs Docker) |
+| `dast-zap-scan.yml`           | monthly + manual               | OWASP ZAP scan (needs Docker) |
 
 ### Scheduled but Stays on GHA
 

@@ -1,30 +1,32 @@
+# Evidence: Tool=GitHub-Copilot-CLI-1.0.88 Model=openai/gpt-5.6-luna Agent=copilot Date=2026-09-27
+# Audit trail: git log -- .github/workflows/validate-pricing.yml
 name: Validate Pricing Catalog
 
 on:
   pull_request:
     branches: [main]
     paths:
-      - 'dws10.com/config/products.json'
-      - 'landing-pages/dws10-com/config/products.json'
-      - 'DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md'
-      - 'scripts/validate-pricing.ts'
-      - 'scripts/validate-pricing.ps1'
-      - 'scripts/load-labor-catalog.py'
-      - 'scripts/validate-product-publication.mjs'
-      - 'dws10.com/buy/**'
-      - 'dws10.com/price-list/**'
-      - 'landing-pages/dws10-com/buy/**'
-      - 'landing-pages/dws10-com/price-list/**'
-      - 'lifetime.fi/config/consulting-packages.json'
-      - 'lifetime.fi/price-list/**'
-      - 'landing-pages/lifetime-fi/config/consulting-packages.json'
-      - 'landing-pages/lifetime-fi/price-list/**'
+      - "dws10.com/config/products.json"
+      - "landing-pages/dws10-com/config/products.json"
+      - "DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md"
+      - "scripts/validate-pricing.ts"
+      - "scripts/validate-pricing.ps1"
+      - "scripts/load-labor-catalog.py"
+      - "scripts/validate-product-publication.mjs"
+      - "dws10.com/buy/**"
+      - "dws10.com/price-list/**"
+      - "landing-pages/dws10-com/buy/**"
+      - "landing-pages/dws10-com/price-list/**"
+      - "lifetime.fi/config/consulting-packages.json"
+      - "lifetime.fi/price-list/**"
+      - "landing-pages/lifetime-fi/config/consulting-packages.json"
+      - "landing-pages/lifetime-fi/price-list/**"
   push:
     branches: [main]
     paths:
-      - 'dws10.com/config/products.json'
-      - 'landing-pages/dws10-com/config/products.json'
-      - 'scripts/validate-product-publication.mjs'
+      - "dws10.com/config/products.json"
+      - "landing-pages/dws10-com/config/products.json"
+      - "scripts/validate-product-publication.mjs"
 
 concurrency:
   group: validate-pricing-${{ github.ref }}
@@ -32,16 +34,16 @@ concurrency:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # need main for priceVersion monotonic check
+          fetch-depth: 0 # need main for priceVersion monotonic check
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: "24"
 
       - name: Install tsx
         run: npm i -g tsx@4
