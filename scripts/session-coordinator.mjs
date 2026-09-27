@@ -18,6 +18,7 @@ import { join } from 'node:path';
 const SESSIONS_DIR = '.workflows/sessions';
 const STATE_FILE = join(SESSIONS_DIR, 'coordinator-state.json');
 const LOCKS_DIR = join(SESSIONS_DIR, 'locks');
+const VALID_SESSION_ID = /^[a-zA-Z0-9][a-zA-Z0-9_-]{0,127}$/;
 
 const PLATFORMS = ['claude-code', 'opencode', 'cursor', 'copilot', 'antigravity'];
 const SESSION_STATES = ['RECOVERED', 'CLAIMED', 'PROCESSING', 'PAUSED', 'COMPLETED', 'ARCHIVED'];
@@ -50,7 +51,7 @@ function acquireLock(sessionId, platform) {
     const ageMs = Date.now() - new Date(lock.acquired_at).getTime();
 
     // Lock expires after 24 hours
-    if (ageMs > 24 * 60 * 60 * 1000) {
+    if (lock.released_at || ageMs > 24 * 60 * 60 * 1000) {
       console.log(`[lock] Expired lock for ${sessionId}, reclaiming...`);
       writeFileSync(
         lockFile,
@@ -80,6 +81,10 @@ function releaseLock(sessionId) {
 }
 
 function claimSession(sessionId, platform) {
+  if (!VALID_SESSION_ID.test(sessionId)) {
+    console.error(`Invalid session ID: ${sessionId}`);
+    return false;
+  }
   if (!PLATFORMS.includes(platform)) {
     console.error(`Invalid platform: ${platform}. Must be one of: ${PLATFORMS.join(', ')}`);
     return false;
@@ -146,6 +151,7 @@ function releaseSession(sessionId, status = 'COMPLETED') {
   });
 
   releaseLock(sessionId);
+  delete state.active_claims[sessionId];
   state.last_updated = new Date().toISOString();
   writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
 
@@ -251,7 +257,7 @@ switch (command) {
       console.error('Usage: claim <session-id> <platform>');
       process.exit(1);
     }
-    claimSession(args[0], args[1]);
+    if (!claimSession(args[0], args[1])) process.exitCode = 1;
     break;
 
   case 'release':
@@ -259,7 +265,7 @@ switch (command) {
       console.error('Usage: release <session-id> [status]');
       process.exit(1);
     }
-    releaseSession(args[0], args[1] || 'COMPLETED');
+    if (!releaseSession(args[0], args[1] || 'COMPLETED')) process.exitCode = 1;
     break;
 
   case 'list':
@@ -287,7 +293,7 @@ switch (command) {
       console.error('Usage: parallel <session1-id> <platform1> <session2-id> <platform2>');
       process.exit(1);
     }
-    createParallelWorkflow(args[0], args[1], args[2], args[3]);
+    if (!createParallelWorkflow(args[0], args[1], args[2], args[3])) process.exitCode = 1;
     break;
 
   default:

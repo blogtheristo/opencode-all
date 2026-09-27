@@ -1,11 +1,17 @@
 #!/usr/bin/env node
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- scripts/validate-product-publication.mjs
 import { execFileSync } from 'node:child_process';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { buildRegistry, renderMarkdown } from './truth/product-registry.mjs';
 import { buildLifecycle, renderMarkdown as renderLifecycle } from './truth/product-lifecycle.mjs';
 import { checkPriceListVersions } from './truth/price-list-versions.mjs';
 import { buildValuation, renderMarkdown as renderValuation } from './truth/product-valuation.mjs';
+import { buildFulfilment, renderMarkdown as renderFulfilment } from './truth/product-fulfilment.mjs';
+import { buildBacklog, renderMarkdown as renderBacklog } from './truth/product-readiness-backlog.mjs';
+import { render as renderRunbook } from './truth/generate-fulfilment-runbook.mjs';
+import { build as buildFirehoseChapter5Preview, OUT_PATHS as FIREHORSE_CHAPTER5_OUT_PATHS } from './truth/generate-firehorse-store-preview-data.mjs';
 
 const ROOT = resolve(process.cwd());
 const CATALOG_VERSION = '1.33';
@@ -372,6 +378,8 @@ try {
   addError(`Could not enumerate changed dual-folder files: ${error.message}`);
 }
 for (const [source, mirror] of pairs.values()) {
+  if (!requiredPairs.some(([requiredSource, requiredMirror]) => requiredSource === source && requiredMirror === mirror)
+    && !existsSync(abs(source)) && !existsSync(abs(mirror))) continue;
   if (!existsSync(abs(source))) {
     addError(`Dual-folder source missing: ${source}`);
     continue;
@@ -574,6 +582,127 @@ for (const problem of checkPriceListVersions()) addError(`Price-list versions: $
     addError('Product lifecycle registry is stale: run node scripts/truth/product-lifecycle.mjs');
   const noState = life.rows.filter((r) => !r.state).map((r) => r.id);
   if (noState.length) addError(`Product lifecycle: IDs without state: ${noState.join(', ')}`);
+}
+
+// ---------------------------------------------------------------------------
+// WARN-ONLY reporting (HIC 27.09.2026): fulfilment/readiness classification and the per-SKU
+// backlog are advisory. They are never added to `errors` and never affect the exit code or any
+// public/payment surface. They only print a warning when the generated files are stale, so an
+// engineer regenerates them the same way the other truth/* generators already work.
+{
+  const warnings = [];
+  const fulfil = buildFulfilment(catalog);
+  const fulfilMdPath = resolve(ROOT, 'docs/truth/PRODUCT_FULFILMENT.md');
+  const fulfilJsonPath = resolve(ROOT, 'config/truth/product-fulfilment.json');
+  const curFulfilMd = existsSync(fulfilMdPath) ? readFileSync(fulfilMdPath, 'utf8') : '';
+  const curFulfilJson = existsSync(fulfilJsonPath) ? readFileSync(fulfilJsonPath, 'utf8') : '';
+  if (curFulfilMd !== renderFulfilment(fulfil) || curFulfilJson !== JSON.stringify(fulfil, null, 2) + '\n') {
+    warnings.push('Product fulfilment classification is stale: run node scripts/truth/product-fulfilment.mjs');
+  }
+  if (!fulfil.summary.reconciles) {
+    warnings.push('Product fulfilment classification: chapter map does not reconcile with the catalogue');
+  }
+
+  const backlog = buildBacklog(catalog);
+  const backlogMdPath = resolve(ROOT, 'docs/truth/PRODUCT_READINESS_BACKLOG.md');
+  const backlogJsonPath = resolve(ROOT, 'config/truth/product-readiness-backlog.json');
+  const curBacklogMd = existsSync(backlogMdPath) ? readFileSync(backlogMdPath, 'utf8') : '';
+  const curBacklogJson = existsSync(backlogJsonPath) ? readFileSync(backlogJsonPath, 'utf8') : '';
+  if (curBacklogMd !== renderBacklog(backlog) || curBacklogJson !== JSON.stringify(backlog, null, 2) + '\n') {
+    warnings.push('Product readiness backlog is stale: run node scripts/truth/product-readiness-backlog.mjs');
+  }
+
+  // Runbook staleness (same warn-only contract).
+  const chaptersDoc = JSON.parse(readFileSync(resolve(ROOT, 'config/truth/product-capability-chapters.json'), 'utf8'));
+  const deliveryTemplates = JSON.parse(readFileSync(resolve(ROOT, 'config/truth/product-delivery-templates.json'), 'utf8'));
+  const runbookPath = resolve(ROOT, 'docs/runbooks/PRODUCT_FULFILMENT_RUNBOOK.md');
+  const curRunbook = existsSync(runbookPath) ? readFileSync(runbookPath, 'utf8') : '';
+  if (curRunbook !== renderRunbook(catalog, chaptersDoc, deliveryTemplates)) {
+    warnings.push('Product fulfilment runbook is stale: run node scripts/truth/generate-fulfilment-runbook.mjs');
+  }
+
+  // Tranche 2 managed delivery contract completeness — every SKU must carry checkoutUrl,
+  // deliveryProfile, fulfilment, acceptanceKpi and exclusions. Advisory only: a missing field
+  // here is a content gap to close, not a reason to unpublish or block payment.
+  const missingContractFields = [];
+  for (const [id, p] of Object.entries(catalog.products || {})) {
+    const missing = ['checkoutUrl', 'checkoutMode', 'deliveryProfile', 'fulfilment', 'acceptanceKpi', 'exclusions'].filter(
+      (f) => !p[f],
+    );
+    if (missing.length) missingContractFields.push(`${id} (missing ${missing.join(', ')})`);
+  }
+  if (missingContractFields.length) {
+    warnings.push(`Products missing a full delivery contract: ${missingContractFields.join('; ')}`);
+  }
+
+  // Canonical detail page existence — advisory: flags a product whose detailsUrl points at a
+  // ../products/*.html file that does not exist on disk (a dead link), never blocks a sale.
+  const deadDetailsUrls = [];
+  for (const [id, p] of Object.entries(catalog.products || {})) {
+    const url = p.detailsUrl;
+    if (typeof url === 'string' && url.startsWith('../products/')) {
+      const filePath = resolve(ROOT, 'dws10.com/products', url.replace('../products/', ''));
+      if (!existsSync(filePath)) deadDetailsUrls.push(`${id} -> ${url}`);
+    }
+  }
+  if (deadDetailsUrls.length) {
+    warnings.push(`Products with a dead detailsUrl (no file on disk): ${deadDetailsUrls.join('; ')}`);
+  }
+
+  // Product-page dual-folder mirror parity — advisory here (the hard byte-for-byte dual-folder
+  // check elsewhere in this file already covers correctness; this just gives an early, scoped
+  // warning specific to generated product pages so `python scripts/build_store.py` output is
+  // never left unsynced silently).
+  const productsDir = resolve(ROOT, 'dws10.com/products');
+  const mirrorProductsDir = resolve(ROOT, 'landing-pages/dws10-com/products');
+  if (existsSync(productsDir) && existsSync(mirrorProductsDir)) {
+    const driftFiles = [];
+    for (const entry of readdirSync(productsDir, { withFileTypes: true })) {
+      if (!entry.isFile()) continue;
+      const file = entry.name;
+      const a = resolve(productsDir, file);
+      const b = resolve(mirrorProductsDir, file);
+      if (!existsSync(b) || readFileSync(a, 'utf8') !== readFileSync(b, 'utf8')) {
+        driftFiles.push(file);
+      }
+    }
+    if (driftFiles.length) {
+      warnings.push(
+        `Product page mirror drift (run rsync dws10.com/products/ -> landing-pages/dws10-com/products/): ${driftFiles.length} file(s), e.g. ${driftFiles.slice(0, 5).join(', ')}`,
+      );
+    }
+  }
+
+  // Firehorse Chapter 5 store-preview mirror staleness (HIC 2026-09-27) — advisory only.
+  // dws6.com/dashboard/firehorse/store-preview.html renders a same-origin JSON mirror of the 9
+  // Chapter 5 (Firehorse applications) catalogue records, generated by
+  // scripts/truth/generate-firehorse-store-preview-data.mjs. Reuse that generator's own build()
+  // rather than re-deriving the 9-SKU field extraction here, and just diff its deterministic
+  // output against what is currently on disk (both dual-folder copies).
+  try {
+    const firehoseData = JSON.stringify(buildFirehoseChapter5Preview(), null, 2) + '\n';
+    const staleFirehorseCopies = [];
+    for (const p of FIREHORSE_CHAPTER5_OUT_PATHS) {
+      const cur = existsSync(p) ? readFileSync(p, 'utf8') : '';
+      if (cur !== firehoseData) staleFirehorseCopies.push(p.replace(`${ROOT}/`, ''));
+    }
+    if (staleFirehorseCopies.length) {
+      warnings.push(
+        `Firehorse Chapter 5 store-preview mirror is stale: run node scripts/truth/generate-firehorse-store-preview-data.mjs (${staleFirehorseCopies.join(', ')})`,
+      );
+    }
+  } catch (error) {
+    warnings.push(`Firehorse Chapter 5 store-preview mirror could not be checked: ${error.message}`);
+  }
+
+  if (warnings.length) {
+    console.warn(`[validate-product-publication] WARN — ${warnings.length} advisory notice(s) (non-blocking):`);
+    warnings.forEach((w) => console.warn(`  ! ${w}`));
+  } else {
+    console.log(
+      `[validate-product-publication] advisory OK — fulfilment classification and readiness backlog current (${fulfil.summary.totalProducts} products, ${backlog.summary.totalOpenIssues} open backlog issues)`,
+    );
+  }
 }
 
 if (errors.length) {

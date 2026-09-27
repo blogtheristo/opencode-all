@@ -17,6 +17,7 @@ export const LEARNING_HUB_VERSION = '2026.09.27';
 
 export const DOCUMENTATION_CATALOGUE: readonly DocumentationEntry[] = [
   { id: 'admin-manual', title: 'DWS IQ Platform Admin Manual', summary: 'Platform operations, maintenance, and role-pack procedures.', output: 'docs/admin-manual.html', roles: ['admin'] },
+  { id: 'kya-jev-specification', title: 'kya-jev Specification', summary: 'KYA-gated typed decisions: signed verdicts, audit logging, calibration status, and implementation plan.', output: 'docs/kya-jev-specification.html', roles: ['admin'] },
   { id: 'learning-standard', title: 'DWS Learning Standard', summary: 'Human-in-command learning outcomes and oversight practices.', output: 'docs/dws-learning-standard.html', roles: ['admin'] },
   { id: 'security-standard', title: 'DWS Security Standard', summary: 'Internal security controls and implementation requirements.', output: 'docs/dws-security-standard.html', roles: ['admin'] },
   { id: 'document-standard', title: 'DWS Document Standard', summary: 'Document governance, provenance, and source-of-truth rules.', output: 'docs/dws-document-standard.html', roles: ['admin'] },

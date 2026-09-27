@@ -1,3 +1,5 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- src/openapi.ts
 /**
  * DWS IQ 6 — OpenAPI 3.1 Specification
  *
@@ -773,6 +775,84 @@ const spec = {
         operationId: 'onboardStatus',
         security: [{ bearerAuth: [] }],
         responses: { '200': { description: 'Onboarding progress' } },
+      },
+    },
+    '/v1/payments/checkout': {
+      post: {
+        tags: ['Payments'],
+        summary: 'Create a durable catalogue order intent and trusted payment checkout',
+        operationId: 'createProductCheckout',
+        parameters: [{ in: 'header', name: 'Idempotency-Key', required: false, schema: { type: 'string', minLength: 8, maxLength: 128 } }],
+        requestBody: {
+          required: true,
+          content: { 'application/json': { schema: {
+            type: 'object',
+            properties: {
+              product_id: { type: 'string' }, customer_email: { type: 'string', format: 'email' },
+              customer_name: { type: 'string' }, company: { type: 'string' },
+              country: { type: 'string', minLength: 2, maxLength: 2 },
+              payment_provider: { type: 'string', enum: ['revolut', 'paypal'] },
+            },
+            required: ['product_id', 'customer_email', 'customer_name', 'country', 'payment_provider'],
+          } } },
+        },
+        responses: {
+          '201': { description: 'Durable order intent, payment URL, and operations review created' },
+          '404': { description: 'Unknown product SKU' }, '409': { description: 'Archived product SKU' },
+          '503': { description: 'Intent persistence or payment provider unavailable' },
+        },
+      },
+    },
+    '/v1/orders/readiness': {
+      get: {
+        tags: ['Payments'], summary: 'Check whether product checkout is available',
+        operationId: 'getProductOrderReadiness',
+        responses: {
+          '200': {
+            description: 'Product checkout is available',
+            content: { 'application/json': { schema: { type: 'object', properties: { status: { type: 'string', enum: ['ready'] } }, required: ['status'] } } },
+          },
+          '503': {
+            description: 'Product checkout is unavailable',
+            content: { 'application/json': { schema: { type: 'object', properties: { status: { type: 'string', enum: ['unavailable'] } }, required: ['status'] } } },
+          },
+        },
+      },
+    },
+    '/v1/orders/notify': {
+      post: {
+        tags: ['Payments'], summary: 'Persist a checkout fallback order intent and operations review',
+        operationId: 'notifyProductOrder',
+        responses: {
+          '201': { description: 'Order intent and review request persisted' },
+          '200': { description: 'Idempotent order intent replay' },
+          '400': { description: 'Invalid order payload' }, '404': { description: 'Unknown product SKU' },
+          '503': { description: 'Order intake unavailable; payment must not continue' },
+        },
+      },
+    },
+    '/v1/orders/{id}/confirm-payment': {
+      post: {
+        tags: ['Payments'], summary: 'Confirm a provider payment after operator verification',
+        operationId: 'confirmProductOrderPayment', security: [{ adminKey: [] }],
+        parameters: [
+          { in: 'path', name: 'id', required: true, schema: { type: 'string', format: 'uuid' } },
+          { in: 'header', name: 'X-Operator-Id', required: true, schema: { type: 'string', minLength: 3, maxLength: 200 } },
+        ],
+        requestBody: { required: true, content: { 'application/json': { schema: {
+          type: 'object', properties: {
+            payment_provider: { type: 'string', enum: ['revolut', 'paypal'] },
+            transaction_reference: { type: 'string', minLength: 3, maxLength: 200 },
+            amount_cents: { type: 'integer', minimum: 1 }, currency: { type: 'string', minLength: 3, maxLength: 3 },
+          }, required: ['payment_provider', 'transaction_reference', 'amount_cents', 'currency'],
+        } } } },
+        responses: {
+          '200': { description: 'Verified payment queued for fulfilment' },
+          '400': { description: 'Invalid verification payload' },
+          '401': { description: 'Missing or invalid admin credentials' },
+          '409': { description: 'Amount, currency, provider, or reference mismatch' },
+          '503': { description: 'Payment confirmation unavailable' },
+        },
       },
     },
     '/api/v1/payments/subscribe': {

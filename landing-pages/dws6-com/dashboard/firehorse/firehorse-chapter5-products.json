@@ -1,0 +1,349 @@
+{
+  "$comment": "Generated, same-origin mirror of the 9 Chapter 5 (Firehorse applications) catalogue records, for dws6.com/dashboard/firehorse/store-preview.html. Source of truth remains dws10.com/config/products.json — do not hand-edit this file, run scripts/truth/generate-firehorse-store-preview-data.mjs.",
+  "catalogVersion": "1.33",
+  "products": [
+    {
+      "id": "FH-AUTO-001",
+      "name": "Firehorse Amplify",
+      "caption": "Event-driven workflows that capture ESG data from your systems with a complete audit trail.",
+      "price": 4950,
+      "currency": "EUR",
+      "priceNote": "Per project",
+      "description": "Manual data entry is where compliance fines start. Firehorse Amplify eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.",
+      "features": [
+        "Event-driven compliance workflows",
+        "Eliminate manual data entry errors",
+        "Complete audit trail for ESG data"
+      ],
+      "checkoutUrl": "https://dws10.com/checkout/?product=FH-AUTO-001",
+      "detailsUrl": "https://dws10.com/products/fh-auto-001.html",
+      "exclusions": [
+        "Source-system integrations not named in the order",
+        "Historical data backfill beyond the documented onboarding scope",
+        "Custom report templates beyond the ordered package"
+      ],
+      "acceptanceKpi": {
+        "condition": "Buyer's Firehorse tenant is active with the ordered module enabled and a first workflow run completed successfully.",
+        "requiredOutcomes": [
+          "Firehorse tenant/module active within the delivery window",
+          "First workflow run completed and buyer-visible",
+          "Buyer receives activation confirmation and access credentials"
+        ],
+        "rule": "All listed required outcomes must be met. Delivery follows the chapter managed-delivery process described in fulfilment.deliveryMode; unattended automation is not claimed unless documented separately for this SKU."
+      },
+      "fulfilment": {
+        "owner": "Lifetime Oy — Firehorse Applications Team",
+        "route": "https://dws10.com/contact/",
+        "acknowledgementSla": "1 business day",
+        "deliveryMode": "Managed SaaS tenant activation with human-verified configuration; no unattended automation claimed for first activation.",
+        "runbookRef": "docs/runbooks/PRODUCT_FULFILMENT_RUNBOOK.md#chapter-5-firehorse-applications"
+      },
+      "storeCategory": "platform"
+    },
+    {
+      "id": "FH-OMNI-001",
+      "name": "Firehorse Omnichannel Next",
+      "caption": "AI marketing engine that checks every claim against the EU AI Act and the Green Claims Directive.",
+      "price": 499,
+      "currency": "EUR",
+      "priceNote": "Per campaign cycle",
+      "description": "Launch climate-tech products without greenwashing risk. AI-powered marketing engine that ensures every claim meets EU AI Act and Green Claims Directive requirements. Includes 4-week pilot campaign with measurable results.",
+      "features": [
+        "AI-powered marketing engine",
+        "EU AI Act & Green Claims compliant",
+        "4-week pilot with measurable results"
+      ],
+      "checkoutUrl": "https://dws10.com/checkout/?product=FH-OMNI-001",
+      "detailsUrl": "https://dws10.com/products/fh-omni-001.html",
+      "exclusions": [
+        "Source-system integrations not named in the order",
+        "Historical data backfill beyond the documented onboarding scope",
+        "Custom report templates beyond the ordered package"
+      ],
+      "acceptanceKpi": {
+        "condition": "Buyer's Firehorse tenant is active with the ordered module enabled and a first workflow run completed successfully.",
+        "requiredOutcomes": [
+          "Firehorse tenant/module active within the delivery window",
+          "First workflow run completed and buyer-visible",
+          "Buyer receives activation confirmation and access credentials"
+        ],
+        "rule": "All listed required outcomes must be met. Delivery follows the chapter managed-delivery process described in fulfilment.deliveryMode; unattended automation is not claimed unless documented separately for this SKU."
+      },
+      "fulfilment": {
+        "owner": "Lifetime Oy — Firehorse Applications Team",
+        "route": "https://dws10.com/contact/",
+        "acknowledgementSla": "1 business day",
+        "deliveryMode": "Managed SaaS tenant activation with human-verified configuration; no unattended automation claimed for first activation.",
+        "runbookRef": "docs/runbooks/PRODUCT_FULFILMENT_RUNBOOK.md#chapter-5-firehorse-applications"
+      },
+      "storeCategory": "platform"
+    },
+    {
+      "id": "FH-RPT-001",
+      "name": "DWS IQ Report",
+      "caption": "Automated Fit for 55 report template with SAP integration and 4-week validation.",
+      "price": 1999,
+      "currency": "EUR",
+      "priceNote": "Per report template",
+      "description": "Replace 200+ hours of manual report building with one automated template. Fit for 55 compliant dashboards with SAP integration, real-time data feeds, and 4-week validation included. Your compliance team gets their weekends back.",
+      "features": [
+        "Automated Fit for 55 dashboards",
+        "SAP integration with real-time data",
+        "4-week validation included"
+      ],
+      "checkoutUrl": "https://dws10.com/checkout/?product=FH-RPT-001",
+      "detailsUrl": "https://dws10.com/products/fh-rpt-001.html",
+      "exclusions": [
+        "Source-system integrations not named in the order",
+        "Historical data backfill beyond the documented onboarding scope",
+        "Custom report templates beyond the ordered package"
+      ],
+      "acceptanceKpi": {
+        "condition": "Buyer's Firehorse tenant is active with the ordered module enabled and a first workflow run completed successfully.",
+        "requiredOutcomes": [
+          "Firehorse tenant/module active within the delivery window",
+          "First workflow run completed and buyer-visible",
+          "Buyer receives activation confirmation and access credentials"
+        ],
+        "rule": "All listed required outcomes must be met. Delivery follows the chapter managed-delivery process described in fulfilment.deliveryMode; unattended automation is not claimed unless documented separately for this SKU."
+      },
+      "fulfilment": {
+        "owner": "Lifetime Oy — Firehorse Applications Team",
+        "route": "https://dws10.com/contact/",
+        "acknowledgementSla": "1 business day",
+        "deliveryMode": "Managed SaaS tenant activation with human-verified configuration; no unattended automation claimed for first activation.",
+        "runbookRef": "docs/runbooks/PRODUCT_FULFILMENT_RUNBOOK.md#chapter-5-firehorse-applications"
+      },
+      "storeCategory": "platform"
+    },
+    {
+      "id": "FH-SIGN-001",
+      "name": "Firehorse Signed Reports",
+      "caption": "DocuSign eSignatures on Firehorse reports: author, reviewer and auditor sign in sequence.",
+      "price": 199,
+      "currency": "EUR",
+      "priceUnit": "per-year",
+      "priceNote": "€199/year add-on — requires Firehorse Report",
+      "description": "Add legally binding eSignatures to any Firehorse report. Compliance reports, carbon assessments, and investor reports get DocuSign eSignature — court-defensible, audit-ready, with full tracking. Author, reviewer, and auditor sign in sequence. Signed PDFs auto-archived.",
+      "features": [
+        "DocuSign eSignature on all Firehorse reports",
+        "Multi-party signing (author → reviewer → auditor)",
+        "Signed PDF download and audit trail"
+      ],
+      "checkoutUrl": "https://dws10.com/checkout/?product=FH-SIGN-001",
+      "detailsUrl": "https://dws10.com/products/firehorse-signed-reports.html",
+      "exclusions": [
+        "Source-system integrations not named in the order",
+        "Historical data backfill beyond the documented onboarding scope",
+        "Custom report templates beyond the ordered package"
+      ],
+      "acceptanceKpi": {
+        "condition": "Buyer's Firehorse tenant is active with the ordered module enabled and a first workflow run completed successfully.",
+        "requiredOutcomes": [
+          "Firehorse tenant/module active within the delivery window",
+          "First workflow run completed and buyer-visible",
+          "Buyer receives activation confirmation and access credentials"
+        ],
+        "rule": "All listed required outcomes must be met. Delivery follows the chapter managed-delivery process described in fulfilment.deliveryMode; unattended automation is not claimed unless documented separately for this SKU."
+      },
+      "fulfilment": {
+        "owner": "Lifetime Oy — Firehorse Applications Team",
+        "route": "https://dws10.com/contact/",
+        "acknowledgementSla": "1 business day",
+        "deliveryMode": "Managed SaaS tenant activation with human-verified configuration; no unattended automation claimed for first activation.",
+        "runbookRef": "docs/runbooks/PRODUCT_FULFILMENT_RUNBOOK.md#chapter-5-firehorse-applications"
+      },
+      "storeCategory": "add-on"
+    },
+    {
+      "id": "FH-CMS-001",
+      "name": "Firehorse Content Management",
+      "caption": "Evidence vault: auto-tagged compliance documents, certificate expiry alerts and semantic search.",
+      "price": 2999,
+      "currency": "EUR",
+      "priceNote": "Setup + migration",
+      "description": "When auditors ask for proof, find it in seconds — not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.",
+      "features": [
+        "Auto-tagged compliance documents",
+        "Certificate expiry alerts",
+        "Semantic search across evidence"
+      ],
+      "checkoutUrl": "https://dws10.com/checkout/?product=FH-CMS-001",
+      "detailsUrl": "https://dws10.com/products/fh-cms-001.html",
+      "exclusions": [
+        "Source-system integrations not named in the order",
+        "Historical data backfill beyond the documented onboarding scope",
+        "Custom report templates beyond the ordered package"
+      ],
+      "acceptanceKpi": {
+        "condition": "Buyer's Firehorse tenant is active with the ordered module enabled and a first workflow run completed successfully.",
+        "requiredOutcomes": [
+          "Firehorse tenant/module active within the delivery window",
+          "First workflow run completed and buyer-visible",
+          "Buyer receives activation confirmation and access credentials"
+        ],
+        "rule": "All listed required outcomes must be met. Delivery follows the chapter managed-delivery process described in fulfilment.deliveryMode; unattended automation is not claimed unless documented separately for this SKU."
+      },
+      "fulfilment": {
+        "owner": "Lifetime Oy — Firehorse Applications Team",
+        "route": "https://dws10.com/contact/",
+        "acknowledgementSla": "1 business day",
+        "deliveryMode": "Managed SaaS tenant activation with human-verified configuration; no unattended automation claimed for first activation.",
+        "runbookRef": "docs/runbooks/PRODUCT_FULFILMENT_RUNBOOK.md#chapter-5-firehorse-applications"
+      },
+      "storeCategory": "platform"
+    },
+    {
+      "id": "conversational-agent",
+      "name": "EU-Hosted Conversational Agent",
+      "caption": "AI agent on Teams, WhatsApp, Zoom or webhook with EU hosting and your choice of model.",
+      "price": 3500,
+      "currency": "EUR",
+      "priceNote": "25 hours standard implementation",
+      "description": "Deploy AI agents on Teams, WhatsApp, Zoom, or secure webhook with EU-sovereign hosting. GDPR + EU AI Act Article 50 (transparency) baked in. Customer choice of LLM — Claude, Mistral, Groq, or self-hosted on DGX Spark — so you control where the prompt lands. Live in 25 hours.",
+      "features": [
+        "EU-hosted, GDPR + EU AI Act Art. 50 compliant",
+        "Customer-choice LLM (Claude / Mistral / Groq / self-hosted)",
+        "Teams, WhatsApp, Zoom, secure webhook — live in 25h"
+      ],
+      "checkoutUrl": "https://dws10.com/checkout/?product=conversational-agent",
+      "detailsUrl": "https://dws10.com/products/conversational-agent.html",
+      "exclusions": [
+        "Source-system integrations not named in the order",
+        "Historical data backfill beyond the documented onboarding scope",
+        "Custom report templates beyond the ordered package"
+      ],
+      "acceptanceKpi": {
+        "condition": "Buyer's Firehorse tenant is active with the ordered module enabled and a first workflow run completed successfully.",
+        "requiredOutcomes": [
+          "Firehorse tenant/module active within the delivery window",
+          "First workflow run completed and buyer-visible",
+          "Buyer receives activation confirmation and access credentials"
+        ],
+        "rule": "All listed required outcomes must be met. Delivery follows the chapter managed-delivery process described in fulfilment.deliveryMode; unattended automation is not claimed unless documented separately for this SKU."
+      },
+      "fulfilment": {
+        "owner": "Lifetime Oy — Firehorse Applications Team",
+        "route": "https://dws10.com/contact/",
+        "acknowledgementSla": "1 business day",
+        "deliveryMode": "Managed SaaS tenant activation with human-verified configuration; no unattended automation claimed for first activation.",
+        "runbookRef": "docs/runbooks/PRODUCT_FULFILMENT_RUNBOOK.md#chapter-5-firehorse-applications"
+      },
+      "storeCategory": "ai-cloud"
+    },
+    {
+      "id": "firehorse-flow",
+      "name": "AI Customer Agent",
+      "caption": "Customer-service agent that optimises each interaction; setup and first results within 2 weeks.",
+      "price": 499,
+      "currency": "EUR",
+      "priceNote": "Setup + implementation",
+      "description": "Turn every customer interaction into a conversion opportunity. AI-powered prompt flow agent that continuously optimizes your service experience and drives measurable sales growth. Setup and first results in under 2 weeks.",
+      "features": [
+        "AI-powered customer interactions",
+        "Continuous service optimization",
+        "Results in under 2 weeks"
+      ],
+      "checkoutUrl": "https://dws10.com/checkout/?product=firehorse-flow",
+      "detailsUrl": "https://dws10.com/products/firehorse-flow.html",
+      "exclusions": [
+        "Source-system integrations not named in the order",
+        "Historical data backfill beyond the documented onboarding scope",
+        "Custom report templates beyond the ordered package"
+      ],
+      "acceptanceKpi": {
+        "condition": "Buyer's Firehorse tenant is active with the ordered module enabled and a first workflow run completed successfully.",
+        "requiredOutcomes": [
+          "Firehorse tenant/module active within the delivery window",
+          "First workflow run completed and buyer-visible",
+          "Buyer receives activation confirmation and access credentials"
+        ],
+        "rule": "All listed required outcomes must be met. Delivery follows the chapter managed-delivery process described in fulfilment.deliveryMode; unattended automation is not claimed unless documented separately for this SKU."
+      },
+      "fulfilment": {
+        "owner": "Lifetime Oy — Firehorse Applications Team",
+        "route": "https://dws10.com/contact/",
+        "acknowledgementSla": "1 business day",
+        "deliveryMode": "Managed SaaS tenant activation with human-verified configuration; no unattended automation claimed for first activation.",
+        "runbookRef": "docs/runbooks/PRODUCT_FULFILMENT_RUNBOOK.md#chapter-5-firehorse-applications"
+      },
+      "storeCategory": "digital"
+    },
+    {
+      "id": "omnichannel-multimodal",
+      "name": "Firehorse Omnichannel & Multimodal AI Assistant",
+      "caption": "Campaign management across marketing channels with daily measurement and optimisation.",
+      "price": 699,
+      "currency": "EUR",
+      "priceNote": "Monthly subscription",
+      "description": "Stop guessing which channels convert. AI-optimized campaign management across all your marketing channels with daily performance measurement and automated optimization. Know exactly where your next customer is coming from.",
+      "features": [
+        "AI-optimized campaign management",
+        "Daily performance measurement",
+        "Automated channel optimization"
+      ],
+      "checkoutUrl": "https://dws10.com/checkout/?product=omnichannel-multimodal",
+      "detailsUrl": "https://dws10.com/products/omnichannel-multimodal.html",
+      "exclusions": [
+        "Source-system integrations not named in the order",
+        "Historical data backfill beyond the documented onboarding scope",
+        "Custom report templates beyond the ordered package"
+      ],
+      "acceptanceKpi": {
+        "condition": "Buyer's Firehorse tenant is active with the ordered module enabled and a first workflow run completed successfully.",
+        "requiredOutcomes": [
+          "Firehorse tenant/module active within the delivery window",
+          "First workflow run completed and buyer-visible",
+          "Buyer receives activation confirmation and access credentials"
+        ],
+        "rule": "All listed required outcomes must be met. Delivery follows the chapter managed-delivery process described in fulfilment.deliveryMode; unattended automation is not claimed unless documented separately for this SKU."
+      },
+      "fulfilment": {
+        "owner": "Lifetime Oy — Firehorse Applications Team",
+        "route": "https://dws10.com/contact/",
+        "acknowledgementSla": "1 business day",
+        "deliveryMode": "Managed SaaS tenant activation with human-verified configuration; no unattended automation claimed for first activation.",
+        "runbookRef": "docs/runbooks/PRODUCT_FULFILMENT_RUNBOOK.md#chapter-5-firehorse-applications"
+      },
+      "storeCategory": "advisory"
+    },
+    {
+      "id": "firehorse-data-services",
+      "name": "Firehorse Data Services",
+      "caption": "Data products, brokerage strategy and enrichment that turn operational data into revenue.",
+      "price": 899,
+      "currency": "EUR",
+      "priceNote": "Consultancy engagement",
+      "description": "Your data is worth more than you think. API-driven data products, brokerage strategy, and enrichment services that turn raw operational data into revenue and compliance insights. Remote and on-site consulting available.",
+      "features": [
+        "API-driven data products",
+        "Data monetization strategy",
+        "Remote and on-site consulting"
+      ],
+      "checkoutUrl": "https://dws10.com/checkout/?product=firehorse-data-services",
+      "detailsUrl": "https://dws10.com/products/firehorse-data-services.html",
+      "exclusions": [
+        "Source-system integrations not named in the order",
+        "Historical data backfill beyond the documented onboarding scope",
+        "Custom report templates beyond the ordered package"
+      ],
+      "acceptanceKpi": {
+        "condition": "Buyer's Firehorse tenant is active with the ordered module enabled and a first workflow run completed successfully.",
+        "requiredOutcomes": [
+          "Firehorse tenant/module active within the delivery window",
+          "First workflow run completed and buyer-visible",
+          "Buyer receives activation confirmation and access credentials"
+        ],
+        "rule": "All listed required outcomes must be met. Delivery follows the chapter managed-delivery process described in fulfilment.deliveryMode; unattended automation is not claimed unless documented separately for this SKU."
+      },
+      "fulfilment": {
+        "owner": "Lifetime Oy — Firehorse Applications Team",
+        "route": "https://dws10.com/contact/",
+        "acknowledgementSla": "1 business day",
+        "deliveryMode": "Managed SaaS tenant activation with human-verified configuration; no unattended automation claimed for first activation.",
+        "runbookRef": "docs/runbooks/PRODUCT_FULFILMENT_RUNBOOK.md#chapter-5-firehorse-applications"
+      },
+      "storeCategory": "digital"
+    }
+  ]
+}

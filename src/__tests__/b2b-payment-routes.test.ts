@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic/claude-opus-5-5 Agent=claude-code Date=2026-09-27
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=copilot Date=2026-09-27
 // Audit trail: git log -- src/__tests__/b2b-payment-routes.test.ts
 import express, { type NextFunction, type Request, type Response } from 'express';
 import request from 'supertest';
@@ -131,4 +131,60 @@ describe('B2B payment routes', () => {
       expect(mocks.sendConfirmation).not.toHaveBeenCalled();
     },
   );
+
+  it('parses canonical products object and derives the B2B price server-side', async () => {
+    const profileBuilder = queryResult({
+      data: { id: '00000000-0000-4000-8000-000000000001' },
+      error: null,
+    });
+    mocks.from.mockReturnValue(profileBuilder);
+    mocks.storageFrom.mockReturnValue({
+      download: vi.fn().mockResolvedValue({
+        data: new Blob([
+          JSON.stringify({
+            products: {
+              'DWS-IQ-006': {
+                id: 'DWS-IQ-006',
+                name: 'Lifetime DWS IQ Platform',
+                price: 4999,
+                currency: 'EUR',
+              },
+            },
+          }),
+        ]),
+        error: null,
+      }),
+    });
+    mocks.rpc.mockResolvedValue({ data: { id: 'order-1' }, error: null });
+
+    const response = await request(makeApp())
+      .post('/api/v1/b2b/orders')
+      .set('x-test-user', 'user-1')
+      .send({
+        product_id: 'DWS-IQ-006',
+        company_billing_profile_id: '00000000-0000-4000-8000-000000000001',
+        deposit_amount_cents: 10000,
+        product_price_cents: 1,
+      });
+
+    expect(response.status).toBe(201);
+    expect(mocks.rpc).toHaveBeenCalledWith(
+      'create_b2b_order',
+      expect.objectContaining({ p_product_price_cents: 499900, p_deposit_amount_cents: 10000 }),
+    );
+  });
+
+  it('rejects invalid product IDs and deposits before database access', async () => {
+    const response = await request(makeApp())
+      .post('/api/v1/b2b/orders')
+      .set('x-test-user', 'user-1')
+      .send({
+        product_id: '../etc/passwd',
+        company_billing_profile_id: 'not-a-uuid',
+        deposit_amount_cents: -1,
+      });
+
+    expect(response.status).toBe(400);
+    expect(mocks.from).not.toHaveBeenCalled();
+  });
 });

@@ -17,6 +17,10 @@ Source of truth for hook logic: `.claude/hooks/session-start.sh` and `.claude/ho
 
 Budget: `CLAUDE_AUTO_MODE_BUDGET` env var (optional). Audit: prefer logging YELLOW actions under `.claude/hooks/audit/` when using full auto.
 
+## Per-host model endpoint
+
+Keep Cursor's OpenAI-compatible base URL in the per-machine **user** settings, not the shared repository workspace: DGX Spark uses `http://127.0.0.1:11434/v1`; Win11 uses its SSH tunnel on `http://127.0.0.1:11435/v1`. Never commit a host-specific endpoint to `.cursor/settings.json`, since the same worktree is opened on both hosts.
+
 ## Session start (run when a chat begins or after compaction)
 
 Ask the terminal/agent to report:

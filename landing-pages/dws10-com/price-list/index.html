@@ -559,6 +559,11 @@
         border-color: rgba(251, 191, 36, 0.4) !important;
         color: #fcd34d !important;
       }
+      .act-buy {
+        border-color: rgba(74, 222, 128, 0.6) !important;
+        color: #4ade80 !important;
+        background: rgba(74, 222, 128, 0.12) !important;
+      }
 
       .loading,
       .error {
@@ -1707,8 +1712,18 @@
                     '<a class="act-email" href="https://dws10.com/contact/?subject=' + (fiRow ? "Tiedustelu%3A%20" : "Enquiry%3A%20") +
                     pname +
                     '" title="Email sales">' + (fiRow ? "Sähköposti" : "Email") + "</a>";
+                  // HIC 27.09.2026 (product-readiness-portfolio, tranche 2 part B): every priced,
+                  // active row gets a direct Buy action to the same real, working checkout route
+                  // every product detail page now uses. Never alters which rows are shown/hidden
+                  // (lifecycle filters are untouched) — purely an added action.
+                  var buyBtn =
+                    p.checkoutUrl && typeof p.price === "number" && p.price > 0
+                      ? '<a class="act-buy" href="' +
+                        escapeHtml(p.checkoutUrl) +
+                        '" title="Buy now">' + (fiRow ? "Osta&nbsp;nyt" : "Buy&nbsp;now") + "</a>"
+                      : "";
                   var btns =
-                    '<div class="act-btns">' + cardBtn + detailBtn + bookBtn + emailBtn + "</div>";
+                    '<div class="act-btns">' + buyBtn + cardBtn + detailBtn + bookBtn + emailBtn + "</div>";
                   var tierHtml = tierBadge(p.tier);
                   var anchor = replacesLine(p);
                   var upsell = upsellLine(p);

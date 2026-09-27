@@ -5,7 +5,8 @@
   "title": "DWS6 Learning Hub",
   "audienceRoles": ["admin", "investor", "partner", "customer"],
   "documents": [
-    {"id":"admin-manual","title":"DWS IQ Platform Admin Manual","summary":"Platform operations, maintenance, and role-pack procedures.","source":"Admin/ADMIN_MANUAL.md","requiredText":"Role-based Learning Hub distribution","output":"docs/admin-manual.html","roles":["admin"]},
+    {"id":"admin-manual","title":"DWS IQ Platform Admin Manual","summary":"Platform operations, maintenance, and role-pack procedures.","source":"Admin/ADMIN_MANUAL.md","requiredText":"kya-jev typed decisions (KYA-gated)","output":"docs/admin-manual.html","roles":["admin"]},
+    {"id":"kya-jev-specification","title":"kya-jev Specification","summary":"KYA-gated typed decisions: signed verdicts, audit logging, calibration status, and implementation plan.","source":"docs/KYA_JEV_SPECIFICATION.md","requiredText":"Implementation Plan","output":"docs/kya-jev-specification.html","roles":["admin"]},
     {"id":"learning-standard","title":"DWS Learning Standard","summary":"Human-in-command learning outcomes and oversight practices.","source":"Learn/DWS_LEARNING_STANDARD_v1.7.html","output":"docs/dws-learning-standard.html","roles":["admin"]},
     {"id":"security-standard","title":"DWS Security Standard","summary":"Internal security controls and implementation requirements.","source":"Learn/DWS_SECURITY_STANDARD_v3.8.html","output":"docs/dws-security-standard.html","roles":["admin"]},
     {"id":"document-standard","title":"DWS Document Standard","summary":"Document governance, provenance, and source-of-truth rules.","source":"Learn/DWS_DOCUMENT_STANDARD_v2.22.html","output":"docs/dws-document-standard.html","roles":["admin"]},

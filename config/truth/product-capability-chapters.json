@@ -1,0 +1,19 @@
+{
+  "$comment": "Evidence: transcribed verbatim (chapter title + SKU list) from docs/plans/PRODUCT_PRODUCTION_READINESS_PROGRAM.md 'Implementation chapters' section, 27.09.2026. Not invented — every ID here is copy-pasted from the already-approved plan. Sum of all chapter SKU counts must equal the live catalogue's products.length (self-checked by scripts/truth/product-fulfilment.mjs).",
+  "source": "docs/plans/PRODUCT_PRODUCTION_READINESS_PROGRAM.md",
+  "chapters": [
+    { "chapter": "Chapter 1", "title": "SME web and IT services", "skus": ["LIFETIME-WEB-STARTER", "LIFETIME-WEBSTORE-MINI", "LIFETIME-IT-TUKI-10H"] },
+    { "chapter": "Chapter 2", "title": "Consulting, engineering and training", "skus": ["consulting-hourly", "consulting-fit55", "aws-consultancy", "ai-agent-engineering", "lean-project", "ai-consultant-day", "business-mentor-30", "firehorse-coach", "professional-web-pages", "devops-lead", "ai-koulutus-3d", "claude-code-coaching-3day", "claude-code-coaching-lecture", "claude-code-coaching-workshop", "claude-code-coaching-project", "ai-consulting-agentic", "sovereignty-cloud-consulting"] },
+    { "chapter": "Chapter 3", "title": "DWS IQ core, deployment and cloud", "skus": ["DWS-IQ-006", "LIFETIME-BUNDLE-2026", "DWS-SOVEREIGN-DB-001", "DWS-US-STARTER", "DWS-US-PILOT", "DWS-EU-STARTER", "DWS-EU-PILOT", "DWS-CLIMATE-001", "DWS-IQ-FREE-2026", "AIS-EU-SOV-OC", "AIS-OUTCOME-PILOT", "DWS-IQ-ESS-SETUP"] },
+    { "chapter": "Chapter 4", "title": "Aegis and KYA", "skus": ["DWS-AEGIS-001", "DWS-AEGIS-PILOT-001", "DWS-AEGIS-IMPL-001", "DWS-AEGIS-SUB-001", "KYA-JEV-001"] },
+    { "chapter": "Chapter 5", "title": "Firehorse applications", "skus": ["FH-AUTO-001", "FH-OMNI-001", "FH-RPT-001", "FH-SIGN-001", "FH-CMS-001", "conversational-agent", "firehorse-flow", "omnichannel-multimodal", "firehorse-data-services"] },
+    { "chapter": "Chapter 6", "title": "Sovereign hardware and edge", "skus": ["edge-node-gn100", "LF-SITROOM-001", "LF-COMPLIANCE-AMBULANCE-001", "LF-NVIDIA-INSTALL", "LF-JETSON-NANO", "LF-JETSON-AGX", "LF-DGX-SPARK", "LF-JETSON-NX", "LF-IGX-ORIN", "LF-IPCMAX-IPC409", "LF-IPCMAX-IPCP68", "LF-IPCMAX-CINCOZE-DA1200"] },
+    { "chapter": "Chapter 7", "title": "Kubernetes, DOCA, Gov Ready and NIM", "skus": ["LF-K8S-T1", "LF-K8S-T2", "LF-K8S-T3", "LF-K8S-T4", "LF-DOCA-ESSENTIAL", "LF-DOCA-SECURITY", "LF-DOCA-NETWORK-STORAGE", "LF-GOV-READY-SETUP", "LF-GOV-READY-ANNUAL", "LF-GOV-AIRGAP-BUNDLE", "LF-FIPS-VALIDATION", "LF-NIM-STARTER", "LF-NIM-RETRIEVAL", "LF-NIM-CODE", "LF-NIM-BIOLOGY"] },
+    { "chapter": "Chapter 8", "title": "Compliance, safety, materials and emissions agents", "skus": ["CMP-T0", "CMP-T1", "CMP-T2", "CMP-OC-STD", "CMP-OC-ENT", "SS-T0", "SS-T1", "SS-T2", "SS-OC-STD", "SS-OC-ENT", "MO-T0", "MO-T1", "MO-T2", "MO-OC-STD", "MO-OC-ENT", "ED-T1", "ED-T2"] },
+    { "chapter": "Chapter 9", "title": "Operations and assurance agents", "skus": ["SG-T1", "SG-T2", "CONSTR-T2", "LOG-T1", "LOG-T2", "SOV-T1", "SOV-T2", "QG-T1", "QG-T2"] },
+    { "chapter": "Chapter 10", "title": "Growth, knowledge and viability agents", "skus": ["CSAT-T1", "CSAT-T2", "LF-T1", "LF-T2", "CS-T1", "CS-T2", "SEO-T1", "SEO-T2", "DW-T1", "DW-T2", "VIA-T1", "VIA-T2"] },
+    { "chapter": "Chapter 11", "title": "Function and channel bundles", "skus": ["ESG-T3", "HSE-T3", "CONSTR-T3", "SOV-T3", "GTM-T3", "WF-T4", "DWS365-CMP-T3", "FH-SKILL-T3", "AC365-T3"] },
+    { "chapter": "Chapter 12", "title": "Industry pods", "skus": ["IND-MARS", "IND-HELIOS", "IND-VULCAN", "IND-TALOS", "IND-GAIA", "IND-CERES", "IND-NEPTUN", "IND-PROM", "IND-BESS"] },
+    { "chapter": "Chapter 13", "title": "Land-and-expand programmes", "skus": ["LAND-AIL", "LAND-EUAI", "LAND-HSE", "LAND-CSRD", "LAND-LCA", "LAND-SOV", "LAND-OPS", "LAND-GTM", "LAND-WF"] }
+  ]
+}

@@ -66,7 +66,7 @@ live runtime evidence.
   Mirrored migrations add that ID plus `hash_version`; pre-migration rows
   remain version 1 and new rows use version 2.
 - Migration files:
-  `supabase/migrations/099_270926_nemoclaw_kya_invocation_binding.sql` and
+  `supabase/migrations/101_270926_nemoclaw_kya_invocation_binding.sql` and
   `infrastructure/dgx-spark/migrations/024_nemoclaw_kya_invocation_binding.sql`.
   They are committed only and **must remain unapplied** absent explicit
   approval.

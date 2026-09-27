@@ -6,7 +6,37 @@
     <title>DWS IQ Aegis | Lifetime Firehorse™Store</title>
     <meta name="description" content="DWS IQ Aegis Sovereign Industrial Intelligence Platform for Dual-Use Manufacturing — part of the DWS IQ Industrial Intelligence suite Product Overview DWS IQ Aegis is the dual-use factory and critical-manufacturing layer of DWS IQ Industrial Intelligence — a standalone sovereign AI platform covering">
     <meta name="author" content="Lifetime Oy">
-    <link rel="canonical" href="https://dws10.com/products/dws-aegis-001.html">
+    <link rel="canonical" href="https://dws10.com/products/dws-aegis-001.html" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://dws10.com/products/dws-aegis-001.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://dws10.com/products/dws-aegis-001.fi.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://dws10.com/products/dws-aegis-001.sv.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fr"
+      href="https://dws10.com/products/dws-aegis-001.fr.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://dws10.com/products/dws-aegis-001.de.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://dws10.com/products/dws-aegis-001.html"
+    />
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
     <meta property="og:type" content="product">
     <meta property="og:title" content="DWS IQ Aegis">
@@ -54,6 +84,11 @@
         .nav-links { display: flex; gap: 20px; }
         .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: #60a5fa; }
+        .delivery-section { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .delivery-section h2 { color: #93c5fd; font-size: 1.15rem; margin-bottom: 10px; }
+        .delivery-section ul { padding-left: 20px; }
+        .delivery-section li { margin-bottom: 6px; }
+        .fine-print { font-size: 0.85rem; color: #94a3b8; }
     </style>
 </head>
 <body>
@@ -70,7 +105,7 @@
         <a href="../" class="back-link">← Back to Store</a>
         <h1>DWS IQ Aegis</h1>
         <div class="price">€59 990</div>
-        <div class="price-note">From €59,990 onboarding + one-time integration. Monthly subscription: Standard €999/mo | Defence €1,999/mo | Sovereign €4,999/mo</div>
+        <div class="price-note">€59,990 one-time licence + one-time integration. Maintenance subscription DWS-AEGIS-SUB-001: Standard €999/mo | Defence €1,999/mo | Sovereign €4,999/mo. Pilot: DWS-AEGIS-PILOT-001. Implementation: DWS-AEGIS-IMPL-001.</div>
         <div class="content">
             <h1>DWS IQ Aegis</h1>
 <p><strong>Sovereign Industrial Intelligence Platform for Dual-Use Manufacturing</strong> — part of the DWS IQ Industrial Intelligence suite</p>
@@ -115,7 +150,8 @@
 <h3>Sovereignty Assessment</h3>
 <ul>
 <li>CLOUD Act exposure scoring (US vs. EU-sovereign providers)</li>
-<li>Four sovereignty tiers: Sovereign / Compliant / Partial / Exposed</li>
+<li>Four DWS sovereignty-score tiers: Sovereign / Compliant / Partial / Exposed (this is not EU SEAL)</li>
+<li>Indicative nearest <strong>SEAL-3</strong> (Digital Resilience) on Commission Cloud Sovereignty Framework v1.2.1. Lifetime Oy was not in Cloud III and does not hold a SEAL certificate. SEAL-4 is closed by NVIDIA GN100/DGX chip dependence.</li>
 <li>NIS2 alignment verification</li>
 <li>EU AI Act compliance checks</li>
 <li>Data residency audit trail</li>
@@ -231,8 +267,33 @@
 | 3   | Model versioning CRDs      | 137C    | Q4 2026 | K8s Custom Resource Definitions for blue/green model deployments. Rollback &lt;60s. Article 12 audit continuity on model changes.                                                                                                                                                                                                                                                                                                |
 | 4   | Edge-cloud inference split | 137D    | Q1 2027 | Jetson Orin Nano (field/classified) + UpCloud K8s (cloud/cross-vertical). Routing by classification level and sovereignty constraints. <strong>Reference sovereign backhaul: IRIS² secure connectivity</strong> — the EU-owned transport leg between field/classified edge and the Helsinki sovereign cloud, avoiding commercial hyperscaler transit (see <code>docs/field-notes/2026-07-23-warsaw-iris2-signing-aegis-connection.md</code>, path B). |</p>
         </div>
-        <a href="mailto:risto@onelifetime.world?subject=Order Inquiry: DWS IQ Aegis (DWS-AEGIS-001)" class="buy-btn">Contact Sales to Order</a>
+
+        <div class="delivery-section">
+            <h2>Acceptance criteria</h2>
+            <p>The ordered Aegis/KYA scope is deployed, its audit logging is verified writing locally, and an operator can invoke kill authority.</p>
+            <ul><li>Deployment reaches the ordered scope (pilot, implementation phase, or subscription entitlement)</li><li>Article 12 audit logging verified writing locally</li><li>Operator kill authority verified functional</li></ul>
+            <p class="fine-print">All listed required outcomes must be met. Delivery follows the chapter managed-delivery process described in fulfilment.deliveryMode; unattended automation is not claimed unless documented separately for this SKU.</p>
+        </div>
+
+        <div class="delivery-section">
+            <h2>Not included</h2>
+            <ul><li>Hardware procurement (quoted and delivered separately)</li><li>Scope beyond the single ordered site/workflow unless separately ordered</li><li>Integrations with systems not named in the order</li></ul>
+        </div>
+
+        <div class="delivery-section">
+            <h2>Delivery</h2>
+            <ul>
+                <li>Delivered by: Lifetime Oy — Aegis &amp; KYA Team</li>
+                <li>Acknowledged within: 1 business day</li>
+                <li>Managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.</li>
+            </ul>
+        </div>
+        <div style="margin-top: 24px;">
+            <a href="/checkout/?product=DWS-AEGIS-001" class="buy-btn" data-product-sku="DWS-AEGIS-001">Buy now — €59 990</a>
+        </div>
+        <a href="mailto:risto@onelifetime.world?subject=Question: DWS IQ Aegis (DWS-AEGIS-001)" class="back-link">Questions before you buy? Contact sales</a>
     </div>
+    <script src="/shared-assets/nav/product-actions.js" defer></script>
     <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem;">
         <p><strong>LEGAL NOTICE</strong></p>
         <p><strong>Data Controller:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo, Finland).</p>
@@ -246,5 +307,5 @@
       <a href="/products/dws-aegis-001.fr.html" hreflang="fr" lang="fr" style="margin:0 8px;color:inherit">🇫🇷 Français</a>
     </nav>
 
-    </body>
+</body>
 </html>

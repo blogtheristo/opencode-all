@@ -90,14 +90,26 @@ describe('billing service', () => {
     expect(invoice).toEqual({ id: 'in_1' });
     expect(mocks.invoiceItemCreate).toHaveBeenNthCalledWith(
       1,
-      expect.objectContaining({ customer: 'user-1', amount: 10000 }),
+      expect.objectContaining({
+        customer: 'user-1',
+        amount: 10000,
+        metadata: { order_id: 'order-1', product_id: 'product-1' },
+      }),
     );
     expect(mocks.invoiceItemCreate).toHaveBeenNthCalledWith(
       2,
-      expect.objectContaining({ customer: 'user-1', amount: -2500 }),
+      expect.objectContaining({
+        customer: 'user-1',
+        amount: -2500,
+        metadata: { order_id: 'order-1', product_id: 'product-1' },
+      }),
     );
     expect(mocks.invoiceCreate).toHaveBeenCalledWith(
-      expect.objectContaining({ customer: 'user-1', due_date: due.getTime() / 1000 }),
+      expect.objectContaining({
+        customer: 'user-1',
+        due_date: due.getTime() / 1000,
+        metadata: expect.objectContaining({ order_id: 'order-1', product_id: 'product-1' }),
+      }),
     );
   });
 

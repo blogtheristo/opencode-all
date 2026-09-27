@@ -110,6 +110,19 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
+      <g:id>KYA-JEV-001</g:id>
+      <g:title>kya-jev — KYA-Gated Typed Decisions (Early Access)</g:title>
+      <g:description>&lt;p&gt;Add fast, typed decisions (choice / score / yes-no + confidence) to any DWS agent, gated on an already-issued KYA verdict and logged to the Article 12 audit trail. DGX/Groq/Anthropic-backed — no third-party API, no CLOUD Act exposure. Early Access: confidence is self-reported and not yet independently calibrated against DWS production data; do not use as the sole gate for an auto-execute or consequential decision until a calibration report is published.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Choice / Score / Boolean typed-decision primitives&lt;/li&gt;&lt;li&gt;KYA runtime-verdict gate on every call — no decision without an authorized KYA session&lt;/li&gt;&lt;li&gt;Article 12 audit trail (kya_jev_calls table)&lt;/li&gt;&lt;li&gt;Runs on existing DWS model tiers (DGX Qwen, Groq, Claude) — no new vendor dependency&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/kya-jev-001.html</g:link>
+      <g:image_link>https://dws10.com/static/images/products/KYA-JEV-001.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>preorder</g:availability>
+      <g:price>99 EUR</g:price>
+      <g:brand>DWS IQ</g:brand>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
       <g:id>FH-CMS-001</g:id>
       <g:title>Firehorse Content Management</g:title>
       <g:description>&lt;p&gt;When auditors ask for proof, find it in seconds — not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Auto-tagged compliance documents&lt;/li&gt;&lt;li&gt;Certificate expiry alerts&lt;/li&gt;&lt;li&gt;Semantic search across evidence&lt;/li&gt;&lt;/ul&gt;</g:description>
@@ -808,7 +821,7 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
     <item>
       <g:id>DWS-SOVEREIGN-DB-001</g:id>
       <g:title>Sovereign Database — EU Data Sovereignty for PostgreSQL</g:title>
-      <g:description>&lt;p&gt;Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Designed to reduce CLOUD Act exposure&lt;/li&gt;&lt;li&gt;Continuous sovereignty monitoring agent&lt;/li&gt;&lt;li&gt;8-dimension compliance scoring&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Designed to reduce CLOUD Act exposure&lt;/li&gt;&lt;li&gt;Continuous sovereignty monitoring agent&lt;/li&gt;&lt;li&gt;8-dimension compliance scoring&lt;/li&gt;&lt;li&gt;Indicative nearest SEAL-2 (EU-owned PostgreSQL) — not a Commission certificate&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/dws-sovereign-db-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/DWS-SOVEREIGN-DB-001.png</g:image_link>
       <g:condition>new</g:condition>
@@ -834,7 +847,7 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
     <item>
       <g:id>DWS-US-STARTER</g:id>
       <g:title>DWS IQ — US Cloud Starter</g:title>
-      <g:description>&lt;p&gt;Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). Compliance, Report &amp; Discovery agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Compliance, Report &amp; Discovery agents&lt;/li&gt;&lt;li&gt;Basic CSRD compliance dashboard&lt;/li&gt;&lt;li&gt;Supabase + Cloudflare infrastructure&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). Compliance, Report &amp; Discovery agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Compliance, Report &amp; Discovery agents&lt;/li&gt;&lt;li&gt;Basic CSRD compliance dashboard&lt;/li&gt;&lt;li&gt;Supabase + Cloudflare infrastructure&lt;/li&gt;&lt;li&gt;Indicative nearest SEAL-0/1 (US parent / CLOUD Act open) — not a Commission certificate&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/dws-us-starter.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/DWS-US-STARTER.png</g:image_link>
       <g:condition>new</g:condition>
@@ -847,7 +860,7 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
     <item>
       <g:id>DWS-US-PILOT</g:id>
       <g:title>DWS IQ — US Cloud Pilot</g:title>
-      <g:description>&lt;p&gt;4-week evaluation with real data on US Cloud. Full Firehorse agent suite, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Full Firehorse agent suite&lt;/li&gt;&lt;li&gt;Firehorse Report module included&lt;/li&gt;&lt;li&gt;5 user seats + kickoff workshop&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;4-week evaluation with real data on US Cloud. Full Firehorse agent suite, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Full Firehorse agent suite&lt;/li&gt;&lt;li&gt;Firehorse Report module included&lt;/li&gt;&lt;li&gt;5 user seats + kickoff workshop&lt;/li&gt;&lt;li&gt;Indicative nearest SEAL-0/1 (US parent / CLOUD Act open) — not a Commission certificate&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/dws-us-pilot.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/DWS-US-PILOT.png</g:image_link>
       <g:condition>new</g:condition>
@@ -860,7 +873,7 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
     <item>
       <g:id>DWS-EU-STARTER</g:id>
       <g:title>DWS IQ — EU Sovereign Starter</g:title>
-      <g:description>&lt;p&gt;DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). Compliance, Report &amp; Discovery agents, CSRD dashboard, designed to reduce CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Designed to reduce CLOUD Act exposure (EU-owned providers)&lt;/li&gt;&lt;li&gt;Aiven PostgreSQL + Hetzner/Scaleway&lt;/li&gt;&lt;li&gt;Sovereignty score monitoring&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). Compliance, Report &amp; Discovery agents, CSRD dashboard, designed to reduce CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Designed to reduce CLOUD Act exposure (EU-owned providers)&lt;/li&gt;&lt;li&gt;Aiven PostgreSQL + Hetzner/Scaleway&lt;/li&gt;&lt;li&gt;Sovereignty score monitoring&lt;/li&gt;&lt;li&gt;Indicative nearest SEAL-2 if EU-owned stack — not a Commission certificate&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/dws-eu-starter.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/DWS-EU-STARTER.png</g:image_link>
       <g:condition>new</g:condition>
@@ -873,7 +886,7 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
     <item>
       <g:id>DWS-EU-PILOT</g:id>
       <g:title>DWS IQ — EU Sovereign Pilot</g:title>
-      <g:description>&lt;p&gt;Full EU sovereign evaluation. Full Firehorse agent suite, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Designed to reduce CLOUD Act exposure. Prove compliance ROI on sovereign infrastructure.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Full Firehorse agent suite + Aiwen Article 12 logging&lt;/li&gt;&lt;li&gt;NIS2 compliance dashboard&lt;/li&gt;&lt;li&gt;Designed to reduce CLOUD Act exposure + EU data residency&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Full EU sovereign evaluation. Full Firehorse agent suite, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Designed to reduce CLOUD Act exposure. Prove compliance ROI on sovereign infrastructure.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Full Firehorse agent suite + Aiwen Article 12 logging&lt;/li&gt;&lt;li&gt;NIS2 compliance dashboard&lt;/li&gt;&lt;li&gt;Designed to reduce CLOUD Act exposure + EU data residency&lt;/li&gt;&lt;li&gt;Indicative nearest SEAL-2 if EU-owned stack — not a Commission certificate&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/dws-eu-pilot.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/DWS-EU-PILOT.png</g:image_link>
       <g:condition>new</g:condition>
@@ -999,6 +1012,7 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
 &lt;h2&gt;What it is&lt;/h2&gt;
 &lt;p&gt;A fixed-price, fixed-duration engagement that proves the complete &lt;strong&gt;local-first operational path&lt;/strong&gt; for Aegis on infrastructure you already have — or on a compact edge appliance — &lt;strong&gt;before any DGX procurement&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;The pilot exists because the control-room requirement is testable. In manufacturing control rooms, dual-use facilities and air-gapped plants, compliance execution cannot depend on external connectivity. That is either true of a deployment or it is not, and the way to find out is to run it and pull the cable — not to model it in a proposal.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Indicative nearest SEAL-3&lt;/strong&gt; (Digital Resilience) — same depth as Aegis. Not a Commission certificate. Lifetime Oy was not in Cloud III. SEAL-4 is closed by NVIDIA GN100/DGX chip dependence.&lt;/p&gt;
 &lt;h2&gt;What it proves&lt;/h2&gt;
 &lt;p&gt;The five requirements that define a control-room deployment, demonstrated rather than asserted:&lt;/p&gt;
 &lt;ol&gt;
@@ -1026,8 +1040,7 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
 &lt;li&gt;&lt;strong&gt;You do:&lt;/strong&gt; nominate the technical contact, the workflow owner, and the operator who will exercise kill authority; grant read-only access; agree the outage window, its date, and &lt;strong&gt;the isolation method&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Exit gate:&lt;/strong&gt; a one-page signed scope — site, workflow, deployment mode, isolation method, and the three acceptance conditions written in &lt;em&gt;your&lt;/em&gt; operational language, not ours.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;On the isolation method.&lt;/strong&gt; Continuously-operating sites cannot usually permit a physical cable pull, and a pilot that assumes one arrives at the acceptance test with no test. So the method is chosen in Phase 0 from a ranked ladder — physical disconnect, deny-all egress at the edge router, VLAN isolation of the Aegis segment, or host-level egress block — and recorded with what it does and does not demonstrate. Two rules make the choice safe: the block must be &lt;strong&gt;enforced above the stack&lt;/strong&gt; (at your router, switch or hypervisor, administered by you — a system asked to disconnect itself has not been tested), and &lt;strong&gt;egress must be attempted and shown to fail&lt;/strong&gt; before the run starts. The weaker methods prove less about the network boundary and exactly as much about the workload; the acceptance record names which was used, so a reader in three years knows what was demonstrated.
-- &lt;strong&gt;This phase fails if&lt;/strong&gt; the workflow cannot be described as a terminating se</g:description>
+&lt;p&gt;&lt;strong&gt;On the isolation method.&lt;/strong&gt; Continuously-operating sites cannot usually permit a physical cable pull, and a pilot that assumes one arrives at the acceptance test with no test. So the method is chosen in Phase 0 from a ranked ladder — physical disconnect, deny-all egress at the edge router, VLAN isolation of the Aegis segment, or host-level egress block — and recorded with what it does and does not demonstrate. Two rules make the choice safe: the block must be &lt;strong&gt;enforced above the stack&lt;/strong&gt; (at your router, switch or hypervisor, administered by you — a system asked to disconnect itself has not been tested), and &lt;strong&gt;egress must be attempted and shown to fail&lt;/strong&gt; before the run starts. The weaker methods prove less about the network boundary and exactly as much</g:description>
       <g:link>https://dws10.com/products/dws-aegis-pilot-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/DWS-AEGIS-PILOT-001.png</g:image_link>
       <g:condition>new</g:condition>
@@ -1045,6 +1058,7 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
 &lt;h2&gt;What it is&lt;/h2&gt;
 &lt;p&gt;A structured implementation engagement for organisations that have decided on Aegis and want the deployment carried through to a working, knowledge-accumulating state rather than handed over at go-live.&lt;/p&gt;
 &lt;p&gt;It is &lt;strong&gt;not&lt;/strong&gt; an evaluation. If you are still deciding whether local-first operation suits your site, the bounded evaluation engagement is the right starting point instead — see Related below.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Indicative nearest SEAL-3&lt;/strong&gt; (Digital Resilience) — same depth as Aegis. Not a Commission certificate. Lifetime Oy was not in Cloud III.&lt;/p&gt;
 &lt;h2&gt;The three phases&lt;/h2&gt;
 &lt;p&gt;| Phase | Duration | Outcome | Price |
 | --- | --- | --- | --- |
@@ -1076,6 +1090,19 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
       <g:condition>new</g:condition>
       <g:availability>preorder</g:availability>
       <g:price>45000 EUR</g:price>
+      <g:brand>DWS IQ</g:brand>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>DWS-AEGIS-SUB-001</g:id>
+      <g:title>DWS IQ Aegis — Maintenance Subscription</g:title>
+      <g:description>&lt;p&gt;Maintenance subscription for a DWS IQ Aegis licence (DWS-AEGIS-001), one per licensed deployment. Tier follows the licensed Aegis tier: Standard, Defence (GPU + SAR) or Sovereign (air-gapped). Same structure as the ontology product: pilot, licence, implementation, maintenance. Available September 2026.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Required with every Aegis licence; tier follows the licensed tier&lt;/li&gt;&lt;li&gt;Platform updates and security patches on the single-tenant deployment&lt;/li&gt;&lt;li&gt;Support and operations for Standard, Defence and Sovereign (air-gapped) tiers&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/dws-aegis-sub-001.html</g:link>
+      <g:image_link>https://dws10.com/static/images/products/DWS-AEGIS-001.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>preorder</g:availability>
+      <g:price>999 EUR</g:price>
       <g:brand>DWS IQ</g:brand>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1978,6 +2005,45 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
+      <g:id>LIFETIME-WEB-STARTER</g:id>
+      <g:title>Website Starter — Modern Business Site</g:title>
+      <g:description>&lt;p&gt;Professional business website for new entrepreneurs. Modern design, mobile-optimized, SEO-ready. cari.fi-inspired template for quick setup and publishing. Perfect for showcasing your business online.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Modern, responsive design&lt;/li&gt;&lt;li&gt;Mobile-optimized for all devices&lt;/li&gt;&lt;li&gt;SEO-ready and fast loading&lt;/li&gt;&lt;li&gt;Quick setup and publishing&lt;/li&gt;&lt;li&gt;cari.fi-inspired templates&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/lifetime-web-starter.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>650 EUR</g:price>
+      <g:brand>Lifetime</g:brand>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>LIFETIME-WEBSTORE-MINI</g:id>
+      <g:title>Small Online Store with Price List</g:title>
+      <g:description>&lt;p&gt;Compact e-commerce solution for small businesses. Includes online store setup, product catalog, and integrated price list. Ideal for entrepreneurs looking to start selling online.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Online store setup with templates&lt;/li&gt;&lt;li&gt;Product catalog and price list&lt;/li&gt;&lt;li&gt;Payment processing ready&lt;/li&gt;&lt;li&gt;Mobile-optimized storefront&lt;/li&gt;&lt;li&gt;Basic inventory management&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/lifetime-webstore-mini.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>350 EUR</g:price>
+      <g:brand>Lifetime</g:brand>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>LIFETIME-IT-TUKI-10H</g:id>
+      <g:title>IT Support Hour Bank for SMEs — 10 h</g:title>
+      <g:description>&lt;p&gt;IT support for small and medium-sized businesses from one number: a 10-hour bank at €75/h. Senior Finnish-speaking specialist, no subcontracting. Espoo and the Helsinki region.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Computer renewal&lt;/li&gt;&lt;li&gt;Software updates&lt;/li&gt;&lt;li&gt;Business applications&lt;/li&gt;&lt;li&gt;Information security&lt;/li&gt;&lt;li&gt;Training&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/lifetime-it-tuki-10h.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>750 EUR</g:price>
+      <g:brand>Lifetime</g:brand>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
       <g:id>DWS-THEMIS-001</g:id>
       <g:title>DWS IQ Themis</g:title>
       <g:description>&lt;h1&gt;DWS IQ Themis&lt;/h1&gt;
@@ -2009,17 +2075,16 @@ compliance and a durable engineering discipline — not just a one-off demo.&lt;
 &lt;li&gt;&lt;strong&gt;Bundled with Aegis&lt;/strong&gt; — zero additional cost for DWS IQ Aegis (Tier 1) customers; standalone SKU for Tier 2 Sovereign Infra customers&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;Tier Positioning&lt;/h2&gt;
-&lt;p&gt;| Tier                         | Themis Delivery                                                                  | Price                              |
-| ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------- |
-| &lt;strong&gt;Aegis (Tier 1)&lt;/strong&gt;           | Included in platform — runs on UpCloud, single-tenant, zero CLOUD Act            | Bundled in €59,990 + €999/mo       |
-| &lt;strong&gt;Sovereign Infra (Tier 2)&lt;/strong&gt; | Standalone SKU — customer brings own EU cloud (Scaleway, OVH, Red Hat OpenShift) | &lt;strong&gt;€14,990 one-time + €499/mo&lt;/strong&gt;     |
-| &lt;strong&gt;Connect (Tier 3)&lt;/strong&gt;         | SaaS — customer chooses underlying cloud                                         | Enterprise pricing — contact sales |&lt;/p&gt;
+&lt;p&gt;| Tier                         | Themis Delivery                                                                  | Price                              | Nearest SEAL (indicative) |
+| ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------- | ------------------------- |
+| &lt;strong&gt;Aegis (Tier 1)&lt;/strong&gt;           | Included in platform — runs on UpCloud, single-tenant, zero CLOUD Act            | Bundled in €59,990 + €999/mo       | SEAL-3 (aims; SEAL-4 closed by NVIDIA chips) |
+| &lt;strong&gt;Sovereign Infra (Tier 2)&lt;/strong&gt; | Standalone SKU — customer brings own EU cloud (Scaleway, OVH, Red Hat OpenShift) | &lt;strong&gt;€14,990 one-time + €499/mo&lt;/strong&gt;     | SEAL-2 if EU-owned stack; SEAL-1 if US-parent EU region |
+| &lt;strong&gt;Connect (Tier 3)&lt;/strong&gt;         | SaaS — customer chooses underlying cloud                                         | Enterprise pricing — contact sales | SEAL-0 / 1 |&lt;/p&gt;
 &lt;h2&gt;Who It's For&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Defence and dual-use manufacturers&lt;/strong&gt; needing Article 12 + Annex III evidence before 2 August 2026&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Government agencies&lt;/strong&gt; requiring zero CLOUD Act exposure in their AI audit trail&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Regulated EU enterprises&lt;/strong&gt; (CSRD, NIS2, CER, CBAM) who want EU AI Act compliance on infra they already run&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;AI system operators&lt;/strong&gt; whose existing governance </g:description>
+&lt;li&gt;&lt;strong&gt;Regulated EU</g:description>
       <g:link>https://dws10.com/products/PRODUCT-THEMIS.html</g:link>
       <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
       <g:condition>new</g:condition>

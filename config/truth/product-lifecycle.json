@@ -2,11 +2,11 @@
   "summary": {
     "catalogVersion": "1.33",
     "gitScannedThrough": "4f0ae8e93",
-    "totalIds": 185,
+    "totalIds": 194,
     "catalogueIds": 156,
     "byState": {
       "planned": 2,
-      "page-only": 9,
+      "page-only": 18,
       "internal": 65,
       "published": 81,
       "archived": 8,
@@ -55,6 +55,91 @@
       ]
     },
     {
+      "id": "ai-consulting",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/ai-consulting.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/ai-consulting.html",
+          "text": "public page, no catalogue ID"
+        }
+      ],
+      "page": "dws10.com/products/ai-consulting.html",
+      "pageVersions": 15,
+      "pageLastChanged": "2026-09-21"
+    },
+    {
+      "id": "bundle",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/bundle.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/bundle.html",
+          "text": "public page, no catalogue ID"
+        }
+      ],
+      "page": "dws10.com/products/bundle.html",
+      "pageVersions": 13,
+      "pageLastChanged": "2026-09-21"
+    },
+    {
+      "id": "claude-code-coaching",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/claude-code-coaching.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/claude-code-coaching.html",
+          "text": "public page, no catalogue ID"
+        }
+      ],
+      "page": "dws10.com/products/claude-code-coaching.html",
+      "pageVersions": 6,
+      "pageLastChanged": "2026-09-14"
+    },
+    {
+      "id": "cloud-pricing",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/cloud-pricing.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/cloud-pricing.html",
+          "text": "public page, no catalogue ID"
+        }
+      ],
+      "page": "dws10.com/products/cloud-pricing.html",
+      "pageVersions": 23,
+      "pageLastChanged": "2026-09-21"
+    },
+    {
+      "id": "consulting",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/consulting.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/consulting.html",
+          "text": "public page, no catalogue ID"
+        }
+      ],
+      "page": "dws10.com/products/consulting.html",
+      "pageVersions": 16,
+      "pageLastChanged": "2026-09-21"
+    },
+    {
       "id": "dws-iq5",
       "name": "",
       "state": "page-only",
@@ -89,6 +174,23 @@
       "pageLastChanged": "2026-09-21"
     },
     {
+      "id": "firehorse-amplify",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/firehorse-amplify.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/firehorse-amplify.html",
+          "text": "public page, no catalogue ID"
+        }
+      ],
+      "page": "dws10.com/products/firehorse-amplify.html",
+      "pageVersions": 13,
+      "pageLastChanged": "2026-09-21"
+    },
+    {
       "id": "firehorse-automation_RETIRED",
       "name": "",
       "state": "page-only",
@@ -106,20 +208,54 @@
       "pageLastChanged": "2026-08-24"
     },
     {
-      "id": "firehorse-signed-reports",
+      "id": "firehorse-content-management",
       "name": "",
       "state": "page-only",
-      "stateSource": "dws10.com/products/firehorse-signed-reports.html",
+      "stateSource": "dws10.com/products/firehorse-content-management.html",
       "evidence": [
         {
           "kind": "page",
           "date": "",
-          "ref": "dws10.com/products/firehorse-signed-reports.html",
+          "ref": "dws10.com/products/firehorse-content-management.html",
           "text": "public page, no catalogue ID"
         }
       ],
-      "page": "dws10.com/products/firehorse-signed-reports.html",
-      "pageVersions": 14,
+      "page": "dws10.com/products/firehorse-content-management.html",
+      "pageVersions": 20,
+      "pageLastChanged": "2026-09-21"
+    },
+    {
+      "id": "firehorse-omnichannel",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/firehorse-omnichannel.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/firehorse-omnichannel.html",
+          "text": "public page, no catalogue ID"
+        }
+      ],
+      "page": "dws10.com/products/firehorse-omnichannel.html",
+      "pageVersions": 21,
+      "pageLastChanged": "2026-09-21"
+    },
+    {
+      "id": "firehorse-reports",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/firehorse-reports.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/firehorse-reports.html",
+          "text": "public page, no catalogue ID"
+        }
+      ],
+      "page": "dws10.com/products/firehorse-reports.html",
+      "pageVersions": 23,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -154,6 +290,23 @@
       ],
       "page": "dws10.com/products/firehorse-subscription.html",
       "pageVersions": 5,
+      "pageLastChanged": "2026-09-21"
+    },
+    {
+      "id": "jetson-sensor",
+      "name": "",
+      "state": "page-only",
+      "stateSource": "dws10.com/products/jetson-sensor.html",
+      "evidence": [
+        {
+          "kind": "page",
+          "date": "",
+          "ref": "dws10.com/products/jetson-sensor.html",
+          "text": "public page, no catalogue ID"
+        }
+      ],
+      "page": "dws10.com/products/jetson-sensor.html",
+      "pageVersions": 9,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -1563,8 +1716,8 @@
       "recordVersion": 14,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/ai-consulting.html",
-      "pageVersions": 15,
+      "page": "dws10.com/products/ai-consulting-agentic.html",
+      "pageVersions": 9,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -1695,9 +1848,9 @@
       "recordVersion": 5,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/claude-code-coaching.html",
-      "pageVersions": 6,
-      "pageLastChanged": "2026-09-14"
+      "page": "dws10.com/products/claude-code-coaching-3day.html",
+      "pageVersions": 4,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "claude-code-coaching-lecture",
@@ -1715,9 +1868,9 @@
       "recordVersion": 5,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/claude-code-coaching.html",
-      "pageVersions": 6,
-      "pageLastChanged": "2026-09-14"
+      "page": "dws10.com/products/claude-code-coaching-lecture.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "claude-code-coaching-project",
@@ -1735,9 +1888,9 @@
       "recordVersion": 5,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/claude-code-coaching.html",
-      "pageVersions": 6,
-      "pageLastChanged": "2026-09-14"
+      "page": "dws10.com/products/claude-code-coaching-project.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "claude-code-coaching-workshop",
@@ -1755,9 +1908,9 @@
       "recordVersion": 5,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/claude-code-coaching.html",
-      "pageVersions": 6,
-      "pageLastChanged": "2026-09-14"
+      "page": "dws10.com/products/claude-code-coaching-workshop.html",
+      "pageVersions": 3,
+      "pageLastChanged": "2026-09-21"
     },
     {
       "id": "consulting-fit55",
@@ -1795,8 +1948,8 @@
       "recordVersion": 22,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/consulting.html",
-      "pageVersions": 16,
+      "page": "dws10.com/products/consulting-hourly.html",
+      "pageVersions": 10,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -1885,8 +2038,8 @@
       "recordVersion": 19,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/aegis.html",
-      "pageVersions": 33,
+      "page": "dws10.com/products/dws-aegis-001.html",
+      "pageVersions": 3,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -1982,8 +2135,8 @@
       "recordVersion": 20,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/cloud-pricing.html",
-      "pageVersions": 23,
+      "page": "dws10.com/products/dws-eu-pilot.html",
+      "pageVersions": 3,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -2002,8 +2155,8 @@
       "recordVersion": 20,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/cloud-pricing.html",
-      "pageVersions": 23,
+      "page": "dws10.com/products/dws-eu-starter.html",
+      "pageVersions": 3,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -2022,8 +2175,8 @@
       "recordVersion": 25,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/dwsiq.html",
-      "pageVersions": 24,
+      "page": "dws10.com/products/dws-iq-006.html",
+      "pageVersions": 21,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -2153,8 +2306,8 @@
       "recordVersion": 16,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/cloud-pricing.html",
-      "pageVersions": 23,
+      "page": "dws10.com/products/dws-us-pilot.html",
+      "pageVersions": 3,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -2173,8 +2326,8 @@
       "recordVersion": 16,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/cloud-pricing.html",
-      "pageVersions": 23,
+      "page": "dws10.com/products/dws-us-starter.html",
+      "pageVersions": 3,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -2213,8 +2366,8 @@
       "recordVersion": 17,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/firehorse-amplify.html",
-      "pageVersions": 13,
+      "page": "dws10.com/products/fh-auto-001.html",
+      "pageVersions": 10,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -2233,8 +2386,8 @@
       "recordVersion": 19,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/firehorse-content-management.html",
-      "pageVersions": 20,
+      "page": "dws10.com/products/fh-cms-001.html",
+      "pageVersions": 9,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -2253,8 +2406,8 @@
       "recordVersion": 19,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/firehorse-omnichannel.html",
-      "pageVersions": 21,
+      "page": "dws10.com/products/fh-omni-001.html",
+      "pageVersions": 9,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -2273,8 +2426,8 @@
       "recordVersion": 19,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/firehorse-reports.html",
-      "pageVersions": 23,
+      "page": "dws10.com/products/fh-rpt-001.html",
+      "pageVersions": 9,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -2293,8 +2446,8 @@
       "recordVersion": 15,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/firehorse-reports.html",
-      "pageVersions": 23,
+      "page": "dws10.com/products/firehorse-signed-reports.html",
+      "pageVersions": 14,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -2711,8 +2864,8 @@
       "recordVersion": 8,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/jetson-sensor.html",
-      "pageVersions": 9,
+      "page": "dws10.com/products/lf-jetson-agx.html",
+      "pageVersions": 3,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -2731,8 +2884,8 @@
       "recordVersion": 7,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/jetson-sensor.html",
-      "pageVersions": 9,
+      "page": "dws10.com/products/lf-jetson-nano.html",
+      "pageVersions": 3,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -2751,8 +2904,8 @@
       "recordVersion": 7,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/jetson-sensor.html",
-      "pageVersions": 9,
+      "page": "dws10.com/products/lf-jetson-nx.html",
+      "pageVersions": 3,
       "pageLastChanged": "2026-09-21"
     },
     {
@@ -3042,8 +3195,8 @@
       "recordVersion": 15,
       "recordLastChanged": "2026-09-25",
       "recordLastCommit": "4f0ae8e93",
-      "page": "dws10.com/products/bundle.html",
-      "pageVersions": 13,
+      "page": "dws10.com/products/lifetime-bundle-2026.html",
+      "pageVersions": 9,
       "pageLastChanged": "2026-09-21"
     },
     {

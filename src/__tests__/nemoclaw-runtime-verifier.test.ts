@@ -87,7 +87,7 @@ describe('read-only deployment check', () => {
     expect(
       ids(
         checkDeployment(
-          compose.replace('\${NEMOCLAW_API_KEY:-}', 'literal'),
+          compose.replace('${NEMOCLAW_API_KEY:-}', 'literal'),
           "nemoclawEndpoint: 'http://127.0.0.1:8090'",
         ),
       ),
