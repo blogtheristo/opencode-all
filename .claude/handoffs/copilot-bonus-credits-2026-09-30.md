@@ -1,10 +1,11 @@
 # Copilot Work Order — Bonus-Credit Burn to 30.09.2026
 
-Version: 1.5 [Latest]
+Version: 1.9 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.8 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/copilot-bonus-log-b1-b4 | Date: 27.09.2026 | Changes: Recorded completed Lane C coverage measurement and tests.
+- Version: 1.9 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/copilot-post-merge-log | Date: 27.09.2026 | Changes: Verified external merges of #2148 and #2152, updated Lane C status, and reran focused tests on merged main.
+- Version: 1.8 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/copilot-bonus-log-b1-b4 | Date: 27.09.2026 | Changes: Recorded completed Lane C coverage measurement and tests.
 - Version: 1.7 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/copilot-bonus-log-b1-b4 | Date: 27.09.2026 | Changes: Recorded completed Lane B11 stale-PR triage.
 - Version: 1.6 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/copilot-bonus-log-b1-b4 | Date: 27.09.2026 | Changes: Recorded completed Lane B10 site-PR reconciliation.
 - Version: 1.5 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/copilot-bonus-log-b1-b4 | Date: 27.09.2026 | Changes: Recorded completed Lane B5-B9 backlog work.
@@ -119,13 +120,14 @@ Verified by Claude Code on 27.09.2026 against the PR list, PR comments and `git 
 | B9                | [#1762](https://github.com/blogtheristo/dws6/pull/1762), [#1836](https://github.com/blogtheristo/dws6/pull/1836) | updated | green locally | Added explicit Baseten endpoint routing without default-slate promotion; reconciled OpenCode config with Nemotron primary and Qwen coder fallback. |
 | B10               | [#2022](https://github.com/blogtheristo/dws6/pull/2022), [#2021](https://github.com/blogtheristo/dws6/pull/2021), [#1829](https://github.com/blogtheristo/dws6/pull/1829) | updated | green locally | Removed superseded truncated Aegis locale pages and stale i18n rollout drafts; retained the verified structured contact-email send path and restored briefing mailto actions. Root/mirror files match, and pricing catalogs are unchanged from `main`. |
 | B11               | [#2004](https://github.com/blogtheristo/dws6/pull/2004), [#2034](https://github.com/blogtheristo/dws6/pull/2034), [#1990](https://github.com/blogtheristo/dws6/pull/1990), [#1769](https://github.com/blogtheristo/dws6/pull/1769), [#1782](https://github.com/blogtheristo/dws6/pull/1782), [#1759](https://github.com/blogtheristo/dws6/pull/1759), [#1498](https://github.com/blogtheristo/dws6/pull/1498), [#1549](https://github.com/blogtheristo/dws6/pull/1549), [#1837](https://github.com/blogtheristo/dws6/pull/1837), [#1830](https://github.com/blogtheristo/dws6/pull/1830), [#1828](https://github.com/blogtheristo/dws6/pull/1828), [#1819](https://github.com/blogtheristo/dws6/pull/1819) | stale — recommend close | review not applicable | Posted evidence-based close recommendations for all twelve superseded, mixed-scope, or obsolete branches; no PR was closed or merged. |
-| C1                | [#2152](https://github.com/blogtheristo/dws6/pull/2152) | open for review | coverage measured | Recorded the ten lowest-covered security/billing files. Baseline was 33.05% lines; final suite coverage is 33.75% lines. |
-| C2                | [#2152](https://github.com/blogtheristo/dws6/pull/2152) | open for review | green locally | Added 18 tests for the top three files; target line coverage rose from 0% to 40.21%, 43.75%, and 33.85%. Full local pre-push CI passed. |
+| C1                | [#2152](https://github.com/blogtheristo/dws6/pull/2152) | merged `4a889b5` | coverage measured | Recorded the ten lowest-covered security/billing files. Baseline was 33.05% lines; final suite coverage is 33.75% lines. |
+| C2                | [#2152](https://github.com/blogtheristo/dws6/pull/2152) | merged `4a889b5` | green locally + post-merge | Added 18 tests for the top three files; target line coverage rose from 0% to 40.21%, 43.75%, and 33.85%. Full local pre-push CI and 18/18 tests on merged `main` passed. |
+| Post-session HIC merges | [#2148](https://github.com/blogtheristo/dws6/pull/2148), [#1829](https://github.com/blogtheristo/dws6/pull/1829), [#1762](https://github.com/blogtheristo/dws6/pull/1762), [#2152](https://github.com/blogtheristo/dws6/pull/2152) | merged externally | post-merge tests green | These PRs were merged after the prior status check. Lane C files and log are present on current `main`; the three focused suites passed 18/18 on merged `main`, and `npm run build` passed. No Copilot auto-merge was used. |
 | Admin scope       | [#2143](https://github.com/blogtheristo/dws6/pull/2143) | merged `e421737`            | green locally (11/11 backoffice tests)          | Back-office admin limited to `organizations.is_internal`; migration 096 applied to production on HIC instruction.                                                                                        |
 
 **Not reached in session 1:** B1–B9, C1–C2. D1–D2 are in #2144 and the admin-scoping fix is merged as #2143.
 
-**Session 2 status:** Lanes B and C completed (B1-B11, C1-C2). Exact promotional-credit usage remains unavailable through the CLI or attempted authenticated billing endpoint. Continue under the $210 and 30.09.2026 18:00 UTC hard stops.
+**Session 2 status:** Lanes B and C completed (B1-B11, C1-C2); #2148, #1829, #1762, and #2152 were subsequently merged by HIC/another session. Exact promotional-credit usage remains unavailable through the CLI or attempted authenticated billing endpoint. Continue under the $210 and 30.09.2026 18:00 UTC hard stops.
 
 **Findings for the next session:**
 
