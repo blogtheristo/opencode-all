@@ -1,12 +1,10 @@
-// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=gpt-6-luna Agent=OpenClaw-Phase2 Date=2026-09-27
+// Evidence: Tool=Claude Code 2.1.283 Model=anthropic/claude-opus-5-5 Agent=claude-code-web Date=2026-09-27
 // Audit trail: git log -- src/__tests__/security/runtime-auth-kya-verdict.test.ts
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createHmac } from 'node:crypto';
 import {
   _resetPoliciesForTests,
   issueKyaVerdict,
-  issueThemisBridgeVerdict,
-  registerToolPolicy,
   verifyKyaVerdict,
 } from '../../security/runtime-auth.js';
 
@@ -61,48 +59,10 @@ describe('issueKyaVerdict / verifyKyaVerdict', () => {
     expect(verifyKyaVerdict({ ...v, gate: 'forged' })).toBe(false);
   });
 
-  it('signs a Themis authorization only after the existing per-tool gate allows it', () => {
-    registerToolPolicy('search-docs', { actionClass: 'READ' });
-    const verdict = issueThemisBridgeVerdict({
-      call: { name: 'search-docs', arguments: { query: 'cbam' } },
-      context: { agentName: 'themis', orgId: 'tenant-1', sessionId: 'session-1' },
-      callerAgentId: 'agent-1',
-      operatorId: 'operator-1',
-      trustScore: 90,
-      policyVersion: 'themis-policy-v1',
-    });
-
-    expect(verdict.decision).toBe('allowed');
-    expect(verdict.gate).toBe('themis-policy-gate');
-    const ticketLifetime = Date.parse(verdict.expiresAt!) - Date.parse(verdict.issuedAt!);
-    expect(ticketLifetime).toBeGreaterThan(29_000);
-    expect(ticketLifetime).toBeLessThanOrEqual(30_000);
-    expect(verdict.scope).toEqual(
-      expect.objectContaining({
-        agentId: 'agent-1',
-        operatorId: 'operator-1',
-        orgId: 'tenant-1',
-        sessionId: 'session-1',
-        capability: 'search-docs',
-        paramsDigest: expect.stringMatching(/^[a-f0-9]{64}$/),
-        authorizationId: expect.any(String),
-      }),
-    );
-    expect(verifyKyaVerdict(verdict)).toBe(true);
-  });
-
-  it('does not authorize an unregistered capability through Themis', () => {
-    const verdict = issueThemisBridgeVerdict({
-      call: { name: 'unregistered-harness-tool', arguments: {} },
-      context: { agentName: 'themis', orgId: 'tenant-1', sessionId: 'session-1' },
-      callerAgentId: 'agent-1',
-      operatorId: 'operator-1',
-      trustScore: 90,
-      policyVersion: 'themis-policy-v1',
-    });
-
-    expect(verdict.decision).toBe('denied');
-    expect(verifyKyaVerdict(verdict)).toBe(true);
+  it('refuses to sign the reserved Themis bridge gate outside issueThemisBridgeVerdict', () => {
+    const v = issueKyaVerdict({ decision: 'allowed', trustScore: 90, gate: 'themis-policy-gate' });
+    expect(v.sig).toBeUndefined();
+    expect(verifyKyaVerdict(v)).toBe(false);
   });
 
   it('a verdict signed under a different secret does not verify', () => {

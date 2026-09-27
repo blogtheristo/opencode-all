@@ -7,13 +7,15 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2 [Latest]
+Version: 1.3 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.2 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/nemoclaw-phase2-closeout | Date: 27.09.2026 | Changes: Recorded the code-only merge of PR #2175 and retained authenticated-identity, runtime-authentication, and OpenShell rollout gates. | Harness: Copilot CLI + DWS standards | HIC-approved-drift: none
+- Version: 1.3 [Latest] | Tool: Claude Code 2.1.283 | Session: claude/festive-newton-1qvp0q | Date: 27.09.2026 | Changes: Bound Themis bridge verdict identity to verified credentials (DWS access JWT + `themis-bridge`-scoped capability token); reserved the bridge gate; recorded remaining identity gaps and call-site plan. | Harness: Claude Code + DWS standards | HIC-approved-drift: none
 
-- Version: 1.1 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Model: Auto | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: Bound NemoClaw invocations to Themis per-tool authorization, signed tenant/operator/session/request scope, API authentication and single-use Article 12 audit. Added committed-only schema migrations and test gates; no runtime deployed. | Harness: Copilot CLI + DWS standards | HIC-approved-drift: none
+- Version: 1.2 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/nemoclaw-phase2-closeout | Date: 27.09.2026 | Changes: Recorded the code-only merge of PR #2175 and retained authenticated-identity, runtime-authentication, and OpenShell rollout gates. | Harness: Copilot CLI + DWS standards | HIC-approved-drift: none
+
+- Version: 1.1 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Model: Auto | Session: copilot/openclaw-phase2-thems | Date: 27.09.2026 | Changes: Bound NemoClaw invocations to Themis per-tool authorization, signed tenant/operator/session/request scope, API authentication and single-use Article 12 audit. Added committed-only schema migrations and test gates; no runtime deployed. | Harness: Copilot CLI + DWS standards | HIC-approved-drift: none
 - Version: 1.0 | Tool: GitHub Copilot CLI 1.0.88 | Model: Auto | Session: opencode/openclaw-control-plane-plan | Date: 27.09.2026 | Changes: Initial evidence-based adoption decision, phase gates and static runtime inventory. | Harness: Copilot CLI + DWS standards resolver | HIC-approved-drift: none
 
 Document Status:
@@ -55,7 +57,7 @@ DWS differentiation remains governed industrial outcomes: **Brain** = DWS Agent 
 
 Do not fork a general-purpose agent runtime, create a second MCP orchestration engine, install community skills automatically, or give the harness direct credentials to bypass DWS tools. Preserve the direct DWS execution route as rollback. Keep Firehorse Dreaming (`clawdbot`) distinct from the external OpenClaw project.
 
-Themis is the productized DWS control plane, not a competing runtime. For NemoClaw calls, Themis applies the existing per-tool authorization envelope and signs a short-lived verdict bound to operator, tenant, agent, session, capability, and canonical parameter digest. The bridge verifies the verdict, requires runtime authentication and Article 12 availability, and consumes a unique authorization ID in the append-only ledger before dispatch. The issuer currently accepts identity fields from its caller; wiring those values to an authenticated principal has not been verified and remains a rollout gate. OpenClaw cannot mint or broaden a valid signed verdict.
+Themis is the productized DWS control plane, not a competing runtime. For NemoClaw calls, Themis applies the existing per-tool authorization envelope and signs a short-lived verdict bound to operator, tenant, agent, session, capability, and canonical parameter digest. The bridge verifies the verdict, requires runtime authentication and Article 12 availability, and consumes a unique authorization ID in the append-only ledger before dispatch. The issuer takes identity only from a principal resolved from verified credentials: operator and tenant from a DWS access JWT, agent from a `BROKER_AGENT_TOKENS` capability token with the `themis-bridge` scope; the bridge gate cannot be signed any other way (`src/security/themis-principal.ts`). This is a code-level boundary: no production route calls it yet, agent-to-operator binding is not enforced, and session, trust score and policy version are still caller inputs. See `docs/field-notes/2026-09-27-themis-bridge-principal-boundary.md`. OpenClaw cannot mint or broaden a valid signed verdict.
 
 ## Roadmap and gates
 
