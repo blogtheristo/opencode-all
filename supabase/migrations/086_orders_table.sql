@@ -1,4 +1,6 @@
 -- Migration 086: Orders table for Stripe payments integration
+-- Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=Copilot Date=2026-09-27
+-- Audit trail: git log -- supabase/migrations/086_orders_table.sql
 -- Adds orders table to track purchase lifecycle with Stripe invoice ID as key
 -- Enables mark_order_paid RPC function for atomic paid state change
 
@@ -48,17 +50,10 @@ CREATE POLICY "service_role_all" ON orders FOR ALL TO service_role USING (true) 
 CREATE POLICY "authenticated_select_own" ON orders FOR SELECT TO authenticated
   USING (user_id = auth.uid());
 
--- authenticated: insert own orders only (POST, webhook-gated in application)
-CREATE POLICY "authenticated_insert_own" ON orders FOR INSERT TO authenticated
-  WITH CHECK (user_id = auth.uid());
-
--- authenticated: update own pending/cancelled orders (status transitions via RPC)
-CREATE POLICY "authenticated_update_own" ON orders FOR UPDATE TO authenticated
-  USING (user_id = auth.uid() AND status IN ('pending', 'cancelled'))
-  WITH CHECK (user_id = auth.uid() AND status IN ('pending', 'cancelled'));
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON orders TO service_role;
-GRANT SELECT, INSERT, UPDATE ON orders TO authenticated;
+-- Table grants are explicit for both Data API roles. RLS permits authenticated
+-- users to SELECT only their own rows; writes remain service-role-only.
+GRANT SELECT, INSERT, UPDATE, DELETE ON orders
+  TO authenticated, service_role;
 
 -- ===========================================================================
 -- RPC: mark_order_paid

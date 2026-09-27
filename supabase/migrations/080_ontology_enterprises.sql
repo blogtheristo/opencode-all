@@ -1,4 +1,6 @@
 -- Migration 080: LWM ontology — 25 industries + European enterprise registry
+-- Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=Copilot Date=2026-09-27
+-- Audit trail: git log -- supabase/migrations/080_ontology_enterprises.sql
 -- (renumbered from the original 070 draft — main's 070 slot was taken by
 -- 070_web_leads.sql by the time this PR merged)
 --
@@ -455,9 +457,9 @@ ALTER TABLE ontology_enterprises ENABLE ROW LEVEL SECURITY;
 -- after that cutover, so the anon SELECT these tables' RLS policies grant
 -- must be opened explicitly at the table level too (076 already anticipated
 -- this exact pair under "070 anon read (true) — landing-page taxonomy").
-GRANT SELECT, INSERT, UPDATE, DELETE ON ontology_industries, ontology_enterprises TO service_role;
-GRANT SELECT                         ON ontology_industries, ontology_enterprises TO authenticated;
-GRANT SELECT                         ON ontology_industries, ontology_enterprises TO anon;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ontology_industries, ontology_enterprises
+  TO authenticated, service_role;
+GRANT SELECT ON ontology_industries, ontology_enterprises TO anon;
 
 DROP POLICY IF EXISTS "anon read ontology_industries" ON ontology_industries;
 CREATE POLICY "anon read ontology_industries"
