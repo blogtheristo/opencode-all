@@ -1,0 +1,24 @@
+{
+  "task": "Verification suite for seo-audit (readiness G6)",
+  "order": 60,
+  "maxRounds": 4,
+  "prompt": "Write a dedicated Vitest suite src/__tests__/agents/seo-audit.agent.test.ts for src/agents/seo/seo-audit.agent.ts. Read the agent first. Cover: its main execute/run path with realistic input; every exported pure helper; input validation (bad or missing fields are rejected, not crashed); the failure path when an LLM or external call fails (mock it, never call the network); and any numeric threshold or unit conversion with exact expected values taken from the code. At least 12 it() cases, no it.skip/it.todo, no snapshot-only tests. If a test exposes a real bug, fix it in the agent with the smallest change and say so in the commit message. Do not touch package.json or package-lock.json; prettier --write changed files; commit and push.",
+  "checks": [
+    {
+      "name": "dedicated suite exists",
+      "run": "test -f src/__tests__/agents/seo-audit.agent.test.ts"
+    },
+    {
+      "name": "at least 12 cases",
+      "run": "n=$(grep -cE '^\\s*(it|test)\\(' src/__tests__/agents/seo-audit.agent.test.ts); echo cases=$n; [ \"$n\" -ge 12 ]"
+    },
+    {
+      "name": "no skipped or todo cases",
+      "run": "! grep -qE '(it|test|describe)\\.(skip|todo)\\(' src/__tests__/agents/seo-audit.agent.test.ts"
+    },
+    {
+      "name": "suite passes",
+      "run": "npx vitest run src/__tests__/agents/seo-audit.agent.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+    }
+  ]
+}
