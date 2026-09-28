@@ -109,6 +109,8 @@ Every email, letter, intro note, signature block, or first-person draft produced
 | DWS IQ product (platform From/Reply-To)                                       | `risto@onelifetime.world`      |
 | Google Workspace login **only** (never a From:, Reply-To:, or public contact) | `risto.paarni2024@lifetime.fi` |
 
+**Inbound (Proton catch-all):** Proton receives mail for any address on our domains — `risto.anton@lifetime.fi`, `security@dws10.com`, etc. An address that only receives mail is not an error; the table above governs `From:`/`Reply-To:` only. See `docs/field-notes/2026-09-28-mail-inbound-catch-all-address-map.md`.
+
 **Authority:** `lifetime.fi` DNS authorizes Proton (MX, SPF, DKIM) exclusively; Google is not authorized. Mail sent from Google with a `@lifetime.fi` From fails SPF/DKIM and is quarantined per the domain's DMARC policy. Evidence: `docs/field-notes/2026-08-04-lifetime-fi-outbound-dmarc-proton.md`.
 
 **Signature template:**
@@ -513,6 +515,7 @@ Use these for full detail when needed:
 
 | Version | Date       | Changes                                                                                                                                                                                                           | Author             |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| 1.10    | 2026-09-28 | HIC: Proton inbound catch-all line under Sender Identity — any address on our domains is a valid receive address; outbound table unchanged.                                                                       | Claude Code        |
 | 1.9     | 2026-09-28 | HIC: Coding Delegation Rule — paid sessions write task specs (`scripts/loop-task.mjs`); `opencode-loop` on the DGX does multi-file coding; `opencode-all` for multi-day catch-up.                                 | Claude Code        |
 | 1.8     | 2026-09-28 | Done Gate Rule: completion claims require `scripts/agent-done-gate.mjs --full` output; per-task specs in `.claude/done/<branch>.json`; OpenCode plugin re-prompts on FAIL.                                        | Claude Code        |
 | 1.7     | 2026-09-27 | Resolver — Ontology → Admin Documentation: look up a term (`npm run ontology:lookup`) before asserting how a system works. Salvaged from closed PR #2075 (written 24.09.2026); pending HIC approval at PR review. | Claude Code        |
