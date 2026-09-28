@@ -244,9 +244,9 @@
             <p class="lede" id="authLine">Checking access…</p>
             <div class="stats" id="stats" hidden>
               <span><strong id="overdueCount">0</strong> overdue / open items</span>
-              <span>Nothing closes until you pick Hand to Grok or Take as HIC</span>
+              <span>Nothing closes until you pick Hand to daily-ops bot or Take as HIC</span>
               <span class="muted"
-                >Hand to Grok = anonymized/redacted only; raw threads → OpenCode local (EU)</span
+                >Hand to daily-ops bot = anonymized/redacted only; raw threads → OpenCode local (EU)</span
               >
               <span id="dataSource" class="muted"></span>
             </div>
@@ -418,7 +418,7 @@
               ${safeTedHref(item.tedUrl) ? `<div class="meta"><a href="${escapeAttr(safeTedHref(item.tedUrl))}" target="_blank" rel="noopener noreferrer">TED notice</a></div>` : ""}
               ${safeHilmaHref(item.hilmaUrl) ? `<div class="meta"><a href="${escapeAttr(safeHilmaHref(item.hilmaUrl))}" target="_blank" rel="noopener noreferrer">Hilma notice</a>${item.relevanceScore != null ? ` · fit ${escapeHtml(item.relevanceScore)}/100` : ""}</div>` : ""}
               <div class="row">
-                <button type="button" class="btn btn-primary" data-grok="${escapeAttr(item.id)}">Hand to Grok</button>
+                <button type="button" class="btn btn-primary" data-grok="${escapeAttr(item.id)}">Hand to daily-ops bot</button>
                 <button type="button" class="btn" data-opencode="${escapeAttr(item.id)}">Open in OpenCode</button>
                 <button type="button" class="btn" data-hic="${escapeAttr(item.id)}">Take as HIC</button>
               </div>`;
@@ -465,7 +465,7 @@
           if (!item) return;
           const note = getLiveInputs()[0]?.text || "";
           openModal(
-            "Hand to Grok (anonymized only — raw threads → Open in OpenCode)",
+            "Hand to daily-ops bot (anonymized only — raw threads → Open in OpenCode)",
             buildGrokPrompt(item, note),
           );
         }

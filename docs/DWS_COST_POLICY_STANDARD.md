@@ -7,7 +7,16 @@
 
 ---
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
+Tool: Cursor
+Model: (one-shot doc update)
+Agent: cursor
+Date: 2026-09-28
+Changes: HIC cancelled Cursor Pro (28.09.2026). Record as procurement decision: Win11 daily driver = VS Code + Copilot Pro+; Claude Max escalation; DGX OpenCode implementation. Do not route agentic workloads through Cursor. Daily-ops handovers retargeted. | Harness: Cursor CLI (one-shot) + CLAUDE.md + Admin/ADMIN_MANUAL.md | HIC-approved-drift: none
+
+---
+
+Version: 1.1 [not latest]
 Tool: Claude Code
 Model: anthropic/claude-opus-5-5
 Agent: claude-code
@@ -29,6 +38,19 @@ Changes: Initial policy: DGX-first agentic compute, 21-day free-credit window, s
 **Governance Basis:** EU AI Act Art. 12–14 (transparency, tool selection rationale, HIC oversight)
 
 ---
+
+## Procurement decision — Cursor Pro (HIC 28.09.2026)
+
+**Status: CANCELLED.** Cursor Pro no longer purchased.
+
+| Seat                         | Status        | Role                                                                              |
+| ---------------------------- | ------------- | --------------------------------------------------------------------------------- |
+| Claude Max 5x                | Active        | Architecture, specifications, difficult reasoning, escalation                     |
+| GitHub Copilot Pro+          | Active        | Win11 IDE (VS Code), GitHub-native PR work, bounded cloud bursts, DGX Copilot CLI |
+| Cursor Pro                   | **Cancelled** | Do not route review, daily-ops, or agents through Cursor                          |
+| DGX OpenCode / opencode-loop | Active        | Implementation, tests, retries, long coding loops (≈€0 marginal tokens)           |
+
+Canonical operator tables: `Admin/ADMIN_MANUAL.md` → _Two dev environments_, _Large work_, _Model economics_. Daily-ops: `docs/handovers/grok-bot-daily-ops-handover.md`, `docs/handovers/OPTION_A_OPERATING_GUIDE.md`.
 
 ## Scope
 

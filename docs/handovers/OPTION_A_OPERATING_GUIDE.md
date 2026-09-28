@@ -1,19 +1,20 @@
 ---
-Document: Option A Operating Guide — Soft Failover for Grok/EU-PII Gate
+Document: Option A Operating Guide — Soft Failover for Daily-Ops / EU-PII Gate
 Type: Operational Guidance (HIC Runbook)
 Status: [Latest] Active
-Version: 1.0
-Date: 2026-09-13
+Version: 1.1
+Date: 2026-09-28
 Languages Available: English
 schema: DWS_DOCUMENT_STANDARD
 ---
 
 # Operating Guide: Option A Soft Failover (EU/PII Hard Gate)
 
-**Effective:** 2026-09-13  
-**For:** HIC (human-in-control) using Mission Control dashboard + Grok bot in Cursor  
-**Purpose:** Route daily operational tasks safely: anonymized work → Grok; sensitive/raw data → OpenCode local  
-**Scope:** Daily email triage, deadline checks, reply drafting, investor/customer outreach follow-ups
+**Effective:** 2026-09-28 (v1.1 — Cursor Pro cancelled; triage surface = VS Code + Copilot / Claude Max)  
+**For:** HIC (human-in-control) using Mission Control dashboard + Win11 daily-ops bot  
+**Purpose:** Route daily operational tasks safely: anonymized work → Copilot Chat / Claude Max; sensitive/raw data → OpenCode (DGX / EU)  
+**Scope:** Daily email triage, deadline checks, reply drafting, investor/customer outreach follow-ups  
+**Canonical prompt:** `docs/handovers/grok-bot-daily-ops-handover.md` v1.5+
 
 ---
 
@@ -21,12 +22,12 @@ schema: DWS_DOCUMENT_STANDARD
 
 **Soft Failover Pattern:**
 
-1. **Attempt:** Hand a task to Grok with anonymized/redacted data.
-2. **Grok refuses raw PII:** If you accidentally paste raw customer threads, Grok stops and says "escalate to HIC / OpenCode local."
-3. **You switch:** Click to hand off to OpenCode, which has EU-resident authority to manipulate raw data.
-4. **Grok never sees raw PII:** Customer/investor threads stay on your local machine or EU-resident server.
+1. **Attempt:** Hand a task to the Win11 daily-ops bot (Copilot Chat or Claude Max) with anonymized/redacted data.
+2. **Bot refuses raw PII:** If you accidentally paste raw customer threads, it stops and says "escalate to HIC / OpenCode local."
+3. **You switch:** Click **Open in OpenCode**, which has EU-resident authority to manipulate raw data.
+4. **Cloud bots never see raw PII:** Customer/investor threads stay on DGX / your EU machine.
 
-**Why:** Cursor/Grok runs on US infrastructure (not GDPR-approved for raw customer data). OpenCode runs on your EU machine or DGX (compliant). Grok handles the lightweight triage; OpenCode handles sensitive edits.
+**Why:** Copilot and Claude Max cloud sessions are not approved EU-resident processors for raw customer data. OpenCode on DGX is. Lightweight anonymized triage stays on Win11; sensitive edits stay on DGX.
 
 ---
 
@@ -64,15 +65,15 @@ Bookmark it. Log in with your Google account (`risto.paarni2024@lifetime.fi`).
 
 ---
 
-## Daily Workflow: Using Mission Control + Grok
+## Daily Workflow: Using Mission Control + daily-ops bot
 
-### Task 1: Paste Today's Grok/X Note
+### Task 1: Paste Today's Market Signal
 
-**What:** The daily market brief from Grok's X.com posts (or similar live feed).
+**What:** The daily market signal (Grok/X note, regulatory shift, competitor move) — market signals remain a separate input artifact.
 
 **How:**
 
-1. Copy Grok's daily note from X or paste it into Mission Control's **"Paste today's Grok / X daily"** box.
+1. Copy the daily signal from Grok/X or paste it into Mission Control's **"Paste today's market signal"** box.
 2. Select which centre it belongs to: **Investor** / **Partnership** / **Sales (Trial)**.
 3. Click **Add to queue** → item appears in the live list.
 
@@ -84,19 +85,19 @@ You'll see a list of overdue items seeded from the last Morning Brief (Aug 24 sn
 
 1. **Read the item** (centre, context, next action).
 2. **Pick an action:**
-   - **Hand to Grok** → Grok drafts a reply
+   - **Hand to daily-ops bot** → VS Code + Copilot Chat (Win11) or Claude Max drafts a reply
    - **Take as HIC** → You own it (pick: `meeting`, `noux_invite`, `provision_demo`, `schedule_demo`, or `close_or_kill`)
 3. **Mark done** once you've decided.
 
-### Task 3: Hand to Grok (Anonymized Only)
+### Task 3: Hand to daily-ops bot (Anonymized Only)
 
-**When you click "Hand to Grok":**
+**When you click "Hand to daily-ops bot":**
 
-1. **Modal appears:** "Hand to Grok (anonymized only — raw threads → OpenCode local/EU)"
-2. **Grok sees:** Only the item summary + any anonymized/redacted context **you paste in Mission Control**.
-3. **Grok drafts:** A reply, follow-up, or triage note in the sender identity (Risto Anton Päärni, `risto.paarni@lifetime.fi`).
+1. **Modal appears:** "Hand to daily-ops bot (anonymized only — raw threads → OpenCode on DGX)"
+2. **Bot sees:** Only the item summary + any anonymized/redacted context **you paste in Mission Control**.
+3. **Bot drafts:** A reply, follow-up, or triage note in the sender identity (Risto Anton Päärni, `risto.paarni@lifetime.fi`) using VS Code + Copilot Chat or Claude Max.
 4. **You review:** Copy the draft. **Do not auto-send** — show it to yourself first.
-5. **You decide:** Send it, edit it, or hand it back to Grok with "refine this."
+5. **You decide:** Send it, edit it, or hand it back to the bot with "refine this."
 
 ---
 
@@ -121,18 +122,17 @@ You'll see a list of overdue items seeded from the last Morning Brief (Aug 24 sn
 
 ## What Happens When You Accidentally Paste Raw Data?
 
-**Scenario:** You paste a raw email thread (with `>` quoted lines) into Mission Control and hand it to Grok.
+**Scenario:** You paste a raw email thread (with `>` quoted lines) into Mission Control and hand it to the daily-ops bot (Copilot Chat / Claude Max).
 
-**Grok's response:**
+**Bot response:** (Grok/X market notes remain a separate input artifact, not part of this workflow)
 
 ```
 STOP. This is raw customer/investor thread content.
 I cannot process this (DWS_SECURITY_STANDARD §4.1 geo block;
-Cursor is not an approved EU-resident processor).
+VS Code/Copilot/Max is not an approved EU-resident processor).
 
-→ Escalate to HIC / OpenCode.
-Tell the human to run this work LOCALLY with OpenCode
-(EU/DGX path) or Claude Code under the same residency rules.
+→ Escalate to HIC / OpenCode on DGX.
+Tell the human to run this work LOCALLY on DGX (EU-resident processor only).
 Do not "just peek" at the raw mail.
 ```
 
@@ -152,18 +152,18 @@ Do not "just peek" at the raw mail.
 
 ## Hands-On Examples
 
-### Example 1: Simple Deadline Check (Grok Handles)
+### Example 1: Simple Deadline Check (daily-ops bot handles)
 
 **You receive:** "One Click LCA partnership bid expires in 2 days."
 
 **What you do:**
 
 1. Paste into Mission Control: "Partnership centre — One Click LCA bid expires 2026-09-15."
-2. Click **Hand to Grok**.
-3. Grok drafts: "Partnership team — time-sensitive: action needed by 2026-09-15. Recommend outreach for status update."
+2. Click **Hand to daily-ops bot**.
+3. Win11 daily-ops bot (Copilot Chat / Claude Max) drafts: "Partnership team — time-sensitive: action needed by 2026-09-15. Recommend outreach for status update."
 4. You review, tweak, send or escalate.
 
-✓ **Grok handled this.** No raw customer data; pure timeline + decision.
+✓ **Win11 daily-ops bot handled this.** No raw customer data; pure timeline + decision.
 
 ---
 
@@ -210,17 +210,17 @@ Context: Nordic construction ops, sustainability-focused
 **What you do:**
 
 1. Paste **this summary** (no names, no emails) into Mission Control.
-2. Click **Hand to Grok**.
-3. Grok drafts: "Sales centre — [Contact] is ready for next step. Recommend scheduling call for technical discovery."
+2. Click **Hand to daily-ops bot**.
+3. Win11 daily-ops bot (Copilot Chat / Claude Max) drafts: "Sales centre — [Contact] is ready for next step. Recommend scheduling call for technical discovery."
 4. You review and send or escalate.
 
-✓ **Grok handled this.** Data was already redacted; no raw PII present.
+✓ **Win11 daily-ops bot handled this.** Data was already redacted; no raw PII present.
 
 ---
 
 ## End-of-Day Checkpoint
 
-**At the end of your day, Grok logs:**
+**At the end of your day, the daily-ops bot logs:**
 
 1. **What was triaged** (how many items, which centres).
 2. **What's pending** (awaiting HIC decision, awaiting OpenCode, awaiting reply).
@@ -229,10 +229,10 @@ Context: Nordic construction ops, sustainability-focused
 **Example log:**
 
 ```
-2026-09-13 — Daily Operations Log (Grok bot in Cursor)
+2026-09-28 — Daily Operations Log (Win11 daily-ops bot: VS Code + Copilot Chat / Claude Max)
 
 Triaged: 5 items (Investor: 2, Partnership: 2, Sales: 1)
-Actions: 2 handed to Grok (drafts ready), 1 marked as HIC meeting, 2 pending
+Actions: 2 handed to daily-ops bot (drafts ready), 1 marked as HIC meeting, 2 pending
 
 Pending decisions:
   - IFS Cloud partnership: awaiting technical team feedback

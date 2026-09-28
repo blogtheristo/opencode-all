@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.42 [Latest]
+Version: 3.43 [Latest]
 
 Sessions & Modifications:
 
-- Version: 3.42 [Latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: New subsection "Unattended task loop and done gate (DGX)": `agent-done-gate.mjs`, `done-gate.ts` OpenCode plugin, `opencode-task-loop.mjs` start/status/alerts commands, spec format pointer, default model `qwen3-coder-next`.
+- Version: 3.43 [Latest] | Tool: Cursor | Session: docs/cursor-pro-cancel-daily-ops | Date: 28.09.2026 | Changes: HIC cancelled Cursor Pro (28.09.2026). Win11 daily driver = **VS Code + GitHub Copilot Pro+**; Claude Max for architecture/escalation; DGX OpenCode/opencode-loop for implementation. Cursor IDE/CLI no longer a paid seat — do not route daily-ops or review through Cursor. Grok daily-ops handover moved off Cursor. | Harness: Cursor CLI (one-shot) + CLAUDE.md + docs/DWS_COST_POLICY_STANDARD.md | HIC-approved-drift: none
+- Version: 3.42 [not latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: New subsection "Unattended task loop and done gate (DGX)": `agent-done-gate.mjs`, `done-gate.ts` OpenCode plugin, `opencode-task-loop.mjs` start/status/alerts commands, spec format pointer, default model `qwen3-coder-next`.
 - Version: 3.41 [not latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: New subsection "Per-session worktree launch (DGX terminal)": `opencode` started in `~/dws6` runs in its own worktree + `opencode/<task>` branch via `scripts/shell/opencode-worktree.bash` (PR #2198), installed on DGX 28.09.2026 with the self-verifying `install-opencode-worktree.sh`. Recorded operator rules from the rollout: keep `~/dws6` on `main`; find live sessions before switching it; opencode `-s` resumes in the session's stored folder, so continue old shared-checkout work via a fresh session in the worktree + handoff file; GH007 private-email push rejection and its fix. Worktrees section: `--link-deps` worktrees share the primary `node_modules`. Cross-refs: `WORKTREE_POLICY.md` §6, `docs/field-notes/2026-09-28-opencode-worktree-wrapper-dgx.md`.
 - Version: 3.40 [not latest] | Tool: Claude Code (Opus 5) | Session: claude/practical-meitner-k9bhnn (salvage of claude/backoffice-open-items, PR #2075 closed unmerged) | Date: 27.09.2026 (orig. 24.09.2026) | Changes: Hardened the Cloudflare Tunnel section after a session gave the HIC three rounds of wrong dashboard instructions. Made explicit that `dgx-heartbeat` is **locally managed** (`/etc/cloudflared/config.yml`, `cloudflared` as a host systemd service) so the Cloudflare dashboard exposes no hostname tab for it, and that ingress rules must use published host ports (`http://localhost:8080`) not compose service names (`http://dws-backend:8080`) — the daemon is not on the Docker network. Flagged that the `cloudflare-tunnel` service in `infrastructure/dgx-spark/docker-compose.yml` is profile-gated, never provisioned, and its `mcp-gateway` comments describe intent not deployed state; this manual is the source of truth for tunnel state. Added a concrete pending runbook for `backend.dws6.com` → `localhost:8080` (HIC-approved, blocked on DGX SSH), including why `api.dws6.com` was not reused (live CNAME to `ghs.googlehosted.com` from the retired `dws6run6` Cloud Run mapping). Cross-refs: `Admin/ADMIN_MANUAL_DWS6_COM.md` §11.2 (v1.4), `docs/field-notes/2026-09-24-backoffice-open-items-fixed.md` (v1.2).
 - Version: 3.39 [not latest] | Tool: Claude Code (Opus 5.5) | Session: claude/kya-jev-audit-implementation-plan | Date: 27.09.2026 | Changes: Added `kya-jev` typed-decision operations section (signing secret per environment + rotation, the five consumers and which ones log, calibration run, public `kya-decide` package). Operations log: migration 087 (`kya_jev_calls`) applied via SQL editor and ledger repaired with `supabase migration repair --status applied 087`.
@@ -21,7 +22,7 @@ Sessions & Modifications:
 - Version: 3.32 | Tool: Claude Code | Session: claude/copilot-pro-bonus-credits-9jptij | Date: 27.09.2026 | Changes: New section "Operations log — 27.09.2026": Copilot $210 credit work order and model routing; server-owned back-office access (#2138) scoped to the internal org (#2143, migration 096 applied); migration 097 closed live `contracts_lifecycle`/`orders` RLS gaps (#2147, applied); migration-history divergence (never `supabase db push`); DGX Persistence Rule and three jobs moved to DGX (#2144, #2145); Tool Git Identity rule (`CLAUDE.md` v1.5) and the `Unit Fixture` repo-local identity fix; CI test runner outage.
 - Version: 3.31 | Tool: Claude Code (Sonnet 5) | Session: (Temporal DGX deploy) | Date: 22.09.2026 | Changes: Deployed Temporal (PR #2068/#2070) on DGX Spark — `dws-temporal-postgres`/`dws-temporal` Healthy, `dws-temporal-worker` Started. Root-caused and fixed an unrelated pre-existing blocker: `dws-postgres` (v1.5.0) required `POSTGRES_PASSWORD`, never set, which failed `docker compose` interpolation for the _entire_ compose file. HIC-approved fresh `POSTGRES_PASSWORD` + `TEMPORAL_POSTGRES_PASSWORD` generated and documented in both `.env` files. Recorded a new Token & Credential Lifecycle decision: a planned Supabase `credentials_store` mirror (AES-256-GCM at rest, `CREDENTIALS_STORE_ENC_KEY` in `.env` only) scoped to outbound API/service credentials only, motivated by dev environments (e.g. Chromebook) with no local `.env`. Flagged `FACEBOOK_PAGE_TOKEN` in the Expiry register as possibly already past its noted 2026-08-20 expiry, unverified. Cross-refs: `docs/field-notes/2026-09-22-temporal-dgx-deploy-blocked-postgres-password.md`, `docs/dws-use-cases.md`.
 - Version: 3.30 | Tool: GitHub Copilot Coding Agent | Session: cursor/dgx-ollama-litellm-router-a455 | Date: 18.09.2026 | Changes: Merge resolution preserved LiteLLM router standards lock: Docker `OLLAMA_API_BASE` wiring (`host.docker.internal` in Linux compose), deployed Spark Ollama pair (`nemotron-3-super` + `qwen3-coder:30b`), and `FRONTIER-CLAUDE-OPUS` = `claude-opus-4-8`.
-- Version: 3.29 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark loginctl: this SSH is **130**; **129** is the other admin100 session; **c1** is gdm (leave it). `who` shows tmux(3006) on pts/0 since 17.09. Inspect tmux before `terminate-session 129` — that can kill tmux.
+- Version: 3.29 [not latest] | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark loginctl: this SSH is **130**; **129** is the other admin100 session; **c1** is gdm (leave it). `who` shows tmux(3006) on pts/0 since 17.09. Inspect tmux before `terminate-session 129` — that can kill tmux.
 - Version: 3.28 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: Spark **GitHub CLI**. Official apt recipe **ran**; `gh` already **2.45.0-1ubuntu0.3+esm3** (Ubuntu ESM). cli.github.com did not replace it. Do not force-upgrade until `apt-cache policy gh`. GitHub flags 2.45.x community packages as broken (deprecated APIs).
 - Version: 3.27 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: How to log out Spark SSH sessions **#129/#130** after needrestart: `exit` each SSH (or `loginctl terminate-session` the other id), reconnect. Do not restart docker/gdm. Do not `terminate-user gdm`.
 - Version: 3.26 | Tool: Cursor Grok 4.6 | Session: cursor/wsl-updated-a455 | Date: 18.09.2026 | Changes: needrestart **did** flag outdated **user sessions** after docker-ce apt: admin100 sshd #129/#130, admin100 systemd user manager, gdm systemd user manager. Not Docker containers. Log out SSH and reconnect. Do not restart docker/gdm for this. Earlier “no user sessions” line was incomplete.
@@ -223,7 +224,9 @@ If `gbrain doctor` reports resolver or trigger issues in DWS6, normalize the aff
 20. [Deployment Procedures](#deployment-procedures)
 21. [Session History](#session-history)
 22. [Operations log — 27.09.2026](#operations-log--27092026) ⭐ **NEW in v3.32**
-   - [kya-jev typed decisions (KYA-gated)](#kya-jev-typed-decisions-kya-gated) ⭐ **NEW in v3.39**
+
+- [kya-jev typed decisions (KYA-gated)](#kya-jev-typed-decisions-kya-gated) ⭐ **NEW in v3.39**
+
 23. [Maintenance Plan (Complete)](#maintenance-plan-complete)
 24. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
 25. [Code Review Process](#code-review-process)
@@ -465,13 +468,13 @@ What changed in production and in the rules on 27.09.2026. Each line names the e
 
 ### Access control (production)
 
-| Change                                                                                                                                         | Evidence                           | State                                                              |
-| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------ |
-| Dashboard pages check admin rights on the server (`GET /api/v1/backoffice/me`), not the user-editable `user_metadata.role`                     | PR #2138, `f3f5669`                | Live on merge (Cloudflare Pages)                                   |
-| Back-office admin = owner/admin of an organization with `organizations.is_internal = true` (DWS AB), in the API and in `is_backoffice_admin()` | PR #2143, `e421737`; migration 096 | Applied to production on HIC instruction                           |
-| `contracts_lifecycle`: dropped `authenticated read all` (every signed-in user could read every contract)                                       | PR #2147, `f0b5c7a`; migration 097 | Applied 27.09 by Copilot on DGX; verified read-only by Claude Code |
-| `orders`: dropped PUBLIC insert/update policies; users keep SELECT on their own rows; writes are service-role only (backend)                   | PR #2147; migration 097            | Applied and verified                                               |
-| `kya_jev_calls` created (Article 12 audit trail for `kya-jev` decisions): 16 columns, forced RLS, `service_role` + own-org `authenticated` policies, no `anon` | PR #2044; migration 087 | Applied 27.09 by HIC (SQL editor); verified on PostgreSQL 17.6; history recorded with `supabase migration repair --status applied 087` |
+| Change                                                                                                                                                         | Evidence                           | State                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Dashboard pages check admin rights on the server (`GET /api/v1/backoffice/me`), not the user-editable `user_metadata.role`                                     | PR #2138, `f3f5669`                | Live on merge (Cloudflare Pages)                                                                                                       |
+| Back-office admin = owner/admin of an organization with `organizations.is_internal = true` (DWS AB), in the API and in `is_backoffice_admin()`                 | PR #2143, `e421737`; migration 096 | Applied to production on HIC instruction                                                                                               |
+| `contracts_lifecycle`: dropped `authenticated read all` (every signed-in user could read every contract)                                                       | PR #2147, `f0b5c7a`; migration 097 | Applied 27.09 by Copilot on DGX; verified read-only by Claude Code                                                                     |
+| `orders`: dropped PUBLIC insert/update policies; users keep SELECT on their own rows; writes are service-role only (backend)                                   | PR #2147; migration 097            | Applied and verified                                                                                                                   |
+| `kya_jev_calls` created (Article 12 audit trail for `kya-jev` decisions): 16 columns, forced RLS, `service_role` + own-org `authenticated` policies, no `anon` | PR #2044; migration 087            | Applied 27.09 by HIC (SQL editor); verified on PostgreSQL 17.6; history recorded with `supabase migration repair --status applied 087` |
 
 Verified state after 097 (read-only query, 27.09.2026): `contracts_lifecycle` has only `service_role full access`; `orders` has only `orders_user_view` (SELECT, authenticated); `authenticated` holds SELECT, REFERENCES, TRIGGER on both tables (no INSERT/UPDATE/DELETE); history has versions `096` and `097`.
 
@@ -530,13 +533,13 @@ Merged: #2133, #2137, #2138, #2142, #2143, #2144, #2145, #2146, #2147. Closed un
 
 **Consumers and audit logging** (spec §4F):
 
-| Consumer | File | Writes `kya_jev_calls` | Wired to a live flow |
-| --- | --- | --- | --- |
-| SEO audit review | `src/agents/seo/seo-audit.agent.ts` | Yes | Yes (advisory only; `deployGate` unchanged) |
-| Lead score | `src/agents/lead-score-kya-jev.ts` via `outreach-lead-finder` | Yes | Yes (top lead only) |
-| Dictionary term | `src/agents/dictionary-kya-jev.ts` | **No** | No |
-| Model route | `src/agents/model-route-kya-jev.ts` | **No** | No |
-| Browse step | `src/agents/browse-step-kya-jev.ts` | **No** | No (pilot) |
+| Consumer         | File                                                          | Writes `kya_jev_calls` | Wired to a live flow                        |
+| ---------------- | ------------------------------------------------------------- | ---------------------- | ------------------------------------------- |
+| SEO audit review | `src/agents/seo/seo-audit.agent.ts`                           | Yes                    | Yes (advisory only; `deployGate` unchanged) |
+| Lead score       | `src/agents/lead-score-kya-jev.ts` via `outreach-lead-finder` | Yes                    | Yes (top lead only)                         |
+| Dictionary term  | `src/agents/dictionary-kya-jev.ts`                            | **No**                 | No                                          |
+| Model route      | `src/agents/model-route-kya-jev.ts`                           | **No**                 | No                                          |
+| Browse step      | `src/agents/browse-step-kya-jev.ts`                           | **No**                 | No (pilot)                                  |
 
 Before wiring any of the last three into a live flow, add a `logKyaJevCall()` at that call site. Never let a `kya-jev` hint pre-filter `authorizeToolCall()` (spec §7).
 
@@ -587,12 +590,12 @@ A new room is a **new profile, not a new build**. Per-room differences (model se
 
 NemoClaw is local-first and needs the fewest secrets. Set these in the secret manager / `.env` (never commit):
 
-| Secret                   | Required    | When      | Purpose                                                                                         |
-| ------------------------ | ----------- | --------- | ----------------------------------------------------------------------------------------------- |
-| `nemoclaw-ngc-key`       | Yes         | provision | NVIDIA NGC token to pull/license NIM microservices + Nemotron. Pull-time only.                  |
+| Secret                   | Required    | When      | Purpose                                                                                                                                     |
+| ------------------------ | ----------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `nemoclaw-ngc-key`       | Yes         | provision | NVIDIA NGC token to pull/license NIM microservices + Nemotron. Pull-time only.                                                              |
 | `nemoclaw-api-key`       | Yes         | runtime   | Required bearer token. The bridge refuses dispatch without it; the RPC server must validate it before production rollout. Generate per box. |
-| `NEMOCLAW_ENDPOINT`      | No (config) | runtime   | Internal URL — plain env var, **not** a secret. Default `http://127.0.0.1:3100`.                |
-| Exa / external tool keys | If enabled  | runtime   | Per-skill; **disabled** on air-gapped Situation Room / Mobile profiles.                         |
+| `NEMOCLAW_ENDPOINT`      | No (config) | runtime   | Internal URL — plain env var, **not** a secret. Default `http://127.0.0.1:3100`.                                                            |
+| Exa / external tool keys | If enabled  | runtime   | Per-skill; **disabled** on air-gapped Situation Room / Mobile profiles.                                                                     |
 
 Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no token meter). Env knobs are documented in `src/middleware/env-validation.ts` (`NEMOCLAW_*`).
 
@@ -656,22 +659,23 @@ Lifetime Oy maintains **two independent git checkouts** of `dws6` and **one shar
 | Item              | Value                                                                                                                                                                               |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Typical path**  | `F:\2026\Repos2026\dws6` (machine-specific)                                                                                                                                         |
-| **IDEs (two)**    | **Cursor** and **Visual Studio Code** — separate GUIs, same repo clone                                                                                                              |
+| **IDE (primary)** | **Visual Studio Code** + **GitHub Copilot Pro+** (Chat / inline / PR). Same repo clone at the Win11 path below                                                                      |
+| **Cursor**        | **Pro cancelled 28.09.2026** — not a paid seat. Do not route review, daily-ops, or agents through Cursor. Residual Hobby/CLI use is optional and unsupported as a workflow.         |
 | **Linux layer**   | **WSL 2** — HIC updated 18.09.2026. Microsoft stable pin **2.7.14** (see _Win11 WSL_)                                                                                               |
 | **Aspire CLI**    | **13.5.4** stable at `C:\Users\risto\.aspire\bin\aspire.exe` (see _Win11 Aspire CLI_). Not an AppHost. Does not bump the Spark dashboard image.                                     |
 | **Docker client** | **Shared pin 29.8.0** (`88096ef`) — HIC `docker --version` in PowerShell 18.09.2026 (see _Win11 Docker_). Spark must match (`DWS_TRUTH_STANDARD.md` §2I). Not a Docker MCP restore. |
-| **Role**          | Plan authoring, PR review, small edits, HIC approval gates                                                                                                                          |
+| **Role**          | Plan authoring, PR review, small edits, HIC approval gates — via **VS Code + Copilot**; judgment escalations via **Claude Max**                                                     |
 | **Agent compute** | **Not** for large implementation — convert to a plan and queue **OpenCode agents on DGX** (see _Large work_ below)                                                                  |
 
 ### DGX Spark (Acer Veriton GN100)
 
-| Item                 | Value                                                                                                                                                                                                              |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Path**             | `/home/admin100/dws6`                                                                                                                                                                                              |
-| **Agent CLIs (two)** | **Cursor CLI** and **GitHub Copilot CLI**                                                                                                                                                                          |
-| **Inference**        | Local **Ollama** (`11434`) — Qwen, Nemotron, and other open weights; zero marginal API token cost                                                                                                                  |
-| **Also on box**      | Docker compose stack, DGX cron, **`opencode-all`** batch orchestration (`scripts/opencode-open-all.sh`)                                                                                                            |
-| **Docker Engine**    | **Target 29.8.0.** Observed **29.6.2** (`dfc4efb`, deb `5:29.6.2-1~ubuntu.24.04~noble`) after HIC apt 18.09.2026. NVIDIA ARM64 repo cap — not Win11 29.8.0. Not Docker Desktop. `docker update` is not an upgrade. |
+| Item              | Value                                                                                                                                                                                                              |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Path**          | `/home/admin100/dws6`                                                                                                                                                                                              |
+| **Agent CLIs**    | **GitHub Copilot CLI** (primary interactive). Cursor CLI optional only if a free Hobby install remains — not required. **OpenCode** is the mandatory large-work path (below).                                      |
+| **Inference**     | Local **Ollama** (`11434`) — Qwen, Nemotron, and other open weights; zero marginal API token cost                                                                                                                  |
+| **Also on box**   | Docker compose stack, DGX cron, **`opencode-all`** batch orchestration (`scripts/opencode-open-all.sh`)                                                                                                            |
+| **Docker Engine** | **Target 29.8.0.** Observed **29.6.2** (`dfc4efb`, deb `5:29.6.2-1~ubuntu.24.04~noble`) after HIC apt 18.09.2026. NVIDIA ARM64 repo cap — not Win11 29.8.0. Not Docker Desktop. `docker update` is not an upgrade. |
 
 ### Shared session management (both environments)
 
@@ -718,7 +722,7 @@ Field note: `docs/field-notes/2026-09-18-win11-wsl-updated.md`.
 
 ## Large work — plan first, OpenCode execution
 
-**Policy (HIC, 2026-09-17):** Every **large** task is written as a **plan** first, then **implemented by OpenCode agents on DGX** — never as a long ad-hoc session in Win11 Cursor/VS Code agents or an open-ended Cursor CLI / Copilot CLI thread on the primary checkout.
+**Policy (HIC, 2026-09-17; Cursor Pro cancelled 2026-09-28):** Every **large** task is written as a **plan** first, then **implemented by OpenCode agents on DGX** — never as a long ad-hoc session in Win11 VS Code/Copilot agents or an open-ended Copilot CLI thread on the primary checkout.
 
 ### What counts as large
 
@@ -758,7 +762,7 @@ Plan (Win11 or DGX) → HIC gate if RED/YELLOW → worktree → OpenCode agent �
 | 3    | Batch queue (parallel / overnight) | `node scripts/opencode-batch-worker.mjs enqueue` then `run --batch N --loop`                  |
 | 4    | Monitor                            | `scripts/opencode-open-all.sh --status` / `--watch`                                           |
 | 5    | Handoff output                     | `.claude/handoffs/opencode-batch/` (worker guarantees a file even on partial completion)      |
-| 6    | Human review                       | Win11 **Cursor** or **VS Code** → `gh pr create`                                              |
+| 6    | Human review                       | Win11 **VS Code + Copilot** (or Claude Max for hard judgment) → `gh pr create`                |
 
 **Forbidden for large work:** implementing directly on DGX `/home/admin100/dws6` primary checkout; Win11 cloud-agent VMs for multi-file implementation; `git pull` on diverged `main` before rescuing local commits (see _Two dev environments_).
 
@@ -768,31 +772,31 @@ Cross-ref: `opencode-all/ADMIN_MANUAL.md`, `docs/field-notes/2026-08-24-opencode
 
 ## OpenCode and batch runtime (DGX Spark)
 
-**Large implementation runs here.** **Cursor CLI** and **Copilot CLI** on DGX are for **interactive, small-scope** work (debugging, plan drafting, quick reads) — when scope grows, stop and follow _Large work_ above. **OpenCode** (`opencode.json`, `opencode-all` submodule, batch worker) is the **mandatory execution path** for planned multi-file work: isolated worktrees, queue in `.workflows/opencode-all/`, local Ollama inference. Claude Code on DGX remains hot standby.
+**Large implementation runs here.** **Copilot CLI** on DGX is for **interactive, small-scope** work (debugging, plan drafting, quick reads) — when scope grows, stop and follow _Large work_ above. **OpenCode** (`opencode.json`, `opencode-all` submodule, batch worker) is the **mandatory execution path** for planned multi-file work: isolated worktrees, queue in `.workflows/opencode-all/`, local Ollama inference. Claude Code on DGX remains hot standby.
 
 ### Runtime and model roles (DGX)
 
-| Role                                    | Runtime                          | Operational rule                                                            |
-| --------------------------------------- | -------------------------------- | --------------------------------------------------------------------------- |
-| **Large / multi-file work (mandatory)** | OpenCode + `opencode-all`        | Plan first; worktree via `new-opencode-worktree.sh`; queue via batch worker |
-| Interactive small scope                 | Cursor CLI, Copilot CLI → Ollama | Escalate to OpenCode when scope crosses _Large work_ thresholds             |
-| Hot standby                             | Claude Code                      | Failover when OpenCode/Ollama unavailable or Claude tooling required        |
+| Role                                    | Runtime                   | Operational rule                                                            |
+| --------------------------------------- | ------------------------- | --------------------------------------------------------------------------- |
+| **Large / multi-file work (mandatory)** | OpenCode + `opencode-all` | Plan first; worktree via `new-opencode-worktree.sh`; queue via batch worker |
+| Interactive small scope                 | Copilot CLI → Ollama      | Escalate to OpenCode when scope crosses _Large work_ thresholds             |
+| Hot standby                             | Claude Code               | Failover when OpenCode/Ollama unavailable or Claude tooling required        |
 
 ### Model economics — free inference for bulk work
 
-OpenCode on DGX can run **large tasks at zero purchased-token cost**. Use this deliberately to preserve paid API budget (Claude, Copilot, Cursor cloud agents on Win11) for review, RED-zone reasoning, and short interactive work.
+OpenCode on DGX can run **large tasks at zero purchased-token cost**. Use this deliberately to preserve paid API budget (Claude Max, Copilot Pro+) for review, RED-zone reasoning, and short interactive work. **Cursor Pro cancelled 28.09.2026** — do not budget Cursor cloud agents.
 
-| Tier                    | Model source                                                                          | Marginal cost       | Route here for                                                                                         |
-| ----------------------- | ------------------------------------------------------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------ |
-| **1 — Local sovereign** | Ollama on DGX (`opencode.json` default: `qwen3-coder-next:latest` since 28.09.2026; `qwen3-coder:30b` small model; `nemotron-3-super` deep)   | €0 (owned hardware) | Coding agents, refactors, batch worker default fallback                                                |
-| **2 — OpenCode FREE**   | OpenCode-hosted free models (`opencode/*`, e.g. `x-preview-f-free`, `mimo-v2.5-free`) | €0 API tokens       | **Translations**, multi-file HTML i18n, overnight opencode-all batches, high-volume content generation |
-| **3 — Paid cloud**      | Claude API, Copilot/Cursor cloud, Groq metered                                        | Per-token           | HIC review, architecture, RED zone, short interactive when local models insufficient                   |
+| Tier                    | Model source                                                                                                                                | Marginal cost       | Route here for                                                                                         |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------ |
+| **1 — Local sovereign** | Ollama on DGX (`opencode.json` default: `qwen3-coder-next:latest` since 28.09.2026; `qwen3-coder:30b` small model; `nemotron-3-super` deep) | €0 (owned hardware) | Coding agents, refactors, batch worker default fallback                                                |
+| **2 — OpenCode FREE**   | OpenCode-hosted free models (`opencode/*`, e.g. `x-preview-f-free`, `mimo-v2.5-free`)                                                       | €0 API tokens       | **Translations**, multi-file HTML i18n, overnight opencode-all batches, high-volume content generation |
+| **3 — Paid cloud**      | Claude Max / API, Copilot Pro+ cloud, Groq metered                                                                                          | Per-token / seat    | HIC review, architecture, RED zone, short interactive when local models insufficient                   |
 
 **Operator rules:**
 
 1. **Translations and 5-lang surfaces** → always queue as _Large work_ on DGX OpenCode with tier **1 or 2** — never Win11 cloud-agent VMs for bulk i18n.
 2. **Provider `ollama-local` ("Ollama (DGX)")** serves `http://127.0.0.1:11434/v1` on the DGX. On Win11 an SSH tunnel is used: override `baseURL` to `:11435` in `~/.config/opencode/opencode.json` (only `options.baseURL` — a `models` list there hides the repo's models in `/models`).
-2b. **Verify available free models** on DGX before batch runs: `opencode models list` (catalog changes; Rule 12 — fail loud if auth/model errors).
+   2b. **Verify available free models** on DGX before batch runs: `opencode models list` (catalog changes; Rule 12 — fail loud if auth/model errors).
 3. **Fallback ladder:** OpenCode FREE unavailable → switch session/batch to Ollama `qwen3-coder:30b` → then Claude Code hot standby for the single blocked step only.
 4. **Batch worker** (`scripts/opencode-batch-worker.mjs`) runs via OpenCode ACP; model is session-selected — attach plan + preferred model in the worktree session prompt or OpenCode config before `enqueue` / `run`.
 5. **Quality gate unchanged:** free/Ollama output still goes through Win11 review + PR; public copy and blog publish remain HIC-gated per `CLAUDE.md`.
@@ -803,14 +807,14 @@ Cross-ref: `docs/field-notes/2026-08-24-opencode-all-living-engine.md` (ox-alpha
 
 **State (28.09.2026):** installed and verified on `gn100-cb5d` (`admin100`). Every `opencode` started inside `~/dws6` runs in its own git worktree on a new branch, so parallel windows never share one index or working tree (incident `dca623b3c`, 22.08.2026). Policy: `WORKTREE_POLICY.md` §6.
 
-| You type (in `~/dws6`)                  | What happens                                                                                                                                                 |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `opencode`                              | Prompts for a task name (Enter = `session-<timestamp>`), creates `~/.opencode-worktrees/dws6/<task>` on `opencode/<task>` from `origin/main`, starts there |
-| `OPENCODE_TASK=fix-x opencode`          | Same, no prompt; an existing `<task>` worktree is reused                                                                                                     |
-| `opencode ~/dws6` or `opencode .`       | The project path is rewritten to the new worktree                                                                                                           |
-| `opencode -s <id>` or `-c`              | Resumes in the shared checkout, with a warning (rule 3)                                                                                                      |
-| `opencode auth`, `models`, `session` …  | Management subcommands pass through unchanged                                                                                                               |
-| `OPENCODE_SHARED=1 opencode`            | Opt-out: runs in the shared checkout                                                                                                                         |
+| You type (in `~/dws6`)                 | What happens                                                                                                                                               |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `opencode`                             | Prompts for a task name (Enter = `session-<timestamp>`), creates `~/.opencode-worktrees/dws6/<task>` on `opencode/<task>` from `origin/main`, starts there |
+| `OPENCODE_TASK=fix-x opencode`         | Same, no prompt; an existing `<task>` worktree is reused                                                                                                   |
+| `opencode ~/dws6` or `opencode .`      | The project path is rewritten to the new worktree                                                                                                          |
+| `opencode -s <id>` or `-c`             | Resumes in the shared checkout, with a warning (rule 3)                                                                                                    |
+| `opencode auth`, `models`, `session` … | Management subcommands pass through unchanged                                                                                                              |
+| `OPENCODE_SHARED=1 opencode`           | Opt-out: runs in the shared checkout                                                                                                                       |
 
 Inside any linked worktree (`~/.opencode-worktrees/…`) `opencode` is unchanged.
 
@@ -4524,7 +4528,7 @@ claude --version
 
 | Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID                           |
 | ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| 3.38    | Sep 27, 2026 | Added role-based offline documentation packs, checksum-verifying Windows installer, and v10 dashboard discovery procedure. Repository sources remain canonical; unknown dashboard roles fall back to customer. | copilot/role-learning-hub-0ee942b3 |
+| 3.38    | Sep 27, 2026 | Added role-based offline documentation packs, checksum-verifying Windows installer, and v10 dashboard discovery procedure. Repository sources remain canonical; unknown dashboard roles fall back to customer.                                                                                                                                                 | copilot/role-learning-hub-0ee942b3   |
 | 3.3     | Jun 19, 2026 | Full 12 Engineering Discipline Rules table (replaces incomplete Karpathy 1-6) in AI Agent Operational Guidelines, cross-linked to CLAUDE.md / AI_AGENT_GUIDELINES.md §0 / hook enforcement map; added Recent Session Artifacts digest.                                                                                                                         | karpathy-12-rules-u47rx1             |
 | 2.5     | May 10, 2026 | Node.js workspace setup section: dual `npm ci` at repository root and `src/cloudflare/` for backend vs Cloudflare agent workers; PowerShell-first examples; worktree and cloud-agent note; TOC renumbered.                                                                                                                                                     | cursor-admin-node-workspace-20260510 |
 | 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy                                |

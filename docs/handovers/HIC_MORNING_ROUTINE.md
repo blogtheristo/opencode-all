@@ -2,8 +2,8 @@
 Document: HIC Morning Routine (04:30–07:30)
 Type: Operational Guidance (Daily Schedule)
 Status: [Latest] Active
-Version: 1.0
-Date: 2026-09-13
+Version: 1.1
+Date: 2026-09-28
 Languages Available: English
 schema: DWS_DOCUMENT_STANDARD
 ---
@@ -12,20 +12,31 @@ schema: DWS_DOCUMENT_STANDARD
 
 **Your 3-hour window to set work for agents all day.** Then they work while you're away.
 
+**Note (28.09.2026):** Mission Control may still say **Hand to Grok**. That action means the **Win11 daily-ops bot** (VS Code + Copilot Chat / Claude Max) on anonymized packs only — **not Cursor** (Pro cancelled). Raw threads → **Open in OpenCode**. Prompt: `docs/handovers/grok-bot-daily-ops-handover.md`.
+
+---
+
+# VERSION AND AGENT HISTORY
+
+---
+
+- Version: 1.1 [Latest] | Tool: Cursor | Session: docs/cursor-pro-cancel-daily-ops | Date: 28.09.2026 | Changes: Clarify Hand-to-Grok UI = daily-ops bot off Cursor after Pro cancel. | Harness: Cursor CLI (one-shot) + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.0 [not latest] | Tool: Cursor | Session: (prior) | Date: 13.09.2026 | Changes: Initial morning routine
+
 ---
 
 ## Timeline
 
-| Time            | Action                       | System          | Output                                                       |
-| --------------- | ---------------------------- | --------------- | ------------------------------------------------------------ |
-| **04:30**       | Start                        | Coffee          | Awake                                                        |
-| **04:35–04:50** | Review overnight results     | Option B        | Check `.claude/handoffs/opencode-batch/` for completed items |
-| **04:50–05:10** | Send overnight results       | Manual          | Copy 3–5 ready drafts/analyses → email/Slack                 |
-| **05:10–06:00** | Triage + queue               | Mission Control | Urgent → Hand to Grok (A); Complex → Queue for async (B)     |
-| **06:00–06:30** | Refine + approve Grok drafts | Option A        | Review quick replies, send customer-facing mail              |
-| **06:30–07:20** | Queue final batch            | Option B        | Final research/proposals for all-day processing              |
-| **07:20–07:30** | Verify queue                 | opencode-all    | Confirm items queued; agents will pick up (08:00+ UTC)       |
-| **07:30+**      | Leave                        | —               | Agents work all day; you're offline                          |
+| Time            | Action                      | System          | Output                                                        |
+| --------------- | --------------------------- | --------------- | ------------------------------------------------------------- |
+| **04:30**       | Start                       | Coffee          | Awake                                                         |
+| **04:35–04:50** | Review overnight results    | Option B        | Check `.claude/handoffs/opencode-batch/` for completed items  |
+| **04:50–05:10** | Send overnight results      | Manual          | Copy 3–5 ready drafts/analyses → email/Slack                  |
+| **05:10–06:00** | Triage + queue              | Mission Control | Urgent → Hand to daily-ops bot (A); Complex → Queue async (B) |
+| **06:00–06:30** | Refine + approve bot drafts | Option A        | Review quick replies, send customer-facing mail               |
+| **06:30–07:20** | Queue final batch           | Option B        | Final research/proposals for all-day processing               |
+| **07:20–07:30** | Verify queue                | opencode-all    | Confirm items queued; agents will pick up (08:00+ UTC)        |
+| **07:30+**      | Leave                       | —               | Agents work all day; you're offline                           |
 
 ---
 
@@ -103,7 +114,8 @@ Incoming overnight:
 
 **Decision rule for each item:**
 
-- **Hand to Grok (A):** Urgent, quick decision, anonymized context
+**Hand to daily-ops bot (A):** Urgent, quick decision, anonymized context
+
 - **Queue for Async (B):** Research, deep draft, can wait until next morning
 
 **Time estimate:** ~2 min per item (read + decide + queue). 10 items = 20 min. Includes filling in context ("what should the agent do?").
@@ -112,7 +124,7 @@ Incoming overnight:
 
 ### 06:00–06:30: Grok Drafts (30 min)
 
-**Grok has been processing your "Hand to Grok" items since 05:10.**
+**The daily-ops bot has been processing your Option A items since 05:10.**
 
 ```
 Grok draft 1: "Panu follow-up email"
