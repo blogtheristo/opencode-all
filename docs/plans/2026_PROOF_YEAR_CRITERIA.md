@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0 [Latest]
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: HIC 28.09.2026 kirjasi 2026:n listan: "Läpimurtovuosi" on sisäinen lause, ja se läpäisee testin vain, jos 31.12.2026 mennessä on totta neljä asiaa. Jokaiselle kohdalle on kirjattu määritelmä, todiste, nykytila ja takaraja taaksepäin laskettuna. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
+- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: Määritelmät lukittu (referenssi ei ole nimetön tapauskuvaus; learning delta = ulkoinen Verified Decision Journey); 2027 volyymivuoden ehto lisätty. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
+- Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: HIC 28.09.2026 kirjasi 2026:n listan: "Läpimurtovuosi" on sisäinen lause, ja se läpäisee testin vain, jos 31.12.2026 mennessä on totta neljä asiaa. Jokaiselle kohdalle on kirjattu määritelmä, todiste, nykytila ja takaraja taaksepäin laskettuna. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 
 Document Status:
 
@@ -33,6 +34,17 @@ Ulospäin ei sanota "läpimurtovuosi". 31.12.2026 jokainen kohta on joko totta j
 | 2   | Yksi referenssi                                            | Asiakas on kirjallisesti antanut luvan käyttää nimeään tai lainaustaan referenssinä, joko julkisesti tai nimettynä ostajakeskusteluissa.                                                                                                                                       | Kirjallinen referenssilupa                                                                                       | Ei yhtään. Nykyisissä tarjouksissa ei ole referenssilupaehtoa.                                                     |
 | 3   | DWS IQ 7 Aegis GA                                          | Yleisesti saatavilla: G0–G10 kaikki 1.00 (`docs/plans/AEGIS_PILOT_95_READINESS_PLAN.md`), M4 todistajan läsnä ollessa tehty staging-hyväksyntä reunalaitteistolla, tietoturvakatselmus läpi, tuote ja hinta katalogissa (`dws10.com/config/products.json`), runbook julkaistu. | Valmiussuunnitelman pistetaulukko 100 %, M4-hyväksyntätietue, katselmusraportti, katalogirivi                    | Valmius 71 % (#2225 yhdistetty, C1 valmis). 95 %:n tavoite 25.10.2026, P80 08.11.2026.                             |
 | 4   | Yksi todennettu learning delta                             | Verified Decision Journey (`docs/plans/2026-09-24-decision-journey-outcome-evidence.md` §3): ulkoisen organisaation ketju havainnosta `OWNERSHIP_CONFIRMED` → päätös → toimenpide → `OUTCOME_RECORDED` → `LEARNING_DELTA_CREATED` → `ONTOLOGY_UPDATED`, ketjun tiiviste ehjä.  | `decision_journey_paths.is_verified = true` yhdelle ulkoiselle journeylle; `decision_journey_verify_chain` tyhjä | Nolla todellista ketjua. Kemira-esimerkki (§5.2) on havainnollistus, ei kirjattu tapahtuma.                        |
+
+## Määritelmät on lukittu
+
+Kohtien määritelmät yllä ovat mittari. Väljempiä muotoiluja ei hyväksytä jälkikäteen:
+
+- **Referenssi** on asiakkaan kirjallinen lupa käyttää nimeään tai lainaustaan. Turvallisuusluokitellussa kohteessa riittää lupa nimetä asiakas ostajakeskusteluissa salassapitosopimuksen alla. Nimetön tapauskuvaus ei ole referenssi.
+- **Learning delta** on repossa määritelty Verified Decision Journey ulkoisesta organisaatiosta. Sisäinen "opimme tämän" -havainto ei täytä kohtaa.
+
+## 2027: volyymivuosi
+
+Kun kaikki neljä kohtaa ovat totta, 2027 on toistettavaa myyntiä ja käyttöönottoja samalla arkkitehtuurilla, ei kokeilua. Jos yksikin kohta puuttuu, 2027:n alku käytetään sen todistamiseen ennen volyymia.
 
 ## Mitä tämä vaatii taaksepäin laskettuna
 
