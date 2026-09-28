@@ -78,6 +78,16 @@ export function statePaths(stateDir: string) {
 }
 
 /** SHA-256 of the sorted capability list — the `capability_manifest_hash` Article 12 field. */
+/**
+ * Digest of the whole signed credential. Written into authority.grant so the
+ * pseudonymous ledger is bound to one specific credential at grant time: an
+ * auditor shown the credential file can check that this agent id was granted
+ * exactly these capabilities, without names ever entering the ledger.
+ */
+export function credentialDigest(cred: Credential): string {
+  return sha256(canonicalJSON(cred));
+}
+
 export function capabilityManifestHash(capabilities: readonly string[]): string {
   return sha256(canonicalJSON([...capabilities].sort()));
 }

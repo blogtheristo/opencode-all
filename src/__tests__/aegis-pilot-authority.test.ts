@@ -6,7 +6,14 @@
  * written to the ledger.
  */
 
-import { appendFileSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  appendFileSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -100,6 +107,10 @@ describe('decision-authority record', () => {
       },
     });
     expect(workflow.granted!.capabilities).toContain('step:write-shift-report');
+    // Pseudonymous id bound to one credential at grant time, checkable on the host.
+    expect(workflow.granted!.credentialDigest).toMatch(/^[0-9a-f]{64}$/);
+    expect(workflow.granted!.expiresAt).toMatch(/^\d{4}-/);
+    expect(workflow.granted!.credentialOnFileMatches).toBe(true);
     expect(workflow.decisions.count).toBe(4);
     expect(workflow.outcome).toBe('completed');
     expect(workflow.deferred).toEqual(['sync-report']);
@@ -150,6 +161,19 @@ describe('decision-authority record', () => {
     const rec = buildAuthorityRecord(dir, { publicKey: site.publicKey, scope: other });
     expect(rec.agents.every((a) => a.granted?.signatories === null)).toBe(true);
     expect(signed.record.authority![0].granted!.signatories).not.toBeNull();
+  });
+
+  it('flags a credential on file that is not the one granted (role swapped after the fact)', async () => {
+    await passRun(scope());
+    const credDir = statePaths(dir).credentials;
+    for (const f of readdirSync(credDir).filter((n) => n.endsWith('.json'))) {
+      const c = JSON.parse(readFileSync(join(credDir, f), 'utf8'));
+      if (c.kind !== 'agent') continue;
+      c.capabilities = [...c.capabilities, 'step:actuate-valve'];
+      writeFileSync(join(credDir, f), JSON.stringify(c));
+    }
+    const rec = buildAuthorityRecord(dir, { publicKey: site.publicKey });
+    expect(rec.agents.every((a) => a.granted?.credentialOnFileMatches === false)).toBe(true);
   });
 
   it('keeps the Article 12 ledger pseudonymous: no operator or signatory names in it', async () => {

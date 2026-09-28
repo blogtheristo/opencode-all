@@ -29,7 +29,12 @@ import { join } from 'node:path';
 import type { KeyObject } from 'node:crypto';
 import { canonicalJSON, sha256 } from './crypto.js';
 import { type EvidenceLedger, type LedgerEvent, verifyLedger } from './evidence-ledger.js';
-import { capabilityManifestHash, type Credential, statePaths } from './identity.js';
+import {
+  capabilityManifestHash,
+  type Credential,
+  credentialDigest,
+  statePaths,
+} from './identity.js';
 import type { PilotScope } from './scope.js';
 
 /** Record that authority was granted. Written when a credential is issued for use on this site. */
@@ -47,6 +52,7 @@ export function recordGrant(
     capability_manifest_hash: capabilityManifestHash(cred.capabilities),
     detail: {
       credential_id: cred.credentialId,
+      credential_digest: credentialDigest(cred),
       kind: cred.kind,
       capabilities: cred.capabilities,
       issuer_key_id: cred.issuerKeyId,
@@ -79,6 +85,14 @@ export interface AgentAuthority {
     capabilities: string[];
     basis: string;
     scopeDigest: string | null;
+    credentialDigest: string | null;
+    expiresAt: string | null;
+    /**
+     * true when a credential file held on this host hashes to the digest
+     * written at grant time — the binding between the pseudonymous id and the
+     * credential (and so the role) it was granted. null: no file to check.
+     */
+    credentialOnFileMatches: boolean | null;
     /** From the supplied scope, only when its digest matches the grant. */
     signatories: { customer: string; lifetime: string; signedAt: string } | null;
     revoked: boolean;
@@ -114,19 +128,32 @@ export interface AuthorityRecord {
   agents: AgentAuthority[];
 }
 
-function namesFromCredentials(stateDir: string): Map<string, string> {
+function credentialsOnFile(stateDir: string): {
+  names: Map<string, string>;
+  digests: Map<string, Set<string>>;
+} {
   const names = new Map<string, string>();
+  const digests = new Map<string, Set<string>>();
   const dir = statePaths(stateDir).credentials;
-  if (!existsSync(dir)) return names;
+  if (!existsSync(dir)) return { names, digests };
   for (const f of readdirSync(dir).filter((n) => n.endsWith('.json'))) {
     try {
       const c = JSON.parse(readFileSync(join(dir, f), 'utf8')) as Credential;
-      if (c?.subjectId && c.subjectName) names.set(c.subjectId, c.subjectName);
+      if (!c?.subjectId) continue;
+      if (c.subjectName) names.set(c.subjectId, c.subjectName);
+      const set = digests.get(c.subjectId) ?? new Set<string>();
+      set.add(credentialDigest(c));
+      digests.set(c.subjectId, set);
     } catch {
       // not a credential file
     }
   }
-  return names;
+  return { names, digests };
+}
+
+function onFileMatches(onFile: Set<string> | undefined, granted: unknown): boolean | null {
+  if (!onFile || typeof granted !== 'string') return null;
+  return onFile.has(granted);
 }
 
 const WORK = new Set(['agent.decide', 'tool.invoke']);
@@ -151,7 +178,7 @@ export function buildAuthorityRecord(
     .split('\n')
     .filter((l) => l.trim())
     .map((l) => JSON.parse(l) as LedgerEvent);
-  const names = namesFromCredentials(stateDir);
+  const { names, digests } = credentialsOnFile(stateDir);
   const scopeDigest = opts.scope ? sha256(canonicalJSON(opts.scope)) : null;
   const revoked = new Set(
     events
@@ -212,6 +239,12 @@ export function buildAuthorityRecord(
             capabilities: (grantEv.detail.capabilities as string[]) ?? [],
             basis: String(grantEv.detail.basis ?? ''),
             scopeDigest: grantScope,
+            credentialDigest: (grantEv.detail.credential_digest as string | undefined) ?? null,
+            expiresAt: (grantEv.detail.expires_at as string | undefined) ?? null,
+            credentialOnFileMatches: onFileMatches(
+              digests.get(agentId),
+              grantEv.detail.credential_digest,
+            ),
             signatories:
               opts.scope?.signoff && grantScope && grantScope === scopeDigest
                 ? {
