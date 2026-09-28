@@ -13,6 +13,7 @@
  *   node scripts/agent-done-gate.mjs            fast checks (git state, format, todo count, task spec)
  *   node scripts/agent-done-gate.mjs --full     + typecheck and vitest on changed files
  *   node scripts/agent-done-gate.mjs --json     machine-readable result
+ *   node scripts/agent-done-gate.mjs --allow-unpushed   unpushed = WARN (local-only runners)
  *   node scripts/agent-done-gate.mjs --since <ref>   judge only the work after <ref>
  *        (the OpenCode done-gate plugin passes the commit the session started from, so a
  *        session is not blamed for what the branch already contained). Default: merge base
@@ -41,6 +42,9 @@ import { dirname, join } from 'node:path';
 const argv = process.argv.slice(2);
 const args = new Set(argv);
 const FULL = args.has('--full');
+// Local-only runners (opencode-all batch worker) keep work in a worktree for HIC review and
+// never push: for them an unpushed branch is expected, so it is reported, not failed.
+const ALLOW_UNPUSHED = args.has('--allow-unpushed');
 const JSON_OUT = args.has('--json');
 const sinceIdx = argv.indexOf('--since');
 const SINCE = sinceIdx >= 0 ? argv[sinceIdx + 1] : null;
@@ -91,12 +95,13 @@ add('committed', dirty.length ? 'fail' : 'pass', dirty.length ? dirty.join('\n')
 
 // pushed
 const upstream = tryGit('rev-parse', '--abbrev-ref', '@{u}');
-if (!upstream) add('pushed', 'fail', `${branch} has no upstream — never pushed`);
+if (!upstream)
+  add('pushed', ALLOW_UNPUSHED ? 'warn' : 'fail', `${branch} has no upstream — never pushed`);
 else {
   const ahead = Number(git('rev-list', '--count', `${upstream}..HEAD`));
   add(
     'pushed',
-    ahead ? 'fail' : 'pass',
+    ahead ? (ALLOW_UNPUSHED ? 'warn' : 'fail') : 'pass',
     ahead ? `${ahead} commit(s) not on ${upstream}` : `on ${upstream}`,
   );
 }

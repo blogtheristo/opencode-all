@@ -23,7 +23,8 @@
  *   4. gate again. Repeat up to maxRounds. Two rounds with no new commit and the same FAILs
  *      = stalled. Stalled or out of rounds → BLOCKED, alert, move on.
  * A BLOCKED task is retried automatically once its spec file changes (the HIC's lever).
- * Nothing is merged: DONE means the branch is pushed and passes its gate; merging stays with the HIC.
+ * DONE = branch pushed, passes its gate, and a PR is open (or the compare URL if gh fails).
+ * Nothing is merged; merging stays with the HIC.
  *
  * Usage (DGX, in tmux):
  *   node scripts/opencode-task-loop.mjs                run until the queue is empty, then poll
@@ -286,12 +287,62 @@ function workTask(t, state) {
   }
   st.status = gate.done ? 'done' : 'blocked';
   st.updatedAt = now();
+  if (gate.done) st.pr = openPr(t, wt, gate.out);
   saveState(state);
   alert(
     gate.done
-      ? `${t.branch}: DONE — pushed and passing its gate; ready for HIC review/merge`
+      ? `${t.branch}: DONE — passing its gate; ${st.pr ?? 'no PR'} — ready for HIC review/merge`
       : `${t.branch}: BLOCKED after ${st.rounds} round(s)${st.stalls >= 2 ? ' (stalled)' : ''} — edit ${relative(PRIMARY, t.file)} or the handoff to retry`,
   );
+}
+
+// Like opencode-all: a finished task ends as a PR for the HIC. Reuses an open PR for the branch;
+// never merges. Without a working gh the compare URL is the fallback.
+function openPr(t, wt, gateOut) {
+  const base = t.spec.base ?? 'main';
+  const gh = (...a) => spawnSync('gh', a, { cwd: wt, encoding: 'utf8', timeout: 60 * 1000 });
+  const existing = gh(
+    'pr',
+    'view',
+    t.branch,
+    '--json',
+    'url,state',
+    '-q',
+    'select(.state=="OPEN") | .url',
+  );
+  if (existing.status === 0 && existing.stdout.trim()) return existing.stdout.trim();
+  const body = [
+    `Task: ${t.spec.task ?? t.branch} — run unattended by \`scripts/opencode-task-loop.mjs\`.`,
+    `Acceptance spec: \`.claude/done/${t.branch}.json\`.`,
+    '',
+    'Done-gate evidence (`agent-done-gate.mjs --full`):',
+    '```',
+    gateOut,
+    '```',
+    '',
+    'HIC review required before merge.',
+  ].join('\n');
+  const r = gh(
+    'pr',
+    'create',
+    '--base',
+    base,
+    '--head',
+    t.branch,
+    '--title',
+    `loop: ${t.spec.task ?? t.branch}`,
+    '--body',
+    body,
+  );
+  const url = r.stdout?.trim().split('\n').pop();
+  if (r.status === 0 && url) return url;
+  const remote = tryGit(wt, 'remote', 'get-url', 'origin')
+    ?.replace(/\.git$/, '')
+    .replace(/^git@github\.com:/, 'https://github.com/');
+  alert(
+    `${t.branch}: gh pr create failed (${(r.stderr || r.error?.message || '').trim().split('\n')[0]})`,
+  );
+  return remote ? `${remote}/compare/${base}...${t.branch}` : null;
 }
 
 function status() {
@@ -302,7 +353,7 @@ function status() {
     const st = state[t.branch] ?? { status: 'pending', rounds: 0 };
     const stale = st.specHash && st.specHash !== t.specHash ? ' (spec changed → will rerun)' : '';
     console.log(
-      `${String(st.status).padEnd(8)} r${st.rounds ?? 0}  ${t.branch}${stale}${st.lastGate ? `\n          ${st.lastGate}` : ''}`,
+      `${String(st.status).padEnd(8)} r${st.rounds ?? 0}  ${t.branch}${stale}${st.pr ? `\n          ${st.pr}` : ''}${st.lastGate ? `\n          ${st.lastGate}` : ''}`,
     );
   }
 }
