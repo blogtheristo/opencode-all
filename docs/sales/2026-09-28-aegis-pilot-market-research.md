@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0 [Latest]
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 28.09.2026 | Changes: Ensimmäinen versio. Kolmen kohdeteollisuuden tarpeet, nimetyt yritykset ja rahastot, SWOT, GTM-päätösesitys ja myyntisäikeet DWS-AEGIS-PILOT-001:lle. Gemini-syöte (HIC, 28.09.2026) tarkistettu nimi nimeltä; virheet korjattu §6:ssa. HIC-päätös 28.09.2026: ensimmäinen työnkulku on neuvoa-antava (operaattori hyväksyy), ei fyysistä ohjausta. | Harness: Claude Code + CLAUDE.md + DWS_MARKET_RESEARCH_STANDARD + DWS_ROLES_REGISTRY + DWS_TRUTH_STANDARD
+- Version: 1.1 [Latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 28.09.2026 | Changes: HIC 28.09.2026: operaattorin hyväksyntä kirjataan päätöstapahtumana, ei muistiinpanona (§1.2, D6). Pilotin mittari: päätöspolun kattavuus + operaattorin aika; € tulostapahtumana, PUE ei (§1.3, D7). Myyntisäikeiden kärki on tietue ja pysäytys, optimointi on todistettava asia (§9, D8). | Harness: Claude Code + CLAUDE.md + DWS_MARKET_RESEARCH_STANDARD
+- Version: 1.0 [not latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 28.09.2026 | Changes: Ensimmäinen versio. Kolmen kohdeteollisuuden tarpeet, nimetyt yritykset ja rahastot, SWOT, GTM-päätösesitys ja myyntisäikeet DWS-AEGIS-PILOT-001:lle. Gemini-syöte (HIC, 28.09.2026) tarkistettu nimi nimeltä; virheet korjattu §6:ssa. HIC-päätös 28.09.2026: ensimmäinen työnkulku on neuvoa-antava (operaattori hyväksyy), ei fyysistä ohjausta. | Harness: Claude Code + CLAUDE.md + DWS_MARKET_RESEARCH_STANDARD + DWS_ROLES_REGISTRY + DWS_TRUTH_STANDARD
 
 Session Links & References:
 
@@ -31,13 +32,16 @@ Document Status:
 
 ## 0. Päätökset lyhyesti
 
-| #   | Päätös / havainto                                                                                                                                                                                                                                                                      | Tila                         |
-| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| D1  | Ensimmäinen pilottityönkulku on **neuvoa-antava**: agentti ehdottaa, operaattori hyväksyy, Aegis-tietue todistaa kuka valtuutti, mitä päätettiin ja että agentti voitiin pysäyttää. Ei suoraa SCADA/PLC-ohjausta.                                                                      | **HIC-päätös 28.09.2026**    |
-| D2  | Myynnin pääterä: **valmistava teollisuus** ensisijaisena allekirjoituskaistana, **datakeskukset** kumppani- ja CER-kaistana, **kaksoiskäyttö** 2027 volyymikaistana ja rahoituskertomuksena.                                                                                           | Esitys — HIC päättää (§8)    |
-| D3  | Geminin tavoite "1 maksettu pilotti **toimitettu ja hyväksytty** 31.12.2026" ei ole saavutettavissa 13 viikon pilotilla, ellei allekirjoitus tapahdu viimeistään ~29.09.2026. Esitys: 31.12.2026 mennessä **1 allekirjoitettu pilotti + Phase 1 -portti läpi**; hyväksyntäajo Q1/2027. | Ristiriita nostettu (Rule 7) |
-| D4  | Myyntiviesteissä ei väitetä "alan ainoa ratkaisu" eikä "isäntäytimen lokista todennettu pysäytys" ennen kuin C4 (OpenShell-eristys) on toimitettu.                                                                                                                                     | Korjaus Gemini-tekstiin      |
-| D5  | Kilpailukenttä muuttui tänään: NVIDIA julkaisi Open Agent Safety Platformin (OpenShell + Sentry) 28.09.2026. Aegiksen erottuvuus on **EU-suvereniteetti + katkaistun yhteyden hyväksyntätesti + Article 12 -todiste**, ei pysäytyskyky sinänsä.                                        | Havainto                     |
+| #   | Päätös / havainto                                                                                                                                                                                                                                                                      | Tila                                    |
+| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| D1  | Ensimmäinen pilottityönkulku on **neuvoa-antava**: agentti ehdottaa, operaattori hyväksyy, Aegis-tietue todistaa kuka valtuutti, mitä päätettiin ja että agentti voitiin pysäyttää. Ei suoraa SCADA/PLC-ohjausta.                                                                      | **HIC-päätös 28.09.2026**               |
+| D2  | Myynnin pääterä: **valmistava teollisuus** ensisijaisena allekirjoituskaistana, **datakeskukset** kumppani- ja CER-kaistana, **kaksoiskäyttö** 2027 volyymikaistana ja rahoituskertomuksena.                                                                                           | Esitys — HIC päättää (§8)               |
+| D3  | Geminin tavoite "1 maksettu pilotti **toimitettu ja hyväksytty** 31.12.2026" ei ole saavutettavissa 13 viikon pilotilla, ellei allekirjoitus tapahdu viimeistään ~29.09.2026. Esitys: 31.12.2026 mennessä **1 allekirjoitettu pilotti + Phase 1 -portti läpi**; hyväksyntäajo Q1/2027. | Ristiriita nostettu (Rule 7)            |
+| D4  | Myyntiviesteissä ei väitetä "alan ainoa ratkaisu" eikä "isäntäytimen lokista todennettu pysäytys" ennen kuin C4 (OpenShell-eristys) on toimitettu.                                                                                                                                     | Korjaus Gemini-tekstiin                 |
+| D5  | Kilpailukenttä muuttui tänään: NVIDIA julkaisi Open Agent Safety Platformin (OpenShell + Sentry) 28.09.2026. Aegiksen erottuvuus on **EU-suvereniteetti + katkaistun yhteyden hyväksyntätesti + Article 12 -todiste**, ei pysäytyskyky sinänsä.                                        | Havainto                                |
+| D6  | Operaattorin hyväksyntä kirjataan **allekirjoitettuna päätöstapahtumana** (`human.decide`), ei muistiinpanona eikä `human.override`-tapahtumana. Pilotti tuottaa silloin katkotestin lisäksi ensimmäisen todennettavan päätöspolun: suositus → päätös → toimenpide → tulos.            | **HIC-päätös 28.09.2026** — toteutus C5 |
+| D7  | Pilotin myytävä luku on **päätöspolun kattavuus** ja **operaattorin aika päätöstä kohden**. Sähkölaskun € kirjataan jokaisen hyväksytyn suosituksen tulostapahtumana, mutta sitä ei luvata. PUE:ta ei käytetä.                                                                         | Esitys (§1.3)                           |
+| D8  | Myyntiviestien kärki on **tietue ja pysäytys**; optimointi on se, mitä niillä todistetaan. Energianoptimointityökalujen kanssa ei kilpailla optimoinnin laadulla.                                                                                                                      | HIC 28.09.2026                          |
 
 ---
 
@@ -54,6 +58,41 @@ Document Status:
 HIC:n perustelut: (1) pilotin laiteturvallisuus — kenttäväyläohjaus jää pois, (2) yksikään CISO ei päästä uutta agenttia suoraan chiller- tai syöttöohjaukseen päivänä 1, (3) neuvoa-antava ketju todistaa päätösvallan siirron juuri niin kuin tarjous lupaa.
 
 **Aukko (Rule 12):** HIC viittaa tarjouksen "Luku 3" -lauseeseen _"Pilotin agentit tuottavat päätöksiä, suosituksia ja kirjauksia… Ne eivät ohjaa fyysisiä laitteita."_ Tätä lausetta **ei löydy** repositoriosta (`Store/PRODUCT_AEGIS_PILOT.md`, `sales-package-v1.0/*`, runbookit). Todennäköisesti se on repositorion ulkopuolisessa tarjousdokumentissa. Ehdotus: lisätään sama rajauslause `Store/PRODUCT_AEGIS_PILOT.md` "Exactly what is in scope" -kohtaan ja H1-sopimusliitteeseen — Store-muutos vaatii HIC-hyväksynnän.
+
+### 1.2 Hyväksyntä on päätöstapahtuma, ei muistiinpano (HIC 28.09.2026)
+
+Neuvoa-antava työnkulku on sama tapahtumaketju, joka on jo suunniteltu päätöspolulle (`docs/plans/2026-09-24-decision-journey-outcome-evidence.md` §144–234). Agentti emittoi suosituksen ilman päätöksentekijää. Operaattorin hyväksyntä asettaa päätöksentekijän. Lopputulos kirjataan perään.
+
+| Pilotin ledger-tapahtuma                          | Päätöspolun tapahtuma                              | `decision_by`      | Allekirjoittaja                          |
+| ------------------------------------------------- | -------------------------------------------------- | ------------------ | ---------------------------------------- |
+| `agent.decide` (suositus)                         | `PATH_RECOMMENDED`                                 | ei ole             | agentin credential                       |
+| **`human.decide`** accept / reject / defer (uusi) | `PATH_ACCEPTED` / `PATH_REJECTED` / `PATH_DELAYED` | operaattorin rooli | **operaattorin oma avain**               |
+| `tool.invoke` / työnkulun askel                   | `ACTION_STARTED` / `ACTION_COMPLETED`              | —                  | agentti                                  |
+| **`outcome.record`** (uusi)                       | `OUTCOME_RECORDED`                                 | —                  | site-avain, viittaa päätöksen seq + hash |
+| `human.override` (pysäytys)                       | — (avoin suositus → `PATH_ABANDONED`)              | operaattori        | operaattorin avain                       |
+
+**Tilanne koodissa tänään:** pilottikitin ledgerissä (`src/aegis/pilot/evidence-ledger.ts:46–62`) ei ole hyväksyntätapahtumaa. Hyväksyntä päätyisi joko `agent.decide`-tapahtuman `detail`-kenttään (eli muistiinpanoksi) tai `human.override`-tapahtumaksi. Jälkimmäinen olisi virhe, koska `acceptance.ts:632` tulkitsee `human.override`-tapahtuman pysäytykseksi.
+
+**Suunnittelupäätös (C5, `docs/plans/AEGIS_PILOT_95_READINESS_PLAN.md`):**
+
+1. Lisätään `human.decide` ja `outcome.record` ledgerin tapahtumatyyppeihin.
+2. Hyväksyntä allekirjoitetaan operaattorin avaimella samalla polulla kuin pysäytyskomento: credential, allekirjoitus, tuoreus ja replay-suoja (`kill-authority.ts`). Se toimii siis myös yhteyden ollessa poikki.
+3. Tapahtuma sitoo suosituksen `seq` + `event_hash` → hyväksyntä ei voi koskea eri suositusta kuin sitä, jonka agentti antoi.
+4. `decision_by` on rooli (päätöspolun sääntö, ei henkilönimiä). `operator_id` on credentialin avaintunniste (Art. 14(5)); nimen ja avaimen vastaavuus säilyy asiakkaalla.
+5. Pysäytys odottavan suosituksen aikana: ledgerissä ei saa olla `human.decide`-tapahtumaa pysäytyksen jälkeen, ja polku päättyy tilaan abandoned.
+
+**Seuraus:** hyväksyntäajo (Phase 3) tuottaa kaksi todistetta yhdestä ledgeristä: katkotestin tuloksen ja ensimmäisen päätöspolun, jossa päätöksentekijä on asiakkaan operaattori (`subject_is_external = true`). Verified Decision Journey vaatii lisäksi `OWNERSHIP_CONFIRMED`-tapahtuman (Phase 0:n allekirjoitettu scope) sekä `LEARNING_DELTA_CREATED`-tapahtuman (Phase 4:n raportti).
+
+### 1.3 Mikä luku muuttuu, kun työnkulku on käytössä
+
+| Luku                                                                                       | Muuttuuko 13 viikossa?                  | Voiko sen kohdistaa Aegikseen?                                          | Käyttö                                                                                                            |
+| ------------------------------------------------------------------------------------------ | --------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| **Päätöspolun kattavuus** (osuus suosituksista, joilla on allekirjoitettu päätös ja tulos) | Kyllä: 0 % → tavoite 100 %              | Kyllä. Luku tulee suoraan ledgeristä                                    | **Myytävä luku.** Tätä energianoptimointityökalu ei tuota                                                         |
+| **Operaattorin aika päätöstä kohden** (suosituksesta päätökseen + dokumentointiaika)       | Kyllä, verrattuna Phase 0:n lähtötasoon | Kyllä: ledgerin aikaleimat + lähtötason mittaus                         | Toissijainen, konkreettinen COO:lle                                                                               |
+| **Sähkölasku (€)**                                                                         | Mahdollisesti                           | Vain arviona hyväksyttyä suositusta kohden (siirretyt kWh × spot-hinta) | Kirjataan `outcome.record`-payloadiin. Ei luvata                                                                  |
+| **PUE**                                                                                    | Ei luotettavasti                        | Ei                                                                      | **Ei käytetä.** Vuositason mittari, johon vaikuttaa kausi (Q4–Q1 vapaajäähdytys), ja energianoptimoijien ydinalue |
+
+**Kausihuomio:** marras–helmikuun pilotissa jäähdytyksen säästöpotentiaali on pienin, ja spot-hinnan vaihtelu on suurin. Talven ensimmäinen työnkulku kannattaa siis rajata kuorman ajoitussuositukseen spot-hinnan mukaan, ei jäähdytyksen asetusarvoihin.
 
 ---
 
@@ -258,7 +297,7 @@ Lisäksi: Turun Security & Dual-Use -klusteri (01/2026) ja Tampereen pk→puolus
 | CRA-raportointi voimassa 11.09.2026 → OEM-valmistajien kiireellinen tarve                                                                 | AI Act -määräaikojen siirto 2027–28 heikentää kiireellisyyttä                                                         |
 | AI Act Art. 2(3): kaksoiskäyttötehtaiden AI ei ole poikkeuksen piirissä                                                                   | Suurten teollisuusyhtiöiden hitaat hankinnat ja rakennejärjestelyt (Valmet, Outokumpu, Kemira)                        |
 | Intialaiset integraattorit ajavat agentteja IT/OT-rajalla (Neste, Metsä, Valmet) → riippumattoman hallinnan tarve                         | Asiakas sekoittaa Aegiksen tietoturvatuotteisiin ennen kuin ymmärtää päätösvallan todisteen                           |
-| Greenfield-tehtaat nyt (Forcit, Summa Defence, Nammo Vihtavuori, Patria Uusikaupunki)                                                     | Suvereniteetti ≠ ostopäätös, jos budjetti puuttuu                                                                     |
+| Greenfield-tehtaat nyt (Forcit, Summa Defence, Nammo Vihtavuori, Patria Uusikaupunki)                                                     | Suvereniteetti ≠ ostopäätös, jos budjetti puuttuu; advisory-työnkulku rinnastetaan energianoptimointityökaluun (D8)   |
 | AI-gigatehdashaku 12.11.2026; EIC avattu kaksoiskäytölle                                                                                  |                                                                                                                       |
 | NVIDIA-kumppaniseinältä puuttuu EU-suvereeni ja pohjoismainen kerros                                                                      |                                                                                                                       |
 
@@ -294,7 +333,7 @@ Lisäksi: Turun Security & Dual-Use -klusteri (01/2026) ja Tampereen pk→puolus
 
 ## 9. Myyntisäikeet (luonnokset — HIC-hyväksyntä ennen lähetystä)
 
-Jokainen säie noudattaa D1:tä (neuvoa-antava), D4:ää (ei vahvistamattomia väitteitä) ja lähettäjäidentiteettiä (`CLAUDE.md` Sender Identity).
+Jokainen säie noudattaa D1:tä (neuvoa-antava), D4:ää (ei vahvistamattomia väitteitä), D8:aa (kärki on tietue ja pysäytys, optimointi on todistettava asia) ja lähettäjäidentiteettiä (`CLAUDE.md` Sender Identity).
 
 ### Säie A — Valmistava teollisuus (R15 CISO / R16 OT-tietoturva / valvomopäällikkö)
 
@@ -310,8 +349,8 @@ Kun agentti tekee ehdotuksia valvomoon, kaksi kysymystä jää usein auki: kuka 
 toimenpiteen, ja jatkuuko kirjaus, jos yhteys ulos katkeaa.
 
 DWS IQ Aegis Pilot on 3 kuukauden kiinteähintainen hanke (19 990 €). Siinä teidän oma
-ensimmäinen valvomotyönkulku ajetaan paikallisesti. Agentti ehdottaa, operaattori hyväksyy,
-eikä se ohjaa laitteita eikä kosketa tehtaan hätä-seis-piiriä. Lopuksi yhteys katkaistaan
+ensimmäinen valvomotyönkulku ajetaan paikallisesti. Agentti ehdottaa, operaattori hyväksyy
+omalla avaimellaan, ja hyväksyntä kirjataan päätöstapahtumaksi. Agentti ei ohjaa laitteita eikä kosketa tehtaan hätä-seis-piiriä. Lopuksi yhteys katkaistaan
 sovitun ikkunan ajaksi, ja mittaamme kolme asiaa: työnkulku valmistuu, EU AI Actin
 artiklan 12 mukainen tietue kirjoittuu paikallisesti ilman aukkoa, ja operaattori voi
 pysäyttää agentin. Jos jokin ehto ei täyty, saatte sen tiedon kirjallisena — sekin on tulos.
@@ -330,23 +369,26 @@ risto.paarni@lifetime.fi · +358 400 319 010
 
 ### Säie B — Datakeskukset (R04 CTO / R15 CISO / infrastruktuurijohtaja)
 
-**Kulma:** _"CER-resilienssisuunnitelma tarvitsee näytön siitä, mitä operatiiviset järjestelmät tekevät, kun yhteys katkeaa."_
+**Kulma:** _"Kuka hyväksyi agentin ehdotuksen, ja voitteko pysäyttää sen — myös silloin, kun yhteys on poikki? Energiasuositus on vain se, millä tämä todistetaan."_
 
 ```
-Aihe: CER-resilienssi ja AI-agentit konesalin operoinnissa — testattava näyttö
+Aihe: Konesalin AI-päätökset — allekirjoitettu tietue ja pysäytys myös ilman verkkoyhteyttä
 
 Hei [etunimi],
 
-Kriittisten toimijoiden nimeäminen CER-direktiivin mukaan päättyi heinäkuussa, ja
-resilienssivelvoitteet alkavat noin kymmenen kuukauden kuluttua. Samaan aikaan AI-agentit
-tulevat konesalien energian- ja jäähdytyksen optimointiin.
+Kun AI-agentit tulevat konesalin energian ja kuorman ohjaukseen, tarkastaja ja
+CER-resilienssisuunnitelma kysyvät samat kaksi asiaa: kuka hyväksyi agentin ehdotuksen,
+ja voiko sen pysäyttää, kun yhteys ulos on poikki.
 
-DWS IQ Aegis Pilot (19 990 €, 3 kk) ajaa yhden työnkulun paikallisesti: agentti tekee
-energia- ja jäähdytyskentän optimointiehdotuksen lämpökartan, sähkön hinnan ja
-kuormaennusteen perusteella, ja operaattori hyväksyy tai hylkää sen. Agentti ei ohjaa
-laitteita. Hyväksyntätestissä yhteys katkaistaan, ja todennamme, että työnkulku valmistuu,
-tietue kirjoittuu paikallisesti ja operaattori voi pysäyttää agentin. Tuloksena on
-allekirjoitettu, offline-varmennettava tietue resilienssisuunnitelmaanne.
+DWS IQ Aegis Pilot (19 990 €, 3 kk) todistaa molemmat teidän omassa ympäristössänne.
+Jokainen agentin suositus kirjataan, ja operaattorin hyväksyntä tai hylkäys allekirjoitetaan
+hänen omalla avaimellaan päätöstapahtumaksi. Tuloksena on päätöspolku: suositus, kuka päätti,
+mitä tehtiin ja mitä siitä seurasi. Agentti ei ohjaa laitteita. Hyväksyntätestissä yhteys
+katkaistaan, ja todennamme, että työnkulku valmistuu, tietue kirjoittuu paikallisesti ilman
+aukkoa ja operaattori voi pysäyttää agentin.
+
+Todistettava työnkulku on esimerkiksi kuorman ajoitussuositus sähkön spot-hinnan mukaan.
+Optimoinnin laatu ei ole se, mitä myymme — tietue ja pysäytys ovat.
 
 Olemme EU-omisteinen (Lifetime Oy, Espoo), eikä ratkaisu ole riippuvainen yhdysvaltalaisesta
 pilvestä.
