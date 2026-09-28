@@ -21,7 +21,11 @@ import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
 import { type NormalizationResult, normalizeToKg } from './unit-normalization.js';
-import { createEC3Client, type EC3CategoryStats, type EC3Client } from '../integrations/ec3/index.js';
+import {
+  createEC3Client,
+  type EC3CategoryStats,
+  type EC3Client,
+} from '../integrations/ec3/index.js';
 
 // ============ EMISSION FACTORS DATABASE ============
 // kgCO2e per unit (based on ICE Database v3 and EPD averages)
@@ -47,110 +51,256 @@ interface EmissionFactor {
 
 const EMISSION_FACTORS: Record<string, EmissionFactor> = {
   concrete: {
-    a1_a3: 0.132, a4: 0.012, a5: 0.005, b: 0.001, c: 0.015, d: -0.008,
-    unit: 'kg', category: 'Structural',
+    a1_a3: 0.132,
+    a4: 0.012,
+    a5: 0.005,
+    b: 0.001,
+    c: 0.015,
+    d: -0.008,
+    unit: 'kg',
+    category: 'Structural',
   },
   steel: {
-    a1_a3: 1.46, a4: 0.03, a5: 0.02, b: 0.005, c: 0.04, d: -0.35,
-    unit: 'kg', category: 'Structural',
+    a1_a3: 1.46,
+    a4: 0.03,
+    a5: 0.02,
+    b: 0.005,
+    c: 0.04,
+    d: -0.35,
+    unit: 'kg',
+    category: 'Structural',
   },
   timber: {
-    a1_a3: 0.31, a4: 0.02, a5: 0.01, b: 0.002, c: 0.03, d: -0.55,
-    unit: 'kg', category: 'Structural',
+    a1_a3: 0.31,
+    a4: 0.02,
+    a5: 0.01,
+    b: 0.002,
+    c: 0.03,
+    d: -0.55,
+    unit: 'kg',
+    category: 'Structural',
   },
   aluminum: {
-    a1_a3: 6.67, a4: 0.04, a5: 0.03, b: 0.01, c: 0.06, d: -3.5,
-    unit: 'kg', category: 'Metals',
+    a1_a3: 6.67,
+    a4: 0.04,
+    a5: 0.03,
+    b: 0.01,
+    c: 0.06,
+    d: -3.5,
+    unit: 'kg',
+    category: 'Metals',
   },
   glass: {
-    a1_a3: 1.44, a4: 0.025, a5: 0.015, b: 0.003, c: 0.05, d: -0.2,
-    unit: 'kg', category: 'Facades',
+    a1_a3: 1.44,
+    a4: 0.025,
+    a5: 0.015,
+    b: 0.003,
+    c: 0.05,
+    d: -0.2,
+    unit: 'kg',
+    category: 'Facades',
   },
   brick: {
-    a1_a3: 0.24, a4: 0.015, a5: 0.008, b: 0.001, c: 0.02, d: -0.01,
-    unit: 'kg', category: 'Masonry',
+    a1_a3: 0.24,
+    a4: 0.015,
+    a5: 0.008,
+    b: 0.001,
+    c: 0.02,
+    d: -0.01,
+    unit: 'kg',
+    category: 'Masonry',
   },
   insulation_mineral_wool: {
-    a1_a3: 1.28, a4: 0.015, a5: 0.01, b: 0.0, c: 0.03, d: -0.15,
-    unit: 'kg', category: 'Insulation',
+    a1_a3: 1.28,
+    a4: 0.015,
+    a5: 0.01,
+    b: 0.0,
+    c: 0.03,
+    d: -0.15,
+    unit: 'kg',
+    category: 'Insulation',
   },
   insulation_eps: {
-    a1_a3: 3.29, a4: 0.01, a5: 0.008, b: 0.0, c: 0.05, d: -0.1,
-    unit: 'kg', category: 'Insulation',
+    a1_a3: 3.29,
+    a4: 0.01,
+    a5: 0.008,
+    b: 0.0,
+    c: 0.05,
+    d: -0.1,
+    unit: 'kg',
+    category: 'Insulation',
   },
   cement: {
-    a1_a3: 0.83, a4: 0.015, a5: 0.005, b: 0.002, c: 0.02, d: -0.015,
-    unit: 'kg', category: 'Binders',
+    a1_a3: 0.83,
+    a4: 0.015,
+    a5: 0.005,
+    b: 0.002,
+    c: 0.02,
+    d: -0.015,
+    unit: 'kg',
+    category: 'Binders',
   },
   copper: {
-    a1_a3: 3.81, a4: 0.03, a5: 0.02, b: 0.005, c: 0.04, d: -1.8,
-    unit: 'kg', category: 'Metals',
+    a1_a3: 3.81,
+    a4: 0.03,
+    a5: 0.02,
+    b: 0.005,
+    c: 0.04,
+    d: -1.8,
+    unit: 'kg',
+    category: 'Metals',
   },
   plasterboard: {
-    a1_a3: 0.39, a4: 0.02, a5: 0.01, b: 0.001, c: 0.025, d: -0.05,
-    unit: 'kg', category: 'Internal Finishes',
+    a1_a3: 0.39,
+    a4: 0.02,
+    a5: 0.01,
+    b: 0.001,
+    c: 0.025,
+    d: -0.05,
+    unit: 'kg',
+    category: 'Internal Finishes',
   },
   rebar: {
-    a1_a3: 1.99, a4: 0.03, a5: 0.015, b: 0.005, c: 0.04, d: -0.45,
-    unit: 'kg', category: 'Structural',
+    a1_a3: 1.99,
+    a4: 0.03,
+    a5: 0.015,
+    b: 0.005,
+    c: 0.04,
+    d: -0.45,
+    unit: 'kg',
+    category: 'Structural',
   },
   // Lime products — dual-use critical raw material (steel flux, cement, decontamination)
   // Source: EU ETS Benchmark 2021-2025 (0.954 tCO2e/t lime)
   lime: {
-    a1_a3: 0.954, a4: 0.02, a5: 0.008, b: 0.001, c: 0.018, d: -0.04,
-    unit: 'kg', category: 'Binders',
+    a1_a3: 0.954,
+    a4: 0.02,
+    a5: 0.008,
+    b: 0.001,
+    c: 0.018,
+    d: -0.04,
+    unit: 'kg',
+    category: 'Binders',
   },
   quicklime: {
-    a1_a3: 1.092, a4: 0.02, a5: 0.008, b: 0.001, c: 0.02, d: -0.035,
-    unit: 'kg', category: 'Binders',
+    a1_a3: 1.092,
+    a4: 0.02,
+    a5: 0.008,
+    b: 0.001,
+    c: 0.02,
+    d: -0.035,
+    unit: 'kg',
+    category: 'Binders',
   },
   slaked_lime: {
-    a1_a3: 0.742, a4: 0.018, a5: 0.007, b: 0.001, c: 0.015, d: -0.03,
-    unit: 'kg', category: 'Binders',
+    a1_a3: 0.742,
+    a4: 0.018,
+    a5: 0.007,
+    b: 0.001,
+    c: 0.015,
+    d: -0.03,
+    unit: 'kg',
+    category: 'Binders',
   },
   limestone: {
-    a1_a3: 0.032, a4: 0.015, a5: 0.005, b: 0.001, c: 0.01, d: -0.005,
-    unit: 'kg', category: 'Aggregates',
+    a1_a3: 0.032,
+    a4: 0.015,
+    a5: 0.005,
+    b: 0.001,
+    c: 0.01,
+    d: -0.005,
+    unit: 'kg',
+    category: 'Aggregates',
   },
 };
 
 /** Lower-carbon alternatives lookup */
 const ALTERNATIVES: Record<string, Array<{ name: string; reduction: number; note: string }>> = {
   concrete: [
-    { name: 'Low-carbon concrete (30% GGBS)', reduction: 0.35, note: 'Replace 30% cement with GGBS' },
-    { name: 'Geopolymer concrete', reduction: 0.60, note: 'Eliminates Portland cement entirely' },
+    {
+      name: 'Low-carbon concrete (30% GGBS)',
+      reduction: 0.35,
+      note: 'Replace 30% cement with GGBS',
+    },
+    { name: 'Geopolymer concrete', reduction: 0.6, note: 'Eliminates Portland cement entirely' },
   ],
   steel: [
-    { name: 'Electric arc furnace (EAF) steel', reduction: 0.40, note: 'Recycled scrap-based production' },
-    { name: 'Green hydrogen steel (HYBRIT)', reduction: 0.85, note: 'Available from SSAB (Nordic supply)' },
+    {
+      name: 'Electric arc furnace (EAF) steel',
+      reduction: 0.4,
+      note: 'Recycled scrap-based production',
+    },
+    {
+      name: 'Green hydrogen steel (HYBRIT)',
+      reduction: 0.85,
+      note: 'Available from SSAB (Nordic supply)',
+    },
   ],
   aluminum: [
-    { name: 'Recycled aluminum', reduction: 0.75, note: 'Uses 95% less energy than primary production' },
-    { name: 'Hydro-powered primary aluminum', reduction: 0.50, note: 'Nordic smelters using hydroelectric power' },
+    {
+      name: 'Recycled aluminum',
+      reduction: 0.75,
+      note: 'Uses 95% less energy than primary production',
+    },
+    {
+      name: 'Hydro-powered primary aluminum',
+      reduction: 0.5,
+      note: 'Nordic smelters using hydroelectric power',
+    },
   ],
   cement: [
-    { name: 'LC3 cement (limestone calcined clay)', reduction: 0.40, note: 'Drop-in replacement' },
-    { name: 'Cement with CCS', reduction: 0.90, note: 'Carbon capture at kiln - limited availability' },
+    { name: 'LC3 cement (limestone calcined clay)', reduction: 0.4, note: 'Drop-in replacement' },
+    {
+      name: 'Cement with CCS',
+      reduction: 0.9,
+      note: 'Carbon capture at kiln - limited availability',
+    },
   ],
   insulation_eps: [
-    { name: 'Mineral wool insulation', reduction: 0.60, note: 'Lower embodied carbon, better fire resistance' },
-    { name: 'Wood fiber insulation', reduction: 0.80, note: 'Bio-based, carbon-storing alternative' },
+    {
+      name: 'Mineral wool insulation',
+      reduction: 0.6,
+      note: 'Lower embodied carbon, better fire resistance',
+    },
+    {
+      name: 'Wood fiber insulation',
+      reduction: 0.8,
+      note: 'Bio-based, carbon-storing alternative',
+    },
   ],
-  brick: [
-    { name: 'Unfired clay brick', reduction: 0.65, note: 'No kiln energy required' },
-  ],
+  brick: [{ name: 'Unfired clay brick', reduction: 0.65, note: 'No kiln energy required' }],
   glass: [
-    { name: 'Recycled-content glass (50%)', reduction: 0.25, note: 'Widely available in EU market' },
+    {
+      name: 'Recycled-content glass (50%)',
+      reduction: 0.25,
+      note: 'Widely available in EU market',
+    },
   ],
   lime: [
-    { name: 'Electric calcination lime (Litherm)', reduction: 0.90, note: 'Fully electric calcination — zero process CO2. SigmaRoc/Litherm EUR 6.5M seed (2026)' },
-    { name: 'Lime with CCS', reduction: 0.85, note: 'Carbon capture at kiln — SigmaRoc Köping pilot operational' },
+    {
+      name: 'Electric calcination lime (Litherm)',
+      reduction: 0.9,
+      note: 'Fully electric calcination — zero process CO2. SigmaRoc/Litherm EUR 6.5M seed (2026)',
+    },
+    {
+      name: 'Lime with CCS',
+      reduction: 0.85,
+      note: 'Carbon capture at kiln — SigmaRoc Köping pilot operational',
+    },
   ],
   quicklime: [
-    { name: 'Electric calcination quicklime', reduction: 0.90, note: 'Litherm Technologies GmbH — eliminates combustion and process CO2' },
+    {
+      name: 'Electric calcination quicklime',
+      reduction: 0.9,
+      note: 'Litherm Technologies GmbH — eliminates combustion and process CO2',
+    },
   ],
   limestone: [
-    { name: 'Recycled calcium carbonate', reduction: 0.40, note: 'From water treatment sludge or paper mill waste' },
+    {
+      name: 'Recycled calcium carbonate',
+      reduction: 0.4,
+      note: 'From water treatment sludge or paper mill waste',
+    },
   ],
 };
 
@@ -165,6 +315,30 @@ interface MaterialInput {
 
 interface MaterialOracleInput {
   materials: MaterialInput[];
+}
+
+function validateInput(input: Record<string, unknown>): void {
+  const materials = input.materials;
+  if (!Array.isArray(materials)) {
+    throw new Error('Input must contain a "materials" array');
+  }
+  for (let i = 0; i < materials.length; i++) {
+    const mat = materials[i];
+    if (!mat || typeof mat.name !== 'string' || mat.name.trim() === '') {
+      throw new Error(`Material ${i}: must have a non-empty "name" string`);
+    }
+    if (typeof mat.quantity !== 'number') {
+      throw new Error(`Material ${i} (${mat.name}): quantity must be a number`);
+    }
+    if (mat.quantity < 0) {
+      throw new Error(
+        `Material ${i} (${mat.name}): quantity must be non-negative (got ${mat.quantity})`,
+      );
+    }
+    if (typeof mat.unit !== 'string' || mat.unit.trim() === '') {
+      throw new Error(`Material ${i} (${mat.name}): must have a non-empty "unit" string`);
+    }
+  }
 }
 
 // ============ AGENT IMPLEMENTATION ============
@@ -192,14 +366,13 @@ export class MaterialOracleAgent extends BaseAgent {
     this.ec3Client = createEC3Client();
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
 
     const matInput = input as unknown as MaterialOracleInput;
     const { materials } = matInput;
+
+    validateInput(input);
 
     logger.info('MaterialOracle agent executing', {
       materialCount: materials.length,
@@ -240,7 +413,11 @@ export class MaterialOracleAgent extends BaseAgent {
       const matchedCount = materialResults.filter((m) => m.matched).length;
 
       // 5. Build recommendations
-      const recommendations = this.buildRecommendations(materialResults, aggregated, alternativeSuggestions);
+      const recommendations = this.buildRecommendations(
+        materialResults,
+        aggregated,
+        alternativeSuggestions,
+      );
 
       // 6. LLM enhancement
       const topMaterials = materialResults
@@ -278,11 +455,11 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
           totalTonnesCO2e: Math.round((totalCO2 / 1000) * 100) / 100,
           lifecycleBreakdown: {
             'A1-A3_product': Math.round(aggregated.a1_a3 * 100) / 100,
-            'A4_transport': Math.round(aggregated.a4 * 100) / 100,
-            'A5_construction': Math.round(aggregated.a5 * 100) / 100,
-            'B_use': Math.round(aggregated.b * 100) / 100,
-            'C_endOfLife': Math.round(aggregated.c * 100) / 100,
-            'D_beyondBoundary': Math.round(aggregated.d * 100) / 100,
+            A4_transport: Math.round(aggregated.a4 * 100) / 100,
+            A5_construction: Math.round(aggregated.a5 * 100) / 100,
+            B_use: Math.round(aggregated.b * 100) / 100,
+            C_endOfLife: Math.round(aggregated.c * 100) / 100,
+            D_beyondBoundary: Math.round(aggregated.d * 100) / 100,
           },
           materials: materialResults.map((m) => ({
             name: m.name,
@@ -295,15 +472,17 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
               method: m.unitNormalization.method,
             },
             dataSource: m.dataSource ?? 'ICE Database v3 / EPD averages (hardcoded)',
-            ec3: m.ec3Stats ? {
-              epdCount: m.ec3Stats.epdCount,
-              confidence: m.ec3Stats.confidence,
-              gwpRange: {
-                p10: m.ec3Stats.gwpPerKg.p10,
-                median: m.ec3Stats.gwpPerKg.median,
-                p90: m.ec3Stats.gwpPerKg.p90,
-              },
-            } : undefined,
+            ec3: m.ec3Stats
+              ? {
+                  epdCount: m.ec3Stats.epdCount,
+                  confidence: m.ec3Stats.confidence,
+                  gwpRange: {
+                    p10: m.ec3Stats.gwpPerKg.p10,
+                    median: m.ec3Stats.gwpPerKg.median,
+                    p90: m.ec3Stats.gwpPerKg.p90,
+                  },
+                }
+              : undefined,
             matched: m.matched,
             category: m.category,
             totalCO2e: Math.round(m.totalCO2e * 100) / 100,
@@ -315,32 +494,37 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
               c: Math.round(m.c * 100) / 100,
               d: Math.round(m.d * 100) / 100,
             },
-            percentOfTotal: totalCO2 > 0
-              ? Math.round((m.totalCO2e / totalCO2) * 10000) / 100
-              : 0,
+            percentOfTotal: totalCO2 > 0 ? Math.round((m.totalCO2e / totalCO2) * 10000) / 100 : 0,
           })),
           alternatives: alternativeSuggestions,
           potentialSavings: {
-            kgCO2e: Math.round(
-              alternativeSuggestions.reduce((sum, a) => sum + a.savingsKgCO2e, 0) * 100,
-            ) / 100,
-            percentReduction: totalCO2 > 0
-              ? Math.round(
-                  (alternativeSuggestions.reduce((sum, a) => sum + a.savingsKgCO2e, 0) / totalCO2) * 10000,
-                ) / 100
-              : 0,
+            kgCO2e:
+              Math.round(
+                alternativeSuggestions.reduce((sum, a) => sum + a.savingsKgCO2e, 0) * 100,
+              ) / 100,
+            percentReduction:
+              totalCO2 > 0
+                ? Math.round(
+                    (alternativeSuggestions.reduce((sum, a) => sum + a.savingsKgCO2e, 0) /
+                      totalCO2) *
+                      10000,
+                  ) / 100
+                : 0,
           },
           dataQuality: {
             materialCount,
             matchedCount,
             unmatchedCount: materialCount - matchedCount,
-            coveragePercent: materialCount > 0
-              ? Math.round((matchedCount / materialCount) * 100)
-              : 0,
+            coveragePercent:
+              materialCount > 0 ? Math.round((matchedCount / materialCount) * 100) : 0,
             unitConversions: {
-              exact: materialResults.filter((m) => m.unitNormalization.confidence === 'exact').length,
-              estimated: materialResults.filter((m) => m.unitNormalization.confidence === 'estimated').length,
-              assumed: materialResults.filter((m) => m.unitNormalization.confidence === 'assumed').length,
+              exact: materialResults.filter((m) => m.unitNormalization.confidence === 'exact')
+                .length,
+              estimated: materialResults.filter(
+                (m) => m.unitNormalization.confidence === 'estimated',
+              ).length,
+              assumed: materialResults.filter((m) => m.unitNormalization.confidence === 'assumed')
+                .length,
             },
           },
           llmStrategy,
@@ -357,7 +541,9 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
             ? 'EC3/BuildingTransparency EPDs (primary) + ICE Database v3 (fallback)'
             : 'ICE Database v3 / EPD averages',
           ec3Connected: this.ec3Client !== null,
-          ec3MaterialsEnriched: materialResults.filter((m) => m.ec3Stats && m.ec3Stats.confidence !== 'none').length,
+          ec3MaterialsEnriched: materialResults.filter(
+            (m) => m.ec3Stats && m.ec3Stats.confidence !== 'none',
+          ).length,
           attribution: this.ec3Client
             ? 'EPD data provided by Building Transparency EC3 (https://buildingtransparency.org). Individual EPD links available in per-material ec3 field.'
             : undefined,
@@ -406,6 +592,7 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
     matched: boolean;
     category: string;
     totalCO2e: number;
+    totalA1A3: number;
     a1_a3: number;
     a4: number;
     a5: number;
@@ -437,7 +624,17 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
     if (!factor) {
       // Unknown material - use conservative average estimate (0.5 kgCO2e/kg)
       const estimatedFactor = 0.5;
-      const totalCO2e = normResult.quantityKg * estimatedFactor;
+      const qtyKg = normResult.quantityKg;
+      const totalA1A3 = qtyKg * estimatedFactor;
+      const a1_a3 = totalA1A3 * 0.75;
+      const a4 = totalA1A3 * 0.08;
+      const a5 = totalA1A3 * 0.04;
+      const b = totalA1A3 * 0.02;
+      const c = totalA1A3 * 0.06;
+      const d = totalA1A3 * -0.05;
+      // Total excludes D (beyond boundary, reported separately per EN 15978)
+      const totalCO2e = a1_a3 + a4 + a5 + b + c;
+
       return {
         name: material.name,
         quantity: material.quantity,
@@ -445,12 +642,13 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
         matched: false,
         category: 'Unknown',
         totalCO2e,
-        a1_a3: totalCO2e * 0.75,
-        a4: totalCO2e * 0.08,
-        a5: totalCO2e * 0.04,
-        b: totalCO2e * 0.02,
-        c: totalCO2e * 0.06,
-        d: totalCO2e * -0.05,
+        totalA1A3,
+        a1_a3,
+        a4,
+        a5,
+        b,
+        c,
+        d,
         unitNormalization: normResult,
       };
     }
@@ -466,7 +664,7 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
     const effectiveFactor = confidentEC3
       ? {
           a1_a3: confidentEC3.gwpPerKg.median,
-          a4: factor.a4,    // EC3 often lacks A4+ — keep hardcoded for transport/construction
+          a4: factor.a4, // EC3 often lacks A4+ — keep hardcoded for transport/construction
           a5: factor.a5,
           b: factor.b,
           c: factor.c,
@@ -486,7 +684,9 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
     const b = qtyKg * effectiveFactor.b;
     const c = qtyKg * effectiveFactor.c;
     const d = qtyKg * effectiveFactor.d;
-    // Total excludes D (beyond boundary, reported separately per EN 15978)
+    // Total for A1-A3 product stage only (used for savings calculations)
+    const totalA1A3 = a1_a3;
+    // Total for lifecycle report (excludes D, includes A1-A5 + B + C)
     const totalCO2e = a1_a3 + a4 + a5 + b + c;
 
     if (confidentEC3) {
@@ -506,6 +706,7 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
       matched: true,
       category: factor.category,
       totalCO2e,
+      totalA1A3,
       a1_a3,
       a4,
       a5,
@@ -527,9 +728,9 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
     const ec3Client = this.ec3Client;
     if (!ec3Client) return;
 
-    const uniqueNames = [...new Set(
-      materials.map((m) => m.name.toLowerCase().replace(/[\s_-]+/g, '_')),
-    )];
+    const uniqueNames = [
+      ...new Set(materials.map((m) => m.name.toLowerCase().replace(/[\s_-]+/g, '_'))),
+    ];
 
     // Only fetch materials not already cached
     const toFetch = uniqueNames.filter((name) => !this.ec3Cache.has(name));
@@ -579,7 +780,15 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
   }
 
   private aggregateByStage(
-    results: Array<{ a1_a3: number; a4: number; a5: number; b: number; c: number; d: number; totalCO2e: number }>,
+    results: Array<{
+      a1_a3: number;
+      a4: number;
+      a5: number;
+      b: number;
+      c: number;
+      d: number;
+      totalCO2e: number;
+    }>,
   ) {
     const agg = { a1_a3: 0, a4: 0, a5: 0, b: 0, c: 0, d: 0, total: 0 };
     for (const r of results) {
@@ -617,10 +826,11 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
       const alts = this.findAlternativesForKey(key);
 
       for (const alt of alts) {
+        const savings = Math.round(mat.totalA1A3 * alt.reduction * 100) / 100;
         suggestions.push({
           originalMaterial: mat.name,
           alternative: alt.name,
-          savingsKgCO2e: Math.round(mat.totalCO2e * alt.reduction * 100) / 100,
+          savingsKgCO2e: savings,
           reductionPercent: Math.round(alt.reduction * 100),
           note: alt.note,
         });
@@ -630,7 +840,9 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
     return suggestions.sort((a, b) => b.savingsKgCO2e - a.savingsKgCO2e);
   }
 
-  private findAlternativesForKey(key: string): Array<{ name: string; reduction: number; note: string }> {
+  private findAlternativesForKey(
+    key: string,
+  ): Array<{ name: string; reduction: number; note: string }> {
     if (ALTERNATIVES[key]) return ALTERNATIVES[key];
     for (const [altKey, alts] of Object.entries(ALTERNATIVES)) {
       if (key.includes(altKey) || altKey.includes(key)) return alts;
