@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0 [Latest]
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: OpenCode | Session: opencode/pilot-readiness-priority | Date: 28.09.2026 | Changes: Created pilot readiness priority plan using immutable price-list v1.33 snapshot as primary source. Enforces 3 active pilots + 1 next + 1 last. Reference pointer to PRODUCT_PRODUCTION_READINESS_PROGRAM.md added. | Harness: OpenCode + CLAUDE.md + AGENTS.md + DWS_DOCUMENT_STANDARD | HIC-approved-drift: none
+- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: DWS-AEGIS-PILOT-001 evidence row now points at the local-first kit (`src/aegis/pilot/`, `npm run aegis:pilot`, runbook `docs/runbooks/AEGIS_PILOT_RUNBOOK.md`). Readiness score unchanged pending HIC. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.0 [not latest] | Tool: OpenCode | Session: opencode/pilot-readiness-priority | Date: 28.09.2026 | Changes: Created pilot readiness priority plan using immutable price-list v1.33 snapshot as primary source. Enforces 3 active pilots + 1 next + 1 last. Reference pointer to PRODUCT_PRODUCTION_READINESS_PROGRAM.md added. | Harness: OpenCode + CLAUDE.md + AGENTS.md + DWS_DOCUMENT_STANDARD | HIC-approved-drift: none
 
 Document Status:
 
@@ -85,7 +86,7 @@ For each pilot, include: group, exact terms, readiness, next gate, evidence, con
 | **Exact terms** | €19,990 fixed, 3 months. Credited in full against €59,990 Aegis licence if proceed within 6 months (net cost unchanged at €59,990). |
 | **Readiness** | 56% |
 | **Next gate** | G0-G6 (Chapter 4) — prove offline execution, identity/capability policy, kill authority, tamper-evident audit, maintenance entitlement, fail-safe behavior |
-| **Evidence** | `src/agents/aegis.agent.ts`, Article 12 audit ledger, replay protection, sovereignty monitoring |
+| **Evidence** | `src/agents/aegis.agent.ts`, Article 12 audit ledger, replay protection, sovereignty monitoring; local-first pilot kit `src/aegis/pilot/` (local ledger, site identity, operator kill authority, automated severed-uplink acceptance test — `docs/runbooks/AEGIS_PILOT_RUNBOOK.md`) |
 | **Conversion target** | Aegis onboarding (€59,990 licence) |
 | **Dependency** | Chapter 4 implementation (shared capability, not fork) |
 | **Stop condition** | No active contract renewal after 3 months; cancelled by buyer; converted to permanent licence |
@@ -190,6 +191,6 @@ The following catalogue SKUs are pilot-class offerings not listed in price-list 
 
 ---
 
-**Document version:** v1.0 · **Date:** 28.09.2026 · **Owner:** Lifetime Oy
+**Document version:** v1.1 · **Date:** 28.09.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.** This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy's prior written consent.
