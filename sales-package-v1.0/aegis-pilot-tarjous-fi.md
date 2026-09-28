@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.3 [Latest]
+Version: 1.4 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.3 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: HIC 28.9.2026: Sentry on optio muissa lainkäyttöalueissa; EU-suvereeneissa kohteissa oletus on ilman Sentryä (luottamuksen juuri pysyy asiakkaalla). Valinta kirjataan laajuusmäärittelyyn. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.4 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: HIC 28.9.2026: (1) kärkeen 'pysäytyksen toteutuminen todennetaan lokista, ei agentin omasta ilmoituksesta'; (2) uusi 'Päätösvallan tietue' — kuka piti päätösvallan ja mitä siitä seurasi (toteutus PR #2229, ml. pysäytyksen hautakivi); (3) artiklat 12 ja 26: loki tuottaa todistusaineiston, riittävyyden toteaa tarkastaja; (4) CLOUD Act: mekanismi ja johtopäätös lakiosastolle; avaimen säilytys kerrottu totuudenmukaisesti (ohjelmistoavain, TPM/HSM ei sisälly). Geminin ehdotuksista hylätty totuudenvastaiset: TPM/HSM-allekirjoitus, 'laitteistoloki', 'ydinlokit', 'seuraukset reaalimaailmassa'. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.3 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: HIC 28.9.2026: Sentry on optio muissa lainkäyttöalueissa; EU-suvereeneissa kohteissa oletus on ilman Sentryä (luottamuksen juuri pysyy asiakkaalla). Valinta kirjataan laajuusmäärittelyyn. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
 - Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: HIC 28.9.2026: NVIDIAn osuus rajoittuu laitteiston mukaan; Sentry / BlueField-4 on nyt optio (ei 'ei sisälly'). Optiohinta on paikkamerkki, koska LF-DOCA-SECURITY esiintyy tuoteluettelossa kahdesti ristiriitaisin ehdoin, eikä Sentry-integraatiota ole hinnoiteltu. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
 - Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: HIC:n palaute 28.9.2026 toteutettu. (1) Ydinviesti on päätösvalta ja sen seuraukset, ei sääntelyn täyttyminen; Aegis ei ole "compliance-kerros NVIDIAn päällä". (2) NVIDIAn asema kerrotaan suoraan: ei nimetty kumppani, OpenShell on avoimen lähdekoodin komponentti, Sentry/BlueField kuvataan referenssiarkkitehtuurina. (3) CLOUD Act -väite korvattu mekanismilla: mitä rajan yli liikkuu, kuka pitää avaimet, mitä lokissa on, mitä emme väitä. (4) Skooppi näkyy hinnassa: pilotin agentit eivät ohjaa fyysisiä laitteita; robotiikka ja kaksoiskäyttötuotanto eivät sisälly hintaan. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: Luotu. Suomenkielinen Aegis Pilot -tarjouspohja HIC:n blogiluonnoksen pohjalta; kaupalliset ehdot dws10.com/config/products.json ja hinnasto v1.33. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
@@ -37,13 +38,26 @@ Risto Anton Päärni, toimitusjohtaja · risto.paarni@lifetime.fi · +358 400 31
 
 ## 1. Kuka piti päätösvallan — ja mitä siitä seurasi
 
+**Pysäytyksen toteutuminen todennetaan lokista, ei agentin omasta ilmoituksesta.**
+
 Kun tekoälyagentti tekee työtä valvomossa, kysymys ei ole siitä, täyttyykö laki. Kysymys on siitä, kuka piti päätösvallan ja mitä siitä seurasi. Päätöksestä vastaava ihminen tarvitsee kolme asiaa:
 
 - **Kill-switch.** Operaattori pysäyttää käynnissä olevan agentin, ja pysäytys lopettaa agentin eikä vain pyydä sitä lopettamaan.
 - **Aukoton lokiketju.** Jokaisesta päätöksestä jää paikallinen, allekirjoitettu merkintä: mikä agentti päätti, millä valtuutuksella, minkä sääntöjen alaisena ja mitä siitä seurasi. Merkinnän voi varmentaa jälkikäteen luottamatta agenttiin eikä meihin.
 - **Päätösvalta säilyy myös verkon ollessa poikki.** Ympäristöissä, joissa virhemarginaali on nolla, hallinta ei saa riippua ulkoisesta yhteydestä.
 
-Tämä on DWS IQ Aegiksen ydin. EU AI Actin artiklan 12 ja 14 sekä NIS2:n vaatimukset täyttyvät tämän seurauksena, mutta ne eivät ole se, mitä myymme. Myymme todistettavan vastauksen kysymykseen: pysyikö päätösvalta teillä?
+### Päätösvallan tietue
+
+Tämä on DWS IQ Aegiksen ydin, ja se erottaa sen turvallisesta ajoympäristöstä ja lokista. Jokaisesta agentista syntyy tietue, joka näyttää:
+
+- **Kuka piti päätösvallan:** millä tunnisteella ja oikeuksilla agentti toimi, minkä allekirjoitetun laajuusmäärittelyn nojalla valtuutus annettiin ja kuka sen allekirjoitti kummankin osapuolen puolesta.
+- **Mitä se päätti:** päätökset, jotka se teki tämän valtuutuksen nojalla.
+- **Mitä siitä seurasi:** valmistuiko työnkulku, epäonnistuiko se, jonoutuiko osa työstä yhteyskatkon ajaksi ja tehtiinkö se myöhemmin, vai pysäytettiinkö agentti.
+- **Kuka pysäytti ja mitä sen jälkeen tapahtui:** mikä operaattori pysäytti agentin, milloin ja miksi, ja todiste siitä, ettei pysäytyksen jälkeen kirjattu yhtään agentin toimintoa. Loki kieltäytyy kirjaamasta pysäytetyn agentin työtä ja kirjaa yrityksenkin.
+
+Tietue muodostetaan vain varmennetusta lokista; muokatusta lokista sitä ei muodosteta lainkaan. Lokissa on vain tunnisteita, ja nimet yhdistetään niihin teidän omassa ympäristössänne. Näin henkilötiedot pysyvät teidän hallinnassanne.
+
+Päätösloki tuottaa sen todistusaineiston, jota EU AI Actin artiklat 12 (automaattinen lokitus) ja 26 (käyttöönottajan valvonta ja lokien säilytys) edellyttävät. Sen riittävyyden toteaa teidän tarkastajanne, ei me. Sääntely ei ole se, mitä myymme. Myymme todistettavan vastauksen kysymykseen: pysyikö päätösvalta teillä?
 
 Periaate on sama, jolla internetistä tuli turvallinen. Sitä ei tehty turvalliseksi pyytämällä verkkosivujen tekijöitä lupaamaan olevansa hyviä, vaan selain lakkasi luottamasta sivujen koodiin. Agentti ei voi valvoa itseään. Siksi hallinta on agentin ulkopuolella ja teidän käsissänne.
 
@@ -53,13 +67,13 @@ Pilotin lopussa ulkoyhteys katkaistaan ennalta sovituksi ajaksi teidän hallinno
 
 1. Valmistuuko pilotoitu työnkulku ilman verkkoyhteyttä?
 2. Kirjoitetaanko päätösloki edelleen paikallisesti, ilman aukkoja?
-3. Voiko operaattori pysäyttää käynnissä olevan agentin?
+3. Voiko operaattori pysäyttää käynnissä olevan agentin, niin ettei lokiin kirjaudu sen jälkeen yhtään agentin toimintoa?
 
 **Kaikkien kolmen on toteuduttava.** Testiin käytetty agentti on tarkoituksella sellainen, joka ei itse suostu pysähtymään. Hyväksytty tulos tarkoittaa siis, että se pysäytettiin, ei sitä, että se suostui pysähtymään.
 
 Negatiivinen tulos on hyödyllinen löydös eikä virhe. Opitte sen 19 990 eurolla ettekä laitteisto-ohjelman jälkeen.
 
-Testistä syntyy allekirjoitettu hyväksyntätietue. Teidän tarkastajanne voi varmentaa sen myöhemmin omalla koneellaan, ilman yhteyttä meihin.
+Testistä syntyy allekirjoitettu hyväksyntätietue, joka sisältää päätösvallan tietueen. Teidän tarkastajanne voi varmentaa sen myöhemmin omalla koneellaan, ilman yhteyttä meihin.
 
 ## 3. Teknologia ja NVIDIAn asema — suoraan sanottuna
 
@@ -80,13 +94,14 @@ NVIDIA, OpenShell, Sentry, BlueField, Vera ja DOCA ovat NVIDIA Corporationin tav
 
 Emme väitä, että ratkaisu olisi "immuuni" millekään lainsäädännölle. Kerromme, miten se toimii, ja teidän lakiosastonne voi arvioida sen itse.
 
-| Kysymys                        | Vastaus                                                                                                                                                                                                                                                                                                                                                                                 |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Mitä rajan yli liikkuu?**    | Ydinvaiheista ei mitään. Tämä todennetaan hyväksyntätestissä, jossa ulospäin suuntautuva yhteys katkaistaan ja yhteyden puuttuminen tarkistetaan. Ei-ydinvaiheet (esim. raportin arkistokopio) voivat ottaa yhteyden vain niihin osoitteisiin, jotka on lueteltu teidän allekirjoittamassanne laajuusmäärittelyssä. Yhteyskatkon aikana ne jonoutuvat paikallisesti allekirjoitettuina. |
-| **Kuka pitää avaimet?**        | Kohteen allekirjoitusavain luodaan teidän laitteistollanne, ja se jää teidän palvelutunnuksenne haltuun (vain omistajan luettavissa). Sen tunniste kirjataan allekirjoitettuun laajuusmäärittelyyn, joten avaimen vaihtaminen huomataan. Operaattoreiden pysäytysavaimet ovat operaattoreiden omia. Lifetime ei säilytä avaimia.                                                        |
-| **Mitä lokissa on?**           | Tunnisteet, tiivisteet (SHA-256) syötteistä ja tuloksista, yhden rivin päätöskuvaukset ilman henkilötietoja, sovelletun säännöstön tiiviste ja pysäytystapahtumat operaattorin tunnisteella. Raakasyötteitä tai -tuloksia ei kirjoiteta. Lokin muoto on avoin, ja sen voi varmentaa ilman meitä.                                                                                        |
-| **Kuka pääsee järjestelmään?** | Asennus tehdään paikan päällä tai teidän hallinnoimanne etäyhteyden kautta. Etäyhteys on katkaistu viimeistään hyväksyntätestissä.                                                                                                                                                                                                                                                      |
-| **Mitä emme väitä?**           | Laitteisto ja sen laiteohjelmisto voivat olla yhdysvaltalaisen toimittajan valmistamia, esimerkiksi NVIDIAn. Se on toimitusketjuriski, jota arvioidaan erikseen. Tässä toimintamallissa mikään yhdysvaltalainen palveluntarjoaja ei kuitenkaan hallinnoi dataanne, avaimianne eikä lokianne. OpenShellin lähdekoodi on avoin ja tarkastettavissa.                                       |
+| Kysymys                        | Vastaus                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Mitä rajan yli liikkuu?**    | Ydinvaiheista ei mitään. Tämä todennetaan hyväksyntätestissä, jossa ulospäin suuntautuva yhteys katkaistaan ja yhteyden puuttuminen tarkistetaan. Ei-ydinvaiheet (esim. raportin arkistokopio) voivat ottaa yhteyden vain niihin osoitteisiin, jotka on lueteltu teidän allekirjoittamassanne laajuusmäärittelyssä. Yhteyskatkon aikana ne jonoutuvat paikallisesti allekirjoitettuina.                                                                 |
+| **Kuka pitää avaimet?**        | Kohteen allekirjoitusavain luodaan teidän laitteistollanne, ja se jää teidän palvelutunnuksenne haltuun (vain omistajan luettavissa). Sen tunniste kirjataan allekirjoitettuun laajuusmäärittelyyn, joten avaimen vaihtaminen huomataan. Operaattoreiden pysäytysavaimet ovat operaattoreiden omia. Lifetime ei säilytä avaimia. Avain on ohjelmistoavain teidän palvelimellanne. Laitteistoon sidottu avainsäilö (TPM 2.0 / HSM) ei sisälly pilottiin. |
+| **Mitä lokissa on?**           | Tunnisteet, tiivisteet (SHA-256) syötteistä ja tuloksista, yhden rivin päätöskuvaukset ilman henkilötietoja, sovelletun säännöstön tiiviste ja pysäytystapahtumat operaattorin tunnisteella. Raakasyötteitä tai -tuloksia ei kirjoiteta. Lokin muoto on avoin, ja sen voi varmentaa ilman meitä.                                                                                                                                                        |
+| **Kuka pääsee järjestelmään?** | Asennus tehdään paikan päällä tai teidän hallinnoimanne etäyhteyden kautta. Etäyhteys on katkaistu viimeistään hyväksyntätestissä.                                                                                                                                                                                                                                                                                                                      |
+| **Mitä emme väitä?**           | Laitteisto ja sen laiteohjelmisto voivat olla yhdysvaltalaisen toimittajan valmistamia, esimerkiksi NVIDIAn. Se on toimitusketjuriski, jota arvioidaan erikseen. Tässä toimintamallissa mikään yhdysvaltalainen palveluntarjoaja ei kuitenkaan hallinnoi dataanne, avaimianne eikä lokianne. OpenShellin lähdekoodi on avoin ja tarkastettavissa.                                                                                                       |
+| **Kenen johtopäätös?**         | Teidän lakiosastonne. Kuvaamme mekanismin: OpenShellin telemetria on poistettu lähdekoodista käännösvaiheessa, avaimet ja loki ovat teidän hallussanne, ja ydinvaiheilla ei ole verkkoyhteyttä. Emme esitä johtopäätöstä CLOUD Actin tai muun lainsäädännön soveltumisesta.                                                                                                                                                                             |
 
 ## 5. Pilotin vaiheet (3 kk)
 
