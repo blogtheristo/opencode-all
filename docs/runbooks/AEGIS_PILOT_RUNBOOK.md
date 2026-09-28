@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Hard stop (readiness plan patch C1): steps and the stop-test agent run in terminable worker threads by default; §8 rewritten; acceptance refuses the cooperative stop. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.2 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: OpenShell containment (C4): §6.1 rehearsal setup verified against a real gateway; §8 states what the sandbox stop proves and its measured latency. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Hard stop (readiness plan patch C1): steps and the stop-test agent run in terminable worker threads by default; §8 rewritten; acceptance refuses the cooperative stop. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Created. Operator runbook for the local-first pilot kit (`src/aegis/pilot/`, `scripts/aegis-pilot.ts`): one section per pilot phase in `Store/PRODUCT_AEGIS_PILOT.md`, each exit gate mapped to a command and the evidence it produces. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 
 Document Status:
@@ -158,6 +159,15 @@ npm run aegis:pilot -- run ... --handlers ./customer-handlers.mjs --kind rehears
    npm run aegis:pilot -- verify --state-dir /var/lib/aegis-pilot --record /var/lib/aegis-pilot/acceptance/<recordId>.json
    ```
 
+### 6.1 With OpenShell containment (C4)
+
+Each step, and the stop-test agent, runs in its own NVIDIA OpenShell sandbox. The sandbox policy is generated from the signed scope, and core steps get no network. Verified against a real gateway on 28.09.2026 (field note `2026-09-28-nvidia-openshell-aegis-c4.md` §5).
+
+1. **Gateway** on the site host, Docker compute driver, telemetry off (`OPENSHELL_TELEMETRY_ENABLED=false`). Generate the PKI and JWT bundle once with `openshell-gateway generate-certs --output-dir <dir>`. In the gateway TOML, set `[openshell.gateway.gateway_jwt]` (`signing_key_path`, `public_key_path`, `kid_path`, `gateway_id`); Docker sandboxes refuse to start without it. Pin the supervisor image and `image_pull_policy` so nothing is pulled during the pilot.
+2. **Workload image** (the `--image` value) needs: a node binary at `/usr/local/bin/node`, a default command (the driver creates a container to read `/etc/passwd`), `/tmp` with mode 1777, `/sandbox`, and a `sandbox` user in `/etc/passwd`.
+3. **Rehearsal:** `AEGIS_CONTAINMENT=openshell AEGIS_IMAGE=<image> AEGIS_OPENSHELL_CLI=<path> scripts/aegis-pilot-isolated-rehearsal.sh`. The run is inside `unshare --net` and reaches the gateway through one Unix-socket bridge (`scripts/aegis-pilot-gateway-bridge.mjs`); nothing else leaves the namespace. On a customer site the gateway runs on the same host, so no bridge is needed.
+4. **Direct run:** `npm run aegis:pilot -- run … --containment openshell --image <image> --openshell-cli <path>` with `OPENSHELL_GATEWAY_ENDPOINT` set.
+
 ### How each condition is judged
 
 | Condition                     | Pass rule (computed, not asserted)                                                                                                                           |
@@ -175,6 +185,7 @@ The acceptance record provides the measured inputs: per-step `durationMs`, event
 This section follows Rule 12 (fail loud).
 
 - **Stops are hard by default (since v1.1).** `run` executes every step in its own worker thread. An operator stop terminates that thread: V8 halts it wherever it is, including in a synchronous busy loop, and drops its pending callbacks. The main thread never runs handler code, so it keeps writing the ledger and reading the kill inbox. The stop-test agent is deliberately stubborn: a busy loop that never checks a signal. A PASS therefore shows the agent was stopped, not that it agreed to stop. The record carries `stopMode`, `terminationMs` and `lateMessages`, and `lateMessages` must be 0.
+- **With `--containment openshell`, a stop deletes the sandbox.** It counts only when the gateway reports the sandbox gone. Measured in rehearsal: about 5.2 s, because the stubborn agent ignores SIGTERM and the container is killed after the grace period. During that window the agent cannot write to the host (outputs are copied back only when no stop was accepted), core steps have no network, and the ledger refuses its work. The record carries `terminationMs`.
 - **What termination does not reach.** It cannot undo a write the handler already handed to the OS before the stop, or an action another system took on the handler's request. Handlers still get their Phase 2 review for side effects they never log.
 - **`--stop-mode cooperative` is for rehearsals only.** It runs handlers in-process. A handler that ignores `signal` finishes its current call, and one that spins synchronously blocks the whole runtime, including the kill inbox. Acceptance runs refuse this mode.
 - **`host-egress-block` proves the workload, not the site boundary.** Every record states the rung of the isolation ladder that was used.
