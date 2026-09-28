@@ -838,12 +838,14 @@ Expected: `install: OK — new shells run opencode through the worktree wrapper`
 - **Unattended:** `scripts/opencode-task-loop.mjs` walks every `.claude/done/**.json` that has a `"prompt"` (in `order`), creates or reuses the branch's worktree, runs fresh `opencode run` rounds with the current gate FAILs until DONE, and moves on. Two rounds without progress or `maxRounds` → BLOCKED, alert, next task. Editing a BLOCKED task's spec retries it. It never merges.
 
 ```bash
-tmux new -d -s oc-loop 'cd ~/dws6 && node scripts/opencode-task-loop.mjs'   # start
-node ~/dws6/scripts/opencode-task-loop.mjs --status                           # progress
-tail -f ~/.local/state/opencode-task-loop/alerts.log                          # alerts
+opencode-loop            # start in tmux session oc-loop (no-op if running); shows queue + alerts
+opencode-loop status     # task states
+opencode-loop log        # follow alerts
+opencode-loop restart    # stop + start (a round in progress is redone)
+opencode-loop stop
 ```
 
-Default model `ollama-local/qwen3-coder-next:latest` (`OPENCODE_LOOP_MODEL` overrides; spec `"model"` per task). Commits use `opencode@lifetime.fi` (Tool Git Identity; avoids GH007). A task is only as good as its checks: write checks that fail on today's code and pass only when the work is really done.
+`opencode-loop` is defined in `scripts/shell/opencode-worktree.bash` (already sourced from `~/.bashrc`; new terminals or `exec bash` pick it up). Default model `ollama-local/qwen3-coder-next:latest` (`OPENCODE_LOOP_MODEL` overrides; spec `"model"` per task). Commits use `opencode@lifetime.fi` (Tool Git Identity; avoids GH007). A task is only as good as its checks: write checks that fail on today's code and pass only when the work is really done.
 
 ### DGX startup and verification
 

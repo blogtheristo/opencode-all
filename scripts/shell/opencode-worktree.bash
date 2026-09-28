@@ -10,6 +10,8 @@
 # Install (DGX, once — idempotent, verifies the wrapper is active):
 #   bash ~/dws6/scripts/shell/install-opencode-worktree.sh && exec bash
 #
+# Also defines opencode-loop (see the end of this file).
+#
 # Behaviour, only when the current directory is inside the PRIMARY checkout ($DWS6_PRIMARY):
 #   opencode [args]        asks for a task name (Enter = session-<timestamp>), creates
 #                          ~/.opencode-worktrees/dws6/<name> on a NEW branch opencode/<name>
@@ -83,4 +85,32 @@ opencode() {
 
   echo "opencode: worktree $wt (branch $(git -C "$wt" rev-parse --abbrev-ref HEAD))" >&2
   (cd "$wt" && command opencode "${args[@]}")
+}
+
+# opencode-loop — the unattended task loop (scripts/opencode-task-loop.mjs) in tmux session oc-loop.
+#   opencode-loop          start it (no-op if already running) and show the queue + latest alerts
+#   opencode-loop restart  stop and start (a round in progress is redone)
+#   opencode-loop status   task states           opencode-loop log   follow alerts (Ctrl+C stops watching)
+#   opencode-loop stop     stop the loop          opencode-loop dry   what would run
+opencode-loop() {
+  local primary="${DWS6_PRIMARY:-$HOME/dws6}" alerts="$HOME/.local/state/opencode-task-loop/alerts.log"
+  local loop="$primary/scripts/opencode-task-loop.mjs"
+  case "${1:-start}" in
+    status) node "$loop" --status ;;
+    dry) node "$loop" --dry-run ;;
+    log) tail -n 20 -f "$alerts" ;;
+    stop) tmux kill-session -t oc-loop 2>/dev/null && echo "opencode-loop: stopped" || echo "opencode-loop: not running" ;;
+    restart) opencode-loop stop && opencode-loop start ;;
+    start)
+      if tmux has-session -t oc-loop 2>/dev/null; then
+        echo "opencode-loop: already running (opencode-loop restart to restart)"
+      else
+        git -C "$primary" pull -q --ff-only origin main || echo "opencode-loop: pull failed — using the current checkout" >&2
+        tmux new -d -s oc-loop "cd '$primary' && node '$loop'"
+        sleep 5
+      fi
+      node "$loop" --dry-run
+      tail -n 3 "$alerts" 2>/dev/null ;;
+    *) echo "usage: opencode-loop [start|restart|status|log|stop|dry]" >&2; return 1 ;;
+  esac
 }
