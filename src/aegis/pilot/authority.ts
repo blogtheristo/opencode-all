@@ -98,7 +98,13 @@ export interface AgentAuthority {
     latencyMs: number | null;
   } | null;
   /** Evidence that the stop took effect. null when the agent was not stopped. */
-  afterStop: { agentWorkEvents: number; terminated: boolean; terminationMs: number | null } | null;
+  afterStop: {
+    agentWorkEvents: number;
+    /** Attempts refused by the ledger tombstone (evidence the agent tried). */
+    refusedAttempts: number;
+    terminated: boolean;
+    terminationMs: number | null;
+  } | null;
   incidents: string[];
 }
 
@@ -244,6 +250,9 @@ export function buildAuthorityRecord(
         ? {
             agentWorkEvents: mine.filter((e) => WORK.has(e.event_type) && e.seq > stopEv.seq)
               .length,
+            refusedAttempts: mine.filter(
+              (e) => e.event_type === 'incident' && e.detail.kind === 'work-after-stop-refused',
+            ).length,
             terminated: Boolean(terminated),
             terminationMs:
               terminated && typeof terminated.detail.termination_ms === 'number'

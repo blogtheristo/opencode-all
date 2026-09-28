@@ -6,11 +6,13 @@
  * written to the ledger.
  */
 
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { appendFileSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { canonicalJSON, sha256 } from '../aegis/pilot/crypto.js';
 import {
+  AgentStopped,
   buildAuthorityRecord,
   CAP_AGENT_STOP,
   type Connector,
@@ -24,6 +26,7 @@ import {
   SiteAuthority,
   statePaths,
   validateScope,
+  verifyLedger,
 } from '../aegis/pilot/index.js';
 
 const readingsPath = join(process.cwd(), 'config/aegis-pilot/sample-readings.json');
@@ -238,5 +241,100 @@ describe('decision-authority record', () => {
     );
     await new Promise((r) => setTimeout(r, 400));
     expect(readFileSync(statePaths(dir).ledger, 'utf8')).not.toContain('"reason":"late"');
+  });
+
+  describe('stop tombstone', () => {
+    function stoppedLedger() {
+      const ledger = EvidenceLedger.open(statePaths(dir).ledger, {
+        siteId: 'reference-site',
+        orgId: 'o',
+        signer: (h) => site.sign(h),
+        publicKey: site.publicKey,
+      });
+      ledger.append({
+        event_type: 'agent.decide',
+        trace_id: 't',
+        agent_id: 'agent-x',
+        detail: { step: 'a' },
+      });
+      ledger.append({
+        event_type: 'human.override',
+        trace_id: 't',
+        operator_id: 'op-1',
+        detail: { action: 'agent.stop', agents_stopped: ['agent-x'], command_id: 'c1' },
+      });
+      return ledger;
+    }
+
+    it("refuses a stopped agent's work, records the attempt, and leaves other agents alone", () => {
+      const ledger = stoppedLedger();
+      expect(() =>
+        ledger.append({ event_type: 'agent.decide', trace_id: 't', agent_id: 'agent-x' }),
+      ).toThrow(AgentStopped);
+      ledger.append({ event_type: 'agent.decide', trace_id: 't', agent_id: 'agent-y' });
+      ledger.close();
+      const events = readFileSync(statePaths(dir).ledger, 'utf8')
+        .trim()
+        .split('\n')
+        .map((l) => JSON.parse(l));
+      expect(
+        events.filter((e) => e.agent_id === 'agent-x' && e.event_type === 'agent.decide'),
+      ).toHaveLength(1);
+      expect(events.find((e) => e.detail?.kind === 'work-after-stop-refused')).toMatchObject({
+        agent_id: 'agent-x',
+      });
+      expect(verifyLedger(statePaths(dir).ledger, { publicKey: site.publicKey }).valid).toBe(true);
+    });
+
+    it('keeps the tombstone across a restart', () => {
+      stoppedLedger().close();
+      const reopened = EvidenceLedger.open(statePaths(dir).ledger, {
+        siteId: 'reference-site',
+        orgId: 'o',
+        signer: (h) => site.sign(h),
+        publicKey: site.publicKey,
+      });
+      expect(() =>
+        reopened.append({ event_type: 'tool.invoke', trace_id: 't', agent_id: 'agent-x' }),
+      ).toThrow(AgentStopped);
+      reopened.close();
+    });
+
+    it('fails verification even when a key holder re-signs a chain with work after the stop', () => {
+      stoppedLedger().close();
+      const path = statePaths(dir).ledger;
+      const events = readFileSync(path, 'utf8')
+        .trim()
+        .split('\n')
+        .map((l) => JSON.parse(l));
+      // Forge: append agent-x work after its stop, re-hash and re-sign with the real site key.
+      const last = events.at(-1);
+      const body = {
+        seq: last.seq + 1,
+        event_id: '00000000-0000-4000-8000-000000000000',
+        event_type: 'agent.decide',
+        timestamp: new Date(Date.parse(last.timestamp) + 10).toISOString(),
+        site_id: last.site_id,
+        org_id: last.org_id,
+        trace_id: 't',
+        agent_id: 'agent-x',
+        operator_id: null,
+        capability_manifest_hash: null,
+        model_version: null,
+        input_digest: null,
+        output_digest: null,
+        confidence: null,
+        detail: { step: 'after-stop' },
+        prev_hash: last.event_hash,
+      };
+      const event_hash = sha256(body.prev_hash + canonicalJSON(body));
+      appendFileSync(
+        path,
+        `${JSON.stringify({ ...body, event_hash, sig: site.sign(event_hash) })}\n`,
+      );
+      const v = verifyLedger(path, { publicKey: site.publicKey });
+      expect(v.valid).toBe(false);
+      expect(v.reason).toMatch(/tombstone violated/);
+    });
   });
 });
