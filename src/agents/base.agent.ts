@@ -105,7 +105,7 @@ export abstract class BaseAgent {
         }),
         iterations: [],
         totalTokens: { input: 0, output: 0 },
-        model: 'placeholder',
+        model: 'error',
       };
     }
 
