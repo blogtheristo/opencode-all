@@ -5,7 +5,7 @@
  */
 import type { AgentRuntimeContext } from './types.js';
 import type { LLMClient } from './llm-client.js';
-import { makeTypedDecision, type TypedDecisionResult } from './kya-jev.js';
+import { type KyaJevAuditRecord, makeTypedDecision, type TypedDecisionResult } from './kya-jev.js';
 
 export type ModelRouteAdvisoryKind = 'tier_hint';
 
@@ -29,6 +29,7 @@ export async function adviseModelRoute(
   client: LLMClient,
   req: ModelRouteAdvisoryRequest,
   runtime: AgentRuntimeContext | undefined,
+  audit?: (record: KyaJevAuditRecord) => Promise<void>,
 ): Promise<ModelRouteAdvisoryResult> {
   const result = await makeTypedDecision(
     client,
@@ -42,6 +43,7 @@ export async function adviseModelRoute(
       },
     },
     runtime,
+    audit,
   );
   return { kind: req.kind, result, actionable: false };
 }

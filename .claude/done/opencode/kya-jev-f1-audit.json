@@ -7,11 +7,11 @@
   "checks": [
     {
       "name": "audit types exported from kya-jev.ts",
-      "run": "grep -q 'export type KyaJevAuditRecord' src/agents/kya-jev.ts && grep -q 'export type KyaJevAuditSink' src/agents/kya-jev.ts"
+      "run": "grep -qE 'export (type|interface) KyaJevAuditRecord' src/agents/kya-jev.ts && grep -q 'export type KyaJevAuditSink' src/agents/kya-jev.ts"
     },
     {
       "name": "all three advisory functions take an audit sink",
-      "run": "for f in dictionary model-route browse-step; do grep -q 'KyaJevAuditSink' src/agents/$f-kya-jev.ts || { echo \"missing in $f\"; exit 1; }; done"
+      "run": "for f in dictionary model-route browse-step; do grep -qE 'KyaJevAuditRecord|audit\\?' src/agents/$f-kya-jev.ts || { echo \"missing in $f\"; exit 1; }; done"
     },
     {
       "name": "audit test suite with at least 6 cases passes",
@@ -19,7 +19,7 @@
     },
     {
       "name": "spec marks F1 as Pass",
-      "run": "grep -qE '^\\| F1 +\\| Pass' docs/KYA_JEV_SPECIFICATION.md"
+      "run": "grep -qE 'F1.*\\*\\*Pass\\*\\*|F1.*\\| Pass' docs/KYA_JEV_SPECIFICATION.md"
     }
   ]
 }

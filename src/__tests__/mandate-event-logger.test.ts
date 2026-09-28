@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 
-import { MandateEventLogger, type MandateEvent } from '../identity/mandate-event-logger.js';
+import { type MandateEvent, MandateEventLogger } from '../identity/mandate-event-logger.js';
 
 function makeEvent(overrides: Partial<MandateEvent> = {}): MandateEvent {
   return {

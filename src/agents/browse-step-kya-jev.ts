@@ -2,7 +2,7 @@
 // Audit trail: git log -- src/agents/browse-step-kya-jev.ts
 import type { AgentRuntimeContext } from './types.js';
 import type { LLMClient } from './llm-client.js';
-import { makeTypedDecision, type TypedDecisionResult } from './kya-jev.js';
+import { type KyaJevAuditRecord, makeTypedDecision, type TypedDecisionResult } from './kya-jev.js';
 
 export interface BrowseSnapshotNode {
   role: string;
@@ -55,6 +55,7 @@ export async function adviseBrowseStep(
   client: LLMClient,
   req: BrowseStepRequest,
   runtime: AgentRuntimeContext | undefined,
+  audit?: (record: KyaJevAuditRecord) => Promise<void>,
 ): Promise<BrowseStepResult> {
   const candidates = req.nodes
     .filter(
@@ -87,6 +88,7 @@ export async function adviseBrowseStep(
       },
     },
     runtime,
+    audit,
   );
 
   let action: BrowseStepAction;

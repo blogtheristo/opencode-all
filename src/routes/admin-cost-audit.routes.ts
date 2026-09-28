@@ -7,7 +7,7 @@
  * Requires authentication and admin role.
  */
 
-import express, { type Router, type Request, type Response } from 'express';
+import express, { type Request, type Response, type Router } from 'express';
 import { authenticateToken } from '../middleware/auth.middleware.js';
 import fs from 'fs';
 import logger from '../utils/logger.js';

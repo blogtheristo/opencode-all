@@ -25,9 +25,9 @@
 
 import {
   createPrivateKey,
-  generateKeyPairSync,
   sign as cryptoSign,
   verify as cryptoVerify,
+  generateKeyPairSync,
   type KeyObject,
 } from 'node:crypto';
 

@@ -4,11 +4,11 @@ import { describe, expect, it } from 'vitest';
 
 import { issueVerifiedDoneAttestation } from '../identity/ats-engine.js';
 import {
+  type AttestationSigner,
   generateIssuerKeyPair,
   loadIssuerSignerFromEnv,
   signVerifiedDoneAttestation,
   verifyVerifiedDoneAttestation,
-  type AttestationSigner,
 } from '../identity/attestation-signing.js';
 import type { AttestationInput, MandateGateDecision } from '../identity/types.js';
 
