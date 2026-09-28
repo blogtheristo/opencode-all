@@ -66,14 +66,40 @@ export class ScheduleGeniusAgent extends BaseAgent {
     });
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
 
     const schedInput = input as unknown as ScheduleGeniusInput;
     const { projectId, tasks } = schedInput;
+
+    // Input validation
+    if (typeof projectId !== 'string' || projectId.trim() === '') {
+      throw new Error('projectId is required and must be a non-empty string');
+    }
+
+    if (!Array.isArray(tasks)) {
+      throw new Error('tasks is required and must be an array');
+    }
+
+    // Validate each task
+    for (let i = 0; i < tasks.length; i++) {
+      const task = tasks[i];
+      if (typeof task !== 'object' || task === null) {
+        throw new Error(`tasks[${i}] must be an object`);
+      }
+      if (typeof task.name !== 'string' || task.name.trim() === '') {
+        throw new Error(`tasks[${i}].name is required and must be a non-empty string`);
+      }
+      if (typeof task.duration !== 'number' || task.duration < 0) {
+        throw new Error(`tasks[${i}].duration must be a non-negative number`);
+      }
+      if (!Array.isArray(task.dependencies)) {
+        throw new Error(`tasks[${i}].dependencies must be an array`);
+      }
+      if (typeof task.progress !== 'number' || task.progress < 0 || task.progress > 100) {
+        throw new Error(`tasks[${i}].progress must be a number between 0 and 100`);
+      }
+    }
 
     logger.info('ScheduleGenius agent executing', {
       projectId,
@@ -106,26 +132,34 @@ export class ScheduleGeniusAgent extends BaseAgent {
 
       // 4. Compute project-level metrics
       const scheduledTasks = Array.from(taskMap.values());
-      const projectDuration = Math.max(...scheduledTasks.map((t) => t.earliestFinish));
+      const projectDuration =
+        scheduledTasks.length > 0 ? Math.max(...scheduledTasks.map((t) => t.earliestFinish)) : 0;
       const overallProgress = this.computeOverallProgress(scheduledTasks);
       const delayRisks = this.identifyDelayRisks(scheduledTasks);
 
       // 5. Build recommendations
       const recommendations = this.buildRecommendations(scheduledTasks, criticalPath, delayRisks);
 
-      // 6. Optional LLM enhancement
-      const llmResponse = await this.callLLM(
-        `Analyze this project schedule and suggest optimizations:
+      // 6. Optional LLM enhancement (non-critical - wrap in try-catch)
+      let llmResponse:
+        { content: string; model: string; inputTokens: number; outputTokens: number } | undefined;
+      let llmOptimization = '';
+
+      try {
+        llmResponse = await this.callLLM(
+          `Analyze this project schedule and suggest optimizations:
 Project: ${projectId}, Tasks: ${tasks.length}, Duration: ${projectDuration} days
 Critical path: ${criticalPath.join(' -> ')}
 Overall progress: ${overallProgress}%
 Delay risks: ${delayRisks.map((r) => r.taskName).join(', ') || 'None'}
 Respond as JSON with keys: "optimization" (string), "riskMitigation" (string[])`,
-      );
+        );
+      } catch {
+        // Non-critical LLM failure - continue with deterministic results
+      }
 
-      let llmOptimization = '';
       try {
-        const parsed = JSON.parse(llmResponse.content);
+        const parsed = llmResponse && llmResponse.content ? JSON.parse(llmResponse.content) : {};
         llmOptimization = parsed.optimization || '';
         if (Array.isArray(parsed.riskMitigation)) {
           recommendations.push(...parsed.riskMitigation);
@@ -176,8 +210,8 @@ Respond as JSON with keys: "optimization" (string), "riskMitigation" (string[])`
         recommendations: [...new Set(recommendations)],
         metadata: {
           durationMs,
-          llmModel: llmResponse.model,
-          llmTokens: llmResponse.inputTokens + llmResponse.outputTokens,
+          llmModel: llmResponse?.model ?? 'none',
+          llmTokens: (llmResponse?.inputTokens ?? 0) + (llmResponse?.outputTokens ?? 0),
         },
       };
 
@@ -235,7 +269,8 @@ Respond as JSON with keys: "optimization" (string), "riskMitigation" (string[])`
         totalSlack: 0,
         isCritical: false,
         remainingDays,
-        status: task.progress >= 100 ? 'completed' : task.progress > 0 ? 'in-progress' : 'not-started',
+        status:
+          task.progress >= 100 ? 'completed' : task.progress > 0 ? 'in-progress' : 'not-started',
       });
     }
 
@@ -309,9 +344,10 @@ Respond as JSON with keys: "optimization" (string), "riskMitigation" (string[])`
       }
       if (task.status === 'in-progress' || task.status === 'not-started') {
         // Estimate expected progress based on earliest start
-        const expectedProgress = task.earliestFinish > 0
-          ? Math.min(100, Math.round((task.earliestStart / task.earliestFinish) * 100))
-          : 0;
+        const expectedProgress =
+          task.earliestFinish > 0
+            ? Math.min(100, Math.round((task.earliestStart / task.earliestFinish) * 100))
+            : 0;
         if (task.progress < expectedProgress - 20 && task.isCritical) {
           task.status = 'delayed';
         }
@@ -332,10 +368,7 @@ Respond as JSON with keys: "optimization" (string), "riskMitigation" (string[])`
     if (tasks.length === 0) return 0;
     const totalDuration = tasks.reduce((sum, t) => sum + t.duration, 0);
     if (totalDuration === 0) return 0;
-    const weightedProgress = tasks.reduce(
-      (sum, t) => sum + (t.progress / 100) * t.duration,
-      0,
-    );
+    const weightedProgress = tasks.reduce((sum, t) => sum + (t.progress / 100) * t.duration, 0);
     return Math.round((weightedProgress / totalDuration) * 100);
   }
 
@@ -415,10 +448,14 @@ Respond as JSON with keys: "optimization" (string), "riskMitigation" (string[])`
 
     const completedCount = tasks.filter((t) => t.status === 'completed').length;
     if (completedCount === 0 && tasks.length > 3) {
-      recs.push('No tasks completed yet - verify that task dependencies are realistic and resources are assigned');
+      recs.push(
+        'No tasks completed yet - verify that task dependencies are realistic and resources are assigned',
+      );
     }
 
-    const notStarted = tasks.filter((t) => t.status === 'not-started' && t.dependencies.length === 0);
+    const notStarted = tasks.filter(
+      (t) => t.status === 'not-started' && t.dependencies.length === 0,
+    );
     if (notStarted.length > 0) {
       recs.push(
         `${notStarted.length} independent task(s) have not started yet: ${notStarted.map((t) => t.name).join(', ')}. These can begin immediately.`,
@@ -426,7 +463,9 @@ Respond as JSON with keys: "optimization" (string), "riskMitigation" (string[])`
     }
 
     if (recs.length === 0) {
-      recs.push('Schedule is on track - continue monitoring critical path tasks for early warning signals');
+      recs.push(
+        'Schedule is on track - continue monitoring critical path tasks for early warning signals',
+      );
     }
 
     return recs;
