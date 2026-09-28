@@ -1,0 +1,17 @@
+{
+  "task": "Aegis pilot: hardened systemd unit + service user layout (G7)",
+  "prompt": "Add infrastructure/aegis-pilot/ with: aegis-pilot@.service (templated per site; runs 'node --import tsx scripts/aegis-pilot.ts status --state-dir /var/lib/aegis-pilot/%i' as a oneshot health probe) and aegis-pilot-health@.timer (every 5 min), both with User=aegis-pilot, StateDirectory=aegis-pilot/%i, StateDirectoryMode=0700, NoNewPrivileges=yes, ProtectSystem=strict, ProtectHome=yes, PrivateTmp=yes, ReadWritePaths only for the state dir, and RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 (probes need INET). Add infrastructure/aegis-pilot/README.md: install steps (useradd --system aegis-pilot, systemctl enable --now aegis-pilot-health@<site>.timer), where the operator key lives (operator home, never the state dir), and log inspection via journalctl. Reference it from docs/runbooks/AEGIS_PILOT_RUNBOOK.md §4 'Ownership'. Validate with systemd-analyze verify if available. Do not touch package.json; prettier --write the markdown; commit and push.",
+  "base": "main",
+  "order": 25,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "unit exists and is hardened",
+      "run": "f=infrastructure/aegis-pilot/aegis-pilot@.service; test -f $f && grep -q '^NoNewPrivileges=yes' $f && grep -q '^ProtectSystem=strict' $f && grep -q '^StateDirectoryMode=0700' $f && grep -q '^User=aegis-pilot' $f"
+    },
+    {
+      "name": "timer and README exist",
+      "run": "test -f infrastructure/aegis-pilot/aegis-pilot-health@.timer && grep -q 'OnUnitActiveSec' infrastructure/aegis-pilot/aegis-pilot-health@.timer && test -f infrastructure/aegis-pilot/README.md"
+    }
+  ]
+}

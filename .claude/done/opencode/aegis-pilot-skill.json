@@ -1,0 +1,13 @@
+{
+  "task": "Aegis pilot: register agent skill (G4, Agent Productization Rule)",
+  "prompt": "Register the aegis-pilot CLI as a skill. Read docs/DWS_SKILLS_GUIDE.md, skills/manifest.json and two existing skills/<name>/SKILL.md files first and match their format exactly. Create skills/aegis-pilot/SKILL.md: when to use (rehearse, run acceptance, stop an agent, verify evidence for DWS-AEGIS-PILOT-001), inputs (state dir, scope), each CLI command with its JSON output and exit codes (see the header of scripts/aegis-pilot.ts), and hard rules: acceptance runs need a human operator and named witness; never place the operator key in the state dir; a NEGATIVE_RESULT is a valid outcome and is reported, not retried away. Add the manifest entry, then run 'npm run skills:sync-guide' and 'npm run skills:check' and commit what they change. Do not touch package.json or package-lock.json. prettier --write changed files; commit and push.",
+  "base": "main",
+  "order": 26,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "skill registered and checks pass",
+      "run": "test -f skills/aegis-pilot/SKILL.md && grep -q '\"aegis-pilot\"' skills/manifest.json && npm run -s skills:check >/dev/null"
+    }
+  ]
+}

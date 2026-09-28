@@ -1,0 +1,13 @@
+{
+  "task": "Aegis pilot 95 % readiness plan: storyboard, G0–G10 scorecard, milestones, six DGX loop specs",
+  "checks": [
+    {
+      "name": "plan exists with storyboard and milestones",
+      "run": "f=docs/plans/AEGIS_PILOT_95_READINESS_PLAN.md; grep -q '## 3. Storyboard' $f && grep -q 'M4' $f && grep -q '95 %' $f"
+    },
+    {
+      "name": "six loop specs present and valid JSON",
+      "run": "for b in doctor export-bundle handler-conformance nightly-rehearsal service-unit skill; do node -e \"const s=require('./.claude/done/opencode/aegis-pilot-$b.json'); if(!s.checks.length) process.exit(1)\" || exit 1; done"
+    }
+  ]
+}
