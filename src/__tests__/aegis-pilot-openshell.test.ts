@@ -25,6 +25,7 @@ import {
 import { stepPolicy } from '../aegis/pilot/openshell-policy.js';
 import {
   type CommandRunner,
+  confirmSandboxGone,
   createOpenShellRegistry,
   remapPaths,
   spawnRunner,
@@ -190,6 +191,25 @@ describe('command runner', () => {
     expect(r.code).toBeNull();
     expect(r.stdout).toBe('');
     expect(r.stderr).toMatch(/output limit exceeded/);
+  });
+});
+
+describe('proof that a sandbox is gone', () => {
+  const paged =
+    (secondPage: string[]): CommandRunner =>
+    (_c, args) =>
+      Promise.resolve({
+        code: 0,
+        stderr: '',
+        stdout: args.includes('--page-token')
+          ? JSON.stringify({ sandboxes: secondPage.map((name) => ({ name })), next_page_token: '' })
+          : JSON.stringify({ sandboxes: [{ name: 'other' }], next_page_token: 'p2' }),
+      });
+  it('reads every page before declaring a sandbox gone', async () => {
+    expect(await confirmSandboxGone(paged(['as-target']), 'openshell', 'as-target', 30, 1)).toBe(
+      false,
+    );
+    expect(await confirmSandboxGone(paged([]), 'openshell', 'as-target', 30, 1)).toBe(true);
   });
 });
 

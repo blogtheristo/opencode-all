@@ -259,10 +259,9 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const SANDBOX_OUT = '/sandbox/out';
 
 /**
- * Positive proof that a sandbox is gone: a successful `sandbox list -o json`
- * whose (single, complete) page does not contain the name. Any failure,
- * unparsable output or further page counts as "not proven" — the check never
- * reads meaning into an error message.
+ * Positive proof that a sandbox is gone: every page of a successful
+ * `sandbox list -o json` omits the name. Any failure or unparsable page counts
+ * as "not proven" — the check never reads meaning into an error message.
  */
 export async function confirmSandboxGone(
   run: CommandRunner,
@@ -273,23 +272,35 @@ export async function confirmSandboxGone(
 ): Promise<boolean> {
   const end = performance.now() + deadlineMs;
   while (performance.now() < end) {
-    const l = await run(cli, ['sandbox', 'list', '-o', 'json'], { timeoutMs: 10_000 });
-    if (l.code === 0) {
-      try {
-        const page = JSON.parse(l.stdout) as {
-          sandboxes?: Array<{ name?: string }>;
-          next_page_token?: string;
-        };
-        if (Array.isArray(page.sandboxes) && !page.next_page_token) {
-          if (!page.sandboxes.some((x) => x.name === name)) return true;
-        }
-      } catch {
-        // unparsable: not proven, keep polling
-      }
-    }
+    if ((await listContains(run, cli, name)) === false) return true;
     await sleep(pollMs);
   }
   return false;
+}
+
+/** true / false from a complete, successful listing; null when not provable. */
+async function listContains(
+  run: CommandRunner,
+  cli: string,
+  name: string,
+): Promise<boolean | null> {
+  let token = '';
+  for (let pages = 0; pages < 100; pages++) {
+    const args = ['sandbox', 'list', '-o', 'json', ...(token ? ['--page-token', token] : [])];
+    const l = await run(cli, args, { timeoutMs: 10_000 });
+    if (l.code !== 0) return null;
+    let page: { sandboxes?: Array<{ name?: string }>; next_page_token?: string };
+    try {
+      page = JSON.parse(l.stdout) as typeof page;
+    } catch {
+      return null;
+    }
+    if (!Array.isArray(page.sandboxes)) return null;
+    if (page.sandboxes.some((x) => x.name === name)) return true;
+    if (!page.next_page_token) return false;
+    token = page.next_page_token;
+  }
+  return null;
 }
 
 /** Resource limits applied to every sandbox (enforced by the container runtime). */

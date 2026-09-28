@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.1 [Latest] | Tool: Claude Code (web) | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: Real-binary gate passed: severed-uplink rehearsal PASS with --containment openshell on an OpenShell build from source; five driver defects found and fixed; stop latency measured. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
+- Version: 1.2 [Latest] | Tool: Claude Code (web) | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: Security review FAIL → fixes → re-review PASS; residual items recorded (§6). | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.1 [not latest] | Tool: Claude Code (web) | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: Real-binary gate passed: severed-uplink rehearsal PASS with --containment openshell on an OpenShell build from source; five driver defects found and fixed; stop latency measured. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 - Version: 1.0 [not latest] | Tool: Claude Code (web) | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: HIC summary of the NVIDIA Open Agent Safety Platform; go/no-go facts; spike status; corrections to the draft public copy. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 
 Session Links & References:
@@ -56,7 +57,7 @@ Document Status:
 
 **Engineering (C4): GO, gated.** Integration is not considered done until the network-cut rehearsal passes with `--containment openshell` on the real binary. Until that gate passes, the acceptance record and all public copy must not claim OpenShell containment.
 
-**Gate result (28.09.2026, §5): PASSED** in rehearsal. Still open before customer use: the security review of the driver, and a run on the pilot's edge hardware (M4).
+**Gate result (28.09.2026, §5): PASSED** in rehearsal. Security review: PASS after fixes (§6). Still open before customer use: a run on the pilot's edge hardware (M4).
 
 **Public copy: NO-GO as first drafted.** Five statements overclaim:
 
@@ -97,6 +98,20 @@ Condition (iii) under OpenShell containment now stops a stubborn agent in its ow
 **Stop latency.** About 5.2 s, against 5 ms for the worker-thread stop. The stubborn agent ignores SIGTERM, and deletion waits for the container to be killed. During that window the agent cannot write to the host (outputs are copied back only when no stop was accepted), core steps have no network, and the ledger refuses its work. Shortening it (kill before delete) is a hardening candidate, not done.
 
 **Workload image requirements** (the runbook has the steps): a default command, `/tmp` (1777) and `/sandbox`, and a `sandbox` user in `/etc/passwd`.
+
+## 6. Security review of the driver (28.09.2026)
+
+First review: **FAIL** (1 critical, 3 high, 2 medium). All were fixed, and the re-review returned **PASS**, with no critical or high findings left.
+
+- Critical: a stop was counted as proven whenever `sandbox get` failed with text containing "not found". Now absence is proven only by a complete, successful `sandbox list -o json` (all pages read) that omits the name.
+- High: my own loopback-proxy exception in the uplink probe failed open. It has been reverted, and a refused proxy fails closed again.
+- High: forged second result lines; unbounded capture of sandbox output. Fixed by an exit right after the result is written, a single-marker rule, output and file caps, and memory and CPU limits.
+
+Residual items, tracked rather than hidden:
+
+1. **Result channel.** The handler and the result writer share one process and stdout. A fully compromised handler can print one forged result and exit before its real result. The blast radius is limited to that step's own reported output. It cannot forge containment evidence or a stop, which are produced on the host. The fix is a result channel the handler cannot write to (for example a pre-opened descriptor, or a result sealed by the runner). Hardening candidate.
+2. **Disk.** The policy does not cap `/sandbox` and `/tmp`. Size the host disk, or add host-level limits. Tracked as an open item.
+3. **Stop latency** of about 5.2 s (§5).
 
 ## 4. Learning outcome steps
 
