@@ -27,6 +27,8 @@
     "learn:fix-links": "node scripts/fix-learn-links.mjs",
     "ontology:index": "node scripts/ontology-admin-index.mjs build",
     "ontology:lookup": "node scripts/ontology-admin-index.mjs lookup",
+    "aegis:pilot": "node --import tsx scripts/aegis-pilot.ts",
+    "aegis:pilot:rehearse-isolated": "bash scripts/aegis-pilot-isolated-rehearsal.sh",
     "morning:briefing": "node --import tsx scripts/send-morning-brief-v2.ts",
     "morning:briefing:force": "node --import tsx scripts/send-morning-brief-v2.ts --force",
     "ted:fetch": "node --import tsx scripts/ted-fetch.ts",
@@ -82,7 +84,6 @@
     "diag:nemoclaw": "node scripts/verify-nemoclaw-runtime.mjs",
     "build:learning-hub": "node scripts/build-learning-hub.mjs",
     "validate:learning-hub": "node scripts/build-learning-hub.mjs --validate"
-
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",

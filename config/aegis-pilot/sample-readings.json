@@ -1,0 +1,10 @@
+{
+  "capturedAt": "2026-09-28T06:00:00Z",
+  "readings": [
+    { "tag": "TI-101", "value": 82.4, "unit": "degC", "low": 60, "high": 85 },
+    { "tag": "PI-204", "value": 7.9, "unit": "bar", "low": 4, "high": 7 },
+    { "tag": "FI-310", "value": 11.2, "unit": "m3/h", "low": 12, "high": 30 },
+    { "tag": "LI-402", "value": 96.0, "unit": "%", "low": 10, "high": 80 },
+    { "tag": "AI-515", "value": 0.4, "unit": "ppm", "low": 0, "high": 1 }
+  ]
+}

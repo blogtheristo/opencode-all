@@ -21,6 +21,17 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- **Aegis Pilot local-first kit (DWS-AEGIS-PILOT-001).** `src/aegis/pilot/` +
+  `npm run aegis:pilot`: local Article 12 ledger (hash-chained, site-signed,
+  fsync per event), Ed25519 site identity, operator kill authority over a local
+  signed-command inbox, egress probe, workflow runner that defers non-core
+  network steps and reconciles on reconnect, and the severed-uplink acceptance
+  test that computes the binary KPI (PASS / NEGATIVE_RESULT / NOT_TAKEN /
+  INVALID) into a signed record. `npm run aegis:pilot:rehearse-isolated` runs
+  the rehearsal inside a Linux network namespace. Runbook
+  `docs/runbooks/AEGIS_PILOT_RUNBOOK.md`; notes
+  `docs/field-notes/2026-09-28-aegis-pilot-local-first-kit.md`.
+
 - **Active Ontology 1.5 — technical acceptance (HIC, 24.09.2026).** The
   Decision Flight Recorder, Decision Traceability and the DISCOVER → Decision
   Journey bridge were validated on a clean database. Migrations 089 → 093 were

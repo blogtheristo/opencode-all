@@ -1,0 +1,25 @@
+{
+  "task": "DWS-AEGIS-PILOT-001: local-first pilot kit — local Article 12 ledger, Ed25519 site identity, local operator kill authority, uplink probe, workflow runner with deferral/reconcile, severed-uplink acceptance test (binary KPI), aegis-pilot CLI and runbook",
+  "checks": [
+    {
+      "name": "pilot suite passes",
+      "run": "npx vitest run src/__tests__/aegis-pilot.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+    },
+    {
+      "name": "no skipped or todo cases",
+      "run": "! grep -qE '(it|test|describe)\\.(skip|todo)\\(' src/__tests__/aegis-pilot.test.ts"
+    },
+    {
+      "name": "reference scope validates",
+      "run": "node --import tsx scripts/aegis-pilot.ts validate-scope --scope config/aegis-pilot/reference-scope.json >/dev/null"
+    },
+    {
+      "name": "isolated rehearsal PASSes with a real severed uplink (Linux network namespace)",
+      "run": "command -v unshare >/dev/null || { echo 'SKIP: unshare missing'; exit 0; }; d=$(mktemp -d); bash scripts/aegis-pilot-isolated-rehearsal.sh \"$d/state\" 2>/dev/null | grep -q '\"outcome\": \"PASS\"'"
+    },
+    {
+      "name": "evidence headers present",
+      "run": "node scripts/evidence-audit.mjs src/aegis/pilot/*.ts scripts/aegis-pilot.ts scripts/aegis-pilot-isolated-rehearsal.sh src/__tests__/aegis-pilot.test.ts"
+    }
+  ]
+}
