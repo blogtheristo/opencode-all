@@ -1,7 +1,7 @@
 # AEGIS ROADMAP — AI-Native Offense Meets AI-Native Defense
 
 > **Document Standard:** DWS Document Standard v2.0
-> **Version:** 1.2.0
+> **Version:** 1.3.0
 > **Status:** Living Document (planning horizon)
 > **Created:** 2026-07-05
 > **Updated:** 2026-07-05 — v1.0: Initial creation. Scopes an AI-native defense capability track for the existing DWS IQ Aegis platform (`Store/PRODUCT_AEGIS.md`), built on the DWS Security Standard's 6-layer defense-in-depth model and the KYA 5-layer trust framework, plus the `aegis` vulnerability/patch-SLA agent (`src/agents/aegis.agent.ts`). Framed against the thesis that AI now accelerates attackers (AI-crafted exploits, deepfake social engineering, autonomous recon/malware) faster than manual defense can respond — so the defense has to be AI-native too.
@@ -16,6 +16,7 @@ Version: 1.0
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: HIC 28.09.2026: DWS IQ 7 Aegis target industries in priority order: 1 data centres, 2 dual-use, 3 manufacturing; named prospects per industry and the gap against today's pipeline stated.
 - Version: 1.2 | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: Boardy review: GA would have preceded the first pilot's evidence — KM3 is now a release candidate in 2026, GA Q1 2027; KM4 floor is the external decision path (rung 2), learning delta 2027; customer-case status stated; process control excluded.
 - Version: 1.1 | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: HIC 28.09.2026: key milestone recorded — 2026 is the proof year, 2027 the volume year; four criteria that must be true on 31.12.2026 (docs/plans/2026_PROOF_YEAR_CRITERIA.md); product naming DWS IQ 7 Aegis with DWS-AEGIS-PILOT-001 as its first stage; the first workflow comes from the customer, not the catalogue. GA date corrected from September 2026 to the 30.11.2026 target. Themes A–F unchanged.
 - Version: 1.0 | Tool: Claude Code | Session: claude/dws-iq-aegis-roadmap-jlwr2z | Date: 05.07.2026 | Changes: Initial creation — AI-native defense roadmap for DWS IQ Aegis. Six themes mapped 1:1 onto the DWS Security Standard's 6-layer defense-in-depth model (DWS_SECURITY_STANDARD.md §3). Extends the existing `aegis` vulnerability-triage agent (src/agents/aegis.agent.ts) and the KYA 5-layer trust framework (§18) rather than introducing parallel terminology. Does not alter existing Aegis product pricing, tiers, or the 21-industry dual-use scope defined in Store/PRODUCT_AEGIS.md and DWS_TRUTH_STANDARD.md.
@@ -48,6 +49,16 @@ Document Status:
 | **KM5 — Volume year starts**               | All of KM1–KM4 true. Then 2027 opens with GA (Q1) and is repeatable sales and deployments on the same architecture, not experiments. If any is missing, early 2027 goes to proving it first.                                                             | 01.01.2027                                                      | Year-end review 31.12.2026                                                             |
 
 Full criteria and the backward schedule: `docs/plans/2026_PROOF_YEAR_CRITERIA.md`.
+
+**Target industries, in priority order (HIC 28.09.2026).**
+
+| Priority | Industry          | Named prospect in the repo today                                                                                                              | In-scope first workflow (decisions and records, no physical control)                                                                                                                                 |
+| -------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1        | **Data centres**  | None                                                                                                                                          | To be found in Phase 0 with the operator. Candidates: change approval, incident decisions, energy and efficiency reporting records. Cooling or power setpoints are process control and out of scope. |
+| 2        | **Dual-use**      | Patria (Kimmo Kakko, Factory Security; letter v3.0 of 03.08.2026, `sales-outreach/LETTER_KIMMO_KAKKO_PATRIA_FI.md`, send status not recorded) | One non-classified supplier or design workflow; EU dual-use (Reg. 2021/821) first, no ITAR/EAR claim (per the letter).                                                                               |
+| 3        | **Manufacturing** | Kemira (ownership question, no reply), Outokumpu (no recorded reply since May 2026)                                                           | Product carbon footprint approval; the emissions figure given to a customer.                                                                                                                         |
+
+The priority order runs opposite to today's pipeline: the first-priority industry has no named prospect, and both offers drafted today are priority 3. KM1 needs a signature by 15.10.2026, so it will most likely come from whichever case is furthest along, not from priority 1. The order steers where new outreach goes from now on.
 
 **Naming.** Product and tier: **DWS IQ 7 Aegis** (the platform and the decision-authority layer). Procurement SKU: **DWS-AEGIS-PILOT-001**, the first stage of DWS IQ 7 Aegis: a 3-month severed-uplink acceptance test with the customer's first workflow at the customer's site. The pilot is not production use; production starts with the licence, against which the €19,990 is credited in full within 6 months. Renaming the catalogue entry from "DWS IQ Aegis" awaits HIC approval (Store/catalogue change).
 
