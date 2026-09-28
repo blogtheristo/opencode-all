@@ -32,6 +32,7 @@ import {
   type HandlerModuleRef,
   createIsolatedRegistry,
   createOpenShellRegistry,
+  openShellStopTestAgent,
   type HandlerRegistry,
   SiteAuthority,
   createStopCommand,
@@ -284,6 +285,18 @@ async function main(): Promise<void> {
             : containmentMode() === 'openshell'
               ? { mode: 'openshell', image: a.image ?? 'aegis-pilot-node:22' }
               : { mode: 'worker' },
+        stopTestAgent:
+          stopMode() === 'hard' && containmentMode() === 'openshell'
+            ? (tickMs: number) =>
+                openShellStopTestAgent(
+                  {
+                    image: a.image ?? 'aegis-pilot-node:22',
+                    workRoot: resolve(stateDir, 'sandbox-work'),
+                    cli: a['openshell-cli'] ?? 'openshell',
+                  },
+                  tickMs,
+                )
+            : undefined,
         kind,
         operator,
         witness: a.witness,

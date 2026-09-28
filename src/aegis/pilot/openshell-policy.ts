@@ -58,7 +58,7 @@ export function stepPolicy(step: PilotStep, opts: OpenShellPolicyOptions = {}): 
     version: 1,
     filesystem_policy: {
       include_workdir: false,
-      read_only: ['/bin', '/usr', '/lib', '/etc', '/proc', '/dev/urandom'],
+      read_only: ['/bin', '/usr', '/lib', '/lib64', '/etc', '/proc', '/dev/urandom'],
       read_write: ['/sandbox', '/tmp', '/dev/null'],
     },
     landlock: { compatibility: 'hard_requirement' },

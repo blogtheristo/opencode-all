@@ -23,7 +23,11 @@ import {
   validateScope,
 } from '../aegis/pilot/index.js';
 import { stepPolicy } from '../aegis/pilot/openshell-policy.js';
-import { type CommandRunner, createOpenShellRegistry } from '../aegis/pilot/openshell-handlers.js';
+import {
+  type CommandRunner,
+  createOpenShellRegistry,
+  remapPaths,
+} from '../aegis/pilot/openshell-handlers.js';
 
 const referenceScope = JSON.parse(
   readFileSync(join(process.cwd(), 'config/aegis-pilot/reference-scope.json'), 'utf8'),
@@ -44,20 +48,41 @@ afterEach(() => rmSync(dir, { recursive: true, force: true }));
 interface Call {
   args: string[];
   policy?: unknown;
+  input?: string;
 }
 
-/** Fake `openshell` CLI: records calls; create answers per `behaviour`. */
+/**
+ * Fake `openshell` CLI following the real command sequence (verified against a
+ * real OpenShell build): create --detach, exec (stage over stdin), exec (step),
+ * exec (pack /sandbox/out), delete, get (until not found).
+ */
 function fakeCli(
   behaviour: 'ok' | 'network' | 'no-marker' | 'hang',
   deleteCode = 0,
   onDownload?: () => void,
+  lingerAfterDelete = false,
 ) {
   const calls: Call[] = [];
+  let deleted = false;
   const runner: CommandRunner = (_cmd, args, opts) => {
     const call: Call = { args: [...args] };
     calls.push(call);
-    if (args[0] === 'sandbox' && args[1] === 'create') {
+    const [group, verb] = args;
+    if (group !== 'sandbox') return Promise.resolve({ code: 0, stdout: '', stderr: '' });
+    if (verb === 'create') {
       call.policy = JSON.parse(readFileSync(args[args.indexOf('--policy') + 1], 'utf8'));
+      return Promise.resolve({ code: 0, stdout: '{"phase":"Ready"}', stderr: '' });
+    }
+    if (verb === 'exec') {
+      const script = args[args.indexOf('-e') + 1] ?? '';
+      if (args.includes('-e') && script.startsWith('let d=')) {
+        call.input = opts.input;
+        return Promise.resolve({ code: 0, stdout: 'AEGIS_STAGED', stderr: '' });
+      }
+      if (args.includes('-e')) {
+        onDownload?.();
+        return Promise.resolve({ code: 0, stdout: 'AEGIS_OUT {}\n', stderr: '' });
+      }
       if (behaviour === 'hang') {
         return new Promise((resolve) =>
           opts.onSpawn?.(() => resolve({ code: null, stdout: '', stderr: 'killed' })),
@@ -75,9 +100,17 @@ function fakeCli(
         stderr: '',
       });
     }
-    if (args[0] === 'sandbox' && args[1] === 'delete')
-      return Promise.resolve({ code: deleteCode, stdout: '', stderr: '' });
-    if (args[0] === 'sandbox' && args[1] === 'download') onDownload?.();
+    if (verb === 'delete') {
+      if (deleteCode === 0) deleted = true;
+      return Promise.resolve({ code: deleteCode, stdout: 'deletion accepted', stderr: '' });
+    }
+    if (verb === 'get') {
+      return Promise.resolve(
+        deleted && !lingerAfterDelete
+          ? { code: 1, stdout: '', stderr: 'sandbox not found' }
+          : { code: 0, stdout: 'Phase: Ready', stderr: '' },
+      );
+    }
     return Promise.resolve({ code: 0, stdout: '', stderr: '' });
   };
   return { calls, runner };
@@ -121,9 +154,27 @@ describe('OpenShell policy from the signed scope', () => {
   });
 });
 
+describe('sandbox ↔ host path mapping', () => {
+  it('maps copied-back output paths to the host and state paths into the sandbox', () => {
+    const fromStep = { output: { path: '/sandbox/out/shift-report-1.json', digest: 'd' } };
+    expect(remapPaths(fromStep, '/sandbox/out', '/srv/reports')).toEqual({
+      output: { path: '/srv/reports/shift-report-1.json', digest: 'd' },
+    });
+    const state = { w: { path: '/srv/reports/r.json' }, other: '/srv/reportsX/keep' };
+    expect(remapPaths(state, '/srv/reports', '/sandbox/out')).toEqual({
+      w: { path: '/sandbox/out/r.json' },
+      other: '/srv/reportsX/keep',
+    });
+  });
+});
+
 describe('OpenShell registry', () => {
-  function registry(behaviour: Parameters<typeof fakeCli>[0], deleteCode = 0) {
-    const cli = fakeCli(behaviour, deleteCode);
+  function registry(
+    behaviour: Parameters<typeof fakeCli>[0],
+    deleteCode = 0,
+    lingerAfterDelete = false,
+  ) {
+    const cli = fakeCli(behaviour, deleteCode, undefined, lingerAfterDelete);
     const bundle = join(dir, 'step.mjs');
     writeFileSync(bundle, '// test bundle');
     const reg = createOpenShellRegistry(
@@ -133,6 +184,8 @@ describe('OpenShell registry', () => {
         workRoot: join(dir, 'work'),
         runner: cli.runner,
         bundlePath: bundle,
+        pollIntervalMs: 1,
+        deleteConfirmTimeoutMs: 50,
       },
       scope().workflow.steps,
     );
@@ -144,21 +197,34 @@ describe('OpenShell registry', () => {
     const step = scope().workflow.steps[0];
     const res = await reg[step.handler](ctx(step));
     expect(res.output).toEqual({ ran: true });
-    expect(res.containment).toMatchObject({ mode: 'openshell', image: 'aegis-pilot-node:22' });
+    expect(res.containment).toMatchObject({
+      mode: 'openshell',
+      image: 'aegis-pilot-node:22',
+      step: step.id,
+    });
+    // OpenShell rejects sandbox names over 19 characters.
+    expect(String(res.containment?.sandbox).length).toBeLessThanOrEqual(19);
     expect(res.containment?.policyDigest).toMatch(/^[0-9a-f]{64}$/);
     const create = calls.find((c) => c.args[1] === 'create')!;
-    expect(create.args).toContain('--policy');
-    expect(create.args.slice(-4)).toEqual(
-      ['node', '/sandbox/step.mjs', '/sandbox/input.json'].reduce<string[]>(
-        (a, x) => [...a, x],
-        ['--'],
-      ),
-    );
+    expect(create.args).toEqual(expect.arrayContaining(['--policy', '--detach', '-o', 'json']));
     expect(create.policy).toMatchObject({
       network_policies: {},
       landlock: { compatibility: 'hard_requirement' },
     });
-    expect(calls.at(-1)!.args.slice(0, 2)).toEqual(['sandbox', 'delete']);
+    // Files are staged over stdin (no ssh client needed on the host).
+    const staged = calls.find((c) => c.input !== undefined)!;
+    expect(Object.keys(JSON.parse(staged.input!))).toEqual(
+      expect.arrayContaining(['step.mjs', 'input.json']),
+    );
+    const stepExec = calls.find((c) => c.args.includes('/sandbox/step.mjs'))!;
+    expect(stepExec.args.slice(-3)).toEqual([
+      '/usr/local/bin/node',
+      '/sandbox/step.mjs',
+      '/sandbox/input.json',
+    ]);
+    const del = calls.findIndex((c) => c.args[1] === 'delete');
+    expect(del).toBeGreaterThan(-1);
+    expect(calls.slice(del + 1).some((c) => c.args[1] === 'get')).toBe(true);
   });
 
   it('carries NetworkUnavailable out of the sandbox so a non-core step is deferred', async () => {
@@ -193,6 +259,15 @@ describe('OpenShell registry', () => {
     await expect(p2).rejects.toThrow(/delete not confirmed/);
   });
 
+  it('does not count an accepted delete as a stop until the sandbox is gone', async () => {
+    const step = scope().workflow.steps[0];
+    const lingering = registry('hang', 0, true);
+    const c = new AbortController();
+    const p = lingering.reg[step.handler](ctx(step, c.signal));
+    setTimeout(() => c.abort(new Error('stop')), 50);
+    await expect(p).rejects.toThrow(/delete not confirmed/);
+  });
+
   it('treats a stop accepted during the output copy-back as a stop, not a completed step', async () => {
     const c = new AbortController();
     const cli = fakeCli('ok', 0, () => c.abort(new Error('stop')));
@@ -206,6 +281,8 @@ describe('OpenShell registry', () => {
         outputDir: join(dir, 'out'),
         runner: cli.runner,
         bundlePath: bundle,
+        pollIntervalMs: 1,
+        deleteConfirmTimeoutMs: 50,
       },
       scope().workflow.steps,
     );

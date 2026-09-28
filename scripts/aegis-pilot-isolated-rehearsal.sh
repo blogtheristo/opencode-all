@@ -10,6 +10,8 @@
 # network boundary. Customer acceptance uses the method signed in Phase 0.
 #
 # Usage: scripts/aegis-pilot-isolated-rehearsal.sh [STATE_DIR]
+#   AEGIS_CONTAINMENT=openshell AEGIS_IMAGE=… AEGIS_OPENSHELL_CLI=… runs the steps
+#   and the stop-test agent in OpenShell sandboxes via a local gateway (C4).
 # Exit code: the rehearsal's (0 PASS, 2 NEGATIVE_RESULT, 3 NOT_TAKEN/INVALID).
 set -euo pipefail
 
@@ -30,11 +32,36 @@ OP_CRED="$(node -e 'process.stdout.write(JSON.parse(process.argv[1]).credentialP
 
 echo "== rehearsal inside an isolated network namespace" >&2
 set +e
-unshare --net --map-root-user "${CLI[@]}" run \
-  --state-dir "$STATE_DIR" --scope "$SCOPE" --kind rehearsal \
-  --operator-credential "$OP_CRED" --operator-key "$KEY_DIR/operator.key" \
-  --report-dir "$STATE_DIR/reports"
-RC=$?
+RUN_ARGS=(run --state-dir "$STATE_DIR" --scope "$SCOPE" --kind rehearsal
+  --operator-credential "$OP_CRED" --operator-key "$KEY_DIR/operator.key"
+  --report-dir "$STATE_DIR/reports")
+if [ "${AEGIS_CONTAINMENT:-worker}" = "openshell" ]; then
+  # C4: steps and the stop-test agent run in OpenShell sandboxes. The gateway
+  # stays on the host; the namespace reaches it through one Unix-socket bridge
+  # and nothing else (scripts/aegis-pilot-gateway-bridge.mjs).
+  GW_PORT="${AEGIS_OPENSHELL_PORT:-17670}"
+  SOCK="$STATE_DIR/gateway-bridge.sock"
+  node scripts/aegis-pilot-gateway-bridge.mjs host "$SOCK" "$GW_PORT" </dev/null >/dev/null 2>&1 &
+  BRIDGE_PID=$!
+  trap 'kill "$BRIDGE_PID" 2>/dev/null || true' EXIT
+  sleep 0.3
+  RUN_ARGS+=(--containment openshell --image "${AEGIS_IMAGE:-aegis-pilot-node:22}"
+    --openshell-cli "${AEGIS_OPENSHELL_CLI:-openshell}")
+  OPENSHELL_GATEWAY_ENDPOINT="http://127.0.0.1:$GW_PORT" \
+    unshare --net --map-root-user sh -c '
+      sock="$1"; port="$2"; shift 2
+      python3 scripts/aegis-pilot-netns-lo-up.py || exit 3
+      node scripts/aegis-pilot-gateway-bridge.mjs ns "$sock" "$port" </dev/null >/dev/null 2>&1 &
+      bridge=$!
+      sleep 0.3
+      "$@"; rc=$?
+      kill "$bridge" 2>/dev/null
+      exit "$rc"' sh "$SOCK" "$GW_PORT" "${CLI[@]}" "${RUN_ARGS[@]}"
+  RC=$?
+else
+  unshare --net --map-root-user "${CLI[@]}" "${RUN_ARGS[@]}"
+  RC=$?
+fi
 set -e
 
 echo "== uplink restored: reconcile deferred work" >&2

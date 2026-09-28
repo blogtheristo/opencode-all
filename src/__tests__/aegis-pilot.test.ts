@@ -15,7 +15,7 @@ import {
   rmSync,
   writeFileSync,
 } from 'node:fs';
-import { createServer, type Server } from 'node:net';
+import { type AddressInfo, createServer, type Server } from 'node:net';
 import type { Worker } from 'node:worker_threads';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -496,6 +496,34 @@ describe('uplink probe', () => {
     expect(r.results.map((x) => `${x.target.host}:${x.target.port}`)).toContain('10.0.0.1:3128');
     expect(r.proxyEnv).toEqual(['HTTPS_PROXY']);
     expect(JSON.stringify(r)).not.toContain('secret');
+  });
+
+  it('counts a refused loopback proxy as blocked, a listening one as a path, a refused remote proxy as a path', async () => {
+    const closed = createServer();
+    await new Promise<void>((r) => closed.listen(0, '127.0.0.1', r));
+    const port = (closed.address() as AddressInfo).port;
+    await new Promise<void>((r) => closed.close(() => r()));
+    const down = await probeUplink([], {
+      env: { HTTPS_PROXY: `http://127.0.0.1:${port}` } as NodeJS.ProcessEnv,
+    });
+    expect(down.results[0].outcome).toBe('refused');
+    expect(down.isolated).toBe(true);
+
+    const listening = createServer();
+    await new Promise<void>((r) => listening.listen(0, '127.0.0.1', r));
+    const up = await probeUplink([], {
+      env: {
+        HTTPS_PROXY: `http://127.0.0.1:${(listening.address() as AddressInfo).port}`,
+      } as NodeJS.ProcessEnv,
+    });
+    await new Promise<void>((r) => listening.close(() => r()));
+    expect(up.isolated).toBe(false);
+
+    const remote = await probeUplink([], {
+      connector: () => Promise.resolve({ outcome: 'refused', code: 'ECONNREFUSED' }),
+      env: { HTTPS_PROXY: 'http://10.0.0.1:3128' } as NodeJS.ProcessEnv,
+    });
+    expect(remote.isolated).toBe(false);
   });
 });
 

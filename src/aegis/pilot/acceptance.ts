@@ -74,6 +74,12 @@ export interface AcceptanceOptions {
   stopMode?: 'hard' | 'cooperative';
   /** How workflow steps were isolated; recorded so a reader knows what was contained. */
   containment?: { mode: 'in-process' | 'worker' | 'openshell'; image?: string };
+  /**
+   * Hard mode: where the stubborn stop-test agent runs. Defaults to a worker
+   * thread. With OpenShell containment it must run in a sandbox too, so that
+   * condition (iii) proves the same containment the workflow used.
+   */
+  stopTestAgent?: (tickMs: number) => StopTestAgent;
   probeIntervalMs?: number;
   probeTimeoutMs?: number;
   connector?: Connector;
@@ -235,6 +241,31 @@ async function runSentinel(p: {
   }
 }
 
+/**
+ * The stubborn stop-test agent for condition (iii). It never checks a signal;
+ * the stop is proven only by terminate() confirming the agent is gone.
+ */
+export interface StopTestAgent {
+  /** Start the agent; onTick fires once per unit of work it reports. */
+  start(onTick: () => void): Promise<void>;
+  /** Terminate it. confirmed=false means the stop is not proven. */
+  terminate(): Promise<{ confirmed: boolean; ms: number }>;
+}
+
+export function workerStopTestAgent(tickMs: number): StopTestAgent {
+  let worker: ReturnType<typeof spawnPilotWorker> | undefined;
+  return {
+    start(onTick) {
+      worker = spawnPilotWorker('sentinel-worker', { tickMs });
+      worker.on('message', onTick);
+      return Promise.resolve();
+    },
+    terminate() {
+      return worker ? terminateBounded(worker) : Promise.resolve({ confirmed: true, ms: 0 });
+    },
+  };
+}
+
 interface SentinelOutcome {
   stopped: boolean;
   ticks: number;
@@ -256,31 +287,37 @@ async function runSentinelHard(p: {
   tickMs: number;
   maxMs: number;
   onFirstTick: () => void;
+  agent: StopTestAgent;
 }): Promise<SentinelOutcome> {
   const { signal, release } = p.kill.register(p.credential);
-  const worker = spawnPilotWorker('sentinel-worker', { tickMs: p.tickMs });
   let ticks = 0;
   let terminatedAt: number | null = null;
   let lateMessages = 0;
-  worker.on('message', () => {
-    if (terminatedAt !== null) {
-      lateMessages++;
-      return;
-    }
-    if (signal.aborted) return; // in flight when the stop landed; never logged as agent work
-    p.ledger.append({
-      event_type: 'agent.decide',
-      trace_id: p.traceId,
-      agent_id: p.credential.subjectId,
-      detail: { step: 'sentinel-tick', tick: ticks, stop_mode: 'hard' },
-    });
-    ticks++;
-    if (ticks === 1) p.onFirstTick();
-  });
+  let terminated = false;
+  const terminate = async () => {
+    const r = await p.agent.terminate();
+    terminated = true;
+    return r;
+  };
   try {
+    await p.agent.start(() => {
+      if (terminatedAt !== null) {
+        lateMessages++;
+        return;
+      }
+      if (signal.aborted) return; // in flight when the stop landed; never logged as agent work
+      p.ledger.append({
+        event_type: 'agent.decide',
+        trace_id: p.traceId,
+        agent_id: p.credential.subjectId,
+        detail: { step: 'sentinel-tick', tick: ticks, stop_mode: 'hard' },
+      });
+      ticks++;
+      if (ticks === 1) p.onFirstTick();
+    });
     await sleep(p.maxMs, signal);
     if (!signal.aborted) return { stopped: false, ticks, terminationMs: null, lateMessages: 0 };
-    const { confirmed, ms } = await terminateBounded(worker);
+    const { confirmed, ms } = await terminate();
     terminatedAt = Date.now();
     if (!confirmed) {
       // Unconfirmed termination is not a proven stop: terminationMs stays null → (iii) fails.
@@ -295,7 +332,7 @@ async function runSentinelHard(p: {
     await sleep(3 * p.tickMs);
     return { stopped: true, ticks, terminationMs: ms, lateMessages };
   } finally {
-    await terminateBounded(worker);
+    if (!terminated) await terminate();
     release();
   }
 }
@@ -571,6 +608,7 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
             tickMs,
             maxMs,
             onFirstTick,
+            agent: (opts.stopTestAgent ?? workerStopTestAgent)(tickMs),
           })
         : {
             ...(await runSentinel({

@@ -10,34 +10,46 @@
  * seccomp and a network namespace are applied by OpenShell's supervisor under
  * a policy generated from the signed scope (openshell-policy.ts).
  *
- * Per step:
+ * Per step (CLI shape verified against a real OpenShell build, 28.09.2026):
  *   1. Bundle the handler module + sandbox-step-runner into one step.mjs
  *      (esbuild, once per registry). The image needs only a node binary.
- *   2. Write input.json (handler key, options, step context) and policy.json
- *      into a fresh work directory; copy declared input files and the shared
- *      output directory into it.
- *   3. `openshell sandbox create --name … --from <image> --policy policy.json
- *      --upload <workdir> -- node /sandbox/step.mjs /sandbox/input.json`
- *   4. Read the single `AEGIS_RESULT` line; download /sandbox/out back to the
- *      host output directory; delete the sandbox.
+ *   2. `openshell sandbox create --name … --from <image> --policy policy.json
+ *      --detach -o json`, then wait for phase Ready.
+ *   3. Stage files by piping a JSON map to a node unpacker over
+ *      `sandbox exec` stdin (step.mjs, input.json, declared inputs, the shared
+ *      output directory). `sandbox upload` needs an ssh client on the host;
+ *      stdin does not, which matters on an air-gapped site.
+ *   4. `sandbox exec -- node /sandbox/step.mjs /sandbox/input.json`; read the
+ *      single `AEGIS_RESULT` line.
+ *   5. Pack /sandbox/out back the same way and write it to the host output
+ *      directory; delete the sandbox and confirm it is gone.
  *
- * Operator stop: `openshell sandbox delete <name>`, then the local CLI process
- * is killed. The stop counts as proven only when the delete succeeded; the
- * rejection is then named 'WorkerTerminated' (same contract as the worker
- * hard stop), so the runner records system.agent_terminated.
+ * Operator stop: `openshell sandbox delete <name>` returns when deletion is
+ * accepted, not when it has finished. The stop counts as proven only when a
+ * following `sandbox get` reports the sandbox as not found; the rejection is
+ * then named 'WorkerTerminated' (same contract as the worker hard stop), so
+ * the runner records system.agent_terminated with the measured latency.
  *
  * Every CLI call uses an argument array (execFile / spawn), never a shell
  * string (CLAUDE.md Security Coding Rules).
  */
 
 import { spawn } from 'node:child_process';
-import { copyFileSync, cpSync, existsSync, mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs';
 import { join, resolve } from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { canonicalJSON, sha256 } from './crypto.js';
 import { type NetworkEndpoint, stepPolicy } from './openshell-policy.js';
 import type { PilotStep } from './scope.js';
 import { RESULT_MARKER } from './sandbox-step-runner.js';
+import type { StopTestAgent } from './acceptance.js';
 import type { HandlerRegistry, StepContext, StepHandler, StepResult } from './workflow-runner.js';
 import { NetworkUnavailable } from './workflow-runner.js';
 
@@ -51,16 +63,35 @@ export interface CommandResult {
 export type CommandRunner = (
   cmd: string,
   args: readonly string[],
-  opts: { cwd?: string; timeoutMs?: number; onSpawn?: (kill: () => void) => void },
+  opts: {
+    cwd?: string;
+    timeoutMs?: number;
+    /** Written to the child's stdin, which is then closed. */
+    input?: string;
+    /** Streamed stdout, as it arrives. */
+    onStdout?: (chunk: string) => void;
+    onSpawn?: (kill: () => void) => void;
+  },
 ) => Promise<CommandResult>;
 
 export const spawnRunner: CommandRunner = (cmd, args, opts) =>
   new Promise((resolvePromise) => {
-    const child = spawn(cmd, [...args], { cwd: opts.cwd, stdio: ['ignore', 'pipe', 'pipe'] });
+    const child = spawn(cmd, [...args], {
+      cwd: opts.cwd,
+      stdio: [opts.input === undefined ? 'ignore' : 'pipe', 'pipe', 'pipe'],
+    });
+    if (opts.input !== undefined && child.stdin) {
+      child.stdin.on('error', () => undefined);
+      child.stdin.end(opts.input);
+    }
     let stdout = '';
     let stderr = '';
-    child.stdout.on('data', (d: Buffer) => (stdout += d.toString('utf8')));
-    child.stderr.on('data', (d: Buffer) => (stderr += d.toString('utf8')));
+    child.stdout?.on('data', (d: Buffer) => {
+      const t = d.toString('utf8');
+      stdout += t;
+      opts.onStdout?.(t);
+    });
+    child.stderr?.on('data', (d: Buffer) => (stderr += d.toString('utf8')));
     const timer = opts.timeoutMs
       ? setTimeout(() => child.kill('SIGKILL'), opts.timeoutMs)
       : undefined;
@@ -91,6 +122,12 @@ export interface OpenShellRef {
   endpointsByStep?: Readonly<Record<string, readonly NetworkEndpoint[]>>;
   cli?: string;
   runner?: CommandRunner;
+  /** Path of the node binary inside the sandbox image. */
+  nodeBinary?: string;
+  /** Test seam: shorten the deletion polling. */
+  pollIntervalMs?: number;
+  /** How long to wait for a deleted sandbox to disappear before the stop is unproven. */
+  deleteConfirmTimeoutMs?: number;
   /** Test seam: supply a prebuilt bundle instead of running esbuild. */
   bundlePath?: string;
   stepTimeoutMs?: number;
@@ -100,6 +137,7 @@ export interface OpenShellRef {
 export interface ContainmentEvidence {
   mode: 'openshell';
   sandbox: string;
+  step: string;
   image: string;
   policyDigest: string;
 }
@@ -135,8 +173,19 @@ async function buildBundle(ref: OpenShellRef, run: CommandRunner): Promise<strin
   return out;
 }
 
-function sandboxName(ctx: StepContext): string {
-  return `aegis-${ctx.step.id}-${randomUUID().slice(0, 8)}`.slice(0, 63);
+/**
+ * OpenShell caps sandbox names at 19 characters (verified against a real
+ * gateway), so names are a short prefix plus random hex; the step id is
+ * recorded next to the name in the containment evidence instead.
+ */
+export const SANDBOX_NAME_MAX = 19;
+function shortName(prefix: 'as' | 'at'): string {
+  return `${prefix}-${randomUUID()
+    .replace(/-/g, '')
+    .slice(0, SANDBOX_NAME_MAX - prefix.length - 1)}`;
+}
+function sandboxName(): string {
+  return shortName('as');
 }
 
 function parseResult(stdout: string): {
@@ -153,6 +202,47 @@ function parseResult(stdout: string): {
   return JSON.parse(line.slice(RESULT_MARKER.length)) as ReturnType<typeof parseResult>;
 }
 
+// Runs inside the sandbox: writes a JSON map {relativePath: base64} under /sandbox.
+const UNPACK = `let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{const fs=require('fs'),path=require('path');for(const [r,b] of Object.entries(JSON.parse(d))){if(r.includes('..')||path.isAbsolute(r))throw new Error('bad path '+r);const f=path.join('/sandbox',r);fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,Buffer.from(b,'base64'))}process.stdout.write('AEGIS_STAGED')})`;
+// Runs inside the sandbox: prints /sandbox/out as one JSON map line.
+const PACK = `const fs=require('fs'),path=require('path'),o={};const w=(d,r)=>{for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name),q=r?r+'/'+e.name:e.name;if(e.isDirectory())w(p,q);else if(e.isFile())o[q]=fs.readFileSync(p).toString('base64')}};if(fs.existsSync('/sandbox/out'))w('/sandbox/out','');process.stdout.write('AEGIS_OUT '+JSON.stringify(o)+'\\n')`;
+
+function filesFrom(dir: string, prefix: string, into: Record<string, string>): void {
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    const p = join(dir, e.name);
+    const r = `${prefix}/${e.name}`;
+    if (e.isDirectory()) filesFrom(p, r, into);
+    else if (e.isFile()) into[r] = readFileSync(p).toString('base64');
+  }
+}
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+const SANDBOX_OUT = '/sandbox/out';
+
+/**
+ * Rewrites path strings under `from` to the same path under `to`, deeply.
+ * Step results name files as the step saw them; outputs copied back to the
+ * host are recorded under their host path, and state passed into a sandbox is
+ * shown under the sandbox path, so a later step or a reconcile on the host
+ * finds the file where it actually is.
+ */
+export function remapPaths<T>(value: T, from: string, to: string): T {
+  const f = from.replace(/\/+$/, '');
+  const walk = (v: unknown): unknown => {
+    if (typeof v === 'string') {
+      if (v === f) return to;
+      if (v.startsWith(`${f}/`)) return join(to, v.slice(f.length + 1));
+      return v;
+    }
+    if (Array.isArray(v)) return v.map(walk);
+    if (v && typeof v === 'object')
+      return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, walk(x)]));
+    return v;
+  };
+  return walk(value) as T;
+}
+
 async function runInSandbox(
   ref: OpenShellRef,
   bundle: Promise<string>,
@@ -164,35 +254,60 @@ async function runInSandbox(
   if (signal.aborted) throw signal.reason;
   const run = ref.runner ?? spawnRunner;
   const cli = ref.cli ?? 'openshell';
+  const node = ref.nodeBinary ?? '/usr/local/bin/node';
+  const poll = ref.pollIntervalMs ?? 200;
 
   const work = mkdtempSync(join(ref.workRoot, `step-${step.id}-`));
-  copyFileSync(await bundle, join(work, 'step.mjs'));
-  for (const [rel, host] of Object.entries(ref.inputs ?? {})) {
-    if (rel.includes('..') || rel.startsWith('/'))
-      throw new Error(`invalid sandbox input path: ${rel}`);
-    const dest = join(work, rel);
-    mkdirSync(join(dest, '..'), { recursive: true });
-    copyFileSync(host, dest);
-  }
-  mkdirSync(join(work, 'out'), { recursive: true });
-  if (ref.outputDir && existsSync(ref.outputDir))
-    cpSync(ref.outputDir, join(work, 'out'), { recursive: true });
-  writeFileSync(
-    join(work, 'input.json'),
-    JSON.stringify({ handlerKey: key, options: ref.options ?? {}, ctx: rest }),
-  );
-  const policy = stepPolicy(step, { endpointsByStep: ref.endpointsByStep });
+  const policy = stepPolicy(step, { endpointsByStep: ref.endpointsByStep, nodeBinary: node });
   const policyPath = join(work, 'policy.json');
   writeFileSync(policyPath, JSON.stringify(policy, null, 2));
   const containment: ContainmentEvidence = {
     mode: 'openshell',
-    sandbox: sandboxName(ctx),
+    sandbox: sandboxName(),
+    step: step.id,
     image: ref.image,
     policyDigest: sha256(canonicalJSON(policy)),
+  };
+  const name = containment.sandbox;
+
+  const staged: Record<string, string> = {
+    'step.mjs': readFileSync(await bundle).toString('base64'),
+    'input.json': Buffer.from(
+      JSON.stringify({
+        handlerKey: key,
+        options: ref.options ?? {},
+        ctx: ref.outputDir ? remapPaths(rest, resolve(ref.outputDir), SANDBOX_OUT) : rest,
+      }),
+    ).toString('base64'),
+  };
+  for (const [rel, host] of Object.entries(ref.inputs ?? {})) {
+    if (rel.includes('..') || rel.startsWith('/'))
+      throw new Error(`invalid sandbox input path: ${rel}`);
+    staged[rel] = readFileSync(host).toString('base64');
+  }
+  if (ref.outputDir && existsSync(ref.outputDir)) filesFrom(ref.outputDir, 'out', staged);
+
+  const sandboxExec = (args: string[], opts: { input?: string; timeoutMs?: number } = {}) =>
+    run(cli, ['sandbox', 'exec', '-n', name, '--no-tty', '--no-login-shell', '--', node, ...args], {
+      timeoutMs: opts.timeoutMs ?? 60_000,
+      input: opts.input,
+      onSpawn: (k) => (killLocal = k),
+    });
+
+  /** true once `sandbox get` reports the sandbox as not found. */
+  const confirmGone = async (deadlineMs: number): Promise<boolean> => {
+    const end = performance.now() + deadlineMs;
+    while (performance.now() < end) {
+      const g = await run(cli, ['sandbox', 'get', name], { timeoutMs: 10_000 });
+      if (g.code !== 0 && /not found/i.test(g.stderr + g.stdout)) return true;
+      await sleep(poll);
+    }
+    return false;
   };
 
   let killLocal: (() => void) | undefined;
   let stopping = false;
+  let created = false;
   const onAbort = () => {
     stopping = true;
   };
@@ -200,16 +315,18 @@ async function runInSandbox(
 
   const stop = async (): Promise<never> => {
     const t0 = performance.now();
-    const del = await run(cli, ['sandbox', 'delete', containment.sandbox], { timeoutMs: 15_000 });
     killLocal?.();
+    const del = created
+      ? await run(cli, ['sandbox', 'delete', name], { timeoutMs: 60_000 })
+      : { code: 0, stdout: '', stderr: '' };
+    const gone =
+      !created || (del.code === 0 && (await confirmGone(ref.deleteConfirmTimeoutMs ?? 30_000)));
     const ms = Math.round(performance.now() - t0);
-    if (del.code !== 0)
+    if (!gone)
       throw new Error(
         `sandbox delete not confirmed (exit ${del.code}): ${del.stderr.slice(0, 200)}`,
       );
-    const e = new Error(
-      `sandbox ${containment.sandbox} deleted by operator stop (${ms} ms)`,
-    ) as Error & {
+    const e = new Error(`sandbox ${name} deleted by operator stop (${ms} ms)`) as Error & {
       terminationMs: number;
     };
     e.name = 'WorkerTerminated';
@@ -217,35 +334,53 @@ async function runInSandbox(
     throw e;
   };
 
+  const raceAbort = async <T>(p: Promise<T>): Promise<T | 'aborted'> =>
+    Promise.race([
+      p,
+      new Promise<'aborted'>((r) =>
+        signal.aborted
+          ? r('aborted')
+          : signal.addEventListener('abort', () => r('aborted'), { once: true }),
+      ),
+    ]);
+
   try {
-    const created = run(
-      cli,
-      [
-        'sandbox',
-        'create',
-        '--name',
-        containment.sandbox,
-        '--from',
-        ref.image,
-        '--policy',
-        policyPath,
-        '--upload',
-        work,
-        '--',
-        'node',
-        '/sandbox/step.mjs',
-        '/sandbox/input.json',
-      ],
-      { cwd: work, timeoutMs: ref.stepTimeoutMs ?? 600_000, onSpawn: (k) => (killLocal = k) },
+    const cr = await raceAbort(
+      run(
+        cli,
+        [
+          'sandbox',
+          'create',
+          '--name',
+          name,
+          '--from',
+          ref.image,
+          '--policy',
+          policyPath,
+          '--detach',
+          '--no-tty',
+          '--no-auto-providers',
+          '-o',
+          'json',
+        ],
+        { cwd: work, timeoutMs: 180_000, onSpawn: (k) => (killLocal = k) },
+      ),
     );
-    const aborted = new Promise<'aborted'>((r) =>
-      signal.aborted
-        ? r('aborted')
-        : signal.addEventListener('abort', () => r('aborted'), { once: true }),
+    created = true;
+    if (cr === 'aborted' || stopping) return await stop();
+    if (cr.code !== 0) throw new Error(`sandbox create failed: ${cr.stderr.slice(0, 400)}`);
+
+    const st = await raceAbort(sandboxExec(['-e', UNPACK], { input: JSON.stringify(staged) }));
+    if (st === 'aborted' || stopping) return await stop();
+    if (!st.stdout.includes('AEGIS_STAGED'))
+      throw new Error(`staging into sandbox failed: ${st.stderr.slice(0, 300)}`);
+
+    const res = await raceAbort(
+      sandboxExec(['/sandbox/step.mjs', '/sandbox/input.json'], {
+        timeoutMs: ref.stepTimeoutMs ?? 600_000,
+      }),
     );
-    const winner = await Promise.race([created, aborted]);
-    if (winner === 'aborted' || stopping) return await stop();
-    const res = winner;
+    if (res === 'aborted' || stopping) return await stop();
 
     let parsed: ReturnType<typeof parseResult>;
     try {
@@ -258,26 +393,33 @@ async function runInSandbox(
     // An accepted stop means no output reaches the host: never start the copy-back after it.
     if (stopping) return await stop();
     if (ref.outputDir) {
-      const dl = await run(
-        cli,
-        ['sandbox', 'download', containment.sandbox, '/sandbox/out', ref.outputDir],
-        {
-          timeoutMs: 60_000,
-        },
-      );
-      if (dl.code !== 0) throw new Error(`output download failed: ${dl.stderr.slice(0, 200)}`);
+      const out = await sandboxExec(['-e', PACK]);
       if (stopping) return await stop();
+      const line = out.stdout.split('\n').find((l) => l.startsWith('AEGIS_OUT '));
+      if (!line) throw new Error(`output copy-back failed: ${out.stderr.slice(0, 200)}`);
+      const files = JSON.parse(line.slice('AEGIS_OUT '.length)) as Record<string, string>;
+      for (const [rel, b64] of Object.entries(files)) {
+        if (rel.includes('..') || rel.startsWith('/')) continue;
+        const dest = join(ref.outputDir, rel);
+        mkdirSync(join(dest, '..'), { recursive: true });
+        writeFileSync(dest, Buffer.from(b64, 'base64'));
+      }
     }
     if (!parsed.ok) {
       if (parsed.errorName === 'NetworkUnavailable')
         throw new NetworkUnavailable(parsed.errorMessage);
       throw new Error(parsed.errorMessage ?? 'step failed in sandbox');
     }
-    return { ...(parsed.result as StepResult), containment: { ...containment } };
+    const result = ref.outputDir
+      ? remapPaths(parsed.result as StepResult, SANDBOX_OUT, resolve(ref.outputDir))
+      : (parsed.result as StepResult);
+    return { ...result, containment: { ...containment } };
   } finally {
     signal.removeEventListener('abort', onAbort);
-    if (!stopping)
-      await run(cli, ['sandbox', 'delete', containment.sandbox], { timeoutMs: 15_000 });
+    if (!stopping && created) {
+      const del = await run(cli, ['sandbox', 'delete', name], { timeoutMs: 60_000 });
+      if (del.code === 0) await confirmGone(ref.deleteConfirmTimeoutMs ?? 30_000);
+    }
   }
 }
 
@@ -304,4 +446,119 @@ export function createOpenShellRegistry(
     registry[step.handler] = handler;
   }
   return registry;
+}
+
+// The stubborn stop-test agent, as a sandboxed process: a synchronous busy loop
+// that ignores SIGTERM and never exits on its own; it reports each tick on stdout.
+const STUBBORN = (tickMs: number) =>
+  `process.on('SIGTERM',()=>{});let t=0;for(;;){const u=Date.now()+${tickMs};while(Date.now()<u){}process.stdout.write('AEGIS_TICK '+(t++)+'\\n')}`;
+
+/**
+ * Condition (iii) under OpenShell containment: the stop-test agent runs in its
+ * own sandbox under the core-step policy (no network), so the stop the record
+ * proves is a sandbox deletion, confirmed by the gateway reporting it gone.
+ */
+export function openShellStopTestAgent(
+  ref: Pick<
+    OpenShellRef,
+    | 'image'
+    | 'workRoot'
+    | 'cli'
+    | 'runner'
+    | 'nodeBinary'
+    | 'pollIntervalMs'
+    | 'deleteConfirmTimeoutMs'
+  >,
+  tickMs: number,
+): StopTestAgent {
+  const run = ref.runner ?? spawnRunner;
+  const cli = ref.cli ?? 'openshell';
+  const node = ref.nodeBinary ?? '/usr/local/bin/node';
+  const name = shortName('at');
+  let killLocal: (() => void) | undefined;
+  let created = false;
+  return {
+    async start(onTick) {
+      mkdirSync(ref.workRoot, { recursive: true, mode: 0o700 });
+      const work = mkdtempSync(join(ref.workRoot, 'stop-test-'));
+      const policyPath = join(work, 'policy.json');
+      const policy = stepPolicy(
+        {
+          id: 'stop-test',
+          handler: 'stop-test',
+          criticality: 'core',
+          requiresNetwork: false,
+        } as PilotStep,
+        { nodeBinary: node },
+      );
+      writeFileSync(policyPath, JSON.stringify(policy));
+      const cr = await run(
+        cli,
+        [
+          'sandbox',
+          'create',
+          '--name',
+          name,
+          '--from',
+          ref.image,
+          '--policy',
+          policyPath,
+          '--detach',
+          '--no-tty',
+          '--no-auto-providers',
+          '-o',
+          'json',
+        ],
+        { timeoutMs: 180_000 },
+      );
+      created = true;
+      if (cr.code !== 0)
+        throw new Error(`stop-test sandbox create failed: ${cr.stderr.slice(0, 300)}`);
+      let buf = '';
+      void run(
+        cli,
+        [
+          'sandbox',
+          'exec',
+          '-n',
+          name,
+          '--no-tty',
+          '--no-login-shell',
+          '--',
+          node,
+          '-e',
+          STUBBORN(tickMs),
+        ],
+        {
+          onSpawn: (k) => (killLocal = k),
+          onStdout: (chunk) => {
+            buf += chunk;
+            const lines = buf.split('\n');
+            buf = lines.pop() ?? '';
+            for (const l of lines) if (l.startsWith('AEGIS_TICK ')) onTick();
+          },
+        },
+      );
+    },
+    async terminate() {
+      const t0 = performance.now();
+      if (!created) return { confirmed: true, ms: 0 };
+      const del = await run(cli, ['sandbox', 'delete', name], { timeoutMs: 60_000 });
+      let confirmed = false;
+      if (del.code === 0) {
+        const end = performance.now() + (ref.deleteConfirmTimeoutMs ?? 30_000);
+        while (performance.now() < end) {
+          const g = await run(cli, ['sandbox', 'get', name], { timeoutMs: 10_000 });
+          if (g.code !== 0 && /not found/i.test(g.stderr + g.stdout)) {
+            confirmed = true;
+            break;
+          }
+          await sleep(ref.pollIntervalMs ?? 200);
+        }
+      }
+      killLocal?.();
+      created = !confirmed;
+      return { confirmed, ms: Math.round(performance.now() - t0) };
+    },
+  };
 }

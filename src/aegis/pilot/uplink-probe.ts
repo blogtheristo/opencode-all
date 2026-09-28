@@ -15,7 +15,11 @@
  *
  * If an HTTP(S) proxy is configured in the environment, the proxy endpoint is
  * probed too: application traffic would leave through it, so a direct-path
- * block alone proves nothing while the proxy is reachable.
+ * block alone proves nothing while the proxy is reachable. A proxy on a
+ * loopback address that refuses the connection is not running on this host:
+ * the RST comes from the local kernel, not from a remote firewall, so there is
+ * no path through it and it counts as blocked. A loopback proxy that accepts
+ * the connection still counts as a path.
  */
 
 import { connect } from 'node:net';
@@ -99,6 +103,11 @@ const PROXY_VARS = [
   'all_proxy',
 ];
 
+function isLoopback(host: string): boolean {
+  const h = host.replace(/^\[|\]$/g, '').toLowerCase();
+  return h === 'localhost' || h === '::1' || /^127(\.\d{1,3}){3}$/.test(h);
+}
+
 /** Proxy endpoints from the environment, as probe targets. */
 export function proxyTargets(env: NodeJS.ProcessEnv = process.env): {
   names: string[];
@@ -117,7 +126,12 @@ export function proxyTargets(env: NodeJS.ProcessEnv = process.env): {
       const key = `${url.hostname}:${port}`;
       if (!seen.has(key)) {
         seen.add(key);
-        targets.push({ host: url.hostname, port, label: `proxy (${name})` });
+        targets.push({
+          host: url.hostname,
+          port,
+          label: `proxy (${name})`,
+          ...(isLoopback(url.hostname) ? { rejectCountsAsBlocked: true } : {}),
+        });
       }
     } catch {
       // unparseable proxy value: the name is still recorded
