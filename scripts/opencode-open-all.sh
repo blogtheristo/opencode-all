@@ -14,11 +14,13 @@ WATCH=false
 WATCH_INTERVAL="${OPENCODE_ALL_WATCH_INTERVAL:-30}"
 AUTO=false
 PRS=false
+PRS_ARGS=()
 STATE_DIR="${HOME}/.local/state/opencode-all"
 
 usage() {
   echo "usage: opencode-all [--dry-run] [--max N] [--pick] [--kill] [--status] [--watch [SECONDS]] [--auto] [-n|--name TMUX_SESSION]"
-  echo "       opencode-all --prs [--dry-run]   queue every open PR for opencode-loop to finish (HIC-gated PRs are listed, not queued)"
+  echo "       opencode-all --prs [--dry-run] [--approve N,N] [--note N \"text\"] [--close N,N] [--reset N]"
+  echo "            queue every open PR for opencode-loop to finish; HIC-gated PRs are listed until you --approve, --note or --close them"
   exit 1
 }
 
@@ -32,7 +34,7 @@ while [[ $# -gt 0 ]]; do
     --status) STATUS=true; shift ;;
     --watch) WATCH=true; shift; [[ $# -gt 0 && "$1" =~ ^[0-9]+$ ]] && { WATCH_INTERVAL="$1"; shift; } ;;
     --auto) AUTO=true; shift ;;
-    --prs) PRS=true; shift ;;
+    --prs) PRS=true; shift; PRS_ARGS=("$@"); break ;; # rest goes to opencode-pr-specs.mjs
     *) usage ;;
   esac
 done
@@ -219,8 +221,8 @@ run_watch() {
 }
 
 if $PRS; then
-  node "$REPO/scripts/opencode-pr-specs.mjs" $($DRY_RUN && echo --dry-run) || exit 1
-  $DRY_RUN || echo -e "\nopencode-all: start or keep running the loop to work them: opencode-loop   (progress: opencode-loop status)"
+  node "$REPO/scripts/opencode-pr-specs.mjs" "${PRS_ARGS[@]}" $($DRY_RUN && echo --dry-run) || exit 1
+  [[ " ${PRS_ARGS[*]} " == *" --dry-run "* ]] || $DRY_RUN || echo -e "\nopencode-all: start or keep running the loop to work them: opencode-loop   (progress: opencode-loop status)"
   exit 0
 fi
 if $STATUS; then run_status; exit 0; fi

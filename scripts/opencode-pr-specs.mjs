@@ -17,13 +17,58 @@
  * Usage (DGX, ~/dws6 on main; called by `opencode-all --prs`):
  *   node scripts/opencode-pr-specs.mjs            write specs, print the HIC list
  *   node scripts/opencode-pr-specs.mjs --dry-run  print only
+ * HIC decisions (remembered in ~/.local/state/opencode-all/pr-decisions.json, logged to
+ * pr-decisions.log; any later run applies them):
+ *   --approve 1810,2096      HIC approved the content: queue it (a draft is marked ready)
+ *   --note 1495 "text"       queue it with HIC instructions for the content (implies approve)
+ *   --close 2086             close the PR with a comment (branch is kept)
+ *   --reset 1495             forget the decision
  * Specs are machine-local (untracked); rerunning refreshes them. Needs an authenticated gh.
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { homedir } from 'node:os';
 import { dirname, join } from 'node:path';
 
-const DRY = process.argv.includes('--dry-run');
+const argv = process.argv.slice(2);
+const DRY = argv.includes('--dry-run');
+const nums = (v) =>
+  String(v ?? '')
+    .split(',')
+    .map(Number)
+    .filter(Boolean);
+const DECISIONS_DIR = join(homedir(), '.local', 'state', 'opencode-all');
+const DECISIONS_FILE = join(DECISIONS_DIR, 'pr-decisions.json');
+const decisions = existsSync(DECISIONS_FILE)
+  ? JSON.parse(readFileSync(DECISIONS_FILE, 'utf8'))
+  : {};
+const today = new Date().toISOString().slice(0, 10);
+for (let i = 0; i < argv.length; i++) {
+  const a = argv[i];
+  if (a === '--approve')
+    for (const n of nums(argv[++i])) decisions[n] = { decision: 'approve', at: today };
+  else if (a === '--close')
+    for (const n of nums(argv[++i])) decisions[n] = { decision: 'close', at: today };
+  else if (a === '--reset') for (const n of nums(argv[++i])) delete decisions[n];
+  else if (a === '--note') {
+    const n = Number(argv[++i]);
+    const note = argv[++i];
+    if (!n || !note) {
+      console.error('usage: --note <PR number> "<instructions>"');
+      process.exit(2);
+    }
+    decisions[n] = { decision: 'approve', note, at: today };
+  }
+}
+if (!DRY) {
+  mkdirSync(DECISIONS_DIR, { recursive: true });
+  writeFileSync(DECISIONS_FILE, `${JSON.stringify(decisions, null, 2)}\n`);
+}
+const logDecision = (line) =>
+  !DRY &&
+  writeFileSync(join(DECISIONS_DIR, 'pr-decisions.log'), `${new Date().toISOString()} ${line}\n`, {
+    flag: 'a',
+  });
 const ROOT = execFileSync('git', ['rev-parse', '--show-toplevel'], { encoding: 'utf8' }).trim();
 const SPEC_DIR = join(ROOT, '.claude', 'done');
 
@@ -55,15 +100,38 @@ const prs = JSON.parse(
 
 const queued = [];
 const hic = [];
+const closed = [];
 for (const pr of prs.sort((a, b) => a.number - b.number)) {
   const files = (pr.files ?? []).map((f) => f.path);
-  const reason = pr.isDraft
-    ? 'draft'
-    : HIC_TITLE.test(pr.title)
-      ? 'marked proposal / do-not-merge'
-      : files.find((f) => HIC_PATHS.some((re) => re.test(f)))
-        ? `touches ${files.find((f) => HIC_PATHS.some((re) => re.test(f)))} (blog/site/pricing — HIC approval)`
-        : null;
+  const d = decisions[pr.number];
+  if (d?.decision === 'close') {
+    if (!DRY) {
+      gh(
+        'pr',
+        'close',
+        String(pr.number),
+        '--comment',
+        `Closed on HIC decision (${d.at}) via opencode-all --prs --close. Branch kept.`,
+      );
+      logDecision(`closed #${pr.number} ${pr.title}`);
+    }
+    closed.push(`#${pr.number} ${pr.title}`);
+    continue;
+  }
+  const approved = d?.decision === 'approve';
+  if (approved && pr.isDraft && !DRY) {
+    gh('pr', 'ready', String(pr.number));
+    logDecision(`marked ready #${pr.number} (HIC approved ${d.at})`);
+  }
+  const reason = approved
+    ? null
+    : pr.isDraft
+      ? 'draft'
+      : HIC_TITLE.test(pr.title)
+        ? 'marked proposal / do-not-merge'
+        : files.find((f) => HIC_PATHS.some((re) => re.test(f)))
+          ? `touches ${files.find((f) => HIC_PATHS.some((re) => re.test(f)))} (blog/site/pricing — HIC approval)`
+          : null;
   if (reason) {
     hic.push(`#${pr.number} ${pr.title} — ${reason}`);
     continue;
@@ -84,6 +152,14 @@ for (const pr of prs.sort((a, b) => a.number - b.number)) {
     maxRounds: 3,
     prompt: [
       `Bring PR #${n} ("${pr.title}", branch ${pr.headRefName}) to mergeable. Do not change what the PR is for.`,
+      ...(approved
+        ? [
+            `HIC approved this PR's content on ${d.at}.${d.note ? '' : ' Do not change the content; only make it mergeable.'}`,
+          ]
+        : []),
+      ...(d?.note
+        ? [`HIC instructions for the content (apply them, then make it mergeable): ${d.note}`]
+        : []),
       `1) git fetch origin && git merge origin/${pr.baseRefName} — resolve every conflict keeping both sides' intent; regenerate lockfiles/generated files with the repo's tooling, never by hand.`,
       `2) gh pr checks ${n} and gh pr view ${n} --comments: fix every failing check and every review finding that is a real bug; for optional nits, fix only if trivial.`,
       '3) Run the checks CI would run for the changed files (npx tsc --noEmit, related vitest, prettier --check).',
@@ -105,7 +181,9 @@ for (const pr of prs.sort((a, b) => a.number - b.number)) {
       },
     ],
   };
-  queued.push(`#${n} ${pr.headRefName}`);
+  queued.push(
+    `#${n} ${pr.headRefName}${approved ? (d.note ? '  (HIC approved + instructions)' : '  (HIC approved)') : ''}`,
+  );
   if (!DRY) {
     mkdirSync(dirname(file), { recursive: true });
     writeFileSync(file, `${JSON.stringify(spec, null, 2)}\n`);
@@ -113,8 +191,9 @@ for (const pr of prs.sort((a, b) => a.number - b.number)) {
 }
 
 console.log(
-  `opencode-pr-specs: ${prs.length} open PR(s); ${queued.length} queued for opencode-loop${DRY ? ' (dry run)' : ''}`,
+  `opencode-pr-specs: ${prs.length} open PR(s); ${queued.length} queued for opencode-loop${closed.length ? `; ${closed.length} closed` : ''}${DRY ? ' (dry run)' : ''}`,
 );
+for (const c of closed) console.log(`  ${DRY ? 'would close' : 'closed'}  ${c}`);
 for (const q of queued) console.log(`  queued  ${q}`);
 if (hic.length) {
   console.log(`\nHIC — ${hic.length} PR(s) need your decision, not queued:`);

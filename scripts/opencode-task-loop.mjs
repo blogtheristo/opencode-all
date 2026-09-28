@@ -248,6 +248,27 @@ function runOpencode(t, wt, prompt, round) {
 
 function workTask(t, state) {
   const st = (state[t.branch] ??= { status: 'pending', rounds: 0 });
+  // A finished PR task goes stale when its base moves (another PR was merged): reopen it so
+  // the branch gets the new base merged in and is re-gated, instead of rotting behind main.
+  if (st.status === 'done' && st.specHash === t.specHash && t.spec.pr && st.worktree) {
+    const base = t.spec.base ?? 'main';
+    tryGit(st.worktree, 'fetch', '-q', 'origin', base);
+    const behind =
+      tryGit(st.worktree, 'merge-base', '--is-ancestor', `origin/${base}`, 'HEAD') === null;
+    const open = spawnSync(
+      'gh',
+      ['pr', 'view', String(t.spec.pr), '--json', 'state', '-q', '.state'],
+      {
+        cwd: st.worktree,
+        encoding: 'utf8',
+        timeout: 60 * 1000,
+      },
+    ).stdout?.trim();
+    if (behind && open === 'OPEN') {
+      Object.assign(st, { status: 'pending', rounds: 0, stalls: 0, startHead: undefined });
+      alert(`${t.branch}: ${base} moved — reopened to merge it in again`);
+    }
+  }
   if (st.status === 'done' && st.specHash === t.specHash) return;
   if (st.status === 'blocked' && st.specHash === t.specHash) return;
   if (st.specHash !== t.specHash)

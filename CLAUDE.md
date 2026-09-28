@@ -236,6 +236,20 @@ completion and sends every FAIL back into the session. The HIC reads the gate ou
 summary. Why: 28.09.2026 a local model reported the REVAL_LEASH gap "fully closed" while the
 commit was unpushed, production never called the new store, and the gap's `it.todo` remained.
 
+### Coding Delegation Rule (paid sessions plan, the DGX codes)
+
+HIC 28.09.2026. Paid sessions (Claude Code, GitHub Copilot) do judgment, review, security and
+**task specs**; multi-file coding goes to `opencode-loop` on the DGX (local models, no paid tokens).
+
+- **Hand off:** `node scripts/loop-task.mjs --branch opencode/<name> --task … --prompt … --check "name::cmd"`
+  writes `.claude/done/<branch>.json`. Every check must fail on today's code (the script refuses
+  one that already passes). Merge the spec to `main` via PR; the loop picks it up, works it until
+  `agent-done-gate` passes, opens the result PR, and keeps it fresh until the HIC merges it.
+- **Code it yourself only** for a one-file fix, security/RED-zone work, or when the loop has
+  BLOCKED on the task twice.
+- **`opencode-all`** is for catching up after Claude sessions have run for days: `--status`
+  (gated), `--prs` to queue the open-PR backlog, with HIC `--approve` / `--note` / `--close`.
+
 ### Deliverable Handoff Rule
 
 Never ask users to copy-paste from rendered chat (no copy button). For copyable content: **fenced code block** (one block, full content, no preamble scrolling) or `SendUserFile`. File/PDF/Gamma is an addition on request, never instead of the code block.
@@ -499,6 +513,7 @@ Use these for full detail when needed:
 
 | Version | Date       | Changes                                                                                                                                                                                                           | Author             |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| 1.9     | 2026-09-28 | HIC: Coding Delegation Rule — paid sessions write task specs (`scripts/loop-task.mjs`); `opencode-loop` on the DGX does multi-file coding; `opencode-all` for multi-day catch-up.                                 | Claude Code        |
 | 1.8     | 2026-09-28 | Done Gate Rule: completion claims require `scripts/agent-done-gate.mjs --full` output; per-task specs in `.claude/done/<branch>.json`; OpenCode plugin re-prompts on FAIL.                                        | Claude Code        |
 | 1.7     | 2026-09-27 | Resolver — Ontology → Admin Documentation: look up a term (`npm run ontology:lookup`) before asserting how a system works. Salvaged from closed PR #2075 (written 24.09.2026); pending HIC approval at PR review. | Claude Code        |
 | 1.6     | 2026-09-27 | HIC: Market Signal → Sales Pipeline Rule — commercially relevant signals go to PhD §14.x and `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, star-scored 1–5.                                                       | Claude Code        |

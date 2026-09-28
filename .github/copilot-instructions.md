@@ -361,3 +361,9 @@ This repo uses a fully automated multi-agent PR workflow that **replaces manual 
 - `README.md` - Project overview and sales documentation
 
 **When in doubt:** Check CLAUDE.md for detailed guidance on security, git workflows, and best practices.
+
+## Coding delegation (HIC 28.09.2026)
+
+Multi-file coding runs on the DGX through `opencode-loop`, not in paid Copilot sessions. Write a
+task spec with `node scripts/loop-task.mjs` (see `CLAUDE.md` → Coding Delegation Rule) and open a
+PR with it; code directly only for one-file fixes or security work.
