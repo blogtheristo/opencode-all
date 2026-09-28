@@ -22,7 +22,7 @@
  *   committed   no modified tracked files left behind
  *   pushed      HEAD is on its upstream
  *   format      prettier --check on changed files; a file already unformatted at the base is not counted
- *   todo        it.todo / test.todo count did not grow vs. the base (reported always)
+ *   todo        it.todo / test.todo count did not grow vs. --since (fail) or the merge base (warn)
  *   whitespace  lines changed only in whitespace (warning — usually a model rewriting unrelated lines)
  *   typecheck   tsc --noEmit when .ts changed (--full)
  *   tests       vitest related --run on changed source (--full)
@@ -136,8 +136,12 @@ if (base) {
     before += count(tryGit('show', `${base}:${f}`) || '');
     after += existsSync(f) ? count(readFileSync(f, 'utf8')) : 0;
   }
-  if (testFiles.length)
-    add('todo', after > before ? 'fail' : 'pass', `it.todo in changed tests: ${before} → ${after}`);
+  if (testFiles.length) {
+    // Against a session start (--since) new todos mean deferred work; against main they are
+    // often the branch's own planned gaps (e.g. a Fail-Loud suite), so only warn there.
+    const grew = after > before ? (sinceSha ? 'fail' : 'warn') : 'pass';
+    add('todo', grew, `it.todo in changed tests: ${before} → ${after}`);
+  }
 }
 
 // whitespace-only line changes

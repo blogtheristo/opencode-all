@@ -784,14 +784,15 @@ OpenCode on DGX can run **large tasks at zero purchased-token cost**. Use this d
 
 | Tier                    | Model source                                                                          | Marginal cost       | Route here for                                                                                         |
 | ----------------------- | ------------------------------------------------------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------ |
-| **1 — Local sovereign** | Ollama on DGX (`opencode.json` default: `qwen3-coder:30b`, also `nemotron-3-super`)   | €0 (owned hardware) | Coding agents, refactors, batch worker default fallback                                                |
+| **1 — Local sovereign** | Ollama on DGX (`opencode.json` default: `qwen3-coder-next:latest` since 28.09.2026; `qwen3-coder:30b` small model; `nemotron-3-super` deep)   | €0 (owned hardware) | Coding agents, refactors, batch worker default fallback                                                |
 | **2 — OpenCode FREE**   | OpenCode-hosted free models (`opencode/*`, e.g. `x-preview-f-free`, `mimo-v2.5-free`) | €0 API tokens       | **Translations**, multi-file HTML i18n, overnight opencode-all batches, high-volume content generation |
 | **3 — Paid cloud**      | Claude API, Copilot/Cursor cloud, Groq metered                                        | Per-token           | HIC review, architecture, RED zone, short interactive when local models insufficient                   |
 
 **Operator rules:**
 
 1. **Translations and 5-lang surfaces** → always queue as _Large work_ on DGX OpenCode with tier **1 or 2** — never Win11 cloud-agent VMs for bulk i18n.
-2. **Verify available free models** on DGX before batch runs: `opencode models list` (catalog changes; Rule 12 — fail loud if auth/model errors).
+2. **Provider `ollama-local` ("Ollama (DGX)")** serves `http://127.0.0.1:11434/v1` on the DGX. On Win11 an SSH tunnel is used: override `baseURL` to `:11435` in `~/.config/opencode/opencode.json` (only `options.baseURL` — a `models` list there hides the repo's models in `/models`).
+2b. **Verify available free models** on DGX before batch runs: `opencode models list` (catalog changes; Rule 12 — fail loud if auth/model errors).
 3. **Fallback ladder:** OpenCode FREE unavailable → switch session/batch to Ollama `qwen3-coder:30b` → then Claude Code hot standby for the single blocked step only.
 4. **Batch worker** (`scripts/opencode-batch-worker.mjs`) runs via OpenCode ACP; model is session-selected — attach plan + preferred model in the worktree session prompt or OpenCode config before `enqueue` / `run`.
 5. **Quality gate unchanged:** free/Ollama output still goes through Win11 review + PR; public copy and blog publish remain HIC-gated per `CLAUDE.md`.

@@ -3,12 +3,12 @@
   "share": "disabled",
   "instructions": ["CLAUDE.md"],
   "shell": "bash",
-  "model": "ollama-local/nemotron-3-super:latest",
+  "model": "ollama-local/qwen3-coder-next:latest",
   "small_model": "ollama-local/qwen3-coder:30b",
   "provider": {
     "ollama-local": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "Ollama Local (DGX Spark :11434; NVIDIA Nemotron primary; Win11 SSH tunnel overrides baseURL to :11435 in ~/.config/opencode/opencode.json)",
+      "name": "Ollama (DGX)",
       "options": {
         "baseURL": "http://127.0.0.1:11434/v1"
       },

@@ -174,8 +174,8 @@ function ensureWorktree(t) {
   return path;
 }
 
-function runGate(wt) {
-  const r = spawnSync('node', [GATE, '--full'], {
+function runGate(wt, since) {
+  const r = spawnSync('node', [GATE, '--full', ...(since ? ['--since', since] : [])], {
     cwd: wt,
     encoding: 'utf8',
     maxBuffer: 64 * 1024 * 1024,
@@ -249,12 +249,15 @@ function workTask(t, state) {
   const st = (state[t.branch] ??= { status: 'pending', rounds: 0 });
   if (st.status === 'done' && st.specHash === t.specHash) return;
   if (st.status === 'blocked' && st.specHash === t.specHash) return;
-  if (st.specHash !== t.specHash) Object.assign(st, { status: 'pending', rounds: 0, stalls: 0 });
+  if (st.specHash !== t.specHash)
+    Object.assign(st, { status: 'pending', rounds: 0, stalls: 0, startHead: undefined });
   st.specHash = t.specHash;
   const max = t.spec.maxRounds ?? 4;
 
   const wt = ensureWorktree(t);
-  let gate = runGate(wt);
+  // Judge the loop's own work from where this task (spec version) started, not from main.
+  st.startHead ??= tryGit(wt, 'rev-parse', 'HEAD');
+  let gate = runGate(wt, st.startHead);
   while (!gate.done && st.rounds < max) {
     st.rounds += 1;
     Object.assign(st, { status: 'running', worktree: wt, updatedAt: now() });
@@ -265,7 +268,7 @@ function workTask(t, state) {
     };
     alert(`${t.branch}: round ${st.rounds}/${max} started`);
     const ok = runOpencode(t, wt, roundPrompt(t, gate.out, st.rounds, max), st.rounds);
-    gate = runGate(wt);
+    gate = runGate(wt, st.startHead);
     const after = {
       head: tryGit(wt, 'rev-parse', 'HEAD'),
       fails: hash(gate.out.replace(/— \w+ /, '')),
