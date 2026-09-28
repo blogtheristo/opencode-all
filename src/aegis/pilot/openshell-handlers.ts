@@ -255,6 +255,8 @@ async function runInSandbox(
         cause: err,
       });
     }
+    // An accepted stop means no output reaches the host: never start the copy-back after it.
+    if (stopping) return await stop();
     if (ref.outputDir) {
       const dl = await run(
         cli,
@@ -264,6 +266,7 @@ async function runInSandbox(
         },
       );
       if (dl.code !== 0) throw new Error(`output download failed: ${dl.stderr.slice(0, 200)}`);
+      if (stopping) return await stop();
     }
     if (!parsed.ok) {
       if (parsed.errorName === 'NetworkUnavailable')

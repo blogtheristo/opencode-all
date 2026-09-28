@@ -47,7 +47,11 @@ interface Call {
 }
 
 /** Fake `openshell` CLI: records calls; create answers per `behaviour`. */
-function fakeCli(behaviour: 'ok' | 'network' | 'no-marker' | 'hang', deleteCode = 0) {
+function fakeCli(
+  behaviour: 'ok' | 'network' | 'no-marker' | 'hang',
+  deleteCode = 0,
+  onDownload?: () => void,
+) {
   const calls: Call[] = [];
   const runner: CommandRunner = (_cmd, args, opts) => {
     const call: Call = { args: [...args] };
@@ -73,6 +77,7 @@ function fakeCli(behaviour: 'ok' | 'network' | 'no-marker' | 'hang', deleteCode 
     }
     if (args[0] === 'sandbox' && args[1] === 'delete')
       return Promise.resolve({ code: deleteCode, stdout: '', stderr: '' });
+    if (args[0] === 'sandbox' && args[1] === 'download') onDownload?.();
     return Promise.resolve({ code: 0, stdout: '', stderr: '' });
   };
   return { calls, runner };
@@ -186,6 +191,29 @@ describe('OpenShell registry', () => {
     const p2 = failing.reg[step.handler](ctx(step, c2.signal));
     setTimeout(() => c2.abort(new Error('stop')), 50);
     await expect(p2).rejects.toThrow(/delete not confirmed/);
+  });
+
+  it('treats a stop accepted during the output copy-back as a stop, not a completed step', async () => {
+    const c = new AbortController();
+    const cli = fakeCli('ok', 0, () => c.abort(new Error('stop')));
+    const bundle = join(dir, 'step.mjs');
+    writeFileSync(bundle, '// test bundle');
+    const reg = createOpenShellRegistry(
+      {
+        modulePath: 'unused.ts',
+        image: 'aegis-pilot-node:22',
+        workRoot: join(dir, 'work'),
+        outputDir: join(dir, 'out'),
+        runner: cli.runner,
+        bundlePath: bundle,
+      },
+      scope().workflow.steps,
+    );
+    const step = scope().workflow.steps[0];
+    await expect(reg[step.handler](ctx(step, c.signal))).rejects.toMatchObject({
+      name: 'WorkerTerminated',
+    });
+    expect(cli.calls.filter((x) => x.args[1] === 'delete')).toHaveLength(1);
   });
 
   it('records the sandbox stop as system.agent_terminated in the Article 12 ledger', async () => {
