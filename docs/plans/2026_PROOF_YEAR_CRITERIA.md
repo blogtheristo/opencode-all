@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2 [Latest]
+Version: 1.3 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.2 [Latest] | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: Boardy 28.09.2026: kohta 3 = julkaisuehdokas 2026, GA Q1 2027 pilotin hyväksyntätietueen jälkeen; kohta 4 = ulkoinen päätöspolku (2. askelma), learning delta 2027; asiakastapausten tila kirjattu; rajaus pitää. HIC-periaate säilytetty sanatarkasti. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
+- Version: 1.3 [Latest] | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: HIC-päätös kirjattu: vuonna 2026 toteutetaan vain DWS IQ 7 Aegis Pilot. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: Boardy 28.09.2026: kohta 3 = julkaisuehdokas 2026, GA Q1 2027 pilotin hyväksyntätietueen jälkeen; kohta 4 = ulkoinen päätöspolku (2. askelma), learning delta 2027; asiakastapausten tila kirjattu; rajaus pitää. HIC-periaate säilytetty sanatarkasti. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 - Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: Määritelmät lukittu (referenssi ei ole nimetön tapauskuvaus; learning delta = ulkoinen Verified Decision Journey); 2027 volyymivuoden ehto lisätty. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: HIC 28.09.2026 kirjasi 2026:n listan: "Läpimurtovuosi" on sisäinen lause, ja se läpäisee testin vain, jos 31.12.2026 mennessä on totta neljä asiaa. Jokaiselle kohdalle on kirjattu määritelmä, todiste, nykytila ja takaraja taaksepäin laskettuna. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 
@@ -20,6 +21,12 @@ Document Status:
 - Katselmointi: joka maanantai `/retro`-rytmissä; loppuarvio 31.12.2026
 
 ---
+
+## Päätös (HIC 28.09.2026)
+
+> **Päätös: toteutamme nyt vain DWS IQ 7 Aegis Pilotin vuonna 2026.**
+
+Vuonna 2026 toimitetaan vain DWS-AEGIS-PILOT-001. Kaikki työ, myynti mukaan lukien, arvioidaan sen mukaan, viekö se tätä listaa eteenpäin. Muita tuotteita ei toimiteta eikä tarjota vuonna 2026. Katalogi (`dws10.com/config/products.json`), Store ja sivustot sisältävät yhä muita tuotteita; niiden muuttaminen vaatii erillisen HIC-hyväksynnän (Store/katalogi on RED-vyöhyke).
 
 ## Periaate (HIC 28.09.2026, sanatarkasti)
 

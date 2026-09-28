@@ -1,7 +1,7 @@
 # AEGIS ROADMAP — AI-Native Offense Meets AI-Native Defense
 
 > **Document Standard:** DWS Document Standard v2.0
-> **Version:** 1.3.0
+> **Version:** 1.4.0
 > **Status:** Living Document (planning horizon)
 > **Created:** 2026-07-05
 > **Updated:** 2026-07-05 — v1.0: Initial creation. Scopes an AI-native defense capability track for the existing DWS IQ Aegis platform (`Store/PRODUCT_AEGIS.md`), built on the DWS Security Standard's 6-layer defense-in-depth model and the KYA 5-layer trust framework, plus the `aegis` vulnerability/patch-SLA agent (`src/agents/aegis.agent.ts`). Framed against the thesis that AI now accelerates attackers (AI-crafted exploits, deepfake social engineering, autonomous recon/malware) faster than manual defense can respond — so the defense has to be AI-native too.
@@ -16,6 +16,7 @@ Version: 1.0
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: HIC decision: in 2026 only the DWS IQ 7 Aegis Pilot is delivered.
 - Version: 1.3 | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: HIC 28.09.2026: DWS IQ 7 Aegis target industries in priority order: 1 data centres, 2 dual-use, 3 manufacturing; named prospects per industry and the gap against today's pipeline stated.
 - Version: 1.2 | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: Boardy review: GA would have preceded the first pilot's evidence — KM3 is now a release candidate in 2026, GA Q1 2027; KM4 floor is the external decision path (rung 2), learning delta 2027; customer-case status stated; process control excluded.
 - Version: 1.1 | Tool: Claude Code | Session: claude/proof-year-2026-03ist6 | Date: 28.09.2026 | Changes: HIC 28.09.2026: key milestone recorded — 2026 is the proof year, 2027 the volume year; four criteria that must be true on 31.12.2026 (docs/plans/2026_PROOF_YEAR_CRITERIA.md); product naming DWS IQ 7 Aegis with DWS-AEGIS-PILOT-001 as its first stage; the first workflow comes from the customer, not the catalogue. GA date corrected from September 2026 to the 30.11.2026 target. Themes A–F unchanged.
@@ -37,6 +38,8 @@ Document Status:
 ---
 
 ## Key Milestones — 2026 proof year, 2027 volume year (HIC 28.09.2026)
+
+> **HIC decision 28.09.2026: in 2026 we deliver only the DWS IQ 7 Aegis Pilot (DWS-AEGIS-PILOT-001).** No other product is delivered or offered in 2026. Themes A–F below remain the planning horizon for 2027.
 
 **"Breakthrough year" is an internal phrase.** Its only test is what must be true on 31.12.2026 for 2027 to be the breakthrough. If the answer is "nothing", it is a slogan. The answer is recorded, so 2026 is the proof year and 2027 the volume year.
 
