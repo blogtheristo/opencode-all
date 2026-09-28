@@ -1,0 +1,137 @@
+{
+  "$comment": "Hand-authored evaluation for the automation-depth backlog (scripts/truth/product-readiness-backlog.mjs). One entry per delivery family, matched on the start of fulfilment.deliveryMode in dws10.com/config/products.json. 'automated' lists steps running in code today, with evidence. 'humanSteps' stay managed. 'volumeTrigger.threshold' is null until the HIC sets it: no order-volume data exists yet to justify a number. Evaluated 2026-09-27 by Claude Code on branch claude/ecstatic-johnson-nd6uha.",
+  "evaluatedAt": "2026-09-27",
+  "sharedAutomation": [
+    {
+      "step": "Runbook step 1 — order intake with authoritative catalogue price",
+      "evidence": "src/services/product-order.service.ts createProductOrderIntent; src/routes/order-intake.routes.ts"
+    },
+    {
+      "step": "Payment verification (Stripe webhook; HIC-verified Revolut/PayPal)",
+      "evidence": "src/services/product-order.service.ts confirmProductOrderPayment; src/routes/stripe-webhook.routes.ts"
+    },
+    {
+      "step": "Durable fulfilment event and operations notification",
+      "evidence": "supabase/migrations/099_270926_product_order_fulfilment.sql product_order_events 'sales.fulfilment_requested'"
+    },
+    {
+      "step": "Runbook steps 2 and 5 — buyer receives owner, acknowledgement SLA, acceptance outcomes and exclusions on payment",
+      "evidence": "src/services/fulfilment-packet.service.ts renderBuyerPacket; src/__tests__/fulfilment-packet.service.test.ts"
+    },
+    {
+      "step": "Runbook step 4 prepared — owning team receives delivery mode, runbook link and acceptance checklist",
+      "evidence": "src/services/fulfilment-packet.service.ts renderOperationsPacket; src/__tests__/product-order.service.test.ts"
+    }
+  ],
+  "families": [
+    {
+      "family": "platform-provisioning",
+      "match": "Managed cloud or on-premise provisioning",
+      "humanSteps": [
+        "Provision tenant or on-premise deployment",
+        "Verify tier limits active",
+        "Hand over credentials"
+      ],
+      "whyHumanNow": "First deployments vary by hosting choice; no order history to template from.",
+      "nextCandidate": "Scripted tenant creation for the Cloud EU option, starting from src/cloudflare/tenant-sandbox.ts.",
+      "volumeTrigger": {
+        "metric": "fulfilled orders per quarter in this family (product_order_intents)",
+        "threshold": null
+      }
+    },
+    {
+      "family": "saas-tenant-activation",
+      "match": "Managed SaaS tenant activation",
+      "humanSteps": ["Configure tenant", "Verify configuration", "Hand over"],
+      "whyHumanNow": "Configuration is buyer-specific and unverified at volume.",
+      "nextCandidate": "Link paid order to the onboarding wizard (src/routes/onboard.routes.ts) so the buyer starts configuration themselves.",
+      "volumeTrigger": {
+        "metric": "fulfilled orders per quarter in this family (product_order_intents)",
+        "threshold": null
+      }
+    },
+    {
+      "family": "aegis-deployment",
+      "match": "Managed on-site or hybrid deployment",
+      "humanSteps": [
+        "On-site or hybrid install",
+        "Verify audit logging",
+        "Verify operator kill authority"
+      ],
+      "whyHumanNow": "Kill authority and Article 12 logging must be witnessed by a named engineer; this stays human by design.",
+      "nextCandidate": "Automated post-install check that audit logs are being written, reported to the engineer; the witnessed kill-authority test stays human.",
+      "volumeTrigger": { "metric": "licensed Aegis deployments", "threshold": null }
+    },
+    {
+      "family": "human-delivery",
+      "match": "Managed human delivery",
+      "humanSteps": ["Scope", "Deliver engagement", "Buyer sign-off"],
+      "whyHumanNow": "The product is a person's time or a hand-built deliverable.",
+      "nextCandidate": "Calendar booking link in the buyer confirmation for the intake meeting.",
+      "volumeTrigger": {
+        "metric": "fulfilled orders per quarter in this family (product_order_intents)",
+        "threshold": null
+      }
+    },
+    {
+      "family": "hardware-fulfilment",
+      "match": "Managed hardware fulfilment",
+      "humanSteps": ["Procure", "Ship", "Install where ordered"],
+      "whyHumanNow": "Physical logistics through suppliers; no supplier API integration exists.",
+      "nextCandidate": "Scripted post-delivery device baseline, starting from scripts/bootstrap_dgx_sovereign.sh.",
+      "volumeTrigger": { "metric": "units shipped per quarter", "threshold": null }
+    },
+    {
+      "family": "cluster-provisioning",
+      "match": "Managed cluster/service provisioning",
+      "humanSteps": ["Provision cluster or service on target hardware", "Verify before handover"],
+      "whyHumanNow": "Target hardware is often buyer-supplied and differs per site.",
+      "nextCandidate": "Version-pinned install manifests per tier (LF-K8S-T1..T4) with an automated post-install health check.",
+      "volumeTrigger": {
+        "metric": "fulfilled orders per quarter in this family (product_order_intents)",
+        "threshold": null
+      }
+    },
+    {
+      "family": "agent-activation",
+      "match": "Managed agent activation",
+      "humanSteps": ["Configure agent tier", "Human review of first output", "Hand over"],
+      "whyHumanNow": "First-output review is the quality gate the acceptance KPI names.",
+      "nextCandidate": "Route first output into the existing review queue (src/routes/agents.routes.ts /review-queue) so review is tracked in-product rather than by email.",
+      "volumeTrigger": {
+        "metric": "fulfilled orders per quarter in this family (product_order_intents)",
+        "threshold": null
+      }
+    },
+    {
+      "family": "bundle-composition",
+      "match": "Managed bundle composition",
+      "humanSteps": ["Activate each component agent", "Verify aggregate scope"],
+      "whyHumanNow": "Depends on agent-activation automation; nothing to compose until that exists.",
+      "nextCandidate": "Reuse agent-activation automation per component once it exists.",
+      "volumeTrigger": {
+        "metric": "fulfilled orders per quarter in this family (product_order_intents)",
+        "threshold": null
+      }
+    },
+    {
+      "family": "industry-pod-onboarding",
+      "match": "Managed industry-pod onboarding",
+      "humanSteps": ["Configure shared agents on buyer industry data", "Witness one outcome"],
+      "whyHumanNow": "Buyer data mapping differs per industry; witnessed outcome is the acceptance KPI.",
+      "nextCandidate": "Industry-specific onboarding wizard presets (src/routes/onboard.routes.ts industry step).",
+      "volumeTrigger": {
+        "metric": "fulfilled orders per quarter in this family (product_order_intents)",
+        "threshold": null
+      }
+    },
+    {
+      "family": "advisory-programme",
+      "match": "Managed advisory programme",
+      "humanSteps": ["Run weekly-gated programme", "Human review at every gate"],
+      "whyHumanNow": "Human gate review is the product.",
+      "nextCandidate": "Automated weekly gate reminders and evidence checklist per programme.",
+      "volumeTrigger": { "metric": "active programmes", "threshold": null }
+    }
+  ]
+}

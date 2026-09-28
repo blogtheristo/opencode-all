@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // Evidence: Tool=GitHub Copilot CLI Model=gpt-5.6-sol Agent=product-readiness-portfolio Date=27.09.2026
+// Edited: Tool=Claude Code 2.1.283 Model=anthropic/claude Agent=claude Date=2026-09-27 — capacityExemptBasis (§5.12/§5.13), §5.14 profiles
 // Audit trail: git log -- scripts/truth/product-fulfilment.mjs
 //
 // HIC 27.09.2026: "go through ALL 138 product records... keep all current selling surfaces
@@ -48,7 +49,21 @@ const CAPACITY_STANDARD_SECTION = {
   'LF-DGX-SPARK': '§5.8', 'LF-IGX-ORIN': '§5.8', 'LF-JETSON-NANO': '§5.8',
   'LF-JETSON-NX': '§5.8', 'LF-JETSON-AGX': '§5.8', 'LF-SITROOM-001': '§5.8',
   'LF-IPCMAX-IPC409': '§5.9', 'LF-IPCMAX-IPCP68': '§5.9', 'LF-IPCMAX-CINCOZE-DA1200': '§5.9',
+  'DWS-AEGIS-SUB-001': '§5.14', 'DWS-IQ-ESS-SETUP': '§5.14',
 };
+
+// Why a SKU carries no Capacity Class. Advisory records predate capacityExemptBasis and default
+// to §5.11; any other basis must be one of these sections or the SKU is reported as a gap.
+const EXEMPT_BASIS = {
+  '§5.11': 'advisory engagement',
+  '§5.12': 'agent SKU or agent bundle',
+  '§5.13': 'managed human service',
+};
+export function exemptBasis(p) {
+  if (p?.capacityExempt !== true) return null;
+  const basis = p.capacityExemptBasis || (p.storeCategory === 'advisory' ? '§5.11' : null);
+  return EXEMPT_BASIS[basis] ? { section: basis, label: EXEMPT_BASIS[basis] } : null;
+}
 
 function loadChapterIndex() {
   const map = JSON.parse(fs.readFileSync(CHAPTER_MAP, 'utf8'));
@@ -84,7 +99,8 @@ function paymentRoute(p) {
 }
 
 function capacityStatus(p) {
-  if (p.capacityExempt === true) return { status: 'exempt', reason: 'storeCategory advisory — DWS_CAPACITY_CLASS_STANDARD.md §5.11' };
+  const basis = exemptBasis(p);
+  if (basis) return { status: 'exempt', reason: `${basis.label} — DWS_CAPACITY_CLASS_STANDARD.md ${basis.section}` };
   const fields = ['capacityClass', 'capacityOptions', 'capacityCapabilities', 'capacityLimits'];
   const missing = fields.filter((f) => !p[f]);
   if (missing.length === 0) return { status: 'complete', reason: '' };
@@ -114,8 +130,8 @@ export function buildFulfilment(catalog) {
     const evidenceRefs = ['docs/truth/PRODUCT_REGISTRY.md'];
     if (CAPACITY_STANDARD_SECTION[id]) {
       evidenceRefs.push(`DWS_CAPACITY_CLASS_STANDARD.md ${CAPACITY_STANDARD_SECTION[id]}`);
-    } else if (p.capacityExempt) {
-      evidenceRefs.push('DWS_CAPACITY_CLASS_STANDARD.md §5.11');
+    } else if (exemptBasis(p)) {
+      evidenceRefs.push(`DWS_CAPACITY_CLASS_STANDARD.md ${exemptBasis(p).section}`);
     }
     if (p.acceptanceKpi) evidenceRefs.push(`${id} acceptanceKpi (catalogue)`);
     rows.push({
@@ -208,7 +224,7 @@ export function renderMarkdown({ summary: s, rows }) {
     `| Payment route: named contact route | ${s.byPaymentRoute['contact-route']} |`,
     `| Payment route: product-page quote (page exists, no self-serve link yet) | ${s.byPaymentRoute['product-page-quote']} |`,
     `| Payment route: undetermined | ${s.byPaymentRoute.undetermined} |`,
-    `| Capacity evidence: exempt (advisory, §5.11) | ${s.byCapacity.exempt} |`,
+    `| Capacity evidence: exempt (§5.11–§5.13) | ${s.byCapacity.exempt} |`,
     `| Capacity evidence: complete | ${s.byCapacity.complete} |`,
     `| Capacity evidence: gap (backlog) | ${s.byCapacity.gap} |`,
     `| Contract scope: complete (exclusions + acceptanceKpi) | ${s.byContractScope.complete} |`,

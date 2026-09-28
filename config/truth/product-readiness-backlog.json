@@ -2,12 +2,11 @@
   "summary": {
     "catalogVersion": "1.33",
     "totalProducts": 138,
-    "withOpenIssues": 138,
-    "fullyClosed": 0,
-    "totalOpenIssues": 185,
+    "withOpenIssues": 0,
+    "fullyClosed": 138,
+    "totalOpenIssues": 10,
     "openIssuesByCategory": {
-      "capacity-evidence": 47,
-      "automation-depth": 138
+      "automation-depth": 10
     }
   },
   "entries": [
@@ -25,22 +24,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/ac365-t3.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/ac365-t3.html",
+          "Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-AC365-T3-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for AC365-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-AC365-T3-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for AC365-T3 (today: managed bundle composition) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-AC365-T3"
     },
@@ -59,16 +47,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/ai-agent-engineering.html"
+          "Detail page: ../products/ai-agent-engineering.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-ai-agent-engineering-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for ai-agent-engineering (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-ai-agent-engineering"
     },
@@ -87,16 +69,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Core",
-          "Detail page: ../products/ai-consultant-day.html"
+          "Detail page: ../products/ai-consultant-day.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-ai-consultant-day-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for ai-consultant-day (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-ai-consultant-day"
     },
@@ -115,16 +91,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/ai-consulting-agentic.html"
+          "Detail page: ../products/ai-consulting-agentic.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-ai-consulting-agentic-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for ai-consulting-agentic (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-ai-consulting-agentic"
     },
@@ -143,16 +113,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/ai-koulutus-3d.html"
+          "Detail page: ../products/ai-koulutus-3d.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-ai-koulutus-3d-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for ai-koulutus-3d (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-ai-koulutus-3d"
     },
@@ -171,16 +135,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/ais-eu-sov-oc.html"
+          "Detail page: ../products/ais-eu-sov-oc.html",
+          "Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-AIS-EU-SOV-OC-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for AIS-EU-SOV-OC (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-AIS-EU-SOV-OC"
     },
@@ -199,16 +157,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/ais-outcome-pilot.html"
+          "Detail page: ../products/ais-outcome-pilot.html",
+          "Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-AIS-OUTCOME-PILOT-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for AIS-OUTCOME-PILOT (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-AIS-OUTCOME-PILOT"
     },
@@ -227,16 +179,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/aws-consultancy.html"
+          "Detail page: ../products/aws-consultancy.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-aws-consultancy-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for aws-consultancy (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-aws-consultancy"
     },
@@ -255,16 +201,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/business-mentor-30.html"
+          "Detail page: ../products/business-mentor-30.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-business-mentor-30-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for business-mentor-30 (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-business-mentor-30"
     },
@@ -283,16 +223,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/claude-code-coaching-3day.html"
+          "Detail page: ../products/claude-code-coaching-3day.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-claude-code-coaching-3day-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for claude-code-coaching-3day (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-claude-code-coaching-3day"
     },
@@ -311,16 +245,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/claude-code-coaching-lecture.html"
+          "Detail page: ../products/claude-code-coaching-lecture.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-claude-code-coaching-lecture-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for claude-code-coaching-lecture (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-claude-code-coaching-lecture"
     },
@@ -339,16 +267,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/claude-code-coaching-project.html"
+          "Detail page: ../products/claude-code-coaching-project.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-claude-code-coaching-project-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for claude-code-coaching-project (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-claude-code-coaching-project"
     },
@@ -367,16 +289,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/claude-code-coaching-workshop.html"
+          "Detail page: ../products/claude-code-coaching-workshop.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-claude-code-coaching-workshop-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for claude-code-coaching-workshop (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-claude-code-coaching-workshop"
     },
@@ -395,16 +311,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/cmp-oc-ent.html"
+          "Detail page: ../products/cmp-oc-ent.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-CMP-OC-ENT-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for CMP-OC-ENT (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-CMP-OC-ENT"
     },
@@ -423,16 +333,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/cmp-oc-std.html"
+          "Detail page: ../products/cmp-oc-std.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-CMP-OC-STD-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for CMP-OC-STD (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-CMP-OC-STD"
     },
@@ -450,22 +354,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/cmp-t0.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/cmp-t0.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-CMP-T0-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for CMP-T0 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-CMP-T0-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for CMP-T0 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-CMP-T0"
     },
@@ -483,22 +376,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/cmp-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/cmp-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-CMP-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for CMP-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-CMP-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for CMP-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-CMP-T1"
     },
@@ -516,22 +398,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/cmp-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/cmp-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-CMP-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for CMP-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-CMP-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for CMP-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-CMP-T2"
     },
@@ -549,22 +420,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/constr-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/constr-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-CONSTR-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for CONSTR-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-CONSTR-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for CONSTR-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-CONSTR-T2"
     },
@@ -582,22 +442,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/constr-t3.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/constr-t3.html",
+          "Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-CONSTR-T3-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for CONSTR-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-CONSTR-T3-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for CONSTR-T3 (today: managed bundle composition) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-CONSTR-T3"
     },
@@ -616,16 +465,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/consulting-fit55.html"
+          "Detail page: ../products/consulting-fit55.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-consulting-fit55-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for consulting-fit55 (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-consulting-fit55"
     },
@@ -644,16 +487,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/consulting-hourly.html"
+          "Detail page: ../products/consulting-hourly.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-consulting-hourly-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for consulting-hourly (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-consulting-hourly"
     },
@@ -672,16 +509,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/conversational-agent.html"
+          "Detail page: ../products/conversational-agent.html",
+          "Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-conversational-agent-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for conversational-agent (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-conversational-agent"
     },
@@ -699,22 +530,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/cs-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/cs-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-CS-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for CS-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-CS-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for CS-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-CS-T1"
     },
@@ -732,22 +552,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/cs-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/cs-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-CS-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for CS-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-CS-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for CS-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-CS-T2"
     },
@@ -765,22 +574,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/csat-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/csat-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-CSAT-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for CSAT-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-CSAT-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for CSAT-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-CSAT-T1"
     },
@@ -798,22 +596,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/csat-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/csat-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-CSAT-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for CSAT-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-CSAT-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for CSAT-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-CSAT-T2"
     },
@@ -832,16 +619,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/devops-lead.html"
+          "Detail page: ../products/devops-lead.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-devops-lead-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for devops-lead (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-devops-lead"
     },
@@ -859,22 +640,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/dw-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/dw-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DW-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for DW-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-DW-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DW-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DW-T1"
     },
@@ -892,22 +662,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/dw-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/dw-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DW-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for DW-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-DW-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DW-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DW-T2"
     },
@@ -926,16 +685,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/dws-aegis-001.html"
+          "Detail page: ../products/dws-aegis-001.html",
+          "Delivery automation evaluated (aegis-deployment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS-AEGIS-001-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS-AEGIS-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS-AEGIS-001"
     },
@@ -954,16 +707,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/dws-aegis-impl-001.html"
+          "Detail page: ../products/dws-aegis-impl-001.html",
+          "Delivery automation evaluated (aegis-deployment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS-AEGIS-IMPL-001-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS-AEGIS-IMPL-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS-AEGIS-IMPL-001"
     },
@@ -982,16 +729,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/dws-aegis-pilot-001.html"
+          "Detail page: ../products/dws-aegis-pilot-001.html",
+          "Delivery automation evaluated (aegis-deployment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS-AEGIS-PILOT-001-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS-AEGIS-PILOT-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS-AEGIS-PILOT-001"
     },
@@ -1009,22 +750,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/aegis.html"
+          "Capacity class: Enterprise",
+          "Detail page: ../products/aegis.html",
+          "Delivery automation evaluated (aegis-deployment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS-AEGIS-SUB-001-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for DWS-AEGIS-SUB-001 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-DWS-AEGIS-SUB-001-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS-AEGIS-SUB-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS-AEGIS-SUB-001"
     },
@@ -1043,16 +773,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/climate-intelligence.html"
+          "Detail page: ../products/climate-intelligence.html",
+          "Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS-CLIMATE-001-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS-CLIMATE-001 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS-CLIMATE-001"
     },
@@ -1071,16 +795,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/dws-eu-pilot.html"
+          "Detail page: ../products/dws-eu-pilot.html",
+          "Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS-EU-PILOT-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS-EU-PILOT (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS-EU-PILOT"
     },
@@ -1099,16 +817,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Core",
-          "Detail page: ../products/dws-eu-starter.html"
+          "Detail page: ../products/dws-eu-starter.html",
+          "Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS-EU-STARTER-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS-EU-STARTER (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS-EU-STARTER"
     },
@@ -1127,16 +839,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/dws-iq-006.html"
+          "Detail page: ../products/dws-iq-006.html",
+          "Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS-IQ-006-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS-IQ-006 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS-IQ-006"
     },
@@ -1154,22 +860,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/dws-iq-ess-setup.html"
+          "Capacity class: Core",
+          "Detail page: ../products/dws-iq-ess-setup.html",
+          "Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS-IQ-ESS-SETUP-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for DWS-IQ-ESS-SETUP in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-DWS-IQ-ESS-SETUP-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS-IQ-ESS-SETUP (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS-IQ-ESS-SETUP"
     },
@@ -1188,16 +883,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Core",
-          "Detail page: ../products/dwsiq-free.html"
+          "Detail page: ../products/dwsiq-free.html",
+          "Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS-IQ-FREE-2026-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS-IQ-FREE-2026 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS-IQ-FREE-2026"
     },
@@ -1216,16 +905,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/sovereign-database.html"
+          "Detail page: ../products/sovereign-database.html",
+          "Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS-SOVEREIGN-DB-001-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS-SOVEREIGN-DB-001 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS-SOVEREIGN-DB-001"
     },
@@ -1244,16 +927,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/dws-us-pilot.html"
+          "Detail page: ../products/dws-us-pilot.html",
+          "Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS-US-PILOT-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS-US-PILOT (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS-US-PILOT"
     },
@@ -1272,16 +949,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Core",
-          "Detail page: ../products/dws-us-starter.html"
+          "Detail page: ../products/dws-us-starter.html",
+          "Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS-US-STARTER-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS-US-STARTER (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS-US-STARTER"
     },
@@ -1299,22 +970,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/dws365-cmp-t3.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/dws365-cmp-t3.html",
+          "Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-DWS365-CMP-T3-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for DWS365-CMP-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-DWS365-CMP-T3-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for DWS365-CMP-T3 (today: managed bundle composition) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-DWS365-CMP-T3"
     },
@@ -1332,22 +992,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/ed-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/ed-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-ED-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for ED-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-ED-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for ED-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-ED-T1"
     },
@@ -1365,22 +1014,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/ed-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/ed-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-ED-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for ED-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-ED-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for ED-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-ED-T2"
     },
@@ -1399,16 +1037,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/edge-node-gn100.html"
+          "Detail page: ../products/edge-node-gn100.html",
+          "Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-edge-node-gn100-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for edge-node-gn100 (today: managed hardware fulfilment) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-edge-node-gn100"
     },
@@ -1426,22 +1058,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/esg-t3.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/esg-t3.html",
+          "Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-ESG-T3-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for ESG-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-ESG-T3-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for ESG-T3 (today: managed bundle composition) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-ESG-T3"
     },
@@ -1460,16 +1081,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/fh-auto-001.html"
+          "Detail page: ../products/fh-auto-001.html",
+          "Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-FH-AUTO-001-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for FH-AUTO-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-FH-AUTO-001"
     },
@@ -1488,16 +1103,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/fh-cms-001.html"
+          "Detail page: ../products/fh-cms-001.html",
+          "Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-FH-CMS-001-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for FH-CMS-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-FH-CMS-001"
     },
@@ -1516,16 +1125,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/fh-omni-001.html"
+          "Detail page: ../products/fh-omni-001.html",
+          "Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-FH-OMNI-001-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for FH-OMNI-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-FH-OMNI-001"
     },
@@ -1544,16 +1147,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/fh-rpt-001.html"
+          "Detail page: ../products/fh-rpt-001.html",
+          "Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-FH-RPT-001-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for FH-RPT-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-FH-RPT-001"
     },
@@ -1572,16 +1169,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/firehorse-signed-reports.html"
+          "Detail page: ../products/firehorse-signed-reports.html",
+          "Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-FH-SIGN-001-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for FH-SIGN-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-FH-SIGN-001"
     },
@@ -1599,22 +1190,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/fh-skill-t3.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/fh-skill-t3.html",
+          "Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-FH-SKILL-T3-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for FH-SKILL-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-FH-SKILL-T3-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for FH-SKILL-T3 (today: managed bundle composition) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-FH-SKILL-T3"
     },
@@ -1633,16 +1213,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/firehorse-coach.html"
+          "Detail page: ../products/firehorse-coach.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-firehorse-coach-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for firehorse-coach (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-firehorse-coach"
     },
@@ -1661,16 +1235,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/firehorse-data-services.html"
+          "Detail page: ../products/firehorse-data-services.html",
+          "Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-firehorse-data-services-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for firehorse-data-services (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-firehorse-data-services"
     },
@@ -1689,16 +1257,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/firehorse-flow.html"
+          "Detail page: ../products/firehorse-flow.html",
+          "Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-firehorse-flow-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for firehorse-flow (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-firehorse-flow"
     },
@@ -1716,22 +1278,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/gtm-t3.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/gtm-t3.html",
+          "Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-GTM-T3-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for GTM-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-GTM-T3-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for GTM-T3 (today: managed bundle composition) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-GTM-T3"
     },
@@ -1749,22 +1300,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/hse-t3.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/hse-t3.html",
+          "Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-HSE-T3-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for HSE-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-HSE-T3-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for HSE-T3 (today: managed bundle composition) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-HSE-T3"
     },
@@ -1783,16 +1323,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/ind-bess.html"
+          "Detail page: ../products/ind-bess.html",
+          "Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-IND-BESS-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for IND-BESS (today: managed industry-pod onboarding) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-IND-BESS"
     },
@@ -1811,16 +1345,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/ind-ceres.html"
+          "Detail page: ../products/ind-ceres.html",
+          "Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-IND-CERES-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for IND-CERES (today: managed industry-pod onboarding) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-IND-CERES"
     },
@@ -1839,16 +1367,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/ind-gaia.html"
+          "Detail page: ../products/ind-gaia.html",
+          "Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-IND-GAIA-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for IND-GAIA (today: managed industry-pod onboarding) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-IND-GAIA"
     },
@@ -1867,16 +1389,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/ind-helios.html"
+          "Detail page: ../products/ind-helios.html",
+          "Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-IND-HELIOS-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for IND-HELIOS (today: managed industry-pod onboarding) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-IND-HELIOS"
     },
@@ -1895,16 +1411,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/ind-mars.html"
+          "Detail page: ../products/ind-mars.html",
+          "Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-IND-MARS-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for IND-MARS (today: managed industry-pod onboarding) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-IND-MARS"
     },
@@ -1923,16 +1433,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/ind-neptun.html"
+          "Detail page: ../products/ind-neptun.html",
+          "Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-IND-NEPTUN-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for IND-NEPTUN (today: managed industry-pod onboarding) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-IND-NEPTUN"
     },
@@ -1951,16 +1455,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/ind-prom.html"
+          "Detail page: ../products/ind-prom.html",
+          "Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-IND-PROM-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for IND-PROM (today: managed industry-pod onboarding) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-IND-PROM"
     },
@@ -1979,16 +1477,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/ind-talos.html"
+          "Detail page: ../products/ind-talos.html",
+          "Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-IND-TALOS-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for IND-TALOS (today: managed industry-pod onboarding) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-IND-TALOS"
     },
@@ -2007,16 +1499,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/ind-vulcan.html"
+          "Detail page: ../products/ind-vulcan.html",
+          "Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-IND-VULCAN-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for IND-VULCAN (today: managed industry-pod onboarding) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-IND-VULCAN"
     },
@@ -2035,16 +1521,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Early Access",
-          "Detail page: ../products/kya-jev-001.html"
+          "Detail page: ../products/kya-jev-001.html",
+          "Delivery automation evaluated (aegis-deployment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-KYA-JEV-001-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for KYA-JEV-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-KYA-JEV-001"
     },
@@ -2063,16 +1543,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/land-ail.html"
+          "Detail page: ../products/land-ail.html",
+          "Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LAND-AIL-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LAND-AIL (today: managed advisory programme) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LAND-AIL"
     },
@@ -2091,16 +1565,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/land-csrd.html"
+          "Detail page: ../products/land-csrd.html",
+          "Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LAND-CSRD-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LAND-CSRD (today: managed advisory programme) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LAND-CSRD"
     },
@@ -2119,16 +1587,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/land-euai.html"
+          "Detail page: ../products/land-euai.html",
+          "Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LAND-EUAI-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LAND-EUAI (today: managed advisory programme) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LAND-EUAI"
     },
@@ -2147,16 +1609,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/land-gtm.html"
+          "Detail page: ../products/land-gtm.html",
+          "Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LAND-GTM-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LAND-GTM (today: managed advisory programme) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LAND-GTM"
     },
@@ -2175,16 +1631,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/land-hse.html"
+          "Detail page: ../products/land-hse.html",
+          "Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LAND-HSE-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LAND-HSE (today: managed advisory programme) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LAND-HSE"
     },
@@ -2203,16 +1653,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/land-lca.html"
+          "Detail page: ../products/land-lca.html",
+          "Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LAND-LCA-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LAND-LCA (today: managed advisory programme) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LAND-LCA"
     },
@@ -2231,16 +1675,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/land-ops.html"
+          "Detail page: ../products/land-ops.html",
+          "Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LAND-OPS-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LAND-OPS (today: managed advisory programme) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LAND-OPS"
     },
@@ -2259,16 +1697,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/land-sov.html"
+          "Detail page: ../products/land-sov.html",
+          "Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LAND-SOV-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LAND-SOV (today: managed advisory programme) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LAND-SOV"
     },
@@ -2287,16 +1719,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/land-wf.html"
+          "Detail page: ../products/land-wf.html",
+          "Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LAND-WF-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LAND-WF (today: managed advisory programme) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LAND-WF"
     },
@@ -2315,16 +1741,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/lean-project.html"
+          "Detail page: ../products/lean-project.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-lean-project-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for lean-project (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-lean-project"
     },
@@ -2343,16 +1763,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/dws-iq-compliance-ambulance.html"
+          "Detail page: ../products/dws-iq-compliance-ambulance.html",
+          "Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-COMPLIANCE-AMBULANCE-001-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-COMPLIANCE-AMBULANCE-001 (today: managed hardware fulfilment) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-COMPLIANCE-AMBULANCE-001"
     },
@@ -2371,16 +1785,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/dgx-spark.html"
+          "Detail page: ../products/dgx-spark.html",
+          "Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-DGX-SPARK-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-DGX-SPARK (today: managed hardware fulfilment) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-DGX-SPARK"
     },
@@ -2399,16 +1807,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/lf-doca-essential.html"
+          "Detail page: ../products/lf-doca-essential.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-DOCA-ESSENTIAL-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-DOCA-ESSENTIAL (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-DOCA-ESSENTIAL"
     },
@@ -2427,16 +1829,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/lf-doca-network-storage.html"
+          "Detail page: ../products/lf-doca-network-storage.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-DOCA-NETWORK-STORAGE-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-DOCA-NETWORK-STORAGE (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-DOCA-NETWORK-STORAGE"
     },
@@ -2455,16 +1851,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/lf-doca-security.html"
+          "Detail page: ../products/lf-doca-security.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-DOCA-SECURITY-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-DOCA-SECURITY (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-DOCA-SECURITY"
     },
@@ -2483,16 +1873,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/lf-fips-validation.html"
+          "Detail page: ../products/lf-fips-validation.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-FIPS-VALIDATION-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-FIPS-VALIDATION (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-FIPS-VALIDATION"
     },
@@ -2511,16 +1895,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Sovereign",
-          "Detail page: ../products/lf-gov-airgap-bundle.html"
+          "Detail page: ../products/lf-gov-airgap-bundle.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-GOV-AIRGAP-BUNDLE-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-GOV-AIRGAP-BUNDLE (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-GOV-AIRGAP-BUNDLE"
     },
@@ -2539,16 +1917,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/lf-gov-ready-annual.html"
+          "Detail page: ../products/lf-gov-ready-annual.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-GOV-READY-ANNUAL-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-GOV-READY-ANNUAL (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-GOV-READY-ANNUAL"
     },
@@ -2567,16 +1939,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/lf-gov-ready-setup.html"
+          "Detail page: ../products/lf-gov-ready-setup.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-GOV-READY-SETUP-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-GOV-READY-SETUP (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-GOV-READY-SETUP"
     },
@@ -2595,16 +1961,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/igx-orin.html"
+          "Detail page: ../products/igx-orin.html",
+          "Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-IGX-ORIN-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-IGX-ORIN (today: managed hardware fulfilment) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-IGX-ORIN"
     },
@@ -2623,16 +1983,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/lf-ipcmax-cincoze-da1200.html"
+          "Detail page: ../products/lf-ipcmax-cincoze-da1200.html",
+          "Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-IPCMAX-CINCOZE-DA1200-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-IPCMAX-CINCOZE-DA1200 (today: managed hardware fulfilment) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-IPCMAX-CINCOZE-DA1200"
     },
@@ -2651,16 +2005,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Core",
-          "Detail page: ../products/lf-ipcmax-ipc409.html"
+          "Detail page: ../products/lf-ipcmax-ipc409.html",
+          "Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-IPCMAX-IPC409-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-IPCMAX-IPC409 (today: managed hardware fulfilment) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-IPCMAX-IPC409"
     },
@@ -2679,16 +2027,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/lf-ipcmax-ipcp68.html"
+          "Detail page: ../products/lf-ipcmax-ipcp68.html",
+          "Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-IPCMAX-IPCP68-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-IPCMAX-IPCP68 (today: managed hardware fulfilment) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-IPCMAX-IPCP68"
     },
@@ -2707,16 +2049,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/lf-jetson-agx.html"
+          "Detail page: ../products/lf-jetson-agx.html",
+          "Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-JETSON-AGX-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-JETSON-AGX (today: managed hardware fulfilment) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-JETSON-AGX"
     },
@@ -2735,16 +2071,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Core",
-          "Detail page: ../products/lf-jetson-nano.html"
+          "Detail page: ../products/lf-jetson-nano.html",
+          "Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-JETSON-NANO-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-JETSON-NANO (today: managed hardware fulfilment) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-JETSON-NANO"
     },
@@ -2763,16 +2093,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Core",
-          "Detail page: ../products/lf-jetson-nx.html"
+          "Detail page: ../products/lf-jetson-nx.html",
+          "Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-JETSON-NX-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-JETSON-NX (today: managed hardware fulfilment) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-JETSON-NX"
     },
@@ -2791,16 +2115,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Core",
-          "Detail page: ../products/lf-k8s-t1.html"
+          "Detail page: ../products/lf-k8s-t1.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-K8S-T1-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-K8S-T1 (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-K8S-T1"
     },
@@ -2819,16 +2137,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/lf-k8s-t2.html"
+          "Detail page: ../products/lf-k8s-t2.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-K8S-T2-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-K8S-T2 (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-K8S-T2"
     },
@@ -2847,16 +2159,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/lf-k8s-t3.html"
+          "Detail page: ../products/lf-k8s-t3.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-K8S-T3-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-K8S-T3 (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-K8S-T3"
     },
@@ -2875,16 +2181,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Sovereign",
-          "Detail page: ../products/lf-k8s-t4.html"
+          "Detail page: ../products/lf-k8s-t4.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-K8S-T4-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-K8S-T4 (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-K8S-T4"
     },
@@ -2903,16 +2203,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/lf-nim-biology.html"
+          "Detail page: ../products/lf-nim-biology.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-NIM-BIOLOGY-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-NIM-BIOLOGY (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-NIM-BIOLOGY"
     },
@@ -2931,16 +2225,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/lf-nim-code.html"
+          "Detail page: ../products/lf-nim-code.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-NIM-CODE-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-NIM-CODE (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-NIM-CODE"
     },
@@ -2959,16 +2247,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/lf-nim-retrieval.html"
+          "Detail page: ../products/lf-nim-retrieval.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-NIM-RETRIEVAL-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-NIM-RETRIEVAL (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-NIM-RETRIEVAL"
     },
@@ -2987,16 +2269,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Core",
-          "Detail page: ../products/lf-nim-starter.html"
+          "Detail page: ../products/lf-nim-starter.html",
+          "Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-NIM-STARTER-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-NIM-STARTER (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-NIM-STARTER"
     },
@@ -3015,16 +2291,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/nvidia-model-install.html"
+          "Detail page: ../products/nvidia-model-install.html",
+          "Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-NVIDIA-INSTALL-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-NVIDIA-INSTALL (today: managed hardware fulfilment) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-NVIDIA-INSTALL"
     },
@@ -3043,16 +2313,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/situation-room.html"
+          "Detail page: ../products/situation-room.html",
+          "Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-SITROOM-001-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-SITROOM-001 (today: managed hardware fulfilment) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-SITROOM-001"
     },
@@ -3070,22 +2334,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/lf-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/lf-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for LF-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-LF-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-T1"
     },
@@ -3103,22 +2356,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/lf-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/lf-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LF-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for LF-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-LF-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LF-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LF-T2"
     },
@@ -3137,16 +2379,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/lifetime-bundle-2026.html"
+          "Detail page: ../products/lifetime-bundle-2026.html",
+          "Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LIFETIME-BUNDLE-2026-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LIFETIME-BUNDLE-2026 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LIFETIME-BUNDLE-2026"
     },
@@ -3164,22 +2400,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — SME Web & IT Services Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/lifetime-it-tuki-10h.html"
+          "Capacity-class exempt (managed human service, DWS_CAPACITY_CLASS_STANDARD.md §5.13)",
+          "Detail page: ../products/lifetime-it-tuki-10h.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LIFETIME-IT-TUKI-10H-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for LIFETIME-IT-TUKI-10H in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-LIFETIME-IT-TUKI-10H-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LIFETIME-IT-TUKI-10H (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LIFETIME-IT-TUKI-10H"
     },
@@ -3197,22 +2422,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — SME Web & IT Services Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/lifetime-web-starter.html"
+          "Capacity-class exempt (managed human service, DWS_CAPACITY_CLASS_STANDARD.md §5.13)",
+          "Detail page: ../products/lifetime-web-starter.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LIFETIME-WEB-STARTER-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for LIFETIME-WEB-STARTER in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-LIFETIME-WEB-STARTER-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LIFETIME-WEB-STARTER (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LIFETIME-WEB-STARTER"
     },
@@ -3230,22 +2444,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — SME Web & IT Services Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/lifetime-webstore-mini.html"
+          "Capacity-class exempt (managed human service, DWS_CAPACITY_CLASS_STANDARD.md §5.13)",
+          "Detail page: ../products/lifetime-webstore-mini.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LIFETIME-WEBSTORE-MINI-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for LIFETIME-WEBSTORE-MINI in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-LIFETIME-WEBSTORE-MINI-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LIFETIME-WEBSTORE-MINI (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LIFETIME-WEBSTORE-MINI"
     },
@@ -3263,22 +2466,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/log-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/log-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LOG-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for LOG-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-LOG-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LOG-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LOG-T1"
     },
@@ -3296,22 +2488,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/log-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/log-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-LOG-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for LOG-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-LOG-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for LOG-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-LOG-T2"
     },
@@ -3330,16 +2511,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/mo-oc-ent.html"
+          "Detail page: ../products/mo-oc-ent.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-MO-OC-ENT-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for MO-OC-ENT (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-MO-OC-ENT"
     },
@@ -3358,16 +2533,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/mo-oc-std.html"
+          "Detail page: ../products/mo-oc-std.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-MO-OC-STD-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for MO-OC-STD (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-MO-OC-STD"
     },
@@ -3385,22 +2554,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/mo-t0.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/mo-t0.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-MO-T0-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for MO-T0 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-MO-T0-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for MO-T0 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-MO-T0"
     },
@@ -3418,22 +2576,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/mo-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/mo-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-MO-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for MO-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-MO-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for MO-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-MO-T1"
     },
@@ -3451,22 +2598,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/mo-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/mo-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-MO-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for MO-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-MO-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for MO-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-MO-T2"
     },
@@ -3485,16 +2621,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/omnichannel-multimodal.html"
+          "Detail page: ../products/omnichannel-multimodal.html",
+          "Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-omnichannel-multimodal-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for omnichannel-multimodal (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-omnichannel-multimodal"
     },
@@ -3513,16 +2643,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)",
-          "Detail page: ../products/professional-web-pages.html"
+          "Detail page: ../products/professional-web-pages.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-professional-web-pages-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for professional-web-pages (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-professional-web-pages"
     },
@@ -3540,22 +2664,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/qg-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/qg-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-QG-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for QG-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-QG-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for QG-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-QG-T1"
     },
@@ -3573,22 +2686,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/qg-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/qg-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-QG-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for QG-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-QG-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for QG-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-QG-T2"
     },
@@ -3606,22 +2708,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/seo-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/seo-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-SEO-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for SEO-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-SEO-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for SEO-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-SEO-T1"
     },
@@ -3639,22 +2730,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/seo-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/seo-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-SEO-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for SEO-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-SEO-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for SEO-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-SEO-T2"
     },
@@ -3672,22 +2752,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/sg-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/sg-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-SG-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for SG-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-SG-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for SG-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-SG-T1"
     },
@@ -3705,22 +2774,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/sg-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/sg-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-SG-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for SG-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-SG-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for SG-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-SG-T2"
     },
@@ -3738,22 +2796,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/sov-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/sov-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-SOV-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for SOV-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-SOV-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for SOV-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-SOV-T1"
     },
@@ -3771,22 +2818,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/sov-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/sov-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-SOV-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for SOV-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-SOV-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for SOV-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-SOV-T2"
     },
@@ -3804,22 +2840,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/sov-t3.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/sov-t3.html",
+          "Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-SOV-T3-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for SOV-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-SOV-T3-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for SOV-T3 (today: managed bundle composition) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-SOV-T3"
     },
@@ -3837,22 +2862,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/sovereignty-cloud-consulting.html"
+          "Capacity-class exempt (managed human service, DWS_CAPACITY_CLASS_STANDARD.md §5.13)",
+          "Detail page: ../products/sovereignty-cloud-consulting.html",
+          "Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-sovereignty-cloud-consulting-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for sovereignty-cloud-consulting in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-sovereignty-cloud-consulting-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for sovereignty-cloud-consulting (today: managed human delivery) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-sovereignty-cloud-consulting"
     },
@@ -3871,16 +2885,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Enterprise",
-          "Detail page: ../products/ss-oc-ent.html"
+          "Detail page: ../products/ss-oc-ent.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-SS-OC-ENT-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for SS-OC-ENT (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-SS-OC-ENT"
     },
@@ -3899,16 +2907,10 @@
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
           "Capacity class: Production",
-          "Detail page: ../products/ss-oc-std.html"
+          "Detail page: ../products/ss-oc-std.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-SS-OC-STD-01",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for SS-OC-STD (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-SS-OC-STD"
     },
@@ -3926,22 +2928,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/ss-t0.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/ss-t0.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-SS-T0-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for SS-T0 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-SS-T0-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for SS-T0 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-SS-T0"
     },
@@ -3959,22 +2950,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/ss-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/ss-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-SS-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for SS-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-SS-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for SS-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-SS-T1"
     },
@@ -3992,22 +2972,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/ss-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/ss-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-SS-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for SS-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-SS-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for SS-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-SS-T2"
     },
@@ -4025,22 +2994,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/via-t1.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/via-t1.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-VIA-T1-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for VIA-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-VIA-T1-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for VIA-T1 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-VIA-T1"
     },
@@ -4058,22 +3016,11 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/via-t2.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/via-t2.html",
+          "Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-VIA-T2-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for VIA-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-VIA-T2-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for VIA-T2 (today: managed agent activation) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-VIA-T2"
     },
@@ -4091,24 +3038,233 @@
           "Binary acceptance KPI defined",
           "Contractual exclusions defined",
           "Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/",
-          "Detail page: ../products/wf-t4.html"
+          "Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)",
+          "Detail page: ../products/wf-t4.html",
+          "Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed"
         ],
-        "next": [
-          {
-            "issueId": "PRB-WF-T4-01",
-            "category": "capacity-evidence",
-            "versionBucket": "next",
-            "title": "Document a capacity profile for WF-T4 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits)."
-          },
-          {
-            "issueId": "PRB-WF-T4-02",
-            "category": "automation-depth",
-            "versionBucket": "next",
-            "title": "Evaluate automating part of the managed-delivery process for WF-T4 (today: managed bundle composition) once volume justifies it."
-          }
-        ]
+        "next": []
       },
       "backlogRef": "RB-WF-T4"
+    }
+  ],
+  "familyIssues": [
+    {
+      "issueId": "PRB-FAMILY-platform-provisioning",
+      "category": "automation-depth",
+      "versionBucket": "next",
+      "title": "Scripted tenant creation for the Cloud EU option, starting from src/cloudflare/tenant-sandbox.ts. Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 12 SKU(s).",
+      "skus": [
+        "AIS-EU-SOV-OC",
+        "AIS-OUTCOME-PILOT",
+        "DWS-CLIMATE-001",
+        "DWS-EU-PILOT",
+        "DWS-EU-STARTER",
+        "DWS-IQ-006",
+        "DWS-IQ-ESS-SETUP",
+        "DWS-IQ-FREE-2026",
+        "DWS-SOVEREIGN-DB-001",
+        "DWS-US-PILOT",
+        "DWS-US-STARTER",
+        "LIFETIME-BUNDLE-2026"
+      ]
+    },
+    {
+      "issueId": "PRB-FAMILY-saas-tenant-activation",
+      "category": "automation-depth",
+      "versionBucket": "next",
+      "title": "Link paid order to the onboarding wizard (src/routes/onboard.routes.ts) so the buyer starts configuration themselves. Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 9 SKU(s).",
+      "skus": [
+        "FH-AUTO-001",
+        "FH-CMS-001",
+        "FH-OMNI-001",
+        "FH-RPT-001",
+        "FH-SIGN-001",
+        "conversational-agent",
+        "firehorse-data-services",
+        "firehorse-flow",
+        "omnichannel-multimodal"
+      ]
+    },
+    {
+      "issueId": "PRB-FAMILY-aegis-deployment",
+      "category": "automation-depth",
+      "versionBucket": "next",
+      "title": "Automated post-install check that audit logs are being written, reported to the engineer; the witnessed kill-authority test stays human. Trigger: licensed Aegis deployments reaches a threshold the HIC has not set yet. Covers 5 SKU(s).",
+      "skus": [
+        "DWS-AEGIS-001",
+        "DWS-AEGIS-IMPL-001",
+        "DWS-AEGIS-PILOT-001",
+        "DWS-AEGIS-SUB-001",
+        "KYA-JEV-001"
+      ]
+    },
+    {
+      "issueId": "PRB-FAMILY-human-delivery",
+      "category": "automation-depth",
+      "versionBucket": "next",
+      "title": "Calendar booking link in the buyer confirmation for the intake meeting. Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 20 SKU(s).",
+      "skus": [
+        "LIFETIME-IT-TUKI-10H",
+        "LIFETIME-WEB-STARTER",
+        "LIFETIME-WEBSTORE-MINI",
+        "ai-agent-engineering",
+        "ai-consultant-day",
+        "ai-consulting-agentic",
+        "ai-koulutus-3d",
+        "aws-consultancy",
+        "business-mentor-30",
+        "claude-code-coaching-3day",
+        "claude-code-coaching-lecture",
+        "claude-code-coaching-project",
+        "claude-code-coaching-workshop",
+        "consulting-fit55",
+        "consulting-hourly",
+        "devops-lead",
+        "firehorse-coach",
+        "lean-project",
+        "professional-web-pages",
+        "sovereignty-cloud-consulting"
+      ]
+    },
+    {
+      "issueId": "PRB-FAMILY-hardware-fulfilment",
+      "category": "automation-depth",
+      "versionBucket": "next",
+      "title": "Scripted post-delivery device baseline, starting from scripts/bootstrap_dgx_sovereign.sh. Trigger: units shipped per quarter reaches a threshold the HIC has not set yet. Covers 12 SKU(s).",
+      "skus": [
+        "LF-COMPLIANCE-AMBULANCE-001",
+        "LF-DGX-SPARK",
+        "LF-IGX-ORIN",
+        "LF-IPCMAX-CINCOZE-DA1200",
+        "LF-IPCMAX-IPC409",
+        "LF-IPCMAX-IPCP68",
+        "LF-JETSON-AGX",
+        "LF-JETSON-NANO",
+        "LF-JETSON-NX",
+        "LF-NVIDIA-INSTALL",
+        "LF-SITROOM-001",
+        "edge-node-gn100"
+      ]
+    },
+    {
+      "issueId": "PRB-FAMILY-cluster-provisioning",
+      "category": "automation-depth",
+      "versionBucket": "next",
+      "title": "Version-pinned install manifests per tier (LF-K8S-T1..T4) with an automated post-install health check. Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 15 SKU(s).",
+      "skus": [
+        "LF-DOCA-ESSENTIAL",
+        "LF-DOCA-NETWORK-STORAGE",
+        "LF-DOCA-SECURITY",
+        "LF-FIPS-VALIDATION",
+        "LF-GOV-AIRGAP-BUNDLE",
+        "LF-GOV-READY-ANNUAL",
+        "LF-GOV-READY-SETUP",
+        "LF-K8S-T1",
+        "LF-K8S-T2",
+        "LF-K8S-T3",
+        "LF-K8S-T4",
+        "LF-NIM-BIOLOGY",
+        "LF-NIM-CODE",
+        "LF-NIM-RETRIEVAL",
+        "LF-NIM-STARTER"
+      ]
+    },
+    {
+      "issueId": "PRB-FAMILY-agent-activation",
+      "category": "automation-depth",
+      "versionBucket": "next",
+      "title": "Route first output into the existing review queue (src/routes/agents.routes.ts /review-queue) so review is tracked in-product rather than by email. Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 38 SKU(s).",
+      "skus": [
+        "CMP-OC-ENT",
+        "CMP-OC-STD",
+        "CMP-T0",
+        "CMP-T1",
+        "CMP-T2",
+        "CONSTR-T2",
+        "CS-T1",
+        "CS-T2",
+        "CSAT-T1",
+        "CSAT-T2",
+        "DW-T1",
+        "DW-T2",
+        "ED-T1",
+        "ED-T2",
+        "LF-T1",
+        "LF-T2",
+        "LOG-T1",
+        "LOG-T2",
+        "MO-OC-ENT",
+        "MO-OC-STD",
+        "MO-T0",
+        "MO-T1",
+        "MO-T2",
+        "QG-T1",
+        "QG-T2",
+        "SEO-T1",
+        "SEO-T2",
+        "SG-T1",
+        "SG-T2",
+        "SOV-T1",
+        "SOV-T2",
+        "SS-OC-ENT",
+        "SS-OC-STD",
+        "SS-T0",
+        "SS-T1",
+        "SS-T2",
+        "VIA-T1",
+        "VIA-T2"
+      ]
+    },
+    {
+      "issueId": "PRB-FAMILY-bundle-composition",
+      "category": "automation-depth",
+      "versionBucket": "next",
+      "title": "Reuse agent-activation automation per component once it exists. Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 9 SKU(s).",
+      "skus": [
+        "AC365-T3",
+        "CONSTR-T3",
+        "DWS365-CMP-T3",
+        "ESG-T3",
+        "FH-SKILL-T3",
+        "GTM-T3",
+        "HSE-T3",
+        "SOV-T3",
+        "WF-T4"
+      ]
+    },
+    {
+      "issueId": "PRB-FAMILY-industry-pod-onboarding",
+      "category": "automation-depth",
+      "versionBucket": "next",
+      "title": "Industry-specific onboarding wizard presets (src/routes/onboard.routes.ts industry step). Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 9 SKU(s).",
+      "skus": [
+        "IND-BESS",
+        "IND-CERES",
+        "IND-GAIA",
+        "IND-HELIOS",
+        "IND-MARS",
+        "IND-NEPTUN",
+        "IND-PROM",
+        "IND-TALOS",
+        "IND-VULCAN"
+      ]
+    },
+    {
+      "issueId": "PRB-FAMILY-advisory-programme",
+      "category": "automation-depth",
+      "versionBucket": "next",
+      "title": "Automated weekly gate reminders and evidence checklist per programme. Trigger: active programmes reaches a threshold the HIC has not set yet. Covers 9 SKU(s).",
+      "skus": [
+        "LAND-AIL",
+        "LAND-CSRD",
+        "LAND-EUAI",
+        "LAND-GTM",
+        "LAND-HSE",
+        "LAND-LCA",
+        "LAND-OPS",
+        "LAND-SOV",
+        "LAND-WF"
+      ]
     }
   ]
 }

@@ -39,9 +39,9 @@ only to print warnings, never to fail the build.
 | Payment route: named contact route | 0 |
 | Payment route: product-page quote (page exists, no self-serve link yet) | 0 |
 | Payment route: undetermined | 0 |
-| Capacity evidence: exempt (advisory, §5.11) | 23 |
-| Capacity evidence: complete | 68 |
-| Capacity evidence: gap (backlog) | 47 |
+| Capacity evidence: exempt (§5.11–§5.13) | 68 |
+| Capacity evidence: complete | 70 |
+| Capacity evidence: gap (backlog) | 0 |
 | Contract scope: complete (exclusions + acceptanceKpi) | 138 |
 | Contract scope: partial | 0 |
 | Contract scope: gap (backlog) | 0 |
@@ -68,7 +68,7 @@ only to print warnings, never to fail the build.
 
 | # | ID | Chapter | Owner | Payment route | Capacity | Contract scope | Backlog |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `AC365-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-AC365-T3](./PRODUCT_READINESS_BACKLOG.md#rb-ac365-t3) |
+| 1 | `AC365-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-AC365-T3](./PRODUCT_READINESS_BACKLOG.md#rb-ac365-t3) |
 | 2 | `ai-agent-engineering` | Chapter 2 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-ai-agent-engineering](./PRODUCT_READINESS_BACKLOG.md#rb-ai-agent-engineering) |
 | 3 | `ai-consultant-day` | Chapter 2 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-ai-consultant-day](./PRODUCT_READINESS_BACKLOG.md#rb-ai-consultant-day) |
 | 4 | `ai-consulting-agentic` | Chapter 2 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-ai-consulting-agentic](./PRODUCT_READINESS_BACKLOG.md#rb-ai-consulting-agentic) |
@@ -83,50 +83,50 @@ only to print warnings, never to fail the build.
 | 13 | `claude-code-coaching-workshop` | Chapter 2 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-claude-code-coaching-workshop](./PRODUCT_READINESS_BACKLOG.md#rb-claude-code-coaching-workshop) |
 | 14 | `CMP-OC-ENT` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-CMP-OC-ENT](./PRODUCT_READINESS_BACKLOG.md#rb-cmp-oc-ent) |
 | 15 | `CMP-OC-STD` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-CMP-OC-STD](./PRODUCT_READINESS_BACKLOG.md#rb-cmp-oc-std) |
-| 16 | `CMP-T0` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-CMP-T0](./PRODUCT_READINESS_BACKLOG.md#rb-cmp-t0) |
-| 17 | `CMP-T1` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-CMP-T1](./PRODUCT_READINESS_BACKLOG.md#rb-cmp-t1) |
-| 18 | `CMP-T2` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-CMP-T2](./PRODUCT_READINESS_BACKLOG.md#rb-cmp-t2) |
-| 19 | `CONSTR-T2` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-CONSTR-T2](./PRODUCT_READINESS_BACKLOG.md#rb-constr-t2) |
-| 20 | `CONSTR-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-CONSTR-T3](./PRODUCT_READINESS_BACKLOG.md#rb-constr-t3) |
+| 16 | `CMP-T0` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-CMP-T0](./PRODUCT_READINESS_BACKLOG.md#rb-cmp-t0) |
+| 17 | `CMP-T1` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-CMP-T1](./PRODUCT_READINESS_BACKLOG.md#rb-cmp-t1) |
+| 18 | `CMP-T2` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-CMP-T2](./PRODUCT_READINESS_BACKLOG.md#rb-cmp-t2) |
+| 19 | `CONSTR-T2` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-CONSTR-T2](./PRODUCT_READINESS_BACKLOG.md#rb-constr-t2) |
+| 20 | `CONSTR-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-CONSTR-T3](./PRODUCT_READINESS_BACKLOG.md#rb-constr-t3) |
 | 21 | `consulting-fit55` | Chapter 2 | Lifetime Oy | self-serve-checkout | exempt | complete | [RB-consulting-fit55](./PRODUCT_READINESS_BACKLOG.md#rb-consulting-fit55) |
 | 22 | `consulting-hourly` | Chapter 2 | Lifetime Oy | self-serve-checkout | exempt | complete | [RB-consulting-hourly](./PRODUCT_READINESS_BACKLOG.md#rb-consulting-hourly) |
 | 23 | `conversational-agent` | Chapter 5 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-conversational-agent](./PRODUCT_READINESS_BACKLOG.md#rb-conversational-agent) |
-| 24 | `CS-T1` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-CS-T1](./PRODUCT_READINESS_BACKLOG.md#rb-cs-t1) |
-| 25 | `CS-T2` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-CS-T2](./PRODUCT_READINESS_BACKLOG.md#rb-cs-t2) |
-| 26 | `CSAT-T1` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-CSAT-T1](./PRODUCT_READINESS_BACKLOG.md#rb-csat-t1) |
-| 27 | `CSAT-T2` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-CSAT-T2](./PRODUCT_READINESS_BACKLOG.md#rb-csat-t2) |
+| 24 | `CS-T1` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-CS-T1](./PRODUCT_READINESS_BACKLOG.md#rb-cs-t1) |
+| 25 | `CS-T2` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-CS-T2](./PRODUCT_READINESS_BACKLOG.md#rb-cs-t2) |
+| 26 | `CSAT-T1` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-CSAT-T1](./PRODUCT_READINESS_BACKLOG.md#rb-csat-t1) |
+| 27 | `CSAT-T2` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-CSAT-T2](./PRODUCT_READINESS_BACKLOG.md#rb-csat-t2) |
 | 28 | `devops-lead` | Chapter 2 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-devops-lead](./PRODUCT_READINESS_BACKLOG.md#rb-devops-lead) |
-| 29 | `DW-T1` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-DW-T1](./PRODUCT_READINESS_BACKLOG.md#rb-dw-t1) |
-| 30 | `DW-T2` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-DW-T2](./PRODUCT_READINESS_BACKLOG.md#rb-dw-t2) |
+| 29 | `DW-T1` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-DW-T1](./PRODUCT_READINESS_BACKLOG.md#rb-dw-t1) |
+| 30 | `DW-T2` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-DW-T2](./PRODUCT_READINESS_BACKLOG.md#rb-dw-t2) |
 | 31 | `DWS-AEGIS-001` | Chapter 4 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-DWS-AEGIS-001](./PRODUCT_READINESS_BACKLOG.md#rb-dws-aegis-001) |
 | 32 | `DWS-AEGIS-IMPL-001` | Chapter 4 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-DWS-AEGIS-IMPL-001](./PRODUCT_READINESS_BACKLOG.md#rb-dws-aegis-impl-001) |
 | 33 | `DWS-AEGIS-PILOT-001` | Chapter 4 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-DWS-AEGIS-PILOT-001](./PRODUCT_READINESS_BACKLOG.md#rb-dws-aegis-pilot-001) |
-| 34 | `DWS-AEGIS-SUB-001` | Chapter 4 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-DWS-AEGIS-SUB-001](./PRODUCT_READINESS_BACKLOG.md#rb-dws-aegis-sub-001) |
+| 34 | `DWS-AEGIS-SUB-001` | Chapter 4 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-DWS-AEGIS-SUB-001](./PRODUCT_READINESS_BACKLOG.md#rb-dws-aegis-sub-001) |
 | 35 | `DWS-CLIMATE-001` | Chapter 3 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-DWS-CLIMATE-001](./PRODUCT_READINESS_BACKLOG.md#rb-dws-climate-001) |
 | 36 | `DWS-EU-PILOT` | Chapter 3 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-DWS-EU-PILOT](./PRODUCT_READINESS_BACKLOG.md#rb-dws-eu-pilot) |
 | 37 | `DWS-EU-STARTER` | Chapter 3 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-DWS-EU-STARTER](./PRODUCT_READINESS_BACKLOG.md#rb-dws-eu-starter) |
 | 38 | `DWS-IQ-006` | Chapter 3 | Lifetime Oy | self-serve-checkout | complete | complete | [RB-DWS-IQ-006](./PRODUCT_READINESS_BACKLOG.md#rb-dws-iq-006) |
-| 39 | `DWS-IQ-ESS-SETUP` | Chapter 3 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-DWS-IQ-ESS-SETUP](./PRODUCT_READINESS_BACKLOG.md#rb-dws-iq-ess-setup) |
+| 39 | `DWS-IQ-ESS-SETUP` | Chapter 3 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-DWS-IQ-ESS-SETUP](./PRODUCT_READINESS_BACKLOG.md#rb-dws-iq-ess-setup) |
 | 40 | `DWS-IQ-FREE-2026` | Chapter 3 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-DWS-IQ-FREE-2026](./PRODUCT_READINESS_BACKLOG.md#rb-dws-iq-free-2026) |
 | 41 | `DWS-SOVEREIGN-DB-001` | Chapter 3 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-DWS-SOVEREIGN-DB-001](./PRODUCT_READINESS_BACKLOG.md#rb-dws-sovereign-db-001) |
 | 42 | `DWS-US-PILOT` | Chapter 3 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-DWS-US-PILOT](./PRODUCT_READINESS_BACKLOG.md#rb-dws-us-pilot) |
 | 43 | `DWS-US-STARTER` | Chapter 3 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-DWS-US-STARTER](./PRODUCT_READINESS_BACKLOG.md#rb-dws-us-starter) |
-| 44 | `DWS365-CMP-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-DWS365-CMP-T3](./PRODUCT_READINESS_BACKLOG.md#rb-dws365-cmp-t3) |
-| 45 | `ED-T1` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-ED-T1](./PRODUCT_READINESS_BACKLOG.md#rb-ed-t1) |
-| 46 | `ED-T2` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-ED-T2](./PRODUCT_READINESS_BACKLOG.md#rb-ed-t2) |
+| 44 | `DWS365-CMP-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-DWS365-CMP-T3](./PRODUCT_READINESS_BACKLOG.md#rb-dws365-cmp-t3) |
+| 45 | `ED-T1` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-ED-T1](./PRODUCT_READINESS_BACKLOG.md#rb-ed-t1) |
+| 46 | `ED-T2` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-ED-T2](./PRODUCT_READINESS_BACKLOG.md#rb-ed-t2) |
 | 47 | `edge-node-gn100` | Chapter 6 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-edge-node-gn100](./PRODUCT_READINESS_BACKLOG.md#rb-edge-node-gn100) |
-| 48 | `ESG-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-ESG-T3](./PRODUCT_READINESS_BACKLOG.md#rb-esg-t3) |
+| 48 | `ESG-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-ESG-T3](./PRODUCT_READINESS_BACKLOG.md#rb-esg-t3) |
 | 49 | `FH-AUTO-001` | Chapter 5 | Lifetime Oy | self-serve-checkout | complete | complete | [RB-FH-AUTO-001](./PRODUCT_READINESS_BACKLOG.md#rb-fh-auto-001) |
 | 50 | `FH-CMS-001` | Chapter 5 | Lifetime Oy | self-serve-checkout | complete | complete | [RB-FH-CMS-001](./PRODUCT_READINESS_BACKLOG.md#rb-fh-cms-001) |
 | 51 | `FH-OMNI-001` | Chapter 5 | Lifetime Oy | self-serve-checkout | complete | complete | [RB-FH-OMNI-001](./PRODUCT_READINESS_BACKLOG.md#rb-fh-omni-001) |
 | 52 | `FH-RPT-001` | Chapter 5 | Lifetime Oy | self-serve-checkout | complete | complete | [RB-FH-RPT-001](./PRODUCT_READINESS_BACKLOG.md#rb-fh-rpt-001) |
 | 53 | `FH-SIGN-001` | Chapter 5 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-FH-SIGN-001](./PRODUCT_READINESS_BACKLOG.md#rb-fh-sign-001) |
-| 54 | `FH-SKILL-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-FH-SKILL-T3](./PRODUCT_READINESS_BACKLOG.md#rb-fh-skill-t3) |
+| 54 | `FH-SKILL-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-FH-SKILL-T3](./PRODUCT_READINESS_BACKLOG.md#rb-fh-skill-t3) |
 | 55 | `firehorse-coach` | Chapter 2 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-firehorse-coach](./PRODUCT_READINESS_BACKLOG.md#rb-firehorse-coach) |
 | 56 | `firehorse-data-services` | Chapter 5 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-firehorse-data-services](./PRODUCT_READINESS_BACKLOG.md#rb-firehorse-data-services) |
 | 57 | `firehorse-flow` | Chapter 5 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-firehorse-flow](./PRODUCT_READINESS_BACKLOG.md#rb-firehorse-flow) |
-| 58 | `GTM-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-GTM-T3](./PRODUCT_READINESS_BACKLOG.md#rb-gtm-t3) |
-| 59 | `HSE-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-HSE-T3](./PRODUCT_READINESS_BACKLOG.md#rb-hse-t3) |
+| 58 | `GTM-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-GTM-T3](./PRODUCT_READINESS_BACKLOG.md#rb-gtm-t3) |
+| 59 | `HSE-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-HSE-T3](./PRODUCT_READINESS_BACKLOG.md#rb-hse-t3) |
 | 60 | `IND-BESS` | Chapter 12 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-IND-BESS](./PRODUCT_READINESS_BACKLOG.md#rb-ind-bess) |
 | 61 | `IND-CERES` | Chapter 12 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-IND-CERES](./PRODUCT_READINESS_BACKLOG.md#rb-ind-ceres) |
 | 62 | `IND-GAIA` | Chapter 12 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-IND-GAIA](./PRODUCT_READINESS_BACKLOG.md#rb-ind-gaia) |
@@ -173,36 +173,36 @@ only to print warnings, never to fail the build.
 | 103 | `LF-NIM-STARTER` | Chapter 7 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-LF-NIM-STARTER](./PRODUCT_READINESS_BACKLOG.md#rb-lf-nim-starter) |
 | 104 | `LF-NVIDIA-INSTALL` | Chapter 6 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-LF-NVIDIA-INSTALL](./PRODUCT_READINESS_BACKLOG.md#rb-lf-nvidia-install) |
 | 105 | `LF-SITROOM-001` | Chapter 6 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-LF-SITROOM-001](./PRODUCT_READINESS_BACKLOG.md#rb-lf-sitroom-001) |
-| 106 | `LF-T1` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-LF-T1](./PRODUCT_READINESS_BACKLOG.md#rb-lf-t1) |
-| 107 | `LF-T2` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-LF-T2](./PRODUCT_READINESS_BACKLOG.md#rb-lf-t2) |
+| 106 | `LF-T1` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-LF-T1](./PRODUCT_READINESS_BACKLOG.md#rb-lf-t1) |
+| 107 | `LF-T2` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-LF-T2](./PRODUCT_READINESS_BACKLOG.md#rb-lf-t2) |
 | 108 | `LIFETIME-BUNDLE-2026` | Chapter 3 | Lifetime Oy | self-serve-checkout | complete | complete | [RB-LIFETIME-BUNDLE-2026](./PRODUCT_READINESS_BACKLOG.md#rb-lifetime-bundle-2026) |
-| 109 | `LIFETIME-IT-TUKI-10H` | Chapter 1 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-LIFETIME-IT-TUKI-10H](./PRODUCT_READINESS_BACKLOG.md#rb-lifetime-it-tuki-10h) |
-| 110 | `LIFETIME-WEB-STARTER` | Chapter 1 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-LIFETIME-WEB-STARTER](./PRODUCT_READINESS_BACKLOG.md#rb-lifetime-web-starter) |
-| 111 | `LIFETIME-WEBSTORE-MINI` | Chapter 1 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-LIFETIME-WEBSTORE-MINI](./PRODUCT_READINESS_BACKLOG.md#rb-lifetime-webstore-mini) |
-| 112 | `LOG-T1` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-LOG-T1](./PRODUCT_READINESS_BACKLOG.md#rb-log-t1) |
-| 113 | `LOG-T2` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-LOG-T2](./PRODUCT_READINESS_BACKLOG.md#rb-log-t2) |
+| 109 | `LIFETIME-IT-TUKI-10H` | Chapter 1 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-LIFETIME-IT-TUKI-10H](./PRODUCT_READINESS_BACKLOG.md#rb-lifetime-it-tuki-10h) |
+| 110 | `LIFETIME-WEB-STARTER` | Chapter 1 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-LIFETIME-WEB-STARTER](./PRODUCT_READINESS_BACKLOG.md#rb-lifetime-web-starter) |
+| 111 | `LIFETIME-WEBSTORE-MINI` | Chapter 1 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-LIFETIME-WEBSTORE-MINI](./PRODUCT_READINESS_BACKLOG.md#rb-lifetime-webstore-mini) |
+| 112 | `LOG-T1` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-LOG-T1](./PRODUCT_READINESS_BACKLOG.md#rb-log-t1) |
+| 113 | `LOG-T2` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-LOG-T2](./PRODUCT_READINESS_BACKLOG.md#rb-log-t2) |
 | 114 | `MO-OC-ENT` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-MO-OC-ENT](./PRODUCT_READINESS_BACKLOG.md#rb-mo-oc-ent) |
 | 115 | `MO-OC-STD` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-MO-OC-STD](./PRODUCT_READINESS_BACKLOG.md#rb-mo-oc-std) |
-| 116 | `MO-T0` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-MO-T0](./PRODUCT_READINESS_BACKLOG.md#rb-mo-t0) |
-| 117 | `MO-T1` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-MO-T1](./PRODUCT_READINESS_BACKLOG.md#rb-mo-t1) |
-| 118 | `MO-T2` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-MO-T2](./PRODUCT_READINESS_BACKLOG.md#rb-mo-t2) |
+| 116 | `MO-T0` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-MO-T0](./PRODUCT_READINESS_BACKLOG.md#rb-mo-t0) |
+| 117 | `MO-T1` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-MO-T1](./PRODUCT_READINESS_BACKLOG.md#rb-mo-t1) |
+| 118 | `MO-T2` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-MO-T2](./PRODUCT_READINESS_BACKLOG.md#rb-mo-t2) |
 | 119 | `omnichannel-multimodal` | Chapter 5 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-omnichannel-multimodal](./PRODUCT_READINESS_BACKLOG.md#rb-omnichannel-multimodal) |
 | 120 | `professional-web-pages` | Chapter 2 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-professional-web-pages](./PRODUCT_READINESS_BACKLOG.md#rb-professional-web-pages) |
-| 121 | `QG-T1` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-QG-T1](./PRODUCT_READINESS_BACKLOG.md#rb-qg-t1) |
-| 122 | `QG-T2` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-QG-T2](./PRODUCT_READINESS_BACKLOG.md#rb-qg-t2) |
-| 123 | `SEO-T1` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-SEO-T1](./PRODUCT_READINESS_BACKLOG.md#rb-seo-t1) |
-| 124 | `SEO-T2` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-SEO-T2](./PRODUCT_READINESS_BACKLOG.md#rb-seo-t2) |
-| 125 | `SG-T1` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-SG-T1](./PRODUCT_READINESS_BACKLOG.md#rb-sg-t1) |
-| 126 | `SG-T2` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-SG-T2](./PRODUCT_READINESS_BACKLOG.md#rb-sg-t2) |
-| 127 | `SOV-T1` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-SOV-T1](./PRODUCT_READINESS_BACKLOG.md#rb-sov-t1) |
-| 128 | `SOV-T2` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-SOV-T2](./PRODUCT_READINESS_BACKLOG.md#rb-sov-t2) |
-| 129 | `SOV-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-SOV-T3](./PRODUCT_READINESS_BACKLOG.md#rb-sov-t3) |
-| 130 | `sovereignty-cloud-consulting` | Chapter 2 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-sovereignty-cloud-consulting](./PRODUCT_READINESS_BACKLOG.md#rb-sovereignty-cloud-consulting) |
+| 121 | `QG-T1` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-QG-T1](./PRODUCT_READINESS_BACKLOG.md#rb-qg-t1) |
+| 122 | `QG-T2` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-QG-T2](./PRODUCT_READINESS_BACKLOG.md#rb-qg-t2) |
+| 123 | `SEO-T1` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-SEO-T1](./PRODUCT_READINESS_BACKLOG.md#rb-seo-t1) |
+| 124 | `SEO-T2` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-SEO-T2](./PRODUCT_READINESS_BACKLOG.md#rb-seo-t2) |
+| 125 | `SG-T1` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-SG-T1](./PRODUCT_READINESS_BACKLOG.md#rb-sg-t1) |
+| 126 | `SG-T2` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-SG-T2](./PRODUCT_READINESS_BACKLOG.md#rb-sg-t2) |
+| 127 | `SOV-T1` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-SOV-T1](./PRODUCT_READINESS_BACKLOG.md#rb-sov-t1) |
+| 128 | `SOV-T2` | Chapter 9 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-SOV-T2](./PRODUCT_READINESS_BACKLOG.md#rb-sov-t2) |
+| 129 | `SOV-T3` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-SOV-T3](./PRODUCT_READINESS_BACKLOG.md#rb-sov-t3) |
+| 130 | `sovereignty-cloud-consulting` | Chapter 2 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-sovereignty-cloud-consulting](./PRODUCT_READINESS_BACKLOG.md#rb-sovereignty-cloud-consulting) |
 | 131 | `SS-OC-ENT` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-SS-OC-ENT](./PRODUCT_READINESS_BACKLOG.md#rb-ss-oc-ent) |
 | 132 | `SS-OC-STD` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | complete | complete | [RB-SS-OC-STD](./PRODUCT_READINESS_BACKLOG.md#rb-ss-oc-std) |
-| 133 | `SS-T0` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-SS-T0](./PRODUCT_READINESS_BACKLOG.md#rb-ss-t0) |
-| 134 | `SS-T1` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-SS-T1](./PRODUCT_READINESS_BACKLOG.md#rb-ss-t1) |
-| 135 | `SS-T2` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-SS-T2](./PRODUCT_READINESS_BACKLOG.md#rb-ss-t2) |
-| 136 | `VIA-T1` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-VIA-T1](./PRODUCT_READINESS_BACKLOG.md#rb-via-t1) |
-| 137 | `VIA-T2` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-VIA-T2](./PRODUCT_READINESS_BACKLOG.md#rb-via-t2) |
-| 138 | `WF-T4` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | gap | complete | [RB-WF-T4](./PRODUCT_READINESS_BACKLOG.md#rb-wf-t4) |
+| 133 | `SS-T0` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-SS-T0](./PRODUCT_READINESS_BACKLOG.md#rb-ss-t0) |
+| 134 | `SS-T1` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-SS-T1](./PRODUCT_READINESS_BACKLOG.md#rb-ss-t1) |
+| 135 | `SS-T2` | Chapter 8 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-SS-T2](./PRODUCT_READINESS_BACKLOG.md#rb-ss-t2) |
+| 136 | `VIA-T1` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-VIA-T1](./PRODUCT_READINESS_BACKLOG.md#rb-via-t1) |
+| 137 | `VIA-T2` | Chapter 10 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-VIA-T2](./PRODUCT_READINESS_BACKLOG.md#rb-via-t2) |
+| 138 | `WF-T4` | Chapter 11 | Lifetime Oy | self-serve-checkout-fallback | exempt | complete | [RB-WF-T4](./PRODUCT_READINESS_BACKLOG.md#rb-wf-t4) |

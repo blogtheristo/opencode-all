@@ -4,6 +4,12 @@ import { eventBus } from '../agents/event-bus.js';
 import logger from '../utils/logger.js';
 import { escapeHtml, sendEmail } from '../utils/send-email.js';
 import { sendPaymentConfirmationEmail } from './billing.service.js';
+import {
+  type FulfilmentPacket,
+  loadFulfilmentPacket,
+  renderBuyerPacket,
+  renderOperationsPacket,
+} from './fulfilment-packet.service.js';
 import { type CatalogueProduct, getPayableCatalogueProduct } from './product-catalog.service.js';
 import { supabase } from './supabase.service.js';
 
@@ -240,14 +246,43 @@ export async function queuePendingExternalPaymentReview(
   return intent;
 }
 
-async function sendCustomerConfirmation(intent: ProductOrderIntent): Promise<void> {
+// The packet enriches both emails; a missing or unreadable packet never blocks a paid-order
+// notification, it is logged so the gap is visible (runbook falls back to manual step 2/5).
+async function fulfilmentPacketFor(intent: ProductOrderIntent): Promise<FulfilmentPacket | null> {
+  try {
+    const packet = await loadFulfilmentPacket(intent.product_id);
+    if (!packet) {
+      logger.warn(
+        'No complete fulfilment packet for paid order; send acceptance and exclusions manually',
+        {
+          orderIntentId: intent.id,
+          productId: intent.product_id,
+        },
+      );
+    }
+    return packet;
+  } catch (error) {
+    logger.warn('Fulfilment packet unavailable; send acceptance and exclusions manually', {
+      orderIntentId: intent.id,
+      productId: intent.product_id,
+      error: error instanceof Error ? error.message : String(error),
+    });
+    return null;
+  }
+}
+
+async function sendCustomerConfirmation(
+  intent: ProductOrderIntent,
+  packet: FulfilmentPacket | null,
+): Promise<void> {
   const amount = (intent.expected_payment_amount_cents / 100).toFixed(2);
+  const extra = packet ? renderBuyerPacket(packet) : { text: '', html: '' };
   const result = await sendEmail({
     from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
     to: intent.buyer_email,
     subject: `Payment confirmed — ${intent.product_name}`,
-    text: `Hello ${intent.buyer_name},\n\nWe received your payment for ${intent.product_name} (${intent.product_id}), ${amount} ${intent.currency}. Order ${intent.id} is queued for delivery.\n`,
-    html: `<p>Hello ${escapeHtml(intent.buyer_name)},</p><p>We received your payment for <strong>${escapeHtml(intent.product_name)}</strong> (${escapeHtml(intent.product_id)}), ${amount} ${escapeHtml(intent.currency)}.</p><p>Order <strong>${escapeHtml(intent.id)}</strong> is queued for delivery.</p>`,
+    text: `Hello ${intent.buyer_name},\n\nWe received your payment for ${intent.product_name} (${intent.product_id}), ${amount} ${intent.currency}. Order ${intent.id} is queued for delivery.\n\n${extra.text}`,
+    html: `<p>Hello ${escapeHtml(intent.buyer_name)},</p><p>We received your payment for <strong>${escapeHtml(intent.product_name)}</strong> (${escapeHtml(intent.product_id)}), ${amount} ${escapeHtml(intent.currency)}.</p><p>Order <strong>${escapeHtml(intent.id)}</strong> is queued for delivery.</p>${extra.html}`,
     source: 'platform',
     templateType: 'product_payment_confirmation',
     metadata: { order_intent_id: intent.id, product_id: intent.product_id },
@@ -261,8 +296,17 @@ async function sendCustomerConfirmation(intent: ProductOrderIntent): Promise<voi
   }
 }
 
-async function sendOperationsNotification(intent: ProductOrderIntent): Promise<void> {
+async function sendOperationsNotification(
+  intent: ProductOrderIntent,
+  packet: FulfilmentPacket | null,
+): Promise<void> {
   if (intent.operations_notification_status === 'sent') return;
+  const extra = packet
+    ? renderOperationsPacket(packet)
+    : {
+        text: 'Fulfilment packet: MISSING — follow the runbook manually.\n',
+        html: '<p>Fulfilment packet: MISSING — follow the runbook manually.</p>',
+      };
 
   const recipient = process.env.PRODUCT_FULFILMENT_EMAIL || 'risto@onelifetime.world';
   const verifiedAmount = (intent.expected_payment_amount_cents / 100).toFixed(2);
@@ -270,8 +314,8 @@ async function sendOperationsNotification(intent: ProductOrderIntent): Promise<v
     from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
     to: recipient,
     subject: `Fulfilment queued — ${intent.product_id}`,
-    text: `Paid order ${intent.id}\nSKU: ${intent.product_id}\nProduct: ${intent.product_name}\nBuyer: ${intent.buyer_name} <${intent.buyer_email}>\nProvider: ${intent.payment_provider}\nTransaction reference: ${intent.payment_reference}\nVerified amount: ${verifiedAmount} ${intent.currency}\nFulfilment status: queued\n`,
-    html: `<p><strong>Paid order ${escapeHtml(intent.id)}</strong></p><ul><li>SKU: ${escapeHtml(intent.product_id)}</li><li>Product: ${escapeHtml(intent.product_name)}</li><li>Buyer: ${escapeHtml(intent.buyer_name)} &lt;${escapeHtml(intent.buyer_email)}&gt;</li><li>Provider: ${escapeHtml(intent.payment_provider)}</li><li>Transaction reference: ${escapeHtml(intent.payment_reference || 'not assigned')}</li><li>Verified amount: ${verifiedAmount} ${escapeHtml(intent.currency)}</li><li>Fulfilment status: queued</li></ul>`,
+    text: `Paid order ${intent.id}\nSKU: ${intent.product_id}\nProduct: ${intent.product_name}\nBuyer: ${intent.buyer_name} <${intent.buyer_email}>\nProvider: ${intent.payment_provider}\nTransaction reference: ${intent.payment_reference}\nVerified amount: ${verifiedAmount} ${intent.currency}\nFulfilment status: queued\n\n${extra.text}`,
+    html: `<p><strong>Paid order ${escapeHtml(intent.id)}</strong></p><ul><li>SKU: ${escapeHtml(intent.product_id)}</li><li>Product: ${escapeHtml(intent.product_name)}</li><li>Buyer: ${escapeHtml(intent.buyer_name)} &lt;${escapeHtml(intent.buyer_email)}&gt;</li><li>Provider: ${escapeHtml(intent.payment_provider)}</li><li>Transaction reference: ${escapeHtml(intent.payment_reference || 'not assigned')}</li><li>Verified amount: ${verifiedAmount} ${escapeHtml(intent.currency)}</li><li>Fulfilment status: queued</li></ul>${extra.html}`,
     source: 'platform',
     templateType: 'product_fulfilment_requested',
     metadata: { order_intent_id: intent.id, product_id: intent.product_id },
@@ -389,11 +433,12 @@ export async function confirmProductOrderPayment(
   }
 
   await dispatchPendingOrderEvents(intent);
+  const packet = await fulfilmentPacketFor(intent);
   await Promise.all([
     input.legacyOrder
       ? sendPaymentConfirmationEmail(input.legacyOrder)
-      : sendCustomerConfirmation(intent),
-    sendOperationsNotification(intent),
+      : sendCustomerConfirmation(intent, packet),
+    sendOperationsNotification(intent, packet),
   ]);
 
   logger.info('Paid product order queued for fulfilment', {

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // Evidence: Tool=GitHub Copilot CLI Model=gpt-5.6-sol Agent=product-readiness-portfolio Date=27.09.2026
+// Edited: Tool=Claude Code 2.1.283 Model=anthropic/claude Agent=claude Date=2026-09-27 — automation-depth per delivery family from config/truth/delivery-automation-evaluation.json; exemption basis cited
 // Audit trail: git log -- scripts/truth/product-readiness-backlog.mjs
 //
 // HIC 27.09.2026: "generate a roadmap/backlog entry per product for anything not finished."
@@ -12,6 +13,7 @@
 // Reads:
 //   dws10.com/config/products.json
 //   scripts/truth/product-fulfilment.mjs (buildFulfilment — capacity/contract-scope/payment status)
+//   config/truth/delivery-automation-evaluation.json (per-delivery-family automation evaluation)
 // Writes:
 //   config/truth/product-readiness-backlog.json
 //   docs/truth/PRODUCT_READINESS_BACKLOG.md
@@ -23,14 +25,32 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildFulfilment } from './product-fulfilment.mjs';
+import { buildFulfilment, exemptBasis } from './product-fulfilment.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const CATALOG = path.join(ROOT, 'dws10.com/config/products.json');
 const OUT_JSON = path.join(ROOT, 'config/truth/product-readiness-backlog.json');
 const OUT_MD = path.join(ROOT, 'docs/truth/PRODUCT_READINESS_BACKLOG.md');
+const EVALUATION = path.join(ROOT, 'config/truth/delivery-automation-evaluation.json');
 
-function currentVersionFacts(p) {
+// A SKU's automation-depth item is answered by its delivery family's evaluation only when the
+// SKU also has everything the automated paid-order packet needs (src/services/fulfilment-packet.service.ts).
+function packetComplete(p) {
+  const f = p.fulfilment || {};
+  const k = p.acceptanceKpi || {};
+  return Boolean(
+    f.owner && f.acknowledgementSla && f.deliveryMode && f.runbookRef && k.condition &&
+      Array.isArray(k.requiredOutcomes) && k.requiredOutcomes.length &&
+      Array.isArray(p.exclusions) && p.exclusions.length,
+  );
+}
+
+function familyFor(p, evaluation) {
+  const mode = p.fulfilment?.deliveryMode || '';
+  return evaluation?.families.find((f) => mode.startsWith(f.match)) || null;
+}
+
+function currentVersionFacts(p, evaluation) {
   const facts = [];
   facts.push(`Priced: €${p.price ?? '—'} ${p.currency || ''} (${p.type || 'unspecified'}${p.priceUnit ? `, ${p.priceUnit}` : ''})`.trim());
   if (Array.isArray(p.features) && p.features.length) facts.push(`${p.features.length} documented feature(s)`);
@@ -40,8 +60,13 @@ function currentVersionFacts(p) {
   if (p.exclusions) facts.push('Contractual exclusions defined');
   if (p.fulfilment) facts.push(`Fulfilment owner: ${p.fulfilment.owner}, acknowledged within ${p.fulfilment.acknowledgementSla} via ${p.fulfilment.route}`);
   if (p.capacityClass) facts.push(`Capacity class: ${p.capacityClass}`);
-  if (p.capacityExempt) facts.push('Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)');
+  const basis = exemptBasis(p);
+  if (basis) facts.push(`Capacity-class exempt (${basis.label}, DWS_CAPACITY_CLASS_STANDARD.md ${basis.section})`);
   if (p.detailsUrl) facts.push(`Detail page: ${p.detailsUrl}`);
+  const family = familyFor(p, evaluation);
+  if (family && packetComplete(p)) {
+    facts.push(`Delivery automation evaluated (${family.family}, ${evaluation.evaluatedAt}): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed`);
+  }
   return facts;
 }
 
@@ -49,7 +74,7 @@ function currentVersionFacts(p) {
 // 1:1 without renumbering later. `category` groups issues that share a remediation owner/type;
 // `versionBucket` is always "next" (proposed future work) — this generator never invents a
 // version number, it only labels current (true today) vs next (proposed).
-function nextVersionIssues(id, p, fRow) {
+function nextVersionIssues(id, p, fRow, evaluation) {
   const issues = [];
   let n = 0;
   const push = (category, title) => {
@@ -68,13 +93,37 @@ function nextVersionIssues(id, p, fRow) {
   if (!p.features || p.features.length < 3) {
     push('content-depth', `Expand feature/spec detail for ${id} (currently ${p.features?.length || 0} feature line(s)) so the product page and price list describe a complete offer.`);
   }
-  if (p.fulfilment?.deliveryMode) {
+  if (p.fulfilment?.deliveryMode && !(familyFor(p, evaluation) && packetComplete(p))) {
     push('automation-depth', `Evaluate automating part of the managed-delivery process for ${id} (today: ${p.fulfilment.deliveryMode.split(':')[0].trim().toLowerCase()}) once volume justifies it.`);
   }
   return issues;
 }
 
-export function buildBacklog(catalog) {
+// One follow-up per delivery family instead of one per SKU: the remaining automation work is shared
+// by every SKU in the family, so filing it 138 times would count the same work repeatedly.
+function familyIssues(catalog, evaluation) {
+  if (!evaluation) return [];
+  const issues = [];
+  for (const fam of evaluation.families) {
+    const skus = Object.entries(catalog.products || {})
+      .filter(([, p]) => familyFor(p, evaluation) === fam && packetComplete(p))
+      .map(([id]) => id)
+      .sort();
+    if (!skus.length) continue;
+    const t = fam.volumeTrigger;
+    const trigger = t.threshold == null ? `${t.metric} reaches a threshold the HIC has not set yet` : `${t.metric} reaches ${t.threshold}`;
+    issues.push({
+      issueId: `PRB-FAMILY-${fam.family}`,
+      category: 'automation-depth',
+      versionBucket: 'next',
+      title: `${fam.nextCandidate} Trigger: ${trigger}. Covers ${skus.length} SKU(s).`,
+      skus,
+    });
+  }
+  return issues;
+}
+
+export function buildBacklog(catalog, evaluation = loadEvaluation()) {
   const { rows: fRows } = buildFulfilment(catalog);
   const fById = new Map(fRows.map((r) => [r.id, r]));
   const entries = [];
@@ -87,31 +136,34 @@ export function buildBacklog(catalog) {
       currentVersion: p.version || '1.0',
       lifecycle: fRow?.lifecycle || 'public',
       versionBuckets: {
-        current: currentVersionFacts(p),
-        next: nextVersionIssues(id, p, fRow),
+        current: currentVersionFacts(p, evaluation),
+        next: nextVersionIssues(id, p, fRow, evaluation),
       },
       backlogRef: `RB-${id}`,
     });
   }
   entries.sort((a, b) => a.id.localeCompare(b.id));
+  const families = familyIssues(catalog, evaluation);
   const byCategory = {};
-  for (const e of entries) {
-    for (const iss of e.versionBuckets.next) {
-      byCategory[iss.category] = (byCategory[iss.category] || 0) + 1;
-    }
+  for (const iss of [...entries.flatMap((e) => e.versionBuckets.next), ...families]) {
+    byCategory[iss.category] = (byCategory[iss.category] || 0) + 1;
   }
   const summary = {
     catalogVersion: catalog.priceVersion,
     totalProducts: entries.length,
     withOpenIssues: entries.filter((e) => e.versionBuckets.next.length > 0).length,
     fullyClosed: entries.filter((e) => e.versionBuckets.next.length === 0).length,
-    totalOpenIssues: entries.reduce((n, e) => n + e.versionBuckets.next.length, 0),
+    totalOpenIssues: entries.reduce((n, e) => n + e.versionBuckets.next.length, 0) + families.length,
     openIssuesByCategory: byCategory,
   };
-  return { summary, entries };
+  return { summary, entries, familyIssues: families };
 }
 
-export function renderMarkdown({ summary: s, entries }) {
+function loadEvaluation() {
+  return fs.existsSync(EVALUATION) ? JSON.parse(fs.readFileSync(EVALUATION, 'utf8')) : null;
+}
+
+export function renderMarkdown({ summary: s, entries, familyIssues: families = [] }) {
   const lines = [
     '# DWS Product Readiness Roadmap & Backlog — every SKU, exactly once',
     '',
@@ -138,7 +190,8 @@ export function renderMarkdown({ summary: s, entries }) {
     '| --- | --- |',
     `| Total catalogue products | ${s.totalProducts} |`,
     `| Products with open next-version issues | ${s.withOpenIssues} |`,
-    `| Products with no open issues today | ${s.fullyClosed} |`,
+    `| Products with no per-SKU open issues today | ${s.fullyClosed} |`,
+    `| Delivery-family automation follow-ups (shared, not per SKU) | ${families.length} |`,
     `| Total open backlog issues | ${s.totalOpenIssues} |`,
     '',
     '| Next-version issue category | Open count |',
@@ -152,6 +205,15 @@ export function renderMarkdown({ summary: s, entries }) {
     'claims). Each next-version issue has a stable `issueId` (e.g. `PRB-<SKU>-01`) suitable for filing',
     'as a GitHub issue 1:1, with a `category` for grouping by remediation owner/type. Full',
     'fulfilment/capacity classification: `docs/truth/PRODUCT_FULFILMENT.md`.',
+    '',
+    '## Delivery-family automation follow-ups',
+    '',
+    'Automation-depth work shared by every SKU in a delivery family, filed once per family.',
+    'Evaluation and evidence: `config/truth/delivery-automation-evaluation.json`.',
+    '',
+    ...(families.length
+      ? families.map((iss) => `- [ ] \`${iss.issueId}\` (${iss.category}) ${iss.title}`)
+      : ['- None.']),
     '',
     '## Every product',
     '',

@@ -9,6 +9,7 @@ const mocks = vi.hoisted(() => ({
   sendEmail: vi.fn(),
   sendLegacyConfirmation: vi.fn(),
   getProduct: vi.fn(),
+  loadPacket: vi.fn(),
 }));
 
 vi.mock('../services/supabase.service.js', () => ({
@@ -24,6 +25,10 @@ vi.mock('../services/billing.service.js', () => ({
 }));
 vi.mock('../services/product-catalog.service.js', () => ({
   getPayableCatalogueProduct: mocks.getProduct,
+}));
+vi.mock('../services/fulfilment-packet.service.js', async (importOriginal) => ({
+  ...(await importOriginal<Record<string, unknown>>()),
+  loadFulfilmentPacket: mocks.loadPacket,
 }));
 
 const { confirmProductOrderPayment, createProductOrderIntent, queuePendingExternalPaymentReview } =
@@ -49,6 +54,7 @@ describe('product order service', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mocks.sendEmail.mockResolvedValue({ ok: true, transport: 'ses' });
+    mocks.loadPacket.mockResolvedValue(null);
     mocks.emit.mockResolvedValue(undefined);
     mocks.getProduct.mockResolvedValue({
       id: 'DWS-IQ-006',
@@ -193,6 +199,107 @@ describe('product order service', () => {
     expect(mocks.rpc).toHaveBeenCalledWith(
       'record_product_order_operations_notification',
       expect.objectContaining({ p_status: 'failed', p_error: 'SES unavailable' }),
+    );
+  });
+
+  it('sends acceptance outcomes and exclusions to the buyer and the checklist to operations', async () => {
+    const intent = {
+      id: 'intent-packet',
+      product_id: 'DWS-IQ-006',
+      product_name: 'Authoritative Product',
+      unit_amount_cents: 499900,
+      expected_payment_amount_cents: 499900,
+      currency: 'EUR',
+      buyer_email: 'buyer@example.com',
+      buyer_name: 'Buyer',
+      payment_provider: 'stripe',
+      payment_status: 'paid',
+      fulfilment_status: 'queued',
+      operations_notification_status: 'pending',
+    };
+    mocks.loadPacket.mockResolvedValue({
+      productId: 'DWS-IQ-006',
+      owner: 'Platform Team',
+      route: 'https://dws10.com/contact/',
+      acknowledgementSla: '1 business day',
+      deliveryMode: 'Managed provisioning',
+      runbookRef: 'docs/runbooks/PRODUCT_FULFILMENT_RUNBOOK.md#chapter-3',
+      acceptanceCondition: 'Tenant reachable',
+      requiredOutcomes: ['Tenant provisioned'],
+      exclusions: ['Custom connectors'],
+    });
+    mocks.rpc.mockImplementation((name: string) => {
+      if (name === 'confirm_product_order_payment')
+        return Promise.resolve({ data: [intent], error: null });
+      return Promise.resolve({ data: null, error: null });
+    });
+    mocks.from.mockReturnValueOnce(eventQuery([]));
+
+    await confirmProductOrderPayment({
+      provider: 'stripe',
+      paymentReference: 'in_packet',
+      orderIntentId: intent.id,
+      amountCents: 499900,
+      currency: 'EUR',
+      auditActor: 'stripe:webhook:evt_packet',
+      verificationMethod: 'stripe_webhook',
+    });
+
+    expect(mocks.loadPacket).toHaveBeenCalledWith('DWS-IQ-006');
+    expect(mocks.sendEmail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        to: 'buyer@example.com',
+        text: expect.stringMatching(
+          /Tenant provisioned[\s\S]*Not included in this order:\n- Custom connectors/,
+        ),
+      }),
+    );
+    expect(mocks.sendEmail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        templateType: 'product_fulfilment_requested',
+        text: expect.stringMatching(/Runbook: docs\/runbooks[\s\S]*\[ \] Tenant provisioned/),
+      }),
+    );
+  });
+
+  it('still notifies operations, flagged, when the packet cannot be loaded', async () => {
+    const intent = {
+      id: 'intent-nopacket',
+      product_id: 'DWS-IQ-006',
+      product_name: 'Authoritative Product',
+      unit_amount_cents: 499900,
+      expected_payment_amount_cents: 499900,
+      currency: 'EUR',
+      buyer_email: 'buyer@example.com',
+      buyer_name: 'Buyer',
+      payment_provider: 'stripe',
+      payment_status: 'paid',
+      fulfilment_status: 'queued',
+      operations_notification_status: 'pending',
+    };
+    mocks.loadPacket.mockRejectedValue(new Error('catalogue unreadable'));
+    mocks.rpc.mockImplementation((name: string) => {
+      if (name === 'confirm_product_order_payment')
+        return Promise.resolve({ data: [intent], error: null });
+      return Promise.resolve({ data: null, error: null });
+    });
+    mocks.from.mockReturnValueOnce(eventQuery([]));
+
+    await confirmProductOrderPayment({
+      provider: 'stripe',
+      paymentReference: 'in_nopacket',
+      orderIntentId: intent.id,
+      amountCents: 499900,
+      currency: 'EUR',
+      auditActor: 'stripe:webhook:evt_nopacket',
+      verificationMethod: 'stripe_webhook',
+    });
+
+    expect(mocks.sendEmail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        templateType: 'product_fulfilment_requested',
+        text: expect.stringContaining('Fulfilment packet: MISSING'),
+      }),
     );
   });
 

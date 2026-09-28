@@ -40,22 +40,54 @@ describe('LF-K8S-T1..T4 capacity fields (DWS_CAPACITY_CLASS_STANDARD.md §5.4)',
   }
 });
 
-describe('capacityExempt applies only to storeCategory: advisory (§5.11)', () => {
+describe('capacityExempt always cites its DWS_CAPACITY_CLASS_STANDARD.md basis (§5.11–§5.13)', () => {
+  const products = Object.entries(CATALOG.products as Record<string, any>);
+
   it('every storeCategory advisory product is flagged capacityExempt', () => {
-    const advisory = Object.entries(CATALOG.products as Record<string, any>).filter(
-      ([, p]) => p.storeCategory === 'advisory',
-    );
+    const advisory = products.filter(([, p]) => p.storeCategory === 'advisory');
     expect(advisory.length).toBeGreaterThan(0);
     for (const [id, p] of advisory) {
       expect(p.capacityExempt, `${id} should be capacityExempt`).toBe(true);
     }
   });
 
-  it('no non-advisory product is marked capacityExempt', () => {
-    const wronglyExempt = Object.entries(CATALOG.products as Record<string, any>).filter(
-      ([, p]) => p.capacityExempt === true && p.storeCategory !== 'advisory',
-    );
-    expect(wronglyExempt).toEqual([]);
+  it('a non-advisory exemption names §5.12 (agent SKU/bundle) or §5.13 (managed human service)', () => {
+    const unexplained = products
+      .filter(([, p]) => p.capacityExempt === true && p.storeCategory !== 'advisory')
+      .filter(([, p]) => !['§5.12', '§5.13'].includes(p.capacityExemptBasis))
+      .map(([id]) => id);
+    expect(unexplained).toEqual([]);
+  });
+
+  it('§5.12 is used only for agent activation or bundle delivery, §5.13 only for managed human delivery', () => {
+    const wrong = products
+      .filter(([, p]) => p.capacityExemptBasis)
+      .filter(([, p]) => {
+        const mode = p.fulfilment?.deliveryMode || '';
+        if (p.capacityExemptBasis === '§5.12')
+          return !/^Managed (agent activation|bundle composition)/.test(mode);
+        if (p.capacityExemptBasis === '§5.13') return !mode.startsWith('Managed human delivery');
+        return true;
+      })
+      .map(([id]) => id);
+    expect(wrong).toEqual([]);
+  });
+
+  it('every SKU exempted under §5.12 or §5.13 is listed by name in the standard', () => {
+    const standard = readFileSync(resolve(ROOT, 'DWS_CAPACITY_CLASS_STANDARD.md'), 'utf8');
+    const unlisted = products
+      .filter(([, p]) => ['§5.12', '§5.13'].includes(p.capacityExemptBasis))
+      .filter(([id]) => !standard.includes(id))
+      .map(([id]) => id);
+    expect(unlisted).toEqual([]);
+  });
+
+  it('no product is left with a capacity gap', () => {
+    const fields = ['capacityClass', 'capacityOptions', 'capacityCapabilities', 'capacityLimits'];
+    const gaps = products
+      .filter(([, p]) => p.capacityExempt !== true && fields.some((f) => !p[f]))
+      .map(([id]) => id);
+    expect(gaps).toEqual([]);
   });
 });
 

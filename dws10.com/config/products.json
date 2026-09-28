@@ -4099,6 +4099,8 @@
       ]
     },
     "sovereignty-cloud-consulting": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.13",
       "tags": ["Subscription"],
       "id": "sovereignty-cloud-consulting",
       "gtin": null,
@@ -4793,6 +4795,17 @@
       ]
     },
     "DWS-AEGIS-SUB-001": {
+      "capacityClass": "Enterprise",
+      "capacityOptions": [
+        "Aegis Standard",
+        "Aegis Defence",
+        "Aegis Sovereign"
+      ],
+      "capacityCapabilities": [
+        "Platform updates and security patches",
+        "Support and operations on the licensed single-tenant deployment"
+      ],
+      "capacityLimits": "Follows the licensed Aegis tier (DWS-AEGIS-001); one subscription per licensed deployment",
       "tags": ["DWS IQ", "Sovereign", "Air-Gapped", "Subscription"],
       "id": "DWS-AEGIS-SUB-001",
       "gtin": null,
@@ -4854,6 +4867,8 @@
       ]
     },
     "CMP-T0": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "CMP-T0",
       "sku": "CMP-T0",
       "mpn": "CMP-T0",
@@ -4926,6 +4941,8 @@
       ]
     },
     "CMP-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "CMP-T1",
       "sku": "CMP-T1",
       "mpn": "CMP-T1",
@@ -4998,6 +5015,8 @@
       ]
     },
     "CMP-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "CMP-T2",
       "sku": "CMP-T2",
       "mpn": "CMP-T2",
@@ -5233,6 +5252,8 @@
       ]
     },
     "SS-T0": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "SS-T0",
       "sku": "SS-T0",
       "mpn": "SS-T0",
@@ -5305,6 +5326,8 @@
       ]
     },
     "SS-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "SS-T1",
       "sku": "SS-T1",
       "mpn": "SS-T1",
@@ -5377,6 +5400,8 @@
       ]
     },
     "SS-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "SS-T2",
       "sku": "SS-T2",
       "mpn": "SS-T2",
@@ -5610,6 +5635,8 @@
       ]
     },
     "MO-T0": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "MO-T0",
       "sku": "MO-T0",
       "mpn": "MO-T0",
@@ -5682,6 +5709,8 @@
       ]
     },
     "MO-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "MO-T1",
       "sku": "MO-T1",
       "mpn": "MO-T1",
@@ -5754,6 +5783,8 @@
       ]
     },
     "MO-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "MO-T2",
       "sku": "MO-T2",
       "mpn": "MO-T2",
@@ -5987,6 +6018,8 @@
       ]
     },
     "ED-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "ED-T1",
       "sku": "ED-T1",
       "mpn": "ED-T1",
@@ -6059,6 +6092,8 @@
       ]
     },
     "ED-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "ED-T2",
       "sku": "ED-T2",
       "mpn": "ED-T2",
@@ -6131,6 +6166,8 @@
       ]
     },
     "SG-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "SG-T1",
       "sku": "SG-T1",
       "mpn": "SG-T1",
@@ -6202,6 +6239,8 @@
       ]
     },
     "SG-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "SG-T2",
       "sku": "SG-T2",
       "mpn": "SG-T2",
@@ -6273,6 +6312,8 @@
       ]
     },
     "CONSTR-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "CONSTR-T2",
       "sku": "CONSTR-T2",
       "mpn": "CONSTR-T2",
@@ -6346,6 +6387,8 @@
       ]
     },
     "LOG-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "LOG-T1",
       "sku": "LOG-T1",
       "mpn": "LOG-T1",
@@ -6417,6 +6460,8 @@
       ]
     },
     "LOG-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "LOG-T2",
       "sku": "LOG-T2",
       "mpn": "LOG-T2",
@@ -6488,6 +6533,8 @@
       ]
     },
     "SOV-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "SOV-T1",
       "sku": "SOV-T1",
       "mpn": "SOV-T1",
@@ -6559,6 +6606,8 @@
       ]
     },
     "SOV-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "SOV-T2",
       "sku": "SOV-T2",
       "mpn": "SOV-T2",
@@ -6630,6 +6679,8 @@
       ]
     },
     "QG-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "QG-T1",
       "sku": "QG-T1",
       "mpn": "QG-T1",
@@ -6701,6 +6752,8 @@
       ]
     },
     "QG-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "QG-T2",
       "sku": "QG-T2",
       "mpn": "QG-T2",
@@ -6772,6 +6825,8 @@
       ]
     },
     "CSAT-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "CSAT-T1",
       "sku": "CSAT-T1",
       "mpn": "CSAT-T1",
@@ -6843,6 +6898,8 @@
       ]
     },
     "CSAT-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "CSAT-T2",
       "sku": "CSAT-T2",
       "mpn": "CSAT-T2",
@@ -6914,6 +6971,8 @@
       ]
     },
     "LF-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "LF-T1",
       "sku": "LF-T1",
       "mpn": "LF-T1",
@@ -6985,6 +7044,8 @@
       ]
     },
     "LF-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "LF-T2",
       "sku": "LF-T2",
       "mpn": "LF-T2",
@@ -7056,6 +7117,8 @@
       ]
     },
     "CS-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "CS-T1",
       "sku": "CS-T1",
       "mpn": "CS-T1",
@@ -7127,6 +7190,8 @@
       ]
     },
     "CS-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "CS-T2",
       "sku": "CS-T2",
       "mpn": "CS-T2",
@@ -7198,6 +7263,8 @@
       ]
     },
     "SEO-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "SEO-T1",
       "sku": "SEO-T1",
       "mpn": "SEO-T1",
@@ -7269,6 +7336,8 @@
       ]
     },
     "SEO-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "SEO-T2",
       "sku": "SEO-T2",
       "mpn": "SEO-T2",
@@ -7340,6 +7409,8 @@
       ]
     },
     "DW-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "DW-T1",
       "sku": "DW-T1",
       "mpn": "DW-T1",
@@ -7411,6 +7482,8 @@
       ]
     },
     "DW-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "DW-T2",
       "sku": "DW-T2",
       "mpn": "DW-T2",
@@ -7482,6 +7555,8 @@
       ]
     },
     "VIA-T1": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "VIA-T1",
       "sku": "VIA-T1",
       "mpn": "VIA-T1",
@@ -7553,6 +7628,8 @@
       ]
     },
     "VIA-T2": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "VIA-T2",
       "sku": "VIA-T2",
       "mpn": "VIA-T2",
@@ -7624,6 +7701,8 @@
       ]
     },
     "ESG-T3": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "ESG-T3",
       "sku": "ESG-T3",
       "mpn": "ESG-T3",
@@ -7699,6 +7778,8 @@
       ]
     },
     "HSE-T3": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "HSE-T3",
       "sku": "HSE-T3",
       "mpn": "HSE-T3",
@@ -7773,6 +7854,8 @@
       ]
     },
     "CONSTR-T3": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "CONSTR-T3",
       "sku": "CONSTR-T3",
       "mpn": "CONSTR-T3",
@@ -7849,6 +7932,8 @@
       ]
     },
     "SOV-T3": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "SOV-T3",
       "sku": "SOV-T3",
       "mpn": "SOV-T3",
@@ -7923,6 +8008,8 @@
       ]
     },
     "GTM-T3": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "GTM-T3",
       "sku": "GTM-T3",
       "mpn": "GTM-T3",
@@ -7998,6 +8085,8 @@
       ]
     },
     "WF-T4": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "WF-T4",
       "sku": "WF-T4",
       "mpn": "WF-T4",
@@ -9529,6 +9618,8 @@
       ]
     },
     "DWS365-CMP-T3": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "DWS365-CMP-T3",
       "sku": "DWS365-CMP-T3",
       "mpn": "DWS365-CMP-T3",
@@ -9604,6 +9695,8 @@
       ]
     },
     "FH-SKILL-T3": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "FH-SKILL-T3",
       "sku": "FH-SKILL-T3",
       "mpn": "FH-SKILL-T3",
@@ -9680,6 +9773,8 @@
       ]
     },
     "AC365-T3": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.12",
       "id": "AC365-T3",
       "sku": "AC365-T3",
       "mpn": "AC365-T3",
@@ -9957,6 +10052,17 @@
       ]
     },
     "DWS-IQ-ESS-SETUP": {
+      "capacityClass": "Core",
+      "capacityOptions": [
+        "Buyer infrastructure",
+        "Lifetime-managed hosting"
+      ],
+      "capacityCapabilities": [
+        "GitHub connector",
+        "One operational-runtime connector",
+        "Evidenced safe update with rollback tested"
+      ],
+      "capacityLimits": "One operational-runtime connector; capacity depends on deployment option and workload",
       "tags": ["DWS IQ", "Sovereign Cloud"],
       "id": "DWS-IQ-ESS-SETUP",
       "mpn": "DWSIQ-ESS-SETUP-2026",
@@ -10005,6 +10111,8 @@
       "detailsUrl": "../products/dws-iq-ess-setup.html"
     },
     "LIFETIME-WEB-STARTER": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.13",
       "id": "LIFETIME-WEB-STARTER",
       "mpn": "WEB-STARTER-2026",
       "name": "Website Starter \u2014 Modern Business Site",
@@ -10054,6 +10162,8 @@
       ]
     },
     "LIFETIME-WEBSTORE-MINI": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.13",
       "id": "LIFETIME-WEBSTORE-MINI",
       "mpn": "WEBSTORE-MINI-2026",
       "name": "Small Online Store with Price List",
@@ -10103,6 +10213,8 @@
       ]
     },
     "LIFETIME-IT-TUKI-10H": {
+      "capacityExempt": true,
+      "capacityExemptBasis": "\u00a75.13",
       "id": "LIFETIME-IT-TUKI-10H",
       "mpn": "IT-TUKI-10H-2026",
       "name": "IT Support Hour Bank for SMEs \u2014 10 h",

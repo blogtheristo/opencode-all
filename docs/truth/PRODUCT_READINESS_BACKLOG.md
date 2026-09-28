@@ -22,20 +22,36 @@ Document Status:
 | Measure | Count |
 | --- | --- |
 | Total catalogue products | 138 |
-| Products with open next-version issues | 138 |
-| Products with no open issues today | 0 |
-| Total open backlog issues | 185 |
+| Products with open next-version issues | 0 |
+| Products with no per-SKU open issues today | 138 |
+| Delivery-family automation follow-ups (shared, not per SKU) | 10 |
+| Total open backlog issues | 10 |
 
 | Next-version issue category | Open count |
 | --- | --- |
-| automation-depth | 138 |
-| capacity-evidence | 47 |
+| automation-depth | 10 |
 
 Every product below carries a **current** version bucket (facts already true today, from the
 catalogue) and a **next** version bucket (proposed backlog issues — gaps only, never fabricated
 claims). Each next-version issue has a stable `issueId` (e.g. `PRB-<SKU>-01`) suitable for filing
 as a GitHub issue 1:1, with a `category` for grouping by remediation owner/type. Full
 fulfilment/capacity classification: `docs/truth/PRODUCT_FULFILMENT.md`.
+
+## Delivery-family automation follow-ups
+
+Automation-depth work shared by every SKU in a delivery family, filed once per family.
+Evaluation and evidence: `config/truth/delivery-automation-evaluation.json`.
+
+- [ ] `PRB-FAMILY-platform-provisioning` (automation-depth) Scripted tenant creation for the Cloud EU option, starting from src/cloudflare/tenant-sandbox.ts. Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 12 SKU(s).
+- [ ] `PRB-FAMILY-saas-tenant-activation` (automation-depth) Link paid order to the onboarding wizard (src/routes/onboard.routes.ts) so the buyer starts configuration themselves. Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 9 SKU(s).
+- [ ] `PRB-FAMILY-aegis-deployment` (automation-depth) Automated post-install check that audit logs are being written, reported to the engineer; the witnessed kill-authority test stays human. Trigger: licensed Aegis deployments reaches a threshold the HIC has not set yet. Covers 5 SKU(s).
+- [ ] `PRB-FAMILY-human-delivery` (automation-depth) Calendar booking link in the buyer confirmation for the intake meeting. Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 20 SKU(s).
+- [ ] `PRB-FAMILY-hardware-fulfilment` (automation-depth) Scripted post-delivery device baseline, starting from scripts/bootstrap_dgx_sovereign.sh. Trigger: units shipped per quarter reaches a threshold the HIC has not set yet. Covers 12 SKU(s).
+- [ ] `PRB-FAMILY-cluster-provisioning` (automation-depth) Version-pinned install manifests per tier (LF-K8S-T1..T4) with an automated post-install health check. Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 15 SKU(s).
+- [ ] `PRB-FAMILY-agent-activation` (automation-depth) Route first output into the existing review queue (src/routes/agents.routes.ts /review-queue) so review is tracked in-product rather than by email. Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 38 SKU(s).
+- [ ] `PRB-FAMILY-bundle-composition` (automation-depth) Reuse agent-activation automation per component once it exists. Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 9 SKU(s).
+- [ ] `PRB-FAMILY-industry-pod-onboarding` (automation-depth) Industry-specific onboarding wizard presets (src/routes/onboard.routes.ts industry step). Trigger: fulfilled orders per quarter in this family (product_order_intents) reaches a threshold the HIC has not set yet. Covers 9 SKU(s).
+- [ ] `PRB-FAMILY-advisory-programme` (automation-depth) Automated weekly gate reminders and evidence checklist per programme. Trigger: active programmes reaches a threshold the HIC has not set yet. Covers 9 SKU(s).
 
 ## Every product
 
@@ -51,12 +67,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/ac365-t3.html
+- Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-AC365-T3-01` (capacity-evidence) Document a capacity profile for AC365-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-AC365-T3-02` (automation-depth) Evaluate automating part of the managed-delivery process for AC365-T3 (today: managed bundle composition) once volume justifies it.
+- None open today.
 
 ### rb-ai-agent-engineering
 
@@ -72,10 +89,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/ai-agent-engineering.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-ai-agent-engineering-01` (automation-depth) Evaluate automating part of the managed-delivery process for ai-agent-engineering (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-ai-consultant-day
 
@@ -91,10 +109,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Core
 - Detail page: ../products/ai-consultant-day.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-ai-consultant-day-01` (automation-depth) Evaluate automating part of the managed-delivery process for ai-consultant-day (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-ai-consulting-agentic
 
@@ -110,10 +129,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/ai-consulting-agentic.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-ai-consulting-agentic-01` (automation-depth) Evaluate automating part of the managed-delivery process for ai-consulting-agentic (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-ai-koulutus-3d
 
@@ -129,10 +149,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/ai-koulutus-3d.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-ai-koulutus-3d-01` (automation-depth) Evaluate automating part of the managed-delivery process for ai-koulutus-3d (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-ais-eu-sov-oc
 
@@ -148,10 +169,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/ais-eu-sov-oc.html
+- Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-AIS-EU-SOV-OC-01` (automation-depth) Evaluate automating part of the managed-delivery process for AIS-EU-SOV-OC (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it.
+- None open today.
 
 ### rb-ais-outcome-pilot
 
@@ -167,10 +189,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/ais-outcome-pilot.html
+- Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-AIS-OUTCOME-PILOT-01` (automation-depth) Evaluate automating part of the managed-delivery process for AIS-OUTCOME-PILOT (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it.
+- None open today.
 
 ### rb-aws-consultancy
 
@@ -186,10 +209,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/aws-consultancy.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-aws-consultancy-01` (automation-depth) Evaluate automating part of the managed-delivery process for aws-consultancy (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-business-mentor-30
 
@@ -205,10 +229,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/business-mentor-30.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-business-mentor-30-01` (automation-depth) Evaluate automating part of the managed-delivery process for business-mentor-30 (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-claude-code-coaching-3day
 
@@ -224,10 +249,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/claude-code-coaching-3day.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-claude-code-coaching-3day-01` (automation-depth) Evaluate automating part of the managed-delivery process for claude-code-coaching-3day (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-claude-code-coaching-lecture
 
@@ -243,10 +269,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/claude-code-coaching-lecture.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-claude-code-coaching-lecture-01` (automation-depth) Evaluate automating part of the managed-delivery process for claude-code-coaching-lecture (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-claude-code-coaching-project
 
@@ -262,10 +289,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/claude-code-coaching-project.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-claude-code-coaching-project-01` (automation-depth) Evaluate automating part of the managed-delivery process for claude-code-coaching-project (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-claude-code-coaching-workshop
 
@@ -281,10 +309,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/claude-code-coaching-workshop.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-claude-code-coaching-workshop-01` (automation-depth) Evaluate automating part of the managed-delivery process for claude-code-coaching-workshop (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-cmp-oc-ent
 
@@ -300,10 +329,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/cmp-oc-ent.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-CMP-OC-ENT-01` (automation-depth) Evaluate automating part of the managed-delivery process for CMP-OC-ENT (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-cmp-oc-std
 
@@ -319,10 +349,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/cmp-oc-std.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-CMP-OC-STD-01` (automation-depth) Evaluate automating part of the managed-delivery process for CMP-OC-STD (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-cmp-t0
 
@@ -336,12 +367,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/cmp-t0.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-CMP-T0-01` (capacity-evidence) Document a capacity profile for CMP-T0 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-CMP-T0-02` (automation-depth) Evaluate automating part of the managed-delivery process for CMP-T0 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-cmp-t1
 
@@ -355,12 +387,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/cmp-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-CMP-T1-01` (capacity-evidence) Document a capacity profile for CMP-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-CMP-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for CMP-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-cmp-t2
 
@@ -374,12 +407,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/cmp-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-CMP-T2-01` (capacity-evidence) Document a capacity profile for CMP-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-CMP-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for CMP-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-constr-t2
 
@@ -393,12 +427,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/constr-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-CONSTR-T2-01` (capacity-evidence) Document a capacity profile for CONSTR-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-CONSTR-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for CONSTR-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-constr-t3
 
@@ -412,12 +447,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/constr-t3.html
+- Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-CONSTR-T3-01` (capacity-evidence) Document a capacity profile for CONSTR-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-CONSTR-T3-02` (automation-depth) Evaluate automating part of the managed-delivery process for CONSTR-T3 (today: managed bundle composition) once volume justifies it.
+- None open today.
 
 ### rb-consulting-fit55
 
@@ -433,10 +469,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/consulting-fit55.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-consulting-fit55-01` (automation-depth) Evaluate automating part of the managed-delivery process for consulting-fit55 (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-consulting-hourly
 
@@ -452,10 +489,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/consulting-hourly.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-consulting-hourly-01` (automation-depth) Evaluate automating part of the managed-delivery process for consulting-hourly (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-conversational-agent
 
@@ -471,10 +509,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/conversational-agent.html
+- Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-conversational-agent-01` (automation-depth) Evaluate automating part of the managed-delivery process for conversational-agent (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it.
+- None open today.
 
 ### rb-cs-t1
 
@@ -488,12 +527,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/cs-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-CS-T1-01` (capacity-evidence) Document a capacity profile for CS-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-CS-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for CS-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-cs-t2
 
@@ -507,12 +547,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/cs-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-CS-T2-01` (capacity-evidence) Document a capacity profile for CS-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-CS-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for CS-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-csat-t1
 
@@ -526,12 +567,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/csat-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-CSAT-T1-01` (capacity-evidence) Document a capacity profile for CSAT-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-CSAT-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for CSAT-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-csat-t2
 
@@ -545,12 +587,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/csat-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-CSAT-T2-01` (capacity-evidence) Document a capacity profile for CSAT-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-CSAT-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for CSAT-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-devops-lead
 
@@ -566,10 +609,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/devops-lead.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-devops-lead-01` (automation-depth) Evaluate automating part of the managed-delivery process for devops-lead (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-dw-t1
 
@@ -583,12 +627,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/dw-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DW-T1-01` (capacity-evidence) Document a capacity profile for DW-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-DW-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for DW-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-dw-t2
 
@@ -602,12 +647,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/dw-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DW-T2-01` (capacity-evidence) Document a capacity profile for DW-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-DW-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for DW-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-dws-aegis-001
 
@@ -623,10 +669,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/dws-aegis-001.html
+- Delivery automation evaluated (aegis-deployment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS-AEGIS-001-01` (automation-depth) Evaluate automating part of the managed-delivery process for DWS-AEGIS-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it.
+- None open today.
 
 ### rb-dws-aegis-impl-001
 
@@ -642,10 +689,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/dws-aegis-impl-001.html
+- Delivery automation evaluated (aegis-deployment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS-AEGIS-IMPL-001-01` (automation-depth) Evaluate automating part of the managed-delivery process for DWS-AEGIS-IMPL-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it.
+- None open today.
 
 ### rb-dws-aegis-pilot-001
 
@@ -661,10 +709,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/dws-aegis-pilot-001.html
+- Delivery automation evaluated (aegis-deployment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS-AEGIS-PILOT-001-01` (automation-depth) Evaluate automating part of the managed-delivery process for DWS-AEGIS-PILOT-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it.
+- None open today.
 
 ### rb-dws-aegis-sub-001
 
@@ -678,12 +727,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity class: Enterprise
 - Detail page: ../products/aegis.html
+- Delivery automation evaluated (aegis-deployment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS-AEGIS-SUB-001-01` (capacity-evidence) Document a capacity profile for DWS-AEGIS-SUB-001 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-DWS-AEGIS-SUB-001-02` (automation-depth) Evaluate automating part of the managed-delivery process for DWS-AEGIS-SUB-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it.
+- None open today.
 
 ### rb-dws-climate-001
 
@@ -699,10 +749,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/climate-intelligence.html
+- Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS-CLIMATE-001-01` (automation-depth) Evaluate automating part of the managed-delivery process for DWS-CLIMATE-001 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it.
+- None open today.
 
 ### rb-dws-eu-pilot
 
@@ -718,10 +769,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/dws-eu-pilot.html
+- Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS-EU-PILOT-01` (automation-depth) Evaluate automating part of the managed-delivery process for DWS-EU-PILOT (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it.
+- None open today.
 
 ### rb-dws-eu-starter
 
@@ -737,10 +789,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Core
 - Detail page: ../products/dws-eu-starter.html
+- Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS-EU-STARTER-01` (automation-depth) Evaluate automating part of the managed-delivery process for DWS-EU-STARTER (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it.
+- None open today.
 
 ### rb-dws-iq-006
 
@@ -756,10 +809,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/dws-iq-006.html
+- Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS-IQ-006-01` (automation-depth) Evaluate automating part of the managed-delivery process for DWS-IQ-006 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it.
+- None open today.
 
 ### rb-dws-iq-ess-setup
 
@@ -773,12 +827,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity class: Core
 - Detail page: ../products/dws-iq-ess-setup.html
+- Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS-IQ-ESS-SETUP-01` (capacity-evidence) Document a capacity profile for DWS-IQ-ESS-SETUP in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-DWS-IQ-ESS-SETUP-02` (automation-depth) Evaluate automating part of the managed-delivery process for DWS-IQ-ESS-SETUP (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it.
+- None open today.
 
 ### rb-dws-iq-free-2026
 
@@ -794,10 +849,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Core
 - Detail page: ../products/dwsiq-free.html
+- Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS-IQ-FREE-2026-01` (automation-depth) Evaluate automating part of the managed-delivery process for DWS-IQ-FREE-2026 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it.
+- None open today.
 
 ### rb-dws-sovereign-db-001
 
@@ -813,10 +869,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/sovereign-database.html
+- Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS-SOVEREIGN-DB-001-01` (automation-depth) Evaluate automating part of the managed-delivery process for DWS-SOVEREIGN-DB-001 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it.
+- None open today.
 
 ### rb-dws-us-pilot
 
@@ -832,10 +889,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/dws-us-pilot.html
+- Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS-US-PILOT-01` (automation-depth) Evaluate automating part of the managed-delivery process for DWS-US-PILOT (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it.
+- None open today.
 
 ### rb-dws-us-starter
 
@@ -851,10 +909,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Core
 - Detail page: ../products/dws-us-starter.html
+- Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS-US-STARTER-01` (automation-depth) Evaluate automating part of the managed-delivery process for DWS-US-STARTER (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it.
+- None open today.
 
 ### rb-dws365-cmp-t3
 
@@ -868,12 +927,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/dws365-cmp-t3.html
+- Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-DWS365-CMP-T3-01` (capacity-evidence) Document a capacity profile for DWS365-CMP-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-DWS365-CMP-T3-02` (automation-depth) Evaluate automating part of the managed-delivery process for DWS365-CMP-T3 (today: managed bundle composition) once volume justifies it.
+- None open today.
 
 ### rb-ed-t1
 
@@ -887,12 +947,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/ed-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-ED-T1-01` (capacity-evidence) Document a capacity profile for ED-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-ED-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for ED-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-ed-t2
 
@@ -906,12 +967,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/ed-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-ED-T2-01` (capacity-evidence) Document a capacity profile for ED-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-ED-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for ED-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-edge-node-gn100
 
@@ -927,10 +989,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/edge-node-gn100.html
+- Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-edge-node-gn100-01` (automation-depth) Evaluate automating part of the managed-delivery process for edge-node-gn100 (today: managed hardware fulfilment) once volume justifies it.
+- None open today.
 
 ### rb-esg-t3
 
@@ -944,12 +1007,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/esg-t3.html
+- Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-ESG-T3-01` (capacity-evidence) Document a capacity profile for ESG-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-ESG-T3-02` (automation-depth) Evaluate automating part of the managed-delivery process for ESG-T3 (today: managed bundle composition) once volume justifies it.
+- None open today.
 
 ### rb-fh-auto-001
 
@@ -965,10 +1029,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/fh-auto-001.html
+- Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-FH-AUTO-001-01` (automation-depth) Evaluate automating part of the managed-delivery process for FH-AUTO-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it.
+- None open today.
 
 ### rb-fh-cms-001
 
@@ -984,10 +1049,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/fh-cms-001.html
+- Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-FH-CMS-001-01` (automation-depth) Evaluate automating part of the managed-delivery process for FH-CMS-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it.
+- None open today.
 
 ### rb-fh-omni-001
 
@@ -1003,10 +1069,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/fh-omni-001.html
+- Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-FH-OMNI-001-01` (automation-depth) Evaluate automating part of the managed-delivery process for FH-OMNI-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it.
+- None open today.
 
 ### rb-fh-rpt-001
 
@@ -1022,10 +1089,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/fh-rpt-001.html
+- Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-FH-RPT-001-01` (automation-depth) Evaluate automating part of the managed-delivery process for FH-RPT-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it.
+- None open today.
 
 ### rb-fh-sign-001
 
@@ -1041,10 +1109,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/firehorse-signed-reports.html
+- Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-FH-SIGN-001-01` (automation-depth) Evaluate automating part of the managed-delivery process for FH-SIGN-001 (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it.
+- None open today.
 
 ### rb-fh-skill-t3
 
@@ -1058,12 +1127,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/fh-skill-t3.html
+- Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-FH-SKILL-T3-01` (capacity-evidence) Document a capacity profile for FH-SKILL-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-FH-SKILL-T3-02` (automation-depth) Evaluate automating part of the managed-delivery process for FH-SKILL-T3 (today: managed bundle composition) once volume justifies it.
+- None open today.
 
 ### rb-firehorse-coach
 
@@ -1079,10 +1149,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/firehorse-coach.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-firehorse-coach-01` (automation-depth) Evaluate automating part of the managed-delivery process for firehorse-coach (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-firehorse-data-services
 
@@ -1098,10 +1169,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/firehorse-data-services.html
+- Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-firehorse-data-services-01` (automation-depth) Evaluate automating part of the managed-delivery process for firehorse-data-services (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it.
+- None open today.
 
 ### rb-firehorse-flow
 
@@ -1117,10 +1189,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/firehorse-flow.html
+- Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-firehorse-flow-01` (automation-depth) Evaluate automating part of the managed-delivery process for firehorse-flow (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it.
+- None open today.
 
 ### rb-gtm-t3
 
@@ -1134,12 +1207,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/gtm-t3.html
+- Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-GTM-T3-01` (capacity-evidence) Document a capacity profile for GTM-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-GTM-T3-02` (automation-depth) Evaluate automating part of the managed-delivery process for GTM-T3 (today: managed bundle composition) once volume justifies it.
+- None open today.
 
 ### rb-hse-t3
 
@@ -1153,12 +1227,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/hse-t3.html
+- Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-HSE-T3-01` (capacity-evidence) Document a capacity profile for HSE-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-HSE-T3-02` (automation-depth) Evaluate automating part of the managed-delivery process for HSE-T3 (today: managed bundle composition) once volume justifies it.
+- None open today.
 
 ### rb-ind-bess
 
@@ -1174,10 +1249,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/ind-bess.html
+- Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-IND-BESS-01` (automation-depth) Evaluate automating part of the managed-delivery process for IND-BESS (today: managed industry-pod onboarding) once volume justifies it.
+- None open today.
 
 ### rb-ind-ceres
 
@@ -1193,10 +1269,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/ind-ceres.html
+- Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-IND-CERES-01` (automation-depth) Evaluate automating part of the managed-delivery process for IND-CERES (today: managed industry-pod onboarding) once volume justifies it.
+- None open today.
 
 ### rb-ind-gaia
 
@@ -1212,10 +1289,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/ind-gaia.html
+- Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-IND-GAIA-01` (automation-depth) Evaluate automating part of the managed-delivery process for IND-GAIA (today: managed industry-pod onboarding) once volume justifies it.
+- None open today.
 
 ### rb-ind-helios
 
@@ -1231,10 +1309,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/ind-helios.html
+- Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-IND-HELIOS-01` (automation-depth) Evaluate automating part of the managed-delivery process for IND-HELIOS (today: managed industry-pod onboarding) once volume justifies it.
+- None open today.
 
 ### rb-ind-mars
 
@@ -1250,10 +1329,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/ind-mars.html
+- Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-IND-MARS-01` (automation-depth) Evaluate automating part of the managed-delivery process for IND-MARS (today: managed industry-pod onboarding) once volume justifies it.
+- None open today.
 
 ### rb-ind-neptun
 
@@ -1269,10 +1349,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/ind-neptun.html
+- Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-IND-NEPTUN-01` (automation-depth) Evaluate automating part of the managed-delivery process for IND-NEPTUN (today: managed industry-pod onboarding) once volume justifies it.
+- None open today.
 
 ### rb-ind-prom
 
@@ -1288,10 +1369,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/ind-prom.html
+- Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-IND-PROM-01` (automation-depth) Evaluate automating part of the managed-delivery process for IND-PROM (today: managed industry-pod onboarding) once volume justifies it.
+- None open today.
 
 ### rb-ind-talos
 
@@ -1307,10 +1389,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/ind-talos.html
+- Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-IND-TALOS-01` (automation-depth) Evaluate automating part of the managed-delivery process for IND-TALOS (today: managed industry-pod onboarding) once volume justifies it.
+- None open today.
 
 ### rb-ind-vulcan
 
@@ -1326,10 +1409,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Industry Pods Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/ind-vulcan.html
+- Delivery automation evaluated (industry-pod-onboarding, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-IND-VULCAN-01` (automation-depth) Evaluate automating part of the managed-delivery process for IND-VULCAN (today: managed industry-pod onboarding) once volume justifies it.
+- None open today.
 
 ### rb-kya-jev-001
 
@@ -1345,10 +1429,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Aegis & KYA Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Early Access
 - Detail page: ../products/kya-jev-001.html
+- Delivery automation evaluated (aegis-deployment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-KYA-JEV-001-01` (automation-depth) Evaluate automating part of the managed-delivery process for KYA-JEV-001 (today: managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.) once volume justifies it.
+- None open today.
 
 ### rb-land-ail
 
@@ -1364,10 +1449,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/land-ail.html
+- Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LAND-AIL-01` (automation-depth) Evaluate automating part of the managed-delivery process for LAND-AIL (today: managed advisory programme) once volume justifies it.
+- None open today.
 
 ### rb-land-csrd
 
@@ -1383,10 +1469,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/land-csrd.html
+- Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LAND-CSRD-01` (automation-depth) Evaluate automating part of the managed-delivery process for LAND-CSRD (today: managed advisory programme) once volume justifies it.
+- None open today.
 
 ### rb-land-euai
 
@@ -1402,10 +1489,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/land-euai.html
+- Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LAND-EUAI-01` (automation-depth) Evaluate automating part of the managed-delivery process for LAND-EUAI (today: managed advisory programme) once volume justifies it.
+- None open today.
 
 ### rb-land-gtm
 
@@ -1421,10 +1509,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/land-gtm.html
+- Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LAND-GTM-01` (automation-depth) Evaluate automating part of the managed-delivery process for LAND-GTM (today: managed advisory programme) once volume justifies it.
+- None open today.
 
 ### rb-land-hse
 
@@ -1440,10 +1529,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/land-hse.html
+- Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LAND-HSE-01` (automation-depth) Evaluate automating part of the managed-delivery process for LAND-HSE (today: managed advisory programme) once volume justifies it.
+- None open today.
 
 ### rb-land-lca
 
@@ -1459,10 +1549,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/land-lca.html
+- Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LAND-LCA-01` (automation-depth) Evaluate automating part of the managed-delivery process for LAND-LCA (today: managed advisory programme) once volume justifies it.
+- None open today.
 
 ### rb-land-ops
 
@@ -1478,10 +1569,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/land-ops.html
+- Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LAND-OPS-01` (automation-depth) Evaluate automating part of the managed-delivery process for LAND-OPS (today: managed advisory programme) once volume justifies it.
+- None open today.
 
 ### rb-land-sov
 
@@ -1497,10 +1589,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/land-sov.html
+- Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LAND-SOV-01` (automation-depth) Evaluate automating part of the managed-delivery process for LAND-SOV (today: managed advisory programme) once volume justifies it.
+- None open today.
 
 ### rb-land-wf
 
@@ -1516,10 +1609,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Land-and-Expand Programmes Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/land-wf.html
+- Delivery automation evaluated (advisory-programme, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LAND-WF-01` (automation-depth) Evaluate automating part of the managed-delivery process for LAND-WF (today: managed advisory programme) once volume justifies it.
+- None open today.
 
 ### rb-lean-project
 
@@ -1535,10 +1629,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/lean-project.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-lean-project-01` (automation-depth) Evaluate automating part of the managed-delivery process for lean-project (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-lf-compliance-ambulance-001
 
@@ -1554,10 +1649,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/dws-iq-compliance-ambulance.html
+- Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-COMPLIANCE-AMBULANCE-001-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-COMPLIANCE-AMBULANCE-001 (today: managed hardware fulfilment) once volume justifies it.
+- None open today.
 
 ### rb-lf-dgx-spark
 
@@ -1573,10 +1669,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/dgx-spark.html
+- Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-DGX-SPARK-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-DGX-SPARK (today: managed hardware fulfilment) once volume justifies it.
+- None open today.
 
 ### rb-lf-doca-essential
 
@@ -1592,10 +1689,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/lf-doca-essential.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-DOCA-ESSENTIAL-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-DOCA-ESSENTIAL (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-doca-network-storage
 
@@ -1611,10 +1709,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/lf-doca-network-storage.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-DOCA-NETWORK-STORAGE-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-DOCA-NETWORK-STORAGE (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-doca-security
 
@@ -1630,10 +1729,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/lf-doca-security.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-DOCA-SECURITY-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-DOCA-SECURITY (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-fips-validation
 
@@ -1649,10 +1749,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/lf-fips-validation.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-FIPS-VALIDATION-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-FIPS-VALIDATION (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-gov-airgap-bundle
 
@@ -1668,10 +1769,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Sovereign
 - Detail page: ../products/lf-gov-airgap-bundle.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-GOV-AIRGAP-BUNDLE-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-GOV-AIRGAP-BUNDLE (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-gov-ready-annual
 
@@ -1687,10 +1789,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/lf-gov-ready-annual.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-GOV-READY-ANNUAL-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-GOV-READY-ANNUAL (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-gov-ready-setup
 
@@ -1706,10 +1809,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/lf-gov-ready-setup.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-GOV-READY-SETUP-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-GOV-READY-SETUP (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-igx-orin
 
@@ -1725,10 +1829,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/igx-orin.html
+- Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-IGX-ORIN-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-IGX-ORIN (today: managed hardware fulfilment) once volume justifies it.
+- None open today.
 
 ### rb-lf-ipcmax-cincoze-da1200
 
@@ -1744,10 +1849,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/lf-ipcmax-cincoze-da1200.html
+- Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-IPCMAX-CINCOZE-DA1200-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-IPCMAX-CINCOZE-DA1200 (today: managed hardware fulfilment) once volume justifies it.
+- None open today.
 
 ### rb-lf-ipcmax-ipc409
 
@@ -1763,10 +1869,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Core
 - Detail page: ../products/lf-ipcmax-ipc409.html
+- Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-IPCMAX-IPC409-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-IPCMAX-IPC409 (today: managed hardware fulfilment) once volume justifies it.
+- None open today.
 
 ### rb-lf-ipcmax-ipcp68
 
@@ -1782,10 +1889,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/lf-ipcmax-ipcp68.html
+- Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-IPCMAX-IPCP68-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-IPCMAX-IPCP68 (today: managed hardware fulfilment) once volume justifies it.
+- None open today.
 
 ### rb-lf-jetson-agx
 
@@ -1801,10 +1909,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/lf-jetson-agx.html
+- Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-JETSON-AGX-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-JETSON-AGX (today: managed hardware fulfilment) once volume justifies it.
+- None open today.
 
 ### rb-lf-jetson-nano
 
@@ -1820,10 +1929,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Core
 - Detail page: ../products/lf-jetson-nano.html
+- Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-JETSON-NANO-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-JETSON-NANO (today: managed hardware fulfilment) once volume justifies it.
+- None open today.
 
 ### rb-lf-jetson-nx
 
@@ -1839,10 +1949,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Core
 - Detail page: ../products/lf-jetson-nx.html
+- Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-JETSON-NX-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-JETSON-NX (today: managed hardware fulfilment) once volume justifies it.
+- None open today.
 
 ### rb-lf-k8s-t1
 
@@ -1858,10 +1969,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Core
 - Detail page: ../products/lf-k8s-t1.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-K8S-T1-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-K8S-T1 (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-k8s-t2
 
@@ -1877,10 +1989,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/lf-k8s-t2.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-K8S-T2-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-K8S-T2 (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-k8s-t3
 
@@ -1896,10 +2009,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/lf-k8s-t3.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-K8S-T3-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-K8S-T3 (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-k8s-t4
 
@@ -1915,10 +2029,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Sovereign
 - Detail page: ../products/lf-k8s-t4.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-K8S-T4-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-K8S-T4 (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-nim-biology
 
@@ -1934,10 +2049,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/lf-nim-biology.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-NIM-BIOLOGY-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-NIM-BIOLOGY (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-nim-code
 
@@ -1953,10 +2069,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/lf-nim-code.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-NIM-CODE-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-NIM-CODE (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-nim-retrieval
 
@@ -1972,10 +2089,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/lf-nim-retrieval.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-NIM-RETRIEVAL-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-NIM-RETRIEVAL (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-nim-starter
 
@@ -1991,10 +2109,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Kubernetes, DOCA & NIM Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Core
 - Detail page: ../products/lf-nim-starter.html
+- Delivery automation evaluated (cluster-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-NIM-STARTER-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-NIM-STARTER (today: managed cluster/service provisioning by a named engineer on buyer-supplied or lifetime-supplied hardware; human-verified before handover.) once volume justifies it.
+- None open today.
 
 ### rb-lf-nvidia-install
 
@@ -2010,10 +2129,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/nvidia-model-install.html
+- Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-NVIDIA-INSTALL-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-NVIDIA-INSTALL (today: managed hardware fulfilment) once volume justifies it.
+- None open today.
 
 ### rb-lf-sitroom-001
 
@@ -2029,10 +2149,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Sovereign Hardware & Edge Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/situation-room.html
+- Delivery automation evaluated (hardware-fulfilment, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-SITROOM-001-01` (automation-depth) Evaluate automating part of the managed-delivery process for LF-SITROOM-001 (today: managed hardware fulfilment) once volume justifies it.
+- None open today.
 
 ### rb-lf-t1
 
@@ -2046,12 +2167,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/lf-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-T1-01` (capacity-evidence) Document a capacity profile for LF-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-LF-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for LF-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-lf-t2
 
@@ -2065,12 +2187,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/lf-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LF-T2-01` (capacity-evidence) Document a capacity profile for LF-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-LF-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for LF-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-lifetime-bundle-2026
 
@@ -2086,10 +2209,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — DWS IQ Platform Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/lifetime-bundle-2026.html
+- Delivery automation evaluated (platform-provisioning, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LIFETIME-BUNDLE-2026-01` (automation-depth) Evaluate automating part of the managed-delivery process for LIFETIME-BUNDLE-2026 (today: managed cloud or on-premise provisioning by the platform team; human-verified activation. no unattended automation claimed for first deployment.) once volume justifies it.
+- None open today.
 
 ### rb-lifetime-it-tuki-10h
 
@@ -2103,12 +2227,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — SME Web & IT Services Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (managed human service, DWS_CAPACITY_CLASS_STANDARD.md §5.13)
 - Detail page: ../products/lifetime-it-tuki-10h.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LIFETIME-IT-TUKI-10H-01` (capacity-evidence) Document a capacity profile for LIFETIME-IT-TUKI-10H in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-LIFETIME-IT-TUKI-10H-02` (automation-depth) Evaluate automating part of the managed-delivery process for LIFETIME-IT-TUKI-10H (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-lifetime-web-starter
 
@@ -2122,12 +2247,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — SME Web & IT Services Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (managed human service, DWS_CAPACITY_CLASS_STANDARD.md §5.13)
 - Detail page: ../products/lifetime-web-starter.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LIFETIME-WEB-STARTER-01` (capacity-evidence) Document a capacity profile for LIFETIME-WEB-STARTER in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-LIFETIME-WEB-STARTER-02` (automation-depth) Evaluate automating part of the managed-delivery process for LIFETIME-WEB-STARTER (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-lifetime-webstore-mini
 
@@ -2141,12 +2267,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — SME Web & IT Services Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (managed human service, DWS_CAPACITY_CLASS_STANDARD.md §5.13)
 - Detail page: ../products/lifetime-webstore-mini.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LIFETIME-WEBSTORE-MINI-01` (capacity-evidence) Document a capacity profile for LIFETIME-WEBSTORE-MINI in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-LIFETIME-WEBSTORE-MINI-02` (automation-depth) Evaluate automating part of the managed-delivery process for LIFETIME-WEBSTORE-MINI (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-log-t1
 
@@ -2160,12 +2287,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/log-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LOG-T1-01` (capacity-evidence) Document a capacity profile for LOG-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-LOG-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for LOG-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-log-t2
 
@@ -2179,12 +2307,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/log-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-LOG-T2-01` (capacity-evidence) Document a capacity profile for LOG-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-LOG-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for LOG-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-mo-oc-ent
 
@@ -2200,10 +2329,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/mo-oc-ent.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-MO-OC-ENT-01` (automation-depth) Evaluate automating part of the managed-delivery process for MO-OC-ENT (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-mo-oc-std
 
@@ -2219,10 +2349,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/mo-oc-std.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-MO-OC-STD-01` (automation-depth) Evaluate automating part of the managed-delivery process for MO-OC-STD (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-mo-t0
 
@@ -2236,12 +2367,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/mo-t0.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-MO-T0-01` (capacity-evidence) Document a capacity profile for MO-T0 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-MO-T0-02` (automation-depth) Evaluate automating part of the managed-delivery process for MO-T0 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-mo-t1
 
@@ -2255,12 +2387,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/mo-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-MO-T1-01` (capacity-evidence) Document a capacity profile for MO-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-MO-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for MO-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-mo-t2
 
@@ -2274,12 +2407,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/mo-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-MO-T2-01` (capacity-evidence) Document a capacity profile for MO-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-MO-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for MO-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-omnichannel-multimodal
 
@@ -2295,10 +2429,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Firehorse Applications Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/omnichannel-multimodal.html
+- Delivery automation evaluated (saas-tenant-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-omnichannel-multimodal-01` (automation-depth) Evaluate automating part of the managed-delivery process for omnichannel-multimodal (today: managed saas tenant activation with human-verified configuration; no unattended automation claimed for first activation.) once volume justifies it.
+- None open today.
 
 ### rb-professional-web-pages
 
@@ -2314,10 +2449,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity-class exempt (advisory engagement, DWS_CAPACITY_CLASS_STANDARD.md §5.11)
 - Detail page: ../products/professional-web-pages.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-professional-web-pages-01` (automation-depth) Evaluate automating part of the managed-delivery process for professional-web-pages (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-qg-t1
 
@@ -2331,12 +2467,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/qg-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-QG-T1-01` (capacity-evidence) Document a capacity profile for QG-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-QG-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for QG-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-qg-t2
 
@@ -2350,12 +2487,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/qg-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-QG-T2-01` (capacity-evidence) Document a capacity profile for QG-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-QG-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for QG-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-seo-t1
 
@@ -2369,12 +2507,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/seo-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-SEO-T1-01` (capacity-evidence) Document a capacity profile for SEO-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-SEO-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for SEO-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-seo-t2
 
@@ -2388,12 +2527,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/seo-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-SEO-T2-01` (capacity-evidence) Document a capacity profile for SEO-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-SEO-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for SEO-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-sg-t1
 
@@ -2407,12 +2547,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/sg-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-SG-T1-01` (capacity-evidence) Document a capacity profile for SG-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-SG-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for SG-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-sg-t2
 
@@ -2426,12 +2567,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/sg-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-SG-T2-01` (capacity-evidence) Document a capacity profile for SG-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-SG-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for SG-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-sov-t1
 
@@ -2445,12 +2587,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/sov-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-SOV-T1-01` (capacity-evidence) Document a capacity profile for SOV-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-SOV-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for SOV-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-sov-t2
 
@@ -2464,12 +2607,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Operations & Assurance Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/sov-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-SOV-T2-01` (capacity-evidence) Document a capacity profile for SOV-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-SOV-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for SOV-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-sov-t3
 
@@ -2483,12 +2627,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/sov-t3.html
+- Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-SOV-T3-01` (capacity-evidence) Document a capacity profile for SOV-T3 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-SOV-T3-02` (automation-depth) Evaluate automating part of the managed-delivery process for SOV-T3 (today: managed bundle composition) once volume justifies it.
+- None open today.
 
 ### rb-sovereignty-cloud-consulting
 
@@ -2502,12 +2647,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Consulting, Engineering & Training Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (managed human service, DWS_CAPACITY_CLASS_STANDARD.md §5.13)
 - Detail page: ../products/sovereignty-cloud-consulting.html
+- Delivery automation evaluated (human-delivery, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-sovereignty-cloud-consulting-01` (capacity-evidence) Document a capacity profile for sovereignty-cloud-consulting in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-sovereignty-cloud-consulting-02` (automation-depth) Evaluate automating part of the managed-delivery process for sovereignty-cloud-consulting (today: managed human delivery) once volume justifies it.
+- None open today.
 
 ### rb-ss-oc-ent
 
@@ -2523,10 +2669,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Enterprise
 - Detail page: ../products/ss-oc-ent.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-SS-OC-ENT-01` (automation-depth) Evaluate automating part of the managed-delivery process for SS-OC-ENT (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-ss-oc-std
 
@@ -2542,10 +2689,11 @@ Version bucket: current — implemented facts:
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
 - Capacity class: Production
 - Detail page: ../products/ss-oc-std.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-SS-OC-STD-01` (automation-depth) Evaluate automating part of the managed-delivery process for SS-OC-STD (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-ss-t0
 
@@ -2559,12 +2707,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/ss-t0.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-SS-T0-01` (capacity-evidence) Document a capacity profile for SS-T0 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-SS-T0-02` (automation-depth) Evaluate automating part of the managed-delivery process for SS-T0 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-ss-t1
 
@@ -2578,12 +2727,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/ss-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-SS-T1-01` (capacity-evidence) Document a capacity profile for SS-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-SS-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for SS-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-ss-t2
 
@@ -2597,12 +2747,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Compliance, Safety & Materials Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/ss-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-SS-T2-01` (capacity-evidence) Document a capacity profile for SS-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-SS-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for SS-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-via-t1
 
@@ -2616,12 +2767,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/via-t1.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-VIA-T1-01` (capacity-evidence) Document a capacity profile for VIA-T1 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-VIA-T1-02` (automation-depth) Evaluate automating part of the managed-delivery process for VIA-T1 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-via-t2
 
@@ -2635,12 +2787,13 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Growth, Knowledge & Viability Agents Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/via-t2.html
+- Delivery automation evaluated (agent-activation, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-VIA-T2-01` (capacity-evidence) Document a capacity profile for VIA-T2 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-VIA-T2-02` (automation-depth) Evaluate automating part of the managed-delivery process for VIA-T2 (today: managed agent activation) once volume justifies it.
+- None open today.
 
 ### rb-wf-t4
 
@@ -2654,9 +2807,10 @@ Version bucket: current — implemented facts:
 - Binary acceptance KPI defined
 - Contractual exclusions defined
 - Fulfilment owner: Lifetime Oy — Function & Channel Bundles Team, acknowledged within 1 business day via https://dws10.com/contact/
+- Capacity-class exempt (agent SKU or agent bundle, DWS_CAPACITY_CLASS_STANDARD.md §5.12)
 - Detail page: ../products/wf-t4.html
+- Delivery automation evaluated (bundle-composition, 2026-09-27): paid-order intake, verification, buyer acceptance/exclusions and operations checklist automated; delivery itself stays managed
 
 Version bucket: next — proposed backlog issues:
 
-- [ ] `PRB-WF-T4-01` (capacity-evidence) Document a capacity profile for WF-T4 in DWS_CAPACITY_CLASS_STANDARD.md before any public capacity claim (missing: capacityClass, capacityOptions, capacityCapabilities, capacityLimits).
-- [ ] `PRB-WF-T4-02` (automation-depth) Evaluate automating part of the managed-delivery process for WF-T4 (today: managed bundle composition) once volume justifies it.
+- None open today.
