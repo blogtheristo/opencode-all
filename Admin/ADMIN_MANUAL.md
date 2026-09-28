@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.40 [Latest]
+Version: 3.41 [Latest]
 
 Sessions & Modifications:
 
-- Version: 3.40 [Latest] | Tool: Claude Code (Opus 5) | Session: claude/practical-meitner-k9bhnn (salvage of claude/backoffice-open-items, PR #2075 closed unmerged) | Date: 27.09.2026 (orig. 24.09.2026) | Changes: Hardened the Cloudflare Tunnel section after a session gave the HIC three rounds of wrong dashboard instructions. Made explicit that `dgx-heartbeat` is **locally managed** (`/etc/cloudflared/config.yml`, `cloudflared` as a host systemd service) so the Cloudflare dashboard exposes no hostname tab for it, and that ingress rules must use published host ports (`http://localhost:8080`) not compose service names (`http://dws-backend:8080`) — the daemon is not on the Docker network. Flagged that the `cloudflare-tunnel` service in `infrastructure/dgx-spark/docker-compose.yml` is profile-gated, never provisioned, and its `mcp-gateway` comments describe intent not deployed state; this manual is the source of truth for tunnel state. Added a concrete pending runbook for `backend.dws6.com` → `localhost:8080` (HIC-approved, blocked on DGX SSH), including why `api.dws6.com` was not reused (live CNAME to `ghs.googlehosted.com` from the retired `dws6run6` Cloud Run mapping). Cross-refs: `Admin/ADMIN_MANUAL_DWS6_COM.md` §11.2 (v1.4), `docs/field-notes/2026-09-24-backoffice-open-items-fixed.md` (v1.2).
+- Version: 3.41 [Latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: New subsection "Per-session worktree launch (DGX terminal)": `opencode` started in `~/dws6` runs in its own worktree + `opencode/<task>` branch via `scripts/shell/opencode-worktree.bash` (PR #2198), installed on DGX 28.09.2026 with the self-verifying `install-opencode-worktree.sh`. Recorded operator rules from the rollout: keep `~/dws6` on `main`; find live sessions before switching it; opencode `-s` resumes in the session's stored folder, so continue old shared-checkout work via a fresh session in the worktree + handoff file; GH007 private-email push rejection and its fix. Worktrees section: `--link-deps` worktrees share the primary `node_modules`. Cross-refs: `WORKTREE_POLICY.md` §6, `docs/field-notes/2026-09-28-opencode-worktree-wrapper-dgx.md`.
+- Version: 3.40 [not latest] | Tool: Claude Code (Opus 5) | Session: claude/practical-meitner-k9bhnn (salvage of claude/backoffice-open-items, PR #2075 closed unmerged) | Date: 27.09.2026 (orig. 24.09.2026) | Changes: Hardened the Cloudflare Tunnel section after a session gave the HIC three rounds of wrong dashboard instructions. Made explicit that `dgx-heartbeat` is **locally managed** (`/etc/cloudflared/config.yml`, `cloudflared` as a host systemd service) so the Cloudflare dashboard exposes no hostname tab for it, and that ingress rules must use published host ports (`http://localhost:8080`) not compose service names (`http://dws-backend:8080`) — the daemon is not on the Docker network. Flagged that the `cloudflare-tunnel` service in `infrastructure/dgx-spark/docker-compose.yml` is profile-gated, never provisioned, and its `mcp-gateway` comments describe intent not deployed state; this manual is the source of truth for tunnel state. Added a concrete pending runbook for `backend.dws6.com` → `localhost:8080` (HIC-approved, blocked on DGX SSH), including why `api.dws6.com` was not reused (live CNAME to `ghs.googlehosted.com` from the retired `dws6run6` Cloud Run mapping). Cross-refs: `Admin/ADMIN_MANUAL_DWS6_COM.md` §11.2 (v1.4), `docs/field-notes/2026-09-24-backoffice-open-items-fixed.md` (v1.2).
 - Version: 3.39 [not latest] | Tool: Claude Code (Opus 5.5) | Session: claude/kya-jev-audit-implementation-plan | Date: 27.09.2026 | Changes: Added `kya-jev` typed-decision operations section (signing secret per environment + rotation, the five consumers and which ones log, calibration run, public `kya-decide` package). Operations log: migration 087 (`kya_jev_calls`) applied via SQL editor and ledger repaired with `supabase migration repair --status applied 087`.
 - Version: 3.38 [not latest] | Tool: GitHub Copilot CLI 1.0.88 (gpt-5.6-sol) | Session: copilot/role-learning-hub-0ee942b3 | Date: 27.09.2026 | Changes: Added role-based Learning Hub distribution runbook: declarative audience manifest, deterministic offline pack build/validation, checksum-verifying Windows per-user installer, and authenticated v10 dashboard discovery. Audience roles are separate from canonical R-IDs; repository documents remain source of truth. | Harness: GitHub Copilot CLI + CLAUDE.md | HIC-approved-drift: none
 - Version: 3.37 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Session: copilot/nemoclaw-phase2-closeout | Date: 27.09.2026 | Changes: Recorded PR #2175 merge and clarified the merged code is not a live runtime deployment.
@@ -796,6 +797,37 @@ OpenCode on DGX can run **large tasks at zero purchased-token cost**. Use this d
 
 Cross-ref: `docs/field-notes/2026-08-24-opencode-all-living-engine.md` (ox-alpha free tier + expiry watch), `docs/field-notes/2026-08-14-dws-multi-model-workflow-architecture.md`, `opencode.json`.
 
+### Per-session worktree launch (DGX terminal)
+
+**State (28.09.2026):** installed and verified on `gn100-cb5d` (`admin100`). Every `opencode` started inside `~/dws6` runs in its own git worktree on a new branch, so parallel windows never share one index or working tree (incident `dca623b3c`, 22.08.2026). Policy: `WORKTREE_POLICY.md` §6.
+
+| You type (in `~/dws6`)                  | What happens                                                                                                                                                 |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `opencode`                              | Prompts for a task name (Enter = `session-<timestamp>`), creates `~/.opencode-worktrees/dws6/<task>` on `opencode/<task>` from `origin/main`, starts there |
+| `OPENCODE_TASK=fix-x opencode`          | Same, no prompt; an existing `<task>` worktree is reused                                                                                                     |
+| `opencode ~/dws6` or `opencode .`       | The project path is rewritten to the new worktree                                                                                                           |
+| `opencode -s <id>` or `-c`              | Resumes in the shared checkout, with a warning (rule 3)                                                                                                      |
+| `opencode auth`, `models`, `session` …  | Management subcommands pass through unchanged                                                                                                               |
+| `OPENCODE_SHARED=1 opencode`            | Opt-out: runs in the shared checkout                                                                                                                         |
+
+Inside any linked worktree (`~/.opencode-worktrees/…`) `opencode` is unchanged.
+
+**Install / re-verify (idempotent):**
+
+```bash
+cd ~/dws6 && git switch main && git pull --ff-only origin main \
+&& bash scripts/shell/install-opencode-worktree.sh && exec bash
+```
+
+Expected: `install: OK — new shells run opencode through the worktree wrapper`. The installer exits 1 if a fresh shell does not resolve `opencode` to the wrapper function (an early `return` in `~/.bashrc`, a later alias). Terminals already open keep the old behaviour until `exec bash`. Check any time: `type -t opencode` → `function`.
+
+**Operator rules (learned in the 28.09.2026 rollout):**
+
+1. **Keep `~/dws6` on `main`.** On a feature branch, `git pull` updates that branch and fixes on `main` never arrive. Check: `git -C ~/dws6 status -sb` → `## main...origin/main`, no file lines.
+2. **Before switching `~/dws6`, find sessions using it:** `for p in $(pgrep -x opencode); do echo "$p $(readlink /proc/$p/cwd)"; done`. Finish or quit any whose cwd is `~/dws6`; switching branches under a live session changes its files mid-task.
+3. **Old sessions started in `~/dws6` stay there.** opencode stores each session's folder; `opencode -s <id>` resumes in `~/dws6` even when run from a worktree. To continue that work: `git worktree add ~/.opencode-worktrees/dws6/<name> <branch>`, start a **new** session there, and point it at `.claude/handoffs/<branch>.md` (transcript if needed: `opencode export <id> > /tmp/<name>.json`).
+4. **Push rejected with `GH007: Your push would publish a private email address`:** the commit's author/committer email is private on GitHub (`risto.paarni@lifetime.fi` is). For an unpushed commit, re-author it in the branch's worktree: `git -c user.email=2239436+blogtheristo@users.noreply.github.com commit --amend --no-edit --reset-author`. Permanent fix (HIC): untick "Block command line pushes that expose my email" at github.com/settings/emails.
+
 ### DGX startup and verification
 
 ```bash
@@ -1318,6 +1350,7 @@ cd /path/to/dws6 && npm ci && cd src/cloudflare && npm ci
 Each git worktree has its **own** `node_modules/`. Run the same two `npm ci` steps inside every worktree before relying on `npx`, `vitest`, `tsc`, or `wrangler`.
 
 - **DGX:** Cursor CLI and Copilot CLI sessions (including `opencode-all` worktrees) run `npm ci` at repo root and under `src/cloudflare/` inside each worktree.
+- **DGX opencode worktrees** created by the terminal wrapper or `new-opencode-worktree.sh --link-deps` symlink the primary checkout's root `node_modules` (excluded via `.git/info/exclude`); refresh it with `npm ci` in `~/dws6` on `main`. `src/cloudflare/` still needs its own `npm ci` per worktree. `venv` and `.venv` are symlinked the same way; a worktree created before 28.09.2026 without `.venv` fails to start `dws-gateway-local` (`ENOENT … posix_spawn '.venv/bin/python'`) — fix: `ln -s ~/dws6/.venv <worktree>/.venv`.
 - **Win11:** Cursor and VS Code use the primary clone path; same dual `npm ci` rule applies per worktree.
 
 **Related:** [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md) (Vitest and CI), [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md) (Wrangler from `src/cloudflare`).

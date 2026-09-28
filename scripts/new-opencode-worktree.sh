@@ -102,10 +102,17 @@ fi
 # ============================================================================
 # [2/4] Environment: venv symlink + secrets/config
 # ============================================================================
-if [[ -d "$MAIN_REPO/venv" && ! -e "$NEW_WORKTREE/venv" ]]; then
-    ln -s "$MAIN_REPO/venv" "$NEW_WORKTREE/venv"
-    log_info "Symlinked venv -> $MAIN_REPO/venv"
-fi
+# opencode.json starts dws-gateway-local as a relative `.venv/bin/python`, so a
+# worktree without .venv fails with ENOENT. .gitignore's `venv/` / `.venv/`
+# do not match a symlink, so exclude the links via the shared .git/info/exclude.
+EXCLUDE_FILE="$(git -C "$MAIN_REPO" rev-parse --git-common-dir)/info/exclude"
+for v in venv .venv; do
+    if [[ -d "$MAIN_REPO/$v" && ! -e "$NEW_WORKTREE/$v" ]]; then
+        ln -s "$MAIN_REPO/$v" "$NEW_WORKTREE/$v"
+        grep -qx "/$v" "$EXCLUDE_FILE" 2>/dev/null || echo "/$v" >> "$EXCLUDE_FILE"
+        log_info "Symlinked $v -> $MAIN_REPO/$v"
+    fi
+done
 
 for f in .env .env.local .mcp.json; do
     if [[ -f "$MAIN_REPO/$f" ]]; then
