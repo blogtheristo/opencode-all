@@ -498,7 +498,7 @@ describe('uplink probe', () => {
     expect(JSON.stringify(r)).not.toContain('secret');
   });
 
-  it('counts a refused loopback proxy as blocked, a listening one as a path, a refused remote proxy as a path', async () => {
+  it('fails closed on a proxy that refuses, even on loopback (a refusal is not proof of no path)', async () => {
     const closed = createServer();
     await new Promise<void>((r) => closed.listen(0, '127.0.0.1', r));
     const port = (closed.address() as AddressInfo).port;
@@ -507,23 +507,7 @@ describe('uplink probe', () => {
       env: { HTTPS_PROXY: `http://127.0.0.1:${port}` } as NodeJS.ProcessEnv,
     });
     expect(down.results[0].outcome).toBe('refused');
-    expect(down.isolated).toBe(true);
-
-    const listening = createServer();
-    await new Promise<void>((r) => listening.listen(0, '127.0.0.1', r));
-    const up = await probeUplink([], {
-      env: {
-        HTTPS_PROXY: `http://127.0.0.1:${(listening.address() as AddressInfo).port}`,
-      } as NodeJS.ProcessEnv,
-    });
-    await new Promise<void>((r) => listening.close(() => r()));
-    expect(up.isolated).toBe(false);
-
-    const remote = await probeUplink([], {
-      connector: () => Promise.resolve({ outcome: 'refused', code: 'ECONNREFUSED' }),
-      env: { HTTPS_PROXY: 'http://10.0.0.1:3128' } as NodeJS.ProcessEnv,
-    });
-    expect(remote.isolated).toBe(false);
+    expect(down.isolated).toBe(false);
   });
 });
 

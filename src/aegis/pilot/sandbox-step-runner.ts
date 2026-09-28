@@ -27,8 +27,11 @@ type HandlerModule = {
 };
 
 export async function runSandboxStep(mod: HandlerModule, inputPath: string): Promise<void> {
-  const emit = (payload: unknown) =>
-    process.stdout.write(`${RESULT_MARKER}${JSON.stringify(payload)}\n`);
+  // Exit as soon as the result is written: no callback the handler scheduled
+  // may run afterwards and print a second, forged result line (the host also
+  // refuses output with more than one).
+  const emit = (payload: unknown, code: number) =>
+    process.stdout.write(`${RESULT_MARKER}${JSON.stringify(payload)}\n`, () => process.exit(code));
   try {
     const input = JSON.parse(readFileSync(inputPath, 'utf8')) as SandboxInput;
     const registry =
@@ -39,10 +42,9 @@ export async function runSandboxStep(mod: HandlerModule, inputPath: string): Pro
     if (!handler) throw new Error(`handler "${input.handlerKey}" not exported by the step module`);
     // The sandbox's own signal never fires: stopping is the host's job (sandbox delete).
     const result = await handler({ ...input.ctx, signal: new AbortController().signal });
-    emit({ ok: true, result });
+    emit({ ok: true, result }, 0);
   } catch (err) {
     const e = err instanceof Error ? err : new Error(String(err));
-    emit({ ok: false, errorName: e.name, errorMessage: e.message.slice(0, 300) });
-    process.exitCode = 1;
+    emit({ ok: false, errorName: e.name, errorMessage: e.message.slice(0, 300) }, 1);
   }
 }

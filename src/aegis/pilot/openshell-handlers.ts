@@ -70,9 +70,16 @@ export type CommandRunner = (
     input?: string;
     /** Streamed stdout, as it arrives. */
     onStdout?: (chunk: string) => void;
+    /** Kill the child once stdout + stderr exceed this many bytes (default 8 MiB). */
+    maxOutputBytes?: number;
     onSpawn?: (kill: () => void) => void;
   },
 ) => Promise<CommandResult>;
+
+/** Default cap on captured child output. */
+export const DEFAULT_MAX_OUTPUT_BYTES = 8 * 1024 * 1024;
+/** Cap on the files a step may hand back through /sandbox/out (raw bytes). */
+export const MAX_OUTPUT_FILES_BYTES = 32 * 1024 * 1024;
 
 export const spawnRunner: CommandRunner = (cmd, args, opts) =>
   new Promise((resolvePromise) => {
@@ -86,12 +93,27 @@ export const spawnRunner: CommandRunner = (cmd, args, opts) =>
     }
     let stdout = '';
     let stderr = '';
+    const cap = opts.maxOutputBytes ?? DEFAULT_MAX_OUTPUT_BYTES;
+    let bytes = 0;
+    let overflow = false;
+    const count = (d: Buffer) => {
+      bytes += d.length;
+      if (bytes > cap && !overflow) {
+        // Output from inside a sandbox is untrusted: never buffer it without bound.
+        overflow = true;
+        child.kill('SIGKILL');
+      }
+      return !overflow;
+    };
     child.stdout?.on('data', (d: Buffer) => {
+      if (!count(d)) return;
       const t = d.toString('utf8');
       stdout += t;
       opts.onStdout?.(t);
     });
-    child.stderr?.on('data', (d: Buffer) => (stderr += d.toString('utf8')));
+    child.stderr?.on('data', (d: Buffer) => {
+      if (count(d)) stderr += d.toString('utf8');
+    });
     const timer = opts.timeoutMs
       ? setTimeout(() => child.kill('SIGKILL'), opts.timeoutMs)
       : undefined;
@@ -102,7 +124,11 @@ export const spawnRunner: CommandRunner = (cmd, args, opts) =>
     });
     child.on('close', (code) => {
       clearTimeout(timer);
-      resolvePromise({ code, stdout, stderr });
+      resolvePromise(
+        overflow
+          ? { code: null, stdout: '', stderr: `output limit exceeded (${cap} bytes); child killed` }
+          : { code, stdout, stderr },
+      );
     });
   });
 
@@ -124,6 +150,8 @@ export interface OpenShellRef {
   runner?: CommandRunner;
   /** Path of the node binary inside the sandbox image. */
   nodeBinary?: string;
+  /** Memory and CPU caps per sandbox; defaults to DEFAULT_SANDBOX_LIMITS. */
+  limits?: SandboxLimits;
   /** Test seam: shorten the deletion polling. */
   pollIntervalMs?: number;
   /** How long to wait for a deleted sandbox to disappear before the stop is unproven. */
@@ -140,6 +168,7 @@ export interface ContainmentEvidence {
   step: string;
   image: string;
   policyDigest: string;
+  limits: SandboxLimits;
 }
 
 const ESBUILD = () => resolve(process.cwd(), 'node_modules/.bin/esbuild');
@@ -188,24 +217,33 @@ function sandboxName(): string {
   return shortName('as');
 }
 
+/**
+ * Exactly one line may carry a marker. Sandbox output is untrusted: a step
+ * that prints a second, forged marker line (for example from a callback that
+ * fires after its own result) fails the step instead of choosing between them.
+ */
+function singleMarkedLine(stdout: string, marker: string, label: string): string {
+  const lines = stdout.split('\n').filter((l) => l.startsWith(marker));
+  if (lines.length === 0) throw new Error(`sandbox produced no ${label} line`);
+  if (lines.length > 1)
+    throw new Error(`sandbox produced ${lines.length} ${label} lines; refusing`);
+  return lines[0];
+}
+
 function parseResult(stdout: string): {
   ok: boolean;
   result?: StepResult;
   errorName?: string;
   errorMessage?: string;
 } {
-  const line = stdout
-    .split('\n')
-    .reverse()
-    .find((l) => l.startsWith(RESULT_MARKER));
-  if (!line) throw new Error('sandbox produced no AEGIS_RESULT line');
+  const line = singleMarkedLine(stdout, RESULT_MARKER, 'AEGIS_RESULT');
   return JSON.parse(line.slice(RESULT_MARKER.length)) as ReturnType<typeof parseResult>;
 }
 
 // Runs inside the sandbox: writes a JSON map {relativePath: base64} under /sandbox.
 const UNPACK = `let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{const fs=require('fs'),path=require('path');for(const [r,b] of Object.entries(JSON.parse(d))){if(r.includes('..')||path.isAbsolute(r))throw new Error('bad path '+r);const f=path.join('/sandbox',r);fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,Buffer.from(b,'base64'))}process.stdout.write('AEGIS_STAGED')})`;
 // Runs inside the sandbox: prints /sandbox/out as one JSON map line.
-const PACK = `const fs=require('fs'),path=require('path'),o={};const w=(d,r)=>{for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name),q=r?r+'/'+e.name:e.name;if(e.isDirectory())w(p,q);else if(e.isFile())o[q]=fs.readFileSync(p).toString('base64')}};if(fs.existsSync('/sandbox/out'))w('/sandbox/out','');process.stdout.write('AEGIS_OUT '+JSON.stringify(o)+'\\n')`;
+const PACK = `const fs=require('fs'),path=require('path'),o={};const w=(d,r)=>{for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name),q=r?r+'/'+e.name:e.name;if(e.isDirectory())w(p,q);else if(e.isFile())o[q]=fs.readFileSync(p).toString('base64')}};if(fs.existsSync('/sandbox/out'))w('/sandbox/out','');let n=0;for(const b of Object.values(o))n+=b.length*3/4;if(n>${MAX_OUTPUT_FILES_BYTES}){process.stderr.write('outputs exceed limit');process.exit(3)}process.stdout.write('AEGIS_OUT '+JSON.stringify(o)+'\\n')`;
 
 function filesFrom(dir: string, prefix: string, into: Record<string, string>): void {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
@@ -219,6 +257,52 @@ function filesFrom(dir: string, prefix: string, into: Record<string, string>): v
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const SANDBOX_OUT = '/sandbox/out';
+
+/**
+ * Positive proof that a sandbox is gone: a successful `sandbox list -o json`
+ * whose (single, complete) page does not contain the name. Any failure,
+ * unparsable output or further page counts as "not proven" — the check never
+ * reads meaning into an error message.
+ */
+export async function confirmSandboxGone(
+  run: CommandRunner,
+  cli: string,
+  name: string,
+  deadlineMs: number,
+  pollMs: number,
+): Promise<boolean> {
+  const end = performance.now() + deadlineMs;
+  while (performance.now() < end) {
+    const l = await run(cli, ['sandbox', 'list', '-o', 'json'], { timeoutMs: 10_000 });
+    if (l.code === 0) {
+      try {
+        const page = JSON.parse(l.stdout) as {
+          sandboxes?: Array<{ name?: string }>;
+          next_page_token?: string;
+        };
+        if (Array.isArray(page.sandboxes) && !page.next_page_token) {
+          if (!page.sandboxes.some((x) => x.name === name)) return true;
+        }
+      } catch {
+        // unparsable: not proven, keep polling
+      }
+    }
+    await sleep(pollMs);
+  }
+  return false;
+}
+
+/** Resource limits applied to every sandbox (enforced by the container runtime). */
+export interface SandboxLimits {
+  memory: string;
+  cpu: string;
+}
+export const DEFAULT_SANDBOX_LIMITS: SandboxLimits = { memory: '1Gi', cpu: '1' };
+const LIMIT = /^[0-9]+(\.[0-9]+)?[A-Za-z]{0,2}$/;
+function limitArgs(l: SandboxLimits): string[] {
+  if (!LIMIT.test(l.memory) || !LIMIT.test(l.cpu)) throw new Error('invalid sandbox limits');
+  return ['--memory', l.memory, '--cpu', l.cpu];
+}
 
 /**
  * Rewrites path strings under `from` to the same path under `to`, deeply.
@@ -267,6 +351,7 @@ async function runInSandbox(
     step: step.id,
     image: ref.image,
     policyDigest: sha256(canonicalJSON(policy)),
+    limits: { ...(ref.limits ?? DEFAULT_SANDBOX_LIMITS) },
   };
   const name = containment.sandbox;
 
@@ -286,24 +371,22 @@ async function runInSandbox(
     staged[rel] = readFileSync(host).toString('base64');
   }
   if (ref.outputDir && existsSync(ref.outputDir)) filesFrom(ref.outputDir, 'out', staged);
+  const stagedBytes = Object.values(staged).reduce((n, b) => n + (b.length * 3) / 4, 0);
+  if (stagedBytes > MAX_OUTPUT_FILES_BYTES * 2)
+    throw new Error(`files to stage exceed the limit (${Math.round(stagedBytes)} bytes)`);
 
-  const sandboxExec = (args: string[], opts: { input?: string; timeoutMs?: number } = {}) =>
+  const sandboxExec = (
+    args: string[],
+    opts: { input?: string; timeoutMs?: number; maxOutputBytes?: number } = {},
+  ) =>
     run(cli, ['sandbox', 'exec', '-n', name, '--no-tty', '--no-login-shell', '--', node, ...args], {
       timeoutMs: opts.timeoutMs ?? 60_000,
       input: opts.input,
+      maxOutputBytes: opts.maxOutputBytes,
       onSpawn: (k) => (killLocal = k),
     });
 
-  /** true once `sandbox get` reports the sandbox as not found. */
-  const confirmGone = async (deadlineMs: number): Promise<boolean> => {
-    const end = performance.now() + deadlineMs;
-    while (performance.now() < end) {
-      const g = await run(cli, ['sandbox', 'get', name], { timeoutMs: 10_000 });
-      if (g.code !== 0 && /not found/i.test(g.stderr + g.stdout)) return true;
-      await sleep(poll);
-    }
-    return false;
-  };
+  const confirmGone = (deadlineMs: number) => confirmSandboxGone(run, cli, name, deadlineMs, poll);
 
   let killLocal: (() => void) | undefined;
   let stopping = false;
@@ -360,6 +443,7 @@ async function runInSandbox(
           '--detach',
           '--no-tty',
           '--no-auto-providers',
+          ...limitArgs(ref.limits ?? DEFAULT_SANDBOX_LIMITS),
           '-o',
           'json',
         ],
@@ -393,13 +477,18 @@ async function runInSandbox(
     // An accepted stop means no output reaches the host: never start the copy-back after it.
     if (stopping) return await stop();
     if (ref.outputDir) {
-      const out = await sandboxExec(['-e', PACK]);
+      const out = await sandboxExec(['-e', PACK], {
+        maxOutputBytes: Math.ceil((MAX_OUTPUT_FILES_BYTES * 4) / 3) + 1024 * 1024,
+      });
       if (stopping) return await stop();
-      const line = out.stdout.split('\n').find((l) => l.startsWith('AEGIS_OUT '));
-      if (!line) throw new Error(`output copy-back failed: ${out.stderr.slice(0, 200)}`);
+      if (out.code !== 0) throw new Error(`output copy-back failed: ${out.stderr.slice(0, 200)}`);
+      const line = singleMarkedLine(out.stdout, 'AEGIS_OUT ', 'AEGIS_OUT');
       const files = JSON.parse(line.slice('AEGIS_OUT '.length)) as Record<string, string>;
       for (const [rel, b64] of Object.entries(files)) {
-        if (rel.includes('..') || rel.startsWith('/')) continue;
+        if (rel.includes('..') || rel.startsWith('/') || rel.includes('\0'))
+          throw new Error(
+            `sandbox returned an output file outside /sandbox/out: ${rel.slice(0, 80)}`,
+          );
         const dest = join(ref.outputDir, rel);
         mkdirSync(join(dest, '..'), { recursive: true });
         writeFileSync(dest, Buffer.from(b64, 'base64'));
@@ -468,6 +557,7 @@ export function openShellStopTestAgent(
     | 'nodeBinary'
     | 'pollIntervalMs'
     | 'deleteConfirmTimeoutMs'
+    | 'limits'
   >,
   tickMs: number,
 ): StopTestAgent {
@@ -506,6 +596,7 @@ export function openShellStopTestAgent(
           '--detach',
           '--no-tty',
           '--no-auto-providers',
+          ...limitArgs(ref.limits ?? DEFAULT_SANDBOX_LIMITS),
           '-o',
           'json',
         ],
@@ -546,15 +637,13 @@ export function openShellStopTestAgent(
       const del = await run(cli, ['sandbox', 'delete', name], { timeoutMs: 60_000 });
       let confirmed = false;
       if (del.code === 0) {
-        const end = performance.now() + (ref.deleteConfirmTimeoutMs ?? 30_000);
-        while (performance.now() < end) {
-          const g = await run(cli, ['sandbox', 'get', name], { timeoutMs: 10_000 });
-          if (g.code !== 0 && /not found/i.test(g.stderr + g.stdout)) {
-            confirmed = true;
-            break;
-          }
-          await sleep(ref.pollIntervalMs ?? 200);
-        }
+        confirmed = await confirmSandboxGone(
+          run,
+          cli,
+          name,
+          ref.deleteConfirmTimeoutMs ?? 30_000,
+          ref.pollIntervalMs ?? 200,
+        );
       }
       killLocal?.();
       created = !confirmed;

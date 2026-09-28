@@ -47,7 +47,12 @@ if [ "${AEGIS_CONTAINMENT:-worker}" = "openshell" ]; then
   sleep 0.3
   RUN_ARGS+=(--containment openshell --image "${AEGIS_IMAGE:-aegis-pilot-node:22}"
     --openshell-cli "${AEGIS_OPENSHELL_CLI:-openshell}")
-  OPENSHELL_GATEWAY_ENDPOINT="http://127.0.0.1:$GW_PORT" \
+  # The container's own HTTP(S) proxy lives in the host namespace and cannot be
+  # reached from inside this one; the probe fails closed on a refused proxy, so
+  # the variables are removed for the namespaced run (a customer site keeps its
+  # proxy variables, and the probe must show them unreachable).
+  env -u HTTPS_PROXY -u https_proxy -u HTTP_PROXY -u http_proxy -u ALL_PROXY -u all_proxy \
+    OPENSHELL_GATEWAY_ENDPOINT="http://127.0.0.1:$GW_PORT" \
     unshare --net --map-root-user sh -c '
       sock="$1"; port="$2"; shift 2
       python3 scripts/aegis-pilot-netns-lo-up.py || exit 3

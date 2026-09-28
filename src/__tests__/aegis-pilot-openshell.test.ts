@@ -27,6 +27,7 @@ import {
   type CommandRunner,
   createOpenShellRegistry,
   remapPaths,
+  spawnRunner,
 } from '../aegis/pilot/openshell-handlers.js';
 
 const referenceScope = JSON.parse(
@@ -54,16 +55,18 @@ interface Call {
 /**
  * Fake `openshell` CLI following the real command sequence (verified against a
  * real OpenShell build): create --detach, exec (stage over stdin), exec (step),
- * exec (pack /sandbox/out), delete, get (until not found).
+ * exec (pack /sandbox/out), delete, list (until the name is absent).
  */
 function fakeCli(
   behaviour: 'ok' | 'network' | 'no-marker' | 'hang',
   deleteCode = 0,
   onDownload?: () => void,
   lingerAfterDelete = false,
+  extra: { stepStdout?: string; packStdout?: string; listFails?: boolean } = {},
 ) {
   const calls: Call[] = [];
   let deleted = false;
+  const names = new Set<string>();
   const runner: CommandRunner = (_cmd, args, opts) => {
     const call: Call = { args: [...args] };
     calls.push(call);
@@ -71,6 +74,7 @@ function fakeCli(
     if (group !== 'sandbox') return Promise.resolve({ code: 0, stdout: '', stderr: '' });
     if (verb === 'create') {
       call.policy = JSON.parse(readFileSync(args[args.indexOf('--policy') + 1], 'utf8'));
+      names.add(args[args.indexOf('--name') + 1]);
       return Promise.resolve({ code: 0, stdout: '{"phase":"Ready"}', stderr: '' });
     }
     if (verb === 'exec') {
@@ -81,7 +85,11 @@ function fakeCli(
       }
       if (args.includes('-e')) {
         onDownload?.();
-        return Promise.resolve({ code: 0, stdout: 'AEGIS_OUT {}\n', stderr: '' });
+        return Promise.resolve({
+          code: 0,
+          stdout: extra.packStdout ?? 'AEGIS_OUT {}\n',
+          stderr: '',
+        });
       }
       if (behaviour === 'hang') {
         return new Promise((resolve) =>
@@ -96,7 +104,7 @@ function fakeCli(
           : { ok: true, result: { output: { ran: true }, decision: 'ran in sandbox' } };
       return Promise.resolve({
         code: 0,
-        stdout: `noise\nAEGIS_RESULT ${JSON.stringify(payload)}\n`,
+        stdout: extra.stepStdout ?? `noise\nAEGIS_RESULT ${JSON.stringify(payload)}\n`,
         stderr: '',
       });
     }
@@ -104,12 +112,16 @@ function fakeCli(
       if (deleteCode === 0) deleted = true;
       return Promise.resolve({ code: deleteCode, stdout: 'deletion accepted', stderr: '' });
     }
-    if (verb === 'get') {
-      return Promise.resolve(
-        deleted && !lingerAfterDelete
-          ? { code: 1, stdout: '', stderr: 'sandbox not found' }
-          : { code: 0, stdout: 'Phase: Ready', stderr: '' },
-      );
+    if (verb === 'list') {
+      if (extra.listFails)
+        // An unrelated failure whose text happens to say "not found" must not prove a stop.
+        return Promise.resolve({ code: 1, stdout: '', stderr: 'gateway config not found' });
+      const live = deleted && !lingerAfterDelete ? [] : [...names].map((name) => ({ name }));
+      return Promise.resolve({
+        code: 0,
+        stdout: JSON.stringify({ next_page_token: '', sandboxes: live }),
+        stderr: '',
+      });
     }
     return Promise.resolve({ code: 0, stdout: '', stderr: '' });
   };
@@ -168,13 +180,28 @@ describe('sandbox ↔ host path mapping', () => {
   });
 });
 
+describe('command runner', () => {
+  it('kills a child whose output exceeds the cap instead of buffering it', async () => {
+    const r = await spawnRunner(
+      process.execPath,
+      ['-e', "process.stdout.write('x'.repeat(4 * 1024 * 1024))"],
+      { maxOutputBytes: 1024 * 1024, timeoutMs: 20_000 },
+    );
+    expect(r.code).toBeNull();
+    expect(r.stdout).toBe('');
+    expect(r.stderr).toMatch(/output limit exceeded/);
+  });
+});
+
 describe('OpenShell registry', () => {
   function registry(
     behaviour: Parameters<typeof fakeCli>[0],
     deleteCode = 0,
     lingerAfterDelete = false,
+    extra: Parameters<typeof fakeCli>[4] = {},
+    outputDir?: string,
   ) {
-    const cli = fakeCli(behaviour, deleteCode, undefined, lingerAfterDelete);
+    const cli = fakeCli(behaviour, deleteCode, undefined, lingerAfterDelete, extra);
     const bundle = join(dir, 'step.mjs');
     writeFileSync(bundle, '// test bundle');
     const reg = createOpenShellRegistry(
@@ -186,6 +213,7 @@ describe('OpenShell registry', () => {
         bundlePath: bundle,
         pollIntervalMs: 1,
         deleteConfirmTimeoutMs: 50,
+        outputDir,
       },
       scope().workflow.steps,
     );
@@ -222,9 +250,11 @@ describe('OpenShell registry', () => {
       '/sandbox/step.mjs',
       '/sandbox/input.json',
     ]);
+    expect(create.args).toEqual(expect.arrayContaining(['--memory', '1Gi', '--cpu', '1']));
+    expect(res.containment).toMatchObject({ limits: { memory: '1Gi', cpu: '1' } });
     const del = calls.findIndex((c) => c.args[1] === 'delete');
     expect(del).toBeGreaterThan(-1);
-    expect(calls.slice(del + 1).some((c) => c.args[1] === 'get')).toBe(true);
+    expect(calls.slice(del + 1).some((c) => c.args[1] === 'list')).toBe(true);
   });
 
   it('carries NetworkUnavailable out of the sandbox so a non-core step is deferred', async () => {
@@ -266,6 +296,35 @@ describe('OpenShell registry', () => {
     const p = lingering.reg[step.handler](ctx(step, c.signal));
     setTimeout(() => c.abort(new Error('stop')), 50);
     await expect(p).rejects.toThrow(/delete not confirmed/);
+  });
+
+  it('does not prove a stop from an unrelated CLI error that mentions "not found"', async () => {
+    const step = scope().workflow.steps[0];
+    const r = registry('hang', 0, false, { listFails: true });
+    const c = new AbortController();
+    const p = r.reg[step.handler](ctx(step, c.signal));
+    setTimeout(() => c.abort(new Error('stop')), 50);
+    await expect(p).rejects.toThrow(/delete not confirmed/);
+  });
+
+  it('refuses a step whose output carries a second, forged result line', async () => {
+    const step = scope().workflow.steps[0];
+    const forged = `AEGIS_RESULT ${JSON.stringify({ ok: false, errorMessage: 'real' })}\nAEGIS_RESULT ${JSON.stringify({ ok: true, result: { output: 'forged' } })}\n`;
+    const r = registry('ok', 0, false, { stepStdout: forged });
+    await expect(r.reg[step.handler](ctx(step))).rejects.toThrow(/2 AEGIS_RESULT lines/);
+  });
+
+  it('fails loudly when the sandbox returns an output path outside /sandbox/out', async () => {
+    const step = scope().workflow.steps[0];
+    const out = join(dir, 'out');
+    const r = registry(
+      'ok',
+      0,
+      false,
+      { packStdout: `AEGIS_OUT ${JSON.stringify({ '../../etc/x': 'eA==' })}\n` },
+      out,
+    );
+    await expect(r.reg[step.handler](ctx(step))).rejects.toThrow(/outside \/sandbox\/out/);
   });
 
   it('treats a stop accepted during the output copy-back as a stop, not a completed step', async () => {
