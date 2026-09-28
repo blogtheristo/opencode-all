@@ -237,6 +237,17 @@ The baseline is **51 focused sessions**: two governance sessions, 47 family sess
 
 **VERDICT: APPROVED AFTER CHAPTER 0.** No family implementation starts until catalogue truth and the readiness ledger are deterministic.
 
+## Pilot product readiness execution
+
+**Pointer:** `docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md`
+
+- **Source of truth for pilot commercial terms:** Immutable snapshot `dws10.com/price-list/versions/price-list-v1.33.html`
+- **Pilot priority:** P0 = DWS-AEGIS-PILOT-001, AIS-OUTCOME-PILOT, DWS-EU-PILOT (3 active); P1 = DWS-US-PILOT; P2 = LF-ONTOLOGY-PILOT (maturation hold)
+- **Timing:** G0-G6 active 4–6 weeks; G0-G10 all 8–10 weeks; 4 pilots deployment evidence 14–18 weeks; LF-ONTOLOGY-PILOT G10 22–26 weeks
+- **Cadence:** Sunday HIC 10-hour batch; weekday 1–2h DGX morning gate (OpenCode-loop autonomous implementation)
+
+Pilot execution is Chapter 3 (DWS IQ core) and Chapter 4 (Aegis/KYA) implementation under the shared-capability model.
+
 ---
 
 **Document version:** v1.0 · **Date:** 27.09.2026 · **Owner:** Lifetime Oy
