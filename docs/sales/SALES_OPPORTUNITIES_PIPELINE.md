@@ -1,7 +1,7 @@
 # Sales Opportunities Pipeline — PhD Market Signals
 
 **Document ID:** DWS-SALES-PIPELINE-2026-001
-**Version:** 1.0 | **Date:** 2026-09-21
+**Version:** 1.1 | **Date:** 2026-09-28
 **Owner:** Risto Anton Päärni, Lifetime Oy
 **Source:** `docs/PHD_FIREHORSE_EN.md` §14.18–§14.53 (35 market-signal sections), scored per CLAUDE.md "Market Signal → Sales Pipeline Rule"
 **Classification:** Internal — Sales Engineering
@@ -160,6 +160,27 @@ This roster is now wired to the live Firehorse outreach infrastructure, not a st
 3. **Post-import flow:** once a row is completed and imported, it enters the existing `LeadState` machine (`New → Cold_1_Sent → ... → Meeting_Booked`) and the Cold-1/2/3 SES sequence documented in `docs/SALES_FUNNEL_WORKFLOW.md`. Actual send is **RED zone (outbound email, human-gated)** — Claude Code stages the lead, a human/OpenCode triggers the send.
 4. **Schema gap — RESOLVED 2026-09-21:** `LeadCountry` (`src/firehorse/types.ts`) extended to add `FR`; `scripts/import-leads-csv.ts` validation updated to match. The four France-HQ'd accounts (Airbus, Bpifrance, BNP Paribas, L'Oréal) are now importable once a real contact is named. `FR` currently falls through to the general/English templates in `src/firehorse/helpers.ts` — no dedicated FR template yet.
 
+### Aegis Pilot — three target industries (2026-09-28)
+
+Source: `docs/sales/2026-09-28-aegis-pilot-market-research.md` (market research, SWOT, GTM, sales threads). Product: DWS-AEGIS-PILOT-001 (€19,990). Account names are desk research only: no named contacts, RFPs or confirmed budgets. First workflow is advisory with operator approval (HIC 28.09.2026).
+
+| Lane            | Account                                             | ★     | Trigger                                                  | Next action                                   |
+| --------------- | --------------------------------------------------- | ----- | -------------------------------------------------------- | --------------------------------------------- |
+| A Manufacturing | Outokumpu                                           | ★★★★☆ | Active Climate IQ discussion; EVOLVE; Tornio OT security | Aegis pilot as add-on to the existing thread  |
+| A Manufacturing | Neste                                               | ★★★★☆ | HCLTech AI + secure-edge deal 24.06.2026                 | Find the CISO/OT-security contact             |
+| A Manufacturing | Metso                                               | ★★★★☆ | AI production management 10.09.2026; CRA 11.09.2026      | OEM angle, find the PSIRT/CTO digital contact |
+| A Manufacturing | Metsä Group                                         | ★★★☆☆ | Infosys agentic AI at the IT/OT boundary, 08/2026        | Contact search                                |
+| A Manufacturing | Kemira                                              | ★★★☆☆ | Active Climate IQ discussion; weak AI trigger            | Let the Climate IQ thread run first           |
+| B Data centres  | Verda                                               | ★★★★☆ | US$189M Series B 22.09.2026; sovereignty is its product  | Co-sell/partnership proposal                  |
+| B Data centres  | Telia Finland                                       | ★★★☆☆ | NIS2 + CER; Helsinki DC expansion                        | Contact search                                |
+| B Data centres  | AI gigafactory consortium (Nokia/Oulu, unconfirmed) | ★★★☆☆ | Application deadline 12.11.2026                          | Governance-layer partnership                  |
+| C Dual-use      | Forcit                                              | ★★★★☆ | TNT plant >€200M, foundation stone 15.09.2026            | Project director / OT security                |
+| C Dual-use      | Summa Defence                                       | ★★★★☆ | Drone factory JV (TAF), 04/2026                          | CEO/CTO                                       |
+| C Dual-use      | Patria                                              | ★★★☆☆ | Valmet Automotive 6×6 line; AI-WASP                      | Long cycle; wait for a reference              |
+| C Dual-use      | Nammo Vihtavuori                                    | ★★★☆☆ | Primer factory €33M, full capacity 2027                  | Finland site management                       |
+| D Fund channel  | MB Rahastot (Kotkamills, Protacon)                  | ★★★☆☆ | Board network, industrial portfolio                      | Partner meeting                               |
+| D Fund channel  | Vaaka Partners (Hultström, Eltrea)                  | ★★☆☆☆ | Industrial portfolio                                     | Partner meeting                               |
+
 ## ★★★★☆ — Active Trigger, Segment Reachable This Quarter
 
 | §     | Signal                                                                                                                                              | Buyer Segment                                                                  | Trigger                                                         | Target Product                                                       | Next Action                                                                                   |
@@ -197,6 +218,7 @@ Reviewed at the same cadence as `/retro` and PhD thesis lockstep updates (CLAUDE
 
 ## Version History
 
-| Version | Date       | Changes                                                           | Author      |
-| ------- | ---------- | ----------------------------------------------------------------- | ----------- |
-| 1.0     | 2026-09-21 | Initial pass — scored all 35 market-signal sections §14.18–§14.53 | Claude Code |
+| Version | Date       | Changes                                                            | Author      |
+| ------- | ---------- | ------------------------------------------------------------------ | ----------- |
+| 1.1     | 2026-09-28 | Added Aegis Pilot three-industry rows (market research 2026-09-28) | Claude Code |
+| 1.0     | 2026-09-21 | Initial pass — scored all 35 market-signal sections §14.18–§14.53  | Claude Code |
