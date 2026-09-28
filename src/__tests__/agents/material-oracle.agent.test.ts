@@ -11,18 +11,16 @@
  * Test fixtures use ICE Database v3 / EPD averages hardcoded in the agent.
  */
 
-import { describe, expect, it, beforeEach, vi, afterEach } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import type { AgentContext } from '../../agents/types.js';
 import { MaterialOracleAgent } from '../../agents/material-oracle.agent.js';
 import {
+  AREA_DENSITIES,
+  MATERIAL_DENSITIES,
   normalizeToKg,
   resolveCanonicalUnit,
-  MATERIAL_DENSITIES,
-  AREA_DENSITIES,
-  EC3_UNIT_MAP,
 } from '../../agents/unit-normalization.js';
-import type { EC3CategoryStats } from '../../integrations/ec3/types.js';
 
 // ============ Mocks ============
 
@@ -60,13 +58,6 @@ const realisticInput: MaterialOracleInput = {
     { name: 'Timber', quantity: 5, unit: 'tonne', supplier: 'Supplier C' },
     { name: 'Aluminum', quantity: 100, unit: 'kg' },
     { name: 'Glass', quantity: 30, unit: 'm²' },
-  ],
-};
-
-const kgInput: MaterialOracleInput = {
-  materials: [
-    { name: 'Concrete', quantity: 1000, unit: 'kg' },
-    { name: 'Steel', quantity: 500, unit: 'kg' },
   ],
 };
 
@@ -277,7 +268,7 @@ describe('MaterialOracleAgent', () => {
     it('rounds aggregated values to 2 decimal places', async () => {
       const agent = new MaterialOracleAgent();
       const result = await agent.execute(baseContext, realisticInput);
-      for (const [key, value] of Object.entries(result.result.lifecycleBreakdown)) {
+      for (const value of Object.values(result.result.lifecycleBreakdown)) {
         expect(String(value)).not.toMatch(/\.\d{3,}/);
         expect(value).toBeCloseTo(value, 2);
       }
