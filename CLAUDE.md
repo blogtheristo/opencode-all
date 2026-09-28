@@ -225,6 +225,17 @@ Regenerate `Learn/` HTML versions; never delete old HTML versions. `Learn/V3Thes
 
 ---
 
+### Done Gate Rule ("done" is a command result, not a sentence)
+
+An agent may report work as done, fixed, or passing only with the raw output of
+`node scripts/agent-done-gate.mjs --full` showing `DONE`. It checks: committed, pushed,
+formatted, no new `it.todo`, typecheck, related tests, and the task's own acceptance checks in
+`.claude/done/<branch>.json` (write one for every handed-off task; the spec may live on `main`).
+In OpenCode the `.opencode/plugin/done-gate.ts` plugin runs the gate whenever an answer claims
+completion and sends every FAIL back into the session. The HIC reads the gate output, not the
+summary. Why: 28.09.2026 a local model reported the REVAL_LEASH gap "fully closed" while the
+commit was unpushed, production never called the new store, and the gap's `it.todo` remained.
+
 ### Deliverable Handoff Rule
 
 Never ask users to copy-paste from rendered chat (no copy button). For copyable content: **fenced code block** (one block, full content, no preamble scrolling) or `SendUserFile`. File/PDF/Gamma is an addition on request, never instead of the code block.
@@ -488,6 +499,7 @@ Use these for full detail when needed:
 
 | Version | Date       | Changes                                                                                                                                                                                                           | Author             |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| 1.8     | 2026-09-28 | Done Gate Rule: completion claims require `scripts/agent-done-gate.mjs --full` output; per-task specs in `.claude/done/<branch>.json`; OpenCode plugin re-prompts on FAIL.                                        | Claude Code        |
 | 1.7     | 2026-09-27 | Resolver — Ontology → Admin Documentation: look up a term (`npm run ontology:lookup`) before asserting how a system works. Salvaged from closed PR #2075 (written 24.09.2026); pending HIC approval at PR review. | Claude Code        |
 | 1.6     | 2026-09-27 | HIC: Market Signal → Sales Pipeline Rule — commercially relevant signals go to PhD §14.x and `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, star-scored 1–5.                                                       | Claude Code        |
 | 1.5     | 2026-09-27 | HIC: Tool Git Identity rule — `<tool>@lifetime.fi`, set per tool at launch; no repo-local identity. Moved misplaced 1.4 row here.                                                                                 | Claude Code        |

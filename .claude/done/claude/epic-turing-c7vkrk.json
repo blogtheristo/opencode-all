@@ -1,0 +1,17 @@
+{
+  "task": "DWS-AEGIS-PILOT-001 — handoff Task 1 (.claude/handoffs/claude/epic-turing-c7vkrk.md)",
+  "checks": [
+    {
+      "name": "gap 1: revalLeash() records the removal in the local capability store",
+      "run": "grep -n 'addLeashTightenedSession' src/identity/kya-engine.ts"
+    },
+    {
+      "name": "gap 1: its it.todo is converted (at most 2 left in the severed-uplink suite)",
+      "run": "n=$(grep -c 'it.todo(' src/__tests__/agents/aegis-severed-uplink.test.ts); echo \"it.todo: $n\"; [ \"$n\" -le 2 ]"
+    },
+    {
+      "name": "severed-uplink suite passes",
+      "run": "npm run -s test:aegis:severed-uplink 2>&1 | tail -6; exit ${PIPESTATUS[0]}"
+    }
+  ]
+}

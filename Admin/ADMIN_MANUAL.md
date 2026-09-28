@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.41 [Latest]
+Version: 3.42 [Latest]
 
 Sessions & Modifications:
 
-- Version: 3.41 [Latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: New subsection "Per-session worktree launch (DGX terminal)": `opencode` started in `~/dws6` runs in its own worktree + `opencode/<task>` branch via `scripts/shell/opencode-worktree.bash` (PR #2198), installed on DGX 28.09.2026 with the self-verifying `install-opencode-worktree.sh`. Recorded operator rules from the rollout: keep `~/dws6` on `main`; find live sessions before switching it; opencode `-s` resumes in the session's stored folder, so continue old shared-checkout work via a fresh session in the worktree + handoff file; GH007 private-email push rejection and its fix. Worktrees section: `--link-deps` worktrees share the primary `node_modules`. Cross-refs: `WORKTREE_POLICY.md` §6, `docs/field-notes/2026-09-28-opencode-worktree-wrapper-dgx.md`.
+- Version: 3.42 [Latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: New subsection "Unattended task loop and done gate (DGX)": `agent-done-gate.mjs`, `done-gate.ts` OpenCode plugin, `opencode-task-loop.mjs` start/status/alerts commands, spec format pointer, default model `qwen3-coder-next`.
+- Version: 3.41 [not latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: New subsection "Per-session worktree launch (DGX terminal)": `opencode` started in `~/dws6` runs in its own worktree + `opencode/<task>` branch via `scripts/shell/opencode-worktree.bash` (PR #2198), installed on DGX 28.09.2026 with the self-verifying `install-opencode-worktree.sh`. Recorded operator rules from the rollout: keep `~/dws6` on `main`; find live sessions before switching it; opencode `-s` resumes in the session's stored folder, so continue old shared-checkout work via a fresh session in the worktree + handoff file; GH007 private-email push rejection and its fix. Worktrees section: `--link-deps` worktrees share the primary `node_modules`. Cross-refs: `WORKTREE_POLICY.md` §6, `docs/field-notes/2026-09-28-opencode-worktree-wrapper-dgx.md`.
 - Version: 3.40 [not latest] | Tool: Claude Code (Opus 5) | Session: claude/practical-meitner-k9bhnn (salvage of claude/backoffice-open-items, PR #2075 closed unmerged) | Date: 27.09.2026 (orig. 24.09.2026) | Changes: Hardened the Cloudflare Tunnel section after a session gave the HIC three rounds of wrong dashboard instructions. Made explicit that `dgx-heartbeat` is **locally managed** (`/etc/cloudflared/config.yml`, `cloudflared` as a host systemd service) so the Cloudflare dashboard exposes no hostname tab for it, and that ingress rules must use published host ports (`http://localhost:8080`) not compose service names (`http://dws-backend:8080`) — the daemon is not on the Docker network. Flagged that the `cloudflare-tunnel` service in `infrastructure/dgx-spark/docker-compose.yml` is profile-gated, never provisioned, and its `mcp-gateway` comments describe intent not deployed state; this manual is the source of truth for tunnel state. Added a concrete pending runbook for `backend.dws6.com` → `localhost:8080` (HIC-approved, blocked on DGX SSH), including why `api.dws6.com` was not reused (live CNAME to `ghs.googlehosted.com` from the retired `dws6run6` Cloud Run mapping). Cross-refs: `Admin/ADMIN_MANUAL_DWS6_COM.md` §11.2 (v1.4), `docs/field-notes/2026-09-24-backoffice-open-items-fixed.md` (v1.2).
 - Version: 3.39 [not latest] | Tool: Claude Code (Opus 5.5) | Session: claude/kya-jev-audit-implementation-plan | Date: 27.09.2026 | Changes: Added `kya-jev` typed-decision operations section (signing secret per environment + rotation, the five consumers and which ones log, calibration run, public `kya-decide` package). Operations log: migration 087 (`kya_jev_calls`) applied via SQL editor and ledger repaired with `supabase migration repair --status applied 087`.
 - Version: 3.38 [not latest] | Tool: GitHub Copilot CLI 1.0.88 (gpt-5.6-sol) | Session: copilot/role-learning-hub-0ee942b3 | Date: 27.09.2026 | Changes: Added role-based Learning Hub distribution runbook: declarative audience manifest, deterministic offline pack build/validation, checksum-verifying Windows per-user installer, and authenticated v10 dashboard discovery. Audience roles are separate from canonical R-IDs; repository documents remain source of truth. | Harness: GitHub Copilot CLI + CLAUDE.md | HIC-approved-drift: none
@@ -827,6 +828,21 @@ Expected: `install: OK — new shells run opencode through the worktree wrapper`
 2. **Before switching `~/dws6`, find sessions using it:** `for p in $(pgrep -x opencode); do echo "$p $(readlink /proc/$p/cwd)"; done`. Finish or quit any whose cwd is `~/dws6`; switching branches under a live session changes its files mid-task.
 3. **Old sessions started in `~/dws6` stay there.** opencode stores each session's folder; `opencode -s <id>` resumes in `~/dws6` even when run from a worktree. To continue that work: `git worktree add ~/.opencode-worktrees/dws6/<name> <branch>`, start a **new** session there, and point it at `.claude/handoffs/<branch>.md` (transcript if needed: `opencode export <id> > /tmp/<name>.json`).
 4. **Push rejected with `GH007: Your push would publish a private email address`:** the commit's author/committer email is private on GitHub (`risto.paarni@lifetime.fi` is). For an unpushed commit, re-author it in the branch's worktree: `git -c user.email=2239436+blogtheristo@users.noreply.github.com commit --amend --no-edit --reset-author`. Permanent fix (HIC): untick "Block command line pushes that expose my email" at github.com/settings/emails.
+
+### Unattended task loop and done gate (DGX)
+
+**Why:** local models report "done" when it is not (28.09.2026: REVAL_LEASH "fully closed" while unpushed and unwired). "Done" is therefore a command result: `node scripts/agent-done-gate.mjs --full` (committed, pushed, formatted, no new `it.todo`, tsc, related tests, and the task's acceptance checks in `.claude/done/<branch>.json`). Rule: `CLAUDE.md` → Done Gate Rule.
+
+- **Interactive sessions:** `.opencode/plugin/done-gate.ts` runs the gate when an answer claims completion and sends FAILs back into the session (max 3 rounds). `DWS_DONE_GATE=0 opencode` opts out.
+- **Unattended:** `scripts/opencode-task-loop.mjs` walks every `.claude/done/**.json` that has a `"prompt"` (in `order`), creates or reuses the branch's worktree, runs fresh `opencode run` rounds with the current gate FAILs until DONE, and moves on. Two rounds without progress or `maxRounds` → BLOCKED, alert, next task. Editing a BLOCKED task's spec retries it. It never merges.
+
+```bash
+tmux new -d -s oc-loop 'cd ~/dws6 && node scripts/opencode-task-loop.mjs'   # start
+node ~/dws6/scripts/opencode-task-loop.mjs --status                           # progress
+tail -f ~/.local/state/opencode-task-loop/alerts.log                          # alerts
+```
+
+Default model `ollama-local/qwen3-coder-next:latest` (`OPENCODE_LOOP_MODEL` overrides; spec `"model"` per task). Commits use `opencode@lifetime.fi` (Tool Git Identity; avoids GH007). A task is only as good as its checks: write checks that fail on today's code and pass only when the work is really done.
 
 ### DGX startup and verification
 
