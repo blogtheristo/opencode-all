@@ -1,7 +1,7 @@
 # Sales Opportunities Pipeline — PhD Market Signals
 
 **Document ID:** DWS-SALES-PIPELINE-2026-001
-**Version:** 1.1 | **Date:** 2026-09-28
+**Version:** 1.2 | **Date:** 2026-09-28
 **Owner:** Risto Anton Päärni, Lifetime Oy
 **Source:** `docs/PHD_FIREHORSE_EN.md` §14.18–§14.53 (35 market-signal sections) + §14.55 (added 2026-09-28), scored per CLAUDE.md "Market Signal → Sales Pipeline Rule"
 **Classification:** Internal — Sales Engineering
@@ -174,13 +174,14 @@ This roster is now wired to the live Firehorse outreach infrastructure, not a st
 
 ## ★★★☆☆ — Persona + Budget Fit, No Active Trigger Yet
 
-| §     | Signal                                                     | Notes                                                                                 |
-| ----- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| 14.26 | Four-Capital (4P) Model                                    | Extension of 14.25; fold into same Three-Capital Audit product, don't sell separately |
-| 14.31 | Sovereign-Upstream / NVIDIA EU AI Factories                | Partner-channel signal — feeds GTC invitation response, not a direct lead             |
-| 14.36 | On-Prem AI OS category (Dell+Palantir, Google Antigravity) | Competitive/category-naming credibility for enterprise decks                          |
-| 14.44 | Cosmos 3 Edge (on-device world model)                      | Technology enabler for LWM edge story, strengthens Control Room pitch                 |
-| 14.48 | Text-Provenance / Machine Translation (Art. 50 extension)  | Same regulatory trigger as 14.46, narrower — fold into that offering                  |
+| §     | Signal                                                                                     | Notes                                                                                                                                                                                                                                      |
+| ----- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 14.26 | Four-Capital (4P) Model                                                                    | Extension of 14.25; fold into same Three-Capital Audit product, don't sell separately                                                                                                                                                      |
+| 14.31 | Sovereign-Upstream / NVIDIA EU AI Factories                                                | Partner-channel signal — feeds GTC invitation response, not a direct lead                                                                                                                                                                  |
+| 14.36 | On-Prem AI OS category (Dell+Palantir, Google Antigravity)                                 | Competitive/category-naming credibility for enterprise decks                                                                                                                                                                               |
+| 14.44 | Cosmos 3 Edge (on-device world model)                                                      | Technology enabler for LWM edge story, strengthens Control Room pitch                                                                                                                                                                      |
+| 14.48 | Text-Provenance / Machine Translation (Art. 50 extension)                                  | Same regulatory trigger as 14.46, narrower — fold into that offering                                                                                                                                                                       |
+| 14.56 | Hugging Face allowed-traffic monitoring for OpenShell (network budgets, drift, fleet view) | CISO persona running agents with outbound access; confirms allowlists are not enough. Aegis answer: egress digests in the signed record (candidate C5). PhD §14.56 pending (field note 2026-09-28-hf-openshell-allowed-traffic-monitoring) |
 
 ## ★★☆☆☆ — Thematic Adjacency, Segment Fit Only
 
@@ -202,3 +203,4 @@ Reviewed at the same cadence as `/retro` and PhD thesis lockstep updates (CLAUDE
 | ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | 1.0     | 2026-09-21 | Initial pass — scored all 35 market-signal sections §14.18–§14.53                                                                                                    | Claude Code |
 | 1.1     | 2026-09-28 | §14.55 NVIDIA Open Agent Safety Platform scored ★★★★☆ (active trigger, reachable segment); named industrial launch partners added as targets, pending account briefs | Claude Code |
+| 1.2     | 2026-09-28 | §14.56 Hugging Face OpenShell traffic-monitoring signal scored ★★★☆☆ (persona + budget line, no named trigger)                                                       | Claude Code |
