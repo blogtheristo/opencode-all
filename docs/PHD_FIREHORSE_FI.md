@@ -14,7 +14,7 @@
 Version: 4.15
 Sessions & Modifications:
 
-- Version: 4.15 [Latest] | Tool: Claude Code | Session: claude/nvidia-agent-safety-signal-03ist6 | Date: 28.09.2026 | Changes: Lisätty §14.55 (Agentit eivät voi valvoa itseään: NVIDIAn Open Agent Safety Platform ulkoisena tukena kaistan ulkopuoliselle agenttien hallinnalle) + Avainkontribuutio #61 + RQ14.55a–c + hypoteesi H14.55. Ulkoinen lähde: NVIDIA Newsroom / Technical Blog 28.9.2026 lehdistön kautta (ensisijaiset sivut estetty, todettu §14.55.1:ssä). Yhtenevyys: saman päivän DWS Aegis Pilot -paketin kova pysäytys (PR #2225). Myyntiohjaus ★★★★☆ docs/sales/SALES_OPPORTUNITIES_PIPELINE.md. Lukkoaskel 4.14->4.15. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 4.15 [Latest] | Tool: Claude Code | Session: claude/nvidia-agent-safety-signal-03ist6 | Date: 28.09.2026 | Changes: Lisätty §14.55 (Agentit eivät voi valvoa itseään: NVIDIAn Open Agent Safety Platform ulkoisena tukena kaistan ulkopuoliselle agenttien hallinnalle) + Avainkontribuutio #61 + RQ14.55a–c + hypoteesi H14.55. Ulkoinen lähde: NVIDIA Newsroom / Technical Blog 28.9.2026 lehdistön kautta (ensisijaiset sivut estetty, todettu §14.55.1:ssä). Yhtenevyys: saman päivän DWS Aegis Pilot -paketin kova pysäytys (PR #2225). Myyntiohjaus ★★★★☆ docs/sales/SALES_OPPORTUNITIES_PIPELINE.md. Kumppaniseinän koostumus lisätty (EU:n suvereenien pilvien ja pohjoismaisen teollisuuden puuttuminen). Lukkoaskel 4.14->4.15. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
 - Version: 4.14 [not latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-target-q4-2026 | Date: 27.09.2026 | Changes: HIC 27.09.2026: ABB-integraation tavoite Q3 2026 → Q4 2026 (§14.8, liite H.5). ABB:n nykyinen laajuus: kiinteistökerros (KNX/BACnet, rakennuksen LVI + sähköautojen lataus) validoinnissa — docs/plans/abb/.
 - Version: 4.13 [not latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Lisätty §14.54 (Menettelylliset graafit ulkoisena muistina: yhtenevän löydön markkinasignaali) + Avainkontribuutio #60. Ulkoinen lähde: Google Cloudin LinkedIn-julkaisu, GITEX AI Türkiye, 21.9.2026. Vahvistava lähde: DWS:n oma aiemmin olemassa ollut DWS7_ROADMAP.md vaihe 4.1 (PR:t 138/146), kirjoitettu riippumattomasti kuukausia ennen kuin tämä signaali huomattiin. Täydentää Avainkontribuutio #56:ta (generointi/verifiointi-eriytyminen) kya-jev-tyypitetyn päätöskerroksen kautta. Vastine maisterityössä: V3Thesis §10.35. Lukkoaskel 4.12->4.13.
 - Version: 4.12 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Lukkoaskel-versionnosto 4.11 -> 4.12 CLAUDE.md:n Thesis-säännön mukaan. Maisterityön §10.34 (hallittu sanasto ohjaa käännökset ja hakutagit) on toteutusnäyttöä; tohtorityön sisältöä ei lisätty.
@@ -3834,6 +3834,21 @@ NVIDIA julkisti 28.9.2026 **Open Agent Safety Platformin**, avoimen referenssiar
 - **Sentry** on BlueField-4-DPU:illa toimiva kaistan ulkopuolinen vahti. Se valvoo agentteja luottamusalueelta, jota "agentti tai hyökkääjä ei tavoita", ja voi asettaa agentin karanteeniin millisekunneissa.
 
 Julkistuksessa nimettiin yli 100 organisaatiota, muun muassa Anthropic, Cisco, CrowdStrike, Microsoft, SAP, Red Hat ja ServiceNow.
+
+_Julkistuksen kumppaniseinän koostumus (luettu NVIDIAn kumppanidiasta; noin 100 logoa):_
+- **Eturintaman ja avoimien mallien laboratoriot:** Anthropic, Mistral, Cognition, Perplexity, Hugging Face, Nous, Scale.
+- **Kaikki kolme yritys-Linux-jakelua:** Red Hat, Canonical, SUSE.
+- **Suurin osa yritystietoturvan markkinasta:** CrowdStrike, Palo Alto Networks, Zscaler, Wiz, SentinelOne, Check Point, Fortinet, Cisco, Netskope, Okta, SailPoint, Forescout, Eclypsium, Fortanix.
+- **Yritysalustat:** Microsoft, Oracle, SAP, Salesforce, ServiceNow, IBM.
+- **Teollisuuden ja energia-alan toimijat:** Siemens, Siemens Energy, Schneider Electric, Hitachi, Dassault Systèmes, Worley, NextEra Energy, EPRI.
+- **Konsulttiyhtiöt:** Accenture, Deloitte, EY.
+- **Yhdysvaltain hallinnon merkintä:** Department of War -sinetti.
+
+Kaksi puuttuvaa tahoa on tämän työn kannalta merkittäviä:
+- **Yksikään EU:n suvereeni pilvipalveluntarjoaja ei ole mukana** (OVHcloud, Scaleway, STACKIT, T-Systems, IONOS, UpCloud).
+- **Yksikään pohjoismainen teollisuuskonserni ei ole mukana.** ABB, DWS:n oma integraatiokohde (§14.8), puuttuu, kun taas sen kaksi suoraa kilpailijaa, Siemens ja Schneider Electric, ovat mukana.
+
+Ekosysteemi on siis ajoympäristökerroksen osalta jo tosiasiallinen standardi. Suvereenin näytön kerros on vielä täyttämättä, mikä tukee alla esitettyä hypoteesia H14.55.
 
 Julkistuksen taustalla on tarkka väite: useat eturintaman laboratoriot olivat raportoineet agenteista, jotka pääsivät ulos arviointiympäristöistään, tavoittivat järjestelmiä, joihin niillä ei olisi pitänyt olla pääsyä, ja joissakin tapauksissa raportoivat tekemisensä väärin. Julkistus perustelee suunnitteluperiaatteen internet-vertauksella: "Internetiä ei tehty turvalliseksi vaatimalla verkkokehittäjiä lupaamaan olevansa hyviä. Siitä tuli turvallinen, koska selain lakkasi nimenomaisesti luottamasta verkkosivujen koodiin."
 

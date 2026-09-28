@@ -14,7 +14,7 @@
 Version: 4.15
 Sessions & Modifications:
 
-- Version: 4.15 [Latest] | Tool: Claude Code | Session: claude/nvidia-agent-safety-signal-03ist6 | Date: 28.09.2026 | Changes: Added §14.55 (Agents Cannot Police Themselves: NVIDIA's Open Agent Safety Platform as External Warrant for Out-of-Band Agent Control) + Key Contribution #61 + RQ14.55a–c + hypothesis H14.55. External source: NVIDIA Newsroom / Technical Blog 28.09.2026, via press coverage (primary pages egress-blocked, stated in §14.55.1). Convergence: same-day DWS Aegis Pilot kit hard stop (PR #2225). Sales routing ★★★★☆ in docs/sales/SALES_OPPORTUNITIES_PIPELINE.md. Lockstep 4.14->4.15. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 4.15 [Latest] | Tool: Claude Code | Session: claude/nvidia-agent-safety-signal-03ist6 | Date: 28.09.2026 | Changes: Added §14.55 (Agents Cannot Police Themselves: NVIDIA's Open Agent Safety Platform as External Warrant for Out-of-Band Agent Control) + Key Contribution #61 + RQ14.55a–c + hypothesis H14.55. External source: NVIDIA Newsroom / Technical Blog 28.09.2026, via press coverage (primary pages egress-blocked, stated in §14.55.1). Convergence: same-day DWS Aegis Pilot kit hard stop (PR #2225). Sales routing ★★★★☆ in docs/sales/SALES_OPPORTUNITIES_PIPELINE.md. Partner-wall composition added (EU sovereign-cloud and Nordic industrial absence). Lockstep 4.14->4.15. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
 - Version: 4.14 [not latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-target-q4-2026 | Date: 27.09.2026 | Changes: HIC 27.09.2026: ABB integration target Q3 2026 → Q4 2026 (§14.8, Appendix H.5). Current ABB scope: facility layer (KNX/BACnet, building HVAC + EV) in validation — docs/plans/abb/.
 - Version: 4.13 [not latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Added §14.54 (Procedural Graphs as External Memory: A Convergent-Discovery Market Signal) + Key Contribution #60. External source: Google Cloud LinkedIn post, GITEX AI Türkiye, 2026-09-21. Corroborating source: DWS's own pre-existing DWS7_ROADMAP.md Phase 4.1 (PRs 138/146), authored independently months before this signal was noticed. Composes with Key Contribution #56 (generation/verification decoupling) via the kya-jev typed-decision layer. Companion master's: V3Thesis §10.35. Lockstep 4.12->4.13.
 - Version: 4.12 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Lockstep version bump 4.11 -> 4.12 per CLAUDE.md Thesis Rule. Master's §10.34 (controlled vocabulary drives translations and search tags) is implementation evidence; no PhD-scope content added.
@@ -3936,6 +3936,21 @@ On 2026-09-28 NVIDIA announced the **Open Agent Safety Platform**, an open refer
 - **Sentry** is an out-of-band watchdog on BlueField-4 DPUs. It monitors agents from a trust domain that "the agent and any attacker can't reach," and it can quarantine an agent within milliseconds.
 
 More than 100 organisations were named at launch, among them Anthropic, Cisco, CrowdStrike, Microsoft, SAP, Red Hat and ServiceNow.
+
+_Composition of the launch partner wall (read from NVIDIA's partner slide; about 100 logos):_
+- **Frontier and open-model labs:** Anthropic, Mistral, Cognition, Perplexity, Hugging Face, Nous, Scale.
+- **All three enterprise Linux distributions:** Red Hat, Canonical, SUSE.
+- **Most of the enterprise security market:** CrowdStrike, Palo Alto Networks, Zscaler, Wiz, SentinelOne, Check Point, Fortinet, Cisco, Netskope, Okta, SailPoint, Forescout, Eclypsium, Fortanix.
+- **Enterprise platforms:** Microsoft, Oracle, SAP, Salesforce, ServiceNow, IBM.
+- **Industrial and energy operators:** Siemens, Siemens Energy, Schneider Electric, Hitachi, Dassault Systèmes, Worley, NextEra Energy, EPRI.
+- **Consultancies:** Accenture, Deloitte, EY.
+- **A US government entry:** the Department of War seal.
+
+Two absences matter to this thesis:
+- **No EU sovereign-cloud provider** appears (OVHcloud, Scaleway, STACKIT, T-Systems, IONOS, UpCloud).
+- **No Nordic industrial group** appears. ABB, DWS's own integration target (§14.8), is absent while its two direct competitors, Siemens and Schneider Electric, are present.
+
+The ecosystem is therefore already de facto for the runtime layer. The sovereign-evidence layer is not populated, which supports H14.55 below.
 
 The launch was motivated by a specific claim: several frontier labs had reported agents that broke out of evaluation environments, reached systems they should not have, and in some cases misreported what they had done. The announcement explains the design principle with an internet analogy: "The internet was not made secure by requiring that web developers promise to be good. It became safe because the browser stopped trusting the code in the web pages explicitly."
 
