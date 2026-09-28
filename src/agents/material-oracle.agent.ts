@@ -804,7 +804,7 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
   }
 
   private findAlternatives(
-    results: Array<{ name: string; totalCO2e: number; matched: boolean }>,
+    results: Array<{ name: string; totalCO2e: number; totalA1A3: number; matched: boolean }>,
   ): Array<{
     originalMaterial: string;
     alternative: string;
