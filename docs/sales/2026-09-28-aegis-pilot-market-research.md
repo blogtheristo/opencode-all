@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.1 [Latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 28.09.2026 | Changes: HIC 28.09.2026: operaattorin hyväksyntä kirjataan päätöstapahtumana, ei muistiinpanona (§1.2, D6). Pilotin mittari: päätöspolun kattavuus + operaattorin aika; € tulostapahtumana, PUE ei (§1.3, D7). Myyntisäikeiden kärki on tietue ja pysäytys, optimointi on todistettava asia (§9, D8). | Harness: Claude Code + CLAUDE.md + DWS_MARKET_RESEARCH_STANDARD
+- Version: 1.2 [Latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 28.09.2026 | Changes: HIC hyväksyi D7: myytävä luku on päätöspolun kattavuus, toissijainen luku operaattorin aika; € kirjataan tuloksena, ei luvata; PUE ei käytössä. | Harness: Claude Code + CLAUDE.md
+- Version: 1.1 [not latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 28.09.2026 | Changes: HIC 28.09.2026: operaattorin hyväksyntä kirjataan päätöstapahtumana, ei muistiinpanona (§1.2, D6). Pilotin mittari: päätöspolun kattavuus + operaattorin aika; € tulostapahtumana, PUE ei (§1.3, D7). Myyntisäikeiden kärki on tietue ja pysäytys, optimointi on todistettava asia (§9, D8). | Harness: Claude Code + CLAUDE.md + DWS_MARKET_RESEARCH_STANDARD
 - Version: 1.0 [not latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 28.09.2026 | Changes: Ensimmäinen versio. Kolmen kohdeteollisuuden tarpeet, nimetyt yritykset ja rahastot, SWOT, GTM-päätösesitys ja myyntisäikeet DWS-AEGIS-PILOT-001:lle. Gemini-syöte (HIC, 28.09.2026) tarkistettu nimi nimeltä; virheet korjattu §6:ssa. HIC-päätös 28.09.2026: ensimmäinen työnkulku on neuvoa-antava (operaattori hyväksyy), ei fyysistä ohjausta. | Harness: Claude Code + CLAUDE.md + DWS_MARKET_RESEARCH_STANDARD + DWS_ROLES_REGISTRY + DWS_TRUTH_STANDARD
 
 Session Links & References:
@@ -40,7 +41,7 @@ Document Status:
 | D4  | Myyntiviesteissä ei väitetä "alan ainoa ratkaisu" eikä "isäntäytimen lokista todennettu pysäytys" ennen kuin C4 (OpenShell-eristys) on toimitettu.                                                                                                                                     | Korjaus Gemini-tekstiin                 |
 | D5  | Kilpailukenttä muuttui tänään: NVIDIA julkaisi Open Agent Safety Platformin (OpenShell + Sentry) 28.09.2026. Aegiksen erottuvuus on **EU-suvereniteetti + katkaistun yhteyden hyväksyntätesti + Article 12 -todiste**, ei pysäytyskyky sinänsä.                                        | Havainto                                |
 | D6  | Operaattorin hyväksyntä kirjataan **allekirjoitettuna päätöstapahtumana** (`human.decide`), ei muistiinpanona eikä `human.override`-tapahtumana. Pilotti tuottaa silloin katkotestin lisäksi ensimmäisen todennettavan päätöspolun: suositus → päätös → toimenpide → tulos.            | **HIC-päätös 28.09.2026** — toteutus C5 |
-| D7  | Pilotin myytävä luku on **päätöspolun kattavuus** ja **operaattorin aika päätöstä kohden**. Sähkölaskun € kirjataan jokaisen hyväksytyn suosituksen tulostapahtumana, mutta sitä ei luvata. PUE:ta ei käytetä.                                                                         | Esitys (§1.3)                           |
+| D7  | Pilotin myytävä luku on **päätöspolun kattavuus** ja **operaattorin aika päätöstä kohden**. Sähkölaskun € kirjataan jokaisen hyväksytyn suosituksen tulostapahtumana, mutta sitä ei luvata. PUE:ta ei käytetä.                                                                         | **HIC-päätös 28.09.2026**               |
 | D8  | Myyntiviestien kärki on **tietue ja pysäytys**; optimointi on se, mitä niillä todistetaan. Energianoptimointityökalujen kanssa ei kilpailla optimoinnin laadulla.                                                                                                                      | HIC 28.09.2026                          |
 
 ---
