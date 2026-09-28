@@ -11,5 +11,6 @@ export * from './kill-authority.js';
 export * from './uplink-probe.js';
 export * from './workflow-runner.js';
 export * from './acceptance.js';
+export * from './isolated-handlers.js';
 export { createReferenceRegistry, evaluateLimits } from './reference-workflow.js';
 export { generateEd25519, keyId, privateKeyFromPem, publicKeyFromPem } from './crypto.js';

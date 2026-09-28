@@ -61,6 +61,18 @@ The kit lives in `src/aegis/pilot/` (≈2,600 lines after formatting) and uses o
   - **High:** opening the ledger checked the chain but not signatures. With the site key known, it now refuses bad or missing signatures on open.
   - Advisories: the credential-id check now runs before any path is built. The whole-ledger scope of condition (ii) is documented as intended (runbook §8).
 
+## 3a. Hard stop (patch C1, same day)
+
+The cooperative stop was the kit's weakest claim: a handler that spins synchronously blocks the event loop, and with it the kill-inbox poll, so the operator's stop is never read. Every step, and the stop-test agent, now runs in a worker thread that the stop terminates.
+
+- **Stubborn stop-test agent.** The agent is a busy loop that never reads a signal. A PASS therefore cannot come from the agent agreeing to stop. After termination the main thread watches for three tick periods, and any late message fails condition (iii).
+- **Two defects found by the new tests before commit:**
+  - The runner raced the abort signal and recorded "stopped" before the worker had actually terminated. Hard-stop handlers are now awaited.
+  - The runtime's own `system.agent_terminated` evidence event was being counted as agent work after the stop.
+- **Environment finding.** `--import tsx` in a worker compiles TypeScript but does not map `./x.js` specifiers to `.ts` sources (tsx 4.21). The worker boots from a bootstrap that calls tsx's ESM `register()` by absolute path. A compiled build runs the `.js` workers directly.
+- **Result.** Isolated rehearsal PASS: the stubborn agent was terminated in 5 ms, 80 ms after the command was issued, with 0 late messages. The suite is at 46 cases.
+- **Proposed standard extension.** One more pilot event type: `system.agent_terminated` (see §4).
+
 ## 4. Proposed standard extension (Article 12 Logging Standard §3)
 
 The §3 `event_type` enum has no values for the operational facts the pilot must prove. The ledger adds `system.genesis | system.heartbeat | system.uplink_probe | system.degraded | system.reconcile | workflow.start | workflow.complete | workflow.failed | acceptance.record`. Draft wording for §3: _"Deployments proving network-independent operation MAY emit `system.*`, `workflow.*` and `acceptance.record` events; they carry the same identity and tamper-evidence fields."_ **Status: PENDING_REVIEW.** The standard has not been edited.

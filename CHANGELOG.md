@@ -21,6 +21,12 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- **Aegis Pilot hard stop (readiness plan patch C1).** Workflow steps and the
+  stop-test agent now run in worker threads that an operator stop terminates
+  (`src/aegis/pilot/isolated-handlers.ts`). A handler that ignores its signal or
+  spins synchronously is stopped anyway, and the record carries `stopMode`,
+  `terminationMs` and `lateMessages`. Acceptance runs refuse the cooperative
+  stop. Isolated rehearsal: PASS; the stubborn agent terminated in 5 ms.
 - **Aegis Pilot local-first kit (DWS-AEGIS-PILOT-001).** `src/aegis/pilot/` +
   `npm run aegis:pilot`: local Article 12 ledger (hash-chained, site-signed,
   fsync per event), Ed25519 site identity, operator kill authority over a local

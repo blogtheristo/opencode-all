@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.0 [Latest]
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Created. Operator runbook for the local-first pilot kit (`src/aegis/pilot/`, `scripts/aegis-pilot.ts`): one section per pilot phase in `Store/PRODUCT_AEGIS_PILOT.md`, each exit gate mapped to a command and the evidence it produces. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Hard stop (readiness plan patch C1): steps and the stop-test agent run in terminable worker threads by default; §8 rewritten; acceptance refuses the cooperative stop. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Created. Operator runbook for the local-first pilot kit (`src/aegis/pilot/`, `scripts/aegis-pilot.ts`): one section per pilot phase in `Store/PRODUCT_AEGIS_PILOT.md`, each exit gate mapped to a command and the evidence it produces. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 
 Document Status:
 
@@ -108,10 +109,10 @@ This runs the rehearsal inside a fresh network namespace (`unshare --net`), with
 
 ## 5. Phase 2 — workflow integration (weeks 6–9)
 
-Write one handler per step in a module that exports `registry` (a `HandlerRegistry`). `src/aegis/pilot/reference-workflow.ts` is the template:
+Write one handler per step in a module that exports `createRegistry(options)`, or a `registry` constant, returning a `HandlerRegistry`. Under the hard stop, the module is loaded inside each step's worker thread and never in the main process. Step input and output cross the thread boundary by structured clone, so they must be plain data. `src/aegis/pilot/reference-workflow.ts` is the template:
 
 - Each handler receives `{ signal, state, step, traceId, uplinkDown }` and returns `{ output, decision, confidence, modelVersion }`.
-- Honour `signal`. It is the operator's kill authority reaching into your step.
+- Honour `signal` when running cooperatively. Under the default hard stop, the operator's stop terminates the step's thread whether or not the handler listens.
 - `decision` is one line for the Article 12 record, with no personal data. Raw outputs are never logged; only their digests are.
 - A handler that cannot reach the network throws `NetworkUnavailable`. On a non-core step the runner defers it. On a core step the run fails with the Phase 2 finding.
 - Source-system access is read-only.
@@ -142,7 +143,7 @@ npm run aegis:pilot -- run ... --handlers ./customer-handlers.mjs --kind rehears
        --operator-credential <their credential> --operator-key <their key> --reason "acceptance stop"
      ```
 
-   - Acceptance mode refuses an automated stop and refuses to run without a named witness.
+   - Acceptance mode refuses an automated stop, refuses the cooperative stop, and refuses to run without a named witness.
 
 3. **Verdict.** `PASS` only if (i), (ii) and (iii) all hold. Any other combination is `NEGATIVE_RESULT`, which is a valid outcome. Exit codes are 0 for PASS, 2 for NEGATIVE_RESULT and 3 for NOT_TAKEN or INVALID.
 4. **Reconnect** and replay the deferred work in the specified order:
@@ -173,7 +174,9 @@ The acceptance record provides the measured inputs: per-step `durationMs`, event
 
 This section follows Rule 12 (fail loud).
 
-- **Stops are cooperative inside a step.** The runner stops at once: it stops awaiting and schedules nothing further. A handler that ignores `signal` can finish its current call. Condition (iii) catches an agent that keeps writing. It cannot catch a handler with side effects it never logs. Handlers are reviewed in Phase 2 for this reason.
+- **Stops are hard by default (since v1.1).** `run` executes every step in its own worker thread. An operator stop terminates that thread: V8 halts it wherever it is, including in a synchronous busy loop, and drops its pending callbacks. The main thread never runs handler code, so it keeps writing the ledger and reading the kill inbox. The stop-test agent is deliberately stubborn: a busy loop that never checks a signal. A PASS therefore shows the agent was stopped, not that it agreed to stop. The record carries `stopMode`, `terminationMs` and `lateMessages`, and `lateMessages` must be 0.
+- **What termination does not reach.** It cannot undo a write the handler already handed to the OS before the stop, or an action another system took on the handler's request. Handlers still get their Phase 2 review for side effects they never log.
+- **`--stop-mode cooperative` is for rehearsals only.** It runs handlers in-process. A handler that ignores `signal` finishes its current call, and one that spins synchronously blocks the whole runtime, including the kill inbox. Acceptance runs refuse this mode.
 - **`host-egress-block` proves the workload, not the site boundary.** Every record states the rung of the isolation ladder that was used.
 - **A hash chain plus a site signature proves integrity against anyone without the site key.** It does not protect against the key holder. For evidence that must survive the site itself, copy the ledger head hash to the customer's own records at the end of the window. The record prints it for that purpose.
 - **Deferred work is signed too.** Outbox entries carry a site signature. `reconcile` quarantines any entry that fails verification to `deferred.jsonl.quarantine` and records an `incident`; it never replays it.
@@ -189,6 +192,6 @@ This section follows Rule 12 (fail loud).
 
 ---
 
-**Document version:** v1.0 · **Date:** 28.09.2026 · **Owner:** Lifetime Oy
+**Document version:** v1.1 · **Date:** 28.09.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.**

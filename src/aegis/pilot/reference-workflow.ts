@@ -185,3 +185,11 @@ export function createReferenceRegistry(opts: ReferenceRegistryOptions): Handler
     },
   };
 }
+
+/**
+ * Handler-module contract for hard-stop isolation (isolated-handlers.ts): the
+ * worker thread imports this module and builds its registry from plain options.
+ */
+export function createRegistry(options: Record<string, unknown>): HandlerRegistry {
+  return createReferenceRegistry(options as unknown as ReferenceRegistryOptions);
+}

@@ -43,6 +43,7 @@ import {
   submitStopCommand,
 } from './kill-authority.js';
 import { ISOLATION_LADDER, type PilotScope, stepCapability } from './scope.js';
+import { spawnPilotWorker, terminateBounded } from './isolated-handlers.js';
 import { type Connector, probeUplink, type UplinkProbeReport } from './uplink-probe.js';
 import { type HandlerRegistry, type RunResult, runWorkflow } from './workflow-runner.js';
 
@@ -65,6 +66,12 @@ export interface AcceptanceOptions {
   witness?: string;
   /** Keep the site isolated and the heartbeat running until the agreed window has elapsed. */
   holdUntilWindowEnd?: boolean;
+  /**
+   * 'hard' (default): the stop-test agent is a stubborn worker thread that
+   * never checks a signal; the stop is proven by terminating it. 'cooperative':
+   * in-process loop that honours its signal — rehearsal only.
+   */
+  stopMode?: 'hard' | 'cooperative';
   probeIntervalMs?: number;
   probeTimeoutMs?: number;
   connector?: Connector;
@@ -124,6 +131,11 @@ export interface AcceptanceRecord {
       stop: StopOutcome | null;
       agentId: string | null;
       ticksAfterStop: number;
+      stopMode: 'hard' | 'cooperative';
+      /** Hard mode: ms from abort to worker termination confirmed. */
+      terminationMs: number | null;
+      /** Hard mode: messages from the agent after termination was confirmed (must be 0). */
+      lateMessages: number;
       detail: string;
     };
   };
@@ -220,9 +232,75 @@ async function runSentinel(p: {
   }
 }
 
+interface SentinelOutcome {
+  stopped: boolean;
+  ticks: number;
+  terminationMs: number | null;
+  lateMessages: number;
+}
+
+/**
+ * Hard-mode stop-test agent: a stubborn worker (sentinel-worker.ts). The main
+ * thread logs its ticks until the operator's stop aborts the signal, then
+ * terminates the worker and watches for three tick periods: any message after
+ * termination was confirmed means the agent was not actually stopped.
+ */
+async function runSentinelHard(p: {
+  credential: Credential;
+  kill: KillAuthority;
+  ledger: EvidenceLedger;
+  traceId: string;
+  tickMs: number;
+  maxMs: number;
+  onFirstTick: () => void;
+}): Promise<SentinelOutcome> {
+  const { signal, release } = p.kill.register(p.credential);
+  const worker = spawnPilotWorker('sentinel-worker', { tickMs: p.tickMs });
+  let ticks = 0;
+  let terminatedAt: number | null = null;
+  let lateMessages = 0;
+  worker.on('message', () => {
+    if (terminatedAt !== null) {
+      lateMessages++;
+      return;
+    }
+    if (signal.aborted) return; // in flight when the stop landed; never logged as agent work
+    p.ledger.append({
+      event_type: 'agent.decide',
+      trace_id: p.traceId,
+      agent_id: p.credential.subjectId,
+      detail: { step: 'sentinel-tick', tick: ticks, stop_mode: 'hard' },
+    });
+    ticks++;
+    if (ticks === 1) p.onFirstTick();
+  });
+  try {
+    await sleep(p.maxMs, signal);
+    if (!signal.aborted) return { stopped: false, ticks, terminationMs: null, lateMessages: 0 };
+    const { confirmed, ms } = await terminateBounded(worker);
+    terminatedAt = Date.now();
+    if (!confirmed) {
+      // Unconfirmed termination is not a proven stop: terminationMs stays null → (iii) fails.
+      return { stopped: true, ticks, terminationMs: null, lateMessages };
+    }
+    p.ledger.append({
+      event_type: 'system.agent_terminated',
+      trace_id: p.traceId,
+      agent_id: p.credential.subjectId,
+      detail: { step: 'sentinel', stop_mode: 'hard', termination_ms: ms },
+    });
+    await sleep(3 * p.tickMs);
+    return { stopped: true, ticks, terminationMs: ms, lateMessages };
+  } finally {
+    await terminateBounded(worker);
+    release();
+  }
+}
+
 export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcceptanceRecord> {
   const now = opts.now ?? (() => new Date());
   const { scope } = opts;
+  const stopMode = opts.stopMode ?? 'hard';
   if (opts.kind === 'acceptance') {
     if (opts.operator.mode !== 'await-operator') {
       throw new Error(
@@ -230,6 +308,11 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
       );
     }
     if (!opts.witness?.trim()) throw new Error('an acceptance run requires a named witness');
+    if (stopMode !== 'hard') {
+      throw new Error(
+        'an acceptance run requires the hard stop: a cooperative stop only proves the agent agreed to stop',
+      );
+    }
   }
 
   const site = SiteAuthority.load(opts.stateDir);
@@ -325,6 +408,9 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
       stop: null,
       agentId: null,
       ticksAfterStop: 0,
+      stopMode,
+      terminationMs: null,
+      lateMessages: 0,
       detail: 'not exercised',
     },
   };
@@ -452,33 +538,52 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     conditions.operatorStop.agentId = sentinel.subjectId;
     const maxMs = opts.operator.mode === 'await-operator' ? opts.operator.timeoutMs : 30_000;
     const operator = opts.operator;
-    const sentinelRun = await runSentinel({
-      credential: sentinel,
-      kill,
-      ledger,
-      verifier,
-      traceId,
-      tickMs: Math.max(100, Math.floor(scope.acceptance.heartbeatMs / 2)),
-      maxMs,
-      onFirstTick: () => {
-        if (operator.mode === 'automated') {
-          submitStopCommand(
-            opts.stateDir,
-            createStopCommand(
-              {
-                target: sentinel.subjectId,
-                reason: `${opts.kind} stop test`,
-                operatorCredential: operator.credential,
-                operatorKey: operator.key,
-              },
-              now(),
-            ),
-          );
-        } else {
-          operator.onAwait?.(sentinel.subjectId, sentinel.subjectName);
-        }
-      },
-    });
+    const onFirstTick = () => {
+      if (operator.mode === 'automated') {
+        submitStopCommand(
+          opts.stateDir,
+          createStopCommand(
+            {
+              target: sentinel.subjectId,
+              reason: `${opts.kind} stop test`,
+              operatorCredential: operator.credential,
+              operatorKey: operator.key,
+            },
+            now(),
+          ),
+        );
+      } else {
+        operator.onAwait?.(sentinel.subjectId, sentinel.subjectName);
+      }
+    };
+    const tickMs = Math.max(100, Math.floor(scope.acceptance.heartbeatMs / 2));
+    const sentinelRun: SentinelOutcome =
+      stopMode === 'hard'
+        ? await runSentinelHard({
+            credential: sentinel,
+            kill,
+            ledger,
+            traceId,
+            tickMs,
+            maxMs,
+            onFirstTick,
+          })
+        : {
+            ...(await runSentinel({
+              credential: sentinel,
+              kill,
+              ledger,
+              verifier,
+              traceId,
+              tickMs,
+              maxMs,
+              onFirstTick,
+            })),
+            terminationMs: null,
+            lateMessages: 0,
+          };
+    conditions.operatorStop.terminationMs = sentinelRun.terminationMs;
+    conditions.operatorStop.lateMessages = sentinelRun.lateMessages;
     kill.drainInbox(traceId);
     const stop =
       kill.history.find((o) => o.accepted && o.stoppedAgents.includes(sentinel.subjectId)) ?? null;
@@ -526,15 +631,24 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     // (iii) is judged from the ledger, not from the runtime's own say-so: the
     // stopped agent must have written nothing after the human.override event.
     conditions.operatorStop.ticksAfterStop = scan.agentEventsAfter;
+    const hardProven =
+      stopMode === 'cooperative' ||
+      (sentinelRun.terminationMs !== null && sentinelRun.lateMessages === 0);
     conditions.operatorStop.pass =
-      sentinelRun.stopped && stop !== null && scan.agentEventsAfter === 0;
+      sentinelRun.stopped && stop !== null && scan.agentEventsAfter === 0 && hardProven;
     conditions.operatorStop.detail = conditions.operatorStop.pass
-      ? `stopped after ${sentinelRun.ticks} tick(s), ${stop?.latencyMs ?? '?'} ms from command issue`
+      ? `${stopMode} stop after ${sentinelRun.ticks} tick(s), ${stop?.latencyMs ?? '?'} ms from command issue${
+          sentinelRun.terminationMs !== null
+            ? `, worker terminated in ${sentinelRun.terminationMs} ms`
+            : ''
+        }`
       : !sentinelRun.stopped
         ? `agent was not stopped within ${maxMs} ms`
         : stop === null
           ? 'agent stopped but no accepted operator command is on record'
-          : `agent wrote ${scan.agentEventsAfter} ledger event(s) after the stop`;
+          : !hardProven
+            ? `agent kept running after termination (${sentinelRun.lateMessages} late message(s))`
+            : `agent wrote ${scan.agentEventsAfter} ledger event(s) after the stop`;
     if (!conditions.operatorStop.pass) {
       findings.push(`Condition (iii) failed: ${conditions.operatorStop.detail}.`);
     }
@@ -595,7 +709,10 @@ function scanLedger(
     const e = JSON.parse(line) as LedgerEvent;
     const t = Date.parse(e.timestamp);
     if (t >= lo && t <= hi) inWindow++;
-    if (agentId && afterSeq !== null && e.agent_id === agentId && e.seq > afterSeq)
+    // Agent work only: the runtime's own system.agent_terminated record names the
+    // agent but is written by the main thread as evidence of the stop.
+    const agentWork = e.event_type === 'agent.decide' || e.event_type === 'tool.invoke';
+    if (agentId && afterSeq !== null && agentWork && e.agent_id === agentId && e.seq > afterSeq)
       agentEventsAfter++;
   }
   return { inWindow, agentEventsAfter };

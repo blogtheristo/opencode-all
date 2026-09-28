@@ -14,6 +14,8 @@
  * Every step is authorised against the agent's locally-verified credential
  * (capability `step:<id>`), raced against the operator's kill signal, and
  * recorded as an Article 12 `agent.decide` event with input/output digests.
+ * With a registry from createIsolatedRegistry() the stop is hard: the step's
+ * worker thread is terminated, and a `system.agent_terminated` event records it.
  */
 
 import {
@@ -58,7 +60,13 @@ export interface StepResult {
   modelVersion?: string;
 }
 
-export type StepHandler = (ctx: StepContext) => Promise<StepResult>;
+export type StepHandler = ((ctx: StepContext) => Promise<StepResult>) & {
+  /**
+   * Set by createIsolatedRegistry(): the handler rejects on abort only after
+   * its worker is terminated, so the runner awaits it instead of racing it.
+   */
+  hardStop?: true;
+};
 export type HandlerRegistry = Readonly<Record<string, StepHandler>>;
 
 export type StepStatus = 'done' | 'deferred' | 'failed' | 'stopped' | 'not-run';
@@ -303,10 +311,15 @@ export async function runWorkflow(opts: RunOptions): Promise<RunResult> {
       const inputDigest = sha256(canonicalJSON(state));
       const t0 = performance.now();
       try {
-        const res = await raceAbort(
-          handler({ signal, traceId, step, state: { ...state }, uplinkDown: opts.uplinkDown }),
+        const work = handler({
           signal,
-        );
+          traceId,
+          step,
+          state: { ...state },
+          uplinkDown: opts.uplinkDown,
+        });
+        // Hard stop: wait for the termination to be confirmed, never just requested.
+        const res = handler.hardStop ? await work : await raceAbort(work, signal);
         rec.durationMs = Math.round(performance.now() - t0);
         rec.status = 'done';
         rec.outputDigest = sha256(canonicalJSON(res.output ?? null));
@@ -329,6 +342,20 @@ export async function runWorkflow(opts: RunOptions): Promise<RunResult> {
         rec.durationMs = Math.round(performance.now() - t0);
         if (signal.aborted) {
           rec.status = 'stopped';
+          // Hard stop (isolated-handlers.ts): the step's worker was terminated.
+          // Record that the stop took effect, not only that it was requested.
+          const terminated = err instanceof Error && err.name === 'WorkerTerminated';
+          if (terminated) {
+            ledger.append({
+              ...base,
+              event_type: 'system.agent_terminated',
+              detail: {
+                step: step.id,
+                stop_mode: 'hard',
+                termination_ms: (err as Error & { terminationMs?: number }).terminationMs,
+              },
+            });
+          }
           return finish('stopped', errText(signal.reason));
         }
         if (err instanceof NetworkUnavailable) {

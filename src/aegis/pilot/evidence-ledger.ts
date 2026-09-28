@@ -55,6 +55,7 @@ export type LedgerEventType =
   | 'system.uplink_probe'
   | 'system.degraded'
   | 'system.reconcile'
+  | 'system.agent_terminated'
   | 'workflow.start'
   | 'workflow.complete'
   | 'workflow.failed'

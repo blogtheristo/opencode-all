@@ -13,7 +13,7 @@
  *   probe           --scope F
  *   run             --state-dir D --scope F --kind rehearsal|acceptance
  *                   (--operator-credential C --operator-key K | --await-operator [--timeout-s 600])
- *                   [--witness W] [--hold] [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
+ *                   [--witness W] [--hold] [--stop-mode hard|cooperative] [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   stop            --state-dir D --agent ID|'*' --operator-credential C --operator-key K --reason R
  *   verify          --state-dir D [--record FILE] [--expect-key-id K]
  *   reconcile       --state-dir D --scope F [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
@@ -24,14 +24,15 @@
 
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseArgs } from 'node:util';
 import {
   CAP_AGENT_STOP,
   EvidenceLedger,
+  type HandlerModuleRef,
+  createIsolatedRegistry,
   type HandlerRegistry,
   SiteAuthority,
-  createReferenceRegistry,
   createStopCommand,
   generateEd25519,
   loadCredential,
@@ -70,6 +71,7 @@ const { values: a, positionals } = parseArgs({
     readings: { type: 'string' },
     'report-dir': { type: 'string' },
     'sync-url': { type: 'string' },
+    'stop-mode': { type: 'string' },
     agent: { type: 'string' },
     reason: { type: 'string' },
     record: { type: 'string' },
@@ -95,21 +97,56 @@ function loadScope(): PilotScope {
   return v.scope;
 }
 
-async function loadRegistry(stateDir: string): Promise<HandlerRegistry> {
-  if (a.handlers) {
-    const mod = (await import(pathToFileURL(resolve(a.handlers)).href)) as {
-      default?: HandlerRegistry;
-      registry?: HandlerRegistry;
-    };
-    const reg = mod.registry ?? mod.default;
-    if (!reg) throw new Error(`${a.handlers} must export "registry" or a default HandlerRegistry`);
-    return reg;
+function handlerModule(stateDir: string): HandlerModuleRef {
+  if (a.handlers) return { modulePath: resolve(a.handlers), options: {} };
+  return {
+    modulePath: fileURLToPath(new URL('../src/aegis/pilot/reference-workflow.ts', import.meta.url)),
+    options: {
+      readingsPath: resolve(a.readings ?? 'config/aegis-pilot/sample-readings.json'),
+      reportDir: resolve(a['report-dir'] ?? `${stateDir}/reports`),
+      syncUrl: a['sync-url'] ?? 'none',
+    },
+  };
+}
+
+/**
+ * 'hard' (default for run): each step runs in a terminable worker thread and the
+ * handler module is never loaded into this process. 'cooperative': in-process.
+ */
+async function loadRegistry(
+  stateDir: string,
+  scope: PilotScope,
+  mode: 'hard' | 'cooperative',
+): Promise<HandlerRegistry> {
+  const ref = handlerModule(stateDir);
+  if (mode === 'hard') {
+    return createIsolatedRegistry(
+      ref,
+      scope.workflow.steps.map((s) => s.handler),
+    );
   }
-  return createReferenceRegistry({
-    readingsPath: resolve(a.readings ?? 'config/aegis-pilot/sample-readings.json'),
-    reportDir: resolve(a['report-dir'] ?? `${stateDir}/reports`),
-    syncUrl: a['sync-url'] ?? 'none',
-  });
+  const mod = (await import(pathToFileURL(ref.modulePath).href)) as {
+    createRegistry?: (options: Record<string, unknown>) => HandlerRegistry;
+    default?: HandlerRegistry;
+    registry?: HandlerRegistry;
+  };
+  const reg =
+    typeof mod.createRegistry === 'function'
+      ? mod.createRegistry(ref.options ?? {})
+      : (mod.registry ?? mod.default);
+  if (!reg) {
+    throw new Error(
+      `${ref.modulePath} must export createRegistry(options), "registry" or a default HandlerRegistry`,
+    );
+  }
+  return reg;
+}
+
+function stopMode(): 'hard' | 'cooperative' {
+  const m = a['stop-mode'] ?? 'hard';
+  if (m !== 'hard' && m !== 'cooperative')
+    throw new Error('--stop-mode must be hard or cooperative');
+  return m;
 }
 
 async function main(): Promise<void> {
@@ -204,7 +241,8 @@ async function main(): Promise<void> {
       const signed = await runAcceptance({
         stateDir,
         scope,
-        registry: await loadRegistry(stateDir),
+        registry: await loadRegistry(stateDir, scope, stopMode()),
+        stopMode: stopMode(),
         kind,
         operator,
         witness: a.witness,
@@ -289,7 +327,7 @@ async function main(): Promise<void> {
       try {
         const result = await reconcileOutbox({
           scope,
-          registry: await loadRegistry(stateDir),
+          registry: await loadRegistry(stateDir, scope, 'cooperative'),
           ledger,
           outboxPath: statePaths(stateDir).outbox,
           publicKey: site.publicKey,

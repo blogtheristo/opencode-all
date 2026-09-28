@@ -7,14 +7,23 @@
  * hold and the site was provably isolated.
  */
 
-import { appendFileSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  appendFileSync,
+  existsSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { createServer, type Server } from 'node:net';
+import type { Worker } from 'node:worker_threads';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
   CAP_AGENT_STOP,
   type Connector,
+  createIsolatedRegistry,
   createReferenceRegistry,
   createStopCommand,
   type Credential,
@@ -33,6 +42,7 @@ import {
   SiteAuthority,
   statePaths,
   submitStopCommand,
+  terminateBounded,
   validateScope,
   verifyAcceptanceRecord,
   verifyLedger,
@@ -697,6 +707,9 @@ describe('severed-uplink acceptance test', () => {
     expect(signed.record.findings.filter((f) => !f.startsWith('Deferred'))).toEqual([]);
     expect(signed.record.outcome).toBe('PASS');
     expect(signed.record.conditions.operatorStop.ticksAfterStop).toBe(0);
+    expect(signed.record.conditions.operatorStop.stopMode).toBe('hard');
+    expect(signed.record.conditions.operatorStop.terminationMs).not.toBeNull();
+    expect(signed.record.conditions.operatorStop.lateMessages).toBe(0);
     expect(signed.record.isolation.method).toBe('host-egress-block');
     expect(verifyAcceptanceRecord(signed, site.publicKey)).toBe(true);
     const tampered = {
@@ -816,5 +829,220 @@ describe('severed-uplink acceptance test', () => {
         operator: { mode: 'automated', ...operator() },
       }),
     ).rejects.toThrow(/await-operator/);
+  });
+});
+
+// ─── Hard stop (readiness plan patch C1) ─────────────────────────────────────
+
+describe('hard stop: steps in terminable worker threads', () => {
+  const fixture = join(process.cwd(), 'src/__tests__/fixtures/aegis-pilot-stubborn-handlers.ts');
+  const referenceModule = join(process.cwd(), 'src/aegis/pilot/reference-workflow.ts');
+
+  function oneStepScope(handler: string): PilotScope {
+    return parsedScope((s) => {
+      s.workflow.steps = [
+        { id: 'only', name: 'Only step', criticality: 'core', requiresNetwork: false, handler },
+      ];
+      s.reconciliationOrder = [];
+    });
+  }
+
+  async function runWithStop(
+    scope: PilotScope,
+    registry: Parameters<typeof runWorkflow>[0]['registry'],
+    stopAfterMs: number,
+  ) {
+    const ledger = openLedger();
+    const kill = new KillAuthority(dir, site.verifier(), ledger);
+    const agent = site.issue({
+      kind: 'agent',
+      subjectName: 'wf',
+      capabilities: scope.workflow.steps.map((st) => `step:${st.id}`),
+      ttlHours: 1,
+    });
+    const op = operator();
+    const timer = setTimeout(() => {
+      kill.execute(
+        createStopCommand({
+          target: agent.subjectId,
+          reason: 'hard stop test',
+          operatorCredential: op.credential,
+          operatorKey: op.key,
+        }),
+        't',
+      );
+    }, stopAfterMs);
+    const t0 = performance.now();
+    try {
+      const result = await runWorkflow({
+        scope,
+        registry,
+        ledger,
+        kill,
+        verifier: site.verifier(),
+        agent,
+        uplinkDown: true,
+        outboxPath: statePaths(dir).outbox,
+        signOutbox: (p) => site.sign(p),
+        traceId: 't',
+      });
+      return { result, elapsedMs: performance.now() - t0 };
+    } finally {
+      clearTimeout(timer);
+      ledger.close();
+    }
+  }
+
+  const events = () =>
+    readFileSync(statePaths(dir).ledger, 'utf8')
+      .trim()
+      .split('\n')
+      .map((l) => JSON.parse(l));
+
+  it('terminates a step that spins synchronously forever and records the termination', async () => {
+    const scope = oneStepScope('spin');
+    const { result, elapsedMs } = await runWithStop(
+      scope,
+      createIsolatedRegistry({ modulePath: fixture }, ['spin']),
+      400,
+    );
+    expect(result.status).toBe('stopped');
+    expect(elapsedMs).toBeLessThan(5000);
+    const terminated = events().find((e) => e.event_type === 'system.agent_terminated');
+    expect(terminated?.detail).toMatchObject({ step: 'only', stop_mode: 'hard' });
+    expect(typeof terminated?.detail.termination_ms).toBe('number');
+  });
+
+  it('a cooperative stop lets an abort-ignoring handler finish its side effect; a hard stop does not', async () => {
+    const marker = join(dir, 'side-effect.txt');
+    const scope = oneStepScope('ignore-abort');
+
+    const { createRegistry } = await import('./fixtures/aegis-pilot-stubborn-handlers.js');
+    const coop = await runWithStop(scope, createRegistry({ markerPath: marker }), 100);
+    expect(coop.result.status).toBe('stopped');
+    await new Promise((r) => setTimeout(r, 900));
+    expect(existsSync(marker)).toBe(true); // the limit runbook §8 documents
+
+    rmSync(marker);
+    const hard = await runWithStop(
+      scope,
+      createIsolatedRegistry({ modulePath: fixture, options: { markerPath: marker } }, [
+        'ignore-abort',
+      ]),
+      300,
+    );
+    expect(hard.result.status).toBe('stopped');
+    await new Promise((r) => setTimeout(r, 1200));
+    expect(existsSync(marker)).toBe(false);
+  });
+
+  it('runs the reference workflow to completion in isolated workers, with outputs crossing the thread boundary', async () => {
+    const scope = parsedScope();
+    const registry = createIsolatedRegistry(
+      {
+        modulePath: referenceModule,
+        options: { readingsPath, reportDir: join(dir, 'reports'), syncUrl: 'none' },
+      },
+      scope.workflow.steps.map((st) => st.handler),
+    );
+    const ledger = openLedger();
+    const kill = new KillAuthority(dir, site.verifier(), ledger);
+    const agent = site.issue({
+      kind: 'agent',
+      subjectName: 'wf',
+      capabilities: scope.workflow.steps.map((st) => `step:${st.id}`),
+      ttlHours: 1,
+    });
+    const result = await runWorkflow({
+      scope,
+      registry,
+      ledger,
+      kill,
+      verifier: site.verifier(),
+      agent,
+      uplinkDown: false,
+      outboxPath: statePaths(dir).outbox,
+      signOutbox: (p) => site.sign(p),
+      traceId: 't',
+    }).finally(() => ledger.close());
+    expect(result.status).toBe('completed');
+    expect(result.steps.map((st) => st.status)).toEqual(['done', 'done', 'done', 'done', 'done']);
+  });
+
+  it('carries NetworkUnavailable across the boundary so a non-core step is still deferred', async () => {
+    const scope = parsedScope();
+    const registry = createIsolatedRegistry(
+      {
+        modulePath: referenceModule,
+        options: { readingsPath, reportDir: join(dir, 'reports'), syncUrl: 'http://127.0.0.1:9/' },
+      },
+      scope.workflow.steps.map((st) => st.handler),
+    );
+    const ledger = openLedger();
+    const kill = new KillAuthority(dir, site.verifier(), ledger);
+    const agent = site.issue({
+      kind: 'agent',
+      subjectName: 'wf',
+      capabilities: scope.workflow.steps.map((st) => `step:${st.id}`),
+      ttlHours: 1,
+    });
+    const result = await runWorkflow({
+      scope,
+      registry,
+      ledger,
+      kill,
+      verifier: site.verifier(),
+      agent,
+      uplinkDown: false,
+      outboxPath: statePaths(dir).outbox,
+      signOutbox: (p) => site.sign(p),
+      traceId: 't',
+    }).finally(() => ledger.close());
+    expect(result.status).toBe('completed');
+    expect(result.deferred).toEqual(['sync-report']);
+  });
+
+  it('fails a step loudly when the module does not export the handler', async () => {
+    const scope = oneStepScope('missing');
+    const { result } = await runWithStop(
+      scope,
+      createIsolatedRegistry({ modulePath: fixture }, ['missing']),
+      60_000,
+    );
+    expect(result.status).toBe('failed');
+    expect(result.failure).toMatch(/handler "missing" not exported/);
+  });
+
+  it('never hangs or claims a stop when termination is rejected or unconfirmed (security review, high)', async () => {
+    const rejecting = {
+      terminate: () => Promise.reject(new Error('already gone')),
+    } as unknown as Worker;
+    await expect(terminateBounded(rejecting)).resolves.toMatchObject({ confirmed: false });
+    const hanging = { terminate: () => new Promise<number>(() => {}) } as unknown as Worker;
+    const t0 = performance.now();
+    await expect(terminateBounded(hanging, 150)).resolves.toMatchObject({ confirmed: false });
+    expect(performance.now() - t0).toBeLessThan(1000);
+    const ok = { terminate: () => Promise.resolve(1) } as unknown as Worker;
+    await expect(terminateBounded(ok)).resolves.toMatchObject({ confirmed: true });
+  });
+
+  it('refuses an acceptance run with the cooperative stop', async () => {
+    await expect(
+      runAcceptance({
+        stateDir: dir,
+        scope: parsedScope(),
+        registry: createReferenceRegistry({
+          readingsPath,
+          reportDir: join(dir, 'reports'),
+          syncUrl: 'none',
+        }),
+        env: noProxyEnv,
+        kind: 'acceptance',
+        witness: 'w',
+        stopMode: 'cooperative',
+        connector: isolated,
+        operator: { mode: 'await-operator', timeoutMs: 100 },
+      }),
+    ).rejects.toThrow(/requires the hard stop/);
   });
 });
