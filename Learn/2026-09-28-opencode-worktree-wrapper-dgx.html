@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-28-opencode-worktree-wrapper-dgx</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-28-opencode-worktree-wrapper-dgx</h1>
+</header>
+<h1 id="opencode-worktree-per-session-wrapper-why-it-did-not-engage-on-the-dgx">OpenCode worktree-per-session wrapper: why it did not engage on the DGX</h1>
+<hr />
+<h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.0</p>
+<p>Sessions &amp; Modifications:</p>
+<ul>
+<li>Version: 1.0 | Tool: Claude Code (web) | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: Field note for PR #2198 and the DGX rollout. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none</li>
+</ul>
+<p>Session Links &amp; References:</p>
+<ul>
+<li>PR: https://github.com/blogtheristo/dws6/pull/2198 (merged as 148bbcc)</li>
+<li>Policy: WORKTREE_POLICY.md §6</li>
+</ul>
+<p>Document Status:</p>
+<ul>
+<li>Created: 28.09.2026</li>
+<li>Status: PENDING_REVIEW</li>
+</ul>
+<hr />
+<h2 id="what-happened">What happened</h2>
+<p>The HIC reported that starting a new <code>opencode</code> in the DGX terminal did not open a new branch and worktree. The launch wrapper <code>scripts/shell/opencode-worktree.bash</code> (8a6223f) was already on <code>main</code>.</p>
+<p>Three causes, in order of impact:</p>
+<ol type="1">
+<li><strong>Never installed.</strong> The DGX primary checkout <code>~/dws6</code> sat on the feature branch <code>claude/epic-turing-c7vkrk</code>, so <code>git pull</code> did not bring in the wrapper’s installer. Installing was a manual step with no check that it had worked.</li>
+<li><strong>Sessions already running in the shared checkout.</strong> Two opencode processes (PIDs 3093782 and 3791510) had <code>/home/admin100/dws6</code> as their working folder. That checkout had uncommitted epic-turing work, which blocked <code>git switch main</code>.</li>
+<li><strong>Wrapper bypass paths</strong>, reproduced with a stand-in opencode:
+<ul>
+<li>an <code>opencode</code> alias shadows the function, because bash expands aliases before functions;</li>
+<li><code>opencode ~/dws6</code> passed the shared checkout’s path back to opencode.</li>
+</ul></li>
+</ol>
+<h2 id="the-fix-pr-2198">The fix (PR #2198)</h2>
+<ul>
+<li>The wrapper removes any <code>opencode</code> alias and rewrites a path argument pointing at the primary checkout to the new worktree.</li>
+<li>The primary checkout is detected with a symlink-safe test.</li>
+<li>New <code>scripts/shell/install-opencode-worktree.sh</code> installs idempotently and exits 1 unless a fresh shell resolves <code>opencode</code> to the wrapper function.</li>
+</ul>
+<h2 id="insight">Insight</h2>
+<p>A guard that depends on a manual install needs an installer that verifies itself. Without that, it fails silently, and the failure looks like the guard was never written. The primary checkout also has to stay on <code>main</code>. Otherwise a pull updates a feature branch, and later fixes never arrive.</p>
+<h2 id="next-steps">Next steps</h2>
+<ol type="1">
+<li>HIC, on the DGX: close the two shared-checkout sessions, commit and push the epic-turing work, <code>git switch main</code>, then run the installer. The installer should print <code>install: OK</code>.</li>
+<li>Verify: a plain <code>opencode</code> in <code>~/dws6</code> should print <code>opencode: worktree …/opencode/&lt;task&gt;</code>.</li>
+</ol>
+<h2 id="learning-outcome-rule-checklist">Learning Outcome Rule checklist</h2>
+<ul>
+<li>KB: N/A — this is a tooling fix already recorded in WORKTREE_POLICY.md §6; nothing new for the KB.</li>
+<li>Learn/ HTML: rendered alongside this note.</li>
+<li>Drive export: N/A — the repo is the source of truth, and there is no Drive connector write in this session.</li>
+<li>Calendar: N/A — no dated commitment.</li>
+</ul>
+<h2 id="hic-decision-needed">HIC decision needed</h2>
+<p>Should the DGX session-start hook refuse to launch opencode (or warn loudly) when <code>~/dws6</code> is not on <code>main</code>, instead of relying on the HIC to keep it there?</p>
+</body>
+</html>

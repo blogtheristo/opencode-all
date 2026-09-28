@@ -1,4 +1,4 @@
-// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=lane-c-coverage Date=2026-09-27
+// Evidence: Tool=Claude Code Model=anthropic Agent=billing-test-date-fix Date=2026-09-28
 // Audit trail: git log -- src/__tests__/billing-integration.test.ts
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import worker, { type Env } from '../cloudflare/billing-integration.js';
@@ -130,8 +130,11 @@ describe('billing integration worker', () => {
   });
 
   it('aggregates tenant usage and reports threshold state', async () => {
+    // Only the period's single day holds usage: the threshold check aggregates
+    // periodStart → today, so a prefix match would count the record once per
+    // elapsed day and the test would fail from the day after it was written.
     const getUsage = vi.fn(async (key: string) =>
-      key.startsWith('usage:tenant-1:')
+      key === 'usage:tenant-1:2026-09-27'
         ? { inputTokens: 600_000, outputTokens: 250_000, requests: 12, cost: 7.5 }
         : null,
     );
