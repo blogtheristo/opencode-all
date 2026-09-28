@@ -1,0 +1,21 @@
+{
+  "task": "Aegis pilot: 'doctor' preflight command (G5/G7)",
+  "prompt": "Add a read-only 'doctor' command to scripts/aegis-pilot.ts backed by a new src/aegis/pilot/doctor.ts (export it from src/aegis/pilot/index.ts). Read runbook docs/runbooks/AEGIS_PILOT_RUNBOOK.md §2, §4, §8 and src/aegis/pilot/{identity,evidence-ledger,acceptance}.ts first. doctor --state-dir D [--scope F] prints one JSON document {ok, checks:[{check, ok, detail}]} and exits 0 only if every check passes. Checks, each with the exact name: 'state-dir-mode' (state dir not group/world writable), 'site-key-mode' (site/site.key mode 0600), 'ledger-local-fs' (reuse checkLocalFilesystem from acceptance.ts), 'ledger-verifies' (verifyLedger with the site public key; valid and unsigned===0), 'key-pinned' (only with --scope: scope.site.keyId equals site keyId; missing pin = fail), 'isolation-tool' (unshare available on Linux; warn-only, ok:true with detail on other OS). Never modify state. Add src/__tests__/aegis-pilot-doctor.test.ts (>=6 cases, tmp dirs, no network). Add a doctor step to runbook §4 before the first rehearsal. Do not touch package.json or package-lock.json. prettier --write changed files; commit and push.",
+  "base": "main",
+  "order": 21,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "doctor ok on fresh site",
+      "run": "d=$(mktemp -d); node --import tsx scripts/aegis-pilot.ts init --state-dir $d/s --site-id doc-test >/dev/null && node --import tsx scripts/aegis-pilot.ts doctor --state-dir $d/s | grep -q '\"ok\": true'"
+    },
+    {
+      "name": "doctor flags world-writable state dir",
+      "run": "d=$(mktemp -d); node --import tsx scripts/aegis-pilot.ts init --state-dir $d/s --site-id doc-test >/dev/null; chmod 777 $d/s; out=$(node --import tsx scripts/aegis-pilot.ts doctor --state-dir $d/s); echo \"$out\" | grep -q '\"check\": \"state-dir-mode\"' && echo \"$out\" | grep -q '\"ok\": false'"
+    },
+    {
+      "name": "doctor suite passes",
+      "run": "npx vitest run src/__tests__/aegis-pilot-doctor.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+    }
+  ]
+}

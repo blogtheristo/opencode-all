@@ -1,0 +1,17 @@
+{
+  "task": "Aegis pilot: customer handler conformance check (G3/G6)",
+  "prompt": "Add a 'check-handlers' command to scripts/aegis-pilot.ts backed by src/aegis/pilot/handler-conformance.ts (export from index.ts). Read src/aegis/pilot/{workflow-runner,reference-workflow,scope}.ts and runbook §5 first. check-handlers --scope F [--handlers M] (same registry loading as 'run') reports, per scope step: 'registered' (handler key exists), 'honours-abort' (called with an already-aborted AbortSignal and minimal state it must reject or resolve within 500 ms without writing outside a tmp reportDir; a handler still pending after 500 ms fails), and for requiresNetwork steps 'network-errors-typed' (called with a fetchImpl/connector that throws must surface NetworkUnavailable, detected via instanceof). Output {ok, steps:[{step, checks:[{check, ok, detail}]}]}; exit 0 only when ok. Handlers run against a temp directory, never the site state dir. Add src/__tests__/aegis-pilot-handler-conformance.test.ts (>=5 cases incl. a handler that ignores abort is flagged and the reference registry passes). Reference runbook §5 to the new command. Do not touch package.json or package-lock.json. prettier --write changed files; commit and push.",
+  "base": "main",
+  "order": 23,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "reference handlers conform",
+      "run": "node --import tsx scripts/aegis-pilot.ts check-handlers --scope config/aegis-pilot/reference-scope.json | grep -q '\"ok\": true'"
+    },
+    {
+      "name": "conformance suite passes",
+      "run": "npx vitest run src/__tests__/aegis-pilot-handler-conformance.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+    }
+  ]
+}
