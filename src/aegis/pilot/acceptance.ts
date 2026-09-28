@@ -72,6 +72,8 @@ export interface AcceptanceOptions {
    * in-process loop that honours its signal — rehearsal only.
    */
   stopMode?: 'hard' | 'cooperative';
+  /** How workflow steps were isolated; recorded so a reader knows what was contained. */
+  containment?: { mode: 'in-process' | 'worker' | 'openshell'; image?: string };
   probeIntervalMs?: number;
   probeTimeoutMs?: number;
   connector?: Connector;
@@ -95,6 +97,7 @@ export interface AcceptanceRecord {
   workflowId: string;
   scopeDigest: string;
   deploymentMode: PilotScope['deploymentMode'];
+  containment: { mode: 'in-process' | 'worker' | 'openshell'; image?: string };
   isolation: {
     method: string;
     rank: number;
@@ -373,6 +376,7 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     workflowId: scope.workflow.id,
     scopeDigest: sha256(canonicalJSON(scope)),
     deploymentMode: scope.deploymentMode,
+    containment: opts.containment ?? { mode: 'in-process' },
     isolation: {
       method: scope.isolation.method,
       rank: ladder.rank,
