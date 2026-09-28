@@ -55,6 +55,8 @@ Hiekkalaatikko, jossa agentti ajetaan, on tämän alla. Käytämme siihen NVIDIA
 
 ## 2. Pilotoitava työnkulku Outokummulla: asiakkaalle annettava päästötieto
 
+**Teidän ensimmäinen työnkulkunne käytössä — ja teidän päätösvaltanne pysäyttää sen.** Emme tuo uutta prosessia emmekä valmista katalogityönkulkua. Tuomme kehyksen, jossa teidän oma työnkulkunne ajetaan ja pysäytetään niin, että päätösvalta ja vastuuketju pysyvät teillä.
+
 Tuotekohtainen hiilijalanjälki on Outokummulle kaupallinen tieto: asiakkaanne käyttävät sitä omassa hankinta- ja päästöraportoinnissaan. Kun lukujen valmistelua siirretään agenteille, kysymys on sama kuin kaikessa muussa päätöksenteossa: **kun luku lähtee asiakkaalle, kuka sen hyväksyi, mistä datasta se laskettiin ja mitä siitä seurasi?**
 
 Ehdotus, joka vahvistetaan vaiheessa 0:

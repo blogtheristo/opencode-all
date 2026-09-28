@@ -55,6 +55,8 @@ Hiekkalaatikko, jossa agentti ajetaan, on tämän alla. Käytämme siihen NVIDIA
 
 ## 2. Pilotoitava työnkulku Kemiralla: tuotteen hiilijalanjälki
 
+**Teidän ensimmäinen työnkulkunne käytössä — ja teidän päätösvaltanne pysäyttää sen.** Emme tuo uutta prosessia emmekä valmista katalogityönkulkua. Tuomme kehyksen, jossa teidän oma työnkulkunne ajetaan ja pysäytetään niin, että päätösvalta ja vastuuketju pysyvät teillä.
+
 Kerroitte kesäkuussa, että tarvitsette erityisesti hiilicompliancea. Ehdotamme pilotin työnkuluksi sen kohdan, jossa päätösvallan kysymys on jo nyt todellinen: **kun Kemira antaa asiakkaalle tai raporttiin tuotteen hiilijalanjäljen, kuka hyväksyi luvun, mistä datasta se laskettiin ja mitä siitä seurasi?**
 
 Ehdotus, joka vahvistetaan vaiheessa 0:
