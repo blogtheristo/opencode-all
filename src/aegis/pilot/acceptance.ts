@@ -44,6 +44,7 @@ import {
 } from './kill-authority.js';
 import { ISOLATION_LADDER, type PilotScope, stepCapability } from './scope.js';
 import { spawnPilotWorker, terminateBounded } from './isolated-handlers.js';
+import { type AgentAuthority, buildAuthorityRecord, recordGrant } from './authority.js';
 import { type Connector, probeUplink, type UplinkProbeReport } from './uplink-probe.js';
 import { type HandlerRegistry, type RunResult, runWorkflow } from './workflow-runner.js';
 
@@ -140,6 +141,8 @@ export interface AcceptanceRecord {
     };
   };
   witness: string | null;
+  /** Who held decision authority in this run, and what followed (authority.ts). */
+  authority: AgentAuthority[] | null;
   ledgerHead: { seq: number; hash: string };
   createdAt: string;
   findings: string[];
@@ -363,7 +366,14 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
 
   const recordBase: Omit<
     AcceptanceRecord,
-    'outcome' | 'ledgerHead' | 'createdAt' | 'findings' | 'window' | 'probes' | 'conditions'
+    | 'outcome'
+    | 'ledgerHead'
+    | 'createdAt'
+    | 'findings'
+    | 'window'
+    | 'probes'
+    | 'conditions'
+    | 'authority'
   > = {
     v: 1,
     recordId: randomUUID(),
@@ -433,6 +443,7 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
       },
       probes,
       conditions,
+      authority: authorityAgents.length ? authorityFor(authorityAgents) : null,
       ledgerHead: ledger.head,
       createdAt: now().toISOString(),
       findings,
@@ -460,6 +471,22 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     return { record, signature, signerKeyId: site.manifest.keyId, path };
   };
 
+  // Error paths: every background writer is stopped before the ledger closes,
+  // or a late stop command or probe would write to a closed ledger.
+  const cleanups: Array<() => void> = [];
+  let authorityAgents: string[] = [];
+  const authorityFor = (ids: string[]): AgentAuthority[] | null => {
+    try {
+      return buildAuthorityRecord(opts.stateDir, {
+        publicKey: site.publicKey,
+        scope,
+        agentIds: ids,
+      }).agents;
+    } catch (err) {
+      findings.push(`Authority record not built: ${(err as Error).message}.`);
+      return null;
+    }
+  };
   try {
     if (!preflight.isolated) {
       const open = preflight.results.filter((r) => !r.blocked);
@@ -475,17 +502,30 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     }
 
     const stopHeartbeat = ledger.startHeartbeat(scope.acceptance.heartbeatMs, traceId);
+    cleanups.push(stopHeartbeat);
     const kill = new KillAuthority(opts.stateDir, verifier, ledger, now);
     const stopWatch = kill.watch(traceId, 100);
+    cleanups.push(stopWatch);
     let periodic = 0;
     let lapses = 0;
     const probeStop = new AbortController();
+    cleanups.push(() => probeStop.abort());
     const probeLoop = (async () => {
       const interval = opts.probeIntervalMs ?? 10_000;
       while (!probeStop.signal.aborted) {
         await sleep(interval, probeStop.signal);
         if (probeStop.signal.aborted) break;
-        const report = await probeUplink(scope.isolation.egressProbes, probeOpts);
+        let report: UplinkProbeReport;
+        try {
+          report = await probeUplink(scope.isolation.egressProbes, probeOpts);
+        } catch (err) {
+          // A probe that cannot run means isolation can no longer be shown for
+          // the window: count it as a lapse (the run becomes INVALID), not an
+          // unhandled rejection.
+          lapses++;
+          findings.push(`Egress probe failed during the window: ${(err as Error).message}.`);
+          continue;
+        }
         periodic++;
         if (!report.isolated) {
           lapses++;
@@ -501,6 +541,12 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
       capabilities: scope.workflow.steps.map(stepCapability),
       ttlHours,
     });
+    recordGrant(
+      ledger,
+      workflowAgent,
+      { scopeDigest: recordBase.scopeDigest, basis: `${opts.kind}: workflow agent` },
+      traceId,
+    );
 
     // (i) workflow completes with the uplink down
     const run = await runWorkflow({
@@ -535,6 +581,13 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
       capabilities: ['step:sentinel'],
       ttlHours,
     });
+    recordGrant(
+      ledger,
+      sentinel,
+      { scopeDigest: recordBase.scopeDigest, basis: `${opts.kind}: stop-test agent` },
+      traceId,
+    );
+    authorityAgents = [workflowAgent.subjectId, sentinel.subjectId];
     conditions.operatorStop.agentId = sentinel.subjectId;
     const maxMs = opts.operator.mode === 'await-operator' ? opts.operator.timeoutMs : 30_000;
     const operator = opts.operator;
@@ -688,6 +741,7 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     }
     return seal(all ? 'PASS' : 'NEGATIVE_RESULT', windowEnd, probes, hold);
   } finally {
+    for (const fn of cleanups) fn();
     ledger.close();
   }
 }

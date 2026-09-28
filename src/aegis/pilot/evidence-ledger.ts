@@ -59,7 +59,9 @@ export type LedgerEventType =
   | 'workflow.start'
   | 'workflow.complete'
   | 'workflow.failed'
-  | 'acceptance.record';
+  | 'acceptance.record'
+  | 'authority.grant'
+  | 'authority.revoke';
 
 export interface LedgerEventInput {
   event_type: LedgerEventType;
