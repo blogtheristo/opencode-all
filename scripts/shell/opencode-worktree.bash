@@ -1,4 +1,4 @@
-# Evidence: Tool=Claude Code Model=anthropic Agent=opencode-worktree-per-window Date=2026-09-27
+# Evidence: Tool=Claude Code Model=anthropic Agent=opencode-worktree-per-window Date=2026-09-29
 # Audit trail: git log -- scripts/shell/opencode-worktree.bash
 #
 # opencode-worktree.bash — every interactive `opencode` started in the primary
@@ -10,7 +10,12 @@
 # Install (DGX, once — idempotent, verifies the wrapper is active):
 #   bash ~/dws6/scripts/shell/install-opencode-worktree.sh && exec bash
 #
-# Also defines opencode-loop (see the end of this file).
+# Also defines opencode-loop and dws6-sync (see the end of this file).
+#
+# dws6-sync runs once per new interactive DGX shell, and before `opencode` / `opencode-loop start`:
+# it puts ~/dws6 on a clean main equal to origin/main, so sessions and the loop never start from
+# a stale or diverged checkout. Local commits on main are saved to a pushed rescue/ branch first;
+# uncommitted changes, or a live opencode process in ~/dws6, stop it without touching anything.
 #
 # Behaviour, only when the current directory is inside the PRIMARY checkout ($DWS6_PRIMARY):
 #   opencode [args]        asks for a task name (Enter = session-<timestamp>), creates
@@ -41,6 +46,12 @@ opencode() {
   if [[ "${OPENCODE_SHARED:-0}" == 1 || -z "$primary" || "$top" != "$primary" || ! -d "$top/.git" ]]; then
     command opencode "$@"; return
   fi
+
+  # New work starts from a clean, current main (git issues first, then opencode).
+  case "${1:-}" in
+    auth|models|upgrade|uninstall|stats|export|import|mcp|agent|session|-h|--help|-v|--version) ;;
+    *) dws6-sync || echo "opencode: continuing — the new worktree branches from origin/main anyway" >&2 ;;
+  esac
 
   # Management subcommands do not edit the working tree.
   case "${1:-}" in
@@ -105,7 +116,7 @@ opencode-loop() {
       if tmux has-session -t oc-loop 2>/dev/null; then
         echo "opencode-loop: already running (opencode-loop restart to restart)"
       else
-        git -C "$primary" pull -q --ff-only origin main || echo "opencode-loop: pull failed — using the current checkout" >&2
+        dws6-sync || { echo "opencode-loop: ~/dws6 is not on a clean current main — fix that first, the loop reads its tasks there" >&2; return 1; }
         tmux new -d -s oc-loop "cd '$primary' && node '$loop'"
         sleep 5
       fi
@@ -114,3 +125,60 @@ opencode-loop() {
     *) echo "usage: opencode-loop [start|restart|status|log|stop|dry]" >&2; return 1 ;;
   esac
 }
+
+# dws6-sync — bring the primary checkout to a clean main that equals origin/main.
+#   on another branch, clean      → switch to main
+#   main behind origin            → fast-forward
+#   main ahead or diverged        → save local commits to rescue/dgx-main-<time> (pushed), reset to origin/main
+#   uncommitted changes, or a live opencode process working in ~/dws6 → touch nothing, say what to do
+dws6-sync() {
+  local p="${DWS6_PRIMARY:-$HOME/dws6}" br dirty ahead behind tag pid cwd
+  git -C "$p" rev-parse --git-dir >/dev/null 2>&1 || return 0
+  git -C "$p" fetch -q origin main 2>/dev/null || { echo "dws6-sync: fetch failed (offline?) — ~/dws6 left as is" >&2; return 0; }
+  br=$(git -C "$p" branch --show-current)
+  for pid in $(pgrep -x opencode 2>/dev/null); do
+    cwd=$(readlink "/proc/$pid/cwd" 2>/dev/null) || continue
+    if [[ "$cwd" == "$p" || "$cwd" == "$p"/* ]]; then
+      echo "dws6-sync: opencode (pid $pid) is working in ~/dws6 on '${br:-detached}' — not touching it. Finish or close that session, then run dws6-sync." >&2
+      return 1
+    fi
+  done
+  dirty=$(git -C "$p" status --porcelain --untracked-files=no)
+  if [[ -n "$dirty" ]]; then
+    echo "dws6-sync: ~/dws6 has uncommitted changes on '${br:-detached}' — not touching them:" >&2
+    printf '%s\n' "$dirty" | head -10 >&2
+    echo "  Save them to a branch first: cd ~/dws6 && git switch -c rescue/<name> && git commit -am wip && git push -u origin HEAD — then run dws6-sync." >&2
+    return 1
+  fi
+  if [[ "$br" != main ]]; then
+    git -C "$p" switch -q main || { echo "dws6-sync: could not switch ~/dws6 to main" >&2; return 1; }
+    echo "dws6-sync: ~/dws6 switched from '${br:-detached}' to main (that branch is unchanged)" >&2
+  fi
+  read -r behind ahead < <(git -C "$p" rev-list --left-right --count origin/main...main)
+  if (( ahead > 0 )); then
+    tag="rescue/dgx-main-$(date +%Y%m%d-%H%M%S)"
+    git -C "$p" fetch -q origin 2>/dev/null
+    if [[ -n "$(git -C "$p" branch -r --contains main 2>/dev/null)" ]]; then
+      # Every local commit is already on some GitHub branch — nothing to save.
+      git -C "$p" branch "$tag" main 2>/dev/null
+      echo "dws6-sync: $ahead local commit(s) on main are already on GitHub ($(git -C "$p" branch -r --contains main | head -1 | xargs)); local copy kept as $tag" >&2
+    # A rescue branch is only a backup: skip the DGX pre-push local CI (it may be red for unrelated reasons).
+    elif ! { git -C "$p" branch "$tag" main && SKIP_LOCAL_CI=1 git -C "$p" push -q -u origin "$tag"; }; then
+      echo "dws6-sync: could not save $ahead local commit(s) to $tag on GitHub — main left as is" >&2
+      return 1
+    else
+      echo "dws6-sync: $ahead local commit(s) that were only on the DGX's main are saved on $tag (pushed)" >&2
+    fi
+    git -C "$p" reset -q --hard origin/main
+    echo "dws6-sync: main reset to origin/main" >&2
+  elif (( behind > 0 )); then
+    git -C "$p" merge -q --ff-only origin/main && echo "dws6-sync: main updated by $behind commit(s)" >&2
+  fi
+  echo "dws6-sync: ~/dws6 on main @ $(git -C "$p" rev-parse --short HEAD), clean, same as GitHub" >&2
+}
+
+# Once per new interactive shell (tmux panes inherit the flag and skip it).
+if [[ $- == *i* && -z "${DWS6_SYNC_DONE:-}" ]]; then
+  export DWS6_SYNC_DONE=1
+  dws6-sync || true
+fi

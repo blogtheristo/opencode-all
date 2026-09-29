@@ -1,3 +1,5 @@
+# Evidence: Tool=Claude Code 2.1.284 Model=anthropic/claude-opus-5-5 Agent=claude-code Date=2026-09-29
+# Audit trail: git log -- .github/workflows/no-delete-branch-guard.yml
 name: No-Delete Guard (auto-restore branches)
 
 on:
@@ -11,7 +13,8 @@ jobs:
   restore-branch-if-deleted:
     # Only for branch deletions (not tags)
     if: ${{ github.event.ref_type == 'branch' }}
-    runs-on: ubuntu-latest
+    # GitHub-hosted runners are blocked by account billing (since run #380, 26.09.2026)
+    runs-on: [self-hosted, dgx-spark]
     steps:
       - name: Auto-restore deleted branch from last known PR head SHA
         uses: actions/github-script@v7
@@ -76,4 +79,3 @@ jobs:
               }
               throw e;
             }
-
