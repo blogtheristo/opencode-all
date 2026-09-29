@@ -1,9 +1,9 @@
 {
-  "task": "DWS-AEGIS-PILOT-001 Day 2 — readiness plan C2: ledger segments and retention (seal/roll, cross-segment chain, Article 12 §4 retention classes, operator-confirmed prune)",
+  "task": "DWS-AEGIS-PILOT-001 Day 2 — C2 ledger segments and retention; C4 remainder: OpenShell policy proof in the acceptance record; H3/M4 on DGX Spark with physical-disconnect; PhD §14.57",
   "checks": [
     {
       "name": "segments suite passes",
-      "run": "npx vitest run src/__tests__/aegis-pilot-segments.test.ts src/__tests__/aegis-pilot.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+      "run": "npx vitest run src/__tests__/aegis-pilot-segments.test.ts src/__tests__/aegis-pilot.test.ts src/__tests__/aegis-pilot-prover.test.ts src/__tests__/aegis-pilot-openshell.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
     },
     {
       "name": "CLI seal + segments verify, prune without --confirm deletes nothing",
@@ -20,6 +20,14 @@
     {
       "name": "evidence headers present",
       "run": "node scripts/evidence-audit.mjs src/aegis/pilot/ledger-segments.ts src/aegis/pilot/evidence-ledger.ts scripts/aegis-pilot.ts src/__tests__/aegis-pilot-segments.test.ts"
+    },
+    {
+      "name": "real openshell-prover proves every reference step within its boundary",
+      "run": "P=${AEGIS_OPENSHELL_PROVER:-}; [ -x \"$P\" ] || { echo 'SKIP: set AEGIS_OPENSHELL_PROVER to a built openshell-prover'; exit 0; }; node --import tsx scripts/aegis-pilot.ts prove --scope config/aegis-pilot/reference-scope.json --openshell-prover \"$P\" 2>/dev/null | grep -q '\"ok\": true'"
+    },
+    {
+      "name": "real openshell-prover rejects a core-step policy that carries a network rule",
+      "run": "P=${AEGIS_OPENSHELL_PROVER:-}; [ -x \"$P\" ] || { echo 'SKIP: set AEGIS_OPENSHELL_PROVER'; exit 0; }; d=$(mktemp -d); fs='\"filesystem_policy\":{\"include_workdir\":false,\"read_only\":[\"/bin\",\"/usr\",\"/lib\",\"/lib64\",\"/etc\",\"/proc\",\"/dev/urandom\"],\"read_write\":[\"/sandbox\",\"/tmp\",\"/dev/null\"]},\"landlock\":{\"compatibility\":\"hard_requirement\"}'; echo \"{\\\"version\\\":1,$fs,\\\"network_policies\\\":{}}\" > $d/b.json; echo \"{\\\"version\\\":1,$fs,\\\"network_policies\\\":{\\\"x\\\":{\\\"name\\\":\\\"x\\\",\\\"endpoints\\\":[{\\\"host\\\":\\\"1.1.1.1\\\",\\\"port\\\":443}],\\\"binaries\\\":[{\\\"path\\\":\\\"/usr/local/bin/node\\\"}]}}}\" > $d/c.json; \"$P\" check $d/c.json --boundary $d/b.json -o json | grep -q '\"result\": \"exceeds_boundary\"'"
     }
   ]
 }

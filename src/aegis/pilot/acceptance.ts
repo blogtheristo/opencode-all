@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
 // Audit trail: git log -- src/aegis/pilot/acceptance.ts
 /**
  * Aegis Pilot — severed-uplink acceptance test (Phase 3). Automates the
@@ -47,6 +47,7 @@ import { spawnPilotWorker, terminateBounded } from './isolated-handlers.js';
 import { type AgentAuthority, buildAuthorityRecord, recordGrant } from './authority.js';
 import { type Connector, probeUplink, type UplinkProbeReport } from './uplink-probe.js';
 import { type HandlerRegistry, type RunResult, runWorkflow } from './workflow-runner.js';
+import type { ContainmentProof } from './openshell-prover.js';
 
 export type AcceptanceOutcome = 'PASS' | 'NEGATIVE_RESULT' | 'NOT_TAKEN' | 'INVALID';
 
@@ -73,8 +74,15 @@ export interface AcceptanceOptions {
    * in-process loop that honours its signal — rehearsal only.
    */
   stopMode?: 'hard' | 'cooperative';
-  /** How workflow steps were isolated; recorded so a reader knows what was contained. */
-  containment?: { mode: 'in-process' | 'worker' | 'openshell'; image?: string };
+  /**
+   * How workflow steps were isolated; recorded so a reader knows what was contained.
+   * `proof`: openshell-prover verdict for every generated step policy (C4).
+   */
+  containment?: {
+    mode: 'in-process' | 'worker' | 'openshell';
+    image?: string;
+    proof?: ContainmentProof;
+  };
   /**
    * Hard mode: where the stubborn stop-test agent runs. Defaults to a worker
    * thread. With OpenShell containment it must run in a sandbox too, so that
@@ -104,7 +112,11 @@ export interface AcceptanceRecord {
   workflowId: string;
   scopeDigest: string;
   deploymentMode: PilotScope['deploymentMode'];
-  containment: { mode: 'in-process' | 'worker' | 'openshell'; image?: string };
+  containment: {
+    mode: 'in-process' | 'worker' | 'openshell';
+    image?: string;
+    proof?: ContainmentProof;
+  };
   isolation: {
     method: string;
     rank: number;
@@ -358,6 +370,15 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     }
   }
 
+  // A containment claim that failed its proof is not taken into an acceptance run.
+  const proof = opts.containment?.proof;
+  if (opts.kind === 'acceptance' && proof && !proof.ok) {
+    const bad = proof.steps.filter((p) => p.result !== 'within_boundary');
+    throw new Error(
+      `sandbox policy proof failed for ${bad.map((p) => `${p.step} (${p.result}${p.reason ? `: ${p.reason}` : ''})`).join(', ')}; refusing an acceptance run`,
+    );
+  }
+
   const site = SiteAuthority.load(opts.stateDir);
   if (site.manifest.siteId !== scope.site.siteId) {
     throw new Error(
@@ -382,6 +403,20 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
   });
   const traceId = randomUUID();
   const findings: string[] = [];
+  if (opts.containment?.mode === 'openshell') {
+    if (!proof) {
+      findings.push(
+        'Sandbox policies were not proven (no --openshell-prover): the no-network claim for core steps rests on the generated policy alone.',
+      );
+    } else if (!proof.ok) {
+      findings.push(
+        `Sandbox policy proof failed for: ${proof.steps
+          .filter((p) => p.result !== 'within_boundary')
+          .map((p) => `${p.step}=${p.result}`)
+          .join(', ')}.`,
+      );
+    }
+  }
   const ladder = ISOLATION_LADDER[scope.isolation.method];
   const probeOpts = {
     timeoutMs: opts.probeTimeoutMs ?? 3000,

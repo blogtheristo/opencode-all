@@ -13,12 +13,13 @@
  *   probe           --scope F
  *   run             --state-dir D --scope F --kind rehearsal|acceptance
  *                   (--operator-credential C --operator-key K | --await-operator [--timeout-s 600])
- *                   [--witness W] [--hold] [--stop-mode hard|cooperative] [--containment worker|openshell [--image I]] [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
+ *                   [--witness W] [--hold] [--stop-mode hard|cooperative] [--containment worker|openshell [--image I] [--openshell-prover P]] [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   stop            --state-dir D --agent ID|'*' --operator-credential C --operator-key K --reason R
  *   verify          --state-dir D [--record FILE] [--expect-key-id K]
  *   reconcile       --state-dir D --scope F [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   authority       --state-dir D [--scope F] [--agent ID]   who held decision authority, and what followed
  *   status          --state-dir D
+ *   prove           --scope F --openshell-prover P   (sandbox policy of every step within its boundary)
  *   seal            --state-dir D [--max-bytes N] [--max-age-days N] [--force]
  *   segments        --state-dir D [--expect-seal DIGEST]   (anchor from an earlier 'seal' output)
  *   prune           --state-dir D [--confirm TOKEN]   (without it: lists expired segments and the token)
@@ -45,6 +46,7 @@ import {
   createStopCommand,
   generateEd25519,
   loadCredential,
+  proveStepPolicies,
   pruneExpiredSegments,
   sealActiveSegment,
   verifySegments,
@@ -93,6 +95,7 @@ const { values: a, positionals } = parseArgs({
     containment: { type: 'string' },
     image: { type: 'string' },
     'openshell-cli': { type: 'string' },
+    'openshell-prover': { type: 'string' },
     agent: { type: 'string' },
     reason: { type: 'string' },
     record: { type: 'string' },
@@ -332,6 +335,14 @@ async function main(): Promise<void> {
             credential: loadCredential(need('operator-credential')),
             key: privateKeyFromPem(readFileSync(need('operator-key'), 'utf8')),
           };
+      // C4: prove every generated sandbox policy against its boundary before the run.
+      const proof =
+        stopMode() === 'hard' && containmentMode() === 'openshell' && a['openshell-prover']
+          ? await proveStepPolicies({
+              steps: scope.workflow.steps,
+              proverPath: resolve(a['openshell-prover']),
+            })
+          : undefined;
       const signed = await runAcceptance({
         stateDir,
         scope,
@@ -341,7 +352,7 @@ async function main(): Promise<void> {
           stopMode() === 'cooperative'
             ? { mode: 'in-process' }
             : containmentMode() === 'openshell'
-              ? { mode: 'openshell', image: a.image ?? 'aegis-pilot-node:22' }
+              ? { mode: 'openshell', image: a.image ?? 'aegis-pilot-node:22', proof }
               : { mode: 'worker' },
         stopTestAgent:
           stopMode() === 'hard' && containmentMode() === 'openshell'
@@ -480,6 +491,15 @@ async function main(): Promise<void> {
       });
       break;
     }
+    case 'prove': {
+      const scope = loadScope();
+      const proof = await proveStepPolicies({
+        steps: scope.workflow.steps,
+        proverPath: resolve(need('openshell-prover')),
+      });
+      out({ ok: proof.ok, command: cmd, ...proof }, proof.ok ? 0 : 4);
+      break;
+    }
     case 'seal': {
       const stateDir = need('state-dir');
       const result = sealActiveSegment({
@@ -521,6 +541,7 @@ async function main(): Promise<void> {
             'revoke',
             'validate-scope',
             'probe',
+            'prove',
             'seal',
             'segments',
             'prune',
