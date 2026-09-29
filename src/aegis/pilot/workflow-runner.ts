@@ -50,6 +50,11 @@ export interface StepContext {
   /** Outputs of earlier steps, keyed by step id. */
   state: Readonly<Record<string, unknown>>;
   uplinkDown: boolean;
+  /**
+   * Optional fetch implementation for network steps. If not provided, the
+   * global fetch is used. Handlers should use this for network calls.
+   */
+  fetchImpl?: typeof fetch;
 }
 
 export interface StepResult {

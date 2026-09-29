@@ -11,7 +11,6 @@
 
 import { tmpdir } from 'node:os';
 import { mkdir, rm } from 'node:fs/promises';
-import { mkdir as mkdirAsync } from 'node:fs/promises';
 import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { randomUUID } from 'node:crypto';
@@ -75,17 +74,17 @@ export async function checkHandlerConformance(
       const abortSignal = abortAborter.signal;
 
       // Provide empty state - handler should honour abort regardless of input
-      const abortCheckResult = await callWithTimeout(
-        () =>
-          handler({
-            signal: abortSignal,
-            traceId: 'conformance-abort-test',
-            step,
-            state: {},
-            uplinkDown: false,
-          } as any),
-        500,
-      );
+        const abortCheckResult = await callWithTimeout(
+          () =>
+            handler({
+              signal: abortSignal,
+              traceId: 'conformance-abort-test',
+              step,
+              state: {},
+              uplinkDown: false,
+            }),
+          500,
+        );
 
       if (abortCheckResult.timedOut) {
         checks.push({
@@ -125,11 +124,14 @@ export async function checkHandlerConformance(
               step,
               state,
               uplinkDown: false,
-              fetchImpl: async (url: string, init: Record<string, unknown>) => {
+              fetchImpl: async (
+                input: string | URL | Request,
+                _init?: RequestInit,
+              ): Promise<Response> => {
                 // Simulate network failure - throw NetworkUnavailable
-                throw new NetworkUnavailable(`network error for ${url}`);
+                throw new NetworkUnavailable(`network error for ${String(input)}`);
               },
-            } as any),
+            }),
           200,
         );
 
@@ -221,8 +223,8 @@ function callWithTimeout<T>(
  */
 async function getStepState(
   step: PilotStep,
-  steps: PilotStep[],
-  registry: HandlerRegistry,
+  _steps: PilotStep[],
+  _registry: HandlerRegistry,
   tempDir: string,
   reportDir?: string,
 ): Promise<Record<string, unknown>> {
