@@ -19,7 +19,6 @@
  *   reconcile       --state-dir D --scope F [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   authority       --state-dir D [--scope F] [--agent ID]   who held decision authority, and what followed
  *   status          --state-dir D
- *   doctor          --state-dir D [--scope F]   (read-only preflight checks)
  *   prove           --scope F --openshell-prover P [--expect-prover-sha256 H]   (every step's sandbox policy within its boundary)
  *   seal            --state-dir D [--max-bytes N] [--max-age-days N] [--force]
  *   segments        --state-dir D [--expect-seal DIGEST]   (anchor from an earlier 'seal' output)
@@ -63,7 +62,6 @@ import {
   verifyAcceptanceRecord,
   verifyLedger,
   type PilotScope,
-  doctor,
 } from '../src/aegis/pilot/index.js';
 import { canonicalJSON, sha256 } from '../src/aegis/pilot/crypto.js';
 
@@ -104,7 +102,6 @@ const { values: a, positionals } = parseArgs({
     reason: { type: 'string' },
     record: { type: 'string' },
     'expect-key-id': { type: 'string' },
-    scope: { type: 'string' },
   },
 });
 
@@ -511,16 +508,6 @@ async function main(): Promise<void> {
       });
       break;
     }
-    case 'doctor': {
-      const stateDir = need('state-dir');
-      const scopePath = a.scope;
-      const expectKeyId = scopePath
-        ? JSON.parse(readFileSync(resolve(scopePath), 'utf8')).site.keyId
-        : undefined;
-      const result = doctor(stateDir, expectKeyId);
-      out({ ok: result.ok, command: cmd, ...result }, result.ok ? 0 : 1);
-      break;
-    }
     case 'prove': {
       const scope = loadScope();
       const proof = await proveStepPolicies({
@@ -582,7 +569,6 @@ async function main(): Promise<void> {
             'verify',
             'reconcile',
             'status',
-            'doctor',
             'authority',
           ],
         },
