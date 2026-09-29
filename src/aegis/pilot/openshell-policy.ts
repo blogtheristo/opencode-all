@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
 // Audit trail: git log -- src/aegis/pilot/openshell-policy.ts
 /**
  * Aegis Pilot — OpenShell sandbox policy from the signed scope (plan patch C4).
@@ -45,7 +45,7 @@ export interface OpenShellPolicy {
     string,
     {
       name: string;
-      endpoints: Array<{ host: string; port: number; enforcement: 'enforce' }>;
+      endpoints: Array<{ host: string; port: number }>;
       binaries: Array<{ path: string }>;
     }
   >;
@@ -75,7 +75,10 @@ export function stepPolicy(step: PilotStep, opts: OpenShellPolicyOptions = {}): 
   if (endpoints.length > 0) {
     policy.network_policies[`aegis_${step.id.replace(/-/g, '_')}`] = {
       name: `aegis-${step.id}`,
-      endpoints: endpoints.map((e) => ({ host: e.host, port: e.port, enforcement: 'enforce' })),
+      // Plain L4 endpoints. `enforcement` is an L7 (REST) setting; on an L4 rule it
+      // has no effect and makes the policy unprovable (openshell-prover:
+      // "mixes REST controls into L4 authority"), so it is not emitted.
+      endpoints: endpoints.map((e) => ({ host: e.host, port: e.port })),
       binaries: [{ path: opts.nodeBinary ?? '/usr/local/bin/node' }],
     };
   }

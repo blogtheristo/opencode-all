@@ -152,7 +152,7 @@ describe('OpenShell policy from the signed scope', () => {
     expect(Object.values(p.network_policies)).toEqual([
       {
         name: 'aegis-sync-report',
-        endpoints: [{ host: 'archive.example.eu', port: 443, enforcement: 'enforce' }],
+        endpoints: [{ host: 'archive.example.eu', port: 443 }],
         binaries: [{ path: '/usr/local/bin/node' }],
       },
     ]);

@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.3 [Latest]
+Version: 1.4 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.3 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: §6.1 step 5: core-step egress probe (`scripts/aegis-pilot-egress-probe.sh`) for the site's IT; worker-mode limit stated. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.4 [Latest] | Tool: Claude Code | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: New §6.1 step 6 policy proof (`prove`, `--openshell-prover`, `containment.proof` in the record). New §6.2 M4 checklist for the DGX Spark with `physical-disconnect` (HIC 29.09.2026). Ledger segments and retention (readiness plan patch C2): §2 layout, new §4 "Ledger segments and retention" with `seal` / `segments` / `prune`, §8 whole-ledger bullet covers sealed segments. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.3 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: §6.1 step 5: core-step egress probe (`scripts/aegis-pilot-egress-probe.sh`) for the site's IT; worker-mode limit stated. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: OpenShell containment (C4): §6.1 rehearsal setup verified against a real gateway; §8 states what the sandbox stop proves and its measured latency. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Hard stop (readiness plan patch C1): steps and the stop-test agent run in terminable worker threads by default; §8 rewritten; acceptance refuses the cooperative stop. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Created. Operator runbook for the local-first pilot kit (`src/aegis/pilot/`, `scripts/aegis-pilot.ts`): one section per pilot phase in `Store/PRODUCT_AEGIS_PILOT.md`, each exit gate mapped to a command and the evidence it produces. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
@@ -16,7 +17,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 28.09.2026
-- Last Modified: 28.09.2026
+- Last Modified: 29.09.2026
 - Language: English
 - Publication Status: ACTIVE (internal delivery reference)
 - Classification: INTERNAL
@@ -47,7 +48,8 @@ Nothing in the kit opens a socket except the uplink probe (which must fail) and 
   site/site.json         site id, key id, public key — the only trust anchor verifiers need
   site/revoked.json      local revocation list
   credentials/*.json     agent and operator credentials issued by the site authority
-  ledger/article12.jsonl the Article 12 record (one signed, chained event per line)
+  ledger/article12.jsonl the Article 12 record (one signed, chained event per line) — the active segment
+  ledger/segments/       sealed segments NNNNNN.jsonl and their signed NNNNNN.seal.json
   kill/                  stop-command inbox; kill/processed, kill/rejected
   outbox/deferred.jsonl  non-core work waiting for reconnect
   acceptance/*.json      signed acceptance records (rehearsal and acceptance)
@@ -108,6 +110,24 @@ npm run aegis:pilot:rehearse-isolated
 ```
 
 This runs the rehearsal inside a fresh network namespace (`unshare --net`), with no interfaces, routes or DNS. It then reconciles with the uplink restored and verifies the record.
+
+### Ledger segments and retention
+
+The active ledger is sealed and rolled so that retention can be honoured without breaking the hash chain (`src/aegis/pilot/ledger-segments.ts`).
+
+```bash
+npm run aegis:pilot -- seal --state-dir /var/lib/aegis-pilot                    # rolls at 64 MiB or 30 days; --force to roll now
+npm run aegis:pilot -- segments --state-dir /var/lib/aegis-pilot --expect-seal <digest> # verifies every segment, seal and link; exit 4 on failure
+npm run aegis:pilot -- prune --state-dir /var/lib/aegis-pilot                   # lists expired segments, the clock used and a confirm token
+npm run aegis:pilot -- prune --state-dir /var/lib/aegis-pilot --confirm <token> # deletes exactly that list
+```
+
+- **Chaining.** A sealed segment ends in a `system.segment_seal` event. Its seal records the file hash, the head hash and the digest of the previous seal, and is signed by the site key. The next segment's genesis event carries `prev_segment` (index, head hash, seal digest). Removing, editing or reordering a segment, or replacing the active ledger with a fresh chain, fails `segments`.
+- **Retention (Article 12 Logging Standard §4).** Routine events (`agent.decide`, `tool.invoke`, heartbeats, probes, workflow events) are kept 6 months. Stops (`human.override`), terminations, acceptance records, incidents and prune records are kept 5 years, and so is any event type not on the 6-month list. A segment is kept until its last event plus its longest class.
+- **Anchor every seal.** `seal` prints an `anchor` (index, head hash, seal digest). Copy the seal digest to the customer's own records, as with the ledger head hash. `segments --expect-seal <digest>` then also catches a rollback of the newest segments, which the state directory alone cannot show (§8).
+- **Pruning is an operator act.** It never runs on a timer. The first call lists the expired segments, the clock it used and a confirm token; only `--confirm <token>` deletes, and only that list. Check the clock before confirming. It refuses a chain that does not verify and a clock behind the newest ledger event, keeps the seal, and writes a `system.segment_pruned` event before deleting.
+- **Interrupted rolls.** A crash during `seal` leaves the active path intact. `segments` reports "interrupted roll", and the next `seal` completes it without creating a new seal. If the customer's sector law requires longer retention (CSRD, NIS2, CER), do not prune those segments.
+- **Seal between runs, not during them.** `seal` refuses while a run holds the ledger lock. The acceptance window's gap check covers the active segment, so seal before the acceptance window opens.
 
 ## 5. Phase 2 — workflow integration (weeks 6–9)
 
@@ -183,6 +203,33 @@ Each step, and the stop-test agent, runs in its own NVIDIA OpenShell sandbox. Th
 3. **Rehearsal:** `AEGIS_CONTAINMENT=openshell AEGIS_IMAGE=<image> AEGIS_OPENSHELL_CLI=<path> scripts/aegis-pilot-isolated-rehearsal.sh`. The run is inside `unshare --net` and reaches the gateway through one Unix-socket bridge (`scripts/aegis-pilot-gateway-bridge.mjs`); nothing else leaves the namespace. On a customer site the gateway runs on the same host, so no bridge is needed.
 4. **Direct run:** `npm run aegis:pilot -- run … --containment openshell --image <image> --openshell-cli <path>` with `OPENSHELL_GATEWAY_ENDPOINT` set.
 5. **Core-step egress probe (Phase 1, the site's IT runs it):** `AEGIS_IMAGE=<image> AEGIS_OPENSHELL_CLI=<path> scripts/aegis-pilot-egress-probe.sh [host:port …]`, passing the site's own targets (proxy, ERP, historian). A plain container of the same image is the control and must reach something; the sandbox with the core-step policy must reach nothing over TCP, UDP or IPv6, and its DNS answers are local synthetic addresses that are never resolved upstream. Exit 0 = PASS. Verified 29.09.2026 against the real gateway. Without OpenShell (worker threads), core steps share the host process's network: the "no network" statement then holds only if the site administrator blocks host egress, and the acceptance record names the containment mode.
+6. **Policy proof (C4).** Build NVIDIA's standalone checker (`cargo build --release -p openshell-prover-cli`) and run `npm run aegis:pilot -- prove --scope <scope> --openshell-prover <path>`. For every step and the stop-test agent it checks that the generated sandbox policy stays inside a boundary written separately from the generator: core steps no network, non-core steps only their listed endpoints. Only `within_boundary` passes; `exceeds_boundary` comes with a counterexample. Pin the binary: record its `sha256sum` when you build it and pass `--expect-prover-sha256 <hash>`; the kit executes a private copy of exactly the bytes it hashed. Pass `--openshell-prover <path> --expect-prover-sha256 <hash>` to `run` as well: the proof then goes into the signed acceptance record (`containment.proof`). An acceptance run under OpenShell refuses a missing, failed or unpinned proof, and the verdict is re-derived from the steps, never taken from a flag. After the run, each step's recorded sandbox policy digest must equal the proven one, or the record is `INVALID`. A rehearsal without a proof gets a finding. Limits: for non-core steps the boundary is the operator's endpoint list, not a list in the signed scope (the CLI configures none today, so every step has no network); the stop-test agent's runtime policy digest is not recorded, but it is built by the same function with the same options as the proven one. Verified 29.09.2026 with the real prover (`cfcc373`): all six reference policies `within_boundary`; a core-step policy with a network rule `exceeds_boundary`.
+
+### 6.2 M4 — witnessed staging acceptance on the DGX Spark (HIC 29.09.2026)
+
+The HIC decided on 29.09.2026 that M4 runs on the DGX Spark with `isolation.method: physical-disconnect`, and that no router deny-all is needed. The HIC removes the uplink cable and disables Wi-Fi, which is the strongest rung, and is applied by someone other than the system under test. Target 25.10.2026, P80 08.11.2026 (readiness plan H3).
+
+**Before the day (build and rehearse):**
+
+1. **OpenShell for arm64.** Build from source on the Spark without telemetry, at the commit pinned in field note `2026-09-28-nvidia-openshell-aegis-c4.md` §5: `cargo build --release --no-default-features`. Also build the policy prover (`cargo build --release -p openshell-prover-cli`). Record both commit hashes in the scope notes.
+2. **Images are arm64.** Build the supervisor image and the workload image locally for `linux/arm64` (§6.1 step 2). Pin them and set the pull policy so nothing is pulled during the window. Check with `docker image inspect --format '{{.Architecture}}' <image>`, which must print `arm64`.
+3. **Fresh state directory.** The Spark is also the development machine. `init` a new state directory for M4 only, pin its `keyId` in the scope, and write the key id on paper for the witness. Issue the HIC's operator credential with the key outside the state directory.
+4. **Scope.** Copy the reference scope and set `isolation.method` to `physical-disconnect`, `enforcedBy` to the HIC's name and role, and `egressProbes` to at least one public address, `dws10.com` and the site's own default gateway. Run `validate-scope`.
+5. **Probes, proof and rehearsals.** Run `prove` (§6.1 step 6), which must print `ok: true`. Run the egress probe (§6.1 step 5) with the cable still connected (control must reach, the sandbox must not), then the isolated rehearsal (§6.1 step 3), then one rehearsal with the cable actually removed. All three must pass before the witnessed run is booked.
+6. **Seal before the window.** Run `seal --force` so the acceptance window sits in a fresh segment, and write the printed `anchor.sealDigest` on the witness sheet (§4 "Ledger segments and retention").
+
+**On the day (witnessed run):**
+
+7. The HIC unplugs the uplink cable and disables Wi-Fi, then confirms by running `probe --scope <scope>`, which must report `isolated: true`.
+8. Run the acceptance command from §6 with `--containment openshell`, `--openshell-prover <path>`, `--await-operator`, `--witness "<name, role, organisation>"` and `--hold`. The HIC stops the stop-test agent from their own terminal with their own credential when the CLI prints its id.
+9. Record on the witness sheet: the outcome, the record id, the ledger head hash, the `authority` summary for the stopped agent, and the time the cable was reconnected.
+10. Reconnect, then run `reconcile`.
+
+**After the day (independent verification):**
+
+11. Run `verify --record <record> --expect-key-id <pinned key id>` and `segments --expect-seal <sealDigest>` on the Spark.
+12. **Second machine.** Copy the evidence to a machine that has never held the site key and verify it there. Until loop task A2 (`export` / `verify-bundle`) is merged, copy `site/site.json`, `ledger/` (active and `segments/`) and `acceptance/` only, never `site/site.key`, and run `verify` and `segments` against that copy. After A2, use `export` and `verify-bundle --expect-key-id`.
+13. File the witness sheet, the record, and both verification outputs in a field note. A `NEGATIVE_RESULT` is filed the same way; it is a valid outcome and is not rerun away.
 
 ### How each condition is judged
 
@@ -209,7 +256,7 @@ This section follows Rule 12 (fail loud).
 - **`host-egress-block` proves the workload, not the site boundary.** Every record states the rung of the isolation ladder that was used.
 - **A hash chain plus a site signature proves integrity against anyone without the site key.** It does not protect against the key holder. For evidence that must survive the site itself, copy the ledger head hash to the customer's own records at the end of the window. The record prints it for that purpose.
 - **Deferred work is signed too.** Outbox entries carry a site signature. `reconcile` quarantines any entry that fails verification to `deferred.jsonl.quarantine` and records an `incident`; it never replays it.
-- **Condition (ii) checks the whole ledger, not just the window.** Chain validity and signatures are checked from genesis, and a broken chain blocks every later run. This is deliberate: you do not append to evidence known to be tampered with. Gap detection is scoped to the window. After an investigated incident, start a new state directory; never repair the old one.
+- **Condition (ii) checks the whole ledger, not just the window.** Chain validity and signatures are checked from the active segment's genesis, and a broken chain blocks every later run. Sealed segments are checked by `segments` and refuse `prune` when they do not verify. Someone who can write the state directory but lacks the site key cannot forge history, but can roll back the newest segments; only the seal digest anchored outside the directory (`--expect-seal`) detects that. This is deliberate: you do not append to evidence known to be tampered with. Gap detection is scoped to the window. After an investigated incident, start a new state directory; never repair the old one.
 - **Local model serving and hardware sizing** are site-specific Phase 1 and Phase 4 work. The kit does not include them.
 
 ## 9. Related
