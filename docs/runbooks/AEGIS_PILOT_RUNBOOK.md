@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.2 [Latest]
+Version: 1.3 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.2 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: OpenShell containment (C4): §6.1 rehearsal setup verified against a real gateway; §8 states what the sandbox stop proves and its measured latency. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.3 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: §6.1 step 5: core-step egress probe (`scripts/aegis-pilot-egress-probe.sh`) for the site's IT; worker-mode limit stated. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: OpenShell containment (C4): §6.1 rehearsal setup verified against a real gateway; §8 states what the sandbox stop proves and its measured latency. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Hard stop (readiness plan patch C1): steps and the stop-test agent run in terminable worker threads by default; §8 rewritten; acceptance refuses the cooperative stop. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Created. Operator runbook for the local-first pilot kit (`src/aegis/pilot/`, `scripts/aegis-pilot.ts`): one section per pilot phase in `Store/PRODUCT_AEGIS_PILOT.md`, each exit gate mapped to a command and the evidence it produces. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 
@@ -181,6 +182,7 @@ Each step, and the stop-test agent, runs in its own NVIDIA OpenShell sandbox. Th
 2. **Workload image** (the `--image` value) needs: a node binary at `/usr/local/bin/node`, a default command (the driver creates a container to read `/etc/passwd`), `/tmp` with mode 1777, `/sandbox`, and a `sandbox` user in `/etc/passwd`.
 3. **Rehearsal:** `AEGIS_CONTAINMENT=openshell AEGIS_IMAGE=<image> AEGIS_OPENSHELL_CLI=<path> scripts/aegis-pilot-isolated-rehearsal.sh`. The run is inside `unshare --net` and reaches the gateway through one Unix-socket bridge (`scripts/aegis-pilot-gateway-bridge.mjs`); nothing else leaves the namespace. On a customer site the gateway runs on the same host, so no bridge is needed.
 4. **Direct run:** `npm run aegis:pilot -- run … --containment openshell --image <image> --openshell-cli <path>` with `OPENSHELL_GATEWAY_ENDPOINT` set.
+5. **Core-step egress probe (Phase 1, the site's IT runs it):** `AEGIS_IMAGE=<image> AEGIS_OPENSHELL_CLI=<path> scripts/aegis-pilot-egress-probe.sh [host:port …]`, passing the site's own targets (proxy, ERP, historian). A plain container of the same image is the control and must reach something; the sandbox with the core-step policy must reach nothing over TCP, UDP or IPv6, and its DNS answers are local synthetic addresses that are never resolved upstream. Exit 0 = PASS. Verified 29.09.2026 against the real gateway. Without OpenShell (worker threads), core steps share the host process's network: the "no network" statement then holds only if the site administrator blocks host egress, and the acceptance record names the containment mode.
 
 ### How each condition is judged
 

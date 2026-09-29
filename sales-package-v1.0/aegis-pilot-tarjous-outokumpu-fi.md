@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.0 [Latest]
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: Outokumpu-versio yleisestä tarjouksesta v1.5 (HIC 28.9.2026: 'Tarjous menee outokummulle'). Pilotoitava työnkulku = asiakkaalle annettavan päästötiedon hyväksyntä yhdellä tuotantopaikalla (esim. Tornio). Hinta ja ehdot kuten v1.5. Outokumpu-faktat lähteestä Firehorse/Omnichannel/Partners/OUTOKUMPU_CBAM_PARTNER.md ja aegis-customer-orientation.md §8; vahvistamattomat merkitty. Toukokuun 2026 maksuton kumppanuuspilotti ei ole tämän tarjouksen osa. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
+- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: §2 ydinvaiheiden verkottomuus sidottu OpenShell-sääntöön ja testattavaksi vaiheessa 1 (todennettu oikealla hiekkalaatikolla 29.09.2026); A.1 varatilan rajaus: säiemoodissa verkottomuus vaatii isännän palomuurisäännön. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
+- Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: Outokumpu-versio yleisestä tarjouksesta v1.5 (HIC 28.9.2026: 'Tarjous menee outokummulle'). Pilotoitava työnkulku = asiakkaalle annettavan päästötiedon hyväksyntä yhdellä tuotantopaikalla (esim. Tornio). Hinta ja ehdot kuten v1.5. Outokumpu-faktat lähteestä Firehorse/Omnichannel/Partners/OUTOKUMPU_CBAM_PARTNER.md ja aegis-customer-orientation.md §8; vahvistamattomat merkitty. Toukokuun 2026 maksuton kumppanuuspilotti ei ole tämän tarjouksen osa. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 
 Document Status:
 
@@ -64,7 +65,7 @@ Ehdotus, joka vahvistetaan vaiheessa 0:
 - **Laajuus:** yksi tuotantopaikka (esim. Tornio) ja yksi tuoteryhmä (esim. 304L).
 - **Mitä agentit tekevät:** kokoavat asiakkaalle annettavan päästötiedon paikallisesta tuotanto- ja energiadatasta teidän menetelmänne ja validoitujen laskentasääntöjenne mukaan. Menetelmä ja sen ulkoinen validointi ovat teidän; pilotti ei muuta niitä vaan tekee niiden soveltamisesta todennettavaa luku kerrallaan.
 - **Kuka päättää:** yksikään luku ei lähde asiakkaalle ennen kuin nimetty hyväksyjä on hyväksynyt sen. Tietue näyttää lähtötietojen tiivisteet, menetelmän version, hyväksyjän ja sen, mitä luvulle tapahtui (lähetetty, pidätetty, korjattu).
-- **Mikä pysyy tehtaalla:** tuotanto- ja prosessidata ei poistu kohteesta. Ydinvaiheilla ei ole verkkoyhteyttä. Hyväksytyn luvun siirto asiakasjärjestelmään on ei-ydinvaihe, joka jonoutuu yhteyskatkon ajaksi allekirjoitettuna.
+- **Mikä pysyy tehtaalla:** tuotanto- ja prosessidata ei poistu kohteesta. Ydinvaiheilla ei ole verkkoyhteyttä: OpenShell-hiekkalaatikon sääntö estää niiltä kaikki yhteydet (TCP, UDP, IPv6) ja vastaa nimikyselyihin paikallisesti lähettämättä niitä eteenpäin. IT-osastonne voi testata tämän itse vaiheessa 1. Hyväksytyn luvun siirto asiakasjärjestelmään on ei-ydinvaihe, joka jonoutuu yhteyskatkon ajaksi allekirjoitettuna.
 - **Kenen työnkulku:** kestävyys omistaa menetelmän, tuotanto datan ja kaupallinen organisaatio asiakassuhteen. Vaihe 0 nimeää, kuka tässä työnkulussa pitää päätösvallan. Ilman nimeä pilottia ei aloiteta.
 
 Ulkoinen validoijanne ja asiakkaanne kysyvät saman kysymyksen: mistä luku tuli ja kuka sen hyväksyi. Tietue tuottaa siihen aineiston. Sen riittävyyden toteaa validoija.
@@ -136,7 +137,7 @@ Tämä liite on tarkastajalle ja teknisille arvioijille. Se erottaa, mikä on to
 
 Pysäytyskomennon vastaanottaa, tarkistaa ja kirjaa **isäntäpuolen ajuri**: Aegis-prosessi, joka ajaa työnkulkua ja pitää lokia. Agentin työvaihe ajetaan erillisessä OpenShell-hiekkalaatikossa, jossa se voi kirjoittaa vain hiekkalaatikon omiin hakemistoihin. Sillä ei ole pääsyä kohteen allekirjoitusavaimeen, lokiin eikä pysäytyskomentojen saapumiskansioon. Loki hyväksyy vain kohteen avaimella allekirjoitetut merkinnät, joten agentti ei voi kirjoittaa lokiin mitään, ei edes omaa pysäytystään.
 
-Jos kohde ei täytä OpenShellin edellytyksiä (Linux 6.2+, Landlock, kontti), vaiheet ajetaan säikeissä samassa prosessissa. Silloin ajuri ei ole agentin ulottumattomissa käyttöjärjestelmän tasolla, ja hyväksyntätietue kirjaa eristystason nimenomaisesti.
+Jos kohde ei täytä OpenShellin edellytyksiä (Linux 6.2+, Landlock, kontti), vaiheet ajetaan säikeissä samassa prosessissa. Silloin ajuri ei ole agentin ulottumattomissa käyttöjärjestelmän tasolla, eikä ydinvaiheiden verkottomuus ole hiekkalaatikon asetus: se on varmistettava isännän palomuurisäännöllä, jonka teidän ylläpitäjänne asettaa. Hyväksyntätietue kirjaa eristystason nimenomaisesti.
 
 ### A.2 Pysäytyksen järjestys ja pysäytyshetki
 

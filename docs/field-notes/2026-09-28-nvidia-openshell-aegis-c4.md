@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2 [Latest]
+Version: 1.3 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.2 [Latest] | Tool: Claude Code (web) | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: Security review FAIL → fixes → re-review PASS; residual items recorded (§6). | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.3 [Latest] | Tool: Claude Code (web) | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: §7 core-step egress verified on the real sandbox with a control (HIC: the offer's 'no network for core steps' is the first thing customer IT tests). | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.2 [not latest] | Tool: Claude Code (web) | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: Security review FAIL → fixes → re-review PASS; residual items recorded (§6). | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.1 [not latest] | Tool: Claude Code (web) | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: Real-binary gate passed: severed-uplink rehearsal PASS with --containment openshell on an OpenShell build from source; five driver defects found and fixed; stop latency measured. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 - Version: 1.0 [not latest] | Tool: Claude Code (web) | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: HIC summary of the NVIDIA Open Agent Safety Platform; go/no-go facts; spike status; corrections to the draft public copy. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 
@@ -112,6 +113,27 @@ Residual items, tracked rather than hidden:
 1. **Result channel.** The handler and the result writer share one process and stdout. A fully compromised handler can print one forged result and exit before its real result. The blast radius is limited to that step's own reported output. It cannot forge containment evidence or a stop, which are produced on the host. The fix is a result channel the handler cannot write to (for example a pre-opened descriptor, or a result sealed by the runner). Hardening candidate.
 2. **Disk.** The policy does not cap `/sandbox` and `/tmp`. Size the host disk, or add host-level limits. Tracked as an open item.
 3. **Stop latency** of about 5.2 s (§5).
+
+## 7. Core-step egress verified (29.09.2026)
+
+The HIC asked on 29.09.2026 whether "Ydinvaiheilla ei ole verkkoyhteyttä" is a setting we can keep. The earlier rehearsal ran inside `unshare --net`, which cut everything, so it could not prove the sandbox's own rule. This test ran outside that namespace, with the network reachable.
+
+| Target                                | Plain container (control) | OpenShell, core-step policy          |
+| ------------------------------------- | ------------------------- | ------------------------------------ |
+| TCP 1.1.1.1:443                       | CONNECTED                 | EACCES                               |
+| TCP 169.254.169.254:80 (metadata)     | CONNECTED                 | EACCES                               |
+| TCP Docker host bridge                | CONNECTED (listener)      | EACCES                               |
+| UDP to the same targets               | sent                      | EDESTADDRREQ; host listener got none |
+| IPv6                                  | not available             | EAFNOSUPPORT                         |
+| DNS for an unlisted name              | real address              | synthetic 198.18.x.x                 |
+| TCP to that synthetic address         | —                         | EACCES                               |
+| Non-core policy allowing one endpoint | —                         | that endpoint CONNECTED, rest EACCES |
+
+DNS: OpenShell's policy resolver answers names absent from the policy with a local synthetic address and makes no upstream query (`openshell-supervisor-network/src/policy_dns/mod.rs`, `stage_observation`; test `stages_unknown_name_without_upstream_resolution` asserts zero resolver calls). So a name cannot be used to exfiltrate through DNS from a core step.
+
+The positive control (last row) shows the probe can connect when the policy allows it, so the refusals are the policy, not a broken probe.
+
+**Limit.** This holds with `--containment openshell`. In worker-thread mode core steps share the host process's network; the offers (Kemira and Outokumpu 1.1, generic 1.6, A.1) now say so, and the runbook §6.1 step 5 gives the site's IT the same probe (`scripts/aegis-pilot-egress-probe.sh`).
 
 ## 4. Learning outcome steps
 
