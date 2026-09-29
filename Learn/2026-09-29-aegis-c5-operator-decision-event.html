@@ -173,6 +173,18 @@
         <code>drain-decisions</code>, both with the uplink severed): passes.
       </li>
     </ul>
+    <h2>Correction the same day (Boardy's point)</h2>
+    <p>
+      Operator time was counted from the time the site <em>recorded</em> the decision. A decision
+      drained from the queue up to 10 minutes later therefore inflated the number. Now
+      <code>decided_at</code> = the operator-signed <code>issuedAt</code>,
+      <code>decision_latency_ms</code> is measured from the recommendation to that signature, and
+      <code>recorded_lag_ms</code> reports the queue delay separately.
+      <code>drain-decisions</code> records a <code>system.reconcile</code> event
+      (<code>decision-drain</code>) with the head it started from, so a catch-up is visible in the
+      chain and not spliced in. Tests: 24 in the decision file, 71 in the pilot suites. A mutation
+      check confirmed the latency test fails when the old basis is restored.
+    </p>
     <h2>Insight</h2>
     <p>
       The advisory workflow is the same event chain as the decision journey that was already

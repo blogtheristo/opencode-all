@@ -101,6 +101,8 @@ export interface DecisionOutcome {
   ledgerSeq?: number;
   /** event_hash of the human.decide event; outcome.record binds to it. */
   eventHash?: string;
+  /** The operator-signed time of the decision (its occurred_at). */
+  decidedAt?: string;
 }
 
 /** Operator side: build and sign a decision on one recommendation. Pure — no I/O. */
@@ -316,7 +318,13 @@ export class DecisionAuthority {
         recommendation_hash: rec.event_hash,
         recommended_by: rec.agent_id,
         reason: command.reason,
-        decision_latency_ms: t.getTime() - Date.parse(rec.timestamp),
+        // occurred_at of the response is the moment the operator signed it, not the moment
+        // the site recorded it: a decision drained later must not inflate operator time.
+        decided_at: command.issuedAt,
+        decision_latency_ms: Math.max(0, issued - Date.parse(rec.timestamp)),
+        latency_basis: 'operator-signed issuedAt minus recommendation timestamp',
+        // Queue delay between signing and recording; > 0 after a drain.
+        recorded_lag_ms: Math.max(0, t.getTime() - issued),
       },
     });
     const outcome: DecisionOutcome = {
@@ -325,15 +333,22 @@ export class DecisionAuthority {
       verdict: command.verdict,
       ledgerSeq: event.seq,
       eventHash: event.event_hash,
+      decidedAt: command.issuedAt,
     };
     this.outcomes.push(outcome);
     return outcome;
   }
 
-  /** Process every command currently in the inbox. */
-  drainInbox(traceId: string): DecisionOutcome[] {
+  /**
+   * Process every command currently in the inbox. With `reconcile`, a catch-up drain
+   * outside a run also records a `system.reconcile` event carrying the ledger head it
+   * started from, so the record shows "decided locally, recorded later" instead of
+   * splicing the queued decisions in as if they had been recorded live.
+   */
+  drainInbox(traceId: string, opts: { reconcile?: boolean } = {}): DecisionOutcome[] {
     const inbox = decisionInbox(this.stateDir);
     if (!existsSync(inbox)) return [];
+    const headBefore = this.ledger.head;
     const results: DecisionOutcome[] = [];
     for (const f of readdirSync(inbox)
       .filter((n) => n.endsWith('.json'))
@@ -351,6 +366,25 @@ export class DecisionAuthority {
         ? join(inbox, 'processed', `${outcome.commandId}.json`)
         : join(inbox, 'rejected', `${Date.now()}-${f}`);
       renameSync(path, dest);
+    }
+    if (opts.reconcile && results.length > 0) {
+      const signed = results
+        .filter((r) => r.accepted && r.decidedAt)
+        .map((r) => r.decidedAt as string)
+        .sort();
+      this.ledger.append({
+        event_type: 'system.reconcile',
+        trace_id: traceId,
+        detail: {
+          kind: 'decision-drain',
+          head_before: headBefore,
+          commands: results.length,
+          recorded: results.filter((r) => r.accepted).length,
+          rejected: results.filter((r) => !r.accepted).length,
+          earliest_decided_at: signed[0],
+          latest_decided_at: signed.at(-1),
+        },
+      });
     }
     return results;
   }

@@ -542,3 +542,56 @@ describe('decisions during the severed-uplink run', () => {
     expect(summary.byStatus).toMatchObject({ rejected: 1, pending: 1 });
   }, 60_000);
 });
+
+describe('operator time is measured from the signed response, not from recording', () => {
+  it('uses the operator-signed issuedAt as occurred_at, and reports the drain lag separately', () => {
+    const rec = recommend(agent().subjectId);
+    const t0 = Date.parse(rec.timestamp);
+    const op = operator();
+    const cmd = createDecisionCommand(
+      {
+        recommendationSeq: rec.seq,
+        recommendationHash: rec.event_hash,
+        verdict: 'accept',
+        reason: 'checked',
+        operatorCredential: op.credential,
+        operatorKey: op.key,
+      },
+      new Date(t0 + 60_000),
+    );
+    // Recorded four minutes after signing (queued, then drained).
+    const late = new DecisionAuthority(
+      dir,
+      site.verifier(),
+      ledger,
+      site.publicKey,
+      () => new Date(t0 + 300_000),
+    );
+    expect(late.execute(cmd, 'ops').accepted).toBe(true);
+    expect(lastEvent().detail).toMatchObject({
+      decided_at: cmd.issuedAt,
+      decision_latency_ms: 60_000,
+      recorded_lag_ms: 240_000,
+    });
+    expect(decisionJourneys(statePaths(dir).ledger).medianDecisionLatencyMs).toBe(60_000);
+  });
+
+  it('records a catch-up drain as a reconciliation carrying the head it started from', () => {
+    const rec = recommend(agent().subjectId);
+    const headBefore = ledger.head;
+    submitDecisionCommand(dir, decide(rec, operator()));
+    authority().drainInbox('drain', { reconcile: true });
+    const ev = lastEvent();
+    expect(ev).toMatchObject({
+      event_type: 'system.reconcile',
+      detail: { kind: 'decision-drain', head_before: headBefore, recorded: 1, rejected: 0 },
+    });
+  });
+
+  it('adds no reconciliation event when a run drains decisions live', () => {
+    const rec = recommend(agent().subjectId);
+    submitDecisionCommand(dir, decide(rec, operator()));
+    authority().drainInbox('run');
+    expect(lastEvent().event_type).toBe('human.decide');
+  });
+});

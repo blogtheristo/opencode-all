@@ -385,7 +385,7 @@ async function main(): Promise<void> {
           site.verifier(),
           ledger,
           site.publicKey,
-        ).drainInbox(`drain-${Date.now()}`);
+        ).drainInbox(`drain-${Date.now()}`, { reconcile: true });
         out(
           { ok: results.every((r) => r.accepted), command: cmd, processed: results },
           results.every((r) => r.accepted) ? 0 : 1,

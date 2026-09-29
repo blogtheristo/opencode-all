@@ -65,6 +65,10 @@ What was built (readiness plan C5):
     - The same Low 6 command-id and Medium 3 replay pattern still exists in `kill-authority.ts`, which is outside this change.
 - After the fixes: 21 decision tests, 67/67 pilot tests, tsc and eslint clean. E2E repeated with the split (the operator's `decide`, then the site's `drain-decisions`, both with the uplink severed): passes.
 
+## Correction the same day (Boardy's point)
+
+Operator time was counted from the time the site _recorded_ the decision. A decision drained from the queue up to 10 minutes later therefore inflated the number. Now `decided_at` = the operator-signed `issuedAt`, `decision_latency_ms` is measured from the recommendation to that signature, and `recorded_lag_ms` reports the queue delay separately. `drain-decisions` records a `system.reconcile` event (`decision-drain`) with the head it started from, so a catch-up is visible in the chain and not spliced in. Tests: 24 in the decision file, 71 in the pilot suites. A mutation check confirmed the latency test fails when the old basis is restored.
+
 ## Insight
 
 The advisory workflow is the same event chain as the decision journey that was already designed: `PATH_RECOMMENDED → PATH_ACCEPTED → OUTCOME_RECORDED`. Recording the approval as an event costs one design decision in the ledger. It turns the pilot's output from "the stop works" into "the stop works, and here is the first verifiable decision path, with a customer operator as the decision-maker". Report D7 names the number that follows from this: decision-path coverage.
