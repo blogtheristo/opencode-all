@@ -868,8 +868,9 @@ opencode-loop stop
    - How to spot it: `status` shows `running` longer than the round timeout (90 min), or `alerts.log` shows rounds exiting in seconds. The cause is in `~/.local/state/opencode-task-loop/<branch-slug>.log`.
 5. **Incident 29.09.2026 — loop tasks wrote into `~/dws6`.** OpenCode takes its session folder from the `PWD` environment variable, not from the directory the process starts in, and the loop passed its own `PWD=~/dws6` to every round. Test: from a loop worktree, `PWD=~/dws6` opened the session in `~/dws6`; `PWD=<worktree>` opened it in the worktree. Effect: the doctor task (A1) wrote its code into `~/dws6` and committed it onto local `main` with `git add -A`, which swept in 27 untracked files (loop specs, handoffs, field notes).
    - Recovery, nothing lost: `dws6-sync` saved the commit to `rescue/dgx-main-20260929-222227` and reset `main`; the 27 files were restored untracked in `~/dws6`; the 4 doctor files were committed on `opencode/aegis-pilot-doctor` (`8a753a911`) so the loop continues from them.
-   - Fix: PR #2247 sets `PWD` to the task worktree for every `opencode run`. The loop stays stopped until #2247 is merged, then `opencode-loop start`.
+   - Fix: PR #2247 (merged 29.09) sets `PWD` to the task worktree for every `opencode run`. Verified after the restart 29.09: round 2 of the doctor task ran in its own worktree, and `~/dws6` had no tracked changes.
    - Check after any loop run: `git -C ~/dws6 status -sb` shows `## main...origin/main` and no file lines.
+6. **Finding 29.09.2026: `day-runner` is not scheduled on the DGX.** No systemd timer or crontab entry runs `scripts/daily/` on gn100, so the daily jobs there have not been running on this machine. The loop's daily status script gets its own crontab entry for now. Scheduling `day-runner` for the whole folder is a separate decision (open).
 
 ### DGX startup and verification
 
