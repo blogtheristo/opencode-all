@@ -44,6 +44,7 @@ import {
 } from './kill-authority.js';
 import { ISOLATION_LADDER, type PilotScope, stepCapability } from './scope.js';
 import { spawnPilotWorker, terminateBounded } from './isolated-handlers.js';
+import { type AgentAuthority, buildAuthorityRecord, recordGrant } from './authority.js';
 import { type Connector, probeUplink, type UplinkProbeReport } from './uplink-probe.js';
 import { type HandlerRegistry, type RunResult, runWorkflow } from './workflow-runner.js';
 
@@ -72,6 +73,14 @@ export interface AcceptanceOptions {
    * in-process loop that honours its signal — rehearsal only.
    */
   stopMode?: 'hard' | 'cooperative';
+  /** How workflow steps were isolated; recorded so a reader knows what was contained. */
+  containment?: { mode: 'in-process' | 'worker' | 'openshell'; image?: string };
+  /**
+   * Hard mode: where the stubborn stop-test agent runs. Defaults to a worker
+   * thread. With OpenShell containment it must run in a sandbox too, so that
+   * condition (iii) proves the same containment the workflow used.
+   */
+  stopTestAgent?: (tickMs: number) => StopTestAgent;
   probeIntervalMs?: number;
   probeTimeoutMs?: number;
   connector?: Connector;
@@ -95,6 +104,7 @@ export interface AcceptanceRecord {
   workflowId: string;
   scopeDigest: string;
   deploymentMode: PilotScope['deploymentMode'];
+  containment: { mode: 'in-process' | 'worker' | 'openshell'; image?: string };
   isolation: {
     method: string;
     rank: number;
@@ -140,6 +150,8 @@ export interface AcceptanceRecord {
     };
   };
   witness: string | null;
+  /** Who held decision authority in this run, and what followed (authority.ts). */
+  authority: AgentAuthority[] | null;
   ledgerHead: { seq: number; hash: string };
   createdAt: string;
   findings: string[];
@@ -232,6 +244,31 @@ async function runSentinel(p: {
   }
 }
 
+/**
+ * The stubborn stop-test agent for condition (iii). It never checks a signal;
+ * the stop is proven only by terminate() confirming the agent is gone.
+ */
+export interface StopTestAgent {
+  /** Start the agent; onTick fires once per unit of work it reports. */
+  start(onTick: () => void): Promise<void>;
+  /** Terminate it. confirmed=false means the stop is not proven. */
+  terminate(): Promise<{ confirmed: boolean; ms: number }>;
+}
+
+export function workerStopTestAgent(tickMs: number): StopTestAgent {
+  let worker: ReturnType<typeof spawnPilotWorker> | undefined;
+  return {
+    start(onTick) {
+      worker = spawnPilotWorker('sentinel-worker', { tickMs });
+      worker.on('message', onTick);
+      return Promise.resolve();
+    },
+    terminate() {
+      return worker ? terminateBounded(worker) : Promise.resolve({ confirmed: true, ms: 0 });
+    },
+  };
+}
+
 interface SentinelOutcome {
   stopped: boolean;
   ticks: number;
@@ -253,31 +290,37 @@ async function runSentinelHard(p: {
   tickMs: number;
   maxMs: number;
   onFirstTick: () => void;
+  agent: StopTestAgent;
 }): Promise<SentinelOutcome> {
   const { signal, release } = p.kill.register(p.credential);
-  const worker = spawnPilotWorker('sentinel-worker', { tickMs: p.tickMs });
   let ticks = 0;
   let terminatedAt: number | null = null;
   let lateMessages = 0;
-  worker.on('message', () => {
-    if (terminatedAt !== null) {
-      lateMessages++;
-      return;
-    }
-    if (signal.aborted) return; // in flight when the stop landed; never logged as agent work
-    p.ledger.append({
-      event_type: 'agent.decide',
-      trace_id: p.traceId,
-      agent_id: p.credential.subjectId,
-      detail: { step: 'sentinel-tick', tick: ticks, stop_mode: 'hard' },
-    });
-    ticks++;
-    if (ticks === 1) p.onFirstTick();
-  });
+  let terminated = false;
+  const terminate = async () => {
+    const r = await p.agent.terminate();
+    terminated = true;
+    return r;
+  };
   try {
+    await p.agent.start(() => {
+      if (terminatedAt !== null) {
+        lateMessages++;
+        return;
+      }
+      if (signal.aborted) return; // in flight when the stop landed; never logged as agent work
+      p.ledger.append({
+        event_type: 'agent.decide',
+        trace_id: p.traceId,
+        agent_id: p.credential.subjectId,
+        detail: { step: 'sentinel-tick', tick: ticks, stop_mode: 'hard' },
+      });
+      ticks++;
+      if (ticks === 1) p.onFirstTick();
+    });
     await sleep(p.maxMs, signal);
     if (!signal.aborted) return { stopped: false, ticks, terminationMs: null, lateMessages: 0 };
-    const { confirmed, ms } = await terminateBounded(worker);
+    const { confirmed, ms } = await terminate();
     terminatedAt = Date.now();
     if (!confirmed) {
       // Unconfirmed termination is not a proven stop: terminationMs stays null → (iii) fails.
@@ -292,7 +335,7 @@ async function runSentinelHard(p: {
     await sleep(3 * p.tickMs);
     return { stopped: true, ticks, terminationMs: ms, lateMessages };
   } finally {
-    await terminateBounded(worker);
+    if (!terminated) await terminate();
     release();
   }
 }
@@ -363,7 +406,14 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
 
   const recordBase: Omit<
     AcceptanceRecord,
-    'outcome' | 'ledgerHead' | 'createdAt' | 'findings' | 'window' | 'probes' | 'conditions'
+    | 'outcome'
+    | 'ledgerHead'
+    | 'createdAt'
+    | 'findings'
+    | 'window'
+    | 'probes'
+    | 'conditions'
+    | 'authority'
   > = {
     v: 1,
     recordId: randomUUID(),
@@ -373,6 +423,7 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     workflowId: scope.workflow.id,
     scopeDigest: sha256(canonicalJSON(scope)),
     deploymentMode: scope.deploymentMode,
+    containment: opts.containment ?? { mode: 'in-process' },
     isolation: {
       method: scope.isolation.method,
       rank: ladder.rank,
@@ -433,6 +484,7 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
       },
       probes,
       conditions,
+      authority: authorityAgents.length ? authorityFor(authorityAgents) : null,
       ledgerHead: ledger.head,
       createdAt: now().toISOString(),
       findings,
@@ -460,6 +512,22 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     return { record, signature, signerKeyId: site.manifest.keyId, path };
   };
 
+  // Error paths: every background writer is stopped before the ledger closes,
+  // or a late stop command or probe would write to a closed ledger.
+  const cleanups: Array<() => void> = [];
+  let authorityAgents: string[] = [];
+  const authorityFor = (ids: string[]): AgentAuthority[] | null => {
+    try {
+      return buildAuthorityRecord(opts.stateDir, {
+        publicKey: site.publicKey,
+        scope,
+        agentIds: ids,
+      }).agents;
+    } catch (err) {
+      findings.push(`Authority record not built: ${(err as Error).message}.`);
+      return null;
+    }
+  };
   try {
     if (!preflight.isolated) {
       const open = preflight.results.filter((r) => !r.blocked);
@@ -475,17 +543,30 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     }
 
     const stopHeartbeat = ledger.startHeartbeat(scope.acceptance.heartbeatMs, traceId);
+    cleanups.push(stopHeartbeat);
     const kill = new KillAuthority(opts.stateDir, verifier, ledger, now);
     const stopWatch = kill.watch(traceId, 100);
+    cleanups.push(stopWatch);
     let periodic = 0;
     let lapses = 0;
     const probeStop = new AbortController();
+    cleanups.push(() => probeStop.abort());
     const probeLoop = (async () => {
       const interval = opts.probeIntervalMs ?? 10_000;
       while (!probeStop.signal.aborted) {
         await sleep(interval, probeStop.signal);
         if (probeStop.signal.aborted) break;
-        const report = await probeUplink(scope.isolation.egressProbes, probeOpts);
+        let report: UplinkProbeReport;
+        try {
+          report = await probeUplink(scope.isolation.egressProbes, probeOpts);
+        } catch (err) {
+          // A probe that cannot run means isolation can no longer be shown for
+          // the window: count it as a lapse (the run becomes INVALID), not an
+          // unhandled rejection.
+          lapses++;
+          findings.push(`Egress probe failed during the window: ${(err as Error).message}.`);
+          continue;
+        }
         periodic++;
         if (!report.isolated) {
           lapses++;
@@ -501,6 +582,12 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
       capabilities: scope.workflow.steps.map(stepCapability),
       ttlHours,
     });
+    recordGrant(
+      ledger,
+      workflowAgent,
+      { scopeDigest: recordBase.scopeDigest, basis: `${opts.kind}: workflow agent` },
+      traceId,
+    );
 
     // (i) workflow completes with the uplink down
     const run = await runWorkflow({
@@ -535,6 +622,13 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
       capabilities: ['step:sentinel'],
       ttlHours,
     });
+    recordGrant(
+      ledger,
+      sentinel,
+      { scopeDigest: recordBase.scopeDigest, basis: `${opts.kind}: stop-test agent` },
+      traceId,
+    );
+    authorityAgents = [workflowAgent.subjectId, sentinel.subjectId];
     conditions.operatorStop.agentId = sentinel.subjectId;
     const maxMs = opts.operator.mode === 'await-operator' ? opts.operator.timeoutMs : 30_000;
     const operator = opts.operator;
@@ -567,6 +661,7 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
             tickMs,
             maxMs,
             onFirstTick,
+            agent: (opts.stopTestAgent ?? workerStopTestAgent)(tickMs),
           })
         : {
             ...(await runSentinel({
@@ -688,6 +783,7 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     }
     return seal(all ? 'PASS' : 'NEGATIVE_RESULT', windowEnd, probes, hold);
   } finally {
+    for (const fn of cleanups) fn();
     ledger.close();
   }
 }

@@ -1,0 +1,299 @@
+<title>Aegis Pilot Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500&display=swap"
+/>
+<style>
+  :root {
+    --paper: #f6f7f5;
+    --sheet: #ffffff;
+    --ink: #16222b;
+    --muted: #55636c;
+    --rule: #d6dbd8;
+    --panel: #1f5c4f;
+    --stop: #b4531a;
+    --tint: #eaf1ee;
+    --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --serif: "IBM Plex Serif", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0f1519;
+      --sheet: #152026;
+      --ink: #e4e9e6;
+      --muted: #9aa8ad;
+      --rule: #2c3a41;
+      --panel: #6fbfa9;
+      --stop: #e89160;
+      --tint: #1b2b2c;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0f1519;
+    --sheet: #152026;
+    --ink: #e4e9e6;
+    --muted: #9aa8ad;
+    --rule: #2c3a41;
+    --panel: #6fbfa9;
+    --stop: #e89160;
+    --tint: #1b2b2c;
+    color-scheme: dark;
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 24px 16px;
+  }
+  .sheet {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--sheet);
+    border: 1px solid var(--rule);
+    padding: clamp(20px, 4vw, 44px);
+    display: grid;
+    gap: 22px;
+  }
+  .ref {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 10px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(26px, 4.4vw, 36px);
+    line-height: 1.15;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .lead {
+    margin: 0;
+    font-size: 17px;
+    max-width: 62ch;
+  }
+  .stopline {
+    border-left: 3px solid var(--stop);
+    padding: 4px 0 4px 14px;
+    font-weight: 600;
+    font-size: 17px;
+    margin: 0;
+  }
+  h2 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--panel);
+    margin: 0 0 8px;
+  }
+  p {
+    margin: 0;
+    max-width: 66ch;
+  }
+  ol.criteria {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+    counter-reset: c;
+  }
+  ol.criteria li {
+    counter-increment: c;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 10px;
+    align-items: baseline;
+  }
+  ol.criteria li::before {
+    content: counter(c);
+    font-family: var(--mono);
+    font-weight: 500;
+    color: var(--panel);
+    border: 1px solid var(--panel);
+    width: 22px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+  }
+  .note {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+  }
+  ul {
+    margin: 0;
+    padding-left: 18px;
+    display: grid;
+    gap: 4px;
+  }
+  .terms {
+    background: var(--tint);
+    padding: 16px 18px;
+    display: grid;
+    gap: 6px;
+  }
+  .terms dl {
+    margin: 0;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 6px 16px;
+  }
+  .terms dt {
+    font-weight: 600;
+  }
+  .terms dd {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .sig {
+    border-top: 1px solid var(--rule);
+    padding-top: 12px;
+    font-size: 14px;
+    display: grid;
+    gap: 2px;
+  }
+  .sig .mono {
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .fine {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  @media (max-width: 480px) {
+    .terms dl {
+      grid-template-columns: 1fr;
+    }
+    .terms dd {
+      margin-bottom: 6px;
+    }
+  }
+</style>
+
+<main class="sheet">
+  <div class="ref">
+    <span>DWS IQ AEGIS PILOT · DWS-AEGIS-PILOT-001</span>
+    <span>Lifetime Oy · Espoo, Finland</span>
+  </div>
+
+  <h1>Who held decision authority over your AI agents, and what followed?</h1>
+
+  <p class="lead">
+    When an AI agent works in a control room, the question afterwards is not whether a regulation
+    was met. It is who held decision authority and what followed from it. The Aegis Pilot answers
+    that with a signed record, on your hardware, with the network cut.
+  </p>
+
+  <p class="stopline">The stop is verified from the log, not from the agent's own report.</p>
+
+  <section>
+    <h2>What the pilot proves in three months</h2>
+    <p style="margin-bottom: 10px">
+      At the end, your team cuts the uplink by a method you control. The result is binary. All three
+      must hold:
+    </p>
+    <ol class="criteria">
+      <li>The piloted workflow completes without a network connection.</li>
+      <li>The decision log keeps being written locally, without gaps.</li>
+      <li>
+        An operator stops a running agent, and after the halt moment no event from that agent is
+        logged and no write reaches a managed resource.
+      </li>
+    </ol>
+    <p class="note" style="margin-top: 10px">
+      The test agent is built to refuse to stop. A pass means it was stopped, not that it agreed to
+      stop. A fail is a useful finding, learned for €19,990 rather than after a hardware programme.
+    </p>
+  </section>
+
+  <div class="grid">
+    <section>
+      <h2>What you keep</h2>
+      <ul>
+        <li>
+          A signed acceptance record your auditor can verify on their own machine, without us.
+        </li>
+        <li>
+          Per agent: the authority it acted under, its decisions, the outcome, and who stopped it.
+        </li>
+        <li>
+          Evidence of the kind EU AI Act Articles 12 and 26 ask for. Whether it is sufficient is
+          your auditor's call.
+        </li>
+        <li>Production sizing from measured load, and a recommendation.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Scope, stated plainly</h2>
+      <ul>
+        <li>One site, one control-room workflow.</li>
+        <li>
+          Agents produce decisions, recommendations and records. They do not actuate physical
+          equipment; your plant's own emergency stop remains a separate layer.
+        </li>
+        <li>
+          Runs on your infrastructure. Keys and log stay with you. Each step runs in an NVIDIA
+          OpenShell sandbox (open source; NVIDIA is not a party to this offer).
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="terms">
+    <h2>Commercial terms</h2>
+    <dl>
+      <dt>Price</dt>
+      <dd>€19,990 (VAT 0 %), fixed, 3 months</dd>
+      <dt>Credit</dt>
+      <dd>
+        Credited in full against the €59,990 Aegis licence if you go to production within 6 months
+      </dd>
+      <dt>Phase 0</dt>
+      <dd>
+        Scoping, 2 weeks, free: workflow, isolation method and acceptance criteria in your words
+      </dd>
+      <dt>If you stop</dt>
+      <dd>The architecture, measurements and acceptance record are yours. Nothing else is due.</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Next step</h2>
+    <p>
+      A 60-minute scoping call. Your legal and security teams are welcome; a technical appendix
+      covering the halt boundary, key custody and data flows is available for them.
+    </p>
+  </section>
+
+  <div class="sig">
+    <strong>Risto Anton Päärni</strong>
+    <span>Founder, CEO · Lifetime Oy · the Agent Outcome Company</span>
+    <span class="mono">risto.paarni@lifetime.fi · +358 400 319 010</span>
+  </div>
+
+  <p class="fine">
+    Lifetime Oy · Business ID 0772407-9 · Laidunmaanraitti 2 A 25, 02330 Espoo, Finland. NVIDIA and
+    OpenShell are trademarks of NVIDIA Corporation, used descriptively; no endorsement or
+    partnership is implied.
+  </p>
+</main>

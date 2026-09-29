@@ -47,7 +47,7 @@ Aegis is a **two-layer** product. The layers solve different problems and are de
 | **Physical** — perception → action           | Sees the facility and acts on it in real time: scene understanding, intent prediction, machine-vision oversight feeding the Control Room / Situation Room | An **adopted open, on-device world model** (NVIDIA Cosmos 3 Edge class) running on customer-sited edge hardware — not a model DWS pretrains | **Planned** — target 2026 Q4, gated on the on-device evaluation. Not shipped today. |
 | **Compliance evidence** — reasoning → record | Turns operations into a court-defensible record: Article 12 logging, reasoning lineage, export-control and climate-compliance assessment                  | A **separate LLM tier** (open models, EU-served) — a different optimisation problem from real-time perception                               | **Live** — Article12Logger, ComplianceAgent, SovereigntyMonitor                     |
 
-**What binds them is the KYA loop** — agent identity, MicroVM isolation, kill authority, private evals and the Article 12 evidence chain. That loop is the part of Aegis that is built on the customer's own operations and cannot be bought off the shelf. The models and the boxes underneath are **components**: adoptable, replaceable, and deliberately not where the defensibility sits. DWS sells the governed outcome layer, not the infrastructure beneath it.
+**What binds them is the KYA loop** — agent identity, sandbox isolation, kill authority, private evals and the Article 12 evidence chain. That loop is the part of Aegis that is built on the customer's own operations and cannot be bought off the shelf. The models and the boxes underneath are **components**: adoptable, replaceable, and deliberately not where the defensibility sits. DWS sells the governed outcome layer, not the infrastructure beneath it.
 
 ## Agents Included
 
@@ -85,7 +85,7 @@ Aegis is a **two-layer** product. The layers solve different problems and are de
 ### Agent Governance (KYA — Know Your Agent)
 
 - Agent identity verification (Shufti partnership)
-- Firecracker MicroVM sandbox isolation
+- Sandbox per agent step with NVIDIA OpenShell (Landlock, seccomp, network namespace), verified in the Aegis Pilot kit 28.09.2026; Firecracker MicroVM isolation is roadmap, not yet implemented
 - Kill authority — revoke any agent in real-time
 - Forensic observability — full decision audit trail
 - Multi-agent control room for fleet oversight
@@ -155,7 +155,7 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 - **Cache:** UpCloud Managed Valkey/Redis
 - **GPU:** NVIDIA L40S nodes available for local LLM inference
 - **SLA:** 99.9% application-availability target / 99.999% underlying infrastructure (UpCloud)
-- **Isolation:** Firecracker MicroVM per agent, no shared tenancy
+- **Isolation:** OpenShell sandbox per agent step (Landlock, seccomp, network namespace), no shared tenancy. Firecracker MicroVM isolation is roadmap, not yet implemented
 - **Compliance:** EU AI Act Article 12, NIS2, GDPR, CER Directive, EU CRM Act, dual-use export control (Reg. 2021/821)
 - **Hardware (by deployment mode — DWS does not resell hardware in any mode):**
   - _Local / edge_ — runs on **customer-sited hardware**: existing customer machines, a small edge appliance, or DGX Spark / Jetson class where the physical layer is in scope. Procured by the customer or a partner and scoped per engagement. DWS supplies the platform and the governance layer, not the box.

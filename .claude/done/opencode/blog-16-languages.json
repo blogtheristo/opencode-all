@@ -1,0 +1,17 @@
+{
+  "task": "Blog §16: five-language drafts for every post",
+  "prompt": "Read docs/BLOG_STANDARD.md §3.2, §3.2.1 and §16 first. Runs after opencode/blog-16-headers is merged. Goal: 'node scripts/blog/contract-check.mjs --only languages' exits 0. For every post it lists, write each missing language as a draft docs/blog-drafts/<base>.<lang>.md (fi, sv, de, fr; en as <base>.md when the master is Finnish): a faithful translation of the master draft's body, same headings and paragraph order, no added or dropped claims, every product/regulation/governance term taken from docs/localization/dws-dictionary.json in that language and never a term in its 'forbidden' list (EU AI Act is a regulation: asetus / förordning / Verordnung / règlement). Front matter: copy the master's §16 fields, set lang, translate title, hero and visual_alt, keep slug = master base, seo_tags unchanged, add ai_disclosure: machine-translated from <master file>, pending named human review (EU AI Act Art. 50(4)), and Status: DRAFT. Never edit an existing draft's body, never edit onelifetime.world/, landing-pages/ or posts/*.html, never set Status: APPROVED.",
+  "base": "main",
+  "order": 120,
+  "maxRounds": 10,
+  "checks": [
+    {
+      "name": "five languages",
+      "run": "node scripts/blog/contract-check.mjs --only languages"
+    },
+    {
+      "name": "no public site edits",
+      "run": "test -z \"$(git diff --name-only origin/main...HEAD -- onelifetime.world landing-pages)\""
+    }
+  ]
+}

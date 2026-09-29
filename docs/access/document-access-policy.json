@@ -17,7 +17,7 @@
   ],
 
   "version": "1.0",
-  "updated": "2026-09-24",
+  "updated": "2026-09-28",
 
   "classes": {
     "public": {
@@ -87,6 +87,11 @@
     "Patterns are JS regular expressions."
   ],
   "rules": [
+    {
+      "class": "confidential",
+      "why": "Fundraising strategy, SAFE/cap terms and revenue projections found in Learn/ during the 28.09.2026 Blog editor review (previously matched the internal rule).",
+      "patterns": ["fundraising-roadmap", "fundraising_roadmap", "deep_tech_thesis", "dws7_roadmap"]
+    },
     {
       "class": "confidential",
       "why": "Cap table, SAFE terms, diligence, pre-term-sheet and investor Q&A.",

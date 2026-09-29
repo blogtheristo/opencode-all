@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.10 [Latest]
+Version: 1.11 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.10 [Latest] | Tool: Claude Code (Opus 5) | Session: claude/practical-meitner-k9bhnn (salvage of claude/backoffice-open-items, PR #2075 closed unmerged) | Date: 27.09.2026 (orig. 24.09.2026) | Changes: Additive **Appendix F** — binds ontology vocabulary to the admin documentation that operationally explains it. Appendices D/E answer what a term is called; F answers where it is documented. Adds `scripts/ontology-admin-index.mjs` (deterministic, no model per Rule 5) generating `docs/ontology/admin-term-index.json` from CCP seed terms + `kb/wiki/concepts/` + every heading under `Admin/`, plus `npm run ontology:index` / `ontology:lookup`. Pointers only — `Admin/` stays source-of-truth, nothing is copied. Paired with a new CLAUDE.md resolver rule obliging agents to look up a term before asserting how a system works; written after a session gave the HIC three rounds of wrong Cloudflare Tunnel instructions while the correct runbook sat unread in `Admin/ADMIN_MANUAL.md`.
+- Version: 1.11 [Latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: Additive **Appendix E.1** — the dictionary `ontologyId` values and the section of this document each one points to. HIC 28.09.2026: every blog SEO term is bound to the ontology (BLOG_STANDARD §16), so the 13 SEO terms that were `none` got ids; two ids are new (`dws_platform`, `process_model`).
+- Version: 1.10 [not latest] | Tool: Claude Code (Opus 5) | Session: claude/practical-meitner-k9bhnn (salvage of claude/backoffice-open-items, PR #2075 closed unmerged) | Date: 27.09.2026 (orig. 24.09.2026) | Changes: Additive **Appendix F** — binds ontology vocabulary to the admin documentation that operationally explains it. Appendices D/E answer what a term is called; F answers where it is documented. Adds `scripts/ontology-admin-index.mjs` (deterministic, no model per Rule 5) generating `docs/ontology/admin-term-index.json` from CCP seed terms + `kb/wiki/concepts/` + every heading under `Admin/`, plus `npm run ontology:index` / `ontology:lookup`. Pointers only — `Admin/` stays source-of-truth, nothing is copied. Paired with a new CLAUDE.md resolver rule obliging agents to look up a term before asserting how a system works; written after a session gave the HIC three rounds of wrong Cloudflare Tunnel instructions while the correct runbook sat unread in `Admin/ADMIN_MANUAL.md`.
 - Version: 1.9 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Additive §17 — product taxonomy: group tags (SME, DWS IQ, Firehorse), attribute tags (Hardware, Sovereign, Air-Gapped, Sovereign Cloud, US Sovereign Cloud, On-Prem, Gov Ready, Licence, Subscription, Installation, Pilot, Free, Training, Early Access) and product lifecycle states (HIC 25.09.2026). Dictionary gains `product_tag_*` keys.
 - Version: 1.8 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Additive §4.1 — LWM has two named layers: model base (TRUTH line 20) and state register and memory (IDV/TRS/PRV, KYA-S1 part 9, HIC 09.08.2026). Resolves the open term conflict in the draft `lifetime-world-model-ja-teollisuuden-prosessimallit`. Dictionary gains the KYA-S1 §16.6 table, LWM, process-model terms and domain taglines.
 - Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 18.09.2026 | Changes: Additive **Appendix E** pointer — `docs/localization/dws-dictionary.json` binds five-language termKeys to `ontologyId` (or explicit `none`) for later LF-ONTOLOGY-25 / LWM-ONT-SOVEREIGN builds. CCP Appendix D is unchanged. Prices stay in `dws10.com/config/products.json`.
@@ -28,7 +29,7 @@ Session Links & References:
 Document Status:
 
 - Created: 21.01.2026
-- Last Modified: 25.09.2026
+- Last Modified: 28.09.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -1985,6 +1986,26 @@ Pointer only — do not treat this appendix as a price or industry-count source.
 | kya-jev advisory                   | `src/agents/dictionary-kya-jev.ts`      | Signed KYA `allowed` verdict required. Output is not a glossary lock. Confidence is `self-reported-uncalibrated` (`docs/KYA_JEV_SPECIFICATION.md` §7). |
 
 Industry slug aliases used when `scope_type=industry` in Appendix D: `construction` → industry 8, steel aliases → industry 2. New industry CCP rows are added only when a preferred term actually differs.
+
+### E.1 Ontology ids used by the dictionary (2026-09-28)
+
+Each `ontologyId` in `dws-dictionary.json` names one part of this document. A new id is added here
+before the dictionary uses it. Blog SEO tags must resolve to one of these (BLOG_STANDARD §16.1).
+
+| `ontologyId`          | Section of this document                                             | Typical terms                                 |
+| --------------------- | -------------------------------------------------------------------- | --------------------------------------------- |
+| `sovereignty`         | §6 DWS6 Enterprise Ontology (EU framework), §15.4 connector decision | sovereign, data sovereignty, Aegis, CLOUD Act |
+| `compliance_agent`    | §6 DWS6 Enterprise Ontology — EU regulatory framework                | CSRD, CBAM, EU AI Act, dual-use               |
+| `carbon_balance`      | §6 DWS6 Enterprise Ontology — Fit for 55 / ETS                       | emissions, carbon balance                     |
+| `kya_governance`      | §16 KYA Ontology                                                     | KYA, HIC, Article 14, TRS, lease token        |
+| `agent_auditing`      | §16.4 runtime mechanisms, §13.3 per-decision lineage                 | Article 12 logging, audit trail               |
+| `agent_communication` | §16.5 process and integration concepts                               | agent-to-agent messaging                      |
+| `infrastructure`      | §13.7 Embedded Edge Ontology                                         | agent isolation, edge runtime                 |
+| `observability`       | §8 Safety & Orchestration                                            | monitoring, tracing                           |
+| `lwm`                 | §4 Lifetime World Model                                              | LWM, state register                           |
+| `agent_taxonomy`      | §6 Entity Ontology (WHO/WHAT)                                        | Skilled Agent                                 |
+| `dws_platform`        | §6 DWS6 Enterprise Ontology — DWS IQ platform entities               | DWS IQ                                        |
+| `process_model`       | §16.5 process and integration concepts (with BPMN 2.0)               | ISA-95, SysML, VSM, SIPOC                     |
 
 ## 17. Product Taxonomy — groups, attribute tags and lifecycle states (v1.9)
 

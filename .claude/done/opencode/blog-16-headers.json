@@ -1,0 +1,17 @@
+{
+  "task": "Blog §16: bring every post's draft header up to BLOG_STANDARD §16",
+  "prompt": "Read docs/BLOG_STANDARD.md §16 first. Goal: 'node scripts/blog/contract-check.mjs --only header' exits 0. For every post it lists: (1) If no draft exists, create docs/blog-drafts/<base>.md (base = the published file name without .html) from the published onelifetime.world/posts/<base>.html: the article text VERBATIM as plain markdown (headings, paragraphs, lists; no nav, footer, cards or share blocks), never reworded, plus the header below with Status: APPROVED and approved: <the post's published date> (published before) because it is already live. (2) For every draft, add or complete the §16.2 front matter: slug = the file's base name exactly (never rename a published URL; for files whose Slug differs, set slug to the file base and keep the old value as legacy_slug); hero = one sentence of at most 160 characters taken from the post's meta description or first paragraph, in the post's language, not new claims; visual: infographic; visual_src: docs/blog-drafts/img/<base>.svg; visual_alt: a one-line description in the post's language of an infographic of the post's main mechanism; seo_tags: 3–8 keys from docs/localization/dws-dictionary.json 'shared' with seo: true whose term (in the post's language) or KYA code actually appears in the text, at least 3 with ontologyId other than none. Keep every existing header field and every word of the body unchanged; convert an old-style header (leading Key: value lines) into a --- block keeping all its fields and its Status line. Never edit onelifetime.world/, landing-pages/ or any posts/*.html. Never set Status: APPROVED on a draft that is not already published or approved. Skip drafts whose Status starts with RETIRED.",
+  "base": "main",
+  "order": 110,
+  "maxRounds": 8,
+  "checks": [
+    {
+      "name": "headers complete",
+      "run": "node scripts/blog/contract-check.mjs --only header"
+    },
+    {
+      "name": "no public site edits",
+      "run": "test -z \"$(git diff --name-only origin/main...HEAD -- onelifetime.world landing-pages)\""
+    }
+  ]
+}

@@ -125,7 +125,7 @@
 | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | <strong>Physical</strong> — perception → action           | Sees the facility and acts on it in real time: scene understanding, intent prediction, machine-vision oversight feeding the Control Room / Situation Room | An <strong>adopted open, on-device world model</strong> (NVIDIA Cosmos 3 Edge class) running on customer-sited edge hardware — not a model DWS pretrains | <strong>Planned</strong> — target 2026 Q4, gated on the on-device evaluation. Not shipped today. |
 | <strong>Compliance evidence</strong> — reasoning → record | Turns operations into a court-defensible record: Article 12 logging, reasoning lineage, export-control and climate-compliance assessment                  | A <strong>separate LLM tier</strong> (open models, EU-served) — a different optimisation problem from real-time perception                               | <strong>Live</strong> — Article12Logger, ComplianceAgent, SovereigntyMonitor                     |</p>
-<p><strong>What binds them is the KYA loop</strong> — agent identity, MicroVM isolation, kill authority, private evals and the Article 12 evidence chain. That loop is the part of Aegis that is built on the customer's own operations and cannot be bought off the shelf. The models and the boxes underneath are <strong>components</strong>: adoptable, replaceable, and deliberately not where the defensibility sits. DWS sells the governed outcome layer, not the infrastructure beneath it.</p>
+<p><strong>What binds them is the KYA loop</strong> — agent identity, sandbox isolation, kill authority, private evals and the Article 12 evidence chain. That loop is the part of Aegis that is built on the customer's own operations and cannot be bought off the shelf. The models and the boxes underneath are <strong>components</strong>: adoptable, replaceable, and deliberately not where the defensibility sits. DWS sells the governed outcome layer, not the infrastructure beneath it.</p>
 <h2>Agents Included</h2>
 <p>| Agent              | Capability                                                           | Domain                                |
 | ------------------ | -------------------------------------------------------------------- | ------------------------------------- |
@@ -159,7 +159,7 @@
 <h3>Agent Governance (KYA — Know Your Agent)</h3>
 <ul>
 <li>Agent identity verification (Shufti partnership)</li>
-<li>Firecracker MicroVM sandbox isolation</li>
+<li>Sandbox per agent step with NVIDIA OpenShell (Landlock, seccomp, network namespace), verified in the Aegis Pilot kit 28.09.2026; Firecracker MicroVM isolation is roadmap, not yet implemented</li>
 <li>Kill authority — revoke any agent in real-time</li>
 <li>Forensic observability — full decision audit trail</li>
 <li>Multi-agent control room for fleet oversight</li>
@@ -222,7 +222,7 @@
 <li><strong>Cache:</strong> UpCloud Managed Valkey/Redis</li>
 <li><strong>GPU:</strong> NVIDIA L40S nodes available for local LLM inference</li>
 <li><strong>SLA:</strong> 99.9% application-availability target / 99.999% underlying infrastructure (UpCloud)</li>
-<li><strong>Isolation:</strong> Firecracker MicroVM per agent, no shared tenancy</li>
+<li><strong>Isolation:</strong> OpenShell sandbox per agent step (Landlock, seccomp, network namespace), no shared tenancy. Firecracker MicroVM isolation is roadmap, not yet implemented</li>
 <li><strong>Compliance:</strong> EU AI Act Article 12, NIS2, GDPR, CER Directive, EU CRM Act, dual-use export control (Reg. 2021/821)</li>
 <li><strong>Hardware (by deployment mode — DWS does not resell hardware in any mode):</strong></li>
 <li><em>Local / edge</em> — runs on <strong>customer-sited hardware</strong>: existing customer machines, a small edge appliance, or DGX Spark / Jetson class where the physical layer is in scope. Procured by the customer or a partner and scoped per engagement. DWS supplies the platform and the governance layer, not the box.</li>
