@@ -157,12 +157,20 @@ dws6-sync() {
   read -r behind ahead < <(git -C "$p" rev-list --left-right --count origin/main...main)
   if (( ahead > 0 )); then
     tag="rescue/dgx-main-$(date +%Y%m%d-%H%M%S)"
-    if ! { git -C "$p" branch "$tag" main && git -C "$p" push -q -u origin "$tag"; }; then
+    git -C "$p" fetch -q origin 2>/dev/null
+    if [[ -n "$(git -C "$p" branch -r --contains main 2>/dev/null)" ]]; then
+      # Every local commit is already on some GitHub branch — nothing to save.
+      git -C "$p" branch "$tag" main 2>/dev/null
+      echo "dws6-sync: $ahead local commit(s) on main are already on GitHub ($(git -C "$p" branch -r --contains main | head -1 | xargs)); local copy kept as $tag" >&2
+    # A rescue branch is only a backup: skip the DGX pre-push local CI (it may be red for unrelated reasons).
+    elif ! { git -C "$p" branch "$tag" main && SKIP_LOCAL_CI=1 git -C "$p" push -q -u origin "$tag"; }; then
       echo "dws6-sync: could not save $ahead local commit(s) to $tag on GitHub — main left as is" >&2
       return 1
+    else
+      echo "dws6-sync: $ahead local commit(s) that were only on the DGX's main are saved on $tag (pushed)" >&2
     fi
     git -C "$p" reset -q --hard origin/main
-    echo "dws6-sync: $ahead local commit(s) that were only on the DGX's main are saved on $tag (pushed); main reset to origin/main" >&2
+    echo "dws6-sync: main reset to origin/main" >&2
   elif (( behind > 0 )); then
     git -C "$p" merge -q --ff-only origin/main && echo "dws6-sync: main updated by $behind commit(s)" >&2
   fi
