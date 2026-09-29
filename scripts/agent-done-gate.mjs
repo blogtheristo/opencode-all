@@ -26,6 +26,7 @@
  *   todo        it.todo / test.todo count did not grow vs. --since (fail) or the merge base (warn)
  *   whitespace  lines changed only in whitespace (warning — usually a model rewriting unrelated lines)
  *   typecheck   tsc --noEmit when .ts changed (--full)
+ *   lint        eslint errors on changed src/ files, as CI's lint-check (--full)
  *   tests       vitest related --run on changed source (--full)
  *   spec        every check in .claude/done/<branch>.json exits 0 — the task's own acceptance
  *
@@ -176,6 +177,13 @@ if (FULL) {
   if (ts.length) {
     const r = run('npx', ['--no-install', 'tsc', '--noEmit', '-p', 'tsconfig.json']);
     add('typecheck', r.ok ? 'pass' : 'fail', r.ok ? 'tsc clean' : tail(r.out));
+  }
+  // CI's lint-check runs `eslint src` and fails on errors; the loop's first two PRs passed this
+  // gate and went red there (unused test vars, import() type annotations).
+  const lintable = changed.filter((f) => /^src\/.*\.m?[jt]sx?$/.test(f) && existsSync(f));
+  if (lintable.length) {
+    const r = run('npx', ['--no-install', 'eslint', '--quiet', ...lintable]);
+    add('lint', r.ok ? 'pass' : 'fail', r.ok ? 'eslint clean' : tail(r.out));
   }
   const src = changed.filter((f) => /\.m?[jt]sx?$/.test(f) && existsSync(f));
   if (src.length) {

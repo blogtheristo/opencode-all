@@ -810,6 +810,27 @@ for (const key of [
   if (shared[key]) shared[key].seo = true;
 }
 
+// Every SEO term is bound to the active ontology (BLOG_STANDARD §16.1 item 5, HIC 28.09.2026).
+// Ids and the ONTOLOGY.md section each one points to: ONTOLOGY.md Appendix E.1.
+const SEO_ONTOLOGY = {
+  aegis: 'sovereignty',
+  cld_act: 'sovereignty',
+  dual_use: 'compliance_agent',
+  eu_ai_act: 'compliance_agent',
+  article_12: 'agent_auditing',
+  article_14: 'kya_governance',
+  kya: 'kya_governance',
+  agent_isolation: 'infrastructure',
+  dws_iq: 'dws_platform',
+  isa_95: 'process_model',
+  sysml: 'process_model',
+  vsm: 'process_model',
+  sipoc: 'process_model',
+};
+for (const [key, id] of Object.entries(SEO_ONTOLOGY)) {
+  if (shared[key]?.ontologyId === 'none') shared[key].ontologyId = id;
+}
+
 const AEGIS_EXCLUDE = new Set([17, 19, 20, 21]);
 
 const INDUSTRY_META = [

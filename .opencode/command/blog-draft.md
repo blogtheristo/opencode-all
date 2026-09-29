@@ -36,18 +36,32 @@ is still your job.**
 
 ### 1. Draft
 
-Write the full post text to `docs/blog-drafts/<slug>.md`:
+Write the full post text to `docs/blog-drafts/<slug>.md` (FI/SV/DE/FR variants:
+`<slug>.<lang>.md`), with the front matter of `docs/BLOG_STANDARD.md` §16.2:
 
 ```
+---
+slug: <slug>                 # lowercase-words-with-hyphens, ≤ 60 chars, no date (§16.3)
+lang: <en|fi|sv|de|fr>
+title: "<title>"
+hero: "<one sentence, ≤ 160 chars: the reader's gain>"
+visual: <infographic|illustration|photo|video>
+visual_src: docs/blog-drafts/img/<slug>.<ext>
+visual_alt: "<alt text in the post's language>"
+seo_tags: [<3–8 keys of docs/localization/dws-dictionary.json shared, seo: true>]
+demo_agent: <optional agent id>
+demo_url: <optional; only if it runs for any reader>
+target: onelifetime.world/posts/<slug>.html
+date: <YYYY-MM-DD>
+author: Risto Anton Päärni
 Status: DRAFT
-Slug: <slug>
-Title: <title>
-Language: <fi|en|...>
-Target: onelifetime.world/posts/<slug>.html
-Date: <YYYY-MM-DD>
+---
 
 <the complete body text — every word that will appear on the page>
 ```
+
+Fill every §16 field you can; leave a missing one visibly empty rather than inventing it (no
+visual that does not exist, no demo that does not run). The Blog editor shows the gaps per draft.
 
 Plain prose. No HTML. This file is what the HIC reads, so it must be the whole
 post, not a summary, outline or description of the post.
@@ -71,7 +85,7 @@ whole angle. After each round, re-emit the **full** text in one block, not a
 diff. They are reviewing the finished thing, not the change.
 
 If the HIC prefers line-by-line confirmation, use the `/dialog` convention:
-propose each change as `muutos;` *current sentence* → *improved sentence* and
+propose each change as `muutos;` _current sentence_ → _improved sentence_ and
 apply on `agree`.
 
 ### 4. Approve
@@ -97,12 +111,12 @@ Then tell the HIC where it landed: the file path and the live URL.
 
 ## Failure modes this is meant to kill
 
-| Symptom | What went wrong | The rule |
-| --- | --- | --- |
-| Published, HIC never saw the text | Draft step skipped | The gate blocks it |
-| Drafted, never published | Loop abandoned mid-way | A `Status: DRAFT` file is unfinished work — surface it, do not leave it |
-| HIC saw an audit/summary, not the post | Showed *about* the text | Step 2 is the full text, in one block |
-| HIC approved, wording changed after | Edited post-approval | Any post-approval edit reopens the loop |
+| Symptom                                | What went wrong         | The rule                                                                |
+| -------------------------------------- | ----------------------- | ----------------------------------------------------------------------- |
+| Published, HIC never saw the text      | Draft step skipped      | The gate blocks it                                                      |
+| Drafted, never published               | Loop abandoned mid-way  | A `Status: DRAFT` file is unfinished work — surface it, do not leave it |
+| HIC saw an audit/summary, not the post | Showed _about_ the text | Step 2 is the full text, in one block                                   |
+| HIC approved, wording changed after    | Edited post-approval    | Any post-approval edit reopens the loop                                 |
 
 ## Open drafts
 
