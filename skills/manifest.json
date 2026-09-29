@@ -157,6 +157,13 @@
   },
   "entries": [
     {
+      "id": "aegis-pilot",
+      "name": "aegis-pilot",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/aegis-pilot/SKILL.md"
+    },
+    {
       "id": "agent-run",
       "name": "agent-run",
       "kind": "slash-command",
