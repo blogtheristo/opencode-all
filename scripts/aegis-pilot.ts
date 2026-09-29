@@ -17,6 +17,7 @@
  *   stop            --state-dir D --agent ID|'*' --operator-credential C --operator-key K --reason R
  *   verify          --state-dir D [--record FILE] [--expect-key-id K]
  *   reconcile       --state-dir D --scope F [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
+ *   authority       --state-dir D [--scope F] [--agent ID]   who held decision authority, and what followed
  *   status          --state-dir D
  *
  * Exit codes: 0 ok/PASS · 1 error · 2 NEGATIVE_RESULT · 3 NOT_TAKEN or INVALID · 4 verification failed.
@@ -29,6 +30,9 @@ import { parseArgs } from 'node:util';
 import {
   CAP_AGENT_STOP,
   EvidenceLedger,
+  buildAuthorityRecord,
+  recordGrant,
+  recordRevoke,
   type HandlerModuleRef,
   createIsolatedRegistry,
   createOpenShellRegistry,
@@ -50,6 +54,7 @@ import {
   verifyLedger,
   type PilotScope,
 } from '../src/aegis/pilot/index.js';
+import { canonicalJSON, sha256 } from '../src/aegis/pilot/crypto.js';
 
 const { values: a, positionals } = parseArgs({
   allowPositionals: true,
@@ -185,6 +190,25 @@ function stopMode(): 'hard' | 'cooperative' {
   return m;
 }
 
+/** Append to the site ledger (grants, revocations). Fails loud if a run holds the ledger. */
+function withLedger(site: SiteAuthority, fn: (ledger: EvidenceLedger) => void): void {
+  const ledger = EvidenceLedger.open(statePaths(site.stateDir).ledger, {
+    siteId: site.manifest.siteId,
+    orgId: site.manifest.siteId,
+    signer: (h) => site.sign(h),
+    publicKey: site.publicKey,
+  });
+  try {
+    fn(ledger);
+  } finally {
+    ledger.close();
+  }
+}
+
+function scopeDigestOf(scope: PilotScope): string {
+  return sha256(canonicalJSON(scope));
+}
+
 async function main(): Promise<void> {
   const cmd = positionals[0];
   switch (cmd) {
@@ -226,6 +250,17 @@ async function main(): Promise<void> {
         subjectPublicKeyPem: kp.publicKeyPem,
         ttlHours: Number(a['ttl-hours'] ?? 72),
       });
+      withLedger(site, (ledger) =>
+        recordGrant(
+          ledger,
+          cred,
+          {
+            scopeDigest: a.scope ? scopeDigestOf(loadScope()) : null,
+            basis: 'operator stop authority issued',
+          },
+          crypto.randomUUID(),
+        ),
+      );
       out({
         ok: true,
         command: cmd,
@@ -240,7 +275,19 @@ async function main(): Promise<void> {
     case 'revoke': {
       const site = SiteAuthority.load(need('state-dir'));
       site.revoke(need('credential'));
+      withLedger(site, (ledger) => recordRevoke(ledger, need('credential'), crypto.randomUUID()));
       out({ ok: true, command: cmd, revoked: a.credential });
+      break;
+    }
+    case 'authority': {
+      // Who held decision authority, and what followed — derived from the signed ledger only.
+      const site = SiteAuthority.load(need('state-dir'));
+      const record = buildAuthorityRecord(site.stateDir, {
+        publicKey: site.publicKey,
+        scope: a.scope ? loadScope() : undefined,
+        agentIds: a.agent ? [a.agent] : undefined,
+      });
+      out({ ok: true, command: cmd, ...record });
       break;
     }
     case 'validate-scope': {
@@ -438,6 +485,7 @@ async function main(): Promise<void> {
             'verify',
             'reconcile',
             'status',
+            'authority',
           ],
         },
         1,
