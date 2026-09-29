@@ -1,14 +1,15 @@
-# Aegis Pilot Day 2: ledger segments and retention (C2)
+# Aegis Pilot Day 2: ledger segments (C2), policy proof (C4), M4 plan
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0 [Latest]
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: Claude Code (web) | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: Day 2 patch of the DWS-AEGIS-PILOT-001 readiness plan. Picked up after the GitHub Copilot session ran out of quota while choosing the patch. C2 built, tested and security-reviewed; three loop specs extended. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.1 [Latest] | Tool: Claude Code (web) | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: Rest of the Day 2 list from main's handoff: §9 C4 policy proof with the real prover and its security review, §10 H3/M4 on the DGX Spark, §11 OCSF hand-off, §12 PhD §14.57, §13 C3. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.0 [not latest] | Tool: Claude Code (web) | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: Day 2 patch of the DWS-AEGIS-PILOT-001 readiness plan. Picked up after the GitHub Copilot session ran out of quota while choosing the patch. C2 built, tested and security-reviewed; three loop specs extended. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 
 Session Links & References:
 
@@ -93,3 +94,28 @@ Accepted as limits: L1 (a failed seal leaves a seal event mid-segment, fail loud
 ## 8. HIC decision
 
 Should the retention classes become part of the signed Phase 0 scope (per customer, with §4 values as the minimum), or stay fixed in code for the pilot?
+
+## 9. C4: the sandbox policy proof (29.09.2026)
+
+The offers say core steps have no network. Until today that rested on the generated policy. `src/aegis/pilot/openshell-prover.ts` now proves each step's policy, and the stop-test agent's, against a boundary written separately from the generator. It uses NVIDIA's standalone Z3 checker, `openshell-prover check`, built here from source at `cfcc373` in 1 min 17 s.
+
+- **Real-binary result:** all six reference policies are `within_boundary`. A core-step policy carrying a network rule is `exceeds_boundary`, with a counterexample naming 1.1.1.1.
+- **Defect found by the prover:** non-core L4 rules carried the L7 field `enforcement`. The prover rejected them as "mixes REST controls into L4 authority". The sandbox ignores that field on L4 rules (it is read only for `protocol: rest`), so dropping it changes no runtime behaviour and makes the policy provable.
+- **Security review:** the first verdict was FAIL (conditional; 3 high, 4 medium). The verdict is now re-derived and never taken from `ok`. The prover is pinned by SHA-256, and a private copy of the hashed bytes is executed. The envelope is fully validated. Prover and sandboxes share one options object, and a run whose sandbox policy digest differs from the proven one is `INVALID`. An acceptance run refuses a missing, failed or unpinned proof. Re-review: see the PR.
+- **Limits:** for non-core steps the boundary is the operator's endpoint list, not the signed scope (the CLI configures none today). The stop-test agent's runtime policy digest is not recorded.
+
+## 10. H3 and M4 (HIC 29.09.2026)
+
+M4 runs on the DGX Spark with `physical-disconnect`. There is no router deny-all. The plan's H3 row and staging risk say so, and runbook §6.2 holds the checklist: arm64 build and images, fresh state directory, proof, probes and rehearsals, seal and anchor, the witnessed run, and second-machine verification.
+
+## 11. OCSF events: moved to the M4 session
+
+This needs a live gateway. The container has no Docker daemon, so the code could not be verified here and was not written. The source facts are in plan row C4.
+
+## 12. PhD §14.57
+
+The Hugging Face signal went in additively as §14.57, version 4.17 on all four files. The number §14.56 had meanwhile been taken by another section, and renumbering it would be a structural edit. A Prettier reformat of §14.53 made while the section was being added was reverted, so the edit stays additive. Sales pipeline 1.5.
+
+## 13. C3 threat model
+
+`docs/plans/AEGIS_PILOT_THREAT_MODEL.md`.
