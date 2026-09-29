@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: §2 ydinvaiheiden verkottomuus sidottu OpenShell-sääntöön ja testattavaksi vaiheessa 1 (todennettu oikealla hiekkalaatikolla 29.09.2026); A.1 varatilan rajaus: säiemoodissa verkottomuus vaatii isännän palomuurisäännön. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
+- Version: 1.2 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: HIC 29.09.2026: poistettu §2:n lause 'Kerroitte kesäkuussa, että tarvitsette erityisesti hiilicompliancea'. Lähde oli muistikuva suullisesta keskustelusta, jota Kemira ei voi vahvistaa; tarjous ei lainaa sitä nimellä ja kuukaudella. Kysymys seisoo ilman väitettä. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
+- Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: §2 ydinvaiheiden verkottomuus sidottu OpenShell-sääntöön ja testattavaksi vaiheessa 1 (todennettu oikealla hiekkalaatikolla 29.09.2026); A.1 varatilan rajaus: säiemoodissa verkottomuus vaatii isännän palomuurisäännön. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: Kemira-versio yleisestä tarjouksesta v1.5 (HIC 28.9.2026: 'Tarjous menee Kemiralle'). Pilotoitava työnkulku = tuotteen hiilijalanjälki (PCF) päätösvallan tietueena; compliance on työnkulun sisältö, ei erillinen tuote. Hinta ja ehdot kuten v1.5. Kemira-faktat lähteestä sales-outreach/INTRO_MARIA_SEDERHOLM_KEMIRA.md; vahvistamattomat merkitty. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 
 Document Status:
@@ -58,7 +59,7 @@ Hiekkalaatikko, jossa agentti ajetaan, on tämän alla. Käytämme siihen NVIDIA
 
 **Teidän ensimmäinen työnkulkunne käytössä — ja teidän päätösvaltanne pysäyttää sen.** Emme tuo uutta prosessia emmekä valmista katalogityönkulkua. Tuomme kehyksen, jossa teidän oma työnkulkunne ajetaan ja pysäytetään niin, että päätösvalta ja vastuuketju pysyvät teillä.
 
-Kerroitte kesäkuussa, että tarvitsette erityisesti hiilicompliancea. Ehdotamme pilotin työnkuluksi sen kohdan, jossa päätösvallan kysymys on jo nyt todellinen: **kun Kemira antaa asiakkaalle tai raporttiin tuotteen hiilijalanjäljen, kuka hyväksyi luvun, mistä datasta se laskettiin ja mitä siitä seurasi?**
+Ehdotamme pilotin työnkuluksi kohdan, jossa päätösvallan kysymys on jo nyt todellinen: **kun Kemira antaa asiakkaalle tai raporttiin tuotteen hiilijalanjäljen, kuka hyväksyi luvun, mistä datasta se laskettiin ja mitä siitä seurasi?**
 
 Ehdotus, joka vahvistetaan vaiheessa 0:
 
