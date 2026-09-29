@@ -14,7 +14,6 @@ store_code	id	availability
 8496329	business-mentor-30	on_display_to_order
 8496329	firehorse-coach	on_display_to_order
 8496329	firehorse-flow	on_display_to_order
-8496329	professional-web-pages	on_display_to_order
 8496329	firehorse-data-services	on_display_to_order
 8496329	devops-lead	on_display_to_order
 8496329	ai-koulutus-3d	on_display_to_order
@@ -32,6 +31,16 @@ store_code	id	availability
 8496329	LF-DGX-SPARK	on_display_to_order
 8496329	LF-JETSON-NX	on_display_to_order
 8496329	LF-IGX-ORIN	on_display_to_order
+8496329	LF-K8S-T1	on_display_to_order
+8496329	LF-K8S-T2	on_display_to_order
+8496329	LF-K8S-T3	on_display_to_order
+8496329	LF-K8S-T4	on_display_to_order
+8496329	LF-GOV-READY-SETUP	on_display_to_order
+8496329	LF-GOV-AIRGAP-BUNDLE	on_display_to_order
+8496329	LF-FIPS-VALIDATION	on_display_to_order
+8496329	LF-IPCMAX-IPC409	on_display_to_order
+8496329	LF-IPCMAX-IPCP68	on_display_to_order
+8496329	LF-IPCMAX-CINCOZE-DA1200	on_display_to_order
 8496329	DWS-SOVEREIGN-DB-001	on_display_to_order
 8496329	DWS-AEGIS-001	preorder
 8496329	DWS-AEGIS-PILOT-001	preorder
@@ -50,7 +59,10 @@ store_code	id	availability
 8496329	LAND-SOV	on_display_to_order
 8496329	LAND-OPS	on_display_to_order
 8496329	LAND-GTM	on_display_to_order
-8496329	LAND-THEMIS	on_display_to_order
 8496329	LAND-WF	on_display_to_order
 8496329	AIS-EU-SOV-OC	on_display_to_order
 8496329	AIS-OUTCOME-PILOT	on_display_to_order
+8496329	DWS-IQ-ESS-SETUP	on_display_to_order
+8496329	LIFETIME-WEB-STARTER	on_display_to_order
+8496329	LIFETIME-WEBSTORE-MINI	on_display_to_order
+8496329	LIFETIME-IT-TUKI-10H	on_display_to_order
