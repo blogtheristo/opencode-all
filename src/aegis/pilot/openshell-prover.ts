@@ -77,7 +77,14 @@ export interface StepProof {
 
 export interface ContainmentProof {
   ok: boolean;
-  prover: { version: string | null; binarySha256: string; schemaVersion: number | null };
+  prover: {
+    version: string | null;
+    /** SHA-256 of the exact bytes executed (a private copy of the binary). */
+    binarySha256: string;
+    /** True only when the caller supplied an expected hash and it matched. */
+    pinned: boolean;
+    schemaVersion: number | null;
+  };
   steps: StepProof[];
 }
 
@@ -132,42 +139,60 @@ const RESULTS = new Set([
   'error',
 ]);
 
+/** Domains the proof must cover; a prover that models less cannot certify the policy. */
+export const REQUIRED_DOMAINS = ['filesystem', 'network_l4', 'network_rest', 'process', 'landlock'];
+
+const cap = (v: string | null, n = 500) => (v && v.length > n ? `${v.slice(0, n)}…` : v);
+
+/** Options that decide the generated policy. Pass the SAME object to the run's registry. */
+export interface PolicyOptions {
+  endpointsByStep?: Readonly<Record<string, readonly NetworkEndpoint[]>>;
+  nodeBinary?: string;
+}
+
 /**
  * Prove every step's generated policy (and the stop-test agent's) against its
  * boundary. Never throws for a failed proof: the caller decides, and the
- * record carries the verdict either way.
+ * record carries the verdict either way. The binary is hashed once and a
+ * private copy of those exact bytes is executed, so the hash names what ran.
  */
 export async function proveStepPolicies(opts: {
   steps: readonly PilotStep[];
   proverPath: string;
-  endpointsByStep?: Readonly<Record<string, readonly NetworkEndpoint[]>>;
-  nodeBinary?: string;
+  /** Expected SHA-256 of the prover binary. Required for an acceptance run (proofProblems). */
+  expectSha256?: string;
+  policy?: PolicyOptions;
   timeoutMs?: number;
   runner?: ProverRunner;
 }): Promise<ContainmentProof> {
   const run = opts.runner ?? execProver;
   const timeoutMs = opts.timeoutMs ?? 30_000;
-  const dir = mkdtempSync(join(tmpdir(), 'aegis-prove-'));
+  const policyOpts: PolicyOptions = opts.policy ?? {};
+  const bytes = readFileSync(opts.proverPath);
+  const binarySha256 = sha256(bytes);
+  if (opts.expectSha256 && opts.expectSha256.toLowerCase() !== binarySha256) {
+    throw new Error(
+      `openshell-prover at ${opts.proverPath} has sha256 ${binarySha256}, expected ${opts.expectSha256}`,
+    );
+  }
   const proof: ContainmentProof = {
     ok: true,
-    prover: {
-      version: null,
-      binarySha256: sha256(readFileSync(opts.proverPath)),
-      schemaVersion: null,
-    },
+    prover: { version: null, binarySha256, pinned: !!opts.expectSha256, schemaVersion: null },
     steps: [],
   };
+  const dir = mkdtempSync(join(tmpdir(), 'aegis-prove-'));
   try {
+    const exe = join(dir, 'openshell-prover');
+    writeFileSync(exe, bytes, { mode: 0o700, flag: 'wx' });
     for (const step of [...opts.steps, STOP_TEST_STEP]) {
-      const policyOpts = { endpointsByStep: opts.endpointsByStep, nodeBinary: opts.nodeBinary };
       const candidate = stepPolicy(step, policyOpts);
       const boundary = stepBoundary(step, policyOpts);
       const cPath = join(dir, `${step.id}.candidate.json`);
       const bPath = join(dir, `${step.id}.boundary.json`);
-      writeFileSync(cPath, JSON.stringify(candidate), { mode: 0o600 });
-      writeFileSync(bPath, JSON.stringify(boundary), { mode: 0o600 });
+      writeFileSync(cPath, JSON.stringify(candidate), { mode: 0o600, flag: 'wx' });
+      writeFileSync(bPath, JSON.stringify(boundary), { mode: 0o600, flag: 'wx' });
       const out = await run(
-        opts.proverPath,
+        opts.runner ? opts.proverPath : exe,
         ['check', cPath, '--boundary', bPath, '-o', 'json', '--timeout', '10s'],
         timeoutMs,
       );
@@ -183,27 +208,50 @@ export async function proveStepPolicies(opts: {
       };
       try {
         const env = JSON.parse(out.stdout) as Record<string, unknown>;
-        if (typeof env.result === 'string' && RESULTS.has(env.result)) {
-          entry.result = env.result as StepProof['result'];
-        } else {
-          entry.reason = `unrecognised prover result ${JSON.stringify(env.result)}`;
+        const inputs = (env.inputs ?? {}) as Record<string, unknown>;
+        const domains = ((env.coverage ?? {}) as { domains?: unknown }).domains;
+        const problems: string[] = [];
+        if (typeof env.result !== 'string' || !RESULTS.has(env.result)) {
+          problems.push(`unrecognised result ${JSON.stringify(env.result)}`);
         }
-        entry.reasonCode = typeof env.reason_code === 'string' ? env.reason_code : null;
-        entry.reason ??= typeof env.reason === 'string' ? env.reason : null;
-        entry.counterexample = env.counterexample ?? null;
-        proof.prover.version ??= typeof env.prover_version === 'string' ? env.prover_version : null;
+        if (env.schema_version !== 1) problems.push(`schema_version ${String(env.schema_version)}`);
+        if (env.check !== 'boundary') problems.push(`check ${String(env.check)}`);
+        if (inputs.candidate !== cPath || inputs.boundary !== bPath) {
+          problems.push('envelope names other input files');
+        }
+        if (env.exit_code !== out.code) {
+          problems.push(`prover exit ${out.code} disagrees with envelope ${String(env.exit_code)}`);
+        }
+        if (env.result === 'within_boundary') {
+          if (out.code !== 0) problems.push(`within_boundary with exit ${out.code}`);
+          if (env.counterexample !== null && env.counterexample !== undefined)
+            problems.push('within_boundary with a counterexample');
+          const covered = Array.isArray(domains) ? domains : [];
+          const missing = REQUIRED_DOMAINS.filter((d) => !covered.includes(d));
+          if (missing.length) problems.push(`coverage lacks ${missing.join(', ')}`);
+        } else if (out.code === 0) {
+          problems.push(`exit 0 with result ${String(env.result)}`);
+        }
+        entry.reasonCode = typeof env.reason_code === 'string' ? cap(env.reason_code, 100) : null;
+        entry.reason = cap(typeof env.reason === 'string' ? env.reason : null);
+        const cx =
+          env.counterexample === null || env.counterexample === undefined
+            ? null
+            : JSON.stringify(env.counterexample);
+        entry.counterexample =
+          cx === null ? null : cx.length <= 2000 ? env.counterexample : { sha256: sha256(cx) };
+        proof.prover.version ??=
+          typeof env.prover_version === 'string' ? cap(env.prover_version, 64) : null;
         proof.prover.schemaVersion ??=
           typeof env.schema_version === 'number' ? env.schema_version : null;
-        // The process exit code must match the envelope, and 0 only for within_boundary.
-        if (
-          env.exit_code !== out.code ||
-          (entry.result === 'within_boundary') !== (out.code === 0)
-        ) {
-          entry.reason = `prover exit ${out.code} disagrees with result ${entry.result}`;
+        if (problems.length) {
           entry.result = 'error';
+          entry.reason = cap(problems.join('; '));
+        } else {
+          entry.result = env.result as StepProof['result'];
         }
       } catch {
-        entry.reason = `prover gave no JSON (exit ${out.code}): ${out.stderr.slice(0, 300)}`;
+        entry.reason = `prover gave no JSON (exit ${out.code})`;
       }
       if (entry.result !== 'within_boundary') proof.ok = false;
       proof.steps.push(entry);
@@ -212,4 +260,32 @@ export async function proveStepPolicies(opts: {
     rmSync(dir, { recursive: true, force: true });
   }
   return proof;
+}
+
+/**
+ * Re-derive the verdict instead of trusting `proof.ok`: every scope step and
+ * the stop-test agent must be present exactly once, each within its boundary,
+ * and (for an acceptance run) the prover must have been pinned.
+ */
+export function proofProblems(
+  proof: ContainmentProof,
+  stepIds: readonly string[],
+  opts: { requirePinned?: boolean } = {},
+): string[] {
+  const problems: string[] = [];
+  if (stepIds.includes(STOP_TEST_STEP.id)) {
+    problems.push(`scope step id "${STOP_TEST_STEP.id}" is reserved for the stop-test agent`);
+  }
+  const expected = [...stepIds, STOP_TEST_STEP.id].sort();
+  const got = (proof.steps ?? []).map((s) => s.step).sort();
+  if (canonicalJSON(expected) !== canonicalJSON(got)) {
+    problems.push(`proof covers [${got.join(', ')}], expected [${expected.join(', ')}]`);
+  }
+  for (const s of proof.steps ?? []) {
+    if (s.result !== 'within_boundary') problems.push(`${s.step}: ${s.result}`);
+  }
+  if (opts.requirePinned && !proof.prover?.pinned) {
+    problems.push('prover binary not pinned (--expect-prover-sha256)');
+  }
+  return problems;
 }

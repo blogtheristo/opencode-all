@@ -13,13 +13,13 @@
  *   probe           --scope F
  *   run             --state-dir D --scope F --kind rehearsal|acceptance
  *                   (--operator-credential C --operator-key K | --await-operator [--timeout-s 600])
- *                   [--witness W] [--hold] [--stop-mode hard|cooperative] [--containment worker|openshell [--image I] [--openshell-prover P]] [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
+ *                   [--witness W] [--hold] [--stop-mode hard|cooperative] [--containment worker|openshell [--image I] [--openshell-prover P --expect-prover-sha256 H]] [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   stop            --state-dir D --agent ID|'*' --operator-credential C --operator-key K --reason R
  *   verify          --state-dir D [--record FILE] [--expect-key-id K]
  *   reconcile       --state-dir D --scope F [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   authority       --state-dir D [--scope F] [--agent ID]   who held decision authority, and what followed
  *   status          --state-dir D
- *   prove           --scope F --openshell-prover P   (sandbox policy of every step within its boundary)
+ *   prove           --scope F --openshell-prover P [--expect-prover-sha256 H]   (every step's sandbox policy within its boundary)
  *   seal            --state-dir D [--max-bytes N] [--max-age-days N] [--force]
  *   segments        --state-dir D [--expect-seal DIGEST]   (anchor from an earlier 'seal' output)
  *   prune           --state-dir D [--confirm TOKEN]   (without it: lists expired segments and the token)
@@ -46,6 +46,7 @@ import {
   createStopCommand,
   generateEd25519,
   loadCredential,
+  type PolicyOptions,
   proveStepPolicies,
   pruneExpiredSegments,
   sealActiveSegment,
@@ -96,6 +97,7 @@ const { values: a, positionals } = parseArgs({
     image: { type: 'string' },
     'openshell-cli': { type: 'string' },
     'openshell-prover': { type: 'string' },
+    'expect-prover-sha256': { type: 'string' },
     agent: { type: 'string' },
     reason: { type: 'string' },
     record: { type: 'string' },
@@ -113,6 +115,13 @@ function need(name: keyof typeof a): string {
   if (typeof v !== 'string' || !v) throw new Error(`--${String(name)} is required`);
   return v;
 }
+
+/**
+ * What decides each sandbox policy. The SAME object goes to the prover and to the
+ * sandboxes, so the proven policy is the enforced one (the run also compares
+ * digests). Non-core endpoints are not configurable from the CLI yet.
+ */
+const POLICY_OPTIONS: PolicyOptions = { nodeBinary: '/usr/local/bin/node' };
 
 function loadScope(): PilotScope {
   const v = validateScope(JSON.parse(readFileSync(need('scope'), 'utf8')));
@@ -163,6 +172,7 @@ async function loadRegistry(
         image: a.image ?? 'aegis-pilot-node:22',
         workRoot: resolve(stateDir, 'sandbox-work'),
         cli: a['openshell-cli'] ?? 'openshell',
+        ...POLICY_OPTIONS,
       },
       scope.workflow.steps,
     );
@@ -336,11 +346,17 @@ async function main(): Promise<void> {
             key: privateKeyFromPem(readFileSync(need('operator-key'), 'utf8')),
           };
       // C4: prove every generated sandbox policy against its boundary before the run.
+      const openshell = stopMode() === 'hard' && containmentMode() === 'openshell';
+      if (a['openshell-prover'] && !openshell) {
+        throw new Error('--openshell-prover needs --containment openshell with the hard stop');
+      }
       const proof =
-        stopMode() === 'hard' && containmentMode() === 'openshell' && a['openshell-prover']
+        openshell && a['openshell-prover']
           ? await proveStepPolicies({
               steps: scope.workflow.steps,
               proverPath: resolve(a['openshell-prover']),
+              expectSha256: a['expect-prover-sha256'],
+              policy: POLICY_OPTIONS,
             })
           : undefined;
       const signed = await runAcceptance({
@@ -362,6 +378,7 @@ async function main(): Promise<void> {
                     image: a.image ?? 'aegis-pilot-node:22',
                     workRoot: resolve(stateDir, 'sandbox-work'),
                     cli: a['openshell-cli'] ?? 'openshell',
+                    nodeBinary: POLICY_OPTIONS.nodeBinary,
                   },
                   tickMs,
                 )
@@ -496,6 +513,8 @@ async function main(): Promise<void> {
       const proof = await proveStepPolicies({
         steps: scope.workflow.steps,
         proverPath: resolve(need('openshell-prover')),
+        expectSha256: a['expect-prover-sha256'],
+        policy: POLICY_OPTIONS,
       });
       out({ ok: proof.ok, command: cmd, ...proof }, proof.ok ? 0 : 4);
       break;

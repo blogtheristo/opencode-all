@@ -22,8 +22,8 @@
       "run": "node scripts/evidence-audit.mjs src/aegis/pilot/ledger-segments.ts src/aegis/pilot/evidence-ledger.ts scripts/aegis-pilot.ts src/__tests__/aegis-pilot-segments.test.ts"
     },
     {
-      "name": "real openshell-prover proves every reference step within its boundary",
-      "run": "P=${AEGIS_OPENSHELL_PROVER:-}; [ -x \"$P\" ] || { echo 'SKIP: set AEGIS_OPENSHELL_PROVER to a built openshell-prover'; exit 0; }; node --import tsx scripts/aegis-pilot.ts prove --scope config/aegis-pilot/reference-scope.json --openshell-prover \"$P\" 2>/dev/null | grep -q '\"ok\": true'"
+      "name": "real openshell-prover (pinned by sha256) proves every reference step within its boundary; a wrong pin is refused",
+      "run": "P=${AEGIS_OPENSHELL_PROVER:-}; [ -x \"$P\" ] || { echo 'SKIP: set AEGIS_OPENSHELL_PROVER to a built openshell-prover'; exit 0; }; H=$(sha256sum \"$P\" | cut -d' ' -f1); node --import tsx scripts/aegis-pilot.ts prove --scope config/aegis-pilot/reference-scope.json --openshell-prover \"$P\" --expect-prover-sha256 $H 2>/dev/null | grep -q '\"pinned\": true' && ! node --import tsx scripts/aegis-pilot.ts prove --scope config/aegis-pilot/reference-scope.json --openshell-prover \"$P\" --expect-prover-sha256 0000000000000000000000000000000000000000000000000000000000000000 >/dev/null 2>&1"
     },
     {
       "name": "real openshell-prover rejects a core-step policy that carries a network rule",
