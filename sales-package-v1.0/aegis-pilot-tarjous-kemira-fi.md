@@ -4,11 +4,13 @@
 
 ---
 
-Version: 1.0 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: Kemira-versio yleisestä tarjouksesta v1.5 (HIC 28.9.2026: 'Tarjous menee Kemiralle'). Pilotoitava työnkulku = tuotteen hiilijalanjälki (PCF) päätösvallan tietueena; compliance on työnkulun sisältö, ei erillinen tuote. Hinta ja ehdot kuten v1.5. Kemira-faktat lähteestä sales-outreach/INTRO_MARIA_SEDERHOLM_KEMIRA.md; vahvistamattomat merkitty. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
+- Version: 1.2 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: HIC 29.09.2026: poistettu §2:n lause 'Kerroitte kesäkuussa, että tarvitsette erityisesti hiilicompliancea'. Lähde oli muistikuva suullisesta keskustelusta, jota Kemira ei voi vahvistaa; tarjous ei lainaa sitä nimellä ja kuukaudella. Kysymys seisoo ilman väitettä. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
+- Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: §2 ydinvaiheiden verkottomuus sidottu OpenShell-sääntöön ja testattavaksi vaiheessa 1 (todennettu oikealla hiekkalaatikolla 29.09.2026); A.1 varatilan rajaus: säiemoodissa verkottomuus vaatii isännän palomuurisäännön. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
+- Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: Kemira-versio yleisestä tarjouksesta v1.5 (HIC 28.9.2026: 'Tarjous menee Kemiralle'). Pilotoitava työnkulku = tuotteen hiilijalanjälki (PCF) päätösvallan tietueena; compliance on työnkulun sisältö, ei erillinen tuote. Hinta ja ehdot kuten v1.5. Kemira-faktat lähteestä sales-outreach/INTRO_MARIA_SEDERHOLM_KEMIRA.md; vahvistamattomat merkitty. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 
 Document Status:
 
@@ -57,14 +59,14 @@ Hiekkalaatikko, jossa agentti ajetaan, on tämän alla. Käytämme siihen NVIDIA
 
 **Teidän ensimmäinen työnkulkunne käytössä — ja teidän päätösvaltanne pysäyttää sen.** Emme tuo uutta prosessia emmekä valmista katalogityönkulkua. Tuomme kehyksen, jossa teidän oma työnkulkunne ajetaan ja pysäytetään niin, että päätösvalta ja vastuuketju pysyvät teillä.
 
-Kerroitte kesäkuussa, että tarvitsette erityisesti hiilicompliancea. Ehdotamme pilotin työnkuluksi sen kohdan, jossa päätösvallan kysymys on jo nyt todellinen: **kun Kemira antaa asiakkaalle tai raporttiin tuotteen hiilijalanjäljen, kuka hyväksyi luvun, mistä datasta se laskettiin ja mitä siitä seurasi?**
+Ehdotamme pilotin työnkuluksi kohdan, jossa päätösvallan kysymys on jo nyt todellinen: **kun Kemira antaa asiakkaalle tai raporttiin tuotteen hiilijalanjäljen, kuka hyväksyi luvun, mistä datasta se laskettiin ja mitä siitä seurasi?**
 
 Ehdotus, joka vahvistetaan vaiheessa 0:
 
 - **Laajuus:** yksi tuotelinja (esim. Fiber Essentials) ja yksi tuotantopaikka.
 - **Mitä agentit tekevät:** kokoavat tuotteen hiilijalanjäljen laskennan paikallisesta tuotanto- ja energiadatasta sekä toimittajien ilmoittamista hiilijalanjäljistä, teidän menetelmänne mukaan. Laskentamenetelmä on teidän; pilotti ei validoi menetelmää vaan tekee sen soveltamisesta todennettavaa.
 - **Kuka päättää:** yksikään luku ei lähde asiakkaalle eikä raporttiin ennen kuin nimetty hyväksyjä on hyväksynyt sen. Tietue näyttää laskennan lähtötietojen tiivisteet, menetelmän version, hyväksyjän ja sen, mitä luvulle tapahtui (lähetetty, pidätetty, korjattu).
-- **Mikä pysyy tehtaalla:** reseptit ja prosessiajot eivät poistu kohteesta. Ydinvaiheilla ei ole verkkoyhteyttä. Hyväksytyn luvun siirto raportointijärjestelmään on ei-ydinvaihe, joka jonoutuu yhteyskatkon ajaksi allekirjoitettuna.
+- **Mikä pysyy tehtaalla:** reseptit ja prosessiajot eivät poistu kohteesta. Ydinvaiheilla ei ole verkkoyhteyttä: OpenShell-hiekkalaatikon sääntö estää niiltä kaikki yhteydet (TCP, UDP, IPv6) ja vastaa nimikyselyihin paikallisesti lähettämättä niitä eteenpäin. IT-osastonne voi testata tämän itse vaiheessa 1. Hyväksytyn luvun siirto raportointijärjestelmään on ei-ydinvaihe, joka jonoutuu yhteyskatkon ajaksi allekirjoitettuna.
 - **Kenen työnkulku:** kestävyys käyttää lukua, tuotanto omistaa datan, digitalisaatio järjestelmät ja päätösvalta on usein operatiivisella johdolla. Vaihe 0 nimeää, kuka tässä työnkulussa pitää päätösvallan. Ilman nimeä pilottia ei aloiteta.
 
 CSRD-varmentajanne ja asiakkaanne kysyvät saman kysymyksen: mistä luku tuli ja kuka sen hyväksyi. Tietue tuottaa siihen aineiston. Sen riittävyyden toteaa varmentajanne.
@@ -136,7 +138,7 @@ Tämä liite on tarkastajalle ja teknisille arvioijille. Se erottaa, mikä on to
 
 Pysäytyskomennon vastaanottaa, tarkistaa ja kirjaa **isäntäpuolen ajuri**: Aegis-prosessi, joka ajaa työnkulkua ja pitää lokia. Agentin työvaihe ajetaan erillisessä OpenShell-hiekkalaatikossa, jossa se voi kirjoittaa vain hiekkalaatikon omiin hakemistoihin. Sillä ei ole pääsyä kohteen allekirjoitusavaimeen, lokiin eikä pysäytyskomentojen saapumiskansioon. Loki hyväksyy vain kohteen avaimella allekirjoitetut merkinnät, joten agentti ei voi kirjoittaa lokiin mitään, ei edes omaa pysäytystään.
 
-Jos kohde ei täytä OpenShellin edellytyksiä (Linux 6.2+, Landlock, kontti), vaiheet ajetaan säikeissä samassa prosessissa. Silloin ajuri ei ole agentin ulottumattomissa käyttöjärjestelmän tasolla, ja hyväksyntätietue kirjaa eristystason nimenomaisesti.
+Jos kohde ei täytä OpenShellin edellytyksiä (Linux 6.2+, Landlock, kontti), vaiheet ajetaan säikeissä samassa prosessissa. Silloin ajuri ei ole agentin ulottumattomissa käyttöjärjestelmän tasolla, eikä ydinvaiheiden verkottomuus ole hiekkalaatikon asetus: se on varmistettava isännän palomuurisäännöllä, jonka teidän ylläpitäjänne asettaa. Hyväksyntätietue kirjaa eristystason nimenomaisesti.
 
 ### A.2 Pysäytyksen järjestys ja pysäytyshetki
 
