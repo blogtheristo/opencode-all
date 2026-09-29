@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
 // Audit trail: git log -- src/aegis/pilot/evidence-ledger.ts
 /**
  * Aegis Pilot — local Article 12 evidence ledger (PRODUCT_AEGIS_PILOT.md, requirement 1).
@@ -55,6 +55,9 @@ export type LedgerEventType =
   | 'system.uplink_probe'
   | 'system.degraded'
   | 'system.reconcile'
+  // Segments and retention (ledger-segments.ts, plan item C2)
+  | 'system.segment_seal'
+  | 'system.segment_pruned'
   | 'system.agent_terminated'
   | 'workflow.start'
   | 'workflow.complete'
@@ -107,6 +110,11 @@ export interface LedgerOptions {
   publicKey?: KeyObject;
   /** Truncate a torn final line (crash mid-write) and log it as an incident instead of refusing. */
   repairTornTail?: boolean;
+  /**
+   * Extra genesis detail for a new segment: the signed link to the previous
+   * segment's sealed head (ledger-segments.ts). Cannot override site/org/format.
+   */
+  genesisDetail?: Record<string, unknown>;
 }
 
 export interface LedgerVerification {
@@ -283,7 +291,12 @@ export class EvidenceLedger {
         ledger.append({
           event_type: 'system.genesis',
           trace_id: randomUUID(),
-          detail: { site_id: opts.siteId, org_id: opts.orgId, format: 'aegis-pilot-ledger/1' },
+          detail: {
+            ...opts.genesisDetail,
+            site_id: opts.siteId,
+            org_id: opts.orgId,
+            format: 'aegis-pilot-ledger/1',
+          },
         });
       }
       if (tornBytes > 0) {
@@ -345,6 +358,17 @@ export class EvidenceLedger {
     }, intervalMs);
     timer.unref?.();
     return () => clearInterval(timer);
+  }
+
+  /**
+   * Close the file but keep the single-writer lock, so no other writer can append
+   * between a segment's seal event and the roll. Call the returned release once.
+   */
+  closeHoldingLock(): () => void {
+    if (this.closed) throw new Error('ledger is closed');
+    this.closed = true;
+    closeSync(this.fd);
+    return () => releaseLock(this.lockPath);
   }
 
   close(): void {

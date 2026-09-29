@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
 // Audit trail: git log -- src/aegis/pilot/index.ts
 /**
  * DWS IQ Aegis Pilot (DWS-AEGIS-PILOT-001) — local-first substrate and
@@ -7,6 +7,7 @@
 export * from './scope.js';
 export * from './identity.js';
 export * from './evidence-ledger.js';
+export * from './ledger-segments.js';
 export * from './kill-authority.js';
 export * from './uplink-probe.js';
 export * from './workflow-runner.js';

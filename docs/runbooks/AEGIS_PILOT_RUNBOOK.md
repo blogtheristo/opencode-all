@@ -4,17 +4,18 @@
 
 ---
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Hard stop (readiness plan patch C1): steps and the stop-test agent run in terminable worker threads by default; §8 rewritten; acceptance refuses the cooperative stop. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.2 [Latest] | Tool: Claude Code | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: Ledger segments and retention (readiness plan patch C2): §2 layout, new §4 "Ledger segments and retention" with `seal` / `segments` / `prune`, §8 whole-ledger bullet covers sealed segments. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Hard stop (readiness plan patch C1): steps and the stop-test agent run in terminable worker threads by default; §8 rewritten; acceptance refuses the cooperative stop. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Created. Operator runbook for the local-first pilot kit (`src/aegis/pilot/`, `scripts/aegis-pilot.ts`): one section per pilot phase in `Store/PRODUCT_AEGIS_PILOT.md`, each exit gate mapped to a command and the evidence it produces. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 
 Document Status:
 
 - Created: 28.09.2026
-- Last Modified: 28.09.2026
+- Last Modified: 29.09.2026
 - Language: English
 - Publication Status: ACTIVE (internal delivery reference)
 - Classification: INTERNAL
@@ -45,7 +46,8 @@ Nothing in the kit opens a socket except the uplink probe (which must fail) and 
   site/site.json         site id, key id, public key — the only trust anchor verifiers need
   site/revoked.json      local revocation list
   credentials/*.json     agent and operator credentials issued by the site authority
-  ledger/article12.jsonl the Article 12 record (one signed, chained event per line)
+  ledger/article12.jsonl the Article 12 record (one signed, chained event per line) — the active segment
+  ledger/segments/       sealed segments NNNNNN.jsonl and their signed NNNNNN.seal.json
   kill/                  stop-command inbox; kill/processed, kill/rejected
   outbox/deferred.jsonl  non-core work waiting for reconnect
   acceptance/*.json      signed acceptance records (rehearsal and acceptance)
@@ -106,6 +108,24 @@ npm run aegis:pilot:rehearse-isolated
 ```
 
 This runs the rehearsal inside a fresh network namespace (`unshare --net`), with no interfaces, routes or DNS. It then reconciles with the uplink restored and verifies the record.
+
+### Ledger segments and retention
+
+The active ledger is sealed and rolled so that retention can be honoured without breaking the hash chain (`src/aegis/pilot/ledger-segments.ts`).
+
+```bash
+npm run aegis:pilot -- seal --state-dir /var/lib/aegis-pilot                    # rolls at 64 MiB or 30 days; --force to roll now
+npm run aegis:pilot -- segments --state-dir /var/lib/aegis-pilot --expect-seal <digest> # verifies every segment, seal and link; exit 4 on failure
+npm run aegis:pilot -- prune --state-dir /var/lib/aegis-pilot                   # lists expired segments, the clock used and a confirm token
+npm run aegis:pilot -- prune --state-dir /var/lib/aegis-pilot --confirm <token> # deletes exactly that list
+```
+
+- **Chaining.** A sealed segment ends in a `system.segment_seal` event. Its seal records the file hash, the head hash and the digest of the previous seal, and is signed by the site key. The next segment's genesis event carries `prev_segment` (index, head hash, seal digest). Removing, editing or reordering a segment, or replacing the active ledger with a fresh chain, fails `segments`.
+- **Retention (Article 12 Logging Standard §4).** Routine events (`agent.decide`, `tool.invoke`, heartbeats, probes, workflow events) are kept 6 months. Stops (`human.override`), terminations, acceptance records, incidents and prune records are kept 5 years, and so is any event type not on the 6-month list. A segment is kept until its last event plus its longest class.
+- **Anchor every seal.** `seal` prints an `anchor` (index, head hash, seal digest). Copy the seal digest to the customer's own records, as with the ledger head hash. `segments --expect-seal <digest>` then also catches a rollback of the newest segments, which the state directory alone cannot show (§8).
+- **Pruning is an operator act.** It never runs on a timer. The first call lists the expired segments, the clock it used and a confirm token; only `--confirm <token>` deletes, and only that list. Check the clock before confirming. It refuses a chain that does not verify and a clock behind the newest ledger event, keeps the seal, and writes a `system.segment_pruned` event before deleting.
+- **Interrupted rolls.** A crash during `seal` leaves the active path intact. `segments` reports "interrupted roll", and the next `seal` completes it without creating a new seal. If the customer's sector law requires longer retention (CSRD, NIS2, CER), do not prune those segments.
+- **Seal between runs, not during them.** `seal` refuses while a run holds the ledger lock. The acceptance window's gap check covers the active segment, so seal before the acceptance window opens.
 
 ## 5. Phase 2 — workflow integration (weeks 6–9)
 
@@ -180,7 +200,7 @@ This section follows Rule 12 (fail loud).
 - **`host-egress-block` proves the workload, not the site boundary.** Every record states the rung of the isolation ladder that was used.
 - **A hash chain plus a site signature proves integrity against anyone without the site key.** It does not protect against the key holder. For evidence that must survive the site itself, copy the ledger head hash to the customer's own records at the end of the window. The record prints it for that purpose.
 - **Deferred work is signed too.** Outbox entries carry a site signature. `reconcile` quarantines any entry that fails verification to `deferred.jsonl.quarantine` and records an `incident`; it never replays it.
-- **Condition (ii) checks the whole ledger, not just the window.** Chain validity and signatures are checked from genesis, and a broken chain blocks every later run. This is deliberate: you do not append to evidence known to be tampered with. Gap detection is scoped to the window. After an investigated incident, start a new state directory; never repair the old one.
+- **Condition (ii) checks the whole ledger, not just the window.** Chain validity and signatures are checked from the active segment's genesis, and a broken chain blocks every later run. Sealed segments are checked by `segments` and refuse `prune` when they do not verify. Someone who can write the state directory but lacks the site key cannot forge history, but can roll back the newest segments; only the seal digest anchored outside the directory (`--expect-seal`) detects that. This is deliberate: you do not append to evidence known to be tampered with. Gap detection is scoped to the window. After an investigated incident, start a new state directory; never repair the old one.
 - **Local model serving and hardware sizing** are site-specific Phase 1 and Phase 4 work. The kit does not include them.
 
 ## 9. Related

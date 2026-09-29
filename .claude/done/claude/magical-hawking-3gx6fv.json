@@ -1,0 +1,25 @@
+{
+  "task": "DWS-AEGIS-PILOT-001 Day 2 — readiness plan C2: ledger segments and retention (seal/roll, cross-segment chain, Article 12 §4 retention classes, operator-confirmed prune)",
+  "checks": [
+    {
+      "name": "segments suite passes",
+      "run": "npx vitest run src/__tests__/aegis-pilot-segments.test.ts src/__tests__/aegis-pilot.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+    },
+    {
+      "name": "CLI seal + segments verify, prune without --confirm deletes nothing",
+      "run": "d=$(mktemp -d); P='node --import tsx scripts/aegis-pilot.ts'; $P init --state-dir $d/s --site-id c2-check >/dev/null && $P seal --state-dir $d/s --force | grep -q '\"sealed\": true' && $P segments --state-dir $d/s >/dev/null && $P prune --state-dir $d/s | grep -q '\"confirmed\": false' && test -f $d/s/ledger/segments/000000.jsonl"
+    },
+    {
+      "name": "tampered sealed segment fails verification (exit 4)",
+      "run": "d=$(mktemp -d); P='node --import tsx scripts/aegis-pilot.ts'; $P init --state-dir $d/s --site-id c2-check >/dev/null && $P seal --state-dir $d/s --force >/dev/null && sed -i 's/system.genesis/system.heartbeat/' $d/s/ledger/segments/000000.jsonl; $P segments --state-dir $d/s >/dev/null; [ $? -eq 4 ]"
+    },
+    {
+      "name": "isolated rehearsal still PASSes after a roll",
+      "run": "command -v unshare >/dev/null || { echo 'SKIP: unshare missing'; exit 0; }; d=$(mktemp -d); bash scripts/aegis-pilot-isolated-rehearsal.sh \"$d/s\" >/dev/null 2>&1; node --import tsx scripts/aegis-pilot.ts seal --state-dir \"$d/s\" --force >/dev/null && bash scripts/aegis-pilot-isolated-rehearsal.sh \"$d/s\" 2>/dev/null | grep -q '\"outcome\": \"PASS\"' && node --import tsx scripts/aegis-pilot.ts segments --state-dir \"$d/s\" >/dev/null"
+    },
+    {
+      "name": "evidence headers present",
+      "run": "node scripts/evidence-audit.mjs src/aegis/pilot/ledger-segments.ts src/aegis/pilot/evidence-ledger.ts scripts/aegis-pilot.ts src/__tests__/aegis-pilot-segments.test.ts"
+    }
+  ]
+}

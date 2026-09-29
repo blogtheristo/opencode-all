@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
 // Audit trail: git log -- scripts/aegis-pilot.ts
 /**
  * aegis-pilot — operator CLI for DWS-AEGIS-PILOT-001 (Store/PRODUCT_AEGIS_PILOT.md).
@@ -18,6 +18,9 @@
  *   verify          --state-dir D [--record FILE] [--expect-key-id K]
  *   reconcile       --state-dir D --scope F [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   status          --state-dir D
+ *   seal            --state-dir D [--max-bytes N] [--max-age-days N] [--force]
+ *   segments        --state-dir D [--expect-seal DIGEST]   (anchor from an earlier 'seal' output)
+ *   prune           --state-dir D [--confirm TOKEN]   (without it: lists expired segments and the token)
  *
  * Exit codes: 0 ok/PASS · 1 error · 2 NEGATIVE_RESULT · 3 NOT_TAKEN or INVALID · 4 verification failed.
  */
@@ -36,6 +39,9 @@ import {
   createStopCommand,
   generateEd25519,
   loadCredential,
+  pruneExpiredSegments,
+  sealActiveSegment,
+  verifySegments,
   privateKeyFromPem,
   probeUplink,
   readOutbox,
@@ -61,6 +67,11 @@ const { values: a, positionals } = parseArgs({
     credential: { type: 'string' },
     scope: { type: 'string' },
     kind: { type: 'string' },
+    'max-bytes': { type: 'string' },
+    'max-age-days': { type: 'string' },
+    force: { type: 'boolean' },
+    confirm: { type: 'string' },
+    'expect-seal': { type: 'string' },
     'operator-credential': { type: 'string' },
     'operator-key': { type: 'string' },
     'await-operator': { type: 'boolean' },
@@ -368,6 +379,36 @@ async function main(): Promise<void> {
       });
       break;
     }
+    case 'seal': {
+      const stateDir = need('state-dir');
+      const result = sealActiveSegment({
+        stateDir,
+        site: SiteAuthority.load(stateDir),
+        maxBytes: a['max-bytes'] ? Number(a['max-bytes']) : undefined,
+        maxAgeDays: a['max-age-days'] ? Number(a['max-age-days']) : undefined,
+        force: a.force,
+      });
+      out({ ok: true, command: cmd, ...result });
+      break;
+    }
+    case 'segments': {
+      const stateDir = need('state-dir');
+      const v = verifySegments(stateDir, SiteAuthority.load(stateDir), new Date(), {
+        expectSealDigest: a['expect-seal'],
+      });
+      out({ ok: v.valid, command: cmd, ...v }, v.valid ? 0 : 4);
+      break;
+    }
+    case 'prune': {
+      const stateDir = need('state-dir');
+      const result = pruneExpiredSegments({
+        stateDir,
+        site: SiteAuthority.load(stateDir),
+        confirm: a.confirm,
+      });
+      out({ ok: true, command: cmd, ...result });
+      break;
+    }
     default:
       out(
         {
@@ -384,6 +425,9 @@ async function main(): Promise<void> {
             'verify',
             'reconcile',
             'status',
+            'seal',
+            'segments',
+            'prune',
           ],
         },
         1,
