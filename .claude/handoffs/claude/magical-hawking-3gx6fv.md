@@ -4,8 +4,8 @@
 
 **State (29.09.2026):**
 
-- Day 2 patch = readiness plan item C2, ledger segments and retention: `src/aegis/pilot/ledger-segments.ts`, CLI `seal` / `segments` / `prune`, 18 tests (`src/__tests__/aegis-pilot-segments.test.ts`), runbook v1.2 §4 + §8, plan v1.3.
-- Security review: first verdict FAIL (3 high, 4 medium); all high and medium fixed with tests. Details in `docs/field-notes/2026-09-29-aegis-pilot-day2-ledger-segments.md` §6.
+- Day 2 patch = readiness plan item C2, ledger segments and retention: `src/aegis/pilot/ledger-segments.ts`, CLI `seal` / `segments` / `prune`, 20 tests (`src/__tests__/aegis-pilot-segments.test.ts`), runbook v1.2 §4 + §8, plan v1.3.
+- Security review: first verdict FAIL (3 high, 4 medium), re-review conditional PASS with 2 new medium; all high and medium fixed with tests. Details in `docs/field-notes/2026-09-29-aegis-pilot-day2-ledger-segments.md` §6.
 - Moved to opencode-loop: loop specs A1 (doctor uses `verifySegments`), A2 (bundle carries segments and seals) and A5 (daily seal timer, no prune timer) extended in `.claude/done/opencode/`.
 - Done spec: `.claude/done/claude/magical-hawking-3gx6fv.json`.
 

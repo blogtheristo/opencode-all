@@ -54,7 +54,7 @@ import {
   unlinkSync,
   writeFileSync,
 } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { basename, dirname, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { canonicalJSON, sha256, verifyPayload } from './crypto.js';
 import {
@@ -301,17 +301,27 @@ export function sealActiveSegment(opts: SealOptions): SealResult {
   let release: (() => void) | null = null;
   try {
     for (const f of readdirSync(seg.dir)) {
-      if (f.startsWith('.')) rmSync(join(seg.dir, f), { force: true }); // our own crash leftovers
+      // Our own crash leftovers only; quarantined files stay for the investigation.
+      if (/^\.(tmp-|next-)/.test(f)) rmSync(join(seg.dir, f), { force: true });
+    }
+    // No seal is trusted before it verifies: the site key must never sign a
+    // genesis that links to a planted seal. Only an interrupted roll may proceed.
+    const pre = verifySegments(opts.stateDir, opts.site, now());
+    if (!pre.valid && !pre.reason?.startsWith('interrupted roll')) {
+      throw new Error(`ledger segments do not verify (${pre.reason}); refusing to seal`);
     }
     const seals = readSeals(opts.stateDir);
-    seals.forEach((s, i) => {
-      if (s.index !== i) throw new Error(`seal sequence break at ${i}; run "segments" to inspect`);
-    });
     const last = seals.at(-1);
 
     if (last && interruptedRoll(opts.stateDir, last)) {
       release = ledger.closeHoldingLock();
-      return result(true, last, rollTo(opts.stateDir, last, ledgerOpts));
+      // Recorded in the signed genesis, not only in CLI output: a recovery is also
+      // what a rollback of the active tail looks like (runbook §8).
+      return result(
+        true,
+        last,
+        rollTo(opts.stateDir, last, ledgerOpts, { recovered_roll: last.index }),
+      );
     }
 
     const bytes = statSync(active).size;
@@ -383,10 +393,19 @@ function rollTo(
   stateDir: string,
   seal: SegmentSeal,
   ledgerOpts: LedgerOpenOptions,
+  extra: Record<string, unknown> = {},
 ): { seq: number; hash: string } {
   const active = statePaths(stateDir).ledger;
   const seg = segmentPaths(stateDir);
   const file = seg.file(seal.index);
+  const detail: Record<string, unknown> = { ...extra };
+  // The active file matches the seal here, so a differing file at the segment path
+  // is not ours. Move it aside (never delete it) and record that in the genesis.
+  if (existsSync(file) && sha256(readFileSync(file)) !== seal.sha256) {
+    const aside = `quarantine-${basename(file)}-${randomUUID()}`;
+    renameSync(file, join(seg.dir, aside));
+    detail.quarantined = aside;
+  }
   if (!existsSync(file)) linkSync(active, file);
   if (sha256(readFileSync(file)) !== seal.sha256) {
     throw new Error(`segment ${seal.index} does not match its seal; refusing to roll`);
@@ -397,6 +416,7 @@ function rollTo(
     const next = EvidenceLedger.open(staging, {
       ...ledgerOpts,
       genesisDetail: {
+        ...detail,
         prev_segment: {
           index: seal.index,
           head_hash: seal.headHash,
@@ -481,7 +501,9 @@ export function verifySegments(
     if (s.prevSeal !== (prev ? sealDigest(prev) : null)) {
       fail('seal does not link to the previous seal');
     }
-    if (check.present) {
+    if (i === files.length - 1 && interruptedRoll(stateDir, s)) {
+      fail(`interrupted roll of segment ${s.index}: run "seal" to complete it`);
+    } else if (check.present) {
       const file = seg.file(f.index);
       const raw = readFileSync(file);
       if (sha256(raw) !== s.sha256 || raw.length !== s.bytes) fail('segment file hash mismatch');
@@ -498,8 +520,6 @@ export function verifySegments(
       if (prev && !linkMatches(linkOf(events[0]), prev)) {
         fail('segment genesis does not link to the previous segment');
       }
-    } else if (i === files.length - 1 && interruptedRoll(stateDir, s)) {
-      fail(`interrupted roll of segment ${s.index}: run "seal" to complete it`);
     } else if (!(Date.parse(check.retainUntil ?? '') <= now.getTime())) {
       fail(`segment file missing before its retention ends (${check.retainUntil})`);
     } else {
@@ -545,6 +565,8 @@ export interface PruneResult {
   expired: Array<{ index: number; retainUntil: string; sha256: string }>;
   /** Pass back as `confirm` to delete exactly this list. Null when nothing expired. */
   confirmToken: string | null;
+  /** After a confirmed prune: the segments still verify. */
+  verifiedAfter?: boolean;
 }
 
 /**
@@ -604,5 +626,6 @@ export function pruneExpiredSegments(opts: {
   } finally {
     ledger.close();
   }
-  return { confirmed: true, ...base };
+  const after = verifySegments(opts.stateDir, opts.site, at);
+  return { confirmed: true, ...base, verifiedAfter: after.valid };
 }

@@ -41,7 +41,7 @@ The ledger was one JSONL file that only grew. Deleting old lines breaks the hash
 
 ## 4. Verification
 
-- 18 new vitest cases (`src/__tests__/aegis-pilot-segments.test.ts`) plus the 47 existing pilot cases: 65/65 pass.
+- 20 new vitest cases (`src/__tests__/aegis-pilot-segments.test.ts`) plus the 47 existing pilot cases: 67/67 pass.
 - Isolated rehearsal (`unshare --net`) returns PASS before and after a roll, and `segments` verifies afterwards.
 - Done spec `.claude/done/claude/magical-hawking-3gx6fv.json`: 5/5 checks pass.
 - Security review: see §6.
@@ -70,6 +70,17 @@ The first verdict was FAIL: 0 critical, 3 high, 4 medium and 5 low. All high and
 | M3  | A wrong clock could prune early                           | Confirm token for the exact listed set; refuses a clock behind the newest event; dry run shows the clock                                                           |
 | M4  | Unverified seal index used in paths; malformed seal threw | Index from the file name, validated; malformed seal is a verification failure                                                                                      |
 | L3  | `--max-bytes abc` silently did nothing                    | Rejected                                                                                                                                                           |
+
+The re-review found the fixes sound (conditional PASS) and raised two new medium findings, both fixed with tests:
+
+| ID  | Finding                                                              | Fix                                                                              |
+| --- | -------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| N1  | Recovery trusted the newest seal file without checking its signature | `seal` runs `verifySegments` first; only a verified interrupted roll may proceed |
+| N2  | A planted file at the next segment path wedged sealing               | Moved aside as `quarantine-…` (never deleted) and named in the new genesis       |
+| N3  | A recovery looks the same as a laundered rollback                    | `recovered_roll` is written into the signed genesis                              |
+| N6  | No verification after a prune                                        | `prune` returns `verifiedAfter`                                                  |
+
+Open, accepted: M3 (a clock that jumps forward is shown in the dry run but not blocked), N4 (no copy fallback where hard links are unsupported; fails loud), N5 (a stray seal event inside a segment is harmless).
 
 Accepted as limits: L1 (a failed seal leaves a seal event mid-segment, fail loud), L2 (no cross-check that a pruned file has a prune event), L4 (see §7), L5 (month overflow over-retains).
 

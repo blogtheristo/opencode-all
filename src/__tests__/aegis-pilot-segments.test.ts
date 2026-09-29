@@ -19,6 +19,7 @@ import {
 } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { createHash } from 'node:crypto';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
   EvidenceLedger,
@@ -31,6 +32,8 @@ import {
   statePaths,
   verifySegments,
 } from '../aegis/pilot/index.js';
+
+const sha256Hex = (b: Buffer) => createHash('sha256').update(b).digest('hex');
 
 let dir: string;
 let site: SiteAuthority;
@@ -202,6 +205,32 @@ describe('tamper detection across segments', () => {
     );
   });
 
+  it('refuses to seal over a planted seal that matches the active file (never signs a link to it)', () => {
+    const active = readFileSync(statePaths(dir).ledger);
+    const real = JSON.parse(readFileSync(segmentPaths(dir).seal(1), 'utf8'));
+    const forged = { ...real, index: 2, file: '000002.jsonl', sha256: sha256Hex(active) };
+    writeFileSync(segmentPaths(dir).seal(2), JSON.stringify(forged));
+    expect(() => seal()).toThrow(/refusing to seal/);
+    expect(existsSync(segmentPaths(dir).file(2))).toBe(false);
+    expect(readFileSync(statePaths(dir).ledger)).toEqual(active);
+  });
+
+  it('quarantines a planted segment file during recovery and records it in the genesis', () => {
+    appendEvents(['agent.decide']);
+    seal();
+    writeFileSync(statePaths(dir).ledger, readFileSync(segmentPaths(dir).file(2)));
+    writeFileSync(segmentPaths(dir).file(2), 'planted\n');
+    expect(verifySegments(dir, site, now()).reason).toMatch(/interrupted roll/);
+
+    const again = seal(false);
+    expect(again.sealed && again.recovered).toBe(true);
+    const genesis = JSON.parse(readFileSync(statePaths(dir).ledger, 'utf8').split('\n')[0]);
+    expect(genesis.detail.recovered_roll).toBe(2);
+    expect(genesis.detail.quarantined).toMatch(/^quarantine-000002\.jsonl-/);
+    expect(existsSync(join(segmentPaths(dir).dir, genesis.detail.quarantined))).toBe(true);
+    expect(verifySegments(dir, site, now()).valid).toBe(true);
+  });
+
   it('reports a malformed seal file instead of throwing, and never reads outside the segment dir', () => {
     writeFileSync(segmentPaths(dir).seal(1), '{ torn');
     const v = verifySegments(dir, site, now());
@@ -274,6 +303,7 @@ describe('retention (Article 12 Logging Standard §4)', () => {
     const v = verifySegments(dir, site, now());
     expect(v.valid).toBe(true);
     expect(v.segments[0].pruned).toBe(true);
+    expect(done.verifiedAfter).toBe(true);
   });
 
   it('refuses to prune a chain that does not verify', () => {
