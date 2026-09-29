@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Evidence: Tool=Claude Code Model=anthropic Agent=opencode-task-loop Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic/claude-opus-5-5 Agent=opencode-task-loop Date=2026-09-29
 // Audit trail: git log -- scripts/opencode-task-loop.mjs
 /**
  * opencode-task-loop — run OpenCode unattended from task to task, with no HIC between sessions.
@@ -214,6 +214,9 @@ function runOpencode(t, wt, prompt, round) {
   const env = {
     ...process.env,
     DWS_DONE_GATE: '0', // the loop gates every round itself
+    // OpenCode takes its session directory from PWD, not cwd: without this every round
+    // edits and commits in the primary checkout instead of the task worktree (29.09.2026).
+    PWD: wt,
     // CLAUDE.md Tool Git Identity Rule; GH007-safe (not a private address on the account).
     GIT_AUTHOR_NAME: process.env.GIT_AUTHOR_NAME ?? 'Risto Anton Päärni (opencode)',
     GIT_AUTHOR_EMAIL: process.env.GIT_AUTHOR_EMAIL ?? 'opencode@lifetime.fi',
