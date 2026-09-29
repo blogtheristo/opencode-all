@@ -1,7 +1,7 @@
 # Sales Opportunities Pipeline — PhD Market Signals
 
 **Document ID:** DWS-SALES-PIPELINE-2026-001
-**Version:** 1.4 | **Date:** 2026-09-29
+**Version:** 1.5 | **Date:** 2026-09-29
 **Owner:** Risto Anton Päärni, Lifetime Oy
 **Source:** `docs/PHD_FIREHORSE_EN.md` §14.18–§14.53 (35 market-signal sections) + §14.55 (added 2026-09-28), scored per CLAUDE.md "Market Signal → Sales Pipeline Rule"
 **Classification:** Internal — Sales Engineering
@@ -76,6 +76,17 @@ Merged from both naming passes; duplicates reconciled (Vero = Verohallinto, same
 | UPM                            | IP function in the same network; heavy industry, same disclosure-vs-IP tension | ★★☆☆☆ | Referral via Outokumpu Head of IP, after result |
 | Patentti-insinöörit ry (board) | Finnish patent-engineer association — community channel, not a buyer           | ★☆☆☆☆ | Speaking / article slot, later                  |
 | TBK (German IP law firm)       | IP advisors to industrial clients — possible channel partner in DACH           | ★☆☆☆☆ | No action until a Finnish reference exists      |
+
+**Ambienta SGR -salkun teollisuusyhtiöt** (target buyer: Head of Services / Digital, CTO; product: `DWS-AEGIS-PILOT-001`) — signal: HIC 29.09.2026, Boardy portfolio research, currency-checked 29.09.2026. Channel note: Ambienta is investor-list #2, so outreach does not mention the fund. Drafts: `docs/sales/outreach/2026-09-29-ambienta-portfolio-outreach.md`.
+
+| Account                            | Desk-research rationale                                                                    | Score | Status                         |
+| ---------------------------------- | ------------------------------------------------------------------------------------------ | ----- | ------------------------------ |
+| Babcock Wanson Group               | Industrial boilers + Navinergy remote monitoring; Nordic add-on Chr. Møller (DK) June 2025 | ★★★★☆ | Draft ready, awaiting HIC send |
+| P.I.ECO (Pieco)                    | Water recovery in pharma/cosmetics (GMP audit); new Ambienta ownership March 2026          | ★★★☆☆ | Draft ready, awaiting HIC send |
+| Wateralia                          | Caprari + Calpeda pumps for water utilities (NIS2/CER critical infrastructure)             | ★★★☆☆ | Draft ready, awaiting HIC send |
+| Previero                           | Turnkey plastics-recycling lines; OEM channel into customer plants                         | ★★★☆☆ | Draft ready, awaiting HIC send |
+| Officine Maccaferri                | Geotechnical monitoring + CPT tunnelling robotics on remote sites                          | ★★☆☆☆ | Draft ready, awaiting HIC send |
+| 42CAP / ROI Ventures portfolio (6) | Early-stage software/space; mostly partner fit, not pilot buyers                           | ★★☆☆☆ | Currency check pending         |
 
 **Finnish finance — regulated work stuck on execution, not knowledge** (target buyer: compliance / risk owner and CTO in fintech and insurance; product: `AIS-OUTCOME-PILOT`, KYA) — signals (public LinkedIn posts, HIC 29.09.2026): (1) AO Finland's new CTO launches spec-driven agentic development for regulated industries — "retroactive compliance doesn't fly", audit layer on the existing Azure DevOps stack; (2) Merlinpoint (compliance & risk, DORA): "we know what to do; nobody has time to do it" — the gap is ownership and execution, not another study. Sales score ★★☆☆☆ — segment fit, no named account or trigger. PhD §14.x: pending — numbered after the #2210/#2228 §14.55 collision is resolved (Rule 12).
 
@@ -216,10 +227,11 @@ Reviewed at the same cadence as `/retro` and PhD thesis lockstep updates (CLAUDE
 
 ## Version History
 
-| Version | Date       | Changes                                                                                                                                                              | Author      |
-| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| 1.0     | 2026-09-21 | Initial pass — scored all 35 market-signal sections §14.18–§14.53                                                                                                    | Claude Code |
-| 1.1     | 2026-09-28 | §14.55 NVIDIA Open Agent Safety Platform scored ★★★★☆ (active trigger, reachable segment); named industrial launch partners added as targets, pending account briefs | Claude Code |
-| 1.2     | 2026-09-28 | §14.56 Hugging Face OpenShell traffic-monitoring signal scored ★★★☆☆ (persona + budget line, no named trigger)                                                       | Claude Code |
-| 1.3     | 2026-09-29 | §14.55 row: Google GKE/Vertex AI segment and price argument added after fact-check of an AI-generated NVIDIA-vs-Google summary; score unchanged ★★★★☆                | Claude Code |
-| 1.4     | 2026-09-29 | Microsoft Copilot Autopilot (usage-billed background agents on OpenClaw) scored ★★★☆☆; fixed-price Aegis Pilot as the bounded-cost answer                            | Claude Code |
+| Version | Date       | Changes                                                                                                                                                                                                              | Author      |
+| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| 1.0     | 2026-09-21 | Initial pass — scored all 35 market-signal sections §14.18–§14.53                                                                                                                                                    | Claude Code |
+| 1.1     | 2026-09-28 | §14.55 NVIDIA Open Agent Safety Platform scored ★★★★☆ (active trigger, reachable segment); named industrial launch partners added as targets, pending account briefs                                                 | Claude Code |
+| 1.2     | 2026-09-28 | §14.56 Hugging Face OpenShell traffic-monitoring signal scored ★★★☆☆ (persona + budget line, no named trigger)                                                                                                       | Claude Code |
+| 1.3     | 2026-09-29 | §14.55 row: Google GKE/Vertex AI segment and price argument added after fact-check of an AI-generated NVIDIA-vs-Google summary; score unchanged ★★★★☆                                                                | Claude Code |
+| 1.4     | 2026-09-29 | Microsoft Copilot Autopilot (usage-billed background agents on OpenClaw) scored ★★★☆☆; fixed-price Aegis Pilot as the bounded-cost answer                                                                            | Claude Code |
+| 1.5     | 2026-09-29 | Ambienta SGR portfolio: five industrial accounts scored (Babcock Wanson ★★★★☆; Pieco, Wateralia, Previero ★★★☆☆; Maccaferri ★★☆☆☆), SF-Filter dropped (exited 2022); 42CAP/ROI Ventures names pending currency check | Claude Code |
