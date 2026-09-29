@@ -91,3 +91,20 @@ Risk to watch: if NVIDIA or Google add signed, customer-held audit records to th
 1. **Firecracker claim corrected in all Aegis product versions.** `DWS_SECURITY_STANDARD.md:1067` marks gVisor/Firecracker "not yet implemented"; `src/sandbox/nemoclaw-sandbox.ts` only emits a Firecracker spec. Public copy now says OpenShell sandbox per agent step (verified in the Aegis Pilot kit 28.09.2026), Firecracker on the roadmap. Changed: `Store/PRODUCT_AEGIS.md`; `dws10.com/products/aegis{,.fi,.sv,.de,.fr}.html`; `dws10.com/products/dws-aegis-001{,.fi,.sv,.de,.fr}.html`; `dws10.com/aegis/index{,.fi,.sv,.de,.fr}.html`; the same 15 files under `landing-pages/dws10-com/`.
 2. **Still claiming Firecracker as live (not changed, outside Aegis product pages):** `dws10.com/kya-standard/index.html` (and whitepaper), `dws10.com/sovereignty-assessment/index.html`, `dws10.com/enterprise-integrations/index.html`, `dws10.com/aegis/hackathlon.html` (demo log). Needs a follow-up pass.
 3. **KYA → GKE Agent Sandbox compile** handed to the DGX loop: `.claude/done/opencode/aegis-gke-agent-sandbox-policy.json` (three checks, all failing today).
+
+## 8. HIC follow-up 29.09.2026: remaining pages, NemoClaw, Microsoft Autopilot
+
+**Remaining Firecracker claims fixed** (HIC: yes): `dws10.com/kya-standard/index.html`, `kya-standard/whitepaper/index.html`, `sovereignty-assessment/index.html`, `enterprise-integrations/index.html`, `aegis/hackathlon.html` and their `landing-pages/` mirrors. Left as is: meta keywords, the whitepaper's "we seek to integrate" sentence and the "<125ms (Firecracker production target)" line — both already state intent, not fact.
+
+**NemoClaw agent runs.** NemoClaw is NVIDIA's reference stack on top of OpenShell (field note 2026-06-25). In our code, `NemoClawSandbox` is an in-process tier and allowlist model; `toFirecrackerSpec()` has no caller, so NemoClaw skill calls have no OS-level containment today. Code comments in `src/sandbox/nemoclaw-sandbox.ts`, `src/mcp/nemoclaw-bridge.ts` and `src/mcp/nemoclaw-skill-host.ts` corrected to say so. The fix — run each skill call through the Aegis Pilot OpenShell driver, failing closed — is handed to the DGX loop: `.claude/done/opencode/nemoclaw-openshell-containment.json`.
+
+**Market signal — Microsoft Copilot Autopilot** (HIC screenshot; checked by search 29.09.2026):
+
+- Scout (June 2026) becomes Autopilot: background agents, each with its own cloud computer, storage and identity, triggered from Teams/Outlook, running while the user is offline.
+- Runtime is OpenClaw (MIT). One source (TechTimes, 28.09.2026) claims 138 high-severity CVEs in OpenClaw — not verified.
+- Billing moves to usage-based Copilot Credits; Microsoft advises admins to set spending policies before enabling agent features.
+- HIC reading: estimating cost in advance is "voodoo".
+
+DWS meaning: the buyer now carries two open risks at once — unknown cost and an agent runtime with a vulnerability record. DWS answers both with things already built: a fixed price with a binary acceptance test (Aegis Pilot €19,990), owned compute (DGX-first, §14.20), and OpenShell containment with a signed record. Sales Score ★★★☆☆ (persona + budget line; the trigger is a preview, no named account). PhD §14.x: pending the same HIC decision as the §14.55.5 addendum.
+
+Sources: the-decoder.com (Copilot makeover, Autopilot, usage billing); microsoft.com Copilot blog 02.06.2026 (Scout); techtimes.com 28.09.2026 (OpenClaw CVEs); windowsforum.com (Copilot app rebuild, admin costs).

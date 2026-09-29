@@ -1,5 +1,10 @@
 /**
- * Sandboxed NemoClaw Runner — KYA-Governed Firecracker MicroVM Isolation
+ * Sandboxed NemoClaw Runner — KYA sandbox tier model
+ *
+ * Status 29.09.2026: this is an in-process policy model (tiers, allowlists, limits).
+ * It does not start a MicroVM or an OS sandbox; toFirecrackerSpec() has no caller.
+ * OS-level containment exists only in the Aegis Pilot kit (OpenShell,
+ * src/aegis/pilot/sandbox-step-runner.ts). The numbers below are Firecracker targets.
  *
  * Runs NemoClaw inside a KYA-governed sandbox to contain the MCP attack surface.
  * Uses Firecracker MicroVM specifications from KYA BYO Lifecycle.
