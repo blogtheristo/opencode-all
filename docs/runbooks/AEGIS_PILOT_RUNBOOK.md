@@ -158,6 +158,20 @@ npm run aegis:pilot -- run ... --handlers ./customer-handlers.mjs --kind rehears
    npm run aegis:pilot -- verify --state-dir /var/lib/aegis-pilot --record /var/lib/aegis-pilot/acceptance/<recordId>.json
    ```
 
+6. **Who held decision authority, and what followed.** The acceptance record carries an `authority` section, and the same view can be built at any time from the ledger:
+
+   ```bash
+   npm run aegis:pilot -- authority --state-dir /var/lib/aegis-pilot --scope customer-scope.json [--agent <agent-id>]
+   ```
+
+   For each agent it shows:
+   - the grant: credential, capabilities, and the signed scope it was granted under, with both signatories when the scope matches;
+   - the decisions it made;
+   - what followed: completed, failed, deferred and later reconciled, or stopped;
+   - for a stopped agent: which operator stopped it, when and why, and proof that it did no further work afterwards.
+
+   The record is derived only from the verified ledger. The build refuses a ledger that does not verify. The ledger itself stays pseudonymous; names are resolved from the credentials and scope held on the customer's host.
+
 ### How each condition is judged
 
 | Condition                     | Pass rule (computed, not asserted)                                                                                                                           |
