@@ -4,9 +4,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4 [Latest]
+Version: 1.5 [Latest]
 
-- Version: 1.4 [Latest] | Tool: Claude Code | Session: claude/wizardly-fermi-r23gbg | Date: 29.09.2026 | Changes: Kirje korvattu Boardyn kirjeellä (HIC 29.09.2026) korjauksin: provisiolaskelma, 12 kk vahvistetusta tapaamisesta, yhtiöiden välinen sopimus, vakioallekirjoitus. Boardyn katselmointi: 2.2 hylkäys vasta muistutuksen jälkeen; 3.1 provisio pilotin ja lisenssin hinnoista myös pakettilaskutuksessa; liitteeseen 1 kohta E (Partnerin olemassa olevat keskustelut) ja allekirjoitusjärjestys NDA → E → sopimus + liite.
+- Version: 1.5 [Latest] | Tool: Claude Code | Session: claude/wizardly-fermi-r23gbg | Date: 29.09.2026 | Changes: Liite 1 C: viisi Ambientan salkkuyhtiötä Lifetimen omina lähestymiskohteina (`docs/sales/outreach/2026-09-29-ambienta-portfolio-outreach.md`). Partnerin osoitteesta poistettu virheellinen "Jyväskylä" (yhtiösivu: Savonlinna; tarkistetaan YTJ:stä).
+- Version: 1.4 [not latest] | Tool: Claude Code | Session: claude/wizardly-fermi-r23gbg | Date: 29.09.2026 | Changes: Kirje korvattu Boardyn kirjeellä (HIC 29.09.2026) korjauksin: provisiolaskelma, 12 kk vahvistetusta tapaamisesta, yhtiöiden välinen sopimus, vakioallekirjoitus. Boardyn katselmointi: 2.2 hylkäys vasta muistutuksen jälkeen; 3.1 provisio pilotin ja lisenssin hinnoista myös pakettilaskutuksessa; liitteeseen 1 kohta E (Partnerin olemassa olevat keskustelut) ja allekirjoitusjärjestys NDA → E → sopimus + liite.
 - Version: 1.3 [not latest] | Tool: Claude Code | Session: claude/wizardly-fermi-r23gbg | Date: 29.09.2026 | Changes: Boardy 29.09.2026 (toimisto, jossa useita ajanvaraajia): 1.1 a kattaa yhteydet kumpaankin suuntaan, myös asiakkaan oman yhteydenoton; 6.6 nimetty vastuuhenkilö (Jemina Väätäinen); 7.2 ja salassapitosopimuksen 4.4 kattavat henkilöstön ja CRM:n, ei käyttöä muille asiakkaille eikä yhteiseen prospektointitietokantaan. Numerointi 7.3–7.4 ja 4.5 päivitetty.
 - Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/wizardly-fermi-r23gbg | Date: 29.09.2026 | Changes: HIC 29.09.2026: sopimus on yritysten välinen (Etätapaamisia Oy:llä ajanvaraajia ja muutama kaupan sulkija). Allekirjoittajaksi Simo Leskinen (toimitusjohtaja, LinkedIn), yhteyshenkilöksi Jemina Väätäinen. Lisätty 6.5: ei kolmatta palkkionsaajaa (Boardy).
 - Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/wizardly-fermi-r23gbg | Date: 29.09.2026 | Changes: Etätapaamisia Oy on ajanvaraaja, ei kaupan sulkija (Boardy 29.09.2026; yhtiön rekrytointisivu: 14 €/h + 10–15 € bonus per toteutunut myyntitapaaminen). Kirjeen johdanto korjattu vastaamaan sopimusta: palkkio kaupasta, joka syntyy partnerin järjestämästä tapaamisesta. Lisätty 6.3 (sopimus sitoo yhtiötä, asiakassuhteet kuuluvat Lifetimelle) ja 6.4 (ilmoitus kilpailevista toimeksiannoista).
@@ -54,7 +55,7 @@ risto.paarni@lifetime.fi · +358 400 319 010
 
 ## 2. Provisiosopimus
 
-Osapuolet: Lifetime Oy (Y-tunnus 0772407-9), Laidunmaanraitti 2 A 25, 02330 Espoo ("Lifetime") ja Etätapaamisia Oy (Y-tunnus [__________]), [osoite], Jyväskylä ("Partneri").
+Osapuolet: Lifetime Oy (Y-tunnus 0772407-9), Laidunmaanraitti 2 A 25, 02330 Espoo ("Lifetime") ja Etätapaamisia Oy (Y-tunnus [__________]), [osoite] ("Partneri").
 
 ### 1. Uusi asiakas
 
@@ -185,7 +186,11 @@ Provisiosopimuksen kohta 1.1. Tilanne 29.9.2026. Lista on organisaatiotasoinen; 
 
 Lifetime Oy lisää tähän kirjallisella ilmoituksella kohdan B rahoittajien salkkuyhtiöt sitä mukaa, kun rahoittaja nimeää yhtiön, sekä organisaatiot, joita Lifetime Oy aikoo itse lähestyä. Lisäys ei koske ennen ilmoitusta rekisteröityjä tapaamisia.
 
-[Ei vielä lisäyksiä]
+1. Babcock Wanson Group (Lifetimen oma lähestyminen, 29.9.2026)
+2. P.I.ECO (Pieco) (Lifetimen oma lähestyminen, 29.9.2026)
+3. Wateralia (Caprari, Calpeda) (Lifetimen oma lähestyminen, 29.9.2026)
+4. Previero (Lifetimen oma lähestyminen, 29.9.2026)
+5. Officine Maccaferri (Lifetimen oma lähestyminen, 29.9.2026)
 
 ### E. Partnerin olemassa olevat keskustelut
 
@@ -204,7 +209,7 @@ Suojattuja ovat lisäksi kaikki organisaatiot, joihin Lifetime Oy on ollut yhtey
 ### 1. Osapuolet
 
 Lifetime Oy (Y-tunnus 0772407-9), Laidunmaanraitti 2 A 25, 02330 Espoo ("Lifetime")
-Etätapaamisia Oy (Y-tunnus [__________]), [osoite], Jyväskylä ("Partneri")
+Etätapaamisia Oy (Y-tunnus [__________]), [osoite] ("Partneri")
 
 ### 2. Tarkoitus
 
