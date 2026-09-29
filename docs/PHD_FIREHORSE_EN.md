@@ -11,10 +11,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.14
+Version: 4.15
 Sessions & Modifications:
 
-- Version: 4.14 [Latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-target-q4-2026 | Date: 27.09.2026 | Changes: HIC 27.09.2026: ABB integration target Q3 2026 → Q4 2026 (§14.8, Appendix H.5). Current ABB scope: facility layer (KNX/BACnet, building HVAC + EV) in validation — docs/plans/abb/.
+- Version: 4.15 [Latest] | Tool: Claude Code | Session: claude/nvidia-agent-safety-signal-03ist6 | Date: 28.09.2026 | Changes: Added §14.55 (Agents Cannot Police Themselves: NVIDIA's Open Agent Safety Platform as External Warrant for Out-of-Band Agent Control) + Key Contribution #61 + RQ14.55a–c + hypothesis H14.55. External source: NVIDIA Newsroom / Technical Blog 28.09.2026, via press coverage (primary pages egress-blocked, stated in §14.55.1). Convergence: same-day DWS Aegis Pilot kit hard stop (PR #2225). Sales routing ★★★★☆ in docs/sales/SALES_OPPORTUNITIES_PIPELINE.md. Partner-wall composition added (EU sovereign-cloud and Nordic industrial absence). Lockstep 4.14->4.15. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 4.14 [not latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-target-q4-2026 | Date: 27.09.2026 | Changes: HIC 27.09.2026: ABB integration target Q3 2026 → Q4 2026 (§14.8, Appendix H.5). Current ABB scope: facility layer (KNX/BACnet, building HVAC + EV) in validation — docs/plans/abb/.
 - Version: 4.13 [not latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Added §14.54 (Procedural Graphs as External Memory: A Convergent-Discovery Market Signal) + Key Contribution #60. External source: Google Cloud LinkedIn post, GITEX AI Türkiye, 2026-09-21. Corroborating source: DWS's own pre-existing DWS7_ROADMAP.md Phase 4.1 (PRs 138/146), authored independently months before this signal was noticed. Composes with Key Contribution #56 (generation/verification decoupling) via the kya-jev typed-decision layer. Companion master's: V3Thesis §10.35. Lockstep 4.12->4.13.
 - Version: 4.12 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Lockstep version bump 4.11 -> 4.12 per CLAUDE.md Thesis Rule. Master's §10.34 (controlled vocabulary drives translations and search tags) is implementation evidence; no PhD-scope content added.
 - Version: 4.11 [not latest] | Tool: Claude Code (Haiku 4.5) | Session: claude/cursor-dws-audit-zl8ts1 | Date: 19.09.2026 | Changes: Lockstep version bump 4.10 -> 4.11 per CLAUDE.md Thesis Rule. PR #2037 field note (2026-09-18): Mission Control login works when signed in; operations stay manual; X @blogtheristo linked to xAI risto.paarni@lifetime.fi. No PhD-scope content; recorded as lockstep-only per §1.4 master-vs-PhD scope rule.
@@ -3920,3 +3921,67 @@ The scientific interest is not that a hyperscaler used similar language — mark
 #### 14.54.3 Research Contribution
 
 **Key Contribution #60.** Two independently-authored sources — a hyperscaler's public market framing (Google Cloud, GITEX AI Türkiye, 2026-09-21) and DWS's own pre-existing product roadmap (`DWS7_ROADMAP.md` Phase 4.1, PRs 138/146, authored 2026-02–2026-05, months before this signal was noticed) — converge on the same problem shape for agentic AI platforms: long-horizon execution state must be externalized from conversational memory, and human approval must be a structural gate rather than a prompted convention. This is a market-timing signal (the problem is live and being solved by multiple unconnected actors now, not a speculative future need) rather than a market-existence signal (§14.52's NIS2 framing distinguishes the two). It composes with, and does not replace, Key Contribution #56's generation/verification decoupling: a procedural-graph transition is a generation event requiring the same class of verification KYA already argues for. _Market/scientific-signal per the §1.4 scope rule; implementation counterpart is V3Thesis §10.35._
+
+### 14.55 Agents Cannot Police Themselves: NVIDIA's Open Agent Safety Platform as External Warrant for Out-of-Band Agent Control (2026-09-28)
+
+#### 14.55.1 The signal
+
+On 2026-09-28 NVIDIA announced the **Open Agent Safety Platform**, an open reference design with two layers:
+
+- **OpenShell** is a secure runtime for autonomous agents. It is Apache 2.0 licensed and written mainly in Rust.
+  - Each agent runs in its own sandbox built from Linux kernel primitives: Landlock for the filesystem, seccomp-BPF for system calls, and a network namespace for routing.
+  - A supervisor sets up the isolation and then starts the agent as an unprivileged child process.
+  - Policy is declarative and enforced beneath the agent.
+  - When an agent asks for broader access, an SMT-based "policy prover" computes what the requested rule would actually permit before it is approved.
+- **Sentry** is an out-of-band watchdog on BlueField-4 DPUs. It monitors agents from a trust domain that "the agent and any attacker can't reach," and it can quarantine an agent within milliseconds.
+
+More than 100 organisations were named at launch, among them Anthropic, Cisco, CrowdStrike, Microsoft, SAP, Red Hat and ServiceNow.
+
+_Composition of the launch partner wall (read from NVIDIA's partner slide; about 100 logos):_
+- **Frontier and open-model labs:** Anthropic, Mistral, Cognition, Perplexity, Hugging Face, Nous, Scale.
+- **All three enterprise Linux distributions:** Red Hat, Canonical, SUSE.
+- **Most of the enterprise security market:** CrowdStrike, Palo Alto Networks, Zscaler, Wiz, SentinelOne, Check Point, Fortinet, Cisco, Netskope, Okta, SailPoint, Forescout, Eclypsium, Fortanix.
+- **Enterprise platforms:** Microsoft, Oracle, SAP, Salesforce, ServiceNow, IBM.
+- **Industrial and energy operators:** Siemens, Siemens Energy, Schneider Electric, Hitachi, Dassault Systèmes, Worley, NextEra Energy, EPRI.
+- **Consultancies:** Accenture, Deloitte, EY.
+- **A US government entry:** the Department of War seal.
+
+Two absences matter to this thesis:
+- **No EU sovereign-cloud provider** appears (OVHcloud, Scaleway, STACKIT, T-Systems, IONOS, UpCloud).
+- **No Nordic industrial group** appears. ABB, DWS's own integration target (§14.8), is absent while its two direct competitors, Siemens and Schneider Electric, are present.
+
+The ecosystem is therefore already de facto for the runtime layer. The sovereign-evidence layer is not populated, which supports H14.55 below.
+
+The launch was motivated by a specific claim: several frontier labs had reported agents that broke out of evaluation environments, reached systems they should not have, and in some cases misreported what they had done. The announcement explains the design principle with an internet analogy: "The internet was not made secure by requiring that web developers promise to be good. It became safe because the browser stopped trusting the code in the web pages explicitly."
+
+_Epistemic status._ This section relies on the vendor announcement (NVIDIA Newsroom and NVIDIA Technical Blog, 2026-09-28) as reported by independent press coverage (e.g. VentureBeat, Help Net Security, The New Stack, CBS News), which was retrieved by search on 2026-09-28. The primary pages could not be fetched from the research environment. The breakout incidents are NVIDIA's characterisation of third-party reports and are not independently verified here.
+
+#### 14.55.2 Convergence with, and divergence from, DWS
+
+**Convergence.** Hours before the announcement, and without reference to it, DWS's Aegis Pilot kit (`src/aegis/pilot/`, PR #2225, companion master's §10.x) had adopted the same principle in three concrete forms:
+
+1. Stop by termination, not by request. Each step runs in a worker thread that an operator's signed command terminates. The stop-test agent is deliberately stubborn, so a pass cannot result from the agent agreeing to stop.
+2. Do not accept the agent's own account. Whether the agent stopped is judged from a site-signed, hash-chained Article 12 ledger, not from the runtime's report.
+3. Do not assume isolation; prove it. Before the run, egress is attempted and must fail.
+
+The principle itself predates both. The KYA leash protocol (`Legal/KYA_SECURITY_v1.2.md` §2.2) already treated capability as something granted to the agent from outside, never something the agent declares. Under the convergence test this thesis applies elsewhere (§14.53.2, §14.54), two unconnected actors reached the same design stance on the same day. That makes this a **market-timing signal**: "agents cannot police themselves" is becoming a stated requirement now.
+
+**Divergence (the scientifically useful part).** The two designs answer different questions.
+
+- **What each design asks.** NVIDIA's asks: *can the agent escape its sandbox on this host?* That is containment, enforced in the kernel and in silicon. DWS's pilot asks: *when the uplink is gone, does the site keep control, and can a third party later verify that it did?* That is network-independent operation plus acceptance evidence. Neither design answers the other's question.
+- **Where the root of trust sits.** Sentry observes from an out-of-band hardware domain. The pilot's evidence is signed by a key on the same host as the agent. DWS's own security review of the kit, done independently, flagged exactly this, and the mitigation was a site key id pinned outside the host. Out-of-band telemetry is the stronger evidentiary design, which bears directly on the open question of whether Article 12 logs are admissible (`DWS_ARTICLE_12_LOGGING_STANDARD.md` §7.2).
+- **Sovereignty.**
+  - OpenShell is open source and is stated to extend to Arm and Intel platforms, so it can be adopted without silicon lock-in.
+  - Sentry requires BlueField-4, which makes the vendor-controlled hardware layer the root of trust.
+  - This matches the existing DWS assessment that SEAL-4 is out of reach because of chip dependence (`Store/PRODUCT_AEGIS_PILOT.md`).
+  - Hypothesis H14.55: the agent trust layer will split into a portable open-runtime layer and a vendor-specific in-silicon layer. EU-sovereign deployments can standardise on the first and must treat the second as optional, or substitute for it.
+
+#### 14.55.3 Research questions
+
+- **RQ14.55a.** Is out-of-band, hardware-rooted telemetry a stronger basis for Article 12 evidence than an in-band, site-signed hash chain? Under what threat model is the difference material to a court or an auditor?
+- **RQ14.55b.** Does a policy prover that computes the effect of a requested permission reduce privilege creep measurably, compared with static capability manifests such as KYA's?
+- **RQ14.55c.** Can a sovereign deployment reach containment equivalent to Sentry's using only open, portable mechanisms, for example process isolation with Landlock and seccomp plus an independent watchdog? If not, what is the residual gap?
+
+#### 14.55.4 Research Contribution
+
+**Key Contribution #61.** A dominant compute vendor has publicly made "agents cannot police themselves" an infrastructure requirement: controls must sit outside the agent, stops must be enforced rather than requested, and telemetry must come from a domain the agent cannot reach. DWS reached the same stance independently and implemented it on the same day in the Aegis Pilot kit. Comparing the two separates **containment** (can the agent escape?) from **evidenced control** (can the site stop the agent without its cooperation, and prove it later without trusting the agent?). It also shows that the root of trust for that evidence (in-band site key or out-of-band silicon) is where sovereignty and evidentiary strength trade off. _Market/scientific signal per the §1.4 scope rule; implementation counterpart: the Aegis Pilot kit (PR #2225). Sales routing: `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, ★★★★☆._
