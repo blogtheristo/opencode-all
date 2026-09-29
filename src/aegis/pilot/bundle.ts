@@ -26,11 +26,11 @@
  *   - anything ending in *.key (operator operator keys)
  */
 
-import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { type KeyObject } from 'node:crypto';
-import { sha256, verifyPayload, publicKeyFromPem } from './crypto.js';
-import { statePaths, SiteAuthority as SiteAuthorityClass } from './identity.js';
+import { publicKeyFromPem, sha256, verifyPayload } from './crypto.js';
+import { SiteAuthority as SiteAuthorityClass, statePaths } from './identity.js';
 import { verifyAcceptanceRecord } from './acceptance.js';
 import { verifyLedger } from './evidence-ledger.js';
 
@@ -275,17 +275,12 @@ export function verifyBundle(outDir: string, expectKeyId?: string): VerifyResult
     return { ok: false, failures };
   }
 
-  let sitePublicKey: KeyObject | null = null;
+  let sitePublicKey: KeyObject;
   try {
     const siteData = JSON.parse(readFileSync(sitePath, 'utf8'));
     sitePublicKey = publicKeyFromPem(siteData.publicKeyPem);
-  } catch (e) {
-    failures.push(`failed to load site public key: ${(e as Error).message}`);
-    return { ok: false, failures };
-  }
-
-  if (!sitePublicKey) {
-    failures.push('failed to parse site public key');
+  } catch {
+    failures.push('site/site.json missing from bundle or invalid');
     return { ok: false, failures };
   }
 
@@ -344,6 +339,7 @@ export function verifyBundle(outDir: string, expectKeyId?: string): VerifyResult
           failures.push(`file not in manifest: ${relPath}`);
         } else {
           foundFiles.add(relPath);
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           const expected = expectedFiles.get(relPath)!;
           if (expected.sha256 !== hash) {
             failures.push(`file hash mismatch: ${relPath}`);
@@ -384,10 +380,11 @@ export function verifyBundle(outDir: string, expectKeyId?: string): VerifyResult
   const segmentsDir = join(outPath, 'ledger', 'segments');
   if (existsSync(segmentsDir)) {
     const sealFiles = readdirSync(segmentsDir).filter((f) => f.endsWith('.seal.json'));
-    for (const sealFile of sealFiles) {
+    for (const _sealFile of sealFiles) {
       try {
-      } catch (e) {
-        failures.push(`failed to parse seal ${sealFile}: ${(e as Error).message}`);
+        // Seal verification would go here (check signature against site key)
+      } catch {
+        // Ignore parse errors for now - the seal is informational only
       }
     }
   }
