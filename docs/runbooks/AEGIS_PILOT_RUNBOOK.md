@@ -243,6 +243,10 @@ The HIC decided on 29.09.2026 that M4 runs on the DGX Spark with `isolation.meth
 
 The acceptance record provides the measured inputs: per-step `durationMs`, events in the window, stop latency and the deferred-work volume. The sizing report cites the record id and its signature. It does not reproduce the numbers without a source.
 
+### Nightly rehearsal
+
+Every night the `opencode/aegis-pilot-nightly-rehearsal` worktree runs `scripts/daily/aegis-pilot-rehearsal.sh` as a cron job on DGX Spark. It executes a fresh isolated rehearsal (`scripts/aegis-pilot-isolated-rehearsal.sh`) in a throwaway state directory, records the JSON verdict in `logs/aegis-pilot-rehearsal.jsonl`, and alerts on any outcome other than `PASS`. This provides an always-on sentinel for the pilot platform's health.
+
 ## 8. What the kit does not prove
 
 This section follows Rule 12 (fail loud).
