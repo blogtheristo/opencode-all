@@ -1,0 +1,19 @@
+[Unit]
+Description=Aegis Pilot health probe for %i
+After=network.target
+
+[Service]
+Type=oneshot
+User=aegis-pilot
+StateDirectory=aegis-pilot/%i
+StateDirectoryMode=0700
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=%StateDir
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ExecStart=/usr/bin/node --import tsx /home/admin100/dws6/scripts/aegis-pilot.ts status --state-dir /var/lib/aegis-pilot/%i
+
+[Install]
+WantedBy=multi-user.target

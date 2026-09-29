@@ -1,0 +1,9 @@
+[Unit]
+Description=Aegis Pilot health probe timer for %i
+
+[Timer]
+OnUnitActiveSec=5m
+Unit=aegis-pilot-health@%i.service
+
+[Install]
+WantedBy=timers.target

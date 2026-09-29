@@ -1,0 +1,10 @@
+[Unit]
+Description=Aegis Pilot ledger seal timer (daily)
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+Unit=aegis-pilot-seal@%i.service
+
+[Install]
+WantedBy=timers.target
