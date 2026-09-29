@@ -8,7 +8,7 @@ Version: 1.4 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.4 [Latest] | Tool: Claude Code | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: Ledger segments and retention (readiness plan patch C2): §2 layout, new §4 "Ledger segments and retention" with `seal` / `segments` / `prune`, §8 whole-ledger bullet covers sealed segments. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.4 [Latest] | Tool: Claude Code | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: New §6.2 M4 checklist for the DGX Spark with `physical-disconnect` (HIC 29.09.2026). Ledger segments and retention (readiness plan patch C2): §2 layout, new §4 "Ledger segments and retention" with `seal` / `segments` / `prune`, §8 whole-ledger bullet covers sealed segments. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.3 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: §6.1 step 5: core-step egress probe (`scripts/aegis-pilot-egress-probe.sh`) for the site's IT; worker-mode limit stated. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: OpenShell containment (C4): §6.1 rehearsal setup verified against a real gateway; §8 states what the sandbox stop proves and its measured latency. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Hard stop (readiness plan patch C1): steps and the stop-test agent run in terminable worker threads by default; §8 rewritten; acceptance refuses the cooperative stop. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
@@ -203,6 +203,32 @@ Each step, and the stop-test agent, runs in its own NVIDIA OpenShell sandbox. Th
 3. **Rehearsal:** `AEGIS_CONTAINMENT=openshell AEGIS_IMAGE=<image> AEGIS_OPENSHELL_CLI=<path> scripts/aegis-pilot-isolated-rehearsal.sh`. The run is inside `unshare --net` and reaches the gateway through one Unix-socket bridge (`scripts/aegis-pilot-gateway-bridge.mjs`); nothing else leaves the namespace. On a customer site the gateway runs on the same host, so no bridge is needed.
 4. **Direct run:** `npm run aegis:pilot -- run … --containment openshell --image <image> --openshell-cli <path>` with `OPENSHELL_GATEWAY_ENDPOINT` set.
 5. **Core-step egress probe (Phase 1, the site's IT runs it):** `AEGIS_IMAGE=<image> AEGIS_OPENSHELL_CLI=<path> scripts/aegis-pilot-egress-probe.sh [host:port …]`, passing the site's own targets (proxy, ERP, historian). A plain container of the same image is the control and must reach something; the sandbox with the core-step policy must reach nothing over TCP, UDP or IPv6, and its DNS answers are local synthetic addresses that are never resolved upstream. Exit 0 = PASS. Verified 29.09.2026 against the real gateway. Without OpenShell (worker threads), core steps share the host process's network: the "no network" statement then holds only if the site administrator blocks host egress, and the acceptance record names the containment mode.
+
+### 6.2 M4 — witnessed staging acceptance on the DGX Spark (HIC 29.09.2026)
+
+The HIC decided on 29.09.2026 that M4 runs on the DGX Spark with `isolation.method: physical-disconnect`, and that no router deny-all is needed. The HIC removes the uplink cable and disables Wi-Fi, which is the strongest rung, and is applied by someone other than the system under test. Target 25.10.2026, P80 08.11.2026 (readiness plan H3).
+
+**Before the day (build and rehearse):**
+
+1. **OpenShell for arm64.** Build from source on the Spark without telemetry, at the commit pinned in field note `2026-09-28-nvidia-openshell-aegis-c4.md` §5: `cargo build --release --no-default-features`. Also build the policy prover (`cargo build --release -p openshell-prover-cli`). Record both commit hashes in the scope notes.
+2. **Images are arm64.** Build the supervisor image and the workload image locally for `linux/arm64` (§6.1 step 2). Pin them and set the pull policy so nothing is pulled during the window. Check with `docker image inspect --format '{{.Architecture}}' <image>`, which must print `arm64`.
+3. **Fresh state directory.** The Spark is also the development machine. `init` a new state directory for M4 only, pin its `keyId` in the scope, and write the key id on paper for the witness. Issue the HIC's operator credential with the key outside the state directory.
+4. **Scope.** Copy the reference scope and set `isolation.method` to `physical-disconnect`, `enforcedBy` to the HIC's name and role, and `egressProbes` to at least one public address, `dws10.com` and the site's own default gateway. Run `validate-scope`.
+5. **Probes and rehearsals.** Run the egress probe (§6.1 step 5) with the cable still connected (control must reach, the sandbox must not), then the isolated rehearsal (§6.1 step 3), then one rehearsal with the cable actually removed. All three must pass before the witnessed run is booked.
+6. **Seal before the window.** Run `seal --force` so the acceptance window sits in a fresh segment, and write the printed `anchor.sealDigest` on the witness sheet (§4 "Ledger segments and retention").
+
+**On the day (witnessed run):**
+
+7. The HIC unplugs the uplink cable and disables Wi-Fi, then confirms by running `probe --scope <scope>`, which must report `isolated: true`.
+8. Run the acceptance command from §6 with `--containment openshell`, `--await-operator`, `--witness "<name, role, organisation>"` and `--hold`. The HIC stops the stop-test agent from their own terminal with their own credential when the CLI prints its id.
+9. Record on the witness sheet: the outcome, the record id, the ledger head hash, the `authority` summary for the stopped agent, and the time the cable was reconnected.
+10. Reconnect, then run `reconcile`.
+
+**After the day (independent verification):**
+
+11. Run `verify --record <record> --expect-key-id <pinned key id>` and `segments --expect-seal <sealDigest>` on the Spark.
+12. **Second machine.** Copy the evidence to a machine that has never held the site key and verify it there. Until loop task A2 (`export` / `verify-bundle`) is merged, copy `site/site.json`, `ledger/` (active and `segments/`) and `acceptance/` only, never `site/site.key`, and run `verify` and `segments` against that copy. After A2, use `export` and `verify-bundle --expect-key-id`.
+13. File the witness sheet, the record, and both verification outputs in a field note. A `NEGATIVE_RESULT` is filed the same way; it is a valid outcome and is not rerun away.
 
 ### How each condition is judged
 
