@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
 // Audit trail: git log -- scripts/aegis-pilot.ts
 /**
  * aegis-pilot — operator CLI for DWS-AEGIS-PILOT-001 (Store/PRODUCT_AEGIS_PILOT.md).
@@ -13,12 +13,16 @@
  *   probe           --scope F
  *   run             --state-dir D --scope F --kind rehearsal|acceptance
  *                   (--operator-credential C --operator-key K | --await-operator [--timeout-s 600])
- *                   [--witness W] [--hold] [--stop-mode hard|cooperative] [--containment worker|openshell [--image I]] [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
+ *                   [--witness W] [--hold] [--stop-mode hard|cooperative] [--containment worker|openshell [--image I] [--openshell-prover P --expect-prover-sha256 H]] [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   stop            --state-dir D --agent ID|'*' --operator-credential C --operator-key K --reason R
  *   verify          --state-dir D [--record FILE] [--expect-key-id K]
  *   reconcile       --state-dir D --scope F [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   authority       --state-dir D [--scope F] [--agent ID]   who held decision authority, and what followed
  *   status          --state-dir D
+ *   prove           --scope F --openshell-prover P [--expect-prover-sha256 H]   (every step's sandbox policy within its boundary)
+ *   seal            --state-dir D [--max-bytes N] [--max-age-days N] [--force]
+ *   segments        --state-dir D [--expect-seal DIGEST]   (anchor from an earlier 'seal' output)
+ *   prune           --state-dir D [--confirm TOKEN]   (without it: lists expired segments and the token)
  *
  * Exit codes: 0 ok/PASS · 1 error · 2 NEGATIVE_RESULT · 3 NOT_TAKEN or INVALID · 4 verification failed.
  */
@@ -42,6 +46,11 @@ import {
   createStopCommand,
   generateEd25519,
   loadCredential,
+  type PolicyOptions,
+  proveStepPolicies,
+  pruneExpiredSegments,
+  sealActiveSegment,
+  verifySegments,
   privateKeyFromPem,
   probeUplink,
   readOutbox,
@@ -68,6 +77,11 @@ const { values: a, positionals } = parseArgs({
     credential: { type: 'string' },
     scope: { type: 'string' },
     kind: { type: 'string' },
+    'max-bytes': { type: 'string' },
+    'max-age-days': { type: 'string' },
+    force: { type: 'boolean' },
+    confirm: { type: 'string' },
+    'expect-seal': { type: 'string' },
     'operator-credential': { type: 'string' },
     'operator-key': { type: 'string' },
     'await-operator': { type: 'boolean' },
@@ -82,6 +96,8 @@ const { values: a, positionals } = parseArgs({
     containment: { type: 'string' },
     image: { type: 'string' },
     'openshell-cli': { type: 'string' },
+    'openshell-prover': { type: 'string' },
+    'expect-prover-sha256': { type: 'string' },
     agent: { type: 'string' },
     reason: { type: 'string' },
     record: { type: 'string' },
@@ -99,6 +115,13 @@ function need(name: keyof typeof a): string {
   if (typeof v !== 'string' || !v) throw new Error(`--${String(name)} is required`);
   return v;
 }
+
+/**
+ * What decides each sandbox policy. The SAME object goes to the prover and to the
+ * sandboxes, so the proven policy is the enforced one (the run also compares
+ * digests). Non-core endpoints are not configurable from the CLI yet.
+ */
+const POLICY_OPTIONS: PolicyOptions = { nodeBinary: '/usr/local/bin/node' };
 
 function loadScope(): PilotScope {
   const v = validateScope(JSON.parse(readFileSync(need('scope'), 'utf8')));
@@ -149,6 +172,7 @@ async function loadRegistry(
         image: a.image ?? 'aegis-pilot-node:22',
         workRoot: resolve(stateDir, 'sandbox-work'),
         cli: a['openshell-cli'] ?? 'openshell',
+        ...POLICY_OPTIONS,
       },
       scope.workflow.steps,
     );
@@ -321,6 +345,20 @@ async function main(): Promise<void> {
             credential: loadCredential(need('operator-credential')),
             key: privateKeyFromPem(readFileSync(need('operator-key'), 'utf8')),
           };
+      // C4: prove every generated sandbox policy against its boundary before the run.
+      const openshell = stopMode() === 'hard' && containmentMode() === 'openshell';
+      if (a['openshell-prover'] && !openshell) {
+        throw new Error('--openshell-prover needs --containment openshell with the hard stop');
+      }
+      const proof =
+        openshell && a['openshell-prover']
+          ? await proveStepPolicies({
+              steps: scope.workflow.steps,
+              proverPath: resolve(a['openshell-prover']),
+              expectSha256: a['expect-prover-sha256'],
+              policy: POLICY_OPTIONS,
+            })
+          : undefined;
       const signed = await runAcceptance({
         stateDir,
         scope,
@@ -330,7 +368,7 @@ async function main(): Promise<void> {
           stopMode() === 'cooperative'
             ? { mode: 'in-process' }
             : containmentMode() === 'openshell'
-              ? { mode: 'openshell', image: a.image ?? 'aegis-pilot-node:22' }
+              ? { mode: 'openshell', image: a.image ?? 'aegis-pilot-node:22', proof }
               : { mode: 'worker' },
         stopTestAgent:
           stopMode() === 'hard' && containmentMode() === 'openshell'
@@ -340,6 +378,7 @@ async function main(): Promise<void> {
                     image: a.image ?? 'aegis-pilot-node:22',
                     workRoot: resolve(stateDir, 'sandbox-work'),
                     cli: a['openshell-cli'] ?? 'openshell',
+                    nodeBinary: POLICY_OPTIONS.nodeBinary,
                   },
                   tickMs,
                 )
@@ -469,6 +508,47 @@ async function main(): Promise<void> {
       });
       break;
     }
+    case 'prove': {
+      const scope = loadScope();
+      const proof = await proveStepPolicies({
+        steps: scope.workflow.steps,
+        proverPath: resolve(need('openshell-prover')),
+        expectSha256: a['expect-prover-sha256'],
+        policy: POLICY_OPTIONS,
+      });
+      out({ ok: proof.ok, command: cmd, ...proof }, proof.ok ? 0 : 4);
+      break;
+    }
+    case 'seal': {
+      const stateDir = need('state-dir');
+      const result = sealActiveSegment({
+        stateDir,
+        site: SiteAuthority.load(stateDir),
+        maxBytes: a['max-bytes'] ? Number(a['max-bytes']) : undefined,
+        maxAgeDays: a['max-age-days'] ? Number(a['max-age-days']) : undefined,
+        force: a.force,
+      });
+      out({ ok: true, command: cmd, ...result });
+      break;
+    }
+    case 'segments': {
+      const stateDir = need('state-dir');
+      const v = verifySegments(stateDir, SiteAuthority.load(stateDir), new Date(), {
+        expectSealDigest: a['expect-seal'],
+      });
+      out({ ok: v.valid, command: cmd, ...v }, v.valid ? 0 : 4);
+      break;
+    }
+    case 'prune': {
+      const stateDir = need('state-dir');
+      const result = pruneExpiredSegments({
+        stateDir,
+        site: SiteAuthority.load(stateDir),
+        confirm: a.confirm,
+      });
+      out({ ok: true, command: cmd, ...result });
+      break;
+    }
     default:
       out(
         {
@@ -480,6 +560,10 @@ async function main(): Promise<void> {
             'revoke',
             'validate-scope',
             'probe',
+            'prove',
+            'seal',
+            'segments',
+            'prune',
             'run',
             'stop',
             'verify',

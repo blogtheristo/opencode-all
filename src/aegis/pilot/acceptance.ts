@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
 // Audit trail: git log -- src/aegis/pilot/acceptance.ts
 /**
  * Aegis Pilot — severed-uplink acceptance test (Phase 3). Automates the
@@ -47,6 +47,7 @@ import { spawnPilotWorker, terminateBounded } from './isolated-handlers.js';
 import { type AgentAuthority, buildAuthorityRecord, recordGrant } from './authority.js';
 import { type Connector, probeUplink, type UplinkProbeReport } from './uplink-probe.js';
 import { type HandlerRegistry, type RunResult, runWorkflow } from './workflow-runner.js';
+import { type ContainmentProof, proofProblems } from './openshell-prover.js';
 
 export type AcceptanceOutcome = 'PASS' | 'NEGATIVE_RESULT' | 'NOT_TAKEN' | 'INVALID';
 
@@ -73,8 +74,15 @@ export interface AcceptanceOptions {
    * in-process loop that honours its signal — rehearsal only.
    */
   stopMode?: 'hard' | 'cooperative';
-  /** How workflow steps were isolated; recorded so a reader knows what was contained. */
-  containment?: { mode: 'in-process' | 'worker' | 'openshell'; image?: string };
+  /**
+   * How workflow steps were isolated; recorded so a reader knows what was contained.
+   * `proof`: openshell-prover verdict for every generated step policy (C4).
+   */
+  containment?: {
+    mode: 'in-process' | 'worker' | 'openshell';
+    image?: string;
+    proof?: ContainmentProof;
+  };
   /**
    * Hard mode: where the stubborn stop-test agent runs. Defaults to a worker
    * thread. With OpenShell containment it must run in a sandbox too, so that
@@ -104,7 +112,11 @@ export interface AcceptanceRecord {
   workflowId: string;
   scopeDigest: string;
   deploymentMode: PilotScope['deploymentMode'];
-  containment: { mode: 'in-process' | 'worker' | 'openshell'; image?: string };
+  containment: {
+    mode: 'in-process' | 'worker' | 'openshell';
+    image?: string;
+    proof?: ContainmentProof;
+  };
   isolation: {
     method: string;
     rank: number;
@@ -358,6 +370,23 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     }
   }
 
+  // C4: the no-network claim for core steps is proven, not assumed. The verdict is
+  // re-derived from the steps (never taken from proof.ok), and an acceptance run
+  // under OpenShell refuses a missing, failed or unpinned proof.
+  const proof = opts.containment?.proof;
+  const stepIds = scope.workflow.steps.map((s) => s.id);
+  const proofIssues =
+    opts.containment?.mode === 'openshell'
+      ? proof
+        ? proofProblems(proof, stepIds, { requirePinned: opts.kind === 'acceptance' })
+        : ['no sandbox policy proof (--openshell-prover)']
+      : [];
+  if (opts.kind === 'acceptance' && proofIssues.length) {
+    throw new Error(
+      `sandbox policy proof not acceptable: ${proofIssues.join('; ')}; refusing an acceptance run`,
+    );
+  }
+
   const site = SiteAuthority.load(opts.stateDir);
   if (site.manifest.siteId !== scope.site.siteId) {
     throw new Error(
@@ -382,6 +411,11 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
   });
   const traceId = randomUUID();
   const findings: string[] = [];
+  if (proofIssues.length) {
+    findings.push(
+      `Sandbox policy proof not in force (${proofIssues.join('; ')}): the no-network claim for core steps rests on the generated policy alone.`,
+    );
+  }
   const ladder = ISOLATION_LADDER[scope.isolation.method];
   const probeOpts = {
     timeoutMs: opts.probeTimeoutMs ?? 3000,
@@ -766,6 +800,20 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     }
 
     const probes = { preflight, postflight, periodic, lapses };
+    // The proof must describe the policies the sandboxes actually got: every step's
+    // runtime policy digest (recorded with its decision) must equal the proven one.
+    if (proof) {
+      const proven = new Map(proof.steps.map((p) => [p.step, p.candidateDigest]));
+      const drift = runtimePolicyDigests(paths.ledger, traceId).filter(
+        (d) => proven.get(d.step) !== d.policyDigest,
+      );
+      if (drift.length) {
+        findings.push(
+          `Sandbox policy differs from the proven policy for: ${drift.map((d) => d.step).join(', ')}. The proof does not describe this run.`,
+        );
+        return seal('INVALID', windowEnd, probes, hold);
+      }
+    }
     if (lapses > 0) {
       findings.push(
         `Isolation lapsed ${lapses} time(s) during the window: results cannot be attributed to an isolated site.`,
@@ -786,6 +834,23 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     for (const fn of cleanups) fn();
     ledger.close();
   }
+}
+
+/** Policy digests the OpenShell runtime recorded with each step decision of one run. */
+function runtimePolicyDigests(
+  ledgerPath: string,
+  traceId: string,
+): Array<{ step: string; policyDigest: string }> {
+  const out: Array<{ step: string; policyDigest: string }> = [];
+  for (const line of readFileSync(ledgerPath, 'utf8').split('\n')) {
+    if (!line.trim()) continue;
+    const e = JSON.parse(line) as LedgerEvent;
+    const c = e.detail?.containment as { policyDigest?: unknown; step?: unknown } | undefined;
+    if (e.trace_id === traceId && e.event_type === 'agent.decide' && c?.policyDigest) {
+      out.push({ step: String(c.step ?? e.detail.step), policyDigest: String(c.policyDigest) });
+    }
+  }
+  return out;
 }
 
 /** Parse the ledger once: events in the window, and events by `agentId` after `afterSeq`. */
