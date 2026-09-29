@@ -8,7 +8,7 @@ Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.2 [Latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 29.09.2026 | Changes: Readiness plan C5, HIC 28.09.2026. Operator decisions on recommendations (§5.1): `decide`, `outcome` and `journey` commands, the `decide/` inbox, and `--role` on `issue-operator`. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.2 [Latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 29.09.2026 | Changes: Readiness plan C5, HIC 28.09.2026. Operator decisions on recommendations (§5.1): `decide` (operator, sign and queue only), `drain-decisions` (site), `outcome` and `journey`; the `decide/` inbox; `--role` on `issue-operator`; the `advisory` scope flag. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Hard stop (readiness plan patch C1): steps and the stop-test agent run in terminable worker threads by default; §8 rewritten; acceptance refuses the cooperative stop. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Created. Operator runbook for the local-first pilot kit (`src/aegis/pilot/`, `scripts/aegis-pilot.ts`): one section per pilot phase in `Store/PRODUCT_AEGIS_PILOT.md`, each exit gate mapped to a command and the evidence it produces. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 
@@ -129,7 +129,7 @@ npm run aegis:pilot -- run ... --handlers ./customer-handlers.mjs --kind rehears
 
 The first workflow is advisory (HIC 28.09.2026). The agent recommends, the operator decides, and no step actuates equipment. The operator's decision is a ledger event, not a note, so the pilot also yields the first decision journey: recommendation → decision → outcome.
 
-- **Recommendation.** A handler returns `recommendation: true`. Its `agent.decide` event is then a recommendation (`PATH_RECOMMENDED`) with no decision-maker. The reference step `decide-actions` does this.
+- **Recommendation.** Mark the step `"advisory": true` in the signed scope. Its `agent.decide` event is then a recommendation (`PATH_RECOMMENDED`) with no decision-maker. The marker comes from the scope, never from the handler, so an agent cannot choose what counts toward coverage. The reference scope marks `decide-actions`.
 - **Decision-maker.** Issue the operator with a role: `issue-operator ... --role shift-supervisor`. The role grants `decision.record`, and it is recorded as `decision_by`. Use a role, never a name. The operator's identity is the credential's key id; the customer keeps the mapping from that id to a person.
 - **Decision.** The operator signs accept, reject or defer against the recommendation's `seq` and `event_hash`, both of which `journey` prints. It is recorded as `human.decide` and works with the uplink down:
 
@@ -139,9 +139,11 @@ The first workflow is advisory (HIC 28.09.2026). The agent recommends, the opera
     --reason "checked against load forecast" --operator-credential <cred> --operator-key <key>
   ```
 
-  A decision is refused if the hash does not match the seq, if the event is not a recommendation, if the recommendation already has a final decision (a defer may be followed by a final decision), or if the recommending agent was stopped after the recommendation (the path is then abandoned). If a run holds the ledger, the command stays queued in `decide/`.
+  `decide` only signs the command and drops it into `decide/`, like `stop`. It never loads the site key. The site process that owns the ledger records it: a running `run` does so within 200 ms, and outside a run the site runs `npm run aegis:pilot -- drain-decisions --state-dir <state>` before the `recordBy` time printed by `decide` (10 minutes). `drain-decisions` exits 2 only while a run holds the ledger; any other ledger problem is an error.
 
-- **Outcome.** After an accept, the site records what followed. Metrics are numbers only:
+  A decision is refused if the hash does not match the seq, if the event is not a recommendation, if the recommendation already has a final decision (a defer may be followed by a final decision), if the same command was already recorded (checked against the ledger, not only `decide/processed/`), or if the recommending agent was stopped after the recommendation (the path is then abandoned). `--reason` goes into the permanent record: write the operational reason, never personal data.
+
+- **Outcome.** After an accept, the site records what followed. Metrics are numbers only, and `--evidence-ref` is an identifier or URI, not free text:
 
   ```bash
   npm run aegis:pilot -- outcome --state-dir <state> --decision-seq N --decision-hash H \

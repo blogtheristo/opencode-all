@@ -29,6 +29,7 @@
         "name": "Assign operator actions",
         "criticality": "core",
         "requiresNetwork": false,
+        "advisory": true,
         "handler": "decide-actions"
       },
       {

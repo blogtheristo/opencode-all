@@ -170,7 +170,26 @@ export function verifyLedger(
   path: string,
   opts: { publicKey?: KeyObject; maxGapMs?: number; from?: Date; to?: Date } = {},
 ): LedgerVerification {
+  return readVerifiedLedger(path, opts).verification;
+}
+
+/**
+ * Parse once, verify that parse, and return both — so a caller acts on exactly
+ * the events that passed verification, not on a second read of the file.
+ */
+export function readVerifiedLedger(
+  path: string,
+  opts: { publicKey?: KeyObject; maxGapMs?: number; from?: Date; to?: Date } = {},
+): { verification: LedgerVerification; events: LedgerEvent[] } {
   const { events, tornTail } = parseLedger(path);
+  return { verification: verifyEvents(events, tornTail, opts), events };
+}
+
+function verifyEvents(
+  events: LedgerEvent[],
+  tornTail: boolean,
+  opts: { publicKey?: KeyObject; maxGapMs?: number; from?: Date; to?: Date },
+): LedgerVerification {
   const result: LedgerVerification = {
     valid: true,
     count: events.length,
@@ -235,6 +254,8 @@ export class EvidenceLedger {
   private fd: number;
   private seq: number;
   private prevHash: string;
+  /** Last written timestamp (ms): appends never move time backwards (verifyLedger fails on that). */
+  private lastTs: number;
   private closed = false;
   private readonly lockPath: string;
   private readonly now: () => Date;
@@ -242,8 +263,9 @@ export class EvidenceLedger {
   private constructor(
     readonly path: string,
     private readonly opts: LedgerOptions,
-    state: { fd: number; seq: number; prevHash: string; lockPath: string },
+    state: { fd: number; seq: number; prevHash: string; lockPath: string; lastTs: number },
   ) {
+    this.lastTs = state.lastTs;
     this.fd = state.fd;
     this.seq = state.seq;
     this.prevHash = state.prevHash;
@@ -287,6 +309,7 @@ export class EvidenceLedger {
         seq: check.count,
         prevHash: check.headHash,
         lockPath,
+        lastTs: check.lastTimestamp ? Date.parse(check.lastTimestamp) : -Infinity,
       });
       if (check.count === 0) {
         ledger.append({
@@ -316,11 +339,20 @@ export class EvidenceLedger {
   /** Append one event: write, fsync, then advance the chain. Synchronous by design. */
   append(input: LedgerEventInput): LedgerEvent {
     if (this.closed) throw new Error('ledger is closed');
+    // An isolated site's clock can step back (NTP correction, RTC reset) between two
+    // writers. Clamp to the last timestamp and record the step, instead of writing an
+    // event that would make the whole chain fail verification.
+    let ts = this.now().getTime();
+    let detail = input.detail ?? {};
+    if (ts < this.lastTs) {
+      detail = { ...detail, clock_step_back_ms: this.lastTs - ts };
+      ts = this.lastTs;
+    }
     const body: Omit<LedgerEvent, 'event_hash' | 'sig'> = {
       seq: this.seq,
       event_id: randomUUID(),
       event_type: input.event_type,
-      timestamp: this.now().toISOString(),
+      timestamp: new Date(ts).toISOString(),
       site_id: this.opts.siteId,
       org_id: this.opts.orgId,
       trace_id: input.trace_id,
@@ -331,7 +363,7 @@ export class EvidenceLedger {
       input_digest: input.input_digest ?? null,
       output_digest: input.output_digest ?? null,
       confidence: input.confidence ?? null,
-      detail: input.detail ?? {},
+      detail,
       prev_hash: this.prevHash,
     };
     const event_hash = hashOf(body);
@@ -344,6 +376,7 @@ export class EvidenceLedger {
     fsyncSync(this.fd);
     this.seq++;
     this.prevHash = event_hash;
+    this.lastTs = ts;
     return event;
   }
 

@@ -15,6 +15,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
   CAP_AGENT_STOP,
   CAP_DECISION,
+  type Connector,
   createDecisionCommand,
   createReferenceRegistry,
   createStopCommand,
@@ -27,10 +28,13 @@ import {
   KillAuthority,
   type LedgerEvent,
   privateKeyFromPem,
+  readLedgerEvents,
   recordOutcome,
+  runAcceptance,
   runWorkflow,
   SiteAuthority,
   statePaths,
+  type StepHandler,
   submitDecisionCommand,
   submitStopCommand,
   validateScope,
@@ -376,26 +380,26 @@ describe('outcome and the decision journey', () => {
 });
 
 describe('runner marks advisory output as a recommendation', () => {
-  it('writes detail.recommendation only when the step says so', async () => {
+  it('takes the marker from the signed scope, never from the handler', async () => {
     const scopeJson = JSON.parse(
       readFileSync(join(process.cwd(), 'config/aegis-pilot/reference-scope.json'), 'utf8'),
     );
     const v = validateScope(scopeJson);
     if (!v.ok) throw new Error(v.errors.join('\n'));
     const scope = v.scope;
+    expect(scope.workflow.steps.find((s) => s.id === 'decide-actions')?.advisory).toBe(true);
     const reference = createReferenceRegistry({
       readingsPath: join(process.cwd(), 'config/aegis-pilot/sample-readings.json'),
       reportDir: join(dir, 'reports'),
       syncUrl: 'none',
     });
-    const registry = {
-      ...reference,
-      'decide-actions': async () => ({
-        output: { action: 'shift-load' },
-        decision: 'recommend shifting load',
-        recommendation: true,
-      }),
-    };
+    // A handler on a non-advisory step claiming to be a recommendation is ignored.
+    const claiming = (async () => ({
+      output: [],
+      decision: 'claims to be a recommendation',
+      recommendation: true,
+    })) as StepHandler;
+    const registry = { ...reference, 'evaluate-limits': claiming };
     const kill = new KillAuthority(dir, site.verifier(), ledger);
     const wfAgent = site.issue({
       kind: 'agent',
@@ -417,6 +421,124 @@ describe('runner marks advisory output as a recommendation', () => {
     });
     const summary = decisionJourneys(statePaths(dir).ledger);
     expect(summary.recommendations).toBe(1);
+    const rec = readLedgerEvents(statePaths(dir).ledger)[summary.journeys[0].recommendationSeq];
+    expect(rec.detail.step).toBe('decide-actions');
     expect(summary.journeys[0]).toMatchObject({ status: 'pending', agentId: wfAgent.subjectId });
   });
+});
+
+describe('security review fixes (C5)', () => {
+  it('refuses a replay even when the processed/ file is deleted: the ledger is the authority', () => {
+    const rec = recommend(agent().subjectId);
+    const cmd = decide(rec, operator(), 'defer');
+    submitDecisionCommand(dir, cmd);
+    expect(authority().drainInbox('ops')[0].accepted).toBe(true);
+    rmSync(join(dir, 'decide', 'processed', `${cmd.commandId}.json`));
+    const fresh = authority();
+    expect(fresh.execute(cmd, 'ops')).toMatchObject({ accepted: false, reason: /replay/ });
+  });
+
+  it('never writes an attacker-chosen command id into the ledger', () => {
+    const out = authority().execute(
+      { commandId: 'Matti Meikäläinen, hetu 010101-123A' } as never,
+      'ops',
+    );
+    expect(out).toMatchObject({ accepted: false, commandId: 'invalid' });
+    expect(JSON.stringify(lastEvent())).not.toContain('Meikäläinen');
+  });
+
+  it('refuses to sign a command with a malformed seq or hash', () => {
+    const op = operator();
+    const base = {
+      verdict: 'accept' as const,
+      reason: 'x',
+      operatorCredential: op.credential,
+      operatorKey: op.key,
+    };
+    expect(() =>
+      createDecisionCommand({
+        ...base,
+        recommendationSeq: Number.NaN,
+        recommendationHash: 'a'.repeat(64),
+      }),
+    ).toThrow(/non-negative integer/);
+    expect(() =>
+      createDecisionCommand({ ...base, recommendationSeq: 1, recommendationHash: 'xyz' }),
+    ).toThrow(/64-char/);
+  });
+
+  it('accepts an evidence reference only as an identifier or URI, not free text', () => {
+    const op = operator();
+    const d = authority().execute(decide(recommend(agent().subjectId), op), 'ops');
+    expect(() =>
+      recordOutcome(ledger, {
+        decisionSeq: d.ledgerSeq!,
+        decisionHash: d.eventHash!,
+        result: 'positive',
+        evidenceRef: 'Called Matti on his mobile',
+      }),
+    ).toThrow(/identifier or URI/);
+  });
+
+  it('keeps timestamps monotonic when the site clock steps back, and records the step', () => {
+    ledger.close();
+    let t = Date.parse('2026-11-03T10:00:00Z');
+    const clocked = EvidenceLedger.open(statePaths(dir).ledger, {
+      siteId: site.manifest.siteId,
+      orgId: 'lifetime-oy',
+      signer: (h) => site.sign(h),
+      publicKey: site.publicKey,
+      now: () => new Date(t),
+    });
+    clocked.append({ event_type: 'system.heartbeat', trace_id: 'c' });
+    t -= 30_000; // NTP steps the clock back 30 s
+    const ev = clocked.append({ event_type: 'system.heartbeat', trace_id: 'c' });
+    clocked.close();
+    ledger = openLedger();
+    expect(ev.detail).toMatchObject({ clock_step_back_ms: 30_000 });
+    expect(verifyLedger(statePaths(dir).ledger, { publicKey: site.publicKey }).valid).toBe(true);
+  });
+});
+
+describe('decisions during the severed-uplink run', () => {
+  it('records a queued decision while the acceptance run holds the ledger, and the run still PASSes', async () => {
+    const s = JSON.parse(
+      readFileSync(join(process.cwd(), 'config/aegis-pilot/reference-scope.json'), 'utf8'),
+    );
+    s.acceptance.heartbeatMs = 100;
+    s.acceptance.maxGapMs = 2000;
+    s.acceptance.windowMinutes = 1;
+    const v = validateScope(s);
+    if (!v.ok) throw new Error(v.errors.join('\n'));
+    const rec = recommend(agent().subjectId);
+    const op = operator();
+    const cmd = decide(rec, op, 'reject');
+    submitDecisionCommand(dir, cmd);
+    ledger.close();
+
+    const isolated: Connector = async () => ({ outcome: 'unreachable', code: 'ENETUNREACH' });
+    const signed = await runAcceptance({
+      stateDir: dir,
+      scope: v.scope,
+      registry: createReferenceRegistry({
+        readingsPath: join(process.cwd(), 'config/aegis-pilot/sample-readings.json'),
+        reportDir: join(dir, 'reports'),
+        syncUrl: 'none',
+      }),
+      env: {} as NodeJS.ProcessEnv,
+      probeIntervalMs: 200,
+      kind: 'rehearsal',
+      connector: isolated,
+      operator: { mode: 'automated', ...op },
+    });
+    ledger = openLedger();
+    expect(signed.record.outcome).toBe('PASS');
+    const decided = readLedgerEvents(statePaths(dir).ledger).find(
+      (e) => e.event_type === 'human.decide',
+    );
+    expect(decided?.detail).toMatchObject({ command_id: cmd.commandId, verdict: 'reject' });
+    const summary = decisionJourneys(statePaths(dir).ledger);
+    // The seeded recommendation is rejected; the run's own advisory step is pending.
+    expect(summary.byStatus).toMatchObject({ rejected: 1, pending: 1 });
+  }, 60_000);
 });

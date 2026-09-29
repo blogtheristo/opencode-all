@@ -58,12 +58,6 @@ export interface StepResult {
   decision?: string;
   confidence?: number;
   modelVersion?: string;
-  /**
-   * Advisory output awaiting a human decision. Marks the agent.decide event as
-   * a recommendation (decision-journey PATH_RECOMMENDED), which an operator can
-   * then accept, reject or defer with a signed human.decide event.
-   */
-  recommendation?: boolean;
 }
 
 export type StepHandler = ((ctx: StepContext) => Promise<StepResult>) & {
@@ -342,7 +336,9 @@ export async function runWorkflow(opts: RunOptions): Promise<RunResult> {
             criticality: step.criticality,
             decision: res.decision?.slice(0, 300),
             duration_ms: rec.durationMs,
-            recommendation: res.recommendation === true ? true : undefined,
+            // From the signed scope, never from the handler: an advisory step's output is a
+            // recommendation (PATH_RECOMMENDED) the operator decides on with human.decide.
+            recommendation: step.advisory === true ? true : undefined,
           },
         });
       } catch (err) {

@@ -18,6 +18,7 @@
  *   stop            --state-dir D --agent ID|'*' --operator-credential C --operator-key K --reason R
  *   decide          --state-dir D --seq N --hash H --verdict accept|reject|defer --reason R
  *                   --operator-credential C --operator-key K
+ *   drain-decisions --state-dir D            (site side: record queued decisions; a running `run` does this itself)
  *   outcome         --state-dir D --decision-seq N --decision-hash H --result positive|negative|neutral|unknown
  *                   [--metrics '{"eur_estimated":142.5}'] [--evidence-ref REF]
  *   journey         --state-dir D
@@ -35,6 +36,7 @@ import { parseArgs } from 'node:util';
 import {
   CAP_AGENT_STOP,
   CAP_DECISION,
+  DECISION_COMMAND_MAX_AGE_MS,
   createDecisionCommand,
   DecisionAuthority,
   type DecisionVerdict,
@@ -171,6 +173,13 @@ function stopMode(): 'hard' | 'cooperative' {
   if (m !== 'hard' && m !== 'cooperative')
     throw new Error('--stop-mode must be hard or cooperative');
   return m;
+}
+
+function intArg(name: keyof typeof a): number {
+  const raw = need(name);
+  if (!/^(0|[1-9][0-9]*)$/.test(raw))
+    throw new Error(`--${String(name)} must be a non-negative integer`);
+  return Number(raw);
 }
 
 /** Open the site ledger outside a run, keeping the org id its genesis event recorded. */
@@ -327,29 +336,48 @@ async function main(): Promise<void> {
       break;
     }
     case 'decide': {
+      // Operator side, like `stop`: sign and drop the command. Never loads the site key —
+      // the site process that owns the ledger records it (a running `run`, or `drain-decisions`).
       const stateDir = need('state-dir');
       const command = createDecisionCommand({
-        recommendationSeq: Number(need('seq')),
+        recommendationSeq: intArg('seq'),
         recommendationHash: need('hash'),
         verdict: need('verdict') as DecisionVerdict,
         reason: need('reason'),
         operatorCredential: loadCredential(need('operator-credential')),
         operatorKey: privateKeyFromPem(readFileSync(need('operator-key'), 'utf8')),
       });
-      submitDecisionCommand(stateDir, command);
-      // Recorded now unless a run holds the ledger; then it stays queued in the inbox.
+      const path = submitDecisionCommand(stateDir, command);
+      out({
+        ok: true,
+        command: cmd,
+        commandId: command.commandId,
+        verdict: command.verdict,
+        queued: true,
+        recorded: false,
+        inboxPath: path,
+        recordBy: new Date(
+          Date.parse(command.issuedAt) + DECISION_COMMAND_MAX_AGE_MS,
+        ).toISOString(),
+        next: 'a running `run` records it within 200 ms; otherwise the site runs `drain-decisions` before recordBy',
+      });
+      break;
+    }
+    case 'drain-decisions': {
+      // Site side: record every queued decision. Holds the site key, like `run`.
+      const stateDir = need('state-dir');
       const site = SiteAuthority.load(stateDir);
       let ledger: EvidenceLedger;
       try {
         ledger = openSiteLedger(site);
       } catch (err) {
-        out({
-          ok: true,
-          command: cmd,
-          commandId: command.commandId,
-          queued: true,
-          note: err instanceof Error ? err.message : String(err),
-        });
+        const message = err instanceof Error ? err.message : String(err);
+        // Only a live run holding the lock means "still queued" — that run drains decide/ itself.
+        // Any other failure (torn tail, broken chain) is an error, never a silent queue.
+        if (/locked by running process/.test(message)) {
+          out({ ok: false, command: cmd, queued: true, recorded: false, note: message }, 2);
+        }
+        throw err;
       }
       try {
         const results = new DecisionAuthority(
@@ -357,11 +385,10 @@ async function main(): Promise<void> {
           site.verifier(),
           ledger,
           site.publicKey,
-        ).drainInbox(`decide-${command.commandId}`);
-        const mine = results.find((r) => r.commandId === command.commandId);
+        ).drainInbox(`drain-${Date.now()}`);
         out(
-          { ok: mine?.accepted === true, command: cmd, decision: mine ?? null, processed: results },
-          mine?.accepted ? 0 : 1,
+          { ok: results.every((r) => r.accepted), command: cmd, processed: results },
+          results.every((r) => r.accepted) ? 0 : 1,
         );
       } finally {
         ledger.close();
@@ -376,7 +403,7 @@ async function main(): Promise<void> {
         const ev = recordOutcome(
           ledger,
           {
-            decisionSeq: Number(need('decision-seq')),
+            decisionSeq: intArg('decision-seq'),
             decisionHash: need('decision-hash'),
             result: need('result') as OutcomeResult,
             metrics,
@@ -495,6 +522,7 @@ async function main(): Promise<void> {
             'run',
             'stop',
             'decide',
+            'drain-decisions',
             'outcome',
             'journey',
             'verify',

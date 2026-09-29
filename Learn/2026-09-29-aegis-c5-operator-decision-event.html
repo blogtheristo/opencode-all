@@ -46,7 +46,27 @@
 <li>The operator's accept was recorded inside the isolated namespace.</li>
 <li>A second accept was refused ("already decided").</li>
 <li>The outcome was recorded, coverage went from 0 to 1, <code>decision_by</code> = <code>shift-supervisor</code>, and the ledger verified.</li>
-<li>Security review: started. Its findings go into the next commit and are recorded in this note.</li>
+<li>Security review (security-reviewer subagent). The first verdict was <strong>FAIL</strong>: 0 critical, 2 high, 3 medium and 6 low findings. The crypto binding, capability and role handling, signature compatibility and condition (iii) were confirmed sound. Fixed, each with a test:</li>
+<li><strong>High 1: site-key exposure.</strong> The operator-side <code>decide</code> loaded the site private key. It now only signs and queues the command, like <code>stop</code>. Recording moved to the site side (a running <code>run</code>, or <code>drain-decisions</code>).</li>
+<li><strong>High 2: silently lost decisions.</strong> Every ledger-open failure was reported as "queued", and nothing drained <code>decide/</code> during a run. The acceptance run now drains decisions. <code>drain-decisions</code> reports "queued" only for a live run's lock (exit 2). Every other failure is an error. A test shows that a decision queued before the run is recorded during the isolated run, which still PASSes, and a mutation check shows the test catches a missing watch.</li>
+<li><strong>Medium 3: replay.</strong> Replay is now also checked against the ledger's <code>command_id</code>, so a deleted <code>processed/</code> file cannot reopen a replay.</li>
+<li><strong>Medium 4: marker source.</strong> The recommendation marker comes from the signed scope (<code>advisory: true</code>), not from the handler.</li>
+<li><strong>Medium 5: clock steps.</strong> Ledger timestamps are clamped monotonic, with <code>clock_step_back_ms</code> recorded, so a clock step on an isolated site no longer breaks the chain.</li>
+<li><strong>Low findings fixed:</strong><ul>
+<li>an attacker-chosen command id is never written;</li>
+<li>the ledger is parsed once and that same parse is verified (<code>readVerifiedLedger</code>);</li>
+<li>seq and hash are validated before signing;</li>
+<li><code>evidenceRef</code> must be an identifier or URI;</li>
+<li>dead code removed.</li>
+</ul>
+</li>
+<li><strong>Open:</strong><ul>
+<li>Low 9: <code>--role</code> grants both stop and decide, so there is no separate decide-only credential, and there is no site allowlist of roles.</li>
+<li><code>outcome.record</code> has no <code>recorded_by</code>.</li>
+<li>The same Low 6 command-id and Medium 3 replay pattern still exists in <code>kill-authority.ts</code>, which is outside this change.</li>
+</ul>
+</li>
+<li>After the fixes: 21 decision tests, 67/67 pilot tests, tsc and eslint clean. E2E repeated with the split (the operator's <code>decide</code>, then the site's <code>drain-decisions</code>, both with the uplink severed): passes.</li>
 </ul>
 <h2>Insight</h2>
 <p>The advisory workflow is the same event chain as the decision journey that was already designed: <code>PATH_RECOMMENDED → PATH_ACCEPTED → OUTCOME_RECORDED</code>. Recording the approval as an event costs one design decision in the ledger. It turns the pilot's output from "the stop works" into "the stop works, and here is the first verifiable decision path, with a customer operator as the decision-maker". Report D7 names the number that follows from this: decision-path coverage.</p>

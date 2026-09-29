@@ -52,12 +52,14 @@ import {
   type EvidenceLedger,
   type LedgerEvent,
   readLedgerEvents,
-  verifyLedger,
+  readVerifiedLedger,
 } from './evidence-ledger.js';
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const HASH = /^[0-9a-f]{64}$/;
 const METRIC_KEY = /^[a-z][a-z0-9_]{0,39}$/;
+/** An identifier or URI of the evidence (meter export, log id) — not free text. */
+const EVIDENCE_REF = /^[A-Za-z0-9._:/#-]{1,200}$/;
 
 /** A decision command older than this is refused as a possible replay. */
 export const DECISION_COMMAND_MAX_AGE_MS = 10 * 60 * 1000;
@@ -120,6 +122,12 @@ export function createDecisionCommand(
   }
   if (!VERDICTS.includes(params.verdict))
     throw new Error('verdict must be accept, reject or defer');
+  if (!Number.isSafeInteger(params.recommendationSeq) || params.recommendationSeq < 0) {
+    throw new Error('recommendationSeq must be a non-negative integer');
+  }
+  if (!HASH.test(params.recommendationHash)) {
+    throw new Error('recommendationHash must be a 64-char lowercase hex event hash');
+  }
   const body: DecisionCommandBody = {
     v: 1,
     commandId: randomUUID(),
@@ -152,11 +160,10 @@ const isRecommendation = (e: LedgerEvent): boolean =>
   e.event_type === 'agent.decide' && e.detail?.recommendation === true;
 
 /** True when an accepted stop hit the recommending agent after the recommendation. */
-function abandonedAfter(events: readonly LedgerEvent[], rec: LedgerEvent, uptoSeq = Infinity) {
+function abandonedAfter(events: readonly LedgerEvent[], rec: LedgerEvent) {
   return events.some(
     (e) =>
       e.seq > rec.seq &&
-      e.seq < uptoSeq &&
       e.event_type === 'human.override' &&
       Array.isArray(e.detail?.agents_stopped) &&
       (e.detail.agents_stopped as unknown[]).includes(rec.agent_id),
@@ -197,7 +204,11 @@ export class DecisionAuthority {
     const reject = (reason: string, operatorId: string | null = null): DecisionOutcome => {
       const outcome: DecisionOutcome = {
         accepted: false,
-        commandId: String(command?.commandId ?? 'unknown'),
+        // From an unverified file: never write attacker-chosen text to the ledger.
+        commandId:
+          typeof command?.commandId === 'string' && UUID.test(command.commandId)
+            ? command.commandId
+            : 'invalid',
         reason,
       };
       outcome.ledgerSeq = this.ledger.append({
@@ -259,12 +270,21 @@ export class DecisionAuthority {
     }
 
     // The recommendation is read from a verified chain, never from the command.
-    const path = this.ledger.path;
-    const verification = verifyLedger(path, { publicKey: this.sitePublicKey });
+    const { verification, events } = readVerifiedLedger(this.ledger.path, {
+      publicKey: this.sitePublicKey,
+    });
     if (!verification.valid) {
       return reject(`ledger failed verification: ${verification.reason}`, cred.subjectId);
     }
-    const events = readLedgerEvents(path);
+    // The ledger, not processed/, is the authority on what was executed: a deleted
+    // processed/ file or a crash before the rename must not re-open a replay.
+    if (
+      events.some(
+        (e) => e.event_type === 'human.decide' && e.detail?.command_id === command.commandId,
+      )
+    ) {
+      return reject('command already processed (replay)', cred.subjectId);
+    }
     const rec = events[command.recommendationSeq];
     if (!rec || !isRecommendation(rec)) {
       return reject('referenced event is not a recommendation', cred.subjectId);
@@ -372,12 +392,14 @@ export function recordOutcome(
       throw new Error(`metric "${k}" must be a finite number`);
     }
   }
-  if (params.evidenceRef !== undefined && params.evidenceRef.length > 200) {
-    throw new Error('evidenceRef is limited to 200 characters');
+  if (
+    params.evidenceRef !== undefined &&
+    (typeof params.evidenceRef !== 'string' || !EVIDENCE_REF.test(params.evidenceRef))
+  ) {
+    throw new Error(`evidenceRef must be an identifier or URI matching ${EVIDENCE_REF}`);
   }
-  const verification = verifyLedger(ledger.path, { publicKey: sitePublicKey });
+  const { verification, events } = readVerifiedLedger(ledger.path, { publicKey: sitePublicKey });
   if (!verification.valid) throw new Error(`ledger failed verification: ${verification.reason}`);
-  const events = readLedgerEvents(ledger.path);
   const decision = events[params.decisionSeq];
   if (!decision || decision.event_type !== 'human.decide') {
     throw new Error('referenced event is not a decision');

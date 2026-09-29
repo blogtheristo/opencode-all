@@ -47,7 +47,23 @@ What was built (readiness plan C5):
   - The operator's accept was recorded inside the isolated namespace.
   - A second accept was refused ("already decided").
   - The outcome was recorded, coverage went from 0 to 1, `decision_by` = `shift-supervisor`, and the ledger verified.
-- Security review: started. Its findings go into the next commit and are recorded in this note.
+- Security review (security-reviewer subagent). The first verdict was **FAIL**: 0 critical, 2 high, 3 medium and 6 low findings. The crypto binding, capability and role handling, signature compatibility and condition (iii) were confirmed sound. Fixed, each with a test:
+  - **High 1: site-key exposure.** The operator-side `decide` loaded the site private key. It now only signs and queues the command, like `stop`. Recording moved to the site side (a running `run`, or `drain-decisions`).
+  - **High 2: silently lost decisions.** Every ledger-open failure was reported as "queued", and nothing drained `decide/` during a run. The acceptance run now drains decisions. `drain-decisions` reports "queued" only for a live run's lock (exit 2). Every other failure is an error. A test shows that a decision queued before the run is recorded during the isolated run, which still PASSes, and a mutation check shows the test catches a missing watch.
+  - **Medium 3: replay.** Replay is now also checked against the ledger's `command_id`, so a deleted `processed/` file cannot reopen a replay.
+  - **Medium 4: marker source.** The recommendation marker comes from the signed scope (`advisory: true`), not from the handler.
+  - **Medium 5: clock steps.** Ledger timestamps are clamped monotonic, with `clock_step_back_ms` recorded, so a clock step on an isolated site no longer breaks the chain.
+  - **Low findings fixed:**
+    - an attacker-chosen command id is never written;
+    - the ledger is parsed once and that same parse is verified (`readVerifiedLedger`);
+    - seq and hash are validated before signing;
+    - `evidenceRef` must be an identifier or URI;
+    - dead code removed.
+  - **Open:**
+    - Low 9: `--role` grants both stop and decide, so there is no separate decide-only credential, and there is no site allowlist of roles.
+    - `outcome.record` has no `recorded_by`.
+    - The same Low 6 command-id and Medium 3 replay pattern still exists in `kill-authority.ts`, which is outside this change.
+- After the fixes: 21 decision tests, 67/67 pilot tests, tsc and eslint clean. E2E repeated with the split (the operator's `decide`, then the site's `drain-decisions`, both with the uplink severed): passes.
 
 ## Insight
 
