@@ -40,6 +40,7 @@ import {
   type HandlerModuleRef,
   createIsolatedRegistry,
   createOpenShellRegistry,
+  createReferenceRegistry,
   openShellStopTestAgent,
   type HandlerRegistry,
   SiteAuthority,
@@ -59,6 +60,7 @@ import {
   statePaths,
   submitStopCommand,
   validateScope,
+  checkHandlerConformance,
   verifyAcceptanceRecord,
   verifyLedger,
   type PilotScope,
@@ -314,8 +316,26 @@ async function main(): Promise<void> {
       out({ ok: true, command: cmd, ...record });
       break;
     }
+    case 'check-handlers': {
+      const scope = loadScope();
+      const stateDir = a['state-dir'] ?? '/tmp';
+      // For conformance testing, we need to test network error paths, so we create
+      // a registry with a real sync URL (not 'none'). This allows the sync-report
+      // handler to actually call fetch and surface NetworkUnavailable.
+      const registryOptions = {
+        readingsPath: resolve(a.readings ?? 'config/aegis-pilot/sample-readings.json'),
+        reportDir: resolve(a['report-dir'] ?? `${stateDir}/reports`),
+        syncUrl: a['sync-url'] ?? 'https://example.com/sync', // use real-ish URL for testing
+      };
+      const registry = createReferenceRegistry(registryOptions);
+      const options = {
+        reportDir: registryOptions.reportDir,
+      };
+      const result = await checkHandlerConformance(scope, registry, options);
+      out({ ok: result.ok, command: cmd, ...result }, result.ok ? 0 : 1);
+      break;
+    }
     case 'validate-scope': {
-      const v = validateScope(JSON.parse(readFileSync(need('scope'), 'utf8')));
       out({ command: cmd, ...v }, v.ok ? 0 : 1);
       break;
     }
