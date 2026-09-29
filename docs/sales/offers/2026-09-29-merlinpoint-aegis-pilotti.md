@@ -12,7 +12,7 @@ Document Status:
 
 - Created: 29.09.2026
 - Classification: CUSTOMER — vastaanottajalle
-- Status: DRAFT — HIC lähettää (Proton risto.paarni@lifetime.fi)
+- Status: ON HOLD 29.09.2026 — not sent; re-evaluate only if the recipient replies to the 29.09 letter
 
 ---
 
