@@ -139,6 +139,13 @@ elif [ "$BRANCH" != "unknown" ]; then
   ' ".claude/HANDOFF.md" 2>/dev/null
 fi
 
+# OpenCode task loop digest (DGX only; no-op elsewhere) — so every session knows
+# what the unattended loop is working on or blocked on (HIC 29.09.2026).
+if [ -x scripts/daily/opencode-loop-status.sh ]; then
+  echo ""
+  timeout 15 bash scripts/daily/opencode-loop-status.sh --print 2>/dev/null || true
+fi
+
 # Auto-discover and index all skills (Anthropic Skills paradigm)
 SKILLS_DIR="skills"
 if [ -d "$SKILLS_DIR" ]; then
