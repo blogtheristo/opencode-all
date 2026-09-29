@@ -85,3 +85,9 @@ Core finding: **containment is becoming free.** OpenShell (Apache 2.0) and GKE A
 | Kubernetes tiers `LF-K8S-T1…T3`                 | Opportunity                 | GKE Agent Sandbox is an open Kubernetes primitive that runs on any cluster, including on-prem.                                                                     | Evaluate adopting the agent-sandbox CRD as the K8s-native isolation option (gVisor/Kata).                                                                            |
 
 Risk to watch: if NVIDIA or Google add signed, customer-held audit records to their stacks, the Aegis evidence wedge narrows. Neither has announced this as of 29.09.2026.
+
+## 7. HIC decisions 29.09.2026 and actions
+
+1. **Firecracker claim corrected in all Aegis product versions.** `DWS_SECURITY_STANDARD.md:1067` marks gVisor/Firecracker "not yet implemented"; `src/sandbox/nemoclaw-sandbox.ts` only emits a Firecracker spec. Public copy now says OpenShell sandbox per agent step (verified in the Aegis Pilot kit 28.09.2026), Firecracker on the roadmap. Changed: `Store/PRODUCT_AEGIS.md`; `dws10.com/products/aegis{,.fi,.sv,.de,.fr}.html`; `dws10.com/products/dws-aegis-001{,.fi,.sv,.de,.fr}.html`; `dws10.com/aegis/index{,.fi,.sv,.de,.fr}.html`; the same 15 files under `landing-pages/dws10-com/`.
+2. **Still claiming Firecracker as live (not changed, outside Aegis product pages):** `dws10.com/kya-standard/index.html` (and whitepaper), `dws10.com/sovereignty-assessment/index.html`, `dws10.com/enterprise-integrations/index.html`, `dws10.com/aegis/hackathlon.html` (demo log). Needs a follow-up pass.
+3. **KYA → GKE Agent Sandbox compile** handed to the DGX loop: `.claude/done/opencode/aegis-gke-agent-sandbox-policy.json` (three checks, all failing today).

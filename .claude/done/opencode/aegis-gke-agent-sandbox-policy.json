@@ -1,0 +1,21 @@
+{
+  "task": "Aegis: compile the signed step scope to a GKE Agent Sandbox manifest (Google segment)",
+  "prompt": "Create src/aegis/pilot/gke-sandbox-policy.ts, the Kubernetes counterpart of src/aegis/pilot/openshell-policy.ts. Export stepSandboxManifest(step: PilotStep, opts) that returns JSON (valid YAML) with two objects: (1) a Sandbox resource from kubernetes-sigs/agent-sandbox (check the upstream repo for the exact apiVersion/kind and pin it in a comment) with runtimeClassName 'gvisor', read-only root filesystem, writable only /sandbox and /tmp, runAsNonRoot; (2) a NetworkPolicy that denies all ingress and egress. Same rules as openshell-policy.ts: a core step never gets an egress rule whatever the options say; a non-core step with requiresNetwork gets egress only to the endpoints listed for its step id. Add the provenance header used in openshell-policy.ts. Write src/__tests__/aegis-pilot-gke-sandbox.test.ts covering: core step has no egress even when endpoints are passed; non-core network step gets exactly its endpoints; runtimeClassName is gvisor; filesystem is read-only except /sandbox and /tmp. Export the function from src/aegis/pilot/index.ts. Do not change openshell-policy.ts.",
+  "base": "main",
+  "order": 100,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "module exists",
+      "run": "test -f src/aegis/pilot/gke-sandbox-policy.ts"
+    },
+    {
+      "name": "tests pass",
+      "run": "npx vitest run src/__tests__/aegis-pilot-gke-sandbox.test.ts"
+    },
+    {
+      "name": "exported",
+      "run": "grep -q gke-sandbox-policy src/aegis/pilot/index.ts"
+    }
+  ]
+}
