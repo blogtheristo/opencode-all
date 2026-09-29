@@ -1,8 +1,8 @@
 ---
 title: Google-yritysprofiili — Lifetime Oy, Espoo — tuotteet ja tarjoukset yrityksille
-version: 1.1
-date: 2026-09-28
-status: DRAFT — HIC-hyväksyntä ennen julkaisua profiiliin
+version: 1.2
+date: 2026-09-29
+status: HIC-hyväksytty — profiili palautettu 29.9.2026, tarjousten loppupäivä vahvistettu
 source_of_truth: dws10.com/config/products.json (priceVersion 1.33, lastUpdated 2026-09-25)
 profile: https://maps.app.goo.gl/Zk4p139hmzXV6WaJ6
 owner: Risto Anton Päärni, Founder, CEO, Lifetime Oy
@@ -327,13 +327,13 @@ Firehorse · Lifetime Oy, Espoo.
 
 Tarjouksen alku- ja loppupäivä ovat pakollisia kenttiä Googlessa. A5-kampanjalle ei ole
 `products.json`:ssa loppupäivää (`docs/field-notes/2026-09-20-campaign-a5-master.md:254-256`:
-"Define campaign validity window … Set campaign end date in products.json" on avoin). Alla
-loppupäivä on **HIC-päätös** — ehdotus 31.12.2026.
+"Define campaign validity window … Set campaign end date in products.json" on avoin). HIC
+vahvisti 29.9.2026 loppupäiväksi **31.12.2026** kaikille kolmelle tarjoukselle.
 
 ### Tarjous 1 — Kotisivut −40 %
 
 - **Otsikko:** `Kotisivut yritykselle 650 € (−40 %)`
-- **Alku / loppu:** 28.9.2026 / _HIC päättää (ehdotus 31.12.2026)_
+- **Alku / loppu:** 28.9.2026 / 31.12.2026
 - **Linkki:** `https://dws10.com/products/lifetime-web-starter.fi.html`
 
 ```text
@@ -349,7 +349,7 @@ Hinta ALV 0 %, yritysasiakkaille. Kampanjahinta voimassa tarjouksen päättymisp
 ### Tarjous 2 — Verkkokauppa −40 %
 
 - **Otsikko:** `Pieni verkkokauppa 350 € (−40 %)`
-- **Alku / loppu:** 28.9.2026 / _HIC päättää (ehdotus 31.12.2026)_
+- **Alku / loppu:** 28.9.2026 / 31.12.2026
 - **Linkki:** `https://dws10.com/products/lifetime-webstore-mini.fi.html`
 
 ```text
@@ -365,7 +365,7 @@ Hinta ALV 0 %, yritysasiakkaille. Kampanjahinta voimassa tarjouksen päättymisp
 ### Tarjous 3 — Maksuton tekoälyn valmiustyöpaja
 
 - **Otsikko:** `Maksuton 3 h tekoälyn valmiustyöpaja`
-- **Alku / loppu:** 28.9.2026 / _HIC päättää (ehdotus 31.12.2026)_
+- **Alku / loppu:** 28.9.2026 / 31.12.2026
 - **Linkki:** `https://dws10.com/products/firehorse-coach.fi.html`
 
 ```text
@@ -377,6 +377,19 @@ EU:n tekoälysäädöksen 4 artikla edellyttää tekoälylukutaitoa koko henkil�
 ```text
 Työpaja sisältyy EU AI Act -lukutaitokoulutuksen tilaukseen. Hinta ALV 0 %, yritysasiakkaille. Lifetime Oy, Y-tunnus 0772407-9.
 ```
+
+## Profiilin tila
+
+- **Kaksi Lifetime Oy -profiilia samassa osoitteessa** (Laidunmaanraitti 2 A, Espoo) aiheutti
+  pääsyn jäädytyksen tunnukselle `risto.paarni2024@lifetime.fi`. Käytettävä profiili on ID
+  `690614891248877377`; kaksoisprofiili `4610304530678179875` on valituksessa pyydetty
+  poistettavaksi/yhdistettäväksi. Valitus jätetty 29.9.2026, Google vahvisti pääsyn palautuksen
+  samana päivänä.
+- **Lifetime Firehorse™Store** (profiili ID `15415367952790770774`) on samassa osoitteessa mutta
+  eri Google-tilin hallinnassa — ei linkitettävissä tästä tilistä. HIC-päätös auki: näytetäänkö
+  Firehorse jatkossa vain tuotteina tässä profiilissa (suositus) vai omana profiilinaan.
+- **Myymäläkoodi:** aseta profiiliin `690614891248877377` Lisäasetuksista koodi `8496329` —
+  tämä pitää tehdä käsin, Google ei tuo sitä valituksen mukana.
 
 ## Rajaukset
 
@@ -393,5 +406,6 @@ Työpaja sisältyy EU AI Act -lukutaitokoulutuksen tilaukseen. Hinta ALV 0 %, yr
 
 ## VERSION AND AGENT HISTORY
 
-- **v1.1** (2026-09-28) [Latest] — Firehorse-kaupan 8 tuotetta; Merchant Center -tuonnin ohje; myymäläsyötteen korjaus. Claude Code.
+- **v1.2** (2026-09-29) [Latest] — HIC vahvisti tarjousten loppupäivän 31.12.2026; kirjattu profiilin jäädytys/palautus ja kaksoisprofiili-/Firehorse-tilanne. Claude Code.
+- **v1.1** (2026-09-28) [not latest] — Firehorse-kaupan 8 tuotetta; Merchant Center -tuonnin ohje; myymäläsyötteen korjaus. Claude Code.
 - **v1.0** (2026-09-28) [not latest] — Ensimmäinen versio: 7 tuotetta, 3 tarjousta Google-yritysprofiiliin, lähde products.json v1.33. Claude Code.
