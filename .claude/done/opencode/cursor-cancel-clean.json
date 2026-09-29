@@ -1,0 +1,41 @@
+{
+  "task": "Clean Cursor cancellation and preserve stranded guidance",
+  "prompt": "Finish the clean replacement for contaminated PR #2220 in the existing opencode/cursor-cancel-clean worktree. Keep the staged Cursor-cancellation stack, cost-policy, daily-ops, Learn, morning-routine, and field-note changes from commit 290e1eba6d52, but do not merge or copy any product catalogue/feed/campaign code from #2220. Preserve the full detailed OPTION_A_OPERATING_GUIDE.md from current main (examples, troubleshooting, overflow baton); retarget it surgically off Cursor. Grok/X market notes are a separate input artifact and must remain supported. Update Mission Control's actual generated prompt and user-facing action in both dws6.com and landing-pages mirrors so anonymized drafting uses VS Code + Copilot Chat or Claude Max, while raw PII is OpenCode on DGX only. Remove the unsafe wording that Claude Code can handle raw PII under the same residency rules. Retain the existing overflow handoff path for compatibility. Update the field note to record the resolved decision and include required field-note metadata/Ontology Tags. Do not touch dws10.com/config/products.json, product feeds, price-list HTML, campaign product pages, or unrelated files. Follow DWS evidence headers and dual-folder sync. Review git diff before committing. Commit, push, and open a PR that supersedes #2220, with a body explaining that valuable campaign/payment artifacts remain for a separate corrected salvage PR. Staff review of PR #2221 found remaining contradictions: remove every raw-PII fallback to Claude Code, including 'Claude Code with EU-resident authority'; raw PII must be OpenCode on DGX only. In OPTION_A_OPERATING_GUIDE replace the stale 'Grok drafts a reply' wording with the daily-ops bot. Mark completed field-note Next Steps as completed, correct its review cadence/date wording, and add the required Context metadata plus The Story and The Insight sections without deleting its existing content. Keep Grok/X notes as the separate input artifact. Commit and push the corrections to the existing PR.",
+  "base": "main",
+  "order": 5,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "mission prompt off Cursor",
+      "run": "! rg -n 'Grok in Cursor|Cursor/Grok refused|Claude Code standby under the same' dws6.com/dashboard/mission-control/mission-control.js"
+    },
+    {
+      "name": "daily ops UI and mirror",
+      "run": "rg -q 'Hand to daily-ops bot' dws6.com/dashboard/mission-control/index.html && cmp -s dws6.com/dashboard/mission-control/index.html landing-pages/dws6-com/dashboard/mission-control/index.html && cmp -s dws6.com/dashboard/mission-control/mission-control.js landing-pages/dws6-com/dashboard/mission-control/mission-control.js"
+    },
+    {
+      "name": "detailed runbook preserved",
+      "run": "test \"$(wc -l < docs/handovers/OPTION_A_OPERATING_GUIDE.md)\" -ge 330 && rg -q 'Grok/X.*separate.*artifact' docs/handovers/OPTION_A_OPERATING_GUIDE.md && ! rg -q 'or Claude Code under the same residency rules' docs/handovers/OPTION_A_OPERATING_GUIDE.md"
+    },
+    {
+      "name": "field note complete",
+      "run": "rg -q '^## Ontology Tags' docs/field-notes/2026-09-28-cursor-pro-cancelled-daily-ops.md && rg -q '^## Next Steps' docs/field-notes/2026-09-28-cursor-pro-cancelled-daily-ops.md"
+    },
+    {
+      "name": "no prohibited catalogue files",
+      "run": "! git diff --name-only origin/main...HEAD | rg -q '^(dws10.com/config/products.json|dws10.com/feeds/google-products.xml|landing-pages/dws10-com/config/products.json|landing-pages/dws10-com/feeds/google-products.xml)$'"
+    },
+    {
+      "name": "raw PII route is DGX only",
+      "run": "! rg -n 'Claude Code with EU-resident authority|Claude Code.*raw PII|raw PII.*Claude Code' docs/handovers/OPTION_A_OPERATING_GUIDE.md docs/handovers/grok-bot-daily-ops-handover.md dws6.com/dashboard/mission-control"
+    },
+    {
+      "name": "runbook wording is current",
+      "run": "! rg -n 'Grok drafts a reply' docs/handovers/OPTION_A_OPERATING_GUIDE.md"
+    },
+    {
+      "name": "field note decisions closed",
+      "run": "rg -q '^\\*\\*Context:\\*\\*' docs/field-notes/2026-09-28-cursor-pro-cancelled-daily-ops.md && rg -q '^## The Story' docs/field-notes/2026-09-28-cursor-pro-cancelled-daily-ops.md && rg -q '^## The Insight' docs/field-notes/2026-09-28-cursor-pro-cancelled-daily-ops.md && ! rg -q '^- \\[ \\]' docs/field-notes/2026-09-28-cursor-pro-cancelled-daily-ops.md"
+    }
+  ]
+}
