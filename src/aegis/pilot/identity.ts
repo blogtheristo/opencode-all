@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
 // Audit trail: git log -- src/aegis/pilot/identity.ts
 /**
  * Aegis Pilot — local identity (Store/PRODUCT_AEGIS_PILOT.md, requirement 2).
@@ -31,6 +31,12 @@ import {
 } from './crypto.js';
 
 export const CAP_AGENT_STOP = 'agent.stop';
+/** Operator-only: record a signed decision on an agent recommendation (decision-authority.ts). */
+export const CAP_DECISION = 'decision.record';
+/** Capabilities an agent credential may never hold. */
+export const OPERATOR_ONLY_CAPABILITIES: readonly string[] = [CAP_AGENT_STOP, CAP_DECISION];
+/** Decision role, e.g. "shift-supervisor". A role, never a personal name (decision-journey rule). */
+export const ROLE_PATTERN = /^[a-z][a-z0-9_-]{1,39}$/;
 
 /** Accepted clock skew. Isolated sites drift; five minutes is the tolerance KYA sessions use. */
 export const CLOCK_SKEW_MS = 5 * 60 * 1000;
@@ -46,6 +52,8 @@ export interface CredentialBody {
   capabilities: string[];
   /** Operators only: the key their stop commands are signed with. */
   subjectPublicKeyPem?: string;
+  /** Operators only: the role recorded as `decision_by` on their decisions. */
+  role?: string;
   issuedAt: string;
   expiresAt: string;
 }
@@ -146,6 +154,7 @@ export class SiteAuthority {
       subjectName: string;
       capabilities: string[];
       subjectPublicKeyPem?: string;
+      role?: string;
       ttlHours: number;
     },
     now = new Date(),
@@ -155,6 +164,18 @@ export class SiteAuthority {
     }
     if (params.kind === 'agent' && params.capabilities.includes(CAP_AGENT_STOP)) {
       throw new Error('agents cannot hold kill authority; agent.stop is operator-only');
+    }
+    if (params.kind === 'agent' && params.capabilities.includes(CAP_DECISION)) {
+      throw new Error('agents cannot record decisions; decision.record is operator-only');
+    }
+    if (params.role !== undefined) {
+      if (params.kind !== 'operator') throw new Error('only operator credentials carry a role');
+      if (!ROLE_PATTERN.test(params.role)) {
+        throw new Error('role must be 2-40 chars of lowercase letters, digits, "-" or "_"');
+      }
+    }
+    if (params.capabilities.includes(CAP_DECISION) && params.role === undefined) {
+      throw new Error('decision.record requires a role: decisions are recorded against a role');
     }
     if (params.subjectPublicKeyPem) publicKeyFromPem(params.subjectPublicKeyPem);
     if (!(params.ttlHours > 0 && params.ttlHours <= 24 * 366)) {
@@ -170,6 +191,7 @@ export class SiteAuthority {
       issuerKeyId: this.manifest.keyId,
       capabilities: [...new Set(params.capabilities)].sort(),
       subjectPublicKeyPem: params.subjectPublicKeyPem,
+      role: params.role,
       issuedAt: now.toISOString(),
       expiresAt: new Date(now.getTime() + params.ttlHours * 3_600_000).toISOString(),
     };
@@ -239,7 +261,10 @@ export class CredentialVerifier {
     if (Date.parse(cred.expiresAt) <= t) return { ok: false, reason: 'credential expired' };
     if (this.revokedList().includes(cred.credentialId))
       return { ok: false, reason: 'credential revoked' };
-    if (cred.kind === 'agent' && cred.capabilities.includes(CAP_AGENT_STOP)) {
+    if (
+      cred.kind === 'agent' &&
+      cred.capabilities.some((c) => OPERATOR_ONLY_CAPABILITIES.includes(c))
+    ) {
       return { ok: false, reason: 'agent credential claims operator-only capability' };
     }
     if (requiredCapability && !cred.capabilities.includes(requiredCapability)) {

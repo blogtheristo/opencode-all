@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
 // Audit trail: git log -- src/aegis/pilot/evidence-ledger.ts
 /**
  * Aegis Pilot — local Article 12 evidence ledger (PRODUCT_AEGIS_PILOT.md, requirement 1).
@@ -59,7 +59,11 @@ export type LedgerEventType =
   | 'workflow.start'
   | 'workflow.complete'
   | 'workflow.failed'
-  | 'acceptance.record';
+  | 'acceptance.record'
+  // Decision journey (decision-authority.ts): the operator's signed decision on a
+  // recommendation, and the measured outcome of an accepted one.
+  | 'human.decide'
+  | 'outcome.record';
 
 export interface LedgerEventInput {
   event_type: LedgerEventType;
@@ -151,6 +155,11 @@ function parseLedger(path: string): ParsedLedger {
     offset = nl + 1;
   }
   return { events, tornTail, goodBytes: Buffer.byteLength(raw.slice(0, offset), 'utf8') };
+}
+
+/** Fully-written events of a ledger file, in order. Pure read; verify with verifyLedger first. */
+export function readLedgerEvents(path: string): LedgerEvent[] {
+  return parseLedger(path).events;
 }
 
 /**

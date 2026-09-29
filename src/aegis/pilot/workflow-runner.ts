@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
 // Audit trail: git log -- src/aegis/pilot/workflow-runner.ts
 /**
  * Aegis Pilot — local workflow runner (requirements 3–5: no network
@@ -58,6 +58,12 @@ export interface StepResult {
   decision?: string;
   confidence?: number;
   modelVersion?: string;
+  /**
+   * Advisory output awaiting a human decision. Marks the agent.decide event as
+   * a recommendation (decision-journey PATH_RECOMMENDED), which an operator can
+   * then accept, reject or defer with a signed human.decide event.
+   */
+  recommendation?: boolean;
 }
 
 export type StepHandler = ((ctx: StepContext) => Promise<StepResult>) & {
@@ -336,6 +342,7 @@ export async function runWorkflow(opts: RunOptions): Promise<RunResult> {
             criticality: step.criticality,
             decision: res.decision?.slice(0, 300),
             duration_ms: rec.durationMs,
+            recommendation: res.recommendation === true ? true : undefined,
           },
         });
       } catch (err) {

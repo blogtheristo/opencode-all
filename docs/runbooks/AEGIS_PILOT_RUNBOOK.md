@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.1 [Latest]
+Version: 1.2 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Hard stop (readiness plan patch C1): steps and the stop-test agent run in terminable worker threads by default; §8 rewritten; acceptance refuses the cooperative stop. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.2 [Latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 29.09.2026 | Changes: Readiness plan C5, HIC 28.09.2026. Operator decisions on recommendations (§5.1): `decide`, `outcome` and `journey` commands, the `decide/` inbox, and `--role` on `issue-operator`. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Hard stop (readiness plan patch C1): steps and the stop-test agent run in terminable worker threads by default; §8 rewritten; acceptance refuses the cooperative stop. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Created. Operator runbook for the local-first pilot kit (`src/aegis/pilot/`, `scripts/aegis-pilot.ts`): one section per pilot phase in `Store/PRODUCT_AEGIS_PILOT.md`, each exit gate mapped to a command and the evidence it produces. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 
 Document Status:
@@ -47,6 +48,7 @@ Nothing in the kit opens a socket except the uplink probe (which must fail) and 
   credentials/*.json     agent and operator credentials issued by the site authority
   ledger/article12.jsonl the Article 12 record (one signed, chained event per line)
   kill/                  stop-command inbox; kill/processed, kill/rejected
+  decide/                decision-command inbox; decide/processed, decide/rejected
   outbox/deferred.jsonl  non-core work waiting for reconnect
   acceptance/*.json      signed acceptance records (rehearsal and acceptance)
 ```
@@ -122,6 +124,31 @@ Run it online first. That is the exit gate: the workflow completes and its owner
 ```bash
 npm run aegis:pilot -- run ... --handlers ./customer-handlers.mjs --kind rehearsal ...
 ```
+
+### 5.1 Operator decisions on recommendations (readiness plan C5)
+
+The first workflow is advisory (HIC 28.09.2026). The agent recommends, the operator decides, and no step actuates equipment. The operator's decision is a ledger event, not a note, so the pilot also yields the first decision journey: recommendation → decision → outcome.
+
+- **Recommendation.** A handler returns `recommendation: true`. Its `agent.decide` event is then a recommendation (`PATH_RECOMMENDED`) with no decision-maker. The reference step `decide-actions` does this.
+- **Decision-maker.** Issue the operator with a role: `issue-operator ... --role shift-supervisor`. The role grants `decision.record`, and it is recorded as `decision_by`. Use a role, never a name. The operator's identity is the credential's key id; the customer keeps the mapping from that id to a person.
+- **Decision.** The operator signs accept, reject or defer against the recommendation's `seq` and `event_hash`, both of which `journey` prints. It is recorded as `human.decide` and works with the uplink down:
+
+  ```bash
+  npm run aegis:pilot -- journey --state-dir <state>
+  npm run aegis:pilot -- decide --state-dir <state> --seq N --hash H --verdict accept \
+    --reason "checked against load forecast" --operator-credential <cred> --operator-key <key>
+  ```
+
+  A decision is refused if the hash does not match the seq, if the event is not a recommendation, if the recommendation already has a final decision (a defer may be followed by a final decision), or if the recommending agent was stopped after the recommendation (the path is then abandoned). If a run holds the ledger, the command stays queued in `decide/`.
+
+- **Outcome.** After an accept, the site records what followed. Metrics are numbers only:
+
+  ```bash
+  npm run aegis:pilot -- outcome --state-dir <state> --decision-seq N --decision-hash H \
+    --result positive --metrics '{"eur_estimated":142.5,"kwh_shifted":1800}' --evidence-ref meter-export-0311
+  ```
+
+- **Pilot number (report D7).** `journey` prints `coverage`: complete paths divided by recommendations. A path is complete when it is rejected, abandoned, or accepted with an outcome. It also prints the median operator time from recommendation to decision.
 
 ## 6. Phase 3 — severed-uplink acceptance (weeks 10–11)
 

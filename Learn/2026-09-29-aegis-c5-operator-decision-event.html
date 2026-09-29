@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aegis Pilot C5 decision event</title>
+<!-- Rendered from docs/field-notes/2026-09-29-aegis-c5-operator-decision-event.md with python-markdown (pandoc unavailable in session). Source of truth is the .md. -->
+<style>body{font-family:system-ui,sans-serif;max-width:760px;margin:0 auto;padding:16px;line-height:1.55;color:#1a1a1a;background:#fff}code{background:#f2f2f2;padding:1px 4px}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:4px 8px}</style>
+</head><body>
+<h1>Aegis Pilot C5: the operator's approval as a signed decision event</h1>
+<hr />
+<h1>VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.0 [Latest]</p>
+<p>Sessions &amp; Modifications:</p>
+<ul>
+<li>Version: 1.0 [Latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 29.09.2026 | Changes: C5 implemented and verified. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD</li>
+</ul>
+<p>Document Status:</p>
+<ul>
+<li>Created: 29.09.2026</li>
+<li>Status: PENDING_REVIEW</li>
+</ul>
+<hr />
+<h2>What happened</h2>
+<p>The HIC decided on 28.09.2026 that the pilot's first workflow is advisory: the agent recommends and the operator decides. The HIC also decided that the operator's approval must be recorded as a decision event, not as a note. The pilot kit had no event for this. An approval would have ended up either as free text or as a <code>human.override</code> event, and the acceptance test reads a <code>human.override</code> as a stop.</p>
+<p>What was built (readiness plan C5):</p>
+<ul>
+<li><code>src/aegis/pilot/decision-authority.ts</code> adds:</li>
+<li>a signed <code>DecisionCommand</code> (accept, reject or defer);</li>
+<li><code>DecisionAuthority</code>, which verifies the command locally the same way stop commands are verified (credential, signature, freshness, replay);</li>
+<li><code>recordOutcome()</code>;</li>
+<li><code>decisionJourneys()</code>, which computes coverage and median decision latency.</li>
+<li>The ledger gains two event types: <code>human.decide</code>, which is bound to the recommendation by <code>seq</code> plus <code>event_hash</code> and carries <code>decision_by</code> = role, and <code>outcome.record</code>.</li>
+<li>Identity:</li>
+<li><code>decision.record</code> is an operator-only capability and requires a role.</li>
+<li>Roles must match a pattern, which rules out personal names.</li>
+<li><code>human.decide</code> carries no <code>agent_id</code>, so acceptance condition (iii) stays sound.</li>
+<li>Workflow: handlers can mark their output <code>recommendation: true</code>, and the reference step <code>decide-actions</code> now does.</li>
+<li>CLI: new <code>decide</code>, <code>outcome</code> and <code>journey</code> commands, plus <code>issue-operator --role</code>.</li>
+<li>Runbook §5.1 documents the flow.</li>
+</ul>
+<h2>Verification</h2>
+<ul>
+<li><code>src/__tests__/aegis-pilot-decision.test.ts</code>: 15 cases. The mutation check fails the right tests when the hash binding or the abandonment check is removed.</li>
+<li>Existing pilot suite: 62/62 tests green in total. tsc (including the CLI and tests), eslint and the evidence audit are clean.</li>
+<li>End-to-end run with a real severed uplink (<code>unshare --net</code>):</li>
+<li>The rehearsal returned PASS.</li>
+<li>The recommendation showed as pending.</li>
+<li>The operator's accept was recorded inside the isolated namespace.</li>
+<li>A second accept was refused ("already decided").</li>
+<li>The outcome was recorded, coverage went from 0 to 1, <code>decision_by</code> = <code>shift-supervisor</code>, and the ledger verified.</li>
+<li>Security review: started. Its findings go into the next commit and are recorded in this note.</li>
+</ul>
+<h2>Insight</h2>
+<p>The advisory workflow is the same event chain as the decision journey that was already designed: <code>PATH_RECOMMENDED → PATH_ACCEPTED → OUTCOME_RECORDED</code>. Recording the approval as an event costs one design decision in the ledger. It turns the pilot's output from "the stop works" into "the stop works, and here is the first verifiable decision path, with a customer operator as the decision-maker". Report D7 names the number that follows from this: decision-path coverage.</p>
+<h2>Next steps</h2>
+<ul>
+<li>Fold the security-review findings into the next commit.</li>
+<li>The HIC calibrates the readiness scores (G3/G5) now that C5 has landed. I did not change the scores.</li>
+</ul>
+<h2>Skipped steps</h2>
+<ul>
+<li>KB update: N/A. This is implementation evidence of an already-registered design (<code>docs/plans/2026-09-24-decision-journey-outcome-evidence.md</code>). The KB entry follows at PR merge.</li>
+<li>Drive export: N/A. This session has no Drive write path for repository files, and the repo is the source of truth.</li>
+<li>Master's thesis (implementation evidence): N/A this pass. The four-file lockstep is not opened for one component. It is queued for the next thesis pass.</li>
+</ul>
+<h2>HIC decision question</h2>
+<p>Is coverage counted over all recommendations including abandoned ones, as implemented (abandoned = complete, because the stop is also evidence)? Or are abandoned paths excluded from the denominator?</p>
+</body></html>
