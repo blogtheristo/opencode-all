@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.4 [Latest]
+Version: 1.5 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.4 [Latest] | Tool: Claude Code (web) | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: C4 prover result in the record done; OCSF ingestion moved to the M4 session with source facts. H3 and the staging-hardware risk follow the HIC decision of 29.09.2026 (DGX Spark, `physical-disconnect`, no router deny-all; checklist in runbook §6.2). Day 2 patch — C2 ledger segments and retention done (`src/aegis/pilot/ledger-segments.ts`). Loop specs A1, A2 and A5 extended to cover sealed segments. Gate scores are not recalibrated here; that is left to the HIC. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD | HIC-approved-drift: none
+- Version: 1.5 [Latest] | Tool: Claude Code | Session: claude/optimistic-bohr-5alsp7 | Date: 29.09.2026 | Changes: Day 3 scorecard column, recalibrated with C2 and the C4 prover result: G3 0.90, G5 0.90, G6 0.90, G7 0.40 → 8.25 / 11 = 75 %. Loop-throughput risk and the 01.10 takeover rule added. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.4 [not latest] | Tool: Claude Code (web) | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: C4 prover result in the record done; OCSF ingestion moved to the M4 session with source facts. H3 and the staging-hardware risk follow the HIC decision of 29.09.2026 (DGX Spark, `physical-disconnect`, no router deny-all; checklist in runbook §6.2). Day 2 patch — C2 ledger segments and retention done (`src/aegis/pilot/ledger-segments.ts`). Loop specs A1, A2 and A5 extended to cover sealed segments. Gate scores are not recalibrated here; that is left to the HIC. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD | HIC-approved-drift: none
 - Version: 1.3 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: C4 status: OpenShell driver verified against a real gateway; severed-uplink rehearsal PASS; remaining C4 items listed. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 - Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-readiness-plan-03ist6 | Date: 28.09.2026 | Changes: HIC adopted NVIDIA OpenShell as containment layer (C4, §5.4 decision record). Spike started: OpenShell built from source without telemetry in the cloud session. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
 - Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-readiness-plan-03ist6 | Date: 28.09.2026 | Changes: C1 hard stop landed ahead of M2 (commit 63270600 on #2225): G3 0.75→0.85, G5 0.70→0.75, so readiness 70 %→71 % (7.85 / 11). The isolated rehearsal passes with a stubborn agent terminated in 5 ms; the security review verdict is PASS after one HIGH was fixed. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
@@ -44,20 +45,20 @@ The model scores the eleven G0–G10 gates from `PRODUCT_PRODUCTION_READINESS_PR
 
 **Calibration.** The same scoring applied to the state before PR #2225 gives 6.05 / 11 = **55 %**. The HIC scored the pilot at 56 %, so the method reproduces the existing score.
 
-| Gate                 |  Before #2225   |   Now (#2225)   |      At 95 %       | What moves it (evidence)                                                                                                        |
-| -------------------- | :-------------: | :-------------: | :----------------: | ------------------------------------------------------------------------------------------------------------------------------- |
-| G0 Lifecycle truth   |      1.00       |      1.00       |        1.00        | Registry, lifecycle, owner — already in `config/truth/`                                                                         |
-| G1 Buyer and outcome |      0.90       |      0.90       |        1.00        | Named R-IDs per storyboard panel (§3); binary KPI already in catalogue                                                          |
-| G2 Commercial        |      0.85       |      0.85       |        1.00        | H1: acceptance-protocol annex + Phase 0 scope/signoff template (HIC-approved)                                                   |
-| G3 Working delivery  |      0.30       |      0.75       |        1.00        | Kit (#2225) → C1 hard stop, A3 handler conformance                                                                              |
-| G4 Agent access      |      0.20       |      0.60       |        0.95        | CLI + JSON (#2225) → A6 skill registration; MCP exposure deferred (0.05 left)                                                   |
-| G5 Security          |      0.50       |      0.70       |        1.00        | Security review PASS (#2225) → C3 threat model, A1 doctor, C2 retention                                                         |
-| G6 Verification      |      0.20       |      0.80       |        1.00        | 40 tests + netns run (#2225) → A1/A2/A3 suites, A4 nightly rehearsal                                                            |
-| G7 Operations        |      0.10       |      0.30       |        0.95        | A2 export bundle, A5 systemd unit + health timer, C2 ledger segments/retention, A4 nightly                                      |
-| G8 Fulfilment        |      0.80       |      0.80       |        1.00        | H2: fulfilment runbook row points to the kit runbook and a provisioning checklist                                               |
-| G9 Product surface   |      0.90       |      0.90       |        1.00        | Five-language page exists; truth-check of page claims against what the test demonstrates per isolation rung                     |
-| G10 Acceptance evid. |      0.00       |      0.10       |        0.60        | H3: witnessed staging acceptance on DGX Spark, `physical-disconnect` rung (HIC 29.09.2026), bundle verified on a second machine |
-| **Total**            | **6.05 → 55 %** | **7.70 → 70 %** | **10.50 → 95.5 %** |                                                                                                                                 |
+| Gate                 |  Before #2225   |   Now (#2225)   |  Day 3 (29.09)  |      At 95 %       | What moves it (evidence)                                                                                                        |
+| -------------------- | :-------------: | :-------------: | :-------------: | :----------------: | ------------------------------------------------------------------------------------------------------------------------------- |
+| G0 Lifecycle truth   |      1.00       |      1.00       |      1.00       |        1.00        | Registry, lifecycle, owner — already in `config/truth/`                                                                         |
+| G1 Buyer and outcome |      0.90       |      0.90       |      0.90       |        1.00        | Named R-IDs per storyboard panel (§3); binary KPI already in catalogue                                                          |
+| G2 Commercial        |      0.85       |      0.85       |      0.85       |        1.00        | H1: acceptance-protocol annex + Phase 0 scope/signoff template (HIC-approved)                                                   |
+| G3 Working delivery  |      0.30       |      0.75       |      0.90       |        1.00        | Kit (#2225) → C1 hard stop, A3 handler conformance                                                                              |
+| G4 Agent access      |      0.20       |      0.60       |      0.60       |        0.95        | CLI + JSON (#2225) → A6 skill registration; MCP exposure deferred (0.05 left)                                                   |
+| G5 Security          |      0.50       |      0.70       |      0.90       |        1.00        | Security review PASS (#2225) → C3 threat model, A1 doctor, C2 retention                                                         |
+| G6 Verification      |      0.20       |      0.80       |      0.90       |        1.00        | 40 tests + netns run (#2225) → A1/A2/A3 suites, A4 nightly rehearsal                                                            |
+| G7 Operations        |      0.10       |      0.30       |      0.40       |        0.95        | A2 export bundle, A5 systemd unit + health timer, C2 ledger segments/retention, A4 nightly                                      |
+| G8 Fulfilment        |      0.80       |      0.80       |      0.80       |        1.00        | H2: fulfilment runbook row points to the kit runbook and a provisioning checklist                                               |
+| G9 Product surface   |      0.90       |      0.90       |      0.90       |        1.00        | Five-language page exists; truth-check of page claims against what the test demonstrates per isolation rung                     |
+| G10 Acceptance evid. |      0.00       |      0.10       |      0.10       |        0.60        | H3: witnessed staging acceptance on DGX Spark, `physical-disconnect` rung (HIC 29.09.2026), bundle verified on a second machine |
+| **Total**            | **6.05 → 55 %** | **7.70 → 70 %** | **8.25 → 75 %** | **10.50 → 95.5 %** |                                                                                                                                 |
 
 ## 3. Storyboard — one pilot, start to decision
 
@@ -134,6 +135,7 @@ Ownership follows the CLAUDE.md Coding Delegation Rule. Multi-file coding goes t
 - **Risk: cloud-agent cutoff on 12.10.** If C1 or C2 slips past 11.10, move it to a DGX-local Claude Code or OpenCode session. That costs about one week.
 - **Risk: the loop blocks twice on a task.** Under the delegation rule, Claude Code takes the task over. Budget: one week. This is the main reason the P80 date is 08.11.
 - **Risk: staging hardware (HIC 29.09.2026: DGX Spark, no router deny-all).** M4 runs on the DGX Spark with `physical-disconnect`: the HIC removes the uplink cable and disables Wi-Fi, so isolation is applied by someone other than the system under test and is stronger than `router-deny-all`. Remaining risks: OpenShell must be rebuilt for arm64 with arm64 workload images (runbook §6.2), and the Spark is also the development machine, so the state directory for M4 must be fresh and nothing else may run a ledger writer during the window. If only host-level isolation is used instead, G10 stays at 0.4 and readiness caps at about 94 % (10.30 / 11).
+- **Risk: loop throughput (29.09.2026).** The A-specs reached `main` on 28.09 at 22:48 EEST, but the loop on gn100 ran from a stale checkout and every round failed in 1–2 s with `Model not found: ollama-local/qwen3-coder-next:latest`. Fixed 29.09 (model added to the global OpenCode config, `~/dws6` reset to `origin/main`). If A1, A3, A4 and A6 have no PR by the evening of 01.10, Claude Code codes A6, and A1 if it is still stuck (HIC 29.09.2026).
 - **Dependency:** PR #2225 must merge before any loop spec runs. This PR is stacked on it for that reason.
 
 ## 7. Related
@@ -145,6 +147,6 @@ Ownership follows the CLAUDE.md Coding Delegation Rule. Multi-file coding goes t
 
 ---
 
-**Document version:** v1.2 · **Date:** 28.09.2026 · **Owner:** Lifetime Oy
+**Document version:** v1.5 · **Date:** 29.09.2026 · **Owner:** Lifetime Oy
 © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved.
 **Business Confidential.**

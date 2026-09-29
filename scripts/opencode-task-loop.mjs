@@ -335,6 +335,10 @@ function openPr(t, wt, gateOut) {
     'select(.state=="OPEN") | .url',
   );
   if (existing.status === 0 && existing.stdout.trim()) return existing.stdout.trim();
+  // A task whose checks already pass on the base has nothing to review; gh would only fail.
+  tryGit(wt, 'fetch', '-q', 'origin', base);
+  if (tryGit(wt, 'rev-list', '--count', `origin/${base}..HEAD`)?.trim() === '0')
+    return `no PR — no commits beyond origin/${base} (already satisfied on ${base})`;
   const body = [
     `Task: ${t.spec.task ?? t.branch} — run unattended by \`scripts/opencode-task-loop.mjs\`.`,
     `Acceptance spec: \`.claude/done/${t.branch}.json\`.`,
