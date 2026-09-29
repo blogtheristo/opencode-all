@@ -13,7 +13,7 @@
  *   probe           --scope F
  *   run             --state-dir D --scope F --kind rehearsal|acceptance
  *                   (--operator-credential C --operator-key K | --await-operator [--timeout-s 600])
- *                   [--witness W] [--hold] [--stop-mode hard|cooperative] [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
+ *                   [--witness W] [--hold] [--stop-mode hard|cooperative] [--containment worker|openshell [--image I]] [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   stop            --state-dir D --agent ID|'*' --operator-credential C --operator-key K --reason R
  *   verify          --state-dir D [--record FILE] [--expect-key-id K]
  *   reconcile       --state-dir D --scope F [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
@@ -35,6 +35,8 @@ import {
   recordRevoke,
   type HandlerModuleRef,
   createIsolatedRegistry,
+  createOpenShellRegistry,
+  openShellStopTestAgent,
   type HandlerRegistry,
   SiteAuthority,
   createStopCommand,
@@ -77,6 +79,9 @@ const { values: a, positionals } = parseArgs({
     'report-dir': { type: 'string' },
     'sync-url': { type: 'string' },
     'stop-mode': { type: 'string' },
+    containment: { type: 'string' },
+    image: { type: 'string' },
+    'openshell-cli': { type: 'string' },
     agent: { type: 'string' },
     reason: { type: 'string' },
     record: { type: 'string' },
@@ -124,6 +129,30 @@ async function loadRegistry(
   mode: 'hard' | 'cooperative',
 ): Promise<HandlerRegistry> {
   const ref = handlerModule(stateDir);
+  if (containmentMode() === 'openshell' && mode === 'hard') {
+    // C4: each step in its own OpenShell sandbox. The reference workflow's paths
+    // are remapped into the sandbox; its report directory round-trips per step.
+    const reference = !a.handlers;
+    const reportDir = resolve(a['report-dir'] ?? `${stateDir}/reports`);
+    return createOpenShellRegistry(
+      {
+        modulePath: ref.modulePath,
+        options: reference
+          ? {
+              readingsPath: '/sandbox/in/readings.json',
+              reportDir: '/sandbox/out',
+              syncUrl: a['sync-url'] ?? 'none',
+            }
+          : {},
+        inputs: reference ? { 'in/readings.json': String(ref.options?.readingsPath) } : {},
+        outputDir: reference ? reportDir : undefined,
+        image: a.image ?? 'aegis-pilot-node:22',
+        workRoot: resolve(stateDir, 'sandbox-work'),
+        cli: a['openshell-cli'] ?? 'openshell',
+      },
+      scope.workflow.steps,
+    );
+  }
   if (mode === 'hard') {
     return createIsolatedRegistry(
       ref,
@@ -145,6 +174,13 @@ async function loadRegistry(
     );
   }
   return reg;
+}
+
+function containmentMode(): 'worker' | 'openshell' {
+  const m = a.containment ?? 'worker';
+  if (m !== 'worker' && m !== 'openshell')
+    throw new Error('--containment must be worker or openshell');
+  return m;
 }
 
 function stopMode(): 'hard' | 'cooperative' {
@@ -290,6 +326,24 @@ async function main(): Promise<void> {
         scope,
         registry: await loadRegistry(stateDir, scope, stopMode()),
         stopMode: stopMode(),
+        containment:
+          stopMode() === 'cooperative'
+            ? { mode: 'in-process' }
+            : containmentMode() === 'openshell'
+              ? { mode: 'openshell', image: a.image ?? 'aegis-pilot-node:22' }
+              : { mode: 'worker' },
+        stopTestAgent:
+          stopMode() === 'hard' && containmentMode() === 'openshell'
+            ? (tickMs: number) =>
+                openShellStopTestAgent(
+                  {
+                    image: a.image ?? 'aegis-pilot-node:22',
+                    workRoot: resolve(stateDir, 'sandbox-work'),
+                    cli: a['openshell-cli'] ?? 'openshell',
+                  },
+                  tickMs,
+                )
+            : undefined,
         kind,
         operator,
         witness: a.witness,

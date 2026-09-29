@@ -58,6 +58,8 @@ export interface StepResult {
   decision?: string;
   confidence?: number;
   modelVersion?: string;
+  /** Set by containment runtimes (openshell-handlers.ts): recorded with the decision. */
+  containment?: Record<string, unknown>;
 }
 
 export type StepHandler = ((ctx: StepContext) => Promise<StepResult>) & {
@@ -337,6 +339,7 @@ export async function runWorkflow(opts: RunOptions): Promise<RunResult> {
             credential_id: agent.credentialId,
             decision: res.decision?.slice(0, 300),
             duration_ms: rec.durationMs,
+            containment: res.containment,
           },
         });
       } catch (err) {
