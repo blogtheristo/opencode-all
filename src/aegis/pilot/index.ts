@@ -19,3 +19,4 @@ export * from './openshell-prover.js';
 export * from './authority.js';
 export { createReferenceRegistry, evaluateLimits } from './reference-workflow.js';
 export { generateEd25519, keyId, privateKeyFromPem, publicKeyFromPem } from './crypto.js';
+export * from './doctor.js';
