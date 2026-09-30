@@ -18,6 +18,10 @@
 
 All 229 aegis tests pass locally. The full suite fails 5 files, and the same 5 fail on `origin/main`: a missing Python `markdown` module and a leaked `GIT_CONFIG_COUNT` in the cloud container break the tree-gate fixtures. Local pre-push CI also fails `npm audit` (`undici`, not touched here).
 
+## HIC direction (30.09.2026)
+
+Aegis implementation is focus 1. Active ontology and `opencode-loop` are the operating tools: industry-ontology mining and multi-file coding run on the DGX loop, and paid sessions stay on Aegis security and specs until 11.10.
+
 ## Open
 
 1. **PR #2256 (A2 export bundle)** — CI is green but it conflicts with `main` (`scripts/aegis-pilot.ts`, `src/aegis/pilot/index.ts`, both additive). Loop status could not be read from the cloud. **Defect found:** `bundle.ts` reads sealed segments from `<state>/segments` instead of `<state>/ledger/segments`, so no sealed segment is ever exported. The test was loosened to pass ("doesn't require segments to be present"). The spec's own check does not catch it, because it never seals. Takeover rule: if not fixed by 02.10, Claude Code fixes the path, restores the test and resolves the conflict. The spec also asks for a runbook §7 "Evidence handover" subsection, which the PR does not add.
