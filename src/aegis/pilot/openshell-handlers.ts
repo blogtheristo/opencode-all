@@ -64,6 +64,7 @@ import { type NetworkEndpoint, stepPolicy } from './openshell-policy.js';
 import type { PilotStep } from './scope.js';
 import { RESULT_MARKER } from './sandbox-step-runner.js';
 import type { StopTestAgent } from './acceptance.js';
+import { collectOcsf, type OcsfEvidence } from './openshell-ocsf.js';
 import type { HandlerRegistry, StepContext, StepHandler, StepResult } from './workflow-runner.js';
 import { NetworkUnavailable } from './workflow-runner.js';
 
@@ -183,6 +184,12 @@ export interface OpenShellRef {
    * that gateway (security review M3). A registry makes its own when not given.
    */
   listingControl?: ListingControl;
+  /**
+   * Collect the sandbox's OCSF events from the gateway before it is deleted and
+   * record their summary with the step (openshell-ocsf.ts; plan C4). Not on an
+   * operator stop: the stop is never delayed for evidence collection.
+   */
+  ocsf?: boolean;
 }
 
 /**
@@ -202,6 +209,8 @@ export interface ContainmentEvidence {
   image: string;
   policyDigest: string;
   limits: SandboxLimits;
+  /** OpenShell OCSF events: counts, digests and deny events, never payloads. */
+  ocsf?: OcsfEvidence;
 }
 
 const ESBUILD = () => resolve(process.cwd(), 'node_modules/.bin/esbuild');
@@ -756,13 +765,22 @@ async function runInSandbox(
     );
     if (res === 'aborted' || stopping) return await stop();
 
+    // Evidence from the sandbox travels with the error too, so failures and deferrals keep it.
+    const withEvidence = (e: Error): Error => Object.assign(e, { containment: { ...containment } });
+    const captureOcsf = async () => {
+      if (ref.ocsf) containment.ocsf = await collectOcsf(run, cli, name);
+    };
+
     let parsed: SandboxReply;
     try {
       parsed = parseResult(res.stdout);
     } catch (err) {
-      throw new Error(`${(err as Error).message}; exit ${res.code}; ${res.stderr.slice(0, 300)}`, {
-        cause: err,
-      });
+      await captureOcsf();
+      throw withEvidence(
+        new Error(`${(err as Error).message}; exit ${res.code}; ${res.stderr.slice(0, 300)}`, {
+          cause: err,
+        }),
+      );
     }
     // A success claim from a process that did not exit cleanly is not a success.
     if (parsed.ok && res.code !== 0)
@@ -817,10 +835,12 @@ async function runInSandbox(
         promoteOutputs(staging, ref.outputDir, promoted);
       }
     }
+    if (stopping) return await stop();
+    await captureOcsf();
     if (!parsed.ok) {
       if (parsed.errorName === 'NetworkUnavailable')
-        throw new NetworkUnavailable(parsed.errorMessage);
-      throw new Error(parsed.errorMessage ?? 'step failed in sandbox');
+        throw withEvidence(new NetworkUnavailable(parsed.errorMessage));
+      throw withEvidence(new Error(parsed.errorMessage ?? 'step failed in sandbox'));
     }
     const { output, decision, confidence, modelVersion } = parsed.result;
     const result: StepResult = { output, decision, confidence, modelVersion };

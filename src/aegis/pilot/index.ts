@@ -16,6 +16,7 @@ export * from './workflow-runner.js';
 export * from './acceptance.js';
 export * from './isolated-handlers.js';
 export * from './openshell-handlers.js';
+export * from './openshell-ocsf.js';
 export { stepPolicy } from './openshell-policy.js';
 export { stepSandboxManifest } from './gke-sandbox-policy.js';
 export * from './openshell-prover.js';

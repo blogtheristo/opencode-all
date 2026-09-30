@@ -208,6 +208,8 @@ async function loadRegistry(
         image: a.image ?? 'aegis-pilot-node:22',
         workRoot: resolve(stateDir, 'sandbox-work'),
         cli: a['openshell-cli'] ?? 'openshell',
+        // C4: OCSF events from each sandbox go into the ledger with the step.
+        ocsf: true,
         ...POLICY_OPTIONS,
       },
       scope.workflow.steps,
