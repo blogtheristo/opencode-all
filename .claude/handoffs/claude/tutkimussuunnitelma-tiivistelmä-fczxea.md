@@ -1,28 +1,44 @@
 # Handoff — claude/tutkimussuunnitelma-tiivistelmä-fczxea
 
-**Date:** 11.08.2026 · **Status:** HIC hyväksynyt 11.08.2026 (v2.4)
+**Date:** 28.09.2026 · **Status:** v2.7 committoitu, odottaa Drive-vientiä
 
-## Mitä tehtiin
+## Missä mennään
 
-HIC:n kaksi kritiikkikohtaa tutkimussuunnitelman tiivistelmään (masteri + Nokia-export, molemmat v2.1 → v2.4):
+|                                                                                       | Versio | Tila                              |
+| ------------------------------------------------------------------------------------- | ------ | --------------------------------- |
+| Masteri `docs/lut/tutkimussuunnitelman-tiivistelma-lut-2026-fi.md`                    | 2.7    | Tässä haarassa, ei vielä mainissa |
+| Nokia-export `docs/lut/2026-08-10-nokia-saatio-tutkimussuunnitelma-tiivistelma-FI.md` | 2.7    | Tässä haarassa, ei vielä mainissa |
+| Drive-vienti (kansio: LUT PhD — Sovereign Edge AI)                                    | 2.4    | Jäljessä kolme versiota           |
 
-1. **Empiirinen perusta.** Uusi osio: aineisto syntyy kaupallisessa, tuotannollisessa DWS IQ -ympäristössä; myynnin ja käyttöönottojen on onnistuttava, jotta väitös voi valmistua. Riippuvuus kirjattu riskinä (RQ1/RQ2 etenevät ilman uusia käyttöönottoja, RQ3/RQ4 eivät) + minimiaineistokynnys kk 1–6. Ristiriita "arviointi erillään kaupallisesta tuotekehityksestä" -lauseen kanssa ratkaistu: kaupallinen kanava tuottaa aineiston, ei tulkintaa.
-2. **Jurisdiktiokehys.** Ei EU–US-asetelma. RQ2 kattaa EU:n (FI/SE/DE), Yhdysvallat, Singaporen, Etelä-Korean ja ASEAN/Aasian. Taulukkoon 4 uutta riviä evidenssistatuksineen; rehellisyysvartija laajennettu kaikkiin ei-empiirisiin profiileihin. Vanha kolmen EU-maan rajaus säilytetty kumottuna (Sääntö 12).
+## PR-historia
 
-3. **Tutkimus vs. GTM (v2.3).** Uusi osio "Jurisdiktiokehys ei ole markkinasuunnitelma": laaja vertailukehikko ei laajenna markkinajoukkoa. GTM-vaihe 1 = 2–3 markkinaa nimetyllä ostajalla, kumppanilla, data-aineistolla ja toimituskyvyllä; Suomi kotimarkkina, Ruotsi/Saksa myyntipolun ehdolla, SG/KR/ASEAN myöhempiä profiileja.
+- **PR #1820** — merged 11.08.2026 03:16Z, v2.1 → v2.6, 5 tiedostoa, +725/−27, 7 committia.
+  Sisältö: empiirinen perusta + käyttöönottoriippuvuus · jurisdiktiokehyksen laajennus (ei EU–US-asetelma) · tutkimus-vs-GTM-erottelu · versioparius · Etelä-Korean poisto · Geminin kahden kierroksen konsolidointi (GTM-status-sarake, akateeminen tutkimusalue / markkinastrategia; ehdottomat GTM-statukset hylätty).
+- **Tämä haara (28.09.2026)** — v2.7, kaksi mainissa ollutta puutetta korjattu, ks. alla.
+- Haara on uudelleenperustettu mainista #1820:n squash-mergen jälkeen; vanhat commitit ovat mainin historiassa.
 
-**Versioparius (HIC 11.08.2026):** Nokia-export kantaa aina masterin versionumeron — sekä repossa että Drive-vientinimessä. Sääntö kirjattu molempien tiedostojen headeriin.
+## Mitä v2.7 korjaa (kaksi puutetta mainissa)
 
-## Drive (kansio: LUT PhD — Sovereign Edge AI)
+1. **HIC:n 11.08.2026 hyväksymä korvaus puuttui PR #1820:sta.** "Syvä paikallinen validointi Suomessa, Ruotsissa ja Saksassa" → "paikalliset vertailut … niiden kunkin evidenssistatuksen mukaisesti". Vanha muotoilu lupasi empiiristä aineistoa kolmesta maasta, joista vain Suomi on empiirinen. Korjattu sekä Akateeminen tutkimusalue -kappaleessa että GTM-vertailutaulukon Laajuus-rivillä.
+2. **Nokia-exportista puuttui koko tutkimus-vs-GTM-kappale**, vaikka sen v2.3-muutoshistoria väitti sen olevan siellä. Apurahaliitteestä puuttui siis HIC:n vaatima erottelu. Palautettu.
 
-- `2.2_KYA-S1_tutkimussuunnitelman_tiivistelma_FI` — 11xOfwnmwKFxEw4g45EBLb4r9N3p8oH24RiTW6m6P7Wc
-- `2.2_Nokia-säätiö tutkimussuunnitelman tiivistelmä (FI)` — 1OLAWOPOEqauKNhznKrJSgTkuXw-uoNzNd7B4B0QgxQs
+Lisäksi: empiirinen riippuvuus rajattu osittaiseksi HIC:n tarkennuksen mukaan — väitös ei romahda käyttöönottojen viivästyessä, koska RQ1/RQ2 voivat edetä fallback-aineistolla; RQ3/RQ4 ovat ne osat, jotka edellyttävät käyttöönottoja.
 
-## Ratkaistu: Etelä-Korea
+## Repon tila ympärillä (uusimmat mainin PR:t)
 
-HIC päätti 11.08.2026 poistaa Etelä-Korean kehyksestä (v2.4) — verifioimatonta jurisdiktiota ei näytetä arvioijalle aktiivisena tutkimusprofiilina. Singapore + ASEAN/Aasia kantavat Aasia-akselin. Paluuehto (sääntely-, hankinta- ja standardointireitti lähteistettynä) on kirjattu kenttämuistiinpanon §4c:hen.
+- **#2208** Coding Delegation Rule, `scripts/loop-task.mjs`, HIC PR -päätökset
+- **#2207** `opencode-loop`: DONE päättyy PR:ään; done-gate `opencode-all`:ssa; `--prs` purkaa PR-jonon
+- **#2206** `opencode-loop` shell-komento valvomattomaan tehtäväsilmukkaan
+
+Näillä on yksi seuraus tälle työlle: CLAUDE.md:n **Done Gate Rule** vaatii nyt `node scripts/agent-done-gate.mjs --full` -tulosteen ennen kuin työ raportoidaan valmiiksi. Dokumenttimuutoksille tämä tarkoittaa käytännössä committed + pushed + formatoitu.
+
+## Avoin
+
+1. Drive-vienti v2.7 (masteri + export samalla numerolla, versioparius). MCP Drive ei osaa ylikirjoittaa Docsia → uusi tiedosto per versio; kansiossa on jo 2.0–2.4.
+2. PR tälle haaralle.
 
 ## Huom seuraavalle sessiolle
 
-- Prettier-hook muuntaa `***`-delimiterit `---`:ksi jokaisella Edit/Write-kutsulla näissä .md-tiedostoissa. Palautettu käsin; tarkista ennen commitia (`grep -n '^---$'`).
-- MCP Drive ei osaa ylikirjoittaa olemassa olevaa Docsia — uusi versio = uusi tiedosto.
+- **Delimiter:** `VERSION AND AGENT HISTORY` käyttää nyt `---` (CLAUDE.md, HIC 19.09.2026 poisti `***`). Aiempi ohje "palauta `***` käsin" on vanhentunut — Prettier-hook toimii nyt oikein, älä taistele sitä vastaan.
+- **Hyväksyntä ≠ commit:** kun HIC hyväksyy sanamuodon kesken session, committoi se ennen seuraavaa aihetta ja tarkista `grep`illä että se on tiedostossa. v2.7 syntyi juuri tämän laiminlyönnistä.
+- Muotoilija (Prettier) järjestelee HTML/MD:n Edit/Write-kutsun jälkeen; merkkijonokorvaukset kannattaa tehdä Bashista pythonilla ja **assertoida** osuma, muuten korvaus epäonnistuu hiljaisesti.

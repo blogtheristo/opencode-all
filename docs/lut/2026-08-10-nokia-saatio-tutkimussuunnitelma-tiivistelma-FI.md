@@ -5,29 +5,30 @@
 > **masteriin ensin** ja tuodaan tänne; tämä tiedosto kantaa vain Nokia-säätiön hakukohtaisen
 > kehyksen. Älä muokkaa tätä rinnakkaisena lähteenä — se oli 10.08.2026 asti driftin lähde.
 > **Versioparius (HIC 11.08.2026):** tämä export kantaa aina saman versionumeron kuin masteri —
-> kun masteri on 2.6, export on 2.6. Sama numero myös Drive-vientinimessä (`<versio>_...`).
+> kun masteri on 2.7, export on 2.7. Sama numero myös Drive-vientinimessä (`<versio>_...`).
 
 > Yksisivuinen tutkimussuunnitelman tiivistelmä Nokia-säätiön apurahahakua varten (DL 15.9.2026).
 > Ohjaussuhde yksiselitteisesti LUT:ssa — kaikki neljä tutkimuskysymystä muodostavat yhden
 > LUT-ohjauksessa olevan väitöskirjakokonaisuuden. KTH TECoSA on mahdollinen ulkopuolinen
 > yhteistyötaho, ei tutkimuksen edellytys. Teksti on HIC:n hyväksymä muotoilu sellaisenaan.
 
-***
+---
 
 ## VERSION AND AGENT HISTORY
 
-| Kenttä  | Arvo                                                                             |
-| ------- | -------------------------------------------------------------------------------- |
-| Versio  | 2.6                                                                              |
-| Työkalu | Claude Code                                                                      |
-| Sessio  | claude/tutkimussuunnitelma-tiivistelmä-fczxea                                      |
-| Päiväys | 11.08.2026                                                                       |
-| Tila    | HYVÄKSYTTY TEKSTI + hakijarivin täydennys (HIC 10.08.2026)                        |
-| Kieli   | Suomi                                                                            |
-| Tyyppi  | Tutkimussuunnitelman tiivistelmä (apurahahaku)                                    |
+| Kenttä  | Arvo                                                       |
+| ------- | ---------------------------------------------------------- |
+| Versio  | 2.7                                                        |
+| Työkalu | Claude Code                                                |
+| Sessio  | claude/tutkimussuunnitelma-tiivistelmä-fczxea              |
+| Päiväys | 11.08.2026                                                 |
+| Tila    | HYVÄKSYTTY TEKSTI + hakijarivin täydennys (HIC 10.08.2026) |
+| Kieli   | Suomi                                                      |
+| Tyyppi  | Tutkimussuunnitelman tiivistelmä (apurahahaku)             |
 
 Sessions & Modifications:
 
+- Version: 2.7 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 28.09.2026 | Changes: **Tuotu masterin v2.7 + korjattu puuttuva sisältö.** (1) HIC:n 11.08.2026 hyväksymä korvaus: "syvä paikallinen validointi" → "paikalliset vertailut kunkin evidenssistatuksen mukaisesti". (2) Empiirinen riippuvuus rajattu osittaiseksi: RQ1/RQ2 voivat edetä fallback-aineistolla, RQ3/RQ4 edellyttävät käyttöönottoja. (3) **Palautettu kokonaan puuttunut tutkimus-vs-GTM-kappale:** v2.3:n muutoshistoria väitti sen olevan tässä tiedostossa, mutta kappale ei ollut mainissa PR #1820:n jälkeen — apurahaexportista puuttui siis juuri se erottelu, jota HIC vaati (Sääntö 12: kirjattu puutteena, ei hiljaisena korjauksena).
 - Version: 2.6 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: **Tuotu masterin v2.6** — Geminin toisen kierroksen konsolidointi: RQ3 terävöitetty ("enintään kolmessa määritellyssä edge-ympäristössä, evidenssistatukset huomioiden"), lisätty lause GTM-aseman ja tutkimusdatan erosta, GTM-nimikkeet Kasvumarkkina/Strateginen markkina ehdollisuus säilyttäen, USA:lle skaalauslogiikan testi + rahoitus-/skaalauspolku tutkimuksen pääjuonen ulkopuolella, ja riskikäsittelyn ristiviittaus RQ-lohkon jälkeen.
 - Version: 2.5 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: **Tuotu masterin v2.5** — Gemini-konsolidointi: jurisdiktiotaulukkoon GTM-status-sarake ja GTM-osioon akateeminen tutkimusalue / markkinastrategia -jaottelu. Geminin ehdottomat GTM-statukset (Ruotsi/Saksa ilman myyntipoluehtoa) hylätty; HIC:n ehdollisuus säilytetty.
 - Version: 2.4 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: **Tuotu masterin v2.4.** Etelä-Korea poistettu tutkimuskehyksestä (HIC 11.08.2026): verifioimatonta jurisdiktiota ei näytetä arvioijalle aktiivisena tutkimusprofiilina. Singapore ja laajempi ASEAN/Aasia kantavat Aasia-akselin.
@@ -41,7 +42,7 @@ Sessions & Modifications:
 - Version: 2.0 (kumoutunut numerointi, sisältö voimassa) | Tool: Claude Code | Date: 10.08.2026 | Changes: HIC:n päätös — Törngrenin/KTH:n rooli vähennetty ja ohjaussuhde pidetään yksiselitteisesti LUT:ssa. Kaikki neljä tutkimuskysymystä muodostavat yhden LUT-ohjauksessa olevan väitöskirjakokonaisuuden; KTH TECoSA esitetään mahdollisena ulkopuolisena tutkimusyhteistyönä, ei ohjaajatahona eikä edellytyksenä. Poistettu RQ-kohtaiset laitosmerkinnät. Lisätty tieteellisen arvioinnin erottaminen yrityksen kaupallisesta tuotekehityksestä.
 - Version: 1.0 | Tool: Claude Code | Session: claude/phd-research-sovereign-edge-ok1wk3 | Date: 10.08.2026 | Changes: Nokia-säätiön 1-sivuinen tutkimussuunnitelman tiivistelmä RQ1–RQ4-rungosta. Kolmen kaistan (LUT / KTH-AB-SE / Lifetime Oy) tutkimusympäristö. Rehellisyysvartijat: KTH tavoiteltu yhteistyö, Lifetime AB rekisteröity/pankki kesken, Vinnova tavoiteltua.
 
-***
+---
 
 ## TUTKIMUSSUUNNITELMAN TIIVISTELMÄ
 
@@ -95,16 +96,18 @@ Menetelminä käytetään laadullista monitapaustutkimusta ja ostajan päätös-
 
 #### Jurisdiktioroolit ja niiden evidenssiarvo
 
-| Maa | Akateeminen rooli | GTM-status | Evidenssin status |
-| --- | --- | --- | --- |
-| **Suomi** | Alkuperä ja referenssi | Kotimarkkina — GTM-vaihe 1 | Empiirinen tutkimusaineisto |
-| **Ruotsi** | Safety-validointi | Kasvumarkkina, ehdollinen | Ehdollinen empiirinen — vain jos KTH/TECoSA-yhteistyö toteutuu |
-| **Saksa** | Teollisen hankinnan stressitesti | Strateginen markkina, ehdollinen | Skenaarioprofiili, ei tutkimusdataa |
-| **Yhdysvallat** | Vastuu- ja hankintalogiikan vastinpari EU:lle sekä skaalauslogiikan testi | Ei GTM-vaiheessa 1 — rahoitus-/skaalauspolku, ei tutkimuksen pääjuoni | Dokumenttiprofiili, ei empiiristä agenttidataa |
-| **Singapore** | Standardointivetoinen reitti (ISO/IEC JTC 1/SC 42) | Myöhempi markkinaprofiili | Dokumenttiprofiili — reitti todennettu ensisijaislähteistä |
-| **ASEAN / laajempi Aasia** | Vientivetoinen hankintakonteksti (mm. CBAM) | Myöhempi markkinaprofiili | Skenaarioprofiili, ei tutkimusdataa |
+| Maa                        | Akateeminen rooli                                                         | GTM-status                                                            | Evidenssin status                                              |
+| -------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **Suomi**                  | Alkuperä ja referenssi                                                    | Kotimarkkina — GTM-vaihe 1                                            | Empiirinen tutkimusaineisto                                    |
+| **Ruotsi**                 | Safety-validointi                                                         | Kasvumarkkina, ehdollinen                                             | Ehdollinen empiirinen — vain jos KTH/TECoSA-yhteistyö toteutuu |
+| **Saksa**                  | Teollisen hankinnan stressitesti                                          | Strateginen markkina, ehdollinen                                      | Skenaarioprofiili, ei tutkimusdataa                            |
+| **Yhdysvallat**            | Vastuu- ja hankintalogiikan vastinpari EU:lle sekä skaalauslogiikan testi | Ei GTM-vaiheessa 1 — rahoitus-/skaalauspolku, ei tutkimuksen pääjuoni | Dokumenttiprofiili, ei empiiristä agenttidataa                 |
+| **Singapore**              | Standardointivetoinen reitti (ISO/IEC JTC 1/SC 42)                        | Myöhempi markkinaprofiili                                             | Dokumenttiprofiili — reitti todennettu ensisijaislähteistä     |
+| **ASEAN / laajempi Aasia** | Vientivetoinen hankintakonteksti (mm. CBAM)                               | Myöhempi markkinaprofiili                                             | Skenaarioprofiili, ei tutkimusdataa                            |
 
 **Rehellisyysvartija (HIC 10.08.2026, laajennettu 11.08.2026):** yhtäkään jurisdiktiota ei kirjoiteta empiiriseksi validointipaikaksi ennen kuin on olemassa todellinen yritys-, yliopisto- tai hankintakonteksti. Ilman sitä kyseessä on skenaario- tai dokumenttiprofiili, jolla testataan mallin siirrettävyyttä — ei havaintoaineisto, jolla väitetään tuloksia. Tämä koskee Saksaa, Yhdysvaltoja, Singaporea ja ASEAN-aluetta yhtä lailla. Empiirinen ydin on Suomi; Ruotsi on ehdollinen.
+
+**Jurisdiktiokehys ei ole markkinasuunnitelma.** **Akateeminen tutkimusalue** kattaa jurisdiktiokohtaisen vertailevan analyysin (ASEAN/Aasia ml. Singapore, EU, Yhdysvallat) ja paikalliset vertailut Suomessa, Ruotsissa ja Saksassa **niiden kunkin evidenssistatuksen mukaisesti**. **Markkinastrategia (GTM)** on rajattu markkinoihin, joilla on realistinen ja välitön myyntipolku: Suomi kotimarkkinana, Ruotsi ja Saksa vasta konkreettisen myyntipolun toteutuessa, Singapore ja ASEAN/Aasia myöhempinä profiileina. Yhdysvaltojen skaalauspolut kuuluvat rahoitus- ja markkinalogiikan puolelle. **GTM-tavoite ja strateginen markkina-asema eivät automaattisesti tarkoita toteutunutta tutkimusdataa** — tutkimusdata on sidottu kunkin markkinan evidenssistatukseen.
 
 #### Kumottu RQ-rakenne (säilytetty Sääntö 12:n nojalla)
 
@@ -116,7 +119,7 @@ LUT-yliopisto on väitöskirjan akateeminen koti ja tutkinnon myöntäjä. Prof.
 
 Lifetime Oy ja sen teolliset pilotit tarjoavat empiirisen tutkimusympäristön. Tutkimuksessa voidaan hyödyntää suvereenin reunalaskennan ja DWS IQ -alustan kaltaisia kontrolloituja ympäristöjä, mutta tieteellinen arviointi pidetään erillään yrityksen kaupallisesta tuotekehityksestä.
 
-Väitöskirja ei ole irrallinen paperitutkimus. Aineisto — ajonaikainen evidenssi, hallitut poikkeamatilanteet, viive- ja energiamittaukset sekä ostajan päätös- ja allekirjoitusaineisto — syntyy kaupallisessa, tuotannollisessa DWS IQ -ympäristössä, ei laboratoriossa. Tästä seuraa suora riippuvuus: myynnin ja käyttöönottojen on onnistuttava, jotta tutkimusaineistoa syntyy ja väitöskirja voi valmistua. Riippuvuus kirjataan riskinä: RQ1 ja RQ2 etenevät olemassa olevalla aineistolla, kun taas RQ3 ja RQ4 edellyttävät toteutuneita käyttöönottoja. Kuukausiin 1–6 määritellään minimiaineistokynnys, jonka alittuessa aikataulu ja artikkelijärjestys tarkistetaan ohjaavan professorin kanssa. Kaupallinen kanava tuottaa aineiston, ei sen tulkintaa — tieteellinen arviointi pysyy LUT-ohjauksessa.
+Väitöskirja ei ole irrallinen paperitutkimus. Aineisto — ajonaikainen evidenssi, hallitut poikkeamatilanteet, viive- ja energiamittaukset sekä ostajan päätös- ja allekirjoitusaineisto — syntyy kaupallisessa, tuotannollisessa DWS IQ -ympäristössä, ei laboratoriossa. Tästä seuraa suora riippuvuus: myynnin ja käyttöönottojen on onnistuttava, jotta tutkimusaineistoa syntyy ja väitöskirja voi valmistua täydessä laajuudessaan. Riippuvuus on kuitenkin osittainen, ei koko työtä koskeva: väitöskirja ei romahda, jos käyttöönotot viivästyvät, koska RQ1 ja RQ2 voivat edetä fallback-aineistolla. RQ3 ja RQ4 ovat ne osat, joiden aineisto edellyttää onnistuneita käyttöönottoja. Kuukausiin 1–6 määritellään minimiaineistokynnys, jonka alittuessa aikataulu ja artikkelijärjestys tarkistetaan ohjaavan professorin kanssa. Kaupallinen kanava tuottaa aineiston, ei sen tulkintaa — tieteellinen arviointi pysyy LUT-ohjauksessa.
 
 KTH TECoSA ja Prof. Martin Törngren voidaan ottaa mukaan mahdollisena ulkopuolisena tutkimusyhteistyönä tai menetelmällisenä asiantuntijapanoksena reunalaskennan turvallisuuteen ja turvallisuusargumentaatioon liittyen. KTH ei ole ohjaajataho, eikä tutkimussuunnitelma ole sen osallistumisesta riippuvainen.
 
@@ -134,7 +137,7 @@ Kuukaudet 19–24: kolmas artikkeli — jurisdiktioprofiilit yhteisen KYA-coren 
 
 Julkaisujärjestys on tarkoituksellinen: RQ1 määrittelee, mitä evidenssi on, ennen kuin RQ2 vertailee sitä jurisdiktioiden yli. Ilman RQ1:tä vertailulla ei ole mittatikkua.
 
-***
+---
 
-_Versio 2.6 · 11.08.2026 · © Lifetime Oy — kaikki oikeudet pidätetään._
+_Versio 2.7 · 28.09.2026 · © Lifetime Oy — kaikki oikeudet pidätetään._
 _Liikesalaisuus / Business Confidentiality: tämä asiakirja sisältää Lifetime Oy:n luottamuksellista tietoa. Ei saa jakaa ilman kirjallista lupaa._
