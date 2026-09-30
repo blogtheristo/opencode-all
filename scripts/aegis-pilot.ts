@@ -37,8 +37,16 @@
  * Exit codes: 0 ok/PASS · 1 error · 2 NEGATIVE_RESULT · 3 NOT_TAKEN or INVALID · 4 verification failed.
  */
 
-import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseArgs } from 'node:util';
 import {
@@ -382,15 +390,20 @@ async function main(): Promise<void> {
     }
     case 'check-handlers': {
       const scope = loadScope();
-      const stateDir = a['state-dir'] ?? '/tmp';
+      // Without --state-dir or --report-dir the check writes into a fresh temp dir; the old
+      // default (/tmp/reports) did not exist, so every run failed with ENOENT (30.09.2026).
+      const stateDir = a['state-dir'] ?? mkdtempSync(join(tmpdir(), 'aegis-conformance-'));
       // For conformance testing, we need to test network error paths, so we create
       // a registry with a real sync URL (not 'none'). This allows the sync-report
       // handler to actually call fetch and surface NetworkUnavailable.
       const registryOptions = {
         readingsPath: resolve(a.readings ?? 'config/aegis-pilot/sample-readings.json'),
         reportDir: resolve(a['report-dir'] ?? `${stateDir}/reports`),
-        syncUrl: a['sync-url'] ?? 'https://example.com/sync', // use real-ish URL for testing
+        // Closed loopback port (discard, 9): fails as unreachable on every host, and the check
+        // never calls an outside service. example.com depended on the network and proxies.
+        syncUrl: a['sync-url'] ?? 'http://127.0.0.1:9/sync',
       };
+      mkdirSync(registryOptions.reportDir, { recursive: true });
       const registry = createReferenceRegistry(registryOptions);
       const options = {
         reportDir: registryOptions.reportDir,
@@ -691,10 +704,11 @@ async function main(): Promise<void> {
     case 'doctor': {
       const stateDir = need('state-dir');
       const scopePath = a.scope;
-      const expectKeyId = scopePath
-        ? JSON.parse(readFileSync(resolve(scopePath), 'utf8')).site.keyId
+      // undefined: no scope, pin not checked; null: scope without a pin, which fails.
+      const pin: string | null | undefined = scopePath
+        ? (JSON.parse(readFileSync(resolve(scopePath), 'utf8'))?.site?.keyId ?? null)
         : undefined;
-      const result = doctor(stateDir, expectKeyId);
+      const result = doctor(stateDir, pin);
       out({ ok: result.ok, command: cmd, ...result }, result.ok ? 0 : 1);
       break;
     }

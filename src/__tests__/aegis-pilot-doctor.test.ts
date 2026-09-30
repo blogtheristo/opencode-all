@@ -29,22 +29,6 @@ function setupValidSite(stateDir: string, mode = 0o700) {
   return site;
 }
 
-function _createTestSiteWithMode(stateDir: string, mode: number) {
-  if (existsSync(stateDir)) {
-    rmSync(stateDir, { recursive: true, force: true });
-  }
-  mkdirSync(stateDir, { mode });
-  const site = SiteAuthority.init(stateDir, 'test-site-003');
-  site.issue({
-    kind: 'agent',
-    subjectName: 'test',
-    capabilities: ['step:test'],
-    ttlHours: 1,
-  });
-  chmodSync(stateDir, mode);
-  return site;
-}
-
 describe('doctor', () => {
   const root = tmpdir();
 
@@ -190,14 +174,26 @@ describe('doctor', () => {
   });
 
   describe('key-pinned', () => {
-    it('fails when --scope is not provided', () => {
+    it('is not run without --scope, so a fresh site can pass', () => {
       const stateDir = join(root, `doctor-key-pinned-${Date.now()}`);
       try {
         setupValidSite(stateDir);
         const result = doctor(stateDir);
+        expect(result.checks.find((c) => c.check === 'key-pinned')).toBeUndefined();
+      } finally {
+        rmSync(stateDir, { recursive: true, force: true });
+      }
+    });
+
+    it('fails when --scope is given but carries no site.keyId pin', () => {
+      const stateDir = join(root, `doctor-key-pinned-nopin-${Date.now()}`);
+      try {
+        setupValidSite(stateDir);
+        const result = doctor(stateDir, null);
         const check = result.checks.find((c) => c.check === 'key-pinned');
         expect(check?.ok).toBe(false);
-        expect(check?.detail).toContain('requires --scope option');
+        expect(check?.detail).toContain('no site.keyId pin');
+        expect(result.ok).toBe(false);
       } finally {
         rmSync(stateDir, { recursive: true, force: true });
       }
@@ -240,7 +236,7 @@ describe('doctor', () => {
   });
 
   describe('isolation-tool', () => {
-    it('passes on Linux', () => {
+    it('passes on Linux when unshare is on PATH', () => {
       if (process.platform !== 'linux') return;
       const stateDir = join(root, `doctor-isolation-linux-${Date.now()}`);
       try {
@@ -249,6 +245,23 @@ describe('doctor', () => {
         const check = result.checks.find((c) => c.check === 'isolation-tool');
         expect(check?.ok).toBe(true);
       } finally {
+        rmSync(stateDir, { recursive: true, force: true });
+      }
+    });
+
+    it('fails on Linux when unshare is missing', () => {
+      if (process.platform !== 'linux') return;
+      const stateDir = join(root, `doctor-isolation-missing-${Date.now()}`);
+      const path = process.env.PATH;
+      try {
+        setupValidSite(stateDir);
+        process.env.PATH = join(stateDir, 'no-such-bin');
+        const result = doctor(stateDir);
+        const check = result.checks.find((c) => c.check === 'isolation-tool');
+        expect(check?.ok).toBe(false);
+        expect(result.ok).toBe(false);
+      } finally {
+        process.env.PATH = path;
         rmSync(stateDir, { recursive: true, force: true });
       }
     });
@@ -269,6 +282,18 @@ describe('doctor', () => {
   });
 
   describe('overall ok', () => {
+    it('returns ok:true on a freshly initialised site without --scope', () => {
+      const stateDir = join(root, `doctor-fresh-${Date.now()}`);
+      try {
+        setupValidSite(stateDir);
+        const result = doctor(stateDir);
+        expect(result.checks.filter((c) => !c.ok)).toEqual([]);
+        expect(result.ok).toBe(true);
+      } finally {
+        rmSync(stateDir, { recursive: true, force: true });
+      }
+    });
+
     it('returns ok:true when all checks pass', () => {
       const stateDir = join(root, `doctor-all-pass-${Date.now()}`);
       try {

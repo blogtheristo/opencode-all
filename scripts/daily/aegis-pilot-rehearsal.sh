@@ -16,7 +16,7 @@
 
 set -euo pipefail
 
-REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)" # scripts/daily/ → repo root
 cd "$REPO_ROOT"
 
 LOGS_DIR="logs"
@@ -64,8 +64,8 @@ STATE_DIR="$(mktemp -d -t aegis-pilot-rehearsal-XXXXXX)"
 echo "=== Running isolated rehearsal in: $STATE_DIR" >&2
 
 # Run the rehearsal
-bash "$REHEARSAL_SCRIPT" "$STATE_DIR"
-RC=$?
+RC=0
+bash "$REHEARSAL_SCRIPT" "$STATE_DIR" || RC=$? # set -e must not skip the log line
 
 # Determine outcome and conditions from the acceptance record
 OUTCOME="FAIL"
@@ -74,25 +74,22 @@ CONDITIONS="{}"
 if [ -d "${STATE_DIR}/acceptance" ] && [ "$(ls -A ${STATE_DIR}/acceptance/*.json 2>/dev/null)" ]; then
   LATEST_RECORD="$(ls -t "${STATE_DIR}/acceptance"/*.json 2>/dev/null | head -1)"
   if [ -f "$LATEST_RECORD" ]; then
-    # Extract outcome from the JSON record
-    OUTCOME="$(node -e "
-      const fs = require('fs');
-      const record = JSON.parse(fs.readFileSync('$LATEST_RECORD', 'utf8'));
-      process.stdout.write(record.outcome || 'FAIL');
-    " 2>/dev/null || echo "FAIL")"
-    
-    # Extract conditions (the acceptance conditions result)
-    CONDITIONS="$(node -e "
-      const fs = require('fs');
-      const record = JSON.parse(fs.readFileSync('$LATEST_RECORD', 'utf8'));
-      if (record.conditions && typeof record.conditions === 'object') {
-        process.stdout.write(JSON.stringify(record.conditions));
-      } else {
-        process.stdout.write('{}');
-      }
-    " 2>/dev/null || echo "{}")"
+    # The file is a signed envelope {record, signature, signerKeyId}; the verdict is record.outcome.
+    # The path goes in as an argument, not spliced into the script.
+    OUTCOME="$(node -e '
+      const r = JSON.parse(require("fs").readFileSync(process.argv[1], "utf8"));
+      process.stdout.write((r.record ?? r).outcome || "FAIL");
+    ' "$LATEST_RECORD" 2>/dev/null || echo "FAIL")"
+    CONDITIONS="$(node -e '
+      const r = JSON.parse(require("fs").readFileSync(process.argv[1], "utf8"));
+      const c = (r.record ?? r).conditions;
+      process.stdout.write(c && typeof c === "object" ? JSON.stringify(c) : "{}");
+    ' "$LATEST_RECORD" 2>/dev/null || echo "{}")"
   fi
 fi
+
+# A record that fails its own verify step (non-zero exit) is not a PASS.
+if [ "$RC" -ne 0 ]; then OUTCOME="FAIL"; fi
 
 # Clean up state directory
 rm -rf "$STATE_DIR"
