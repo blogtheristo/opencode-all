@@ -90,7 +90,7 @@ The operator key must live outside the state directory, and the CLI refuses to w
 
 **Pin the site key.** `init` prints a `keyId`. Write it into the scope as `site.keyId` and include it in the Phase 0 signoff; the customer keeps a copy. A run refuses a site key that does not match the pin. `verify --expect-key-id <keyId>` gives an auditor the same check. The state directory holds the site private key. Anyone who can replace that key could otherwise re-sign a forged history that verifies against itself. The pin, held outside the directory, is the anchor that catches this.
 
-**Ownership.** Run the kit as a dedicated service user that owns the state directory (mode 0700). Operators get no write access to it. Their stop commands reach it through the CLI, which only drops signed files into `kill/`.
+**Ownership.** Refer to `infrastructure/aegis-pilot/README.md` for hardened systemd units and install steps. The service user `aegis-pilot` owns `/var/lib/aegis-pilot/<site>` (mode 0700). Operators get no write access to it. Their stop commands reach it through the CLI, which only drops signed files into `kill/`.
 
 **Exit gate: the four locals, with the uplink already down.** Run the reference workflow as a rehearsal under the agreed isolation method:
 
