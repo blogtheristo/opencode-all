@@ -33,6 +33,8 @@
  *   seal            --state-dir D [--max-bytes N] [--max-age-days N] [--force]
  *   segments        --state-dir D [--expect-seal DIGEST]   (anchor from an earlier 'seal' output)
  *   prune           --state-dir D [--confirm TOKEN]   (without it: lists expired segments and the token)
+ *   export          --state-dir D --out DIR    copy evidence to DIR, with manifest.json and manifest.sig
+ *   verify-bundle   --bundle DIR [--expect-key-id K]   verify evidence bundle
  *
  * Exit codes: 0 ok/PASS · 1 error · 2 NEGATIVE_RESULT · 3 NOT_TAKEN or INVALID · 4 verification failed.
  */
@@ -88,6 +90,7 @@ import {
   doctor,
 } from '../src/aegis/pilot/index.js';
 import { canonicalJSON, sha256 } from '../src/aegis/pilot/crypto.js';
+import { exportBundle, verifyBundle } from '../src/aegis/pilot/bundle.js';
 
 const { values: a, positionals } = parseArgs({
   allowPositionals: true,
@@ -138,6 +141,8 @@ const { values: a, positionals } = parseArgs({
     capture: { type: 'string' },
     'occurred-at': { type: 'string' },
     'modified-file': { type: 'string' },
+    out: { type: 'string' },
+    bundle: { type: 'string' },
   },
 });
 
@@ -741,6 +746,28 @@ async function main(): Promise<void> {
       out({ ok: true, command: cmd, ...result });
       break;
     }
+    case 'export': {
+      const stateDir = need('state-dir');
+      const outDir = need('out');
+      const manifest = exportBundle(stateDir, outDir);
+      out({
+        ok: true,
+        command: cmd,
+        stateDir,
+        outDir,
+        keyId: manifest.keyId,
+        files: manifest.files.length,
+        ledgerHead: manifest.ledgerHead,
+        lastSealDigest: manifest.lastSealDigest,
+      });
+      break;
+    }
+    case 'verify-bundle': {
+      const bundleDir = need('bundle');
+      const result = verifyBundle(bundleDir, a['expect-key-id']);
+      out({ ok: result.ok, command: cmd, ...result }, result.ok ? 0 : 4);
+      break;
+    }
     default:
       out(
         {
@@ -767,6 +794,8 @@ async function main(): Promise<void> {
             'status',
             'doctor',
             'authority',
+            'export',
+            'verify-bundle',
           ],
         },
         1,
