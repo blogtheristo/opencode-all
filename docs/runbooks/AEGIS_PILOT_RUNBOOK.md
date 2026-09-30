@@ -175,13 +175,16 @@ The first workflow is advisory (HIC 28.09.2026). The agent recommends, the opera
 
 - **Checked, not acknowledged (HIC 29.09.2026).** A bare acknowledgement proves little about human oversight, so the record carries what the operator did:
   - `--verdict modify --modified-file F`: the operator accepts with changes. The command carries the sha256 of the changed recommendation.
+  - A `modify` whose content equals the original recommendation is refused. Only the digest is recorded, so keep the modified file: that file makes the change auditable.
   - Reject and modify require a reason.
   - `--capture manual_entry --occurred-at ISO`: a decision taken earlier (on paper, by phone) and entered afterwards. It is recorded as `MANUAL_ENTRY` evidence (0.40 × capture-lag factor), compared with `HUMAN_CONFIRMED` (0.80) for a live signature, following decision-journey §3.5. It gets no operator-time number, because the kit did not observe the response time. Never sign a decision as live when you are transcribing it.
 - **Pilot number (report D7).** `journey` prints:
   - `coverage`: complete paths divided by recommendations. A path is complete when it is rejected, abandoned, or accepted or modified with an outcome.
   - The median operator time, from live decisions only.
   - Always alongside it: `rejectionShare`, `modificationShare`, `manualEntryShare` and `weakestEvidence`, the cap on any learning delta.
-  - `reviewSignal`: `no-challenge` after 10 or more final decisions with no reject and no modify. Seconds per decision with nothing ever challenged is a warning sign, not a result. The threshold of 10 is a v1 proposal.
+  - `reviewSignal`: `no-challenge` when any operator, or any recommending agent, has 10 or more final decisions with no reject and no modify. It is judged per operator and per agent, so decoys rejected elsewhere cannot mask a rubber-stamped stream.
+  - `evidenceBasis`: live or manual capture is operator-attested. Evidence strength caps learning; it is not a trust score.
+  - `occurredAt` must be ISO 8601 UTC and at most 30 days old. Seconds per decision with nothing ever challenged is a warning sign, not a result. The threshold of 10 is a v1 proposal.
 
 ## 6. Phase 3 — severed-uplink acceptance (weeks 10–11)
 

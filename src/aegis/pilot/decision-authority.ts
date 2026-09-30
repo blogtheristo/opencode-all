@@ -68,6 +68,10 @@ const METRIC_KEY = /^[a-z][a-z0-9_]{0,39}$/;
 /** An identifier or URI of the evidence (meter export, log id) — not free text. */
 const EVIDENCE_REF = /^[A-Za-z0-9._:/#-]{1,200}$/;
 
+const ISO_UTC = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$/;
+/** A manual entry may describe a decision at most this old (the last capture-lag band). */
+export const MANUAL_ENTRY_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
+
 /** A decision command older than this is refused as a possible replay. */
 export const DECISION_COMMAND_MAX_AGE_MS = 10 * 60 * 1000;
 
@@ -134,7 +138,13 @@ export interface DecisionCommandBody {
   capture?: DecisionCapture;
   /** manual_entry only: when the decision actually occurred (operator-stated). */
   occurredAt?: string;
-  /** modify only: sha256 of the canonical JSON of the recommendation as modified. */
+  /**
+   * modify only: sha256 of the canonical JSON of the recommendation as modified — the
+   * same digest as the recommendation's output_digest, so an unchanged "modification"
+   * is refused. Only the digest is recorded; the change is auditable if the operator
+   * keeps the modified file (runbook §5.1). JS canonicalJSON: other-language verifiers
+   * must reproduce its number formatting.
+   */
   modificationDigest?: string;
 }
 
@@ -154,9 +164,14 @@ function bodyProblem(b: DecisionCommandBody): string | null {
     return `a ${b.verdict} decision must state its reason`;
   }
   if (b.capture === 'manual_entry') {
-    const occurred = Date.parse(String(b.occurredAt));
-    if (Number.isNaN(occurred)) return 'a manual entry must state when the decision occurred';
+    if (typeof b.occurredAt !== 'string' || !ISO_UTC.test(b.occurredAt)) {
+      return 'a manual entry must state when the decision occurred (ISO 8601 UTC, e.g. 2026-11-03T10:00:00Z)';
+    }
+    const occurred = Date.parse(b.occurredAt);
     if (occurred > Date.parse(b.issuedAt)) return 'occurredAt cannot be after the signing time';
+    if (Date.parse(b.issuedAt) - occurred > MANUAL_ENTRY_MAX_AGE_MS) {
+      return 'a manual entry older than 30 days is not a decision record; record it as an incident';
+    }
   } else if (b.occurredAt !== undefined) {
     return 'occurredAt belongs only to a manual entry; a live decision occurs when it is signed';
   }
@@ -176,8 +191,10 @@ export interface DecisionOutcome {
   ledgerSeq?: number;
   /** event_hash of the human.decide event; outcome.record binds to it. */
   eventHash?: string;
-  /** The operator-signed time of the decision (its occurred_at). */
+  /** The decision's occurred_at: signing time when live, operator-stated for a manual entry. */
   decidedAt?: string;
+  /** The operator's signing time (issuedAt), always. */
+  signedAt?: string;
 }
 
 /** Operator side: build and sign a decision on one recommendation. Pure — no I/O. */
@@ -218,7 +235,10 @@ export function createDecisionCommand(
     reason: params.reason.slice(0, 200),
     issuedAt: now.toISOString(),
     operatorCredentialId: params.operatorCredential.credentialId,
-    capture: params.capture === 'manual_entry' ? 'manual_entry' : undefined,
+    capture:
+      params.capture === undefined || params.capture === 'live'
+        ? undefined
+        : (params.capture as DecisionCapture),
     occurredAt: params.occurredAt,
     modificationDigest:
       params.modifiedRecommendation === undefined
@@ -390,6 +410,12 @@ export class DecisionAuthority {
     if (decisionsFor(events, rec).some((d) => d.detail?.verdict !== 'defer')) {
       return reject('recommendation already decided', cred.subjectId);
     }
+    // A "modify" that changes nothing is an acknowledgement dressed as a challenge.
+    // modificationDigest uses the same canonical digest as the recommendation's
+    // output_digest, so an unchanged recommendation is detectable here.
+    if (command.verdict === 'modify' && command.modificationDigest === rec.output_digest) {
+      return reject('modify names an unchanged recommendation; use accept', cred.subjectId);
+    }
     const live = command.capture !== 'manual_entry';
     const occurred = live ? issued : Date.parse(command.occurredAt as string);
     if (occurred < Date.parse(rec.timestamp)) {
@@ -442,6 +468,7 @@ export class DecisionAuthority {
       ledgerSeq: event.seq,
       eventHash: event.event_hash,
       decidedAt: new Date(occurred).toISOString(),
+      signedAt: command.issuedAt,
     };
     this.outcomes.push(outcome);
     return outcome;
@@ -477,8 +504,8 @@ export class DecisionAuthority {
     }
     if (opts.reconcile && results.length > 0) {
       const signed = results
-        .filter((r) => r.accepted && r.decidedAt)
-        .map((r) => r.decidedAt as string)
+        .filter((r) => r.accepted && r.signedAt)
+        .map((r) => r.signedAt as string)
         .sort();
       this.ledger.append({
         event_type: 'system.reconcile',
@@ -489,8 +516,8 @@ export class DecisionAuthority {
           commands: results.length,
           recorded: results.filter((r) => r.accepted).length,
           rejected: results.filter((r) => !r.accepted).length,
-          earliest_decided_at: signed[0],
-          latest_decided_at: signed.at(-1),
+          earliest_signed_at: signed[0],
+          latest_signed_at: signed.at(-1),
         },
       });
     }
@@ -586,6 +613,8 @@ export interface DecisionJourney {
   recommendationSeq: number;
   recommendationHash: string;
   agentId: string | null;
+  /** Credential key id of the operator who made the final decision. */
+  operatorId: string | null;
   status: JourneyStatus;
   decisionSeq: number | null;
   decisionBy: string | null;
@@ -597,9 +626,24 @@ export interface DecisionJourney {
   complete: boolean;
 }
 
+export interface ReviewGroup {
+  key: string;
+  finalDecisions: number;
+  challenged: number;
+  status: 'insufficient-data' | 'challenged' | 'no-challenge';
+}
+
 export interface ReviewSignal {
+  /**
+   * `no-challenge` if ANY operator, or any recommending agent, has at least
+   * REVIEW_SIGNAL_MIN_DECISIONS final decisions and none rejected or modified. Judged
+   * per group so trivially rejected decoys from one agent cannot mask another's
+   * rubber-stamped stream, and one operator's challenges cannot clear another's.
+   */
   status: 'insufficient-data' | 'challenged' | 'no-challenge';
   note: string;
+  byOperator: ReviewGroup[];
+  byAgent: ReviewGroup[];
 }
 
 export interface JourneySummary {
@@ -618,6 +662,11 @@ export interface JourneySummary {
   manualEntryShare: number | null;
   /** Minimum evidence_strength over final decisions: the cap on any learning delta from them. */
   weakestEvidence: number | null;
+  /**
+   * `capture` is attested by the operator: the kit cannot tell a live decision from
+   * one signed later. Evidence strength is a cap on learning, never a trust score.
+   */
+  evidenceBasis: string;
   reviewSignal: ReviewSignal;
   journeys: DecisionJourney[];
 }
@@ -645,6 +694,7 @@ export function decisionJourneys(path: string): JourneySummary {
       agentId: rec.agent_id,
       status,
       decisionSeq: final?.seq ?? null,
+      operatorId: final?.operator_id ?? null,
       decisionBy: typeof final?.detail?.decision_by === 'string' ? final.detail.decision_by : null,
       decisionLatencyMs:
         typeof final?.detail?.decision_latency_ms === 'number'
@@ -683,22 +733,57 @@ export function decisionJourneys(path: string): JourneySummary {
   const strengths = finalJourneys
     .map((j) => j.evidenceStrength)
     .filter((x): x is number => x !== null);
-  const challenged = byStatus.rejected + byStatus.modified;
-  const reviewSignal: ReviewSignal =
-    finalDecisions < REVIEW_SIGNAL_MIN_DECISIONS
+  const group = (keyOf: (j: DecisionJourney) => string | null): ReviewGroup[] => {
+    const m = new Map<string, ReviewGroup>();
+    for (const jn of finalJourneys) {
+      const key = keyOf(jn) ?? 'unknown';
+      const g = m.get(key) ?? {
+        key,
+        finalDecisions: 0,
+        challenged: 0,
+        status: 'insufficient-data',
+      };
+      g.finalDecisions++;
+      if (jn.status === 'rejected' || jn.status === 'modified') g.challenged++;
+      m.set(key, g);
+    }
+    for (const g of m.values()) {
+      g.status =
+        g.finalDecisions < REVIEW_SIGNAL_MIN_DECISIONS
+          ? 'insufficient-data'
+          : g.challenged === 0
+            ? 'no-challenge'
+            : 'challenged';
+    }
+    return [...m.values()];
+  };
+  const byOperator = group((jn) => jn.operatorId);
+  const byAgent = group((jn) => jn.agentId);
+  const flagged = [
+    ...byOperator.filter((g) => g.status === 'no-challenge').map((g) => `operator ${g.key}`),
+    ...byAgent.filter((g) => g.status === 'no-challenge').map((g) => `agent ${g.key}`),
+  ];
+  const anyJudged = [...byOperator, ...byAgent].some((g) => g.status !== 'insufficient-data');
+  const reviewSignal: ReviewSignal = flagged.length
+    ? {
+        status: 'no-challenge',
+        note: `${flagged.join(', ')}: ${REVIEW_SIGNAL_MIN_DECISIONS}+ decisions, none rejected or modified — review whether the operator is checking or only acknowledging`,
+        byOperator,
+        byAgent,
+      }
+    : anyJudged
       ? {
-          status: 'insufficient-data',
-          note: `${finalDecisions} final decision(s); the signal needs ${REVIEW_SIGNAL_MIN_DECISIONS}`,
+          status: 'challenged',
+          note: 'every operator and agent with enough decisions has rejected or modified at least one',
+          byOperator,
+          byAgent,
         }
-      : challenged === 0
-        ? {
-            status: 'no-challenge',
-            note: `${finalDecisions} decisions, none rejected or modified: review whether the operator is checking or only acknowledging`,
-          }
-        : {
-            status: 'challenged',
-            note: `${challenged} of ${finalDecisions} decisions rejected or modified`,
-          };
+      : {
+          status: 'insufficient-data',
+          note: `no operator or agent has ${REVIEW_SIGNAL_MIN_DECISIONS} final decisions yet`,
+          byOperator,
+          byAgent,
+        };
   return {
     recommendations: journeys.length,
     complete,
@@ -714,6 +799,8 @@ export function decisionJourneys(path: string): JourneySummary {
     modificationShare: share(byStatus.modified),
     manualEntryShare: share(finalJourneys.filter((j) => j.capture === 'manual_entry').length),
     weakestEvidence: strengths.length ? Math.min(...strengths) : null,
+    evidenceBasis:
+      'capture (live / manual_entry) is operator-attested; strength caps learning, it is not a trust score',
     reviewSignal,
     journeys,
   };

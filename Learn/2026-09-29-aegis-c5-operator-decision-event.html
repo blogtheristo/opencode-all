@@ -222,6 +222,34 @@
       <li>The CLI E2E <code>modify</code> run with the uplink severed passes.</li>
     </ul>
     <p>
+      Security review (30.09.2026): <strong>PASS</strong>, with 0 critical, 0 high, 3 medium and 4
+      low findings. Fixed, each with a test and mutation-checked:
+    </p>
+    <ul>
+      <li>
+        <strong>M1.</strong> A <code>modify</code> that names the unchanged recommendation is
+        refused. The digest matches <code>output_digest</code>.
+      </li>
+      <li>
+        <strong>M2.</strong> Strength is labelled operator-attested (<code>evidenceBasis</code>).
+        This is not fixable in code; it is documented.
+      </li>
+      <li>
+        <strong>M3.</strong> The review signal is judged per operator and per recommending agent, so
+        decoys cannot mask a rubber-stamped stream.
+      </li>
+      <li>
+        <strong>L1.</strong> <code>occurredAt</code> must be strict ISO UTC and at most 30 days old.
+      </li>
+      <li><strong>L2.</strong> The reconcile event uses the signing time.</li>
+      <li><strong>L3.</strong> An unknown <code>capture</code> value throws.</li>
+      <li>
+        <strong>L4.</strong> Documented: the digest is JS-canonical, and the operator keeps the
+        modified file.
+      </li>
+    </ul>
+    <p>Suite totals: 34 decision tests and 167 across the pilot suites.</p>
+    <p>
       What the kit cannot do: it cannot prove that a "live" signature was not a transcription. The
       runbook states the rule, and the review signal makes the pattern visible.
     </p>

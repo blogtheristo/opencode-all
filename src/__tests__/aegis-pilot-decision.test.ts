@@ -749,3 +749,87 @@ describe('anti-rubber-stamp (HIC 29.09.2026)', () => {
     expect(decisionJourneys(statePaths(dir).ledger).reviewSignal.status).toBe('challenged');
   });
 });
+
+describe('anti-rubber-stamp security review fixes', () => {
+  function sign(
+    rec: LedgerEvent,
+    op: ReturnType<typeof operator>,
+    extra: Partial<Parameters<typeof createDecisionCommand>[0]>,
+    now?: Date,
+  ) {
+    return createDecisionCommand(
+      {
+        recommendationSeq: rec.seq,
+        recommendationHash: rec.event_hash,
+        verdict: 'accept',
+        reason: 'checked',
+        operatorCredential: op.credential,
+        operatorKey: op.key,
+        ...extra,
+      },
+      now,
+    );
+  }
+
+  it('refuses a "modify" that names the unchanged recommendation', () => {
+    const output = { action: 'shift-load', mw: 2 };
+    const rec = ledger.append({
+      event_type: 'agent.decide',
+      trace_id: 'run-1',
+      agent_id: agent().subjectId,
+      output_digest: sha256(canonicalJSON(output)),
+      detail: { step: 'propose', recommendation: true },
+    });
+    const out = authority().execute(
+      sign(rec, operator(), {
+        verdict: 'modify',
+        reason: 'no change really',
+        modifiedRecommendation: output,
+      }),
+      'ops',
+    );
+    expect(out).toMatchObject({ accepted: false, reason: /unchanged recommendation/ });
+  });
+
+  it('accepts occurredAt only as ISO 8601 UTC, and not older than 30 days', () => {
+    const rec = recommend(agent().subjectId);
+    const op = operator();
+    expect(() => sign(rec, op, { capture: 'manual_entry', occurredAt: '9/1/2026' })).toThrow(
+      /ISO 8601/,
+    );
+    expect(() =>
+      sign(rec, op, {
+        capture: 'manual_entry',
+        occurredAt: new Date(Date.now() - 31 * 24 * 3_600_000).toISOString(),
+      }),
+    ).toThrow(/older than 30 days/);
+    expect(() => sign(rec, op, { capture: 'offline' as never })).toThrow(/live or manual_entry/);
+  });
+
+  it('judges the review per agent: decoys rejected from one agent do not mask another agent rubber-stamped', () => {
+    const op = operator();
+    const auth = authority();
+    const honest = agent();
+    const stamped = agent();
+    for (let i = 0; i < REVIEW_SIGNAL_MIN_DECISIONS; i++) {
+      auth.execute(sign(recommend(stamped.subjectId), op, {}), 'ops');
+    }
+    // A decoy stream from another agent, trivially rejected.
+    for (let i = 0; i < 3; i++) {
+      auth.execute(
+        sign(recommend(honest.subjectId), op, { verdict: 'reject', reason: 'obviously wrong' }),
+        'ops',
+      );
+    }
+    const { reviewSignal } = decisionJourneys(statePaths(dir).ledger);
+    expect(reviewSignal.status).toBe('no-challenge');
+    expect(reviewSignal.note).toContain(`agent ${stamped.subjectId}`);
+    expect(reviewSignal.byAgent.find((g) => g.key === honest.subjectId)?.status).toBe(
+      'insufficient-data',
+    );
+  });
+
+  it('labels evidence strength as operator-attested, not a trust score', () => {
+    expect(decisionJourneys(statePaths(dir).ledger).evidenceBasis).toMatch(/operator-attested/);
+  });
+});

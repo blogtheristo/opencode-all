@@ -86,6 +86,18 @@ Verification:
 - A mutation check confirmed the reason guard, the review signal and the manual-entry latency rule each fail their test when removed.
 - The CLI E2E `modify` run with the uplink severed passes.
 
+Security review (30.09.2026): **PASS**, with 0 critical, 0 high, 3 medium and 4 low findings. Fixed, each with a test and mutation-checked:
+
+- **M1.** A `modify` that names the unchanged recommendation is refused. The digest matches `output_digest`.
+- **M2.** Strength is labelled operator-attested (`evidenceBasis`). This is not fixable in code; it is documented.
+- **M3.** The review signal is judged per operator and per recommending agent, so decoys cannot mask a rubber-stamped stream.
+- **L1.** `occurredAt` must be strict ISO UTC and at most 30 days old.
+- **L2.** The reconcile event uses the signing time.
+- **L3.** An unknown `capture` value throws.
+- **L4.** Documented: the digest is JS-canonical, and the operator keeps the modified file.
+
+Suite totals: 34 decision tests and 167 across the pilot suites.
+
 What the kit cannot do: it cannot prove that a "live" signature was not a transcription. The runbook states the rule, and the review signal makes the pattern visible.
 
 ## Insight
