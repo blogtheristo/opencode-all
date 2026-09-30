@@ -1,7 +1,7 @@
 # Sales Opportunities Pipeline — PhD Market Signals
 
 **Document ID:** DWS-SALES-PIPELINE-2026-001
-**Version:** 1.8 | **Date:** 2026-09-30
+**Version:** 1.9 | **Date:** 2026-09-30
 **Owner:** Risto Anton Päärni, Lifetime Oy
 **Source:** `docs/PHD_FIREHORSE_EN.md` §14.18–§14.53 (35 market-signal sections) + §14.55 (added 2026-09-28), scored per CLAUDE.md "Market Signal → Sales Pipeline Rule"
 **Classification:** Internal — Sales Engineering
@@ -187,6 +187,10 @@ This roster is now wired to the live Firehorse outreach infrastructure, not a st
 3. **Post-import flow:** once a row is completed and imported, it enters the existing `LeadState` machine (`New → Cold_1_Sent → ... → Meeting_Booked`) and the Cold-1/2/3 SES sequence documented in `docs/SALES_FUNNEL_WORKFLOW.md`. Actual send is **RED zone (outbound email, human-gated)** — Claude Code stages the lead, a human/OpenCode triggers the send.
 4. **Schema gap — RESOLVED 2026-09-21:** `LeadCountry` (`src/firehorse/types.ts`) extended to add `FR`; `scripts/import-leads-csv.ts` validation updated to match. The four France-HQ'd accounts (Airbus, Bpifrance, BNP Paribas, L'Oréal) are now importable once a real contact is named. `FR` currently falls through to the general/English templates in `src/firehorse/helpers.ts` — no dedicated FR template yet.
 
+### Wave 3 — Website-Driven Outreach (2026-09-29)
+
+Target companies were derived from what lifetime.fi and dws10.com sell. Eight drafts, each ending in a `https://dws10.com/book/?service=demo` booking link: the three T-Systems/Siemens contacts above (first drafts for them), plus five new accounts. New accounts: Patria, Bittium, MilDef (Aegis); Bufab (CBAM); Aspo/ESL Shipping (ETS maritime). Peikko and Elenia are held until a contact is confirmed. All are ★★★★☆ until each contact's role is confirmed on the company page. **Not sent — RED zone.** Full rows, sources and drafts: `docs/sales/leads-staging/2026-09-29-website-cta-wave-3.md`.
+
 ## Decision Paths — the Buyer's Numbers and Who Signs (2026-09-29)
 
 The pipeline is a set of decision paths, not a funnel (HIC 29.09.2026). Accounts do not "leak" through stages; each one sits at one decision, owned by one person, and that decision has a fixed set of exits. The states and exits are the Workflow v2 sales graph (`src/agents/workflow-v2/examples/sales-outreach.graph.json`, node ids = `OutreachStatus` in `src/outreach/types.ts`), so this table and a graph run use the same vocabulary. Every path ends at `CONVERTED`, `PASSED` or `PARKED`; `PASSED` and `PARKED` are decisions, not losses.
@@ -300,3 +304,4 @@ Reviewed at the same cadence as `/retro` and PhD thesis lockstep updates (CLAUDE
 | 1.6     | 2026-09-29 | Hugging Face row: § column 14.56 → 14.57 (PhD section filed as §14.57; §14.56 was taken on merge); score unchanged ★★★☆☆                                                                                                                                                                                                                                                                                                                                                                                        | Claude Code (web) |
 | 1.7     | 2026-09-29 | Decision Paths section (HIC: pipeline is decision paths, not a funnel): each live account placed on its Workflow v2 sales-graph node with the decision, decider/signer, the problem in the buyer's numbers (sourced only), missing numbers as call questions, and allowed exits; node derived from last dated event; two customer-originated gates (buyer's number observed, signer confirmed) — 0 of 11 closed, Kemira ownership answer is the cheapest outside case; Outokumpu status corrected to sent 28.09 | Claude Code       |
 | 1.8     | 2026-09-30 | Aegis Pilot three-industry rows (market research 2026-09-28, PR #2232) merged after main's decision-path section                                                                                                                                                                                                                                                                                                                                                                                                | Claude Code       |
+| 1.9     | 2026-09-30 | Wave 3: website-driven outreach, 8 drafts with booking link (pointer to staging file; merged from #2233)                                                                                                                                                                                                                                                                                                                                                                                                        | Claude Code       |
