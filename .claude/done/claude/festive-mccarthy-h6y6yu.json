@@ -1,0 +1,29 @@
+{
+  "task": "Aegis Pilot Day 4: OpenShell M3/M5, single-use lease token, TC4 safe halt, C3 threat model, C4 OCSF ingestion, readiness plan v1.8",
+  "checks": [
+    {
+      "name": "Day 4 security suites pass (openshell M3/M5, lease, OCSF, safe halt)",
+      "run": "npx vitest run src/__tests__/aegis-pilot-openshell.test.ts src/__tests__/aegis-pilot-lease.test.ts src/__tests__/aegis-pilot-ocsf.test.ts src/__tests__/aegis-pilot.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+    },
+    {
+      "name": "M3, M5, lease and safe-halt tests are present",
+      "run": "grep -q '(M3)' src/__tests__/aegis-pilot-openshell.test.ts && grep -q '(M5)' src/__tests__/aegis-pilot-openshell.test.ts && grep -q 'consumeAndExecute' src/__tests__/aegis-pilot-lease.test.ts && grep -q 'Art. 14(4)(e)' src/__tests__/aegis-pilot.test.ts"
+    },
+    {
+      "name": "threat model covers the five required threat classes",
+      "run": "f=docs/security/AEGIS_PILOT_THREAT_MODEL.md; for t in 'State-directory writer' 'Key custody' 'Isolation spoofing' 'Operator impersonation' 'OpenShell gateway trust'; do grep -q \"$t\" $f || exit 1; done"
+    },
+    {
+      "name": "the four Day 4 findings are closed with commits",
+      "run": "test $(grep -c '| DONE' docs/plans/KNOWLEDGE_LOOP_FINDINGS.md) -ge 4"
+    },
+    {
+      "name": "readiness plan carries the Day 4 column",
+      "run": "grep -q 'Day 4 (30.09' docs/plans/AEGIS_PILOT_95_READINESS_PLAN.md && grep -q 'Version: 1.8 \\[Latest\\]' docs/plans/AEGIS_PILOT_95_READINESS_PLAN.md"
+    },
+    {
+      "name": "health timer activates the existing probe service",
+      "run": "grep -q '^Unit=aegis-pilot@%i.service' 'infrastructure/aegis-pilot/aegis-pilot-health@.timer' && grep -q '^OnActiveSec=' 'infrastructure/aegis-pilot/aegis-pilot-health@.timer'"
+    }
+  ]
+}
