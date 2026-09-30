@@ -51,7 +51,7 @@ const pageCommit =
 const pageDirty = gitOut('status', '--porcelain', '--', 'scripts/blog-editor/page.html') ? '*' : '';
 // Release number: bump by hand when the page changes behaviour (HIC 30.09.2026: v0.1 = the
 // first live editor with the language bar, commit 7da1c79b2).
-const PAGE_RELEASE = '0.2'; // 0.2: Refresh button (git → editor routine)
+const PAGE_RELEASE = '0.3'; // 0.3: four pillars + Active Ontology link
 const beVersion = `v${PAGE_RELEASE} · ${pageCommit}${pageDirty} · ${new Date().toISOString().slice(0, 10)}`;
 writeFileSync(
   join(out, 'index.html'),
@@ -62,7 +62,7 @@ writeFileSync(
 );
 
 // Learn: newest version of each document, allowed classes only.
-const version = (f) => (f.match(/_v(\d+(?:\.\d+)*)\.html$/)?.[1] ?? '0').split('.').map(Number);
+const version = (f) => (f.match(/[_-]v(\d+(?:\.\d+)*)\.html$/)?.[1] ?? '0').split('.').map(Number);
 const newer = (a, b) => {
   const x = version(a);
   const y = version(b);
@@ -72,8 +72,40 @@ const newer = (a, b) => {
 };
 const latest = new Map();
 for (const f of readdirSync(join(ROOT, 'Learn')).filter((f) => f.endsWith('.html'))) {
-  const base = f.replace(/_v\d+(\.\d+)*\.html$/, '').replace(/\.html$/, '');
+  const base = f.replace(/[_-]v\d+(\.\d+)*\.html$/i, '').replace(/\.html$/, '');
   if (!latest.has(base) || newer(f, latest.get(base))) latest.set(base, f);
+}
+// Four pillars (BLOG_STANDARD §17): Learn, Whitepapers & demos, Thesis. Blog posts are the drafts.
+// External sources are counted so the page shows which documents rest on outside evidence.
+const ACADEMIC =
+  /doi\.org|arxiv\.org|dl\.acm\.org|ieeexplore|springer|sciencedirect|wiley|nature\.com|jstor|ssrn|semanticscholar|\.edu\/|urn\.fi/i;
+function pillarOf(file, html) {
+  const pillar = /^(V3Thesis|PHD_FIREHORSE)/.test(file)
+    ? 'thesis'
+    : /whitepaper|^WP\d+/i.test(file)
+      ? 'whitepaper'
+      : 'learn';
+  const urls = [
+    ...new Set(
+      [...html.matchAll(/https?:\/\/[^\s"'<>)]+/g)]
+        .map((m) => m[0])
+        .filter(
+          (u) =>
+            !/onelifetime\.world|dws10\.com|dws6\.com|lifetime\.fi|fonts\.g|cdnjs|w3\.org/.test(u),
+        ),
+    ),
+  ];
+  return {
+    pillar,
+    track:
+      pillar === 'thesis'
+        ? file.startsWith('PHD')
+          ? 'strategic PhD'
+          : "operational master's"
+        : undefined,
+    sources: urls.length,
+    academic: urls.filter((u) => ACADEMIC.test(u)).length,
+  };
 }
 const docs = [];
 let withheld = 0;
@@ -91,6 +123,21 @@ for (const f of latest.values()) {
     title,
     class: cls,
     kb: Math.round(statSync(join(ROOT, 'Learn', f)).size / 1024),
+    ...pillarOf(f, html),
+  });
+}
+// Whitepapers built from docs/whitepapers/*.md (BLOG_STANDARD §17: four pillars).
+for (const f of readdirSync(join(ROOT, 'docs/whitepapers')).filter((f) =>
+  /^WP\d+.*\.html$/.test(f),
+)) {
+  const html = readFileSync(join(ROOT, 'docs/whitepapers', f), 'utf8');
+  copyFileSync(join(ROOT, 'docs/whitepapers', f), join(out, 'learn', f));
+  docs.push({
+    file: f,
+    title: (html.match(/<title>([^<]{1,200})<\/title>/i)?.[1] ?? f).trim(),
+    class: 'internal',
+    kb: Math.round(statSync(join(ROOT, 'docs/whitepapers', f)).size / 1024),
+    ...pillarOf(f, html),
   });
 }
 docs.sort((a, b) => a.title.localeCompare(b.title));

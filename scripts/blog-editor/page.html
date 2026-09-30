@@ -157,7 +157,7 @@
   }
   .list li {
     display: grid;
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: 1fr auto auto auto;
     gap: 2px 8px;
     padding-block: 12px;
     border-bottom: 1px solid var(--line);
@@ -313,6 +313,16 @@
     font: 0.72rem/1 var(--mono);
     white-space: nowrap;
   }
+  .onto {
+    font: 500 0.85rem var(--ui);
+    color: var(--accent);
+    text-decoration: none;
+    padding: 8px 4px;
+    white-space: nowrap;
+  }
+  .onto:focus-visible {
+    outline: 2px solid var(--accent);
+  }
   .langbar {
     display: flex;
     gap: 6px;
@@ -353,12 +363,23 @@
     title="Page version (commit of scripts/blog-editor/page.html) and build date"
     >__BE_VERSION__</span
   >
+  <a
+    class="onto"
+    id="onto"
+    href="https://claude.ai/artifact/2C5kDZLzbBkYH8vxA6qXQD"
+    target="_blank"
+    rel="noopener"
+    title="Graph of the four pillars against the ontology, with progress"
+    >Active Ontology ↗</a
+  >
   <button id="refresh" title="Pull the latest drafts from git (runs the refresh routine)">
     ↻ Refresh
   </button>
   <div class="tabs" id="tabs" role="group" aria-label="Section">
-    <button id="tab-drafts" aria-pressed="true">Drafts</button>
+    <button id="tab-drafts" aria-pressed="true">Blog</button>
     <button id="tab-learn" aria-pressed="false">Learn</button>
+    <button id="tab-whitepaper" aria-pressed="false">Whitepapers</button>
+    <button id="tab-thesis" aria-pressed="false">Thesis</button>
   </div>
   <div class="row" id="edit-actions" hidden>
     <button id="toggle">Read</button>
@@ -665,6 +686,7 @@
     $("#back").hidden = !back;
     $("#tabs").hidden = back;
     $("#refresh").hidden = back;
+    $("#onto").hidden = back;
     $("#edit-actions").hidden = !editing;
   }
   // Messages the HIC must see wherever the page is scrolled go in the bottom sheet.
@@ -690,10 +712,9 @@
     if (cur?.dirty && !leaveOk()) return;
     tab = t;
     store.set("be:tab", t);
-    $("#tab-drafts").setAttribute("aria-pressed", String(t === "drafts"));
-    $("#tab-learn").setAttribute("aria-pressed", String(t === "learn"));
+    for (const k of PILLAR_TABS) $("#tab-" + k).setAttribute("aria-pressed", String(t === k));
     cur = null;
-    t === "drafts" ? renderDrafts() : renderLearn();
+    t === "drafts" ? renderDrafts() : renderLearn(t);
   }
   let leaveArmed = false;
   function leaveOk() {
@@ -985,11 +1006,17 @@
     $("#toggle").textContent = cur.reading ? "Edit" : "Read";
   };
 
-  // ---------- learn ----------
-  async function renderLearn() {
-    setBar("Learn");
+  // ---------- learn / whitepapers / thesis (BLOG_STANDARD §17: the four pillars) ----------
+  const PILLAR_TABS = ["drafts", "learn", "whitepaper", "thesis"];
+  const PILLAR_NAME = {
+    learn: "Learn",
+    whitepaper: "Whitepapers & demos",
+    thesis: "Thesis — master's & PhD",
+  };
+  async function renderLearn(pillar = "learn") {
+    setBar(PILLAR_NAME[pillar] || "Learn");
     main.innerHTML =
-      '<input id="q" class="search" type="search" placeholder="Search Learn" autocomplete="off"><p class="note" id="msg">Loading…</p><ul class="list" id="list"></ul>';
+      '<input id="q" class="search" type="search" placeholder="Search" autocomplete="off"><p class="note" id="msg">Loading…</p><ul class="list" id="list"></ul>';
     try {
       learn ??= await (await fetch("learn/manifest.json")).json();
     } catch {
@@ -998,14 +1025,17 @@
     }
     const draw = () => {
       const term = $("#q").value.toLowerCase();
-      const rows = learn.docs.filter((d) => (d.title + " " + d.file).toLowerCase().includes(term));
+      const inPillar = learn.docs.filter((d) => (d.pillar || "learn") === pillar);
+      const rows = inPillar.filter((d) => (d.title + " " + d.file).toLowerCase().includes(term));
+      const sourced = inPillar.filter((d) => d.sources >= 3 && d.academic >= 1).length;
       note(
-        `${learn.docs.length} documents · built ${learn.built} · ${learn.withheld} withheld by the access policy`,
+        `${inPillar.length} documents · ${sourced} with external sources incl. academic · built ${learn.built}` +
+          (pillar === "learn" ? ` · ${learn.withheld} withheld by the access policy` : ""),
       );
       $("#list").innerHTML = rows
         .map(
           (d) =>
-            `<li data-f="${esc(d.file)}"><span class="t">${esc(d.title)}</span><span class="pill">${esc(d.class)}</span><span class="m">${esc(d.file)} · ${d.kb} KB</span></li>`,
+            `<li data-f="${esc(d.file)}"><span class="t">${esc(d.title)}</span><span class="pill ${d.sources >= 3 && d.academic >= 1 ? "complete" : "gaps"}" title="External sources (academic)">src ${d.sources ?? 0}/${d.academic ?? 0}</span><span class="pill">${esc(d.track || d.class)}</span><span class="m">${esc(d.file)} · ${d.kb} KB</span></li>`,
         )
         .join("");
       document
@@ -1034,7 +1064,7 @@
   $("#back").onclick = () => {
     if (cur?.dirty && !leaveOk()) return;
     cur = null;
-    tab === "drafts" ? renderDrafts() : renderLearn();
+    tab === "drafts" ? renderDrafts() : renderLearn(tab);
   };
   $("#refresh").onclick = async () => {
     const b = $("#refresh");
@@ -1047,8 +1077,7 @@
     }
     setTimeout(() => (b.disabled = false), 5000);
   };
-  $("#tab-drafts").onclick = () => selectTab("drafts");
-  $("#tab-learn").onclick = () => selectTab("learn");
+  for (const k of PILLAR_TABS) $("#tab-" + k).onclick = () => selectTab(k);
   window.addEventListener("beforeunload", (e) => {
     if (cur?.dirty) {
       e.preventDefault();
