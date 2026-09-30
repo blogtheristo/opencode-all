@@ -123,9 +123,9 @@
     <main>
       <h2>Hiljaiset vikaantumisongelmat</h2>
       <p>Agentit toimivat. Transkriptio näyttää hyvältä. Käyttäjä sanoo "kiitos". Sitten tarkistat tietokannan, API-lokit, sivuvaikutukset—ja mitään ei tapahtunut. Agentti hallusinaatoi onnistumisen.</p>
-      <p>Tämä on rako sen välillä <em>sanoa</em> olet tehnyt jotain ja <em>tekeminen</em> se. Eval-kehykset mittaavat transkriptioiden laatua. Ne eivät mittaa tuloksia.</p>
+      <p>Tämä on rako sen välillä <em>sanoa</em> olet tehnyt jotain ja <em>tekeminen</em> se. Monet evaluoinnit tarkistavat yhä keskustelulokin tai funktiokutsun, eivät sitä, tuliko työ tehdyksi.</p>
       <p>Revenue engine-järjestelmille—ulospäin suuntautuville kampanjoille, johtavan rikastukselle, kohdentamisen tarkennukselle, attribuutiolle—hiljaiset viat eivät ole poikkeamia. Ne ovat olemassaoloon liittyviä uhkia. Yksi agentti, joka ilmoittaa "kampanja otettu käyttöön", kun mitään ei toimitettu, ja GTM-strategia menettää uskottavuuden yhden asiakkaan kanssa. Yksi johtoagentti, joka hallusinaatoi uusia kontaktikenttiä, ja myyntiryhmäsi jahtaa kummituksia.</p>
-      <p>Microsoft rakensi ThinkingBoxin ratkaisemaan täsmälleen tämän ongelman. Lifetime-ryhmässä olemme haarukoineet tietovaraston, mukauttaneet sitä revenue engine-järjestelmille ja paketoineet sen DGX-integraatiolla ja 507 liiketoiminnan alueen benchmarkeilla.</p>
+      <p>Microsoft rakensi ThinkingBoxin ratkaisemaan täsmälleen tämän ongelman. Lifetimessa olemme haarauttaneet repositorion ajaaksemme sitä omia agenttejamme vastaan.</p>
 
       <h2>Mitä ThinkingBox tekee</h2>
       <p>ThinkingBox suorittaa agenteja eristettyjen, tilallisten työkaluympäristöjen kautta MCP (Model Context Protocol) -palvelimien välityksellä. Jokainen keskustelu spawnaaa eristettyjä työkaluprosesseja stdio-siirron kautta—varmistamalla, että jokainen testikesus suoritetaan puhtaassa, toistettavassa hiekkalaatikossa.</p>
@@ -138,24 +138,12 @@
       <p>Todellinen signaali ei ole "agentti sanoi sen toimivan". Se on "tietokanta näyttää muutoksen", "API palautti onnistumisen" tai "tiedosto luotiin". ThinkingBox tutkii tilaa ennen ja jälkeen, merkitsemällä hallusinaatiot, joissa agentti väitti onnistumisen mutta työkalut osoittivat epäonnistumisen.</p>
 
       <h2>ThinkingBox-Bench: 507 todellista työnkulkua</h2>
-      <p>Toimietamme ThinkingBox-Benchin 507 suorittavalla tehtävällä viidellä liiketoiminnan alueella:</p>
-      <ul>
-        <li><strong>Ulospäin ja GTM:</strong> Kampanjan käyttöönotto, johtavan pisteytys, yleisön tarkentaminen</li>
-        <li><strong>Tietojen rikastus:</strong> Kontaktin haku, attribuutin poimiminen, tiedon laadun tarkistukset</li>
-        <li><strong>Attribuutio ja analytiikka:</strong> Tapahtuman korrelaatio, suppiloanalyysi, kohortin määritys</li>
-        <li><strong>Sisältö ja tieto:</strong> Asiakirjan käsittely, semanttinen haku, tietokantapäivitykset</li>
-        <li><strong>Integraatio ja orkestraatio:</strong> API-siirrot, järjestelmäjen väliset synkronisaatiot, virheenpalautteet</li>
-      </ul>
-      <p>Jokainen tehtävä sisältää synteettisiä tietueita, odotettavia tuloksia ja esirakennetut MCP-palvelimet. Suoritat agentin sitä vastaan ja saat pass/fail-tiedot todellisista sivuvaikutuksista—ei transkription mielipiteestä.</p>
+      <p>Microsoftin ThinkingBox-Benchissä on 507 suoritettavaa tehtävää viideltä liiketoiminta-alueelta: vähittäis- ja verkkokauppa, matkailu ja majoitus, autovakuutus, neopankin sisäinen IT-tuki sekä konsulttiyrityksen IT- ja HR-tuki. [1, 2]</p>
+      <p>Luvut ovat itse perustelu. Tutkimusartikkelin vahvin malli läpäisee 65&nbsp;% tehtävistä ensimmäisellä yrityksellä ja ratkaisee 91&nbsp;% vähintään kerran kahdestakymmenestä yrityksestä, mutta onnistuu kaikilla kahdellakymmenellä kerralla vain 25&nbsp;%:ssa. [1] Yksi onnistuminen ei ole luotettavuutta.</p>
+      <p>Jokaisen tehtävän mukana tulevat odotetut lopputulokset ja eristetyt MCP-työkaluistunnot. Suoritat agentin sitä vastaan ja saat pass/fail-tiedot todellisista sivuvaikutuksista—ei transkription mielipiteestä.</p>
 
-      <h2>DGX-ensin -arkkitehtuuri</h2>
-      <p>ThinkingBox integroituu DGX:ään, agenttisen laskennan paikalliseen hiekkalaatikkoon. DWS-kustannushallinnon mukaisesti kaikki tekoälyn agentin kuormitukset oletusarvoisesti paikallisesti—pilviagentit ovat toissijaisia ja vaativat dokumentoitua perustelua.</p>
-      <p>Tämä tarkoittaa:</p>
-      <ul>
-        <li><strong>Kehitys ja esivaihe:</strong> Suorita ThinkingBox-Bench paikallisesti DGX:ssä MCP-prosessin eristyksen kautta. Nopea iteraatio, nolla pilvilasku aliprosessien spawnauksille, täysin eristetty tuotantotiedoista.</li>
-        <li><strong>Esikäyttöönotto:</strong> Jokainen agentin työnkulku suorittaa täyden benchin ennen nousua. Ei yllätyksiä tuotannossa.</li>
-        <li><strong>Kustannushallinta:</strong> Jokainen ThinkingBox-Bench-tehtävä on aliprosessin spawnausta + LLM-kutsu. 507 tehtävää × 20 iteraatiota pilvessä on kallista. Paikallinen suoritus tarkoittaa, että aliprosessin spawnausta on ilmaista—vain LLM-päätelmä laskutetaan. 12. lokakuuta 2026 jälkeen pilviagentit estetään ilmaisen luottojen tyhjenemisen aikana. ThinkingBox-on-DGX tulevaisuussuojaa eval-silmukkasi.</li>
-      </ul>
+      <h2>Paikallinen ensin, DGX:llä</h2>
+      <p>Agenttikuormamme ajetaan oletuksena paikallisella laskentateholla DGX:llä; pilviagentit ovat toissijaisia ja vaativat kirjatun perusteen. 507 tehtävän × 20 yrityksen ajaminen pilvessä tulee kalliiksi, joten tuomme benchin DGX:lle, erilleen tuotantodatasta. Tämä ajuri on vielä työn alla, ei valmis toimitettu kokoonpano.</p>
 
       <h2>Perustajille ja tiimeille</h2>
       <p>Jos rakennat agentin järjestelmää:</p>
@@ -166,14 +154,14 @@
       </ul>
 
       <h2>Aloita</h2>
-      <p>DWS-ThinkingBox on Microsoft ThinkingBoxin haara, joka on mukautettu revenue engine-järjestelmille:</p>
+      <p>DWS-ThinkingBox on haaramme Microsoft ThinkingBox -kehyksestä:</p>
       <ul>
-        <li><strong>Lifetime-haara:</strong> github.com/blogtheristo/dws-thinkingbox — MCP-istunnon välityspalvelin, agentti/käyttäjä/tuomari-silmukka, 507 benchmarkia, DGX-juoksun konfiguraatio</li>
+        <li><strong>Lifetime-haara:</strong> github.com/blogtheristo/dws-thinkingbox — oma työhaaramme</li>
         <li><strong>Upstream-kehys:</strong> github.com/microsoft/thinkingbox — arviointiharness ja prosessin eristyskerros</li>
       </ul>
       <p>Integraation työnkulku:</p>
       <ol>
-        <li>Kloonaa haara agentin infrastruktuurin rinnalle.</li>
+        <li>Kloonaa Microsoftin arviointikehys (tai haaramme) agentin infrastruktuurin rinnalle.</li>
         <li>Määritä työkalun mock-versiot MCP-palvelimiksi (Python-aliprosessi tai HTTP).</li>
         <li>Kirjoita skenaariot ja testikesukset YAML:ssa.</li>
         <li>Suorita <code>tb infer</code> vastaan ThinkingBox-Benchia agentin kanssa.</li>
@@ -186,7 +174,7 @@
       <p>ThinkingBox validoi agentit ennen käyttöönottoa. Kun live, DWS Dashboard seuraa niitä tuotannossa—täydellä näkyvyydellä Aspire-tekniikalla.</p>
       <h3>Operatiivinen putki</h3>
       <ol>
-        <li><strong>ThinkingBox-Bench:</strong> Pass/fail 507 tehtävää. Nolla hiljaisia vikoja.</li>
+        <li><strong>ThinkingBox-Bench:</strong> Pass/fail benchin tehtävillä.</li>
         <li><strong>Ota käyttöön:</strong> Vie varmistetut agentit tuotantoon DGX:ssä.</li>
         <li><strong>DWS Dashboard:</strong> Reaaliaikainen agentin valvonta kolmen erillisen näkymän yli:</li>
       </ol>
@@ -205,13 +193,20 @@
       </ul>
 
       <h3>Todellisen maailman käyttötapaus: Ohjaushuoneen valvonta mittakaavassa</h3>
-      <p>Kuvittele, että ottaisit käyttöön 50 agenttia, ja yksi alkaa hallusinoida hienovaraisesti tiistaisin. Ilman jäljityksiä tiimisi käyttää 6 tuntia debugging-sokeuteen. Aspire-tekniikalla, joka syöttää ohjaushuoneelle:</p>
+      <p>Kuvittele, että ottaisit käyttöön 50 agenttia, ja yksi alkaa hallusinoida hienovaraisesti tiistaisin. Ilman jäljityksiä tiimisi etsii vikaa sokkona. Aspire-tekniikalla, joka syöttää ohjaushuoneelle:</p>
       <ul>
-        <li>Luottamus-ajautumisen ilmaisija merkitsee poikkeaman 2 minuutin kuluttua.</li>
+        <li>Luottamus-ajautumisen ilmaisija merkitsee poikkeaman.</li>
         <li>Yksityiskohtaiset agentin jäljitykset osoittavat tarkalleen, mitkä työkalukutsut poikkesivat.</li>
         <li>Tunnistat mallin lämpötilan tai kehotteen muutoksen vastuussa olevasta ajautumasta.</li>
-        <li>Rollback tai koodikorjaus kestää 15 minuuttia 1 päivän sijaan.</li>
+        <li>Rollback tai koodikorjaus lähtee liikkeelle näytöstä eikä arvailusta.</li>
       </ul>
+
+      <h2>Lähteet</h2>
+      <ol>
+        <li>Ko, Y., Keramati, A., Ferri, N., et al. (2026). <em>One Success Isn't Reliability: Thinkingbox, a Sandbox and Benchmark for Agents in Stateful Business Workflows.</em> arXiv:2608.19741. <a href="https://arxiv.org/abs/2608.19741">arxiv.org/abs/2608.19741</a></li>
+        <li>Microsoft (2026). <em>thinkingbox-data.</em> GitHub. <a href="https://github.com/microsoft/thinkingbox-data">github.com/microsoft/thinkingbox-data</a></li>
+      </ol>
+      <p class="correction"><em>Korjattu 30. syyskuuta 2026: aiempi versio esitti Microsoftin ThinkingBox-Benchin omanamme, luetteli alueita, joita siinä ei ole, ja kuvasi DGX-ajurin, jota ei ole vielä rakennettu.</em></p>
 
       <div class="footer">
         <p>Lifetime-tiimi rakentanut. Kysymyksiä? Tavoita meidät: risto.paarni@lifetime.fi.</p>

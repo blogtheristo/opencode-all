@@ -123,9 +123,9 @@
     <main>
       <h2>Det tysta feltproblem</h2>
       <p>Dina agenter körs. Transkriptionen ser bra ut. Användaren säger "tack". Sedan kontrollerar du databasen, API-loggarna, bieffekterna—och ingenting hänt. Agenten hallucinererade framgång.</p>
-      <p>Detta är gapet mellan <em>säga</em> att du gjorde något och <em>gör</em> det. Eval-ramverk mäter transkriptionskvalitet. De mäter inte resultat.</p>
+      <p>Detta är gapet mellan <em>säga</em> att du gjorde något och <em>gör</em> det. Många utvärderingar kontrollerar fortfarande transkriptet eller funktionsanropet, inte om arbetet faktiskt blev gjort.</p>
       <p>För revenue engines—utgående kampanjer, leadberikning, riktadanpassning, attribuering—stilla fel är inte kantfall. De är existentiella. En agent som rapporterar "kampanj distribuerad" när ingenting skickades, och din GTM förlorar trovärdighet med en kund. En lead-berikning-agent som hallucinererar nya kontaktfält, och ditt säljteam jagar spöken.</p>
-      <p>Microsoft byggde ThinkingBox för att lösa exakt detta problem. Vid Lifetime har vi forkat arkivet, anpassat det för revenue engines och paketerat det med DGX-integration och 507 affärsdomänbenchmarks.</p>
+      <p>Microsoft byggde ThinkingBox för att lösa exakt detta problem. På Lifetime har vi forkat repot för att köra det mot våra egna agenter.</p>
 
       <h2>Vad ThinkingBox gör</h2>
       <p>ThinkingBox kör agenter i isolerade, tillståndsbaserade verktygsmiljöer via MCP (Model Context Protocol) servrar. Varje konversation spawnar isolerade verktygsprocesser med stdio-transport—för att säkerställa att varje testfall körs i en ren, reproducerbar sandlåda.</p>
@@ -138,24 +138,12 @@
       <p>Den verkliga signalen är inte "agenten sa att det fungerade". Det är "databasen visar förändringen", "API:t returnerade framgång" eller "filen skapades". ThinkingBox inspekterar tillståndet före och efter, flaggar hallucineringar där agenten hävdade framgång men verktygen visar misslyckande.</p>
 
       <h2>ThinkingBox-Bench: 507 riktiga arbetsflöden</h2>
-      <p>Vi levererar ThinkingBox-Bench med 507 körbara uppgifter över fem affärsdomäner:</p>
-      <ul>
-        <li><strong>Utgående & GTM:</strong> Kampanjdistribution, leadpoäng, publikrefinement</li>
-        <li><strong>Databerikning:</strong> Kontaktsökning, attributextraktion, datakvalitetskontroller</li>
-        <li><strong>Attribuering & Analytics:</strong> Händelsekorrelation, trattanalys, kohortdefinition</li>
-        <li><strong>Innehål & Kunskap:</strong> Dokumentbehandling, semantisk sökning, kunskapsbasuppdateringar</li>
-        <li><strong>Integration & Orkestrering:</strong> API-handöveringar, systemöverordnad synkronisering, felåterställning</li>
-      </ul>
-      <p>Varje uppgift innehåller syntetiska poster, förväntade resultat och förbyggda MCP-servrar. Du kör din agent mot den och får pass/fail på faktiska bieffekter—inte transkriptionssentiment.</p>
+      <p>Microsofts ThinkingBox-Bench har 507 körbara uppgifter inom fem affärsområden: detaljhandel och e-handel, resor och hotell, bilförsäkring, intern IT-support på en neobank samt IT- och HR-support på ett konsultföretag. [1, 2]</p>
+      <p>Siffrorna är argumentet. Den starkaste modellen i studien klarar 65&nbsp;% av uppgifterna på första försöket och löser 91&nbsp;% minst en gång på tjugo försök, men får bara 25&nbsp;% rätt i alla tjugo. [1] En framgång är inte tillförlitlighet.</p>
+      <p>Varje uppgift levereras med förväntade utfall och isolerade MCP-verktygssessioner. Du kör din agent mot den och får pass/fail på faktiska bieffekter—inte transkriptionssentiment.</p>
 
-      <h2>DGX-First-arkitektur</h2>
-      <p>ThinkingBox integreras med DGX, den lokala sandlådan för agentkalkyl. Enligt DWS kostnadsadministration är alla AI-agentarbetsbelastningar som standard lokala—molnagenter är sekundära och kräver dokumenterad motivering.</p>
-      <p>Detta betyder:</p>
-      <ul>
-        <li><strong>Utveckling & Staging:</strong> Kör ThinkingBox-Bench lokalt på DGX via MCP-processisolering. Snabb iteration, noll molnfakturering för processspawning, helt isolerad från produktionsdata.</li>
-        <li><strong>Före distribution:</strong> Varje agentarbetsflöde kör hela bänken före befordring. Inga överraskningar i produktion.</li>
-        <li><strong>Kostnadsadministration:</strong> Varje ThinkingBox-Bench-uppgift är en processpawning + LLM-samtal. Körning av 507 uppgifter × 20 iterationer i molnet är dyrt. Lokal körning betyder att processspawning är gratis—endast LLM-slutledning faktureras. Efter 12 oktober 2026 blockeras molnagenter under gratis kreditneddragning. ThinkingBox-on-DGX säkrar din eval-slinga framåt.</li>
-      </ul>
+      <h2>Lokalt först, på DGX</h2>
+      <p>Våra agentlaster körs som standard på lokal beräkningskraft på DGX; molnagenter är sekundära och kräver ett dokumenterat skäl. Att köra 507 uppgifter × 20 försök i molnet blir dyrt, så vi flyttar benchen till DGX, avskild från produktionsdata. Den körningen är fortfarande under arbete, ännu ingen levererad konfiguration.</p>
 
       <h2>För grundare och lag</h2>
       <p>Om du bygger agentsystem:</p>
@@ -166,14 +154,14 @@
       </ul>
 
       <h2>Komma igång</h2>
-      <p>DWS-ThinkingBox är vår gaffel av Microsoft ThinkingBox-ramverket, anpassat för revenue engines:</p>
+      <p>DWS-ThinkingBox är vår gaffel av Microsoft ThinkingBox-ramverket:</p>
       <ul>
-        <li><strong>Lifetime-gaffel:</strong> github.com/blogtheristo/dws-thinkingbox — MCP-sessionsproxy, agent/användare/domare-slinga, 507 benchmarks, DGX-löparkonfiguration</li>
+        <li><strong>Lifetime-gaffel:</strong> github.com/blogtheristo/dws-thinkingbox — vår arbetsfork</li>
         <li><strong>Upstream-ramverk:</strong> github.com/microsoft/thinkingbox — evalueringsutrustningen och processisoleringslagret</li>
       </ul>
       <p>Integrations arbetsflöde:</p>
       <ol>
-        <li>Klona gaffeln tillsammans med din agentinfrastruktur.</li>
+        <li>Klona Microsofts ramverk (eller vår fork) tillsammans med din agentinfrastruktur.</li>
         <li>Definiera verktygsmockar som MCP-servrar (Python-underprocess eller HTTP).</li>
         <li>Skriv scenarier och testfall i YAML.</li>
         <li>Kör <code>tb infer</code> mot ThinkingBox-Bench med din agent.</li>
@@ -186,7 +174,7 @@
       <p>ThinkingBox validerar agenter före distribution. När den väl är live övervakar DWS Dashboard dem i produktion—med full observerbarhet som drivs av Aspire.</p>
       <h3>Operativ pipeline</h3>
       <ol>
-        <li><strong>ThinkingBox-Bench:</strong> Pass/fail på 507 uppgifter. Noll tysta fel.</li>
+        <li><strong>ThinkingBox-Bench:</strong> Pass/fail på benchens uppgifter.</li>
         <li><strong>Distribuera:</strong> Skicka verifierade agenter till produktion på DGX.</li>
         <li><strong>DWS Dashboard:</strong> Realtidsövervakning av agenter över tre dedikerade vyer:</li>
       </ol>
@@ -205,13 +193,20 @@
       </ul>
 
       <h3>Verkligt exempel: Kontrollrumövervakning i stor skala</h3>
-      <p>Föreställ dig att distribuera 50 agenter, och en börjar hallucinerare subtilt på tisdagar. Utan spår spenderar ditt lag 6 timmar debugging blind. Med Aspire matning kontrollrummet:</p>
+      <p>Föreställ dig att distribuera 50 agenter, och en börjar hallucinerare subtilt på tisdagar. Utan spår felsöker ditt lag i blindo. Med Aspire matning kontrollrummet:</p>
       <ul>
-        <li>Självförtroendet-drift-detektorn flaggar anomalin på 2 minuter.</li>
+        <li>Självförtroendet-drift-detektorn flaggar anomalin.</li>
         <li>Detaljerade agentspår visar exakt vilka verktygsamtal som avvek.</li>
         <li>Du lokaliserar modelltemperaturen eller ledtextstöten ansvarig för driften.</li>
-        <li>Återställning eller kodfix tar 15 minuter istället för en hel dag.</li>
+        <li>Återställning eller kodfix utgår från bevis i stället för gissningar.</li>
       </ul>
+
+      <h2>Källor</h2>
+      <ol>
+        <li>Ko, Y., Keramati, A., Ferri, N., et al. (2026). <em>One Success Isn't Reliability: Thinkingbox, a Sandbox and Benchmark for Agents in Stateful Business Workflows.</em> arXiv:2608.19741. <a href="https://arxiv.org/abs/2608.19741">arxiv.org/abs/2608.19741</a></li>
+        <li>Microsoft (2026). <em>thinkingbox-data.</em> GitHub. <a href="https://github.com/microsoft/thinkingbox-data">github.com/microsoft/thinkingbox-data</a></li>
+      </ol>
+      <p class="correction"><em>Rättad 30 september 2026: en tidigare version beskrev Microsofts ThinkingBox-Bench som vår, listade områden som den inte har och beskrev en DGX-körning som ännu inte är byggd.</em></p>
 
       <div class="footer">
         <p>Byggd av Lifetime-teamet. Frågor? Nå oss på risto.paarni@lifetime.fi.</p>

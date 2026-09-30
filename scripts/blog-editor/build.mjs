@@ -51,7 +51,7 @@ const pageCommit =
 const pageDirty = gitOut('status', '--porcelain', '--', 'scripts/blog-editor/page.html') ? '*' : '';
 // Release number: bump by hand when the page changes behaviour (HIC 30.09.2026: v0.1 = the
 // first live editor with the language bar, commit 7da1c79b2).
-const PAGE_RELEASE = '0.3'; // 0.3: four pillars + Active Ontology link
+const PAGE_RELEASE = '0.4'; // 0.4: honest Save/Refresh text (routines cannot reach the store)
 const beVersion = `v${PAGE_RELEASE} · ${pageCommit}${pageDirty} · ${new Date().toISOString().slice(0, 10)}`;
 writeFileSync(
   join(out, 'index.html'),

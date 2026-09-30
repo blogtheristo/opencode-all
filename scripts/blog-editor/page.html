@@ -372,9 +372,7 @@
     title="Graph of the four pillars against the ontology, with progress"
     >Active Ontology ↗</a
   >
-  <button id="refresh" title="Pull the latest drafts from git (runs the refresh routine)">
-    ↻ Refresh
-  </button>
+  <button id="refresh" title="How to pull the latest drafts from git">↻ Refresh</button>
   <div class="tabs" id="tabs" role="group" aria-label="Section">
     <button id="tab-drafts" aria-pressed="true">Blog</button>
     <button id="tab-learn" aria-pressed="false">Learn</button>
@@ -413,75 +411,21 @@
     },
   };
   let db = null;
-  // Save fires the "Blog editor → git sync" Routine through the Claude Code Remote connector;
-  // a fresh Claude session applies the saved rows to docs/blog-drafts/ and opens a PR.
-  const SYNC_TRIGGER = "trig_01Skbg2msgRCU76ffHxPB2ZP";
-  let mcp;
+  // Routines fired from this page run without the page's storage or the repo (checked
+  // 30.09.2026: the refresh run ended after 18 s with nothing written), so the page no longer
+  // claims a sync it cannot do. A Claude session does it on request.
   async function startSync() {
-    if (mcp === undefined) mcp = await window.claude?.use?.("mcp");
-    const manual = ' Ask Claude to "sync blog editor".';
-    if (!mcp) return { text: "Saved. Automatic sync is not available in this view." + manual };
-    // One sync picks up every saved draft, so repeated saves within a minute share it.
-    const meta = db.doc("meta/sync");
-    const last = (await meta.get()).data()?.firedAt;
-    if (last && Date.now() - Date.parse(last) < 60000)
-      return { text: "Saved. A sync started a moment ago; it includes this." };
-    try {
-      await mcp.callTool(
-        "Claude Code Remote",
-        "fire_trigger",
-        { trigger_id: SYNC_TRIGGER },
-        { cache: false },
-      );
-      await meta.set({ firedAt: new Date().toISOString() });
-      return { text: "Saved and sent to git. The PR appears in a few minutes." };
-    } catch (e) {
-      const why =
-        {
-          server_not_connected: "Add Claude Code Remote in claude.ai Settings → Connectors.",
-          needs_reauth: "Reconnect Claude Code Remote in claude.ai Settings → Connectors.",
-          not_in_manifest: "Sync was not allowed for this page.",
-          blocked_by_policy: "Your organization blocks this connector here.",
-          tool_error: e.message,
-        }[e?.code] || "Sync did not start (" + (e?.code || "error") + ").";
-      return { text: "Saved, but not synced: " + why + manual, err: true };
-    }
+    return {
+      text: 'Saved in the editor. To bring it into git, tell Claude: "sync blog editor".',
+    };
   }
-  // Refresh fires the "Blog editor ← git refresh" Routine: a fresh Claude session rebuilds the
-  // drafts from git main and updates this page's rows (never overwriting unsynced edits). Use it
-  // while the opencode loop or another session is reorganising drafts in git.
-  const REFRESH_TRIGGER = "trig_01J1Dgox8Pxcb7sAGf7F9y2j";
+
   async function startRefresh() {
-    if (mcp === undefined) mcp = await window.claude?.use?.("mcp");
-    if (!db)
-      return { text: "Refresh needs this page's storage (open it on claude.ai).", err: true };
-    if (!mcp)
-      return {
-        text: 'Refresh is not available in this view. Ask Claude to "refresh blog editor".',
-        err: true,
-      };
-    const meta = db.doc("meta/refreshRequest");
-    const last = (await meta.get()).data()?.firedAt;
-    if (last && Date.now() - Date.parse(last) < 120000)
-      return { text: "A refresh started a moment ago; the list updates by itself when it lands." };
-    try {
-      await mcp.callTool(
-        "Claude Code Remote",
-        "fire_trigger",
-        { trigger_id: REFRESH_TRIGGER },
-        { cache: false },
-      );
-      await meta.set({ firedAt: new Date().toISOString() });
-      return {
-        text: "Refreshing from git. New and changed drafts appear here in a few minutes; your unsaved and unsynced edits are kept.",
-      };
-    } catch (e) {
-      return {
-        text: "Refresh did not start (" + (e?.code || e?.message || "error") + ").",
-        err: true,
-      };
-    }
+    return {
+      text: 'To pull the latest drafts from git, tell Claude: "refresh blog editor". The list updates here by itself when that is done.',
+    };
   }
+
   let lastRefresh = null;
   let drafts = [];
   let learn = null;
@@ -804,7 +748,7 @@
         : d.syncError
           ? "Sync failed: " + d.syncError
           : d.edited
-            ? "Saved here; waiting for sync to git."
+            ? "Saved here; not yet in git (ask Claude to sync blog editor)."
             : d.syncedCommit
               ? "In git (commit " + d.syncedCommit + ")."
               : "In sync with git.",
@@ -904,7 +848,13 @@
           translate: true,
         });
         const r = await startSync();
-        toast(r.err ? r.text : l.toUpperCase() + " translation requested and sent to git.", r.err);
+        toast(
+          r.err
+            ? r.text
+            : l.toUpperCase() +
+                ' translation requested. Tell Claude "sync blog editor" to send it to git.',
+          r.err,
+        );
       } catch (e) {
         toast(e.message || String(e), true);
       }
@@ -989,7 +939,7 @@
         toast(
           r.err
             ? r.text
-            : "Approved and sent to git. Publishing still waits for your go to Claude.",
+            : 'Approved in the editor. Tell Claude "sync blog editor" to record it in git; publishing still waits for your go.',
           r.err,
         );
       } catch (e) {

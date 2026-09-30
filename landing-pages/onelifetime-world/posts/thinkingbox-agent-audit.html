@@ -118,9 +118,9 @@
     <main>
       <h2>The Silent Failure Problem</h2>
       <p>Your agents run. The transcript looks good. The user says "thanks." Then you check the database, the API logs, the side effects—and nothing happened. The agent hallucinated success.</p>
-      <p>This is the gap between <em>saying</em> you did something and <em>doing</em> it. Eval frameworks measure transcript quality. They do not measure outcomes.</p>
+      <p>This is the gap between <em>saying</em> you did something and <em>doing</em> it. Many evaluations still check the transcript or the function call, not whether the work got done.</p>
       <p>For revenue engines—outbound campaigns, lead enrichment, targeting refinement, attribution—silent failures are not edge cases. They are existential. One agent that reports "campaign deployed" when nothing shipped, and your GTM burns credibility with one customer. One lead-enrichment agent that hallucinates new contact fields, and your sales team is chasing ghosts.</p>
-      <p>Microsoft built ThinkingBox to solve exactly this problem. At Lifetime, we've forked the repository, tailored it for revenue engines, and packaged it with DGX integration and 507 business-domain benchmarks.</p>
+      <p>Microsoft built ThinkingBox to solve exactly this problem. At Lifetime, we have forked the repository to run it against our own agents.</p>
 
       <h2>What ThinkingBox Does</h2>
       <p>ThinkingBox runs agents in isolated, stateful tool environments via MCP (Model Context Protocol) servers. Each conversation spawns isolated tool processes with stdio transport—ensuring every test case runs in a clean, reproducible sandbox.</p>
@@ -133,24 +133,12 @@
       <p>The real signal is not "the agent said it worked." It is "the database shows the change," "the API returned success," or "the file was created." ThinkingBox inspects state before and after, flagging hallucinations where the agent claimed success but the tools show failure.</p>
 
       <h2>ThinkingBox-Bench: 507 Real Workflows</h2>
-      <p>We ship ThinkingBox-Bench with 507 executable tasks across five business domains:</p>
-      <ul>
-        <li><strong>Outbound & GTM:</strong> Campaign deployment, lead scoring, audience refinement</li>
-        <li><strong>Data Enrichment:</strong> Contact lookup, attribute extraction, data quality checks</li>
-        <li><strong>Attribution & Analytics:</strong> Event correlation, funnel analysis, cohort definition</li>
-        <li><strong>Content & Knowledge:</strong> Document processing, semantic search, knowledge base updates</li>
-        <li><strong>Integration & Orchestration:</strong> API handoffs, cross-system sync, error recovery</li>
-      </ul>
-      <p>Each task includes synthetic records, expected outcomes, and pre-built MCP servers. You run your agent against it and get a pass/fail on actual side effects—not transcript sentiment.</p>
+      <p>Microsoft's ThinkingBox-Bench has 507 executable tasks across five business domains: retail and e-commerce, travel and hospitality, auto insurance, internal IT support at a neobank, and IT and HR support at a consulting firm. [1, 2]</p>
+      <p>The numbers are the argument. The strongest model in the paper passes 65&nbsp;% of tasks on the first try and solves 91&nbsp;% at least once in twenty attempts, but gets only 25&nbsp;% right in all twenty. [1] One success is not reliability.</p>
+      <p>Each task comes with expected outcomes and isolated MCP tool sessions. You run your agent against it and get a pass/fail on actual side effects—not transcript sentiment.</p>
 
-      <h2>DGX-First Architecture</h2>
-      <p>ThinkingBox integrates with DGX, the local sandbox for agentic compute. Per DWS cost governance, all AI agent workloads default to local—cloud agents are secondary and require documented justification.</p>
-      <p>This means:</p>
-      <ul>
-        <li><strong>Development & Staging:</strong> Run ThinkingBox-Bench locally on DGX via MCP process isolation. Fast iteration, zero cloud billing for subprocess spawning, isolated completely from production data.</li>
-        <li><strong>Pre-Deployment:</strong> Every agent workflow runs the full bench before promotion. No surprises in production.</li>
-        <li><strong>Cost Governance:</strong> Each ThinkingBox-Bench task is a subprocess spawn + LLM call. Running 507 tasks × 20 iterations in the cloud is expensive. Local execution means subprocess spawning is free—only LLM inference is billed. After October 12, 2026, cloud agents are blocked during free-credit depletion. ThinkingBox-on-DGX future-proofs your eval loop.</li>
-      </ul>
+      <h2>Local First, on DGX</h2>
+      <p>Our agent workloads default to local compute on DGX; cloud agents are secondary and need a documented reason. Running 507 tasks × 20 attempts in the cloud is expensive, so we are bringing the bench to the DGX, isolated from production data. That runner is work in progress, not yet a shipped configuration.</p>
 
       <h2>For Founders & Teams</h2>
       <p>If you are building agent systems:</p>
@@ -161,14 +149,14 @@
       </ul>
 
       <h2>Get Started</h2>
-      <p>DWS-ThinkingBox is our fork of the Microsoft ThinkingBox framework, tailored for revenue engines:</p>
+      <p>DWS-ThinkingBox is our fork of the Microsoft ThinkingBox framework:</p>
       <ul>
-        <li><strong>Lifetime Fork:</strong> github.com/blogtheristo/dws-thinkingbox — MCP session proxy, agent/user/judge loop, 507 benchmarks, DGX runner config</li>
+        <li><strong>Lifetime Fork:</strong> github.com/blogtheristo/dws-thinkingbox — our working fork</li>
         <li><strong>Upstream Framework:</strong> github.com/microsoft/thinkingbox — the evaluation harness and process isolation layer</li>
       </ul>
       <p>Integration Workflow:</p>
       <ol>
-        <li>Clone the fork alongside your agent infrastructure.</li>
+        <li>Clone Microsoft's harness (or our fork) alongside your agent infrastructure.</li>
         <li>Define tool mocks as MCP servers (Python subprocess or HTTP).</li>
         <li>Write scenarios and test cases in YAML.</li>
         <li>Run <code>tb infer</code> against ThinkingBox-Bench with your agent.</li>
@@ -181,7 +169,7 @@
       <p>ThinkingBox validates agents before deployment. Once live, the DWS Dashboard monitors them in production—with full observability powered by Aspire.</p>
       <h3>Operational Pipeline</h3>
       <ol>
-        <li><strong>ThinkingBox-Bench:</strong> Pass/fail on 507 tasks. Zero silent failures.</li>
+        <li><strong>ThinkingBox-Bench:</strong> Pass/fail on the bench's tasks.</li>
         <li><strong>Deploy:</strong> Push verified agents to production on DGX.</li>
         <li><strong>DWS Dashboard:</strong> Real-time agent monitoring across three dedicated views:</li>
       </ol>
@@ -200,13 +188,20 @@
       </ul>
 
       <h3>Real-World Use Case: Control Room Monitoring at Scale</h3>
-      <p>Imagine deploying 50 agents, and one starts hallucinating subtly on Tuesdays. Without traces, your team spends 6 hours debugging blind. With Aspire feeding the Control Room:</p>
+      <p>Imagine deploying 50 agents, and one starts hallucinating subtly on Tuesdays. Without traces, your team debugs blind. With Aspire feeding the Control Room:</p>
       <ul>
-        <li>The confidence drift detector flags the anomaly in 2 minutes.</li>
+        <li>The confidence drift detector flags the anomaly.</li>
         <li>Detailed agent traces show precisely which tool calls diverged.</li>
         <li>You pinpoint the model temperature or prompt change responsible for the drift.</li>
-        <li>Rollback or code fix takes 15 minutes instead of a full day.</li>
+        <li>Rollback or code fix starts from evidence instead of guesswork.</li>
       </ul>
+
+      <h2>Sources</h2>
+      <ol>
+        <li>Ko, Y., Keramati, A., Ferri, N., et al. (2026). <em>One Success Isn't Reliability: Thinkingbox, a Sandbox and Benchmark for Agents in Stateful Business Workflows.</em> arXiv:2608.19741. <a href="https://arxiv.org/abs/2608.19741">arxiv.org/abs/2608.19741</a></li>
+        <li>Microsoft (2026). <em>thinkingbox-data.</em> GitHub. <a href="https://github.com/microsoft/thinkingbox-data">github.com/microsoft/thinkingbox-data</a></li>
+      </ol>
+      <p class="correction"><em>Corrected 30 September 2026: an earlier version described Microsoft's ThinkingBox-Bench as ours, listed domains it does not have, and described a DGX runner that is not yet built.</em></p>
 
       <div class="footer">
         <p>Built by the Lifetime team. Questions? Reach us at risto.paarni@lifetime.fi.</p>
