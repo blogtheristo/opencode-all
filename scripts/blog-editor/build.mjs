@@ -26,6 +26,7 @@ import {
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { classifyDocument } from '../../src/services/document-access.ts';
+import { collectCentres } from '../knowledge-centres.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const out = resolve(process.argv[2] ?? '');
@@ -51,7 +52,7 @@ const pageCommit =
 const pageDirty = gitOut('status', '--porcelain', '--', 'scripts/blog-editor/page.html') ? '*' : '';
 // Release number: bump by hand when the page changes behaviour (HIC 30.09.2026: v0.1 = the
 // first live editor with the language bar, commit 7da1c79b2).
-const PAGE_RELEASE = '0.4'; // 0.4: honest Save/Refresh text (routines cannot reach the store)
+const PAGE_RELEASE = '0.5'; // 0.5: centre and hub buttons (investor, customer, partner, materials, legal, compliance)
 const beVersion = `v${PAGE_RELEASE} · ${pageCommit}${pageDirty} · ${new Date().toISOString().slice(0, 10)}`;
 writeFileSync(
   join(out, 'index.html'),
@@ -140,10 +141,36 @@ for (const f of readdirSync(join(ROOT, 'docs/whitepapers')).filter((f) =>
     ...pillarOf(f, html),
   });
 }
+// Centres and hubs (scripts/knowledge-centres.mjs): live dws10.com pages; internal folders are
+// counted only. Pages over the embed limit open on the live site instead.
+const centres = collectCentres(ROOT);
+for (const d of centres.docs) {
+  const file = d.file.replace(/\//g, '__');
+  if (d.embed) writeFileSync(join(out, 'learn', file), d.html);
+  docs.push({
+    file,
+    title: d.title,
+    class: 'public',
+    kb: d.kb,
+    url: d.url,
+    embed: d.embed,
+    ...pillarOf(file, d.html),
+    pillar: d.centre,
+  });
+}
 docs.sort((a, b) => a.title.localeCompare(b.title));
 writeFileSync(
   join(out, 'learn', 'manifest.json'),
-  JSON.stringify({ built: new Date().toISOString().slice(0, 10), withheld, docs }, null, 1),
+  JSON.stringify(
+    {
+      built: new Date().toISOString().slice(0, 10),
+      withheld,
+      centres: { withheld: centres.withheld, langCopies: centres.langCopies },
+      docs,
+    },
+    null,
+    1,
+  ),
 );
 
 // Drafts: rows for the page's `drafts` collection.

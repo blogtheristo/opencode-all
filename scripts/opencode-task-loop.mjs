@@ -639,10 +639,18 @@ if (flag('--status')) {
   process.exit(0);
 }
 if (DRY) {
-  for (const t of listSpecs())
+  // Only the recorded state is consulted (no gh calls): a task the loop already settled, finished
+  // or blocked on this spec version is labelled, so the list shows what would really be worked.
+  const state = loadState();
+  for (const t of listSpecs()) {
+    const st = state[t.branch];
+    const known = st?.specHash === t.specHash && ['settled', 'done', 'blocked'].includes(st.status);
     console.log(
-      `would run: ${t.branch} (order ${t.spec.order ?? 100}, ${t.spec.model ?? DEFAULT_MODEL})`,
+      known
+        ? `${st.status}: ${t.branch}${st.lastGate ? ` (${String(st.lastGate).split('\n')[0].slice(0, 80)})` : ''}`
+        : `would run: ${t.branch} (order ${t.spec.order ?? 100}, ${t.spec.model ?? DEFAULT_MODEL})`,
     );
+  }
   process.exit(0);
 }
 

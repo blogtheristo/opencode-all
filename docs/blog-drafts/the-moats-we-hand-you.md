@@ -158,6 +158,6 @@ era
 
 - Europe's AI factory came home — and why the edge still needs a box
 
-Risto Anton Paarni
+Risto Anton Päärni
 
 CEO, Lifetime Oy · Editor in Chief, Lifetime Scope Journal

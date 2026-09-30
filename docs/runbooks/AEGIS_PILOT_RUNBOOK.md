@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.7 [Latest]
+Version: 1.8 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.7 [Latest] | Tool: Claude Code (web) | Session: claude/festive-mccarthy-h6y6yu | Date: 30.09.2026 | Changes: §7 "Evidence handover": `export` / `verify-bundle` (A2, Claude Code takeover of #2256). The pin is checked against the key id computed from the bundled public key; sealed segments, seals and acceptance records are verified offline. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.8 [Latest] | Tool: Claude Code (web) | Session: claude/festive-mccarthy-h6y6yu | Date: 30.09.2026 | Changes: §7 "Evidence handover": `export` / `verify-bundle` (A2, Claude Code takeover of #2256). The pin is checked against the key id computed from the bundled public key; sealed segments, seals and acceptance records are verified offline. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.7 [not latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 30.09.2026 | Changes: §5.1: `abandonedShare`; review threshold of 10 HIC-confirmed. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
 - Version: 1.6 [not latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 30.09.2026 | Changes: §5.1 anti-rubber-stamp (HIC 29.09.2026): `modify` verdict, reason required on reject/modify, `manual_entry` capture with evidence strength, and review shares and signal in `journey`. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.5 [not latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 29.09.2026 | Changes: Readiness plan C5, HIC 28.09.2026. Operator decisions on recommendations (§5.1): `decide` (operator, sign and queue only), `drain-decisions` (site), `outcome` and `journey`; the `decide/` inbox; `--role` on `issue-operator`; the `advisory` scope flag. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.4 [not latest] | Tool: Claude Code | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: New §6.1 step 6 policy proof (`prove`, `--openshell-prover`, `containment.proof` in the record). New §6.2 M4 checklist for the DGX Spark with `physical-disconnect` (HIC 29.09.2026). Ledger segments and retention (readiness plan patch C2): §2 layout, new §4 "Ledger segments and retention" with `seal` / `segments` / `prune`, §8 whole-ledger bullet covers sealed segments. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
@@ -183,9 +184,10 @@ The first workflow is advisory (HIC 28.09.2026). The agent recommends, the opera
   - `coverage`: complete paths divided by recommendations. A path is complete when it is rejected, abandoned, or accepted or modified with an outcome.
   - The median operator time, from live decisions only.
   - Always alongside it: `rejectionShare`, `modificationShare`, `manualEntryShare` and `weakestEvidence`, the cap on any learning delta.
-  - `reviewSignal`: `no-challenge` when any operator, or any recommending agent, has 10 or more final decisions with no reject and no modify. It is judged per operator and per agent, so decoys rejected elsewhere cannot mask a rubber-stamped stream.
+  - `abandonedShare`: recommendations whose agent the operator stopped. They count as complete, because the stop is signed evidence, and they stay in the denominator. Read this share beside coverage, because stopping instead of deciding must not inflate coverage (HIC 30.09.2026).
+  - `reviewSignal`: `no-challenge` when any operator, or any recommending agent, has 10 or more final decisions with no reject and no modify. It is judged per operator and per agent, so decoys rejected elsewhere cannot mask a rubber-stamped stream. Seconds per decision with nothing ever challenged is a warning sign, not a result. The threshold of 10 was HIC-confirmed on 30.09.2026.
   - `evidenceBasis`: live or manual capture is operator-attested. Evidence strength caps learning; it is not a trust score.
-  - `occurredAt` must be ISO 8601 UTC and at most 30 days old. Seconds per decision with nothing ever challenged is a warning sign, not a result. The threshold of 10 is a v1 proposal.
+  - `occurredAt` must be ISO 8601 UTC and at most 30 days old.
 
 ## 6. Phase 3 — severed-uplink acceptance (weeks 10–11)
 

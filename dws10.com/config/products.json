@@ -11,11 +11,11 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes \u2014 coordinating a governed skilled-agent fleet with KYA/Article-12 traceability across EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted. Supports up to 50 production agents concurrently across 25 industry verticals.",
+      "description": "Ship signed work that releases money. DWS IQ 6 is the orchestration platform that produces the signed artifact your counterparty accepts \u2014 so a tender, a shipment, an invoice or a grant can move, in days not quarters. A governed skilled-agent fleet runs the loop with KYA/Article-12 traceability across EU industries (Fit for 55, CSRD, EPBD and the rest stay inside the engine, where they make the artifact stand up). MCP-native, CLI-accessible, EU-hosted. Supports up to 50 production agents concurrently across 25 industry verticals.",
       "features": [
         "Orchestrates a governed skilled-agent fleet with KYA/Article-12 traceability, MCP-native with CLI access",
-        "Amplify Fit for 55, CSRD & EPBD reporting",
-        "90% reduction in manual compliance hours"
+        "Signed, auditable artifacts that unlock tenders, shipments, invoices and grants",
+        "Days, not quarters, to a signed artifact \u2014 your experts freed from the grunt work"
       ],
       "priceNote": "One-time deployment",
       "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39",

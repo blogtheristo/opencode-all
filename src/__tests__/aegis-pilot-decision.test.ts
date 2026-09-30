@@ -288,6 +288,8 @@ describe('operator decision is a signed decision event', () => {
     });
     const summary = decisionJourneys(statePaths(dir).ledger);
     expect(summary.journeys[0]).toMatchObject({ status: 'abandoned', complete: true });
+    // Counted as complete, kept in the denominator, and reported on its own (HIC 30.09.2026).
+    expect(summary).toMatchObject({ recommendations: 1, coverage: 1, abandonedShare: 1 });
   });
 
   it('works through the local inbox, with no network in the path', () => {
