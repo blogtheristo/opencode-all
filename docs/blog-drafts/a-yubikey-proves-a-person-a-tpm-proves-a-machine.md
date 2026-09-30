@@ -19,7 +19,7 @@ While planning the first witnessed test of the Aegis Pilot, we asked ourselves a
 
 Those are two questions, and two different pieces of hardware answer them.
 
-**A security key proves a person.** A security key (a YubiKey is one example) is a small device you plug into your laptop and touch. It holds a secret that never leaves it. When the operator stops an agent, the key signs the command, and the signature exists only if that person's key was physically there. Copying a file does not copy it. It is the answer to "who held the authority at that moment", which is what a record of human oversight has to show where Article 14 of the EU AI Act applies, that is, for high-risk systems.
+**A YubiKey proves a person.** A YubiKey, like any hardware security key, is a small device you plug into your laptop and touch. It holds a secret that never leaves it. When the operator stops an agent, the key signs the command, and the signature exists only if that person's key was physically there. Copying a file does not copy it. It is the answer to "who held the authority at that moment", which is what a record of human oversight has to show where Article 14 of the EU AI Act applies, that is, for high-risk systems.
 
 **A TPM proves a machine.** A TPM is a small chip on the computer's motherboard. It records what the machine started up with, and it can sign a statement about that. If someone replaced the software underneath the agent, or moved the evidence to a different box, the chip's statement stops matching. It is the answer to "was this the machine, running this software".
 
