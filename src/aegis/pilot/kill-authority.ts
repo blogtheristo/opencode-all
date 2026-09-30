@@ -75,6 +75,11 @@ export interface StopOutcome {
   latencyMs?: number;
   /** Ledger seq of the human.override (accepted) or incident (rejected) event. */
   ledgerSeq?: number;
+  /**
+   * Credential ids revoked because of this stop (safe halt, Art. 14(4)(e)): the
+   * stopped agent cannot act again under the same grant. Empty without `revoke`.
+   */
+  disarmed?: string[];
 }
 
 /** Operator side: build and sign a stop command. Pure — no I/O. */
@@ -129,6 +134,12 @@ export class KillAuthority {
     private readonly verifier: CredentialVerifier,
     private readonly ledger: EvidenceLedger,
     private readonly now: () => Date = () => new Date(),
+    /**
+     * `revoke`: disarms a stopped agent by revoking its credential (the site
+     * process holds the site authority). Each revocation is an `authority.revoke`
+     * event after the `human.override`, carrying the operator id.
+     */
+    private readonly opts: { revoke?: (credentialId: string) => void } = {},
   ) {
     const p = statePaths(stateDir);
     for (const sub of ['processed', 'rejected']) {
@@ -214,8 +225,11 @@ export class KillAuthority {
         : this.running.has(command.target)
           ? [command.target]
           : [];
+    const stoppedCredentials: string[] = [];
     for (const id of targets) {
-      this.running.get(id)?.controller.abort(new StopRequested(command.commandId, command.reason));
+      const agent = this.running.get(id);
+      agent?.controller.abort(new StopRequested(command.commandId, command.reason));
+      if (agent) stoppedCredentials.push(agent.credential.credentialId);
     }
     const outcome: StopOutcome = {
       accepted: true,
@@ -237,6 +251,24 @@ export class KillAuthority {
         note: targets.length === 0 ? 'no matching running agent' : undefined,
       },
     }).seq;
+    // Safe halt: the stop is not complete while the agent could resume under the same grant.
+    outcome.disarmed = [];
+    if (this.opts.revoke) {
+      for (const credentialId of stoppedCredentials) {
+        this.opts.revoke(credentialId);
+        this.ledger.append({
+          event_type: 'authority.revoke',
+          trace_id: traceId,
+          operator_id: cred.subjectId,
+          detail: {
+            credential_id: credentialId,
+            reason: 'operator stop',
+            command_id: command.commandId,
+          },
+        });
+        outcome.disarmed.push(credentialId);
+      }
+    }
     this.outcomes.push(outcome);
     return outcome;
   }
