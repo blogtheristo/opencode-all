@@ -8,7 +8,8 @@ author: Risto Anton Päärni
 date: 2026-08-07
 Status: DRAFT
 source: HIC-kirjoittama teksti (sessio claude/agent-use-cases-comparison-h7vl25), KYA-viittaukset tarkistettu Legal/KYA_S1.md §5–6 vasten
-series: Jatko-osa kirjoitukselle "HIC-hallintamalli ja DWS IQ -agentit"
+series: "Blogi 3/11 · DWS IQ & Lifetime World Model"
+series_original: Jatko-osa kirjoitukselle "HIC-hallintamalli ja DWS IQ -agentit" (alkuperäinen merkintä säilytetty, Sääntö 12)
 ---
 
 # Teollisuuden prosessikuvaustavat ja tekoälyagentit

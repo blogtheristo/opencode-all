@@ -13,7 +13,7 @@ series: "KYA-S1 -blogisarja"
 part: 5
 parts_total: 12
 source: HIC-kirjoittama teksti (sessio claude/agent-use-cases-comparison-h7vl25)
-display_series: "Blogi 5/12 · DWS IQ & Lifetime World Model"
+series: "Blogi 5/11 · DWS IQ & Lifetime World Model"
 editorial_fixes: |
   Kolme korjausta alkuperäiseen tekstiin ennen luonnostusta (Sääntö 12 — kerrotaan ääneen):
   1. "Reproducibility (PRV)" → PRV = "Memory & Decision Provenance" (Legal/KYA_S1.md §6.3).
@@ -27,7 +27,7 @@ editorial_fixes: |
 
 # KYA-S1 ja BPMN 2.0: Miten tekoälyagentin luottamustaso ohjaa teollisuusprosessia käytännössä?
 
-_Blogi 5/7 · DWS IQ & Lifetime World Model · 7. elokuuta 2026 · Risto Anton Päärni_
+_Blogi 5/11 · DWS IQ & Lifetime World Model · 7. elokuuta 2026 · Risto Anton Päärni_
 
 ---
 

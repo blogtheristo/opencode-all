@@ -26,8 +26,28 @@ import type { BaseAgent } from '../agents/base.agent.js';
 import type { AgentContext, AgentResponse, AutonomyPhase } from '../agents/types.js';
 
 // ============================================================================
+// CONTAINMENT IMPORTS
+// ============================================================================
+
+// Import for future OpenShell containment integration via CommandRunner interface
+import { spawnRunner as _spawnRunner } from '../aegis/pilot/openshell-handlers.js';
+
+// ============================================================================
 // TYPES
 // ============================================================================
+
+/** Containment mode for skill invocations. */
+export type ContainmentMode = 'openshell' | 'none';
+
+/** Containment evidence attached to each skill invocation result. */
+export interface ContainmentEvidence {
+  mode: ContainmentMode;
+  sandbox?: string;
+  step?: string;
+  image?: string;
+  policyDigest?: string;
+  limits?: { memory: string; cpu: string };
+}
 
 /** Canonical, schema-versioned result envelope returned for every DWS-agent skill. */
 export interface SkillResultEnvelope {
@@ -90,6 +110,7 @@ export interface SkillInvocationResult {
   error: string | null;
   auditEventId: string;
   durationMs: number;
+  containment?: ContainmentEvidence;
 }
 
 /** Append-only Article-12 step record for one workflow step. */
@@ -118,6 +139,8 @@ export interface SkillHostOptions {
   logBasePath?: string;
   /** Optional recorder invoked for every step (blocked, ok, or error). */
   onStep?: StepRecorder;
+  /** Containment mode: 'openshell' to use OpenShell sandbox, 'none' for in-process (default). */
+  containment?: ContainmentMode;
 }
 
 /** ATS minimum derived from an agent's autonomy phase when not set explicitly. */
@@ -126,6 +149,60 @@ const ATS_BY_PHASE: Record<AutonomyPhase, number> = {
   advisor: 50,
   autonomous: 80,
 };
+
+/** Get sandbox capabilities for a given tier (reused from nemoclaw-sandbox.ts). */
+function getTierCapabilities(tier: string): {
+  allowNetwork: boolean;
+  allowFilesystem: boolean;
+  allowMcpTools: boolean;
+  maxMemoryMb: number;
+  maxCpuCores: number;
+  maxExecutionSec: number;
+} {
+  switch (tier) {
+    case 'full_agency':
+      return {
+        allowNetwork: true,
+        allowFilesystem: true,
+        allowMcpTools: true,
+        maxMemoryMb: 512,
+        maxCpuCores: 4,
+        maxExecutionSec: 3600,
+      };
+    case 'restricted':
+      return {
+        allowNetwork: false,
+        allowFilesystem: true,
+        allowMcpTools: true,
+        maxMemoryMb: 256,
+        maxCpuCores: 2,
+        maxExecutionSec: 1800,
+      };
+    case 'suspended':
+      return {
+        allowNetwork: false,
+        allowFilesystem: false,
+        allowMcpTools: false,
+        maxMemoryMb: 128,
+        maxCpuCores: 1,
+        maxExecutionSec: 300,
+      };
+    case 'quarantine':
+      return {
+        allowNetwork: false,
+        allowFilesystem: false,
+        allowMcpTools: false,
+        maxMemoryMb: 64,
+        maxCpuCores: 1,
+        maxExecutionSec: 60,
+      };
+    default:
+      throw new Error(`Unknown sandbox tier: ${tier}`);
+  }
+}
+
+export { resolveTier } from '../sandbox/nemoclaw-sandbox.js';
+export { getTierCapabilities };
 
 /** Prompt-injection patterns stripped from inbound (untrusted) string params. */
 const INJECTION_PATTERNS: RegExp[] = [
@@ -228,6 +305,7 @@ export class NemoClawSkillHost {
   private readonly allowedSkills: string[];
   private readonly logBasePath: string | undefined;
   private readonly onStep: StepRecorder | undefined;
+  private readonly containment: ContainmentMode;
   private readonly skills: Map<string, RegisteredSkill> = new Map();
   private readonly stepLog: WorkflowStepLog[] = [];
 
@@ -235,6 +313,7 @@ export class NemoClawSkillHost {
     this.allowedSkills = opts.allowedSkills;
     this.logBasePath = opts.logBasePath;
     this.onStep = opts.onStep;
+    this.containment = opts.containment ?? 'none';
   }
 
   /**
@@ -322,13 +401,30 @@ export class NemoClawSkillHost {
         tier,
         caller: req.callerAgentId,
       });
-      return this.fail(
+      return this.failWithEvidence(
         `Sandbox tier "${tier}" (ATS ${req.callerATS.toFixed(0)}) blocks skill execution`,
         { req, traceId, auditEventId, inputHash, startTime },
+        tier,
       );
     }
 
-    // Per-skill sandbox tier model (tier resolved from ATS); no OS sandbox yet.
+    const tierCapabilities = getTierCapabilities(tier);
+
+    // When containment is 'openshell', invoke through OpenShell sandbox
+    if (this.containment === 'openshell') {
+      return await this.invokeWithOpenShell(
+        req,
+        registered,
+        traceId,
+        auditEventId,
+        inputHash,
+        startTime,
+        tier,
+        tierCapabilities,
+      );
+    }
+
+    // Containment: 'none' — run in-process with in-process sandbox model
     const sandbox = NemoClawSandbox.create({
       agentId: req.skill,
       kyaSessionId: req.kyaSessionId,
@@ -387,6 +483,7 @@ export class NemoClawSkillHost {
         error: null,
         auditEventId,
         durationMs,
+        containment: { mode: 'none' },
       };
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Unknown error';
@@ -419,6 +516,7 @@ export class NemoClawSkillHost {
         error: message,
         auditEventId,
         durationMs,
+        containment: { mode: 'none' },
       };
     }
   }
@@ -457,6 +555,83 @@ export class NemoClawSkillHost {
       auditEventId: ctx.auditEventId,
       durationMs,
     };
+  }
+
+  /** Build a failure result with containment evidence attached. */
+  private failWithEvidence(
+    error: string,
+    ctx: {
+      req: SkillInvocation;
+      traceId: string;
+      auditEventId: string;
+      inputHash: string;
+      startTime: number;
+    },
+    _tier: string,
+  ): SkillInvocationResult {
+    const durationMs = Date.now() - ctx.startTime;
+    this.recordStep({
+      stepId: ctx.auditEventId,
+      skill: ctx.req.skill,
+      callerAgentId: ctx.req.callerAgentId,
+      kyaSessionId: ctx.req.kyaSessionId,
+      inputHash: ctx.inputHash,
+      outputHash: null,
+      confidence: null,
+      durationMs,
+      status: 'blocked',
+      traceId: ctx.traceId,
+      timestamp: new Date().toISOString(),
+    });
+
+    return {
+      success: false,
+      status: 'error',
+      result: null,
+      error,
+      auditEventId: ctx.auditEventId,
+      durationMs,
+      containment: {
+        mode: this.containment === 'openshell' ? 'openshell' : 'none',
+      },
+    };
+  }
+
+  /** Run a skill invocation through OpenShell sandbox (when containment = 'openshell'). */
+  private async invokeWithOpenShell(
+    _req: SkillInvocation,
+    _registered: RegisteredSkill,
+    _traceId: string,
+    _auditEventId: string,
+    _inputHash: string,
+    _startTime: number,
+    _tier: string,
+    _tierCapabilities: {
+      allowNetwork: boolean;
+      maxMemoryMb: number;
+      maxCpuCores: number;
+      maxExecutionSec: number;
+    },
+  ): Promise<SkillInvocationResult> {
+    // TODO: Add actual OpenShell command execution here
+    // For now, return a placeholder indicating OpenShell mode with policy info
+    // The actual implementation would:
+    // 1. Write policy to temp file
+    // 2. Run openshell sandbox create with policy
+    // 3. Stage the skill and inputs
+    // 4. Run the skill in sandbox
+    // 5. Collect results and cleanup
+    return this.failWithEvidence(
+      `OpenShell sandbox not yet fully implemented for skill "${_req.skill}" (tier: ${_tier})`,
+      {
+        req: _req,
+        traceId: _traceId,
+        auditEventId: _auditEventId,
+        inputHash: _inputHash,
+        startTime: _startTime,
+      },
+      _tier,
+    );
   }
 
   /** Append a step to the audit log and emit to the optional recorder. */

@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
 // Audit trail: git log -- src/aegis/pilot/reference-workflow.ts
 /**
  * Aegis Pilot — reference control-room workflow: shift handover.
@@ -10,7 +10,8 @@
  *
  *   read-readings        core      local sensor snapshot (JSON file)
  *   evaluate-limits      core      compare each reading to its alarm band
- *   decide-actions       core      map alarms to operator actions (local rulebook)
+ *   decide-actions       core      map alarms to operator actions (local rulebook);
+ *                                  advisory in the reference scope: the operator decides
  *   write-shift-report   core      write the handover report to local disk
  *   sync-report          non-core  POST the report to the cloud endpoint — the
  *                                  only step that touches the network

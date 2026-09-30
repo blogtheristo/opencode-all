@@ -1,7 +1,7 @@
 # Sales Opportunities Pipeline — PhD Market Signals
 
 **Document ID:** DWS-SALES-PIPELINE-2026-001
-**Version:** 1.7 | **Date:** 2026-09-29
+**Version:** 1.8 | **Date:** 2026-09-30
 **Owner:** Risto Anton Päärni, Lifetime Oy
 **Source:** `docs/PHD_FIREHORSE_EN.md` §14.18–§14.53 (35 market-signal sections) + §14.55 (added 2026-09-28), scored per CLAUDE.md "Market Signal → Sales Pipeline Rule"
 **Classification:** Internal — Sales Engineering
@@ -228,6 +228,27 @@ The graph can be demonstrated on constructed events; that proves it works as a w
 
 **Status: 0 of 11 paths have either gate closed.** The pipeline works as a workflow today; it has not yet worked on the world. Kemira is the cheapest outside case: one reply naming the owner of the batch-footprint decision closes the signer gate at no cost to the buyer, and that is why the ownership question matters more than the pilot offer. **Known gap:** the Node column above is still maintained by hand in this file — by the derivation test, that is a CRM with new vocabulary until the node is computed from the last `outreach_activities` event.
 
+### Aegis Pilot — three target industries (2026-09-28)
+
+Source: `docs/sales/2026-09-28-aegis-pilot-market-research.md` (market research, SWOT, GTM, sales threads). Product: DWS-AEGIS-PILOT-001 (€19,990). Account names are desk research only: no named contacts, RFPs or confirmed budgets. First workflow is advisory with operator approval (HIC 28.09.2026).
+
+| Lane            | Account                                             | ★     | Trigger                                                  | Next action                                   |
+| --------------- | --------------------------------------------------- | ----- | -------------------------------------------------------- | --------------------------------------------- |
+| A Manufacturing | Outokumpu                                           | ★★★★☆ | Active Climate IQ discussion; EVOLVE; Tornio OT security | Aegis pilot as add-on to the existing thread  |
+| A Manufacturing | Neste                                               | ★★★★☆ | HCLTech AI + secure-edge deal 24.06.2026                 | Find the CISO/OT-security contact             |
+| A Manufacturing | Metso                                               | ★★★★☆ | AI production management 10.09.2026; CRA 11.09.2026      | OEM angle, find the PSIRT/CTO digital contact |
+| A Manufacturing | Metsä Group                                         | ★★★☆☆ | Infosys agentic AI at the IT/OT boundary, 08/2026        | Contact search                                |
+| A Manufacturing | Kemira                                              | ★★★☆☆ | Active Climate IQ discussion; weak AI trigger            | Let the Climate IQ thread run first           |
+| B Data centres  | Verda                                               | ★★★★☆ | US$189M Series B 22.09.2026; sovereignty is its product  | Co-sell/partnership proposal                  |
+| B Data centres  | Telia Finland                                       | ★★★☆☆ | NIS2 + CER; Helsinki DC expansion                        | Contact search                                |
+| B Data centres  | AI gigafactory consortium (Nokia/Oulu, unconfirmed) | ★★★☆☆ | Application deadline 12.11.2026                          | Governance-layer partnership                  |
+| C Dual-use      | Forcit                                              | ★★★★☆ | TNT plant >€200M, foundation stone 15.09.2026            | Project director / OT security                |
+| C Dual-use      | Summa Defence                                       | ★★★★☆ | Drone factory JV (TAF), 04/2026                          | CEO/CTO                                       |
+| C Dual-use      | Patria                                              | ★★★☆☆ | Valmet Automotive 6×6 line; AI-WASP                      | Long cycle; wait for a reference              |
+| C Dual-use      | Nammo Vihtavuori                                    | ★★★☆☆ | Primer factory €33M, full capacity 2027                  | Finland site management                       |
+| D Fund channel  | MB Rahastot (Kotkamills, Protacon)                  | ★★★☆☆ | Board network, industrial portfolio                      | Partner meeting                               |
+| D Fund channel  | Vaaka Partners (Hultström, Eltrea)                  | ★★☆☆☆ | Industrial portfolio                                     | Partner meeting                               |
+
 ## ★★★★☆ — Active Trigger, Segment Reachable This Quarter
 
 | §     | Signal                                                                                                                                                          | Buyer Segment                                                                                                                                                   | Trigger                                                                                               | Target Product                                                                                                                                            | Next Action                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -278,3 +299,4 @@ Reviewed at the same cadence as `/retro` and PhD thesis lockstep updates (CLAUDE
 | 1.5     | 2026-09-29 | Ambienta SGR portfolio: five industrial accounts scored (Babcock Wanson ★★★★☆; Pieco, Wateralia, Previero ★★★☆☆; Maccaferri ★★☆☆☆), SF-Filter dropped (exited 2022); 42CAP/ROI Ventures names pending currency check                                                                                                                                                                                                                                                                                            | Claude Code       |
 | 1.6     | 2026-09-29 | Hugging Face row: § column 14.56 → 14.57 (PhD section filed as §14.57; §14.56 was taken on merge); score unchanged ★★★☆☆                                                                                                                                                                                                                                                                                                                                                                                        | Claude Code (web) |
 | 1.7     | 2026-09-29 | Decision Paths section (HIC: pipeline is decision paths, not a funnel): each live account placed on its Workflow v2 sales-graph node with the decision, decider/signer, the problem in the buyer's numbers (sourced only), missing numbers as call questions, and allowed exits; node derived from last dated event; two customer-originated gates (buyer's number observed, signer confirmed) — 0 of 11 closed, Kemira ownership answer is the cheapest outside case; Outokumpu status corrected to sent 28.09 | Claude Code       |
+| 1.8     | 2026-09-30 | Aegis Pilot three-industry rows (market research 2026-09-28, PR #2232) merged after main's decision-path section                                                                                                                                                                                                                                                                                                                                                                                                | Claude Code       |

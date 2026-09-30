@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
 // Audit trail: git log -- src/aegis/pilot/scope.ts
 /**
  * Aegis Pilot — Phase 0 signed scope (Store/PRODUCT_AEGIS_PILOT.md, "Phase 0").
@@ -58,6 +58,12 @@ const StepSchema = z.object({
   name: z.string().min(1).max(120),
   criticality: z.enum(['core', 'non-core']),
   requiresNetwork: z.boolean(),
+  /**
+   * Advisory step: its output is a recommendation an operator decides on
+   * (decision-authority.ts). Set in the signed scope, not by the handler, so an
+   * agent cannot choose what counts toward decision-path coverage.
+   */
+  advisory: z.boolean().optional(),
   /** Key into the step-handler registry the runtime is started with. */
   handler: z.string().min(1).max(80),
 });

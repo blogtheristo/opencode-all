@@ -73,10 +73,10 @@ Lead with the live product (Aegis on S2 DGX) → the funded leap (action under m
 
 ### Slide 9 — Team
 
-- **Risto Anton Päärni, Founder & CEO** — 35+ yrs ICT; architect of DWS IQ + KYA; NVIDIA/IBM/AWS partner tiers; LUT doctoral candidate.
+- **Risto Anton Päärni, Founder & CEO** — 35+ yrs ICT; architect of DWS IQ + KYA; NVIDIA/IBM/AWS partner tiers; doctoral route via KTH TECoSA (Prof. Törngren).
 - **Cubet Techno Labs** — CEO **John Lovegin**, consortium delivery lead: standing bench ~20 engineers, no key-person risk, NDA in force.
 - **50-agent fleet** as operational multiplier. Team includes women and men across engineering, product, operations.
-- **Academic anchoring (three complementary roles):** LUT (quantum-safe / PhD) · KTH TECoSA (safety assurance) · Metropolia (engineering talent, 5/5 master's); partners formalized for Step 2.
+- **Academic anchoring (three complementary roles):** LUT (quantum-safe / ZK research) · KTH TECoSA (safety assurance + Risto's doctoral route) · Metropolia (engineering talent, 5/5 master's); partners formalized for Step 2.
 - **€650K SAFE in progress (€3.8M cap).**
 
 ### Slide 10 — The ask + milestones
@@ -116,7 +116,6 @@ Lead with the live product (Aegis on S2 DGX) → the funded leap (action under m
 
 **[2:47–3:00 · THE ASK — to camera]**
 "We're asking for a **two-and-a-half million euro** EIC grant to take KYA from production to a certified European standard for agents that transact — civilian and defence alike. The technology runs today. The regulation that makes it mandatory has a date. Let's build the European answer — before the default is set somewhere else. Thank you."
-
 
 ---
 

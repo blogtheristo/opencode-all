@@ -18,7 +18,7 @@ series: "KYA-S1 -blogisarja"
 part: 7
 parts_total: 12
 source: HIC-kirjoittama teksti (sessio claude/agent-use-cases-comparison-h7vl25)
-display_series: "Blogi 7/12 · DWS IQ & Lifetime World Model"
+series: "Blogi 7/11 · DWS IQ & Lifetime World Model — ydinkaaren päätösosa"
 editorial_fixes: |
   Neljä terminologiakorjausta Legal/KYA_S1.md:tä vasten (Sääntö 12 — kerrotaan ääneen):
   1. FLT = "Fault Attribution" (§6.1), ei "Fault Triaging". Viisi virheluokkaa täsmäävät
@@ -132,6 +132,8 @@ Huomaa järjestys: **todisteet talteen ennen kuin ketju vapautetaan.** Jos TC4-4
 ---
 
 ## Yhteenveto: rehellinen tekoälyhallinta teollisuudessa
+
+_Tähän päättyy sarjan **ydinkaari** — spesifikaatiosta portin kautta kriisinhallintaan. Sarja jatkuu osissa 8–11: attestointitierit, globaali tilarekisteri, agenttikauppa ja EUDI Wallet -ankkurointi._
 
 Tähän päättyy sarjamme KYA-S1-spesifikaatiosta, EU AI Actin HIC-valvontavelvoitteesta ja DWS IQ -agenttien teollisuusautomaatiosta. Kokonaisuus tiivistyy ketjuun:
 

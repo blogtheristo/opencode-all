@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
 // Audit trail: git log -- src/aegis/pilot/workflow-runner.ts
 /**
  * Aegis Pilot — local workflow runner (requirements 3–5: no network
@@ -345,6 +345,9 @@ export async function runWorkflow(opts: RunOptions): Promise<RunResult> {
             decision: res.decision?.slice(0, 300),
             duration_ms: rec.durationMs,
             containment: res.containment,
+            // From the signed scope, never from the handler: an advisory step's output is a
+            // recommendation (PATH_RECOMMENDED) the operator decides on with human.decide.
+            recommendation: step.advisory === true ? true : undefined,
           },
         });
       } catch (err) {

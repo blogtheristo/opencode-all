@@ -4,11 +4,13 @@
 
 ---
 
-Version: 1.4 [Latest]
+Version: 1.6 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.4 [Latest] | Tool: Claude Code | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: New §6.1 step 6 policy proof (`prove`, `--openshell-prover`, `containment.proof` in the record). New §6.2 M4 checklist for the DGX Spark with `physical-disconnect` (HIC 29.09.2026). Ledger segments and retention (readiness plan patch C2): §2 layout, new §4 "Ledger segments and retention" with `seal` / `segments` / `prune`, §8 whole-ledger bullet covers sealed segments. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.6 [Latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 30.09.2026 | Changes: §5.1 anti-rubber-stamp (HIC 29.09.2026): `modify` verdict, reason required on reject/modify, `manual_entry` capture with evidence strength, and review shares and signal in `journey`. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.5 [not latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 29.09.2026 | Changes: Readiness plan C5, HIC 28.09.2026. Operator decisions on recommendations (§5.1): `decide` (operator, sign and queue only), `drain-decisions` (site), `outcome` and `journey`; the `decide/` inbox; `--role` on `issue-operator`; the `advisory` scope flag. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.4 [not latest] | Tool: Claude Code | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: New §6.1 step 6 policy proof (`prove`, `--openshell-prover`, `containment.proof` in the record). New §6.2 M4 checklist for the DGX Spark with `physical-disconnect` (HIC 29.09.2026). Ledger segments and retention (readiness plan patch C2): §2 layout, new §4 "Ledger segments and retention" with `seal` / `segments` / `prune`, §8 whole-ledger bullet covers sealed segments. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.3 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: §6.1 step 5: core-step egress probe (`scripts/aegis-pilot-egress-probe.sh`) for the site's IT; worker-mode limit stated. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: OpenShell containment (C4): §6.1 rehearsal setup verified against a real gateway; §8 states what the sandbox stop proves and its measured latency. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.1 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 28.09.2026 | Changes: Hard stop (readiness plan patch C1): steps and the stop-test agent run in terminable worker threads by default; §8 rewritten; acceptance refuses the cooperative stop. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
@@ -51,6 +53,7 @@ Nothing in the kit opens a socket except the uplink probe (which must fail) and 
   ledger/article12.jsonl the Article 12 record (one signed, chained event per line) — the active segment
   ledger/segments/       sealed segments NNNNNN.jsonl and their signed NNNNNN.seal.json
   kill/                  stop-command inbox; kill/processed, kill/rejected
+  decide/                decision-command inbox; decide/processed, decide/rejected
   outbox/deferred.jsonl  non-core work waiting for reconnect
   acceptance/*.json      signed acceptance records (rehearsal and acceptance)
 ```
@@ -90,7 +93,7 @@ The operator key must live outside the state directory, and the CLI refuses to w
 
 **Pin the site key.** `init` prints a `keyId`. Write it into the scope as `site.keyId` and include it in the Phase 0 signoff; the customer keeps a copy. A run refuses a site key that does not match the pin. `verify --expect-key-id <keyId>` gives an auditor the same check. The state directory holds the site private key. Anyone who can replace that key could otherwise re-sign a forged history that verifies against itself. The pin, held outside the directory, is the anchor that catches this.
 
-**Ownership.** Run the kit as a dedicated service user that owns the state directory (mode 0700). Operators get no write access to it. Their stop commands reach it through the CLI, which only drops signed files into `kill/`.
+**Ownership.** Refer to `infrastructure/aegis-pilot/README.md` for hardened systemd units and install steps. The service user `aegis-pilot` owns `/var/lib/aegis-pilot/<site>` (mode 0700). Operators get no write access to it. Their stop commands reach it through the CLI, which only drops signed files into `kill/`.
 
 **Exit gate: the four locals, with the uplink already down.** Run the reference workflow as a rehearsal under the agreed isolation method:
 
@@ -144,6 +147,44 @@ Run it online first. That is the exit gate: the workflow completes and its owner
 ```bash
 npm run aegis:pilot -- run ... --handlers ./customer-handlers.mjs --kind rehearsal ...
 ```
+
+### 5.1 Operator decisions on recommendations (readiness plan C5)
+
+The first workflow is advisory (HIC 28.09.2026). The agent recommends, the operator decides, and no step actuates equipment. The operator's decision is a ledger event, not a note, so the pilot also yields the first decision journey: recommendation → decision → outcome.
+
+- **Recommendation.** Mark the step `"advisory": true` in the signed scope. Its `agent.decide` event is then a recommendation (`PATH_RECOMMENDED`) with no decision-maker. The marker comes from the scope, never from the handler, so an agent cannot choose what counts toward coverage. The reference scope marks `decide-actions`.
+- **Decision-maker.** Issue the operator with a role: `issue-operator ... --role shift-supervisor`. The role grants `decision.record`, and it is recorded as `decision_by`. Use a role, never a name. The operator's identity is the credential's key id; the customer keeps the mapping from that id to a person.
+- **Decision.** The operator signs accept, reject or defer against the recommendation's `seq` and `event_hash`, both of which `journey` prints. It is recorded as `human.decide` and works with the uplink down:
+
+  ```bash
+  npm run aegis:pilot -- journey --state-dir <state>
+  npm run aegis:pilot -- decide --state-dir <state> --seq N --hash H --verdict accept \
+    --reason "checked against load forecast" --operator-credential <cred> --operator-key <key>
+  ```
+
+  `decide` only signs the command and drops it into `decide/`, like `stop`. It never loads the site key. The site process that owns the ledger records it: a running `run` does so within 200 ms, and outside a run the site runs `npm run aegis:pilot -- drain-decisions --state-dir <state>` before the `recordBy` time printed by `decide` (10 minutes). `drain-decisions` exits 2 only while a run holds the ledger; any other ledger problem is an error.
+
+  A decision is refused if the hash does not match the seq, if the event is not a recommendation, if the recommendation already has a final decision (a defer may be followed by a final decision), if the same command was already recorded (checked against the ledger, not only `decide/processed/`), or if the recommending agent was stopped after the recommendation (the path is then abandoned). `--reason` goes into the permanent record: write the operational reason, never personal data.
+
+- **Outcome.** After an accept, the site records what followed. Metrics are numbers only, and `--evidence-ref` is an identifier or URI, not free text:
+
+  ```bash
+  npm run aegis:pilot -- outcome --state-dir <state> --decision-seq N --decision-hash H \
+    --result positive --metrics '{"eur_estimated":142.5,"kwh_shifted":1800}' --evidence-ref meter-export-0311
+  ```
+
+- **Checked, not acknowledged (HIC 29.09.2026).** A bare acknowledgement proves little about human oversight, so the record carries what the operator did:
+  - `--verdict modify --modified-file F`: the operator accepts with changes. The command carries the sha256 of the changed recommendation.
+  - A `modify` whose content equals the original recommendation is refused. Only the digest is recorded, so keep the modified file: that file makes the change auditable.
+  - Reject and modify require a reason.
+  - `--capture manual_entry --occurred-at ISO`: a decision taken earlier (on paper, by phone) and entered afterwards. It is recorded as `MANUAL_ENTRY` evidence (0.40 × capture-lag factor), compared with `HUMAN_CONFIRMED` (0.80) for a live signature, following decision-journey §3.5. It gets no operator-time number, because the kit did not observe the response time. Never sign a decision as live when you are transcribing it.
+- **Pilot number (report D7).** `journey` prints:
+  - `coverage`: complete paths divided by recommendations. A path is complete when it is rejected, abandoned, or accepted or modified with an outcome.
+  - The median operator time, from live decisions only.
+  - Always alongside it: `rejectionShare`, `modificationShare`, `manualEntryShare` and `weakestEvidence`, the cap on any learning delta.
+  - `reviewSignal`: `no-challenge` when any operator, or any recommending agent, has 10 or more final decisions with no reject and no modify. It is judged per operator and per agent, so decoys rejected elsewhere cannot mask a rubber-stamped stream.
+  - `evidenceBasis`: live or manual capture is operator-attested. Evidence strength caps learning; it is not a trust score.
+  - `occurredAt` must be ISO 8601 UTC and at most 30 days old. Seconds per decision with nothing ever challenged is a warning sign, not a result. The threshold of 10 is a v1 proposal.
 
 ## 6. Phase 3 — severed-uplink acceptance (weeks 10–11)
 

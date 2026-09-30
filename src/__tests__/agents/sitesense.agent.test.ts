@@ -13,7 +13,7 @@
  * Tests use hardcoded EU construction safety thresholds from the agent.
  */
 
-import { describe, expect, it, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { AgentContext } from '../../agents/types.js';
 import { SiteSenseAgent } from '../../agents/sitesense.agent.js';

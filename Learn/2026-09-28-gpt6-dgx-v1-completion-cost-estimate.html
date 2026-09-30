@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-28-gpt6-dgx-v1-completion-cost-estimate</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-28-gpt6-dgx-v1-completion-cost-estimate</h1>
+</header>
+<h1 id="observed-cloud-and-dgx-cost-estimate-for-v1-product-completion">Observed Cloud and DGX Cost Estimate for V1 Product Completion</h1>
+<table>
+<tbody>
+<tr class="odd">
+<td>VERSION AND AGENT HISTORY</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Version: 1.2 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Model: openai/gpt-6-sol | Session: opencode/estimate | Date: 28.09.2026 | Changes: Added the exact 81-product price-list-to-V1-readiness crosswalk (72 scored, 9 explicitly unscored); replaced the disproven $16.16/$25 forecast with observed 48-hour usage, GitHub throughput, current G0-G10 readiness scores, and DGX-offload scenarios. | Harness: GitHub Copilot CLI + OpenCode 1.18.33 on DGX + CLAUDE.md + AGENTS.md | HIC-approved-drift: none</li>
+<li>Version: 1.1 [not latest] | Tool: GitHub Copilot CLI 1.0.88 | Model: openai/gpt-6-sol | Session: opencode/estimate | Date: 28.09.2026 | Changes: Replaced the disproven $16.16/$25 forecast with observed 48-hour usage, GitHub throughput, current G0-G10 readiness scores, and DGX-offload scenarios. | Harness: GitHub Copilot CLI + OpenCode 1.18.33 on DGX + CLAUDE.md + AGENTS.md | HIC-approved-drift: none</li>
+</ul>
+<h2 id="provenance">Provenance</h2>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 84%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tool</td>
+<td>GitHub Copilot CLI 1.0.88</td>
+</tr>
+<tr class="even">
+<td>Model</td>
+<td>openai/gpt-6-sol</td>
+</tr>
+<tr class="odd">
+<td>Session</td>
+<td>opencode/estimate</td>
+</tr>
+<tr class="even">
+<td>Date</td>
+<td>28.09.2026</td>
+</tr>
+<tr class="odd">
+<td>Harness</td>
+<td>GitHub Copilot CLI + OpenCode 1.18.33 on DGX + CLAUDE.md + AGENTS.md</td>
+</tr>
+<tr class="even">
+<td>HIC-approved-drift</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="document-status">Document Status</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Created</td>
+<td>2026-09-28</td>
+</tr>
+<tr class="even">
+<td>Last Modified</td>
+<td>2026-09-28</td>
+</tr>
+<tr class="odd">
+<td>Language</td>
+<td>English</td>
+</tr>
+<tr class="even">
+<td>Languages Available</td>
+<td>English</td>
+</tr>
+<tr class="odd">
+<td>Publication Status</td>
+<td>ACTIVE</td>
+</tr>
+<tr class="even">
+<td>Classification</td>
+<td>INTERNAL</td>
+</tr>
+<tr class="odd">
+<td>Owner</td>
+<td>Lifetime Oy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="date">Date</h2>
+<p>2026-09-28T00:00:00Z</p>
+<h2 id="author">Author</h2>
+<p>GitHub Copilot CLI 1.0.88 (copilot@lifetime.fi)</p>
+<h2 id="location">Location</h2>
+<p>Espoo Finland / DGX Spark</p>
+<h2 id="context">Context</h2>
+<p>Observed-cost estimate for completing DWS IQ V1 products using paid models for specifications and review, with OpenCode on DGX Spark performing implementation. This version supersedes the unsupported $16.16/$25 forecast.</p>
+<h2 id="ontology-tags">Ontology Tags</h2>
+<p><strong>Geography:</strong> Espoo Finland, DGX Spark <strong>Sector:</strong> Software development, AI agent orchestration <strong>Entities:</strong> GitHub Copilot, GPT-5.6 Sol, GPT-6 Sol, Claude Sonnet 5, Claude Opus 5, OpenCode, opencode-loop, DGX Spark, V1 products <strong>Temporal Context:</strong> 2026-09-27 to 2026-09-28; 48-hour observed window <strong>Confidence:</strong> High for observed usage and GitHub counts; medium for completion forecast because readiness-point gain per PR is not yet measured</p>
+<h2 id="the-story">The Story</h2>
+<p>The HIC reported spending about $120 of Copilot cloud capacity and 250 Claude credits while moving roughly 150 PRs in one day. Repository and session telemetry supports the central claim: this was a high-throughput, high-burn sprint, not a $25 completion programme.</p>
+<p>In the exact 48-hour window, 98 PRs were created, 84 merged, 133 updated, and 147 commits landed on <code>main</code>. Visible model telemetry reprices to $194.76 at GitHub’s published token rates. The earlier estimate used three small GPT-6 CLI sessions and assumed, without evidence, that paid author/reviewer work would consume only 20% of cloud implementation tokens. That assumption excluded the actual cloud-agent loops and is invalid.</p>
+<p>The latest report-only G0-G10 scorer in PR #2194 changes the readiness baseline:</p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Scope</th>
+<th style="text-align: right;">Products</th>
+<th style="text-align: right;">Average MVP</th>
+<th style="text-align: right;">Average V1</th>
+<th style="text-align: right;">Remaining product-equivalents</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Current public catalogue in scorer</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">66%</td>
+<td style="text-align: right;">52.1%</td>
+<td style="text-align: right;">34.5</td>
+</tr>
+<tr class="even">
+<td>All live products</td>
+<td style="text-align: right;">137</td>
+<td style="text-align: right;">64%</td>
+<td style="text-align: right;">49.1%</td>
+<td style="text-align: right;">69.7</td>
+</tr>
+<tr class="odd">
+<td>Price-list v1.33</td>
+<td style="text-align: right;">81</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">Exact average pending 9 scores</td>
+<td style="text-align: right;">34.5–43.5</td>
+</tr>
+</tbody>
+</table>
+<p>The 81-product price-list snapshot and the 72-product current scorer are different catalogue cuts. They must not be blended silently. The former 62% estimate implied 30.78 incomplete product-equivalents; the exact crosswalk below shows 34.5 incomplete equivalents among the 72 scored products plus an unknown 0–9 equivalents for the unscored products.</p>
+<h2 id="price-list-v1.33-product-readiness-crosswalk">Price-List v1.33 Product Readiness Crosswalk</h2>
+<p>This is the requested product-level reference. The immutable price-list snapshot contains 81 products. Seventy-two IDs match the current G0-G10 scorer; nine do not have a score and are marked <strong>Not scored</strong> rather than assigned an inferred percentage.</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">#</th>
+<th>Price-list ID</th>
+<th>Product</th>
+<th style="text-align: right;">V1 readiness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td><code>LIFETIME-IT-TUKI-10H</code></td>
+<td>IT Support Hour Bank for SMEs — 10 h</td>
+<td style="text-align: right;">55%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td><code>LIFETIME-WEBSTORE-MINI</code></td>
+<td>Small Online Store with Price List</td>
+<td style="text-align: right;">55%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td><code>LIFETIME-WEB-STARTER</code></td>
+<td>Website Starter — Modern Business Site</td>
+<td style="text-align: right;">55%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td><code>DWS-AEGIS-001</code></td>
+<td>DWS IQ Aegis</td>
+<td style="text-align: right;">56%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td><code>DWS-IQ-FREE-2026</code></td>
+<td>DWS IQ Free — 1 project, CSRD-ready</td>
+<td style="text-align: right;">55%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td><code>DWS-AEGIS-PILOT-001</code></td>
+<td>DWS IQ Aegis Pilot (3 months)</td>
+<td style="text-align: right;">56%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td><code>DWS-IQ-006</code></td>
+<td>Lifetime DWS IQ Platform (Version 6)</td>
+<td style="text-align: right;">57%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td><code>DWS-AEGIS-IMPL-001</code></td>
+<td>DWS IQ Aegis Implementation Programme (3 phases)</td>
+<td style="text-align: right;">56%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td><code>LIFETIME-BUNDLE-2026</code></td>
+<td>Climate Reporting Starter Bundle</td>
+<td style="text-align: right;">57%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td><code>FH-RPT-001</code></td>
+<td>DWS IQ Report</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td><code>DWS-US-STARTER</code></td>
+<td>DWS IQ — US Cloud Starter</td>
+<td style="text-align: right;">55%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td><code>DWS-US-PILOT</code></td>
+<td>DWS IQ — US Cloud Pilot</td>
+<td style="text-align: right;">55%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td><code>KYA-JEV-001</code></td>
+<td>kya-jev — KYA-Gated Typed Decisions (Early Access)</td>
+<td style="text-align: right;">56%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td><code>DWS-CLIMATE-001</code></td>
+<td>DWS IQ Climate Intelligence</td>
+<td style="text-align: right;">55%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td><code>DWS-SOVEREIGN-DB-001</code></td>
+<td>Sovereign Database — EU Data Sovereignty for PostgreSQL</td>
+<td style="text-align: right;">55%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td><code>DWS-EU-STARTER</code></td>
+<td>DWS IQ — EU Sovereign Starter</td>
+<td style="text-align: right;">55%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td><code>DWS-EU-PILOT</code></td>
+<td>DWS IQ — EU Sovereign Pilot</td>
+<td style="text-align: right;">55%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td><code>DWS-AEGIS-SUB-001</code></td>
+<td>DWS IQ Aegis — Maintenance Subscription</td>
+<td style="text-align: right;">55%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td><code>DWS-IQ-ESS-SUB-MANAGED</code></td>
+<td>DWS IQ Essentials — Managed</td>
+<td style="text-align: right;"><strong>Not scored</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td><code>DWS-IQ-ESS-SUB-SELF</code></td>
+<td>DWS IQ Essentials — Self-Hosted</td>
+<td style="text-align: right;"><strong>Not scored</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td><code>DWS-IQ-ESS-SETUP</code></td>
+<td>DWS IQ Essentials — Setup</td>
+<td style="text-align: right;">54%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td><code>DWS-IQ-SUB-001</code></td>
+<td>DWS IQ Monthly Subscription</td>
+<td style="text-align: right;"><strong>Not scored</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td><code>FH-OMNI-001</code></td>
+<td>Firehorse Omnichannel Next</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td><code>omnichannel-multimodal</code></td>
+<td>Firehorse Omnichannel &amp; Multimodal AI Assistant</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td><code>FH-SIGN-001</code></td>
+<td>Firehorse Signed Reports</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26</td>
+<td><code>FH-CMS-001</code></td>
+<td>Firehorse Content Management</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">27</td>
+<td><code>FH-AUTO-001</code></td>
+<td>Firehorse Amplify</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">28</td>
+<td><code>firehorse-data-services</code></td>
+<td>Firehorse Data Services</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">29</td>
+<td><code>firehorse-flow</code></td>
+<td>AI Customer Agent</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td><code>conversational-agent</code></td>
+<td>EU-Hosted Conversational Agent</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">31</td>
+<td><code>FH-SUB-001</code></td>
+<td>Firehorse Monthly Subscription</td>
+<td style="text-align: right;"><strong>Not scored</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">32</td>
+<td><code>LF-ONTOLOGY-25</code></td>
+<td>European Industry Ontology, 25 industries</td>
+<td style="text-align: right;"><strong>Not scored</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">33</td>
+<td><code>LWM-ONT-SOVEREIGN</code></td>
+<td>European Industry Ontology — Sovereign on-prem pack</td>
+<td style="text-align: right;"><strong>Not scored</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">34</td>
+<td><code>AIS-EU-SOV-OC</code></td>
+<td>EU-Sovereign AI Migration — Per Workload</td>
+<td style="text-align: right;">55%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">35</td>
+<td><code>ai-consulting-agentic</code></td>
+<td>Agentic Software Development for EU Teams</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">36</td>
+<td><code>AIS-OUTCOME-PILOT</code></td>
+<td>Outcome-Priced Applied-AI Pilot (6 weeks)</td>
+<td style="text-align: right;">55%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">37</td>
+<td><code>ai-consultant-day</code></td>
+<td>Captain Day — One-Day AI Outcome</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">38</td>
+<td><code>business-mentor-30</code></td>
+<td>Claude Code AI Coaching — 30 Hours</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">39</td>
+<td><code>consulting-fit55</code></td>
+<td>Consulting Fit for 55 Specialist</td>
+<td style="text-align: right;">63%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">40</td>
+<td><code>devops-lead</code></td>
+<td>Assessment</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">41</td>
+<td><code>firehorse-coach</code></td>
+<td>EU AI Act Literacy Training</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">42</td>
+<td><code>lean-project</code></td>
+<td>EU AI Project Accelerator (Fixed Price)</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">43</td>
+<td><code>sovereignty-cloud-consulting</code></td>
+<td>Sovereignty Cloud Consulting – European Cloud Migration</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">44</td>
+<td><code>ai-koulutus-3d</code></td>
+<td>AI Koulutus 3 Days Programme</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">45</td>
+<td><code>claude-code-coaching-3day</code></td>
+<td>Claude Code Coaching — Lecture + Workshop (3 Days)</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">46</td>
+<td><code>claude-code-coaching-lecture</code></td>
+<td>Claude Code Coaching — 1-Day Lecture</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">47</td>
+<td><code>claude-code-coaching-workshop</code></td>
+<td>Claude Code Coaching — 2-Day Workshop</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">48</td>
+<td><code>claude-code-coaching-project</code></td>
+<td>Claude Code Coaching — Client Project Work</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">49</td>
+<td><code>LF-ONTOLOGY-PILOT</code></td>
+<td>Independent Ontology Pilot, one site</td>
+<td style="text-align: right;"><strong>Not scored</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">50</td>
+<td><code>LF-TRAIN-IND</code></td>
+<td>Ontology Implementation and Organisation (site configuration)</td>
+<td style="text-align: right;"><strong>Not scored</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">51</td>
+<td><code>aws-consultancy</code></td>
+<td>EU-Sovereign AI Engineering &amp; Cloud Consultancy</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">52</td>
+<td><code>ai-agent-engineering</code></td>
+<td>AI &amp; Agent Engineering — Outcome-Backed Hourly</td>
+<td style="text-align: right;">62%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">53</td>
+<td><code>consulting-hourly</code></td>
+<td>Senior Compliance Specialist — Retainer + Outcomes</td>
+<td style="text-align: right;">63%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">54</td>
+<td><code>edge-node-gn100</code></td>
+<td>Control Room — Acer Veriton GN100</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">55</td>
+<td><code>LF-SITROOM-001</code></td>
+<td>Situation Room — Two Sovereign AI Nodes</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">56</td>
+<td><code>LF-COMPLIANCE-AMBULANCE-001</code></td>
+<td>DWS IQ Compliance Ambulance — Mobile Office (NVIDIA Thor Edge)</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">57</td>
+<td><code>LF-NVIDIA-INSTALL</code></td>
+<td>NVIDIA Model Installation + Full Service</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">58</td>
+<td><code>LF-JETSON-NANO</code></td>
+<td>Jetson Sensor Node — Orin Nano Super + Install &amp; Service</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">59</td>
+<td><code>LF-JETSON-AGX</code></td>
+<td>Jetson Sensor Concentrator — AGX Orin 64GB + Install &amp; Service</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">60</td>
+<td><code>LF-DGX-SPARK</code></td>
+<td>DGX Spark — NVIDIA-Branded Sovereign Edge AI</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">61</td>
+<td><code>LF-JETSON-NX</code></td>
+<td>Jetson Sensor Mid — Orin NX 16 GB + Install &amp; Service</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">62</td>
+<td><code>LF-IGX-ORIN</code></td>
+<td>IGX Orin — Industrial / Medical Sovereign Edge AI</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">63</td>
+<td><code>LF-K8S-T1</code></td>
+<td>Kubernetes Orchestration — Single-Node k3s (Tier 1)</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">64</td>
+<td><code>LF-K8S-T2</code></td>
+<td>Kubernetes Orchestration — HA Cluster k3s (Tier 2)</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">65</td>
+<td><code>LF-K8S-T3</code></td>
+<td>Kubernetes Orchestration — Gov Ready RKE2 (Tier 3)</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">66</td>
+<td><code>LF-K8S-T4</code></td>
+<td>Kubernetes Orchestration — Full Infra Stack (Tier 4)</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">67</td>
+<td><code>LF-DOCA-ESSENTIAL</code></td>
+<td>DOCA Microservices — Essential Package</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">68</td>
+<td><code>LF-DOCA-SECURITY</code></td>
+<td>DOCA Microservices — Security &amp; Compliance Package</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">69</td>
+<td><code>LF-DOCA-NETWORK-STORAGE</code></td>
+<td>DOCA Microservices — Networking &amp; Storage Acceleration Package</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">70</td>
+<td><code>LF-GOV-READY-SETUP</code></td>
+<td>Government Ready Cluster Setup</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">71</td>
+<td><code>LF-GOV-READY-ANNUAL</code></td>
+<td>Government Ready Annual Maintenance</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">72</td>
+<td><code>LF-GOV-AIRGAP-BUNDLE</code></td>
+<td>Air-Gapped Gov Ready Image Bundle</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">73</td>
+<td><code>LF-FIPS-VALIDATION</code></td>
+<td>FIPS 140-3 Validation Service</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">74</td>
+<td><code>LF-NIM-STARTER</code></td>
+<td>NIM Microservices — Starter Profile</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">75</td>
+<td><code>LF-NIM-RETRIEVAL</code></td>
+<td>NIM Microservices — Retrieval &amp; Embedding Profile</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">76</td>
+<td><code>LF-NIM-CODE</code></td>
+<td>NIM Microservices — Code Generation Profile</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">77</td>
+<td><code>LF-NIM-BIOLOGY</code></td>
+<td>NIM Microservices — Biology &amp; Genomics Profile</td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">78</td>
+<td><code>LF-IPCMAX-IPC409</code></td>
+<td>iPCMax IPC-409 — Compact Fanless Sensor Gateway</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">79</td>
+<td><code>LF-IPCMAX-IPCP68</code></td>
+<td>iPCMax IPC-P68 — Vision Gateway with PoE</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">80</td>
+<td><code>LF-IPCMAX-CINCOZE-DA1200</code></td>
+<td>Cincoze DA-1200 — Rugged Expandable Edge Computer</td>
+<td style="text-align: right;">50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">81</td>
+<td><code>LF-SOV-MODEL-SUB</code></td>
+<td>Sovereign Model Updates Subscription</td>
+<td style="text-align: right;"><strong>Not scored</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Crosswalk result:</strong> 72/81 scored products average 52.1% V1. The nine unscored products are <code>DWS-IQ-ESS-SUB-MANAGED</code>, <code>DWS-IQ-ESS-SUB-SELF</code>, <code>DWS-IQ-SUB-001</code>, <code>FH-SUB-001</code>, <code>LF-ONTOLOGY-25</code>, <code>LWM-ONT-SOVEREIGN</code>, <code>LF-ONTOLOGY-PILOT</code>, <code>LF-TRAIN-IND</code>, and <code>LF-SOV-MODEL-SUB</code>. Until those are scored, the exact 81-product average is unknown. Its mathematical bound is 46.3% if all nine score 0%, or 57.4% if all nine score 100%; remaining work is therefore 34.5–43.5 product-equivalents.</p>
+<h2 id="the-insight">The Insight</h2>
+<p><code>opencode-loop</code> makes local implementation tokens marginally free; it does not make the completion programme free. Paid models are still used for decomposition, architecture, acceptance criteria, difficult debugging, review, and cloud backlog work. G7 production operations and G10 witnessed customer acceptance cannot be bought with tokens alone.</p>
+<h2 id="observed-48-hour-evidence">Observed 48-Hour Evidence</h2>
+<h3 id="github-throughput">GitHub throughput</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th style="text-align: right;">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PRs created</td>
+<td style="text-align: right;">98</td>
+</tr>
+<tr class="even">
+<td>PRs merged</td>
+<td style="text-align: right;">84</td>
+</tr>
+<tr class="odd">
+<td>PRs updated</td>
+<td style="text-align: right;">133</td>
+</tr>
+<tr class="even">
+<td>PRs closed</td>
+<td style="text-align: right;">84</td>
+</tr>
+<tr class="odd">
+<td>Commits landed on <code>main</code></td>
+<td style="text-align: right;">147</td>
+</tr>
+</tbody>
+</table>
+<p>These counts validate the HIC’s statement that approximately 150 PRs moved when “moved” includes more than merged PRs.</p>
+<h3 id="token-repricing">Token repricing</h3>
+<p>Token fields were repriced from uncached input, cached input, cache write, and output tokens. The session-store <code>cost</code> field was not treated as dollars.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th style="text-align: right;">Calls</th>
+<th style="text-align: right;">Repriced cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GPT-5.6 Sol</td>
+<td style="text-align: right;">1,877</td>
+<td style="text-align: right;">$149.64</td>
+</tr>
+<tr class="even">
+<td>GPT-5.6 Luna</td>
+<td style="text-align: right;">274</td>
+<td style="text-align: right;">$0.52</td>
+</tr>
+<tr class="odd">
+<td>GPT-6 Sol</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">$3.07</td>
+</tr>
+<tr class="even">
+<td>GPT-6 Luna</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">$0.18</td>
+</tr>
+<tr class="odd">
+<td>Claude Sonnet 5</td>
+<td style="text-align: right;">769</td>
+<td style="text-align: right;">$23.56</td>
+</tr>
+<tr class="even">
+<td>Claude Opus 5</td>
+<td style="text-align: right;">151</td>
+<td style="text-align: right;">$17.78</td>
+</tr>
+<tr class="odd">
+<td><strong>Total visible</strong></td>
+<td style="text-align: right;"><strong>3,234</strong></td>
+<td style="text-align: right;"><strong>$194.76</strong></td>
+</tr>
+</tbody>
+</table>
+<p>GPT-family usage reprices to $153.42 and Claude-family usage to $41.34. The HIC separately observed about $120 of Copilot billing and 250 Claude credits. Claude credits are not recorded as $250 because their currency conversion has not been verified.</p>
+<h2 id="completion-cost-forecast">Completion-Cost Forecast</h2>
+<h3 id="run-rate-projection">Run-rate projection</h3>
+<p>The readiness programme had 49 nominal sessions remaining. Fourteen of the 19 visible 48-hour sessions were associated with <code>blogtheristo/dws6</code>.</p>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 30%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Basis</th>
+<th>Calculation</th>
+<th style="text-align: right;">Projected remaining usage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Visible token-price run rate</td>
+<td>$194.76 / 14 × 49</td>
+<td style="text-align: right;">$681.66</td>
+</tr>
+<tr class="even">
+<td>GPT-family component</td>
+<td>$153.42 / 14 × 49</td>
+<td style="text-align: right;">$536.97</td>
+</tr>
+<tr class="odd">
+<td>HIC-observed Copilot billing</td>
+<td>$120 / 14 × 49</td>
+<td style="text-align: right;">about $420</td>
+</tr>
+<tr class="even">
+<td>HIC-observed Claude consumption</td>
+<td>250 credits / 14 × 49</td>
+<td style="text-align: right;">about 875 Claude credits</td>
+</tr>
+</tbody>
+</table>
+<p>This is an order-of-magnitude forecast, not a quote. It assumes the remaining sessions resemble the observed sprint and does not prove that every PR gained the same readiness points.</p>
+<h3 id="dgx-offload-scenarios">DGX offload scenarios</h3>
+<p>For planning, paid work is split into a 20% specification/review floor and 80% implementation/rework. Shifting implementation to DGX changes the paid fraction as <code>20% + 80% × (1 − offload)</code>.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">DGX share of implementation</th>
+<th style="text-align: right;">Paid-cloud fraction</th>
+<th style="text-align: right;">Token-priced projection</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">40%</td>
+<td style="text-align: right;">68%</td>
+<td style="text-align: right;">$463</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">60%</td>
+<td style="text-align: right;">52%</td>
+<td style="text-align: right;">$354</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">80%</td>
+<td style="text-align: right;">36%</td>
+<td style="text-align: right;">$245</td>
+</tr>
+</tbody>
+</table>
+<p>The observed sprint was already mixed local/cloud work, so these are sensitivities, not guaranteed savings.</p>
+<h3 id="recommended-budget">Recommended budget</h3>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 40%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Budget</th>
+<th style="text-align: right;">Amount</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Paid-model working range</td>
+<td style="text-align: right;"><strong>$500–$1,400</strong></td>
+<td>One to two equivalent passes of the remaining programme</td>
+</tr>
+<tr class="even">
+<td>Operating target with strong DGX offload</td>
+<td style="text-align: right;"><strong>$300–$700</strong></td>
+<td>Paid specifications, reviews, and escalations; local implementation</td>
+</tr>
+<tr class="odd">
+<td>Hard planning envelope</td>
+<td style="text-align: right;"><strong>$1,500</strong></td>
+<td>Stop-and-review ceiling before more cloud spend</td>
+</tr>
+<tr class="even">
+<td>DGX electricity</td>
+<td style="text-align: right;"><strong>€5–€20</strong></td>
+<td>Tariff and wall power still unmeasured</td>
+</tr>
+</tbody>
+</table>
+<p>The recommended cash envelope is <strong>about $1,000, capped at $1,500</strong>, plus low tens of euros of DGX electricity. This is not €660,000: that was annualized customer list value, not engineering cost. It is also not $25.</p>
+<h2 id="what-money-cannot-close">What Money Cannot Close</h2>
+<ul>
+<li>G7 requires production deployment, observability, and exercised runbooks.</li>
+<li>G10 requires witnessed customer acceptance and signed evidence packs.</li>
+<li>Chapter 7 Kubernetes, DOCA, Gov Ready, and NIM products remain around 40% V1 because profiles contain unresolved pins and have not been deployed.</li>
+<li>Hardware products need supplier, warranty, burn-in, handover, and RMA evidence.</li>
+</ul>
+<p>Paid models and DGX loops can make software evidence ready for acceptance; they cannot manufacture operational or customer acceptance evidence.</p>
+<h2 id="gpt-and-dgx-routing">GPT and DGX Routing</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Work</th>
+<th>Default executor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Routine triage and small specifications</td>
+<td>Luna-class paid model</td>
+</tr>
+<tr class="even">
+<td>Cross-system specification, architecture, difficult review</td>
+<td>Sol-class paid model</td>
+</tr>
+<tr class="odd">
+<td>Security/architecture escalation after repeated failure</td>
+<td>Astra/Opus-class paid model</td>
+</tr>
+<tr class="even">
+<td>Implementation, tests, retry loop</td>
+<td>DGX OpenCode via <code>scripts/loop-task.mjs</code> and <code>opencode-loop</code></td>
+</tr>
+<tr class="odd">
+<td>Merge and release decision</td>
+<td>HIC</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dgx-electricity-cost">DGX Electricity Cost</h2>
+<p>Official NVIDIA DGX Spark hardware specification: 240W per https://docs.nvidia.com/dgx/dgx-spark/hardware.html</p>
+<p>Assumptions: - 4 hours/session - Electricity sensitivity: EUR 0.10–0.30/kWh (planning sensitivity; not a sourced tariff) - Session power: 0.96 kWh (240W × 4h)</p>
+<h3 id="calculations">Calculations</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Scenario</th>
+<th>kWh</th>
+<th>EUR Range</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>20-session</td>
+<td>19.2 kWh</td>
+<td>€1.92–€5.76</td>
+</tr>
+<tr class="even">
+<td>49-session</td>
+<td>47.04 kWh</td>
+<td>€4.70–€14.11</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> Ceiling not measured power; actual consumption may differ.</p>
+<h2 id="exclusions-and-uncertainty">Exclusions and Uncertainty</h2>
+<ul>
+<li>Human labour, customer participation, supplier work, cloud infrastructure, and hardware procurement.</li>
+<li>Exchange-rate conversion: GitHub prices are USD; no unsourced USD/EUR rate is applied.</li>
+<li>Claude credit monetary value is unverified.</li>
+<li>PR count is throughput, not readiness-point gain.</li>
+<li>PR #2194’s G0-G10 scorer is report-only and still open.</li>
+<li>The 49-session plan is a work-package count, not a calibrated effort estimate.</li>
+</ul>
+<h2 id="learning">Learning</h2>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 34%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Status</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>KB</td>
+<td>N/A</td>
+<td>Task-specific correction; canonical facts remain in cost and readiness artefacts</td>
+</tr>
+<tr class="even">
+<td>Field note</td>
+<td>Complete</td>
+<td>This file</td>
+</tr>
+<tr class="odd">
+<td>Learn</td>
+<td>Complete</td>
+<td>Rendered to <code>Learn/2026-09-28-gpt6-dgx-v1-completion-cost-estimate.html</code></td>
+</tr>
+<tr class="even">
+<td>Drive</td>
+<td>N/A</td>
+<td>No connector; repo is source-of-truth</td>
+</tr>
+<tr class="odd">
+<td>HIC decision</td>
+<td>Complete</td>
+<td>HIC directed opencode-loop and rejected the unsupported $25 estimate</td>
+</tr>
+<tr class="even">
+<td>Calendar</td>
+<td>N/A</td>
+<td>No new date; existing credit expiration already governed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="next-steps">Next Steps</h2>
+<ol type="1">
+<li>Record readiness-point deltas before and after each future 48-hour sprint.</li>
+<li>Route implementation to DGX and reserve cloud spend for specification, review, and escalation.</li>
+<li>Stop and reassess at the $1,500 paid-model ceiling.</li>
+<li>Close G7 and G10 with real deployment and witnessed acceptance evidence.</li>
+</ol>
+<hr />
+<p><strong>Document version:</strong> v1.2 · <strong>Date:</strong> 28.09.2026 · <strong>Owner:</strong> Lifetime Oy © 2026 Lifetime Oy (Y-tunnus 0772407-9). All rights reserved. <strong>Business Confidential.</strong> This document contains confidential and proprietary information of Lifetime Oy. It is disclosed solely to the intended recipient under an applicable NDA or business relationship and may not be copied, distributed, or disclosed to any third party without Lifetime Oy’s prior written consent.</p>
+</body>
+</html>
