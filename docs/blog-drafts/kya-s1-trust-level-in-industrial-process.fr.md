@@ -14,6 +14,40 @@ Status: DRAFT
 translation_of: kya-s1-trust-level-in-industrial-process.fi.md
 ai_translated: true
 note: "Visual not yet made — the SVG is a to-do."
+customer_value: "Le score de confiance et l'interruption de chaîne (le frein d'urgence) délimitent déjà aujourd'hui quand un agent d'IA peut agir sans humain et arrêtent une chaîne d'agents défaillante en une seule action ; la passerelle BPMN, le jeton à usage unique et la relecture des décisions sont décrits ici comme prévus."
+routes: [roadmap]
+claims_checked: 2026-09-30
+sources:
+  - title: "Regulating AI Agents"
+    authors: "Kathrin Gardhouse, Amin Oueslati, Noam Kolt"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.23471"
+    url: "https://arxiv.org/abs/2603.23471"
+    type: academic
+  - title: "Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous AI Agents"
+    authors: "Uchi Uchibeke"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.20953"
+    url: "https://arxiv.org/abs/2603.20953"
+    type: academic
+  - title: "Learning Selective LLM Autonomy from Copilot Feedback in Enterprise Customer Support Workflows"
+    authors: "Nikita Borovkov, Elisei Rykov, Olga Tsymboi, Sergei Filimonov, Nikita Surnachev, Dmitry Bitman, Anatolii Potapov"
+    year: 2026
+    venue: "arXiv preprint arXiv:2604.23855"
+    url: "https://arxiv.org/abs/2604.23855"
+    type: academic
+  - title: "AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A"
+    authors: "Sunil Prakash"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.24775"
+    url: "https://arxiv.org/abs/2603.24775"
+    type: academic
+  - title: "Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing"
+    authors: "Inioluwa Deborah Raji, Andrew Smart, Rebecca N. White, Margaret Mitchell, Timnit Gebru, Ben Hutchinson, Jamila Smith-Loud, Daniel Theron, Parker Barnes"
+    year: 2020
+    venue: "Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT* '20), ACM"
+    url: "https://doi.org/10.1145/3351095.3372873"
+    type: academic
 ---
 
 # KYA-S1 et BPMN 2.0 : le score de confiance pilote l'agent d'IA dans le processus industriel
@@ -22,7 +56,7 @@ note: "Visual not yet made — the SVG is a to-do."
 
 Une fois la réglementation lue et les schémas d'architecture dessinés, la même question technique finit toujours par surgir : **comment construit-on cela concrètement ?**
 
-Comment relier un moteur de processus BPMN 2.0 (Camunda ou Zeebe, par exemple), le score de confiance (TRS) vivant de la Spécification de sécurité KYA-S1 et les agents d'arrière-plan de DWS IQ, de sorte que le résultat soit ce commandement humain (HIC, _Human-in-Command_) réel qu'exige l'AI Act de l'UE ?
+Comment relier un moteur de processus BPMN 2.0 (Camunda ou Zeebe, par exemple), le score de confiance (TRS) vivant de la Spécification de sécurité KYA-S1 et les agents d'arrière-plan de DWS IQ, de sorte que le résultat soit ce commandement humain (HIC, _Human-in-Command_) réel qu'exige l'AI Act de l'UE ? [1]
 
 La réponse tient en ceci : le moteur de processus n'accorde jamais à l'agent une autorisation fixe. Chaque étape du travail est au contraire aiguillée de façon dynamique selon le niveau de confiance. Ce texte parcourt la chaîne de bout en bout : comment le score de confiance choisit la voie, comment le jeton à usage unique et le verrouillage en cas de défaillance comblent les brèches – et ce qui se passe lorsque, malgré tout, quelque chose tourne mal.
 
@@ -32,7 +66,7 @@ Pour que la mise en œuvre technique reste lisible, les responsabilités sont r�
 
 Chaque fois qu'un processus métier ou de production tourne dans un environnement DWS IQ, le moteur BPMN 2.0 et KYA-S1 TRS dialoguent à chaque nœud critique.
 
-**Évaluation préalable.** Avant d'entrer dans une tâche, le moteur BPMN déclenche un `Execution Listener`. Cet écouteur adresse une requête REST ou gRPC au KYA-S1 Trust Engine : _« DWS IQ Quality Agent X est-il autorisé à exécuter la tâche 'Laadunvarmistus_Erä_402' à cet instant précis ? »_ L'écouteur ne se contente pas de récupérer le score : il obtient le score et le jeton ensemble, avant la passerelle.
+**Évaluation préalable.** Avant d'entrer dans une tâche, le moteur BPMN déclenche un `Execution Listener`. Cet écouteur adresse une requête REST ou gRPC au KYA-S1 Trust Engine : _« DWS IQ Quality Agent X est-il autorisé à exécuter la tâche 'Laadunvarmistus_Erä_402' à cet instant précis ? »_ L'écouteur ne se contente pas de récupérer le score : il obtient le score et le jeton ensemble, avant la passerelle. [2]
 
 **Routage exclusif.** Le processus BPMN utilise la valeur renvoyée dans l'expression conditionnelle d'une passerelle XOR. Il existe deux voies :
 
@@ -43,7 +77,7 @@ Concrètement, l'écouteur est placé sur le sequence flow qui mène à la passe
 
 La branche par défaut de la passerelle (`default`) pointe vers la voie humaine. Si la condition de la voie automatique n'est pas remplie, quelle qu'en soit la raison – score trop bas, jeton manquant ou délai dépassé –, la tâche revient à un humain.
 
-Dans l'automatisation classique, un agent reçoit soit 0 %, soit 100 % d'autorité. Si quelque chose tourne mal, le seul recours est d'arrêter tout le système. En couplant le moteur BPMN 2.0 à KYA-S1 TRS, on obtient au contraire une **dynamique**. Quand tous les voyants sont au vert, les agents DWS IQ font tourner le processus industriel à plein régime. Si une anomalie survient dans l'environnement de l'agent ou si son autorisation expire, les scores de confiance chutent instantanément. Le système ne s'effondre pas : il _remet en douceur la décision entre des mains humaines_.
+Dans l'automatisation classique, un agent reçoit soit 0 %, soit 100 % d'autorité. Si quelque chose tourne mal, le seul recours est d'arrêter tout le système. En couplant le moteur BPMN 2.0 à KYA-S1 TRS, on obtient au contraire une **dynamique**. Quand tous les voyants sont au vert, les agents DWS IQ font tourner le processus industriel à plein régime. Si une anomalie survient dans l'environnement de l'agent ou si son autorisation expire, les scores de confiance chutent instantanément. Le système ne s'effondre pas : il _remet en douceur la décision entre des mains humaines_. [3]
 
 ## Un seuil fixe ne suffit pas
 
@@ -75,7 +109,7 @@ Les pondérations par défaut proposées sont w₁ = 0,35, w₂ = 0,35, w₃ = 0
 
 S'il subsiste entre le contrôle de confiance et l'exécution proprement dite un intervalle, ne serait-ce que de quelques millisecondes, sans verrou, il se crée une **race condition**. L'agent peut perdre son autorisation juste avant l'exécution, et le processus la mènera tout de même à terme. La piste d'audit donnera l'impression que la passerelle a fonctionné. Ce n'est pas le cas. Le commandement humain n'est alors qu'une façade.
 
-C'est pourquoi le Trust Engine ne renvoie pas un simple chiffre, mais un **jeton de bail atomique à usage unique** (_Lease Token_) : une clé signée cryptographiquement et limitée dans le temps, valable par exemple 5 secondes. Une tâche automatisée ne peut s'exécuter que si elle **consomme** un jeton valide au moment de l'exécution. C'est le seul point qui referme la race condition.
+C'est pourquoi le Trust Engine ne renvoie pas un simple chiffre, mais un **jeton de bail atomique à usage unique** (_Lease Token_) : une clé signée cryptographiquement et limitée dans le temps, valable par exemple 5 secondes. Une tâche automatisée ne peut s'exécuter que si elle **consomme** un jeton valide au moment de l'exécution. [4] C'est le seul point qui referme la race condition.
 
 ### Le diagramme n'est pas atomique – c'est la responsabilité du délégué
 
@@ -86,7 +120,7 @@ L'atomicité est **le contrat du délégué**, non une propriété du XML. Les e
 1. La **première** opération du délégué est `consumeAndExecute(leaseToken, action)` – un appel unique qui, côté Trust Engine, valide le jeton, le marque comme consommé et autorise l'acte dans la même transaction (verrouillage de niveau `SELECT … FOR UPDATE` ou `compare-and-swap`).
 2. À défaut d'une opération atomique unique, la consommation du jeton doit être la première étape **verrouillée** de la transaction, et tout travail à effets de bord doit suivre dans cette même transaction.
 3. Un échec de consommation lève l'erreur `KYA_LEASE_INVALID`, qui renvoie la tâche à un humain via un événement de bordure. Aucune nouvelle tentative automatique.
-4. Le délégué ne doit jamais lire le jeton pour décider lui-même s'il est encore valide. Seul le Trust Engine tranche la validité, au moment de la consommation.
+4. Le délégué ne doit jamais lire le jeton pour décider lui-même s'il est encore valide. Seul le Trust Engine tranche la validité, au moment de la consommation. [4]
 
 Sans ce contrat, le diagramme décrit une intention, pas une garantie. C'est la mise en œuvre des points 1 à 4 qui rend la passerelle réelle – le XML ne fait que la rendre vérifiable.
 
@@ -94,7 +128,7 @@ L'exemple est rédigé au format Camunda 7, parce que ses extensions `camunda:` 
 
 ## Verrouillage en cas de défaillance
 
-Si le KYA-S1 Trust Engine ne répond pas dans le délai imparti (plus de 500 ms) ou renvoie une erreur, le processus n'exécute jamais l'automatisation. Il est, sans exception, dirigé vers une validation humaine. Une panne du Trust Engine ralentit la production ; elle n'ouvre pas la passerelle.
+Si le KYA-S1 Trust Engine ne répond pas dans le délai imparti (plus de 500 ms) ou renvoie une erreur, le processus n'exécute jamais l'automatisation. Il est, sans exception, dirigé vers une validation humaine. Une panne du Trust Engine ralentit la production ; elle n'ouvre pas la passerelle. [2]
 
 Il en va de même pour un jeton déjà délivré. S'il est révoqué en cours d'exécution – par le frein d'urgence, par un retrait d'autorisation ou par expiration –, la tâche automatisée est interrompue, un rollback est effectué et la tâche passe directement à un humain. Lorsque le frein d'urgence (TC4) est actionné, le Lifetime World Model révoque immédiatement tous les jetons actifs – sur toute la chaîne d'agents à la fois.
 
@@ -139,11 +173,11 @@ Grâce à cette classification, le partage des responsabilités cesse d'être un
 
 ## Rejouer la décision : la machine à remonter le temps de l'IA
 
-Pour que l'attribution des fautes soit impartiale, il faut des preuves techniques solides. C'est là qu'entre en scène le Lifetime World Model, et c'est pourquoi l'enregistrement PRV – provenance de la décision et piste d'audit – constitue dans le modèle BPMN une tâche automatisée à part entière, et non un simple écouteur posé sur un unique sequence flow.
+Pour que l'attribution des fautes soit impartiale, il faut des preuves techniques solides. [5] C'est là qu'entre en scène le Lifetime World Model, et c'est pourquoi l'enregistrement PRV – provenance de la décision et piste d'audit – constitue dans le modèle BPMN une tâche automatisée à part entière, et non un simple écouteur posé sur un unique sequence flow.
 
 La différence est essentielle. Un écouteur sur un sequence flow ne couvre que ce seul chemin, si bien que la validation humaine échappe à la journalisation. Dans une tâche dédiée convergent **les deux** chemins – l'exécution par l'agent et la validation humaine –, et elle est en outre visible dans le diagramme ; l'auditeur n'a pas à chercher un écouteur enfoui dans le XML. Une décision humaine est un événement tout aussi auditable que celle d'un agent : la provenance de la décision humaine est précisément la preuve qu'exige l'Article 14.
 
-Chaque fois qu'un agent DWS IQ exécute une tâche ou que celle-ci est renvoyée vers le panneau de contrôle, un instantané signé cryptographiquement est enregistré dans le World Model :
+Chaque fois qu'un agent DWS IQ exécute une tâche ou que celle-ci est renvoyée vers le panneau de contrôle, un instantané signé cryptographiquement est enregistré dans le World Model [2] :
 
 1. **Entrées d'origine :** exactement les données et le contexte fournis à l'agent.
 2. **État de confiance :** le score de confiance de l'agent et son statut IDV au moment de l'exécution.
@@ -158,7 +192,7 @@ Que savait l'agent ? En vertu de quelle autorisation a-t-il agi ? Comment est-il
 
 ## Briser l'effet domino : la terminaison de chaîne
 
-Dans les environnements industriels multi-agents, un agent DWS IQ peut en lancer d'autres. Un agent de contrôle qualité lance un agent logistique, qui lance à son tour un agent de commande. Si une erreur est décelée dans la décision du premier agent, le plus grand danger est l'**effet domino** – la propagation de l'erreur dans les systèmes en arrière-plan.
+Dans les environnements industriels multi-agents, un agent DWS IQ peut en lancer d'autres. Un agent de contrôle qualité lance un agent logistique, qui lance à son tour un agent de commande. Si une erreur est décelée dans la décision du premier agent, le plus grand danger est l'**effet domino** – la propagation de l'erreur dans les systèmes en arrière-plan. [1]
 
 La **terminaison de chaîne (TC4, _Trust Collapse Response & Chain Termination_)** de KYA-S1 brise la chaîne. Dans la maison, on l'appelle familièrement le frein d'urgence, le _leash snap_ (TC4-2).
 
@@ -188,3 +222,11 @@ Une fois ces pièces en place, les agents d'IA cessent d'être un risque de séc
 **Risto Anton Päärni**
 _Fondateur et PDG, Lifetime Oy_
 _Rédacteur en chef, Lifetime Scope Journal_
+
+## Sources
+
+1. Gardhouse, K., Oueslati, A., & Kolt, N. (2026). Regulating AI Agents. arXiv preprint arXiv:2603.23471. <https://arxiv.org/abs/2603.23471>
+2. Uchibeke, U. (2026). Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous AI Agents. arXiv preprint arXiv:2603.20953. <https://arxiv.org/abs/2603.20953>
+3. Borovkov, N., Rykov, E., Tsymboi, O., Filimonov, S., Surnachev, N., Bitman, D., & Potapov, A. (2026). Learning Selective LLM Autonomy from Copilot Feedback in Enterprise Customer Support Workflows. arXiv preprint arXiv:2604.23855. <https://arxiv.org/abs/2604.23855>
+4. Prakash, S. (2026). AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A. arXiv preprint arXiv:2603.24775. <https://arxiv.org/abs/2603.24775>
+5. Raji, I. D., Smart, A., White, R. N., Mitchell, M., Gebru, T., Hutchinson, B., Smith-Loud, J., Theron, D., & Barnes, P. (2020). Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing. In Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT\* '20). ACM. <https://doi.org/10.1145/3351095.3372873>

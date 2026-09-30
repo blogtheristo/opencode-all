@@ -18,6 +18,40 @@ merged_from:
     flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen.md,
   ]
 note: "Visual not yet made — the SVG is a to-do."
+customer_value: "Luottamuspiste ja ketjun keskeytys (hätäjarru) rajaavat jo tänään, milloin tekoälyagentti saa toimia ilman ihmistä, ja pysäyttävät virheellisen agenttiketjun yhdellä toimenpiteellä; BPMN-portti, kertakäyttöinen valtuutusavain ja päätöksen toistaminen ovat tässä kuvattu suunnitelmana."
+routes: [roadmap]
+claims_checked: 2026-09-30
+sources:
+  - title: "Regulating AI Agents"
+    authors: "Kathrin Gardhouse, Amin Oueslati, Noam Kolt"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.23471"
+    url: "https://arxiv.org/abs/2603.23471"
+    type: academic
+  - title: "Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous AI Agents"
+    authors: "Uchi Uchibeke"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.20953"
+    url: "https://arxiv.org/abs/2603.20953"
+    type: academic
+  - title: "Learning Selective LLM Autonomy from Copilot Feedback in Enterprise Customer Support Workflows"
+    authors: "Nikita Borovkov, Elisei Rykov, Olga Tsymboi, Sergei Filimonov, Nikita Surnachev, Dmitry Bitman, Anatolii Potapov"
+    year: 2026
+    venue: "arXiv preprint arXiv:2604.23855"
+    url: "https://arxiv.org/abs/2604.23855"
+    type: academic
+  - title: "AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A"
+    authors: "Sunil Prakash"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.24775"
+    url: "https://arxiv.org/abs/2603.24775"
+    type: academic
+  - title: "Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing"
+    authors: "Inioluwa Deborah Raji, Andrew Smart, Rebecca N. White, Margaret Mitchell, Timnit Gebru, Ben Hutchinson, Jamila Smith-Loud, Daniel Theron, Parker Barnes"
+    year: 2020
+    venue: "Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT* '20), ACM"
+    url: "https://doi.org/10.1145/3351095.3372873"
+    type: academic
 ---
 
 # KYA-S1 ja BPMN 2.0: luottamuspiste ohjaa tekoälyagenttia teollisuusprosessissa
@@ -26,7 +60,7 @@ note: "Visual not yet made — the SVG is a to-do."
 
 Sääntelyn ja arkkitehtuurikuvauksien jälkeen vastaan tulee aina sama tekninen kysymys: **miten tämä koodataan pystyyn?**
 
-Miten yhdistetään BPMN 2.0 -prosessimoottori (kuten Camunda tai Zeebe), KYA-S1-turvallisuusspesifikaation elävä luottamuspiste (TRS) sekä DWS IQ -tausta-agentit siten, että tuloksena on EU AI Actin vaatima rehellinen ihmisen johtamisvalta (HIC, _Human-in-Command_)?
+Miten yhdistetään BPMN 2.0 -prosessimoottori (kuten Camunda tai Zeebe), KYA-S1-turvallisuusspesifikaation elävä luottamuspiste (TRS) sekä DWS IQ -tausta-agentit siten, että tuloksena on EU AI Actin vaatima rehellinen ihmisen johtamisvalta (HIC, _Human-in-Command_)? [1]
 
 Vastaus piilee siinä, että prosessimoottori ei anna agentille kiinteää käyttöoikeutta, vaan jokainen työvaihe reititetään dynaamisesti luottamustason mukaan. Tämä kirjoitus käy ketjun läpi alusta loppuun: miten luottamuspiste valitsee kaistan, miten kertakäyttöinen valtuutusavain ja pakkosuojaus vikatilanteessa sulkevat raot, ja mitä tapahtuu, kun jokin kuitenkin menee pieleen.
 
@@ -36,7 +70,7 @@ Jotta tekninen toteutus on selkeä, vastuualueet jaetaan kolmeen komponenttiin. 
 
 Kun DWS IQ -ympäristössä ajetaan liiketoiminta- tai tuotantoprosessia, BPMN 2.0 -moottori ja KYA-S1 TRS viestivät keskenään jokaisessa kriittisessä solmukohdassa.
 
-**Ennakkoarviointi.** Ennen kuin BPMN-moottori siirtyy tehtävään, se laukaisee `Execution Listener` -kuuntelijan. Kuuntelija tekee REST- tai gRPC-pyynnön KYA-S1 Trust Enginelle: _"Onko DWS IQ Quality Agent X valtuutettu suorittamaan tehtävä 'Laadunvarmistus_Erä_402' juuri nyt?"_ Kuuntelija ei hae pelkkää pistettä, vaan pisteen ja valtuutusavaimen yhdessä, ennen porttia.
+**Ennakkoarviointi.** Ennen kuin BPMN-moottori siirtyy tehtävään, se laukaisee `Execution Listener` -kuuntelijan. Kuuntelija tekee REST- tai gRPC-pyynnön KYA-S1 Trust Enginelle: _"Onko DWS IQ Quality Agent X valtuutettu suorittamaan tehtävä 'Laadunvarmistus_Erä_402' juuri nyt?"_ Kuuntelija ei hae pelkkää pistettä, vaan pisteen ja valtuutusavaimen yhdessä, ennen porttia. [2]
 
 **Eksklusiivinen reititys.** BPMN-prosessi käyttää palautettua arvoa XOR-portin ehtolausekkeessa. Kaistoja on kaksi:
 
@@ -47,7 +81,7 @@ Käytännössä kuuntelija istuu portille johtavalla sequence flowlla ja saa teh
 
 Portin oletushaara (`default`) osoittaa ihmisen kaistalle. Jos automaattikaistan ehto ei täyty mistä tahansa syystä — matala piste, puuttuva valtuutusavain tai aikakatkaisu — mennään ihmiselle.
 
-Perinteisessä automaatiossa agentille annetaan joko 0 % tai 100 % valtuutus. Jos jotain menee pieleen, ainoa keino on sammuttaa koko järjestelmä. Kytkemällä BPMN 2.0 -moottori ja KYA-S1 TRS toisiinsa saavutetaan **dynamiikka**. Kun kaikki muuttujat ovat vihreällä, DWS IQ -agentit pyörittävät teollisuusprosessia täydellä teholla. Jos agentin ympäristössä tapahtuu poikkeama tai valtuutus vanhenee, luottamuspisteet putoavat välittömästi. Järjestelmä ei kaadu, vaan _siirtää päätöksenteon pehmeästi ihmiselle_.
+Perinteisessä automaatiossa agentille annetaan joko 0 % tai 100 % valtuutus. Jos jotain menee pieleen, ainoa keino on sammuttaa koko järjestelmä. Kytkemällä BPMN 2.0 -moottori ja KYA-S1 TRS toisiinsa saavutetaan **dynamiikka**. Kun kaikki muuttujat ovat vihreällä, DWS IQ -agentit pyörittävät teollisuusprosessia täydellä teholla. Jos agentin ympäristössä tapahtuu poikkeama tai valtuutus vanhenee, luottamuspisteet putoavat välittömästi. Järjestelmä ei kaadu, vaan _siirtää päätöksenteon pehmeästi ihmiselle_. [3]
 
 ## Kiinteä raja ei riitä
 
@@ -79,7 +113,7 @@ Ehdotetut oletuspainot ovat w₁ = 0,35, w₂ = 0,35, w₃ = 0,15 ja w₄ = 0,15
 
 Jos luottamustason tarkistuksen ja itse suorituksen välillä on edes muutaman millisekunnin rako ilman lukitusta, syntyy **race condition**. Agentti voi menettää valtuutuksensa juuri ennen suoritusta, ja prosessi ajaa sen silti läpi. Auditointijälki näyttää siltä, että portti toimi. Se ei toiminut. Ihmisen johtamisvalta on tällöin näennäistä.
 
-Siksi Trust Engine ei palauta pelkkää numeroa, vaan **kertakäyttöisen valtuutusavaimen** (_Lease Token_): kryptografisesti allekirjoitetun ja aikaan sidotun avaimen, jonka voimassaolo on esimerkiksi 5 sekuntia. Automaattinen tehtävä voi toteutua vain, jos se **kuluttaa** kelvollisen avaimen suoritushetkellä. Tämä on ainoa kohta, joka sulkee race conditionin.
+Siksi Trust Engine ei palauta pelkkää numeroa, vaan **kertakäyttöisen valtuutusavaimen** (_Lease Token_): kryptografisesti allekirjoitetun ja aikaan sidotun avaimen, jonka voimassaolo on esimerkiksi 5 sekuntia. Automaattinen tehtävä voi toteutua vain, jos se **kuluttaa** kelvollisen avaimen suoritushetkellä. [4] Tämä on ainoa kohta, joka sulkee race conditionin.
 
 ### Kaavio ei ole atominen — se on delegaatin vastuu
 
@@ -90,7 +124,7 @@ Atomisuus on **delegaatin sopimus**, ei XML:n ominaisuus. Vaatimuksia on neljä:
 1. Delegaatin **ensimmäinen** operaatio on `consumeAndExecute(leaseToken, action)` — yksi kutsu, joka Trust Enginen puolella validoi avaimen, merkitsee sen kulutetuksi ja valtuuttaa teon samassa transaktiossa (`SELECT … FOR UPDATE`- tai `compare-and-swap`-tasoinen lukitus).
 2. Jos yhtä atomista operaatiota ei ole saatavilla, avaimen kulutuksen on oltava transaktion ensimmäinen **lukittu** vaihe, ja kaiken sivuvaikutuksellisen työn on tultava sen jälkeen samassa transaktiossa.
 3. Epäonnistunut kulutus heittää virheen `KYA_LEASE_INVALID`, joka ohjaa tehtävän rajatapahtuman kautta ihmiselle. Ei uudelleenyritystä automaattina.
-4. Delegaatti ei saa koskaan lukea avainta päättääkseen itse, onko se vielä voimassa. Voimassaolon ratkaisee yksin Trust Engine kulutushetkellä.
+4. Delegaatti ei saa koskaan lukea avainta päättääkseen itse, onko se vielä voimassa. Voimassaolon ratkaisee yksin Trust Engine kulutushetkellä. [4]
 
 Ilman tätä sopimusta kaavio kuvaa aikomusta, ei takuuta. Kohtien 1–4 toteutus on se, mikä tekee portista aidon — XML vain tekee siitä tarkastettavan.
 
@@ -98,7 +132,7 @@ Esimerkki on kirjoitettu Camunda 7 -muodossa, koska sen `camunda:`-laajennukset 
 
 ## Pakkosuojaus vikatilanteessa
 
-Jos KYA-S1 Trust Engine ei vastaa aikarajan puitteissa (yli 500 ms) tai palauttaa virheen, prosessi ei koskaan aja automaatiota. Se ohjautuu poikkeuksetta ihmisen kuittaukseen. Trust Enginen alasajo hidastaa tuotantoa; se ei avaa porttia.
+Jos KYA-S1 Trust Engine ei vastaa aikarajan puitteissa (yli 500 ms) tai palauttaa virheen, prosessi ei koskaan aja automaatiota. Se ohjautuu poikkeuksetta ihmisen kuittaukseen. Trust Enginen alasajo hidastaa tuotantoa; se ei avaa porttia. [2]
 
 Sama koskee jo myönnettyä avainta. Jos avain mitätöidään kesken suorituksen — hätäjarrun, valtuutuksen peruutuksen tai vanhenemisen takia — automaattinen tehtävä keskeytetään, tehdään rollback ja tehtävä siirtyy suoraan ihmiselle. Kun hätäjarru (TC4) laukeaa, Lifetime World Model mitätöi kaikki aktiiviset valtuutusavaimet välittömästi — koko agenttiketjusta kerralla.
 
@@ -143,11 +177,11 @@ Tämän luokittelun ansiosta vastuunjako lakkaa olemasta kuluttava lakitekninen 
 
 ## Päätöksen toistaminen: tekoälyn aikakone
 
-Jotta virheattribuutio voidaan tehdä puolueettomasti, tarvitaan kovaa teknistä todisteaineistoa. Tässä kohtaa Lifetime World Model astuu peliin, ja siksi PRV-kirjaus — päätösten toistettavuus ja auditointijälki — on BPMN-mallissa oma automaattinen tehtävänsä eikä pelkkä kuuntelija yhdellä sequence flowilla.
+Jotta virheattribuutio voidaan tehdä puolueettomasti, tarvitaan kovaa teknistä todisteaineistoa. [5] Tässä kohtaa Lifetime World Model astuu peliin, ja siksi PRV-kirjaus — päätösten toistettavuus ja auditointijälki — on BPMN-mallissa oma automaattinen tehtävänsä eikä pelkkä kuuntelija yhdellä sequence flowilla.
 
 Ero on olennainen. Kuuntelija yhdellä sequence flowilla kattaa vain sen yhden reitin, jolloin ihmisen kuittaus jää lokittamatta. Omaan tehtäväänsä yhdistyvät **molemmat** polut — agentin suoritus ja ihmisen kuittaus — ja se on myös näkyvissä kaaviossa; auditoija ei joudu etsimään kuuntelijaa XML:n sisältä. Ihmisen päätös on yhtä lailla auditoitava tapahtuma kuin agentin: ihmispäätöksen alkuperä ja kuittaus on nimenomaan Artikla 14:n todiste.
 
-Aina kun DWS IQ -agentti suorittaa tehtävän tai se ohjautuu valvomonäkymään, World Modeliin tallennetaan kryptografisesti allekirjoitettu tilavedos:
+Aina kun DWS IQ -agentti suorittaa tehtävän tai se ohjautuu valvomonäkymään, World Modeliin tallennetaan kryptografisesti allekirjoitettu tilavedos [2]:
 
 1. **Alkuperäiset syötteet:** täsmälleen se data ja konteksti, joka agentille syötettiin.
 2. **Luottamustila:** agentin luottamuspiste ja IDV-tila suoritushetkellä.
@@ -162,7 +196,7 @@ Mitä agentti tiesi? Millä valtuudella se toimi? Miten se päätyi tulokseen? P
 
 ## Dominoefektin katkaisu: ketjun keskeytys
 
-Teollisuuden moniagenttiympäristöissä yksi DWS IQ -agentti voi käynnistää toisia agentteja. Laadunvalvonta-agentti käynnistää logistiikka-agentin, joka käynnistää tilausagentin. Jos ensimmäisen agentin päätöksessä havaitaan virhe, suurin vaara on **dominoefekti** — virheen monistuminen taustajärjestelmiin.
+Teollisuuden moniagenttiympäristöissä yksi DWS IQ -agentti voi käynnistää toisia agentteja. Laadunvalvonta-agentti käynnistää logistiikka-agentin, joka käynnistää tilausagentin. Jos ensimmäisen agentin päätöksessä havaitaan virhe, suurin vaara on **dominoefekti** — virheen monistuminen taustajärjestelmiin. [1]
 
 KYA-S1:n **ketjun keskeytys (TC4, _Trust Collapse Response & Chain Termination_)** katkaisee ketjun. Talon kansankielinen nimi sille on hätäjarru, _leash snap_ (TC4-2).
 
@@ -192,3 +226,11 @@ Kun nämä palaset ovat paikoillaan, tekoälyagentit lakkaavat olemasta hallitse
 **Risto Anton Päärni**
 _Perustaja & toimitusjohtaja, Lifetime Oy_
 _Päätoimittaja, Lifetime Scope Journal_
+
+## Lähteet
+
+1. Gardhouse, K., Oueslati, A., & Kolt, N. (2026). Regulating AI Agents. arXiv preprint arXiv:2603.23471. <https://arxiv.org/abs/2603.23471>
+2. Uchibeke, U. (2026). Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous AI Agents. arXiv preprint arXiv:2603.20953. <https://arxiv.org/abs/2603.20953>
+3. Borovkov, N., Rykov, E., Tsymboi, O., Filimonov, S., Surnachev, N., Bitman, D., & Potapov, A. (2026). Learning Selective LLM Autonomy from Copilot Feedback in Enterprise Customer Support Workflows. arXiv preprint arXiv:2604.23855. <https://arxiv.org/abs/2604.23855>
+4. Prakash, S. (2026). AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A. arXiv preprint arXiv:2603.24775. <https://arxiv.org/abs/2603.24775>
+5. Raji, I. D., Smart, A., White, R. N., Mitchell, M., Gebru, T., Hutchinson, B., Smith-Loud, J., Theron, D., & Barnes, P. (2020). Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing. In Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT\* '20). ACM. <https://doi.org/10.1145/3351095.3372873>

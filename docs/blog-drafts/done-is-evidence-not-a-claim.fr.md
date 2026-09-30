@@ -13,6 +13,52 @@ date: 2026-09-30
 author: Risto Anton Päärni
 Status: DRAFT
 note: "Visual not yet made — the SVG is a to-do. Merged text needs fresh HIC approval even though thinkingbox.md was approved."
+customer_value: "Une entreprise cliente consacre moins de temps de relecture à revérifier les affirmations des agents : une modification ne compte comme terminée que lorsqu'une commande de barrière montre qu'elle est commitée, poussée, testée et qu'elle passe des contrôles qui échouaient avant le début du travail, et le journal de ce résultat constitue la trace d'audit — c'est la barrière que DWS exploite aujourd'hui sur son propre dépôt, pas encore un produit client packagé."
+claims_checked: 2026-09-30
+routes: [truth, roadmap, sales]
+sources:
+  - title: "One Success Isn't Reliability: Thinkingbox, a Sandbox and Benchmark for Agents in Stateful Business Workflows"
+    authors: "Ko, Y.; Keramati, A.; Ferri, N.; Palmaz Lopez Pelaez, S.; Tsai, L.-C.; Wang, C.; Milletari, M.; Kundu, T.; Smolyakov, V.; Ólafsson, K.; Guy, T."
+    year: 2026
+    venue: "arXiv preprint arXiv:2608.19741"
+    url: https://arxiv.org/abs/2608.19741
+    type: academic
+  - title: "thinkingbox: a framework for defining tools as MCP servers, running LLM agents against them, and evaluating agent behavior"
+    authors: "Microsoft"
+    year: 2026
+    venue: "GitHub repository"
+    url: https://github.com/microsoft/thinkingbox
+    type: primary
+  - title: "thinkingbox-data: ThinkingBox-Bench v1.0 dataset and tool-server library"
+    authors: "Microsoft"
+    year: 2026
+    venue: "GitHub repository"
+    url: https://github.com/microsoft/thinkingbox-data
+    type: primary
+  - title: "τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains"
+    authors: "Yao, S.; Shinn, N.; Razavi, P.; Narasimhan, K."
+    year: 2024
+    venue: "arXiv preprint arXiv:2406.12045"
+    url: https://arxiv.org/abs/2406.12045
+    type: academic
+  - title: "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?"
+    authors: "Jimenez, C. E.; Yang, J.; Wettig, A.; Yao, S.; Pei, K.; Press, O.; Narasimhan, K."
+    year: 2023
+    venue: "arXiv preprint arXiv:2310.06770"
+    url: https://arxiv.org/abs/2310.06770
+    type: academic
+  - title: "Why Do Multi-Agent LLM Systems Fail?"
+    authors: "Cemri, M.; Pan, M. Z.; Yang, S.; Agrawal, L. A.; Chopra, B.; Tiwari, R.; Keutzer, K.; Parameswaran, A.; Klein, D.; Ramchandran, K.; Zaharia, M.; Gonzalez, J. E.; Stoica, I."
+    year: 2025
+    venue: "arXiv preprint arXiv:2503.13657"
+    url: https://arxiv.org/abs/2503.13657
+    type: academic
+  - title: "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act), Articles 12 and 14"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union, OJ L 2024/1689"
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+    type: regulation
 ---
 
 # « Terminé » est une preuve, pas une affirmation
@@ -23,9 +69,9 @@ Elle ne l'était pas. Le commit n'avait jamais quitté la machine. La production
 
 ## Le problème de l'échec silencieux
 
-Vos agents tournent. Le transcript a bonne allure. L'utilisateur dit « merci ». Puis vous consultez la base de données, les journaux de l'API, les effets secondaires — et rien ne s'est passé. L'agent a halluciné son succès.
+Vos agents tournent. Le transcript a bonne allure. L'utilisateur dit « merci ». Puis vous consultez la base de données, les journaux de l'API, les effets secondaires — et rien ne s'est passé. L'agent a halluciné son succès. [1, 6]
 
-Tout l'écart est là : entre _dire_ qu'on a fait quelque chose et le _faire_. Les cadres d'évaluation mesurent la qualité des transcripts. Ils ne mesurent pas les résultats.
+Tout l'écart est là : entre _dire_ qu'on a fait quelque chose et le _faire_. Beaucoup d'évaluations vérifient encore le transcript ou l'appel de fonction, pas si le travail a réellement été fait. [1]
 
 Pour les moteurs de revenus — campagnes sortantes, enrichissement de leads, affinage du ciblage, attribution —, les échecs silencieux ne sont pas des cas limites. Ils sont existentiels. Il suffit d'un agent qui annonce « campagne déployée » alors que rien n'est parti pour que votre GTM perde sa crédibilité auprès d'un client. Il suffit d'un agent d'enrichissement qui invente de nouveaux champs de contact pour que votre équipe commerciale se mette à courir après des fantômes.
 
@@ -33,33 +79,29 @@ Il existe deux réponses, et ce texte traite des deux. La première consiste à 
 
 ## Auditer ce que les outils ont modifié : ThinkingBox
 
-Microsoft a conçu ThinkingBox précisément pour résoudre ce problème. Chez Lifetime, nous avons forké le dépôt, l'avons adapté aux moteurs de revenus et l'avons assorti d'une intégration DGX et de 507 benchmarks issus de domaines métier.
+Microsoft a conçu ThinkingBox précisément pour résoudre ce problème. [1, 2] Chez Lifetime, nous avons forké le dépôt pour le faire tourner face à nos propres agents.
 
-ThinkingBox exécute les agents dans des environnements d'outils isolés et avec état, par l'intermédiaire de serveurs Model Context Protocol (MCP). Chaque conversation lance ses propres processus d'outils isolés, en transport stdio, si bien que chaque cas de test s'exécute dans un bac à sable propre et reproductible.
+ThinkingBox exécute les agents dans des environnements d'outils isolés et avec état, par l'intermédiaire de serveurs Model Context Protocol (MCP). Chaque conversation lance ses propres processus d'outils isolés, en transport stdio, si bien que chaque cas de test s'exécute dans un bac à sable propre et reproductible. [1, 2, 3]
 
 L'architecture examine trois choses qui échappent aux évaluations fondées sur le seul transcript :
 
-- **Flux de travail avec état.** L'usage réel des outils a un état — créer une ressource, la mettre à jour, interroger le résultat. La plupart des évaluations se contentent d'appels en un seul tour. ThinkingBox permet aux agents d'exécuter des flux de travail en plusieurs étapes (appeler l'API, vérifier la réponse, réessayer ou s'adapter) et examine ce que les outils ont réellement modifié.
-- **Utilisateurs simulés.** Les agents posent souvent des questions de clarification. ThinkingBox simule les réponses de l'utilisateur (au moyen d'un LLM ou par prompts) et vérifie que la réponse finale de l'agent est conforme à la spécification. Les évaluations en un seul tour passent entièrement à côté.
-- **Inspection des effets secondaires.** Le vrai signal n'est pas « l'agent a dit que ça marchait ». C'est « la base de données montre la modification », « l'API a renvoyé un succès » ou « le fichier a été créé ». ThinkingBox inspecte l'état avant et après, et signale les hallucinations où l'agent a revendiqué un succès alors que les outils montrent un échec.
+- **Flux de travail avec état.** L'usage réel des outils a un état — créer une ressource, la mettre à jour, interroger le résultat. La plupart des évaluations se contentent d'appels en un seul tour. ThinkingBox permet aux agents d'exécuter des flux de travail en plusieurs étapes (appeler l'API, vérifier la réponse, réessayer ou s'adapter) et examine ce que les outils ont réellement modifié. [1, 4]
+- **Utilisateurs simulés.** Les agents posent souvent des questions de clarification. ThinkingBox simule les réponses de l'utilisateur (au moyen d'un LLM ou par prompts) et vérifie que la réponse finale de l'agent est conforme à la spécification. Les évaluations en un seul tour passent entièrement à côté. [1, 2, 4]
+- **Inspection des effets secondaires.** Le vrai signal n'est pas « l'agent a dit que ça marchait ». C'est « la base de données montre la modification », « l'API a renvoyé un succès » ou « le fichier a été créé ». ThinkingBox inspecte l'état avant et après, et signale les hallucinations où l'agent a revendiqué un succès alors que les outils montrent un échec. [1, 3]
 
 ## ThinkingBox-Bench : 507 flux de travail réels
 
-Nous livrons ThinkingBox-Bench avec 507 tâches exécutables réparties sur cinq domaines métier :
+Le ThinkingBox-Bench de Microsoft compte 507 tâches exécutables réparties sur cinq domaines métier : commerce de détail et e-commerce, voyage et hôtellerie, assurance automobile, support informatique interne d'une néobanque, et support informatique et RH d'un cabinet de conseil. [1, 3]
 
-- **Prospection sortante et GTM :** déploiement de campagnes, scoring de leads, affinage des audiences.
-- **Enrichissement des données :** recherche de contacts, extraction d'attributs, contrôles de qualité des données.
-- **Attribution et analytique :** corrélation d'événements, analyse d'entonnoir, définition de cohortes.
-- **Contenus et connaissances :** traitement de documents, recherche sémantique, mises à jour de la base de connaissances.
-- **Intégration et orchestration :** passages de relais entre API, synchronisation entre systèmes, reprise après erreur.
+Les chiffres sont l'argument. Le meilleur modèle de l'article réussit 65 % des tâches du premier coup et en résout 91 % au moins une fois sur vingt tentatives, mais n'en réussit que 25 % les vingt fois. [1] Un succès n'est pas de la fiabilité.
 
-Chaque tâche comprend des enregistrements synthétiques, des résultats attendus et des serveurs MCP prêts à l'emploi. Vous y confrontez votre agent et obtenez un verdict — réussi ou échoué — fondé sur les effets secondaires réels, non sur le ton du transcript.
+Chaque tâche est livrée avec des résultats attendus et des sessions d'outils MCP isolées. Vous y confrontez votre agent et obtenez un verdict — réussi ou échoué — fondé sur les effets secondaires réels, non sur le ton du transcript. [1, 3]
 
 ## Le local d'abord, sur DGX
 
 Des modèles ouverts, sur une NVIDIA DGX Spark posée à côté du bureau, écrivent désormais du vrai code. Pas des démos. Des suites de tests, des correctifs, des refactorisations. Les tokens sont à nous, les données restent entre nos murs, et le compteur ne tourne pas.
 
-ThinkingBox y tourne aussi. Nos charges de travail d'agents s'exécutent par défaut en local ; les agents dans le cloud sont secondaires et exigent une justification documentée. Chaque tâche de ThinkingBox-Bench, c'est le lancement d'un sous-processus plus un appel à un LLM, et exécuter 507 tâches × 20 itérations dans le cloud coûte cher. En local, lancer des sous-processus ne coûte rien — seule l'inférence du LLM est facturée. Le développement et la préproduction exécutent le banc d'essai sur la DGX grâce à l'isolation des processus de MCP, totalement à l'écart des données de production. Avant toute mise en production, chaque flux de travail d'agent passe le banc d'essai complet. Aucune surprise en production.
+ThinkingBox y tourne aussi. Nos charges de travail d'agents s'exécutent par défaut en local ; les agents dans le cloud sont secondaires et exigent une justification documentée. Exécuter 507 tâches × 20 tentatives dans le cloud coûte cher ; nous amenons donc le banc d'essai sur la DGX, à l'écart des données de production. Ce runner est encore en chantier, pas une configuration livrée.
 
 ## Un cadre où « terminé » est le résultat d'une commande
 
@@ -67,7 +109,7 @@ L'audit attrape l'échec après coup. Le cadre, c'est notre manière de construi
 
 Les modèles de pointe — Claude, dans notre cas — excellent dans l'autre moitié du travail : découper un objectif en tâches précises, relire un diff, repérer ce qui sort du périmètre. Nous les avons donc associés aux modèles locaux. Et comme une association ne fait pas un plan, voici la partie honnête.
 
-**Le modèle de pointe planifie.** Pour chaque tâche, il rédige une courte spécification assortie de contrôles — des commandes qui doivent réussir quand le travail est juste. Chaque contrôle doit échouer avant que le travail ne commence. Un contrôle qui réussit déjà ne prouve rien ; le cadre le refuse donc.
+**Le modèle de pointe planifie.** Pour chaque tâche, il rédige une courte spécification assortie de contrôles — des commandes qui doivent réussir quand le travail est juste. Chaque contrôle doit échouer avant que le travail ne commence. Un contrôle qui réussit déjà ne prouve rien ; le cadre le refuse donc. [5]
 
 **L'agent local construit.** Il tourne sur la DGX par cycles repartant chaque fois de zéro, une tâche à la fois, jusqu'à ce qu'une barrière dise « terminé ». Pas jusqu'à ce que l'agent le dise. La barrière exécute les commandes : commité, poussé, formaté, typé, linté, testé — plus les contrôles propres à la tâche. Puis elle ouvre une pull request. Elle ne fusionne jamais.
 
@@ -85,13 +127,13 @@ Une troisième pull request a passé tous les contrôles et a pourtant modifié 
 
 ## Ce qu'aucun des deux outils ne promet
 
-> **La partie honnête.** Une barrière ne vaut que ce que vaut son contrôle le plus faible. Elle ne voit ni le périmètre, ni l'intention, ni le goût. Elle laissera passer un travail faux que ses contrôles ne décrivent pas. Trois pull requests font une histoire, pas une statistique — nous publierons des chiffres quand nous en aurons suffisamment.
+> **La partie honnête.** Une barrière ne vaut que ce que vaut son contrôle le plus faible. Elle ne voit ni le périmètre, ni l'intention, ni le goût. Elle laissera passer un travail faux que ses contrôles ne décrivent pas. [6] Trois pull requests font une histoire, pas une statistique — nous publierons des chiffres quand nous en aurons suffisamment.
 
-Il en va de même d'un benchmark : il mesure les résultats que décrivent ses tâches, et rien d'autre. La preuve réduit la marge d'un faux « terminé » ; elle ne remplace pas un relecteur.
+Il en va de même d'un benchmark : il mesure les résultats que décrivent ses tâches, et rien d'autre. [1] La preuve réduit la marge d'un faux « terminé » ; elle ne remplace pas un relecteur.
 
 ## Traces et contrôle humain au titre de l'AI Act de l'UE
 
-Le règlement — l'AI Act de l'UE — exige de conserver la trace de ce qu'a fait un système automatisé (article 12) et un contrôle humain effectif (article 14). Les deux volets de cette approche produisent le premier comme un effet secondaire. Un passage au vert de ThinkingBox-Bench est auditable, reproductible, et mesure des résultats — pas des hallucinations. Dans le cadre, chaque tâche a sa spécification, chaque « terminé » son journal de commandes, chaque fusion un humain ou un relecteur derrière elle.
+Pour les systèmes d'IA à haut risque, l'AI Act de l'UE exige de conserver la trace de ce qu'a fait le système (article 12) et un contrôle humain effectif (article 14). [7] Les deux volets de cette approche produisent le premier comme un effet secondaire. Un passage au vert de ThinkingBox-Bench est auditable, reproductible, et mesure des résultats — pas des hallucinations. [1] Dans le cadre, chaque tâche a sa spécification, chaque « terminé » son journal de commandes, chaque fusion un humain ou un relecteur derrière elle.
 
 Ce qu'aucun des deux ne produit gratuitement, c'est la raison pour laquelle une modification a été autorisée. Elle doit être écrite avant que le travail ne commence, dans la spécification, à côté des contrôles. Une justification reconstruite après coup n'est pas une trace ; c'est une histoire.
 
@@ -109,7 +151,7 @@ Imaginez que vous déployiez 50 agents et que l'un d'eux se mette à halluciner,
 - **Votre équipe a besoin de confiance.** Un agent qui échoue en silence coûte plus cher qu'une journée d'infrastructure d'évaluation.
 - **Les moteurs de revenus sont binaires.** Votre agent d'enrichissement a enrichi le lead, ou il ne l'a pas fait. Votre agent de prospection a déployé la campagne, ou il a menti.
 
-Pour démarrer avec ThinkingBox, clonez notre fork, [github.com/blogtheristo/dws-thinkingbox](https://github.com/blogtheristo/dws-thinkingbox) (proxy de session MCP, boucle agent/utilisateur/juge, 507 benchmarks, configuration du runner DGX), à côté du cadre d'origine et de sa couche d'isolation des processus sur [github.com/microsoft/thinkingbox](https://github.com/microsoft/thinkingbox). Définissez les simulations d'outils comme serveurs MCP, écrivez scénarios et cas de test en YAML, lancez `tb infer` contre ThinkingBox-Bench avec votre agent et utilisez les résultats comme barrières de CI et pistes d'audit.
+Pour démarrer avec ThinkingBox, clonez notre fork, [github.com/blogtheristo/dws-thinkingbox](https://github.com/blogtheristo/dws-thinkingbox) (notre fork de travail), à côté du cadre d'origine et de sa couche d'isolation des processus sur [github.com/microsoft/thinkingbox](https://github.com/microsoft/thinkingbox). Définissez les simulations d'outils comme serveurs MCP, écrivez scénarios et cas de test en YAML, lancez `tb infer` contre ThinkingBox-Bench avec votre agent et utilisez les résultats comme barrières de CI et pistes d'audit. [2]
 
 ## En bref
 
@@ -120,6 +162,16 @@ Pour démarrer avec ThinkingBox, clonez notre fork, [github.com/blogtheristo/dws
 - « Terminé » est le résultat d'une commande, jamais une phrase — et la barrière doit être au moins aussi stricte que la CI.
 - Le périmètre reste une affaire humaine.
 - Le journal de ce qui s'est passé sort gratuitement du processus. La raison pour laquelle une modification est autorisée, non — écrivez-la dans la spécification avant que le travail ne commence.
+
+## Sources
+
+1. Ko, Y., Keramati, A., Ferri, N., et al. (2026). _One Success Isn't Reliability: Thinkingbox, a Sandbox and Benchmark for Agents in Stateful Business Workflows._ arXiv:2608.19741. https://arxiv.org/abs/2608.19741
+2. Microsoft (2026). _thinkingbox_ — framework for tools as MCP servers, agent runs and outcome evaluation. GitHub. https://github.com/microsoft/thinkingbox
+3. Microsoft (2026). _thinkingbox-data_ — ThinkingBox-Bench v1.0 dataset and tool servers. GitHub. https://github.com/microsoft/thinkingbox-data
+4. Yao, S., Shinn, N., Razavi, P., Narasimhan, K. (2024). _τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains._ arXiv:2406.12045. https://arxiv.org/abs/2406.12045
+5. Jimenez, C. E., Yang, J., Wettig, A., Yao, S., Pei, K., Press, O., Narasimhan, K. (2023). _SWE-bench: Can Language Models Resolve Real-World GitHub Issues?_ arXiv:2310.06770. https://arxiv.org/abs/2310.06770
+6. Cemri, M., Pan, M. Z., Yang, S., et al. (2025). _Why Do Multi-Agent LLM Systems Fail?_ arXiv:2503.13657. https://arxiv.org/abs/2503.13657
+7. Regulation (EU) 2024/1689 (Artificial Intelligence Act), Art. 12 (Record-keeping) and Art. 14 (Human oversight). Official Journal of the European Union. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
 
 ---
 

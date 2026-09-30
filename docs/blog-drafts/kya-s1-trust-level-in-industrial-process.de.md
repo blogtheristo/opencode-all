@@ -14,6 +14,40 @@ Status: DRAFT
 translation_of: kya-s1-trust-level-in-industrial-process.fi.md
 ai_translated: true
 note: "Visual not yet made — the SVG is a to-do."
+customer_value: "Der Vertrauenswert und der Kettenabbruch (die Notbremse) begrenzen schon heute, wann ein KI-Agent ohne Menschen handeln darf, und stoppen eine fehlerhafte Agentenkette mit einem einzigen Eingriff; das BPMN-Gateway, das Einmal-Token und die Entscheidungswiederholung sind hier als geplant beschrieben."
+routes: [roadmap]
+claims_checked: 2026-09-30
+sources:
+  - title: "Regulating AI Agents"
+    authors: "Kathrin Gardhouse, Amin Oueslati, Noam Kolt"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.23471"
+    url: "https://arxiv.org/abs/2603.23471"
+    type: academic
+  - title: "Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous AI Agents"
+    authors: "Uchi Uchibeke"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.20953"
+    url: "https://arxiv.org/abs/2603.20953"
+    type: academic
+  - title: "Learning Selective LLM Autonomy from Copilot Feedback in Enterprise Customer Support Workflows"
+    authors: "Nikita Borovkov, Elisei Rykov, Olga Tsymboi, Sergei Filimonov, Nikita Surnachev, Dmitry Bitman, Anatolii Potapov"
+    year: 2026
+    venue: "arXiv preprint arXiv:2604.23855"
+    url: "https://arxiv.org/abs/2604.23855"
+    type: academic
+  - title: "AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A"
+    authors: "Sunil Prakash"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.24775"
+    url: "https://arxiv.org/abs/2603.24775"
+    type: academic
+  - title: "Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing"
+    authors: "Inioluwa Deborah Raji, Andrew Smart, Rebecca N. White, Margaret Mitchell, Timnit Gebru, Ben Hutchinson, Jamila Smith-Loud, Daniel Theron, Parker Barnes"
+    year: 2020
+    venue: "Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT* '20), ACM"
+    url: "https://doi.org/10.1145/3351095.3372873"
+    type: academic
 ---
 
 # KYA-S1 und BPMN 2.0: Wie der Vertrauenswert einen KI-Agenten durch den Industrieprozess steuert
@@ -22,7 +56,7 @@ note: "Visual not yet made — the SVG is a to-do."
 
 Ist die Regulierung gelesen und sind die Architekturskizzen gezeichnet, stellt sich stets dieselbe technische Frage: **Wie setzt man das konkret um?**
 
-Wie verbindet man eine BPMN 2.0-Prozess-Engine (etwa Camunda oder Zeebe), den laufend aktualisierten Vertrauenswert (TRS) der KYA-S1 Sicherheitsspezifikation und die Hintergrundagenten von DWS IQ so, dass am Ende jene echte menschliche Führung (HIC, _Human-in-Command_) steht, die der EU AI Act verlangt?
+Wie verbindet man eine BPMN 2.0-Prozess-Engine (etwa Camunda oder Zeebe), den laufend aktualisierten Vertrauenswert (TRS) der KYA-S1 Sicherheitsspezifikation und die Hintergrundagenten von DWS IQ so, dass am Ende jene echte menschliche Führung (HIC, _Human-in-Command_) steht, die der EU AI Act verlangt? [1]
 
 Die Antwort: Die Prozess-Engine erteilt dem Agenten keine feste Berechtigung. Stattdessen wird jeder Arbeitsschritt dynamisch nach dem Grad des Vertrauens geleitet. Dieser Beitrag verfolgt die Kette von Anfang bis Ende: wie der Vertrauenswert die Spur wählt, wie das Einmal-Token und die fehlersichere Sperre die Lücken schließen – und was geschieht, wenn trotzdem etwas schiefgeht.
 
@@ -32,7 +66,7 @@ Damit die technische Umsetzung übersichtlich bleibt, verteilt sich die Verantwo
 
 Läuft in einer DWS IQ-Umgebung ein Geschäfts- oder Produktionsprozess, stimmen sich BPMN 2.0-Engine und KYA-S1 TRS an jedem kritischen Knotenpunkt ab.
 
-**Vorabprüfung.** Bevor die BPMN-Engine eine Aufgabe betritt, löst sie einen `Execution Listener` aus. Dieser richtet eine REST- oder gRPC-Anfrage an die KYA-S1 Trust Engine: _„Ist DWS IQ Quality Agent X berechtigt, die Aufgabe 'Laadunvarmistus_Erä_402' genau jetzt auszuführen?“_ Der Listener holt nicht bloß den Wert ab, sondern Wert und Token gemeinsam – vor dem Gateway.
+**Vorabprüfung.** Bevor die BPMN-Engine eine Aufgabe betritt, löst sie einen `Execution Listener` aus. Dieser richtet eine REST- oder gRPC-Anfrage an die KYA-S1 Trust Engine: _„Ist DWS IQ Quality Agent X berechtigt, die Aufgabe 'Laadunvarmistus_Erä_402' genau jetzt auszuführen?“_ Der Listener holt nicht bloß den Wert ab, sondern Wert und Token gemeinsam – vor dem Gateway. [2]
 
 **Exklusives Routing.** Der BPMN-Prozess verwendet den zurückgegebenen Wert im Bedingungsausdruck eines XOR-Gateways. Es gibt zwei Spuren:
 
@@ -43,7 +77,7 @@ In der Praxis sitzt der Listener auf dem Sequence Flow, der zum Gateway führt, 
 
 Der Standardzweig des Gateways (`default`) weist auf die menschliche Spur. Ist die Bedingung für die automatische Spur nicht erfüllt, gleich aus welchem Grund – niedriger Wert, fehlendes Token oder Zeitüberschreitung –, geht die Aufgabe an einen Menschen.
 
-In der herkömmlichen Automatisierung erhält ein Agent entweder 0 % oder 100 % Befugnis. Geht etwas schief, bleibt nur, das gesamte System abzuschalten. Die Kopplung von BPMN 2.0-Engine und KYA-S1 TRS schafft dagegen **Dynamik**. Stehen alle Variablen auf Grün, betreiben die DWS IQ-Agenten den Industrieprozess mit voller Leistung. Tritt im Umfeld des Agenten eine Anomalie auf oder läuft seine Berechtigung ab, fallen die Vertrauenswerte augenblicklich. Das System stürzt nicht ab, sondern _übergibt die Entscheidung sanft an einen Menschen_.
+In der herkömmlichen Automatisierung erhält ein Agent entweder 0 % oder 100 % Befugnis. Geht etwas schief, bleibt nur, das gesamte System abzuschalten. Die Kopplung von BPMN 2.0-Engine und KYA-S1 TRS schafft dagegen **Dynamik**. Stehen alle Variablen auf Grün, betreiben die DWS IQ-Agenten den Industrieprozess mit voller Leistung. Tritt im Umfeld des Agenten eine Anomalie auf oder läuft seine Berechtigung ab, fallen die Vertrauenswerte augenblicklich. Das System stürzt nicht ab, sondern _übergibt die Entscheidung sanft an einen Menschen_. [3]
 
 ## Ein fester Schwellenwert genügt nicht
 
@@ -75,7 +109,7 @@ Die vorgeschlagenen Standardgewichte sind w₁ = 0,35, w₂ = 0,35, w₃ = 0,15 
 
 Klafft zwischen der Vertrauensprüfung und der eigentlichen Ausführung auch nur eine Lücke von wenigen Millisekunden ohne Sperre, entsteht eine **Race Condition**. Der Agent kann seine Berechtigung unmittelbar vor der Ausführung verlieren, und der Prozess führt sie dennoch durch. Der Prüfpfad erweckt den Eindruck, das Gateway habe funktioniert. Das hat es nicht. Die menschliche Führung ist dann nur Schein.
 
-Deshalb liefert die Trust Engine keine bloße Zahl, sondern ein **Atomares Einmal-Autorisierungs-Token** (_Lease Token_): einen kryptografisch signierten, zeitgebundenen Schlüssel, der beispielsweise 5 Sekunden gilt. Eine automatisierte Aufgabe kann nur dann ausgeführt werden, wenn sie im Moment der Ausführung ein gültiges Token **verbraucht**. Das ist die einzige Stelle, die die Race Condition schließt.
+Deshalb liefert die Trust Engine keine bloße Zahl, sondern ein **Atomares Einmal-Autorisierungs-Token** (_Lease Token_): einen kryptografisch signierten, zeitgebundenen Schlüssel, der beispielsweise 5 Sekunden gilt. Eine automatisierte Aufgabe kann nur dann ausgeführt werden, wenn sie im Moment der Ausführung ein gültiges Token **verbraucht**. [4] Das ist die einzige Stelle, die die Race Condition schließt.
 
 ### Das Diagramm ist nicht atomar – dafür haftet der Delegate
 
@@ -86,7 +120,7 @@ Atomarität ist **der Vertrag des Delegates**, keine Eigenschaft des XML. Es gib
 1. Die **erste** Operation des Delegates ist `consumeAndExecute(leaseToken, action)` – ein einziger Aufruf, der auf Seiten der Trust Engine das Token validiert, es als verbraucht markiert und die Handlung in derselben Transaktion autorisiert (Sperre auf dem Niveau von `SELECT … FOR UPDATE` oder `compare-and-swap`).
 2. Steht keine einzelne atomare Operation zur Verfügung, muss der Verbrauch des Tokens der erste **gesperrte** Schritt der Transaktion sein, und alle Arbeit mit Seiteneffekten muss danach in derselben Transaktion folgen.
 3. Ein fehlgeschlagener Verbrauch wirft den Fehler `KYA_LEASE_INVALID`, der die Aufgabe über ein Randereignis an einen Menschen leitet. Kein automatischer Wiederholungsversuch.
-4. Der Delegate darf das Token niemals lesen, um selbst zu entscheiden, ob es noch gültig ist. Über die Gültigkeit entscheidet allein die Trust Engine im Moment des Verbrauchs.
+4. Der Delegate darf das Token niemals lesen, um selbst zu entscheiden, ob es noch gültig ist. Über die Gültigkeit entscheidet allein die Trust Engine im Moment des Verbrauchs. [4]
 
 Ohne diesen Vertrag beschreibt das Diagramm eine Absicht, keine Garantie. Erst die Umsetzung der Punkte 1–4 macht das Gateway echt – das XML macht es lediglich überprüfbar.
 
@@ -94,7 +128,7 @@ Das Beispiel ist im Camunda-7-Format geschrieben, weil dessen `camunda:`-Erweite
 
 ## Fehlersichere Sperre (fail-closed)
 
-Antwortet die KYA-S1 Trust Engine nicht innerhalb des Zeitlimits (über 500 ms) oder meldet sie einen Fehler, führt der Prozess die Automatisierung niemals aus. Er wird ausnahmslos zur menschlichen Freigabe geleitet. Ein Ausfall der Trust Engine bremst die Produktion; er öffnet nicht das Gateway.
+Antwortet die KYA-S1 Trust Engine nicht innerhalb des Zeitlimits (über 500 ms) oder meldet sie einen Fehler, führt der Prozess die Automatisierung niemals aus. Er wird ausnahmslos zur menschlichen Freigabe geleitet. Ein Ausfall der Trust Engine bremst die Produktion; er öffnet nicht das Gateway. [2]
 
 Dasselbe gilt für ein bereits ausgestelltes Token. Wird es mitten in der Ausführung widerrufen – wegen der Notbremse, eines Entzugs der Berechtigung oder des Ablaufs –, wird die automatisierte Aufgabe abgebrochen, ein Rollback durchgeführt und die Aufgabe direkt an einen Menschen übergeben. Wird die Notbremse (TC4) gezogen, widerruft das Lifetime World Model sofort alle aktiven Token – in der gesamten Agentenkette auf einen Schlag.
 
@@ -139,11 +173,11 @@ Dank dieser Klassifizierung ist die Verteilung der Verantwortung kein zermürben
 
 ## Wiedergabe der Entscheidung: die Zeitmaschine der KI
 
-Damit die Fehlerattribuierung unparteiisch erfolgen kann, braucht es harte technische Beweise. Hier kommt das Lifetime World Model ins Spiel, und deshalb ist die PRV-Aufzeichnung – Entscheidungsherkunft & Prüfpfad – im BPMN-Modell eine eigene automatisierte Aufgabe und nicht bloß ein Listener auf einem einzelnen Sequence Flow.
+Damit die Fehlerattribuierung unparteiisch erfolgen kann, braucht es harte technische Beweise. [5] Hier kommt das Lifetime World Model ins Spiel, und deshalb ist die PRV-Aufzeichnung – Entscheidungsherkunft & Prüfpfad – im BPMN-Modell eine eigene automatisierte Aufgabe und nicht bloß ein Listener auf einem einzelnen Sequence Flow.
 
 Der Unterschied ist wesentlich. Ein Listener auf einem Sequence Flow deckt nur diesen einen Pfad ab, sodass die menschliche Freigabe nicht protokolliert wird. In einer eigenen Aufgabe laufen **beide** Pfade zusammen – die Ausführung durch den Agenten und die menschliche Freigabe –, und sie ist zudem im Diagramm sichtbar; der Prüfer muss nicht nach einem im XML versteckten Listener suchen. Eine menschliche Entscheidung ist ebenso ein prüfpflichtiges Ereignis wie die eines Agenten: Die menschliche Entscheidungsherkunft ist genau der Nachweis, den Artikel 14 verlangt.
 
-Jedes Mal, wenn ein DWS IQ-Agent eine Aufgabe ausführt oder sie ins Kontrollpanel geleitet wird, wird im World Model eine kryptografisch signierte Momentaufnahme gespeichert:
+Jedes Mal, wenn ein DWS IQ-Agent eine Aufgabe ausführt oder sie ins Kontrollpanel geleitet wird, wird im World Model eine kryptografisch signierte Momentaufnahme gespeichert [2]:
 
 1. **Ursprüngliche Eingaben:** exakt die Daten und der Kontext, die dem Agenten zugeführt wurden.
 2. **Vertrauensstatus:** Vertrauenswert und IDV-Status des Agenten zum Zeitpunkt der Ausführung.
@@ -158,7 +192,7 @@ Was wusste der Agent? Mit welcher Befugnis handelte er? Wie kam er zu seinem Erg
 
 ## Den Dominoeffekt unterbrechen: der Kettenabbruch
 
-In industriellen Multi-Agenten-Umgebungen kann ein DWS IQ-Agent weitere Agenten starten. Ein Qualitätskontroll-Agent startet einen Logistik-Agenten, der wiederum einen Bestell-Agenten startet. Wird in der Entscheidung des ersten Agenten ein Fehler entdeckt, ist die größte Gefahr ein **Dominoeffekt** – die Vervielfältigung des Fehlers in den Backend-Systemen.
+In industriellen Multi-Agenten-Umgebungen kann ein DWS IQ-Agent weitere Agenten starten. Ein Qualitätskontroll-Agent startet einen Logistik-Agenten, der wiederum einen Bestell-Agenten startet. Wird in der Entscheidung des ersten Agenten ein Fehler entdeckt, ist die größte Gefahr ein **Dominoeffekt** – die Vervielfältigung des Fehlers in den Backend-Systemen. [1]
 
 Der **Kettenabbruch (TC4, _Trust Collapse Response & Chain Termination_)** von KYA-S1 unterbricht die Kette. Im Haus heißt er umgangssprachlich Notbremse, _leash snap_ (TC4-2).
 
@@ -188,3 +222,11 @@ Sind diese Bausteine an ihrem Platz, hören KI-Agenten auf, ein unkontrollierbar
 **Risto Anton Päärni**
 _Gründer und Geschäftsführer, Lifetime Oy_
 _Chefredakteur, Lifetime Scope Journal_
+
+## Quellen
+
+1. Gardhouse, K., Oueslati, A., & Kolt, N. (2026). Regulating AI Agents. arXiv preprint arXiv:2603.23471. <https://arxiv.org/abs/2603.23471>
+2. Uchibeke, U. (2026). Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous AI Agents. arXiv preprint arXiv:2603.20953. <https://arxiv.org/abs/2603.20953>
+3. Borovkov, N., Rykov, E., Tsymboi, O., Filimonov, S., Surnachev, N., Bitman, D., & Potapov, A. (2026). Learning Selective LLM Autonomy from Copilot Feedback in Enterprise Customer Support Workflows. arXiv preprint arXiv:2604.23855. <https://arxiv.org/abs/2604.23855>
+4. Prakash, S. (2026). AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A. arXiv preprint arXiv:2603.24775. <https://arxiv.org/abs/2603.24775>
+5. Raji, I. D., Smart, A., White, R. N., Mitchell, M., Gebru, T., Hutchinson, B., Smith-Loud, J., Theron, D., & Barnes, P. (2020). Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing. In Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT\* '20). ACM. <https://doi.org/10.1145/3351095.3372873>

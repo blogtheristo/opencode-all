@@ -13,6 +13,53 @@ Status: DRAFT
 translation_of: process-models-world-model-and-hic.fi.md
 ai_translated: true
 note: "Visual not yet made — the SVG is a to-do."
+customer_value: "Ett industriföretag avgränsar redan i dag med förtroendepoängen när en AI-agent får agera utan människa och stoppar en felaktig agentkedja med en enda åtgärd, vilket är kärnan i den förmåga att ingripa och stoppa som artikel 14 i EU AI Act kräver; BPMN-gatewayen, kopplingarna till processmodellerna och världsmodellens beslutshistorik beskrivs här som planerade."
+routes: [roadmap]
+claims_checked: 2026-09-30
+sources:
+  - title: "World Models"
+    authors: "David Ha, Jürgen Schmidhuber"
+    year: 2018
+    venue: "arXiv preprint arXiv:1803.10122"
+    url: "https://arxiv.org/abs/1803.10122"
+    type: academic
+  - title: "Digital Twin AI: Opportunities and Challenges from Large Language Models to World Models"
+    authors: "Rong Zhou, Dongping Chen, Zihan Jia, Yao Su, Yixin Liu, Yiwen Lu, Dongwei Shi, Yue Huang, Tianyang Xu, et al."
+    year: 2026
+    venue: "arXiv preprint arXiv:2601.01321"
+    url: "https://arxiv.org/abs/2601.01321"
+    type: academic
+  - title: "Regulation (EU) 2024/1689 of the European Parliament and of the Council (Artificial Intelligence Act), Article 14: Human oversight"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union"
+    url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
+    accessed_via: "https://github.com/camlsys/aireg-bench/blob/main/articles.txt"
+    type: regulation
+  - title: "ManufacturingOntologies: International Society of Automation 95 (ISA 95 / IEC 62264)"
+    authors: "Digital Twin Consortium"
+    year: "n.d."
+    venue: "GitHub repository"
+    url: "https://github.com/digitaltwinconsortium/ManufacturingOntologies"
+    type: industry
+  - title: "Enable an industrial dataspace on Azure"
+    authors: "Microsoft"
+    year: "n.d."
+    venue: "Azure Architecture Center, Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/architecture/guide/iot/how-to-enable-industrial-dataspaces"
+    type: industry
+  - title: "BPMN primer; Service tasks; User tasks"
+    authors: "Camunda"
+    year: "n.d."
+    venue: "Camunda 8 documentation (camunda-docs repository)"
+    url: "https://github.com/camunda/camunda-docs/tree/main/docs/components/modeler/bpmn"
+    type: industry
+  - title: "OMG Systems Modeling Language (SysML) Version 2.1 Beta 2, Part 1: Language Specification"
+    authors: "Object Management Group"
+    year: 2026
+    venue: "OMG Systems Modeling Community, SysML v2 Release repository"
+    url: "https://github.com/Systems-Modeling/SysML-v2-Release/blob/master/doc/2a-OMG_Systems_Modeling_Language.pdf"
+    type: standard
 ---
 
 # Processmodeller, Lifetime World Model och mänsklig ledningsrätt
@@ -21,7 +68,7 @@ När automationsorganisationen DWS IQ (`dws10.com`) förenas med Lifetime World 
 
 ## En smart motor behöver en världsmodell
 
-En AI-agent på egen hand – till exempel en DWS IQ Skilled Agent – är bara en ”smart motor”. För att kunna arbeta behöver den en världsmodell (World Model): en samlad lägesbild av hur systemen mår, vem som gör vad, med vilka befogenheter och med vilka följder.
+En AI-agent på egen hand – till exempel en DWS IQ Skilled Agent – är bara en ”smart motor”. För att kunna arbeta behöver den en världsmodell (World Model): en samlad lägesbild av hur systemen mår, vem som gör vad, med vilka befogenheter och med vilka följder. [1][2]
 
 Arbetsfördelningen är tydlig:
 
@@ -36,7 +83,7 @@ AI-agenter faller in i två huvudläger, och deras behov av tillsyn och den milj
 
 DWS IQ-agenterna är bakgrundsagenter för industri och datalager. De arbetar på makronivå och driver affärs- och produktionsprocesser i flera steg, med direkt verkan på leveranskedjor, gränssnitt och databaser. Därför kräver de ett eget styrlager, så att tillsynen håller även när de kör i bakgrunden.
 
-För att industrin ska nå både en hög automationsgrad och den mänskliga tillsyn som artikel 14 i EU AI Act kräver – i DWS genomförande mänsklig ledningsrätt (HIC) – styrs DWS IQ-agenterna via en enhetlig kontrollvy i GitHub Copilot-stil:
+För att industrin ska nå både en hög automationsgrad och den mänskliga tillsyn som artikel 14 i EU AI Act kräver [3] – i DWS genomförande mänsklig ledningsrätt (HIC) – styrs DWS IQ-agenterna via en enhetlig kontrollvy i GitHub Copilot-stil:
 
 - **En enda startvy:** Människan leder processen. Hon startar agentens arbetsflöde från en tydlig vy och följer processens läge i realtid.
 - **Skilled Agent-roller:** Kontrollvyn dirigerar arbetsflödets olika steg till agenter som är specialiserade för ändamålet – till exempel en agent för kvalitetskontroll, dataanalys eller logistik – alltid efter vad det aktuella arbetssteget kräver.
@@ -50,28 +97,28 @@ Utöver RUP-metodiken (och UML-diagrammen) använder industrin flera andra etabl
 
 ### ISA-95: verksamhetsnivån och en vertikal ryggrad av förtroende
 
-ISA-95 (integration av affärs- och styrsystem, IEC 62264) är inget traditionellt flödesschema utan industrins standard för systemarkitektur och processgränssnitt – den så kallade automationspyramiden. Den definierar hur information rör sig mellan affärssystemet (ERP), produktionsstyrningen (MES), övervakningen (SCADA) och fältutrustningen (PLC/IoT).
+ISA-95 (integration av affärs- och styrsystem, IEC 62264) är inget traditionellt flödesschema utan industrins standard för systemarkitektur och processgränssnitt – den så kallade automationspyramiden. [4] Den definierar hur information rör sig mellan affärssystemet (ERP), produktionsstyrningen (MES), övervakningen (SCADA) och fältutrustningen (PLC/IoT).
 
-För agenten definierar ISA-95 verksamhetsnivå och befogenheter (Kapacitetsmanifest och register, REG, samt IDV). En agent som arbetar på MES-nivå (nivå 3) behöver helt andra säkerhetsmarginaler och reaktionstider än en agent som rör SCADA-styrningen direkt (nivå 2).
+För agenten definierar ISA-95 verksamhetsnivå och befogenheter (Kapacitetsmanifest och register, REG, samt IDV). En agent som arbetar på MES-nivå (nivå 3) behöver helt andra säkerhetsmarginaler och reaktionstider än en agent som rör SCADA-styrningen direkt (nivå 2). [5]
 
 Industrins största utmaning är att information och befogenheter bryts av mellan styrningsnivåerna. Därför placeras Lifetime World Model horisontellt genom hela ISA-95-pyramiden. När en DWS IQ-agent fattar ett beslut på MES-nivå kontrollerar den i realtid i Lifetime World Model verksamhetsnivån och den mänskliga auktoriseringen (IDV/TRS), som härrör från ERP/HR-nivån (nivå 4). Agenten agerar inte ”i blindo” i sitt eget stuprör.
 
 ### BPMN 2.0: ett körbart arbetsflöde som förgrenas efter förtroende
 
-BPMN 2.0 är industrins och mjukvarubranschens gemensamma de facto-standard för att modellera affärsprocesser och arbetsflöden. BPMN-diagram är inte bara ritningar – de körs direkt som kod i processmotorer (till exempel Camunda, Flowable eller Zeebe). Det gör BPMN till det idealiska språket för DWS IQ-agenter: i arbetsflödet kan man definiera ett steg, en BPMN Service Task (automatiskt spår), som agenten utför i bakgrunden. Eftersom diagrammet är körbart är det också enkelt att koppla till den enhetliga kontrollvyn.
+BPMN 2.0 är industrins och mjukvarubranschens gemensamma de facto-standard för att modellera affärsprocesser och arbetsflöden. BPMN-diagram är inte bara ritningar – de körs direkt som kod i processmotorer (till exempel Camunda, Flowable eller Zeebe). [6] Det gör BPMN till det idealiska språket för DWS IQ-agenter: i arbetsflödet kan man definiera ett steg, en BPMN Service Task (automatiskt spår), som agenten utför i bakgrunden. [6] Eftersom diagrammet är körbart är det också enkelt att koppla till den enhetliga kontrollvyn.
 
 BPMN-diagrammen anger agenternas vägar framåt, och i deras villkorsgrenar kopplas Lifetime World Models levande förtroendepoäng (TRS) in:
 
 - **TRS ≥ 85** → DWS IQ-agenten utför uppgiften automatiskt (BPMN Service Task).
-- **TRS < 85** → BPMN skickar uppgiften till en människa för godkännande (BPMN User Task, mänsklig kvittering).
+- **TRS < 85** → BPMN skickar uppgiften till en människa för godkännande (BPMN User Task, mänsklig kvittering). [6]
 
 Även en avvikelse skickar uppgiften till en människa: stöter agenten på en avvikelse för BPMN-processen automatiskt över den för mänsklig kvittering. Kvitteringen ger en tillfällig auktorisering, som omedelbart skrivs tillbaka till Lifetime World Model. Mänsklig ledningsrätt är alltså inte ett separat kontrollsteg utanför processen, utan en gren inuti den.
 
 ### SysML: cyberfysiska säkerhetsgränser och tillståndsmaskiner
 
-SysML (systemmodelleringsspråk) är en utvidgning av UML för att modellera komplexa cyberfysiska system – hårdvara, mjukvara, process och människa. Språket är mycket populärt inom den tyngsta industrin: flyg, fordon, energi och krävande verkstadsindustri.
+SysML (systemmodelleringsspråk) är ett allmänt modelleringsspråk för komplexa cyberfysiska system – hårdvara, mjukvara, process och människa. Version 1 var en profil av UML; version 2, som OMG antog 2025, bygger på en egen KerML-kärna. [7] Språket används särskilt inom fordons- och flygindustrin.
 
-Inom tung industri får en agent aldrig driva en fysisk maskin förbi utrustningens gränsvärden. SysML:s tillståndsmaskiner (_State Machine Diagrams_) definierar de fysiska säkerhetsgränser som en DWS IQ-agent inte får överskrida. Upptäcker agenten en avvikelse i produktionen frågar den världsmodellen om läget. Rapporterar världsmodellen ett systemfel för SysML-modellen processen till ett kontrollerat felsäkert läge (_Safe State_) och löser omedelbart ut KYA-S1:s nödbroms (TC4).
+Inom tung industri får en agent aldrig driva en fysisk maskin förbi utrustningens gränsvärden. SysML:s tillståndsmaskiner (_State Machine Diagrams_) definierar de fysiska säkerhetsgränser som en DWS IQ-agent inte får överskrida. [7] Upptäcker agenten en avvikelse i produktionen frågar den världsmodellen om läget. Rapporterar världsmodellen ett systemfel för SysML-modellen processen till ett kontrollerat felsäkert läge (_Safe State_) och löser omedelbart ut KYA-S1:s nödbroms (TC4).
 
 ### VSM: bort med slöseriet utan granskningsrisk
 
@@ -105,3 +152,13 @@ För det första leder människan helheten från en enda vy. I den enhetliga kon
 För det andra förändras lösningen av tvister i grunden. Om ett produktionsstopp eller ett fel inträffar visar KYA-S1:s Tidsbegränsad felattribuering (FLT) och världsmodellens historik inom 72 timmar om orsaken var ett fel i utrustningens uppkoppling, en avvikelse i modellen eller felaktig indata från en människa.
 
 Processmodellerna drar gränserna, Lifetime World Model minns vad som hände innanför dem, och människan bestämmer var gränserna går. Genom att ge DWS IQ:s bakgrundsagenter GitHub Copilots välbekanta och trygga styrmodell, och genom att beskriva arbetsflödena med de RUP-processdiagram som industrin länge hållit kära, förvandlas plikten att leda AI från lagtext till en tydlig, praktisk och skalbar konkurrensfördel.
+
+## Källor
+
+1. Ha, D., & Schmidhuber, J. (2018). World Models. arXiv preprint arXiv:1803.10122. <https://arxiv.org/abs/1803.10122>
+2. Zhou, R., Chen, D., Jia, Z., Su, Y., Liu, Y., Lu, Y., Shi, D., Huang, Y., Xu, T., et al. (2026). Digital Twin AI: Opportunities and Challenges from Large Language Models to World Models. arXiv preprint arXiv:2601.01321. <https://arxiv.org/abs/2601.01321>
+3. European Parliament and Council of the European Union (2024). Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 14: Human oversight. Official Journal of the European Union. <https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng>
+4. Digital Twin Consortium (n.d.). ManufacturingOntologies: International Society of Automation 95 (ISA 95 / IEC 62264). GitHub. <https://github.com/digitaltwinconsortium/ManufacturingOntologies>
+5. Microsoft (n.d.). Enable an industrial dataspace on Azure. Azure Architecture Center, Microsoft Learn. <https://learn.microsoft.com/azure/architecture/guide/iot/how-to-enable-industrial-dataspaces>
+6. Camunda (n.d.). BPMN primer; Service tasks; User tasks. Camunda 8 documentation. <https://github.com/camunda/camunda-docs/tree/main/docs/components/modeler/bpmn>
+7. Object Management Group (2026). OMG Systems Modeling Language (SysML) Version 2.1 Beta 2, Part 1: Language Specification. <https://github.com/Systems-Modeling/SysML-v2-Release/blob/master/doc/2a-OMG_Systems_Modeling_Language.pdf>

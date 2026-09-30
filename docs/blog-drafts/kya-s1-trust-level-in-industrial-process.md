@@ -14,6 +14,40 @@ Status: DRAFT
 translation_of: kya-s1-trust-level-in-industrial-process.fi.md
 ai_translated: true
 note: "Visual not yet made — the SVG is a to-do."
+customer_value: "The trust score and chain termination (the leash snap) already limit today when an AI agent may act without a human and stop a faulty agent chain in a single action; the BPMN gateway, the single-use lease token and decision replay are described here as planned."
+routes: [roadmap]
+claims_checked: 2026-09-30
+sources:
+  - title: "Regulating AI Agents"
+    authors: "Kathrin Gardhouse, Amin Oueslati, Noam Kolt"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.23471"
+    url: "https://arxiv.org/abs/2603.23471"
+    type: academic
+  - title: "Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous AI Agents"
+    authors: "Uchi Uchibeke"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.20953"
+    url: "https://arxiv.org/abs/2603.20953"
+    type: academic
+  - title: "Learning Selective LLM Autonomy from Copilot Feedback in Enterprise Customer Support Workflows"
+    authors: "Nikita Borovkov, Elisei Rykov, Olga Tsymboi, Sergei Filimonov, Nikita Surnachev, Dmitry Bitman, Anatolii Potapov"
+    year: 2026
+    venue: "arXiv preprint arXiv:2604.23855"
+    url: "https://arxiv.org/abs/2604.23855"
+    type: academic
+  - title: "AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A"
+    authors: "Sunil Prakash"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.24775"
+    url: "https://arxiv.org/abs/2603.24775"
+    type: academic
+  - title: "Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing"
+    authors: "Inioluwa Deborah Raji, Andrew Smart, Rebecca N. White, Margaret Mitchell, Timnit Gebru, Ben Hutchinson, Jamila Smith-Loud, Daniel Theron, Parker Barnes"
+    year: 2020
+    venue: "Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT* '20), ACM"
+    url: "https://doi.org/10.1145/3351095.3372873"
+    type: academic
 ---
 
 # KYA-S1 and BPMN 2.0: How a Trust Score Steers an AI Agent Through an Industrial Process
@@ -22,7 +56,7 @@ note: "Visual not yet made — the SVG is a to-do."
 
 Once the regulation has been read and the architecture diagrams drawn, the same technical question always follows: **how do you actually build this?**
 
-How do you connect a BPMN 2.0 process engine (such as Camunda or Zeebe), the live trust score (TRS) of the KYA-S1 Security Specification and the DWS IQ background agents so that the result is the genuine Human-in-Command (HIC) authority the EU AI Act demands?
+How do you connect a BPMN 2.0 process engine (such as Camunda or Zeebe), the live trust score (TRS) of the KYA-S1 Security Specification and the DWS IQ background agents so that the result is the genuine Human-in-Command (HIC) authority the EU AI Act demands? [1]
 
 The answer is that the process engine never grants the agent a fixed permission. Instead, every step of the work is routed dynamically according to the level of trust. This piece walks the chain from start to finish: how the trust score selects the lane, how the single-use lease token and fail-closed protection seal the gaps, and what happens when something goes wrong regardless.
 
@@ -32,7 +66,7 @@ To keep the implementation clear, responsibility is split across three component
 
 Whenever a business or production process runs in a DWS IQ environment, the BPMN 2.0 engine and KYA-S1 TRS confer at every critical juncture.
 
-**Pre-assessment.** Before the BPMN engine enters a task, it fires an `Execution Listener`. The listener sends a REST or gRPC request to the KYA-S1 Trust Engine: _"Is DWS IQ Quality Agent X authorised to perform the task 'Laadunvarmistus_Erä_402' right now?"_ The listener does not fetch the score alone; it fetches the score and the lease token together, before the gateway.
+**Pre-assessment.** Before the BPMN engine enters a task, it fires an `Execution Listener`. The listener sends a REST or gRPC request to the KYA-S1 Trust Engine: _"Is DWS IQ Quality Agent X authorised to perform the task 'Laadunvarmistus_Erä_402' right now?"_ The listener does not fetch the score alone; it fetches the score and the lease token together, before the gateway. [2]
 
 **Exclusive routing.** The BPMN process uses the returned value in the condition expression of an XOR gateway. There are two lanes:
 
@@ -43,7 +77,7 @@ In practice, the listener sits on the sequence flow leading into the gateway and
 
 The gateway's default branch (`default`) points to the human lane. If the condition for the automatic lane is not met, for whatever reason — a low score, a missing lease token or a timeout — the task goes to a human.
 
-Conventional automation gives an agent either 0 % or 100 % authority. If something goes wrong, the only remedy is to shut the whole system down. Coupling the BPMN 2.0 engine to KYA-S1 TRS achieves something else: **dynamics**. When every variable is green, DWS IQ agents run the industrial process at full power. If an anomaly occurs in the agent's environment or its authorisation expires, the trust scores drop instantly. The system does not crash; it _hands the decision gently back to a human_.
+Conventional automation gives an agent either 0 % or 100 % authority. If something goes wrong, the only remedy is to shut the whole system down. Coupling the BPMN 2.0 engine to KYA-S1 TRS achieves something else: **dynamics**. When every variable is green, DWS IQ agents run the industrial process at full power. If an anomaly occurs in the agent's environment or its authorisation expires, the trust scores drop instantly. The system does not crash; it _hands the decision gently back to a human_. [3]
 
 ## A fixed threshold is not enough
 
@@ -75,7 +109,7 @@ The proposed default weights are w₁ = 0.35, w₂ = 0.35, w₃ = 0.15 and w₄ 
 
 If there is a gap of even a few milliseconds without a lock between the trust check and the execution itself, a **race condition** arises. The agent can lose its authorisation just before execution, and the process will run it through anyway. The audit trail will make it look as though the gateway worked. It did not. Human-in-Command is then an illusion.
 
-That is why the Trust Engine does not return a bare number but an **Atomic Single-Use Lease Token**: a cryptographically signed, time-bound key valid for, say, 5 seconds. An automated task can go ahead only if it **consumes** a valid token at the moment of execution. This is the one point that closes the race condition.
+That is why the Trust Engine does not return a bare number but an **Atomic Single-Use Lease Token**: a cryptographically signed, time-bound key valid for, say, 5 seconds. An automated task can go ahead only if it **consumes** a valid token at the moment of execution. [4] This is the one point that closes the race condition.
 
 ### The diagram is not atomic — the delegate is responsible
 
@@ -86,7 +120,7 @@ Atomicity is **the delegate's contract**, not a property of the XML. There are f
 1. The delegate's **first** operation is `consumeAndExecute(leaseToken, action)` — a single call that, on the Trust Engine's side, validates the token, marks it as consumed and authorises the action in the same transaction (with locking at the level of `SELECT … FOR UPDATE` or `compare-and-swap`).
 2. If no single atomic operation is available, consuming the token must be the first **locked** step of the transaction, and all work with side effects must follow it within the same transaction.
 3. A failed consumption throws the error `KYA_LEASE_INVALID`, which routes the task to a human via a boundary event. No automatic retry.
-4. The delegate must never read the token to decide for itself whether it is still valid. Validity is determined solely by the Trust Engine at the moment of consumption.
+4. The delegate must never read the token to decide for itself whether it is still valid. Validity is determined solely by the Trust Engine at the moment of consumption. [4]
 
 Without this contract, the diagram describes an intention, not a guarantee. Implementing points 1–4 is what makes the gateway real — the XML merely makes it inspectable.
 
@@ -94,7 +128,7 @@ The example is written in Camunda 7 format because its `camunda:` extensions are
 
 ## Fail-closed protection
 
-If the KYA-S1 Trust Engine does not respond within the time limit (more than 500 ms) or returns an error, the process never runs the automation. Without exception, it is routed to human sign-off. A Trust Engine outage slows production down; it does not open the gateway.
+If the KYA-S1 Trust Engine does not respond within the time limit (more than 500 ms) or returns an error, the process never runs the automation. Without exception, it is routed to human sign-off. A Trust Engine outage slows production down; it does not open the gateway. [2]
 
 The same applies to a token that has already been issued. If the token is revoked mid-execution — because of the leash snap, a withdrawal of authorisation or expiry — the automated task is interrupted, a rollback is performed and the task passes straight to a human. When the leash snap (TC4) is triggered, the Lifetime World Model revokes every active lease token immediately — across the entire agent chain at once.
 
@@ -139,11 +173,11 @@ Thanks to this classification, the allocation of responsibility ceases to be a d
 
 ## Decision replay: a time machine for AI
 
-For fault attribution to be impartial, it needs hard technical evidence. This is where the Lifetime World Model comes into play, and it is why the PRV record — Decision Provenance & Audit Trail — is a dedicated automated task in the BPMN model rather than a mere listener on a single sequence flow.
+For fault attribution to be impartial, it needs hard technical evidence. [5] This is where the Lifetime World Model comes into play, and it is why the PRV record — Decision Provenance & Audit Trail — is a dedicated automated task in the BPMN model rather than a mere listener on a single sequence flow.
 
 The difference matters. A listener on one sequence flow covers only that one path, which leaves the human sign-off unlogged. A dedicated task is where **both** paths converge — the agent's execution and the human sign-off — and it is also visible in the diagram; the auditor does not have to hunt for a listener buried in the XML. A human decision is as much an auditable event as an agent's: Human Decision Provenance is precisely the evidence Article 14 requires.
 
-Whenever a DWS IQ agent performs a task, or the task is routed to the dashboard, a cryptographically signed snapshot is stored in the World Model:
+Whenever a DWS IQ agent performs a task, or the task is routed to the dashboard, a cryptographically signed snapshot is stored in the World Model [2]:
 
 1. **Original inputs:** exactly the data and context that were fed to the agent.
 2. **Trust state:** the agent's trust score and IDV status at the moment of execution.
@@ -158,7 +192,7 @@ What did the agent know? On whose authority did it act? How did it reach its res
 
 ## Breaking the domino effect: chain termination
 
-In industrial multi-agent environments, one DWS IQ agent can launch others. A quality-control agent launches a logistics agent, which launches an ordering agent. If an error is found in the first agent's decision, the greatest danger is a **domino effect** — the error multiplying through the back-end systems.
+In industrial multi-agent environments, one DWS IQ agent can launch others. A quality-control agent launches a logistics agent, which launches an ordering agent. If an error is found in the first agent's decision, the greatest danger is a **domino effect** — the error multiplying through the back-end systems. [1]
 
 KYA-S1's **Chain Termination (TC4, _Trust Collapse Response & Chain Termination_)** breaks the chain. In-house, its everyday name is the emergency brake: the _leash snap_ (TC4-2).
 
@@ -188,3 +222,11 @@ Once these pieces are in place, AI agents cease to be an uncontrollable security
 **Risto Anton Päärni**
 _Founder, CEO · Lifetime Oy_
 _Editor-in-Chief, Lifetime Scope Journal_
+
+## Sources
+
+1. Gardhouse, K., Oueslati, A., & Kolt, N. (2026). Regulating AI Agents. arXiv preprint arXiv:2603.23471. <https://arxiv.org/abs/2603.23471>
+2. Uchibeke, U. (2026). Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous AI Agents. arXiv preprint arXiv:2603.20953. <https://arxiv.org/abs/2603.20953>
+3. Borovkov, N., Rykov, E., Tsymboi, O., Filimonov, S., Surnachev, N., Bitman, D., & Potapov, A. (2026). Learning Selective LLM Autonomy from Copilot Feedback in Enterprise Customer Support Workflows. arXiv preprint arXiv:2604.23855. <https://arxiv.org/abs/2604.23855>
+4. Prakash, S. (2026). AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A. arXiv preprint arXiv:2603.24775. <https://arxiv.org/abs/2603.24775>
+5. Raji, I. D., Smart, A., White, R. N., Mitchell, M., Gebru, T., Hutchinson, B., Smith-Loud, J., Theron, D., & Barnes, P. (2020). Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing. In Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT\* '20). ACM. <https://doi.org/10.1145/3351095.3372873>

@@ -14,6 +14,40 @@ Status: DRAFT
 translation_of: kya-s1-trust-level-in-industrial-process.fi.md
 ai_translated: true
 note: "Visual not yet made — the SVG is a to-do."
+customer_value: "Förtroendepoängen och kedjeavbrottet (nödbromsen) avgränsar redan i dag när en AI-agent får agera utan människa och stoppar en felaktig agentkedja med en enda åtgärd; BPMN-gatewayen, engångstoken och uppspelningen av beslut beskrivs här som planerade."
+routes: [roadmap]
+claims_checked: 2026-09-30
+sources:
+  - title: "Regulating AI Agents"
+    authors: "Kathrin Gardhouse, Amin Oueslati, Noam Kolt"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.23471"
+    url: "https://arxiv.org/abs/2603.23471"
+    type: academic
+  - title: "Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous AI Agents"
+    authors: "Uchi Uchibeke"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.20953"
+    url: "https://arxiv.org/abs/2603.20953"
+    type: academic
+  - title: "Learning Selective LLM Autonomy from Copilot Feedback in Enterprise Customer Support Workflows"
+    authors: "Nikita Borovkov, Elisei Rykov, Olga Tsymboi, Sergei Filimonov, Nikita Surnachev, Dmitry Bitman, Anatolii Potapov"
+    year: 2026
+    venue: "arXiv preprint arXiv:2604.23855"
+    url: "https://arxiv.org/abs/2604.23855"
+    type: academic
+  - title: "AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A"
+    authors: "Sunil Prakash"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.24775"
+    url: "https://arxiv.org/abs/2603.24775"
+    type: academic
+  - title: "Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing"
+    authors: "Inioluwa Deborah Raji, Andrew Smart, Rebecca N. White, Margaret Mitchell, Timnit Gebru, Ben Hutchinson, Jamila Smith-Loud, Daniel Theron, Parker Barnes"
+    year: 2020
+    venue: "Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT* '20), ACM"
+    url: "https://doi.org/10.1145/3351095.3372873"
+    type: academic
 ---
 
 # KYA-S1 och BPMN 2.0: förtroendepoängen styr AI-agenten i den industriella processen
@@ -22,7 +56,7 @@ note: "Visual not yet made — the SVG is a to-do."
 
 När regelverket är genomläst och arkitekturskisserna ritade dyker alltid samma tekniska fråga upp: **hur bygger man det här i praktiken?**
 
-Hur kopplar man ihop en BPMN 2.0-processmotor (till exempel Camunda eller Zeebe), den levande förtroendepoängen (TRS) i KYA-S1 Säkerhetsspecifikation och DWS IQ:s bakgrundsagenter så att resultatet blir den verkliga mänskliga ledningsrätt (HIC, _Human-in-Command_) som EU AI Act kräver?
+Hur kopplar man ihop en BPMN 2.0-processmotor (till exempel Camunda eller Zeebe), den levande förtroendepoängen (TRS) i KYA-S1 Säkerhetsspecifikation och DWS IQ:s bakgrundsagenter så att resultatet blir den verkliga mänskliga ledningsrätt (HIC, _Human-in-Command_) som EU AI Act kräver? [1]
 
 Svaret är att processmotorn aldrig ger agenten en fast behörighet. I stället dirigeras varje arbetsmoment dynamiskt efter förtroendenivån. Den här texten följer kedjan från början till slut: hur förtroendepoängen väljer spår, hur engångstoken och fail-closed-skyddet täpper till luckorna – och vad som händer när något ändå går snett.
 
@@ -32,7 +66,7 @@ För att den tekniska lösningen ska bli tydlig fördelas ansvaret på tre kompo
 
 När en affärs- eller produktionsprocess körs i en DWS IQ-miljö kommunicerar BPMN 2.0-motorn och KYA-S1 TRS med varandra vid varje kritisk knutpunkt.
 
-**Förhandsbedömning.** Innan BPMN-motorn går in i en uppgift utlöser den en `Execution Listener`. Lyssnaren skickar en REST- eller gRPC-förfrågan till KYA-S1 Trust Engine: _”Är DWS IQ Quality Agent X behörig att utföra uppgiften 'Laadunvarmistus_Erä_402' just nu?”_ Lyssnaren hämtar inte bara poängen, utan poängen och token tillsammans – före gatewayen.
+**Förhandsbedömning.** Innan BPMN-motorn går in i en uppgift utlöser den en `Execution Listener`. Lyssnaren skickar en REST- eller gRPC-förfrågan till KYA-S1 Trust Engine: _”Är DWS IQ Quality Agent X behörig att utföra uppgiften 'Laadunvarmistus_Erä_402' just nu?”_ Lyssnaren hämtar inte bara poängen, utan poängen och token tillsammans – före gatewayen. [2]
 
 **Exklusiv routning.** BPMN-processen använder det returnerade värdet i villkorsuttrycket för en XOR-gateway. Det finns två spår:
 
@@ -43,7 +77,7 @@ I praktiken sitter lyssnaren på det sequence flow som leder till gatewayen och 
 
 Gatewayens standardgren (`default`) pekar mot det mänskliga spåret. Om villkoret för det automatiska spåret inte uppfylls, oavsett orsak – låg poäng, saknad token eller tidsgränsen överskriden – går uppgiften till en människa.
 
-I traditionell automation får en agent antingen 0 % eller 100 % behörighet. Går något fel är den enda utvägen att stänga av hela systemet. Genom att koppla ihop BPMN 2.0-motorn med KYA-S1 TRS uppnår man i stället **dynamik**. När alla variabler lyser grönt driver DWS IQ-agenterna den industriella processen för full kraft. Uppstår en avvikelse i agentens omgivning eller löper behörigheten ut, rasar förtroendepoängen omedelbart. Systemet kraschar inte, utan _lämnar mjukt över beslutet till en människa_.
+I traditionell automation får en agent antingen 0 % eller 100 % behörighet. Går något fel är den enda utvägen att stänga av hela systemet. Genom att koppla ihop BPMN 2.0-motorn med KYA-S1 TRS uppnår man i stället **dynamik**. När alla variabler lyser grönt driver DWS IQ-agenterna den industriella processen för full kraft. Uppstår en avvikelse i agentens omgivning eller löper behörigheten ut, rasar förtroendepoängen omedelbart. Systemet kraschar inte, utan _lämnar mjukt över beslutet till en människa_. [3]
 
 ## En fast gräns räcker inte
 
@@ -75,7 +109,7 @@ De föreslagna standardvikterna är w₁ = 0,35, w₂ = 0,35, w₃ = 0,15 och w�
 
 Om det mellan förtroendekontrollen och själva utförandet finns en lucka på ens några millisekunder utan låsning uppstår ett **race condition**. Agenten kan förlora sin behörighet strax före utförandet, och processen kör ändå igenom den. Granskningsspåret ser ut som om gatewayen fungerade. Det gjorde den inte. Den mänskliga ledningsrätten är då bara skenbar.
 
-Därför returnerar Trust Engine inte bara ett tal, utan en **atomisk tidsbegränsad nyttjanderätts-token** (_Lease Token_) för engångsbruk: en kryptografiskt signerad, tidsbunden nyckel som gäller i till exempel 5 sekunder. En automatisk uppgift kan genomföras bara om den **förbrukar** en giltig token i utförandeögonblicket. Det är den enda punkt som täpper till race condition.
+Därför returnerar Trust Engine inte bara ett tal, utan en **atomisk tidsbegränsad nyttjanderätts-token** (_Lease Token_) för engångsbruk: en kryptografiskt signerad, tidsbunden nyckel som gäller i till exempel 5 sekunder. En automatisk uppgift kan genomföras bara om den **förbrukar** en giltig token i utförandeögonblicket. [4] Det är den enda punkt som täpper till race condition.
 
 ### Diagrammet är inte atomiskt – det är delegatens ansvar
 
@@ -86,7 +120,7 @@ Atomiciteten är **delegatens kontrakt**, inte en egenskap hos XML-koden. Kraven
 1. Delegatens **första** operation är `consumeAndExecute(leaseToken, action)` – ett enda anrop som på Trust Engines sida validerar token, markerar den som förbrukad och godkänner handlingen i samma transaktion (låsning på nivån `SELECT … FOR UPDATE` eller `compare-and-swap`).
 2. Finns ingen enskild atomisk operation måste förbrukningen av token vara transaktionens första **låsta** steg, och allt arbete med sidoeffekter måste komma därefter i samma transaktion.
 3. En misslyckad förbrukning kastar felet `KYA_LEASE_INVALID`, som via en gränshändelse leder uppgiften till en människa. Inget automatiskt nytt försök.
-4. Delegaten får aldrig läsa token för att själv avgöra om den fortfarande gäller. Giltigheten avgörs enbart av Trust Engine i förbrukningsögonblicket.
+4. Delegaten får aldrig läsa token för att själv avgöra om den fortfarande gäller. Giltigheten avgörs enbart av Trust Engine i förbrukningsögonblicket. [4]
 
 Utan detta kontrakt beskriver diagrammet en avsikt, inte en garanti. Det är implementationen av punkterna 1–4 som gör gatewayen verklig – XML-koden gör den bara granskningsbar.
 
@@ -94,7 +128,7 @@ Exemplet är skrivet i Camunda 7-format, eftersom dess `camunda:`-tillägg är l
 
 ## Säker vid fel (fail-closed)
 
-Om KYA-S1 Trust Engine inte svarar inom tidsgränsen (över 500 ms) eller returnerar ett fel, kör processen aldrig automationen. Den leds undantagslöst till mänskligt godkännande. Ett avbrott i Trust Engine bromsar produktionen; det öppnar inte gatewayen.
+Om KYA-S1 Trust Engine inte svarar inom tidsgränsen (över 500 ms) eller returnerar ett fel, kör processen aldrig automationen. Den leds undantagslöst till mänskligt godkännande. Ett avbrott i Trust Engine bromsar produktionen; det öppnar inte gatewayen. [2]
 
 Detsamma gäller en token som redan har utfärdats. Om den ogiltigförklaras mitt under utförandet – på grund av nödbromsen, en återkallad behörighet eller att den löper ut – avbryts den automatiska uppgiften, en rollback görs och uppgiften går direkt till en människa. När nödbromsen (TC4) utlöses ogiltigförklarar Lifetime World Model omedelbart alla aktiva token – i hela agentkedjan på en gång.
 
@@ -139,11 +173,11 @@ Tack vare denna klassificering upphör ansvarsfördelningen att vara en utdragen
 
 ## Uppspelning av beslutet: AI:ns tidsmaskin
 
-För att felattribueringen ska kunna göras opartiskt krävs hårda tekniska bevis. Här kliver Lifetime World Model in, och därför är PRV-registreringen – beslutsursprung och granskningskedja – en egen automatisk uppgift i BPMN-modellen och inte bara en lyssnare på ett enda sequence flow.
+För att felattribueringen ska kunna göras opartiskt krävs hårda tekniska bevis. [5] Här kliver Lifetime World Model in, och därför är PRV-registreringen – beslutsursprung och granskningskedja – en egen automatisk uppgift i BPMN-modellen och inte bara en lyssnare på ett enda sequence flow.
 
 Skillnaden är avgörande. En lyssnare på ett sequence flow täcker bara just den vägen, och då blir det mänskliga godkännandet ologgat. I en egen uppgift möts **båda** vägarna – agentens utförande och det mänskliga godkännandet – och den syns dessutom i diagrammet; granskaren behöver inte leta efter en lyssnare inne i XML-koden. Ett mänskligt beslut är en lika granskningsbar händelse som en agents: mänskligt beslutsursprung är just det bevis som Artikel 14 kräver.
 
-Varje gång en DWS IQ-agent utför en uppgift eller uppgiften leds till kontrollvyn, sparas en kryptografiskt signerad ögonblicksbild i World Model:
+Varje gång en DWS IQ-agent utför en uppgift eller uppgiften leds till kontrollvyn, sparas en kryptografiskt signerad ögonblicksbild i World Model [2]:
 
 1. **Ursprungliga indata:** exakt de data och den kontext som agenten matades med.
 2. **Förtroendetillstånd:** agentens förtroendepoäng och IDV-status i utförandeögonblicket.
@@ -158,7 +192,7 @@ Vad visste agenten? Med vilken befogenhet agerade den? Hur kom den fram till sit
 
 ## Att bryta dominoeffekten: kedjeavslutning
 
-I industriella multiagentmiljöer kan en DWS IQ-agent starta andra agenter. En kvalitetskontrollagent startar en logistikagent, som i sin tur startar en beställningsagent. Upptäcks ett fel i den första agentens beslut är den största faran en **dominoeffekt** – att felet mångfaldigas ut i de bakomliggande systemen.
+I industriella multiagentmiljöer kan en DWS IQ-agent starta andra agenter. En kvalitetskontrollagent startar en logistikagent, som i sin tur startar en beställningsagent. Upptäcks ett fel i den första agentens beslut är den största faran en **dominoeffekt** – att felet mångfaldigas ut i de bakomliggande systemen. [1]
 
 KYA-S1:s **kedjeavslutning (TC4, _Trust Collapse Response & Chain Termination_)** bryter kedjan. Internt kallas den i dagligt tal nödbromsen, _leash snap_ (TC4-2).
 
@@ -188,3 +222,11 @@ När de här bitarna är på plats upphör AI-agenterna att vara en okontrollerb
 **Risto Anton Päärni**
 _Grundare och vd, Lifetime Oy_
 _Chefredaktör, Lifetime Scope Journal_
+
+## Källor
+
+1. Gardhouse, K., Oueslati, A., & Kolt, N. (2026). Regulating AI Agents. arXiv preprint arXiv:2603.23471. <https://arxiv.org/abs/2603.23471>
+2. Uchibeke, U. (2026). Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous AI Agents. arXiv preprint arXiv:2603.20953. <https://arxiv.org/abs/2603.20953>
+3. Borovkov, N., Rykov, E., Tsymboi, O., Filimonov, S., Surnachev, N., Bitman, D., & Potapov, A. (2026). Learning Selective LLM Autonomy from Copilot Feedback in Enterprise Customer Support Workflows. arXiv preprint arXiv:2604.23855. <https://arxiv.org/abs/2604.23855>
+4. Prakash, S. (2026). AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A. arXiv preprint arXiv:2603.24775. <https://arxiv.org/abs/2603.24775>
+5. Raji, I. D., Smart, A., White, R. N., Mitchell, M., Gebru, T., Hutchinson, B., Smith-Loud, J., Theron, D., & Barnes, P. (2020). Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing. In Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT\* '20). ACM. <https://doi.org/10.1145/3351095.3372873>

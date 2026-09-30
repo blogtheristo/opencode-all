@@ -13,6 +13,53 @@ Status: DRAFT
 translation_of: process-models-world-model-and-hic.fi.md
 ai_translated: true
 note: "Visual not yet made — the SVG is a to-do."
+customer_value: "Une entreprise industrielle peut déjà limiter aujourd’hui, grâce au score de confiance, les cas où un agent d’IA agit sans humain, et arrêter une chaîne d’agents défaillante en une seule action – le cœur de la capacité d’intervention et d’arrêt qu’exige l’article 14 de l’AI Act de l’UE ; la passerelle BPMN, les liens avec les modèles de processus et l’historique des décisions du modèle du monde sont décrits ici comme prévus."
+routes: [roadmap]
+claims_checked: 2026-09-30
+sources:
+  - title: "World Models"
+    authors: "David Ha, Jürgen Schmidhuber"
+    year: 2018
+    venue: "arXiv preprint arXiv:1803.10122"
+    url: "https://arxiv.org/abs/1803.10122"
+    type: academic
+  - title: "Digital Twin AI: Opportunities and Challenges from Large Language Models to World Models"
+    authors: "Rong Zhou, Dongping Chen, Zihan Jia, Yao Su, Yixin Liu, Yiwen Lu, Dongwei Shi, Yue Huang, Tianyang Xu, et al."
+    year: 2026
+    venue: "arXiv preprint arXiv:2601.01321"
+    url: "https://arxiv.org/abs/2601.01321"
+    type: academic
+  - title: "Regulation (EU) 2024/1689 of the European Parliament and of the Council (Artificial Intelligence Act), Article 14: Human oversight"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union"
+    url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
+    accessed_via: "https://github.com/camlsys/aireg-bench/blob/main/articles.txt"
+    type: regulation
+  - title: "ManufacturingOntologies: International Society of Automation 95 (ISA 95 / IEC 62264)"
+    authors: "Digital Twin Consortium"
+    year: "n.d."
+    venue: "GitHub repository"
+    url: "https://github.com/digitaltwinconsortium/ManufacturingOntologies"
+    type: industry
+  - title: "Enable an industrial dataspace on Azure"
+    authors: "Microsoft"
+    year: "n.d."
+    venue: "Azure Architecture Center, Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/architecture/guide/iot/how-to-enable-industrial-dataspaces"
+    type: industry
+  - title: "BPMN primer; Service tasks; User tasks"
+    authors: "Camunda"
+    year: "n.d."
+    venue: "Camunda 8 documentation (camunda-docs repository)"
+    url: "https://github.com/camunda/camunda-docs/tree/main/docs/components/modeler/bpmn"
+    type: industry
+  - title: "OMG Systems Modeling Language (SysML) Version 2.1 Beta 2, Part 1: Language Specification"
+    authors: "Object Management Group"
+    year: 2026
+    venue: "OMG Systems Modeling Community, SysML v2 Release repository"
+    url: "https://github.com/Systems-Modeling/SysML-v2-Release/blob/master/doc/2a-OMG_Systems_Modeling_Language.pdf"
+    type: standard
 ---
 
 # Modèles de processus, Lifetime World Model et commandement humain
@@ -21,7 +68,7 @@ Réunir l’organisation d’automatisation DWS IQ (`dws10.com`) et le Lifetime 
 
 ## Un moteur intelligent a besoin d’un modèle du monde
 
-Livré à lui-même, un agent d’IA – un DWS IQ Skilled Agent, par exemple – n’est qu’un « moteur intelligent ». Pour fonctionner, il lui faut un modèle du monde (World Model) : une vision partagée et cohérente de l’état des systèmes, de qui fait quoi, avec quels pouvoirs et avec quelles conséquences.
+Livré à lui-même, un agent d’IA – un DWS IQ Skilled Agent, par exemple – n’est qu’un « moteur intelligent ». Pour fonctionner, il lui faut un modèle du monde (World Model) : une vision partagée et cohérente de l’état des systèmes, de qui fait quoi, avec quels pouvoirs et avec quelles conséquences. [1][2]
 
 La répartition des rôles est nette :
 
@@ -36,7 +83,7 @@ Les agents d’IA se répartissent en deux grandes familles, dont le besoin de s
 
 Les agents DWS IQ, eux, sont des agents d’arrière-plan au service de l’industrie et des entrepôts de données. Ils agissent à l’échelle macro et exécutent des processus métier et de production en plusieurs étapes, avec un effet direct sur les chaînes de production, les interfaces et les bases de données. Ils exigent donc une couche de gouvernance propre, pour que la supervision tienne même lorsqu’ils tournent en arrière-plan.
 
-Pour que l’industrie concilie un haut degré d’automatisation et la supervision humaine qu’exige l’article 14 de l’AI Act de l’UE – dans la mise en œuvre de DWS, le commandement humain (HIC) –, les agents DWS IQ sont gouvernés depuis un Panneau de contrôle unique inspiré de GitHub Copilot :
+Pour que l’industrie concilie un haut degré d’automatisation et la supervision humaine qu’exige l’article 14 de l’AI Act de l’UE [3] – dans la mise en œuvre de DWS, le commandement humain (HIC) –, les agents DWS IQ sont gouvernés depuis un Panneau de contrôle unique inspiré de GitHub Copilot:
 
 - **Une seule vue de lancement :** l’humain dirige le processus. Il lance le flux de travail d’un agent depuis une vue claire et suit l’avancement du processus en temps réel.
 - **Rôles de Skilled Agent :** le panneau de contrôle aiguille chaque étape du flux de travail vers des agents spécialisés à cet effet – un agent de contrôle qualité, d’analyse de données ou de logistique, par exemple – toujours selon les exigences de l’étape en question.
@@ -50,28 +97,28 @@ Au-delà de la méthodologie RUP (et des diagrammes UML), l’industrie recourt 
 
 ### ISA-95 : le niveau d’action et une colonne vertébrale verticale de la confiance
 
-ISA-95 (intégration entreprise–contrôle, IEC 62264) n’est pas un organigramme classique, mais la norme industrielle d’architecture des systèmes et d’interfaces de processus – la fameuse pyramide de l’automatisation. Elle définit la circulation de l’information entre la gestion d’entreprise (ERP), le pilotage de la production (MES), la supervision (SCADA) et les équipements de terrain (PLC/IoT).
+ISA-95 (intégration entreprise–contrôle, IEC 62264) n’est pas un organigramme classique, mais la norme industrielle d’architecture des systèmes et d’interfaces de processus – la fameuse pyramide de l’automatisation. [4] Elle définit la circulation de l’information entre la gestion d’entreprise (ERP), le pilotage de la production (MES), la supervision (SCADA) et les équipements de terrain (PLC/IoT).
 
-Pour l’agent, ISA-95 fixe le niveau d’action et les pouvoirs (Manifeste et registre des capacités, REG, et IDV). Un agent qui opère au niveau MES (niveau 3) requiert des délais de sécurité et de réaction tout autres qu’un agent qui touche directement au contrôle SCADA (niveau 2).
+Pour l’agent, ISA-95 fixe le niveau d’action et les pouvoirs (Manifeste et registre des capacités, REG, et IDV). Un agent qui opère au niveau MES (niveau 3) requiert des délais de sécurité et de réaction tout autres qu’un agent qui touche directement au contrôle SCADA (niveau 2). [5]
 
 Le plus grand défi de l’industrie, c’est la rupture de l’information et des habilitations entre les niveaux de gouvernance. C’est pourquoi le Lifetime World Model est placé à l’horizontale, en travers de toute la pyramide ISA-95. Lorsqu’un agent DWS IQ prend une décision au niveau MES, il vérifie en temps réel dans le Lifetime World Model le niveau d’action et l’autorisation humaine (IDV/TRS), laquelle provient du niveau ERP/RH (niveau 4). L’agent n’agit pas « à l’aveugle » dans son propre silo.
 
 ### BPMN 2.0 : un flux de travail exécutable qui bifurque selon la confiance
 
-BPMN 2.0 est le standard de facto commun à l’industrie et au logiciel pour modéliser processus métier et flux de travail. Les diagrammes BPMN ne sont pas de simples dessins : ils s’exécutent directement comme du code dans des moteurs de processus (Camunda, Flowable ou Zeebe, par exemple). BPMN est donc le langage idéal pour les agents DWS IQ : on peut définir dans le flux de travail une étape, une BPMN Service Task (voie automatique), que l’agent exécute en arrière-plan. Et parce que le diagramme est exécutable, il se raccorde aisément au panneau de contrôle unique.
+BPMN 2.0 est le standard de facto commun à l’industrie et au logiciel pour modéliser processus métier et flux de travail. Les diagrammes BPMN ne sont pas de simples dessins : ils s’exécutent directement comme du code dans des moteurs de processus (Camunda, Flowable ou Zeebe, par exemple). [6] BPMN est donc le langage idéal pour les agents DWS IQ : on peut définir dans le flux de travail une étape, une BPMN Service Task (voie automatique), que l’agent exécute en arrière-plan. [6] Et parce que le diagramme est exécutable, il se raccorde aisément au panneau de contrôle unique.
 
 Les diagrammes BPMN tracent les chemins que suivent les agents, et le score de confiance (TRS) vivant du Lifetime World Model est branché sur leurs embranchements conditionnels :
 
 - **TRS ≥ 85** → l’agent DWS IQ exécute la tâche automatiquement (BPMN Service Task).
-- **TRS < 85** → BPMN achemine la tâche vers un humain pour approbation (BPMN User Task, validation humaine).
+- **TRS < 85** → BPMN achemine la tâche vers un humain pour approbation (BPMN User Task, validation humaine). [6]
 
 Une anomalie, elle aussi, renvoie la tâche à un humain : si l’agent rencontre une anomalie, le processus BPMN la transmet automatiquement pour validation humaine. Cette validation accorde une autorisation temporaire, aussitôt réinscrite dans le Lifetime World Model. Le commandement humain n’est donc pas un contrôle à part, extérieur au processus, mais une branche en son sein.
 
 ### SysML : limites de sécurité cyber-physiques et machines à états
 
-SysML (langage de modélisation de systèmes) est une extension d’UML conçue pour modéliser des systèmes cyber-physiques complexes – matériel, logiciel, processus et humains. Il est très prisé dans les industries les plus lourdes : aéronautique, automobile, énergie et mécanique de haute exigence.
+SysML (langage de modélisation de systèmes) est un langage généraliste conçu pour modéliser des systèmes cyber-physiques complexes – matériel, logiciel, processus et humains. La version 1 était un profil d’UML ; la version 2, adoptée par l’OMG en 2025, repose sur son propre noyau KerML. [7] Il est surtout utilisé dans l’automobile et l’aéronautique.
 
-Dans l’industrie lourde, un agent ne doit jamais pousser une machine au-delà de ses seuils matériels. Les machines à états SysML (_State Machine Diagrams_) définissent les limites de sécurité physiques qu’un agent DWS IQ ne doit pas franchir. Si l’agent détecte une anomalie en production, il interroge l’état du modèle du monde. Si le modèle du monde signale une défaillance du système, le modèle SysML conduit le processus vers un état de repli maîtrisé (_Safe State_) et actionne immédiatement le frein d’urgence de KYA-S1 (TC4).
+Dans l’industrie lourde, un agent ne doit jamais pousser une machine au-delà de ses seuils matériels. Les machines à états SysML (_State Machine Diagrams_) définissent les limites de sécurité physiques qu’un agent DWS IQ ne doit pas franchir. [7] Si l’agent détecte une anomalie en production, il interroge l’état du modèle du monde. Si le modèle du monde signale une défaillance du système, le modèle SysML conduit le processus vers un état de repli maîtrisé (_Safe State_) et actionne immédiatement le frein d’urgence de KYA-S1 (TC4).
 
 ### VSM : chasser le gaspillage sans risque d’audit
 
@@ -105,3 +152,13 @@ D’abord, l’humain pilote l’ensemble depuis une seule vue. Le panneau de co
 Ensuite, le règlement des litiges change du tout au tout. En cas d’arrêt de production ou d’erreur, l’Attribution limitée des fautes (FLT) de KYA-S1 et l’historique du modèle du monde établissent en 72 heures s’il s’agissait d’une défaillance de connexion d’un équipement, d’un écart du modèle ou d’une saisie erronée par un humain.
 
 Les modèles de processus fixent les limites, le Lifetime World Model se souvient de ce qui s’est passé à l’intérieur, et l’humain décide où passent ces limites. En apportant aux agents d’arrière-plan DWS IQ le modèle de pilotage familier et sûr de GitHub Copilot, et en décrivant les flux de travail avec les diagrammes de processus RUP que l’industrie affectionne depuis longtemps, l’obligation de diriger l’IA cesse d’être un texte de loi pour devenir un avantage concurrentiel clair, pratique et évolutif.
+
+## Sources
+
+1. Ha, D., & Schmidhuber, J. (2018). World Models. arXiv preprint arXiv:1803.10122. <https://arxiv.org/abs/1803.10122>
+2. Zhou, R., Chen, D., Jia, Z., Su, Y., Liu, Y., Lu, Y., Shi, D., Huang, Y., Xu, T., et al. (2026). Digital Twin AI: Opportunities and Challenges from Large Language Models to World Models. arXiv preprint arXiv:2601.01321. <https://arxiv.org/abs/2601.01321>
+3. European Parliament and Council of the European Union (2024). Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 14: Human oversight. Official Journal of the European Union. <https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng>
+4. Digital Twin Consortium (n.d.). ManufacturingOntologies: International Society of Automation 95 (ISA 95 / IEC 62264). GitHub. <https://github.com/digitaltwinconsortium/ManufacturingOntologies>
+5. Microsoft (n.d.). Enable an industrial dataspace on Azure. Azure Architecture Center, Microsoft Learn. <https://learn.microsoft.com/azure/architecture/guide/iot/how-to-enable-industrial-dataspaces>
+6. Camunda (n.d.). BPMN primer; Service tasks; User tasks. Camunda 8 documentation. <https://github.com/camunda/camunda-docs/tree/main/docs/components/modeler/bpmn>
+7. Object Management Group (2026). OMG Systems Modeling Language (SysML) Version 2.1 Beta 2, Part 1: Language Specification. <https://github.com/Systems-Modeling/SysML-v2-Release/blob/master/doc/2a-OMG_Systems_Modeling_Language.pdf>

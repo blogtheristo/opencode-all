@@ -281,6 +281,8 @@ Source: `docs/sales/2026-09-28-aegis-pilot-market-research.md` (market research,
 
 14.19, 14.21, 14.22, 14.28, 14.35, 14.40, 14.43, 14.45, 14.47 — standards/competitive/technical-narrative value for pitch decks and investor material; no near-term buyer to route to outbound. Revisit at next `/retro`.
 
+**Agent reliability gap (★★☆☆☆, 2026-09-30, from blog `done-is-evidence-not-a-claim`, BLOG_STANDARD §17.3):** Ko et al. 2026 (arXiv:2608.19741, ThinkingBox-Bench): the strongest model passes 65 % of stateful business tasks first time, 91 % at least once in 20 attempts, but only 25 % in all 20. Buyer pain: agents that report success without the backend change. Product: done-gate / KYA-S1 evidence layer. Segment: enterprises moving agents from pilot to production workflows. No named account yet. Next action: use the three numbers in the Aegis Pilot and KYA-S1 pitch material.
+
 ## ★☆☆☆☆ — PhD-Only (No Sales Routing)
 
 14.18, 14.24, 14.27, 14.30, 14.33, 14.37, 14.39, 14.41, 14.42, 14.50, 14.51 — pure scientific/standards/historical framing, no product tie. `Sales Score: N/A — thematic/research only, no buyer or budget line identified.`

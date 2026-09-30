@@ -12,6 +12,52 @@ author: Risto Anton Päärni
 Status: DRAFT
 merged_from: [thinkingbox.md, done-is-a-command-result.md]
 note: "Visual not yet made — the SVG is a to-do. Merged text needs fresh HIC approval even though thinkingbox.md was approved."
+customer_value: "An enterprise buyer spends less reviewer time re-checking agent claims: a change counts as done only when a gate command shows it committed, pushed, tested and passing checks that failed before the work began, and the log of that result is the audit record — the gate DWS runs on its own repository today, not yet a packaged customer product."
+claims_checked: 2026-09-30
+routes: [truth, roadmap, sales]
+sources:
+  - title: "One Success Isn't Reliability: Thinkingbox, a Sandbox and Benchmark for Agents in Stateful Business Workflows"
+    authors: "Ko, Y.; Keramati, A.; Ferri, N.; Palmaz Lopez Pelaez, S.; Tsai, L.-C.; Wang, C.; Milletari, M.; Kundu, T.; Smolyakov, V.; Ólafsson, K.; Guy, T."
+    year: 2026
+    venue: "arXiv preprint arXiv:2608.19741"
+    url: https://arxiv.org/abs/2608.19741
+    type: academic
+  - title: "thinkingbox: a framework for defining tools as MCP servers, running LLM agents against them, and evaluating agent behavior"
+    authors: "Microsoft"
+    year: 2026
+    venue: "GitHub repository"
+    url: https://github.com/microsoft/thinkingbox
+    type: primary
+  - title: "thinkingbox-data: ThinkingBox-Bench v1.0 dataset and tool-server library"
+    authors: "Microsoft"
+    year: 2026
+    venue: "GitHub repository"
+    url: https://github.com/microsoft/thinkingbox-data
+    type: primary
+  - title: "τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains"
+    authors: "Yao, S.; Shinn, N.; Razavi, P.; Narasimhan, K."
+    year: 2024
+    venue: "arXiv preprint arXiv:2406.12045"
+    url: https://arxiv.org/abs/2406.12045
+    type: academic
+  - title: "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?"
+    authors: "Jimenez, C. E.; Yang, J.; Wettig, A.; Yao, S.; Pei, K.; Press, O.; Narasimhan, K."
+    year: 2023
+    venue: "arXiv preprint arXiv:2310.06770"
+    url: https://arxiv.org/abs/2310.06770
+    type: academic
+  - title: "Why Do Multi-Agent LLM Systems Fail?"
+    authors: "Cemri, M.; Pan, M. Z.; Yang, S.; Agrawal, L. A.; Chopra, B.; Tiwari, R.; Keutzer, K.; Parameswaran, A.; Klein, D.; Ramchandran, K.; Zaharia, M.; Gonzalez, J. E.; Stoica, I."
+    year: 2025
+    venue: "arXiv preprint arXiv:2503.13657"
+    url: https://arxiv.org/abs/2503.13657
+    type: academic
+  - title: "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act), Articles 12 and 14"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union, OJ L 2024/1689"
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+    type: regulation
 ---
 
 # Done Is Evidence, Not a Claim
@@ -22,9 +68,9 @@ It was not. The commit had never left the machine. Production never called the n
 
 ## The silent failure problem
 
-Your agents run. The transcript looks good. The user says "thanks." Then you check the database, the API logs, the side effects — and nothing happened. The agent hallucinated success.
+Your agents run. The transcript looks good. The user says "thanks." Then you check the database, the API logs, the side effects — and nothing happened. The agent hallucinated success. [1, 6]
 
-This is the gap between _saying_ you did something and _doing_ it. Eval frameworks measure transcript quality. They do not measure outcomes.
+This is the gap between _saying_ you did something and _doing_ it. Many evaluations still check the transcript or the function call, not whether the work got done. [1]
 
 For revenue engines — outbound campaigns, lead enrichment, targeting refinement, attribution — silent failures are not edge cases. They are existential. One agent that reports "campaign deployed" when nothing shipped, and your GTM burns credibility with one customer. One lead-enrichment agent that hallucinates new contact fields, and your sales team is chasing ghosts.
 
@@ -32,33 +78,29 @@ There are two answers, and this post is about both. The first is to audit agents
 
 ## Audit what the tools changed: ThinkingBox
 
-Microsoft built ThinkingBox to solve exactly this problem. At Lifetime, we have forked the repository, tailored it for revenue engines, and packaged it with DGX integration and 507 business-domain benchmarks.
+Microsoft built ThinkingBox to solve exactly this problem. [1, 2] At Lifetime, we have forked the repository to run it against our own agents.
 
-ThinkingBox runs agents in isolated, stateful tool environments via Model Context Protocol (MCP) servers. Each conversation spawns isolated tool processes with stdio transport, so every test case runs in a clean, reproducible sandbox.
+ThinkingBox runs agents in isolated, stateful tool environments via Model Context Protocol (MCP) servers. Each conversation spawns isolated tool processes with stdio transport, so every test case runs in a clean, reproducible sandbox. [1, 2, 3]
 
 The architecture inspects three things that transcript-only evals miss:
 
-- **Stateful workflows.** Real tool use is stateful — create a resource, update it, query the result. Most evals run single-turn calls. ThinkingBox lets agents execute multi-step workflows (call the API, check the response, retry or adapt) and inspects what the tools actually changed.
-- **Simulated users.** Agents often ask clarifying questions. ThinkingBox simulates user responses (via an LLM or prompt-driven) and verifies that the agent's final answer matches the spec. Single-turn evals miss this entirely.
-- **Side effect inspection.** The real signal is not "the agent said it worked." It is "the database shows the change," "the API returned success," or "the file was created." ThinkingBox inspects state before and after, flagging hallucinations where the agent claimed success but the tools show failure.
+- **Stateful workflows.** Real tool use is stateful — create a resource, update it, query the result. Most evals run single-turn calls. ThinkingBox lets agents execute multi-step workflows (call the API, check the response, retry or adapt) and inspects what the tools actually changed. [1, 4]
+- **Simulated users.** Agents often ask clarifying questions. ThinkingBox simulates user responses (via an LLM or prompt-driven) and verifies that the agent's final answer matches the spec. Single-turn evals miss this entirely. [1, 2, 4]
+- **Side effect inspection.** The real signal is not "the agent said it worked." It is "the database shows the change," "the API returned success," or "the file was created." ThinkingBox inspects state before and after, flagging hallucinations where the agent claimed success but the tools show failure. [1, 3]
 
 ## ThinkingBox-Bench: 507 real workflows
 
-We ship ThinkingBox-Bench with 507 executable tasks across five business domains:
+Microsoft's ThinkingBox-Bench has 507 executable tasks across five business domains: retail and e-commerce, travel and hospitality, auto insurance, internal IT support at a neobank, and IT and HR support at a consulting firm. [1, 3]
 
-- **Outbound and GTM:** campaign deployment, lead scoring, audience refinement.
-- **Data enrichment:** contact lookup, attribute extraction, data quality checks.
-- **Attribution and analytics:** event correlation, funnel analysis, cohort definition.
-- **Content and knowledge:** document processing, semantic search, knowledge base updates.
-- **Integration and orchestration:** API handoffs, cross-system sync, error recovery.
+The numbers are the argument. The strongest model in the paper passes 65 % of tasks on the first try and solves 91 % at least once in twenty attempts, but gets only 25 % right in all twenty. [1] One success is not reliability.
 
-Each task includes synthetic records, expected outcomes and pre-built MCP servers. You run your agent against it and get a pass or fail on actual side effects — not transcript sentiment.
+Each task comes with expected outcomes and isolated MCP tool sessions. You run your agent against it and get a pass or fail on actual side effects — not transcript sentiment. [1, 3]
 
 ## Local first, on DGX
 
 Open models on a desk-side NVIDIA DGX Spark now write real code. Not demos. Test suites, fixes, refactors. The tokens are ours, the data stays in the building, and the meter does not run.
 
-ThinkingBox runs there too. Our agent workloads default to local compute; cloud agents are secondary and need a documented reason. Each ThinkingBox-Bench task is a subprocess spawn plus an LLM call, and running 507 tasks × 20 iterations in the cloud is expensive. Locally, subprocess spawning is free — only LLM inference is billed. Development and staging run the bench on DGX through MCP process isolation, isolated completely from production data. Before promotion, every agent workflow runs the full bench. No surprises in production.
+ThinkingBox runs there too. Our agent workloads default to local compute; cloud agents are secondary and need a documented reason. Running 507 tasks × 20 attempts in the cloud is expensive, so we are bringing the bench to the DGX, isolated from production data. That runner is work in progress, not yet a shipped configuration.
 
 ## A harness where "done" is a command result
 
@@ -66,7 +108,7 @@ Auditing catches the failure afterwards. The harness is how we build work so tha
 
 Frontier models, Claude in our case, are very good at the other half of the job: breaking a goal into precise tasks, reviewing a diff, spotting what is out of scope. So we paired them with the local models. And because pairing is not a plan, here is the honest part.
 
-**The frontier model plans.** For every task it writes a small spec with checks — commands that must pass when the work is right. Every check has to fail before the work starts. A check that already passes proves nothing, so the harness refuses it.
+**The frontier model plans.** For every task it writes a small spec with checks — commands that must pass when the work is right. Every check has to fail before the work starts. A check that already passes proves nothing, so the harness refuses it. [5]
 
 **The local agent builds.** It runs on the DGX in fresh rounds, one task at a time, until a gate says done. Not until the agent says done. The gate runs the commands: committed, pushed, formatted, typed, linted, tested, and the task's own checks. Then it opens a pull request. It never merges.
 
@@ -84,13 +126,13 @@ A third pull request passed every check and still changed a base class it had no
 
 ## What neither tool promises
 
-> **The honest part.** A gate is only as strong as its weakest check. It cannot see scope, intent or taste. It will pass wrong work that its checks do not describe. Three pull requests are a story, not a statistic — we will publish numbers when we have enough of them.
+> **The honest part.** A gate is only as strong as its weakest check. It cannot see scope, intent or taste. It will pass wrong work that its checks do not describe. [6] Three pull requests are a story, not a statistic — we will publish numbers when we have enough of them.
 
-The same holds for a benchmark: it measures the outcomes its tasks describe, and nothing else. Evidence narrows the room for a false "done"; it does not replace a reviewer.
+The same holds for a benchmark: it measures the outcomes its tasks describe, and nothing else. [1] Evidence narrows the room for a false "done"; it does not replace a reviewer.
 
 ## Records and oversight under the EU AI Act
 
-The EU AI Act asks for records of what an automated system did (Article 12) and for real human oversight (Article 14). Both halves of this approach produce the first as a side effect. A green ThinkingBox-Bench run is auditable, reproducible, and measures outcomes — not hallucination. In the harness, every task has a spec, every "done" has a command log, every merge has a human or a reviewer behind it.
+For high-risk AI systems, the EU AI Act asks for records of what the system did (Article 12) and for real human oversight (Article 14). [7] Both halves of this approach produce the first as a side effect. A green ThinkingBox-Bench run is auditable, reproducible, and measures outcomes — not hallucination. [1] In the harness, every task has a spec, every "done" has a command log, every merge has a human or a reviewer behind it.
 
 What neither produces for free is the reason a change was allowed. That has to be written before the work starts, in the spec, next to the checks. Rationale reconstructed afterwards is not a record; it is a story.
 
@@ -108,7 +150,7 @@ Imagine deploying 50 agents, and one starts hallucinating subtly on Tuesdays. Wi
 - **Your team needs confidence.** One agent that fails silently costs more than a day of eval infrastructure.
 - **Revenue engines are binary.** Your enrichment agent either enriched the lead or it did not. Your outbound agent either deployed the campaign or it lied about it.
 
-To start with ThinkingBox, clone our fork, [github.com/blogtheristo/dws-thinkingbox](https://github.com/blogtheristo/dws-thinkingbox) (MCP session proxy, agent/user/judge loop, 507 benchmarks, DGX runner config), next to the upstream harness and process isolation layer at [github.com/microsoft/thinkingbox](https://github.com/microsoft/thinkingbox). Define tool mocks as MCP servers, write scenarios and test cases in YAML, run `tb infer` against ThinkingBox-Bench with your agent, and use the results as CI gates and audit trails.
+To start with ThinkingBox, clone our fork, [github.com/blogtheristo/dws-thinkingbox](https://github.com/blogtheristo/dws-thinkingbox) (our working fork), next to the upstream harness and process isolation layer at [github.com/microsoft/thinkingbox](https://github.com/microsoft/thinkingbox). Define tool mocks as MCP servers, write scenarios and test cases in YAML, run `tb infer` against ThinkingBox-Bench with your agent, and use the results as CI gates and audit trails. [2]
 
 ## The short version
 
@@ -119,6 +161,16 @@ To start with ThinkingBox, clone our fork, [github.com/blogtheristo/dws-thinking
 - "Done" is a command result, never a sentence — and the gate must be at least as strict as CI.
 - Scope is still a human job.
 - The log of what happened falls out of the process for free. The reason a change is allowed does not — write it into the spec before the work starts.
+
+## Sources
+
+1. Ko, Y., Keramati, A., Ferri, N., et al. (2026). _One Success Isn't Reliability: Thinkingbox, a Sandbox and Benchmark for Agents in Stateful Business Workflows._ arXiv:2608.19741. https://arxiv.org/abs/2608.19741
+2. Microsoft (2026). _thinkingbox_ — framework for tools as MCP servers, agent runs and outcome evaluation. GitHub. https://github.com/microsoft/thinkingbox
+3. Microsoft (2026). _thinkingbox-data_ — ThinkingBox-Bench v1.0 dataset and tool servers. GitHub. https://github.com/microsoft/thinkingbox-data
+4. Yao, S., Shinn, N., Razavi, P., Narasimhan, K. (2024). _τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains._ arXiv:2406.12045. https://arxiv.org/abs/2406.12045
+5. Jimenez, C. E., Yang, J., Wettig, A., Yao, S., Pei, K., Press, O., Narasimhan, K. (2023). _SWE-bench: Can Language Models Resolve Real-World GitHub Issues?_ arXiv:2310.06770. https://arxiv.org/abs/2310.06770
+6. Cemri, M., Pan, M. Z., Yang, S., et al. (2025). _Why Do Multi-Agent LLM Systems Fail?_ arXiv:2503.13657. https://arxiv.org/abs/2503.13657
+7. Regulation (EU) 2024/1689 (Artificial Intelligence Act), Art. 12 (Record-keeping) and Art. 14 (Human oversight). Official Journal of the European Union. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
 
 ---
 
