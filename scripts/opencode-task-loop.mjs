@@ -290,101 +290,87 @@ function runOpencode(t, wt, prompt, round) {
 }
 
 // Checkpoint: a round that crashed, timed out or ran into a DGX reboot leaves its edits
-// uncommitted or unpushed in the worktree. Commit and push them with a loop-written handoff so
-// the work survives the machine and the next round (or the HIC) can pick it up. WIP only —
-// the done gate still judges the branch. Runs before every round and after every round.
+// uncommitted or unpushed in the worktree. Save them so the work survives the machine:
+//   - unpushed commits the model made are pushed to the task branch;
+//   - uncommitted edits (tracked and untracked) are snapshotted to checkpoint/<branch> through a
+//     temporary index. The task branch and the worktree are not touched, so tool leftovers
+//     (.opencode/package.json, scratch scripts) never land in the task's PR. The handoff note
+//     the loop writes stays uncommitted for the next round to read and commit.
+// Runs before every task and after every round.
 function checkpoint(t, wt, label, gateOut) {
-  const dirty = tryGit(wt, 'status', '--porcelain') ?? '';
-  const upstream = tryGit(wt, 'rev-parse', '--abbrev-ref', '@{u}');
-  // No upstream yet: only commits beyond the base count, so a fresh task is not pushed empty.
-  const since = upstream ?? `origin/${t.spec.base ?? 'main'}`;
-  const unpushed = Number(tryGit(wt, 'rev-list', '--count', `${since}..HEAD`) ?? 0);
-  if (!dirty && !unpushed) return;
-  const handoff = join(wt, '.claude', 'handoffs', `${t.branch}.md`);
-  mkdirSync(dirname(handoff), { recursive: true });
-  const fails = (gateOut ?? '')
-    .split(/\n| \| /)
-    .filter((l) => /^\s*FAIL/.test(l))
-    .map((l) => `- ${l.trim()}`);
-  appendFileSync(
-    handoff,
-    [
-      '',
-      `## Loop checkpoint — ${now()} — ${label}`,
-      '',
-      `Uncommitted or unpushed work was saved by opencode-task-loop. Gate before this round:`,
-      ...(fails.length ? fails : ['- (no FAIL lines recorded)']),
-      '',
-    ].join('\n'),
-  );
-  tryGit(wt, 'add', '-A');
-  // --no-verify: WIP must be saved even when it does not typecheck; the pre-push guards and
-  // the done gate still apply.
-  tryGit(wt, 'commit', '-q', '--no-verify', '-m', `chore(loop): checkpoint ${t.branch} — ${label}`);
-  const push = spawnSync('git', ['push', '-q', '-u', 'origin', t.branch], {
-    cwd: wt,
-    encoding: 'utf8',
-    env: { ...process.env, SKIP_LOCAL_CI: '1' },
-    timeout: 10 * 60 * 1000,
-  });
-  alert(
-    `${t.branch}: checkpoint (${label}) ${push.status === 0 ? 'pushed' : `saved locally, push failed: ${(push.stderr || '').trim().split('\n')[0]}`}`,
-  );
-}
+  const ident = {
+    GIT_AUTHOR_NAME: process.env.GIT_AUTHOR_NAME ?? 'Risto Anton Päärni (opencode)',
+    GIT_AUTHOR_EMAIL: process.env.GIT_AUTHOR_EMAIL ?? 'opencode@lifetime.fi',
+    GIT_COMMITTER_NAME: process.env.GIT_COMMITTER_NAME ?? 'Risto Anton Päärni (opencode)',
+    GIT_COMMITTER_EMAIL: process.env.GIT_COMMITTER_EMAIL ?? 'opencode@lifetime.fi',
+  };
+  const push = (ref) =>
+    spawnSync('git', ['push', '-q', '-f', 'origin', ref], {
+      cwd: wt,
+      encoding: 'utf8',
+      env: { ...process.env, SKIP_LOCAL_CI: '1' },
+      timeout: 10 * 60 * 1000,
+    });
+  const saved = [];
 
-// A task is settled when its work has already reached main or its PR is gone. Re-running it
-// only produces a duplicate PR: on 29-30.09.2026 a spec edit re-queued five merged tasks and
-// the loop opened #2262, #2264, #2265, #2215 and #2259 for work main already had.
-const ghJson = (cwd, ...a) => {
-  const r = spawnSync('gh', a, { cwd, encoding: 'utf8', timeout: 60 * 1000 });
-  if (r.status !== 0) return null;
-  try {
-    return JSON.parse(r.stdout);
-  } catch {
-    return null;
+  // 1. Commits the model made but did not push.
+  const upstream = tryGit(wt, 'rev-parse', '--abbrev-ref', '@{u}');
+  const since = upstream ?? `origin/${t.spec.base ?? 'main'}`;
+  if (Number(tryGit(wt, 'rev-list', '--count', `${since}..HEAD`) ?? 0) > 0) {
+    const r = spawnSync('git', ['push', '-q', '-u', 'origin', t.branch], {
+      cwd: wt,
+      encoding: 'utf8',
+      env: { ...process.env, SKIP_LOCAL_CI: '1' },
+      timeout: 10 * 60 * 1000,
+    });
+    saved.push(r.status === 0 ? 'commits pushed' : 'commit push failed');
   }
-};
-function settled(t, st) {
-  const prs = ghJson(
-    PRIMARY,
-    'pr',
-    'list',
-    '--head',
-    t.branch,
-    '--state',
-    'all',
-    '--json',
-    'number,state',
-  );
-  if (prs === null) return null; // gh unavailable: do not guess
-  if (prs.some((p) => p.state === 'OPEN')) return null;
-  const mine = t.spec.pr ? prs.find((p) => p.number === t.spec.pr) : null;
-  if (t.spec.pr && (mine?.state ?? 'CLOSED') !== 'OPEN')
-    return `PR #${t.spec.pr} is ${(mine?.state ?? 'not open').toLowerCase()}`;
-  const merged = prs.find((p) => p.state === 'MERGED');
-  if (merged) return `PR #${merged.number} for this branch is merged`;
-  // Acceptance already true on main (loop-task.mjs requires every check to fail on the code of
-  // its day, so passing now means the work landed some other way). Only judged in a primary
-  // checkout that equals origin/main; cached per spec version and main commit.
-  if (t.spec.pr || !t.spec.checks?.length) return null;
-  tryGit(PRIMARY, 'fetch', '-q', 'origin', 'main');
-  const mainSha = tryGit(PRIMARY, 'rev-parse', 'origin/main');
-  if (!mainSha || tryGit(PRIMARY, 'rev-parse', 'HEAD') !== mainSha) return null;
-  if (tryGit(PRIMARY, 'status', '--porcelain', '--untracked-files=no')) return null;
-  const key = `${t.specHash}@${mainSha}`;
-  if (st.mainCheck?.key !== key) {
-    const pass = t.spec.checks.every(
-      (c) =>
-        spawnSync('bash', ['-c', c.run], {
-          cwd: PRIMARY,
-          encoding: 'utf8',
-          timeout: 15 * 60 * 1000,
-          maxBuffer: 64 * 1024 * 1024,
-        }).status === 0,
+
+  // 2. Uncommitted edits → checkpoint/<branch>, via a temporary index.
+  if (tryGit(wt, 'status', '--porcelain')) {
+    const handoff = join(wt, '.claude', 'handoffs', `${t.branch}.md`);
+    mkdirSync(dirname(handoff), { recursive: true });
+    const fails = (gateOut ?? '')
+      .split(/\n| \| /)
+      .filter((l) => /^\s*FAIL/.test(l))
+      .map((l) => `- ${l.trim()}`);
+    appendFileSync(
+      handoff,
+      [
+        '',
+        `## Loop checkpoint — ${now()} — ${label}`,
+        '',
+        `Uncommitted work was snapshotted to \`checkpoint/${t.branch}\` (not this branch).`,
+        'Commit what belongs to the task; leave tool leftovers out. Gate before this round:',
+        ...(fails.length ? fails : ['- (no FAIL lines recorded)']),
+        '',
+      ].join('\n'),
     );
-    st.mainCheck = { key, pass };
+    const gitDir = tryGit(wt, 'rev-parse', '--absolute-git-dir');
+    const env = { ...process.env, ...ident, GIT_INDEX_FILE: join(gitDir, 'loop-checkpoint.index') };
+    const g = (...a) => spawnSync('git', a, { cwd: wt, encoding: 'utf8', env });
+    g('read-tree', 'HEAD');
+    g('add', '-A');
+    const tree = g('write-tree').stdout.trim();
+    const commit = g(
+      'commit-tree',
+      tree,
+      '-p',
+      'HEAD',
+      '-m',
+      `chore(loop): checkpoint ${t.branch} — ${label}`,
+    ).stdout.trim();
+    if (commit) {
+      const ref = `refs/heads/checkpoint/${t.branch}`;
+      tryGit(wt, 'update-ref', ref, commit);
+      saved.push(
+        push(`${ref}:${ref}`).status === 0
+          ? `snapshot → checkpoint/${t.branch}`
+          : 'snapshot saved locally, push failed',
+      );
+    }
   }
-  return st.mainCheck.pass ? 'every acceptance check already passes on origin/main' : null;
+  if (saved.length) alert(`${t.branch}: checkpoint (${label}) — ${saved.join('; ')}`);
 }
 
 function workTask(t, state) {
