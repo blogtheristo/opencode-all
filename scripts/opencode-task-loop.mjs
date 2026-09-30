@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Evidence: Tool=Claude Code Model=anthropic Agent=opencode-task-loop Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic/claude-opus-5-5 Agent=opencode-task-loop Date=2026-09-30
 // Audit trail: git log -- scripts/opencode-task-loop.mjs
 /**
  * opencode-task-loop — run OpenCode unattended from task to task, with no HIC between sessions.
@@ -214,6 +214,9 @@ function runOpencode(t, wt, prompt, round) {
   const env = {
     ...process.env,
     DWS_DONE_GATE: '0', // the loop gates every round itself
+    // OpenCode takes its session directory from PWD, not cwd: without this every round
+    // edits and commits in the primary checkout instead of the task worktree (29.09.2026).
+    PWD: wt,
     // CLAUDE.md Tool Git Identity Rule; GH007-safe (not a private address on the account).
     GIT_AUTHOR_NAME: process.env.GIT_AUTHOR_NAME ?? 'Risto Anton Päärni (opencode)',
     GIT_AUTHOR_EMAIL: process.env.GIT_AUTHOR_EMAIL ?? 'opencode@lifetime.fi',
@@ -244,6 +247,49 @@ function runOpencode(t, wt, prompt, round) {
     `${r.stdout ?? ''}${r.stderr ?? ''}\n----- exit ${r.status}${r.error ? ` (${r.error.message})` : ''} -----\n`,
   );
   return r.status === 0;
+}
+
+// Checkpoint: a round that crashed, timed out or ran into a DGX reboot leaves its edits
+// uncommitted or unpushed in the worktree. Commit and push them with a loop-written handoff so
+// the work survives the machine and the next round (or the HIC) can pick it up. WIP only —
+// the done gate still judges the branch. Runs before every round and after every round.
+function checkpoint(t, wt, label, gateOut) {
+  const dirty = tryGit(wt, 'status', '--porcelain') ?? '';
+  const upstream = tryGit(wt, 'rev-parse', '--abbrev-ref', '@{u}');
+  // No upstream yet: only commits beyond the base count, so a fresh task is not pushed empty.
+  const since = upstream ?? `origin/${t.spec.base ?? 'main'}`;
+  const unpushed = Number(tryGit(wt, 'rev-list', '--count', `${since}..HEAD`) ?? 0);
+  if (!dirty && !unpushed) return;
+  const handoff = join(wt, '.claude', 'handoffs', `${t.branch}.md`);
+  mkdirSync(dirname(handoff), { recursive: true });
+  const fails = (gateOut ?? '')
+    .split(/\n| \| /)
+    .filter((l) => /^\s*FAIL/.test(l))
+    .map((l) => `- ${l.trim()}`);
+  appendFileSync(
+    handoff,
+    [
+      '',
+      `## Loop checkpoint — ${now()} — ${label}`,
+      '',
+      `Uncommitted or unpushed work was saved by opencode-task-loop. Gate before this round:`,
+      ...(fails.length ? fails : ['- (no FAIL lines recorded)']),
+      '',
+    ].join('\n'),
+  );
+  tryGit(wt, 'add', '-A');
+  // --no-verify: WIP must be saved even when it does not typecheck; the pre-push guards and
+  // the done gate still apply.
+  tryGit(wt, 'commit', '-q', '--no-verify', '-m', `chore(loop): checkpoint ${t.branch} — ${label}`);
+  const push = spawnSync('git', ['push', '-q', '-u', 'origin', t.branch], {
+    cwd: wt,
+    encoding: 'utf8',
+    env: { ...process.env, SKIP_LOCAL_CI: '1' },
+    timeout: 10 * 60 * 1000,
+  });
+  alert(
+    `${t.branch}: checkpoint (${label}) ${push.status === 0 ? 'pushed' : `saved locally, push failed: ${(push.stderr || '').trim().split('\n')[0]}`}`,
+  );
 }
 
 function workTask(t, state) {
@@ -278,6 +324,7 @@ function workTask(t, state) {
 
   const wt = ensureWorktree(t);
   // Judge the loop's own work from where this task (spec version) started, not from main.
+  checkpoint(t, wt, 'left over from an interrupted run', st.lastGate);
   st.startHead ??= tryGit(wt, 'rev-parse', 'HEAD');
   let gate = runGate(wt, st.startHead);
   while (!gate.done && st.rounds < max) {
@@ -290,6 +337,12 @@ function workTask(t, state) {
     };
     alert(`${t.branch}: round ${st.rounds}/${max} started`);
     const ok = runOpencode(t, wt, roundPrompt(t, gate.out, st.rounds, max), st.rounds);
+    checkpoint(
+      t,
+      wt,
+      `round ${st.rounds} ${ok ? 'finished' : 'exited non-zero/timeout'}`,
+      gate.out,
+    );
     gate = runGate(wt, st.startHead);
     const after = {
       head: tryGit(wt, 'rev-parse', 'HEAD'),
@@ -332,6 +385,10 @@ function openPr(t, wt, gateOut) {
     'select(.state=="OPEN") | .url',
   );
   if (existing.status === 0 && existing.stdout.trim()) return existing.stdout.trim();
+  // A task whose checks already pass on the base has nothing to review; gh would only fail.
+  tryGit(wt, 'fetch', '-q', 'origin', base);
+  if (tryGit(wt, 'rev-list', '--count', `origin/${base}..HEAD`)?.trim() === '0')
+    return `no PR — no commits beyond origin/${base} (already satisfied on ${base})`;
   const body = [
     `Task: ${t.spec.task ?? t.branch} — run unattended by \`scripts/opencode-task-loop.mjs\`.`,
     `Acceptance spec: \`.claude/done/${t.branch}.json\`.`,

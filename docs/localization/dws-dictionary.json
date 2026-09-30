@@ -52,7 +52,7 @@
       "sv": "Aegis",
       "de": "Aegis",
       "fr": "Aegis",
-      "ontologyId": "none",
+      "ontologyId": "sovereignty",
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "seo": true
@@ -107,7 +107,7 @@
       "sv": "Dubbelanvändning",
       "de": "Dual-Use",
       "fr": "Double usage",
-      "ontologyId": "none",
+      "ontologyId": "compliance_agent",
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "seo": true
@@ -128,7 +128,7 @@
       "sv": "CLOUD Act",
       "de": "CLOUD Act",
       "fr": "CLOUD Act",
-      "ontologyId": "none",
+      "ontologyId": "sovereignty",
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "seo": true
@@ -139,7 +139,7 @@
       "sv": "EU AI Act",
       "de": "EU AI Act",
       "fr": "AI Act de l'UE",
-      "ontologyId": "none",
+      "ontologyId": "compliance_agent",
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "seo": true
@@ -150,7 +150,7 @@
       "sv": "Artikel 12",
       "de": "Artikel 12",
       "fr": "Article 12",
-      "ontologyId": "none",
+      "ontologyId": "agent_auditing",
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "seo": true
@@ -161,7 +161,7 @@
       "sv": "Känn din agent",
       "de": "Kenne deinen Agenten",
       "fr": "Connaissez votre agent",
-      "ontologyId": "none",
+      "ontologyId": "kya_governance",
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "seo": true
@@ -172,7 +172,7 @@
       "sv": "Agent isolering",
       "de": "Agenten-Isolierung",
       "fr": "Isolation de l'agent",
-      "ontologyId": "none",
+      "ontologyId": "infrastructure",
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "seo": true
@@ -297,7 +297,7 @@
       "sv": "DWS IQ",
       "de": "DWS IQ",
       "fr": "DWS IQ",
-      "ontologyId": "none",
+      "ontologyId": "dws_platform",
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "seo": true
@@ -369,7 +369,7 @@
       "sv": "Artikel 14",
       "de": "Artikel 14",
       "fr": "Article 14",
-      "ontologyId": "none",
+      "ontologyId": "kya_governance",
       "machineTranslationReview": "pending_named_human",
       "article50": true,
       "seo": true
@@ -1024,7 +1024,7 @@
       "sv": "ISA-95 (integration av affärs- och styrsystem)",
       "de": "ISA-95 (Integration von Unternehmens- und Leitsystemen)",
       "fr": "ISA-95 (intégration entreprise–contrôle)",
-      "ontologyId": "none",
+      "ontologyId": "process_model",
       "source": "docs/blog-drafts/teollisuuden-prosessikuvaustavat-ja-tekoalyagentit.md",
       "seo": true
     },
@@ -1034,7 +1034,7 @@
       "sv": "SysML (systemmodelleringsspråk)",
       "de": "SysML (Systemmodellierungssprache)",
       "fr": "SysML (langage de modélisation de systèmes)",
-      "ontologyId": "none",
+      "ontologyId": "process_model",
       "source": "docs/blog-drafts/teollisuuden-prosessikuvaustavat-ja-tekoalyagentit.md",
       "seo": true
     },
@@ -1044,7 +1044,7 @@
       "sv": "Värdeflödesanalys (VSM)",
       "de": "Wertstromanalyse (VSM)",
       "fr": "Cartographie de la chaîne de valeur (VSM)",
-      "ontologyId": "none",
+      "ontologyId": "process_model",
       "source": "docs/blog-drafts/teollisuuden-prosessikuvaustavat-ja-tekoalyagentit.md",
       "seo": true
     },
@@ -1054,7 +1054,7 @@
       "sv": "SIPOC",
       "de": "SIPOC",
       "fr": "SIPOC",
-      "ontologyId": "none",
+      "ontologyId": "process_model",
       "source": "docs/blog-drafts/teollisuuden-prosessikuvaustavat-ja-tekoalyagentit.md",
       "seo": true
     },

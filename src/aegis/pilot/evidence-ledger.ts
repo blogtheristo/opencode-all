@@ -55,11 +55,16 @@ export type LedgerEventType =
   | 'system.uplink_probe'
   | 'system.degraded'
   | 'system.reconcile'
+  // Segments and retention (ledger-segments.ts, plan item C2)
+  | 'system.segment_seal'
+  | 'system.segment_pruned'
   | 'system.agent_terminated'
   | 'workflow.start'
   | 'workflow.complete'
   | 'workflow.failed'
   | 'acceptance.record'
+  | 'authority.grant'
+  | 'authority.revoke'
   // Decision journey (decision-authority.ts): the operator's signed decision on a
   // recommendation, and the measured outcome of an accepted one.
   | 'human.decide'
@@ -111,6 +116,11 @@ export interface LedgerOptions {
   publicKey?: KeyObject;
   /** Truncate a torn final line (crash mid-write) and log it as an incident instead of refusing. */
   repairTornTail?: boolean;
+  /**
+   * Extra genesis detail for a new segment: the signed link to the previous
+   * segment's sealed head (ledger-segments.ts). Cannot override site/org/format.
+   */
+  genesisDetail?: Record<string, unknown>;
 }
 
 export interface LedgerVerification {
@@ -166,6 +176,19 @@ export function readLedgerEvents(path: string): LedgerEvent[] {
  * Verify a ledger file. Pure read; safe to run while a writer is active.
  * Window bounds (`from`/`to`) restrict gap detection to an acceptance window.
  */
+/** Agent work events: what a stopped agent may never record again. */
+export const AGENT_WORK_EVENTS: ReadonlySet<LedgerEventType> = new Set([
+  'agent.decide',
+  'tool.invoke',
+]);
+
+/** Agents stopped by an accepted operator command (the stop "tombstone"). */
+function stoppedAgentsIn(e: Pick<LedgerEvent, 'event_type' | 'detail'>): string[] {
+  if (e.event_type !== 'human.override') return [];
+  const stopped = e.detail.agents_stopped;
+  return Array.isArray(stopped) ? stopped.filter((x): x is string => typeof x === 'string') : [];
+}
+
 export function verifyLedger(
   path: string,
   opts: { publicKey?: KeyObject; maxGapMs?: number; from?: Date; to?: Date } = {},
@@ -211,6 +234,7 @@ function verifyEvents(
 
   let prev = GENESIS_HASH;
   let prevTs: number | null = null;
+  const tombstoned = new Set<string>();
   const from = opts.from?.getTime() ?? -Infinity;
   const to = opts.to?.getTime() ?? Infinity;
 
@@ -238,6 +262,12 @@ function verifyEvents(
         result.gaps.push({ afterSeq: e.seq - 1, gapMs: ts - prevTs });
       }
     }
+    // Tombstone: an accepted stop is terminal for that agent. Any agent work
+    // recorded after it makes the ledger invalid, however it got there.
+    if (e.agent_id && AGENT_WORK_EVENTS.has(e.event_type) && tombstoned.has(e.agent_id)) {
+      return fail(e.seq, `agent ${e.agent_id} recorded work after its stop (tombstone violated)`);
+    }
+    for (const id of stoppedAgentsIn(e)) tombstoned.add(id);
     prevTs = ts;
     prev = event_hash;
   }
@@ -257,6 +287,8 @@ export class EvidenceLedger {
   /** Last written timestamp (ms): appends never move time backwards (verifyLedger fails on that). */
   private lastTs: number;
   private closed = false;
+  /** Agents with an accepted stop: their work is refused (see AGENT_WORK_EVENTS). */
+  private readonly tombstoned = new Set<string>();
   private readonly lockPath: string;
   private readonly now: () => Date;
 
@@ -315,7 +347,12 @@ export class EvidenceLedger {
         ledger.append({
           event_type: 'system.genesis',
           trace_id: randomUUID(),
-          detail: { site_id: opts.siteId, org_id: opts.orgId, format: 'aegis-pilot-ledger/1' },
+          detail: {
+            ...opts.genesisDetail,
+            site_id: opts.siteId,
+            org_id: opts.orgId,
+            format: 'aegis-pilot-ledger/1',
+          },
         });
       }
       if (tornBytes > 0) {
@@ -325,6 +362,8 @@ export class EvidenceLedger {
           detail: { kind: 'torn-tail-repaired', bytes_discarded: tornBytes },
         });
       }
+      for (const e of parseLedger(path).events)
+        for (const id of stoppedAgentsIn(e)) ledger.tombstoned.add(id);
       return ledger;
     } catch (err) {
       releaseLock(lockPath);
@@ -339,6 +378,20 @@ export class EvidenceLedger {
   /** Append one event: write, fsync, then advance the chain. Synchronous by design. */
   append(input: LedgerEventInput): LedgerEvent {
     if (this.closed) throw new Error('ledger is closed');
+    if (
+      input.agent_id &&
+      AGENT_WORK_EVENTS.has(input.event_type) &&
+      this.tombstoned.has(input.agent_id)
+    ) {
+      // The attempt itself is evidence: recorded as an incident, then refused.
+      this.append({
+        event_type: 'incident',
+        trace_id: input.trace_id,
+        agent_id: input.agent_id,
+        detail: { kind: 'work-after-stop-refused', attempted: input.event_type },
+      });
+      throw new AgentStopped(input.agent_id);
+    }
     // An isolated site's clock can step back (NTP correction, RTC reset) between two
     // writers. Clamp to the last timestamp and record the step, instead of writing an
     // event that would make the whole chain fail verification.
@@ -377,6 +430,7 @@ export class EvidenceLedger {
     this.seq++;
     this.prevHash = event_hash;
     this.lastTs = ts;
+    for (const id of stoppedAgentsIn(event)) this.tombstoned.add(id);
     return event;
   }
 
@@ -387,6 +441,17 @@ export class EvidenceLedger {
     }, intervalMs);
     timer.unref?.();
     return () => clearInterval(timer);
+  }
+
+  /**
+   * Close the file but keep the single-writer lock, so no other writer can append
+   * between a segment's seal event and the roll. Call the returned release once.
+   */
+  closeHoldingLock(): () => void {
+    if (this.closed) throw new Error('ledger is closed');
+    this.closed = true;
+    closeSync(this.fd);
+    return () => releaseLock(this.lockPath);
   }
 
   close(): void {
@@ -430,5 +495,13 @@ function releaseLock(lockPath: string): void {
     unlinkSync(lockPath);
   } catch {
     // already gone
+  }
+}
+
+/** Thrown when a stopped agent's work reaches the ledger. The refusal is itself recorded. */
+export class AgentStopped extends Error {
+  constructor(readonly agentId: string) {
+    super(`agent ${agentId} was stopped by an operator; its work is refused`);
+    this.name = 'AgentStopped';
   }
 }

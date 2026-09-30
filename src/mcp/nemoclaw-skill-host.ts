@@ -328,7 +328,7 @@ export class NemoClawSkillHost {
       );
     }
 
-    // Per-skill OpenShell/Firecracker sandbox (tier resolved from ATS).
+    // Per-skill sandbox tier model (tier resolved from ATS); no OS sandbox yet.
     const sandbox = NemoClawSandbox.create({
       agentId: req.skill,
       kyaSessionId: req.kyaSessionId,

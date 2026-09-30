@@ -456,7 +456,7 @@ Human Operator (IDV Verified, KYA Score: 87)
             If the parent agent has egress to <code>api.tencent.com</code> and
             <code>microsoft.com</code>, but the child&rsquo;s manifest only requests
             <code>api.tencent.com</code>, the child gets <strong>only</strong>
-            <code>api.tencent.com</code>. The intersection is enforced at the Firecracker VMM layer
+            <code>api.tencent.com</code>. The intersection is enforced at the sandbox layer (OpenShell network policy today; Firecracker VMM on the roadmap)
             &mdash; not in application code.
           </p>
         </div>
@@ -498,7 +498,7 @@ Human Operator (IDV Verified, KYA Score: 87)
       </div>
 
       <pre>
-IDV Risk Webhook --&gt; DWS Policy Engine --&gt; Firecracker SIGKILL
+IDV Risk Webhook --&gt; DWS Policy Engine --&gt; Sandbox SIGKILL   
                                 |
                                 +-- Level 1: Parent Agent    [FROZEN: 12ms]
                                 +-- Level 2: Child Agent     [FROZEN: 89ms]
@@ -694,7 +694,7 @@ IDV Risk Webhook --&gt; DWS Policy Engine --&gt; Firecracker SIGKILL
             </tr>
             <tr>
               <td><strong>Isolation Layer</strong></td>
-              <td>Firecracker MicroVM (hardware-level)</td>
+              <td>OpenShell sandbox (Landlock, seccomp, network namespace); Firecracker MicroVM on the roadmap</td>
             </tr>
             <tr>
               <td><strong>ATS Formula</strong></td>

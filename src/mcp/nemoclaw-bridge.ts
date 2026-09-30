@@ -4,7 +4,8 @@
  * NemoClaw MCP Bridge — DWS IQ 6 Agent Integration
  *
  * JSON-RPC 2.0 adapter connecting NemoClaw skills to DWS agents.
- * All calls are sandboxed inside KYA-governed Firecracker MicroVMs.
+ * All calls pass the KYA sandbox tier gate (NemoClawSandbox). That gate is an in-process
+ * policy model: it does not start a MicroVM or an OS sandbox today (see nemoclaw-sandbox.ts).
  *
  * Security constraints (from DWS security assessment, Feb 2026):
  *   - Community skills: BLOCKED (no auto-install)

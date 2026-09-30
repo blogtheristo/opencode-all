@@ -10,6 +10,25 @@ import { describe, expect, it, type Mock, vi } from 'vitest';
 import { ScheduleGeniusAgent } from '../../agents/schedule-genius.agent.js';
 import type { AgentContext } from '../../agents/types.js';
 
+// ============ MOCK LLM CLIENT ============
+
+class _MockLLMClient {
+  constructor(private readonly replies: string[]) {}
+  private callIndex = 0;
+
+  async chat(
+    _messages: Array<{ role: 'system' | 'user' | 'assistant' | 'tool'; content: string }>,
+  ): Promise<{ content: string; model: string; inputTokens: number; outputTokens: number }> {
+    const reply = this.replies[Math.min(this.callIndex++, this.replies.length - 1)];
+    return {
+      content: reply,
+      model: 'mock-model',
+      inputTokens: reply.length,
+      outputTokens: reply.length,
+    };
+  }
+}
+
 // ============ TEST UTILITIES ============
 
 const testContext: AgentContext = {

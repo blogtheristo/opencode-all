@@ -1,0 +1,21 @@
+{
+  "task": "Blog §16: one infographic per post",
+  "prompt": "Read docs/BLOG_STANDARD.md §16 and §11 (style tokens) first. Runs after opencode/blog-16-headers is merged. Goal: 'node scripts/blog/contract-check.mjs --only visual' exits 0. For every post it lists, create the file named in the master draft's visual_src (docs/blog-drafts/img/<base>.svg): a self-contained SVG infographic, 1200x630 viewBox, that shows the post's main mechanism as 3–6 labelled boxes and arrows, using only claims and numbers that are in the post's text (no new figures), text in English with the dictionary's EN terms, colours from §11 style tokens, no external fonts, images or scripts, readable at 600 px wide. If the master's visual_alt does not describe the picture you drew, update visual_alt in all language drafts of that post. One SVG per post, shared by all languages. Never edit onelifetime.world/, landing-pages/ or posts/*.html, and never change any draft body or Status.",
+  "base": "main",
+  "order": 130,
+  "maxRounds": 10,
+  "checks": [
+    {
+      "name": "visuals exist",
+      "run": "node scripts/blog/contract-check.mjs --only visual"
+    },
+    {
+      "name": "svgs are self-contained",
+      "run": "! grep -lE '<script|xlink:href=\"http|href=\"http|@import' docs/blog-drafts/img/*.svg"
+    },
+    {
+      "name": "no public site edits",
+      "run": "test -z \"$(git diff --name-only origin/main...HEAD -- onelifetime.world landing-pages)\""
+    }
+  ]
+}
