@@ -37,5 +37,6 @@
       "name": "field note decisions closed",
       "run": "rg -q '^\\*\\*Context:\\*\\*' docs/field-notes/2026-09-28-cursor-pro-cancelled-daily-ops.md && rg -q '^## The Story' docs/field-notes/2026-09-28-cursor-pro-cancelled-daily-ops.md && rg -q '^## The Insight' docs/field-notes/2026-09-28-cursor-pro-cancelled-daily-ops.md && ! rg -q '^- \\[ \\]' docs/field-notes/2026-09-28-cursor-pro-cancelled-daily-ops.md"
     }
-  ]
+  ],
+  "enabled": false
 }

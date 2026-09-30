@@ -13,5 +13,6 @@
       "name": "no public site edits",
       "run": "test -z \"$(git diff --name-only origin/main...HEAD -- onelifetime.world landing-pages)\""
     }
-  ]
+  ],
+  "enabled": false
 }

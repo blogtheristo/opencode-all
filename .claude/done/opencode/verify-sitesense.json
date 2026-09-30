@@ -20,5 +20,6 @@
       "name": "suite passes",
       "run": "npx vitest run src/__tests__/agents/sitesense.agent.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
     }
-  ]
+  ],
+  "enabled": false
 }

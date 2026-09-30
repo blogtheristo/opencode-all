@@ -9,5 +9,6 @@
       "name": "skill registered and checks pass",
       "run": "test -f skills/aegis-pilot/SKILL.md && grep -q '\"aegis-pilot\"' skills/manifest.json && npm run -s skills:check >/dev/null"
     }
-  ]
+  ],
+  "enabled": false
 }
