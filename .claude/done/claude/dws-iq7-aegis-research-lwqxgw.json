@@ -8,7 +8,7 @@
   "checks": [
     {
       "name": "origin/main is merged in",
-      "run": "git fetch -q origin main && git merge-base --is-ancestor origin/main HEAD"
+      "run": "git fetch -q origin main && (git merge-base --is-ancestor origin/main HEAD || git merge-base --is-ancestor HEAD origin/main)"
     },
     {
       "name": "no failing PR checks (except the Copilot reviewer app, which fails on every PR)",
