@@ -21,5 +21,7 @@
       "name": "spec marks F1 as Pass",
       "run": "grep -qE 'F1.*\\*\\*Pass\\*\\*|F1.*\\| Pass' docs/KYA_JEV_SPECIFICATION.md"
     }
-  ]
+  ],
+  "enabled": false,
+  "disabledReason": "merged to main (HIC audit 30.09.2026) — rerunning opened duplicate PRs #2262/#2264/#2265/#2215/#2259"
 }

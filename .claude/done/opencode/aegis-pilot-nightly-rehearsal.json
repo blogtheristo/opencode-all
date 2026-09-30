@@ -13,5 +13,7 @@
       "name": "nightly run records a PASS",
       "run": "command -v unshare >/dev/null || exit 0; bash scripts/daily/aegis-pilot-rehearsal.sh >/dev/null 2>&1 && tail -1 logs/aegis-pilot-rehearsal.jsonl | grep -q '\"outcome\": *\"PASS\"'"
     }
-  ]
+  ],
+  "enabled": false,
+  "disabledReason": "merged to main (HIC audit 30.09.2026) — rerunning opened duplicate PRs #2262/#2264/#2265/#2215/#2259"
 }

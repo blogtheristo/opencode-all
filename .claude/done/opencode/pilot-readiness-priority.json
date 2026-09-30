@@ -57,5 +57,7 @@
       "name": "source scope is honest",
       "run": "! rg -q 'plan is derived exclusively from that snapshot' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md"
     }
-  ]
+  ],
+  "enabled": false,
+  "disabledReason": "merged to main (HIC audit 30.09.2026) — rerunning opened duplicate PRs #2262/#2264/#2265/#2215/#2259"
 }

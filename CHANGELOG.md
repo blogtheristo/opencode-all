@@ -7,6 +7,17 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- **DGX auto-start for the opencode loop + one-command HIC console (HIC, 30.09.2026).**
+  `bash scripts/install-opencode-loop.sh` (once, on the DGX) installs a systemd user timer
+  (`infrastructure/dgx-spark/opencode-loop/`) that runs `opencode-loop start` (tmux `oc-loop`) at
+  boot and every 15 minutes, after Ollama on 11434 answers, then `opencode-all --prs`. It also puts `hic` and
+  `opencode-all` on PATH and adds a one-line digest to the login banner. `hic` (`scripts/hic.mjs`)
+  lists merge-ready PRs, PRs needing the HIC, and blocked tasks; `hic merge N` refuses unless
+  the PR is not draft, mergeable and CI green, and blog/pricing PRs need `--approved-content`
+  (Rule 13). `hic approve|note|close|reset` wrap `opencode-all --prs`.
+
 ### Changed
 
 - **Production backend moves from Scaleway to DGX Spark (HIC, 26.09.2026: cost).**

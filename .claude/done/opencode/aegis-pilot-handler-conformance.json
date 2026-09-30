@@ -13,5 +13,7 @@
       "name": "conformance suite passes",
       "run": "npx vitest run src/__tests__/aegis-pilot-handler-conformance.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
     }
-  ]
+  ],
+  "enabled": false,
+  "disabledReason": "merged to main (HIC audit 30.09.2026) — rerunning opened duplicate PRs #2262/#2264/#2265/#2215/#2259"
 }
