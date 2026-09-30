@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 2.3
 
 Sessions & Modifications:
 
+- Version: 2.3 | Tool: Claude Code | Session: claude/ontology-layers-8-9-n1wzl1 | Date: 30.09.2026 | Changes: HIC 30.09.2026: added Layer 8 (Decision) and Layer 9 (Learning) for the Active Ontology; ontology is now nine layers. Layers 6-7 stay internal and are not shown in buyer-facing whitepaper v1.3. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
 - Version: 2.2 | Tool: Claude Code (claude-sonnet-5) | Session: claude/palantir-us-open-source-models-tsexbg | Date: 05.07.2026 | Changes: Stage 1 engine switched from Qwen3-Coder 30B (Alibaba, Chinese-origin) to Nemotron-TwoTower 30B-A3B (NVIDIA, U.S.-origin) per founder direction, following the Palantir/NVIDIA U.S. open-weight positioning (see `docs/field-notes/2026-07-05-nemotron-twotower-stage1-production-switch.md`). Updated §3 diagram, §3.1 engine spec, §3.4 economics (projected). Added §11.4 validation gate — throughput/VRAM/extraction-quality figures are NVIDIA's own aggregate benchmarks, not yet measured on this task; first post-switch industry run is the validation, with Qwen3-Coder documented as fallback.
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/lwm-ontology-v1-500-enterprises | Date: 22.06.2026 | Changes: Added Layer 6 (Commercial Intelligence) and Layer 7 (Investor Positioning) to ontology structure. Maps to DWS_ROLES_REGISTRY.md R01-R25 buying-journey stages. Ontology now feeds sales outreach (/investor-outreach, /sales skills) and investor materials directly.
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/lwm-ontology-v1-500-enterprises | Date: 22.06.2026 | Changes: Scale from 500 → 5,000 enterprises (200/industry). Revised 25-industry taxonomy (manufacturing/engineering focused). 3-stage pipeline (AI Workbench → Claude API → Sovereign training). Added LWM vs RAG vs KG comparison. Added LF-ONTOLOGY-25 and LF-TRAIN-IND SKUs.
@@ -16,7 +17,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 22.06.2026
-- Last Modified: 05.07.2026
+- Last Modified: 30.09.2026
 - Language: English
 - Publication Status: DRAFT
 - Document Type: Research & Deployment Plan
@@ -60,14 +61,16 @@ LWM Ontology V1 — 5,000 European Industrial Enterprises
 │   ├── 5.3 Data schema per enterprise
 │   └── 5.4 Output: Per-industry ontology file (JSON-LD/OWL/RDF)
 │
-├── 6. ONTOLOGY STRUCTURE (per industry, 7 layers)             [v1.0 → v2.1]
+├── 6. ONTOLOGY STRUCTURE (per industry, 9 layers)             [v1.0 → v2.3]
 │   ├── 6.1 Domain concepts layer
 │   ├── 6.2 Regulatory terms layer
 │   ├── 6.3 Operational vocabulary layer
 │   ├── 6.4 Process taxonomy layer
 │   ├── 6.5 Compliance requirements layer
 │   ├── 6.6 Commercial intelligence layer (sales outreach)     [v2.1]
-│   └── 6.7 Investor positioning layer (investor outreach)     [v2.1]
+│   ├── 6.7 Investor positioning layer (investor outreach)     [v2.1]
+│   ├── 6.8 Decision layer (active ontology)                   [v2.3]
+│   └── 6.9 Learning layer (active ontology)                   [v2.3]
 │
 ├── 7. DEPLOYMENT CADENCE — 1 CUSTOMER/DAY × 500 DAYS         [v1.0 → v2.0]
 │   ├── 7.1 Day-0 deployment checklist
@@ -462,7 +465,7 @@ Each industry gets a structured ontology at `ontology/industries/{id}-{name}.jso
 
 ## 6. Ontology Structure (Per Industry)
 
-Each industry ontology has 7 layers, extracted from studying the 200 enterprises. Layers 1-5 power model fine-tuning; layers 6-7 power sales and investor outreach:
+Each industry ontology has 9 layers. Layers 1-7 are extracted from studying the 200 enterprises. Layers 1-5 power model fine-tuning; layers 6-7 power sales and investor outreach; layers 8-9 make the ontology active: layer 8 reasons from a customer's symptom or need to options, and layer 9 learns from the outcomes of those decisions:
 
 ### 6.1 Domain Concepts Layer
 
@@ -604,6 +607,52 @@ Per-industry market intelligence that feeds the `/investor-outreach` skill and i
 - `docs/investor/data-room-2026Q2/TAM_REFRAMED.md` — industry-level TAM build-up
 - `docs/investor/INVESTOR_ONE_PAGER_*.md` — industry proof points
 - Agent `iris` (research) and `apollo` (content) — automated investor material generation
+
+### 6.8 Decision Layer (Active Ontology) [v2.3]
+
+A passive ontology shows products. The decision layer starts from the customer's symptom or need and answers "what is the customer trying to achieve". It is the reasoning that removes uncertainty so that the purchase follows as a by-product (MS-2026-09-003, `kb/wiki/signals/MS-2026-09-003-active-ontology.md`).
+
+**Chain per industry:**
+
+- Product or repair context: `Observation → Candidate causes → Evidence → Likelihood → Repair paths → Required parts → Purchase options`
+- B2B: `Need → Situation → Industry → Goal → Risks → 3 relevant options → Purchase path`
+
+**Structure per industry (illustrative keys, not yet a schema):**
+
+```json
+{
+  "decision": {
+    "symptoms": [],
+    "candidate_causes": [],
+    "likelihood_rules": [],
+    "repair_or_solution_paths": [],
+    "recommended_basket": { "likely": [], "possible": [], "to_check": [] },
+    "risks_before_price": []
+  }
+}
+```
+
+**Built from:** layers 1-5 (domain, regulatory, operational, process, compliance) plus service, repair and diagnostic documentation for the industry. Unlike layers 1-7 it is not a one-time extraction: it is seeded from those sources and then revised by layer 9.
+
+**Feeds into:** the diagnostic choice path on `dws10.com` and `/buy` ("which best describes your situation?", "what matters most?", three options with reasoning and risk before the price). The catalogue stays in the background and no product is deleted. Excluded: `lifetime.fi` and the Investor Centre.
+
+### 6.9 Learning Layer (Active Ontology) [v2.3]
+
+The learning layer records what happened to each decision path and turns verified evidence into accepted changes to layers 1-8 (LD-1 to LD-10, `docs/field-notes/2026-09-24-outcome-evidence-decision-journey.md`).
+
+**Rules carried from the decision-journey specification:**
+
+- Event ≠ Learning; Evidence ≠ Interpretation. Order: Evidence → Learning (hypothesis and confidence) → Ontology Update. Event → Ontology Update is never allowed.
+- Store events, never state. Outcomes are derived from the event chain; nobody types them in afterwards.
+- Accepted, rejected, abandoned, transferred and interrupted paths are all evidence, and the absence of a decision is also knowledge.
+- `learning_confidence` may not exceed the mean `evidence_strength` of the cited evidence.
+- Every event carries its own ontology and world-model version, so a change in layers 1-8 can be traced to the evidence that caused it.
+
+**Refuting test (MS-2026-09-003):** 60 days after the first active need-view ships on `dws10.com`, buy-to-checkout drop-off must fall and the wrong-recommendation rate stay under 1 in 20. Otherwise the view is not genuinely active.
+
+**Implementation status (fail loud):** the event schema exists as `supabase/migrations/094_240926_decision_journey.sql` and is authored but **not applied** (RED zone). No verified decision path has been recorded, so layer 9 holds no data yet.
+
+**Cross-cutting, not a layer:** human halt authority, KYA and decision ownership (`emitted_by`, `decision_by`, `affected_party`) apply to every layer and are not a tenth layer.
 
 ---
 
