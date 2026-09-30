@@ -6,6 +6,7 @@ Title: Kuusi arvonluonnin ajuria — ja tutkimus niiden takana
 Language: fi
 Target: onelifetime.world/posts/arvonluonnin-ajurit-2026.fi.html
 Date: 2026-08-06
+approved: 2026-09-30 (HIC, Blog editor)
 Hero image: onelifetime.world/static/images/blog/arvonluonnin-ajurit-infographic-fi.png
 
 # Kuusi arvonluonnin ajuria — ja tutkimus niiden takana
