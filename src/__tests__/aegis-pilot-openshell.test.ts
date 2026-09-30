@@ -39,6 +39,7 @@ import {
   remapPaths,
   sandboxName,
   spawnRunner,
+  verifyListed,
   verifyOutputTree,
 } from '../aegis/pilot/openshell-handlers.js';
 
@@ -77,13 +78,15 @@ function fakeCli(
   extra: {
     stepStdout?: string;
     stepCode?: number;
-    packStdout?: string;
+    packStdout?: string | (() => string);
     listFails?: boolean;
+    /** The gateway reports names in a nested shape the driver does not read. */
+    nestedNames?: boolean;
   } = {},
 ) {
   const calls: Call[] = [];
-  let deleted = false;
   const names = new Set<string>();
+  const gone = new Set<string>();
   const runner: CommandRunner = (_cmd, args, opts) => {
     const call: Call = { args: [...args] };
     calls.push(call);
@@ -104,7 +107,10 @@ function fakeCli(
         onDownload?.();
         return Promise.resolve({
           code: 0,
-          stdout: extra.packStdout ?? 'AEGIS_OUT {}\n',
+          stdout:
+            typeof extra.packStdout === 'function'
+              ? extra.packStdout()
+              : (extra.packStdout ?? 'AEGIS_OUT {}\n'),
           stderr: '',
         });
       }
@@ -126,14 +132,16 @@ function fakeCli(
       });
     }
     if (verb === 'delete') {
-      if (deleteCode === 0) deleted = true;
+      if (deleteCode === 0) gone.add(args[2]);
       return Promise.resolve({ code: deleteCode, stdout: 'deletion accepted', stderr: '' });
     }
     if (verb === 'list') {
       if (extra.listFails)
         // An unrelated failure whose text happens to say "not found" must not prove a stop.
         return Promise.resolve({ code: 1, stdout: '', stderr: 'gateway config not found' });
-      const live = deleted && !lingerAfterDelete ? [] : [...names].map((name) => ({ name }));
+      const live = [...names]
+        .filter((n) => lingerAfterDelete || !gone.has(n))
+        .map((name) => (extra.nestedNames ? { metadata: { name } } : { name }));
       return Promise.resolve({
         code: 0,
         stdout: JSON.stringify({ next_page_token: '', sandboxes: live }),
@@ -144,6 +152,8 @@ function fakeCli(
   };
   return { calls, runner };
 }
+
+const verified = () => ({ verified: true });
 
 function ctx(step: PilotScope['workflow']['steps'][number], signal = new AbortController().signal) {
   return { signal, traceId: 't', step, state: {}, uplinkDown: true };
@@ -230,8 +240,40 @@ describe('sandbox absence proof', () => {
         stderr: '',
       });
     };
-    expect(await confirmSandboxGone(runner, 'openshell', 'as-x', 1000, 1)).toBe(true);
+    expect(await confirmSandboxGone(runner, 'openshell', 'as-x', 1000, 1, verified())).toBe(true);
     expect(n).toBe(5); // a single absent page (the 2nd) was not taken as proof
+  });
+
+  it('never proves absence before the listing shape has been seen to show a sandbox (M3)', async () => {
+    const empty: CommandRunner = () =>
+      Promise.resolve({ code: 0, stdout: JSON.stringify({ sandboxes: [] }), stderr: '' });
+    expect(await confirmSandboxGone(empty, 'openshell', 'as-x', 30, 1, { verified: false })).toBe(
+      false,
+    );
+  });
+
+  it('marks the listing shape verified only when a listing shows the named sandbox (M3)', async () => {
+    const shaped =
+      (entry: unknown): CommandRunner =>
+      () =>
+        Promise.resolve({ code: 0, stdout: JSON.stringify({ sandboxes: [entry] }), stderr: '' });
+    const nested = { verified: false };
+    expect(
+      await verifyListed(
+        shaped({ metadata: { name: 'as-x' } }),
+        'openshell',
+        'as-x',
+        30,
+        1,
+        nested,
+      ),
+    ).toBe(false);
+    expect(nested.verified).toBe(false);
+    const flat = { verified: false };
+    expect(await verifyListed(shaped({ name: 'as-x' }), 'openshell', 'as-x', 30, 1, flat)).toBe(
+      true,
+    );
+    expect(flat.verified).toBe(true);
   });
 });
 
@@ -274,10 +316,12 @@ describe('proof that a sandbox is gone', () => {
           : JSON.stringify({ sandboxes: [{ name: 'other' }], next_page_token: 'p2' }),
       });
   it('reads every page before declaring a sandbox gone', async () => {
-    expect(await confirmSandboxGone(paged(['as-target']), 'openshell', 'as-target', 30, 1)).toBe(
-      false,
+    expect(
+      await confirmSandboxGone(paged(['as-target']), 'openshell', 'as-target', 30, 1, verified()),
+    ).toBe(false);
+    expect(await confirmSandboxGone(paged([]), 'openshell', 'as-target', 30, 1, verified())).toBe(
+      true,
     );
-    expect(await confirmSandboxGone(paged([]), 'openshell', 'as-target', 30, 1)).toBe(true);
   });
 });
 
@@ -392,7 +436,25 @@ describe('OpenShell registry', () => {
     const c = new AbortController();
     const p = r.reg[step.handler](ctx(step, c.signal));
     setTimeout(() => c.abort(new Error('stop')), 50);
-    await expect(p).rejects.toThrow(/delete not confirmed/);
+    await expect(p).rejects.toThrow(/delete not confirmed|listing never showed/);
+    await expect(p).rejects.not.toMatchObject({ name: 'WorkerTerminated' });
+  });
+
+  it('refuses to run a step when the gateway listing never shows the new sandbox (M3)', async () => {
+    const step = scope().workflow.steps[0];
+    const r = registry('ok', 0, false, { nestedNames: true });
+    await expect(r.reg[step.handler](ctx(step))).rejects.toThrow(/listing never showed/);
+    // The step itself never ran.
+    expect(r.calls.some((c) => c.args.includes('/sandbox/step.mjs'))).toBe(false);
+  });
+
+  it('does not prove a stop from a nested-name listing that never shows any sandbox (M3)', async () => {
+    const step = scope().workflow.steps[0];
+    const r = registry('hang', 0, false, { nestedNames: true });
+    const c = new AbortController();
+    const p = r.reg[step.handler](ctx(step, c.signal));
+    setTimeout(() => c.abort(new Error('stop')), 5);
+    await expect(p).rejects.not.toMatchObject({ name: 'WorkerTerminated' });
   });
 
   it('refuses a step whose output carries a second, forged result line', async () => {
@@ -634,7 +696,7 @@ describe('OpenShell driver: the sandbox is untrusted', () => {
     expect(calls.slice(del + 1).some((c) => c.args[1] === 'list')).toBe(true);
   });
 
-  it('proves a stop during provisioning only after the create client has exited', async () => {
+  function provisioningStop(listingControl: { verified: boolean }) {
     const order: string[] = [];
     let deletes = 0;
     let exists = false;
@@ -675,15 +737,83 @@ describe('OpenShell driver: the sandbox is untrusted', () => {
         bundlePath: bundle,
         pollIntervalMs: 1,
         deleteConfirmTimeoutMs: 50,
+        listingControl,
       },
       scope().workflow.steps,
     );
     const c = new AbortController();
     const p = reg[step().handler](ctx(step(), c.signal));
     setTimeout(() => c.abort(new Error('stop')), 20);
+    return { p, order };
+  }
+
+  it('proves a stop during provisioning only after the create client has exited', async () => {
+    // The gateway's listing shape was verified by an earlier sandbox on the same gateway.
+    const { p, order } = provisioningStop({ verified: true });
     await expect(p).rejects.toMatchObject({ name: 'WorkerTerminated' });
     expect(order.indexOf('create-exited')).toBeLessThan(order.lastIndexOf('delete'));
     expect(order.at(-1)).toBe('list');
+  });
+
+  it('does not prove a stop during provisioning on a gateway whose listing was never verified (M3)', async () => {
+    const { p } = provisioningStop({ verified: false });
+    await expect(p).rejects.toThrow(/delete not confirmed/);
+  });
+
+  it('records the listing positive control on the shared control after a step ran (M3)', async () => {
+    const listingControl = { verified: false };
+    const { reg } = withCli({}, { listingControl });
+    await reg[step().handler](ctx(step()));
+    expect(listingControl.verified).toBe(true);
+  });
+
+  it("refuses a copy-back that would overwrite an earlier step's output (M5)", async () => {
+    const outs = [
+      outLine({ 'report.md': b64('step one') }),
+      outLine({ 'report.md': b64('rewritten by step two'), 'new.md': b64('two') }),
+    ];
+    const { reg } = withCli({ packStdout: () => outs.shift()! });
+    await reg[step().handler](ctx(step()));
+    await expect(reg[step().handler](ctx(step()))).rejects.toThrow(/would overwrite report\.md/);
+    expect(readFileSync(join(dir, 'out', 'report.md'), 'utf8')).toBe('step one');
+    // All or nothing: the other file of the refused copy-back did not land either.
+    expect(existsSync(join(dir, 'out', 'new.md'))).toBe(false);
+  });
+
+  it('accepts an earlier output handed back unchanged, which every later step does (M5)', async () => {
+    const outs = [
+      outLine({ 'report.md': b64('step one') }),
+      outLine({ 'report.md': b64('step one'), 'second.md': b64('two') }),
+    ];
+    const { reg } = withCli({ packStdout: () => outs.shift()! });
+    await reg[step().handler](ctx(step()));
+    await reg[step().handler](ctx(step()));
+    expect(readFileSync(join(dir, 'out', 'second.md'), 'utf8')).toBe('two');
+  });
+
+  it('refuses a file/directory type conflict before writing anything (M5)', async () => {
+    const outs = [
+      outLine({ report: b64('a file') }),
+      outLine({ 'ok.md': b64('fine'), 'report/inner.md': b64('under a file') }),
+    ];
+    const { reg } = withCli({ packStdout: () => outs.shift()! });
+    await reg[step().handler](ctx(step()));
+    await expect(reg[step().handler](ctx(step()))).rejects.toThrow(/type conflict/);
+    expect(existsSync(join(dir, 'out', 'ok.md'))).toBe(false);
+    expect(readFileSync(join(dir, 'out', 'report'), 'utf8')).toBe('a file');
+  });
+
+  it('refuses to stage an earlier output into a later step after it changed on the host (M5)', async () => {
+    const outs = [outLine({ 'report.md': b64('step one') }), outLine({})];
+    const { reg, calls } = withCli({ packStdout: () => outs.shift()! });
+    await reg[step().handler](ctx(step()));
+    writeFileSync(join(dir, 'out', 'report.md'), 'tampered between steps');
+    const before = calls.filter((c) => c.args[1] === 'create').length;
+    await expect(reg[step().handler](ctx(step()))).rejects.toThrow(
+      /report\.md changed on the host/,
+    );
+    // Refused before any sandbox was created for the later step.
+    expect(calls.filter((c) => c.args[1] === 'create').length).toBe(before);
   });
 
   it('keeps sandbox names random and within the gateway limit, and refuses unsafe step ids', async () => {
@@ -753,6 +883,33 @@ describe('OpenShell stop-test agent', () => {
     expect(killed).toBe(false);
     agent.release?.();
     expect(killed).toBe(true);
+  });
+
+  it('refuses to start when the gateway listing never shows its sandbox (M3)', async () => {
+    const runner: CommandRunner = (_cmd, args) => {
+      if (args[1] === 'create')
+        return Promise.resolve({ code: 0, stdout: '{"phase":"Ready"}', stderr: '' });
+      if (args[1] === 'list')
+        return Promise.resolve({
+          code: 0,
+          stdout: JSON.stringify({ sandboxes: [{ metadata: { name: args[3] } }] }),
+          stderr: '',
+        });
+      return Promise.resolve({ code: 0, stdout: '', stderr: '' });
+    };
+    const agent = openShellStopTestAgent(
+      {
+        image: 'i',
+        workRoot: join(dir, 'w'),
+        runner,
+        pollIntervalMs: 1,
+        deleteConfirmTimeoutMs: 20,
+      },
+      10,
+    );
+    await expect(agent.start(() => undefined)).rejects.toThrow(/listing never showed/);
+    expect((await agent.terminate()).confirmed).toBe(false);
+    agent.release?.();
   });
 
   it('does not prove the stop while the sandbox is still listed', async () => {
