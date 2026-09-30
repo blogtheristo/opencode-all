@@ -69,6 +69,12 @@ Boardy's third option for hardening (included at no extra price, conditional on 
 
 Recommendation: (a), then (b) after M4 if the Spark has a TPM. (a) is smaller, upgrades the operator's identity proof at the exact moment a buyer watches, and needs no site hardware.
 
+## 6a. Decisions taken after this note (HIC, 30.09.2026)
+
+- Hardening is included, conditional on the site (H4). Wording of the offers and the Phase 0 template follows once the HIC approves it (D5).
+- **Fact from the DGX Spark used at M4 (`gn100-cb5d`):** `ls /dev/tpm0 /dev/tpmrm0` → both "No such file or directory". Check `dmesg | grep -i tpm`, `ls /sys/class/tpm` and the UEFI security menu for a disabled firmware TPM before concluding there is none. Until then C8 (TPM) cannot be demonstrated on this box; C7 (hardware key) can, because the key lives on the operator's laptop.
+- The blog post was approved with the follow-up line (H5, H6).
+
 ## 7. Session learning outcome
 
 KB ingest, `Learn/` HTML render and Drive export: N/A — deferred to the day the blog post is approved (Rule 12). Calendar: none dated.

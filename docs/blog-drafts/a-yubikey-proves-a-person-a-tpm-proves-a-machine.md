@@ -3,16 +3,16 @@ slug: a-yubikey-proves-a-person-a-tpm-proves-a-machine
 lang: en
 title: "A YubiKey proves a person. A TPM proves a machine."
 hero: "Two hardware checks answer two different questions in an audit. What each proves, what we do not sell, and what our pilot records."
-visual:
-visual_src:
-visual_alt:
+visual: infographic
+visual_src: docs/blog-drafts/img/a-yubikey-proves-a-person-a-tpm-proves-a-machine.svg
+visual_alt: "Two panels: a security key signs the stop and proves which person was present; a TPM signs the boot state and proves which machine ran. Below, the Aegis Pilot record today: stop signature present, hardware attestation not used."
 seo_tags: [aegis, hic, kya_tc4, kya_idv, article_14]
 demo_agent:
 demo_url:
 target: onelifetime.world/posts/a-yubikey-proves-a-person-a-tpm-proves-a-machine.html
 date: 2026-09-30
 author: Risto Anton Päärni
-Status: DRAFT
+Status: APPROVED
 ---
 
 While planning the first witnessed test of the Aegis Pilot, we asked ourselves a question a buyer's auditor will ask: when the agent stops, what proves a real person stopped it, and what proves it happened on the machine we say it did?
@@ -32,6 +32,8 @@ Two things we do not do. We do not sell hardware. You buy the server and the key
 What we are working on next is the key. Signing the stop with a hardware key is a smaller step than attesting a machine, and it is the one an auditor sees first: the person, physically present, at the moment of the stop. Whether it lands before our first witnessed test is not yet decided, and we will not claim it until a stop has been signed that way and the record shows it.
 
 If you run agents where someone will later ask who stopped them and on what, ask your vendor which of the two they can show you. Then ask to see the record. Most vendors can show you a log. A log is not the same thing as a signed chain that a stranger can verify with no network and no call to the vendor. The second is what the Aegis Pilot's evidence bundle is meant to hand to your auditor. It will be ready by our first witnessed test, and until a stranger has checked one, treat it as a promise and not yet a product. That is the reason the record says what it says.
+
+We will write again the day a stop has been signed with a hardware key and the record shows it.
 
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy · the Agent Outcome Company
