@@ -118,7 +118,7 @@ export function captureLagFactor(lagMs: number): number {
 /**
  * Final decisions needed before a "no challenge" review signal is reported: that many
  * decisions with no rejection and no modification reads as a rubber stamp, not a result.
- * v1 proposal, for the HIC to calibrate.
+ * HIC-confirmed 30.09.2026.
  */
 export const REVIEW_SIGNAL_MIN_DECISIONS = 10;
 
@@ -660,6 +660,13 @@ export interface JourneySummary {
   rejectionShare: number | null;
   modificationShare: number | null;
   manualEntryShare: number | null;
+  /**
+   * abandoned / recommendations. An abandoned path (the operator stopped the agent) is
+   * complete: the stop is signed evidence. It stays in coverage's denominator, so stops
+   * cannot shrink it, and this share is reported beside coverage, so stopping instead of
+   * deciding cannot quietly inflate coverage either (HIC 30.09.2026).
+   */
+  abandonedShare: number | null;
   /** Minimum evidence_strength over final decisions: the cap on any learning delta from them. */
   weakestEvidence: number | null;
   /**
@@ -798,6 +805,7 @@ export function decisionJourneys(path: string): JourneySummary {
     rejectionShare: share(byStatus.rejected),
     modificationShare: share(byStatus.modified),
     manualEntryShare: share(finalJourneys.filter((j) => j.capture === 'manual_entry').length),
+    abandonedShare: journeys.length ? byStatus.abandoned / journeys.length : null,
     weakestEvidence: strengths.length ? Math.min(...strengths) : null,
     evidenceBasis:
       'capture (live / manual_entry) is operator-attested; strength caps learning, it is not a trust score',
