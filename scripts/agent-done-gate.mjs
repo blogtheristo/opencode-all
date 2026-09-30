@@ -22,7 +22,8 @@
  * Checks:
  *   committed   no modified tracked files left behind
  *   pushed      HEAD is on its upstream
- *   format      prettier --check on changed files; a file already unformatted at the base is not counted
+ *   format      prettier --check on every file the branch changed vs its merge base with origin/main
+ *               (not --since); a file already unformatted at that base is not counted
  *   todo        it.todo / test.todo count did not grow vs. --since (fail) or the merge base (warn)
  *   whitespace  lines changed only in whitespace (warning — usually a model rewriting unrelated lines)
  *   typecheck   tsc --noEmit when .ts changed (--full)
@@ -112,14 +113,24 @@ else {
   );
 }
 
-// format
-const fmtFiles = changed.filter((f) => /\.(m?[jt]sx?|json|md|css|html)$/.test(f) && existsSync(f));
+// format — judged over the whole branch (merge base with origin/main), not --since: the PR
+// ships every file the branch changed, and a file an earlier round left unformatted was
+// otherwise "inherited" at the session start and waved through (#2267, #2268, 30.09.2026).
+const fmtBase =
+  tryGit('merge-base', 'HEAD', 'origin/main') || tryGit('merge-base', 'HEAD', 'main') || base;
+const fmtChanged =
+  fmtBase && fmtBase !== base
+    ? git('diff', '--name-only', '--diff-filter=ACMR', fmtBase, 'HEAD').split('\n').filter(Boolean)
+    : changed;
+const fmtFiles = fmtChanged.filter(
+  (f) => /\.(m?[jt]sx?|json|md|css|html)$/.test(f) && existsSync(f),
+);
 if (fmtFiles.length) {
   const r = run('npx', ['--no-install', 'prettier', '--check', ...fmtFiles]);
   const failing = r.ok ? [] : fmtFiles.filter((f) => r.out.includes(`] ${f}`));
   // A file that was already unformatted at the base is inherited, not this work's doing.
   const introduced = failing.filter((f) => {
-    const old = base ? tryGit('show', `${base}:${f}`) : null;
+    const old = fmtBase ? tryGit('show', `${fmtBase}:${f}`) : null;
     if (old === null) return true;
     const fmt = run('npx', ['--no-install', 'prettier', '--stdin-filepath', f], {
       input: old + '\n',

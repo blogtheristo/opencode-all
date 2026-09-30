@@ -73,13 +73,31 @@ const ROOT = execFileSync('git', ['rev-parse', '--show-toplevel'], { encoding: '
 const SPEC_DIR = join(ROOT, '.claude', 'done');
 
 const HIC_TITLE = /\b(proposal|do not merge|don't merge|wip)\b/i;
+// Public site content, pricing and the store need the HIC (Rule 13, pricing source of truth).
+// Matched on paths, not titles: #2122 (price list) and #2096 (catalogue) were queued on
+// 30.09.2026 because only config/products.json was listed.
 const HIC_PATHS = [
   /^onelifetime\.world\/posts\//,
   /(^|\/)blog\//,
   /^docs\/blog-drafts\//,
   /(^|\/)config\/products\.json$/,
   /^Store\//,
+  /(^|\/)price-list\//,
+  /(^|\/)buy\//,
+  /(^|\/)feeds\//,
+  /^(landing-pages\/[^/]+|dws10\.com|dws6\.com|onelifetime\.world|lifetime\.fi)\/.*\.html$/,
+  /^(landing-pages\/[^/]+|dws10\.com|dws6\.com|onelifetime\.world|lifetime\.fi)\/(_headers|_routes\.json|functions\/)/,
+  /^supabase\/migrations\//,
 ];
+// gh lists at most 100 files per PR; a truncated list cannot prove a PR is safe to automate.
+const GH_FILE_LIMIT = 100;
+const git = (...a) => {
+  try {
+    return execFileSync('git', a, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  } catch {
+    return null;
+  }
+};
 
 function gh(...args) {
   return execFileSync('gh', args, { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
@@ -123,15 +141,30 @@ for (const pr of prs.sort((a, b) => a.number - b.number)) {
     gh('pr', 'ready', String(pr.number));
     logDecision(`marked ready #${pr.number} (HIC approved ${d.at})`);
   }
+  // A branch that shares no history with its base (main was re-rooted 27.09.2026) cannot be
+  // brought up to date by merging the base in; it needs a rebuild on the base. Not even an
+  // HIC approval makes the loop able to do that.
+  git('fetch', '-q', 'origin', pr.baseRefName, pr.headRefName);
+  const noBase =
+    git('rev-parse', '--verify', '--quiet', `origin/${pr.headRefName}`) &&
+    git('merge-base', `origin/${pr.baseRefName}`, `origin/${pr.headRefName}`) === null;
+  if (noBase) {
+    hic.push(
+      `#${pr.number} ${pr.title} — shares no history with ${pr.baseRefName}: rebuild on ${pr.baseRefName} or close`,
+    );
+    continue;
+  }
   const reason = approved
     ? null
     : pr.isDraft
       ? 'draft'
       : HIC_TITLE.test(pr.title)
         ? 'marked proposal / do-not-merge'
-        : files.find((f) => HIC_PATHS.some((re) => re.test(f)))
-          ? `touches ${files.find((f) => HIC_PATHS.some((re) => re.test(f)))} (blog/site/pricing — HIC approval)`
-          : null;
+        : files.length >= GH_FILE_LIMIT
+          ? `${files.length}+ files — too large to check automatically (HIC review)`
+          : files.find((f) => HIC_PATHS.some((re) => re.test(f)))
+            ? `touches ${files.find((f) => HIC_PATHS.some((re) => re.test(f)))} (blog/site/pricing — HIC approval)`
+            : null;
   if (reason) {
     hic.push(`#${pr.number} ${pr.title} — ${reason}`);
     continue;

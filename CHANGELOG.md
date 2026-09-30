@@ -7,6 +7,19 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- **opencode-loop systematic errors found in the 30.09.2026 PR audit.**
+  `scripts/opencode-task-loop.mjs`: a task whose PR is merged or closed, or whose acceptance
+  checks already pass on origin/main, is SETTLED and not run (it had produced duplicate PRs
+  #2262, #2264, #2265, #2215, #2259); a branch that edits `agent-done-gate.mjs` must also pass
+  its own copy of the gate (#2266 was DONE while its gate crashed); round prompt forbids
+  out-of-scope reformatting and recording PASS for a step that did not run.
+  `scripts/agent-done-gate.mjs`: format is judged over the whole branch vs its merge base, not
+  `--since` (#2267/#2268 were DONE with unformatted files). `scripts/opencode-pr-specs.mjs`:
+  PRs with no merge base, truncated (100+) file lists, or price-list/buy/feeds/site HTML/
+  functions/migrations paths go to the HIC list instead of the loop queue.
+
 ### Added
 
 - **DGX auto-start for the opencode loop + one-command HIC console (HIC, 30.09.2026).**

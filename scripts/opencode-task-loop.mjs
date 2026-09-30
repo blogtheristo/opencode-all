@@ -23,6 +23,8 @@
  *   4. gate again. Repeat up to maxRounds. Two rounds with no new commit and the same FAILs
  *      = stalled. Stalled or out of rounds → BLOCKED, alert, move on.
  * A BLOCKED task is retried automatically once its spec file changes (the HIC's lever).
+ * SETTLED: skipped because its PR is merged or closed, or its checks already pass on main —
+ * follow-up work on a merged task needs a new branch and spec.
  * DONE = branch pushed, passes its gate, and a PR is open (or the compare URL if gh fails).
  * Nothing is merged; merging stays with the HIC.
  *
@@ -182,7 +184,41 @@ function runGate(wt, since) {
     maxBuffer: 64 * 1024 * 1024,
     timeout: 30 * 60 * 1000,
   });
-  return { done: r.status === 0, out: `${r.stdout ?? ''}${r.stderr ?? ''}`.trim() };
+  let done = r.status === 0;
+  let out = `${r.stdout ?? ''}${r.stderr ?? ''}`.trim();
+  // The loop judges every branch with ~/dws6's gate. A branch that edits the gate itself would
+  // then never have its own copy run: #2266 was reported DONE while its gate crashed on start
+  // (30.09.2026). Run the branch copy too and fail when it does not produce a verdict.
+  const own = join(wt, 'scripts', 'agent-done-gate.mjs');
+  const touched = tryGit(
+    wt,
+    'diff',
+    '--name-only',
+    'origin/main...HEAD',
+    '--',
+    'scripts/agent-done-gate.mjs',
+  );
+  if (touched && existsSync(own)) {
+    const b = spawnSync('node', [own, '--json', '--allow-unpushed'], {
+      cwd: wt,
+      encoding: 'utf8',
+      maxBuffer: 64 * 1024 * 1024,
+      timeout: 30 * 60 * 1000,
+    });
+    let verdict = null;
+    try {
+      verdict = JSON.parse(b.stdout ?? '');
+    } catch {
+      /* no verdict */
+    }
+    if (!verdict || typeof verdict.done !== 'boolean') {
+      done = false;
+      const err = `${b.stderr ?? ''}`.trim().split('\n').slice(-6).join('\n');
+      out += `\n  FAIL  branch gate: this branch's scripts/agent-done-gate.mjs gives no verdict\n${err.replace(/^/gm, '        ')}`;
+    } else
+      out += "\n  PASS  branch gate: this branch's agent-done-gate.mjs runs and returns a verdict";
+  }
+  return { done, out };
 }
 
 function roundPrompt(t, gateOut, round, max) {
@@ -201,7 +237,10 @@ function roundPrompt(t, gateOut, round, max) {
     gateOut,
     '```',
     '',
-    'Rules: fix every FAIL above; do not edit the acceptance checks; keep changes scoped to the task;',
+    'Rules: fix every FAIL above; do not edit the acceptance checks; keep changes scoped to the task',
+    '(do not reformat, reorder imports in, or rewrite files the task does not name);',
+    'never make a check pass by weakening it: a test or step that could not run is SKIPPED or FAIL,',
+    'never PASS;',
     `commit with a clear message and \`git push -u origin ${t.branch}\`; update the handoff file with what`,
     'is left. Finish by running `node ~/dws6/scripts/agent-done-gate.mjs --full` and ending your answer',
     'with its raw output. If something needs a human decision, write it in the handoff and stop.',
@@ -292,8 +331,80 @@ function checkpoint(t, wt, label, gateOut) {
   );
 }
 
+// A task is settled when its work has already reached main or its PR is gone. Re-running it
+// only produces a duplicate PR: on 29-30.09.2026 a spec edit re-queued five merged tasks and
+// the loop opened #2262, #2264, #2265, #2215 and #2259 for work main already had.
+const ghJson = (cwd, ...a) => {
+  const r = spawnSync('gh', a, { cwd, encoding: 'utf8', timeout: 60 * 1000 });
+  if (r.status !== 0) return null;
+  try {
+    return JSON.parse(r.stdout);
+  } catch {
+    return null;
+  }
+};
+function settled(t, st) {
+  const prs = ghJson(
+    PRIMARY,
+    'pr',
+    'list',
+    '--head',
+    t.branch,
+    '--state',
+    'all',
+    '--json',
+    'number,state',
+  );
+  if (prs === null) return null; // gh unavailable: do not guess
+  if (prs.some((p) => p.state === 'OPEN')) return null;
+  const mine = t.spec.pr ? prs.find((p) => p.number === t.spec.pr) : null;
+  if (t.spec.pr && (mine?.state ?? 'CLOSED') !== 'OPEN')
+    return `PR #${t.spec.pr} is ${(mine?.state ?? 'not open').toLowerCase()}`;
+  const merged = prs.find((p) => p.state === 'MERGED');
+  if (merged) return `PR #${merged.number} for this branch is merged`;
+  // Acceptance already true on main (loop-task.mjs requires every check to fail on the code of
+  // its day, so passing now means the work landed some other way). Only judged in a primary
+  // checkout that equals origin/main; cached per spec version and main commit.
+  if (t.spec.pr || !t.spec.checks?.length) return null;
+  tryGit(PRIMARY, 'fetch', '-q', 'origin', 'main');
+  const mainSha = tryGit(PRIMARY, 'rev-parse', 'origin/main');
+  if (!mainSha || tryGit(PRIMARY, 'rev-parse', 'HEAD') !== mainSha) return null;
+  if (tryGit(PRIMARY, 'status', '--porcelain', '--untracked-files=no')) return null;
+  const key = `${t.specHash}@${mainSha}`;
+  if (st.mainCheck?.key !== key) {
+    const pass = t.spec.checks.every(
+      (c) =>
+        spawnSync('bash', ['-c', c.run], {
+          cwd: PRIMARY,
+          encoding: 'utf8',
+          timeout: 15 * 60 * 1000,
+          maxBuffer: 64 * 1024 * 1024,
+        }).status === 0,
+    );
+    st.mainCheck = { key, pass };
+  }
+  return st.mainCheck.pass ? 'every acceptance check already passes on origin/main' : null;
+}
+
 function workTask(t, state) {
   const st = (state[t.branch] ??= { status: 'pending', rounds: 0 });
+  if (st.status !== 'running' || st.specHash !== t.specHash) {
+    const why = settled(t, st);
+    if (why) {
+      if (st.status !== 'settled' || st.specHash !== t.specHash)
+        alert(`${t.branch}: SETTLED — ${why}; not run (a new task needs a new branch)`);
+      Object.assign(st, {
+        status: 'settled',
+        specHash: t.specHash,
+        lastGate: why,
+        updatedAt: now(),
+      });
+      saveState(state);
+      return;
+    }
+    if (st.status === 'settled')
+      Object.assign(st, { status: 'pending', rounds: 0, stalls: 0, startHead: undefined });
+  }
   // A finished PR task goes stale when its base moves (another PR was merged): reopen it so
   // the branch gets the new base merged in and is re-gated, instead of rotting behind main.
   if (st.status === 'done' && st.specHash === t.specHash && t.spec.pr && st.worktree) {
