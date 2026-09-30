@@ -308,6 +308,31 @@
     gap: 8px;
     flex-wrap: wrap;
   }
+  .ver {
+    color: var(--muted);
+    font: 0.72rem/1 var(--mono);
+    white-space: nowrap;
+  }
+  .langbar {
+    display: flex;
+    gap: 6px;
+    margin-block: 8px;
+  }
+  .langbar button {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: 0;
+    font-weight: 600;
+  }
+  .langbar button[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-color: transparent;
+  }
+  .langbar button.missing {
+    opacity: 0.55;
+    border-style: dashed;
+  }
   iframe {
     display: block;
     width: 100%;
@@ -322,6 +347,12 @@
 <div class="bar">
   <button id="back" hidden aria-label="Back">‹ Back</button>
   <h1 id="title">Blog editor</h1>
+  <span
+    class="ver"
+    id="ver"
+    title="Page version (commit of scripts/blog-editor/page.html) and build date"
+    >__BE_VERSION__</span
+  >
   <div class="tabs" id="tabs" role="group" aria-label="Section">
     <button id="tab-drafts" aria-pressed="true">Drafts</button>
     <button id="tab-learn" aria-pressed="false">Learn</button>
@@ -696,6 +727,7 @@
     };
     setBar(d.name, { back: true, editing: true });
     main.innerHTML =
+      '<div class="langbar" id="langbar" role="group" aria-label="Language"></div>' +
       '<p class="note" id="msg"></p><details class="contract" id="contract"></details><textarea id="ta" spellcheck="true" autocapitalize="sentences" aria-label="Draft text"></textarea>' +
       '<div id="read" class="reading" hidden></div>';
     $("#ta").value = cur.text;
@@ -713,6 +745,7 @@
     );
     renderContract();
     loadRef.then(renderContract);
+    renderLangBar();
     $("#ta").oninput = () => {
       clearTimeout(renderContract.t);
       renderContract.t = setTimeout(renderContract, 400);
@@ -720,6 +753,95 @@
       cur.dirty = true;
       store.set("be:unsent:" + id, cur.text);
       note("Unsaved changes");
+    };
+  }
+
+  // ---------- language bar: EN FI SV DE FR (BLOG_STANDARD §16, five languages) ----------
+  // A language with a draft opens it. A missing one creates a translation request draft
+  // (base.<lang>.md, Status: TRANSLATE) carrying the source text; the sync writes it to git and
+  // the translation is made there with docs/localization/dws-dictionary.json, never invented here.
+  const nameFor = (base, l) => (l === "en" ? base + ".md" : base + "." + l + ".md");
+  function renderLangBar() {
+    const bar = $("#langbar");
+    if (!bar || !cur) return;
+    const base = baseOf(cur.name);
+    const mine = langOf(cur.name);
+    bar.innerHTML = LANGS.map((l) => {
+      const d = drafts.find((x) => x.name === nameFor(base, l));
+      const cls = d ? "" : ' class="missing"';
+      const tip = d ? "Open " + l.toUpperCase() : "Request " + l.toUpperCase() + " translation";
+      return `<button data-l="${l}"${cls} aria-pressed="${l === mine}" title="${tip}">${l.toUpperCase()}</button>`;
+    }).join("");
+    bar.querySelectorAll("button").forEach((b) => {
+      b.onclick = () => switchLang(b.dataset.l);
+    });
+  }
+  async function switchLang(l) {
+    const base = baseOf(cur.name);
+    if (l === langOf(cur.name)) return;
+    if (cur.dirty && !leaveOk()) return;
+    const target = drafts.find((x) => x.name === nameFor(base, l));
+    if (target) return openDraft(target.id);
+    document.activeElement?.blur();
+    sheet(
+      "<p><b>Request " +
+        l.toUpperCase() +
+        " version of " +
+        esc(base) +
+        "?</b></p>" +
+        '<p class="note">Creates ' +
+        esc(nameFor(base, l)) +
+        " as a translation request from this text. It is translated in git with the DWS dictionary and comes back here as a draft for your approval.</p>" +
+        '<div class="row"><button id="yes" class="primary">Request</button><button id="no">Cancel</button></div>',
+    );
+    $("#no").onclick = () => sheet("");
+    $("#yes").onclick = async () => {
+      $("#yes").disabled = true;
+      const src = $("#ta").value;
+      const fm = frontMatter(src);
+      const name = nameFor(base, l);
+      const today = new Date().toISOString().slice(0, 10);
+      const content =
+        "Status: TRANSLATE\n" +
+        "Slug: " +
+        base +
+        "\n" +
+        "Title: " +
+        (fm.Title || fm.title || base) +
+        "\n" +
+        "Language: " +
+        l +
+        "\n" +
+        "Translation-of: " +
+        cur.name +
+        "\n" +
+        "Requested: " +
+        today +
+        " (HIC, Blog editor)\n" +
+        "Instructions: translate the source below into " +
+        l.toUpperCase() +
+        " using docs/localization/dws-dictionary.json for every term it covers; keep the header fields; add the EU AI Act Art. 50(4) AI-content label (BLOG_STANDARD §3.2.1); then set Status: DRAFT.\n\n" +
+        "<!-- SOURCE (" +
+        cur.name +
+        ") -->\n\n" +
+        src.slice(header(src)?.end ?? 0).replace(/^\n+/, "");
+      try {
+        await db.doc("drafts/" + name).set({
+          name,
+          title: fm.Title || fm.title || base,
+          lang: l,
+          date: today,
+          content,
+          rev: 1,
+          edited: true,
+          editedAt: new Date().toISOString(),
+          translate: true,
+        });
+        const r = await startSync();
+        toast(r.err ? r.text : l.toUpperCase() + " translation requested and sent to git.", r.err);
+      } catch (e) {
+        toast(e.message || String(e), true);
+      }
     };
   }
 
@@ -893,6 +1015,7 @@
             (a, b) => (b.date || "").localeCompare(a.date || "") || a.name.localeCompare(b.name),
           );
         if (tab === "drafts" && !cur) renderDrafts();
+        else if (cur) renderLangBar();
       },
       (err) =>
         note("Could not load drafts: " + (err?.message || err?.code || "unknown error"), true),

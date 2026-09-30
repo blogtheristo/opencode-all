@@ -13,6 +13,7 @@
  * <out-dir>/dictionary-seo.json and <out-dir>/posts-index.json (for the BLOG_STANDARD §16 checks).
  * Claude publishes the directory and seeds the rows; edits come back with apply-edits.mjs.
  */
+import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import {
   copyFileSync,
@@ -36,7 +37,26 @@ const ALLOWED = new Set(['public', 'user', 'customer', 'internal']);
 const sha = (s) => createHash('sha256').update(s).digest('hex');
 
 mkdirSync(join(out, 'learn'), { recursive: true });
-copyFileSync(join(ROOT, 'scripts/blog-editor/page.html'), join(out, 'index.html'));
+// Version shown in the page bar: the last commit of the page source (+ "*" when the working
+// copy differs from it) and the build date, so the HIC can tell which editor is live.
+const gitOut = (...a) => {
+  try {
+    return execFileSync('git', a, { cwd: ROOT, encoding: 'utf8' }).trim();
+  } catch {
+    return '';
+  }
+};
+const pageCommit =
+  gitOut('log', '-1', '--format=%h', '--', 'scripts/blog-editor/page.html') || 'dev';
+const pageDirty = gitOut('status', '--porcelain', '--', 'scripts/blog-editor/page.html') ? '*' : '';
+const beVersion = `v${pageCommit}${pageDirty} · ${new Date().toISOString().slice(0, 10)}`;
+writeFileSync(
+  join(out, 'index.html'),
+  readFileSync(join(ROOT, 'scripts/blog-editor/page.html'), 'utf8').replace(
+    '__BE_VERSION__',
+    beVersion,
+  ),
+);
 
 // Learn: newest version of each document, allowed classes only.
 const version = (f) => (f.match(/_v(\d+(?:\.\d+)*)\.html$/)?.[1] ?? '0').split('.').map(Number);

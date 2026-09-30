@@ -8,12 +8,13 @@ lang: en
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-19
-Status: DRAFT
+Status: APPROVED
 approved_by: 
 source: 
 note: >-
   Second in a 3-part series on sovereign AI for regulated industrial workflows.
   This post builds on the first part and incorporates feedback from Boardy audit.
+approved: 2026-09-28 (HIC, Blog editor)
 ---
 
 # How to Govern AI Workflows Once They Reach the Factory
@@ -24,17 +25,21 @@ The architecture is only useful if the organisation can govern what happens insi
 
 A regulated industrial AI workflow needs clear answers to five questions:
 
-Who is allowed to use it?
-What is the system allowed to do?
-What data may it access?
-How are its outputs verified?
-Who is responsible when something goes wrong?
+1. Who is allowed to use it?
+2. What is the system allowed to do?
+3. What data may it access?
+4. How are its outputs verified?
+5. Who is responsible when something goes wrong?
+6. What evidence is saved to fix and improve?
 
 ## Identity comes first
 
-Every relevant user, administrator, service and agent should have a defined identity. Access should be granted according to role and limited to the permissions required for the task.
+Every relevant user, administrator, service and agent have a defined identity.
+ Access should be granted according to role and limited to the permissions required for the task.
 
-Depending on the deployment, identity management may use the customer's existing identity provider or an approved local identity service. The design should cover authentication, role assignment, service accounts, credential rotation, access logging and revocation.
+Depending on the deployment, identity management may use the customer's existing identity provider or an approved local identity service. 
+
+The design should cover authentication, role assignment, service accounts, credential rotation, access logging and revocation.
 
 An AI agent should not be treated as an anonymous software process. Its identity, authority and permitted actions need to be visible in the workflow.
 

@@ -5,7 +5,7 @@ Language: en
 Target: onelifetime.world/posts/thinkingbox-agent-audit.html
 Date: 2026-09-19
 
-## The Silent Failure Problem
+## The Silent Failure Problem 2
 
 Your agents run. The transcript looks good. The user says "thanks." Then you check the database, the API logs, the side effects—and nothing happened. The agent hallucinated success.
 

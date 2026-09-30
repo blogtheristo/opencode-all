@@ -31,7 +31,8 @@
  * Usage (DGX, in tmux):
  *   node scripts/opencode-task-loop.mjs                run until the queue is empty, then poll
  *   node scripts/opencode-task-loop.mjs --once         one pass over the queue
- *   node scripts/opencode-task-loop.mjs --status       show task states
+ *   node scripts/opencode-task-loop.mjs --status       show task states (first line: version + uptime)
+ *   node scripts/opencode-task-loop.mjs --line         only that first line (login banner)
  *   node scripts/opencode-task-loop.mjs --dry-run      show what would run
  *   node scripts/opencode-task-loop.mjs --task <branch> only this task
  * Env: OPENCODE_LOOP_MODEL (default model), OPENCODE_LOOP_ROUND_MIN (round timeout, default 90),
@@ -534,7 +535,47 @@ function openPr(t, wt, gateOut) {
   return remote ? `${remote}/compare/${base}...${t.branch}` : null;
 }
 
+// Version = the last commit that changed this script (what the running loop was started from
+// is recorded in loop.json at start, so a stale loop after a git pull is visible).
+const RUN_FILE = join(STATE_DIR, 'loop.json');
+const scriptVersion = () => {
+  const v = tryGit(PRIMARY, 'log', '-1', '--format=%h %cs', '--', 'scripts/opencode-task-loop.mjs');
+  return v ? v.replace(' ', ' (') + ')' : 'unknown';
+};
+const ago = (iso) => {
+  let s = Math.max(0, Math.round((Date.now() - Date.parse(iso)) / 1000));
+  const d = Math.floor(s / 86400);
+  s -= d * 86400;
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  return `${d ? `${d}d ` : ''}${h}h ${m}m`;
+};
+function loopLine() {
+  const now = scriptVersion();
+  let pid = null;
+  try {
+    pid = Number(readFileSync(LOCK, 'utf8'));
+    process.kill(pid, 0);
+  } catch {
+    pid = null;
+  }
+  if (!pid) return `opencode-loop ${now} — NOT RUNNING (start: opencode-loop start)`;
+  let run = {};
+  try {
+    run = JSON.parse(readFileSync(RUN_FILE, 'utf8'));
+  } catch {
+    /* started by an older version */
+  }
+  if (run.pid !== pid) return `opencode-loop ${now} — running (pid ${pid}, start time unknown)`;
+  const stale =
+    run.version && run.version !== now
+      ? ` — STALE: started from ${run.version}, restart to load ${now}`
+      : '';
+  return `opencode-loop ${run.version ?? now} — running ${ago(run.startedAt)} (pid ${pid}, since ${run.startedAt.slice(0, 16).replace('T', ' ')} UTC)${stale}`;
+}
+
 function status() {
+  console.log(loopLine());
   const state = loadState();
   const tasks = listSpecs();
   if (!tasks.length) return console.log(`no runnable tasks in ${SPEC_DIR} (specs need a "prompt")`);
@@ -547,6 +588,11 @@ function status() {
   }
 }
 
+// One line for the login banner: version, running/not running, uptime, STALE after a pull.
+if (flag('--line')) {
+  console.log(loopLine());
+  process.exit(0);
+}
 if (flag('--status')) {
   status();
   process.exit(0);
@@ -575,12 +621,18 @@ if (existsSync(LOCK)) {
   }
 }
 writeFileSync(LOCK, String(process.pid));
+writeFileSync(
+  RUN_FILE,
+  JSON.stringify({ pid: process.pid, startedAt: now(), version: scriptVersion() }, null, 2),
+);
 const release = () => existsSync(LOCK) && statSync(LOCK) && unlinkSync(LOCK);
 process.on('exit', release);
 process.on('SIGINT', () => process.exit(130));
 process.on('SIGTERM', () => process.exit(143));
 
-alert(`started (pid ${process.pid}, model ${DEFAULT_MODEL}, round timeout ${ROUND_MIN}m)`);
+alert(
+  `started ${scriptVersion()} (pid ${process.pid}, model ${DEFAULT_MODEL}, round timeout ${ROUND_MIN}m)`,
+);
 for (;;) {
   tryGit(PRIMARY, 'pull', '-q', '--ff-only', 'origin', 'main'); // new specs arrive via main
   const state = loadState();

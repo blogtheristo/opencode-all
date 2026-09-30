@@ -181,4 +181,7 @@ dws6-sync() {
 if [[ $- == *i* && -z "${DWS6_SYNC_DONE:-}" ]]; then
   export DWS6_SYNC_DONE=1
   dws6-sync || true
+  # Announce the loop: version, running for how long, STALE when ~/dws6 moved past it.
+  [[ -f "${DWS6_PRIMARY:-$HOME/dws6}/scripts/opencode-task-loop.mjs" ]] &&
+    (cd "${DWS6_PRIMARY:-$HOME/dws6}" && timeout 10 node scripts/opencode-task-loop.mjs --line 2>/dev/null) >&2 || true
 fi

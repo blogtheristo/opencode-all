@@ -66,7 +66,28 @@ visual that does not exist, no demo that does not run). The Blog editor shows th
 Plain prose. No HTML. This file is what the HIC reads, so it must be the whole
 post, not a summary, outline or description of the post.
 
+### 1b. Vocabulary: dictionary, KB and ontology move with the post (HIC 30.09.2026)
+
+Blog posts are how DWS builds its understanding, so every post updates the shared vocabulary in
+the same PR — never the post alone:
+
+- **Dictionary:** use `docs/localization/dws-dictionary.json` for every term it covers, in every
+  language. A new term the post introduces gets a dictionary entry (EN/FI/SV/DE/FR, `seo`,
+  `ontologyId`) — regenerate with `scripts/i18n/generate-dws-dictionary.cjs`, never hand-edit JSON.
+- **Ontology:** a new concept gets its `ONTOLOGY.md` entry (and the Appendix E.1 id for the
+  dictionary binding); `npm run ontology:index`.
+- **KB:** `/kb` ingest the post as a source so `kb/wiki/` reflects it.
+
+State in the PR which of the three changed, or `N/A — <reason>` (Rule 12).
+
 ### 2. Show
+
+**Blog editor first (HIC 30.09.2026):** when a session drafts or edits a blog entry, seed the draft
+into the Blog editor (https://claude.ai/artifact/E8UzDoicwreU1fGaBwYnuA — rebuild with
+`npx tsx scripts/blog-editor/build.mjs <dir>`, republish, write the changed `drafts` rows) and
+**open it** (Artifact `open`) so the HIC reviews beside the chat. Do the same when the session
+regenerates `Learn/` documents: republish so the editor's Learn tab shows them. The fenced block
+below stays for copy-paste.
 
 Output the **entire draft in one fenced code block** — per the CLAUDE.md
 Deliverable Handoff Rule, a fenced block is the only thing with a copy button.
