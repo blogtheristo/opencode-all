@@ -83,7 +83,8 @@
     "opencode:update": "bash scripts/update-opencode-all.sh",
     "diag:nemoclaw": "node scripts/verify-nemoclaw-runtime.mjs",
     "build:learning-hub": "node scripts/build-learning-hub.mjs",
-    "validate:learning-hub": "node scripts/build-learning-hub.mjs --validate"
+    "validate:learning-hub": "node scripts/build-learning-hub.mjs --validate",
+    "check:live-versions": "node scripts/check-live-versions.mjs"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",

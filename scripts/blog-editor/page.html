@@ -98,6 +98,14 @@
     background: transparent;
     min-height: 36px;
   }
+  .tabs.centres {
+    flex-basis: 100%;
+    flex-wrap: wrap;
+  }
+  .tabs.centres button {
+    font-size: 0.85rem;
+    min-height: 32px;
+  }
   .tabs button[aria-pressed="true"] {
     background: var(--accent);
     color: var(--accent-ink);
@@ -378,6 +386,14 @@
     <button id="tab-learn" aria-pressed="false">Learn</button>
     <button id="tab-whitepaper" aria-pressed="false">Whitepapers</button>
     <button id="tab-thesis" aria-pressed="false">Thesis</button>
+  </div>
+  <div class="tabs centres" id="centre-tabs" role="group" aria-label="Centres and hubs">
+    <button id="tab-investor" aria-pressed="false">Investor</button>
+    <button id="tab-customer" aria-pressed="false">Customer</button>
+    <button id="tab-partner" aria-pressed="false">Partner</button>
+    <button id="tab-materials" aria-pressed="false">Materials</button>
+    <button id="tab-legal" aria-pressed="false">Legal hub</button>
+    <button id="tab-compliance" aria-pressed="false">Compliance hub</button>
   </div>
   <div class="row" id="edit-actions" hidden>
     <button id="toggle">Read</button>
@@ -957,11 +973,19 @@
   };
 
   // ---------- learn / whitepapers / thesis (BLOG_STANDARD §17: the four pillars) ----------
-  const PILLAR_TABS = ["drafts", "learn", "whitepaper", "thesis"];
+  // Centres and hubs (scripts/knowledge-centres.mjs): live dws10.com pages, one button each.
+  const CENTRE_TABS = ["investor", "customer", "partner", "materials", "legal", "compliance"];
+  const PILLAR_TABS = ["drafts", "learn", "whitepaper", "thesis", ...CENTRE_TABS];
   const PILLAR_NAME = {
     learn: "Learn",
     whitepaper: "Whitepapers & demos",
     thesis: "Thesis — master's & PhD",
+    investor: "Investor centre",
+    customer: "Customer centre",
+    partner: "Partner centre",
+    materials: "Materials",
+    legal: "Legal hub",
+    compliance: "Compliance hub",
   };
   async function renderLearn(pillar = "learn") {
     setBar(PILLAR_NAME[pillar] || "Learn");
@@ -980,12 +1004,18 @@
       const sourced = inPillar.filter((d) => d.sources >= 3 && d.academic >= 1).length;
       note(
         `${inPillar.length} documents · ${sourced} with external sources incl. academic · built ${learn.built}` +
-          (pillar === "learn" ? ` · ${learn.withheld} withheld by the access policy` : ""),
+          (pillar === "learn" ? ` · ${learn.withheld} withheld by the access policy` : "") +
+          (CENTRE_TABS.includes(pillar)
+            ? ` · live dws10.com pages · ${learn.centres?.withheld?.[pillar] ?? 0} internal documents counted, not shown (access policy)` +
+              (learn.centres?.langCopies?.[pillar]
+                ? ` · ${learn.centres.langCopies[pillar]} language copies`
+                : "")
+            : ""),
       );
       $("#list").innerHTML = rows
         .map(
           (d) =>
-            `<li data-f="${esc(d.file)}"><span class="t">${esc(d.title)}</span><span class="pill ${d.sources >= 3 && d.academic >= 1 ? "complete" : "gaps"}" title="External sources (academic)">src ${d.sources ?? 0}/${d.academic ?? 0}</span><span class="pill">${esc(d.track || d.class)}</span><span class="m">${esc(d.file)} · ${d.kb} KB</span></li>`,
+            `<li data-f="${esc(d.file)}"><span class="t">${esc(d.title)}</span><span class="pill ${d.sources >= 3 && d.academic >= 1 ? "complete" : "gaps"}" title="External sources (academic)">src ${d.sources ?? 0}/${d.academic ?? 0}</span><span class="pill">${esc(d.track || d.class)}</span><span class="m">${esc(d.url || d.file)} · ${d.kb} KB</span></li>`,
         )
         .join("");
       document
@@ -998,7 +1028,17 @@
   async function openLearn(file) {
     const d = learn.docs.find((x) => x.file === file);
     setBar(d.title, { back: true });
+    const live = d.url
+      ? `<p class="note"><a href="${esc(d.url)}" target="_blank" rel="noopener">Open live ↗ ${esc(d.url)}</a></p>`
+      : "";
+    if (d.url && !d.embed) {
+      main.innerHTML =
+        live +
+        `<p class="note">This page is ${d.kb} KB (inline images), so it opens on the live site.</p>`;
+      return;
+    }
     main.innerHTML =
+      live +
       '<p class="note" id="msg">Loading…</p><iframe id="doc" sandbox title="' +
       esc(d.title) +
       '"></iframe>';

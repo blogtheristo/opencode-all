@@ -1,0 +1,4 @@
+{
+  "_about": "Documents copied onto a public site under a version-less URL. scripts/check-live-versions.mjs fails when a copy's version marker is behind the newest source file. source: repo path with {v} where the version goes; published: site paths (root and landing-pages mirror); marker: optional regex with one capture group for the copy's version (default: 'Document revision: vX').",
+  "artifacts": []
+}

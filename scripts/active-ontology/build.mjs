@@ -15,6 +15,8 @@
  *               learn       Learn/ documents the access policy allows (newest version each)
  *               whitepaper  docs/whitepapers/*.md and Learn whitepapers
  *               thesis      the master's thesis (operational) and the PhD (strategic), EN masters
+ *   centres   investor, customer, partner, materials, legal and compliance hubs: live dws10.com
+ *             pages (scripts/knowledge-centres.mjs); internal folders are counted, not drawn;
  *   edges     work → concept: a blog master's seo_tags, otherwise the terms its text mentions
  *             (English term, whole word; top 10 by count);
  *   progress  per item: blog = §16 contract + §17 value/sources/routes, others = sources found.
@@ -31,6 +33,7 @@ import {
 import { dirname, join, resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { collectCentres } from '../knowledge-centres.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const out = process.argv[2] && resolve(process.argv[2]);
@@ -250,6 +253,22 @@ for (const [p, label, track] of theses) {
   addEdges(id, mentions(text, 24));
 }
 
+// ---------- centres and hubs ----------
+const centres = collectCentres(ROOT);
+for (const d of centres.docs) {
+  const id = `w:${d.centre}:${d.file}`;
+  work.push({
+    id,
+    pillar: d.centre,
+    label: d.title,
+    file: d.file,
+    url: d.url,
+    status: 'LIVE',
+    sources: sourceStats(d.html),
+  });
+  addEdges(id, mentions(stripHtml(d.html)));
+}
+
 // ---------- coverage ----------
 const used = new Map();
 for (const e of edges) used.set(e.target, (used.get(e.target) ?? 0) + 1);
@@ -275,7 +294,7 @@ const graph = {
   concepts: drawn.map((c) => ({ ...c, degree: used.get(c.id) ?? 0 })),
   work,
   edges,
-  summary: { byPillar, clusters },
+  summary: { byPillar, clusters, centres: { withheld: centres.withheld } },
 };
 writeFileSync(join(out, 'graph.json'), JSON.stringify(graph));
 copyFileSync(join(ROOT, 'scripts/active-ontology/page.html'), join(out, 'index.html'));
