@@ -13,6 +13,5 @@
       "name": "timer and README exist",
       "run": "test -f infrastructure/aegis-pilot/aegis-pilot-health@.timer && grep -q 'OnUnitActiveSec' infrastructure/aegis-pilot/aegis-pilot-health@.timer && test -f infrastructure/aegis-pilot/README.md"
     }
-  ],
-  "enabled": false
+  ]
 }

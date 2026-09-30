@@ -57,6 +57,5 @@
       "name": "source scope is honest",
       "run": "! rg -q 'plan is derived exclusively from that snapshot' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md"
     }
-  ],
-  "enabled": false
+  ]
 }

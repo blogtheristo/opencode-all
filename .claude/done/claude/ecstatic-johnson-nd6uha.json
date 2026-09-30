@@ -18,6 +18,5 @@
       "name": "GitHub sees it as mergeable",
       "run": "m=$(gh pr view 2181 --json mergeable -q .mergeable); echo \"mergeable=$m\"; [ \"$m\" = MERGEABLE ]"
     }
-  ],
-  "enabled": false
+  ]
 }

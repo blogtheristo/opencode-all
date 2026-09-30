@@ -13,6 +13,5 @@
       "name": "nightly run records a PASS",
       "run": "command -v unshare >/dev/null || exit 0; bash scripts/daily/aegis-pilot-rehearsal.sh >/dev/null 2>&1 && tail -1 logs/aegis-pilot-rehearsal.jsonl | grep -q '\"outcome\": *\"PASS\"'"
     }
-  ],
-  "enabled": false
+  ]
 }

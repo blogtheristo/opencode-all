@@ -17,6 +17,5 @@
       "name": "exported",
       "run": "grep -q gke-sandbox-policy src/aegis/pilot/index.ts"
     }
-  ],
-  "enabled": false
+  ]
 }

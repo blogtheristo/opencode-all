@@ -21,6 +21,5 @@
       "name": "spec marks F1 as Pass",
       "run": "grep -qE 'F1.*\\*\\*Pass\\*\\*|F1.*\\| Pass' docs/KYA_JEV_SPECIFICATION.md"
     }
-  ],
-  "enabled": false
+  ]
 }

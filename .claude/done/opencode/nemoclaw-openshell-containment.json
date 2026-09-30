@@ -17,6 +17,5 @@
       "name": "wired",
       "run": "grep -q openshell-handlers src/mcp/nemoclaw-skill-host.ts"
     }
-  ],
-  "enabled": false
+  ]
 }

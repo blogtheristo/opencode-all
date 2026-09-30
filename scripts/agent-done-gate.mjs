@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Evidence: Tool=Claude Code Model=anthropic Agent=agent-done-gate Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=agent-done-gate Date=2026-09-30
 // Audit trail: git log -- scripts/agent-done-gate.mjs
 /**
  * agent-done-gate — decides "done" from repository facts, not from an agent's summary.
@@ -29,9 +29,13 @@
  *   lint        eslint errors on changed src/ files, as CI's lint-check (--full)
  *   tests       vitest related --run on changed source (--full)
  *   spec        every check in .claude/done/<branch>.json exits 0 — the task's own acceptance
+ *   spec-lock   the branch did not modify, delete or rename any task spec that existed at its
+ *               merge base with origin/main (--allow-spec-edit = WARN, for HIC-side spec PRs)
  *
- * Task spec (.claude/done/<branch>.json, looked up in this checkout, then in the primary checkout
- * so specs can live on main while the branch is in flight):
+ * Task spec (.claude/done/<branch>.json): read from origin/main when it is there, else from the
+ * primary checkout, else from this checkout. The acceptance checks are set by whoever wrote the
+ * spec, not by the task being judged: on 29.09.2026 three loop branches loosened their own
+ * checks in their worktree copy of the spec and then passed them.
  *   { "task": "…", "checks": [ { "name": "…", "run": "<bash command, exit 0 = pass>" } ] }
  *
  * Exit 0 = done, 1 = not done, 2 = gate could not run.
@@ -47,6 +51,7 @@ const FULL = args.has('--full');
 // never push: for them an unpushed branch is expected, so it is reported, not failed.
 const ALLOW_UNPUSHED = args.has('--allow-unpushed');
 const JSON_OUT = args.has('--json');
+const ALLOW_SPEC_EDIT = args.has('--allow-spec-edit');
 const sinceIdx = argv.indexOf('--since');
 const SINCE = sinceIdx >= 0 ? argv[sinceIdx + 1] : null;
 
@@ -200,15 +205,32 @@ if (FULL) {
   }
 }
 
+// spec lock — judged from the merge base, not --since, so an edit made in an earlier round counts
+const lockBase = tryGit('merge-base', 'HEAD', 'origin/main') || base;
+const specEdits = lockBase
+  ? git('diff', '--name-status', '--diff-filter=MDR', lockBase, 'HEAD', '--', '.claude/done/')
+      .split('\n')
+      .filter(Boolean)
+  : [];
+if (specEdits.length)
+  add(
+    'spec-lock',
+    ALLOW_SPEC_EDIT ? 'warn' : 'fail',
+    `task specs are the HIC's acceptance, not the task's — revert these:\n${specEdits.join('\n')}`,
+  );
+else add('spec-lock', 'pass', 'no existing task spec changed');
+
 // task spec
 const commonDir = git('rev-parse', '--path-format=absolute', '--git-common-dir');
 const primary = dirname(commonDir);
-const specRel = join('.claude', 'done', `${branch}.json`);
-const specPath = [join(top, specRel), join(primary, specRel)].find((p) => existsSync(p));
+const specRel = `.claude/done/${branch}.json`;
+const mainSpec = tryGit('show', `origin/main:${specRel}`);
+const localSpec = [join(primary, specRel), join(top, specRel)].find((p) => existsSync(p));
+const specPath = mainSpec !== null ? `origin/main:${specRel}` : localSpec;
 if (specPath) {
   let spec;
   try {
-    spec = JSON.parse(readFileSync(specPath, 'utf8'));
+    spec = JSON.parse(mainSpec !== null ? mainSpec : readFileSync(localSpec, 'utf8'));
   } catch (e) {
     add('spec', 'fail', `${specPath}: invalid JSON (${e.message})`);
   }
