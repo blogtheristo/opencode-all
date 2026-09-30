@@ -189,6 +189,24 @@ These are working assumptions (Rule 1: stated, not guessed). Confirm with Maria;
 
 If the dual-use/defence-adjacent exposure does **not** hold up on confirmation, pivot the offer to the **critical-infrastructure (CER/NIS2) + climate (CBAM/ETS/CSRD)** sovereignty story on **Aegis Standard** — the core sovereignty value holds either way. Fail loud on this rather than forcing the Defence frame (Rule 12).
 
+## Myyntimahdollisuus 1 (HIC, 28.09.2026)
+
+The opening: no one at Kemira explicitly owns batch-level PCF capability. It splits between R&D, IT and Sustainability. This is still a hypothesis, to be tested with Q2 and Q3 of `DISCOVERY_CALL_TEMPLATE.md`. Tracked in `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md` → "Myyntimahdollisuus 1". Letter sent 28.09.2026.
+
+**Sent to Maria in writing, 28.09.2026 (HIC):**
+
+1. Pyytävätkö asiakkaanne erätason hiilijalanjälkeä, ja saavatko he sen?
+2. Kenen päätettävissä se Kemiralla olisi?
+3. Tietääkö joku, että päätös on hänen?
+
+Reading her reply:
+
+- **Q1 "kyllä, käsin" / "osittain":** the pain is confirmed. Ask for hours per report.
+- **Q2 names a person:** ask Maria for an introduction to that person. The pitch moves to them.
+- **Q2 "hajoaa" / no clear answer:** Myyntimahdollisuus 1 is confirmed. Offer to build the internal case with her.
+- **Q3 "ei":** she is the first to own it, so offer to help her own it.
+- **No reply:** send one follow-up on 12.10.2026, then stay silent (NORDIC_SALES_STRATEGY.md).
+
 ## Next actions
 
 - [ ] Confirm Maria's exact title, product-line scope, and which Kemira lines sit in CER/NIS2 and dual-use scope (drives Defence vs Standard).

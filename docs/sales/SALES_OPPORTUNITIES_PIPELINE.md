@@ -1,7 +1,7 @@
 # Sales Opportunities Pipeline — PhD Market Signals
 
 **Document ID:** DWS-SALES-PIPELINE-2026-001
-**Version:** 1.9 | **Date:** 2026-09-30
+**Version:** 2.0 | **Date:** 2026-09-30
 **Owner:** Risto Anton Päärni, Lifetime Oy
 **Source:** `docs/PHD_FIREHORSE_EN.md` §14.18–§14.53 (35 market-signal sections) + §14.55 (added 2026-09-28), scored per CLAUDE.md "Market Signal → Sales Pipeline Rule"
 **Classification:** Internal — Sales Engineering
@@ -187,6 +187,28 @@ This roster is now wired to the live Firehorse outreach infrastructure, not a st
 3. **Post-import flow:** once a row is completed and imported, it enters the existing `LeadState` machine (`New → Cold_1_Sent → ... → Meeting_Booked`) and the Cold-1/2/3 SES sequence documented in `docs/SALES_FUNNEL_WORKFLOW.md`. Actual send is **RED zone (outbound email, human-gated)** — Claude Code stages the lead, a human/OpenCode triggers the send.
 4. **Schema gap — RESOLVED 2026-09-21:** `LeadCountry` (`src/firehorse/types.ts`) extended to add `FR`; `scripts/import-leads-csv.ts` validation updated to match. The four France-HQ'd accounts (Airbus, Bpifrance, BNP Paribas, L'Oréal) are now importable once a real contact is named. `FR` currently falls through to the general/English templates in `src/firehorse/helpers.ts` — no dedicated FR template yet.
 
+## Account Opportunities (numbered, from live conversations)
+
+Opportunities that come from a named contact, not from a §14.x market signal. Numbered in order of intake; the number is permanent.
+
+### Myyntimahdollisuus 1 — Kemira: orphaned owner of batch-level PCF
+
+| Field           | Value                                                                                                                                                                                                                  |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Score           | ★★★★☆ — named account + warm channel + letter sent; upgrade to ★★★★★ when Q2/Q3 confirm the ownership gap                                                                                                              |
+| Account         | Kemira Oyj (Nasdaq Helsinki: KEMIRA)                                                                                                                                                                                   |
+| Door            | Maria Sederholm, VP Product Line Management & Strategy, Fiber Essentials. Co-door: Mikko Pohjala, VP Strategy                                                                                                          |
+| Status          | Letter sent, and the 3 discovery questions sent to Maria in writing (HIC, 28.09.2026). No reply yet. One follow-up allowed on 12.10.2026 (Day 14), then silence                                                        |
+| Buyer pain      | Kemira's customers ask for batch-level product carbon footprint (PCF). Kemira runs a Supplier PCF Reporting Guideline (April 2025), so demand is recognised; delivery is presumed manual                               |
+| The opportunity | **No one explicitly owns batch-level PCF capability.** It splits between R&D (method), IT (systems) and Sustainability (targets, CSRD). A capability with no owner has no budget, and no one is evaluating a solution  |
+| Why it matters  | An orphaned decision is the opening: whoever makes the internal case becomes its owner. Maria can take that role; DWS supplies the case                                                                                |
+| Likely owner    | EVP Strategy & Sustainability Linus Hildebrandt (strategy and sustainability under one roof), or Maria if framed as a product-line commercial capability                                                               |
+| Target product  | DWS IQ Aegis (Standard or Defence, decided in scoping) — automated batch-level PCF up- and downstream with an Article 12 audit trail                                                                                   |
+| Next action     | Discovery call with Maria using `sales-outreach/DISCOVERY_CALL_TEMPLATE.md`, chemicals/PCF variant: Q1 (do customers ask, do they get it; hours per report) → Q2 (whose decision) → Q3 (does anyone know it is theirs) |
+| Source          | `sales-outreach/INTRO_MARIA_SEDERHOLM_KEMIRA.md` lines 35–49                                                                                                                                                           |
+
+**Unverified (Rule 12):** "No one owns it" is an inference from Kemira's org structure, not something Kemira has said. Q2 and Q3 exist to test it. Do not state it to Kemira as fact. If Maria names a clear owner, re-score this opportunity and move the pitch to that person.
+
 ### Wave 3 — Website-Driven Outreach (2026-09-29)
 
 Target companies were derived from what lifetime.fi and dws10.com sell. Eight drafts, each ending in a `https://dws10.com/book/?service=demo` booking link: the three T-Systems/Siemens contacts above (first drafts for them), plus five new accounts. New accounts: Patria, Bittium, MilDef (Aegis); Bufab (CBAM); Aspo/ESL Shipping (ETS maritime). Peikko and Elenia are held until a contact is confirmed. All are ★★★★☆ until each contact's role is confirmed on the company page. **Not sent — RED zone.** Full rows, sources and drafts: `docs/sales/leads-staging/2026-09-29-website-cta-wave-3.md`.
@@ -307,3 +329,4 @@ Reviewed at the same cadence as `/retro` and PhD thesis lockstep updates (CLAUDE
 | 1.7     | 2026-09-29 | Decision Paths section (HIC: pipeline is decision paths, not a funnel): each live account placed on its Workflow v2 sales-graph node with the decision, decider/signer, the problem in the buyer's numbers (sourced only), missing numbers as call questions, and allowed exits; node derived from last dated event; two customer-originated gates (buyer's number observed, signer confirmed) — 0 of 11 closed, Kemira ownership answer is the cheapest outside case; Outokumpu status corrected to sent 28.09 | Claude Code       |
 | 1.8     | 2026-09-30 | Aegis Pilot three-industry rows (market research 2026-09-28, PR #2232) merged after main's decision-path section                                                                                                                                                                                                                                                                                                                                                                                                | Claude Code       |
 | 1.9     | 2026-09-30 | Wave 3: website-driven outreach, 8 drafts with booking link (pointer to staging file; merged from #2233)                                                                                                                                                                                                                                                                                                                                                                                                        | Claude Code       |
+| 2.0     | 2026-09-30 | Account Opportunities section; Myyntimahdollisuus 1 — Kemira batch-level PCF owner (merged from `claude/sales-outreach-2-7uro90`)                                                                                                                                                                                                                                                                                                                                                                               | Claude Code       |
