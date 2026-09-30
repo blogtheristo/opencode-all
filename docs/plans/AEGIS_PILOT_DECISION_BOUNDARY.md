@@ -1,0 +1,73 @@
+# Aegis Pilot — Decision Boundary and Delegation Record
+
+# VERSION AND AGENT HISTORY
+
+---
+
+Version: 1.0 [Latest]
+
+Sessions & Modifications:
+
+- Version: 1.0 [Latest] | Tool: Claude Code (web) | Session: claude/festive-mccarthy-h6y6yu | Date: 30.09.2026 | Changes: Created on the HIC's principle of 30.09.2026: "HIC decides the few things that are genuinely decisions, the delegation of everything else is itself recorded as a decision, and the boundary is written down." Boundary (§1–§2), escalation rule (§3), and the decisions log (§4) seeded with the decisions of 30.09.2026. | Harness: Claude Code + CLAUDE.md + DWS_ROLES_REGISTRY | HIC-approved-drift: none
+
+Document Status:
+
+- Created: 30.09.2026
+- Last Modified: 30.09.2026
+- Language: English
+- Publication Status: ACTIVE
+- Classification: INTERNAL
+- Owner: Lifetime Oy — HIC (Risto Anton Päärni)
+
+---
+
+> **Principle (HIC, 30.09.2026).** HIC decides the few things that are genuinely decisions, the delegation of everything else is itself recorded as a decision, and the boundary is written down. Then the word carries weight instead of being a claim.
+
+The same rule the kit applies to agents applies to the people and agents delivering it: an act of authority is recorded with who held it, and a delegation is an act of authority.
+
+Scope: delivery of DWS-AEGIS-PILOT-001 (`docs/plans/AEGIS_PILOT_95_READINESS_PLAN.md`). It sits under the zones in `CLAUDE.md` (GREEN / YELLOW / RED) and never widens them.
+
+## 1. HIC decides
+
+| Class                                                                                                           | Why it is the HIC's                          |
+| --------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| Price, credit, scope and what is included in which product (`Store/`, `dws10.com/config/products.json`, offers) | Commits the company to a customer            |
+| Any promise to a customer or investor: contract annexes, offer text, public claims, the wording of KYA-S1       | Customer-facing text (Approval Request Rule) |
+| Who is in the room: witness, verifier, signatories, which account gets which offer                              | People and relationships                     |
+| Allocation of time between products and priorities                                                              | Strategy (HIC 30.09.2026: Aegis is focus 1)  |
+| RED zone: applying migrations, outbound email, secrets, blog publishing, structural thesis edits, Store sync    | `CLAUDE.md` Non-Negotiable Rules             |
+| Any change that cannot be undone by a revert                                                                    | Irreversibility                              |
+
+## 2. Delegated to Claude Code (this delegation is recorded here as decision D0)
+
+Technical and delivery decisions inside the plan, on these conditions: code on the security and evidence path is written tests-first, a new threat or residual goes into the threat model, and each decision is logged in §4 with its reason and commit.
+
+- Design and implementation choices in `src/aegis/pilot/` and its tests, including the shape of ledger events and records.
+- Sequencing within the readiness plan; takeovers under the loop rules; loop task specs.
+- Gate scores, checked against merged code and reported with their evidence.
+- PR mechanics on the working branch, including `SKIP_LOCAL_CI=1` while local pre-push CI fails only on environment checks (HIC 30.09.2026).
+- Routing and star-scoring market signals (the Market Signal rule); thesis additions in the GREEN zone.
+
+## 3. Escalation
+
+A delegated decision goes back to the HIC before it takes effect when it:
+
+1. changes a price, a scope line or anything a customer was promised;
+2. changes customer-facing or public text;
+3. touches a RED-zone item; or
+4. cannot be reversed by reverting a commit.
+
+A decision taken under delegation can be overruled by the HIC at any time; the overruling is logged as a new row, never by editing the old one.
+
+## 4. Decisions log
+
+| #   | Date       | Decision                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | By                    | Basis                                                                                                                                                                                       | Record                                                      |
+| --- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| D0  | 30.09.2026 | Delegation of §2 to Claude Code, bounded by §1 and §3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | HIC                   | Principle above                                                                                                                                                                             | This file                                                   |
+| H1  | 30.09.2026 | Aegis implementation is focus 1; active ontology and `opencode-loop` are the operating tools                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | HIC                   | —                                                                                                                                                                                           | Handoff Day 5                                               |
+| H2  | 30.09.2026 | H1 acceptance annex, Phase 0 template and KYA-S1 TC4-6 approved as drafted (safe halt in condition iii; one retake in 10 business days)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | HIC                   | Approval Artifact                                                                                                                                                                           | `docs/sales/AEGIS_PILOT_ACCEPTANCE_ANNEX.md`, KYA-S1 v1.6   |
+| H3  | 30.09.2026 | Take over A2 (#2256) before 02.10; add C6 (self-reading record, auditor guide, drift check) as one record-shape change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | HIC                   | —                                                                                                                                                                                           | `af294e75`, `ab048be1`                                      |
+| D1  | 30.09.2026 | A `modify` makes the operator's version a new recommendation, emitted by the operator and accepted in the same signed act; the agent's recommendation stays standing and unaccepted (`PATH_MODIFIED`, never `PATH_ACCEPTED`), so the pair stays queryable: recommended X, operator emitted Y, Y accepted. Outcomes bind to the operator's recommendation                                                                                                                                                                                                                                                                                                                                     | Claude Code (D0)      | "Show every time the agent was overruled" answerable from journey events alone; outcome attributed to what was carried out; modification rate as product signal (Boardy review, 30.09.2026) | Tests-first in `decision-authority.ts`; commit logged below |
+| D2  | 30.09.2026 | M4 verification in sequence: first an internal person who has never held the repo or state (rehearsal), then the buyer                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Claude Code (D0)      | Cheap defects are caught before the test that cannot fail                                                                                                                                   | Plan §5.3 H3                                                |
+| D3  | 30.09.2026 | Peer scan of decision-layer founders (Boardy's offer) deferred until after M4, unless a fund conversation lands first: then run it before claiming in a pitch that nobody else keeps negative decision evidence (the scan can refute that claim, never prove it)                                                                                                                                                                                                                                                                                                                                                                                                                             | Claude Code (D0)      | Follows H1: it serves the ontology asset, not this year's pilot                                                                                                                             | Sales pipeline row §14.58                                   |
+| E1  | 30.09.2026 | **Escalated, open:** is production hardening (TPM quote, measured boot, RIM, hardware keys) included in standard Aegis onboarding, or priced in the production phase as the Kemira and Outokumpu offers say? Third option (Boardy, 30.09.2026): included at no extra price and conditional on the site — TPM 2.0 and a controlled boot chain become a Phase 0 gate, attestation is demonstrated in the pilot where the hardware allows, and only new hardware is priced. Hardware itself is never included: DWS does not resell hardware (`Store/PRODUCT_AEGIS.md` §Technical Requirements). Choosing option 3 changes the offers' wording and needs TPM-quote code that does not exist yet. | HIC (§1: scope/price) | Offers `aegis-pilot-tarjous-*-fi.md` "hinnoitellaan tuotantovaiheessa"                                                                                                                      | —                                                           |
