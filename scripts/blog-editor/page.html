@@ -353,6 +353,9 @@
     title="Page version (commit of scripts/blog-editor/page.html) and build date"
     >__BE_VERSION__</span
   >
+  <button id="refresh" title="Pull the latest drafts from git (runs the refresh routine)">
+    ↻ Refresh
+  </button>
   <div class="tabs" id="tabs" role="group" aria-label="Section">
     <button id="tab-drafts" aria-pressed="true">Drafts</button>
     <button id="tab-learn" aria-pressed="false">Learn</button>
@@ -423,6 +426,42 @@
       return { text: "Saved, but not synced: " + why + manual, err: true };
     }
   }
+  // Refresh fires the "Blog editor ← git refresh" Routine: a fresh Claude session rebuilds the
+  // drafts from git main and updates this page's rows (never overwriting unsynced edits). Use it
+  // while the opencode loop or another session is reorganising drafts in git.
+  const REFRESH_TRIGGER = "trig_01J1Dgox8Pxcb7sAGf7F9y2j";
+  async function startRefresh() {
+    if (mcp === undefined) mcp = await window.claude?.use?.("mcp");
+    if (!db)
+      return { text: "Refresh needs this page's storage (open it on claude.ai).", err: true };
+    if (!mcp)
+      return {
+        text: 'Refresh is not available in this view. Ask Claude to "refresh blog editor".',
+        err: true,
+      };
+    const meta = db.doc("meta/refreshRequest");
+    const last = (await meta.get()).data()?.firedAt;
+    if (last && Date.now() - Date.parse(last) < 120000)
+      return { text: "A refresh started a moment ago; the list updates by itself when it lands." };
+    try {
+      await mcp.callTool(
+        "Claude Code Remote",
+        "fire_trigger",
+        { trigger_id: REFRESH_TRIGGER },
+        { cache: false },
+      );
+      await meta.set({ firedAt: new Date().toISOString() });
+      return {
+        text: "Refreshing from git. New and changed drafts appear here in a few minutes; your unsaved and unsynced edits are kept.",
+      };
+    } catch (e) {
+      return {
+        text: "Refresh did not start (" + (e?.code || e?.message || "error") + ").",
+        err: true,
+      };
+    }
+  }
+  let lastRefresh = null;
   let drafts = [];
   let learn = null;
   let tab = store.get("be:tab") || "drafts";
@@ -625,6 +664,7 @@
     $("#title").textContent = title;
     $("#back").hidden = !back;
     $("#tabs").hidden = back;
+    $("#refresh").hidden = back;
     $("#edit-actions").hidden = !editing;
   }
   // Messages the HIC must see wherever the page is scrolled go in the bottom sheet.
@@ -686,7 +726,12 @@
       const rows = drafts.filter((d) => (d.title + " " + d.name).toLowerCase().includes(term));
       const waiting = drafts.filter((d) => d.edited).length;
       note(
-        `${drafts.length} drafts` +
+        (lastRefresh
+          ? `Refreshed from git ${lastRefresh.commit || ""} ${String(lastRefresh.refreshedAt || "")
+              .slice(0, 16)
+              .replace("T", " ")} UTC · `
+          : "") +
+          `${drafts.length} drafts` +
           (waiting
             ? ` · ${waiting} saved here, waiting for sync to git`
             : " · all in sync with git"),
@@ -991,6 +1036,17 @@
     cur = null;
     tab === "drafts" ? renderDrafts() : renderLearn();
   };
+  $("#refresh").onclick = async () => {
+    const b = $("#refresh");
+    b.disabled = true;
+    try {
+      const r = await startRefresh();
+      toast(r.text, r.err);
+    } catch (e) {
+      toast(e.message || String(e), true);
+    }
+    setTimeout(() => (b.disabled = false), 5000);
+  };
   $("#tab-drafts").onclick = () => selectTab("drafts");
   $("#tab-learn").onclick = () => selectTab("learn");
   window.addEventListener("beforeunload", (e) => {
@@ -1007,6 +1063,10 @@
       if (tab === "drafts" && !cur) renderDrafts();
       return;
     }
+    db.doc("meta/refresh").onSnapshot((snap) => {
+      lastRefresh = snap?.data?.() ?? null;
+      if (tab === "drafts" && !cur) renderDrafts();
+    });
     db.collection("drafts").onSnapshot(
       (snap) => {
         drafts = snap.docs
