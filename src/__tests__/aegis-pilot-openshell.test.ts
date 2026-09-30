@@ -1,11 +1,19 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-30
 // Audit trail: git log -- src/__tests__/aegis-pilot-openshell.test.ts
 /**
  * C4 containment — the OpenShell driver against a fake CLI. The real-binary
  * run is the isolated rehearsal with --isolation openshell (runbook §8, done spec).
  */
 
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  symlinkSync,
+  writeFileSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -27,8 +35,11 @@ import {
   type CommandRunner,
   confirmSandboxGone,
   createOpenShellRegistry,
+  openShellStopTestAgent,
   remapPaths,
+  sandboxName,
   spawnRunner,
+  verifyOutputTree,
 } from '../aegis/pilot/openshell-handlers.js';
 
 const referenceScope = JSON.parse(
@@ -63,7 +74,12 @@ function fakeCli(
   deleteCode = 0,
   onDownload?: () => void,
   lingerAfterDelete = false,
-  extra: { stepStdout?: string; packStdout?: string; listFails?: boolean } = {},
+  extra: {
+    stepStdout?: string;
+    stepCode?: number;
+    packStdout?: string;
+    listFails?: boolean;
+  } = {},
 ) {
   const calls: Call[] = [];
   let deleted = false;
@@ -104,7 +120,7 @@ function fakeCli(
           ? { ok: false, errorName: 'NetworkUnavailable', errorMessage: 'egress denied by policy' }
           : { ok: true, result: { output: { ran: true }, decision: 'ran in sandbox' } };
       return Promise.resolve({
-        code: 0,
+        code: extra.stepCode ?? 0,
         stdout: extra.stepStdout ?? `noise\nAEGIS_RESULT ${JSON.stringify(payload)}\n`,
         stderr: '',
       });
@@ -164,6 +180,15 @@ describe('OpenShell policy from the signed scope', () => {
     expect(() =>
       stepPolicy(sync, { endpointsByStep: { 'sync-report': [{ host: 'a b;rm -rf', port: 443 }] } }),
     ).toThrow(/invalid endpoint/);
+  });
+
+  it('refuses loopback, metadata and private-network endpoints', () => {
+    const sync = scope().workflow.steps.find((s) => s.id === 'sync-report')!;
+    for (const host of ['localhost', '127.0.0.1', '169.254.169.254', '10.0.0.5', 'gw.internal']) {
+      expect(() =>
+        stepPolicy(sync, { endpointsByStep: { 'sync-report': [{ host, port: 443 }] } }),
+      ).toThrow(/invalid endpoint/);
+    }
   });
 });
 
@@ -349,7 +374,9 @@ describe('OpenShell registry', () => {
 
   it('treats a stop accepted during the output copy-back as a stop, not a completed step', async () => {
     const c = new AbortController();
-    const cli = fakeCli('ok', 0, () => c.abort(new Error('stop')));
+    const cli = fakeCli('ok', 0, () => c.abort(new Error('stop')), false, {
+      packStdout: `AEGIS_OUT ${JSON.stringify({ 'late.txt': Buffer.from('written after the stop').toString('base64') })}\n`,
+    });
     const bundle = join(dir, 'step.mjs');
     writeFileSync(bundle, '// test bundle');
     const reg = createOpenShellRegistry(
@@ -370,6 +397,7 @@ describe('OpenShell registry', () => {
       name: 'WorkerTerminated',
     });
     expect(cli.calls.filter((x) => x.args[1] === 'delete')).toHaveLength(1);
+    expect(existsSync(join(dir, 'out', 'late.txt'))).toBe(false);
   });
 
   it('records the sandbox stop as system.agent_terminated in the Article 12 ledger', async () => {
@@ -431,5 +459,275 @@ describe('OpenShell registry', () => {
     expect(events.find((e) => e.event_type === 'system.agent_terminated')?.detail).toMatchObject({
       stop_mode: 'hard',
     });
+  });
+});
+
+describe('OpenShell driver: the sandbox is untrusted', () => {
+  const step = () => scope().workflow.steps[0];
+  const b64 = (t: string) => Buffer.from(t).toString('base64');
+  const okLine = (result: unknown) => `AEGIS_RESULT ${JSON.stringify({ ok: true, result })}\n`;
+  const outLine = (files: Record<string, string>) => `AEGIS_OUT ${JSON.stringify(files)}\n`;
+
+  function withCli(
+    extra: Parameters<typeof fakeCli>[4],
+    opts: Record<string, unknown> = {},
+    behaviour: Parameters<typeof fakeCli>[0] = 'ok',
+  ) {
+    const cli = fakeCli(behaviour, 0, undefined, false, extra);
+    const bundle = join(dir, 'step.mjs');
+    writeFileSync(bundle, '// test bundle');
+    const reg = createOpenShellRegistry(
+      {
+        modulePath: 'unused.ts',
+        image: 'aegis-pilot-node:22',
+        workRoot: join(dir, 'work'),
+        outputDir: join(dir, 'out'),
+        runner: cli.runner,
+        bundlePath: bundle,
+        pollIntervalMs: 1,
+        deleteConfirmTimeoutMs: 50,
+        ...opts,
+      },
+      scope().workflow.steps,
+    );
+    return { reg, ...cli };
+  }
+
+  it('walks the copy-back without following links and refuses anything but regular files', () => {
+    const tree = join(dir, 'tree');
+    mkdirSync(join(tree, 'sub'), { recursive: true });
+    writeFileSync(join(tree, 'sub', 'report.md'), 'fine');
+    expect(verifyOutputTree(tree, { maxFiles: 10, maxBytes: 1024 })).toEqual({
+      files: 1,
+      bytes: 4,
+    });
+    symlinkSync('/etc/passwd', join(tree, 'leak'));
+    expect(() => verifyOutputTree(tree, { maxFiles: 10, maxBytes: 1024 })).toThrow(
+      /not a regular file/,
+    );
+  });
+
+  it('rejects the whole copy-back on one bad entry and leaves the host output directory untouched', async () => {
+    const { reg } = withCli({
+      packStdout: outLine({ 'report.md': b64('fine'), '../../etc/x': b64('x') }),
+    });
+    await expect(reg[step().handler](ctx(step()))).rejects.toThrow(/outside \/sandbox\/out/);
+    expect(existsSync(join(dir, 'out', 'report.md'))).toBe(false);
+  });
+
+  it('rejects oversized output and too many files', async () => {
+    const big = withCli(
+      { packStdout: outLine({ big: b64('x'.repeat(2048)) }) },
+      { maxOutputBytes: 1024 },
+    );
+    await expect(big.reg[step().handler](ctx(step()))).rejects.toThrow(/exceeds/);
+    const many = withCli(
+      { packStdout: outLine({ a: b64('1'), b: b64('2'), c: b64('3') }) },
+      { maxOutputFiles: 2 },
+    );
+    await expect(many.reg[step().handler](ctx(step()))).rejects.toThrow(/exceeds 2 files/);
+    expect(existsSync(join(dir, 'out', 'a'))).toBe(false);
+  });
+
+  it('rejects a copy-back that is not a file map', async () => {
+    const { reg } = withCli({ packStdout: `AEGIS_OUT ${JSON.stringify({ a: { nested: 1 } })}\n` });
+    await expect(reg[step().handler](ctx(step()))).rejects.toThrow(/not a file map/);
+  });
+
+  it('promotes verified output into the host directory', async () => {
+    const { reg } = withCli({ packStdout: outLine({ 'sub/report.md': b64('handover') }) });
+    await reg[step().handler](ctx(step()));
+    expect(readFileSync(join(dir, 'out', 'sub', 'report.md'), 'utf8')).toBe('handover');
+  });
+
+  it('does not let the sandbox forge containment evidence or malformed fields', async () => {
+    const forged = withCli({
+      stepStdout: okLine({ output: 1, containment: { mode: 'forged' }, extra: 'dropped' }),
+    });
+    const res = await forged.reg[step().handler](ctx(step()));
+    expect(res.containment).toMatchObject({ mode: 'openshell' });
+    expect(res).not.toHaveProperty('extra');
+
+    const bad = withCli({ stepStdout: okLine({ output: 1, confidence: 7 }) });
+    await expect(bad.reg[step().handler](ctx(step()))).rejects.toThrow(/result rejected/);
+  });
+
+  it('does not accept a success claim from a process that exited non-zero', async () => {
+    const { reg } = withCli({ stepStdout: okLine({ output: 1 }), stepCode: 1 });
+    await expect(reg[step().handler](ctx(step()))).rejects.toThrow(/exited 1/);
+  });
+
+  it('refuses input paths outside /sandbox and inputs that are not regular files', async () => {
+    const host = join(dir, 'in.txt');
+    writeFileSync(host, 'data');
+    const escape = withCli({}, { inputs: { '../etc/passwd': host } });
+    await expect(escape.reg[step().handler](ctx(step()))).rejects.toThrow(/invalid sandbox input/);
+    const abs = withCli({}, { inputs: { '/etc/passwd': host } });
+    await expect(abs.reg[step().handler](ctx(step()))).rejects.toThrow(/invalid sandbox input/);
+    const link = join(dir, 'link.txt');
+    symlinkSync(host, link);
+    const linked = withCli({}, { inputs: { 'in.txt': link } });
+    await expect(linked.reg[step().handler](ctx(step()))).rejects.toThrow(/not a regular file/);
+    const fine = withCli({}, { inputs: { 'data/in.txt': host } });
+    await fine.reg[step().handler](ctx(step()));
+    const staged = fine.calls.find((c) => c.input !== undefined)!;
+    expect(Object.keys(JSON.parse(staged.input!))).toContain('data/in.txt');
+  });
+
+  it('always deletes the sandbox after a failed step and confirms it gone', async () => {
+    const { reg, calls } = withCli({}, {}, 'no-marker');
+    await expect(reg[step().handler](ctx(step()))).rejects.toThrow(/no AEGIS_RESULT/);
+    const del = calls.findIndex((c) => c.args[1] === 'delete');
+    expect(del).toBeGreaterThan(-1);
+    expect(calls.slice(del + 1).some((c) => c.args[1] === 'list')).toBe(true);
+  });
+
+  it('proves a stop during provisioning only after the create client has exited', async () => {
+    const order: string[] = [];
+    let deletes = 0;
+    let exists = false;
+    const runner: CommandRunner = (_cmd, args, opts) => {
+      order.push(args[1]);
+      if (args[1] === 'create')
+        return new Promise((r) => {
+          const done = () => {
+            if (!order.includes('create-exited')) order.push('create-exited');
+            r({ code: null, stdout: '', stderr: 'killed' });
+          };
+          opts.onSpawn?.(done);
+        });
+      if (args[1] === 'delete') {
+        exists = false;
+        return Promise.resolve(
+          ++deletes === 1
+            ? { code: 1, stdout: '', stderr: 'sandbox not found' }
+            : { code: 0, stdout: '', stderr: '' },
+        );
+      }
+      if (args[1] === 'list')
+        return Promise.resolve({
+          code: 0,
+          stdout: JSON.stringify({ sandboxes: exists ? [{ name: 'x' }] : [] }),
+          stderr: '',
+        });
+      return Promise.resolve({ code: 0, stdout: '', stderr: '' });
+    };
+    const bundle = join(dir, 'step.mjs');
+    writeFileSync(bundle, '// test bundle');
+    const reg = createOpenShellRegistry(
+      {
+        modulePath: 'unused.ts',
+        image: 'aegis-pilot-node:22',
+        workRoot: join(dir, 'work'),
+        runner,
+        bundlePath: bundle,
+        pollIntervalMs: 1,
+        deleteConfirmTimeoutMs: 50,
+      },
+      scope().workflow.steps,
+    );
+    const c = new AbortController();
+    const p = reg[step().handler](ctx(step(), c.signal));
+    setTimeout(() => c.abort(new Error('stop')), 20);
+    await expect(p).rejects.toMatchObject({ name: 'WorkerTerminated' });
+    expect(order.indexOf('create-exited')).toBeLessThan(order.lastIndexOf('delete'));
+    expect(order.at(-1)).toBe('list');
+  });
+
+  it('keeps sandbox names random and within the gateway limit, and refuses unsafe step ids', async () => {
+    const a = sandboxName();
+    const b = sandboxName();
+    expect(a).not.toBe(b);
+    expect(a.length).toBeLessThanOrEqual(19);
+    const { reg } = withCli({});
+    const s = { ...step(), id: '../x' };
+    await expect(reg[s.handler](ctx(s))).rejects.toThrow(/unsafe step id/);
+  });
+});
+
+describe('OpenShell stop-test agent', () => {
+  it('streams ticks, stays attached until release, and proves the stop from the listing', async () => {
+    let emit: ((s: string) => void) | undefined;
+    let killed = false;
+    let deleted = false;
+    const calls: string[][] = [];
+    const runner: CommandRunner = (_cmd, args, opts) => {
+      calls.push([...args]);
+      if (args[1] === 'create')
+        return Promise.resolve({ code: 0, stdout: '{"phase":"Ready"}', stderr: '' });
+      if (args[1] === 'exec')
+        return new Promise((r) => {
+          emit = opts.onStdout;
+          opts.onSpawn?.(() => {
+            killed = true;
+            r({ code: null, stdout: '', stderr: '' });
+          });
+        });
+      if (args[1] === 'delete') {
+        deleted = true;
+        return Promise.resolve({ code: 0, stdout: '', stderr: '' });
+      }
+      if (args[1] === 'list') {
+        const name = calls.find((c) => c[1] === 'create')![3];
+        return Promise.resolve({
+          code: 0,
+          stdout: JSON.stringify({ sandboxes: deleted ? [] : [{ name }] }),
+          stderr: '',
+        });
+      }
+      return Promise.resolve({ code: 0, stdout: '', stderr: '' });
+    };
+    const agent = openShellStopTestAgent(
+      {
+        image: 'i',
+        workRoot: join(dir, 'w'),
+        runner,
+        pollIntervalMs: 1,
+        deleteConfirmTimeoutMs: 50,
+      },
+      10,
+    );
+    let ticks = 0;
+    await agent.start(() => ticks++);
+    const exec = calls.find((c) => c[1] === 'exec')!;
+    expect(exec.at(-1)).toBe('10'); // the interval is an argument, not interpolated code
+    emit?.('AEGIS_TICK 0\nAEGIS_TI');
+    emit?.('CK 1\n');
+    expect(ticks).toBe(2);
+    const t = await agent.terminate();
+    expect(t.confirmed).toBe(true);
+    expect(await agent.terminate()).toBe(t);
+    expect(calls.filter((c) => c[1] === 'delete')).toHaveLength(1);
+    expect(killed).toBe(false);
+    agent.release?.();
+    expect(killed).toBe(true);
+  });
+
+  it('does not prove the stop while the sandbox is still listed', async () => {
+    let name = '';
+    const runner: CommandRunner = (_cmd, args) => {
+      if (args[1] === 'create') name = args[3];
+      if (args[1] === 'exec') return new Promise(() => undefined);
+      if (args[1] === 'list')
+        return Promise.resolve({
+          code: 0,
+          stdout: JSON.stringify({ sandboxes: [{ name }] }),
+          stderr: '',
+        });
+      return Promise.resolve({ code: 0, stdout: '', stderr: '' });
+    };
+    const agent = openShellStopTestAgent(
+      {
+        image: 'i',
+        workRoot: join(dir, 'w'),
+        runner,
+        pollIntervalMs: 1,
+        deleteConfirmTimeoutMs: 30,
+      },
+      10,
+    );
+    await agent.start(() => undefined);
+    expect((await agent.terminate()).confirmed).toBe(false);
+    agent.release?.();
   });
 });

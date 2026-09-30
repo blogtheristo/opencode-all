@@ -53,6 +53,28 @@ export interface OpenShellPolicy {
 
 const HOST = /^[A-Za-z0-9.-]{1,253}$/;
 
+/**
+ * Hosts a step must never be allowed to reach, whatever the operator lists:
+ * the sandbox's own host, the gateway, the cloud metadata service and the
+ * site's private network are not "the customer's archive endpoint".
+ */
+function internalHost(host: string): boolean {
+  const h = host.toLowerCase().replace(/\.$/, '');
+  if (h === 'localhost' || /\.(localhost|local|internal|lan|home\.arpa)$/.test(h)) return true;
+  const m = /^(\d{1,3})\.(\d{1,3})\.\d{1,3}\.\d{1,3}$/.exec(h);
+  if (!m) return false;
+  const [a, b] = [Number(m[1]), Number(m[2])];
+  return (
+    a === 0 ||
+    a === 10 ||
+    a === 127 ||
+    (a === 169 && b === 254) ||
+    (a === 172 && b >= 16 && b <= 31) ||
+    (a === 192 && b === 168) ||
+    (a === 100 && b >= 64 && b <= 127)
+  );
+}
+
 export function stepPolicy(step: PilotStep, opts: OpenShellPolicyOptions = {}): OpenShellPolicy {
   const policy: OpenShellPolicy = {
     version: 1,
@@ -68,7 +90,13 @@ export function stepPolicy(step: PilotStep, opts: OpenShellPolicyOptions = {}): 
 
   const endpoints = opts.endpointsByStep?.[step.id] ?? [];
   for (const e of endpoints) {
-    if (!HOST.test(e.host) || !Number.isInteger(e.port) || e.port < 1 || e.port > 65535) {
+    if (
+      !HOST.test(e.host) ||
+      internalHost(e.host) ||
+      !Number.isInteger(e.port) ||
+      e.port < 1 ||
+      e.port > 65535
+    ) {
       throw new Error(`invalid endpoint for step ${step.id}: ${e.host}:${e.port}`);
     }
   }

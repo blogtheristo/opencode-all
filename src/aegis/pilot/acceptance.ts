@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-30
 // Audit trail: git log -- src/aegis/pilot/acceptance.ts
 /**
  * Aegis Pilot — severed-uplink acceptance test (Phase 3). Automates the
@@ -264,12 +264,22 @@ async function runSentinel(p: {
 export interface StopTestAgent {
   /** Start the agent; onTick fires once per unit of work it reports. */
   start(onTick: () => void): Promise<void>;
-  /** Terminate it. confirmed=false means the stop is not proven. */
+  /**
+   * Terminate it. confirmed=false means the stop is not proven. Idempotent: a
+   * second call returns the first call's result.
+   */
   terminate(): Promise<{ confirmed: boolean; ms: number }>;
+  /**
+   * Detach from the agent once late ticks have been watched for. terminate()
+   * keeps the tick channel open, so a tick that still arrives after a
+   * confirmed stop is counted (lateMessages) instead of being cut off.
+   */
+  release?(): void;
 }
 
 export function workerStopTestAgent(tickMs: number): StopTestAgent {
   let worker: ReturnType<typeof spawnPilotWorker> | undefined;
+  let result: Promise<{ confirmed: boolean; ms: number }> | undefined;
   return {
     start(onTick) {
       worker = spawnPilotWorker('sentinel-worker', { tickMs });
@@ -277,7 +287,8 @@ export function workerStopTestAgent(tickMs: number): StopTestAgent {
       return Promise.resolve();
     },
     terminate() {
-      return worker ? terminateBounded(worker) : Promise.resolve({ confirmed: true, ms: 0 });
+      result ??= worker ? terminateBounded(worker) : Promise.resolve({ confirmed: true, ms: 0 });
+      return result;
     },
   };
 }
@@ -349,6 +360,8 @@ async function runSentinelHard(p: {
     return { stopped: true, ticks, terminationMs: ms, lateMessages };
   } finally {
     if (!terminated) await terminate();
+    // Detach only after late ticks have been watched for (see StopTestAgent.release).
+    p.agent.release?.();
     release();
   }
 }
