@@ -15,6 +15,7 @@ export * from './acceptance.js';
 export * from './isolated-handlers.js';
 export * from './openshell-handlers.js';
 export { stepPolicy } from './openshell-policy.js';
+export { stepSandboxManifest } from './gke-sandbox-policy.js';
 export * from './openshell-prover.js';
 export * from './authority.js';
 export { checkHandlerConformance } from './handler-conformance.js';
